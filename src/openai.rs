@@ -1,0 +1,318 @@
+//! Minimal OpenAI client for our use-cases.
+//!
+//! We only call chat.completions and request either plain text or a strict JSON object.
+//! Calls are instrumented and log model names, latencies, and response sizes (not contents).
+//!
+//! NOTE: We never log the API key and we keep payload truncations short to avoid PII leaks.
+
+use std::time::Duration;
+
+use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
+use serde::{Deserialize, Serialize};
+use tracing::{instrument, info};
+
+use crate::config::Prompts;
+use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
+use crate::util::fill_template;
+use uuid::Uuid;
+
+#[derive(Clone)]
+pub struct OpenAI {
+  pub client: reqwest::Client,
+  pub api_key: String,
+  pub base_url: String,
+  pub fast_model: String,
+  pub strong_model: String,
+}
+
+impl OpenAI {
+  /// Construct the client if we find OPENAI_API_KEY; otherwise return None.
+  pub fn from_env() -> Option<Self> {
+    let api_key = std::env::var("OPENAI_API_KEY").ok()?;
+    let base_url =
+      std::env::var("OPENAI_BASE_URL").unwrap_or_else(|_| "https://api.openai.com/v1".into());
+    let fast_model =
+      std::env::var("OPENAI_FAST_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
+    let strong_model =
+      std::env::var("OPENAI_STRONG_MODEL").unwrap_or_else(|_| "gpt-4o".into());
+
+    let client = reqwest::Client::builder()
+      .timeout(Duration::from_secs(20))
+      .build()
+      .ok()?;
+
+    Some(Self { client, api_key, base_url, fast_model, strong_model })
+  }
+
+  /// Plain-text chat completion. Used for translate/pinyin/hints/agent replies.
+  #[instrument(level = "info", skip(self, system, user), fields(model = %model))]
+  async fn chat_plain(
+    &self,
+    model: &str,
+    system: &str,
+    user: &str,
+    temperature: f32,
+  ) -> Result<String, String> {
+    let url = format!("{}/chat/completions", self.base_url);
+    let req = ChatCompletionRequest {
+      model: model.to_string(),
+      messages: vec![
+        ChatMessageReq { role: "system".into(), content: system.into() },
+        ChatMessageReq { role: "user".into(), content: user.into() },
+      ],
+      temperature,
+      response_format: None,
+      max_tokens: None,
+    };
+
+    let res = self.client.post(&url)
+      .header(USER_AGENT, "caatuu-backend/0.1")
+      .header(CONTENT_TYPE, "application/json")
+      .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+      .json(&req).send().await.map_err(|e| e.to_string())?;
+
+    if !res.status().is_success() {
+      let status = res.status();
+      let body = res.text().await.unwrap_or_default();
+      let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+      return Err(format!("OpenAI HTTP {}: {}", status, msg));
+    }
+
+    let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
+    if let Some(usage) = &body.usage {
+      info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+    }
+    let text = body.choices.get(0)
+      .and_then(|c| c.message.content.clone())
+      .unwrap_or_default().trim().to_string();
+
+    Ok(text)
+  }
+
+  /// JSON-object chat completion. Generic over the target type T.
+  #[instrument(level = "info", skip(self, system, user), fields(model = %model))]
+  async fn chat_json<T: for<'a> Deserialize<'a>>(
+    &self,
+    model: &str,
+    system: &str,
+    user: &str,
+    temperature: f32,
+  ) -> Result<T, String> {
+    let url = format!("{}/chat/completions", self.base_url);
+    let req = ChatCompletionRequest {
+      model: model.to_string(),
+      messages: vec![
+        ChatMessageReq { role: "system".into(), content: system.into() },
+        ChatMessageReq { role: "user".into(), content: user.into() },
+      ],
+      temperature,
+      response_format: Some(ResponseFormat { r#type: "json_object".into() }),
+      max_tokens: None,
+    };
+
+    let res = self.client.post(&url)
+      .header(USER_AGENT, "caatuu-backend/0.1")
+      .header(CONTENT_TYPE, "application/json")
+      .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+      .json(&req).send().await.map_err(|e| e.to_string())?;
+
+    if !res.status().is_success() {
+      let status = res.status();
+      let body = res.text().await.unwrap_or_default();
+      let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+      return Err(format!("OpenAI HTTP {}: {}", status, msg));
+    }
+
+    let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
+    if let Some(usage) = &body.usage {
+      info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+    }
+    let text = body.choices.get(0)
+      .and_then(|c| c.message.content.clone())
+      .unwrap_or_default();
+
+    serde_json::from_str::<T>(&text).map_err(|e| format!("JSON parse error: {}", e))
+  }
+
+  // --- High-level helpers (domain-specialized) ---
+
+  #[instrument(level = "info", skip(self, prompts, difficulty), fields(%difficulty))]
+  pub async fn generate_challenge_exact(&self, prompts: &Prompts, difficulty: &str) -> Result<Challenge, String> {
+    #[derive(Deserialize)]
+    struct Gen { zh: String, py: String, en: String }
+
+    let system = &prompts.challenge_system;
+    let user = fill_template(&prompts.challenge_user_template, &[("difficulty", difficulty)]);
+    let gen: Gen = self.chat_json(&self.strong_model, system, &user, 0.95).await?;
+    let ch = Challenge {
+      id: Uuid::new_v4().to_string(),
+      difficulty: difficulty.to_string(),
+      kind: ChallengeKind::ExactZh,
+      source: ChallengeSource::Generated,
+      zh: gen.zh,
+      py: gen.py,
+      en: gen.en,
+      instructions: String::new(),
+      rubric: None,
+    };
+    Ok(ch)
+  }
+
+  #[instrument(level = "info", skip(self, prompts, expected_zh, user_answer), fields(expected_len = expected_zh.len(), answer_len = user_answer.len()))]
+  pub async fn validate_exact(
+    &self,
+    prompts: &Prompts,
+    expected_zh: &str,
+    user_answer: &str,
+  ) -> Result<(bool, String), String> {
+    #[derive(Deserialize)]
+    struct Val { correct: bool, explanation: String }
+
+    // Legacy exact-match (kept working). Also populate zh/en so new templates don't break.
+    let system = &prompts.validation_system;
+    let user = crate::util::fill_template(
+      &prompts.validation_user_template,
+      &[
+        ("expected", expected_zh),
+        ("answer",   user_answer),
+        ("zh",       expected_zh),
+        ("en",       ""), // no challenge line in exact mode
+      ],
+    );
+
+    let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
+    Ok((v.correct, v.explanation))
+  }
+
+  // NEW: glue-injection validator (seed zh + English line with "Challenge: add …")
+  #[instrument(level = "info", skip(self, prompts, seed_zh, challenge_en, user_answer),
+               fields(seed_len = seed_zh.len(), en_len = challenge_en.len(), ans_len = user_answer.len()))]
+  pub async fn validate_glue(
+    &self,
+    prompts: &Prompts,
+    seed_zh: &str,
+    challenge_en: &str,
+    user_answer: &str,
+  ) -> Result<(bool, String), String> {
+    #[derive(Deserialize)]
+    struct Val { correct: bool, explanation: String }
+
+    let system = &prompts.validation_system;
+    let user = crate::util::fill_template(
+      &prompts.validation_user_template,
+      &[
+        ("zh",       seed_zh),
+        ("expected", seed_zh),     // keep legacy field populated
+        ("en",       challenge_en),
+        ("answer",   user_answer),
+      ],
+    );
+
+    let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
+    Ok((v.correct, v.explanation))
+  }
+
+  #[instrument(level = "info", skip(self, prompts, zh, en), fields(zh_len = zh.len(), en_len = en.len()))]
+  pub async fn hint_exact(&self, prompts: &Prompts, zh: &str, en: &str) -> Result<String, String> {
+    let system = &prompts.hint_system;
+    let user = fill_template(&prompts.hint_user_template, &[("zh", zh), ("en", en)]);
+    self.chat_plain(&self.strong_model, system, &user, 0.2).await
+  }
+
+  #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
+  pub async fn translate_to_en(&self, prompts: &Prompts, text: &str) -> Result<String, String> {
+    self.chat_plain(&self.fast_model, &prompts.translate_system, text, 0.0).await
+  }
+
+  #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
+  pub async fn pinyin_for_text(&self, prompts: &Prompts, text: &str) -> Result<String, String> {
+    self.chat_plain(&self.fast_model, &prompts.pinyin_system, text, 0.0).await
+  }
+
+  #[instrument(level = "info", skip(self, prompts, question, context_zh), fields(question_len = question.len(), has_context = context_zh.is_some()))]
+  pub async fn agent_reply(&self, prompts: &Prompts, question: &str, context_zh: Option<&str>) -> Result<String, String> {
+    let system = &prompts.agent_reply_system;
+    let user = if let Some(zh) = context_zh {
+      format!("Question: {}\nRelated sentence: {}", question, zh)
+    } else {
+      format!("Question: {}", question)
+    };
+    self.chat_plain(&self.fast_model, system, &user, 0.2).await
+  }
+
+  #[instrument(level = "info", skip(self, prompts, instructions, rubric_json, answer), fields(instr_len = instructions.len(), rubric_len = rubric_json.len(), answer_len = answer.len()))]
+  pub async fn freeform_eval(
+    &self,
+    prompts: &Prompts,
+    instructions: &str,
+    rubric_json: &str,
+    answer: &str,
+  ) -> Result<(bool, f32, String), String> {
+    #[derive(Deserialize)]
+    struct Eval { correct: bool, score: f32, explanation: String }
+
+    let system = &prompts.freeform_eval_system;
+    let user = fill_template(
+      &prompts.freeform_eval_user_template,
+      &[("instructions", instructions), ("rubric_json", rubric_json), ("answer", answer)],
+    );
+    let e: Eval = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
+    Ok((e.correct, e.score, e.explanation))
+  }
+
+  #[instrument(level = "info", skip(self, prompts, instructions), fields(instr_len = instructions.len()))]
+  pub async fn freeform_hint(
+    &self,
+    prompts: &Prompts,
+    instructions: &str,
+  ) -> Result<String, String> {
+    let system = &prompts.freeform_hint_system;
+    let user = fill_template(&prompts.freeform_hint_user_template, &[("instructions", instructions)]);
+    self.chat_plain(&self.fast_model, system, &user, 0.2).await
+  }
+}
+
+// --- Chat DTOs ---
+
+#[derive(Serialize)]
+struct ChatCompletionRequest {
+  model: String,
+  messages: Vec<ChatMessageReq>,
+  temperature: f32,
+  #[serde(skip_serializing_if = "Option::is_none")]
+  response_format: Option<ResponseFormat>,
+  #[serde(skip_serializing_if = "Option::is_none")]
+  max_tokens: Option<u32>,
+}
+#[derive(Serialize)]
+struct ChatMessageReq { role: String, content: String }
+#[derive(Serialize)]
+struct ResponseFormat { #[serde(rename = "type")] r#type: String }
+
+#[derive(Deserialize)]
+struct ChatCompletionResponse {
+  choices: Vec<ChatChoice>,
+  #[serde(default)] usage: Option<Usage>,
+}
+#[derive(Deserialize)]
+struct ChatChoice { message: ChatMessageResp }
+#[derive(Deserialize)]
+struct ChatMessageResp { role: String, content: Option<String> }
+#[derive(Deserialize)]
+struct Usage {
+  #[serde(default)] prompt_tokens: Option<u32>,
+  #[serde(default)] completion_tokens: Option<u32>,
+  #[serde(default)] total_tokens: Option<u32>,
+}
+
+/// Try to extract a clean error message from OpenAI error body.
+fn extract_openai_error(body: &str) -> Option<String> {
+  #[derive(Deserialize)]
+  struct EWrap { error: EObj }
+  #[derive(Deserialize)]
+  struct EObj { message: String }
+  match serde_json::from_str::<EWrap>(body) {
+    Ok(w) => Some(w.error.message),
+    Err(_) => None,
+  }
+}

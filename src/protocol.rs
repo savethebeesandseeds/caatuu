@@ -1,0 +1,126 @@
+//! Public protocol structs for WebSocket and HTTP endpoints (serde ready).
+//! Keep this small and stable to evolve backend and frontend independently.
+
+use serde::{Deserialize, Serialize};
+
+use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
+
+/// Messages the client can send over WebSocket.
+#[derive(Debug, Deserialize)]
+#[serde(tag = "type", rename_all = "snake_case")]
+pub enum ClientWsMessage {
+    NewChallenge { difficulty: String },
+    SubmitAnswer { #[serde(rename = "challengeId")] challenge_id: String, answer: String },
+    Hint { #[serde(rename = "challengeId")] challenge_id: String },
+    TranslateInput { text: String },
+    PinyinInput { text: String },
+    NextChar { #[serde(rename = "challengeId")] challenge_id: String, current: String },
+    AgentMessage { #[serde(rename = "challengeId")] challenge_id: String, text: String },
+    SaveSettings { /* arbitrary blob */ },
+}
+
+/// Messages the server sends back over WebSocket.
+#[derive(Debug, Serialize)]
+#[serde(tag = "type", rename_all = "snake_case")]
+pub enum ServerWsMessage {
+    Challenge { challenge: ChallengeOut },
+    AnswerResult { correct: bool, expected: String, explanation: String },
+    Hint { text: String },
+    Translate { text: String, translation: String },
+    Pinyin { text: String, pinyin: String },
+    NextChar { char: String, pinyin: String, reason: String },
+    AgentReply { text: String },
+    Error { message: String },
+}
+
+/// DTO used by both WS and HTTP for challenge delivery.
+#[derive(Debug, Serialize)]
+pub struct ChallengeOut {
+    pub id: String,
+    pub difficulty: String,
+    pub kind: ChallengeKind,
+    pub source: ChallengeSource,
+    pub zh: String,
+    pub py: String,
+    pub en: String,
+    pub instructions: String,
+}
+
+/// Convert full `Challenge` (internal) to the public DTO.
+pub fn to_out(c: &Challenge) -> ChallengeOut {
+    ChallengeOut {
+        id: c.id.clone(),
+        difficulty: c.difficulty.clone(),
+        kind: c.kind.clone(),
+        source: c.source.clone(),
+        zh: c.zh.clone(),
+        py: c.py.clone(),
+        en: c.en.clone(),
+        instructions: c.instructions.clone(),
+    }
+}
+
+//
+// HTTP request/response DTOs
+//
+
+#[derive(Debug, Deserialize)]
+pub struct ChallengeQuery {
+    pub difficulty: Option<String>,
+}
+
+#[derive(Deserialize)]
+pub struct AnswerIn {
+    #[serde(rename = "challengeId")]
+    pub challenge_id: String,
+    pub answer: String,
+}
+#[derive(Serialize)]
+pub struct AnswerOut {
+    pub correct: bool,
+    pub expected: String,
+    pub explanation: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct HintQuery {
+    #[serde(rename = "challengeId")]
+    pub challenge_id: String,
+}
+#[derive(Serialize)]
+pub struct HintOut { pub text: String }
+
+#[derive(Deserialize)]
+pub struct TranslateIn { pub text: String }
+#[derive(Serialize)]
+pub struct TranslateOut { pub translation: String }
+
+#[derive(Deserialize)]
+pub struct PinyinIn { pub text: String }
+#[derive(Serialize)]
+pub struct PinyinOut { pub pinyin: String }
+
+#[derive(Deserialize)]
+pub struct NextCharIn {
+    #[serde(rename = "challengeId")]
+    pub challenge_id: String,
+    pub current: String,
+}
+#[derive(Serialize)]
+pub struct NextCharOut {
+    pub char: String,
+    pub pinyin: String,
+    pub reason: String,
+}
+
+#[derive(Deserialize)]
+pub struct AgentIn {
+    #[serde(rename = "challengeId")]
+    pub challenge_id: String,
+    pub text: String,
+}
+#[derive(Serialize)]
+pub struct AgentOut { pub text: String }
+
+#[derive(Serialize)]
+pub struct HealthOut { pub ok: bool }

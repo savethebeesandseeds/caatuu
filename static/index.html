@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caatuu · Chinese Trainer</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div id="grid" class="auto-zh-scan">
+    <!-- Agent (top-left) -->
+    <section id="agentPanel" class="panel" aria-label="Agent">
+      <header class="panel-header">
+        <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0-.3.1-.4.3l-.3 2.4c-.9.3-1.8.8-2.6 1.5l-2.3-1c-.2-.1-.4 0-.5.1l-2 3.4c-.1.2 0 .4.1.5l2 1.6c0 .5-.1 1-.1 1.5s0 1 .1 1.5l-2 1.6c-.2.1-.2.3-.1.5l2 3.4c.1.2.3.2.5.1l2.3-1c.8.7 1.7 1.2 2.6 1.5l.3 2.4c0 .2.2.3.4.3h4c.2 0 .3-.1.4-.3l.3-2.4c.9-.3 1.8-.8 2.6-1.5l2.3 1c.2.1.4 0 .5-.1l2-3.4c.1-.2 0-.4-.1-.5l-2-1.6c.1-.5.1-1 .1-1.5Z"/></svg>
+        <span class="panel-title">Agent</span>
+        <span class="grow"></span>
+        <button id="agentResetBtn" class="btn small ghost" title="Reset agent history and context">Reset</button>
+        <span id="connDot" class="led off" title="Connection status"></span>
+      </header>
+      <div class="panel-body">
+        <div id="agentHistory" aria-live="polite" aria-label="Agent conversation history"></div>
+      </div>
+      <div class="panel-body" style="border-top:1px solid var(--edge);">
+        <form id="agentForm" class="row" autocomplete="off">
+          <textarea id="agentInput" placeholder="Ask the agent about this or previous challenges…" aria-label="Agent input"></textarea>
+          <button class="btn" id="agentSendBtn" type="submit">Send</button>
+        </form>
+        <div class="hint subtle">Agent understands current & previous challenges. History can auto-reset on new challenge (see Settings).</div>
+      </div>
+    </section>
+
+    <!-- Vertical resizer between columns (top row only) -->
+    <div id="vr" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize left/right"></div>
+
+    <!-- Right column (top-right) → stacks Help (top) and Challenge (bottom) -->
+    <div id="rightTop" aria-label="Help & Hints above Challenge">
+      <!-- Help & Hints -->
+      <section id="helpPanel" class="panel" aria-label="Help and hints">
+        <header class="panel-header">
+          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 -1c.8 .7 1.7 1.2 2.6 1.5l.3 2.4c0 .2 .2 .3 .4 .3h4c.2 0 .3 -.1 .4 -.3l.3 -2.4c.9 -.3 1.8 -.8 2.6 -1.5l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
+          <span class="panel-title">Help & Hints</span>
+        </header>
+        <div class="panel-body">
+          <div class="card" id="hintCard">
+            <div class="row" style="justify-content:space-between; align-items:center;">
+              <strong>Hints for current challenge</strong>
+              <div class="row">
+                <button id="getHintBtn" class="btn small">Get hint now</button>
+              </div>
+            </div>
+            <div id="hintsList" style="margin-top:8px;"></div>
+            <div class="hint subtle">Hints show here when requested.</div>
+          </div>
+
+          <div class="card" id="assistCard">
+            <strong>Assistance</strong>
+            <div class="kv" id="rtGrid" style="margin-top:8px;">
+              <div id="rtRowPinyin" class="kv-row">
+                <div class="subtle">Your input (pinyin)</div>
+                <div id="livePinyin" class="mono"></div>
+              </div>
+              <div id="rtRowTrans" class="kv-row">
+                <div class="subtle">Your input (translation)</div>
+                <div id="liveTranslation"></div>
+              </div>
+              <div id="rtRowNextChar" class="kv-row">
+                <div class="subtle">Next-character suggestion</div>
+                <div id="liveNextChar" class="mono"></div>
+              </div>
+            </div>
+            <div class="hint subtle" style="margin-top:6px;">Use <kbd>Alt+A</kbd> (or <kbd>Ctrl+T</kbd>) to run Assist.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Splitter between Help and Challenge inside right column -->
+      <div id="hrRight" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize help/challenge"></div>
+
+      <!-- Challenge -->
+      <section id="challengePanel" class="panel" aria-label="Challenge">
+        <header class="panel-header">
+          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 -1c.8 .7 1.7 1.2 2.6 1.5l.3 2.4c0 .2 .2 .3 .4 .3h4c.2 0 .3 -.1 .4 -.3l.3 -2.4c.9 -.3 1.8 -.8 2.6 -1.5l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
+          <span class="panel-title">Challenge</span>
+          <div id="challengeMeta" class="challenge-meta" aria-live="polite">
+            <span id="challengeBadge" class="pill pill-glue" style="display:none;"></span>
+          </div>
+          <span class="grow"></span>
+          <button id="newChallengeBtn" class="btn small" title="Generate new challenge (Esc)">Next (Esc)</button>
+        </header>
+        <div class="panel-body">
+          <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+          <div id="challengeEn" class="subtle"></div>
+        </div>
+        <div id="answerWrap">
+          <form id="answerForm" class="row" autocomplete="off">
+            <textarea id="answerInput" placeholder="Type your answer in Chinese (or pinyin)…" aria-label="Challenge answer input"></textarea>
+            <button class="btn ghost" id="assistBtn" type="button" title="Assist (Alt+A)">Assist</button>
+            <button class="btn" id="answerSendBtn" type="submit">Submit</button>
+          </form>
+          <div id="answerFeedback" aria-live="polite"></div>
+        </div>
+      </section>
+    </div><!-- /rightTop -->
+
+    <!-- Horizontal resizer between top and bottom -->
+    <div id="hr" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize top/bottom"></div>
+
+    <!-- Settings + Log (bottom, full width) -->
+    <section id="bottomPanel" class="panel" aria-label="Settings and event log">
+      <header class="panel-header">
+        <span class="panel-title">Settings · Notes · Events</span>
+      </header>
+      <div class="panel-body">
+        <div id="bottomGrid">
+          <!-- Left: Settings -->
+          <div>
+            <div id="settingsGrid">
+              <label class="row" title="Challenge difficulty">
+                <span>Difficulty</span>
+                <select id="difficultySel" class="grow">
+                  <option value="auto">Auto</option>
+                  <option value="hsk1">HSK 1</option>
+                  <option value="hsk2">HSK 2</option>
+                  <option value="hsk3">HSK 3</option>
+                  <option value="hsk4">HSK 4</option>
+                  <option value="hsk5">HSK 5</option>
+                  <option value="hsk6">HSK 6</option>
+                </select>
+              </label>
+
+              <!-- Assist toggles (on-demand) -->
+              <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
+              <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
+
+              <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
+              <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone (ALL)</label>
+              <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
+              <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
+              <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
+            </div>
+          </div>
+
+          <!-- Right: Log -->
+          <aside>
+            <div class="card">
+              <div class="row" id="eventLogControls" style="justify-content:space-between; align-items:center;">
+                <strong>Event log</strong>
+                <div class="row">
+                  <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
+                  <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
+                </div>
+              </div>
+              <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
