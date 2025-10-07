@@ -13,7 +13,7 @@ usage() {
 Usage: $(basename "$0") [options] [-- <extra cargo args>]
 
 Options:
-  -c, --config <path>   Path to agent TOML config (default: agent.toml)
+  -c, --config <path>   Path to agent TOML config (default: ./profiles/word_challenge.toml)
   -r, --release         Build in release mode (cargo --release)
   -h, --help            Show this help
 
@@ -28,12 +28,12 @@ Environment (from env.sh / env.local.sh or your shell):
 Examples:
   $(basename "$0")
   $(basename "$0") -c configs/hard.toml
-  $(basename "$0") --release -c agent.toml
-  $(basename "$0") -c agent.toml -- --features ws
+  $(basename "$0") --release -c ./profiles/word_challenge.toml
+  $(basename "$0") -c ./profiles/word_challenge.toml -- --features ws
 EOF
 }
 
-CONFIG_PATH="${AGENT_CONFIG_PATH:-agent.toml}"
+CONFIG_PATH="${AGENT_CONFIG_PATH:-./profiles/word_challenge.toml}"
 CARGO_MODE=()
 EXTRA_ARGS=()
 
