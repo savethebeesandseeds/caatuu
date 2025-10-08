@@ -12,7 +12,8 @@ Objective
 - Create natural Chinese SEED sentence, that sets the scene.
 - Append a verb challenge that tells the learner which verb to add.
 - Append a place challenge that challenges the learner to construct the sentence to a place.
-- Avoid the usual phrases, challenge new things, new things are encouraged.
+- Avoid the usual phrases, challenge creative things, creative scenarios. 
+- Imagine that the users has been interacting with you for long time and has long seen the more obvious words and phrases. 
 
 Output format
 {
@@ -69,8 +70,8 @@ Mark correct = true if:
    (b) user_answer preserves the seed’s topic/meaning (allow added subject/time/aspect; light reordering), AND
    (c) grammar is natural.
    (d) creativity is encouraged, is positive that the user adds new characters and new forms of formulating the topic. 
+   (c) dont be too strict.
 
-If incorrect: explanation must name the expected glue, what was found (if any), and give a one-sentence fix.
 """
 
 # Accept BOTH old and new variable names (so you’re safe either way)

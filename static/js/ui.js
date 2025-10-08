@@ -1,7 +1,7 @@
-import { $, $$, debounce, logInfo, logSuccess, logError } from './utils.js';
+import { $, $$, debounce, logInfo, logSuccess, logError, logWarn } from './utils.js';
 import { LSK, ls, current, liveSuggestion } from './state.js';
 import { renderZh, alignPinyinToText } from './zh.js';
-import { okBeep, badBeep } from './audio.js';
+import { okBeep, badBeep, speakText, ttsVoices, ttsSupported, onTTSVoicesChanged } from './audio.js';
 import { wsSend } from './socket.js';
 
 /* ---------- Loading helper ---------- */
@@ -147,7 +147,7 @@ function showFeedback(msg, ok){
   el.className = ok ? 'ok' : 'err';
   el.style.opacity = '1';
   clearTimeout(feedbackTimer);
-  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 25500);
+  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 500);
 }
 
 function onAnswerResult(res){
@@ -172,6 +172,111 @@ function runAssist(){
   const needEn = ls.getBool('realtime_translation', true);
   if (needEn) wsSend({type:'translate_input', text:txt});
   if (needPy) wsSend({type:'pinyin_input', text:txt});
+}
+
+/* ---------- TTS init & bindings ---------- */
+export function initTTS(){
+  const voiceSel = $('#ttsVoiceSel');
+  const rateInput = $('#ttsRate');
+  const rateVal = $('#ttsRateVal');
+
+  const applyRateLabel = (r)=>{ if (rateVal) rateVal.textContent = `${(r||1).toFixed(2)}x`; };
+
+  const fillVoices = ()=>{
+    if (!voiceSel) return;
+    const voices = ttsVoices();
+    voiceSel.innerHTML = '';
+
+    if (!voices || voices.length===0){
+      const opt = document.createElement('option');
+      opt.value=''; opt.textContent='(no voices available yet)';
+      voiceSel.appendChild(opt);
+      return;
+    }
+
+    const savedKey = ls.getStr(LSK.ttsVoice, '');
+    const zh = voices.filter(v => (v.lang||'').toLowerCase().startsWith('zh'));
+    const other = voices.filter(v => !(v.lang||'').toLowerCase().startsWith('zh'));
+
+    const appendList = (list)=>{
+      const frag = document.createDocumentFragment();
+      list.forEach(v=>{
+        const opt = document.createElement('option');
+        const key = v.voiceURI || v.name;
+        opt.value = key;
+        opt.textContent = `${v.name} — ${v.lang}${v.localService ? ' · local' : ''}`;
+        if (key === savedKey) opt.selected = true;
+        frag.appendChild(opt);
+      });
+      voiceSel.appendChild(frag);
+    };
+
+    if (zh.length) appendList(zh);
+    if (other.length) appendList(other);
+
+    if (!voiceSel.value){
+      const prefer = (zh[0] || voices[0]);
+      if (prefer){
+        voiceSel.value = prefer.voiceURI || prefer.name;
+        ls.setStr(LSK.ttsVoice, voiceSel.value);
+      }
+    }
+  };
+
+  if (ttsSupported()){
+    fillVoices();               // may be empty at first
+    onTTSVoicesChanged(fillVoices);
+  } else {
+    if (voiceSel){
+      voiceSel.innerHTML = '<option value="">(TTS unsupported)</option>';
+      voiceSel.disabled = true;
+    }
+    if (rateInput) rateInput.disabled = true;
+  }
+
+  // Init rate from storage
+  const rate = ls.getNum(LSK.ttsRate, 1.0);
+  if (rateInput){
+    rateInput.value = String(rate);
+    applyRateLabel(rate);
+    rateInput.addEventListener('input', (e)=>{
+      const r = parseFloat(e.target.value);
+      ls.setNum(LSK.ttsRate, r);
+      applyRateLabel(r);
+    });
+  }
+  if (voiceSel){
+    voiceSel.addEventListener('change', (e)=>{
+      ls.setStr(LSK.ttsVoice, e.target.value || '');
+    });
+  }
+
+  // Speak handlers
+  const voiceKey = ()=> ls.getStr(LSK.ttsVoice,'');
+  const rateNow  = ()=> ls.getNum(LSK.ttsRate, 1.0);
+
+  const speakSeed = ()=>{
+    const t = $('#seedZh')?.getAttribute('data-zh-text') || '';
+    if (!t) return;
+    const ok = speakText(t, { voiceKey: voiceKey(), rate: rateNow(), lang:'zh-CN' });
+    if (!ok) logWarn('TTS unavailable.'); else logInfo('Speaking Seed…');
+  };
+  const speakChallenge = ()=>{
+    const t = $('#challengeZh')?.getAttribute('data-zh-text') || '';
+    if (!t) return;
+    const ok = speakText(t, { voiceKey: voiceKey(), rate: rateNow(), lang:'zh-CN' });
+    if (!ok) logWarn('TTS unavailable.'); else logInfo('Speaking Challenge…');
+  };
+  const speakInput = ()=>{
+    const t = $('#answerInput')?.value || '';
+    if (!t) return;
+    const ok = speakText(t, { voiceKey: voiceKey(), rate: rateNow(), lang:'zh-CN' });
+    if (!ok) logWarn('TTS unavailable.'); else logInfo('Speaking your input…');
+  };
+
+  $('#speakSeedBtn')?.addEventListener('click', speakSeed);
+  $('#speakChallengeBtn')?.addEventListener('click', speakChallenge);
+  $('#speakInputBtn')?.addEventListener('click', speakInput);
 }
 
 /* ---------- Exports: bindings & settings ---------- */
@@ -200,6 +305,21 @@ export function bindEvents(){
     }
   });
 
+  // Toggle Show Pinyin (ALL) with Alt+P
+  document.addEventListener('keydown', (e)=>{
+    if (e.altKey && (e.key==='p' || e.key==='P')){
+      e.preventDefault();
+      const t = $('#tglPinyin');
+      if (t){
+        t.checked = !t.checked;
+        ls.setBool(LSK.pinyin, t.checked);
+        ensureChallengePinyin();
+        renderAllZh();
+        logInfo(`Show Pinyin (ALL): ${t.checked ? 'on' : 'off'} (Alt+P)`);
+      }
+    }
+  });
+
   // Keep next-char suggestion reactive as you type
   const probeNext = ()=>{
     if (!ls.getBool('next_char_suggest', true)) return;
@@ -208,7 +328,7 @@ export function bindEvents(){
   };
   $('#answerInput').addEventListener('input', debounce(probeNext, 120));
 
-  // Insert suggestion with Tab
+  // Insert suggestion with Tab; Enter submits (Shift+Enter = newline)
   $('#answerInput').addEventListener('keydown', (e)=>{
     if (e.key==='Tab' && ls.getBool('next_char_suggest', true)){
       e.preventDefault();
@@ -232,7 +352,7 @@ export function bindEvents(){
     wsSend({type:'hint', challengeId: current.challenge.id});
   });
 
-  // Agent
+  // Agent: Enter sends; Shift+Enter inserts newline
   $('#agentForm').addEventListener('submit', (e)=>{
     e.preventDefault();
     const text = $('#agentInput').value.trim();
@@ -240,6 +360,13 @@ export function bindEvents(){
     $('#agentInput').value='';
     addAgentMsg('user', text);
     wsSend({type:'agent_message', text, challengeId: current.challenge?.id});
+  });
+  $('#agentInput').addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      $('#agentForm').requestSubmit();
+    }
+    // Default behavior (Shift+Enter) makes newline
   });
 
   // Settings (visibility + rendering)
@@ -264,7 +391,7 @@ export function bindEvents(){
 }
 
 export function syncSettingsUI(){
-  // Initial toggle states (reusing prior keys, semantics now "Assist shows X")
+  // Initial toggle states
   $('#tglTone').checked       = ls.getBool(LSK.tone, false);
   $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, false);
   $('#tglRTTrans').checked    = ls.getBool('realtime_translation', true);

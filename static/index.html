@@ -22,10 +22,10 @@
       </div>
       <div class="panel-body" style="border-top:1px solid var(--edge);">
         <form id="agentForm" class="row" autocomplete="off">
-          <textarea id="agentInput" placeholder="Ask the agent about this or previous challenges…" aria-label="Agent input"></textarea>
+          <textarea id="agentInput" placeholder="Ask the agent about this or previous challenges… (Enter = Send, Shift+Enter = newline)" aria-label="Agent input"></textarea>
           <button class="btn" id="agentSendBtn" type="submit">Send</button>
         </form>
-        <div class="hint subtle">Agent understands current & previous challenges. History can auto-reset on new challenge (see Settings).</div>
+        <div class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges. History can auto-reset on new challenge (see Settings).</div>
       </div>
     </section>
 
@@ -50,9 +50,10 @@
           <!-- Input bar at the top, with buttons at the right -->
           <div id="answerBar" class="input-bar">
             <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
-              <textarea id="answerInput" placeholder="Type your answer in Chinese (Shift+Enter = newline)..." aria-label="Challenge answer input"></textarea>
+              <textarea id="answerInput" placeholder="Type your answer in Chinese (Enter = submit · Shift+Enter = newline)..." aria-label="Challenge answer input"></textarea>
             </form>
             <div class="btn-group" role="group" aria-label="Answer actions">
+              <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊 Listen</button>
               <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
               <button class="btn small" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
               <button class="btn small" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
@@ -64,15 +65,18 @@
           <!-- Two-column content: Challenge (left) | Help & Hints (right) -->
           <div id="taskGrid">
             <div id="taskChallenge">
-              <div class="section-label">Challenge</div>
-              <div id="seedSection">
+              <div class="row" style="justify-content:space-between; align-items:center;">
                 <div class="section-label" style="opacity:.85">Seed</div>
-                <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+                <button class="btn small ghost" id="speakSeedBtn" type="button" title="Listen to Seed">🔊 Listen</button>
               </div>
-              <div id="challengeSection" style="margin-top:10px;">
+              <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+
+              <div class="row" style="margin-top:10px; justify-content:space-between; align-items:center;">
                 <div class="section-label" style="opacity:.85">Target</div>
-                <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+                <button class="btn small ghost" id="speakChallengeBtn" type="button" title="Listen to Challenge">🔊 Listen</button>
               </div>
+              <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+
               <div id="challengeEn" class="subtle"></div>
             </div>
 
@@ -100,7 +104,7 @@
                     <div id="liveNextChar" class="mono"></div>
                   </div>
                 </div>
-                <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
+                <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Alt+P</kbd> Pinyin · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
               </div>
             </aside>
           </div>
@@ -143,6 +147,17 @@
               <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
               <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
               <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
+
+              <!-- TTS settings -->
+              <label class="row" title="Voice used for text-to-speech">
+                <span>TTS voice</span>
+                <select id="ttsVoiceSel" class="grow"></select>
+              </label>
+              <label class="row" title="Playback speed for text-to-speech">
+                <span>TTS speed</span>
+                <input type="range" id="ttsRate" min="0.6" max="1.6" step="0.05" value="1.00" class="grow">
+                <span id="ttsRateVal" style="min-width:3.5em; text-align:right;">1.00x</span>
+              </label>
             </div>
           </div>
 

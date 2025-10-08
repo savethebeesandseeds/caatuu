@@ -1,0 +1,1234 @@
+===== FILE: ./static/assets/app.css =====
+:root{
+  /* Grid & splits */
+  --gap: 1px;
+  --col-left: 25%;
+  --row-top: 75vh;
+  --right-split: 52%;
+  --radius: 2px;
+
+  /* Flat dark theme */
+  --bg-900:#000000;
+  --bg-850:#0d0d0d;
+  --bg-820:#151515;
+  --edge:#2a2a2a;
+  --edge-strong:#3a3a3a;
+
+  /* Text */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --text:#e7e7e7;
+  --text-dim:#9a9a9a;
+
+  /* Accents */
+  --accent-challenge:#22c55e; /* calm emerald */
+  --accent-agent:#3ea8ff;     /* azure tone */
+
+  /* Tones */
+  --tone1:#ef4444; --tone2:#facc15; --tone3:#22c55e; --tone4:#3ea8ff; --tone5:#a4b0be;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; }
+body{
+  font-family: var(--mono);
+  color:var(--text);
+  background: var(--bg-900);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scrollbar-width: thin;
+  scrollbar-color: #474747 #111;
+}
+body::-webkit-scrollbar{ width:12px; height:12px; }
+body::-webkit-scrollbar-track{ background:#111; }
+body::-webkit-scrollbar-thumb{ background:#474747; border-radius:6px; }
+body::-webkit-scrollbar-thumb:hover{ background:#595959; }
+
+#grid{
+  display:grid;
+  grid-template-columns: var(--col-left) var(--gap) 1fr;
+  grid-template-rows: var(--row-top) var(--gap) 1fr;
+  height:100dvh; width:100%;
+}
+
+.hidden{ display:none !important; }
+
+/* Panels */
+.panel{
+  position:relative;
+  overflow:auto;
+  border:1px solid var(--edge);
+  border-radius:var(--radius);
+  background:var(--bg-820);
+  scrollbar-width: thin;
+  scrollbar-color: #474747 #111;
+}
+.panel::-webkit-scrollbar{ width:10px; height:10px; }
+.panel::-webkit-scrollbar-track{ background:#111; }
+.panel::-webkit-scrollbar-thumb{ background:#474747; border-radius:6px; }
+.panel::-webkit-scrollbar-thumb:hover{ background:#595959; }
+
+.panel-header{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 14px;
+  background:var(--bg-850);
+  border-bottom:1px solid var(--edge);
+}
+.panel-title{
+  font-weight:700;
+  text-transform:uppercase;
+  font-size:0.8rem;
+  color:var(--text);
+}
+.panel-body{ padding:12px; }
+
+/* Flat backgrounds for Help & Bottom */
+#helpPanel, #bottomPanel{ background:var(--bg-820); }
+
+/* --- Accent panels --- */
+#challengePanel{
+  background:var(--bg-820);
+  border-color:var(--accent-challenge);
+}
+#challengePanel .panel-header{
+  background:var(--bg-850);
+  border-bottom-color:var(--edge);
+}
+#challengePanel .panel-title{ color:var(--accent-challenge); }
+
+#agentPanel{
+  background:var(--bg-820);
+  border-color:var(--accent-agent);
+}
+#agentPanel .panel-header{
+  background:var(--bg-850);
+  border-bottom-color:var(--edge);
+}
+#agentPanel .panel-title{ color:var(--accent-agent); }
+
+/* Gear visibility and animation control */
+.panel .panel-header .gear{ display:none; }
+.panel[data-loading="true"] .panel-header .gear{ display:inline-block; }
+.panel .panel-header .gear.spin{ animation:none; }
+.panel[data-loading="true"] .panel-header .gear.spin{ animation:spin 1.2s linear infinite; }
+
+/* Challenge meta pill */
+.challenge-meta{ margin-left:8px; display:flex; align-items:center; gap:8px; }
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono);
+  font-size:.85rem;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--accent-challenge);
+  background:#141414;
+  color:var(--accent-challenge);
+}
+
+/* Controls */
+.gear{ width:18px; height:18px; opacity:.9; }
+.spin{ animation:spin 1.2s linear infinite; }
+@keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+.btn{
+  cursor:pointer;
+  padding:8px 12px;
+  border-radius:6px;
+  border:1px solid var(--edge-strong);
+  background:var(--bg-850);
+  color:var(--text);
+  font-weight:600;
+  transition:background .15s;
+}
+.btn:hover{ background:#222; }
+.btn.ghost{ background:transparent; color:var(--text-dim); border-color:var(--edge); }
+.btn.small{ padding:6px 10px; font-size:.92rem; }
+.row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.grow{ flex:1 1 auto; }
+
+/* Inputs */
+input[type="text"], textarea, select{
+  width:100%;
+  padding:10px 12px;
+  border-radius:6px;
+  background:#111;
+  border:1px solid var(--edge);
+  color:var(--text);
+  font-family:var(--mono);
+}
+textarea{ resize:vertical; min-height:64px; }
+select{ background:#111; color:var(--text); }
+option{ background:#111; color:var(--text); }
+.hint{ color:var(--text-dim); font-style:italic; }
+
+/* Zh rendering */
+ruby.zh{ ruby-position:over; }
+ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
+.zh{ font-size:2.25rem; line-height:1.75; }
+#challengeEn{ color:var(--text-dim); margin-top:4px; }
+
+/* --- Improved unified Task layout (rightTop) --- */
+#rightTop{ display:block; }
+
+/* Answer bar at the top of the panel */
+#answerBar{
+  display:flex; gap:8px; align-items:stretch;
+  background:#101010;
+  border:1px solid var(--edge);
+  border-radius:8px;
+  padding:8px;
+  margin-bottom:10px;
+}
+#answerInput{
+  font-size:1.5rem;
+  line-height:1.5;
+  min-height:52px;
+}
+.btn-group{ display:flex; align-items:center; gap:6px; flex:0 0 auto; white-space:nowrap; }
+
+/* Feedback chip */
+#answerFeedback{
+  margin-top:6px; font-size:.92rem;
+  border-radius:6px; padding:8px 10px;
+  border:1px solid transparent; opacity:0; transition:opacity .2s;
+}
+#answerFeedback.ok{
+  border-color:var(--accent-challenge);
+  background:#0f1712;
+  color:#a9eec6;
+  opacity:1;
+}
+#answerFeedback.err{
+  border-color:#ef4444;
+  background:#1a0f10;
+  color:#ffc7c7;
+  opacity:1;
+}
+
+/* Task grid: Challenge (left) | Help & Hints (right) */
+#taskGrid{
+  display:grid; gap:12px;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items:start;
+}
+@media (max-width: 980px){
+  #taskGrid{ grid-template-columns: 1fr; }
+}
+
+/* Section labels in the panel body */
+.section-label{
+  color:var(--text-dim);
+  font-size:.82rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+/* Help & Hints rework */
+#hintsBlock .intro{
+  color:#d7ffd7;
+  background:#0d1812;
+  border:1px solid #1e3a2f;
+  padding:8px 10px;
+  border-radius:6px;
+  font-size:.92rem;
+}
+.hints{
+  list-style:none; padding:0; margin:10px 0 0 0;
+  display:flex; flex-direction:column; gap:6px;
+}
+.hint-item{
+  background:#101010;
+  border:1px solid var(--edge);
+  border-left:3px solid var(--accent-challenge);
+  border-radius:6px;
+  padding:8px 10px;
+  font-size:.95rem;
+}
+.hint-item small{
+  display:block; color:var(--text-dim);
+  font-size:.72rem; letter-spacing:.04em; margin-bottom:2px;
+}
+
+/* Assistance rows */
+.kv{ display:grid; gap:6px; }
+.kv-row{
+  background:#0f0f0f; border:1px dashed #2b2b2b; border-radius:6px;
+  padding:8px 10px;
+}
+.kv-row .subtle{ color:var(--text-dim); font-size:.78rem; margin-bottom:2px; }
+
+/* Event log */
+#eventLogControls{ margin-bottom:6px; }
+#eventLog{ max-height:320px; }
+#eventLog .log-item{
+  display:flex; align-items:flex-start; gap:6px;
+  padding:6px 8px; margin:2px 0;
+  background:#111; border-left:4px solid #444; border-radius:4px;
+}
+#eventLog .log-info{ border-left-color:#3ea8ff; }
+#eventLog .log-success{ border-left-color:#22c55e; }
+#eventLog .log-warn{ border-left-color:#facc15; }
+#eventLog .log-error{ border-left-color:#ef4444; }
+#eventLog .ts{ color:var(--text-dim); flex:0 0 auto; min-width:74px; }
+#eventLog .txt{ white-space:pre-wrap; }
+
+/* Resizers */
+.v-resizer, .h-resizer{ background:#2f2f2f; }
+.v-resizer{ cursor:col-resize; }
+.h-resizer{ cursor:row-resize; }
+
+/* Grid placement */
+#agentPanel{ grid-column:1/2; grid-row:1/2; }
+#vr{ grid-column:2/3; grid-row:1/2; }
+#rightTop{ grid-column:3/4; grid-row:1/2; }
+#hr{ grid-column:1/4; grid-row:2/3; }
+#bottomPanel{ grid-column:1/4; grid-row:3/4; }
+
+/* Removed the old internal splitter (help/challenge) */
+/* #helpPanel, #hrRight no longer used */
+
+
+
+===== FILE: ./static/index.html =====
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caatuu · Chinese Trainer</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div id="grid" class="auto-zh-scan">
+    <!-- Agent (top-left) -->
+    <section id="agentPanel" class="panel" aria-label="Agent">
+      <header class="panel-header">
+        <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
+        <span class="panel-title">Agent</span>
+        <span class="grow"></span>
+        <button id="agentResetBtn" class="btn small ghost" title="Reset agent history and context">Reset</button>
+        <span id="connDot" class="led off" title="Connection status"></span>
+      </header>
+      <div class="panel-body">
+        <div id="agentHistory" aria-live="polite" aria-label="Agent conversation history"></div>
+      </div>
+      <div class="panel-body" style="border-top:1px solid var(--edge);">
+        <form id="agentForm" class="row" autocomplete="off">
+          <textarea id="agentInput" placeholder="Ask the agent about this or previous challenges…" aria-label="Agent input"></textarea>
+          <button class="btn" id="agentSendBtn" type="submit">Send</button>
+        </form>
+        <div class="hint subtle">Agent understands current & previous challenges. History can auto-reset on new challenge (see Settings).</div>
+      </div>
+    </section>
+
+    <!-- Vertical resizer between columns (top row only) -->
+    <div id="vr" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize left/right"></div>
+
+    <!-- Unified Task panel: Challenge + Help & Hints -->
+    <div id="rightTop" aria-label="Task: Challenge + Help & Hints">
+      <section id="challengePanel" class="panel" aria-label="Task">
+        <header class="panel-header">
+          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
+          <span class="panel-title">Task</span>
+          <div class="challenge-meta" aria-live="polite">
+            <span id="challengeBadge" class="pill" style="display:none;"></span>
+            <button id="challengeInfoBtn" class="btn small ghost" title="" aria-label="English info">ⓘ</button>
+          </div>
+          <span class="grow"></span>
+          <!-- (No buttons here; all actions live in the input bar) -->
+        </header>
+
+        <div class="panel-body">
+          <!-- Input bar at the top, with buttons at the right -->
+          <div id="answerBar" class="input-bar">
+            <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
+              <textarea id="answerInput" placeholder="Type your answer in Chinese (Shift+Enter = newline)..." aria-label="Challenge answer input"></textarea>
+            </form>
+            <div class="btn-group" role="group" aria-label="Answer actions">
+              <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
+              <button class="btn small" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
+              <button class="btn small" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
+              <button class="btn small" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">Next</button>
+            </div>
+          </div>
+          <div id="answerFeedback" aria-live="polite"></div>
+
+          <!-- Two-column content: Challenge (left) | Help & Hints (right) -->
+          <div id="taskGrid">
+            <div id="taskChallenge">
+              <div class="section-label">Challenge</div>
+              <div id="seedSection">
+                <div class="section-label" style="opacity:.85">Seed</div>
+                <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+              </div>
+              <div id="challengeSection" style="margin-top:10px;">
+                <div class="section-label" style="opacity:.85">Target</div>
+                <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+              </div>
+              <div id="challengeEn" class="subtle"></div>
+            </div>
+
+            <aside id="taskHelp">
+              <div class="section-label">Help & Hints</div>
+
+              <div id="hintsBlock">
+                <div class="intro">Short nudges—not solutions—to guide your sentence.</div>
+                <ul id="hintsList" class="hints"></ul>
+              </div>
+
+              <div id="assistCard" style="margin-top:12px;">
+                <div class="section-label">Assist</div>
+                <div class="kv" id="rtGrid" style="margin-top:8px;">
+                  <div id="rtRowPinyin" class="kv-row">
+                    <div class="subtle">Your input (pinyin)</div>
+                    <div id="livePinyin" class="mono"></div>
+                  </div>
+                  <div id="rtRowTrans" class="kv-row">
+                    <div class="subtle">Your input (translation)</div>
+                    <div id="liveTranslation"></div>
+                  </div>
+                  <div id="rtRowNextChar" class="kv-row">
+                    <div class="subtle">Next-character suggestion</div>
+                    <div id="liveNextChar" class="mono"></div>
+                  </div>
+                </div>
+                <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </div><!-- /rightTop -->
+
+    <!-- Horizontal resizer between top and bottom -->
+    <div id="hr" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize top/bottom"></div>
+
+    <!-- Settings + Log (bottom, full width) -->
+    <section id="bottomPanel" class="panel" aria-label="Settings and event log">
+      <header class="panel-header">
+        <span class="panel-title">Settings · Notes · Events</span>
+      </header>
+      <div class="panel-body">
+        <div id="bottomGrid" style="display:grid; gap:8px; grid-template-columns:minmax(260px, 380px) 1fr;">
+          <!-- Left: Settings -->
+          <div>
+            <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
+              <label class="row" title="Challenge difficulty">
+                <span>Difficulty</span>
+                <select id="difficultySel" class="grow">
+                  <option value="auto">Auto</option>
+                  <option value="hsk1">HSK 1</option>
+                  <option value="hsk2">HSK 2</option>
+                  <option value="hsk3">HSK 3</option>
+                  <option value="hsk4">HSK 4</option>
+                  <option value="hsk5">HSK 5</option>
+                  <option value="hsk6">HSK 6</option>
+                </select>
+              </label>
+
+              <!-- Assist toggles (on-demand) -->
+              <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
+              <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
+
+              <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
+              <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone (ALL)</label>
+              <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
+              <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
+              <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
+            </div>
+          </div>
+
+          <!-- Right: Log -->
+          <aside>
+            <div class="card">
+              <div class="row" id="eventLogControls" style="justify-content:space-between; align-items:center;">
+                <strong>Event log</strong>
+                <div class="row">
+                  <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
+                  <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
+                </div>
+              </div>
+              <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
+
+
+===== FILE: ./static/js/audio.js =====
+let AC;
+function ctx(){ if(!AC){ AC = new (window.AudioContext||window.webkitAudioContext)(); } return AC; }
+
+function tone({freq=660, dur=0.12, type='sine', gain=0.035}={}){
+  try{
+    const ac = ctx();
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    const f = ac.createBiquadFilter();
+    f.type = 'lowpass'; f.frequency.value = 4000;
+
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = gain;
+    o.connect(f).connect(g).connect(ac.destination);
+
+    const now = ac.currentTime;
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.exponentialRampToValueAtTime(gain, now + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+    o.start(now);
+    o.stop(now + dur + 0.01);
+  }catch(e){}
+}
+
+export const okBeep  = ()=>{ tone({freq:620, type:'sine', dur:0.11, gain:0.03}); setTimeout(()=>tone({freq:740, type:'triangle', dur:0.09, gain:0.028}), 70); };
+export const badBeep = ()=>{ tone({freq:320, type:'sine', dur:0.12, gain:0.03}); setTimeout(()=>tone({freq:260, type:'sine', dur:0.11, gain:0.028}), 80); };
+// Kept minimal; you can call this on specific UI events if desired.
+export const clickBeep = ()=> tone({freq:520, type:'sine', dur:0.05, gain:0.02});
+
+
+
+===== FILE: ./static/js/main.js =====
+import { initResizers } from './resizers.js';
+import { bindEvents, syncSettingsUI, requestNewChallenge, handleMessage } from './ui.js';
+import { connectWS, setOnMessage, setConnDotEl } from './socket.js';
+import { $ } from './utils.js';
+
+(function init(){
+  setOnMessage(handleMessage);
+  setConnDotEl($('#connDot'));
+  connectWS();          // auto-fallback to mock
+  initResizers();
+  bindEvents();
+  syncSettingsUI();
+  requestNewChallenge();
+})();
+
+
+
+===== FILE: ./static/js/mock.js =====
+import { current } from './state.js';
+
+let usingMock=false, connected=false;
+let mockIdx=0, hintCounter=0;
+
+// New shape per ChallengeOut
+const mockChallenges = [
+  {
+    id:'c1', difficulty:'hsk1', kind:'freeform_zh', source:'seed',
+    seed_zh:'你好',
+    seed_en:'Say hello.',
+    challenge_zh:'用“你好”打招呼。',
+    challenge_en:'Greet someone using “你好”.',
+    summary_en:'Greet politely using 你好。'
+  },
+  {
+    id:'c2', difficulty:'hsk2', kind:'freeform_zh', source:'generated',
+    seed_zh:'今天天气很好。',
+    seed_en:'The weather is great today.',
+    challenge_zh:'扩展一句话说明你想做什么。',
+    challenge_en:'Extend with one sentence about what you want to do.',
+    summary_en:'Describe an action given nice weather.'
+  },
+  {
+    id:'c3', difficulty:'hsk3', kind:'freeform_zh', source:'local_bank',
+    seed_zh:'我想喝一杯咖啡。',
+    seed_en:'I want to drink a cup of coffee.',
+    challenge_zh:'加入时间信息（比如：上午、下午）。',
+    challenge_en:'Add time info (e.g., morning/afternoon).',
+    summary_en:'Add a time phrase to the desire sentence.'
+  },
+  {
+    id:'c4', difficulty:'hsk4', kind:'freeform_zh', source:'seed',
+    seed_zh:'学习中文需要坚持。',
+    seed_en:'Learning Chinese requires persistence.',
+    challenge_zh:'给出一个实际建议来坚持学习。',
+    challenge_en:'Give a concrete tip for sticking with study.',
+    summary_en:'Offer a practical study tip.'
+  },
+];
+
+let handleMessageCB = ()=>{};
+
+export function setMockHandler(cb){ handleMessageCB = cb; }
+
+export function startMock(){ usingMock=true; connected=false; }
+
+export function mockHandle(obj){
+  setTimeout(()=>{
+    switch(obj.type){
+      case 'new_challenge': {
+        const c = mockChallenges[mockIdx++ % mockChallenges.length];
+        hintCounter=0;
+        handleMessageCB({type:'challenge', challenge:c});
+        break;
+      }
+      case 'submit_answer': {
+        const {answer, challengeId} = obj;
+        const c = mockChallenges.find(x=>x.id===challengeId) || mockChallenges[0];
+        const target = (c.challenge_zh || c.seed_zh || '');
+        const correct = (answer||'').trim()===target || (!!target && (answer||'').includes(target[0]));
+        handleMessageCB({type:'answer_result', correct, expected:'', explanation: correct?'Great job!':'Try focusing on word order.'});
+        break;
+      }
+      case 'hint': {
+        hintCounter++;
+        const hp = ['Think of a common greeting.','First word: 你 (nǐ).','Structure: [Pronoun] + [好] + [Object].'];
+        handleMessageCB({type:'hint', text: hp[(hintCounter-1)%hp.length]});
+        break;
+      }
+      case 'translate_input': {
+        const text = obj.text||'';
+        const fake = text ? `“${text}” ≈ (mock) translation` : '';
+        handleMessageCB({type:'translate', text, translation: fake});
+        break;
+      }
+      case 'pinyin_input': {
+        const text = obj.text||'';
+        const py = Array.from(text).map(ch => /[\u3400-\u9FFF]/.test(ch) ? 'x5' : ch).join(' ');
+        handleMessageCB({type:'pinyin', text, pinyin: py});
+        break;
+      }
+      case 'next_char': {
+        // Freeform tasks: not applicable
+        handleMessageCB({type:'next_char', char:'', pinyin:'', reason:'Not applicable to freeform tasks.'});
+        break;
+      }
+      case 'agent_message': {
+        handleMessageCB({type:'agent_reply', text:'(mock) Think about tones 3→4 cadence here.'});
+        break;
+      }
+    }
+  }, 220 + Math.random()*220);
+}
+
+
+
+===== FILE: ./static/js/resizers.js =====
+import { setVar, $ } from './utils.js';
+
+function dragResizer(el, onMove){
+  let dragging=false;
+  const move=(e)=>{ if(!dragging) return; onMove(e); };
+  const up=()=>{ dragging=false; document.body.style.userSelect=''; document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); };
+  el.addEventListener('mousedown', ()=>{
+    dragging=true; document.body.style.userSelect='none';
+    document.addEventListener('mousemove',move);
+    document.addEventListener('mouseup',up);
+  });
+}
+
+export function initResizers(){
+  // Vertical resizer between Agent (left) and right column (top row)
+  dragResizer($('#vr'), (e)=>{
+    const grid = $('#grid');
+    const rect = grid.getBoundingClientRect();
+    const x = Math.min(Math.max(e.clientX - rect.left, rect.width*0.18), rect.width*0.75);
+    const pct = (x / rect.width) * 100;
+    setVar('--col-left', pct.toFixed(2)+'%');
+  });
+
+  // Horizontal resizer between top and bottom
+  dragResizer($('#hr'), (e)=>{
+    const grid = $('#grid');
+    const rect = grid.getBoundingClientRect();
+    const y = Math.min(Math.max(e.clientY - rect.top, rect.height*0.30), rect.height*0.85);
+    setVar('--row-top', y.toFixed(0)+'px');
+  });
+
+  // Horizontal resizer inside right column (Help vs Challenge)
+  const right = $('#rightTop');
+  const hrRight = $('#hrRight');
+  if (right && hrRight){
+    dragResizer(hrRight, (e)=>{
+      const r = right.getBoundingClientRect();
+      let y = e.clientY - r.top;
+      const min = Math.max(120, r.height * 0.15);
+      const max = Math.min(r.height - 120, r.height * 0.85);
+      y = Math.min(Math.max(y, min), max);
+      setVar('--right-split', `${Math.round(y)}px`);
+    });
+  }
+}
+
+
+
+===== FILE: ./static/js/socket.js =====
+import { startMock, mockHandle, setMockHandler } from './mock.js';
+
+let WS=null, connected=false, usingMock=false;
+let onMessage = ()=>{};
+let connDotEl = null;
+
+export function setOnMessage(cb){ onMessage = cb; setMockHandler(cb); }
+export function setConnDotEl(el){ connDotEl = el; }
+
+function updateConnDot(ok){
+  if(!connDotEl) return;
+  connDotEl.className='led '+(ok?'ok':'off');
+  connDotEl.title = ok?'Connected':'Offline (mock)';
+}
+
+export function connectWS(){
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  const WS_URL = `${proto}://${location.host||'localhost:8080'}/ws`;
+  try{
+    WS = new WebSocket(WS_URL);
+    WS.addEventListener('open', ()=>{
+      connected=true; usingMock=false; updateConnDot(true);
+    });
+    WS.addEventListener('message', ev=>{
+      try{ onMessage(JSON.parse(ev.data)); } catch(e){}
+    });
+    WS.addEventListener('close', ()=>{
+      connected=false; updateConnDot(false);
+      startMock(); usingMock=true;
+    });
+    WS.addEventListener('error', ()=>{ /* ignore; close will follow */ });
+  }catch(e){
+    startMock(); usingMock=true; updateConnDot(false);
+  }
+}
+
+export function wsSend(obj){
+  if(connected && WS && WS.readyState===1){ WS.send(JSON.stringify(obj)); }
+  else { mockHandle(obj); }
+}
+
+
+
+===== FILE: ./static/js/state.js =====
+export const LSK = {
+  hints: 'zh_hints_show_v2',
+  answer: 'zh_answer_show_v2',
+  pinyin: 'zh_pinyin_show_v2',
+  tone: 'zh_tone_show_v2',
+  chEn: 'zh_challenge_en_v3'
+};
+
+export const ls = {
+  getBool: (k, def) => (localStorage.getItem(k) ?? (def ? '1' : '0')) === '1',
+  setBool: (k, b) => localStorage.setItem(k, b ? '1' : '0'),
+};
+
+export const current = {
+  challenge: null,
+  loading: { challenge:false, hint:false, answer:false, agent:false }
+};
+
+export const liveSuggestion = { char:'', pinyin:'' };
+
+
+
+===== FILE: ./static/js/ui.js =====
+import { $, $$, debounce, logInfo, logSuccess, logError } from './utils.js';
+import { LSK, ls, current, liveSuggestion } from './state.js';
+import { renderZh, alignPinyinToText } from './zh.js';
+import { okBeep, badBeep } from './audio.js';
+import { wsSend } from './socket.js';
+
+/* ---------- Loading helper ---------- */
+function setLoading(panelSelector, flag){
+  const el = $(panelSelector.startsWith('#') ? panelSelector : ('#'+panelSelector));
+  if(!el) return;
+  el.setAttribute('data-loading', flag ? 'true' : 'false');
+}
+
+/* ---------- Challenge English helpers ---------- */
+function enSummary(c){
+  return (c.summary_en || c.challenge_en || c.seed_en || '') || '';
+}
+function enTooltip(c){
+  const out = [];
+  if (c.summary_en) out.push(`Summary: ${c.summary_en}`);
+  if (c.seed_en) out.push(`Seed: ${c.seed_en}`);
+  if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
+  return out.join('\n');
+}
+
+/* ---------- Rendering helpers ---------- */
+function renderAllZh(){
+  const toneOn = ls.getBool(LSK.tone, false);
+  const pinOn  = ls.getBool(LSK.pinyin, false);
+  $$('[data-zh-text]').forEach(el=>{
+    const zh = el.getAttribute('data-zh-text') || '';
+    const pyFull = el.getAttribute('data-zh-pinyin') || '';
+    const arr = alignPinyinToText(zh, pyFull);
+    el.innerHTML = renderZh(zh, arr, pinOn, toneOn);
+  });
+}
+function renderNextChar(){
+  const el = $('#liveNextChar');
+  if (!ls.getBool('next_char_suggest', true)) { el.textContent=''; return; }
+  const {char, pinyin} = liveSuggestion;
+  el.textContent = char ? `${char}  (${pinyin||'?'})` : '';
+}
+
+/* ---------- Pinyin request routing for challenge texts ---------- */
+const pendingChallengePy = new Map(); // text -> [ 'seedZh' | 'challengeZh' ]
+function needPinyinData(){ return ls.getBool(LSK.pinyin, false) || ls.getBool(LSK.tone, false); }
+function requestPinyinFor(elId, zhText){
+  if (!zhText) return;
+  const el = $('#'+elId); if (!el) return;
+  if (!needPinyinData()) return;
+  const existing = (el.getAttribute('data-zh-pinyin') || '').trim();
+  if (existing) return;
+  const list = pendingChallengePy.get(zhText) || [];
+  if (!list.includes(elId)) pendingChallengePy.set(zhText, list.concat(elId));
+  wsSend({ type:'pinyin_input', text: zhText });
+}
+function ensureChallengePinyin(){
+  const c = current.challenge; if (!c) return;
+  requestPinyinFor('seedZh', c.seed_zh || '');
+  requestPinyinFor('challengeZh', c.challenge_zh || '');
+}
+
+/* ---------- Show/hide artifacts per toggles ---------- */
+function applyArtifactsVisibility(){
+  const showRTpy = ls.getBool('realtime_pinyin', true);
+  const showRTen = ls.getBool('realtime_translation', true);
+  const showNext = ls.getBool('next_char_suggest', true);
+  const showEn   = ls.getBool(LSK.chEn, false);
+
+  const rowPy = $('#rtRowPinyin'); if (rowPy) rowPy.classList.toggle('hidden', !showRTpy);
+  const rowEn = $('#rtRowTrans'); if (rowEn) rowEn.classList.toggle('hidden', !showRTen);
+  const rowNx = $('#rtRowNextChar'); if (rowNx) rowNx.classList.toggle('hidden', !showNext);
+
+  const assistCard = $('#assistCard');
+  const allHidden = (!showRTpy && !showRTen && !showNext);
+  if (assistCard) assistCard.style.display = allHidden ? 'none' : '';
+
+  const enEl = $('#challengeEn');
+  if (enEl) {
+    const hasText = (enEl.textContent || '').trim().length > 0;
+    enEl.style.display = (showEn && hasText) ? '' : 'none';
+  }
+}
+
+/* ---------- Challenge/Agent UI ---------- */
+export function setChallenge(c){
+  current.challenge = c;
+  setLoading('#challengePanel', false);
+
+  // Seed + Challenge text blocks (pinyin fetched on-demand)
+  const seedEl = $('#seedZh');
+  const chalEl = $('#challengeZh');
+  if (seedEl){ seedEl.setAttribute('data-zh-text', c.seed_zh || ''); seedEl.setAttribute('data-zh-pinyin', ''); }
+  if (chalEl){ chalEl.setAttribute('data-zh-text', c.challenge_zh || ''); chalEl.setAttribute('data-zh-pinyin', ''); }
+  ensureChallengePinyin();
+  renderAllZh();
+
+  // English: summary (fallbacks)
+  $('#challengeEn').textContent = ls.getBool(LSK.chEn, false) ? enSummary(c) : '';
+  applyArtifactsVisibility();
+
+  const badge = $('#challengeBadge');
+  const meta = [];
+  if (c.difficulty) meta.push(c.difficulty);
+  if (c.source) meta.push(c.source);
+  if (badge){
+    if (meta.length){ badge.textContent = meta.join(' · '); badge.style.display=''; }
+    else { badge.style.display='none'; }
+  }
+  const infoBtn = $('#challengeInfoBtn');
+  if (infoBtn) infoBtn.title = enTooltip(c) || '';
+
+  // reset input & hints
+  $('#answerInput').value = '';
+  $('#hintsList').innerHTML = '';
+  liveSuggestion.char = ''; liveSuggestion.pinyin='';
+  renderNextChar();
+
+  logInfo(`New challenge: ${c.id} (${c.difficulty||'hsk3'} · ${c.source||'seed'})`);
+  if (ls.getBool('agent_reset_on_new', false)) {
+    $('#agentHistory').innerHTML='';
+    logInfo('Agent history reset (setting on).');
+  }
+}
+
+function addHint(text){
+  const p = document.createElement('div');
+  p.textContent = '• '+ text;
+  $('#hintsList').appendChild(p);
+  logInfo(`Hint: ${text}`);
+}
+
+function addAgentMsg(who, text){
+  const div = document.createElement('div');
+  div.className = 'msg '+(who==='user'?'user':'agent');
+  div.textContent = text;
+  $('#agentHistory').appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'end'});
+}
+
+/* ---------- Feedback banner ---------- */
+let feedbackTimer=null;
+function showFeedback(msg, ok){
+  const el = $('#answerFeedback');
+  if (!el) return;
+  el.textContent = msg || (ok ? 'Correct.' : 'Please try again.');
+  el.className = ok ? 'ok' : 'err';
+  el.style.opacity = '1';
+  clearTimeout(feedbackTimer);
+  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 500);
+}
+
+function onAnswerResult(res){
+  setLoading('#challengePanel', false);
+  const ok = !!res.correct;
+  const exp = (res.explanation || '').trim();
+  if (ok) { okBeep(); logSuccess(`Answer correct${exp ? ` — ${exp}` : ''}`); }
+  else   { badBeep(); logError(`Answer incorrect${exp ? ` — ${exp}` : ''}`); }
+
+  showFeedback(exp || (ok ? 'Great job!' : 'Check word order or tones.'), ok);
+
+  const el = $('#answerInput');
+  el.style.outline = ok ? '2px solid #35d07f' : '2px solid #ff6b6b';
+  setTimeout(()=>{ el.style.outline=''; }, 450);
+}
+
+/* ---------- Assist: on-demand translate & pinyin ---------- */
+function runAssist(){
+  const txt = $('#answerInput').value;
+  if (!txt) return;
+  const needPy = ls.getBool('realtime_pinyin', true);
+  const needEn = ls.getBool('realtime_translation', true);
+  if (needEn) wsSend({type:'translate_input', text:txt});
+  if (needPy) wsSend({type:'pinyin_input', text:txt});
+}
+
+/* ---------- Exports: bindings & settings ---------- */
+export function bindEvents(){
+  // New challenge (unified)
+  $('#newChallengeBtn').addEventListener('click', ()=> requestNewChallenge());
+  document.addEventListener('keydown', (e)=>{ if (e.key==='Escape'){ requestNewChallenge(); } });
+
+  // Submit answer
+  $('#answerForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    if(!current.challenge) return;
+    const answer = $('#answerInput').value.trim();
+    if(!answer) return;
+    setLoading('#challengePanel', true);
+    wsSend({type:'submit_answer', challengeId: current.challenge.id, answer});
+  });
+
+  // Assist button + shortcuts (Alt+A preferred; Ctrl+T also, but might be browser-reserved)
+  $('#assistBtn').addEventListener('click', runAssist);
+  document.addEventListener('keydown', (e)=>{
+    if ((e.altKey  && (e.key==='a' || e.key==='A')) ||
+        (e.ctrlKey && (e.key==='t' || e.key==='T'))){
+      e.preventDefault();
+      runAssist();
+    }
+  });
+
+  // Keep next-char suggestion reactive as you type
+  const probeNext = ()=>{
+    if (!ls.getBool('next_char_suggest', true)) return;
+    const txt = $('#answerInput').value;
+    wsSend({type:'next_char', current:txt, challengeId: current.challenge?.id});
+  };
+  $('#answerInput').addEventListener('input', debounce(probeNext, 120));
+
+  // Insert suggestion with Tab
+  $('#answerInput').addEventListener('keydown', (e)=>{
+    if (e.key==='Tab' && ls.getBool('next_char_suggest', true)){
+      e.preventDefault();
+      const {char} = liveSuggestion;
+      if(char){
+        const inp=$('#answerInput');
+        const start=inp.selectionStart, end=inp.selectionEnd, val=inp.value;
+        inp.value = val.slice(0,start)+char+val.slice(end);
+        inp.selectionStart=inp.selectionEnd=start+char.length;
+      }
+    }
+    if (e.key==='Enter' && !e.shiftKey){
+      e.preventDefault();
+      $('#answerForm').requestSubmit();
+    }
+  });
+
+  // Manual hint
+  $('#getHintBtn').addEventListener('click', ()=>{
+    if(!current.challenge) return;
+    wsSend({type:'hint', challengeId: current.challenge.id});
+  });
+
+  // Agent
+  $('#agentForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const text = $('#agentInput').value.trim();
+    if(!text) return;
+    $('#agentInput').value='';
+    addAgentMsg('user', text);
+    wsSend({type:'agent_message', text, challengeId: current.challenge?.id});
+  });
+
+  // Settings (visibility + rendering)
+  $('#tglTone').addEventListener('change', (e)=>{ ls.setBool(LSK.tone, e.target.checked); ensureChallengePinyin(); renderAllZh(); });
+  $('#tglPinyin').addEventListener('change', (e)=>{ ls.setBool(LSK.pinyin, e.target.checked); ensureChallengePinyin(); renderAllZh(); });
+
+  $('#tglRTTrans').addEventListener('change', (e)=>{ ls.setBool('realtime_translation', e.target.checked); applyArtifactsVisibility(); });
+  $('#tglRTPinyin').addEventListener('change', (e)=>{ ls.setBool('realtime_pinyin', e.target.checked); applyArtifactsVisibility(); });
+
+  $('#tglNextChar').addEventListener('change', (e)=>{ ls.setBool('next_char_suggest', e.target.checked); applyArtifactsVisibility(); renderNextChar(); });
+  $('#tglAgentReset').addEventListener('change', (e)=> ls.setBool('agent_reset_on_new', e.target.checked));
+  $('#tglShowEn').addEventListener('change', (e)=>{ 
+    ls.setBool(LSK.chEn, e.target.checked);
+    const c = current.challenge;
+    if (c){
+      $('#challengeEn').textContent = e.target.checked ? enSummary(c) : '';
+    }
+    applyArtifactsVisibility();
+  });
+
+  $('#difficultySel').addEventListener('change', (e)=> localStorage.setItem('difficulty', e.target.value));
+}
+
+export function syncSettingsUI(){
+  // Initial toggle states (reusing prior keys, semantics now "Assist shows X")
+  $('#tglTone').checked       = ls.getBool(LSK.tone, false);
+  $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, false);
+  $('#tglRTTrans').checked    = ls.getBool('realtime_translation', true);
+  $('#tglRTPinyin').checked   = ls.getBool('realtime_pinyin', true);
+  $('#tglNextChar').checked   = ls.getBool('next_char_suggest', true);
+  $('#tglAgentReset').checked = ls.getBool('agent_reset_on_new', false);
+  $('#tglShowEn').checked     = ls.getBool(LSK.chEn, false);
+  $('#difficultySel').value   = localStorage.getItem('difficulty') || 'auto';
+
+  // Apply current rendering and visibility
+  renderAllZh();
+  const c = current.challenge;
+  if (c){
+    $('#challengeEn').textContent = ls.getBool(LSK.chEn,false) ? enSummary(c) : '';
+    ensureChallengePinyin();
+  }
+  applyArtifactsVisibility();
+}
+
+/* ---------- WS message handling ---------- */
+export function handleMessage(msg){
+  switch(msg.type){
+    case 'challenge': setChallenge(msg.challenge); break;
+    case 'hint': addHint(msg.text); break;
+    case 'translate': $('#liveTranslation').textContent = msg.translation || ''; break;
+    case 'pinyin': {
+      const txt = (msg.text || '');
+      // Route to Assist if it matches current input
+      const inputNow = $('#answerInput').value || '';
+      if (txt === inputNow){
+        $('#livePinyin').textContent = msg.pinyin || '';
+        break;
+      }
+      // Else see if it's for seed/challenge
+      const targets = pendingChallengePy.get(txt);
+      if (targets && targets.length){
+        targets.forEach(id=>{
+          const el = $('#'+id);
+          if (el) el.setAttribute('data-zh-pinyin', msg.pinyin || '');
+        });
+        pendingChallengePy.delete(txt);
+        renderAllZh();
+      }
+      break;
+    }
+    case 'next_char':
+      liveSuggestion.char = msg.char||'';
+      liveSuggestion.pinyin = msg.pinyin||'';
+      renderNextChar();
+      break;
+    case 'agent_reply':
+      addAgentMsg('agent', msg.text||'');
+      logInfo(`Agent reply: ${msg.text||''}`);
+      break;
+    case 'answer_result': onAnswerResult(msg); break;
+  }
+}
+
+/* ---------- Actions ---------- */
+export function requestNewChallenge(){
+  setLoading('#challengePanel', true);
+  const v = localStorage.getItem('difficulty') || 'auto';
+  const payload = { type:'new_challenge' };
+  if (v && v !== 'auto') payload.difficulty = v;
+  wsSend(payload);
+}
+
+
+
+===== FILE: ./static/js/utils.js =====
+export const $  = (sel, root=document) => root.querySelector(sel);
+export const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+export const setVar = (name, val) => document.documentElement.style.setProperty(name, val);
+export const getVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+export function debounce(fn, ms=150){
+  let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); };
+}
+
+/* ---------- Enhanced logging ---------- */
+const LOGS = [];
+const LOG_LIMIT = 500;
+
+function addLogEl(type, message){
+  const ul = $('#eventLog');
+  const li = document.createElement('li');
+  li.className = `log-item log-${type}`;
+
+  const ts = new Date().toLocaleTimeString();
+  const tsEl = document.createElement('span');
+  tsEl.className = 'ts';
+  tsEl.textContent = `[${ts}]`;
+
+  const txtEl = document.createElement('span');
+  txtEl.className = 'txt';
+  txtEl.textContent = message;
+
+  li.append(tsEl, txtEl);
+  if (ul) ul.prepend(li);
+
+  LOGS.unshift({ ts, type, message });
+  if (LOGS.length > LOG_LIMIT) LOGS.length = LOG_LIMIT;
+}
+
+export function logInfo(msg){ addLogEl('info', msg); }
+export function logSuccess(msg){ addLogEl('success', msg); }
+export function logWarn(msg){ addLogEl('warn', msg); }
+export function logError(msg){ addLogEl('error', msg); }
+
+export function getLogsText(){
+  return LOGS.map(x => `[${x.ts}] ${x.type.toUpperCase()}: ${x.message}`).join('\n');
+}
+
+export function clearLogs(){
+  const ul = $('#eventLog');
+  if (ul) ul.innerHTML = '';
+  LOGS.length = 0;
+}
+
+export async function copyText(text){
+  try{
+    if (navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(e){}
+  // Fallback
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch(e){ return false; }
+}
+
+
+
+===== FILE: ./static/js/zh.js =====
+import { getVar } from './utils.js';
+
+// ---------- utils ----------
+export const esc = s =>
+  String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+const RE_HAN = /\p{Script=Han}/u;
+function isHan(ch){
+  try { return RE_HAN.test(ch); }
+  catch { return /[\u3400-\u9FFF\uF900-\uFAFF]/.test(ch); }
+}
+
+function toneColor(t){
+  switch (t) {
+    case 1: return getVar('--tone1') || '#ff6b6b';
+    case 2: return getVar('--tone2') || '#f7b731';
+    case 3: return getVar('--tone3') || '#4cd137';
+    case 4: return getVar('--tone4') || '#45aaf2';
+    default: return getVar('--tone5') || '#a4b0be';
+  }
+}
+
+// ---------- tone detection ----------
+export function toneNumber(p){
+  if (!p) return 5;
+  const s = String(p).normalize('NFC').trim().replace(/[\p{P}\p{S}]+$/u,''); // drop trailing punct
+  const m = s.match(/[0-5]$/);
+  if (m) return m[0] === '0' ? 5 : parseInt(m[0],10);
+
+  const groups = {
+    1:'āēīōūǖĀĒĪŌŪǕ',
+    2:'áéíóúǘÁÉÍÓÚǗ',
+    3:'ǎěǐǒǔǚǍĚǏǑǓǙ',
+    4:'àèìòùǜÀÈÌÒÙǛ'
+  };
+  for (const t of [1,2,3,4]) for (const ch of groups[t]) if (s.includes(ch)) return t;
+  return 5;
+}
+
+// ---------- pinyin tokenizer (key fix) ----------
+/**
+ * Extracts pinyin syllables irrespective of spaces, quotes, or punctuation.
+ * Matches Latin letters (incl. diacritics/ü/Ü) + optional final tone digit.
+ * Apostrophe (xi'an) and hyphen split syllables, which is what we want.
+ */
+const SYL_RE = /[\p{Script=Latin}\p{M}]+[0-5]?/gu;
+function tokenizePinyin(pinyinFull){
+  const s = String(pinyinFull || '').normalize('NFC');
+  return Array.from(s.matchAll(SYL_RE), m => m[0]);
+}
+
+// ---------- align + render ----------
+export function alignPinyinToText(textZh, pinyinFull){
+  const chars = Array.from(textZh || '');
+  const toks  = tokenizePinyin(pinyinFull);
+  const out = [];
+  let iTok = 0;
+
+  for (const ch of chars) {
+    if (isHan(ch)) {
+      out.push(toks[iTok] || '');
+      if (iTok < toks.length) iTok++;
+    } else {
+      out.push(''); // punctuation/space/etc. doesn't consume a token
+    }
+  }
+  return out;
+}
+
+export function renderZh(text, pinyinSyllables, showPinyin, useTone){
+  const chars = Array.from(text || '');
+  const pys = Array.isArray(pinyinSyllables) ? pinyinSyllables : [];
+  let html = '';
+
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    const py = pys[i] || '';
+    const style = (useTone && py) ? ` style="color:${toneColor(toneNumber(py))}"` : '';
+
+    if (showPinyin && py) {
+      html += `<ruby class="zh"><rb${style}>${esc(ch)}</rb><rt>${esc(py)}</rt></ruby>`;
+    } else {
+      html += `<span class="zh"${style}>${esc(ch)}</span>`;
+    }
+  }
+  return html;
+}
+
+
+
