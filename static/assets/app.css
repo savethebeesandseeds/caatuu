@@ -115,7 +115,7 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 .panel .panel-header .gear.spin{ animation:none; }
 .panel[data-loading="true"] .panel-header .gear.spin{ animation:spin 1.2s linear infinite; }
 
-/* Glue pill */
+/* Challenge meta pill */
 .challenge-meta{ margin-left:8px; display:flex; align-items:center; gap:8px; }
 .pill{
   display:inline-flex; align-items:center; gap:8px;
@@ -126,13 +126,6 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
   border:1px solid var(--accent-challenge);
   background:#141414;
   color:var(--accent-challenge);
-}
-.pill-glue::before{
-  content:"Add";
-  color:var(--accent-challenge);
-  border-right:1px solid var(--accent-challenge);
-  padding-right:8px;
-  margin-right:4px;
 }
 
 /* Controls */
@@ -156,6 +149,7 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 .row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
 .grow{ flex:1 1 auto; }
 
+/* Inputs */
 input[type="text"], textarea, select{
   width:100%;
   padding:10px 12px;
@@ -176,14 +170,26 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 .zh{ font-size:2.25rem; line-height:1.75; }
 #challengeEn{ color:var(--text-dim); margin-top:4px; }
 
-/* Answer area */
-#answerWrap{
-  position:sticky; bottom:0; padding:10px 12px;
-  background:#0a0a0a;
-  border-top:1px solid var(--edge);
+/* --- Improved unified Task layout (rightTop) --- */
+#rightTop{ display:block; }
+
+/* Answer bar at the top of the panel */
+#answerBar{
+  display:flex; gap:8px; align-items:stretch;
+  background:#101010;
+  border:1px solid var(--edge);
+  border-radius:8px;
+  padding:8px;
+  margin-bottom:10px;
 }
-#answerForm{ display:flex; gap:8px; align-items:center; }
-#answerInput{ font-size:1.12rem; line-height:1.6; }
+#answerInput{
+  font-size:1.5rem;
+  line-height:1.5;
+  min-height:52px;
+}
+.btn-group{ display:flex; align-items:center; gap:6px; flex:0 0 auto; white-space:nowrap; }
+
+/* Feedback chip */
 #answerFeedback{
   margin-top:6px; font-size:.92rem;
   border-radius:6px; padding:8px 10px;
@@ -202,9 +208,58 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   opacity:1;
 }
 
-/* Bottom layout */
-#bottomGrid{ display:grid; gap:8px; grid-template-columns:minmax(260px, 380px) 1fr; }
-#settingsGrid{ display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem; }
+/* Task grid: Challenge (left) | Help & Hints (right) */
+#taskGrid{
+  display:grid; gap:12px;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items:start;
+}
+@media (max-width: 980px){
+  #taskGrid{ grid-template-columns: 1fr; }
+}
+
+/* Section labels in the panel body */
+.section-label{
+  color:var(--text-dim);
+  font-size:.82rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+/* Help & Hints rework */
+#hintsBlock .intro{
+  color:#d7ffd7;
+  background:#0d1812;
+  border:1px solid #1e3a2f;
+  padding:8px 10px;
+  border-radius:6px;
+  font-size:.92rem;
+}
+.hints{
+  list-style:none; padding:0; margin:10px 0 0 0;
+  display:flex; flex-direction:column; gap:6px;
+}
+.hint-item{
+  background:#101010;
+  border:1px solid var(--edge);
+  border-left:3px solid var(--accent-challenge);
+  border-radius:6px;
+  padding:8px 10px;
+  font-size:.95rem;
+}
+.hint-item small{
+  display:block; color:var(--text-dim);
+  font-size:.72rem; letter-spacing:.04em; margin-bottom:2px;
+}
+
+/* Assistance rows */
+.kv{ display:grid; gap:6px; }
+.kv-row{
+  background:#0f0f0f; border:1px dashed #2b2b2b; border-radius:6px;
+  padding:8px 10px;
+}
+.kv-row .subtle{ color:var(--text-dim); font-size:.78rem; margin-bottom:2px; }
 
 /* Event log */
 #eventLogControls{ margin-bottom:6px; }
@@ -233,11 +288,5 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 #hr{ grid-column:1/4; grid-row:2/3; }
 #bottomPanel{ grid-column:1/4; grid-row:3/4; }
 
-/* Inside rightTop: help (top) / challenge (bottom) */
-#rightTop{
-  display:grid;
-  grid-template-rows: var(--right-split) var(--gap) 1fr;
-}
-#helpPanel{ grid-row:1/2; }
-#hrRight{ grid-row:2/3; background:#2f2f2f; }
-#challengePanel{ grid-row:3/4; }
+/* Removed the old internal splitter (help/challenge) */
+/* #helpPanel, #hrRight no longer used */

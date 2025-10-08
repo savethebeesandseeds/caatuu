@@ -9,7 +9,7 @@ use std::time::Duration;
 
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
 use serde::{Deserialize, Serialize};
-use tracing::{instrument, info};
+use tracing::{debug, instrument, info, error};
 
 use crate::config::Prompts;
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
@@ -23,6 +23,15 @@ pub struct OpenAI {
   pub base_url: String,
   pub fast_model: String,
   pub strong_model: String,
+}
+
+#[derive(Deserialize)]
+struct Gen {
+  seed_zh: String,
+  seed_en: String,
+  challenge_zh: String,
+  challenge_en: String,
+  summary_en: String,
 }
 
 impl OpenAI {
@@ -136,62 +145,70 @@ impl OpenAI {
 
   // --- High-level helpers (domain-specialized) ---
 
-  #[instrument(level = "info", skip(self, prompts, difficulty), fields(%difficulty))]
-  pub async fn generate_challenge_exact(&self, prompts: &Prompts, difficulty: &str) -> Result<Challenge, String> {
-    #[derive(Deserialize)]
-    struct Gen { zh: String, py: String, en: String }
+  /// Generate a new seed+challenge freeform task.
+  #[instrument(
+    level = "info",
+    skip(self, prompts, difficulty),
+    fields(%difficulty, model = %self.strong_model, cfg_len = prompts.challenge_user_template.len())
+  )]
+  pub async fn generate_challenge_freeform(
+    &self,
+    prompts: &Prompts,
+    difficulty: &str,
+  ) -> Result<Challenge, String> {
+    // --- Stage 1: build user/system prompt
+    let system = fill_template(&prompts.challenge_system, &[("difficulty", difficulty)]);
+    let variables = fill_template(&prompts.challenge_user_template, &[("difficulty", difficulty)]);
+    // debug!(user_preview = %variables.chars().collect::<String>(), system = %system.chars().collect::<String>(), "Prepared user prompt");
+    // --- Stage 2: call model
+    let start = std::time::Instant::now();
+    let result = self.chat_json::<Gen>(&self.strong_model, &system, &variables, 0.95).await;
+    let elapsed = start.elapsed();
 
-    let system = &prompts.challenge_system;
-    let user = fill_template(&prompts.challenge_user_template, &[("difficulty", difficulty)]);
-    let gen: Gen = self.chat_json(&self.strong_model, system, &user, 0.95).await?;
+    match &result {
+      Ok(_) => info!(?elapsed, "Model response received successfully"),
+      Err(e) => {
+        error!(?elapsed, error = %e, "Model call failed during challenge generation");
+        return Err(format!("Model generation failed: {e}"));
+      }
+    }
+
+    // --- Stage 3: parse & construct challenge
+    let gen = result?;
+
     let ch = Challenge {
       id: Uuid::new_v4().to_string(),
       difficulty: difficulty.to_string(),
-      kind: ChallengeKind::ExactZh,
+      kind: ChallengeKind::FreeformZh,
       source: ChallengeSource::Generated,
-      zh: gen.zh,
-      py: gen.py,
-      en: gen.en,
+      seed_zh: gen.seed_zh,
+      seed_en: gen.seed_en,
+      challenge_zh: gen.challenge_zh,
+      challenge_en: gen.challenge_en,
+      summary_en: gen.summary_en,
       instructions: String::new(),
       rubric: None,
     };
+
+    info!(
+      challenge_id = %ch.id,
+      zh_preview = %ch.challenge_zh.chars().take(30).collect::<String>(),
+      en_preview = %ch.challenge_en.chars().take(40).collect::<String>(),
+      "Freeform challenge successfully generated"
+    );
+
     Ok(ch)
   }
 
-  #[instrument(level = "info", skip(self, prompts, expected_zh, user_answer), fields(expected_len = expected_zh.len(), answer_len = user_answer.len()))]
-  pub async fn validate_exact(
-    &self,
-    prompts: &Prompts,
-    expected_zh: &str,
-    user_answer: &str,
-  ) -> Result<(bool, String), String> {
-    #[derive(Deserialize)]
-    struct Val { correct: bool, explanation: String }
 
-    // Legacy exact-match (kept working). Also populate zh/en so new templates don't break.
-    let system = &prompts.validation_system;
-    let user = crate::util::fill_template(
-      &prompts.validation_user_template,
-      &[
-        ("expected", expected_zh),
-        ("answer",   user_answer),
-        ("zh",       expected_zh),
-        ("en",       ""), // no challenge line in exact mode
-      ],
-    );
-
-    let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
-    Ok((v.correct, v.explanation))
-  }
-
-  // NEW: glue-injection validator (seed zh + English line with "Challenge: add …")
-  #[instrument(level = "info", skip(self, prompts, seed_zh, challenge_en, user_answer),
-               fields(seed_len = seed_zh.len(), en_len = challenge_en.len(), ans_len = user_answer.len()))]
-  pub async fn validate_glue(
+  // seed_zh + challenge_zh validator
+  #[instrument(level = "info", skip(self, prompts, seed_zh, challenge_zh, user_answer),
+               fields(seed_len = seed_zh.len(), challenge_len = challenge_zh.len(), ans_len = user_answer.len()))]
+  pub async fn validate_challenge(
     &self,
     prompts: &Prompts,
     seed_zh: &str,
-    challenge_en: &str,
+    challenge_zh: &str,
     user_answer: &str,
   ) -> Result<(bool, String), String> {
     #[derive(Deserialize)]
@@ -201,22 +218,14 @@ impl OpenAI {
     let user = crate::util::fill_template(
       &prompts.validation_user_template,
       &[
-        ("zh",       seed_zh),
-        ("expected", seed_zh),     // keep legacy field populated
-        ("en",       challenge_en),
-        ("answer",   user_answer),
+        ("seed_zh",       seed_zh),
+        ("challenge_zh",  challenge_zh),
+        ("user_answer",   user_answer),
       ],
     );
 
     let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
     Ok((v.correct, v.explanation))
-  }
-
-  #[instrument(level = "info", skip(self, prompts, zh, en), fields(zh_len = zh.len(), en_len = en.len()))]
-  pub async fn hint_exact(&self, prompts: &Prompts, zh: &str, en: &str) -> Result<String, String> {
-    let system = &prompts.hint_system;
-    let user = fill_template(&prompts.hint_user_template, &[("zh", zh), ("en", en)]);
-    self.chat_plain(&self.strong_model, system, &user, 0.2).await
   }
 
   #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]

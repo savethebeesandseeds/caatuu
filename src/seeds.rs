@@ -3,47 +3,69 @@
 use std::collections::HashMap;
 use uuid::Uuid;
 
-use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
+use crate::domain::{Challenge, ChallengeKind, ChallengeSource, Rubric};
 
-/// Minimal set of built-in challenges that guarantee the app
-/// is useful even without external config or OpenAI.
+/// Minimal set of built-in challenges for the new seed+challenge freeform flow.
+/// Guarantees usefulness even without external config or OpenAI.
 pub fn seed_challenges() -> Vec<Challenge> {
   vec![
     Challenge {
-      id: "c123".into(),
+      id: "c3001".into(),
       difficulty: "hsk3".into(),
-      kind: ChallengeKind::ExactZh,
+      kind: ChallengeKind::FreeformZh,
       source: ChallengeSource::Seed,
-      zh: "今天天气很好".into(),
-      py: "jīn tiān tiān qì hěn hǎo".into(),
-      en: "The weather is great today.".into(),
+
+      seed_zh: "周末我在家休息。".into(),
+      seed_en: "On weekends I rest at home.".into(),
+      challenge_zh: "把句子改为去一个具体的地方，并使用一个表示计划的动词；把主语改成“她”；加上下午三点。".into(),
+      challenge_en: "Change it to going to a specific place; use a planning verb; switch subject to 'she'; add 3 p.m.".into(),
+      summary_en: "Seed about resting at home; challenge: planning verb + place + subject swap + time.".into(),
+
       instructions: String::new(),
-      rubric: None,
+      rubric: Some(Rubric {
+        min_chars: Some(10),
+        must_include: Some(vec!["她".into()]),
+        avoid: None,
+        target_level: Some("hsk3".into()),
+      }),
     },
     Challenge {
-      id: "c124".into(),
+      id: "c3002".into(),
       difficulty: "hsk2".into(),
-      kind: ChallengeKind::ExactZh,
+      kind: ChallengeKind::FreeformZh,
       source: ChallengeSource::Seed,
-      zh: "我想喝咖啡".into(),
-      py: "wǒ xiǎng hē kā fēi".into(),
-      en: "I want to drink coffee.".into(),
+
+      seed_zh: "我们晚上在家做饭。".into(),
+      seed_en: "We cook dinner at home in the evening.".into(),
+      challenge_zh: "用“想/要/喜欢”里选一个态度动词，把句子改为在公园做别的活动；把主语改成“他们”。".into(),
+      challenge_en: "Pick one attitude verb (想/要/喜欢), change to doing a different activity in the park; switch subject to 'they'.".into(),
+      summary_en: "Seed about cooking at home; challenge: attitude verb + place change + subject swap.".into(),
+
       instructions: String::new(),
-      rubric: None,
+      rubric: Some(Rubric {
+        min_chars: Some(8),
+        must_include: Some(vec!["他们".into(), "公园".into()]),
+        avoid: None,
+        target_level: Some("hsk2".into()),
+      }),
     },
   ]
 }
 
-/// Absolute last-resort fallback: if all stores are empty, we inject this.
+/// Absolute last-resort fallback: if all generation fails, we inject this.
 pub fn hard_fallback_challenge(difficulty: String) -> Challenge {
   Challenge {
     id: Uuid::new_v4().to_string(),
     difficulty,
-    kind: ChallengeKind::ExactZh,
+    kind: ChallengeKind::FreeformZh,
     source: ChallengeSource::Seed,
-    zh: "他是老师。".into(),
-    py: "tā shì lǎo shī 。".into(),
-    en: "He is a teacher.".into(),
+
+    seed_zh: "我今天在学校上课。".into(),
+    seed_en: "I have class at school today.".into(),
+    challenge_zh: "把主语改为“他”，并加上你选择的一个表示态度/计划的动词；换一个具体的地点。".into(),
+    challenge_en: "Change subject to 'he', add one stance/planning verb of your choice; switch to a specific place.".into(),
+    summary_en: "Seed about having class; challenge: stance/planning verb + subject swap + place change.".into(),
+
     instructions: String::new(),
     rubric: None,
   }

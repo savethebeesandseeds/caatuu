@@ -1,14 +1,42 @@
-import { alignPinyinToText } from './zh.js';
 import { current } from './state.js';
 
 let usingMock=false, connected=false;
 let mockIdx=0, hintCounter=0;
 
+// New shape per ChallengeOut
 const mockChallenges = [
-  { id:'c1', zh:'你好世界', py:'nǐ hǎo shì jiè', en:'Hello, world.' },
-  { id:'c2', zh:'今天天气很好', py:'jīn tiān tiān qì hěn hǎo', en:'The weather is great today.' },
-  { id:'c3', zh:'我想喝一杯咖啡', py:'wǒ xiǎng hē yì bēi kā fēi', en:'I want to drink a cup of coffee.' },
-  { id:'c4', zh:'学习中文需要坚持', py:'xué xí zhōng wén xū yào jiān chí', en:'Learning Chinese requires persistence.' },
+  {
+    id:'c1', difficulty:'hsk1', kind:'freeform_zh', source:'seed',
+    seed_zh:'你好',
+    seed_en:'Say hello.',
+    challenge_zh:'用“你好”打招呼。',
+    challenge_en:'Greet someone using “你好”.',
+    summary_en:'Greet politely using 你好。'
+  },
+  {
+    id:'c2', difficulty:'hsk2', kind:'freeform_zh', source:'generated',
+    seed_zh:'今天天气很好。',
+    seed_en:'The weather is great today.',
+    challenge_zh:'扩展一句话说明你想做什么。',
+    challenge_en:'Extend with one sentence about what you want to do.',
+    summary_en:'Describe an action given nice weather.'
+  },
+  {
+    id:'c3', difficulty:'hsk3', kind:'freeform_zh', source:'local_bank',
+    seed_zh:'我想喝一杯咖啡。',
+    seed_en:'I want to drink a cup of coffee.',
+    challenge_zh:'加入时间信息（比如：上午、下午）。',
+    challenge_en:'Add time info (e.g., morning/afternoon).',
+    summary_en:'Add a time phrase to the desire sentence.'
+  },
+  {
+    id:'c4', difficulty:'hsk4', kind:'freeform_zh', source:'seed',
+    seed_zh:'学习中文需要坚持。',
+    seed_en:'Learning Chinese requires persistence.',
+    challenge_zh:'给出一个实际建议来坚持学习。',
+    challenge_en:'Give a concrete tip for sticking with study.',
+    summary_en:'Offer a practical study tip.'
+  },
 ];
 
 let handleMessageCB = ()=>{};
@@ -29,8 +57,9 @@ export function mockHandle(obj){
       case 'submit_answer': {
         const {answer, challengeId} = obj;
         const c = mockChallenges.find(x=>x.id===challengeId) || mockChallenges[0];
-        const correct = (answer||'').includes(c.zh[0]) || (answer||'').trim()===c.zh || (answer||'').toLowerCase().includes(c.py.split(/\s+/)[0].replace(/\d/g,''));
-        handleMessageCB({type:'answer_result', correct, expected:c.zh, explanation: correct?'Great job!':'Try focusing on word order.'});
+        const target = (c.challenge_zh || c.seed_zh || '');
+        const correct = (answer||'').trim()===target || (!!target && (answer||'').includes(target[0]));
+        handleMessageCB({type:'answer_result', correct, expected:'', explanation: correct?'Great job!':'Try focusing on word order.'});
         break;
       }
       case 'hint': {
@@ -52,11 +81,8 @@ export function mockHandle(obj){
         break;
       }
       case 'next_char': {
-        const c = current.challenge || mockChallenges[0];
-        const idx = (obj.current||'').length;
-        const char = c.zh[idx] || '';
-        const py = alignPinyinToText(c.zh, c.py)[idx]||'';
-        handleMessageCB({type:'next_char', char, pinyin:py, reason:'Prefix match to challenge.'});
+        // Freeform tasks: not applicable
+        handleMessageCB({type:'next_char', char:'', pinyin:'', reason:'Not applicable to freeform tasks.'});
         break;
       }
       case 'agent_message': {

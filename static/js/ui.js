@@ -11,30 +11,16 @@ function setLoading(panelSelector, flag){
   el.setAttribute('data-loading', flag ? 'true' : 'false');
 }
 
-/* ---------- Parse en → gloss + challenge/glue ---------- */
-function parseChallengeFromEn(en){
-  const out = { gloss:'', glue:null, line:null };
-  if (!en){ return out; }
-  const parts = String(en).split(/\r?\n/);
-  out.gloss = (parts[0] || '').trim();
-
-  const rest = parts.slice(1).join('\n');
-  if (!rest) return out;
-
-  // Match: Challenge: add 计划 (jì huà, plan).
-  const m = rest.match(/Challenge:\s*add\s+([^\s(（]+)\s*[\(（]\s*([^,，)）]+)\s*,\s*([^)）]+)[\)）]\.?/i);
-  if (m){
-    out.glue = { zh: m[1], py: m[2].trim(), en: m[3].trim() };
-    out.line = m[0];
-    return out;
-  }
-  // Fallback: Challenge: add 计划
-  const m2 = rest.match(/Challenge:\s*add\s+([^\s.]+)/i);
-  if (m2){
-    out.glue = { zh: m2[1], py:'', en:'' };
-    out.line = m2[0];
-  }
-  return out;
+/* ---------- Challenge English helpers ---------- */
+function enSummary(c){
+  return (c.summary_en || c.challenge_en || c.seed_en || '') || '';
+}
+function enTooltip(c){
+  const out = [];
+  if (c.summary_en) out.push(`Summary: ${c.summary_en}`);
+  if (c.seed_en) out.push(`Seed: ${c.seed_en}`);
+  if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
+  return out.join('\n');
 }
 
 /* ---------- Rendering helpers ---------- */
@@ -53,6 +39,25 @@ function renderNextChar(){
   if (!ls.getBool('next_char_suggest', true)) { el.textContent=''; return; }
   const {char, pinyin} = liveSuggestion;
   el.textContent = char ? `${char}  (${pinyin||'?'})` : '';
+}
+
+/* ---------- Pinyin request routing for challenge texts ---------- */
+const pendingChallengePy = new Map(); // text -> [ 'seedZh' | 'challengeZh' ]
+function needPinyinData(){ return ls.getBool(LSK.pinyin, false) || ls.getBool(LSK.tone, false); }
+function requestPinyinFor(elId, zhText){
+  if (!zhText) return;
+  const el = $('#'+elId); if (!el) return;
+  if (!needPinyinData()) return;
+  const existing = (el.getAttribute('data-zh-pinyin') || '').trim();
+  if (existing) return;
+  const list = pendingChallengePy.get(zhText) || [];
+  if (!list.includes(elId)) pendingChallengePy.set(zhText, list.concat(elId));
+  wsSend({ type:'pinyin_input', text: zhText });
+}
+function ensureChallengePinyin(){
+  const c = current.challenge; if (!c) return;
+  requestPinyinFor('seedZh', c.seed_zh || '');
+  requestPinyinFor('challengeZh', c.challenge_zh || '');
 }
 
 /* ---------- Show/hide artifacts per toggles ---------- */
@@ -82,26 +87,28 @@ export function setChallenge(c){
   current.challenge = c;
   setLoading('#challengePanel', false);
 
-  // zh + py (respect pinyin/tone toggles)
-  $('#challengeZh').setAttribute('data-zh-text', c.zh||'');
-  $('#challengeZh').setAttribute('data-zh-pinyin', c.py||'');
+  // Seed + Challenge text blocks (pinyin fetched on-demand)
+  const seedEl = $('#seedZh');
+  const chalEl = $('#challengeZh');
+  if (seedEl){ seedEl.setAttribute('data-zh-text', c.seed_zh || ''); seedEl.setAttribute('data-zh-pinyin', ''); }
+  if (chalEl){ chalEl.setAttribute('data-zh-text', c.challenge_zh || ''); chalEl.setAttribute('data-zh-pinyin', ''); }
+  ensureChallengePinyin();
   renderAllZh();
 
-  // en → gloss + challenge pill
-  const parsed = parseChallengeFromEn(c.en || '');
-  $('#challengeEn').textContent = ls.getBool(LSK.chEn, false) ? (parsed.gloss || '') : '';
+  // English: summary (fallbacks)
+  $('#challengeEn').textContent = ls.getBool(LSK.chEn, false) ? enSummary(c) : '';
   applyArtifactsVisibility();
 
   const badge = $('#challengeBadge');
-  if (parsed.glue && parsed.glue.zh){
-    const text = ` ${parsed.glue.zh} (${parsed.glue.py || '…'}${parsed.glue.en ? ', ' + parsed.glue.en : ''})`;
-    badge.textContent = text;
-    badge.title = parsed.line || '';
-    badge.style.display = '';
-    logInfo(`Target glue: ${parsed.glue.zh}${parsed.glue.en ? ' ('+parsed.glue.en+')' : ''}`);
-  } else {
-    badge.style.display = 'none';
+  const meta = [];
+  if (c.difficulty) meta.push(c.difficulty);
+  if (c.source) meta.push(c.source);
+  if (badge){
+    if (meta.length){ badge.textContent = meta.join(' · '); badge.style.display=''; }
+    else { badge.style.display='none'; }
   }
+  const infoBtn = $('#challengeInfoBtn');
+  if (infoBtn) infoBtn.title = enTooltip(c) || '';
 
   // reset input & hints
   $('#answerInput').value = '';
@@ -109,7 +116,7 @@ export function setChallenge(c){
   liveSuggestion.char = ''; liveSuggestion.pinyin='';
   renderNextChar();
 
-  logInfo(`New challenge: ${c.id}`);
+  logInfo(`New challenge: ${c.id} (${c.difficulty||'hsk3'} · ${c.source||'seed'})`);
   if (ls.getBool('agent_reset_on_new', false)) {
     $('#agentHistory').innerHTML='';
     logInfo('Agent history reset (setting on).');
@@ -140,7 +147,7 @@ function showFeedback(msg, ok){
   el.className = ok ? 'ok' : 'err';
   el.style.opacity = '1';
   clearTimeout(feedbackTimer);
-  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 3500);
+  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 25500);
 }
 
 function onAnswerResult(res){
@@ -236,8 +243,8 @@ export function bindEvents(){
   });
 
   // Settings (visibility + rendering)
-  $('#tglTone').addEventListener('change', (e)=>{ ls.setBool(LSK.tone, e.target.checked); renderAllZh(); });
-  $('#tglPinyin').addEventListener('change', (e)=>{ ls.setBool(LSK.pinyin, e.target.checked); renderAllZh(); });
+  $('#tglTone').addEventListener('change', (e)=>{ ls.setBool(LSK.tone, e.target.checked); ensureChallengePinyin(); renderAllZh(); });
+  $('#tglPinyin').addEventListener('change', (e)=>{ ls.setBool(LSK.pinyin, e.target.checked); ensureChallengePinyin(); renderAllZh(); });
 
   $('#tglRTTrans').addEventListener('change', (e)=>{ ls.setBool('realtime_translation', e.target.checked); applyArtifactsVisibility(); });
   $('#tglRTPinyin').addEventListener('change', (e)=>{ ls.setBool('realtime_pinyin', e.target.checked); applyArtifactsVisibility(); });
@@ -248,8 +255,7 @@ export function bindEvents(){
     ls.setBool(LSK.chEn, e.target.checked);
     const c = current.challenge;
     if (c){
-      const parsed = parseChallengeFromEn(c.en || '');
-      $('#challengeEn').textContent = e.target.checked ? (parsed.gloss || '') : '';
+      $('#challengeEn').textContent = e.target.checked ? enSummary(c) : '';
     }
     applyArtifactsVisibility();
   });
@@ -272,8 +278,8 @@ export function syncSettingsUI(){
   renderAllZh();
   const c = current.challenge;
   if (c){
-    const parsed = parseChallengeFromEn(c.en || '');
-    $('#challengeEn').textContent = ls.getBool(LSK.chEn,false) ? (parsed.gloss || '') : '';
+    $('#challengeEn').textContent = ls.getBool(LSK.chEn,false) ? enSummary(c) : '';
+    ensureChallengePinyin();
   }
   applyArtifactsVisibility();
 }
@@ -284,7 +290,26 @@ export function handleMessage(msg){
     case 'challenge': setChallenge(msg.challenge); break;
     case 'hint': addHint(msg.text); break;
     case 'translate': $('#liveTranslation').textContent = msg.translation || ''; break;
-    case 'pinyin': $('#livePinyin').textContent = msg.pinyin || ''; break;
+    case 'pinyin': {
+      const txt = (msg.text || '');
+      // Route to Assist if it matches current input
+      const inputNow = $('#answerInput').value || '';
+      if (txt === inputNow){
+        $('#livePinyin').textContent = msg.pinyin || '';
+        break;
+      }
+      // Else see if it's for seed/challenge
+      const targets = pendingChallengePy.get(txt);
+      if (targets && targets.length){
+        targets.forEach(id=>{
+          const el = $('#'+id);
+          if (el) el.setAttribute('data-zh-pinyin', msg.pinyin || '');
+        });
+        pendingChallengePy.delete(txt);
+        renderAllZh();
+      }
+      break;
+    }
     case 'next_char':
       liveSuggestion.char = msg.char||'';
       liveSuggestion.pinyin = msg.pinyin||'';
@@ -301,5 +326,8 @@ export function handleMessage(msg){
 /* ---------- Actions ---------- */
 export function requestNewChallenge(){
   setLoading('#challengePanel', true);
-  wsSend({type:'new_challenge', difficulty: localStorage.getItem('difficulty')||'auto'});
+  const v = localStorage.getItem('difficulty') || 'auto';
+  const payload = { type:'new_challenge' };
+  if (v && v !== 'auto') payload.difficulty = v;
+  wsSend(payload);
 }

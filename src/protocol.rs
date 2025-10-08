@@ -40,9 +40,13 @@ pub struct ChallengeOut {
     pub difficulty: String,
     pub kind: ChallengeKind,
     pub source: ChallengeSource,
-    pub zh: String,
-    pub py: String,
-    pub en: String,
+
+    pub seed_zh: String,
+    pub seed_en: String,
+    pub challenge_zh: String,
+    pub challenge_en: String,
+    pub summary_en: String,
+
     pub instructions: String,
 }
 
@@ -53,9 +57,13 @@ pub fn to_out(c: &Challenge) -> ChallengeOut {
         difficulty: c.difficulty.clone(),
         kind: c.kind.clone(),
         source: c.source.clone(),
-        zh: c.zh.clone(),
-        py: c.py.clone(),
-        en: c.en.clone(),
+
+        seed_zh: c.seed_zh.clone(),
+        seed_en: c.seed_en.clone(),
+        challenge_zh: c.challenge_zh.clone(),
+        challenge_en: c.challenge_en.clone(),
+        summary_en: c.summary_en.clone(),
+
         instructions: c.instructions.clone(),
     }
 }

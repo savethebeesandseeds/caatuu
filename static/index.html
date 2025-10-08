@@ -11,7 +11,7 @@
     <!-- Agent (top-left) -->
     <section id="agentPanel" class="panel" aria-label="Agent">
       <header class="panel-header">
-        <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0-.3.1-.4.3l-.3 2.4c-.9.3-1.8.8-2.6 1.5l-2.3-1c-.2-.1-.4 0-.5.1l-2 3.4c-.1.2 0 .4.1.5l2 1.6c0 .5-.1 1-.1 1.5s0 1 .1 1.5l-2 1.6c-.2.1-.2.3-.1.5l2 3.4c.1.2.3.2.5.1l2.3-1c.8.7 1.7 1.2 2.6 1.5l.3 2.4c0 .2.2.3.4.3h4c.2 0 .3-.1.4-.3l.3-2.4c.9-.3 1.8-.8 2.6-1.5l2.3 1c.2.1.4 0 .5-.1l2-3.4c.1-.2 0-.4-.1-.5l-2-1.6c.1-.5.1-1 .1-1.5Z"/></svg>
+        <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
         <span class="panel-title">Agent</span>
         <span class="grow"></span>
         <button id="agentResetBtn" class="btn small ghost" title="Reset agent history and context">Reset</button>
@@ -32,72 +32,78 @@
     <!-- Vertical resizer between columns (top row only) -->
     <div id="vr" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize left/right"></div>
 
-    <!-- Right column (top-right) → stacks Help (top) and Challenge (bottom) -->
-    <div id="rightTop" aria-label="Help & Hints above Challenge">
-      <!-- Help & Hints -->
-      <section id="helpPanel" class="panel" aria-label="Help and hints">
+    <!-- Unified Task panel: Challenge + Help & Hints -->
+    <div id="rightTop" aria-label="Task: Challenge + Help & Hints">
+      <section id="challengePanel" class="panel" aria-label="Task">
         <header class="panel-header">
-          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 -1c.8 .7 1.7 1.2 2.6 1.5l.3 2.4c0 .2 .2 .3 .4 .3h4c.2 0 .3 -.1 .4 -.3l.3 -2.4c.9 -.3 1.8 -.8 2.6 -1.5l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
-          <span class="panel-title">Help & Hints</span>
-        </header>
-        <div class="panel-body">
-          <div class="card" id="hintCard">
-            <div class="row" style="justify-content:space-between; align-items:center;">
-              <strong>Hints for current challenge</strong>
-              <div class="row">
-                <button id="getHintBtn" class="btn small">Get hint now</button>
-              </div>
-            </div>
-            <div id="hintsList" style="margin-top:8px;"></div>
-            <div class="hint subtle">Hints show here when requested.</div>
-          </div>
-
-          <div class="card" id="assistCard">
-            <strong>Assistance</strong>
-            <div class="kv" id="rtGrid" style="margin-top:8px;">
-              <div id="rtRowPinyin" class="kv-row">
-                <div class="subtle">Your input (pinyin)</div>
-                <div id="livePinyin" class="mono"></div>
-              </div>
-              <div id="rtRowTrans" class="kv-row">
-                <div class="subtle">Your input (translation)</div>
-                <div id="liveTranslation"></div>
-              </div>
-              <div id="rtRowNextChar" class="kv-row">
-                <div class="subtle">Next-character suggestion</div>
-                <div id="liveNextChar" class="mono"></div>
-              </div>
-            </div>
-            <div class="hint subtle" style="margin-top:6px;">Use <kbd>Alt+A</kbd> (or <kbd>Ctrl+T</kbd>) to run Assist.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Splitter between Help and Challenge inside right column -->
-      <div id="hrRight" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize help/challenge"></div>
-
-      <!-- Challenge -->
-      <section id="challengePanel" class="panel" aria-label="Challenge">
-        <header class="panel-header">
-          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 -1c.8 .7 1.7 1.2 2.6 1.5l.3 2.4c0 .2 .2 .3 .4 .3h4c.2 0 .3 -.1 .4 -.3l.3 -2.4c.9 -.3 1.8 -.8 2.6 -1.5l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
-          <span class="panel-title">Challenge</span>
-          <div id="challengeMeta" class="challenge-meta" aria-live="polite">
-            <span id="challengeBadge" class="pill pill-glue" style="display:none;"></span>
+          <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
+          <span class="panel-title">Task</span>
+          <div class="challenge-meta" aria-live="polite">
+            <span id="challengeBadge" class="pill" style="display:none;"></span>
+            <button id="challengeInfoBtn" class="btn small ghost" title="" aria-label="English info">ⓘ</button>
           </div>
           <span class="grow"></span>
-          <button id="newChallengeBtn" class="btn small" title="Generate new challenge (Esc)">Next (Esc)</button>
+          <!-- (No buttons here; all actions live in the input bar) -->
         </header>
+
         <div class="panel-body">
-          <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
-          <div id="challengeEn" class="subtle"></div>
-        </div>
-        <div id="answerWrap">
-          <form id="answerForm" class="row" autocomplete="off">
-            <textarea id="answerInput" placeholder="Type your answer in Chinese (or pinyin)…" aria-label="Challenge answer input"></textarea>
-            <button class="btn ghost" id="assistBtn" type="button" title="Assist (Alt+A)">Assist</button>
-            <button class="btn" id="answerSendBtn" type="submit">Submit</button>
-          </form>
+          <!-- Input bar at the top, with buttons at the right -->
+          <div id="answerBar" class="input-bar">
+            <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
+              <textarea id="answerInput" placeholder="Type your answer in Chinese (Shift+Enter = newline)..." aria-label="Challenge answer input"></textarea>
+            </form>
+            <div class="btn-group" role="group" aria-label="Answer actions">
+              <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
+              <button class="btn small" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
+              <button class="btn small" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
+              <button class="btn small" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">Next</button>
+            </div>
+          </div>
           <div id="answerFeedback" aria-live="polite"></div>
+
+          <!-- Two-column content: Challenge (left) | Help & Hints (right) -->
+          <div id="taskGrid">
+            <div id="taskChallenge">
+              <div class="section-label">Challenge</div>
+              <div id="seedSection">
+                <div class="section-label" style="opacity:.85">Seed</div>
+                <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+              </div>
+              <div id="challengeSection" style="margin-top:10px;">
+                <div class="section-label" style="opacity:.85">Target</div>
+                <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
+              </div>
+              <div id="challengeEn" class="subtle"></div>
+            </div>
+
+            <aside id="taskHelp">
+              <div class="section-label">Help & Hints</div>
+
+              <div id="hintsBlock">
+                <div class="intro">Short nudges—not solutions—to guide your sentence.</div>
+                <ul id="hintsList" class="hints"></ul>
+              </div>
+
+              <div id="assistCard" style="margin-top:12px;">
+                <div class="section-label">Assist</div>
+                <div class="kv" id="rtGrid" style="margin-top:8px;">
+                  <div id="rtRowPinyin" class="kv-row">
+                    <div class="subtle">Your input (pinyin)</div>
+                    <div id="livePinyin" class="mono"></div>
+                  </div>
+                  <div id="rtRowTrans" class="kv-row">
+                    <div class="subtle">Your input (translation)</div>
+                    <div id="liveTranslation"></div>
+                  </div>
+                  <div id="rtRowNextChar" class="kv-row">
+                    <div class="subtle">Next-character suggestion</div>
+                    <div id="liveNextChar" class="mono"></div>
+                  </div>
+                </div>
+                <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
     </div><!-- /rightTop -->
@@ -111,10 +117,10 @@
         <span class="panel-title">Settings · Notes · Events</span>
       </header>
       <div class="panel-body">
-        <div id="bottomGrid">
+        <div id="bottomGrid" style="display:grid; gap:8px; grid-template-columns:minmax(260px, 380px) 1fr;">
           <!-- Left: Settings -->
           <div>
-            <div id="settingsGrid">
+            <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
               <label class="row" title="Challenge difficulty">
                 <span>Difficulty</span>
                 <select id="difficultySel" class="grow">

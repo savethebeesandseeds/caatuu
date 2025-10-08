@@ -24,6 +24,7 @@ mod protocol;
 mod logic;
 mod openai;
 mod routes;
+mod pinyin;
 
 use std::{net::SocketAddr, sync::Arc};
 use tokio::net::TcpListener;

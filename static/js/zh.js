@@ -1,15 +1,16 @@
 import { getVar } from './utils.js';
 
-export function toneNumber(p) {
-  if (!p) return 5;
-  const m = p.match(/[1-4]$/); if (m) return parseInt(m[0], 10);
-  const groups = {1:'āēīōūǖĀĒĪŌŪǕ',2:'áéíóúǘÁÉÍÓÚǗ',3:'ǎěǐǒǔǚǍĚǏǑǓǙ',4:'àèìòùǜÀÈÌÒÙǛ'};
-  for (const t of [1,2,3,4]) for (const ch of groups[t]) if (p.includes(ch)) return t;
-  return 5;
-}
-export const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+// ---------- utils ----------
+export const esc = s =>
+  String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-function toneColor(t) {
+const RE_HAN = /\p{Script=Han}/u;
+function isHan(ch){
+  try { return RE_HAN.test(ch); }
+  catch { return /[\u3400-\u9FFF\uF900-\uFAFF]/.test(ch); }
+}
+
+function toneColor(t){
   switch (t) {
     case 1: return getVar('--tone1') || '#ff6b6b';
     case 2: return getVar('--tone2') || '#f7b731';
@@ -19,15 +20,63 @@ function toneColor(t) {
   }
 }
 
-export function renderZh(text, pinyinSyllables, showPinyin, useTone) {
+// ---------- tone detection ----------
+export function toneNumber(p){
+  if (!p) return 5;
+  const s = String(p).normalize('NFC').trim().replace(/[\p{P}\p{S}]+$/u,''); // drop trailing punct
+  const m = s.match(/[0-5]$/);
+  if (m) return m[0] === '0' ? 5 : parseInt(m[0],10);
+
+  const groups = {
+    1:'āēīōūǖĀĒĪŌŪǕ',
+    2:'áéíóúǘÁÉÍÓÚǗ',
+    3:'ǎěǐǒǔǚǍĚǏǑǓǙ',
+    4:'àèìòùǜÀÈÌÒÙǛ'
+  };
+  for (const t of [1,2,3,4]) for (const ch of groups[t]) if (s.includes(ch)) return t;
+  return 5;
+}
+
+// ---------- pinyin tokenizer (key fix) ----------
+/**
+ * Extracts pinyin syllables irrespective of spaces, quotes, or punctuation.
+ * Matches Latin letters (incl. diacritics/ü/Ü) + optional final tone digit.
+ * Apostrophe (xi'an) and hyphen split syllables, which is what we want.
+ */
+const SYL_RE = /[\p{Script=Latin}\p{M}]+[0-5]?/gu;
+function tokenizePinyin(pinyinFull){
+  const s = String(pinyinFull || '').normalize('NFC');
+  return Array.from(s.matchAll(SYL_RE), m => m[0]);
+}
+
+// ---------- align + render ----------
+export function alignPinyinToText(textZh, pinyinFull){
+  const chars = Array.from(textZh || '');
+  const toks  = tokenizePinyin(pinyinFull);
+  const out = [];
+  let iTok = 0;
+
+  for (const ch of chars) {
+    if (isHan(ch)) {
+      out.push(toks[iTok] || '');
+      if (iTok < toks.length) iTok++;
+    } else {
+      out.push(''); // punctuation/space/etc. doesn't consume a token
+    }
+  }
+  return out;
+}
+
+export function renderZh(text, pinyinSyllables, showPinyin, useTone){
   const chars = Array.from(text || '');
   const pys = Array.isArray(pinyinSyllables) ? pinyinSyllables : [];
   let html = '';
-  for (let i=0; i<chars.length; i++) {
+
+  for (let i = 0; i < chars.length; i++) {
     const ch = chars[i];
     const py = pys[i] || '';
-    let style = '';
-    if (useTone && py) style = ` style="color:${toneColor(toneNumber(py))}"`;
+    const style = (useTone && py) ? ` style="color:${toneColor(toneNumber(py))}"` : '';
+
     if (showPinyin && py) {
       html += `<ruby class="zh"><rb${style}>${esc(ch)}</rb><rt>${esc(py)}</rt></ruby>`;
     } else {
@@ -35,17 +84,4 @@ export function renderZh(text, pinyinSyllables, showPinyin, useTone) {
     }
   }
   return html;
-}
-
-export function alignPinyinToText(textZh, pinyinFull) {
-  const chars = Array.from(textZh || '');
-  const toks = String(pinyinFull || '').trim().split(/\s+/);
-  const out = [];
-  let iTok = 0;
-  const isCJK = (ch) => /[\u3400-\u9FFF]/.test(ch);
-  for (const ch of chars) {
-    if (isCJK(ch)) { out.push(toks[iTok] || ''); if (iTok < toks.length) iTok++; }
-    else { out.push(''); }
-  }
-  return out;
 }

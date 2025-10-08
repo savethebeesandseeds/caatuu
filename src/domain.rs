@@ -6,13 +6,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ChallengeKind {
-  /// User must produce the exact expected Chinese sentence (answer = `zh`).
-  ExactZh,
-  /// User writes freely guided by instructions; evaluated by an LLM or local rubric.
+  /// Only freeform tasks remain. May be (a) instructions-driven or (b) seed+challenge driven.
   FreeformZh,
 }
 impl Default for ChallengeKind {
-  fn default() -> Self { ChallengeKind::ExactZh }
+  fn default() -> Self { ChallengeKind::FreeformZh }
 }
 
 /// Where did we get the challenge from?
@@ -21,7 +19,7 @@ impl Default for ChallengeKind {
 pub enum ChallengeSource {
   LocalBank,   // from user-provided TOML bank
   Generated,   // generated via OpenAI and cached in memory
-  Seed,  // built-in seeds (last resort)
+  Seed,        // built-in seeds (last resort)
 }
 
 /// Optional rubric used for FreeformZh grading on the server or in the LLM.
@@ -41,12 +39,14 @@ pub struct Challenge {
   pub kind: ChallengeKind,
   pub source: ChallengeSource,
 
-  // Exact-ZH fields (expected answer = zh)
-  #[serde(default)] pub zh: String,
-  #[serde(default)] pub py: String,
-  #[serde(default)] pub en: String,
+  // New "seed + challenge" fields (used for runtime-generated tasks)
+  #[serde(default)] pub seed_zh: String,
+  #[serde(default)] pub seed_en: String,
+  #[serde(default)] pub challenge_zh: String,
+  #[serde(default)] pub challenge_en: String,
+  #[serde(default)] pub summary_en: String,
 
-  // Freeform-ZH fields
+  // Freeform (instructions-driven) fields
   #[serde(default)] pub instructions: String,
   #[serde(default)] pub rubric: Option<Rubric>,
 }

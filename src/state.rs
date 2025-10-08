@@ -6,18 +6,18 @@
 //!   - the prompts struct (from TOML or defaults)
 //!   - optional OpenAI client
 //!
-//! The selection policy favors local content, then generated cache, then seeds,
-//! with a simple "avoid immediate repeat" heuristic per difficulty.
+//! The selection policy now generates seed+challenge freeform tasks by default.
+//! If OpenAI is unavailable, we fall back to built-in seeds or a hard fallback.
 
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
-use tracing::{info, error, debug, warn, instrument};
+use tracing::{info, error, warn, instrument};
 
 use crate::config::{load_agent_config_from_env, Prompts};
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
-use crate::openai::{OpenAI};
+use crate::openai::OpenAI;
 use crate::seeds::{seed_challenges, seed_pinyin_map, hard_fallback_challenge};
-use uuid::{Uuid};
+use uuid::Uuid;
 
 // Keep a small per-difficulty pool of generated items to avoid repeats
 const GEN_POOL_TARGET: usize = 3;
@@ -43,54 +43,35 @@ impl AppState {
     let mut id_map = HashMap::<String, Challenge>::new();
     let mut diff_map = HashMap::<String, Vec<String>>::new();
 
-    // Insert config-based challenges (if any).
+    // Insert config-based challenges (if any) – freeform, instructions-driven.
     if let Some(cfg) = &cfg_opt {
       for cc in &cfg.challenges {
-        let kind = cc.kind.clone().unwrap_or(ChallengeKind::ExactZh);
         let id = cc.id.clone().unwrap_or_else(|| Uuid::new_v4().to_string());
         let diff = cc.difficulty.clone();
 
-        let ch = match kind {
-          ChallengeKind::ExactZh => {
-            let (zh, py, en) = match (&cc.zh, &cc.py, &cc.en) {
-              (Some(zh), Some(py), Some(en)) => (zh, py, en),
-              _ => {
-                error!(target: "challenge", %id, %diff, "Skipping exact_zh: missing zh/py/en.");
-                continue;
-              }
-            };
-            Challenge {
-              id: id.clone(),
-              difficulty: diff.clone(),
-              kind,
-              source: ChallengeSource::LocalBank,
-              zh: zh.clone(),
-              py: py.clone(),
-              en: en.clone(),
-              instructions: String::new(),
-              rubric: None,
-            }
+        let instructions = match &cc.instructions {
+          Some(s) if !s.is_empty() => s.clone(),
+          _ => {
+            // Instructions are optional overall (runtime generation may supply seed+challenge),
+            // but for config-bank entries we require them to be non-empty.
+            error!(target: "challenge", %id, %diff, "Skipping bank item: missing instructions.");
+            continue;
           }
-          ChallengeKind::FreeformZh => {
-            let instructions = match &cc.instructions {
-              Some(s) if !s.is_empty() => s.clone(),
-              _ => {
-                error!(target: "challenge", %id, %diff, "Skipping freeform_zh: missing instructions.");
-                continue;
-              }
-            };
-            Challenge {
-              id: id.clone(),
-              difficulty: diff.clone(),
-              kind,
-              source: ChallengeSource::LocalBank,
-              zh: String::new(),
-              py: String::new(),
-              en: String::new(),
-              instructions,
-              rubric: cc.rubric.clone(),
-            }
-          }
+        };
+        let ch = Challenge {
+          id: id.clone(),
+          difficulty: diff.clone(),
+          kind: ChallengeKind::FreeformZh,
+          source: ChallengeSource::LocalBank,
+
+          seed_zh: String::new(),
+          seed_en: String::new(),
+          challenge_zh: String::new(),
+          challenge_en: String::new(),
+          summary_en: String::new(),
+
+          instructions,
+          rubric: cc.rubric.clone(),
         };
         diff_map.entry(diff.clone()).or_default().push(id.clone());
         id_map.insert(id, ch);
@@ -156,14 +137,13 @@ impl AppState {
     }
   }
 
-  /// Selection policy (simplified):
-  /// Always generate a fresh challenge via OpenAI (high temperature) and store it,
-  /// so subsequent steps (hint/validate) can look it up by ID. If OpenAI is
-  /// unavailable or fails, fall back to a tiny built-in hard challenge.
+  /// Selection policy:
+  /// Generate a fresh seed+challenge freeform via OpenAI when available.
+  /// Otherwise, insert a hard fallback.
   #[instrument(level = "info", skip(self), fields(%difficulty))]
   pub async fn choose_challenge(&self, difficulty: &str) -> (Challenge, &'static str) {
     if let Some(oa) = &self.openai {
-      match oa.generate_challenge_exact(&self.prompts, difficulty).await {
+      match oa.generate_challenge_freeform(&self.prompts, difficulty).await {
         Ok(mut c) => {
           c.source = ChallengeSource::Generated;
           let id = c.id.clone();
