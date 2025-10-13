@@ -59,7 +59,14 @@ export function mockHandle(obj){
         const c = mockChallenges.find(x=>x.id===challengeId) || mockChallenges[0];
         const target = (c.challenge_zh || c.seed_zh || '');
         const correct = (answer||'').trim()===target || (!!target && (answer||'').includes(target[0]));
-        handleMessageCB({type:'answer_result', correct, expected:'', explanation: correct?'Great job!':'Try focusing on word order.'});
+        const score = correct ? 92 : Math.floor(40 + Math.random()*18); // 40-58 mock fail
+        handleMessageCB({
+          type:'answer_result',
+          correct,
+          score,
+          expected:'',
+          explanation: correct ? 'Great job!' : 'Try focusing on word order.'
+        });
         break;
       }
       case 'hint': {
@@ -78,6 +85,15 @@ export function mockHandle(obj){
         const text = obj.text||'';
         const py = Array.from(text).map(ch => /[\u3400-\u9FFF]/.test(ch) ? 'x5' : ch).join(' ');
         handleMessageCB({type:'pinyin', text, pinyin: py});
+        break;
+      }
+      case 'grammar_input': {
+        const text = (obj.text||'').trim();
+        let corrected = text;
+        // Tiny mock "correction": ensure sentence-final punctuation, replace '的了' -> '了的' (nonsense but visually shows change)
+        if (corrected && !/[。！？.!?]$/.test(corrected)) corrected += '。';
+        corrected = corrected.replace(/的了/g, '了的');
+        handleMessageCB({type:'grammar', text, corrected});
         break;
       }
       case 'next_char': {

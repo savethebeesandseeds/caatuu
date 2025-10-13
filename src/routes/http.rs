@@ -1,5 +1,5 @@
 //! HTTP endpoint handlers. These are thin wrappers that forward to core logic.
-//! Each handler is instrumented so logs include parameters and basic result info.
+//! Each handler is instrumented and log include parameters and basic result info.
 
 use std::sync::Arc;
 use axum::{extract::{State, Query}, Json, response::IntoResponse};
@@ -28,9 +28,9 @@ pub async fn http_post_answer(
   State(state): State<Arc<AppState>>,
   Json(body): Json<AnswerIn>,
 ) -> impl IntoResponse {
-  let (correct, expected, explanation) = evaluate_answer(&state, &body.challenge_id, &body.answer).await;
-  info!(target: "challenge", id = %body.challenge_id, %correct, "HTTP submit_answer evaluated");
-  Json(AnswerOut { correct, expected, explanation })
+  let (correct, score, expected, explanation) = evaluate_answer(&state, &body.challenge_id, &body.answer).await;
+  info!(target: "challenge", id = %body.challenge_id, %correct, score = %format!("{:.1}", score), "HTTP submit_answer evaluated");
+  Json(AnswerOut { correct, score, expected, explanation })
 }
 
 #[instrument(level = "info", skip(state), fields(%q.challenge_id))]
@@ -59,6 +59,16 @@ pub async fn http_post_pinyin(
 ) -> impl IntoResponse {
   let pinyin = do_pinyin(&state, &body.text).await;
   Json(PinyinOut { pinyin })
+}
+
+// NEW: grammar correction
+#[instrument(level = "info", skip(state, body), fields(text_len = body.text.len()))]
+pub async fn http_post_grammar(
+  State(state): State<Arc<AppState>>,
+  Json(body): Json<GrammarIn>,
+) -> impl IntoResponse {
+  let corrected = do_grammar(&state, &body.text).await;
+  Json(GrammarOut { corrected })
 }
 
 #[instrument(level = "info", skip(state, body), fields(%body.challenge_id, prefix_len = body.current.len()))]

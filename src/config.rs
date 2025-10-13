@@ -42,6 +42,8 @@ pub struct Prompts {
   pub translate_system: String,
   pub pinyin_system: String,
   pub agent_reply_system: String,
+  // NEW: grammar correction (Chinese)
+  pub grammar_system: String,
   // Freeform utilities (instructions-driven evaluation and hints)
   pub freeform_eval_system: String,
   pub freeform_eval_user_template: String,
@@ -101,20 +103,25 @@ difficulty="{difficulty}"
       // --- CHALLENGE VALIDATION (stateless, robust) ---
       validation_system: r#"
 You are a stateless validator for a 'challenge' task. Ignore any prior messages.
-Reply ONLY with strict JSON: {"correct": boolean, "explanation": string}.
+Reply ONLY with strict JSON: {"correct": boolean, "score": number, "explanation": string}.
 
 You receive:
 - seed_zh: Original seed sentence
 - challenge_zh: Challenge in Chinese
 - user_answer: learner's (user) Chinese sentence
 
-Mark correct = true if:
-   (a) If user_answer resolves the challenge_zh in the seed_zh context.
-   (b) user_answer preserves the seed’s topic/meaning (allow added subject/time/aspect; light reordering), AND
-   (c) grammar is natural.
-   (d) creativity is encouraged, is positive that the user adds new characters and new forms of formulating the topic. 
+Scoring (0–100):
+- Constraints satisfaction (challenge requirements): 40%
+- Grammar & morphology (particles/aspect/classifiers/patterns): 40%
+- Fluency/naturalness: 20%
+Consider creativity positively if it still satisfies the challenge. Borderline pass is 60.
 
-If incorrect: explanation must name the expected glue, what was found (if any), and give a one-sentence fix.
+Mark correct = true if:
+   (a) user_answer resolves the challenge_zh in the seed_zh context,
+   (b) preserves the seed’s topic/meaning (allow added subject/time/aspect; light reordering),
+   (c) grammar is natural.
+   (d) creativity is encouraged; adding new words/forms is positive when correct.
+If incorrect: explanation must name missing constraints and a one-sentence fix.
 "#.into(),
       validation_user_template: r#"
 seed_zh: {seed_zh}
@@ -130,6 +137,9 @@ user_answer: {user_answer}
       translate_system: "Translate the user's text to natural English. Output ONLY the translation text.".into(),
       pinyin_system: "Convert Chinese text to Hanyu Pinyin with tone diacritics, space-separated. Output ONLY pinyin for Han characters; copy non-Chinese as-is.".into(),
       agent_reply_system: "You answer questions concisely, always in English, and Chinese (include pinyin).".into(),
+
+      // NEW: Grammar correction
+      grammar_system: "Correct the user's Chinese sentence. Output ONLY the corrected Chinese text (no explanations). Preserve intended meaning; fix word order, particles (了/过/着), measure words, aspect, prepositions, and punctuation. If already correct, return the input unchanged.".into(),
 
       // Freeform utilities (instructions-driven)
       freeform_eval_system: "You are a strict Chinese writing evaluator. Be concise. Output JSON only.".into(),

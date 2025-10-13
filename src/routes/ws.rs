@@ -64,9 +64,9 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
     }
 
     ClientWsMessage::SubmitAnswer { challenge_id, answer } => {
-      let (correct, expected, explanation) = evaluate_answer(state, &challenge_id, &answer).await;
-      tracing::info!(target: "challenge", id = %challenge_id, %correct, "WS submit_answer evaluated");
-      ServerWsMessage::AnswerResult { correct, expected, explanation }
+      let (correct, score, expected, explanation) = evaluate_answer(state, &challenge_id, &answer).await;
+      tracing::info!(target: "challenge", id = %challenge_id, %correct, score = %format!("{:.1}", score), "WS submit_answer evaluated");
+      ServerWsMessage::AnswerResult { correct, score, expected, explanation }
     }
 
     ClientWsMessage::Hint { challenge_id } => {
@@ -83,6 +83,11 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
     ClientWsMessage::PinyinInput { text } => {
       let pinyin = do_pinyin(state, &text).await;
       ServerWsMessage::Pinyin { text, pinyin }
+    }
+
+    ClientWsMessage::GrammarInput { text } => {
+      let corrected = do_grammar(state, &text).await;
+      ServerWsMessage::Grammar { text, corrected }
     }
 
     ClientWsMessage::NextChar { challenge_id, current } => {

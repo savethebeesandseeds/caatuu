@@ -1,6 +1,6 @@
 import { $, $$, debounce, logInfo, logSuccess, logError, logWarn } from './utils.js';
 import { LSK, ls, current, liveSuggestion } from './state.js';
-import { renderZh, alignPinyinToText } from './zh.js';
+import { renderZh, alignPinyinToText, esc as escHtml } from './zh.js';
 import { okBeep, badBeep, speakText, ttsVoices, ttsSupported, onTTSVoicesChanged } from './audio.js';
 import { wsSend } from './socket.js';
 
@@ -116,6 +116,10 @@ export function setChallenge(c){
   liveSuggestion.char = ''; liveSuggestion.pinyin='';
   renderNextChar();
 
+  // reset grammar box (keep visible with a placeholder)
+  const gr = $('#liveGrammar');
+  if (gr) gr.innerHTML = '<span class="subtle">Press Assist to see corrections.</span>';
+
   logInfo(`New challenge: ${c.id} (${c.difficulty||'hsk3'} · ${c.source||'seed'})`);
   if (ls.getBool('agent_reset_on_new', false)) {
     $('#agentHistory').innerHTML='';
@@ -138,33 +142,93 @@ function addAgentMsg(who, text){
   div.scrollIntoView({behavior:'smooth', block:'end'});
 }
 
-/* ---------- Feedback banner ---------- */
+/* ---------- Feedback banner (now shows score) ---------- */
 let feedbackTimer=null;
-function showFeedback(msg, ok){
+function showFeedback({message, ok, score}){
   const el = $('#answerFeedback');
   if (!el) return;
-  el.textContent = msg || (ok ? 'Correct.' : 'Please try again.');
-  el.className = ok ? 'ok' : 'err';
-  el.style.opacity = '1';
+  const msgSafe = escHtml(message || (ok ? 'Correct.' : 'Please try again.'));
+  const scoreHtml = (typeof score === 'number' && Number.isFinite(score))
+    ? `<strong>${ok ? '✅' : '❌'} Score: ${Math.round(score)}</strong>`
+    : `<strong>${ok ? '✅' : '❌'}</strong>`;
+  el.innerHTML = `${scoreHtml}${msgSafe ? ' ' + msgSafe : ''}`;
+  el.className = (ok ? 'ok' : 'err') + ' show';
   clearTimeout(feedbackTimer);
-  feedbackTimer = setTimeout(()=>{ el.style.opacity='0'; }, 500);
+  feedbackTimer = setTimeout(()=>{
+    el.className = '';
+    el.innerHTML = '';
+  }, 25000);
 }
 
 function onAnswerResult(res){
   setLoading('#challengePanel', false);
   const ok = !!res.correct;
   const exp = (res.explanation || '').trim();
-  if (ok) { okBeep(); logSuccess(`Answer correct${exp ? ` — ${exp}` : ''}`); }
-  else   { badBeep(); logError(`Answer incorrect${exp ? ` — ${exp}` : ''}`); }
+  const score = (typeof res.score === 'number') ? res.score : null;
 
-  showFeedback(exp || (ok ? 'Great job!' : 'Check word order or tones.'), ok);
+  if (ok) { okBeep(); logSuccess(`Answer correct${score!=null?` · Score ${Math.round(score)}`:''}${exp ? ` — ${exp}` : ''}`); }
+  else   { badBeep(); logError(`Answer incorrect${score!=null?` · Score ${Math.round(score)}`:''}${exp ? ` — ${exp}` : ''}`); }
+
+  showFeedback({ message: exp || (ok ? 'Great job!' : 'Check word order or tones.'), ok, score });
 
   const el = $('#answerInput');
   el.style.outline = ok ? '2px solid #35d07f' : '2px solid #ff6b6b';
-  setTimeout(()=>{ el.style.outline=''; }, 450);
+  setTimeout(()=>{ el.style.outline=''; }, 25450);
 }
 
-/* ---------- Assist: on-demand translate & pinyin ---------- */
+/* ---------- LCS-based char diff for grammar ---------- */
+function diffSegments(aStr, bStr){
+  const A = Array.from(aStr || '');
+  const B = Array.from(bStr || '');
+  const n = A.length, m = B.length;
+  const L = Array.from({length:n+1}, ()=> new Array(m+1).fill(0));
+  for (let i=1;i<=n;i++){
+    for (let j=1;j<=m;j++){
+      L[i][j] = (A[i-1]===B[j-1]) ? L[i-1][j-1]+1 : Math.max(L[i-1][j], L[i][j-1]);
+    }
+  }
+  const outRev = [];
+  let i=n, j=m;
+  while(i>0 || j>0){
+    if (i>0 && j>0 && A[i-1]===B[j-1]){
+      outRev.push({t:'eq', ch:A[i-1]}); i--; j--;
+    } else if (j>0 && (i===0 || L[i][j-1] >= L[i-1]?.[j] || i===0)){
+      outRev.push({t:'ins', ch:B[j-1]}); j--;
+    } else if (i>0){
+      outRev.push({t:'del', ch:A[i-1]}); i--;
+    }
+  }
+  const seq = outRev.reverse();
+  // group consecutive
+  const grouped = [];
+  let cur = null;
+  for (const s of seq){
+    if (!cur || cur.t !== s.t){ cur = {t:s.t, text:s.ch}; grouped.push(cur); }
+    else { cur.text += s.ch; }
+  }
+  return grouped;
+}
+
+function renderGrammarDiff(original, corrected){
+  const segs = diffSegments(original, corrected);
+  let origHtml = '', corrHtml = '';
+  for (const seg of segs){
+    const safe = escHtml(seg.text);
+    if (seg.t === 'eq'){ origHtml += safe; corrHtml += safe; }
+    else if (seg.t === 'del'){ origHtml += `<span class="gc-del">${safe}</span>`; }
+    else if (seg.t === 'ins'){ corrHtml += `<span class="gc-ins">${safe}</span>`; }
+  }
+  return `
+    <div class="gc-row"><div class="gc-label">You</div><div class="gc-line">${origHtml}</div></div>
+    <div class="gc-row"><div class="gc-label">Corrected</div><div class="gc-line">${corrHtml}</div></div>
+    <div class="gc-legend">
+      <span class="sw add"></span> Added in corrected
+      <span class="sw del"></span> Removed from input
+    </div>
+  `;
+}
+
+/* ---------- Assist: on-demand translate, pinyin, grammar ---------- */
 function runAssist(){
   const txt = $('#answerInput').value;
   if (!txt) return;
@@ -172,6 +236,8 @@ function runAssist(){
   const needEn = ls.getBool('realtime_translation', true);
   if (needEn) wsSend({type:'translate_input', text:txt});
   if (needPy) wsSend({type:'pinyin_input', text:txt});
+  // Always ask for grammar correction on Assist
+  wsSend({type:'grammar_input', text:txt});
 }
 
 /* ---------- TTS init & bindings ---------- */
@@ -366,7 +432,13 @@ export function bindEvents(){
       e.preventDefault();
       $('#agentForm').requestSubmit();
     }
-    // Default behavior (Shift+Enter) makes newline
+  });
+
+  // Agent Reset button (fix)
+  $('#agentResetBtn')?.addEventListener('click', ()=>{
+    $('#agentHistory').innerHTML = '';
+    wsSend({type:'agent_reset'});
+    logInfo('Agent history reset.');
   });
 
   // Settings (visibility + rendering)
@@ -378,7 +450,7 @@ export function bindEvents(){
 
   $('#tglNextChar').addEventListener('change', (e)=>{ ls.setBool('next_char_suggest', e.target.checked); applyArtifactsVisibility(); renderNextChar(); });
   $('#tglAgentReset').addEventListener('change', (e)=> ls.setBool('agent_reset_on_new', e.target.checked));
-  $('#tglShowEn').addEventListener('change', (e)=>{ 
+  $('#tglShowEn').addEventListener('change', (e)=>{
     ls.setBool(LSK.chEn, e.target.checked);
     const c = current.challenge;
     if (c){
@@ -435,6 +507,16 @@ export function handleMessage(msg){
         pendingChallengePy.delete(txt);
         renderAllZh();
       }
+      break;
+    }
+    case 'grammar': {
+      const original = (msg.text || '');
+      const corrected = (msg.corrected || '');
+      const box = $('#liveGrammar');
+      if (box){
+        box.innerHTML = renderGrammarDiff(original, corrected);
+      }
+      logInfo(`Grammar correction received.`);
       break;
     }
     case 'next_char':

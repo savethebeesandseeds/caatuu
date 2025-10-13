@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Add viewport-fit to respect notches/safe areas on iOS; keep initial-scale=1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Caatuu · Chinese Trainer</title>
+  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
+  <!-- fixed top-right favicon -->
+  <a id="cornerFavicon" href="/" title="Caatuu"><img src="favicon.ico" alt="App icon"></a>
+
   <div id="grid" class="auto-zh-scan">
     <!-- Agent (top-left) -->
     <section id="agentPanel" class="panel" aria-label="Agent">
@@ -22,10 +27,10 @@
       </div>
       <div class="panel-body" style="border-top:1px solid var(--edge);">
         <form id="agentForm" class="row" autocomplete="off">
-          <textarea id="agentInput" placeholder="Ask the agent about this or previous challenges… (Enter = Send, Shift+Enter = newline)" aria-label="Agent input"></textarea>
+          <textarea id="agentInput" placeholder="Ask anything..." aria-label="Agent input"></textarea>
           <button class="btn" id="agentSendBtn" type="submit">Send</button>
         </form>
-        <div class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges. History can auto-reset on new challenge (see Settings).</div>
+        <div class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges.</div>
       </div>
     </section>
 
@@ -43,14 +48,13 @@
             <button id="challengeInfoBtn" class="btn small ghost" title="" aria-label="English info">ⓘ</button>
           </div>
           <span class="grow"></span>
-          <!-- (No buttons here; all actions live in the input bar) -->
         </header>
 
         <div class="panel-body">
-          <!-- Input bar at the top, with buttons at the right -->
+          <!-- Input bar at the top, sticky on mobile, with buttons at the right -->
           <div id="answerBar" class="input-bar">
             <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
-              <textarea id="answerInput" placeholder="Type your answer in Chinese (Enter = submit · Shift+Enter = newline)..." aria-label="Challenge answer input"></textarea>
+              <textarea id="answerInput" placeholder="Type your answer in Chinese" aria-label="Challenge answer input"></textarea>
             </form>
             <div class="btn-group" role="group" aria-label="Answer actions">
               <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊 Listen</button>
@@ -71,8 +75,8 @@
               </div>
               <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
 
-              <div class="row" style="margin-top:10px; justify-content:space-between; align-items:center;">
-                <div class="section-label" style="opacity:.85">Target</div>
+              <div class="row" style="margin-top:2px; justify-content:space-between; align-items:center;">
+                <div class="section-label" style="opacity:.85">Challenge</div>
                 <button class="btn small ghost" id="speakChallengeBtn" type="button" title="Listen to Challenge">🔊 Listen</button>
               </div>
               <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
@@ -82,22 +86,22 @@
 
             <aside id="taskHelp">
               <div class="section-label">Help & Hints</div>
-
               <div id="hintsBlock">
-                <div class="intro">Short nudges—not solutions—to guide your sentence.</div>
                 <ul id="hintsList" class="hints"></ul>
               </div>
-
               <div id="assistCard" style="margin-top:12px;">
-                <div class="section-label">Assist</div>
                 <div class="kv" id="rtGrid" style="margin-top:8px;">
-                  <div id="rtRowPinyin" class="kv-row">
-                    <div class="subtle">Your input (pinyin)</div>
-                    <div id="livePinyin" class="mono"></div>
+                  <div id="rtRowGrammar" class="kv-row">
+                    <div class="subtle">Grammar correction</div>
+                    <div id="liveGrammar" class="gc-box"><span class="subtle">Press Assist to see corrections.</span></div>
                   </div>
                   <div id="rtRowTrans" class="kv-row">
-                    <div class="subtle">Your input (translation)</div>
+                    <div class="subtle">Input (translation)</div>
                     <div id="liveTranslation"></div>
+                  </div>
+                  <div id="rtRowPinyin" class="kv-row">
+                    <div class="subtle">Input (pinyin)</div>
+                    <div id="livePinyin" class="mono"></div>
                   </div>
                   <div id="rtRowNextChar" class="kv-row">
                     <div class="subtle">Next-character suggestion</div>
@@ -125,8 +129,8 @@
           <!-- Left: Settings -->
           <div>
             <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
-              <label class="row" title="Challenge difficulty">
-                <span>Difficulty</span>
+              <label class="row nowrap" title="Challenge difficulty">
+                <span>Difficulty:</span>
                 <select id="difficultySel" class="grow">
                   <option value="auto">Auto</option>
                   <option value="hsk1">HSK 1</option>
@@ -139,14 +143,13 @@
               </label>
 
               <!-- Assist toggles (on-demand) -->
-              <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
-              <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
-
-              <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
               <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone (ALL)</label>
               <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
-              <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
+              <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
+              <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
+              <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
               <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
+              <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
 
               <!-- TTS settings -->
               <label class="row" title="Voice used for text-to-speech">

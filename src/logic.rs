@@ -12,57 +12,56 @@ use crate::domain::Challenge;
 use crate::protocol::ChallengeOut;
 use crate::state::AppState;
 use crate::pinyin::to_pinyin_diacritics;
+use crate::util::is_cjk;
 
 pub fn _to_out(c: &Challenge) -> ChallengeOut {
   crate::protocol::to_out(c)
 }
 
 #[instrument(level = "info", skip(state, answer), fields(%challenge_id, answer_len = answer.len()))]
-pub async fn evaluate_answer(state: &AppState, challenge_id: &str, answer: &str) -> (bool, String, String) {
+pub async fn evaluate_answer(state: &AppState, challenge_id: &str, answer: &str) -> (bool, f32, String, String) {
   if let Some(ch) = state.get_challenge(challenge_id).await {
-    // Prefer seed+challenge LLM validation if available; otherwise fall back to instructions+rubric evaluation.
     let has_seed_challenge = !ch.seed_zh.is_empty() && !ch.challenge_zh.is_empty();
     if has_seed_challenge {
       if let Some(oa) = &state.openai {
         match oa.validate_challenge(&state.prompts, &ch.seed_zh, &ch.challenge_zh, answer).await {
-          Ok((ok, exp)) => (ok, String::new(), exp),
+          Ok((ok, score, exp)) => (ok, score, String::new(), exp),
           Err(e) => {
             error!(target: "challenge", id = %ch.id, error = %e, "OpenAI validate_challenge failed; using local rubric.");
             let (ok, score, exp) = freeform_eval_local(&ch, answer);
-            (ok, String::new(), format!("(local) score={:.0}: {}", score, exp))
+            (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
           }
         }
       } else {
         let (ok, score, exp) = freeform_eval_local(&ch, answer);
-        (ok, String::new(), format!("(local) score={:.0}: {}", score, exp))
+        (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
       }
     } else if !ch.instructions.is_empty() {
       let rubric_json = ch.rubric.as_ref().and_then(|r| serde_json::to_string(r).ok()).unwrap_or("{}".into());
       if let Some(oa) = &state.openai {
         match oa.freeform_eval(&state.prompts, &ch.instructions, &rubric_json, answer).await {
-          Ok((ok, score, exp)) => (ok, String::new(), format!("score={:.0}: {}", score, exp)),
+          Ok((ok, score, exp)) => (ok, score, String::new(), format!("score={:.0}: {}", score, exp)),
           Err(e) => {
             error!(target: "challenge", id = %ch.id, error = %e, "OpenAI freeform_eval failed; using local rubric.");
             let (ok, score, exp) = freeform_eval_local(&ch, answer);
-            (ok, String::new(), format!("(local) score={:.0}: {}", score, exp))
+            (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
           }
         }
       } else {
         let (ok, score, exp) = freeform_eval_local(&ch, answer);
-        (ok, String::new(), format!("(local) score={:.0}: {}", score, exp))
+        (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
       }
     } else {
-      (false, String::new(), "No evaluation path: challenge is missing seed+challenge and instructions.".into())
+      (false, 0.0, String::new(), "No evaluation path: challenge is missing seed+challenge and instructions.".into())
     }
   } else {
-    (false, "".into(), format!("Unknown challengeId: {}", challenge_id))
+    (false, 0.0, "".into(), format!("Unknown challengeId: {}", challenge_id))
   }
 }
 
 #[instrument(level = "info", skip(state), fields(%challenge_id))]
 pub async fn get_hint_text(state: &AppState, challenge_id: &str) -> String {
   if let Some(ch) = state.get_challenge(challenge_id).await {
-    // Build a concise instruction to feed into freeform_hint
     let instr = if !ch.challenge_zh.is_empty() {
       format!("Seed: {}\nChallenge: {}", ch.seed_zh, ch.challenge_zh)
     } else if !ch.instructions.is_empty() {
@@ -87,6 +86,13 @@ pub async fn get_hint_text(state: &AppState, challenge_id: &str) -> String {
   }
 }
 
+#[instrument(level = "info", skip(_state, text), fields(text_len = text.len()))]
+pub async fn do_pinyin(_state: &AppState, text: &str) -> String {
+  let p = to_pinyin_diacritics(text);
+  debug!(target: "caatuu_backend", text, p, "pinying translation.");
+  p
+}
+
 #[instrument(level = "info", skip(state, text), fields(text_len = text.len()))]
 pub async fn do_translate(state: &AppState, text: &str) -> String {
   if let Some(oa) = &state.openai {
@@ -98,23 +104,20 @@ pub async fn do_translate(state: &AppState, text: &str) -> String {
   translate_stub(text)
 }
 
+// Grammar correction
 #[instrument(level = "info", skip(state, text), fields(text_len = text.len()))]
-pub async fn do_pinyin(state: &AppState, text: &str) -> String {
-  // if let Some(oa) = &state.openai {
-  //   match oa.pinyin_for_text(&state.prompts, text).await {
-  //     Ok(p) => {debug!(target: "caatuu_backend", text, p, "pinying translation."); return p},
-  //     Err(e) => tracing::error!(target: "caatuu_backend", error = %e, "OpenAI pinyin failed; using local fallback."),
-  //   }
-  // }
-  // state.pinyin_for_text_local(text)
-  let p = to_pinyin_diacritics(text);
-  debug!(target: "caatuu_backend", text, p, "pinying translation.");
-  return p;
+pub async fn do_grammar(state: &AppState, text: &str) -> String {
+  if let Some(oa) = &state.openai {
+    match oa.grammar_correct(&state.prompts, text).await {
+      Ok(t) => return t,
+      Err(e) => tracing::error!(target: "caatuu_backend", error = %e, "OpenAI grammar_correct failed; using stub fallback."),
+    }
+  }
+  grammar_stub(text)
 }
 
 #[instrument(level = "info", skip(state, question), fields(%challenge_id, question_len = question.len()))]
 pub async fn do_agent_reply(state: &AppState, challenge_id: &str, question: &str) -> String {
-  // Provide seed context if available.
   let ctx = state
     .get_challenge(challenge_id)
     .await
@@ -146,15 +149,17 @@ pub async fn next_char_logic(_state: &AppState, _challenge_id: &str, _current: &
 
 fn freeform_eval_local(ch: &Challenge, answer: &str) -> (bool, f32, String) {
   let mut score = 50.0;
-  let mut notes: Vec<String> = vec![];
+  let mut notes = vec![];
 
   if let Some(r) = &ch.rubric {
     if let Some(min_chars) = r.min_chars {
-      if answer.chars().count() >= min_chars { score += 15.0; } else { notes.push(format!("Too short (< {})", min_chars)); }
+      if answer.chars().count() >= min_chars { score += 15.0; }
+      else { notes.push(format!("Too short (< {})", min_chars)); }
     }
     if let Some(req) = &r.must_include {
       for w in req {
-        if answer.contains(w) { score += 5.0; } else { notes.push(format!("Missing '{}'", w)); }
+        if answer.contains(w) { score += 5.0; }
+        else { notes.push(format!("Missing '{}'", w)); }
       }
     }
     if let Some(avoid) = &r.avoid {
@@ -163,10 +168,12 @@ fn freeform_eval_local(ch: &Challenge, answer: &str) -> (bool, f32, String) {
       }
     }
   }
+
   if score > 100.0 { score = 100.0; }
   if score < 0.0 { score = 0.0; }
   let correct = score >= 60.0;
-  let explanation = if notes.is_empty() { "Looks okay.".into() } else { notes.join("; ") };
+  let mut explanation = if notes.is_empty() { "Looks okay.".into() } else { notes.join("; ") };
+  explanation.push_str(&format!(" (Score: {:.1}/100)", score));
   (correct, score, explanation)
 }
 
@@ -189,6 +196,17 @@ fn translate_stub(text: &str) -> String {
     "我们一起学习吧！" => "Let's study together!".into(),
     _ => "Translation not available (stub).".into(),
   }
+}
+
+// Tiny grammar stub: ensure ending punctuation; otherwise return input
+fn grammar_stub(text: &str) -> String {
+  let s = text.trim();
+  if s.is_empty() { return s.to_string(); }
+  let last = s.chars().last().unwrap_or(' ');
+  let is_punct = matches!(last, '。' | '！' | '？' | '.' | '!' | '?');
+  if is_punct { return s.to_string(); }
+  let has_cjk = s.chars().any(is_cjk);
+  if has_cjk { format!("{}。", s) } else { format!("{}.", s) }
 }
 
 /// Tiny agent fallback that answers common "了/le" type questions.

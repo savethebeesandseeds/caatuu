@@ -9,7 +9,7 @@ use std::time::Duration;
 
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
 use serde::{Deserialize, Serialize};
-use tracing::{debug, instrument, info, error};
+use tracing::{instrument, info, error};
 
 use crate::config::Prompts;
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
@@ -156,11 +156,8 @@ impl OpenAI {
     prompts: &Prompts,
     difficulty: &str,
   ) -> Result<Challenge, String> {
-    // --- Stage 1: build user/system prompt
     let system = fill_template(&prompts.challenge_system, &[("difficulty", difficulty)]);
     let variables = fill_template(&prompts.challenge_user_template, &[("difficulty", difficulty)]);
-    // debug!(user_preview = %variables.chars().collect::<String>(), system = %system.chars().collect::<String>(), "Prepared user prompt");
-    // --- Stage 2: call model
     let start = std::time::Instant::now();
     let result = self.chat_json::<Gen>(&self.strong_model, &system, &variables, 0.95).await;
     let elapsed = start.elapsed();
@@ -173,9 +170,7 @@ impl OpenAI {
       }
     }
 
-    // --- Stage 3: parse & construct challenge
     let gen = result?;
-
     let ch = Challenge {
       id: Uuid::new_v4().to_string(),
       difficulty: difficulty.to_string(),
@@ -200,8 +195,7 @@ impl OpenAI {
     Ok(ch)
   }
 
-
-  // seed_zh + challenge_zh validator
+  // seed_zh + challenge_zh validator (now returns a score too)
   #[instrument(level = "info", skip(self, prompts, seed_zh, challenge_zh, user_answer),
                fields(seed_len = seed_zh.len(), challenge_len = challenge_zh.len(), ans_len = user_answer.len()))]
   pub async fn validate_challenge(
@@ -210,9 +204,9 @@ impl OpenAI {
     seed_zh: &str,
     challenge_zh: &str,
     user_answer: &str,
-  ) -> Result<(bool, String), String> {
+  ) -> Result<(bool, f32, String), String> {
     #[derive(Deserialize)]
-    struct Val { correct: bool, explanation: String }
+    struct Val { correct: bool, score: f32, explanation: String }
 
     let system = &prompts.validation_system;
     let user = crate::util::fill_template(
@@ -225,7 +219,7 @@ impl OpenAI {
     );
 
     let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
-    Ok((v.correct, v.explanation))
+    Ok((v.correct, v.score, v.explanation))
   }
 
   #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
@@ -236,6 +230,17 @@ impl OpenAI {
   #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
   pub async fn pinyin_for_text(&self, prompts: &Prompts, text: &str) -> Result<String, String> {
     self.chat_plain(&self.fast_model, &prompts.pinyin_system, text, 0.0).await
+  }
+
+  #[instrument(level = "info", skip(self, prompts, instructions), fields(instr_len = instructions.len()))]
+  pub async fn freeform_hint(
+    &self,
+    prompts: &Prompts,
+    instructions: &str,
+  ) -> Result<String, String> {
+    let system = &prompts.freeform_hint_system;
+    let user = fill_template(&prompts.freeform_hint_user_template, &[("instructions", instructions)]);
+    self.chat_plain(&self.fast_model, system, &user, 0.2).await
   }
 
   #[instrument(level = "info", skip(self, prompts, question, context_zh), fields(question_len = question.len(), has_context = context_zh.is_some()))]
@@ -269,15 +274,14 @@ impl OpenAI {
     Ok((e.correct, e.score, e.explanation))
   }
 
-  #[instrument(level = "info", skip(self, prompts, instructions), fields(instr_len = instructions.len()))]
-  pub async fn freeform_hint(
+  // Grammar correction (Chinese)
+  #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
+  pub async fn grammar_correct(
     &self,
     prompts: &Prompts,
-    instructions: &str,
+    text: &str,
   ) -> Result<String, String> {
-    let system = &prompts.freeform_hint_system;
-    let user = fill_template(&prompts.freeform_hint_user_template, &[("instructions", instructions)]);
-    self.chat_plain(&self.fast_model, system, &user, 0.2).await
+    self.chat_plain(&self.fast_model, &prompts.grammar_system, text, 0.0).await
   }
 }
 

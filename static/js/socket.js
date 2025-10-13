@@ -1,4 +1,5 @@
 import { startMock, mockHandle, setMockHandler } from './mock.js';
+import { logInfo, logWarn, logError } from './utils.js';
 
 let WS = null;
 let connected = false;
@@ -47,6 +48,7 @@ function scheduleReconnect(){
               + Math.floor(Math.random()*500);
   reconnectTimer = setTimeout(()=>{
     reconnectTimer = null;
+    logInfo(`[WS] Reconnecting (attempt ${reconnectAttempts})…`);
     connectWS();
   }, delay);
 }
@@ -60,14 +62,28 @@ export function connectWS(){
 
   try{
     updateConnDot('reconnecting'); // visual cue while connecting
+    logInfo(`[WS] Connecting to ${WS_URL}…`);
     WS = new WebSocket(WS_URL);
 
+    // Guard against browsers that emit 'error' but not 'close'
+    let connectTimeout = setTimeout(()=>{
+      if (!connected){
+        try{ WS && WS.close(); }catch(_){}
+        startMock(); usingMock = true;
+        updateConnDot('reconnecting');
+        logWarn('[WS] Connect timeout; using mock while retrying…');
+        scheduleReconnect();
+      }
+    }, 2500);
+
     WS.addEventListener('open', ()=>{
+      clearTimeout(connectTimeout);
       connected = true; usingMock = false;
       updateConnDot('ok');
       reconnectAttempts = 0;
       if (reconnectTimer){ clearTimeout(reconnectTimer); reconnectTimer=null; }
       startHeartbeat();
+      logSuccessSafe('[WS] Connected.');
     });
 
     WS.addEventListener('message', ev=>{
@@ -81,30 +97,62 @@ export function connectWS(){
       try{ onMessage(data); }catch(e){}
     });
 
-    WS.addEventListener('close', ()=>{
+    WS.addEventListener('close', (e)=>{
+      clearTimeout(connectTimeout);
       connected = false;
       stopHeartbeat();
+      logWarn(`[WS] Closed (code ${e.code}${e.reason ? `, reason: ${e.reason}` : ''}). Using mock + retry.`);
       // Continue operating in mock while we attempt to reconnect
       startMock(); usingMock = true;
       scheduleReconnect();
     });
 
     WS.addEventListener('error', ()=>{
-      // 'close' generally follows; if not, ensure we schedule reconnect
+      // Some browsers only fire 'error' (no 'close') when Origin is rejected or path blocked.
+      clearTimeout(connectTimeout);
+      if (!connected){
+        logError('[WS] Error during connect; switching to mock + retry.');
+        try{ WS && WS.close(); }catch(_){}
+        connected = false;
+        startMock(); usingMock = true;
+        updateConnDot('reconnecting');
+        scheduleReconnect();
+      } else {
+        logError('[WS] Error on open socket.');
+      }
     });
   }catch(e){
     // If socket creation throws (e.g., bad URL), fall back to mock and try again later
+    logError('[WS] Exception creating socket; using mock + retry.');
     startMock(); usingMock = true;
     scheduleReconnect();
   }
 }
 
+// Safe logging helper (in case UI not yet mounted)
+function logSuccessSafe(msg){
+  try{ logInfo(msg); }catch(_){ console.log(msg); }
+}
+
 export function wsSend(obj){
   if (connected && WS && WS.readyState === WebSocket.OPEN){
     try { WS.send(JSON.stringify(obj)); }
-    catch { mockHandle(obj); }
+    catch {
+      logWarn('[WS] Send failed; routing to mock.');
+      mockHandle(obj);
+    }
   } else {
-    // While reconnecting, keep app usable via mock
+    // While reconnecting or offline, keep app usable via mock
+    logWarn('[WS] Offline/reconnecting; routing action to mock.');
     mockHandle(obj);
   }
 }
+
+/* Try again quickly when network comes back */
+window.addEventListener('online', ()=>{ logInfo('[WS] Browser back online; scheduling reconnect.'); scheduleReconnect(); });
+window.addEventListener('offline', ()=>{ 
+  logWarn('[WS] Browser offline; switching to mock.');
+  connected=false; 
+  startMock(); usingMock=true; 
+  updateConnDot('reconnecting'); 
+});

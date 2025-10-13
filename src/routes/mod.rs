@@ -37,6 +37,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
     .route("/api/v1/hint", get(http::http_get_hint))
     .route("/api/v1/translate", post(http::http_post_translate))
     .route("/api/v1/pinyin", post(http::http_post_pinyin))
+    .route("/api/v1/grammar", post(http::http_post_grammar)) // NEW
     .route("/api/v1/next_char", post(http::http_post_next_char))
     .route("/api/v1/agent/message", post(http::http_post_agent_message))
     // State + CORS + HTTP tracing

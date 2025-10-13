@@ -1,6 +1,6 @@
 :root{
   /* Grid & splits */
-  --gap: 1px;
+  --gap: 3px;
   --col-left: 25%;
   --row-top: 75vh;
   --right-split: 52%;
@@ -27,8 +27,10 @@
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
-html,body{ height:100%; margin:0; }
+html{ height:100%; -webkit-text-size-adjust:100%; }
 body{
+  height:100%;
+  margin:0;
   font-family: var(--mono);
   color:var(--text);
   background: var(--bg-900);
@@ -36,38 +38,57 @@ body{
   text-rendering: optimizeLegibility;
   scrollbar-width: thin;
   scrollbar-color: #474747 #111;
+  /* mobile safe area */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  overscroll-behavior-y: contain;
 }
 body::-webkit-scrollbar{ width:12px; height:12px; }
 body::-webkit-scrollbar-track{ background:#111; }
 body::-webkit-scrollbar-thumb{ background:#474747; border-radius:6px; }
 body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 
+/* Root grid */
 #grid{
   display:grid;
   grid-template-columns: var(--col-left) var(--gap) 1fr;
   grid-template-rows: var(--row-top) var(--gap) 1fr;
-  height:100dvh; width:100%;
+  height:100dvh;
+  min-height:100svh;
+  width:100%;
 }
 
 .hidden{ display:none !important; }
 
-/* Panels */
+/* =========================================
+   Panels (header fixed, body scrolls)
+   ========================================= */
 .panel{
   position:relative;
-  overflow:auto;
+  display:grid;
+  grid-template-rows: auto 1fr;  /* header | scrollable body */
+  min-height:0;
+  overflow:hidden;               /* outer never scrolls */
   border:1px solid var(--edge);
   border-radius:var(--radius);
   background:var(--bg-820);
+}
+
+/* Scrollable body */
+.panel > .panel-body{
+  min-height:0;
+  overflow:auto;
+  padding:12px;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: #474747 #111;
 }
-.panel::-webkit-scrollbar{ width:10px; height:10px; }
-.panel::-webkit-scrollbar-track{ background:#111; }
-.panel::-webkit-scrollbar-thumb{ background:#474747; border-radius:6px; }
-.panel::-webkit-scrollbar-thumb:hover{ background:#595959; }
+.panel > .panel-body::-webkit-scrollbar{ width:10px; height:10px; }
+.panel > .panel-body::-webkit-scrollbar-track{ background:#111; }
+.panel > .panel-body::-webkit-scrollbar-thumb{ background:#474747; border-radius:6px; }
+.panel > .panel-body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 
 .panel-header{
-  position:sticky;
+  position:sticky; /* harmless; header stays visible above scroller */
   top:0;
   z-index:2;
   display:flex;
@@ -83,7 +104,6 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
   font-size:0.8rem;
   color:var(--text);
 }
-.panel-body{ padding:12px; }
 
 /* Flat backgrounds for Help & Bottom */
 #helpPanel, #bottomPanel{ background:var(--bg-820); }
@@ -102,12 +122,21 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 #agentPanel{
   background:var(--bg-820);
   border-color:var(--accent-agent);
+
+  /* header | history (scroll) | input (fixed) */
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  min-height:0;
 }
-#agentPanel .panel-header{
-  background:var(--bg-850);
-  border-bottom-color:var(--edge);
+/* history area: the scroller */
+#agentPanel > .panel-body:first-of-type{
+  min-height:0;
+  overflow:auto;
 }
-#agentPanel .panel-title{ color:var(--accent-agent); }
+/* input area: fixed, no scroll */
+#agentPanel > .panel-body:last-of-type{
+  overflow:visible;
+}
 
 /* Gear visibility and animation control */
 .panel .panel-header .gear{ display:none; }
@@ -131,7 +160,7 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 /* Controls */
 .gear{ width:18px; height:18px; opacity:.9; }
 .spin{ animation:spin 1.2s linear infinite; }
-@keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360)} }
 
 .btn{
   cursor:pointer;
@@ -142,11 +171,16 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
   color:var(--text);
   font-weight:600;
   transition:background .15s;
+  min-height:40px;        /* phone touch target */
+  min-width:44px;         /* phone touch target */
+  touch-action:manipulation;
 }
 .btn:hover{ background:#222; }
 .btn.ghost{ background:transparent; color:var(--text-dim); border-color:var(--edge); }
 .btn.small{ padding:6px 10px; font-size:.92rem; }
 .row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+/* keep specific rows unwrapped when needed */
+.row.nowrap{ flex-wrap:nowrap; }
 .grow{ flex:1 1 auto; }
 
 /* Inputs */
@@ -158,8 +192,9 @@ input[type="text"], textarea, select{
   border:1px solid var(--edge);
   color:var(--text);
   font-family:var(--mono);
+  font-size: clamp(0.95rem, 0.7rem + 0.6vw, 1.06rem);
 }
-textarea{ resize:vertical; min-height:64px; }
+textarea{ resize:vertical; min-height:64px; line-height:1.5; }
 select{ background:#111; color:var(--text); }
 option{ background:#111; color:var(--text); }
 .hint{ color:var(--text-dim); font-style:italic; }
@@ -194,46 +229,77 @@ kbd{
 /* Zh rendering */
 ruby.zh{ ruby-position:over; }
 ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
-.zh{ font-size:2.25rem; line-height:1.75; }
+.zh{
+  font-size: clamp(1.35rem, 1rem + 3.2vw, 2.25rem);
+  line-height:1.6;
+}
 #challengeEn{ color:var(--text-dim); margin-top:4px; }
 
-/* --- Improved unified Task layout (rightTop) --- */
-#rightTop{ display:block; }
+/* --- Unified Task layout (rightTop) --- */
+#rightTop{
+  display:flex;      /* constrain child panel for inner scroll */
+  height:100%;
+  min-height:0;
+}
+#rightTop > section.panel{
+  flex:1 1 auto;
+  min-height:0;
+}
 
-/* Answer bar at the top of the panel */
+/* Answer bar: grid so the input can be huge, buttons can drop under */
 #answerBar{
-  display:flex; gap:8px; align-items:stretch;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display:grid;
+  grid-template-columns: 1fr auto;   /* input | buttons (desktop) */
+  gap:6px;
+  align-items:stretch;
   background:#101010;
   border:1px solid var(--edge);
   border-radius:8px;
-  padding:8px;
+  padding:6px;
   margin-bottom:10px;
 }
+#answerForm{ grid-column: 1 / 2; }
 #answerInput{
-  font-size:1.5rem;
+  font-size: clamp(1.1rem, 1rem + 1.2vw, 1.5rem);
   line-height:1.5;
   min-height:52px;
 }
-.btn-group{ display:flex; align-items:center; gap:6px; flex:0 0 auto; white-space:nowrap; }
-
-/* Feedback chip */
-#answerFeedback{
-  margin-top:6px; font-size:.92rem;
-  border-radius:6px; padding:8px 10px;
-  border:1px solid transparent; opacity:0; transition:opacity .2s;
+.btn-group{
+  grid-column: 2 / 3;
+  display:flex; align-items:center; gap:4px;
+  flex:0 0 auto;
+  flex-wrap:wrap;
+  white-space:normal;
+  justify-content:flex-end;
 }
+
+/* Feedback chip (collapsible, no phantom gap) */
+#answerFeedback{
+  font-size:.92rem;
+  border-radius:6px;
+  padding:0 10px;
+  border:1px solid transparent;
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  margin-top:0;
+  transition: opacity .2s, max-height .25s ease, margin .2s, padding .2s;
+}
+#answerFeedback.show{ opacity:1; max-height:220px; margin-top:6px; padding:8px 10px; }
 #answerFeedback.ok{
   border-color:var(--accent-challenge);
   background:#0f1712;
   color:#a9eec6;
-  opacity:1;
 }
 #answerFeedback.err{
   border-color:#ef4444;
   background:#1a0f10;
   color:#ffc7c7;
-  opacity:1;
 }
+#answerFeedback strong{ font-weight:800; margin-right:.4em; }
 
 /* Task grid: Challenge (left) | Help & Hints (right) */
 #taskGrid{
@@ -288,12 +354,51 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 }
 .kv-row .subtle{ color:var(--text-dim); font-size:.78rem; margin-bottom:2px; }
 
-/* Event log */
-#eventLogControls{ margin-bottom:6px; }
-#eventLog{ max-height:320px; }
+/* Grammar correction diff styles */
+.gc-box{ 
+  background:#0e0e0e;
+  border:1px solid #252525;
+  border-radius:6px;
+  padding:6px 8px;
+}
+.gc-row{
+  display:grid; 
+  grid-template-columns: 90px 1fr; 
+  gap:8px; 
+  align-items:flex-start;
+  margin:2px 0;
+}
+.gc-label{
+  color:#b4b4b4;
+  font-size:.78rem;
+  letter-spacing:.02em;
+  padding-top:2px;
+}
+.gc-line{
+  white-space:pre-wrap;
+  word-break:break-word;
+  line-height:1.55;
+}
+.gc-ins{ color:var(--accent-challenge); background:#0f1712; padding:0 1px; border-radius:2px; }
+.gc-del{ color:#ff9d9d; text-decoration:line-through; background:#1a0f10; padding:0 1px; border-radius:2px; }
+.gc-legend{
+  margin-top:6px; 
+  color:var(--text-dim);
+  font-size:.76rem;
+}
+.gc-legend .sw{ display:inline-block; width:10px; height:10px; border-radius:2px; vertical-align:middle; margin:-2px 4px 0 8px; }
+.gc-legend .sw.add{ background:#0f1712; border:1px solid #1e3a2f; }
+.gc-legend .sw.del{ background:#1a0f10; border:1px solid #3b1f1f; }
+
+/* Make the log fill up to ~half of the viewport, still with a floor and ceiling */
+#eventLog{
+  max-height: clamp(380px, 50vh, 900px);
+  min-height: 260px;
+}
 #eventLog .log-item{
   display:flex; align-items:flex-start; gap:6px;
   padding:6px 8px; margin:2px 0;
+  font-size:0.75rem;
   background:#111; border-left:4px solid #444; border-radius:4px;
 }
 #eventLog .log-info{ border-left-color:#3ea8ff; }
@@ -348,7 +453,7 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 .v-resizer{ cursor:col-resize; }
 .h-resizer{ cursor:row-resize; }
 
-/* Grid placement */
+/* Grid placement (desktop) */
 #agentPanel{ grid-column:1/2; grid-row:1/2; }
 #vr{ grid-column:2/3; grid-row:1/2; }
 #rightTop{ grid-column:3/4; grid-row:1/2; }
@@ -357,3 +462,121 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 
 /* Removed the old internal splitter (help/challenge) */
 /* #helpPanel, #hrRight no longer used */
+
+/* ---------- Compact buttons just in Challenge panel ---------- */
+#challengePanel .btn.small{ padding:4px 8px; min-height:30px; font-size:.86rem; }
+#challengePanel .btn-group{ gap:4px; }
+
+/* Corner favicon (top-right) */
+#cornerFavicon{
+  position:fixed;
+  top:0px; right:10px;
+  width:50px; height:50px;
+  z-index:1000;
+  opacity:.9;
+}
+#cornerFavicon img{ width:100%; height:100%; display:block; }
+
+/* =========================
+   Responsive tweaks
+   =========================*/
+
+/* Buttons under the input once width tightens a bit */
+@media (max-width: 1280px){
+  #answerBar{
+    grid-template-columns: 1fr;         /* stack */
+  }
+  .btn-group{
+    grid-column: 1 / -1;                /* full row under input */
+    justify-content:flex-end;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 880px){
+
+  /* Stack app into one column */
+  #grid{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto var(--gap) auto var(--gap) auto;
+    height:auto;
+    min-height:100svh;
+  }
+
+  /* Reorder: Task on top, Agent next, Settings last */
+  #rightTop{ grid-column:1/2; grid-row:1/2; }
+  #hr{ grid-column:1/2; grid-row:2/3; height:var(--gap); }
+  #agentPanel{ grid-column:1/2; grid-row:3/4; }
+  #bottomPanel{ grid-column:1/2; grid-row:5/6; }
+
+  /* Hide vertical resizer; horizontal stays as a thin spacer */
+  #vr{ display:none !important; }
+
+  .panel-header{ padding:8px 10px; gap:8px; }
+  .panel > .panel-body{ padding:10px; }
+
+  #agentHistory .msg{ max-width: 96%; }
+
+  /* Buttons: wrap into multiple columns for thumb comfort */
+  .btn-group .btn.small{
+    flex: 1 1 46%;
+    text-align:center;
+  }
+
+  /* Labels / pills a bit tighter */
+  .pill{ padding:5px 8px; font-size:.82rem; }
+  .section-label{ font-size:.78rem; }
+
+  /* Event log still sizable on phones */
+  #eventLog{ max-height: 50vh; min-height: 220px; }
+}
+
+@media (max-width: 440px){
+  .panel-header{ padding:6px 8px; }
+  .panel > .panel-body{ padding:8px; }
+  #answerInput{ min-height:48px; }
+  #eventLog{ max-height: 50vh; min-height: 180px; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .spin{ animation:none !important; }
+  .led.reconnecting{ animation:none !important; }
+}
+
+/* =========================
+   Nested scroll enablers
+   =========================*/
+/* Grid items must be allowed to shrink for nested scrolling to work */
+#grid, #agentPanel, #rightTop, #bottomPanel { min-height: 0; }
+
+/* If you use sticky things INSIDE the body (e.g. #answerBar), this helps */
+#challengePanel .panel-body{ position: relative; }
+
+/* --- Compact Difficulty select --- */
+#settingsGrid #difficultySel{
+  padding: 3px 8px;
+  height: 25px;              /* explicit height for consistent compact look */
+  line-height: 1.2;
+  font-size: .85rem;
+}
+
+/* Optional: slightly reduce the label text next to it */
+#settingsGrid label.row.nowrap > span{
+  font-size: .85rem;
+}
+
+/* --- Event log header compact --- */
+#eventLogControls{
+  margin-bottom: 4px;        /* was 6px */
+  padding: 0;                /* keep bar tight */
+}
+#eventLogControls strong{
+  font-size: .9rem;
+  font-weight: 600;
+}
+#eventLogControls .btn.small{
+  padding: 3px 6px;          /* tighter buttons */
+  min-height: 26px;
+  font-size: .8rem;
+}
