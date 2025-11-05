@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="caatuu-ws" content="">
   <!-- Add viewport-fit to respect notches/safe areas on iOS; keep initial-scale=1 -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Caatuu · Chinese Trainer</title>
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="assets/app.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2cc0ff">
+  <link rel="icon" href="assets/icon-192.png">
 </head>
 <body>
   <!-- fixed top-right favicon -->
@@ -34,11 +37,11 @@
       </div>
     </section>
 
-    <!-- Vertical resizer between columns (top row only) -->
-    <div id="vr" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize left/right"></div>
+    <!-- Vertical resizer between left and middle -->
+    <div id="vr" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize left/middle"></div>
 
-    <!-- Unified Task panel: Challenge + Help & Hints -->
-    <div id="rightTop" aria-label="Task: Challenge + Help & Hints">
+    <!-- Middle top column: Task (Challenge) -->
+    <div id="rightTop" aria-label="Task: Challenge">
       <section id="challengePanel" class="panel" aria-label="Task">
         <header class="panel-header">
           <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
@@ -51,22 +54,22 @@
         </header>
 
         <div class="panel-body">
-          <!-- Input bar at the top, sticky on mobile, with buttons at the right -->
+          <!-- Input bar at the top -->
           <div id="answerBar" class="input-bar">
             <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
               <textarea id="answerInput" placeholder="Type your answer in Chinese" aria-label="Challenge answer input"></textarea>
             </form>
             <div class="btn-group" role="group" aria-label="Answer actions">
-              <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊 Listen</button>
+              <button class="btn small accent-submit wide" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
+              <button class="btn small accent-next" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">⏭ Next</button>
               <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
-              <button class="btn small" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
-              <button class="btn small" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
-              <button class="btn small" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">Next</button>
+              <button class="btn small ghost" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
+              <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊 Listen</button>
             </div>
           </div>
           <div id="answerFeedback" aria-live="polite"></div>
 
-          <!-- Two-column content: Challenge (left) | Help & Hints (right) -->
+          <!-- Content: Challenge only -->
           <div id="taskGrid">
             <div id="taskChallenge">
               <div class="row" style="justify-content:space-between; align-items:center;">
@@ -83,105 +86,122 @@
 
               <div id="challengeEn" class="subtle"></div>
             </div>
-
-            <aside id="taskHelp">
-              <div class="section-label">Help & Hints</div>
-              <div id="hintsBlock">
-                <ul id="hintsList" class="hints"></ul>
-              </div>
-              <div id="assistCard" style="margin-top:12px;">
-                <div class="kv" id="rtGrid" style="margin-top:8px;">
-                  <div id="rtRowGrammar" class="kv-row">
-                    <div class="subtle">Grammar correction</div>
-                    <div id="liveGrammar" class="gc-box"><span class="subtle">Press Assist to see corrections.</span></div>
-                  </div>
-                  <div id="rtRowTrans" class="kv-row">
-                    <div class="subtle">Input (translation)</div>
-                    <div id="liveTranslation"></div>
-                  </div>
-                  <div id="rtRowPinyin" class="kv-row">
-                    <div class="subtle">Input (pinyin)</div>
-                    <div id="livePinyin" class="mono"></div>
-                  </div>
-                  <div id="rtRowNextChar" class="kv-row">
-                    <div class="subtle">Next-character suggestion</div>
-                    <div id="liveNextChar" class="mono"></div>
-                  </div>
-                </div>
-                <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Alt+P</kbd> Pinyin · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
-              </div>
-            </aside>
           </div>
         </div>
       </section>
     </div><!-- /rightTop -->
 
-    <!-- Horizontal resizer between top and bottom -->
-    <div id="hr" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize top/bottom"></div>
+    <!-- Vertical resizer between middle and far-right (full height) -->
+    <div id="vrRight" class="v-resizer" role="separator" aria-orientation="vertical" aria-label="Resize middle/right"></div>
 
-    <!-- Settings + Log (bottom, full width) -->
-    <section id="bottomPanel" class="panel" aria-label="Settings and event log">
+    <!-- Far-right column: Help & Hints + Settings (continuous) -->
+    <section id="taskHelp" class="panel" aria-label="Help, hints and settings">
       <header class="panel-header">
-        <span class="panel-title">Settings · Notes · Events</span>
+        <span class="panel-title">Help &amp; Hints</span>
       </header>
       <div class="panel-body">
-        <div id="bottomGrid" style="display:grid; gap:8px; grid-template-columns:minmax(260px, 380px) 1fr;">
-          <!-- Left: Settings -->
-          <div>
-            <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
-              <label class="row nowrap" title="Challenge difficulty">
-                <span>Difficulty:</span>
-                <select id="difficultySel" class="grow">
-                  <option value="auto">Auto</option>
-                  <option value="hsk1">HSK 1</option>
-                  <option value="hsk2">HSK 2</option>
-                  <option value="hsk3">HSK 3</option>
-                  <option value="hsk4">HSK 4</option>
-                  <option value="hsk5">HSK 5</option>
-                  <option value="hsk6">HSK 6</option>
-                </select>
-              </label>
-
-              <!-- Assist toggles (on-demand) -->
-              <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone (ALL)</label>
-              <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
-              <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
-              <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
-              <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
-              <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
-              <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
-
-              <!-- TTS settings -->
-              <label class="row" title="Voice used for text-to-speech">
-                <span>TTS voice</span>
-                <select id="ttsVoiceSel" class="grow"></select>
-              </label>
-              <label class="row" title="Playback speed for text-to-speech">
-                <span>TTS speed</span>
-                <input type="range" id="ttsRate" min="0.6" max="1.6" step="0.05" value="1.00" class="grow">
-                <span id="ttsRateVal" style="min-width:3.5em; text-align:right;">1.00x</span>
-              </label>
+        <div class="section-label">Hints</div>
+        <div id="hintsBlock">
+          <ul id="hintsList" class="hints"></ul>
+        </div>
+        <div id="assistCard" style="margin-top:12px;">
+          <div class="kv" id="rtGrid" style="margin-top:8px;">
+            <div id="rtRowGrammar" class="kv-row">
+              <div class="subtle">Grammar correction</div>
+              <div id="liveGrammar" class="gc-box"><span class="subtle">Press Assist to see corrections.</span></div>
+            </div>
+            <div id="rtRowTrans" class="kv-row">
+              <div class="subtle">Input (translation)</div>
+              <div id="liveTranslation"></div>
+            </div>
+            <div id="rtRowPinyin" class="kv-row">
+              <div class="subtle">Input (pinyin)</div>
+              <div id="livePinyin" class="mono"></div>
+            </div>
+            <div id="rtRowNextChar" class="kv-row">
+              <div class="subtle">Next-character suggestion</div>
+              <div id="liveNextChar" class="mono"></div>
             </div>
           </div>
+          <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Alt+P</kbd> Pinyin · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
+        </div>
 
-          <!-- Right: Log -->
-          <aside>
-            <div class="card">
-              <div class="row" id="eventLogControls" style="justify-content:space-between; align-items:center;">
-                <strong>Event log</strong>
-                <div class="row">
-                  <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
-                  <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
-                </div>
-              </div>
-              <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
+        <!-- Settings continue immediately (no divider) -->
+        <div class="section-label" style="margin-top:14px;">Settings</div>
+        <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
+          <label class="row nowrap" title="Challenge difficulty">
+            <span>Difficulty:</span>
+            <select id="difficultySel" class="grow">
+              <option value="auto">Auto</option>
+              <option value="hsk1">HSK 1</option>
+              <option value="hsk2">HSK 2</option>
+              <option value="hsk3">HSK 3</option>
+              <option value="hsk4">HSK 4</option>
+              <option value="hsk5">HSK 5</option>
+              <option value="hsk6">HSK 6</option>
+            </select>
+          </label>
+
+          <!-- Assist toggles (now default to ON) -->
+          <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone (ALL)</label>
+          <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin (ALL)</label>
+          <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
+          <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
+          <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
+          <label class="toggle"><input type="checkbox" id="tglShowEn"> Show challenge English</label>
+          <label class="toggle"><input type="checkbox" id="tglAgentReset"> Reset agent history on new challenge</label>
+
+          <!-- TTS settings -->
+          <label class="row" title="Voice used for text-to-speech">
+            <span>TTS voice</span>
+            <select id="ttsVoiceSel" class="grow"></select>
+          </label>
+          <label class="row" title="Playback speed for text-to-speech">
+            <span>TTS speed</span>
+            <input type="range" id="ttsRate" min="0.6" max="1.6" step="0.05" value="1.00" class="grow">
+            <span id="ttsRateVal" style="min-width:3.5em; text-align:right;">1.00x</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal resizer between top and bottom (left+middle only) -->
+    <div id="hr" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize top/bottom"></div>
+
+    <!-- Bottom (left+middle only): Event log -->
+    <section id="bottomPanel" class="panel" aria-label="Events">
+      <header class="panel-header">
+        <span class="panel-title">Events</span>
+      </header>
+      <div class="panel-body">
+        <div class="card">
+          <div class="row" id="eventLogControls" style="justify-content:space-between; align-items:center;">
+            <strong>Event log</strong>
+            <div class="row">
+              <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
+              <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
             </div>
-          </aside>
+          </div>
+          <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
         </div>
       </div>
     </section>
   </div>
 
   <script type="module" src="js/main.js"></script>
+  <!-- Register service worker (so app can be installed) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Auto-bust the HTTP cache for sw.js on a timer.
+        // Change every 5 minutes (300000 ms). Make it 60000 for 1 minute, or just Date.now() for every load.
+        // const bust = Math.floor(Date.now() / 300000);
+        const bust = Date.now();
+        navigator.serviceWorker
+          .register(`./sw.js?v=${bust}`, { scope: './' })
+          .catch(console.error);
+      });
+    }
+  </script>
 </body>
 </html>

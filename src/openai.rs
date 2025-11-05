@@ -218,7 +218,7 @@ impl OpenAI {
       ],
     );
 
-    let v: Val = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
+    let v: Val = self.chat_json(&self.strong_model, system, &user, 0.2).await?;
     Ok((v.correct, v.score, v.explanation))
   }
 
@@ -270,7 +270,7 @@ impl OpenAI {
       &prompts.freeform_eval_user_template,
       &[("instructions", instructions), ("rubric_json", rubric_json), ("answer", answer)],
     );
-    let e: Eval = self.chat_json(&self.strong_model, system, &user, 0.0).await?;
+    let e: Eval = self.chat_json(&self.strong_model, system, &user, 0.2).await?;
     Ok((e.correct, e.score, e.explanation))
   }
 

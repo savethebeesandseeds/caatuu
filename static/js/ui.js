@@ -25,8 +25,8 @@ function enTooltip(c){
 
 /* ---------- Rendering helpers ---------- */
 function renderAllZh(){
-  const toneOn = ls.getBool(LSK.tone, false);
-  const pinOn  = ls.getBool(LSK.pinyin, false);
+  const toneOn = ls.getBool(LSK.tone, true);
+  const pinOn  = ls.getBool(LSK.pinyin, true);
   $$('[data-zh-text]').forEach(el=>{
     const zh = el.getAttribute('data-zh-text') || '';
     const pyFull = el.getAttribute('data-zh-pinyin') || '';
@@ -43,7 +43,7 @@ function renderNextChar(){
 
 /* ---------- Pinyin request routing for challenge texts ---------- */
 const pendingChallengePy = new Map(); // text -> [ 'seedZh' | 'challengeZh' ]
-function needPinyinData(){ return ls.getBool(LSK.pinyin, false) || ls.getBool(LSK.tone, false); }
+function needPinyinData(){ return ls.getBool(LSK.pinyin, true) || ls.getBool(LSK.tone, true); }
 function requestPinyinFor(elId, zhText){
   if (!zhText) return;
   const el = $('#'+elId); if (!el) return;
@@ -65,7 +65,7 @@ function applyArtifactsVisibility(){
   const showRTpy = ls.getBool('realtime_pinyin', true);
   const showRTen = ls.getBool('realtime_translation', true);
   const showNext = ls.getBool('next_char_suggest', true);
-  const showEn   = ls.getBool(LSK.chEn, false);
+  const showEn   = ls.getBool(LSK.chEn, true);
 
   const rowPy = $('#rtRowPinyin'); if (rowPy) rowPy.classList.toggle('hidden', !showRTpy);
   const rowEn = $('#rtRowTrans'); if (rowEn) rowEn.classList.toggle('hidden', !showRTen);
@@ -96,7 +96,7 @@ export function setChallenge(c){
   renderAllZh();
 
   // English: summary (fallbacks)
-  $('#challengeEn').textContent = ls.getBool(LSK.chEn, false) ? enSummary(c) : '';
+  $('#challengeEn').textContent = ls.getBool(LSK.chEn, true) ? enSummary(c) : '';
   applyArtifactsVisibility();
 
   const badge = $('#challengeBadge');
@@ -222,8 +222,8 @@ function renderGrammarDiff(original, corrected){
     <div class="gc-row"><div class="gc-label">You</div><div class="gc-line">${origHtml}</div></div>
     <div class="gc-row"><div class="gc-label">Corrected</div><div class="gc-line">${corrHtml}</div></div>
     <div class="gc-legend">
-      <span class="sw add"></span> Added in corrected
-      <span class="sw del"></span> Removed from input
+      <span class="sw add"></span> Added
+      <span class="sw del"></span> Removed
     </div>
   `;
 }
@@ -464,20 +464,20 @@ export function bindEvents(){
 
 export function syncSettingsUI(){
   // Initial toggle states
-  $('#tglTone').checked       = ls.getBool(LSK.tone, false);
-  $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, false);
+  $('#tglTone').checked       = ls.getBool(LSK.tone, true);
+  $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, true);
   $('#tglRTTrans').checked    = ls.getBool('realtime_translation', true);
   $('#tglRTPinyin').checked   = ls.getBool('realtime_pinyin', true);
   $('#tglNextChar').checked   = ls.getBool('next_char_suggest', true);
-  $('#tglAgentReset').checked = ls.getBool('agent_reset_on_new', false);
-  $('#tglShowEn').checked     = ls.getBool(LSK.chEn, false);
+  $('#tglAgentReset').checked = ls.getBool('agent_reset_on_new', true);
+  $('#tglShowEn').checked     = ls.getBool(LSK.chEn, true);
   $('#difficultySel').value   = localStorage.getItem('difficulty') || 'auto';
 
   // Apply current rendering and visibility
   renderAllZh();
   const c = current.challenge;
   if (c){
-    $('#challengeEn').textContent = ls.getBool(LSK.chEn,false) ? enSummary(c) : '';
+    $('#challengeEn').textContent = ls.getBool(LSK.chEn,true) ? enSummary(c) : '';
     ensureChallengePinyin();
   }
   applyArtifactsVisibility();
@@ -537,6 +537,7 @@ export function requestNewChallenge(){
   setLoading('#challengePanel', true);
   const v = localStorage.getItem('difficulty') || 'auto';
   const payload = { type:'new_challenge' };
+  payload.difficulty = "HSK1";
   if (v && v !== 'auto') payload.difficulty = v;
   wsSend(payload);
 }

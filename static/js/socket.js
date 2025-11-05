@@ -6,6 +6,7 @@ let connected = false;
 let usingMock = false;
 
 let onMessage = ()=>{};
+let onOpen = ()=>{};
 let connDotEl = null;
 
 /* --- Reconnect + heartbeat --- */
@@ -18,6 +19,7 @@ const RECONNECT_BASE_MS = 1000;
 const RECONNECT_MAX_MS  = 15000;
 
 export function setOnMessage(cb){ onMessage = cb; setMockHandler(cb); }
+export function setOnOpen(cb){ onOpen = cb; }
 export function setConnDotEl(el){ connDotEl = el; }
 
 function updateConnDot(state){
@@ -27,6 +29,21 @@ function updateConnDot(state){
   connDotEl.title = state === 'ok' ? 'Connected'
                  : state === 'reconnecting' ? 'Reconnecting… (mock active)'
                  : 'Offline (mock)';
+}
+
+function resolveWSUrl(){
+  // Priority: window global → <meta> → ?ws=… → same-origin default
+  const meta = document.querySelector('meta[name="caatuu-ws"]');
+  const qs = new URLSearchParams(location.search);
+  const override = (window.__CAATUU_WS__ || meta?.content || qs.get('ws') || '').trim();
+  if (override) {
+    // Accept http(s) or ws(s), normalize to ws(s)
+    return override
+      .replace(/^http(s?):\/\//i, 'ws$1://')
+      .replace(/\/+$/, ''); // no trailing slash
+  }
+  const scheme = (location.protocol === 'https:') ? 'wss' : 'ws';
+  return `${scheme}://${location.host}/ws`; // same-origin
 }
 
 function startHeartbeat(){
@@ -57,8 +74,7 @@ export function connectWS(){
   // Avoid opening another socket if we already have one connecting/open
   if (WS && (WS.readyState === WebSocket.OPEN || WS.readyState === WebSocket.CONNECTING)) return;
 
-  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-  const WS_URL = `${proto}://${location.host||'localhost:8080'}/ws`;
+  const WS_URL = resolveWSUrl();
 
   try{
     updateConnDot('reconnecting'); // visual cue while connecting
@@ -74,7 +90,7 @@ export function connectWS(){
         logWarn('[WS] Connect timeout; using mock while retrying…');
         scheduleReconnect();
       }
-    }, 2500);
+    }, 6500);
 
     WS.addEventListener('open', ()=>{
       clearTimeout(connectTimeout);
@@ -84,6 +100,7 @@ export function connectWS(){
       if (reconnectTimer){ clearTimeout(reconnectTimer); reconnectTimer=null; }
       startHeartbeat();
       logSuccessSafe('[WS] Connected.');
+      try { onOpen(); logInfo("[WS] to socket onOpen();"); } catch { logInfo("[WS] failed to socket onOpen();"); }
     });
 
     WS.addEventListener('message', ev=>{
@@ -135,7 +152,7 @@ function logSuccessSafe(msg){
 }
 
 export function wsSend(obj){
-  if (connected && WS && WS.readyState === WebSocket.OPEN){
+  if (connected && WS && WS.readyState === WebSocket.OPEN){    
     try { WS.send(JSON.stringify(obj)); }
     catch {
       logWarn('[WS] Send failed; routing to mock.');

@@ -43,7 +43,10 @@ let handleMessageCB = ()=>{};
 
 export function setMockHandler(cb){ handleMessageCB = cb; }
 
-export function startMock(){ usingMock=true; connected=false; }
+export function startMock(){ 
+  usingMock=true; connected=false;
+  mockIdx = Math.floor(Math.random() * mockChallenges.length);
+}
 
 export function mockHandle(obj){
   setTimeout(()=>{

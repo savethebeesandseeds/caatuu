@@ -14,6 +14,7 @@ Objective
 - Append a place challenge that asks the learner to construct the sentence going to a place.
 - Avoid cliché phrases; prefer creative scenarios.
 - Imagine the user has studied with you for a long time and has already seen the obvious patterns.
+- summary_en, is more like a translation.
 
 Output format
 {
@@ -21,15 +22,17 @@ Output format
   "seed_en": "<seed sentence in English>",
   "challenge_zh": "<whole challenge in Chinese>",
   "challenge_en": "<whole challenge in English>",
-  "summary_en": "<seed + challenge summary in English>"
+  "summary_en": "<seed + challenge literal translation in English>"
 }
 
 Global rules
 - Use Simplified Chinese.
 - Keep vocabulary within the requested HSK band.
+- When the difficulty is HSK1, consider very simple things.
 - When the difficulty is high, consider multiple verbs, places, or subjects.
 - The seed must NOT semantically entail or already include the chosen challenges.
 - Make the challenges fun and short.
+- I must insist, challenges should be crazy and special. 
 
 Give priority to some of these stance verbs — choose ONE (at random), appropriate to the requested difficulty (or the provided glue_en):
 
@@ -75,6 +78,7 @@ Mark correct = true if:
   (b) it preserves the seed’s topic/meaning (allow added subject/time/aspect; light reordering),
   (c) grammar is natural,
   (d) creativity is encouraged; adding new words/forms is positive when correct.
+  (e) Be forgiving, important thing is to have fun, the more creative and strange the answer the better. 
 
 Your explanation should be in English and mention missing constraints (if any) and a one-sentence fix.
 """

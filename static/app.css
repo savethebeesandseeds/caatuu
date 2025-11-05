@@ -6,6 +6,9 @@
   --right-split: 52%;
   --radius: 2px;
 
+  /* Far-right column (default narrower) */
+  --col-help: 26%;
+
   /* Flat dark theme */
   --bg-900:#000000;
   --bg-850:#0d0d0d;
@@ -50,7 +53,8 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 /* Root grid */
 #grid{
   display:grid;
-  grid-template-columns: var(--col-left) var(--gap) 1fr;
+  /* left | gap | middle | gap | far-right (resizable) */
+  grid-template-columns: var(--col-left) var(--gap) 1fr var(--gap) minmax(260px, var(--col-help));
   grid-template-rows: var(--row-top) var(--gap) 1fr;
   height:100dvh;
   min-height:100svh;
@@ -88,7 +92,8 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 .panel > .panel-body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 
 .panel-header{
-  position:sticky; /* harmless; header stays visible above scroller */
+  position:sticky; /* header stays visible above scroller */
+  height: 45px;
   top:0;
   z-index:2;
   display:flex;
@@ -106,7 +111,7 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 }
 
 /* Flat backgrounds for Help & Bottom */
-#helpPanel, #bottomPanel{ background:var(--bg-820); }
+#taskHelp, #bottomPanel{ background:var(--bg-820); }
 
 /* --- Accent panels --- */
 #challengePanel{
@@ -267,13 +272,13 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   line-height:1.5;
   min-height:52px;
 }
+/* Buttons stacked vertically (saves horizontal space) */
 .btn-group{
   grid-column: 2 / 3;
-  display:flex; align-items:center; gap:4px;
-  flex:0 0 auto;
-  flex-wrap:wrap;
-  white-space:normal;
-  justify-content:flex-end;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:6px;
 }
 
 /* Feedback chip (collapsible, no phantom gap) */
@@ -301,10 +306,10 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 }
 #answerFeedback strong{ font-weight:800; margin-right:.4em; }
 
-/* Task grid: Challenge (left) | Help & Hints (right) */
+/* Task content (Help moved to far-right column) */
 #taskGrid{
   display:grid; gap:12px;
-  grid-template-columns: 1.5fr 0.5fr;
+  grid-template-columns: 1fr;
   align-items:start;
 }
 @media (max-width: 980px){
@@ -320,7 +325,7 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   margin-bottom:4px;
 }
 
-/* Help & Hints rework */
+/* Help & Hints & Settings panel internals */
 #hintsBlock .intro{
   color:#d7ffd7;
   background:#0d1812;
@@ -363,7 +368,7 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 }
 .gc-row{
   display:grid; 
-  grid-template-columns: 90px 1fr; 
+  grid-template-columns: 1fr 2fr; 
   gap:8px; 
   align-items:flex-start;
   margin:2px 0;
@@ -455,17 +460,19 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 
 /* Grid placement (desktop) */
 #agentPanel{ grid-column:1/2; grid-row:1/2; }
-#vr{ grid-column:2/3; grid-row:1/2; }
-#rightTop{ grid-column:3/4; grid-row:1/2; }
-#hr{ grid-column:1/4; grid-row:2/3; }
-#bottomPanel{ grid-column:1/4; grid-row:3/4; }
+#vr{ grid-column:2/3; grid-row:1/2; }               /* left <-> middle */
+#rightTop{ grid-column:3/4; grid-row:1/2; }         /* middle (task) */
+#vrRight{ grid-column:4/5; grid-row:1/4; }          /* middle <-> far-right (full height) */
+#taskHelp{ grid-column:5/6; grid-row:1/4; }         /* far-right: Help + Settings continuous */
+#hr{ grid-column:1/5; grid-row:2/3; }               /* top/bottom divider (NOT crossing far-right) */
+#bottomPanel{ grid-column:1/5; grid-row:3/4; }      /* bottom: left + middle only */
 
-/* Removed the old internal splitter (help/challenge) */
-/* #helpPanel, #hrRight no longer used */
+/* Removed the old internal splitter */
+/* #hrRight no longer used */
 
 /* ---------- Compact buttons just in Challenge panel ---------- */
 #challengePanel .btn.small{ padding:4px 8px; min-height:30px; font-size:.86rem; }
-#challengePanel .btn-group{ gap:4px; }
+#challengePanel .btn-group{ gap:6px; }
 
 /* Corner favicon (top-right) */
 #cornerFavicon{
@@ -484,11 +491,10 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 /* Buttons under the input once width tightens a bit */
 @media (max-width: 1280px){
   #answerBar{
-    grid-template-columns: 1fr;         /* stack */
+    grid-template-columns: 1fr;         /* stack input then buttons column */
   }
   .btn-group{
     grid-column: 1 / -1;                /* full row under input */
-    justify-content:flex-end;
   }
 }
 
@@ -498,29 +504,30 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   /* Stack app into one column */
   #grid{
     grid-template-columns: 1fr;
-    grid-template-rows: auto var(--gap) auto var(--gap) auto;
+    /* task | gap | agent | gap | help+settings | gap | log */
+    grid-template-rows: auto var(--gap) auto var(--gap) auto var(--gap) auto;
     height:auto;
     min-height:100svh;
   }
 
-  /* Reorder: Task on top, Agent next, Settings last */
+  /* Order */
   #rightTop{ grid-column:1/2; grid-row:1/2; }
   #hr{ grid-column:1/2; grid-row:2/3; height:var(--gap); }
   #agentPanel{ grid-column:1/2; grid-row:3/4; }
-  #bottomPanel{ grid-column:1/2; grid-row:5/6; }
+  #taskHelp{ grid-column:1/2; grid-row:5/6; }
+  #bottomPanel{ grid-column:1/2; grid-row:7/8; }
 
-  /* Hide vertical resizer; horizontal stays as a thin spacer */
-  #vr{ display:none !important; }
+  /* Hide vertical resizers on mobile */
+  #vr, #vrRight{ display:none !important; }
 
   .panel-header{ padding:8px 10px; gap:8px; }
   .panel > .panel-body{ padding:10px; }
 
   #agentHistory .msg{ max-width: 96%; }
 
-  /* Buttons: wrap into multiple columns for thumb comfort */
+  /* Buttons: already vertical; keep touch-friendly */
   .btn-group .btn.small{
-    flex: 1 1 46%;
-    text-align:center;
+    width: 100%;
   }
 
   /* Labels / pills a bit tighter */
@@ -547,10 +554,7 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 /* =========================
    Nested scroll enablers
    =========================*/
-/* Grid items must be allowed to shrink for nested scrolling to work */
-#grid, #agentPanel, #rightTop, #bottomPanel { min-height: 0; }
-
-/* If you use sticky things INSIDE the body (e.g. #answerBar), this helps */
+#grid, #agentPanel, #rightTop, #bottomPanel, #taskHelp { min-height: 0; }
 #challengePanel .panel-body{ position: relative; }
 
 /* --- Compact Difficulty select --- */
@@ -560,23 +564,61 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   line-height: 1.2;
   font-size: .85rem;
 }
-
-/* Optional: slightly reduce the label text next to it */
-#settingsGrid label.row.nowrap > span{
-  font-size: .85rem;
-}
+#settingsGrid label.row.nowrap > span{ font-size: .85rem; }
 
 /* --- Event log header compact --- */
-#eventLogControls{
-  margin-bottom: 4px;        /* was 6px */
-  padding: 0;                /* keep bar tight */
+#eventLogControls{ margin-bottom: 4px; padding: 0; }
+#eventLogControls strong{ font-size: .9rem; font-weight: 600; }
+#eventLogControls .btn.small{ padding: 3px 6px; min-height: 26px; font-size: .8rem; }
+
+/* ===================================================================
+   Answer actions: improved layout, icon, and distinct colors
+   =================================================================== */
+
+/* Always put buttons under the input (all widths) */
+#answerBar{
+  grid-template-columns: 1fr;                 /* single column: input then buttons */
 }
-#eventLogControls strong{
-  font-size: .9rem;
-  font-weight: 600;
+#answerBar .btn-group{
+  grid-column: 1 / -1;
+  display: grid;                              /* override earlier flex */
+  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(96px, max-content));
+  justify-content: end;                       /* right-align on wide screens */
+  align-items: stretch;
 }
-#eventLogControls .btn.small{
-  padding: 3px 6px;          /* tighter buttons */
-  min-height: 26px;
-  font-size: .8rem;
+
+/* Distinct colors for Submit (emerald) and Next (azure) */
+#answerSendBtn{
+  background:#1d2e24;
+  border-color:#1e3a2f;
+  color:#a9eec6;
+}
+#answerSendBtn:hover{ background:#122017; }
+
+#newChallengeBtn{
+  background:#1e2a46;
+  border-color:#2a3b4e;
+  color:#cfe7ff;
+}
+#newChallengeBtn:hover{ background:#121a26; }
+
+/* Mobile: 3-col grid (then 2-col on very small). Submit spans 2 cols. */
+@media (max-width: 880px){
+  #answerBar .btn-group{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+  #answerBar .btn-group .btn.small{
+    width:auto;                 /* override earlier 100% width */
+    min-height:36px;
+  }
+  #answerSendBtn{
+    grid-column: span 2;        /* make primary easy to hit */
+  }
+}
+@media (max-width: 440px){
+  #answerBar .btn-group{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

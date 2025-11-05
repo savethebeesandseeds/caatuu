@@ -21,6 +21,18 @@ export function initResizers(){
     setVar('--col-left', pct.toFixed(2)+'%');
   });
 
+  // Vertical resizer between middle and far-right column (entire height)
+  dragResizer($('#vrRight'), (e)=>{
+    const grid = $('#grid');
+    const rect = grid.getBoundingClientRect();
+    // distance from pointer to right edge = desired help column width
+    const xFromRight = rect.right - e.clientX;
+    // clamp between 16% and 44% of total width; minmax(260px, …) still applies in CSS
+    const pct = Math.min(Math.max((xFromRight / rect.width) * 100, 16), 44);
+    setVar('--col-help', pct.toFixed(2) + '%');
+  });
+
+
   // Horizontal resizer between top and bottom
   dragResizer($('#hr'), (e)=>{
     const grid = $('#grid');
