@@ -51,17 +51,84 @@ nohup ngrok http 9172 --host-header=rewrite > ngrok.log 2>&1 &
 curl --silent http://127.0.0.1:4040/api/tunnels
 ```
 
-### Install Clauflaire (optional)
+### Install Cloudflared (optional)
 
-```
+Cloudflared is used to expose the Caatuu server to the internet via a secure
+Cloudflare Tunnel (no open ports, no public IP required).
+
+This step is optional.
+If you only need local access, you can skip it.
+
+---
+
+#### Install cloudflared (Debian / Ubuntu / Docker)
+
+```bash
 # create keyring path
 mkdir -p /usr/share/keyrings
 
-# add the new GPG key (note the NEW path: /cloudflare-main.gpg)
-curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg -o /usr/share/keyrings/cloudflare-main.gpg
+# add Cloudflare GPG key
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
+  -o /usr/share/keyrings/cloudflare-main.gpg
 
-# add the repo (option A: “any” works for most Debian/Ubuntu bases)
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' > /etc/apt/sources.list.d/cloudflared.list
+# add Cloudflare apt repository
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] \
+https://pkg.cloudflare.com/cloudflared any main' \
+> /etc/apt/sources.list.d/cloudflared.list
 
+# install
 apt-get update && apt-get install -y cloudflared
 ```
+
+---
+
+#### One-time Cloudflare setup (only once per machine)
+
+If this machine has never used Cloudflare Tunnel before, run:
+
+```bash
+cloudflared login
+```
+
+This command prints a URL.
+Open it in a browser, log into Cloudflare, and select your domain.
+This step only authenticates the machine and does not start a tunnel.
+
+---
+
+#### Tunnel creation (only once per project)
+
+Create the tunnel in your Cloudflare account:
+
+```bash
+cloudflared tunnel create caatuu
+```
+
+This registers a tunnel named `caatuu` in Cloudflare.
+
+---
+
+#### Running the tunnel (automatic in this project)
+
+You do not need to run:
+
+```bash
+cloudflared tunnel run caatuu
+```
+
+manually.
+
+Caatuu uses token-based tunnel startup, which is:
+- more reliable in Docker
+- independent of local credential files
+- automatically started by run.sh if configured
+
+To enable the tunnel, place the token in env.local.sh:
+
+```bash
+export CLOUDFLARED_TOKEN="PASTE_TUNNEL_TOKEN_HERE"
+```
+
+On startup:
+- If the token is present, the tunnel starts automatically
+- If the token is missing, Caatuu runs locally without Cloudflare
