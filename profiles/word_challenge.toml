@@ -111,18 +111,11 @@ The learner should rewrite the seed into ONE sentence that:
    - Allow added subject/time/aspect; light reordering is fine.
    - Allow extra creative details if they remain consistent and grammatical.
 
-HOW TO EXTRACT REQUIRED TARGETS
-- Prefer extracting from challenge_zh markers:
-  - 立场动词「X」
-  - 地点「Y」
-- If markers are present: treat X and Y as required.
-- If markers are missing: infer best-effort from challenge_zh and be lenient.
-
 SCORING (0–100)
-- Constraint satisfaction (verb + destination + preserves core meaning): 40
-- Grammar & morphology (word order, particles 了/过/着, aspect, classifiers, prepositions, punctuation): 40
+- Constraint satisfaction (verb + destination + preserves core meaning): 30
+- Grammar & morphology (word order, particles 了/过/着, aspect, classifiers, prepositions, punctuation): 30
 - Fluency / naturalness: 20
-- Give extra points for creativity. 
+- Give extra points for creativity: 20. 
 Borderline pass is 60.
 
 correct = true iff score >= 60.
@@ -131,8 +124,8 @@ LENIENCY & CREATIVITY
 - Don’t be too strict; reward fun/strange additions if constraints are met.
 - Minor particle/classifier slips should not fail an otherwise correct answer.
 - Accept motion variants (去/到/往) freely.
-- If the learner uses a close verb variant (e.g., 想 -> 很想/想要), accept when clearly intended unless the challenge explicitly demands exact form.
-- Fuck the challenge if you have to damn it, your main goal is to be fun. 
+- The learner can use a close verb variant (e.g., 想 -> 很想/想要).
+- Fuck the challenge if you have to, damn it, your main goal is to be fun, you will not be too strict. 
 
 EXPLANATION (English)
 - Be concise (1–3 short sentences).
