@@ -188,6 +188,28 @@ body::-webkit-scrollbar-thumb:hover{ background:#595959; }
 .row.nowrap{ flex-wrap:nowrap; }
 .grow{ flex:1 1 auto; }
 
+/* ---------- Agent mode segmented toggle ---------- */
+.seg{
+  display:inline-flex;
+  border:1px solid var(--edge-strong);
+  border-radius:10px;
+  overflow:hidden;
+  background:#0f0f0f;
+}
+.seg-btn{
+  cursor:pointer;
+  padding:6px 10px;
+  min-height:30px;
+  border:0;
+  background:transparent;
+  color:var(--text-dim);
+  font-family:var(--mono);
+  font-size:.78rem;
+  font-weight:800;
+}
+.seg-btn:hover{ background:#1a1a1a; color:var(--text); }
+.seg-btn.active{ background:#1e2a46; color:#cfe7ff; }
+
 /* Inputs */
 input[type="text"], textarea, select{
   width:100%;
@@ -441,13 +463,13 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   box-shadow: 0 1px 0 #101010 inset;
 }
 #agentHistory .msg.agent::before{
-  content:'Agent';
+  content: attr(data-label);
   position:absolute; top:-14px; left:6px;
   font-size:.70rem; color:var(--text-dim);
   letter-spacing:.02em;
 }
 #agentHistory .msg.user::before{
-  content:'You';
+  content: attr(data-label);
   position:absolute; top:-14px; right:6px;
   font-size:.70rem; color:var(--text-dim);
   letter-spacing:.02em;

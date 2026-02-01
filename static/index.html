@@ -22,6 +22,18 @@
         <svg class="gear spin" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m9.4 3.5c0-.5 0-1-.1-1.5l2-1.6c.2-.1.2-.3.1-.5l-2-3.4c-.1-.2-.3-.2-.5-.1l-2.3 1a9.7 9.7 0 0 0-2.6-1.5l-.3-2.4c0-.2-.2-.3-.4-.3h-4c-.2 0 -.3 .1 -.4 .3l-.3 2.4c-.9 .3 -1.8 .8 -2.6 1.5l-2.3 -1c-.2 -.1 -.4 0 -.5 .1l-2 3.4c-.1 .2 0 .4 .1 .5l2 1.6c0 .5 -.1 1 -.1 1.5s0 1 .1 1.5l-2 1.6c-.2 .1 -.2 .3 -.1 .5l2 3.4c.1 .2 .3 .2 .5 .1l2.3 1c.2 .1 .4 0 .5 -.1l2 -3.4c.1 -.2 0 -.4 -.1 -.5l-2 -1.6c.1 -.5 .1 -1 .1 -1.5Z"/></svg>
         <span class="panel-title">Agent</span>
         <span class="grow"></span>
+        <div id="agentModeSeg" class="seg" role="group" aria-label="Agent mode">
+          <button id="agentModeTutorBtn" class="seg-btn active" type="button"
+            aria-pressed="true"
+            title="Tutor: ask about the current Seed + Challenge (grammar, required verb/place, how to solve)">
+            🧠 Tutor
+          </button>
+          <button id="agentModeTranslateBtn" class="seg-btn" type="button"
+            aria-pressed="false"
+            title="Translate: paste Chinese or English to translate (ZH ⇄ EN)">
+            🌐 Translate
+          </button>
+        </div>
         <button id="agentResetBtn" class="btn small ghost" title="Reset agent history and context">Reset</button>
         <span id="connDot" class="led off" title="Connection status"></span>
       </header>
@@ -33,7 +45,7 @@
           <textarea id="agentInput" placeholder="Ask anything..." aria-label="Agent input"></textarea>
           <button class="btn" id="agentSendBtn" type="submit">Send</button>
         </form>
-        <div class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges.</div>
+        <div id="agentHint" class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges.</div>
       </div>
     </section>
 

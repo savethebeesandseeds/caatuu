@@ -118,10 +118,22 @@ pub async fn do_grammar(state: &AppState, text: &str) -> String {
 
 #[instrument(level = "info", skip(state, question), fields(%challenge_id, question_len = question.len()))]
 pub async fn do_agent_reply(state: &AppState, challenge_id: &str, question: &str) -> String {
-  let ctx = state
+  let ctx: Option<String> = state
     .get_challenge(challenge_id)
     .await
-    .and_then(|c| if c.seed_zh.is_empty() { None } else { Some(c.seed_zh) });
+    .map(|c| {
+      let mut parts: Vec<String> = vec![];
+      if !c.seed_zh.is_empty()      { parts.push(format!("Seed (zh): {}", c.seed_zh)); }
+      if !c.challenge_zh.is_empty() { parts.push(format!("Challenge (zh): {}", c.challenge_zh)); }
+      if !c.seed_en.is_empty()      { parts.push(format!("Seed (en): {}", c.seed_en)); }
+      if !c.challenge_en.is_empty() { parts.push(format!("Challenge (en): {}", c.challenge_en)); }
+      if !c.instructions.is_empty() { parts.push(format!("Instructions: {}", c.instructions)); }
+      parts.join("\n")
+    })
+    .and_then(|s| {
+      let t = s.trim().to_string();
+      if t.is_empty() { None } else { Some(t) }
+    });
 
   if let Some(oa) = &state.openai {
     match oa.agent_reply(&state.prompts, question, ctx.as_deref()).await {
@@ -188,12 +200,33 @@ fn freeform_hint_local(ch: &Challenge) -> String {
 }
 
 fn translate_stub(text: &str) -> String {
-  match text {
-    "我想喝咖啡" => "I want to drink coffee.".into(),
-    "今天天气很好" => "The weather is great today.".into(),
-    "你吃饭了吗？" => "Have you eaten?".into(),
-    "他昨天去了北京。" => "He went to Beijing yesterday.".into(),
-    "我们一起学习吧！" => "Let's study together!".into(),
+  let s = text.trim();
+  if s.is_empty() { return String::new(); }
+
+  let has_cjk = s.chars().any(is_cjk);
+  if has_cjk {
+    return match s {
+      "我想喝咖啡" => "I want to drink coffee.".into(),
+      "今天天气很好" => "The weather is great today.".into(),
+      "你吃饭了吗？" => "Have you eaten?".into(),
+      "他昨天去了北京。" => "He went to Beijing yesterday.".into(),
+      "我们一起学习吧！" => "Let's study together!".into(),
+      _ => "Translation not available (stub).".into(),
+    };
+  }
+
+  let lower = s.to_lowercase();
+  match lower.as_str() {
+    "i want to drink coffee" | "i want to drink coffee." =>
+      "我想喝咖啡。".into(),
+    "the weather is great today" | "the weather is great today." =>
+      "今天天气很好。".into(),
+    "have you eaten" | "have you eaten?" =>
+      "你吃饭了吗？".into(),
+    "he went to beijing yesterday" | "he went to beijing yesterday." =>
+      "他昨天去了北京。".into(),
+    "let's study together" | "let's study together!" | "lets study together" =>
+      "我们一起学习吧！".into(),
     _ => "Translation not available (stub).".into(),
   }
 }

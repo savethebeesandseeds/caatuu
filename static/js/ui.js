@@ -4,6 +4,48 @@ import { renderZh, alignPinyinToText, esc as escHtml } from './zh.js';
 import { okBeep, badBeep, speakText, ttsVoices, ttsSupported, onTTSVoicesChanged } from './audio.js';
 import { wsSend } from './socket.js';
 
+
+const AGENT_MODE_KEY = 'agent_mode_v1';
+const AgentMode = { tutor:'tutor', translate:'translate' };
+
+function getAgentMode(){
+  const v = ls.getStr(AGENT_MODE_KEY, AgentMode.tutor);
+  return (v === AgentMode.translate) ? AgentMode.translate : AgentMode.tutor;
+}
+function applyAgentModeUI(mode){
+  const tutorBtn = $('#agentModeTutorBtn');
+  const transBtn = $('#agentModeTranslateBtn');
+  const isTutor = mode === AgentMode.tutor;
+
+  if (tutorBtn){
+    tutorBtn.classList.toggle('active', isTutor);
+    tutorBtn.setAttribute('aria-pressed', isTutor ? 'true' : 'false');
+  }
+  if (transBtn){
+    transBtn.classList.toggle('active', !isTutor);
+    transBtn.setAttribute('aria-pressed', !isTutor ? 'true' : 'false');
+  }
+
+  const inp = $('#agentInput');
+  if (inp){
+    inp.placeholder = isTutor
+      ? 'Tutor mode: ask about the Seed + Challenge (requirements, grammar, patterns)…'
+      : 'Translate mode: paste Chinese or English to translate (ZH ⇄ EN)…';
+  }
+
+  const hint = $('#agentHint');
+  if (hint){
+    hint.innerHTML = isTutor
+      ? '🧠 Tutor mode: ask about the current Seed + Challenge (required verb/place, word order, particles). <kbd>Enter</kbd> sends · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline.'
+      : '🌐 Translate mode: paste text to translate (auto ZH ⇄ EN). <kbd>Enter</kbd> sends · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline.';
+  }
+}
+function setAgentMode(mode){
+  const m = (mode === AgentMode.translate) ? AgentMode.translate : AgentMode.tutor;
+  ls.setStr(AGENT_MODE_KEY, m);
+  applyAgentModeUI(m);
+}
+
 /* ---------- Loading helper ---------- */
 function setLoading(panelSelector, flag){
   const el = $(panelSelector.startsWith('#') ? panelSelector : ('#'+panelSelector));
@@ -43,6 +85,23 @@ function renderNextChar(){
 
 /* ---------- Pinyin request routing for challenge texts ---------- */
 const pendingChallengePy = new Map(); // text -> [ 'seedZh' | 'challengeZh' ]
+
+/* ---------- Translate request routing (Assist vs Agent) ---------- */
+// key: original request text, val: queue of origins: 'assist' | 'agent'
+const pendingTranslate = new Map();
+function enqueuePending(map, key, val){
+  if (!key) return;
+  const q = map.get(key) || [];
+  q.push(val);
+  map.set(key, q);
+}
+function dequeuePending(map, key){
+  const q = map.get(key);
+  if (!q || !q.length) return null;
+  const v = q.shift();
+  if (!q.length) map.delete(key);
+  return v;
+}
 function needPinyinData(){ return ls.getBool(LSK.pinyin, true) || ls.getBool(LSK.tone, true); }
 function requestPinyinFor(elId, zhText){
   if (!zhText) return;
@@ -98,6 +157,9 @@ export function setChallenge(c){
   // English: summary (fallbacks)
   $('#challengeEn').textContent = ls.getBool(LSK.chEn, true) ? enSummary(c) : '';
   applyArtifactsVisibility();
+  // Apply saved agent mode UI
+  // (don’t re-save; just render)
+  applyAgentModeUI(getAgentMode());
 
   const badge = $('#challengeBadge');
   const meta = [];
@@ -134,9 +196,10 @@ function addHint(text){
   logInfo(`Hint: ${text}`);
 }
 
-function addAgentMsg(who, text){
+function addAgentMsg(who, text, {label=null} = {}){
   const div = document.createElement('div');
   div.className = 'msg '+(who==='user'?'user':'agent');
+  div.setAttribute('data-label', label || (who==='user' ? 'You' : 'Agent'));
   div.textContent = text;
   $('#agentHistory').appendChild(div);
   div.scrollIntoView({behavior:'smooth', block:'end'});
@@ -234,7 +297,10 @@ function runAssist(){
   if (!txt) return;
   const needPy = ls.getBool('realtime_pinyin', true);
   const needEn = ls.getBool('realtime_translation', true);
-  if (needEn) wsSend({type:'translate_input', text:txt});
+  if (needEn){
+    enqueuePending(pendingTranslate, txt, 'assist');
+    wsSend({type:'translate_input', text:txt});
+  }
   if (needPy) wsSend({type:'pinyin_input', text:txt});
   // Always ask for grammar correction on Assist
   wsSend({type:'grammar_input', text:txt});
@@ -424,8 +490,15 @@ export function bindEvents(){
     const text = $('#agentInput').value.trim();
     if(!text) return;
     $('#agentInput').value='';
-    addAgentMsg('user', text);
-    wsSend({type:'agent_message', text, challengeId: current.challenge?.id});
+    addAgentMsg('user', text, {label:'You'});
+    setLoading('#agentPanel', true);
+    const mode = getAgentMode();
+    if (mode === AgentMode.translate){
+      enqueuePending(pendingTranslate, text, 'agent');
+      wsSend({type:'translate_input', text});
+    } else {
+      wsSend({type:'agent_message', text, challengeId: current.challenge?.id});
+    }
   });
   $('#agentInput').addEventListener('keydown', (e)=>{
     if (e.key === 'Enter' && !e.shiftKey){
@@ -439,6 +512,16 @@ export function bindEvents(){
     $('#agentHistory').innerHTML = '';
     wsSend({type:'agent_reset'});
     logInfo('Agent history reset.');
+  });
+
+  // Agent mode segmented control
+  $('#agentModeTutorBtn')?.addEventListener('click', ()=>{
+    setAgentMode(AgentMode.tutor);
+    logInfo('Agent mode: tutor');
+  });
+  $('#agentModeTranslateBtn')?.addEventListener('click', ()=>{
+    setAgentMode(AgentMode.translate);
+    logInfo('Agent mode: translate');
   });
 
   // Settings (visibility + rendering)
@@ -488,7 +571,18 @@ export function handleMessage(msg){
   switch(msg.type){
     case 'challenge': setChallenge(msg.challenge); break;
     case 'hint': addHint(msg.text); break;
-    case 'translate': $('#liveTranslation').textContent = msg.translation || ''; break;
+    case 'translate': {
+      const txt = (msg.text || '');
+      const origin = dequeuePending(pendingTranslate, txt);
+      if (origin === 'agent'){
+        addAgentMsg('agent', msg.translation || '', {label:'Translate'});
+        setLoading('#agentPanel', false);
+      } else {
+        // default to Assist panel
+        $('#liveTranslation').textContent = msg.translation || '';
+      }
+      break;
+    }
     case 'pinyin': {
       const txt = (msg.text || '');
       // Route to Assist if it matches current input
@@ -526,6 +620,8 @@ export function handleMessage(msg){
       break;
     case 'agent_reply':
       addAgentMsg('agent', msg.text||'');
+      addAgentMsg('agent', msg.text||'', {label:'Tutor'});
+      setLoading('#agentPanel', false);
       logInfo(`Agent reply: ${msg.text||''}`);
       break;
     case 'answer_result': onAnswerResult(msg); break;

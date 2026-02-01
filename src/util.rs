@@ -26,12 +26,14 @@ pub fn is_cjk(ch: char) -> bool {
 
 /// Normalize a sentence by removing all whitespace.
 /// Used for simple equality checks that ignore spacing.
+#[allow(dead_code)]
 pub fn normalize(s: &str) -> String {
   s.chars().filter(|c| !c.is_whitespace()).collect()
 }
 
 /// Remove spaces inside a pinyin string.
 /// Handy for hints showing "first word" where we want a compact look.
+#[allow(dead_code)]
 pub fn pinyin_concat_no_space(pinyin_with_spaces: &str) -> String {
   pinyin_with_spaces.replace(' ', "")
 }

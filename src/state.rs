@@ -20,6 +20,7 @@ use crate::seeds::{seed_challenges, seed_pinyin_map, hard_fallback_challenge};
 use uuid::Uuid;
 
 // Keep a small per-difficulty pool of generated items to avoid repeats
+#[allow(dead_code)]
 const GEN_POOL_TARGET: usize = 3;
 
 #[derive(Clone)]
@@ -27,6 +28,7 @@ pub struct AppState {
   pub by_id: Arc<RwLock<HashMap<String, Challenge>>>,
   pub by_diff: Arc<RwLock<HashMap<String, Vec<String>>>>,
   pub last_by_diff: Arc<RwLock<HashMap<String, String>>>,
+  #[allow(dead_code)]
   pub char_pinyin: HashMap<char, &'static str>,
   pub openai: Option<OpenAI>,
   pub prompts: Prompts,
@@ -129,6 +131,7 @@ impl AppState {
   }
 
   /// Ensure a challenge is present by id (idempotent).
+  #[allow(dead_code)]
   #[instrument(level = "debug", skip(self, c), fields(id = %c.id))]
   pub async fn ensure_present(&self, c: &Challenge) {
     let exists = { self.by_id.read().await.contains_key(&c.id) };
@@ -176,6 +179,7 @@ impl AppState {
   }
 
   /// Local pinyin conversion using the tiny built-in dictionary + minimal spacing rules.
+  #[allow(dead_code)]
   #[instrument(level = "debug", skip(self, text), fields(text_len = text.len()))]
   pub fn pinyin_for_text_local(&self, text: &str) -> String {
     let mut out = String::new();
