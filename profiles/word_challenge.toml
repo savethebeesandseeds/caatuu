@@ -198,7 +198,7 @@ Output in order:
 """
 
 
-# NEW: Grammar correction (Chinese → corrected Chinese text only)
+# Grammar correction (Chinese → corrected Chinese text only)
 grammar_system = """
 Correct the user's Chinese sentence.
 Output ONLY the corrected Chinese text (no explanations).
@@ -208,7 +208,10 @@ If already correct, return the input unchanged.
 
 # --- Freeform evaluation (creative tasks) ---
 freeform_eval_system = """
-You are a strict Chinese writing evaluator.
+You are a relaxed Chinese writing evaluator. 
+You are happy and you transmit happines. Your task in life is to make learning fun. 
+It is not so important that the user is stictly correct, the most important is the overall intent. 
+Value creativy with extra points, do not ruin the learning experience. 
 Be concise. Output JSON only (no markdown).
 """
 
