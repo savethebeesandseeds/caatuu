@@ -116,9 +116,13 @@ SCORING (0–100)
 - Grammar & morphology (word order, particles 了/过/着, aspect, classifiers, prepositions, punctuation): 30
 - Fluency / naturalness: 20
 - Give extra points for creativity: 20. 
-Borderline pass is 60.
+Borderline pass is 50.
 
-correct = true iff score >= 60.
+AUTO-PASS RULE
+- If the learner clearly includes the required stance verb and a valid 去/到/往 + 地点 pattern,
+  you MUST give at least 50 unless the sentence is not Chinese or is completely unparseable.
+
+correct = true iff score >= 50.
 
 LENIENCY & CREATIVITY
 - Don’t be too strict; reward fun/strange additions if constraints are met.
@@ -219,7 +223,7 @@ Rubric (JSON): {rubric_json}
 User answer: {answer}
 
 Return JSON: {"correct": boolean, "score": number, "explanation": string}
-Scoring: 0-100. 'correct' = true if score >= 60.
+Scoring: 0-100. 'correct' = true if score >= 50.
 """
 
 # --- Freeform hints (vocab/pattern suggestions) ---

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# parse_context.sh — export one or more project folders into a single bundle
+# parse_context.sh — export one or more project folders OR individual files into a single bundle
 #
 # Usage:
-#   ./parse_context.sh [options] /path/to/project1 [/path/to/project2 ...]
+#   ./parse_context.sh [options] /path/to/dir_or_file1 [/path/to/dir_or_file2 ...]
 #
 # Options:
 #   -o, --out FILE           Output file (default: parse_temp.txt)
 #       --no-fences          Do not wrap content in ``` fences
 #       --list-only          Only list files (no contents)
-#       --git                Use `git ls-files` (tracked files only)
-#       --git-plus-untracked Include untracked files (respects .gitignore)
+#       --git                Use `git ls-files` (tracked files only) for directory roots
+#       --git-plus-untracked Include untracked files (respects .gitignore) for directory roots
 #   -x, --exclude GLOB       Extra exclude glob (repeatable)
 #   -i, --include GLOB       Only include paths matching GLOB (repeatable)
 #       --parseignore PATH   Read extra globs (one per line) from PATH
@@ -19,32 +19,33 @@
 #   -h, --help               Show help
 #
 # Notes:
-# - Groups output per root; prioritizes README/manifests.
+# - Accepts a mix of directories and individual files as roots.
+# - Groups output per root/target; prioritizes README/manifests for directory roots.
 # - Skips non-text files; language-aware code fences.
-# - Excludes the output file if it falls under any root.
-# 
+# - Excludes the output file if it falls under any directory root.
+#
 # Examples:
-# - Basic usage: ./parse_context.sh /path/to/project /path/to/project2
-# - Only Makefiles: ./parse_context.sh -i '**/Makefile' /path/to/project
+#   ./parse_context.sh ./include/iinuji/ ./tests/bench/iinuji/test_iinuji_instructions.cpp
+#   ./parse_context.sh --git ./include/iinuji/ ./tests/bench/iinuji/test_iinuji_instructions.cpp
 
 set -Euo pipefail
 IFS=$'\n\t'
 
-VERSION="2.4"
+VERSION="2.5"
 
 usage() {
   cat <<'USAGE'
-parse_context.sh — export one or more project folders into a single bundle
+parse_context.sh — export one or more project folders OR individual files into a single bundle
 
 Usage:
-  ./parse_context.sh [options] /path/to/project1 [/path/to/project2 ...]
+  ./parse_context.sh [options] /path/to/dir_or_file1 [/path/to/dir_or_file2 ...]
 
 Options:
   -o, --out FILE           Output file (default: parse_temp.txt)
       --no-fences          Do not wrap content in ``` fences
       --list-only          Only list files (no contents)
-      --git                Use `git ls-files` (tracked files only)
-      --git-plus-untracked Include untracked files (respects .gitignore)
+      --git                Use `git ls-files` (tracked files only) for directory roots
+      --git-plus-untracked Include untracked files (respects .gitignore) for directory roots
   -x, --exclude GLOB       Extra exclude glob (repeatable)
   -i, --include GLOB       Only include paths matching GLOB (repeatable)
       --parseignore PATH   Read extra globs (one per line) from PATH
@@ -96,22 +97,43 @@ while [[ $# -gt 0 ]]; do
 done
 while [[ $# -gt 0 ]]; do roots+=("$1"); shift; done
 
-# Validate roots -> absolute paths
-valid_roots=()
+# ---------- accept directories AND files ----------
+# We preserve the order of arguments by storing parallel arrays.
+declare -a target_types=()  # "dir" or "file"
+declare -a target_paths=()  # absolute path
+declare -a target_rels=()   # for file targets: pretty/original-ish rel path (used in headers)
+
+dirs_count=0
+files_count=0
+
 for r in "${roots[@]:-}"; do
   if [[ -d "$r" ]]; then
     abs="$(cd "$r" && pwd)"
-    valid_roots+=("$abs")
+    target_types+=("dir")
+    target_paths+=("$abs")
+    target_rels+=("")
+    (( dirs_count += 1 ))
+  elif [[ -f "$r" ]]; then
+    absdir="$(cd "$(dirname "$r")" && pwd)"
+    abs="$absdir/$(basename "$r")"
+    rel="$r"
+    # normalize leading "./" for nicer matching and display
+    [[ "$rel" == ./* ]] && rel="${rel#./}"
+    target_types+=("file")
+    target_paths+=("$abs")
+    target_rels+=("$rel")
+    (( files_count += 1 ))
   else
-    echo "Warning: '$r' is not a directory, skipping." >&2
+    echo "Warning: '$r' is not a file or directory, skipping." >&2
   fi
 done
-if [[ ${#valid_roots[@]} -eq 0 ]]; then
-  echo "Error: no valid project folders provided." >&2
+
+if [[ ${#target_paths[@]} -eq 0 ]]; then
+  echo "Error: no valid project folders or files provided." >&2
   exit 1
 fi
 
-# Resolve absolute outfile and exclude it if it is inside any root
+# Resolve absolute outfile and exclude it if it is inside any directory root
 if command -v realpath >/dev/null 2>&1; then
   outfile_abs="$(realpath -m "$outfile")"
 else
@@ -204,7 +226,7 @@ ignore_list=(
   "*/venv/*" "*/__pycache__/*" "*/.idea/*" "*/.vscode/*" "*/.DS_Store"
   "*.lock" "*.log" "*.png" "*.jpg" "*.jpeg" "*.gif" "*.ico" "*.svg" "*.pdf"
   "*.zip" "*.tar" "*.gz" "*.bz2" "*.xz" "*.7z" "*.rar" "*.wasm" "*.exe" "*.dll"
-  "*.bin" "*.so" "*.dylib" "*.class" "*.o" "*.a" "*.pyc"
+  "*.bin" "*.so" "*.dylib" "*.class" "*.o" "*.a" "*.pyc" "*.csv"
   ".env" "*/.env" ".env.*" "*/.env.*" "*.pem" "*.key" "*id_rsa*" "*id_ed25519*" "*.p12" "*.pfx"
   "*.keystore" "*.jks" "*secrets*" "*credentials*" "*private*"
 )
@@ -236,7 +258,13 @@ prioritize_first=(
 : > "$outfile"
 append_line "# Multi-project export"
 append_line "# Roots:"
-for r in "${valid_roots[@]}"; do append_line "#   - $r"; done
+for i in "${!target_paths[@]}"; do
+  if [[ "${target_types[$i]}" == "dir" ]]; then
+    append_line "#   - [dir]  ${target_paths[$i]}"
+  else
+    append_line "#   - [file] ${target_paths[$i]}"
+  fi
+done
 append_line "# Date: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 append_line "# Script: parse_context.sh v$VERSION"
 append_blank
@@ -257,6 +285,7 @@ emit_file_block() {
       return 0
     fi
   fi
+
   # defensive ignore check
   local ignore_pat
   if ignore_pat="$(first_matching_glob "$relpath" "${ignore_list[@]}")"; then
@@ -274,7 +303,6 @@ emit_file_block() {
     if (( stop_now == 0 )); then
       append_line "### Reached --max-total=$max_total_bytes bytes. Stopping."
       vlog "[stop max-total] reached $total_written / $max_total_bytes"
-    end_if=true
     fi
     stop_now=1
     return 1
@@ -348,6 +376,9 @@ process_root() {
   append_blank
   vlog "[root] $root"
 
+  local before_files=$total_files
+  local before_skipped=$total_skipped
+
   # Build file list
   declare -a files_local=()
 
@@ -386,28 +417,57 @@ process_root() {
   done
 
   # Emit files
-  local root_files=0 root_skipped_before=$total_skipped
   for f in "${ordered[@]}"; do
     rel="${f#$root/}"
     emit_file_block "$root" "$f" "$rel" || true
     if (( stop_now == 1 )); then
       break
     fi
-    (( root_files += 1 ))
   done
-  local root_skipped=$(( total_skipped - root_skipped_before ))
 
-  append_line "### Root summary: files_included=$root_files, skipped_non_text=$root_skipped"
+  local root_included=$(( total_files - before_files ))
+  local root_skipped=$(( total_skipped - before_skipped ))
+
+  append_line "### Root summary: files_included=$root_included, skipped_non_text=$root_skipped"
   append_blank
-  vlog "[root summary] included=$root_files skipped_non_text=$root_skipped"
+  vlog "[root summary] included=$root_included skipped_non_text=$root_skipped"
 }
 
-# ---------- process all roots ----------
-for r in "${valid_roots[@]}"; do
+process_file_target() {
+  local file="$1"
+  local relpath="$2"
+
+  append_line "## File root: $file"
+  append_blank
+  vlog "[file root] $file"
+
+  local before_files=$total_files
+  local before_skipped=$total_skipped
+
+  local rootdir
+  rootdir="$(cd "$(dirname "$file")" && pwd)"
+
+  emit_file_block "$rootdir" "$file" "$relpath" || true
+
+  local included=$(( total_files - before_files ))
+  local skipped=$(( total_skipped - before_skipped ))
+
+  append_line "### File summary: files_included=$included, skipped_non_text=$skipped"
+  append_blank
+  vlog "[file summary] included=$included skipped_non_text=$skipped"
+}
+
+# ---------- process all targets in original order ----------
+for i in "${!target_paths[@]}"; do
   if (( stop_now == 1 )); then
     break
   fi
-  process_root "$r"
+
+  if [[ "${target_types[$i]}" == "dir" ]]; then
+    process_root "${target_paths[$i]}"
+  else
+    process_file_target "${target_paths[$i]}" "${target_rels[$i]}"
+  fi
 done
 
 append_line "---"
@@ -417,4 +477,4 @@ append_line "Total bytes written: $total_written"
 append_line "Done."
 
 echo "✅ Wrote $outfile"
-echo "   Roots: ${#valid_roots[@]}, Included: $total_files, Skipped(non-text): $total_skipped, Bytes: $total_written"
+echo "   Roots: ${#target_paths[@]} (dirs=$dirs_count, files=$files_count), Included: $total_files, Skipped(non-text): $total_skipped, Bytes: $total_written"

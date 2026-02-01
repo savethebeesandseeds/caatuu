@@ -23,18 +23,42 @@ pub async fn evaluate_answer(state: &AppState, challenge_id: &str, answer: &str)
   if let Some(ch) = state.get_challenge(challenge_id).await {
     let has_seed_challenge = !ch.seed_zh.is_empty() && !ch.challenge_zh.is_empty();
     if has_seed_challenge {
+      let has_rubric = ch.rubric.is_some();
+      let (local_ok, local_score, local_exp, local_is_marker_eval) = if has_rubric {
+        let (ok, score, exp) = freeform_eval_local(&ch, answer);
+        (ok, score, exp, false)
+      } else {
+        let (ok, score, exp) = seed_challenge_eval_local(&ch.seed_zh, &ch.challenge_zh, answer);
+        (ok, score, exp, true)
+      };
+
       if let Some(oa) = &state.openai {
         match oa.validate_challenge(&state.prompts, &ch.seed_zh, &ch.challenge_zh, answer).await {
-          Ok((ok, score, exp)) => (ok, score, String::new(), exp),
+          Ok((ok, score, exp)) => {
+            // Leniency override ONLY for marker-based eval (i.e., generated challenges without rubric),
+            // so we don't accidentally bypass rubric requirements on built-in seed challenges.
+            if !ok && local_is_marker_eval && local_ok {
+              let bumped = score.max(local_score).max(60.0);
+              (true, bumped, String::new(), format!("(lenient override) {}", local_exp))
+            } else {
+              (ok, score, String::new(), exp)
+            }
+          }
           Err(e) => {
-            error!(target: "challenge", id = %ch.id, error = %e, "OpenAI validate_challenge failed; using local rubric.");
-            let (ok, score, exp) = freeform_eval_local(&ch, answer);
-            (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
+            error!(target: "challenge", id = %ch.id, error = %e, "OpenAI validate_challenge failed; using local checks.");
+            if local_is_marker_eval {
+              (local_ok, local_score, String::new(), format!("(local) {}", local_exp))
+            } else {
+              (local_ok, local_score, String::new(), format!("(local) score={:.0}: {}", local_score, local_exp))
+            }
           }
         }
       } else {
-        let (ok, score, exp) = freeform_eval_local(&ch, answer);
-        (ok, score, String::new(), format!("(local) score={:.0}: {}", score, exp))
+        if local_is_marker_eval {
+          (local_ok, local_score, String::new(), format!("(local) {}", local_exp))
+        } else {
+          (local_ok, local_score, String::new(), format!("(local) score={:.0}: {}", local_score, local_exp))
+        }
       }
     } else if !ch.instructions.is_empty() {
       let rubric_json = ch.rubric.as_ref().and_then(|r| serde_json::to_string(r).ok()).unwrap_or("{}".into());
@@ -159,6 +183,98 @@ pub async fn next_char_logic(_state: &AppState, _challenge_id: &str, _current: &
 
 // -------- Local fallbacks & utilities --------
 
+fn extract_marker_value(s: &str, marker_prefix: &str) -> Option<String> {
+  let i = s.find(marker_prefix)?;
+  let rest = &s[i + marker_prefix.len()..];
+  let j = rest.find('」')?;
+  let v = rest[..j].trim();
+  if v.is_empty() { None } else { Some(v.to_string()) }
+}
+
+fn seed_challenge_eval_local(seed_zh: &str, challenge_zh: &str, answer: &str) -> (bool, f32, String) {
+  let ans = answer.trim();
+  if ans.is_empty() {
+    return (false, 0.0, "Empty answer. Write one sentence with the required verb + destination.".into());
+  }
+
+  // Best case: generated challenges include explicit markers.
+  let req_verb = extract_marker_value(challenge_zh, "立场动词「");
+  let req_place = extract_marker_value(challenge_zh, "地点「");
+
+  // Heuristic fallback for older challenges (no markers).
+  const STANCE_VERBS: [&str; 18] = [
+    "想","要","喜欢","爱","怕","需要","觉得","希望","打算","决定","担心","害怕","同意","反对","关心","讨厌","愿意","计划",
+  ];
+  const PLACES: [&str; 15] = [
+    "家","学校","商店","饭店","医院","公园","图书馆","机场","火车站","公司","超市","电影院","体育馆","银行","博物馆",
+  ];
+
+  // --- Stance verb check (very forgiving) ---
+  let verb_ok = if let Some(v) = &req_verb {
+    if ans.contains(v) { true }
+    else if v == "想要" && ans.contains("想") { true } // allow close variant
+    else { false }
+  } else {
+    STANCE_VERBS.iter().any(|v| ans.contains(*v))
+  };
+
+  // --- Destination / place check ---
+  let place_used = if let Some(p) = &req_place {
+    if ans.contains(p) { Some(p.clone()) } else { None }
+  } else {
+    PLACES.iter().find(|p| ans.contains(**p)).map(|p| (*p).to_string())
+  };
+
+  // Motion pattern: allow 去/到/往 anywhere before the place token.
+  let motion_ok = if let Some(place) = &place_used {
+    let place_idx = ans.find(place).unwrap_or(usize::MAX);
+    ["去", "到", "往"].iter().any(|m| ans.find(*m).map(|i| i < place_idx).unwrap_or(false))
+  } else {
+    false
+  };
+
+  // Loose "same topic" bonus: share >=2 CJK chars with the seed.
+  let mut shared = 0usize;
+  for ch in seed_zh.chars() {
+    if crate::util::is_cjk(ch) && ans.contains(ch) { shared += 1; }
+    if shared >= 2 { break; }
+  }
+  let meaning_bonus = shared >= 2;
+
+  // --- Scoring: prioritize mechanics, be lenient on grammar ---
+  let mut score = 0.0;
+  if verb_ok { score += 35.0; }
+  if place_used.is_some() { score += 20.0; }
+  if motion_ok { score += 25.0; }
+  if meaning_bonus { score += 10.0; }
+
+  let ends_ok = ans.chars().last().map(|c| matches!(c, '。'|'！'|'？'|'.'|'!'|'?')).unwrap_or(false);
+  if ends_ok { score += 10.0; }
+
+  if score > 100.0 { score = 100.0; }
+  let correct = score >= 60.0;
+
+  let mut missing = vec![];
+  if !verb_ok {
+    if let Some(v) = &req_verb { missing.push(format!("missing stance verb '{}'", v)); }
+    else { missing.push("missing a stance verb (e.g., 想/觉得/希望/打算)".into()); }
+  }
+  if place_used.is_none() {
+    if let Some(p) = &req_place { missing.push(format!("missing destination '{}'", p)); }
+    else { missing.push("missing a concrete destination place".into()); }
+  }
+  if place_used.is_some() && !motion_ok {
+    missing.push("missing a go-to pattern (去/到/往 + place)".into());
+  }
+
+  let explanation = if missing.is_empty() {
+    "Looks good. You hit the required verb + destination pattern.".into()
+  } else {
+    format!("You're close: {}. Fix: add the missing piece(s) and keep it one sentence.", missing.join(", "))
+  };
+
+  (correct, score, explanation)
+}
 fn freeform_eval_local(ch: &Challenge, answer: &str) -> (bool, f32, String) {
   let mut score = 50.0;
   let mut notes = vec![];

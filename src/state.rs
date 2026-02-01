@@ -160,9 +160,31 @@ impl AppState {
         }
       }
     } else {
-      error!(target: "challenge", %difficulty, "OPENAI_API_KEY not set; using hard fallback");
+      error!(target: "challenge", %difficulty, "OPENAI_API_KEY not set; trying existing pool then hard fallback");
     }
 
+    // 2) If we already have challenges for this difficulty (local bank or built-in seeds),
+    // serve one of them before creating a new hard fallback.
+    if let Some(ids) = { self.by_diff.read().await.get(difficulty).cloned() } {
+      if !ids.is_empty() {
+        let last = { self.last_by_diff.read().await.get(difficulty).cloned() };
+        let chosen_id = if ids.len() == 1 {
+          ids[0].clone()
+        } else if let Some(last_id) = last {
+          ids.iter().find(|id| *id != &last_id).cloned().unwrap_or_else(|| ids[0].clone())
+        } else {
+          ids[0].clone()
+        };
+
+        if let Some(ch) = { self.by_id.read().await.get(&chosen_id).cloned() } {
+          self.last_by_diff.write().await.insert(difficulty.to_string(), chosen_id.clone());
+          warn!(target: "challenge", %difficulty, chosen = %chosen_id, source = "existing_pool", "Serving existing challenge");
+          return (ch, "existing_pool");
+        }
+      }
+    }
+
+    // 3) Absolute last resort: hard fallback.
     let c = hard_fallback_challenge(difficulty.to_string());
     let id = c.id.clone();
     self.insert_challenge(c.clone()).await;
