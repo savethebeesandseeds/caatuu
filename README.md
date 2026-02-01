@@ -132,3 +132,10 @@ export CLOUDFLARED_TOKEN="PASTE_TUNNEL_TOKEN_HERE"
 On startup:
 - If the token is present, the tunnel starts automatically
 - If the token is missing, Caatuu runs locally without Cloudflare
+
+### Maintaince Utils
+```bash
+systemctl status caatuu
+journalctl -u caatuu -f
+systemctl stop caatuu
+```
