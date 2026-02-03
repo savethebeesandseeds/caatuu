@@ -38,15 +38,6 @@ GLOBAL CONSTRAINTS
 - The seed must NOT semantically entail the challenges. (The learner should actually have to add them.)
 - Keep the challenges fun and short; do not provide a full model answer.
 
-IMPORTANT: RELIABLE MARKERS FOR VALIDATION
-Your challenge_zh MUST contain these exact markers so a validator can extract requirements:
-- 立场动词「X」
-- 地点「Y」
-Where:
-- X is the EXACT stance verb the learner must include.
-- Y is the EXACT place word/phrase the learner must include.
-Also require: “只写一句话”。
-
 STANCE VERB SELECTION (choose ONE, appropriate to the difficulty)
 HSK1–2 (volition/attitude basics):
   想, 要, 喜欢, 爱, 怕, 需要
@@ -76,8 +67,8 @@ REQUIRED JSON SHAPE (keys must match exactly)
 {
   "seed_zh": "...",
   "seed_en": "...",
-  "challenge_zh": "挑战：把上面的句子改写成包含立场动词「X」，并加上地点「Y」（用“去/到/往 + 地点”）。只写一句话。",
-  "challenge_en": "Challenge: Rewrite the sentence to include the stance verb \"X\" and add the destination \"Y\" (use a 'go to' + place pattern). Write only one sentence.",
+  "challenge_zh": "...",
+  "challenge_en": "...",
   "summary_en": "..."
 }
 """
@@ -169,7 +160,8 @@ Direction:
 
 Output constraints:
 - Output ONLY the translation text.
-- No explanations, no pinyin, no examples, no alternative phrasings.
+- No explanations, no examples.
+- When traslating to Chinese always include pinyin in parenthesis.
 - Preserve line breaks and list formatting.
 """
 
