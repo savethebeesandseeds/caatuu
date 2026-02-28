@@ -9,6 +9,7 @@ use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
 #[derive(Debug, Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum ClientWsMessage {
+  Ping,
   NewChallenge { difficulty: String },
   SubmitAnswer { #[serde(rename = "challengeId")] challenge_id: String, answer: String },
   Hint { #[serde(rename = "challengeId")] challenge_id: String },
@@ -17,6 +18,7 @@ pub enum ClientWsMessage {
   GrammarInput { text: String },            // NEW
   NextChar { #[serde(rename = "challengeId")] challenge_id: String, current: String },
   AgentMessage { #[serde(rename = "challengeId")] challenge_id: String, text: String },
+  AgentReset,
   SaveSettings { /* arbitrary blob */ },
 }
 
@@ -24,6 +26,7 @@ pub enum ClientWsMessage {
 #[derive(Debug, Serialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum ServerWsMessage {
+  Pong,
   Challenge { challenge: ChallengeOut },
   AnswerResult { correct: bool, score: f32, expected: String, explanation: String }, // score added
   Hint { text: String },

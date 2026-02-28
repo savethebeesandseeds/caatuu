@@ -13,6 +13,7 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PROJECT_ROOT="$SCRIPT_DIR"
+PID_FILE="$PROJECT_ROOT/.caatuu-backend.pid"
 
 # --------------------------------
 # Load environment (env.sh → env.local.sh)
@@ -22,14 +23,30 @@ source "$SCRIPT_DIR/env.sh"
 
 usage() {
   cat <<EOF
-Usage: $(basename "$0") [options] [-- <extra cargo args>]
+Usage: $(basename "$0") [start|stop|restart|status] [options] [-- <extra cargo args>]
 
-Options:
-  -c, --config <path>   Path to agent TOML config
-  -r, --release         Build in release mode
-  -h, --help            Show this help
+Commands:
+  start                Start backend (default) + ensure cloudflared is running
+  stop                 Stop backend only (does NOT stop cloudflared)
+  restart              Stop backend, then start it again
+  status               Show backend/cloudflared status
+
+Options (for start/restart):
+  -c, --config <path>  Path to agent TOML config
+  -r, --release        Build in release mode
+  -h, --help           Show this help
 EOF
 }
+
+COMMAND="start"
+if (( "$#" )); then
+  case "$1" in
+    start|stop|restart|status)
+      COMMAND="$1"
+      shift
+      ;;
+  esac
+fi
 
 CONFIG_PATH="${AGENT_CONFIG_PATH:-./profiles/word_challenge.toml}"
 CARGO_MODE=()
@@ -58,27 +75,91 @@ while (( "$#" )); do
   esac
 done
 
-# --------------------------------
-# Resolve config path
-# --------------------------------
 if [[ "$CONFIG_PATH" != /* ]]; then
   CONFIG_PATH="$PROJECT_ROOT/$CONFIG_PATH"
 fi
 
-# --------------------------------
-# Validations
-# --------------------------------
-if [[ -z "${OPENAI_API_KEY:-}" ]]; then
-  echo "ERROR: OPENAI_API_KEY is not set (env.local.sh)" >&2
-  exit 1
-fi
+is_pid_running() {
+  local pid="${1:-}"
+  [[ -n "$pid" && "$pid" =~ ^[0-9]+$ ]] || return 1
+  kill -0 "$pid" >/dev/null 2>&1
+}
 
-if [[ ! -f "$CONFIG_PATH" ]]; then
-  echo "ERROR: Config file not found: $CONFIG_PATH" >&2
-  exit 1
-fi
+read_pid_file() {
+  [[ -f "$PID_FILE" ]] || return 1
+  local pid
+  pid="$(tr -d '[:space:]' < "$PID_FILE" 2>/dev/null || true)"
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+  echo "$pid"
+}
 
-export AGENT_CONFIG_PATH="$CONFIG_PATH"
+stop_backend() {
+  local stopped=0
+  local pid=""
+
+  if pid="$(read_pid_file)"; then
+    if is_pid_running "$pid"; then
+      echo "→ stopping Caatuu backend (PID $pid)"
+      kill -TERM "$pid" >/dev/null 2>&1 || true
+      for _ in {1..20}; do
+        sleep 0.25
+        is_pid_running "$pid" || break
+      done
+      if is_pid_running "$pid"; then
+        echo "→ force-stopping Caatuu backend (PID $pid)"
+        kill -KILL "$pid" >/dev/null 2>&1 || true
+      fi
+      stopped=1
+    fi
+  fi
+  rm -f "$PID_FILE"
+
+  # Fallback in case PID file is stale/missing.
+  local orphan_pids
+  orphan_pids="$(pgrep -x caatuu-backend || true)"
+  if [[ -n "$orphan_pids" ]]; then
+    echo "→ stopping backend orphan PID(s): $orphan_pids"
+    # shellcheck disable=SC2086
+    kill -TERM $orphan_pids >/dev/null 2>&1 || true
+    sleep 1
+    orphan_pids="$(pgrep -x caatuu-backend || true)"
+    if [[ -n "$orphan_pids" ]]; then
+      echo "→ force-stopping backend orphan PID(s): $orphan_pids"
+      # shellcheck disable=SC2086
+      kill -KILL $orphan_pids >/dev/null 2>&1 || true
+    fi
+    stopped=1
+  fi
+
+  if (( stopped )); then
+    echo "→ backend stopped"
+  else
+    echo "→ backend not running"
+  fi
+}
+
+status_backend() {
+  local pid=""
+  if pid="$(read_pid_file)" && is_pid_running "$pid"; then
+    echo "backend: running (pid file PID $pid)"
+  else
+    local pids
+    pids="$(pgrep -x caatuu-backend || true)"
+    if [[ -n "$pids" ]]; then
+      echo "backend: running (PID(s): $pids)"
+    else
+      echo "backend: stopped"
+    fi
+  fi
+}
+
+status_cloudflared() {
+  if pgrep -fa "cloudflared.*tunnel.*run" >/dev/null 2>&1; then
+    echo "cloudflared: running"
+  else
+    echo "cloudflared: stopped"
+  fi
+}
 
 # --------------------------------
 # Cloudflared tunnel (token from env.local.sh)
@@ -112,6 +193,64 @@ start_cloudflared() {
   fi
 }
 
+run_backend_foreground() {
+  cd "$PROJECT_ROOT"
+  cargo run "${CARGO_MODE[@]}" -- "${EXTRA_ARGS[@]}" &
+  local backend_pid=$!
+  echo "$backend_pid" > "$PID_FILE"
+
+  on_signal() {
+    echo
+    echo "→ stop sequence: shutting down backend (PID $backend_pid)"
+    kill -TERM "$backend_pid" >/dev/null 2>&1 || true
+  }
+
+  trap on_signal INT TERM
+  wait "$backend_pid"
+  local rc=$?
+  trap - INT TERM
+  rm -f "$PID_FILE"
+  return "$rc"
+}
+
+validate_startup_requirements() {
+  if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+    echo "ERROR: OPENAI_API_KEY is not set (env.local.sh)" >&2
+    exit 1
+  fi
+
+  if [[ ! -f "$CONFIG_PATH" ]]; then
+    echo "ERROR: Config file not found: $CONFIG_PATH" >&2
+    exit 1
+  fi
+
+  export AGENT_CONFIG_PATH="$CONFIG_PATH"
+}
+
+case "$COMMAND" in
+  stop)
+    stop_backend
+    exit 0
+    ;;
+  status)
+    status_backend
+    status_cloudflared
+    exit 0
+    ;;
+  restart)
+    stop_backend
+    ;;
+  start)
+    ;;
+  *)
+    echo "Unknown command: $COMMAND" >&2
+    usage
+    exit 2
+    ;;
+esac
+
+validate_startup_requirements
+
 # --------------------------------
 # Startup banner
 # --------------------------------
@@ -129,7 +268,6 @@ start_cloudflared
 echo
 
 # --------------------------------
-# Run server
+# Start backend with stop sequence
 # --------------------------------
-cd "$PROJECT_ROOT"
-cargo run "${CARGO_MODE[@]}" -- "${EXTRA_ARGS[@]}"
+run_backend_foreground

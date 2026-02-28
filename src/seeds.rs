@@ -20,6 +20,8 @@ pub fn seed_challenges() -> Vec<Challenge> {
       challenge_zh: "把句子改为去一个具体的地方，并使用一个表示计划的动词；把主语改成“她”；加上下午三点。".into(),
       challenge_en: "Change it to going to a specific place; use a planning verb; switch subject to 'she'; add 3 p.m.".into(),
       summary_en: "Seed about resting at home; challenge: planning verb + place + subject swap + time.".into(),
+      reference_answer_zh: String::new(),
+      core_plus_spec: None,
 
       instructions: String::new(),
       rubric: Some(Rubric {
@@ -40,6 +42,8 @@ pub fn seed_challenges() -> Vec<Challenge> {
       challenge_zh: "用“想/要/喜欢”里选一个态度动词，把句子改为在公园做别的活动；把主语改成“他们”。".into(),
       challenge_en: "Pick one attitude verb (想/要/喜欢), change to doing a different activity in the park; switch subject to 'they'.".into(),
       summary_en: "Seed about cooking at home; challenge: attitude verb + place change + subject swap.".into(),
+      reference_answer_zh: String::new(),
+      core_plus_spec: None,
 
       instructions: String::new(),
       rubric: Some(Rubric {
@@ -65,6 +69,8 @@ pub fn hard_fallback_challenge(difficulty: String) -> Challenge {
     challenge_zh: "把主语改为“他”，并加上你选择的一个表示态度/计划的动词；换一个具体的地点。".into(),
     challenge_en: "Change subject to 'he', add one stance/planning verb of your choice; switch to a specific place.".into(),
     summary_en: "Seed about having class; challenge: stance/planning verb + subject swap + place change.".into(),
+    reference_answer_zh: String::new(),
+    core_plus_spec: None,
 
     instructions: String::new(),
     rubric: None,

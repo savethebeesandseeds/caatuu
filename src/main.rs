@@ -16,6 +16,7 @@
 
 mod telemetry;
 mod util;
+mod coreplus;
 mod domain;
 mod config;
 mod seeds;

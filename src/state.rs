@@ -71,6 +71,8 @@ impl AppState {
           challenge_zh: String::new(),
           challenge_en: String::new(),
           summary_en: String::new(),
+          reference_answer_zh: String::new(),
+          core_plus_spec: None,
 
           instructions,
           rubric: cc.rubric.clone(),

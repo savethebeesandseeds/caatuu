@@ -1,6 +1,7 @@
 //! Domain models used by the backend: challenge kinds/sources, rubric, and challenge itself.
 
 use serde::{Deserialize, Serialize};
+use crate::coreplus::CorePlusSpec;
 
 /// What kind of challenge is presented to the user?
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -45,6 +46,8 @@ pub struct Challenge {
   #[serde(default)] pub challenge_zh: String,
   #[serde(default)] pub challenge_en: String,
   #[serde(default)] pub summary_en: String,
+  #[serde(default)] pub reference_answer_zh: String,
+  #[serde(default)] pub core_plus_spec: Option<CorePlusSpec>,
 
   // Freeform (instructions-driven) fields
   #[serde(default)] pub instructions: String,

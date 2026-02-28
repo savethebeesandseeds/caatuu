@@ -8,6 +8,7 @@
 
 use tracing::{error, debug, instrument};
 
+use crate::coreplus::evaluate_core_plus_core_answer;
 use crate::domain::Challenge;
 use crate::protocol::ChallengeOut;
 use crate::state::AppState;
@@ -21,6 +22,11 @@ pub fn _to_out(c: &Challenge) -> ChallengeOut {
 #[instrument(level = "info", skip(state, answer), fields(%challenge_id, answer_len = answer.len()))]
 pub async fn evaluate_answer(state: &AppState, challenge_id: &str, answer: &str) -> (bool, f32, String, String) {
   if let Some(ch) = state.get_challenge(challenge_id).await {
+    if let Some(spec) = &ch.core_plus_spec {
+      let (ok, score, exp) = evaluate_core_plus_core_answer(spec, answer);
+      return (ok, score, String::new(), format!("(core+core) {}", exp));
+    }
+
     let has_seed_challenge = !ch.seed_zh.is_empty() && !ch.challenge_zh.is_empty();
     if has_seed_challenge {
       let has_rubric = ch.rubric.is_some();
@@ -86,6 +92,13 @@ pub async fn evaluate_answer(state: &AppState, challenge_id: &str, answer: &str)
 #[instrument(level = "info", skip(state), fields(%challenge_id))]
 pub async fn get_hint_text(state: &AppState, challenge_id: &str) -> String {
   if let Some(ch) = state.get_challenge(challenge_id).await {
+    if let Some(spec) = &ch.core_plus_spec {
+      return format!(
+        "围绕“{}”，只写两句：用“{}”和“{}”。",
+        spec.seed, spec.step1.markers_zh, spec.step2.markers_zh
+      );
+    }
+
     let instr = if !ch.challenge_zh.is_empty() {
       format!("Seed: {}\nChallenge: {}", ch.seed_zh, ch.challenge_zh)
     } else if !ch.instructions.is_empty() {

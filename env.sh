@@ -10,8 +10,8 @@ set -o nounset >/dev/null 2>&1 || true
 # --- Defaults (can be overridden before sourcing, or by env.local.sh) ---
 : "${PORT:=9172}"
 : "${OPENAI_BASE_URL:=https://api.openai.com/v1}"
-: "${OPENAI_FAST_MODEL:=gpt-4o-mini}"
-: "${OPENAI_STRONG_MODEL:=gpt-4o}"
+: "${OPENAI_FAST_MODEL:=gpt-5-nano}"
+: "${OPENAI_STRONG_MODEL:=gpt-5-mini}"
 : "${RUST_LOG:=info,challenge=debug,caatuu_backend=debug,tower_http=info,axum=info}"
 : "${WS_ALLOW_ALL:=1}"
 

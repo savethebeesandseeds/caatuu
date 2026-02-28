@@ -25,13 +25,13 @@
         <div id="agentModeSeg" class="seg" role="group" aria-label="Agent mode">
           <button id="agentModeTutorBtn" class="seg-btn active" type="button"
             aria-pressed="true"
-            title="Tutor: ask about the current Seed + Challenge (grammar, required verb/place, how to solve)">
-            🧠 Tutor
+            title="Tutor: ask about current Seed + Challenge">
+            Tutor
           </button>
           <button id="agentModeTranslateBtn" class="seg-btn" type="button"
             aria-pressed="false"
-            title="Translate: paste Chinese or English to translate (ZH ⇄ EN)">
-            🌐 Translate
+            title="Translate: Chinese ⇄ English">
+            Translate
           </button>
         </div>
         <button id="agentResetBtn" class="btn small ghost" title="Reset agent history and context">Reset</button>
@@ -41,11 +41,12 @@
         <div id="agentHistory" aria-live="polite" aria-label="Agent conversation history"></div>
       </div>
       <div class="panel-body" style="border-top:1px solid var(--edge);">
-        <form id="agentForm" class="row" autocomplete="off">
-          <textarea id="agentInput" placeholder="Ask anything..." aria-label="Agent input"></textarea>
-          <button class="btn" id="agentSendBtn" type="submit">Send</button>
+        <form id="agentForm" class="agent-form" autocomplete="off">
+          <div class="agent-input-wrap">
+            <textarea id="agentInput" placeholder="Ask..." aria-label="Agent input"></textarea>
+            <button class="btn small" id="agentSendBtn" type="submit" title="Send">➤</button>
+          </div>
         </form>
-        <div id="agentHint" class="hint subtle">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line. Agent understands current &amp; previous challenges.</div>
       </div>
     </section>
 
@@ -76,7 +77,7 @@
               <button class="btn small accent-next" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">⏭ Next</button>
               <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
               <button class="btn small ghost" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
-              <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊 Listen</button>
+              <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊</button>
             </div>
           </div>
           <div id="answerFeedback" aria-live="polite"></div>
@@ -86,13 +87,13 @@
             <div id="taskChallenge">
               <div class="row" style="justify-content:space-between; align-items:center;">
                 <div class="section-label" style="opacity:.85">Seed</div>
-                <button class="btn small ghost" id="speakSeedBtn" type="button" title="Listen to Seed">🔊 Listen</button>
+                <button class="btn small ghost" id="speakSeedBtn" type="button" title="Listen to Seed">🔊</button>
               </div>
               <div id="seedZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
 
               <div class="row" style="margin-top:2px; justify-content:space-between; align-items:center;">
                 <div class="section-label" style="opacity:.85">Challenge</div>
-                <button class="btn small ghost" id="speakChallengeBtn" type="button" title="Listen to Challenge">🔊 Listen</button>
+                <button class="btn small ghost" id="speakChallengeBtn" type="button" title="Listen to Challenge">🔊</button>
               </div>
               <div id="challengeZh" class="zh-block" data-zh-text="" data-zh-pinyin=""></div>
 
@@ -120,7 +121,7 @@
           <div class="kv" id="rtGrid" style="margin-top:8px;">
             <div id="rtRowGrammar" class="kv-row">
               <div class="subtle">Grammar correction</div>
-              <div id="liveGrammar" class="gc-box"><span class="subtle">Press Assist to see corrections.</span></div>
+              <div id="liveGrammar" class="gc-box"><span class="subtle">Use Assist for corrections.</span></div>
             </div>
             <div id="rtRowTrans" class="kv-row">
               <div class="subtle">Input (translation)</div>
@@ -135,12 +136,23 @@
               <div id="liveNextChar" class="mono"></div>
             </div>
           </div>
-          <div class="hint subtle" style="margin-top:6px;">Hotkeys: <kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Alt+P</kbd> Pinyin · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
+          <div class="hint subtle" style="margin-top:6px;"><kbd>Alt+A</kbd> Assist · <kbd>Alt+H</kbd> Hint · <kbd>Alt+P</kbd> Pinyin · <kbd>Esc</kbd>/<kbd>Alt+N</kbd> Next · <kbd>Enter</kbd> Submit</div>
         </div>
 
         <!-- Settings continue immediately (no divider) -->
-        <div class="section-label" style="margin-top:14px;">Settings</div>
-        <div id="settingsGrid" style="display:grid; gap:4px; grid-template-columns:1fr; font-size:.72rem;">
+        <section id="settingsSection">
+        <div class="section-label section-label-row" style="margin-top:14px;">
+          <span>Settings</span>
+          <button id="toggleSettingsBtn" class="btn small ghost" type="button" aria-pressed="true" title="Hide settings">▾</button>
+        </div>
+        <div id="settingsGrid">
+          <label class="row nowrap" title="Dark or light theme">
+            <span>Theme:</span>
+            <select id="themeSel" class="grow">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </label>
           <label class="row nowrap" title="Challenge difficulty">
             <span>Difficulty:</span>
             <select id="difficultySel" class="grow">
@@ -174,6 +186,7 @@
             <span id="ttsRateVal" style="min-width:3.5em; text-align:right;">1.00x</span>
           </label>
         </div>
+        </section>
       </div>
     </section>
 
@@ -184,20 +197,27 @@
     <section id="bottomPanel" class="panel" aria-label="Events">
       <header class="panel-header">
         <span class="panel-title">Events</span>
+        <span class="grow"></span>
+        <div id="eventLogControls" class="row nowrap" style="align-items:center;">
+          <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
+          <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
+        </div>
       </header>
       <div class="panel-body">
-        <div class="card">
-          <div class="row" id="eventLogControls" style="justify-content:space-between; align-items:center;">
-            <strong>Event log</strong>
-            <div class="row">
-              <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
-              <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
-            </div>
-          </div>
-          <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
-        </div>
+        <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0; max-height:320px; overflow:auto;"></ul>
       </div>
     </section>
+  </div>
+
+  <div id="reloadConfirmModal" class="reload-modal hidden" role="dialog" aria-modal="true" aria-labelledby="reloadConfirmTitle">
+    <div class="reload-modal-card">
+      <div id="reloadConfirmTitle" class="reload-title">Unsaved Answer</div>
+      <div class="reload-copy">You have text in the answer box. Reloading now will lose it.</div>
+      <div class="reload-actions">
+        <button id="reloadStayBtn" class="btn small ghost" type="button">Stay</button>
+        <button id="reloadLeaveBtn" class="btn small" type="button">Reload</button>
+      </div>
+    </div>
   </div>
 
   <script type="module" src="js/main.js"></script>

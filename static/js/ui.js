@@ -6,7 +6,19 @@ import { wsSend } from './socket.js';
 
 
 const AGENT_MODE_KEY = 'agent_mode_v1';
+const SHOW_SETTINGS_KEY = 'show_settings_panel_v1';
+const THEME_KEY = 'ui_theme_v1';
 const AgentMode = { tutor:'tutor', translate:'translate' };
+let allowUnloadOnce = false;
+
+function normalizeTheme(v){
+  return v === 'light' ? 'light' : 'dark';
+}
+function applyTheme(v){
+  const theme = normalizeTheme(v);
+  document.body.setAttribute('data-theme', theme);
+  return theme;
+}
 
 function getAgentMode(){
   const v = ls.getStr(AGENT_MODE_KEY, AgentMode.tutor);
@@ -27,17 +39,15 @@ function applyAgentModeUI(mode){
   }
 
   const inp = $('#agentInput');
+  const sendBtn = $('#agentSendBtn');
   if (inp){
     inp.placeholder = isTutor
-      ? 'Tutor mode: ask about the Seed + Challenge (requirements, grammar, patterns)…'
-      : 'Translate mode: paste Chinese or English to translate (ZH ⇄ EN)…';
+      ? 'Ask...'
+      : 'Translate...';
   }
-
-  const hint = $('#agentHint');
-  if (hint){
-    hint.innerHTML = isTutor
-      ? '🧠 Tutor mode: ask about the current Seed + Challenge (required verb/place, word order, particles). <kbd>Enter</kbd> sends · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline.'
-      : '🌐 Translate mode: paste text to translate (auto ZH ⇄ EN). <kbd>Enter</kbd> sends · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline.';
+  if (sendBtn){
+    sendBtn.textContent = '➤';
+    sendBtn.setAttribute('title', isTutor ? 'Ask tutor' : 'Translate');
   }
 }
 function setAgentMode(mode){
@@ -54,15 +64,106 @@ function setLoading(panelSelector, flag){
 }
 
 /* ---------- Challenge English helpers ---------- */
+function seedTranslationText(c){
+  const seedLiteral = (c.seed_en || '').trim();
+  if (seedLiteral) {
+    const hasAscii = /[A-Za-z]/.test(seedLiteral);
+    const chars = seedLiteral.replace(/\s+/g, '');
+    const cjkCount = (chars.match(/[\u3400-\u9fff]/g) || []).length;
+    const cjkRatio = chars.length ? (cjkCount / chars.length) : 0;
+    if (hasAscii && cjkRatio <= 0.3) {
+      return seedLiteral;
+    }
+  }
+  return '(English translation unavailable)';
+}
 function enSummary(c){
-  return (c.summary_en || c.challenge_en || c.seed_en || '') || '';
+  const out = [];
+  out.push(`Seed: ${seedTranslationText(c)}`);
+  if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
+  if (out.length) return out.join('\n');
+  return (c.summary_en || '') || '';
+}
+function enSummaryHtml(c){
+  const seed = escHtml(seedTranslationText(c));
+  const challenge = escHtml((c.challenge_en || '').trim());
+  const lines = [`<div class="en-line"><span class="en-label">Seed:</span> ${seed}</div>`];
+  if (challenge) lines.push(`<div class="en-line"><span class="en-label">Challenge:</span> ${challenge}</div>`);
+  return lines.join('');
 }
 function enTooltip(c){
   const out = [];
   if (c.summary_en) out.push(`Summary: ${c.summary_en}`);
-  if (c.seed_en) out.push(`Seed: ${c.seed_en}`);
+  out.push(`Seed: ${seedTranslationText(c)}`);
   if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
   return out.join('\n');
+}
+
+function renderChallengeEn(c){
+  const el = $('#challengeEn');
+  if (!el) return;
+  if (!ls.getBool(LSK.chEn, true)) {
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = enSummaryHtml(c);
+}
+
+function applySettingsVisibility(){
+  const visible = ls.getBool(SHOW_SETTINGS_KEY, true);
+  const section = $('#settingsGrid');
+  const btn = $('#toggleSettingsBtn');
+  if (section) section.style.display = visible ? 'grid' : 'none';
+  if (btn){
+    btn.textContent = visible ? '▾' : '▸';
+    btn.setAttribute('title', visible ? 'Hide settings' : 'Show settings');
+    btn.setAttribute('aria-pressed', visible ? 'true' : 'false');
+  }
+}
+
+function hasUnsavedAnswerInput(){
+  const v = $('#answerInput')?.value || '';
+  return v.trim().length > 0;
+}
+
+function showReloadConfirm(onLeave){
+  const modal = $('#reloadConfirmModal');
+  const stay = $('#reloadStayBtn');
+  const leave = $('#reloadLeaveBtn');
+  if (!modal || !stay || !leave) {
+    onLeave();
+    return;
+  }
+
+  const close = ()=> modal.classList.add('hidden');
+  const onStay = ()=>{
+    close();
+    stay.removeEventListener('click', onStay);
+    leave.removeEventListener('click', onLeaveClick);
+    document.removeEventListener('keydown', onKey);
+  };
+  const onLeaveClick = ()=>{
+    allowUnloadOnce = true;
+    onStay();
+    onLeave();
+  };
+  const onKey = (e)=>{
+    if (e.key === 'Escape') onStay();
+  };
+
+  modal.classList.remove('hidden');
+  stay.addEventListener('click', onStay);
+  leave.addEventListener('click', onLeaveClick);
+  document.addEventListener('keydown', onKey);
+}
+
+function guardedReload(action){
+  if (!hasUnsavedAnswerInput()) {
+    allowUnloadOnce = true;
+    action();
+    return;
+  }
+  showReloadConfirm(action);
 }
 
 /* ---------- Rendering helpers ---------- */
@@ -155,7 +256,7 @@ export function setChallenge(c){
   renderAllZh();
 
   // English: summary (fallbacks)
-  $('#challengeEn').textContent = ls.getBool(LSK.chEn, true) ? enSummary(c) : '';
+  renderChallengeEn(c);
   applyArtifactsVisibility();
   // Apply saved agent mode UI
   // (don’t re-save; just render)
@@ -170,7 +271,19 @@ export function setChallenge(c){
     else { badge.style.display='none'; }
   }
   const infoBtn = $('#challengeInfoBtn');
-  if (infoBtn) infoBtn.title = enTooltip(c) || '';
+  if (infoBtn) {
+    const tip = enTooltip(c);
+    infoBtn.title = tip || 'No English info available for this challenge.';
+    infoBtn.disabled = !tip;
+  }
+
+  const answerEl = $('#answerInput');
+  if (answerEl) {
+    const isCorePlusCore = (c.challenge_zh || '').includes('只写两句');
+    answerEl.placeholder = isCorePlusCore
+      ? '只写两句，用题目里的两个连接词。'
+      : 'Type your answer in Chinese';
+  }
 
   // reset input & hints
   $('#answerInput').value = '';
@@ -180,7 +293,7 @@ export function setChallenge(c){
 
   // reset grammar box (keep visible with a placeholder)
   const gr = $('#liveGrammar');
-  if (gr) gr.innerHTML = '<span class="subtle">Press Assist to see corrections.</span>';
+  if (gr) gr.innerHTML = '<span class="subtle">Use Assist for corrections.</span>';
 
   logInfo(`New challenge: ${c.id} (${c.difficulty||'hsk3'} · ${c.source||'seed'})`);
   if (ls.getBool('agent_reset_on_new', false)) {
@@ -190,9 +303,10 @@ export function setChallenge(c){
 }
 
 function addHint(text){
-  const p = document.createElement('div');
-  p.textContent = '• '+ text;
-  $('#hintsList').appendChild(p);
+  const li = document.createElement('li');
+  li.className = 'hint-item';
+  li.textContent = text;
+  $('#hintsList').appendChild(li);
   logInfo(`Hint: ${text}`);
 }
 
@@ -415,7 +529,12 @@ export function initTTS(){
 export function bindEvents(){
   // New challenge (unified)
   $('#newChallengeBtn').addEventListener('click', ()=> requestNewChallenge());
-  document.addEventListener('keydown', (e)=>{ if (e.key==='Escape'){ requestNewChallenge(); } });
+  document.addEventListener('keydown', (e)=>{
+    if (e.key==='Escape' || (e.altKey && (e.key==='n' || e.key==='N'))){
+      e.preventDefault();
+      requestNewChallenge();
+    }
+  });
 
   // Submit answer
   $('#answerForm').addEventListener('submit', (e)=>{
@@ -483,6 +602,13 @@ export function bindEvents(){
     if(!current.challenge) return;
     wsSend({type:'hint', challengeId: current.challenge.id});
   });
+  document.addEventListener('keydown', (e)=>{
+    if (e.altKey && (e.key==='h' || e.key==='H')){
+      e.preventDefault();
+      if(!current.challenge) return;
+      wsSend({type:'hint', challengeId: current.challenge.id});
+    }
+  });
 
   // Agent: Enter sends; Shift+Enter inserts newline
   $('#agentForm').addEventListener('submit', (e)=>{
@@ -497,7 +623,7 @@ export function bindEvents(){
       enqueuePending(pendingTranslate, text, 'agent');
       wsSend({type:'translate_input', text});
     } else {
-      wsSend({type:'agent_message', text, challengeId: current.challenge?.id});
+      wsSend({type:'agent_message', text, challengeId: current.challenge?.id || ''});
     }
   });
   $('#agentInput').addEventListener('keydown', (e)=>{
@@ -512,6 +638,17 @@ export function bindEvents(){
     $('#agentHistory').innerHTML = '';
     wsSend({type:'agent_reset'});
     logInfo('Agent history reset.');
+  });
+
+  // Mobile-accessible challenge English details (title tooltips don't work on touch).
+  $('#challengeInfoBtn')?.addEventListener('click', ()=>{
+    const btn = $('#challengeInfoBtn');
+    const text = (btn?.title || '').trim();
+    if (!text || text === 'No English info available for this challenge.') {
+      logInfo('No English info available for this challenge.');
+      return;
+    }
+    window.alert(text);
   });
 
   // Agent mode segmented control
@@ -537,9 +674,38 @@ export function bindEvents(){
     ls.setBool(LSK.chEn, e.target.checked);
     const c = current.challenge;
     if (c){
-      $('#challengeEn').textContent = e.target.checked ? enSummary(c) : '';
+      renderChallengeEn(c);
     }
     applyArtifactsVisibility();
+  });
+
+  $('#toggleSettingsBtn')?.addEventListener('click', ()=>{
+    const currentVisible = ls.getBool(SHOW_SETTINGS_KEY, true);
+    ls.setBool(SHOW_SETTINGS_KEY, !currentVisible);
+    applySettingsVisibility();
+  });
+  $('#themeSel')?.addEventListener('change', (e)=>{
+    const chosen = normalizeTheme(e.target.value);
+    ls.setStr(THEME_KEY, chosen);
+    applyTheme(chosen);
+  });
+
+  $('#cornerFavicon')?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const href = $('#cornerFavicon')?.getAttribute('href') || '/';
+    guardedReload(()=>{ window.location.href = href; });
+  });
+  document.addEventListener('keydown', (e)=>{
+    const isReload = e.key === 'F5' || ((e.ctrlKey || e.metaKey) && (e.key === 'r' || e.key === 'R'));
+    if (!isReload) return;
+    e.preventDefault();
+    guardedReload(()=> window.location.reload());
+  });
+  window.addEventListener('beforeunload', (e)=>{
+    if (allowUnloadOnce) return;
+    if (!hasUnsavedAnswerInput()) return;
+    e.preventDefault();
+    e.returnValue = '';
   });
 
   $('#difficultySel').addEventListener('change', (e)=> localStorage.setItem('difficulty', e.target.value));
@@ -548,21 +714,25 @@ export function bindEvents(){
 export function syncSettingsUI(){
   // Initial toggle states
   $('#tglTone').checked       = ls.getBool(LSK.tone, true);
-  $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, true);
+  $('#tglPinyin').checked     = ls.getBool(LSK.pinyin, false);
   $('#tglRTTrans').checked    = ls.getBool('realtime_translation', true);
   $('#tglRTPinyin').checked   = ls.getBool('realtime_pinyin', true);
   $('#tglNextChar').checked   = ls.getBool('next_char_suggest', true);
   $('#tglAgentReset').checked = ls.getBool('agent_reset_on_new', true);
   $('#tglShowEn').checked     = ls.getBool(LSK.chEn, true);
   $('#difficultySel').value   = localStorage.getItem('difficulty') || 'auto';
+  const theme = normalizeTheme(ls.getStr(THEME_KEY, 'dark'));
+  applyTheme(theme);
+  if ($('#themeSel')) $('#themeSel').value = theme;
 
   // Apply current rendering and visibility
   renderAllZh();
   const c = current.challenge;
   if (c){
-    $('#challengeEn').textContent = ls.getBool(LSK.chEn,true) ? enSummary(c) : '';
+    renderChallengeEn(c);
     ensureChallengePinyin();
   }
+  applySettingsVisibility();
   applyArtifactsVisibility();
 }
 
@@ -619,7 +789,6 @@ export function handleMessage(msg){
       renderNextChar();
       break;
     case 'agent_reply':
-      addAgentMsg('agent', msg.text||'');
       addAgentMsg('agent', msg.text||'', {label:'Tutor'});
       setLoading('#agentPanel', false);
       logInfo(`Agent reply: ${msg.text||''}`);
@@ -633,7 +802,11 @@ export function requestNewChallenge(){
   setLoading('#challengePanel', true);
   const v = localStorage.getItem('difficulty') || 'auto';
   const payload = { type:'new_challenge' };
-  payload.difficulty = "HSK1";
-  if (v && v !== 'auto') payload.difficulty = v;
+  if (v && v !== 'auto') {
+    payload.difficulty = v;
+  } else {
+    const pool = ['hsk1', 'hsk2', 'hsk3', 'hsk4', 'hsk5', 'hsk6'];
+    payload.difficulty = pool[Math.floor(Math.random() * pool.length)];
+  }
   wsSend(payload);
 }

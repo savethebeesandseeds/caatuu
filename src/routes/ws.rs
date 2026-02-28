@@ -57,6 +57,8 @@ async fn handle_ws(mut socket: WebSocket, state: Arc<AppState>) {
 #[instrument(level = "info", skip(state))]
 async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMessage {
   match msg {
+    ClientWsMessage::Ping => ServerWsMessage::Pong,
+
     ClientWsMessage::NewChallenge { difficulty } => {
       let (ch, origin) = state.choose_challenge(&difficulty).await;
       tracing::info!(target: "challenge", %difficulty, id = %ch.id, %origin, "WS new_challenge served");
@@ -98,6 +100,11 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
     ClientWsMessage::AgentMessage { challenge_id, text } => {
       let reply = do_agent_reply(state, &challenge_id, &text).await;
       ServerWsMessage::AgentReply { text: reply }
+    }
+
+    ClientWsMessage::AgentReset => {
+      tracing::info!(target: "caatuu_backend", "WS agent_reset noop acknowledged");
+      ServerWsMessage::Pong
     }
 
     ClientWsMessage::SaveSettings { .. } =>

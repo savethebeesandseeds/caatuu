@@ -9,9 +9,14 @@ use std::time::Duration;
 
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
 use serde::{Deserialize, Serialize};
-use tracing::{instrument, info, error};
+use tracing::{instrument, info, warn};
 
 use crate::config::Prompts;
+use crate::coreplus::{
+  CORE_PLUS_CORE_SYSTEM_PROMPT, CorePlusGeneratedItem, build_compact_challenge_zh,
+  build_core_plus_core_user_message, build_expected_reference_answer, sample_core_plus_core_spec,
+  validate_generated_item,
+};
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
 use crate::util::{fill_template, is_cjk};
 use uuid::Uuid;
@@ -50,6 +55,18 @@ Output:
 
 Special rule:
 - If the input begins with “Challenge:”, your output should begin with “挑战：”.
+"#;
+
+const STRICT_SEED_LITERAL_ZH2EN_SYSTEM: &str = r#"
+You are a professional Chinese-to-English literal translator.
+
+Task:
+- Translate the user's Chinese phrase into clear literal English.
+- Keep meaning simple and direct.
+
+Output:
+- Output ONLY English text.
+- No Chinese, no pinyin, no notes.
 "#;
 
 fn cjk_ratio(s: &str) -> f32 {
@@ -92,6 +109,161 @@ fn has_task_words_zh(output: &str) -> bool {
   keys.iter().any(|k| output.contains(k))
 }
 
+fn push_model_unique(out: &mut Vec<String>, model: &str) {
+  let m = model.trim();
+  if m.is_empty() {
+    return;
+  }
+  if !out.iter().any(|x| x == m) {
+    out.push(m.to_string());
+  }
+}
+
+fn is_model_missing_error(status: reqwest::StatusCode, msg: &str) -> bool {
+  if status != reqwest::StatusCode::NOT_FOUND {
+    return false;
+  }
+  let m = msg.to_lowercase();
+  m.contains("model") && (m.contains("does not exist") || m.contains("do not have access"))
+}
+
+fn is_temperature_unsupported_error(status: reqwest::StatusCode, msg: &str) -> bool {
+  if status != reqwest::StatusCode::BAD_REQUEST {
+    return false;
+  }
+  let m = msg.to_lowercase();
+  m.contains("temperature")
+    && (m.contains("unsupported value") || m.contains("does not support"))
+}
+
+fn temperature_candidates(value: f32, model: &str) -> Vec<f32> {
+  let m = model.trim().to_lowercase();
+  // gpt-5* models generally support only default temperature.
+  if m.starts_with("gpt-5") {
+    return vec![1.0];
+  }
+  if (value - 1.0).abs() < f32::EPSILON {
+    vec![1.0]
+  } else {
+    vec![value, 1.0]
+  }
+}
+
+fn has_ascii_text(text: &str) -> bool {
+  text.chars().any(|c| c.is_ascii_alphabetic())
+}
+
+fn connector_english(markers_zh: &str) -> &'static str {
+  match markers_zh {
+    "因为…所以…" => "because…therefore…",
+    "由于…因此…" => "because…therefore…",
+    "既然…就…" => "since…then…",
+    "因为…" => "because…",
+    "由于…" => "since…",
+    "正因为…" => "for this reason…",
+    "…是因为…" => "...because...",
+    "之所以…是因为…" => "the reason … is because…",
+    "…的原因在于…" => "...is due to…",
+    "导致…" => "lead to…",
+    "使得…" => "make…",
+    "所以…" => "therefore…",
+    "因此…" => "thus…",
+    "因而…" => "as a result…",
+    "于是…" => "then…",
+    "结果…" => "as a result…",
+    "结果是…" => "the result is…",
+    "从而…" => "thus…",
+    "进而…" => "and then…",
+    "以至于…" => "to the point that…",
+    "如果…就…" => "if…then…",
+    "要是…就…" => "if…then…",
+    "假如…就…" => "if…then…",
+    "只要…就…" => "as long as…then…",
+    "只有…才…" => "only if…then…",
+    "除非…否则…" => "unless…otherwise…",
+    "…的话…" => "if…then…",
+    "否则…" => "otherwise…",
+    "在…的情况下…" => "when…",
+    "虽然…但是…" => "although…but…",
+    "虽然…但…" => "although…but…",
+    "尽管…但…" => "although…but…",
+    "尽管…仍然…" => "although…still…",
+    "…不过…" => "however…",
+    "…可是…" => "but…",
+    "…然而…" => "however…",
+    "…却…" => "yet…",
+    "…反而…" => "rather…",
+    "表面上…其实…" => "on the surface…actually…",
+    "一方面…另一方面…" => "on the one hand…on the other hand…",
+    "当…的时候…" => "when…",
+    "在…的时候…" => "when…",
+    "…以后…" => "after…",
+    "…之后…" => "after…",
+    "…之前…" => "before…",
+    "从…开始…" => "from…started…",
+    "自从…以后…" => "since…after…",
+    "随着…" => "as…",
+    "每当…" => "whenever…",
+    "为了…" => "in order to…",
+    "…为了…" => "...in order to…",
+    "…以便…" => "...in order to…",
+    "好让…" => "so that…",
+    "为的是…" => "for the purpose of…",
+    "免得…" => "lest…",
+    "以免…" => "in order not to…",
+    "为…起见" => "for the sake of…",
+    "不但…而且…" => "not only…but also…",
+    "不仅…还…" => "not only…but also…",
+    "…而且…" => "and also…",
+    "…并且…" => "and also…",
+    "同时…" => "at the same time…",
+    "…也…" => "also…",
+    "也…" => "also…",
+    "除了…以外，还…" => "in addition to…also…",
+    "要么…要么…" => "either…or…",
+    "或者…或者…" => "or…or…",
+    "不是…就是…" => "either…or…",
+    "…或者…" => "...or…",
+    "与其…不如…" => "rather…than…",
+    "宁可…也不…" => "I'd rather…than…",
+    _ => "connector",
+  }
+}
+
+fn bilingual_connector_label(markers_zh: &str) -> String {
+  format!("{} ({})", markers_zh, connector_english(markers_zh))
+}
+
+fn challenge_fallback_cn_en(markers_1: &str, markers_2: &str) -> String {
+  format!(
+    "Use \"{}\" and \"{}\". Write exactly two sentences.",
+    bilingual_connector_label(markers_1),
+    bilingual_connector_label(markers_2)
+  )
+}
+
+fn challenge_translation_looks_ok(text: &str) -> bool {
+  let s = text.trim();
+  if s.is_empty() {
+    return false;
+  }
+  if cjk_ratio(s) > 0.4 {
+    return false;
+  }
+  if !has_task_words_en(s) && !s.contains("sentence") {
+    return false;
+  }
+  true
+}
+
+fn seed_translation_looks_ok(text: &str) -> bool {
+  let s = text.trim();
+  if s.is_empty() {
+    return false;
+  }
+  s.len() > 2 && has_ascii_text(s) && cjk_ratio(s) <= 0.3
+}
+
 
 #[derive(Clone)]
 pub struct OpenAI {
@@ -102,16 +274,19 @@ pub struct OpenAI {
   pub strong_model: String,
 }
 
-#[derive(Deserialize)]
-struct Gen {
-  seed_zh: String,
-  seed_en: String,
-  challenge_zh: String,
-  challenge_en: String,
-  summary_en: String,
-}
-
 impl OpenAI {
+  fn model_candidates(&self, model: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    push_model_unique(&mut out, model);
+    push_model_unique(&mut out, &self.fast_model);
+    push_model_unique(&mut out, &self.strong_model);
+    push_model_unique(&mut out, "gpt-4o-mini");
+    push_model_unique(&mut out, "gpt-4o");
+    push_model_unique(&mut out, "gpt-4.1-mini");
+    push_model_unique(&mut out, "gpt-4.1");
+    out
+  }
+
   /// Construct the client if we find OPENAI_API_KEY; otherwise return None.
   pub fn from_env() -> Option<Self> {
     let api_key = std::env::var("OPENAI_API_KEY").ok()?;
@@ -140,39 +315,75 @@ impl OpenAI {
     temperature: f32,
   ) -> Result<String, String> {
     let url = format!("{}/chat/completions", self.base_url);
-    let req = ChatCompletionRequest {
-      model: model.to_string(),
-      messages: vec![
-        ChatMessageReq { role: "system".into(), content: system.into() },
-        ChatMessageReq { role: "user".into(), content: user.into() },
-      ],
-      temperature,
-      response_format: None,
-      max_tokens: None,
-    };
+    let candidates = self.model_candidates(model);
+    let mut last_err = String::new();
 
-    let res = self.client.post(&url)
-      .header(USER_AGENT, "caatuu-backend/0.1")
-      .header(CONTENT_TYPE, "application/json")
-      .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
-      .json(&req).send().await.map_err(|e| e.to_string())?;
+    for (idx, selected_model) in candidates.iter().enumerate() {
+      let temps = temperature_candidates(temperature, selected_model);
+      for (tidx, selected_temp) in temps.iter().enumerate() {
+        let req = ChatCompletionRequest {
+          model: selected_model.clone(),
+          messages: vec![
+            ChatMessageReq { role: "system".into(), content: system.into() },
+            ChatMessageReq { role: "user".into(), content: user.into() },
+          ],
+          temperature: *selected_temp,
+          response_format: None,
+          max_tokens: None,
+        };
 
-    if !res.status().is_success() {
-      let status = res.status();
-      let body = res.text().await.unwrap_or_default();
-      let msg = extract_openai_error(&body).unwrap_or_else(|| body);
-      return Err(format!("OpenAI HTTP {}: {}", status, msg));
+        let res = self.client.post(&url)
+          .header(USER_AGENT, "caatuu-backend/0.1")
+          .header(CONTENT_TYPE, "application/json")
+          .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+          .json(&req).send().await.map_err(|e| e.to_string())?;
+
+        if !res.status().is_success() {
+          let status = res.status();
+          let body = res.text().await.unwrap_or_default();
+          let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+          last_err = format!("OpenAI HTTP {}: {}", status, msg);
+
+          if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
+            warn!(
+              model = %selected_model,
+              requested_temp = *selected_temp,
+              fallback_temp = temps[tidx + 1],
+              error = %last_err,
+              "Model rejected temperature; retrying with fallback temperature"
+            );
+            continue;
+          }
+
+          if is_model_missing_error(status, &msg) && idx + 1 < candidates.len() {
+            let next_model = candidates[idx + 1].as_str();
+            warn!(failed_model = %selected_model, next_model = %next_model, error = %last_err, "Model unavailable; retrying with fallback model");
+            break;
+          }
+          if is_temperature_unsupported_error(status, &msg) && idx + 1 < candidates.len() {
+            let next_model = candidates[idx + 1].as_str();
+            warn!(failed_model = %selected_model, next_model = %next_model, error = %last_err, "Temperature unsupported on model; trying next fallback model");
+            break;
+          }
+          return Err(last_err);
+        }
+
+        let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
+        if let Some(usage) = &body.usage {
+          info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+        }
+        let text = body.choices.get(0)
+          .and_then(|c| c.message.content.clone())
+          .unwrap_or_default().trim().to_string();
+        return Ok(text);
+      }
     }
 
-    let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
-    if let Some(usage) = &body.usage {
-      info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+    if last_err.is_empty() {
+      Err("OpenAI call failed: no model candidates available".into())
+    } else {
+      Err(last_err)
     }
-    let text = body.choices.get(0)
-      .and_then(|c| c.message.content.clone())
-      .unwrap_or_default().trim().to_string();
-
-    Ok(text)
   }
 
   /// JSON-object chat completion. Generic over the target type T.
@@ -185,91 +396,237 @@ impl OpenAI {
     temperature: f32,
   ) -> Result<T, String> {
     let url = format!("{}/chat/completions", self.base_url);
-    let req = ChatCompletionRequest {
-      model: model.to_string(),
-      messages: vec![
-        ChatMessageReq { role: "system".into(), content: system.into() },
-        ChatMessageReq { role: "user".into(), content: user.into() },
-      ],
-      temperature,
-      response_format: Some(ResponseFormat { r#type: "json_object".into() }),
-      max_tokens: None,
-    };
+    let candidates = self.model_candidates(model);
+    let mut last_err = String::new();
 
-    let res = self.client.post(&url)
-      .header(USER_AGENT, "caatuu-backend/0.1")
-      .header(CONTENT_TYPE, "application/json")
-      .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
-      .json(&req).send().await.map_err(|e| e.to_string())?;
+    for (idx, selected_model) in candidates.iter().enumerate() {
+      let temps = temperature_candidates(temperature, selected_model);
+      for (tidx, selected_temp) in temps.iter().enumerate() {
+        let req = ChatCompletionRequest {
+          model: selected_model.clone(),
+          messages: vec![
+            ChatMessageReq { role: "system".into(), content: system.into() },
+            ChatMessageReq { role: "user".into(), content: user.into() },
+          ],
+          temperature: *selected_temp,
+          response_format: Some(ResponseFormat { r#type: "json_object".into() }),
+          max_tokens: None,
+        };
 
-    if !res.status().is_success() {
-      let status = res.status();
-      let body = res.text().await.unwrap_or_default();
-      let msg = extract_openai_error(&body).unwrap_or_else(|| body);
-      return Err(format!("OpenAI HTTP {}: {}", status, msg));
+        let res = self.client.post(&url)
+          .header(USER_AGENT, "caatuu-backend/0.1")
+          .header(CONTENT_TYPE, "application/json")
+          .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+          .json(&req).send().await.map_err(|e| e.to_string())?;
+
+        if !res.status().is_success() {
+          let status = res.status();
+          let body = res.text().await.unwrap_or_default();
+          let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+          last_err = format!("OpenAI HTTP {}: {}", status, msg);
+
+          if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
+            warn!(
+              model = %selected_model,
+              requested_temp = *selected_temp,
+              fallback_temp = temps[tidx + 1],
+              error = %last_err,
+              "Model rejected temperature; retrying with fallback temperature"
+            );
+            continue;
+          }
+
+          if is_model_missing_error(status, &msg) && idx + 1 < candidates.len() {
+            let next_model = candidates[idx + 1].as_str();
+            warn!(failed_model = %selected_model, next_model = %next_model, error = %last_err, "Model unavailable; retrying with fallback model");
+            break;
+          }
+          if is_temperature_unsupported_error(status, &msg) && idx + 1 < candidates.len() {
+            let next_model = candidates[idx + 1].as_str();
+            warn!(failed_model = %selected_model, next_model = %next_model, error = %last_err, "Temperature unsupported on model; trying next fallback model");
+            break;
+          }
+          return Err(last_err);
+        }
+
+        let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
+        if let Some(usage) = &body.usage {
+          info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+        }
+        let text = body.choices.get(0)
+          .and_then(|c| c.message.content.clone())
+          .unwrap_or_default();
+
+        return serde_json::from_str::<T>(&text).map_err(|e| format!("JSON parse error: {}", e));
+      }
     }
 
-    let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
-    if let Some(usage) = &body.usage {
-      info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+    if last_err.is_empty() {
+      Err("OpenAI call failed: no model candidates available".into())
+    } else {
+      Err(last_err)
     }
-    let text = body.choices.get(0)
-      .and_then(|c| c.message.content.clone())
-      .unwrap_or_default();
-
-    serde_json::from_str::<T>(&text).map_err(|e| format!("JSON parse error: {}", e))
   }
 
   // --- High-level helpers (domain-specialized) ---
+
+  async fn strict_zh_to_en_once(&self, text: &str) -> Option<String> {
+    let out = self
+      .chat_plain(&self.strong_model, STRICT_TRANSLATE_ZH2EN_SYSTEM, text, 0.0)
+      .await
+      .ok()?;
+    let one_line = out.lines().collect::<Vec<_>>().join(" ").trim().to_string();
+    if seed_translation_looks_ok(&one_line) { Some(one_line) } else { None }
+  }
+
+  async fn strict_seed_literal_en(&self, seed: &str) -> Option<String> {
+    let out = self
+      .chat_plain(&self.strong_model, STRICT_SEED_LITERAL_ZH2EN_SYSTEM, seed, 0.0)
+      .await
+      .ok()?;
+    let one_line = out.lines().collect::<Vec<_>>().join(" ").trim().to_string();
+    if seed_translation_looks_ok(&one_line) { Some(one_line) } else { None }
+  }
+
+  async fn fallback_seed_en(
+    &self,
+    prompts: &Prompts,
+    seed: &str,
+    _slots: (&str, &str, &str),
+  ) -> String {
+    if let Ok(translated) = self.translate_to_en(prompts, seed).await {
+      let one_line = translated.lines().collect::<Vec<_>>().join(" ").trim().to_string();
+      if seed_translation_looks_ok(&one_line) {
+        return one_line;
+      }
+    }
+
+    if let Some(block) = self.strict_seed_literal_en(seed).await {
+      return block;
+    }
+
+    if let Some(strict_once) = self.strict_zh_to_en_once(seed).await {
+      return strict_once;
+    }
+
+    "Literal translation unavailable.".to_string()
+  }
 
   /// Generate a new seed+challenge freeform task.
   #[instrument(
     level = "info",
     skip(self, prompts, difficulty),
-    fields(%difficulty, model = %self.strong_model, cfg_len = prompts.challenge_user_template.len())
+    fields(%difficulty, model = %self.strong_model)
   )]
   pub async fn generate_challenge_freeform(
     &self,
     prompts: &Prompts,
     difficulty: &str,
   ) -> Result<Challenge, String> {
-    let system = fill_template(&prompts.challenge_system, &[("difficulty", difficulty)]);
-    let variables = fill_template(&prompts.challenge_user_template, &[("difficulty", difficulty)]);
-    let start = std::time::Instant::now();
-    let result = self.chat_json::<Gen>(&self.strong_model, &system, &variables, 0.95).await;
-    let elapsed = start.elapsed();
+    let mut last_err = String::new();
 
-    match &result {
-      Ok(_) => info!(?elapsed, "Model response received successfully"),
-      Err(e) => {
-        error!(?elapsed, error = %e, "Model call failed during challenge generation");
-        return Err(format!("Model generation failed: {e}"));
+    for attempt in 1..=3 {
+      let spec = match sample_core_plus_core_spec(difficulty, 80) {
+        Ok(s) => s,
+        Err(e) => {
+          last_err = e;
+          continue;
+        }
+      };
+      let user_msg = match build_core_plus_core_user_message(&spec) {
+        Ok(u) => u,
+        Err(e) => {
+          last_err = e;
+          continue;
+        }
+      };
+
+      let start = std::time::Instant::now();
+      let result = self
+        .chat_json::<CorePlusGeneratedItem>(&self.strong_model, CORE_PLUS_CORE_SYSTEM_PROMPT, &user_msg, 0.2)
+        .await;
+      let elapsed = start.elapsed();
+
+      let model_item = match result {
+        Ok(v) => v,
+        Err(e) => {
+          last_err = format!("Model generation failed: {e}");
+          warn!(attempt, ?elapsed, error = %last_err, "Core+Core model generation failed; retrying");
+          continue;
+        }
+      };
+
+      if let Err(e) = validate_generated_item(&spec, &model_item) {
+        last_err = format!("Generated item failed deterministic checks: {e}");
+        warn!(attempt, error = %last_err, "Core+Core generation invalid; retrying");
+        continue;
       }
+
+      let reference_answer_zh = build_expected_reference_answer(&spec);
+      let challenge_zh = build_compact_challenge_zh(&spec);
+      let step1_label = spec.step1.markers_zh.clone();
+      let step2_label = spec.step2.markers_zh.clone();
+      let challenge_en_fallback = challenge_fallback_cn_en(&step1_label, &step2_label);
+      let summary_en = format!(
+        "Connectors: {} + {}",
+        bilingual_connector_label(&step1_label),
+        bilingual_connector_label(&step2_label)
+      );
+
+      let seed_en = match self.translate_to_en(prompts, &spec.seed).await {
+        Ok(t) if seed_translation_looks_ok(&t) => t,
+        Ok(t) => {
+          warn!(translated = %t, "Core+Core seed translation looked non-English; using fallback");
+          self
+            .fallback_seed_en(prompts, &spec.seed, (&spec.props.p1, &spec.props.p2, &spec.props.p3))
+            .await
+        }
+        Err(e) => {
+          warn!(error = %e, "Core+Core seed translation failed");
+          self
+            .fallback_seed_en(prompts, &spec.seed, (&spec.props.p1, &spec.props.p2, &spec.props.p3))
+            .await
+        }
+      };
+
+      let challenge_en = match self.translate_to_en(prompts, &challenge_zh).await {
+        Ok(t) if challenge_translation_looks_ok(&t) => t,
+        Ok(t) => {
+          warn!(translated = %t, "Core+Core challenge translation looked non-English; using deterministic fallback");
+          challenge_en_fallback.clone()
+        }
+        Err(e) => {
+          warn!(error = %e, "Core+Core challenge translation failed; using deterministic fallback");
+          challenge_en_fallback.clone()
+        }
+      };
+
+      let ch = Challenge {
+        id: Uuid::new_v4().to_string(),
+        difficulty: difficulty.to_string(),
+        kind: ChallengeKind::FreeformZh,
+        source: ChallengeSource::Generated,
+        seed_zh: spec.seed.clone(),
+        seed_en,
+        challenge_zh,
+        challenge_en,
+        summary_en,
+        reference_answer_zh,
+        core_plus_spec: Some(spec),
+        instructions: String::new(),
+        rubric: None,
+      };
+
+      info!(
+        attempt,
+        challenge_id = %ch.id,
+        zh_preview = %ch.challenge_zh.chars().take(40).collect::<String>(),
+        "Core+Core challenge successfully generated"
+      );
+      return Ok(ch);
     }
 
-    let gen = result?;
-    let ch = Challenge {
-      id: Uuid::new_v4().to_string(),
-      difficulty: difficulty.to_string(),
-      kind: ChallengeKind::FreeformZh,
-      source: ChallengeSource::Generated,
-      seed_zh: gen.seed_zh,
-      seed_en: gen.seed_en,
-      challenge_zh: gen.challenge_zh,
-      challenge_en: gen.challenge_en,
-      summary_en: gen.summary_en,
-      instructions: String::new(),
-      rubric: None,
-    };
-
-    info!(
-      challenge_id = %ch.id,
-      zh_preview = %ch.challenge_zh.chars().take(30).collect::<String>(),
-      en_preview = %ch.challenge_en.chars().take(40).collect::<String>(),
-      "Freeform challenge successfully generated"
-    );
-
-    Ok(ch)
+    Err(format!("Core+Core generation failed after retries: {last_err}"))
   }
 
   // seed_zh + challenge_zh validator (now returns a score too)
