@@ -11,7 +11,7 @@ set -o nounset >/dev/null 2>&1 || true
 : "${PORT:=9172}"
 : "${OPENAI_BASE_URL:=https://api.openai.com/v1}"
 : "${OPENAI_FAST_MODEL:=gpt-5-nano}"
-: "${OPENAI_STRONG_MODEL:=gpt-5-mini}"
+: "${OPENAI_STRONG_MODEL:=gpt-5-nano}"
 : "${OPENAI_TRANSCRIBE_MODEL:=gpt-4o-transcribe}"
 : "${RUST_LOG:=info,challenge=debug,caatuu_backend=debug,tower_http=info,axum=info}"
 : "${WS_ALLOW_ALL:=1}"

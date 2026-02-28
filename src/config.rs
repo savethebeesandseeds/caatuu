@@ -3,26 +3,29 @@
 //! See `AgentConfig` and `Prompts` for expected schema.
 
 use serde::Deserialize;
-use tracing::{info, error};
+use tracing::{error, info};
 
 use crate::domain::Rubric;
 
 #[derive(Clone, Debug, Deserialize, Default)]
 pub struct AgentConfig {
-  #[serde(default)]
-  pub prompts: Prompts,
-  #[serde(default)]
-  pub challenges: Vec<ChallengeCfg>,
+    #[serde(default)]
+    pub prompts: Prompts,
+    #[serde(default)]
+    pub challenges: Vec<ChallengeCfg>,
 }
 
 /// Challenge entry accepted in TOML configuration (freeform only).
 #[derive(Clone, Debug, Deserialize)]
 pub struct ChallengeCfg {
-  #[serde(default)] pub id: Option<String>,
-  pub difficulty: String,
-  // Freeform (instructions-driven) – optional, because runtime can generate seed+challenge instead.
-  #[serde(default)] pub instructions: Option<String>,
-  #[serde(default)] pub rubric: Option<Rubric>,
+    #[serde(default)]
+    pub id: Option<String>,
+    pub difficulty: String,
+    // Freeform (instructions-driven) – optional, because runtime can generate seed+challenge instead.
+    #[serde(default)]
+    pub instructions: Option<String>,
+    #[serde(default)]
+    pub rubric: Option<Rubric>,
 }
 
 /// Prompts used by the OpenAI client. Defaults target the new "seed + challenge" freeform flow.
@@ -30,35 +33,35 @@ pub struct ChallengeCfg {
 #[allow(dead_code)]
 #[derive(Clone, Debug, Deserialize)]
 pub struct Prompts {
-  // Challenge generation (seed + challenge text)
-  pub challenge_system: String,
-  pub challenge_user_template: String,
-  // Flexible validation (seed_zh + challenge_zh + user_answer)
-  pub validation_system: String,
-  pub validation_user_template: String,
-  // (Legacy) hint – kept in case you still want seed hints; not used by default path.
-  pub hint_system: String,
-  #[allow(dead_code)]
-  pub hint_user_template: String,
-  // Fast path helpers
-  pub translate_system: String,
-  // NOTE: currently used by the frontend to render pinyin (server routes pinyin_input),
-  // but if you ever switch to local-only pinyin, this may be unused.
-  #[allow(dead_code)]
-  pub pinyin_system: String,
-  pub agent_reply_system: String,
-  // NEW: grammar correction (Chinese)
-  pub grammar_system: String,
-  // Freeform utilities (instructions-driven evaluation and hints)
-  pub freeform_eval_system: String,
-  pub freeform_eval_user_template: String,
-  pub freeform_hint_system: String,
-  pub freeform_hint_user_template: String,
+    // Challenge generation (seed + challenge text)
+    pub challenge_system: String,
+    pub challenge_user_template: String,
+    // Flexible validation (seed_zh + challenge_zh + user_answer)
+    pub validation_system: String,
+    pub validation_user_template: String,
+    // (Legacy) hint – kept in case you still want seed hints; not used by default path.
+    pub hint_system: String,
+    #[allow(dead_code)]
+    pub hint_user_template: String,
+    // Fast path helpers
+    pub translate_system: String,
+    // NOTE: currently used by the frontend to render pinyin (server routes pinyin_input),
+    // but if you ever switch to local-only pinyin, this may be unused.
+    #[allow(dead_code)]
+    pub pinyin_system: String,
+    pub agent_reply_system: String,
+    // NEW: grammar correction (Chinese)
+    pub grammar_system: String,
+    // Freeform utilities (instructions-driven evaluation and hints)
+    pub freeform_eval_system: String,
+    pub freeform_eval_user_template: String,
+    pub freeform_hint_system: String,
+    pub freeform_hint_user_template: String,
 }
 
 impl Default for Prompts {
-  fn default() -> Self {
-    Self {
+    fn default() -> Self {
+        Self {
       // --- CHALLENGE (seed + challenge) ---
       challenge_system: r#"
 You are a Chinese learning content generator. Respond ONLY with strict JSON (no markdown, no comments).
@@ -107,26 +110,31 @@ difficulty="{difficulty}"
 
       // --- CHALLENGE VALIDATION (stateless, robust) ---
       validation_system: r#"
-You are a stateless validator for a 'challenge' task. Ignore any prior messages.
+You are a stateless validator for the Caatuu challenge task. Ignore any prior messages.
+Main goal: keep learning fun, encourage creativity, and avoid strict grading.
 Reply ONLY with strict JSON: {"correct": boolean, "score": number, "explanation": string}.
 
-You receive:
-- seed_zh: Original seed sentence
-- challenge_zh: Challenge in Chinese
-- user_answer: learner's (user) Chinese sentence
+Inputs:
+- seed_zh
+- challenge_zh
+- user_answer
 
-Scoring (0–100):
-- Constraints satisfaction (challenge requirements): 40%
-- Grammar & morphology (particles/aspect/classifiers/patterns): 40%
-- Fluency/naturalness: 20%
-Consider creativity positively if it still satisfies the challenge. Borderline pass is 60.
+VERY LENIENT POLICY
+- If user_answer is non-empty and clearly related to seed/challenge intent, it should usually pass.
+- Reward creative additions heavily when they still make contextual sense.
+- Minor grammar, particle, classifier, or word-order issues should almost never fail the answer.
+- Missing one exact marker or punctuation detail should not fail by itself.
+- Fail mainly for empty or clearly off-topic answers.
 
-Mark correct = true if:
-   (a) user_answer resolves the challenge_zh in the seed_zh context,
-   (b) preserves the seed’s topic/meaning (allow added subject/time/aspect; light reordering),
-   (c) grammar is natural.
-   (d) creativity is encouraged; adding new words/forms is positive when correct.
-If incorrect: explanation must name missing constraints and a one-sentence fix.
+Scoring (0-100):
+- Intent/context match: 55
+- Required cues (verb/place/motion pattern): 20
+- Clarity/grammar: 10
+- Creativity/fun: 15
+
+`correct` should be true for most context-relevant attempts.
+Explanation must be English-first and include Chinese keywords:
+Keywords(中文): 想 / 去 / 学校
 "#.into(),
       validation_user_template: r#"
 seed_zh: {seed_zh}
@@ -177,8 +185,8 @@ No markdown tables. No long preambles.
       grammar_system: "Correct the user's Chinese sentence. Output ONLY the corrected Chinese text (no explanations). Preserve intended meaning; fix word order, particles (了/过/着), measure words, aspect, prepositions, and punctuation. If already correct, return the input unchanged.".into(),
 
       // Freeform utilities (instructions-driven)
-      freeform_eval_system: "You are a strict Chinese writing evaluator. Be concise. Output JSON only.".into(),
-      freeform_eval_user_template: "Instructions: {instructions}\nRubric (JSON): {rubric_json}\nUser answer: {answer}\n\nReturn JSON: {\"correct\": boolean, \"score\": number, \"explanation\": string}\nScoring: 0-100. 'correct' = true if score >= 60.".into(),
+      freeform_eval_system: "You are a very lenient Chinese writing evaluator. Encourage creativity and intent over strict grammar. Only fail empty or clearly off-topic answers. Be concise. Output JSON only.".into(),
+      freeform_eval_user_template: "Instructions: {instructions}\nRubric (JSON): {rubric_json}\nUser answer: {answer}\n\nReturn JSON: {\"correct\": boolean, \"score\": number, \"explanation\": string}\nScoring: 0-100. 'correct' = true if score >= 52.\nExplanation must be English-first and include Chinese keywords: Keywords(中文): ...".into(),
       // NOTE: this is what the Hint button uses today
       freeform_hint_system: r#"
 You are a Chinese learning coach.
@@ -190,26 +198,26 @@ Rules:
 "#.into(),
       freeform_hint_user_template: "Provide vocab/patterns to help with: {instructions}".into(),
     }
-  }
+    }
 }
 
 /// Attempt to load `AgentConfig` from AGENT_CONFIG_PATH. On any parsing/IO error, returns None.
 pub fn load_agent_config_from_env() -> Option<AgentConfig> {
-  let path = std::env::var("AGENT_CONFIG_PATH").ok()?;
-  match std::fs::read_to_string(&path) {
-    Ok(s) => match toml::from_str::<AgentConfig>(&s) {
-      Ok(cfg) => {
-        info!(target: "caatuu_backend", %path, "Loaded agent config (TOML)");
-        Some(cfg)
-      }
-      Err(e) => {
-        error!(target: "caatuu_backend", %path, error = %e, "Failed to parse TOML config");
-        None
-      }
-    },
-    Err(e) => {
-      error!(target: "caatuu_backend", %path, error = %e, "Failed to read TOML config file");
-      None
+    let path = std::env::var("AGENT_CONFIG_PATH").ok()?;
+    match std::fs::read_to_string(&path) {
+        Ok(s) => match toml::from_str::<AgentConfig>(&s) {
+            Ok(cfg) => {
+                info!(target: "caatuu_backend", %path, "Loaded agent config (TOML)");
+                Some(cfg)
+            }
+            Err(e) => {
+                error!(target: "caatuu_backend", %path, error = %e, "Failed to parse TOML config");
+                None
+            }
+        },
+        Err(e) => {
+            error!(target: "caatuu_backend", %path, error = %e, "Failed to read TOML config file");
+            None
+        }
     }
-  }
 }

@@ -1,4 +1,4 @@
-import { $, $$, debounce, logInfo, logSuccess, logError, logWarn } from './utils.js';
+import { $, $$, debounce, logInfo, logSuccess, logError, logWarn, getLogsText, clearLogs, copyText } from './utils.js';
 import { LSK, ls, current, liveSuggestion } from './state.js';
 import { renderZh, alignPinyinToText, esc as escHtml } from './zh.js';
 import { okBeep, badBeep, speakText, ttsVoices, ttsSupported, onTTSVoicesChanged } from './audio.js';
@@ -641,10 +641,68 @@ function showFeedback({message, ok, score}){
   }, 25000);
 }
 
+function extractReasonKeywords(challenge){
+  const out = [];
+  const push = (v)=>{
+    const t = String(v || '').trim();
+    if (!t) return;
+    if (out.includes(t)) return;
+    out.push(t);
+  };
+  const extractMarker = (txt, prefix)=>{
+    const i = txt.indexOf(prefix);
+    if (i < 0) return '';
+    const rest = txt.slice(i + prefix.length);
+    const j = rest.indexOf('」');
+    return (j < 0 ? '' : rest.slice(0, j)).trim();
+  };
+
+  const challengeZh = (challenge?.challenge_zh || '').trim();
+  const seedZh = (challenge?.seed_zh || '').trim();
+  push(extractMarker(challengeZh, '立场动词「'));
+  push(extractMarker(challengeZh, '地点「'));
+
+  ['去','到','往','因为','所以','如果','就','但是','却','然后','想','觉得','希望','打算','计划']
+    .forEach(tok=>{
+      if (challengeZh.includes(tok) || seedZh.includes(tok)) push(tok);
+    });
+
+  if (!out.length) {
+    push('语义');
+    push('创意');
+  }
+  return out.slice(0, 6);
+}
+
+function normalizeAnswerExplanation(explanation, {ok=false, challenge=null} = {}){
+  const raw = String(explanation || '').trim();
+  const hasEnglish = /[A-Za-z]/.test(raw);
+  const hasCjk = /[\u3400-\u9FFF]/.test(raw);
+  const keywords = extractReasonKeywords(challenge);
+
+  let english = raw;
+  if (!english) {
+    english = ok
+      ? 'Pass: your attempt matches the challenge intent and creativity is encouraged.'
+      : 'Close: your intent is understandable; add one clearer challenge cue and try again.';
+  } else if (!hasEnglish) {
+    english = ok
+      ? 'Pass: your attempt is contextually acceptable and creative.'
+      : 'Close: your attempt has understandable intent; add one clearer challenge cue.';
+    if (hasCjk) english += ` Original(中文): ${raw}`;
+  }
+
+  if (!/Keywords\(中文\):|关键词/.test(english)) {
+    if (!/[.!?。]$/.test(english)) english += '.';
+    english += ` Keywords(中文): ${keywords.join(' / ')}`;
+  }
+  return english;
+}
+
 function onAnswerResult(res){
   setLoading('#challengePanel', false);
   const ok = !!res.correct;
-  const exp = (res.explanation || '').trim();
+  const exp = normalizeAnswerExplanation(res.explanation, { ok, challenge: current.challenge });
   const score = (typeof res.score === 'number') ? res.score : null;
 
   if (ok) { okBeep(); logSuccess(`Answer correct${score!=null?` · Score ${Math.round(score)}`:''}${exp ? ` — ${exp}` : ''}`); }
@@ -947,6 +1005,17 @@ export function bindEvents(){
     $('#agentHistory').innerHTML = '';
     wsSend({type:'agent_reset'});
     logInfo('Agent history reset.');
+  });
+
+  // Event log controls
+  $('#copyLogBtn')?.addEventListener('click', async ()=>{
+    const ok = await copyText(getLogsText());
+    if (ok) logSuccess('Event log copied.');
+    else logError('Failed to copy event log.');
+  });
+  $('#clearLogBtn')?.addEventListener('click', ()=>{
+    clearLogs();
+    logInfo('Event log cleared.');
   });
 
   // Mobile-accessible challenge English details (title tooltips don't work on touch).

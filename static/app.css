@@ -481,6 +481,17 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   font-size: clamp(1.1rem, 1rem + 1.2vw, 1.5rem);
   line-height:1.5;
   min-height:52px;
+  font-family:
+    "Noto Sans SC",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    "Source Han Sans SC",
+    "WenQuanYi Micro Hei",
+    "Noto Sans CJK SC",
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 /* Buttons stacked vertically (saves horizontal space) */
 .btn-group{
@@ -500,6 +511,8 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   opacity:0;
   max-height:0;
   overflow:hidden;
+  overflow-wrap:anywhere;
+  word-break:break-word;
   margin-top:0;
   transition: opacity .2s, max-height .25s ease, margin .2s, padding .2s;
 }
@@ -721,9 +734,20 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 .gc-legend .sw.del{ background:var(--c-gc-del-bg); border:1px solid var(--c-gc-del-border); }
 
 /* Make the log fill up to ~half of the viewport, still with a floor and ceiling */
+#bottomPanel > .panel-body{
+  overflow:hidden !important;
+  overflow-y:hidden !important;
+  overflow-x:hidden !important;
+  display:flex;
+  min-height:0;
+}
 #eventLog{
-  max-height: clamp(380px, 50vh, 900px);
-  min-height: 260px;
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+  height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
 }
 #eventLog .log-item{
   display:flex; align-items:flex-start; gap:6px;
@@ -859,15 +883,15 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   .pill{ padding:5px 8px; font-size:.82rem; }
   .section-label{ font-size:.78rem; }
 
-  /* Event log still sizable on phones */
-  #eventLog{ max-height: 50vh; min-height: 220px; }
+  /* Event log: single internal scroller */
+  #eventLog{ min-height:0; max-height:none; height:100%; }
 }
 
 @media (max-width: 440px){
   .panel-header{ padding:5px 8px; }
   .panel > .panel-body{ padding:8px; }
   #answerInput{ min-height:48px; }
-  #eventLog{ max-height: 50vh; min-height: 180px; }
+  #eventLog{ min-height:0; max-height:none; height:100%; }
   #agentSendBtn{
     min-width:62px;
     right:5px;
@@ -885,7 +909,10 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
    Nested scroll enablers
    =========================*/
 #grid, #agentPanel, #rightTop, #bottomPanel, #taskHelp { min-height: 0; }
-#challengePanel .panel-body{ position: relative; }
+#challengePanel .panel-body{
+  position: relative;
+  overflow-x: hidden;
+}
 
 /* --- Event log header compact --- */
 #eventLogControls{ margin:0; padding:0; gap:6px; }
@@ -906,6 +933,10 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   grid-template-columns: repeat(auto-fit, minmax(96px, max-content));
   justify-content: end;                       /* right-align on wide screens */
   align-items: stretch;
+}
+#answerBar .btn-group .btn.small{
+  white-space: nowrap;
+  text-align: center;
 }
 
 /* Distinct colors for Submit (emerald) and Next (azure) */
@@ -934,23 +965,33 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   background:#142131;
 }
 
-/* Mobile: 3-col grid (then 2-col on very small). Submit spans 2 cols. */
+/* Mobile: fixed 2-row layout: Submit+Next, then Assist+STT+Hint+Speak. */
 @media (max-width: 880px){
   #answerBar .btn-group{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      "submit submit next next"
+      "assist stt hint speak";
     justify-content: stretch;
   }
   #answerBar .btn-group .btn.small{
     width:auto;                 /* override earlier 100% width */
     min-height:36px;
+    font-size:.82rem;
+    padding:6px 6px;
   }
-  #answerSendBtn{
-    grid-column: span 2;        /* make primary easy to hit */
-  }
+  #answerSendBtn { grid-area: submit; }
+  #newChallengeBtn { grid-area: next; }
+  #assistBtn { grid-area: assist; }
+  #speechToTextBtn { grid-area: stt; }
+  #getHintBtn { grid-area: hint; }
+  #speakInputBtn { grid-area: speak; }
 }
 @media (max-width: 440px){
-  #answerBar .btn-group{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  #answerBar .btn-group .btn.small{
+    font-size:.78rem;
+    min-height:34px;
+    padding:5px 4px;
   }
 }
 

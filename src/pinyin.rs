@@ -12,27 +12,27 @@ use pinyin::ToPinyin;
 /// so some polyphonic characters may use a default reading.
 ///
 pub fn to_pinyin_diacritics(text: &str) -> String {
-  let mut out = String::with_capacity(text.len() * 2);
+    let mut out = String::with_capacity(text.len() * 2);
 
-  // Track whether the previous emitted token was a Hanzi→pinyin token,
-  // so we can insert spaces between consecutive Hanzi syllables.
-  let mut last_was_hanzi = false;
+    // Track whether the previous emitted token was a Hanzi→pinyin token,
+    // so we can insert spaces between consecutive Hanzi syllables.
+    let mut last_was_hanzi = false;
 
-  for ch in text.chars() {
-    if let Some(py) = ch.to_pinyin() {
-      let syllable = py.with_tone().to_string();
+    for ch in text.chars() {
+        if let Some(py) = ch.to_pinyin() {
+            let syllable = py.with_tone().to_string();
 
-      if last_was_hanzi {
-        out.push(' ');
-      }
-      out.push_str(&syllable);
-      last_was_hanzi = true;
-    } else {
-      // Any non-Hanzi: copy as-is and reset spacing state.
-      out.push(ch);
-      last_was_hanzi = false;
+            if last_was_hanzi {
+                out.push(' ');
+            }
+            out.push_str(&syllable);
+            last_was_hanzi = true;
+        } else {
+            // Any non-Hanzi: copy as-is and reset spacing state.
+            out.push(ch);
+            last_was_hanzi = false;
+        }
     }
-  }
 
-  out
+    out
 }

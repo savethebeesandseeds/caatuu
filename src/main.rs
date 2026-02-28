@@ -15,18 +15,18 @@
 //!   LOG_LEVEL    : tracing filter, e.g. "debug" or full directives
 //!   LOG_FORMAT      : "pretty" (default) or "json"
 
-mod telemetry;
-mod util;
+mod config;
 mod coreplus;
 mod domain;
-mod config;
-mod seeds;
-mod state;
-mod protocol;
 mod logic;
 mod openai;
-mod routes;
 mod pinyin;
+mod protocol;
+mod routes;
+mod seeds;
+mod state;
+mod telemetry;
+mod util;
 
 use std::{net::SocketAddr, sync::Arc};
 use tokio::net::TcpListener;
@@ -38,23 +38,23 @@ use crate::state::AppState;
 #[instrument(level = "info", skip_all)]
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-  telemetry::init_tracing();
+    telemetry::init_tracing();
 
-  // Build shared application state (in-memory stores, OpenAI client, prompts).
-  let state = Arc::new(AppState::new());
+    // Build shared application state (in-memory stores, OpenAI client, prompts).
+    let state = Arc::new(AppState::new());
 
-  // Build the HTTP router with routes, CORS and tracing layers.
-  let app = build_router(state.clone());
+    // Build the HTTP router with routes, CORS and tracing layers.
+    let app = build_router(state.clone());
 
-  // Read port from env or default to 3000.
-  let addr: SocketAddr = std::env::var("PORT")
-    .ok()
-    .and_then(|p| p.parse::<u16>().ok())
-    .map(|port| SocketAddr::from(([0, 0, 0, 0], port)))
-    .unwrap_or_else(|| SocketAddr::from(([0, 0, 0, 0], 3000)));
+    // Read port from env or default to 3000.
+    let addr: SocketAddr = std::env::var("PORT")
+        .ok()
+        .and_then(|p| p.parse::<u16>().ok())
+        .map(|port| SocketAddr::from(([0, 0, 0, 0], port)))
+        .unwrap_or_else(|| SocketAddr::from(([0, 0, 0, 0], 3000)));
 
-  let listener = TcpListener::bind(addr).await?;
-  info!(target: "caatuu_backend", %addr, "HTTP server listening");
-  axum::serve(listener, app).await?;
-  Ok(())
+    let listener = TcpListener::bind(addr).await?;
+    info!(target: "caatuu_backend", %addr, "HTTP server listening");
+    axum::serve(listener, app).await?;
+    Ok(())
 }

@@ -8,7 +8,7 @@ use crate::domain::{Challenge, ChallengeKind, ChallengeSource, Rubric};
 /// Minimal set of built-in challenges for the new seed+challenge freeform flow.
 /// Guarantees usefulness even without external config or OpenAI.
 pub fn seed_challenges() -> Vec<Challenge> {
-  vec![
+    vec![
     Challenge {
       id: "c3001".into(),
       difficulty: "hsk3".into(),
@@ -58,7 +58,7 @@ pub fn seed_challenges() -> Vec<Challenge> {
 
 /// Absolute last-resort fallback: if all generation fails, we inject this.
 pub fn hard_fallback_challenge(difficulty: String) -> Challenge {
-  Challenge {
+    Challenge {
     id: Uuid::new_v4().to_string(),
     difficulty,
     kind: ChallengeKind::FreeformZh,
@@ -80,13 +80,37 @@ pub fn hard_fallback_challenge(difficulty: String) -> Challenge {
 /// A tiny, hand-curated map of char -> pinyin (with tone marks).
 /// Used to provide pinyin locally when OpenAI isn't available.
 pub fn seed_pinyin_map() -> HashMap<char, &'static str> {
-  use std::iter::FromIterator;
-  HashMap::from_iter([
-    ('今', "jīn"), ('天', "tiān"), ('气', "qì"), ('很', "hěn"), ('好', "hǎo"),
-    ('我', "wǒ"), ('想', "xiǎng"), ('喝', "hē"), ('咖', "kā"), ('啡', "fēi"),
-    ('你', "nǐ"), ('吃', "chī"), ('饭', "fàn"), ('了', "le"), ('吗', "ma"),
-    ('他', "tā"), ('昨', "zuó"), ('去', "qù"), ('北', "běi"), ('京', "jīng"),
-    ('们', "men"), ('一', "yī"), ('起', "qǐ"), ('学', "xué"), ('习', "xí"),
-    ('吧', "ba"), ('。', "."), ('，', ","), ('？', "?"), ('！', "!"),
-  ])
+    use std::iter::FromIterator;
+    HashMap::from_iter([
+        ('今', "jīn"),
+        ('天', "tiān"),
+        ('气', "qì"),
+        ('很', "hěn"),
+        ('好', "hǎo"),
+        ('我', "wǒ"),
+        ('想', "xiǎng"),
+        ('喝', "hē"),
+        ('咖', "kā"),
+        ('啡', "fēi"),
+        ('你', "nǐ"),
+        ('吃', "chī"),
+        ('饭', "fàn"),
+        ('了', "le"),
+        ('吗', "ma"),
+        ('他', "tā"),
+        ('昨', "zuó"),
+        ('去', "qù"),
+        ('北', "běi"),
+        ('京', "jīng"),
+        ('们', "men"),
+        ('一', "yī"),
+        ('起', "qǐ"),
+        ('学', "xué"),
+        ('习', "xí"),
+        ('吧', "ba"),
+        ('。', "."),
+        ('，', ","),
+        ('？', "?"),
+        ('！', "!"),
+    ])
 }

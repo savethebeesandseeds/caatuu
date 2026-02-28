@@ -115,14 +115,25 @@ stop_backend() {
   rm -f "$PID_FILE"
 
   # Fallback in case PID file is stale/missing.
+  # Stop both historical names: caatuu-backend and caatuu.
   local orphan_pids
-  orphan_pids="$(pgrep -x caatuu-backend || true)"
+  orphan_pids="$(
+    {
+      pgrep -x caatuu-backend || true
+      pgrep -x caatuu || true
+    } | awk 'NF' | sort -u
+  )"
   if [[ -n "$orphan_pids" ]]; then
-    echo "→ stopping backend orphan PID(s): $orphan_pids"
+    echo "→ stopping backend orphan PID(s) (caatuu-backend/caatuu): $orphan_pids"
     # shellcheck disable=SC2086
     kill -TERM $orphan_pids >/dev/null 2>&1 || true
     sleep 1
-    orphan_pids="$(pgrep -x caatuu-backend || true)"
+    orphan_pids="$(
+      {
+        pgrep -x caatuu-backend || true
+        pgrep -x caatuu || true
+      } | awk 'NF' | sort -u
+    )"
     if [[ -n "$orphan_pids" ]]; then
       echo "→ force-stopping backend orphan PID(s): $orphan_pids"
       # shellcheck disable=SC2086
@@ -144,7 +155,12 @@ status_backend() {
     echo "backend: running (pid file PID $pid)"
   else
     local pids
-    pids="$(pgrep -x caatuu-backend || true)"
+    pids="$(
+      {
+        pgrep -x caatuu-backend || true
+        pgrep -x caatuu || true
+      } | awk 'NF' | sort -u
+    )"
     if [[ -n "$pids" ]]; then
       echo "backend: running (PID(s): $pids)"
     else
@@ -241,6 +257,8 @@ case "$COMMAND" in
     stop_backend
     ;;
   start)
+    # Safe-start: make sure stale backend instances are not holding the port.
+    stop_backend
     ;;
   *)
     echo "Unknown command: $COMMAND" >&2
