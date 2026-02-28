@@ -33,12 +33,6 @@ function updateConnDot(state){
     connDotEl.className = 'led ' + s;
     connDotEl.title = title;
   }
-
-  const challengeLoadingDot = document.getElementById('challengeLoadingDot');
-  if (challengeLoadingDot){
-    challengeLoadingDot.className = 'led ' + s;
-    challengeLoadingDot.title = title;
-  }
 }
 
 function resolveWSUrl(){

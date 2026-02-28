@@ -11,12 +11,20 @@ const THEME_KEY = 'ui_theme_v1';
 const AgentMode = { tutor:'tutor', translate:'translate' };
 let allowUnloadOnce = false;
 const STT_MAX_RECORD_MS = 25000;
+const STT_SILENCE_STOP_MS = 2400;
+const STT_VAD_THRESHOLD = 0.02;
 let sttRecorder = null;
 let sttStream = null;
 let sttChunks = [];
 let sttStopTimer = null;
 let sttRecording = false;
 let sttInFlight = false;
+let sttAudioCtx = null;
+let sttAnalyser = null;
+let sttSource = null;
+let sttVadRaf = 0;
+let sttSilenceSince = 0;
+let sttSawSpeech = false;
 
 function normalizeTheme(v){
   return v === 'light' ? 'light' : 'dark';
@@ -100,9 +108,72 @@ function clearSttTimer(){
 }
 
 function stopSttStream(){
+  stopSttVad();
   if (!sttStream) return;
   try { sttStream.getTracks().forEach(t => t.stop()); } catch {}
   sttStream = null;
+}
+
+function stopSttVad(){
+  if (sttVadRaf) {
+    cancelAnimationFrame(sttVadRaf);
+    sttVadRaf = 0;
+  }
+  try { sttSource?.disconnect(); } catch {}
+  try { sttAnalyser?.disconnect(); } catch {}
+  sttSource = null;
+  sttAnalyser = null;
+  sttSilenceSince = 0;
+  sttSawSpeech = false;
+  const ctx = sttAudioCtx;
+  sttAudioCtx = null;
+  if (ctx && ctx.state !== 'closed') {
+    try { ctx.close(); } catch {}
+  }
+}
+
+function startSttVad(stream){
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx || !stream) return;
+  stopSttVad();
+
+  try {
+    sttAudioCtx = new Ctx();
+    sttAnalyser = sttAudioCtx.createAnalyser();
+    sttAnalyser.fftSize = 2048;
+    sttSource = sttAudioCtx.createMediaStreamSource(stream);
+    sttSource.connect(sttAnalyser);
+    const data = new Uint8Array(sttAnalyser.fftSize);
+
+    const loop = ()=>{
+      if (!sttAnalyser || !sttRecorder || sttRecorder.state === 'inactive') return;
+      sttAnalyser.getByteTimeDomainData(data);
+      let sum = 0;
+      for (let i = 0; i < data.length; i++) {
+        const v = (data[i] - 128) / 128;
+        sum += v * v;
+      }
+      const rms = Math.sqrt(sum / data.length);
+      const now = performance.now();
+
+      if (rms >= STT_VAD_THRESHOLD) {
+        sttSawSpeech = true;
+        sttSilenceSince = 0;
+      } else if (sttSawSpeech) {
+        if (!sttSilenceSince) sttSilenceSince = now;
+        if (now - sttSilenceSince >= STT_SILENCE_STOP_MS) {
+          logInfo('Detected silence; auto-stopping recording.');
+          try { sttRecorder.stop(); } catch {}
+          return;
+        }
+      }
+      sttVadRaf = requestAnimationFrame(loop);
+    };
+
+    sttVadRaf = requestAnimationFrame(loop);
+  } catch {
+    stopSttVad();
+  }
 }
 
 function pickSttMimeType(){
@@ -196,6 +267,7 @@ async function startSpeechCapture(){
     });
     sttRecorder.addEventListener('stop', ()=>{ finishSpeechCapture(); });
     sttRecorder.start(250);
+    startSttVad(sttStream);
     logInfo('Recording speech... tap STT again to stop.');
 
     clearSttTimer();
@@ -238,7 +310,10 @@ function setLoading(panelSelector, flag, opts = {}){
     const panelControls = $$('#challengePanel button, #challengePanel textarea, #challengePanel input, #challengePanel select');
 
     if (challengeFetch) {
-      if (loadingEl) loadingEl.style.display = flag ? 'flex' : 'none';
+      if (loadingEl) {
+        loadingEl.hidden = !flag;
+        loadingEl.style.display = flag ? 'flex' : 'none';
+      }
       if (taskGrid) taskGrid.style.display = flag ? 'none' : '';
       if (feedback) feedback.style.display = flag ? 'none' : '';
       if (answerBar) answerBar.style.display = flag ? 'none' : '';
@@ -1059,7 +1134,8 @@ export function handleMessage(msg){
         inp.focus();
         inp.dispatchEvent(new Event('input', { bubbles:true }));
       }
-      logSuccess(`Speech recognized: ${text}`);
+      const preview = text.length > 96 ? `${text.slice(0, 96)}…` : text;
+      logSuccess(`Speech recognized: ${preview}`);
       break;
     }
     case 'speech_to_text_error':

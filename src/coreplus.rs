@@ -66,6 +66,8 @@ pub struct CorePlusProps {
   pub p3: String,
 }
 
+// Kept for optional strict model-generation mode; currently generation is deterministic.
+#[allow(dead_code)]
 #[derive(Clone, Debug, Deserialize)]
 pub struct CorePlusGeneratedItem {
   pub seed_zh: String,
@@ -76,6 +78,8 @@ pub struct CorePlusGeneratedItem {
   pub _meta: serde_json::Value,
 }
 
+// Kept for optional strict model-generation mode; currently generation is deterministic.
+#[allow(dead_code)]
 pub const CORE_PLUS_CORE_SYSTEM_PROMPT: &str = r#"
 You are a Chinese learning item generator.
 You MUST follow the provided SPEC exactly.
@@ -101,6 +105,8 @@ Rules:
   chain_id, scene_id, step1.pattern_id, step2.pattern_id, step1.relation, step2.relation, version
 "#;
 
+// Kept for optional strict model-generation mode; currently generation is deterministic.
+#[allow(dead_code)]
 pub fn build_core_plus_core_user_message(spec: &CorePlusSpec) -> Result<String, String> {
   let spec_json = serde_json::to_string(spec).map_err(|e| format!("Failed to serialize SPEC: {e}"))?;
   Ok(format!("SPEC_JSON:\n{spec_json}"))
@@ -192,6 +198,8 @@ pub fn sample_core_plus_core_spec(difficulty: &str, max_tries: usize) -> Result<
   Err("SAMPLE_COREPLUSCORE_SPEC: failed to sample a valid SPEC within max_tries".into())
 }
 
+// Kept for optional strict model-generation mode; currently generation is deterministic.
+#[allow(dead_code)]
 pub fn validate_generated_item(spec: &CorePlusSpec, item: &CorePlusGeneratedItem) -> Result<(), String> {
   if item.seed_zh.trim() != spec.seed.trim() {
     return Err("seed_zh does not match SPEC.seed exactly".into());
@@ -277,6 +285,8 @@ pub fn evaluate_core_plus_core_answer(spec: &CorePlusSpec, user_answer: &str) ->
   (correct, score, explanation)
 }
 
+// Used only by optional strict model-generation validation.
+#[allow(dead_code)]
 fn validate_sentence(step: &CorePlusSpecStep, sentence: &str, expected_a: &str, expected_b: &str) -> Result<(), String> {
   if !sentence.contains(expected_a) {
     return Err(format!("缺少命题片段A：'{expected_a}'"));
@@ -338,6 +348,8 @@ fn split_two_sentences(text: &str) -> Option<(String, String)> {
   Some((parts[0].clone(), parts[1].clone()))
 }
 
+// Used only by optional strict model-generation validation.
+#[allow(dead_code)]
 fn normalize_for_compare(s: &str) -> String {
   s.chars().filter(|c| !c.is_whitespace()).collect::<String>()
 }

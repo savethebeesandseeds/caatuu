@@ -31,7 +31,8 @@ async fn handle_ws(mut socket: WebSocket, state: Arc<AppState>) {
         // Parse, dispatch, serialize response.
         let reply_msg = match serde_json::from_str::<ClientWsMessage>(&txt) {
           Ok(incoming) => {
-            debug!(target = "caatuu_backend", "WS received: {:?}", &incoming);
+            let summary = ws_message_summary(&incoming);
+            debug!(target = "caatuu_backend", %summary, "WS received");
             handle_client_ws(incoming, &state).await
           }
           Err(e) => ServerWsMessage::Error { message: format!("Invalid JSON: {}", e) },
@@ -52,6 +53,31 @@ async fn handle_ws(mut socket: WebSocket, state: Arc<AppState>) {
     }
   }
   info!(target: "caatuu_backend", "WebSocket disconnected");
+}
+
+fn ws_message_summary(msg: &ClientWsMessage) -> String {
+  match msg {
+    ClientWsMessage::Ping => "ping".into(),
+    ClientWsMessage::NewChallenge { difficulty } => format!("new_challenge difficulty={difficulty}"),
+    ClientWsMessage::SubmitAnswer { challenge_id, answer } => {
+      format!("submit_answer challenge_id={challenge_id} answer_len={}", answer.len())
+    }
+    ClientWsMessage::Hint { challenge_id } => format!("hint challenge_id={challenge_id}"),
+    ClientWsMessage::TranslateInput { text } => format!("translate_input text_len={}", text.len()),
+    ClientWsMessage::PinyinInput { text } => format!("pinyin_input text_len={}", text.len()),
+    ClientWsMessage::GrammarInput { text } => format!("grammar_input text_len={}", text.len()),
+    ClientWsMessage::SpeechToTextInput { audio_base64, mime } => {
+      format!("speech_to_text_input mime={mime} base64_len={}", audio_base64.len())
+    }
+    ClientWsMessage::NextChar { challenge_id, current } => {
+      format!("next_char challenge_id={challenge_id} current_len={}", current.len())
+    }
+    ClientWsMessage::AgentMessage { challenge_id, text } => {
+      format!("agent_message challenge_id={challenge_id} text_len={}", text.len())
+    }
+    ClientWsMessage::AgentReset => "agent_reset".into(),
+    ClientWsMessage::SaveSettings { .. } => "save_settings".into(),
+  }
 }
 
 #[instrument(level = "info", skip(state))]
