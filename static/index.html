@@ -70,17 +70,31 @@
           <!-- Input bar at the top -->
           <div id="answerBar" class="input-bar">
             <form id="answerForm" class="row grow" autocomplete="off" style="margin:0; padding:0;">
-              <textarea id="answerInput" placeholder="Type your answer in Chinese" aria-label="Challenge answer input"></textarea>
+              <textarea
+                id="answerInput"
+                lang="zh-CN"
+                inputmode="text"
+                autocapitalize="off"
+                autocorrect="off"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Type your answer in Chinese"
+                aria-label="Challenge answer input"></textarea>
             </form>
             <div class="btn-group" role="group" aria-label="Answer actions">
               <button class="btn small accent-submit wide" id="answerSendBtn" type="submit" form="answerForm" title="Submit (Enter)">Submit</button>
               <button class="btn small accent-next" id="newChallengeBtn" type="button" title="Next (Esc / Alt+N)">⏭ Next</button>
               <button class="btn small ghost" id="assistBtn" type="button" title="Assist (Alt+A / Ctrl+T)">Assist</button>
+              <button class="btn small ghost" id="speechToTextBtn" type="button" title="Speech to text (Chinese)">🎙 STT</button>
               <button class="btn small ghost" id="getHintBtn" type="button" title="Get hint (Alt+H)">Hint</button>
               <button class="btn small ghost" id="speakInputBtn" type="button" title="Listen to your input">🔊</button>
             </div>
           </div>
           <div id="answerFeedback" aria-live="polite"></div>
+          <div id="challengeLoading" class="challenge-loading" aria-live="polite" hidden style="display:none;">
+            <span id="challengeLoadingDot" class="led off" aria-hidden="true"></span>
+            <span>Generating a new challenge...</span>
+          </div>
 
           <!-- Content: Challenge only -->
           <div id="taskGrid">

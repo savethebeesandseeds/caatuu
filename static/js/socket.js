@@ -23,12 +23,22 @@ export function setOnOpen(cb){ onOpen = cb; }
 export function setConnDotEl(el){ connDotEl = el; }
 
 function updateConnDot(state){
-  if(!connDotEl) return;
+  const s = state || 'off';
+  const title = s === 'ok' ? 'Connected'
+             : s === 'reconnecting' ? 'Reconnecting… (mock active)'
+             : 'Offline (mock)';
+
   // state: 'ok' | 'off' | 'reconnecting'
-  connDotEl.className = 'led ' + (state || 'off');
-  connDotEl.title = state === 'ok' ? 'Connected'
-                 : state === 'reconnecting' ? 'Reconnecting… (mock active)'
-                 : 'Offline (mock)';
+  if (connDotEl){
+    connDotEl.className = 'led ' + s;
+    connDotEl.title = title;
+  }
+
+  const challengeLoadingDot = document.getElementById('challengeLoadingDot');
+  if (challengeLoadingDot){
+    challengeLoadingDot.className = 'led ' + s;
+    challengeLoadingDot.title = title;
+  }
 }
 
 function resolveWSUrl(){

@@ -7,6 +7,7 @@
 //!   - Next-character logic (not applicable for freeform)
 
 use tracing::{error, debug, instrument};
+use base64::Engine;
 
 use crate::coreplus::evaluate_core_plus_core_answer;
 use crate::domain::Challenge;
@@ -151,6 +152,19 @@ pub async fn do_grammar(state: &AppState, text: &str) -> String {
     }
   }
   grammar_stub(text)
+}
+
+#[instrument(level = "info", skip(state, audio_base64), fields(mime = mime, base64_len = audio_base64.len()))]
+pub async fn do_speech_to_text(state: &AppState, audio_base64: &str, mime: &str) -> Result<String, String> {
+  let bytes = base64::engine::general_purpose::STANDARD
+    .decode(audio_base64.as_bytes())
+    .map_err(|e| format!("Invalid audio payload: {e}"))?;
+  if bytes.is_empty() {
+    return Err("Audio payload is empty.".into());
+  }
+
+  let oa = state.openai.as_ref().ok_or_else(|| "Speech-to-text unavailable: OPENAI_API_KEY not set.".to_string())?;
+  oa.transcribe_audio(mime, &bytes).await
 }
 
 #[instrument(level = "info", skip(state, question), fields(%challenge_id, question_len = question.len()))]

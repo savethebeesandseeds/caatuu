@@ -16,6 +16,7 @@ pub enum ClientWsMessage {
   TranslateInput { text: String },
   PinyinInput { text: String },
   GrammarInput { text: String },            // NEW
+  SpeechToTextInput { #[serde(rename = "audioBase64")] audio_base64: String, mime: String },
   NextChar { #[serde(rename = "challengeId")] challenge_id: String, current: String },
   AgentMessage { #[serde(rename = "challengeId")] challenge_id: String, text: String },
   AgentReset,
@@ -33,6 +34,8 @@ pub enum ServerWsMessage {
   Translate { text: String, translation: String },
   Pinyin { text: String, pinyin: String },
   Grammar { text: String, corrected: String }, // NEW
+  SpeechToText { text: String },
+  SpeechToTextError { message: String },
   NextChar { char: String, pinyin: String, reason: String },
   AgentReply { text: String },
   Error { message: String },

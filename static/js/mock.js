@@ -108,6 +108,12 @@ export function mockHandle(obj){
         handleMessageCB({type:'agent_reply', text:'(mock) Think about tones 3→4 cadence here.'});
         break;
       }
+      case 'speech_to_text_input': {
+        const sample = ['我想去图书馆学习。', '今天下午我打算去公园跑步。', '我觉得这个挑战有意思。'];
+        const text = sample[Math.floor(Math.random() * sample.length)];
+        handleMessageCB({type:'speech_to_text', text});
+        break;
+      }
     }
   }, 220 + Math.random()*220);
 }

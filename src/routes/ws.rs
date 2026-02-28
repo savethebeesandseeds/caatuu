@@ -92,6 +92,13 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
       ServerWsMessage::Grammar { text, corrected }
     }
 
+    ClientWsMessage::SpeechToTextInput { audio_base64, mime } => {
+      match do_speech_to_text(state, &audio_base64, &mime).await {
+        Ok(text) => ServerWsMessage::SpeechToText { text },
+        Err(message) => ServerWsMessage::SpeechToTextError { message },
+      }
+    }
+
     ClientWsMessage::NextChar { challenge_id, current } => {
       let (c, p, reason) = next_char_logic(state, &challenge_id, &current).await;
       ServerWsMessage::NextChar { char: c, pinyin: p, reason }

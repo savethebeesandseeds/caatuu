@@ -106,7 +106,7 @@ impl AppState {
     // Build optional OpenAI client (if API key present).
     let openai = OpenAI::from_env();
     if let Some(oa) = &openai {
-      info!(target: "caatuu_backend", base_url = %oa.base_url, fast_model = %oa.fast_model, strong_model = %oa.strong_model, "OpenAI enabled.");
+      info!(target: "caatuu_backend", base_url = %oa.base_url, fast_model = %oa.fast_model, strong_model = %oa.strong_model, transcribe_model = %oa.transcribe_model, "OpenAI enabled.");
     } else {
       info!(target: "caatuu_backend", "OpenAI disabled (no OPENAI_API_KEY). Using local/seed logic.");
     }

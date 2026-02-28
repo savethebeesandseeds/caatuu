@@ -13,9 +13,7 @@ use tracing::{instrument, info, warn};
 
 use crate::config::Prompts;
 use crate::coreplus::{
-  CORE_PLUS_CORE_SYSTEM_PROMPT, CorePlusGeneratedItem, build_compact_challenge_zh,
-  build_core_plus_core_user_message, build_expected_reference_answer, sample_core_plus_core_spec,
-  validate_generated_item,
+  build_compact_challenge_zh, build_expected_reference_answer, sample_core_plus_core_spec,
 };
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
 use crate::util::{fill_template, is_cjk};
@@ -55,18 +53,6 @@ Output:
 
 Special rule:
 - If the input begins with “Challenge:”, your output should begin with “挑战：”.
-"#;
-
-const STRICT_SEED_LITERAL_ZH2EN_SYSTEM: &str = r#"
-You are a professional Chinese-to-English literal translator.
-
-Task:
-- Translate the user's Chinese phrase into clear literal English.
-- Keep meaning simple and direct.
-
-Output:
-- Output ONLY English text.
-- No Chinese, no pinyin, no notes.
 "#;
 
 fn cjk_ratio(s: &str) -> f32 {
@@ -125,6 +111,14 @@ fn is_model_missing_error(status: reqwest::StatusCode, msg: &str) -> bool {
   }
   let m = msg.to_lowercase();
   m.contains("model") && (m.contains("does not exist") || m.contains("do not have access"))
+}
+
+fn is_transcribe_model_error(status: reqwest::StatusCode, msg: &str) -> bool {
+  if status != reqwest::StatusCode::BAD_REQUEST && status != reqwest::StatusCode::NOT_FOUND {
+    return false;
+  }
+  let m = msg.to_lowercase();
+  m.contains("model") && (m.contains("does not exist") || m.contains("not found") || m.contains("unsupported"))
 }
 
 fn is_temperature_unsupported_error(status: reqwest::StatusCode, msg: &str) -> bool {
@@ -242,20 +236,6 @@ fn challenge_fallback_cn_en(markers_1: &str, markers_2: &str) -> String {
   )
 }
 
-fn challenge_translation_looks_ok(text: &str) -> bool {
-  let s = text.trim();
-  if s.is_empty() {
-    return false;
-  }
-  if cjk_ratio(s) > 0.4 {
-    return false;
-  }
-  if !has_task_words_en(s) && !s.contains("sentence") {
-    return false;
-  }
-  true
-}
-
 fn seed_translation_looks_ok(text: &str) -> bool {
   let s = text.trim();
   if s.is_empty() {
@@ -272,6 +252,7 @@ pub struct OpenAI {
   pub base_url: String,
   pub fast_model: String,
   pub strong_model: String,
+  pub transcribe_model: String,
 }
 
 impl OpenAI {
@@ -287,6 +268,15 @@ impl OpenAI {
     out
   }
 
+  fn stt_model_candidates(&self) -> Vec<String> {
+    let mut out = Vec::new();
+    push_model_unique(&mut out, &self.transcribe_model);
+    push_model_unique(&mut out, "gpt-4o-transcribe");
+    push_model_unique(&mut out, "gpt-4o-mini-transcribe");
+    push_model_unique(&mut out, "whisper-1");
+    out
+  }
+
   /// Construct the client if we find OPENAI_API_KEY; otherwise return None.
   pub fn from_env() -> Option<Self> {
     let api_key = std::env::var("OPENAI_API_KEY").ok()?;
@@ -296,13 +286,15 @@ impl OpenAI {
       std::env::var("OPENAI_FAST_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
     let strong_model =
       std::env::var("OPENAI_STRONG_MODEL").unwrap_or_else(|_| "gpt-4o".into());
+    let transcribe_model =
+      std::env::var("OPENAI_TRANSCRIBE_MODEL").unwrap_or_else(|_| "gpt-4o-transcribe".into());
 
     let client = reqwest::Client::builder()
       .timeout(Duration::from_secs(20))
       .build()
       .ok()?;
 
-    Some(Self { client, api_key, base_url, fast_model, strong_model })
+    Some(Self { client, api_key, base_url, fast_model, strong_model, transcribe_model })
   }
 
   /// Plain-text chat completion. Used for translate/pinyin/hints/agent replies.
@@ -468,49 +460,72 @@ impl OpenAI {
     }
   }
 
-  // --- High-level helpers (domain-specialized) ---
+  #[instrument(level = "info", skip(self, audio_bytes), fields(bytes = audio_bytes.len(), mime = %mime))]
+  pub async fn transcribe_audio(&self, mime: &str, audio_bytes: &[u8]) -> Result<String, String> {
+    if audio_bytes.is_empty() {
+      return Err("Audio payload is empty.".into());
+    }
 
-  async fn strict_zh_to_en_once(&self, text: &str) -> Option<String> {
-    let out = self
-      .chat_plain(&self.strong_model, STRICT_TRANSLATE_ZH2EN_SYSTEM, text, 0.0)
-      .await
-      .ok()?;
-    let one_line = out.lines().collect::<Vec<_>>().join(" ").trim().to_string();
-    if seed_translation_looks_ok(&one_line) { Some(one_line) } else { None }
-  }
+    #[derive(Deserialize)]
+    struct TranscriptionResponse {
+      text: String,
+    }
 
-  async fn strict_seed_literal_en(&self, seed: &str) -> Option<String> {
-    let out = self
-      .chat_plain(&self.strong_model, STRICT_SEED_LITERAL_ZH2EN_SYSTEM, seed, 0.0)
-      .await
-      .ok()?;
-    let one_line = out.lines().collect::<Vec<_>>().join(" ").trim().to_string();
-    if seed_translation_looks_ok(&one_line) { Some(one_line) } else { None }
-  }
+    let url = format!("{}/audio/transcriptions", self.base_url);
+    let mut last_err = String::new();
+    let file_name = transcription_filename_for_mime(mime);
+    let file_mime = normalize_audio_mime(mime);
 
-  async fn fallback_seed_en(
-    &self,
-    prompts: &Prompts,
-    seed: &str,
-    _slots: (&str, &str, &str),
-  ) -> String {
-    if let Ok(translated) = self.translate_to_en(prompts, seed).await {
-      let one_line = translated.lines().collect::<Vec<_>>().join(" ").trim().to_string();
-      if seed_translation_looks_ok(&one_line) {
-        return one_line;
+    for model in self.stt_model_candidates() {
+      let file_part = reqwest::multipart::Part::bytes(audio_bytes.to_vec())
+        .file_name(file_name.clone())
+        .mime_str(&file_mime)
+        .map_err(|e| format!("Invalid audio mime '{file_mime}': {e}"))?;
+
+      let form = reqwest::multipart::Form::new()
+        .text("model", model.clone())
+        .text("language", "zh")
+        .part("file", file_part);
+
+      let res = self.client
+        .post(&url)
+        .header(USER_AGENT, "caatuu-backend/0.1")
+        .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+        .multipart(form)
+        .send()
+        .await
+        .map_err(|e| e.to_string())?;
+
+      if !res.status().is_success() {
+        let status = res.status();
+        let body = res.text().await.unwrap_or_default();
+        let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+        last_err = format!("OpenAI STT HTTP {}: {}", status, msg);
+        if is_transcribe_model_error(status, &msg) {
+          warn!(failed_model = %model, error = %last_err, "STT model unavailable; trying fallback");
+          continue;
+        }
+        return Err(last_err);
       }
+
+      let body: TranscriptionResponse = res.json().await.map_err(|e| e.to_string())?;
+      let text = body.text.trim().to_string();
+      if text.is_empty() {
+        last_err = format!("STT model '{}' returned empty transcription.", model);
+        warn!(error = %last_err, "STT returned empty text; trying fallback");
+        continue;
+      }
+      return Ok(text);
     }
 
-    if let Some(block) = self.strict_seed_literal_en(seed).await {
-      return block;
+    if last_err.is_empty() {
+      Err("STT failed: no model candidates available".into())
+    } else {
+      Err(last_err)
     }
-
-    if let Some(strict_once) = self.strict_zh_to_en_once(seed).await {
-      return strict_once;
-    }
-
-    "Literal translation unavailable.".to_string()
   }
+
+  // --- High-level helpers (domain-specialized) ---
 
   /// Generate a new seed+challenge freeform task.
   #[instrument(
@@ -523,110 +538,53 @@ impl OpenAI {
     prompts: &Prompts,
     difficulty: &str,
   ) -> Result<Challenge, String> {
-    let mut last_err = String::new();
+    let spec = sample_core_plus_core_spec(difficulty, 80)?;
+    let reference_answer_zh = build_expected_reference_answer(&spec);
+    let challenge_zh = build_compact_challenge_zh(&spec);
+    let step1_label = spec.step1.markers_zh.clone();
+    let step2_label = spec.step2.markers_zh.clone();
+    let challenge_en = challenge_fallback_cn_en(&step1_label, &step2_label);
+    let summary_en = format!(
+      "Connectors: {} + {}",
+      bilingual_connector_label(&step1_label),
+      bilingual_connector_label(&step2_label)
+    );
 
-    for attempt in 1..=3 {
-      let spec = match sample_core_plus_core_spec(difficulty, 80) {
-        Ok(s) => s,
-        Err(e) => {
-          last_err = e;
-          continue;
-        }
-      };
-      let user_msg = match build_core_plus_core_user_message(&spec) {
-        Ok(u) => u,
-        Err(e) => {
-          last_err = e;
-          continue;
-        }
-      };
-
-      let start = std::time::Instant::now();
-      let result = self
-        .chat_json::<CorePlusGeneratedItem>(&self.strong_model, CORE_PLUS_CORE_SYSTEM_PROMPT, &user_msg, 0.2)
-        .await;
-      let elapsed = start.elapsed();
-
-      let model_item = match result {
-        Ok(v) => v,
-        Err(e) => {
-          last_err = format!("Model generation failed: {e}");
-          warn!(attempt, ?elapsed, error = %last_err, "Core+Core model generation failed; retrying");
-          continue;
-        }
-      };
-
-      if let Err(e) = validate_generated_item(&spec, &model_item) {
-        last_err = format!("Generated item failed deterministic checks: {e}");
-        warn!(attempt, error = %last_err, "Core+Core generation invalid; retrying");
-        continue;
+    // Keep exactly one translation call on generation path for speed.
+    let seed_en = match self.translate_to_en(prompts, &spec.seed).await {
+      Ok(t) if seed_translation_looks_ok(&t) => t,
+      Ok(t) => {
+        warn!(translated = %t, "Core+Core seed translation looked non-English; using compact fallback");
+        "English translation unavailable".to_string()
       }
+      Err(e) => {
+        warn!(error = %e, "Core+Core seed translation failed; using compact fallback");
+        "English translation unavailable".to_string()
+      }
+    };
 
-      let reference_answer_zh = build_expected_reference_answer(&spec);
-      let challenge_zh = build_compact_challenge_zh(&spec);
-      let step1_label = spec.step1.markers_zh.clone();
-      let step2_label = spec.step2.markers_zh.clone();
-      let challenge_en_fallback = challenge_fallback_cn_en(&step1_label, &step2_label);
-      let summary_en = format!(
-        "Connectors: {} + {}",
-        bilingual_connector_label(&step1_label),
-        bilingual_connector_label(&step2_label)
-      );
+    let ch = Challenge {
+      id: Uuid::new_v4().to_string(),
+      difficulty: difficulty.to_string(),
+      kind: ChallengeKind::FreeformZh,
+      source: ChallengeSource::Generated,
+      seed_zh: spec.seed.clone(),
+      seed_en,
+      challenge_zh,
+      challenge_en,
+      summary_en,
+      reference_answer_zh,
+      core_plus_spec: Some(spec),
+      instructions: String::new(),
+      rubric: None,
+    };
 
-      let seed_en = match self.translate_to_en(prompts, &spec.seed).await {
-        Ok(t) if seed_translation_looks_ok(&t) => t,
-        Ok(t) => {
-          warn!(translated = %t, "Core+Core seed translation looked non-English; using fallback");
-          self
-            .fallback_seed_en(prompts, &spec.seed, (&spec.props.p1, &spec.props.p2, &spec.props.p3))
-            .await
-        }
-        Err(e) => {
-          warn!(error = %e, "Core+Core seed translation failed");
-          self
-            .fallback_seed_en(prompts, &spec.seed, (&spec.props.p1, &spec.props.p2, &spec.props.p3))
-            .await
-        }
-      };
-
-      let challenge_en = match self.translate_to_en(prompts, &challenge_zh).await {
-        Ok(t) if challenge_translation_looks_ok(&t) => t,
-        Ok(t) => {
-          warn!(translated = %t, "Core+Core challenge translation looked non-English; using deterministic fallback");
-          challenge_en_fallback.clone()
-        }
-        Err(e) => {
-          warn!(error = %e, "Core+Core challenge translation failed; using deterministic fallback");
-          challenge_en_fallback.clone()
-        }
-      };
-
-      let ch = Challenge {
-        id: Uuid::new_v4().to_string(),
-        difficulty: difficulty.to_string(),
-        kind: ChallengeKind::FreeformZh,
-        source: ChallengeSource::Generated,
-        seed_zh: spec.seed.clone(),
-        seed_en,
-        challenge_zh,
-        challenge_en,
-        summary_en,
-        reference_answer_zh,
-        core_plus_spec: Some(spec),
-        instructions: String::new(),
-        rubric: None,
-      };
-
-      info!(
-        attempt,
-        challenge_id = %ch.id,
-        zh_preview = %ch.challenge_zh.chars().take(40).collect::<String>(),
-        "Core+Core challenge successfully generated"
-      );
-      return Ok(ch);
-    }
-
-    Err(format!("Core+Core generation failed after retries: {last_err}"))
+    info!(
+      challenge_id = %ch.id,
+      zh_preview = %ch.challenge_zh.chars().take(40).collect::<String>(),
+      "Core+Core challenge successfully generated (deterministic fast path)"
+    );
+    Ok(ch)
   }
 
   // seed_zh + challenge_zh validator (now returns a score too)
@@ -795,6 +753,32 @@ struct Usage {
   #[serde(default)] prompt_tokens: Option<u32>,
   #[serde(default)] completion_tokens: Option<u32>,
   #[serde(default)] total_tokens: Option<u32>,
+}
+
+fn normalize_audio_mime(mime: &str) -> String {
+  let m = mime.trim().to_lowercase();
+  if m.is_empty() {
+    "audio/webm".to_string()
+  } else if m.starts_with("audio/") {
+    m
+  } else {
+    "audio/webm".to_string()
+  }
+}
+
+fn transcription_filename_for_mime(mime: &str) -> String {
+  let m = normalize_audio_mime(mime);
+  if m.contains("ogg") {
+    "speech.ogg".to_string()
+  } else if m.contains("mp4") || m.contains("m4a") {
+    "speech.m4a".to_string()
+  } else if m.contains("mpeg") || m.contains("mp3") {
+    "speech.mp3".to_string()
+  } else if m.contains("wav") {
+    "speech.wav".to_string()
+  } else {
+    "speech.webm".to_string()
+  }
 }
 
 /// Try to extract a clean error message from OpenAI error body.

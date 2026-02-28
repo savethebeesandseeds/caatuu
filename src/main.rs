@@ -10,6 +10,7 @@
 //!   OPENAI_BASE_URL    : default "https://api.openai.com/v1"
 //!   OPENAI_FAST_MODEL  : default "gpt-4o-mini"
 //!   OPENAI_STRONG_MODEL   : default "gpt-4o"
+//!   OPENAI_TRANSCRIBE_MODEL : default "gpt-4o-transcribe"
 //!   AGENT_CONFIG_PATH  : path to TOML config (prompts + optional challenge bank)
 //!   LOG_LEVEL    : tracing filter, e.g. "debug" or full directives
 //!   LOG_FORMAT      : "pretty" (default) or "json"

@@ -171,6 +171,7 @@ body{
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
 html{ height:100%; -webkit-text-size-adjust:100%; }
 body{
   height:100%;
@@ -515,6 +516,19 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 }
 #answerFeedback strong{ font-weight:800; margin-right:.4em; }
 
+.challenge-loading{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:6px 0 10px;
+  padding:10px 12px;
+  border:1px solid var(--accent-challenge);
+  border-radius:8px;
+  color:var(--text-dim);
+  background:color-mix(in srgb, var(--accent-challenge) 10%, transparent);
+}
+.challenge-loading .led{ margin-left:0; }
+
 /* Task content (Help moved to far-right column) */
 #taskGrid{
   display:grid; gap:12px;
@@ -540,9 +554,9 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   gap:8px;
 }
 .section-label-row .btn.small{
-  min-height:24px;
-  font-size:.72rem;
-  padding:3px 8px;
+  min-height:34px;
+  font-size:.9rem;
+  padding:5px 10px;
   text-transform:none;
 }
 
@@ -600,11 +614,15 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
 }
 
 #toggleSettingsBtn{
-  min-height:20px !important;
-  min-width:22px;
-  padding:0 5px !important;
-  font-size:1rem !important;
+  min-height:34px !important;
+  min-width:38px;
+  padding:0 10px !important;
+  font-size:1.18rem !important;
   line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
 }
 
 #agentResetBtn{
@@ -885,6 +903,17 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   color:var(--c-accent-next-text);
 }
 #newChallengeBtn:hover{ background:var(--c-next-hover); }
+
+#speechToTextBtn[data-recording="true"]{
+  border-color:#ef4444;
+  color:#ffd4d4;
+  background:#2a1215;
+}
+#speechToTextBtn[data-busy="true"]{
+  border-color:var(--accent-agent);
+  color:#d9ecff;
+  background:#142131;
+}
 
 /* Mobile: 3-col grid (then 2-col on very small). Submit spans 2 cols. */
 @media (max-width: 880px){

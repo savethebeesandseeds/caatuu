@@ -184,6 +184,7 @@ name = "caatuu-backend"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "base64 0.22.1",
  "pinyin",
  "rand",
  "reqwest",
@@ -1072,6 +1073,7 @@ dependencies = [
  "js-sys",
  "log",
  "mime",
+ "mime_guess",
  "native-tls",
  "once_cell",
  "percent-encoding",

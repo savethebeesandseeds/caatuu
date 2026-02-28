@@ -10,6 +10,13 @@ const SHOW_SETTINGS_KEY = 'show_settings_panel_v1';
 const THEME_KEY = 'ui_theme_v1';
 const AgentMode = { tutor:'tutor', translate:'translate' };
 let allowUnloadOnce = false;
+const STT_MAX_RECORD_MS = 25000;
+let sttRecorder = null;
+let sttStream = null;
+let sttChunks = [];
+let sttStopTimer = null;
+let sttRecording = false;
+let sttInFlight = false;
 
 function normalizeTheme(v){
   return v === 'light' ? 'light' : 'dark';
@@ -56,14 +63,232 @@ function setAgentMode(mode){
   applyAgentModeUI(m);
 }
 
+function setSttButtonState(){
+  const btn = $('#speechToTextBtn');
+  if (!btn) return;
+  const sttSupported = !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== 'undefined';
+
+  btn.setAttribute('data-recording', sttRecording ? 'true' : 'false');
+  btn.setAttribute('data-busy', sttInFlight ? 'true' : 'false');
+  btn.disabled = !sttSupported || !!current.loading.challenge || sttInFlight;
+
+  if (!sttSupported) {
+    btn.textContent = '🎙 STT';
+    btn.title = 'Speech-to-text is unavailable in this browser.';
+    return;
+  }
+
+  if (sttInFlight) {
+    btn.textContent = '⏳ STT';
+    btn.title = 'Transcribing speech...';
+    return;
+  }
+  if (sttRecording) {
+    btn.textContent = '⏹ Stop';
+    btn.title = 'Stop recording';
+    return;
+  }
+  btn.textContent = '🎙 STT';
+  btn.title = 'Speech to text (Chinese)';
+}
+
+function clearSttTimer(){
+  if (sttStopTimer) {
+    clearTimeout(sttStopTimer);
+    sttStopTimer = null;
+  }
+}
+
+function stopSttStream(){
+  if (!sttStream) return;
+  try { sttStream.getTracks().forEach(t => t.stop()); } catch {}
+  sttStream = null;
+}
+
+function pickSttMimeType(){
+  if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return '';
+  const types = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/ogg;codecs=opus',
+    'audio/mp4',
+  ];
+  return types.find(t => MediaRecorder.isTypeSupported(t)) || '';
+}
+
+function blobToBase64(blob){
+  return new Promise((resolve, reject)=>{
+    const fr = new FileReader();
+    fr.onerror = ()=> reject(fr.error || new Error('FileReader error'));
+    fr.onload = ()=>{
+      const out = String(fr.result || '');
+      const i = out.indexOf(',');
+      resolve(i >= 0 ? out.slice(i + 1) : out);
+    };
+    fr.readAsDataURL(blob);
+  });
+}
+
+async function finishSpeechCapture(){
+  clearSttTimer();
+  const recorder = sttRecorder;
+  sttRecorder = null;
+  sttRecording = false;
+  const chunks = sttChunks.slice();
+  sttChunks = [];
+  const mime = recorder?.mimeType || pickSttMimeType() || 'audio/webm';
+  stopSttStream();
+
+  if (!chunks.length) {
+    logWarn('No audio captured.');
+    sttInFlight = false;
+    setSttButtonState();
+    return;
+  }
+
+  try {
+    sttInFlight = true;
+    setSttButtonState();
+    const blob = new Blob(chunks, { type: mime });
+    const audioBase64 = await blobToBase64(blob);
+    if (!audioBase64) {
+      throw new Error('Encoded audio is empty.');
+    }
+    wsSend({ type:'speech_to_text_input', audioBase64, mime: blob.type || mime });
+  } catch (e) {
+    sttInFlight = false;
+    setSttButtonState();
+    logError(`Speech-to-text capture failed: ${e?.message || e}`);
+  }
+}
+
+function stopSpeechCapture(){
+  if (sttRecorder && sttRecorder.state !== 'inactive') {
+    try { sttRecorder.stop(); } catch {}
+  } else {
+    clearSttTimer();
+    stopSttStream();
+    sttRecording = false;
+    sttInFlight = false;
+    setSttButtonState();
+  }
+}
+
+async function startSpeechCapture(){
+  if (sttRecording || sttInFlight || current.loading.challenge) return;
+  if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
+    logError('Speech-to-text is not available in this browser.');
+    return;
+  }
+
+  try {
+    sttStream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation:true, noiseSuppression:true, autoGainControl:true }
+    });
+    const mimeType = pickSttMimeType();
+    sttChunks = [];
+    sttRecorder = mimeType ? new MediaRecorder(sttStream, { mimeType }) : new MediaRecorder(sttStream);
+    sttRecording = true;
+    setSttButtonState();
+
+    sttRecorder.addEventListener('dataavailable', (e)=>{
+      if (e.data && e.data.size > 0) sttChunks.push(e.data);
+    });
+    sttRecorder.addEventListener('stop', ()=>{ finishSpeechCapture(); });
+    sttRecorder.start(250);
+    logInfo('Recording speech... tap STT again to stop.');
+
+    clearSttTimer();
+    sttStopTimer = setTimeout(()=>{
+      if (sttRecorder && sttRecorder.state !== 'inactive') {
+        logInfo('Auto-stopping speech capture.');
+        sttRecorder.stop();
+      }
+    }, STT_MAX_RECORD_MS);
+  } catch (e) {
+    stopSttStream();
+    sttRecording = false;
+    sttInFlight = false;
+    setSttButtonState();
+    logError(`Microphone access failed: ${e?.message || e}`);
+  }
+}
+
+async function toggleSpeechToText(){
+  if (current.loading.challenge || sttInFlight) return;
+  if (sttRecording) {
+    stopSpeechCapture();
+    return;
+  }
+  await startSpeechCapture();
+}
+
 /* ---------- Loading helper ---------- */
-function setLoading(panelSelector, flag){
+function setLoading(panelSelector, flag, opts = {}){
   const el = $(panelSelector.startsWith('#') ? panelSelector : ('#'+panelSelector));
   if(!el) return;
   el.setAttribute('data-loading', flag ? 'true' : 'false');
+
+  if (el.id === 'challengePanel') {
+    const challengeFetch = !!opts.challengeFetch;
+    const loadingEl = $('#challengeLoading');
+    const taskGrid = $('#taskGrid');
+    const answerBar = $('#answerBar');
+    const feedback = $('#answerFeedback');
+    const panelControls = $$('#challengePanel button, #challengePanel textarea, #challengePanel input, #challengePanel select');
+
+    if (challengeFetch) {
+      if (loadingEl) loadingEl.style.display = flag ? 'flex' : 'none';
+      if (taskGrid) taskGrid.style.display = flag ? 'none' : '';
+      if (feedback) feedback.style.display = flag ? 'none' : '';
+      if (answerBar) answerBar.style.display = flag ? 'none' : '';
+      panelControls.forEach(node => { node.disabled = !!flag; });
+    }
+  }
 }
 
 /* ---------- Challenge English helpers ---------- */
+const CHINESE_SEG_RE = /[\u3400-\u9fff]+/g;
+const challengeTokenTranslationCache = new Map();
+const challengeTokenTranslationInFlight = new Set();
+
+function requestChallengeTokenTranslation(token){
+  if (!token || challengeTokenTranslationCache.has(token) || challengeTokenTranslationInFlight.has(token)) return;
+  challengeTokenTranslationInFlight.add(token);
+  enqueuePending(pendingTranslate, token, { type:'challenge_en_token', token });
+  wsSend({type:'translate_input', text: token});
+}
+
+function enrichChineseTokens(text, { html=false } = {}){
+  const raw = String(text || '');
+  if (!raw) return '';
+
+  let out = '';
+  let last = 0;
+  let m;
+  CHINESE_SEG_RE.lastIndex = 0;
+  while ((m = CHINESE_SEG_RE.exec(raw)) !== null) {
+    const idx = m.index;
+    const token = m[0];
+    const before = raw.slice(last, idx);
+    const tr = (challengeTokenTranslationCache.get(token) || '').trim();
+    const after = tr ? ` (${tr})` : ' (...)';
+
+    if (html) {
+      out += escHtml(before);
+      out += `${escHtml(token)}${escHtml(after)}`;
+      if (!tr) requestChallengeTokenTranslation(token);
+    } else {
+      out += before + token + after;
+      if (!tr) requestChallengeTokenTranslation(token);
+    }
+    last = idx + token.length;
+  }
+  const tail = raw.slice(last);
+  out += html ? escHtml(tail) : tail;
+  return out;
+}
+
 function seedTranslationText(c){
   const seedLiteral = (c.seed_en || '').trim();
   if (seedLiteral) {
@@ -80,13 +305,13 @@ function seedTranslationText(c){
 function enSummary(c){
   const out = [];
   out.push(`Seed: ${seedTranslationText(c)}`);
-  if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
+  if (c.challenge_en) out.push(`Challenge: ${enrichChineseTokens(c.challenge_en)}`);
   if (out.length) return out.join('\n');
   return (c.summary_en || '') || '';
 }
 function enSummaryHtml(c){
   const seed = escHtml(seedTranslationText(c));
-  const challenge = escHtml((c.challenge_en || '').trim());
+  const challenge = enrichChineseTokens((c.challenge_en || '').trim(), { html:true });
   const lines = [`<div class="en-line"><span class="en-label">Seed:</span> ${seed}</div>`];
   if (challenge) lines.push(`<div class="en-line"><span class="en-label">Challenge:</span> ${challenge}</div>`);
   return lines.join('');
@@ -95,7 +320,7 @@ function enTooltip(c){
   const out = [];
   if (c.summary_en) out.push(`Summary: ${c.summary_en}`);
   out.push(`Seed: ${seedTranslationText(c)}`);
-  if (c.challenge_en) out.push(`Challenge: ${c.challenge_en}`);
+  if (c.challenge_en) out.push(`Challenge: ${enrichChineseTokens(c.challenge_en)}`);
   return out.join('\n');
 }
 
@@ -245,7 +470,11 @@ function applyArtifactsVisibility(){
 /* ---------- Challenge/Agent UI ---------- */
 export function setChallenge(c){
   current.challenge = c;
-  setLoading('#challengePanel', false);
+  current.loading.challenge = false;
+  setLoading('#challengePanel', false, { challengeFetch:true });
+  if (sttRecording) stopSpeechCapture();
+  sttInFlight = false;
+  setSttButtonState();
 
   // Seed + Challenge text blocks (pinyin fetched on-demand)
   const seedEl = $('#seedZh');
@@ -407,6 +636,7 @@ function renderGrammarDiff(original, corrected){
 
 /* ---------- Assist: on-demand translate, pinyin, grammar ---------- */
 function runAssist(){
+  if (current.loading.challenge) return;
   const txt = $('#answerInput').value;
   if (!txt) return;
   const needPy = ls.getBool('realtime_pinyin', true);
@@ -539,6 +769,7 @@ export function bindEvents(){
   // Submit answer
   $('#answerForm').addEventListener('submit', (e)=>{
     e.preventDefault();
+    if (current.loading.challenge) return;
     if(!current.challenge) return;
     const answer = $('#answerInput').value.trim();
     if(!answer) return;
@@ -548,6 +779,7 @@ export function bindEvents(){
 
   // Assist button + shortcuts (Alt+A preferred; Ctrl+T also, but might be browser-reserved)
   $('#assistBtn').addEventListener('click', runAssist);
+  $('#speechToTextBtn')?.addEventListener('click', ()=>{ toggleSpeechToText(); });
   document.addEventListener('keydown', (e)=>{
     if ((e.altKey  && (e.key==='a' || e.key==='A')) ||
         (e.ctrlKey && (e.key==='t' || e.key==='T'))){
@@ -599,12 +831,14 @@ export function bindEvents(){
 
   // Manual hint
   $('#getHintBtn').addEventListener('click', ()=>{
+    if (current.loading.challenge) return;
     if(!current.challenge) return;
     wsSend({type:'hint', challengeId: current.challenge.id});
   });
   document.addEventListener('keydown', (e)=>{
     if (e.altKey && (e.key==='h' || e.key==='H')){
       e.preventDefault();
+      if (current.loading.challenge) return;
       if(!current.challenge) return;
       wsSend({type:'hint', challengeId: current.challenge.id});
     }
@@ -734,16 +968,42 @@ export function syncSettingsUI(){
   }
   applySettingsVisibility();
   applyArtifactsVisibility();
+  setSttButtonState();
 }
 
 /* ---------- WS message handling ---------- */
 export function handleMessage(msg){
   switch(msg.type){
     case 'challenge': setChallenge(msg.challenge); break;
+    case 'error':
+      current.loading.challenge = false;
+      setLoading('#challengePanel', false, { challengeFetch:true });
+      if (sttInFlight) {
+        sttInFlight = false;
+        setSttButtonState();
+      }
+      logError(msg.message || 'Server error.');
+      break;
     case 'hint': addHint(msg.text); break;
     case 'translate': {
       const txt = (msg.text || '');
       const origin = dequeuePending(pendingTranslate, txt);
+      if (origin && typeof origin === 'object' && origin.type === 'challenge_en_token'){
+        challengeTokenTranslationInFlight.delete(origin.token || txt);
+        const tr = (msg.translation || '').trim();
+        challengeTokenTranslationCache.set(origin.token || txt, tr || 'translation unavailable');
+        const c = current.challenge;
+        if (c) {
+          renderChallengeEn(c);
+          const infoBtn = $('#challengeInfoBtn');
+          if (infoBtn) {
+            const tip = enTooltip(c);
+            infoBtn.title = tip || 'No English info available for this challenge.';
+            infoBtn.disabled = !tip;
+          }
+        }
+        break;
+      }
       if (origin === 'agent'){
         addAgentMsg('agent', msg.translation || '', {label:'Translate'});
         setLoading('#agentPanel', false);
@@ -783,6 +1043,31 @@ export function handleMessage(msg){
       logInfo(`Grammar correction received.`);
       break;
     }
+    case 'speech_to_text': {
+      if (!sttInFlight) break;
+      const text = (msg.text || '').trim();
+      sttInFlight = false;
+      setSttButtonState();
+      if (!text) {
+        logWarn('Speech recognized no text. Try speaking closer to the microphone.');
+        break;
+      }
+      const inp = $('#answerInput');
+      if (inp){
+        const prefix = inp.value.trim().length ? (/\s$/.test(inp.value) ? '' : ' ') : '';
+        inp.value += `${prefix}${text}`;
+        inp.focus();
+        inp.dispatchEvent(new Event('input', { bubbles:true }));
+      }
+      logSuccess(`Speech recognized: ${text}`);
+      break;
+    }
+    case 'speech_to_text_error':
+      if (!sttInFlight) break;
+      sttInFlight = false;
+      setSttButtonState();
+      logError(msg.message || 'Speech-to-text failed.');
+      break;
     case 'next_char':
       liveSuggestion.char = msg.char||'';
       liveSuggestion.pinyin = msg.pinyin||'';
@@ -799,7 +1084,11 @@ export function handleMessage(msg){
 
 /* ---------- Actions ---------- */
 export function requestNewChallenge(){
-  setLoading('#challengePanel', true);
+  if (current.loading.challenge) return;
+  if (sttRecording) stopSpeechCapture();
+  current.loading.challenge = true;
+  setSttButtonState();
+  setLoading('#challengePanel', true, { challengeFetch:true });
   const v = localStorage.getItem('difficulty') || 'auto';
   const payload = { type:'new_challenge' };
   if (v && v !== 'auto') {
