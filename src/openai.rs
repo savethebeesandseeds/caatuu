@@ -5,11 +5,15 @@
 //!
 //! NOTE: We never log the API key and we keep payload truncations short to avoid PII leaks.
 
-use std::time::Duration;
+use std::{
+    collections::HashSet,
+    time::{Duration, Instant},
+};
 
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
 use serde::{Deserialize, Serialize};
-use tracing::{info, instrument, warn};
+use tokio::time::timeout;
+use tracing::{debug, error, info, instrument, warn};
 
 use crate::config::Prompts;
 use crate::coreplus::{
@@ -188,6 +192,82 @@ fn has_ascii_text(text: &str) -> bool {
     text.chars().any(|c| c.is_ascii_alphabetic())
 }
 
+fn normalize_sequence_token(raw: &str) -> String {
+    let trimmed = raw.trim().replace(' ', "");
+    trimmed
+        .trim_matches(|c: char| {
+            matches!(
+                c,
+                ',' | '，'
+                    | '.'
+                    | '。'
+                    | ';'
+                    | '；'
+                    | ':'
+                    | '：'
+                    | '!'
+                    | '！'
+                    | '?'
+                    | '？'
+                    | '"'
+                    | '\''
+                    | '“'
+                    | '”'
+                    | '‘'
+                    | '’'
+                    | '（'
+                    | '）'
+                    | '('
+                    | ')'
+                    | '['
+                    | ']'
+                    | '{'
+                    | '}'
+            )
+        })
+        .to_string()
+}
+
+fn sequence_token_valid(tok: &str) -> bool {
+    let t = tok.trim();
+    if t.is_empty() {
+        return false;
+    }
+    if t.chars().count() > 10 {
+        return false;
+    }
+    t.chars().any(is_cjk)
+}
+
+fn sanitize_sequence_words(words: Vec<String>, target_count: usize) -> Vec<String> {
+    let cap = target_count.clamp(12, 96);
+    let mut out = Vec::with_capacity(cap);
+    let mut seen = HashSet::new();
+
+    for raw in words {
+        let cleaned = normalize_sequence_token(&raw);
+        if !sequence_token_valid(&cleaned) {
+            continue;
+        }
+        if seen.insert(cleaned.clone()) {
+            out.push(cleaned);
+        }
+        if out.len() >= cap {
+            break;
+        }
+    }
+    out
+}
+
+fn extract_first_json_object(text: &str) -> Option<&str> {
+    let s = text.find('{')?;
+    let e = text.rfind('}')?;
+    if e < s {
+        return None;
+    }
+    Some(&text[s..=e])
+}
+
 fn connector_english(markers_zh: &str) -> &'static str {
     match markers_zh {
         "因为…所以…" => "because…therefore…",
@@ -292,6 +372,7 @@ pub struct OpenAI {
     pub base_url: String,
     pub fast_model: String,
     pub strong_model: String,
+    pub sequence_model: String,
     pub transcribe_model: String,
 }
 
@@ -325,6 +406,8 @@ impl OpenAI {
         let fast_model =
             std::env::var("OPENAI_FAST_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
         let strong_model = std::env::var("OPENAI_STRONG_MODEL").unwrap_or_else(|_| "gpt-4o".into());
+        let sequence_model =
+            std::env::var("OPENAI_SEQUENCE_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
         let transcribe_model =
             std::env::var("OPENAI_TRANSCRIBE_MODEL").unwrap_or_else(|_| "gpt-4o-transcribe".into());
 
@@ -339,8 +422,90 @@ impl OpenAI {
             base_url,
             fast_model,
             strong_model,
+            sequence_model,
             transcribe_model,
         })
+    }
+
+    /// Plain-text chat completion. Used for translate/pinyin/hints/agent replies.
+    #[instrument(level = "info", skip(self, system, user), fields(model = %model))]
+    async fn chat_plain_exact(
+        &self,
+        model: &str,
+        system: &str,
+        user: &str,
+        temperature: f32,
+    ) -> Result<String, String> {
+        let url = format!("{}/chat/completions", self.base_url);
+        let temps = temperature_candidates(temperature, model);
+        let mut last_err = String::new();
+
+        for (tidx, selected_temp) in temps.iter().enumerate() {
+            let req = ChatCompletionRequest {
+                model: model.to_string(),
+                messages: vec![
+                    ChatMessageReq {
+                        role: "system".into(),
+                        content: system.into(),
+                    },
+                    ChatMessageReq {
+                        role: "user".into(),
+                        content: user.into(),
+                    },
+                ],
+                temperature: *selected_temp,
+                response_format: None,
+                max_tokens: None,
+            };
+
+            let res = self
+                .client
+                .post(&url)
+                .header(USER_AGENT, "caatuu-backend/0.1")
+                .header(CONTENT_TYPE, "application/json")
+                .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
+                .json(&req)
+                .send()
+                .await
+                .map_err(|e| e.to_string())?;
+
+            if !res.status().is_success() {
+                let status = res.status();
+                let body = res.text().await.unwrap_or_default();
+                let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+                last_err = format!("OpenAI HTTP {}: {}", status, msg);
+                if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
+                    warn!(
+                      model = %model,
+                      requested_temp = *selected_temp,
+                      fallback_temp = temps[tidx + 1],
+                      error = %last_err,
+                      "Model rejected temperature; retrying with fallback temperature"
+                    );
+                    continue;
+                }
+                return Err(last_err);
+            }
+
+            let body: ChatCompletionResponse = res.json().await.map_err(|e| e.to_string())?;
+            if let Some(usage) = &body.usage {
+                info!(prompt_tokens = ?usage.prompt_tokens, completion_tokens = ?usage.completion_tokens, total_tokens = ?usage.total_tokens, "OpenAI usage");
+            }
+            let text = body
+                .choices
+                .get(0)
+                .and_then(|c| c.message.content.clone())
+                .unwrap_or_default()
+                .trim()
+                .to_string();
+            return Ok(text);
+        }
+
+        if last_err.is_empty() {
+            Err("OpenAI call failed for exact model".into())
+        } else {
+            Err(last_err)
+        }
     }
 
     /// Plain-text chat completion. Used for translate/pinyin/hints/agent replies.
@@ -384,8 +549,25 @@ impl OpenAI {
                     .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                     .json(&req)
                     .send()
-                    .await
-                    .map_err(|e| e.to_string())?;
+                    .await;
+                let res = match res {
+                    Ok(r) => r,
+                    Err(e) => {
+                        last_err =
+                            format!("OpenAI transport error on model {}: {}", selected_model, e);
+                        if idx + 1 < candidates.len() {
+                            let next_model = candidates[idx + 1].as_str();
+                            warn!(
+                                failed_model = %selected_model,
+                                next_model = %next_model,
+                                error = %last_err,
+                                "Transport error; trying next fallback model"
+                            );
+                            break;
+                        }
+                        return Err(last_err);
+                    }
+                };
 
                 if !res.status().is_success() {
                     let status = res.status();
@@ -474,6 +656,20 @@ impl OpenAI {
                     }),
                     max_tokens: None,
                 };
+                let attempt_started = Instant::now();
+                debug!(
+                    target: "challenge",
+                    requested_model = %model,
+                    selected_model = %selected_model,
+                    candidate_index = idx + 1,
+                    candidate_total = candidates.len(),
+                    temp = *selected_temp,
+                    temp_index = tidx + 1,
+                    temp_total = temps.len(),
+                    system_len = system.len(),
+                    user_len = user.len(),
+                    "chat_json attempt start"
+                );
 
                 let res = self
                     .client
@@ -483,14 +679,46 @@ impl OpenAI {
                     .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                     .json(&req)
                     .send()
-                    .await
-                    .map_err(|e| e.to_string())?;
+                    .await;
+                let res = match res {
+                    Ok(r) => r,
+                    Err(e) => {
+                        last_err =
+                            format!("OpenAI transport error on model {}: {}", selected_model, e);
+                        debug!(
+                            target: "challenge",
+                            selected_model = %selected_model,
+                            elapsed_ms = attempt_started.elapsed().as_millis(),
+                            error = %last_err,
+                            "chat_json attempt transport error"
+                        );
+                        if idx + 1 < candidates.len() {
+                            let next_model = candidates[idx + 1].as_str();
+                            warn!(
+                                failed_model = %selected_model,
+                                next_model = %next_model,
+                                error = %last_err,
+                                "Transport error; trying next fallback model"
+                            );
+                            break;
+                        }
+                        return Err(last_err);
+                    }
+                };
 
                 if !res.status().is_success() {
                     let status = res.status();
                     let body = res.text().await.unwrap_or_default();
                     let msg = extract_openai_error(&body).unwrap_or_else(|| body);
                     last_err = format!("OpenAI HTTP {}: {}", status, msg);
+                    debug!(
+                        target: "challenge",
+                        selected_model = %selected_model,
+                        status = %status,
+                        elapsed_ms = attempt_started.elapsed().as_millis(),
+                        error = %last_err,
+                        "chat_json attempt http error"
+                    );
 
                     if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
                         warn!(
@@ -526,6 +754,13 @@ impl OpenAI {
                     .get(0)
                     .and_then(|c| c.message.content.clone())
                     .unwrap_or_default();
+                debug!(
+                    target: "challenge",
+                    selected_model = %selected_model,
+                    elapsed_ms = attempt_started.elapsed().as_millis(),
+                    response_chars = text.chars().count(),
+                    "chat_json attempt success"
+                );
 
                 return serde_json::from_str::<T>(&text)
                     .map_err(|e| format!("JSON parse error: {}", e));
@@ -780,6 +1015,68 @@ impl OpenAI {
     }
 
     #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
+    pub async fn translate_to_en_fast(
+        &self,
+        prompts: &Prompts,
+        text: &str,
+    ) -> Result<String, String> {
+        let input = text.trim();
+        if input.is_empty() {
+            return Ok(String::new());
+        }
+
+        let want_en = input.chars().any(is_cjk);
+        let input_is_task = if want_en {
+            looks_like_task_zh(input)
+        } else {
+            looks_like_task_en(input)
+        };
+
+        let is_invalid = |out: &str| -> bool {
+            let out = out.trim();
+            if out.is_empty() {
+                return true;
+            }
+
+            let ratio = cjk_ratio(out);
+            if want_en {
+                if ratio > 0.35 {
+                    return true;
+                }
+                if input_is_task && !has_task_words_en(out) {
+                    return true;
+                }
+            } else {
+                if out.chars().all(|ch| !is_cjk(ch)) {
+                    return true;
+                }
+                if input_is_task && !has_task_words_zh(out) {
+                    return true;
+                }
+            }
+            false
+        };
+
+        let first = self
+            .chat_plain_exact(&self.fast_model, &prompts.translate_system, input, 0.0)
+            .await?;
+        let first = first.trim().to_string();
+        if !is_invalid(&first) {
+            return Ok(first);
+        }
+
+        let strict_system = if want_en {
+            STRICT_TRANSLATE_ZH2EN_SYSTEM
+        } else {
+            STRICT_TRANSLATE_EN2ZH_SYSTEM
+        };
+        let second = self
+            .chat_plain_exact(&self.fast_model, strict_system, input, 0.0)
+            .await?;
+        Ok(second.trim().to_string())
+    }
+
+    #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
     #[allow(dead_code)]
     pub async fn pinyin_for_text(&self, prompts: &Prompts, text: &str) -> Result<String, String> {
         self.chat_plain(&self.fast_model, &prompts.pinyin_system, text, 0.0)
@@ -798,6 +1095,181 @@ impl OpenAI {
             &[("instructions", instructions)],
         );
         self.chat_plain(&self.fast_model, system, &user, 0.2).await
+    }
+
+    #[instrument(level = "info", skip(self, prompts, seed_zh), fields(%difficulty, target_count, seed_len = seed_zh.len()))]
+    pub async fn sequence_word_bank(
+        &self,
+        prompts: &Prompts,
+        difficulty: &str,
+        seed_zh: &str,
+        target_count: usize,
+    ) -> Result<(Vec<String>, String), String> {
+        #[derive(Deserialize)]
+        struct SequenceOut {
+            words: Vec<String>,
+            #[serde(default)]
+            context_hint: String,
+        }
+
+        let count = target_count.clamp(12, 96);
+        // Ask the model for a smaller high-quality set; backend can top up locally to full target.
+        let ai_count = count.min(28);
+        info!(
+            target: "challenge",
+            %difficulty,
+            target_count,
+            target_clamped = count,
+            ai_count,
+            seed_zh = %seed_zh,
+            sequence_model = %self.sequence_model,
+            fast_model = %self.fast_model,
+            "OpenAI sequence_word_bank args"
+        );
+        let user = fill_template(
+            &prompts.sequence_words_user_template,
+            &[
+                ("difficulty", difficulty),
+                ("target_count", &ai_count.to_string()),
+                ("seed_zh", seed_zh),
+                ("challenge_zh", ""),
+            ],
+        );
+        info!(
+            target: "challenge",
+            system_len = prompts.sequence_words_system.len(),
+            user_prompt = %user,
+            "OpenAI sequence_word_bank prompt built"
+        );
+        // Do bounded per-model attempts so one hanging request cannot consume the whole route timeout.
+        let attempt_timeout = Duration::from_millis(3000);
+        let mut models = Vec::new();
+        push_model_unique(&mut models, &self.sequence_model);
+        push_model_unique(&mut models, "gpt-4o-mini");
+        push_model_unique(&mut models, "gpt-4.1-mini");
+        push_model_unique(&mut models, &self.fast_model);
+
+        let mut last_err = String::new();
+        for (idx, selected_model) in models.iter().enumerate() {
+            let started = Instant::now();
+            info!(
+                target: "challenge",
+                selected_model = %selected_model,
+                attempt = idx + 1,
+                attempt_total = models.len(),
+                timeout_ms = attempt_timeout.as_millis(),
+                "OpenAI sequence_word_bank model attempt start"
+            );
+
+            let raw = match timeout(
+                attempt_timeout,
+                self.chat_plain_exact(selected_model, &prompts.sequence_words_system, &user, 0.2),
+            )
+            .await
+            {
+                Ok(Ok(text)) => text,
+                Ok(Err(e)) => {
+                    last_err = format!("model {} failed: {}", selected_model, e);
+                    error!(
+                        target: "challenge",
+                        selected_model = %selected_model,
+                        elapsed_ms = started.elapsed().as_millis(),
+                        error = %last_err,
+                        "OpenAI sequence_word_bank model attempt error; retrying next model"
+                    );
+                    continue;
+                }
+                Err(_) => {
+                    last_err = format!(
+                        "model {} timed out at {} ms",
+                        selected_model,
+                        attempt_timeout.as_millis()
+                    );
+                    error!(
+                        target: "challenge",
+                        selected_model = %selected_model,
+                        elapsed_ms = started.elapsed().as_millis(),
+                        timeout_ms = attempt_timeout.as_millis(),
+                        "OpenAI sequence_word_bank model attempt timed out; retrying next model"
+                    );
+                    continue;
+                }
+            };
+
+            let parsed = serde_json::from_str::<SequenceOut>(&raw).or_else(|e1| {
+                if let Some(obj) = extract_first_json_object(&raw) {
+                    serde_json::from_str::<SequenceOut>(obj).map_err(|_| e1)
+                } else {
+                    Err(e1)
+                }
+            });
+
+            let out = match parsed {
+                Ok(v) => v,
+                Err(e) => {
+                    let preview: String = raw.chars().take(200).collect();
+                    last_err = format!("model {} returned non-JSON output: {}", selected_model, e);
+                    error!(
+                        target: "challenge",
+                        selected_model = %selected_model,
+                        elapsed_ms = started.elapsed().as_millis(),
+                        raw_chars = raw.chars().count(),
+                        raw_preview = %preview,
+                        error = %last_err,
+                        "OpenAI sequence_word_bank parse error; retrying next model"
+                    );
+                    continue;
+                }
+            };
+
+            info!(
+                target: "challenge",
+                selected_model = %selected_model,
+                elapsed_ms = started.elapsed().as_millis(),
+                raw_words_len = out.words.len(),
+                raw_words = ?&out.words,
+                context_hint = %out.context_hint,
+                "OpenAI sequence_word_bank raw result"
+            );
+            let words = sanitize_sequence_words(out.words, ai_count);
+            if words.len() < 8 {
+                last_err = format!(
+                    "model {} produced too few words after sanitization: {}",
+                    selected_model,
+                    words.len()
+                );
+                info!(
+                    target: "challenge",
+                    selected_model = %selected_model,
+                    elapsed_ms = started.elapsed().as_millis(),
+                    sanitized_words_len = words.len(),
+                    sanitized_words = ?&words,
+                    "OpenAI sequence_word_bank sanitized result too small"
+                );
+                continue;
+            }
+
+            let context_hint = out.context_hint.trim().to_string();
+            info!(
+                target: "challenge",
+                selected_model = %selected_model,
+                elapsed_ms = started.elapsed().as_millis(),
+                sanitized_words_len = words.len(),
+                sanitized_words = ?&words,
+                context_hint = %context_hint,
+                "OpenAI sequence_word_bank final result"
+            );
+            return Ok((words, context_hint));
+        }
+
+        if last_err.is_empty() {
+            Err("OpenAI sequence_word_bank failed on all model attempts".into())
+        } else {
+            Err(format!(
+                "OpenAI sequence_word_bank failed on all model attempts; last_error={}",
+                last_err
+            ))
+        }
     }
 
     #[instrument(level = "info", skip(self, prompts, question, context_zh), fields(question_len = question.len(), has_context = context_zh.is_some()))]

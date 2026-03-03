@@ -7,7 +7,11 @@
 //!   - Next-character logic (not applicable for freeform)
 
 use base64::Engine;
-use tracing::{debug, error, instrument};
+use rand::seq::SliceRandom;
+use std::collections::HashSet;
+use std::time::Instant;
+use tokio::time::{timeout, Duration};
+use tracing::{debug, error, info, instrument};
 
 use crate::coreplus::evaluate_core_plus_core_answer;
 use crate::domain::Challenge;
@@ -253,8 +257,18 @@ pub async fn do_pinyin(_state: &AppState, text: &str) -> String {
 
 #[instrument(level = "info", skip(state, text), fields(text_len = text.len()))]
 pub async fn do_translate(state: &AppState, text: &str) -> String {
+    do_translate_with_mode(state, text, false).await
+}
+
+#[instrument(level = "info", skip(state, text), fields(text_len = text.len(), fast_only))]
+pub async fn do_translate_with_mode(state: &AppState, text: &str, fast_only: bool) -> String {
     if let Some(oa) = &state.openai {
-        match oa.translate_to_en(&state.prompts, text).await {
+        let out = if fast_only {
+            oa.translate_to_en_fast(&state.prompts, text).await
+        } else {
+            oa.translate_to_en(&state.prompts, text).await
+        };
+        match out {
             Ok(t) => return t,
             Err(e) => {
                 tracing::error!(target: "caatuu_backend", error = %e, "OpenAI translate failed; using stub fallback.")
@@ -276,6 +290,144 @@ pub async fn do_grammar(state: &AppState, text: &str) -> String {
         }
     }
     grammar_stub(text)
+}
+
+#[instrument(level = "info", skip(state, seed_zh), fields(%difficulty, target_count, seed_len = seed_zh.len()))]
+pub async fn build_secuence_word_bank(
+    state: &AppState,
+    difficulty: &str,
+    seed_zh: &str,
+    target_count: usize,
+) -> (Vec<String>, String) {
+    let target = target_count.clamp(18, 80);
+    info!(
+        target: "challenge",
+        %difficulty,
+        target_count,
+        target_clamped = target,
+        %seed_zh,
+        "build_secuence_word_bank start"
+    );
+    if let Some(oa) = &state.openai {
+        let sequence_timeout = Duration::from_secs(10);
+        let started = Instant::now();
+        match timeout(
+            sequence_timeout,
+            oa.sequence_word_bank(&state.prompts, difficulty, seed_zh, target),
+        )
+        .await
+        {
+            Ok(Ok((words, hint))) if !words.is_empty() => {
+                info!(
+                    target: "challenge",
+                    elapsed_ms = started.elapsed().as_millis(),
+                    raw_words_len = words.len(),
+                    raw_words = ?&words,
+                    context_hint = %hint,
+                    "OpenAI sequence_word_bank returned raw result"
+                );
+                let filtered = remove_secuence_connectors(words, target);
+                if !filtered.is_empty() {
+                    let enriched = enrich_secuence_words(filtered, difficulty, seed_zh, target);
+                    info!(
+                        target: "challenge",
+                        elapsed_ms = started.elapsed().as_millis(),
+                        final_words_len = enriched.len(),
+                        final_words = ?&enriched,
+                        context_hint = %hint,
+                        "build_secuence_word_bank success"
+                    );
+                    return (enriched, hint);
+                }
+                error!(target: "challenge", "OpenAI sequence_word_bank only returned connector tokens; using local fallback.");
+            }
+            Ok(Ok(_)) => {
+                error!(target: "challenge", "OpenAI sequence_word_bank returned empty words; using local fallback.");
+            }
+            Ok(Err(e)) => {
+                error!(target: "challenge", error = %e, "OpenAI sequence_word_bank failed; using local fallback.");
+            }
+            Err(_) => {
+                error!(
+                    target: "challenge",
+                    model = %oa.fast_model,
+                    elapsed_ms = started.elapsed().as_millis(),
+                    timeout_ms = sequence_timeout.as_millis(),
+                    "OpenAI sequence_word_bank timed out; using local fallback."
+                );
+            }
+        }
+    }
+    let (local_words, local_hint) = secuence_words_local(difficulty, seed_zh, target);
+    info!(
+        target: "challenge",
+        %difficulty,
+        target_count,
+        target_clamped = target,
+        %seed_zh,
+        local_words_len = local_words.len(),
+        local_words = ?&local_words,
+        local_hint = %local_hint,
+        "build_secuence_word_bank local fallback result"
+    );
+    (local_words, local_hint)
+}
+
+#[instrument(level = "info", skip(state, seed_zh, answer), fields(seed_len = seed_zh.len(), answer_len = answer.len()))]
+pub async fn evaluate_secuence_answer(
+    state: &AppState,
+    seed_zh: &str,
+    answer: &str,
+) -> (bool, f32, String) {
+    let ans = answer.trim();
+    if ans.is_empty() {
+        return (
+            false,
+            0.0,
+            "Empty answer. Build at least one sentence from the word bank.".into(),
+        );
+    }
+
+    let instructions = format!(
+        "Seed: {seed}\nTask: Write coherent Chinese sentence(s) related to the seed. No strict connector requirement. Reward meaningful and longer outputs.",
+        seed = seed_zh.trim()
+    );
+
+    if let Some(oa) = &state.openai {
+        let rubric_json = "{}";
+        if let Ok((ok, score, explanation)) = oa
+            .freeform_eval(&state.prompts, &instructions, rubric_json, ans)
+            .await
+        {
+            return (ok, score, explanation);
+        }
+        error!(target: "challenge", "OpenAI secuence evaluation failed; using local fallback.");
+    }
+
+    let cjk_count = ans.chars().filter(|c| is_cjk(*c)).count();
+    let has_seed_overlap = shared_cjk_chars(seed_zh, ans, 2) >= 1;
+    let has_sentence_punct = ans.contains('。') || ans.contains('！') || ans.contains('？');
+    let len_bonus = (cjk_count as f32).min(24.0);
+
+    let mut score = 38.0 + len_bonus;
+    if has_seed_overlap {
+        score += 16.0;
+    }
+    if has_sentence_punct {
+        score += 8.0;
+    }
+    if cjk_count >= 12 {
+        score += 8.0;
+    }
+    score = score.clamp(0.0, 100.0);
+    let correct = score >= 52.0;
+    let explanation = if correct {
+        "Pass: sentence is coherent enough and related to the seed context.".to_string()
+    } else {
+        "Close: keep the sentence connected to the seed and make it a bit more complete."
+            .to_string()
+    };
+    (correct, score, explanation)
 }
 
 #[instrument(level = "info", skip(state, audio_base64), fields(mime = mime, base64_len = audio_base64.len()))]
@@ -765,6 +917,300 @@ fn freeform_hint_local(ch: &Challenge) -> String {
     } else {
         "先说谁、什么时候、在哪里，然后做什么（加一个态度/计划动词）。".into()
     }
+}
+
+const SECUENCE_CONNECTORS: &[&str] = &[
+    "因为",
+    "所以",
+    "由于",
+    "因此",
+    "既然",
+    "就",
+    "正因为",
+    "是因为",
+    "之所以",
+    "原因在于",
+    "导致",
+    "使得",
+    "因而",
+    "于是",
+    "结果",
+    "结果是",
+    "从而",
+    "进而",
+    "以至于",
+    "如果",
+    "要是",
+    "假如",
+    "只要",
+    "只有",
+    "才",
+    "除非",
+    "否则",
+    "的话",
+    "在",
+    "情况下",
+    "虽然",
+    "但是",
+    "但",
+    "尽管",
+    "仍然",
+    "不过",
+    "可是",
+    "然而",
+    "却",
+    "反而",
+    "表面上",
+    "其实",
+    "一方面",
+    "另一方面",
+    "当",
+    "的时候",
+    "以后",
+    "之后",
+    "之前",
+    "从",
+    "开始",
+    "自从",
+    "随着",
+    "每当",
+    "为了",
+    "以便",
+    "好让",
+    "为的是",
+    "免得",
+    "以免",
+    "起见",
+    "不但",
+    "而且",
+    "不仅",
+    "还",
+    "并且",
+    "同时",
+    "也",
+    "除了",
+    "以外",
+    "要么",
+    "或者",
+    "不是",
+    "就是",
+    "与其",
+    "不如",
+    "宁可",
+    "也不",
+];
+
+fn is_secuence_connector(word: &str) -> bool {
+    let t = word.trim().trim_matches(|c: char| {
+        matches!(
+            c,
+            ',' | '，'
+                | '.'
+                | '。'
+                | ';'
+                | '；'
+                | ':'
+                | '：'
+                | '!'
+                | '！'
+                | '?'
+                | '？'
+                | '…'
+                | '"'
+                | '\''
+                | '“'
+                | '”'
+                | '‘'
+                | '’'
+                | '('
+                | ')'
+                | '（'
+                | '）'
+        )
+    });
+    !t.is_empty() && SECUENCE_CONNECTORS.iter().any(|x| *x == t)
+}
+
+fn extract_cjk_chunks(text: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut cur = String::new();
+    for ch in text.chars() {
+        if is_cjk(ch) || ch.is_ascii_digit() {
+            cur.push(ch);
+        } else if !cur.is_empty() {
+            if cur.chars().count() <= 6 {
+                out.push(cur.clone());
+            }
+            cur.clear();
+        }
+    }
+    if !cur.is_empty() && cur.chars().count() <= 6 {
+        out.push(cur);
+    }
+    out
+}
+
+fn dedup_words<I>(items: I, cap: usize) -> Vec<String>
+where
+    I: IntoIterator<Item = String>,
+{
+    let mut out = Vec::new();
+    let mut seen: HashSet<String> = HashSet::new();
+    for raw in items {
+        let t = raw.trim().to_string();
+        if t.is_empty() || t.chars().count() > 10 {
+            continue;
+        }
+        if is_secuence_connector(&t) {
+            continue;
+        }
+        if seen.insert(t.clone()) {
+            out.push(t);
+        }
+        if out.len() >= cap {
+            break;
+        }
+    }
+    out
+}
+
+fn base_words_for_difficulty(difficulty: &str) -> &'static [&'static str] {
+    match difficulty.trim().to_lowercase().as_str() {
+        "hsk1" => &[
+            "我", "你", "他", "我们", "今天", "明天", "现在", "早上", "晚上", "学校", "家", "公司",
+            "商店", "公园", "路上", "朋友", "老师", "学生", "工作", "学习", "吃饭", "喝水", "走路",
+            "坐车", "喜欢", "想", "要", "去", "回来", "一起", "马上", "已经", "有点", "很", "非常",
+        ],
+        "hsk2" => &[
+            "周末",
+            "下午",
+            "地铁",
+            "公交",
+            "电影",
+            "饭店",
+            "图书馆",
+            "超市",
+            "市场",
+            "准备",
+            "开始",
+            "结束",
+            "买",
+            "卖",
+            "聊天",
+            "散步",
+            "锻炼",
+            "帮助",
+            "练习",
+            "复习",
+            "觉得",
+            "希望",
+            "担心",
+            "开心",
+            "认真",
+            "方便",
+            "比较",
+            "一起",
+            "先",
+            "然后",
+            "最后",
+            "突然",
+            "继续",
+            "刚刚",
+        ],
+        "hsk3" => &[
+            "安排", "计划", "考虑", "决定", "经验", "目标", "方法", "情况", "任务", "消息", "同事",
+            "客户", "项目", "会议", "报告", "效率", "压力", "机会", "改变", "尝试", "选择", "坚持",
+            "提高", "联系", "沟通", "调整", "结果", "因此", "不过", "其实", "另外", "顺便", "尽量",
+        ],
+        "hsk4" | "hsk5" | "hsk6" => &[
+            "背景",
+            "细节",
+            "逻辑",
+            "判断",
+            "证据",
+            "趋势",
+            "策略",
+            "资源",
+            "成本",
+            "收益",
+            "质量",
+            "风险",
+            "方案",
+            "步骤",
+            "节奏",
+            "状态",
+            "反馈",
+            "协作",
+            "表达",
+            "观点",
+            "态度",
+            "立场",
+            "支持",
+            "反对",
+            "分析",
+            "优化",
+            "推进",
+            "验证",
+            "保持",
+            "达成",
+            "进一步",
+            "整体上",
+        ],
+        _ => &[
+            "今天", "现在", "我们", "计划", "地方", "朋友", "工作", "学习", "开始", "继续", "完成",
+            "分享", "讨论", "安排", "调整", "结果", "感觉", "机会", "时间", "目标",
+        ],
+    }
+}
+
+fn secuence_words_local(
+    difficulty: &str,
+    seed_zh: &str,
+    target_count: usize,
+) -> (Vec<String>, String) {
+    let mut rng = rand::thread_rng();
+    let mut base: Vec<String> = base_words_for_difficulty(difficulty)
+        .iter()
+        .map(|x| (*x).to_string())
+        .collect();
+    base.shuffle(&mut rng);
+
+    let from_context = extract_cjk_chunks(seed_zh);
+
+    let mut merged = Vec::new();
+    merged.extend(from_context);
+    merged.extend(base);
+
+    let words = dedup_words(merged, target_count.max(18));
+    let context_hint = if seed_zh.trim().is_empty() {
+        "围绕同一场景，自由组合词语，尽量写长句。".to_string()
+    } else {
+        format!(
+            "围绕“{}”继续展开，尽量写长句并保持语义连贯。",
+            seed_zh.trim()
+        )
+    };
+    (words, context_hint)
+}
+
+fn remove_secuence_connectors(words: Vec<String>, cap: usize) -> Vec<String> {
+    let filtered = words.into_iter().filter(|w| !is_secuence_connector(w));
+    dedup_words(filtered, cap)
+}
+
+fn enrich_secuence_words(
+    mut ai_words: Vec<String>,
+    difficulty: &str,
+    seed_zh: &str,
+    target_count: usize,
+) -> Vec<String> {
+    if ai_words.len() >= target_count {
+        ai_words.truncate(target_count);
+        return ai_words;
+    }
+    let (local_words, _) = secuence_words_local(difficulty, seed_zh, target_count);
+    ai_words.extend(local_words);
+    dedup_words(ai_words, target_count)
 }
 
 fn translate_stub(text: &str) -> String {

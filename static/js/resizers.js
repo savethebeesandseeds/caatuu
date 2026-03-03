@@ -1,6 +1,7 @@
 import { setVar, $ } from './utils.js';
 
 function dragResizer(el, onMove){
+  if (!el) return;
   let dragging=false;
   const move=(e)=>{ if(!dragging) return; onMove(e); };
   const up=()=>{ dragging=false; document.body.style.userSelect=''; document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); };

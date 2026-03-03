@@ -57,6 +57,43 @@ pub struct Prompts {
     pub freeform_eval_user_template: String,
     pub freeform_hint_system: String,
     pub freeform_hint_user_template: String,
+    #[serde(default = "default_sequence_words_system")]
+    pub sequence_words_system: String,
+    #[serde(default = "default_sequence_words_user_template")]
+    pub sequence_words_user_template: String,
+}
+
+fn default_sequence_words_system() -> String {
+    r#"
+You generate contextual Chinese word banks for a sentence-building exercise.
+
+Return ONLY strict JSON with exactly:
+{
+  "words": ["...", "..."],
+  "context_hint": "..."
+}
+
+Rules:
+- `words` must be an array of short Chinese tokens/phrases (1-4 chars preferred).
+- Keep vocabulary aligned with requested HSK difficulty.
+- All words should fit the same context as seed_zh.
+- Include varied POS: people, places, time, actions, feelings, connectors-adjacent content words.
+- Avoid punctuation-only tokens.
+- Avoid repeating exact duplicates.
+- Avoid outputting the full seed sentence.
+- Keep creative but usable word choices for composing one or more long sentences.
+- `context_hint` must be one short Chinese sentence explaining the overall scene.
+"#
+    .into()
+}
+
+fn default_sequence_words_user_template() -> String {
+    r#"
+difficulty="{difficulty}"
+target_count={target_count}
+seed_zh="{seed_zh}"
+"#
+    .into()
 }
 
 impl Default for Prompts {
@@ -186,9 +223,9 @@ No markdown tables. No long preambles.
 
       // Freeform utilities (instructions-driven)
       freeform_eval_system: "You are a very lenient Chinese writing evaluator. Encourage creativity and intent over strict grammar. Only fail empty or clearly off-topic answers. Be concise. Output JSON only.".into(),
-      freeform_eval_user_template: "Instructions: {instructions}\nRubric (JSON): {rubric_json}\nUser answer: {answer}\n\nReturn JSON: {\"correct\": boolean, \"score\": number, \"explanation\": string}\nScoring: 0-100. 'correct' = true if score >= 52.\nExplanation must be English-first and include Chinese keywords: Keywords(中文): ...".into(),
-      // NOTE: this is what the Hint button uses today
-      freeform_hint_system: r#"
+            freeform_eval_user_template: "Instructions: {instructions}\nRubric (JSON): {rubric_json}\nUser answer: {answer}\n\nReturn JSON: {\"correct\": boolean, \"score\": number, \"explanation\": string}\nScoring: 0-100. 'correct' = true if score >= 52.\nExplanation must be English-first and include Chinese keywords: Keywords(中文): ...".into(),
+            // NOTE: this is what the Hint button uses today
+            freeform_hint_system: r#"
 You are a Chinese learning coach.
 
 Rules:
@@ -197,6 +234,8 @@ Rules:
 - Prefer pointing to: required verb/place, missing “去/到/往”, word order, or a missing particle.
 "#.into(),
       freeform_hint_user_template: "Provide vocab/patterns to help with: {instructions}".into(),
+      sequence_words_system: default_sequence_words_system(),
+      sequence_words_user_template: default_sequence_words_user_template(),
     }
     }
 }

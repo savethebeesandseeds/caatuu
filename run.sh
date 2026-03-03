@@ -275,6 +275,10 @@ validate_startup_requirements
 echo "→ Starting Caatuu"
 echo "  PORT=$PORT"
 echo "  AGENT_CONFIG_PATH=$AGENT_CONFIG_PATH"
+echo "  OPENAI_FAST_MODEL=${OPENAI_FAST_MODEL:-}"
+echo "  OPENAI_STRONG_MODEL=${OPENAI_STRONG_MODEL:-}"
+echo "  OPENAI_SEQUENCE_MODEL=${OPENAI_SEQUENCE_MODEL:-}"
+echo "  OPENAI_TRANSCRIBE_MODEL=${OPENAI_TRANSCRIBE_MODEL:-}"
 echo "  RUST_LOG=$RUST_LOG"
 echo "  MODE=${CARGO_MODE[*]:-(dev)}"
 echo

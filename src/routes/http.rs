@@ -60,7 +60,7 @@ pub async fn http_post_translate(
     State(state): State<Arc<AppState>>,
     Json(body): Json<TranslateIn>,
 ) -> impl IntoResponse {
-    let translation = do_translate(&state, &body.text).await;
+    let translation = do_translate_with_mode(&state, &body.text, body.fast_only).await;
     Json(TranslateOut { translation })
 }
 
@@ -103,4 +103,32 @@ pub async fn http_post_agent_message(
 ) -> impl IntoResponse {
     let reply = do_agent_reply(&state, &body.challenge_id, &body.text).await;
     Json(AgentOut { text: reply })
+}
+
+#[instrument(level = "info", skip(state, body), fields(difficulty = %body.difficulty, target_count = body.target_count.unwrap_or(42), seed_len = body.seed_zh.len()))]
+pub async fn http_post_secuence_words(
+    State(state): State<Arc<AppState>>,
+    Json(body): Json<SecuenceWordsIn>,
+) -> impl IntoResponse {
+    let target = body.target_count.unwrap_or(42).clamp(18, 80);
+    let (words, context_hint) =
+        build_secuence_word_bank(&state, &body.difficulty, &body.seed_zh, target).await;
+    Json(SecuenceWordsOut {
+        words,
+        context_hint,
+    })
+}
+
+#[instrument(level = "info", skip(state, body), fields(seed_len = body.seed_zh.len(), answer_len = body.answer.len()))]
+pub async fn http_post_secuence_evaluate(
+    State(state): State<Arc<AppState>>,
+    Json(body): Json<SecuenceEvalIn>,
+) -> impl IntoResponse {
+    let (correct, score, explanation) =
+        evaluate_secuence_answer(&state, &body.seed_zh, &body.answer).await;
+    Json(SecuenceEvalOut {
+        correct,
+        score,
+        explanation,
+    })
 }

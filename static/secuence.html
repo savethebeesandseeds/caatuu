@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Caatuu · Secuence Mode</title>
+  <link rel="stylesheet" href="app.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2cc0ff">
+  <link rel="icon" href="assets/icon-192.png">
+</head>
+<body class="learning-page mode-secuence">
+  <a id="cornerFavicon" href="/" title="Caatuu"><img src="favicon.ico" alt="App icon"></a>
+  <div id="grid" class="auto-zh-scan">
+    <div id="rightTop" aria-label="Secuence builder">
+      <section id="secuencePanel" class="panel" aria-label="Secuence mode">
+        <header class="panel-header mode-unified-bar">
+          <span class="panel-title">Secuence</span>
+          <nav class="mode-nav" aria-label="Select learning mode">
+            <a class="mode-btn" href="challenge.html">Challenge</a>
+            <a class="mode-btn active" href="secuence.html" aria-current="page">Secuence</a>
+          </nav>
+          <span class="grow"></span>
+        </header>
+
+        <div class="panel-body">
+          <div id="sequenceBuildZone" class="seq-build-zone">
+            <div class="seq-actions seq-build-actions">
+              <button id="sequenceClearBtn" class="btn small ghost" type="button">Clear</button>
+              <button id="sequenceAssistBtn" class="btn small ghost" type="button">Assist</button>
+              <button id="sequenceNextBtn" class="btn small accent-next" type="button">⏭ Next</button>
+              <button id="sequenceSubmitBtn" class="btn small accent-submit" type="button">Submit</button>
+            </div>
+            <div id="sequenceBuildWords" class="seq-token-wrap" aria-live="polite"></div>
+          </div>
+          <div id="sequenceFeedback" aria-live="polite"></div>
+
+          <div id="sequenceBanks" class="seq-banks">
+            <section class="seq-bank seq-bank-connectors" aria-label="Connectors">
+              <div class="section-label">Connectors</div>
+              <div id="sequenceConnectors" class="seq-token-wrap"></div>
+            </section>
+
+            <section class="seq-bank seq-bank-words" aria-label="Context words">
+              <div class="section-label">Context Words</div>
+              <div id="sequenceWordOptions" class="seq-token-wrap"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section id="taskHelp" class="panel" aria-label="Help and settings">
+      <header class="panel-header">
+        <span class="panel-title">Help &amp; Hints</span>
+      </header>
+      <div class="panel-body">
+        <div class="seq-seed-inline seq-seed-help">
+          <div class="seq-seed-stack">
+            <span id="sequenceSeed" class="seq-seed-text"></span>
+            <span id="sequenceSeedEn" class="seq-seed-translation subtle" hidden></span>
+          </div>
+        </div>
+
+        <div id="assistCard">
+          <div class="kv" id="rtGrid" style="margin-top:8px;">
+            <div id="rtRowGrammar" class="kv-row">
+              <div class="subtle">Grammar correction</div>
+              <div id="liveGrammar" class="gc-box"><span class="subtle">Use Assist for corrections.</span></div>
+            </div>
+            <div id="rtRowTrans" class="kv-row">
+              <div class="subtle">Input (translation)</div>
+              <div id="liveTranslation"></div>
+            </div>
+            <div id="rtRowPinyin" class="kv-row">
+              <div class="subtle">Input (pinyin)</div>
+              <div id="livePinyin" class="mono"></div>
+            </div>
+            <div id="rtRowNextChar" class="kv-row">
+              <div class="subtle">Next-character suggestion</div>
+              <div id="liveNextChar" class="mono"></div>
+            </div>
+          </div>
+          <div class="hint subtle" style="margin-top:6px;"><kbd>Alt+A</kbd> Assist</div>
+        </div>
+
+        <section id="settingsSection">
+          <div class="section-label section-label-row" style="margin-top:14px;">
+            <span>Settings</span>
+            <button id="toggleSettingsBtn" class="btn small ghost" type="button" aria-pressed="true" title="Hide settings">▾</button>
+          </div>
+          <div id="settingsGrid">
+            <label class="row nowrap" title="Dark or light theme">
+              <span>Theme:</span>
+              <select id="themeSel" class="grow">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </label>
+            <label class="row nowrap" title="Challenge difficulty">
+              <span>Difficulty:</span>
+              <select id="difficultySel" class="grow">
+                <option value="auto">Auto</option>
+                <option value="hsk1">HSK 1</option>
+                <option value="hsk2">HSK 2</option>
+                <option value="hsk3">HSK 3</option>
+                <option value="hsk4">HSK 4</option>
+                <option value="hsk5">HSK 5</option>
+                <option value="hsk6">HSK 6</option>
+              </select>
+            </label>
+            <label class="toggle"><input type="checkbox" id="tglTone"> Colorize by tone</label>
+            <label class="toggle"><input type="checkbox" id="tglPinyin"> Show pinyin</label>
+            <label class="toggle"><input type="checkbox" id="tglRTPinyin"> Assist: show pinyin</label>
+            <label class="toggle"><input type="checkbox" id="tglRTTrans"> Assist: show translation</label>
+            <label class="toggle"><input type="checkbox" id="tglNextChar"> Next-character suggestion (+Tab)</label>
+            <label class="toggle"><input type="checkbox" id="tglSeedTranslate"> Translate seed</label>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div id="hr" class="h-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize top/bottom"></div>
+
+    <section id="bottomPanel" class="panel" aria-label="Events">
+      <header class="panel-header">
+        <span class="panel-title">Events</span>
+        <span class="grow"></span>
+        <div id="eventLogControls" class="row nowrap" style="align-items:center;">
+          <button id="copyLogBtn" class="btn small ghost" type="button" title="Copy log to clipboard">Copy</button>
+          <button id="clearLogBtn" class="btn small ghost" type="button" title="Clear event log">Clear</button>
+        </div>
+      </header>
+      <div class="panel-body">
+        <ul id="eventLog" class="mono" style="list-style:none; padding-left:0; margin:0;"></ul>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/secuence.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const bust = Date.now();
+        navigator.serviceWorker
+          .register(`./sw.js?v=${bust}`, { scope: './' })
+          .catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -43,6 +43,14 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .route("/api/v1/grammar", post(http::http_post_grammar)) // NEW
         .route("/api/v1/next_char", post(http::http_post_next_char))
         .route("/api/v1/agent/message", post(http::http_post_agent_message))
+        .route(
+            "/api/v1/secuence/words",
+            post(http::http_post_secuence_words),
+        )
+        .route(
+            "/api/v1/secuence/evaluate",
+            post(http::http_post_secuence_evaluate),
+        )
         // State + CORS + HTTP tracing
         .with_state(state)
         .layer(

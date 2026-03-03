@@ -169,6 +169,8 @@ pub struct HintOut {
 #[derive(Deserialize)]
 pub struct TranslateIn {
     pub text: String,
+    #[serde(rename = "fastOnly", default)]
+    pub fast_only: bool,
 }
 #[derive(Serialize)]
 pub struct TranslateOut {
@@ -221,4 +223,34 @@ pub struct AgentOut {
 #[derive(Serialize)]
 pub struct HealthOut {
     pub ok: bool,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct SecuenceWordsIn {
+    pub difficulty: String,
+    #[serde(rename = "seedZh")]
+    pub seed_zh: String,
+    #[serde(rename = "targetCount")]
+    pub target_count: Option<usize>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct SecuenceWordsOut {
+    pub words: Vec<String>,
+    #[serde(rename = "contextHint")]
+    pub context_hint: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct SecuenceEvalIn {
+    #[serde(rename = "seedZh")]
+    pub seed_zh: String,
+    pub answer: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct SecuenceEvalOut {
+    pub correct: bool,
+    pub score: f32,
+    pub explanation: String,
 }

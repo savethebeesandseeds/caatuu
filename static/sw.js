@@ -3,7 +3,7 @@
 // - JS/CSS/worker: network-first (so app code updates; fallback to cache)
 // - Other assets:  cache-first
 
-const VERSION = "caatuu-sw-v15"; // bump to force upgrade
+const VERSION = "caatuu-sw-v17"; // bump to force upgrade
 
 // Scope-aware base path ("" or "/caatuu/static")
 const BASE  = new URL(self.registration.scope).pathname.replace(/\/$/, "");
@@ -12,11 +12,14 @@ const INDEX = BASE + "/index.html";
 // Precache (no "/" to avoid redirect weirdness)
 const SHELL = [
   INDEX,
+  BASE + "/challenge.html",
+  BASE + "/secuence.html",
   BASE + "/app.css",
   BASE + "/js/audio.js",
   BASE + "/js/main.js",
   BASE + "/js/mock.js",
   BASE + "/js/resizers.js",
+  BASE + "/js/secuence.js",
   BASE + "/js/socket.js",
   BASE + "/js/state.js",
   BASE + "/js/ui.js",
