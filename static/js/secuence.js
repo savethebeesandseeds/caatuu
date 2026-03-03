@@ -572,7 +572,8 @@ function extractSeedWords(seed, extraLexicon = []){
     let i = 0;
     while (i < part.length) {
       let found = '';
-      const maxLen = Math.min(4, part.length - i);
+      // Keep seed chips strict: prefer 2-char words, otherwise single-char.
+      const maxLen = Math.min(2, part.length - i);
       for (let len = maxLen; len >= 1; len--) {
         const cand = part.slice(i, i + len);
         if (lex.has(cand)) {
@@ -582,8 +583,7 @@ function extractSeedWords(seed, extraLexicon = []){
       }
 
       if (!found) {
-        const rem = part.length - i;
-        found = rem >= 2 ? part.slice(i, i + 2) : part.slice(i, i + 1);
+        found = part.slice(i, i + 1);
       }
 
       if (hasCjk(found) && !isConnectorWord(found)) out.push(found);
@@ -634,7 +634,10 @@ async function loadChallenge(){
   setLoading(true);
   const diff = currentDifficulty();
   try {
-    const challenge = await fetchJSON(`/api/v1/challenge?difficulty=${encodeURIComponent(diff)}`);
+    const challenge = await fetchJSON(
+      `/api/v1/challenge?difficulty=${encodeURIComponent(diff)}&_=${Date.now()}`,
+      { cache: 'no-store' }
+    );
     setChallenge(challenge);
     await loadWordBank();
     logSuccess(`Secuence seed loaded (${challenge.difficulty || diff}).`);
