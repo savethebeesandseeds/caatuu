@@ -371,6 +371,7 @@ pub struct OpenAI {
     pub api_key: String,
     pub base_url: String,
     pub fast_model: String,
+    pub writing_model: String,
     pub strong_model: String,
     pub sequence_model: String,
     pub transcribe_model: String,
@@ -381,6 +382,7 @@ impl OpenAI {
         let mut out = Vec::new();
         push_model_unique(&mut out, model);
         push_model_unique(&mut out, &self.fast_model);
+        push_model_unique(&mut out, &self.writing_model);
         push_model_unique(&mut out, &self.strong_model);
         push_model_unique(&mut out, "gpt-4o-mini");
         push_model_unique(&mut out, "gpt-4o");
@@ -405,6 +407,8 @@ impl OpenAI {
             std::env::var("OPENAI_BASE_URL").unwrap_or_else(|_| "https://api.openai.com/v1".into());
         let fast_model =
             std::env::var("OPENAI_FAST_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
+        let writing_model =
+            std::env::var("OPENAI_WRITING_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
         let strong_model = std::env::var("OPENAI_STRONG_MODEL").unwrap_or_else(|_| "gpt-4o".into());
         let sequence_model =
             std::env::var("OPENAI_SEQUENCE_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
@@ -421,6 +425,7 @@ impl OpenAI {
             api_key,
             base_url,
             fast_model,
+            writing_model,
             strong_model,
             sequence_model,
             transcribe_model,
@@ -1058,7 +1063,7 @@ impl OpenAI {
         };
 
         let first = self
-            .chat_plain_exact(&self.fast_model, &prompts.translate_system, input, 0.0)
+            .chat_plain_exact(&self.writing_model, &prompts.translate_system, input, 0.0)
             .await?;
         let first = first.trim().to_string();
         if !is_invalid(&first) {
@@ -1071,7 +1076,7 @@ impl OpenAI {
             STRICT_TRANSLATE_EN2ZH_SYSTEM
         };
         let second = self
-            .chat_plain_exact(&self.fast_model, strict_system, input, 0.0)
+            .chat_plain_exact(&self.writing_model, strict_system, input, 0.0)
             .await?;
         Ok(second.trim().to_string())
     }
@@ -1095,6 +1100,21 @@ impl OpenAI {
             &[("instructions", instructions)],
         );
         self.chat_plain(&self.fast_model, system, &user, 0.2).await
+    }
+
+    #[instrument(level = "info", skip(self, prompts, instructions), fields(instr_len = instructions.len()))]
+    pub async fn freeform_hint_writing(
+        &self,
+        prompts: &Prompts,
+        instructions: &str,
+    ) -> Result<String, String> {
+        let system = &prompts.freeform_hint_system;
+        let user = fill_template(
+            &prompts.freeform_hint_user_template,
+            &[("instructions", instructions)],
+        );
+        self.chat_plain(&self.writing_model, system, &user, 0.2)
+            .await
     }
 
     #[instrument(level = "info", skip(self, prompts, seed_zh), fields(%difficulty, target_count, seed_len = seed_zh.len()))]
@@ -1288,6 +1308,23 @@ impl OpenAI {
         self.chat_plain(&self.fast_model, system, &user, 0.2).await
     }
 
+    #[instrument(level = "info", skip(self, prompts, question, context_zh), fields(question_len = question.len(), has_context = context_zh.is_some()))]
+    pub async fn agent_reply_writing(
+        &self,
+        prompts: &Prompts,
+        question: &str,
+        context_zh: Option<&str>,
+    ) -> Result<String, String> {
+        let system = &prompts.agent_reply_system;
+        let user = if let Some(zh) = context_zh {
+            format!("Question: {}\n\nContext:\n{}", question, zh)
+        } else {
+            format!("Question: {}", question)
+        };
+        self.chat_plain(&self.writing_model, system, &user, 0.2)
+            .await
+    }
+
     #[instrument(level = "info", skip(self, prompts, instructions, rubric_json, answer), fields(instr_len = instructions.len(), rubric_len = rubric_json.len(), answer_len = answer.len()))]
     pub async fn freeform_eval(
         &self,
@@ -1322,6 +1359,16 @@ impl OpenAI {
     #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
     pub async fn grammar_correct(&self, prompts: &Prompts, text: &str) -> Result<String, String> {
         self.chat_plain(&self.fast_model, &prompts.grammar_system, text, 0.0)
+            .await
+    }
+
+    #[instrument(level = "info", skip(self, prompts, text), fields(text_len = text.len()))]
+    pub async fn grammar_correct_writing(
+        &self,
+        prompts: &Prompts,
+        text: &str,
+    ) -> Result<String, String> {
+        self.chat_plain(&self.writing_model, &prompts.grammar_system, text, 0.0)
             .await
     }
 }

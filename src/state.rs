@@ -9,6 +9,7 @@
 //! The selection policy now generates seed+challenge freeform tasks by default.
 //! If OpenAI is unavailable, we fall back to built-in seeds or a hard fallback.
 
+use rand::seq::SliceRandom;
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
 use tracing::{error, info, instrument, warn};
@@ -22,6 +23,175 @@ use uuid::Uuid;
 // Keep a small per-difficulty pool of generated items to avoid repeats
 #[allow(dead_code)]
 const GEN_POOL_TARGET: usize = 3;
+
+fn hsk_level(difficulty: &str) -> u8 {
+    let norm = difficulty.trim().to_lowercase();
+    let n = norm
+        .strip_prefix("hsk")
+        .and_then(|v| v.parse::<u8>().ok())
+        .unwrap_or(3);
+    n.clamp(1, 6)
+}
+
+fn tail_chars(text: &str, max_chars: usize) -> String {
+    let chars: Vec<char> = text.chars().collect();
+    if chars.len() <= max_chars {
+        return text.trim().to_string();
+    }
+    chars[chars.len().saturating_sub(max_chars)..]
+        .iter()
+        .collect::<String>()
+        .trim()
+        .to_string()
+}
+
+fn extract_recent_topic(context_zh: &str) -> String {
+    let ctx = context_zh.trim();
+    if ctx.is_empty() {
+        return String::new();
+    }
+    let seg = ctx
+        .split(|c| matches!(c, '。' | '！' | '？' | '.' | '!' | '?' | '\n' | '；' | ';'))
+        .rev()
+        .map(str::trim)
+        .find(|s| !s.is_empty())
+        .unwrap_or("");
+    let compact = seg
+        .chars()
+        .filter(|c| !c.is_control() && *c != '"' && *c != '“' && *c != '”')
+        .collect::<String>();
+    // Keep just a short tail so the guide follows context without overfitting details.
+    tail_chars(&compact, 10)
+}
+
+fn build_mild_writing_seed(difficulty: &str, context_zh: &str) -> String {
+    let level = hsk_level(difficulty);
+    let topic = extract_recent_topic(context_zh);
+    let mut rng = rand::thread_rng();
+
+    let seed = if topic.is_empty() {
+        let options_lvl1 = [
+            "可以继续写一个轻松的小场景，发生一件好玩的事。",
+            "顺着现在的内容写下去，加一点开心的小变化。",
+            "不妨往下写：有个小意外，让气氛更有趣。",
+        ];
+        let options_lvl2 = [
+            "可以继续这个语境，写一个简单又有趣的小情况。",
+            "顺着当前内容往下写，让场景更轻松一点。",
+            "不妨补一个小变化，让故事更自然。",
+        ];
+        let options_lvl3 = [
+            "可沿着当前语境继续，加入一个轻松有趣的小情境。",
+            "顺着现有叙述推进一点，让后文出现自然的小变化。",
+            "不妨补一处日常里的小趣味，让文本更生动。",
+        ];
+        let options_lvl4 = [
+            "可以延续现在的语境，加入一个贴近日常的小转折。",
+            "顺着当前叙述往下写，让情境多一点画面感。",
+            "不妨补一个轻微变化，让后文更顺更有趣。",
+        ];
+        let options_lvl5 = [
+            "可在当前语境里推进一步，加入一个温和而有趣的细节。",
+            "顺着叙述继续，让场景自然出现一处小反差。",
+            "不妨补一段轻松情境，让文本层次更清楚。",
+        ];
+        let options_lvl6 = [
+            "可延展当前语境，加入一处克制但有趣的情境变化。",
+            "顺着现有叙述推进，让后文出现细微而自然的转折。",
+            "不妨补一个日常中的巧妙细节，增强整体连贯感。",
+        ];
+        match level {
+            1 => options_lvl1
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl1[0]),
+            2 => options_lvl2
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl2[0]),
+            3 => options_lvl3
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl3[0]),
+            4 => options_lvl4
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl4[0]),
+            5 => options_lvl5
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl5[0]),
+            _ => options_lvl6
+                .choose(&mut rng)
+                .copied()
+                .unwrap_or(options_lvl6[0]),
+        }
+        .to_string()
+    } else {
+        let options_lvl1 = [
+            format!("可以接着“{}”写，发生一件轻松的小趣事。", topic),
+            format!("顺着“{}”继续，加一点简单又好玩的变化。", topic),
+            format!("围绕“{}”往下写，让气氛更开心一点。", topic),
+        ];
+        let options_lvl2 = [
+            format!("可以沿着“{}”继续，加入一个简单的小趣味情境。", topic),
+            format!("顺着“{}”写下去，补一个自然的小变化。", topic),
+            format!("围绕“{}”推进一点，让后文更顺。", topic),
+        ];
+        let options_lvl3 = [
+            format!("可沿着“{}”继续，加入一个温和有趣的情境发展。", topic),
+            format!("顺着“{}”推进后文，补一处轻巧的日常趣味。", topic),
+            format!("围绕“{}”延展一小步，让文本更生动。", topic),
+        ];
+        let options_lvl4 = [
+            format!("可以沿着“{}”继续，加入一个贴近日常的小转折。", topic),
+            format!("顺着“{}”推进后文，补一点自然的情境变化。", topic),
+            format!("围绕“{}”展开一层，让画面更具体。", topic),
+        ];
+        let options_lvl5 = [
+            format!("可围绕“{}”继续，加入一处温和而有趣的细节推进。", topic),
+            format!("顺着“{}”往下写，让后文出现轻微但自然的反差。", topic),
+            format!("沿着“{}”延展一小段，使语境更完整。", topic),
+        ];
+        let options_lvl6 = [
+            format!("可围绕“{}”继续，加入克制且有趣的情境演进。", topic),
+            format!("顺着“{}”推进后文，补一处细微而有效的转折。", topic),
+            format!("沿着“{}”延展层次，让表达更连贯也更灵动。", topic),
+        ];
+        match level {
+            1 => options_lvl1
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl1[0].clone()),
+            2 => options_lvl2
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl2[0].clone()),
+            3 => options_lvl3
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl3[0].clone()),
+            4 => options_lvl4
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl4[0].clone()),
+            5 => options_lvl5
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl5[0].clone()),
+            _ => options_lvl6
+                .choose(&mut rng)
+                .cloned()
+                .unwrap_or_else(|| options_lvl6[0].clone()),
+        }
+    };
+
+    if seed.ends_with('。') || seed.ends_with('！') || seed.ends_with('？') {
+        seed
+    } else {
+        format!("{seed}。")
+    }
+}
 
 #[derive(Clone)]
 pub struct AppState {
@@ -114,7 +284,7 @@ impl AppState {
         // Build optional OpenAI client (if API key present).
         let openai = OpenAI::from_env();
         if let Some(oa) = &openai {
-            info!(target: "caatuu_backend", base_url = %oa.base_url, fast_model = %oa.fast_model, strong_model = %oa.strong_model, sequence_model = %oa.sequence_model, transcribe_model = %oa.transcribe_model, "OpenAI enabled.");
+            info!(target: "caatuu_backend", base_url = %oa.base_url, fast_model = %oa.fast_model, writing_model = %oa.writing_model, strong_model = %oa.strong_model, sequence_model = %oa.sequence_model, transcribe_model = %oa.transcribe_model, "OpenAI enabled.");
         } else {
             info!(target: "caatuu_backend", "OpenAI disabled (no OPENAI_API_KEY). Using local/seed logic.");
         }
@@ -216,6 +386,54 @@ impl AppState {
             .insert(difficulty.to_string(), id.clone());
         warn!(target: "challenge", %difficulty, chosen = %id, source = "hard_fallback", "Inserted hard fallback challenge");
         (c, "hard_fallback")
+    }
+
+    /// Writing mode guide generation:
+    /// produce a mild, context-following seed without strict task constraints.
+    #[instrument(
+        level = "info",
+        skip(self, context_zh),
+        fields(%difficulty, context_len = context_zh.len())
+    )]
+    pub async fn choose_writing_guide(
+        &self,
+        difficulty: &str,
+        context_zh: &str,
+    ) -> (Challenge, &'static str) {
+        let seed_zh = build_mild_writing_seed(difficulty, context_zh);
+        let challenge = Challenge {
+            id: Uuid::new_v4().to_string(),
+            difficulty: difficulty.to_string(),
+            kind: ChallengeKind::FreeformZh,
+            source: ChallengeSource::Generated,
+            seed_zh: seed_zh.clone(),
+            seed_en: String::new(),
+            challenge_zh: String::new(),
+            challenge_en: String::new(),
+            summary_en: "Mild writing guide based on your current text.".to_string(),
+            reference_answer_zh: String::new(),
+            core_plus_spec: None,
+            instructions: format!(
+                "Writing guide (difficulty={}): {} Continue the learner text naturally and playfully.",
+                difficulty, seed_zh
+            ),
+            rubric: None,
+        };
+
+        // Keep writing guides addressable by id for hints, but don't pollute per-difficulty pools.
+        self.by_id
+            .write()
+            .await
+            .insert(challenge.id.clone(), challenge.clone());
+
+        info!(
+            target: "challenge",
+            %difficulty,
+            id = %challenge.id,
+            seed_preview = %challenge.seed_zh.chars().take(36).collect::<String>(),
+            "Generated writing guide seed"
+        );
+        (challenge, "writing_guide_local")
     }
 
     /// Read-only access to a challenge by id.

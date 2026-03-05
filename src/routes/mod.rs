@@ -51,6 +51,13 @@ pub fn build_router(state: Arc<AppState>) -> Router {
             "/api/v1/secuence/evaluate",
             post(http::http_post_secuence_evaluate),
         )
+        // Clean mode URLs (without .html suffix)
+        .route_service("/challenge", ServeFile::new("./static/challenge.html"))
+        .route_service("/challenge/", ServeFile::new("./static/challenge.html"))
+        .route_service("/secuence", ServeFile::new("./static/secuence.html"))
+        .route_service("/secuence/", ServeFile::new("./static/secuence.html"))
+        .route_service("/writing", ServeFile::new("./static/writing.html"))
+        .route_service("/writing/", ServeFile::new("./static/writing.html"))
         // State + CORS + HTTP tracing
         .with_state(state)
         .layer(

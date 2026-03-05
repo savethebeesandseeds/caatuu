@@ -12,6 +12,10 @@ pub enum ClientWsMessage {
     Ping,
     NewChallenge {
         difficulty: String,
+        #[serde(rename = "contextZh", default)]
+        context_zh: String,
+        #[serde(default)]
+        mode: String,
     },
     SubmitAnswer {
         #[serde(rename = "challengeId")]
@@ -21,15 +25,21 @@ pub enum ClientWsMessage {
     Hint {
         #[serde(rename = "challengeId")]
         challenge_id: String,
+        #[serde(rename = "fastOnly", default)]
+        fast_only: bool,
     },
     TranslateInput {
         text: String,
+        #[serde(rename = "fastOnly", default)]
+        fast_only: bool,
     },
     PinyinInput {
         text: String,
     },
     GrammarInput {
         text: String,
+        #[serde(rename = "fastOnly", default)]
+        fast_only: bool,
     }, // NEW
     SpeechToTextInput {
         #[serde(rename = "audioBase64")]
@@ -45,6 +55,8 @@ pub enum ClientWsMessage {
         #[serde(rename = "challengeId")]
         challenge_id: String,
         text: String,
+        #[serde(rename = "fastOnly", default)]
+        fast_only: bool,
     },
     AgentReset,
     SaveSettings {/* arbitrary blob */},

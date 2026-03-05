@@ -216,6 +216,15 @@ pub async fn evaluate_answer(
 
 #[instrument(level = "info", skip(state), fields(%challenge_id))]
 pub async fn get_hint_text(state: &AppState, challenge_id: &str) -> String {
+    get_hint_text_with_mode(state, challenge_id, false).await
+}
+
+#[instrument(level = "info", skip(state), fields(%challenge_id, fast_only))]
+pub async fn get_hint_text_with_mode(
+    state: &AppState,
+    challenge_id: &str,
+    fast_only: bool,
+) -> String {
     if let Some(ch) = state.get_challenge(challenge_id).await {
         if let Some(spec) = &ch.core_plus_spec {
             return format!(
@@ -233,7 +242,12 @@ pub async fn get_hint_text(state: &AppState, challenge_id: &str) -> String {
         };
 
         if let Some(oa) = &state.openai {
-            match oa.freeform_hint(&state.prompts, &instr).await {
+            let out = if fast_only {
+                oa.freeform_hint_writing(&state.prompts, &instr).await
+            } else {
+                oa.freeform_hint(&state.prompts, &instr).await
+            };
+            match out {
                 Ok(t) => t,
                 Err(e) => {
                     error!(target: "challenge", id = %ch.id, error = %e, "OpenAI freeform_hint failed; using local hint.");
@@ -281,8 +295,18 @@ pub async fn do_translate_with_mode(state: &AppState, text: &str, fast_only: boo
 // Grammar correction
 #[instrument(level = "info", skip(state, text), fields(text_len = text.len()))]
 pub async fn do_grammar(state: &AppState, text: &str) -> String {
+    do_grammar_with_mode(state, text, false).await
+}
+
+#[instrument(level = "info", skip(state, text), fields(text_len = text.len(), fast_only))]
+pub async fn do_grammar_with_mode(state: &AppState, text: &str, fast_only: bool) -> String {
     if let Some(oa) = &state.openai {
-        match oa.grammar_correct(&state.prompts, text).await {
+        let out = if fast_only {
+            oa.grammar_correct_writing(&state.prompts, text).await
+        } else {
+            oa.grammar_correct(&state.prompts, text).await
+        };
+        match out {
             Ok(t) => return t,
             Err(e) => {
                 tracing::error!(target: "caatuu_backend", error = %e, "OpenAI grammar_correct failed; using stub fallback.")
@@ -452,6 +476,16 @@ pub async fn do_speech_to_text(
 
 #[instrument(level = "info", skip(state, question), fields(%challenge_id, question_len = question.len()))]
 pub async fn do_agent_reply(state: &AppState, challenge_id: &str, question: &str) -> String {
+    do_agent_reply_with_mode(state, challenge_id, question, false).await
+}
+
+#[instrument(level = "info", skip(state, question), fields(%challenge_id, question_len = question.len(), fast_only))]
+pub async fn do_agent_reply_with_mode(
+    state: &AppState,
+    challenge_id: &str,
+    question: &str,
+    fast_only: bool,
+) -> String {
     let ctx: Option<String> = state
         .get_challenge(challenge_id)
         .await
@@ -484,10 +518,14 @@ pub async fn do_agent_reply(state: &AppState, challenge_id: &str, question: &str
         });
 
     if let Some(oa) = &state.openai {
-        match oa
-            .agent_reply(&state.prompts, question, ctx.as_deref())
-            .await
-        {
+        let out = if fast_only {
+            oa.agent_reply_writing(&state.prompts, question, ctx.as_deref())
+                .await
+        } else {
+            oa.agent_reply(&state.prompts, question, ctx.as_deref())
+                .await
+        };
+        match out {
             Ok(t) => {
                 debug!(target: "caatuu_backend", %challenge_id, has_context = ctx.is_some(), "Agent reply via OpenAI.");
                 t

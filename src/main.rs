@@ -9,6 +9,7 @@
 //!   OPENAI_API_KEY    : enables OpenAI integration if present
 //!   OPENAI_BASE_URL    : default "https://api.openai.com/v1"
 //!   OPENAI_FAST_MODEL  : default "gpt-4o-mini"
+//!   OPENAI_WRITING_MODEL : default "gpt-4o-mini" (writing-mode translation/hints/agent/grammar)
 //!   OPENAI_STRONG_MODEL   : default "gpt-4o"
 //!   OPENAI_SEQUENCE_MODEL : default "gpt-4o-mini"
 //!   OPENAI_TRANSCRIBE_MODEL : default "gpt-4o-transcribe"

@@ -11,6 +11,7 @@ set -o nounset >/dev/null 2>&1 || true
 : "${PORT:=9172}"
 : "${OPENAI_BASE_URL:=https://api.openai.com/v1}"
 : "${OPENAI_FAST_MODEL:=gpt-5-nano}"
+: "${OPENAI_WRITING_MODEL:=gpt-4o-mini}"
 : "${OPENAI_STRONG_MODEL:=gpt-5-nano}"
 : "${OPENAI_SEQUENCE_MODEL:=gpt-4o-mini}"
 : "${OPENAI_TRANSCRIBE_MODEL:=gpt-4o-transcribe}"
@@ -20,7 +21,7 @@ set -o nounset >/dev/null 2>&1 || true
 # Note: do NOT put real secrets here if this file is committed.
 # OPENAI_API_KEY is intentionally NOT defaulted.
 # Export everything
-export PORT OPENAI_BASE_URL OPENAI_FAST_MODEL OPENAI_STRONG_MODEL OPENAI_SEQUENCE_MODEL OPENAI_TRANSCRIBE_MODEL RUST_LOG WS_ALLOW_ALL
+export PORT OPENAI_BASE_URL OPENAI_FAST_MODEL OPENAI_WRITING_MODEL OPENAI_STRONG_MODEL OPENAI_SEQUENCE_MODEL OPENAI_TRANSCRIBE_MODEL RUST_LOG WS_ALLOW_ALL
 
 # Optionally allow a local, untracked overrides file.
 # Create env.local.sh and place your OPENAI_API_KEY there.

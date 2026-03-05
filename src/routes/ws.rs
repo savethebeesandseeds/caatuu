@@ -65,8 +65,20 @@ async fn handle_ws(mut socket: WebSocket, state: Arc<AppState>) {
 fn ws_message_summary(msg: &ClientWsMessage) -> String {
     match msg {
         ClientWsMessage::Ping => "ping".into(),
-        ClientWsMessage::NewChallenge { difficulty } => {
-            format!("new_challenge difficulty={difficulty}")
+        ClientWsMessage::NewChallenge {
+            difficulty,
+            context_zh,
+            mode,
+        } => {
+            let mode_label = if mode.trim().is_empty() {
+                "default".to_string()
+            } else {
+                mode.trim().to_string()
+            };
+            format!(
+                "new_challenge difficulty={difficulty} mode={mode_label} context_len={}",
+                context_zh.len()
+            )
         }
         ClientWsMessage::SubmitAnswer {
             challenge_id,
@@ -77,12 +89,27 @@ fn ws_message_summary(msg: &ClientWsMessage) -> String {
                 answer.len()
             )
         }
-        ClientWsMessage::Hint { challenge_id } => format!("hint challenge_id={challenge_id}"),
-        ClientWsMessage::TranslateInput { text } => {
-            format!("translate_input text_len={}", text.len())
+        ClientWsMessage::Hint {
+            challenge_id,
+            fast_only,
+        } => {
+            format!("hint challenge_id={challenge_id} fast_only={fast_only}")
+        }
+        ClientWsMessage::TranslateInput { text, fast_only } => {
+            format!(
+                "translate_input text_len={} fast_only={}",
+                text.len(),
+                fast_only
+            )
         }
         ClientWsMessage::PinyinInput { text } => format!("pinyin_input text_len={}", text.len()),
-        ClientWsMessage::GrammarInput { text } => format!("grammar_input text_len={}", text.len()),
+        ClientWsMessage::GrammarInput { text, fast_only } => {
+            format!(
+                "grammar_input text_len={} fast_only={}",
+                text.len(),
+                fast_only
+            )
+        }
         ClientWsMessage::SpeechToTextInput { audio_base64, mime } => {
             format!(
                 "speech_to_text_input mime={mime} base64_len={}",
@@ -98,10 +125,15 @@ fn ws_message_summary(msg: &ClientWsMessage) -> String {
                 current.len()
             )
         }
-        ClientWsMessage::AgentMessage { challenge_id, text } => {
+        ClientWsMessage::AgentMessage {
+            challenge_id,
+            text,
+            fast_only,
+        } => {
             format!(
-                "agent_message challenge_id={challenge_id} text_len={}",
-                text.len()
+                "agent_message challenge_id={challenge_id} text_len={} fast_only={}",
+                text.len(),
+                fast_only
             )
         }
         ClientWsMessage::AgentReset => "agent_reset".into(),
@@ -114,9 +146,18 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
     match msg {
         ClientWsMessage::Ping => ServerWsMessage::Pong,
 
-        ClientWsMessage::NewChallenge { difficulty } => {
-            let (ch, origin) = state.choose_challenge(&difficulty).await;
-            tracing::info!(target: "challenge", %difficulty, id = %ch.id, %origin, "WS new_challenge served");
+        ClientWsMessage::NewChallenge {
+            difficulty,
+            context_zh,
+            mode,
+        } => {
+            let mode_norm = mode.trim();
+            let (ch, origin) = if mode_norm == "writing_guide" {
+                state.choose_writing_guide(&difficulty, &context_zh).await
+            } else {
+                state.choose_challenge(&difficulty).await
+            };
+            tracing::info!(target: "challenge", %difficulty, id = %ch.id, %origin, mode = %if mode_norm.is_empty() { "default" } else { mode_norm }, "WS new_challenge served");
             ServerWsMessage::Challenge {
                 challenge: to_out(&ch),
             }
@@ -137,14 +178,17 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
             }
         }
 
-        ClientWsMessage::Hint { challenge_id } => {
-            let text = get_hint_text(state, &challenge_id).await;
+        ClientWsMessage::Hint {
+            challenge_id,
+            fast_only,
+        } => {
+            let text = get_hint_text_with_mode(state, &challenge_id, fast_only).await;
             tracing::info!(target: "challenge", id = %challenge_id, "WS hint served");
             ServerWsMessage::Hint { text }
         }
 
-        ClientWsMessage::TranslateInput { text } => {
-            let translation = do_translate(state, &text).await;
+        ClientWsMessage::TranslateInput { text, fast_only } => {
+            let translation = do_translate_with_mode(state, &text, fast_only).await;
             ServerWsMessage::Translate { text, translation }
         }
 
@@ -153,8 +197,8 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
             ServerWsMessage::Pinyin { text, pinyin }
         }
 
-        ClientWsMessage::GrammarInput { text } => {
-            let corrected = do_grammar(state, &text).await;
+        ClientWsMessage::GrammarInput { text, fast_only } => {
+            let corrected = do_grammar_with_mode(state, &text, fast_only).await;
             ServerWsMessage::Grammar { text, corrected }
         }
 
@@ -177,8 +221,12 @@ async fn handle_client_ws(msg: ClientWsMessage, state: &AppState) -> ServerWsMes
             }
         }
 
-        ClientWsMessage::AgentMessage { challenge_id, text } => {
-            let reply = do_agent_reply(state, &challenge_id, &text).await;
+        ClientWsMessage::AgentMessage {
+            challenge_id,
+            text,
+            fast_only,
+        } => {
+            let reply = do_agent_reply_with_mode(state, &challenge_id, &text, fast_only).await;
             ServerWsMessage::AgentReply { text: reply }
         }
 

@@ -20,6 +20,7 @@ const RT_PINYIN_KEY = 'realtime_pinyin';
 const RT_TRANSLATION_KEY = 'realtime_translation';
 const NEXT_CHAR_KEY = 'next_char_suggest';
 const SECUENCE_WORD_COUNT = 44;
+const HSK_LEVELS = ['hsk1', 'hsk2', 'hsk3', 'hsk4', 'hsk5', 'hsk6'];
 
 const CONNECTORS = [
   '因为', '所以', '由于', '因此', '既然', '就', '正因为', '是因为', '之所以', '原因在于',
@@ -47,6 +48,7 @@ const state = {
   challenge: null,
   selected: [],
   words: [],
+  customWordDraft: '',
   seedWordSet: new Set(),
   pinyinMap: new Map(),
   pinyinDone: new Set(),
@@ -132,11 +134,15 @@ function isConnectorWord(word){
   return !!t && CONNECTOR_SET.has(t);
 }
 
+function normalizeDifficulty(value){
+  const v = String(value || '').trim().toLowerCase();
+  return HSK_LEVELS.includes(v) ? v : 'hsk3';
+}
+
 function currentDifficulty(){
-  const v = localStorage.getItem(DIFFICULTY_KEY) || 'auto';
-  if (v !== 'auto') return v;
-  const pool = ['hsk1', 'hsk2', 'hsk3', 'hsk4', 'hsk5', 'hsk6'];
-  return pool[Math.floor(Math.random() * pool.length)];
+  const v = normalizeDifficulty(localStorage.getItem(DIFFICULTY_KEY));
+  localStorage.setItem(DIFFICULTY_KEY, v);
+  return v;
 }
 
 function setLoading(flag){
@@ -164,6 +170,10 @@ function createToken(word, kindClass, onClick){
   b.type = 'button';
   b.className = `seq-token ${kindClass}`;
   b.innerHTML = renderTokenZh(word);
+  // Keep keyboard cursor anchored in the custom input while tokens are clicked.
+  b.addEventListener('pointerdown', (e)=>{
+    e.preventDefault();
+  });
   b.addEventListener('click', onClick);
   return b;
 }
@@ -208,7 +218,20 @@ function renderConnectorBank(){
 function renderWordBank(){
   const el = $('#sequenceWordOptions');
   if (!el) return;
+
+  let restoreFocus = false;
+  let restoreStart = null;
+  let restoreEnd = null;
+  const activeInput = customWordInputEl();
+  if (activeInput) {
+    state.customWordDraft = activeInput.value;
+    restoreFocus = (document.activeElement === activeInput);
+    restoreStart = Number.isInteger(activeInput.selectionStart) ? activeInput.selectionStart : null;
+    restoreEnd = Number.isInteger(activeInput.selectionEnd) ? activeInput.selectionEnd : null;
+  }
+
   el.innerHTML = '';
+  el.appendChild(createCustomWordToken());
   for (const word of state.words) {
     const fromSeed = state.seedWordSet.has(word);
     const klass = fromSeed ? 'seq-option seq-option-seed' : 'seq-option';
@@ -217,6 +240,107 @@ function renderWordBank(){
       addSelected(word, kind);
     }));
   }
+
+  if (restoreFocus) {
+    focusCustomWordInput(true, restoreStart, restoreEnd);
+  }
+}
+
+function customWordInputEl(){
+  return $('#sequenceCustomWordInput');
+}
+
+function createCustomWordToken(){
+  const wrap = document.createElement('div');
+  wrap.className = 'seq-token seq-option seq-custom-word-token';
+  wrap.setAttribute('role', 'group');
+  wrap.setAttribute('aria-label', 'Add custom context word');
+
+  const input = document.createElement('input');
+  input.id = 'sequenceCustomWordInput';
+  input.className = 'seq-custom-word-input';
+  input.type = 'text';
+  input.placeholder = '字';
+  input.value = state.customWordDraft || '';
+  input.autocomplete = 'off';
+  input.autocapitalize = 'off';
+  input.spellcheck = false;
+  input.setAttribute('aria-label', 'Custom context word');
+
+  input.addEventListener('input', ()=>{
+    state.customWordDraft = input.value;
+  });
+
+  input.addEventListener('keydown', (e)=>{
+    if (e.isComposing || e.keyCode === 229) return;
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    dispatchCustomWord();
+  });
+
+  const addBtn = document.createElement('button');
+  addBtn.type = 'button';
+  addBtn.id = 'sequenceCustomWordAddBtn';
+  addBtn.className = 'seq-custom-word-apply';
+  addBtn.textContent = 'Add';
+  addBtn.setAttribute('aria-label', 'Add custom context word');
+  addBtn.addEventListener('pointerdown', (e)=>{
+    e.preventDefault();
+  });
+  addBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    dispatchCustomWord();
+  });
+
+  wrap.addEventListener('click', (e)=>{
+    const target = e.target;
+    if (target instanceof HTMLElement && target.closest('input, button')) return;
+    if (String(input.value || '').trim()) {
+      dispatchCustomWord();
+      return;
+    }
+    focusCustomWordInput();
+  });
+
+  wrap.appendChild(input);
+  wrap.appendChild(addBtn);
+  return wrap;
+}
+
+function focusCustomWordInput(defer = false, selectionStart = null, selectionEnd = null){
+  const placeFocus = ()=>{
+    const input = customWordInputEl();
+    if (!input) return;
+    if (document.activeElement !== input) input.focus();
+    const len = input.value.length;
+    const start = Number.isInteger(selectionStart)
+      ? Math.max(0, Math.min(selectionStart, len))
+      : len;
+    const end = Number.isInteger(selectionEnd)
+      ? Math.max(start, Math.min(selectionEnd, len))
+      : start;
+    input.setSelectionRange(start, end);
+  };
+
+  if (defer) {
+    requestAnimationFrame(placeFocus);
+  } else {
+    placeFocus();
+  }
+}
+
+function dispatchCustomWord(){
+  const input = customWordInputEl();
+  if (!input) return;
+  const word = String(input.value || '').trim();
+  if (!word) {
+    focusCustomWordInput();
+    return;
+  }
+  input.value = '';
+  state.customWordDraft = '';
+  addSelected(word, 'custom');
 }
 
 function renderSelected(){
@@ -417,18 +541,21 @@ function addSelected(word, kind){
   state.selected.push({ word, kind });
   renderSelected();
   updateNextCharSuggestion();
+  focusCustomWordInput(true);
 }
 
 function removeSelectedAt(idx){
   state.selected.splice(idx, 1);
   renderSelected();
   updateNextCharSuggestion();
+  focusCustomWordInput(true);
 }
 
 function clearSelected(){
   state.selected = [];
   renderSelected();
   updateNextCharSuggestion();
+  focusCustomWordInput(true);
 }
 
 function resetAssistArtifacts(){
@@ -645,6 +772,7 @@ async function loadChallenge(){
     logError(`Failed to load seed: ${e.message || e}`);
   } finally {
     setLoading(false);
+    focusCustomWordInput(true);
   }
 }
 
@@ -680,6 +808,7 @@ async function submitAnswer(){
     logError(`Submit failed: ${e.message || e}`);
   } finally {
     setLoading(false);
+    focusCustomWordInput(true);
   }
 }
 
@@ -738,6 +867,7 @@ async function runAssist(){
     updateNextCharSuggestion();
   } finally {
     setLoading(false);
+    focusCustomWordInput(true);
   }
 }
 
@@ -756,7 +886,9 @@ function applySettingsVisibility(){
 function syncSettingsUI(){
   const theme = applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
   if ($('#themeSel')) $('#themeSel').value = theme;
-  if ($('#difficultySel')) $('#difficultySel').value = localStorage.getItem(DIFFICULTY_KEY) || 'auto';
+  const difficulty = normalizeDifficulty(localStorage.getItem(DIFFICULTY_KEY));
+  localStorage.setItem(DIFFICULTY_KEY, difficulty);
+  if ($('#difficultySel')) $('#difficultySel').value = difficulty;
 
   const toneOn = getBool(TONE_KEY, true);
   const pinyinOn = getBool(PINYIN_KEY, true);
@@ -777,10 +909,37 @@ function syncSettingsUI(){
 }
 
 function bindEvents(){
+  const stickyBtns = [
+    $('#sequenceClearBtn'),
+    $('#sequenceAssistBtn'),
+    $('#sequenceNextBtn'),
+    $('#sequenceSubmitBtn'),
+  ];
+  for (const btn of stickyBtns) {
+    btn?.addEventListener('pointerdown', (e)=>{
+      e.preventDefault();
+    });
+  }
+
   $('#sequenceClearBtn')?.addEventListener('click', clearSelected);
   $('#sequenceAssistBtn')?.addEventListener('click', ()=>{ runAssist(); });
   $('#sequenceNextBtn')?.addEventListener('click', ()=>{ loadChallenge(); });
   $('#sequenceSubmitBtn')?.addEventListener('click', ()=>{ submitAnswer(); });
+
+  const panel = $('#secuencePanel');
+  panel?.addEventListener('focusin', (e)=>{
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.id === 'sequenceCustomWordInput') return;
+    focusCustomWordInput(true);
+  });
+
+  panel?.addEventListener('click', (e)=>{
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.closest('input, textarea, select, [contenteditable="true"]')) return;
+    focusCustomWordInput(true);
+  });
 
   document.addEventListener('keydown', (e)=>{
     if (e.altKey && (e.key === 'a' || e.key === 'A')) {
@@ -806,8 +965,10 @@ function bindEvents(){
   });
 
   $('#difficultySel')?.addEventListener('change', (e)=>{
-    localStorage.setItem(DIFFICULTY_KEY, e.target.value || 'auto');
-    logInfo(`Difficulty set to ${e.target.value || 'auto'}.`);
+    const next = normalizeDifficulty(e.target.value);
+    localStorage.setItem(DIFFICULTY_KEY, next);
+    if (e.target.value !== next) e.target.value = next;
+    logInfo(`Difficulty set to ${next}.`);
   });
 
   $('#themeSel')?.addEventListener('change', (e)=>{
@@ -860,5 +1021,6 @@ function bindEvents(){
   bindEvents();
   resetAssistArtifacts();
   rerenderAll();
+  focusCustomWordInput(true);
   loadChallenge();
 })();

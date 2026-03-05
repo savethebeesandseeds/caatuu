@@ -6,6 +6,12 @@ export const LSK = {
   chEn: 'zh_challenge_en_v3',
   ttsVoice: 'tts_voice_v1',
   ttsRate:  'tts_rate_v1',
+  writingGuide: 'writing_guide_enabled_v1',
+  writingGuideAuto: 'writing_guide_auto_refresh_v1',
+  writingHintsAuto: 'writing_hints_auto_on_input_v1',
+  writingGuideBoundaryAuto: 'writing_guide_auto_on_boundary_v1',
+  writingDraftAuto: 'writing_draft_autosave_v1',
+  writingDraft: 'writing_draft_text_v1',
 };
 
 export const ls = {
