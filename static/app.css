@@ -359,37 +359,6 @@ body.mode-secuence #bottomPanel{
   grid-column:1/4;
   grid-row:3/4;
 }
-body.mode-writing #grid{
-  grid-template-columns: var(--col-left) var(--gap) 1fr var(--gap) minmax(260px, var(--col-help));
-  grid-template-rows: 1fr;
-  height:100dvh;
-  min-height:100svh;
-}
-body.mode-writing #agentPanel{
-  grid-column:1/2;
-  grid-row:1/2;
-}
-body.mode-writing #vr{
-  grid-column:2/3;
-  grid-row:1/2;
-}
-body.mode-writing #rightTop{
-  grid-column:3/4;
-  grid-row:1/2;
-}
-body.mode-writing #vrRight{
-  grid-column:4/5;
-  grid-row:1/2;
-}
-body.mode-writing #taskHelp{
-  grid-column:5/6;
-  grid-row:1/2;
-}
-body.mode-writing #hr,
-body.mode-writing #bottomPanel{
-  display:none !important;
-}
-
 .hidden{ display:none !important; }
 
 /* =========================================
@@ -422,10 +391,11 @@ body.mode-writing #bottomPanel{
 
 .panel-header{
   position:sticky; /* header stays visible above scroller */
-  height: 38px;
+  min-height: 38px;
   top:0;
   z-index:2;
   display:flex;
+  flex-wrap:nowrap;
   align-items:center;
   gap:10px;
   padding:4px 10px;
@@ -1530,6 +1500,21 @@ body.mode-secuence:not([data-theme="light"]) .seq-custom-word-apply:hover{
 
   .panel-header{ padding:8px 10px; gap:8px; }
   .panel > .panel-body{ padding:10px; }
+  body.mode-writing #challengePanel .panel-header,
+  body.mode-challenge #challengePanel .panel-header{
+    height:auto;
+    min-height:38px;
+    flex-wrap:wrap;
+  }
+  body.mode-writing #challengePanel .panel-header .grow,
+  body.mode-challenge #challengePanel .panel-header .grow{
+    display:none;
+  }
+  body.mode-writing #challengePanel .mode-nav,
+  body.mode-challenge #challengePanel .mode-nav{
+    order:10;
+    width:100%;
+  }
 
   #agentHistory .msg{ max-width: 96%; }
 
@@ -1610,75 +1595,6 @@ body.mode-secuence:not([data-theme="light"]) .seq-custom-word-apply:hover{
     grid-template-columns:1fr;
   }
 
-  body.mode-writing #grid{
-    grid-template-columns: minmax(220px, var(--col-left)) var(--gap) 1fr var(--gap) minmax(220px, 35vw);
-    grid-template-rows:1fr;
-    height:100dvh;
-    min-height:100svh;
-  }
-  body.mode-writing #rightTop{
-    grid-column:3/4;
-    grid-row:1/2;
-    display:flex;
-    height:100%;
-    margin-bottom:0;
-  }
-  body.mode-writing #agentPanel{
-    grid-column:1/2;
-    grid-row:1/2;
-  }
-  body.mode-writing #taskHelp{
-    grid-column:5/6;
-    grid-row:1/2;
-    display:block !important;
-    min-height:0;
-  }
-  body.mode-writing #vr,
-  body.mode-writing #vrRight,
-  body.mode-writing #hr,
-  body.mode-writing #bottomPanel{
-    display:none !important;
-  }
-  body.mode-writing #rightTop > section.panel{
-    flex:1 1 auto;
-  }
-  body.mode-writing #answerBar,
-  body.mode-writing #writingTools,
-  body.mode-writing #answerFeedback,
-  body.mode-writing #challengeLoading,
-  body.mode-writing #writingGuideIntro,
-  body.mode-writing #taskGrid{
-    width:100%;
-  }
-}
-
-@media (max-width: 640px){
-  body.mode-writing #grid{
-    grid-template-columns:1fr;
-    grid-template-rows:auto var(--gap) auto var(--gap) auto;
-    height:auto;
-    min-height:100svh;
-  }
-  body.mode-writing #rightTop{
-    grid-column:1/2;
-    grid-row:1/2;
-    display:block;
-    height:auto;
-    margin-bottom:var(--gap);
-  }
-  body.mode-writing #agentPanel{
-    grid-column:1/2;
-    grid-row:3/4;
-  }
-  body.mode-writing #taskHelp{
-    grid-column:1/2;
-    grid-row:5/6;
-    display:block !important;
-    min-height:0;
-  }
-  body.mode-writing #rightTop > section.panel{
-    flex:0 0 auto;
-  }
 }
 
 @media (max-width: 440px){
