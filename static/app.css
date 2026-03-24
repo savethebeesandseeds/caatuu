@@ -323,8 +323,8 @@ body[data-theme="light"]::before{
 }
 body.learning-page #grid{
   flex:1 1 auto;
-  height:auto;
-  min-height:0;
+  height:100dvh;
+  min-height:100svh;
 }
 body.mode-secuence{
   --row-top: 82vh;
@@ -576,6 +576,23 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   font-size: clamp(1.05rem, 0.9rem + 1.2vw, 1.45rem);
   line-height:1.6;
 }
+.zh-block{
+  display:block;
+  min-width:0;
+  padding-top:.95rem;
+  line-height:2.1;
+  overflow-wrap:anywhere;
+}
+.zh-block:empty{
+  display:none;
+}
+.zh-block ruby.zh{
+  margin-inline-end:.04em;
+}
+.zh-block .zh,
+.zh-block ruby.zh{
+  vertical-align:top;
+}
 #challengeEn{
   color:var(--text-dim);
   margin-top:6px;
@@ -608,7 +625,9 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   z-index: 3;
   display:grid;
   grid-template-columns: 1fr auto;   /* input | buttons (desktop) */
+  grid-template-rows: auto auto;
   gap:6px;
+  align-content:start;
   align-items:stretch;
   background:var(--c-surface-2);
   border:1px solid var(--edge);
@@ -616,7 +635,10 @@ ruby.zh rt{ font-size:.68em; line-height:1; opacity:.9; }
   padding:6px;
   margin-bottom:10px;
 }
-#answerForm{ grid-column: 1 / 2; }
+#answerForm{
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
 #answerInputWrap{
   position:relative;
   width:100%;
@@ -1515,6 +1537,67 @@ body.mode-secuence:not([data-theme="light"]) .seq-custom-word-apply:hover{
     order:10;
     width:100%;
   }
+  body.mode-challenge #grid{
+    display:flex;
+    flex:0 0 auto;
+    flex-direction:column;
+    gap:var(--gap);
+    height:auto;
+    min-height:0;
+    overflow:visible;
+  }
+  body.mode-challenge #grid > *{
+    flex:0 0 auto;
+  }
+  body.mode-challenge #hr{ display:none !important; }
+  body.mode-challenge #rightTop{
+    display:block;
+    height:auto;
+  }
+  body.mode-challenge #rightTop > section.panel{
+    width:100%;
+  }
+  body.mode-challenge #challengePanel,
+  body.mode-challenge #agentPanel,
+  body.mode-challenge #taskHelp,
+  body.mode-challenge #bottomPanel{
+    display:block;
+    min-height:0;
+    margin:0;
+  }
+  body.mode-challenge .panel{
+    overflow:visible;
+    display:block;
+  }
+  body.mode-challenge .panel-header{
+    position:static;
+  }
+  body.mode-challenge .panel > .panel-body{
+    overflow:visible;
+    max-height:none;
+  }
+  body.mode-challenge #challengePanel{
+    min-height:0;
+  }
+  body.mode-challenge #challengePanel > .panel-body{
+    display:block;
+  }
+  body.mode-challenge #taskGrid{
+    display:block;
+  }
+  body.mode-challenge #bottomPanel > .panel-body{
+    display:block;
+    overflow:visible !important;
+  }
+  body.mode-challenge #eventLog{
+    min-height:0;
+    max-height:none;
+    height:auto;
+    overflow:visible;
+  }
+  body.mode-challenge #answerBar{
+    position:static;
+  }
 
   #agentHistory .msg{ max-width: 96%; }
 
@@ -1623,6 +1706,11 @@ body.mode-secuence:not([data-theme="light"]) .seq-custom-word-apply:hover{
   position: relative;
   overflow-x: hidden;
 }
+@media (max-width: 880px){
+  body.mode-challenge #challengePanel .panel-body{
+    overflow:visible;
+  }
+}
 
 /* --- Event log header compact --- */
 #eventLogControls{ margin:0; padding:0; gap:6px; }
@@ -1638,6 +1726,7 @@ body.mode-secuence:not([data-theme="light"]) .seq-custom-word-apply:hover{
 }
 #answerBar .btn-group{
   grid-column: 1 / -1;
+  grid-row: 2;
   display: grid;                              /* override earlier flex */
   gap: 6px;
   grid-template-columns: repeat(auto-fit, minmax(96px, max-content));
