@@ -21,6 +21,12 @@ const RT_TRANSLATION_KEY = 'realtime_translation';
 const NEXT_CHAR_KEY = 'next_char_suggest';
 const SECUENCE_WORD_COUNT = 44;
 const HSK_LEVELS = ['hsk1', 'hsk2', 'hsk3', 'hsk4', 'hsk5', 'hsk6'];
+const API_BASE = (location.pathname === '/zh' || location.pathname.startsWith('/zh/')) ? '/zh/api/v1' : '/api/v1';
+
+function apiPath(path){
+  const suffix = String(path || '');
+  return `${API_BASE}${suffix.startsWith('/') ? suffix : `/${suffix}`}`;
+}
 
 const CONNECTORS = [
   '因为', '所以', '由于', '因此', '既然', '就', '正因为', '是因为', '之所以', '原因在于',
@@ -409,7 +415,7 @@ async function fetchJSON(url, opts = {}){
 
 async function fetchPinyinSingle(word){
   try {
-    const data = await fetchJSON('/api/v1/pinyin', {
+    const data = await fetchJSON(apiPath('/pinyin'), {
       method: 'POST',
       body: JSON.stringify({ text: word }),
     });
@@ -428,7 +434,7 @@ async function flushPinyinQueue(){
 
   const text = items.join('|');
   try {
-    const data = await fetchJSON('/api/v1/pinyin', {
+    const data = await fetchJSON(apiPath('/pinyin'), {
       method: 'POST',
       body: JSON.stringify({ text }),
     });
@@ -480,7 +486,7 @@ async function ensureSeedTranslation(){
   renderSeed();
 
   try {
-    const data = await fetchJSON('/api/v1/translate', {
+    const data = await fetchJSON(apiPath('/translate'), {
       method: 'POST',
       body: JSON.stringify({ text: seed, fastOnly: true }),
     });
@@ -519,7 +525,7 @@ async function updateNextCharSuggestion(){
 
   const reqId = ++state.nextSuggestionReq;
   try {
-    const out = await fetchJSON('/api/v1/next_char', {
+    const out = await fetchJSON(apiPath('/next_char'), {
       method: 'POST',
       body: JSON.stringify({ challengeId, current }),
     });
@@ -735,7 +741,7 @@ async function loadWordBank(){
   };
 
   try {
-    const data = await fetchJSON('/api/v1/secuence/words', {
+    const data = await fetchJSON(apiPath('/secuence/words'), {
       method: 'POST',
       body: JSON.stringify(payload),
     });
@@ -762,7 +768,7 @@ async function loadChallenge(){
   const diff = currentDifficulty();
   try {
     const challenge = await fetchJSON(
-      `/api/v1/challenge?difficulty=${encodeURIComponent(diff)}&_=${Date.now()}`,
+      apiPath(`/challenge?difficulty=${encodeURIComponent(diff)}&_=${Date.now()}`),
       { cache: 'no-store' }
     );
     setChallenge(challenge);
@@ -797,7 +803,7 @@ async function submitAnswer(){
 
   setLoading(true);
   try {
-    const out = await fetchJSON('/api/v1/secuence/evaluate', {
+    const out = await fetchJSON(apiPath('/secuence/evaluate'), {
       method: 'POST',
       body: JSON.stringify({ seedZh: seed, answer }),
     });
@@ -824,15 +830,15 @@ async function runAssist(){
   setLoading(true);
   try {
     const [grammarRes, translateRes, pinyinRes] = await Promise.allSettled([
-      fetchJSON('/api/v1/grammar', {
+      fetchJSON(apiPath('/grammar'), {
         method: 'POST',
         body: JSON.stringify({ text: txt }),
       }),
-      needEn ? fetchJSON('/api/v1/translate', {
+      needEn ? fetchJSON(apiPath('/translate'), {
         method: 'POST',
         body: JSON.stringify({ text: txt, fastOnly: true }),
       }) : Promise.resolve(null),
-      needPy ? fetchJSON('/api/v1/pinyin', {
+      needPy ? fetchJSON(apiPath('/pinyin'), {
         method: 'POST',
         body: JSON.stringify({ text: txt }),
       }) : Promise.resolve(null),

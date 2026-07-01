@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#f7f4ee"/>
+  <rect x="52" y="52" width="408" height="408" rx="72" fill="#ffffff" stroke="#2f6f5e" stroke-width="22"/>
+  <text x="256" y="222" text-anchor="middle" font-family="Arial, sans-serif" font-size="122" font-weight="800" fill="#204b41">Č</text>
+  <text x="256" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="104" font-weight="800" fill="#a94a3a">AI</text>
+</svg>

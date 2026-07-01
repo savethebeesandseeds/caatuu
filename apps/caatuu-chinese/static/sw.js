@@ -3,7 +3,7 @@
 // - JS/CSS/worker: network-first (so app code updates; fallback to cache)
 // - Other assets:  cache-first
 
-const VERSION = "caatuu-sw-v21"; // bump to force upgrade
+const VERSION = "caatuu-sw-v22"; // bump to force upgrade
 
 // Scope-aware base path ("" or "/caatuu/static")
 const BASE  = new URL(self.registration.scope).pathname.replace(/\/$/, "");
@@ -75,7 +75,7 @@ self.addEventListener("fetch", (event) => {
   const dest  = req.destination; // 'script', 'style', 'worker', 'image', etc.
 
   // Never cache API responses; always ask the backend.
-  if (url.pathname.startsWith("/api/")) {
+  if (url.pathname.startsWith(BASE + "/api/") || url.pathname.startsWith("/api/")) {
     event.respondWith(fetch(req, { cache: "no-store" }));
     return;
   }

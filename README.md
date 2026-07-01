@@ -1,141 +1,118 @@
-# CAATUU
+# Caatuu Workspace
 
-Chinese learning Web App
+Caatuu is a workspace for language-learning app variants.
 
-Here is how it looks in the browser: 
+## Active Apps
 
-![App Demo Web](static/assets/demo.png)
+- `apps/caatuu-unified` - the root landing page served at `/`.
+- `apps/caatuu-chinese` - Chinese trainer, served at `/zh/`, with the Rust/Axum backend behind `/zh/api/v1/` and `/zh/ws`.
+- `apps/caatuu-czech` - Czech browser app, served at `/cz/`. Local WebLLM model exports live under `static/data/models/` but are generated artifacts, not Git payload.
 
+## One Container
 
-# Replication instructions
+From PowerShell on Windows:
 
-### Start the container
-```cmd
-docker run --name caatuu --gpus all -it -p 9172:9172 -v $PWD//:/caatuu debian:latest
+```powershell
+docker rm -f caatuu 2>$null
+
+docker run -dit `
+  --name caatuu `
+  --gpus all `
+  -p 8765:9172 `
+  -v C:\Work\caatuu:/workspace `
+  -w /workspace `
+  debian:latest `
+  bash
 ```
 
-### Instlal everything
+Install the runtime tools inside the container:
+
 ```bash
 apt-get update
-apt-get install -y --no-install-recommends curl
-apt-get install -y --no-install-recommends ca-certificates
-apt-get install -y --no-install-recommends git
-apt-get install -y --no-install-recommends unzip
-apt-get install -y --no-install-recommends wget
-apt-get install -y --no-install-recommends pkg-config
-apt-get install -y --no-install-recommends libssl-dev
-apt-get install -y --no-install-recommends build-essential
-apt-get install -y --no-install-recommends clang
-apt-get install -y --no-install-recommends locales
-apt-get install -y --no-install-recommends gpg
+apt-get install -y ca-certificates curl gpg procps file
 ```
 
-### Install rust
-```bash
-curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-source $HOME/.cargo/env
-rustc --version
-cargo --version
-```
-
-### Install ngrok (optional)
+Install `cloudflared` inside the container:
 
 ```bash
-# 2) Add ngrok’s signing key (once)
-curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
-echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" > /etc/apt/sources.list.d/ngrok.list
-apt-get update
-apt-get install -y --no-install-recommends ngrok
-
-nohup ngrok http 9172 --host-header=rewrite > ngrok.log 2>&1 &
-curl --silent http://127.0.0.1:4040/api/tunnels
-```
-
-### Install Cloudflared (optional)
-
-Cloudflared is used to expose the Caatuu server to the internet via a secure
-Cloudflare Tunnel (no open ports, no public IP required).
-
-This step is optional.
-If you only need local access, you can skip it.
-
----
-
-#### Install cloudflared (Debian / Ubuntu / Docker)
-
-```bash
-# create keyring path
 mkdir -p /usr/share/keyrings
-
-# add Cloudflare GPG key
-curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
-  -o /usr/share/keyrings/cloudflare-main.gpg
-
-# add Cloudflare apt repository
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] \
-https://pkg.cloudflare.com/cloudflared any main' \
-> /etc/apt/sources.list.d/cloudflared.list
-
-# install
-apt-get update && apt-get install -y cloudflared
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg -o /usr/share/keyrings/cloudflare-main.gpg
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' > /etc/apt/sources.list.d/cloudflared.list
+apt-get update
+apt-get install -y cloudflared
 ```
 
----
+From PowerShell, build the Rust server without installing Rust in the Debian runtime container:
 
-#### One-time Cloudflare setup (only once per machine)
+```powershell
+docker run --rm -v C:\Work\caatuu:/workspace -w /workspace/apps/caatuu-chinese -e CARGO_TARGET_DIR=/workspace/apps/caatuu-chinese/target-linux rust:latest cargo build
+```
 
-If this machine has never used Cloudflare Tunnel before, run:
+Inside the Debian container, start the unified Rust server:
 
 ```bash
-cloudflared login
+bash /workspace/tools/runtime/start-caatuu.sh
 ```
 
-This command prints a URL.
-Open it in a browser, log into Cloudflare, and select your domain.
-This step only authenticates the machine and does not start a tunnel.
+From PowerShell, start it in the background like this:
 
----
+```powershell
+docker exec -d caatuu bash -lc "bash /workspace/tools/runtime/start-caatuu.sh >/tmp/caatuu-start.log 2>&1"
+```
 
-#### Tunnel creation (only once per project)
+Open locally:
 
-Create the tunnel in your Cloudflare account:
+```text
+http://127.0.0.1:8765/
+http://127.0.0.1:8765/zh/
+http://127.0.0.1:8765/cz/
+http://127.0.0.1:8765/cz/device-ai.html
+```
+
+## Cloudflare Tunnel
+
+The named tunnel should point to the Rust server inside the container:
+
+```text
+http://127.0.0.1:9172
+```
+
+Run it with a current token:
 
 ```bash
-cloudflared tunnel create caatuu
+export CLOUDFLARED_TOKEN="PASTE_CURRENT_CAATUU_TUNNEL_TOKEN_HERE"
+cloudflared tunnel --protocol http2 run --token "$CLOUDFLARED_TOKEN"
 ```
 
-This registers a tunnel named `caatuu` in Cloudflare.
+Public routes after the tunnel is connected:
 
----
-
-#### Running the tunnel (automatic in this project)
-
-You do not need to run:
-
-```bash
-cloudflared tunnel run caatuu
+```text
+https://caatuu.waajacu.com/
+https://caatuu.waajacu.com/zh/
+https://caatuu.waajacu.com/cz/
+https://caatuu.waajacu.com/cz/device-ai.html
 ```
 
-manually.
+## Development Split
 
-Caatuu uses token-based tunnel startup, which is:
-- more reliable in Docker
-- independent of local credential files
-- automatically started by run.sh if configured
+The browser/runtime container does not need Python or nginx. The Rust server
+serves the unified landing page, the Chinese app, the Czech app, the Chinese
+API, and the Chinese websocket endpoint directly.
 
-To enable the tunnel, place the token in env.local.sh:
+Future training/export work can still use the ML workspace:
 
-```bash
-export CLOUDFLARED_TOKEN="PASTE_TUNNEL_TOKEN_HERE"
+```text
+tools/caatuu-cz-ml
 ```
 
-On startup:
-- If the token is present, the tunnel starts automatically
-- If the token is missing, Caatuu runs locally without Cloudflare
+That part still depends on Python/PyTorch until we replace the training stack.
 
-### Maintaince Utils
-```bash
-systemctl status caatuu
-journalctl -u caatuu -f
-systemctl stop caatuu
-```
+## Archive
+
+- `archive/caatuu-tauri-android-deprecated` - older Tauri/Android packaging experiment.
+- `archive/caatuu-server-deprecated` - older Rust server/profile-engine experiment.
+
+## Tools
+
+- `tools/runtime` - launch script for the unified Rust server.
+- `tools/images-generation` - Stable Diffusion/image generation workspace.

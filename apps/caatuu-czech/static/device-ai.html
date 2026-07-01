@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Caatuu Czech · Device AI</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="device-ai.css?v=lora-1">
+  </head>
+  <body>
+    <main class="device-shell">
+      <header class="topbar">
+        <a href="index.html" aria-label="Back to Caatuu Czech">←</a>
+        <div>
+          <h1>Device AI</h1>
+          <p>Browser-side model check</p>
+        </div>
+      </header>
+
+      <section class="status-grid" aria-label="Device status">
+        <article>
+          <span>WebGPU</span>
+          <strong id="gpuStatus">Checking</strong>
+        </article>
+        <article>
+          <span>PWA Cache</span>
+          <strong id="cacheStatus">Checking</strong>
+        </article>
+        <article>
+          <span>Runtime</span>
+          <strong id="runtimeStatus">Not loaded</strong>
+        </article>
+      </section>
+
+      <section class="tool-panel" aria-label="Live browser model">
+        <div class="panel-head">
+          <div>
+            <h2>Live WebGPU Model</h2>
+            <p id="modelNote">Loads into the browser, not a Python server.</p>
+          </div>
+          <button id="loadModel" type="button">Load model</button>
+        </div>
+
+        <label class="field">
+          <span>Model</span>
+          <select id="modelSelect">
+            <option value="Qwen3-0.6B-q4f16_1-MLC">Qwen3 0.6B · small</option>
+            <option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · larger</option>
+            <option value="SmolLM2-360M-Instruct-q4f16_1-MLC">SmolLM2 360M · tiny</option>
+            <option value="caatuu-czech-qwen3-1.7b-lora-003-hard" selected>Caatuu Czech LoRA · trained hard</option>
+          </select>
+        </label>
+
+        <div class="artifact-card" id="artifactDetails" hidden></div>
+
+        <label class="field">
+          <span>Prompt</span>
+          <textarea id="promptInput" rows="4" placeholder="Type your prompt here."></textarea>
+        </label>
+
+        <div class="actions">
+          <button id="runPrompt" type="button" disabled>Run prompt</button>
+          <button id="cacheProbe" type="button">Cache check</button>
+        </div>
+
+        <div class="progress" id="progressBox" aria-live="polite">Idle</div>
+        <div class="request-box">
+          <b>Sent to model</b>
+          <pre id="requestPreview">No request sent yet.</pre>
+        </div>
+        <pre class="model-output" id="modelOutput">Model output appears here.</pre>
+      </section>
+
+      <section class="tool-panel" aria-label="Offline benchmark contrast">
+        <div class="panel-head">
+          <div>
+            <h2>Saved LoRA Contrast</h2>
+            <p>Offline JSON from the local training run.</p>
+          </div>
+          <button id="loadBenchmarks" type="button">Show contrast</button>
+        </div>
+        <div class="benchmark-list" id="benchmarkList"></div>
+      </section>
+    </main>
+
+    <script type="module" src="device-ai.js?v=phone-1"></script>
+  </body>
+</html>

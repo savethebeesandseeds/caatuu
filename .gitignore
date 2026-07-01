@@ -1,4 +1,32 @@
-/target
-env.local.sh
-parse_temp.txt
-.caatuu-backend.pid
+# Local secrets
+**/env.local.sh
+**/.env
+**/.env.*
+!**/.env.example
+
+# Runtime logs and state
+*.log
+**/*.pid
+**/.caatuu-backend.pid
+**/parse_temp.txt
+
+# Build and dependency outputs
+**/target/
+**/target-linux/
+**/node_modules/
+**/.venv/
+**/venv/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/dist/
+**/build/
+
+# Heavy model, training, and generated workspaces
+apps/caatuu-czech/dumps/
+apps/caatuu-czech/static/data/models/
+tools/caatuu-cz-ml/data/
+tools/caatuu-cz-ml/logs/
+tools/images-generation/
+archive/
+gateway/

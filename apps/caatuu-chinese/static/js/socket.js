@@ -47,7 +47,8 @@ function resolveWSUrl(){
       .replace(/\/+$/, ''); // no trailing slash
   }
   const scheme = (location.protocol === 'https:') ? 'wss' : 'ws';
-  return `${scheme}://${location.host}/ws`; // same-origin
+  const base = (location.pathname === '/zh' || location.pathname.startsWith('/zh/')) ? '/zh' : '';
+  return `${scheme}://${location.host}${base}/ws`; // same-origin
 }
 
 function startHeartbeat(){

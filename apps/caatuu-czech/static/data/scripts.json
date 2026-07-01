@@ -1,0 +1,178 @@
+[
+  {
+    "title": "Cafe",
+    "goal": "order and pay",
+    "lines": [
+      {
+        "cs": "Dobrý den.",
+        "en": "Hello / good day."
+      },
+      {
+        "cs": "Kávu a vodu, prosím.",
+        "en": "Coffee and water, please."
+      },
+      {
+        "cs": "Účet, prosím.",
+        "en": "The bill, please."
+      },
+      {
+        "cs": "Platím kartou.",
+        "en": "I am paying by card."
+      }
+    ]
+  },
+  {
+    "title": "Station",
+    "goal": "buy a ticket and find the platform",
+    "lines": [
+      {
+        "cs": "Jízdenku do Brna, prosím.",
+        "en": "A ticket to Brno, please."
+      },
+      {
+        "cs": "Z kterého nástupiště?",
+        "en": "From which platform?"
+      },
+      {
+        "cs": "Má vlak zpoždění?",
+        "en": "Is the train delayed?"
+      },
+      {
+        "cs": "Děkuji.",
+        "en": "Thank you."
+      }
+    ]
+  },
+  {
+    "title": "Directions",
+    "goal": "find a place",
+    "lines": [
+      {
+        "cs": "Promiňte, kde je toaleta?",
+        "en": "Excuse me, where is the toilet?"
+      },
+      {
+        "cs": "Je to daleko?",
+        "en": "Is it far?"
+      },
+      {
+        "cs": "Rovně a potom vlevo?",
+        "en": "Straight and then left?"
+      },
+      {
+        "cs": "Děkuji.",
+        "en": "Thank you."
+      }
+    ]
+  },
+  {
+    "title": "Hotel",
+    "goal": "check in",
+    "lines": [
+      {
+        "cs": "Dobrý den, mám rezervaci.",
+        "en": "Hello, I have a reservation."
+      },
+      {
+        "cs": "Tady je pas.",
+        "en": "Here is my passport."
+      },
+      {
+        "cs": "Kde je pokoj?",
+        "en": "Where is the room?"
+      },
+      {
+        "cs": "Potřebuji wifi.",
+        "en": "I need wifi."
+      }
+    ]
+  },
+  {
+    "title": "Pharmacy",
+    "goal": "get help simply",
+    "lines": [
+      {
+        "cs": "Potřebuji pomoc.",
+        "en": "I need help."
+      },
+      {
+        "cs": "Bolí mě hlava.",
+        "en": "My head hurts."
+      },
+      {
+        "cs": "Mám alergii.",
+        "en": "I have an allergy."
+      },
+      {
+        "cs": "Máte lék?",
+        "en": "Do you have medicine?"
+      }
+    ]
+  },
+  {
+    "title": "Office",
+    "goal": "handle admin",
+    "lines": [
+      {
+        "cs": "Mám termín.",
+        "en": "I have an appointment."
+      },
+      {
+        "cs": "Potřebuji formulář.",
+        "en": "I need a form."
+      },
+      {
+        "cs": "Tady je můj podpis.",
+        "en": "Here is my signature."
+      },
+      {
+        "cs": "Pošlu dokument e-mailem.",
+        "en": "I will send the document by email."
+      }
+    ]
+  },
+  {
+    "title": "Phone problem",
+    "goal": "ask for internet or charging",
+    "lines": [
+      {
+        "cs": "Máte wifi?",
+        "en": "Do you have wifi?"
+      },
+      {
+        "cs": "Jaké je heslo?",
+        "en": "What is the password?"
+      },
+      {
+        "cs": "Potřebuji nabíječku.",
+        "en": "I need a charger."
+      },
+      {
+        "cs": "Není signál.",
+        "en": "There is no signal."
+      }
+    ]
+  },
+  {
+    "title": "Emergency",
+    "goal": "ask for help fast",
+    "lines": [
+      {
+        "cs": "Potřebuji pomoc.",
+        "en": "I need help."
+      },
+      {
+        "cs": "Zavolejte sanitku.",
+        "en": "Call an ambulance."
+      },
+      {
+        "cs": "Volám policii.",
+        "en": "I am calling the police."
+      },
+      {
+        "cs": "Nerozumím česky.",
+        "en": "I do not understand Czech."
+      }
+    ]
+  }
+]

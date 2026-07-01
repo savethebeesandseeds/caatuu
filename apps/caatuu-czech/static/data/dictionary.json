@@ -1,0 +1,6922 @@
+[
+  {
+    "cat": "Basics",
+    "cs": "ano",
+    "en": "yes",
+    "kind": "phrase",
+    "cue": "answer",
+    "use": "Ano, prosím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "ne",
+    "en": "no",
+    "kind": "phrase",
+    "cue": "answer",
+    "use": "Ne, děkuji."
+  },
+  {
+    "cat": "Basics",
+    "cs": "prosím",
+    "en": "please / here you are",
+    "kind": "phrase",
+    "cue": "softener",
+    "use": "Kávu, prosím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "děkuji",
+    "en": "thank you",
+    "kind": "phrase",
+    "cue": "standalone",
+    "use": "Děkuji."
+  },
+  {
+    "cat": "Basics",
+    "cs": "díky",
+    "en": "thanks",
+    "kind": "phrase",
+    "cue": "casual",
+    "use": "Díky moc."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobrý den",
+    "en": "hello / good day",
+    "kind": "phrase",
+    "cue": "safe greeting",
+    "use": "Dobrý den."
+  },
+  {
+    "cat": "Basics",
+    "cs": "ahoj",
+    "en": "hi / bye",
+    "kind": "phrase",
+    "cue": "casual",
+    "use": "Ahoj, jak se máš?"
+  },
+  {
+    "cat": "Basics",
+    "cs": "na shledanou",
+    "en": "goodbye",
+    "kind": "phrase",
+    "cue": "formal goodbye",
+    "use": "Na shledanou."
+  },
+  {
+    "cat": "Basics",
+    "cs": "promiňte",
+    "en": "excuse me / sorry",
+    "kind": "phrase",
+    "cue": "formal",
+    "use": "Promiňte, kde je metro?"
+  },
+  {
+    "cat": "Basics",
+    "cs": "pardon",
+    "en": "sorry / pardon",
+    "kind": "phrase",
+    "cue": "short apology",
+    "use": "Pardon, nerozumím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "není zač",
+    "en": "you are welcome",
+    "kind": "phrase",
+    "cue": "reply",
+    "use": "Není zač."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobře",
+    "en": "okay / well",
+    "kind": "adv",
+    "cue": "agreement",
+    "use": "Dobře, děkuji."
+  },
+  {
+    "cat": "Basics",
+    "cs": "špatně",
+    "en": "badly / wrong",
+    "kind": "adv",
+    "cue": "problem",
+    "use": "Je to špatně."
+  },
+  {
+    "cat": "Basics",
+    "cs": "v pořádku",
+    "en": "all right / okay",
+    "kind": "phrase",
+    "cue": "status",
+    "use": "Je to v pořádku."
+  },
+  {
+    "cat": "Basics",
+    "cs": "možná",
+    "en": "maybe",
+    "kind": "adv",
+    "cue": "soft yes",
+    "use": "Možná zítra."
+  },
+  {
+    "cat": "Basics",
+    "cs": "samozřejmě",
+    "en": "of course",
+    "kind": "adv",
+    "cue": "strong yes",
+    "use": "Samozřejmě."
+  },
+  {
+    "cat": "Basics",
+    "cs": "bohužel",
+    "en": "unfortunately",
+    "kind": "adv",
+    "cue": "bad news",
+    "use": "Bohužel nemůžu."
+  },
+  {
+    "cat": "Basics",
+    "cs": "jasně",
+    "en": "sure / clearly",
+    "kind": "adv",
+    "cue": "casual yes",
+    "use": "Jasně, rozumím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "ještě",
+    "en": "still / yet / more",
+    "kind": "adv",
+    "cue": "more",
+    "use": "Ještě jednou, prosím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "už",
+    "en": "already / now",
+    "kind": "adv",
+    "cue": "done",
+    "use": "Už rozumím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "jen",
+    "en": "only / just",
+    "kind": "adv",
+    "cue": "limit",
+    "use": "Jen vodu, prosím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "také / taky",
+    "en": "also / too",
+    "kind": "adv",
+    "cue": "add",
+    "use": "Já taky."
+  },
+  {
+    "cat": "Basics",
+    "cs": "trochu",
+    "en": "a little",
+    "kind": "adv",
+    "cue": "small amount",
+    "use": "Mluvím trochu česky."
+  },
+  {
+    "cat": "Basics",
+    "cs": "pomalu",
+    "en": "slowly",
+    "kind": "adv",
+    "cue": "pace",
+    "use": "Pomalu, prosím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "česky",
+    "en": "in Czech",
+    "kind": "adv",
+    "cue": "language",
+    "use": "Mluvíte česky?"
+  },
+  {
+    "cat": "Basics",
+    "cs": "anglicky",
+    "en": "in English",
+    "kind": "adv",
+    "cue": "language",
+    "use": "Mluvíte anglicky?"
+  },
+  {
+    "cat": "Basics",
+    "cs": "nerozumím",
+    "en": "I do not understand",
+    "kind": "sentence",
+    "cue": "say as is",
+    "use": "Nerozumím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "nevím",
+    "en": "I do not know",
+    "kind": "sentence",
+    "cue": "say as is",
+    "use": "Nevím."
+  },
+  {
+    "cat": "Basics",
+    "cs": "to je",
+    "en": "that is / it is",
+    "kind": "builder",
+    "cue": "+ noun/adj",
+    "use": "To je dobré."
+  },
+  {
+    "cat": "Basics",
+    "cs": "mám",
+    "en": "I have",
+    "kind": "builder",
+    "cue": "+ A",
+    "use": "Mám problém."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kdo",
+    "en": "who",
+    "kind": "question",
+    "cue": "subject/person",
+    "use": "Kdo je to?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "co",
+    "en": "what",
+    "kind": "question",
+    "cue": "thing",
+    "use": "Co je to?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kde",
+    "en": "where",
+    "kind": "question",
+    "cue": "place",
+    "use": "Kde je toaleta?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kam",
+    "en": "where to",
+    "kind": "question",
+    "cue": "direction",
+    "use": "Kam jdete?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "odkud",
+    "en": "from where",
+    "kind": "question",
+    "cue": "origin",
+    "use": "Odkud jste?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kdy",
+    "en": "when",
+    "kind": "question",
+    "cue": "time",
+    "use": "Kdy to je?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "jak",
+    "en": "how",
+    "kind": "question",
+    "cue": "method/state",
+    "use": "Jak se máte?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "proč",
+    "en": "why",
+    "kind": "question",
+    "cue": "reason",
+    "use": "Proč ne?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kolik",
+    "en": "how much / how many",
+    "kind": "question",
+    "cue": "number/price",
+    "use": "Kolik to stojí?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "který",
+    "en": "which",
+    "kind": "question",
+    "cue": "choice",
+    "use": "Který vlak?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "jaký",
+    "en": "what kind of",
+    "kind": "question",
+    "cue": "quality",
+    "use": "Jaký pokoj?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "čí",
+    "en": "whose",
+    "kind": "question",
+    "cue": "owner",
+    "use": "Čí je to?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "tady",
+    "en": "here",
+    "kind": "place word",
+    "cue": "location",
+    "use": "Jsem tady."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "tam",
+    "en": "there",
+    "kind": "place word",
+    "cue": "location",
+    "use": "Je to tam."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "sem",
+    "en": "here to",
+    "kind": "place word",
+    "cue": "direction",
+    "use": "Pojďte sem."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "ven",
+    "en": "outside / out",
+    "kind": "place word",
+    "cue": "direction",
+    "use": "Jdu ven."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "a",
+    "en": "and",
+    "kind": "conj",
+    "cue": "join",
+    "use": "Káva a voda."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "nebo",
+    "en": "or",
+    "kind": "conj",
+    "cue": "choice",
+    "use": "Káva nebo čaj?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "ale",
+    "en": "but",
+    "kind": "conj",
+    "cue": "contrast",
+    "use": "Chci jít, ale nemůžu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "protože",
+    "en": "because",
+    "kind": "conj",
+    "cue": "reason",
+    "use": "Nejdu, protože nemám čas."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "že",
+    "en": "that",
+    "kind": "conj",
+    "cue": "reported speech",
+    "use": "Myslím, že ano."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "když",
+    "en": "when / if",
+    "kind": "conj",
+    "cue": "condition/time",
+    "use": "Když můžu, přijdu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "jestli",
+    "en": "if / whether",
+    "kind": "conj",
+    "cue": "yes/no clause",
+    "use": "Nevím, jestli můžu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "do",
+    "en": "to / into",
+    "kind": "P+G",
+    "cue": "do+G",
+    "use": "Jdu do města."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "z / ze",
+    "en": "from / out of",
+    "kind": "P+G",
+    "cue": "z+G",
+    "use": "Jsem z Prahy."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "k / ke",
+    "en": "to / toward",
+    "kind": "P+D",
+    "cue": "k+D",
+    "use": "Jdu k doktorovi."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "na",
+    "en": "on / to event",
+    "kind": "P+A/L",
+    "cue": "motion A / place L",
+    "use": "Jdu na nádraží."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "v / ve",
+    "en": "in",
+    "kind": "P+L",
+    "cue": "v+L",
+    "use": "Jsem v hotelu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "s / se",
+    "en": "with",
+    "kind": "P+I",
+    "cue": "s+I",
+    "use": "Jdu s kamarádem."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "pro",
+    "en": "for",
+    "kind": "P+A",
+    "cue": "pro+A",
+    "use": "Je to pro vás."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "bez",
+    "en": "without",
+    "kind": "P+G",
+    "cue": "bez+G",
+    "use": "Bez cukru, prosím."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "u",
+    "en": "at / by",
+    "kind": "P+G",
+    "cue": "u+G",
+    "use": "Jsem u hotelu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "od",
+    "en": "from / since",
+    "kind": "P+G",
+    "cue": "od+G",
+    "use": "Jdu od doktora."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "ani",
+    "en": "not even / nor",
+    "kind": "conj",
+    "cue": "negative link",
+    "use": "Ani já ne."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "o",
+    "en": "about",
+    "kind": "P+L",
+    "cue": "o+L",
+    "use": "Mluvím o práci."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "po",
+    "en": "after / around",
+    "kind": "P+L",
+    "cue": "po+L",
+    "use": "Po obědě přijdu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "při",
+    "en": "during / while",
+    "kind": "P+L",
+    "cue": "při+L",
+    "use": "Při práci piju vodu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "kvůli",
+    "en": "because of",
+    "kind": "P+D",
+    "cue": "kvůli+D",
+    "use": "Kvůli práci nemůžu."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "místo",
+    "en": "instead of",
+    "kind": "P+G",
+    "cue": "místo+G",
+    "use": "Místo kávy čaj."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "během",
+    "en": "during",
+    "kind": "P+G",
+    "cue": "během+G",
+    "use": "Během dne pracuji."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "podle",
+    "en": "according to / by",
+    "kind": "P+G",
+    "cue": "podle+G",
+    "use": "Podle mapy jdu rovně."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "proti",
+    "en": "against / opposite",
+    "kind": "P+D",
+    "cue": "proti+D",
+    "use": "Jsem proti tomu."
+  },
+  {
+    "cat": "People + family",
+    "cs": "já",
+    "en": "I",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "Já jsem tady."
+  },
+  {
+    "cat": "People + family",
+    "cs": "ty",
+    "en": "you informal",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "Ty rozumíš?"
+  },
+  {
+    "cat": "People + family",
+    "cs": "vy",
+    "en": "you formal/plural",
+    "kind": "pronoun",
+    "cue": "safe you",
+    "use": "Vy mluvíte anglicky?"
+  },
+  {
+    "cat": "People + family",
+    "cs": "on",
+    "en": "he",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "On je tady."
+  },
+  {
+    "cat": "People + family",
+    "cs": "ona",
+    "en": "she",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "Ona je doktorka."
+  },
+  {
+    "cat": "People + family",
+    "cs": "my",
+    "en": "we",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "My čekáme."
+  },
+  {
+    "cat": "People + family",
+    "cs": "oni",
+    "en": "they",
+    "kind": "pronoun",
+    "cue": "subject",
+    "use": "Oni přijedou."
+  },
+  {
+    "cat": "People + family",
+    "cs": "to",
+    "en": "it / that",
+    "kind": "pronoun",
+    "cue": "thing",
+    "use": "To je dobré."
+  },
+  {
+    "cat": "People + family",
+    "cs": "mě / mně",
+    "en": "me / to me",
+    "kind": "pronoun",
+    "cue": "A/D forms",
+    "use": "Pomůžete mi?"
+  },
+  {
+    "cat": "People + family",
+    "cs": "vás",
+    "en": "you formal object",
+    "kind": "pronoun",
+    "cue": "A/G form",
+    "use": "Vidím vás."
+  },
+  {
+    "cat": "People + family",
+    "cs": "můj / moje",
+    "en": "my",
+    "kind": "possessive",
+    "cue": "owner",
+    "use": "To je moje karta."
+  },
+  {
+    "cat": "People + family",
+    "cs": "váš / vaše",
+    "en": "your formal",
+    "kind": "possessive",
+    "cue": "owner",
+    "use": "Je to váš pas?"
+  },
+  {
+    "cat": "People + family",
+    "cs": "člověk",
+    "en": "person",
+    "kind": "N m.an irregular",
+    "cue": "A:člověka",
+    "use": "Vidím člověka."
+  },
+  {
+    "cat": "People + family",
+    "cs": "lidé",
+    "en": "people",
+    "kind": "N pl",
+    "cue": "pl only common",
+    "use": "Jsou tu lidé."
+  },
+  {
+    "cat": "People + family",
+    "cs": "muž",
+    "en": "man",
+    "kind": "N m.an>muž",
+    "cue": "A:muže",
+    "use": "Vidím muže."
+  },
+  {
+    "cat": "People + family",
+    "cs": "žena",
+    "en": "woman / wife",
+    "kind": "N f>žena",
+    "cue": "A:ženu I:ženou",
+    "use": "Mluvím se ženou."
+  },
+  {
+    "cat": "People + family",
+    "cs": "dítě",
+    "en": "child",
+    "kind": "N n irregular",
+    "cue": "A:dítě",
+    "use": "Mám dítě."
+  },
+  {
+    "cat": "People + family",
+    "cs": "rodina",
+    "en": "family",
+    "kind": "N f>žena",
+    "cue": "s+I:rodinou",
+    "use": "Jsem tady s rodinou."
+  },
+  {
+    "cat": "People + family",
+    "cs": "kamarád",
+    "en": "friend",
+    "kind": "N m.an>pán",
+    "cue": "s+I:kamarádem",
+    "use": "Jdu s kamarádem."
+  },
+  {
+    "cat": "People + family",
+    "cs": "přítel",
+    "en": "boyfriend / friend",
+    "kind": "N m.an",
+    "cue": "A:přítele",
+    "use": "To je můj přítel."
+  },
+  {
+    "cat": "People + family",
+    "cs": "přítelkyně",
+    "en": "girlfriend / friend",
+    "kind": "N f>růže",
+    "cue": "A:přítelkyni",
+    "use": "To je moje přítelkyně."
+  },
+  {
+    "cat": "People + family",
+    "cs": "kolega",
+    "en": "colleague",
+    "kind": "N m.an>předseda",
+    "cue": "s+I:kolegou",
+    "use": "Mluvím s kolegou."
+  },
+  {
+    "cat": "People + family",
+    "cs": "soused",
+    "en": "neighbor",
+    "kind": "N m.an>pán",
+    "cue": "s+I:sousedem",
+    "use": "To je soused."
+  },
+  {
+    "cat": "People + family",
+    "cs": "zákazník",
+    "en": "customer",
+    "kind": "N m.an>pán",
+    "cue": "A:zákazníka",
+    "use": "Jsem zákazník."
+  },
+  {
+    "cat": "People + family",
+    "cs": "prodavač",
+    "en": "shop assistant",
+    "kind": "N m.an>muž",
+    "cue": "A:prodavače",
+    "use": "Kde je prodavač?"
+  },
+  {
+    "cat": "People + family",
+    "cs": "učitel",
+    "en": "teacher",
+    "kind": "N m.an",
+    "cue": "A:učitele",
+    "use": "Mám učitele."
+  },
+  {
+    "cat": "People + family",
+    "cs": "student",
+    "en": "student",
+    "kind": "N m.an>pán",
+    "cue": "A:studenta",
+    "use": "Jsem student."
+  },
+  {
+    "cat": "People + family",
+    "cs": "doktor / lékař",
+    "en": "doctor",
+    "kind": "N m.an",
+    "cue": "A:doktora/lékaře",
+    "use": "Potřebuji doktora."
+  },
+  {
+    "cat": "People + family",
+    "cs": "policista",
+    "en": "police officer",
+    "kind": "N m.an>předseda",
+    "cue": "A:policistu",
+    "use": "Potřebuji policistu."
+  },
+  {
+    "cat": "People + family",
+    "cs": "matka / máma",
+    "en": "mother / mom",
+    "kind": "N f>žena",
+    "cue": "G:matky",
+    "use": "Moje máma je tady."
+  },
+  {
+    "cat": "People + family",
+    "cs": "otec / táta",
+    "en": "father / dad",
+    "kind": "N m.an",
+    "cue": "G:otce",
+    "use": "Můj táta přijde."
+  },
+  {
+    "cat": "People + family",
+    "cs": "rodiče",
+    "en": "parents",
+    "kind": "N pl",
+    "cue": "s+I:rodiči",
+    "use": "Jsem s rodiči."
+  },
+  {
+    "cat": "People + family",
+    "cs": "bratr",
+    "en": "brother",
+    "kind": "N m.an>pán",
+    "cue": "A:bratra",
+    "use": "Mám bratra."
+  },
+  {
+    "cat": "People + family",
+    "cs": "sestra",
+    "en": "sister / nurse",
+    "kind": "N f>žena",
+    "cue": "A:sestru",
+    "use": "Mám sestru."
+  },
+  {
+    "cat": "People + family",
+    "cs": "syn",
+    "en": "son",
+    "kind": "N m.an>pán",
+    "cue": "A:syna",
+    "use": "Mám syna."
+  },
+  {
+    "cat": "People + family",
+    "cs": "dcera",
+    "en": "daughter",
+    "kind": "N f>žena",
+    "cue": "A:dceru",
+    "use": "Mám dceru."
+  },
+  {
+    "cat": "People + family",
+    "cs": "manžel",
+    "en": "husband",
+    "kind": "N m.an>muž",
+    "cue": "A:manžela",
+    "use": "To je můj manžel."
+  },
+  {
+    "cat": "People + family",
+    "cs": "manželka",
+    "en": "wife",
+    "kind": "N f>žena",
+    "cue": "A:manželku",
+    "use": "To je moje manželka."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "být",
+    "en": "be",
+    "kind": "V irregular",
+    "cue": "jsem/je; byl/a; bude",
+    "use": "Jsem tady."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "mít",
+    "en": "have",
+    "kind": "V irregular",
+    "cue": "mám; měl/a jsem",
+    "use": "Mám čas."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "chtít",
+    "en": "want",
+    "kind": "V modal-like",
+    "cue": "chci; chtěl/a bych",
+    "use": "Chtěl bych kávu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "potřebovat",
+    "en": "need",
+    "kind": "V ipf",
+    "cue": "potřebuji + A",
+    "use": "Potřebuji pomoc."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "muset",
+    "en": "must / have to",
+    "kind": "V modal",
+    "cue": "musím; musel/a jsem",
+    "use": "Musím jít."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "moct / moci",
+    "en": "can / may",
+    "kind": "V modal",
+    "cue": "můžu; mohl/a bych",
+    "use": "Můžu platit kartou?"
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "umět",
+    "en": "know how to",
+    "kind": "V modal-like",
+    "cue": "umím + inf",
+    "use": "Umím trochu česky."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "vědět",
+    "en": "know a fact",
+    "kind": "V irregular",
+    "cue": "vím/nevím; věděl/a jsem",
+    "use": "Nevím."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "znát",
+    "en": "know a person/place",
+    "kind": "V ipf",
+    "cue": "znám + A",
+    "use": "Znám adresu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "dělat / udělat",
+    "en": "do / make",
+    "kind": "V ipf→pf",
+    "cue": "dělám/udělám + A",
+    "use": "Udělám to."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "hledat / najít",
+    "en": "look for / find",
+    "kind": "V ipf→pf",
+    "cue": "hledám/najdu + A",
+    "use": "Hledám nádraží."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "čekat / počkat",
+    "en": "wait",
+    "kind": "V ipf→pf",
+    "cue": "čekám/počkám",
+    "use": "Čekám na vlak."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "dávat / dát",
+    "en": "give / put",
+    "kind": "V ipf→pf",
+    "cue": "dám; dal/a jsem + A",
+    "use": "Dám vám kartu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "brát / vzít",
+    "en": "take",
+    "kind": "V ipf→pf",
+    "cue": "beru/vezmu + A",
+    "use": "Vezmu si taxi."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "dostávat / dostat",
+    "en": "receive / get",
+    "kind": "V ipf→pf",
+    "cue": "dostanu + A",
+    "use": "Dostanu účet?"
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "používat / použít",
+    "en": "use",
+    "kind": "V ipf→pf",
+    "cue": "používám/použiju + A",
+    "use": "Použiju kartu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "kupovat / koupit",
+    "en": "buy",
+    "kind": "V ipf→pf",
+    "cue": "kupuji/koupím + A",
+    "use": "Koupím jízdenku."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "platit / zaplatit",
+    "en": "pay",
+    "kind": "V ipf→pf",
+    "cue": "platím/zaplatím",
+    "use": "Zaplatím kartou."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "otevírat / otevřít",
+    "en": "open",
+    "kind": "V ipf→pf",
+    "cue": "otevřu + A",
+    "use": "Otevřu dveře."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "zavírat / zavřít",
+    "en": "close",
+    "kind": "V ipf→pf",
+    "cue": "zavřu + A",
+    "use": "Zavřu okno."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "začínat / začít",
+    "en": "start",
+    "kind": "V ipf→pf",
+    "cue": "začnu",
+    "use": "Začnu zítra."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "končit / skončit",
+    "en": "finish / end",
+    "kind": "V ipf→pf",
+    "cue": "skončím",
+    "use": "Skončím v pět."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "měnit / změnit",
+    "en": "change",
+    "kind": "V ipf→pf",
+    "cue": "změním + A",
+    "use": "Změním rezervaci."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "zkoušet / zkusit",
+    "en": "try",
+    "kind": "V ipf→pf",
+    "cue": "zkusím + A/inf",
+    "use": "Zkusím to."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "pamatovat si",
+    "en": "remember",
+    "kind": "V ipf",
+    "cue": "pamatuji si + A",
+    "use": "Pamatuji si adresu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "zapomínat / zapomenout",
+    "en": "forget",
+    "kind": "V ipf→pf",
+    "cue": "zapomenu + A",
+    "use": "Zapomněl jsem heslo."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "nechat",
+    "en": "leave / let",
+    "kind": "V pf/ipf",
+    "cue": "nechám + A",
+    "use": "Nechám to tady."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "stát se",
+    "en": "happen / become",
+    "kind": "V pf",
+    "cue": "stalo se",
+    "use": "Co se stalo?"
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "trvat",
+    "en": "last / take time",
+    "kind": "V ipf",
+    "cue": "trvá + time",
+    "use": "Jak dlouho to trvá?"
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "znamenat",
+    "en": "mean",
+    "kind": "V ipf",
+    "cue": "znamená",
+    "use": "Co to znamená?"
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "jít",
+    "en": "go by foot / go now",
+    "kind": "V motion",
+    "cue": "jdu; šel/šla; půjdu",
+    "use": "Jdu do města."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "chodit",
+    "en": "go regularly / walk",
+    "kind": "V motion",
+    "cue": "chodím",
+    "use": "Chodím do práce."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "jet",
+    "en": "go by vehicle now",
+    "kind": "V motion",
+    "cue": "jedu; jel/a; pojedu",
+    "use": "Jedu vlakem."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "jezdit",
+    "en": "go by vehicle regularly",
+    "kind": "V motion",
+    "cue": "jezdím",
+    "use": "Jezdím metrem."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "přijít",
+    "en": "come / arrive by foot",
+    "kind": "V pf",
+    "cue": "přijdu",
+    "use": "Přijdu v osm."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "přijet",
+    "en": "arrive by vehicle",
+    "kind": "V pf",
+    "cue": "přijedu",
+    "use": "Přijedu vlakem."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "odejít",
+    "en": "leave by foot",
+    "kind": "V pf",
+    "cue": "odejdu",
+    "use": "Odejdu za chvíli."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "odjet",
+    "en": "leave by vehicle",
+    "kind": "V pf",
+    "cue": "odjedu",
+    "use": "Odjedu zítra."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "vracet se / vrátit se",
+    "en": "return",
+    "kind": "V ipf→pf",
+    "cue": "vrátím se",
+    "use": "Vrátím se večer."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "dostat se",
+    "en": "get somewhere",
+    "kind": "V pf",
+    "cue": "dostanu se do+G",
+    "use": "Jak se dostanu na nádraží?"
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "bydlet",
+    "en": "live / reside",
+    "kind": "V ipf",
+    "cue": "bydlím v+L",
+    "use": "Bydlím v Praze."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "žít",
+    "en": "live",
+    "kind": "V ipf",
+    "cue": "žiju v+L",
+    "use": "Žiju v Česku."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "stát",
+    "en": "stand / cost",
+    "kind": "V ipf",
+    "cue": "stojím / stojí",
+    "use": "Kolik to stojí?"
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "sedět",
+    "en": "sit",
+    "kind": "V ipf",
+    "cue": "sedím",
+    "use": "Sedím tady."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "ležet",
+    "en": "lie / be located",
+    "kind": "V ipf",
+    "cue": "leží",
+    "use": "Hotel leží v centru."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "běžet",
+    "en": "run",
+    "kind": "V ipf",
+    "cue": "běžím",
+    "use": "Běžím na vlak."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "vstát",
+    "en": "get up",
+    "kind": "V pf",
+    "cue": "vstanu",
+    "use": "Vstanu v sedm."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "spát",
+    "en": "sleep",
+    "kind": "V ipf",
+    "cue": "spím",
+    "use": "Spím v hotelu."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "cestovat",
+    "en": "travel",
+    "kind": "V ipf",
+    "cue": "cestuji",
+    "use": "Cestuji po Česku."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "nastupovat / nastoupit",
+    "en": "get on",
+    "kind": "V ipf→pf",
+    "cue": "nastoupím do+G",
+    "use": "Nastoupím do vlaku."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "vystupovat / vystoupit",
+    "en": "get off",
+    "kind": "V ipf→pf",
+    "cue": "vystoupím z+G",
+    "use": "Vystoupím na další zastávce."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "přestupovat / přestoupit",
+    "en": "transfer",
+    "kind": "V ipf→pf",
+    "cue": "přestoupím na+A",
+    "use": "Přestoupím na metro."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "zastavit",
+    "en": "stop",
+    "kind": "V pf",
+    "cue": "zastavím",
+    "use": "Zastavte tady, prosím."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "parkovat / zaparkovat",
+    "en": "park",
+    "kind": "V ipf→pf",
+    "cue": "zaparkuji",
+    "use": "Zaparkuji tady."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "pospíchat",
+    "en": "hurry",
+    "kind": "V ipf",
+    "cue": "pospíchám",
+    "use": "Pospíchám na vlak."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "přejít",
+    "en": "cross / go across",
+    "kind": "V pf",
+    "cue": "přejdu A",
+    "use": "Přejdu ulici."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "odbočit",
+    "en": "turn",
+    "kind": "V pf",
+    "cue": "odbočím",
+    "use": "Odbočte vlevo."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "pokračovat",
+    "en": "continue",
+    "kind": "V ipf",
+    "cue": "pokračuji",
+    "use": "Pokračujte rovně."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "letět",
+    "en": "fly",
+    "kind": "V motion",
+    "cue": "letím do+G",
+    "use": "Letím do Prahy."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "nést / přinést",
+    "en": "carry / bring",
+    "kind": "V motion→pf",
+    "cue": "přinesu + A",
+    "use": "Přinesu vodu."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "vést / dovést",
+    "en": "lead / guide",
+    "kind": "V motion→pf",
+    "cue": "dovedu + A",
+    "use": "Dovedu vás k hotelu."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "ztratit se",
+    "en": "get lost",
+    "kind": "V pf",
+    "cue": "ztratil jsem se",
+    "use": "Ztratil jsem se."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "říkat / říct",
+    "en": "say / tell",
+    "kind": "V ipf→pf",
+    "cue": "řeknu; řekl/a jsem",
+    "use": "Řeknu vám to."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "mluvit",
+    "en": "speak / talk",
+    "kind": "V ipf",
+    "cue": "mluvím o+L/s+I",
+    "use": "Mluvím anglicky."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "ptát se / zeptat se",
+    "en": "ask",
+    "kind": "V ipf→pf",
+    "cue": "zeptám se",
+    "use": "Zeptám se recepce."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "odpovídat / odpovědět",
+    "en": "answer",
+    "kind": "V ipf→pf",
+    "cue": "odpovím",
+    "use": "Odpovím později."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "rozumět / porozumět",
+    "en": "understand",
+    "kind": "V ipf→pf",
+    "cue": "rozumím + D",
+    "use": "Rozumím vám."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "slyšet / uslyšet",
+    "en": "hear",
+    "kind": "V ipf→pf",
+    "cue": "slyším + A",
+    "use": "Neslyším vás."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "vidět / uvidět",
+    "en": "see",
+    "kind": "V ipf→pf",
+    "cue": "vidím; viděl/a jsem",
+    "use": "Vidím hotel."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "číst / přečíst",
+    "en": "read",
+    "kind": "V ipf→pf",
+    "cue": "čtu/přečtu + A",
+    "use": "Přečtu si zprávu."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "psát / napsat",
+    "en": "write",
+    "kind": "V ipf→pf",
+    "cue": "píšu/napíšu + A",
+    "use": "Napíšu e-mail."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "volat / zavolat",
+    "en": "call",
+    "kind": "V ipf→pf",
+    "cue": "zavolám + D/A",
+    "use": "Zavolám doktorovi."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "posílat / poslat",
+    "en": "send",
+    "kind": "V ipf→pf",
+    "cue": "pošlu + A",
+    "use": "Pošlu zprávu."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "ukazovat / ukázat",
+    "en": "show",
+    "kind": "V ipf→pf",
+    "cue": "ukážu + A",
+    "use": "Ukážu vám pas."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "vysvětlovat / vysvětlit",
+    "en": "explain",
+    "kind": "V ipf→pf",
+    "cue": "vysvětlím + A",
+    "use": "Vysvětlíte mi to?"
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "objednávat / objednat",
+    "en": "order / book",
+    "kind": "V ipf→pf",
+    "cue": "objednám + A",
+    "use": "Objednám si kávu."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "rezervovat / zarezervovat",
+    "en": "reserve",
+    "kind": "V ipf→pf",
+    "cue": "rezervuji + A",
+    "use": "Rezervuji pokoj."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "pomáhat / pomoct",
+    "en": "help",
+    "kind": "V ipf→pf",
+    "cue": "pomůžu + D",
+    "use": "Pomůžete mi?"
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "půjčovat / půjčit",
+    "en": "lend / borrow",
+    "kind": "V ipf→pf",
+    "cue": "půjčím si + A",
+    "use": "Půjčím si kolo."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "domlouvat se / domluvit se",
+    "en": "agree / arrange",
+    "kind": "V ipf→pf",
+    "cue": "domluvíme se",
+    "use": "Domluvíme se zítra."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "myslet si",
+    "en": "think / believe",
+    "kind": "V ipf",
+    "cue": "myslím si",
+    "use": "Myslím si, že ano."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "cítit se",
+    "en": "feel",
+    "kind": "V ipf",
+    "cue": "cítím se",
+    "use": "Necítím se dobře."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "líbit se",
+    "en": "like / be pleasing",
+    "kind": "V ipf",
+    "cue": "líbí se mi",
+    "use": "Líbí se mi Praha."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "opakovat / zopakovat",
+    "en": "repeat",
+    "kind": "V ipf→pf",
+    "cue": "zopakujete A",
+    "use": "Můžete to zopakovat?"
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "překládat / přeložit",
+    "en": "translate",
+    "kind": "V ipf→pf",
+    "cue": "přeložím + A",
+    "use": "Můžete to přeložit?"
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "diktovat / nadiktovat",
+    "en": "dictate",
+    "kind": "V ipf→pf",
+    "cue": "nadiktuji + A",
+    "use": "Nadiktuji číslo."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "hláskovat",
+    "en": "spell out",
+    "kind": "V ipf",
+    "cue": "hláskuji + A",
+    "use": "Můžete to hláskovat?"
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "souhlasit",
+    "en": "agree",
+    "kind": "V ipf",
+    "cue": "souhlasím",
+    "use": "Souhlasím."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "nesouhlasit",
+    "en": "disagree",
+    "kind": "V ipf",
+    "cue": "nesouhlasím",
+    "use": "Nesouhlasím."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "navrhovat / navrhnout",
+    "en": "suggest / propose",
+    "kind": "V ipf→pf",
+    "cue": "navrhnu + A",
+    "use": "Navrhnu termín."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "omlouvat se / omluvit se",
+    "en": "apologize",
+    "kind": "V ipf→pf",
+    "cue": "omlouvám se",
+    "use": "Omlouvám se."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "děkovat / poděkovat",
+    "en": "thank",
+    "kind": "V ipf→pf",
+    "cue": "děkuji + D",
+    "use": "Děkuji vám."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "jíst / sníst",
+    "en": "eat / eat up",
+    "kind": "V ipf→pf",
+    "cue": "jím/sním + A",
+    "use": "Chci jíst."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "pít / vypít",
+    "en": "drink",
+    "kind": "V ipf→pf",
+    "cue": "piju/vypiju + A",
+    "use": "Piju vodu."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "vařit / uvařit",
+    "en": "cook",
+    "kind": "V ipf→pf",
+    "cue": "uvařím + A",
+    "use": "Uvařím večeři."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "uklízet / uklidit",
+    "en": "clean / tidy",
+    "kind": "V ipf→pf",
+    "cue": "uklidím + A",
+    "use": "Uklidím pokoj."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "prát / vyprat",
+    "en": "wash clothes",
+    "kind": "V ipf→pf",
+    "cue": "vyperu + A",
+    "use": "Vyperu oblečení."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "mýt / umýt",
+    "en": "wash",
+    "kind": "V ipf→pf",
+    "cue": "umyju + A",
+    "use": "Umyju ruce."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "sprchovat se",
+    "en": "take a shower",
+    "kind": "V ipf",
+    "cue": "sprchuji se",
+    "use": "Chci se sprchovat."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "oblékat se / obléct se",
+    "en": "get dressed",
+    "kind": "V ipf→pf",
+    "cue": "obleču se",
+    "use": "Obleču se rychle."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "nakupovat / nakoupit",
+    "en": "shop",
+    "kind": "V ipf→pf",
+    "cue": "nakoupím",
+    "use": "Nakoupím jídlo."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "pracovat",
+    "en": "work",
+    "kind": "V ipf",
+    "cue": "pracuji",
+    "use": "Pracuji dnes."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "studovat",
+    "en": "study",
+    "kind": "V ipf",
+    "cue": "studuji",
+    "use": "Studuji češtinu."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "učit se / naučit se",
+    "en": "learn",
+    "kind": "V ipf→pf",
+    "cue": "učím se",
+    "use": "Učím se česky."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "odpočívat",
+    "en": "rest",
+    "kind": "V ipf",
+    "cue": "odpočívám",
+    "use": "Odpočívám doma."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "hrát",
+    "en": "play",
+    "kind": "V ipf",
+    "cue": "hraju",
+    "use": "Hraju fotbal."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "fotit / vyfotit",
+    "en": "take photos",
+    "kind": "V ipf→pf",
+    "cue": "vyfotím + A",
+    "use": "Vyfotím mapu."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "dívat se / podívat se",
+    "en": "look / watch",
+    "kind": "V ipf→pf",
+    "cue": "podívám se na+A",
+    "use": "Podívám se na mapu."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "probouzet se / probudit se",
+    "en": "wake up",
+    "kind": "V ipf→pf",
+    "cue": "probudím se",
+    "use": "Probudím se v sedm."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "vstávat / vstát",
+    "en": "get up",
+    "kind": "V ipf→pf",
+    "cue": "vstanu",
+    "use": "Vstanu brzy."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "usínat / usnout",
+    "en": "fall asleep",
+    "kind": "V ipf→pf",
+    "cue": "usnu",
+    "use": "Usnu pozdě."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "snídat / nasnídat se",
+    "en": "eat breakfast",
+    "kind": "V ipf→pf",
+    "cue": "snídám",
+    "use": "Snídám doma."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "obědvat",
+    "en": "eat lunch",
+    "kind": "V ipf",
+    "cue": "obědvám",
+    "use": "Obědvám v práci."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "večeřet",
+    "en": "eat dinner",
+    "kind": "V ipf",
+    "cue": "večeřím",
+    "use": "Večeřím doma."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "čistit si zuby",
+    "en": "brush teeth",
+    "kind": "V ipf",
+    "cue": "čistím si zuby",
+    "use": "Čistím si zuby."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "česat se / učesat se",
+    "en": "comb hair",
+    "kind": "V ipf→pf",
+    "cue": "učešu se",
+    "use": "Učešu se rychle."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "holit se / oholit se",
+    "en": "shave",
+    "kind": "V ipf→pf",
+    "cue": "oholím se",
+    "use": "Oholím se ráno."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "nosit",
+    "en": "wear / carry",
+    "kind": "V ipf",
+    "cue": "nosím + A",
+    "use": "Nosím brýle."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "řídit",
+    "en": "drive / manage",
+    "kind": "V ipf",
+    "cue": "řídím + A",
+    "use": "Řídím auto."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "zapínat / zapnout",
+    "en": "turn on",
+    "kind": "V ipf→pf",
+    "cue": "zapnu + A",
+    "use": "Zapnu světlo."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "vypínat / vypnout",
+    "en": "turn off",
+    "kind": "V ipf→pf",
+    "cue": "vypnu + A",
+    "use": "Vypnu telefon."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "tisknout / vytisknout",
+    "en": "print",
+    "kind": "V ipf→pf",
+    "cue": "vytisknu + A",
+    "use": "Vytisknu dokument."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "ukládat / uložit",
+    "en": "save / store",
+    "kind": "V ipf→pf",
+    "cue": "uložím + A",
+    "use": "Uložím soubor."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "opravovat / opravit",
+    "en": "repair / fix",
+    "kind": "V ipf→pf",
+    "cue": "opravím + A",
+    "use": "Opravím telefon."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "dům",
+    "en": "house",
+    "kind": "N m.in>hrad",
+    "cue": "do+G:domu v+L:domě",
+    "use": "Jdu domů."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "byt",
+    "en": "apartment",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:bytě",
+    "use": "Bydlím v bytě."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "pokoj",
+    "en": "room",
+    "kind": "N m.in>stroj",
+    "cue": "do+G:pokoje",
+    "use": "Kde je pokoj?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "kuchyně",
+    "en": "kitchen",
+    "kind": "N f>růže",
+    "cue": "v+L:kuchyni",
+    "use": "Jsem v kuchyni."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "koupelna",
+    "en": "bathroom",
+    "kind": "N f>žena",
+    "cue": "v+L:koupelně",
+    "use": "Kde je koupelna?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "toaleta",
+    "en": "toilet",
+    "kind": "N f>žena",
+    "cue": "kde je?",
+    "use": "Kde je toaleta?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "sprcha",
+    "en": "shower",
+    "kind": "N f>žena",
+    "cue": "A:sprchu",
+    "use": "Potřebuji sprchu."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "postel",
+    "en": "bed",
+    "kind": "N f>píseň",
+    "cue": "v+L:posteli",
+    "use": "Jsem v posteli."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "stůl",
+    "en": "table",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:stole",
+    "use": "Je to na stole."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "židle",
+    "en": "chair",
+    "kind": "N f>růže",
+    "cue": "na+L:židli",
+    "use": "Sedím na židli."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "dveře",
+    "en": "door",
+    "kind": "N pl",
+    "cue": "A:dveře",
+    "use": "Zavřu dveře."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "okno",
+    "en": "window",
+    "kind": "N n>město",
+    "cue": "A:okno",
+    "use": "Otevřu okno."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "klíč",
+    "en": "key",
+    "kind": "N m.in>stroj",
+    "cue": "A:klíč",
+    "use": "Mám klíč."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "světlo",
+    "en": "light",
+    "kind": "N n>město",
+    "cue": "A:světlo",
+    "use": "Zapnu světlo."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "topení",
+    "en": "heating",
+    "kind": "N n>stavení",
+    "cue": "A:topení",
+    "use": "Topení nefunguje."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "elektřina",
+    "en": "electricity",
+    "kind": "N f>žena",
+    "cue": "bez+G:elektřiny",
+    "use": "Není elektřina."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "plyn",
+    "en": "gas",
+    "kind": "N m.in>hrad",
+    "cue": "bez+G:plynu",
+    "use": "Je tu plyn?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "lednice",
+    "en": "fridge",
+    "kind": "N f>růže",
+    "cue": "v+L:lednici",
+    "use": "Je to v lednici."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "pračka",
+    "en": "washing machine",
+    "kind": "N f>žena",
+    "cue": "A:pračku",
+    "use": "Máte pračku?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "nádobí",
+    "en": "dishes",
+    "kind": "N n>stavení",
+    "cue": "A:nádobí",
+    "use": "Umyju nádobí."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "taška",
+    "en": "bag",
+    "kind": "N f>žena",
+    "cue": "A:tašku",
+    "use": "Mám tašku."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "batoh",
+    "en": "backpack",
+    "kind": "N m.in>hrad",
+    "cue": "A:batoh",
+    "use": "Mám batoh."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "peněženka",
+    "en": "wallet",
+    "kind": "N f>žena",
+    "cue": "A:peněženku",
+    "use": "Ztratil jsem peněženku."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "brýle",
+    "en": "glasses",
+    "kind": "N pl",
+    "cue": "A:brýle",
+    "use": "Mám brýle."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "deštník",
+    "en": "umbrella",
+    "kind": "N m.in>hrad",
+    "cue": "A:deštník",
+    "use": "Potřebuji deštník."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "ručník",
+    "en": "towel",
+    "kind": "N m.in>hrad",
+    "cue": "A:ručník",
+    "use": "Potřebuji ručník."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "mýdlo",
+    "en": "soap",
+    "kind": "N n>město",
+    "cue": "A:mýdlo",
+    "use": "Máte mýdlo?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "kartáček",
+    "en": "toothbrush",
+    "kind": "N m.in>hrad",
+    "cue": "A:kartáček",
+    "use": "Potřebuji kartáček."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "skříň",
+    "en": "wardrobe / closet",
+    "kind": "N f>píseň",
+    "cue": "v+L:skříni",
+    "use": "Je to ve skříni."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "polštář",
+    "en": "pillow",
+    "kind": "N m.in>stroj",
+    "cue": "A:polštář",
+    "use": "Potřebuji polštář."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "voda",
+    "en": "water",
+    "kind": "N f>žena",
+    "cue": "A:vodu",
+    "use": "Vodu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "perlivá voda",
+    "en": "sparkling water",
+    "kind": "N f",
+    "cue": "A:perlivou",
+    "use": "Perlivou vodu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "neperlivá voda",
+    "en": "still water",
+    "kind": "N f",
+    "cue": "A:neperlivou",
+    "use": "Neperlivou vodu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "káva",
+    "en": "coffee",
+    "kind": "N f>žena",
+    "cue": "A:kávu",
+    "use": "Kávu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "čaj",
+    "en": "tea",
+    "kind": "N m.in>stroj",
+    "cue": "A:čaj",
+    "use": "Čaj, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "pivo",
+    "en": "beer",
+    "kind": "N n>město",
+    "cue": "A:pivo",
+    "use": "Jedno pivo, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "víno",
+    "en": "wine",
+    "kind": "N n>město",
+    "cue": "A:víno",
+    "use": "Víno, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "jídlo",
+    "en": "food / meal",
+    "kind": "N n>město",
+    "cue": "A:jídlo",
+    "use": "Chci jídlo."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "snídaně",
+    "en": "breakfast",
+    "kind": "N f>růže",
+    "cue": "A:snídani",
+    "use": "Kdy je snídaně?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "oběd",
+    "en": "lunch",
+    "kind": "N m.in>hrad",
+    "cue": "A:oběd",
+    "use": "Mám oběd."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "večeře",
+    "en": "dinner",
+    "kind": "N f>růže",
+    "cue": "A:večeři",
+    "use": "Chci večeři."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "chléb",
+    "en": "bread",
+    "kind": "N m.in>hrad",
+    "cue": "A:chléb",
+    "use": "Máte chléb?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "rohlík",
+    "en": "bread roll",
+    "kind": "N m.in>hrad",
+    "cue": "A:rohlík",
+    "use": "Jeden rohlík, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "máslo",
+    "en": "butter",
+    "kind": "N n>město",
+    "cue": "A:máslo",
+    "use": "Bez másla, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "sýr",
+    "en": "cheese",
+    "kind": "N m.in>hrad",
+    "cue": "A:sýr",
+    "use": "Máte sýr?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "maso",
+    "en": "meat",
+    "kind": "N n>město",
+    "cue": "A:maso",
+    "use": "Bez masa, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "kuře",
+    "en": "chicken",
+    "kind": "N n>kuře",
+    "cue": "A:kuře",
+    "use": "Kuře, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "ryba",
+    "en": "fish",
+    "kind": "N f>žena",
+    "cue": "A:rybu",
+    "use": "Rybu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "vejce",
+    "en": "egg",
+    "kind": "N n>moře",
+    "cue": "A:vejce",
+    "use": "Máte vejce?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "rýže",
+    "en": "rice",
+    "kind": "N f>růže",
+    "cue": "A:rýži",
+    "use": "Rýži, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "brambory",
+    "en": "potatoes",
+    "kind": "N pl",
+    "cue": "A:brambory",
+    "use": "Brambory, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "těstoviny",
+    "en": "pasta",
+    "kind": "N pl",
+    "cue": "A:těstoviny",
+    "use": "Těstoviny, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "polévka",
+    "en": "soup",
+    "kind": "N f>žena",
+    "cue": "A:polévku",
+    "use": "Polévku, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "salát",
+    "en": "salad",
+    "kind": "N m.in>hrad",
+    "cue": "A:salát",
+    "use": "Salát, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "ovoce",
+    "en": "fruit",
+    "kind": "N n>moře",
+    "cue": "A:ovoce",
+    "use": "Chci ovoce."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "zelenina",
+    "en": "vegetables",
+    "kind": "N f>žena",
+    "cue": "A:zeleninu",
+    "use": "Se zeleninou, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "jablko",
+    "en": "apple",
+    "kind": "N n>město",
+    "cue": "A:jablko",
+    "use": "Jedno jablko, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "banán",
+    "en": "banana",
+    "kind": "N m.in>hrad",
+    "cue": "A:banán",
+    "use": "Jeden banán, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "rajče",
+    "en": "tomato",
+    "kind": "N n>kuře",
+    "cue": "A:rajče",
+    "use": "Bez rajčete, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "cibule",
+    "en": "onion",
+    "kind": "N f>růže",
+    "cue": "bez+G:cibule",
+    "use": "Bez cibule, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "mléko",
+    "en": "milk",
+    "kind": "N n>město",
+    "cue": "A:mléko",
+    "use": "Mléko, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "cukr",
+    "en": "sugar",
+    "kind": "N m.in>hrad",
+    "cue": "bez+G:cukru",
+    "use": "Bez cukru, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "sůl",
+    "en": "salt",
+    "kind": "N f>píseň",
+    "cue": "A:sůl",
+    "use": "Máte sůl?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "pepř",
+    "en": "pepper",
+    "kind": "N m.in>stroj",
+    "cue": "A:pepř",
+    "use": "Máte pepř?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "omáčka",
+    "en": "sauce",
+    "kind": "N f>žena",
+    "cue": "A:omáčku",
+    "use": "Bez omáčky, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "menu",
+    "en": "menu",
+    "kind": "N indecl.",
+    "cue": "A:menu",
+    "use": "Menu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "účet",
+    "en": "bill",
+    "kind": "N m.in>hrad",
+    "cue": "A:účet",
+    "use": "Účet, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "porce",
+    "en": "portion",
+    "kind": "N f>růže",
+    "cue": "A:porci",
+    "use": "Jednu porci, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "hlad",
+    "en": "hunger",
+    "kind": "N m.in>hrad",
+    "cue": "mít hlad",
+    "use": "Mám hlad."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "žízeň",
+    "en": "thirst",
+    "kind": "N f>píseň",
+    "cue": "mít žízeň",
+    "use": "Mám žízeň."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "džus",
+    "en": "juice",
+    "kind": "N m.in>hrad",
+    "cue": "A:džus",
+    "use": "Džus, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "limonáda",
+    "en": "lemonade / soda",
+    "kind": "N f>žena",
+    "cue": "A:limonádu",
+    "use": "Limonádu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "dezert",
+    "en": "dessert",
+    "kind": "N m.in>hrad",
+    "cue": "A:dezert",
+    "use": "Dezert, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "zmrzlina",
+    "en": "ice cream",
+    "kind": "N f>žena",
+    "cue": "A:zmrzlinu",
+    "use": "Zmrzlinu, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "příloha",
+    "en": "side dish",
+    "kind": "N f>žena",
+    "cue": "A:přílohu",
+    "use": "Jaká je příloha?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "voda z kohoutku",
+    "en": "tap water",
+    "kind": "N f phrase",
+    "cue": "z+G:kohoutku",
+    "use": "Vodu z kohoutku, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "vegetariánské jídlo",
+    "en": "vegetarian food",
+    "kind": "adj+N n",
+    "cue": "A:jídlo",
+    "use": "Máte vegetariánské jídlo?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "veganské jídlo",
+    "en": "vegan food",
+    "kind": "adj+N n",
+    "cue": "A:jídlo",
+    "use": "Máte veganské jídlo?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "bezlepkové jídlo",
+    "en": "gluten-free food",
+    "kind": "adj+N n",
+    "cue": "bez lepku",
+    "use": "Máte bezlepkové jídlo?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "lepek",
+    "en": "gluten",
+    "kind": "N m.in>hrad",
+    "cue": "bez+G:lepku",
+    "use": "Bez lepku, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "ořechy",
+    "en": "nuts",
+    "kind": "N pl",
+    "cue": "na+A:ořechy",
+    "use": "Mám alergii na ořechy."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "mořské plody",
+    "en": "seafood",
+    "kind": "N pl",
+    "cue": "bez+G:plodů",
+    "use": "Bez mořských plodů, prosím."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "obchod",
+    "en": "shop",
+    "kind": "N m.in>hrad",
+    "cue": "do+G:obchodu",
+    "use": "Jdu do obchodu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "supermarket",
+    "en": "supermarket",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:supermarketu",
+    "use": "Jsem v supermarketu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "trh",
+    "en": "market",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:trhu",
+    "use": "Jdu na trh."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "lékárna",
+    "en": "pharmacy",
+    "kind": "N f>žena",
+    "cue": "do+G:lékárny",
+    "use": "Kde je lékárna?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "drogerie",
+    "en": "drugstore",
+    "kind": "N f>růže",
+    "cue": "do+G:drogerie",
+    "use": "Jdu do drogerie."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "pekárna",
+    "en": "bakery",
+    "kind": "N f>žena",
+    "cue": "do+G:pekárny",
+    "use": "Jdu do pekárny."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "řeznictví",
+    "en": "butcher shop",
+    "kind": "N n>stavení",
+    "cue": "v+L:řeznictví",
+    "use": "Kde je řeznictví?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "pošta",
+    "en": "post office",
+    "kind": "N f>žena",
+    "cue": "na+L:poště",
+    "use": "Jdu na poštu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "banka",
+    "en": "bank",
+    "kind": "N f>žena",
+    "cue": "do+G:banky",
+    "use": "Jdu do banky."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "úřad",
+    "en": "office / authority",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:úřadě",
+    "use": "Jdu na úřad."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "balíček",
+    "en": "package",
+    "kind": "N m.in>hrad",
+    "cue": "A:balíček",
+    "use": "Mám balíček."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "dopis",
+    "en": "letter",
+    "kind": "N m.in>hrad",
+    "cue": "A:dopis",
+    "use": "Pošlu dopis."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "cena",
+    "en": "price",
+    "kind": "N f>žena",
+    "cue": "jaká cena",
+    "use": "Jaká je cena?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "sleva",
+    "en": "discount",
+    "kind": "N f>žena",
+    "cue": "A:slevu",
+    "use": "Máte slevu?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "velikost",
+    "en": "size",
+    "kind": "N f>kost",
+    "cue": "A:velikost",
+    "use": "Jaká velikost?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "barva",
+    "en": "color",
+    "kind": "N f>žena",
+    "cue": "A:barvu",
+    "use": "Jaká barva?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "účtenka",
+    "en": "receipt",
+    "kind": "N f>žena",
+    "cue": "A:účtenku",
+    "use": "Účtenku, prosím."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "zboží",
+    "en": "goods",
+    "kind": "N n>stavení",
+    "cue": "A:zboží",
+    "use": "Kde je zboží?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "dárek",
+    "en": "gift",
+    "kind": "N m.in>hrad",
+    "cue": "A:dárek",
+    "use": "Kupuji dárek."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "otevřeno",
+    "en": "open",
+    "kind": "status",
+    "cue": "shop sign",
+    "use": "Je otevřeno?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "zavřeno",
+    "en": "closed",
+    "kind": "status",
+    "cue": "shop sign",
+    "use": "Je zavřeno."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "reklamace",
+    "en": "complaint / return",
+    "kind": "N f>růže",
+    "cue": "A:reklamaci",
+    "use": "Chci reklamaci."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "košík",
+    "en": "basket",
+    "kind": "N m.in>hrad",
+    "cue": "A:košík",
+    "use": "Potřebuji košík."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "pokladna",
+    "en": "cash register / checkout",
+    "kind": "N f>žena",
+    "cue": "u+G:pokladny",
+    "use": "Jsem u pokladny."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "regál",
+    "en": "shelf / aisle",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:regálu",
+    "use": "Je to v regálu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "prodavačka",
+    "en": "shop assistant woman",
+    "kind": "N f>žena",
+    "cue": "A:prodavačku",
+    "use": "Kde je prodavačka?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "zákaznický servis",
+    "en": "customer service",
+    "kind": "N m.in>hrad",
+    "cue": "A:servis",
+    "use": "Potřebuji zákaznický servis."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "oprava",
+    "en": "repair",
+    "kind": "N f>žena",
+    "cue": "A:opravu",
+    "use": "Potřebuji opravu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "doručení",
+    "en": "delivery",
+    "kind": "N n>stavení",
+    "cue": "A:doručení",
+    "use": "Máte doručení?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "vrácení",
+    "en": "return / refund",
+    "kind": "N n>stavení",
+    "cue": "vrácení peněz",
+    "use": "Chci vrácení peněz."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "výměna",
+    "en": "exchange",
+    "kind": "N f>žena",
+    "cue": "A:výměnu",
+    "use": "Chci výměnu."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "výdejní místo",
+    "en": "pickup point",
+    "kind": "N n>město",
+    "cue": "kde je?",
+    "use": "Kde je výdejní místo?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "peníze",
+    "en": "money",
+    "kind": "N pl",
+    "cue": "mít A",
+    "use": "Mám peníze."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "hotovost",
+    "en": "cash",
+    "kind": "N f>kost",
+    "cue": "I:hotovostí",
+    "use": "Platím hotovostí."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "karta",
+    "en": "card",
+    "kind": "N f>žena",
+    "cue": "I:kartou",
+    "use": "Platím kartou."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "bankomat",
+    "en": "ATM",
+    "kind": "N m.in>hrad",
+    "cue": "kde je?",
+    "use": "Kde je bankomat?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "koruna",
+    "en": "crown",
+    "kind": "N f>žena",
+    "cue": "pl:koruny/korun",
+    "use": "Sto korun."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "platba",
+    "en": "payment",
+    "kind": "N f>žena",
+    "cue": "platba kartou",
+    "use": "Platba kartou."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "faktura",
+    "en": "invoice",
+    "kind": "N f>žena",
+    "cue": "A:fakturu",
+    "use": "Potřebuji fakturu."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "rozpočet",
+    "en": "budget",
+    "kind": "N m.in>hrad",
+    "cue": "A:rozpočet",
+    "use": "Mám malý rozpočet."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "číslo",
+    "en": "number",
+    "kind": "N n>město",
+    "cue": "A:číslo",
+    "use": "Jaké je číslo?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "nula",
+    "en": "zero",
+    "kind": "num",
+    "cue": "0",
+    "use": "Nula korun."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "jeden / jedna / jedno",
+    "en": "one",
+    "kind": "num",
+    "cue": "gender changes",
+    "use": "Jedno pivo, prosím."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "dva / dvě",
+    "en": "two",
+    "kind": "num",
+    "cue": "m vs f/n",
+    "use": "Dvě kávy, prosím."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "tři",
+    "en": "three",
+    "kind": "num",
+    "cue": "3",
+    "use": "Tři lístky, prosím."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "čtyři",
+    "en": "four",
+    "kind": "num",
+    "cue": "4",
+    "use": "Čtyři osoby."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "pět",
+    "en": "five",
+    "kind": "num",
+    "cue": "5",
+    "use": "Pět minut."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "deset",
+    "en": "ten",
+    "kind": "num",
+    "cue": "10",
+    "use": "Deset korun."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "dvacet",
+    "en": "twenty",
+    "kind": "num",
+    "cue": "20",
+    "use": "Dvacet minut."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "sto",
+    "en": "hundred",
+    "kind": "num",
+    "cue": "100",
+    "use": "Sto korun."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "tisíc",
+    "en": "thousand",
+    "kind": "num",
+    "cue": "1000",
+    "use": "Tisíc korun."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "drobné",
+    "en": "small change / coins",
+    "kind": "N pl",
+    "cue": "A:drobné",
+    "use": "Máte drobné?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "mince",
+    "en": "coin",
+    "kind": "N f>růže",
+    "cue": "pl:mince",
+    "use": "Mám mince."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "bankovka",
+    "en": "banknote",
+    "kind": "N f>žena",
+    "cue": "A:bankovku",
+    "use": "Mám bankovku."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "bankovní účet",
+    "en": "bank account",
+    "kind": "N m.in>hrad",
+    "cue": "A:účet",
+    "use": "Mám bankovní účet."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "převod",
+    "en": "transfer",
+    "kind": "N m.in>hrad",
+    "cue": "A:převod",
+    "use": "Udělám převod."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "výběr",
+    "en": "withdrawal",
+    "kind": "N m.in>hrad",
+    "cue": "A:výběr",
+    "use": "Udělám výběr."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "vklad",
+    "en": "deposit",
+    "kind": "N m.in>hrad",
+    "cue": "A:vklad",
+    "use": "Udělám vklad."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "směnárna",
+    "en": "exchange office",
+    "kind": "N f>žena",
+    "cue": "do+G:směnárny",
+    "use": "Jdu do směnárny."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "směnný kurz",
+    "en": "exchange rate",
+    "kind": "N m.in>hrad",
+    "cue": "jaký kurz",
+    "use": "Jaký je směnný kurz?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "daň",
+    "en": "tax",
+    "kind": "N f>píseň",
+    "cue": "A:daň",
+    "use": "Zaplatím daň."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "spropitné",
+    "en": "tip",
+    "kind": "N n>město",
+    "cue": "A:spropitné",
+    "use": "Nechám spropitné."
+  },
+  {
+    "cat": "Transport",
+    "cs": "nádraží",
+    "en": "station",
+    "kind": "N n>stavení",
+    "cue": "na+L z+G",
+    "use": "Jsem na nádraží."
+  },
+  {
+    "cat": "Transport",
+    "cs": "zastávka",
+    "en": "stop",
+    "kind": "N f>žena",
+    "cue": "na+L",
+    "use": "Jsem na zastávce."
+  },
+  {
+    "cat": "Transport",
+    "cs": "stanice",
+    "en": "station",
+    "kind": "N f>růže",
+    "cue": "na+L/v+L",
+    "use": "Kde je stanice metra?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "vlak",
+    "en": "train",
+    "kind": "N m.in>hrad",
+    "cue": "I:vlakem",
+    "use": "Jedu vlakem."
+  },
+  {
+    "cat": "Transport",
+    "cs": "autobus",
+    "en": "bus",
+    "kind": "N m.in>hrad",
+    "cue": "I:autobusem",
+    "use": "Jedu autobusem."
+  },
+  {
+    "cat": "Transport",
+    "cs": "tramvaj",
+    "en": "tram",
+    "kind": "N f>píseň",
+    "cue": "I:tramvají",
+    "use": "Jedu tramvají."
+  },
+  {
+    "cat": "Transport",
+    "cs": "metro",
+    "en": "metro",
+    "kind": "N n>město",
+    "cue": "I:metrem",
+    "use": "Jedu metrem."
+  },
+  {
+    "cat": "Transport",
+    "cs": "taxi",
+    "en": "taxi",
+    "kind": "N indecl.",
+    "cue": "I:taxi",
+    "use": "Jedu taxi."
+  },
+  {
+    "cat": "Transport",
+    "cs": "auto",
+    "en": "car",
+    "kind": "N n>město",
+    "cue": "I:autem",
+    "use": "Jedu autem."
+  },
+  {
+    "cat": "Transport",
+    "cs": "kolo",
+    "en": "bike",
+    "kind": "N n>město",
+    "cue": "I:kolem",
+    "use": "Jedu na kole."
+  },
+  {
+    "cat": "Transport",
+    "cs": "letiště",
+    "en": "airport",
+    "kind": "N n>moře",
+    "cue": "na+L",
+    "use": "Jedu na letiště."
+  },
+  {
+    "cat": "Transport",
+    "cs": "jízdenka",
+    "en": "ticket",
+    "kind": "N f>žena",
+    "cue": "A:jízdenku",
+    "use": "Koupím jízdenku."
+  },
+  {
+    "cat": "Transport",
+    "cs": "lístek",
+    "en": "ticket",
+    "kind": "N m.in>hrad",
+    "cue": "A:lístek",
+    "use": "Jeden lístek, prosím."
+  },
+  {
+    "cat": "Transport",
+    "cs": "místenka",
+    "en": "seat reservation",
+    "kind": "N f>žena",
+    "cue": "A:místenku",
+    "use": "Máte místenku?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "nástupiště",
+    "en": "platform",
+    "kind": "N n>moře",
+    "cue": "na+L",
+    "use": "Kde je nástupiště?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "kolej",
+    "en": "track",
+    "kind": "N f>píseň",
+    "cue": "na+L:koleji",
+    "use": "Která kolej?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "vagon",
+    "en": "carriage",
+    "kind": "N m.in>hrad",
+    "cue": "ve+L:vagonu",
+    "use": "Kde je vagon?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "sedadlo",
+    "en": "seat",
+    "kind": "N n>město",
+    "cue": "A:sedadlo",
+    "use": "Kde je sedadlo?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "odjezd",
+    "en": "departure",
+    "kind": "N m.in>hrad",
+    "cue": "čas odjezdu",
+    "use": "Kdy je odjezd?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "příjezd",
+    "en": "arrival",
+    "kind": "N m.in>hrad",
+    "cue": "čas příjezdu",
+    "use": "Kdy je příjezd?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "zpoždění",
+    "en": "delay",
+    "kind": "N n>stavení",
+    "cue": "mít A",
+    "use": "Vlak má zpoždění."
+  },
+  {
+    "cat": "Transport",
+    "cs": "spoj",
+    "en": "connection",
+    "kind": "N m.in>stroj",
+    "cue": "další spoj",
+    "use": "Kdy jede další spoj?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "přestup",
+    "en": "transfer",
+    "kind": "N m.in>hrad",
+    "cue": "s přestupem",
+    "use": "Je to s přestupem?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "směr",
+    "en": "direction",
+    "kind": "N m.in>hrad",
+    "cue": "směr + place",
+    "use": "Směr Praha."
+  },
+  {
+    "cat": "Transport",
+    "cs": "řidič",
+    "en": "driver",
+    "kind": "N m.an>muž",
+    "cue": "A:řidiče",
+    "use": "Kde je řidič?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "jízdní řád",
+    "en": "timetable",
+    "kind": "N m.in>hrad",
+    "cue": "podle řádu",
+    "use": "Kde je jízdní řád?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "kontrola",
+    "en": "inspection / check",
+    "kind": "N f>žena",
+    "cue": "A:kontrolu",
+    "use": "Je tu kontrola."
+  },
+  {
+    "cat": "Transport",
+    "cs": "parkoviště",
+    "en": "parking lot",
+    "kind": "N n>moře",
+    "cue": "na+L",
+    "use": "Kde je parkoviště?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "benzín",
+    "en": "petrol",
+    "kind": "N m.in>hrad",
+    "cue": "A:benzín",
+    "use": "Potřebuji benzín."
+  },
+  {
+    "cat": "Transport",
+    "cs": "nafta",
+    "en": "diesel",
+    "kind": "N f>žena",
+    "cue": "A:naftu",
+    "use": "Potřebuji naftu."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "město",
+    "en": "town / city",
+    "kind": "N n>město",
+    "cue": "do+G v+L",
+    "use": "Jdu do města."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "vesnice",
+    "en": "village",
+    "kind": "N f>růže",
+    "cue": "do+G",
+    "use": "Jedu do vesnice."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "ulice",
+    "en": "street",
+    "kind": "N f>růže",
+    "cue": "v+L:ulici",
+    "use": "Jsem v ulici."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "náměstí",
+    "en": "square",
+    "kind": "N n>stavení",
+    "cue": "na+L",
+    "use": "Jsem na náměstí."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "centrum",
+    "en": "center",
+    "kind": "N n>město",
+    "cue": "v+L:centru",
+    "use": "Jsem v centru."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "restaurace",
+    "en": "restaurant",
+    "kind": "N f>růže",
+    "cue": "v+L:restauraci",
+    "use": "Jsem v restauraci."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "kavárna",
+    "en": "cafe",
+    "kind": "N f>žena",
+    "cue": "do+G:kavárny",
+    "use": "Jdu do kavárny."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "bar",
+    "en": "bar",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:baru",
+    "use": "Jsem v baru."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "hotel",
+    "en": "hotel",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:hotelu",
+    "use": "Jsem v hotelu."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "hostel",
+    "en": "hostel",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:hostelu",
+    "use": "Jsem v hostelu."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "škola",
+    "en": "school",
+    "kind": "N f>žena",
+    "cue": "ve+L:škole",
+    "use": "Jdu do školy."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "práce",
+    "en": "work",
+    "kind": "N f>růže",
+    "cue": "do+G:práce",
+    "use": "Jdu do práce."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "kancelář",
+    "en": "office",
+    "kind": "N f>píseň",
+    "cue": "v+L:kanceláři",
+    "use": "Jsem v kanceláři."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "nemocnice",
+    "en": "hospital",
+    "kind": "N f>růže",
+    "cue": "do+G:nemocnice",
+    "use": "Potřebuji nemocnici."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "klinika",
+    "en": "clinic",
+    "kind": "N f>žena",
+    "cue": "do+G:kliniky",
+    "use": "Kde je klinika?"
+  },
+  {
+    "cat": "Places + city",
+    "cs": "policie",
+    "en": "police",
+    "kind": "N f>růže",
+    "cue": "A:policii",
+    "use": "Volám policii."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "park",
+    "en": "park",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:parku",
+    "use": "Jsem v parku."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "les",
+    "en": "forest",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:lese",
+    "use": "Jdu do lesa."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "řeka",
+    "en": "river",
+    "kind": "N f>žena",
+    "cue": "u+G:řeky",
+    "use": "Jsem u řeky."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "most",
+    "en": "bridge",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:mostě",
+    "use": "Jsem na mostě."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "kostel",
+    "en": "church",
+    "kind": "N m.in",
+    "cue": "v+L:kostele",
+    "use": "Kde je kostel?"
+  },
+  {
+    "cat": "Places + city",
+    "cs": "muzeum",
+    "en": "museum",
+    "kind": "N n>město",
+    "cue": "v+L:muzeu",
+    "use": "Jdu do muzea."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "kino",
+    "en": "cinema",
+    "kind": "N n>město",
+    "cue": "do+G:kina",
+    "use": "Jdu do kina."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "divadlo",
+    "en": "theater",
+    "kind": "N n>město",
+    "cue": "do+G:divadla",
+    "use": "Jdu do divadla."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "knihovna",
+    "en": "library",
+    "kind": "N f>žena",
+    "cue": "v+L:knihovně",
+    "use": "Jdu do knihovny."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "bazén",
+    "en": "swimming pool",
+    "kind": "N m.in>hrad",
+    "cue": "do+G:bazénu",
+    "use": "Jdu do bazénu."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "vchod",
+    "en": "entrance",
+    "kind": "N m.in>hrad",
+    "cue": "kde je?",
+    "use": "Kde je vchod?"
+  },
+  {
+    "cat": "Places + city",
+    "cs": "východ",
+    "en": "exit",
+    "kind": "N m.in>hrad",
+    "cue": "kde je?",
+    "use": "Kde je východ?"
+  },
+  {
+    "cat": "Places + city",
+    "cs": "zahrada",
+    "en": "garden",
+    "kind": "N f>žena",
+    "cue": "na+L:zahradě",
+    "use": "Jsem na zahradě."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "hřiště",
+    "en": "playground / sports field",
+    "kind": "N n>moře",
+    "cue": "na+A:hřiště",
+    "use": "Jdu na hřiště."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "dnes",
+    "en": "today",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Dnes jedu do Prahy."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "zítra",
+    "en": "tomorrow",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Zítra přijdu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "včera",
+    "en": "yesterday",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Včera jsem byl doma."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "teď",
+    "en": "now",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Teď nemůžu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "hned",
+    "en": "right away",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Přijdu hned."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "potom",
+    "en": "then / after",
+    "kind": "time",
+    "cue": "sequence",
+    "use": "Potom zaplatím."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "později",
+    "en": "later",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Zavolám později."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "brzy",
+    "en": "soon / early",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Přijdu brzy."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "ráno",
+    "en": "morning",
+    "kind": "time",
+    "cue": "adverbial",
+    "use": "Ráno jedu vlakem."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "dopoledne",
+    "en": "late morning",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Přijdu dopoledne."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "poledne",
+    "en": "noon",
+    "kind": "N n>moře",
+    "cue": "v poledne",
+    "use": "Přijdu v poledne."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "odpoledne",
+    "en": "afternoon",
+    "kind": "time",
+    "cue": "no forms",
+    "use": "Odpoledne pracuji."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "večer",
+    "en": "evening",
+    "kind": "time/N",
+    "cue": "adverbial",
+    "use": "Večer jsem v hotelu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "noc",
+    "en": "night",
+    "kind": "N f>kost",
+    "cue": "v noci",
+    "use": "V noci spím."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "den",
+    "en": "day",
+    "kind": "N m.in",
+    "cue": "za den",
+    "use": "Dobrý den."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "týden",
+    "en": "week",
+    "kind": "N m.in",
+    "cue": "za týden",
+    "use": "Za týden přijdu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "měsíc",
+    "en": "month",
+    "kind": "N m.in>stroj",
+    "cue": "za měsíc",
+    "use": "Za měsíc odjedu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "rok",
+    "en": "year",
+    "kind": "N m.in>hrad",
+    "cue": "za rok",
+    "use": "Jsem tu rok."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "hodina",
+    "en": "hour",
+    "kind": "N f>žena",
+    "cue": "za hodinu",
+    "use": "Za hodinu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "minuta",
+    "en": "minute",
+    "kind": "N f>žena",
+    "cue": "pět minut",
+    "use": "Pět minut, prosím."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "pondělí",
+    "en": "Monday",
+    "kind": "N n>stavení",
+    "cue": "v pondělí",
+    "use": "Přijdu v pondělí."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "úterý",
+    "en": "Tuesday",
+    "kind": "N n>stavení",
+    "cue": "v úterý",
+    "use": "Přijdu v úterý."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "středa",
+    "en": "Wednesday",
+    "kind": "N f>žena",
+    "cue": "ve středu",
+    "use": "Přijdu ve středu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "čtvrtek",
+    "en": "Thursday",
+    "kind": "N m.in",
+    "cue": "ve čtvrtek",
+    "use": "Přijdu ve čtvrtek."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "pátek",
+    "en": "Friday",
+    "kind": "N m.in",
+    "cue": "v pátek",
+    "use": "Přijdu v pátek."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "sobota",
+    "en": "Saturday",
+    "kind": "N f>žena",
+    "cue": "v sobotu",
+    "use": "Přijdu v sobotu."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "neděle",
+    "en": "Sunday",
+    "kind": "N f>růže",
+    "cue": "v neděli",
+    "use": "Přijdu v neděli."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "víkend",
+    "en": "weekend",
+    "kind": "N m.in>hrad",
+    "cue": "o víkendu",
+    "use": "O víkendu nepracuji."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "datum",
+    "en": "date",
+    "kind": "N n>město",
+    "cue": "A:datum",
+    "use": "Jaké je datum?"
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "narozeniny",
+    "en": "birthday",
+    "kind": "N pl",
+    "cue": "mít narozeniny",
+    "use": "Mám narozeniny."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "dovolená",
+    "en": "vacation",
+    "kind": "N f>žena",
+    "cue": "na dovolené",
+    "use": "Jsem na dovolené."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "svátek",
+    "en": "holiday",
+    "kind": "N m.in>hrad",
+    "cue": "o svátku",
+    "use": "Je dnes svátek?"
+  },
+  {
+    "cat": "Health + body",
+    "cs": "pomoc",
+    "en": "help",
+    "kind": "N f>kost",
+    "cue": "potřebovat A",
+    "use": "Potřebuji pomoc."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "problém",
+    "en": "problem",
+    "kind": "N m.in>hrad",
+    "cue": "mít A",
+    "use": "Mám problém."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "tělo",
+    "en": "body",
+    "kind": "N n>město",
+    "cue": "A:tělo",
+    "use": "Bolí mě tělo."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "hlava",
+    "en": "head",
+    "kind": "N f>žena",
+    "cue": "A:hlavu",
+    "use": "Bolí mě hlava."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "oko",
+    "en": "eye",
+    "kind": "N n>město",
+    "cue": "A:oko",
+    "use": "Bolí mě oko."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "ucho",
+    "en": "ear",
+    "kind": "N n>město",
+    "cue": "A:ucho",
+    "use": "Bolí mě ucho."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "nos",
+    "en": "nose",
+    "kind": "N m.in>hrad",
+    "cue": "A:nos",
+    "use": "Mám rýmu."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "ústa",
+    "en": "mouth",
+    "kind": "N pl",
+    "cue": "A:ústa",
+    "use": "Bolí mě ústa."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "zub",
+    "en": "tooth",
+    "kind": "N m.in>hrad",
+    "cue": "A:zub",
+    "use": "Bolí mě zub."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "krk",
+    "en": "neck / throat",
+    "kind": "N m.in>hrad",
+    "cue": "A:krk",
+    "use": "Bolí mě krk."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "ruka",
+    "en": "hand / arm",
+    "kind": "N f>žena",
+    "cue": "A:ruku",
+    "use": "Bolí mě ruka."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "noha",
+    "en": "leg / foot",
+    "kind": "N f>žena",
+    "cue": "A:nohu",
+    "use": "Bolí mě noha."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "záda",
+    "en": "back",
+    "kind": "N pl",
+    "cue": "A:záda",
+    "use": "Bolí mě záda."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "břicho",
+    "en": "belly",
+    "kind": "N n>město",
+    "cue": "A:břicho",
+    "use": "Bolí mě břicho."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "srdce",
+    "en": "heart",
+    "kind": "N n>moře",
+    "cue": "A:srdce",
+    "use": "Bolí mě srdce."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "krev",
+    "en": "blood",
+    "kind": "N f>píseň",
+    "cue": "A:krev",
+    "use": "Vidím krev."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "bolest",
+    "en": "pain",
+    "kind": "N f>kost",
+    "cue": "mít bolest",
+    "use": "Mám bolest."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "horečka",
+    "en": "fever",
+    "kind": "N f>žena",
+    "cue": "mít horečku",
+    "use": "Mám horečku."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "kašel",
+    "en": "cough",
+    "kind": "N m.in",
+    "cue": "mít kašel",
+    "use": "Mám kašel."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "rýma",
+    "en": "cold / runny nose",
+    "kind": "N f>žena",
+    "cue": "mít rýmu",
+    "use": "Mám rýmu."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "alergie",
+    "en": "allergy",
+    "kind": "N f>růže",
+    "cue": "mít alergii",
+    "use": "Mám alergii."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "lék",
+    "en": "medicine",
+    "kind": "N m.in>hrad",
+    "cue": "A:lék",
+    "use": "Potřebuji lék."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "recept",
+    "en": "prescription / recipe",
+    "kind": "N m.in>hrad",
+    "cue": "A:recept",
+    "use": "Mám recept."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "pojištění",
+    "en": "insurance",
+    "kind": "N n>stavení",
+    "cue": "A:pojištění",
+    "use": "Mám pojištění."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "sanitka",
+    "en": "ambulance",
+    "kind": "N f>žena",
+    "cue": "A:sanitku",
+    "use": "Zavolejte sanitku."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "nemoc",
+    "en": "illness",
+    "kind": "N f>kost",
+    "cue": "mít nemoc",
+    "use": "Mám nemoc."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "zranění",
+    "en": "injury",
+    "kind": "N n>stavení",
+    "cue": "A:zranění",
+    "use": "Mám zranění."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "zdravý",
+    "en": "healthy",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Jsem zdravý."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "nemocný",
+    "en": "sick",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Jsem nemocný."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "unavený",
+    "en": "tired",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Jsem unavený."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "nevolnost",
+    "en": "nausea",
+    "kind": "N f>kost",
+    "cue": "je mi nevolno",
+    "use": "Je mi nevolno."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "průjem",
+    "en": "diarrhea",
+    "kind": "N m.in>hrad",
+    "cue": "mít průjem",
+    "use": "Mám průjem."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "zvracení",
+    "en": "vomiting",
+    "kind": "N n>stavení",
+    "cue": "zvracím",
+    "use": "Zvracím."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "vyrážka",
+    "en": "rash",
+    "kind": "N f>žena",
+    "cue": "A:vyrážku",
+    "use": "Mám vyrážku."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "rána",
+    "en": "wound",
+    "kind": "N f>žena",
+    "cue": "A:ránu",
+    "use": "Mám ránu na ruce."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "zlomenina",
+    "en": "fracture",
+    "kind": "N f>žena",
+    "cue": "A:zlomeninu",
+    "use": "Mám zlomeninu."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "pohotovost",
+    "en": "urgent care / ER",
+    "kind": "N f>kost",
+    "cue": "na+A:pohotovost",
+    "use": "Jdu na pohotovost."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "lékárník",
+    "en": "pharmacist",
+    "kind": "N m.an>pán",
+    "cue": "A:lékárníka",
+    "use": "Zeptám se lékárníka."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "kapky",
+    "en": "drops",
+    "kind": "N pl",
+    "cue": "A:kapky",
+    "use": "Kapky do očí, prosím."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "obvaz",
+    "en": "bandage",
+    "kind": "N m.in>hrad",
+    "cue": "A:obvaz",
+    "use": "Potřebuji obvaz."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "tlak",
+    "en": "blood pressure / pressure",
+    "kind": "N m.in>hrad",
+    "cue": "mít tlak",
+    "use": "Mám vysoký tlak."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "teploměr",
+    "en": "thermometer",
+    "kind": "N m.in>hrad",
+    "cue": "A:teploměr",
+    "use": "Máte teploměr?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "pas",
+    "en": "passport",
+    "kind": "N m.in>hrad",
+    "cue": "A:pas",
+    "use": "Mám pas."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "občanka",
+    "en": "ID card",
+    "kind": "N f>žena",
+    "cue": "A:občanku",
+    "use": "Mám občanku."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "vízum",
+    "en": "visa",
+    "kind": "N n>město",
+    "cue": "A:vízum",
+    "use": "Mám vízum."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "povolení",
+    "en": "permit",
+    "kind": "N n>stavení",
+    "cue": "A:povolení",
+    "use": "Mám povolení."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "doklad",
+    "en": "document / ID",
+    "kind": "N m.in>hrad",
+    "cue": "A:doklad",
+    "use": "Potřebuji doklad."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "adresa",
+    "en": "address",
+    "kind": "N f>žena",
+    "cue": "A:adresu",
+    "use": "Mám adresu."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "jméno",
+    "en": "first name / name",
+    "kind": "N n>město",
+    "cue": "A:jméno",
+    "use": "Jaké je vaše jméno?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "příjmení",
+    "en": "surname",
+    "kind": "N n>stavení",
+    "cue": "A:příjmení",
+    "use": "Jaké je příjmení?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "podpis",
+    "en": "signature",
+    "kind": "N m.in>hrad",
+    "cue": "A:podpis",
+    "use": "Potřebuji podpis."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "formulář",
+    "en": "form",
+    "kind": "N m.in>stroj",
+    "cue": "A:formulář",
+    "use": "Vyplním formulář."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "datum narození",
+    "en": "date of birth",
+    "kind": "phrase",
+    "cue": "official",
+    "use": "Datum narození."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "národnost",
+    "en": "nationality",
+    "kind": "N f>kost",
+    "cue": "A:národnost",
+    "use": "Jaká je národnost?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "smlouva",
+    "en": "contract",
+    "kind": "N f>žena",
+    "cue": "A:smlouvu",
+    "use": "Mám smlouvu."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "nájem",
+    "en": "rent / lease",
+    "kind": "N m.in>hrad",
+    "cue": "A:nájem",
+    "use": "Platím nájem."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "firma",
+    "en": "company",
+    "kind": "N f>žena",
+    "cue": "ve firmě",
+    "use": "Pracuji ve firmě."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "zaměstnavatel",
+    "en": "employer",
+    "kind": "N m.an",
+    "cue": "A:zaměstnavatele",
+    "use": "Mám zaměstnavatele."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "rodné číslo",
+    "en": "birth number",
+    "kind": "N n>město",
+    "cue": "A:číslo",
+    "use": "Nemám rodné číslo."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "telefonní číslo",
+    "en": "phone number",
+    "kind": "N n>město",
+    "cue": "A:číslo",
+    "use": "Napište telefonní číslo."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "e-mailová adresa",
+    "en": "email address",
+    "kind": "N f>žena",
+    "cue": "A:adresu",
+    "use": "Potřebuji e-mailovou adresu."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "řidičský průkaz",
+    "en": "driver's license",
+    "kind": "N m.in>hrad",
+    "cue": "A:průkaz",
+    "use": "Máte řidičský průkaz?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "kartička pojištěnce",
+    "en": "insurance card",
+    "kind": "N f>žena",
+    "cue": "A:kartičku",
+    "use": "Potřebuji kartičku pojištěnce."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "pojišťovna",
+    "en": "insurance company",
+    "kind": "N f>žena",
+    "cue": "do+G:pojišťovny",
+    "use": "Jdu do pojišťovny."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "pobyt",
+    "en": "residence / stay",
+    "kind": "N m.in>hrad",
+    "cue": "k+D:pobytu",
+    "use": "Mám povolení k pobytu."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "přihláška",
+    "en": "application form",
+    "kind": "N f>žena",
+    "cue": "A:přihlášku",
+    "use": "Vyplním přihlášku."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "žádost",
+    "en": "request / application",
+    "kind": "N f>kost",
+    "cue": "A:žádost",
+    "use": "Podám žádost."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "potvrzení",
+    "en": "confirmation / certificate",
+    "kind": "N n>stavení",
+    "cue": "A:potvrzení",
+    "use": "Potřebuji potvrzení."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "kopie",
+    "en": "copy",
+    "kind": "N f>růže",
+    "cue": "A:kopii",
+    "use": "Udělám kopii."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "poplatek",
+    "en": "fee",
+    "kind": "N m.in>hrad",
+    "cue": "A:poplatek",
+    "use": "Zaplatím poplatek."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "lhůta",
+    "en": "deadline / time limit",
+    "kind": "N f>žena",
+    "cue": "jaká lhůta",
+    "use": "Jaká je lhůta?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "úředník",
+    "en": "clerk / official",
+    "kind": "N m.an>pán",
+    "cue": "s+I:úředníkem",
+    "use": "Mluvím s úředníkem."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "telefon",
+    "en": "phone",
+    "kind": "N m.in>hrad",
+    "cue": "A:telefon",
+    "use": "Mám telefon."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "mobil",
+    "en": "mobile phone",
+    "kind": "N m.in>hrad",
+    "cue": "A:mobil",
+    "use": "Mám mobil."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "zpráva",
+    "en": "message",
+    "kind": "N f>žena",
+    "cue": "A:zprávu",
+    "use": "Pošlu zprávu."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "e-mail",
+    "en": "email",
+    "kind": "N m.in",
+    "cue": "A:e-mail",
+    "use": "Napíšu e-mail."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "internet",
+    "en": "internet",
+    "kind": "N m.in>hrad",
+    "cue": "na internetu",
+    "use": "Potřebuji internet."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "wifi",
+    "en": "wifi",
+    "kind": "N indecl.",
+    "cue": "A:wifi",
+    "use": "Máte wifi?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "heslo",
+    "en": "password",
+    "kind": "N n>město",
+    "cue": "A:heslo",
+    "use": "Jaké je heslo?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "aplikace",
+    "en": "app",
+    "kind": "N f>růže",
+    "cue": "A:aplikaci",
+    "use": "Mám aplikaci."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "účet",
+    "en": "account",
+    "kind": "N m.in>hrad",
+    "cue": "A:účet",
+    "use": "Mám účet."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "fotka",
+    "en": "photo",
+    "kind": "N f>žena",
+    "cue": "A:fotku",
+    "use": "Pošlu fotku."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "nabíječka",
+    "en": "charger",
+    "kind": "N f>žena",
+    "cue": "A:nabíječku",
+    "use": "Potřebuji nabíječku."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "baterie",
+    "en": "battery",
+    "kind": "N f>růže",
+    "cue": "A:baterii",
+    "use": "Baterie je prázdná."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "obrazovka",
+    "en": "screen",
+    "kind": "N f>žena",
+    "cue": "A:obrazovku",
+    "use": "Obrazovka nefunguje."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "soubor",
+    "en": "file",
+    "kind": "N m.in>hrad",
+    "cue": "A:soubor",
+    "use": "Pošlu soubor."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "odkaz",
+    "en": "link",
+    "kind": "N m.in>hrad",
+    "cue": "A:odkaz",
+    "use": "Pošlu odkaz."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "mapa",
+    "en": "map",
+    "kind": "N f>žena",
+    "cue": "A:mapu",
+    "use": "Mám mapu."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "signál",
+    "en": "signal",
+    "kind": "N m.in>hrad",
+    "cue": "A:signál",
+    "use": "Není signál."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "data",
+    "en": "mobile data",
+    "kind": "N pl",
+    "cue": "mít data",
+    "use": "Mám data?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "kontakt",
+    "en": "contact",
+    "kind": "N m.in>hrad",
+    "cue": "A:kontakt",
+    "use": "Uložím kontakt."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "hovor",
+    "en": "phone call",
+    "kind": "N m.in>hrad",
+    "cue": "A:hovor",
+    "use": "Mám hovor."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "hlasová zpráva",
+    "en": "voice message",
+    "kind": "N f>žena",
+    "cue": "A:zprávu",
+    "use": "Pošlu hlasovou zprávu."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "nastavení",
+    "en": "settings",
+    "kind": "N n>stavení",
+    "cue": "A:nastavení",
+    "use": "Kde je nastavení?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "přihlášení",
+    "en": "login",
+    "kind": "N n>stavení",
+    "cue": "nemůžu se přihlásit",
+    "use": "Nemůžu se přihlásit."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "aktualizace",
+    "en": "update",
+    "kind": "N f>růže",
+    "cue": "A:aktualizaci",
+    "use": "Potřebuji aktualizaci."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "úložiště",
+    "en": "storage",
+    "kind": "N n>moře",
+    "cue": "v+L:úložišti",
+    "use": "Mám málo místa v úložišti."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "tiskárna",
+    "en": "printer",
+    "kind": "N f>žena",
+    "cue": "A:tiskárnu",
+    "use": "Kde je tiskárna?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "sluchátka",
+    "en": "headphones",
+    "kind": "N pl",
+    "cue": "A:sluchátka",
+    "use": "Mám sluchátka."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "zásuvka",
+    "en": "power outlet",
+    "kind": "N f>žena",
+    "cue": "kde je?",
+    "use": "Kde je zásuvka?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "SIM karta",
+    "en": "SIM card",
+    "kind": "N f>žena",
+    "cue": "A:SIM kartu",
+    "use": "Potřebuji SIM kartu."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "roaming",
+    "en": "roaming",
+    "kind": "N m.in",
+    "cue": "A:roaming",
+    "use": "Zapnu roaming."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "dobrý",
+    "en": "good",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "To je dobré."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "špatný",
+    "en": "bad",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "To je špatné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "nový",
+    "en": "new",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Mám nový telefon."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "starý",
+    "en": "old",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "To je staré."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "velký",
+    "en": "big",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to velké."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "malý",
+    "en": "small",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to malé."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "dlouhý",
+    "en": "long",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to dlouhé."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "krátký",
+    "en": "short",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to krátké."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "rychlý",
+    "en": "fast",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Vlak je rychlý."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "pomalý",
+    "en": "slow",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Autobus je pomalý."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "teplý",
+    "en": "warm",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Čaj je teplý."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "studený",
+    "en": "cold",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Voda je studená."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "horký",
+    "en": "hot",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Káva je horká."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "levný",
+    "en": "cheap",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to levné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "drahý",
+    "en": "expensive",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to drahé."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "blízký",
+    "en": "near / close",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Hotel je blízko."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "daleký",
+    "en": "far",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to daleko."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "otevřený",
+    "en": "open",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Obchod je otevřený."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "zavřený",
+    "en": "closed",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Obchod je zavřený."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "volný",
+    "en": "free / available",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je tu volný pokoj?"
+  },
+  {
+    "cat": "Describing things",
+    "cs": "obsazený",
+    "en": "occupied",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Pokoj je obsazený."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "stejný",
+    "en": "same",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to stejné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "jiný",
+    "en": "different / other",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Chci jiný pokoj."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "krásný",
+    "en": "beautiful",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Praha je krásná."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "čistý",
+    "en": "clean",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Pokoj je čistý."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "špinavý",
+    "en": "dirty",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to špinavé."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "těžký",
+    "en": "heavy / difficult",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Čeština je těžká."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "lehký",
+    "en": "light / easy",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to lehké."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "důležitý",
+    "en": "important",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "To je důležité."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "možný",
+    "en": "possible",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Je to možné?"
+  },
+  {
+    "cat": "Describing things",
+    "cs": "pravý",
+    "en": "right / true",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Je to pravý vchod."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "levý",
+    "en": "left",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Je to levá strana."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "celý",
+    "en": "whole / entire",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Celý den čekám."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "prázdný",
+    "en": "empty",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Pokoj je prázdný."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "plný",
+    "en": "full",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Autobus je plný."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "bezpečný",
+    "en": "safe",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Je to bezpečné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "nebezpečný",
+    "en": "dangerous",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Je to nebezpečné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "pohodlný",
+    "en": "comfortable",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Je to pohodlné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "hlučný",
+    "en": "noisy",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Hotel je hlučný."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "tichý",
+    "en": "quiet",
+    "kind": "adj",
+    "cue": "-ý/-á/-é",
+    "use": "Pokoj je tichý."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "vlevo",
+    "en": "left",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Je to vlevo."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "vpravo",
+    "en": "right",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Je to vpravo."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "rovně",
+    "en": "straight",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jděte rovně."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "zpět",
+    "en": "back",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jdu zpět."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "dopředu",
+    "en": "forward",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jděte dopředu."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "dozadu",
+    "en": "backward",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jděte dozadu."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "nahoru",
+    "en": "up",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jděte nahoru."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "dolů",
+    "en": "down",
+    "kind": "direction",
+    "cue": "no forms",
+    "use": "Jděte dolů."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "blízko",
+    "en": "near",
+    "kind": "place word",
+    "cue": "je blízko",
+    "use": "Je to blízko."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "daleko",
+    "en": "far",
+    "kind": "place word",
+    "cue": "je daleko",
+    "use": "Je to daleko?"
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "vedle",
+    "en": "next to",
+    "kind": "P+G",
+    "cue": "vedle+G",
+    "use": "Je to vedle hotelu."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "naproti",
+    "en": "opposite",
+    "kind": "P+D",
+    "cue": "naproti+D",
+    "use": "Je to naproti hotelu."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "mezi",
+    "en": "between",
+    "kind": "P+A/I",
+    "cue": "place I",
+    "use": "Je to mezi domy."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "před",
+    "en": "in front of / before",
+    "kind": "P+A/I",
+    "cue": "place I",
+    "use": "Je to před hotelem."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "za",
+    "en": "behind / after",
+    "kind": "P+A/I",
+    "cue": "place I",
+    "use": "Je to za hotelem."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "na rohu",
+    "en": "on the corner",
+    "kind": "phrase",
+    "cue": "location",
+    "use": "Je to na rohu."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "tamhle",
+    "en": "over there",
+    "kind": "place word",
+    "cue": "pointing",
+    "use": "Je to tamhle."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "přes",
+    "en": "across / through",
+    "kind": "P+A",
+    "cue": "přes+A",
+    "use": "Jděte přes most."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "kolem",
+    "en": "around / past",
+    "kind": "P+G",
+    "cue": "kolem+G",
+    "use": "Jděte kolem parku."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "uvnitř",
+    "en": "inside",
+    "kind": "place word",
+    "cue": "location",
+    "use": "Je to uvnitř."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "venku",
+    "en": "outside",
+    "kind": "place word",
+    "cue": "location",
+    "use": "Jsem venku."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "doma",
+    "en": "at home",
+    "kind": "place word",
+    "cue": "location",
+    "use": "Jsem doma."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "domů",
+    "en": "homeward",
+    "kind": "place word",
+    "cue": "direction",
+    "use": "Jdu domů."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "schody",
+    "en": "stairs",
+    "kind": "N pl",
+    "cue": "po+L:schodech",
+    "use": "Jděte po schodech."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "sever",
+    "en": "north",
+    "kind": "N m.in>hrad",
+    "cue": "na sever",
+    "use": "Jdu na sever."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "jih",
+    "en": "south",
+    "kind": "N m.in>hrad",
+    "cue": "na jih",
+    "use": "Jdu na jih."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "západ",
+    "en": "west",
+    "kind": "N m.in>hrad",
+    "cue": "na západ",
+    "use": "Jdu na západ."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "na východ",
+    "en": "east / eastward",
+    "kind": "place word",
+    "cue": "direction",
+    "use": "Jděte na východ."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "křižovatka",
+    "en": "intersection",
+    "kind": "N f>žena",
+    "cue": "na+L:křižovatce",
+    "use": "Odbočte na křižovatce."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "chodník",
+    "en": "sidewalk",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:chodníku",
+    "use": "Jdu po chodníku."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "přechod",
+    "en": "crosswalk",
+    "kind": "N m.in>hrad",
+    "cue": "na+L:přechodu",
+    "use": "Jdu přes přechod."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "semafor",
+    "en": "traffic light",
+    "kind": "N m.in>hrad",
+    "cue": "u+G:semaforu",
+    "use": "Jsem u semaforu."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "zaměstnání",
+    "en": "employment / job",
+    "kind": "N n>stavení",
+    "cue": "A:zaměstnání",
+    "use": "Hledám zaměstnání."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "kurz",
+    "en": "course",
+    "kind": "N m.in>hrad",
+    "cue": "A:kurz",
+    "use": "Mám kurz češtiny."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "lekce",
+    "en": "lesson",
+    "kind": "N f>růže",
+    "cue": "A:lekci",
+    "use": "Mám lekci."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "schůzka",
+    "en": "meeting",
+    "kind": "N f>žena",
+    "cue": "A:schůzku",
+    "use": "Mám schůzku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "projekt",
+    "en": "project",
+    "kind": "N m.in>hrad",
+    "cue": "A:projekt",
+    "use": "Pracuji na projektu."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "úkol",
+    "en": "task / homework",
+    "kind": "N m.in>hrad",
+    "cue": "A:úkol",
+    "use": "Mám úkol."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "dokument",
+    "en": "document",
+    "kind": "N m.in>hrad",
+    "cue": "A:dokument",
+    "use": "Pošlu dokument."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "počítač",
+    "en": "computer",
+    "kind": "N m.in>stroj",
+    "cue": "A:počítač",
+    "use": "Mám počítač."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "domluva",
+    "en": "arrangement",
+    "kind": "N f>žena",
+    "cue": "podle domluvy",
+    "use": "Platí domluva."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "termín",
+    "en": "deadline / appointment",
+    "kind": "N m.in>hrad",
+    "cue": "A:termín",
+    "use": "Mám termín."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "mzda",
+    "en": "wage",
+    "kind": "N f>žena",
+    "cue": "A:mzdu",
+    "use": "Mám mzdu."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "pauza",
+    "en": "break",
+    "kind": "N f>žena",
+    "cue": "A:pauzu",
+    "use": "Mám pauzu."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "přestávka",
+    "en": "break",
+    "kind": "N f>žena",
+    "cue": "A:přestávku",
+    "use": "Máme přestávku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "školení",
+    "en": "training",
+    "kind": "N n>stavení",
+    "cue": "na školení",
+    "use": "Jdu na školení."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "šéf",
+    "en": "boss",
+    "kind": "N m.an>pán",
+    "cue": "s+I:šéfem",
+    "use": "Mám schůzku se šéfem."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "klient",
+    "en": "client",
+    "kind": "N m.an>pán",
+    "cue": "s+I:klientem",
+    "use": "Mluvím s klientem."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "tým",
+    "en": "team",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:týmu",
+    "use": "Pracuji v týmu."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "tabule",
+    "en": "board",
+    "kind": "N f>růže",
+    "cue": "na+L:tabuli",
+    "use": "Je to na tabuli."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "sešit",
+    "en": "notebook",
+    "kind": "N m.in>hrad",
+    "cue": "A:sešit",
+    "use": "Mám sešit."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "tužka",
+    "en": "pencil",
+    "kind": "N f>žena",
+    "cue": "A:tužku",
+    "use": "Potřebuji tužku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "pero",
+    "en": "pen",
+    "kind": "N n>město",
+    "cue": "A:pero",
+    "use": "Máte pero?"
+  },
+  {
+    "cat": "Work + study",
+    "cs": "zkouška",
+    "en": "exam / test",
+    "kind": "N f>žena",
+    "cue": "A:zkoušku",
+    "use": "Mám zkoušku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "domácí úkol",
+    "en": "homework",
+    "kind": "N m.in>hrad",
+    "cue": "A:úkol",
+    "use": "Mám domácí úkol."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "známka",
+    "en": "grade / mark",
+    "kind": "N f>žena",
+    "cue": "A:známku",
+    "use": "Mám dobrou známku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "rozvrh",
+    "en": "schedule / timetable",
+    "kind": "N m.in>hrad",
+    "cue": "A:rozvrh",
+    "use": "Mám rozvrh."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "přednáška",
+    "en": "lecture",
+    "kind": "N f>žena",
+    "cue": "na+A:přednášku",
+    "use": "Jdu na přednášku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "učebnice",
+    "en": "textbook",
+    "kind": "N f>růže",
+    "cue": "A:učebnici",
+    "use": "Potřebuji učebnici."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "diplom",
+    "en": "diploma",
+    "kind": "N m.in>hrad",
+    "cue": "A:diplom",
+    "use": "Mám diplom."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "životopis",
+    "en": "CV / resume",
+    "kind": "N m.in>hrad",
+    "cue": "A:životopis",
+    "use": "Pošlu životopis."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "pohovor",
+    "en": "interview",
+    "kind": "N m.in>hrad",
+    "cue": "na+A:pohovor",
+    "use": "Jdu na pohovor."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "oblečení",
+    "en": "clothes",
+    "kind": "N n>stavení",
+    "cue": "A:oblečení",
+    "use": "Potřebuji oblečení."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "košile",
+    "en": "shirt",
+    "kind": "N f>růže",
+    "cue": "A:košili",
+    "use": "Mám košili."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "tričko",
+    "en": "T-shirt",
+    "kind": "N n>město",
+    "cue": "A:tričko",
+    "use": "Koupím tričko."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "kalhoty",
+    "en": "pants",
+    "kind": "N pl",
+    "cue": "A:kalhoty",
+    "use": "Potřebuji kalhoty."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "sukně",
+    "en": "skirt",
+    "kind": "N f>růže",
+    "cue": "A:sukni",
+    "use": "Koupím sukni."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "šaty",
+    "en": "dress",
+    "kind": "N pl",
+    "cue": "A:šaty",
+    "use": "Koupím šaty."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "bunda",
+    "en": "jacket",
+    "kind": "N f>žena",
+    "cue": "A:bundu",
+    "use": "Mám bundu."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "kabát",
+    "en": "coat",
+    "kind": "N m.in>hrad",
+    "cue": "A:kabát",
+    "use": "Potřebuji kabát."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "boty",
+    "en": "shoes",
+    "kind": "N pl",
+    "cue": "A:boty",
+    "use": "Kde jsou boty?"
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "ponožky",
+    "en": "socks",
+    "kind": "N pl",
+    "cue": "A:ponožky",
+    "use": "Koupím ponožky."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "čepice",
+    "en": "hat / cap",
+    "kind": "N f>růže",
+    "cue": "A:čepici",
+    "use": "Mám čepici."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "hodinky",
+    "en": "watch",
+    "kind": "N pl",
+    "cue": "A:hodinky",
+    "use": "Mám hodinky."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "spodní prádlo",
+    "en": "underwear",
+    "kind": "N n>město",
+    "cue": "A:spodní prádlo",
+    "use": "Potřebuji spodní prádlo."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "podprsenka",
+    "en": "bra",
+    "kind": "N f>žena",
+    "cue": "A:podprsenku",
+    "use": "Koupím podprsenku."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "plavky",
+    "en": "swimsuit",
+    "kind": "N pl",
+    "cue": "A:plavky",
+    "use": "Potřebuji plavky."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "svetr",
+    "en": "sweater",
+    "kind": "N m.in>hrad",
+    "cue": "A:svetr",
+    "use": "Mám svetr."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "mikina",
+    "en": "hoodie / sweatshirt",
+    "kind": "N f>žena",
+    "cue": "A:mikinu",
+    "use": "Koupím mikinu."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "kraťasy",
+    "en": "shorts",
+    "kind": "N pl",
+    "cue": "A:kraťasy",
+    "use": "Potřebuji kraťasy."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "džíny",
+    "en": "jeans",
+    "kind": "N pl",
+    "cue": "A:džíny",
+    "use": "Koupím džíny."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "rukavice",
+    "en": "gloves",
+    "kind": "N pl",
+    "cue": "A:rukavice",
+    "use": "Mám rukavice."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "šála",
+    "en": "scarf",
+    "kind": "N f>žena",
+    "cue": "A:šálu",
+    "use": "Potřebuji šálu."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "pásek",
+    "en": "belt",
+    "kind": "N m.in>hrad",
+    "cue": "A:pásek",
+    "use": "Koupím pásek."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "kabelka",
+    "en": "handbag",
+    "kind": "N f>žena",
+    "cue": "A:kabelku",
+    "use": "Mám kabelku."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "kufr",
+    "en": "suitcase",
+    "kind": "N m.in>hrad",
+    "cue": "A:kufr",
+    "use": "Mám kufr."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "šampon",
+    "en": "shampoo",
+    "kind": "N m.in>hrad",
+    "cue": "A:šampon",
+    "use": "Potřebuji šampon."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "zubní pasta",
+    "en": "toothpaste",
+    "kind": "N f>žena",
+    "cue": "A:zubní pastu",
+    "use": "Máte zubní pastu?"
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "hřeben",
+    "en": "comb",
+    "kind": "N m.in>hrad",
+    "cue": "A:hřeben",
+    "use": "Potřebuji hřeben."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "holicí strojek",
+    "en": "razor / shaver",
+    "kind": "N m.in>hrad",
+    "cue": "A:holicí strojek",
+    "use": "Potřebuji holicí strojek."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "počasí",
+    "en": "weather",
+    "kind": "N n>stavení",
+    "cue": "jaké je?",
+    "use": "Jaké je počasí?"
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "déšť",
+    "en": "rain",
+    "kind": "N m.in",
+    "cue": "prší",
+    "use": "Prší."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "sníh",
+    "en": "snow",
+    "kind": "N m.in>hrad",
+    "cue": "sněží",
+    "use": "Sněží."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "vítr",
+    "en": "wind",
+    "kind": "N m.in>hrad",
+    "cue": "fouká",
+    "use": "Fouká vítr."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "slunce",
+    "en": "sun",
+    "kind": "N n>moře",
+    "cue": "svítí",
+    "use": "Svítí slunce."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "mrak",
+    "en": "cloud",
+    "kind": "N m.in>hrad",
+    "cue": "pl:mraky",
+    "use": "Jsou mraky."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "teplo",
+    "en": "warmth",
+    "kind": "N n>město",
+    "cue": "je teplo",
+    "use": "Je teplo."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "chladno",
+    "en": "cold weather",
+    "kind": "adv/status",
+    "cue": "je chladno",
+    "use": "Je chladno."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "jaro",
+    "en": "spring",
+    "kind": "N n>město",
+    "cue": "na jaře",
+    "use": "Na jaře cestuji."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "léto",
+    "en": "summer",
+    "kind": "N n>město",
+    "cue": "v létě",
+    "use": "V létě je teplo."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "podzim",
+    "en": "autumn",
+    "kind": "N m.in>hrad",
+    "cue": "na podzim",
+    "use": "Na podzim prší."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "zima",
+    "en": "winter",
+    "kind": "N f>žena",
+    "cue": "v zimě",
+    "use": "V zimě sněží."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "předpověď",
+    "en": "forecast",
+    "kind": "N f>píseň",
+    "cue": "A:předpověď",
+    "use": "Máte předpověď?"
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "teplota",
+    "en": "temperature",
+    "kind": "N f>žena",
+    "cue": "A:teplotu",
+    "use": "Jaká je teplota?"
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "stupně",
+    "en": "degrees",
+    "kind": "N pl",
+    "cue": "kolik stupňů",
+    "use": "Je dvacet stupňů."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "horko",
+    "en": "hot weather",
+    "kind": "status",
+    "cue": "je horko",
+    "use": "Je horko."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "mráz",
+    "en": "frost / freezing cold",
+    "kind": "N m.in>hrad",
+    "cue": "je mráz",
+    "use": "Je mráz."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "bouřka",
+    "en": "storm",
+    "kind": "N f>žena",
+    "cue": "je bouřka",
+    "use": "Je bouřka."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "mlha",
+    "en": "fog",
+    "kind": "N f>žena",
+    "cue": "je mlha",
+    "use": "Je mlha."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "nebe",
+    "en": "sky",
+    "kind": "N n>moře",
+    "cue": "na+L:nebi",
+    "use": "Na nebi jsou mraky."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "vzduch",
+    "en": "air",
+    "kind": "N m.in>hrad",
+    "cue": "A:vzduch",
+    "use": "Potřebuji čerstvý vzduch."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "strom",
+    "en": "tree",
+    "kind": "N m.in>hrad",
+    "cue": "A:strom",
+    "use": "Vidím strom."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "květina",
+    "en": "flower",
+    "kind": "N f>žena",
+    "cue": "A:květinu",
+    "use": "Koupím květinu."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "tráva",
+    "en": "grass",
+    "kind": "N f>žena",
+    "cue": "na+L:trávě",
+    "use": "Sedím na trávě."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "hora",
+    "en": "mountain",
+    "kind": "N f>žena",
+    "cue": "A:horu",
+    "use": "Vidím horu."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "moře",
+    "en": "sea",
+    "kind": "N n>moře",
+    "cue": "k+D:moři",
+    "use": "Jdu k moři."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "zvíře",
+    "en": "animal",
+    "kind": "N n>kuře",
+    "cue": "A:zvíře",
+    "use": "Vidím zvíře."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "pes",
+    "en": "dog",
+    "kind": "N m.an irregular",
+    "cue": "A:psa",
+    "use": "Mám psa."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "kočka",
+    "en": "cat",
+    "kind": "N f>žena",
+    "cue": "A:kočku",
+    "use": "Mám kočku."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "pták",
+    "en": "bird",
+    "kind": "N m.an>pán",
+    "cue": "A:ptáka",
+    "use": "Vidím ptáka."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "rád / ráda",
+    "en": "glad / like to",
+    "kind": "adj-like",
+    "cue": "m/f speaker",
+    "use": "Rád bych kávu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "chtěl bych / chtěla bych",
+    "en": "I would like",
+    "kind": "phrase",
+    "cue": "m/f speaker",
+    "use": "Chtěl bych vodu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "láska",
+    "en": "love",
+    "kind": "N f>žena",
+    "cue": "A:lásku",
+    "use": "To je láska."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "přátelství",
+    "en": "friendship",
+    "kind": "N n>stavení",
+    "cue": "A:přátelství",
+    "use": "To je přátelství."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "štěstí",
+    "en": "happiness / luck",
+    "kind": "N n>stavení",
+    "cue": "mít štěstí",
+    "use": "Mám štěstí."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "smutek",
+    "en": "sadness",
+    "kind": "N m.in",
+    "cue": "mít smutek",
+    "use": "Cítím smutek."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "strach",
+    "en": "fear",
+    "kind": "N m.in>hrad",
+    "cue": "mít strach",
+    "use": "Mám strach."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "nervózní",
+    "en": "nervous",
+    "kind": "adj",
+    "cue": "same form often",
+    "use": "Jsem nervózní."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "spokojený",
+    "en": "satisfied",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Jsem spokojený."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "naštvaný",
+    "en": "angry",
+    "kind": "adj",
+    "cue": "m form",
+    "use": "Jsem naštvaný."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "hudba",
+    "en": "music",
+    "kind": "N f>žena",
+    "cue": "A:hudbu",
+    "use": "Mám rád hudbu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "film",
+    "en": "film / movie",
+    "kind": "N m.in>hrad",
+    "cue": "A:film",
+    "use": "Chci vidět film."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "kniha",
+    "en": "book",
+    "kind": "N f>žena",
+    "cue": "A:knihu",
+    "use": "Čtu knihu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "sport",
+    "en": "sport",
+    "kind": "N m.in>hrad",
+    "cue": "A:sport",
+    "use": "Mám rád sport."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "procházka",
+    "en": "walk",
+    "kind": "N f>žena",
+    "cue": "na procházku",
+    "use": "Jdu na procházku."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "výlet",
+    "en": "trip",
+    "kind": "N m.in>hrad",
+    "cue": "na výlet",
+    "use": "Jdu na výlet."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "radost",
+    "en": "joy",
+    "kind": "N f>kost",
+    "cue": "mít radost",
+    "use": "Mám radost."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "klid",
+    "en": "calm / peace",
+    "kind": "N m.in>hrad",
+    "cue": "A:klid",
+    "use": "Potřebuji klid."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "stres",
+    "en": "stress",
+    "kind": "N m.in>hrad",
+    "cue": "mít stres",
+    "use": "Mám stres."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "zábava",
+    "en": "fun / entertainment",
+    "kind": "N f>žena",
+    "cue": "A:zábavu",
+    "use": "Chci zábavu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "úsměv",
+    "en": "smile",
+    "kind": "N m.in>hrad",
+    "cue": "A:úsměv",
+    "use": "Má hezký úsměv."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "smát se",
+    "en": "laugh / smile",
+    "kind": "V ipf",
+    "cue": "směju se",
+    "use": "Směju se."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "plakat",
+    "en": "cry",
+    "kind": "V ipf",
+    "cue": "pláču",
+    "use": "Pláču."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "bát se",
+    "en": "be afraid",
+    "kind": "V ipf",
+    "cue": "bojím se",
+    "use": "Bojím se."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "těšit se",
+    "en": "look forward to",
+    "kind": "V ipf",
+    "cue": "těším se na+A",
+    "use": "Těším se na víkend."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "vadit",
+    "en": "bother / matter",
+    "kind": "V ipf",
+    "cue": "vadí mi",
+    "use": "Vadí mi to."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "pozvání",
+    "en": "invitation",
+    "kind": "N n>stavení",
+    "cue": "A:pozvání",
+    "use": "Mám pozvání."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "oslava",
+    "en": "celebration",
+    "kind": "N f>žena",
+    "cue": "na+A:oslavu",
+    "use": "Jdu na oslavu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "návštěva",
+    "en": "visit / visitor",
+    "kind": "N f>žena",
+    "cue": "A:návštěvu",
+    "use": "Čekám návštěvu."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "večírek",
+    "en": "party",
+    "kind": "N m.in>hrad",
+    "cue": "na+A:večírek",
+    "use": "Jdu na večírek."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobré ráno",
+    "en": "good morning",
+    "kind": "phrase",
+    "cue": "greeting",
+    "use": "Dobré ráno."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobrý večer",
+    "en": "good evening",
+    "kind": "phrase",
+    "cue": "greeting",
+    "use": "Dobrý večer."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobrou noc",
+    "en": "good night",
+    "kind": "phrase",
+    "cue": "goodbye",
+    "use": "Dobrou noc."
+  },
+  {
+    "cat": "Basics",
+    "cs": "dobrou chuť",
+    "en": "enjoy your meal",
+    "kind": "phrase",
+    "cue": "food phrase",
+    "use": "Dobrou chuť."
+  },
+  {
+    "cat": "Basics",
+    "cs": "na zdraví",
+    "en": "cheers / bless you",
+    "kind": "phrase",
+    "cue": "toast/reply",
+    "use": "Na zdraví."
+  },
+  {
+    "cat": "Basics",
+    "cs": "to nevadí",
+    "en": "that is okay",
+    "kind": "sentence",
+    "cue": "reassure",
+    "use": "To nevadí."
+  },
+  {
+    "cat": "Basics",
+    "cs": "jak se řekne...?",
+    "en": "how do you say...?",
+    "kind": "sentence",
+    "cue": "+ word",
+    "use": "Jak se řekne ticket česky?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "tento / tato / toto",
+    "en": "this",
+    "kind": "pronoun",
+    "cue": "gender changes",
+    "use": "Chci toto."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "něco",
+    "en": "something",
+    "kind": "pronoun",
+    "cue": "thing",
+    "use": "Potřebuji něco levného."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "nic",
+    "en": "nothing",
+    "kind": "pronoun",
+    "cue": "negative",
+    "use": "Nic nepotřebuji."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "někdo",
+    "en": "someone",
+    "kind": "pronoun",
+    "cue": "person",
+    "use": "Je tu někdo?"
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "nikdo",
+    "en": "nobody",
+    "kind": "pronoun",
+    "cue": "negative person",
+    "use": "Nikdo tu není."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "všechno",
+    "en": "everything",
+    "kind": "pronoun",
+    "cue": "whole amount",
+    "use": "To je všechno."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "každý / každá / každé",
+    "en": "each / every",
+    "kind": "pronoun/adj",
+    "cue": "gender changes",
+    "use": "Každý den pracuji."
+  },
+  {
+    "cat": "Questions + glue",
+    "cs": "spolu",
+    "en": "together",
+    "kind": "adv",
+    "cue": "with each other",
+    "use": "Jdeme spolu."
+  },
+  {
+    "cat": "People + family",
+    "cs": "pán",
+    "en": "sir / gentleman",
+    "kind": "N m.an>pán",
+    "cue": "voc:pane",
+    "use": "Dobrý den, pane."
+  },
+  {
+    "cat": "People + family",
+    "cs": "paní",
+    "en": "madam / Mrs",
+    "kind": "N f irregular",
+    "cue": "same form",
+    "use": "Dobrý den, paní."
+  },
+  {
+    "cat": "People + family",
+    "cs": "partner / partnerka",
+    "en": "partner",
+    "kind": "N person",
+    "cue": "s+I:partnerem",
+    "use": "Jsem tu s partnerkou."
+  },
+  {
+    "cat": "People + family",
+    "cs": "cizinec / cizinka",
+    "en": "foreigner",
+    "kind": "N person",
+    "cue": "jsem cizinec",
+    "use": "Jsem cizinec."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "jmenovat se",
+    "en": "be called / have name",
+    "kind": "V reflexive",
+    "cue": "jmenuji se",
+    "use": "Jmenuji se Ana."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "stačit",
+    "en": "be enough",
+    "kind": "V ipf",
+    "cue": "stačí",
+    "use": "To stačí."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "chybět",
+    "en": "be missing",
+    "kind": "V ipf",
+    "cue": "chybí mi + N",
+    "use": "Chybí mi klíč."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "zůstávat / zůstat",
+    "en": "stay",
+    "kind": "V ipf→pf",
+    "cue": "zůstanu",
+    "use": "Zůstanu tady."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "vracet / vrátit",
+    "en": "return something",
+    "kind": "V ipf→pf",
+    "cue": "vrátím + A",
+    "use": "Vrátím klíč."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "vybírat / vybrat si",
+    "en": "choose / pick",
+    "kind": "V ipf→pf",
+    "cue": "vyberu si + A",
+    "use": "Vyberu si menu."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "rozhodovat se / rozhodnout se",
+    "en": "decide",
+    "kind": "V ipf→pf",
+    "cue": "rozhodnu se",
+    "use": "Rozhodnu se zítra."
+  },
+  {
+    "cat": "Core verbs",
+    "cs": "žádat / požádat",
+    "en": "request / ask for",
+    "kind": "V ipf→pf",
+    "cue": "požádám o+A",
+    "use": "Požádám o pomoc."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "dojít",
+    "en": "reach by foot",
+    "kind": "V pf motion",
+    "cue": "dojdu do+G",
+    "use": "Dojdu do hotelu."
+  },
+  {
+    "cat": "Movement verbs",
+    "cs": "dojet",
+    "en": "reach by vehicle",
+    "kind": "V pf motion",
+    "cue": "dojedu do+G",
+    "use": "Dojedu do Prahy."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "poslouchat / poslechnout",
+    "en": "listen",
+    "kind": "V ipf→pf",
+    "cue": "poslouchám + A",
+    "use": "Poslouchám hudbu."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "hlásit / nahlásit",
+    "en": "report",
+    "kind": "V ipf→pf",
+    "cue": "nahlásím + A",
+    "use": "Nahlásím problém."
+  },
+  {
+    "cat": "Talk + messages",
+    "cs": "stěžovat si / postěžovat si",
+    "en": "complain",
+    "kind": "V reflexive",
+    "cue": "na+A",
+    "use": "Chci si stěžovat."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "připravovat / připravit",
+    "en": "prepare",
+    "kind": "V ipf→pf",
+    "cue": "připravím + A",
+    "use": "Připravím dokument."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "kontrolovat / zkontrolovat",
+    "en": "check",
+    "kind": "V ipf→pf",
+    "cue": "zkontroluji + A",
+    "use": "Zkontroluji účet."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "plánovat / naplánovat",
+    "en": "plan",
+    "kind": "V ipf→pf",
+    "cue": "naplánuji + A",
+    "use": "Naplánuji cestu."
+  },
+  {
+    "cat": "Daily verbs",
+    "cs": "vyzvedávat / vyzvednout",
+    "en": "pick up",
+    "kind": "V ipf→pf",
+    "cue": "vyzvednu + A",
+    "use": "Vyzvednu balíček."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "kohoutek",
+    "en": "tap / faucet",
+    "kind": "N m.in>hrad",
+    "cue": "z+G:kohoutku",
+    "use": "Voda z kohoutku, prosím."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "odpadky",
+    "en": "trash",
+    "kind": "N pl",
+    "cue": "kde jsou?",
+    "use": "Kde jsou odpadky?"
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "sporák",
+    "en": "stove",
+    "kind": "N m.in>hrad",
+    "cue": "N:sporák",
+    "use": "Sporák nefunguje."
+  },
+  {
+    "cat": "Home + daily things",
+    "cs": "trouba",
+    "en": "oven",
+    "kind": "N f>žena",
+    "cue": "N:trouba",
+    "use": "Trouba nefunguje."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "hovězí",
+    "en": "beef",
+    "kind": "food adj/N",
+    "cue": "A:hovězí",
+    "use": "Máte hovězí?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "vepřové",
+    "en": "pork",
+    "kind": "food adj/N",
+    "cue": "A:vepřové",
+    "use": "Bez vepřového, prosím."
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "pálivé",
+    "en": "spicy",
+    "kind": "adj/status",
+    "cue": "je pálivé",
+    "use": "Je to pálivé?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "alergen",
+    "en": "allergen",
+    "kind": "N m.in>hrad",
+    "cue": "pl:alergeny",
+    "use": "Má to alergeny?"
+  },
+  {
+    "cat": "Food + drink",
+    "cs": "jogurt",
+    "en": "yogurt",
+    "kind": "N m.in>hrad",
+    "cue": "A:jogurt",
+    "use": "Koupím jogurt."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "otevírací doba",
+    "en": "opening hours",
+    "kind": "N f>žena",
+    "cue": "jaká je?",
+    "use": "Jaká je otevírací doba?"
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "terminál",
+    "en": "payment terminal",
+    "kind": "N m.in>hrad",
+    "cue": "N:terminál",
+    "use": "Terminál nefunguje."
+  },
+  {
+    "cat": "Shopping + services",
+    "cs": "zásilka",
+    "en": "shipment",
+    "kind": "N f>žena",
+    "cue": "A:zásilku",
+    "use": "Mám zásilku."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "PIN",
+    "en": "PIN code",
+    "kind": "N m.in",
+    "cue": "A:PIN",
+    "use": "Zadám PIN."
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "zůstatek",
+    "en": "balance",
+    "kind": "N m.in>hrad",
+    "cue": "jaký je?",
+    "use": "Jaký je zůstatek?"
+  },
+  {
+    "cat": "Money + numbers",
+    "cs": "limit",
+    "en": "limit",
+    "kind": "N m.in>hrad",
+    "cue": "A:limit",
+    "use": "Mám limit."
+  },
+  {
+    "cat": "Transport",
+    "cs": "zavazadlo",
+    "en": "luggage",
+    "kind": "N n>město",
+    "cue": "A:zavazadlo",
+    "use": "Mám zavazadlo."
+  },
+  {
+    "cat": "Transport",
+    "cs": "letenka",
+    "en": "plane ticket",
+    "kind": "N f>žena",
+    "cue": "A:letenku",
+    "use": "Mám letenku."
+  },
+  {
+    "cat": "Transport",
+    "cs": "letištní terminál",
+    "en": "airport terminal",
+    "kind": "N m.in>hrad",
+    "cue": "v+L:terminálu",
+    "use": "Jsem v terminálu."
+  },
+  {
+    "cat": "Transport",
+    "cs": "brána",
+    "en": "gate",
+    "kind": "N f>žena",
+    "cue": "u+G:brány",
+    "use": "Kde je brána?"
+  },
+  {
+    "cat": "Transport",
+    "cs": "zácpa",
+    "en": "traffic jam",
+    "kind": "N f>žena",
+    "cue": "je zácpa",
+    "use": "Je zácpa."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "potraviny",
+    "en": "grocery shop / groceries",
+    "kind": "N pl",
+    "cue": "kde jsou?",
+    "use": "Kde jsou potraviny?"
+  },
+  {
+    "cat": "Places + city",
+    "cs": "ordinace",
+    "en": "doctor's office",
+    "kind": "N f>růže",
+    "cue": "do+G:ordinace",
+    "use": "Jdu do ordinace."
+  },
+  {
+    "cat": "Places + city",
+    "cs": "zubař",
+    "en": "dentist",
+    "kind": "N m.an>muž",
+    "cue": "A:zubaře",
+    "use": "Potřebuji zubaře."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "čas",
+    "en": "time",
+    "kind": "N m.in>hrad",
+    "cue": "mít A",
+    "use": "Nemám čas."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "včas",
+    "en": "on time",
+    "kind": "adv",
+    "cue": "time status",
+    "use": "Přijdu včas."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "pozdě",
+    "en": "late",
+    "kind": "adv",
+    "cue": "time status",
+    "use": "Je pozdě."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "příští",
+    "en": "next",
+    "kind": "adj",
+    "cue": "příští týden",
+    "use": "Přijdu příští týden."
+  },
+  {
+    "cat": "Time + calendar",
+    "cs": "minulý",
+    "en": "last / past",
+    "kind": "adj",
+    "cue": "minulý týden",
+    "use": "Byl jsem tu minulý týden."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "nehoda",
+    "en": "accident",
+    "kind": "N f>žena",
+    "cue": "byla nehoda",
+    "use": "Byla nehoda."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "dušnost",
+    "en": "shortness of breath",
+    "kind": "N f>kost",
+    "cue": "mám A",
+    "use": "Mám dušnost."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "infekce",
+    "en": "infection",
+    "kind": "N f>růže",
+    "cue": "A:infekci",
+    "use": "Mám infekci."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "žaludek",
+    "en": "stomach",
+    "kind": "N m.in>hrad",
+    "cue": "bolí mě",
+    "use": "Bolí mě žaludek."
+  },
+  {
+    "cat": "Health + body",
+    "cs": "hrudník",
+    "en": "chest",
+    "kind": "N m.in>hrad",
+    "cue": "bolí mě",
+    "use": "Bolí mě hrudník."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "bydliště",
+    "en": "place of residence",
+    "kind": "N n>moře",
+    "cue": "A:bydliště",
+    "use": "Jaké je vaše bydliště?"
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "trvalý pobyt",
+    "en": "permanent residence",
+    "kind": "N m.in>hrad",
+    "cue": "A:pobyt",
+    "use": "Mám trvalý pobyt."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "registrace",
+    "en": "registration",
+    "kind": "N f>růže",
+    "cue": "A:registraci",
+    "use": "Potřebuji registraci."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "ověření",
+    "en": "verification",
+    "kind": "N n>stavení",
+    "cue": "A:ověření",
+    "use": "Potřebuji ověření."
+  },
+  {
+    "cat": "Admin + documents",
+    "cs": "pokuta",
+    "en": "fine / penalty",
+    "kind": "N f>žena",
+    "cue": "A:pokutu",
+    "use": "Dostal jsem pokutu."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "QR kód",
+    "en": "QR code",
+    "kind": "N m.in>hrad",
+    "cue": "A:kód",
+    "use": "Máte QR kód?"
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "připojení",
+    "en": "connection",
+    "kind": "N n>stavení",
+    "cue": "N:připojení",
+    "use": "Připojení nefunguje."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "navigace",
+    "en": "navigation",
+    "kind": "N f>růže",
+    "cue": "A:navigaci",
+    "use": "Použiju navigaci."
+  },
+  {
+    "cat": "Phone + internet",
+    "cs": "sdílet / nasdílet",
+    "en": "share",
+    "kind": "V ipf→pf",
+    "cue": "nasdílím + A",
+    "use": "Nasdílím polohu."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "správný",
+    "en": "correct / right",
+    "kind": "adj hard",
+    "cue": "správná adresa",
+    "use": "Je to správná adresa?"
+  },
+  {
+    "cat": "Describing things",
+    "cs": "lepší",
+    "en": "better",
+    "kind": "adj comparative",
+    "cue": "lepší než",
+    "use": "To je lepší."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "horší",
+    "en": "worse",
+    "kind": "adj comparative",
+    "cue": "horší než",
+    "use": "To je horší."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "snadný",
+    "en": "easy",
+    "kind": "adj hard",
+    "cue": "snadná cesta",
+    "use": "To je snadné."
+  },
+  {
+    "cat": "Describing things",
+    "cs": "složitý",
+    "en": "complicated",
+    "kind": "adj hard",
+    "cue": "složitá věc",
+    "use": "Je to složité."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "patro",
+    "en": "floor / storey",
+    "kind": "N n>město",
+    "cue": "v+L:patře",
+    "use": "Je to ve druhém patře."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "výtah",
+    "en": "elevator",
+    "kind": "N m.in>hrad",
+    "cue": "kde je?",
+    "use": "Kde je výtah?"
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "chodba",
+    "en": "hallway",
+    "kind": "N f>žena",
+    "cue": "na+L:chodbě",
+    "use": "Je to na chodbě."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "první",
+    "en": "first",
+    "kind": "ordinal",
+    "cue": "první patro",
+    "use": "Jdu do prvního patra."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "druhý",
+    "en": "second",
+    "kind": "ordinal",
+    "cue": "druhé patro",
+    "use": "Je to ve druhém patře."
+  },
+  {
+    "cat": "Directions + place",
+    "cs": "třetí",
+    "en": "third",
+    "kind": "ordinal",
+    "cue": "třetí patro",
+    "use": "Je to ve třetím patře."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "porada",
+    "en": "work meeting",
+    "kind": "N f>žena",
+    "cue": "na poradě",
+    "use": "Jsem na poradě."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "prezentace",
+    "en": "presentation",
+    "kind": "N f>růže",
+    "cue": "A:prezentaci",
+    "use": "Mám prezentaci."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "tabulka",
+    "en": "spreadsheet / table",
+    "kind": "N f>žena",
+    "cue": "A:tabulku",
+    "use": "Pošlu tabulku."
+  },
+  {
+    "cat": "Work + study",
+    "cs": "poznámka",
+    "en": "note",
+    "kind": "N f>žena",
+    "cue": "A:poznámku",
+    "use": "Napíšu poznámku."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "pláštěnka",
+    "en": "raincoat",
+    "kind": "N f>žena",
+    "cue": "A:pláštěnku",
+    "use": "Potřebuji pláštěnku."
+  },
+  {
+    "cat": "Clothes + personal",
+    "cs": "pyžamo",
+    "en": "pyjamas",
+    "kind": "N n>město",
+    "cue": "A:pyžamo",
+    "use": "Zapomněl jsem pyžamo."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "pršet",
+    "en": "rain",
+    "kind": "V impersonal",
+    "cue": "prší",
+    "use": "Prší."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "sněžit",
+    "en": "snow",
+    "kind": "V impersonal",
+    "cue": "sněží",
+    "use": "Sněží."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "foukat",
+    "en": "blow / be windy",
+    "kind": "V ipf",
+    "cue": "fouká",
+    "use": "Fouká vítr."
+  },
+  {
+    "cat": "Weather + nature",
+    "cs": "vedro",
+    "en": "very hot weather",
+    "kind": "N n>město",
+    "cue": "je vedro",
+    "use": "Je vedro."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "setkávat se / setkat se",
+    "en": "meet",
+    "kind": "V ipf→pf",
+    "cue": "setkám se s+I",
+    "use": "Setkám se s kamarádem."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "zvát / pozvat",
+    "en": "invite",
+    "kind": "V ipf→pf",
+    "cue": "pozvu + A",
+    "use": "Pozvu kamaráda."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "gratulovat / pogratulovat",
+    "en": "congratulate",
+    "kind": "V ipf→pf",
+    "cue": "gratulovat + D",
+    "use": "Gratuluji vám."
+  },
+  {
+    "cat": "Social + feelings",
+    "cs": "názor",
+    "en": "opinion",
+    "kind": "N m.in>hrad",
+    "cue": "A:názor",
+    "use": "Jaký máte názor?"
+  }
+]
