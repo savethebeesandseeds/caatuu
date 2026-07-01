@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu Czech · Device AI</title>
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="device-ai.css?v=lora-1">
+    <link rel="stylesheet" href="device-ai.css?v=phone-2">
   </head>
   <body>
     <main class="device-shell">
@@ -30,6 +30,30 @@
           <span>Runtime</span>
           <strong id="runtimeStatus">Not loaded</strong>
         </article>
+      </section>
+
+      <section class="tool-panel phone-panel" aria-label="Native phone runner">
+        <div class="panel-head">
+          <div>
+            <h2>Native Phone Runner</h2>
+            <p>Use this when the browser cannot expose WebGPU.</p>
+          </div>
+          <button id="copyPhoneCommand" type="button">Copy command</button>
+        </div>
+        <div class="phone-status-grid">
+          <article>
+            <span>Phone model</span>
+            <strong id="phoneModelStatus">Checking</strong>
+          </article>
+          <article>
+            <span>Runtime</span>
+            <strong>Termux + llama.cpp</strong>
+          </article>
+        </div>
+        <pre class="command-box" id="phoneCommand"></pre>
+        <p class="small-note" id="phoneBenchNote">
+          This downloads the quantized model once, builds llama.cpp on the phone, then runs Czech benchmark prompts fully on device.
+        </p>
       </section>
 
       <section class="tool-panel" aria-label="Live browser model">
@@ -83,6 +107,6 @@
       </section>
     </main>
 
-    <script type="module" src="device-ai.js?v=phone-1"></script>
+    <script type="module" src="device-ai.js?v=phone-2"></script>
   </body>
 </html>

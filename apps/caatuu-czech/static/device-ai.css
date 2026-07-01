@@ -233,6 +233,61 @@ textarea {
   line-height: 1.4;
 }
 
+.phone-panel {
+  border-color: #bdd7cf;
+  background: #fbfffd;
+}
+
+.phone-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.phone-status-grid article {
+  min-height: 66px;
+  padding: 11px 12px;
+  display: grid;
+  gap: 4px;
+  border: 1px solid #d8e7e1;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.phone-status-grid span,
+.small-note {
+  color: var(--muted);
+}
+
+.phone-status-grid span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.phone-status-grid strong {
+  color: var(--green-dark);
+  overflow-wrap: anywhere;
+}
+
+.command-box {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #cbdad4;
+  border-radius: 8px;
+  background: #10221d;
+  color: #effff8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.small-note {
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
 .benchmark-list {
   display: grid;
   gap: 10px;
@@ -280,7 +335,7 @@ textarea {
 
 @media (max-width: 720px) {
   .device-shell { padding: 14px; }
-  .status-grid, .benchmark-columns { grid-template-columns: 1fr; }
+  .status-grid, .benchmark-columns, .phone-status-grid { grid-template-columns: 1fr; }
   .panel-head { grid-template-columns: 1fr; }
   .artifact-card dl { grid-template-columns: 1fr; }
   .benchmark-columns div:first-child {

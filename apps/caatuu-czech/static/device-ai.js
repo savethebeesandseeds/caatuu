@@ -6,6 +6,18 @@ let loadedRuntimeKind = "";
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const liveModelNote = "Loads into the browser with WebGPU.";
+const phoneBench = {
+  baseUrl: "https://caatuu.waajacu.com/cz/data/models/phone-bench",
+  manifestPath: "data/models/phone-bench/manifest.json",
+  scriptName: "termux-run-caatuu-bench.sh",
+  modelName: "caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf"
+};
+const phoneCommand = [
+  "pkg update",
+  "pkg install -y curl",
+  `curl -L ${phoneBench.baseUrl}/${phoneBench.scriptName} -o ${phoneBench.scriptName}`,
+  `bash ${phoneBench.scriptName}`
+].join("\n");
 const czechLoraModel = {
   id: "caatuu-czech-qwen3-1.7b-lora-003-hard",
   name: "Caatuu Czech LoRA qwen3-1.7b-lora-003-hard",
@@ -24,8 +36,13 @@ function setText(selector, value) {
 }
 
 function renderDeviceStatus() {
-  setText("#gpuStatus", "gpu" in navigator ? "Available" : "Missing");
+  const hasWebGpu = "gpu" in navigator;
+  setText("#gpuStatus", hasWebGpu ? "Available" : "Missing");
   setText("#cacheStatus", "serviceWorker" in navigator ? "Ready" : "Missing");
+  if (!hasWebGpu) {
+    setText("#runtimeStatus", "Native fallback ready");
+    setText("#progressBox", "This browser cannot run WebLLM here. Use the Native Phone Runner to test the model offline on Android.");
+  }
 }
 
 async function registerServiceWorker() {
@@ -108,7 +125,7 @@ async function loadModel() {
     loadedModelId = "";
     loadedRuntimeKind = "";
     setText("#runtimeStatus", "Load failed");
-    setText("#progressBox", error?.message || String(error));
+    setText("#progressBox", browserGpuErrorMessage(error));
   } finally {
     $("#loadModel").disabled = false;
   }
@@ -227,6 +244,16 @@ async function loadCzechLoraWebllm(exportManifest) {
     loadedRuntimeKind = "artifact";
     setText("#runtimeStatus", "WebGPU missing");
     setText("#progressBox", webGpuUnavailableMessage());
+    setText(
+      "#modelOutput",
+      [
+        "The browser model cannot run on this device because WebGPU is unavailable.",
+        "",
+        "Use the Native Phone Runner above to run the quantized model offline on Android.",
+        "",
+        phoneCommand
+      ].join("\n")
+    );
     return;
   }
 
@@ -258,7 +285,7 @@ async function loadCzechLoraWebllm(exportManifest) {
     loadedRuntimeKind = "artifact";
     const detail = [error?.message || String(error), error?.stack].filter(Boolean).join("\n\n");
     setText("#runtimeStatus", "Load failed");
-    setText("#progressBox", error?.message || String(error));
+    setText("#progressBox", browserGpuErrorMessage(error));
     setText(
       "#modelOutput",
       `The export manifest is ready, but WebLLM could not load the custom model.\n\n${detail}`
@@ -328,7 +355,15 @@ function webGpuUnavailableMessage() {
       "Use HTTPS with a trusted certificate, or test through localhost on the phone."
     ].join(" ");
   }
-  return "The Czech WebLLM export exists, but this browser or device does not expose WebGPU.";
+  return "The Czech WebLLM export exists, but this browser or device does not expose WebGPU. Use the Native Phone Runner on this page for the offline Android test.";
+}
+
+function browserGpuErrorMessage(error) {
+  const message = error?.message || String(error);
+  if (/compatible gpu|webgpu|gpu/i.test(message)) {
+    return webGpuUnavailableMessage();
+  }
+  return message;
 }
 
 async function cacheProbe() {
@@ -343,6 +378,38 @@ async function cacheProbe() {
 async function loadBenchmarks() {
   const result = await fetchJson(czechLoraModel.languageBenchmarkPath);
   renderBenchmarks(result.models.base, result.models.tuned);
+}
+
+async function loadPhoneBenchStatus() {
+  setText("#phoneCommand", phoneCommand);
+  try {
+    const manifest = await fetchJson(phoneBench.manifestPath);
+    const size = formatBytes(manifest.bytes);
+    setText("#phoneModelStatus", `${manifest.quantization || "GGUF"} ready (${size})`);
+    setText(
+      "#phoneBenchNote",
+      `Published model: ${manifest.model_file}. SHA256 ${String(manifest.sha256 || "").slice(0, 12)}...`
+    );
+  } catch (error) {
+    setText("#phoneModelStatus", "Public bundle ready");
+    setText("#phoneBenchNote", "Use the command above. The model bundle is served from caatuu.waajacu.com.");
+  }
+}
+
+async function copyPhoneCommand() {
+  try {
+    await navigator.clipboard.writeText(phoneCommand);
+    setText("#phoneBenchNote", "Copied. Paste it into Termux on the Android phone.");
+  } catch (error) {
+    setText("#phoneBenchNote", "Copy failed. Select the command text manually.");
+  }
+}
+
+function formatBytes(bytes) {
+  const value = Number(bytes || 0);
+  if (!Number.isFinite(value) || value <= 0) return "unknown size";
+  const gib = value / 1024 / 1024 / 1024;
+  return `${gib.toFixed(2)} GiB`;
 }
 
 function renderBenchmarks(base, tuned) {
@@ -434,8 +501,10 @@ function escapeHtml(value) {
 renderDeviceStatus();
 registerServiceWorker();
 updateSelectedModelUi();
+loadPhoneBenchStatus();
 $("#modelSelect").addEventListener("change", updateSelectedModelUi);
 $("#loadModel").addEventListener("click", loadModel);
 $("#runPrompt").addEventListener("click", runPrompt);
 $("#cacheProbe").addEventListener("click", cacheProbe);
 $("#loadBenchmarks").addEventListener("click", loadBenchmarks);
+$("#copyPhoneCommand").addEventListener("click", copyPhoneCommand);
