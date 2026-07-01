@@ -3,6 +3,7 @@
 use std::{path::PathBuf, sync::Arc};
 
 use axum::{
+    response::Redirect,
     routing::{get, post},
     Router,
 };
@@ -79,29 +80,29 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .nest("/cz", czech_app)
         .nest("/zh", chinese_app)
         // Compatibility for old Chinese URLs.
-        .route_service(
+        .route(
             "/challenge",
-            ServeFile::new(chinese_static.join("challenge.html")),
+            get(|| async { Redirect::permanent("/zh/challenge") }),
         )
-        .route_service(
+        .route(
             "/challenge/",
-            ServeFile::new(chinese_static.join("challenge.html")),
+            get(|| async { Redirect::permanent("/zh/challenge") }),
         )
-        .route_service(
+        .route(
             "/secuence",
-            ServeFile::new(chinese_static.join("secuence.html")),
+            get(|| async { Redirect::permanent("/zh/secuence") }),
         )
-        .route_service(
+        .route(
             "/secuence/",
-            ServeFile::new(chinese_static.join("secuence.html")),
+            get(|| async { Redirect::permanent("/zh/secuence") }),
         )
-        .route_service(
+        .route(
             "/writing",
-            ServeFile::new(chinese_static.join("writing.html")),
+            get(|| async { Redirect::permanent("/zh/writing") }),
         )
-        .route_service(
+        .route(
             "/writing/",
-            ServeFile::new(chinese_static.join("writing.html")),
+            get(|| async { Redirect::permanent("/zh/writing") }),
         )
         .with_state(state)
         .layer(
