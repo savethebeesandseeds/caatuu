@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="app.css?v=verbs-commonness-3">
+    <link rel="stylesheet" href="app.css?v=visual-refresh-2">
   </head>
   <body>
     <div class="app-shell">
@@ -214,6 +214,13 @@
         </section>
 
         <section class="view" id="view-dictionary" aria-label="Dictionary">
+          <section class="dictionary-toolbar" aria-label="Dictionary controls">
+            <label class="dictionary-search">
+              <span>Find Czech, English, cue, or type</span>
+              <input type="search" id="dictionarySearch" autocomplete="off" placeholder="try město, coffee, do+G, phrase...">
+            </label>
+            <span class="dictionary-count" id="dictionaryCount">0 entries</span>
+          </section>
           <div class="dictionary-list" id="dictionaryList"></div>
 
           <section class="script-panel">
@@ -573,6 +580,6 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="app.js?v=verbs-commonness-3"></script>
+    <script src="app.js?v=visual-refresh-2"></script>
   </body>
 </html>

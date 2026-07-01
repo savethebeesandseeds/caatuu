@@ -46,6 +46,7 @@ const state = {
     result: null
   },
   verbReferenceSearch: "",
+  dictionarySearch: "",
   verbFocusFallback: false
 };
 
@@ -239,6 +240,25 @@ function categories() {
   return [...new Set(countryDictionary.map((item) => item.cat))];
 }
 
+function normalizeDictionarySearch(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+}
+
+function dictionarySearchText(item) {
+  return normalizeDictionarySearch([
+    item.cs,
+    item.en,
+    item.kind,
+    item.use,
+    item.cue,
+    item.cat
+  ].join(" "));
+}
+
 function nounModels() {
   return [
     ...new Set(
@@ -250,13 +270,20 @@ function nounModels() {
 }
 
 function renderDictionary() {
-  const filtered = countryDictionary;
+  const query = normalizeDictionarySearch(state.dictionarySearch);
+  const filtered = query
+    ? countryDictionary.filter((item) => dictionarySearchText(item).includes(query))
+    : countryDictionary;
   const groupData = categories()
     .map((category) => ({
       category,
       rows: filtered.filter((item) => item.cat === category)
     }))
     .filter((group) => group.rows.length);
+  const count = $("#dictionaryCount");
+  if (count) {
+    count.textContent = `${filtered.length}/${countryDictionary.length} entries`;
+  }
 
   if (!filtered.length) {
     $("#dictionaryList").innerHTML = `<p class="empty-state">No rows found. Try a simpler word, without endings or diacritics.</p>`;
@@ -2227,6 +2254,11 @@ function bindUi() {
   document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
+  });
+
+  $("#dictionarySearch")?.addEventListener("input", (event) => {
+    state.dictionarySearch = event.target.value;
+    renderDictionary();
   });
 
   applyPrintDefaults();
