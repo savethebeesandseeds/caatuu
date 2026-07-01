@@ -115,4 +115,6 @@ That part still depends on Python/PyTorch until we replace the training stack.
 ## Tools
 
 - `tools/runtime` - launch script for the unified Rust server.
+- `tools/phone-bench` - native Android/Termux benchmark path for offline Czech
+  model testing on phones without browser WebGPU.
 - `tools/images-generation` - Stable Diffusion/image generation workspace.

@@ -1,0 +1,9 @@
+Napiš tři krátké české pozdravy.
+---
+Oprav pravopis: Dobry den, jak se mate?
+---
+Přelož do češtiny: I would like a small coffee.
+---
+Odpověz česky jednou větou: Co znamená slovo město?
+---
+Napiš krátký dialog v obchodě. Použij slova prosím, děkuji a kolik.

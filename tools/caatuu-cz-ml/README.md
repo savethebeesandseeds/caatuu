@@ -112,3 +112,17 @@ npm run finalize:webllm -- --run-id qwen3-1.7b-lora-next
 
 After validating a new export, copy only the browser-ready WebLLM export and
 small UI metadata back into `apps/caatuu-czech/static/data/models/`.
+
+## Phone Benchmark Export
+
+For phones whose browser cannot run WebGPU, use the separate native benchmark
+workspace:
+
+```text
+/workspace/tools/phone-bench
+```
+
+That path converts the merged Hugging Face export to a quantized GGUF file and
+benchmarks it with `llama.cpp` on Android through Termux. It is for measuring
+whether the current Czech model is operational on the phone before we build an
+Android UI wrapper.
