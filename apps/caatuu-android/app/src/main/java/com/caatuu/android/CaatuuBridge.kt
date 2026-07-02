@@ -16,6 +16,7 @@ class CaatuuBridge(
     private val activity: Activity,
     private val webView: WebView,
     private val modelManager: ModelManager,
+    private val appUpdateManager: AppUpdateManager,
     private val model: NativeCzechModel,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -39,6 +40,9 @@ class CaatuuBridge(
                     "load" -> loadModel(id)
                     "prompt" -> runPrompt(id, request)
                     "benchmark" -> runBenchmark(id)
+                    "delete_model" -> deleteModel(id)
+                    "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
+                    "update_app" -> updateApp(id)
                     else -> throw IllegalArgumentException("Unknown native request type.")
                 }
             } catch (error: Exception) {
@@ -85,7 +89,7 @@ class CaatuuBridge(
 
     private suspend fun runPrompt(id: String, request: JSONObject) {
         val prompt = request.optString("prompt")
-        val maxTokens = request.optInt("maxTokens", 120).coerceIn(1, 1024)
+        val maxTokens = request.optInt("maxTokens", 512).coerceIn(1, 2048)
         var output = ""
 
         emit(id, "status", JSONObject().put("message", "Generating."))
@@ -102,6 +106,29 @@ class CaatuuBridge(
     private suspend fun runBenchmark(id: String) {
         emit(id, "status", JSONObject().put("message", "Running native benchmark."))
         emitDone(id, JSONObject().put("result", model.benchmark()))
+    }
+
+    private suspend fun deleteModel(id: String) {
+        emit(id, "status", JSONObject().put("message", "Unloading model."))
+        model.unload()
+        emit(id, "status", JSONObject().put("message", "Deleting app-private model files."))
+        emitDone(id, modelManager.deleteLocalModel())
+    }
+
+    private suspend fun updateApp(id: String) {
+        emit(id, "status", JSONObject().put("message", "Downloading latest debug APK."))
+        val result = appUpdateManager.downloadLatest { progress ->
+            emit(
+                id,
+                "progress",
+                JSONObject()
+                    .put("phase", "download")
+                    .put("bytes", progress.bytesRead)
+                    .put("totalBytes", progress.totalBytes),
+            )
+        }
+        val action = appUpdateManager.openInstaller()
+        emitDone(id, result.put("action", action))
     }
 
     private fun emitDone(id: String, result: JSONObject) {

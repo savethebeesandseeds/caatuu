@@ -48,8 +48,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 4
-        versionName = "0.1.3"
+        versionCode = 5
+        versionName = "0.1.4"
     }
 
     ndkVersion = "29.0.13113456"
@@ -115,5 +115,6 @@ tasks.named("preBuild").configure {
 
 dependencies {
     implementation(project(":llamaLib"))
+    implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
 }

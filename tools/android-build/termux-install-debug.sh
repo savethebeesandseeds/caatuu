@@ -2,9 +2,10 @@
 set -eu
 
 APK_URL="${APK_URL:-https://caatuu.waajacu.com/android/caatuu-debug.apk}"
+MANIFEST_URL="${MANIFEST_URL:-https://caatuu.waajacu.com/android/caatuu-debug.json}"
 APK_FILE="${APK_FILE:-$HOME/caatuu-debug.apk}"
 SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu-debug.apk}"
-EXPECTED_SHA="${EXPECTED_SHA:-d6d2d39fddf9e100a43aea6739421556fab5a5a823719ed18073e5982e3ab1d4}"
+EXPECTED_SHA="${EXPECTED_SHA:-b27d96245e9384df2a6a990b99594e0ed60693ce548b9a5e2f90575fd7ac5e32}"
 REPORT_FILE="${REPORT_FILE:-$HOME/caatuu-install-debug-report.txt}"
 LOGCAT_FILE="${LOGCAT_FILE:-$HOME/caatuu-install-logcat.txt}"
 PM_FILE="${PM_FILE:-$HOME/caatuu-install-pm.txt}"
@@ -32,6 +33,12 @@ need_command() {
 note "Caatuu Android debug install check"
 note "Report file: $REPORT_FILE"
 note ""
+
+if need_command curl; then
+  note "Published APK manifest"
+  curl -L --fail --retry 3 "$MANIFEST_URL" 2>/dev/null | tee -a "$REPORT_FILE" || true
+  note ""
+fi
 
 if need_command pkg; then
   if ! need_command curl || ! need_command sha256sum || ! need_command file; then

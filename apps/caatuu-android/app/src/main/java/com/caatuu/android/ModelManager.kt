@@ -33,6 +33,8 @@ class ModelManager(context: Context) {
             .put("sha256", MODEL_SHA256)
             .put("expectedBytes", MODEL_BYTES)
             .put("path", modelFile.absolutePath)
+            .put("storageScope", "app-private filesDir")
+            .put("deletedOnUninstall", true)
             .put("downloaded", modelFile.isFile)
             .put("bytes", modelFile.takeIf { it.isFile }?.length() ?: 0L)
             .put("verified", isMarkedVerified())
@@ -100,6 +102,25 @@ class ModelManager(context: Context) {
                 if (tmpFile.isFile && !modelFile.isFile) tmpFile.delete()
             }
         }
+
+    suspend fun deleteLocalModel(): JSONObject =
+        withContext(Dispatchers.IO) {
+            val bytesDeleted = directorySize(modelsDir)
+            val deleted = !modelsDir.exists() || modelsDir.deleteRecursively()
+            JSONObject()
+                .put("storageScope", "app-private filesDir")
+                .put("deletedOnUninstall", true)
+                .put("path", modelsDir.absolutePath)
+                .put("bytesDeleted", bytesDeleted)
+                .put("deleted", deleted)
+                .put("status", statusJson())
+        }
+
+    private fun directorySize(file: File): Long {
+        if (!file.exists()) return 0L
+        if (file.isFile) return file.length()
+        return file.listFiles()?.sumOf { directorySize(it) } ?: 0L
+    }
 
     private fun isMarkedVerified(): Boolean =
         shaFile.isFile && shaFile.readText().trim() == MODEL_SHA256 && modelFile.length() == MODEL_BYTES

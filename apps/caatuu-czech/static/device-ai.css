@@ -247,7 +247,7 @@ dl {
   text-transform: uppercase;
 }
 
-.message p {
+.message .message-body {
   padding: 12px 13px;
   border: 1px solid #e2ded5;
   border-radius: 8px;
@@ -260,7 +260,7 @@ dl {
   align-self: flex-start;
 }
 
-.message.assistant p {
+.message.assistant .message-body {
   background: #f8fbff;
   border-color: #d8e5ef;
 }
@@ -273,7 +273,7 @@ dl {
   text-align: right;
 }
 
-.message.user p {
+.message.user .message-body {
   background: #eff7f1;
   border-color: #cfe3d6;
 }
@@ -283,10 +283,42 @@ dl {
   align-self: stretch;
 }
 
-.message.system p {
+.message.system .message-body {
   background: #fff8ea;
   border-color: #eadbbf;
   color: #56402c;
+}
+
+.message-text {
+  display: block;
+}
+
+.think-block {
+  margin: 9px 0;
+  border: 1px solid #d6ddeb;
+  border-radius: 8px;
+  background: #f3f6fb;
+  color: #34445c;
+}
+
+.think-block summary {
+  min-height: 34px;
+  padding: 7px 10px;
+  color: #315f8d;
+  font-size: 0.78rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.think-block pre {
+  margin: 0;
+  padding: 0 10px 10px;
+  color: #34445c;
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .quick-prompts {
@@ -440,6 +472,31 @@ a:focus-visible {
 
 .study-link small {
   line-height: 1.35;
+}
+
+.maintenance-card {
+  display: grid;
+  gap: 10px;
+}
+
+.maintenance-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.maintenance-actions button {
+  min-height: 38px;
+  padding: 8px 9px;
+  color: var(--blue);
+  font-size: 0.84rem;
+}
+
+.maintenance-status {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .diagnostics summary {
@@ -683,6 +740,10 @@ a:focus-visible {
   }
 
   .benchmark-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .maintenance-actions {
     grid-template-columns: 1fr;
   }
 

@@ -41,6 +41,12 @@ The debug APK is written to:
 C:\Work\caatuu\artifacts\android\caatuu-debug.apk
 ```
 
+The matching development update manifest is written to:
+
+```text
+C:\Work\caatuu\artifacts\android\caatuu-debug.json
+```
+
 The first debug build also creates:
 
 ```text

@@ -8,6 +8,7 @@ const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
+const maxGenerationTokens = 512;
 const czechLoraModel = {
   name: "Caatuu Czech qwen3-1.7b-lora-003-hard Q4_K_M",
   languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
@@ -92,8 +93,9 @@ function addMessage(role, text) {
   const label = document.createElement("b");
   label.textContent = role === "user" ? "You" : role === "system" ? "App" : "Model";
 
-  const body = document.createElement("p");
-  body.textContent = text;
+  const body = document.createElement("div");
+  body.className = "message-body";
+  renderMessageContent(body, text);
 
   article.append(label, body);
   $("#chatLog").append(article);
@@ -102,8 +104,74 @@ function addMessage(role, text) {
 }
 
 function updateMessage(node, text) {
-  node.textContent = cleanModelOutput(text) || text || "...";
+  renderMessageContent(node, text || "...");
   $("#chatLog").scrollTop = $("#chatLog").scrollHeight;
+}
+
+function renderMessageContent(node, content) {
+  node.replaceChildren();
+  const parts = parseThinkBlocks(String(content || ""));
+  if (!parts.length) {
+    appendTextPart(node, "...");
+    return;
+  }
+
+  for (const part of parts) {
+    if (part.type === "think") {
+      const details = document.createElement("details");
+      details.className = "think-block";
+      if (part.open) details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.textContent = part.open ? "Reasoning in progress" : "Reasoning";
+
+      const pre = document.createElement("pre");
+      pre.textContent = part.text.trim() || "...";
+
+      details.append(summary, pre);
+      node.append(details);
+    } else {
+      appendTextPart(node, part.text);
+    }
+  }
+}
+
+function appendTextPart(node, text) {
+  if (!text) return;
+  const span = document.createElement("span");
+  span.className = "message-text";
+  span.textContent = text;
+  node.append(span);
+}
+
+function parseThinkBlocks(content) {
+  const parts = [];
+  const lower = content.toLowerCase();
+  let cursor = 0;
+
+  while (cursor < content.length) {
+    const start = lower.indexOf("<think>", cursor);
+    if (start < 0) {
+      parts.push({ type: "text", text: content.slice(cursor) });
+      break;
+    }
+
+    if (start > cursor) {
+      parts.push({ type: "text", text: content.slice(cursor, start) });
+    }
+
+    const bodyStart = start + "<think>".length;
+    const end = lower.indexOf("</think>", bodyStart);
+    if (end < 0) {
+      parts.push({ type: "think", text: content.slice(bodyStart), open: true });
+      break;
+    }
+
+    parts.push({ type: "think", text: content.slice(bodyStart, end), open: false });
+    cursor = end + "</think>".length;
+  }
+
+  return parts.filter((part) => part.text && part.text.trim());
 }
 
 function resetChat() {
@@ -125,6 +193,7 @@ function renderInitialRuntime() {
     setText("#runtimeStatus", "Native llama.cpp");
     setText("#runtimeSummary", "Android runtime ready for local Czech GGUF chat.");
     setText("#storageStatus", "Checking");
+    setText("#maintenanceStatus", "Use Update app for the latest debug APK, or Delete model to free local storage.");
     updateLoadButton("Load model");
     setText("#progressBox", "Checking app-private model storage.");
     return;
@@ -134,6 +203,7 @@ function renderInitialRuntime() {
   setText("#runtimeBadge", hasWebGpu ? "Browser WebGPU" : "No local runtime");
   setText("#runtimeStatus", hasWebGpu ? "Browser fallback" : "Unavailable here");
   setText("#storageStatus", "Browser cache only");
+  setText("#maintenanceStatus", "Install the Android APK to use app update and model cleanup tools.");
   updateLoadButton(hasWebGpu ? "Load browser test" : "APK needed");
   setText(
     "#runtimeSummary",
@@ -296,7 +366,7 @@ async function runNativePrompt(prompt) {
   const request = {
     runtime: "android-native-llama.cpp",
     messages: [{ role: "user", content: prompt }],
-    max_tokens: 180,
+    max_tokens: maxGenerationTokens,
     system_prompt_added_by_bridge: false
   };
   setText("#requestPreview", JSON.stringify(request, null, 2));
@@ -305,7 +375,7 @@ async function runNativePrompt(prompt) {
   try {
     const result = await nativeCall(
       "prompt",
-      { prompt, maxTokens: 180 },
+      { prompt, maxTokens: maxGenerationTokens },
       {
         onEvent(message) {
           if (message.kind === "token") {
@@ -335,7 +405,7 @@ async function runBrowserPrompt(prompt) {
   const request = {
     messages: [{ role: "user", content: prompt }],
     temperature: 0,
-    max_tokens: 180,
+    max_tokens: maxGenerationTokens,
     extra_body: { enable_thinking: false }
   };
   setText("#requestPreview", JSON.stringify(request, null, 2));
@@ -410,6 +480,72 @@ async function copyPhoneCommand() {
   }
 }
 
+async function updateApp() {
+  if (!hasNativeRuntime()) {
+    setText("#maintenanceStatus", "The in-app updater is only available inside the Android APK.");
+    window.location.href = "/android/caatuu-debug.apk";
+    return;
+  }
+
+  $("#updateApp").disabled = true;
+  setText("#maintenanceStatus", "Checking the latest debug APK.");
+
+  try {
+    const result = await nativeCall(
+      "update_app",
+      {},
+      {
+        onEvent(message) {
+          if (message.kind === "progress" && message.phase === "download") {
+            const total = Number(message.totalBytes || 0);
+            const bytes = Number(message.bytes || 0);
+            const pct = total > 0 ? ` ${(bytes / total * 100).toFixed(1)}%` : "";
+            setText("#maintenanceStatus", `Downloading update ${formatBytes(bytes)} / ${formatBytes(total)}${pct}`);
+          } else if (message.kind === "status") {
+            setText("#maintenanceStatus", message.message || "Preparing update.");
+          }
+        }
+      }
+    );
+
+    if (result.action === "settings") {
+      setText("#maintenanceStatus", "Android opened install permission settings. Allow installs for Caatuu, then tap Update app again.");
+    } else {
+      setText("#maintenanceStatus", "Android installer opened. Confirm the update there.");
+    }
+    setText("#diagnosticOutput", JSON.stringify(result, null, 2));
+  } catch (error) {
+    setText("#maintenanceStatus", error?.message || String(error));
+  } finally {
+    $("#updateApp").disabled = false;
+  }
+}
+
+async function deleteModel() {
+  if (!hasNativeRuntime()) {
+    setText("#maintenanceStatus", "Model cleanup is only available inside the Android APK.");
+    return;
+  }
+
+  $("#deleteModel").disabled = true;
+  setText("#maintenanceStatus", "Deleting local model files.");
+
+  try {
+    const result = await nativeCall("delete_model");
+    modelLoaded = false;
+    $("#runPrompt").disabled = true;
+    setText("#runtimeBadge", "Android native");
+    setText("#progressBox", "Local model files deleted. Tap Load model to download again.");
+    setText("#maintenanceStatus", `Deleted ${formatBytes(result.bytesDeleted || 0)} from app-private storage.`);
+    setText("#diagnosticOutput", JSON.stringify(result, null, 2));
+    await refreshNativeStatus();
+  } catch (error) {
+    setText("#maintenanceStatus", error?.message || String(error));
+  } finally {
+    $("#deleteModel").disabled = false;
+  }
+}
+
 function renderBenchmarks(base, tuned) {
   const tunedById = Object.fromEntries(tuned.prompts.map((item) => [item.id, item]));
   $("#benchmarkList").replaceChildren(
@@ -441,10 +577,6 @@ async function fetchJson(path) {
     throw new Error(`${path} returned HTTP ${response.status}`);
   }
   return response.json();
-}
-
-function cleanModelOutput(content) {
-  return String(content || "").replace(/^<think>\s*<\/think>\s*/i, "").trim();
 }
 
 function browserGpuErrorMessage(error) {
@@ -481,6 +613,8 @@ function bindUi() {
   $("#cacheProbe").addEventListener("click", cacheProbe);
   $("#loadBenchmarks").addEventListener("click", loadBenchmarks);
   $("#copyPhoneCommand").addEventListener("click", copyPhoneCommand);
+  $("#updateApp").addEventListener("click", updateApp);
+  $("#deleteModel").addEventListener("click", deleteModel);
 
   $("#promptInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {

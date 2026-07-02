@@ -40,5 +40,25 @@ bash "$repo_root/apps/caatuu-android/scripts/prepare-llama-vendor.sh"
 cd "$repo_root/apps/caatuu-android"
 gradle --no-daemon :app:assembleDebug
 
-cp app/build/outputs/apk/debug/app-debug.apk "$repo_root/artifacts/android/caatuu-debug.apk"
-echo "Wrote $repo_root/artifacts/android/caatuu-debug.apk"
+apk_path="$repo_root/artifacts/android/caatuu-debug.apk"
+manifest_path="$repo_root/artifacts/android/caatuu-debug.json"
+cp app/build/outputs/apk/debug/app-debug.apk "$apk_path"
+
+apk_sha="$(sha256sum "$apk_path" | awk '{print $1}')"
+apk_bytes="$(wc -c < "$apk_path" | tr -d ' ')"
+version_code="$(sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' app/build.gradle.kts | head -1)"
+version_name="$(sed -nE 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' app/build.gradle.kts | head -1)"
+
+cat > "$manifest_path" <<JSON
+{
+  "package_name": "com.waajacu.caatuu",
+  "version_code": ${version_code:-0},
+  "version_name": "${version_name:-debug}",
+  "apk_url": "https://caatuu.waajacu.com/android/caatuu-debug.apk",
+  "sha256": "$apk_sha",
+  "bytes": $apk_bytes
+}
+JSON
+
+echo "Wrote $apk_path"
+echo "Wrote $manifest_path"

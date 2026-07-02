@@ -55,6 +55,11 @@ The debug build also creates `C:\Work\caatuu\artifacts\android\caatuu-debug.keys
 on first use and reuses it for later debug APKs. Keep that local file if you
 want Android to accept updates over an already installed debug build.
 
+The debug build writes `C:\Work\caatuu\artifacts\android\caatuu-debug.json`
+beside the APK. The Phone AI `Update app` button reads that manifest, verifies
+the APK hash, and then opens Android's installer. Android may ask you to allow
+installs from Caatuu once during development.
+
 The build copies Czech static assets into generated APK assets while excluding
 heavy model payloads such as `.gguf`, `.bin`, `.params`, and `.safetensors`.
 
@@ -67,3 +72,6 @@ heavy model payloads such as `.gguf`, `.bin`, `.params`, and `.safetensors`.
 5. Type a message and tap `Send`.
 
 After the model is verified once, the app should keep working without network.
+The downloaded GGUF lives under Android app-private storage and is removed by
+the OS when the app is uninstalled. The Phone AI screen also includes `Delete
+model` for manual cleanup during development.

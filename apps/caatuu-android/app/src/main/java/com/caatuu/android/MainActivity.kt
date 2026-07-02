@@ -32,6 +32,7 @@ class MainActivity : Activity() {
             activity = this,
             webView = webView,
             modelManager = ModelManager(applicationContext),
+            appUpdateManager = AppUpdateManager(applicationContext),
             model = NativeCzechModel(applicationContext),
         )
 

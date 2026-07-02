@@ -43,8 +43,15 @@ class NativeCzechModel(context: Context) {
             engine.bench(pp = 128, tg = 32, pl = 1, nr = 1)
         }
 
+    fun unload() {
+        engineInstance?.cleanUp()
+        loadedPath = null
+    }
+
     fun destroy() {
         engineInstance?.destroy()
+        engineInstance = null
+        loadedPath = null
     }
 
     private suspend fun waitForEngine() {

@@ -29,6 +29,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
     let chinese_static = workspace.join("apps/caatuu-chinese/static");
     let czech_static = workspace.join("apps/caatuu-czech/static");
     let android_debug_apk = workspace.join("artifacts/android/caatuu-debug.apk");
+    let android_debug_manifest = workspace.join("artifacts/android/caatuu-debug.json");
     let android_termux_install = workspace.join("tools/android-build/termux-install-debug.sh");
 
     let chinese_static_service = ServeDir::new(chinese_static.clone())
@@ -78,6 +79,10 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .route_service("/", ServeFile::new(unified_static.join("index.html")))
         .route_service("/app.css", ServeFile::new(unified_static.join("app.css")))
         .route_service("/android/caatuu-debug.apk", ServeFile::new(android_debug_apk))
+        .route_service(
+            "/android/caatuu-debug.json",
+            ServeFile::new(android_debug_manifest),
+        )
         .route_service(
             "/android/termux-install-debug.sh",
             ServeFile::new(android_termux_install),
