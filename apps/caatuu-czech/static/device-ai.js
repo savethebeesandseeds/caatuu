@@ -8,7 +8,41 @@ const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
-const maxGenerationTokens = 512;
+const settingsStorageKey = "caatuu-czech.device-ai.settings.v1";
+const generationPresets = {
+  fast: {
+    label: "Fast",
+    thinking: false,
+    maxTokens: 160,
+    temperature: 0,
+    contextSize: 1024,
+    reasoningDisplay: "hidden",
+    summary: "Short answers, no requested thinking, smallest practical context."
+  },
+  chat: {
+    label: "Chat",
+    thinking: false,
+    maxTokens: 384,
+    temperature: 0.2,
+    contextSize: 2048,
+    reasoningDisplay: "collapsed",
+    summary: "Good default for Czech chat and spelling checks."
+  },
+  careful: {
+    label: "Careful",
+    thinking: true,
+    maxTokens: 768,
+    temperature: 0.2,
+    contextSize: 4096,
+    reasoningDisplay: "collapsed",
+    summary: "Longer answers with requested reasoning where the runtime supports it."
+  }
+};
+const defaultGenerationSettings = {
+  preset: "chat",
+  ...generationPresets.chat
+};
+let generationSettings = loadStoredSettings();
 const czechLoraModel = {
   name: "Caatuu Czech qwen3-1.7b-lora-003-hard Q4_K_M",
   languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
@@ -86,6 +120,129 @@ function updateLoadButton(label) {
   $("#loadModel").textContent = label;
 }
 
+function loadStoredSettings() {
+  try {
+    const raw = localStorage.getItem(settingsStorageKey);
+    if (!raw) return { ...defaultGenerationSettings };
+    return normalizeSettings(JSON.parse(raw));
+  } catch (error) {
+    return { ...defaultGenerationSettings };
+  }
+}
+
+function normalizeSettings(input = {}) {
+  const preset = Object.prototype.hasOwnProperty.call(generationPresets, input.preset) ? input.preset : "chat";
+  const base = generationPresets[preset];
+  const maxTokens = Number(input.maxTokens ?? base.maxTokens);
+  const temperature = Number(input.temperature ?? base.temperature);
+  const contextSize = Number(input.contextSize ?? base.contextSize);
+  const reasoningDisplay = ["collapsed", "expanded", "hidden"].includes(input.reasoningDisplay)
+    ? input.reasoningDisplay
+    : base.reasoningDisplay;
+
+  return {
+    preset,
+    label: base.label,
+    summary: base.summary,
+    thinking: Boolean(input.thinking ?? base.thinking),
+    maxTokens: clampNumber(maxTokens, 64, 1024, base.maxTokens),
+    temperature: clampNumber(temperature, 0, 1, base.temperature),
+    contextSize: clampNumber(contextSize, 768, 8192, base.contextSize),
+    reasoningDisplay
+  };
+}
+
+function clampNumber(value, min, max, fallback) {
+  if (!Number.isFinite(value)) return fallback;
+  return Math.min(max, Math.max(min, value));
+}
+
+function saveSettings() {
+  localStorage.setItem(settingsStorageKey, JSON.stringify({
+    preset: generationSettings.preset,
+    thinking: generationSettings.thinking,
+    maxTokens: generationSettings.maxTokens,
+    temperature: generationSettings.temperature,
+    contextSize: generationSettings.contextSize,
+    reasoningDisplay: generationSettings.reasoningDisplay
+  }));
+}
+
+function setGenerationSettings(next, { persist = true } = {}) {
+  generationSettings = normalizeSettings({ ...generationSettings, ...next });
+  syncSettingsUi();
+  updateSettingsSupport();
+  if (persist) saveSettings();
+}
+
+function applyPreset(preset) {
+  const settings = generationPresets[preset];
+  if (!settings) return;
+  setGenerationSettings({ preset, ...settings });
+}
+
+function readSettingsControls() {
+  setGenerationSettings({
+    thinking: $("#thinkingEnabled").checked,
+    maxTokens: Number($("#maxTokens").value),
+    temperature: Number($("#temperature").value),
+    contextSize: Number($("#contextSize").value),
+    reasoningDisplay: $("#reasoningDisplay").value
+  });
+}
+
+function syncSettingsUi() {
+  $("#thinkingEnabled").checked = generationSettings.thinking;
+  $("#maxTokens").value = String(generationSettings.maxTokens);
+  $("#maxTokensValue").textContent = String(generationSettings.maxTokens);
+  $("#temperature").value = String(generationSettings.temperature);
+  $("#temperatureValue").textContent = generationSettings.temperature.toFixed(1);
+  $("#contextSize").value = String(generationSettings.contextSize);
+  $("#reasoningDisplay").value = generationSettings.reasoningDisplay;
+  setText("#settingsSummary", generationSettings.summary);
+
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.preset === generationSettings.preset);
+  });
+}
+
+function updateSettingsSupport() {
+  if (loadedRuntimeKind === "browser-webgpu") {
+    setText("#thinkingSupport", "Active in browser request");
+    setText("#temperatureSupport", "Active in browser request");
+    setText("#contextSupport", "Managed by WebLLM");
+    setText("#capabilityNote", "Browser mode applies max tokens, temperature, and thinking. Context is managed by WebLLM.");
+    setText("#controlMeta", "Browser: max tokens, temperature, thinking. Context managed by WebLLM.");
+    return;
+  }
+
+  if (loadedRuntimeKind === "android-native" || hasNativeRuntime()) {
+    setText("#thinkingSupport", "APK native bridge pending");
+    setText("#temperatureSupport", "APK native bridge pending");
+    setText("#contextSupport", "APK native bridge pending");
+    setText("#capabilityNote", "APK applies max tokens now. Thinking, temperature, and context are saved and sent as metadata for the next native bridge patch.");
+    setText("#controlMeta", "APK active: max tokens. Pending: thinking, temperature, context size.");
+    return;
+  }
+
+  setText("#thinkingSupport", "Active in browser fallback");
+  setText("#temperatureSupport", "Active in browser fallback");
+  setText("#contextSupport", "Prepared for APK runtime");
+  setText("#capabilityNote", "Settings are saved now and become active according to the runtime you load.");
+  setText("#controlMeta", "Load a runtime to see active controls.");
+}
+
+function requestOptions() {
+  return {
+    preset: generationSettings.preset,
+    thinking: generationSettings.thinking,
+    max_tokens: generationSettings.maxTokens,
+    temperature: generationSettings.temperature,
+    context_size: generationSettings.contextSize,
+    reasoning_display: generationSettings.reasoningDisplay
+  };
+}
+
 function addMessage(role, text) {
   const article = document.createElement("article");
   article.className = `message ${role}`;
@@ -118,9 +275,11 @@ function renderMessageContent(node, content) {
 
   for (const part of parts) {
     if (part.type === "think") {
+      if (generationSettings.reasoningDisplay === "hidden") continue;
+
       const details = document.createElement("details");
       details.className = "think-block";
-      if (part.open) details.open = true;
+      if (part.open || generationSettings.reasoningDisplay === "expanded") details.open = true;
 
       const summary = document.createElement("summary");
       summary.textContent = part.open ? "Reasoning in progress" : "Reasoning";
@@ -134,6 +293,8 @@ function renderMessageContent(node, content) {
       appendTextPart(node, part.text);
     }
   }
+
+  if (!node.childNodes.length) appendTextPart(node, "(reasoning hidden)");
 }
 
 function appendTextPart(node, text) {
@@ -196,6 +357,7 @@ function renderInitialRuntime() {
     setText("#maintenanceStatus", "Use Update app for the latest debug APK, or Delete model to free local storage.");
     updateLoadButton("Load model");
     setText("#progressBox", "Checking app-private model storage.");
+    updateSettingsSupport();
     return;
   }
 
@@ -217,6 +379,7 @@ function renderInitialRuntime() {
       ? "Browser test mode is available, but it is not the Android GGUF runtime."
       : "No WebGPU or native Android bridge is available on this page."
   );
+  updateSettingsSupport();
 }
 
 async function refreshNativeStatus() {
@@ -241,7 +404,19 @@ function renderNativeStatus(status) {
   setText("#modelStatus", status.modelName || czechLoraModel.name);
   setText("#storageStatus", status.verified ? `Verified (${formatBytes(status.expectedBytes || status.bytes)})` : "Download needed");
   setText("#runtimeStatus", status.runtime || "Native llama.cpp");
+  setText("#modelFileMeta", status.modelName || status.modelFile || "Caatuu Czech GGUF");
+  setText("#storageMeta", status.deletedOnUninstall ? "App-private filesDir, removed on uninstall" : "Runtime storage checking");
+  setText("#modelMetaSummary", status.verified ? "Local GGUF verified" : "Download needed");
+  if (status.generationControls) {
+    const controls = status.generationControls;
+    const active = Object.entries(controls)
+      .filter(([, value]) => value && value.active)
+      .map(([key]) => key)
+      .join(", ");
+    setText("#controlMeta", active ? `Active now: ${active}. Other controls are pending native bridge support.` : "Controls pending native bridge support.");
+  }
   setText("#diagnosticOutput", JSON.stringify(status, null, 2));
+  updateSettingsSupport();
 }
 
 async function loadModel() {
@@ -299,6 +474,9 @@ function renderNativeEvent(message) {
 
   if (message.kind === "status") {
     setText("#progressBox", message.message || "Working.");
+    if (message.settings) {
+      setText("#diagnosticOutput", JSON.stringify(message.settings, null, 2));
+    }
   }
 }
 
@@ -322,7 +500,11 @@ async function loadBrowserFallback() {
     setText("#runtimeBadge", "Browser ready");
     setText("#runtimeStatus", "WebGPU loaded");
     setText("#modelStatus", browserFallbackModel);
+    setText("#modelFileMeta", browserFallbackModel);
+    setText("#storageMeta", "Browser WebGPU cache");
+    setText("#modelMetaSummary", "Browser fallback loaded");
     setText("#progressBox", "Browser test model is ready. This is not the Android GGUF model.");
+    updateSettingsSupport();
     addMessage("assistant", "Browser test model loaded. For the real phone GGUF model, use the Android APK runtime.");
   } catch (error) {
     browserEngine = null;
@@ -363,10 +545,17 @@ async function runNativePrompt(prompt) {
   setBusy(true);
   const assistantNode = addMessage("assistant", "...");
   let output = "";
+  const options = requestOptions();
   const request = {
     runtime: "android-native-llama.cpp",
     messages: [{ role: "user", content: prompt }],
-    max_tokens: maxGenerationTokens,
+    options,
+    active_controls: {
+      max_tokens: true,
+      thinking: false,
+      temperature: false,
+      context_size: false
+    },
     system_prompt_added_by_bridge: false
   };
   setText("#requestPreview", JSON.stringify(request, null, 2));
@@ -375,7 +564,7 @@ async function runNativePrompt(prompt) {
   try {
     const result = await nativeCall(
       "prompt",
-      { prompt, maxTokens: maxGenerationTokens },
+      { prompt, maxTokens: generationSettings.maxTokens, options },
       {
         onEvent(message) {
           if (message.kind === "token") {
@@ -388,6 +577,7 @@ async function runNativePrompt(prompt) {
       }
     );
     updateMessage(assistantNode, output || result.output || "(empty output)");
+    if (result.settings) setText("#diagnosticOutput", JSON.stringify(result.settings, null, 2));
     setText("#progressBox", "Done.");
   } catch (error) {
     updateMessage(assistantNode, error?.message || String(error));
@@ -402,13 +592,14 @@ async function runBrowserPrompt(prompt) {
 
   setBusy(true);
   const assistantNode = addMessage("assistant", "...");
+  const options = requestOptions();
   const request = {
     messages: [{ role: "user", content: prompt }],
-    temperature: 0,
-    max_tokens: maxGenerationTokens,
-    extra_body: { enable_thinking: false }
+    temperature: generationSettings.temperature,
+    max_tokens: generationSettings.maxTokens,
+    extra_body: { enable_thinking: generationSettings.thinking }
   };
-  setText("#requestPreview", JSON.stringify(request, null, 2));
+  setText("#requestPreview", JSON.stringify({ ...request, options }, null, 2));
   setText("#progressBox", `Generating with ${browserFallbackModel}.`);
 
   try {
@@ -462,6 +653,8 @@ async function loadPhoneManifest() {
 
   try {
     const manifest = await fetchJson(phoneBench.manifestPath);
+    setText("#modelFileMeta", manifest.model_file || "Caatuu Czech GGUF");
+    setText("#modelMetaSummary", `${formatBytes(manifest.bytes)} published`);
     setText(
       "#diagnosticOutput",
       `Published phone model: ${manifest.model_file || "GGUF"} (${formatBytes(manifest.bytes)}).`
@@ -616,6 +809,15 @@ function bindUi() {
   $("#updateApp").addEventListener("click", updateApp);
   $("#deleteModel").addEventListener("click", deleteModel);
 
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.addEventListener("click", () => applyPreset(button.dataset.preset));
+  });
+
+  ["thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
+    $(`#${id}`).addEventListener("input", readSettingsControls);
+    $(`#${id}`).addEventListener("change", readSettingsControls);
+  });
+
   $("#promptInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -633,6 +835,7 @@ function bindUi() {
 
 async function init() {
   bindUi();
+  syncSettingsUi();
   resetChat();
   renderInitialRuntime();
   await registerServiceWorker();

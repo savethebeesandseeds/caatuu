@@ -8,7 +8,7 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-192.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-192.png">
-    <link rel="stylesheet" href="device-ai.css?v=chat-1">
+    <link rel="stylesheet" href="device-ai.css?v=settings-1">
   </head>
   <body>
     <main class="phone-ai-shell">
@@ -62,6 +62,73 @@
         </section>
 
         <aside class="side-column" aria-label="Model and study side panel">
+          <section class="side-card settings-card" aria-labelledby="settingsTitle">
+            <div class="side-head">
+              <p class="kicker">Model</p>
+              <h2 id="settingsTitle">Run settings</h2>
+            </div>
+            <div class="preset-control" role="group" aria-label="Generation preset">
+              <button type="button" data-preset="fast">Fast</button>
+              <button type="button" data-preset="chat">Chat</button>
+              <button type="button" data-preset="careful">Careful</button>
+            </div>
+            <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
+
+            <div class="settings-grid">
+              <label class="setting-toggle">
+                <span>
+                  <b>Thinking</b>
+                  <small id="thinkingSupport">Runtime support checking</small>
+                </span>
+                <input id="thinkingEnabled" type="checkbox">
+              </label>
+
+              <label class="setting-field">
+                <span>
+                  <b>Max tokens</b>
+                  <output id="maxTokensValue">384</output>
+                </span>
+                <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
+              </label>
+
+              <label class="setting-field">
+                <span>
+                  <b>Temperature</b>
+                  <output id="temperatureValue">0.2</output>
+                </span>
+                <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
+                <small id="temperatureSupport">Browser active, APK pending</small>
+              </label>
+
+              <label class="setting-select">
+                <span>
+                  <b>Context</b>
+                  <small id="contextSupport">APK pending native bridge</small>
+                </span>
+                <select id="contextSize">
+                  <option value="768">768 tokens</option>
+                  <option value="1024">1024 tokens</option>
+                  <option value="2048" selected>2048 tokens</option>
+                  <option value="4096">4096 tokens</option>
+                  <option value="8192">8192 tokens</option>
+                </select>
+              </label>
+
+              <label class="setting-select">
+                <span>
+                  <b>Reasoning display</b>
+                  <small>Only affects visible output</small>
+                </span>
+                <select id="reasoningDisplay">
+                  <option value="collapsed" selected>Collapsed</option>
+                  <option value="expanded">Expanded</option>
+                  <option value="hidden">Hidden</option>
+                </select>
+              </label>
+            </div>
+            <p class="capability-note" id="capabilityNote">Max tokens are active in the APK. Thinking, temperature, and context are prepared for the next native bridge patch.</p>
+          </section>
+
           <section class="status-card" aria-label="Model status">
             <div class="side-head">
               <p class="kicker">Runtime</p>
@@ -91,6 +158,43 @@
             </dl>
             <div class="progress-box" id="progressBox" aria-live="polite">Idle</div>
           </section>
+
+          <details class="side-card model-details" open>
+            <summary>
+              <span>Model details</span>
+              <small id="modelMetaSummary">GGUF local runtime</small>
+            </summary>
+            <dl class="meta-list">
+              <div>
+                <dt>Base</dt>
+                <dd>Qwen3 1.7B</dd>
+              </div>
+              <div>
+                <dt>Adapter</dt>
+                <dd>qwen3-1.7b-lora-003-hard</dd>
+              </div>
+              <div>
+                <dt>Quantization</dt>
+                <dd>Q4_K_M GGUF</dd>
+              </div>
+              <div>
+                <dt>Model file</dt>
+                <dd id="modelFileMeta">Checking</dd>
+              </div>
+              <div>
+                <dt>Storage</dt>
+                <dd id="storageMeta">App-private filesDir when installed</dd>
+              </div>
+              <div>
+                <dt>Controls</dt>
+                <dd id="controlMeta">Checking runtime capabilities</dd>
+              </div>
+            </dl>
+            <div class="request-box">
+              <b>Last request</b>
+              <pre id="requestPreview">No request sent yet.</pre>
+            </div>
+          </details>
 
           <section class="side-card study-card">
             <div class="side-head">
@@ -133,10 +237,6 @@
               <button id="loadBenchmarks" type="button">Show contrast</button>
               <button id="copyPhoneCommand" type="button">Copy Termux fallback</button>
             </div>
-            <div class="request-box">
-              <b>Last request</b>
-              <pre id="requestPreview">No request sent yet.</pre>
-            </div>
             <pre class="diagnostic-output" id="diagnosticOutput">Diagnostics appear here.</pre>
             <pre class="command-box" id="phoneCommand"></pre>
             <div class="benchmark-list" id="benchmarkList"></div>
@@ -145,6 +245,6 @@
       </div>
     </main>
 
-    <script type="module" src="device-ai.js?v=chat-1"></script>
+    <script type="module" src="device-ai.js?v=settings-1"></script>
   </body>
 </html>

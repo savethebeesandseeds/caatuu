@@ -89,10 +89,19 @@ class CaatuuBridge(
 
     private suspend fun runPrompt(id: String, request: JSONObject) {
         val prompt = request.optString("prompt")
-        val maxTokens = request.optInt("maxTokens", 512).coerceIn(1, 2048)
+        val maxTokens = request.optInt("maxTokens", 384).coerceIn(1, 2048)
+        val options = request.optJSONObject("options") ?: JSONObject()
+        val appliedSettings = JSONObject()
+            .put("maxTokens", maxTokens)
+            .put("thinkingRequested", options.optBoolean("thinking", false))
+            .put("thinkingActive", false)
+            .put("temperatureRequested", options.optDouble("temperature", 0.3))
+            .put("temperatureActive", false)
+            .put("contextSizeRequested", options.optInt("context_size", 8192))
+            .put("contextSizeActive", false)
         var output = ""
 
-        emit(id, "status", JSONObject().put("message", "Generating."))
+        emit(id, "status", JSONObject().put("message", "Generating.").put("settings", appliedSettings))
         withContext(Dispatchers.Default) {
             model.generate(prompt, maxTokens).collect { token ->
                 output += token
@@ -100,7 +109,7 @@ class CaatuuBridge(
             }
         }
 
-        emitDone(id, JSONObject().put("output", output))
+        emitDone(id, JSONObject().put("output", output).put("settings", appliedSettings))
     }
 
     private suspend fun runBenchmark(id: String) {

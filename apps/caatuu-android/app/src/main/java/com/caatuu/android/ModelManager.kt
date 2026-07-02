@@ -35,6 +35,38 @@ class ModelManager(context: Context) {
             .put("path", modelFile.absolutePath)
             .put("storageScope", "app-private filesDir")
             .put("deletedOnUninstall", true)
+            .put(
+                "generationControls",
+                JSONObject()
+                    .put(
+                        "maxTokens",
+                        JSONObject()
+                            .put("active", true)
+                            .put("min", 1)
+                            .put("max", 2048)
+                            .put("default", 384),
+                    )
+                    .put(
+                        "thinking",
+                        JSONObject()
+                            .put("active", false)
+                            .put("pending", "Needs chat-template kwargs in the native llama.cpp binding."),
+                    )
+                    .put(
+                        "temperature",
+                        JSONObject()
+                            .put("active", false)
+                            .put("nativeDefault", 0.3)
+                            .put("pending", "Native sampler temperature is hard-coded today."),
+                    )
+                    .put(
+                        "contextSize",
+                        JSONObject()
+                            .put("active", false)
+                            .put("nativeDefault", 8192)
+                            .put("pending", "Native context size is hard-coded today."),
+                    ),
+            )
             .put("downloaded", modelFile.isFile)
             .put("bytes", modelFile.takeIf { it.isFile }?.length() ?: 0L)
             .put("verified", isMarkedVerified())
