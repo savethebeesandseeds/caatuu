@@ -5,6 +5,16 @@ plugins {
 
 val czechStaticDir = layout.projectDirectory.dir("../../caatuu-czech/static")
 val generatedCzechAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-czech")
+val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
+val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
+val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
+val releaseKeyPassword = providers.environmentVariable("CAATUU_ANDROID_KEY_PASSWORD")
+val hasReleaseSigning = listOf(
+    releaseKeystorePath,
+    releaseKeystorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { it.isPresent }
 
 val syncCzechAssets by tasks.registering(Sync::class) {
     from(czechStaticDir) {
@@ -22,7 +32,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.caatuu.android"
+        applicationId = "com.waajacu.caatuu"
         minSdk = 33
         targetSdk = 36
         versionCode = 1
@@ -33,6 +43,17 @@ android {
 
     buildFeatures {
         buildConfig = true
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(releaseKeystorePath.get())
+                storePassword = releaseKeystorePassword.get()
+                keyAlias = releaseKeyAlias.get()
+                keyPassword = releaseKeyPassword.get()
+            }
+        }
     }
 
     sourceSets {
@@ -48,6 +69,9 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

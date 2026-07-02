@@ -29,16 +29,25 @@ The clone lands in `tools/phone-bench/vendor/llama.cpp`, which is ignored by Git
 
 ## Build
 
-Use an Android build environment with SDK, NDK, CMake, JDK 17, and Gradle.
-From the Android project folder:
+Use the Docker build path from the repository root. It installs command-line
+Android tools inside a Debian container and writes the APK back into the shared
+workspace:
 
 ```powershell
-cd C:\Work\caatuu\apps\caatuu-android
-gradle assembleDebug
+cd C:\Work\caatuu
+
+docker run --rm -it `
+  -v C:\Work\caatuu:/workspace `
+  -v caatuu-android-sdk:/opt/android-sdk `
+  -v caatuu-gradle-dist:/opt/gradle `
+  -v caatuu-gradle-cache:/root/.gradle `
+  -w /workspace `
+  debian:latest `
+  bash -lc "bash tools/android-build/setup-container.sh && bash tools/android-build/setup-sdk.sh && bash tools/android-build/build-debug-apk.sh"
 ```
 
-Or open `C:\Work\caatuu\apps\caatuu-android` in Android Studio and build the
-debug APK.
+The debug APK lands at `C:\Work\caatuu\artifacts\android\caatuu-debug.apk`.
+Release AAB/APK builds are documented in `tools/android-build/README.md`.
 
 The build copies Czech static assets into generated APK assets while excluding
 heavy model payloads such as `.gguf`, `.bin`, `.params`, and `.safetensors`.

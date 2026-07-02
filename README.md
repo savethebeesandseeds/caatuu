@@ -30,7 +30,8 @@ Install the runtime tools inside the container:
 
 ```bash
 apt-get update
-apt-get install -y ca-certificates curl gpg procps file
+apt-get install -y --no-install-recommends ca-certificates curl gpg procps file
+rm -rf /var/lib/apt/lists/*
 ```
 
 Install `cloudflared` inside the container:
@@ -40,7 +41,8 @@ mkdir -p /usr/share/keyrings
 curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg -o /usr/share/keyrings/cloudflare-main.gpg
 echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' > /etc/apt/sources.list.d/cloudflared.list
 apt-get update
-apt-get install -y cloudflared
+apt-get install -y --no-install-recommends cloudflared
+rm -rf /var/lib/apt/lists/*
 ```
 
 From PowerShell, build the Rust server without installing Rust in the Debian runtime container:
@@ -118,4 +120,6 @@ That part still depends on Python/PyTorch until we replace the training stack.
 - `tools/runtime` - launch script for the unified Rust server.
 - `tools/phone-bench` - native Android/Termux benchmark path for offline Czech
   model testing on phones without browser WebGPU.
+- `tools/android-build` - Debian Docker build path for the native Android app,
+  using Android command-line tools instead of host Windows installs.
 - `tools/images-generation` - Stable Diffusion/image generation workspace.

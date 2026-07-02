@@ -24,8 +24,12 @@ class ModelManager(context: Context) {
     fun statusJson(): JSONObject =
         JSONObject()
             .put("runtime", "llama.cpp Android")
+            .put("runId", MODEL_RUN_ID)
+            .put("format", MODEL_FORMAT)
+            .put("quantization", MODEL_QUANTIZATION)
             .put("modelName", MODEL_NAME)
             .put("modelUrl", MODEL_URL)
+            .put("manifestUrl", MODEL_MANIFEST_URL)
             .put("sha256", MODEL_SHA256)
             .put("expectedBytes", MODEL_BYTES)
             .put("path", modelFile.absolutePath)
@@ -120,9 +124,13 @@ class ModelManager(context: Context) {
     private fun ByteArray.toHex(): String = joinToString("") { "%02x".format(it) }
 
     companion object {
+        const val MODEL_RUN_ID = "qwen3-1.7b-lora-003-hard"
+        const val MODEL_FORMAT = "gguf"
+        const val MODEL_QUANTIZATION = "Q4_K_M"
+        private const val MODEL_BASE_URL = "https://caatuu.waajacu.com/cz/data/models/phone-bench"
         const val MODEL_NAME = "caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf"
-        const val MODEL_URL =
-            "https://caatuu.waajacu.com/cz/data/models/phone-bench/caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf"
+        const val MODEL_URL = "$MODEL_BASE_URL/$MODEL_NAME"
+        const val MODEL_MANIFEST_URL = "$MODEL_BASE_URL/manifest.json"
         const val MODEL_SHA256 =
             "09f0055af18dfc7cfa85950699c96c8a40e6c32eb5682afc2bfa6fb8cf7561e7"
         const val MODEL_BYTES = 1_107_408_608L

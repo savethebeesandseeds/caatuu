@@ -3,6 +3,9 @@
 **/.env
 **/.env.*
 !**/.env.example
+**/*.jks
+**/*.keystore
+**/upload_certificate.pem
 
 # Runtime logs and state
 *.log
@@ -23,6 +26,7 @@
 **/.pytest_cache/
 **/dist/
 **/build/
+artifacts/
 
 # Heavy model, training, and generated workspaces
 apps/caatuu-czech/dumps/
