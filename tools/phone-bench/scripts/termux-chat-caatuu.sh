@@ -8,6 +8,7 @@ LLAMA_DIR="$WORK_DIR/llama.cpp"
 MODEL_DIR="$WORK_DIR/models"
 MODEL_PATH="$MODEL_DIR/$MODEL_FILE"
 LLAMA_CLI="$LLAMA_DIR/build-termux/bin/llama-cli"
+LLAMA_SIMPLE_CHAT="$LLAMA_DIR/build-termux/bin/llama-simple-chat"
 THREADS="${THREADS:-$(nproc)}"
 CTX_SIZE="${CTX_SIZE:-768}"
 TOKENS="${TOKENS:-160}"
@@ -52,19 +53,24 @@ curl -L "$BASE_URL/$MODEL_FILE.sha256" -o "$MODEL_PATH.sha256"
   sha256sum -c "$MODEL_FILE.sha256"
 )
 
-if [ ! -x "$LLAMA_CLI" ]; then
-  echo "Missing llama-cli at $LLAMA_CLI" >&2
+if [ ! -x "$LLAMA_SIMPLE_CHAT" ] && [ ! -x "$LLAMA_CLI" ]; then
+  echo "Missing llama-simple-chat and llama-cli under $LLAMA_DIR/build-termux/bin" >&2
   exit 1
 fi
 
 cat <<EOF
 Caatuu Czech local chat
 
-The model is about to load on this phone. After it loads, type a message and
-press Enter. Use Ctrl+D or Ctrl+C to leave.
+The model is about to load on this phone. After it loads, type one message and
+press Enter. Submit an empty line, or press Ctrl+C, to leave.
 
 No system prompt is added by this script.
 EOF
+
+if [ -x "$LLAMA_SIMPLE_CHAT" ]; then
+  "$LLAMA_SIMPLE_CHAT" -m "$MODEL_PATH" -c "$CTX_SIZE"
+  exit $?
+fi
 
 HELP_TEXT="$("$LLAMA_CLI" --help 2>&1 || true)"
 supports_arg() {
@@ -97,12 +103,6 @@ if supports_arg "--interactive-first"; then
   chat_args+=(--interactive-first)
 elif supports_arg "-if"; then
   chat_args+=(-if)
-fi
-
-if supports_arg "--multiline-input"; then
-  chat_args+=(--multiline-input)
-elif supports_arg "-mli"; then
-  chat_args+=(-mli)
 fi
 
 if supports_arg "--simple-io"; then
