@@ -16,6 +16,8 @@
 **/node_modules/
 **/.venv/
 **/venv/
+**/.gradle/
+**/local.properties
 **/__pycache__/
 **/*.pyc
 **/.pytest_cache/

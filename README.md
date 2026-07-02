@@ -7,6 +7,7 @@ Caatuu is a workspace for language-learning app variants.
 - `apps/caatuu-unified` - the root landing page served at `/`.
 - `apps/caatuu-chinese` - Chinese trainer, served at `/zh/`, with the Rust/Axum backend behind `/zh/api/v1/` and `/zh/ws`.
 - `apps/caatuu-czech` - Czech browser app, served at `/cz/`. Local WebLLM model exports live under `static/data/models/` but are generated artifacts, not Git payload.
+- `apps/caatuu-android` - native Android shell for the Czech app and offline GGUF inference through llama.cpp.
 
 ## One Container
 

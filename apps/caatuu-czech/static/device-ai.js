@@ -3,6 +3,7 @@ const $ = (selector) => document.querySelector(selector);
 let engine = null;
 let loadedModelId = "";
 let loadedRuntimeKind = "";
+const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const liveModelNote = "Loads into the browser with WebGPU.";
@@ -30,12 +31,65 @@ const czechLoraModel = {
   languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
 };
 
+window.CaatuuNative = {
+  receive(rawMessage) {
+    const message = typeof rawMessage === "string" ? JSON.parse(rawMessage) : rawMessage;
+    const pending = nativePending.get(message.id);
+    if (!pending) return;
+
+    if (message.kind === "done") {
+      nativePending.delete(message.id);
+      pending.resolve(message.result || {});
+      return;
+    }
+
+    if (message.kind === "error") {
+      nativePending.delete(message.id);
+      pending.reject(new Error(message.message || "Native Android runtime failed."));
+      return;
+    }
+
+    if (pending.onEvent) pending.onEvent(message);
+  }
+};
+
+function hasNativeRuntime() {
+  return Boolean(window.CaatuuAndroid && typeof window.CaatuuAndroid.postMessage === "function");
+}
+
+function nativeCall(type, payload = {}, handlers = {}) {
+  if (!hasNativeRuntime()) {
+    return Promise.reject(new Error("Native Android runtime is not available."));
+  }
+
+  const id = `native-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const request = { id, type, ...payload };
+
+  return new Promise((resolve, reject) => {
+    nativePending.set(id, { resolve, reject, onEvent: handlers.onEvent });
+    try {
+      window.CaatuuAndroid.postMessage(JSON.stringify(request));
+    } catch (error) {
+      nativePending.delete(id);
+      reject(error);
+    }
+  });
+}
+
 function setText(selector, value) {
   const node = $(selector);
   if (node) node.textContent = value;
 }
 
 function renderDeviceStatus() {
+  if (hasNativeRuntime()) {
+    setText("#gpuStatus", "Not needed");
+    setText("#cacheStatus", "APK assets");
+    setText("#runtimeStatus", "Native app ready");
+    setText("#progressBox", "Native Android inference is available. Select the Caatuu Czech model and load it.");
+    return;
+  }
+
   const hasWebGpu = "gpu" in navigator;
   setText("#gpuStatus", hasWebGpu ? "Available" : "Missing");
   setText("#cacheStatus", "serviceWorker" in navigator ? "Ready" : "Missing");
@@ -46,6 +100,7 @@ function renderDeviceStatus() {
 }
 
 async function registerServiceWorker() {
+  if (hasNativeRuntime()) return;
   if (!("serviceWorker" in navigator)) return;
   try {
     await navigator.serviceWorker.register("sw.js");
@@ -67,10 +122,17 @@ function updateSelectedModelUi() {
   $("#runPrompt").textContent = isLora ? "Check prompt" : "Run prompt";
   setText(
     "#modelNote",
-    isLora
+    isLora && hasNativeRuntime()
+      ? "Runs the verified GGUF with llama.cpp inside the Android app."
+      : isLora
       ? "Loads the generated Caatuu Czech WebLLM export when the manifest is ready."
       : liveModelNote
   );
+
+  if (isLora && hasNativeRuntime()) {
+    $("#loadModel").textContent = "Load native model";
+    $("#runPrompt").textContent = "Run prompt";
+  }
 
   if (loadedModelId && loadedModelId !== modelId) {
     engine = null;
@@ -132,6 +194,11 @@ async function loadModel() {
 }
 
 async function loadCzechLoraArtifact() {
+  if (hasNativeRuntime()) {
+    await loadNativeCzechModel();
+    return;
+  }
+
   $("#loadModel").disabled = true;
   $("#runPrompt").disabled = true;
   engine = null;
@@ -186,6 +253,11 @@ async function loadCzechLoraArtifact() {
 }
 
 async function runPrompt() {
+  if (loadedRuntimeKind === "android-native") {
+    await runNativePrompt();
+    return;
+  }
+
   if (isCzechLoraSelected() && loadedRuntimeKind !== "webllm-custom") {
     checkCzechLoraPrompt();
     return;
@@ -221,6 +293,92 @@ async function runPrompt() {
 
     const response = await engine.chat.completions.create(request);
     setText("#modelOutput", cleanModelOutput(response.choices?.[0]?.message?.content) || "(empty output)");
+    setText("#progressBox", "Done");
+  } catch (error) {
+    setText("#modelOutput", error?.message || String(error));
+    setText("#progressBox", "Generation failed");
+  } finally {
+    $("#runPrompt").disabled = false;
+  }
+}
+
+async function loadNativeCzechModel() {
+  $("#loadModel").disabled = true;
+  $("#runPrompt").disabled = true;
+  engine = null;
+  loadedModelId = "";
+  loadedRuntimeKind = "";
+  renderArtifactDetails(null);
+  setText("#runtimeStatus", "Native loading");
+  setText("#progressBox", "Checking the app-private model file.");
+  setText("#modelOutput", "Preparing native Android model runtime.");
+
+  try {
+    const status = await nativeCall("status");
+    renderNativeDetails(status);
+
+    if (!status.verified) {
+      setText("#progressBox", "Downloading and verifying the Czech GGUF model. This is a one-time step.");
+    }
+
+    const result = await nativeCall("load", {}, { onEvent: renderNativeEvent });
+    loadedModelId = czechLoraModel.id;
+    loadedRuntimeKind = "android-native";
+    renderNativeDetails(result);
+    setText("#runtimeStatus", "Native loaded");
+    setText("#progressBox", "Native llama.cpp model is ready.");
+    setText("#requestPreview", "No request sent yet.");
+    setText("#modelOutput", "The Czech GGUF model is loaded in this Android app. No system prompt is added by the bridge.");
+    $("#runPrompt").disabled = false;
+  } catch (error) {
+    loadedModelId = "";
+    loadedRuntimeKind = "";
+    setText("#runtimeStatus", "Native failed");
+    setText("#progressBox", error?.message || String(error));
+    setText("#modelOutput", "The native Android runtime could not load the Czech model.");
+  } finally {
+    $("#loadModel").disabled = false;
+  }
+}
+
+async function runNativePrompt() {
+  const prompt = $("#promptInput").value.trim();
+  if (!prompt) {
+    setText("#modelOutput", "Type a prompt first.");
+    setText("#progressBox", "Waiting for prompt");
+    return;
+  }
+
+  $("#runPrompt").disabled = true;
+  setText("#modelOutput", "");
+  setText("#progressBox", "Generating with native llama.cpp.");
+
+  const request = {
+    runtime: "android-native-llama.cpp",
+    messages: [{ role: "user", content: prompt }],
+    max_tokens: 120,
+    system_prompt_added_by_bridge: false
+  };
+  setText("#requestPreview", JSON.stringify(request, null, 2));
+
+  let output = "";
+  try {
+    const result = await nativeCall(
+      "prompt",
+      { prompt, maxTokens: 120 },
+      {
+        onEvent(message) {
+          if (message.kind === "token") {
+            output += message.token || "";
+            setText("#modelOutput", cleanModelOutput(output) || output);
+          } else if (message.kind === "status") {
+            setText("#progressBox", message.message || "Generating.");
+          }
+        }
+      }
+    );
+    const finalOutput = output || result.output || "";
+    setText("#modelOutput", cleanModelOutput(finalOutput) || "(empty output)");
     setText("#progressBox", "Done");
   } catch (error) {
     setText("#modelOutput", error?.message || String(error));
@@ -381,6 +539,14 @@ async function loadBenchmarks() {
 }
 
 async function loadPhoneBenchStatus() {
+  if (hasNativeRuntime()) {
+    setText("#phoneCommand", "This installed Android app can run the same GGUF directly. Select the Caatuu Czech model below and tap Load native model.");
+    setText("#phoneModelStatus", "Native bridge ready");
+    setText("#phoneBenchNote", "Termux is still useful for benchmarking, but it is not needed for this app path.");
+    $("#copyPhoneCommand").disabled = true;
+    return;
+  }
+
   setText("#phoneCommand", phoneCommand);
   try {
     const manifest = await fetchJson(phoneBench.manifestPath);
@@ -393,6 +559,20 @@ async function loadPhoneBenchStatus() {
   } catch (error) {
     setText("#phoneModelStatus", "Public bundle ready");
     setText("#phoneBenchNote", "Use the command above. The chat bundle is served from caatuu.waajacu.com.");
+  }
+}
+
+function renderNativeEvent(message) {
+  if (message.kind === "progress" && message.phase === "download") {
+    const total = Number(message.totalBytes || 0);
+    const bytes = Number(message.bytes || 0);
+    const pct = total > 0 ? ` ${(bytes / total * 100).toFixed(1)}%` : "";
+    setText("#progressBox", `Downloading ${formatBytes(bytes)} / ${formatBytes(total)}${pct}`);
+    return;
+  }
+
+  if (message.kind === "status") {
+    setText("#progressBox", message.message || "Working.");
   }
 }
 
@@ -485,6 +665,27 @@ function renderArtifactDetails(details) {
       <dd>${escapeHtml(exportStatus)}</dd>
     </dl>
     <p>The prompt runner switches to live WebLLM automatically after the export manifest reports a ready browser package.</p>
+  `;
+  node.hidden = false;
+}
+
+function renderNativeDetails(status) {
+  const node = $("#artifactDetails");
+  node.innerHTML = `
+    <h3>${escapeHtml(czechLoraModel.name)}</h3>
+    <dl>
+      <dt>Runtime</dt>
+      <dd>${escapeHtml(status.runtime || "llama.cpp Android")}</dd>
+      <dt>Model</dt>
+      <dd>${escapeHtml(status.modelName || "")}</dd>
+      <dt>Stored</dt>
+      <dd>${escapeHtml(status.downloaded ? "yes" : "not yet")}</dd>
+      <dt>Verified</dt>
+      <dd>${escapeHtml(status.verified ? "yes" : "not yet")}</dd>
+      <dt>Size</dt>
+      <dd>${escapeHtml(formatBytes(status.expectedBytes || status.bytes || 0))}</dd>
+    </dl>
+    <p>The model is downloaded once, checked by SHA-256, and then loaded from app-private storage for offline use.</p>
   `;
   node.hidden = false;
 }
