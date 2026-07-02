@@ -60,22 +60,26 @@ function isPwaInstalled() {
 function updatePwaInstallUi(statusText = "") {
   const button = $("#installPwaAction");
   const status = $("#pwaInstallStatus");
+  const help = $("#pwaInstallHelp");
   if (!button || !status) return;
 
   if (isPwaInstalled()) {
     button.textContent = "Installed";
     button.disabled = true;
     status.textContent = "Offline ready";
+    if (help) help.hidden = true;
     return;
   }
 
   button.textContent = "Install app";
-  button.disabled = !deferredPwaInstallPrompt;
+  button.disabled = !window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1";
   status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser menu");
 }
 
 async function promptPwaInstall() {
   if (!deferredPwaInstallPrompt) {
+    const help = $("#pwaInstallHelp");
+    if (help) help.hidden = false;
     updatePwaInstallUi("Browser menu");
     return;
   }

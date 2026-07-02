@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v24";
+const CACHE_NAME = "caatuu-czech-pwa-v25";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -8,28 +8,12 @@ const CORE_ASSETS = [
   "./device-ai.css?v=native-1",
   "./device-ai.js?v=native-1",
   "./manifest.webmanifest",
+  "./icons/caatuu-czech-192.png",
+  "./icons/caatuu-czech-512.png",
   "./icons/caatuu-czech.svg",
   "./data/dictionary.json",
   "./data/scripts.json",
-  "./data/verbs.json",
-  "./data/models/models.json",
-  "./data/models/export-spec.json",
-  "./data/models/benchmarks/base-qwen3-1.7b.json",
-  "./data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json",
-  "./data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.md",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/export-manifest.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/finalize-report.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/mlc-chat-config.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/tensor-cache.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/added_tokens.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/chat_template.jinja",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/merges.txt",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/special_tokens_map.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/tokenizer.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/tokenizer_config.json",
-  "./data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/vocab.json",
-  "./data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/training-run.json",
-  "./data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/adapter/adapter_config.json"
+  "./data/verbs.json"
 ];
 
 self.addEventListener("install", (event) => {

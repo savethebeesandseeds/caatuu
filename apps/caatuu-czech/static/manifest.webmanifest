@@ -12,6 +12,18 @@
   "categories": ["education", "books", "productivity"],
   "icons": [
     {
+      "src": "icons/caatuu-czech-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/caatuu-czech-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "icons/caatuu-czech.svg",
       "sizes": "any",
       "type": "image/svg+xml",
@@ -23,19 +35,19 @@
       "name": "Dictionary",
       "short_name": "Dictionary",
       "url": "./index.html#dictionary",
-      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
+      "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "Verbs",
       "short_name": "Verbs",
       "url": "./index.html#verbs",
-      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
+      "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "Device AI",
       "short_name": "Device AI",
       "url": "./device-ai.html",
-      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
+      "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }

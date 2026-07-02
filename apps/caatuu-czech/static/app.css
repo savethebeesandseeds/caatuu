@@ -138,6 +138,21 @@ h1, h2, h3, p { margin: 0; }
   font-weight: 800;
 }
 
+.pwa-install-help {
+  margin: -14px 0 0;
+  padding: 8px;
+  border: 1px solid #d6e2dc;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: #536159;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.pwa-install-help[hidden] {
+  display: none;
+}
+
 .device-ai-link {
   width: 100%;
   min-height: 40px;
@@ -1860,6 +1875,12 @@ body.print-preview-on .print-book {
     border-color: #283946;
     background: #101820;
     color: #aebbc5;
+  }
+
+  .pwa-install-help {
+    border-color: #283946;
+    background: #101820;
+    color: #c0cad4;
   }
 
   .device-ai-link {
