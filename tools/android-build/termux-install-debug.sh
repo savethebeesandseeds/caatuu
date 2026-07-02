@@ -3,9 +3,11 @@ set -eu
 
 APK_URL="${APK_URL:-https://caatuu.waajacu.com/android/caatuu-debug.apk}"
 APK_FILE="${APK_FILE:-$HOME/caatuu-debug.apk}"
+SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu-debug.apk}"
 EXPECTED_SHA="${EXPECTED_SHA:-3a183b2b822557c0b3d30d8c431cb2208cef5f3a0a37cebc1e82f8d4255fb0a1}"
 REPORT_FILE="${REPORT_FILE:-$HOME/caatuu-install-debug-report.txt}"
 LOGCAT_FILE="${LOGCAT_FILE:-$HOME/caatuu-install-logcat.txt}"
+PM_FILE="${PM_FILE:-$HOME/caatuu-install-pm.txt}"
 
 note() {
   printf '%s\n' "$*"
@@ -15,6 +17,11 @@ note() {
 run_report() {
   note "$ $*"
   "$@" >> "$REPORT_FILE" 2>&1 || true
+}
+
+run_show() {
+  note "$ $*"
+  "$@" 2>&1 | tee -a "$REPORT_FILE" || true
 }
 
 need_command() {
@@ -36,10 +43,10 @@ fi
 
 note ""
 note "Device"
-run_report getprop ro.build.version.release
-run_report getprop ro.build.version.sdk
-run_report getprop ro.product.cpu.abi
-run_report getprop ro.product.cpu.abilist
+run_show getprop ro.build.version.release
+run_show getprop ro.build.version.sdk
+run_show getprop ro.product.cpu.abi
+run_show getprop ro.product.cpu.abilist
 
 note ""
 note "Downloading APK"
@@ -48,8 +55,8 @@ curl -L --fail --retry 3 -o "$APK_FILE" "$APK_URL" 2>&1 | tee -a "$REPORT_FILE"
 
 note ""
 note "APK file"
-run_report ls -lh "$APK_FILE"
-run_report file "$APK_FILE"
+run_show ls -lh "$APK_FILE"
+run_show file "$APK_FILE"
 
 ACTUAL_SHA="$(sha256sum "$APK_FILE" | awk '{print $1}')"
 note "sha256: $ACTUAL_SHA"
@@ -60,12 +67,43 @@ if [ "$ACTUAL_SHA" != "$EXPECTED_SHA" ]; then
 fi
 
 note ""
+note "Preparing shared APK path"
+INSTALL_APK="$APK_FILE"
+if [ ! -d "$HOME/storage/downloads" ] && need_command termux-setup-storage; then
+  note "Requesting Termux storage permission. Approve the Android prompt if it appears."
+  termux-setup-storage >> "$REPORT_FILE" 2>&1 || true
+  sleep 3
+fi
+
+if [ -d "$HOME/storage/downloads" ]; then
+  cp "$APK_FILE" "$SHARED_APK"
+  chmod 644 "$SHARED_APK" 2>/dev/null || true
+  INSTALL_APK="$SHARED_APK"
+elif [ -d /sdcard/Download ]; then
+  SHARED_APK="/sdcard/Download/caatuu-debug.apk"
+  cp "$APK_FILE" "$SHARED_APK" 2>> "$REPORT_FILE" && INSTALL_APK="$SHARED_APK" || true
+fi
+
+run_show ls -lh "$INSTALL_APK"
+run_show file "$INSTALL_APK"
+
+note ""
+note "Package manager diagnostic"
+if need_command pm; then
+  note "$ pm install -r $INSTALL_APK"
+  pm install -r "$INSTALL_APK" > "$PM_FILE" 2>&1 || true
+  cat "$PM_FILE" | tee -a "$REPORT_FILE"
+else
+  note "pm command not available"
+fi
+
+note ""
 note "Opening Package Installer"
 if need_command logcat; then
   logcat -c >> "$REPORT_FILE" 2>&1 || true
 fi
 
-termux-open --content-type application/vnd.android.package-archive "$APK_FILE" >> "$REPORT_FILE" 2>&1 || true
+termux-open --content-type application/vnd.android.package-archive "$INSTALL_APK" >> "$REPORT_FILE" 2>&1 || true
 
 note ""
 note "After Package Installer shows the error, return to Termux and press Enter."
@@ -85,3 +123,4 @@ note ""
 note "Done. Send these outputs/files back:"
 note "$REPORT_FILE"
 note "$LOGCAT_FILE"
+note "$PM_FILE"
