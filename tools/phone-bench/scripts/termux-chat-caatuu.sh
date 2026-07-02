@@ -66,15 +66,51 @@ press Enter. Use Ctrl+D or Ctrl+C to leave.
 No system prompt is added by this script.
 EOF
 
-"$LLAMA_CLI" \
-  -m "$MODEL_PATH" \
-  -c "$CTX_SIZE" \
-  -n "$TOKENS" \
-  -t "$THREADS" \
-  --temp "$TEMP" \
-  --jinja \
-  -cnv \
-  -if \
-  -mli \
-  --simple-io \
-  --chat-template-kwargs '{"enable_thinking":false}'
+HELP_TEXT="$("$LLAMA_CLI" --help 2>&1 || true)"
+supports_arg() {
+  printf '%s\n' "$HELP_TEXT" | grep -Fq -- "$1"
+}
+
+chat_args=(
+  -m "$MODEL_PATH"
+  -c "$CTX_SIZE"
+  -n "$TOKENS"
+  -t "$THREADS"
+  --temp "$TEMP"
+)
+
+if supports_arg "--jinja"; then
+  chat_args+=(--jinja)
+fi
+
+if supports_arg "--conversation"; then
+  chat_args+=(--conversation)
+elif supports_arg "-cnv"; then
+  chat_args+=(-cnv)
+elif supports_arg "--interactive"; then
+  chat_args+=(--interactive)
+elif supports_arg "-i"; then
+  chat_args+=(-i)
+fi
+
+if supports_arg "--interactive-first"; then
+  chat_args+=(--interactive-first)
+elif supports_arg "-if"; then
+  chat_args+=(-if)
+fi
+
+if supports_arg "--multiline-input"; then
+  chat_args+=(--multiline-input)
+elif supports_arg "-mli"; then
+  chat_args+=(-mli)
+fi
+
+if supports_arg "--simple-io"; then
+  chat_args+=(--simple-io)
+fi
+
+if supports_arg "--chat-template-kwargs"; then
+  chat_args+=(--chat-template-kwargs '{"enable_thinking":false}')
+fi
+
+"$LLAMA_CLI" "${chat_args[@]}"
