@@ -49,8 +49,9 @@ class ModelManager(context: Context) {
                     .put(
                         "thinking",
                         JSONObject()
-                            .put("active", false)
-                            .put("pending", "Needs chat-template kwargs in the native llama.cpp binding."),
+                            .put("active", true)
+                            .put("default", false)
+                            .put("method", "Qwen chat-template enable_thinking"),
                     )
                     .put(
                         "temperature",

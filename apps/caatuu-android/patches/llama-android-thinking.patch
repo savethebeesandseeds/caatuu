@@ -1,0 +1,141 @@
+diff --git a/common/chat.cpp b/common/chat.cpp
+index 6da59f4..8344e0b 100644
+--- a/common/chat.cpp
++++ b/common/chat.cpp
+@@ -608,11 +608,15 @@ std::string common_chat_format_single(const struct common_chat_templates * tmpls
+                                       const std::vector<common_chat_msg> & past_msg,
+                                       const common_chat_msg &              new_msg,
+                                       bool                                 add_ass,
+-                                      bool                                 use_jinja) {
++                                      bool                                 use_jinja,
++                                      bool                                 enable_thinking,
++                                      const std::map<std::string, std::string> & chat_template_kwargs) {
+     common_chat_templates_inputs inputs;
+-    inputs.use_jinja = use_jinja;
+-    inputs.add_bos   = tmpls->add_bos;
+-    inputs.add_eos   = tmpls->add_eos;
++    inputs.use_jinja            = use_jinja;
++    inputs.add_bos              = tmpls->add_bos;
++    inputs.add_eos              = tmpls->add_eos;
++    inputs.enable_thinking      = enable_thinking;
++    inputs.chat_template_kwargs = chat_template_kwargs;
+ 
+     std::string fmt_past_msg;
+     if (!past_msg.empty()) {
+diff --git a/common/chat.h b/common/chat.h
+index 7898f16..f7b0e16 100644
+--- a/common/chat.h
++++ b/common/chat.h
+@@ -329,7 +329,9 @@ std::string common_chat_format_single(const struct common_chat_templates * tmpls
+                                       const std::vector<common_chat_msg> & past_msg,
+                                       const common_chat_msg &              new_msg,
+                                       bool                                 add_ass,
+-                                      bool                                 use_jinja);
++                                      bool                                 use_jinja,
++                                      bool                                 enable_thinking = true,
++                                      const std::map<std::string, std::string> & chat_template_kwargs = {});
+ 
+ // Returns an example of formatted chat
+ std::string common_chat_format_example(const struct common_chat_templates *       tmpls,
+diff --git a/examples/llama.android/lib/src/main/cpp/ai_chat.cpp b/examples/llama.android/lib/src/main/cpp/ai_chat.cpp
+index 03ab96c..f46d505 100644
+--- a/examples/llama.android/lib/src/main/cpp/ai_chat.cpp
++++ b/examples/llama.android/lib/src/main/cpp/ai_chat.cpp
+@@ -2,6 +2,7 @@
+ #include <jni.h>
+ #include <iomanip>
+ #include <cmath>
++#include <map>
+ #include <string>
+ #include <unistd.h>
+ #include <sampling.h>
+@@ -286,12 +287,16 @@ static void shift_context() {
+     LOGi("%s: Context shifting done! Current position: %d", __func__, current_position);
+ }
+ 
+-static std::string chat_add_and_format(const std::string &role, const std::string &content) {
++static std::string chat_add_and_format(const std::string &role, const std::string &content,
++                                       const bool enable_thinking = true) {
+     common_chat_msg new_msg;
+     new_msg.role = role;
+     new_msg.content = content;
++    std::map<std::string, std::string> template_kwargs;
++    template_kwargs["enable_thinking"] = enable_thinking ? "true" : "false";
+     auto formatted = common_chat_format_single(
+-            g_chat_templates.get(), chat_msgs, new_msg, role == ROLE_USER, /* use_jinja */ false);
++            g_chat_templates.get(), chat_msgs, new_msg, role == ROLE_USER, /* use_jinja */ true,
++            enable_thinking, template_kwargs);
+     chat_msgs.push_back(new_msg);
+     LOGi("%s: Formatted and added %s message: \n%s\n", __func__, role.c_str(), formatted.c_str());
+     return formatted;
+@@ -405,7 +410,8 @@ Java_com_arm_aichat_internal_InferenceEngineImpl_processUserPrompt(
+         JNIEnv *env,
+         jobject /*unused*/,
+         jstring juser_prompt,
+-        jint n_predict
++        jint n_predict,
++        jboolean jenable_thinking
+ ) {
+     // Reset short-term states
+     reset_short_term_states();
+@@ -418,7 +424,8 @@ Java_com_arm_aichat_internal_InferenceEngineImpl_processUserPrompt(
+     // Format user prompt if applicable
+     const bool has_chat_template = common_chat_templates_was_explicit(g_chat_templates.get());
+     if (has_chat_template) {
+-        formatted_user_prompt = chat_add_and_format(ROLE_USER, user_prompt);
++        const bool enable_thinking = jenable_thinking == JNI_TRUE;
++        formatted_user_prompt = chat_add_and_format(ROLE_USER, user_prompt, enable_thinking);
+     }
+     env->ReleaseStringUTFChars(juser_prompt, user_prompt);
+ 
+diff --git a/examples/llama.android/lib/src/main/java/com/arm/aichat/InferenceEngine.kt b/examples/llama.android/lib/src/main/java/com/arm/aichat/InferenceEngine.kt
+index 26c1668..61138ec 100644
+--- a/examples/llama.android/lib/src/main/java/com/arm/aichat/InferenceEngine.kt
++++ b/examples/llama.android/lib/src/main/java/com/arm/aichat/InferenceEngine.kt
+@@ -28,7 +28,11 @@ interface InferenceEngine {
+     /**
+      * Sends a user prompt to the loaded model and returns a Flow of generated tokens.
+      */
+-    fun sendUserPrompt(message: String, predictLength: Int = DEFAULT_PREDICT_LENGTH): Flow<String>
++    fun sendUserPrompt(
++        message: String,
++        predictLength: Int = DEFAULT_PREDICT_LENGTH,
++        enableThinking: Boolean = true,
++    ): Flow<String>
+ 
+     /**
+      * Runs a benchmark with the specified parameters.
+diff --git a/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt b/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
+index a293796..b4233ec 100644
+--- a/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
++++ b/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
+@@ -98,7 +98,11 @@ internal class InferenceEngineImpl private constructor(
+     private external fun processSystemPrompt(systemPrompt: String): Int
+ 
+     @FastNative
+-    private external fun processUserPrompt(userPrompt: String, predictLength: Int): Int
++    private external fun processUserPrompt(
++        userPrompt: String,
++        predictLength: Int,
++        enableThinking: Boolean,
++    ): Int
+ 
+     @FastNative
+     private external fun generateNextToken(): String?
+@@ -217,6 +221,7 @@ internal class InferenceEngineImpl private constructor(
+     override fun sendUserPrompt(
+         message: String,
+         predictLength: Int,
++        enableThinking: Boolean,
+     ): Flow<String> = flow {
+         require(message.isNotEmpty()) { "User prompt discarded due to being empty!" }
+         check(_state.value is InferenceEngine.State.ModelReady) {
+@@ -228,7 +233,7 @@ internal class InferenceEngineImpl private constructor(
+             _readyForSystemPrompt = false
+             _state.value = InferenceEngine.State.ProcessingUserPrompt
+ 
+-            processUserPrompt(message, predictLength).let { result ->
++            processUserPrompt(message, predictLength, enableThinking).let { result ->
+                 if (result != 0) {
+                     Log.e(TAG, "Failed to process user prompt: $result")
+                     return@flow

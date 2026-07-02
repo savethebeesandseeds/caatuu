@@ -235,11 +235,11 @@ function updateSettingsSupport() {
   }
 
   if (loadedRuntimeKind === "android-native" || hasNativeRuntime()) {
-    setText("#thinkingSupport", "APK native bridge pending");
+    setText("#thinkingSupport", "Active in APK request");
     setText("#temperatureSupport", "APK native bridge pending");
     setText("#contextSupport", "APK native bridge pending");
-    setText("#capabilityNote", "APK applies max tokens now. Thinking, temperature, and context are saved and sent as metadata for the next native bridge patch.");
-    setText("#controlMeta", "APK active: max tokens. Pending: thinking, temperature, context size.");
+    setText("#capabilityNote", "APK applies max tokens and Qwen chat-template thinking now. Temperature and context are saved for the next native bridge patch.");
+    setText("#controlMeta", "APK active: max tokens, thinking. Pending: temperature, context size.");
     return;
   }
 
@@ -570,7 +570,7 @@ async function runNativePrompt(prompt) {
     options,
     active_controls: {
       max_tokens: true,
-      thinking: false,
+      thinking: true,
       temperature: false,
       context_size: false
     },

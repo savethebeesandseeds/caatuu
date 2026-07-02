@@ -31,10 +31,10 @@ class NativeCzechModel(context: Context) {
             loadedPath = modelFile.absolutePath
         }
 
-    fun generate(prompt: String, maxTokens: Int): Flow<String> {
+    fun generate(prompt: String, maxTokens: Int, enableThinking: Boolean): Flow<String> {
         require(prompt.isNotBlank()) { "Prompt is empty." }
         check(engine.state.value.isModelLoaded) { "Model is not loaded." }
-        return engine.sendUserPrompt(prompt, maxTokens)
+        return engine.sendUserPrompt(prompt, maxTokens, enableThinking)
     }
 
     suspend fun benchmark(): String =

@@ -17,6 +17,7 @@ storage, and then works offline.
 - Android target for debug sideloads: API 30 by default.
 - No Termux is needed for this app path.
 - No system prompt is added by the Android bridge.
+- Thinking toggle: passed into the Qwen chat template as `enable_thinking`.
 
 ## Prepare Vendor Code
 
@@ -28,6 +29,8 @@ apps\caatuu-android\scripts\prepare-llama-vendor.ps1
 ```
 
 The clone lands in `tools/phone-bench/vendor/llama.cpp`, which is ignored by Git.
+The prepare script also applies `patches/llama-android-thinking.patch` so the
+Android wrapper can pass the thinking toggle into the Qwen chat template.
 
 ## Build
 

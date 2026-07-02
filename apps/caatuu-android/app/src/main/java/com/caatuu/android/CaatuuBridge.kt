@@ -91,10 +91,11 @@ class CaatuuBridge(
         val prompt = request.optString("prompt")
         val maxTokens = request.optInt("maxTokens", 384).coerceIn(1, 2048)
         val options = request.optJSONObject("options") ?: JSONObject()
+        val enableThinking = options.optBoolean("thinking", false)
         val appliedSettings = JSONObject()
             .put("maxTokens", maxTokens)
-            .put("thinkingRequested", options.optBoolean("thinking", false))
-            .put("thinkingActive", false)
+            .put("thinkingRequested", enableThinking)
+            .put("thinkingActive", true)
             .put("temperatureRequested", options.optDouble("temperature", 0.3))
             .put("temperatureActive", false)
             .put("contextSizeRequested", options.optInt("context_size", 8192))
@@ -103,7 +104,7 @@ class CaatuuBridge(
 
         emit(id, "status", JSONObject().put("message", "Generating.").put("settings", appliedSettings))
         withContext(Dispatchers.Default) {
-            model.generate(prompt, maxTokens).collect { token ->
+            model.generate(prompt, maxTokens, enableThinking).collect { token ->
                 output += token
                 emit(id, "token", JSONObject().put("token", token))
             }
