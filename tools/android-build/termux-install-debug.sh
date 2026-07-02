@@ -4,7 +4,7 @@ set -eu
 APK_URL="${APK_URL:-https://caatuu.waajacu.com/android/caatuu-debug.apk}"
 APK_FILE="${APK_FILE:-$HOME/caatuu-debug.apk}"
 SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu-debug.apk}"
-EXPECTED_SHA="${EXPECTED_SHA:-9dd1a344ba725bc85958d98e81f87224cf3678f169f97ec90b64dd984e07748c}"
+EXPECTED_SHA="${EXPECTED_SHA:-d6d2d39fddf9e100a43aea6739421556fab5a5a823719ed18073e5982e3ab1d4}"
 REPORT_FILE="${REPORT_FILE:-$HOME/caatuu-install-debug-report.txt}"
 LOGCAT_FILE="${LOGCAT_FILE:-$HOME/caatuu-install-logcat.txt}"
 PM_FILE="${PM_FILE:-$HOME/caatuu-install-pm.txt}"

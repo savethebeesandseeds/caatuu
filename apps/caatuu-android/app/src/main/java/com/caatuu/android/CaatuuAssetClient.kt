@@ -77,6 +77,6 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
 
     companion object {
         private const val HOST = "caatuu.local"
-        const val START_URL = "https://$HOST/cz/index.html"
+        const val START_URL = "https://$HOST/cz/device-ai.html"
     }
 }

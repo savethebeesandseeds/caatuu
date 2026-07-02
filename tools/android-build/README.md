@@ -41,6 +41,16 @@ The debug APK is written to:
 C:\Work\caatuu\artifacts\android\caatuu-debug.apk
 ```
 
+The first debug build also creates:
+
+```text
+C:\Work\caatuu\artifacts\android\caatuu-debug.keystore
+```
+
+That local ignored key is reused by later debug builds so Android can update the
+same installed debug package. If you delete it, future debug APKs will be signed
+with a new key and Android may require uninstalling the old debug app first.
+
 By default the APK targets Android 11 / API 30 or newer. To test a different
 minimum SDK, pass `-e CAATUU_ANDROID_MIN_SDK=33` or another API level to the
 Docker command.

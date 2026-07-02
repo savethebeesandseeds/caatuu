@@ -1,9 +1,9 @@
 {
   "name": "Caatuu Czech",
   "short_name": "Caatuu CZ",
-  "description": "Offline Czech guide, dictionary, scripts, verbs, and device AI experiments.",
+  "description": "Czech phone AI, verbs, dictionary, scripts, and guide.",
   "id": "/cz/",
-  "start_url": "./index.html",
+  "start_url": "./device-ai.html",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
@@ -44,8 +44,8 @@
       "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Device AI",
-      "short_name": "Device AI",
+      "name": "Phone AI",
+      "short_name": "Phone AI",
       "url": "./device-ai.html",
       "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     }

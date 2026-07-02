@@ -9,6 +9,13 @@ val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
 val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
 val releaseKeyPassword = providers.environmentVariable("CAATUU_ANDROID_KEY_PASSWORD")
+val debugKeystorePath = providers.environmentVariable("CAATUU_ANDROID_DEBUG_KEYSTORE")
+val debugKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_DEBUG_KEYSTORE_PASSWORD")
+    .orElse("android")
+val debugKeyAlias = providers.environmentVariable("CAATUU_ANDROID_DEBUG_KEY_ALIAS")
+    .orElse("androiddebugkey")
+val debugKeyPassword = providers.environmentVariable("CAATUU_ANDROID_DEBUG_KEY_PASSWORD")
+    .orElse("android")
 val androidMinSdk = providers.environmentVariable("CAATUU_ANDROID_MIN_SDK")
     .map(String::toInt)
     .orElse(30)
@@ -41,8 +48,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 3
-        versionName = "0.1.2"
+        versionCode = 4
+        versionName = "0.1.3"
     }
 
     ndkVersion = "29.0.13113456"
@@ -52,6 +59,14 @@ android {
     }
 
     signingConfigs {
+        getByName("debug") {
+            if (debugKeystorePath.isPresent) {
+                storeFile = file(debugKeystorePath.get())
+                storePassword = debugKeystorePassword.get()
+                keyAlias = debugKeyAlias.get()
+                keyPassword = debugKeyPassword.get()
+            }
+        }
         if (hasReleaseSigning) {
             create("release") {
                 storeFile = file(releaseKeystorePath.get())

@@ -51,16 +51,19 @@ docker run --rm -it `
 The debug APK lands at `C:\Work\caatuu\artifacts\android\caatuu-debug.apk`.
 Release AAB/APK builds are documented in `tools/android-build/README.md`.
 
+The debug build also creates `C:\Work\caatuu\artifacts\android\caatuu-debug.keystore`
+on first use and reuses it for later debug APKs. Keep that local file if you
+want Android to accept updates over an already installed debug build.
+
 The build copies Czech static assets into generated APK assets while excluding
 heavy model payloads such as `.gguf`, `.bin`, `.params`, and `.safetensors`.
 
 ## First Phone Test
 
 1. Install the debug APK.
-2. Open Device AI inside the app.
-3. Select `Caatuu Czech LoRA - trained hard`.
-4. Tap `Load native model`.
-5. Let the one-time model download finish.
-6. Type a prompt and run it.
+2. The app opens the Phone AI chat screen.
+3. Tap `Load model`.
+4. Let the one-time model download finish.
+5. Type a message and tap `Send`.
 
 After the model is verified once, the app should keep working without network.

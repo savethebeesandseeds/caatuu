@@ -2,118 +2,135 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#2f6f5e">
-    <title>Caatuu Czech · Device AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#22594d">
+    <title>Caatuu Czech Phone AI</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-192.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-192.png">
-    <link rel="stylesheet" href="device-ai.css?v=native-1">
+    <link rel="stylesheet" href="device-ai.css?v=chat-1">
   </head>
   <body>
-    <main class="device-shell">
-      <header class="topbar">
-        <a href="index.html" aria-label="Back to Caatuu Czech">←</a>
-        <div>
-          <h1>Device AI</h1>
-          <p>Browser-side model check</p>
-        </div>
+    <main class="phone-ai-shell">
+      <header class="app-header">
+        <a class="brand-link" href="index.html#verbs" aria-label="Open Caatuu Czech study tools">
+          <span class="brand-mark">CZ</span>
+          <span>
+            <strong>Caatuu Czech</strong>
+            <small>Phone AI</small>
+          </span>
+        </a>
+        <nav class="study-nav" aria-label="Study tools">
+          <a href="index.html#verbs">Verbs</a>
+          <a href="index.html#dictionary">Dictionary</a>
+          <a href="index.html#guide">Guide</a>
+        </nav>
       </header>
 
-      <section class="status-grid" aria-label="Device status">
-        <article>
-          <span>WebGPU</span>
-          <strong id="gpuStatus">Checking</strong>
-        </article>
-        <article>
-          <span>PWA Cache</span>
-          <strong id="cacheStatus">Checking</strong>
-        </article>
-        <article>
-          <span>Runtime</span>
-          <strong id="runtimeStatus">Not loaded</strong>
-        </article>
-      </section>
+      <div class="workbench">
+        <section class="chat-panel" aria-labelledby="chatTitle">
+          <header class="chat-head">
+            <div>
+              <p class="kicker">Local Czech model</p>
+              <h1 id="chatTitle">Talk with Czech AI</h1>
+              <p id="runtimeSummary">Checking the available runtime.</p>
+            </div>
+            <div class="runtime-control">
+              <span class="runtime-badge" id="runtimeBadge">Checking</span>
+              <button id="loadModel" type="button">Load model</button>
+            </div>
+          </header>
 
-      <section class="tool-panel" aria-label="Live browser model">
-        <div class="panel-head">
-          <div>
-            <h2>Live WebGPU Model</h2>
-            <p id="modelNote">Loads into the browser, not a Python server.</p>
+          <div class="chat-log" id="chatLog" aria-live="polite"></div>
+
+          <div class="quick-prompts" aria-label="Quick prompts">
+            <button type="button" data-prompt="Ahoj, odpovez cesky jednou kratkou vetou.">Short hello</button>
+            <button type="button" data-prompt="Oprav prosim pravopis: Dneska sem byl v praze a ucim se cesky.">Correct spelling</button>
+            <button type="button" data-prompt="Zeptej se me jednu jednoduchou otazku cesky.">Practice question</button>
           </div>
-          <button id="loadModel" type="button">Load model</button>
-        </div>
 
-        <label class="field">
-          <span>Model</span>
-          <select id="modelSelect">
-            <option value="Qwen3-0.6B-q4f16_1-MLC">Qwen3 0.6B · small</option>
-            <option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B · larger</option>
-            <option value="SmolLM2-360M-Instruct-q4f16_1-MLC">SmolLM2 360M · tiny</option>
-            <option value="caatuu-czech-qwen3-1.7b-lora-003-hard" selected>Caatuu Czech LoRA · trained hard</option>
-          </select>
-        </label>
+          <form class="composer" id="promptForm">
+            <label class="message-field">
+              <span>Message</span>
+              <textarea id="promptInput" rows="3" autocomplete="off" autocapitalize="sentences" placeholder="Write a Czech sentence or ask for practice."></textarea>
+            </label>
+            <button id="runPrompt" type="submit" disabled>Send</button>
+          </form>
+          <p class="privacy-line" id="privacyLine">The app sends only your message to the local runtime. No system prompt is added by this page.</p>
+        </section>
 
-        <div class="artifact-card" id="artifactDetails" hidden></div>
+        <aside class="side-column" aria-label="Model and study side panel">
+          <section class="status-card" aria-label="Model status">
+            <div class="side-head">
+              <p class="kicker">Runtime</p>
+              <h2>Status</h2>
+            </div>
+            <dl class="status-list">
+              <div>
+                <dt>Runtime</dt>
+                <dd id="runtimeStatus">Checking</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd id="modelStatus">Caatuu Czech GGUF</dd>
+              </div>
+              <div>
+                <dt>Storage</dt>
+                <dd id="storageStatus">Checking</dd>
+              </div>
+              <div>
+                <dt>WebGPU</dt>
+                <dd id="gpuStatus">Checking</dd>
+              </div>
+              <div>
+                <dt>PWA cache</dt>
+                <dd id="cacheStatus">Checking</dd>
+              </div>
+            </dl>
+            <div class="progress-box" id="progressBox" aria-live="polite">Idle</div>
+          </section>
 
-        <label class="field">
-          <span>Prompt</span>
-          <textarea id="promptInput" rows="4" placeholder="Type your prompt here."></textarea>
-        </label>
+          <section class="side-card study-card">
+            <div class="side-head">
+              <p class="kicker">Study</p>
+              <h2>Use beside chat</h2>
+            </div>
+            <a class="study-link is-primary" href="index.html#verbs">
+              <span>Verbs</span>
+              <small>Practice present forms and review weak cards.</small>
+            </a>
+            <a class="study-link" href="index.html#dictionary">
+              <span>Dictionary</span>
+              <small>Search the compact Czech reference.</small>
+            </a>
+            <a class="study-link" href="index.html#guide">
+              <span>Guide</span>
+              <small>Open cases, cues, and model tables.</small>
+            </a>
+          </section>
 
-        <div class="actions">
-          <button id="runPrompt" type="button" disabled>Run prompt</button>
-          <button id="cacheProbe" type="button">Cache check</button>
-        </div>
-
-        <div class="progress" id="progressBox" aria-live="polite">Idle</div>
-        <div class="request-box">
-          <b>Sent to model</b>
-          <pre id="requestPreview">No request sent yet.</pre>
-        </div>
-        <pre class="model-output" id="modelOutput">Model output appears here.</pre>
-      </section>
-
-      <details class="tool-panel phone-panel" aria-label="Advanced phone runner">
-        <summary>
-          <span>Advanced Phone Runner</span>
-          <small>Termux fallback</small>
-        </summary>
-        <div class="panel-head">
-          <div>
-            <h2>Native Phone Runner</h2>
-            <p>Use this when the browser cannot expose WebGPU.</p>
-          </div>
-          <button id="copyPhoneCommand" type="button">Copy chat command</button>
-        </div>
-        <div class="phone-status-grid">
-          <article>
-            <span>Phone model</span>
-            <strong id="phoneModelStatus">Checking</strong>
-          </article>
-          <article>
-            <span>Runtime</span>
-            <strong>Termux + llama.cpp</strong>
-          </article>
-        </div>
-        <pre class="command-box" id="phoneCommand"></pre>
-        <p class="small-note" id="phoneBenchNote">
-          This downloads the quantized model once, builds llama.cpp on the phone, then opens an interactive local chat.
-        </p>
-      </details>
-
-      <section class="tool-panel" aria-label="Offline benchmark contrast">
-        <div class="panel-head">
-          <div>
-            <h2>Saved LoRA Contrast</h2>
-            <p>Offline JSON from the local training run.</p>
-          </div>
-          <button id="loadBenchmarks" type="button">Show contrast</button>
-        </div>
-        <div class="benchmark-list" id="benchmarkList"></div>
-      </section>
+          <details class="side-card diagnostics">
+            <summary>
+              <span>Diagnostics</span>
+              <small>model details</small>
+            </summary>
+            <div class="diagnostic-actions">
+              <button id="cacheProbe" type="button">Cache check</button>
+              <button id="loadBenchmarks" type="button">Show contrast</button>
+              <button id="copyPhoneCommand" type="button">Copy Termux fallback</button>
+            </div>
+            <div class="request-box">
+              <b>Last request</b>
+              <pre id="requestPreview">No request sent yet.</pre>
+            </div>
+            <pre class="diagnostic-output" id="diagnosticOutput">Diagnostics appear here.</pre>
+            <pre class="command-box" id="phoneCommand"></pre>
+            <div class="benchmark-list" id="benchmarkList"></div>
+          </details>
+        </aside>
+      </div>
     </main>
 
-    <script type="module" src="device-ai.js?v=native-1"></script>
+    <script type="module" src="device-ai.js?v=chat-1"></script>
   </body>
 </html>

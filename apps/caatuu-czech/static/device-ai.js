@@ -1,17 +1,21 @@
 const $ = (selector) => document.querySelector(selector);
 
-let engine = null;
-let loadedModelId = "";
+let browserEngine = null;
 let loadedRuntimeKind = "";
+let modelLoaded = false;
+let generating = false;
 const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
-const liveModelNote = "Loads into the browser with WebGPU.";
+const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
+const czechLoraModel = {
+  name: "Caatuu Czech qwen3-1.7b-lora-003-hard Q4_K_M",
+  languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
+};
 const phoneBench = {
   baseUrl: "https://caatuu.waajacu.com/cz/data/models/phone-bench",
   manifestPath: "data/models/phone-bench/manifest.json",
-  scriptName: "termux-chat-caatuu.sh",
-  modelName: "caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf"
+  scriptName: "termux-chat-caatuu.sh"
 };
 const phoneCommand = [
   "pkg update",
@@ -19,17 +23,6 @@ const phoneCommand = [
   `curl -L ${phoneBench.baseUrl}/${phoneBench.scriptName} -o ${phoneBench.scriptName}`,
   `bash ${phoneBench.scriptName}`
 ].join("\n");
-const czechLoraModel = {
-  id: "caatuu-czech-qwen3-1.7b-lora-003-hard",
-  name: "Caatuu Czech LoRA qwen3-1.7b-lora-003-hard",
-  baseModel: "Qwen/Qwen3-1.7B",
-  manifestPath: "data/models/models.json",
-  exportManifestPath: "data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/export-manifest.json",
-  trainingRunPath: "data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/training-run.json",
-  adapterConfigPath: "data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/adapter/adapter_config.json",
-  adapterPath: "data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/adapter",
-  languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
-};
 
 window.CaatuuNative = {
   receive(rawMessage) {
@@ -81,484 +74,147 @@ function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
-function renderDeviceStatus() {
-  if (hasNativeRuntime()) {
-    setText("#gpuStatus", "Not needed");
-    setText("#cacheStatus", "APK assets");
-    setText("#runtimeStatus", "Native app ready");
-    setText("#progressBox", "Native Android inference is available. Select the Caatuu Czech model and load it.");
-    return;
-  }
+function setBusy(isBusy) {
+  generating = isBusy;
+  $("#promptInput").disabled = isBusy;
+  $("#runPrompt").disabled = isBusy || !modelLoaded;
+  $("#loadModel").disabled = isBusy;
+}
 
+function updateLoadButton(label) {
+  $("#loadModel").textContent = label;
+}
+
+function addMessage(role, text) {
+  const article = document.createElement("article");
+  article.className = `message ${role}`;
+
+  const label = document.createElement("b");
+  label.textContent = role === "user" ? "You" : role === "system" ? "App" : "Model";
+
+  const body = document.createElement("p");
+  body.textContent = text;
+
+  article.append(label, body);
+  $("#chatLog").append(article);
+  $("#chatLog").scrollTop = $("#chatLog").scrollHeight;
+  return body;
+}
+
+function updateMessage(node, text) {
+  node.textContent = cleanModelOutput(text) || text || "...";
+  $("#chatLog").scrollTop = $("#chatLog").scrollHeight;
+}
+
+function resetChat() {
+  $("#chatLog").replaceChildren();
+  addMessage(
+    "system",
+    "Load the phone model, then write a message. The Android bridge sends only your text to the local model."
+  );
+}
+
+function renderInitialRuntime() {
   const hasWebGpu = "gpu" in navigator;
   setText("#gpuStatus", hasWebGpu ? "Available" : "Missing");
-  setText("#cacheStatus", "serviceWorker" in navigator ? "Ready" : "Missing");
-  if (!hasWebGpu) {
-    setText("#runtimeStatus", "Native fallback ready");
-    setText("#progressBox", "This browser cannot run WebLLM here. Use the Native Phone Runner to test the model offline on Android.");
-  }
-}
+  setText("#cacheStatus", "serviceWorker" in navigator ? "Checking" : "Unavailable");
 
-async function registerServiceWorker() {
-  if (hasNativeRuntime()) return;
-  if (!("serviceWorker" in navigator)) return;
-  try {
-    await navigator.serviceWorker.register("sw.js");
-    setText("#cacheStatus", "Registered");
-  } catch (error) {
-    setText("#cacheStatus", "Registration failed");
-  }
-}
-
-function isCzechLoraSelected() {
-  return $("#modelSelect").value === czechLoraModel.id;
-}
-
-function updateSelectedModelUi() {
-  const modelId = $("#modelSelect").value;
-  const isLora = modelId === czechLoraModel.id;
-
-  $("#loadModel").textContent = isLora ? "Load export" : "Load model";
-  $("#runPrompt").textContent = isLora ? "Check prompt" : "Run prompt";
-  setText(
-    "#modelNote",
-    isLora && hasNativeRuntime()
-      ? "Runs the verified GGUF with llama.cpp inside the Android app."
-      : isLora
-      ? "Loads the generated Caatuu Czech WebLLM export when the manifest is ready."
-      : liveModelNote
-  );
-
-  if (isLora && hasNativeRuntime()) {
-    $("#loadModel").textContent = "Load native model";
-    $("#runPrompt").textContent = "Run prompt";
-  }
-
-  if (loadedModelId && loadedModelId !== modelId) {
-    engine = null;
-    loadedModelId = "";
-    loadedRuntimeKind = "";
-    $("#runPrompt").disabled = true;
-    setText("#runtimeStatus", "Not loaded");
-    setText("#progressBox", "Idle");
-    setText("#requestPreview", "No request sent yet.");
-    setText("#modelOutput", "Model output appears here.");
-  }
-
-  if (!isLora) {
-    renderArtifactDetails(null);
-  }
-}
-
-async function loadModel() {
-  const modelId = $("#modelSelect").value;
-  if (modelId === czechLoraModel.id) {
-    await loadCzechLoraArtifact();
-    return;
-  }
-
-  if (!("gpu" in navigator)) {
-    setText("#runtimeStatus", "WebGPU missing");
-    setText("#progressBox", "This browser cannot run the live model path.");
-    return;
-  }
-
-  $("#loadModel").disabled = true;
-  $("#runPrompt").disabled = true;
-  renderArtifactDetails(null);
-  setText("#runtimeStatus", "Loading");
-  setText("#progressBox", `Loading ${modelId}`);
-
-  try {
-    const webllm = await import(webllmCdn);
-    engine = await webllm.CreateMLCEngine(modelId, {
-      initProgressCallback: (progress) => {
-        const pct = Number.isFinite(progress.progress) ? ` ${(progress.progress * 100).toFixed(1)}%` : "";
-        setText("#progressBox", `${progress.text || "Loading"}${pct}`);
-      }
-    });
-    loadedModelId = modelId;
-    loadedRuntimeKind = "webllm-prebuilt";
-    setText("#runtimeStatus", "Loaded");
-    setText("#progressBox", `${modelId} is ready.`);
-    $("#runPrompt").disabled = false;
-  } catch (error) {
-    engine = null;
-    loadedModelId = "";
-    loadedRuntimeKind = "";
-    setText("#runtimeStatus", "Load failed");
-    setText("#progressBox", browserGpuErrorMessage(error));
-  } finally {
-    $("#loadModel").disabled = false;
-  }
-}
-
-async function loadCzechLoraArtifact() {
   if (hasNativeRuntime()) {
-    await loadNativeCzechModel();
+    loadedRuntimeKind = "android-native";
+    setText("#runtimeBadge", "Android native");
+    setText("#runtimeStatus", "Native llama.cpp");
+    setText("#runtimeSummary", "Android runtime ready for local Czech GGUF chat.");
+    setText("#storageStatus", "Checking");
+    updateLoadButton("Load model");
+    setText("#progressBox", "Checking app-private model storage.");
     return;
   }
 
-  $("#loadModel").disabled = true;
-  $("#runPrompt").disabled = true;
-  engine = null;
-  loadedModelId = "";
-  loadedRuntimeKind = "";
-  setText("#runtimeStatus", "Loading artifact");
-  setText("#progressBox", "Reading local WebLLM metadata.");
-
-  try {
-    const [manifest, training, adapterConfig, exportManifest] = await Promise.all([
-      fetchJson(czechLoraModel.manifestPath),
-      fetchJson(czechLoraModel.trainingRunPath),
-      fetchJson(czechLoraModel.adapterConfigPath),
-      fetchOptionalJson(czechLoraModel.exportManifestPath)
-    ]);
-
-    if (exportManifest?.webllm?.status === "ready") {
-      await loadCzechLoraWebllm(exportManifest);
-      return;
-    }
-
-    loadedModelId = czechLoraModel.id;
-    loadedRuntimeKind = "artifact";
-    renderArtifactDetails({ manifest, training, adapterConfig, exportManifest });
-    setText("#runtimeStatus", "LoRA artifact");
-    setText(
-      "#progressBox",
-      exportManifest?.webllm?.status
-        ? `Caatuu Czech LoRA export status: ${exportManifest.webllm.status}.`
-        : "The runtime metadata is local. The full LoRA adapter lives in the ML workspace."
-    );
-    setText(
-      "#modelOutput",
-      [
-        `${czechLoraModel.name} runtime metadata is present in static/data/models.`,
-        "",
-        "The full PEFT adapter for Qwen/Qwen3-1.7B lives in tools/caatuu-cz-ml.",
-        "Use Show contrast to inspect saved base vs fine-tuned outputs."
-      ].join("\n")
-    );
-    setText("#requestPreview", "No request sent yet.");
-    $("#runPrompt").disabled = false;
-    await loadBenchmarks();
-  } catch (error) {
-    renderArtifactDetails(null);
-    setText("#runtimeStatus", "Artifact failed");
-    setText("#progressBox", error?.message || String(error));
-    setText("#modelOutput", "Could not load the local Czech LoRA metadata.");
-  } finally {
-    $("#loadModel").disabled = false;
-  }
+  loadedRuntimeKind = hasWebGpu ? "browser-webgpu" : "";
+  setText("#runtimeBadge", hasWebGpu ? "Browser WebGPU" : "No local runtime");
+  setText("#runtimeStatus", hasWebGpu ? "Browser fallback" : "Unavailable here");
+  setText("#storageStatus", "Browser cache only");
+  updateLoadButton(hasWebGpu ? "Load browser test" : "APK needed");
+  setText(
+    "#runtimeSummary",
+    hasWebGpu
+      ? "Browser test only. The APK runs the phone GGUF model."
+      : "Install the Android APK for offline phone model chat."
+  );
+  setText(
+    "#progressBox",
+    hasWebGpu
+      ? "Browser test mode is available, but it is not the Android GGUF runtime."
+      : "No WebGPU or native Android bridge is available on this page."
+  );
 }
 
-async function runPrompt() {
-  if (loadedRuntimeKind === "android-native") {
-    await runNativePrompt();
-    return;
-  }
-
-  if (isCzechLoraSelected() && loadedRuntimeKind !== "webllm-custom") {
-    checkCzechLoraPrompt();
-    return;
-  }
-
-  if (!engine) {
-    setText("#progressBox", "Load a WebGPU model first.");
-    return;
-  }
-
-  $("#runPrompt").disabled = true;
-  setText("#modelOutput", "Running...");
-  setText("#progressBox", `Generating with ${loadedModelId}`);
-
-  try {
-    const prompt = $("#promptInput").value.trim();
-    if (!prompt) {
-      setText("#modelOutput", "Type a prompt first.");
-      setText("#progressBox", "Waiting for prompt");
-      return;
-    }
-
-    const messages = [{ role: "user", content: prompt }];
-    const request = {
-      messages,
-      temperature: 0,
-      max_tokens: 120
-    };
-    if (isQwen3Model(loadedModelId)) {
-      request.extra_body = { enable_thinking: false };
-    }
-    setText("#requestPreview", JSON.stringify(request, null, 2));
-
-    const response = await engine.chat.completions.create(request);
-    setText("#modelOutput", cleanModelOutput(response.choices?.[0]?.message?.content) || "(empty output)");
-    setText("#progressBox", "Done");
-  } catch (error) {
-    setText("#modelOutput", error?.message || String(error));
-    setText("#progressBox", "Generation failed");
-  } finally {
-    $("#runPrompt").disabled = false;
-  }
-}
-
-async function loadNativeCzechModel() {
-  $("#loadModel").disabled = true;
-  $("#runPrompt").disabled = true;
-  engine = null;
-  loadedModelId = "";
-  loadedRuntimeKind = "";
-  renderArtifactDetails(null);
-  setText("#runtimeStatus", "Native loading");
-  setText("#progressBox", "Checking the app-private model file.");
-  setText("#modelOutput", "Preparing native Android model runtime.");
+async function refreshNativeStatus() {
+  if (!hasNativeRuntime()) return;
 
   try {
     const status = await nativeCall("status");
-    renderNativeDetails(status);
-
-    if (!status.verified) {
-      setText("#progressBox", "Downloading and verifying the Czech GGUF model. This is a one-time step.");
-    }
-
-    const result = await nativeCall("load", {}, { onEvent: renderNativeEvent });
-    loadedModelId = czechLoraModel.id;
-    loadedRuntimeKind = "android-native";
-    renderNativeDetails(result);
-    setText("#runtimeStatus", "Native loaded");
-    setText("#progressBox", "Native llama.cpp model is ready.");
-    setText("#requestPreview", "No request sent yet.");
-    setText("#modelOutput", "The Czech GGUF model is loaded in this Android app. No system prompt is added by the bridge.");
-    $("#runPrompt").disabled = false;
+    renderNativeStatus(status);
+    setText(
+      "#progressBox",
+      status.verified
+        ? "Model file is already downloaded. Tap Load model to start the local chat runtime."
+        : "Model is not downloaded yet. Tap Load model to download, verify, and start it."
+    );
   } catch (error) {
-    loadedModelId = "";
-    loadedRuntimeKind = "";
+    setText("#runtimeStatus", "Native bridge error");
+    setText("#progressBox", error?.message || String(error));
+  }
+}
+
+function renderNativeStatus(status) {
+  setText("#modelStatus", status.modelName || czechLoraModel.name);
+  setText("#storageStatus", status.verified ? `Verified (${formatBytes(status.expectedBytes || status.bytes)})` : "Download needed");
+  setText("#runtimeStatus", status.runtime || "Native llama.cpp");
+  setText("#diagnosticOutput", JSON.stringify(status, null, 2));
+}
+
+async function loadModel() {
+  if (hasNativeRuntime()) {
+    await loadNativeModel();
+    return;
+  }
+
+  if ("gpu" in navigator) {
+    await loadBrowserFallback();
+    return;
+  }
+
+  addMessage("system", "This browser cannot run the model. Use the Android APK for the native offline runtime.");
+  setText("#progressBox", "No compatible local runtime is available in this browser.");
+}
+
+async function loadNativeModel() {
+  setBusy(true);
+  modelLoaded = false;
+  setText("#runtimeBadge", "Loading");
+  setText("#runtimeStatus", "Loading model");
+  setText("#progressBox", "Checking the model file.");
+
+  try {
+    const result = await nativeCall("load", {}, { onEvent: renderNativeEvent });
+    modelLoaded = true;
+    loadedRuntimeKind = "android-native";
+    renderNativeStatus(result);
+    setText("#runtimeBadge", "Ready");
+    setText("#runtimeStatus", "Native loaded");
+    setText("#progressBox", "Ready. Write a message and press Send.");
+    updateLoadButton("Reload");
+    addMessage("assistant", "Ready. Send me Czech text, ask for spelling help, or practice a short conversation.");
+  } catch (error) {
+    modelLoaded = false;
+    setText("#runtimeBadge", "Load failed");
     setText("#runtimeStatus", "Native failed");
     setText("#progressBox", error?.message || String(error));
-    setText("#modelOutput", "The native Android runtime could not load the Czech model.");
+    addMessage("system", `Model load failed: ${error?.message || String(error)}`);
   } finally {
-    $("#loadModel").disabled = false;
-  }
-}
-
-async function runNativePrompt() {
-  const prompt = $("#promptInput").value.trim();
-  if (!prompt) {
-    setText("#modelOutput", "Type a prompt first.");
-    setText("#progressBox", "Waiting for prompt");
-    return;
-  }
-
-  $("#runPrompt").disabled = true;
-  setText("#modelOutput", "");
-  setText("#progressBox", "Generating with native llama.cpp.");
-
-  const request = {
-    runtime: "android-native-llama.cpp",
-    messages: [{ role: "user", content: prompt }],
-    max_tokens: 120,
-    system_prompt_added_by_bridge: false
-  };
-  setText("#requestPreview", JSON.stringify(request, null, 2));
-
-  let output = "";
-  try {
-    const result = await nativeCall(
-      "prompt",
-      { prompt, maxTokens: 120 },
-      {
-        onEvent(message) {
-          if (message.kind === "token") {
-            output += message.token || "";
-            setText("#modelOutput", cleanModelOutput(output) || output);
-          } else if (message.kind === "status") {
-            setText("#progressBox", message.message || "Generating.");
-          }
-        }
-      }
-    );
-    const finalOutput = output || result.output || "";
-    setText("#modelOutput", cleanModelOutput(finalOutput) || "(empty output)");
-    setText("#progressBox", "Done");
-  } catch (error) {
-    setText("#modelOutput", error?.message || String(error));
-    setText("#progressBox", "Generation failed");
-  } finally {
-    $("#runPrompt").disabled = false;
-  }
-}
-
-function isQwen3Model(modelId) {
-  return String(modelId || "").toLowerCase().includes("qwen3");
-}
-
-function cleanModelOutput(content) {
-  return String(content || "").replace(/^<think>\s*<\/think>\s*/i, "").trim();
-}
-
-async function loadCzechLoraWebllm(exportManifest) {
-  if (!("gpu" in navigator)) {
-    loadedModelId = czechLoraModel.id;
-    loadedRuntimeKind = "artifact";
-    setText("#runtimeStatus", "WebGPU missing");
-    setText("#progressBox", webGpuUnavailableMessage());
-    setText(
-      "#modelOutput",
-      [
-        "The browser model cannot run on this device because WebGPU is unavailable.",
-        "",
-        "Use the Native Phone Runner above to chat with the quantized model offline on Android.",
-        "",
-        phoneCommand
-      ].join("\n")
-    );
-    return;
-  }
-
-  setText("#runtimeStatus", "Loading WebLLM");
-  setText("#progressBox", `Loading ${exportManifest.webllm.model_id}`);
-
-  try {
-    const webllm = await import(webllmCdn);
-    const modelRecord = buildCzechLoraModelRecord(webllm, exportManifest);
-    engine = await webllm.CreateMLCEngine(modelRecord.model_id, {
-      appConfig: { model_list: [modelRecord] },
-      initProgressCallback: (progress) => {
-        const pct = Number.isFinite(progress.progress) ? ` ${(progress.progress * 100).toFixed(1)}%` : "";
-        setText("#progressBox", `${progress.text || "Loading"}${pct}`);
-      }
-    });
-    loadedModelId = modelRecord.model_id;
-    loadedRuntimeKind = "webllm-custom";
-    setText("#runtimeStatus", "Loaded");
-    setText("#progressBox", `${modelRecord.model_id} is ready.`);
-    setText("#modelOutput", "The exported Caatuu Czech WebLLM model is ready.");
-    setText("#requestPreview", "No request sent yet.");
-    $("#runPrompt").textContent = "Run prompt";
-    $("#runPrompt").disabled = false;
-  } catch (error) {
-    console.error("Czech WebLLM load failed", error);
-    engine = null;
-    loadedModelId = czechLoraModel.id;
-    loadedRuntimeKind = "artifact";
-    const detail = [error?.message || String(error), error?.stack].filter(Boolean).join("\n\n");
-    setText("#runtimeStatus", "Load failed");
-    setText("#progressBox", browserGpuErrorMessage(error));
-    setText(
-      "#modelOutput",
-      `The export manifest is ready, but WebLLM could not load the custom model.\n\n${detail}`
-    );
-    $("#runPrompt").textContent = "Check prompt";
-    $("#runPrompt").disabled = false;
-  }
-}
-
-function buildCzechLoraModelRecord(webllm, exportManifest) {
-  const webllmExport = exportManifest.webllm;
-  let modelLib = webllmExport.model_lib_url ? toPageUrl(webllmExport.model_lib_url) : "";
-  if (!modelLib && webllmExport.reuse_prebuilt_model_lib_from) {
-    const prebuilt = webllm.prebuiltAppConfig?.model_list?.find(
-      (item) => item.model_id === webllmExport.reuse_prebuilt_model_lib_from
-    );
-    modelLib = prebuilt?.model_lib || "";
-  }
-  if (!modelLib) {
-    throw new Error("No compatible WebLLM model_lib was found for the Caatuu Czech export.");
-  }
-  return {
-    model: toPageUrl(webllmExport.model_url),
-    model_id: webllmExport.model_id,
-    model_lib: modelLib,
-    required_features: webllmExport.required_features || []
-  };
-}
-
-function toPageUrl(path) {
-  return new URL(path, location.href).href;
-}
-
-function checkCzechLoraPrompt() {
-  const prompt = $("#promptInput").value.trim();
-  if (!prompt) {
-    setText("#modelOutput", "Type a prompt first.");
-    setText("#progressBox", "Waiting for prompt");
-    return;
-  }
-
-  const messages = [{ role: "user", content: prompt }];
-  setText(
-    "#requestPreview",
-    JSON.stringify(
-      {
-        messages,
-        sentToRuntime: false,
-        reason: "The selected Caatuu Czech export metadata is present locally, but it is not loaded as a WebLLM runtime in this browser session."
-      },
-      null,
-      2
-    )
-  );
-  setText(
-    "#modelOutput",
-    "Prompt captured only. The Czech export metadata is local, but no live WebLLM runtime is loaded for it in this browser session."
-  );
-  setText("#progressBox", "No hidden prompt was added and nothing was sent to a model runtime.");
-}
-
-function webGpuUnavailableMessage() {
-  if (!window.isSecureContext) {
-    return [
-      "The Czech WebLLM export exists, but this page is not a secure browser context.",
-      "LAN HTTP URLs such as http://192.168.x.x cannot expose WebGPU.",
-      "Use HTTPS with a trusted certificate, or test through localhost on the phone."
-    ].join(" ");
-  }
-  return "The Czech WebLLM export exists, but this browser or device does not expose WebGPU. Use the Native Phone Runner on this page for the offline Android test.";
-}
-
-function browserGpuErrorMessage(error) {
-  const message = error?.message || String(error);
-  if (/compatible gpu|webgpu|gpu/i.test(message)) {
-    return webGpuUnavailableMessage();
-  }
-  return message;
-}
-
-async function cacheProbe() {
-  if (!("caches" in window)) {
-    setText("#progressBox", "Cache API missing.");
-    return;
-  }
-  const names = await caches.keys();
-  setText("#progressBox", names.length ? `Caches: ${names.join(", ")}` : "No cache entries yet.");
-}
-
-async function loadBenchmarks() {
-  const result = await fetchJson(czechLoraModel.languageBenchmarkPath);
-  renderBenchmarks(result.models.base, result.models.tuned);
-}
-
-async function loadPhoneBenchStatus() {
-  if (hasNativeRuntime()) {
-    setText("#phoneCommand", "This installed Android app can run the same GGUF directly. Select the Caatuu Czech model below and tap Load native model.");
-    setText("#phoneModelStatus", "Native bridge ready");
-    setText("#phoneBenchNote", "Termux is still useful for benchmarking, but it is not needed for this app path.");
-    $("#copyPhoneCommand").disabled = true;
-    return;
-  }
-
-  setText("#phoneCommand", phoneCommand);
-  try {
-    const manifest = await fetchJson(phoneBench.manifestPath);
-    const size = formatBytes(manifest.bytes);
-    setText("#phoneModelStatus", `${manifest.quantization || "GGUF"} ready (${size})`);
-    setText(
-      "#phoneBenchNote",
-      `Published model: ${manifest.model_file}. Chat script keeps the model loaded between messages.`
-    );
-  } catch (error) {
-    setText("#phoneModelStatus", "Public bundle ready");
-    setText("#phoneBenchNote", "Use the command above. The chat bundle is served from caatuu.waajacu.com.");
+    setBusy(false);
+    $("#runPrompt").disabled = !modelLoaded;
   }
 }
 
@@ -576,20 +232,182 @@ function renderNativeEvent(message) {
   }
 }
 
-async function copyPhoneCommand() {
+async function loadBrowserFallback() {
+  setBusy(true);
+  modelLoaded = false;
+  setText("#runtimeBadge", "Browser loading");
+  setText("#runtimeStatus", "Loading WebGPU");
+  setText("#progressBox", `Loading ${browserFallbackModel}.`);
+
   try {
-    await navigator.clipboard.writeText(phoneCommand);
-    setText("#phoneBenchNote", "Copied. Paste it into Termux on the Android phone to start chat mode.");
+    const webllm = await import(webllmCdn);
+    browserEngine = await webllm.CreateMLCEngine(browserFallbackModel, {
+      initProgressCallback: (progress) => {
+        const pct = Number.isFinite(progress.progress) ? ` ${(progress.progress * 100).toFixed(1)}%` : "";
+        setText("#progressBox", `${progress.text || "Loading"}${pct}`);
+      }
+    });
+    modelLoaded = true;
+    loadedRuntimeKind = "browser-webgpu";
+    setText("#runtimeBadge", "Browser ready");
+    setText("#runtimeStatus", "WebGPU loaded");
+    setText("#modelStatus", browserFallbackModel);
+    setText("#progressBox", "Browser test model is ready. This is not the Android GGUF model.");
+    addMessage("assistant", "Browser test model loaded. For the real phone GGUF model, use the Android APK runtime.");
   } catch (error) {
-    setText("#phoneBenchNote", "Copy failed. Select the command text manually.");
+    browserEngine = null;
+    modelLoaded = false;
+    setText("#runtimeBadge", "Load failed");
+    setText("#runtimeStatus", "WebGPU failed");
+    setText("#progressBox", browserGpuErrorMessage(error));
+    addMessage("system", browserGpuErrorMessage(error));
+  } finally {
+    setBusy(false);
+    $("#runPrompt").disabled = !modelLoaded;
   }
 }
 
-function formatBytes(bytes) {
-  const value = Number(bytes || 0);
-  if (!Number.isFinite(value) || value <= 0) return "unknown size";
-  const gib = value / 1024 / 1024 / 1024;
-  return `${gib.toFixed(2)} GiB`;
+async function submitPrompt(event) {
+  event.preventDefault();
+  if (generating) return;
+
+  const prompt = $("#promptInput").value.trim();
+  if (!prompt) return;
+
+  if (!modelLoaded) {
+    addMessage("system", "Load the model first.");
+    return;
+  }
+
+  addMessage("user", prompt);
+  $("#promptInput").value = "";
+
+  if (loadedRuntimeKind === "android-native") {
+    await runNativePrompt(prompt);
+  } else if (loadedRuntimeKind === "browser-webgpu") {
+    await runBrowserPrompt(prompt);
+  }
+}
+
+async function runNativePrompt(prompt) {
+  setBusy(true);
+  const assistantNode = addMessage("assistant", "...");
+  let output = "";
+  const request = {
+    runtime: "android-native-llama.cpp",
+    messages: [{ role: "user", content: prompt }],
+    max_tokens: 180,
+    system_prompt_added_by_bridge: false
+  };
+  setText("#requestPreview", JSON.stringify(request, null, 2));
+  setText("#progressBox", "Generating with native llama.cpp.");
+
+  try {
+    const result = await nativeCall(
+      "prompt",
+      { prompt, maxTokens: 180 },
+      {
+        onEvent(message) {
+          if (message.kind === "token") {
+            output += message.token || "";
+            updateMessage(assistantNode, output);
+          } else if (message.kind === "status") {
+            setText("#progressBox", message.message || "Generating.");
+          }
+        }
+      }
+    );
+    updateMessage(assistantNode, output || result.output || "(empty output)");
+    setText("#progressBox", "Done.");
+  } catch (error) {
+    updateMessage(assistantNode, error?.message || String(error));
+    setText("#progressBox", "Generation failed.");
+  } finally {
+    setBusy(false);
+  }
+}
+
+async function runBrowserPrompt(prompt) {
+  if (!browserEngine) return;
+
+  setBusy(true);
+  const assistantNode = addMessage("assistant", "...");
+  const request = {
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0,
+    max_tokens: 180,
+    extra_body: { enable_thinking: false }
+  };
+  setText("#requestPreview", JSON.stringify(request, null, 2));
+  setText("#progressBox", `Generating with ${browserFallbackModel}.`);
+
+  try {
+    const response = await browserEngine.chat.completions.create(request);
+    updateMessage(assistantNode, response.choices?.[0]?.message?.content || "(empty output)");
+    setText("#progressBox", "Done.");
+  } catch (error) {
+    updateMessage(assistantNode, error?.message || String(error));
+    setText("#progressBox", "Generation failed.");
+  } finally {
+    setBusy(false);
+  }
+}
+
+async function registerServiceWorker() {
+  if (hasNativeRuntime() || !("serviceWorker" in navigator)) return;
+  try {
+    await navigator.serviceWorker.register("sw.js");
+    setText("#cacheStatus", "Registered");
+  } catch (error) {
+    setText("#cacheStatus", "Registration failed");
+  }
+}
+
+async function cacheProbe() {
+  if (!("caches" in window)) {
+    setText("#diagnosticOutput", "Cache API missing.");
+    return;
+  }
+  const names = await caches.keys();
+  setText("#diagnosticOutput", names.length ? `Caches: ${names.join(", ")}` : "No cache entries yet.");
+}
+
+async function loadBenchmarks() {
+  try {
+    const result = await fetchJson(czechLoraModel.languageBenchmarkPath);
+    renderBenchmarks(result.models.base, result.models.tuned);
+    setText("#diagnosticOutput", "Loaded saved base vs LoRA benchmark contrast.");
+  } catch (error) {
+    setText("#diagnosticOutput", error?.message || String(error));
+  }
+}
+
+async function loadPhoneManifest() {
+  setText("#phoneCommand", phoneCommand);
+
+  if (hasNativeRuntime()) {
+    $("#copyPhoneCommand").disabled = true;
+    return;
+  }
+
+  try {
+    const manifest = await fetchJson(phoneBench.manifestPath);
+    setText(
+      "#diagnosticOutput",
+      `Published phone model: ${manifest.model_file || "GGUF"} (${formatBytes(manifest.bytes)}).`
+    );
+  } catch (error) {
+    setText("#diagnosticOutput", "Phone model manifest will be checked when diagnostics are opened.");
+  }
+}
+
+async function copyPhoneCommand() {
+  try {
+    await navigator.clipboard.writeText(phoneCommand);
+    setText("#diagnosticOutput", "Copied the Termux fallback command.");
+  } catch (error) {
+    setText("#diagnosticOutput", "Copy failed. Select the command text manually.");
+  }
 }
 
 function renderBenchmarks(base, tuned) {
@@ -625,69 +443,27 @@ async function fetchJson(path) {
   return response.json();
 }
 
-async function fetchOptionalJson(path) {
-  const response = await fetch(path);
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`${path} returned HTTP ${response.status}`);
-  }
-  return response.json();
+function cleanModelOutput(content) {
+  return String(content || "").replace(/^<think>\s*<\/think>\s*/i, "").trim();
 }
 
-function renderArtifactDetails(details) {
-  const node = $("#artifactDetails");
-  if (!details) {
-    node.hidden = true;
-    node.replaceChildren();
-    return;
+function browserGpuErrorMessage(error) {
+  const message = error?.message || String(error);
+  if (/compatible gpu|webgpu|gpu/i.test(message)) {
+    return window.isSecureContext
+      ? "This browser or device does not expose a compatible WebGPU runtime."
+      : "WebGPU needs a secure browser context. Use HTTPS, localhost, or the Android APK.";
   }
-
-  const { manifest, training, adapterConfig, exportManifest } = details;
-  const latestRun = manifest.targets?.czech_finetuned?.latest_run || {};
-  const targetModules = Array.isArray(adapterConfig.target_modules)
-    ? adapterConfig.target_modules.join(", ")
-    : String(adapterConfig.target_modules || "");
-  const exportStatus = exportManifest?.webllm?.status || "not exported";
-  node.innerHTML = `
-    <h3>${escapeHtml(czechLoraModel.name)}</h3>
-    <dl>
-      <dt>Base</dt>
-      <dd>${escapeHtml(training.base_model || czechLoraModel.baseModel)}</dd>
-      <dt>Adapter</dt>
-      <dd>${escapeHtml(latestRun.ml_adapter || latestRun.adapter || czechLoraModel.adapterPath)}</dd>
-      <dt>LoRA</dt>
-      <dd>r=${escapeHtml(adapterConfig.r)}, alpha=${escapeHtml(adapterConfig.lora_alpha)}, targets=${escapeHtml(targetModules)}</dd>
-      <dt>Steps</dt>
-      <dd>${escapeHtml(training.max_steps)} training steps, context ${escapeHtml(training.max_length)}</dd>
-      <dt>Runtime</dt>
-      <dd>Included as a local WebLLM export; full PEFT files live in the ML workspace.</dd>
-      <dt>Export</dt>
-      <dd>${escapeHtml(exportStatus)}</dd>
-    </dl>
-    <p>The prompt runner switches to live WebLLM automatically after the export manifest reports a ready browser package.</p>
-  `;
-  node.hidden = false;
+  return message;
 }
 
-function renderNativeDetails(status) {
-  const node = $("#artifactDetails");
-  node.innerHTML = `
-    <h3>${escapeHtml(czechLoraModel.name)}</h3>
-    <dl>
-      <dt>Runtime</dt>
-      <dd>${escapeHtml(status.runtime || "llama.cpp Android")}</dd>
-      <dt>Model</dt>
-      <dd>${escapeHtml(status.modelName || "")}</dd>
-      <dt>Stored</dt>
-      <dd>${escapeHtml(status.downloaded ? "yes" : "not yet")}</dd>
-      <dt>Verified</dt>
-      <dd>${escapeHtml(status.verified ? "yes" : "not yet")}</dd>
-      <dt>Size</dt>
-      <dd>${escapeHtml(formatBytes(status.expectedBytes || status.bytes || 0))}</dd>
-    </dl>
-    <p>The model is downloaded once, checked by SHA-256, and then loaded from app-private storage for offline use.</p>
-  `;
-  node.hidden = false;
+function formatBytes(bytes) {
+  const value = Number(bytes || 0);
+  if (!Number.isFinite(value) || value <= 0) return "unknown size";
+  const gib = value / 1024 / 1024 / 1024;
+  if (gib >= 1) return `${gib.toFixed(2)} GiB`;
+  const mib = value / 1024 / 1024;
+  return `${mib.toFixed(1)} MiB`;
 }
 
 function escapeHtml(value) {
@@ -699,13 +475,35 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-renderDeviceStatus();
-registerServiceWorker();
-updateSelectedModelUi();
-loadPhoneBenchStatus();
-$("#modelSelect").addEventListener("change", updateSelectedModelUi);
-$("#loadModel").addEventListener("click", loadModel);
-$("#runPrompt").addEventListener("click", runPrompt);
-$("#cacheProbe").addEventListener("click", cacheProbe);
-$("#loadBenchmarks").addEventListener("click", loadBenchmarks);
-$("#copyPhoneCommand").addEventListener("click", copyPhoneCommand);
+function bindUi() {
+  $("#loadModel").addEventListener("click", loadModel);
+  $("#promptForm").addEventListener("submit", submitPrompt);
+  $("#cacheProbe").addEventListener("click", cacheProbe);
+  $("#loadBenchmarks").addEventListener("click", loadBenchmarks);
+  $("#copyPhoneCommand").addEventListener("click", copyPhoneCommand);
+
+  $("#promptInput").addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      $("#promptForm").requestSubmit();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-prompt]");
+    if (!button) return;
+    $("#promptInput").value = button.dataset.prompt || "";
+    $("#promptInput").focus();
+  });
+}
+
+async function init() {
+  bindUi();
+  resetChat();
+  renderInitialRuntime();
+  await registerServiceWorker();
+  await loadPhoneManifest();
+  await refreshNativeStatus();
+}
+
+init();
