@@ -2,17 +2,40 @@
   "name": "Caatuu Czech",
   "short_name": "Caatuu CZ",
   "description": "Offline Czech guide, dictionary, scripts, verbs, and device AI experiments.",
+  "id": "/cz/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#f7f4ee",
   "theme_color": "#2f6f5e",
+  "categories": ["education", "books", "productivity"],
   "icons": [
     {
       "src": "icons/caatuu-czech.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dictionary",
+      "short_name": "Dictionary",
+      "url": "./index.html#dictionary",
+      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Verbs",
+      "short_name": "Verbs",
+      "url": "./index.html#verbs",
+      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Device AI",
+      "short_name": "Device AI",
+      "url": "./device-ai.html",
+      "icons": [{ "src": "icons/caatuu-czech.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]
 }

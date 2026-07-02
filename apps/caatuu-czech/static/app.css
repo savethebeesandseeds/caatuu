@@ -103,6 +103,7 @@ h1, h2, h3, p { margin: 0; }
   line-height: 1.35;
 }
 
+.pwa-install-action,
 .print-open-action {
   width: 100%;
   min-height: 40px;
@@ -110,6 +111,30 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 8px;
   background: #ffffff;
   color: var(--green-dark);
+  font-weight: 800;
+}
+
+.pwa-install-action:not(:disabled) {
+  border-color: #8fb7a7;
+  background: #f7fffb;
+}
+
+.pwa-install-action:disabled {
+  cursor: default;
+  color: #7b8a83;
+}
+
+.pwa-install-status {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cddbd3;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--muted);
+  padding: 0 8px;
+  font-size: 0.72rem;
   font-weight: 800;
 }
 
@@ -1803,6 +1828,7 @@ body.print-preview-on .print-book {
     box-shadow: 0 10px 22px rgba(68, 199, 127, 0.1);
   }
 
+  .pwa-install-action,
   .print-open-action,
   .device-ai-link {
     min-height: 42px;
@@ -1812,10 +1838,28 @@ body.print-preview-on .print-book {
     box-shadow: none;
   }
 
+  .pwa-install-action:not(:disabled):hover,
   .print-open-action:hover,
   .device-ai-link:hover {
     border-color: rgba(68, 199, 127, 0.62);
     background: #192833;
+  }
+
+  .pwa-install-action:not(:disabled) {
+    border-color: rgba(68, 199, 127, 0.52);
+    background: #12251b;
+    color: #cbf6dc;
+  }
+
+  .pwa-install-action:disabled {
+    background: #101820;
+    color: #8ea0ac;
+  }
+
+  .pwa-install-status {
+    border-color: #283946;
+    background: #101820;
+    color: #aebbc5;
   }
 
   .device-ai-link {
@@ -2422,6 +2466,7 @@ body.print-preview-on .print-book {
     text-align: center;
   }
 
+  .pwa-install-action,
   .print-open-action,
   .device-ai-link {
     width: auto;

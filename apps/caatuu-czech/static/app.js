@@ -1,5 +1,6 @@
 let countryDictionary = [];
 let countryScripts = [];
+let deferredPwaInstallPrompt = null;
 
 async function loadJson(path) {
   const response = await fetch(path);
@@ -51,6 +52,65 @@ const state = {
 };
 
 const $ = (selector) => document.querySelector(selector);
+
+function isPwaInstalled() {
+  return window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
+}
+
+function updatePwaInstallUi(statusText = "") {
+  const button = $("#installPwaAction");
+  const status = $("#pwaInstallStatus");
+  if (!button || !status) return;
+
+  if (isPwaInstalled()) {
+    button.textContent = "Installed";
+    button.disabled = true;
+    status.textContent = "Offline ready";
+    return;
+  }
+
+  button.textContent = "Install app";
+  button.disabled = !deferredPwaInstallPrompt;
+  status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser menu");
+}
+
+async function promptPwaInstall() {
+  if (!deferredPwaInstallPrompt) {
+    updatePwaInstallUi("Browser menu");
+    return;
+  }
+
+  const promptEvent = deferredPwaInstallPrompt;
+  deferredPwaInstallPrompt = null;
+  promptEvent.prompt();
+
+  try {
+    const choice = await promptEvent.userChoice;
+    updatePwaInstallUi(choice?.outcome === "accepted" ? "Installed" : "Browser menu");
+  } catch (error) {
+    updatePwaInstallUi("Browser menu");
+  }
+}
+
+function bindPwaInstall() {
+  updatePwaInstallUi();
+  $("#installPwaAction")?.addEventListener("click", promptPwaInstall);
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPwaInstallPrompt = event;
+    updatePwaInstallUi("Installable");
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredPwaInstallPrompt = null;
+    updatePwaInstallUi("Offline ready");
+  });
+
+  window.matchMedia?.("(display-mode: standalone)")?.addEventListener?.("change", () => {
+    updatePwaInstallUi();
+  });
+}
 
 const verbStorageKey = "caatuu-czech.verb-memory.v2";
 const verbRecentLimit = 8;
@@ -2233,11 +2293,20 @@ function printBookNow() {
 }
 
 function setView(view) {
+  if (!["guide", "dictionary", "verbs"].includes(view)) view = "guide";
   state.activeView = view;
   $(".view.is-active")?.classList.remove("is-active");
   $(`#view-${view}`).classList.add("is-active");
   $(".nav-tab.is-active")?.classList.remove("is-active");
   $(`.nav-tab[data-view="${view}"]`).classList.add("is-active");
+  if (window.location.hash !== `#${view}`) {
+    window.history.replaceState(null, "", `#${view}`);
+  }
+}
+
+function setInitialViewFromHash() {
+  const view = window.location.hash.replace("#", "");
+  if (view) setView(view);
 }
 
 function render() {
@@ -2251,10 +2320,14 @@ function renderDataError(error) {
 }
 
 function bindUi() {
+  bindPwaInstall();
+
   document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
   });
+
+  window.addEventListener("hashchange", setInitialViewFromHash);
 
   $("#dictionarySearch")?.addEventListener("input", (event) => {
     state.dictionarySearch = event.target.value;
@@ -2300,6 +2373,7 @@ async function init() {
   try {
     await loadContentData();
     bindUi();
+    setInitialViewFromHash();
     render();
     registerServiceWorker();
   } catch (error) {

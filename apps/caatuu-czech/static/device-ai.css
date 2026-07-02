@@ -92,6 +92,22 @@ h1, h2, p { margin: 0; }
   gap: 14px;
 }
 
+details.tool-panel summary {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--green-dark);
+  font-weight: 900;
+}
+
+details.tool-panel summary small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .panel-head {
   display: grid;
   grid-template-columns: 1fr auto;

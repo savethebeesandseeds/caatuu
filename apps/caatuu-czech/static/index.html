@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="app.css?v=visual-refresh-2">
+    <link rel="stylesheet" href="app.css?v=pwa-1">
   </head>
   <body>
     <div class="app-shell">
@@ -25,6 +25,8 @@
           <button class="nav-tab" type="button" data-view="verbs">Verbs</button>
         </nav>
 
+        <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Install app</button>
+        <span class="pwa-install-status" id="pwaInstallStatus">Browser</span>
         <button class="print-open-action" type="button" id="openPrintMenu">Print book</button>
         <a class="device-ai-link" href="device-ai.html">Device AI</a>
 
@@ -580,6 +582,6 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="app.js?v=visual-refresh-2"></script>
+    <script src="app.js?v=pwa-1"></script>
   </body>
 </html>
