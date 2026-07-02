@@ -45,6 +45,10 @@ By default the APK targets Android 11 / API 30 or newer. To test a different
 minimum SDK, pass `-e CAATUU_ANDROID_MIN_SDK=33` or another API level to the
 Docker command.
 
+Debug sideload APKs default to `targetSdk` 30 for compatibility with Android 11
+package installers. For a Play Store release, pass
+`-e CAATUU_ANDROID_TARGET_SDK=36`.
+
 ## Interactive Container
 
 For repeated work, open a shell first:

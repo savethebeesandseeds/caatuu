@@ -14,6 +14,7 @@ storage, and then works offline.
 - Model runtime: llama.cpp Android binding from `tools/phone-bench/vendor`.
 - Model file: `caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf`.
 - Android minimum: Android 11 / API 30 by default.
+- Android target for debug sideloads: API 30 by default.
 - No Termux is needed for this app path.
 - No system prompt is added by the Android bridge.
 
