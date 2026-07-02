@@ -3,6 +3,7 @@ const $ = (selector) => document.querySelector(selector);
 let browserEngine = null;
 let loadedRuntimeKind = "";
 let modelLoaded = false;
+let modelLoadStarted = false;
 let generating = false;
 let lastSettingsTrigger = null;
 const nativePending = new Map();
@@ -11,6 +12,7 @@ const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const themeStorageKey = "caatuu-czech.theme";
 const settingsStorageKey = "caatuu-czech.device-ai.settings.v1";
+const verbStorageKey = "caatuu-czech.verb-memory.v2";
 const generationPresets = {
   fast: {
     label: "Fast",
@@ -49,16 +51,16 @@ const czechLoraModel = {
   name: "Caatuu Czech qwen3-1.7b-lora-003-hard Q4_K_M",
   languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
 };
-const phoneBench = {
+const localModelBundle = {
   baseUrl: "https://caatuu.waajacu.com/cz/data/models/phone-bench",
   manifestPath: "data/models/phone-bench/manifest.json",
   scriptName: "termux-chat-caatuu.sh"
 };
-const phoneCommand = [
+const termuxFallbackCommand = [
   "pkg update",
   "pkg install -y curl",
-  `curl -L ${phoneBench.baseUrl}/${phoneBench.scriptName} -o ${phoneBench.scriptName}`,
-  `bash ${phoneBench.scriptName}`
+  `curl -L ${localModelBundle.baseUrl}/${localModelBundle.scriptName} -o ${localModelBundle.scriptName}`,
+  `bash ${localModelBundle.scriptName}`
 ].join("\n");
 
 window.CaatuuNative = {
@@ -146,13 +148,20 @@ function applyTheme(theme, { persist = true } = {}) {
 
 function setBusy(isBusy) {
   generating = isBusy;
-  $("#promptInput").disabled = isBusy;
-  $("#runPrompt").disabled = isBusy || !modelLoaded;
-  $("#loadModel").disabled = isBusy;
+  const promptInput = $("#promptInput");
+  const runPrompt = $("#runPrompt");
+  const loadButton = $("#loadModel");
+  if (promptInput) promptInput.disabled = isBusy;
+  if (runPrompt) {
+    runPrompt.disabled = isBusy || !modelLoaded;
+    runPrompt.textContent = isBusy ? "Loading" : "Send";
+  }
+  if (loadButton) loadButton.disabled = isBusy;
 }
 
 function updateLoadButton(label) {
-  $("#loadModel").textContent = label;
+  const loadButton = $("#loadModel");
+  if (loadButton) loadButton.textContent = label;
 }
 
 function openSettingsPanel() {
@@ -388,9 +397,9 @@ function parseThinkBlocks(content) {
   return parts.filter((part) => part.text && part.text.trim());
 }
 
-function resetChat(message = "Load the phone model, then write a message. The Android bridge sends only your text to the local model.") {
+function resetChat(message = "") {
   $("#chatLog").replaceChildren();
-  addMessage("system", message);
+  if (message) addMessage("system", message);
 }
 
 function renderInitialRuntime() {
@@ -402,7 +411,7 @@ function renderInitialRuntime() {
     loadedRuntimeKind = "android-native";
     setText("#runtimeBadge", "Android native");
     setText("#runtimeStatus", "Native llama.cpp");
-    setText("#runtimeSummary", "Android runtime ready for local Czech GGUF chat.");
+    setText("#runtimeSummary", "Local Czech GGUF runtime is ready.");
     setText("#storageStatus", "Checking");
     setText("#maintenanceStatus", "Use Update app for the latest debug APK, or Delete model to free local storage.");
     updateLoadButton("Load model");
@@ -416,17 +425,17 @@ function renderInitialRuntime() {
   setText("#runtimeStatus", hasWebGpu ? "Browser fallback" : "Unavailable here");
   setText("#storageStatus", "Browser cache only");
   setText("#maintenanceStatus", "Install the Android APK to use app update and model cleanup tools.");
-  updateLoadButton(hasWebGpu ? "Load browser test" : "APK needed");
+  updateLoadButton(hasWebGpu ? "Start" : "Install app");
   setText(
     "#runtimeSummary",
     hasWebGpu
-      ? "Browser test only. The APK runs the phone GGUF model."
-      : "Install the Android APK for offline phone model chat."
+      ? "Ready in this browser."
+      : "Install the Android app to use the local GGUF runtime on this device."
   );
   setText(
     "#progressBox",
     hasWebGpu
-      ? "Browser test mode is available, but it is not the Android GGUF runtime."
+      ? "Browser model will start automatically."
       : "No WebGPU or native Android bridge is available on this page."
   );
   updateSettingsSupport();
@@ -441,8 +450,8 @@ async function refreshNativeStatus() {
     setText(
       "#progressBox",
       status.verified
-        ? "Model file is already downloaded. Tap Load model to start the local chat runtime."
-        : "Model is not downloaded yet. Tap Load model to download, verify, and start it."
+        ? "Model file is already downloaded."
+        : "Model is not downloaded yet."
     );
   } catch (error) {
     setText("#runtimeStatus", "Native bridge error");
@@ -469,26 +478,26 @@ function renderNativeStatus(status) {
   updateSettingsSupport();
 }
 
-async function loadModel() {
+async function loadModel({ silent = false } = {}) {
   if (hasNativeRuntime()) {
-    await loadNativeModel();
+    await loadNativeModel({ silent });
     return;
   }
 
   if ("gpu" in navigator) {
-    await loadBrowserFallback();
+    await loadBrowserFallback({ silent });
     return;
   }
 
-  addMessage("system", "This browser cannot run the model. Use the Android APK for the native offline runtime.");
+  if (!silent) addMessage("system", "Model unavailable.");
   setText("#progressBox", "No compatible local runtime is available in this browser.");
 }
 
-async function loadNativeModel() {
+async function loadNativeModel({ silent = false } = {}) {
   const wasLoaded = modelLoaded;
   setBusy(true);
   modelLoaded = false;
-  if (wasLoaded) {
+  if (wasLoaded && !silent) {
     resetChat("Chat cleared. Reloading the local model.");
     $("#promptInput").value = "";
   }
@@ -505,16 +514,17 @@ async function loadNativeModel() {
     setText("#runtimeStatus", "Native loaded");
     setText("#progressBox", "Ready. Write a message and press Send.");
     updateLoadButton("Reload");
-    addMessage("assistant", "Ready. Send me Czech text, ask for spelling help, or practice a short conversation.");
+    if (!silent) addMessage("assistant", "Ready.");
   } catch (error) {
     modelLoaded = false;
     setText("#runtimeBadge", "Load failed");
     setText("#runtimeStatus", "Native failed");
     setText("#progressBox", error?.message || String(error));
-    addMessage("system", `Model load failed: ${error?.message || String(error)}`);
+    if (!silent) addMessage("system", "Model load failed.");
   } finally {
     setBusy(false);
-    $("#runPrompt").disabled = !modelLoaded;
+    const runPrompt = $("#runPrompt");
+    if (runPrompt) runPrompt.disabled = !modelLoaded;
   }
 }
 
@@ -535,7 +545,7 @@ function renderNativeEvent(message) {
   }
 }
 
-async function loadBrowserFallback() {
+async function loadBrowserFallback({ silent = false } = {}) {
   setBusy(true);
   modelLoaded = false;
   setText("#runtimeBadge", "Browser loading");
@@ -558,20 +568,28 @@ async function loadBrowserFallback() {
     setText("#modelFileMeta", browserFallbackModel);
     setText("#storageMeta", "Browser WebGPU cache");
     setText("#modelMetaSummary", "Browser fallback loaded");
-    setText("#progressBox", "Browser test model is ready. This is not the Android GGUF model.");
+    setText("#progressBox", "Browser model ready.");
     updateSettingsSupport();
-    addMessage("assistant", "Browser test model loaded. For the real phone GGUF model, use the Android APK runtime.");
+    if (!silent) addMessage("assistant", "Ready.");
   } catch (error) {
     browserEngine = null;
     modelLoaded = false;
     setText("#runtimeBadge", "Load failed");
     setText("#runtimeStatus", "WebGPU failed");
     setText("#progressBox", browserGpuErrorMessage(error));
-    addMessage("system", browserGpuErrorMessage(error));
+    if (!silent) addMessage("system", "Model unavailable.");
   } finally {
     setBusy(false);
-    $("#runPrompt").disabled = !modelLoaded;
+    const runPrompt = $("#runPrompt");
+    if (runPrompt) runPrompt.disabled = !modelLoaded;
   }
+}
+
+async function autoLoadModel() {
+  if (modelLoadStarted || modelLoaded) return;
+  if (!hasNativeRuntime() && !("gpu" in navigator)) return;
+  modelLoadStarted = true;
+  await loadModel({ silent: true });
 }
 
 async function submitPrompt(event) {
@@ -698,30 +716,30 @@ async function loadBenchmarks() {
   }
 }
 
-async function loadPhoneManifest() {
-  setText("#phoneCommand", phoneCommand);
+async function loadLocalModelManifest() {
+  setText("#termuxCommand", termuxFallbackCommand);
 
   if (hasNativeRuntime()) {
-    $("#copyPhoneCommand").disabled = true;
+    $("#copyTermuxCommand").disabled = true;
     return;
   }
 
   try {
-    const manifest = await fetchJson(phoneBench.manifestPath);
+    const manifest = await fetchJson(localModelBundle.manifestPath);
     setText("#modelFileMeta", manifest.model_file || "Caatuu Czech GGUF");
     setText("#modelMetaSummary", `${formatBytes(manifest.bytes)} published`);
     setText(
       "#diagnosticOutput",
-      `Published phone model: ${manifest.model_file || "GGUF"} (${formatBytes(manifest.bytes)}).`
+      `Published local model: ${manifest.model_file || "GGUF"} (${formatBytes(manifest.bytes)}).`
     );
   } catch (error) {
-    setText("#diagnosticOutput", "Phone model manifest will be checked when diagnostics are opened.");
+    setText("#diagnosticOutput", "Local model manifest will be checked when diagnostics are opened.");
   }
 }
 
-async function copyPhoneCommand() {
+async function copyTermuxFallbackCommand() {
   try {
-    await navigator.clipboard.writeText(phoneCommand);
+    await navigator.clipboard.writeText(termuxFallbackCommand);
     setText("#diagnosticOutput", "Copied the Termux fallback command.");
   } catch (error) {
     setText("#diagnosticOutput", "Copy failed. Select the command text manually.");
@@ -781,9 +799,10 @@ async function deleteModel() {
   try {
     const result = await nativeCall("delete_model");
     modelLoaded = false;
-    $("#runPrompt").disabled = true;
+    const runPrompt = $("#runPrompt");
+    if (runPrompt) runPrompt.disabled = true;
     setText("#runtimeBadge", "Android native");
-    setText("#progressBox", "Local model files deleted. Tap Load model to download again.");
+    setText("#progressBox", "Local model files deleted.");
     setText("#maintenanceStatus", `Deleted ${formatBytes(result.bytesDeleted || 0)} from app-private storage.`);
     setText("#diagnosticOutput", JSON.stringify(result, null, 2));
     await refreshNativeStatus();
@@ -791,6 +810,18 @@ async function deleteModel() {
     setText("#maintenanceStatus", error?.message || String(error));
   } finally {
     $("#deleteModel").disabled = false;
+  }
+}
+
+function clearStoredVerbMemory() {
+  const accepted = window.confirm("Clear saved verb mastery for this browser?");
+  if (!accepted) return;
+
+  try {
+    localStorage.removeItem(verbStorageKey);
+    setText("#maintenanceStatus", "Saved verb mastery cleared.");
+  } catch (error) {
+    setText("#maintenanceStatus", "Could not clear saved verb mastery in this browser.");
   }
 }
 
@@ -865,13 +896,14 @@ function bindUi() {
     if (event.key === "Escape" && !$("#settingsPanel").hidden) closeSettingsPanel();
   });
 
-  $("#loadModel").addEventListener("click", loadModel);
+  $("#loadModel")?.addEventListener("click", () => loadModel());
   $("#promptForm").addEventListener("submit", submitPrompt);
   $("#cacheProbe").addEventListener("click", cacheProbe);
   $("#loadBenchmarks").addEventListener("click", loadBenchmarks);
-  $("#copyPhoneCommand").addEventListener("click", copyPhoneCommand);
+  $("#copyTermuxCommand").addEventListener("click", copyTermuxFallbackCommand);
   $("#updateApp").addEventListener("click", updateApp);
   $("#deleteModel").addEventListener("click", deleteModel);
+  $("#settingsResetVerbMemory")?.addEventListener("click", clearStoredVerbMemory);
 
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.addEventListener("click", () => applyPreset(button.dataset.preset));
@@ -908,8 +940,9 @@ async function init() {
   resetChat();
   renderInitialRuntime();
   await registerServiceWorker();
-  await loadPhoneManifest();
+  await loadLocalModelManifest();
   await refreshNativeStatus();
+  await autoLoadModel();
 }
 
 init();

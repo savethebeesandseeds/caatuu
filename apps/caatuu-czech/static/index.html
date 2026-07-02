@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#2f6f5e">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="icon" href="icons/caatuu-czech-192.png">
-    <link rel="apple-touch-icon" href="icons/caatuu-czech-192.png">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
     <script>
       try {
         document.documentElement.dataset.theme = localStorage.getItem("caatuu-czech.theme") || "dark";
@@ -15,21 +15,21 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="app.css?v=shell-3">
+    <link rel="stylesheet" href="app.css?v=shell-8">
   </head>
   <body>
     <div class="app-shell">
-      <aside class="sidebar" aria-label="Primary">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">
-            <img class="brand-icon" src="icons/caatuu-czech-192.png" alt="">
-          </div>
-          <div>
-            <h1>Caatuu Czech</h1>
-            <p>Dictionary + practice + chat</p>
-          </div>
-        </div>
-      </aside>
+      <header class="app-header">
+        <a class="brand-link" href="index.html#dictionary" aria-label="Open Caatuu Czech">
+          <span class="brand-mark" aria-hidden="true">
+            <img class="brand-icon" src="icons/caatuu-czech-512.png" alt="">
+          </span>
+          <span>
+            <strong>Caatuu</strong>
+          </span>
+        </a>
+        <span class="language-pill" aria-label="Czech"><span class="cz-flag" aria-hidden="true"></span></span>
+      </header>
 
       <main class="workspace">
         <section class="view is-active" id="view-dictionary" aria-labelledby="guideTitle">
@@ -37,7 +37,7 @@
             <section class="dictionary-toolbar" aria-label="Dictionary controls">
               <label class="dictionary-search">
                 <span>Find Czech, English, cue, or type</span>
-                <input type="search" id="dictionarySearch" autocomplete="off" placeholder="try město, coffee, do+G, phrase...">
+                <input type="search" id="dictionarySearch" autocomplete="off" placeholder="⌕" aria-label="Search dictionary">
               </label>
               <div class="dictionary-tools">
                 <span class="dictionary-count" id="dictionaryCount">0 entries</span>
@@ -452,7 +452,10 @@
       </main>
 
       <footer class="app-footer">
-        <span>by Waajacu</span>
+        <a class="footer-brand" href="https://www.waajacu.com" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu</span>
+        </a>
       </footer>
     </div>
 
@@ -508,10 +511,7 @@
               <p class="settings-kicker">Dictionary</p>
               <h3>Reference and print</h3>
             </div>
-            <p class="settings-note">The dictionary view contains search, scripts, guide tables, and Print Dictionary.</p>
-            <div class="settings-actions">
-              <button class="settings-link-button" type="button" data-settings-view="dictionary">Open Dictionary</button>
-            </div>
+            <p class="settings-note">Search, scripts, guide tables, and Print Dictionary use the local Czech data bundled with the app.</p>
           </section>
 
           <section class="settings-card" aria-label="Training settings">
@@ -519,23 +519,77 @@
               <p class="settings-kicker">Train</p>
               <h3>Verb practice</h3>
             </div>
-            <p class="settings-note">Trainer options stay beside the cards, with quick actions here for the global app state.</p>
+            <p class="settings-note">Verb mastery is saved locally on this device and reused by the trainer.</p>
             <div class="settings-actions">
-              <button class="settings-link-button" type="button" data-settings-view="verbs">Open Train</button>
-              <button class="settings-link-button" type="button" id="settingsResetVerbSession">Reset session</button>
-              <button class="settings-danger-action" type="button" id="settingsResetVerbMemory">Reset mastery</button>
+              <button class="settings-danger-action" type="button" id="settingsResetVerbMemory">Clear saved mastery</button>
             </div>
           </section>
 
           <section class="settings-card" aria-label="Chat settings">
             <div class="settings-card-head">
               <p class="settings-kicker">Chat</p>
-              <h3>Device AI</h3>
+              <h3>Model generation</h3>
             </div>
-            <p class="settings-note">Model generation, storage, update, and diagnostics live in the Chat settings sheet.</p>
-            <div class="settings-actions">
-              <a class="settings-link-button" href="device-ai.html">Open Chat</a>
+            <div class="preset-control" role="group" aria-label="Generation preset">
+              <button type="button" data-preset="fast">Fast</button>
+              <button type="button" data-preset="chat">Chat</button>
+              <button type="button" data-preset="careful">Careful</button>
             </div>
+            <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
+
+            <div class="settings-grid">
+              <label class="setting-toggle">
+                <span>
+                  <b>Thinking</b>
+                  <small id="thinkingSupport">Saved for Chat</small>
+                </span>
+                <input id="thinkingEnabled" type="checkbox">
+              </label>
+
+              <label class="setting-field">
+                <span>
+                  <b>Max tokens</b>
+                  <output id="maxTokensValue">384</output>
+                </span>
+                <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
+              </label>
+
+              <label class="setting-field">
+                <span>
+                  <b>Temperature</b>
+                  <output id="temperatureValue">0.2</output>
+                </span>
+                <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
+                <small id="temperatureSupport">Saved for the model runtime</small>
+              </label>
+
+              <label class="setting-select">
+                <span>
+                  <b>Context</b>
+                  <small id="contextSupport">Saved for native runtime</small>
+                </span>
+                <select id="contextSize">
+                  <option value="768">768 tokens</option>
+                  <option value="1024">1024 tokens</option>
+                  <option value="2048" selected>2048 tokens</option>
+                  <option value="4096">4096 tokens</option>
+                  <option value="8192">8192 tokens</option>
+                </select>
+              </label>
+
+              <label class="setting-select">
+                <span>
+                  <b>Reasoning display</b>
+                  <small>Only affects visible output</small>
+                </span>
+                <select id="reasoningDisplay">
+                  <option value="collapsed" selected>Collapsed</option>
+                  <option value="expanded">Expanded</option>
+                  <option value="hidden">Hidden</option>
+                </select>
+              </label>
+            </div>
+            <p class="capability-note" id="capabilityNote">These settings are shared with the Chat screen.</p>
           </section>
 
           <section class="settings-card" aria-label="App settings">
@@ -546,6 +600,31 @@
             <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Install app</button>
             <span class="pwa-install-status" id="pwaInstallStatus">Browser</span>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
+          </section>
+
+          <section class="settings-card about-card" aria-label="About">
+            <div class="settings-card-head">
+              <p class="settings-kicker">About</p>
+              <h3>Details</h3>
+            </div>
+            <dl class="meta-list">
+              <div>
+                <dt>Dictionary</dt>
+                <dd>Local Czech words, phrases, scripts, and print data.</dd>
+              </div>
+              <div>
+                <dt>Trainer</dt>
+                <dd>Verb practice uses local mastery saved in this browser or app.</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd>Caatuu Czech Qwen3 1.7B LoRA, Q4_K_M GGUF in the Android runtime.</dd>
+              </div>
+              <div>
+                <dt>Storage</dt>
+                <dd>Browser data uses local storage. Installed model files use app-private storage.</dd>
+              </div>
+            </dl>
           </section>
         </div>
       </section>
@@ -682,6 +761,6 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="app.js?v=shell-3"></script>
+    <script src="app.js?v=shell-7"></script>
   </body>
 </html>

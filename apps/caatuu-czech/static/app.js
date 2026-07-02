@@ -3,6 +3,41 @@ let countryScripts = [];
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 const themeStorageKey = "caatuu-czech.theme";
+const deviceSettingsStorageKey = "caatuu-czech.device-ai.settings.v1";
+const generationPresets = {
+  fast: {
+    label: "Fast",
+    thinking: false,
+    maxTokens: 160,
+    temperature: 0,
+    contextSize: 1024,
+    reasoningDisplay: "hidden",
+    summary: "Short answers, no requested thinking, smallest practical context."
+  },
+  chat: {
+    label: "Chat",
+    thinking: false,
+    maxTokens: 384,
+    temperature: 0.2,
+    contextSize: 2048,
+    reasoningDisplay: "collapsed",
+    summary: "Good default for Czech chat and spelling checks."
+  },
+  careful: {
+    label: "Careful",
+    thinking: true,
+    maxTokens: 768,
+    temperature: 0.2,
+    contextSize: 4096,
+    reasoningDisplay: "collapsed",
+    summary: "Longer answers with requested reasoning where the runtime supports it."
+  }
+};
+const defaultGenerationSettings = {
+  preset: "chat",
+  ...generationPresets.chat
+};
+let generationSettings = loadStoredGenerationSettings();
 
 async function loadJson(path) {
   const response = await fetch(path);
@@ -55,6 +90,120 @@ const state = {
 
 const $ = (selector) => document.querySelector(selector);
 
+function setText(selector, value) {
+  const node = $(selector);
+  if (node) node.textContent = value;
+}
+
+function clampNumber(value, min, max, fallback) {
+  if (!Number.isFinite(value)) return fallback;
+  return Math.min(max, Math.max(min, value));
+}
+
+function loadStoredGenerationSettings() {
+  try {
+    const raw = localStorage.getItem(deviceSettingsStorageKey);
+    if (!raw) return { ...defaultGenerationSettings };
+    return normalizeGenerationSettings(JSON.parse(raw));
+  } catch (error) {
+    return { ...defaultGenerationSettings };
+  }
+}
+
+function normalizeGenerationSettings(input = {}) {
+  const preset = Object.prototype.hasOwnProperty.call(generationPresets, input.preset) ? input.preset : "chat";
+  const base = generationPresets[preset];
+  const maxTokens = Number(input.maxTokens ?? base.maxTokens);
+  const temperature = Number(input.temperature ?? base.temperature);
+  const contextSize = Number(input.contextSize ?? base.contextSize);
+  const reasoningDisplay = ["collapsed", "expanded", "hidden"].includes(input.reasoningDisplay)
+    ? input.reasoningDisplay
+    : base.reasoningDisplay;
+
+  return {
+    preset,
+    label: base.label,
+    summary: base.summary,
+    thinking: Boolean(input.thinking ?? base.thinking),
+    maxTokens: clampNumber(maxTokens, 64, 1024, base.maxTokens),
+    temperature: clampNumber(temperature, 0, 1, base.temperature),
+    contextSize: clampNumber(contextSize, 768, 8192, base.contextSize),
+    reasoningDisplay
+  };
+}
+
+function saveGenerationSettings() {
+  try {
+    localStorage.setItem(deviceSettingsStorageKey, JSON.stringify({
+      preset: generationSettings.preset,
+      thinking: generationSettings.thinking,
+      maxTokens: generationSettings.maxTokens,
+      temperature: generationSettings.temperature,
+      contextSize: generationSettings.contextSize,
+      reasoningDisplay: generationSettings.reasoningDisplay
+    }));
+  } catch (error) {
+    // Settings still apply for the current page when storage is unavailable.
+  }
+}
+
+function setGenerationSettings(next, { persist = true } = {}) {
+  generationSettings = normalizeGenerationSettings({ ...generationSettings, ...next });
+  syncGenerationSettingsUi();
+  if (persist) saveGenerationSettings();
+}
+
+function applyGenerationPreset(preset) {
+  const settings = generationPresets[preset];
+  if (!settings) return;
+  setGenerationSettings({ preset, ...settings });
+}
+
+function readGenerationSettingsControls() {
+  const thinking = $("#thinkingEnabled");
+  const maxTokens = $("#maxTokens");
+  const temperature = $("#temperature");
+  const contextSize = $("#contextSize");
+  const reasoningDisplay = $("#reasoningDisplay");
+  if (!thinking || !maxTokens || !temperature || !contextSize || !reasoningDisplay) return;
+
+  setGenerationSettings({
+    thinking: thinking.checked,
+    maxTokens: Number(maxTokens.value),
+    temperature: Number(temperature.value),
+    contextSize: Number(contextSize.value),
+    reasoningDisplay: reasoningDisplay.value
+  });
+}
+
+function syncGenerationSettingsUi() {
+  const thinking = $("#thinkingEnabled");
+  const maxTokens = $("#maxTokens");
+  const maxTokensValue = $("#maxTokensValue");
+  const temperature = $("#temperature");
+  const temperatureValue = $("#temperatureValue");
+  const contextSize = $("#contextSize");
+  const reasoningDisplay = $("#reasoningDisplay");
+  if (!thinking || !maxTokens || !temperature || !contextSize || !reasoningDisplay) return;
+
+  thinking.checked = generationSettings.thinking;
+  maxTokens.value = String(generationSettings.maxTokens);
+  if (maxTokensValue) maxTokensValue.textContent = String(generationSettings.maxTokens);
+  temperature.value = String(generationSettings.temperature);
+  if (temperatureValue) temperatureValue.textContent = generationSettings.temperature.toFixed(1);
+  contextSize.value = String(generationSettings.contextSize);
+  reasoningDisplay.value = generationSettings.reasoningDisplay;
+  setText("#settingsSummary", generationSettings.summary);
+  setText("#thinkingSupport", "Saved for Chat");
+  setText("#temperatureSupport", "Saved for the model runtime");
+  setText("#contextSupport", "Saved for native runtime");
+  setText("#capabilityNote", "These settings are shared with the Chat screen.");
+
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.preset === generationSettings.preset);
+  });
+}
+
 function readStoredTheme() {
   try {
     return localStorage.getItem(themeStorageKey) === "light" ? "light" : "dark";
@@ -95,6 +244,7 @@ function openAppSettingsPanel() {
   panel.hidden = false;
   document.body.classList.add("settings-open");
   syncThemeControls();
+  syncGenerationSettingsUi();
   $("#closeAppSettings")?.focus();
 }
 
@@ -2406,13 +2556,15 @@ function bindUi() {
   document.querySelectorAll("[data-theme-option]").forEach((button) => {
     button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
   });
-  document.querySelectorAll("[data-settings-view]").forEach((button) => {
-    button.addEventListener("click", () => {
-      setView(button.dataset.settingsView);
-      closeAppSettingsPanel({ restoreFocus: false });
-    });
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.addEventListener("click", () => applyGenerationPreset(button.dataset.preset));
   });
-  $("#settingsResetVerbSession")?.addEventListener("click", resetVerbProgress);
+  ["thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
+    const control = $(`#${id}`);
+    if (!control) return;
+    control.addEventListener("input", readGenerationSettingsControls);
+    control.addEventListener("change", readGenerationSettingsControls);
+  });
   $("#settingsResetVerbMemory")?.addEventListener("click", clearVerbMemory);
 
   window.addEventListener("hashchange", setInitialViewFromHash);
@@ -2462,6 +2614,7 @@ async function init() {
     await loadContentData();
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();
+    syncGenerationSettingsUi();
     setInitialViewFromHash();
     render();
     registerServiceWorker();

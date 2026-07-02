@@ -2514,10 +2514,75 @@ body.settings-open {
   overflow: hidden;
 }
 
+.app-header {
+  width: min(1280px, 100%);
+  min-height: 58px;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) clamp(14px, 3vw, 36px) 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.brand-link {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-link strong {
+  display: block;
+  font-size: 0.98rem;
+}
+
+.app-header .brand-mark {
+  width: 42px;
+  height: 42px;
+}
+
+.language-pill {
+  min-width: 42px;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 0 9px;
+  border: 1px solid #c7d5ce;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--green-dark);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.cz-flag {
+  position: relative;
+  width: 24px;
+  height: 16px;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(23, 32, 29, 0.18);
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #ffffff 0 50%, #d7141a 50% 100%);
+}
+
+.cz-flag::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #11457e;
+  clip-path: polygon(0 0, 54% 50%, 0 100%);
+}
+
 .sidebar {
-  position: sticky;
-  top: 0;
-  z-index: 15;
+  position: relative;
+  z-index: 1;
   height: auto;
   min-height: 64px;
   padding: 10px clamp(14px, 3vw, 28px);
@@ -2734,13 +2799,13 @@ body.settings-open {
 }
 
 .dictionary-toolbar {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
 }
 
 .dictionary-tools {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
@@ -2755,6 +2820,127 @@ body.settings-open {
   color: var(--muted);
   font-size: 0.86rem;
   line-height: 1.42;
+}
+
+.settings-summary,
+.capability-note {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.preset-control {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.preset-control button {
+  min-height: 36px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--blue);
+  font-weight: 850;
+  font-size: 0.82rem;
+}
+
+.preset-control button.is-active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #ffffff;
+}
+
+.settings-grid {
+  display: grid;
+  gap: 11px;
+}
+
+.setting-toggle,
+.setting-field,
+.setting-select {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.setting-toggle {
+  min-height: 50px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.setting-toggle span,
+.setting-field span,
+.setting-select span {
+  min-width: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.setting-toggle b,
+.setting-field b,
+.setting-select b {
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+
+.setting-toggle small,
+.setting-field small,
+.setting-select small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.setting-toggle input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--green);
+}
+
+.setting-field output {
+  flex: 0 0 auto;
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.setting-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--green);
+}
+
+.meta-list {
+  display: grid;
+  gap: 8px;
+}
+
+.meta-list div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.meta-list dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.meta-list dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .settings-link-button,
@@ -2787,6 +2973,22 @@ body.settings-open {
   text-align: center;
 }
 
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
 html[data-theme="light"] {
   color-scheme: light;
   --ink: #17201d;
@@ -2799,6 +3001,19 @@ html[data-theme="light"] {
   --red: #a94a3a;
   --blue: #3e628c;
   --shadow: 0 18px 40px rgba(31, 44, 38, 0.1);
+  --surface-1: #ffffff;
+  --surface-2: #fffdf8;
+  --surface-3: #f1f5f1;
+  --control-bg: #ffffff;
+  --control-border: #bdcac3;
+  --chip-bg: #eef4f0;
+  --chip-ink: #24483f;
+  --entry-bg: #ffffff;
+  --entry-ink: #17201d;
+  --entry-muted: #53645e;
+  --entry-accent: #914436;
+  --panel-head-bg: #f2ede2;
+  --panel-head-ink: #315f8d;
 }
 
 html[data-theme="light"] body {
@@ -2808,7 +3023,11 @@ html[data-theme="light"] body {
 }
 
 html[data-theme="light"] .sidebar {
-  background: rgba(238, 243, 239, 0.94);
+  background: rgba(238, 243, 239, 0.72);
+}
+
+html[data-theme="light"] .app-header {
+  color: var(--ink);
 }
 
 html[data-theme="light"] .bottom-app-nav,
@@ -2857,15 +3076,19 @@ html[data-theme="light"] .print-summary {
 html[data-theme="light"] .dictionary-group h4,
 html[data-theme="light"] .script-panel .section-head,
 html[data-theme="light"] .verb-reference-card header {
-  border-color: #d7d0c2;
-  background: #f2ede2;
-  color: var(--blue);
+  border-color: var(--line);
+  background: var(--panel-head-bg);
+  color: var(--panel-head-ink);
 }
 
 html[data-theme="light"] .dictionary-entry,
 html[data-theme="light"] .script-card,
 html[data-theme="light"] .system-table,
 html[data-theme="light"] .code-ledger,
+html[data-theme="light"] .matrix-wrap,
+html[data-theme="light"] .dictionary-rows,
+html[data-theme="light"] .script-list,
+html[data-theme="light"] .script-rows,
 html[data-theme="light"] .dictionary-toolbar,
 html[data-theme="light"] .print-options select,
 html[data-theme="light"] .verb-form-rail-cell,
@@ -2876,9 +3099,65 @@ html[data-theme="light"] .empty-state {
   color: var(--ink);
 }
 
+html[data-theme="light"] .code-ledger span {
+  border-color: var(--line);
+  color: var(--entry-ink);
+}
+
+html[data-theme="light"] .dictionary-search span {
+  color: var(--entry-ink);
+}
+
+html[data-theme="light"] .dictionary-search input {
+  border-color: var(--control-border);
+  background: var(--control-bg);
+  color: var(--entry-ink);
+}
+
+html[data-theme="light"] .dictionary-search input::placeholder {
+  color: var(--green-dark);
+  opacity: 1;
+}
+
+html[data-theme="light"] .dictionary-count,
+html[data-theme="light"] .count-pill,
+html[data-theme="light"] .script-panel .count-pill {
+  border-color: var(--control-border);
+  background: var(--chip-bg);
+  color: var(--chip-ink);
+}
+
+html[data-theme="light"] .dictionary-entry b,
+html[data-theme="light"] .script-row b,
+html[data-theme="light"] .script-card h4 span {
+  color: var(--entry-ink);
+}
+
+html[data-theme="light"] .dictionary-entry span,
+html[data-theme="light"] .dictionary-group .dict-word span,
+html[data-theme="light"] .script-row span {
+  color: var(--entry-accent);
+}
+
+html[data-theme="light"] .dictionary-entry em,
+html[data-theme="light"] .dictionary-entry small,
+html[data-theme="light"] .dictionary-entry code,
+html[data-theme="light"] .script-card h4 small,
+html[data-theme="light"] .script-card code {
+  color: var(--entry-muted);
+}
+
+html[data-theme="light"] .script-card h4 {
+  border-color: var(--line);
+  background: var(--surface-3);
+}
+
+html[data-theme="light"] .script-row {
+  border-color: var(--line);
+}
+
 html[data-theme="light"] .system-table th,
 html[data-theme="light"] .dictionary-group h4 small,
-html[data-theme="light"] .script-panel .count-pill,
 html[data-theme="light"] .guide-note,
 html[data-theme="light"] .verb-form-rail-cell small,
 html[data-theme="light"] .verb-form-cell small,
@@ -2934,6 +3213,218 @@ html[data-theme="light"] .settings-danger-action {
   color: #8d392b;
 }
 
+html[data-theme="light"] .verb-game-shell {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .verb-hero {
+  background:
+    radial-gradient(circle at top left, rgba(47, 111, 94, 0.12), transparent 34%),
+    linear-gradient(135deg, #fffdf8, #eef3ef);
+}
+
+html[data-theme="light"] .verb-kicker {
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .guide-card h3,
+html[data-theme="light"] .section-head h3,
+html[data-theme="light"] .script-panel .section-head h3,
+html[data-theme="light"] .verb-hero h2,
+html[data-theme="light"] .verb-practice-head h3,
+html[data-theme="light"] .verb-reference-head h3,
+html[data-theme="light"] .verb-coach h3,
+html[data-theme="light"] .verb-config-head h3 {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .guide-note,
+html[data-theme="light"] .plain-steps,
+html[data-theme="light"] .verb-hero-copy,
+html[data-theme="light"] .verb-practice-head p,
+html[data-theme="light"] .verb-config-head p,
+html[data-theme="light"] .verb-reference-head p,
+html[data-theme="light"] .verb-coach-head p,
+html[data-theme="light"] .verb-option-note,
+html[data-theme="light"] .verb-focus-note {
+  color: var(--muted);
+}
+
+html[data-theme="light"] .verb-game-controls button,
+html[data-theme="light"] .verb-practice-head button,
+html[data-theme="light"] .verb-actions button,
+html[data-theme="light"] .verb-memory-reset {
+  border-color: #b8c9c0;
+  background: #ffffff;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .verb-game-controls button:hover,
+html[data-theme="light"] .verb-actions button:hover,
+html[data-theme="light"] .verb-memory-reset:hover {
+  border-color: #9bb7aa;
+  background: #f2f8f4;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .verb-actions button:first-child,
+html[data-theme="light"] #verbToggleOptions[aria-expanded="true"] {
+  border-color: #8fb7a7;
+  background: #eaf7ef;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .verb-pool-pill,
+html[data-theme="light"] .verb-log-chip,
+html[data-theme="light"] .verb-tags span,
+html[data-theme="light"] .verb-cues span {
+  border-color: var(--control-border);
+  background: var(--chip-bg);
+  color: var(--chip-ink);
+}
+
+html[data-theme="light"] .verb-tags span:first-child {
+  border-color: #c7d5e4;
+  background: #f4f7fb;
+  color: var(--blue);
+}
+
+html[data-theme="light"] #verbCommonTag {
+  border-color: #d5c18d;
+  background: #fff9e8;
+  color: #715d23;
+}
+
+html[data-theme="light"] .verb-scoreboard article {
+  background: #fffefa;
+}
+
+html[data-theme="light"] .verb-scoreboard b,
+html[data-theme="light"] .verb-card h3#verbQuestionMain,
+html[data-theme="light"] .verb-form-rail-cell b,
+html[data-theme="light"] .verb-form-cell b,
+html[data-theme="light"] .verb-reference-card h4,
+html[data-theme="light"] .verb-common-options label b,
+html[data-theme="light"] .verb-coach-note b {
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .verb-scoreboard span,
+html[data-theme="light"] .verb-question-label,
+html[data-theme="light"] .verb-answer-control span,
+html[data-theme="light"] .verb-select-control span,
+html[data-theme="light"] .verb-toggle-group legend,
+html[data-theme="light"] .verb-reference-search span,
+html[data-theme="light"] .verb-form-rail-cell small,
+html[data-theme="light"] .verb-form-cell small {
+  color: var(--muted);
+}
+
+html[data-theme="light"] .verb-mastery-track,
+html[data-theme="light"] .verb-reference-progress {
+  border-color: #d7d0c2;
+  background: #fffefa;
+}
+
+html[data-theme="light"] .verb-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 253, 248, 0.96)),
+    repeating-linear-gradient(135deg, rgba(62, 98, 140, 0.06) 0 12px, transparent 12px 24px);
+}
+
+html[data-theme="light"] .verb-card::before {
+  border-color: rgba(47, 111, 94, 0.18);
+}
+
+html[data-theme="light"] .verb-card h3#verbQuestionMain {
+  text-shadow: none;
+}
+
+html[data-theme="light"] .verb-prompt-hint,
+html[data-theme="light"] .verb-feedback,
+html[data-theme="light"] .verb-coach-note,
+html[data-theme="light"] .verb-common-options label small,
+html[data-theme="light"] .verb-toggle-group label,
+html[data-theme="light"] .verb-family-options label,
+html[data-theme="light"] .verb-common-options label {
+  color: var(--entry-muted);
+}
+
+html[data-theme="light"] .verb-cues b,
+html[data-theme="light"] .verb-form-rail-cell span,
+html[data-theme="light"] .verb-form-cell span,
+html[data-theme="light"] .verb-reference-card small,
+html[data-theme="light"] .verb-accent-tray button {
+  color: var(--blue);
+}
+
+html[data-theme="light"] .verb-accent-tray button,
+html[data-theme="light"] .verb-choice-option {
+  border-color: #d7d0c2;
+  background: #fffefa;
+  color: var(--blue);
+}
+
+html[data-theme="light"] .verb-choice-option {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .verb-accent-tray button:hover,
+html[data-theme="light"] .verb-choice-option:hover:not(:disabled) {
+  border-color: #c7d5e4;
+  background: #f4f7fb;
+}
+
+html[data-theme="light"] .verb-feedback,
+html[data-theme="light"] .verb-coach-note,
+html[data-theme="light"] .verb-toggle-group {
+  border-color: #d7d0c2;
+  background: #f7f4ee;
+}
+
+html[data-theme="light"] .verb-coach {
+  background:
+    radial-gradient(circle at top right, rgba(62, 98, 140, 0.1), transparent 38%),
+    #ffffff;
+}
+
+html[data-theme="light"] .verb-form-rail-cell,
+html[data-theme="light"] .verb-form-cell,
+html[data-theme="light"] .verb-reference-card {
+  border-color: #d7d0c2;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .verb-form-rail-cell.is-current {
+  border-color: var(--blue);
+  box-shadow: inset 0 0 0 1px rgba(62, 98, 140, 0.36);
+}
+
+html[data-theme="light"] .verb-choice-option.is-correct,
+html[data-theme="light"] .verb-form-rail-cell.is-mastered,
+html[data-theme="light"] .verb-form-cell.is-mastered {
+  background: #eef7f1;
+}
+
+html[data-theme="light"] .verb-choice-option.is-wrong {
+  background: #fff3ef;
+}
+
+html[data-theme="light"] .verb-reference-card header {
+  border-color: #eee6d8;
+  background: #f2ede2;
+}
+
+html[data-theme="light"] .verb-reference-progress {
+  border-bottom: 1px solid #eee6d8;
+}
+
+html[data-theme="light"] .verb-form-cell {
+  border-right-color: #eee6d8;
+  border-bottom-color: #eee6d8;
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
   --ink: #f2f6fa;
@@ -2949,6 +3440,7 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .app-header,
 html[data-theme="dark"] .bottom-app-nav,
 html[data-theme="dark"] .settings-sheet,
 html[data-theme="dark"] .guide-card,
@@ -2964,6 +3456,25 @@ html[data-theme="dark"] .print-menu {
   border-color: var(--line);
   background: #14202a;
   color: var(--ink);
+}
+
+html[data-theme="dark"] .app-header {
+  background: transparent;
+}
+
+html[data-theme="dark"] .brand-mark {
+  border-color: #324454;
+  background: #101820;
+}
+
+html[data-theme="dark"] .language-pill {
+  border-color: #324454;
+  background: rgba(16, 24, 32, 0.72);
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .cz-flag {
+  border-color: rgba(255, 255, 255, 0.24);
 }
 
 html[data-theme="dark"] .settings-card,
@@ -2988,7 +3499,8 @@ html[data-theme="dark"] .app-footer {
 
 html[data-theme="dark"] .bottom-app-nav .app-nav-item:hover,
 html[data-theme="dark"] .bottom-app-nav .app-nav-item.is-active,
-html[data-theme="dark"] .theme-control button.is-active {
+html[data-theme="dark"] .theme-control button.is-active,
+html[data-theme="dark"] .preset-control button.is-active {
   border-color: rgba(68, 199, 127, 0.42);
   background: rgba(68, 199, 127, 0.13);
   color: #d9f7e4;
@@ -2996,6 +3508,7 @@ html[data-theme="dark"] .theme-control button.is-active {
 
 html[data-theme="dark"] .settings-close,
 html[data-theme="dark"] .theme-control button,
+html[data-theme="dark"] .preset-control button,
 html[data-theme="dark"] input,
 html[data-theme="dark"] select,
 html[data-theme="dark"] textarea,
@@ -3020,6 +3533,9 @@ html[data-theme="dark"] .verb-reference-card header {
 html[data-theme="dark"] .plain-steps,
 html[data-theme="dark"] .guide-note,
 html[data-theme="dark"] .settings-note,
+html[data-theme="dark"] .settings-summary,
+html[data-theme="dark"] .capability-note,
+html[data-theme="dark"] .meta-list dt,
 html[data-theme="dark"] .app-footer,
 html[data-theme="dark"] .dictionary-group h4 small,
 html[data-theme="dark"] .script-panel .count-pill,
@@ -3077,6 +3593,14 @@ html[data-theme="dark"] .settings-danger-action {
   }
 
   .settings-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .preset-control {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-list div {
     grid-template-columns: 1fr;
   }
 
