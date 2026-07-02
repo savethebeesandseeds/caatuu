@@ -9,6 +9,7 @@ const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
+const themeStorageKey = "caatuu-czech.theme";
 const settingsStorageKey = "caatuu-czech.device-ai.settings.v1";
 const generationPresets = {
   fast: {
@@ -110,6 +111,39 @@ function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
+function readStoredTheme() {
+  try {
+    return localStorage.getItem(themeStorageKey) === "light" ? "light" : "dark";
+  } catch (error) {
+    return "dark";
+  }
+}
+
+function syncThemeControls() {
+  const activeTheme = document.documentElement.dataset.theme || readStoredTheme();
+  document.querySelectorAll("[data-theme-option]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.themeOption === activeTheme);
+  });
+}
+
+function applyTheme(theme, { persist = true } = {}) {
+  const normalizedTheme = theme === "light" ? "light" : "dark";
+  document.documentElement.dataset.theme = normalizedTheme;
+  document.documentElement.style.colorScheme = normalizedTheme;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute(
+    "content",
+    normalizedTheme === "dark" ? "#071013" : "#22594d"
+  );
+  if (persist) {
+    try {
+      localStorage.setItem(themeStorageKey, normalizedTheme);
+    } catch (error) {
+      // Theme still applies for the current session when storage is unavailable.
+    }
+  }
+  syncThemeControls();
+}
+
 function setBusy(isBusy) {
   generating = isBusy;
   $("#promptInput").disabled = isBusy;
@@ -126,6 +160,7 @@ function openSettingsPanel() {
   lastSettingsTrigger = document.activeElement;
   panel.hidden = false;
   document.body.classList.add("settings-open");
+  syncThemeControls();
   $("#closeSettings").focus();
 }
 
@@ -842,6 +877,10 @@ function bindUi() {
     button.addEventListener("click", () => applyPreset(button.dataset.preset));
   });
 
+  document.querySelectorAll("[data-theme-option]").forEach((button) => {
+    button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
+  });
+
   ["thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
     $(`#${id}`).addEventListener("input", readSettingsControls);
     $(`#${id}`).addEventListener("change", readSettingsControls);
@@ -863,6 +902,7 @@ function bindUi() {
 }
 
 async function init() {
+  applyTheme(readStoredTheme(), { persist: false });
   bindUi();
   syncSettingsUi();
   resetChat();

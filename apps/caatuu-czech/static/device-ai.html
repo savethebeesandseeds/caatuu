@@ -8,12 +8,19 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-192.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-192.png">
-    <link rel="stylesheet" href="device-ai.css?v=settings-4">
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("caatuu-czech.theme") || "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+    <link rel="stylesheet" href="device-ai.css?v=shell-1">
   </head>
   <body>
     <main class="phone-ai-shell">
       <header class="app-header">
-        <a class="brand-link" href="index.html#verbs" aria-label="Open Caatuu Czech study tools">
+        <a class="brand-link" href="index.html#dictionary" aria-label="Open Caatuu Czech dictionary">
           <span class="brand-mark" aria-hidden="true">
             <img class="brand-icon" src="icons/caatuu-czech-192.png" alt="">
           </span>
@@ -22,14 +29,6 @@
             <small>Phone AI</small>
           </span>
         </a>
-        <div class="header-actions">
-          <nav class="study-nav" aria-label="Study tools">
-            <a href="index.html#verbs">Verbs</a>
-            <a href="index.html#dictionary">Dictionary</a>
-            <a href="index.html#guide">Guide</a>
-          </nav>
-          <button class="gear-button" id="openSettings" type="button" aria-label="Open settings and model details">&#9881;</button>
-        </div>
       </header>
 
       <div class="workbench">
@@ -63,29 +62,27 @@
           </form>
           <p class="privacy-line" id="privacyLine">The app sends only your message to the local runtime. No system prompt is added by this page.</p>
         </section>
-
-        <aside class="side-column" aria-label="Study side panel">
-          <section class="side-card study-card">
-            <div class="side-head">
-              <p class="kicker">Study</p>
-              <h2>Use beside chat</h2>
-            </div>
-            <a class="study-link is-primary" href="index.html#verbs">
-              <span>Verbs</span>
-              <small>Practice present forms and review weak cards.</small>
-            </a>
-            <a class="study-link" href="index.html#dictionary">
-              <span>Dictionary</span>
-              <small>Search the compact Czech reference.</small>
-            </a>
-            <a class="study-link" href="index.html#guide">
-              <span>Guide</span>
-              <small>Open cases, cues, and model tables.</small>
-            </a>
-          </section>
-        </aside>
       </div>
     </main>
+
+    <nav class="bottom-app-nav" aria-label="Caatuu Czech sections">
+      <a class="app-nav-item" href="index.html#dictionary">
+        <span class="app-nav-icon" aria-hidden="true">⌕</span>
+        <span>Dictionary</span>
+      </a>
+      <a class="app-nav-item" href="index.html#verbs">
+        <span class="app-nav-icon" aria-hidden="true">✎</span>
+        <span>Train</span>
+      </a>
+      <a class="app-nav-item is-active" href="device-ai.html">
+        <span class="app-nav-icon" aria-hidden="true">◉</span>
+        <span>Chat</span>
+      </a>
+      <button class="app-nav-item" id="openSettings" type="button">
+        <span class="app-nav-icon" aria-hidden="true">⚙</span>
+        <span>Settings</span>
+      </button>
+    </nav>
 
     <div class="settings-backdrop" id="settingsPanel" hidden>
       <section class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
@@ -98,6 +95,23 @@
         </header>
 
         <div class="settings-sheet-body">
+          <section class="side-card appearance-card" aria-label="Appearance">
+            <div class="side-head">
+              <p class="kicker">Appearance</p>
+              <h3>Theme</h3>
+            </div>
+            <div class="theme-control" role="group" aria-label="Theme">
+              <button type="button" data-theme-option="light">
+                <span aria-hidden="true">☼</span>
+                <b>Light</b>
+              </button>
+              <button type="button" data-theme-option="dark">
+                <span aria-hidden="true">☾</span>
+                <b>Dark</b>
+              </button>
+            </div>
+          </section>
+
           <section class="side-card settings-card" aria-label="Run settings">
             <div class="side-head">
               <p class="kicker">Run</p>
@@ -262,6 +276,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=settings-4"></script>
+    <script type="module" src="device-ai.js?v=shell-1"></script>
   </body>
 </html>

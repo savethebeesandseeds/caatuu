@@ -1,6 +1,8 @@
 let countryDictionary = [];
 let countryScripts = [];
 let deferredPwaInstallPrompt = null;
+let lastAppSettingsTrigger = null;
+const themeStorageKey = "caatuu-czech.theme";
 
 async function loadJson(path) {
   const response = await fetch(path);
@@ -28,7 +30,7 @@ async function loadContentData() {
 }
 
 const state = {
-  activeView: "guide",
+  activeView: "dictionary",
   verbOptionsOpen: false,
   verbQuestion: null,
   verbStats: {
@@ -52,6 +54,59 @@ const state = {
 };
 
 const $ = (selector) => document.querySelector(selector);
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem(themeStorageKey) === "light" ? "light" : "dark";
+  } catch (error) {
+    return "dark";
+  }
+}
+
+function syncThemeControls() {
+  const activeTheme = document.documentElement.dataset.theme || readStoredTheme();
+  document.querySelectorAll("[data-theme-option]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.themeOption === activeTheme);
+  });
+}
+
+function applyTheme(theme, { persist = true } = {}) {
+  const normalizedTheme = theme === "light" ? "light" : "dark";
+  document.documentElement.dataset.theme = normalizedTheme;
+  document.documentElement.style.colorScheme = normalizedTheme;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute(
+    "content",
+    normalizedTheme === "dark" ? "#071013" : "#2f6f5e"
+  );
+  if (persist) {
+    try {
+      localStorage.setItem(themeStorageKey, normalizedTheme);
+    } catch (error) {
+      // Theme still applies for the current session when storage is unavailable.
+    }
+  }
+  syncThemeControls();
+}
+
+function openAppSettingsPanel() {
+  const panel = $("#appSettingsPanel");
+  if (!panel) return;
+  lastAppSettingsTrigger = document.activeElement;
+  panel.hidden = false;
+  document.body.classList.add("settings-open");
+  syncThemeControls();
+  $("#closeAppSettings")?.focus();
+}
+
+function closeAppSettingsPanel({ restoreFocus = true } = {}) {
+  const panel = $("#appSettingsPanel");
+  if (!panel) return;
+  panel.hidden = true;
+  document.body.classList.remove("settings-open");
+  if (restoreFocus && lastAppSettingsTrigger && typeof lastAppSettingsTrigger.focus === "function") {
+    lastAppSettingsTrigger.focus();
+  }
+}
 
 function isPwaInstalled() {
   return window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
@@ -1564,7 +1619,7 @@ function guidePrintPages(layout) {
     title: "Caatuu Czech",
     lines: ["by Waajacu", "Pocket dictionary", `${countryDictionary.length} words and phrases`, `${categories().length} groups + ${countryScripts.length} scripts`]
   };
-  const guide = $("#view-guide");
+  const guide = $("#view-dictionary");
   if (!guide) return [cover];
 
   const guidePages = [...guide.querySelectorAll(".guide-card")]
@@ -2272,6 +2327,7 @@ function buildPrintBook(options = printOptions()) {
 }
 
 function openPrintMenu() {
+  closeAppSettingsPanel({ restoreFocus: false });
   applyPrintDefaults();
   $("#printMenu").hidden = false;
   $("#printBackdrop").hidden = false;
@@ -2296,13 +2352,19 @@ function printBookNow() {
   window.print();
 }
 
+function normalizeView(view) {
+  if (view === "guide" || view === "dictionary") return "dictionary";
+  if (view === "train" || view === "verbs") return "verbs";
+  return "dictionary";
+}
+
 function setView(view) {
-  if (!["guide", "dictionary", "verbs"].includes(view)) view = "guide";
+  view = normalizeView(view);
   state.activeView = view;
   $(".view.is-active")?.classList.remove("is-active");
-  $(`#view-${view}`).classList.add("is-active");
+  $(`#view-${view}`)?.classList.add("is-active");
   $(".nav-tab.is-active")?.classList.remove("is-active");
-  $(`.nav-tab[data-view="${view}"]`).classList.add("is-active");
+  $(`.nav-tab[data-view="${view}"]`)?.classList.add("is-active");
   if (window.location.hash !== `#${view}`) {
     window.history.replaceState(null, "", `#${view}`);
   }
@@ -2331,6 +2393,20 @@ function bindUi() {
     if (tab) setView(tab.dataset.view);
   });
 
+  $("#openAppSettings")?.addEventListener("click", openAppSettingsPanel);
+  $("#closeAppSettings")?.addEventListener("click", closeAppSettingsPanel);
+  $("#appSettingsPanel")?.addEventListener("click", (event) => {
+    if (event.target === $("#appSettingsPanel")) closeAppSettingsPanel();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && $("#appSettingsPanel") && !$("#appSettingsPanel").hidden) {
+      closeAppSettingsPanel();
+    }
+  });
+  document.querySelectorAll("[data-theme-option]").forEach((button) => {
+    button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
+  });
+
   window.addEventListener("hashchange", setInitialViewFromHash);
 
   $("#dictionarySearch")?.addEventListener("input", (event) => {
@@ -2340,7 +2416,7 @@ function bindUi() {
 
   applyPrintDefaults();
 
-  $("#openPrintMenu").addEventListener("click", openPrintMenu);
+  $("#openPrintMenu")?.addEventListener("click", openPrintMenu);
   $("#closePrintMenu").addEventListener("click", closePrintMenu);
   $("#printBackdrop").addEventListener("click", closePrintMenu);
   $("#previewPrintBook").addEventListener("click", previewPrintBook);
@@ -2376,6 +2452,7 @@ function bindUi() {
 async function init() {
   try {
     await loadContentData();
+    applyTheme(readStoredTheme(), { persist: false });
     bindUi();
     setInitialViewFromHash();
     render();
