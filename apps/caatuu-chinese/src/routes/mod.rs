@@ -28,6 +28,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
     let unified_static = workspace.join("apps/caatuu-unified/static");
     let chinese_static = workspace.join("apps/caatuu-chinese/static");
     let czech_static = workspace.join("apps/caatuu-czech/static");
+    let android_debug_apk = workspace.join("artifacts/android/caatuu-debug.apk");
 
     let chinese_static_service = ServeDir::new(chinese_static.clone())
         .append_index_html_on_directories(true)
@@ -75,6 +76,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .nest("/api/v1", api_router())
         .route_service("/", ServeFile::new(unified_static.join("index.html")))
         .route_service("/app.css", ServeFile::new(unified_static.join("app.css")))
+        .route_service("/android/caatuu-debug.apk", ServeFile::new(android_debug_apk))
         .route_service("/cz/", ServeFile::new(czech_static.join("index.html")))
         .route_service("/zh/", ServeFile::new(chinese_static.join("index.html")))
         .nest("/cz", czech_app)

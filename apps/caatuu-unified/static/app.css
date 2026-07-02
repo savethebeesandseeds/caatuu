@@ -8,6 +8,7 @@
   --green: #226b4f;
   --red: #9d3d2e;
   --blue: #2f5f91;
+  --amber: #9b6724;
   --shadow: 0 18px 45px rgba(23, 32, 27, 0.10);
 }
 
@@ -120,7 +121,7 @@ h1 {
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -151,11 +152,28 @@ h1 {
   border-left-color: var(--red);
 }
 
+.app-card.android::before {
+  border-left-color: var(--amber);
+}
+
 .app-card img {
   grid-row: 1 / span 3;
   width: 72px;
   height: 72px;
   object-fit: contain;
+}
+
+.apk-icon {
+  grid-row: 1 / span 3;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid #d6c3a8;
+  border-radius: 8px;
+  background: #fff6e7;
+  color: #6f481c;
+  font-weight: 800;
 }
 
 .label {
@@ -222,6 +240,11 @@ h1 {
   }
 
   .app-card img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .apk-icon {
     width: 56px;
     height: 56px;
   }
