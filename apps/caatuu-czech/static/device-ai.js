@@ -353,12 +353,9 @@ function parseThinkBlocks(content) {
   return parts.filter((part) => part.text && part.text.trim());
 }
 
-function resetChat() {
+function resetChat(message = "Load the phone model, then write a message. The Android bridge sends only your text to the local model.") {
   $("#chatLog").replaceChildren();
-  addMessage(
-    "system",
-    "Load the phone model, then write a message. The Android bridge sends only your text to the local model."
-  );
+  addMessage("system", message);
 }
 
 function renderInitialRuntime() {
@@ -453,8 +450,13 @@ async function loadModel() {
 }
 
 async function loadNativeModel() {
+  const wasLoaded = modelLoaded;
   setBusy(true);
   modelLoaded = false;
+  if (wasLoaded) {
+    resetChat("Chat cleared. Reloading the local model.");
+    $("#promptInput").value = "";
+  }
   setText("#runtimeBadge", "Loading");
   setText("#runtimeStatus", "Loading model");
   setText("#progressBox", "Checking the model file.");
