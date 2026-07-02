@@ -58,6 +58,16 @@ Install Termux on the phone. In Termux:
 ```bash
 pkg update
 pkg install -y curl
+curl -L https://caatuu.waajacu.com/cz/data/models/phone-bench/termux-chat-caatuu.sh -o termux-chat-caatuu.sh
+bash termux-chat-caatuu.sh
+```
+
+That starts an interactive local chat. The model stays loaded while you type.
+Use `Ctrl+D` or `Ctrl+C` to leave.
+
+For the fixed benchmark prompts:
+
+```bash
 curl -L https://caatuu.waajacu.com/cz/data/models/phone-bench/termux-run-caatuu-bench.sh -o termux-run-caatuu-bench.sh
 bash termux-run-caatuu-bench.sh
 ```

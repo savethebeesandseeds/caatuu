@@ -25,6 +25,7 @@ fi
 cp "$SOURCE_SHA" "$TARGET_DIR/"
 cp "$SOURCE_MANIFEST" "$TARGET_DIR/"
 cp "$TOOL_DIR/scripts/termux-run-caatuu-bench.sh" "$TARGET_DIR/"
+cp "$TOOL_DIR/scripts/termux-chat-caatuu.sh" "$TARGET_DIR/"
 cp "$TOOL_DIR/prompts/czech-smoke.txt" "$TARGET_DIR/"
 
 echo "Published phone benchmark files to:"

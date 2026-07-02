@@ -38,7 +38,7 @@
             <h2>Native Phone Runner</h2>
             <p>Use this when the browser cannot expose WebGPU.</p>
           </div>
-          <button id="copyPhoneCommand" type="button">Copy command</button>
+          <button id="copyPhoneCommand" type="button">Copy chat command</button>
         </div>
         <div class="phone-status-grid">
           <article>
@@ -52,7 +52,7 @@
         </div>
         <pre class="command-box" id="phoneCommand"></pre>
         <p class="small-note" id="phoneBenchNote">
-          This downloads the quantized model once, builds llama.cpp on the phone, then runs Czech benchmark prompts fully on device.
+          This downloads the quantized model once, builds llama.cpp on the phone, then opens an interactive local chat.
         </p>
       </section>
 
@@ -107,6 +107,6 @@
       </section>
     </main>
 
-    <script type="module" src="device-ai.js?v=phone-2"></script>
+    <script type="module" src="device-ai.js?v=phone-3"></script>
   </body>
 </html>

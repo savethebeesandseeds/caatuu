@@ -9,7 +9,7 @@ const liveModelNote = "Loads into the browser with WebGPU.";
 const phoneBench = {
   baseUrl: "https://caatuu.waajacu.com/cz/data/models/phone-bench",
   manifestPath: "data/models/phone-bench/manifest.json",
-  scriptName: "termux-run-caatuu-bench.sh",
+  scriptName: "termux-chat-caatuu.sh",
   modelName: "caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf"
 };
 const phoneCommand = [
@@ -249,7 +249,7 @@ async function loadCzechLoraWebllm(exportManifest) {
       [
         "The browser model cannot run on this device because WebGPU is unavailable.",
         "",
-        "Use the Native Phone Runner above to run the quantized model offline on Android.",
+        "Use the Native Phone Runner above to chat with the quantized model offline on Android.",
         "",
         phoneCommand
       ].join("\n")
@@ -388,18 +388,18 @@ async function loadPhoneBenchStatus() {
     setText("#phoneModelStatus", `${manifest.quantization || "GGUF"} ready (${size})`);
     setText(
       "#phoneBenchNote",
-      `Published model: ${manifest.model_file}. SHA256 ${String(manifest.sha256 || "").slice(0, 12)}...`
+      `Published model: ${manifest.model_file}. Chat script keeps the model loaded between messages.`
     );
   } catch (error) {
     setText("#phoneModelStatus", "Public bundle ready");
-    setText("#phoneBenchNote", "Use the command above. The model bundle is served from caatuu.waajacu.com.");
+    setText("#phoneBenchNote", "Use the command above. The chat bundle is served from caatuu.waajacu.com.");
   }
 }
 
 async function copyPhoneCommand() {
   try {
     await navigator.clipboard.writeText(phoneCommand);
-    setText("#phoneBenchNote", "Copied. Paste it into Termux on the Android phone.");
+    setText("#phoneBenchNote", "Copied. Paste it into Termux on the Android phone to start chat mode.");
   } catch (error) {
     setText("#phoneBenchNote", "Copy failed. Select the command text manually.");
   }
