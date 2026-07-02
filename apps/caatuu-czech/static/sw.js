@@ -1,12 +1,12 @@
-const CACHE_NAME = "caatuu-czech-pwa-v33";
+const CACHE_NAME = "caatuu-czech-pwa-v34";
 const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./app.css?v=shell-2",
-  "./app.js?v=shell-2",
+  "./app.css?v=shell-3",
+  "./app.js?v=shell-3",
   "./device-ai.html",
-  "./device-ai.css?v=shell-2",
-  "./device-ai.js?v=shell-2",
+  "./device-ai.css?v=shell-3",
+  "./device-ai.js?v=shell-3",
   "./manifest.webmanifest",
   "./icons/caatuu-czech-192.png",
   "./icons/caatuu-czech-512.png",
