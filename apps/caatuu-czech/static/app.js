@@ -2406,6 +2406,14 @@ function bindUi() {
   document.querySelectorAll("[data-theme-option]").forEach((button) => {
     button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
   });
+  document.querySelectorAll("[data-settings-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setView(button.dataset.settingsView);
+      closeAppSettingsPanel({ restoreFocus: false });
+    });
+  });
+  $("#settingsResetVerbSession")?.addEventListener("click", resetVerbProgress);
+  $("#settingsResetVerbMemory")?.addEventListener("click", clearVerbMemory);
 
   window.addEventListener("hashchange", setInitialViewFromHash);
 

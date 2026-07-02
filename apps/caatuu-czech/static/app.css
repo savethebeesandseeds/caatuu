@@ -74,11 +74,6 @@ h1, h2, h3, p { margin: 0; }
 .brand h1 { font-size: 1.02rem; }
 .brand p, .count-pill, .sidebar-note { color: var(--muted); }
 .brand p { margin-top: 3px; font-size: 0.84rem; }
-.brand .brand-credit {
-  color: var(--green-dark);
-  font-size: 0.68rem;
-  font-weight: 800;
-}
 
 .nav-tabs { display: grid; gap: 6px; }
 .nav-tab {
@@ -1806,10 +1801,6 @@ body.print-preview-on .print-book {
     color: var(--muted);
   }
 
-  .brand .brand-credit {
-    color: var(--green);
-  }
-
   .nav-tabs {
     gap: 8px;
   }
@@ -2733,13 +2724,67 @@ body.settings-open {
 
 .settings-actions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
   gap: 8px;
 }
 
 .settings-actions .pwa-install-action,
 .settings-actions .print-open-action {
   width: 100%;
+}
+
+.dictionary-toolbar {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.dictionary-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.dictionary-print-action {
+  width: auto;
+  min-width: 148px;
+  padding-inline: 12px;
+}
+
+.settings-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.42;
+}
+
+.settings-link-button,
+.settings-danger-action {
+  min-height: 40px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--green-dark);
+  font-weight: 850;
+  text-align: center;
+  text-decoration: none;
+}
+
+.settings-danger-action {
+  color: var(--red);
+}
+
+.app-footer {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  padding: 14px clamp(14px, 3vw, 36px) calc(112px + env(safe-area-inset-bottom));
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-align: center;
 }
 
 html[data-theme="light"] {
@@ -2768,6 +2813,7 @@ html[data-theme="light"] .sidebar {
 
 html[data-theme="light"] .bottom-app-nav,
 html[data-theme="light"] .settings-sheet,
+html[data-theme="light"] .settings-card,
 html[data-theme="light"] .guide-card,
 html[data-theme="light"] .dictionary-group,
 html[data-theme="light"] .script-panel,
@@ -2785,8 +2831,27 @@ html[data-theme="light"] .print-menu {
 }
 
 html[data-theme="light"] .dictionary-group,
-html[data-theme="light"] .script-panel {
+html[data-theme="light"] .script-panel,
+html[data-theme="light"] .settings-link-button,
+html[data-theme="light"] .settings-danger-action,
+html[data-theme="light"] .pwa-install-status,
+html[data-theme="light"] .pwa-install-help,
+html[data-theme="light"] .print-check,
+html[data-theme="light"] .print-summary,
+html[data-theme="light"] .app-footer {
   background: #ffffff;
+}
+
+html[data-theme="light"] .pwa-install-status,
+html[data-theme="light"] .pwa-install-help {
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+html[data-theme="light"] .print-check,
+html[data-theme="light"] .print-summary {
+  border-color: var(--line);
+  color: var(--ink);
 }
 
 html[data-theme="light"] .dictionary-group h4,
@@ -2801,6 +2866,8 @@ html[data-theme="light"] .dictionary-entry,
 html[data-theme="light"] .script-card,
 html[data-theme="light"] .system-table,
 html[data-theme="light"] .code-ledger,
+html[data-theme="light"] .dictionary-toolbar,
+html[data-theme="light"] .print-options select,
 html[data-theme="light"] .verb-form-rail-cell,
 html[data-theme="light"] .verb-form-cell,
 html[data-theme="light"] .empty-state {
@@ -2840,6 +2907,33 @@ html[data-theme="light"] .print-options select {
   color: var(--ink);
 }
 
+html[data-theme="light"] .pwa-install-action,
+html[data-theme="light"] .print-open-action,
+html[data-theme="light"] .settings-link-button {
+  border-color: #aac0b6;
+  background: #ffffff;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .print-close,
+html[data-theme="light"] .print-actions button {
+  border-color: #bdcac3;
+  background: #ffffff;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .print-actions button:last-child {
+  border-color: #8fb7a7;
+  background: #f3fbf6;
+  color: var(--green-dark);
+}
+
+html[data-theme="light"] .settings-danger-action {
+  border-color: #e2b9b1;
+  background: #fff8f6;
+  color: #8d392b;
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
   --ink: #f2f6fa;
@@ -2856,15 +2950,40 @@ html[data-theme="dark"] {
 
 html[data-theme="dark"] .sidebar,
 html[data-theme="dark"] .bottom-app-nav,
-html[data-theme="dark"] .settings-sheet {
+html[data-theme="dark"] .settings-sheet,
+html[data-theme="dark"] .guide-card,
+html[data-theme="dark"] .dictionary-group,
+html[data-theme="dark"] .script-panel,
+html[data-theme="dark"] .verb-card,
+html[data-theme="dark"] .verb-coach,
+html[data-theme="dark"] .verb-config-panel,
+html[data-theme="dark"] .verb-reference-panel,
+html[data-theme="dark"] .verb-hero,
+html[data-theme="dark"] .verb-scoreboard article,
+html[data-theme="dark"] .print-menu {
   border-color: var(--line);
-  background: rgba(13, 23, 30, 0.94);
+  background: #14202a;
   color: var(--ink);
 }
 
-html[data-theme="dark"] .settings-card {
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .dictionary-entry,
+html[data-theme="dark"] .script-card,
+html[data-theme="dark"] .system-table,
+html[data-theme="dark"] .code-ledger,
+html[data-theme="dark"] .verb-form-rail-cell,
+html[data-theme="dark"] .verb-form-cell,
+html[data-theme="dark"] .empty-state,
+html[data-theme="dark"] .print-check,
+html[data-theme="dark"] .print-summary,
+html[data-theme="dark"] .settings-link-button,
+html[data-theme="dark"] .settings-danger-action,
+html[data-theme="dark"] .pwa-install-status,
+html[data-theme="dark"] .pwa-install-help,
+html[data-theme="dark"] .app-footer {
   border-color: #2b3b48;
   background: #101820;
+  color: var(--ink);
 }
 
 html[data-theme="dark"] .bottom-app-nav .app-nav-item:hover,
@@ -2876,10 +2995,53 @@ html[data-theme="dark"] .theme-control button.is-active {
 }
 
 html[data-theme="dark"] .settings-close,
-html[data-theme="dark"] .theme-control button {
+html[data-theme="dark"] .theme-control button,
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] .verb-answer-control input,
+html[data-theme="dark"] .verb-select-control select,
+html[data-theme="dark"] .verb-reference-search input,
+html[data-theme="dark"] .print-options select {
   border-color: #324454;
   background: #101820;
   color: var(--ink);
+}
+
+html[data-theme="dark"] .dictionary-group h4,
+html[data-theme="dark"] .script-panel .section-head,
+html[data-theme="dark"] .system-table th,
+html[data-theme="dark"] .verb-reference-card header {
+  border-color: #263542;
+  background: #172530;
+  color: var(--blue);
+}
+
+html[data-theme="dark"] .plain-steps,
+html[data-theme="dark"] .guide-note,
+html[data-theme="dark"] .settings-note,
+html[data-theme="dark"] .app-footer,
+html[data-theme="dark"] .dictionary-group h4 small,
+html[data-theme="dark"] .script-panel .count-pill,
+html[data-theme="dark"] .verb-form-rail-cell small,
+html[data-theme="dark"] .verb-form-cell small,
+html[data-theme="dark"] .verb-reference-card p,
+html[data-theme="dark"] .verb-reference-card small {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .pwa-install-action,
+html[data-theme="dark"] .print-open-action,
+html[data-theme="dark"] .settings-link-button {
+  border-color: rgba(68, 199, 127, 0.42);
+  background: #13251c;
+  color: #d9f7e4;
+}
+
+html[data-theme="dark"] .settings-danger-action {
+  border-color: rgba(255, 143, 125, 0.42);
+  background: rgba(255, 143, 125, 0.1);
+  color: #ffd0c8;
 }
 
 @media screen and (max-width: 860px) {
@@ -2896,7 +3058,7 @@ html[data-theme="dark"] .theme-control button {
     height: 40px;
   }
 
-  .brand p:not(.brand-credit) {
+  .brand p {
     display: none;
   }
 
@@ -2916,6 +3078,14 @@ html[data-theme="dark"] .theme-control button {
 
   .settings-actions {
     grid-template-columns: 1fr;
+  }
+
+  .dictionary-tools {
+    justify-content: stretch;
+  }
+
+  .dictionary-tools > * {
+    flex: 1 1 100%;
   }
 }
 

@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-1">
+    <link rel="stylesheet" href="device-ai.css?v=shell-2">
   </head>
   <body>
     <main class="phone-ai-shell">
@@ -65,6 +65,10 @@
       </div>
     </main>
 
+    <footer class="app-footer">
+      <span>by Waajacu</span>
+    </footer>
+
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections">
       <a class="app-nav-item" href="index.html#dictionary">
         <span class="app-nav-icon" aria-hidden="true">⌕</span>
@@ -88,8 +92,8 @@
       <section class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
         <header class="settings-sheet-head">
           <div>
-            <p class="kicker">Model</p>
-            <h2 id="settingsTitle">Settings and details</h2>
+            <p class="kicker">Caatuu Czech</p>
+            <h2 id="settingsTitle">Settings</h2>
           </div>
           <button class="close-settings" id="closeSettings" type="button" aria-label="Close settings">&times;</button>
         </header>
@@ -112,10 +116,32 @@
             </div>
           </section>
 
+          <section class="side-card global-section-card" aria-label="Dictionary settings">
+            <div class="side-head">
+              <p class="kicker">Dictionary</p>
+              <h3>Reference and print</h3>
+            </div>
+            <p class="settings-summary">Search, scripts, guide tables, and Print Dictionary are in the Dictionary view.</p>
+            <div class="maintenance-actions">
+              <a class="settings-link-button" href="index.html#dictionary">Open Dictionary</a>
+            </div>
+          </section>
+
+          <section class="side-card global-section-card" aria-label="Training settings">
+            <div class="side-head">
+              <p class="kicker">Train</p>
+              <h3>Verb practice</h3>
+            </div>
+            <p class="settings-summary">Verb trainer deck filters, answer modes, and mastery controls stay beside the training cards.</p>
+            <div class="maintenance-actions">
+              <a class="settings-link-button" href="index.html#verbs">Open Train</a>
+            </div>
+          </section>
+
           <section class="side-card settings-card" aria-label="Run settings">
             <div class="side-head">
-              <p class="kicker">Run</p>
-              <h3>Generation</h3>
+              <p class="kicker">Chat</p>
+              <h3>Model generation</h3>
             </div>
             <div class="preset-control" role="group" aria-label="Generation preset">
               <button type="button" data-preset="fast">Fast</button>
@@ -276,6 +302,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-1"></script>
+    <script type="module" src="device-ai.js?v=shell-2"></script>
   </body>
 </html>

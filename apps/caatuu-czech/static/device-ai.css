@@ -914,6 +914,93 @@ a:focus-visible {
   color: var(--green);
 }
 
+.global-section-card {
+  display: grid;
+  gap: 10px;
+}
+
+.settings-link-button {
+  min-height: 40px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--green);
+  font-weight: 850;
+  text-align: center;
+  text-decoration: none;
+}
+
+.app-footer {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 0 max(16px, env(safe-area-inset-right)) calc(112px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-align: center;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --ink: #17201d;
+  --muted: #65736d;
+  --quiet: #87948e;
+  --paper: #f6f1e8;
+  --panel: #fffdf8;
+  --line: #d8ded8;
+  --green: #22594d;
+  --blue: #315f8d;
+  --red: #a34838;
+  --soft-blue: #edf5fb;
+  --soft-green: #edf7f1;
+  --shadow: 0 18px 44px rgba(23, 32, 29, 0.11);
+}
+
+html[data-theme="light"] body {
+  background:
+    linear-gradient(180deg, #fcfaf5 0, var(--paper) 260px, #f3efe7 100%);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .chat-panel,
+html[data-theme="light"] .status-card,
+html[data-theme="light"] .side-card,
+html[data-theme="light"] .settings-sheet,
+html[data-theme="light"] .bottom-app-nav {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+html[data-theme="light"] button,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea,
+html[data-theme="light"] input,
+html[data-theme="light"] .message,
+html[data-theme="light"] .progress-box,
+html[data-theme="light"] .diagnostic-output,
+html[data-theme="light"] .command-box,
+html[data-theme="light"] .request-box pre,
+html[data-theme="light"] .settings-link-button {
+  border-color: #bdcac3;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .settings-link-button,
+html[data-theme="light"] .maintenance-actions button,
+html[data-theme="light"] .quick-prompts button {
+  color: var(--green);
+}
+
+html[data-theme="light"] .meta-list dd {
+  color: #28443d;
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
   --ink: #f2f6fa;
@@ -963,7 +1050,11 @@ html[data-theme="dark"] .settings-summary,
 html[data-theme="dark"] .capability-note,
 html[data-theme="dark"] .maintenance-status,
 html[data-theme="dark"] .status-list dt,
-html[data-theme="dark"] .brand-link small {
+html[data-theme="dark"] .meta-list dt,
+html[data-theme="dark"] .model-details summary small,
+html[data-theme="dark"] .diagnostics summary small,
+html[data-theme="dark"] .brand-link small,
+html[data-theme="dark"] .app-footer {
   color: var(--muted);
 }
 
@@ -975,10 +1066,34 @@ html[data-theme="dark"] .message,
 html[data-theme="dark"] .progress-box,
 html[data-theme="dark"] .diagnostic-output,
 html[data-theme="dark"] .command-box,
-html[data-theme="dark"] .request-box pre {
+html[data-theme="dark"] .request-box pre,
+html[data-theme="dark"] .runtime-badge,
+html[data-theme="dark"] .settings-link-button,
+html[data-theme="dark"] .think-block,
+html[data-theme="dark"] .benchmark-card {
   border-color: #324454;
   background: #101820;
   color: var(--ink);
+}
+
+html[data-theme="dark"] .meta-list dd,
+html[data-theme="dark"] .status-list dd,
+html[data-theme="dark"] .request-box b,
+html[data-theme="dark"] .model-details summary,
+html[data-theme="dark"] .diagnostics summary {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .quick-prompts {
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .settings-link-button,
+html[data-theme="dark"] .maintenance-actions button,
+html[data-theme="dark"] .quick-prompts button {
+  border-color: rgba(68, 199, 127, 0.42);
+  background: #13251c;
+  color: #d9f7e4;
 }
 
 html[data-theme="dark"] .message.assistant {
