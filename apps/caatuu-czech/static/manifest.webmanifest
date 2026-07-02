@@ -24,9 +24,9 @@
       "purpose": "any maskable"
     },
     {
-      "src": "icons/caatuu-czech.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "icons/caatuu-czech-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],

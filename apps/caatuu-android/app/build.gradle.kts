@@ -48,8 +48,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 5
-        versionName = "0.1.4"
+        versionCode = 6
+        versionName = "0.1.5"
     }
 
     ndkVersion = "29.0.13113456"

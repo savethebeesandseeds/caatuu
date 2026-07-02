@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#f7f4ee"/>
-  <rect x="52" y="52" width="408" height="408" rx="72" fill="#fffdf8" stroke="#2f6f5e" stroke-width="22"/>
-  <text x="256" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="138" font-weight="800" fill="#204b41">CZ</text>
-  <text x="256" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="92" font-weight="800" fill="#a94a3a">AI</text>
-</svg>
