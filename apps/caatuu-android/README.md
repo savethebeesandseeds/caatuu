@@ -13,6 +13,7 @@ storage, and then works offline.
 - UI: existing Czech static app, loaded in a WebView from APK assets.
 - Model runtime: llama.cpp Android binding from `tools/phone-bench/vendor`.
 - Model file: `caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf`.
+- Android minimum: Android 11 / API 30 by default.
 - No Termux is needed for this app path.
 - No system prompt is added by the Android bridge.
 

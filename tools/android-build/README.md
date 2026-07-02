@@ -41,6 +41,10 @@ The debug APK is written to:
 C:\Work\caatuu\artifacts\android\caatuu-debug.apk
 ```
 
+By default the APK targets Android 11 / API 30 or newer. To test a different
+minimum SDK, pass `-e CAATUU_ANDROID_MIN_SDK=33` or another API level to the
+Docker command.
+
 ## Interactive Container
 
 For repeated work, open a shell first:

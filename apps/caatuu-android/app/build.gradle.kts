@@ -9,6 +9,9 @@ val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
 val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
 val releaseKeyPassword = providers.environmentVariable("CAATUU_ANDROID_KEY_PASSWORD")
+val androidMinSdk = providers.environmentVariable("CAATUU_ANDROID_MIN_SDK")
+    .map(String::toInt)
+    .orElse(30)
 val hasReleaseSigning = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -33,10 +36,10 @@ android {
 
     defaultConfig {
         applicationId = "com.waajacu.caatuu"
-        minSdk = 33
+        minSdk = androidMinSdk.get()
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.1.1"
     }
 
     ndkVersion = "29.0.13113456"
