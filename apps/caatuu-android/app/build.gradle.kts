@@ -22,6 +22,9 @@ val androidMinSdk = providers.environmentVariable("CAATUU_ANDROID_MIN_SDK")
 val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK")
     .map(String::toInt)
     .orElse(30)
+val androidAbis = providers.environmentVariable("CAATUU_ANDROID_ABIS")
+    .map { value -> value.split(",").map { abi -> abi.trim() }.filter { abi -> abi.isNotEmpty() } }
+    .orElse(listOf("arm64-v8a"))
 val hasReleaseSigning = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -36,6 +39,7 @@ val syncCzechAssets by tasks.registering(Sync::class) {
         exclude("data/models/**/*.params")
         exclude("data/models/**/*.safetensors")
         exclude("data/models/**/ndarray-cache.json")
+        exclude("data/models/czech-finetuned/**")
     }
     into(generatedCzechAssetsDir)
 }
@@ -48,8 +52,12 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 7
-        versionName = "0.1.6"
+        versionCode = 8
+        versionName = "0.1.7"
+
+        ndk {
+            abiFilters += androidAbis.get()
+        }
     }
 
     ndkVersion = "29.0.13113456"

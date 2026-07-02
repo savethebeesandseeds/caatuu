@@ -61,7 +61,10 @@ the APK hash, and then opens Android's installer. Android may ask you to allow
 installs from Caatuu once during development.
 
 The build copies Czech static assets into generated APK assets while excluding
-heavy model payloads such as `.gguf`, `.bin`, `.params`, and `.safetensors`.
+heavy model payloads such as `.gguf`, `.bin`, `.params`, `.safetensors`, and
+the browser-only WebLLM export. The default APK includes only `arm64-v8a`
+native libraries for phones; set `CAATUU_ANDROID_ABIS=arm64-v8a,x86_64` when
+you need an emulator build.
 
 ## First Phone Test
 

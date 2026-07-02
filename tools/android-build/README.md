@@ -5,9 +5,9 @@ temporary Debian container, shared Docker volumes for downloaded tools, and the
 checked-out workspace mounted at `/workspace`.
 
 The app package stays light: it includes the Czech WebView UI and native
-llama.cpp bridge, but it does not bundle GGUF weights. The first model download
-is stored in app-private storage and checked against the SHA-256 in the Android
-code.
+llama.cpp bridge for the target phone ABI, but it does not bundle GGUF weights
+or browser WebLLM exports. The first model download is stored in app-private
+storage and checked against the SHA-256 in the Android code.
 
 ## Plan
 
@@ -64,6 +64,10 @@ Docker command.
 Debug sideload APKs default to `targetSdk` 30 for compatibility with Android 11
 package installers. For a Play Store release, pass
 `-e CAATUU_ANDROID_TARGET_SDK=36`.
+
+APK builds default to `arm64-v8a`, which is the ABI used by current Android
+phones and keeps debug APKs smaller. To build a package that also runs on an
+x86_64 emulator, pass `-e CAATUU_ANDROID_ABIS=arm64-v8a,x86_64`.
 
 ## Interactive Container
 
@@ -129,7 +133,11 @@ bash tools/android-build/build-release-apk.sh
   access.
 - Signing keys must not be committed. The repo ignores common Android key file
   extensions.
-- The model remains an external app-managed download, so app updates stay small.
+- The GGUF model remains an external app-managed download, so app updates stay
+  small.
+- Native runtime libraries should stay signed inside the APK/AAB, or later be
+  delivered through official dynamic delivery. Downloading executable `.so`
+  files from our own server during app startup is intentionally avoided.
 
 Official references:
 

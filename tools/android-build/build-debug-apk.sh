@@ -48,6 +48,7 @@ apk_sha="$(sha256sum "$apk_path" | awk '{print $1}')"
 apk_bytes="$(wc -c < "$apk_path" | tr -d ' ')"
 version_code="$(sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' app/build.gradle.kts | head -1)"
 version_name="$(sed -nE 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' app/build.gradle.kts | head -1)"
+apk_abis="${CAATUU_ANDROID_ABIS:-arm64-v8a}"
 
 cat > "$manifest_path" <<JSON
 {
@@ -56,7 +57,8 @@ cat > "$manifest_path" <<JSON
   "version_name": "${version_name:-debug}",
   "apk_url": "https://caatuu.waajacu.com/android/caatuu-debug.apk",
   "sha256": "$apk_sha",
-  "bytes": $apk_bytes
+  "bytes": $apk_bytes,
+  "abis": "$apk_abis"
 }
 JSON
 

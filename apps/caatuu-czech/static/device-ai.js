@@ -4,6 +4,7 @@ let browserEngine = null;
 let loadedRuntimeKind = "";
 let modelLoaded = false;
 let generating = false;
+let lastSettingsTrigger = null;
 const nativePending = new Map();
 
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
@@ -118,6 +119,23 @@ function setBusy(isBusy) {
 
 function updateLoadButton(label) {
   $("#loadModel").textContent = label;
+}
+
+function openSettingsPanel() {
+  const panel = $("#settingsPanel");
+  lastSettingsTrigger = document.activeElement;
+  panel.hidden = false;
+  document.body.classList.add("settings-open");
+  $("#closeSettings").focus();
+}
+
+function closeSettingsPanel() {
+  const panel = $("#settingsPanel");
+  panel.hidden = true;
+  document.body.classList.remove("settings-open");
+  if (lastSettingsTrigger && typeof lastSettingsTrigger.focus === "function") {
+    lastSettingsTrigger.focus();
+  }
 }
 
 function loadStoredSettings() {
@@ -801,6 +819,15 @@ function escapeHtml(value) {
 }
 
 function bindUi() {
+  $("#openSettings").addEventListener("click", openSettingsPanel);
+  $("#closeSettings").addEventListener("click", closeSettingsPanel);
+  $("#settingsPanel").addEventListener("click", (event) => {
+    if (event.target === $("#settingsPanel")) closeSettingsPanel();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !$("#settingsPanel").hidden) closeSettingsPanel();
+  });
+
   $("#loadModel").addEventListener("click", loadModel);
   $("#promptForm").addEventListener("submit", submitPrompt);
   $("#cacheProbe").addEventListener("click", cacheProbe);

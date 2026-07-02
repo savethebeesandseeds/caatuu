@@ -8,7 +8,7 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-192.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-192.png">
-    <link rel="stylesheet" href="device-ai.css?v=settings-1">
+    <link rel="stylesheet" href="device-ai.css?v=settings-2">
   </head>
   <body>
     <main class="phone-ai-shell">
@@ -22,11 +22,14 @@
             <small>Phone AI</small>
           </span>
         </a>
-        <nav class="study-nav" aria-label="Study tools">
-          <a href="index.html#verbs">Verbs</a>
-          <a href="index.html#dictionary">Dictionary</a>
-          <a href="index.html#guide">Guide</a>
-        </nav>
+        <div class="header-actions">
+          <nav class="study-nav" aria-label="Study tools">
+            <a href="index.html#verbs">Verbs</a>
+            <a href="index.html#dictionary">Dictionary</a>
+            <a href="index.html#guide">Guide</a>
+          </nav>
+          <button class="gear-button" id="openSettings" type="button" aria-label="Open settings and model details">&#9881;</button>
+        </div>
       </header>
 
       <div class="workbench">
@@ -61,11 +64,44 @@
           <p class="privacy-line" id="privacyLine">The app sends only your message to the local runtime. No system prompt is added by this page.</p>
         </section>
 
-        <aside class="side-column" aria-label="Model and study side panel">
-          <section class="side-card settings-card" aria-labelledby="settingsTitle">
+        <aside class="side-column" aria-label="Study side panel">
+          <section class="side-card study-card">
             <div class="side-head">
-              <p class="kicker">Model</p>
-              <h2 id="settingsTitle">Run settings</h2>
+              <p class="kicker">Study</p>
+              <h2>Use beside chat</h2>
+            </div>
+            <a class="study-link is-primary" href="index.html#verbs">
+              <span>Verbs</span>
+              <small>Practice present forms and review weak cards.</small>
+            </a>
+            <a class="study-link" href="index.html#dictionary">
+              <span>Dictionary</span>
+              <small>Search the compact Czech reference.</small>
+            </a>
+            <a class="study-link" href="index.html#guide">
+              <span>Guide</span>
+              <small>Open cases, cues, and model tables.</small>
+            </a>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div class="settings-backdrop" id="settingsPanel" hidden>
+      <section class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <header class="settings-sheet-head">
+          <div>
+            <p class="kicker">Model</p>
+            <h2 id="settingsTitle">Settings and details</h2>
+          </div>
+          <button class="close-settings" id="closeSettings" type="button" aria-label="Close settings">&times;</button>
+        </header>
+
+        <div class="settings-sheet-body">
+          <section class="side-card settings-card" aria-label="Run settings">
+            <div class="side-head">
+              <p class="kicker">Run</p>
+              <h3>Generation</h3>
             </div>
             <div class="preset-control" role="group" aria-label="Generation preset">
               <button type="button" data-preset="fast">Fast</button>
@@ -132,7 +168,7 @@
           <section class="status-card" aria-label="Model status">
             <div class="side-head">
               <p class="kicker">Runtime</p>
-              <h2>Status</h2>
+              <h3>Status</h3>
             </div>
             <dl class="status-list">
               <div>
@@ -157,6 +193,18 @@
               </div>
             </dl>
             <div class="progress-box" id="progressBox" aria-live="polite">Idle</div>
+          </section>
+
+          <section class="side-card maintenance-card">
+            <div class="side-head">
+              <p class="kicker">App</p>
+              <h3>Storage and updates</h3>
+            </div>
+            <div class="maintenance-actions">
+              <button id="updateApp" type="button">Update app</button>
+              <button id="deleteModel" type="button">Delete model</button>
+            </div>
+            <p class="maintenance-status" id="maintenanceStatus">Android app tools appear here when running inside the APK.</p>
           </section>
 
           <details class="side-card model-details" open>
@@ -196,37 +244,6 @@
             </div>
           </details>
 
-          <section class="side-card study-card">
-            <div class="side-head">
-              <p class="kicker">Study</p>
-              <h2>Use beside chat</h2>
-            </div>
-            <a class="study-link is-primary" href="index.html#verbs">
-              <span>Verbs</span>
-              <small>Practice present forms and review weak cards.</small>
-            </a>
-            <a class="study-link" href="index.html#dictionary">
-              <span>Dictionary</span>
-              <small>Search the compact Czech reference.</small>
-            </a>
-            <a class="study-link" href="index.html#guide">
-              <span>Guide</span>
-              <small>Open cases, cues, and model tables.</small>
-            </a>
-          </section>
-
-          <section class="side-card maintenance-card">
-            <div class="side-head">
-              <p class="kicker">Development</p>
-              <h2>App and storage</h2>
-            </div>
-            <div class="maintenance-actions">
-              <button id="updateApp" type="button">Update app</button>
-              <button id="deleteModel" type="button">Delete model</button>
-            </div>
-            <p class="maintenance-status" id="maintenanceStatus">Android app tools appear here when running inside the APK.</p>
-          </section>
-
           <details class="side-card diagnostics">
             <summary>
               <span>Diagnostics</span>
@@ -241,10 +258,10 @@
             <pre class="command-box" id="phoneCommand"></pre>
             <div class="benchmark-list" id="benchmarkList"></div>
           </details>
-        </aside>
-      </div>
-    </main>
+        </div>
+      </section>
+    </div>
 
-    <script type="module" src="device-ai.js?v=settings-1"></script>
+    <script type="module" src="device-ai.js?v=settings-2"></script>
   </body>
 </html>
