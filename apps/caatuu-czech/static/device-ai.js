@@ -164,7 +164,15 @@ function setBusy(isBusy) {
   if (promptInput) promptInput.disabled = isBusy;
   if (runPrompt) {
     runPrompt.disabled = isBusy || !modelLoaded;
-    runPrompt.textContent = isBusy ? "Loading" : "Send";
+    const runPromptLabel = runPrompt.querySelector(".send-label");
+    const runPromptSymbol = runPrompt.querySelector(".send-symbol");
+    if (runPromptLabel) {
+      runPromptLabel.textContent = isBusy ? "Loading" : "Send";
+      if (runPromptSymbol) runPromptSymbol.textContent = isBusy ? "…" : "➤";
+      runPrompt.setAttribute("aria-label", isBusy ? "Sending message" : "Send message");
+    } else {
+      runPrompt.textContent = isBusy ? "Loading" : "Send";
+    }
   }
   if (loadButton) loadButton.disabled = isBusy;
 }
@@ -320,11 +328,20 @@ function syncSettingsUi() {
   $("#temperatureValue").textContent = generationSettings.temperature.toFixed(1);
   $("#contextSize").value = String(generationSettings.contextSize);
   $("#reasoningDisplay").value = generationSettings.reasoningDisplay;
+  $("#composerEffort").value = generationSettings.preset;
+  setText("#contextIndicator", formatContextWindow(generationSettings.contextSize));
   setText("#settingsSummary", generationSettings.summary);
 
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.preset === generationSettings.preset);
   });
+}
+
+function formatContextWindow(tokens) {
+  const value = Number(tokens || 0);
+  if (!Number.isFinite(value) || value <= 0) return "ctx";
+  if (value >= 1024) return `${Math.round(value / 1024)}k ctx`;
+  return `${value} ctx`;
 }
 
 function updateSettingsSupport() {
@@ -977,6 +994,7 @@ function bindUi() {
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.addEventListener("click", () => applyPreset(button.dataset.preset));
   });
+  $("#composerEffort")?.addEventListener("change", (event) => applyPreset(event.target.value));
 
   bindThemeControls();
 

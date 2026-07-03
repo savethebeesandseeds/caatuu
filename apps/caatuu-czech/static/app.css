@@ -2507,7 +2507,7 @@ body.print-preview-on .print-book {
 .app-shell {
   display: block;
   min-height: 100vh;
-  padding-bottom: calc(86px + env(safe-area-inset-bottom));
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
 }
 
 body.settings-open {
@@ -2606,7 +2606,7 @@ body.settings-open {
 .workspace {
   width: min(1280px, 100%);
   margin: 0 auto;
-  padding: 22px clamp(14px, 3vw, 36px) 86px;
+  padding: 22px clamp(14px, 3vw, 36px) 72px;
 }
 
 .dictionary-panel {
@@ -2615,20 +2615,22 @@ body.settings-open {
 
 .bottom-app-nav {
   position: fixed;
-  left: 50%;
-  bottom: max(8px, env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 30;
-  width: min(440px, calc(100% - 20px));
-  min-height: 48px;
-  padding: 4px;
+  width: 100%;
+  min-height: calc(54px + env(safe-area-inset-bottom));
+  padding: 4px 8px max(4px, env(safe-area-inset-bottom));
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-width: 1px 0 0;
+  border-radius: 0;
   background: rgba(255, 253, 248, 0.94);
-  box-shadow: 0 10px 28px rgba(13, 23, 30, 0.16);
-  transform: translateX(-50%);
+  box-shadow: 0 -10px 28px rgba(13, 23, 30, 0.14);
+  transform: none;
   backdrop-filter: blur(16px);
 }
 
@@ -2701,8 +2703,8 @@ body.settings-open {
 }
 
 .settings-sheet-head {
-  min-height: 64px;
-  padding: 14px;
+  min-height: 56px;
+  padding: 10px 12px;
   display: flex;
   justify-content: space-between;
   gap: 14px;
@@ -2712,12 +2714,12 @@ body.settings-open {
 
 .settings-sheet-head h2 {
   margin-top: 2px;
-  font-size: 1.14rem;
+  font-size: 1.05rem;
 }
 
 .settings-kicker {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 950;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -2741,20 +2743,20 @@ body.settings-open {
 
 .settings-sheet-body {
   min-height: 0;
-  padding: 12px;
+  padding: 10px;
   display: grid;
   align-content: start;
-  gap: 12px;
+  gap: 8px;
   overflow-y: auto;
 }
 
 .settings-card {
-  padding: 12px;
+  padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .settings-details {
@@ -2762,14 +2764,14 @@ body.settings-open {
 }
 
 .settings-details-body {
-  padding-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid var(--line);
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .settings-collapsible-summary {
-  min-height: 34px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2791,7 +2793,7 @@ body.settings-open {
 }
 
 .settings-details[open] .settings-collapsible-summary {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .settings-details[open] .settings-collapsible-summary::after {
@@ -2801,12 +2803,12 @@ body.settings-open {
 .settings-summary-title {
   min-width: 0;
   display: grid;
-  gap: 2px;
+  gap: 1px;
 }
 
 .settings-summary-title strong {
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.96rem;
 }
 
 .settings-collapsible-summary small {
@@ -2818,18 +2820,18 @@ body.settings-open {
 
 .settings-card-head h3 {
   margin-top: 2px;
-  font-size: 1rem;
+  font-size: 0.96rem;
 }
 
 .theme-control {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 6px;
 }
 
 .theme-control button {
-  min-height: 48px;
-  padding: 8px 10px;
+  min-height: 40px;
+  padding: 6px 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
   display: flex;
@@ -2855,7 +2857,34 @@ body.settings-open {
 .settings-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 6px;
+}
+
+.language-card {
+  display: grid;
   gap: 8px;
+}
+
+.language-route {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.language-field {
+  display: grid;
+  gap: 3px;
+}
+
+.language-field span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.language-field select {
+  min-height: 36px;
 }
 
 .settings-actions .pwa-install-action,
@@ -2868,6 +2897,52 @@ body.settings-open {
   color: var(--muted);
   font-size: 0.86rem;
   line-height: 1.4;
+}
+
+.version-note {
+  margin: 0;
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.legal-notice {
+  padding: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f5f8f6;
+}
+
+.legal-notice-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--green-dark);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.legal-notice strong {
+  display: block;
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+
+.legal-notice p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.38;
 }
 
 .about-brand-note a {
@@ -3623,6 +3698,7 @@ html[data-theme="dark"] .settings-note,
 html[data-theme="dark"] .settings-summary,
 html[data-theme="dark"] .capability-note,
 html[data-theme="dark"] .about-brand-note,
+html[data-theme="dark"] .legal-notice p,
 html[data-theme="dark"] .meta-list dt,
 html[data-theme="dark"] .app-footer,
 html[data-theme="dark"] .dictionary-group h4 small,
@@ -3652,6 +3728,15 @@ html[data-theme="dark"] .settings-danger-action {
   color: #ffd0c8;
 }
 
+html[data-theme="dark"] .legal-notice {
+  border-color: #324454;
+  background: rgba(16, 24, 32, 0.58);
+}
+
+html[data-theme="dark"] .legal-notice strong {
+  color: #d9f7e4;
+}
+
 @media screen and (max-width: 860px) {
   .sidebar {
     padding: 10px 12px;
@@ -3671,7 +3756,7 @@ html[data-theme="dark"] .settings-danger-action {
   }
 
   .workspace {
-    padding: 14px 12px 82px;
+    padding: 14px 12px 72px;
   }
 
   .settings-backdrop {

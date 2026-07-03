@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-11">
+    <link rel="stylesheet" href="device-ai.css?v=shell-15">
   </head>
   <body>
     <main class="chat-shell">
@@ -33,20 +33,37 @@
 
       <div class="workbench">
         <section class="chat-panel" aria-label="Caatuu chat">
-          <header class="chat-panel-head">
-            <span>Chat</span>
-            <button class="new-chat-button" id="newChat" type="button">New chat</button>
-          </header>
           <div class="chat-log" id="chatLog" aria-live="polite"></div>
 
           <form class="composer" id="promptForm">
-            <label class="message-field">
-              <span>Message</span>
-              <textarea id="promptInput" rows="3" autocomplete="off" autocapitalize="sentences" placeholder="Ask"></textarea>
-            </label>
-            <button id="runPrompt" type="submit" disabled>Send</button>
+            <div class="message-field">
+              <label class="sr-only" for="promptInput">Message</label>
+              <div class="composer-box">
+                <textarea id="promptInput" rows="3" autocomplete="off" autocapitalize="sentences" placeholder="Ask"></textarea>
+                <div class="composer-toolbar" aria-label="Chat controls">
+                  <button class="composer-tool new-chat-button" id="newChat" type="button"><span aria-hidden="true">+</span><span>New</span></button>
+                  <label class="composer-select-label">
+                    <span>Effort</span>
+                    <select id="composerEffort" aria-label="Effort">
+                      <option value="fast">Fast</option>
+                      <option value="chat" selected>Chat</option>
+                      <option value="careful">Careful</option>
+                    </select>
+                  </label>
+                  <label class="composer-select-label composer-model-label">
+                    <span>Model</span>
+                    <select id="composerModel" aria-label="Model">
+                      <option selected>Caatuu CZ</option>
+                    </select>
+                  </label>
+                  <span class="context-indicator" id="contextIndicator" aria-label="Context window">2k ctx</span>
+                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">🎙</span></button>
+                  <button id="runPrompt" type="submit" disabled aria-label="Send message"><span class="send-symbol" aria-hidden="true">➤</span><span class="send-label">Send</span></button>
+                </div>
+              </div>
+            </div>
           </form>
-          <p class="privacy-line" id="privacyLine">Local learning model. It can make mistakes; verify important answers.</p>
+          <p class="privacy-line" id="privacyLine">Small local learning model. Do not ask important questions.</p>
         </section>
       </div>
     </main>
@@ -60,7 +77,7 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections">
       <a class="app-nav-item" href="index.html#dictionary">
-        <span class="app-nav-icon" aria-hidden="true">⌕</span>
+        <span class="app-nav-icon" aria-hidden="true">Aa</span>
         <span>Dictionary</span>
       </a>
       <a class="app-nav-item" href="index.html#verbs">
@@ -81,7 +98,7 @@
       <section class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
         <header class="settings-sheet-head">
           <div>
-            <p class="kicker">Caatuu Czech</p>
+            <p class="kicker">Caatuu</p>
             <h2 id="settingsTitle">Settings</h2>
           </div>
           <button class="close-settings" id="closeSettings" type="button" aria-label="Close settings">&times;</button>
@@ -102,6 +119,27 @@
                 <span aria-hidden="true">☾</span>
                 <b>Dark</b>
               </button>
+            </div>
+          </section>
+
+          <section class="side-card language-card" aria-label="Language">
+            <div class="side-head">
+              <p class="kicker">Language</p>
+              <h3>Course</h3>
+            </div>
+            <div class="language-route">
+              <label class="language-field">
+                <span>From</span>
+                <select aria-label="Source language">
+                  <option selected>English</option>
+                </select>
+              </label>
+              <label class="language-field">
+                <span>To</span>
+                <select aria-label="Target language">
+                  <option selected>Czech</option>
+                </select>
+              </label>
             </div>
           </section>
 
@@ -240,7 +278,14 @@
             </div>
 
             <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
-            <p class="legal-note">Responses are generated locally for language practice. They are not professional, legal, medical, financial, or safety advice.</p>
+            <p class="version-note">Version 0.1.12 (13)</p>
+            <div class="legal-notice" role="note">
+              <span class="legal-notice-icon" aria-hidden="true">!</span>
+              <div>
+                <strong>Learning use only</strong>
+                <p>Small local model responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
+              </div>
+            </div>
 
             <details class="model-details">
               <summary>
@@ -309,6 +354,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-9"></script>
+    <script type="module" src="device-ai.js?v=shell-11"></script>
   </body>
 </html>

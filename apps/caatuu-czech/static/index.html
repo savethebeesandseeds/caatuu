@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="app.css?v=shell-10">
+    <link rel="stylesheet" href="app.css?v=shell-13">
   </head>
   <body>
     <div class="app-shell">
@@ -37,7 +37,7 @@
             <section class="dictionary-toolbar" aria-label="Dictionary controls">
               <label class="dictionary-search">
                 <span>Find Czech, English, cue, or type</span>
-                <input type="search" id="dictionarySearch" autocomplete="off" placeholder="⌕" aria-label="Search dictionary">
+                <input type="search" id="dictionarySearch" autocomplete="off" placeholder="⌕ Search" aria-label="Search dictionary">
               </label>
               <div class="dictionary-tools">
                 <span class="dictionary-count" id="dictionaryCount">0 entries</span>
@@ -461,7 +461,7 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections">
       <button class="nav-tab app-nav-item is-active" type="button" data-view="dictionary">
-        <span class="app-nav-icon" aria-hidden="true">⌕</span>
+        <span class="app-nav-icon" aria-hidden="true">Aa</span>
         <span>Dictionary</span>
       </button>
       <button class="nav-tab app-nav-item" type="button" data-view="verbs">
@@ -482,7 +482,7 @@
       <section class="settings-sheet app-settings-sheet" role="dialog" aria-modal="true" aria-labelledby="appSettingsTitle">
         <header class="settings-sheet-head">
           <div>
-            <p class="settings-kicker">Caatuu Czech</p>
+            <p class="settings-kicker">Caatuu</p>
             <h2 id="appSettingsTitle">Settings</h2>
           </div>
           <button class="settings-close" id="closeAppSettings" type="button" aria-label="Close settings">&times;</button>
@@ -503,6 +503,27 @@
                 <span aria-hidden="true">☾</span>
                 <b>Dark</b>
               </button>
+            </div>
+          </section>
+
+          <section class="settings-card language-card" aria-label="Language">
+            <div class="settings-card-head">
+              <p class="settings-kicker">Language</p>
+              <h3>Course</h3>
+            </div>
+            <div class="language-route">
+              <label class="language-field">
+                <span>From</span>
+                <select aria-label="Source language">
+                  <option selected>English</option>
+                </select>
+              </label>
+              <label class="language-field">
+                <span>To</span>
+                <select aria-label="Target language">
+                  <option selected>Czech</option>
+                </select>
+              </label>
             </div>
           </section>
 
@@ -615,6 +636,14 @@
               <h3>Details</h3>
             </div>
             <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
+            <p class="version-note">Version 0.1.12 (13)</p>
+            <div class="legal-notice" role="note">
+              <span class="legal-notice-icon" aria-hidden="true">!</span>
+              <div>
+                <strong>Learning use only</strong>
+                <p>Small local model responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
+              </div>
+            </div>
             <dl class="meta-list">
               <div>
                 <dt>Dictionary</dt>
