@@ -3,19 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#22594d">
+    <meta name="theme-color" content="#f5efe5">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
     <script>
       try {
-        document.documentElement.dataset.theme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-17">
+    <link rel="stylesheet" href="theme.css?v=theme-2">
+    <link rel="stylesheet" href="device-ai.css?v=shell-20">
   </head>
   <body>
     <main class="chat-shell">
@@ -85,13 +87,13 @@
                     </div>
                   </details>
                   <span class="toolbar-spacer" aria-hidden="true"></span>
-                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">&#127897;</span></button>
+                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">&#x1F399;</span></button>
                   <button id="runPrompt" type="submit" disabled aria-label="Send message"><span class="send-symbol" aria-hidden="true">&#10148;</span><span class="send-label">Send</span></button>
                 </div>
               </div>
             </div>
           </form>
-          <p class="privacy-line" id="privacyLine">For Czech practice only. Use another source for anything important.</p>
+          <p class="privacy-line" id="privacyLine">Practice only. Not for important decisions.</p>
         </section>
       </div>
     </main>
@@ -109,11 +111,11 @@
         <span>Dictionary</span>
       </a>
       <a class="app-nav-item" href="index.html#verbs">
-        <span class="app-nav-icon" aria-hidden="true">✎</span>
+        <span class="app-nav-icon" aria-hidden="true">&#x1F9E9;&#xFE0E;</span>
         <span>Train</span>
       </a>
       <a class="app-nav-item is-active" href="device-ai.html">
-        <span class="app-nav-icon" aria-hidden="true">◉</span>
+        <span class="app-nav-icon" aria-hidden="true">&#x1F5E8;&#xFE0E;</span>
         <span>Chat</span>
       </a>
       <button class="app-nav-item" id="openSettings" type="button">
@@ -382,6 +384,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-14"></script>
+    <script type="module" src="device-ai.js?v=shell-17"></script>
   </body>
 </html>

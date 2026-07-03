@@ -3,19 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#2f6f5e">
+    <meta name="theme-color" content="#f5efe5">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
     <script>
       try {
-        document.documentElement.dataset.theme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="app.css?v=shell-14">
+    <link rel="stylesheet" href="theme.css?v=theme-2">
+    <link rel="stylesheet" href="app.css?v=shell-16">
   </head>
   <body>
     <div class="app-shell">
@@ -465,11 +467,11 @@
         <span>Dictionary</span>
       </button>
       <button class="nav-tab app-nav-item" type="button" data-view="verbs">
-        <span class="app-nav-icon" aria-hidden="true">✎</span>
+        <span class="app-nav-icon" aria-hidden="true">&#x1F9E9;&#xFE0E;</span>
         <span>Train</span>
       </button>
       <a class="app-nav-item" href="device-ai.html">
-        <span class="app-nav-icon" aria-hidden="true">◉</span>
+        <span class="app-nav-icon" aria-hidden="true">&#x1F5E8;&#xFE0E;</span>
         <span>Chat</span>
       </a>
       <button class="app-nav-item" type="button" id="openAppSettings">
@@ -798,6 +800,6 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="app.js?v=shell-8"></script>
+    <script src="app.js?v=shell-9"></script>
   </body>
 </html>

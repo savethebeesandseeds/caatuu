@@ -3,6 +3,10 @@ let countryScripts = [];
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 const themeStorageKey = "caatuu-czech.theme";
+const themeOptions = {
+  light: { themeColor: "#f5efe5" },
+  dark: { themeColor: "#0d171e" }
+};
 const deviceSettingsStorageKey = "caatuu-czech.device-ai.settings.v1";
 const generationPresets = {
   fast: {
@@ -206,10 +210,14 @@ function syncGenerationSettingsUi() {
 
 function readStoredTheme() {
   try {
-    return localStorage.getItem(themeStorageKey) === "light" ? "light" : "dark";
+    return normalizeTheme(localStorage.getItem(themeStorageKey));
   } catch (error) {
     return "dark";
   }
+}
+
+function normalizeTheme(theme) {
+  return Object.prototype.hasOwnProperty.call(themeOptions, theme) ? theme : "dark";
 }
 
 function syncThemeControls() {
@@ -220,12 +228,12 @@ function syncThemeControls() {
 }
 
 function applyTheme(theme, { persist = true } = {}) {
-  const normalizedTheme = theme === "light" ? "light" : "dark";
+  const normalizedTheme = normalizeTheme(theme);
   document.documentElement.dataset.theme = normalizedTheme;
   document.documentElement.style.colorScheme = normalizedTheme;
   document.querySelector('meta[name="theme-color"]')?.setAttribute(
     "content",
-    normalizedTheme === "dark" ? "#071013" : "#2f6f5e"
+    themeOptions[normalizedTheme].themeColor
   );
   if (persist) {
     try {

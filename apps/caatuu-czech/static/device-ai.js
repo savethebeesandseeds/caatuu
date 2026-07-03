@@ -11,6 +11,10 @@ const nativePending = new Map();
 const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const themeStorageKey = "caatuu-czech.theme";
+const themeOptions = {
+  light: { themeColor: "#f5efe5" },
+  dark: { themeColor: "#0d171e" }
+};
 const settingsStorageKey = "caatuu-czech.device-ai.settings.v1";
 const chatStorageKey = "caatuu-czech.device-ai.chat.v1";
 const verbStorageKey = "caatuu-czech.verb-memory.v2";
@@ -117,10 +121,14 @@ function setText(selector, value) {
 
 function readStoredTheme() {
   try {
-    return localStorage.getItem(themeStorageKey) === "light" ? "light" : "dark";
+    return normalizeTheme(localStorage.getItem(themeStorageKey));
   } catch (error) {
     return "dark";
   }
+}
+
+function normalizeTheme(theme) {
+  return Object.prototype.hasOwnProperty.call(themeOptions, theme) ? theme : "dark";
 }
 
 function syncThemeControls() {
@@ -131,12 +139,12 @@ function syncThemeControls() {
 }
 
 function applyTheme(theme, { persist = true } = {}) {
-  const normalizedTheme = theme === "light" ? "light" : "dark";
+  const normalizedTheme = normalizeTheme(theme);
   document.documentElement.dataset.theme = normalizedTheme;
   document.documentElement.style.colorScheme = normalizedTheme;
   document.querySelector('meta[name="theme-color"]')?.setAttribute(
     "content",
-    normalizedTheme === "dark" ? "#071013" : "#22594d"
+    themeOptions[normalizedTheme].themeColor
   );
   if (persist) {
     try {
@@ -162,7 +170,10 @@ function setBusy(isBusy) {
   const runPrompt = $("#runPrompt");
   const loadButton = $("#loadModel");
   const contextStatus = $("#contextStatus");
-  if (promptInput) promptInput.disabled = isBusy;
+  if (promptInput) {
+    promptInput.disabled = isBusy;
+    promptInput.placeholder = isBusy ? "Loading..." : "Ask";
+  }
   if (runPrompt) {
     const runPromptLabel = runPrompt.querySelector(".send-label");
     const runPromptSymbol = runPrompt.querySelector(".send-symbol");
@@ -776,12 +787,27 @@ async function runBrowserPrompt(prompt) {
     max_tokens: generationSettings.maxTokens,
     extra_body: { enable_thinking: generationSettings.thinking }
   };
-  setText("#requestPreview", JSON.stringify({ ...request, options }, null, 2));
+  const streamingRequest = { ...request, stream: true };
+  setText("#requestPreview", JSON.stringify({ ...streamingRequest, options }, null, 2));
   setText("#progressBox", `Generating with ${browserFallbackModel}.`);
 
   try {
-    const response = await browserEngine.chat.completions.create(request);
-    const finalOutput = response.choices?.[0]?.message?.content || "(empty output)";
+    let finalOutput = "";
+    try {
+      const response = await browserEngine.chat.completions.create(streamingRequest);
+      if (isAsyncIterable(response)) {
+        finalOutput = await consumeCompletionStream(response, assistantNode);
+        const engineMessage = await readBrowserEngineMessage();
+        if (engineMessage) finalOutput = engineMessage;
+      } else {
+        finalOutput = completionContent(response);
+      }
+    } catch (streamError) {
+      setText("#progressBox", "Streaming unavailable. Finishing response.");
+      const response = await browserEngine.chat.completions.create(request);
+      finalOutput = completionContent(response);
+    }
+    finalOutput = finalOutput || "(empty output)";
     updateMessage(assistantNode, finalOutput);
     rememberChatMessage("assistant", finalOutput);
     setText("#progressBox", "Done.");
@@ -791,6 +817,50 @@ async function runBrowserPrompt(prompt) {
   } finally {
     setBusy(false);
   }
+}
+
+function isAsyncIterable(value) {
+  return value && typeof value[Symbol.asyncIterator] === "function";
+}
+
+async function consumeCompletionStream(stream, assistantNode) {
+  let output = "";
+  for await (const chunk of stream) {
+    const delta = completionChunkDelta(chunk);
+    if (!delta) continue;
+    output += delta;
+    updateMessage(assistantNode, output);
+  }
+  return output;
+}
+
+function completionChunkDelta(chunk) {
+  const choice = chunk?.choices?.[0];
+  const delta = choice?.delta || {};
+  return stringifyCompletionContent(delta.content || delta.reasoning_content || "");
+}
+
+function completionContent(response) {
+  const choice = response?.choices?.[0];
+  return stringifyCompletionContent(choice?.message?.content || choice?.text || response?.message?.content || "");
+}
+
+async function readBrowserEngineMessage() {
+  if (!browserEngine || typeof browserEngine.getMessage !== "function") return "";
+  try {
+    return stringifyCompletionContent(await browserEngine.getMessage());
+  } catch (error) {
+    return "";
+  }
+}
+
+function stringifyCompletionContent(content) {
+  if (!content) return "";
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) {
+    return content.map((part) => stringifyCompletionContent(part?.text || part?.content || part)).join("");
+  }
+  return String(content);
 }
 
 async function registerServiceWorker() {
