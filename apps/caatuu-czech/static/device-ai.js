@@ -161,20 +161,30 @@ function setBusy(isBusy) {
   const promptInput = $("#promptInput");
   const runPrompt = $("#runPrompt");
   const loadButton = $("#loadModel");
+  const contextStatus = $("#contextStatus");
   if (promptInput) promptInput.disabled = isBusy;
   if (runPrompt) {
-    runPrompt.disabled = isBusy || !modelLoaded;
     const runPromptLabel = runPrompt.querySelector(".send-label");
     const runPromptSymbol = runPrompt.querySelector(".send-symbol");
     if (runPromptLabel) {
       runPromptLabel.textContent = isBusy ? "Loading" : "Send";
-      if (runPromptSymbol) runPromptSymbol.textContent = isBusy ? "…" : "➤";
+      if (runPromptSymbol) runPromptSymbol.textContent = isBusy ? "\u2026" : "\u27a4";
       runPrompt.setAttribute("aria-label", isBusy ? "Sending message" : "Send message");
     } else {
       runPrompt.textContent = isBusy ? "Loading" : "Send";
     }
   }
+  contextStatus?.classList.toggle("is-generating", isBusy);
+  updateSendButton();
   if (loadButton) loadButton.disabled = isBusy;
+}
+
+function updateSendButton() {
+  const runPrompt = $("#runPrompt");
+  const promptInput = $("#promptInput");
+  if (!runPrompt) return;
+  const hasPrompt = Boolean(promptInput?.value.trim());
+  runPrompt.disabled = generating || !modelLoaded || !hasPrompt;
 }
 
 function updateLoadButton(label) {
@@ -329,7 +339,8 @@ function syncSettingsUi() {
   $("#contextSize").value = String(generationSettings.contextSize);
   $("#reasoningDisplay").value = generationSettings.reasoningDisplay;
   $("#composerEffort").value = generationSettings.preset;
-  setText("#contextIndicator", formatContextWindow(generationSettings.contextSize));
+  setText("#contextIndicator", formatContextShort(generationSettings.contextSize));
+  setText("#contextSizeLabel", formatContextWindow(generationSettings.contextSize));
   setText("#settingsSummary", generationSettings.summary);
 
   document.querySelectorAll("[data-preset]").forEach((button) => {
@@ -340,8 +351,15 @@ function syncSettingsUi() {
 function formatContextWindow(tokens) {
   const value = Number(tokens || 0);
   if (!Number.isFinite(value) || value <= 0) return "ctx";
-  if (value >= 1024) return `${Math.round(value / 1024)}k ctx`;
-  return `${value} ctx`;
+  if (value >= 1024) return `${Math.round(value / 1024)}k context`;
+  return `${value} context`;
+}
+
+function formatContextShort(tokens) {
+  const value = Number(tokens || 0);
+  if (!Number.isFinite(value) || value <= 0) return "ctx";
+  if (value >= 1024) return `${Math.round(value / 1024)}k`;
+  return String(value);
 }
 
 function updateSettingsSupport() {
@@ -351,6 +369,7 @@ function updateSettingsSupport() {
     setText("#contextSupport", "Managed by WebLLM");
     setText("#capabilityNote", "Browser mode applies max tokens, temperature, and thinking. Context is managed by WebLLM.");
     setText("#controlMeta", "Browser: max tokens, temperature, thinking. Context managed by WebLLM.");
+    setText("#frontierModelStatus", "Browser ready");
     return;
   }
 
@@ -360,6 +379,7 @@ function updateSettingsSupport() {
     setText("#contextSupport", "APK native bridge pending");
     setText("#capabilityNote", "APK applies max tokens and Qwen chat-template thinking now. Temperature and context are saved for the next native bridge patch.");
     setText("#controlMeta", "APK active: max tokens, thinking. Pending: temperature, context size.");
+    setText("#frontierModelStatus", modelLoaded ? "Local ready" : "Local");
     return;
   }
 
@@ -368,6 +388,7 @@ function updateSettingsSupport() {
   setText("#contextSupport", "Prepared for APK runtime");
   setText("#capabilityNote", "Settings are saved now and become active according to the runtime you load.");
   setText("#controlMeta", "Load a runtime to see active controls.");
+  setText("#frontierModelStatus", "Warming");
 }
 
 function requestOptions() {
@@ -604,8 +625,7 @@ async function loadNativeModel({ silent = false } = {}) {
     if (!silent) addMessage("system", "Model load failed.");
   } finally {
     setBusy(false);
-    const runPrompt = $("#runPrompt");
-    if (runPrompt) runPrompt.disabled = !modelLoaded;
+    updateSendButton();
   }
 }
 
@@ -661,8 +681,7 @@ async function loadBrowserFallback({ silent = false } = {}) {
     if (!silent) addMessage("system", "Model unavailable.");
   } finally {
     setBusy(false);
-    const runPrompt = $("#runPrompt");
-    if (runPrompt) runPrompt.disabled = !modelLoaded;
+    updateSendButton();
   }
 }
 
@@ -687,6 +706,7 @@ async function submitPrompt(event) {
 
   addMessage("user", prompt, { persist: true });
   $("#promptInput").value = "";
+  updateSendButton();
 
   if (loadedRuntimeKind === "android-native") {
     await runNativePrompt(prompt);
@@ -884,8 +904,7 @@ async function deleteModel() {
   try {
     const result = await nativeCall("delete_model");
     modelLoaded = false;
-    const runPrompt = $("#runPrompt");
-    if (runPrompt) runPrompt.disabled = true;
+    updateSendButton();
     setText("#runtimeBadge", "Android native");
     setText("#progressBox", "Local model files deleted.");
     setText("#maintenanceStatus", `Deleted ${formatBytes(result.bytesDeleted || 0)} from app-private storage.`);
@@ -1009,11 +1028,13 @@ function bindUi() {
       $("#promptForm").requestSubmit();
     }
   });
+  $("#promptInput").addEventListener("input", updateSendButton);
 
   document.addEventListener("click", (event) => {
     const button = event.target.closest("[data-prompt]");
     if (!button) return;
     $("#promptInput").value = button.dataset.prompt || "";
+    updateSendButton();
     $("#promptInput").focus();
   });
 }

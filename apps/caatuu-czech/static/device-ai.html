@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-15">
+    <link rel="stylesheet" href="device-ai.css?v=shell-16">
   </head>
   <body>
     <main class="chat-shell">
@@ -42,28 +42,56 @@
                 <textarea id="promptInput" rows="3" autocomplete="off" autocapitalize="sentences" placeholder="Ask"></textarea>
                 <div class="composer-toolbar" aria-label="Chat controls">
                   <button class="composer-tool new-chat-button" id="newChat" type="button"><span aria-hidden="true">+</span><span>New</span></button>
-                  <label class="composer-select-label">
-                    <span>Effort</span>
-                    <select id="composerEffort" aria-label="Effort">
-                      <option value="fast">Fast</option>
-                      <option value="chat" selected>Chat</option>
-                      <option value="careful">Careful</option>
-                    </select>
-                  </label>
                   <label class="composer-select-label composer-model-label">
                     <span>Model</span>
                     <select id="composerModel" aria-label="Model">
                       <option selected>Caatuu CZ</option>
                     </select>
                   </label>
-                  <span class="context-indicator" id="contextIndicator" aria-label="Context window">2k ctx</span>
-                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">🎙</span></button>
-                  <button id="runPrompt" type="submit" disabled aria-label="Send message"><span class="send-symbol" aria-hidden="true">➤</span><span class="send-label">Send</span></button>
+                  <label class="composer-select-label">
+                    <span>Effort</span>
+                    <select id="composerEffort" aria-label="Effort">
+                      <option value="fast">Fast</option>
+                      <option value="chat" selected>Balanced</option>
+                      <option value="careful">Deep</option>
+                    </select>
+                  </label>
+                  <details class="context-status" id="contextStatus">
+                    <summary aria-label="Context and frontier status">
+                      <span class="context-disk" aria-hidden="true">
+                        <span class="context-disk-center" id="contextIndicator">2k</span>
+                      </span>
+                    </summary>
+                    <div class="context-popover" role="status">
+                      <b>Frontier</b>
+                      <dl>
+                        <div>
+                          <dt>Context</dt>
+                          <dd id="contextSizeLabel">2k context</dd>
+                        </div>
+                        <div>
+                          <dt>Phrase path</dt>
+                          <dd>Dictionary ready</dd>
+                        </div>
+                        <div>
+                          <dt>Repeat guard</dt>
+                          <dd>On</dd>
+                        </div>
+                        <div>
+                          <dt>Model</dt>
+                          <dd id="frontierModelStatus">Warming</dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </details>
+                  <span class="toolbar-spacer" aria-hidden="true"></span>
+                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">&#127908;</span></button>
+                  <button id="runPrompt" type="submit" disabled aria-label="Send message"><span class="send-symbol" aria-hidden="true">&#10148;</span><span class="send-label">Send</span></button>
                 </div>
               </div>
             </div>
           </form>
-          <p class="privacy-line" id="privacyLine">Small local learning model. Do not ask important questions.</p>
+          <p class="privacy-line" id="privacyLine">Local practice model. Good for learning, not serious decisions.</p>
         </section>
       </div>
     </main>
@@ -354,6 +382,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-11"></script>
+    <script type="module" src="device-ai.js?v=shell-13"></script>
   </body>
 </html>
