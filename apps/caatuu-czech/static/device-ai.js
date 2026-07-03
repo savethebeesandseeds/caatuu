@@ -458,10 +458,11 @@ function renderMessageContent(node, content) {
 }
 
 function appendTextPart(node, text) {
-  if (!text) return;
+  const normalizedText = String(text || "").trim();
+  if (!normalizedText) return;
   const span = document.createElement("span");
   span.className = "message-text";
-  span.textContent = text;
+  span.textContent = normalizedText;
   node.append(span);
 }
 

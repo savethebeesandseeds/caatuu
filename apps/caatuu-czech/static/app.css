@@ -3187,6 +3187,12 @@ html[data-theme="light"] .app-header {
   color: var(--ink);
 }
 
+html[data-theme="light"] .brand-mark {
+  border-color: #bdcdc4;
+  background: #ffffff;
+  box-shadow: none;
+}
+
 html[data-theme="light"] .bottom-app-nav,
 html[data-theme="light"] .settings-sheet,
 html[data-theme="light"] .settings-card,

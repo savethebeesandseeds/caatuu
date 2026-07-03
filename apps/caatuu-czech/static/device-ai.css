@@ -312,7 +312,7 @@ dl {
   gap: 12px;
   overflow-y: auto;
   scroll-behavior: smooth;
-  border: 1px solid #d8e2df;
+  border: 0;
   border-radius: 8px;
   background: transparent;
 }
@@ -495,9 +495,9 @@ textarea {
 .composer-tool,
 .composer-select-label select {
   min-height: 36px;
-  border: 1px solid #c6d2cb;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: #ffffff;
+  background: transparent;
   color: var(--green);
 }
 
@@ -543,9 +543,9 @@ textarea {
   height: 36px;
   display: grid;
   place-items: center;
-  border: 1px solid #c6d2cb;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: #ffffff;
+  background: transparent;
   cursor: pointer;
   list-style: none;
 }
@@ -1519,8 +1519,8 @@ html[data-theme="light"] .composer-toolbar {
 html[data-theme="light"] .composer-tool,
 html[data-theme="light"] .composer-select-label select,
 html[data-theme="light"] .context-status summary {
-  border-color: #c6d2cb;
-  background: #ffffff;
+  border-color: transparent;
+  background: transparent;
   color: var(--green);
 }
 
@@ -1664,8 +1664,8 @@ html[data-theme="dark"] .composer-toolbar {
 html[data-theme="dark"] .composer-tool,
 html[data-theme="dark"] .composer-select-label select,
 html[data-theme="dark"] .context-status summary {
-  border-color: #324454;
-  background: #14202a;
+  border-color: transparent;
+  background: transparent;
   color: var(--ink);
 }
 
@@ -1699,7 +1699,7 @@ html[data-theme="dark"] .legal-notice strong {
 }
 
 html[data-theme="dark"] .chat-log {
-  border-color: #263542;
+  border-color: transparent;
   background: transparent;
 }
 
