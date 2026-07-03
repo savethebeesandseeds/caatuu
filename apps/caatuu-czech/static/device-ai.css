@@ -145,6 +145,7 @@ dl {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   white-space: nowrap;
   padding: 0 9px;
   border: 1px solid #bdd0c7;
@@ -165,6 +166,11 @@ dl {
   border: 1px solid rgba(23, 32, 29, 0.18);
   border-radius: 2px;
   background: linear-gradient(to bottom, #ffffff 0 50%, #d7141a 50% 100%);
+}
+
+.language-code {
+  font-size: 0.74rem;
+  line-height: 1;
 }
 
 .cz-flag::before {
@@ -217,8 +223,32 @@ dl {
 .chat-panel {
   min-height: calc(100dvh - 104px);
   display: grid;
-  grid-template-rows: minmax(420px, 1fr) auto auto;
+  grid-template-rows: auto minmax(420px, 1fr) auto auto;
   overflow: hidden;
+}
+
+.chat-panel-head {
+  min-height: 48px;
+  padding: 10px 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.chat-panel-head span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.new-chat-button {
+  min-height: 32px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 0.76rem;
 }
 
 .chat-head {
@@ -283,7 +313,7 @@ dl {
 
 .chat-log {
   min-height: 0;
-  margin: 14px;
+  margin: 8px 14px 14px;
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -418,11 +448,12 @@ dl {
 }
 
 .composer {
-  padding: 14px;
+  padding: 12px 14px 10px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
   align-items: end;
+  border-top: 1px solid rgba(184, 200, 191, 0.45);
 }
 
 .message-field {
@@ -439,8 +470,8 @@ dl {
 
 textarea {
   width: 100%;
-  min-height: 92px;
-  max-height: 220px;
+  min-height: 74px;
+  max-height: 180px;
   padding: 12px 13px;
   resize: vertical;
   border: 1px solid #bccac3;
@@ -460,11 +491,12 @@ a:focus-visible {
 }
 
 #runPrompt {
-  min-width: 92px;
-  min-height: 48px;
-  padding: 10px 14px;
-  background: var(--blue);
-  border-color: var(--blue);
+  min-width: 84px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--green);
+  border-color: var(--green);
   color: #ffffff;
 }
 
@@ -816,6 +848,13 @@ a:focus-visible {
 .diagnostics-card {
   display: grid;
   gap: 8px;
+}
+
+.legal-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .maintenance-actions {
@@ -1239,6 +1278,11 @@ html[data-theme="dark"] .settings-sheet-head {
   color: var(--ink);
 }
 
+html[data-theme="dark"] .brand-mark {
+  border-color: #324454;
+  background: #101820;
+}
+
 html[data-theme="dark"] .chat-head {
   background: #101820;
 }
@@ -1248,6 +1292,7 @@ html[data-theme="dark"] .settings-summary,
 html[data-theme="dark"] .capability-note,
 html[data-theme="dark"] .maintenance-status,
 html[data-theme="dark"] .about-brand-note,
+html[data-theme="dark"] .legal-note,
 html[data-theme="dark"] .status-list dt,
 html[data-theme="dark"] .meta-list dt,
 html[data-theme="dark"] .model-details summary small,
@@ -1338,6 +1383,16 @@ html[data-theme="dark"] .message.user .message-body {
   border-color: #294637;
 }
 
+html[data-theme="dark"] #runPrompt {
+  color: #06100d;
+}
+
+html[data-theme="dark"] #runPrompt:disabled {
+  border-color: #324454;
+  background: #182632;
+  color: #7e8c98;
+}
+
 html[data-theme="dark"] .preset-control button.is-active,
 html[data-theme="dark"] .theme-control button.is-active,
 html[data-theme="dark"] .bottom-app-nav .app-nav-item.is-active {
@@ -1392,16 +1447,12 @@ html[data-theme="dark"] .settings-backdrop {
   }
 
   .composer {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .chat-panel {
     min-height: auto;
-    grid-template-rows: minmax(44dvh, auto) auto auto;
-  }
-
-  #runPrompt {
-    width: 100%;
+    grid-template-rows: auto minmax(44dvh, auto) auto auto;
   }
 
   .chat-log {

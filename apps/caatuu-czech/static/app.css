@@ -2550,6 +2550,7 @@ body.settings-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   white-space: nowrap;
   padding: 0 9px;
   border: 1px solid #c7d5ce;
@@ -2570,6 +2571,11 @@ body.settings-open {
   border: 1px solid rgba(23, 32, 29, 0.18);
   border-radius: 2px;
   background: linear-gradient(to bottom, #ffffff 0 50%, #d7141a 50% 100%);
+}
+
+.language-code {
+  font-size: 0.74rem;
+  line-height: 1;
 }
 
 .cz-flag::before {

@@ -12,6 +12,7 @@ const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const themeStorageKey = "caatuu-czech.theme";
 const settingsStorageKey = "caatuu-czech.device-ai.settings.v1";
+const chatStorageKey = "caatuu-czech.device-ai.chat.v1";
 const verbStorageKey = "caatuu-czech.verb-memory.v2";
 const generationPresets = {
   fast: {
@@ -47,6 +48,7 @@ const defaultGenerationSettings = {
   ...generationPresets.chat
 };
 let generationSettings = loadStoredSettings();
+let chatMessages = loadStoredChat();
 const czechLoraModel = {
   name: "Caatuu Czech qwen3-1.7b-lora-003-hard Q4_K_M",
   languageBenchmarkPath: "data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json"
@@ -200,6 +202,53 @@ function loadStoredSettings() {
   }
 }
 
+function loadStoredChat() {
+  try {
+    const raw = localStorage.getItem(chatStorageKey);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((item) => {
+        return item
+          && ["user", "assistant"].includes(item.role)
+          && typeof item.content === "string"
+          && item.content.trim();
+      })
+      .slice(-60);
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveStoredChat() {
+  try {
+    localStorage.setItem(chatStorageKey, JSON.stringify(chatMessages.slice(-60)));
+  } catch (error) {
+  }
+}
+
+function rememberChatMessage(role, content) {
+  if (!["user", "assistant"].includes(role) || !content || !String(content).trim()) return;
+  chatMessages = [...chatMessages, { role, content: String(content) }].slice(-60);
+  saveStoredChat();
+}
+
+function renderStoredChat() {
+  $("#chatLog").replaceChildren();
+  chatMessages.forEach((message) => {
+    addMessage(message.role, message.content, { persist: false });
+  });
+}
+
+function startNewChat() {
+  chatMessages = [];
+  saveStoredChat();
+  resetChat();
+  $("#promptInput").value = "";
+  $("#promptInput").focus();
+}
+
 function normalizeSettings(input = {}) {
   const preset = Object.prototype.hasOwnProperty.call(generationPresets, input.preset) ? input.preset : "chat";
   const base = generationPresets[preset];
@@ -239,10 +288,12 @@ function saveSettings() {
 }
 
 function setGenerationSettings(next, { persist = true } = {}) {
+  const previousReasoningDisplay = generationSettings.reasoningDisplay;
   generationSettings = normalizeSettings({ ...generationSettings, ...next });
   syncSettingsUi();
   updateSettingsSupport();
   if (persist) saveSettings();
+  if (!generating && previousReasoningDisplay !== generationSettings.reasoningDisplay) renderStoredChat();
 }
 
 function applyPreset(preset) {
@@ -313,7 +364,7 @@ function requestOptions() {
   };
 }
 
-function addMessage(role, text) {
+function addMessage(role, text, { persist = false } = {}) {
   const article = document.createElement("article");
   article.className = `message ${role}`;
 
@@ -327,6 +378,7 @@ function addMessage(role, text) {
   article.append(label, body);
   $("#chatLog").append(article);
   $("#chatLog").scrollTop = $("#chatLog").scrollHeight;
+  if (persist) rememberChatMessage(role, text);
   return body;
 }
 
@@ -405,7 +457,11 @@ function parseThinkBlocks(content) {
   return parts.filter((part) => part.text && part.text.trim());
 }
 
-function resetChat(message = "") {
+function resetChat(message = "", { clearStored = false } = {}) {
+  if (clearStored) {
+    chatMessages = [];
+    saveStoredChat();
+  }
   $("#chatLog").replaceChildren();
   if (message) addMessage("system", message);
 }
@@ -506,7 +562,7 @@ async function loadNativeModel({ silent = false } = {}) {
   setBusy(true);
   modelLoaded = false;
   if (wasLoaded && !silent) {
-    resetChat("Chat cleared. Reloading the local model.");
+    resetChat("Chat cleared. Reloading the local model.", { clearStored: true });
     $("#promptInput").value = "";
   }
   setText("#runtimeBadge", "Loading");
@@ -612,7 +668,7 @@ async function submitPrompt(event) {
     return;
   }
 
-  addMessage("user", prompt);
+  addMessage("user", prompt, { persist: true });
   $("#promptInput").value = "";
 
   if (loadedRuntimeKind === "android-native") {
@@ -657,7 +713,9 @@ async function runNativePrompt(prompt) {
         }
       }
     );
-    updateMessage(assistantNode, output || result.output || "(empty output)");
+    const finalOutput = output || result.output || "(empty output)";
+    updateMessage(assistantNode, finalOutput);
+    rememberChatMessage("assistant", finalOutput);
     if (result.settings) setText("#diagnosticOutput", JSON.stringify(result.settings, null, 2));
     setText("#progressBox", "Done.");
   } catch (error) {
@@ -685,7 +743,9 @@ async function runBrowserPrompt(prompt) {
 
   try {
     const response = await browserEngine.chat.completions.create(request);
-    updateMessage(assistantNode, response.choices?.[0]?.message?.content || "(empty output)");
+    const finalOutput = response.choices?.[0]?.message?.content || "(empty output)";
+    updateMessage(assistantNode, finalOutput);
+    rememberChatMessage("assistant", finalOutput);
     setText("#progressBox", "Done.");
   } catch (error) {
     updateMessage(assistantNode, error?.message || String(error));
@@ -905,6 +965,7 @@ function bindUi() {
   });
 
   $("#loadModel")?.addEventListener("click", () => loadModel());
+  $("#newChat").addEventListener("click", startNewChat);
   $("#promptForm").addEventListener("submit", submitPrompt);
   $("#cacheProbe").addEventListener("click", cacheProbe);
   $("#loadBenchmarks").addEventListener("click", loadBenchmarks);
@@ -943,7 +1004,7 @@ async function init() {
   applyTheme(readStoredTheme(), { persist: false });
   bindUi();
   syncSettingsUi();
-  resetChat();
+  renderStoredChat();
   renderInitialRuntime();
   await registerServiceWorker();
   await loadLocalModelManifest();

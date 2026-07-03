@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-10">
+    <link rel="stylesheet" href="device-ai.css?v=shell-11">
   </head>
   <body>
     <main class="chat-shell">
@@ -28,11 +28,15 @@
             <strong>Caatuu</strong>
           </span>
         </a>
-        <span class="language-pill" aria-label="Czech"><span class="cz-flag" aria-hidden="true"></span></span>
+        <span class="language-pill" aria-label="Czech"><span class="cz-flag" aria-hidden="true"></span><span class="language-code">CZ</span></span>
       </header>
 
       <div class="workbench">
         <section class="chat-panel" aria-label="Caatuu chat">
+          <header class="chat-panel-head">
+            <span>Chat</span>
+            <button class="new-chat-button" id="newChat" type="button">New chat</button>
+          </header>
           <div class="chat-log" id="chatLog" aria-live="polite"></div>
 
           <form class="composer" id="promptForm">
@@ -42,7 +46,7 @@
             </label>
             <button id="runPrompt" type="submit" disabled>Send</button>
           </form>
-          <p class="privacy-line" id="privacyLine">Local chat.</p>
+          <p class="privacy-line" id="privacyLine">Local learning model. It can make mistakes; verify important answers.</p>
         </section>
       </div>
     </main>
@@ -236,6 +240,7 @@
             </div>
 
             <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
+            <p class="legal-note">Responses are generated locally for language practice. They are not professional, legal, medical, financial, or safety advice.</p>
 
             <details class="model-details">
               <summary>
@@ -304,6 +309,6 @@
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-8"></script>
+    <script type="module" src="device-ai.js?v=shell-9"></script>
   </body>
 </html>
