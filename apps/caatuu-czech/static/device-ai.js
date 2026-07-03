@@ -146,6 +146,14 @@ function applyTheme(theme, { persist = true } = {}) {
   syncThemeControls();
 }
 
+function bindThemeControls() {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-theme-option]");
+    if (!button) return;
+    applyTheme(button.dataset.themeOption);
+  });
+}
+
 function setBusy(isBusy) {
   generating = isBusy;
   const promptInput = $("#promptInput");
@@ -909,9 +917,7 @@ function bindUi() {
     button.addEventListener("click", () => applyPreset(button.dataset.preset));
   });
 
-  document.querySelectorAll("[data-theme-option]").forEach((button) => {
-    button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
-  });
+  bindThemeControls();
 
   ["thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
     $(`#${id}`).addEventListener("input", readSettingsControls);

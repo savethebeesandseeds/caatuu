@@ -2751,6 +2751,65 @@ body.settings-open {
   gap: 12px;
 }
 
+.settings-details {
+  display: block;
+}
+
+.settings-details-body {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+.settings-collapsible-summary {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--green-dark);
+  cursor: pointer;
+  list-style: none;
+}
+
+.settings-collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.settings-collapsible-summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.settings-details[open] .settings-collapsible-summary {
+  margin-bottom: 8px;
+}
+
+.settings-details[open] .settings-collapsible-summary::after {
+  content: "-";
+}
+
+.settings-summary-title {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.settings-summary-title strong {
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.settings-collapsible-summary small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: right;
+}
+
 .settings-card-head h3 {
   margin-top: 2px;
   font-size: 1rem;
@@ -2796,6 +2855,23 @@ body.settings-open {
 .settings-actions .pwa-install-action,
 .settings-actions .print-open-action {
   width: 100%;
+}
+
+.about-brand-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.about-brand-note a {
+  color: var(--green-dark);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.about-brand-note a:hover {
+  text-decoration: underline;
 }
 
 .dictionary-toolbar {
@@ -3462,6 +3538,11 @@ html[data-theme="dark"] .app-header {
   background: transparent;
 }
 
+html[data-theme="dark"] .settings-sheet-head {
+  background: #101820;
+  color: var(--ink);
+}
+
 html[data-theme="dark"] .brand-mark {
   border-color: #324454;
   background: #101820;
@@ -3535,6 +3616,7 @@ html[data-theme="dark"] .guide-note,
 html[data-theme="dark"] .settings-note,
 html[data-theme="dark"] .settings-summary,
 html[data-theme="dark"] .capability-note,
+html[data-theme="dark"] .about-brand-note,
 html[data-theme="dark"] .meta-list dt,
 html[data-theme="dark"] .app-footer,
 html[data-theme="dark"] .dictionary-group h4 small,
@@ -3543,6 +3625,10 @@ html[data-theme="dark"] .verb-form-rail-cell small,
 html[data-theme="dark"] .verb-form-cell small,
 html[data-theme="dark"] .verb-reference-card p,
 html[data-theme="dark"] .verb-reference-card small {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .settings-collapsible-summary small {
   color: var(--muted);
 }
 

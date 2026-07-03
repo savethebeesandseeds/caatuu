@@ -237,6 +237,14 @@ function applyTheme(theme, { persist = true } = {}) {
   syncThemeControls();
 }
 
+function bindThemeControls() {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-theme-option]");
+    if (!button) return;
+    applyTheme(button.dataset.themeOption);
+  });
+}
+
 function openAppSettingsPanel() {
   const panel = $("#appSettingsPanel");
   if (!panel) return;
@@ -2553,9 +2561,7 @@ function bindUi() {
       closeAppSettingsPanel();
     }
   });
-  document.querySelectorAll("[data-theme-option]").forEach((button) => {
-    button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
-  });
+  bindThemeControls();
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.addEventListener("click", () => applyGenerationPreset(button.dataset.preset));
   });

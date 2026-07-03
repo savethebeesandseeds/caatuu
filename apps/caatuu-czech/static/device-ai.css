@@ -565,6 +565,65 @@ a:focus-visible {
   gap: 8px;
 }
 
+.settings-details {
+  display: block;
+}
+
+.settings-details-body {
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+}
+
+.settings-collapsible-summary {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--green);
+  cursor: pointer;
+  list-style: none;
+}
+
+.settings-collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.settings-collapsible-summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.settings-details[open] .settings-collapsible-summary {
+  margin-bottom: 8px;
+}
+
+.settings-details[open] .settings-collapsible-summary::after {
+  content: "-";
+}
+
+.settings-summary-title {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.settings-summary-title strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.settings-collapsible-summary small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-align: right;
+}
+
 .preset-control {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -778,6 +837,23 @@ a:focus-visible {
   font-size: 0.78rem;
   line-height: 1.32;
   overflow-wrap: anywhere;
+}
+
+.about-brand-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.34;
+}
+
+.about-brand-note a {
+  color: var(--green);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.about-brand-note a:hover {
+  text-decoration: underline;
 }
 
 .diagnostic-actions {
@@ -1158,6 +1234,11 @@ html[data-theme="dark"] .settings-sheet-head {
   border-color: var(--line);
 }
 
+html[data-theme="dark"] .settings-sheet-head {
+  background: #101820;
+  color: var(--ink);
+}
+
 html[data-theme="dark"] .chat-head {
   background: #101820;
 }
@@ -1166,10 +1247,12 @@ html[data-theme="dark"] .privacy-line,
 html[data-theme="dark"] .settings-summary,
 html[data-theme="dark"] .capability-note,
 html[data-theme="dark"] .maintenance-status,
+html[data-theme="dark"] .about-brand-note,
 html[data-theme="dark"] .status-list dt,
 html[data-theme="dark"] .meta-list dt,
 html[data-theme="dark"] .model-details summary small,
 html[data-theme="dark"] .diagnostics summary small,
+html[data-theme="dark"] .settings-collapsible-summary small,
 html[data-theme="dark"] .language-pill,
 html[data-theme="dark"] .app-footer {
   color: var(--muted);

@@ -15,7 +15,7 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <link rel="stylesheet" href="device-ai.css?v=shell-9">
+    <link rel="stylesheet" href="device-ai.css?v=shell-10">
   </head>
   <body>
     <main class="chat-shell">
@@ -113,70 +113,77 @@
           </section>
 
           <section class="side-card settings-card" aria-label="Run settings">
-            <div class="side-head">
-              <p class="kicker">Chat</p>
-              <h3>Model generation</h3>
-            </div>
-            <div class="preset-control" role="group" aria-label="Generation preset">
-              <button type="button" data-preset="fast">Fast</button>
-              <button type="button" data-preset="chat">Chat</button>
-              <button type="button" data-preset="careful">Careful</button>
-            </div>
-            <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
-
-            <div class="settings-grid">
-              <label class="setting-toggle">
-                <span>
-                  <b>Thinking</b>
-                  <small id="thinkingSupport">Runtime support checking</small>
+            <details class="settings-details">
+              <summary class="settings-collapsible-summary">
+                <span class="settings-summary-title">
+                  <span class="kicker">Chat</span>
+                  <strong>Model generation</strong>
                 </span>
-                <input id="thinkingEnabled" type="checkbox">
-              </label>
+                <small>generation controls</small>
+              </summary>
+              <div class="settings-details-body">
+                <div class="preset-control" role="group" aria-label="Generation preset">
+                  <button type="button" data-preset="fast">Fast</button>
+                  <button type="button" data-preset="chat">Chat</button>
+                  <button type="button" data-preset="careful">Careful</button>
+                </div>
+                <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
 
-              <label class="setting-field">
-                <span>
-                  <b>Max tokens</b>
-                  <output id="maxTokensValue">384</output>
-                </span>
-                <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
-              </label>
+                <div class="settings-grid">
+                  <label class="setting-toggle">
+                    <span>
+                      <b>Thinking</b>
+                      <small id="thinkingSupport">Runtime support checking</small>
+                    </span>
+                    <input id="thinkingEnabled" type="checkbox">
+                  </label>
 
-              <label class="setting-field">
-                <span>
-                  <b>Temperature</b>
-                  <output id="temperatureValue">0.2</output>
-                </span>
-                <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
-                <small id="temperatureSupport">Browser active, APK pending</small>
-              </label>
+                  <label class="setting-field">
+                    <span>
+                      <b>Max tokens</b>
+                      <output id="maxTokensValue">384</output>
+                    </span>
+                    <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
+                  </label>
 
-              <label class="setting-select">
-                <span>
-                  <b>Context</b>
-                  <small id="contextSupport">APK pending native bridge</small>
-                </span>
-                <select id="contextSize">
-                  <option value="768">768 tokens</option>
-                  <option value="1024">1024 tokens</option>
-                  <option value="2048" selected>2048 tokens</option>
-                  <option value="4096">4096 tokens</option>
-                  <option value="8192">8192 tokens</option>
-                </select>
-              </label>
+                  <label class="setting-field">
+                    <span>
+                      <b>Temperature</b>
+                      <output id="temperatureValue">0.2</output>
+                    </span>
+                    <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
+                    <small id="temperatureSupport">Browser active, APK pending</small>
+                  </label>
 
-              <label class="setting-select">
-                <span>
-                  <b>Reasoning display</b>
-                  <small>Only affects visible output</small>
-                </span>
-                <select id="reasoningDisplay">
-                  <option value="collapsed" selected>Collapsed</option>
-                  <option value="expanded">Expanded</option>
-                  <option value="hidden">Hidden</option>
-                </select>
-              </label>
-            </div>
-            <p class="capability-note" id="capabilityNote">Max tokens and thinking are active in the APK. Temperature and context are prepared for the next native bridge patch.</p>
+                  <label class="setting-select">
+                    <span>
+                      <b>Context</b>
+                      <small id="contextSupport">APK pending native bridge</small>
+                    </span>
+                    <select id="contextSize">
+                      <option value="768">768 tokens</option>
+                      <option value="1024">1024 tokens</option>
+                      <option value="2048" selected>2048 tokens</option>
+                      <option value="4096">4096 tokens</option>
+                      <option value="8192">8192 tokens</option>
+                    </select>
+                  </label>
+
+                  <label class="setting-select">
+                    <span>
+                      <b>Reasoning display</b>
+                      <small>Only affects visible output</small>
+                    </span>
+                    <select id="reasoningDisplay">
+                      <option value="collapsed" selected>Collapsed</option>
+                      <option value="expanded">Expanded</option>
+                      <option value="hidden">Hidden</option>
+                    </select>
+                  </label>
+                </div>
+                <p class="capability-note" id="capabilityNote">Max tokens and thinking are active in the APK. Temperature and context are prepared for the next native bridge patch.</p>
+              </div>
+            </details>
           </section>
 
           <section class="side-card maintenance-card">
@@ -191,11 +198,44 @@
             <p class="maintenance-status" id="maintenanceStatus">Android app tools appear here when running inside the APK.</p>
           </section>
 
+          <section class="side-card diagnostics-card" aria-label="Diagnostics">
+            <div class="side-head">
+              <p class="kicker">Diagnostics</p>
+              <h3>Logs and exports</h3>
+            </div>
+            <details class="diagnostics">
+              <summary>
+                <span>Last request</span>
+                <small>hidden</small>
+              </summary>
+              <div class="request-box">
+                <b>Request</b>
+                <pre id="requestPreview">No request sent yet.</pre>
+              </div>
+            </details>
+            <details class="diagnostics">
+              <summary>
+                <span>Tools</span>
+                <small>cache and fallback</small>
+              </summary>
+              <div class="diagnostic-actions">
+                <button id="cacheProbe" type="button">Cache check</button>
+                <button id="loadBenchmarks" type="button">Show contrast</button>
+                <button id="copyTermuxCommand" type="button">Copy Termux fallback</button>
+              </div>
+              <pre class="diagnostic-output" id="diagnosticOutput">Diagnostics appear here.</pre>
+              <pre class="command-box" id="termuxCommand"></pre>
+              <div class="benchmark-list" id="benchmarkList"></div>
+            </details>
+          </section>
+
           <section class="side-card about-card" aria-label="About">
             <div class="side-head">
               <p class="kicker">About</p>
               <h3>Runtime and model</h3>
             </div>
+
+            <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
 
             <details class="model-details">
               <summary>
@@ -260,41 +300,10 @@
               </dl>
             </details>
           </section>
-
-          <section class="side-card diagnostics-card" aria-label="Diagnostics">
-            <div class="side-head">
-              <p class="kicker">Diagnostics</p>
-              <h3>Logs and exports</h3>
-            </div>
-            <details class="diagnostics">
-              <summary>
-                <span>Last request</span>
-                <small>hidden</small>
-              </summary>
-              <div class="request-box">
-                <b>Request</b>
-                <pre id="requestPreview">No request sent yet.</pre>
-              </div>
-            </details>
-            <details class="diagnostics">
-              <summary>
-                <span>Tools</span>
-                <small>cache and fallback</small>
-              </summary>
-              <div class="diagnostic-actions">
-                <button id="cacheProbe" type="button">Cache check</button>
-                <button id="loadBenchmarks" type="button">Show contrast</button>
-                <button id="copyTermuxCommand" type="button">Copy Termux fallback</button>
-              </div>
-              <pre class="diagnostic-output" id="diagnosticOutput">Diagnostics appear here.</pre>
-              <pre class="command-box" id="termuxCommand"></pre>
-              <div class="benchmark-list" id="benchmarkList"></div>
-            </details>
-          </section>
         </div>
       </section>
     </div>
 
-    <script type="module" src="device-ai.js?v=shell-7"></script>
+    <script type="module" src="device-ai.js?v=shell-8"></script>
   </body>
 </html>
