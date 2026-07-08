@@ -4,55 +4,73 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=1">
+    <link rel="stylesheet" href="/app.css?v=17">
   </head>
-  <body>
-    <header class="topbar">
-      <a class="brand" href="/" aria-label="Caatuu home">
-        <span class="brand-mark">C</span>
-        <span>
-          <strong>Caatuu</strong>
-          <small>Language workbench</small>
-        </span>
-      </a>
-      <nav aria-label="Languages">
-        <a href="/zh/">Chinese</a>
-        <a href="/cz/">Czech</a>
-        <a href="/android/caatuu-debug.apk">Android</a>
-      </nav>
-    </header>
+  <body class="home-page">
+    <main class="menu-shell">
+      <div class="menu-stack">
+        <section class="menu-card home-card" aria-labelledby="homeTitle">
+          <header class="brand-row">
+            <span class="brand-mark" aria-hidden="true">
+              <img src="/cz/icons/caatuu-czech-192.png" alt="">
+            </span>
+            <span class="brand-copy">
+              <strong>Caatuu</strong>
+            </span>
+          </header>
 
-    <main class="shell">
-      <section class="intro">
-        <p class="eyebrow">Unified runtime</p>
-        <h1>Choose a language</h1>
-      </section>
+          <div class="welcome-stage" aria-hidden="true">
+            <img class="welcome-art" src="/assets/characters/macaw/explorer_hello.png.png" alt="">
+          </div>
 
-      <section class="app-grid" aria-label="Caatuu apps">
-        <a class="app-card chinese" href="/zh/">
-          <img src="/zh/assets/icon-192.png" alt="" width="72" height="72">
-          <span class="label">Chinese</span>
-          <h2>Chinese Trainer</h2>
-          <p>Challenge, Secuence, and Writing modes with the Rust backend.</p>
-          <span class="open">Open</span>
+          <div class="menu-heading home-heading">
+            <p class="eyebrow">Welcome</p>
+            <h1 id="homeTitle">Playful Czech practice for curious learners</h1>
+            <p class="home-copy">Caatuu is a small language-learning app for practicing Czech words, phrases, and simple exercises with a friendly space-bird guide.</p>
+          </div>
+
+          <nav class="entry-options" aria-label="App entry options">
+            <a class="entry-option entry-download" href="/android/caatuu.apk">
+              <span class="entry-icon" aria-hidden="true">APK</span>
+              <span class="entry-copy">
+                <small>Android</small>
+                <b>Download the app</b>
+              </span>
+            </a>
+            <a class="entry-option entry-browser" href="/cz/">
+              <span class="entry-icon" aria-hidden="true">WEB</span>
+              <span class="entry-copy">
+                <small>Browser</small>
+                <b>Continue in Browser</b>
+              </span>
+            </a>
+          </nav>
+
+          <section class="language-panel" aria-labelledby="languageTitle">
+            <div class="language-stage" aria-hidden="true">
+              <img class="stage-art" src="/assets/characters/macaw/explorer_select.png" alt="">
+            </div>
+
+            <div class="language-copy">
+              <p class="eyebrow">Language</p>
+              <h2 id="languageTitle">Select your planet</h2>
+              <a class="language-option language-primary" href="/cz/">
+                <span class="alien-frame" aria-hidden="true">
+                  <img src="/assets/characters/aliens/Czech.png?v=square-1" alt="">
+                </span>
+                <span class="language-label">Czech</span>
+              </a>
+            </div>
+          </section>
+        </section>
+      </div>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com" rel="noopener">
+          <img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu</span>
         </a>
-
-        <a class="app-card czech" href="/cz/device-ai.html">
-          <img src="/cz/icons/caatuu-czech-192.png" alt="" width="72" height="72">
-          <span class="label">Czech</span>
-          <h2>Czech Phone AI</h2>
-          <p>Offline PWA shell with the local WebLLM model package.</p>
-          <span class="open">Open</span>
-        </a>
-
-        <a class="app-card android" href="/android/caatuu-debug.apk">
-          <span class="apk-icon" aria-hidden="true">APK</span>
-          <span class="label">Android</span>
-          <h2>Install Test App</h2>
-          <p>Native offline Czech model shell for Android phones.</p>
-          <span class="open">Download</span>
-        </a>
-      </section>
+      </footer>
     </main>
   </body>
 </html>

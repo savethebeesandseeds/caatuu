@@ -38,13 +38,13 @@ docker run --rm -it `
 The debug APK is written to:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu-debug.apk
+C:\Work\caatuu\artifacts\android\caatuu.apk
 ```
 
 The matching development update manifest is written to:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu-debug.json
+C:\Work\caatuu\artifacts\android\caatuu.json
 ```
 
 The first debug build also creates:
@@ -65,9 +65,41 @@ Debug sideload APKs default to `targetSdk` 30 for compatibility with Android 11
 package installers. For a Play Store release, pass
 `-e CAATUU_ANDROID_TARGET_SDK=36`.
 
+For local phone update testing, set the debug update base URL to the dev server
+that serves the generated APK and manifest:
+
+```bash
+CAATUU_ANDROID_UPDATE_BASE_URL=http://<your-pc-lan-ip>:8765/android \
+  bash tools/android-build/build-debug-apk.sh
+```
+
+The generated `caatuu.json` will use that URL for `apk_url`, and the debug
+APK will use the same base URL for its `Update app` button.
+
 APK builds default to `arm64-v8a`, which is the ABI used by current Android
 phones and keeps debug APKs smaller. To build a package that also runs on an
 x86_64 emulator, pass `-e CAATUU_ANDROID_ABIS=arm64-v8a,x86_64`.
+
+## Device Smoke Check
+
+After building the debug APK, connect one authorized Android device to the
+container and run:
+
+```bash
+bash tools/android-build/verify-debug-apk-device.sh
+```
+
+The script uses `/opt/android-sdk/platform-tools/adb`, installs
+`artifacts/android/caatuu.apk`, launches
+`com.waajacu.caatuu/com.caatuu.android.MainActivity`, and writes a report,
+logcat, UI dump, and screenshot under:
+
+```text
+artifacts/android/device-smoke/
+```
+
+It fails if no single authorized device is visible, the package does not stay
+running, or retired browser/archive route names appear in logcat.
 
 ## Interactive Container
 

@@ -17,24 +17,57 @@ class NativeCzechModel(context: Context) {
     private val engine: InferenceEngine
         get() = engineInstance ?: AiChat.getInferenceEngine(appContext).also { engineInstance = it }
     private var loadedPath: String? = null
+    private var loadedModelKey: String? = null
 
-    suspend fun load(modelFile: File) =
+    suspend fun load(modelFile: File, modelKey: String) =
         withContext(Dispatchers.Default) {
-            waitForEngine()
-            if (loadedPath == modelFile.absolutePath && engine.state.value.isModelLoaded) return@withContext
-
-            if (engine.state.value.isModelLoaded) {
-                engine.cleanUp()
+            val activeEngine = engine
+            if (activeEngine.state.value is InferenceEngine.State.Error) {
+                activeEngine.cleanUp()
+            }
+            waitForEngine(activeEngine)
+            if (loadedPath == modelFile.absolutePath && loadedModelKey == modelKey && activeEngine.state.value.isModelLoaded) {
+                return@withContext
             }
 
-            engine.loadModel(modelFile.absolutePath)
-            loadedPath = modelFile.absolutePath
+            if (activeEngine.state.value.isModelLoaded) {
+                activeEngine.cleanUp()
+                loadedPath = null
+                loadedModelKey = null
+            }
+
+            try {
+                withTimeout(MODEL_LOAD_TIMEOUT_MS) {
+                    activeEngine.loadModel(modelFile.absolutePath)
+                }
+                check(activeEngine.state.value.isModelLoaded) {
+                    "llama.cpp finished loading but did not report ModelReady."
+                }
+                loadedPath = modelFile.absolutePath
+                loadedModelKey = modelKey
+            } catch (error: Exception) {
+                loadedPath = null
+                loadedModelKey = null
+                resetAfterLoadFailure(activeEngine)
+                throw error
+            }
         }
 
-    fun generate(prompt: String, maxTokens: Int, enableThinking: Boolean): Flow<String> {
+    fun generate(prompt: String, maxTokens: Int, enableThinking: Boolean, modelKey: String): Flow<String> {
         require(prompt.isNotBlank()) { "Prompt is empty." }
         check(engine.state.value.isModelLoaded) { "Model is not loaded." }
+        check(loadedModelKey == modelKey) {
+            "Selected model is not loaded. Requested $modelKey, loaded ${loadedModelKey ?: "none"}."
+        }
         return engine.sendUserPrompt(prompt, maxTokens, enableThinking)
+    }
+
+    fun isLoaded(modelKey: String): Boolean =
+        currentLoadedModelKey() == modelKey
+
+    fun currentLoadedModelKey(): String? {
+        val instance = engineInstance ?: return null
+        return loadedModelKey.takeIf { instance.state.value.isModelLoaded }
     }
 
     suspend fun benchmark(): String =
@@ -46,17 +79,33 @@ class NativeCzechModel(context: Context) {
     fun unload() {
         engineInstance?.cleanUp()
         loadedPath = null
+        loadedModelKey = null
     }
 
     fun destroy() {
         engineInstance?.destroy()
         engineInstance = null
         loadedPath = null
+        loadedModelKey = null
     }
 
-    private suspend fun waitForEngine() {
+    private fun resetAfterLoadFailure(activeEngine: InferenceEngine) {
+        runCatching {
+            when (activeEngine.state.value) {
+                is InferenceEngine.State.Error,
+                is InferenceEngine.State.ModelReady,
+                -> activeEngine.cleanUp()
+                else -> activeEngine.destroy()
+            }
+        }
+        if (activeEngine === engineInstance) {
+            engineInstance = null
+        }
+    }
+
+    private suspend fun waitForEngine(activeEngine: InferenceEngine) {
         withTimeout(30_000) {
-            engine.state.first { state ->
+            activeEngine.state.first { state ->
                 when (state) {
                     is InferenceEngine.State.Initialized,
                     is InferenceEngine.State.ModelReady,
@@ -66,5 +115,9 @@ class NativeCzechModel(context: Context) {
                 }
             }
         }
+    }
+
+    private companion object {
+        const val MODEL_LOAD_TIMEOUT_MS = 6 * 60_000L
     }
 }

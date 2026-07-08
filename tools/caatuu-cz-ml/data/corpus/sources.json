@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "notes": [
+    "Seed corpus for Czech spelling, diacritics, short dialogue, and learner examples.",
+    "Keep broad corpus text separate from curated Caatuu training examples.",
+    "Wikipedia text is useful for modern Czech spelling, but it is encyclopedic and should not dominate conversational examples.",
+    "Public-domain books are useful for diacritics and syntax, but older texts can be archaic."
+  ],
+  "local_sources": [
+    {
+      "id": "caatuu_dictionary",
+      "path": "../dictionary.json",
+      "kind": "caatuu_app_data",
+      "license": "project-local",
+      "description": "Existing Caatuu Czech dictionary entries and example uses."
+    },
+    {
+      "id": "caatuu_scripts",
+      "path": "../scripts.json",
+      "kind": "caatuu_app_data",
+      "license": "project-local",
+      "description": "Existing Caatuu Czech short scripts."
+    },
+    {
+      "id": "caatuu_verbs",
+      "path": "../verbs.json",
+      "kind": "caatuu_app_data",
+      "license": "project-local",
+      "description": "Existing Caatuu Czech verb forms."
+    }
+  ],
+  "wikipedia_extracts": {
+    "license": "CC BY-SA",
+    "source": "https://cs.wikipedia.org/",
+    "api": "https://cs.wikipedia.org/w/api.php",
+    "titles": [
+      "Čeština",
+      "Česko",
+      "Praha",
+      "Brno",
+      "Doprava",
+      "Železniční doprava",
+      "Autobus",
+      "Letiště",
+      "Restaurace",
+      "Káva",
+      "Mléko",
+      "Chléb",
+      "Obchod",
+      "Supermarket",
+      "Lékárna",
+      "Nemocnice",
+      "Bydlení",
+      "Práce",
+      "Škola",
+      "Rodina",
+      "Cestování"
+    ]
+  },
+  "books": [
+    {
+      "id": "gutenberg_13083_rur",
+      "title": "R.U.R. (Rossum's Universal Robots)",
+      "author": "Karel Čapek",
+      "license": "Project Gutenberg public-domain text, check local reuse requirements before redistribution",
+      "source": "https://www.gutenberg.org/ebooks/13083",
+      "text_url": "https://www.gutenberg.org/cache/epub/13083/pg13083.txt",
+      "description": "Small Czech book/drama sample. Keep as a minor source because its style is literary."
+    }
+  ]
+}

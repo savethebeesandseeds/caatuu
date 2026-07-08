@@ -1,0 +1,14 @@
+diff --git a/conversion/base.py b/conversion/base.py
+index 016f22c4..9a2b9e35 100644
+--- a/conversion/base.py
++++ b/conversion/base.py
+@@ -1493,6 +1493,9 @@ class TextModel(ABC):
+         if chkhsh == "3ce83efda5659b07b1ad37ca97ca5797ea4285d9b9ab0dc679e4a720c9da7454":
+             # ref: https://huggingface.co/openai-community/gpt2
+             res = "gpt-2"
++        if chkhsh == "9fe2c47379f9c319391044d5f782f52a5ad0cc7f7bb7aa7fc14e731b6e0cce89":
++            # ref: https://huggingface.co/BUT-FIT/CSTinyLlama-1.2B
++            res = "gpt-2"
+         if chkhsh == "32d85c31273f8019248f2559fed492d929ea28b17e51d81d3bb36fff23ca72b3":
+             # ref: https://huggingface.co/stabilityai/stablelm-2-zephyr-1_6b
+             res = "stablelm2"

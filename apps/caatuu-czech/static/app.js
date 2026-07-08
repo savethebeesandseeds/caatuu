@@ -2,12 +2,90 @@ let countryDictionary = [];
 let countryScripts = [];
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
+let nativeUpdateStatus = null;
 const themeStorageKey = "caatuu-czech.theme";
 const themeOptions = {
   light: { themeColor: "#f5efe5" },
   dark: { themeColor: "#0d171e" }
 };
-const deviceSettingsStorageKey = "caatuu-czech.device-ai.settings.v1";
+const chatSettingsStorageKey = "caatuu-czech.chat.settings.v1";
+const defaultModelKey = "cstinyllama-1.2b-czech-word-sentence-001";
+const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
+const browserFallbackLabel = "Browser fallback";
+const browserFallbackSummary = `Browser: ${browserFallbackModel}. Android: local GGUF models.`;
+const legacyModelNotice = "Legacy/deprecated: kept for compatibility until the curriculum LoRA GGUF replacements are published.";
+const supportedModelKeys = new Set([
+  "qwen3-lora-003-hard",
+  "cstinyllama-1.2b-base",
+  "cstinyllama-1.2b-planet-wordnet-002-copy",
+  "cstinyllama-1.2b-translation-cs-en-001",
+  "cstinyllama-1.2b-czech-word-sentence-001"
+]);
+let modelLicenseCatalog = [
+  {
+    key: "qwen3-lora-003-hard",
+    label: "Caatuu CZ LoRA",
+    repoId: "Qwen/Qwen3-1.7B",
+    license: "Apache-2.0",
+    intendedUse: "General Czech assistant and spelling checks.",
+    deprecated: true,
+    status: "deprecated",
+    replacementStatus: "Pending curriculum LoRA GGUF publication."
+  },
+  {
+    key: "cstinyllama-1.2b-base",
+    label: "CSTinyLlama CZ Base",
+    repoId: "BUT-FIT/CSTinyLlama-1.2B",
+    license: "Apache-2.0",
+    intendedUse: "Czech-native game/example generation experiments.",
+    deprecated: true,
+    status: "deprecated",
+    replacementStatus: "Keep only as an unfine-tuned baseline."
+  },
+  {
+    key: "cstinyllama-1.2b-planet-wordnet-002-copy",
+    label: "Planet Word Net CZ",
+    repoId: "BUT-FIT/CSTinyLlama-1.2B",
+    license: "Apache-2.0",
+    intendedUse: "Planet of Word Net: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
+    deprecated: true,
+    status: "deprecated",
+    replacementStatus: "Pending curriculum word-sentence LoRA GGUF publication."
+  },
+  {
+    key: "cstinyllama-1.2b-translation-cs-en-001",
+    label: "Czech to English",
+    repoId: "BUT-FIT/CSTinyLlama-1.2B",
+    license: "Apache-2.0",
+    intendedUse: "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
+    deprecated: false,
+    status: "active",
+    replacementStatus: ""
+  },
+  {
+    key: "cstinyllama-1.2b-czech-word-sentence-001",
+    label: "Word Sentence CZ",
+    repoId: "BUT-FIT/CSTinyLlama-1.2B",
+    license: "Apache-2.0",
+    intendedUse: "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word Net.",
+    deprecated: false,
+    status: "active",
+    replacementStatus: ""
+  },
+  {
+    key: "caatuu-local-hash-v0.1",
+    label: "Caatuu Curriculum and Asset Embeddings",
+    sourceLabel: "Caatuu curated curriculum corpus and manual image descriptions",
+    sourceUrl: "data/embeddings/README.md",
+    license: "MIT",
+    licenseUrl: "https://opensource.org/licenses/MIT",
+    intendedUse: "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
+    artifactKind: "embedding-vector-db",
+    runtime: "SQLite vector database with local hash embedder",
+    embeddingTextField: "english_text",
+    embeddingInputPolicy: "english_text_only"
+  }
+];
 const generationPresets = {
   fast: {
     label: "Fast",
@@ -38,6 +116,7 @@ const generationPresets = {
   }
 };
 const defaultGenerationSettings = {
+  modelKey: defaultModelKey,
   preset: "chat",
   ...generationPresets.chat
 };
@@ -70,6 +149,7 @@ async function loadContentData() {
 
 const state = {
   activeView: "dictionary",
+  trainTab: "galaxy",
   verbOptionsOpen: false,
   verbQuestion: null,
   verbStats: {
@@ -99,6 +179,120 @@ function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
+function runtimeAdapter() {
+  if (!window.CaatuuRuntime) throw new Error("Caatuu runtime adapter is not available.");
+  return window.CaatuuRuntime;
+}
+
+function hasNativeRuntime() {
+  return window.CaatuuRuntime?.env === "android";
+}
+
+function maintenanceUi() {
+  if (!window.CaatuuMaintenanceUi) throw new Error("Caatuu maintenance UI helper is not available.");
+  return window.CaatuuMaintenanceUi;
+}
+
+function renderModelLicenseList() {
+  const list = $("#modelLicenseList");
+  if (!list) return;
+  list.replaceChildren(...modelLicenseCatalog.map((model) => {
+    const row = document.createElement("div");
+    const term = document.createElement("dt");
+    const detail = document.createElement("dd");
+    const licenseLink = document.createElement("a");
+
+    term.textContent = model.deprecated ? `${model.label} (legacy)` : model.label;
+    const source = document.createElement("span");
+    source.className = "license-source";
+    if (model.repoId) {
+      const repoLink = document.createElement("a");
+      repoLink.href = `https://huggingface.co/${model.repoId}`;
+      repoLink.rel = "noopener";
+      repoLink.textContent = model.repoId;
+      source.append(repoLink);
+    } else if (model.sourceUrl) {
+      const sourceLink = document.createElement("a");
+      sourceLink.href = model.sourceUrl;
+      sourceLink.rel = "noopener";
+      sourceLink.textContent = model.sourceLabel || model.key;
+      source.append(sourceLink);
+    } else {
+      source.textContent = model.sourceLabel || model.key;
+    }
+    licenseLink.href = model.licenseUrl || "https://www.apache.org/licenses/LICENSE-2.0";
+    licenseLink.rel = "noopener";
+    licenseLink.textContent = model.license;
+
+    detail.append(source, " · ", licenseLink);
+    if (model.status) detail.append(" · ", model.status);
+    if (model.embeddingTextField) detail.append(" · ", `embeds ${model.embeddingTextField}`);
+    row.append(term, detail);
+    return row;
+  }));
+  setText("#licenseMetaSummary", `MIT app, ${modelLicenseCatalog.length} local artifacts`);
+}
+
+function normalizeCatalogModel(model) {
+  return {
+    key: model.key,
+    label: model.label || model.key,
+    shortLabel: model.short_label || model.shortLabel || model.label || model.key,
+    repoId: model.repo_id || "",
+    license: model.license || "Apache-2.0",
+    intendedUse: model.intended_use || "",
+    supportsThinking: Boolean(model.supports_thinking || model.supportsThinking),
+    modelFile: model.model_file || model.modelFile || "",
+    format: model.format || "",
+    runtime: model.runtime || "",
+    artifactKind: model.artifact_kind || model.artifactKind || "",
+    deprecated: Boolean(model.deprecated),
+    status: model.status || "active",
+    replacementStatus: model.replacement_status || "",
+    sourceLabel: model.source_label || "",
+    sourceUrl: model.source_url || "",
+    licenseUrl: model.license_url || ""
+  };
+}
+
+async function loadModelLicenseCatalog() {
+  const runtime = runtimeAdapter();
+  const nextCatalog = [];
+  const modelCatalog = await runtime.models.catalog();
+  if (Array.isArray(modelCatalog.models)) {
+    modelCatalog.models.forEach((model) => {
+      if (model.key) supportedModelKeys.add(model.key);
+    });
+    nextCatalog.push(...modelCatalog.models.map(normalizeCatalogModel));
+  }
+
+  try {
+    const embeddingCatalog = await runtime.models.embeddingCatalog();
+    if (Array.isArray(embeddingCatalog.models)) {
+      nextCatalog.push(...embeddingCatalog.models.map((model) => ({
+        ...normalizeCatalogModel(model),
+        artifactKind: model.artifact_kind || "",
+        embeddingTextField: model.embedding_text_field || "",
+        embeddingInputPolicy: model.embedding_input_policy || ""
+      })));
+    }
+  } catch (error) {
+    // Model metadata is enough for settings if browser embedding metadata is unavailable.
+  }
+
+  if (nextCatalog.length) modelLicenseCatalog = nextCatalog;
+  generationSettings = normalizeGenerationSettings(generationSettings);
+}
+
+function modelSummary(model) {
+  if (!model) return "General Czech assistant and spelling checks.";
+  return [
+    model.intendedUse,
+    model.deprecated ? legacyModelNotice : "",
+    model.replacementStatus ? `Replacement: ${model.replacementStatus}` : ""
+  ].filter(Boolean).join(" ");
+}
+
 function clampNumber(value, min, max, fallback) {
   if (!Number.isFinite(value)) return fallback;
   return Math.min(max, Math.max(min, value));
@@ -106,7 +300,7 @@ function clampNumber(value, min, max, fallback) {
 
 function loadStoredGenerationSettings() {
   try {
-    const raw = localStorage.getItem(deviceSettingsStorageKey);
+    const raw = localStorage.getItem(chatSettingsStorageKey);
     if (!raw) return { ...defaultGenerationSettings };
     return normalizeGenerationSettings(JSON.parse(raw));
   } catch (error) {
@@ -115,6 +309,7 @@ function loadStoredGenerationSettings() {
 }
 
 function normalizeGenerationSettings(input = {}) {
+  const modelKey = supportedModelKeys.has(input.modelKey) ? input.modelKey : defaultModelKey;
   const preset = Object.prototype.hasOwnProperty.call(generationPresets, input.preset) ? input.preset : "chat";
   const base = generationPresets[preset];
   const maxTokens = Number(input.maxTokens ?? base.maxTokens);
@@ -125,6 +320,7 @@ function normalizeGenerationSettings(input = {}) {
     : base.reasoningDisplay;
 
   return {
+    modelKey,
     preset,
     label: base.label,
     summary: base.summary,
@@ -138,7 +334,8 @@ function normalizeGenerationSettings(input = {}) {
 
 function saveGenerationSettings() {
   try {
-    localStorage.setItem(deviceSettingsStorageKey, JSON.stringify({
+    localStorage.setItem(chatSettingsStorageKey, JSON.stringify({
+      modelKey: generationSettings.modelKey,
       preset: generationSettings.preset,
       thinking: generationSettings.thinking,
       maxTokens: generationSettings.maxTokens,
@@ -169,15 +366,65 @@ function readGenerationSettingsControls() {
   const temperature = $("#temperature");
   const contextSize = $("#contextSize");
   const reasoningDisplay = $("#reasoningDisplay");
+  const settingsModel = $("#settingsModel");
   if (!thinking || !maxTokens || !temperature || !contextSize || !reasoningDisplay) return;
 
   setGenerationSettings({
+    modelKey: hasNativeRuntime() ? (settingsModel?.value || generationSettings.modelKey) : generationSettings.modelKey,
     thinking: thinking.checked,
     maxTokens: Number(maxTokens.value),
     temperature: Number(temperature.value),
     contextSize: Number(contextSize.value),
     reasoningDisplay: reasoningDisplay.value
   });
+}
+
+function generationModelCatalog() {
+  return modelLicenseCatalog.filter((model) =>
+    (model.modelFile || supportedModelKeys.has(model.key)) &&
+    model.artifactKind !== "embedding-vector-db" &&
+    model.format !== "sqlite"
+  );
+}
+
+function displayModelLabel(model) {
+  const label = model.shortLabel || model.label || model.key;
+  return model.deprecated ? `${label} (legacy)` : label;
+}
+
+function syncSettingsModelOptions() {
+  const settingsModel = $("#settingsModel");
+  if (!settingsModel) return;
+
+  if (!hasNativeRuntime()) {
+    const option = document.createElement("option");
+    option.value = browserFallbackModel;
+    option.textContent = `${browserFallbackLabel} (${browserFallbackModel})`;
+    settingsModel.replaceChildren(option);
+    settingsModel.value = browserFallbackModel;
+    settingsModel.disabled = true;
+    settingsModel.title = "Browser WebGPU mode cannot load the Android GGUF models.";
+    return;
+  }
+
+  const models = generationModelCatalog();
+  settingsModel.disabled = false;
+  settingsModel.title = "";
+  settingsModel.replaceChildren(
+    ...models.map((model) => {
+      const option = document.createElement("option");
+      option.value = model.key;
+      option.textContent = displayModelLabel(model);
+      if (model.deprecated) {
+        option.dataset.status = "deprecated";
+        option.title = legacyModelNotice;
+      }
+      return option;
+    })
+  );
+  settingsModel.value = models.some((model) => model.key === generationSettings.modelKey)
+    ? generationSettings.modelKey
+    : defaultModelKey;
 }
 
 function syncGenerationSettingsUi() {
@@ -188,8 +435,11 @@ function syncGenerationSettingsUi() {
   const temperatureValue = $("#temperatureValue");
   const contextSize = $("#contextSize");
   const reasoningDisplay = $("#reasoningDisplay");
+  const settingsModel = $("#settingsModel");
   if (!thinking || !maxTokens || !temperature || !contextSize || !reasoningDisplay) return;
 
+  syncSettingsModelOptions();
+  if (settingsModel && hasNativeRuntime()) settingsModel.value = generationSettings.modelKey;
   thinking.checked = generationSettings.thinking;
   maxTokens.value = String(generationSettings.maxTokens);
   if (maxTokensValue) maxTokensValue.textContent = String(generationSettings.maxTokens);
@@ -197,15 +447,45 @@ function syncGenerationSettingsUi() {
   if (temperatureValue) temperatureValue.textContent = generationSettings.temperature.toFixed(1);
   contextSize.value = String(generationSettings.contextSize);
   reasoningDisplay.value = generationSettings.reasoningDisplay;
+  const selectedModel = modelLicenseCatalog.find((model) => model.key === generationSettings.modelKey);
+  setText("#modelChoiceSummary", hasNativeRuntime() ? modelSummary(selectedModel) : browserFallbackSummary);
   setText("#settingsSummary", generationSettings.summary);
-  setText("#thinkingSupport", "Saved for Chat");
-  setText("#temperatureSupport", "Saved for the model runtime");
-  setText("#contextSupport", "Saved for native runtime");
-  setText("#capabilityNote", "These settings are shared with the Chat screen.");
+  updateSettingsSupport(selectedModel);
 
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.preset === generationSettings.preset);
   });
+}
+
+function modelSupportsThinking(model) {
+  return Boolean(model?.supportsThinking) || model?.key === "qwen3-lora-003-hard";
+}
+
+function updateSettingsSupport(model) {
+  if (hasNativeRuntime()) {
+    const supportsThinking = modelSupportsThinking(model);
+    setText("#thinkingSupport", supportsThinking ? "Active in APK request" : "Off for selected base model");
+    setText("#temperatureSupport", "APK native bridge pending");
+    setText("#contextSupport", "APK native bridge pending");
+    setText(
+      "#capabilityNote",
+      supportsThinking
+        ? "APK applies max tokens and Qwen chat-template thinking now. Temperature and context are saved for the next native bridge patch."
+        : "APK applies max tokens for this base model. Thinking is disabled; temperature and context are saved for the next native bridge patch."
+    );
+    return;
+  }
+
+  const hasWebGpu = Boolean(runtimeAdapter().capabilities.webGpu);
+  setText("#thinkingSupport", hasWebGpu ? "Active in browser request" : "Browser fallback only");
+  setText("#temperatureSupport", hasWebGpu ? "Active in browser request" : "Browser fallback only");
+  setText("#contextSupport", hasWebGpu ? "Managed by WebLLM" : "Android native only for GGUF");
+  setText(
+    "#capabilityNote",
+    hasWebGpu
+      ? `${browserFallbackSummary} Max tokens, temperature, and thinking apply to the browser fallback only.`
+      : "Install the Android app to use the local GGUF runtime on this device."
+  );
 }
 
 function readStoredTheme() {
@@ -253,19 +533,20 @@ function bindThemeControls() {
   });
 }
 
-function openAppSettingsPanel() {
-  const panel = $("#appSettingsPanel");
+function openSettingsPanel() {
+  const panel = $("#settingsPanel");
   if (!panel) return;
   lastAppSettingsTrigger = document.activeElement;
   panel.hidden = false;
   document.body.classList.add("settings-open");
   syncThemeControls();
   syncGenerationSettingsUi();
-  $("#closeAppSettings")?.focus();
+  syncAppRuntimeControls();
+  $("#closeSettings")?.focus();
 }
 
-function closeAppSettingsPanel({ restoreFocus = true } = {}) {
-  const panel = $("#appSettingsPanel");
+function closeSettingsPanel({ restoreFocus = true } = {}) {
+  const panel = $("#settingsPanel");
   if (!panel) return;
   panel.hidden = true;
   document.body.classList.remove("settings-open");
@@ -273,6 +554,15 @@ function closeAppSettingsPanel({ restoreFocus = true } = {}) {
     lastAppSettingsTrigger.focus();
   }
 }
+
+window.CaatuuHandleAndroidBack = () => {
+  const panel = $("#settingsPanel");
+  if (panel && !panel.hidden) {
+    closeSettingsPanel({ restoreFocus: false });
+    return true;
+  }
+  return false;
+};
 
 function isPwaInstalled() {
   return window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
@@ -284,6 +574,16 @@ function updatePwaInstallUi(statusText = "") {
   const help = $("#pwaInstallHelp");
   if (!button || !status) return;
 
+  if (hasNativeRuntime()) {
+    button.hidden = true;
+    button.disabled = true;
+    status.textContent = "Android native";
+    if (help) help.hidden = true;
+    return;
+  }
+
+  button.hidden = false;
+
   if (isPwaInstalled()) {
     button.textContent = "Installed";
     button.disabled = true;
@@ -292,16 +592,16 @@ function updatePwaInstallUi(statusText = "") {
     return;
   }
 
-  button.textContent = "Install app";
+  button.textContent = "Install browser app";
   button.disabled = !window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1";
-  status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser menu");
+  status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser");
 }
 
 async function promptPwaInstall() {
   if (!deferredPwaInstallPrompt) {
     const help = $("#pwaInstallHelp");
     if (help) help.hidden = false;
-    updatePwaInstallUi("Browser menu");
+    updatePwaInstallUi("Browser");
     return;
   }
 
@@ -311,9 +611,9 @@ async function promptPwaInstall() {
 
   try {
     const choice = await promptEvent.userChoice;
-    updatePwaInstallUi(choice?.outcome === "accepted" ? "Installed" : "Browser menu");
+    updatePwaInstallUi(choice?.outcome === "accepted" ? "Installed" : "Browser");
   } catch (error) {
-    updatePwaInstallUi("Browser menu");
+    updatePwaInstallUi("Browser");
   }
 }
 
@@ -335,6 +635,124 @@ function bindPwaInstall() {
   window.matchMedia?.("(display-mode: standalone)")?.addEventListener?.("change", () => {
     updatePwaInstallUi();
   });
+}
+
+function hasNativeAppUpdate(status = nativeUpdateStatus) {
+  return maintenanceUi().hasNativeAppUpdate(status);
+}
+
+function setUpdateAppControl(status = nativeUpdateStatus, { busy = false } = {}) {
+  maintenanceUi().setUpdateAppControl($("#updateApp"), runtimeAdapter(), status, { busy });
+}
+
+function updateStatusLine(status) {
+  return maintenanceUi().updateStatusLine(status);
+}
+
+function syncAboutVersion(status) {
+  maintenanceUi().setVersionNote($("#settingsVersion"), status);
+}
+
+function syncAppRuntimeControls() {
+  const browserInstallActions = $("#browserInstallActions");
+  if (browserInstallActions) browserInstallActions.hidden = hasNativeRuntime();
+  updatePwaInstallUi();
+
+  const updateButton = $("#updateApp");
+  const clearButton = $("#clearCache");
+  if (updateButton) {
+    updateButton.hidden = true;
+    updateButton.disabled = true;
+  }
+  if (clearButton) clearButton.disabled = false;
+
+  if (hasNativeRuntime()) {
+    setText("#maintenanceStatus", "Checking app version.");
+    refreshNativeUpdateStatus();
+    return;
+  }
+
+  setText("#maintenanceStatus", "Browser mode can clear this origin's Caatuu caches.");
+}
+
+async function refreshNativeUpdateStatus() {
+  if (!hasNativeRuntime()) return;
+  try {
+    nativeUpdateStatus = await runtimeAdapter().maintenance.updateStatus();
+    setUpdateAppControl(nativeUpdateStatus);
+    syncAboutVersion(nativeUpdateStatus);
+    setText("#maintenanceStatus", updateStatusLine(nativeUpdateStatus));
+  } catch (error) {
+    nativeUpdateStatus = { updateAvailable: false };
+    setUpdateAppControl(nativeUpdateStatus);
+    setText("#maintenanceStatus", error?.message || String(error));
+  }
+}
+
+async function updateApp() {
+  if (!hasNativeRuntime()) {
+    setText("#maintenanceStatus", "App updates are available inside the Android APK.");
+    return;
+  }
+
+  try {
+    const status = await runtimeAdapter().maintenance.updateStatus();
+    nativeUpdateStatus = status;
+    syncAboutVersion(status);
+    if (!hasNativeAppUpdate(status)) {
+      setUpdateAppControl(status);
+      setText("#maintenanceStatus", updateStatusLine(status));
+      return;
+    }
+
+    setUpdateAppControl(status, { busy: true });
+    setText("#maintenanceStatus", "Checking the latest debug APK.");
+
+    const result = await runtimeAdapter().maintenance.updateApp({
+      onEvent(message) {
+        const progressText = maintenanceUi().updateProgressMessage(message, formatBytes);
+        if (progressText) setText("#maintenanceStatus", progressText);
+      }
+    });
+
+    setText("#maintenanceStatus", maintenanceUi().updateResultMessage(result));
+  } catch (error) {
+    setText("#maintenanceStatus", error?.message || String(error));
+  } finally {
+    setUpdateAppControl(nativeUpdateStatus);
+  }
+}
+
+async function clearAppCache() {
+  const clearButton = $("#clearCache");
+  if (clearButton) clearButton.disabled = true;
+  setText("#maintenanceStatus", "Clearing app cache.");
+
+  try {
+    const result = await runtimeAdapter().maintenance.clearCache({
+      onEvent(message) {
+        if (message.kind === "status") {
+          setText("#maintenanceStatus", message.message || "Clearing cache.");
+        }
+      }
+    });
+
+    setText("#maintenanceStatus", maintenanceUi().cacheResultMessage(result, formatBytes));
+    if (!hasNativeRuntime()) registerServiceWorker();
+  } catch (error) {
+    setText("#maintenanceStatus", error?.message || String(error));
+  } finally {
+    if (clearButton) clearButton.disabled = false;
+  }
+}
+
+function formatBytes(bytes) {
+  const value = Number(bytes || 0);
+  if (!Number.isFinite(value) || value <= 0) return "unknown size";
+  const gib = value / 1024 / 1024 / 1024;
+  if (gib >= 1) return `${gib.toFixed(2)} GiB`;
+  const mib = value / 1024 / 1024;
+  return `${mib.toFixed(1)} MiB`;
 }
 
 const verbStorageKey = "caatuu-czech.verb-memory.v2";
@@ -759,7 +1177,7 @@ function verbSettings() {
     showPattern: $("#verbShowPattern")?.checked ?? true,
     showAccentHelp: $("#verbShowAccentHelp")?.checked ?? true,
     strictAccents: $("#verbStrictAccents")?.checked ?? false,
-    showReference: $("#verbShowReference")?.checked ?? true,
+    showReference: $("#verbShowReference")?.checked ?? false,
     persons: checkedValues('input[name="verbPerson"]'),
     families: checkedValues('input[name="verbFamily"]'),
     commonLevels: selectedVerbCommonLevels()
@@ -1285,8 +1703,17 @@ function renderVerbQuestion(settings, poolLength) {
 
 function renderVerbReference(settings) {
   const panel = $(".verb-reference-panel");
+  const body = $("#verbReferenceBody");
+  const toggle = $("#verbReferenceToggle");
   const list = $("#verbReferenceList");
   if (!panel || !list) return;
+
+  panel.classList.toggle("is-collapsed", !settings.showReference);
+  if (body) body.hidden = !settings.showReference;
+  if (toggle) {
+    toggle.textContent = settings.showReference ? "Hide tables" : "Show tables";
+    toggle.setAttribute("aria-expanded", String(settings.showReference));
+  }
 
   const persons = settings.persons
     .map((personKey) => verbPersonMap[personKey])
@@ -1298,9 +1725,11 @@ function renderVerbReference(settings) {
       .some((value) => normalizeVerbAnswer(value, false).includes(search));
   });
 
-  panel.hidden = !settings.showReference;
   $("#verbReferenceCount").textContent = `${verbs.length} ${verbs.length === 1 ? "verb" : "verbs"}`;
-  if (!settings.showReference) return;
+  if (!settings.showReference) {
+    list.replaceChildren();
+    return;
+  }
 
   if (!verbs.length || !persons.length) {
     list.innerHTML = `<p class="empty-state">No active verb tables.</p>`;
@@ -1342,6 +1771,12 @@ function renderVerbReference(settings) {
       return card;
     })
   );
+}
+
+function toggleVerbReferenceTables() {
+  const checkbox = $("#verbShowReference");
+  if (checkbox) checkbox.checked = !checkbox.checked;
+  renderVerbReference(verbSettings());
 }
 
 function renderVerbTrainer() {
@@ -1560,6 +1995,7 @@ function bindVerbControls() {
   $("#verbResetProgress")?.addEventListener("click", resetVerbProgress);
   $("#verbResetMemory")?.addEventListener("click", clearVerbMemory);
   $("#verbSpeakAnswer")?.addEventListener("click", speakVerbAnswer);
+  $("#verbReferenceToggle")?.addEventListener("click", toggleVerbReferenceTables);
   $("#verbAccentTray")?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-accent]");
     if (button) insertVerbAccent(button.dataset.accent);
@@ -2493,7 +2929,7 @@ function buildPrintBook(options = printOptions()) {
 }
 
 function openPrintMenu() {
-  closeAppSettingsPanel({ restoreFocus: false });
+  closeSettingsPanel({ restoreFocus: false });
   applyPrintDefaults();
   $("#printMenu").hidden = false;
   $("#printBackdrop").hidden = false;
@@ -2536,8 +2972,35 @@ function setView(view) {
   }
 }
 
+function setTrainTab(tab) {
+  const trainPanels = {
+    galaxy: "trainPanelGalaxy",
+    "verb-lab": "trainPanelVerbLab",
+    "word-net": "trainPanelWordNet",
+    "memory-moon": "trainPanelMemoryMoon"
+  };
+  const activeTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
+  const targetId = trainPanels[activeTab];
+  state.trainTab = activeTab;
+  document.querySelectorAll(".train-world").forEach((button) => {
+    const selected = button.dataset.trainTab === activeTab;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  document.querySelectorAll(".train-tab-panel").forEach((panel) => {
+    const selected = panel.id === targetId;
+    panel.hidden = !selected;
+    panel.classList.toggle("is-active", selected);
+  });
+}
+
 function setInitialViewFromHash() {
   const view = window.location.hash.replace("#", "");
+  if (view === "settings") {
+    setView(state.activeView);
+    window.requestAnimationFrame(openSettingsPanel);
+    return;
+  }
   if (view) setView(view);
 }
 
@@ -2557,29 +3020,39 @@ function bindUi() {
   document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
+    const trainTab = event.target.closest("[data-train-tab]");
+    if (trainTab) {
+      if (trainTab.dataset.trainTab === "word-net") {
+        window.location.href = "word-net.html";
+        return;
+      }
+      setTrainTab(trainTab.dataset.trainTab);
+    }
   });
 
-  $("#openAppSettings")?.addEventListener("click", openAppSettingsPanel);
-  $("#closeAppSettings")?.addEventListener("click", closeAppSettingsPanel);
-  $("#appSettingsPanel")?.addEventListener("click", (event) => {
-    if (event.target === $("#appSettingsPanel")) closeAppSettingsPanel();
+  $("#openSettings")?.addEventListener("click", openSettingsPanel);
+  $("#closeSettings")?.addEventListener("click", closeSettingsPanel);
+  $("#settingsPanel")?.addEventListener("click", (event) => {
+    if (event.target === $("#settingsPanel")) closeSettingsPanel();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && $("#appSettingsPanel") && !$("#appSettingsPanel").hidden) {
-      closeAppSettingsPanel();
+    if (event.key === "Escape" && $("#settingsPanel") && !$("#settingsPanel").hidden) {
+      closeSettingsPanel();
     }
   });
   bindThemeControls();
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.addEventListener("click", () => applyGenerationPreset(button.dataset.preset));
   });
-  ["thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
+  ["settingsModel", "thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
     const control = $(`#${id}`);
     if (!control) return;
     control.addEventListener("input", readGenerationSettingsControls);
     control.addEventListener("change", readGenerationSettingsControls);
   });
   $("#settingsResetVerbMemory")?.addEventListener("click", clearVerbMemory);
+  $("#updateApp")?.addEventListener("click", updateApp);
+  $("#clearCache")?.addEventListener("click", clearAppCache);
 
   window.addEventListener("hashchange", setInitialViewFromHash);
 
@@ -2626,8 +3099,10 @@ function bindUi() {
 async function init() {
   try {
     await loadContentData();
+    await loadModelLicenseCatalog().catch(() => {});
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();
+    renderModelLicenseList();
     syncGenerationSettingsUi();
     setInitialViewFromHash();
     render();
@@ -2638,8 +3113,7 @@ async function init() {
 }
 
 function registerServiceWorker() {
-  if (!("serviceWorker" in navigator)) return;
-  navigator.serviceWorker.register("sw.js").catch(() => {});
+  runtimeAdapter().registerServiceWorker().catch(() => {});
 }
 
 init();

@@ -1,11 +1,13 @@
 #!/usr/bin/env sh
 set -eu
 
-APK_URL="${APK_URL:-https://caatuu.waajacu.com/android/caatuu-debug.apk}"
-MANIFEST_URL="${MANIFEST_URL:-https://caatuu.waajacu.com/android/caatuu-debug.json}"
-APK_FILE="${APK_FILE:-$HOME/caatuu-debug.apk}"
-SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu-debug.apk}"
-EXPECTED_SHA="${EXPECTED_SHA:-9a281c3f622db8485622b9cf3dbaa47e74a9eb8840c6cd800b6c010af71eac91}"
+DEFAULT_APK_URL="https://caatuu.waajacu.com/android/caatuu.apk"
+APK_URL="${APK_URL:-}"
+MANIFEST_URL="${MANIFEST_URL:-https://caatuu.waajacu.com/android/caatuu.json}"
+APK_FILE="${APK_FILE:-$HOME/caatuu.apk}"
+MANIFEST_FILE="${MANIFEST_FILE:-$HOME/caatuu.json}"
+SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu.apk}"
+EXPECTED_SHA="${EXPECTED_SHA:-}"
 REPORT_FILE="${REPORT_FILE:-$HOME/caatuu-install-debug-report.txt}"
 LOGCAT_FILE="${LOGCAT_FILE:-$HOME/caatuu-install-logcat.txt}"
 PM_FILE="${PM_FILE:-$HOME/caatuu-install-pm.txt}"
@@ -36,8 +38,23 @@ note ""
 
 if need_command curl; then
   note "Published APK manifest"
-  curl -L --fail --retry 3 "$MANIFEST_URL" 2>/dev/null | tee -a "$REPORT_FILE" || true
+  if curl -L --fail --retry 3 -o "$MANIFEST_FILE" "$MANIFEST_URL" 2>> "$REPORT_FILE"; then
+    cat "$MANIFEST_FILE" | tee -a "$REPORT_FILE"
+    note ""
+    MANIFEST_APK_URL="$(sed -nE 's/.*"apk_url"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' "$MANIFEST_FILE" | head -1)"
+    MANIFEST_SHA="$(sed -nE 's/.*"sha256"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' "$MANIFEST_FILE" | head -1)"
+    APK_URL="${APK_URL:-$MANIFEST_APK_URL}"
+    EXPECTED_SHA="${EXPECTED_SHA:-$MANIFEST_SHA}"
+  else
+    note "WARNING: Could not download manifest from $MANIFEST_URL"
+  fi
   note ""
+fi
+
+APK_URL="${APK_URL:-$DEFAULT_APK_URL}"
+if [ -z "$EXPECTED_SHA" ]; then
+  note "ERROR: No expected SHA-256. Set EXPECTED_SHA or provide a manifest with sha256."
+  exit 1
 fi
 
 if need_command pkg; then
@@ -58,6 +75,7 @@ run_show getprop ro.product.cpu.abilist
 note ""
 note "Downloading APK"
 rm -f "$APK_FILE"
+note "APK URL: $APK_URL"
 curl -L --fail --retry 3 -o "$APK_FILE" "$APK_URL" 2>&1 | tee -a "$REPORT_FILE"
 
 note ""
@@ -87,7 +105,7 @@ if [ -d "$HOME/storage/downloads" ]; then
   chmod 644 "$SHARED_APK" 2>/dev/null || true
   INSTALL_APK="$SHARED_APK"
 elif [ -d /sdcard/Download ]; then
-  SHARED_APK="/sdcard/Download/caatuu-debug.apk"
+  SHARED_APK="/sdcard/Download/caatuu.apk"
   cp "$APK_FILE" "$SHARED_APK" 2>> "$REPORT_FILE" && INSTALL_APK="$SHARED_APK" || true
 fi
 

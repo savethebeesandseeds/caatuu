@@ -1,13 +1,24 @@
-const CACHE_NAME = "caatuu-czech-pwa-v58";
+const CACHE_NAME = "caatuu-czech-pwa-v134";
 const CORE_ASSETS = [
   "./",
+  "./home.html",
+  "./home.css?v=home-8",
   "./index.html",
   "./theme.css?v=theme-2",
-  "./app.css?v=shell-16",
-  "./app.js?v=shell-9",
-  "./device-ai.html",
-  "./device-ai.css?v=shell-20",
-  "./device-ai.js?v=shell-17",
+  "./app.css?v=shell-36",
+  "./chrome.css?v=chrome-style-7",
+  "./runtime.js?v=runtime-2",
+  "./chrome.js?v=chrome-14",
+  "./setup.js?v=setup-9",
+  "./setup-assets.json",
+  "./maintenance-ui.js?v=maintenance-1",
+  "./app.js?v=shell-27",
+  "./word-net.html",
+  "./word-net.css?v=word-net-7",
+  "./word-net.js?v=word-net-6",
+  "./chat.html",
+  "./chat.css?v=chat-3",
+  "./chat.js?v=chat-16",
   "./manifest.webmanifest",
   "./icons/caatuu-czech-192.png",
   "./icons/caatuu-czech-512.png",
@@ -72,7 +83,8 @@ async function cacheFirst(request) {
 
 async function networkThenCache(request) {
   try {
-    const response = await fetch(request);
+    const freshRequest = new Request(request, { cache: "reload" });
+    const response = await fetch(freshRequest);
     await cacheResponse(request, response);
     return response;
   } catch (error) {

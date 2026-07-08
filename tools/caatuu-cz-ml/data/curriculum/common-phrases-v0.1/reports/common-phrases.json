@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-07-05T18:31:05.200Z",
+  "rows": 500,
+  "source_id": "caatuu-authored-common-phrases-v0.1",
+  "license": "MIT",
+  "caveat": "This is an authored common conversation phrase bank, not a copied external frequency list.",
+  "validation": {
+    "generated_at": "2026-07-05T18:31:05.189Z",
+    "schema_version": "caatuu-curriculum-flat-v0.2",
+    "rows": 500,
+    "unique_ids": 500,
+    "duplicate_text_groups": 0,
+    "notes_blank": true,
+    "czech_text_filled": 0,
+    "czech_text_blank": 500,
+    "category_counts": {
+      "choices_opinions": 25,
+      "classroom_learning": 25,
+      "courtesy": 25,
+      "daily_routine": 25,
+      "family_people": 25,
+      "feelings_needs": 25,
+      "food_drink": 25,
+      "greetings_intro": 25,
+      "health_safety": 25,
+      "help_clarification": 25,
+      "home_chores": 25,
+      "location_directions": 25,
+      "phone_technology": 25,
+      "plans_invitations": 25,
+      "play_hobbies": 25,
+      "shopping_money": 25,
+      "social_responses": 25,
+      "time_calendar": 25,
+      "travel_transport": 25,
+      "weather_clothing": 25
+    },
+    "difficulty_counts": {
+      "1": 156,
+      "2": 344
+    },
+    "validation_errors": []
+  },
+  "sentence_length_counts": {
+    "1": 10,
+    "2": 49,
+    "3": 161,
+    "4": 212,
+    "5": 58,
+    "6": 10
+  },
+  "top_openings": [
+    [
+      "i don t",
+      10
+    ],
+    [
+      "this is my",
+      7
+    ],
+    [
+      "i need a",
+      6
+    ],
+    [
+      "let s go",
+      6
+    ],
+    [
+      "it s time",
+      5
+    ],
+    [
+      "i want to",
+      4
+    ],
+    [
+      "it is too",
+      4
+    ],
+    [
+      "can i have",
+      3
+    ],
+    [
+      "i am going",
+      3
+    ],
+    [
+      "i can t",
+      3
+    ],
+    [
+      "let s play",
+      3
+    ],
+    [
+      "put on your",
+      3
+    ],
+    [
+      "this is too",
+      3
+    ],
+    [
+      "turn off the",
+      3
+    ],
+    [
+      "where is the",
+      3
+    ],
+    [
+      "can you show",
+      2
+    ],
+    [
+      "do you have",
+      2
+    ],
+    [
+      "do you want",
+      2
+    ],
+    [
+      "i am here",
+      2
+    ],
+    [
+      "i go to",
+      2
+    ],
+    [
+      "i m happy",
+      2
+    ],
+    [
+      "it s in",
+      2
+    ],
+    [
+      "it s my",
+      2
+    ],
+    [
+      "it s your",
+      2
+    ],
+    [
+      "the room is",
+      2
+    ]
+  ],
+  "top_target_words": [
+    [
+      "go",
+      15
+    ],
+    [
+      "need",
+      14
+    ],
+    [
+      "here",
+      12
+    ],
+    [
+      "please",
+      11
+    ],
+    [
+      "want",
+      11
+    ],
+    [
+      "good",
+      10
+    ],
+    [
+      "play",
+      10
+    ],
+    [
+      "come",
+      9
+    ],
+    [
+      "take",
+      9
+    ],
+    [
+      "time",
+      9
+    ],
+    [
+      "turn",
+      9
+    ],
+    [
+      "see",
+      8
+    ],
+    [
+      "home",
+      7
+    ],
+    [
+      "put",
+      7
+    ],
+    [
+      "ready",
+      7
+    ],
+    [
+      "wait",
+      7
+    ],
+    [
+      "again",
+      6
+    ],
+    [
+      "bag",
+      6
+    ],
+    [
+      "eat",
+      6
+    ],
+    [
+      "later",
+      6
+    ],
+    [
+      "like",
+      6
+    ],
+    [
+      "off",
+      6
+    ],
+    [
+      "school",
+      6
+    ],
+    [
+      "door",
+      5
+    ],
+    [
+      "help",
+      5
+    ],
+    [
+      "nice",
+      5
+    ],
+    [
+      "no",
+      5
+    ],
+    [
+      "not",
+      5
+    ],
+    [
+      "open",
+      5
+    ],
+    [
+      "thank",
+      5
+    ],
+    [
+      "try",
+      5
+    ],
+    [
+      "answer",
+      4
+    ],
+    [
+      "away",
+      4
+    ],
+    [
+      "bus",
+      4
+    ],
+    [
+      "clean",
+      4
+    ],
+    [
+      "close",
+      4
+    ],
+    [
+      "coat",
+      4
+    ],
+    [
+      "day",
+      4
+    ],
+    [
+      "friend",
+      4
+    ],
+    [
+      "game",
+      4
+    ]
+  ]
+}

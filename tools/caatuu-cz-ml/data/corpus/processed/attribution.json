@@ -1,0 +1,177 @@
+[
+  {
+    "source_id": "caatuu_dictionary",
+    "source_type": "caatuu_app_data",
+    "title": "Caatuu dictionary entries",
+    "license": "project-local",
+    "url": null
+  },
+  {
+    "source_id": "caatuu_scripts",
+    "source_type": "caatuu_app_data",
+    "title": "Caatuu short scripts",
+    "license": "project-local",
+    "url": null
+  },
+  {
+    "source_id": "caatuu_verbs",
+    "source_type": "caatuu_app_data",
+    "title": "Caatuu verb forms",
+    "license": "project-local",
+    "url": null
+  },
+  {
+    "source_id": "wikipedia:Autobus",
+    "source_type": "wikipedia_extract",
+    "title": "Autobus",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Autobus"
+  },
+  {
+    "source_id": "wikipedia:Brno",
+    "source_type": "wikipedia_extract",
+    "title": "Brno",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Brno"
+  },
+  {
+    "source_id": "wikipedia:Bydlení",
+    "source_type": "wikipedia_extract",
+    "title": "Bydlení",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Bydlen%C3%AD"
+  },
+  {
+    "source_id": "wikipedia:Cestování",
+    "source_type": "wikipedia_extract",
+    "title": "Cestování",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Cestov%C3%A1n%C3%AD"
+  },
+  {
+    "source_id": "wikipedia:Chléb",
+    "source_type": "wikipedia_extract",
+    "title": "Chléb",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Chl%C3%A9b"
+  },
+  {
+    "source_id": "wikipedia:Doprava",
+    "source_type": "wikipedia_extract",
+    "title": "Doprava",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Doprava"
+  },
+  {
+    "source_id": "wikipedia:Káva",
+    "source_type": "wikipedia_extract",
+    "title": "Káva",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/K%C3%A1va"
+  },
+  {
+    "source_id": "wikipedia:Letiště",
+    "source_type": "wikipedia_extract",
+    "title": "Letiště",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Leti%C5%A1t%C4%9B"
+  },
+  {
+    "source_id": "wikipedia:Lékárna",
+    "source_type": "wikipedia_extract",
+    "title": "Lékárna",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/L%C3%A9k%C3%A1rna"
+  },
+  {
+    "source_id": "wikipedia:Mléko",
+    "source_type": "wikipedia_extract",
+    "title": "Mléko",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Ml%C3%A9ko"
+  },
+  {
+    "source_id": "wikipedia:Nemocnice",
+    "source_type": "wikipedia_extract",
+    "title": "Nemocnice",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Nemocnice"
+  },
+  {
+    "source_id": "wikipedia:Obchod",
+    "source_type": "wikipedia_extract",
+    "title": "Obchod",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Obchod"
+  },
+  {
+    "source_id": "wikipedia:Praha",
+    "source_type": "wikipedia_extract",
+    "title": "Praha",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Praha"
+  },
+  {
+    "source_id": "wikipedia:Práce",
+    "source_type": "wikipedia_extract",
+    "title": "Práce",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Pr%C3%A1ce"
+  },
+  {
+    "source_id": "wikipedia:Restaurace",
+    "source_type": "wikipedia_extract",
+    "title": "Restaurace",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Restaurace"
+  },
+  {
+    "source_id": "wikipedia:Rodina",
+    "source_type": "wikipedia_extract",
+    "title": "Rodina",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Rodina"
+  },
+  {
+    "source_id": "wikipedia:Supermarket",
+    "source_type": "wikipedia_extract",
+    "title": "Supermarket",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/Supermarket"
+  },
+  {
+    "source_id": "wikipedia:Česko",
+    "source_type": "wikipedia_extract",
+    "title": "Česko",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/%C4%8Cesko"
+  },
+  {
+    "source_id": "wikipedia:Čeština",
+    "source_type": "wikipedia_extract",
+    "title": "Čeština",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/%C4%8Ce%C5%A1tina"
+  },
+  {
+    "source_id": "wikipedia:Škola",
+    "source_type": "wikipedia_extract",
+    "title": "Škola",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/%C5%A0kola"
+  },
+  {
+    "source_id": "wikipedia:Železniční doprava",
+    "source_type": "wikipedia_extract",
+    "title": "Železniční doprava",
+    "license": "CC BY-SA",
+    "url": "https://cs.wikipedia.org/wiki/%C5%BDelezni%C4%8Dn%C3%AD_doprava"
+  },
+  {
+    "source_id": "gutenberg_13083_rur",
+    "source_type": "book",
+    "title": "R.U.R. (Rossum's Universal Robots)",
+    "license": "Project Gutenberg public-domain text, check local reuse requirements before redistribution",
+    "url": "https://www.gutenberg.org/ebooks/13083"
+  }
+]

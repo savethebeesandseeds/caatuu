@@ -1,0 +1,15 @@
+{
+  "documents": 25,
+  "sentences": 4278,
+  "characters": 472504,
+  "source_counts": {
+    "caatuu_app_data": 3,
+    "wikipedia_extract": 21,
+    "book": 1
+  },
+  "outputs": {
+    "corpus_jsonl": "processed\\czech_seed_corpus.jsonl",
+    "sentences_txt": "processed\\czech_seed_sentences.txt",
+    "attribution_json": "processed\\attribution.json"
+  }
+}

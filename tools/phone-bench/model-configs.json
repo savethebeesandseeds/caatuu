@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "default_model": "cstinyllama-1.2b-czech-word-sentence-001",
+  "models": {
+    "qwen3-lora-003-hard": {
+      "label": "Caatuu Czech Qwen3 1.7B LoRA 003 Hard",
+      "run_id": "qwen3-1.7b-lora-003-hard",
+      "source_type": "local_hf",
+      "repo_id": "Qwen/Qwen3-1.7B",
+      "license": "Apache-2.0",
+      "model_hf_dir": "../caatuu-cz-ml/data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/merged-hf",
+      "model_basename": "caatuu-czech-qwen3-1.7b-003-hard",
+      "artifact_subdir": "",
+      "quantization": "Q4_K_M",
+      "app_label": "Caatuu CZ LoRA",
+      "short_label": "Caatuu CZ",
+      "base_model": "Qwen3 1.7B",
+      "adapter": "qwen3-1.7b-lora-003-hard",
+      "intended_use": "General Czech assistant and spelling checks.",
+      "status": "deprecated",
+      "deprecated": true,
+      "replacement_status": "Pending curriculum LoRA GGUF publication.",
+      "supports_thinking": true,
+      "notes": [
+        "Legacy/deprecated: kept for compatibility until the curriculum LoRA GGUF replacements are published.",
+        "Source is the merged Hugging Face export from the ML workspace."
+      ]
+    },
+    "cstinyllama-1.2b-base": {
+      "label": "BUT-FIT CSTinyLlama 1.2B Base",
+      "run_id": "cstinyllama-1.2b-base",
+      "source_type": "hf_snapshot",
+      "repo_id": "BUT-FIT/CSTinyLlama-1.2B",
+      "license": "Apache-2.0",
+      "snapshot_dir": "artifacts/hf/BUT-FIT_CSTinyLlama-1.2B",
+      "model_basename": "caatuu-czech-cstinyllama-1.2b-base",
+      "artifact_subdir": "cstinyllama-1.2b-base",
+      "quantization": "Q4_K_M",
+      "app_label": "CSTinyLlama CZ Base",
+      "short_label": "CSTinyLlama",
+      "base_model": "BUT-FIT CSTinyLlama 1.2B",
+      "adapter": "",
+      "intended_use": "Czech-native game/example generation experiments.",
+      "status": "deprecated",
+      "deprecated": true,
+      "replacement_status": "Keep only as an unfine-tuned baseline.",
+      "supports_thinking": false,
+      "notes": [
+        "Legacy/deprecated raw Czech base model, not Caatuu fine-tuned.",
+        "Use as the first Czech-native comparison target before deciding whether to train a LoRA."
+      ]
+    },
+    "cstinyllama-1.2b-planet-wordnet-002-copy": {
+      "label": "Caatuu Planet Word Net CSTinyLlama 1.2B LoRA 003 Clean SFT",
+      "run_id": "cstinyllama-1.2b-planet-wordnet-003-clean-sft",
+      "source_type": "local_hf",
+      "repo_id": "BUT-FIT/CSTinyLlama-1.2B",
+      "license": "Apache-2.0",
+      "model_hf_dir": "../caatuu-cz-ml/data/models/czech-finetuned/exports/cstinyllama-1.2b-planet-wordnet-002-copy/merged-hf",
+      "model_basename": "caatuu-czech-cstinyllama-1.2b-planet-wordnet-002-copy",
+      "artifact_subdir": "cstinyllama-1.2b-planet-wordnet-002-copy",
+      "quantization": "Q4_K_M",
+      "app_label": "Planet Word Net CZ",
+      "short_label": "Word Net",
+      "base_model": "BUT-FIT CSTinyLlama 1.2B",
+      "adapter": "cstinyllama-1.2b-planet-wordnet-003-clean-sft",
+      "intended_use": "Planet of Word Net: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
+      "status": "deprecated",
+      "deprecated": true,
+      "replacement_status": "Pending curriculum word-sentence LoRA GGUF publication.",
+      "supports_thinking": false,
+      "notes": [
+        "Legacy/deprecated CSTinyLlama LoRA trained with clean sentence-generation examples and anti-meta-language filtering.",
+        "Use with prompt format: Cíl: WORD newline Napiš jednu krátkou běžnou českou větu. Nevysvětluj. newline Věta:",
+        "Relaxed local benchmark passed 391/420 one-sentence Czech outputs when natural inflection is accepted."
+      ]
+    },
+    "cstinyllama-1.2b-translation-cs-en-001": {
+      "label": "Caatuu Czech to English CSTinyLlama 1.2B LoRA 001",
+      "run_id": "cstinyllama-1.2b-translation-cs-en-001",
+      "source_type": "local_hf",
+      "repo_id": "BUT-FIT/CSTinyLlama-1.2B",
+      "license": "Apache-2.0",
+      "model_hf_dir": "../caatuu-cz-ml/data/models/czech-finetuned/exports/cstinyllama-1.2b-translation-cs-en-001/merged-hf",
+      "model_basename": "caatuu-czech-cstinyllama-1.2b-translation-cs-en-001",
+      "artifact_subdir": "cstinyllama-1.2b-translation-cs-en-001",
+      "quantization": "Q4_K_M",
+      "app_label": "Czech to English",
+      "short_label": "CZ -> EN",
+      "base_model": "BUT-FIT CSTinyLlama 1.2B",
+      "adapter": "cstinyllama-1.2b-translation-cs-en-001",
+      "intended_use": "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
+      "status": "deprecated",
+      "deprecated": true,
+      "replacement_status": "Replaced for evaluation by qwen3-1.7b-translation-cs-en-001.",
+      "supports_thinking": false,
+      "notes": [
+        "Legacy/deprecated CSTinyLlama translation LoRA trained from the curated bilingual Caatuu corpus.",
+        "Deprecated because app testing showed weaker Czech-to-English quality than expected.",
+        "Smoke benchmark passed 80/80 Czech-to-English generation checks with average similarity 0.9943."
+      ]
+    },
+    "qwen3-1.7b-translation-cs-en-001": {
+      "label": "Caatuu Czech to English Qwen3 1.7B LoRA 001",
+      "run_id": "qwen3-1.7b-translation-cs-en-001",
+      "source_type": "local_hf",
+      "repo_id": "Qwen/Qwen3-1.7B",
+      "license": "Apache-2.0",
+      "model_hf_dir": "../caatuu-cz-ml/data/models/czech-finetuned/exports/qwen3-1.7b-translation-cs-en-001/merged-hf",
+      "model_basename": "caatuu-czech-qwen3-1.7b-translation-cs-en-001",
+      "artifact_subdir": "qwen3-1.7b-translation-cs-en-001",
+      "quantization": "Q4_K_M",
+      "app_label": "Czech to English Qwen",
+      "short_label": "CZ -> EN",
+      "base_model": "Qwen3 1.7B",
+      "adapter": "qwen3-1.7b-translation-cs-en-001",
+      "intended_use": "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
+      "status": "active",
+      "deprecated": false,
+      "replacement_status": "",
+      "supports_thinking": false,
+      "notes": [
+        "Qwen3 translation LoRA trained from the curated bilingual Caatuu corpus using the chat-template SFT path, then continued once over train_all.jsonl for the release artifact after validation was complete.",
+        "Use with prompt format: Translate this Czech sentence into simple English. Return only the English sentence. newline Czech: SENTENCE newline English:"
+      ]
+    },
+    "cstinyllama-1.2b-czech-word-sentence-001": {
+      "label": "Caatuu Czech Word Sentence CSTinyLlama 1.2B LoRA 001",
+      "run_id": "cstinyllama-1.2b-czech-word-sentence-001",
+      "source_type": "local_hf",
+      "repo_id": "BUT-FIT/CSTinyLlama-1.2B",
+      "license": "Apache-2.0",
+      "model_hf_dir": "../caatuu-cz-ml/data/models/czech-finetuned/exports/cstinyllama-1.2b-czech-word-sentence-001/merged-hf",
+      "model_basename": "caatuu-czech-cstinyllama-1.2b-word-sentence-001",
+      "artifact_subdir": "cstinyllama-1.2b-czech-word-sentence-001",
+      "quantization": "Q4_K_M",
+      "app_label": "Word Sentence CZ",
+      "short_label": "Word Sentence",
+      "base_model": "BUT-FIT CSTinyLlama 1.2B",
+      "adapter": "cstinyllama-1.2b-czech-word-sentence-001",
+      "intended_use": "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word Net.",
+      "status": "active",
+      "deprecated": false,
+      "replacement_status": "",
+      "supports_thinking": false,
+      "notes": [
+        "Curriculum utility LoRA trained from the curated child-safe Caatuu corpus.",
+        "Relaxed smoke benchmark passed 74/80; all 80 outputs were Czech one-sentence responses with no meta-language."
+      ]
+    }
+  }
+}

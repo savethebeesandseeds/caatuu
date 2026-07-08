@@ -1,0 +1,6205 @@
+{
+  "generated_at": "2026-07-08T00:41:12.109Z",
+  "source_file": "tools/caatuu-cz-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
+  "vector_db": "apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+  "model_id": "caatuu-local-hash-v0.1",
+  "caveat": "This is a deterministic lexical vector index computed only from english_text, not czech_text or metadata, and not a semantic transformer embedding model.",
+  "rows": 5000,
+  "db_bytes": 17129472,
+  "db_sha256": "d37fe70539b38ca07c69e7c7a8963afaf485905582d1045f701227ce24424f51",
+  "exact_duplicate_groups": [],
+  "near_duplicate_thresholds": {
+    "vector_score": 0.74,
+    "token_jaccard": 0.72,
+    "max_candidates": 200
+  },
+  "near_duplicate_candidates": [
+    {
+      "id_a": "cc-003774",
+      "text_a": "A father sees the dry boat near the station.",
+      "id_b": "cc-004660",
+      "text_b": "A father sees the boat near the station.",
+      "vector_score": 0.9589,
+      "token_jaccard": 0.8333,
+      "same_topic": true,
+      "topic_a": "transport",
+      "topic_b": "transport",
+      "difficulty_a": 2,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "sees",
+        "boat",
+        "station"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001333",
+      "text_a": "A child sees the plane near the station.",
+      "id_b": "cc-004483",
+      "text_b": "A child sees the new plane near the station.",
+      "vector_score": 0.9574,
+      "token_jaccard": 0.8333,
+      "same_topic": true,
+      "topic_a": "transport",
+      "topic_b": "transport",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "child",
+        "sees",
+        "plane",
+        "station"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001207",
+      "text_a": "A friend tastes the sweet yogurt with a spoon.",
+      "id_b": "cc-001896",
+      "text_b": "A friend tastes the yogurt with a spoon.",
+      "vector_score": 0.9517,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 3,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "friend",
+        "tastes",
+        "yogurt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000034",
+      "text_a": "A mother carries the small basket to the room.",
+      "id_b": "cc-003745",
+      "text_b": "A mother carries the basket to the room.",
+      "vector_score": 0.9514,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "carries",
+        "basket",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003745",
+      "text_a": "A mother carries the basket to the room.",
+      "id_b": "cc-004950",
+      "text_b": "A mother carries the green basket to the room.",
+      "vector_score": 0.9514,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "carries",
+        "basket",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003046",
+      "text_a": "A father rides the small bike on the path.",
+      "id_b": "cc-003759",
+      "text_b": "A father rides the bike on the path.",
+      "vector_score": 0.948,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "transport",
+      "topic_b": "transport",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "father",
+        "rides",
+        "bike",
+        "path"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001042",
+      "text_a": "A boy has a ruler.",
+      "id_b": "cc-004383",
+      "text_b": "A boy has a basket.",
+      "vector_score": 0.9442,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "boy",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003893",
+      "text_a": "A student opens the new notebook in class.",
+      "id_b": "cc-004571",
+      "text_b": "A student opens the notebook in class.",
+      "vector_score": 0.9441,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "student",
+        "opens",
+        "notebook"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000653",
+      "text_a": "The bed is in the room.",
+      "id_b": "cc-000993",
+      "text_b": "The red bed is in the room.",
+      "vector_score": 0.9421,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "is",
+        "bed",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001047",
+      "text_a": "A child eats the hot pasta after lunch.",
+      "id_b": "cc-001317",
+      "text_b": "A child eats the pasta after lunch.",
+      "vector_score": 0.942,
+      "token_jaccard": 0.8333,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "child",
+        "eats",
+        "pasta"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002892",
+      "text_a": "A grandpa likes a potato.",
+      "id_b": "cc-003477",
+      "text_b": "A grandpa likes a story.",
+      "vector_score": 0.9389,
+      "token_jaccard": 0.5,
+      "same_topic": false,
+      "topic_a": "food",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandpa",
+        "likes"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000653",
+      "text_a": "The bed is in the room.",
+      "id_b": "cc-002157",
+      "text_b": "The soft bed is in the room.",
+      "vector_score": 0.9364,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "is",
+        "bed",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000675",
+      "text_a": "Do you want a ball?",
+      "id_b": "cc-002816",
+      "text_b": "Do you want a pencil?",
+      "vector_score": 0.9361,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "want"
+      ],
+      "grammar_a": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001750",
+      "text_a": "Do you want a castle?",
+      "id_b": "cc-004203",
+      "text_b": "Do you want a cake?",
+      "vector_score": 0.9361,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "food",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "want"
+      ],
+      "grammar_a": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001091",
+      "text_a": "A neighbor carries the ruler.",
+      "id_b": "cc-001377",
+      "text_b": "A neighbor carries the basket.",
+      "vector_score": 0.9356,
+      "token_jaccard": 0.5,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "neighbor",
+        "carries"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002792",
+      "text_a": "The cake is wet.",
+      "id_b": "cc-003581",
+      "text_b": "Is the castle wet?",
+      "vector_score": 0.9269,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "food",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "wet"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000204",
+      "text_a": "The pencil is small.",
+      "id_b": "cc-000418",
+      "text_b": "The ball is small.",
+      "vector_score": 0.9262,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "small"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000809",
+      "text_a": "A friend eats the banana after lunch.",
+      "id_b": "cc-001431",
+      "text_b": "A friend eats the yellow banana after lunch.",
+      "vector_score": 0.9251,
+      "token_jaccard": 0.8333,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "friend",
+        "eats",
+        "banana"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000956",
+      "text_a": "Please put the bag on the table.",
+      "id_b": "cc-001809",
+      "text_b": "Please put the spoon on the table.",
+      "vector_score": 0.9165,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001262",
+      "text_a": "The ruler is small.",
+      "id_b": "cc-003765",
+      "text_b": "The basket is small.",
+      "vector_score": 0.9129,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "small"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002624",
+      "text_a": "The potato is small.",
+      "id_b": "cc-003025",
+      "text_b": "The story is small.",
+      "vector_score": 0.9129,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "food",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "small"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003766",
+      "text_a": "The ruler is brown.",
+      "id_b": "cc-004052",
+      "text_b": "The basket is brown.",
+      "vector_score": 0.9129,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "colors",
+      "topic_b": "colors",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "brown"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000290",
+      "text_a": "Please put the cup on the table for me.",
+      "id_b": "cc-000364",
+      "text_b": "Please put the box on the table for me.",
+      "vector_score": 0.9117,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table",
+        "for"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001083",
+      "text_a": "A brother puts the basket in the box.",
+      "id_b": "cc-002585",
+      "text_b": "A brother puts the basket in the bag.",
+      "vector_score": 0.9116,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000956",
+      "text_a": "Please put the bag on the table.",
+      "id_b": "cc-003985",
+      "text_b": "Please put the castle on the table.",
+      "vector_score": 0.9114,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001197",
+      "text_a": "Please close the drawer.",
+      "id_b": "cc-004601",
+      "text_b": "Please close the drawer now.",
+      "vector_score": 0.9109,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "clothing",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "drawer"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004337",
+      "text_a": "Please close the basket now.",
+      "id_b": "cc-004433",
+      "text_b": "Please close the basket.",
+      "vector_score": 0.9109,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "basket"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000913",
+      "text_a": "Is the basket cold?",
+      "id_b": "cc-001968",
+      "text_b": "Is the ruler cold?",
+      "vector_score": 0.9107,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "cold"
+      ],
+      "grammar_a": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000115",
+      "text_a": "A neighbor puts the basket on the bed.",
+      "id_b": "cc-003242",
+      "text_b": "A neighbor puts the story on the bed.",
+      "vector_score": 0.9103,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "bed"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001287",
+      "text_a": "A girl gives the mother a small pen.",
+      "id_b": "cc-001345",
+      "text_b": "A girl gives the mother a small toy.",
+      "vector_score": 0.9092,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "girl",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002321",
+      "text_a": "The ruler is wet.",
+      "id_b": "cc-003800",
+      "text_b": "Is the basket wet?",
+      "vector_score": 0.9083,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "wet"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001462",
+      "text_a": "A brother puts the toy on the desk.",
+      "id_b": "cc-004892",
+      "text_b": "A brother puts the pen on the desk.",
+      "vector_score": 0.908,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000395",
+      "text_a": "A mother puts the clean cup on the table.",
+      "id_b": "cc-001210",
+      "text_b": "A mother puts the red cup on the table.",
+      "vector_score": 0.9075,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "cup",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000506",
+      "text_a": "A child plays with the yellow drum after school.",
+      "id_b": "cc-004867",
+      "text_b": "A child plays with the yellow doll after school.",
+      "vector_score": 0.9074,
+      "token_jaccard": 0.7143,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "plays",
+        "yellow"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001782",
+      "text_a": "A brother puts the picture on the table.",
+      "id_b": "cc-003788",
+      "text_b": "A mother puts the picture on the table.",
+      "vector_score": 0.9072,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "picture",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000408",
+      "text_a": "A sister folds the clean shirt.",
+      "id_b": "cc-002166",
+      "text_b": "A sister folds the shirt.",
+      "vector_score": 0.9071,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "sister",
+        "folds",
+        "shirt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001314",
+      "text_a": "A student gives the friend a small box.",
+      "id_b": "cc-004949",
+      "text_b": "A student gives the friend a small bag.",
+      "vector_score": 0.9071,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "friend",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000345",
+      "text_a": "A student puts the key on the floor.",
+      "id_b": "cc-001691",
+      "text_b": "A student puts the box on the floor.",
+      "vector_score": 0.9071,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000457",
+      "text_a": "A brother puts the key on the shelf.",
+      "id_b": "cc-002748",
+      "text_b": "A brother puts the toy on the shelf.",
+      "vector_score": 0.9071,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002585",
+      "text_a": "A brother puts the basket in the bag.",
+      "id_b": "cc-004873",
+      "text_b": "A mother puts the basket in the bag.",
+      "vector_score": 0.9063,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "basket",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000761",
+      "text_a": "Please close the bag now.",
+      "id_b": "cc-002897",
+      "text_b": "Please close the bag.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "bag"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000788",
+      "text_a": "Please open the door.",
+      "id_b": "cc-004398",
+      "text_b": "Please open the big door.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "door"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001363",
+      "text_a": "Please close the toy box.",
+      "id_b": "cc-001726",
+      "text_b": "Please close the box.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001726",
+      "text_a": "Please close the box.",
+      "id_b": "cc-001744",
+      "text_b": "Please close the big box.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001726",
+      "text_a": "Please close the box.",
+      "id_b": "cc-002171",
+      "text_b": "Please close the red box.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001726",
+      "text_a": "Please close the box.",
+      "id_b": "cc-003993",
+      "text_b": "Please close the box now.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002319",
+      "text_a": "Please open the book.",
+      "id_b": "cc-004069",
+      "text_b": "Please open the book now.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "book"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002897",
+      "text_a": "Please close the bag.",
+      "id_b": "cc-003399",
+      "text_b": "Please close the big bag.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "clothing",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "bag"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001240",
+      "text_a": "A mother gives the friend a small paper.",
+      "id_b": "cc-002421",
+      "text_b": "A brother gives the friend a small paper.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "friend",
+        "small",
+        "paper"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000314",
+      "text_a": "A mother puts the blanket on the bed.",
+      "id_b": "cc-002003",
+      "text_b": "A mother puts the blanket on the desk.",
+      "vector_score": 0.9054,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000034",
+      "text_a": "A mother carries the small basket to the room.",
+      "id_b": "cc-004950",
+      "text_b": "A mother carries the green basket to the room.",
+      "vector_score": 0.9052,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "carries",
+        "basket",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000751",
+      "text_a": "A child puts the toy in the box.",
+      "id_b": "cc-004608",
+      "text_b": "A child puts the toy in a box.",
+      "vector_score": 0.9051,
+      "token_jaccard": 1,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "toy",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close wording; review for duplicate or low-value variation."
+    },
+    {
+      "id_a": "cc-002583",
+      "text_a": "A sister puts the plate on the desk.",
+      "id_b": "cc-004313",
+      "text_b": "A sister puts the plate on the bed.",
+      "vector_score": 0.9051,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "puts",
+        "plate"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002703",
+      "text_a": "A sister puts the plate in the room.",
+      "id_b": "cc-004186",
+      "text_b": "A sister puts the plate in the bag.",
+      "vector_score": 0.9051,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "puts",
+        "plate"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000994",
+      "text_a": "A father puts the basket in the bag.",
+      "id_b": "cc-001461",
+      "text_b": "A father puts the rope in the basket.",
+      "vector_score": 0.9045,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002861",
+      "text_a": "A brother puts the pillow on the bed.",
+      "id_b": "cc-003540",
+      "text_b": "A mother puts the pillow on the bed.",
+      "vector_score": 0.9045,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "pillow",
+        "bed"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001888",
+      "text_a": "A parent gives the child a small toy.",
+      "id_b": "cc-003057",
+      "text_b": "A parent gives the child a small pen.",
+      "vector_score": 0.9042,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "gives",
+        "child",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001408",
+      "text_a": "A teacher puts the pen on the bed.",
+      "id_b": "cc-003925",
+      "text_b": "A teacher puts the ruler on the bed.",
+      "vector_score": 0.9042,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "bed"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002822",
+      "text_a": "Where is the cereal?",
+      "id_b": "cc-003604",
+      "text_b": "Where is the puzzle?",
+      "vector_score": 0.9042,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "food",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "where"
+      ],
+      "grammar_a": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "grammar_b": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000027",
+      "text_a": "Grandpa has a ruler.",
+      "id_b": "cc-000200",
+      "text_b": "Grandpa has a basket.",
+      "vector_score": 0.904,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "grandpa",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000090",
+      "text_a": "A student gives the teacher a small kite.",
+      "id_b": "cc-002780",
+      "text_b": "A student gives the teacher a small pen.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001305",
+      "text_a": "A friend gives the mother a small pencil.",
+      "id_b": "cc-003867",
+      "text_b": "A friend gives the mother a small pen.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003867",
+      "text_a": "A friend gives the mother a small pen.",
+      "id_b": "cc-004599",
+      "text_b": "A friend gives the mother a small doll.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000502",
+      "text_a": "A father puts the key on the shelf.",
+      "id_b": "cc-001679",
+      "text_b": "A father puts the doll on the shelf.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001462",
+      "text_a": "A brother puts the toy on the desk.",
+      "id_b": "cc-004994",
+      "text_b": "A brother puts the doll on the desk.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001733",
+      "text_a": "A mother puts the key on the table.",
+      "id_b": "cc-002541",
+      "text_b": "A mother puts the soup on the table.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "food",
+      "difficulty_a": 3,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004892",
+      "text_a": "A brother puts the pen on the desk.",
+      "id_b": "cc-004994",
+      "text_b": "A brother puts the doll on the desk.",
+      "vector_score": 0.9035,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000134",
+      "text_a": "Please open the toy box.",
+      "id_b": "cc-004488",
+      "text_b": "Please open the box.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000539",
+      "text_a": "Please open the bag now.",
+      "id_b": "cc-004065",
+      "text_b": "Please open the bag.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "bag"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001847",
+      "text_a": "Please open the big box.",
+      "id_b": "cc-004488",
+      "text_b": "Please open the box.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "clothing",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001905",
+      "text_a": "Please open the red box.",
+      "id_b": "cc-004488",
+      "text_b": "Please open the box.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002735",
+      "text_a": "Please open the big bag.",
+      "id_b": "cc-004065",
+      "text_b": "Please open the bag.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "bag"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004488",
+      "text_a": "Please open the box.",
+      "id_b": "cc-004611",
+      "text_b": "Please open the box now.",
+      "vector_score": 0.9034,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "clothing",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001954",
+      "text_a": "A teacher puts the toy in the box.",
+      "id_b": "cc-003823",
+      "text_b": "A teacher puts the box in the bag.",
+      "vector_score": 0.9032,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002398",
+      "text_a": "A friend puts the toy in the room.",
+      "id_b": "cc-003656",
+      "text_b": "A friend puts the box in the room.",
+      "vector_score": 0.9032,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003218",
+      "text_a": "A neighbor has a key.",
+      "id_b": "cc-004955",
+      "text_b": "A neighbor has a cup.",
+      "vector_score": 0.9032,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "neighbor",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000172",
+      "text_a": "Please put the block on the table for me.",
+      "id_b": "cc-000290",
+      "text_b": "Please put the cup on the table for me.",
+      "vector_score": 0.9031,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table",
+        "for"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000172",
+      "text_a": "Please put the block on the table for me.",
+      "id_b": "cc-000364",
+      "text_b": "Please put the box on the table for me.",
+      "vector_score": 0.9031,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table",
+        "for"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002384",
+      "text_a": "A teacher gives the brother a small toy.",
+      "id_b": "cc-002478",
+      "text_b": "A brother gives the teacher a small ruler.",
+      "vector_score": 0.9029,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "gives",
+        "brother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001083",
+      "text_a": "A brother puts the basket in the box.",
+      "id_b": "cc-004879",
+      "text_b": "A brother puts the robot in the basket.",
+      "vector_score": 0.9029,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002585",
+      "text_a": "A brother puts the basket in the bag.",
+      "id_b": "cc-004879",
+      "text_b": "A brother puts the robot in the basket.",
+      "vector_score": 0.9029,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001314",
+      "text_a": "A student gives the friend a small box.",
+      "id_b": "cc-004002",
+      "text_b": "A student gives the friend a small doll.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "friend",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002465",
+      "text_a": "A brother gives the baby a small box.",
+      "id_b": "cc-003749",
+      "text_b": "A baby gives the brother a small kite.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "gives",
+        "baby",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004002",
+      "text_a": "A student gives the friend a small doll.",
+      "id_b": "cc-004949",
+      "text_b": "A student gives the friend a small bag.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "friend",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000273",
+      "text_a": "A student puts the basket on the desk.",
+      "id_b": "cc-002851",
+      "text_b": "A student puts the basket on the bed.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000345",
+      "text_a": "A student puts the key on the floor.",
+      "id_b": "cc-003617",
+      "text_b": "A student puts the lamp on the floor.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000581",
+      "text_a": "A father puts the kite in the box.",
+      "id_b": "cc-002757",
+      "text_b": "A father puts the kite in the room.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "kite"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001002",
+      "text_a": "A teacher puts the clock in the basket.",
+      "id_b": "cc-001913",
+      "text_b": "A teacher puts the rope in the basket.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001691",
+      "text_a": "A student puts the box on the floor.",
+      "id_b": "cc-003617",
+      "text_b": "A student puts the lamp on the floor.",
+      "vector_score": 0.9025,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000572",
+      "text_a": "A child puts the pen on the floor.",
+      "id_b": "cc-000684",
+      "text_b": "A child puts the bag on the floor.",
+      "vector_score": 0.9022,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000376",
+      "text_a": "A friend puts the key on the bed.",
+      "id_b": "cc-003859",
+      "text_b": "A friend puts the toy on the bed.",
+      "vector_score": 0.9021,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "bed"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000538",
+      "text_a": "A teacher has a cup.",
+      "id_b": "cc-004834",
+      "text_b": "A teacher has a key.",
+      "vector_score": 0.9017,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "teacher",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001831",
+      "text_a": "A student has a key.",
+      "id_b": "cc-002613",
+      "text_b": "A student has a cup.",
+      "vector_score": 0.9017,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "student",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001495",
+      "text_a": "A boy gives the friend a small number.",
+      "id_b": "cc-003875",
+      "text_b": "A baby gives the friend a small number.",
+      "vector_score": 0.9015,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "friend",
+        "small",
+        "number"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002339",
+      "text_a": "A parent gives the friend a small bag.",
+      "id_b": "cc-004580",
+      "text_b": "A parent gives the friend a small page.",
+      "vector_score": 0.9015,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "gives",
+        "friend",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000176",
+      "text_a": "A neighbor puts the page on the shelf.",
+      "id_b": "cc-003209",
+      "text_b": "A neighbor puts the key on the shelf.",
+      "vector_score": 0.9015,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001961",
+      "text_a": "A grandpa puts the block on the shelf.",
+      "id_b": "cc-003236",
+      "text_b": "A grandpa puts the clock on the shelf.",
+      "vector_score": 0.9014,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandpa",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000314",
+      "text_a": "A mother puts the blanket on the bed.",
+      "id_b": "cc-000668",
+      "text_b": "A mother puts the blanket on the table.",
+      "vector_score": 0.901,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000314",
+      "text_a": "A mother puts the blanket on the bed.",
+      "id_b": "cc-003783",
+      "text_b": "A mother puts the blanket on the floor.",
+      "vector_score": 0.901,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000314",
+      "text_a": "A mother puts the blanket on the bed.",
+      "id_b": "cc-004861",
+      "text_b": "A mother puts the blanket on the shelf.",
+      "vector_score": 0.901,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001693",
+      "text_a": "Please put the basket on the table.",
+      "id_b": "cc-002336",
+      "text_b": "Please put the story on the table.",
+      "vector_score": 0.901,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "put",
+        "table"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001226",
+      "text_a": "A parent puts the drum on the shelf.",
+      "id_b": "cc-001360",
+      "text_b": "A parent puts the box on the shelf.",
+      "vector_score": 0.9006,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001345",
+      "text_a": "A girl gives the mother a small toy.",
+      "id_b": "cc-001951",
+      "text_b": "A boy gives the mother a small toy.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "mother",
+        "small",
+        "toy"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001951",
+      "text_a": "A boy gives the mother a small toy.",
+      "id_b": "cc-003724",
+      "text_b": "A boy gives the mother a small kite.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "boy",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000059",
+      "text_a": "A boy puts the pillow in the basket.",
+      "id_b": "cc-002094",
+      "text_b": "A baby puts the pillow in the basket.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "pillow",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000341",
+      "text_a": "A teacher puts the cup on the shelf.",
+      "id_b": "cc-000625",
+      "text_b": "A teacher puts the rope on the shelf.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000341",
+      "text_a": "A teacher puts the cup on the shelf.",
+      "id_b": "cc-002629",
+      "text_b": "A teacher puts the ball on the shelf.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000639",
+      "text_a": "A neighbor puts the kite in the room.",
+      "id_b": "cc-001150",
+      "text_b": "A neighbor puts the cup in the room.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000779",
+      "text_a": "A sister puts the book in the basket.",
+      "id_b": "cc-002172",
+      "text_b": "A sister puts the box in the basket.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000900",
+      "text_a": "A friend puts the puzzle in the room.",
+      "id_b": "cc-002305",
+      "text_b": "A friend puts the puzzle in the bag.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "puzzle"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000941",
+      "text_a": "A friend puts the box in the basket.",
+      "id_b": "cc-001330",
+      "text_b": "A friend puts the lamp in the basket.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001150",
+      "text_a": "A neighbor puts the cup in the room.",
+      "id_b": "cc-001224",
+      "text_b": "A neighbor puts the page in the room.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001513",
+      "text_a": "A student puts the toy in the box.",
+      "id_b": "cc-003503",
+      "text_b": "A student puts the drum in the box.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002489",
+      "text_a": "A child puts the blanket on the bed.",
+      "id_b": "cc-004078",
+      "text_b": "A child puts the blanket on the desk.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003558",
+      "text_a": "A teacher puts the rope on the table.",
+      "id_b": "cc-004943",
+      "text_b": "A teacher puts the toy on the table.",
+      "vector_score": 0.9005,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000621",
+      "text_a": "A grandma puts the key in the basket.",
+      "id_b": "cc-001840",
+      "text_b": "A grandma puts the basket in the bag.",
+      "vector_score": 0.9003,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandma",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000768",
+      "text_a": "A sister has a key.",
+      "id_b": "cc-003482",
+      "text_b": "A sister has a cup.",
+      "vector_score": 0.9001,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "sister",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001020",
+      "text_a": "A father has a cup.",
+      "id_b": "cc-004607",
+      "text_b": "A father has a key.",
+      "vector_score": 0.9001,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "father",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002027",
+      "text_a": "A mother has a key.",
+      "id_b": "cc-002072",
+      "text_b": "A mother has a cup.",
+      "vector_score": 0.9001,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "mother",
+        "has"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001769",
+      "text_a": "A sister gives the brother a small block.",
+      "id_b": "cc-002848",
+      "text_b": "A brother gives the sister a small box.",
+      "vector_score": 0.9,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "gives",
+        "brother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004312",
+      "text_a": "A student gives the mother a small kite.",
+      "id_b": "cc-004779",
+      "text_b": "A student gives the mother a small drum.",
+      "vector_score": 0.9,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000719",
+      "text_a": "A father puts the plate in the basket.",
+      "id_b": "cc-000994",
+      "text_b": "A father puts the basket in the bag.",
+      "vector_score": 0.9,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000994",
+      "text_a": "A father puts the basket in the bag.",
+      "id_b": "cc-004873",
+      "text_b": "A mother puts the basket in the bag.",
+      "vector_score": 0.9,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "basket",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001872",
+      "text_a": "A boy puts the key in the room.",
+      "id_b": "cc-003701",
+      "text_b": "A boy puts the bag in the room.",
+      "vector_score": 0.9,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "boy",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003975",
+      "text_a": "Please open the lunch box.",
+      "id_b": "cc-004488",
+      "text_b": "Please open the box.",
+      "vector_score": 0.8997,
+      "token_jaccard": 0.75,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "open",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000995",
+      "text_a": "A baby gives the friend a small crayon.",
+      "id_b": "cc-003602",
+      "text_b": "A boy gives the friend a small crayon.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "friend",
+        "small",
+        "crayon"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002903",
+      "text_a": "A friend gives the baby a small drum.",
+      "id_b": "cc-004840",
+      "text_b": "A baby gives the friend a small toy.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "gives",
+        "baby",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000144",
+      "text_a": "A teacher puts the pillow in the room.",
+      "id_b": "cc-004669",
+      "text_b": "A teacher puts the pillow in the bag.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "pillow"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000267",
+      "text_a": "A parent puts the kite on the shelf.",
+      "id_b": "cc-001360",
+      "text_b": "A parent puts the box on the shelf.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000981",
+      "text_a": "A friend puts the doll on the shelf.",
+      "id_b": "cc-003068",
+      "text_b": "A friend puts the cup on the shelf.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001089",
+      "text_a": "A child puts the basket in the box.",
+      "id_b": "cc-001986",
+      "text_b": "A child puts the lamp in the basket.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001089",
+      "text_a": "A child puts the basket in the box.",
+      "id_b": "cc-004687",
+      "text_b": "A child puts the book in the basket.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001219",
+      "text_a": "A parent puts the lamp on the shelf.",
+      "id_b": "cc-001360",
+      "text_b": "A parent puts the box on the shelf.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001360",
+      "text_a": "A parent puts the box on the shelf.",
+      "id_b": "cc-001499",
+      "text_b": "A parent puts the rope on the shelf.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002302",
+      "text_a": "A teacher puts the lamp on the desk.",
+      "id_b": "cc-002488",
+      "text_b": "A teacher puts the cup on the desk.",
+      "vector_score": 0.8995,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001346",
+      "text_a": "A friend gives the baby a small ruler.",
+      "id_b": "cc-003338",
+      "text_b": "A girl gives the friend a small ruler.",
+      "vector_score": 0.8992,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "gives",
+        "small",
+        "ruler"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002553",
+      "text_a": "A grandpa puts the pen on the shelf.",
+      "id_b": "cc-004865",
+      "text_b": "A grandpa puts the cup on the shelf.",
+      "vector_score": 0.8992,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandpa",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001240",
+      "text_a": "A mother gives the friend a small paper.",
+      "id_b": "cc-003867",
+      "text_b": "A friend gives the mother a small pen.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "gives",
+        "friend",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001286",
+      "text_a": "A student gives the father a small drum.",
+      "id_b": "cc-004779",
+      "text_b": "A student gives the mother a small drum.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "small",
+        "drum"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002915",
+      "text_a": "A friend gives the mother a small robot.",
+      "id_b": "cc-003867",
+      "text_b": "A friend gives the mother a small pen.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001462",
+      "text_a": "A brother puts the toy on the desk.",
+      "id_b": "cc-004693",
+      "text_b": "A brother puts the block on the desk.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002851",
+      "text_a": "A student puts the basket on the bed.",
+      "id_b": "cc-004498",
+      "text_b": "A student puts the basket on the table.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-004693",
+      "text_a": "A brother puts the block on the desk.",
+      "id_b": "cc-004892",
+      "text_b": "A brother puts the pen on the desk.",
+      "vector_score": 0.8991,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000687",
+      "text_a": "A father puts the doll on the floor.",
+      "id_b": "cc-002286",
+      "text_b": "A father puts the rope on the floor.",
+      "vector_score": 0.899,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001629",
+      "text_a": "A brother gives the teacher a small puzzle.",
+      "id_b": "cc-002384",
+      "text_b": "A teacher gives the brother a small toy.",
+      "vector_score": 0.8987,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000684",
+      "text_a": "A child puts the bag on the floor.",
+      "id_b": "cc-003346",
+      "text_b": "A child puts the lamp on the floor.",
+      "vector_score": 0.8984,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001100",
+      "text_a": "A parent puts the ball in the room.",
+      "id_b": "cc-001924",
+      "text_b": "A parent puts the key in the room.",
+      "vector_score": 0.8984,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002398",
+      "text_a": "A friend puts the toy in the room.",
+      "id_b": "cc-002453",
+      "text_b": "A friend puts the ball in the room.",
+      "vector_score": 0.8984,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002453",
+      "text_a": "A friend puts the ball in the room.",
+      "id_b": "cc-003656",
+      "text_b": "A friend puts the box in the room.",
+      "vector_score": 0.8984,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000639",
+      "text_a": "A neighbor puts the kite in the room.",
+      "id_b": "cc-000894",
+      "text_b": "A neighbor puts the kite in the bag.",
+      "vector_score": 0.8981,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "kite"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001172",
+      "text_a": "A student gives the sister a small rope.",
+      "id_b": "cc-004697",
+      "text_b": "A student gives the sister a small page.",
+      "vector_score": 0.898,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "sister",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002464",
+      "text_a": "A girl gives the brother a small kite.",
+      "id_b": "cc-003749",
+      "text_b": "A baby gives the brother a small kite.",
+      "vector_score": 0.898,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "brother",
+        "small",
+        "kite"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001103",
+      "text_a": "A father puts the lamp in the room.",
+      "id_b": "cc-002757",
+      "text_b": "A father puts the kite in the room.",
+      "vector_score": 0.898,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001162",
+      "text_a": "A father puts the box on the desk.",
+      "id_b": "cc-004558",
+      "text_b": "A father puts the clock on the desk.",
+      "vector_score": 0.898,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001504",
+      "text_a": "A father gives the teacher a small ruler.",
+      "id_b": "cc-002478",
+      "text_b": "A brother gives the teacher a small ruler.",
+      "vector_score": 0.8977,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "gives",
+        "teacher",
+        "small",
+        "ruler"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000572",
+      "text_a": "A child puts the pen on the floor.",
+      "id_b": "cc-003346",
+      "text_b": "A child puts the lamp on the floor.",
+      "vector_score": 0.8975,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "floor"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000938",
+      "text_a": "A friend puts the doll in the bag.",
+      "id_b": "cc-002823",
+      "text_b": "A friend puts the toy in the bag.",
+      "vector_score": 0.8974,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001738",
+      "text_a": "A baby puts the spoon in the room.",
+      "id_b": "cc-003852",
+      "text_b": "A baby puts the spoon in the box.",
+      "vector_score": 0.8974,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "baby",
+        "puts",
+        "spoon"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002398",
+      "text_a": "A friend puts the toy in the room.",
+      "id_b": "cc-002823",
+      "text_b": "A friend puts the toy in the bag.",
+      "vector_score": 0.8974,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "toy"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002756",
+      "text_a": "A sister gives the mother a small ball.",
+      "id_b": "cc-003229",
+      "text_b": "A sister gives the mother a small doll.",
+      "vector_score": 0.8973,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000205",
+      "text_a": "The parent gives the mother a doll.",
+      "id_b": "cc-000630",
+      "text_b": "The parent gives the mother a box.",
+      "vector_score": 0.8972,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "gives",
+        "mother"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000260",
+      "text_a": "A mother gives the child a small kite.",
+      "id_b": "cc-003724",
+      "text_b": "A boy gives the mother a small kite.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "gives",
+        "small",
+        "kite"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000765",
+      "text_a": "A friend puts the blanket on the bed.",
+      "id_b": "cc-001692",
+      "text_b": "A friend puts the blanket on the shelf.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000765",
+      "text_a": "A friend puts the blanket on the bed.",
+      "id_b": "cc-004261",
+      "text_b": "A friend puts the blanket on the floor.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001913",
+      "text_a": "A teacher puts the rope in the basket.",
+      "id_b": "cc-003075",
+      "text_b": "A teacher puts the drum in the basket.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002699",
+      "text_a": "A mother puts the doll in the bag.",
+      "id_b": "cc-004035",
+      "text_b": "A father puts the doll in the bag.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "doll",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-003375",
+      "text_a": "A student puts the bag in the room.",
+      "id_b": "cc-004780",
+      "text_b": "A student puts the plate in the room.",
+      "vector_score": 0.897,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002817",
+      "text_a": "A grandpa puts the toy in the box.",
+      "id_b": "cc-003061",
+      "text_b": "A grandpa puts the box in the bag.",
+      "vector_score": 0.8969,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandpa",
+        "puts",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001726",
+      "text_a": "Please close the box.",
+      "id_b": "cc-003582",
+      "text_b": "Please close the blue box.",
+      "vector_score": 0.8966,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "close",
+        "box"
+      ],
+      "grammar_a": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000668",
+      "text_a": "A mother puts the blanket on the table.",
+      "id_b": "cc-002003",
+      "text_b": "A mother puts the blanket on the desk.",
+      "vector_score": 0.8966,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002003",
+      "text_a": "A mother puts the blanket on the desk.",
+      "id_b": "cc-003783",
+      "text_b": "A mother puts the blanket on the floor.",
+      "vector_score": 0.8966,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002003",
+      "text_a": "A mother puts the blanket on the desk.",
+      "id_b": "cc-004861",
+      "text_b": "A mother puts the blanket on the shelf.",
+      "vector_score": 0.8966,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "blanket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000182",
+      "text_a": "The puzzle is dry.",
+      "id_b": "cc-002691",
+      "text_b": "The cereal is dry.",
+      "vector_score": 0.8965,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "dry"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001210",
+      "text_a": "A mother puts the red cup on the table.",
+      "id_b": "cc-001733",
+      "text_b": "A mother puts the key on the table.",
+      "vector_score": 0.8964,
+      "token_jaccard": 0.5,
+      "same_topic": false,
+      "topic_a": "food",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "mother",
+        "puts",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000751",
+      "text_a": "A child puts the toy in the box.",
+      "id_b": "cc-004109",
+      "text_b": "A child puts the lamp in the box.",
+      "vector_score": 0.8963,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002284",
+      "text_a": "A girl puts the clock in the bag.",
+      "id_b": "cc-004067",
+      "text_b": "A girl puts the rope in the bag.",
+      "vector_score": 0.8963,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "girl",
+        "puts",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-004233",
+      "text_a": "A baby puts the rope on the desk.",
+      "id_b": "cc-004657",
+      "text_b": "A boy puts the rope on the desk.",
+      "vector_score": 0.8963,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "rope",
+        "desk"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002232",
+      "text_a": "A neighbor gives the sister a small bag.",
+      "id_b": "cc-003916",
+      "text_b": "A neighbor gives the sister a small letter.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "gives",
+        "sister",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000267",
+      "text_a": "A parent puts the kite on the shelf.",
+      "id_b": "cc-001226",
+      "text_b": "A parent puts the drum on the shelf.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000268",
+      "text_a": "A teacher puts the spoon on the table.",
+      "id_b": "cc-004943",
+      "text_b": "A teacher puts the toy on the table.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "table"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000341",
+      "text_a": "A teacher puts the cup on the shelf.",
+      "id_b": "cc-000606",
+      "text_b": "A teacher puts the spoon on the shelf.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000625",
+      "text_a": "A teacher puts the rope on the shelf.",
+      "id_b": "cc-002629",
+      "text_b": "A teacher puts the ball on the shelf.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "teacher",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000639",
+      "text_a": "A neighbor puts the kite in the room.",
+      "id_b": "cc-001224",
+      "text_b": "A neighbor puts the page in the room.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "puts",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000864",
+      "text_a": "A sister puts the clock in the basket.",
+      "id_b": "cc-002172",
+      "text_b": "A sister puts the box in the basket.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "sister",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000941",
+      "text_a": "A friend puts the box in the basket.",
+      "id_b": "cc-001438",
+      "text_b": "A friend puts the robot in the basket.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "friend",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001219",
+      "text_a": "A parent puts the lamp on the shelf.",
+      "id_b": "cc-001226",
+      "text_b": "A parent puts the drum on the shelf.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001226",
+      "text_a": "A parent puts the drum on the shelf.",
+      "id_b": "cc-001499",
+      "text_b": "A parent puts the rope on the shelf.",
+      "vector_score": 0.8959,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "parent",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002848",
+      "text_a": "A brother gives the sister a small box.",
+      "id_b": "cc-004368",
+      "text_b": "A sister gives the brother a small puzzle.",
+      "vector_score": 0.8957,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "brother",
+        "gives",
+        "sister",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000994",
+      "text_a": "A father puts the basket in the bag.",
+      "id_b": "cc-001720",
+      "text_b": "A father puts the letter in the basket.",
+      "vector_score": 0.8957,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "school",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000994",
+      "text_a": "A father puts the basket in the bag.",
+      "id_b": "cc-002585",
+      "text_b": "A brother puts the basket in the bag.",
+      "vector_score": 0.8957,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "puts",
+        "basket",
+        "bag"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000254",
+      "text_a": "A neighbor gives the teacher a small robot.",
+      "id_b": "cc-004648",
+      "text_b": "A neighbor gives the teacher a small doll.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001169",
+      "text_a": "A neighbor gives the teacher a small block.",
+      "id_b": "cc-004648",
+      "text_b": "A neighbor gives the teacher a small doll.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "neighbor",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-001504",
+      "text_a": "A father gives the teacher a small ruler.",
+      "id_b": "cc-004870",
+      "text_b": "A teacher gives the father a small rope.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-003710",
+      "text_a": "A student gives the mother a small block.",
+      "id_b": "cc-004312",
+      "text_b": "A student gives the mother a small kite.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-003710",
+      "text_a": "A student gives the mother a small block.",
+      "id_b": "cc-004779",
+      "text_b": "A student gives the mother a small drum.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "student",
+        "gives",
+        "mother",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-003992",
+      "text_a": "A father gives the teacher a small robot.",
+      "id_b": "cc-004870",
+      "text_b": "A teacher gives the father a small rope.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "gives",
+        "teacher",
+        "small"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000449",
+      "text_a": "A father puts the pillow on the shelf.",
+      "id_b": "cc-002652",
+      "text_b": "A father puts the pillow on the desk.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "pillow"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-000719",
+      "text_a": "A father puts the plate in the basket.",
+      "id_b": "cc-001461",
+      "text_b": "A father puts the rope in the basket.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "home",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "father",
+        "puts",
+        "basket"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002553",
+      "text_a": "A grandpa puts the pen on the shelf.",
+      "id_b": "cc-002890",
+      "text_b": "A grandpa puts the drum on the shelf.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "school",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandpa",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    },
+    {
+      "id_a": "cc-002890",
+      "text_a": "A grandpa puts the drum on the shelf.",
+      "id_b": "cc-004865",
+      "text_b": "A grandpa puts the cup on the shelf.",
+      "vector_score": 0.8956,
+      "token_jaccard": 0.6,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "home",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "grandpa",
+        "puts",
+        "shelf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "review_hint": "Same target vocabulary and similar vector; keep only if both add distinct value."
+    }
+  ],
+  "coverage": {
+    "topic_counts": {
+      "animals": 557,
+      "clothing": 588,
+      "colors": 182,
+      "food": 822,
+      "home": 576,
+      "nature": 199,
+      "people": 377,
+      "play": 795,
+      "routine": 16,
+      "school": 804,
+      "transport": 84
+    },
+    "difficulty_counts": {
+      "1": 1678,
+      "2": 1890,
+      "3": 1432
+    },
+    "top_target_words": [
+      [
+        "has",
+        431
+      ],
+      [
+        "puts",
+        382
+      ],
+      [
+        "eats",
+        288
+      ],
+      [
+        "some",
+        269
+      ],
+      [
+        "friend",
+        258
+      ],
+      [
+        "child",
+        247
+      ],
+      [
+        "father",
+        240
+      ],
+      [
+        "sees",
+        232
+      ],
+      [
+        "small",
+        228
+      ],
+      [
+        "brother",
+        225
+      ],
+      [
+        "teacher",
+        224
+      ],
+      [
+        "mother",
+        223
+      ],
+      [
+        "student",
+        223
+      ],
+      [
+        "girl",
+        208
+      ],
+      [
+        "finds",
+        204
+      ],
+      [
+        "baby",
+        202
+      ],
+      [
+        "grandpa",
+        201
+      ],
+      [
+        "sister",
+        200
+      ],
+      [
+        "neighbor",
+        190
+      ],
+      [
+        "likes",
+        189
+      ],
+      [
+        "boy",
+        186
+      ],
+      [
+        "grandma",
+        185
+      ],
+      [
+        "touches",
+        185
+      ],
+      [
+        "wants",
+        181
+      ],
+      [
+        "needs",
+        175
+      ],
+      [
+        "parent",
+        165
+      ],
+      [
+        "gives",
+        160
+      ],
+      [
+        "box",
+        137
+      ],
+      [
+        "carries",
+        131
+      ],
+      [
+        "basket",
+        127
+      ]
+    ],
+    "top_grammar_tags": [
+      [
+        "present_simple",
+        3764
+      ],
+      [
+        "direct_object",
+        3626
+      ],
+      [
+        "definite_object",
+        1056
+      ],
+      [
+        "locative_phrase",
+        946
+      ],
+      [
+        "singular_subject",
+        774
+      ],
+      [
+        "be_present",
+        731
+      ],
+      [
+        "adjective_predicate",
+        632
+      ],
+      [
+        "mental_or_need_verb",
+        540
+      ],
+      [
+        "question",
+        488
+      ],
+      [
+        "possession",
+        431
+      ],
+      [
+        "imperative",
+        298
+      ],
+      [
+        "polite_request",
+        298
+      ],
+      [
+        "do_support",
+        289
+      ],
+      [
+        "negative",
+        180
+      ],
+      [
+        "ditransitive",
+        160
+      ],
+      [
+        "modal_can",
+        109
+      ],
+      [
+        "location_question",
+        99
+      ],
+      [
+        "adjective_modifier",
+        75
+      ],
+      [
+        "clothing",
+        32
+      ],
+      [
+        "prepositional_phrase",
+        20
+      ],
+      [
+        "social_action",
+        16
+      ],
+      [
+        "need_verb",
+        5
+      ],
+      [
+        "possessive_pronoun",
+        4
+      ],
+      [
+        "indefinite_object",
+        3
+      ],
+      [
+        "possessive_determiner",
+        3
+      ],
+      [
+        "adjective",
+        2
+      ],
+      [
+        "plural_noun",
+        2
+      ],
+      [
+        "attributive_adjective",
+        1
+      ],
+      [
+        "demonstrative",
+        1
+      ],
+      [
+        "direct object",
+        1
+      ]
+    ],
+    "most_common_openings": [
+      [
+        "where is the",
+        98
+      ],
+      [
+        "can you see",
+        97
+      ],
+      [
+        "please show me",
+        57
+      ],
+      [
+        "do you like",
+        55
+      ],
+      [
+        "do you want",
+        55
+      ],
+      [
+        "please hold the",
+        44
+      ],
+      [
+        "please find the",
+        41
+      ],
+      [
+        "please take the",
+        40
+      ],
+      [
+        "please close the",
+        39
+      ],
+      [
+        "please open the",
+        37
+      ],
+      [
+        "a child puts",
+        35
+      ],
+      [
+        "a friend puts",
+        35
+      ],
+      [
+        "a friend has",
+        34
+      ],
+      [
+        "a girl has",
+        33
+      ],
+      [
+        "a student has",
+        33
+      ],
+      [
+        "a father has",
+        30
+      ],
+      [
+        "a mother has",
+        30
+      ],
+      [
+        "a teacher puts",
+        29
+      ],
+      [
+        "please put the",
+        29
+      ],
+      [
+        "a boy has",
+        27
+      ],
+      [
+        "a brother has",
+        27
+      ],
+      [
+        "a grandma has",
+        27
+      ],
+      [
+        "a neighbor has",
+        27
+      ],
+      [
+        "a teacher has",
+        27
+      ],
+      [
+        "a baby puts",
+        26
+      ],
+      [
+        "a brother puts",
+        26
+      ],
+      [
+        "a girl puts",
+        26
+      ],
+      [
+        "a parent has",
+        26
+      ],
+      [
+        "a grandpa has",
+        25
+      ],
+      [
+        "a baby has",
+        24
+      ]
+    ]
+  },
+  "suggested_cleanup_uses": [
+    "Review near_duplicate_candidates before spending more translation or fine-tuning budget.",
+    "Use top_target_words to rebalance overrepresented vocabulary.",
+    "Use topic_counts and difficulty_counts to keep game planets varied by topic and level.",
+    "Use nearest neighbors to generate distractors that are close but not identical for quiz modes.",
+    "Use exact_duplicate_groups as a hard blocker; exact duplicates should stay at zero."
+  ]
+}

@@ -15,9 +15,18 @@
 *.txt text eol=lf
 *.toml text eol=lf
 *.webmanifest text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+Dockerfile text eol=lf
 
 *.ico binary
+*.bin binary
+*.db binary
 *.jpg binary
 *.jpeg binary
+*.onnx binary
 *.png binary
+*.safetensors binary
+*.sqlite binary
+*.wasm binary
 *.webp binary

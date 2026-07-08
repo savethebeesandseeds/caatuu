@@ -3,6 +3,7 @@
 **/.env
 **/.env.*
 !**/.env.example
+secrets/
 **/*.jks
 **/*.keystore
 **/upload_certificate.pem
@@ -31,8 +32,20 @@ artifacts/
 # Heavy model, training, and generated workspaces
 apps/caatuu-czech/dumps/
 apps/caatuu-czech/static/data/models/
-tools/caatuu-cz-ml/data/
+apps/caatuu-czech/static/data/embeddings/**/*.sqlite
+!apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite
+apps/caatuu-czech/static/data/embeddings/**/*.db
+apps/caatuu-czech/static/data/embeddings/**/*.onnx
+apps/caatuu-czech/static/data/embeddings/**/*.wasm
+apps/caatuu-czech/static/data/embeddings/**/*.bin
+apps/caatuu-czech/static/data/embeddings/**/*.safetensors
+tools/caatuu-cz-ml/data/embeddings/
+tools/caatuu-cz-ml/data/models/
+tools/caatuu-cz-ml/data/curriculum/**/batches/
+tools/caatuu-cz-ml/data/curriculum/**/jobs/
 tools/caatuu-cz-ml/logs/
 tools/images-generation/
-archive/
+archive/*
+!archive/caatuu-chinese/
+!archive/caatuu-chinese/**
 gateway/

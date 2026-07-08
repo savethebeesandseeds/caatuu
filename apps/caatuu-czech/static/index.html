@@ -16,33 +16,27 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
+    <script src="runtime.js?v=runtime-2"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="app.css?v=shell-16">
+    <link rel="stylesheet" href="app.css?v=shell-36">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
   </head>
   <body>
     <div class="app-shell">
-      <header class="app-header">
-        <a class="brand-link" href="index.html#dictionary" aria-label="Open Caatuu Czech">
-          <span class="brand-mark" aria-hidden="true">
-            <img class="brand-icon" src="icons/caatuu-czech-512.png" alt="">
-          </span>
-          <span>
-            <strong>Caatuu</strong>
-          </span>
-        </a>
-        <span class="language-pill" aria-label="Czech"><span class="cz-flag" aria-hidden="true"></span><span class="language-code">CZ</span></span>
-      </header>
+      <header class="app-header" data-caatuu-app-header></header>
 
       <main class="workspace">
         <section class="view is-active" id="view-dictionary" aria-labelledby="guideTitle">
           <section class="dictionary-panel" aria-label="Dictionary entries">
             <section class="dictionary-toolbar" aria-label="Dictionary controls">
               <label class="dictionary-search">
-                <span>Find Czech, English, cue, or type</span>
+                <span class="dictionary-search-head">
+                  <span>Find Czech, English, cue, or type</span>
+                  <span class="dictionary-count" id="dictionaryCount">0 entries</span>
+                </span>
                 <input type="search" id="dictionarySearch" autocomplete="off" placeholder="⌕ Search" aria-label="Search dictionary">
               </label>
               <div class="dictionary-tools">
-                <span class="dictionary-count" id="dictionaryCount">0 entries</span>
                 <button class="print-open-action dictionary-print-action" type="button" id="openPrintMenu">Print Dictionary</button>
               </div>
             </section>
@@ -237,8 +231,42 @@
           </section>
         </section>
 
-        <section class="view" id="view-verbs" aria-labelledby="verbsTitle">
+        <section class="view" id="view-verbs" aria-label="Train">
           <div class="verb-game-shell">
+            <section class="train-tab-panel train-galaxy is-active" id="trainPanelGalaxy" aria-labelledby="trainGalaxyTitle">
+              <div class="train-galaxy-copy">
+                <p class="verb-kicker">Train</p>
+                <h2 id="trainGalaxyTitle">Choose a world</h2>
+              </div>
+              <div class="train-worlds" aria-label="Training games">
+                <button class="train-world train-world-word" type="button" data-train-tab="word-net">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/planet_A.png" alt="">
+                  <span class="train-world-label">
+                    <b>Word Net</b>
+                    <small>Meanings + links</small>
+                  </span>
+                </button>
+                <button class="train-world train-world-verb" type="button" data-train-tab="verb-lab">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/planet_D.png" alt="">
+                  <span class="train-world-label">
+                    <b>Verb Lab</b>
+                    <small>Forms + accents</small>
+                  </span>
+                </button>
+                <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/planet_C.png" alt="">
+                  <span class="train-world-label">
+                    <b>Memory Moon</b>
+                    <small>Recall</small>
+                  </span>
+                </button>
+              </div>
+            </section>
+
+            <div class="train-tab-panel" id="trainPanelVerbLab" aria-label="Verb Lab" hidden>
             <header class="verb-hero">
               <div>
                 <p class="verb-kicker">Verb lab</p>
@@ -246,6 +274,7 @@
                 <p class="verb-hero-copy">Train Czech present forms with smart review, commonness levels, typing, choices, tables, accent help, and speech.</p>
               </div>
               <div class="verb-game-controls">
+                <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
                 <span class="verb-pool-pill" id="verbPoolCount">0/0 forms in deck</span>
                 <button type="button" id="verbToggleOptions" aria-expanded="false" aria-controls="verbOptionsPanel">Options</button>
                 <button type="button" id="verbResetProgress">Reset session</button>
@@ -404,7 +433,7 @@
                 <label><input type="checkbox" id="verbShowPattern" checked> <span>Pattern</span></label>
                 <label><input type="checkbox" id="verbShowAccentHelp" checked> <span>Accent help</span></label>
                 <label><input type="checkbox" id="verbStrictAccents"> <span>Strict accents</span></label>
-                <label><input type="checkbox" id="verbShowReference" checked> <span>Tables</span></label>
+                <label><input type="checkbox" id="verbShowReference"> <span>Tables</span></label>
               </fieldset>
 
               <fieldset class="verb-toggle-group verb-person-group">
@@ -441,13 +470,62 @@
                   <h3 id="verbReferenceTitle">Active verb tables</h3>
                   <p>Search, compare, and watch forms become strong.</p>
                 </div>
-                <span class="count-pill" id="verbReferenceCount">0 verbs</span>
+                <div class="verb-reference-actions">
+                  <span class="count-pill" id="verbReferenceCount">0 verbs</span>
+                  <button type="button" id="verbReferenceToggle" aria-expanded="false">Show tables</button>
+                </div>
               </div>
-              <label class="verb-reference-search">
-                <span>Find verb</span>
-                <input type="search" id="verbReferenceSearch" autocomplete="off" placeholder="try moci, motion, L1, level 2, -ím...">
-              </label>
-              <div class="verb-reference-list" id="verbReferenceList"></div>
+              <div class="verb-reference-body" id="verbReferenceBody" hidden>
+                <label class="verb-reference-search">
+                  <span>Find verb</span>
+                  <input type="search" id="verbReferenceSearch" autocomplete="off" placeholder="try moci, motion, L1, level 2, -ím...">
+                </label>
+                <div class="verb-reference-list" id="verbReferenceList"></div>
+              </div>
+            </section>
+            </div>
+
+            <section class="train-tab-panel word-net-panel" id="trainPanelWordNet" aria-label="Word Net" hidden>
+              <header class="word-net-head">
+                <div>
+                  <p class="verb-kicker">Word net</p>
+                  <h2>Word Net</h2>
+                </div>
+                <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
+              </header>
+              <div class="word-net-grid">
+                <label class="word-net-search">
+                  <span>Seed word</span>
+                  <input type="search" autocomplete="off" placeholder="Search">
+                </label>
+                <div class="word-net-canvas" aria-label="Word network preview">
+                  <span>Word</span>
+                </div>
+                <aside class="word-net-side">
+                  <h3>Links</h3>
+                  <div class="word-net-chip-row">
+                    <span>Meaning</span>
+                    <span>Form</span>
+                    <span>Phrase</span>
+                  </div>
+                  <a class="train-back-button word-net-play-link" href="word-net.html">Play Word Net</a>
+                </aside>
+              </div>
+            </section>
+
+            <section class="train-tab-panel memory-moon-panel" id="trainPanelMemoryMoon" aria-label="Memory Moon" hidden>
+              <header class="word-net-head">
+                <div>
+                  <p class="verb-kicker">Memory moon</p>
+                  <h2>Memory Moon</h2>
+                  <p class="memory-moon-copy">A smaller orbit for recall games will live here.</p>
+                </div>
+                <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
+              </header>
+              <div class="memory-moon-stage">
+                <img src="/assets/planets/planet_C.png" alt="">
+                <span>Coming next</span>
+              </div>
             </section>
           </div>
         </section>
@@ -461,213 +539,16 @@
       </footer>
     </div>
 
-    <nav class="bottom-app-nav" aria-label="Caatuu Czech sections">
-      <button class="nav-tab app-nav-item is-active" type="button" data-view="dictionary">
-        <span class="app-nav-icon" aria-hidden="true">Aa</span>
-        <span>Dictionary</span>
-      </button>
-      <button class="nav-tab app-nav-item" type="button" data-view="verbs">
-        <span class="app-nav-icon" aria-hidden="true">&#x1F9E9;&#xFE0E;</span>
-        <span>Train</span>
-      </button>
-      <a class="app-nav-item" href="device-ai.html">
-        <span class="app-nav-icon" aria-hidden="true">&#x1F5E8;&#xFE0E;</span>
-        <span>Chat</span>
-      </a>
-      <button class="app-nav-item" type="button" id="openAppSettings">
-        <span class="app-nav-icon" aria-hidden="true">⚙</span>
-        <span>Settings</span>
-      </button>
-    </nav>
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="dictionary"
+      data-view-buttons="true"
+      data-settings-target="openSettings"
+    ></nav>
 
-    <div class="settings-backdrop app-settings-backdrop" id="appSettingsPanel" hidden>
-      <section class="settings-sheet app-settings-sheet" role="dialog" aria-modal="true" aria-labelledby="appSettingsTitle">
-        <header class="settings-sheet-head">
-          <div>
-            <p class="settings-kicker">Caatuu</p>
-            <h2 id="appSettingsTitle">Settings</h2>
-          </div>
-          <button class="settings-close" id="closeAppSettings" type="button" aria-label="Close settings">&times;</button>
-        </header>
-
-        <div class="settings-sheet-body">
-          <section class="settings-card" aria-label="Appearance">
-            <div class="settings-card-head">
-              <p class="settings-kicker">Appearance</p>
-              <h3>Theme</h3>
-            </div>
-            <div class="theme-control" role="group" aria-label="Theme">
-              <button type="button" data-theme-option="light">
-                <span aria-hidden="true">☼</span>
-                <b>Light</b>
-              </button>
-              <button type="button" data-theme-option="dark">
-                <span aria-hidden="true">☾</span>
-                <b>Dark</b>
-              </button>
-            </div>
-          </section>
-
-          <section class="settings-card language-card" aria-label="Language">
-            <div class="settings-card-head">
-              <p class="settings-kicker">Language</p>
-              <h3>Course</h3>
-            </div>
-            <div class="language-route">
-              <label class="language-field">
-                <span>From</span>
-                <select aria-label="Source language">
-                  <option selected>English</option>
-                </select>
-              </label>
-              <label class="language-field">
-                <span>To</span>
-                <select aria-label="Target language">
-                  <option selected>Czech</option>
-                </select>
-              </label>
-            </div>
-          </section>
-
-          <section class="settings-card" aria-label="Dictionary settings">
-            <div class="settings-card-head">
-              <p class="settings-kicker">Dictionary</p>
-              <h3>Reference and print</h3>
-            </div>
-            <p class="settings-note">Search, scripts, guide tables, and Print Dictionary use the local Czech data bundled with the app.</p>
-          </section>
-
-          <section class="settings-card" aria-label="Training settings">
-            <div class="settings-card-head">
-              <p class="settings-kicker">Train</p>
-              <h3>Verb practice</h3>
-            </div>
-            <p class="settings-note">Verb mastery is saved locally on this device and reused by the trainer.</p>
-            <div class="settings-actions">
-              <button class="settings-danger-action" type="button" id="settingsResetVerbMemory">Clear saved mastery</button>
-            </div>
-          </section>
-
-          <section class="settings-card" aria-label="Chat settings">
-            <details class="settings-details">
-              <summary class="settings-collapsible-summary">
-                <span class="settings-summary-title">
-                  <span class="settings-kicker">Chat</span>
-                  <strong>Model generation</strong>
-                </span>
-                <small>generation controls</small>
-              </summary>
-              <div class="settings-details-body">
-                <div class="preset-control" role="group" aria-label="Generation preset">
-                  <button type="button" data-preset="fast">Fast</button>
-                  <button type="button" data-preset="chat">Chat</button>
-                  <button type="button" data-preset="careful">Careful</button>
-                </div>
-                <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
-
-                <div class="settings-grid">
-                  <label class="setting-toggle">
-                    <span>
-                      <b>Thinking</b>
-                      <small id="thinkingSupport">Saved for Chat</small>
-                    </span>
-                    <input id="thinkingEnabled" type="checkbox">
-                  </label>
-
-                  <label class="setting-field">
-                    <span>
-                      <b>Max tokens</b>
-                      <output id="maxTokensValue">384</output>
-                    </span>
-                    <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
-                  </label>
-
-                  <label class="setting-field">
-                    <span>
-                      <b>Temperature</b>
-                      <output id="temperatureValue">0.2</output>
-                    </span>
-                    <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
-                    <small id="temperatureSupport">Saved for the model runtime</small>
-                  </label>
-
-                  <label class="setting-select">
-                    <span>
-                      <b>Context</b>
-                      <small id="contextSupport">Saved for native runtime</small>
-                    </span>
-                    <select id="contextSize">
-                      <option value="768">768 tokens</option>
-                      <option value="1024">1024 tokens</option>
-                      <option value="2048" selected>2048 tokens</option>
-                      <option value="4096">4096 tokens</option>
-                      <option value="8192">8192 tokens</option>
-                    </select>
-                  </label>
-
-                  <label class="setting-select">
-                    <span>
-                      <b>Reasoning display</b>
-                      <small>Only affects visible output</small>
-                    </span>
-                    <select id="reasoningDisplay">
-                      <option value="collapsed" selected>Collapsed</option>
-                      <option value="expanded">Expanded</option>
-                      <option value="hidden">Hidden</option>
-                    </select>
-                  </label>
-                </div>
-                <p class="capability-note" id="capabilityNote">These settings are shared with the Chat screen.</p>
-              </div>
-            </details>
-          </section>
-
-          <section class="settings-card" aria-label="App settings">
-            <div class="settings-card-head">
-              <p class="settings-kicker">App</p>
-              <h3>Install</h3>
-            </div>
-            <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Install app</button>
-            <span class="pwa-install-status" id="pwaInstallStatus">Browser</span>
-            <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
-          </section>
-
-          <section class="settings-card about-card" aria-label="About">
-            <div class="settings-card-head">
-              <p class="settings-kicker">About</p>
-              <h3>Details</h3>
-            </div>
-            <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
-            <p class="version-note">Version 0.1.12 (13)</p>
-            <div class="legal-notice" role="note">
-              <span class="legal-notice-icon" aria-hidden="true">!</span>
-              <div>
-                <strong>Learning use only</strong>
-                <p>Small local model responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
-              </div>
-            </div>
-            <dl class="meta-list">
-              <div>
-                <dt>Dictionary</dt>
-                <dd>Local Czech words, phrases, scripts, and print data.</dd>
-              </div>
-              <div>
-                <dt>Trainer</dt>
-                <dd>Verb practice uses local mastery saved in this browser or app.</dd>
-              </div>
-              <div>
-                <dt>Model</dt>
-                <dd>Caatuu Czech Qwen3 1.7B LoRA, Q4_K_M GGUF in the Android runtime.</dd>
-              </div>
-              <div>
-                <dt>Storage</dt>
-                <dd>Browser data uses local storage. Installed model files use app-private storage.</dd>
-              </div>
-            </dl>
-          </section>
-        </div>
-      </section>
-    </div>
+    <div data-caatuu-settings-panel hidden></div>
 
     <div class="print-backdrop" id="printBackdrop" hidden></div>
     <section class="print-menu" id="printMenu" aria-labelledby="printMenuTitle" hidden>
@@ -800,6 +681,8 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="app.js?v=shell-9"></script>
+    <script src="chrome.js?v=chrome-14"></script>
+    <script src="maintenance-ui.js?v=maintenance-1"></script>
+    <script src="app.js?v=shell-27"></script>
   </body>
 </html>

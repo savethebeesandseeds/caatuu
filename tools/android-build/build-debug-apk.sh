@@ -9,6 +9,10 @@ if ! command -v gradle >/dev/null 2>&1; then
   echo "Gradle is not on PATH. Run: bash tools/android-build/setup-sdk.sh" >&2
   exit 1
 fi
+if ! command -v java >/dev/null 2>&1 || ! java -version 2>&1 | grep -q 'version "17'; then
+  echo "Java 17 is not on PATH. Run: bash tools/android-build/setup-sdk.sh" >&2
+  exit 1
+fi
 
 mkdir -p "$repo_root/artifacts/android"
 debug_keystore="$repo_root/artifacts/android/caatuu-debug.keystore"
@@ -40,22 +44,25 @@ bash "$repo_root/apps/caatuu-android/scripts/prepare-llama-vendor.sh"
 cd "$repo_root/apps/caatuu-android"
 gradle --no-daemon :app:assembleDebug
 
-apk_path="$repo_root/artifacts/android/caatuu-debug.apk"
-manifest_path="$repo_root/artifacts/android/caatuu-debug.json"
+apk_path="$repo_root/artifacts/android/caatuu.apk"
+manifest_path="$repo_root/artifacts/android/caatuu.json"
 cp app/build/outputs/apk/debug/app-debug.apk "$apk_path"
+rm -f "$repo_root/artifacts/android/caatuu-debug.apk" "$repo_root/artifacts/android/caatuu-debug.json"
 
 apk_sha="$(sha256sum "$apk_path" | awk '{print $1}')"
 apk_bytes="$(wc -c < "$apk_path" | tr -d ' ')"
 version_code="$(sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' app/build.gradle.kts | head -1)"
 version_name="$(sed -nE 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' app/build.gradle.kts | head -1)"
 apk_abis="${CAATUU_ANDROID_ABIS:-arm64-v8a}"
+update_base_url="${CAATUU_ANDROID_UPDATE_BASE_URL:-https://caatuu.waajacu.com/android}"
+update_base_url="${update_base_url%/}"
 
 cat > "$manifest_path" <<JSON
 {
   "package_name": "com.waajacu.caatuu",
   "version_code": ${version_code:-0},
   "version_name": "${version_name:-debug}",
-  "apk_url": "https://caatuu.waajacu.com/android/caatuu-debug.apk",
+  "apk_url": "$update_base_url/caatuu.apk",
   "sha256": "$apk_sha",
   "bytes": $apk_bytes,
   "abis": "$apk_abis"

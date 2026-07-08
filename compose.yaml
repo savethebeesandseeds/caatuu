@@ -1,0 +1,44 @@
+name: caatuu
+
+services:
+  caatuu:
+    build:
+      context: ./tools/runtime
+      dockerfile: Dockerfile
+    image: caatuu-runtime:debian-latest
+    container_name: caatuu
+    working_dir: /workspace
+    environment:
+      CAATUU_WORKSPACE_ROOT: /workspace
+      PORT: "9172"
+      AGENT_CONFIG_PATH: ./profiles/word_challenge.toml
+      RUST_LOG: ${CAATUU_RUST_LOG:-info}
+    ports:
+      - "8765:9172"
+    volumes:
+      - .:/workspace
+    command: ["bash", "-lc", "/workspace/tools/runtime/start-caatuu.sh"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$${PORT:-9172}/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  caatuu-tunnel:
+    image: caatuu-runtime:debian-latest
+    container_name: caatuu-tunnel
+    profiles:
+      - tunnel
+    depends_on:
+      caatuu:
+        condition: service_healthy
+    network_mode: "service:caatuu"
+    volumes:
+      - ./secrets/cloudflared-token:/run/secrets/cloudflared-token:ro
+    command:
+      - bash
+      - -lc
+      - cloudflared tunnel --protocol http2 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token
+    restart: unless-stopped

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Caatuu Chinese</title>
+  <link rel="stylesheet" href="app.css?v=zh-home-1">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2cc0ff">
+  <link rel="icon" href="assets/icon-192.png">
+</head>
+<body class="mode-index">
+  <header id="modeHeader" class="mode-header" aria-label="Learning modes">
+    <div class="mode-header-title">Caatuu Chinese</div>
+    <nav class="mode-nav" aria-label="Select learning mode">
+      <a class="mode-btn" href="challenge">Challenge</a>
+      <a class="mode-btn" href="secuence">Secuence</a>
+      <a class="mode-btn" href="writing">Writing</a>
+    </nav>
+  </header>
+
+  <main class="mode-index-main">
+    <section class="mode-index-card mode-home-card" aria-labelledby="modeIndexHeading">
+      <p class="mode-home-kicker">Start</p>
+      <h1 id="modeIndexHeading">Caatuu Chinese</h1>
+      <img class="mode-home-art" src="/assets/aliens/Chinese_Macaw.png" alt="">
+      <nav class="mode-index-actions" aria-label="Mode actions">
+        <a class="mode-btn mode-btn-large" href="challenge">Challenge</a>
+        <a class="mode-btn mode-btn-large" href="secuence">Secuence</a>
+        <a class="mode-btn mode-btn-large" href="writing">Writing</a>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const bust = Date.now();
+        navigator.serviceWorker
+          .register(`./sw.js?v=${bust}`, { scope: './' })
+          .catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>

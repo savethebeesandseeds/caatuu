@@ -3,7 +3,7 @@
   "short_name": "Caatuu CZ",
   "description": "Czech chat, verbs, dictionary, scripts, and guide.",
   "id": "/cz/",
-  "start_url": "./device-ai.html",
+  "start_url": "./home.html",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
@@ -46,7 +46,7 @@
     {
       "name": "Chat",
       "short_name": "Chat",
-      "url": "./device-ai.html",
+      "url": "./chat.html",
       "icons": [{ "src": "icons/caatuu-czech-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]

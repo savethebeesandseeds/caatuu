@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.CaatuuAndroid"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="${caatuuUsesCleartextTraffic}">
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"

@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "default_model": "caatuu-local-hash-v0.1",
+  "base_url": "https://caatuu.waajacu.com/cz/data/embeddings",
+  "models": [
+    {
+      "key": "caatuu-local-hash-v0.1",
+      "model_id": "caatuu-local-hash-v0.1",
+      "label": "Caatuu Curriculum and Asset Embeddings",
+      "short_label": "Embeddings",
+      "status": "active",
+      "artifact_kind": "embedding-vector-db",
+      "source_label": "Caatuu curated curriculum corpus and manual image descriptions",
+      "source_url": "data/embeddings/README.md",
+      "license": "MIT",
+      "license_url": "https://opensource.org/licenses/MIT",
+      "intended_use": "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
+      "runtime": "SQLite vector database with local hash embedder",
+      "format": "sqlite",
+      "model_file": "caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "manifest_file": "caatuu-local-hash-v0.1/manifest.json",
+      "bytes": 17129472,
+      "sha256": "d37fe70539b38ca07c69e7c7a8963afaf485905582d1045f701227ce24424f51",
+      "embedding_dimension": 384,
+      "vector_encoding": "float32le",
+      "distance_metric": "cosine",
+      "embedding_text_field": "english_text",
+      "embedding_input_policy": "english_text_only",
+      "trainable": false,
+      "notes": [
+        "This is a deterministic local hash embedding baseline, not a semantic transformer model.",
+        "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
+        "Image asset vectors are computed only from manually written English descriptions.",
+        "BAAI/bge-small-en-v1.5 remains a planned future semantic embedding replacement."
+      ]
+    }
+  ]
+}

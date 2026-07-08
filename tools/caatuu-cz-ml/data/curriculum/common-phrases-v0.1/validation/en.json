@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-07-05T20:44:31.167Z",
+  "schema_version": "caatuu-curriculum-flat-v0.2",
+  "input_file": "C:\\Work\\caatuu\\tools\\caatuu-cz-ml\\data\\curriculum\\common-phrases-v0.1\\curated\\common-phrases.en.jsonl",
+  "rows": 500,
+  "unique_ids": 500,
+  "duplicate_text_groups": 0,
+  "notes_blank": true,
+  "czech_text_filled": 500,
+  "czech_text_blank": 0,
+  "category_counts": {
+    "choices_opinions": 25,
+    "classroom_learning": 25,
+    "courtesy": 25,
+    "daily_routine": 25,
+    "family_people": 25,
+    "feelings_needs": 25,
+    "food_drink": 25,
+    "greetings_intro": 25,
+    "health_safety": 25,
+    "help_clarification": 25,
+    "home_chores": 25,
+    "location_directions": 25,
+    "phone_technology": 25,
+    "plans_invitations": 25,
+    "play_hobbies": 25,
+    "shopping_money": 25,
+    "social_responses": 25,
+    "time_calendar": 25,
+    "travel_transport": 25,
+    "weather_clothing": 25
+  },
+  "difficulty_counts": {
+    "1": 156,
+    "2": 344
+  },
+  "validation_errors": []
+}

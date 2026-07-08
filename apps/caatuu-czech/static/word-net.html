@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Word Net - Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script>
+      try {
+        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+    <script src="runtime.js?v=runtime-2"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-2">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
+    <link rel="stylesheet" href="word-net.css?v=word-net-7">
+  </head>
+  <body>
+    <div class="word-net-page">
+      <header class="app-header" data-caatuu-app-header></header>
+
+      <main class="word-net-main" aria-label="Word Net">
+        <section class="word-net-game" aria-label="Word Net game">
+          <section class="word-net-sentence-panel" aria-label="Generated Czech sentence">
+            <div class="word-net-panel-actions" aria-label="Phrase controls">
+              <button class="word-net-icon-button word-net-sound-toggle" id="wordNetSound" type="button" aria-label="Sound unavailable" title="Sound is not available yet" disabled>
+                <span aria-hidden="true">&#128266;</span>
+              </button>
+              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Hide translation">
+                <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
+              </button>
+              <button class="word-net-icon-button word-net-shuffle" id="wordNetShuffle" type="button" aria-label="Shuffle phrase">
+                <span aria-hidden="true">&#8635;</span>
+              </button>
+            </div>
+            <div class="word-net-loading" id="wordNetLoading" hidden>
+              <span></span>
+              <b>Preparing local intelligence</b>
+            </div>
+            <div class="word-net-phrase-stack">
+              <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
+              <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <section class="word-net-status-panel" aria-label="Word Net status">
+            <p id="wordNetStatus">Tap any word to make the next phrase. Use &#8635; for a fresh random phrase.</p>
+            <p class="word-net-browser-note" id="wordNetBrowserNote" hidden>Browser preview uses local practice sentences. Android uses the Word Sentence and CZ to EN models.</p>
+            <div class="word-net-progress" id="wordNetProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+              <span id="wordNetProgressBar"></span>
+            </div>
+          </section>
+
+          <section class="word-net-trail" aria-label="Phrase log">
+            <div class="word-net-trail-head">
+              <h2>Log</h2>
+            </div>
+            <ol id="wordNetTrail"></ol>
+          </section>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu</span>
+        </a>
+      </footer>
+    </div>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="verbs"
+      data-settings-href="index.html#settings"
+    ></nav>
+
+    <script src="chrome.js?v=chrome-10"></script>
+    <script type="module" src="word-net.js?v=word-net-6"></script>
+  </body>
+</html>

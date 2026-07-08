@@ -28,6 +28,8 @@ cd /workspace/tools/caatuu-cz-ml
 npm run check
 npm run build:corpus
 npm run build:dataset
+npm run build:lora-datasets
+npm run validate:lora-datasets
 ```
 
 For a safe dataset-builder check that does not overwrite the saved dataset:
@@ -126,3 +128,125 @@ That path converts the merged Hugging Face export to a quantized GGUF file and
 benchmarks it with `llama.cpp` on Android through Termux. It is for measuring
 whether the current Czech model is operational on the phone before we build an
 Android UI wrapper.
+
+## Vector Database Infrastructure
+
+The shared SQLite schema for Czech embeddings is:
+
+```text
+vector-schema.sql
+```
+
+The current generated embedding model is `caatuu-local-hash-v0.1`. It is
+a deterministic local baseline for lexical sentence retrieval. The vector input
+is only `english_text`; metadata is stored in SQLite for filtering and reports,
+not mixed into the embedding. The planned semantic replacement remains
+`BAAI/bge-small-en-v1.5`.
+
+The same database can include manually described image assets. The current
+asset keymap lives at:
+
+```text
+C:\Work\caatuu\apps\caatuu-unified\static\assets\characters\miscellaneous\keymap.json
+```
+
+Those entries must be written by inspecting the images. The vector build only
+embeds those manual English descriptions and records lookup rows in
+`asset_embedding_refs`.
+
+Build or refresh generated indexes under:
+
+```text
+C:\Work\caatuu\apps\caatuu-czech\static\data\embeddings\
+```
+
+The current main bilingual-ready corpus files are:
+
+```text
+data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl
+data/curriculum/common-phrases-v0.1/curated/common-phrases.en.jsonl
+```
+
+Use these as the base language data. Both files include `english_text` and a
+required filled `czech_text` field. The `core-v0.1` files are preserved
+source/intermediate material for rebuilds and audits.
+
+The app-facing curated corpus is the cleaned `core-v0.2` dataset. It is derived
+from preserved `core-v0.1` rows with deterministic duplicate and semantic
+cleanup:
+
+```powershell
+npm run cleanup:curriculum
+npm run validate:curriculum:clean
+```
+
+The authored everyday conversation phrase bank is separate:
+
+```powershell
+npm run build:common-phrases
+npm run validate:common-phrases
+```
+
+It writes 500 MIT-compatible rows under
+`data/curriculum/common-phrases-v0.1/`.
+
+To rebuild the current curriculum vector DB from the cleaned JSONL:
+
+```powershell
+npm run build:vector-db
+```
+
+This writes the tracked SQLite database, updates its tracked manifest, and
+refreshes the vector quality files under `data/curriculum/core-v0.2/validation`
+and `data/curriculum/core-v0.2/reports`.
+It also ingests the manual miscellaneous image keymap when that file exists and
+updates the embedding entries in `apps/caatuu-czech/static/setup-assets.json`.
+
+The curated curriculum SQLite database is tracked in Git with the JSONL corpus.
+Keep heavier future embedding runtime files out of Git. The browser and Android
+managers expect normalized 384-dimensional `float32le` vectors. Do not label
+local hash vectors as BGE vectors.
+
+The embedding rule is strict: compute vectors from `english_text` only. Store
+`czech_text`, topic, target words, grammar tags, difficulty, and age band as
+metadata for filtering and review, but do not mix them into the embedding input.
+
+## Curriculum Utility LoRAs
+
+The current bilingual corpus can build two utility-model datasets:
+
+```powershell
+npm run build:lora-datasets
+npm run validate:lora-datasets
+```
+
+Outputs:
+
+```text
+data/models/czech-finetuned/training-data/translation-cs-en-001/
+data/models/czech-finetuned/training-data/czech-word-sentence-001/
+```
+
+Training wrappers:
+
+```bash
+bash scripts/train-czech-translation-cs-en-001.sh
+bash scripts/train-czech-word-sentence-001.sh
+```
+
+Full details are in:
+
+```text
+CURRICULUM_LORA_RUNBOOK.md
+```
+
+## Planet Word Net Utility Models
+
+The first game-specific utility model is documented here:
+
+```text
+tools/caatuu-cz-ml/PLANET_WORDNET_MODEL_RUNBOOK.md
+```
+
+That runbook covers dataset generation, hard LoRA training, evaluation, adapter
+merge, GGUF publication, Android wiring, APK build, and endpoint verification.

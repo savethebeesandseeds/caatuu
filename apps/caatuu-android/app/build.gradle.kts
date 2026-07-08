@@ -25,12 +25,17 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
 val androidAbis = providers.environmentVariable("CAATUU_ANDROID_ABIS")
     .map { value -> value.split(",").map { abi -> abi.trim() }.filter { abi -> abi.isNotEmpty() } }
     .orElse(listOf("arm64-v8a"))
+val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
+    .orElse("https://caatuu.waajacu.com/android")
 val hasReleaseSigning = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
     releaseKeyAlias,
     releaseKeyPassword,
 ).all { it.isPresent }
+
+fun buildConfigString(value: String): String =
+    "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
 
 val syncCzechAssets by tasks.registering(Sync::class) {
     from(czechStaticDir) {
@@ -40,6 +45,14 @@ val syncCzechAssets by tasks.registering(Sync::class) {
         exclude("data/models/**/*.safetensors")
         exclude("data/models/**/ndarray-cache.json")
         exclude("data/models/czech-finetuned/**")
+        exclude("data/embeddings/**/*.sqlite")
+        exclude("data/embeddings/**/*.db")
+        exclude("data/embeddings/**/*.wasm")
+        exclude("data/embeddings/**/*.onnx")
+        exclude("data/embeddings/**/*.bin")
+        exclude("data/embeddings/**/*.safetensors")
+        exclude("vendor/sql.js/**")
+        exclude("icons/caatuu-czech-1024.png")
     }
     into(generatedCzechAssetsDir)
 }
@@ -52,8 +65,10 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 14
-        versionName = "0.1.13"
+        versionCode = 59
+        versionName = "0.1.58"
+        buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
+        manifestPlaceholders["caatuuUsesCleartextTraffic"] = "false"
 
         ndk {
             abiFilters += androidAbis.get()
@@ -94,10 +109,12 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
+            manifestPlaceholders["caatuuUsesCleartextTraffic"] = "true"
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            manifestPlaceholders["caatuuUsesCleartextTraffic"] = "false"
             if (hasReleaseSigning) {
                 signingConfig = signingConfigs.getByName("release")
             }

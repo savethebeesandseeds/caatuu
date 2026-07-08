@@ -8,6 +8,10 @@ source "$script_dir/versions.env"
 download_dir="${TMPDIR:-/tmp}/caatuu-android-build"
 mkdir -p "$download_dir" "$ANDROID_HOME" "$(dirname "$GRADLE_HOME")"
 
+bash "$script_dir/setup-jdk.sh"
+# setup-jdk.sh may create JDK_HOME, so source the paths again.
+source "$script_dir/versions.env"
+
 download_cmdline_tools() {
   if [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
     echo "Android command-line tools already installed at $ANDROID_HOME"

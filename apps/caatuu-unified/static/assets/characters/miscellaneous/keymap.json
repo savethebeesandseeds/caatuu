@@ -1,0 +1,178 @@
+{
+  "/assets/characters/miscellaneous/miscellaneous_%20(1).png": {
+    "description": "A tan and teal twin-boom space fighter with four rear engines, forward cannons, angular wings, and worn gold trim.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-001",
+      "chunk_id": "asset-miscellaneous-001:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(2).png": {
+    "description": "A whimsical round wooden walking house with bird-like legs, leafy trees growing from the roof, porthole windows, lanterns, and a smoking chimney.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-002",
+      "chunk_id": "asset-miscellaneous-002:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(3).png": {
+    "description": "A friendly macaw pilot sitting inside a round glass capsule with small side engines, orange pads, teal glass, and a trailing scarf.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-003",
+      "chunk_id": "asset-miscellaneous-003:description"
+    },
+    "category": "character"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(4).png": {
+    "description": "A tall white windmill tower house with a teal roof, wooden lookout balcony, small doorway, nearby trees, and warm storybook details.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-004",
+      "chunk_id": "asset-miscellaneous-004:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(5).png": {
+    "description": "A small round cottage on a floating grassy island with a teal roof, trees, a hanging ladder, wooden railings, and dangling stone roots.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-005",
+      "chunk_id": "asset-miscellaneous-005:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(6).png": {
+    "description": "A compact domed round hut with teal circular windows, a yellow awning, potted plants, stone steps, and a small propeller on top.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-006",
+      "chunk_id": "asset-miscellaneous-006:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(7).png": {
+    "description": "A low hobbit-style hill house with a grassy roof, round teal door, stone chimney, large tree, curved path, and potted shrubs.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-007",
+      "chunk_id": "asset-miscellaneous-007:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(8).png": {
+    "description": "A raised treehouse built into a large tree trunk with a round teal window, wooden stairs, balcony railings, teal canopy, and hanging lantern.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-008",
+      "chunk_id": "asset-miscellaneous-008:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(9).png": {
+    "description": "A conical straw-roof hut with a round teal door, small flag, garden bushes, potted plants, and a cozy handmade look.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-009",
+      "chunk_id": "asset-miscellaneous-009:description"
+    },
+    "category": "house"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(10).png": {
+    "description": "A sleek white and gold rocket-like spacecraft with a large turquoise cockpit, swept wings, side engines, and a brown scarf banner.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-010",
+      "chunk_id": "asset-miscellaneous-010:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(11).png": {
+    "description": "A chunky rounded capsule spacecraft with a large blue circular front window, cream hull panels, brown trim, and twin side thrusters.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-011",
+      "chunk_id": "asset-miscellaneous-011:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(12).png": {
+    "description": "A narrow white and teal racing spacecraft with long wings, pointed nose, rear engine pods, brown paneling, and gold accent markings.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-012",
+      "chunk_id": "asset-miscellaneous-012:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(13).png": {
+    "description": "A manta-shaped white spacecraft with broad curved wings, a blue cockpit canopy, small flags, brown trim, and rear engine pods.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-013",
+      "chunk_id": "asset-miscellaneous-013:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(14).png": {
+    "description": "A ring-shaped spacecraft with a small central cockpit pod, teal glass, side fins, and engine modules around a circular cream frame.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-014",
+      "chunk_id": "asset-miscellaneous-014:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(15).png": {
+    "description": "A small pirate-style flying ship with a brown skull sail, wooden hull, teal windows, lanterns, ropes, and tiny flags.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-015",
+      "chunk_id": "asset-miscellaneous-015:description"
+    },
+    "category": "ship"
+  },
+  "/assets/characters/miscellaneous/miscellaneous_%20(16).png": {
+    "description": "A boxy tan-and-teal cargo spaceship with exposed engine pods, squared front cabin, brown straps, and rugged mechanical panels.",
+    "embedding": {
+      "database": "/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "asset_embedding_refs",
+      "model_id": "caatuu-local-hash-v0.1",
+      "document_id": "asset-miscellaneous-016",
+      "chunk_id": "asset-miscellaneous-016:description"
+    },
+    "category": "ship"
+  }
+}

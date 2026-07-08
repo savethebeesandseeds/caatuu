@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script>
+      try {
+        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+    <script src="runtime.js?v=runtime-2"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-2">
+    <link rel="stylesheet" href="chat.css?v=chat-3">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
+  </head>
+  <body>
+    <main class="chat-shell">
+      <header class="app-header" data-caatuu-app-header></header>
+
+      <div class="workbench">
+        <section class="chat-panel" aria-label="Caatuu chat">
+          <div class="chat-log" id="chatLog" aria-live="polite"></div>
+
+          <form class="composer" id="promptForm">
+            <div class="message-field">
+              <label class="sr-only" for="promptInput">Message</label>
+              <div class="composer-box">
+                <textarea id="promptInput" rows="3" autocomplete="off" autocapitalize="sentences" placeholder="Ask"></textarea>
+                <div class="composer-toolbar" aria-label="Chat controls">
+                  <button class="composer-tool new-chat-button" id="newChat" type="button"><span aria-hidden="true">+</span><span>New</span></button>
+                  <label class="composer-select-label composer-model-label">
+                    <span>Model</span>
+                    <select id="composerModel" aria-label="Model">
+                      <option value="cstinyllama-1.2b-czech-word-sentence-001" selected>Word Sentence</option>
+                      <option value="cstinyllama-1.2b-translation-cs-en-001">CZ -> EN</option>
+                      <option value="qwen3-lora-003-hard">Caatuu CZ (legacy)</option>
+                      <option value="cstinyllama-1.2b-base">CSTinyLlama (legacy)</option>
+                      <option value="cstinyllama-1.2b-planet-wordnet-002-copy">Word Net (legacy)</option>
+                    </select>
+                  </label>
+                  <label class="composer-select-label">
+                    <span>Effort</span>
+                    <select id="composerEffort" aria-label="Effort">
+                      <option value="fast">Fast</option>
+                      <option value="chat" selected>Balanced</option>
+                      <option value="careful">Deep</option>
+                    </select>
+                  </label>
+                  <details class="context-status" id="contextStatus">
+                    <summary aria-label="Context and frontier status">
+                      <span class="context-disk" aria-hidden="true">
+                        <span class="context-disk-center" id="contextIndicator">2k</span>
+                      </span>
+                    </summary>
+                    <div class="context-popover" role="status">
+                      <b>Frontier</b>
+                      <dl>
+                        <div>
+                          <dt>Context</dt>
+                          <dd id="contextSizeLabel">2k context</dd>
+                        </div>
+                        <div>
+                          <dt>Phrase path</dt>
+                          <dd>Dictionary ready</dd>
+                        </div>
+                        <div>
+                          <dt>Repeat guard</dt>
+                          <dd>On</dd>
+                        </div>
+                        <div>
+                          <dt>Model</dt>
+                          <dd id="frontierModelStatus">Warming</dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </details>
+                  <span class="toolbar-spacer" aria-hidden="true"></span>
+                  <button class="composer-tool mic-button" type="button" disabled aria-label="Voice input coming later"><span aria-hidden="true">&#x1F399;</span></button>
+                  <button id="runPrompt" type="submit" disabled aria-label="Send message"><span class="send-symbol" aria-hidden="true">&#10148;</span><span class="send-label">Send</span></button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <p class="privacy-line" id="privacyLine">Practice only. Not for important decisions.</p>
+          <div class="chat-events" id="chatEvents" aria-live="polite" aria-atomic="true" data-tone="muted">
+            <p class="chat-event-line" id="chatEventLine">Checking local intelligence.</p>
+            <div class="chat-progress" id="chatProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+              <span class="chat-progress-bar" id="chatProgressBar"></span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <a class="footer-brand" href="https://www.waajacu.com" rel="noopener">
+        <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+        <span>by Waajacu</span>
+      </a>
+    </footer>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="chat"
+      data-settings-target="openSettings"
+    ></nav>
+
+    <div data-caatuu-settings-panel hidden></div>
+
+    <script src="chrome.js?v=chrome-14"></script>
+    <script src="maintenance-ui.js?v=maintenance-1"></script>
+    <script type="module" src="chat.js?v=chat-16"></script>
+  </body>
+</html>

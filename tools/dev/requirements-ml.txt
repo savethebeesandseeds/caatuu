@@ -1,0 +1,16 @@
+accelerate>=1.0
+datasets>=2.20
+evaluate>=0.4
+hf_transfer>=0.1
+huggingface_hub>=0.24
+numpy
+peft>=0.12
+protobuf
+psutil
+safetensors
+scikit-learn
+scipy
+sentencepiece
+tokenizers
+tqdm
+transformers>=4.45

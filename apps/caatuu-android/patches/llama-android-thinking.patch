@@ -106,7 +106,7 @@ index 26c1668..61138ec 100644
      /**
       * Runs a benchmark with the specified parameters.
 diff --git a/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt b/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
-index a293796..b4233ec 100644
+index a293796..9c07aae 100644
 --- a/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
 +++ b/examples/llama.android/lib/src/main/java/com/arm/aichat/internal/InferenceEngineImpl.kt
 @@ -98,7 +98,11 @@ internal class InferenceEngineImpl private constructor(
@@ -139,3 +139,33 @@ index a293796..b4233ec 100644
                  if (result != 0) {
                      Log.e(TAG, "Failed to process user prompt: $result")
                      return@flow
+@@ -310,15 +315,21 @@ internal class InferenceEngineImpl private constructor(
+      * Cancel all ongoing coroutines and free GGML backends
+      */
+     override fun destroy() {
+-        _cancelGeneration = true
+-        runBlocking(llamaDispatcher) {
+-            _readyForSystemPrompt = false
+-            when(_state.value) {
+-                is InferenceEngine.State.Uninitialized -> {}
+-                is InferenceEngine.State.Initialized -> shutdown()
+-                else -> { unload(); shutdown() }
++        try {
++            _cancelGeneration = true
++            runBlocking(llamaDispatcher) {
++                _readyForSystemPrompt = false
++                when(_state.value) {
++                    is InferenceEngine.State.Uninitialized -> {}
++                    is InferenceEngine.State.Initialized -> shutdown()
++                    else -> { unload(); shutdown() }
++                }
++            }
++            llamaScope.cancel()
++        } finally {
++            synchronized(Companion) {
++                if (instance === this@InferenceEngineImpl) instance = null
+             }
+         }
+-        llamaScope.cancel()
+     }
+ }

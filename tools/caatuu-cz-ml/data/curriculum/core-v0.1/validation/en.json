@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-07-05T18:31:05.327Z",
+  "schema_version": "caatuu-curriculum-flat-v0.2",
+  "input_file": "C:\\Work\\caatuu\\tools\\caatuu-cz-ml\\data\\curriculum\\core-v0.1\\curated\\curriculum-core.en.jsonl",
+  "rows": 5000,
+  "unique_ids": 5000,
+  "duplicate_text_groups": 0,
+  "notes_blank": true,
+  "czech_text_filled": 0,
+  "czech_text_blank": 5000,
+  "id_format": "cc-000001",
+  "topic_counts": {
+    "animals": 576,
+    "clothing": 587,
+    "colors": 202,
+    "food": 800,
+    "home": 565,
+    "nature": 196,
+    "people": 377,
+    "play": 800,
+    "routine": 19,
+    "school": 800,
+    "transport": 78
+  },
+  "difficulty_counts": {
+    "1": 1698,
+    "2": 1775,
+    "3": 1527
+  },
+  "validation_errors": []
+}
