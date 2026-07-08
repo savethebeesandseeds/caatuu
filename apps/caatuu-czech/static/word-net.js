@@ -1,5 +1,10 @@
+import { LocalHashTextEmbedder } from "./vector-db.js";
+
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
+const SCENE_KEYMAP_URL = "/assets/characters/miscellaneous/keymap.json";
+const SCENE_ASSET_LIMIT = 5;
+const sceneEmbedder = new LocalHashTextEmbedder();
 
 const playInstruction = "Tap any word to make the next phrase. Use ↻ for a fresh random phrase.";
 
@@ -63,6 +68,9 @@ const state = {
   currentSentence: "",
   currentTranslation: "",
   translationVisible: true,
+  sceneAssetRowsPromise: null,
+  sceneCandidates: [],
+  sceneRequestId: 0,
   history: []
 };
 
@@ -251,6 +259,126 @@ function renderTrail() {
   }));
 }
 
+function dotProduct(left, right) {
+  const count = Math.min(left?.length || 0, right?.length || 0);
+  let score = 0;
+  for (let index = 0; index < count; index += 1) {
+    score += left[index] * right[index];
+  }
+  return score;
+}
+
+function normalizeAssetPath(assetPath) {
+  const value = String(assetPath || "").trim();
+  if (value.startsWith("/assets/")) return value;
+  if (value.startsWith("assets/")) return `/${value}`;
+  return "";
+}
+
+function parseSceneKeymap(raw) {
+  if (!raw || typeof raw !== "object") return [];
+  return Object.entries(raw).map(([assetPath, metadata]) => {
+    const normalizedPath = normalizeAssetPath(assetPath);
+    const description = String(metadata?.description || "").trim();
+    if (!normalizedPath || !description) return null;
+    return {
+      assetPath: normalizedPath,
+      description,
+      category: String(metadata?.category || "").trim()
+    };
+  }).filter(Boolean);
+}
+
+async function sceneAssetRows() {
+  if (!state.sceneAssetRowsPromise) {
+    state.sceneAssetRowsPromise = fetch(SCENE_KEYMAP_URL, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Could not load scene keymap (${response.status}).`);
+        return response.json();
+      })
+      .then(async (raw) => {
+        const rows = parseSceneKeymap(raw);
+        const embeddedRows = [];
+        for (const row of rows) {
+          embeddedRows.push({
+            ...row,
+            vector: await sceneEmbedder.embedText(row.description)
+          });
+        }
+        return embeddedRows;
+      })
+      .catch(() => []);
+  }
+  return state.sceneAssetRowsPromise;
+}
+
+async function rankedSceneCandidates(englishText) {
+  const text = String(englishText || "").trim();
+  if (!text) return [];
+
+  const rows = await sceneAssetRows();
+  if (!rows.length) return [];
+
+  const queryVector = await sceneEmbedder.embedText(text);
+  return rows
+    .map((row) => ({
+      ...row,
+      score: dotProduct(queryVector, row.vector)
+    }))
+    .filter((row) => Number.isFinite(row.score))
+    .sort((left, right) => right.score - left.score)
+    .slice(0, SCENE_ASSET_LIMIT);
+}
+
+function hideSceneAsset({ cancel = false } = {}) {
+  if (cancel) state.sceneRequestId += 1;
+  state.sceneCandidates = [];
+  const scene = $("#wordNetScene");
+  const image = $("#wordNetSceneImage");
+  if (image) {
+    image.onload = null;
+    image.onerror = null;
+    image.removeAttribute("src");
+    image.alt = "";
+  }
+  if (scene) scene.hidden = true;
+}
+
+function renderSceneCandidate(candidateIndex, requestId) {
+  const scene = $("#wordNetScene");
+  const image = $("#wordNetSceneImage");
+  const candidate = state.sceneCandidates[candidateIndex];
+  if (!scene || !image || !candidate) {
+    hideSceneAsset();
+    return;
+  }
+
+  scene.hidden = true;
+  image.onload = () => {
+    if (requestId === state.sceneRequestId) scene.hidden = false;
+  };
+  image.onerror = () => {
+    if (requestId === state.sceneRequestId) renderSceneCandidate(candidateIndex + 1, requestId);
+  };
+  image.alt = candidate.description;
+  image.src = candidate.assetPath;
+}
+
+async function updateSceneAsset(englishText) {
+  const requestId = state.sceneRequestId + 1;
+  state.sceneRequestId = requestId;
+  hideSceneAsset();
+
+  try {
+    const candidates = await rankedSceneCandidates(englishText);
+    if (requestId !== state.sceneRequestId) return;
+    state.sceneCandidates = candidates;
+    renderSceneCandidate(0, requestId);
+  } catch (error) {
+    if (requestId === state.sceneRequestId) hideSceneAsset();
+  }
+}
+
 function cleanTranslation(output) {
   let value = String(output || "").replace(/\r/g, "\n").trim();
   value = value.replace(/<\|[^>]+?\|>/g, " ").replace(/\s+/g, " ").trim();
@@ -264,8 +392,9 @@ function cleanTranslation(output) {
 async function translateCurrentSentence(sentence, word) {
   setTranslation("", { loading: true });
   if (!nativeTranslationRuntimeAvailable()) {
-    setTranslation(localTranslation(sentence, word));
-    return;
+    const translation = localTranslation(sentence, word);
+    setTranslation(translation);
+    return translation;
   }
 
   try {
@@ -290,9 +419,13 @@ async function translateCurrentSentence(sentence, word) {
         }
       }
     );
-    setTranslation(cleanTranslation(output || result?.output || "") || localTranslation(sentence, word));
+    const translation = cleanTranslation(output || result?.output || "") || localTranslation(sentence, word);
+    setTranslation(translation);
+    return translation;
   } catch (error) {
-    setTranslation(localTranslation(sentence, word));
+    const translation = localTranslation(sentence, word);
+    setTranslation(translation);
+    return translation;
   }
 }
 
@@ -344,6 +477,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
   state.currentWord = target;
   renderCzechSentence(state.currentSentence, target);
   setTranslation("");
+  hideSceneAsset({ cancel: true });
   setBusy(true);
   setProgress(null);
 
@@ -386,7 +520,8 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
     state.currentSentence = sentence;
     renderCzechSentence(sentence);
     rememberStep(target, sentence);
-    await translateCurrentSentence(sentence, target);
+    const englishSentence = await translateCurrentSentence(sentence, target);
+    void updateSceneAsset(englishSentence);
     setStatus(
       playInstruction,
       { tone: "muted" }
@@ -395,7 +530,9 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
     const sentence = localSentence(target);
     state.currentSentence = sentence;
     renderCzechSentence(sentence);
-    setTranslation(localTranslation(sentence, target));
+    const englishSentence = localTranslation(sentence, target);
+    setTranslation(englishSentence);
+    void updateSceneAsset(englishSentence);
     setStatus(error?.message || "Could not generate with the model.", { tone: "error" });
   } finally {
     setProgress(null);

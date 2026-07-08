@@ -1021,6 +1021,7 @@ async function refreshNativeUpdateStatus() {
   if (!hasNativeRuntime()) {
     nativeUpdateStatus = { updateAvailable: false };
     setUpdateAppControl(nativeUpdateStatus);
+    runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
     return;
   }
 
@@ -1063,6 +1064,7 @@ function renderInitialRuntime() {
   setText("#storageMeta", hasWebGpu ? "Browser WebGPU cache" : "No local model storage");
   setText("#maintenanceStatus", "Browser mode can clear this origin's Caatuu caches.");
   setUpdateAppControl({ updateAvailable: false });
+  runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
   updateLoadButton(hasWebGpu ? "Start" : "Install app");
   renderBrowserFallbackMeta();
   setText(

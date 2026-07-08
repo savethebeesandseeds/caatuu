@@ -673,10 +673,16 @@ function syncAppRuntimeControls() {
   }
 
   setText("#maintenanceStatus", "Browser mode can clear this origin's Caatuu caches.");
+  runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
 }
 
 async function refreshNativeUpdateStatus() {
-  if (!hasNativeRuntime()) return;
+  if (!hasNativeRuntime()) {
+    nativeUpdateStatus = { updateAvailable: false };
+    setUpdateAppControl(nativeUpdateStatus);
+    runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
+    return;
+  }
   try {
     nativeUpdateStatus = await runtimeAdapter().maintenance.updateStatus();
     setUpdateAppControl(nativeUpdateStatus);

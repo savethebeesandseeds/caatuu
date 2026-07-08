@@ -111,6 +111,75 @@ img {
   margin-bottom: 34px;
 }
 
+.brand-identity,
+.available-languages {
+  display: flex;
+  align-items: center;
+}
+
+.brand-identity {
+  flex: 1 1 auto;
+  gap: 12px;
+  min-width: 0;
+}
+
+.home-card .brand-row {
+  justify-content: space-between;
+  gap: 12px 18px;
+}
+
+.available-languages {
+  flex: 0 0 auto;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.language-list {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.language-list li {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 30px;
+  border: 1px solid rgba(35, 88, 76, 0.24);
+  border-radius: 8px;
+  background: #eef6f1;
+  color: var(--green);
+  padding: 4px;
+}
+
+.cz-flag {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 18px;
+  border: 1px solid rgba(23, 32, 29, 0.18);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ffffff 0 50%, #d7141a 50% 100%);
+  box-shadow: 0 1px 2px rgba(23, 32, 29, 0.12);
+  overflow: hidden;
+}
+
+.cz-flag::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14px solid #11457e;
+  content: "";
+}
+
 .brand-mark {
   display: grid;
   place-items: center;
@@ -160,12 +229,19 @@ img {
   margin-bottom: 0;
 }
 
+.home-heading .eyebrow {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
 .home-heading h1 {
-  max-width: 11ch;
-  font-family: Georgia, Cambria, "Times New Roman", serif;
-  font-size: 2.45rem;
-  font-weight: 700;
-  line-height: 1.05;
+  max-width: 13ch;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--blue);
 }
 
 .home-copy {
@@ -265,6 +341,14 @@ img {
   font-size: 1rem;
   font-weight: 900;
   line-height: 1.15;
+}
+
+.home-footnote {
+  margin: -2px 0 0;
+  color: var(--quiet);
+  font-size: 0.94rem;
+  font-style: italic;
+  line-height: 1.45;
 }
 
 .language-panel {
@@ -609,6 +693,19 @@ h1 {
 
   .brand-row {
     margin-bottom: 28px;
+  }
+
+  .home-card .brand-row {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .available-languages {
+    margin-left: auto;
+  }
+
+  .available-languages > span {
+    display: none;
   }
 
   .stage-art {

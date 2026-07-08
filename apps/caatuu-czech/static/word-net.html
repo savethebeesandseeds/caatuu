@@ -19,11 +19,11 @@
     <script src="runtime.js?v=runtime-2"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
     <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
-    <link rel="stylesheet" href="word-net.css?v=word-net-7">
+    <link rel="stylesheet" href="word-net.css?v=word-net-12">
   </head>
   <body>
     <div class="word-net-page">
-      <header class="app-header" data-caatuu-app-header></header>
+      <header class="app-header" data-caatuu-app-header data-word-net-title="Word Net"></header>
 
       <main class="word-net-main" aria-label="Word Net">
         <section class="word-net-game" aria-label="Word Net game">
@@ -43,6 +43,9 @@
               <span></span>
               <b>Preparing local intelligence</b>
             </div>
+            <figure class="word-net-scene" id="wordNetScene" hidden>
+              <img id="wordNetSceneImage" alt="">
+            </figure>
             <div class="word-net-phrase-stack">
               <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
               <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
@@ -83,6 +86,6 @@
     ></nav>
 
     <script src="chrome.js?v=chrome-10"></script>
-    <script type="module" src="word-net.js?v=word-net-6"></script>
+    <script type="module" src="word-net.js?v=word-net-8"></script>
   </body>
 </html>

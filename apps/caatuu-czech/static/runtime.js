@@ -141,6 +141,31 @@
     return response.json();
   }
 
+  async function browserUpdateStatus() {
+    try {
+      const manifest = await fetchJson("/android/caatuu.json", { cache: "no-store" });
+      const currentVersionCode = Number(manifest.version_code || 0);
+      const currentVersionName = manifest.version_name || "";
+      return {
+        updateAvailable: false,
+        currentVersionCode,
+        currentVersionName,
+        latestVersionCode: currentVersionCode,
+        latestVersionName: currentVersionName,
+        source: "served-manifest"
+      };
+    } catch (error) {
+      return {
+        updateAvailable: false,
+        currentVersionCode: 0,
+        currentVersionName: "",
+        latestVersionCode: 0,
+        latestVersionName: "",
+        source: "fallback"
+      };
+    }
+  }
+
   function browserArtifacts(manifest) {
     return Array.isArray(manifest?.artifacts)
       ? manifest.artifacts.filter((artifact) => artifact && artifact.browser_required && artifact.url)
@@ -617,7 +642,7 @@
       updateStatus() {
         return env === "android"
           ? nativeCall("update_app_status")
-          : Promise.resolve({ updateAvailable: false, currentVersionCode: 0, latestVersionCode: 0 });
+          : browserUpdateStatus();
       },
       updateApp(handlers = {}) {
         return env === "android" ? nativeCall("update_app", {}, handlers) : updateBrowserServiceWorker();

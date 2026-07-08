@@ -296,7 +296,7 @@
               <h3>Details</h3>
             </div>
             <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
-            <p class="version-note" id="settingsVersion" data-fallback-version="Version 0.1.55 (56)">Version 0.1.55 (56)</p>
+            <p class="version-note" id="settingsVersion" data-fallback-version="Version check pending">Version check pending</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
               <div>
