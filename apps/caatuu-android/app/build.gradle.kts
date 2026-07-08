@@ -4,6 +4,7 @@ plugins {
 }
 
 val czechStaticDir = layout.projectDirectory.dir("../../caatuu-czech/static")
+val unifiedStaticDir = layout.projectDirectory.dir("../../caatuu-unified/static")
 val generatedCzechAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-czech")
 val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
@@ -54,6 +55,9 @@ val syncCzechAssets by tasks.registering(Sync::class) {
         exclude("vendor/sql.js/**")
         exclude("icons/caatuu-czech-1024.png")
     }
+    from(unifiedStaticDir.dir("assets/icons")) {
+        into("assets/icons")
+    }
     into(generatedCzechAssetsDir)
 }
 
@@ -65,8 +69,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 64
-        versionName = "0.1.63"
+        versionCode = 65
+        versionName = "0.1.64"
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         manifestPlaceholders["caatuuUsesCleartextTraffic"] = "false"
 

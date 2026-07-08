@@ -617,6 +617,10 @@
         if (env === "android") return nativeCall("start_download", { modelKey }, handlers);
         return Promise.resolve({ runtime: "browser-webgpu", modelKey: browserFallbackModel, downloaded: capabilities.webGpu });
       },
+      abortDownload(modelKey) {
+        if (env === "android") return nativeCall("cancel_download", { modelKey });
+        return Promise.resolve({ runtime: "browser-webgpu", aborted: false });
+      },
       unload() {
         return env === "android" ? Promise.resolve({ runtime: "android", unloaded: false }) : unloadBrowserModel();
       },

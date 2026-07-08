@@ -16,11 +16,11 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-3"></script>
+    <script src="runtime.js?v=runtime-4"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
     <link rel="stylesheet" href="app.css?v=shell-36">
-    <link rel="stylesheet" href="home.css?v=home-11">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
+    <link rel="stylesheet" href="home.css?v=home-18">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-15">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -33,7 +33,7 @@
           <div class="setup-visual" aria-hidden="true">
             <span class="setup-orbit setup-orbit-one"></span>
             <span class="setup-orbit setup-orbit-two"></span>
-            <img class="stage-art" src="icons/caatuu-czech-512.png" data-setup-art-src="/assets/aliens/Czech_Macaw.png" alt="">
+            <img class="stage-art" src="icons/caatuu-czech-512.png" data-setup-art-src="/assets/characters/aliens/Czech_Macaw.png" alt="">
           </div>
           <section class="native-setup-card" id="nativeSetup" aria-labelledby="setupTitle" hidden>
             <div class="setup-head">
@@ -42,8 +42,8 @@
                 <h2 id="setupTitle">Preparing Caatuu</h2>
               </div>
               <div class="setup-head-meta">
-                <span class="setup-count" id="setupCount">0/3</span>
                 <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails">Details</button>
+                <button class="setup-update-link" id="setupUpdate" type="button" hidden>Update app</button>
               </div>
             </div>
             <div class="setup-message-zone" aria-live="polite">
@@ -51,7 +51,10 @@
               <p class="setup-message" id="setupMessage">Checking local intelligence.</p>
             </div>
             <div class="setup-progress-meta">
-              <span id="setupProgressText">0%</span>
+              <span class="setup-progress-metrics" id="setupProgressText">
+                <span class="setup-progress-pill"><b id="setupPercent">0%</b></span>
+                <span class="setup-count-pill" id="setupCount">0/3</span>
+              </span>
               <span id="setupBytes">Waiting for files</span>
             </div>
             <div class="setup-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="setupProgress">
@@ -68,7 +71,6 @@
               <button class="setup-action" id="setupAction" type="button">Prepare Caatuu</button>
               <button class="setup-small-action" id="setupAbort" type="button" disabled>Abort</button>
             </div>
-            <button class="setup-update-link" id="setupUpdate" type="button" hidden>Update App</button>
           </section>
         </section>
       </main>
@@ -81,10 +83,10 @@
       </footer>
     </div>
 
-    <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav></nav>
+    <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-    <script src="chrome.js?v=chrome-15"></script>
-    <script src="setup.js?v=setup-9"></script>
+    <script src="chrome.js?v=chrome-20"></script>
+    <script src="setup.js?v=setup-16"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

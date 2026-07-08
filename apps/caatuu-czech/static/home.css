@@ -60,7 +60,10 @@ body {
 
 .home-hero h1 {
   margin: 0;
+  color: color-mix(in srgb, var(--setup-blue) 74%, var(--setup-accent));
+  font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
   font-size: clamp(2.45rem, 7.4vw, 5rem);
+  font-weight: 900;
   line-height: 0.98;
   letter-spacing: 0;
 }
@@ -129,11 +132,6 @@ body {
   font-size: clamp(1.12rem, 2.4vw, 1.45rem);
 }
 
-.native-setup-card.is-ready .setup-count {
-  min-width: 4.6rem;
-  padding-block: 0.34rem;
-}
-
 .native-setup-card.is-ready:not(.is-updating) .setup-message-zone {
   display: none;
 }
@@ -186,8 +184,9 @@ body {
   letter-spacing: 0;
 }
 
-.setup-count,
-.setup-progress-meta span {
+.setup-progress-meta > span,
+.setup-progress-pill,
+.setup-count-pill {
   min-width: 3.4rem;
   padding: 0.42rem 0.58rem;
   border: 1px solid var(--setup-line);
@@ -197,6 +196,25 @@ body {
   font-weight: 900;
   text-align: center;
   background: var(--setup-panel-raised);
+}
+
+.setup-progress-meta > .setup-progress-metrics {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.setup-progress-metrics b {
+  color: inherit;
+  font: inherit;
+}
+
+.setup-count-pill {
+  color: var(--setup-muted);
+  font-size: 0.78rem;
 }
 
 .setup-detail-link,
@@ -237,7 +255,7 @@ body {
   align-items: center;
 }
 
-.setup-progress-meta span:last-child {
+.setup-progress-meta > span:last-child {
   min-width: 0;
   max-width: 68%;
   color: var(--setup-muted);
@@ -246,27 +264,56 @@ body {
 
 .setup-message-zone {
   display: grid;
+  grid-template-rows: auto 1fr;
   gap: 4px;
-  min-height: 58px;
-  padding: 12px 14px;
+  min-height: 102px;
+  height: 102px;
+  padding: 0;
   border: 1px solid var(--setup-line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--setup-panel-raised) 80%, var(--setup-bg));
+  align-content: start;
+  overflow: hidden;
+}
+
+.native-setup-card.is-error .setup-message-zone {
+  border-color: color-mix(in srgb, var(--setup-danger) 45%, var(--setup-line));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--setup-danger) 16%, var(--setup-panel)), color-mix(in srgb, var(--setup-danger) 10%, var(--setup-panel)));
 }
 
 .setup-phase {
+  min-height: 0.9rem;
+  margin: 0;
+  overflow: hidden;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--setup-line);
   color: var(--setup-accent);
-  font-size: 0.76rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .setup-message {
   margin: 0;
+  min-height: 2.6em;
+  overflow: hidden;
+  padding: 10px 14px 12px;
   color: var(--setup-muted);
-  font-weight: 750;
-  line-height: 1.35;
+  display: -webkit-box;
+  font-size: 0.88rem;
+  font-weight: 740;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.3;
+}
+
+.native-setup-card.is-error .setup-message {
+  color: color-mix(in srgb, var(--setup-danger) 58%, var(--setup-text));
 }
 
 .setup-progress {
@@ -293,10 +340,14 @@ body {
   align-items: start;
 }
 
+.setup-detail-grid[hidden] {
+  display: none;
+}
+
 .setup-artifacts,
 .setup-log-panel {
-  min-height: 136px;
-  max-height: 188px;
+  min-height: 150px;
+  max-height: 220px;
   overflow: auto;
   border: 1px solid var(--setup-line);
   border-radius: 8px;
@@ -322,7 +373,7 @@ body {
   --artifact-progress: 0%;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
   gap: 4px 10px;
   align-items: center;
   min-height: 30px;
@@ -376,9 +427,24 @@ body {
   border-bottom: 0;
 }
 
+.setup-artifact-icon,
 .setup-artifact strong,
 .setup-artifact span {
   min-width: 0;
+}
+
+.setup-artifact-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid color-mix(in srgb, var(--artifact-accent) 44%, var(--setup-line));
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--artifact-accent) 78%, var(--setup-muted));
+  background: color-mix(in srgb, var(--artifact-accent) 9%, var(--setup-panel-raised));
+  font-size: 0.68rem;
+  font-weight: 950;
+  line-height: 1;
 }
 
 .setup-artifact strong {
@@ -408,18 +474,31 @@ body {
   border-color: color-mix(in srgb, var(--setup-good) 42%, var(--setup-line));
 }
 
+.setup-artifact[data-ready="true"] .setup-artifact-icon {
+  color: var(--setup-good);
+  border-color: color-mix(in srgb, var(--setup-good) 44%, var(--setup-line));
+  background: color-mix(in srgb, var(--setup-good) 9%, var(--setup-panel-raised));
+}
+
+.setup-artifact[data-status="error"] {
+  --artifact-accent: var(--setup-danger);
+}
+
 .setup-log-panel {
   display: grid;
   grid-template-rows: auto 1fr;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--setup-good) 5%, var(--setup-panel-raised)), color-mix(in srgb, var(--setup-blue) 4%, var(--setup-panel))),
+    var(--setup-panel);
 }
 
 .setup-log-panel h3 {
   margin: 0;
-  padding: 6px 8px;
+  padding: 9px 11px;
   border-bottom: 1px solid var(--setup-line);
   color: var(--setup-text);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.76rem;
+  font-size: 0.95rem;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -427,24 +506,31 @@ body {
 .setup-log {
   min-height: 0;
   margin: 0;
-  padding: 6px 8px;
+  padding: 7px 9px;
   display: grid;
   align-content: start;
   gap: 4px;
   list-style: none;
   overflow: auto;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--setup-good) 8%, var(--setup-panel)), color-mix(in srgb, var(--setup-blue) 6%, var(--setup-panel))),
+    var(--setup-panel);
 }
 
 .setup-log li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1px;
-  padding: 0 0 0 8px;
-  border-left: 2px solid var(--setup-line-strong);
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-height: 30px;
+  padding: 4px 0 4px 8px;
+  border-left: 3px solid var(--setup-line-strong);
   color: var(--setup-muted);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.72rem;
-  line-height: 1.2;
+  font-size: 0.93rem;
+  line-height: 1.15;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .setup-log li[data-kind="ready"] {
@@ -460,17 +546,25 @@ body {
 }
 
 .setup-log strong {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 42%;
   color: var(--setup-text);
   overflow: hidden;
-  font-size: 0.73rem;
+  font-size: 0.94rem;
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .setup-log span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
   color: var(--setup-quiet);
-  font-weight: 750;
+  font-size: 0.88rem;
+  font-weight: 760;
+  text-overflow: ellipsis;
 }
 
 .setup-actions {
@@ -510,7 +604,16 @@ body {
 .setup-update-link {
   justify-self: end;
   margin-top: -2px;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--setup-danger) 38%, var(--setup-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--setup-danger) 8%, var(--setup-panel-raised));
   color: var(--setup-accent);
+  text-decoration: none;
+}
+
+.setup-update-link:not([hidden]):not(:disabled) {
+  color: color-mix(in srgb, var(--setup-danger) 70%, var(--setup-accent));
 }
 
 .setup-action[hidden],
@@ -591,7 +694,11 @@ body.setup-blocked .bottom-app-nav,
 
   .setup-artifacts,
   .setup-log-panel {
-    max-height: 150px;
+    max-height: 176px;
+  }
+
+  .setup-log-panel {
+    max-height: 240px;
   }
 
   .setup-actions {
@@ -627,16 +734,28 @@ body.setup-blocked .bottom-app-nav,
     justify-self: start;
   }
 
-  .setup-count,
-  .setup-progress-meta span {
+  .setup-progress-meta > span,
+  .setup-progress-pill,
+  .setup-count-pill {
     width: 100%;
     max-width: none;
     text-align: left;
   }
 
-  .setup-progress-meta span:last-child {
+  .setup-progress-meta > span:last-child {
     max-width: none;
     text-align: left;
+  }
+
+  .setup-progress-meta > .setup-progress-metrics {
+    width: 100%;
+    display: flex;
+  }
+
+  .setup-progress-pill,
+  .setup-count-pill {
+    flex: 1 1 0;
+    text-align: center;
   }
 
   .setup-visual {

@@ -1,29 +1,28 @@
 (() => {
+  const themeStorageKey = "caatuu-czech.theme";
+  const darkModeIconSrc = "logos/dark_mode.png";
+  const themeOptions = {
+    light: { themeColor: "#f5efe5", label: "Use dark theme" },
+    dark: { themeColor: "#0d171e", label: "Dark theme enabled" }
+  };
   const navItems = [
     {
-      key: "dictionary",
-      label: "Dictionary",
-      icon: "Aa",
-      href: "index.html#dictionary",
-      view: "dictionary"
+      key: "home",
+      label: "Home",
+      iconSrc: "/assets/icons/home_icon.png",
+      href: "home.html"
     },
     {
-      key: "verbs",
-      label: "Train",
-      icon: "\uD83E\uDDE9\uFE0E",
+      key: "games",
+      label: "Games",
+      iconSrc: "/assets/icons/games_icon.png",
       href: "index.html#verbs",
       view: "verbs"
     },
     {
-      key: "chat",
-      label: "Chat",
-      icon: "\uD83D\uDDE8\uFE0E",
-      href: "chat.html"
-    },
-    {
       key: "settings",
       label: "Settings",
-      icon: "\u2699\uFE0E",
+      iconSrc: "/assets/icons/settings_icon.png",
       href: "index.html#settings"
     }
   ];
@@ -32,11 +31,90 @@
     return window.CaatuuRuntime?.env === "android";
   }
 
+  function normalizeTheme(theme) {
+    return theme === "light" || theme === "dark" ? theme : "dark";
+  }
+
+  function readStoredTheme() {
+    try {
+      return normalizeTheme(localStorage.getItem(themeStorageKey));
+    } catch (error) {
+      return "dark";
+    }
+  }
+
+  function updateThemeControls(theme) {
+    document.querySelectorAll("[data-theme-option]").forEach((button) => {
+      const active = button.dataset.themeOption === theme;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      const darkActive = theme === "dark";
+      const option = themeOptions[theme] || themeOptions.dark;
+      button.dataset.themeToggle = "dark";
+      button.classList.toggle("is-disabled", darkActive);
+      button.toggleAttribute("disabled", darkActive);
+      button.setAttribute("aria-disabled", String(darkActive));
+      button.setAttribute("aria-label", option.label);
+      button.setAttribute("title", option.label);
+      const icon = button.querySelector("[data-theme-toggle-icon]");
+      if (icon) icon.setAttribute("src", darkModeIconSrc);
+    });
+  }
+
+  function applyTheme(theme, { persist = true } = {}) {
+    const normalizedTheme = normalizeTheme(theme);
+    document.documentElement.dataset.theme = normalizedTheme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      "content",
+      themeOptions[normalizedTheme]?.themeColor || themeOptions.dark.themeColor
+    );
+    if (persist) {
+      try {
+        localStorage.setItem(themeStorageKey, normalizedTheme);
+      } catch (error) {
+        // Storage can be unavailable in constrained WebView contexts.
+      }
+    }
+    updateThemeControls(normalizedTheme);
+  }
+
+  function activateDarkTheme() {
+    applyTheme("dark");
+  }
+
+  function bindThemeToggle() {
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-theme-toggle]");
+      if (!button) return;
+      event.preventDefault();
+      if (button.disabled || button.getAttribute("aria-disabled") === "true") return;
+      activateDarkTheme();
+    });
+
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-theme-option]");
+      if (!button) return;
+      event.preventDefault();
+      applyTheme(button.dataset.themeOption);
+    });
+  }
+
   function appendNavContent(element, item) {
     const icon = document.createElement("span");
     icon.className = "app-nav-icon";
     icon.setAttribute("aria-hidden", "true");
-    icon.textContent = item.icon;
+    if (item.iconSrc) {
+      const image = document.createElement("img");
+      image.className = "app-nav-icon-img";
+      image.src = item.iconSrc;
+      image.alt = "";
+      icon.append(image);
+    } else {
+      icon.textContent = item.icon;
+    }
 
     const label = document.createElement("span");
     label.textContent = item.label;
@@ -45,7 +123,9 @@
   }
 
   function navClasses(item, activeSection, isViewButton) {
-    const isActive = activeSection === item.key || (activeSection === "train" && item.key === "verbs");
+    const isActive = activeSection === item.key ||
+      activeSection === item.view ||
+      (activeSection === "train" && item.key === "games");
     return [
       isViewButton ? "nav-tab" : "",
       "app-nav-item",
@@ -82,8 +162,10 @@
   }
 
   function renderLanguageSwitch(element) {
-    const flag = document.createElement("span");
+    const flag = document.createElement("img");
     flag.className = "cz-flag";
+    flag.src = "logos/czech_flag.png";
+    flag.alt = "";
     flag.setAttribute("aria-hidden", "true");
 
     const code = document.createElement("span");
@@ -130,11 +212,29 @@
     language.dataset.caatuuLanguageSwitch = "";
     language.dataset.label = "CZ";
 
+    const theme = document.createElement("button");
+    theme.className = "theme-toggle";
+    theme.type = "button";
+    theme.dataset.themeToggle = "";
+
+    const themeIcon = document.createElement("img");
+    themeIcon.className = "theme-toggle-icon";
+    themeIcon.dataset.themeToggleIcon = "";
+    themeIcon.src = darkModeIconSrc;
+    themeIcon.alt = "";
+    themeIcon.setAttribute("aria-hidden", "true");
+
+    const actions = document.createElement("span");
+    actions.className = "header-actions";
+
     mark.append(icon);
     labelWrap.append(label);
     brand.append(mark, labelWrap);
-    header.append(brand, language);
+    theme.append(themeIcon);
+    actions.append(theme, language);
+    header.append(brand, actions);
     renderLanguageSwitch(language);
+    updateThemeControls(readStoredTheme());
   }
 
   function renderSettingsPanel(panel) {
@@ -168,7 +268,7 @@
                 <b>Light</b>
               </button>
               <button type="button" data-theme-option="dark">
-                <span aria-hidden="true">&#9790;</span>
+                <img class="theme-control-icon" src="logos/dark_mode.png" alt="" aria-hidden="true">
                 <b>Dark</b>
               </button>
             </div>
@@ -260,6 +360,20 @@
                 <p class="capability-note" id="capabilityNote">These settings are shared across Caatuu screens.</p>
               </div>
             </details>
+            <details class="settings-details developer-tools-details">
+              <summary class="settings-collapsible-summary">
+                <span class="settings-summary-title">
+                  <span class="settings-kicker kicker">Developer</span>
+                  <strong>Developer tools</strong>
+                </span>
+              </summary>
+              <div class="settings-details-body">
+                <nav class="advanced-link-list" aria-label="Developer tools">
+                  <a class="advanced-link" href="chat.html?advanced=debug-chat">debug-chat</a>
+                  <a class="advanced-link" href="index.html?advanced=cz-dictionary#dictionary">cz-dictionary</a>
+                </nav>
+              </div>
+            </details>
           </section>
 
           <section class="settings-card side-card maintenance-card" aria-label="App settings">
@@ -279,12 +393,13 @@
             </dl>
             <div class="settings-actions maintenance-actions">
               <button class="pwa-install-action" type="button" id="updateApp" hidden>Update App</button>
-              <button class="settings-danger-action" type="button" id="clearCache">Clear cache</button>
+              <button class="settings-cache-action" type="button" id="clearCache">Clear cache</button>
               <button class="settings-danger-action course-reset-action" type="button" id="settingsResetVerbMemory">Start course again</button>
             </div>
-            <p class="pwa-install-status maintenance-status" id="maintenanceStatus">Android app tools appear here when running inside the APK.</p>
-            <div class="settings-actions maintenance-actions" id="browserInstallActions">
+            <p class="pwa-install-status maintenance-status" id="maintenanceStatus"></p>
+            <div class="settings-actions maintenance-actions install-actions" id="browserInstallActions">
               <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Install browser app</button>
+              <a class="pwa-install-action android-install-action" id="installAndroidAction" href="/android/caatuu.apk" download>Install Android app</a>
               <span class="pwa-install-status" id="pwaInstallStatus">Browser</span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
@@ -347,7 +462,40 @@
     `;
   }
 
+  function resetConfirmButton(button) {
+    if (!button) return;
+    if (button._caatuuConfirmTimer) {
+      window.clearTimeout(button._caatuuConfirmTimer);
+      button._caatuuConfirmTimer = null;
+    }
+    if (button.dataset.confirmOriginalLabel) {
+      button.textContent = button.dataset.confirmOriginalLabel;
+    }
+    button.classList.remove("is-confirming");
+    delete button.dataset.confirmArmed;
+    delete button.dataset.confirmOriginalLabel;
+  }
+
+  function confirmButtonPress(button, options = {}) {
+    if (!button) return true;
+    if (button.dataset.confirmArmed === "true") {
+      resetConfirmButton(button);
+      return true;
+    }
+
+    button.dataset.confirmArmed = "true";
+    button.dataset.confirmOriginalLabel = button.textContent;
+    button.textContent = options.confirmLabel || "Press again";
+    button.classList.add("is-confirming");
+    if (options.message) button.setAttribute("aria-label", options.message);
+    button._caatuuConfirmTimer = window.setTimeout(() => {
+      resetConfirmButton(button);
+    }, options.timeoutMs || 6500);
+    return false;
+  }
+
   function initChrome() {
+    applyTheme(readStoredTheme(), { persist: false });
     document.querySelectorAll(".app-header").forEach(renderAppHeader);
     document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach(renderSettingsPanel);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach(renderBottomNav);
@@ -358,7 +506,9 @@
     renderAppHeader,
     renderBottomNav,
     renderLanguageSwitch,
-    renderSettingsPanel
+    renderSettingsPanel,
+    confirmButtonPress,
+    resetConfirmButton
   };
 
   const chromeTargetsReady = () =>
@@ -369,4 +519,6 @@
   } else {
     initChrome();
   }
+
+  bindThemeToggle();
 })();

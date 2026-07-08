@@ -16,10 +16,10 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-3"></script>
+    <script src="runtime.js?v=runtime-4"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="chat.css?v=chat-3">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
+    <link rel="stylesheet" href="chat.css?v=chat-4">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-15">
   </head>
   <body>
     <main class="chat-shell">
@@ -91,7 +91,10 @@
           </form>
           <p class="privacy-line" id="privacyLine">Practice only. Not for important decisions.</p>
           <div class="chat-events" id="chatEvents" aria-live="polite" aria-atomic="true" data-tone="muted">
-            <p class="chat-event-line" id="chatEventLine">Checking local intelligence.</p>
+            <div class="chat-event-top">
+              <p class="chat-event-line" id="chatEventLine">Checking local intelligence.</p>
+              <button class="chat-abort-download" id="chatAbortDownload" type="button" hidden>Abort</button>
+            </div>
             <div class="chat-progress" id="chatProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
               <span class="chat-progress-bar" id="chatProgressBar"></span>
             </div>
@@ -117,8 +120,8 @@
 
     <div data-caatuu-settings-panel hidden></div>
 
-    <script src="chrome.js?v=chrome-15"></script>
+    <script src="chrome.js?v=chrome-20"></script>
     <script src="maintenance-ui.js?v=maintenance-2"></script>
-    <script type="module" src="chat.js?v=chat-17"></script>
+    <script type="module" src="chat.js?v=chat-18"></script>
   </body>
 </html>

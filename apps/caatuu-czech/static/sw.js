@@ -1,29 +1,34 @@
-const CACHE_NAME = "caatuu-czech-pwa-v143";
+const CACHE_NAME = "caatuu-czech-pwa-v160";
 const CORE_ASSETS = [
   "./",
   "./home.html",
-  "./home.css?v=home-8",
+  "./home.css?v=home-18",
   "./index.html",
   "./theme.css?v=theme-2",
   "./app.css?v=shell-36",
-  "./chrome.css?v=chrome-style-7",
-  "./runtime.js?v=runtime-3",
-  "./chrome.js?v=chrome-15",
-  "./setup.js?v=setup-9",
+  "./chrome.css?v=chrome-style-15",
+  "./runtime.js?v=runtime-4",
+  "./chrome.js?v=chrome-20",
+  "./setup.js?v=setup-16",
   "./setup-assets.json",
   "./maintenance-ui.js?v=maintenance-2",
-  "./app.js?v=shell-28",
+  "./app.js?v=shell-29",
   "./word-net.html",
-  "./word-net.css?v=word-net-12",
-  "./word-net.js?v=word-net-8",
+  "./word-net.css?v=word-net-13",
+  "./word-net.js?v=word-net-9",
   "./vector-db.js",
   "./chat.html",
-  "./chat.css?v=chat-3",
-  "./chat.js?v=chat-17",
+  "./chat.css?v=chat-4",
+  "./chat.js?v=chat-18",
   "./manifest.webmanifest",
   "./icons/caatuu-czech-192.png",
   "./icons/caatuu-czech-512.png",
   "./icons/caatuu-czech-1024.png",
+  "/assets/icons/home_icon.png",
+  "/assets/icons/games_icon.png",
+  "/assets/icons/settings_icon.png",
+  "./logos/dark_mode.png",
+  "./logos/czech_flag.png",
   "./data/dictionary.json",
   "./data/scripts.json",
   "./data/verbs.json"
@@ -40,7 +45,11 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(
+        keys
+          .filter((key) => key.startsWith("caatuu-czech-pwa-") && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      ))
       .then(() => self.clients.claim())
   );
 });
@@ -51,6 +60,10 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin === location.origin) {
+    if (request.cache === "reload") {
+      event.respondWith(networkThenCache(request));
+      return;
+    }
     if (request.mode === "navigate" || ["document", "script", "style"].includes(request.destination)) {
       event.respondWith(networkThenCache(request));
       return;

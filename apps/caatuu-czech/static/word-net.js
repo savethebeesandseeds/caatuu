@@ -4,6 +4,14 @@ const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
 const SCENE_KEYMAP_URL = "/assets/characters/miscellaneous/keymap.json";
 const SCENE_ASSET_LIMIT = 5;
+const TRANSLATION_MODE_STORAGE_KEY = "caatuu-czech.wordNet.translationMode";
+const translationModes = {
+  off: { label: "Off", delayMs: null },
+  "timer-5": { label: "5s", delayMs: 5000 },
+  "timer-10": { label: "10s", delayMs: 10000 },
+  "timer-30": { label: "30s", delayMs: 30000 },
+  visible: { label: "Visible", delayMs: 0 }
+};
 const sceneEmbedder = new LocalHashTextEmbedder();
 
 const playInstruction = "Tap any word to make the next phrase. Use ↻ for a fresh random phrase.";
@@ -67,7 +75,9 @@ const state = {
   currentWord: "",
   currentSentence: "",
   currentTranslation: "",
+  translationMode: loadTranslationMode(),
   translationVisible: true,
+  translationTimerId: 0,
   sceneAssetRowsPromise: null,
   sceneCandidates: [],
   sceneRequestId: 0,
@@ -196,23 +206,111 @@ function updateBrowserNote() {
   note.hidden = runtimeAdapter()?.env === "android";
 }
 
+function loadTranslationMode() {
+  try {
+    const value = localStorage.getItem(TRANSLATION_MODE_STORAGE_KEY);
+    if (hasTranslationMode(value)) return value;
+  } catch (error) {
+    // Ignore storage failures and use the default.
+  }
+  return "visible";
+}
+
+function hasTranslationMode(mode) {
+  return Object.prototype.hasOwnProperty.call(translationModes, mode);
+}
+
+function saveTranslationMode() {
+  try {
+    localStorage.setItem(TRANSLATION_MODE_STORAGE_KEY, state.translationMode);
+  } catch (error) {
+    // Translation timing is a convenience setting; storage is optional.
+  }
+}
+
+function clearTranslationTimer() {
+  if (!state.translationTimerId) return;
+  window.clearTimeout(state.translationTimerId);
+  state.translationTimerId = 0;
+}
+
+function closeTranslationMenu() {
+  const menu = $("#wordNetTranslationMenu");
+  const button = $("#wordNetTranslationToggle");
+  if (menu) menu.hidden = true;
+  if (button) button.setAttribute("aria-expanded", "false");
+}
+
+function toggleTranslationMenu() {
+  const menu = $("#wordNetTranslationMenu");
+  const button = $("#wordNetTranslationToggle");
+  if (!menu || !button) return;
+  const nextHidden = !menu.hidden;
+  menu.hidden = nextHidden;
+  button.setAttribute("aria-expanded", nextHidden ? "false" : "true");
+}
+
+function syncTranslationMenu() {
+  document.querySelectorAll("[data-translation-mode]").forEach((button) => {
+    const selected = button.dataset.translationMode === state.translationMode;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-checked", selected ? "true" : "false");
+  });
+}
+
+function applyTranslationMode({ restartTimer = false } = {}) {
+  clearTranslationTimer();
+
+  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "visible";
+  if (mode !== state.translationMode) state.translationMode = mode;
+
+  state.translationVisible = mode === "visible";
+  if (restartTimer && translationModes[mode].delayMs && state.currentTranslation) {
+    state.translationTimerId = window.setTimeout(() => {
+      state.translationTimerId = 0;
+      state.translationVisible = true;
+      syncTranslationToggle();
+    }, translationModes[mode].delayMs);
+  }
+
+  syncTranslationToggle();
+}
+
+function setTranslationMode(mode) {
+  if (!hasTranslationMode(mode)) return;
+  state.translationMode = mode;
+  saveTranslationMode();
+  applyTranslationMode({ restartTimer: true });
+  closeTranslationMenu();
+}
+
 function setTranslation(text, { loading = false } = {}) {
   state.currentTranslation = String(text || "");
   const node = $("#wordNetTranslation");
   if (!node) return;
   node.textContent = loading ? "Translating..." : state.currentTranslation;
-  node.classList.toggle("is-hidden", !state.translationVisible);
-  node.setAttribute("aria-hidden", state.translationVisible ? "false" : "true");
+  if (loading) {
+    clearTranslationTimer();
+    state.translationVisible = state.translationMode === "visible";
+    syncTranslationToggle();
+    return;
+  }
+  applyTranslationMode({ restartTimer: Boolean(state.currentTranslation) });
 }
 
 function syncTranslationToggle() {
   const button = $("#wordNetTranslationToggle");
   const translation = $("#wordNetTranslation");
   if (!button || !translation) return;
-  button.classList.toggle("is-off", !state.translationVisible);
-  button.setAttribute("aria-label", state.translationVisible ? "Hide translation" : "Show translation");
+  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "visible";
+  const label = translationModes[mode].label;
+  button.classList.toggle("is-off", mode === "off");
+  button.classList.toggle("is-waiting", mode.startsWith("timer-") && !state.translationVisible);
+  button.setAttribute("aria-label", `Translation options. Current: ${label}.`);
+  button.setAttribute("title", `Translation: ${label}`);
   translation.classList.toggle("is-hidden", !state.translationVisible);
   translation.setAttribute("aria-hidden", state.translationVisible ? "false" : "true");
+  syncTranslationMenu();
 }
 
 function setProgress(message) {
@@ -545,8 +643,19 @@ function bindUi() {
     generateSentenceForWord(randomItem(seedWords), { source: "seed" });
   });
   $("#wordNetTranslationToggle")?.addEventListener("click", () => {
-    state.translationVisible = !state.translationVisible;
-    syncTranslationToggle();
+    toggleTranslationMenu();
+  });
+  $("#wordNetTranslationMenu")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-translation-mode]");
+    if (!button) return;
+    setTranslationMode(button.dataset.translationMode);
+  });
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".word-net-panel-actions")) return;
+    closeTranslationMenu();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeTranslationMenu();
   });
   $("#wordNetSentence")?.addEventListener("click", (event) => {
     const button = event.target.closest(".cz-word-token");
@@ -559,7 +668,7 @@ async function init() {
   bindUi();
   runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
   updateBrowserNote();
-  syncTranslationToggle();
+  applyTranslationMode();
   renderCzechSentence("");
   setStatus(playInstruction);
   await generateSentenceForWord(randomItem(seedWords), { source: "initial" });

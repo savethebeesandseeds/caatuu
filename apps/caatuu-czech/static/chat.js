@@ -8,6 +8,8 @@ let nativeDownloadPollTimer = null;
 let generating = false;
 let lastSettingsTrigger = null;
 let nativeUpdateStatus = null;
+let chatDownloadAbortRequested = false;
+let modelLoadToken = 0;
 
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const browserFallbackLabel = "Browser fallback";
@@ -463,9 +465,17 @@ function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
-function setChatEvent(message, { progress = null, tone = "muted" } = {}) {
+function confirmDestructiveAction(button, options = {}) {
+  if (window.CaatuuChrome?.confirmButtonPress) {
+    return window.CaatuuChrome.confirmButtonPress(button, options);
+  }
+  return window.confirm(options.message || "Continue?");
+}
+
+function setChatEvent(message, { progress = null, tone = "muted", abortable = false } = {}) {
   const events = $("#chatEvents");
   const line = $("#chatEventLine");
+  const abortButton = $("#chatAbortDownload");
   const progressTrack = $("#chatProgress");
   const progressBar = $("#chatProgressBar");
   if (!events || !line) return;
@@ -476,6 +486,11 @@ function setChatEvent(message, { progress = null, tone = "muted" } = {}) {
   const hasProgressValue = progress !== null && progress !== undefined;
   const numericProgress = Number(progress);
   const hasProgress = hasProgressValue && Number.isFinite(numericProgress);
+  if (abortButton) {
+    abortButton.hidden = !(abortable && hasProgress && tone === "active");
+    abortButton.disabled = false;
+    abortButton.textContent = "Abort";
+  }
   if (!progressTrack || !progressBar) return;
 
   if (!hasProgress) {
@@ -516,7 +531,41 @@ function renderDownloadProgress(bytes, totalBytes, { label = "Downloading model"
   const formattedPercent = percent === null ? "" : ` (${percent.toFixed(1)}%)`;
   const progressText = `${label}: ${formatBytes(bytes)}${formattedTotal}${formattedPercent}`;
   setText("#progressBox", progressText);
-  setChatEvent(`${modelDownloadMessage(percent)} ${progressText}.`, { progress: percent ?? 0, tone: "active" });
+  setChatEvent(`${modelDownloadMessage(percent)} ${progressText}.`, { progress: percent ?? 0, tone: "active", abortable: true });
+}
+
+async function abortChatDownload() {
+  chatDownloadAbortRequested = true;
+  modelLoadToken += 1;
+  nativeAutoDownloadStarted = false;
+  scheduleNativeDownloadPoll(false);
+
+  const abortButton = $("#chatAbortDownload");
+  if (abortButton) {
+    abortButton.disabled = true;
+    abortButton.textContent = "Stopping";
+  }
+
+  try {
+    if (hasNativeRuntime()) {
+      await runtimeAdapter().models.abortDownload(selectedModelKey());
+      setText("#progressBox", "Download aborted. Tap Load model when you want to resume.");
+      setChatEvent("Download aborted. Caatuu kept any reusable partial file.", { tone: "muted" });
+    } else {
+      await runtimeAdapter().models.unload?.();
+      setText("#progressBox", "Browser loading stopped in the UI.");
+      setChatEvent("Loading stopped. Tap Load model to try again.", { tone: "muted" });
+    }
+  } catch (error) {
+    const message = error?.message || String(error);
+    setText("#progressBox", message);
+    setChatEvent(message, { tone: "error" });
+  } finally {
+    modelLoadStarted = false;
+    setBusy(false);
+    updateLoadButton(hasNativeRuntime() ? "Load model" : "Start");
+    updateSendButton();
+  }
 }
 
 function readStoredTheme() {
@@ -1062,7 +1111,7 @@ function renderInitialRuntime() {
   setText("#runtimeStatus", hasWebGpu ? "Browser fallback" : "Unavailable here");
   setText("#storageStatus", "Browser cache only");
   setText("#storageMeta", hasWebGpu ? "Browser WebGPU cache" : "No local model storage");
-  setText("#maintenanceStatus", "Browser mode can clear this origin's Caatuu caches.");
+  setText("#maintenanceStatus", "");
   setUpdateAppControl({ updateAvailable: false });
   runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
   updateLoadButton(hasWebGpu ? "Start" : "Install app");
@@ -1154,7 +1203,8 @@ async function refreshNativeStatus() {
     );
     setChatEvent(statusMessage, {
       progress: status.verified || status.downloaded ? null : status.resumable || systemDownloadActive ? downloadProgress : 0,
-      tone: systemDownloadActive || status.downloadFailed ? "active" : status.loaded || status.verified || status.downloaded || status.resumable ? "muted" : "active"
+      tone: systemDownloadActive || status.downloadFailed ? "active" : status.loaded || status.verified || status.downloaded || status.resumable ? "muted" : "active",
+      abortable: systemDownloadActive
     });
     scheduleNativeDownloadPoll(systemDownloadActive);
     return status;
@@ -1208,7 +1258,7 @@ async function startNativeDownloadIfNeeded({ silent = true, knownStatus = null }
   }
   updateLoadButton("Downloading");
   setText("#progressBox", "Starting Android system download.");
-  setChatEvent(modelDownloadMessage(0), { progress: 0, tone: "active" });
+  setChatEvent(modelDownloadMessage(0), { progress: 0, tone: "active", abortable: true });
 
   try {
     await runtimeAdapter().models.startDownload(selectedModelKey(), {
@@ -1217,7 +1267,7 @@ async function startNativeDownloadIfNeeded({ silent = true, knownStatus = null }
         if (message.kind === "status") {
           const statusMessage = message.message || modelDownloadMessage(0);
           setText("#progressBox", statusMessage);
-          setChatEvent(statusMessage, { progress: 0, tone: "active" });
+          setChatEvent(statusMessage, { progress: 0, tone: "active", abortable: true });
         }
       }
     });
@@ -1302,7 +1352,7 @@ async function loadNativeModel({ silent = false } = {}) {
   setText("#runtimeBadge", "Loading");
   setText("#runtimeStatus", "Loading model");
   setText("#progressBox", "Checking the model file.");
-  setChatEvent("(loading) Caatuu is opening the local model.", { progress: 0, tone: "active" });
+  setChatEvent("(loading) Caatuu is opening the local model.", { progress: 0, tone: "active", abortable: true });
 
   try {
     const result = await runtimeAdapter().models.load(selectedModelKey(), {
@@ -1352,24 +1402,28 @@ function renderNativeEvent(message) {
 }
 
 async function loadBrowserFallback({ silent = false } = {}) {
+  const loadToken = ++modelLoadToken;
+  chatDownloadAbortRequested = false;
   setBusy(true);
   modelLoaded = false;
   setText("#runtimeBadge", "Browser loading");
   setText("#runtimeStatus", "Loading WebGPU");
   setText("#progressBox", `Loading ${browserFallbackModel}.`);
-  setChatEvent("(loading) Caatuu is warming up the browser model.", { progress: 0, tone: "active" });
+  setChatEvent("(loading) Caatuu is warming up the browser model.", { progress: 0, tone: "active", abortable: true });
 
   try {
     const result = await runtimeAdapter().models.load(browserFallbackModel, {
       onEvent(message) {
+        if (loadToken !== modelLoadToken || chatDownloadAbortRequested) return;
         if (message.kind !== "progress") return;
         const percent = Number.isFinite(message.progress) ? message.progress : null;
         const pct = percent === null ? "" : ` ${percent.toFixed(1)}%`;
         const progressText = `${message.text || message.message || "Loading"}${pct}`;
         setText("#progressBox", progressText);
-        setChatEvent(`${modelDownloadMessage(percent)} ${progressText}.`, { progress: percent ?? 0, tone: "active" });
+        setChatEvent(`${modelDownloadMessage(percent)} ${progressText}.`, { progress: percent ?? 0, tone: "active", abortable: true });
       }
     });
+    if (loadToken !== modelLoadToken || chatDownloadAbortRequested) return;
     modelLoaded = Boolean(result.loaded);
     loadedRuntimeKind = result.runtime || "browser-webgpu";
     if (!modelLoaded) throw new Error("Browser WebGPU runtime did not report the fallback model as loaded.");
@@ -1382,6 +1436,7 @@ async function loadBrowserFallback({ silent = false } = {}) {
     updateSettingsSupport();
     if (!silent) addMessage("assistant", "Ready.");
   } catch (error) {
+    if (loadToken !== modelLoadToken || chatDownloadAbortRequested) return;
     modelLoaded = false;
     setText("#runtimeBadge", "Load failed");
     setText("#runtimeStatus", "WebGPU failed");
@@ -1389,8 +1444,10 @@ async function loadBrowserFallback({ silent = false } = {}) {
     setChatEvent(browserGpuErrorMessage(error), { tone: "error" });
     if (!silent) addMessage("system", "Model unavailable.");
   } finally {
-    setBusy(false);
-    updateSendButton();
+    if (loadToken === modelLoadToken) {
+      setBusy(false);
+      updateSendButton();
+    }
   }
 }
 
@@ -1418,7 +1475,7 @@ async function submitPrompt(event) {
       setChatEvent("The model must finish loading before Send is available.", { tone: "error" });
       return;
     }
-    setChatEvent("Loading the selected model before sending.", { progress: 0, tone: "active" });
+    setChatEvent("Loading the selected model before sending.", { progress: 0, tone: "active", abortable: true });
     await loadModel({ silent: true });
     if (!modelLoaded) return;
   }
@@ -1656,6 +1713,14 @@ async function updateApp() {
 
 async function clearCache() {
   const clearButton = $("#clearCache");
+  if (!confirmDestructiveAction(clearButton, {
+    confirmLabel: "Confirm cache clear",
+    message: "Clear temporary cache? Course progress stays saved."
+  })) {
+    setText("#maintenanceStatus", "Press Clear cache again to remove temporary cache. Course progress stays saved.");
+    return;
+  }
+
   clearButton.disabled = true;
   setText("#maintenanceStatus", "Clearing app cache.");
   setChatEvent("Clearing temporary cache and downloaded update APK.", { tone: "active" });
@@ -1696,12 +1761,18 @@ async function clearCache() {
 }
 
 function clearStoredVerbMemory() {
-  const accepted = window.confirm("Clear saved verb mastery for this browser?");
-  if (!accepted) return;
+  const resetButton = $("#settingsResetVerbMemory");
+  if (!confirmDestructiveAction(resetButton, {
+    confirmLabel: "Confirm restart",
+    message: "Start the course again? This clears saved mastery but keeps downloads and cache."
+  })) {
+    setText("#maintenanceStatus", "Press Start course again once more to clear saved mastery.");
+    return;
+  }
 
   try {
     localStorage.removeItem(verbStorageKey);
-    setText("#maintenanceStatus", "Saved verb mastery cleared.");
+    setText("#maintenanceStatus", "Course mastery cleared. Downloads and cache were preserved.");
   } catch (error) {
     setText("#maintenanceStatus", "Could not clear saved verb mastery in this browser.");
   }
@@ -1777,6 +1848,7 @@ function bindUi() {
   });
 
   $("#loadModel")?.addEventListener("click", () => loadModel());
+  $("#chatAbortDownload")?.addEventListener("click", abortChatDownload);
   $("#newChat").addEventListener("click", startNewChat);
   $("#promptForm").addEventListener("submit", submitPrompt);
   $("#cacheProbe")?.addEventListener("click", cacheProbe);

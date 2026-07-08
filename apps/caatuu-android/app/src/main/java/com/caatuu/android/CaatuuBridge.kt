@@ -45,6 +45,7 @@ class CaatuuBridge(
                 when (request.optString("type")) {
                     "status" -> emitDone(id, modelStatusJson(requestModelKey(request)))
                     "start_download" -> startModelDownload(id, request)
+                    "cancel_download" -> cancelModelDownload(id)
                     "download" -> downloadModel(id, request)
                     "load" -> loadModel(id, request)
                     "prompt" -> runPrompt(id, request)
@@ -91,6 +92,15 @@ class CaatuuBridge(
         val modelKey = requestModelKey(request)
         emit(id, "status", JSONObject().put("message", "Starting Android system download."))
         emitDone(id, modelManager.startManagedDownload(modelKey))
+    }
+
+    private suspend fun cancelModelDownload(id: String) {
+        emitDone(
+            id,
+            JSONObject()
+                .put("aborted", true)
+                .put("cancelledModelDownloads", modelManager.cancelRequiredDownloads()),
+        )
     }
 
     private suspend fun loadModel(id: String, request: JSONObject) {

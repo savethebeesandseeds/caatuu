@@ -12,19 +12,23 @@
   let detailsTouched = false;
   let setupUpdateStatus = null;
   let setupStatusPollTimer = null;
+  let updateStatusPollTimer = null;
+  let setupMessageTimer = null;
+  let setupMessageIndex = 0;
+  let activeArtifactKey = "";
+  let latestSetupLabel = "";
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
 
   const setupMessages = [
-    { max: 4, text: "Caatuu is checking the phone before packing the local brain." },
-    { max: 18, text: "The Czech examples are moving into local storage." },
-    { max: 36, text: "The translator is landing next to the Czech practice model." },
-    { max: 54, text: "The embeddings map is getting ready for fast local lookup." },
-    { max: 72, text: "Caatuu is becoming useful without asking the browser for help." },
-    { max: 88, text: "Every byte is being checked before the app trusts it." },
-    { max: 99.5, text: "Almost ready. The offline workspace is closing the suitcase." },
-    { max: Infinity, text: "Ready. Caatuu can work from local storage." }
+    "Checking local storage before Caatuu starts.",
+    "Preparing the Czech practice files.",
+    "Saving verified files so setup can resume later.",
+    "Keeping the app usable without repeating finished downloads.",
+    "Checking every file before Caatuu trusts it.",
+    "Preparing the offline workspace.",
+    "Finishing the local setup."
   ];
 
   function hasNativeRuntime() {
@@ -33,7 +37,7 @@
 
   function setText(selector, value) {
     const node = $(selector);
-    if (node) node.textContent = value;
+    if (node && node.textContent !== value) node.textContent = value;
   }
 
   function formatBytes(bytes) {
@@ -68,9 +72,33 @@
   }
 
   function setupMessage(progress, label = "") {
-    const percent = clampPercent(progress);
-    const message = setupMessages.find((item) => percent <= item.max)?.text || setupMessages[setupMessages.length - 1].text;
-    return `(${percent.toFixed(0)}%) ${label ? `${label}: ` : ""}${message}`;
+    const message = setupMessages[setupMessageIndex % setupMessages.length] || setupMessages[0];
+    return message;
+  }
+
+  function refreshWaitingMessage() {
+    if (!setupRunning && !nativeSetupActive) return;
+    const totals = totalsFromArtifacts();
+    setText("#setupMessage", setupMessage(totals.progress, latestSetupLabel));
+  }
+
+  function startSetupMessageCycle() {
+    if (setupMessageTimer !== null) return;
+    setupMessageTimer = window.setInterval(() => {
+      if (!setupRunning && !nativeSetupActive) {
+        stopSetupMessageCycle();
+        return;
+      }
+      setupMessageIndex = (setupMessageIndex + 1) % setupMessages.length;
+      refreshWaitingMessage();
+    }, 20000);
+  }
+
+  function stopSetupMessageCycle() {
+    if (setupMessageTimer !== null) {
+      window.clearInterval(setupMessageTimer);
+      setupMessageTimer = null;
+    }
   }
 
   function phaseText(kind, label = "") {
@@ -89,7 +117,11 @@
     const progressBar = $("#setupProgressBar");
     if (progressNode) progressNode.setAttribute("aria-valuenow", String(Math.round(percent)));
     if (progressBar) progressBar.style.width = `${percent}%`;
-    setText("#setupProgressText", `${percent.toFixed(0)}%`);
+    if ($("#setupPercent")) {
+      setText("#setupPercent", `${percent.toFixed(0)}%`);
+    } else {
+      setText("#setupProgressText", `${percent.toFixed(0)}%`);
+    }
     if (bytesText) setText("#setupBytes", bytesText);
   }
 
@@ -115,9 +147,14 @@
       abort.hidden = ready;
     }
     if (update) {
-      update.hidden = !updateRunning && (!updateAvailable || setupActive);
-      update.disabled = updateRunning || setupActive || !updateAvailable;
-      update.textContent = updateRunning ? "Updating" : "Update App";
+      update.hidden = !updateRunning && !updateAvailable;
+      update.disabled = updateRunning || !updateAvailable;
+      update.textContent = updateRunning ? "Updating" : "Update app";
+      update.title = updateAvailable && setupActive
+        ? "Stop setup and open the app update"
+        : updateAvailable
+          ? "Open the app update"
+          : "";
     }
     if (detailsToggle) {
       const details = $("#setupDetails");
@@ -162,6 +199,23 @@
     }
   }
 
+  function clearUpdateStatusPoll() {
+    if (updateStatusPollTimer !== null) {
+      window.clearTimeout(updateStatusPollTimer);
+      updateStatusPollTimer = null;
+    }
+  }
+
+  function scheduleUpdateStatusPoll(delayMs = 120000) {
+    clearUpdateStatusPoll();
+    if (!hasNativeRuntime()) return;
+    updateStatusPollTimer = window.setTimeout(async () => {
+      updateStatusPollTimer = null;
+      if (!updateRunning) await refreshUpdateAvailability();
+      scheduleUpdateStatusPoll();
+    }, delayMs);
+  }
+
   function scheduleSetupStatusPoll(delayMs = 2500) {
     clearSetupStatusPoll();
     if (!hasNativeRuntime()) return;
@@ -191,6 +245,65 @@
 
   function artifactKey(item) {
     return item.key || item.modelKey || item.artifactKey || item.assetPath || item.url || item.label || "artifact";
+  }
+
+  function displayGroupFor(item) {
+    const key = artifactKey(item);
+    const kind = String(item.kind || "").toLowerCase();
+    const label = String(item.label || key);
+    const searchable = `${key} ${kind} ${label}`.toLowerCase();
+
+    if (kind === "gguf-model") {
+      return {
+        key: `model:${key}`,
+        label: label || "Model",
+        kind: "gguf-model",
+        order: 10
+      };
+    }
+
+    if (kind === "embedding-vector-db" || searchable.includes("embedding")) {
+      return {
+        key: "embeddings",
+        label: "Embeddings",
+        kind: "embedding-vector-db",
+        order: 20
+      };
+    }
+
+    return {
+      key: "assets",
+      label: "Assets",
+      kind: "asset-group",
+      order: 30
+    };
+  }
+
+  function displayArtifactRows() {
+    const groups = new Map();
+    [...artifactState.values()].forEach((item) => {
+      const groupSpec = displayGroupFor(item);
+      const group = groups.get(groupSpec.key) || {
+        ...groupSpec,
+        bytes: 0,
+        expectedBytes: 0,
+        readyItems: 0,
+        itemCount: 0,
+        active: false,
+        error: ""
+      };
+      const expectedBytes = Number(item.expectedBytes || item.bytes || 0);
+      const bytes = Math.min(Number(item.bytes || 0), expectedBytes || Number(item.bytes || 0));
+      group.bytes += bytes;
+      group.expectedBytes += expectedBytes;
+      group.readyItems += item.ready ? 1 : 0;
+      group.itemCount += 1;
+      group.active = group.active || Boolean(item.active);
+      group.error = group.error || item.error || "";
+      group.ready = group.readyItems === group.itemCount;
+      groups.set(groupSpec.key, group);
+    });
+    return [...groups.values()].sort((left, right) => left.order - right.order || left.label.localeCompare(right.label));
   }
 
   function artifactRows(status) {
@@ -237,7 +350,9 @@
         key,
         bytes: Number(item.bytes || 0),
         expectedBytes: Number(item.expectedBytes || existing.expectedBytes || 0),
-        ready: Boolean(item.ready)
+        ready: Boolean(item.ready),
+        active: Boolean(existing.active && !item.ready),
+        error: item.ready ? "" : existing.error || ""
       });
     });
   }
@@ -247,6 +362,8 @@
     const existing = artifactState.get(key) || {};
     const totalBytes = Number(message.totalBytes || existing.expectedBytes || 0);
     const bytes = Number(message.bytes || existing.bytes || 0);
+    const ready = bytes > 0 && totalBytes > 0 && bytes >= totalBytes;
+    activeArtifactKey = key;
     artifactState.set(key, {
       ...existing,
       key,
@@ -254,7 +371,9 @@
       kind: message.artifactKind || existing.kind || message.phase || "artifact",
       bytes: Math.max(bytes, Number(existing.bytes || 0)),
       expectedBytes: totalBytes,
-      ready: bytes > 0 && totalBytes > 0 && bytes >= totalBytes
+      ready,
+      active: !ready,
+      error: ""
     });
   }
 
@@ -275,30 +394,42 @@
   function renderArtifacts() {
     const container = $("#setupArtifacts");
     if (!container) return;
-    const rows = [...artifactState.values()];
+    const rows = displayArtifactRows();
     if (!rows.length) {
       const empty = document.createElement("div");
+      const icon = document.createElement("i");
+      const title = document.createElement("strong");
+      const meta = document.createElement("span");
       empty.className = "setup-artifact";
       empty.dataset.ready = "false";
       empty.dataset.kind = "manifest";
       empty.style.setProperty("--artifact-progress", "0%");
-      empty.innerHTML = "<strong>Setup manifest</strong><span>0%</span>";
+      icon.className = "setup-artifact-icon";
+      icon.textContent = "!";
+      title.textContent = "Setup manifest";
+      meta.textContent = "0%";
+      empty.append(icon, title, meta);
       container.replaceChildren(empty);
       return;
     }
     container.replaceChildren(...rows.map((item) => {
       const row = document.createElement("div");
+      const icon = document.createElement("i");
       const title = document.createElement("strong");
       const meta = document.createElement("span");
       const percent = artifactPercent(item);
       row.className = "setup-artifact";
       row.dataset.ready = item.ready ? "true" : "false";
       row.dataset.kind = item.kind || "artifact";
+      row.dataset.status = item.error ? "error" : item.ready ? "ready" : item.active ? "active" : "pending";
       row.style.setProperty("--artifact-progress", `${percent}%`);
-      title.textContent = item.label || item.key || "Artifact";
+      icon.className = "setup-artifact-icon";
+      icon.textContent = item.ready ? "\u2713" : "!";
+      title.textContent = item.itemCount > 1 ? `${item.label} (${item.readyItems}/${item.itemCount})` : item.label || item.key || "Artifact";
       meta.textContent = item.ready ? `${percent.toFixed(0)}% ready` : `${percent.toFixed(0)}%`;
       meta.title = `${formatBytes(item.bytes)} / ${formatBytes(item.expectedBytes || item.bytes)}`;
-      row.append(title, meta);
+      if (item.error) row.title = item.error;
+      row.append(icon, title, meta);
       return row;
     }));
   }
@@ -335,13 +466,16 @@
   }
 
   function maybeLogProgress(message) {
-    const label = message.label || "Artifact";
-    const totalBytes = Number(message.totalBytes || 0);
-    const bytes = Number(message.bytes || 0);
+    const source = artifactState.get(message.artifactKey) || message;
+    const group = displayGroupFor(source);
+    const displayRow = displayArtifactRows().find((item) => item.key === group.key);
+    const label = displayRow?.label || group.label || message.label || "Artifact";
+    const totalBytes = Number(displayRow?.expectedBytes || message.totalBytes || 0);
+    const bytes = Number(displayRow?.bytes || message.bytes || 0);
     if (!totalBytes) return;
     const percent = clampPercent(bytes / totalBytes * 100);
     const bucket = Math.floor(percent / 20) * 20;
-    const key = `${message.artifactKey || label}:progress`;
+    const key = `${group.key}:progress`;
     if (progressLogBuckets.get(key) === bucket && percent < 100) return;
     progressLogBuckets.set(key, bucket);
     pushLog("progress", `Downloading ${label}`, `${formatBytes(bytes)} / ${formatBytes(totalBytes)}`);
@@ -349,9 +483,12 @@
 
   function updateSummary(message = "", kind = "status", label = "") {
     const totals = totalsFromArtifacts();
+    const card = $("#nativeSetup");
     const bytesText = totals.expectedBytes > 0
       ? `${formatBytes(totals.bytes)} / ${formatBytes(totals.expectedBytes)}`
       : `${totals.readyArtifacts} of ${totals.artifactCount || 0} ready`;
+    latestSetupLabel = label;
+    if (card) card.classList.toggle("is-error", kind === "error");
     setText("#setupCount", `${Math.min(totals.readyArtifacts, totals.artifactCount)}/${totals.artifactCount || "?"}`);
     setText("#setupPhase", phaseText(kind, label));
     setText("#setupMessage", message || setupMessage(totals.progress, label));
@@ -368,9 +505,17 @@
       : "Ready.";
     const card = $("#nativeSetup");
     nativeSetupActive = Boolean(status?.setupActive && !ready);
-    if (card) card.classList.toggle("is-ready", ready);
+    if (card) {
+      card.classList.toggle("is-ready", ready);
+      card.classList.toggle("is-error", false);
+    }
     setText("#setupTitle", ready ? "Caatuu is ready" : "Preparing Caatuu");
     updateSummary(message || (ready ? readyText : "Preparing local intelligence."), ready ? "ready" : "status");
+    if (ready) {
+      stopSetupMessageCycle();
+    } else if (nativeSetupActive || setupRunning) {
+      startSetupMessageCycle();
+    }
     if (ready || !hasNativeRuntime()) applyStageArt();
     setNavigationLocked(!ready);
     if (ready) pushLog("ready", "Setup complete", readyText);
@@ -418,13 +563,13 @@
     if (message.kind === "progress") {
       updateArtifactFromEvent(message);
       const totals = totalsFromArtifacts();
-      const label = message.label || "Artifact";
+      const group = displayGroupFor(artifactState.get(message.artifactKey) || message);
+      const displayRow = displayArtifactRows().find((item) => item.key === group.key);
+      const label = displayRow?.label || group.label || message.label || "Artifact";
       const bytesText = `${formatBytes(totals.bytes)} / ${formatBytes(totals.expectedBytes || message.totalBytes)}`;
-      setText(
-        "#setupMessage",
-        `${setupMessage(totals.progress, label)} ${formatBytes(message.bytes)} / ${formatBytes(message.totalBytes)}.`
-      );
+      latestSetupLabel = label;
       setText("#setupPhase", phaseText("progress", label));
+      setText("#setupMessage", setupMessage(totals.progress, label));
       setProgress(totals.progress, bytesText);
       renderArtifacts();
       maybeLogProgress(message);
@@ -432,17 +577,30 @@
     }
 
     if (message.kind === "status") {
-      const label = message.label || "";
-      const kind = String(message.phase || "").includes("ready") ? "ready" : "status";
-      if (kind === "ready" && message.artifactKey) {
+      const phase = String(message.phase || "").toLowerCase();
+      const itemReady = phase.includes("ready") || phase.includes("cached");
+      if (itemReady && message.artifactKey) {
         updateArtifactFromEvent({
           ...message,
           bytes: artifactState.get(message.artifactKey)?.expectedBytes || 1,
           totalBytes: artifactState.get(message.artifactKey)?.expectedBytes || 1
         });
       }
-      updateSummary(message.message || setupMessage(totalsFromArtifacts().progress, label), kind, label);
-      pushLog(kind, message.message || (label ? `Preparing ${label}` : "Setup event"), message.phase || "");
+      const group = displayGroupFor(artifactState.get(message.artifactKey) || message);
+      const displayRow = displayArtifactRows().find((item) => item.key === group.key);
+      const label = displayRow?.label || group.label || message.label || "";
+      const kind = totalReady() ? "ready" : "status";
+      updateSummary("", kind, label);
+      if (itemReady) {
+        maybeLogProgress({
+          ...message,
+          label,
+          bytes: displayRow?.bytes,
+          totalBytes: displayRow?.expectedBytes
+        });
+      } else {
+        pushLog("status", message.message || (label ? `Preparing ${label}` : "Setup event"), message.phase || "");
+      }
     }
   }
 
@@ -450,8 +608,18 @@
     setupRunning = false;
     setupAborted = true;
     nativeSetupActive = false;
+    stopSetupMessageCycle();
     setNavigationLocked(true);
     setText("#setupTitle", "Setup stopped");
+    const failedKey = activeArtifactKey || [...artifactState.entries()].find(([, item]) => !item.ready)?.[0] || "";
+    if (failedKey && artifactState.has(failedKey)) {
+      const failed = artifactState.get(failedKey);
+      artifactState.set(failedKey, {
+        ...failed,
+        active: false,
+        error: message
+      });
+    }
     updateSummary(message, "error");
     pushLog("error", "Setup stopped", message);
     setControls();
@@ -462,7 +630,11 @@
     clearSetupStatusPoll();
     setupRunning = true;
     setupAborted = false;
+    activeArtifactKey = "";
+    setupMessageIndex = 0;
     progressLogBuckets.clear();
+    $("#nativeSetup")?.classList.toggle("is-error", false);
+    startSetupMessageCycle();
     setControls();
     pushLog("status", "Setup started", setupMode === "browser" ? "Caching browser files." : "Preparing local app storage.");
 
@@ -477,6 +649,7 @@
       }
       renderStatus(result, "Ready.");
     } catch (error) {
+      if (updateRunning) return;
       const message = setupAborted || error?.name === "AbortError"
         ? "Setup aborted. Completed files stay verified; interrupted downloads can be started again."
         : error?.message || String(error);
@@ -505,12 +678,6 @@
 
   async function updateApp() {
     if (updateRunning) return;
-    if (setupRunning) {
-      pushLog("status", "Update held", "Finish or abort setup before updating Caatuu.");
-      setText("#setupMessage", "Finish or abort setup before updating Caatuu.");
-      setControls();
-      return;
-    }
     if (!hasNativeRuntime()) {
       setupUpdateStatus = { updateAvailable: false };
       setControls();
@@ -524,10 +691,14 @@
       return;
     }
 
+    clearUpdateStatusPoll();
     updateRunning = true;
     setControls();
 
-    if (setupRunning) {
+    if (setupRunning || nativeSetupActive) {
+      pushLog("status", "Update requested", "Stopping setup before updating.");
+      setText("#setupPhase", "App update");
+      setText("#setupMessage", "Stopping setup so Android can install the app update.");
       await abortSetup();
     }
 
@@ -568,6 +739,7 @@
     } finally {
       updateRunning = false;
       setControls();
+      scheduleUpdateStatusPoll();
     }
   }
 
@@ -579,7 +751,7 @@
     setNavigationLocked(true);
     $("#setupAction")?.addEventListener("click", startSetup);
     $("#setupAbort")?.addEventListener("click", abortSetup);
-    $("#setupDetailsToggle")?.addEventListener("click", handleDetailsToggle);
+    document.addEventListener("click", handleDetailsToggle, true);
     $("#setupUpdate")?.addEventListener("click", updateApp);
     pushLog("status", "Setup check started", "Looking for local files.");
 
@@ -597,6 +769,7 @@
       const status = await runtime.setup.status();
       renderStatus(status);
       await refreshUpdateAvailability();
+      scheduleUpdateStatusPoll();
       if (!status.ready) {
         if (status.setupActive) {
           scheduleSetupStatusPoll();

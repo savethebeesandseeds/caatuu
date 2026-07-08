@@ -755,10 +755,39 @@ a:focus-visible {
   line-height: 1.35;
 }
 
+.chat-event-top {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px;
+}
+
 .chat-event-line {
   min-height: 16px;
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+.chat-abort-download {
+  min-height: 24px;
+  padding: 3px 9px;
+  border: 1px solid color-mix(in srgb, var(--red) 36%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--red) 8%, var(--panel));
+  color: var(--red);
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.chat-abort-download[hidden] {
+  display: none;
+}
+
+.chat-abort-download:disabled {
+  opacity: 0.58;
 }
 
 .chat-events[data-tone="active"] .chat-event-line {
@@ -1802,6 +1831,11 @@ html[data-theme="dark"] .chat-progress {
 
 html[data-theme="dark"] .chat-progress-bar {
   background: var(--theme-chip-ink);
+}
+
+html[data-theme="dark"] .chat-abort-download {
+  border-color: color-mix(in srgb, var(--red) 42%, var(--theme-control-border));
+  background: color-mix(in srgb, var(--red) 16%, var(--theme-control-bg));
 }
 
 html[data-theme="dark"] .legal-notice {

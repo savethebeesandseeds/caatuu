@@ -16,10 +16,10 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-2"></script>
+    <script src="runtime.js?v=runtime-4"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-7">
-    <link rel="stylesheet" href="word-net.css?v=word-net-12">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-15">
+    <link rel="stylesheet" href="word-net.css?v=word-net-13">
   </head>
   <body>
     <div class="word-net-page">
@@ -32,9 +32,16 @@
               <button class="word-net-icon-button word-net-sound-toggle" id="wordNetSound" type="button" aria-label="Sound unavailable" title="Sound is not available yet" disabled>
                 <span aria-hidden="true">&#128266;</span>
               </button>
-              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Hide translation">
+              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Translation options" aria-haspopup="menu" aria-expanded="false">
                 <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
               </button>
+              <div class="word-net-translation-menu" id="wordNetTranslationMenu" role="menu" aria-label="Translation timing" hidden>
+                <button type="button" role="menuitemradio" data-translation-mode="off">Off</button>
+                <button type="button" role="menuitemradio" data-translation-mode="timer-5">5s</button>
+                <button type="button" role="menuitemradio" data-translation-mode="timer-10">10s</button>
+                <button type="button" role="menuitemradio" data-translation-mode="timer-30">30s</button>
+                <button type="button" role="menuitemradio" data-translation-mode="visible">Visible</button>
+              </div>
               <button class="word-net-icon-button word-net-shuffle" id="wordNetShuffle" type="button" aria-label="Shuffle phrase">
                 <span aria-hidden="true">&#8635;</span>
               </button>
@@ -85,7 +92,7 @@
       data-settings-href="index.html#settings"
     ></nav>
 
-    <script src="chrome.js?v=chrome-10"></script>
-    <script type="module" src="word-net.js?v=word-net-8"></script>
+    <script src="chrome.js?v=chrome-20"></script>
+    <script type="module" src="word-net.js?v=word-net-9"></script>
   </body>
 </html>

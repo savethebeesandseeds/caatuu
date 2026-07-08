@@ -10,7 +10,6 @@ import android.webkit.ServiceWorkerController
 import android.webkit.WebSettings
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
-import android.webkit.WebStorage
 import android.webkit.WebView
 import java.io.ByteArrayInputStream
 
@@ -83,7 +82,6 @@ class MainActivity : Activity() {
 
         webView.clearCache(true)
         webView.clearHistory()
-        WebStorage.getInstance().deleteAllData()
         CookieManager.getInstance().removeAllCookies(null)
         CookieManager.getInstance().flush()
         prefs.edit().putInt("versionCode", BuildConfig.VERSION_CODE).apply()

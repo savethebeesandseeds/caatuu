@@ -148,7 +148,7 @@ async function loadContentData() {
 }
 
 const state = {
-  activeView: "dictionary",
+  activeView: "verbs",
   trainTab: "galaxy",
   verbOptionsOpen: false,
   verbQuestion: null,
@@ -177,6 +177,13 @@ const $ = (selector) => document.querySelector(selector);
 function setText(selector, value) {
   const node = $(selector);
   if (node) node.textContent = value;
+}
+
+function confirmDestructiveAction(button, options = {}) {
+  if (window.CaatuuChrome?.confirmButtonPress) {
+    return window.CaatuuChrome.confirmButtonPress(button, options);
+  }
+  return window.confirm(options.message || "Continue?");
 }
 
 function runtimeAdapter() {
@@ -672,7 +679,7 @@ function syncAppRuntimeControls() {
     return;
   }
 
-  setText("#maintenanceStatus", "Browser mode can clear this origin's Caatuu caches.");
+  setText("#maintenanceStatus", "");
   runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
 }
 
@@ -731,6 +738,14 @@ async function updateApp() {
 
 async function clearAppCache() {
   const clearButton = $("#clearCache");
+  if (!confirmDestructiveAction(clearButton, {
+    confirmLabel: "Confirm cache clear",
+    message: "Clear temporary cache? Course progress stays saved."
+  })) {
+    setText("#maintenanceStatus", "Press Clear cache again to remove temporary cache. Course progress stays saved.");
+    return;
+  }
+
   if (clearButton) clearButton.disabled = true;
   setText("#maintenanceStatus", "Clearing app cache.");
 
@@ -1931,11 +1946,19 @@ function resetVerbProgress() {
 }
 
 function clearVerbMemory() {
-  const accepted = window.confirm("Clear saved verb mastery for this browser?");
-  if (!accepted) return;
+  const resetButton = $("#settingsResetVerbMemory");
+  if (!confirmDestructiveAction(resetButton, {
+    confirmLabel: "Confirm restart",
+    message: "Start the course again? This clears saved mastery but keeps downloads and cache."
+  })) {
+    setText("#maintenanceStatus", "Press Start course again once more to clear saved mastery.");
+    return;
+  }
+
   state.verbMastery = {};
   saveVerbMemory();
   resetVerbProgress();
+  setText("#maintenanceStatus", "Course mastery cleared. Downloads and cache were preserved.");
 }
 
 function insertVerbAccent(char) {
@@ -2963,7 +2986,7 @@ function printBookNow() {
 function normalizeView(view) {
   if (view === "guide" || view === "dictionary") return "dictionary";
   if (view === "train" || view === "verbs") return "verbs";
-  return "dictionary";
+  return "verbs";
 }
 
 function setView(view) {

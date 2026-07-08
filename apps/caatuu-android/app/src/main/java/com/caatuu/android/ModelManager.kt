@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
@@ -11,7 +12,10 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 import java.security.MessageDigest
 import kotlin.coroutines.coroutineContext
 
@@ -414,7 +418,7 @@ class ModelManager(context: Context) {
     }
 
     private suspend fun waitForManagedDownload(spec: LocalModelSpec, onProgress: (ModelProgress) -> Unit): File {
-        downloadFile(spec).delete()
+        downloadFile(spec).takeIf { it.isFile && it.length() > spec.bytes }?.delete()
 
         managedDownloadStatus(spec)?.let { status ->
             if (status.isCompleteFor(spec)) {
@@ -446,9 +450,8 @@ class ModelManager(context: Context) {
             }
 
             if (status.isFailed) {
-                if (restarts >= MODEL_DOWNLOAD_MANAGER_RESTARTS) {
-                    clearManagedDownload(spec, removeFile = true)
-                    throw IOException("Android system download failed for ${spec.fileName} with reason ${status.reason ?: "unknown"}.")
+                if (status.reason == DownloadManager.ERROR_CANNOT_RESUME || restarts >= MODEL_DOWNLOAD_MANAGER_RESTARTS) {
+                    return recoverAndDownloadDirect(spec, status, onProgress)
                 }
                 restarts += 1
                 clearManagedDownload(spec, removeFile = true)
@@ -457,6 +460,111 @@ class ModelManager(context: Context) {
 
             delay(MODEL_DOWNLOAD_POLL_MS)
         }
+    }
+
+    private suspend fun recoverAndDownloadDirect(
+        spec: LocalModelSpec,
+        status: ManagedDownloadStatus,
+        onProgress: (ModelProgress) -> Unit,
+    ): File {
+        recoverManagedPartialDownload(spec, status)
+        clearManagedDownload(spec, removeFile = true)
+        return downloadModelDirect(spec, onProgress)
+    }
+
+    private fun recoverManagedPartialDownload(spec: LocalModelSpec, status: ManagedDownloadStatus) {
+        val source = status.file?.takeIf { it.isFile } ?: return
+        val sourceBytes = source.length()
+        if (sourceBytes !in 1 until spec.bytes) return
+
+        val tmpFile = downloadFile(spec)
+        val tmpBytes = tmpFile.takeIf { it.isFile }?.length() ?: 0L
+        if (tmpBytes >= sourceBytes && tmpBytes <= spec.bytes) return
+
+        tmpFile.parentFile?.mkdirs()
+        source.copyTo(tmpFile, overwrite = true)
+    }
+
+    private suspend fun downloadModelDirect(spec: LocalModelSpec, onProgress: (ModelProgress) -> Unit): File {
+        val tmpFile = downloadFile(spec)
+        tmpFile.parentFile?.mkdirs()
+
+        var downloaded = false
+        var lastError: Exception? = null
+        for (attempt in 1..MODEL_DIRECT_DOWNLOAD_ATTEMPTS) {
+            coroutineContext.ensureActive()
+            if (downloaded) break
+            if (tmpFile.isFile && tmpFile.length() > spec.bytes) tmpFile.delete()
+
+            val resumeBytes = tmpFile
+                .takeIf { it.isFile }
+                ?.length()
+                ?.takeIf { it in 1 until spec.bytes }
+                ?: 0L
+
+            val connection = (URL(modelUrl(spec)).openConnection() as HttpURLConnection).apply {
+                connectTimeout = MODEL_DIRECT_CONNECT_TIMEOUT_MS
+                readTimeout = MODEL_DIRECT_READ_TIMEOUT_MS
+                instanceFollowRedirects = true
+                if (resumeBytes > 0L) {
+                    setRequestProperty("Range", "bytes=$resumeBytes-")
+                }
+            }
+
+            try {
+                connection.connect()
+                val statusCode = connection.responseCode
+                if (statusCode !in 200..299) {
+                    throw IOException("Model download failed with HTTP $statusCode for ${spec.fileName}")
+                }
+
+                val append = resumeBytes > 0L && statusCode == HttpURLConnection.HTTP_PARTIAL
+                if (!append) tmpFile.delete()
+
+                val totalBytes = if (append) {
+                    spec.bytes
+                } else {
+                    connection.contentLengthLong.takeIf { it > 0L } ?: spec.bytes
+                }
+                val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+                var bytesRead = if (append) resumeBytes else 0L
+
+                connection.inputStream.use { input ->
+                    FileOutputStream(tmpFile, append).use { output ->
+                        while (true) {
+                            coroutineContext.ensureActive()
+                            val read = input.read(buffer)
+                            if (read < 0) break
+                            output.write(buffer, 0, read)
+                            bytesRead += read
+                            onProgress(ModelProgress(bytesRead, totalBytes))
+                        }
+                    }
+                }
+
+                downloaded = tmpFile.length() == spec.bytes
+                if (!downloaded) {
+                    lastError = IOException("Model download stopped at ${tmpFile.length()} of ${spec.bytes} bytes")
+                }
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                lastError = error
+            } finally {
+                connection.disconnect()
+            }
+
+            if (!downloaded && attempt < MODEL_DIRECT_DOWNLOAD_ATTEMPTS) {
+                delay(MODEL_DIRECT_RETRY_DELAY_MS * attempt)
+            }
+        }
+
+        if (!downloaded) {
+            val detail = lastError?.message ?: "unknown network error"
+            throw IOException("Model direct download failed after $MODEL_DIRECT_DOWNLOAD_ATTEMPTS attempts: $detail", lastError)
+        }
+
+        return tmpFile
     }
 
     private fun enqueueManagedDownload(spec: LocalModelSpec): Long {
@@ -688,6 +796,10 @@ class ModelManager(context: Context) {
         private const val MODEL_DOWNLOAD_PREFS = "caatuu-model-downloads"
         private const val MODEL_DOWNLOAD_POLL_MS = 1_000L
         private const val MODEL_DOWNLOAD_MANAGER_RESTARTS = 3
+        private const val MODEL_DIRECT_DOWNLOAD_ATTEMPTS = 4
+        private const val MODEL_DIRECT_CONNECT_TIMEOUT_MS = 30_000
+        private const val MODEL_DIRECT_READ_TIMEOUT_MS = 120_000
+        private const val MODEL_DIRECT_RETRY_DELAY_MS = 1_500L
         private const val MODEL_CATALOG_ASSET = "data/models/phone-bench/models.json"
         private const val FALLBACK_DEFAULT_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001"
         private const val FALLBACK_MODEL_BASE_URL = "https://caatuu.waajacu.com/cz/data/models/phone-bench"
