@@ -14,12 +14,19 @@
   let setupStatusPollTimer = null;
   let updateStatusPollTimer = null;
   let setupMessageTimer = null;
+  let setupVisualTimer = null;
   let setupMessageIndex = 0;
+  let setupVisualIndex = 0;
   let activeArtifactKey = "";
   let latestSetupLabel = "";
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
+  const setupVisualFrameDelayMs = 2400;
+  const setupVisualFrames = Array.from({ length: 18 }, (_, index) => {
+    const frame = index + 1;
+    return `/assets/characters/macaw/loading_animation/loading-animation%20(${frame}).png`;
+  });
 
   const setupMessages = [
     "Checking local storage before Caatuu starts.",
@@ -74,6 +81,38 @@
   function setupMessage(progress, label = "") {
     const message = setupMessages[setupMessageIndex % setupMessages.length] || setupMessages[0];
     return message;
+  }
+
+  function stageFallback(art) {
+    return art?.dataset.setupArtFallback || "icons/caatuu-czech-512.png";
+  }
+
+  function setStageFrame(art, src) {
+    const probe = new Image();
+    probe.onload = () => {
+      if (art.getAttribute("src") !== src) art.src = src;
+      art.classList.add("is-looping");
+    };
+    probe.onerror = () => {
+      if (!art.classList.contains("is-looping")) {
+        art.src = stageFallback(art);
+      }
+    };
+    probe.src = src;
+  }
+
+  function advanceStageFrame() {
+    const art = $(".stage-art");
+    if (!art || !setupVisualFrames.length) return;
+    const src = setupVisualFrames[setupVisualIndex % setupVisualFrames.length];
+    setupVisualIndex = (setupVisualIndex + 1) % setupVisualFrames.length;
+    setStageFrame(art, src);
+  }
+
+  function startStageAnimation() {
+    if (setupVisualTimer !== null) return;
+    advanceStageFrame();
+    setupVisualTimer = window.setInterval(advanceStageFrame, setupVisualFrameDelayMs);
   }
 
   function refreshWaitingMessage() {
@@ -522,11 +561,7 @@
   }
 
   function applyStageArt() {
-    const art = $(".stage-art");
-    const src = art?.dataset.setupArtSrc;
-    if (art && src && art.getAttribute("src") !== src) {
-      art.src = src;
-    }
+    startStageAnimation();
   }
 
   function setNavigationLocked(locked) {
@@ -746,6 +781,7 @@
   async function initSetup() {
     const card = $("#nativeSetup");
     if (!card) return;
+    startStageAnimation();
     card.hidden = false;
     bindNavigationLock();
     setNavigationLocked(true);

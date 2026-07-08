@@ -44,10 +44,10 @@ let modelLicenseCatalog = [
   },
   {
     key: "cstinyllama-1.2b-planet-wordnet-002-copy",
-    label: "Planet Word Net CZ",
+    label: "Planet Word World CZ",
     repoId: "BUT-FIT/CSTinyLlama-1.2B",
     license: "Apache-2.0",
-    intendedUse: "Planet of Word Net: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
+    intendedUse: "Planet of Word World: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
     deprecated: true,
     status: "deprecated",
     replacementStatus: "Pending curriculum word-sentence LoRA GGUF publication."
@@ -67,7 +67,7 @@ let modelLicenseCatalog = [
     label: "Word Sentence CZ",
     repoId: "BUT-FIT/CSTinyLlama-1.2B",
     license: "Apache-2.0",
-    intendedUse: "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word Net.",
+    intendedUse: "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word World.",
     deprecated: false,
     status: "active",
     replacementStatus: ""

@@ -10,7 +10,7 @@ body {
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding-bottom: 0;
+  padding-bottom: calc(36px + env(safe-area-inset-bottom));
   --setup-bg: var(--theme-page-background, var(--theme-paper, #f5efe5));
   --setup-panel: var(--theme-panel, #fffdf8);
   --setup-panel-raised: var(--theme-panel-raised, #ffffff);

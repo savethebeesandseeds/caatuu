@@ -19,8 +19,8 @@
     <script src="runtime.js?v=runtime-4"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
     <link rel="stylesheet" href="app.css?v=shell-36">
-    <link rel="stylesheet" href="home.css?v=home-18">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-15">
+    <link rel="stylesheet" href="home.css?v=home-20">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-19">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -33,7 +33,7 @@
           <div class="setup-visual" aria-hidden="true">
             <span class="setup-orbit setup-orbit-one"></span>
             <span class="setup-orbit setup-orbit-two"></span>
-            <img class="stage-art" src="icons/caatuu-czech-512.png" data-setup-art-src="/assets/characters/aliens/Czech_Macaw.png" alt="">
+            <img class="stage-art" src="icons/caatuu-czech-512.png" data-setup-art-fallback="icons/caatuu-czech-512.png" alt="">
           </div>
           <section class="native-setup-card" id="nativeSetup" aria-labelledby="setupTitle" hidden>
             <div class="setup-head">
@@ -76,7 +76,7 @@
       </main>
 
       <footer class="app-footer">
-        <a class="footer-brand" href="https://www.waajacu.com" rel="noopener">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
           <span>by Waajacu</span>
         </a>
@@ -85,8 +85,8 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-    <script src="chrome.js?v=chrome-20"></script>
-    <script src="setup.js?v=setup-16"></script>
+    <script src="chrome.js?v=chrome-23"></script>
+    <script src="setup.js?v=setup-17"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

@@ -74,16 +74,16 @@
 }
 
 .theme-toggle-icon {
-  width: 19px;
-  height: 19px;
+  width: 26px;
+  height: 26px;
   display: block;
   object-fit: contain;
 }
 
-.theme-toggle.is-disabled {
-  cursor: default;
-  opacity: 0.46;
-  filter: grayscale(0.18);
+.theme-toggle.is-selected {
+  cursor: pointer;
+  opacity: 0.68;
+  filter: grayscale(0.1);
 }
 
 .theme-toggle:hover,
@@ -101,7 +101,7 @@
   gap: 7px;
   white-space: nowrap;
   padding: 0 9px;
-  border: 1px solid var(--theme-control-border, var(--line));
+  border: 0;
   border-radius: 999px;
   background: color-mix(in srgb, var(--theme-control-bg, #ffffff) 78%, transparent);
   color: var(--green);
@@ -112,13 +112,13 @@
 }
 
 .cz-flag {
-  flex: 0 0 24px;
-  width: 24px;
-  min-width: 24px;
-  max-width: 24px;
-  height: 16px;
-  min-height: 16px;
-  max-height: 16px;
+  flex: 0 0 30px;
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  height: 20px;
+  min-height: 20px;
+  max-height: 20px;
   display: block;
   object-fit: cover;
   background: transparent;
@@ -230,9 +230,26 @@ html[data-theme="light"] .bottom-app-nav {
     );
 }
 
+.settings-backdrop {
+  --settings-nav-offset: calc(78px + env(safe-area-inset-bottom));
+  position: fixed;
+  inset: 0 0 var(--settings-nav-offset) 0;
+  z-index: 28;
+  padding: 14px;
+  display: grid;
+  justify-items: end;
+  align-items: stretch;
+  background: rgba(18, 30, 26, 0.34);
+  overflow: hidden;
+}
+
+.settings-backdrop[hidden] {
+  display: none;
+}
+
 .settings-sheet {
   width: min(440px, 100%);
-  max-height: calc(100dvh - 28px);
+  max-height: calc(100dvh - var(--settings-nav-offset, 70px) - 28px);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
@@ -610,6 +627,12 @@ html[data-theme="light"] .bottom-app-nav {
   border-top: 1px solid color-mix(in srgb, var(--green) 14%, transparent);
 }
 
+.ai-settings-card .developer-tools-details {
+  margin-top: 2px;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb, var(--green) 12%, transparent);
+}
+
 .maintenance-card {
   gap: 8px;
 }
@@ -653,14 +676,41 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .maintenance-card #browserInstallActions {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
 }
 
 .maintenance-card .settings-danger-action,
+.maintenance-card .settings-cache-action,
 .maintenance-card .pwa-install-action {
   min-height: 30px;
   padding: 5px 10px;
+}
+
+.maintenance-card .pwa-install-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+.maintenance-card .settings-cache-action {
+  border-color: color-mix(in srgb, #a66f25 38%, var(--line));
+  background: color-mix(in srgb, #a66f25 9%, transparent);
+  color: #8c5727;
+}
+
+.maintenance-card .settings-cache-action:hover {
+  border-color: color-mix(in srgb, #a66f25 58%, var(--line));
+  background: color-mix(in srgb, #a66f25 14%, transparent);
+}
+
+.maintenance-card .settings-cache-action.is-confirming,
+.maintenance-card .settings-danger-action.is-confirming {
+  border-color: color-mix(in srgb, #9e3a2f 62%, var(--line));
+  background: color-mix(in srgb, #9e3a2f 16%, transparent);
+  color: #7f2f27;
 }
 
 .maintenance-card .maintenance-status,
@@ -677,8 +727,13 @@ html[data-theme="light"] .bottom-app-nav {
   text-align: left;
 }
 
+.maintenance-card .maintenance-status:empty {
+  display: none;
+}
+
 .maintenance-card #pwaInstallStatus {
-  text-align: right;
+  grid-column: 1 / -1;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -886,6 +941,19 @@ html[data-theme="dark"] .bottom-app-nav {
     );
 }
 
+html[data-theme="dark"] .maintenance-card .settings-cache-action {
+  border-color: color-mix(in srgb, #d79a48 45%, var(--theme-control-border, var(--line)));
+  background: color-mix(in srgb, #d79a48 16%, var(--theme-control-bg, #101820));
+  color: #f0bd72;
+}
+
+html[data-theme="dark"] .maintenance-card .settings-cache-action.is-confirming,
+html[data-theme="dark"] .maintenance-card .settings-danger-action.is-confirming {
+  border-color: color-mix(in srgb, #ef6e5e 56%, var(--theme-control-border, var(--line)));
+  background: color-mix(in srgb, #ef6e5e 18%, var(--theme-control-bg, #101820));
+  color: #ff9a8d;
+}
+
 html[data-theme="dark"] .model-license-list {
   background: rgba(16, 24, 32, 0.72);
 }
@@ -910,7 +978,7 @@ html[data-theme="dark"] .preset-control button.is-active {
 
   .settings-sheet {
     width: 100%;
-    max-height: 100dvh;
+    max-height: calc(100dvh - var(--settings-nav-offset, 70px));
     border-radius: 0;
   }
 

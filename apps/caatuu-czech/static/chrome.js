@@ -53,10 +53,12 @@
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
       const darkActive = theme === "dark";
       const option = themeOptions[theme] || themeOptions.dark;
-      button.dataset.themeToggle = "dark";
-      button.classList.toggle("is-disabled", darkActive);
-      button.toggleAttribute("disabled", darkActive);
-      button.setAttribute("aria-disabled", String(darkActive));
+      button.dataset.themeToggle = darkActive ? "light" : "dark";
+      button.classList.toggle("is-selected", darkActive);
+      button.classList.remove("is-disabled");
+      button.removeAttribute("disabled");
+      button.removeAttribute("aria-disabled");
+      button.setAttribute("aria-pressed", String(darkActive));
       button.setAttribute("aria-label", option.label);
       button.setAttribute("title", option.label);
       const icon = button.querySelector("[data-theme-toggle-icon]");
@@ -81,8 +83,8 @@
     updateThemeControls(normalizedTheme);
   }
 
-  function activateDarkTheme() {
-    applyTheme("dark");
+  function toggleTheme(button) {
+    applyTheme(button.dataset.themeToggle || "dark");
   }
 
   function bindThemeToggle() {
@@ -90,8 +92,7 @@
       const button = event.target.closest("[data-theme-toggle]");
       if (!button) return;
       event.preventDefault();
-      if (button.disabled || button.getAttribute("aria-disabled") === "true") return;
-      activateDarkTheme();
+      toggleTheme(button);
     });
 
     document.addEventListener("click", (event) => {
@@ -294,7 +295,7 @@
                     <option value="cstinyllama-1.2b-translation-cs-en-001">Czech to English</option>
                     <option value="qwen3-lora-003-hard">Caatuu CZ LoRA (legacy)</option>
                     <option value="cstinyllama-1.2b-base">CSTinyLlama CZ Base (legacy)</option>
-                    <option value="cstinyllama-1.2b-planet-wordnet-002-copy">Planet Word Net CZ (legacy)</option>
+                    <option value="cstinyllama-1.2b-planet-wordnet-002-copy">Planet Word World CZ (legacy)</option>
                   </select>
                 </label>
 
@@ -410,7 +411,7 @@
               <p class="settings-kicker kicker">About</p>
               <h3>Details</h3>
             </div>
-            <p class="about-brand-note"><a href="https://www.waajacu.com" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
+            <p class="about-brand-note"><a href="https://www.waajacu.com/" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
             <p class="version-note" id="settingsVersion" data-fallback-version="Version check pending">Version check pending</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
@@ -452,7 +453,7 @@
           </section>
 
           <footer class="settings-sheet-footer">
-            <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com" rel="noopener">
+            <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
               <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
               <span>by Waajacu</span>
             </a>
