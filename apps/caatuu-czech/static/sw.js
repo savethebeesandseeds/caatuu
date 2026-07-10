@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v182";
+const CACHE_NAME = "caatuu-czech-pwa-v183";
 const CORE_ASSETS = [
   "./",
   "./home.html",
@@ -9,7 +9,7 @@ const CORE_ASSETS = [
   "./chrome.css?v=chrome-style-22",
   "./runtime.js?v=runtime-8",
   "./chrome.js?v=chrome-27",
-  "./setup.js?v=setup-20",
+  "./setup.js?v=setup-21",
   "./setup-assets.json",
   "./maintenance-ui.js?v=maintenance-3",
   "./app.js?v=shell-33",

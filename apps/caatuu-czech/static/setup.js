@@ -81,6 +81,19 @@
     return latest > current;
   }
 
+  function updateStatusProblem(status = setupUpdateStatus) {
+    return Boolean(status?.updateError || status?.serverReachable === false);
+  }
+
+  function updateStatusLabel(status = setupUpdateStatus) {
+    const latest = status?.latestVersionName || status?.latestVersionCode;
+    const current = status?.currentVersionName || status?.currentVersionCode;
+    if (latest && current && String(latest) !== String(current)) {
+      return `server ${latest}, app ${current}`;
+    }
+    return current ? `app ${current}` : "app version";
+  }
+
   function clipText(value, maxLength = 400) {
     const text = String(value ?? "");
     return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
@@ -285,7 +298,14 @@
     const detailsToggle = $("#setupDetailsToggle");
     const ready = totalReady();
     const setupActive = setupRunning || nativeSetupActive;
-    const updateAvailable = hasNativeRuntime() && hasAppUpdate();
+    const nativeUpdate = hasNativeRuntime();
+    const updateAvailable = nativeUpdate && hasAppUpdate();
+    const updateCheckNeeded = nativeUpdate && !ready && (
+      setupActive ||
+      setupAborted ||
+      Boolean(lastSetupAttention) ||
+      updateStatusProblem()
+    );
     const card = $("#nativeSetup");
     if (card) card.classList.toggle("is-updating", updateRunning);
     syncDetailsState(ready);
@@ -300,14 +320,16 @@
       abort.hidden = ready;
     }
     if (update) {
-      update.hidden = !updateRunning && !updateAvailable;
-      update.disabled = updateRunning || !updateAvailable;
+      update.hidden = !updateRunning && !updateAvailable && !updateCheckNeeded;
+      update.disabled = updateRunning || !nativeUpdate;
       update.textContent = updateRunning ? "Updating" : "Update app";
       update.title = updateAvailable && setupActive
         ? "Stop setup and open the app update"
         : updateAvailable
           ? "Open the app update"
-          : "";
+          : updateCheckNeeded
+            ? "Check the server for a newer app update"
+            : "";
     }
     if (report) {
       const visible = Boolean(lastSetupAttention) && !ready;
@@ -953,7 +975,17 @@
 
     const status = await refreshUpdateAvailability();
     if (!hasAppUpdate(status)) {
-      pushLog("ready", "App is current", "No newer APK is exposed by the server.");
+      if (updateStatusProblem(status)) {
+        const message = status?.updateError || "The update server could not be reached.";
+        pushLog("error", "Update check failed", message);
+        setText("#setupPhase", "Update unavailable");
+        setText("#setupMessage", `Could not check for an app update. ${message}`);
+      } else {
+        const label = updateStatusLabel(status);
+        pushLog("ready", "App is current", `No newer APK is exposed by the server (${label}).`);
+        setText("#setupPhase", "App is current");
+        setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
+      }
       setControls();
       return;
     }

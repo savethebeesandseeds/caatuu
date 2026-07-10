@@ -69,8 +69,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 77
-        versionName = "0.1.76"
+        versionCode = 81
+        versionName = "0.1.80"
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         manifestPlaceholders["caatuuUsesCleartextTraffic"] = "false"
 
