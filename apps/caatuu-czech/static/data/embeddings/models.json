@@ -19,8 +19,8 @@
       "format": "sqlite",
       "model_file": "caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
       "manifest_file": "caatuu-local-hash-v0.1/manifest.json",
-      "bytes": 17129472,
-      "sha256": "d37fe70539b38ca07c69e7c7a8963afaf485905582d1045f701227ce24424f51",
+      "bytes": 18558976,
+      "sha256": "465cf1f888cdb7497a3e65620bcac8b1e66df2f0fed45b1b47ddba4d20474547",
       "embedding_dimension": 384,
       "vector_encoding": "float32le",
       "distance_metric": "cosine",
@@ -31,6 +31,7 @@
         "This is a deterministic local hash embedding baseline, not a semantic transformer model.",
         "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
         "Image asset vectors are computed only from manually written English descriptions.",
+        "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
         "BAAI/bge-small-en-v1.5 remains a planned future semantic embedding replacement."
       ]
     }

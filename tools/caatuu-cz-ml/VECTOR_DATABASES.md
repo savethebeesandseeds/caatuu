@@ -48,21 +48,29 @@ age band is stored in SQLite JSON fields for filtering and review. It is not
 embedded into the vector.
 
 Manual image asset descriptions use the same local hash model. Those rows are
-stored as `source_kind = image_asset` documents and are referenced through:
+stored as `source_kind = image_asset` or `source_kind = macaw_action_asset`
+documents and are referenced through separate lookup tables:
 
 ```text
 asset_embedding_refs
+macaw_action_embedding_refs
 ```
 
 The asset vectors are computed from manually written English descriptions only,
 not from pixels. The app-facing keymap for the current miscellaneous assets is:
 
 ```text
-apps/caatuu-unified/static/assets/characters/miscellaneous/keymap.json
+apps/caatuu-unified/static/assets/miscellaneous/keymap.json
 ```
 
-Keep that keymap human-curated. The database rebuild can ingest the keymap, but
-it must not generate image descriptions automatically.
+The app-facing keymap for the current macaw action assets is:
+
+```text
+apps/caatuu-unified/static/assets/macaw/actions/keymaps.json
+```
+
+Keep those keymaps human-curated. The database rebuild can ingest them, but it
+must not generate image descriptions automatically.
 
 `BAAI/bge-small-en-v1.5` remains the planned semantic embedding replacement.
 Do not label locally hashed vectors as BGE vectors.
@@ -102,8 +110,8 @@ npm run validate:curriculum:clean
 npm run build:vector-db
 ```
 
-The same command also ingests the manually curated miscellaneous image keymap
-when it exists and refreshes:
+The same command also ingests the manually curated miscellaneous and macaw
+action image keymaps when they exist and refreshes:
 
 ```text
 tools/caatuu-cz-ml/data/curriculum/core-v0.2/validation/vector-quality.json

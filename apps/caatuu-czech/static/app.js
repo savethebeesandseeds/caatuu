@@ -546,6 +546,7 @@ function openSettingsPanel() {
   lastAppSettingsTrigger = document.activeElement;
   panel.hidden = false;
   document.body.classList.add("settings-open");
+  window.CaatuuChrome?.setSettingsNavActive?.(true);
   syncThemeControls();
   syncGenerationSettingsUi();
   syncAppRuntimeControls();
@@ -557,6 +558,7 @@ function closeSettingsPanel({ restoreFocus = true } = {}) {
   if (!panel) return;
   panel.hidden = true;
   document.body.classList.remove("settings-open");
+  window.CaatuuChrome?.setSettingsNavActive?.(false);
   if (restoreFocus && lastAppSettingsTrigger && typeof lastAppSettingsTrigger.focus === "function") {
     lastAppSettingsTrigger.focus();
   }
@@ -670,6 +672,7 @@ function syncAppRuntimeControls() {
   if (updateButton) {
     updateButton.hidden = true;
     updateButton.disabled = true;
+    updateButton.closest("[data-maintenance-action-row]")?.setAttribute("hidden", "");
   }
   if (clearButton) clearButton.disabled = false;
 

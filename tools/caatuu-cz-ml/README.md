@@ -144,15 +144,21 @@ not mixed into the embedding. The planned semantic replacement remains
 `BAAI/bge-small-en-v1.5`.
 
 The same database can include manually described image assets. The current
-asset keymap lives at:
+miscellaneous asset keymap lives at:
 
 ```text
-C:\Work\caatuu\apps\caatuu-unified\static\assets\characters\miscellaneous\keymap.json
+C:\Work\caatuu\apps\caatuu-unified\static\assets\miscellaneous\keymap.json
+```
+
+The current macaw action asset keymap lives at:
+
+```text
+C:\Work\caatuu\apps\caatuu-unified\static\assets\macaw\actions\keymaps.json
 ```
 
 Those entries must be written by inspecting the images. The vector build only
 embeds those manual English descriptions and records lookup rows in
-`asset_embedding_refs`.
+`asset_embedding_refs` or `macaw_action_embedding_refs`.
 
 Build or refresh generated indexes under:
 
@@ -199,8 +205,9 @@ npm run build:vector-db
 This writes the tracked SQLite database, updates its tracked manifest, and
 refreshes the vector quality files under `data/curriculum/core-v0.2/validation`
 and `data/curriculum/core-v0.2/reports`.
-It also ingests the manual miscellaneous image keymap when that file exists and
-updates the embedding entries in `apps/caatuu-czech/static/setup-assets.json`.
+It also ingests the manual miscellaneous and macaw action image keymaps when
+those files exist and updates the embedding entries in
+`apps/caatuu-czech/static/setup-assets.json`.
 
 The curated curriculum SQLite database is tracked in Git with the JSONL corpus.
 Keep heavier future embedding runtime files out of Git. The browser and Android

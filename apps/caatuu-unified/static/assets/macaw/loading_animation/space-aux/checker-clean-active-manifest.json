@@ -1,0 +1,65 @@
+{
+  "config": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\loading_animation_checker_cleanup.json",
+  "input_dir": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation",
+  "output_dir": null,
+  "in_place": true,
+  "count": 7,
+  "results": [
+    {
+      "file": "loading-animation_003.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_003.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_003_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_003_hole_mask.png",
+      "changed_alpha_pixels": 1272,
+      "made_transparent_pixels": 1272
+    },
+    {
+      "file": "loading-animation_006.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_006.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_006_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_006_hole_mask.png",
+      "changed_alpha_pixels": 0,
+      "made_transparent_pixels": 0
+    },
+    {
+      "file": "loading-animation_008.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_008.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_008_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_008_hole_mask.png",
+      "changed_alpha_pixels": 0,
+      "made_transparent_pixels": 0
+    },
+    {
+      "file": "loading-animation_007.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_007.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_007_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_007_hole_mask.png",
+      "changed_alpha_pixels": 1427,
+      "made_transparent_pixels": 1427
+    },
+    {
+      "file": "loading-animation_009.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_009.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_009_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_009_hole_mask.png",
+      "changed_alpha_pixels": 0,
+      "made_transparent_pixels": 0
+    },
+    {
+      "file": "loading-animation_016.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_016.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_016_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_016_hole_mask.png",
+      "changed_alpha_pixels": 0,
+      "made_transparent_pixels": 0
+    },
+    {
+      "file": "loading-animation_071.png",
+      "output": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\loading-animation_071.png",
+      "preview": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-previews-active\\loading-animation_071_hole_preview.jpg",
+      "mask": "C:\\Work\\caatuu\\apps\\caatuu-unified\\static\\assets\\macaw\\loading_animation\\space-aux\\checker-clean-masks-active\\loading-animation_071_hole_mask.png",
+      "changed_alpha_pixels": 1412,
+      "made_transparent_pixels": 1412
+    }
+  ]
+}

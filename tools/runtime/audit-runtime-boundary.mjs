@@ -249,10 +249,10 @@ async function auditHttpRoutes() {
   assert(root.body.includes("Don't lose time, let's get started learning."), "launcher root should include the getting-started footnote");
   assert(root.body.includes("Available languages"), "launcher root should list available languages");
   assert(root.body.includes('aria-label="Czech"'), "launcher root should list Czech as an available language");
-  assert(root.body.includes('class="cz-flag"'), "launcher root should render the Czech language as a flag");
-  assert(root.body.includes("/assets/characters/macaw/explorer_hello.png.png"), "launcher root should use the hello explorer art");
+  assert(root.body.includes("/assets/icons/czech_flag.png"), "launcher root should render the Czech language with the Czech flag icon");
+  assert(root.body.includes("/assets/macaw/actions/explorer_hello.png"), "launcher root should use the hello explorer art");
   assert(!root.body.includes("Select your planet"), "launcher root should not include the language selector");
-  assert(!root.body.includes("/assets/characters/macaw/explorer_select.png"), "launcher root should keep language-selection art off the home page");
+  assert(!root.body.includes("/assets/macaw/actions/explorer_select.png"), "launcher root should keep language-selection art off the home page");
   assert(!root.body.includes('href="/archive/chinese/"'), "launcher root should not link to the Chinese archive");
   assert(!root.body.includes("Chinese trainer"), "launcher root should not show the Chinese archive");
   assert(!root.body.includes("Chinese_Macaw"), "launcher root should not render the Chinese app art directly");
@@ -263,13 +263,16 @@ async function auditHttpRoutes() {
   assert(!unknownRoot.body.includes("Move along, learner."), "not-found page should not include the removed speech bubble");
   assert(unknownRoot.body.includes("<summary>Details</summary>"), "not-found page should label the collapsible section Details");
   assert(unknownRoot.body.includes("HTTP 404 Not Found"), "not-found page should expose precise technical details");
-  assert(unknownRoot.body.includes("/assets/characters/macaw/jedy_%20stop.png"), "not-found page should use the requested macaw art");
+  assert(unknownRoot.body.includes("/assets/macaw/actions/jedy_%20stop.png"), "not-found page should use the requested macaw art");
 
   const czechHome = await request("/cz/home.html");
   assert(czechHome.status === 200, `/cz/home.html should return 200, got ${czechHome.status}`);
   assert(czechHome.body.includes("<title>Caatuu Czech</title>"), "Czech home should serve the Czech title");
-  assert(czechHome.body.includes("Czech_Macaw.png"), "Czech home should use Czech_Macaw art");
   assert(!czechHome.body.includes("archive/chinese"), "Czech home should not include archive links");
+
+  const setupAssets = await request("/cz/setup-assets.json");
+  assert(setupAssets.status === 200, `/cz/setup-assets.json should return 200, got ${setupAssets.status}`);
+  assert(setupAssets.body.includes("/assets/aliens/Czech_Macaw.png"), "Czech setup assets should use moved Czech_Macaw art");
 
   const oldCzechFile = await request("/cz/device-ai.html");
   assert(oldCzechFile.status === 404, `/cz/device-ai.html should be retired as 404, got ${oldCzechFile.status}`);
@@ -310,11 +313,26 @@ async function auditHttpRoutes() {
 }
 
 function unzip(args) {
-  return execFileSync("unzip", args, {
+  const execOptions = {
     cwd: workspaceRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"]
-  });
+  };
+  try {
+    return execFileSync("unzip", args, execOptions);
+  } catch (error) {
+    if (args[0] === "-Z1") {
+      return execFileSync("tar", ["-tf", args[1]], execOptions);
+    }
+    if (args[0] === "-p") {
+      const archive = args[1];
+      return args
+        .slice(2)
+        .map((entry) => execFileSync("tar", ["-xOf", archive, entry], execOptions))
+        .join("");
+    }
+    throw error;
+  }
 }
 
 function auditApk() {

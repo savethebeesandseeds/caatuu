@@ -6,6 +6,7 @@
   let setupAborted = false;
   let nativeSetupActive = false;
   let updateRunning = false;
+  let reportRunning = false;
   let navigationLocked = false;
   let setupMode = "native";
   let detailsOpen = false;
@@ -19,14 +20,16 @@
   let setupVisualIndex = 0;
   let activeArtifactKey = "";
   let latestSetupLabel = "";
+  let lastSetupAttention = null;
+  let lastStoragePreflight = null;
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
   const setupVisualFrameDelayMs = 2400;
-  const setupVisualFrames = Array.from({ length: 18 }, (_, index) => {
-    const frame = index + 1;
-    return `/assets/characters/macaw/loading_animation/loading-animation%20(${frame}).png`;
-  });
+  const setupManifestPath = "setup-assets.json";
+  const setupFrameManifestPath = "/assets/macaw/loading_animation/split_manifest.json";
+  const setupReadyArt = "/assets/icons/hello.png";
+  let setupVisualFrames = [];
 
   const setupMessages = [
     "Checking local storage before Caatuu starts.",
@@ -78,6 +81,29 @@
     return latest > current;
   }
 
+  function clipText(value, maxLength = 400) {
+    const text = String(value ?? "");
+    return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+  }
+
+  function compactStorage(storage) {
+    if (!storage || typeof storage !== "object") return {};
+    return {
+      ok: Boolean(storage.ok),
+      available: Boolean(storage.available),
+      scope: clipText(storage.scope || "", 120),
+      bytes: Number(storage.bytes || 0),
+      expectedBytes: Number(storage.expectedBytes || 0),
+      remainingBytes: Number(storage.remainingBytes || 0),
+      reserveBytes: Number(storage.reserveBytes || 0),
+      requiredBytes: Number(storage.requiredBytes || 0),
+      availableBytes: Number(storage.availableBytes || 0),
+      usageBytes: Number(storage.usageBytes || 0),
+      quotaBytes: Number(storage.quotaBytes || 0),
+      message: clipText(storage.message || "", 300)
+    };
+  }
+
   function setupMessage(progress, label = "") {
     const message = setupMessages[setupMessageIndex % setupMessages.length] || setupMessages[0];
     return message;
@@ -87,14 +113,14 @@
     return art?.dataset.setupArtFallback || "icons/caatuu-czech-512.png";
   }
 
-  function setStageFrame(art, src) {
+  function setStageImage(art, src, { looping = false } = {}) {
     const probe = new Image();
     probe.onload = () => {
       if (art.getAttribute("src") !== src) art.src = src;
-      art.classList.add("is-looping");
+      art.classList.toggle("is-looping", looping);
     };
     probe.onerror = () => {
-      if (!art.classList.contains("is-looping")) {
+      if (!looping) {
         art.src = stageFallback(art);
       }
     };
@@ -106,13 +132,100 @@
     if (!art || !setupVisualFrames.length) return;
     const src = setupVisualFrames[setupVisualIndex % setupVisualFrames.length];
     setupVisualIndex = (setupVisualIndex + 1) % setupVisualFrames.length;
-    setStageFrame(art, src);
+    setStageImage(art, src, { looping: true });
+  }
+
+  function fallbackStageFrames() {
+    return Array.from({ length: 72 }, (_, index) => {
+      const frame = String(index + 1).padStart(3, "0");
+      return `/assets/macaw/loading_animation/loading-animation_${frame}.png`;
+    });
+  }
+
+  function setupFrameNumber(value) {
+    const match = String(value || "").match(/loading-animation(?:[_-](\d+)|(?:%20|\s)*\((\d+)\))\.png$/i);
+    if (!match) return Number.MAX_SAFE_INTEGER;
+    return Number(match[1] || match[2]);
+  }
+
+  function frameUrlFromManifestPath(value) {
+    const text = String(value || "").replaceAll("\\", "/");
+    const file = text.split("/").filter(Boolean).pop();
+    if (!file || !/^loading-animation[_-]\d+\.png$/i.test(file)) return "";
+    return `/assets/macaw/loading_animation/${file}`;
+  }
+
+  async function loadSetupVisualManifestFrames() {
+    const response = await fetch(setupFrameManifestPath, { cache: "reload" });
+    if (!response.ok) throw new Error(`Loading animation manifest returned ${response.status}`);
+    const manifest = await response.json();
+    const frames = (Array.isArray(manifest?.sprites) ? manifest.sprites : [])
+      .map((item) => frameUrlFromManifestPath(item?.file || item?.url || item?.path))
+      .filter(Boolean)
+      .sort((a, b) => setupFrameNumber(a) - setupFrameNumber(b) || a.localeCompare(b));
+    return [...new Set(frames)];
+  }
+
+  function setupAssetManifestFrames(manifest) {
+    return (Array.isArray(manifest?.artifacts) ? manifest.artifacts : [])
+      .filter((item) => String(item?.url || "").includes("/assets/macaw/loading_animation/"))
+      .map((item) => String(item.url || ""))
+      .filter(Boolean)
+      .sort((a, b) => setupFrameNumber(a) - setupFrameNumber(b) || a.localeCompare(b));
+  }
+
+  function normalizeSetupVisualFrames(frames) {
+    const uniqueFrames = [...new Set(frames.filter(Boolean))];
+    return uniqueFrames.length ? uniqueFrames : fallbackStageFrames();
+  }
+
+  function isLoadingFrameAvailable(src) {
+    return /^\/assets\/macaw\/loading_animation\/loading-animation[_-]\d+\.png$/i.test(src) ||
+      /\/assets\/macaw\/loading_animation\/loading-animation(?:%20|\s)*\(\d+\)\.png$/i.test(src);
+  }
+
+  async function loadSetupVisualFrames() {
+    if (setupVisualFrames.length) return setupVisualFrames;
+    try {
+      setupVisualFrames = normalizeSetupVisualFrames(await loadSetupVisualManifestFrames());
+      return setupVisualFrames;
+    } catch (error) {
+      // Fall back to the setup artifact manifest below.
+    }
+
+    try {
+      const response = await fetch(setupManifestPath, { cache: "reload" });
+      if (!response.ok) throw new Error(`Setup manifest returned ${response.status}`);
+      const manifest = await response.json();
+      setupVisualFrames = normalizeSetupVisualFrames(setupAssetManifestFrames(manifest));
+    } catch (error) {
+      setupVisualFrames = fallbackStageFrames();
+    }
+    return setupVisualFrames;
   }
 
   function startStageAnimation() {
     if (setupVisualTimer !== null) return;
+    if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
+    setupVisualFrames = setupVisualFrames.filter(isLoadingFrameAvailable);
+    if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
     advanceStageFrame();
     setupVisualTimer = window.setInterval(advanceStageFrame, setupVisualFrameDelayMs);
+  }
+
+  function stopStageAnimation() {
+    if (setupVisualTimer !== null) {
+      window.clearInterval(setupVisualTimer);
+      setupVisualTimer = null;
+    }
+  }
+
+  function showReadyStageArt() {
+    const art = $(".stage-art");
+    if (!art) return;
+    stopStageAnimation();
+    art.classList.remove("is-looping");
+    setStageImage(art, setupReadyArt);
   }
 
   function refreshWaitingMessage() {
@@ -168,6 +281,7 @@
     const action = $("#setupAction");
     const abort = $("#setupAbort");
     const update = $("#setupUpdate");
+    const report = $("#setupReportBug");
     const detailsToggle = $("#setupDetailsToggle");
     const ready = totalReady();
     const setupActive = setupRunning || nativeSetupActive;
@@ -194,6 +308,12 @@
         : updateAvailable
           ? "Open the app update"
           : "";
+    }
+    if (report) {
+      const visible = Boolean(lastSetupAttention) && !ready;
+      report.hidden = !visible;
+      report.disabled = reportRunning || setupActive || updateRunning;
+      report.textContent = reportRunning ? "Reporting" : "Report bug";
     }
     if (detailsToggle) {
       const details = $("#setupDetails");
@@ -548,14 +668,17 @@
       card.classList.toggle("is-ready", ready);
       card.classList.toggle("is-error", false);
     }
+    if (ready) lastSetupAttention = null;
     setText("#setupTitle", ready ? "Caatuu is ready" : "Preparing Caatuu");
     updateSummary(message || (ready ? readyText : "Preparing local intelligence."), ready ? "ready" : "status");
     if (ready) {
       stopSetupMessageCycle();
+      showReadyStageArt();
     } else if (nativeSetupActive || setupRunning) {
       startSetupMessageCycle();
+      applyStageArt();
     }
-    if (ready || !hasNativeRuntime()) applyStageArt();
+    if (!ready && !hasNativeRuntime()) applyStageArt();
     setNavigationLocked(!ready);
     if (ready) pushLog("ready", "Setup complete", readyText);
   }
@@ -646,6 +769,13 @@
     stopSetupMessageCycle();
     setNavigationLocked(true);
     setText("#setupTitle", "Setup stopped");
+    lastSetupAttention = {
+      kind: "setup_attention",
+      title: "Setup stopped",
+      message,
+      activeArtifactKey,
+      date: new Date().toISOString()
+    };
     const failedKey = activeArtifactKey || [...artifactState.entries()].find(([, item]) => !item.ready)?.[0] || "";
     if (failedKey && artifactState.has(failedKey)) {
       const failed = artifactState.get(failedKey);
@@ -660,11 +790,111 @@
     setControls();
   }
 
+  async function runStoragePreflight() {
+    if (!runtime?.setup?.preflight) return true;
+    setText("#setupPhase", "Checking storage");
+    setText("#setupMessage", "Checking device storage before setup starts.");
+    pushLog("status", "Storage check started", "Checking free space before downloads.");
+
+    const preflight = await runtime.setup.preflight();
+    lastStoragePreflight = preflight;
+    if (preflight?.ok === false) {
+      const message = preflight.message ||
+        `Caatuu needs ${formatBytes(preflight.requiredBytes)} free before setup.`;
+      pushLog("error", "Storage check failed", `${formatBytes(preflight.availableBytes)} free`);
+      stopSetupUi(message);
+      return false;
+    }
+
+    const available = Number(preflight?.availableBytes || 0);
+    const required = Number(preflight?.requiredBytes || 0);
+    const detail = available > 0
+      ? `${formatBytes(available)} free; ${formatBytes(required)} requested.`
+      : "Storage estimate unavailable; setup will verify each file.";
+    pushLog("ready", "Storage checked", detail);
+    return true;
+  }
+
+  function setupBugReportPayload() {
+    const totals = totalsFromArtifacts();
+    const versionCode = setupUpdateStatus?.currentVersionCode || setupUpdateStatus?.versionCode || 0;
+    const versionName = setupUpdateStatus?.currentVersionName || setupUpdateStatus?.versionName || "";
+    const artifacts = [...artifactState.values()].slice(0, 16).map((item) => ({
+      key: clipText(artifactKey(item), 120),
+      label: clipText(item.label || "", 120),
+      kind: clipText(item.kind || "", 80),
+      ready: Boolean(item.ready),
+      active: Boolean(item.active),
+      bytes: Number(item.bytes || 0),
+      expectedBytes: Number(item.expectedBytes || 0),
+      error: clipText(item.error || "", 220)
+    }));
+    const events = setupLog.slice(-10).map((item) => ({
+      kind: clipText(item.kind || "", 40),
+      title: clipText(item.title || "", 160),
+      detail: clipText(item.detail || "", 260),
+      time: clipText(item.time || "", 32)
+    }));
+    return {
+      kind: "setup_attention",
+      title: lastSetupAttention?.title || $("#setupTitle")?.textContent || "Setup attention",
+      message: lastSetupAttention?.message || $("#setupMessage")?.textContent || "",
+      app: {
+        versionCode,
+        versionName,
+        updateSource: setupUpdateStatus?.source || (setupUpdateStatus?.serverReachable === false ? "update-unavailable" : "update-status")
+      },
+      device: {
+        userAgent: clipText(navigator.userAgent, 360),
+        platform: clipText(navigator.platform || "", 80),
+        language: clipText(navigator.language || "", 32),
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        screen: window.screen ? `${window.screen.width}x${window.screen.height}` : "",
+        deviceMemory: navigator.deviceMemory || null,
+        hardwareConcurrency: navigator.hardwareConcurrency || null
+      },
+      setup: {
+        mode: setupMode,
+        phase: clipText($("#setupPhase")?.textContent || "", 120),
+        activeArtifactKey: clipText(activeArtifactKey, 120),
+        progress: Number(totals.progress.toFixed(2)),
+        readyArtifacts: totals.readyArtifacts,
+        artifactCount: totals.artifactCount,
+        bytes: totals.bytes,
+        expectedBytes: totals.expectedBytes
+      },
+      storage: compactStorage(lastStoragePreflight),
+      artifacts,
+      events
+    };
+  }
+
+  async function reportSetupAttention() {
+    if (reportRunning || !lastSetupAttention) return;
+    reportRunning = true;
+    setControls();
+    try {
+      const result = await runtime.maintenance.reportBug(setupBugReportPayload());
+      const reportId = result?.report_id || result?.reportId || "saved";
+      pushLog("ready", "Bug report saved", reportId);
+      setText("#setupMessage", "Report sent. Thank you.");
+      lastSetupAttention = null;
+    } catch (error) {
+      pushLog("error", "Bug report failed", error?.message || String(error));
+      setText("#setupMessage", error?.message || "Could not send the bug report.");
+    } finally {
+      reportRunning = false;
+      setControls();
+    }
+  }
+
   async function startSetup() {
     if (setupRunning || updateRunning) return;
     clearSetupStatusPoll();
     setupRunning = true;
     setupAborted = false;
+    lastSetupAttention = null;
+    lastStoragePreflight = null;
     activeArtifactKey = "";
     setupMessageIndex = 0;
     progressLogBuckets.clear();
@@ -674,6 +904,8 @@
     pushLog("status", "Setup started", setupMode === "browser" ? "Caching browser files." : "Preparing local app storage.");
 
     try {
+      const storageOk = await runStoragePreflight();
+      if (!storageOk) return;
       const result = await runtime.setup.start({ onEvent: renderSetupEvent });
       setupRunning = false;
       setupAborted = false;
@@ -781,12 +1013,14 @@
   async function initSetup() {
     const card = $("#nativeSetup");
     if (!card) return;
+    await loadSetupVisualFrames();
     startStageAnimation();
     card.hidden = false;
     bindNavigationLock();
     setNavigationLocked(true);
     $("#setupAction")?.addEventListener("click", startSetup);
     $("#setupAbort")?.addEventListener("click", abortSetup);
+    $("#setupReportBug")?.addEventListener("click", reportSetupAttention);
     document.addEventListener("click", handleDetailsToggle, true);
     $("#setupUpdate")?.addEventListener("click", updateApp);
     pushLog("status", "Setup check started", "Looking for local files.");

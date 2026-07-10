@@ -1,4 +1,4 @@
-const defaultDbUrl = "data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite";
+const defaultDbUrl = "data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite?v=465cf1f8";
 const defaultSqlJsModuleUrl = "./vendor/sql.js/sql-wasm.js";
 const defaultSqlJsWasmUrl = "./vendor/sql.js/sql-wasm.wasm";
 
@@ -89,6 +89,7 @@ export class BrowserVectorDatabaseManager {
     this.requireOpen();
     const modelId = options.modelId || caatuuVectorSchema.defaultModelId;
     const limit = clampLimit(options.limit);
+    const sourceKinds = normalizeSourceKindFilter(options.sourceKinds);
     const normalizedQuery = normalizeVector(queryVector);
     const rows = [];
     const stmt = this.db.prepare(`
@@ -117,6 +118,7 @@ export class BrowserVectorDatabaseManager {
       });
       while (stmt.step()) {
         const row = stmt.getAsObject();
+        if (sourceKinds.size && !sourceKinds.has(String(row.source_kind || ""))) continue;
         const candidate = decodeFloat32Vector(row.vector);
         rows.push({
           chunkId: row.chunk_id,
@@ -291,6 +293,11 @@ function clampLimit(value) {
   const limit = Number(value || 10);
   if (!Number.isFinite(limit)) return 10;
   return Math.min(100, Math.max(1, Math.trunc(limit)));
+}
+
+function normalizeSourceKindFilter(value) {
+  if (!Array.isArray(value)) return new Set();
+  return new Set(value.map((item) => String(item || "").trim()).filter(Boolean));
 }
 
 function parseJsonObject(value) {

@@ -77,6 +77,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .route_service("/", ServeFile::new(unified_static.join("index.html")))
         .route_service("/app.css", ServeFile::new(unified_static.join("app.css")))
         .route("/ws", get(retired_root_chinese_backend))
+        .route("/api/bug-report", post(http::http_post_bug_report))
         .nest("/api/v1", retired_root_api_router())
         .nest_service("/assets", ServeDir::new(unified_static.join("assets")))
         .route_service("/android/caatuu.apk", ServeFile::new(android_apk.clone()))

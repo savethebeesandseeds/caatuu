@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-08T00:41:12.109Z",
+  "generated_at": "2026-07-09T17:23:55.633Z",
   "source_file": "tools/caatuu-cz-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
   "vector_db": "apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
   "model_id": "caatuu-local-hash-v0.1",
   "caveat": "This is a deterministic lexical vector index computed only from english_text, not czech_text or metadata, and not a semantic transformer embedding model.",
   "rows": 5000,
-  "db_bytes": 17129472,
-  "db_sha256": "d37fe70539b38ca07c69e7c7a8963afaf485905582d1045f701227ce24424f51",
+  "db_bytes": 18558976,
+  "db_sha256": "465cf1f888cdb7497a3e65620bcac8b1e66df2f0fed45b1b47ddba4d20474547",
   "exact_duplicate_groups": [],
   "near_duplicate_thresholds": {
     "vector_score": 0.74,

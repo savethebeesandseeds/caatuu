@@ -665,30 +665,69 @@ html[data-theme="light"] .bottom-app-nav {
   font-size: 0.76rem;
 }
 
-.maintenance-card .maintenance-actions {
+.maintenance-action-list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
+  gap: 6px;
 }
 
-.maintenance-card #updateApp {
-  grid-column: 1 / -1;
-}
-
-.maintenance-card #browserInstallActions {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.maintenance-action-row,
+.maintenance-install-row {
+  min-height: 42px;
+  padding: 7px 8px;
+  border: 1px solid color-mix(in srgb, var(--green) 14%, var(--line));
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
+  gap: 8px;
+  background: color-mix(in srgb, var(--panel) 72%, transparent);
 }
 
-.maintenance-card .settings-danger-action,
-.maintenance-card .settings-cache-action,
-.maintenance-card .pwa-install-action {
-  min-height: 30px;
-  padding: 5px 10px;
+.maintenance-action-row[hidden],
+.maintenance-install-row[hidden] {
+  display: none !important;
+}
+
+.maintenance-action-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.maintenance-action-copy strong {
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.08;
+}
+
+.maintenance-action-copy small {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.maintenance-row-control,
+.maintenance-install-actions .pwa-install-action,
+.settings-report-action {
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.maintenance-install-actions {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: end;
+  gap: 6px;
 }
 
 .maintenance-card .pwa-install-action {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -731,10 +770,69 @@ html[data-theme="light"] .bottom-app-nav {
   display: none;
 }
 
-.maintenance-card #pwaInstallStatus {
-  grid-column: 1 / -1;
-  text-align: center;
-  white-space: nowrap;
+.settings-report-panel {
+  margin-top: 2px;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb, var(--green) 12%, transparent);
+  display: grid;
+  gap: 7px;
+}
+
+.settings-report-panel[hidden] {
+  display: none !important;
+}
+
+.settings-report-field {
+  display: grid;
+  gap: 4px;
+}
+
+.settings-report-field span {
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.settings-report-field textarea {
+  width: 100%;
+  min-height: 58px;
+  max-height: 120px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 86%, transparent);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.74rem;
+  line-height: 1.3;
+  resize: vertical;
+}
+
+.settings-report-actions {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.settings-report-status {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 750;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.footer-tm {
+  margin-left: 2px;
+  font-size: 0.52em;
+  letter-spacing: 0;
+  line-height: 0;
+  vertical-align: super;
 }
 
 .advanced-link-list {
@@ -768,6 +866,169 @@ html[data-theme="light"] .bottom-app-nav {
 .advanced-link:hover {
   border-color: color-mix(in srgb, var(--green) 32%, transparent);
   background: color-mix(in srgb, var(--green) 10%, transparent);
+}
+
+.embedding-debug-tool {
+  min-width: 0;
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--green) 12%, transparent);
+  display: grid;
+  gap: 8px;
+}
+
+.embedding-debug-head,
+.embedding-debug-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.embedding-debug-head span {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.embedding-debug-head strong {
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+
+.embedding-debug-head small,
+.embedding-debug-status,
+.embedding-debug-empty,
+.embedding-debug-field span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.32;
+}
+
+.embedding-debug-field {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.embedding-debug-field textarea {
+  width: 100%;
+  min-height: 56px;
+  resize: vertical;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--input);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.embedding-debug-random,
+.embedding-debug-run {
+  min-height: 30px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--green) 5%, transparent);
+  color: var(--green-dark, var(--green));
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.embedding-debug-random:disabled,
+.embedding-debug-run:disabled {
+  opacity: 0.55;
+}
+
+.embedding-debug-results {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.embedding-debug-result-group {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.embedding-debug-result-group h4 {
+  margin: 0;
+  color: var(--green-dark, var(--green));
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.embedding-debug-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  gap: 6px;
+}
+
+.embedding-debug-card {
+  min-width: 0;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
+  border-radius: 8px;
+  display: grid;
+  gap: 5px;
+  background: color-mix(in srgb, var(--green) 3%, transparent);
+}
+
+.embedding-debug-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--green) 3%, transparent);
+}
+
+.embedding-debug-card img[hidden],
+.embedding-debug-missing[hidden] {
+  display: none;
+}
+
+.embedding-debug-missing {
+  min-height: 64px;
+  padding: 8px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.embedding-debug-card figcaption {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.embedding-debug-card figcaption strong,
+.embedding-debug-card figcaption small,
+.embedding-debug-card figcaption span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.22;
+}
+
+.embedding-debug-card figcaption strong {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.embedding-debug-card figcaption small,
+.embedding-debug-card figcaption span {
+  color: var(--muted);
+  font-size: 0.64rem;
 }
 
 .license-copy {
@@ -947,6 +1208,13 @@ html[data-theme="dark"] .maintenance-card .settings-cache-action {
   color: #f0bd72;
 }
 
+html[data-theme="dark"] .maintenance-action-row,
+html[data-theme="dark"] .maintenance-install-row,
+html[data-theme="dark"] .settings-report-field textarea {
+  border-color: var(--theme-control-border, var(--line));
+  background: color-mix(in srgb, var(--theme-control-bg, #101820) 84%, transparent);
+}
+
 html[data-theme="dark"] .maintenance-card .settings-cache-action.is-confirming,
 html[data-theme="dark"] .maintenance-card .settings-danger-action.is-confirming {
   border-color: color-mix(in srgb, #ef6e5e 56%, var(--theme-control-border, var(--line)));
@@ -1009,8 +1277,22 @@ html[data-theme="dark"] .preset-control button.is-active {
   }
 
   .maintenance-card .course-meta,
-  .maintenance-card .maintenance-actions,
-  .maintenance-card #browserInstallActions {
+  .maintenance-action-row,
+  .maintenance-install-row {
+    grid-template-columns: 1fr;
+  }
+
+  .maintenance-row-control,
+  .maintenance-install-actions,
+  .maintenance-install-actions .pwa-install-action {
+    width: 100%;
+  }
+
+  .maintenance-install-actions {
+    justify-content: stretch;
+  }
+
+  .settings-report-actions {
     grid-template-columns: 1fr;
   }
 }

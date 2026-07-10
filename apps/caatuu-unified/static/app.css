@@ -156,28 +156,14 @@ img {
   padding: 4px;
 }
 
-.cz-flag {
-  position: relative;
+.flag-icon {
   display: block;
-  width: 28px;
-  height: 18px;
+  width: 30px;
+  height: 20px;
   border: 1px solid rgba(23, 32, 29, 0.18);
   border-radius: 2px;
-  background: linear-gradient(180deg, #ffffff 0 50%, #d7141a 50% 100%);
   box-shadow: 0 1px 2px rgba(23, 32, 29, 0.12);
-  overflow: hidden;
-}
-
-.cz-flag::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-left: 14px solid #11457e;
-  content: "";
+  object-fit: cover;
 }
 
 .brand-mark {

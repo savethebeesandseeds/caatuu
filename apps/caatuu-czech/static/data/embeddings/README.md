@@ -17,15 +17,23 @@ The vector input is the English sentence text only. Curriculum metadata is kept
 inside SQLite for filters and debugging, but it is not embedded into the vector.
 
 The database can also include manually described image assets. Those rows are
-stored as `source_kind = image_asset`, with lookup references in
-`asset_embedding_refs`. The current human-curated image keymap lives at:
+stored as `source_kind = image_asset` or `source_kind = macaw_action_asset`,
+with lookup references in `asset_embedding_refs` and
+`macaw_action_embedding_refs`. The current human-curated miscellaneous image
+keymap lives at:
 
 ```text
-apps/caatuu-unified/static/assets/characters/miscellaneous/keymap.json
+apps/caatuu-unified/static/assets/miscellaneous/keymap.json
 ```
 
-Those asset vectors are computed from the manual English descriptions in that
-JSON file, not from the image pixels.
+The current human-curated macaw action keymap lives at:
+
+```text
+apps/caatuu-unified/static/assets/macaw/actions/keymaps.json
+```
+
+Those asset vectors are computed from the manual English descriptions in those
+JSON files, not from the image pixels.
 
 The current generated database path is:
 

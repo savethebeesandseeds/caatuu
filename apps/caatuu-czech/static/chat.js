@@ -659,6 +659,7 @@ function openSettingsPanel() {
   lastSettingsTrigger = document.activeElement;
   panel.hidden = false;
   document.body.classList.add("settings-open");
+  window.CaatuuChrome?.setSettingsNavActive?.(true);
   syncThemeControls();
   syncSettingsUi();
   updateSettingsSupport();
@@ -670,6 +671,7 @@ function closeSettingsPanel({ restoreFocus = true } = {}) {
   if (!panel) return;
   panel.hidden = true;
   document.body.classList.remove("settings-open");
+  window.CaatuuChrome?.setSettingsNavActive?.(false);
   if (restoreFocus && lastSettingsTrigger && typeof lastSettingsTrigger.focus === "function") {
     lastSettingsTrigger.focus();
   }

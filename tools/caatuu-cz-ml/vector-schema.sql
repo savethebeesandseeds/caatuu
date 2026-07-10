@@ -59,7 +59,20 @@ CREATE TABLE IF NOT EXISTS embeddings (
 
 CREATE TABLE IF NOT EXISTS asset_embedding_refs (
   asset_path TEXT PRIMARY KEY,
-  category TEXT NOT NULL CHECK (category IN ('character', 'ship', 'house')),
+  category TEXT NOT NULL CHECK (length(category) > 0),
+  description TEXT NOT NULL,
+  document_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+  chunk_id TEXT NOT NULL REFERENCES chunks(id) ON DELETE CASCADE,
+  model_id TEXT NOT NULL REFERENCES embedding_models(id) ON DELETE CASCADE,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (chunk_id, model_id)
+);
+
+CREATE TABLE IF NOT EXISTS macaw_action_embedding_refs (
+  asset_path TEXT PRIMARY KEY,
+  action TEXT NOT NULL CHECK (length(action) > 0),
   description TEXT NOT NULL,
   document_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
   chunk_id TEXT NOT NULL REFERENCES chunks(id) ON DELETE CASCADE,
@@ -74,6 +87,7 @@ CREATE INDEX IF NOT EXISTS idx_documents_source ON documents(source_kind, source
 CREATE INDEX IF NOT EXISTS idx_chunks_document ON chunks(document_id, ordinal);
 CREATE INDEX IF NOT EXISTS idx_embeddings_model ON embeddings(model_id);
 CREATE INDEX IF NOT EXISTS idx_asset_embedding_refs_category ON asset_embedding_refs(category);
+CREATE INDEX IF NOT EXISTS idx_macaw_action_embedding_refs_action ON macaw_action_embedding_refs(action);
 
 INSERT OR IGNORE INTO schema_meta(key, value) VALUES
   ('schema_name', 'caatuu-cz-vector-db'),
@@ -83,7 +97,10 @@ INSERT OR IGNORE INTO schema_meta(key, value) VALUES
   ('embedding_input_policy', 'english_text_only'),
   ('asset_embedding_table', 'asset_embedding_refs'),
   ('asset_embedding_text_field', 'manual_english_description'),
-  ('asset_embedding_input_policy', 'manual_english_description_only');
+  ('asset_embedding_input_policy', 'manual_english_description_only'),
+  ('macaw_action_embedding_table', 'macaw_action_embedding_refs'),
+  ('macaw_action_embedding_text_field', 'manual_english_description'),
+  ('macaw_action_embedding_input_policy', 'manual_english_description_only');
 
 INSERT OR IGNORE INTO embedding_models(
   id,

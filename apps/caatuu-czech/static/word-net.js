@@ -2,7 +2,7 @@ import { LocalHashTextEmbedder } from "./vector-db.js";
 
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
-const SCENE_KEYMAP_URL = "/assets/characters/miscellaneous/keymap.json";
+const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
 const SCENE_ASSET_LIMIT = 5;
 const TRANSLATION_MODE_STORAGE_KEY = "caatuu-czech.wordNet.translationMode";
 const translationModes = {

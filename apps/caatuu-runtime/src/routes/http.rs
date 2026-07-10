@@ -3,11 +3,14 @@
 
 use axum::{
     extract::{Query, State},
+    http::StatusCode,
     response::IntoResponse,
     Json,
 };
+use serde_json::{json, Value};
 use std::sync::Arc;
 use tracing::{info, instrument};
+use uuid::Uuid;
 
 use crate::logic::*;
 use crate::protocol::*;
@@ -16,6 +19,97 @@ use crate::state::AppState;
 #[instrument(level = "info")]
 pub async fn http_health() -> impl IntoResponse {
     Json(HealthOut { ok: true })
+}
+
+#[instrument(level = "info", skip(body))]
+pub async fn http_post_bug_report(Json(body): Json<Value>) -> impl IntoResponse {
+    const MAX_REPORT_BYTES: usize = 16 * 1024;
+
+    let body_bytes = match serde_json::to_vec(&body) {
+        Ok(bytes) => bytes,
+        Err(error) => {
+            return (
+                StatusCode::BAD_REQUEST,
+                Json(json!({
+                    "ok": false,
+                    "message": format!("Bug report is not valid JSON: {error}")
+                })),
+            );
+        }
+    };
+
+    if body_bytes.len() > MAX_REPORT_BYTES {
+        return (
+            StatusCode::PAYLOAD_TOO_LARGE,
+            Json(json!({
+                "ok": false,
+                "message": "Bug report is too large."
+            })),
+        );
+    }
+
+    let report_id = Uuid::new_v4().to_string();
+    let report = json!({
+        "report_id": report_id,
+        "received_at": chrono_like_timestamp(),
+        "payload": body
+    });
+    let report_bytes = match serde_json::to_vec_pretty(&report) {
+        Ok(bytes) => bytes,
+        Err(error) => {
+            return (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                Json(json!({
+                    "ok": false,
+                    "message": format!("Could not serialize bug report: {error}")
+                })),
+            );
+        }
+    };
+
+    let reports_dir = super::workspace_root().join("artifacts/bug-reports");
+    if let Err(error) = tokio::fs::create_dir_all(&reports_dir).await {
+        return (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({
+                "ok": false,
+                "message": format!("Could not prepare bug report directory: {error}")
+            })),
+        );
+    }
+
+    let filename = format!(
+        "{}-{}.json",
+        chrono_like_timestamp().replace(':', "-").replace('.', "-"),
+        report_id.split('-').next().unwrap_or("report")
+    );
+    let path = reports_dir.join(filename);
+    if let Err(error) = tokio::fs::write(&path, report_bytes).await {
+        return (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({
+                "ok": false,
+                "message": format!("Could not save bug report: {error}")
+            })),
+        );
+    }
+
+    info!(target: "diagnostics", %report_id, path = %path.display(), "Bug report saved");
+    (
+        StatusCode::OK,
+        Json(json!({
+            "ok": true,
+            "report_id": report_id,
+            "stored": true
+        })),
+    )
+}
+
+fn chrono_like_timestamp() -> String {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default();
+    format!("{}.{:03}Z", now.as_secs(), now.subsec_millis())
 }
 
 #[instrument(level = "info", skip(state), fields(difficulty = %q.difficulty.clone().unwrap_or_else(|| "hsk3".into())))]

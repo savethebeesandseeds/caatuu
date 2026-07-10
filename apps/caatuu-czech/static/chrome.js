@@ -26,7 +26,6 @@
       href: "index.html#settings"
     }
   ];
-
   function isNativeShell() {
     return window.CaatuuRuntime?.env === "android";
   }
@@ -124,14 +123,18 @@
   }
 
   function navClasses(item, activeSection, isViewButton) {
-    const isActive = activeSection === item.key ||
-      activeSection === item.view ||
-      (activeSection === "train" && item.key === "games");
+    const isActive = isNavItemActive(item, activeSection);
     return [
       isViewButton ? "nav-tab" : "",
       "app-nav-item",
       isActive ? "is-active" : ""
     ].filter(Boolean).join(" ");
+  }
+
+  function isNavItemActive(item, activeSection) {
+    return activeSection === item.key ||
+      activeSection === item.view ||
+      (activeSection === "train" && item.key === "games");
   }
 
   function createNavItem(item, options) {
@@ -140,6 +143,8 @@
     const element = document.createElement(useViewButton || useSettingsButton ? "button" : "a");
 
     element.className = navClasses(item, options.activeSection, useViewButton);
+    element.dataset.navKey = item.key;
+    if (item.view) element.dataset.navView = item.view;
     if (element.tagName === "BUTTON") {
       element.type = "button";
       if (useViewButton) element.dataset.view = item.view;
@@ -160,6 +165,27 @@
       settingsHref: nav.dataset.settingsHref || "index.html#settings"
     };
     nav.replaceChildren(...navItems.map((item) => createNavItem(item, options)));
+  }
+
+  function syncBottomNavActive(nav, activeSection = "") {
+    const section = activeSection || nav.dataset.activeSection || "";
+    nav.querySelectorAll(".app-nav-item").forEach((item) => {
+      const navItem = {
+        key: item.dataset.navKey || "",
+        view: item.dataset.navView || ""
+      };
+      const active = isNavItemActive(navItem, section);
+      item.classList.toggle("is-active", active);
+      if (item.tagName === "BUTTON") item.setAttribute("aria-pressed", String(active));
+      if (active) item.setAttribute("aria-current", "page");
+      else item.removeAttribute("aria-current");
+    });
+  }
+
+  function setSettingsNavActive(active) {
+    document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
+      syncBottomNavActive(nav, active ? "settings" : "");
+    });
   }
 
   function renderLanguageSwitch(element) {
@@ -372,6 +398,7 @@
                 <nav class="advanced-link-list" aria-label="Developer tools">
                   <a class="advanced-link" href="chat.html?advanced=debug-chat">debug-chat</a>
                   <a class="advanced-link" href="index.html?advanced=cz-dictionary#dictionary">cz-dictionary</a>
+                  <a class="advanced-link" href="embedding-images.html">embedding-images</a>
                 </nav>
               </div>
             </details>
@@ -392,18 +419,58 @@
                 <dd>Caatuu Czech</dd>
               </div>
             </dl>
-            <div class="settings-actions maintenance-actions">
-              <button class="pwa-install-action" type="button" id="updateApp" hidden>Update App</button>
-              <button class="settings-cache-action" type="button" id="clearCache">Clear cache</button>
-              <button class="settings-danger-action course-reset-action" type="button" id="settingsResetVerbMemory">Start course again</button>
+            <div class="maintenance-action-list">
+              <div class="maintenance-action-row" data-maintenance-action-row hidden>
+                <span class="maintenance-action-copy">
+                  <strong>Update app</strong>
+                  <small>Install a newer Android package when one is available.</small>
+                </span>
+                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" hidden>Update</button>
+              </div>
+              <div class="maintenance-action-row">
+                <span class="maintenance-action-copy">
+                  <strong>Cache</strong>
+                  <small>Remove temporary files. Course progress stays saved.</small>
+                </span>
+                <button class="maintenance-row-control settings-cache-action" type="button" id="clearCache">Clear</button>
+              </div>
+              <div class="maintenance-action-row">
+                <span class="maintenance-action-copy">
+                  <strong>Course progress</strong>
+                  <small>Clear saved mastery and start the course again.</small>
+                </span>
+                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetVerbMemory">Restart</button>
+              </div>
             </div>
             <p class="pwa-install-status maintenance-status" id="maintenanceStatus"></p>
-            <div class="settings-actions maintenance-actions install-actions" id="browserInstallActions">
-              <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Install browser app</button>
-              <a class="pwa-install-action android-install-action" id="installAndroidAction" href="/android/caatuu.apk" download>Install Android app</a>
-              <span class="pwa-install-status" id="pwaInstallStatus">Browser</span>
+            <div class="maintenance-install-row" id="browserInstallActions">
+              <span class="maintenance-action-copy">
+                <strong>Install</strong>
+                <small id="pwaInstallStatus">Browser</small>
+              </span>
+              <span class="maintenance-install-actions">
+                <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Browser</button>
+                <a class="pwa-install-action android-install-action" id="installAndroidAction" href="/android/caatuu.apk" download>Android</a>
+              </span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
+            <div class="maintenance-action-row maintenance-report-row">
+              <span class="maintenance-action-copy">
+                <strong>Report bug</strong>
+                <small>Send a short diagnostic note with device and version details.</small>
+              </span>
+              <button class="maintenance-row-control settings-report-toggle" type="button" id="settingsReportToggle" aria-expanded="false" aria-controls="settingsReportPanel">Report</button>
+            </div>
+            <div class="settings-report-panel" id="settingsReportPanel" hidden>
+              <label class="settings-report-field" for="settingsBugComment">
+                <span>Small comment</span>
+                <textarea id="settingsBugComment" rows="3" maxlength="600" placeholder="What happened?"></textarea>
+              </label>
+              <div class="settings-report-actions">
+                <button class="settings-report-action" type="button" id="settingsReportBug">Send report</button>
+                <span class="settings-report-status" id="settingsReportStatus" aria-live="polite"></span>
+              </div>
+            </div>
           </section>
 
           <section class="settings-card side-card about-card" aria-label="About">
@@ -455,12 +522,97 @@
           <footer class="settings-sheet-footer">
             <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
               <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-              <span>by Waajacu</span>
+              <span>by Waajacu<sup class="footer-tm">TM</sup></span>
             </a>
           </footer>
         </div>
       </section>
     `;
+    bindSettingsReport(panel);
+  }
+
+  function clampReportText(value, maxLength = 600) {
+    const text = String(value ?? "").trim();
+    return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+  }
+
+  function settingsReportPayload(comment) {
+    const versionText = document.querySelector("#settingsVersion")?.textContent?.trim() || "";
+    const maintenanceText = document.querySelector("#maintenanceStatus")?.textContent?.trim() || "";
+    const activeNav = document.querySelector("[data-caatuu-bottom-nav] .is-active")?.dataset?.navKey || "";
+    return {
+      kind: "settings_report",
+      title: "Settings report",
+      message: clampReportText(comment || "User submitted a settings report without a comment."),
+      app: {
+        versionText: clampReportText(versionText, 120),
+        runtime: window.CaatuuRuntime?.env || "unknown",
+        location: clampReportText(window.location.href, 320),
+        activeNav: clampReportText(activeNav, 40)
+      },
+      device: {
+        userAgent: clampReportText(navigator.userAgent, 360),
+        platform: clampReportText(navigator.platform || "", 80),
+        language: clampReportText(navigator.language || "", 32),
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        screen: window.screen ? `${window.screen.width}x${window.screen.height}` : ""
+      },
+      events: [
+        {
+          kind: "settings",
+          title: "Maintenance status",
+          detail: clampReportText(maintenanceText, 320),
+          time: new Date().toISOString()
+        }
+      ]
+    };
+  }
+
+  function bindSettingsReport(panel) {
+    const toggleButton = panel.querySelector("#settingsReportToggle");
+    const reportPanel = panel.querySelector("#settingsReportPanel");
+    const reportButton = panel.querySelector("#settingsReportBug");
+    const reportComment = panel.querySelector("#settingsBugComment");
+    const reportStatus = panel.querySelector("#settingsReportStatus");
+    if (!reportButton || !reportComment || !reportStatus) return;
+
+    toggleButton?.addEventListener("click", () => {
+      if (!reportPanel) return;
+      const nextOpen = reportPanel.hidden;
+      reportPanel.hidden = !nextOpen;
+      toggleButton.setAttribute("aria-expanded", String(nextOpen));
+      toggleButton.textContent = nextOpen ? "Close" : "Report";
+      if (nextOpen) reportComment.focus();
+    });
+
+    reportButton.addEventListener("click", async () => {
+      if (reportButton.disabled) return;
+      const runtime = window.CaatuuRuntime;
+      if (!runtime?.maintenance?.reportBug) {
+        reportStatus.textContent = "Report service is not available.";
+        return;
+      }
+
+      reportButton.disabled = true;
+      reportButton.textContent = "Sending";
+      reportStatus.textContent = "Preparing report.";
+      try {
+        const result = await runtime.maintenance.reportBug(settingsReportPayload(reportComment.value));
+        const reportId = result?.report_id || result?.reportId || "saved";
+        reportStatus.textContent = `Report sent: ${reportId}`;
+        reportComment.value = "";
+        if (reportPanel && toggleButton) {
+          reportPanel.hidden = true;
+          toggleButton.setAttribute("aria-expanded", "false");
+          toggleButton.textContent = "Report";
+        }
+      } catch (error) {
+        reportStatus.textContent = error?.message || "Could not send report.";
+      } finally {
+        reportButton.disabled = false;
+        reportButton.textContent = "Send report";
+      }
+    });
   }
 
   function resetConfirmButton(button) {
@@ -508,6 +660,7 @@
     renderBottomNav,
     renderLanguageSwitch,
     renderSettingsPanel,
+    setSettingsNavActive,
     confirmButtonPress,
     resetConfirmButton
   };

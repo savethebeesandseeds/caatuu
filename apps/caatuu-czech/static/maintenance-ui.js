@@ -12,6 +12,8 @@
     button.hidden = !busy && !available;
     button.disabled = busy || !available;
     button.setAttribute("aria-disabled", button.disabled ? "true" : "false");
+    const row = button.closest("[data-maintenance-action-row]");
+    if (row) row.hidden = button.hidden;
   }
 
   function updateStatusLine(status) {

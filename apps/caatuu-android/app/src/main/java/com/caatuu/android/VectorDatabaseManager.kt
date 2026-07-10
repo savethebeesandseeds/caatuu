@@ -214,15 +214,21 @@ class VectorDatabaseManager(
         return normalizeVector(embeddingRuntime.embedText(text))
     }
 
-    suspend fun searchText(text: String, limit: Int = 10, spec: VectorDatabaseSpec = defaultSpec): List<VectorSearchResult> {
+    suspend fun searchText(
+        text: String,
+        limit: Int = 10,
+        spec: VectorDatabaseSpec = defaultSpec,
+        sourceKinds: Set<String> = emptySet(),
+    ): List<VectorSearchResult> {
         val queryVector = embedText(text)
-        return searchVector(queryVector, limit, spec)
+        return searchVector(queryVector, limit, spec, sourceKinds)
     }
 
     suspend fun searchVector(
         queryVector: FloatArray,
         limit: Int = 10,
         spec: VectorDatabaseSpec = defaultSpec,
+        sourceKinds: Set<String> = emptySet(),
     ): List<VectorSearchResult> =
         withContext(Dispatchers.Default) {
             require(queryVector.size == spec.embeddingDimension) {
@@ -230,6 +236,15 @@ class VectorDatabaseManager(
             }
             val db = database?.takeIf { it.isOpen } ?: openReadOnly(spec)
             val normalizedQuery = normalizeVector(queryVector)
+            val sourceKindFilters = sourceKinds.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+            val sourceKindClause = if (sourceKindFilters.isEmpty()) {
+                ""
+            } else {
+                " AND documents.source_kind IN (${sourceKindFilters.joinToString(",") { "?" }})"
+            }
+            val queryArgs = mutableListOf(spec.key, spec.embeddingDimension.toString()).also { args ->
+                args.addAll(sourceKindFilters)
+            }.toTypedArray()
             val rows = mutableListOf<VectorSearchResult>()
             db.rawQuery(
                 """
@@ -249,8 +264,9 @@ class VectorDatabaseManager(
                 JOIN documents ON documents.id = chunks.document_id
                 WHERE embeddings.model_id = ?
                   AND embeddings.dimension = ?
+                  $sourceKindClause
                 """.trimIndent(),
-                arrayOf(spec.key, spec.embeddingDimension.toString()),
+                queryArgs,
             ).use { cursor ->
                 val chunkId = cursor.getColumnIndexOrThrow("chunk_id")
                 val documentId = cursor.getColumnIndexOrThrow("document_id")

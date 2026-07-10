@@ -1,6 +1,7 @@
 package com.caatuu.android
 
 import android.app.Activity
+import android.os.Build
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import kotlinx.coroutines.CancellationException
@@ -15,7 +16,12 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.util.UUID
 import kotlin.coroutines.coroutineContext
+import kotlin.math.max
 
 class CaatuuBridge(
     private val activity: Activity,
@@ -51,6 +57,7 @@ class CaatuuBridge(
                     "prompt" -> runPrompt(id, request)
                     "benchmark" -> runBenchmark(id)
                     "setup_status" -> emitDone(id, setupStatusJson())
+                    "storage_preflight" -> emitDone(id, storagePreflightJson())
                     "setup_download" -> runSetupDownload(id)
                     "setup_abort" -> abortSetup(id)
                     "vector_status" -> emitDone(id, vectorDatabaseManager.statusJson())
@@ -60,6 +67,7 @@ class CaatuuBridge(
                     "clear_cache" -> clearCache(id)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
                     "update_app" -> updateApp(id)
+                    "report_bug" -> reportBug(id, request)
                     else -> throw IllegalArgumentException("Unknown native request type.")
                 }
             } catch (error: Exception) {
@@ -338,12 +346,59 @@ class CaatuuBridge(
         val currentJob = coroutineContext[Job]
         activeSetupJob = currentJob
         try {
+            val preflight = storagePreflightJson()
+            if (!preflight.optBoolean("ok", true)) {
+                throw IllegalStateException(preflight.optString("message", "Not enough storage for Caatuu setup."))
+            }
             prepareRequiredArtifacts(id)
         } catch (error: CancellationException) {
             emitError(id, Exception("Setup aborted."))
         } finally {
             if (activeSetupJob == currentJob) activeSetupJob = null
         }
+    }
+
+    private suspend fun reportBug(id: String, request: JSONObject) {
+        val result = withContext(Dispatchers.IO) {
+            val reportId = UUID.randomUUID().toString()
+            val payload = request.optJSONObject("payload") ?: JSONObject()
+            val report = JSONObject()
+                .put("report_id", reportId)
+                .put("received_at_ms", System.currentTimeMillis())
+                .put("source", "caatuu-android")
+                .put(
+                    "app",
+                    JSONObject()
+                        .put("versionCode", BuildConfig.VERSION_CODE)
+                        .put("versionName", BuildConfig.VERSION_NAME)
+                        .put("applicationId", BuildConfig.APPLICATION_ID),
+                )
+                .put("device", androidDeviceJson())
+                .put("payload", payload)
+
+            val bytes = report.toString(2).toByteArray(StandardCharsets.UTF_8)
+            require(bytes.size <= MAX_BUG_REPORT_BYTES) { "Bug report is too large." }
+
+            val reportsDir = File(activity.applicationContext.filesDir, "bug-reports")
+            reportsDir.mkdirs()
+            val reportFile = File(reportsDir, "${System.currentTimeMillis()}-${reportId.take(8)}.json")
+            reportFile.writeBytes(bytes)
+
+            val remote = runCatching { postRemoteBugReport(bytes) }
+                .getOrElse { error ->
+                    JSONObject()
+                        .put("ok", false)
+                        .put("message", error.message ?: error::class.java.simpleName)
+                }
+
+            JSONObject()
+                .put("ok", true)
+                .put("reportId", reportId)
+                .put("storedLocal", true)
+                .put("path", reportFile.absolutePath)
+                .put("remote", remote)
+        }
+        emitDone(id, result)
     }
 
     private suspend fun abortSetup(id: String) {
@@ -377,7 +432,7 @@ class CaatuuBridge(
             )
         }
 
-        val results = vectorDatabaseManager.searchText(text, limit, vectorSpec)
+        val results = vectorDatabaseManager.searchText(text, limit, vectorSpec, requestSourceKinds(request))
         emitDone(
             id,
             JSONObject()
@@ -469,6 +524,16 @@ class CaatuuBridge(
         request.optString("modelKey").takeIf { it.isNotBlank() }
             ?: request.optString("model_key").takeIf { it.isNotBlank() }
 
+    private fun requestSourceKinds(request: JSONObject): Set<String> {
+        val sourceKinds = request.optJSONArray("sourceKinds") ?: request.optJSONArray("source_kinds") ?: return emptySet()
+        val values = mutableSetOf<String>()
+        for (index in 0 until sourceKinds.length()) {
+            val value = sourceKinds.optString(index).trim()
+            if (value.isNotBlank()) values += value
+        }
+        return values
+    }
+
     private fun modelStatusJson(modelKey: String?): JSONObject {
         val spec = modelManager.modelSpec(modelKey)
         return modelManager.statusJson(spec.key)
@@ -519,6 +584,83 @@ class CaatuuBridge(
             .put("models", modelStatuses)
             .put("vectorDatabase", vectorStatus)
             .put("staticAssets", assetStatus)
+    }
+
+    private fun storagePreflightJson(): JSONObject {
+        val status = setupStatusJson()
+        val expectedBytes = status.optLong("expectedBytes", 0L)
+        val bytes = status.optLong("bytes", 0L)
+        val remainingBytes = (expectedBytes - bytes).coerceAtLeast(0L)
+        val reserveBytes = max(256L * 1024L * 1024L, expectedBytes / 8L)
+        val requiredBytes = remainingBytes + reserveBytes
+        val filesAvailable = activity.applicationContext.filesDir.usableSpace
+        val externalAvailable = activity.applicationContext
+            .getExternalFilesDir("model-downloads")
+            ?.usableSpace
+            ?: filesAvailable
+        val availableBytes = minOf(filesAvailable, externalAvailable)
+        val ok = availableBytes >= requiredBytes
+
+        return JSONObject()
+            .put("ok", ok)
+            .put("available", true)
+            .put("scope", "app-private filesDir and model-downloads")
+            .put("bytes", bytes)
+            .put("expectedBytes", expectedBytes)
+            .put("remainingBytes", remainingBytes)
+            .put("reserveBytes", reserveBytes)
+            .put("requiredBytes", requiredBytes)
+            .put("availableBytes", availableBytes)
+            .put("filesAvailableBytes", filesAvailable)
+            .put("externalAvailableBytes", externalAvailable)
+            .put(
+                "message",
+                if (ok) {
+                    "Storage looks ready."
+                } else {
+                    "Not enough storage for Caatuu setup: needs about ${requiredBytes / 1024L / 1024L} MB free, device reports ${availableBytes / 1024L / 1024L} MB."
+                },
+            )
+    }
+
+    private fun androidDeviceJson(): JSONObject =
+        JSONObject()
+            .put("manufacturer", Build.MANUFACTURER)
+            .put("brand", Build.BRAND)
+            .put("model", Build.MODEL)
+            .put("device", Build.DEVICE)
+            .put("sdkInt", Build.VERSION.SDK_INT)
+            .put("release", Build.VERSION.RELEASE)
+
+    private fun reportEndpoint(): String {
+        val base = BuildConfig.CAATUU_UPDATE_BASE_URL.trimEnd('/')
+        val root = if (base.endsWith("/android")) base.removeSuffix("/android") else base
+        return "$root/api/bug-report"
+    }
+
+    private fun postRemoteBugReport(bytes: ByteArray): JSONObject {
+        val connection = URL(reportEndpoint()).openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.connectTimeout = 5000
+        connection.readTimeout = 5000
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
+        connection.setRequestProperty("Content-Length", bytes.size.toString())
+        return try {
+            connection.outputStream.use { output -> output.write(bytes) }
+            val status = connection.responseCode
+            val body = runCatching {
+                val stream = if (status in 200..299) connection.inputStream else connection.errorStream
+                stream?.bufferedReader()?.use { it.readText() }.orEmpty()
+            }.getOrDefault("")
+            JSONObject()
+                .put("ok", status in 200..299)
+                .put("status", status)
+                .put("endpoint", reportEndpoint())
+                .put("body", body.take(600))
+        } finally {
+            connection.disconnect()
+        }
     }
 
     private fun vectorResultJson(result: VectorSearchResult): JSONObject =
@@ -577,5 +719,9 @@ class CaatuuBridge(
         if (!file.exists()) return 0L
         if (file.isFile) return file.length()
         return file.listFiles()?.sumOf { directorySize(it) } ?: 0L
+    }
+
+    companion object {
+        private const val MAX_BUG_REPORT_BYTES = 16 * 1024
     }
 }

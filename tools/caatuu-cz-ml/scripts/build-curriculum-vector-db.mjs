@@ -12,13 +12,13 @@ const EMBEDDING_DIMENSION = 384;
 const DB_FILE_NAME = "caatuu-cz-curriculum.sqlite";
 const EMBEDDING_TEXT_FIELD = "english_text";
 const EMBEDDING_INPUT_POLICY = "english_text_only";
-const ASSET_EMBEDDING_TABLE = "asset_embedding_refs";
+const MISC_ASSET_EMBEDDING_TABLE = "asset_embedding_refs";
+const MACAW_ACTION_EMBEDDING_TABLE = "macaw_action_embedding_refs";
 const ASSET_EMBEDDING_TEXT_FIELD = "manual_english_description";
 const ASSET_EMBEDDING_INPUT_POLICY = "manual_english_description_only";
 const VECTOR_ENCODING = "float32le";
 const DISTANCE_METRIC = "cosine";
 const MAX_REVIEW_CANDIDATES = 200;
-const ASSET_CATEGORIES = new Set(["character", "ship", "house"]);
 const STOPWORDS = new Set([
   "a",
   "an",
@@ -82,16 +82,52 @@ const browserVectorDbFile = path.resolve(
 const assetKeymapFile = path.resolve(
   argValue(
     "--asset-keymap-file",
-    path.join(caatuuRoot, "apps", "caatuu-unified", "static", "assets", "characters", "miscellaneous", "keymap.json"),
+    path.join(caatuuRoot, "apps", "caatuu-unified", "static", "assets", "miscellaneous", "keymap.json"),
+  ),
+);
+const macawActionKeymapsFile = path.resolve(
+  argValue(
+    "--macaw-action-keymap-file",
+    path.join(caatuuRoot, "apps", "caatuu-unified", "static", "assets", "macaw", "actions", "keymaps.json"),
   ),
 );
 const setupAssetsFile = path.resolve(
   argValue("--setup-assets-file", path.join(caatuuRoot, "apps", "caatuu-czech", "static", "setup-assets.json")),
 );
+const assetKeymapSpecs = [
+  {
+    group: "miscellaneous",
+    file: assetKeymapFile,
+    table: MISC_ASSET_EMBEDDING_TABLE,
+    sourceKind: "image_asset",
+    defaultCategory: "",
+  },
+  {
+    group: "macaw_actions",
+    file: macawActionKeymapsFile,
+    table: MACAW_ACTION_EMBEDDING_TABLE,
+    sourceKind: "macaw_action_asset",
+    defaultCategory: "macaw_action",
+  },
+];
+const setupAssetGroups = {
+  miscellaneous: {
+    keyPrefix: "misc-character",
+    keymapKey: "misc-character-keymap",
+    keymapLabel: "Character image keymap",
+    imageLabel: "Character image",
+  },
+  macaw_actions: {
+    keyPrefix: "macaw-action",
+    keymapKey: "macaw-action-keymap",
+    keymapLabel: "Macaw action keymap",
+    imageLabel: "Macaw action image",
+  },
+};
 
 const rows = await readJsonl(inputFile);
 assertRows(rows);
-const assetRows = await readAssetKeymap(assetKeymapFile);
+const assetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
 
 const SQL = await loadSqlJs();
 const schemaSql = await fs.readFile(schemaFile, "utf8");
@@ -116,24 +152,28 @@ await fs.mkdir(outDir, { recursive: true });
 await buildDatabase(SQL, schemaSql, embeddedRows, embeddedAssetRows, outFile);
 const manifest = await writeManifest(rows, embeddedAssetRows, outFile, manifestFile);
 await writeEmbeddingCatalog(manifest, embeddingCatalogFile);
+await updateBrowserVectorDbUrl(browserVectorDbFile, manifest.sha256);
 const setup_assets_file = await updateSetupAssetsManifest(setupAssetsFile, {
   "browser-vector-db-js": browserVectorDbFile,
   "embedding-catalog": embeddingCatalogFile,
   "embedding-manifest": manifestFile,
   "embedding-sqlite": outFile,
-});
+}, assetRows);
 const quality = await writeQualityReports(embeddedRows, manifest);
 
 console.log(JSON.stringify({
   ok: true,
   rows: rows.length,
   asset_rows: embeddedAssetRows.length,
+  asset_counts: countAssetGroups(embeddedAssetRows),
   db_file: outFile,
   db_bytes: manifest.bytes,
   db_sha256: manifest.sha256,
   manifest_file: manifestFile,
   catalog_file: embeddingCatalogFile,
-  asset_keymap_file: assetRows.length ? assetKeymapFile : null,
+  asset_keymap_files: Object.fromEntries(
+    assetKeymapSpecs.map((spec) => [spec.group, spec.file]),
+  ),
   setup_assets_file,
   quality_file: qualityFile,
   quality_markdown_file: qualityMarkdownFile,
@@ -177,7 +217,8 @@ function assertRows(rows) {
   }
 }
 
-async function readAssetKeymap(file) {
+async function readAssetKeymap(spec) {
+  const { file } = spec;
   let text = "";
   try {
     text = await fs.readFile(file, "utf8");
@@ -200,27 +241,32 @@ async function readAssetKeymap(file) {
     }
     const description = String(value.description || "").trim();
     if (!description) throw new Error(`${file}: entry ${assetPath} has blank description`);
-    const category = String(value.category || "").trim();
-    if (!ASSET_CATEGORIES.has(category)) {
-      throw new Error(`${file}: entry ${assetPath} has unsupported category ${category}`);
-    }
+    const category = String(value.category || spec.defaultCategory || "").trim();
+    if (!category) throw new Error(`${file}: entry ${assetPath} has blank category`);
+    const action = String(value.action || category).trim();
+    if (!action) throw new Error(`${file}: entry ${assetPath} has blank action`);
     const embedding = value.embedding && typeof value.embedding === "object" && !Array.isArray(value.embedding)
       ? value.embedding
       : {};
     const documentId = String(embedding.document_id || assetDocumentId(assetPath)).trim();
     const chunkId = String(embedding.chunk_id || `${documentId}:description`).trim();
     const modelId = String(embedding.model_id || MODEL_ID).trim();
-    const table = String(embedding.table || ASSET_EMBEDDING_TABLE).trim();
+    const table = String(embedding.table || spec.table).trim();
     if (!documentId || !chunkId) throw new Error(`${file}: entry ${assetPath} has blank DB reference`);
     if (modelId !== MODEL_ID) throw new Error(`${file}: entry ${assetPath} uses unsupported model ${modelId}`);
-    if (table !== ASSET_EMBEDDING_TABLE) throw new Error(`${file}: entry ${assetPath} must reference ${ASSET_EMBEDDING_TABLE}`);
+    if (table !== spec.table) throw new Error(`${file}: entry ${assetPath} must reference ${spec.table}`);
     return {
       assetPath,
       description,
       category,
+      action,
       documentId,
       chunkId,
       modelId,
+      table,
+      group: spec.group,
+      sourceKind: spec.sourceKind,
+      sourceKeymapFile: file,
     };
   });
 
@@ -242,6 +288,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   const db = new SQL.Database();
   db.run("PRAGMA foreign_keys = ON");
   db.run(schemaSql);
+  db.run("DELETE FROM macaw_action_embedding_refs");
   db.run("DELETE FROM asset_embedding_refs");
   db.run("DELETE FROM embeddings");
   db.run("DELETE FROM chunks");
@@ -251,9 +298,12 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["default_embedding_model", MODEL_ID]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_text_field", EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_input_policy", EMBEDDING_INPUT_POLICY]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_table", ASSET_EMBEDDING_TABLE]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_table", MISC_ASSET_EMBEDDING_TABLE]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_table", MACAW_ACTION_EMBEDDING_TABLE]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
 
   const documentStmt = db.prepare(`
     INSERT INTO documents(
@@ -273,6 +323,11 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   const assetRefStmt = db.prepare(`
     INSERT INTO asset_embedding_refs(
       asset_path, category, description, document_id, chunk_id, model_id, metadata_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+  const macawActionRefStmt = db.prepare(`
+    INSERT INTO macaw_action_embedding_refs(
+      asset_path, action, description, document_id, chunk_id, model_id, metadata_json
     ) VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
 
@@ -334,27 +389,34 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
       const { row, indexedText, vector } = item;
       const documentMetadata = JSON.stringify({
         asset_path: row.assetPath,
+        asset_group: row.group,
         category: row.category,
-        source_keymap: path.relative(caatuuRoot, assetKeymapFile).replaceAll("\\", "/"),
+        action: row.action,
+        source_keymap: path.relative(caatuuRoot, row.sourceKeymapFile).replaceAll("\\", "/"),
         embedding_text_field: ASSET_EMBEDDING_TEXT_FIELD,
         embedding_input_policy: ASSET_EMBEDDING_INPUT_POLICY,
       });
       const chunkMetadata = JSON.stringify({
         asset_path: row.assetPath,
+        asset_group: row.group,
         category: row.category,
+        action: row.action,
         embedding_text_field: ASSET_EMBEDDING_TEXT_FIELD,
         embedding_input_policy: ASSET_EMBEDDING_INPUT_POLICY,
         indexed_text_hash: sha256Text(indexedText),
         indexed_text_tokens: tokenize(indexedText).length,
       });
       const refMetadata = JSON.stringify({
-        source_kind: "image_asset",
-        source_keymap: path.relative(caatuuRoot, assetKeymapFile).replaceAll("\\", "/"),
+        source_kind: row.sourceKind,
+        asset_group: row.group,
+        category: row.category,
+        action: row.action,
+        source_keymap: path.relative(caatuuRoot, row.sourceKeymapFile).replaceAll("\\", "/"),
       });
 
       documentStmt.run([
         row.documentId,
-        "image_asset",
+        row.sourceKind,
         row.assetPath,
         "en",
         displayAssetName(row.assetPath),
@@ -378,15 +440,29 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
         encodeFloat32le(vector),
         1,
       ]);
-      assetRefStmt.run([
-        row.assetPath,
-        row.category,
-        row.description,
-        row.documentId,
-        row.chunkId,
-        row.modelId,
-        refMetadata,
-      ]);
+      if (row.table === MISC_ASSET_EMBEDDING_TABLE) {
+        assetRefStmt.run([
+          row.assetPath,
+          row.category,
+          row.description,
+          row.documentId,
+          row.chunkId,
+          row.modelId,
+          refMetadata,
+        ]);
+      } else if (row.table === MACAW_ACTION_EMBEDDING_TABLE) {
+        macawActionRefStmt.run([
+          row.assetPath,
+          row.action,
+          row.description,
+          row.documentId,
+          row.chunkId,
+          row.modelId,
+          refMetadata,
+        ]);
+      } else {
+        throw new Error(`${row.assetPath}: unsupported asset embedding table ${row.table}`);
+      }
     }
     db.run("COMMIT");
   } catch (error) {
@@ -397,6 +473,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
     chunkStmt.free();
     embeddingStmt.free();
     assetRefStmt.free();
+    macawActionRefStmt.free();
   }
 
   const bytes = db.export();
@@ -408,6 +485,8 @@ async function writeManifest(rows, assetItems, dbFile, file) {
   const [stat, sha256] = await Promise.all([fs.stat(dbFile), sha256File(dbFile)]);
   const qualityCounts = countFields(rows);
   const totalRows = rows.length + assetItems.length;
+  const assetCounts = countAssetGroups(assetItems);
+  const assetSourceCounts = countAssetSourceKinds(assetItems);
   const manifest = {
     schema_name: SCHEMA_NAME,
     schema_version: SCHEMA_VERSION,
@@ -427,14 +506,20 @@ async function writeManifest(rows, assetItems, dbFile, file) {
     embedding_count: totalRows,
     curriculum_count: rows.length,
     asset_count: assetItems.length,
+    asset_counts: assetCounts,
     generated_at: new Date().toISOString(),
     generated_from: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
-    generated_asset_keymap: assetItems.length
+    generated_asset_keymap: assetCounts.miscellaneous
       ? path.relative(caatuuRoot, assetKeymapFile).replaceAll("\\", "/")
       : null,
+    generated_asset_keymaps: Object.fromEntries(
+      assetKeymapSpecs
+        .filter((spec) => assetCounts[spec.group])
+        .map((spec) => [spec.group, path.relative(caatuuRoot, spec.file).replaceAll("\\", "/")]),
+    ),
     source_counts: {
       curriculum: rows.length,
-      image_asset: assetItems.length,
+      ...assetSourceCounts,
     },
     row_counts: {
       topics: qualityCounts.topics,
@@ -479,6 +564,7 @@ async function writeEmbeddingCatalog(manifest, file) {
           "This is a deterministic local hash embedding baseline, not a semantic transformer model.",
           "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
           "Image asset vectors are computed only from manually written English descriptions.",
+          "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
           "BAAI/bge-small-en-v1.5 remains a planned future semantic embedding replacement.",
         ],
       },
@@ -486,6 +572,20 @@ async function writeEmbeddingCatalog(manifest, file) {
   };
   await writeJson(file, catalog);
   return catalog;
+}
+
+async function updateBrowserVectorDbUrl(file, sqliteSha256) {
+  const shortHash = String(sqliteSha256 || "").slice(0, 8);
+  if (!shortHash) throw new Error("Cannot update browser vector DB URL without a SQLite SHA-256.");
+  const text = await fs.readFile(file, "utf8");
+  const nextUrl = `data/embeddings/${MODEL_ID}/${DB_FILE_NAME}?v=${shortHash}`;
+  const nextText = text.replace(
+    /^const defaultDbUrl = "data\/embeddings\/[^"]+";/m,
+    `const defaultDbUrl = "${nextUrl}";`,
+  );
+  if (nextText === text) return false;
+  await fs.writeFile(file, nextText, "utf8");
+  return true;
 }
 
 async function writeQualityReports(items, manifest) {
@@ -785,6 +885,24 @@ function countFields(rows) {
   };
 }
 
+function countAssetGroups(assetItems) {
+  const counts = {};
+  for (const item of assetItems) {
+    const key = item?.row?.group || "unknown";
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return sortObject(counts);
+}
+
+function countAssetSourceKinds(assetItems) {
+  const counts = {};
+  for (const item of assetItems) {
+    const key = item?.row?.sourceKind || "image_asset";
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return sortObject(counts);
+}
+
 function mostCommonOpenings(items, limit) {
   const counts = {};
   for (const item of items) {
@@ -863,7 +981,7 @@ function round(value, digits) {
   return Math.round(value * scale) / scale;
 }
 
-async function updateSetupAssetsManifest(file, artifactFilesByKey) {
+async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = []) {
   let text = "";
   try {
     text = await fs.readFile(file, "utf8");
@@ -876,6 +994,17 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey) {
   if (!Array.isArray(manifest.artifacts)) return null;
 
   let changed = false;
+  for (const generatedArtifact of await setupArtifactsForAssetRows(assetRows)) {
+    const index = manifest.artifacts.findIndex((artifact) => artifact?.key === generatedArtifact.key);
+    if (index >= 0) {
+      if (JSON.stringify(manifest.artifacts[index]) !== JSON.stringify(generatedArtifact)) changed = true;
+      manifest.artifacts[index] = generatedArtifact;
+    } else {
+      manifest.artifacts.push(generatedArtifact);
+      changed = true;
+    }
+  }
+
   for (const artifact of manifest.artifacts) {
     const artifactFile = artifactFilesByKey[artifact?.key];
     if (!artifactFile) continue;
@@ -887,6 +1016,80 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey) {
 
   if (changed) await writeJson(file, manifest);
   return path.relative(caatuuRoot, file).replaceAll("\\", "/");
+}
+
+async function setupArtifactsForAssetRows(assetRows) {
+  const artifacts = [];
+  const rowsByGroup = groupAssetRows(assetRows);
+
+  for (const spec of assetKeymapSpecs) {
+    const rows = rowsByGroup.get(spec.group) || [];
+    const setupGroup = setupAssetGroups[spec.group];
+    if (!setupGroup || !rows.length) continue;
+
+    artifacts.push(await setupArtifactForFile({
+      key: setupGroup.keymapKey,
+      label: setupGroup.keymapLabel,
+      artifactKind: "asset-keymap",
+      url: unifiedStaticUrlForFile(spec.file),
+      file: spec.file,
+    }));
+
+    for (const [index, row] of rows.entries()) {
+      artifacts.push(await setupArtifactForFile({
+        key: `${setupGroup.keyPrefix}-${String(index + 1).padStart(3, "0")}`,
+        label: `${setupGroup.imageLabel} ${index + 1}`,
+        artifactKind: "visual-asset",
+        url: row.assetPath,
+        file: unifiedStaticFileForUrl(row.assetPath),
+      }));
+    }
+  }
+
+  return artifacts;
+}
+
+function groupAssetRows(assetRows) {
+  const groups = new Map();
+  for (const row of assetRows) {
+    if (!groups.has(row.group)) groups.set(row.group, []);
+    groups.get(row.group).push(row);
+  }
+  return groups;
+}
+
+async function setupArtifactForFile({ key, label, artifactKind, url, file }) {
+  const [stat, sha256] = await Promise.all([fs.stat(file), sha256File(file)]);
+  return {
+    key,
+    label,
+    artifact_kind: artifactKind,
+    url,
+    asset_path: decodeAssetUrl(url),
+    bytes: stat.size,
+    sha256,
+    native_required: true,
+    browser_required: true,
+  };
+}
+
+function unifiedStaticUrlForFile(file) {
+  const unifiedStaticRoot = path.join(caatuuRoot, "apps", "caatuu-unified", "static");
+  return `/${path.relative(unifiedStaticRoot, file).replaceAll("\\", "/")}`;
+}
+
+function unifiedStaticFileForUrl(url) {
+  const unifiedStaticRoot = path.join(caatuuRoot, "apps", "caatuu-unified", "static");
+  return path.join(unifiedStaticRoot, decodeAssetUrl(url));
+}
+
+function decodeAssetUrl(url) {
+  const cleanUrl = String(url || "").replace(/^\/+/, "");
+  try {
+    return decodeURIComponent(cleanUrl);
+  } catch {
+    return cleanUrl;
+  }
 }
 
 function assetDocumentId(assetPath) {

@@ -16,11 +16,11 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-4"></script>
+    <script src="runtime.js?v=runtime-8"></script>
     <link rel="stylesheet" href="theme.css?v=theme-2">
     <link rel="stylesheet" href="app.css?v=shell-36">
-    <link rel="stylesheet" href="home.css?v=home-20">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-19">
+    <link rel="stylesheet" href="home.css?v=home-21">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-22">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -49,6 +49,7 @@
             <div class="setup-message-zone" aria-live="polite">
               <p class="setup-phase" id="setupPhase">Checking storage</p>
               <p class="setup-message" id="setupMessage">Checking local intelligence.</p>
+              <button class="setup-report-link" id="setupReportBug" type="button" hidden>Report bug</button>
             </div>
             <div class="setup-progress-meta">
               <span class="setup-progress-metrics" id="setupProgressText">
@@ -85,8 +86,8 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-    <script src="chrome.js?v=chrome-23"></script>
-    <script src="setup.js?v=setup-17"></script>
+    <script src="chrome.js?v=chrome-27"></script>
+    <script src="setup.js?v=setup-20"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

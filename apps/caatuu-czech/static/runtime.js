@@ -2,6 +2,7 @@
   const nativeHost = "caatuu.local";
   const cachePrefix = "caatuu-czech-pwa-";
   const setupManifestPath = "setup-assets.json";
+  const bugReportPath = "/api/bug-report";
   const fallbackSetupCacheName = "caatuu-czech-setup-v1";
   const modelCatalogPath = "data/models/phone-bench/models.json";
   const embeddingCatalogPath = "data/embeddings/models.json";
@@ -11,6 +12,7 @@
   let activeBrowserSetupAbortController = null;
   let browserEngine = null;
   let browserEngineModelKey = "";
+  let browserVectorDatabase = null;
 
   function hasNativeBridge() {
     return Boolean(window.CaatuuAndroid && typeof window.CaatuuAndroid.postMessage === "function");
@@ -172,6 +174,64 @@
       : [];
   }
 
+  function setupReserveBytes(expectedBytes) {
+    return Math.max(128 * 1024 * 1024, Math.ceil(Number(expectedBytes || 0) * 0.12));
+  }
+
+  async function browserSetupPreflight() {
+    if (!("caches" in window)) {
+      return {
+        ok: false,
+        available: false,
+        scope: "browser origin cache",
+        message: "This browser cannot keep the local Caatuu setup files."
+      };
+    }
+
+    const manifest = await fetchJson(setupManifestPath, { cache: "reload" });
+    const status = await browserSetupStatus(manifest);
+    const expectedBytes = Number(status.expectedBytes || 0);
+    const bytes = Number(status.bytes || 0);
+    const remainingBytes = Math.max(0, expectedBytes - bytes);
+    const reserveBytes = setupReserveBytes(expectedBytes);
+    const requiredBytes = remainingBytes + reserveBytes;
+    const result = {
+      ok: true,
+      available: false,
+      scope: "browser origin cache",
+      bytes,
+      expectedBytes,
+      remainingBytes,
+      reserveBytes,
+      requiredBytes,
+      message: "Storage looks ready."
+    };
+
+    if (!navigator.storage?.estimate) {
+      return {
+        ...result,
+        message: "Browser storage estimate is unavailable; setup will continue and verify each file."
+      };
+    }
+
+    const estimate = await navigator.storage.estimate();
+    const usageBytes = Number(estimate.usage || 0);
+    const quotaBytes = Number(estimate.quota || 0);
+    const availableBytes = quotaBytes > 0 ? Math.max(0, quotaBytes - usageBytes) : 0;
+    const ok = quotaBytes <= 0 || availableBytes >= requiredBytes;
+    return {
+      ...result,
+      ok,
+      available: quotaBytes > 0,
+      usageBytes,
+      quotaBytes,
+      availableBytes,
+      message: ok
+        ? "Storage looks ready."
+        : `Caatuu needs ${Math.ceil(requiredBytes / 1024 / 1024)} MB free for setup; this browser reports ${Math.floor(availableBytes / 1024 / 1024)} MB.`
+    };
+  }
+
   async function sha256Hex(buffer) {
     if (!crypto?.subtle) return "";
     const hash = await crypto.subtle.digest("SHA-256", buffer);
@@ -308,6 +368,8 @@
 
   async function startBrowserSetup(handlers = {}) {
     if (!("caches" in window)) throw new Error("This browser cannot keep the setup cache.");
+    const preflight = await browserSetupPreflight();
+    if (!preflight.ok) throw new Error(preflight.message || "Not enough storage for Caatuu setup.");
     const manifest = await fetchJson(setupManifestPath, { cache: "reload" });
     const artifacts = browserArtifacts(manifest);
     const cache = await caches.open(manifest.cache_name || fallbackSetupCacheName);
@@ -419,6 +481,45 @@
     }
     window.location.reload();
     return { updateAvailable: false, reloaded: true };
+  }
+
+  function clampReportText(value, maxLength = 600) {
+    const text = String(value ?? "");
+    return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+  }
+
+  function compactBugReport(payload = {}) {
+    return {
+      kind: clampReportText(payload.kind || "setup_attention", 80),
+      source: "caatuu-browser",
+      reportedAt: new Date().toISOString(),
+      runtime: env,
+      url: clampReportText(window.location.href, 320),
+      title: clampReportText(payload.title || "", 160),
+      message: clampReportText(payload.message || "", 900),
+      app: payload.app || {},
+      device: payload.device || {},
+      setup: payload.setup || {},
+      storage: payload.storage || {},
+      artifacts: Array.isArray(payload.artifacts) ? payload.artifacts.slice(0, 12) : [],
+      events: Array.isArray(payload.events) ? payload.events.slice(-10) : []
+    };
+  }
+
+  async function reportBrowserBug(payload = {}) {
+    const body = JSON.stringify(compactBugReport(payload));
+    if (body.length > 16 * 1024) {
+      throw new Error("Bug report is too large.");
+    }
+    const response = await fetch(bugReportPath, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      cache: "no-store",
+      body
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.message || `Bug report failed with HTTP ${response.status}.`);
+    return result;
   }
 
   async function loadModelCatalog() {
@@ -582,6 +683,24 @@
     };
   }
 
+  async function searchBrowserVectorDatabase(text, options = {}) {
+    if (!String(text || "").trim()) throw new Error("Vector search text is empty.");
+    const module = await import("./vector-db.js?v=vector-db-4");
+    const Manager = module.BrowserVectorDatabaseManager;
+    if (!browserVectorDatabase) browserVectorDatabase = new Manager();
+    await browserVectorDatabase.open();
+    const limit = Number.isFinite(Number(options.limit)) ? Number(options.limit) : 10;
+    const sourceKinds = Array.isArray(options.sourceKinds) ? options.sourceKinds : [];
+    const results = await browserVectorDatabase.searchText(text, { limit, sourceKinds });
+    return {
+      runtime: "browser-vector-db",
+      text,
+      limit,
+      sourceKinds,
+      results
+    };
+  }
+
   window.CaatuuRuntime = {
     env,
     capabilities,
@@ -594,6 +713,9 @@
     setup: {
       status() {
         return env === "android" ? nativeCall("setup_status") : browserSetupStatus();
+      },
+      preflight() {
+        return env === "android" ? nativeCall("storage_preflight") : browserSetupPreflight();
       },
       start(handlers = {}) {
         return env === "android" ? nativeCall("setup_download", {}, handlers) : startBrowserSetup(handlers);
@@ -636,10 +758,11 @@
         if (env === "android") {
           return nativeCall("vector_search", {
             text,
-            limit: options.limit
+            limit: options.limit,
+            sourceKinds: options.sourceKinds
           });
         }
-        return Promise.reject(new Error("Browser vector search is not wired into the UI yet."));
+        return searchBrowserVectorDatabase(text, options);
       }
     },
     maintenance: {
@@ -662,6 +785,11 @@
         return env === "android"
           ? nativeCall("delete_model", {}, handlers)
           : clearBrowserCache();
+      },
+      reportBug(payload = {}) {
+        return env === "android"
+          ? nativeCall("report_bug", { payload })
+          : reportBrowserBug(payload);
       }
     }
   };

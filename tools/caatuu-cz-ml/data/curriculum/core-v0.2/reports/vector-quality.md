@@ -1,6 +1,6 @@
 # Vector Quality Notes
 
-Generated: 2026-07-08T00:41:12.109Z
+Generated: 2026-07-09T17:23:55.633Z
 
 Rows: 5000
 Vector DB: `apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite`
