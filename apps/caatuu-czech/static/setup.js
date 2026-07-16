@@ -332,10 +332,8 @@
             : "";
     }
     if (report) {
-      const visible = Boolean(lastSetupAttention) && !ready;
-      report.hidden = !visible;
-      report.disabled = reportRunning || setupActive || updateRunning;
-      report.textContent = reportRunning ? "Reporting" : "Report bug";
+      report.hidden = true;
+      report.disabled = true;
     }
     if (detailsToggle) {
       const details = $("#setupDetails");

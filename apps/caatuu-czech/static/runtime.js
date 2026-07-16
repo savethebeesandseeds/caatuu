@@ -787,9 +787,11 @@
           : clearBrowserCache();
       },
       reportBug(payload = {}) {
-        return env === "android"
-          ? nativeCall("report_bug", { payload })
-          : reportBrowserBug(payload);
+        return Promise.resolve({
+          ok: false,
+          disabled: true,
+          message: "Remote diagnostic reporting is disabled."
+        });
       }
     }
   };

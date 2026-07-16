@@ -14,6 +14,11 @@ launcher is reserved for a signed, non-debuggable build that passes
 [`RELEASING.md`](RELEASING.md). Outside contributions are temporarily paused as
 described in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+The current public status and path to a governed beta are in
+[`PRODUCT_READINESS.md`](PRODUCT_READINESS.md). Development-preview practices
+are documented in [`PRIVACY.md`](PRIVACY.md), [`SECURITY.md`](SECURITY.md), and
+[`SUPPORT.md`](SUPPORT.md).
+
 ## Active Apps
 
 - `apps/caatuu-unified` - the root landing page served at `/`.

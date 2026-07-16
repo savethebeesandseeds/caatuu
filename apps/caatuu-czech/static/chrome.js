@@ -454,23 +454,6 @@
               </span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
-            <div class="maintenance-action-row maintenance-report-row">
-              <span class="maintenance-action-copy">
-                <strong>Report bug</strong>
-                <small>Send a short diagnostic note with device and version details.</small>
-              </span>
-              <button class="maintenance-row-control settings-report-toggle" type="button" id="settingsReportToggle" aria-expanded="false" aria-controls="settingsReportPanel">Report</button>
-            </div>
-            <div class="settings-report-panel" id="settingsReportPanel" hidden>
-              <label class="settings-report-field" for="settingsBugComment">
-                <span>Small comment</span>
-                <textarea id="settingsBugComment" rows="3" maxlength="600" placeholder="What happened?"></textarea>
-              </label>
-              <div class="settings-report-actions">
-                <button class="settings-report-action" type="button" id="settingsReportBug">Send report</button>
-                <span class="settings-report-status" id="settingsReportStatus" aria-live="polite"></span>
-              </div>
-            </div>
           </section>
 
           <section class="settings-card side-card about-card" aria-label="About">
@@ -479,12 +462,13 @@
               <h3>Details</h3>
             </div>
             <p class="about-brand-note">Caatuu is a language-learning project from <a href="https://www.waajacu.com/" rel="noopener">Waajacu</a>.</p>
+            <p class="version-note">Development preview. A governed public beta has not been declared.</p>
             <p class="version-note" id="settingsVersion" data-fallback-version="Version check pending">Version check pending</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
               <div>
-                <strong>Learning use only</strong>
-                <p>Small local model responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
+                <strong>AI learning assistant</strong>
+                <p>You are interacting with an AI system. Its locally generated responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
               </div>
             </div>
             <details class="settings-details model-details legal-details">
@@ -498,6 +482,7 @@
               <div class="settings-details-body">
                 <div class="license-copy">
                   <p>Caatuu's first-party software is licensed AGPL-3.0-only and is provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. Models, dictionaries, datasets, artwork, branding, and third-party components keep their separate terms.</p>
+                  <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/PRIVACY.md" rel="noopener">Privacy</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/SECURITY.md" rel="noopener">Security</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/SUPPORT.md" rel="noopener">Support</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/PRODUCT_READINESS.md" rel="noopener">Product status</a></p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">
                   <div>

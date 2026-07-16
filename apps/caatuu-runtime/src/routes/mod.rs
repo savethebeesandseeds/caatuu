@@ -77,7 +77,7 @@ pub fn build_router(state: Arc<AppState>) -> Router {
         .route_service("/", ServeFile::new(unified_static.join("index.html")))
         .route_service("/app.css", ServeFile::new(unified_static.join("app.css")))
         .route("/ws", get(retired_root_chinese_backend))
-        .route("/api/bug-report", post(http::http_post_bug_report))
+        .route("/api/bug-report", post(bug_reports_unavailable))
         .nest("/api/v1", retired_root_api_router())
         .nest_service("/assets", ServeDir::new(unified_static.join("assets")))
         .route_service("/android/caatuu.apk", ServeFile::new(android_apk.clone()))
@@ -180,6 +180,13 @@ async fn retired_root_chinese_backend() -> (StatusCode, &'static str) {
     (
         StatusCode::GONE,
         "Chinese trainer backend moved to /archive/chinese/.",
+    )
+}
+
+async fn bug_reports_unavailable() -> (StatusCode, &'static str) {
+    (
+        StatusCode::NOT_FOUND,
+        "Remote diagnostic reporting is disabled on this server.",
     )
 }
 
