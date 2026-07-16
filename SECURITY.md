@@ -14,4 +14,3 @@ promise a response-time or remediation-time service level.
 
 Ordinary bugs that contain no sensitive information may be filed in the public
 GitHub repository. The in-app diagnostic submission channel is disabled.
-

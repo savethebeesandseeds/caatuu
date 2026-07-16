@@ -63,4 +63,3 @@ Detailed component evidence is maintained in
 [`LEGAL_INVENTORY.md`](LEGAL_INVENTORY.md), release mechanics in
 [`RELEASING.md`](RELEASING.md), and licensing scope in
 [`LICENSING.md`](LICENSING.md).
-

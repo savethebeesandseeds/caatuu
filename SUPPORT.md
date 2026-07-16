@@ -15,4 +15,3 @@ External code, model, dataset, and artwork contributions remain paused under
 [`CONTRIBUTING.md`](CONTRIBUTING.md). A future paid pilot or support offer must
 have written scope, price, delivery terms, operator identity, and invoicing
 process before it is advertised.
-

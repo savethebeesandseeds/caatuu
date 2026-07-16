@@ -43,4 +43,3 @@ processor list, lawful-basis and retention schedule, international-transfer
 assessment, and release-specific data-flow verification. No account, analytics,
 community, cloud-sync, or remote-reporting feature may be enabled merely by
 editing this notice; each requires a separate implementation and privacy review.
-
