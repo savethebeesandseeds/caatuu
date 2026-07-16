@@ -1,0 +1,143 @@
+{
+  "cols": 2,
+  "count": 4,
+  "input_dir": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-clean-originals",
+  "output_dir": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-split",
+  "prefix": "macaw-walk-v4-inbetween",
+  "rows": 2,
+  "sprites": [
+    {
+      "area": 101575,
+      "bbox": [
+        152,
+        115,
+        542,
+        574
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-split/macaw-walk-v4-inbetween_001.png",
+      "index": 1,
+      "mask_engine": "alpha",
+      "output_size": [
+        454,
+        523
+      ],
+      "padded_bbox": [
+        120,
+        83,
+        574,
+        606
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-clean-originals/macaw-walk-inbetweens-v4.png",
+      "source_slot": 1
+    },
+    {
+      "area": 102120,
+      "bbox": [
+        678,
+        90,
+        1102,
+        567
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-split/macaw-walk-v4-inbetween_002.png",
+      "index": 2,
+      "mask_engine": "alpha",
+      "output_size": [
+        488,
+        541
+      ],
+      "padded_bbox": [
+        646,
+        58,
+        1134,
+        599
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-clean-originals/macaw-walk-inbetweens-v4.png",
+      "source_slot": 2
+    },
+    {
+      "area": 100552,
+      "bbox": [
+        132,
+        693,
+        524,
+        1157
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-split/macaw-walk-v4-inbetween_003.png",
+      "index": 3,
+      "mask_engine": "alpha",
+      "output_size": [
+        456,
+        528
+      ],
+      "padded_bbox": [
+        100,
+        661,
+        556,
+        1189
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-clean-originals/macaw-walk-inbetweens-v4.png",
+      "source_slot": 3
+    },
+    {
+      "area": 96661,
+      "bbox": [
+        735,
+        695,
+        1097,
+        1169
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-split/macaw-walk-v4-inbetween_004.png",
+      "index": 4,
+      "mask_engine": "alpha",
+      "output_size": [
+        426,
+        538
+      ],
+      "padded_bbox": [
+        703,
+        663,
+        1129,
+        1201
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/macaw-locomotion-keyposes-v1/generated-v4-inbetween-clean-originals/macaw-walk-inbetweens-v4.png",
+      "source_slot": 4
+    }
+  ],
+  "warnings": []
+}

@@ -2,53 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f5efe5">
     <title>Caatuu Czech</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-2"></script>
     <script>
       try {
-        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
         document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-8"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="app.css?v=shell-36">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-22">
+    <script src="runtime.js?v=runtime-26"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-4">
+    <link rel="stylesheet" href="app.css?v=shell-53">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-41">
   </head>
   <body>
     <div class="app-shell">
       <header class="app-header" data-caatuu-app-header></header>
 
       <main class="workspace">
-        <section class="view" id="view-dictionary" aria-labelledby="guideTitle">
-          <section class="dictionary-panel" aria-label="Dictionary entries">
-            <section class="dictionary-toolbar" aria-label="Dictionary controls">
-              <label class="dictionary-search">
-                <span class="dictionary-search-head">
-                  <span>Find Czech, English, cue, or type</span>
-                  <span class="dictionary-count" id="dictionaryCount">0 entries</span>
-                </span>
-                <input type="search" id="dictionarySearch" autocomplete="off" placeholder="⌕ Search" aria-label="Search dictionary">
-              </label>
-              <div class="dictionary-tools">
-                <button class="print-open-action dictionary-print-action" type="button" id="openPrintMenu">Print Dictionary</button>
-              </div>
-            </section>
-            <div class="dictionary-list" id="dictionaryList"></div>
+        <section class="view" id="view-dictionary" aria-labelledby="dictionaryWorkspaceTitle">
+          <header class="dictionary-workspace-head">
+            <p>Dictionary developer tools</p>
+            <h2 id="dictionaryWorkspaceTitle">Dictionary</h2>
+          </header>
 
-            <section class="script-panel">
-              <div class="section-head">
-                <h3>Small scripts</h3>
-                <span class="count-pill" id="scriptCount"></span>
+          <nav class="dictionary-section-tabs" role="tablist" aria-label="Dictionary sections">
+            <button class="dictionary-section-tab is-active" type="button" role="tab" id="dictionaryTabRules" data-dictionary-section="rules" aria-controls="dictionarySectionRules" aria-selected="true" tabindex="0">
+              <span>Rules</span>
+              <small>scripts + grammar</small>
+            </button>
+            <button class="dictionary-section-tab" type="button" role="tab" id="dictionaryTabCore" data-dictionary-section="core" aria-controls="dictionarySectionCore" aria-selected="false" tabindex="-1">
+              <span>Core</span>
+              <small>865 curated words</small>
+            </button>
+            <button class="dictionary-section-tab" type="button" role="tab" id="dictionaryTabFull" data-dictionary-section="full" aria-controls="dictionarySectionFull" aria-selected="false" tabindex="-1">
+              <span>Czech → English</span>
+              <small>full dictionary</small>
+            </button>
+          </nav>
+
+          <section class="dictionary-section-panel is-active" id="dictionarySectionRules" role="tabpanel" aria-labelledby="dictionaryTabRules" data-dictionary-panel="rules">
+            <section class="dictionary-section-intro">
+              <div>
+                <h2>Rules</h2>
+                <p>Small scripts, compact codes, cases, and word-form tables.</p>
               </div>
-              <div class="script-list" id="scriptList"></div>
+              <button class="print-open-action dictionary-print-action" type="button" id="openPrintMenu">Print reference</button>
             </section>
+
+          <section class="script-panel">
+            <div class="section-head">
+              <h3>Small scripts</h3>
+              <span class="count-pill" id="scriptCount"></span>
+            </div>
+            <div class="script-list" id="scriptList"></div>
           </section>
 
           <div class="guide-grid">
@@ -229,6 +243,75 @@
               </table>
             </div>
           </section>
+          </section>
+
+          <section class="dictionary-section-panel" id="dictionarySectionCore" role="tabpanel" aria-labelledby="dictionaryTabCore" data-dictionary-panel="core" hidden>
+            <section class="dictionary-panel" aria-label="Core dictionary">
+              <header class="dictionary-section-intro">
+                <div>
+                  <h2>Core</h2>
+                  <p>The 865 curated learning words, kept in their intentional teaching order.</p>
+                </div>
+                <span class="dictionary-count">865 words</span>
+              </header>
+
+              <section class="dictionary-toolbar" aria-label="Core dictionary controls">
+                <label class="dictionary-search">
+                  <span class="dictionary-search-head">
+                    <span>Find a Core word</span>
+                  </span>
+                  <input type="search" id="coreDictionarySearch" autocomplete="off" placeholder="Czech, English, cue, or type" aria-label="Search the curated Core dictionary">
+                  <small>Search only the curated learner dictionary.</small>
+                </label>
+                <div class="dictionary-tools">
+                  <button class="dictionary-secondary-action" type="button" id="toggleCoreDictionary" aria-expanded="false">
+                    <span>Browse all</span>
+                    <small>865</small>
+                  </button>
+                </div>
+              </section>
+
+              <section class="core-dictionary-panel" id="coreDictionaryPanel" aria-labelledby="coreDictionaryTitle" hidden>
+                <header class="dictionary-result-head">
+                  <h3 id="coreDictionaryTitle">Core entries</h3>
+                  <span class="dictionary-count" id="dictionaryCount">865 words</span>
+                </header>
+                <div class="dictionary-list" id="dictionaryList"></div>
+              </section>
+            </section>
+          </section>
+
+          <section class="dictionary-section-panel" id="dictionarySectionFull" role="tabpanel" aria-labelledby="dictionaryTabFull" data-dictionary-panel="full" hidden>
+            <section class="dictionary-panel" aria-label="Czech to English dictionary">
+              <header class="dictionary-section-intro">
+                <div>
+                  <h2>Czech → English Dictionary</h2>
+                  <p>Czech words, English meanings, and inflected forms.</p>
+                </div>
+                <span class="dictionary-source-state" id="fullDictionaryAvailability" hidden></span>
+              </header>
+
+              <section class="dictionary-toolbar dictionary-toolbar-single" aria-label="Full dictionary controls">
+                <label class="dictionary-search">
+                  <span class="dictionary-search-head">
+                    <span>Search the dictionary</span>
+                  </span>
+                  <input type="search" id="dictionarySearch" autocomplete="off" placeholder="Czech word or inflected form" aria-label="Search the full Czech to English dictionary">
+                  <small>Results may include several meanings and example sentences.</small>
+                </label>
+              </section>
+
+              <section class="full-dictionary-panel" id="fullDictionaryPanel" aria-labelledby="fullDictionaryTitle" hidden>
+                <header class="dictionary-result-head">
+                  <h3 id="fullDictionaryTitle">Dictionary results</h3>
+                  <span class="dictionary-count" id="fullDictionaryCount"></span>
+                </header>
+                <p class="full-dictionary-message" id="fullDictionaryStatus" hidden></p>
+                <button class="dictionary-download-action" type="button" id="downloadFullDictionary" hidden>Download full dictionary</button>
+                <div class="full-dictionary-results" id="fullDictionaryResults"></div>
+              </section>
+            </section>
+          </section>
         </section>
 
         <section class="view is-active" id="view-verbs" aria-label="Train">
@@ -252,7 +335,7 @@
                   <img src="/assets/planets/nebula.png" alt="">
                   <span class="train-world-label">
                     <b>Verb Nebula</b>
-                    <small>Forms + accents</small>
+                    <small>Match meanings</small>
                   </span>
                 </button>
                 <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
@@ -266,223 +349,70 @@
               </div>
             </section>
 
-            <div class="train-tab-panel" id="trainPanelVerbLab" aria-label="Verb Nebula" hidden>
-            <header class="verb-hero">
-              <div>
-                <p class="verb-kicker">Verb nebula</p>
-                <h2 id="verbsTitle">Fundamental verbs</h2>
-                <p class="verb-hero-copy">Train Czech present forms with smart review, commonness levels, typing, choices, tables, accent help, and speech.</p>
-              </div>
-              <div class="verb-game-controls">
-                <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
-                <span class="verb-pool-pill" id="verbPoolCount">0/0 forms in deck</span>
-                <button type="button" id="verbToggleOptions" aria-expanded="false" aria-controls="verbOptionsPanel">Options</button>
-                <button type="button" id="verbResetProgress">Reset session</button>
-              </div>
-            </header>
+            <div class="train-tab-panel verb-match-panel" id="trainPanelVerbLab" aria-label="Verb Nebula" hidden>
+              <section class="verb-match-board" aria-label="Match Czech verbs with English meanings">
+                <div class="verb-match-controls" aria-label="Verb Nebula controls">
+                  <div class="verb-match-control-cluster">
+                    <details class="verb-pair-menu">
+                      <summary aria-label="Choose number of verb pairs" title="Choose number of verb pairs">
+                        <span class="verb-pair-menu-icon" aria-hidden="true">
+                          <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </span>
+                        <span class="verb-pair-current" id="verbPairCurrent">4</span>
+                      </summary>
+                      <fieldset class="verb-pair-count">
+                        <legend>Pairs</legend>
+                        <div role="group" aria-label="Number of verb pairs">
+                          <button type="button" data-verb-pair-count="2" aria-pressed="false">2</button>
+                          <button type="button" data-verb-pair-count="4" aria-pressed="true">4</button>
+                          <button type="button" data-verb-pair-count="6" aria-pressed="false">6</button>
+                          <button type="button" data-verb-pair-count="8" aria-pressed="false">8</button>
+                        </div>
+                      </fieldset>
+                    </details>
 
-            <section class="verb-scoreboard" aria-label="Verb practice stats">
-              <article>
-                <b id="verbAskedCount">0</b>
-                <span>asked</span>
-              </article>
-              <article>
-                <b id="verbAccuracyCount">0%</b>
-                <span>accuracy</span>
-              </article>
-              <article>
-                <b id="verbStreakCount">0</b>
-                <span>streak</span>
-              </article>
-              <article>
-                <b id="verbBestStreakCount">0</b>
-                <span>best</span>
-              </article>
-              <article>
-                <b id="verbMasteredCount">0/0</b>
-                <span>strong forms</span>
-              </article>
-              <article>
-                <b id="verbWeakCount">0</b>
-                <span>weak forms</span>
-              </article>
-              <article class="verb-score-hidden">
-                <b id="verbCorrectCount">0</b>
-                <span>correct</span>
-              </article>
-            </section>
-            <div class="verb-mastery-track" aria-hidden="true"><span id="verbMasteryBar"></span></div>
-            <p class="verb-focus-note" id="verbFocusNote">Smart review active.</p>
-
-            <section class="verb-practice-panel" aria-labelledby="verbPracticeTitle">
-              <div class="verb-practice-head">
-                <div>
-                  <h3 id="verbPracticeTitle">Present tense forge</h3>
-                  <p id="verbRoundMeta">Ready</p>
+                    <button
+                      type="button"
+                      id="verbHintButton"
+                      class="verb-hint-button"
+                      aria-describedby="verbMatchFeedback"
+                      aria-label="Show picture clues"
+                      aria-pressed="false"
+                      title="Show picture clues"
+                    >
+                      <span aria-hidden="true">🪶</span>
+                    </button>
+                    <button type="button" id="verbRevealSolution" class="verb-next-button" aria-label="Reveal solution" title="Reveal solution" disabled>
+                      <span aria-hidden="true">&#9673;</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <div class="verb-stage">
-                <article class="verb-card" id="verbCard">
-                  <div class="verb-tags">
-                    <span id="verbFamilyTag">Core</span>
-                    <span id="verbCommonTag">L1 common</span>
-                    <span id="verbPatternTag">present</span>
-                  </div>
-                  <p class="verb-question-label" id="verbQuestionLabel">Conjugate</p>
-                  <h3 id="verbQuestionMain">být</h3>
-                  <p class="verb-prompt-hint" id="verbPromptHint">Give the Czech present-tense form.</p>
-                  <div class="verb-cues" id="verbCueList"></div>
-
-                  <label class="verb-answer-control">
-                    <span>Answer</span>
-                    <input type="text" id="verbAnswer" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text">
-                  </label>
-
-                  <div class="verb-accent-tray" id="verbAccentTray" aria-label="Czech accent helper">
-                    <button type="button" data-accent="á">á</button>
-                    <button type="button" data-accent="č">č</button>
-                    <button type="button" data-accent="ď">ď</button>
-                    <button type="button" data-accent="é">é</button>
-                    <button type="button" data-accent="ě">ě</button>
-                    <button type="button" data-accent="í">í</button>
-                    <button type="button" data-accent="ň">ň</button>
-                    <button type="button" data-accent="ř">ř</button>
-                    <button type="button" data-accent="š">š</button>
-                    <button type="button" data-accent="ť">ť</button>
-                    <button type="button" data-accent="ú">ú</button>
-                    <button type="button" data-accent="ů">ů</button>
-                    <button type="button" data-accent="ý">ý</button>
-                    <button type="button" data-accent="ž">ž</button>
-                  </div>
-
-                  <div class="verb-choice-list" id="verbChoiceList" hidden></div>
-                  <p class="verb-feedback" id="verbFeedback" aria-live="polite"></p>
-
-                  <div class="verb-actions">
-                    <button type="button" id="verbCheckAnswer">Check</button>
-                    <button type="button" id="verbRevealAnswer">Reveal</button>
-                    <button type="button" id="verbSpeakAnswer">Speak</button>
-                    <button type="button" id="verbNextCard">Skip</button>
-                  </div>
-                </article>
-
-                <aside class="verb-coach" id="verbCoach" aria-labelledby="verbCoachTitle">
-                  <div class="verb-coach-head">
-                    <div>
-                      <p class="verb-kicker">Coach</p>
-                      <h3 id="verbCoachTitle">No active card</h3>
-                      <p id="verbCoachMeta">Choose a deck to begin.</p>
-                    </div>
-                    <b id="verbAnswerKey"></b>
-                  </div>
-                  <div class="verb-form-rail" id="verbFormRail"></div>
-                  <div class="verb-coach-note">
-                    <b>How to play</b>
-                    <span>Enter checks the card. After a solved card, Enter moves forward. Smart review quietly pulls weak and new forms back into the light.</span>
-                  </div>
-                </aside>
-              </div>
-
-              <div class="verb-session-log" id="verbSessionLog" aria-label="Recent verb cards"></div>
-            </section>
-
-            <aside class="verb-config-panel" id="verbOptionsPanel" aria-labelledby="verbOptionsTitle" hidden>
-              <div class="verb-config-head">
-                <div>
-                  <h3 id="verbOptionsTitle">Options</h3>
-                  <p>Shape the drill without leaving the card.</p>
+                <div class="verb-match-column-heading">
+                  <span>Česky</span>
                 </div>
-              </div>
-
-              <label class="verb-select-control">
-                <span>Prompt</span>
-                <select id="verbPromptMode">
-                  <option value="mixed" selected>Mixed training</option>
-                  <option value="english">English cue → Czech form</option>
-                  <option value="person">Person + infinitive → Czech form</option>
-                  <option value="reverse">Czech form → meaning</option>
-                </select>
-              </label>
-
-              <label class="verb-select-control">
-                <span>Answer style</span>
-                <select id="verbAnswerMode">
-                  <option value="type" selected>Type answer</option>
-                  <option value="choices">Multiple choice</option>
-                  <option value="hybrid">Type + choices</option>
-                </select>
-              </label>
-
-              <label class="verb-select-control">
-                <span>Review focus</span>
-                <select id="verbPracticeFocus">
-                  <option value="smart" selected>Smart review</option>
-                  <option value="all">All active forms</option>
-                  <option value="new">New forms</option>
-                  <option value="weak">Weak forms</option>
-                  <option value="due">Due forms</option>
-                </select>
-              </label>
-
-              <fieldset class="verb-toggle-group">
-                <legend>Support</legend>
-                <label><input type="checkbox" id="verbShowPronoun" checked> <span>Pronoun</span></label>
-                <label><input type="checkbox" id="verbShowInfinitive" checked> <span>Infinitive</span></label>
-                <label><input type="checkbox" id="verbShowEnglish" checked> <span>English</span></label>
-                <label><input type="checkbox" id="verbShowPattern" checked> <span>Pattern</span></label>
-                <label><input type="checkbox" id="verbShowAccentHelp" checked> <span>Accent help</span></label>
-                <label><input type="checkbox" id="verbStrictAccents"> <span>Strict accents</span></label>
-                <label><input type="checkbox" id="verbShowReference"> <span>Tables</span></label>
-              </fieldset>
-
-              <fieldset class="verb-toggle-group verb-person-group">
-                <legend>Persons</legend>
-                <label><input type="checkbox" name="verbPerson" value="1s" checked> <span>já</span></label>
-                <label><input type="checkbox" name="verbPerson" value="2s" checked> <span>ty</span></label>
-                <label><input type="checkbox" name="verbPerson" value="3s" checked> <span>on/ona</span></label>
-                <label><input type="checkbox" name="verbPerson" value="1p" checked> <span>my</span></label>
-                <label><input type="checkbox" name="verbPerson" value="2p" checked> <span>vy</span></label>
-                <label><input type="checkbox" name="verbPerson" value="3p" checked> <span>oni</span></label>
-              </fieldset>
-
-              <fieldset class="verb-toggle-group">
-                <legend>Verb families</legend>
-                <div class="verb-family-options" id="verbFamilyOptions"></div>
-              </fieldset>
-
-              <fieldset class="verb-toggle-group">
-                <legend>Commonness</legend>
-                <p class="verb-option-note">This is not difficulty. It filters by how central the verbs are to everyday Czech.</p>
-                <div class="verb-common-options" id="verbCommonLevelOptions"></div>
-              </fieldset>
-
-              <fieldset class="verb-toggle-group">
-                <legend>Memory</legend>
-                <p class="verb-option-note">Session reset clears today’s scoreboard. Memory reset clears saved mastery in this browser.</p>
-                <button type="button" id="verbResetMemory" class="verb-memory-reset">Reset mastery memory</button>
-              </fieldset>
-            </aside>
-
-            <section class="verb-reference-panel" aria-labelledby="verbReferenceTitle">
-              <div class="section-head verb-reference-head">
-                <div>
-                  <h3 id="verbReferenceTitle">Active verb tables</h3>
-                  <p>Search, compare, and watch forms become strong.</p>
+                <div class="verb-match-column-heading">
+                  <span>English</span>
                 </div>
-                <div class="verb-reference-actions">
-                  <span class="count-pill" id="verbReferenceCount">0 verbs</span>
-                  <button type="button" id="verbReferenceToggle" aria-expanded="false">Show tables</button>
+                <div class="verb-match-column verb-match-column-cz" id="verbCzechColumn"></div>
+                <div class="verb-match-column verb-match-column-en" id="verbEnglishColumn"></div>
+                <div id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" hidden>
+                  <img id="verbRoundRobot" src="/assets/robots/word-world-waiting.svg" alt="">
                 </div>
-              </div>
-              <div class="verb-reference-body" id="verbReferenceBody" hidden>
-                <label class="verb-reference-search">
-                  <span>Find verb</span>
-                  <input type="search" id="verbReferenceSearch" autocomplete="off" placeholder="try moci, motion, L1, level 2, -ím...">
-                </label>
-                <div class="verb-reference-list" id="verbReferenceList"></div>
-              </div>
-            </section>
+              </section>
+
+              <footer class="verb-match-footer">
+                <div class="verb-match-note">
+                  <p class="verb-match-feedback" id="verbMatchFeedback" aria-live="polite">
+                    Choose a Czech verb, then its English match.
+                  </p>
+                </div>
+                <div class="verb-match-status" aria-label="Round status">
+                  <span><b id="verbRoundProgress">0 / 4</b> matched</span>
+                  <span><b id="verbQueueRemaining">0</b> waiting</span>
+                  <span><b id="verbMatchAccuracy">—</b> accuracy</span>
+                </div>
+              </footer>
             </div>
 
             <section class="train-tab-panel word-net-panel" id="trainPanelWordNet" aria-label="Word World" hidden>
@@ -534,7 +464,7 @@
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-          <span>by Waajacu</span>
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
     </div>
@@ -681,8 +611,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="chrome.js?v=chrome-27"></script>
-    <script src="maintenance-ui.js?v=maintenance-3"></script>
-    <script src="app.js?v=shell-33"></script>
+    <script src="chrome.js?v=chrome-47"></script>
+    <script src="maintenance-ui.js?v=maintenance-13"></script>
+    <script src="app.js?v=shell-56"></script>
+    <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>

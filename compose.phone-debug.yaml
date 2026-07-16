@@ -1,0 +1,6 @@
+services:
+  caatuu:
+    environment:
+      ENABLE_ANDROID_DEBUG_DOWNLOADS: "1"
+    ports: !override
+      - "${CAATUU_PHONE_DEBUG_BIND:?Set CAATUU_PHONE_DEBUG_BIND to the PC's trusted LAN IPv4}:8765:9172"

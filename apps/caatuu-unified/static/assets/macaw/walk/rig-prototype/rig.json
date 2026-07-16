@@ -1,0 +1,117 @@
+{
+  "canvas": {
+    "width": 420,
+    "height": 440
+  },
+  "source": "../side/macaw-walk_005.png",
+  "layers_back_to_front": [
+    "macaw-rig-foot-far.png",
+    "macaw-rig-foot-near.png",
+    "macaw-rig-body.png"
+  ],
+  "pivots": {
+    "near": {
+      "x_percent": 38.0,
+      "y_percent": 80.0
+    },
+    "far": {
+      "x_percent": 69.0,
+      "y_percent": 79.0
+    }
+  },
+  "masks": {
+    "near_polygon": [
+      [
+        148,
+        353
+      ],
+      [
+        169,
+        352
+      ],
+      [
+        181,
+        364
+      ],
+      [
+        180,
+        376
+      ],
+      [
+        195,
+        385
+      ],
+      [
+        190,
+        411
+      ],
+      [
+        91,
+        414
+      ],
+      [
+        85,
+        405
+      ],
+      [
+        86,
+        386
+      ],
+      [
+        105,
+        373
+      ],
+      [
+        137,
+        371
+      ]
+    ],
+    "far_polygon": [
+      [
+        281,
+        353
+      ],
+      [
+        303,
+        350
+      ],
+      [
+        314,
+        357
+      ],
+      [
+        322,
+        375
+      ],
+      [
+        325,
+        396
+      ],
+      [
+        309,
+        414
+      ],
+      [
+        269,
+        414
+      ],
+      [
+        230,
+        400
+      ],
+      [
+        230,
+        382
+      ],
+      [
+        255,
+        369
+      ],
+      [
+        270,
+        360
+      ]
+    ]
+  },
+  "build_environment": "tukevejtso container; Pillow from /opt/tukevejtso-venvs/cutout"
+}

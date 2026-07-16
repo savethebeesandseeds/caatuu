@@ -5,7 +5,8 @@
 //! - Optional OpenAI integration for the archived Chinese trainer
 //!
 //! Important env variables:
-//!   PORT          : u16 (default 3000)
+//!   BIND_ADDR    : listener IP (default 127.0.0.1; Compose sets 0.0.0.0 inside the container)
+//!   PORT          : u16 (default 9172)
 //!   OPENAI_API_KEY    : enables OpenAI integration if present
 //!   OPENAI_BASE_URL    : default "https://api.openai.com/v1"
 //!   OPENAI_FAST_MODEL  : default "gpt-4o-mini"
@@ -14,7 +15,7 @@
 //!   OPENAI_SEQUENCE_MODEL : default "gpt-4o-mini"
 //!   OPENAI_TRANSCRIBE_MODEL : default "gpt-4o-transcribe"
 //!   AGENT_CONFIG_PATH  : path to TOML config (prompts + optional challenge bank)
-//!   LOG_LEVEL    : tracing filter, e.g. "debug" or full directives
+//!   RUST_LOG     : tracing filter, e.g. "debug" or full directives
 //!   LOG_FORMAT      : "pretty" (default) or "json"
 
 mod config;
@@ -31,10 +32,14 @@ mod telemetry;
 mod util;
 mod vector_db;
 
-use std::{net::SocketAddr, sync::Arc};
+use std::{
+    net::{IpAddr, SocketAddr},
+    sync::Arc,
+};
 use tokio::net::TcpListener;
 use tracing::{info, instrument};
 
+use crate::config::RuntimeFeatures;
 use crate::routes::build_router;
 use crate::state::AppState;
 
@@ -43,18 +48,37 @@ use crate::state::AppState;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     telemetry::init_tracing();
 
+    // Direct launches are local-only by default. Compose explicitly listens on
+    // all container interfaces and publishes that port on the host loopback.
+    // Validate the listener before initializing application state so malformed
+    // startup configuration fails without doing model or data setup work.
+    let bind_ip = std::env::var("BIND_ADDR")
+        .unwrap_or_else(|_| "127.0.0.1".to_string())
+        .parse::<IpAddr>()?;
+    let port = match std::env::var("PORT") {
+        Ok(value) => value.parse::<u16>().map_err(|error| {
+            std::io::Error::new(
+                std::io::ErrorKind::InvalidInput,
+                format!("PORT must be an integer from 0 to 65535, got {value:?}: {error}"),
+            )
+        })?,
+        Err(std::env::VarError::NotPresent) => 9172,
+        Err(std::env::VarError::NotUnicode(_)) => {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidInput,
+                "PORT is not valid Unicode.",
+            )
+            .into())
+        }
+    };
+    let addr = SocketAddr::new(bind_ip, port);
+
     // Build shared application state (in-memory stores, OpenAI client, prompts).
-    let state = Arc::new(AppState::new());
+    let features = RuntimeFeatures::from_env();
+    let state = Arc::new(AppState::new(features)?);
 
-    // Build the HTTP router with routes, CORS and tracing layers.
-    let app = build_router(state.clone());
-
-    // Read port from env or default to 3000.
-    let addr: SocketAddr = std::env::var("PORT")
-        .ok()
-        .and_then(|p| p.parse::<u16>().ok())
-        .map(|port| SocketAddr::from(([0, 0, 0, 0], port)))
-        .unwrap_or_else(|| SocketAddr::from(([0, 0, 0, 0], 3000)));
+    // Build the HTTP router with static routes, optional archived APIs, and tracing.
+    let app = build_router(state.clone(), features);
 
     let listener = TcpListener::bind(addr).await?;
     info!(target: "caatuu_runtime", %addr, "HTTP server listening");

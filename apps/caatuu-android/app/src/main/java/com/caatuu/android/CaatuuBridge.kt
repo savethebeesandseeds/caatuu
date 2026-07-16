@@ -6,13 +6,21 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -28,12 +36,36 @@ class CaatuuBridge(
     private val webView: WebView,
     private val modelManager: ModelManager,
     private val vectorDatabaseManager: VectorDatabaseManager,
+    private val dictionaryManager: DictionaryManager,
     private val staticAssetManager: StaticAssetManager,
     private val appUpdateManager: AppUpdateManager,
     private val model: NativeCzechModel,
+    private val onThemeChanged: (String) -> Unit,
 ) {
+    private data class ActiveNativeRequest(
+        val job: Job,
+        val type: String,
+        val modelKey: String?,
+    )
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var activeSetupJob: Job? = null
+    private val activeRequestStateLock = Any()
+    private val activeRequests = mutableMapOf<String, ActiveNativeRequest>()
+    private val inferenceMutex = Mutex()
+    private val artifactMutex = Mutex()
+    private val modelCancellationMutex = Mutex()
+    private val modelPreparationStateLock = Any()
+    private val activeModelPreparationJobs = mutableMapOf<Job, String>()
+    private val modelCancellationsInProgress = mutableSetOf<String>()
+    private val updateMutex = Mutex()
+    private val bugReportMutex = Mutex()
+
+    @JavascriptInterface
+    fun setTheme(theme: String) {
+        val normalizedTheme = if (theme == "light") "light" else "dark"
+        activity.runOnUiThread { onThemeChanged(normalizedTheme) }
+    }
 
     @JavascriptInterface
     fun postMessage(rawMessage: String) {
@@ -46,14 +78,38 @@ class CaatuuBridge(
 
             val id = request.optString("id")
             if (id.isBlank()) return@launch
+            val type = request.optString("type")
+            val currentJob = coroutineContext[Job] ?: return@launch
+            val modelKey = activeRequestModelKey(type, request)
+            val registered = synchronized(activeRequestStateLock) {
+                if (activeRequests.containsKey(id)) {
+                    false
+                } else {
+                    activeRequests[id] = ActiveNativeRequest(currentJob, type, modelKey)
+                    true
+                }
+            }
+            if (!registered) {
+                emitError(id, IllegalStateException("A native request with this ID is already active."))
+                return@launch
+            }
 
             try {
-                when (request.optString("type")) {
+                if (modelKey != null) {
+                    synchronized(modelPreparationStateLock) {
+                        check(modelKey !in modelCancellationsInProgress) {
+                            "Model download cancellation is in progress."
+                        }
+                    }
+                }
+                when (type) {
                     "status" -> emitDone(id, modelStatusJson(requestModelKey(request)))
                     "start_download" -> startModelDownload(id, request)
-                    "cancel_download" -> cancelModelDownload(id)
+                    "cancel_download" -> cancelModelDownload(id, request)
+                    "cancel_request" -> cancelNativeRequest(id, request)
                     "download" -> downloadModel(id, request)
                     "load" -> loadModel(id, request)
+                    "reset_conversation" -> resetConversation(id, request)
                     "prompt" -> runPrompt(id, request)
                     "benchmark" -> runBenchmark(id)
                     "setup_status" -> emitDone(id, setupStatusJson())
@@ -63,6 +119,9 @@ class CaatuuBridge(
                     "vector_status" -> emitDone(id, vectorDatabaseManager.statusJson())
                     "vector_download" -> downloadVectorDatabase(id)
                     "vector_search" -> searchVectorDatabase(id, request)
+                    "dictionary_status" -> emitDone(id, dictionaryManager.statusJson())
+                    "dictionary_download" -> downloadDictionary(id)
+                    "dictionary_search" -> searchDictionary(id, request)
                     "delete_model" -> deleteLocalPack(id)
                     "clear_cache" -> clearCache(id)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
@@ -72,6 +131,10 @@ class CaatuuBridge(
                 }
             } catch (error: Exception) {
                 emitError(id, error)
+            } finally {
+                synchronized(activeRequestStateLock) {
+                    if (activeRequests[id]?.job == currentJob) activeRequests.remove(id)
+                }
             }
         }
     }
@@ -82,63 +145,9 @@ class CaatuuBridge(
     }
 
     private suspend fun downloadModel(id: String, request: JSONObject) {
-        val modelKey = requestModelKey(request)
-        val file = modelManager.ensureModel(modelKey) { progress ->
-            emit(
-                id,
-                "progress",
-                JSONObject()
-                    .put("phase", "download")
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
-            )
-        }
-        emitDone(id, modelStatusJson(modelKey).put("path", file.absolutePath))
-    }
-
-    private suspend fun startModelDownload(id: String, request: JSONObject) {
-        val modelKey = requestModelKey(request)
-        emit(id, "status", JSONObject().put("message", "Starting Android system download."))
-        emitDone(id, modelManager.startManagedDownload(modelKey))
-    }
-
-    private suspend fun cancelModelDownload(id: String) {
-        emitDone(
-            id,
-            JSONObject()
-                .put("aborted", true)
-                .put("cancelledModelDownloads", modelManager.cancelRequiredDownloads()),
-        )
-    }
-
-    private suspend fun loadModel(id: String, request: JSONObject) {
-        val modelKey = requestModelKey(request)
-        val spec = modelManager.modelSpec(modelKey)
-        val file = modelManager.ensureModel(modelKey) { progress ->
-            emit(
-                id,
-                "progress",
-                JSONObject()
-                    .put("phase", "download")
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
-            )
-        }
-
-        emit(id, "status", JSONObject().put("message", "Loading ${spec.shortLabel} into llama.cpp."))
-        model.load(file, spec.key)
-        emitDone(id, modelStatusJson(spec.key))
-    }
-
-    private suspend fun runPrompt(id: String, request: JSONObject) {
         val spec = modelManager.modelSpec(requestModelKey(request))
-        val prompt = request.optString("prompt")
-        val maxTokens = request.optInt("maxTokens", 384).coerceIn(1, 2048)
-        val options = request.optJSONObject("options") ?: JSONObject()
-        val enableThinking = spec.supportsThinking && options.optBoolean("thinking", false)
-        if (!model.isLoaded(spec.key)) {
-            emit(id, "status", JSONObject().put("message", "Loading selected model before generating."))
-            val file = modelManager.ensureModel(spec.key) { progress ->
+        val file = runCancellableModelPreparation(spec.key) {
+            modelManager.ensureModel(spec.key) { progress ->
                 emit(
                     id,
                     "progress",
@@ -148,145 +157,227 @@ class CaatuuBridge(
                         .put("totalBytes", progress.totalBytes),
                 )
             }
-            model.load(file, spec.key)
         }
-        val appliedSettings = JSONObject()
-            .put("modelKey", spec.key)
-            .put("modelLabel", spec.label)
-            .put("loadedModelKey", model.currentLoadedModelKey())
-            .put("maxTokens", maxTokens)
-            .put("thinkingRequested", options.optBoolean("thinking", false))
-            .put("thinkingActive", enableThinking)
-            .put("temperatureRequested", options.optDouble("temperature", 0.3))
-            .put("temperatureActive", false)
-            .put("contextSizeRequested", options.optInt("context_size", 8192))
-            .put("contextSizeActive", false)
-        var output = ""
+        emitDone(id, modelStatusJson(spec.key).put("path", file.absolutePath))
+    }
 
-        emit(id, "status", JSONObject().put("message", "Generating.").put("settings", appliedSettings))
-        withContext(Dispatchers.Default) {
-            model.generate(prompt, maxTokens, enableThinking, spec.key).collect { token ->
-                output += token
-                emit(id, "token", JSONObject().put("token", token))
+    private suspend fun startModelDownload(id: String, request: JSONObject) {
+        val spec = modelManager.modelSpec(requestModelKey(request))
+        runCancellableModelPreparation(spec.key) {
+            emit(id, "status", JSONObject().put("message", "Starting Android system download."))
+            emitDone(id, modelManager.startManagedDownload(spec.key))
+        }
+    }
+
+    private suspend fun cancelModelDownload(id: String, request: JSONObject) {
+        val spec = modelManager.modelSpec(requestModelKey(request))
+        modelCancellationMutex.withLock {
+            val preparationJobs = synchronized(modelPreparationStateLock) {
+                modelCancellationsInProgress += spec.key
+                activeModelPreparationJobs
+                    .filterValues { it == spec.key }
+                    .keys
+                    .filter { it.isActive }
+            }
+            val requestJobs = synchronized(activeRequestStateLock) {
+                activeRequests.values
+                    .filter { it.modelKey == spec.key && it.job.isActive }
+                    .map { it.job }
+            }
+            val jobs = (preparationJobs + requestJobs).distinct()
+            try {
+                jobs.forEach { it.cancel(CancellationException("Model download cancelled by user.")) }
+                jobs.forEach { it.cancelAndJoin() }
+                val cancelledDownloads = artifactMutex.withLock {
+                    modelManager.cancelModelDownload(spec.key)
+                }
+                emitDone(
+                    id,
+                    JSONObject()
+                        .put("aborted", true)
+                        .put("cancelledModelDownloads", cancelledDownloads),
+                )
+            } finally {
+                synchronized(modelPreparationStateLock) {
+                    modelCancellationsInProgress -= spec.key
+                }
             }
         }
-
-        emitDone(id, JSONObject().put("output", output).put("settings", appliedSettings))
     }
 
-    private suspend fun runBenchmark(id: String) {
-        emit(id, "status", JSONObject().put("message", "Running native benchmark."))
-        emitDone(id, JSONObject().put("result", model.benchmark()))
+    private suspend fun cancelNativeRequest(id: String, request: JSONObject) {
+        val requestId = request.optString("requestId").trim()
+        require(requestId.isNotBlank()) { "The native request ID to cancel is missing." }
+        val job = synchronized(activeRequestStateLock) {
+            activeRequests[requestId]?.job?.takeIf { it.isActive }
+        }
+        if (job != null && job != coroutineContext[Job]) {
+            job.cancel(CancellationException("Native request cancelled after its UI deadline."))
+            job.cancelAndJoin()
+        }
+        emitDone(
+            id,
+            JSONObject()
+                .put("cancelled", job != null)
+                .put("requestId", requestId),
+        )
     }
+
+    private suspend fun loadModel(id: String, request: JSONObject) =
+        inferenceMutex.withLock {
+            val modelKey = requestModelKey(request)
+            val spec = modelManager.modelSpec(modelKey)
+            val file = runCancellableModelPreparation(spec.key) {
+                modelManager.ensureModel(modelKey) { progress ->
+                    emit(
+                        id,
+                        "progress",
+                        JSONObject()
+                            .put("phase", "download")
+                            .put("bytes", progress.bytesRead)
+                            .put("totalBytes", progress.totalBytes),
+                    )
+                }
+            }
+
+            emit(id, "status", JSONObject().put("message", "Loading ${spec.shortLabel} into llama.cpp."))
+            model.load(file, spec.key)
+            emitDone(id, modelStatusJson(spec.key))
+        }
+
+    private suspend fun runPrompt(id: String, request: JSONObject) =
+        inferenceMutex.withLock {
+            val spec = modelManager.modelSpec(requestModelKey(request))
+            val prompt = request.optString("prompt")
+            val maxTokens = request.optInt("maxTokens", 384).coerceIn(1, 2048)
+            val options = request.optJSONObject("options") ?: JSONObject()
+            val enableThinking = spec.supportsThinking && options.optBoolean("thinking", false)
+            if (!model.isLoaded(spec.key)) {
+                emit(id, "status", JSONObject().put("message", "Loading selected model before generating."))
+                val file = runCancellableModelPreparation(spec.key) {
+                    modelManager.ensureModel(spec.key) { progress ->
+                        emit(
+                            id,
+                            "progress",
+                            JSONObject()
+                                .put("phase", "download")
+                                .put("bytes", progress.bytesRead)
+                                .put("totalBytes", progress.totalBytes),
+                        )
+                    }
+                }
+                model.load(file, spec.key)
+            }
+            val stateless = options.optBoolean("stateless", false)
+            if (stateless) {
+                emit(id, "status", JSONObject().put("message", "Starting a fresh model context."))
+                model.resetConversation()
+            }
+            val appliedSettings = JSONObject()
+                .put("modelKey", spec.key)
+                .put("modelLabel", spec.label)
+                .put("loadedModelKey", model.currentLoadedModelKey())
+                .put("maxTokens", maxTokens)
+                .put("thinkingRequested", options.optBoolean("thinking", false))
+                .put("thinkingActive", enableThinking)
+                .put("stateless", stateless)
+                .put("temperatureRequested", options.optDouble("temperature", 0.3))
+                .put("temperatureActive", false)
+                .put("contextSizeRequested", options.optInt("context_size", 8192))
+                .put("contextSizeActive", false)
+            var output = ""
+
+            emit(id, "status", JSONObject().put("message", "Generating.").put("settings", appliedSettings))
+            try {
+                withTimeout(generationTimeoutMillis(maxTokens)) {
+                    withContext(Dispatchers.Default) {
+                        model.generate(prompt, maxTokens, enableThinking, spec.key).collect { token ->
+                            output += token
+                            emit(id, "token", JSONObject().put("token", token))
+                        }
+                    }
+                }
+            } catch (error: CancellationException) {
+                withContext(NonCancellable) {
+                    try {
+                        model.resetConversation()
+                    } catch (_: Exception) {
+                        // Cancellation must still release the inference lock even if reset fails.
+                    }
+                }
+                throw error
+            }
+
+            emitDone(id, JSONObject().put("output", output).put("settings", appliedSettings))
+        }
+
+    private suspend fun runBenchmark(id: String) =
+        inferenceMutex.withLock {
+            emit(id, "status", JSONObject().put("message", "Running native benchmark."))
+            emitDone(id, JSONObject().put("result", model.benchmark()))
+        }
+
+    private suspend fun resetConversation(id: String, request: JSONObject) =
+        inferenceMutex.withLock {
+            val spec = modelManager.modelSpec(requestModelKey(request))
+            val reset = if (model.isLoaded(spec.key)) model.resetConversation() else false
+            emitDone(id, modelStatusJson(spec.key).put("conversationReset", reset))
+        }
 
     private suspend fun downloadVectorDatabase(id: String) {
         val spec = vectorDatabaseManager.defaultSpec()
-        val file = vectorDatabaseManager.ensureDatabase(spec) { progress ->
-            emit(
-                id,
-                "progress",
-                JSONObject()
-                    .put("phase", "vector_download")
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
-            )
+        val file = artifactMutex.withLock {
+            vectorDatabaseManager.ensureDatabase(spec) { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "vector_download")
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
         }
         emitDone(id, vectorDatabaseManager.statusJson(spec).put("path", file.absolutePath))
+    }
+
+    private suspend fun downloadDictionary(id: String) {
+        val file = artifactMutex.withLock {
+            dictionaryManager.ensureDatabase { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "dictionary_download")
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
+        }
+        emitDone(id, dictionaryManager.statusJson().put("path", file.absolutePath))
+    }
+
+    private suspend fun searchDictionary(id: String, request: JSONObject) {
+        val query = request.optString("query").trim()
+        if (query.isBlank()) throw IllegalArgumentException("Dictionary search text is empty.")
+        val limit = request.optInt("limit", 12).coerceIn(1, 60)
+        val result = artifactMutex.withLock { dictionaryManager.search(query, limit) }
+        emitDone(id, result)
     }
 
     private suspend fun prepareRequiredArtifacts(id: String) {
         val requiredModels = modelManager.requiredModelSpecs()
         val requiredAssets = staticAssetManager.requiredAssetSpecs()
-        val artifactCount = requiredModels.size + 1 + requiredAssets.size
-
-        requiredModels.forEachIndexed { index, spec ->
-            emit(
-                id,
-                "status",
-                JSONObject()
-                    .put("phase", "model")
-                    .put("artifactKind", "gguf-model")
-                    .put("artifactKey", spec.key)
-                    .put("label", spec.shortLabel)
-                    .put("artifactIndex", index + 1)
-                    .put("artifactCount", artifactCount)
-                    .put("message", "Preparing ${spec.shortLabel}."),
-            )
-            val file = modelManager.ensureModel(spec.key) { progress ->
-                emit(
-                    id,
-                    "progress",
-                    JSONObject()
-                        .put("phase", "model_download")
-                        .put("artifactKind", "gguf-model")
-                        .put("artifactKey", spec.key)
-                        .put("label", spec.shortLabel)
-                        .put("artifactIndex", index + 1)
-                        .put("artifactCount", artifactCount)
-                        .put("bytes", progress.bytesRead)
-                        .put("totalBytes", progress.totalBytes),
-                )
-            }
-            emit(
-                id,
-                "status",
-                JSONObject()
-                    .put("phase", "model_ready")
-                    .put("artifactKind", "gguf-model")
-                    .put("artifactKey", spec.key)
-                    .put("label", spec.shortLabel)
-                    .put("artifactIndex", index + 1)
-                    .put("artifactCount", artifactCount)
-                    .put("path", file.absolutePath)
-                    .put("message", "${spec.shortLabel} is ready."),
-            )
+        val (setupAnimationAssets, remainingAssets) = requiredAssets.partition {
+            it.assetPath.startsWith("assets/macaw/loading_animation/")
         }
+        val prioritizedAssets = setupAnimationAssets + remainingAssets
+        val artifactCount = requiredModels.size + 2 + requiredAssets.size
 
-        val vectorSpec = vectorDatabaseManager.defaultSpec()
-        val vectorIndex = requiredModels.size + 1
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "vector")
-                .put("artifactKind", "embedding-vector-db")
-                .put("artifactKey", vectorSpec.key)
-                .put("label", "Embeddings")
-                .put("artifactIndex", vectorIndex)
-                .put("artifactCount", artifactCount)
-                .put("message", "Preparing embeddings."),
-        )
-        val vectorFile = vectorDatabaseManager.ensureDatabase(vectorSpec) { progress ->
-            emit(
-                id,
-                "progress",
-                JSONObject()
-                    .put("phase", "vector_download")
-                    .put("artifactKind", "embedding-vector-db")
-                    .put("artifactKey", vectorSpec.key)
-                    .put("label", "Embeddings")
-                    .put("artifactIndex", vectorIndex)
-                    .put("artifactCount", artifactCount)
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
-            )
-        }
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "vector_ready")
-                .put("artifactKind", "embedding-vector-db")
-                .put("artifactKey", vectorSpec.key)
-                .put("label", "Embeddings")
-                .put("artifactIndex", vectorIndex)
-                .put("artifactCount", artifactCount)
-                .put("path", vectorFile.absolutePath)
-                .put("message", "Embeddings are ready."),
-        )
-
-        requiredAssets.forEachIndexed { index, spec ->
-            val artifactIndex = requiredModels.size + 2 + index
+        // Animation frames lead the visual-asset stage so the setup screen can
+        // begin moving before the remaining assets and larger models finish.
+        prioritizedAssets.forEachIndexed { index, spec ->
+            val artifactIndex = index + 1
             emit(
                 id,
                 "status",
@@ -329,7 +420,139 @@ class CaatuuBridge(
             )
         }
 
-        emitDone(id, setupStatusJson())
+        requiredModels.forEachIndexed { index, spec ->
+            val artifactIndex = requiredAssets.size + index + 1
+            emit(
+                id,
+                "status",
+                JSONObject()
+                    .put("phase", "model")
+                    .put("artifactKind", "gguf-model")
+                    .put("artifactKey", spec.key)
+                    .put("label", spec.shortLabel)
+                    .put("artifactIndex", artifactIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("message", "Preparing ${spec.shortLabel}."),
+            )
+            val file = modelManager.ensureModel(spec.key) { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "model_download")
+                        .put("artifactKind", "gguf-model")
+                        .put("artifactKey", spec.key)
+                        .put("label", spec.shortLabel)
+                        .put("artifactIndex", artifactIndex)
+                        .put("artifactCount", artifactCount)
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
+            emit(
+                id,
+                "status",
+                JSONObject()
+                    .put("phase", "model_ready")
+                    .put("artifactKind", "gguf-model")
+                    .put("artifactKey", spec.key)
+                    .put("label", spec.shortLabel)
+                    .put("artifactIndex", artifactIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("path", file.absolutePath)
+                    .put("message", "${spec.shortLabel} is ready."),
+            )
+        }
+
+        val vectorSpec = vectorDatabaseManager.defaultSpec()
+        val vectorIndex = requiredAssets.size + requiredModels.size + 1
+        emit(
+            id,
+            "status",
+            JSONObject()
+                .put("phase", "vector")
+                .put("artifactKind", "embedding-vector-db")
+                .put("artifactKey", vectorSpec.key)
+                .put("label", "Embeddings")
+                .put("artifactIndex", vectorIndex)
+                .put("artifactCount", artifactCount)
+                .put("message", "Preparing embeddings."),
+        )
+        val vectorFile = vectorDatabaseManager.ensureDatabase(vectorSpec) { progress ->
+            emit(
+                id,
+                "progress",
+                JSONObject()
+                    .put("phase", "vector_download")
+                    .put("artifactKind", "embedding-vector-db")
+                    .put("artifactKey", vectorSpec.key)
+                    .put("label", "Embeddings")
+                    .put("artifactIndex", vectorIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("bytes", progress.bytesRead)
+                    .put("totalBytes", progress.totalBytes),
+            )
+        }
+        emit(
+            id,
+            "status",
+            JSONObject()
+                .put("phase", "vector_ready")
+                .put("artifactKind", "embedding-vector-db")
+                .put("artifactKey", vectorSpec.key)
+                .put("label", "Embeddings")
+                .put("artifactIndex", vectorIndex)
+                .put("artifactCount", artifactCount)
+                .put("path", vectorFile.absolutePath)
+                .put("message", "Embeddings are ready."),
+        )
+
+        val dictionaryStatus = dictionaryManager.statusJson()
+        val dictionaryKey = dictionaryStatus.getString("key")
+        val dictionaryLabel = dictionaryStatus.optString("label", "Czech to English Dictionary")
+        val dictionaryIndex = requiredAssets.size + requiredModels.size + 2
+        emit(
+            id,
+            "status",
+            JSONObject()
+                .put("phase", "dictionary")
+                .put("artifactKind", "dictionary-database")
+                .put("artifactKey", dictionaryKey)
+                .put("label", dictionaryLabel)
+                .put("artifactIndex", dictionaryIndex)
+                .put("artifactCount", artifactCount)
+                .put("message", "Preparing the Czech to English dictionary."),
+        )
+        val dictionaryFile = dictionaryManager.ensureDatabase { progress ->
+            emit(
+                id,
+                "progress",
+                JSONObject()
+                    .put("phase", "dictionary_download")
+                    .put("artifactKind", "dictionary-database")
+                    .put("artifactKey", dictionaryKey)
+                    .put("label", dictionaryLabel)
+                    .put("artifactIndex", dictionaryIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("bytes", progress.bytesRead)
+                    .put("totalBytes", progress.totalBytes),
+            )
+        }
+        emit(
+            id,
+            "status",
+            JSONObject()
+                .put("phase", "dictionary_ready")
+                .put("artifactKind", "dictionary-database")
+                .put("artifactKey", dictionaryKey)
+                .put("label", dictionaryLabel)
+                .put("artifactIndex", dictionaryIndex)
+                .put("artifactCount", artifactCount)
+                .put("path", dictionaryFile.absolutePath)
+                .put("message", "The Czech to English dictionary is ready."),
+        )
+
+        emitDone(id, setupStatusJson().put("setupActive", false))
     }
 
     private suspend fun runSetupDownload(id: String) {
@@ -350,7 +573,7 @@ class CaatuuBridge(
             if (!preflight.optBoolean("ok", true)) {
                 throw IllegalStateException(preflight.optString("message", "Not enough storage for Caatuu setup."))
             }
-            prepareRequiredArtifacts(id)
+            artifactMutex.withLock { prepareRequiredArtifacts(id) }
         } catch (error: CancellationException) {
             emitError(id, Exception("Setup aborted."))
         } finally {
@@ -359,9 +582,14 @@ class CaatuuBridge(
     }
 
     private suspend fun reportBug(id: String, request: JSONObject) {
-        val result = withContext(Dispatchers.IO) {
-            val reportId = UUID.randomUUID().toString()
+        val result = bugReportMutex.withLock {
+            withContext(Dispatchers.IO) {
             val payload = request.optJSONObject("payload") ?: JSONObject()
+            val stableFeedbackId = payload.optJSONObject("feedback")
+                ?.optString("clientReportId")
+                ?.takeIf { value -> value.isNotBlank() }
+                ?.let { value -> runCatching { UUID.fromString(value).toString() }.getOrNull() }
+            val reportId = stableFeedbackId ?: UUID.randomUUID().toString()
             val report = JSONObject()
                 .put("report_id", reportId)
                 .put("received_at_ms", System.currentTimeMillis())
@@ -380,32 +608,103 @@ class CaatuuBridge(
             require(bytes.size <= MAX_BUG_REPORT_BYTES) { "Bug report is too large." }
 
             val reportsDir = File(activity.applicationContext.filesDir, "bug-reports")
-            reportsDir.mkdirs()
-            val reportFile = File(reportsDir, "${System.currentTimeMillis()}-${reportId.take(8)}.json")
-            reportFile.writeBytes(bytes)
+            check(reportsDir.mkdirs() || reportsDir.isDirectory) { "Could not prepare bug report storage." }
+            val reportFile = if (stableFeedbackId != null) {
+                File(reportsDir, "feedback-$reportId.json")
+            } else {
+                File(reportsDir, "${System.currentTimeMillis()}-${reportId.take(8)}.json")
+            }
+            val deliveryBytes = publishBugReportAtomically(
+                directory = reportsDir,
+                reportFile = reportFile,
+                reportId = reportId,
+                bytes = bytes,
+            )
 
-            val remote = runCatching { postRemoteBugReport(bytes) }
+            val remote = runCatching { postRemoteBugReport(deliveryBytes) }
                 .getOrElse { error ->
                     JSONObject()
                         .put("ok", false)
                         .put("message", error.message ?: error::class.java.simpleName)
                 }
+            check(remote.optBoolean("ok")) {
+                val detail = remote.optString("message")
+                    .ifBlank { "HTTP ${remote.optInt("status", 0)}" }
+                "Could not send the bug report ($detail). A local diagnostic copy was kept; please try again."
+            }
 
             JSONObject()
                 .put("ok", true)
                 .put("reportId", reportId)
                 .put("storedLocal", true)
-                .put("path", reportFile.absolutePath)
+                .put("storedAs", reportFile.name)
                 .put("remote", remote)
+            }
         }
         emitDone(id, result)
     }
 
+    private fun completeBugReportBytes(reportFile: File, reportId: String): ByteArray? {
+        if (!reportFile.isFile) return null
+        return runCatching {
+            val bytes = reportFile.readBytes()
+            val report = JSONObject(String(bytes, StandardCharsets.UTF_8))
+            bytes.takeIf {
+                report.optString("report_id") == reportId && report.has("payload")
+            }
+        }.getOrNull()
+    }
+
+    private fun publishBugReportAtomically(
+        directory: File,
+        reportFile: File,
+        reportId: String,
+        bytes: ByteArray,
+    ): ByteArray {
+        completeBugReportBytes(reportFile, reportId)?.let { return it }
+        if (reportFile.exists()) {
+            check(reportFile.delete()) { "Could not replace an incomplete bug report file." }
+        }
+
+        reserveLocalBugReportSpace(directory, bytes.size.toLong())
+        val temporaryFile = File.createTempFile(".${reportFile.name}-", ".tmp", directory)
+        try {
+            temporaryFile.outputStream().use { output ->
+                output.write(bytes)
+                output.flush()
+                output.fd.sync()
+            }
+            if (!temporaryFile.renameTo(reportFile)) {
+                return completeBugReportBytes(reportFile, reportId)
+                    ?: error("Could not publish bug report file.")
+            }
+            return bytes
+        } finally {
+            temporaryFile.delete()
+        }
+    }
+
+    private fun reserveLocalBugReportSpace(directory: File, incomingBytes: Long) {
+        val reports = directory.listFiles { file -> file.isFile && file.extension == "json" }
+            ?.sortedBy { file -> file.lastModified() }
+            ?.toMutableList()
+            ?: mutableListOf()
+        var storedBytes = reports.sumOf { file -> file.length() }
+
+        while (
+            reports.isNotEmpty() &&
+            (reports.size >= MAX_LOCAL_BUG_REPORTS || storedBytes + incomingBytes > MAX_LOCAL_BUG_REPORT_BYTES)
+        ) {
+            val oldest = reports.removeAt(0)
+            val bytes = oldest.length()
+            check(oldest.delete()) { "Could not prune old bug report storage." }
+            storedBytes = (storedBytes - bytes).coerceAtLeast(0L)
+        }
+    }
+
     private suspend fun abortSetup(id: String) {
-        val wasActive = activeSetupJob?.isActive == true
-        activeSetupJob?.cancel(CancellationException("Setup aborted by user."))
-        activeSetupJob = null
-        val cancelledModels = modelManager.cancelRequiredDownloads()
+        val wasActive = cancelActiveSetup("Setup aborted by user.")
+        val cancelledModels = artifactMutex.withLock { modelManager.cancelRequiredDownloads() }
         emitDone(
             id,
             setupStatusJson()
@@ -419,102 +718,181 @@ class CaatuuBridge(
         val text = request.optString("text").trim()
         if (text.isBlank()) throw IllegalArgumentException("Vector search text is empty.")
 
-        val limit = request.optInt("limit", 10).coerceIn(1, 100)
-        val vectorSpec = vectorDatabaseManager.defaultSpec()
-        vectorDatabaseManager.ensureDatabase(vectorSpec) { progress ->
-            emit(
+        artifactMutex.withLock {
+            val limit = request.optInt("limit", 10).coerceIn(1, 100)
+            val vectorSpec = vectorDatabaseManager.defaultSpec()
+            vectorDatabaseManager.ensureDatabase(vectorSpec) { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "vector_download")
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
+
+            val results = vectorDatabaseManager.searchText(text, limit, vectorSpec, requestSourceKinds(request))
+            emitDone(
                 id,
-                "progress",
                 JSONObject()
-                    .put("phase", "vector_download")
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
+                    .put("status", vectorDatabaseManager.statusJson(vectorSpec))
+                    .put("results", JSONArray().also { array ->
+                        results.forEach { result -> array.put(vectorResultJson(result)) }
+                    }),
+            )
+        }
+    }
+
+    private suspend fun clearCache(id: String) =
+        inferenceMutex.withLock {
+            emit(id, "status", JSONObject().put("message", "Unloading model."))
+            model.unload()
+            emit(id, "status", JSONObject().put("message", "Clearing temporary cache and update APK."))
+
+            updateMutex.lock()
+            val (updateResult, appCacheResult) = try {
+                appUpdateManager.clearDownloadedUpdate() to
+                    clearDirectoryContents(activity.applicationContext.cacheDir)
+            } finally {
+                updateMutex.unlock()
+            }
+            val webViewCacheCleared = withContext(Dispatchers.Main) {
+                webView.clearCache(true)
+                true
+            }
+
+            emitDone(
+                id,
+                JSONObject()
+                    .put("storageScope", "app-private cacheDir and downloaded update APK")
+                    .put("localPackPreserved", true)
+                    .put("modelFilesPreserved", true)
+                    .put("vectorDatabasePreserved", true)
+                    .put("dictionaryPreserved", true)
+                    .put("staticAssetsPreserved", true)
+                    .put("deletedOnUninstall", true)
+                    .put(
+                        "bytesDeleted",
+                        updateResult.optLong("bytesDeleted") +
+                            appCacheResult.optLong("bytesDeleted"),
+                    )
+                    .put("updateApk", updateResult)
+                    .put("appCache", appCacheResult)
+                    .put("webViewCacheCleared", webViewCacheCleared),
             )
         }
 
-        val results = vectorDatabaseManager.searchText(text, limit, vectorSpec, requestSourceKinds(request))
-        emitDone(
-            id,
-            JSONObject()
-                .put("status", vectorDatabaseManager.statusJson(vectorSpec))
-                .put("results", JSONArray().also { array ->
-                    results.forEach { result -> array.put(vectorResultJson(result)) }
-                }),
-        )
-    }
-
-    private suspend fun clearCache(id: String) {
-        emit(id, "status", JSONObject().put("message", "Unloading model."))
-        model.unload()
-        emit(id, "status", JSONObject().put("message", "Clearing temporary cache and update APK."))
-
-        val updateResult = appUpdateManager.clearDownloadedUpdate()
-        val appCacheResult = clearDirectoryContents(activity.applicationContext.cacheDir)
-        val webViewCacheCleared = withContext(Dispatchers.Main) {
-            webView.clearCache(true)
-            true
-        }
-
-        emitDone(
-            id,
-            JSONObject()
-                .put("storageScope", "app-private cacheDir and downloaded update APK")
-                .put("localPackPreserved", true)
-                .put("modelFilesPreserved", true)
-                .put("vectorDatabasePreserved", true)
-                .put("staticAssetsPreserved", true)
-                .put("deletedOnUninstall", true)
-                .put(
-                    "bytesDeleted",
-                    updateResult.optLong("bytesDeleted") +
-                        appCacheResult.optLong("bytesDeleted"),
-                )
-                .put("updateApk", updateResult)
-                .put("appCache", appCacheResult)
-                .put("webViewCacheCleared", webViewCacheCleared),
-        )
-    }
-
     private suspend fun deleteLocalPack(id: String) {
-        emit(id, "status", JSONObject().put("message", "Unloading model."))
-        model.unload()
-        emit(id, "status", JSONObject().put("message", "Deleting local setup files."))
+        val setupWasActive = cancelActiveSetup("Setup stopped before deleting local files.")
+        inferenceMutex.withLock {
+            artifactMutex.withLock {
+                val cancelledModels = modelManager.cancelRequiredDownloads()
+                emit(id, "status", JSONObject().put("message", "Unloading model."))
+                model.unload()
+                emit(id, "status", JSONObject().put("message", "Deleting local setup files."))
 
-        val modelResult = modelManager.deleteLocalModel()
-        val vectorResult = vectorDatabaseManager.deleteLocalDatabases()
-        val assetResult = staticAssetManager.deleteLocalAssets()
-        emitDone(
-            id,
-            JSONObject()
-                .put("storageScope", "app-private filesDir local pack")
-                .put("deletedOnUninstall", true)
-                .put(
-                    "bytesDeleted",
-                    modelResult.optLong("bytesDeleted") +
-                        vectorResult.optLong("bytesDeleted") +
-                        assetResult.optLong("bytesDeleted"),
+                val modelResult = modelManager.deleteLocalModel()
+                val vectorResult = vectorDatabaseManager.deleteLocalDatabases()
+                val dictionaryResult = dictionaryManager.deleteLocalDatabase()
+                val assetResult = staticAssetManager.deleteLocalAssets()
+                emitDone(
+                    id,
+                    JSONObject()
+                        .put("storageScope", "app-private filesDir local pack")
+                        .put("deletedOnUninstall", true)
+                        .put("setupWasActive", setupWasActive)
+                        .put("cancelledModelDownloads", cancelledModels)
+                        .put(
+                            "bytesDeleted",
+                            modelResult.optLong("bytesDeleted") +
+                                vectorResult.optLong("bytesDeleted") +
+                                dictionaryResult.optLong("bytesDeleted") +
+                                assetResult.optLong("bytesDeleted"),
+                        )
+                        .put("model", modelResult)
+                        .put("vectorDatabase", vectorResult)
+                        .put("dictionary", dictionaryResult)
+                        .put("staticAssets", assetResult),
                 )
-                .put("model", modelResult)
-                .put("vectorDatabase", vectorResult)
-                .put("staticAssets", assetResult),
-        )
+            }
+        }
     }
 
     private suspend fun updateApp(id: String) {
-        emit(id, "status", JSONObject().put("message", "Checking cached update APK."))
-        val result = appUpdateManager.downloadLatest { progress ->
-            emit(
-                id,
-                "progress",
-                JSONObject()
-                    .put("phase", "download")
-                    .put("bytes", progress.bytesRead)
-                    .put("totalBytes", progress.totalBytes),
-            )
+        check(updateMutex.tryLock()) { "An app update or cache operation is already running." }
+        try {
+            emit(id, "status", JSONObject().put("message", "Checking cached update APK."))
+            val result = appUpdateManager.downloadLatest { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "download")
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
+            val action = appUpdateManager.openInstaller()
+            emitDone(id, result.put("action", action))
+        } finally {
+            updateMutex.unlock()
         }
-        val action = appUpdateManager.openInstaller()
-        emitDone(id, result.put("action", action))
     }
+
+    private suspend fun cancelActiveSetup(reason: String): Boolean {
+        val job = activeSetupJob?.takeIf { it.isActive } ?: return false
+        if (job != coroutineContext[Job]) {
+            job.cancel(CancellationException(reason))
+            job.cancelAndJoin()
+        }
+        if (activeSetupJob == job) activeSetupJob = null
+        return true
+    }
+
+    private suspend fun <T> runCancellableModelPreparation(modelKey: String, block: suspend () -> T): T =
+        supervisorScope {
+            val task = async(start = CoroutineStart.LAZY) {
+                artifactMutex.withLock {
+                    synchronized(modelPreparationStateLock) {
+                        check(modelKey !in modelCancellationsInProgress) {
+                            "Model download cancellation is in progress."
+                        }
+                    }
+                    block()
+                }
+            }
+
+            val registered = synchronized(modelPreparationStateLock) {
+                if (modelKey in modelCancellationsInProgress) {
+                    false
+                } else {
+                    activeModelPreparationJobs[task] = modelKey
+                    true
+                }
+            }
+            if (!registered) {
+                task.cancel()
+                throw IllegalStateException("Model download cancellation is in progress.")
+            }
+
+            try {
+                task.start()
+                task.await()
+            } catch (error: CancellationException) {
+                val cancelledByRequest = synchronized(modelPreparationStateLock) {
+                    modelKey in modelCancellationsInProgress
+                }
+                if (cancelledByRequest) {
+                    throw IllegalStateException("Model download cancelled.")
+                }
+                throw error
+            } finally {
+                synchronized(modelPreparationStateLock) {
+                    activeModelPreparationJobs.remove(task)
+                }
+            }
+        }
 
     private fun emitDone(id: String, result: JSONObject) {
         emit(id, "done", JSONObject().put("result", result))
@@ -523,6 +901,13 @@ class CaatuuBridge(
     private fun requestModelKey(request: JSONObject): String? =
         request.optString("modelKey").takeIf { it.isNotBlank() }
             ?: request.optString("model_key").takeIf { it.isNotBlank() }
+
+    private fun activeRequestModelKey(type: String, request: JSONObject): String? =
+        when (type) {
+            "start_download", "download", "load", "reset_conversation", "prompt" ->
+                modelManager.modelSpec(requestModelKey(request)).key
+            else -> null
+        }
 
     private fun requestSourceKinds(request: JSONObject): Set<String> {
         val sourceKinds = request.optJSONArray("sourceKinds") ?: request.optJSONArray("source_kinds") ?: return emptySet()
@@ -569,11 +954,22 @@ class CaatuuBridge(
         bytes += vectorStatus.optLong("bytes", 0L)
         expectedBytes += vectorStatus.optLong("expectedBytes", 0L)
 
+        val dictionaryStatus = dictionaryManager.statusJson()
+            .put("artifactKind", "dictionary-database")
+            .put("required", true)
+        val dictionaryReady = dictionaryStatus.optBoolean("available")
+        if (dictionaryReady) readyArtifacts += 1
+        dictionaryStatus
+            .put("verified", dictionaryReady)
+            .put("ready", dictionaryReady)
+        bytes += dictionaryStatus.optLong("bytes", 0L)
+        expectedBytes += dictionaryStatus.optLong("expectedBytes", 0L)
+
         readyArtifacts += assetStatus.optInt("readyArtifacts", 0)
         bytes += assetStatus.optLong("bytes", 0L)
         expectedBytes += assetStatus.optLong("expectedBytes", 0L)
 
-        val artifactCount = requiredModels.size + 1 + assetStatus.optInt("artifactCount", 0)
+        val artifactCount = requiredModels.size + 2 + assetStatus.optInt("artifactCount", 0)
         return JSONObject()
             .put("ready", readyArtifacts == artifactCount)
             .put("setupActive", activeSetupJob?.isActive == true)
@@ -583,6 +979,7 @@ class CaatuuBridge(
             .put("expectedBytes", expectedBytes)
             .put("models", modelStatuses)
             .put("vectorDatabase", vectorStatus)
+            .put("dictionary", dictionaryStatus)
             .put("staticAssets", assetStatus)
     }
 
@@ -633,16 +1030,29 @@ class CaatuuBridge(
             .put("release", Build.VERSION.RELEASE)
 
     private fun reportEndpoint(): String {
-        val base = BuildConfig.CAATUU_UPDATE_BASE_URL.trimEnd('/')
-        val root = if (base.endsWith("/android")) base.removeSuffix("/android") else base
-        return "$root/api/bug-report"
+        val endpoint = URL(BuildConfig.CAATUU_REPORT_URL)
+        require(endpoint.protocol in setOf("http", "https")) {
+            "Bug report URL must use HTTP or HTTPS."
+        }
+        require(BuildConfig.DEBUG || endpoint.protocol == "https") {
+            "Release bug reports require HTTPS."
+        }
+        require(
+            endpoint.host.isNotBlank() &&
+                endpoint.userInfo.isNullOrBlank() &&
+                endpoint.query.isNullOrBlank() &&
+                endpoint.ref.isNullOrBlank(),
+        ) { "Bug report URL must be a plain host URL without credentials, query, or fragment." }
+        return endpoint.toExternalForm()
     }
 
     private fun postRemoteBugReport(bytes: ByteArray): JSONObject {
-        val connection = URL(reportEndpoint()).openConnection() as HttpURLConnection
+        val endpoint = reportEndpoint()
+        val connection = URL(endpoint).openConnection() as HttpURLConnection
         connection.requestMethod = "POST"
         connection.connectTimeout = 5000
         connection.readTimeout = 5000
+        connection.instanceFollowRedirects = false
         connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
         connection.setRequestProperty("Content-Length", bytes.size.toString())
@@ -651,13 +1061,28 @@ class CaatuuBridge(
             val status = connection.responseCode
             val body = runCatching {
                 val stream = if (status in 200..299) connection.inputStream else connection.errorStream
-                stream?.bufferedReader()?.use { it.readText() }.orEmpty()
+                stream?.bufferedReader()?.use { reader ->
+                    val response = StringBuilder()
+                    val buffer = CharArray(2048)
+                    while (true) {
+                        val count = reader.read(buffer)
+                        if (count < 0) break
+                        check(response.length + count <= MAX_BUG_REPORT_RESPONSE_CHARS) {
+                            "Bug report response is too large."
+                        }
+                        response.append(buffer, 0, count)
+                    }
+                    response.toString()
+                }.orEmpty()
             }.getOrDefault("")
+            val responseJson = runCatching { JSONObject(body) }.getOrNull()
+            val acknowledged = status in 200..299 && responseJson?.optBoolean("ok", false) == true
             JSONObject()
-                .put("ok", status in 200..299)
+                .put("ok", acknowledged)
                 .put("status", status)
-                .put("endpoint", reportEndpoint())
-                .put("body", body.take(600))
+                .put("endpoint", endpoint)
+                .put("message", responseJson?.optString("message").orEmpty())
+                .put("body", body)
         } finally {
             connection.disconnect()
         }
@@ -721,7 +1146,17 @@ class CaatuuBridge(
         return file.listFiles()?.sumOf { directorySize(it) } ?: 0L
     }
 
+    private fun generationTimeoutMillis(maxTokens: Int): Long =
+        (GENERATION_TIMEOUT_FLOOR_MILLIS + maxTokens * GENERATION_TIMEOUT_PER_TOKEN_MILLIS)
+            .coerceAtMost(GENERATION_TIMEOUT_CEILING_MILLIS)
+
     companion object {
+        private const val GENERATION_TIMEOUT_FLOOR_MILLIS = 3L * 60L * 1000L
+        private const val GENERATION_TIMEOUT_PER_TOKEN_MILLIS = 2_000L
+        private const val GENERATION_TIMEOUT_CEILING_MILLIS = 30L * 60L * 1000L
         private const val MAX_BUG_REPORT_BYTES = 16 * 1024
+        private const val MAX_BUG_REPORT_RESPONSE_CHARS = 600
+        private const val MAX_LOCAL_BUG_REPORTS = 100
+        private const val MAX_LOCAL_BUG_REPORT_BYTES = 2L * 1024L * 1024L
     }
 }

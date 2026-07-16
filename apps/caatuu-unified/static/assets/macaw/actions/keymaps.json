@@ -1,95 +1,1118 @@
 {
-  "/assets/macaw/actions/macaw%20(1).png": {"description":"A robed macaw strains while lifting a heavy gray rock overhead.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-001","chunk_id":"asset-macaw-action-001:description"},"category":"macaw_action","action":"carry_rock"},
-  "/assets/macaw/actions/macaw%20(2).png": {"description":"A smiling robed macaw carries a wooden crate in both hands.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-002","chunk_id":"asset-macaw-action-002:description"},"category":"macaw_action","action":"carry_box"},
-  "/assets/macaw/actions/macaw%20(3).png": {"description":"A peaceful robed macaw holds and smells a small bunch of pink flowers.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-003","chunk_id":"asset-macaw-action-003:description"},"category":"macaw_action","action":"hold_flowers"},
-  "/assets/macaw/actions/macaw%20(4).png": {"description":"A friendly robed macaw waves hello with one raised wing.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-004","chunk_id":"asset-macaw-action-004:description"},"category":"macaw_action","action":"wave_hello"},
-  "/assets/macaw/actions/macaw%20(5).png": {"description":"A joyful robed macaw jumps with both wings raised in celebration.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-005","chunk_id":"asset-macaw-action-005:description"},"category":"macaw_action","action":"jump_joyfully"},
-  "/assets/macaw/actions/macaw%20(6).png": {"description":"A robed macaw tosses a small brown ball or stone through the air.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-006","chunk_id":"asset-macaw-action-006:description"},"category":"macaw_action","action":"throw_ball"},
-  "/assets/macaw/actions/macaw%20(7).png": {"description":"A focused robed macaw hammers nails into a wooden board.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-007","chunk_id":"asset-macaw-action-007:description"},"category":"macaw_action","action":"hammer_nails"},
-  "/assets/macaw/actions/macaw%20(8).png": {"description":"A determined robed macaw pushes against a large gray boulder.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-008","chunk_id":"asset-macaw-action-008:description"},"category":"macaw_action","action":"push_boulder"},
-  "/assets/macaw/actions/macaw%20(9).png": {"description":"A calm robed macaw paints with a brush and colorful palette.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-009","chunk_id":"asset-macaw-action-009:description"},"category":"macaw_action","action":"paint_picture"},
-  "/assets/macaw/actions/macaw%20(10).png": {"description":"A robed macaw washes laundry in a round wooden tub with soap bubbles.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-010","chunk_id":"asset-macaw-action-010:description"},"category":"macaw_action","action":"wash_laundry"},
-  "/assets/macaw/actions/macaw%20(11).png": {"description":"A robed macaw sweeps the floor with a broom.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-011","chunk_id":"asset-macaw-action-011:description"},"category":"macaw_action","action":"sweep_floor"},
-  "/assets/macaw/actions/macaw%20(12).png": {"description":"A robed macaw pulls hard on a thick rope.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-012","chunk_id":"asset-macaw-action-012:description"},"category":"macaw_action","action":"pull_rope"},
-  "/assets/macaw/actions/macaw%20(13).png": {"description":"A gentle robed macaw plants a small green seedling in soil.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-013","chunk_id":"asset-macaw-action-013:description"},"category":"macaw_action","action":"plant_seedling"},
-  "/assets/macaw/actions/macaw%20(14).png": {"description":"A relaxed robed macaw fishes with a rod beside water.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-014","chunk_id":"asset-macaw-action-014:description"},"category":"macaw_action","action":"fish_with_rod"},
-  "/assets/macaw/actions/macaw%20(15).png": {"description":"A robed macaw climbs a tall wooden ladder.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-015","chunk_id":"asset-macaw-action-015:description"},"category":"macaw_action","action":"climb_ladder"},
-  "/assets/macaw/actions/macaw%20(16).png": {"description":"A smiling robed macaw opens a wooden door glowing with warm light.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-016","chunk_id":"asset-macaw-action-016:description"},"category":"macaw_action","action":"open_door"},
-  "/assets/macaw/actions/macaw%20(17).png": {"description":"A hooded robed macaw sneaks forward cautiously.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-017","chunk_id":"asset-macaw-action-017:description"},"category":"macaw_action","action":"sneak_cautiously"},
-  "/assets/macaw/actions/macaw%20(18).png": {"description":"A curious robed macaw examines something with a magnifying glass.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-018","chunk_id":"asset-macaw-action-018:description"},"category":"macaw_action","action":"inspect_magnifier"},
-  "/assets/macaw/actions/macaw%20(19).png": {"description":"A sad robed macaw cries loudly with tears streaming down.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-019","chunk_id":"asset-macaw-action-019:description"},"category":"macaw_action","action":"cry_loudly"},
-  "/assets/macaw/actions/macaw%20(20).png": {"description":"A thoughtful robed macaw rests one wing on its beak while thinking.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-020","chunk_id":"asset-macaw-action-020:description"},"category":"macaw_action","action":"think"},
-  "/assets/macaw/actions/macaw%20(21).png": {"description":"A robed macaw runs quickly with one wing forward.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-021","chunk_id":"asset-macaw-action-021:description"},"category":"macaw_action","action":"run"},
-  "/assets/macaw/actions/macaw%20(22).png": {"description":"A sleepy robed macaw dozes with its cheek resting on one wing.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-022","chunk_id":"asset-macaw-action-022:description"},"category":"macaw_action","action":"sleepy"},
-  "/assets/macaw/actions/macaw%20(23).png": {"description":"A robed macaw reads an open book attentively.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-023","chunk_id":"asset-macaw-action-023:description"},"category":"macaw_action","action":"read_book"},
-  "/assets/macaw/actions/macaw%20(24).png": {"description":"A robed macaw writes on paper with a feather quill.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-024","chunk_id":"asset-macaw-action-024:description"},"category":"macaw_action","action":"write_quill"},
-  "/assets/macaw/actions/macaw%20(25).png": {"description":"A robed macaw eats from a small bowl with a spoon.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-025","chunk_id":"asset-macaw-action-025:description"},"category":"macaw_action","action":"eat_bowl"},
-  "/assets/macaw/actions/macaw%20(26).png": {"description":"A relaxed robed macaw drinks from a mug.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-026","chunk_id":"asset-macaw-action-026:description"},"category":"macaw_action","action":"drink_mug"},
-  "/assets/macaw/actions/macaw%20(27).png": {"description":"An excited robed macaw raises one finger and a fist in triumph.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-027","chunk_id":"asset-macaw-action-027:description"},"category":"macaw_action","action":"announce_victory"},
-  "/assets/macaw/actions/macaw%20(28).png": {"description":"A robed macaw cooks by stirring a steaming pot.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-028","chunk_id":"asset-macaw-action-028:description"},"category":"macaw_action","action":"cook_pot"},
-  "/assets/macaw/actions/macaw%20(29).png": {"description":"A cheerful robed macaw laughs with one wing on its belly.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-029","chunk_id":"asset-macaw-action-029:description"},"category":"macaw_action","action":"laugh"},
-  "/assets/macaw/actions/macaw%20(30).png": {"description":"A happy robed macaw hugs itself with a small heart nearby.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-030","chunk_id":"asset-macaw-action-030:description"},"category":"macaw_action","action":"love_hug"},
-  "/assets/macaw/actions/macaw%20(31).png": {"description":"A caring robed macaw waters a tiny green sprout with a watering can.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-031","chunk_id":"asset-macaw-action-031:description"},"category":"macaw_action","action":"water_sprout"},
-  "/assets/macaw/actions/macaw%20(32).png": {"description":"A robed macaw digs soil with a shovel.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-032","chunk_id":"asset-macaw-action-032:description"},"category":"macaw_action","action":"dig_soil"},
-  "/assets/macaw/actions/macaw%20(33).png": {"description":"A robed macaw cheers with both wings lifted high.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-033","chunk_id":"asset-macaw-action-033:description"},"category":"macaw_action","action":"cheer_arms_up"},
-  "/assets/macaw/actions/macaw%20(34).png": {"description":"A smiling robed macaw dances or skips with open wings.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-034","chunk_id":"asset-macaw-action-034:description"},"category":"macaw_action","action":"dance"},
-  "/assets/macaw/actions/macaw%20(35).png": {"description":"A space wizard macaw holds a glowing blue sword among small planets and stars.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-035","chunk_id":"asset-macaw-action-035:description"},"category":"macaw_action","action":"space_sword"},
-  "/assets/macaw/actions/macaw%20(36).png": {"description":"A happy astronaut macaw waves while standing on the moon.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-036","chunk_id":"asset-macaw-action-036:description"},"category":"macaw_action","action":"astronaut_wave"},
-  "/assets/macaw/actions/macaw%20(37).png": {"description":"An astronaut macaw jumps joyfully on the moon.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-037","chunk_id":"asset-macaw-action-037:description"},"category":"macaw_action","action":"astronaut_jump"},
-  "/assets/macaw/actions/macaw%20(38).png": {"description":"An astronaut macaw studies the moon surface beside a small flag.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-038","chunk_id":"asset-macaw-action-038:description"},"category":"macaw_action","action":"astronaut_explore"},
-  "/assets/macaw/actions/macaw%20(39).png": {"description":"A smiling astronaut macaw stands proudly on the moon.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-039","chunk_id":"asset-macaw-action-039:description"},"category":"macaw_action","action":"astronaut_stand"},
-  "/assets/macaw/actions/macaw%20(40).png": {"description":"An astronaut macaw walks across the moon with a space backpack.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-040","chunk_id":"asset-macaw-action-040:description"},"category":"macaw_action","action":"astronaut_walk"},
-  "/assets/macaw/actions/macaw%20(41).png": {"description":"A polite robed macaw bows with one wing over its chest.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-041","chunk_id":"asset-macaw-action-041:description"},"category":"macaw_action","action":"bow_politely"},
-  "/assets/macaw/actions/macaw%20(42).png": {"description":"A robed macaw speaks quietly with one wing near its beak.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-042","chunk_id":"asset-macaw-action-042:description"},"category":"macaw_action","action":"speak_quietly"},
-  "/assets/macaw/actions/macaw%20(43).png": {"description":"A robed macaw listens carefully with one wing cupped to its ear.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-043","chunk_id":"asset-macaw-action-043:description"},"category":"macaw_action","action":"listen"},
-  "/assets/macaw/actions/macaw%20(44).png": {"description":"A cheerful robed macaw gives a simple friendly wave.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-044","chunk_id":"asset-macaw-action-044:description"},"category":"macaw_action","action":"friendly_wave"},
-  "/assets/macaw/actions/macaw%20(45).png": {"description":"A smiling robed macaw offers a wrapped gift with a red bow.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-045","chunk_id":"asset-macaw-action-045:description"},"category":"macaw_action","action":"offer_gift"},
-  "/assets/macaw/actions/macaw%20(46).png": {"description":"A confused robed macaw shrugs with a question mark overhead.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-046","chunk_id":"asset-macaw-action-046:description"},"category":"macaw_action","action":"confused_shrug"},
-  "/assets/macaw/actions/macaw%20(47).png": {"description":"A welcoming robed macaw opens both wings happily.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-047","chunk_id":"asset-macaw-action-047:description"},"category":"macaw_action","action":"welcome"},
-  "/assets/macaw/actions/macaw%20(48).png": {"description":"A robed macaw climbs upward on a wooden ladder.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-048","chunk_id":"asset-macaw-action-048:description"},"category":"macaw_action","action":"climb_ladder_up"},
-  "/assets/macaw/actions/macaw%20(49).png": {"description":"A hooded robed macaw crouches and creeps forward suspiciously.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-049","chunk_id":"asset-macaw-action-049:description"},"category":"macaw_action","action":"creep"},
-  "/assets/macaw/actions/macaw%20(50).png": {"description":"A robed macaw celebrates with both fists raised.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-050","chunk_id":"asset-macaw-action-050:description"},"category":"macaw_action","action":"raise_fists"},
-  "/assets/macaw/actions/macaw%20(51).png": {"description":"A calm robed macaw meditates while sitting cross-legged.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-051","chunk_id":"asset-macaw-action-051:description"},"category":"macaw_action","action":"meditate"},
-  "/assets/macaw/actions/macaw%20(52).png": {"description":"A robed macaw points to the right with one wing.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-052","chunk_id":"asset-macaw-action-052:description"},"category":"macaw_action","action":"point_right"},
-  "/assets/macaw/actions/macaw%20(53).png": {"description":"A puzzled robed macaw thinks with a blue question mark above its head.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-053","chunk_id":"asset-macaw-action-053:description"},"category":"macaw_action","action":"wonder"},
-  "/assets/macaw/actions/macaw%20(54).png": {"description":"A surprised robed macaw reacts with an orange exclamation mark.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-054","chunk_id":"asset-macaw-action-054:description"},"category":"macaw_action","action":"surprised"},
-  "/assets/macaw/actions/macaw%20(55).png": {"description":"A kneeling robed macaw cries with tears on both sides of its face.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-055","chunk_id":"asset-macaw-action-055:description"},"category":"macaw_action","action":"cry_kneeling"},
-  "/assets/macaw/actions/macaw%20(56).png": {"description":"A robed macaw laughs warmly with one wing on its belly.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-056","chunk_id":"asset-macaw-action-056:description"},"category":"macaw_action","action":"laugh_warmly"},
-  "/assets/macaw/actions/macaw%20(57).png": {"description":"A triumphant robed macaw pumps one fist in the air.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-057","chunk_id":"asset-macaw-action-057:description"},"category":"macaw_action","action":"victory_fist"},
-  "/assets/macaw/actions/macaw%20(58).png": {"description":"An affectionate robed macaw hugs itself with hearts floating nearby.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-058","chunk_id":"asset-macaw-action-058:description"},"category":"macaw_action","action":"hearts_hug"},
-  "/assets/macaw/actions/macaw%20(59).png": {"description":"A gentle robed macaw waters a small flower with a watering can.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-059","chunk_id":"asset-macaw-action-059:description"},"category":"macaw_action","action":"water_flower"},
-  "/assets/macaw/actions/macaw%20(60).png": {"description":"A robed macaw carefully plants a small seedling in the dirt.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-060","chunk_id":"asset-macaw-action-060:description"},"category":"macaw_action","action":"plant_carefully"},
-  "/assets/macaw/actions/macaw%20(61).png": {"description":"A hooded robed macaw sits and fishes with a fishing rod.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-061","chunk_id":"asset-macaw-action-061:description"},"category":"macaw_action","action":"sit_and_fish"},
-  "/assets/macaw/actions/macaw%20(62).png": {"description":"A robed macaw studies an old map with a serious expression.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-062","chunk_id":"asset-macaw-action-062:description"},"category":"macaw_action","action":"read_map"},
-  "/assets/macaw/actions/macaw%20(63).png": {"description":"A robed macaw walks while holding a glowing lantern.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-063","chunk_id":"asset-macaw-action-063:description"},"category":"macaw_action","action":"carry_lantern"},
-  "/assets/macaw/actions/macaw%20(64).png": {"description":"A happy robed macaw rows a small wooden boat on water.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-064","chunk_id":"asset-macaw-action-064:description"},"category":"macaw_action","action":"row_boat"},
-  "/assets/macaw/actions/macaw%20(65).png": {"description":"A robed macaw calls out loudly with both wings around its beak.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-065","chunk_id":"asset-macaw-action-065:description"},"category":"macaw_action","action":"call_loudly"},
-  "/assets/macaw/actions/macaw%20(66).png": {"description":"A cheerful robed macaw sings with music notes in the air.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-066","chunk_id":"asset-macaw-action-066:description"},"category":"macaw_action","action":"sing"},
-  "/assets/macaw/actions/macaw%20(67).png": {"description":"A happy robed macaw claps its wings together.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-067","chunk_id":"asset-macaw-action-067:description"},"category":"macaw_action","action":"clap"},
-  "/assets/macaw/actions/macaw%20(68).png": {"description":"A smiling robed macaw salutes or shades its eyes with one wing.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-068","chunk_id":"asset-macaw-action-068:description"},"category":"macaw_action","action":"salute"},
-  "/assets/macaw/actions/macaw%20(69).png": {"description":"A lively robed macaw points outward with both wings.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-069","chunk_id":"asset-macaw-action-069:description"},"category":"macaw_action","action":"point_both_ways"},
-  "/assets/macaw/actions/macaw%20(70).png": {"description":"A relaxed robed macaw sits on the ground beside a small cup.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-070","chunk_id":"asset-macaw-action-070:description"},"category":"macaw_action","action":"rest_with_cup"},
-  "/assets/macaw/actions/macaw%20(71).png": {"description":"A hooded robed macaw stands quietly with a walking stick.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-071","chunk_id":"asset-macaw-action-071:description"},"category":"macaw_action","action":"stand_with_staff"},
-  "/assets/macaw/actions/macaw%20(72).png": {"description":"A calm robed macaw raises one wing in a gentle wave.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-072","chunk_id":"asset-macaw-action-072:description"},"category":"macaw_action","action":"gentle_wave"},
-  "/assets/macaw/actions/macaw%20(73).png": {"description":"A seated robed macaw thinks with one wing touching its beak.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-073","chunk_id":"asset-macaw-action-073:description"},"category":"macaw_action","action":"sit_and_think"},
-  "/assets/macaw/actions/macaw%20(74).png": {"description":"A robed macaw stands like a traveler holding a tall wooden staff.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-074","chunk_id":"asset-macaw-action-074:description"},"category":"macaw_action","action":"traveler_staff"},
-  "/assets/macaw/actions/macaw%20(75).png": {"description":"A welcoming robed macaw speaks with both wings open.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-075","chunk_id":"asset-macaw-action-075:description"},"category":"macaw_action","action":"open_arms_speak"},
-  "/assets/macaw/actions/macaw%20(76).png": {"description":"A robed macaw measures with a yellow tape measure.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-076","chunk_id":"asset-macaw-action-076:description"},"category":"macaw_action","action":"measure_tape"},
-  "/assets/macaw/actions/macaw%20(77).png": {"description":"A robed macaw saws a wooden board on a small workbench.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-077","chunk_id":"asset-macaw-action-077:description"},"category":"macaw_action","action":"saw_wood"},
-  "/assets/macaw/actions/macaw%20(78).png": {"description":"A robed macaw sews or mends green fabric with a needle and thread.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-078","chunk_id":"asset-macaw-action-078:description"},"category":"macaw_action","action":"sew_fabric"},
-  "/assets/macaw/actions/macaw%20(79).png": {"description":"A robed macaw polishes a shiny glass orb with a cloth.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-079","chunk_id":"asset-macaw-action-079:description"},"category":"macaw_action","action":"polish_orb"},
-  "/assets/macaw/actions/macaw%20(80).png": {"description":"A robed macaw hammers a small wooden block with a mallet.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-080","chunk_id":"asset-macaw-action-080:description"},"category":"macaw_action","action":"hammer_block"},
-  "/assets/macaw/actions/macaw%20(81).png": {"description":"A studious robed macaw carries a stack of books.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-081","chunk_id":"asset-macaw-action-081:description"},"category":"macaw_action","action":"carry_books"},
-  "/assets/macaw/actions/macaw%20(82).png": {"description":"A playful robed macaw chases a butterfly with a net.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-082","chunk_id":"asset-macaw-action-082:description"},"category":"macaw_action","action":"catch_butterfly"},
-  "/assets/macaw/actions/macaw%20(83).png": {"description":"A traveler macaw hikes with a backpack, bedroll, and walking stick.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-083","chunk_id":"asset-macaw-action-083:description"},"category":"macaw_action","action":"hike_with_pack"},
-  "/assets/macaw/actions/macaw%20(84).png": {"description":"A tired hooded macaw lies flat on the ground, exhausted.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-084","chunk_id":"asset-macaw-action-084:description"},"category":"macaw_action","action":"exhausted"},
-  "/assets/macaw/actions/macaw%20(85).png": {"description":"A happy robed macaw glides or flies with its robe spread like wings.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-085","chunk_id":"asset-macaw-action-085:description"},"category":"macaw_action","action":"glide"},
-  "/assets/macaw/actions/macaw%20(86).png": {"description":"A small robed macaw jogs forward with one fist raised.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-086","chunk_id":"asset-macaw-action-086:description"},"category":"macaw_action","action":"jog"},
-  "/assets/macaw/actions/macaw%20(87).png": {"description":"A joyful robed macaw swims through splashing blue water.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-087","chunk_id":"asset-macaw-action-087:description"},"category":"macaw_action","action":"swim"},
-  "/assets/macaw/actions/macaw%20(88).png": {"description":"A musical robed macaw plays a small lute or ukulele.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-088","chunk_id":"asset-macaw-action-088:description"},"category":"macaw_action","action":"play_lute"},
-  "/assets/macaw/actions/macaw%20(89).png": {"description":"A robed macaw plays a round drum with two drumsticks.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-089","chunk_id":"asset-macaw-action-089:description"},"category":"macaw_action","action":"play_drum"},
-  "/assets/macaw/actions/macaw%20(90).png": {"description":"A robed macaw plays a wooden flute.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-090","chunk_id":"asset-macaw-action-090:description"},"category":"macaw_action","action":"play_flute"},
-  "/assets/macaw/actions/macaw%20(91).png": {"description":"A dancing robed macaw shakes two colorful maracas.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-091","chunk_id":"asset-macaw-action-091:description"},"category":"macaw_action","action":"shake_maracas"},
-  "/assets/macaw/actions/macaw%20(92).png": {"description":"A playful robed macaw juggles red, green, and blue balls.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-092","chunk_id":"asset-macaw-action-092:description"},"category":"macaw_action","action":"juggle_balls"},
-  "/assets/macaw/actions/macaw%20(93).png": {"description":"A robed macaw conducts music with a baton and raised wing.","embedding":{"database":"/cz/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite","table":"macaw_action_embedding_refs","model_id":"caatuu-local-hash-v0.1","document_id":"asset-macaw-action-093","chunk_id":"asset-macaw-action-093:description"},"category":"macaw_action","action":"conduct_music"}
+  "/assets/macaw/actions/macaw%20(1).png": {
+    "description": "A robed macaw strains while lifting a heavy gray rock overhead.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-001",
+      "chunk_id": "asset-macaw-action-001:description"
+    },
+    "category": "macaw_action",
+    "action": "carry_rock"
+  },
+  "/assets/macaw/actions/macaw%20(2).png": {
+    "description": "A smiling robed macaw carries a wooden crate in both hands.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-002",
+      "chunk_id": "asset-macaw-action-002:description"
+    },
+    "category": "macaw_action",
+    "action": "carry_box"
+  },
+  "/assets/macaw/actions/macaw%20(3).png": {
+    "description": "A peaceful robed macaw holds and smells a small bunch of pink flowers.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-003",
+      "chunk_id": "asset-macaw-action-003:description"
+    },
+    "category": "macaw_action",
+    "action": "hold_flowers"
+  },
+  "/assets/macaw/actions/macaw%20(4).png": {
+    "description": "A friendly robed macaw waves hello with one raised wing.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-004",
+      "chunk_id": "asset-macaw-action-004:description"
+    },
+    "category": "macaw_action",
+    "action": "wave_hello"
+  },
+  "/assets/macaw/actions/macaw%20(5).png": {
+    "description": "A joyful robed macaw jumps with both wings raised in celebration.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-005",
+      "chunk_id": "asset-macaw-action-005:description"
+    },
+    "category": "macaw_action",
+    "action": "jump_joyfully"
+  },
+  "/assets/macaw/actions/macaw%20(6).png": {
+    "description": "A robed macaw tosses a small brown ball or stone through the air.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-006",
+      "chunk_id": "asset-macaw-action-006:description"
+    },
+    "category": "macaw_action",
+    "action": "throw_ball"
+  },
+  "/assets/macaw/actions/macaw%20(7).png": {
+    "description": "A focused robed macaw hammers nails into a wooden board.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-007",
+      "chunk_id": "asset-macaw-action-007:description"
+    },
+    "category": "macaw_action",
+    "action": "hammer_nails"
+  },
+  "/assets/macaw/actions/macaw%20(8).png": {
+    "description": "A determined robed macaw pushes against a large gray boulder.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-008",
+      "chunk_id": "asset-macaw-action-008:description"
+    },
+    "category": "macaw_action",
+    "action": "push_boulder"
+  },
+  "/assets/macaw/actions/macaw%20(9).png": {
+    "description": "A calm robed macaw paints with a brush and colorful palette.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-009",
+      "chunk_id": "asset-macaw-action-009:description"
+    },
+    "category": "macaw_action",
+    "action": "paint_picture"
+  },
+  "/assets/macaw/actions/macaw%20(10).png": {
+    "description": "A robed macaw washes laundry in a round wooden tub with soap bubbles.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-010",
+      "chunk_id": "asset-macaw-action-010:description"
+    },
+    "category": "macaw_action",
+    "action": "wash_laundry"
+  },
+  "/assets/macaw/actions/macaw%20(11).png": {
+    "description": "A robed macaw sweeps the floor with a broom.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-011",
+      "chunk_id": "asset-macaw-action-011:description"
+    },
+    "category": "macaw_action",
+    "action": "sweep_floor"
+  },
+  "/assets/macaw/actions/macaw%20(12).png": {
+    "description": "A robed macaw pulls hard on a thick rope.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-012",
+      "chunk_id": "asset-macaw-action-012:description"
+    },
+    "category": "macaw_action",
+    "action": "pull_rope"
+  },
+  "/assets/macaw/actions/macaw%20(13).png": {
+    "description": "A gentle robed macaw plants a small green seedling in soil.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-013",
+      "chunk_id": "asset-macaw-action-013:description"
+    },
+    "category": "macaw_action",
+    "action": "plant_seedling"
+  },
+  "/assets/macaw/actions/macaw%20(14).png": {
+    "description": "A relaxed robed macaw fishes with a rod beside water.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-014",
+      "chunk_id": "asset-macaw-action-014:description"
+    },
+    "category": "macaw_action",
+    "action": "fish_with_rod"
+  },
+  "/assets/macaw/actions/macaw%20(15).png": {
+    "description": "A robed macaw climbs a tall wooden ladder.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-015",
+      "chunk_id": "asset-macaw-action-015:description"
+    },
+    "category": "macaw_action",
+    "action": "climb_ladder"
+  },
+  "/assets/macaw/actions/macaw%20(16).png": {
+    "description": "A smiling robed macaw opens a wooden door glowing with warm light.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-016",
+      "chunk_id": "asset-macaw-action-016:description"
+    },
+    "category": "macaw_action",
+    "action": "open_door"
+  },
+  "/assets/macaw/actions/macaw%20(17).png": {
+    "description": "A hooded robed macaw sneaks forward cautiously.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-017",
+      "chunk_id": "asset-macaw-action-017:description"
+    },
+    "category": "macaw_action",
+    "action": "sneak_cautiously"
+  },
+  "/assets/macaw/actions/macaw%20(18).png": {
+    "description": "A curious robed macaw examines something with a magnifying glass.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-018",
+      "chunk_id": "asset-macaw-action-018:description"
+    },
+    "category": "macaw_action",
+    "action": "inspect_magnifier"
+  },
+  "/assets/macaw/actions/macaw%20(19).png": {
+    "description": "A sad robed macaw cries loudly with tears streaming down.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-019",
+      "chunk_id": "asset-macaw-action-019:description"
+    },
+    "category": "macaw_action",
+    "action": "cry_loudly"
+  },
+  "/assets/macaw/actions/macaw%20(20).png": {
+    "description": "A thoughtful robed macaw rests one wing on its beak while thinking.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-020",
+      "chunk_id": "asset-macaw-action-020:description"
+    },
+    "category": "macaw_action",
+    "action": "think"
+  },
+  "/assets/macaw/actions/macaw%20(21).png": {
+    "description": "A robed macaw runs quickly with one wing forward.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-021",
+      "chunk_id": "asset-macaw-action-021:description"
+    },
+    "category": "macaw_action",
+    "action": "run"
+  },
+  "/assets/macaw/actions/macaw%20(22).png": {
+    "description": "A sleepy robed macaw dozes with its cheek resting on one wing.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-022",
+      "chunk_id": "asset-macaw-action-022:description"
+    },
+    "category": "macaw_action",
+    "action": "sleepy"
+  },
+  "/assets/macaw/actions/macaw%20(23).png": {
+    "description": "A robed macaw reads an open book attentively.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-023",
+      "chunk_id": "asset-macaw-action-023:description"
+    },
+    "category": "macaw_action",
+    "action": "read_book"
+  },
+  "/assets/macaw/actions/macaw%20(24).png": {
+    "description": "A robed macaw writes on paper with a feather quill.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-024",
+      "chunk_id": "asset-macaw-action-024:description"
+    },
+    "category": "macaw_action",
+    "action": "write_quill"
+  },
+  "/assets/macaw/actions/macaw%20(25).png": {
+    "description": "A robed macaw eats from a small bowl with a spoon.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-025",
+      "chunk_id": "asset-macaw-action-025:description"
+    },
+    "category": "macaw_action",
+    "action": "eat_bowl"
+  },
+  "/assets/macaw/actions/macaw%20(26).png": {
+    "description": "A relaxed robed macaw drinks from a mug.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-026",
+      "chunk_id": "asset-macaw-action-026:description"
+    },
+    "category": "macaw_action",
+    "action": "drink_mug"
+  },
+  "/assets/macaw/actions/macaw%20(27).png": {
+    "description": "An excited robed macaw raises one finger and a fist in triumph.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-027",
+      "chunk_id": "asset-macaw-action-027:description"
+    },
+    "category": "macaw_action",
+    "action": "announce_victory"
+  },
+  "/assets/macaw/actions/macaw%20(28).png": {
+    "description": "A robed macaw cooks by stirring a steaming pot.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-028",
+      "chunk_id": "asset-macaw-action-028:description"
+    },
+    "category": "macaw_action",
+    "action": "cook_pot"
+  },
+  "/assets/macaw/actions/macaw%20(29).png": {
+    "description": "A cheerful robed macaw laughs with one wing on its belly.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-029",
+      "chunk_id": "asset-macaw-action-029:description"
+    },
+    "category": "macaw_action",
+    "action": "laugh"
+  },
+  "/assets/macaw/actions/macaw%20(30).png": {
+    "description": "A happy robed macaw hugs itself with a small heart nearby.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-030",
+      "chunk_id": "asset-macaw-action-030:description"
+    },
+    "category": "macaw_action",
+    "action": "love_hug"
+  },
+  "/assets/macaw/actions/macaw%20(31).png": {
+    "description": "A caring robed macaw waters a tiny green sprout with a watering can.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-031",
+      "chunk_id": "asset-macaw-action-031:description"
+    },
+    "category": "macaw_action",
+    "action": "water_sprout"
+  },
+  "/assets/macaw/actions/macaw%20(32).png": {
+    "description": "A robed macaw digs soil with a shovel.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-032",
+      "chunk_id": "asset-macaw-action-032:description"
+    },
+    "category": "macaw_action",
+    "action": "dig_soil"
+  },
+  "/assets/macaw/actions/macaw%20(33).png": {
+    "description": "A robed macaw cheers with both wings lifted high.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-033",
+      "chunk_id": "asset-macaw-action-033:description"
+    },
+    "category": "macaw_action",
+    "action": "cheer_arms_up"
+  },
+  "/assets/macaw/actions/macaw%20(34).png": {
+    "description": "A smiling robed macaw dances or skips with open wings.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-034",
+      "chunk_id": "asset-macaw-action-034:description"
+    },
+    "category": "macaw_action",
+    "action": "dance"
+  },
+  "/assets/macaw/actions/macaw%20(35).png": {
+    "description": "A space wizard macaw holds a glowing blue sword among small planets and stars.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-035",
+      "chunk_id": "asset-macaw-action-035:description"
+    },
+    "category": "macaw_action",
+    "action": "space_sword"
+  },
+  "/assets/macaw/actions/macaw%20(36).png": {
+    "description": "A happy astronaut macaw waves while standing on the moon.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-036",
+      "chunk_id": "asset-macaw-action-036:description"
+    },
+    "category": "macaw_action",
+    "action": "astronaut_wave"
+  },
+  "/assets/macaw/actions/macaw%20(37).png": {
+    "description": "An astronaut macaw jumps joyfully on the moon.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-037",
+      "chunk_id": "asset-macaw-action-037:description"
+    },
+    "category": "macaw_action",
+    "action": "astronaut_jump"
+  },
+  "/assets/macaw/actions/macaw%20(38).png": {
+    "description": "An astronaut macaw studies the moon surface beside a small flag.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-038",
+      "chunk_id": "asset-macaw-action-038:description"
+    },
+    "category": "macaw_action",
+    "action": "astronaut_explore"
+  },
+  "/assets/macaw/actions/macaw%20(39).png": {
+    "description": "A smiling astronaut macaw stands proudly on the moon.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-039",
+      "chunk_id": "asset-macaw-action-039:description"
+    },
+    "category": "macaw_action",
+    "action": "astronaut_stand"
+  },
+  "/assets/macaw/actions/macaw%20(40).png": {
+    "description": "An astronaut macaw walks across the moon with a space backpack.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-040",
+      "chunk_id": "asset-macaw-action-040:description"
+    },
+    "category": "macaw_action",
+    "action": "astronaut_walk"
+  },
+  "/assets/macaw/actions/macaw%20(41).png": {
+    "description": "A polite robed macaw bows with one wing over its chest.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-041",
+      "chunk_id": "asset-macaw-action-041:description"
+    },
+    "category": "macaw_action",
+    "action": "bow_politely"
+  },
+  "/assets/macaw/actions/macaw%20(42).png": {
+    "description": "A robed macaw speaks quietly with one wing near its beak.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-042",
+      "chunk_id": "asset-macaw-action-042:description"
+    },
+    "category": "macaw_action",
+    "action": "speak_quietly"
+  },
+  "/assets/macaw/actions/macaw%20(43).png": {
+    "description": "A robed macaw listens carefully with one wing cupped to its ear.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-043",
+      "chunk_id": "asset-macaw-action-043:description"
+    },
+    "category": "macaw_action",
+    "action": "listen"
+  },
+  "/assets/macaw/actions/macaw%20(44).png": {
+    "description": "A cheerful robed macaw gives a simple friendly wave.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-044",
+      "chunk_id": "asset-macaw-action-044:description"
+    },
+    "category": "macaw_action",
+    "action": "friendly_wave"
+  },
+  "/assets/macaw/actions/macaw%20(45).png": {
+    "description": "A smiling robed macaw offers a wrapped gift with a red bow.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-045",
+      "chunk_id": "asset-macaw-action-045:description"
+    },
+    "category": "macaw_action",
+    "action": "offer_gift"
+  },
+  "/assets/macaw/actions/macaw%20(46).png": {
+    "description": "A confused robed macaw shrugs with a question mark overhead.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-046",
+      "chunk_id": "asset-macaw-action-046:description"
+    },
+    "category": "macaw_action",
+    "action": "confused_shrug"
+  },
+  "/assets/macaw/actions/macaw%20(47).png": {
+    "description": "A welcoming robed macaw opens both wings happily.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-047",
+      "chunk_id": "asset-macaw-action-047:description"
+    },
+    "category": "macaw_action",
+    "action": "welcome"
+  },
+  "/assets/macaw/actions/macaw%20(48).png": {
+    "description": "A robed macaw climbs upward on a wooden ladder.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-048",
+      "chunk_id": "asset-macaw-action-048:description"
+    },
+    "category": "macaw_action",
+    "action": "climb_ladder_up"
+  },
+  "/assets/macaw/actions/macaw%20(49).png": {
+    "description": "A hooded robed macaw crouches and creeps forward suspiciously.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-049",
+      "chunk_id": "asset-macaw-action-049:description"
+    },
+    "category": "macaw_action",
+    "action": "creep"
+  },
+  "/assets/macaw/actions/macaw%20(50).png": {
+    "description": "A robed macaw celebrates with both fists raised.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-050",
+      "chunk_id": "asset-macaw-action-050:description"
+    },
+    "category": "macaw_action",
+    "action": "raise_fists"
+  },
+  "/assets/macaw/actions/macaw%20(51).png": {
+    "description": "A calm robed macaw meditates while sitting cross-legged.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-051",
+      "chunk_id": "asset-macaw-action-051:description"
+    },
+    "category": "macaw_action",
+    "action": "meditate"
+  },
+  "/assets/macaw/actions/macaw%20(52).png": {
+    "description": "A robed macaw points to the right with one wing.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-052",
+      "chunk_id": "asset-macaw-action-052:description"
+    },
+    "category": "macaw_action",
+    "action": "point_right"
+  },
+  "/assets/macaw/actions/macaw%20(53).png": {
+    "description": "A puzzled robed macaw thinks with a blue question mark above its head.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-053",
+      "chunk_id": "asset-macaw-action-053:description"
+    },
+    "category": "macaw_action",
+    "action": "wonder"
+  },
+  "/assets/macaw/actions/macaw%20(54).png": {
+    "description": "A surprised robed macaw reacts with an orange exclamation mark.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-054",
+      "chunk_id": "asset-macaw-action-054:description"
+    },
+    "category": "macaw_action",
+    "action": "surprised"
+  },
+  "/assets/macaw/actions/macaw%20(55).png": {
+    "description": "A kneeling robed macaw cries with tears on both sides of its face.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-055",
+      "chunk_id": "asset-macaw-action-055:description"
+    },
+    "category": "macaw_action",
+    "action": "cry_kneeling"
+  },
+  "/assets/macaw/actions/macaw%20(56).png": {
+    "description": "A robed macaw laughs warmly with one wing on its belly.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-056",
+      "chunk_id": "asset-macaw-action-056:description"
+    },
+    "category": "macaw_action",
+    "action": "laugh_warmly"
+  },
+  "/assets/macaw/actions/macaw%20(57).png": {
+    "description": "A triumphant robed macaw pumps one fist in the air.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-057",
+      "chunk_id": "asset-macaw-action-057:description"
+    },
+    "category": "macaw_action",
+    "action": "victory_fist"
+  },
+  "/assets/macaw/actions/macaw%20(58).png": {
+    "description": "An affectionate robed macaw hugs itself with hearts floating nearby.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-058",
+      "chunk_id": "asset-macaw-action-058:description"
+    },
+    "category": "macaw_action",
+    "action": "hearts_hug"
+  },
+  "/assets/macaw/actions/macaw%20(59).png": {
+    "description": "A gentle robed macaw waters a small flower with a watering can.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-059",
+      "chunk_id": "asset-macaw-action-059:description"
+    },
+    "category": "macaw_action",
+    "action": "water_flower"
+  },
+  "/assets/macaw/actions/macaw%20(60).png": {
+    "description": "A robed macaw carefully plants a small seedling in the dirt.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-060",
+      "chunk_id": "asset-macaw-action-060:description"
+    },
+    "category": "macaw_action",
+    "action": "plant_carefully"
+  },
+  "/assets/macaw/actions/macaw%20(61).png": {
+    "description": "A hooded robed macaw sits and fishes with a fishing rod.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-061",
+      "chunk_id": "asset-macaw-action-061:description"
+    },
+    "category": "macaw_action",
+    "action": "sit_and_fish"
+  },
+  "/assets/macaw/actions/macaw%20(62).png": {
+    "description": "A robed macaw studies an old map with a serious expression.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-062",
+      "chunk_id": "asset-macaw-action-062:description"
+    },
+    "category": "macaw_action",
+    "action": "read_map"
+  },
+  "/assets/macaw/actions/macaw%20(63).png": {
+    "description": "A robed macaw walks while holding a glowing lantern.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-063",
+      "chunk_id": "asset-macaw-action-063:description"
+    },
+    "category": "macaw_action",
+    "action": "carry_lantern"
+  },
+  "/assets/macaw/actions/macaw%20(64).png": {
+    "description": "A happy robed macaw rows a small wooden boat on water.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-064",
+      "chunk_id": "asset-macaw-action-064:description"
+    },
+    "category": "macaw_action",
+    "action": "row_boat"
+  },
+  "/assets/macaw/actions/macaw%20(65).png": {
+    "description": "A robed macaw calls out loudly with both wings around its beak.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-065",
+      "chunk_id": "asset-macaw-action-065:description"
+    },
+    "category": "macaw_action",
+    "action": "call_loudly"
+  },
+  "/assets/macaw/actions/macaw%20(66).png": {
+    "description": "A cheerful robed macaw sings with music notes in the air.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-066",
+      "chunk_id": "asset-macaw-action-066:description"
+    },
+    "category": "macaw_action",
+    "action": "sing"
+  },
+  "/assets/macaw/actions/macaw%20(67).png": {
+    "description": "A happy robed macaw claps its wings together.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-067",
+      "chunk_id": "asset-macaw-action-067:description"
+    },
+    "category": "macaw_action",
+    "action": "clap"
+  },
+  "/assets/macaw/actions/macaw%20(68).png": {
+    "description": "A smiling robed macaw salutes or shades its eyes with one wing.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-068",
+      "chunk_id": "asset-macaw-action-068:description"
+    },
+    "category": "macaw_action",
+    "action": "salute"
+  },
+  "/assets/macaw/actions/macaw%20(69).png": {
+    "description": "A lively robed macaw points outward with both wings.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-069",
+      "chunk_id": "asset-macaw-action-069:description"
+    },
+    "category": "macaw_action",
+    "action": "point_both_ways"
+  },
+  "/assets/macaw/actions/macaw%20(70).png": {
+    "description": "A relaxed robed macaw sits on the ground beside a small cup.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-070",
+      "chunk_id": "asset-macaw-action-070:description"
+    },
+    "category": "macaw_action",
+    "action": "rest_with_cup"
+  },
+  "/assets/macaw/actions/macaw%20(71).png": {
+    "description": "A hooded robed macaw stands quietly with a walking stick.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-071",
+      "chunk_id": "asset-macaw-action-071:description"
+    },
+    "category": "macaw_action",
+    "action": "stand_with_staff"
+  },
+  "/assets/macaw/actions/macaw%20(72).png": {
+    "description": "A calm robed macaw raises one wing in a gentle wave.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-072",
+      "chunk_id": "asset-macaw-action-072:description"
+    },
+    "category": "macaw_action",
+    "action": "gentle_wave"
+  },
+  "/assets/macaw/actions/macaw%20(73).png": {
+    "description": "A seated robed macaw thinks with one wing touching its beak.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-073",
+      "chunk_id": "asset-macaw-action-073:description"
+    },
+    "category": "macaw_action",
+    "action": "sit_and_think"
+  },
+  "/assets/macaw/actions/macaw%20(74).png": {
+    "description": "A robed macaw stands like a traveler holding a tall wooden staff.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-074",
+      "chunk_id": "asset-macaw-action-074:description"
+    },
+    "category": "macaw_action",
+    "action": "traveler_staff"
+  },
+  "/assets/macaw/actions/macaw%20(75).png": {
+    "description": "A welcoming robed macaw speaks with both wings open.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-075",
+      "chunk_id": "asset-macaw-action-075:description"
+    },
+    "category": "macaw_action",
+    "action": "open_arms_speak"
+  },
+  "/assets/macaw/actions/macaw%20(76).png": {
+    "description": "A robed macaw measures with a yellow tape measure.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-076",
+      "chunk_id": "asset-macaw-action-076:description"
+    },
+    "category": "macaw_action",
+    "action": "measure_tape"
+  },
+  "/assets/macaw/actions/macaw%20(77).png": {
+    "description": "A robed macaw saws a wooden board on a small workbench.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-077",
+      "chunk_id": "asset-macaw-action-077:description"
+    },
+    "category": "macaw_action",
+    "action": "saw_wood"
+  },
+  "/assets/macaw/actions/macaw%20(78).png": {
+    "description": "A robed macaw sews or mends green fabric with a needle and thread.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-078",
+      "chunk_id": "asset-macaw-action-078:description"
+    },
+    "category": "macaw_action",
+    "action": "sew_fabric"
+  },
+  "/assets/macaw/actions/macaw%20(79).png": {
+    "description": "A robed macaw polishes a shiny glass orb with a cloth.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-079",
+      "chunk_id": "asset-macaw-action-079:description"
+    },
+    "category": "macaw_action",
+    "action": "polish_orb"
+  },
+  "/assets/macaw/actions/macaw%20(80).png": {
+    "description": "A robed macaw hammers a small wooden block with a mallet.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-080",
+      "chunk_id": "asset-macaw-action-080:description"
+    },
+    "category": "macaw_action",
+    "action": "hammer_block"
+  },
+  "/assets/macaw/actions/macaw%20(81).png": {
+    "description": "A studious robed macaw carries a stack of books.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-081",
+      "chunk_id": "asset-macaw-action-081:description"
+    },
+    "category": "macaw_action",
+    "action": "carry_books"
+  },
+  "/assets/macaw/actions/macaw%20(82).png": {
+    "description": "A playful robed macaw chases a butterfly with a net.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-082",
+      "chunk_id": "asset-macaw-action-082:description"
+    },
+    "category": "macaw_action",
+    "action": "catch_butterfly"
+  },
+  "/assets/macaw/actions/macaw%20(83).png": {
+    "description": "A traveler macaw hikes with a backpack, bedroll, and walking stick.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-083",
+      "chunk_id": "asset-macaw-action-083:description"
+    },
+    "category": "macaw_action",
+    "action": "hike_with_pack"
+  },
+  "/assets/macaw/actions/macaw%20(84).png": {
+    "description": "A tired hooded macaw lies flat on the ground, exhausted.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-084",
+      "chunk_id": "asset-macaw-action-084:description"
+    },
+    "category": "macaw_action",
+    "action": "exhausted"
+  },
+  "/assets/macaw/actions/macaw%20(85).png": {
+    "description": "A happy robed macaw glides or flies with its robe spread like wings.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-085",
+      "chunk_id": "asset-macaw-action-085:description"
+    },
+    "category": "macaw_action",
+    "action": "glide"
+  },
+  "/assets/macaw/actions/macaw%20(86).png": {
+    "description": "A small robed macaw jogs forward with one fist raised.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-086",
+      "chunk_id": "asset-macaw-action-086:description"
+    },
+    "category": "macaw_action",
+    "action": "jog"
+  },
+  "/assets/macaw/actions/macaw%20(87).png": {
+    "description": "A joyful robed macaw swims through splashing blue water.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-087",
+      "chunk_id": "asset-macaw-action-087:description"
+    },
+    "category": "macaw_action",
+    "action": "swim"
+  },
+  "/assets/macaw/actions/macaw%20(88).png": {
+    "description": "A musical robed macaw plays a small lute or ukulele.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-088",
+      "chunk_id": "asset-macaw-action-088:description"
+    },
+    "category": "macaw_action",
+    "action": "play_lute"
+  },
+  "/assets/macaw/actions/macaw%20(89).png": {
+    "description": "A robed macaw plays a round drum with two drumsticks.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-089",
+      "chunk_id": "asset-macaw-action-089:description"
+    },
+    "category": "macaw_action",
+    "action": "play_drum"
+  },
+  "/assets/macaw/actions/macaw%20(90).png": {
+    "description": "A robed macaw plays a wooden flute.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-090",
+      "chunk_id": "asset-macaw-action-090:description"
+    },
+    "category": "macaw_action",
+    "action": "play_flute"
+  },
+  "/assets/macaw/actions/macaw%20(91).png": {
+    "description": "A dancing robed macaw shakes two colorful maracas.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-091",
+      "chunk_id": "asset-macaw-action-091:description"
+    },
+    "category": "macaw_action",
+    "action": "shake_maracas"
+  },
+  "/assets/macaw/actions/macaw%20(92).png": {
+    "description": "A playful robed macaw juggles red, green, and blue balls.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-092",
+      "chunk_id": "asset-macaw-action-092:description"
+    },
+    "category": "macaw_action",
+    "action": "juggle_balls"
+  },
+  "/assets/macaw/actions/macaw%20(93).png": {
+    "description": "A robed macaw conducts music with a baton and raised wing.",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "macaw_action_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-macaw-action-093",
+      "chunk_id": "asset-macaw-action-093:description"
+    },
+    "category": "macaw_action",
+    "action": "conduct_music"
+  }
 }

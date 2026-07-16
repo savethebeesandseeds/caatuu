@@ -25,8 +25,8 @@ fi
 bash "$repo_root/apps/caatuu-android/scripts/prepare-llama-vendor.sh"
 
 cd "$repo_root/apps/caatuu-android"
-gradle --no-daemon :app:bundleRelease
+gradle --no-daemon :app:bundlePlay
 
 mkdir -p "$repo_root/artifacts/android"
-cp app/build/outputs/bundle/release/app-release.aab "$repo_root/artifacts/android/caatuu-release.aab"
+cp app/build/outputs/bundle/play/app-play.aab "$repo_root/artifacts/android/caatuu-release.aab"
 echo "Wrote $repo_root/artifacts/android/caatuu-release.aab"

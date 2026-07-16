@@ -1,24 +1,27 @@
 let countryDictionary = [];
 let countryScripts = [];
+let verbNebulaCore = null;
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
-const themeStorageKey = "caatuu-czech.theme";
+const course = window.CaatuuCourse;
+if (!course) throw new Error("Caatuu course profile must load before the app shell.");
+
+const themeStorageKey = course.storage.theme;
 const themeOptions = {
   light: { themeColor: "#f5efe5" },
-  dark: { themeColor: "#0d171e" }
+  dark: { themeColor: "#151a18" }
 };
-const chatSettingsStorageKey = "caatuu-czech.chat.settings.v1";
+const chatSettingsStorageKey = course.storage.chatSettings;
 const defaultModelKey = "cstinyllama-1.2b-czech-word-sentence-001";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const browserFallbackLabel = "Browser fallback";
 const browserFallbackSummary = `Browser: ${browserFallbackModel}. Android: local GGUF models.`;
 const legacyModelNotice = "Legacy/deprecated: kept for compatibility until the curriculum LoRA GGUF replacements are published.";
 const supportedModelKeys = new Set([
-  "qwen3-lora-003-hard",
   "cstinyllama-1.2b-base",
-  "cstinyllama-1.2b-planet-wordnet-002-copy",
   "cstinyllama-1.2b-translation-cs-en-001",
+  "qwen3-1.7b-translation-cs-en-001",
   "cstinyllama-1.2b-czech-word-sentence-001"
 ]);
 let modelLicenseCatalog = [
@@ -26,7 +29,7 @@ let modelLicenseCatalog = [
     key: "qwen3-lora-003-hard",
     label: "Caatuu CZ LoRA",
     repoId: "Qwen/Qwen3-1.7B",
-    license: "Apache-2.0",
+    license: "Base Apache-2.0; derived artifact review pending",
     intendedUse: "General Czech assistant and spelling checks.",
     deprecated: true,
     status: "deprecated",
@@ -46,7 +49,7 @@ let modelLicenseCatalog = [
     key: "cstinyllama-1.2b-planet-wordnet-002-copy",
     label: "Planet Word World CZ",
     repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Apache-2.0",
+    license: "Base Apache-2.0; derived artifact review pending",
     intendedUse: "Planet of Word World: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
     deprecated: true,
     status: "deprecated",
@@ -54,9 +57,19 @@ let modelLicenseCatalog = [
   },
   {
     key: "cstinyllama-1.2b-translation-cs-en-001",
-    label: "Czech to English",
+    label: "Czech to English (CSTinyLlama)",
     repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Apache-2.0",
+    license: "Base Apache-2.0; derived artifact review pending",
+    intendedUse: "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
+    deprecated: true,
+    status: "deprecated",
+    replacementStatus: "Replaced by qwen3-1.7b-translation-cs-en-001."
+  },
+  {
+    key: "qwen3-1.7b-translation-cs-en-001",
+    label: "Czech to English Qwen",
+    repoId: "Qwen/Qwen3-1.7B",
+    license: "Base Apache-2.0; derived artifact review pending",
     intendedUse: "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
     deprecated: false,
     status: "active",
@@ -66,7 +79,7 @@ let modelLicenseCatalog = [
     key: "cstinyllama-1.2b-czech-word-sentence-001",
     label: "Word Sentence CZ",
     repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Apache-2.0",
+    license: "Base Apache-2.0; derived artifact review pending",
     intendedUse: "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word World.",
     deprecated: false,
     status: "active",
@@ -77,8 +90,8 @@ let modelLicenseCatalog = [
     label: "Caatuu Curriculum and Asset Embeddings",
     sourceLabel: "Caatuu curated curriculum corpus and manual image descriptions",
     sourceUrl: "data/embeddings/README.md",
-    license: "MIT",
-    licenseUrl: "https://opensource.org/licenses/MIT",
+    license: "Curriculum and asset provenance review pending",
+    licenseUrl: "",
     intendedUse: "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
     artifactKind: "embedding-vector-db",
     runtime: "SQLite vector database with local hash embedder",
@@ -133,43 +146,50 @@ function assertArrayData(name, value) {
 }
 
 async function loadContentData() {
-  const [dictionary, scripts, verbs] = await Promise.all([
+  const [dictionary, scripts, verbModule] = await Promise.all([
     loadJson("data/dictionary.json"),
     loadJson("data/scripts.json"),
-    loadJson("data/verbs.json")
+    import("./verb-nebula-core.mjs?v=verb-nebula-core-4")
   ]);
 
   assertArrayData("dictionary", dictionary);
   assertArrayData("scripts", scripts);
-  assertArrayData("verbs", verbs);
   countryDictionary = dictionary;
   countryScripts = scripts;
-  fundamentalVerbs = verbs;
+  verbNebulaCore = verbModule;
 }
 
 const state = {
   activeView: "verbs",
   trainTab: "galaxy",
-  verbOptionsOpen: false,
-  verbQuestion: null,
-  verbStats: {
-    asked: 0,
-    correct: 0,
-    streak: 0,
-    bestStreak: 0
-  },
-  verbMastery: {},
+  verbPairs: [],
+  verbQueueIds: [],
+  verbRound: [],
+  verbEnglishRound: [],
+  verbMatchedIds: new Set(),
+  verbSelectedCzechId: "",
+  verbSelectedEnglishId: "",
+  verbPairCount: 4,
+  verbRoundNumber: 0,
+  verbStats: { attempts: 0, matches: 0, rounds: 0 },
   verbMemoryLoaded: false,
-  verbRecentKeys: [],
-  verbSession: {
-    answered: false,
-    attempts: 0,
-    selectedAnswer: "",
-    result: null
-  },
-  verbReferenceSearch: "",
-  dictionarySearch: "",
-  verbFocusFallback: false
+  verbHintRequestId: 0,
+  verbHintCache: new Map(),
+  verbHintKeymapPromise: null,
+  verbHintById: new Map(),
+  verbHintsEnabled: false,
+  verbSolutionRevealed: false,
+  verbRoundTransitioning: false,
+  verbRoundInterstitial: false,
+  verbRoundTransitionId: 0,
+  verbInterstitialRobotPath: "",
+  verbRobotPathsPromise: null,
+  verbRobotCursor: -1,
+  verbWrongIds: new Set(),
+  verbWrongTimer: null,
+  dictionarySection: "rules",
+  coreDictionarySearch: "",
+  dictionaryBrowseAll: false
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -207,7 +227,8 @@ function renderModelLicenseList() {
     const row = document.createElement("div");
     const term = document.createElement("dt");
     const detail = document.createElement("dd");
-    const licenseLink = document.createElement("a");
+    const licenseUrl = model.licenseUrl || "";
+    const licenseNode = document.createElement(licenseUrl ? "a" : "span");
 
     term.textContent = model.deprecated ? `${model.label} (legacy)` : model.label;
     const source = document.createElement("span");
@@ -227,17 +248,37 @@ function renderModelLicenseList() {
     } else {
       source.textContent = model.sourceLabel || model.key;
     }
-    licenseLink.href = model.licenseUrl || "https://www.apache.org/licenses/LICENSE-2.0";
-    licenseLink.rel = "noopener";
-    licenseLink.textContent = model.license;
+    if (licenseUrl) {
+      licenseNode.href = licenseUrl;
+      licenseNode.rel = "noopener";
+    }
+    licenseNode.textContent = modelLicenseDisplay(model);
 
-    detail.append(source, " · ", licenseLink);
+    detail.append(source, " · ", licenseNode);
     if (model.status) detail.append(" · ", model.status);
+    if (model.direction) detail.append(" · ", model.direction.replace("-", " → ").toUpperCase());
+    if (model.entryCount) detail.append(" · ", `${Number(model.entryCount).toLocaleString()} entries`);
     if (model.embeddingTextField) detail.append(" · ", `embeds ${model.embeddingTextField}`);
+    if (model.usageScope) detail.append(" · ", model.usageScope.replaceAll("_", " "));
+    if (model.intendedUse) {
+      const note = document.createElement("small");
+      note.className = "artifact-license-note";
+      note.textContent = model.intendedUse;
+      detail.append(note);
+    }
     row.append(term, detail);
     return row;
   }));
-  setText("#licenseMetaSummary", `MIT app, ${modelLicenseCatalog.length} local artifacts`);
+  setText("#licenseMetaSummary", `${modelLicenseCatalog.length} artifacts, separate terms`);
+}
+
+function modelLicenseDisplay(model) {
+  const recordedLicense = model.license || "Review pending";
+  if (model.adapter) return `Base model: ${recordedLicense}; derived artifact review pending`;
+  if (model.artifactKind === "embedding-vector-db") {
+    return `Embedding model: ${recordedLicense}; embedded content reviewed separately`;
+  }
+  return recordedLicense;
 }
 
 function normalizeCatalogModel(model) {
@@ -246,7 +287,8 @@ function normalizeCatalogModel(model) {
     label: model.label || model.key,
     shortLabel: model.short_label || model.shortLabel || model.label || model.key,
     repoId: model.repo_id || "",
-    license: model.license || "Apache-2.0",
+    license: model.license || "Review pending",
+    adapter: model.adapter || "",
     intendedUse: model.intended_use || "",
     supportsThinking: Boolean(model.supports_thinking || model.supportsThinking),
     modelFile: model.model_file || model.modelFile || "",
@@ -258,7 +300,12 @@ function normalizeCatalogModel(model) {
     replacementStatus: model.replacement_status || "",
     sourceLabel: model.source_label || "",
     sourceUrl: model.source_url || "",
-    licenseUrl: model.license_url || ""
+    licenseUrl: model.license_url || "",
+    direction: model.direction || "",
+    entryCount: Number(model.entry_count || model.entryCount || 0),
+    senseCount: Number(model.sense_count || model.senseCount || 0),
+    usageScope: model.usage_scope || model.usageScope || "",
+    notes: Array.isArray(model.notes) ? model.notes : []
   };
 }
 
@@ -285,6 +332,15 @@ async function loadModelLicenseCatalog() {
     }
   } catch (error) {
     // Model metadata is enough for settings if browser embedding metadata is unavailable.
+  }
+
+  try {
+    const dictionaryCatalog = await loadJson("data/dictionaries/catalog.json");
+    if (Array.isArray(dictionaryCatalog.dictionaries)) {
+      nextCatalog.push(...dictionaryCatalog.dictionaries.map(normalizeCatalogModel));
+    }
+  } catch (error) {
+    // Missing dictionary metadata should not prevent the settings screen from opening.
   }
 
   if (nextCatalog.length) modelLicenseCatalog = nextCatalog;
@@ -389,6 +445,8 @@ function readGenerationSettingsControls() {
 function generationModelCatalog() {
   return modelLicenseCatalog.filter((model) =>
     (model.modelFile || supportedModelKeys.has(model.key)) &&
+    model.status === "active" &&
+    !model.deprecated &&
     model.artifactKind !== "embedding-vector-db" &&
     model.format !== "sqlite"
   );
@@ -550,7 +608,6 @@ function openSettingsPanel() {
   syncThemeControls();
   syncGenerationSettingsUi();
   syncAppRuntimeControls();
-  $("#closeSettings")?.focus();
 }
 
 function closeSettingsPanel({ restoreFocus = true } = {}) {
@@ -601,7 +658,7 @@ function updatePwaInstallUi(statusText = "") {
     return;
   }
 
-  button.textContent = "Install browser app";
+  button.textContent = "Browser";
   button.disabled = !window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1";
   status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser");
 }
@@ -670,20 +727,18 @@ function syncAppRuntimeControls() {
   const updateButton = $("#updateApp");
   const clearButton = $("#clearCache");
   if (updateButton) {
-    updateButton.hidden = true;
-    updateButton.disabled = true;
-    updateButton.closest("[data-maintenance-action-row]")?.setAttribute("hidden", "");
+    maintenanceUi().getUpdateController?.();
   }
   if (clearButton) clearButton.disabled = false;
 
   if (hasNativeRuntime()) {
     setText("#maintenanceStatus", "Checking app version.");
-    refreshNativeUpdateStatus();
+    void maintenanceUi().refreshSharedUpdateControl?.({ announce: true });
     return;
   }
 
   setText("#maintenanceStatus", "");
-  runtimeAdapter().maintenance.updateStatus().then(syncAboutVersion).catch(() => {});
+  void maintenanceUi().refreshSharedUpdateControl?.({ announce: false });
 }
 
 async function refreshNativeUpdateStatus() {
@@ -711,6 +766,8 @@ async function updateApp() {
     return;
   }
 
+  setUpdateAppControl(nativeUpdateStatus, { busy: true });
+  setText("#maintenanceStatus", "Checking the update server...");
   try {
     const status = await runtimeAdapter().maintenance.updateStatus();
     nativeUpdateStatus = status;
@@ -721,17 +778,16 @@ async function updateApp() {
       return;
     }
 
+    setUpdateAppControl(status);
+    setText("#maintenanceStatus", `Update ${status.latestVersionName || status.latestVersionCode || "available"} is ready for confirmation.`);
+    const confirmed = await maintenanceUi().confirmAppUpdate(status);
+    if (!confirmed) {
+      setText("#maintenanceStatus", "Update postponed. You can start it here whenever you are ready.");
+      return;
+    }
     setUpdateAppControl(status, { busy: true });
-    setText("#maintenanceStatus", "Checking the latest debug APK.");
-
-    const result = await runtimeAdapter().maintenance.updateApp({
-      onEvent(message) {
-        const progressText = maintenanceUi().updateProgressMessage(message, formatBytes);
-        if (progressText) setText("#maintenanceStatus", progressText);
-      }
-    });
-
-    setText("#maintenanceStatus", maintenanceUi().updateResultMessage(result));
+    setText("#maintenanceStatus", "Opening Setup for the app update.");
+    maintenanceUi().beginAppUpdate(status);
   } catch (error) {
     setText("#maintenanceStatus", error?.message || String(error));
   } finally {
@@ -779,48 +835,17 @@ function formatBytes(bytes) {
   return `${mib.toFixed(1)} MiB`;
 }
 
-const verbStorageKey = "caatuu-czech.verb-memory.v2";
-const verbRecentLimit = 8;
-const verbAccentChars = ["á", "č", "ď", "é", "ě", "í", "ň", "ó", "ř", "š", "ť", "ú", "ů", "ý", "ž"];
-
-const verbPersonData = [
-  { key: "1s", label: "já", english: "I", pronouns: ["já"], short: "1sg" },
-  { key: "2s", label: "ty", english: "you", pronouns: ["ty"], short: "2sg" },
-  { key: "3s", label: "on/ona", english: "he/she/it", pronouns: ["on", "ona", "ono"], short: "3sg" },
-  { key: "1p", label: "my", english: "we", pronouns: ["my"], short: "1pl" },
-  { key: "2p", label: "vy", english: "you all", pronouns: ["vy"], short: "2pl" },
-  { key: "3p", label: "oni", english: "they", pronouns: ["oni", "ony"], short: "3pl" }
-];
-
-const verbPersonMap = Object.fromEntries(verbPersonData.map((person) => [person.key, person]));
-
-const verbFamilyLabels = {
-  core: "Core",
-  modal: "Modal",
-  motion: "Motion",
-  daily: "Daily",
-  senses: "Senses",
-  talk: "Talk",
-  social: "Social"
-};
-
-const verbFamilyOrder = ["core", "modal", "motion", "daily", "senses", "talk", "social"];
-
-const verbCommonLevelLabels = {
-  1: "Level 1 · most common",
-  2: "Level 2 · common",
-  3: "Level 3 · situational"
-};
-
-const verbCommonLevelDescriptions = {
-  1: "Survival verbs you see everywhere.",
-  2: "Everyday verbs after the first layer is warm.",
-  3: "Useful, but more specific or nuanced."
-};
-
-const verbCommonLevelOrder = [1, 2, 3];
-
-let fundamentalVerbs = [];
+const verbStorageKey = course.storage.verbMemory;
+const verbMemorySchemaVersion = 2;
+const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
+const verbRobotKeymapUrl = "/assets/robots/keymap.json";
+const verbRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
+const verbRoundInterstitialMillis = 800;
+const verbRoundCompleteHoldMillis = 420;
+const verbSolutionRevealHoldMillis = 1500;
+const verbHintLookupTimeoutMillis = 6000;
+const verbHintImageTimeoutMillis = 1800;
+const verbHintStopwords = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
 
 const defaultPrintOptions = {
   orientation: "landscape",
@@ -986,6 +1011,26 @@ function dictionarySearchText(item) {
   ].join(" "));
 }
 
+const dictionarySectionOrder = ["rules", "core", "full"];
+
+function setDictionarySection(section, options = {}) {
+  const nextSection = dictionarySectionOrder.includes(section) ? section : "rules";
+  state.dictionarySection = nextSection;
+  document.querySelectorAll("[data-dictionary-section]").forEach((button) => {
+    const selected = button.dataset.dictionarySection === nextSection;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-selected", String(selected));
+    button.tabIndex = selected ? 0 : -1;
+    if (selected && options.focus) button.focus();
+  });
+  document.querySelectorAll("[data-dictionary-panel]").forEach((panel) => {
+    const selected = panel.dataset.dictionaryPanel === nextSection;
+    panel.hidden = !selected;
+    panel.classList.toggle("is-active", selected);
+  });
+  if (nextSection === "core") renderDictionary();
+}
+
 function nounModels() {
   return [
     ...new Set(
@@ -997,10 +1042,30 @@ function nounModels() {
 }
 
 function renderDictionary() {
-  const query = normalizeDictionarySearch(state.dictionarySearch);
+  const query = normalizeDictionarySearch(state.coreDictionarySearch);
+  const showCore = Boolean(query) || state.dictionaryBrowseAll;
+  const panel = $("#coreDictionaryPanel");
+  const list = $("#dictionaryList");
+  const toggle = $("#toggleCoreDictionary");
+  if (panel) panel.hidden = !showCore;
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(state.dictionaryBrowseAll));
+    const label = toggle.querySelector("span");
+    if (label) label.textContent = state.dictionaryBrowseAll ? "Hide all" : "Browse all";
+  }
+  if (!showCore) {
+    list?.replaceChildren();
+    return;
+  }
+
   const filtered = query
     ? countryDictionary.filter((item) => dictionarySearchText(item).includes(query))
     : countryDictionary;
+  if (query && !filtered.length) {
+    panel.hidden = true;
+    list.replaceChildren();
+    return;
+  }
   const groupData = categories()
     .map((category) => ({
       category,
@@ -1009,13 +1074,15 @@ function renderDictionary() {
     .filter((group) => group.rows.length);
   const count = $("#dictionaryCount");
   if (count) {
-    count.textContent = `${filtered.length}/${countryDictionary.length} entries`;
+    count.textContent = query
+      ? `${filtered.length} Core result${filtered.length === 1 ? "" : "s"}`
+      : `${countryDictionary.length} words`;
   }
 
   if (!filtered.length) {
-    $("#dictionaryList").innerHTML = `<p class="empty-state">No rows found. Try a simpler word, without endings or diacritics.</p>`;
+    list.innerHTML = `<p class="empty-state">No Core match. The full dictionary may still have this form.</p>`;
   } else {
-    $("#dictionaryList").replaceChildren(
+    list.replaceChildren(
       ...groupData.map((group) => {
         const section = document.createElement("section");
         section.className = "dictionary-group";
@@ -1042,6 +1109,9 @@ function renderDictionary() {
     );
   }
 
+}
+
+function renderScripts() {
   $("#scriptCount").textContent = `${countryScripts.length} scripts`;
   $("#scriptList").replaceChildren(
     ...countryScripts.map((script) => {
@@ -1063,985 +1133,736 @@ function renderDictionary() {
   );
 }
 
-function checkedValues(selector) {
-  return [...document.querySelectorAll(selector)]
-    .filter((input) => input.checked)
-    .map((input) => input.value);
+function emptyVerbStats() {
+  return { attempts: 0, matches: 0, rounds: 0 };
 }
 
-function loadVerbMemory() {
+function safeVerbStat(value) {
+  const number = Number(value);
+  return Number.isFinite(number) && number >= 0 ? Math.floor(number) : 0;
+}
+
+function readVerbMemory() {
   try {
-    const raw = localStorage.getItem(verbStorageKey);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" ? parsed : {};
+    const parsed = JSON.parse(localStorage.getItem(verbStorageKey) || "null");
+    if (parsed?.schemaVersion !== verbMemorySchemaVersion) return null;
+    return parsed;
   } catch (error) {
-    console.warn("Could not read verb memory", error);
-    return {};
+    console.warn("Could not read Verb Nebula memory", error);
+    return null;
   }
 }
 
 function saveVerbMemory() {
+  if (!state.verbMemoryLoaded) return;
   try {
-    localStorage.setItem(verbStorageKey, JSON.stringify(state.verbMastery));
+    localStorage.setItem(verbStorageKey, JSON.stringify({
+      schemaVersion: verbMemorySchemaVersion,
+      knownPairIds: state.verbPairs.map((pair) => pair.id),
+      pairCount: state.verbPairCount,
+      queueIds: state.verbQueueIds,
+      roundIds: state.verbRound.map((pair) => pair.id),
+      englishRoundIds: state.verbEnglishRound.map((pair) => pair.id),
+      matchedIds: [...state.verbMatchedIds],
+      hintsEnabled: state.verbHintsEnabled,
+      roundNumber: state.verbRoundNumber,
+      stats: state.verbStats
+    }));
   } catch (error) {
-    console.warn("Could not save verb memory", error);
+    console.warn("Could not save Verb Nebula memory", error);
   }
 }
 
-function ensureVerbMemory() {
-  if (state.verbMemoryLoaded) return;
-  state.verbMastery = loadVerbMemory();
-  state.verbMemoryLoaded = true;
-}
-
-function verbFamiliesInData() {
-  const seen = new Set(fundamentalVerbs.map((verb) => verb.family).filter(Boolean));
-  return [...seen].sort((left, right) => {
-    const leftIndex = verbFamilyOrder.indexOf(left);
-    const rightIndex = verbFamilyOrder.indexOf(right);
-    if (leftIndex === -1 && rightIndex === -1) return left.localeCompare(right);
-    if (leftIndex === -1) return 1;
-    if (rightIndex === -1) return -1;
-    return leftIndex - rightIndex;
-  });
-}
-
-function verbFamilyLabel(key) {
-  return verbFamilyLabels[key] || key.replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function verbCommonLevel(verb) {
-  const level = Number(verb?.commonLevel ?? 2);
-  return verbCommonLevelOrder.includes(level) ? level : 2;
-}
-
-function verbCommonLevelLabel(level) {
-  return verbCommonLevelLabels[level] || `Level ${level}`;
-}
-
-function verbCommonLevelShortLabel(level) {
-  return `L${level} common`;
-}
-
-function selectedVerbCommonLevels() {
-  const inputs = [...document.querySelectorAll('input[name="verbCommonLevel"]')];
-  if (!inputs.length) return [...verbCommonLevelOrder];
-  return inputs
-    .filter((input) => input.checked)
-    .map((input) => Number(input.value))
-    .filter((level) => verbCommonLevelOrder.includes(level));
-}
-
-function commonLevelSelectionLabel(levels) {
-  const selected = [...new Set(levels)].sort((left, right) => left - right);
-  if (!selected.length) return "no commonness levels";
-  if (selected.length === verbCommonLevelOrder.length) return "Levels 1–3";
-  return selected.map((level) => `L${level}`).join(", ");
-}
-
-function renderVerbCommonLevelOptions() {
-  const host = $("#verbCommonLevelOptions");
-  if (!host) return;
-  const existing = selectedVerbCommonLevels();
-  const selected = existing.length ? new Set(existing.map(String)) : new Set(verbCommonLevelOrder.map(String));
-  const snapshot = verbCommonLevelOrder.join("|");
-  if (host.dataset.snapshot === snapshot) return;
-
-  host.dataset.snapshot = snapshot;
-  host.replaceChildren(
-    ...verbCommonLevelOrder.map((level) => {
-      const label = document.createElement("label");
-      label.title = verbCommonLevelDescriptions[level] || "";
-      label.innerHTML = `
-        <input type="checkbox" name="verbCommonLevel" value="${level}" ${selected.has(String(level)) ? "checked" : ""}>
-        <span><b>${escapeHtml(verbCommonLevelLabel(level))}</b><small>${escapeHtml(verbCommonLevelDescriptions[level] || "")}</small></span>
-      `;
-      return label;
-    })
-  );
-}
-
-function renderVerbFamilyOptions() {
-  const host = $("#verbFamilyOptions");
-  if (!host) return;
-  const families = verbFamiliesInData();
-  const snapshot = families.join("|");
-  if (host.dataset.snapshot === snapshot) return;
-
-  host.dataset.snapshot = snapshot;
-  host.replaceChildren(
-    ...families.map((family) => {
-      const label = document.createElement("label");
-      label.innerHTML = `<input type="checkbox" name="verbFamily" value="${escapeHtml(family)}" checked> <span>${escapeHtml(verbFamilyLabel(family))}</span>`;
-      return label;
-    })
-  );
-}
-
-function resetVerbQuestionSession() {
-  state.verbSession = {
-    answered: false,
-    attempts: 0,
-    selectedAnswer: "",
-    result: null
-  };
-}
-
-function verbSettings() {
-  renderVerbFamilyOptions();
-  renderVerbCommonLevelOptions();
-  return {
-    promptMode: $("#verbPromptMode")?.value || "mixed",
-    answerMode: $("#verbAnswerMode")?.value || "type",
-    practiceFocus: $("#verbPracticeFocus")?.value || "smart",
-    showPronoun: $("#verbShowPronoun")?.checked ?? true,
-    showInfinitive: $("#verbShowInfinitive")?.checked ?? true,
-    showEnglish: $("#verbShowEnglish")?.checked ?? true,
-    showPattern: $("#verbShowPattern")?.checked ?? true,
-    showAccentHelp: $("#verbShowAccentHelp")?.checked ?? true,
-    strictAccents: $("#verbStrictAccents")?.checked ?? false,
-    showReference: $("#verbShowReference")?.checked ?? false,
-    persons: checkedValues('input[name="verbPerson"]'),
-    families: checkedValues('input[name="verbFamily"]'),
-    commonLevels: selectedVerbCommonLevels()
-  };
-}
-
-function defaultVerbRecord() {
-  return {
-    seen: 0,
-    correct: 0,
-    wrong: 0,
-    streak: 0,
-    level: 0,
-    nextDue: 0,
-    lastAt: 0
-  };
-}
-
-function verbMasteryRecord(key) {
-  return { ...defaultVerbRecord(), ...(state.verbMastery[key] || {}) };
-}
-
-function masteryLevelLabel(level) {
-  return ["new", "lit", "warming", "steady", "strong", "anchored"][Math.max(0, Math.min(5, level))] || "new";
-}
-
-function masteryPercent(record) {
-  return Math.min(100, Math.round((Math.max(0, record.level) / 5) * 100));
-}
-
-function verbItemKey(verb, personKey) {
-  return `${verb.infinitive}:${personKey}`;
-}
-
-function verbQuestionPool(settings = verbSettings(), options = {}) {
-  ensureVerbMemory();
-  const useFocus = options.useFocus !== false;
-  const fullPool = fundamentalVerbs
-    .filter((verb) => settings.families.includes(verb.family))
-    .filter((verb) => settings.commonLevels.includes(verbCommonLevel(verb)))
-    .flatMap((verb) => settings.persons
-      .filter((personKey) => verb.forms?.[personKey])
-      .map((personKey) => {
-        const person = verbPersonMap[personKey];
-        const form = verb.forms[personKey];
-        return {
-          key: verbItemKey(verb, personKey),
-          verb,
-          person,
-          personKey,
-          form
-        };
-      }))
-    .filter((item) => item.person && item.form?.cs);
-
-  if (!useFocus) return fullPool;
-
-  if (settings.practiceFocus === "all") {
-    state.verbFocusFallback = false;
-    return fullPool;
-  }
-
-  const now = Date.now();
-  const focused = fullPool.filter((item) => {
-    const record = verbMasteryRecord(item.key);
-    if (settings.practiceFocus === "new") return !record.seen;
-    if (settings.practiceFocus === "weak") return record.seen && (record.wrong > record.correct || record.level <= 2);
-    if (settings.practiceFocus === "due") return record.seen && record.nextDue <= now;
+function validVerbIds(ids, pairById) {
+  const seen = new Set();
+  return Array.from(ids || []).filter((id) => {
+    if (!pairById.has(id) || seen.has(id)) return false;
+    seen.add(id);
     return true;
   });
-
-  state.verbFocusFallback = !focused.length && !!fullPool.length && settings.practiceFocus !== "smart";
-  return focused.length ? focused : fullPool;
 }
 
-function shuffleItems(items) {
-  const shuffled = [...items];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
-  }
-  return shuffled;
-}
+function loadVerbMemory() {
+  if (state.verbMemoryLoaded) return;
+  if (!verbNebulaCore) throw new Error("Verb Nebula engine is not available.");
 
-function weightedPick(items, weightFn) {
-  const weighted = items.map((item) => Math.max(0.01, weightFn(item)));
-  const total = weighted.reduce((sum, weight) => sum + weight, 0);
-  let target = Math.random() * total;
+  state.verbPairs = verbNebulaCore.extractCoreVerbPairs(countryDictionary);
+  const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
+  const memory = readVerbMemory();
+  state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
+  state.verbHintsEnabled = Boolean(memory?.hintsEnabled);
+  state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
+  state.verbStats = {
+    attempts: safeVerbStat(memory?.stats?.attempts),
+    matches: safeVerbStat(memory?.stats?.matches),
+    rounds: safeVerbStat(memory?.stats?.rounds)
+  };
 
-  for (let index = 0; index < items.length; index += 1) {
-    target -= weighted[index];
-    if (target <= 0) return items[index];
-  }
-
-  return items[items.length - 1];
-}
-
-function smartVerbWeight(item) {
-  const record = verbMasteryRecord(item.key);
-  const now = Date.now();
-  let weight = 1 + (5 - Math.min(5, record.level)) * 0.78;
-  if (!record.seen) weight += 2.2;
-  if (record.wrong) weight += Math.min(2.5, record.wrong * 0.45);
-  if (record.nextDue && record.nextDue <= now) weight += 2;
-  if (record.nextDue && record.nextDue > now) weight *= 0.42;
-  if (state.verbRecentKeys.includes(item.key)) weight *= 0.18;
-  if (item.key === state.verbQuestion?.key) weight *= 0.05;
-  return weight;
-}
-
-function pickPromptMode(settings) {
-  if (settings.promptMode !== "mixed") return settings.promptMode;
-  const modes = ["english", "person"];
-  if (settings.answerMode !== "type") modes.push("reverse");
-  return modes[Math.floor(Math.random() * modes.length)];
-}
-
-function targetAnswerFor(question) {
-  return question.promptMode === "reverse" ? question.form.en : question.form.cs;
-}
-
-function answerForItem(item, promptMode) {
-  return promptMode === "reverse" ? item.form.en : item.form.cs;
-}
-
-function uniqueAnswers(items, correctAnswer, promptMode) {
-  const seen = new Set([correctAnswer]);
-  const answers = [];
-
-  items.forEach((item) => {
-    const answer = answerForItem(item, promptMode);
-    if (!answer || seen.has(answer)) return;
-    seen.add(answer);
-    answers.push(answer);
-  });
-
-  return answers;
-}
-
-function distractorPool(item, pool, promptMode) {
-  const sameVerb = pool.filter((candidate) => candidate.verb.infinitive === item.verb.infinitive && candidate.key !== item.key);
-  const samePerson = pool.filter((candidate) => candidate.personKey === item.personKey && candidate.key !== item.key);
-  const sameFamily = pool.filter((candidate) => candidate.verb.family === item.verb.family && candidate.key !== item.key);
-  const everythingElse = pool.filter((candidate) => candidate.key !== item.key);
-
-  if (promptMode === "reverse") {
-    return [
-      ...uniqueAnswers(shuffleItems(sameVerb), answerForItem(item, promptMode), promptMode),
-      ...uniqueAnswers(shuffleItems(sameFamily), answerForItem(item, promptMode), promptMode),
-      ...uniqueAnswers(shuffleItems(everythingElse), answerForItem(item, promptMode), promptMode)
-    ];
-  }
-
-  return [
-    ...uniqueAnswers(shuffleItems(sameVerb), answerForItem(item, promptMode), promptMode),
-    ...uniqueAnswers(shuffleItems(samePerson), answerForItem(item, promptMode), promptMode),
-    ...uniqueAnswers(shuffleItems(sameFamily), answerForItem(item, promptMode), promptMode),
-    ...uniqueAnswers(shuffleItems(everythingElse), answerForItem(item, promptMode), promptMode)
-  ];
-}
-
-function buildVerbChoices(item, pool, promptMode) {
-  const correctAnswer = answerForItem(item, promptMode);
-  const distractors = [...new Set(distractorPool(item, pool, promptMode))]
-    .filter((answer) => answer !== correctAnswer)
-    .slice(0, 3);
-
-  return shuffleItems([correctAnswer, ...distractors]).slice(0, 4);
-}
-
-function pickVerbQuestion(settings = verbSettings(), pool = verbQuestionPool(settings)) {
-  if (!pool.length) return null;
-  const candidates = pool.length > 1 ? pool.filter((item) => item.key !== state.verbQuestion?.key) : pool;
-  const item = settings.practiceFocus === "smart"
-    ? weightedPick(candidates, smartVerbWeight)
-    : candidates[Math.floor(Math.random() * candidates.length)];
-  const promptMode = pickPromptMode(settings);
-  return { ...item, promptMode, choices: buildVerbChoices(item, pool, promptMode) };
-}
-
-function normalizeVerbAnswer(value, strictAccents) {
-  const normalized = String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/[.!?。！？]+$/g, "")
-    .replace(/\s+/g, " ");
-
-  if (strictAccents) return normalized;
-
-  return normalized
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
-
-function pronounAnswer(pronoun, answer) {
-  const reflexive = String(answer).match(/^(.*)\s+(se|si)$/);
-  if (!reflexive) return `${pronoun} ${answer}`;
-  return `${pronoun} ${reflexive[2]} ${reflexive[1]}`.replace(/\s+/g, " ").trim();
-}
-
-function verbAcceptedAnswers(question, settings = verbSettings()) {
-  if (question.promptMode === "reverse") {
-    return [question.form.en, question.verb.english, ...(question.form.enAccepted || [])].filter(Boolean);
-  }
-
-  const answers = [question.form.cs, ...(question.form.accepted || [])].filter(Boolean);
-  const withPronouns = question.person.pronouns.flatMap((pronoun) =>
-    answers.map((answer) => pronounAnswer(pronoun, answer))
+  const savedRoundIds = validVerbIds(memory?.roundIds, pairById);
+  const canRestoreRound = savedRoundIds.length === state.verbPairCount;
+  const restoredRoundIds = canRestoreRound ? savedRoundIds : [];
+  const restoredRoundSet = new Set(restoredRoundIds);
+  const queueSeed = canRestoreRound
+    ? memory?.queueIds
+    : [...savedRoundIds, ...Array.from(memory?.queueIds || [])];
+  const queuePairs = state.verbPairs.filter((pair) => !restoredRoundSet.has(pair.id));
+  state.verbQueueIds = verbNebulaCore.restoreVerbQueue(
+    queuePairs,
+    queueSeed,
+    Math.random,
+    memory?.knownPairIds || null
   );
-  return [...answers, ...withPronouns];
-}
 
-function isCorrectVerbAnswer(question, value, settings) {
-  const answer = normalizeVerbAnswer(value, settings.strictAccents);
-  return verbAcceptedAnswers(question, settings)
-    .map((accepted) => normalizeVerbAnswer(accepted, settings.strictAccents))
-    .includes(answer);
-}
-
-function accentList(value) {
-  return [...new Set([...String(value)].filter((char) => char.normalize("NFD") !== char))]
-    .join(" ");
-}
-
-function answerModeUsesChoices(question, settings) {
-  return question?.promptMode === "reverse" || settings.answerMode === "choices" || settings.answerMode === "hybrid";
-}
-
-function answerModeUsesTyping(question, settings) {
-  return question?.promptMode !== "reverse" && settings.answerMode !== "choices";
-}
-
-function verbPromptLabel(question) {
-  if (question.promptMode === "reverse") return "Recognize";
-  if (question.promptMode === "english") return "Translate and conjugate";
-  return "Conjugate";
-}
-
-function verbPromptMain(question) {
-  if (question.promptMode === "reverse") return question.form.cs;
-  if (question.promptMode === "english") return question.form.en;
-  return question.person.label;
-}
-
-function verbPromptHint(question) {
-  if (question.promptMode === "reverse") return "Choose the English meaning of this Czech form.";
-  if (question.promptMode === "english") return "Give the Czech present-tense form.";
-  return `Make the present form for ${question.person.english}.`;
-}
-
-function formStemForDisplay(form) {
-  return String(form || "").replace(/\s+(se|si)$/u, "");
-}
-
-function answerEndingHint(question) {
-  const plain = formStemForDisplay(question.form.cs);
-  if (plain.length <= 3) return plain;
-  if (question.verb.pattern?.includes("-ám")) return plain.slice(-2);
-  if (question.verb.pattern?.includes("-ím")) return plain.slice(-2);
-  if (question.verb.pattern?.includes("-uji")) return plain.slice(-3);
-  return plain.slice(-2);
-}
-
-function renderVerbCues(question, settings) {
-  const cues = [];
-  const family = verbFamilyLabel(question.verb.family);
-
-  cues.push(["Family", family]);
-  cues.push(["Commonness", verbCommonLevelLabel(verbCommonLevel(question.verb))]);
-  if (settings.showPronoun) cues.push(["Person", question.person.label]);
-  if (settings.showInfinitive) cues.push(["Infinitive", question.verb.infinitive]);
-  if (settings.showEnglish && question.promptMode !== "english") cues.push(["Meaning", question.verb.english]);
-  if (settings.showPattern && question.verb.pattern) cues.push(["Pattern", question.verb.pattern]);
-  if (question.verb.aspect) cues.push(["Aspect", question.verb.aspect]);
-  if (settings.showAccentHelp && question.promptMode !== "reverse") {
-    const accents = accentList(question.form.cs);
-    if (accents) cues.push(["Accents", accents]);
-  }
-  if (question.promptMode !== "reverse") cues.push(["Ending", answerEndingHint(question)]);
-
-  $("#verbCueList").replaceChildren(
-    ...cues.map(([label, value]) => {
-      const item = document.createElement("span");
-      item.innerHTML = `<b>${escapeHtml(label)}</b> ${escapeHtml(value)}`;
-      return item;
-    })
-  );
-}
-
-function renderVerbChoices(question, settings) {
-  const choiceList = $("#verbChoiceList");
-  const correctAnswer = targetAnswerFor(question);
-  choiceList.replaceChildren(
-    ...question.choices.map((choice) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "verb-choice-option";
-      button.dataset.answer = choice;
-      button.disabled = state.verbSession.answered;
-      button.textContent = choice;
-      button.setAttribute("aria-pressed", String(state.verbSession.selectedAnswer === choice));
-      if (state.verbSession.answered || state.verbSession.selectedAnswer) {
-        button.classList.toggle("is-selected", state.verbSession.selectedAnswer === choice);
-        button.classList.toggle("is-correct", state.verbSession.answered && choice === correctAnswer);
-        button.classList.toggle("is-wrong", state.verbSession.selectedAnswer === choice && choice !== correctAnswer);
-      }
-      return button;
-    })
-  );
-}
-
-function markVerbChoices(selectedAnswer) {
-  const question = state.verbQuestion;
-  if (!question) return;
-  const correctAnswer = targetAnswerFor(question);
-
-  document.querySelectorAll(".verb-choice-option").forEach((button) => {
-    const isSelected = button.dataset.answer === selectedAnswer;
-    const isCorrect = button.dataset.answer === correctAnswer;
-    button.classList.toggle("is-selected", isSelected);
-    button.classList.toggle("is-correct", state.verbSession.answered && isCorrect);
-    button.classList.toggle("is-wrong", isSelected && !isCorrect);
-    button.setAttribute("aria-pressed", String(isSelected));
-    if (state.verbSession.answered) button.disabled = true;
-  });
-}
-
-function updateVerbMemory(question, correct) {
-  ensureVerbMemory();
-  const record = verbMasteryRecord(question.key);
-  record.seen += 1;
-  record.lastAt = Date.now();
-
-  if (correct) {
-    record.correct += 1;
-    record.streak += 1;
-    record.level = Math.min(5, record.level + 1);
-  } else {
-    record.wrong += 1;
-    record.streak = 0;
-    record.level = Math.max(0, record.level - 1);
-  }
-
-  const reviewDelay = [0, 20_000, 90_000, 5 * 60_000, 30 * 60_000, 18 * 60 * 60_000][record.level] || 0;
-  record.nextDue = Date.now() + reviewDelay;
-  state.verbMastery[question.key] = record;
-  saveVerbMemory();
-}
-
-function rememberRecentQuestion(key) {
-  state.verbRecentKeys = [key, ...state.verbRecentKeys.filter((item) => item !== key)].slice(0, verbRecentLimit);
-}
-
-function renderVerbStats() {
-  const stats = state.verbStats;
-  const accuracy = stats.asked ? Math.round((stats.correct / stats.asked) * 100) : 0;
-  $("#verbAskedCount").textContent = stats.asked;
-  $("#verbCorrectCount").textContent = stats.correct;
-  $("#verbStreakCount").textContent = stats.streak;
-  $("#verbAccuracyCount").textContent = `${accuracy}%`;
-  $("#verbBestStreakCount").textContent = stats.bestStreak;
-
-  const settings = verbSettings();
-  const activePool = verbQuestionPool(settings, { useFocus: false });
-  const mastered = activePool.filter((item) => verbMasteryRecord(item.key).level >= 4).length;
-  const weak = activePool.filter((item) => {
-    const record = verbMasteryRecord(item.key);
-    return record.seen && (record.wrong > record.correct || record.level <= 2);
-  }).length;
-  const masteredPercent = activePool.length ? Math.round((mastered / activePool.length) * 100) : 0;
-  $("#verbMasteredCount").textContent = `${mastered}/${activePool.length}`;
-  $("#verbWeakCount").textContent = weak;
-  const bar = $("#verbMasteryBar");
-  if (bar) bar.style.width = `${masteredPercent}%`;
-}
-
-function renderVerbOptionsVisibility() {
-  const panel = $("#verbOptionsPanel");
-  const toggle = $("#verbToggleOptions");
-  if (!panel || !toggle) return;
-
-  panel.hidden = !state.verbOptionsOpen;
-  toggle.textContent = state.verbOptionsOpen ? "Hide options" : "Options";
-  toggle.setAttribute("aria-expanded", String(state.verbOptionsOpen));
-}
-
-function toggleVerbOptions() {
-  state.verbOptionsOpen = !state.verbOptionsOpen;
-  renderVerbOptionsVisibility();
-}
-
-function activeVerbs(settings) {
-  return fundamentalVerbs
-    .filter((verb) => settings.families.includes(verb.family))
-    .filter((verb) => settings.commonLevels.includes(verbCommonLevel(verb)));
-}
-
-function renderVerbFormRail(question, settings) {
-  const rail = $("#verbFormRail");
-  if (!rail || !question) return;
-
-  const people = verbPersonData.filter((person) => question.verb.forms?.[person.key]);
-  rail.replaceChildren(
-    ...people.map((person) => {
-      const form = question.verb.forms[person.key];
-      const key = verbItemKey(question.verb, person.key);
-      const record = verbMasteryRecord(key);
-      const cell = document.createElement("div");
-      cell.className = "verb-form-rail-cell";
-      cell.classList.toggle("is-current", question.personKey === person.key);
-      cell.classList.toggle("is-mastered", record.level >= 4);
-      cell.innerHTML = `
-        <span>${escapeHtml(person.label)}</span>
-        <b>${escapeHtml(form.cs)}</b>
-        <small>${escapeHtml(masteryLevelLabel(record.level))}</small>
-      `;
-      return cell;
-    })
-  );
-}
-
-function renderVerbCoach(question, settings) {
-  const panel = $("#verbCoach");
-  if (!panel) return;
-
-  if (!question) {
-    $("#verbCoachTitle").textContent = "No active card";
-    $("#verbCoachMeta").textContent = "Choose at least one person, one family, and one commonness level.";
-    $("#verbAnswerKey").textContent = "";
-    $("#verbFormRail").replaceChildren();
-    return;
-  }
-
-  const record = verbMasteryRecord(question.key);
-  const answer = targetAnswerFor(question);
-  $("#verbCoachTitle").textContent = `${question.verb.infinitive} · ${question.verb.english}`;
-  $("#verbCoachMeta").textContent = [verbFamilyLabel(question.verb.family), verbCommonLevelLabel(verbCommonLevel(question.verb)), question.verb.pattern, question.verb.note]
-    .filter(Boolean)
-    .join(" · ");
-  $("#verbAnswerKey").textContent = state.verbSession.answered
-    ? answer
-    : `${masteryLevelLabel(record.level)} · ${record.seen || 0} seen`;
-  renderVerbFormRail(question, settings);
-}
-
-function renderVerbSessionLog() {
-  const log = $("#verbSessionLog");
-  if (!log) return;
-  const entries = state.verbRecentKeys.slice(0, 6).map((key) => {
-    const [infinitive, personKey] = key.split(":");
-    const record = verbMasteryRecord(key);
-    const item = document.createElement("span");
-    item.className = "verb-log-chip";
-    item.textContent = `${verbPersonMap[personKey]?.label || personKey} ${infinitive}: ${masteryLevelLabel(record.level)}`;
-    return item;
-  });
-  log.replaceChildren(...entries);
-}
-
-function renderVerbQuestion(settings, poolLength) {
-  const question = state.verbQuestion;
-  const feedback = $("#verbFeedback");
-  const answer = $("#verbAnswer");
-  const answerControl = $(".verb-answer-control");
-  const choiceList = $("#verbChoiceList");
-  const checkButton = $("#verbCheckAnswer");
-  const nextButton = $("#verbNextCard");
-
-  if (!question) {
-    $("#verbFamilyTag").textContent = "No deck";
-    $("#verbCommonTag").textContent = "commonness";
-    $("#verbCommonTag").title = "Choose one or more commonness levels.";
-    $("#verbPatternTag").textContent = "present";
-    $("#verbQuestionLabel").textContent = "Deck empty";
-    $("#verbQuestionMain").textContent = "Select at least one person, verb family, and commonness level";
-    $("#verbPromptHint").textContent = "The trainer needs one active form before it can deal a card. Check people, families, and commonness levels.";
-    $("#verbCueList").replaceChildren();
-    choiceList.replaceChildren();
-    choiceList.hidden = true;
-    answerControl.hidden = false;
-    checkButton.hidden = false;
-    $("#verbRoundMeta").textContent = "0 active forms";
-    answer.value = "";
-    answer.disabled = true;
-    feedback.textContent = "";
-    feedback.className = "verb-feedback";
-    nextButton.textContent = "Next card";
-    renderVerbCoach(null, settings);
-    return;
-  }
-
-  const family = verbFamilyLabel(question.verb.family);
-  const record = verbMasteryRecord(question.key);
-  const useChoices = answerModeUsesChoices(question, settings);
-  const useTyping = answerModeUsesTyping(question, settings);
-
-  $("#verbFamilyTag").textContent = family;
-  $("#verbCommonTag").textContent = verbCommonLevelShortLabel(verbCommonLevel(question.verb));
-  $("#verbCommonTag").title = verbCommonLevelLabel(verbCommonLevel(question.verb));
-  $("#verbPatternTag").textContent = question.verb.pattern || question.verb.note || "present";
-  $("#verbQuestionLabel").textContent = verbPromptLabel(question);
-  $("#verbQuestionMain").textContent = verbPromptMain(question);
-  $("#verbPromptHint").textContent = verbPromptHint(question);
-  $("#verbRoundMeta").textContent = `${poolLength} active forms · ${masteryLevelLabel(record.level)}`;
-  answer.disabled = state.verbSession.answered;
-  answer.placeholder = question.promptMode === "reverse" ? "Choose below" : "Type the Czech form";
-  answerControl.hidden = !useTyping;
-  choiceList.hidden = !useChoices;
-  checkButton.hidden = !useTyping;
-  nextButton.textContent = state.verbSession.answered ? "Next card" : "Skip";
-
-  if (useChoices) renderVerbChoices(question, settings);
-  else choiceList.replaceChildren();
-
-  if (!state.verbSession.result) {
-    feedback.textContent = "";
-    feedback.className = "verb-feedback";
-  }
-
-  renderVerbCues(question, settings);
-  renderVerbCoach(question, settings);
-}
-
-function renderVerbReference(settings) {
-  const panel = $(".verb-reference-panel");
-  const body = $("#verbReferenceBody");
-  const toggle = $("#verbReferenceToggle");
-  const list = $("#verbReferenceList");
-  if (!panel || !list) return;
-
-  panel.classList.toggle("is-collapsed", !settings.showReference);
-  if (body) body.hidden = !settings.showReference;
-  if (toggle) {
-    toggle.textContent = settings.showReference ? "Hide tables" : "Show tables";
-    toggle.setAttribute("aria-expanded", String(settings.showReference));
-  }
-
-  const persons = settings.persons
-    .map((personKey) => verbPersonMap[personKey])
-    .filter(Boolean);
-  const search = normalizeVerbAnswer(state.verbReferenceSearch || $("#verbReferenceSearch")?.value || "", false);
-  const verbs = activeVerbs(settings).filter((verb) => {
-    if (!search) return true;
-    return [verb.infinitive, verb.english, verb.note, verb.pattern, verb.family, verbCommonLevelLabel(verbCommonLevel(verb)), `level ${verbCommonLevel(verb)}`, `l${verbCommonLevel(verb)}`]
-      .some((value) => normalizeVerbAnswer(value, false).includes(search));
-  });
-
-  $("#verbReferenceCount").textContent = `${verbs.length} ${verbs.length === 1 ? "verb" : "verbs"}`;
-  if (!settings.showReference) {
-    list.replaceChildren();
-    return;
-  }
-
-  if (!verbs.length || !persons.length) {
-    list.innerHTML = `<p class="empty-state">No active verb tables.</p>`;
-    return;
-  }
-
-  list.replaceChildren(
-    ...verbs.map((verb) => {
-      const activeForms = persons.filter((person) => verb.forms?.[person.key]);
-      const mastered = activeForms.filter((person) => verbMasteryRecord(verbItemKey(verb, person.key)).level >= 4).length;
-      const card = document.createElement("article");
-      card.className = "verb-reference-card";
-      card.innerHTML = `
-        <header>
-          <div>
-            <h4>${escapeHtml(verb.infinitive)}</h4>
-            <p>${escapeHtml(verb.english)}</p>
-          </div>
-          <small>${escapeHtml([verbFamilyLabel(verb.family), verbCommonLevelShortLabel(verbCommonLevel(verb)), verb.pattern || verb.note].filter(Boolean).join(" · "))}</small>
-        </header>
-        <div class="verb-reference-progress" aria-label="Verb progress">
-          <span style="width: ${activeForms.length ? Math.round((mastered / activeForms.length) * 100) : 0}%"></span>
-        </div>
-        <div class="verb-form-grid">
-          ${persons.map((person) => {
-            const form = verb.forms?.[person.key];
-            if (!form) return "";
-            const record = verbMasteryRecord(verbItemKey(verb, person.key));
-            return `
-              <div class="verb-form-cell${record.level >= 4 ? " is-mastered" : ""}">
-                <span>${escapeHtml(person.label)}</span>
-                <b>${escapeHtml(form.cs)}</b>
-                <small>${escapeHtml(form.en)} · ${escapeHtml(masteryLevelLabel(record.level))}</small>
-              </div>
-            `;
-          }).join("")}
-        </div>
-      `;
-      return card;
-    })
-  );
-}
-
-function toggleVerbReferenceTables() {
-  const checkbox = $("#verbShowReference");
-  if (checkbox) checkbox.checked = !checkbox.checked;
-  renderVerbReference(verbSettings());
-}
-
-function renderVerbTrainer() {
-  if (!$("#view-verbs")) return;
-
-  ensureVerbMemory();
-  renderVerbFamilyOptions();
-  const settings = verbSettings();
-  const pool = verbQuestionPool(settings);
-  const fullPool = verbQuestionPool(settings, { useFocus: false });
-  const previousQuestionKey = state.verbQuestion?.key;
-  $("#verbPoolCount").textContent = `${pool.length}/${fullPool.length} forms in deck`;
-  const commonnessText = commonLevelSelectionLabel(settings.commonLevels);
-  $("#verbFocusNote").textContent = state.verbFocusFallback
-    ? `That focus had no cards, so the trainer is using the full active deck. Commonness: ${commonnessText}.`
-    : `${settings.practiceFocus === "smart" ? "Smart review" : settings.practiceFocus} focus active. Commonness: ${commonnessText}.`;
-
-  if (!pool.length) {
-    state.verbQuestion = null;
-    resetVerbQuestionSession();
-  } else if (!state.verbQuestion || !pool.some((item) => item.key === state.verbQuestion.key)) {
-    state.verbQuestion = pickVerbQuestion(settings, pool);
-    resetVerbQuestionSession();
-  }
-
-  if (state.verbQuestion?.key !== previousQuestionKey) {
-    const answer = $("#verbAnswer");
-    if (answer) answer.value = "";
-  }
-
-  renderVerbQuestion(settings, pool.length);
-  renderVerbOptionsVisibility();
-  renderVerbReference(settings);
-  renderVerbStats();
-  renderVerbSessionLog();
-}
-
-function nextVerbQuestion() {
-  const settings = verbSettings();
-  const pool = verbQuestionPool(settings);
-  state.verbQuestion = pickVerbQuestion(settings, pool);
-  resetVerbQuestionSession();
-  const answer = $("#verbAnswer");
-  if (answer) answer.value = "";
-  renderVerbTrainer();
-  if (answerModeUsesTyping(state.verbQuestion, settings)) $("#verbAnswer")?.focus();
-}
-
-function feedbackHint(question, correct) {
-  if (correct) {
-    const accepted = verbAcceptedAnswers(question).slice(1, 4);
-    return accepted.length ? `Also accepted: ${accepted.join(" / ")}` : "Good form. Let the ending stick.";
-  }
-
-  if (question.promptMode === "reverse") return `Answer: ${targetAnswerFor(question)}`;
-  return `Look for ${question.person.label} on ${question.verb.infinitive}. Ending clue: ${answerEndingHint(question)}.`;
-}
-
-function setVerbFeedback(message, kind) {
-  const feedback = $("#verbFeedback");
-  feedback.textContent = message;
-  feedback.className = `verb-feedback ${kind ? `is-${kind}` : ""}`.trim();
-}
-
-function finalizeVerbAnswer(question, correct, cleanValue, settings, revealed = false) {
-  const firstAttempt = state.verbSession.attempts === 0;
-  state.verbSession.attempts += 1;
-  state.verbSession.selectedAnswer = cleanValue;
-
-  if (firstAttempt) {
-    state.verbStats.asked += 1;
-    if (correct) {
-      state.verbStats.correct += 1;
-      state.verbStats.streak += 1;
-      state.verbStats.bestStreak = Math.max(state.verbStats.bestStreak, state.verbStats.streak);
-    } else {
-      state.verbStats.streak = 0;
+  if (canRestoreRound) {
+    state.verbRound = restoredRoundIds.map((id) => pairById.get(id));
+    const englishIds = validVerbIds(memory?.englishRoundIds, pairById)
+      .filter((id) => restoredRoundSet.has(id));
+    state.verbEnglishRound = englishIds.length === restoredRoundIds.length
+      ? englishIds.map((id) => pairById.get(id))
+      : verbNebulaCore.shuffleVerbMeanings(state.verbRound);
+    state.verbMatchedIds = new Set(
+      validVerbIds(memory?.matchedIds, pairById).filter((id) => restoredRoundSet.has(id))
+    );
+    // A transition timer cannot survive an app pause, reload, or WebView
+    // recreation. Treat a persisted completed round as consumed so rendering
+    // immediately deals the next puzzle from the preserved queue.
+    if (verbNebulaCore.isVerbRoundComplete(state.verbRound, state.verbMatchedIds)) {
+      state.verbRound = [];
+      state.verbEnglishRound = [];
+      state.verbMatchedIds.clear();
     }
-    updateVerbMemory(question, correct);
-    rememberRecentQuestion(question.key);
   }
 
-  const mustResolve = revealed || correct || question.promptMode === "reverse" || settings.answerMode === "choices" || state.verbSession.attempts >= 2;
-  state.verbSession.answered = mustResolve;
-  state.verbSession.result = correct ? "correct" : (mustResolve ? "wrong" : "try");
-
-  if (revealed) {
-    setVerbFeedback(`Answer: ${verbAcceptedAnswers(question, settings).slice(0, 4).join(" / ")}`, "revealed");
-  } else if (correct && firstAttempt) {
-    setVerbFeedback(`Correct: ${targetAnswerFor(question)}. ${feedbackHint(question, true)}`, "correct");
-  } else if (correct) {
-    setVerbFeedback(`Recovered: ${targetAnswerFor(question)}. ${feedbackHint(question, true)}`, "correct");
-  } else if (mustResolve) {
-    setVerbFeedback(`Answer: ${targetAnswerFor(question)}. ${feedbackHint(question, false)}`, "wrong");
-  } else {
-    setVerbFeedback(`Not yet. ${feedbackHint(question, false)}`, "warn");
-  }
-
-  if (answerModeUsesChoices(question, settings)) markVerbChoices(cleanValue);
-  renderVerbStats();
-  renderVerbCoach(question, settings);
-  renderVerbSessionLog();
-  renderVerbQuestion(settings, verbQuestionPool(settings).length);
+  state.verbMemoryLoaded = true;
+  void loadVerbRobotPaths();
 }
 
-function submitVerbAnswer(value) {
-  const question = state.verbQuestion;
-  if (!question || state.verbSession.answered) return;
+function setVerbMatchFeedback(message, kind = "") {
+  const feedback = $("#verbMatchFeedback");
+  if (!feedback) return;
+  feedback.textContent = message;
+  feedback.className = `verb-match-feedback${kind ? ` is-${kind}` : ""}`;
+}
 
-  const settings = verbSettings();
-  const cleanValue = String(value || "").trim();
+function resetVerbSelections() {
+  state.verbSelectedCzechId = "";
+  state.verbSelectedEnglishId = "";
+  state.verbWrongIds.clear();
+  if (state.verbWrongTimer) {
+    window.clearTimeout(state.verbWrongTimer);
+    state.verbWrongTimer = null;
+  }
+}
 
-  if (!cleanValue) {
-    setVerbFeedback("Add an answer first.", "warn");
+function returnUnmatchedVerbsToQueue() {
+  const queued = new Set(state.verbQueueIds);
+  const unfinished = state.verbRound
+    .filter((pair) => !state.verbMatchedIds.has(pair.id) && !queued.has(pair.id))
+    .map((pair) => pair.id);
+  state.verbQueueIds.push(...unfinished);
+}
+
+function planVerbRound() {
+  const dealt = verbNebulaCore.dealVerbRound(
+    state.verbPairs,
+    state.verbQueueIds,
+    state.verbPairCount
+  );
+  return {
+    round: dealt.round,
+    englishRound: verbNebulaCore.shuffleVerbMeanings(dealt.round),
+    queueIds: dealt.queueIds
+  };
+}
+
+function applyVerbRound(plan, preloadedHints = null) {
+  resetVerbSelections();
+  state.verbHintRequestId += 1;
+  state.verbRound = plan.round;
+  state.verbEnglishRound = plan.englishRound;
+  state.verbQueueIds = plan.queueIds;
+  state.verbMatchedIds = new Set();
+  state.verbSolutionRevealed = false;
+  state.verbRoundTransitioning = false;
+  state.verbRoundInterstitial = false;
+  state.verbInterstitialRobotPath = "";
+  state.verbHintById.clear();
+  if (state.verbHintsEnabled && preloadedHints instanceof Map) {
+    plan.round.forEach((pair) => {
+      state.verbHintById.set(pair.id, preloadedHints.get(pair.id) || { status: "unavailable" });
+    });
+  }
+  state.verbRoundNumber += 1;
+  saveVerbMemory();
+
+  if (state.verbRound.length) {
+    setVerbMatchFeedback("Choose a Czech verb, then its English match.");
+  } else {
+    setVerbMatchFeedback("No Core verbs are available for this game.", "wrong");
+  }
+  renderVerbNebula();
+}
+
+function startVerbRound(options = {}) {
+  loadVerbMemory();
+  if (options.returnUnmatched) returnUnmatchedVerbsToQueue();
+  applyVerbRound(planVerbRound());
+}
+
+function verbRoundComplete() {
+  return verbNebulaCore.isVerbRoundComplete(state.verbRound, state.verbMatchedIds);
+}
+
+function renderVerbPairCountControls() {
+  document.querySelectorAll("[data-verb-pair-count]").forEach((button) => {
+    const selected = Number(button.dataset.verbPairCount) === state.verbPairCount;
+    button.setAttribute("aria-pressed", String(selected));
+    button.classList.toggle("is-active", selected);
+  });
+  setText("#verbPairCurrent", String(state.verbPairCount));
+}
+
+function renderVerbMatchStats() {
+  const matched = state.verbMatchedIds.size;
+  setText("#verbRoundProgress", `${matched} / ${state.verbRound.length || state.verbPairCount}`);
+  setText("#verbQueueRemaining", String(state.verbQueueIds.length));
+  const accuracy = state.verbStats.attempts
+    ? `${Math.round((state.verbStats.matches / state.verbStats.attempts) * 100)}%`
+    : "—";
+  setText("#verbMatchAccuracy", accuracy);
+
+  const revealButton = $("#verbRevealSolution");
+  if (revealButton) {
+    const canReveal = Boolean(state.verbRound.length)
+      && !state.verbRoundTransitioning
+      && !verbRoundComplete();
+    revealButton.disabled = !canReveal;
+    revealButton.classList.toggle("is-ready", state.verbSolutionRevealed);
+  }
+}
+
+function renderVerbHintSlot(pair) {
+  const slot = document.createElement("span");
+  slot.className = "verb-match-hint-slot";
+  if (!state.verbHintsEnabled) {
+    slot.hidden = true;
+    return slot;
+  }
+  const hint = state.verbHintById.get(pair.id);
+  if (!hint) {
+    slot.hidden = true;
+    return slot;
+  }
+
+  slot.hidden = false;
+  if (hint.status === "loading") {
+    const loader = document.createElement("span");
+    loader.className = "verb-hint-loader";
+    loader.setAttribute("aria-label", "Loading picture clue");
+    slot.append(loader);
+    return slot;
+  }
+
+  if (hint.status === "ready") {
+    const image = document.createElement("img");
+    image.src = hint.assetPath;
+    image.alt = hint.alt || "Picture clue";
+    image.addEventListener("error", () => {
+      state.verbHintById.set(pair.id, { status: "unavailable" });
+      renderVerbNebula();
+    }, { once: true });
+    slot.append(image);
+    return slot;
+  }
+
+  const unavailable = document.createElement("span");
+  unavailable.className = "verb-hint-unavailable";
+  unavailable.textContent = "—";
+  slot.append(unavailable);
+  return slot;
+}
+
+function createVerbMatchCard(pair, side) {
+  const matched = state.verbMatchedIds.has(pair.id);
+  const selected = side === "cz"
+    ? state.verbSelectedCzechId === pair.id
+    : state.verbSelectedEnglishId === pair.id;
+  const solutionOrdinal = state.verbSolutionRevealed
+    ? state.verbRound.findIndex((item) => item.id === pair.id) + 1
+    : 0;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `verb-match-card verb-match-card-${side}`;
+  button.dataset.verbId = pair.id;
+  button.dataset.verbSide = side;
+  button.disabled = matched || state.verbRoundTransitioning || state.verbSolutionRevealed;
+  button.setAttribute("aria-pressed", String(selected));
+  button.classList.toggle("is-selected", selected || solutionOrdinal > 0);
+  button.classList.toggle("is-matched", matched);
+  button.classList.toggle("is-wrong", state.verbWrongIds.has(`${side}:${pair.id}`));
+
+  const copy = document.createElement("span");
+  copy.className = "verb-match-card-copy";
+  const label = side === "cz" ? pair.cz : pair.eng;
+  copy.textContent = solutionOrdinal > 0 ? `${solutionOrdinal}. ${label}` : label;
+  if (solutionOrdinal > 0) {
+    button.setAttribute("aria-label", `Pair ${solutionOrdinal}: ${label}`);
+  }
+  if (side === "cz") button.append(renderVerbHintSlot(pair));
+  button.append(copy);
+  return button;
+}
+
+function renderVerbHintButton() {
+  const button = $("#verbHintButton");
+  if (!button) return;
+  const loading = state.verbHintsEnabled
+    && [...state.verbHintById.values()].some((hint) => hint?.status === "loading");
+  button.disabled = !state.verbRound.length || state.verbRoundTransitioning;
+  button.setAttribute("aria-pressed", String(state.verbHintsEnabled));
+  button.setAttribute("aria-label", state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues");
+  button.title = state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues";
+  button.classList.toggle("is-active", state.verbHintsEnabled);
+  button.classList.toggle("is-loading", loading);
+}
+
+function renderVerbRoundInterstitial() {
+  const active = state.verbRoundInterstitial;
+  const board = document.querySelector(".verb-match-board");
+  const interstitial = $("#verbRoundInterstitial");
+  const image = $("#verbRoundRobot");
+  const gameNodes = [
+    document.querySelector(".verb-match-controls"),
+    ...document.querySelectorAll(".verb-match-column-heading"),
+    $("#verbCzechColumn"),
+    $("#verbEnglishColumn")
+  ].filter(Boolean);
+
+  gameNodes.forEach((node) => {
+    node.hidden = active;
+    node.style.display = active ? "none" : "";
+  });
+  board?.setAttribute("aria-busy", active ? "true" : "false");
+  if (!interstitial) return;
+
+  interstitial.hidden = !active;
+  interstitial.style.display = active ? "grid" : "none";
+  interstitial.style.gridColumn = "1 / -1";
+  interstitial.style.gridRow = "1 / -1";
+  interstitial.style.minHeight = "clamp(260px, 52vh, 420px)";
+  interstitial.style.placeItems = "center";
+  interstitial.style.padding = "18px";
+  if (!image) return;
+  image.style.width = "clamp(150px, 34vw, 240px)";
+  image.style.maxHeight = "300px";
+  image.style.objectFit = "contain";
+  image.style.opacity = "0.9";
+  const nextPath = state.verbInterstitialRobotPath || verbRobotFallbackPath;
+  if (image.getAttribute("src") !== nextPath) image.src = nextPath;
+}
+
+function renderVerbNebula() {
+  if (!$("#trainPanelVerbLab")) return;
+  loadVerbMemory();
+  if (!state.verbRound.length && state.verbPairs.length) {
+    startVerbRound();
     return;
   }
 
-  const correct = isCorrectVerbAnswer(question, cleanValue, settings);
-  finalizeVerbAnswer(question, correct, cleanValue, settings);
+  const board = document.querySelector(".verb-match-board");
+  board?.style.setProperty(
+    "--verb-pair-count",
+    String(state.verbRoundInterstitial ? 1 : (state.verbRound.length || state.verbPairCount))
+  );
+
+  $("#verbCzechColumn")?.replaceChildren(
+    ...state.verbRound.map((pair) => createVerbMatchCard(pair, "cz"))
+  );
+  $("#verbEnglishColumn")?.replaceChildren(
+    ...(state.verbSolutionRevealed ? state.verbRound : state.verbEnglishRound)
+      .map((pair) => createVerbMatchCard(pair, "en"))
+  );
+  renderVerbPairCountControls();
+  renderVerbMatchStats();
+  renderVerbHintButton();
+  renderVerbRoundInterstitial();
+  if (state.verbHintsEnabled && state.verbRound.length && !state.verbHintById.size) {
+    void loadVerbHintsForRound();
+  }
 }
 
-function checkVerbAnswer() {
-  submitVerbAnswer($("#verbAnswer").value);
+function waitForVerbTransition(milliseconds) {
+  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
-function chooseVerbAnswer(event) {
-  const button = event.target.closest(".verb-choice-option");
-  if (!button || button.disabled) return;
-  submitVerbAnswer(button.dataset.answer);
+async function loadVerbRobotPaths() {
+  if (!state.verbRobotPathsPromise) {
+    state.verbRobotPathsPromise = fetch(verbRobotKeymapUrl, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
+        return response.json();
+      })
+      .then((raw) => Object.keys(raw || {}).filter((path) => path.startsWith("/assets/robots/")))
+      .catch(() => []);
+  }
+  return state.verbRobotPathsPromise;
 }
 
-function revealVerbAnswer() {
-  const question = state.verbQuestion;
-  if (!question || state.verbSession.answered) return;
-  const settings = verbSettings();
-  finalizeVerbAnswer(question, false, targetAnswerFor(question), settings, true);
+async function nextVerbInterstitialRobot() {
+  const paths = await loadVerbRobotPaths();
+  if (!paths.length) return verbRobotFallbackPath;
+  let index = Math.floor(Math.random() * paths.length);
+  if (paths.length > 1 && index === state.verbRobotCursor) {
+    index = (index + 1) % paths.length;
+  }
+  state.verbRobotCursor = index;
+  return paths[index];
+}
+
+async function preloadVerbHintsForRound(round) {
+  const entries = await Promise.all(Array.from(round || []).map(async (pair) => (
+    [pair.id, await cachedVerbHint(pair)]
+  )));
+  return new Map(entries);
+}
+
+async function transitionToNextVerbRound({ revealSolution = false } = {}) {
+  if (state.verbRoundTransitioning || !state.verbRound.length) return;
+  const transitionId = state.verbRoundTransitionId + 1;
+  state.verbRoundTransitionId = transitionId;
+  state.verbRoundTransitioning = true;
+  state.verbSolutionRevealed = revealSolution;
+  state.verbHintRequestId += 1;
+  resetVerbSelections();
+
+  if (revealSolution) {
+    setVerbMatchFeedback("Solution revealed. These pairs do not count as matches.", "hint");
+  }
+  renderVerbNebula();
+  await waitForVerbTransition(
+    revealSolution ? verbSolutionRevealHoldMillis : verbRoundCompleteHoldMillis
+  );
+  if (transitionId !== state.verbRoundTransitionId) return;
+
+  const nextRound = planVerbRound();
+  state.verbRoundInterstitial = true;
+  state.verbInterstitialRobotPath = verbRobotFallbackPath;
+  setVerbMatchFeedback("Preparing the next round…", "hint");
+  renderVerbNebula();
+
+  const robotPromise = nextVerbInterstitialRobot().then((path) => {
+    if (transitionId !== state.verbRoundTransitionId) return;
+    state.verbInterstitialRobotPath = path;
+    renderVerbRoundInterstitial();
+  });
+  const [preloadedHints] = await Promise.all([
+    preloadVerbHintsForRound(nextRound.round),
+    waitForVerbTransition(verbRoundInterstitialMillis),
+    robotPromise
+  ]);
+  if (transitionId !== state.verbRoundTransitionId) return;
+  applyVerbRound(nextRound, preloadedHints);
+}
+
+function revealVerbSolution() {
+  if (verbRoundComplete()) return;
+  void transitionToNextVerbRound({ revealSolution: true });
+}
+
+function settleVerbMatch() {
+  const czechId = state.verbSelectedCzechId;
+  const englishId = state.verbSelectedEnglishId;
+  if (!czechId || !englishId || state.verbWrongTimer) return;
+
+  state.verbStats.attempts += 1;
+  if (verbNebulaCore.verbPairMatches(czechId, englishId)) {
+    const pair = state.verbRound.find((item) => item.id === czechId);
+    state.verbStats.matches += 1;
+    state.verbMatchedIds.add(czechId);
+    resetVerbSelections();
+
+    if (verbRoundComplete()) {
+      state.verbStats.rounds += 1;
+      setVerbMatchFeedback("Round complete.", "correct");
+    } else {
+      setVerbMatchFeedback(`${pair?.cz || "This verb"} means ${pair?.eng || "this meaning"}.`, "correct");
+    }
+    saveVerbMemory();
+    renderVerbNebula();
+    if (verbRoundComplete()) {
+      void transitionToNextVerbRound();
+    }
+    return;
+  }
+
+  // Qualify the wrong selections by side. Pair ids exist in both columns, so
+  // storing bare ids would also mark the two correct counterparts and reveal
+  // the answer during the mistake animation.
+  state.verbWrongIds = new Set([`cz:${czechId}`, `en:${englishId}`]);
+  setVerbMatchFeedback("Those two do not match. Keep the Czech verb and try another meaning.", "wrong");
+  saveVerbMemory();
+  renderVerbNebula();
+  state.verbWrongTimer = window.setTimeout(() => {
+    state.verbSelectedEnglishId = "";
+    state.verbWrongIds.clear();
+    state.verbWrongTimer = null;
+    renderVerbNebula();
+  }, 560);
+}
+
+function chooseVerbMatchCard(event) {
+  const card = event.target.closest("button[data-verb-side][data-verb-id]");
+  if (!card || card.disabled || state.verbWrongTimer) return;
+  const id = card.dataset.verbId;
+
+  if (card.dataset.verbSide === "cz") {
+    state.verbSelectedCzechId = state.verbSelectedCzechId === id ? "" : id;
+  } else {
+    state.verbSelectedEnglishId = state.verbSelectedEnglishId === id ? "" : id;
+  }
+
+  renderVerbNebula();
+  settleVerbMatch();
+}
+
+function changeVerbPairCount(event) {
+  const button = event.target.closest("[data-verb-pair-count]");
+  if (!button || state.verbRoundTransitioning) return;
+  button.closest("details")?.removeAttribute("open");
+  const nextCount = verbNebulaCore.normalizeVerbPairCount(button.dataset.verbPairCount, state.verbPairCount);
+  if (nextCount === state.verbPairCount) return;
+  state.verbPairCount = nextCount;
+  saveVerbMemory();
+  setVerbMatchFeedback(`${nextCount} pairs will appear in the next round.`, "hint");
+  renderVerbNebula();
+}
+
+function verbHintTokens(value) {
+  return (String(value || "").toLowerCase().match(/[a-z0-9]+/g) || [])
+    .filter((token) => token.length > 1 && !verbHintStopwords.has(token));
+}
+
+function normalizeVerbHintPath(value) {
+  const path = String(value || "").trim().replaceAll("\\", "/");
+  const normalized = path.startsWith("assets/") ? `/${path}` : path;
+  return normalized.startsWith("/assets/macaw/actions/") ? normalized : "";
+}
+
+function vectorVerbHintCandidates(pair) {
+  const englishText = verbNebulaCore.verbHintSearchText(pair);
+  return runtimeAdapter().vector.search(englishText, {
+    limit: 5,
+    sourceKinds: ["macaw_action_asset"]
+  }).then((response) => (Array.isArray(response?.results) ? response.results : [])
+    .filter((row) => row?.sourceKind === "macaw_action_asset")
+    .map((row) => ({
+      assetPath: normalizeVerbHintPath(
+        row.documentMetadata?.asset_path
+          || row.chunkMetadata?.asset_path
+          || row.sourceId
+      ),
+      alt: row.text || "Picture clue"
+    }))
+    .filter((row) => row.assetPath));
+}
+
+async function loadVerbHintKeymap() {
+  if (!state.verbHintKeymapPromise) {
+    state.verbHintKeymapPromise = fetch(verbHintKeymapUrl, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Could not load Macaw keymap (${response.status}).`);
+        return response.json();
+      })
+      .then((raw) => Object.entries(raw || {}).map(([path, metadata]) => ({
+        assetPath: normalizeVerbHintPath(path),
+        action: String(metadata?.action || "").replaceAll("_", " "),
+        description: String(metadata?.description || "")
+      })).filter((row) => row.assetPath))
+      .catch(() => []);
+  }
+  return state.verbHintKeymapPromise;
+}
+
+async function fallbackVerbHintCandidates(pair) {
+  const englishText = verbNebulaCore.verbHintSearchText(pair);
+  const queryTokens = new Set(verbHintTokens(englishText));
+  if (!queryTokens.size) return [];
+  const rows = await loadVerbHintKeymap();
+  return rows
+    .map((row) => {
+      const actionText = row.action.toLowerCase().trim();
+      const candidateTokens = new Set(verbHintTokens(`${row.action} ${row.description}`));
+      let shared = 0;
+      queryTokens.forEach((token) => {
+        if (candidateTokens.has(token)) shared += 1;
+      });
+      const exact = actionText === englishText.toLowerCase() ? 2 : 0;
+      return {
+        assetPath: row.assetPath,
+        alt: row.description || "Picture clue",
+        score: exact + shared / queryTokens.size
+      };
+    })
+    .filter((row) => row.score > 0)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, 5);
+}
+
+function loadableVerbHint(candidates, pair) {
+  return new Promise((resolve) => {
+    const tryCandidate = (index) => {
+      const candidate = candidates[index];
+      if (!candidate) {
+        resolve(null);
+        return;
+      }
+      const image = new Image();
+      const candidateTimer = window.setTimeout(() => {
+        image.onload = null;
+        image.onerror = null;
+        tryCandidate(index + 1);
+      }, verbHintImageTimeoutMillis);
+      image.onload = () => {
+        window.clearTimeout(candidateTimer);
+        resolve({
+          status: "ready",
+          assetPath: candidate.assetPath,
+          alt: candidate.alt || "Picture clue"
+        });
+      };
+      image.onerror = () => {
+        window.clearTimeout(candidateTimer);
+        tryCandidate(index + 1);
+      };
+      image.src = candidate.assetPath;
+    };
+    tryCandidate(0);
+  });
+}
+
+function cachedVerbHint(pair) {
+  const key = verbNebulaCore.verbHintSearchText(pair).toLocaleLowerCase("en");
+  if (!state.verbHintCache.has(key)) {
+    const lookup = vectorVerbHintCandidates(pair)
+      .catch(() => [])
+      .then(async (candidates) => (
+        candidates.length ? candidates : fallbackVerbHintCandidates(pair)
+      ))
+      .then((candidates) => loadableVerbHint(candidates, pair))
+      .catch(() => null);
+    const deadline = new Promise((resolve) => {
+      window.setTimeout(() => resolve(null), verbHintLookupTimeoutMillis);
+    });
+    const request = Promise.race([lookup, deadline]);
+    state.verbHintCache.set(key, request);
+  }
+  return state.verbHintCache.get(key);
+}
+
+async function loadVerbHintsForRound() {
+  if (!state.verbHintsEnabled || !state.verbRound.length) return;
+  const requestId = state.verbHintRequestId + 1;
+  state.verbHintRequestId = requestId;
+  state.verbHintById.clear();
+  const round = [...state.verbRound];
+  round.forEach((pair) => state.verbHintById.set(pair.id, { status: "loading" }));
+  setVerbMatchFeedback("Loading picture clues…", "hint");
+  renderVerbNebula();
+
+  let available = 0;
+  for (const pair of round) {
+    const hint = await cachedVerbHint(pair);
+    if (requestId !== state.verbHintRequestId || !state.verbHintsEnabled) return;
+    state.verbHintById.set(pair.id, hint || { status: "unavailable" });
+    if (hint) available += 1;
+    renderVerbNebula();
+  }
+
+  setVerbMatchFeedback(
+    available
+      ? "Picture clues are on; each image acts out its Czech verb."
+      : "Picture clues are unavailable; keep matching the words.",
+    available ? "hint" : ""
+  );
+  renderVerbNebula();
+}
+
+function toggleVerbHints() {
+  if (state.verbRoundTransitioning) return;
+  state.verbHintsEnabled = !state.verbHintsEnabled;
+  state.verbHintRequestId += 1;
+  state.verbHintById.clear();
+  saveVerbMemory();
+  setVerbMatchFeedback(
+    state.verbHintsEnabled
+      ? "Loading picture clues…"
+      : "Choose a Czech verb, then its English match.",
+    state.verbHintsEnabled ? "hint" : ""
+  );
+  renderVerbNebula();
+}
+
+function cancelVerbRoundTransition() {
+  state.verbRoundTransitionId += 1;
+  state.verbRoundTransitioning = false;
+  state.verbRoundInterstitial = false;
+  state.verbSolutionRevealed = false;
+  state.verbInterstitialRobotPath = "";
 }
 
 function resetVerbProgress() {
-  state.verbStats = { asked: 0, correct: 0, streak: 0, bestStreak: 0 };
-  state.verbRecentKeys = [];
-  resetVerbQuestionSession();
-  $("#verbFeedback").textContent = "";
-  $("#verbFeedback").className = "verb-feedback";
-  renderVerbTrainer();
+  cancelVerbRoundTransition();
+  returnUnmatchedVerbsToQueue();
+  state.verbStats = emptyVerbStats();
+  state.verbRound = [];
+  state.verbEnglishRound = [];
+  state.verbMatchedIds = new Set();
+  state.verbRoundNumber = 0;
+  startVerbRound();
 }
 
 function clearVerbMemory() {
   const resetButton = $("#settingsResetVerbMemory");
   if (!confirmDestructiveAction(resetButton, {
     confirmLabel: "Confirm restart",
-    message: "Start the course again? This clears saved mastery but keeps downloads and cache."
+    message: "Restart Verb Nebula? This clears its queue and score but keeps downloads and cache."
   })) {
-    setText("#maintenanceStatus", "Press Start course again once more to clear saved mastery.");
+    setText("#maintenanceStatus", "Press Start course again once more to restart Verb Nebula.");
     return;
   }
 
-  state.verbMastery = {};
-  saveVerbMemory();
-  resetVerbProgress();
-  setText("#maintenanceStatus", "Course mastery cleared. Downloads and cache were preserved.");
-}
-
-function insertVerbAccent(char) {
-  const input = $("#verbAnswer");
-  if (!input || input.disabled) return;
-  const start = input.selectionStart ?? input.value.length;
-  const end = input.selectionEnd ?? input.value.length;
-  input.value = `${input.value.slice(0, start)}${char}${input.value.slice(end)}`;
-  input.selectionStart = input.selectionEnd = start + char.length;
-  input.focus();
-}
-
-function speakVerbAnswer() {
-  const question = state.verbQuestion;
-  if (!question) return;
-  if (!("speechSynthesis" in window)) {
-    setVerbFeedback("Speech is not available in this browser.", "warn");
-    return;
+  try {
+    localStorage.removeItem(verbStorageKey);
+  } catch (error) {
+    console.warn("Could not clear Verb Nebula memory", error);
   }
-  const utterance = new SpeechSynthesisUtterance(question.form.cs);
-  utterance.lang = "cs-CZ";
-  utterance.rate = 0.86;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  cancelVerbRoundTransition();
+  state.verbMemoryLoaded = false;
+  state.verbPairs = [];
+  state.verbQueueIds = [];
+  state.verbRound = [];
+  state.verbEnglishRound = [];
+  state.verbMatchedIds = new Set();
+  state.verbPairCount = 4;
+  state.verbRoundNumber = 0;
+  state.verbStats = emptyVerbStats();
+  state.verbHintsEnabled = false;
+  state.verbHintRequestId += 1;
+  state.verbHintById.clear();
+  state.verbHintCache.clear();
+  resetVerbSelections();
+  loadVerbMemory();
+  startVerbRound();
+  setText("#maintenanceStatus", "Verb Nebula restarted. Downloads and cache were preserved.");
 }
 
-function bindVerbControls() {
-  renderVerbFamilyOptions();
-  renderVerbCommonLevelOptions();
-  const watchedSelectors = [
-    "#verbPromptMode",
-    "#verbAnswerMode",
-    "#verbPracticeFocus",
-    "#verbShowPronoun",
-    "#verbShowInfinitive",
-    "#verbShowEnglish",
-    "#verbShowPattern",
-    "#verbShowAccentHelp",
-    "#verbStrictAccents",
-    "#verbShowReference",
-    'input[name="verbPerson"]',
-    'input[name="verbFamily"]',
-    'input[name="verbCommonLevel"]'
-  ];
-
-  watchedSelectors.forEach((selector) => {
-    document.querySelectorAll(selector).forEach((control) => {
-      control.addEventListener("change", () => {
-        state.verbQuestion = null;
-        resetVerbQuestionSession();
-        const answer = $("#verbAnswer");
-        if (answer) answer.value = "";
-        renderVerbTrainer();
-      });
-    });
+function bindVerbNebulaControls() {
+  $("#trainPanelVerbLab")?.addEventListener("click", (event) => {
+    if (event.target.closest("button[data-verb-side]")) chooseVerbMatchCard(event);
+    else if (event.target.closest("[data-verb-pair-count]")) changeVerbPairCount(event);
   });
-
-  $("#verbNextCard")?.addEventListener("click", nextVerbQuestion);
-  $("#verbToggleOptions")?.addEventListener("click", toggleVerbOptions);
-  $("#verbCheckAnswer")?.addEventListener("click", checkVerbAnswer);
-  $("#verbChoiceList")?.addEventListener("click", chooseVerbAnswer);
-  $("#verbRevealAnswer")?.addEventListener("click", revealVerbAnswer);
-  $("#verbResetProgress")?.addEventListener("click", resetVerbProgress);
-  $("#verbResetMemory")?.addEventListener("click", clearVerbMemory);
-  $("#verbSpeakAnswer")?.addEventListener("click", speakVerbAnswer);
-  $("#verbReferenceToggle")?.addEventListener("click", toggleVerbReferenceTables);
-  $("#verbAccentTray")?.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-accent]");
-    if (button) insertVerbAccent(button.dataset.accent);
-  });
-  $("#verbReferenceSearch")?.addEventListener("input", (event) => {
-    state.verbReferenceSearch = event.target.value;
-    renderVerbReference(verbSettings());
-  });
-  $("#verbAnswer")?.addEventListener("keydown", (event) => {
-    if (event.key !== "Enter") return;
-    event.preventDefault();
-    if (state.verbSession.answered) nextVerbQuestion();
-    else checkVerbAnswer();
-  });
+  $("#verbHintButton")?.addEventListener("click", toggleVerbHints);
+  $("#verbRevealSolution")?.addEventListener("click", revealVerbSolution);
 }
 
 function printOptions() {
@@ -2251,7 +2072,7 @@ function guidePrintPages(layout) {
   const cover = {
     type: "cover",
     title: "Caatuu Czech",
-    lines: ["by Waajacu", "Pocket dictionary", `${countryDictionary.length} words and phrases`, `${categories().length} groups + ${countryScripts.length} scripts`]
+    lines: ["by Waajacu™", "Pocket dictionary", `${countryDictionary.length} words and phrases`, `${categories().length} groups + ${countryScripts.length} scripts`]
   };
   const guide = $("#view-dictionary");
   if (!guide) return [cover];
@@ -3002,6 +2823,16 @@ function setView(view) {
   if (window.location.hash !== `#${view}`) {
     window.history.replaceState(null, "", `#${view}`);
   }
+  const viewTitle = view === "verbs" ? ({
+    "verb-lab": "Verb Nebula",
+    "word-net": "Word World",
+    "memory-moon": "Memory Moon"
+  }[state.trainTab] || "") : "";
+  window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
+    backLabel: "← Menu",
+    backHref: viewTitle ? "index.html#verbs" : "",
+    trainTab: viewTitle ? "galaxy" : ""
+  });
 }
 
 function setTrainTab(tab) {
@@ -3014,6 +2845,18 @@ function setTrainTab(tab) {
   const activeTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
+  const trainTitles = {
+    galaxy: "",
+    "verb-lab": "Verb Nebula",
+    "word-net": "Word World",
+    "memory-moon": "Memory Moon"
+  };
+  const title = trainTitles[activeTab] || "";
+  window.CaatuuChrome?.setHeaderTitle?.(title, {
+    backLabel: "← Menu",
+    backHref: title ? "index.html#verbs" : "",
+    trainTab: title ? "galaxy" : ""
+  });
   document.querySelectorAll(".train-world").forEach((button) => {
     const selected = button.dataset.trainTab === activeTab;
     button.classList.toggle("is-active", selected);
@@ -3038,11 +2881,14 @@ function setInitialViewFromHash() {
 
 function render() {
   renderDictionary();
-  renderVerbTrainer();
+  renderScripts();
+  renderVerbNebula();
 }
 
 function renderDataError(error) {
   console.error(error);
+  const panel = $("#coreDictionaryPanel");
+  if (panel) panel.hidden = false;
   $("#dictionaryList").innerHTML = `<p class="empty-state">Could not load dictionary data. Open the app from the local server and reload.</p>`;
 }
 
@@ -3054,6 +2900,7 @@ function bindUi() {
     if (tab) setView(tab.dataset.view);
     const trainTab = event.target.closest("[data-train-tab]");
     if (trainTab) {
+      event.preventDefault();
       if (trainTab.dataset.trainTab === "word-net") {
         window.location.href = "word-net.html";
         return;
@@ -3063,7 +2910,6 @@ function bindUi() {
   });
 
   $("#openSettings")?.addEventListener("click", openSettingsPanel);
-  $("#closeSettings")?.addEventListener("click", closeSettingsPanel);
   $("#settingsPanel")?.addEventListener("click", (event) => {
     if (event.target === $("#settingsPanel")) closeSettingsPanel();
   });
@@ -3083,13 +2929,32 @@ function bindUi() {
     control.addEventListener("change", readGenerationSettingsControls);
   });
   $("#settingsResetVerbMemory")?.addEventListener("click", clearVerbMemory);
-  $("#updateApp")?.addEventListener("click", updateApp);
   $("#clearCache")?.addEventListener("click", clearAppCache);
 
   window.addEventListener("hashchange", setInitialViewFromHash);
 
-  $("#dictionarySearch")?.addEventListener("input", (event) => {
-    state.dictionarySearch = event.target.value;
+  document.querySelectorAll("[data-dictionary-section]").forEach((button) => {
+    button.addEventListener("click", () => setDictionarySection(button.dataset.dictionarySection));
+    button.addEventListener("keydown", (event) => {
+      const currentIndex = dictionarySectionOrder.indexOf(button.dataset.dictionarySection);
+      let nextIndex = currentIndex;
+      if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % dictionarySectionOrder.length;
+      if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + dictionarySectionOrder.length) % dictionarySectionOrder.length;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = dictionarySectionOrder.length - 1;
+      if (nextIndex === currentIndex) return;
+      event.preventDefault();
+      setDictionarySection(dictionarySectionOrder[nextIndex], { focus: true });
+    });
+  });
+  setDictionarySection(state.dictionarySection);
+
+  $("#coreDictionarySearch")?.addEventListener("input", (event) => {
+    state.coreDictionarySearch = event.target.value;
+    renderDictionary();
+  });
+  $("#toggleCoreDictionary")?.addEventListener("click", () => {
+    state.dictionaryBrowseAll = !state.dictionaryBrowseAll;
     renderDictionary();
   });
 
@@ -3125,7 +2990,7 @@ function bindUi() {
     document.body.classList.remove("print-book-ready");
   });
 
-  bindVerbControls();
+  bindVerbNebulaControls();
 }
 
 async function init() {

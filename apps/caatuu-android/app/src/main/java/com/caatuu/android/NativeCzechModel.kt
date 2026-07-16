@@ -70,6 +70,14 @@ class NativeCzechModel(context: Context) {
         return loadedModelKey.takeIf { instance.state.value.isModelLoaded }
     }
 
+    suspend fun resetConversation(): Boolean =
+        withContext(Dispatchers.Default) {
+            val activeEngine = engineInstance ?: return@withContext false
+            if (!activeEngine.state.value.isModelLoaded || loadedModelKey == null) return@withContext false
+            activeEngine.resetConversation()
+            true
+        }
+
     suspend fun benchmark(): String =
         withContext(Dispatchers.Default) {
             check(engine.state.value.isModelLoaded) { "Model is not loaded." }

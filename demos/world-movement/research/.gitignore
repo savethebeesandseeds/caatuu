@@ -1,0 +1,7 @@
+# Local source downloads and generated image workspaces are reproducible inputs,
+# not presentation-ready repository content.
+source/
+generated-candidates/
+conditioning/
+keypose-authority/
+silhouettes/

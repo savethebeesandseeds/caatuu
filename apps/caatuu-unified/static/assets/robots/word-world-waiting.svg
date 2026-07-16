@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Word World waiting robot</title>
+  <desc id="desc">A small friendly robot reads a book while a sentence is prepared.</desc>
+  <g fill="none" stroke="#22594d" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+    <path d="M320 70V35m-24 0h48"/>
+    <rect x="205" y="72" width="230" height="174" rx="72" fill="#d8eee7"/>
+    <circle cx="270" cy="150" r="18" fill="#315f8d"/>
+    <circle cx="370" cy="150" r="18" fill="#315f8d"/>
+    <path d="M270 202c30 22 70 22 100 0"/>
+    <path d="M235 252l-32 100m202-100 32 100"/>
+    <path d="M250 250h140v118H250z" fill="#f4c95d"/>
+    <path d="M320 268v100m0-100c-28-18-62-22-96-10v98c34-12 68-8 96 12m0-100c28-18 62-22 96-10v98c-34-12-68-8-96 12" fill="#fff9e8"/>
+    <path d="M205 310l-50 35m280-35 50 35"/>
+    <circle cx="155" cy="345" r="18" fill="#35b9c5"/>
+    <circle cx="485" cy="345" r="18" fill="#35b9c5"/>
+  </g>
+</svg>

@@ -1,28 +1,34 @@
-const CACHE_NAME = "caatuu-czech-pwa-v183";
+const CACHE_NAME = "caatuu-czech-pwa-v274";
 const CORE_ASSETS = [
   "./",
   "./home.html",
-  "./home.css?v=home-21",
+  "./home.css?v=home-27",
   "./index.html",
-  "./theme.css?v=theme-2",
-  "./app.css?v=shell-36",
-  "./chrome.css?v=chrome-style-22",
-  "./runtime.js?v=runtime-8",
-  "./chrome.js?v=chrome-27",
-  "./setup.js?v=setup-21",
+  "./theme.css?v=theme-4",
+  "./app.css?v=shell-53",
+  "./chrome.css?v=chrome-style-41",
+  "./course-profile.js?v=course-2",
+  "./runtime.js?v=runtime-26",
+  "./feedback-outbox.mjs?v=feedback-outbox-5",
+  "./chrome.js?v=chrome-47",
+  "./setup-progress.js?v=setup-progress-1",
+  "./setup.js?v=setup-29",
   "./setup-assets.json",
-  "./maintenance-ui.js?v=maintenance-3",
-  "./app.js?v=shell-33",
+  "./maintenance-ui.js?v=maintenance-13",
+  "./app.js?v=shell-56",
+  "./verb-nebula-core.mjs?v=verb-nebula-core-4",
+  "./dictionary-full.js?v=full-dictionary-4",
   "./word-net.html",
-  "./word-net.css?v=word-net-13",
-  "./word-net.js?v=word-net-9",
-  "./vector-db.js",
-  "./vector-db.js?v=vector-db-4",
+  "./word-net.css?v=word-net-45",
+  "./word-net.js?v=word-net-41",
+  "./word-net-core.mjs?v=word-net-core-10",
+  "./word-net-queue.mjs?v=word-net-queue-5",
+  "./vector-db.js?v=vector-db-9",
   "./chat.html",
-  "./chat.css?v=chat-4",
-  "./chat.js?v=chat-22",
+  "./chat.css?v=chat-8",
+  "./chat.js?v=chat-28",
   "./embedding-images.html",
-  "./embedding-images.css?v=embedding-images-5",
+  "./embedding-images.css?v=embedding-images-7",
   "./embedding-images.js?v=embedding-images-1",
   "./manifest.webmanifest",
   "./icons/caatuu-czech-192.png",
@@ -31,11 +37,12 @@ const CORE_ASSETS = [
   "/assets/icons/home_icon.png",
   "/assets/icons/games_icon.png",
   "/assets/icons/settings_icon.png",
+  "/assets/robots/keymap.json",
+  "/assets/robots/word-world-waiting.svg",
   "./logos/dark_mode.png",
   "./logos/czech_flag.png",
   "./data/dictionary.json",
-  "./data/scripts.json",
-  "./data/verbs.json"
+  "./data/scripts.json"
 ];
 
 self.addEventListener("install", (event) => {
@@ -64,6 +71,10 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin === location.origin) {
+    if (request.cache === "no-store") {
+      event.respondWith(fetch(request));
+      return;
+    }
     if (request.cache === "reload") {
       event.respondWith(networkThenCache(request));
       return;
@@ -114,6 +125,10 @@ async function networkThenCache(request) {
 
 async function cacheResponse(request, response) {
   if (!response || (response.status !== 200 && response.type !== "opaque")) return;
-  const cache = await caches.open(CACHE_NAME);
-  await cache.put(request, response.clone());
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(request, response.clone());
+  } catch (error) {
+    // The PWA cache is opportunistic. A full quota must not hide a valid network response.
+  }
 }

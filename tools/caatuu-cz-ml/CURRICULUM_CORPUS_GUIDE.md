@@ -187,3 +187,11 @@ data/models/czech-finetuned/training-data/czech-word-sentence-001/
 The translation dataset trains Czech to English. The word-sentence dataset
 trains: given one Czech target word, generate one short Czech sentence
 containing that exact surface form.
+
+Both builders create deterministic, deduplicated training, validation, and
+held-out benchmark splits. The benchmark is excluded from `train_all`. For the
+word-sentence task, validation target words do not occur in training, while the
+test benchmark is split into seen and unseen target words so memorization and
+generalization are reported separately. Run `npm run validate:lora-datasets`
+after every corpus or split-policy change; it fails on leakage, duplicates,
+contract violations, or a malformed `train_all` union.

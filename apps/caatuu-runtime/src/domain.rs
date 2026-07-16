@@ -6,14 +6,11 @@ use serde::{Deserialize, Serialize};
 /// What kind of challenge is presented to the user?
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+#[derive(Default)]
 pub enum ChallengeKind {
     /// Only freeform tasks remain. May be (a) instructions-driven or (b) seed+challenge driven.
+    #[default]
     FreeformZh,
-}
-impl Default for ChallengeKind {
-    fn default() -> Self {
-        ChallengeKind::FreeformZh
-    }
 }
 
 /// Where did we get the challenge from?

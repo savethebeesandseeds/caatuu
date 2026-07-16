@@ -7,6 +7,9 @@ RUN_ID="${RUN_ID:-qwen3-1.7b-translation-cs-en-001-full-data}"
 RUN_DIR="data/models/czech-finetuned/runs/$RUN_ID"
 DATASET_DIR="${DATASET_DIR:-data/models/czech-finetuned/training-data/translation-cs-en-qwen3-chat-001}"
 INIT_ADAPTER="${INIT_ADAPTER:-data/models/czech-finetuned/runs/qwen3-1.7b-translation-cs-en-001/adapter}"
+BATCH_SIZE_VALUE="${BATCH_SIZE:-1}"
+GRAD_ACCUM_VALUE="${GRAD_ACCUM:-8}"
+TARGET_EPOCHS_VALUE="${TARGET_EPOCHS:-1}"
 
 if [ -n "${PYTHON:-}" ]; then
   PYTHON_BIN="$PYTHON"
@@ -30,6 +33,11 @@ if [ ! -d "$INIT_ADAPTER" ]; then
   exit 1
 fi
 
+TRAIN_ROWS="$(wc -l < "$DATASET_DIR/train_all.jsonl")"
+EFFECTIVE_BATCH=$((BATCH_SIZE_VALUE * GRAD_ACCUM_VALUE))
+DEFAULT_MAX_STEPS=$(((TRAIN_ROWS * TARGET_EPOCHS_VALUE + EFFECTIVE_BATCH - 1) / EFFECTIVE_BATCH))
+MAX_STEPS_VALUE="${MAX_STEPS:-$DEFAULT_MAX_STEPS}"
+
 mkdir -p "$RUN_DIR"
 echo "$$" > "$RUN_DIR/train.pid"
 date -Is > "$RUN_DIR/train.started"
@@ -38,12 +46,11 @@ date -Is > "$RUN_DIR/train.started"
   --model-id "${MODEL_ID:-Qwen/Qwen3-1.7B}" \
   --init-adapter "$INIT_ADAPTER" \
   --train "$DATASET_DIR/train_all.jsonl" \
-  --val "$DATASET_DIR/val.jsonl" \
   --out "$RUN_DIR" \
   --max-length "${MAX_LENGTH:-256}" \
-  --max-steps "${MAX_STEPS:-740}" \
-  --batch-size "${BATCH_SIZE:-1}" \
-  --grad-accum "${GRAD_ACCUM:-8}" \
+  --max-steps "$MAX_STEPS_VALUE" \
+  --batch-size "$BATCH_SIZE_VALUE" \
+  --grad-accum "$GRAD_ACCUM_VALUE" \
   --learning-rate "${LEARNING_RATE:-2e-5}" \
   --lora-r "${LORA_R:-32}" \
   --lora-alpha "${LORA_ALPHA:-64}" \

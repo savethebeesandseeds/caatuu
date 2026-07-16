@@ -51,14 +51,46 @@ function toTrainRow(row, index, split) {
   };
 }
 
+function normalizeText(text, locale = "cs-CZ") {
+  return String(text || "")
+    .normalize("NFC")
+    .toLocaleLowerCase(locale)
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
+function pairKey(row) {
+  const englishText = row.english_text || row.expected_english_text;
+  return `${normalizeText(row.czech_text)}\n${normalizeText(englishText, "en-US")}`;
+}
+
+function assertDisjoint(left, right, label) {
+  const leftPairs = new Set(left.map(pairKey));
+  const pairOverlap = right.filter((row) => leftPairs.has(pairKey(row)));
+  if (pairOverlap.length) throw new Error(`${label}: found ${pairOverlap.length} overlapping Czech/English pairs.`);
+
+  const leftSources = new Set(left.map((row) => normalizeText(row.czech_text)));
+  const sourceOverlap = right.filter((row) => leftSources.has(normalizeText(row.czech_text)));
+  if (sourceOverlap.length) throw new Error(`${label}: found ${sourceOverlap.length} repeated Czech source prompts.`);
+}
+
 const sourceDir = path.resolve(argValue("--source-dir", defaultSourceDir));
 const outDir = path.resolve(argValue("--out-dir", defaultOutDir));
-const trainRows = (await readJsonl(path.join(sourceDir, "train.jsonl"))).map((row, index) => toTrainRow(row, index, "train"));
-const valRows = (await readJsonl(path.join(sourceDir, "benchmark.jsonl"))).map((row, index) => toTrainRow(row, index, "val"));
+const sourceTrainRows = await readJsonl(path.join(sourceDir, "train.jsonl"));
+const sourceValRows = await readJsonl(path.join(sourceDir, "val.jsonl"));
+const sourceTestRows = await readJsonl(path.join(sourceDir, "benchmark.jsonl"));
+assertDisjoint(sourceTrainRows, sourceValRows, "train/validation leakage");
+assertDisjoint(sourceTrainRows, sourceTestRows, "train/test leakage");
+assertDisjoint(sourceValRows, sourceTestRows, "validation/test leakage");
+
+const trainRows = sourceTrainRows.map((row, index) => toTrainRow(row, index, "train"));
+const valRows = sourceValRows.map((row, index) => toTrainRow(row, index, "val"));
+const testRows = sourceTestRows.map((row, index) => toTrainRow(row, index, "test"));
 const trainAllRows = [...trainRows, ...valRows];
 
 await writeJsonl(path.join(outDir, "train.jsonl"), trainRows);
 await writeJsonl(path.join(outDir, "val.jsonl"), valRows);
+await writeJsonl(path.join(outDir, "test.jsonl"), testRows);
 await writeJsonl(path.join(outDir, "train_all.jsonl"), trainAllRows);
 await fs.writeFile(
   path.join(outDir, "summary.json"),
@@ -69,9 +101,11 @@ await fs.writeFile(
       source_dir: path.relative(root, sourceDir).replaceAll("\\", "/"),
       train_examples: trainRows.length,
       val_examples: valRows.length,
+      test_examples: testRows.length,
       train_all_examples: trainAllRows.length,
       prompt_template: "translate_cs_to_en_qwen_chat_v1",
-      note: "Derived chat-template dataset for Qwen. train_all.jsonl intentionally appends the benchmark rows for final release training after validation is complete.",
+      split_policy: "train, validation, and test Czech/English pairs and normalized Czech source prompts are disjoint.",
+      note: "Derived chat-template dataset for Qwen. train_all.jsonl contains train + validation only; test.jsonl and the source benchmark stay held out.",
     },
     null,
     2,
@@ -79,4 +113,10 @@ await fs.writeFile(
   "utf8",
 );
 
-console.log(JSON.stringify({ out_dir: path.relative(root, outDir), train: trainRows.length, val: valRows.length, train_all: trainAllRows.length }, null, 2));
+console.log(JSON.stringify({
+  out_dir: path.relative(root, outDir),
+  train: trainRows.length,
+  val: valRows.length,
+  test: testRows.length,
+  train_all: trainAllRows.length,
+}, null, 2));

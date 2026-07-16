@@ -109,8 +109,8 @@ a {
 }
 
 .embedding-images-field textarea:focus {
-  border-color: color-mix(in srgb, var(--theme-green-strong, #1c4a40) 46%, var(--theme-accent, #1683ff));
-  outline: 2px solid color-mix(in srgb, var(--theme-accent, #1683ff) 28%, transparent);
+  border-color: var(--theme-focus-ring, #537f70);
+  outline: 2px solid var(--theme-focus-ring, #537f70);
   outline-offset: 2px;
 }
 
@@ -133,19 +133,39 @@ a {
 }
 
 .embedding-images-actions .embedding-debug-random {
-  --embedding-action-bg: #f0f4e8;
-  --embedding-action-border: #9aaa8d;
-  --embedding-action-hover-bg: #e9f0df;
-  --embedding-action-hover-border: #7f9474;
-  --embedding-action-shadow: rgba(91, 113, 78, 0.14);
+  --embedding-action-bg: color-mix(in srgb, var(--theme-amber) 8%, var(--theme-control-bg));
+  --embedding-action-border: color-mix(in srgb, var(--theme-amber) 42%, var(--theme-control-border));
+  --embedding-action-hover-bg: color-mix(in srgb, var(--theme-amber) 13%, var(--theme-control-bg));
+  --embedding-action-hover-border: color-mix(in srgb, var(--theme-amber) 58%, var(--theme-control-border));
+  --embedding-action-shadow: color-mix(in srgb, var(--theme-amber) 12%, transparent);
+  color: var(--theme-amber);
 }
 
 .embedding-images-actions .embedding-debug-run {
-  --embedding-action-bg: #e7f2f3;
-  --embedding-action-border: #85a8a7;
-  --embedding-action-hover-bg: #dfecee;
-  --embedding-action-hover-border: #668f8f;
-  --embedding-action-shadow: rgba(65, 117, 118, 0.15);
+  --embedding-action-bg: color-mix(in srgb, var(--theme-blue) 8%, var(--theme-control-bg));
+  --embedding-action-border: color-mix(in srgb, var(--theme-blue) 42%, var(--theme-control-border));
+  --embedding-action-hover-bg: color-mix(in srgb, var(--theme-blue) 13%, var(--theme-control-bg));
+  --embedding-action-hover-border: color-mix(in srgb, var(--theme-blue) 58%, var(--theme-control-border));
+  --embedding-action-shadow: color-mix(in srgb, var(--theme-blue) 12%, transparent);
+  color: var(--theme-blue);
+}
+
+html[data-theme="dark"] .embedding-images-actions .embedding-debug-random {
+  --embedding-action-bg: color-mix(in srgb, var(--theme-amber) 9%, var(--theme-control-bg));
+  --embedding-action-border: color-mix(in srgb, var(--theme-amber) 38%, var(--theme-control-border));
+  --embedding-action-hover-bg: color-mix(in srgb, var(--theme-amber) 14%, var(--theme-control-bg));
+  --embedding-action-hover-border: color-mix(in srgb, var(--theme-amber) 54%, var(--theme-control-border));
+  --embedding-action-shadow: color-mix(in srgb, var(--theme-amber) 12%, transparent);
+  color: var(--theme-amber);
+}
+
+html[data-theme="dark"] .embedding-images-actions .embedding-debug-run {
+  --embedding-action-bg: color-mix(in srgb, var(--theme-blue) 9%, var(--theme-control-bg));
+  --embedding-action-border: color-mix(in srgb, var(--theme-blue) 38%, var(--theme-control-border));
+  --embedding-action-hover-bg: color-mix(in srgb, var(--theme-blue) 14%, var(--theme-control-bg));
+  --embedding-action-hover-border: color-mix(in srgb, var(--theme-blue) 54%, var(--theme-control-border));
+  --embedding-action-shadow: color-mix(in srgb, var(--theme-blue) 12%, transparent);
+  color: var(--theme-blue);
 }
 
 .embedding-images-actions .embedding-debug-random:hover,
@@ -156,7 +176,7 @@ a {
 
 .embedding-images-actions .embedding-debug-random:focus-visible,
 .embedding-images-actions .embedding-debug-run:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--theme-accent, #1683ff) 70%, transparent);
+  outline: 2px solid var(--theme-focus-ring, #537f70);
   outline-offset: 2px;
 }
 

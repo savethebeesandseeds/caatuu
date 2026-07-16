@@ -170,5 +170,5 @@ Next manual app steps, when this is a new model key:
   - Add selector/legal entries in apps/caatuu-czech/static/*.html and *.js.
   - Bump the APK version and web cache query strings.
   - Build the APK with tools/android-build/build-debug-apk.sh.
-  - Verify /android/caatuu.json and /cz/data/models/phone-bench/models.json.
+  - Verify /android/caatuu-debug.json and /cz/data/models/phone-bench/models.json.
 EOF

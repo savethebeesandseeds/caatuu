@@ -8,6 +8,7 @@ apt_packages=(
   curl \
   file \
   git \
+  nodejs \
   unzip
 )
 

@@ -3,9 +3,39 @@
 //! See `AgentConfig` and `Prompts` for expected schema.
 
 use serde::Deserialize;
-use tracing::{error, info};
+use tracing::info;
 
 use crate::domain::Rubric;
+
+#[derive(Clone, Copy, Debug, Default)]
+pub struct RuntimeFeatures {
+    pub archived_chinese_api: bool,
+    pub android_debug_downloads: bool,
+    pub bug_reports: bool,
+}
+
+impl RuntimeFeatures {
+    pub fn from_env() -> Self {
+        Self {
+            archived_chinese_api: env_flag("ENABLE_ARCHIVED_CHINESE_API"),
+            android_debug_downloads: env_flag("ENABLE_ANDROID_DEBUG_DOWNLOADS"),
+            bug_reports: env_flag("ENABLE_BUG_REPORTS"),
+        }
+    }
+}
+
+fn env_flag(name: &str) -> bool {
+    std::env::var(name)
+        .ok()
+        .is_some_and(|value| flag_value_enabled(&value))
+}
+
+fn flag_value_enabled(value: &str) -> bool {
+    matches!(
+        value.trim().to_ascii_lowercase().as_str(),
+        "1" | "true" | "yes" | "on"
+    )
+}
 
 #[derive(Clone, Debug, Deserialize, Default)]
 pub struct AgentConfig {
@@ -32,6 +62,7 @@ pub struct ChallengeCfg {
 /// You can override them in TOML if you need to tune tone/structure.
 #[allow(dead_code)]
 #[derive(Clone, Debug, Deserialize)]
+#[serde(default)]
 pub struct Prompts {
     // Challenge generation (seed + challenge text)
     pub challenge_system: String,
@@ -240,23 +271,56 @@ Rules:
     }
 }
 
-/// Attempt to load `AgentConfig` from AGENT_CONFIG_PATH. On any parsing/IO error, returns None.
-pub fn load_agent_config_from_env() -> Option<AgentConfig> {
-    let path = std::env::var("AGENT_CONFIG_PATH").ok()?;
-    match std::fs::read_to_string(&path) {
-        Ok(s) => match toml::from_str::<AgentConfig>(&s) {
-            Ok(cfg) => {
-                info!(target: "caatuu_runtime", %path, "Loaded agent config (TOML)");
-                Some(cfg)
-            }
-            Err(e) => {
-                error!(target: "caatuu_runtime", %path, error = %e, "Failed to parse TOML config");
-                None
-            }
-        },
-        Err(e) => {
-            error!(target: "caatuu_runtime", %path, error = %e, "Failed to read TOML config file");
-            None
+/// Load `AgentConfig` when AGENT_CONFIG_PATH is set.
+/// An explicitly configured but invalid file is a startup error.
+pub fn load_agent_config_from_env() -> Result<Option<AgentConfig>, String> {
+    let path = match std::env::var("AGENT_CONFIG_PATH") {
+        Ok(path) if !path.trim().is_empty() => path,
+        Ok(_) | Err(std::env::VarError::NotPresent) => return Ok(None),
+        Err(std::env::VarError::NotUnicode(_)) => {
+            return Err("AGENT_CONFIG_PATH is not valid Unicode.".into())
         }
+    };
+    let source = std::fs::read_to_string(&path)
+        .map_err(|error| format!("Could not read agent config at {path}: {error}"))?;
+    let config = toml::from_str::<AgentConfig>(&source)
+        .map_err(|error| format!("Could not parse agent config at {path}: {error}"))?;
+    info!(target: "caatuu_runtime", %path, "Loaded agent config (TOML)");
+    Ok(Some(config))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_feature_flag_values_conservatively() {
+        for enabled in ["1", "true", "TRUE", " yes ", "On"] {
+            assert!(
+                flag_value_enabled(enabled),
+                "{enabled} should enable the flag"
+            );
+        }
+        for disabled in ["", "0", "false", "enabled", "2"] {
+            assert!(
+                !flag_value_enabled(disabled),
+                "{disabled} should not enable the flag"
+            );
+        }
+    }
+
+    #[test]
+    fn partial_prompt_config_inherits_safe_defaults() {
+        let config: AgentConfig = toml::from_str(
+            r#"
+                [prompts]
+                translate_system = "Translate only."
+            "#,
+        )
+        .expect("partial prompts should deserialize");
+
+        assert_eq!(config.prompts.translate_system, "Translate only.");
+        assert!(!config.prompts.challenge_system.is_empty());
+        assert!(!config.prompts.sequence_words_system.is_empty());
     }
 }

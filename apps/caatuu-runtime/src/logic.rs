@@ -265,13 +265,8 @@ pub async fn get_hint_text_with_mode(
 #[instrument(level = "info", skip(_state, text), fields(text_len = text.len()))]
 pub async fn do_pinyin(_state: &AppState, text: &str) -> String {
     let p = to_pinyin_diacritics(text);
-    debug!(target: "caatuu_runtime", text, p, "pinying translation.");
+    debug!(target: "caatuu_runtime", input_chars = text.chars().count(), output_chars = p.chars().count(), "Pinyin conversion completed.");
     p
-}
-
-#[instrument(level = "info", skip(state, text), fields(text_len = text.len()))]
-pub async fn do_translate(state: &AppState, text: &str) -> String {
-    do_translate_with_mode(state, text, false).await
 }
 
 #[instrument(level = "info", skip(state, text), fields(text_len = text.len(), fast_only))]
@@ -329,7 +324,7 @@ pub async fn build_secuence_word_bank(
         %difficulty,
         target_count,
         target_clamped = target,
-        %seed_zh,
+        seed_chars = seed_zh.chars().count(),
         "build_secuence_word_bank start"
     );
     if let Some(oa) = &state.openai {
@@ -346,8 +341,7 @@ pub async fn build_secuence_word_bank(
                     target: "challenge",
                     elapsed_ms = started.elapsed().as_millis(),
                     raw_words_len = words.len(),
-                    raw_words = ?&words,
-                    context_hint = %hint,
+                    context_hint_chars = hint.chars().count(),
                     "OpenAI sequence_word_bank returned raw result"
                 );
                 let filtered = remove_secuence_connectors(words, target);
@@ -357,8 +351,7 @@ pub async fn build_secuence_word_bank(
                         target: "challenge",
                         elapsed_ms = started.elapsed().as_millis(),
                         final_words_len = enriched.len(),
-                        final_words = ?&enriched,
-                        context_hint = %hint,
+                        context_hint_chars = hint.chars().count(),
                         "build_secuence_word_bank success"
                     );
                     return (enriched, hint);
@@ -388,10 +381,9 @@ pub async fn build_secuence_word_bank(
         %difficulty,
         target_count,
         target_clamped = target,
-        %seed_zh,
+        seed_chars = seed_zh.chars().count(),
         local_words_len = local_words.len(),
-        local_words = ?&local_words,
-        local_hint = %local_hint,
+        local_hint_chars = local_hint.chars().count(),
         "build_secuence_word_bank local fallback result"
     );
     (local_words, local_hint)
@@ -784,15 +776,7 @@ fn seed_challenge_eval_local(
 
     // --- Stance verb check (very forgiving) ---
     let verb_ok = if let Some(v) = &req_verb {
-        if ans.contains(v) {
-            true
-        } else if v == "想要" && ans.contains("想") {
-            true
-        }
-        // allow close variant
-        else {
-            false
-        }
+        ans.contains(v) || (v == "想要" && ans.contains("想"))
     } else {
         STANCE_VERBS.iter().any(|v| ans.contains(*v))
     };
@@ -888,7 +872,7 @@ fn seed_challenge_eval_local(
     (correct, score, explanation)
 }
 fn freeform_eval_local(ch: &Challenge, answer: &str) -> (bool, f32, String) {
-    let mut score = 65.0;
+    let mut score: f32 = 65.0;
     let mut notes = vec![];
 
     if let Some(r) = &ch.rubric {
@@ -923,12 +907,7 @@ fn freeform_eval_local(ch: &Challenge, answer: &str) -> (bool, f32, String) {
     if answer.chars().count() >= 12 {
         score += 6.0;
     }
-    if score > 100.0 {
-        score = 100.0;
-    }
-    if score < 0.0 {
-        score = 0.0;
-    }
+    score = score.clamp(0.0, 100.0);
     let correct = score >= 52.0;
     let mut explanation = if notes.is_empty() {
         "Pass: response is on-task and creative.".into()
@@ -1066,7 +1045,7 @@ fn is_secuence_connector(word: &str) -> bool {
                 | '）'
         )
     });
-    !t.is_empty() && SECUENCE_CONNECTORS.iter().any(|x| *x == t)
+    !t.is_empty() && SECUENCE_CONNECTORS.contains(&t)
 }
 
 fn extract_cjk_chunks(text: &str) -> Vec<String> {

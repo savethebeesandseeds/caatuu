@@ -2,7 +2,7 @@ name: caatuu
 
 services:
   caatuu-build:
-    image: rust:latest
+    image: rust:1.96-bookworm
     profiles:
       - tools
     working_dir: /workspace/apps/caatuu-runtime
@@ -12,7 +12,7 @@ services:
       - .:/workspace
       - caatuu-cargo-registry:/usr/local/cargo/registry
       - caatuu-cargo-git:/usr/local/cargo/git
-    command: ["cargo", "build"]
+    command: ["cargo", "build", "--release", "--locked"]
 
   caatuu-dev:
     build:
@@ -34,6 +34,9 @@ services:
       - caatuu-cargo-git:/usr/local/cargo/git
       - caatuu-npm-cache:/root/.npm
       - caatuu-pip-cache:/root/.cache/pip
+      - caatuu-android-sdk:/opt/android-sdk
+      - caatuu-gradle-dist:/opt/gradle
+      - caatuu-gradle-cache:/root/.gradle
     gpus: all
     stdin_open: true
     tty: true
@@ -44,3 +47,9 @@ volumes:
   caatuu-cargo-git:
   caatuu-npm-cache:
   caatuu-pip-cache:
+  caatuu-android-sdk:
+    name: caatuu-android-sdk
+  caatuu-gradle-dist:
+    name: caatuu-gradle-dist
+  caatuu-gradle-cache:
+    name: caatuu-gradle-cache

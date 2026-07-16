@@ -5,6 +5,7 @@
   let setupRunning = false;
   let setupAborted = false;
   let nativeSetupActive = false;
+  let setupComplete = false;
   let updateRunning = false;
   let reportRunning = false;
   let navigationLocked = false;
@@ -25,11 +26,14 @@
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
-  const setupVisualFrameDelayMs = 2400;
+  const setupVisualFrameDelayMs = 6000;
   const setupManifestPath = "setup-assets.json";
   const setupFrameManifestPath = "/assets/macaw/loading_animation/split_manifest.json";
   const setupReadyArt = "/assets/icons/hello.png";
   let setupVisualFrames = [];
+  let appUpdateLocked = new URLSearchParams(window.location.search).get("app-update") === "1" ||
+    Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
+  let appUpdateUiState = appUpdateLocked ? "checking" : "idle";
 
   const setupMessages = [
     "Checking local storage before Caatuu starts.",
@@ -63,22 +67,119 @@
     return `${scaled >= 10 || unit === 0 ? scaled.toFixed(0) : scaled.toFixed(1)} ${units[unit]}`;
   }
 
+  function setupProgressUi() {
+    return window.CaatuuSetupProgress;
+  }
+
   function clampPercent(progress) {
-    return Math.max(0, Math.min(100, Number(progress || 0)));
+    return setupProgressUi().clampPercent(progress);
   }
 
   function artifactPercent(item) {
-    if (item?.ready) return 100;
-    const expected = Number(item?.expectedBytes || 0);
-    const bytes = Number(item?.bytes || 0);
-    return expected > 0 ? clampPercent(bytes / expected * 100) : 0;
+    return setupProgressUi().artifactPercent(item);
   }
 
   function hasAppUpdate(status = setupUpdateStatus) {
-    if (!status?.updateAvailable) return false;
-    const latest = Number(status.latestVersionCode || 0);
+    const latest = Number(status?.latestVersionCode || status?.downloadedVersionCode || 0);
     const current = Number(status.currentVersionCode || 0);
+    if (updateDownloadState(status) !== "idle") return latest > current;
+    if (!status?.updateAvailable) return false;
     return latest > current;
+  }
+
+  function updateDownloadState(status = setupUpdateStatus) {
+    return window.CaatuuMaintenanceUi?.updateDownloadState?.(status) || "idle";
+  }
+
+  function updateDownloadPercent(status = setupUpdateStatus) {
+    return window.CaatuuMaintenanceUi?.updateDownloadPercent?.(status) || 0;
+  }
+
+  function updateActionLabel() {
+    const labels = {
+      available: "Download update",
+      checking: "Checking for updates",
+      downloading: "Downloading update",
+      verifying: "Verifying update",
+      ready: "Install update",
+      partial: "Resume download",
+      retry: "Retry update",
+      installer: "Open installer"
+    };
+    return labels[appUpdateUiState] || "Update app";
+  }
+
+  function renderStoredUpdate(status = setupUpdateStatus) {
+    const state = updateDownloadState(status);
+    if (state === "ready") {
+      appUpdateUiState = "ready";
+      setText("#setupTitle", "Update ready to install");
+      setText("#setupPhase", "Ready to install");
+      setText("#setupMessage", `Caatuu ${status?.downloadedVersionName || status?.latestVersionName || ""} is already downloaded and verified.`);
+      setText("#setupCount", "Ready");
+      setProgress(100, "APK verified", "100%, app update ready to install");
+      $("#nativeSetup")?.classList.toggle("is-error", false);
+      setControls();
+      return true;
+    }
+    if (state === "active") {
+      const percent = updateDownloadPercent(status);
+      const bytes = Number(status?.partialBytes || status?.downloadedBytes || 0);
+      const totalBytes = Number(status?.latestBytes || status?.totalBytes || 0);
+      appUpdateUiState = "downloading";
+      setText("#setupTitle", "Downloading Caatuu");
+      setText("#setupPhase", "Downloading update");
+      setText("#setupMessage", "The update is continuing in the background. You can lock the phone without restarting it.");
+      setText("#setupCount", "Downloading");
+      setProgress(
+        percent,
+        totalBytes > 0 ? `${formatBytes(bytes)} / ${formatBytes(totalBytes)}` : formatBytes(bytes),
+        `${Math.floor(percent)}%, app update downloading in the background`
+      );
+      $("#nativeSetup")?.classList.toggle("is-error", false);
+      setControls();
+      scheduleUpdateStatusPoll(1500);
+      return true;
+    }
+    if (state === "partial") {
+      const percent = updateDownloadPercent(status);
+      const bytes = Number(status?.partialBytes || 0);
+      const totalBytes = Number(status?.latestBytes || 0);
+      appUpdateUiState = "partial";
+      setText("#setupTitle", "Update download paused");
+      setText("#setupPhase", "Download saved");
+      setText("#setupMessage", "The downloaded part is saved. Resume when you are ready; it will not start over.");
+      setText("#setupCount", "Paused");
+      setProgress(
+        percent,
+        totalBytes > 0 ? `${formatBytes(bytes)} / ${formatBytes(totalBytes)}` : formatBytes(bytes),
+        `${Math.floor(percent)}%, app update saved for resume`
+      );
+      $("#nativeSetup")?.classList.toggle("is-error", false);
+      setControls();
+      return true;
+    }
+    return false;
+  }
+
+  function pendingAppUpdate() {
+    return window.CaatuuMaintenanceUi?.pendingAppUpdate?.() || null;
+  }
+
+  function clearAppUpdateHandoff() {
+    appUpdateLocked = false;
+    window.CaatuuMaintenanceUi?.clearPendingAppUpdate?.();
+    document.body.classList.remove("app-update-lock");
+    const cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete("app-update");
+    cleanUrl.searchParams.delete("version");
+    window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+  }
+
+  function installedUpdateReached(status) {
+    const intended = Number(pendingAppUpdate()?.latestVersionCode || 0);
+    const current = Number(status?.currentVersionCode || 0);
+    return intended > 0 && current >= intended;
   }
 
   function updateStatusProblem(status = setupUpdateStatus) {
@@ -244,7 +345,12 @@
   function refreshWaitingMessage() {
     if (!setupRunning && !nativeSetupActive) return;
     const totals = totalsFromArtifacts();
-    setText("#setupMessage", setupMessage(totals.progress, latestSetupLabel));
+    setText(
+      "#setupMessage",
+      totals.verifying
+        ? `Download finished. Checking ${totals.verifyingArtifacts} ${totals.verifyingArtifacts === 1 ? "file" : "files"} before setup can finish.`
+        : setupMessage(totals.progress, latestSetupLabel)
+    );
   }
 
   function startSetupMessageCycle() {
@@ -266,26 +372,31 @@
     }
   }
 
-  function phaseText(kind, label = "") {
+  function phaseText(kind) {
     if (updateRunning) return "App update";
     if (kind === "ready") return "Ready";
     if (kind === "error") return "Needs attention";
-    if (kind === "progress") return label ? `Downloading ${label}` : "Downloading";
-    if (kind === "verify") return label ? `Checking ${label}` : "Verifying";
-    if (setupMode === "browser") return "Browser cache";
-    return "Local app storage";
+    if (kind === "abort") return "Stopping setup";
+    // Progress and verification events can alternate several times per second
+    // while individual artifacts finish. Keep the user-facing phase calm and
+    // let the progress meter, artifact rows, and event log carry that detail.
+    return "Preparing Caatuu";
   }
 
-  function setProgress(progress, bytesText = "") {
+  function setProgress(progress, bytesText = "", valueText = "") {
     const percent = clampPercent(progress);
+    const displayPercent = percent >= 100 ? 100 : Math.floor(percent);
     const progressNode = $("#setupProgress");
     const progressBar = $("#setupProgressBar");
-    if (progressNode) progressNode.setAttribute("aria-valuenow", String(Math.round(percent)));
+    if (progressNode) {
+      progressNode.setAttribute("aria-valuenow", String(displayPercent));
+      if (valueText) progressNode.setAttribute("aria-valuetext", valueText);
+    }
     if (progressBar) progressBar.style.width = `${percent}%`;
     if ($("#setupPercent")) {
-      setText("#setupPercent", `${percent.toFixed(0)}%`);
+      setText("#setupPercent", `${displayPercent}%`);
     } else {
-      setText("#setupProgressText", `${percent.toFixed(0)}%`);
+      setText("#setupProgressText", `${displayPercent}%`);
     }
     if (bytesText) setText("#setupBytes", bytesText);
   }
@@ -293,43 +404,30 @@
   function setControls() {
     const action = $("#setupAction");
     const abort = $("#setupAbort");
-    const update = $("#setupUpdate");
     const report = $("#setupReportBug");
     const detailsToggle = $("#setupDetailsToggle");
-    const ready = totalReady();
+    const ready = setupComplete;
     const setupActive = setupRunning || nativeSetupActive;
-    const nativeUpdate = hasNativeRuntime();
-    const updateAvailable = nativeUpdate && hasAppUpdate();
-    const updateCheckNeeded = nativeUpdate && !ready && (
-      setupActive ||
-      setupAborted ||
-      Boolean(lastSetupAttention) ||
-      updateStatusProblem()
-    );
     const card = $("#nativeSetup");
-    if (card) card.classList.toggle("is-updating", updateRunning);
-    syncDetailsState(ready);
+    if (card) {
+      card.classList.toggle("is-updating", updateRunning);
+      card.classList.toggle("is-app-update-lock", appUpdateLocked);
+    }
+    document.body.classList.toggle("app-update-lock", appUpdateLocked);
+    syncDetailsState();
 
     if (action) {
-      action.hidden = ready || setupActive;
-      action.disabled = setupActive;
-      action.textContent = setupAborted ? "Retry setup" : "Prepare Caatuu";
+      action.hidden = appUpdateLocked ? false : ready || setupActive;
+      action.disabled = appUpdateLocked
+        ? updateRunning || ["checking", "downloading", "verifying"].includes(appUpdateUiState)
+        : setupActive;
+      action.textContent = appUpdateLocked
+        ? updateActionLabel()
+        : setupAborted ? "Retry setup" : "Prepare Caatuu";
     }
     if (abort) {
       abort.disabled = !setupActive || updateRunning;
-      abort.hidden = ready;
-    }
-    if (update) {
-      update.hidden = !updateRunning && !updateAvailable && !updateCheckNeeded;
-      update.disabled = updateRunning || !nativeUpdate;
-      update.textContent = updateRunning ? "Updating" : "Update app";
-      update.title = updateAvailable && setupActive
-        ? "Stop setup and open the app update"
-        : updateAvailable
-          ? "Open the app update"
-          : updateCheckNeeded
-            ? "Check the server for a newer app update"
-            : "";
+      abort.hidden = appUpdateLocked || ready;
     }
     if (report) {
       report.hidden = true;
@@ -337,19 +435,18 @@
     }
     if (detailsToggle) {
       const details = $("#setupDetails");
-      const visible = details ? !details.hidden : false;
-      detailsToggle.hidden = !artifactState.size && !setupLog.length;
+      const visible = !appUpdateLocked && details ? !details.hidden : false;
+      detailsToggle.hidden = appUpdateLocked || (!artifactState.size && !setupLog.length);
       detailsToggle.disabled = false;
       detailsToggle.setAttribute("aria-expanded", String(visible));
-      detailsToggle.textContent = visible ? "Hide details" : "Details";
+      detailsToggle.textContent = visible ? "Hide details" : "Show details";
     }
   }
 
-  function syncDetailsState(ready = totalReady()) {
+  function syncDetailsState() {
     const card = $("#nativeSetup");
     const details = $("#setupDetails");
-    const defaultOpen = !ready;
-    const visible = detailsTouched ? detailsOpen : defaultOpen;
+    const visible = !appUpdateLocked && detailsTouched && detailsOpen;
     if (card) card.classList.toggle("details-open", visible);
     if (details) details.hidden = !visible;
   }
@@ -390,8 +487,11 @@
     if (!hasNativeRuntime()) return;
     updateStatusPollTimer = window.setTimeout(async () => {
       updateStatusPollTimer = null;
-      if (!updateRunning) await refreshUpdateAvailability();
-      scheduleUpdateStatusPoll();
+      if (!updateRunning) {
+        const status = await refreshUpdateAvailability();
+        if (appUpdateLocked) renderStoredUpdate(status);
+      }
+      if (updateStatusPollTimer === null) scheduleUpdateStatusPoll();
     }, delayMs);
   }
 
@@ -437,7 +537,7 @@
         key: `model:${key}`,
         label: label || "Model",
         kind: "gguf-model",
-        order: 10
+        order: 20
       };
     }
 
@@ -446,7 +546,16 @@
         key: "embeddings",
         label: "Embeddings",
         kind: "embedding-vector-db",
-        order: 20
+        order: 30
+      };
+    }
+
+    if (kind === "dictionary-database" || searchable.includes("dictionary")) {
+      return {
+        key: "dictionary",
+        label: "Dictionary",
+        kind: "dictionary-database",
+        order: 40
       };
     }
 
@@ -454,7 +563,7 @@
       key: "assets",
       label: "Assets",
       kind: "asset-group",
-      order: 30
+      order: 10
     };
   }
 
@@ -505,6 +614,16 @@
         expectedBytes: status.vectorDatabase.expectedBytes || 0
       });
     }
+    if (status?.dictionary) {
+      rows.push({
+        key: status.dictionary.key || "dictionary",
+        label: status.dictionary.label || "Dictionary",
+        kind: status.dictionary.kind || status.dictionary.artifactKind || status.dictionary.artifact_kind || "dictionary-database",
+        ready: Boolean(status.dictionary.ready || status.dictionary.verified || status.dictionary.available),
+        bytes: status.dictionary.bytes || 0,
+        expectedBytes: status.dictionary.expectedBytes || 0
+      });
+    }
     const staticAssets = Array.isArray(status?.staticAssets?.assets) ? status.staticAssets.assets : [];
     staticAssets.forEach((item) => {
       rows.push({
@@ -520,18 +639,19 @@
   }
 
   function syncArtifactState(status) {
-    artifactRows(status).forEach((item) => {
+    const rows = artifactRows(status);
+    if (!rows.length) return;
+    artifactState.clear();
+    rows.forEach((item) => {
       const key = artifactKey(item);
-      const existing = artifactState.get(key) || {};
       artifactState.set(key, {
-        ...existing,
         ...item,
         key,
         bytes: Number(item.bytes || 0),
-        expectedBytes: Number(item.expectedBytes || existing.expectedBytes || 0),
+        expectedBytes: Number(item.expectedBytes || 0),
         ready: Boolean(item.ready),
-        active: Boolean(existing.active && !item.ready),
-        error: item.ready ? "" : existing.error || ""
+        active: Boolean(item.active && !item.ready),
+        error: item.ready ? "" : item.error || ""
       });
     });
   }
@@ -541,7 +661,7 @@
     const existing = artifactState.get(key) || {};
     const totalBytes = Number(message.totalBytes || existing.expectedBytes || 0);
     const bytes = Number(message.bytes || existing.bytes || 0);
-    const ready = bytes > 0 && totalBytes > 0 && bytes >= totalBytes;
+    const ready = Boolean(existing.ready || setupProgressUi().messageMarksReady(message));
     activeArtifactKey = key;
     artifactState.set(key, {
       ...existing,
@@ -557,17 +677,10 @@
   }
 
   function totalsFromArtifacts() {
-    const rows = [...artifactState.values()];
-    const expectedBytes = rows.reduce((sum, item) => sum + Number(item.expectedBytes || 0), 0);
-    const bytes = rows.reduce((sum, item) => sum + Math.min(Number(item.bytes || 0), Number(item.expectedBytes || item.bytes || 0)), 0);
-    const readyArtifacts = rows.filter((item) => item.ready).length;
-    const artifactCount = rows.length;
-    const progress = expectedBytes > 0
-      ? bytes / expectedBytes * 100
-      : artifactCount > 0
-        ? readyArtifacts / artifactCount * 100
-        : 0;
-    return { bytes, expectedBytes, readyArtifacts, artifactCount, progress };
+    return setupProgressUi().totalsFromArtifacts(
+      [...artifactState.values()],
+      { setupReady: setupComplete }
+    );
   }
 
   function renderArtifacts() {
@@ -603,7 +716,7 @@
       row.dataset.status = item.error ? "error" : item.ready ? "ready" : item.active ? "active" : "pending";
       row.style.setProperty("--artifact-progress", `${percent}%`);
       icon.className = "setup-artifact-icon";
-      icon.textContent = item.ready ? "\u2713" : "!";
+      icon.textContent = item.ready ? "\u2713" : item.error ? "!" : item.active ? "\u2022" : "\u00b7";
       title.textContent = item.itemCount > 1 ? `${item.label} (${item.readyItems}/${item.itemCount})` : item.label || item.key || "Artifact";
       meta.textContent = item.ready ? `${percent.toFixed(0)}% ready` : `${percent.toFixed(0)}%`;
       meta.title = `${formatBytes(item.bytes)} / ${formatBytes(item.expectedBytes || item.bytes)}`;
@@ -631,7 +744,7 @@
   function renderLog() {
     const container = $("#setupLog");
     if (!container) return;
-    container.replaceChildren(...setupLog.map((item) => {
+    container.replaceChildren(...setupLog.slice(-5).map((item) => {
       const entry = document.createElement("li");
       const title = document.createElement("strong");
       const detail = document.createElement("span");
@@ -667,18 +780,30 @@
       ? `${formatBytes(totals.bytes)} / ${formatBytes(totals.expectedBytes)}`
       : `${totals.readyArtifacts} of ${totals.artifactCount || 0} ready`;
     latestSetupLabel = label;
-    if (card) card.classList.toggle("is-error", kind === "error");
+    if (card) {
+      card.classList.toggle("is-error", kind === "error");
+      card.classList.toggle("is-verifying", totals.verifying && !setupComplete);
+    }
     setText("#setupCount", `${Math.min(totals.readyArtifacts, totals.artifactCount)}/${totals.artifactCount || "?"}`);
-    setText("#setupPhase", phaseText(kind, label));
-    setText("#setupMessage", message || setupMessage(totals.progress, label));
-    setProgress(totals.progress, bytesText);
+    const displayKind = totals.verifying && kind !== "error" && kind !== "ready" ? "verify" : kind;
+    const defaultMessage = totals.verifying
+      ? `Download finished. Checking ${totals.verifyingArtifacts} ${totals.verifyingArtifacts === 1 ? "file" : "files"} before setup can finish.`
+      : setupMessage(totals.progress, label);
+    setText("#setupPhase", phaseText(displayKind));
+    setText("#setupMessage", message || defaultMessage);
+    setProgress(
+      totals.progress,
+      bytesText,
+      `${Math.floor(totals.progress)}%, ${totals.readyArtifacts} of ${totals.artifactCount} files verified`
+    );
     renderArtifacts();
     setControls();
   }
 
   function renderStatus(status, message = "") {
     syncArtifactState(status);
-    const ready = Boolean(status?.ready) || totalReady();
+    const ready = Boolean(status?.ready) && totalReady();
+    setupComplete = ready;
     const readyText = hasNativeRuntime()
       ? "Ready."
       : "Ready.";
@@ -699,7 +824,7 @@
       applyStageArt();
     }
     if (!ready && !hasNativeRuntime()) applyStageArt();
-    setNavigationLocked(!ready);
+    setNavigationLocked(appUpdateLocked || !ready);
     if (ready) pushLog("ready", "Setup complete", readyText);
   }
 
@@ -710,6 +835,7 @@
   function setNavigationLocked(locked) {
     navigationLocked = locked;
     document.body.classList.toggle("setup-blocked", locked);
+    document.body.classList.toggle("app-update-lock", appUpdateLocked);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
       nav.dataset.setupLocked = locked ? "true" : "false";
       nav.setAttribute("aria-disabled", String(locked));
@@ -723,17 +849,32 @@
         node.removeAttribute("tabindex");
       }
     });
+    document.querySelectorAll("[data-caatuu-app-header] a, [data-caatuu-app-header] button").forEach((node) => {
+      if (appUpdateLocked) {
+        node.setAttribute("aria-disabled", "true");
+        node.tabIndex = -1;
+      } else {
+        node.removeAttribute("aria-disabled");
+        node.removeAttribute("tabindex");
+      }
+    });
   }
 
   function bindNavigationLock() {
     document.addEventListener("click", (event) => {
       if (!navigationLocked) return;
-      const target = event.target.closest("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button");
+      const selector = appUpdateLocked
+        ? "[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button, [data-caatuu-app-header] a, [data-caatuu-app-header] button"
+        : "[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button";
+      const target = event.target.closest(selector);
       if (!target) return;
       event.preventDefault();
       event.stopPropagation();
-      pushLog("status", "Navigation blocked", "Finish setup before opening app sections.");
-      setText("#setupMessage", "Caatuu is still preparing the local files.");
+      const message = appUpdateLocked
+        ? "Finish or retry the app update before opening other sections."
+        : "Finish setup before opening app sections.";
+      pushLog("status", "Navigation blocked", message);
+      setText("#setupMessage", message);
     }, true);
   }
 
@@ -744,22 +885,18 @@
       const group = displayGroupFor(artifactState.get(message.artifactKey) || message);
       const displayRow = displayArtifactRows().find((item) => item.key === group.key);
       const label = displayRow?.label || group.label || message.label || "Artifact";
-      const bytesText = `${formatBytes(totals.bytes)} / ${formatBytes(totals.expectedBytes || message.totalBytes)}`;
       latestSetupLabel = label;
-      setText("#setupPhase", phaseText("progress", label));
-      setText("#setupMessage", setupMessage(totals.progress, label));
-      setProgress(totals.progress, bytesText);
-      renderArtifacts();
+      updateSummary("", totals.verifying ? "verify" : "progress", label);
       maybeLogProgress(message);
       return;
     }
 
     if (message.kind === "status") {
-      const phase = String(message.phase || "").toLowerCase();
-      const itemReady = phase.includes("ready") || phase.includes("cached");
+      const itemReady = setupProgressUi().messageMarksReady(message);
       if (itemReady && message.artifactKey) {
         updateArtifactFromEvent({
           ...message,
+          ready: true,
           bytes: artifactState.get(message.artifactKey)?.expectedBytes || 1,
           totalBytes: artifactState.get(message.artifactKey)?.expectedBytes || 1
         });
@@ -767,7 +904,7 @@
       const group = displayGroupFor(artifactState.get(message.artifactKey) || message);
       const displayRow = displayArtifactRows().find((item) => item.key === group.key);
       const label = displayRow?.label || group.label || message.label || "";
-      const kind = totalReady() ? "ready" : "status";
+      const kind = setupComplete ? "ready" : "status";
       updateSummary("", kind, label);
       if (itemReady) {
         maybeLogProgress({
@@ -786,6 +923,7 @@
     setupRunning = false;
     setupAborted = true;
     nativeSetupActive = false;
+    setupComplete = false;
     stopSetupMessageCycle();
     setNavigationLocked(true);
     setText("#setupTitle", "Setup stopped");
@@ -812,7 +950,7 @@
 
   async function runStoragePreflight() {
     if (!runtime?.setup?.preflight) return true;
-    setText("#setupPhase", "Checking storage");
+    setText("#setupPhase", phaseText("verify"));
     setText("#setupMessage", "Checking device storage before setup starts.");
     pushLog("status", "Storage check started", "Checking free space before downloads.");
 
@@ -895,6 +1033,7 @@
     setControls();
     try {
       const result = await runtime.maintenance.reportBug(setupBugReportPayload());
+      if (result?.ok === false) throw new Error(result.message || "Could not send the bug report.");
       const reportId = result?.report_id || result?.reportId || "saved";
       pushLog("ready", "Bug report saved", reportId);
       setText("#setupMessage", "Report sent. Thank you.");
@@ -913,6 +1052,7 @@
     clearSetupStatusPoll();
     setupRunning = true;
     setupAborted = false;
+    setupComplete = false;
     lastSetupAttention = null;
     lastStoragePreflight = null;
     activeArtifactKey = "";
@@ -949,15 +1089,17 @@
     clearSetupStatusPoll();
     setupAborted = true;
     pushLog("status", "Abort requested", "Stopping setup so you can update or retry.");
-    setText("#setupPhase", "Abort requested");
+    setText("#setupPhase", phaseText("abort"));
     setText("#setupMessage", "Stopping setup. Caatuu will keep files that were already verified.");
     setControls();
 
     try {
       const result = await runtime.setup.abort();
       nativeSetupActive = false;
-      syncArtifactState(result);
-      stopSetupUi("Android setup stopped. Active model downloads were cancelled.");
+      const status = artifactRows(result).length ? result : await runtime.setup.status();
+      syncArtifactState(status);
+      const scope = setupMode === "browser" ? "Browser setup" : "Android setup";
+      stopSetupUi(`${scope} stopped. Active downloads were cancelled.`);
     } catch (error) {
       stopSetupUi(error?.message || "Setup abort did not finish cleanly.");
     }
@@ -967,53 +1109,116 @@
     if (updateRunning) return;
     if (!hasNativeRuntime()) {
       setupUpdateStatus = { updateAvailable: false };
-      setControls();
-      return;
-    }
-
-    const status = await refreshUpdateAvailability();
-    if (!hasAppUpdate(status)) {
-      if (updateStatusProblem(status)) {
-        const message = status?.updateError || "The update server could not be reached.";
-        pushLog("error", "Update check failed", message);
-        setText("#setupPhase", "Update unavailable");
-        setText("#setupMessage", `Could not check for an app update. ${message}`);
-      } else {
-        const label = updateStatusLabel(status);
-        pushLog("ready", "App is current", `No newer APK is exposed by the server (${label}).`);
-        setText("#setupPhase", "App is current");
-        setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
-      }
+      clearAppUpdateHandoff();
       setControls();
       return;
     }
 
     clearUpdateStatusPoll();
     updateRunning = true;
+    appUpdateUiState = "checking";
+    setText("#setupTitle", "Checking for an update");
+    setText("#setupPhase", "App update");
+    setText("#setupMessage", "Contacting the update server.");
+    setText("#setupCount", "Checking");
+    setProgress(0, "Contacting server", "Checking the update server");
+    $("#nativeSetup")?.classList.toggle("is-error", false);
+    setNavigationLocked(appUpdateLocked || !setupComplete);
     setControls();
 
-    if (setupRunning || nativeSetupActive) {
-      pushLog("status", "Update requested", "Stopping setup before updating.");
-      setText("#setupPhase", "App update");
-      setText("#setupMessage", "Stopping setup so Android can install the app update.");
-      await abortSetup();
-    }
-
-    pushLog("status", "Update requested", "Checking APK update.");
-    setText("#setupTitle", "Updating Caatuu");
-    setText("#setupPhase", "App update");
-    setText("#setupMessage", "Checking the latest APK before opening Android installer.");
-
     try {
+      const status = await refreshUpdateAvailability();
+      const storedState = updateDownloadState(status);
+      if (!hasAppUpdate(status)) {
+        const completed = appUpdateLocked && installedUpdateReached(status);
+        if (updateStatusProblem(status)) {
+          const message = status?.updateError || "The update server could not be reached.";
+          pushLog("error", "Update check failed", message);
+          setText("#setupTitle", "Update check failed");
+          setText("#setupPhase", "Update unavailable");
+          setText("#setupMessage", `Could not check for an app update. ${message}`);
+          setText("#setupCount", "Try again");
+          setProgress(0, "Not downloaded", "Update check failed");
+          $("#nativeSetup")?.classList.toggle("is-error", true);
+          appUpdateUiState = "retry";
+        } else {
+          const label = updateStatusLabel(status);
+          pushLog("ready", "App is current", `No newer APK is exposed by the server (${label}).`);
+          setText("#setupTitle", "Caatuu is current");
+          setText("#setupPhase", "App is current");
+          setText("#setupMessage", completed
+            ? `Caatuu ${status?.currentVersionName || status?.currentVersionCode || ""} is installed and ready.`
+            : `No newer app update is exposed by the server (${label}).`);
+          setText("#setupCount", "Current");
+          setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "No update", "No app update is required");
+          $("#nativeSetup")?.classList.toggle("is-error", false);
+        }
+        if (!updateStatusProblem(status)) {
+          if (appUpdateLocked) clearAppUpdateHandoff();
+          setNavigationLocked(!setupComplete);
+        } else {
+          setNavigationLocked(true);
+        }
+        return;
+      }
+
+      appUpdateLocked = true;
+      setNavigationLocked(true);
+      setControls();
+
+      if (setupRunning || nativeSetupActive) {
+        pushLog("status", "Update requested", "Stopping setup before updating.");
+        setText("#setupPhase", "App update");
+        setText("#setupMessage", "Stopping setup so Android can install the app update.");
+        await abortSetup();
+      }
+
+      pushLog("status", "Update requested", "Checking APK update.");
+      appUpdateUiState = storedState === "ready" ? "installer" : "downloading";
+      setText("#setupTitle", storedState === "ready" ? "Installing Caatuu" : "Updating Caatuu");
+      setText("#setupPhase", storedState === "ready" ? "Opening installer" : storedState === "partial" ? "Resuming download" : "Downloading update");
+      setText("#setupMessage", storedState === "ready"
+        ? "The verified APK is ready. Opening the Android installer."
+        : storedState === "partial"
+          ? "Resuming the saved update download."
+          : "Downloading the verified Android update.");
+      setText("#setupCount", storedState === "ready" ? "Installing" : storedState === "partial" ? "Resuming" : "Downloading");
+      if (storedState === "ready") {
+        setProgress(100, "APK verified", "100%, opening the Android installer");
+      } else if (storedState === "partial") {
+        const bytes = Number(status?.partialBytes || 0);
+        const totalBytes = Number(status?.latestBytes || 0);
+        setProgress(
+          updateDownloadPercent(status),
+          totalBytes > 0 ? `${formatBytes(bytes)} / ${formatBytes(totalBytes)}` : formatBytes(bytes),
+          `${Math.floor(updateDownloadPercent(status))}%, resuming the app update download`
+        );
+      } else {
+        setProgress(0, "Starting download", "Starting the app update download");
+      }
+      setControls();
+
       const result = await runtime.maintenance.updateApp({
         onEvent(message) {
           if (message.kind === "progress") {
+            appUpdateUiState = "downloading";
             const bytes = Number(message.bytes || 0);
             const totalBytes = Number(message.totalBytes || 0);
-            const progress = totalBytes > 0 ? bytes / totalBytes * 100 : 0;
-            setText("#setupPhase", "App update");
-            setText("#setupMessage", `Downloading update ${formatBytes(bytes)} / ${formatBytes(totalBytes)}.`);
-            setProgress(progress, `${formatBytes(bytes)} / ${formatBytes(totalBytes)}`);
+            const rawProgress = totalBytes > 0 ? bytes / totalBytes * 100 : 0;
+            const downloaded = totalBytes > 0 && bytes >= totalBytes;
+            if (downloaded) appUpdateUiState = "verifying";
+            setControls();
+            const progress = Math.min(99, rawProgress);
+            setText("#setupPhase", downloaded ? "Verifying update" : "Downloading update");
+            setText("#setupMessage", downloaded
+              ? "Download complete. Verifying the APK before Android can open it."
+              : `Downloading update ${formatBytes(bytes)} / ${formatBytes(totalBytes)}.`);
+            setText("#setupCount", downloaded ? "Verifying" : "Downloading");
+            setProgress(
+              progress,
+              totalBytes > 0 ? `${formatBytes(bytes)} / ${formatBytes(totalBytes)}` : formatBytes(bytes),
+              downloaded ? "99%, verifying the app update" : `${Math.floor(progress)}%, downloading the app update`
+            );
             maybeLogProgress({
               ...message,
               label: "App update",
@@ -1022,19 +1227,34 @@
             return;
           }
           if (message.kind === "status") {
+            if (storedState !== "ready") appUpdateUiState = "verifying";
+            setControls();
+            setText("#setupPhase", storedState === "ready" ? "Opening installer" : "Verifying update");
+            setText("#setupCount", storedState === "ready" ? "Installing" : "Verifying");
             setText("#setupMessage", message.message || "Preparing update.");
             pushLog("status", message.message || "Preparing update.", "APK");
           }
         }
       });
       const action = result.action === "settings" ? "Android install permission opened." : "Android installer opened.";
+      appUpdateUiState = "installer";
       pushLog("ready", "Update ready", action);
+      setText("#setupPhase", "Update verified");
       setText("#setupMessage", `${action} Confirm the update there.`);
+      setText("#setupCount", "Verified");
+      setProgress(100, "APK verified", "100%, app update verified");
     } catch (error) {
       pushLog("error", "Update failed", error?.message || String(error));
+      setText("#setupTitle", "Update stopped");
+      setText("#setupPhase", "Update failed");
       setText("#setupMessage", error?.message || "Could not start the update.");
+      setText("#setupCount", "Try again");
+      setProgress(0, "Not installed", "App update failed");
+      $("#nativeSetup")?.classList.toggle("is-error", true);
+      appUpdateUiState = "retry";
     } finally {
       updateRunning = false;
+      setNavigationLocked(appUpdateLocked || !setupComplete);
       setControls();
       scheduleUpdateStatusPoll();
     }
@@ -1048,28 +1268,41 @@
     card.hidden = false;
     bindNavigationLock();
     setNavigationLocked(true);
-    $("#setupAction")?.addEventListener("click", startSetup);
+    $("#setupAction")?.addEventListener("click", () => {
+      if (appUpdateLocked) void updateApp();
+      else void startSetup();
+    });
     $("#setupAbort")?.addEventListener("click", abortSetup);
     $("#setupReportBug")?.addEventListener("click", reportSetupAttention);
     document.addEventListener("click", handleDetailsToggle, true);
-    $("#setupUpdate")?.addEventListener("click", updateApp);
     pushLog("status", "Setup check started", "Looking for local files.");
 
     try {
       if (!hasNativeRuntime()) {
         setupMode = "browser";
+        if (appUpdateLocked) clearAppUpdateHandoff();
         const status = await runtime.setup.status();
         renderStatus(status);
         if (!status.ready) await startSetup();
-        await refreshUpdateAvailability();
         return;
       }
 
       setupMode = "native";
       const status = await runtime.setup.status();
       renderStatus(status);
-      await refreshUpdateAvailability();
-      scheduleUpdateStatusPoll();
+      if (appUpdateLocked) {
+        setText("#setupTitle", "Updating Caatuu");
+        setText("#setupPhase", "App update");
+        setText("#setupMessage", "Checking whether the confirmed update is already downloaded.");
+        const updateStatus = await refreshUpdateAvailability();
+        if (renderStoredUpdate(updateStatus)) {
+          setNavigationLocked(true);
+          return;
+        }
+        appUpdateUiState = hasAppUpdate(updateStatus) ? "available" : "checking";
+        await updateApp();
+        return;
+      }
       if (!status.ready) {
         if (status.setupActive) {
           scheduleSetupStatusPoll();

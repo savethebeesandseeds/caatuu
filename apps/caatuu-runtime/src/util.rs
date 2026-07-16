@@ -15,13 +15,13 @@ pub fn fill_template(tpl: &str, pairs: &[(&str, &str)]) -> String {
 /// True if unicode char belongs to CJK ranges.
 /// Useful for deciding whether to insert spacing when mixing Han + ASCII.
 pub fn is_cjk(ch: char) -> bool {
-    (ch >= '\u{4E00}' && ch <= '\u{9FFF}')
-        || (ch >= '\u{3400}' && ch <= '\u{4DBF}')
-        || (ch >= '\u{20000}' && ch <= '\u{2A6DF}')
-        || (ch >= '\u{2A700}' && ch <= '\u{2B73F}')
-        || (ch >= '\u{2B740}' && ch <= '\u{2B81F}')
-        || (ch >= '\u{2B820}' && ch <= '\u{2CEAF}')
-        || (ch >= '\u{F900}' && ch <= '\u{FAFF}')
+    ('\u{4E00}'..='\u{9FFF}').contains(&ch)
+        || ('\u{3400}'..='\u{4DBF}').contains(&ch)
+        || ('\u{20000}'..='\u{2A6DF}').contains(&ch)
+        || ('\u{2A700}'..='\u{2B73F}').contains(&ch)
+        || ('\u{2B740}'..='\u{2B81F}').contains(&ch)
+        || ('\u{2B820}'..='\u{2CEAF}').contains(&ch)
+        || ('\u{F900}'..='\u{FAFF}').contains(&ch)
 }
 
 /// Normalize a sentence by removing all whitespace.

@@ -1,0 +1,407 @@
+{
+  "cols": 4,
+  "count": 12,
+  "input_dir": "/tmp/macaw-rig-v1-input",
+  "output_dir": "/tmp/macaw-rig-v1-split",
+  "prefix": "macaw-traveler-part",
+  "rows": 3,
+  "sprites": [
+    {
+      "area": 55126,
+      "bbox": [
+        123,
+        30,
+        359,
+        356
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_001.png",
+      "index": 1,
+      "mask_engine": "alpha",
+      "output_size": [
+        300,
+        390
+      ],
+      "padded_bbox": [
+        91,
+        0,
+        391,
+        388
+      ],
+      "restored_padding": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 1
+    },
+    {
+      "area": 78601,
+      "bbox": [
+        409,
+        62,
+        760,
+        386
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_002.png",
+      "index": 2,
+      "mask_engine": "alpha",
+      "output_size": [
+        415,
+        388
+      ],
+      "padded_bbox": [
+        377,
+        30,
+        792,
+        418
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 2
+    },
+    {
+      "area": 25022,
+      "bbox": [
+        861,
+        138,
+        1108,
+        324
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_003.png",
+      "index": 3,
+      "mask_engine": "alpha",
+      "output_size": [
+        311,
+        250
+      ],
+      "padded_bbox": [
+        829,
+        106,
+        1140,
+        356
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 3
+    },
+    {
+      "area": 11268,
+      "bbox": [
+        1290,
+        32,
+        1344,
+        409
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_004.png",
+      "index": 4,
+      "mask_engine": "alpha",
+      "output_size": [
+        118,
+        441
+      ],
+      "padded_bbox": [
+        1258,
+        0,
+        1376,
+        441
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 4
+    },
+    {
+      "area": 21981,
+      "bbox": [
+        148,
+        428,
+        294,
+        651
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_005.png",
+      "index": 5,
+      "mask_engine": "alpha",
+      "output_size": [
+        210,
+        287
+      ],
+      "padded_bbox": [
+        116,
+        396,
+        326,
+        683
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 5
+    },
+    {
+      "area": 23519,
+      "bbox": [
+        439,
+        458,
+        683,
+        620
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_006.png",
+      "index": 6,
+      "mask_engine": "alpha",
+      "output_size": [
+        308,
+        226
+      ],
+      "padded_bbox": [
+        407,
+        426,
+        715,
+        652
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 6
+    },
+    {
+      "area": 20343,
+      "bbox": [
+        864,
+        428,
+        1009,
+        635
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_007.png",
+      "index": 7,
+      "mask_engine": "alpha",
+      "output_size": [
+        209,
+        271
+      ],
+      "padded_bbox": [
+        832,
+        396,
+        1041,
+        667
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 7
+    },
+    {
+      "area": 17682,
+      "bbox": [
+        1170,
+        468,
+        1362,
+        603
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_008.png",
+      "index": 8,
+      "mask_engine": "alpha",
+      "output_size": [
+        256,
+        199
+      ],
+      "padded_bbox": [
+        1138,
+        436,
+        1394,
+        635
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 8
+    },
+    {
+      "area": 13415,
+      "bbox": [
+        107,
+        732,
+        281,
+        928
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_009.png",
+      "index": 9,
+      "mask_engine": "alpha",
+      "output_size": [
+        238,
+        260
+      ],
+      "padded_bbox": [
+        75,
+        700,
+        313,
+        960
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 9
+    },
+    {
+      "area": 14175,
+      "bbox": [
+        467,
+        733,
+        632,
+        943
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_010.png",
+      "index": 10,
+      "mask_engine": "alpha",
+      "output_size": [
+        229,
+        274
+      ],
+      "padded_bbox": [
+        435,
+        701,
+        664,
+        975
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 10
+    },
+    {
+      "area": 10295,
+      "bbox": [
+        843,
+        764,
+        972,
+        880
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_011.png",
+      "index": 11,
+      "mask_engine": "alpha",
+      "output_size": [
+        193,
+        180
+      ],
+      "padded_bbox": [
+        811,
+        732,
+        1004,
+        912
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 11
+    },
+    {
+      "area": 64752,
+      "bbox": [
+        1126,
+        622,
+        1439,
+        972
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/tmp/macaw-rig-v1-split/macaw-traveler-part_012.png",
+      "index": 12,
+      "mask_engine": "alpha",
+      "output_size": [
+        377,
+        414
+      ],
+      "padded_bbox": [
+        1094,
+        590,
+        1471,
+        1004
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/tmp/macaw-rig-v1-input/macaw-traveler-parts-sheet-v1.png",
+      "source_slot": 12
+    }
+  ],
+  "warnings": []
+}

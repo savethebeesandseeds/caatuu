@@ -1,0 +1,407 @@
+{
+  "cols": 4,
+  "count": 12,
+  "input_dir": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals",
+  "output_dir": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split",
+  "prefix": "human-walk",
+  "rows": 3,
+  "sprites": [
+    {
+      "area": 3938,
+      "bbox": [
+        51,
+        20,
+        141,
+        176
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_001.png",
+      "index": 1,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        138,
+        204
+      ],
+      "padded_bbox": [
+        27,
+        0,
+        165,
+        200
+      ],
+      "restored_padding": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 1
+    },
+    {
+      "area": 3984,
+      "bbox": [
+        252,
+        20,
+        332,
+        176
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_002.png",
+      "index": 2,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        128,
+        204
+      ],
+      "padded_bbox": [
+        228,
+        0,
+        356,
+        200
+      ],
+      "restored_padding": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 2
+    },
+    {
+      "area": 3573,
+      "bbox": [
+        453,
+        18,
+        514,
+        176
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_003.png",
+      "index": 3,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        109,
+        206
+      ],
+      "padded_bbox": [
+        429,
+        0,
+        538,
+        200
+      ],
+      "restored_padding": [
+        0,
+        6,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 3
+    },
+    {
+      "area": 3257,
+      "bbox": [
+        644,
+        16,
+        689,
+        175
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_004.png",
+      "index": 4,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        93,
+        207
+      ],
+      "padded_bbox": [
+        620,
+        0,
+        713,
+        199
+      ],
+      "restored_padding": [
+        0,
+        8,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 4
+    },
+    {
+      "area": 3639,
+      "bbox": [
+        67,
+        230,
+        119,
+        389
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_005.png",
+      "index": 5,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        100,
+        207
+      ],
+      "padded_bbox": [
+        43,
+        206,
+        143,
+        413
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 5
+    },
+    {
+      "area": 3863,
+      "bbox": [
+        246,
+        232,
+        318,
+        389
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_006.png",
+      "index": 6,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        120,
+        205
+      ],
+      "padded_bbox": [
+        222,
+        208,
+        342,
+        413
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 6
+    },
+    {
+      "area": 3979,
+      "bbox": [
+        430,
+        234,
+        517,
+        390
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_007.png",
+      "index": 7,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        135,
+        204
+      ],
+      "padded_bbox": [
+        406,
+        210,
+        541,
+        414
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 7
+    },
+    {
+      "area": 4034,
+      "bbox": [
+        632,
+        234,
+        711,
+        391
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_008.png",
+      "index": 8,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        127,
+        205
+      ],
+      "padded_bbox": [
+        608,
+        210,
+        735,
+        415
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 8
+    },
+    {
+      "area": 3680,
+      "bbox": [
+        72,
+        446,
+        136,
+        603
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_009.png",
+      "index": 9,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        112,
+        205
+      ],
+      "padded_bbox": [
+        48,
+        422,
+        160,
+        627
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 9
+    },
+    {
+      "area": 3324,
+      "bbox": [
+        264,
+        444,
+        309,
+        603
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_010.png",
+      "index": 10,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        93,
+        207
+      ],
+      "padded_bbox": [
+        240,
+        420,
+        333,
+        627
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 10
+    },
+    {
+      "area": 3567,
+      "bbox": [
+        447,
+        444,
+        502,
+        603
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_011.png",
+      "index": 11,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        103,
+        207
+      ],
+      "padded_bbox": [
+        423,
+        420,
+        526,
+        627
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 11
+    },
+    {
+      "area": 3808,
+      "bbox": [
+        626,
+        446,
+        701,
+        603
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/split/human-walk_012.png",
+      "index": 12,
+      "mask_engine": "dark-bg",
+      "output_size": [
+        123,
+        205
+      ],
+      "padded_bbox": [
+        602,
+        422,
+        725,
+        627
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-walk-reference-v1/prepared-originals/human-walk-reference-inverted.png",
+      "source_slot": 12
+    }
+  ],
+  "warnings": []
+}

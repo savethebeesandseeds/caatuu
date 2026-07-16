@@ -14,7 +14,10 @@ keymap.json
 
 Each top-level key is the browser-facing asset path. Each value keeps:
 
-- `description`: a short English description written after visually inspecting the image.
+- `description`: a visually accurate English description followed by common
+  retrieval vocabulary for the object's function, setting, and related everyday
+  concepts. The local hash embedder depends on token and character overlap, so
+  concrete ordinary words retrieve more reliably than vague or rare synonyms.
 - `category`: a short category label for filtering.
 - `embedding`: a reference to the SQLite vector database row for that description.
 
@@ -29,6 +32,8 @@ apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curric
 
 1. Add or replace image files in this folder.
 2. Open every changed image and write or update its English `description`.
+   Identify the visible subject first, then include accurate common terms for
+   what it does, where it belongs, and which everyday ideas it can represent.
 3. Assign exactly one short `category` label.
 4. Add or update the `embedding` DB reference in `keymap.json`.
 5. Rebuild the vector database from the manually curated keymap:

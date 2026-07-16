@@ -1,18 +1,26 @@
 (() => {
+  const course = window.CaatuuCourse;
+  if (!course) throw new Error("Caatuu course profile must load before the runtime adapter.");
+
   const nativeHost = "caatuu.local";
-  const cachePrefix = "caatuu-czech-pwa-";
+  const cachePrefix = course.cache.prefix;
   const setupManifestPath = "setup-assets.json";
   const bugReportPath = "/api/bug-report";
-  const fallbackSetupCacheName = "caatuu-czech-setup-v1";
+  const fallbackSetupCacheName = course.cache.setupFallback;
   const modelCatalogPath = "data/models/phone-bench/models.json";
   const embeddingCatalogPath = "data/embeddings/models.json";
   const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
   const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
   const nativePending = new Map();
   let activeBrowserSetupAbortController = null;
+  let browserSetupGeneration = 0;
   let browserEngine = null;
   let browserEngineModelKey = "";
+  let browserModelLoad = null;
   let browserVectorDatabase = null;
+  let feedbackOutbox = null;
+  let feedbackOutboxPromise = null;
+  let feedbackFlushTimer = null;
 
   function hasNativeBridge() {
     return Boolean(window.CaatuuAndroid && typeof window.CaatuuAndroid.postMessage === "function");
@@ -26,13 +34,26 @@
     return !isNativeShell();
   }
 
+  function setNativeSystemTheme(theme) {
+    const normalizedTheme = theme === "light" ? "light" : "dark";
+    try {
+      if (typeof window.CaatuuAndroid?.setTheme !== "function") return false;
+      window.CaatuuAndroid.setTheme(normalizedTheme);
+      return true;
+    } catch (error) {
+      // Browser previews and older APKs do not expose the system-theme hook.
+      return false;
+    }
+  }
+
   const env = isNativeShell() ? "android" : "browser";
   const capabilities = {
     nativeInstaller: env === "android",
     systemDownloads: env === "android",
     webGpu: env === "browser" && "gpu" in navigator,
     serviceWorker: env === "browser" && "serviceWorker" in navigator,
-    browserVectorDb: env === "browser" && "caches" in window,
+    browserVectorDb: "WebAssembly" in window,
+    sharedSemanticVectorDb: "WebAssembly" in window,
     androidVectorDb: env === "android",
     canUpdateApk: env === "android"
   };
@@ -59,9 +80,28 @@
     }
   };
 
+  function cancelTimedOutNativeRequest(requestId) {
+    if (!hasNativeBridge() || !requestId) return;
+    const id = `native-cancel-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    try {
+      window.CaatuuAndroid.postMessage(JSON.stringify({
+        id,
+        type: "cancel_request",
+        requestId
+      }));
+    } catch (error) {
+      // The original timeout remains authoritative if the bridge is already closing.
+    }
+  }
+
   function nativeCall(type, payload = {}, handlers = {}) {
     if (!hasNativeBridge()) {
       return Promise.reject(new Error("Native Android runtime is not available."));
+    }
+
+    const signal = handlers.signal;
+    if (signal?.aborted) {
+      return Promise.reject(new DOMException("Native request aborted.", "AbortError"));
     }
 
     const id = `native-${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -70,43 +110,65 @@
 
     return new Promise((resolvePromise, rejectPromise) => {
       let timeoutId = null;
+      let settled = false;
       const clearNativeTimeout = () => {
         if (timeoutId !== null) {
           window.clearTimeout(timeoutId);
           timeoutId = null;
         }
       };
+      const cleanup = () => {
+        clearNativeTimeout();
+        signal?.removeEventListener?.("abort", abortRequest);
+      };
+      const resolveNative = (result) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolvePromise(result);
+      };
+      const rejectNative = (error) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        rejectPromise(error);
+      };
+      const abortRequest = () => {
+        if (settled) return;
+        nativePending.delete(id);
+        cancelTimedOutNativeRequest(id);
+        rejectNative(new DOMException("Native request aborted.", "AbortError"));
+      };
       const resetNativeTimeout = () => {
         clearNativeTimeout();
         if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) return;
         timeoutId = window.setTimeout(() => {
           nativePending.delete(id);
-          rejectPromise(new Error(handlers.timeoutMessage || "Native Android runtime did not respond in time."));
+          cancelTimedOutNativeRequest(id);
+          rejectNative(new Error(handlers.timeoutMessage || "Native Android runtime did not respond in time."));
         }, timeoutMs);
       };
 
       nativePending.set(id, {
         resolve(result) {
-          clearNativeTimeout();
-          resolvePromise(result);
+          resolveNative(result);
         },
         reject(error) {
-          clearNativeTimeout();
-          rejectPromise(error);
+          rejectNative(error);
         },
         onEvent(message) {
           if (handlers.resetTimeoutOnEvent !== false) resetNativeTimeout();
           if (handlers.onEvent) handlers.onEvent(message);
         }
       });
+      signal?.addEventListener?.("abort", abortRequest, { once: true });
 
       try {
         resetNativeTimeout();
         window.CaatuuAndroid.postMessage(JSON.stringify(request));
       } catch (error) {
-        clearNativeTimeout();
         nativePending.delete(id);
-        rejectPromise(error);
+        rejectNative(error);
       }
     });
   }
@@ -233,8 +295,8 @@
   }
 
   async function sha256Hex(buffer) {
-    if (!crypto?.subtle) return "";
-    const hash = await crypto.subtle.digest("SHA-256", buffer);
+    if (!globalThis.crypto?.subtle) return "";
+    const hash = await globalThis.crypto.subtle.digest("SHA-256", buffer);
     return [...new Uint8Array(hash)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
   }
 
@@ -252,6 +314,28 @@
         bytes: 0,
         ready: false,
         verified: false
+      };
+    }
+
+    const storedBytes = Number(cached.headers.get("content-length") || 0);
+    const storedSha = (cached.headers.get("x-caatuu-setup-sha256") || "").toLowerCase();
+    const expectedSha = String(artifact.sha256 || "").toLowerCase();
+    const canVerifySha256 = !expectedSha || Boolean(globalThis.crypto?.subtle);
+    const trustedVerifiedEntry = storedBytes > 0 &&
+      storedBytes === (expectedBytes || storedBytes) &&
+      canVerifySha256 &&
+      (!expectedSha || storedSha === expectedSha);
+    if (trustedVerifiedEntry) {
+      return {
+        key: artifact.key,
+        label: artifact.label,
+        kind: artifact.artifact_kind,
+        url: artifact.url,
+        expectedBytes: expectedBytes || storedBytes,
+        sha256: artifact.sha256 || "",
+        bytes: storedBytes,
+        ready: true,
+        verified: true
       };
     }
 
@@ -282,7 +366,7 @@
     }
     const readyArtifacts = statuses.filter((item) => item.ready).length;
     return {
-      ready: readyArtifacts === statuses.length,
+      ready: statuses.length > 0 && readyArtifacts === statuses.length,
       readyArtifacts,
       artifactCount: statuses.length,
       bytes: statuses.reduce((sum, item) => sum + Number(item.bytes || 0), 0),
@@ -291,9 +375,18 @@
     };
   }
 
-  async function readResponseBytes(response, expectedBytes, onProgress) {
+  function assertBrowserSetupActive(generation) {
+    if (generation === browserSetupGeneration) return;
+    const error = new Error("Browser setup was aborted.");
+    error.name = "AbortError";
+    throw error;
+  }
+
+  async function readResponseBytes(response, expectedBytes, onProgress, generation) {
+    assertBrowserSetupActive(generation);
     if (!response.body?.getReader) {
       const buffer = await response.arrayBuffer();
+      assertBrowserSetupActive(generation);
       onProgress(buffer.byteLength, expectedBytes || buffer.byteLength);
       return buffer;
     }
@@ -302,7 +395,9 @@
     const chunks = [];
     let bytes = 0;
     while (true) {
+      assertBrowserSetupActive(generation);
       const { done, value } = await reader.read();
+      assertBrowserSetupActive(generation);
       if (done) break;
       chunks.push(value);
       bytes += value.byteLength;
@@ -317,12 +412,15 @@
     return merged.buffer;
   }
 
-  async function cacheBrowserArtifact(cache, artifact, index, artifactCount, onEvent) {
-    activeBrowserSetupAbortController = new AbortController();
+  async function cacheBrowserArtifact(cache, artifact, index, artifactCount, onEvent, generation) {
+    assertBrowserSetupActive(generation);
+    const controller = new AbortController();
+    activeBrowserSetupAbortController = controller;
     const response = await fetch(artifact.url, {
-      cache: "reload",
-      signal: activeBrowserSetupAbortController.signal
+      cache: "no-store",
+      signal: controller.signal
     });
+    assertBrowserSetupActive(generation);
     if (!response.ok) throw new Error(`Could not download ${artifact.label || artifact.url}: ${response.status}`);
     const contentType = response.headers.get("content-type") || "application/octet-stream";
     const expectedBytes = Number(artifact.bytes || response.headers.get("content-length") || 0);
@@ -338,15 +436,21 @@
         bytes,
         totalBytes
       });
-    });
+    }, generation);
+    assertBrowserSetupActive(generation);
     const bytes = buffer.byteLength;
     if (artifact.bytes && bytes !== Number(artifact.bytes)) {
       throw new Error(`${artifact.label || artifact.url} size mismatch: expected ${artifact.bytes}, got ${bytes}`);
     }
     if (artifact.sha256) {
       const hash = await sha256Hex(buffer);
-      if (hash && hash !== artifact.sha256) throw new Error(`${artifact.label || artifact.url} SHA-256 mismatch.`);
+      assertBrowserSetupActive(generation);
+      if (!hash) {
+        throw new Error(`${artifact.label || artifact.url} requires SHA-256 verification, but this browser cannot provide it.`);
+      }
+      if (hash !== artifact.sha256) throw new Error(`${artifact.label || artifact.url} SHA-256 mismatch.`);
     }
+    assertBrowserSetupActive(generation);
     await cache.put(
       artifact.url,
       new Response(buffer, {
@@ -357,6 +461,7 @@
         }
       })
     );
+    assertBrowserSetupActive(generation);
     onEvent?.({
       kind: "status",
       phase: "browser_cached",
@@ -368,36 +473,48 @@
 
   async function startBrowserSetup(handlers = {}) {
     if (!("caches" in window)) throw new Error("This browser cannot keep the setup cache.");
-    const preflight = await browserSetupPreflight();
-    if (!preflight.ok) throw new Error(preflight.message || "Not enough storage for Caatuu setup.");
-    const manifest = await fetchJson(setupManifestPath, { cache: "reload" });
-    const artifacts = browserArtifacts(manifest);
-    const cache = await caches.open(manifest.cache_name || fallbackSetupCacheName);
-    for (let index = 0; index < artifacts.length; index += 1) {
-      const artifact = artifacts[index];
-      const status = await browserArtifactStatus(cache, artifact);
-      if (status.ready) {
-        handlers.onEvent?.({
-          kind: "status",
-          phase: "browser_cached",
-          label: artifact.label || "Artifact",
-          artifactKey: artifact.key || artifact.url,
-          artifactIndex: index + 1,
-          artifactCount: artifacts.length,
-          message: `${artifact.label || "Artifact"} is already cached.`
-        });
-        continue;
+    activeBrowserSetupAbortController?.abort();
+    const generation = ++browserSetupGeneration;
+    try {
+      const preflight = await browserSetupPreflight();
+      assertBrowserSetupActive(generation);
+      if (!preflight.ok) throw new Error(preflight.message || "Not enough storage for Caatuu setup.");
+      const manifest = await fetchJson(setupManifestPath, { cache: "reload" });
+      assertBrowserSetupActive(generation);
+      const artifacts = browserArtifacts(manifest);
+      const cache = await caches.open(manifest.cache_name || fallbackSetupCacheName);
+      assertBrowserSetupActive(generation);
+      for (let index = 0; index < artifacts.length; index += 1) {
+        assertBrowserSetupActive(generation);
+        const artifact = artifacts[index];
+        const status = await browserArtifactStatus(cache, artifact);
+        assertBrowserSetupActive(generation);
+        if (status.ready) {
+          handlers.onEvent?.({
+            kind: "status",
+            phase: "browser_cached",
+            label: artifact.label || "Artifact",
+            artifactKey: artifact.key || artifact.url,
+            artifactIndex: index + 1,
+            artifactCount: artifacts.length,
+            message: `${artifact.label || "Artifact"} is already cached.`
+          });
+          continue;
+        }
+        await cacheBrowserArtifact(cache, artifact, index + 1, artifacts.length, handlers.onEvent, generation);
+        assertBrowserSetupActive(generation);
       }
-      await cacheBrowserArtifact(cache, artifact, index + 1, artifacts.length, handlers.onEvent);
+      return await browserSetupStatus(manifest);
+    } finally {
+      if (generation === browserSetupGeneration) activeBrowserSetupAbortController = null;
     }
-    activeBrowserSetupAbortController = null;
-    return browserSetupStatus(manifest);
   }
 
   async function abortBrowserSetup() {
+    browserSetupGeneration += 1;
     activeBrowserSetupAbortController?.abort();
     activeBrowserSetupAbortController = null;
-    return browserSetupStatus();
+    return { aborted: true, setupActive: false };
   }
 
   async function registerServiceWorker() {
@@ -489,6 +606,25 @@
   }
 
   function compactBugReport(payload = {}) {
+    const feedback = payload.feedback && typeof payload.feedback === "object"
+      ? {
+          clientReportId: clampReportText(payload.feedback.clientReportId || "", 80),
+          reportedAt: clampReportText(payload.feedback.reportedAt || "", 64),
+          kind: clampReportText(payload.feedback.kind || "", 80),
+          reason: clampReportText(payload.feedback.reason || "", 80),
+          comment: clampReportText(payload.feedback.comment || "", 400),
+          targetWord: clampReportText(payload.feedback.targetWord || "", 120),
+          sentence: clampReportText(payload.feedback.sentence || "", 360),
+          translation: clampReportText(payload.feedback.translation || "", 360),
+          generationSource: clampReportText(payload.feedback.generationSource || "", 80),
+          translationMode: clampReportText(payload.feedback.translationMode || "", 40),
+          sentenceModelKey: clampReportText(payload.feedback.sentenceModelKey || "", 120),
+          translationModelKey: clampReportText(payload.feedback.translationModelKey || "", 120),
+          recentSentences: Array.isArray(payload.feedback.recentSentences)
+            ? payload.feedback.recentSentences.slice(0, 4).map((value) => clampReportText(value, 360))
+            : []
+        }
+      : {};
     return {
       kind: clampReportText(payload.kind || "setup_attention", 80),
       source: "caatuu-browser",
@@ -502,7 +638,8 @@
       setup: payload.setup || {},
       storage: payload.storage || {},
       artifacts: Array.isArray(payload.artifacts) ? payload.artifacts.slice(0, 12) : [],
-      events: Array.isArray(payload.events) ? payload.events.slice(-10) : []
+      events: Array.isArray(payload.events) ? payload.events.slice(-10) : [],
+      feedback
     };
   }
 
@@ -517,8 +654,86 @@
       cache: "no-store",
       body
     });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(result.message || `Bug report failed with HTTP ${response.status}.`);
+    const result = await response.json().catch(() => null);
+    if (!response.ok) throw new Error(result?.message || `Bug report failed with HTTP ${response.status}.`);
+    if (result?.ok !== true) throw new Error("The bug report server did not acknowledge storage.");
+    return result;
+  }
+
+  function feedbackStorage() {
+    try {
+      return window.localStorage;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function clearDisabledFeedbackQueue() {
+    const storage = feedbackStorage();
+    if (!storage) return;
+    const keys = [];
+    for (let index = 0; index < storage.length; index += 1) {
+      const key = storage.key(index);
+      if (key === "caatuu.feedbackOutbox.v1" || key?.startsWith("caatuu.feedbackOutbox.v1.item.")) {
+        keys.push(key);
+      }
+    }
+    for (const key of keys) storage.removeItem(key);
+  }
+
+  async function getFeedbackOutbox() {
+    if (feedbackOutbox) return feedbackOutbox;
+    if (!feedbackOutboxPromise) {
+      feedbackOutboxPromise = import("./feedback-outbox.mjs?v=feedback-outbox-5")
+        .then(({ FeedbackOutbox }) => {
+          feedbackOutbox = new FeedbackOutbox({
+            storage: feedbackStorage(),
+            send: (payload) => env === "android"
+              ? nativeCall("report_bug", { payload })
+              : reportBrowserBug(payload),
+            online: () => navigator.onLine !== false,
+            visible: () => document.visibilityState !== "hidden",
+            saveData: () => navigator.connection?.saveData === true
+          });
+          return feedbackOutbox;
+        })
+        .catch((error) => {
+          feedbackOutboxPromise = null;
+          throw error;
+        });
+    }
+    return feedbackOutboxPromise;
+  }
+
+  function clearFeedbackFlushTimer() {
+    if (feedbackFlushTimer === null) return;
+    window.clearTimeout(feedbackFlushTimer);
+    feedbackFlushTimer = null;
+  }
+
+  function scheduleFeedbackFlush(delayMs = 0) {
+    clearFeedbackFlushTimer();
+    feedbackFlushTimer = window.setTimeout(() => {
+      feedbackFlushTimer = null;
+      void flushQueuedReports();
+    }, Math.max(0, Number(delayMs) || 0));
+  }
+
+  async function enqueueReport(payload = {}, options = {}) {
+    const outbox = await getFeedbackOutbox();
+    const result = outbox.enqueue(payload, options);
+    scheduleFeedbackFlush(0);
+    return { ...result, pending: outbox.list().length };
+  }
+
+  async function flushQueuedReports() {
+    const outbox = await getFeedbackOutbox();
+    const result = await outbox.flush({ maxItems: 1 });
+    clearFeedbackFlushTimer();
+    if (!result.paused && result.pending > 0) {
+      const delay = outbox.nextDelayMs();
+      scheduleFeedbackFlush(delay === null ? 30_000 : Math.max(1_000, delay));
+    }
     return result;
   }
 
@@ -552,33 +767,59 @@
       return browserModelStatus({ loaded: true });
     }
 
-    await unloadBrowserModel();
-    const webllm = await import(webllmCdn);
-    browserEngine = await webllm.CreateMLCEngine(browserFallbackModel, {
-      initProgressCallback(progress) {
-        const percent = Number.isFinite(progress?.progress) ? progress.progress * 100 : null;
-        const text = progress?.text || "Loading";
-        handlers.onEvent?.({
-          kind: "progress",
-          phase: "browser_model_load",
-          runtime: "browser-webgpu",
-          modelKey: browserFallbackModel,
-          progress: percent,
-          text,
-          message: text
-        });
+    if (browserModelLoad) {
+      const pendingLoad = browserModelLoad;
+      try {
+        await pendingLoad.promise;
+      } catch (error) {
+        if (!pendingLoad.cancelled) throw error;
       }
-    });
-    browserEngineModelKey = browserFallbackModel;
-    return browserModelStatus({ loaded: true });
+      if (browserEngine && browserEngineModelKey === browserFallbackModel) {
+        return browserModelStatus({ loaded: true });
+      }
+    }
+
+    await unloadBrowserModel();
+    const load = { cancelled: false, promise: null };
+    browserModelLoad = load;
+    load.promise = (async () => {
+      const webllm = await import(webllmCdn);
+      const engine = await webllm.CreateMLCEngine(browserFallbackModel, {
+        initProgressCallback(progress) {
+          if (load.cancelled || browserModelLoad !== load) return;
+          const percent = Number.isFinite(progress?.progress) ? progress.progress * 100 : null;
+          const text = progress?.text || "Loading";
+          handlers.onEvent?.({
+            kind: "progress",
+            phase: "browser_model_load",
+            runtime: "browser-webgpu",
+            modelKey: browserFallbackModel,
+            progress: percent,
+            text,
+            message: text
+          });
+        }
+      });
+      if (load.cancelled || browserModelLoad !== load) {
+        await disposeBrowserEngine(engine);
+        const error = new Error("Browser model loading was cancelled.");
+        error.name = "AbortError";
+        throw error;
+      }
+      browserEngine = engine;
+      browserEngineModelKey = browserFallbackModel;
+      return browserModelStatus({ loaded: true });
+    })();
+
+    try {
+      return await load.promise;
+    } finally {
+      if (browserModelLoad === load) browserModelLoad = null;
+    }
   }
 
-  async function unloadBrowserModel() {
-    const engine = browserEngine;
-    browserEngine = null;
-    browserEngineModelKey = "";
-    if (!engine) return { runtime: "browser-webgpu", unloaded: false };
-
+  async function disposeBrowserEngine(engine) {
+    if (!engine) return false;
     try {
       if (typeof engine.unload === "function") {
         await engine.unload();
@@ -586,9 +827,33 @@
         await engine.dispose();
       }
     } catch (error) {
-      return { runtime: "browser-webgpu", unloaded: false, error: error?.message || String(error) };
+      return false;
     }
-    return { runtime: "browser-webgpu", unloaded: true };
+    return true;
+  }
+
+  async function unloadBrowserModel() {
+    const loading = browserModelLoad;
+    if (loading) loading.cancelled = true;
+    const engine = browserEngine;
+    browserEngine = null;
+    browserEngineModelKey = "";
+    const unloaded = await disposeBrowserEngine(engine);
+    return {
+      runtime: "browser-webgpu",
+      unloaded,
+      cancellationRequested: Boolean(loading)
+    };
+  }
+
+  async function resetBrowserConversation() {
+    if (!browserEngine) return { runtime: "browser-webgpu", reset: false, loaded: false };
+    if (typeof browserEngine.resetChat === "function") {
+      await browserEngine.resetChat();
+      return { runtime: "browser-webgpu", reset: true, loaded: true };
+    }
+    const result = await unloadBrowserModel();
+    return { ...result, reset: true, reloadRequired: true };
   }
 
   function isAsyncIterable(value) {
@@ -685,7 +950,7 @@
 
   async function searchBrowserVectorDatabase(text, options = {}) {
     if (!String(text || "").trim()) throw new Error("Vector search text is empty.");
-    const module = await import("./vector-db.js?v=vector-db-4");
+    const module = await import("./vector-db.js?v=vector-db-9");
     const Manager = module.BrowserVectorDatabaseManager;
     if (!browserVectorDatabase) browserVectorDatabase = new Manager();
     await browserVectorDatabase.open();
@@ -693,12 +958,24 @@
     const sourceKinds = Array.isArray(options.sourceKinds) ? options.sourceKinds : [];
     const results = await browserVectorDatabase.searchText(text, { limit, sourceKinds });
     return {
-      runtime: "browser-vector-db",
+      runtime: env === "android" ? "android-webview-semantic-vector-db" : "browser-semantic-vector-db",
       text,
       limit,
       sourceKinds,
       results
     };
+  }
+
+  function browserDictionaryStatus() {
+    return fetchJson("api/dictionary/status", { cache: "no-store" });
+  }
+
+  function browserDictionarySearch(query, options = {}) {
+    const limit = Math.max(1, Math.min(60, Number(options.limit || 12)));
+    return fetchJson(`api/dictionary/search?q=${encodeURIComponent(query)}&limit=${limit}`, {
+      cache: "no-store",
+      signal: options.signal
+    });
   }
 
   window.CaatuuRuntime = {
@@ -710,6 +987,11 @@
     nativeCall,
     fetchJson,
     registerServiceWorker,
+    appearance: {
+      setSystemTheme(theme) {
+        return setNativeSystemTheme(theme);
+      }
+    },
     setup: {
       status() {
         return env === "android" ? nativeCall("setup_status") : browserSetupStatus();
@@ -746,6 +1028,11 @@
       unload() {
         return env === "android" ? Promise.resolve({ runtime: "android", unloaded: false }) : unloadBrowserModel();
       },
+      resetConversation(modelKey) {
+        return env === "android"
+          ? nativeCall("reset_conversation", { modelKey })
+          : resetBrowserConversation();
+      },
       generate(request = {}, handlers = {}) {
         return env === "android" ? nativeCall("prompt", request, handlers) : generateBrowser(request, handlers);
       }
@@ -755,14 +1042,28 @@
         return env === "android" ? nativeCall("vector_status") : Promise.resolve({ runtime: "browser-vector-db" });
       },
       search(text, options = {}) {
-        if (env === "android") {
-          return nativeCall("vector_search", {
-            text,
-            limit: options.limit,
-            sourceKinds: options.sourceKinds
-          });
-        }
+        // Query embedding and scoring intentionally share one WebAssembly/ONNX
+        // implementation across the browser and Android WebView. Android still
+        // owns verified post-install artifact downloads and serves them locally.
         return searchBrowserVectorDatabase(text, options);
+      }
+    },
+    dictionary: {
+      status() {
+        return env === "android" ? nativeCall("dictionary_status") : browserDictionaryStatus();
+      },
+      download(handlers = {}) {
+        return env === "android" ? nativeCall("dictionary_download", {}, handlers) : browserDictionaryStatus();
+      },
+      search(query, options = {}) {
+        if (env === "android") {
+          return nativeCall(
+            "dictionary_search",
+            { query, limit: Math.max(1, Math.min(60, Number(options.limit || 12))) },
+            { signal: options.signal }
+          );
+        }
+        return browserDictionarySearch(query, options);
       }
     },
     maintenance: {
@@ -792,9 +1093,16 @@
           disabled: true,
           message: "Remote diagnostic reporting is disabled."
         });
+      },
+      enqueueReport(payload = {}, options = {}) {
+        return Promise.resolve({ queued: false, disabled: true, pending: 0 });
+      },
+      flushReports() {
+        return Promise.resolve({ sent: [], pending: 0, paused: true, disabled: true });
       }
     }
   };
 
   clearNativeBrowserState();
+  clearDisabledFeedbackQueue();
 })();

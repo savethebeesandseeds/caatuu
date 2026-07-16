@@ -8,18 +8,19 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-2"></script>
     <script>
       try {
-        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
         document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-8"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="chat.css?v=chat-4">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-22">
+    <script src="runtime.js?v=runtime-26"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-4">
+    <link rel="stylesheet" href="chat.css?v=chat-8">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-41">
   </head>
   <body>
     <main class="chat-shell">
@@ -40,10 +41,7 @@
                     <span>Model</span>
                     <select id="composerModel" aria-label="Model">
                       <option value="cstinyllama-1.2b-czech-word-sentence-001" selected>Word Sentence</option>
-                      <option value="cstinyllama-1.2b-translation-cs-en-001">CZ -> EN</option>
-                      <option value="qwen3-lora-003-hard">Caatuu CZ (legacy)</option>
-                      <option value="cstinyllama-1.2b-base">CSTinyLlama (legacy)</option>
-                      <option value="cstinyllama-1.2b-planet-wordnet-002-copy">Word World (legacy)</option>
+                      <option value="qwen3-1.7b-translation-cs-en-001">CZ -> EN</option>
                     </select>
                   </label>
                   <label class="composer-select-label">
@@ -106,7 +104,7 @@
     <footer class="app-footer">
       <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
         <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-        <span>by Waajacu</span>
+        <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
       </a>
     </footer>
 
@@ -120,8 +118,8 @@
 
     <div data-caatuu-settings-panel hidden></div>
 
-    <script src="chrome.js?v=chrome-27"></script>
-    <script src="maintenance-ui.js?v=maintenance-3"></script>
-    <script type="module" src="chat.js?v=chat-22"></script>
+    <script src="chrome.js?v=chrome-47"></script>
+    <script src="maintenance-ui.js?v=maintenance-13"></script>
+    <script type="module" src="chat.js?v=chat-28"></script>
   </body>
 </html>

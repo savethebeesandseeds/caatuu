@@ -5,7 +5,16 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { appDataRoot, caatuuRoot, fromRoot, mlRoot } from "./paths.mjs";
 
-const MODEL_ID = "caatuu-local-hash-v0.1";
+const MODEL_ID = "all-minilm-l6-v2-qint8-v0.1";
+const LEGACY_HASH_MODEL_ID = "caatuu-local-hash-v0.1";
+const MODEL_SOURCE_ID = "sentence-transformers/all-MiniLM-L6-v2";
+const MODEL_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41";
+const MODEL_FILE_BASENAME = "model_qint8_arm64";
+const MODEL_FILE_NAME = `${MODEL_FILE_BASENAME}.onnx`;
+const MODEL_LICENSE = "Apache-2.0";
+const TRANSFORMERS_JS_VERSION = "4.2.0";
+const ONNX_RUNTIME_WEB_VERSION = "1.26.0-dev.20260416-b7804b056c";
+const ONNX_RUNTIME_WEB_COMMIT = "b7804b056c30aa35c1748f8e4e239d0e2ff25d6d";
 const SCHEMA_NAME = "caatuu-cz-vector-db";
 const SCHEMA_VERSION = 1;
 const EMBEDDING_DIMENSION = 384;
@@ -13,12 +22,29 @@ const DB_FILE_NAME = "caatuu-cz-curriculum.sqlite";
 const EMBEDDING_TEXT_FIELD = "english_text";
 const EMBEDDING_INPUT_POLICY = "english_text_only";
 const MISC_ASSET_EMBEDDING_TABLE = "asset_embedding_refs";
+const ROBOT_ASSET_EMBEDDING_TABLE = "robot_embedding_refs";
 const MACAW_ACTION_EMBEDDING_TABLE = "macaw_action_embedding_refs";
 const ASSET_EMBEDDING_TEXT_FIELD = "manual_english_description";
 const ASSET_EMBEDDING_INPUT_POLICY = "manual_english_description_only";
 const VECTOR_ENCODING = "float32le";
 const DISTANCE_METRIC = "cosine";
 const MAX_REVIEW_CANDIDATES = 200;
+const EMBEDDING_BATCH_SIZE = 64;
+const MODEL_RUNTIME_FILES = [
+  "config.json",
+  "special_tokens_map.json",
+  "tokenizer.json",
+  "tokenizer_config.json",
+  "vocab.txt",
+];
+const MODEL_RUNTIME_BLOB_IDS = {
+  "config.json": "72b987fd805cfa2b58c4c8c952b274a11bfd5a00",
+  "special_tokens_map.json": "e7b0375001f109a6b8873d756ad4f7bbb15fbaa5",
+  "tokenizer.json": "cb202bfe2e3c98645018a6d12f182a434c9d3e02",
+  "tokenizer_config.json": "c79f2b6a0cea6f4b564fed1938984bace9d30ff0",
+  "vocab.txt": "fb140275c155a9c7c5a3b3e0e77a9e839594a938",
+  [`onnx/${MODEL_FILE_NAME}`]: "4278337fd0ff3c68bfb6291042cad8ab363e1d9fbc43dcb499fe91c871902474",
+};
 const STOPWORDS = new Set([
   "a",
   "an",
@@ -85,6 +111,12 @@ const assetKeymapFile = path.resolve(
     path.join(caatuuRoot, "apps", "caatuu-unified", "static", "assets", "miscellaneous", "keymap.json"),
   ),
 );
+const robotKeymapFile = path.resolve(
+  argValue(
+    "--robot-keymap-file",
+    path.join(caatuuRoot, "apps", "caatuu-unified", "static", "assets", "robots", "keymap.json"),
+  ),
+);
 const macawActionKeymapsFile = path.resolve(
   argValue(
     "--macaw-action-keymap-file",
@@ -94,6 +126,25 @@ const macawActionKeymapsFile = path.resolve(
 const setupAssetsFile = path.resolve(
   argValue("--setup-assets-file", path.join(caatuuRoot, "apps", "caatuu-czech", "static", "setup-assets.json")),
 );
+const defaultModelSourceDir = path.join(
+  mlRoot,
+  "data",
+  "models",
+  "english-base",
+  "hf-cache",
+  "hub",
+  "models--sentence-transformers--all-MiniLM-L6-v2",
+  "snapshots",
+  MODEL_REVISION,
+);
+const modelSourceDir = path.resolve(argValue("--model-source-dir", defaultModelSourceDir));
+const modelRuntimeDir = path.resolve(argValue("--model-runtime-dir", path.join(outDir, "runtime")));
+const transformersVendorDir = path.resolve(
+  argValue(
+    "--transformers-vendor-dir",
+    path.join(caatuuRoot, "apps", "caatuu-czech", "static", "vendor", "transformers"),
+  ),
+);
 const assetKeymapSpecs = [
   {
     group: "miscellaneous",
@@ -101,6 +152,13 @@ const assetKeymapSpecs = [
     table: MISC_ASSET_EMBEDDING_TABLE,
     sourceKind: "image_asset",
     defaultCategory: "",
+  },
+  {
+    group: "robots",
+    file: robotKeymapFile,
+    table: ROBOT_ASSET_EMBEDDING_TABLE,
+    sourceKind: "robot_asset",
+    defaultCategory: "robot",
   },
   {
     group: "macaw_actions",
@@ -117,6 +175,12 @@ const setupAssetGroups = {
     keymapLabel: "Character image keymap",
     imageLabel: "Character image",
   },
+  robots: {
+    keyPrefix: "robot",
+    keymapKey: "robot-keymap",
+    keymapLabel: "Robot image keymap",
+    imageLabel: "Robot image",
+  },
   macaw_actions: {
     keyPrefix: "macaw-action",
     keymapKey: "macaw-action-keymap",
@@ -129,36 +193,43 @@ const rows = await readJsonl(inputFile);
 assertRows(rows);
 const assetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
 
+const runtimeArtifacts = await prepareSemanticRuntime();
+const embedder = await createSemanticEmbedder();
 const SQL = await loadSqlJs();
 const schemaSql = await fs.readFile(schemaFile, "utf8");
-const embeddedRows = rows.map((row) => {
+const curriculumTexts = rows.map((row) => indexedTextFor(row));
+const assetTexts = assetRows.map((row) => row.description);
+const vectors = await embedder.embedTexts([...curriculumTexts, ...assetTexts]);
+await embedder.dispose();
+const embeddedRows = rows.map((row, index) => {
   const indexedText = indexedTextFor(row);
-  const vector = curriculumEmbedding(row, indexedText);
   return {
     row,
     indexedText,
-    vector,
+    vector: vectors[index],
     tokens: contentTokens(row.english_text),
     normalizedText: normalizeText(row.english_text),
   };
 });
-const embeddedAssetRows = assetRows.map((row) => ({
+const embeddedAssetRows = assetRows.map((row, index) => ({
   row,
   indexedText: row.description,
-  vector: assetDescriptionEmbedding(row),
+  vector: vectors[rows.length + index],
 }));
 
 await fs.mkdir(outDir, { recursive: true });
 await buildDatabase(SQL, schemaSql, embeddedRows, embeddedAssetRows, outFile);
-const manifest = await writeManifest(rows, embeddedAssetRows, outFile, manifestFile);
+const manifest = await writeManifest(rows, embeddedAssetRows, outFile, manifestFile, runtimeArtifacts);
 await writeEmbeddingCatalog(manifest, embeddingCatalogFile);
 await updateBrowserVectorDbUrl(browserVectorDbFile, manifest.sha256);
+await updateAssetKeymapReferences(assetRows);
 const setup_assets_file = await updateSetupAssetsManifest(setupAssetsFile, {
   "browser-vector-db-js": browserVectorDbFile,
   "embedding-catalog": embeddingCatalogFile,
   "embedding-manifest": manifestFile,
   "embedding-sqlite": outFile,
-}, assetRows);
+  ...Object.fromEntries(runtimeArtifacts.map((artifact) => [artifact.key, artifact.file])),
+}, assetRows, runtimeArtifacts);
 const quality = await writeQualityReports(embeddedRows, manifest);
 
 console.log(JSON.stringify({
@@ -166,6 +237,10 @@ console.log(JSON.stringify({
   rows: rows.length,
   asset_rows: embeddedAssetRows.length,
   asset_counts: countAssetGroups(embeddedAssetRows),
+  model_id: MODEL_ID,
+  model_source: MODEL_SOURCE_ID,
+  model_revision: MODEL_REVISION,
+  runtime_artifacts: runtimeArtifacts.map(({ key, file, bytes, sha256 }) => ({ key, file, bytes, sha256 })),
   db_file: outFile,
   db_bytes: manifest.bytes,
   db_sha256: manifest.sha256,
@@ -184,6 +259,200 @@ async function loadSqlJs() {
   const require = createRequire(import.meta.url);
   const initSqlJs = require(sqlJsModuleFile);
   return initSqlJs({ locateFile: () => sqlJsWasmFile });
+}
+
+async function prepareSemanticRuntime() {
+  const require = createRequire(import.meta.url);
+  const transformersPackageDir = path.dirname(path.dirname(require.resolve("@huggingface/transformers")));
+  const transformersPackageFile = path.join(transformersPackageDir, "package.json");
+  const ortPackageDir = path.dirname(path.dirname(require.resolve("onnxruntime-web")));
+  const ortPackageFile = path.join(ortPackageDir, "package.json");
+  const ortCommitFile = path.join(ortPackageDir, "__commit.txt");
+  const transformersPackage = JSON.parse(await fs.readFile(transformersPackageFile, "utf8"));
+  const ortPackage = JSON.parse(await fs.readFile(ortPackageFile, "utf8"));
+  const ortCommit = (await fs.readFile(ortCommitFile, "utf8")).trim();
+  if (transformersPackage.version !== TRANSFORMERS_JS_VERSION) {
+    throw new Error(`Expected @huggingface/transformers ${TRANSFORMERS_JS_VERSION}, got ${transformersPackage.version}.`);
+  }
+  if (ortPackage.version !== ONNX_RUNTIME_WEB_VERSION) {
+    throw new Error(`Expected onnxruntime-web ${ONNX_RUNTIME_WEB_VERSION}, got ${ortPackage.version}.`);
+  }
+  if (ortCommit !== ONNX_RUNTIME_WEB_COMMIT) {
+    throw new Error(`Expected onnxruntime-web commit ${ONNX_RUNTIME_WEB_COMMIT}, got ${ortCommit}.`);
+  }
+
+  await fs.mkdir(modelRuntimeDir, { recursive: true });
+  await fs.mkdir(path.join(modelRuntimeDir, "onnx"), { recursive: true });
+  await fs.mkdir(path.join(modelRuntimeDir, "ort"), { recursive: true });
+  await fs.mkdir(transformersVendorDir, { recursive: true });
+
+  for (const file of MODEL_RUNTIME_FILES) {
+    await copyRequiredFile(path.join(modelSourceDir, file), path.join(modelRuntimeDir, file));
+  }
+  await copyRequiredFile(
+    path.join(modelSourceDir, "onnx", MODEL_FILE_NAME),
+    path.join(modelRuntimeDir, "onnx", MODEL_FILE_NAME),
+  );
+  await copyRequiredFile(
+    path.join(ortPackageDir, "dist", "ort-wasm-simd-threaded.mjs"),
+    path.join(modelRuntimeDir, "ort", "ort-wasm-simd-threaded.mjs"),
+  );
+  await copyRequiredFile(
+    path.join(ortPackageDir, "dist", "ort-wasm-simd-threaded.wasm"),
+    path.join(modelRuntimeDir, "ort", "ort-wasm-simd-threaded.wasm"),
+  );
+  await copyRequiredFile(
+    path.join(transformersPackageDir, "dist", "transformers.min.js"),
+    path.join(transformersVendorDir, "transformers.min.js"),
+  );
+  await copyRequiredFile(
+    path.join(transformersPackageDir, "LICENSE"),
+    path.join(transformersVendorDir, "LICENSE"),
+  );
+  await copyRequiredFile(
+    path.join(transformersPackageDir, "LICENSE"),
+    path.join(modelRuntimeDir, "LICENSE-APACHE-2.0.txt"),
+  );
+  await fs.writeFile(
+    path.join(modelRuntimeDir, "THIRD_PARTY_NOTICES.json"),
+    `${JSON.stringify({
+      version: 1,
+      components: [
+        {
+          name: MODEL_SOURCE_ID,
+          revision: MODEL_REVISION,
+          license: MODEL_LICENSE,
+          source_url: `https://huggingface.co/${MODEL_SOURCE_ID}/tree/${MODEL_REVISION}`,
+          license_file: "LICENSE-APACHE-2.0.txt",
+        },
+        {
+          name: "@huggingface/transformers",
+          version: TRANSFORMERS_JS_VERSION,
+          license: transformersPackage.license,
+          source_url: transformersPackage.repository?.url || "https://github.com/huggingface/transformers.js",
+          packaged_license_file: "/cz/vendor/transformers/LICENSE",
+        },
+        {
+          name: "onnxruntime-web",
+          version: ONNX_RUNTIME_WEB_VERSION,
+          revision: ONNX_RUNTIME_WEB_COMMIT,
+          license: ortPackage.license,
+          source_url: `https://github.com/microsoft/onnxruntime/tree/${ONNX_RUNTIME_WEB_COMMIT}`,
+          license_url: `https://github.com/microsoft/onnxruntime/blob/${ONNX_RUNTIME_WEB_COMMIT}/LICENSE`,
+        },
+      ],
+    }, null, 2)}\n`,
+    "utf8",
+  );
+  await fs.writeFile(
+    path.join(transformersVendorDir, "README.md"),
+    [
+      "# Transformers.js browser runtime",
+      "",
+      `Vendored from \`@huggingface/transformers@${TRANSFORMERS_JS_VERSION}\` (Apache-2.0).`,
+      "",
+      "Only the browser ESM bundle is tracked here. The larger ONNX Runtime WASM and model files are generated under the ignored embedding runtime directory and downloaded after app installation.",
+      "",
+    ].join("\n"),
+    "utf8",
+  );
+
+  const runtimeFiles = [
+    ...MODEL_RUNTIME_FILES,
+    `onnx/${MODEL_FILE_NAME}`,
+    "ort/ort-wasm-simd-threaded.mjs",
+    "ort/ort-wasm-simd-threaded.wasm",
+    "LICENSE-APACHE-2.0.txt",
+    "THIRD_PARTY_NOTICES.json",
+  ];
+  return Promise.all(runtimeFiles.map(async (relativeFile) => {
+    const file = path.join(modelRuntimeDir, ...relativeFile.split("/"));
+    const [stat, sha256] = await Promise.all([fs.stat(file), sha256File(file)]);
+    return {
+      key: `embedding-runtime-${relativeFile.replaceAll("/", "-").replaceAll(".", "-")}`,
+      label: `Semantic embedding runtime: ${relativeFile}`,
+      artifact_kind: "embedding-runtime",
+      url: `/cz/data/embeddings/${MODEL_ID}/runtime/${relativeFile}`,
+      asset_path: `data/embeddings/${MODEL_ID}/runtime/${relativeFile}`,
+      native_required: true,
+      browser_required: true,
+      file,
+      relativeFile,
+      bytes: stat.size,
+      sha256,
+    };
+  }));
+}
+
+async function createSemanticEmbedder() {
+  const { env, pipeline } = await import("@huggingface/transformers");
+  env.allowRemoteModels = false;
+  env.allowLocalModels = true;
+  // Embed from the staged runtime tree. Besides matching the files shipped to
+  // clients, this avoids reopening Hugging Face snapshot symlinks that Windows
+  // cannot resolve when the cache was populated inside WSL or a Linux container.
+  const extractor = await pipeline("feature-extraction", modelRuntimeDir, {
+    dtype: "fp32",
+    device: "cpu",
+    model_file_name: MODEL_FILE_BASENAME,
+    local_files_only: true,
+  });
+
+  return {
+    async embedTexts(texts) {
+      const vectors = [];
+      for (let start = 0; start < texts.length; start += EMBEDDING_BATCH_SIZE) {
+        const batch = texts.slice(start, start + EMBEDDING_BATCH_SIZE);
+        const output = await extractor(batch, { pooling: "mean", normalize: true });
+        const dimensions = output.dims || [];
+        if (dimensions.length !== 2 || dimensions[0] !== batch.length || dimensions[1] !== EMBEDDING_DIMENSION) {
+          throw new Error(`Unexpected semantic embedding tensor shape ${JSON.stringify(dimensions)}.`);
+        }
+        for (let row = 0; row < batch.length; row += 1) {
+          const offset = row * EMBEDDING_DIMENSION;
+          vectors.push(normalizeVector(Float32Array.from(
+            output.data.slice(offset, offset + EMBEDDING_DIMENSION),
+          )));
+        }
+        console.error(`Embedded ${Math.min(start + batch.length, texts.length)} / ${texts.length}`);
+      }
+      return vectors;
+    },
+    async dispose() {
+      await extractor.dispose?.();
+    },
+  };
+}
+
+async function copyRequiredFile(source, destination) {
+  let bytes;
+  try {
+    bytes = await fs.readFile(source);
+  } catch {
+    try {
+      const linkTarget = await fs.readlink(source);
+      bytes = await fs.readFile(path.resolve(path.dirname(source), linkTarget));
+    } catch {
+      const relativeModelFile = path.relative(modelSourceDir, source).replaceAll("\\", "/");
+      const blobId = MODEL_RUNTIME_BLOB_IDS[relativeModelFile];
+      if (!blobId) throw new Error(`Required semantic runtime file is missing: ${source}`);
+      const blobFile = path.resolve(modelSourceDir, "..", "..", "blobs", blobId);
+      try {
+        bytes = await fs.readFile(blobFile);
+      } catch {
+        throw new Error(`Required semantic runtime file is missing: ${source}`);
+      }
+    }
+  }
+  await fs.mkdir(path.dirname(destination), { recursive: true });
+  const temporary = `${destination}.${process.pid}.${crypto.randomUUID()}.tmp`;
+  try {
+    await fs.writeFile(temporary, bytes);
+    await fs.rm(destination, { force: true });
+    await fs.rename(temporary, destination);
+  } finally {
+    await fs.rm(temporary, { force: true }).catch(() => {});
+  }
 }
 
 async function readJsonl(file) {
@@ -250,10 +519,12 @@ async function readAssetKeymap(spec) {
       : {};
     const documentId = String(embedding.document_id || assetDocumentId(assetPath)).trim();
     const chunkId = String(embedding.chunk_id || `${documentId}:description`).trim();
-    const modelId = String(embedding.model_id || MODEL_ID).trim();
+    const referencedModelId = String(embedding.model_id || MODEL_ID).trim();
     const table = String(embedding.table || spec.table).trim();
     if (!documentId || !chunkId) throw new Error(`${file}: entry ${assetPath} has blank DB reference`);
-    if (modelId !== MODEL_ID) throw new Error(`${file}: entry ${assetPath} uses unsupported model ${modelId}`);
+    if (![MODEL_ID, LEGACY_HASH_MODEL_ID].includes(referencedModelId)) {
+      throw new Error(`${file}: entry ${assetPath} uses unsupported model ${referencedModelId}`);
+    }
     if (table !== spec.table) throw new Error(`${file}: entry ${assetPath} must reference ${spec.table}`);
     return {
       assetPath,
@@ -262,7 +533,7 @@ async function readAssetKeymap(spec) {
       action,
       documentId,
       chunkId,
-      modelId,
+      modelId: MODEL_ID,
       table,
       group: spec.group,
       sourceKind: spec.sourceKind,
@@ -284,11 +555,41 @@ async function readAssetKeymap(spec) {
   return rows;
 }
 
+async function updateAssetKeymapReferences(assetRows) {
+  const rowsByFile = new Map();
+  for (const row of assetRows) {
+    if (!rowsByFile.has(row.sourceKeymapFile)) rowsByFile.set(row.sourceKeymapFile, []);
+    rowsByFile.get(row.sourceKeymapFile).push(row);
+  }
+
+  for (const [file, rowsForFile] of rowsByFile) {
+    const keymap = JSON.parse(await fs.readFile(file, "utf8"));
+    let changed = false;
+    for (const row of rowsForFile) {
+      const entry = keymap[row.assetPath];
+      if (!entry) throw new Error(`${file}: missing asset entry ${row.assetPath}`);
+      const previous = entry.embedding && typeof entry.embedding === "object" ? entry.embedding : {};
+      const embedding = {
+        ...previous,
+        database: `/cz/data/embeddings/${MODEL_ID}/${DB_FILE_NAME}`,
+        table: row.table,
+        model_id: MODEL_ID,
+        document_id: row.documentId,
+        chunk_id: row.chunkId,
+      };
+      if (JSON.stringify(previous) !== JSON.stringify(embedding)) changed = true;
+      entry.embedding = embedding;
+    }
+    if (changed) await writeJson(file, keymap);
+  }
+}
+
 async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   const db = new SQL.Database();
   db.run("PRAGMA foreign_keys = ON");
   db.run(schemaSql);
   db.run("DELETE FROM macaw_action_embedding_refs");
+  db.run("DELETE FROM robot_embedding_refs");
   db.run("DELETE FROM asset_embedding_refs");
   db.run("DELETE FROM embeddings");
   db.run("DELETE FROM chunks");
@@ -301,9 +602,38 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_table", MISC_ASSET_EMBEDDING_TABLE]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_table", ROBOT_ASSET_EMBEDDING_TABLE]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_table", MACAW_ACTION_EMBEDDING_TABLE]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
+  db.run(
+    `INSERT OR REPLACE INTO embedding_models(
+      id, provider, model_name, revision, license, dimension, max_tokens, pooling,
+      normalized, vector_encoding, distance_metric, source_url, metadata_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      MODEL_ID,
+      "sentence-transformers",
+      MODEL_SOURCE_ID,
+      MODEL_REVISION,
+      MODEL_LICENSE,
+      EMBEDDING_DIMENSION,
+      256,
+      "attention_mask_mean_pooling",
+      1,
+      VECTOR_ENCODING,
+      DISTANCE_METRIC,
+      `https://huggingface.co/${MODEL_SOURCE_ID}/tree/${MODEL_REVISION}`,
+      JSON.stringify({
+        quantization: "qint8_arm64",
+        onnx_file: `onnx/${MODEL_FILE_NAME}`,
+        embedding_text_field: EMBEDDING_TEXT_FIELD,
+        embedding_input_policy: EMBEDDING_INPUT_POLICY,
+      }),
+    ],
+  );
 
   const documentStmt = db.prepare(`
     INSERT INTO documents(
@@ -322,6 +652,11 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   `);
   const assetRefStmt = db.prepare(`
     INSERT INTO asset_embedding_refs(
+      asset_path, category, description, document_id, chunk_id, model_id, metadata_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+  const robotRefStmt = db.prepare(`
+    INSERT INTO robot_embedding_refs(
       asset_path, category, description, document_id, chunk_id, model_id, metadata_json
     ) VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
@@ -450,6 +785,16 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
           row.modelId,
           refMetadata,
         ]);
+      } else if (row.table === ROBOT_ASSET_EMBEDDING_TABLE) {
+        robotRefStmt.run([
+          row.assetPath,
+          row.category,
+          row.description,
+          row.documentId,
+          row.chunkId,
+          row.modelId,
+          refMetadata,
+        ]);
       } else if (row.table === MACAW_ACTION_EMBEDDING_TABLE) {
         macawActionRefStmt.run([
           row.assetPath,
@@ -473,6 +818,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
     chunkStmt.free();
     embeddingStmt.free();
     assetRefStmt.free();
+    robotRefStmt.free();
     macawActionRefStmt.free();
   }
 
@@ -481,7 +827,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   await fs.writeFile(file, Buffer.from(bytes));
 }
 
-async function writeManifest(rows, assetItems, dbFile, file) {
+async function writeManifest(rows, assetItems, dbFile, file, runtimeArtifacts) {
   const [stat, sha256] = await Promise.all([fs.stat(dbFile), sha256File(dbFile)]);
   const qualityCounts = countFields(rows);
   const totalRows = rows.length + assetItems.length;
@@ -491,6 +837,13 @@ async function writeManifest(rows, assetItems, dbFile, file) {
     schema_name: SCHEMA_NAME,
     schema_version: SCHEMA_VERSION,
     model_id: MODEL_ID,
+    model_source: MODEL_SOURCE_ID,
+    model_revision: MODEL_REVISION,
+    model_license: MODEL_LICENSE,
+    model_source_url: `https://huggingface.co/${MODEL_SOURCE_ID}/tree/${MODEL_REVISION}`,
+    model_file_name: MODEL_FILE_BASENAME,
+    pooling: "attention_mask_mean_pooling",
+    normalized: true,
     embedding_dimension: EMBEDDING_DIMENSION,
     vector_encoding: VECTOR_ENCODING,
     distance_metric: DISTANCE_METRIC,
@@ -501,6 +854,20 @@ async function writeManifest(rows, assetItems, dbFile, file) {
     catalog_file: "data/embeddings/models.json",
     bytes: stat.size,
     sha256,
+    runtime: {
+      transformers_js_version: TRANSFORMERS_JS_VERSION,
+      onnx_runtime_web_version: ONNX_RUNTIME_WEB_VERSION,
+      model_root: `data/embeddings/${MODEL_ID}/runtime`,
+      wasm_paths: {
+        mjs: `data/embeddings/${MODEL_ID}/runtime/ort/ort-wasm-simd-threaded.mjs`,
+        wasm: `data/embeddings/${MODEL_ID}/runtime/ort/ort-wasm-simd-threaded.wasm`,
+      },
+      artifacts: runtimeArtifacts.map(({ relativeFile, bytes, sha256 }) => ({
+        file: relativeFile,
+        bytes,
+        sha256,
+      })),
+    },
     document_count: totalRows,
     chunk_count: totalRows,
     embedding_count: totalRows,
@@ -545,10 +912,13 @@ async function writeEmbeddingCatalog(manifest, file) {
         artifact_kind: "embedding-vector-db",
         source_label: "Caatuu curated curriculum corpus and manual image descriptions",
         source_url: "data/embeddings/README.md",
-        license: "MIT",
-        license_url: "https://opensource.org/licenses/MIT",
+        license: MODEL_LICENSE,
+        license_url: "https://www.apache.org/licenses/LICENSE-2.0",
+        embedding_model_source: MODEL_SOURCE_ID,
+        embedding_model_revision: MODEL_REVISION,
+        embedding_model_source_url: `https://huggingface.co/${MODEL_SOURCE_ID}/tree/${MODEL_REVISION}`,
         intended_use: "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
-        runtime: "SQLite vector database with local hash embedder",
+        runtime: `SQLite vector database with Transformers.js ${TRANSFORMERS_JS_VERSION} and ONNX Runtime Web`,
         format: "sqlite",
         model_file: `${MODEL_ID}/${DB_FILE_NAME}`,
         manifest_file: `${MODEL_ID}/manifest.json`,
@@ -559,13 +929,17 @@ async function writeEmbeddingCatalog(manifest, file) {
         distance_metric: DISTANCE_METRIC,
         embedding_text_field: EMBEDDING_TEXT_FIELD,
         embedding_input_policy: EMBEDDING_INPUT_POLICY,
+        pooling: "attention_mask_mean_pooling",
+        normalized: true,
+        runtime_root: `${MODEL_ID}/runtime`,
+        model_file_name: MODEL_FILE_BASENAME,
         trainable: false,
         notes: [
-          "This is a deterministic local hash embedding baseline, not a semantic transformer model.",
+          "Semantic English retrieval uses the pinned quantized all-MiniLM-L6-v2 ONNX artifact.",
           "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
           "Image asset vectors are computed only from manually written English descriptions.",
           "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
-          "BAAI/bge-small-en-v1.5 remains a planned future semantic embedding replacement.",
+          "The legacy local hash database remains versioned separately for rollback and comparison.",
         ],
       },
     ],
@@ -597,7 +971,7 @@ async function writeQualityReports(items, manifest) {
     source_file: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
     vector_db: path.relative(caatuuRoot, outFile).replaceAll("\\", "/"),
     model_id: MODEL_ID,
-    caveat: "This is a deterministic lexical vector index computed only from english_text, not czech_text or metadata, and not a semantic transformer embedding model.",
+    caveat: "This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
     rows: items.length,
     db_bytes: manifest.bytes,
     db_sha256: manifest.sha256,
@@ -634,56 +1008,6 @@ function indexedTextFor(row) {
   const text = String(row[EMBEDDING_TEXT_FIELD] || "").trim();
   if (!text) throw new Error(`row ${row.id}: ${EMBEDDING_TEXT_FIELD} is blank`);
   return text;
-}
-
-function curriculumEmbedding(row, indexedText) {
-  const vector = new Float32Array(EMBEDDING_DIMENSION);
-  if (indexedText !== String(row.english_text || "").trim()) {
-    throw new Error(`row ${row.id}: embeddings must be computed from english_text only`);
-  }
-  addTextFeatures(vector, indexedText, 1.0);
-  return normalizeVector(vector);
-}
-
-function assetDescriptionEmbedding(row) {
-  const vector = new Float32Array(EMBEDDING_DIMENSION);
-  const indexedText = String(row.description || "").trim();
-  if (!indexedText) throw new Error(`${row.assetPath}: asset description is blank`);
-  addTextFeatures(vector, indexedText, 1.0);
-  return normalizeVector(vector);
-}
-
-function addTextFeatures(vector, text, weight) {
-  const tokens = tokenize(text);
-  const features = tokens.length ? tokens : ["__blank__"];
-  for (const token of features) {
-    addHashFeature(vector, token, weight);
-    addCharNgrams(vector, token, 3, weight * 0.35);
-  }
-}
-
-function addCharNgrams(vector, token, size, weight) {
-  const chars = Array.from(token);
-  if (chars.length < size) return;
-  for (let index = 0; index <= chars.length - size; index += 1) {
-    addHashFeature(vector, `ngram:${chars.slice(index, index + size).join("")}`, weight);
-  }
-}
-
-function addHashFeature(vector, feature, weight) {
-  const hash = stableHash(feature);
-  const index = Number(hash % BigInt(vector.length));
-  const sign = (hash >> 63n) === 0n ? 1 : -1;
-  vector[index] += sign * weight;
-}
-
-function stableHash(value) {
-  let hash = 0xcbf29ce484222325n;
-  for (const byte of new TextEncoder().encode(String(value))) {
-    hash ^= BigInt(byte);
-    hash = BigInt.asUintN(64, hash * 0x100000001b3n);
-  }
-  return hash;
 }
 
 function normalizeVector(vector) {
@@ -981,7 +1305,7 @@ function round(value, digits) {
   return Math.round(value * scale) / scale;
 }
 
-async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = []) {
+async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [], extraArtifacts = []) {
   let text = "";
   try {
     text = await fs.readFile(file, "utf8");
@@ -994,7 +1318,51 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
   if (!Array.isArray(manifest.artifacts)) return null;
 
   let changed = false;
-  for (const generatedArtifact of await setupArtifactsForAssetRows(assetRows)) {
+  const managedArtifacts = [
+    await setupArtifactForFile({
+      key: "embedding-catalog",
+      label: "Embedding catalog",
+      artifactKind: "browser-data",
+      url: "/cz/data/embeddings/models.json",
+      file: artifactFilesByKey["embedding-catalog"],
+      nativeRequired: false,
+      browserRequired: true,
+    }),
+    await setupArtifactForFile({
+      key: "embedding-manifest",
+      label: "Embedding manifest",
+      artifactKind: "browser-data",
+      url: `/cz/data/embeddings/${MODEL_ID}/manifest.json`,
+      file: artifactFilesByKey["embedding-manifest"],
+      nativeRequired: false,
+      browserRequired: true,
+    }),
+    await setupArtifactForFile({
+      key: "embedding-sqlite",
+      label: "Browser embeddings",
+      artifactKind: "browser-data",
+      url: `/cz/data/embeddings/${MODEL_ID}/${DB_FILE_NAME}`,
+      file: artifactFilesByKey["embedding-sqlite"],
+      nativeRequired: false,
+      browserRequired: true,
+    }),
+    ...extraArtifacts.map(({ file: _file, relativeFile: _relativeFile, ...artifact }) => artifact),
+    ...await setupArtifactsForAssetRows(assetRows),
+  ];
+  const generatedManagedKeys = new Set(managedArtifacts.map((artifact) => artifact.key));
+  const managedAssetPrefixes = [
+    ...Object.values(setupAssetGroups).map((group) => `${group.keyPrefix}-`),
+    "robot-art-",
+  ];
+  const retainedArtifacts = manifest.artifacts.filter((artifact) => {
+    const key = String(artifact?.key || "");
+    const isManagedAsset = managedAssetPrefixes.some((prefix) => key.startsWith(prefix));
+    if (!isManagedAsset || generatedManagedKeys.has(key)) return true;
+    changed = true;
+    return false;
+  });
+  if (retainedArtifacts.length !== manifest.artifacts.length) manifest.artifacts = retainedArtifacts;
+  for (const generatedArtifact of managedArtifacts) {
     const index = manifest.artifacts.findIndex((artifact) => artifact?.key === generatedArtifact.key);
     if (index >= 0) {
       if (JSON.stringify(manifest.artifacts[index]) !== JSON.stringify(generatedArtifact)) changed = true;
@@ -1058,7 +1426,15 @@ function groupAssetRows(assetRows) {
   return groups;
 }
 
-async function setupArtifactForFile({ key, label, artifactKind, url, file }) {
+async function setupArtifactForFile({
+  key,
+  label,
+  artifactKind,
+  url,
+  file,
+  nativeRequired = true,
+  browserRequired = true,
+}) {
   const [stat, sha256] = await Promise.all([fs.stat(file), sha256File(file)]);
   return {
     key,
@@ -1068,8 +1444,8 @@ async function setupArtifactForFile({ key, label, artifactKind, url, file }) {
     asset_path: decodeAssetUrl(url),
     bytes: stat.size,
     sha256,
-    native_required: true,
-    browser_required: true,
+    native_required: nativeRequired,
+    browser_required: browserRequired,
   };
 }
 

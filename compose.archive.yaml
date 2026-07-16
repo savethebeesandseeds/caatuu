@@ -1,0 +1,4 @@
+services:
+  caatuu:
+    environment:
+      ENABLE_ARCHIVED_CHINESE_API: "1"

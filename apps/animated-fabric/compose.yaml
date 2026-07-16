@@ -1,0 +1,164 @@
+name: caatuu-animated-fabric
+
+x-cutout-runtime: &cutout-runtime
+  working_dir: /work
+  environment: &cutout-environment
+    ANIMATED_FABRIC_MODEL_CACHE: /models/huggingface/hub
+    DO_NOT_TRACK: "1"
+    HF_HOME: /models/huggingface
+    HF_HUB_CACHE: /models/huggingface/hub
+    HF_HUB_DISABLE_TELEMETRY: "1"
+    HF_HUB_OFFLINE: "1"
+    HF_MODULES_CACHE: /tmp/huggingface/modules
+    TRANSFORMERS_OFFLINE: "1"
+  network_mode: none
+  read_only: true
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,size=512m,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+  volumes:
+    - ./workspaces/cutout/input:/input:ro
+    - ./workspaces/cutout/output:/output
+    - animated-fabric-cutout-models:/models:ro
+  init: true
+
+services:
+  animated-fabric-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-dev:python3.12-bookworm
+    container_name: caatuu-animated-fabric-dev
+    working_dir: /workspace
+    environment:
+      PIP_CACHE_DIR: /home/animatedfabric/.cache/pip
+      QT_QPA_PLATFORM: offscreen
+    network_mode: none
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - .:/workspace
+      - animated-fabric-pip-cache:/home/animatedfabric/.cache/pip
+    init: true
+    stdin_open: true
+    tty: true
+    command: ["bash"]
+
+  animated-fabric-gui:
+    profiles:
+      - gui
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-dev:python3.12-bookworm
+    container_name: caatuu-animated-fabric-gui
+    working_dir: /workspace
+    environment:
+      DISPLAY: ${DISPLAY:-:0}
+      PIP_CACHE_DIR: /home/animatedfabric/.cache/pip
+      QT_QPA_PLATFORM: xcb
+      XAUTHORITY: /home/animatedfabric/.Xauthority
+    network_mode: none
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - .:/workspace
+      - animated-fabric-pip-cache:/home/animatedfabric/.cache/pip
+      - ${XAUTHORITY:-/dev/null}:/home/animatedfabric/.Xauthority:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    init: true
+    command: ["animated-fabric-gui"]
+
+  animated-fabric-cutout-classic:
+    <<: *cutout-runtime
+    profiles:
+      - cutout-classic
+    build:
+      context: .
+      dockerfile: Dockerfile.cutout
+      target: cutout-core
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-cutout:core-py312
+    container_name: caatuu-animated-fabric-cutout-classic
+    command: ["doctor"]
+
+  animated-fabric-cutout:
+    <<: *cutout-runtime
+    profiles:
+      - cutout
+    build:
+      context: .
+      dockerfile: Dockerfile.cutout
+      target: cutout-cpu
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-cutout:cpu-py312
+    container_name: caatuu-animated-fabric-cutout
+    command: ["doctor"]
+
+  animated-fabric-cutout-cuda:
+    <<: *cutout-runtime
+    profiles:
+      - cutout-cuda
+    build:
+      context: .
+      dockerfile: Dockerfile.cutout
+      target: cutout-cuda
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-cutout:cuda12.8-py312
+    container_name: caatuu-animated-fabric-cutout-cuda
+    gpus: all
+    command: ["doctor"]
+
+  animated-fabric-cutout-prefetch:
+    profiles:
+      - cutout-provision
+    build:
+      context: .
+      dockerfile: Dockerfile.cutout
+      target: cutout-cpu
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-cutout:cpu-py312
+    container_name: caatuu-animated-fabric-cutout-prefetch
+    working_dir: /work
+    environment:
+      <<: *cutout-environment
+      HF_HUB_OFFLINE: "0"
+      TRANSFORMERS_OFFLINE: "0"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=512m,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - animated-fabric-cutout-models:/models
+    init: true
+    command: ["prefetch"]
+
+volumes:
+  animated-fabric-pip-cache:
+    name: caatuu-animated-fabric-pip-cache
+  animated-fabric-cutout-models:
+    name: caatuu-animated-fabric-cutout-models

@@ -329,12 +329,7 @@ pub fn evaluate_core_plus_core_answer(
         score += 3.0;
     }
 
-    if score < 0.0 {
-        score = 0.0;
-    }
-    if score > 100.0 {
-        score = 100.0;
-    }
+    score = score.clamp(0.0, 100.0);
     let correct = score >= 52.0;
 
     let explanation = if notes.is_empty() {

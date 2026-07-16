@@ -3,6 +3,8 @@ package com.caatuu.android
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.webkit.CookieManager
 import android.webkit.ServiceWorkerClient
@@ -11,30 +13,49 @@ import android.webkit.WebSettings
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
+import android.window.OnBackInvokedDispatcher
+import android.widget.FrameLayout
+import androidx.core.view.WindowCompat
 import java.io.ByteArrayInputStream
 
 class MainActivity : Activity() {
+    private lateinit var appRoot: FrameLayout
     private lateinit var webView: WebView
     private lateinit var bridge: CaatuuBridge
+    private var systemTheme = DARK_THEME
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        systemTheme = readPersistedSystemTheme()
+        WindowCompat.enableEdgeToEdge(window)
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         hardenServiceWorkers()
+        appRoot = FrameLayout(this)
         webView = WebView(this)
-        setContentView(webView)
+        appRoot.addView(
+            webView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+            ),
+        )
+        setContentView(appRoot)
+        applySystemTheme(systemTheme, persist = false)
         resetWebViewStateAfterUpdate()
 
         webView.settings.apply {
             javaScriptEnabled = true
             domStorageEnabled = true
-            databaseEnabled = true
             cacheMode = WebSettings.LOAD_NO_CACHE
             mediaPlaybackRequiresUserGesture = false
             allowFileAccess = false
             allowContentAccess = false
+            mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+            javaScriptCanOpenWindowsAutomatically = false
+            setSupportMultipleWindows(false)
+            safeBrowsingEnabled = true
         }
 
         bridge = CaatuuBridge(
@@ -42,14 +63,68 @@ class MainActivity : Activity() {
             webView = webView,
             modelManager = ModelManager(applicationContext),
             vectorDatabaseManager = VectorDatabaseManager(applicationContext),
+            dictionaryManager = DictionaryManager(applicationContext),
             staticAssetManager = StaticAssetManager(applicationContext),
             appUpdateManager = AppUpdateManager(applicationContext),
             model = NativeCzechModel(applicationContext),
+            onThemeChanged = { theme -> applySystemTheme(theme) },
         )
 
         webView.webViewClient = CaatuuAssetClient(this)
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                ::handleBackRequest,
+            )
+        }
+    }
+
+    private fun readPersistedSystemTheme(): String =
+        normalizeTheme(
+            getSharedPreferences(SYSTEM_THEME_PREFERENCES, Context.MODE_PRIVATE)
+                .getString(SYSTEM_THEME_KEY, DARK_THEME),
+        )
+
+    private fun normalizeTheme(theme: String?): String =
+        if (theme == LIGHT_THEME) LIGHT_THEME else DARK_THEME
+
+    @Suppress("DEPRECATION")
+    private fun applySystemTheme(theme: String, persist: Boolean = true) {
+        val normalizedTheme = normalizeTheme(theme)
+        systemTheme = normalizedTheme
+        if (persist) {
+            getSharedPreferences(SYSTEM_THEME_PREFERENCES, Context.MODE_PRIVATE)
+                .edit()
+                .putString(SYSTEM_THEME_KEY, normalizedTheme)
+                .apply()
+        }
+
+        val lightTheme = normalizedTheme == LIGHT_THEME
+        val color = if (lightTheme) LIGHT_SYSTEM_BAR_COLOR else DARK_SYSTEM_BAR_COLOR
+        if (::appRoot.isInitialized) appRoot.setBackgroundColor(color)
+        if (::webView.isInitialized) webView.setBackgroundColor(color)
+        window.decorView.setBackgroundColor(color)
+
+        // Android 15+ draws transparent system bars. The themed root above is
+        // therefore the visible bar background; these colors remain useful for
+        // three-button navigation and pre-edge-to-edge Android versions.
+        window.statusBarColor = color
+        window.navigationBarColor = color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.navigationBarDividerColor = color
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isStatusBarContrastEnforced = false
+            window.isNavigationBarContrastEnforced = false
+        }
+
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = lightTheme
+            isAppearanceLightNavigationBars = lightTheme
+        }
     }
 
     private fun hardenServiceWorkers() {
@@ -87,12 +162,14 @@ class MainActivity : Activity() {
         prefs.edit().putInt("versionCode", BuildConfig.VERSION_CODE).apply()
     }
 
-    @Deprecated("Deprecated by Android, still correct for this simple Activity shell.")
+    @Suppress("DEPRECATION")
+    @Deprecated("Android 12 and older back-navigation fallback.")
     override fun onBackPressed() {
-        if (!::webView.isInitialized) {
-            super.onBackPressed()
-            return
-        }
+        handleBackRequest()
+    }
+
+    private fun handleBackRequest() {
+        if (!::webView.isInitialized) return finish()
 
         webView.evaluateJavascript(
             """
@@ -109,7 +186,7 @@ class MainActivity : Activity() {
             if (webView.canGoBack()) {
                 webView.goBack()
             } else {
-                super.onBackPressed()
+                finish()
             }
         }
     }
@@ -118,5 +195,14 @@ class MainActivity : Activity() {
         if (::bridge.isInitialized) bridge.destroy()
         if (::webView.isInitialized) webView.destroy()
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SYSTEM_THEME_PREFERENCES = "caatuu-system-theme"
+        private const val SYSTEM_THEME_KEY = "theme"
+        private const val LIGHT_THEME = "light"
+        private const val DARK_THEME = "dark"
+        private val LIGHT_SYSTEM_BAR_COLOR = Color.rgb(247, 244, 238)
+        private val DARK_SYSTEM_BAR_COLOR = Color.rgb(21, 26, 24)
     }
 }

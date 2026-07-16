@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "defaultLanguage": "cz",
+  "languages": [
+    {
+      "id": "cz",
+      "status": "active",
+      "label": "Czech",
+      "nativeLabel": "Čeština",
+      "shortCode": "CZ",
+      "locale": "cs-CZ",
+      "direction": "ltr",
+      "flagClass": "flag-icon",
+      "flagSrc": "/assets/icons/czech_flag.png",
+      "routePrefix": "/cz",
+      "entryPath": "/cz/home.html",
+      "sourceLanguage": {
+        "id": "en",
+        "label": "English",
+        "locale": "en"
+      },
+      "capabilities": [
+        "chat",
+        "dictionary",
+        "memory",
+        "verbs",
+        "wordWorld",
+        "offlineModels",
+        "semanticSearch"
+      ],
+      "platforms": {
+        "browser": {
+          "enabled": true,
+          "entryPath": "/cz/home.html"
+        },
+        "android": {
+          "enabled": true,
+          "channels": [
+            {
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

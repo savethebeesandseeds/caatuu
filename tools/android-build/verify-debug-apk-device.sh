@@ -6,7 +6,7 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$repo_root/tools/android-build/versions.env"
 
 adb_bin="${ADB:-$ANDROID_HOME/platform-tools/adb}"
-apk_path="${APK:-$repo_root/artifacts/android/caatuu.apk}"
+apk_path="${APK:-$repo_root/artifacts/android/caatuu-debug.apk}"
 package_name="${PACKAGE_NAME:-com.waajacu.caatuu}"
 activity_name="${ACTIVITY_NAME:-com.caatuu.android.MainActivity}"
 report_dir="${REPORT_DIR:-$repo_root/artifacts/android/device-smoke}"

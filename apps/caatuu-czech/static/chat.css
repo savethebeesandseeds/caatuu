@@ -162,7 +162,6 @@ dl {
 }
 
 .cz-flag {
-  position: relative;
   flex: 0 0 24px;
   width: 24px;
   min-width: 24px;
@@ -171,23 +170,16 @@ dl {
   min-height: 16px;
   max-height: 16px;
   display: block;
-  overflow: hidden;
-  border: 1px solid rgba(23, 32, 29, 0.18);
-  border-radius: 2px;
-  background: linear-gradient(to bottom, #ffffff 0 50%, #d7141a 50% 100%);
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .language-code {
   font-size: 0.74rem;
   line-height: 1;
-}
-
-.cz-flag::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #11457e;
-  clip-path: polygon(0 0, 50% 50%, 0 100%);
 }
 
 .close-settings {
@@ -1615,9 +1607,9 @@ html[data-theme="light"] .maintenance-actions button {
 }
 
 html[data-theme="light"] .language-pill {
-  border-color: #c7d5ce;
-  background: rgba(255, 255, 255, 0.82);
-  color: var(--green);
+  border-color: var(--theme-control-border);
+  background: color-mix(in srgb, var(--theme-control-bg) 84%, transparent);
+  color: var(--theme-green-strong);
 }
 
 html[data-theme="light"] .message {
@@ -1629,18 +1621,18 @@ html[data-theme="light"] .message {
 html[data-theme="light"] .quick-prompts button {
   border-color: transparent;
   background: transparent;
-  color: #62736c;
+  color: var(--quiet);
 }
 
 html[data-theme="light"] .quick-prompts button:hover,
 html[data-theme="light"] .quick-prompts button:focus-visible {
-  border-color: #cad8d0;
-  background: #f0f6f2;
-  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 38%, var(--theme-control-border));
+  background: color-mix(in srgb, var(--green) 8%, var(--theme-control-bg));
+  color: var(--theme-green-strong);
 }
 
 html[data-theme="light"] .meta-list dd {
-  color: #28443d;
+  color: var(--theme-green-strong);
 }
 
 html[data-theme="light"] .composer-box {
@@ -1649,7 +1641,7 @@ html[data-theme="light"] .composer-box {
 }
 
 html[data-theme="light"] .composer-toolbar {
-  border-color: #dce5df;
+  border-color: var(--line);
   background: var(--theme-surface-3);
 }
 
@@ -1664,12 +1656,22 @@ html[data-theme="light"] .context-status summary {
 html[data-theme="light"] .context-disk {
   background:
     radial-gradient(circle at center, var(--theme-surface-1) 0 46%, transparent 47%),
-    conic-gradient(var(--green) 0 68%, #d8e3dd 68% 100%);
+    conic-gradient(var(--green) 0 68%, var(--theme-line) 68% 100%);
 }
 
 html[data-theme="light"] .legal-notice {
-  border-color: #d8e1dc;
+  border-color: var(--line);
   background: var(--theme-surface-3);
+}
+
+html[data-theme="light"] .message.assistant .message-body {
+  border-color: var(--line);
+  background: var(--theme-surface-1);
+}
+
+html[data-theme="light"] .message.user .message-body {
+  border-color: color-mix(in srgb, var(--green) 28%, var(--line));
+  background: color-mix(in srgb, var(--green) 8%, var(--panel));
 }
 
 html[data-theme="dark"] {
@@ -1760,7 +1762,7 @@ html[data-theme="dark"] .benchmark-card {
 html[data-theme="dark"] .model-details,
 html[data-theme="dark"] .diagnostics {
   border-color: var(--theme-control-border);
-  background: rgba(16, 24, 32, 0.55);
+  background: color-mix(in srgb, var(--theme-control-bg) 78%, transparent);
 }
 
 html[data-theme="dark"] .meta-list dd,
@@ -1777,14 +1779,14 @@ html[data-theme="dark"] .quick-prompts {
 
 html[data-theme="dark"] .settings-link-button,
 html[data-theme="dark"] .maintenance-actions button {
-  border-color: rgba(68, 199, 127, 0.42);
-  background: #13251c;
+  border-color: color-mix(in srgb, var(--green) 44%, var(--theme-control-border));
+  background: color-mix(in srgb, var(--green) 12%, var(--theme-control-bg));
   color: var(--theme-chip-ink);
 }
 
 html[data-theme="dark"] .language-pill {
   border-color: var(--theme-control-border);
-  background: rgba(16, 24, 32, 0.72);
+  background: color-mix(in srgb, var(--theme-control-bg) 82%, transparent);
 }
 
 html[data-theme="dark"] .composer-box {
@@ -1793,8 +1795,8 @@ html[data-theme="dark"] .composer-box {
 }
 
 html[data-theme="dark"] .composer-toolbar {
-  border-color: #263542;
-  background: #111c25;
+  border-color: var(--theme-line);
+  background: var(--theme-panel-head-bg);
 }
 
 html[data-theme="dark"] .composer-tool,
@@ -1808,7 +1810,7 @@ html[data-theme="dark"] .context-status summary {
 html[data-theme="dark"] .context-disk {
   background:
     radial-gradient(circle at center, var(--theme-panel) 0 46%, transparent 47%),
-    conic-gradient(var(--green) 0 68%, #314454 68% 100%);
+    conic-gradient(var(--green) 0 68%, var(--theme-line-strong) 68% 100%);
 }
 
 html[data-theme="dark"] .context-disk-center {
@@ -1826,7 +1828,7 @@ html[data-theme="dark"] .context-popover dd {
 }
 
 html[data-theme="dark"] .chat-progress {
-  background: #263542;
+  background: var(--theme-line);
 }
 
 html[data-theme="dark"] .chat-progress-bar {
@@ -1840,7 +1842,7 @@ html[data-theme="dark"] .chat-abort-download {
 
 html[data-theme="dark"] .legal-notice {
   border-color: var(--theme-control-border);
-  background: rgba(16, 24, 32, 0.58);
+  background: color-mix(in srgb, var(--theme-control-bg) 78%, transparent);
 }
 
 html[data-theme="dark"] .legal-notice strong {
@@ -1865,43 +1867,50 @@ html[data-theme="dark"] .quick-prompts button {
 
 html[data-theme="dark"] .quick-prompts button:hover,
 html[data-theme="dark"] .quick-prompts button:focus-visible {
-  border-color: rgba(68, 199, 127, 0.34);
-  background: rgba(68, 199, 127, 0.08);
+  border-color: color-mix(in srgb, var(--green) 38%, transparent);
+  background: color-mix(in srgb, var(--green) 9%, transparent);
   color: var(--theme-chip-ink);
 }
 
 html[data-theme="dark"] .message.assistant .message-body {
-  background: #121f28;
-  border-color: #263542;
+  background: var(--theme-surface-3);
+  border-color: var(--theme-line);
 }
 
 html[data-theme="dark"] .message.user .message-body {
-  background: #13281f;
-  border-color: #294637;
+  background: color-mix(in srgb, var(--theme-green) 11%, var(--theme-panel));
+  border-color: color-mix(in srgb, var(--theme-green) 28%, var(--theme-line));
+}
+
+html[data-theme="dark"] .message.system .message-body,
+html[data-theme="dark"] .benchmark-item {
+  border-color: var(--theme-line);
+  background: var(--theme-control-bg);
+  color: var(--ink);
 }
 
 html[data-theme="dark"] #runPrompt {
-  border-color: #5ca1dc;
-  background: #315f8d;
-  color: #ffffff;
+  border-color: color-mix(in srgb, var(--theme-blue) 58%, var(--theme-control-border));
+  background: var(--theme-blue-filled);
+  color: var(--theme-ink);
 }
 
 html[data-theme="dark"] #runPrompt:disabled {
   border-color: var(--theme-control-border);
-  background: #182632;
-  color: #7e8c98;
+  background: var(--theme-control-bg);
+  color: var(--quiet);
 }
 
 html[data-theme="dark"] .preset-control button.is-active,
 html[data-theme="dark"] .theme-control button.is-active,
 html[data-theme="dark"] .bottom-app-nav .app-nav-item.is-active {
-  border-color: rgba(68, 199, 127, 0.42);
-  background: rgba(68, 199, 127, 0.13);
+  border-color: color-mix(in srgb, var(--green) 48%, var(--theme-control-border));
+  background: color-mix(in srgb, var(--green) 15%, var(--theme-control-bg));
   color: var(--theme-chip-ink);
 }
 
 html[data-theme="dark"] .settings-backdrop {
-  background: rgba(2, 6, 8, 0.72);
+  background: rgba(8, 12, 10, 0.62);
 }
 
 @media (max-width: 900px) {

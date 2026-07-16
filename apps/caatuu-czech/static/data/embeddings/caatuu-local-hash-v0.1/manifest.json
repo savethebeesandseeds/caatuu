@@ -10,18 +10,18 @@
   "file": "caatuu-cz-curriculum.sqlite",
   "url": "data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
   "catalog_file": "data/embeddings/models.json",
-  "bytes": 18558976,
-  "sha256": "465cf1f888cdb7497a3e65620bcac8b1e66df2f0fed45b1b47ddba4d20474547",
-  "document_count": 5317,
-  "chunk_count": 5317,
-  "embedding_count": 5317,
+  "bytes": 19230720,
+  "sha256": "375dcfc5b97dc7aed738fb85f06416ed2ceee96aa734db70ee2060e746795564",
+  "document_count": 5430,
+  "chunk_count": 5430,
+  "embedding_count": 5430,
   "curriculum_count": 5000,
-  "asset_count": 317,
+  "asset_count": 430,
   "asset_counts": {
     "macaw_actions": 93,
-    "miscellaneous": 224
+    "miscellaneous": 337
   },
-  "generated_at": "2026-07-09T17:23:52.294Z",
+  "generated_at": "2026-07-14T00:26:17.340Z",
   "generated_from": "tools/caatuu-cz-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
   "generated_asset_keymap": "apps/caatuu-unified/static/assets/miscellaneous/keymap.json",
   "generated_asset_keymaps": {
@@ -30,7 +30,7 @@
   },
   "source_counts": {
     "curriculum": 5000,
-    "image_asset": 224,
+    "image_asset": 337,
     "macaw_action_asset": 93
   },
   "row_counts": {

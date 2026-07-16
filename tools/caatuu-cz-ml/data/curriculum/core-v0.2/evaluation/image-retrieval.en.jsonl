@@ -1,0 +1,40 @@
+{"id":"book-at-home","query":"a child reads a book at home","acceptable_categories":["read_book","learning","study","library","bedroom","household"]}
+{"id":"homework-desk","query":"the student writes homework at a desk","acceptable_categories":["study","learning","classroom"]}
+{"id":"classroom-lesson","query":"children learn together in a classroom","acceptable_categories":["classroom","learning","study","civic_building"]}
+{"id":"library-books","query":"she chooses a book from the library","acceptable_categories":["library","learning","study","civic_building"]}
+{"id":"sleep-bed","query":"the child sleeps in a warm bed","acceptable_categories":["bedroom","rest","furniture","household"]}
+{"id":"rest-hammock","query":"he relaxes quietly in a hammock","acceptable_categories":["rest","furniture","garden"]}
+{"id":"cook-dinner","query":"the family cooks dinner in the kitchen","acceptable_categories":["kitchen","food","household"]}
+{"id":"tea-kettle","query":"water boils in a kettle for tea","acceptable_categories":["kitchen","cafe","food","household","robot"]}
+{"id":"market-vegetables","query":"we buy fresh vegetables at the market","acceptable_categories":["market","food","shop","food_stall"]}
+{"id":"bakery-bread","query":"the baker sells warm bread","acceptable_categories":["market","food","food_stall","shop","civic_building"]}
+{"id":"doctor-clinic","query":"a doctor helps a sick child at the clinic","acceptable_categories":["clinic","civic_building"]}
+{"id":"playground-slide","query":"the children play outside on a slide","acceptable_categories":["playground","game","toy"]}
+{"id":"toy-blocks","query":"a child builds a tower with toy blocks","acceptable_categories":["toy","game","playground"]}
+{"id":"music-room","query":"she plays music on the piano","acceptable_categories":["music","stage"]}
+{"id":"theater-stage","query":"actors perform for an audience in the theater","acceptable_categories":["stage","music","festival"]}
+{"id":"camping-tent","query":"they sleep overnight in a tent while camping","acceptable_categories":["campsite","travel","rest"]}
+{"id":"campfire-food","query":"we cook food over a campfire","acceptable_categories":["campsite","kitchen","food"]}
+{"id":"spaceship-travel","query":"a spaceship flies through outer space","acceptable_categories":["ship","travel","vehicle"]}
+{"id":"boat-water","query":"a small boat sails across the water","acceptable_categories":["row_boat","boat","ship","dock","travel"]}
+{"id":"garden-flowers","query":"she waters flowers and vegetables in the garden","acceptable_categories":["garden","nature","greenhouse"]}
+{"id":"greenhouse-plants","query":"plants grow inside a greenhouse","acceptable_categories":["greenhouse","garden","nature","plant"]}
+{"id":"laundry-clothes","query":"he washes dirty clothes in the laundry","acceptable_categories":["wash_laundry","laundry","cleaning","household"]}
+{"id":"bath-water","query":"the child takes a bath with warm water","acceptable_categories":["bath","waterworks","household"]}
+{"id":"park-bench","query":"friends sit together on a bench in the park","acceptable_categories":["bench","park","nature","place"]}
+{"id":"science-telescope","query":"the student looks at stars through a telescope","acceptable_categories":["observatory","science","learning"]}
+{"id":"science-lab","query":"children do a science experiment in a laboratory","acceptable_categories":["science","learning","classroom","workshop"]}
+{"id":"painting-art","query":"she paints a colorful picture","acceptable_categories":["paint_picture","art","craft"]}
+{"id":"pottery-craft","query":"he makes a clay pot by hand","acceptable_categories":["craft","workshop","materials"]}
+{"id":"letter-mail","query":"she sends a letter through the mail","acceptable_categories":["mail"]}
+{"id":"clock-time","query":"the clock shows what time it is","acceptable_categories":["time"]}
+{"id":"map-journey","query":"the traveler reads a map before the journey","acceptable_categories":["map","travel"]}
+{"id":"bicycle-city","query":"a person rides a bicycle through town","acceptable_categories":["transport","transit","vehicle","travel"]}
+{"id":"train-ride","query":"the train carries passengers to another town","acceptable_categories":["transit","transport","travel","toy"]}
+{"id":"repair-machine","query":"a worker repairs a broken machine with tools","acceptable_categories":["workshop","tools","utility","robot"]}
+{"id":"helper-robot","query":"a friendly robot helps with daily work","acceptable_categories":["robot"]}
+{"id":"family-home","query":"the family spends a quiet evening at home","acceptable_categories":["house","household","bedroom"]}
+{"id":"lamp-night","query":"she turns on a lamp when the room gets dark","acceptable_categories":["lighting","household","bedroom"]}
+{"id":"open-gate","query":"the traveler walks through the town gate","acceptable_categories":["gate","travel","place"]}
+{"id":"cross-bridge","query":"people cross a bridge over the river","acceptable_categories":["bridge","place","travel"]}
+{"id":"festival-celebration","query":"the town celebrates together at a festival","acceptable_categories":["festival","stage","music","decor"]}

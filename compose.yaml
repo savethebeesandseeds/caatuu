@@ -3,27 +3,41 @@ name: caatuu
 services:
   caatuu:
     build:
-      context: ./tools/runtime
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: tools/runtime/Dockerfile
     image: caatuu-runtime:debian-latest
     container_name: caatuu
-    working_dir: /workspace
+    working_dir: /workspace/apps/caatuu-runtime
     environment:
       CAATUU_WORKSPACE_ROOT: /workspace
+      BIND_ADDR: "0.0.0.0"
       PORT: "9172"
       AGENT_CONFIG_PATH: ./profiles/word_challenge.toml
       RUST_LOG: ${CAATUU_RUST_LOG:-info}
+      ENABLE_ARCHIVED_CHINESE_API: ${CAATUU_ENABLE_ARCHIVED_CHINESE_API:-0}
+      ENABLE_ANDROID_DEBUG_DOWNLOADS: ${CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS:-0}
+      ENABLE_BUG_REPORTS: ${CAATUU_ENABLE_BUG_REPORTS:-0}
     ports:
-      - "8765:9172"
+      - "127.0.0.1:8765:9172"
     volumes:
-      - .:/workspace
-    command: ["bash", "-lc", "/workspace/tools/runtime/start-caatuu.sh"]
+      - ./apps/caatuu-czech/static:/workspace/apps/caatuu-czech/static:ro
+      - ./apps/caatuu-unified/static:/workspace/apps/caatuu-unified/static:ro
+      - ./demos:/workspace/demos:ro
+      - ./archive/caatuu-chinese/static:/workspace/archive/caatuu-chinese/static:ro
+      - ./apps/caatuu-runtime/profiles:/workspace/apps/caatuu-runtime/profiles:ro
+      - ./artifacts/android:/workspace/artifacts/android:ro
+      - ./tools/android-build/termux-install-debug.sh:/workspace/tools/android-build/termux-install-debug.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$${PORT:-9172}/ >/dev/null || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 5
       start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   caatuu-tunnel:
@@ -34,11 +48,40 @@ services:
     depends_on:
       caatuu:
         condition: service_healthy
-    network_mode: "service:caatuu"
     volumes:
       - ./secrets/cloudflared-token:/run/secrets/cloudflared-token:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command:
       - bash
       - -lc
-      - cloudflared tunnel --protocol http2 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token
+      - |
+        set -Eeuo pipefail
+        forward_pid=
+        shared_forward_pid=
+        tunnel_pid=
+        cleanup() {
+          [[ -z "$${forward_pid}" ]] || kill "$${forward_pid}" 2>/dev/null || true
+          [[ -z "$${shared_forward_pid}" ]] || kill "$${shared_forward_pid}" 2>/dev/null || true
+          [[ -z "$${tunnel_pid}" ]] || kill "$${tunnel_pid}" 2>/dev/null || true
+        }
+        trap cleanup EXIT INT TERM
+        socat TCP-LISTEN:9172,reuseaddr,fork TCP:caatuu:9172 &
+        forward_pid=$$!
+        socat TCP-LISTEN:7979,reuseaddr,fork TCP:host.docker.internal:7979 &
+        shared_forward_pid=$$!
+        cloudflared tunnel --protocol http2 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token &
+        tunnel_pid=$$!
+        wait -n "$${forward_pid}" "$${shared_forward_pid}" "$${tunnel_pid}"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9172/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped

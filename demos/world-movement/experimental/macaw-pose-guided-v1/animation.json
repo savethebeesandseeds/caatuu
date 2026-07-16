@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "macaw-pose-guided-v1",
+  "status": "isolated-silhouette-transfer-candidate",
+  "identity_anchor": "demos/world-movement/research/generated-candidates/macaw-walk-v4-test/frames/macaw-walk-v4_001.png",
+  "consistency_anchor": "demos/world-movement/research/generated-candidates/macaw-pose-guided-v1/originals/macaw-pose-walk_001.png",
+  "generated_originals": "demos/world-movement/research/generated-candidates/macaw-pose-guided-v1/originals",
+  "canvas": [520, 570],
+  "anchor": [0.5, 1.0],
+  "frame_distance_px": 32.083333,
+  "playback_order": [1, 3, 5, 6, 7, 9, 11, 10],
+  "processing": {
+    "container": "tukevejtso",
+    "cutout_preflight": "image_tool.sh cutout doctor",
+    "birefnet_test": "preserved in the isolated Tukevejtso workspace; rejected for final use because of magenta edge spill",
+    "final_background_removal": "imagegen remove_chroma_key.py executed with the Tukevejtso cutout Python environment, auto border key, soft matte, despill, and one-pixel edge contraction",
+    "normalization": "ImageMagick trim, fit within 480 by 520, bottom-align on a transparent 520 by 570 canvas"
+  },
+  "walk_loop": [
+    { "source_frame": 1, "phase": "contact-a", "guide": "human-pose-walk_001.png", "file": "frames/macaw-pose-walk_001.png" },
+    { "source_frame": 3, "phase": "17-percent", "guide": "human-pose-walk_004.png", "file": "frames/macaw-pose-walk_003.png" },
+    { "source_frame": 5, "phase": "33-percent", "guide": "human-pose-walk_005.png", "file": "frames/macaw-pose-walk_005.png" },
+    { "source_frame": 6, "phase": "42-percent", "guide": "human-pose-walk_006.png", "file": "frames/macaw-pose-walk_006.png" },
+    { "source_frame": 7, "phase": "contact-b", "guide": "human-pose-walk_007.png", "file": "frames/macaw-pose-walk_007.png" },
+    { "source_frame": 9, "phase": "67-percent", "guide": "human-pose-walk_009-v2.png", "file": "frames/macaw-pose-walk_009.png" },
+    { "source_frame": 11, "phase": "83-percent", "guide": "human-pose-walk_011.png", "file": "frames/macaw-pose-walk_011.png" },
+    { "source_frame": 10, "phase": "passing-b", "guide": "human-pose-walk_010.png", "file": "frames/macaw-pose-walk_010.png" }
+  ]
+}

@@ -1,0 +1,6 @@
+services:
+  caatuu:
+    environment:
+      OPENAI_API_KEY_FILE: /run/secrets/openai-api-key
+    volumes:
+      - ./secrets/openai-api-key:/run/secrets/openai-api-key:ro

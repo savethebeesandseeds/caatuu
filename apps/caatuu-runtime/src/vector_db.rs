@@ -12,13 +12,15 @@ use serde_json::json;
 
 pub const SCHEMA_NAME: &str = "caatuu-cz-vector-db";
 pub const SCHEMA_VERSION: i64 = 1;
-pub const DEFAULT_EMBEDDING_MODEL_ID: &str = "caatuu-local-hash-v0.1";
+pub const DEFAULT_EMBEDDING_MODEL_ID: &str = "all-minilm-l6-v2-qint8-v0.1";
+pub const LEGACY_HASH_EMBEDDING_MODEL_ID: &str = "caatuu-local-hash-v0.1";
 pub const FUTURE_BGE_EMBEDDING_MODEL_ID: &str = "bge-small-en-v1.5";
 pub const EMBEDDING_DIMENSION: usize = 384;
 pub const VECTOR_SCHEMA_SQL: &str = include_str!("../../../tools/caatuu-cz-ml/vector-schema.sql");
 pub const VECTOR_DB_FILE_NAME: &str = "caatuu-cz-curriculum.sqlite";
 
 pub trait TextEmbedder {
+    fn model_id(&self) -> &str;
     fn embed_text(&self, text: &str) -> Result<Vec<f32>, String>;
 }
 
@@ -26,6 +28,10 @@ pub trait TextEmbedder {
 pub struct LocalHashEmbedder;
 
 impl TextEmbedder for LocalHashEmbedder {
+    fn model_id(&self) -> &str {
+        LEGACY_HASH_EMBEDDING_MODEL_ID
+    }
+
     fn embed_text(&self, text: &str) -> Result<Vec<f32>, String> {
         local_hash_embedding(text)
     }
@@ -112,6 +118,13 @@ impl VectorDb {
         limit: usize,
         model_id: Option<&str>,
     ) -> Result<Vec<VectorSearchResult>, String> {
+        let requested_model = model_id.unwrap_or(DEFAULT_EMBEDDING_MODEL_ID);
+        if requested_model != embedder.model_id() {
+            return Err(format!(
+                "Embedder {} cannot query vectors from {requested_model}.",
+                embedder.model_id()
+            ));
+        }
         let query = self.embed_text(embedder, text)?;
         self.search_vector(&query, limit, model_id)
             .map_err(|error| error.to_string())
@@ -128,6 +141,11 @@ impl VectorDb {
         tx.execute(
             "DELETE FROM documents WHERE source_kind = ?1 AND locale = ?2",
             params!["curriculum", "en"],
+        )
+        .map_err(|error| error.to_string())?;
+        tx.execute(
+            "INSERT OR REPLACE INTO schema_meta(key, value) VALUES ('default_embedding_model', ?1)",
+            params![embedder.model_id()],
         )
         .map_err(|error| error.to_string())?;
 
@@ -200,7 +218,7 @@ impl VectorDb {
                 "#,
                 params![
                     chunk_id,
-                    DEFAULT_EMBEDDING_MODEL_ID,
+                    embedder.model_id(),
                     EMBEDDING_DIMENSION as i64,
                     vector_blob,
                     1.0_f64
@@ -212,7 +230,7 @@ impl VectorDb {
         tx.commit().map_err(|error| error.to_string())?;
         let status = self.status().map_err(|error| error.to_string())?;
         Ok(VectorRebuildSummary {
-            model_id: DEFAULT_EMBEDDING_MODEL_ID.to_string(),
+            model_id: embedder.model_id().to_string(),
             imported_rows: rows.len(),
             status,
         })
@@ -348,7 +366,9 @@ pub fn default_curriculum_corpus_path() -> PathBuf {
     std::env::var("CAATUU_CURRICULUM_EN_PATH")
         .map(PathBuf::from)
         .unwrap_or_else(|_| {
-            workspace_root().join("tools/caatuu-cz-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl")
+            workspace_root().join(
+                "tools/caatuu-cz-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
+            )
         })
 }
 

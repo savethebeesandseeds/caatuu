@@ -14,6 +14,8 @@ Node.js and npm
 Rust stable through rustup
 git, git-lfs, CMake, Ninja, GCC/G++, Make
 Debian default JDK, unzip, zip, rsync, jq
+Persistent Android SDK, Gradle distribution, and Gradle cache volumes for
+repeat Android publishes
 ```
 
 Start an interactive shell from `C:\Work\caatuu`:
@@ -52,6 +54,15 @@ Run phone-bench preparation:
 cd /workspace/tools/phone-bench
 bash scripts/prepare-model.sh qwen3-lora-003-hard
 ```
+
+Publish the current debug-signing Android lineage inside this Linux container:
+
+```bash
+docker exec caatuu-dev bash -lc 'cd /workspace && bash tools/android-build/publish-public-debug.sh'
+```
+
+The Bash publisher uses the existing container and its persistent Android tool
+volumes. Do not launch a new container for routine publishes.
 
 The service requests all available GPUs. Training still depends on the host
 Docker NVIDIA integration being available.

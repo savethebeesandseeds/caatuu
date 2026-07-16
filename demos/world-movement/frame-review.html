@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111c18">
+  <title>Human Pose Authority Review</title>
+  <link rel="stylesheet" href="./frame-review.css?v=2">
+</head>
+<body>
+  <main>
+    <header class="review-heading">
+      <div>
+        <p class="eyebrow">Motion-system baseline</p>
+        <h1>Human pose authority · walk and stand</h1>
+        <p class="explanation">These side-view poses were generated one frame at a time from the approved human pose cards, using the refined human silhouette as the shared anatomy and rendering anchor. Darker gray means farther away and lighter gray means nearer: far leg, far arm and hand, core silhouette, near leg, then near arm and hand. Each normalized frame uses the same transparent 160 by 224 canvas and bottom-centre anchor. This page contains no animation or interpolation.</p>
+      </div>
+      <div class="review-actions">
+        <span class="load-status" id="loadStatus">Loading 0 / 14</span>
+        <a href="./">Return to movement demo</a>
+      </div>
+    </header>
+
+    <h2>Walk · eight selected phases</h2>
+    <section class="sequence" aria-label="Human mocap walk frame sequence">
+      <figure data-frame="1">
+        <figcaption><strong>01</strong><span>Contact A</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_001.png?v=1" alt="Human frame 1, contact A">
+        <code>human-pose-walk_001.png</code>
+      </figure>
+      <figure data-frame="3">
+        <figcaption><strong>03</strong><span>17%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_003.png?v=2" alt="Human frame 3, seventeen percent">
+        <code>human-pose-walk_003.png</code>
+      </figure>
+      <figure data-frame="5">
+        <figcaption><strong>05</strong><span>33%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_005.png?v=1" alt="Human frame 5, thirty-three percent">
+        <code>human-pose-walk_005.png</code>
+      </figure>
+      <figure data-frame="6">
+        <figcaption><strong>06</strong><span>42%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_006.png?v=1" alt="Human frame 6, forty-two percent">
+        <code>human-pose-walk_006.png</code>
+      </figure>
+      <figure data-frame="7">
+        <figcaption><strong>07</strong><span>Contact B</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_007.png?v=1" alt="Human frame 7, contact B">
+        <code>human-pose-walk_007.png</code>
+      </figure>
+      <figure data-frame="9">
+        <figcaption><strong>09</strong><span>67%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_009.png?v=3" alt="Human frame 9, sixty-seven percent">
+        <code>human-pose-walk_009.png</code>
+      </figure>
+      <figure data-frame="11">
+        <figcaption><strong>11</strong><span>83%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_011.png?v=1" alt="Human frame 11, eighty-three percent">
+        <code>human-pose-walk_011.png</code>
+      </figure>
+      <figure data-frame="10">
+        <figcaption><strong>10</strong><span>Passing B</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/frames/human-pose-walk_010.png?v=1" alt="Human frame 10, passing B">
+        <code>human-pose-walk_010.png</code>
+      </figure>
+    </section>
+
+    <h2>Stand · six idle phases</h2>
+    <section class="sequence idle-sequence" aria-label="Human mocap standing frame sequence">
+      <figure data-idle-frame="1">
+        <figcaption><strong>I01</strong><span>Neutral</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1" alt="Human standing frame 1, neutral">
+        <code>human-pose-idle_001.png</code>
+      </figure>
+      <figure data-idle-frame="2">
+        <figcaption><strong>I02</strong><span>Breath 17%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_002.png?v=1" alt="Human standing frame 2, breath seventeen percent">
+        <code>human-pose-idle_002.png</code>
+      </figure>
+      <figure data-idle-frame="3">
+        <figcaption><strong>I03</strong><span>Breath 33%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_003.png?v=1" alt="Human standing frame 3, breath thirty-three percent">
+        <code>human-pose-idle_003.png</code>
+      </figure>
+      <figure data-idle-frame="4">
+        <figcaption><strong>I04</strong><span>Breath 50%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_004.png?v=1" alt="Human standing frame 4, breath fifty percent">
+        <code>human-pose-idle_004.png</code>
+      </figure>
+      <figure data-idle-frame="5">
+        <figcaption><strong>I05</strong><span>Breath 67%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_005.png?v=1" alt="Human standing frame 5, breath sixty-seven percent">
+        <code>human-pose-idle_005.png</code>
+      </figure>
+      <figure data-idle-frame="6">
+        <figcaption><strong>I06</strong><span>Breath 83%</span></figcaption>
+        <img src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_006.png?v=1" alt="Human standing frame 6, breath eighty-three percent">
+        <code>human-pose-idle_006.png</code>
+      </figure>
+    </section>
+
+    <footer>
+      <p>Canvas: 160 × 224 · anchor: bottom centre · walk order: 01 → 03 → 05 → 06 → 07 → 09 → 11 → 10 → 01 · six-pose standing loop retained as a separate motion state.</p>
+    </footer>
+  </main>
+  <script src="./frame-review.js?v=7"></script>
+</body>
+</html>

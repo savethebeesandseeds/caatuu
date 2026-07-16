@@ -13,6 +13,14 @@ secrets/
 **/*.pid
 **/.caatuu-backend.pid
 **/parse_temp.txt
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.bak
+*.swp
+*.tmp
 
 # Build and dependency outputs
 **/target/
@@ -21,6 +29,7 @@ secrets/
 **/.venv/
 **/venv/
 **/.gradle/
+**/.kotlin/
 **/local.properties
 **/__pycache__/
 **/*.pyc
@@ -34,12 +43,16 @@ apps/caatuu-czech/dumps/
 apps/caatuu-czech/static/data/models/
 apps/caatuu-czech/static/data/embeddings/**/*.sqlite
 !apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite
+!apps/caatuu-czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite
+apps/caatuu-czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/
 apps/caatuu-czech/static/data/embeddings/**/*.db
 apps/caatuu-czech/static/data/embeddings/**/*.onnx
 apps/caatuu-czech/static/data/embeddings/**/*.wasm
 apps/caatuu-czech/static/data/embeddings/**/*.bin
 apps/caatuu-czech/static/data/embeddings/**/*.safetensors
+apps/caatuu-czech/static/data/dictionaries/**/*.sqlite
 tools/caatuu-cz-ml/data/embeddings/
+tools/caatuu-cz-ml/data/dictionaries/downloads/
 tools/caatuu-cz-ml/data/models/
 tools/caatuu-cz-ml/data/curriculum/**/batches/
 tools/caatuu-cz-ml/data/curriculum/**/jobs/
@@ -49,3 +62,7 @@ archive/*
 !archive/caatuu-chinese/
 !archive/caatuu-chinese/**
 gateway/
+
+# Demo research inputs and generated intermediates
+demos/**/research/source/
+demos/**/research/generated-candidates/

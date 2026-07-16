@@ -70,6 +70,19 @@ CREATE TABLE IF NOT EXISTS asset_embedding_refs (
   UNIQUE (chunk_id, model_id)
 );
 
+CREATE TABLE IF NOT EXISTS robot_embedding_refs (
+  asset_path TEXT PRIMARY KEY,
+  category TEXT NOT NULL CHECK (length(category) > 0),
+  description TEXT NOT NULL,
+  document_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+  chunk_id TEXT NOT NULL REFERENCES chunks(id) ON DELETE CASCADE,
+  model_id TEXT NOT NULL REFERENCES embedding_models(id) ON DELETE CASCADE,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (chunk_id, model_id)
+);
+
 CREATE TABLE IF NOT EXISTS macaw_action_embedding_refs (
   asset_path TEXT PRIMARY KEY,
   action TEXT NOT NULL CHECK (length(action) > 0),
@@ -87,17 +100,21 @@ CREATE INDEX IF NOT EXISTS idx_documents_source ON documents(source_kind, source
 CREATE INDEX IF NOT EXISTS idx_chunks_document ON chunks(document_id, ordinal);
 CREATE INDEX IF NOT EXISTS idx_embeddings_model ON embeddings(model_id);
 CREATE INDEX IF NOT EXISTS idx_asset_embedding_refs_category ON asset_embedding_refs(category);
+CREATE INDEX IF NOT EXISTS idx_robot_embedding_refs_category ON robot_embedding_refs(category);
 CREATE INDEX IF NOT EXISTS idx_macaw_action_embedding_refs_action ON macaw_action_embedding_refs(action);
 
 INSERT OR IGNORE INTO schema_meta(key, value) VALUES
   ('schema_name', 'caatuu-cz-vector-db'),
   ('schema_version', '1'),
-  ('default_embedding_model', 'caatuu-local-hash-v0.1'),
+  ('default_embedding_model', 'all-minilm-l6-v2-qint8-v0.1'),
   ('embedding_text_field', 'english_text'),
   ('embedding_input_policy', 'english_text_only'),
   ('asset_embedding_table', 'asset_embedding_refs'),
   ('asset_embedding_text_field', 'manual_english_description'),
   ('asset_embedding_input_policy', 'manual_english_description_only'),
+  ('robot_embedding_table', 'robot_embedding_refs'),
+  ('robot_embedding_text_field', 'manual_english_description'),
+  ('robot_embedding_input_policy', 'manual_english_description_only'),
   ('macaw_action_embedding_table', 'macaw_action_embedding_refs'),
   ('macaw_action_embedding_text_field', 'manual_english_description'),
   ('macaw_action_embedding_input_policy', 'manual_english_description_only');
@@ -130,6 +147,36 @@ INSERT OR IGNORE INTO embedding_models(
   'cosine',
   NULL,
   '{"purpose":"local deterministic baseline","embedding_text_field":"english_text","embedding_input_policy":"english_text_only","notes":"Useful for lexical English-text retrieval. Metadata is stored for filtering but is never embedded."}'
+);
+
+INSERT OR IGNORE INTO embedding_models(
+  id,
+  provider,
+  model_name,
+  revision,
+  license,
+  dimension,
+  max_tokens,
+  pooling,
+  normalized,
+  vector_encoding,
+  distance_metric,
+  source_url,
+  metadata_json
+) VALUES (
+  'all-minilm-l6-v2-qint8-v0.1',
+  'sentence-transformers',
+  'sentence-transformers/all-MiniLM-L6-v2',
+  '1110a243fdf4706b3f48f1d95db1a4f5529b4d41',
+  'Apache-2.0',
+  384,
+  256,
+  'attention_mask_mean_pooling',
+  1,
+  'float32le',
+  'cosine',
+  'https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41',
+  '{"quantization":"qint8_arm64","onnx_file":"onnx/model_qint8_arm64.onnx","embedding_text_field":"english_text","embedding_input_policy":"english_text_only"}'
 );
 
 INSERT OR IGNORE INTO embedding_models(

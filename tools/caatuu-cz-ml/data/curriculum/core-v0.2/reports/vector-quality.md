@@ -1,12 +1,12 @@
 # Vector Quality Notes
 
-Generated: 2026-07-09T17:23:55.633Z
+Generated: 2026-07-14T12:26:49.404Z
 
 Rows: 5000
-Vector DB: `apps/caatuu-czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite`
-Model: `caatuu-local-hash-v0.1`
+Vector DB: `apps/caatuu-czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite`
+Model: `all-minilm-l6-v2-qint8-v0.1`
 
-Caveat: This is a deterministic lexical vector index computed only from english_text, not czech_text or metadata, and not a semantic transformer embedding model.
+Caveat: This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.
 
 ## Cleanup Uses
 
@@ -18,107 +18,107 @@ Caveat: This is a deterministic lexical vector index computed only from english_
 
 ## Near-Duplicate Candidates
 
-Showing 25 of 200 candidates from `C:\Work\caatuu\tools\caatuu-cz-ml\data\curriculum\core-v0.2\validation\vector-quality.json`.
+Showing 25 of 200 candidates from `/workspace/tools/caatuu-cz-ml/data/curriculum/core-v0.2/validation/vector-quality.json`.
 
-- cc-003774 / cc-004660 | vector 0.9589 | token 0.8333
-  - A father sees the dry boat near the station.
-  - A father sees the boat near the station.
+- cc-000751 / cc-004608 | vector 0.9862 | token 1
+  - A child puts the toy in the box.
+  - A child puts the toy in a box.
+  - Very close wording; review for duplicate or low-value variation.
+- cc-002068 / cc-003657 | vector 0.9854 | token 0.6667
+  - A teacher wears a shoe.
+  - A teacher has a shoe.
   - Very close vector match; likely same learning example shape.
-- cc-001333 / cc-004483 | vector 0.9574 | token 0.8333
-  - A child sees the plane near the station.
-  - A child sees the new plane near the station.
+- cc-003702 / cc-003919 | vector 0.9836 | token 0.6667
+  - A sister wears a shoe.
+  - A sister has a shoe.
   - Very close vector match; likely same learning example shape.
-- cc-001207 / cc-001896 | vector 0.9517 | token 0.8
-  - A friend tastes the sweet yogurt with a spoon.
-  - A friend tastes the yogurt with a spoon.
+- cc-002800 / cc-003431 | vector 0.9796 | token 0.6667
+  - A girl has a hat.
+  - A girl wears a hat.
   - Very close vector match; likely same learning example shape.
-- cc-000034 / cc-003745 | vector 0.9514 | token 0.8
-  - A mother carries the small basket to the room.
-  - A mother carries the basket to the room.
+- cc-002480 / cc-004227 | vector 0.9788 | token 0.6667
+  - A mother wears a skirt.
+  - A mother has a skirt.
   - Very close vector match; likely same learning example shape.
-- cc-003745 / cc-004950 | vector 0.9514 | token 0.8
-  - A mother carries the basket to the room.
-  - A mother carries the green basket to the room.
+- cc-001641 / cc-004699 | vector 0.9787 | token 0.6667
+  - A mother has a shoe.
+  - A mother wears a shoe.
   - Very close vector match; likely same learning example shape.
-- cc-003046 / cc-003759 | vector 0.948 | token 0.8
-  - A father rides the small bike on the path.
-  - A father rides the bike on the path.
+- cc-001871 / cc-004482 | vector 0.9784 | token 0.6667
+  - A grandpa wears a glove.
+  - A grandpa has a glove.
   - Very close vector match; likely same learning example shape.
-- cc-001042 / cc-004383 | vector 0.9442 | token 0.3333
-  - A boy has a ruler.
-  - A boy has a basket.
+- cc-000040 / cc-003130 | vector 0.9774 | token 0.6667
+  - A boy has a coat.
+  - A boy wears a coat.
   - Very close vector match; likely same learning example shape.
-- cc-003893 / cc-004571 | vector 0.9441 | token 0.8
-  - A student opens the new notebook in class.
-  - A student opens the notebook in class.
+- cc-003682 / cc-004070 | vector 0.9772 | token 0.6667
+  - A mother has a sock.
+  - A mother wears a sock.
   - Very close vector match; likely same learning example shape.
-- cc-000653 / cc-000993 | vector 0.9421 | token 0.6667
-  - The bed is in the room.
-  - The red bed is in the room.
+- cc-000717 / cc-001244 | vector 0.9762 | token 0.75
+  - A father has some soup.
+  - A father likes some soup.
   - Very close vector match; likely same learning example shape.
-- cc-001047 / cc-001317 | vector 0.942 | token 0.8333
-  - A child eats the hot pasta after lunch.
-  - A child eats the pasta after lunch.
+- cc-000161 / cc-004658 | vector 0.9756 | token 0.6667
+  - A teacher wears a scarf.
+  - A teacher has a scarf.
   - Very close vector match; likely same learning example shape.
-- cc-002892 / cc-003477 | vector 0.9389 | token 0.5
-  - A grandpa likes a potato.
-  - A grandpa likes a story.
+- cc-003507 / cc-004049 | vector 0.9755 | token 0.6667
+  - A child wears a dress.
+  - A child has a dress.
   - Very close vector match; likely same learning example shape.
-- cc-000653 / cc-002157 | vector 0.9364 | token 0.6667
-  - The bed is in the room.
-  - The soft bed is in the room.
+- cc-003481 / cc-003692 | vector 0.9748 | token 0.6667
+  - A mother wears a hat.
+  - A mother has a hat.
   - Very close vector match; likely same learning example shape.
-- cc-000675 / cc-002816 | vector 0.9361 | token 0.3333
-  - Do you want a ball?
-  - Do you want a pencil?
+- cc-000659 / cc-004251 | vector 0.9744 | token 0.6667
+  - The pear is green.
+  - The pear is very green.
   - Very close vector match; likely same learning example shape.
-- cc-001750 / cc-004203 | vector 0.9361 | token 0.3333
-  - Do you want a castle?
-  - Do you want a cake?
+- cc-002956 / cc-004344 | vector 0.9741 | token 0.6667
+  - A grandpa likes a paper.
+  - A grandpa has a paper.
   - Very close vector match; likely same learning example shape.
-- cc-001091 / cc-001377 | vector 0.9356 | token 0.5
-  - A neighbor carries the ruler.
-  - A neighbor carries the basket.
+- cc-000139 / cc-001160 | vector 0.9738 | token 0.6667
+  - The egg is small.
+  - The egg is very small.
   - Very close vector match; likely same learning example shape.
-- cc-002792 / cc-003581 | vector 0.9269 | token 0.3333
-  - The cake is wet.
-  - Is the castle wet?
+- cc-001227 / cc-003284 | vector 0.9724 | token 0.6667
+  - A student has a rope.
+  - A student needs a rope.
   - Very close vector match; likely same learning example shape.
-- cc-000204 / cc-000418 | vector 0.9262 | token 0.3333
-  - The pencil is small.
-  - The ball is small.
+- cc-001097 / cc-004508 | vector 0.9704 | token 0.6667
+  - The sand is dry.
+  - The sand is very dry.
   - Very close vector match; likely same learning example shape.
-- cc-000809 / cc-001431 | vector 0.9251 | token 0.8333
-  - A friend eats the banana after lunch.
-  - A friend eats the yellow banana after lunch.
+- cc-002444 / cc-002600 | vector 0.97 | token 0.6667
+  - A grandma wears a boot.
+  - A grandma has a boot.
   - Very close vector match; likely same learning example shape.
-- cc-000956 / cc-001809 | vector 0.9165 | token 0.6
-  - Please put the bag on the table.
-  - Please put the spoon on the table.
+- cc-001130 / cc-003437 | vector 0.9699 | token 0.6667
+  - A student likes a drum.
+  - A student has a drum.
   - Very close vector match; likely same learning example shape.
-- cc-001262 / cc-003765 | vector 0.9129 | token 0.3333
-  - The ruler is small.
-  - The basket is small.
+- cc-004272 / cc-004689 | vector 0.9694 | token 0.6667
+  - A student has a notebook.
+  - A student likes a notebook.
   - Very close vector match; likely same learning example shape.
-- cc-002624 / cc-003025 | vector 0.9129 | token 0.3333
-  - The potato is small.
-  - The story is small.
+- cc-001576 / cc-004482 | vector 0.9691 | token 0.6667
+  - A grandpa needs a glove.
+  - A grandpa has a glove.
   - Very close vector match; likely same learning example shape.
-- cc-003766 / cc-004052 | vector 0.9129 | token 0.3333
-  - The ruler is brown.
-  - The basket is brown.
+- cc-001308 / cc-004895 | vector 0.969 | token 0.6667
+  - The potato is hot.
+  - The potato is very hot.
   - Very close vector match; likely same learning example shape.
-- cc-000290 / cc-000364 | vector 0.9117 | token 0.6667
-  - Please put the cup on the table for me.
-  - Please put the box on the table for me.
+- cc-001722 / cc-002538 | vector 0.9686 | token 0.6667
+  - A neighbor likes a coat.
+  - A neighbor has a coat.
   - Very close vector match; likely same learning example shape.
-- cc-001083 / cc-002585 | vector 0.9116 | token 0.6
-  - A brother puts the basket in the box.
-  - A brother puts the basket in the bag.
-  - Very close vector match; likely same learning example shape.
-- cc-000956 / cc-003985 | vector 0.9114 | token 0.6
-  - Please put the bag on the table.
-  - Please put the castle on the table.
+- cc-001851 / cc-004048 | vector 0.9684 | token 0.6667
+  - A baby needs a pen.
+  - A baby has a pen.
   - Very close vector match; likely same learning example shape.
 
 ## Coverage Hot Spots

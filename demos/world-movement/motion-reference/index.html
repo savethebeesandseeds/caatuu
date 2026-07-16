@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#18251f">
+  <title>Caatuu Motion Reference Lab</title>
+  <link rel="stylesheet" href="./motion-reference.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Caatuu animation study</p>
+    <h1>Motion Reference Lab</h1>
+    <p>Validate real locomotion first. Dress it as a character only after the contacts, weight and rhythm are convincing.</p>
+  </header>
+
+  <main class="workspace">
+    <section class="viewer-card" aria-labelledby="viewerTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Orthographic side view</p>
+          <h2 id="viewerTitle">Silhouette, joint structure and readable limbs</h2>
+        </div>
+        <span class="status" id="status">Loading CC0 motion source…</span>
+      </div>
+
+      <div class="stage-wrap" id="stageWrap">
+        <canvas id="stageCanvas" aria-label="Animated human motion silhouette"></canvas>
+        <span class="ground-label">fixed ground line</span>
+      </div>
+
+      <div class="transport">
+        <button type="button" id="playButton">Play</button>
+        <label class="phase-control">
+          <span>Cycle phase <output id="phaseOutput">0.0%</output></span>
+          <input id="phaseControl" type="range" min="0" max="1" step="0.001" value="0">
+        </label>
+      </div>
+    </section>
+
+    <aside class="control-card" aria-label="Motion reference controls">
+      <label>
+        <span>Reference motion</span>
+        <select id="clipSelect">
+          <option value="Idle_Loop">Standing / idle</option>
+          <option value="Walk_Loop" selected>Natural walk</option>
+          <option value="Walk_Formal_Loop">Formal walk</option>
+          <option value="Jog_Fwd_Loop">Jog</option>
+          <option value="Sprint_Loop">Run / sprint</option>
+          <option value="Jump_Land">Landing reference</option>
+        </select>
+      </label>
+
+      <label class="check-row">
+        <input id="jointToggle" type="checkbox" checked>
+        <span>Show structural joints</span>
+      </label>
+
+      <div class="pose-buttons" aria-label="Canonical phase shortcuts">
+        <button type="button" data-phase="0">Contact A</button>
+        <button type="button" data-phase="0.25">Passing A</button>
+        <button type="button" data-phase="0.5">Contact B</button>
+        <button type="button" data-phase="0.75">Passing B</button>
+      </div>
+
+      <dl class="metadata">
+        <div><dt>Clip</dt><dd id="clipReadout">Walk_Loop</dd></div>
+        <div><dt>Duration</dt><dd id="durationReadout">—</dd></div>
+        <div><dt>Rig channels</dt><dd id="channelReadout">—</dd></div>
+        <div><dt>Camera</dt><dd>strict side view</dd></div>
+        <div><dt>License</dt><dd>CC0 1.0</dd></div>
+      </dl>
+
+      <p class="method-note">The silhouette is rendered from one animated humanoid rig. Exported sheets add restrained near/far limb guides so the hands and feet remain readable without changing the authored poses.</p>
+    </aside>
+  </main>
+
+  <section class="sheets-section" aria-labelledby="sheetsTitle">
+    <div class="section-heading sheets-heading">
+      <div>
+        <p class="eyebrow">Reference set</p>
+        <h2 id="sheetsTitle">Standing, walking and running sheets</h2>
+      </div>
+      <p>Click any frame to inspect that exact pose above.</p>
+    </div>
+    <div class="reference-sets" id="referenceSets" aria-live="polite"></div>
+  </section>
+
+  <footer>
+    <p>Motion source: Quaternius Universal Animation Library, Standard edition. The source archive and license are preserved under <code>demos/world-movement/research/</code>.</p>
+  </footer>
+
+  <script src="./vendor/classic/three.min.js"></script>
+  <script src="./vendor/classic/GLTFLoader.js"></script>
+  <script src="./motion-reference.js?v=25"></script>
+</body>
+</html>

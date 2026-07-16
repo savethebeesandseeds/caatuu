@@ -1,11 +1,13 @@
 package com.caatuu.android
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import org.json.JSONObject
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -17,8 +19,14 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
         view: WebView,
         request: WebResourceRequest,
     ): Boolean {
-        if (!isAppRoot(request.url)) return false
-        view.loadUrl(START_URL)
+        val uri = request.url
+        if (isAppRoot(uri)) {
+            view.loadUrl(START_URL)
+            return true
+        }
+        if (isAppHost(uri)) return false
+
+        openExternalUrl(uri)
         return true
     }
 
@@ -31,7 +39,11 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
         super.onPageFinished(view, url)
 
         val uri = url?.let(Uri::parse) ?: return
-        if (!isAppHost(uri)) return
+        if (!isAppHost(uri)) {
+            view.stopLoading()
+            view.loadUrl(START_URL)
+            return
+        }
 
         if (isAppRoot(uri)) {
             view.loadUrl(START_URL)
@@ -42,18 +54,18 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
     }
 
     private fun intercept(uri: Uri): WebResourceResponse? {
-        if (!isAppHost(uri)) return null
-        if (isAppRoot(uri)) return redirectToCzechHome()
+        if (!isAppHost(uri)) return forbidden()
+        if (isAppRoot(uri)) return redirectToLanguageHome()
 
         val path = uri.path.orEmpty()
         val assetPath = when {
-            path == "/cz" || path.startsWith("/cz/") -> path
-                .removePrefix("/cz")
+            path == LANGUAGE_ROUTE_PREFIX || path.startsWith("$LANGUAGE_ROUTE_PREFIX/") -> path
+                .removePrefix(LANGUAGE_ROUTE_PREFIX)
                 .trimStart('/')
                 .ifBlank { "home.html" }
                 .replace('\\', '/')
             path.startsWith("/assets/") -> path.trimStart('/').replace('\\', '/')
-            else -> return null
+            else -> return notFound()
         }
 
         if (assetPath.contains("..")) return notFound()
@@ -105,22 +117,41 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
     }
 
     private fun isAppHost(uri: Uri): Boolean =
-        uri.scheme == "https" && uri.host == HOST
+        uri.scheme == "https" && uri.host == HOST && (uri.port == -1 || uri.port == 443)
 
     private fun isAppRoot(uri: Uri): Boolean =
         isAppHost(uri) && (uri.path.isNullOrBlank() || uri.path == "/" || uri.path == "/index.html")
 
-    private fun redirectToCzechHome(): WebResourceResponse =
+    private fun openExternalUrl(uri: Uri) {
+        if (uri.scheme !in setOf("http", "https")) return
+        val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+            addCategory(Intent.CATEGORY_BROWSABLE)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        runCatching { context.startActivity(intent) }
+    }
+
+    private fun forbidden(): WebResourceResponse =
+        WebResourceResponse(
+            "text/plain",
+            "UTF-8",
+            403,
+            "Forbidden",
+            mapOf("Cache-Control" to "no-store"),
+            ByteArrayInputStream("External content is not available inside Caatuu.".toByteArray()),
+        )
+
+    private fun redirectToLanguageHome(): WebResourceResponse =
         WebResourceResponse(
             "text/html",
             "UTF-8",
-            302,
-            "Found",
-            mapOf(
-                "Location" to START_URL,
-                "Cache-Control" to "no-store",
+            200,
+            "OK",
+            mapOf("Cache-Control" to "no-store"),
+            ByteArrayInputStream(
+                """<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=$START_URL"><title>Caatuu</title>"""
+                    .toByteArray(),
             ),
-            ByteArrayInputStream(ByteArray(0)),
         )
 
     private fun localVectorDatabase(assetPath: String): File? {
@@ -133,7 +164,9 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
     }
 
     private fun localSetupAsset(assetPath: String): File? {
-        if (!assetPath.startsWith("assets/") || assetPath.contains("..")) return null
+        val setupManagedPath = assetPath.startsWith("assets/") ||
+            assetPath.startsWith("data/embeddings/")
+        if (!setupManagedPath || assetPath.contains("..")) return null
         return StaticAssetManager.localAssetFile(context, assetPath).takeIf { it.isFile }
     }
 
@@ -152,7 +185,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
             "css" -> "text/css"
             "html" -> "text/html"
             "jpg", "jpeg" -> "image/jpeg"
-            "js" -> "text/javascript"
+            "js", "mjs" -> "text/javascript"
             "json" -> "application/json"
             "png" -> "image/png"
             "sqlite", "db" -> "application/vnd.sqlite3"
@@ -164,14 +197,17 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
 
     private fun charsetFor(path: String): String? =
         when (path.substringAfterLast('.', "").lowercase()) {
-            "css", "html", "js", "json", "svg", "txt", "webmanifest" -> "UTF-8"
+            "css", "html", "js", "mjs", "json", "svg", "txt", "webmanifest" -> "UTF-8"
             else -> null
         }
 
     companion object {
         private const val HOST = "caatuu.local"
-        const val START_URL = "https://$HOST/cz/home.html"
-        private const val NATIVE_BOUNDARY_SCRIPT = """
+        private val LANGUAGE_ROUTE_PREFIX = normalizePath(BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX)
+            .trimEnd('/')
+        private val LANGUAGE_ENTRY_PATH = normalizePath(BuildConfig.CAATUU_LANGUAGE_ENTRY_PATH)
+        val START_URL = "https://$HOST$LANGUAGE_ENTRY_PATH"
+        private val NATIVE_BOUNDARY_SCRIPT = """
             (() => {
               try {
                 if ("serviceWorker" in navigator) {
@@ -186,11 +222,18 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
                       .map((key) => caches.delete(key))))
                     .catch(() => {});
                 }
+                const entryPath = ${JSONObject.quote(LANGUAGE_ENTRY_PATH)};
                 if (location.origin === "https://caatuu.local" && (location.pathname === "/" || location.pathname === "/index.html")) {
-                  location.replace("/cz/home.html");
+                  location.replace(entryPath);
                 }
               } catch (error) {}
             })();
         """
+
+        private fun normalizePath(value: String): String {
+            val trimmed = value.trim()
+            require(trimmed.isNotEmpty() && !trimmed.contains("..")) { "Language path must be absolute and safe." }
+            return if (trimmed.startsWith('/')) trimmed else "/$trimmed"
+        }
     }
 }

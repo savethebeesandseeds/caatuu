@@ -1,8 +1,8 @@
 //! Telemetry initialization (tracing/tracing-subscriber).
 //!
 //! Behavior:
-//! - LOG_LEVEL controls the filter (e.g. "debug" or detailed directives like
-//!   "info,challenge=debug,caatuu_runtime=debug,tower_http=info,axum=info").
+//! - RUST_LOG controls the filter (e.g. "debug" or detailed directives like
+//!   "info,caatuu_runtime=debug,tower_http=info,axum=info").
 //! - LOG_FORMAT selects "pretty" (default) or "json" structured logs.
 //!
 //! Notes:
@@ -13,9 +13,8 @@ use tracing_subscriber::EnvFilter;
 
 pub fn init_tracing() {
     // Build a single fmt subscriber builder and attach the EnvFilter directly.
-    let filter = EnvFilter::try_from_env("LOG_LEVEL").unwrap_or_else(|_| {
-        EnvFilter::new("info,challenge=debug,caatuu_runtime=debug,tower_http=info,axum=info")
-    });
+    let filter = EnvFilter::try_from_default_env()
+        .unwrap_or_else(|_| EnvFilter::new("info,tower_http=info"));
 
     let builder = tracing_subscriber::fmt()
         .with_env_filter(filter)

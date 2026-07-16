@@ -11,9 +11,8 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 rand = "0.8"
 rusqlite = { version = "0.32", features = ["bundled"] }
-tower = "0.4"
-# Added "fs" so we can serve ./static (ServeDir / ServeFile)
-tower-http = { version = "0.5", features = ["cors", "trace", "fs"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["fs", "set-header", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
 

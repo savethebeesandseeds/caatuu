@@ -137,11 +137,12 @@ The shared SQLite schema for Czech embeddings is:
 vector-schema.sql
 ```
 
-The current generated embedding model is `caatuu-local-hash-v0.1`. It is
-a deterministic local baseline for lexical sentence retrieval. The vector input
-is only `english_text`; metadata is stored in SQLite for filtering and reports,
-not mixed into the embedding. The planned semantic replacement remains
-`BAAI/bge-small-en-v1.5`.
+The active embedding model is the Apache-2.0 licensed
+`sentence-transformers/all-MiniLM-L6-v2`, pinned at revision
+`1110a243fdf4706b3f48f1d95db1a4f5529b4d41` and exported as the qint8 ARM64
+ONNX artifact `all-minilm-l6-v2-qint8-v0.1`. The vector input is only
+`english_text`; metadata is stored in SQLite for filtering and reports, not
+mixed into the embedding.
 
 The same database can include manually described image assets. The current
 miscellaneous asset keymap lives at:
@@ -202,17 +203,27 @@ To rebuild the current curriculum vector DB from the cleaned JSONL:
 npm run build:vector-db
 ```
 
-This writes the tracked SQLite database, updates its tracked manifest, and
-refreshes the vector quality files under `data/curriculum/core-v0.2/validation`
-and `data/curriculum/core-v0.2/reports`.
+This writes the tracked semantic SQLite database, updates its tracked manifest,
+and refreshes the vector quality files under
+`data/curriculum/core-v0.2/validation` and
+`data/curriculum/core-v0.2/reports`.
 It also ingests the manual miscellaneous and macaw action image keymaps when
 those files exist and updates the embedding entries in
 `apps/caatuu-czech/static/setup-assets.json`.
 
+Run the human-reviewed retrieval regression suite after rebuilding:
+
+```powershell
+npm run evaluate:images
+```
+
 The curated curriculum SQLite database is tracked in Git with the JSONL corpus.
-Keep heavier future embedding runtime files out of Git. The browser and Android
-managers expect normalized 384-dimensional `float32le` vectors. Do not label
-local hash vectors as BGE vectors.
+The Transformers.js bundle is vendored, while the ONNX model and ONNX Runtime
+WASM files stay out of Git and are downloaded through the setup manifest after
+install. The browser and Android WebView use the same local semantic runtime and
+expect normalized 384-dimensional `float32le` vectors. The legacy local-hash DB
+is retained only as a rollback/debug artifact and must never be compared with
+semantic query vectors.
 
 The embedding rule is strict: compute vectors from `english_text` only. Store
 `czech_text`, topic, target words, grammar tags, difficulty, and age band as
@@ -234,12 +245,23 @@ data/models/czech-finetuned/training-data/translation-cs-en-001/
 data/models/czech-finetuned/training-data/czech-word-sentence-001/
 ```
 
+Each build produces deterministic, deduplicated `train`, `val`, and held-out
+`benchmark` splits. `train_all` is exactly `train + val` and deliberately
+excludes the benchmark. The word-sentence benchmark includes separate seen and
+unseen target-word partitions, and the validator enforces zero target leakage
+for the unseen partition.
+
 Training wrappers:
 
 ```bash
 bash scripts/train-czech-translation-cs-en-001.sh
 bash scripts/train-czech-word-sentence-001.sh
 ```
+
+The wrappers derive their default step budget from row count and target epochs,
+evaluate against `val.jsonl`, and restore the best validation-loss checkpoint.
+Use a new `RUN_ID` for every corrected experiment; do not overwrite an older
+adapter or its logs.
 
 Full details are in:
 

@@ -1,6 +1,7 @@
 /target
 env.local.sh
 parse_temp.txt
-.caatuu-runtime.pid
+.caatuu-runtime.pid*
+.caatuu-runtime.lock
 .caatuu-backend.pid
 *.log

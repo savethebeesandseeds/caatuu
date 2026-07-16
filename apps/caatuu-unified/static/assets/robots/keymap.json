@@ -1,0 +1,377 @@
+{
+  "/assets/robots/robot%20(1).png": {
+    "description": "A friendly cream-and-teal kettle-shaped garden robot with watering-can arm, sturdy boots, brass joints, and a small chimney. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-001",
+      "chunk_id": "asset-robot-001:description"
+    }
+  },
+  "/assets/robots/robot%20(2).png": {
+    "description": "A friendly city lamp-care robot carrying a glowing street lantern on a hook, with a wrench hand, tool satchel, cream body, and teal panels. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-002",
+      "chunk_id": "asset-robot-002:description"
+    }
+  },
+  "/assets/robots/robot%20(3).png": {
+    "description": "A squat cobblestone repair robot with a front conveyor of paving blocks, mortar bucket, rollers, tools, and heavy cream-and-teal machinery. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-003",
+      "chunk_id": "asset-robot-003:description"
+    }
+  },
+  "/assets/robots/robot%20(4).png": {
+    "description": "A round canal-cleaning robot with net hands, small propellers, teal flotation body, brass fittings, and a friendly face for collecting waterway debris. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-004",
+      "chunk_id": "asset-robot-004:description"
+    }
+  },
+  "/assets/robots/robot%20(5).png": {
+    "description": "A parcel-sorting robot with rotating shelves, package cubbies, conveyor arms, boxes, stamps, and a cylindrical cream-and-teal body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-005",
+      "chunk_id": "asset-robot-005:description"
+    }
+  },
+  "/assets/robots/robot%20(6).png": {
+    "description": "A mobile library-shelving robot with books, reading spectacles, lifting ladder, wheeled base, and articulated arms for organizing a library. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-006",
+      "chunk_id": "asset-robot-006:description"
+    }
+  },
+  "/assets/robots/robot%20(7).png": {
+    "description": "A warm bread-delivery robot with an oven-like bread-box body, wicker side baskets full of loaves, sturdy feet, and brass details. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-007",
+      "chunk_id": "asset-robot-007:description"
+    }
+  },
+  "/assets/robots/robot%20(8).png": {
+    "description": "A topiary and hedge-care robot with rounded shears, leaf vacuum, trimmed bush backpack, wheels, and scattered garden clippings. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-008",
+      "chunk_id": "asset-robot-008:description"
+    }
+  },
+  "/assets/robots/robot%20(9).png": {
+    "description": "A window-washing robot with suction-cup feet, squeegee arm, clear soap tank, bubbles, hoses, and cream-and-teal mechanical body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-009",
+      "chunk_id": "asset-robot-009:description"
+    }
+  },
+  "/assets/robots/robot%20(10).png": {
+    "description": "A transit docking robot holding amber and turquoise signal paddles, with rolling feet and a compact rounded guide body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-010",
+      "chunk_id": "asset-robot-010:description"
+    }
+  },
+  "/assets/robots/robot%20(11).png": {
+    "description": "A cheerful street musician robot with a barrel-organ chest, top hat, hanging chimes, small wheels, and a tray for coins. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-011",
+      "chunk_id": "asset-robot-011:description"
+    }
+  },
+  "/assets/robots/robot%20(12).png": {
+    "description": "A recycling sorter robot using a magnet hand beside three wicker bins for bottles, paper, metal, and reusable materials. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-012",
+      "chunk_id": "asset-robot-012:description"
+    }
+  },
+  "/assets/robots/robot%20(13).png": {
+    "description": "A weather-observer robot with umbrella dish, wind sock, gauges, rain tank, anemometer, and instruments for measuring sky and climate. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-013",
+      "chunk_id": "asset-robot-013:description"
+    }
+  },
+  "/assets/robots/robot%20(14).png": {
+    "description": "A quiet night street-sweeping robot with two circular brush arms, sleepy glowing eyes, wheels, and a low rounded cleaning body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-014",
+      "chunk_id": "asset-robot-014:description"
+    }
+  },
+  "/assets/robots/robot%20(15).png": {
+    "description": "A bathhouse service robot carrying rolled towels, with a copper steam boiler backpack, basket arms, teal wheels, and warm water equipment. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-015",
+      "chunk_id": "asset-robot-015:description"
+    }
+  },
+  "/assets/robots/robot%20(16).png": {
+    "description": "A festival-decorating robot with ribbon-spool body, bunting, lantern basket, cloth streamers, and tools for hanging public decorations. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-016",
+      "chunk_id": "asset-robot-016:description"
+    }
+  },
+  "/assets/robots/robot%20(17).png": {
+    "description": "A small civic messenger robot with quick wheeled feet, teal courier cape, document tube, hand bell, and raised signaling horn. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-017",
+      "chunk_id": "asset-robot-017:description"
+    }
+  },
+  "/assets/robots/robot%20(18).png": {
+    "description": "A friendly watering gardener robot with long-spout can arm, hose tank, cream-and-teal body, leaf sprout, and muddy boots. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-018",
+      "chunk_id": "asset-robot-018:description"
+    }
+  },
+  "/assets/robots/robot%20(19).png": {
+    "description": "A seed-planting robot with rotating belly hopper, seed chute, side basket, cream panels, teal cap, wheels, and small leaf sprout. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-019",
+      "chunk_id": "asset-robot-019:description"
+    }
+  },
+  "/assets/robots/robot%20(20).png": {
+    "description": "A hedge-trimming robot carrying rounded shears and a wicker basket of leaves, with cream body, teal scarf, and sturdy feet. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-020",
+      "chunk_id": "asset-robot-020:description"
+    }
+  },
+  "/assets/robots/robot%20(21).png": {
+    "description": "An orchard-picking robot with telescoping arms, fruit baskets, teal cap, cream round body, and padded hands holding an apple. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-021",
+      "chunk_id": "asset-robot-021:description"
+    }
+  },
+  "/assets/robots/robot%20(22).png": {
+    "description": "A mushroom-finding robot with lantern nose, teal dome, wicker backpack full of mushrooms, stout legs, and one mushroom in hand. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-022",
+      "chunk_id": "asset-robot-022:description"
+    }
+  },
+  "/assets/robots/robot%20(23).png": {
+    "description": "A compost-mixing robot shaped like a wooden barrel, with hand crank, soil-filled open top, small mechanical arms, and teal bands. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-023",
+      "chunk_id": "asset-robot-023:description"
+    }
+  },
+  "/assets/robots/robot%20(24).png": {
+    "description": "A small wheelbarrow robot pushing a wooden cart full of colorful flowers, with boots, teal cap, cream face, and backpack tank. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-024",
+      "chunk_id": "asset-robot-024:description"
+    }
+  },
+  "/assets/robots/robot%20(25).png": {
+    "description": "A greenhouse misting robot with a large clear water dome, spray nozzle arm, hose, cream-and-teal body, and rolling feet. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-025",
+      "chunk_id": "asset-robot-025:description"
+    }
+  },
+  "/assets/robots/robot%20(26).png": {
+    "description": "A tea-serving kettle robot in a white apron carrying a tray with teapot, cups, and saucers, with steam chimney and warm manners. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-026",
+      "chunk_id": "asset-robot-026:description"
+    }
+  },
+  "/assets/robots/robot%20(27).png": {
+    "description": "A bread-delivery baker robot with oven belly, chef hat, basket of loaves, cream ceramic body, teal scarf, and sturdy hands. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-027",
+      "chunk_id": "asset-robot-027:description"
+    }
+  },
+  "/assets/robots/robot%20(28).png": {
+    "description": "A soot-covered chimney-sweeper robot with brush hat, second brush, bucket, black smudges, cream body, and small work boots. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-028",
+      "chunk_id": "asset-robot-028:description"
+    }
+  },
+  "/assets/robots/robot%20(29).png": {
+    "description": "A round floor-sweeping robot with wide straw-brush skirt, compact cream-and-teal body, small side wheels, and brass cap. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-029",
+      "chunk_id": "asset-robot-029:description"
+    }
+  },
+  "/assets/robots/robot%20(30).png": {
+    "description": "A laundry helper robot wearing an apron and carrying folded towels, clothespins, sock, wicker basket, and mending supplies. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-030",
+      "chunk_id": "asset-robot-030:description"
+    }
+  },
+  "/assets/robots/robot%20(31).png": {
+    "description": "A city lamplighter robot holding a tall hooked pole with glowing blue lantern, wearing teal cap and carrying maintenance equipment. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-031",
+      "chunk_id": "asset-robot-031:description"
+    }
+  },
+  "/assets/robots/robot%20(32).png": {
+    "description": "A workshop assistant robot holding a large wrench beside a wooden toolbox, with cream-and-teal body, protective cap, and tools. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-032",
+      "chunk_id": "asset-robot-032:description"
+    }
+  },
+  "/assets/robots/robot%20(33).png": {
+    "description": "A sleepy night-watch robot wearing a star-patterned cap and scarf, carrying hand bell and round glowing shield lamp. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+    "category": "robot",
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-033",
+      "chunk_id": "asset-robot-033:description"
+    }
+  },
+  "/assets/robots/word-world-waiting.svg": {
+    "description": "A friendly reading robot quietly preparing the next Word World sentence",
+    "category": "word_world_loading",
+    "default": true,
+    "embedding": {
+      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "table": "robot_embedding_refs",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "document_id": "asset-robot-034",
+      "chunk_id": "asset-robot-034:description"
+    }
+  }
+}

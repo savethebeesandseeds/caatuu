@@ -279,37 +279,46 @@ class ModelManager(context: Context) {
                 .put("downloadId", downloadId)
         }
 
+    suspend fun cancelModelDownload(modelKey: String?): JSONObject =
+        withContext(Dispatchers.IO) {
+            cancelManagedDownloads(listOf(resolveModel(modelKey)))
+        }
+
     suspend fun cancelRequiredDownloads(): JSONObject =
         withContext(Dispatchers.IO) {
-            val cancelledModels = JSONArray()
-            var cancelled = 0
-            var bytesDeleted = 0L
-
-            requiredModelSpecs().forEach { spec ->
-                val status = runCatching { managedDownloadStatus(spec) }.getOrNull()
-                val target = managedDownloadsRootOrNull()?.resolve(spec.fileName)
-                val targetBytes = target?.takeIf { it.isFile }?.length() ?: 0L
-                val shouldCancel = !isMarkedVerified(spec) &&
-                    (status?.isActive == true || status?.isFailed == true || targetBytes > 0L)
-
-                if (shouldCancel) {
-                    bytesDeleted += targetBytes
-                    clearManagedDownload(spec, removeFile = true)
-                    cancelled += 1
-                    cancelledModels.put(
-                        JSONObject()
-                            .put("modelKey", spec.key)
-                            .put("label", spec.shortLabel)
-                            .put("bytesDeleted", targetBytes),
-                    )
-                }
-            }
-
-            JSONObject()
-                .put("cancelled", cancelled)
-                .put("bytesDeleted", bytesDeleted)
-                .put("models", cancelledModels)
+            cancelManagedDownloads(requiredModelSpecs())
         }
+
+    private fun cancelManagedDownloads(specs: List<LocalModelSpec>): JSONObject {
+        val cancelledModels = JSONArray()
+        var cancelled = 0
+        var bytesDeleted = 0L
+
+        specs.forEach { spec ->
+            val status = runCatching { managedDownloadStatus(spec) }.getOrNull()
+            val target = managedDownloadsRootOrNull()?.resolve(spec.fileName)
+            val targetBytes = target?.takeIf { it.isFile }?.length() ?: 0L
+            val shouldCancel = !isMarkedVerified(spec) &&
+                (status?.isActive == true || status?.isFailed == true || targetBytes > 0L)
+
+            if (shouldCancel) {
+                bytesDeleted += targetBytes
+                clearManagedDownload(spec, removeFile = true)
+                cancelled += 1
+                cancelledModels.put(
+                    JSONObject()
+                        .put("modelKey", spec.key)
+                        .put("label", spec.shortLabel)
+                        .put("bytesDeleted", targetBytes),
+                )
+            }
+        }
+
+        return JSONObject()
+            .put("cancelled", cancelled)
+            .put("bytesDeleted", bytesDeleted)
+            .put("models", cancelledModels)
+    }
 
     suspend fun deleteLocalModel(): JSONObject =
         withContext(Dispatchers.IO) {
@@ -802,6 +811,7 @@ class ModelManager(context: Context) {
         private const val MODEL_DIRECT_RETRY_DELAY_MS = 1_500L
         private const val MODEL_CATALOG_ASSET = "data/models/phone-bench/models.json"
         private const val FALLBACK_DEFAULT_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001"
-        private const val FALLBACK_MODEL_BASE_URL = "https://caatuu.waajacu.com/cz/data/models/phone-bench"
+        private val FALLBACK_MODEL_BASE_URL =
+            "https://caatuu.waajacu.com/${BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX.trim('/')}/data/models/phone-bench"
     }
 }

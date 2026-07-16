@@ -73,7 +73,7 @@ data class VectorSearchResult(
 
 class VectorDatabaseManager(
     context: Context,
-    private val embeddingRuntime: CaatuuEmbeddingRuntime = LocalHashEmbeddingRuntime(),
+    private val embeddingRuntime: CaatuuEmbeddingRuntime? = null,
 ) {
     private val appContext = context.applicationContext
     private val databasesDir = File(appContext.filesDir, "vector-dbs")
@@ -211,7 +211,11 @@ class VectorDatabaseManager(
     }
 
     suspend fun embedText(text: String): FloatArray {
-        return normalizeVector(embeddingRuntime.embedText(text))
+        val runtime = embeddingRuntime ?: throw IllegalStateException(
+            "Semantic text embedding runs in the shared browser/WebView ONNX runtime. " +
+                "Use CaatuuRuntime.vector.search() or provide an explicit native semantic runtime.",
+        )
+        return normalizeVector(runtime.embedText(text))
     }
 
     suspend fun searchText(

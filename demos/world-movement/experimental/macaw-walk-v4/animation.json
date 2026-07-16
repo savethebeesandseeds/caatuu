@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "macaw-walk-v4",
+  "status": "browser-validation",
+  "direction": "side-left",
+  "canvas": [520, 570],
+  "anchor": [0.5, 1.0],
+  "frame_distance_px": 26,
+  "idle": "/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png",
+  "loop": [
+    { "phase": "contact-a", "file": "frames/macaw-walk-v4_001.png" },
+    { "phase": "down-a", "file": "frames/macaw-walk-v4_002.png" },
+    { "phase": "passing-a", "file": "frames/macaw-walk-v4_003.png" },
+    { "phase": "up-a", "file": "frames/macaw-walk-v4_004.png" },
+    { "phase": "contact-b", "file": "frames/macaw-walk-v4_005.png" },
+    { "phase": "down-b", "file": "frames/macaw-walk-v4_006.png" },
+    { "phase": "passing-b", "file": "frames/macaw-walk-v4_007.png" },
+    { "phase": "up-b", "file": "frames/macaw-walk-v4_008.png" }
+  ]
+}

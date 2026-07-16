@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "human-walk-reference-v4",
+  "status": "human-pose-authority-depth-layered",
+  "source": "Quaternius Universal Animation Library Standard",
+  "license": "CC0-1.0",
+  "source_walk_clip": "Walk_Loop",
+  "source_idle_clip": "Idle_Loop",
+  "source_walk_duration_seconds": 1.333,
+  "direction": "side-left",
+  "canvas": [160, 224],
+  "anchor": [0.5, 1.0],
+  "frame_distance_px": 23.333333,
+  "idle_frame_duration_ms": 220,
+  "idle": "idle/human-pose-idle_001.png",
+  "walk_split_manifest": "walk_split_manifest.json",
+  "idle_split_manifest": "idle_split_manifest.json",
+  "readability_encoding": {
+    "outer_contour": "one intact natural human silhouette",
+    "depth_stack": ["far leg", "far arm and hand", "torso and head", "near leg", "far-hand overlap seam", "near arm and hand"],
+    "near_limbs": { "fill": "#d7e7e4", "border": "#355b59", "z_role": "highest limb layer" },
+    "far_limbs": { "fill": "#eadbd0", "border": "#75523c", "z_role": "lower limb layer" },
+    "torso": { "fill": "#dcd8e9", "border": "#625c77" },
+    "head": { "fill": "#efe2b9", "border": "#776b49" },
+    "interior_borders": ["shoulder", "elbow", "wrist", "hip", "knee", "ankle", "limb overlap"],
+    "centerline_skeleton": false,
+    "pose_geometry_changed": false
+  },
+  "generation_contract": {
+    "reference_role": "pose and depth order only",
+    "controls": ["viewpoint", "body lean", "weight distribution", "stride", "foot contact", "limb placement", "near-far hand order"],
+    "does_not_control": ["identity", "anatomy", "proportions", "costume", "palette", "rendering style"]
+  },
+  "idle_loop": [
+    { "phase": "idle-0", "file": "idle/human-pose-idle_001.png" },
+    { "phase": "idle-17", "file": "idle/human-pose-idle_002.png" },
+    { "phase": "idle-33", "file": "idle/human-pose-idle_003.png" },
+    { "phase": "idle-50", "file": "idle/human-pose-idle_004.png" },
+    { "phase": "idle-67", "file": "idle/human-pose-idle_005.png" },
+    { "phase": "idle-83", "file": "idle/human-pose-idle_006.png" }
+  ],
+  "walk_loop": [
+    { "phase": "contact-a", "file": "frames/human-pose-walk_001.png" },
+    { "phase": "8-percent", "file": "frames/human-pose-walk_002.png" },
+    { "phase": "17-percent", "file": "frames/human-pose-walk_003.png" },
+    { "phase": "passing-a", "file": "frames/human-pose-walk_004.png" },
+    { "phase": "33-percent", "file": "frames/human-pose-walk_005.png" },
+    { "phase": "42-percent", "file": "frames/human-pose-walk_006.png" },
+    { "phase": "contact-b", "file": "frames/human-pose-walk_007.png" },
+    { "phase": "58-percent", "file": "frames/human-pose-walk_008.png" },
+    { "phase": "67-percent", "file": "frames/human-pose-walk_009.png" },
+    { "phase": "passing-b", "file": "frames/human-pose-walk_010.png" },
+    { "phase": "83-percent", "file": "frames/human-pose-walk_011.png" },
+    { "phase": "92-percent", "file": "frames/human-pose-walk_012.png" }
+  ]
+}

@@ -10,7 +10,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
+use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
 use serde::{Deserialize, Serialize};
 use tokio::time::timeout;
 use tracing::{debug, error, info, instrument, warn};
@@ -365,10 +365,35 @@ fn seed_translation_looks_ok(text: &str) -> bool {
     s.len() > 2 && has_ascii_text(s) && cjk_ratio(s) <= 0.3
 }
 
+fn validate_openai_base_url(value: &str) -> Result<String, String> {
+    let base_url = value.trim().trim_end_matches('/').to_owned();
+    let parsed = reqwest::Url::parse(&base_url)
+        .map_err(|error| format!("OPENAI_BASE_URL is invalid: {error}"))?;
+    if !matches!(parsed.scheme(), "http" | "https") {
+        return Err("OPENAI_BASE_URL must use http or https.".into());
+    }
+    if !parsed.username().is_empty() || parsed.password().is_some() {
+        return Err("OPENAI_BASE_URL must not contain credentials.".into());
+    }
+    if parsed.query().is_some() || parsed.fragment().is_some() {
+        return Err("OPENAI_BASE_URL must not contain a query or fragment.".into());
+    }
+    let local_http = parsed.scheme() == "http"
+        && matches!(
+            parsed.host_str(),
+            Some("localhost" | "127.0.0.1" | "::1" | "[::1]")
+        );
+    if parsed.scheme() != "https" && !local_http {
+        return Err(
+            "OPENAI_BASE_URL must use HTTPS unless it points to a local loopback server.".into(),
+        );
+    }
+    Ok(base_url)
+}
+
 #[derive(Clone)]
 pub struct OpenAI {
     pub client: reqwest::Client,
-    pub api_key: String,
     pub base_url: String,
     pub fast_model: String,
     pub writing_model: String,
@@ -400,11 +425,15 @@ impl OpenAI {
         out
     }
 
-    /// Construct the client if we find OPENAI_API_KEY; otherwise return None.
-    pub fn from_env() -> Option<Self> {
-        let api_key = std::env::var("OPENAI_API_KEY").ok()?;
-        let base_url =
-            std::env::var("OPENAI_BASE_URL").unwrap_or_else(|_| "https://api.openai.com/v1".into());
+    /// Construct the client if we find a non-empty OPENAI_API_KEY.
+    pub fn from_env() -> Result<Option<Self>, String> {
+        let Some(api_key) = read_openai_api_key()? else {
+            return Ok(None);
+        };
+        let base_url = validate_openai_base_url(
+            &std::env::var("OPENAI_BASE_URL")
+                .unwrap_or_else(|_| "https://api.openai.com/v1".into()),
+        )?;
         let fast_model =
             std::env::var("OPENAI_FAST_MODEL").unwrap_or_else(|_| "gpt-4o-mini".into());
         let writing_model =
@@ -415,21 +444,27 @@ impl OpenAI {
         let transcribe_model =
             std::env::var("OPENAI_TRANSCRIBE_MODEL").unwrap_or_else(|_| "gpt-4o-transcribe".into());
 
+        let mut authorization = HeaderValue::from_str(&format!("Bearer {api_key}"))
+            .map_err(|_| "OPENAI_API_KEY contains invalid header characters.".to_string())?;
+        authorization.set_sensitive(true);
+        let mut default_headers = HeaderMap::new();
+        default_headers.insert(AUTHORIZATION, authorization);
+
         let client = reqwest::Client::builder()
+            .default_headers(default_headers)
             .timeout(Duration::from_secs(20))
             .build()
-            .ok()?;
+            .map_err(|error| format!("Could not build OpenAI HTTP client: {error}"))?;
 
-        Some(Self {
+        Ok(Some(Self {
             client,
-            api_key,
             base_url,
             fast_model,
             writing_model,
             strong_model,
             sequence_model,
             transcribe_model,
-        })
+        }))
     }
 
     /// Plain-text chat completion. Used for translate/pinyin/hints/agent replies.
@@ -468,7 +503,6 @@ impl OpenAI {
                 .post(&url)
                 .header(USER_AGENT, "caatuu-runtime/0.1")
                 .header(CONTENT_TYPE, "application/json")
-                .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                 .json(&req)
                 .send()
                 .await
@@ -477,7 +511,7 @@ impl OpenAI {
             if !res.status().is_success() {
                 let status = res.status();
                 let body = res.text().await.unwrap_or_default();
-                let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+                let msg = extract_openai_error(&body).unwrap_or(body);
                 last_err = format!("OpenAI HTTP {}: {}", status, msg);
                 if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
                     warn!(
@@ -498,7 +532,7 @@ impl OpenAI {
             }
             let text = body
                 .choices
-                .get(0)
+                .first()
                 .and_then(|c| c.message.content.clone())
                 .unwrap_or_default()
                 .trim()
@@ -551,7 +585,6 @@ impl OpenAI {
                     .post(&url)
                     .header(USER_AGENT, "caatuu-runtime/0.1")
                     .header(CONTENT_TYPE, "application/json")
-                    .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                     .json(&req)
                     .send()
                     .await;
@@ -577,7 +610,7 @@ impl OpenAI {
                 if !res.status().is_success() {
                     let status = res.status();
                     let body = res.text().await.unwrap_or_default();
-                    let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+                    let msg = extract_openai_error(&body).unwrap_or(body);
                     last_err = format!("OpenAI HTTP {}: {}", status, msg);
 
                     if is_temperature_unsupported_error(status, &msg) && tidx + 1 < temps.len() {
@@ -611,7 +644,7 @@ impl OpenAI {
                 }
                 let text = body
                     .choices
-                    .get(0)
+                    .first()
                     .and_then(|c| c.message.content.clone())
                     .unwrap_or_default()
                     .trim()
@@ -681,7 +714,6 @@ impl OpenAI {
                     .post(&url)
                     .header(USER_AGENT, "caatuu-runtime/0.1")
                     .header(CONTENT_TYPE, "application/json")
-                    .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                     .json(&req)
                     .send()
                     .await;
@@ -714,7 +746,7 @@ impl OpenAI {
                 if !res.status().is_success() {
                     let status = res.status();
                     let body = res.text().await.unwrap_or_default();
-                    let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+                    let msg = extract_openai_error(&body).unwrap_or(body);
                     last_err = format!("OpenAI HTTP {}: {}", status, msg);
                     debug!(
                         target: "challenge",
@@ -756,7 +788,7 @@ impl OpenAI {
                 }
                 let text = body
                     .choices
-                    .get(0)
+                    .first()
                     .and_then(|c| c.message.content.clone())
                     .unwrap_or_default();
                 debug!(
@@ -810,7 +842,6 @@ impl OpenAI {
                 .client
                 .post(&url)
                 .header(USER_AGENT, "caatuu-runtime/0.1")
-                .header(AUTHORIZATION, format!("Bearer {}", self.api_key))
                 .multipart(form)
                 .send()
                 .await
@@ -819,7 +850,7 @@ impl OpenAI {
             if !res.status().is_success() {
                 let status = res.status();
                 let body = res.text().await.unwrap_or_default();
-                let msg = extract_openai_error(&body).unwrap_or_else(|| body);
+                let msg = extract_openai_error(&body).unwrap_or(body);
                 last_err = format!("OpenAI STT HTTP {}: {}", status, msg);
                 if is_transcribe_model_error(status, &msg) {
                     warn!(failed_model = %model, error = %last_err, "STT model unavailable; trying fallback");
@@ -874,7 +905,10 @@ impl OpenAI {
         let seed_en = match self.translate_to_en(prompts, &spec.seed).await {
             Ok(t) if seed_translation_looks_ok(&t) => t,
             Ok(t) => {
-                warn!(translated = %t, "Core+Core seed translation looked non-English; using compact fallback");
+                warn!(
+                    translation_chars = t.chars().count(),
+                    "Core+Core seed translation looked non-English; using compact fallback"
+                );
                 "English translation unavailable".to_string()
             }
             Err(e) => {
@@ -901,7 +935,7 @@ impl OpenAI {
 
         info!(
           challenge_id = %ch.id,
-          zh_preview = %ch.challenge_zh.chars().take(40).collect::<String>(),
+          challenge_chars = ch.challenge_zh.chars().count(),
           "Core+Core challenge successfully generated (deterministic fast path)"
         );
         Ok(ch)
@@ -1141,7 +1175,7 @@ impl OpenAI {
             target_count,
             target_clamped = count,
             ai_count,
-            seed_zh = %seed_zh,
+            seed_chars = seed_zh.chars().count(),
             sequence_model = %self.sequence_model,
             fast_model = %self.fast_model,
             "OpenAI sequence_word_bank args"
@@ -1158,7 +1192,7 @@ impl OpenAI {
         info!(
             target: "challenge",
             system_len = prompts.sequence_words_system.len(),
-            user_prompt = %user,
+            user_prompt_chars = user.chars().count(),
             "OpenAI sequence_word_bank prompt built"
         );
         // Do bounded per-model attempts so one hanging request cannot consume the whole route timeout.
@@ -1227,14 +1261,12 @@ impl OpenAI {
             let out = match parsed {
                 Ok(v) => v,
                 Err(e) => {
-                    let preview: String = raw.chars().take(200).collect();
                     last_err = format!("model {} returned non-JSON output: {}", selected_model, e);
                     error!(
                         target: "challenge",
                         selected_model = %selected_model,
                         elapsed_ms = started.elapsed().as_millis(),
                         raw_chars = raw.chars().count(),
-                        raw_preview = %preview,
                         error = %last_err,
                         "OpenAI sequence_word_bank parse error; retrying next model"
                     );
@@ -1247,8 +1279,7 @@ impl OpenAI {
                 selected_model = %selected_model,
                 elapsed_ms = started.elapsed().as_millis(),
                 raw_words_len = out.words.len(),
-                raw_words = ?&out.words,
-                context_hint = %out.context_hint,
+                context_hint_chars = out.context_hint.chars().count(),
                 "OpenAI sequence_word_bank raw result"
             );
             let words = sanitize_sequence_words(out.words, ai_count);
@@ -1263,7 +1294,6 @@ impl OpenAI {
                     selected_model = %selected_model,
                     elapsed_ms = started.elapsed().as_millis(),
                     sanitized_words_len = words.len(),
-                    sanitized_words = ?&words,
                     "OpenAI sequence_word_bank sanitized result too small"
                 );
                 continue;
@@ -1275,8 +1305,7 @@ impl OpenAI {
                 selected_model = %selected_model,
                 elapsed_ms = started.elapsed().as_millis(),
                 sanitized_words_len = words.len(),
-                sanitized_words = ?&words,
-                context_hint = %context_hint,
+                context_hint_chars = context_hint.chars().count(),
                 "OpenAI sequence_word_bank final result"
             );
             return Ok((words, context_hint));
@@ -1373,6 +1402,31 @@ impl OpenAI {
     }
 }
 
+fn read_openai_api_key() -> Result<Option<String>, String> {
+    match std::env::var("OPENAI_API_KEY") {
+        Ok(value) if !value.trim().is_empty() => return Ok(Some(value.trim().to_owned())),
+        Ok(_) | Err(std::env::VarError::NotPresent) => {}
+        Err(std::env::VarError::NotUnicode(_)) => {
+            return Err("OPENAI_API_KEY is not valid Unicode.".into())
+        }
+    }
+
+    let path = match std::env::var("OPENAI_API_KEY_FILE") {
+        Ok(path) if !path.trim().is_empty() => path,
+        Ok(_) | Err(std::env::VarError::NotPresent) => return Ok(None),
+        Err(std::env::VarError::NotUnicode(_)) => {
+            return Err("OPENAI_API_KEY_FILE is not valid Unicode.".into())
+        }
+    };
+    let value = std::fs::read_to_string(&path)
+        .map_err(|error| format!("Could not read OPENAI_API_KEY_FILE at {path}: {error}"))?;
+    let value = value.trim();
+    if value.is_empty() {
+        return Err("OPENAI_API_KEY_FILE is empty.".into());
+    }
+    Ok(Some(value.to_owned()))
+}
+
 // --- Chat DTOs ---
 
 #[derive(Serialize)]
@@ -1459,5 +1513,23 @@ fn extract_openai_error(body: &str) -> Option<String> {
     match serde_json::from_str::<EWrap>(body) {
         Ok(w) => Some(w.error.message),
         Err(_) => None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::validate_openai_base_url;
+
+    #[test]
+    fn validates_openai_base_url_without_leaking_credentials() {
+        assert_eq!(
+            validate_openai_base_url("https://api.openai.com/v1/").unwrap(),
+            "https://api.openai.com/v1"
+        );
+        assert!(validate_openai_base_url("http://127.0.0.1:8080/v1").is_ok());
+        assert!(validate_openai_base_url("http://api.example.com/v1").is_err());
+        assert!(validate_openai_base_url("https://user:secret@example.com/v1").is_err());
+        assert!(validate_openai_base_url("https://example.com/v1?token=secret").is_err());
+        assert!(validate_openai_base_url("file:///tmp/openai").is_err());
     }
 }

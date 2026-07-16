@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "human-walk-imagegen-v1",
+  "status": "generated-human-pose-authority-candidate",
+  "source_pose_cards": "demos/world-movement/research/conditioning/human-pose-v4",
+  "generated_originals": "demos/world-movement/research/generated-candidates/human-pose-imagegen-v1",
+  "canvas": [160, 224],
+  "anchor": [0.5, 1.0],
+  "frame_distance_px": 32.083333,
+  "idle_frame_duration_ms": 220,
+  "idle": "idle/human-pose-idle_001.png",
+  "playback_order": [1, 3, 5, 6, 7, 9, 11, 10],
+  "excluded_walk_frames": [2, 4, 8, 12],
+  "playback_note": "Frames 002, 004, 008, and 012 remain preserved among the generated originals but are excluded from playback and the active review sequence. Frame 011 is intentionally ordered between frames 009 and 010.",
+  "ordering_corrections": {
+    "active_frame_003_source": "demos/world-movement/research/generated-candidates/human-pose-imagegen-v1/walk/human-pose-walk_004.png",
+    "active_frame_004_source": "demos/world-movement/research/generated-candidates/human-pose-imagegen-v1/walk/human-pose-walk_003.png",
+    "reason": "The two generated outputs were assigned to gait phases 17 percent and passing A in reverse."
+  },
+  "pose_corrections": {
+    "active_frame_009_source": "demos/world-movement/research/generated-candidates/human-pose-imagegen-v1/replacements/human-pose-walk_009-v2.png",
+    "reason": "The first generated frame 009 reversed the near and far leg roles, causing a discontinuity after frame 008. The replacement keeps the dark far leg planted and the light near leg trailing and lifting."
+  },
+  "walk_loop": [
+    { "phase": "contact-a", "file": "frames/human-pose-walk_001.png" },
+    { "phase": "17-percent", "file": "frames/human-pose-walk_003.png" },
+    { "phase": "33-percent", "file": "frames/human-pose-walk_005.png" },
+    { "phase": "42-percent", "file": "frames/human-pose-walk_006.png" },
+    { "phase": "contact-b", "file": "frames/human-pose-walk_007.png" },
+    { "phase": "67-percent", "file": "frames/human-pose-walk_009.png" },
+    { "phase": "83-percent", "file": "frames/human-pose-walk_011.png" },
+    { "phase": "passing-b", "file": "frames/human-pose-walk_010.png" }
+  ],
+  "idle_loop": [
+    { "phase": "idle-0", "file": "idle/human-pose-idle_001.png" },
+    { "phase": "idle-17", "file": "idle/human-pose-idle_002.png" },
+    { "phase": "idle-33", "file": "idle/human-pose-idle_003.png" },
+    { "phase": "idle-50", "file": "idle/human-pose-idle_004.png" },
+    { "phase": "idle-67", "file": "idle/human-pose-idle_005.png" },
+    { "phase": "idle-83", "file": "idle/human-pose-idle_006.png" }
+  ]
+}

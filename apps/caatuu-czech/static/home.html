@@ -8,19 +8,20 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-2"></script>
     <script>
       try {
-        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
         document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-8"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="app.css?v=shell-36">
-    <link rel="stylesheet" href="home.css?v=home-21">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-22">
+    <script src="runtime.js?v=runtime-26"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-4">
+    <link rel="stylesheet" href="app.css?v=shell-53">
+    <link rel="stylesheet" href="home.css?v=home-27">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-41">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -42,29 +43,28 @@
                 <h2 id="setupTitle">Preparing Caatuu</h2>
               </div>
               <div class="setup-head-meta">
-                <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails">Details</button>
-                <button class="setup-update-link" id="setupUpdate" type="button" hidden>Update app</button>
+                <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails">Show details</button>
               </div>
             </div>
             <div class="setup-message-zone" aria-live="polite">
-              <p class="setup-phase" id="setupPhase">Checking storage</p>
-              <p class="setup-message" id="setupMessage">Checking local intelligence.</p>
+              <p class="setup-phase" id="setupPhase">Preparing Caatuu</p>
+              <p class="setup-message" id="setupMessage">Reading the setup manifest.</p>
               <button class="setup-report-link" id="setupReportBug" type="button" hidden>Report bug</button>
             </div>
             <div class="setup-progress-meta">
               <span class="setup-progress-metrics" id="setupProgressText">
                 <span class="setup-progress-pill"><b id="setupPercent">0%</b></span>
-                <span class="setup-count-pill" id="setupCount">0/3</span>
+                <span class="setup-count-pill" id="setupCount">Checking</span>
               </span>
-              <span id="setupBytes">Waiting for files</span>
+              <span id="setupBytes">Reading manifest</span>
             </div>
-            <div class="setup-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="setupProgress">
+            <div class="setup-progress" role="progressbar" aria-label="Local setup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Preparing Caatuu" id="setupProgress">
               <span id="setupProgressBar"></span>
             </div>
             <div class="setup-detail-grid" id="setupDetails">
               <div class="setup-artifacts" id="setupArtifacts" aria-label="Setup artifacts"></div>
               <section class="setup-log-panel" aria-labelledby="setupLogTitle">
-                <h3 id="setupLogTitle">Events</h3>
+                <h3 id="setupLogTitle">Recent activity</h3>
                 <ol class="setup-log" id="setupLog"></ol>
               </section>
             </div>
@@ -79,15 +79,17 @@
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-          <span>by Waajacu</span>
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
     </div>
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-    <script src="chrome.js?v=chrome-27"></script>
-    <script src="setup.js?v=setup-21"></script>
+    <script src="chrome.js?v=chrome-47"></script>
+    <script src="maintenance-ui.js?v=maintenance-13"></script>
+    <script src="setup-progress.js?v=setup-progress-1"></script>
+    <script src="setup.js?v=setup-29"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

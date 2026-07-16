@@ -18,8 +18,8 @@ const [
   chrome
 ] = await Promise.all([
   read("LICENSE"),
-  read("LICENSING.md"),
-  read("LEGAL_INVENTORY.md"),
+  read("docs/LICENSING.md"),
+  read("docs/LEGAL_INVENTORY.md"),
   read("README.md"),
   read("apps/caatuu-runtime/Cargo.toml"),
   read("tools/caatuu-cz-ml/package.json"),

@@ -10,11 +10,14 @@
 //! If OpenAI is unavailable, we fall back to built-in seeds or a hard fallback.
 
 use rand::seq::SliceRandom;
-use std::{collections::HashMap, sync::Arc};
+use std::{
+    collections::{HashMap, VecDeque},
+    sync::Arc,
+};
 use tokio::sync::RwLock;
 use tracing::{error, info, instrument, warn};
 
-use crate::config::{load_agent_config_from_env, Prompts};
+use crate::config::{load_agent_config_from_env, Prompts, RuntimeFeatures};
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
 use crate::openai::OpenAI;
 use crate::seeds::{hard_fallback_challenge, seed_challenges, seed_pinyin_map};
@@ -23,6 +26,8 @@ use uuid::Uuid;
 // Keep a small per-difficulty pool of generated items to avoid repeats
 #[allow(dead_code)]
 const GEN_POOL_TARGET: usize = 3;
+const MAX_CHALLENGES_PER_DIFFICULTY: usize = 64;
+const MAX_WRITING_GUIDES: usize = 128;
 
 fn hsk_level(difficulty: &str) -> u8 {
     let norm = difficulty.trim().to_lowercase();
@@ -31,6 +36,10 @@ fn hsk_level(difficulty: &str) -> u8 {
         .and_then(|v| v.parse::<u8>().ok())
         .unwrap_or(3);
     n.clamp(1, 6)
+}
+
+fn normalize_difficulty(difficulty: &str) -> String {
+    format!("hsk{}", hsk_level(difficulty))
 }
 
 fn tail_chars(text: &str, max_chars: usize) -> String {
@@ -51,7 +60,7 @@ fn extract_recent_topic(context_zh: &str) -> String {
         return String::new();
     }
     let seg = ctx
-        .split(|c| matches!(c, '。' | '！' | '？' | '.' | '!' | '?' | '\n' | '；' | ';'))
+        .split(['。', '！', '？', '.', '!', '?', '\n', '；', ';'])
         .rev()
         .map(str::trim)
         .find(|s| !s.is_empty())
@@ -198,6 +207,7 @@ pub struct AppState {
     pub by_id: Arc<RwLock<HashMap<String, Challenge>>>,
     pub by_diff: Arc<RwLock<HashMap<String, Vec<String>>>>,
     pub last_by_diff: Arc<RwLock<HashMap<String, String>>>,
+    writing_guide_ids: Arc<RwLock<VecDeque<String>>>,
     #[allow(dead_code)]
     pub char_pinyin: HashMap<char, &'static str>,
     pub openai: Option<OpenAI>,
@@ -207,9 +217,13 @@ pub struct AppState {
 impl AppState {
     /// Build state from env: load config, seed challenges, build indices, init OpenAI.
     #[instrument(level = "info", skip_all)]
-    pub fn new() -> Self {
+    pub fn new(features: RuntimeFeatures) -> Result<Self, String> {
         // Load TOML config if provided (prompts + optional local bank).
-        let cfg_opt = load_agent_config_from_env();
+        let cfg_opt = if features.archived_chinese_api {
+            load_agent_config_from_env()?
+        } else {
+            None
+        };
         let prompts = cfg_opt
             .as_ref()
             .map(|c| c.prompts.clone())
@@ -222,7 +236,12 @@ impl AppState {
         if let Some(cfg) = &cfg_opt {
             for cc in &cfg.challenges {
                 let id = cc.id.clone().unwrap_or_else(|| Uuid::new_v4().to_string());
-                let diff = cc.difficulty.clone();
+                let diff = normalize_difficulty(&cc.difficulty);
+
+                if id_map.contains_key(&id) {
+                    warn!(target: "challenge", %id, "Skipping duplicate challenge id in agent config");
+                    continue;
+                }
 
                 let instructions = match &cc.instructions {
                     Some(s) if !s.is_empty() => s.clone(),
@@ -258,11 +277,15 @@ impl AppState {
         // Always insert built-in seeds, but don't overwrite existing ids.
         for c in seed_challenges() {
             let id = c.id.clone();
+            if id_map.contains_key(&id) {
+                warn!(target: "challenge", %id, "Skipping built-in seed with duplicate challenge id");
+                continue;
+            }
             diff_map
                 .entry(c.difficulty.clone())
                 .or_default()
                 .push(id.clone());
-            id_map.entry(id).or_insert(c);
+            id_map.insert(id, c);
         }
 
         // Inventory summary by difficulty/source.
@@ -282,21 +305,28 @@ impl AppState {
         }
 
         // Build optional OpenAI client (if API key present).
-        let openai = OpenAI::from_env();
+        let openai = if features.archived_chinese_api {
+            OpenAI::from_env()?
+        } else {
+            None
+        };
         if let Some(oa) = &openai {
             info!(target: "caatuu_runtime", base_url = %oa.base_url, fast_model = %oa.fast_model, writing_model = %oa.writing_model, strong_model = %oa.strong_model, sequence_model = %oa.sequence_model, transcribe_model = %oa.transcribe_model, "OpenAI enabled.");
+        } else if features.archived_chinese_api {
+            info!(target: "caatuu_runtime", "Archived Chinese API enabled without an OpenAI key; using local/seed logic.");
         } else {
-            info!(target: "caatuu_runtime", "OpenAI disabled (no OPENAI_API_KEY). Using local/seed logic.");
+            info!(target: "caatuu_runtime", "Archived Chinese API and OpenAI integration are disabled.");
         }
 
-        Self {
+        Ok(Self {
             by_id: Arc::new(RwLock::new(id_map)),
             by_diff: Arc::new(RwLock::new(diff_map)),
             last_by_diff: Arc::new(RwLock::new(HashMap::new())),
+            writing_guide_ids: Arc::new(RwLock::new(VecDeque::new())),
             char_pinyin: seed_pinyin_map(),
             openai,
             prompts,
-        }
+        })
     }
 
     /// Insert challenge into stores (by_id and by_diff).
@@ -306,8 +336,29 @@ impl AppState {
         let mut by_diff = self.by_diff.write().await;
         let id = c.id.clone();
         let diff = c.difficulty.clone();
-        by_id.insert(id.clone(), c);
-        by_diff.entry(diff).or_default().push(id);
+        if let Some(previous) = by_id.insert(id.clone(), c) {
+            if previous.difficulty != diff {
+                if let Some(previous_ids) = by_diff.get_mut(&previous.difficulty) {
+                    previous_ids.retain(|candidate| candidate != &id);
+                }
+            }
+        }
+        let ids = by_diff.entry(diff).or_default();
+        if !ids.contains(&id) {
+            ids.push(id);
+        }
+
+        while ids.len() > MAX_CHALLENGES_PER_DIFFICULTY {
+            let Some(index) = ids.iter().position(|candidate| {
+                by_id
+                    .get(candidate)
+                    .is_some_and(|challenge| challenge.source == ChallengeSource::Generated)
+            }) else {
+                break;
+            };
+            let removed_id = ids.remove(index);
+            by_id.remove(&removed_id);
+        }
     }
 
     /// Ensure a challenge is present by id (idempotent).
@@ -325,9 +376,10 @@ impl AppState {
     /// Otherwise, insert a hard fallback.
     #[instrument(level = "info", skip(self), fields(%difficulty))]
     pub async fn choose_challenge(&self, difficulty: &str) -> (Challenge, &'static str) {
+        let difficulty = normalize_difficulty(difficulty);
         if let Some(oa) = &self.openai {
             match oa
-                .generate_challenge_freeform(&self.prompts, difficulty)
+                .generate_challenge_freeform(&self.prompts, &difficulty)
                 .await
             {
                 Ok(mut c) => {
@@ -337,7 +389,7 @@ impl AppState {
                     self.last_by_diff
                         .write()
                         .await
-                        .insert(difficulty.to_string(), id.clone());
+                        .insert(difficulty.clone(), id.clone());
                     info!(target: "challenge", %difficulty, chosen = %id, source = "openai_generated_new", "Generated fresh challenge");
                     return (c, "openai_generated_new");
                 }
@@ -346,30 +398,31 @@ impl AppState {
                 }
             }
         } else {
-            error!(target: "challenge", %difficulty, "OPENAI_API_KEY not set; trying existing pool then hard fallback");
+            info!(target: "challenge", %difficulty, "Seed-only archive mode; choosing from the local challenge pool");
         }
 
         // 2) If we already have challenges for this difficulty (local bank or built-in seeds),
         // serve one of them before creating a new hard fallback.
-        if let Some(ids) = { self.by_diff.read().await.get(difficulty).cloned() } {
+        if let Some(ids) = { self.by_diff.read().await.get(&difficulty).cloned() } {
             if !ids.is_empty() {
-                let last = { self.last_by_diff.read().await.get(difficulty).cloned() };
-                let chosen_id = if ids.len() == 1 {
-                    ids[0].clone()
-                } else if let Some(last_id) = last {
-                    ids.iter()
-                        .find(|id| *id != &last_id)
-                        .cloned()
+                let last = { self.last_by_diff.read().await.get(&difficulty).cloned() };
+                let chosen_id = {
+                    let candidates = ids
+                        .iter()
+                        .filter(|id| last.as_ref() != Some(*id))
+                        .collect::<Vec<_>>();
+                    let mut rng = rand::thread_rng();
+                    candidates
+                        .choose(&mut rng)
+                        .map(|id| (*id).clone())
                         .unwrap_or_else(|| ids[0].clone())
-                } else {
-                    ids[0].clone()
                 };
 
                 if let Some(ch) = { self.by_id.read().await.get(&chosen_id).cloned() } {
                     self.last_by_diff
                         .write()
                         .await
-                        .insert(difficulty.to_string(), chosen_id.clone());
+                        .insert(difficulty.clone(), chosen_id.clone());
                     warn!(target: "challenge", %difficulty, chosen = %chosen_id, source = "existing_pool", "Serving existing challenge");
                     return (ch, "existing_pool");
                 }
@@ -377,13 +430,13 @@ impl AppState {
         }
 
         // 3) Absolute last resort: hard fallback.
-        let c = hard_fallback_challenge(difficulty.to_string());
+        let c = hard_fallback_challenge(difficulty.clone());
         let id = c.id.clone();
         self.insert_challenge(c.clone()).await;
         self.last_by_diff
             .write()
             .await
-            .insert(difficulty.to_string(), id.clone());
+            .insert(difficulty.clone(), id.clone());
         warn!(target: "challenge", %difficulty, chosen = %id, source = "hard_fallback", "Inserted hard fallback challenge");
         (c, "hard_fallback")
     }
@@ -400,10 +453,11 @@ impl AppState {
         difficulty: &str,
         context_zh: &str,
     ) -> (Challenge, &'static str) {
-        let seed_zh = build_mild_writing_seed(difficulty, context_zh);
+        let difficulty = normalize_difficulty(difficulty);
+        let seed_zh = build_mild_writing_seed(&difficulty, context_zh);
         let challenge = Challenge {
             id: Uuid::new_v4().to_string(),
-            difficulty: difficulty.to_string(),
+            difficulty: difficulty.clone(),
             kind: ChallengeKind::FreeformZh,
             source: ChallengeSource::Generated,
             seed_zh: seed_zh.clone(),
@@ -425,12 +479,22 @@ impl AppState {
             .write()
             .await
             .insert(challenge.id.clone(), challenge.clone());
+        let expired_id = {
+            let mut ids = self.writing_guide_ids.write().await;
+            ids.push_back(challenge.id.clone());
+            (ids.len() > MAX_WRITING_GUIDES)
+                .then(|| ids.pop_front())
+                .flatten()
+        };
+        if let Some(expired_id) = expired_id {
+            self.by_id.write().await.remove(&expired_id);
+        }
 
         info!(
             target: "challenge",
             %difficulty,
             id = %challenge.id,
-            seed_preview = %challenge.seed_zh.chars().take(36).collect::<String>(),
+            seed_chars = challenge.seed_zh.chars().count(),
             "Generated writing guide seed"
         );
         (challenge, "writing_guide_local")
@@ -466,5 +530,79 @@ impl AppState {
             }
         }
         out.trim().to_string()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn generated_challenge_pools_are_bounded_and_deduplicated() {
+        let state = AppState::new(RuntimeFeatures::default()).unwrap();
+
+        for index in 0..(MAX_CHALLENGES_PER_DIFFICULTY + 20) {
+            let mut challenge = hard_fallback_challenge("hsk2".into());
+            challenge.id = format!("generated-{index}");
+            challenge.source = ChallengeSource::Generated;
+            state.insert_challenge(challenge.clone()).await;
+            state.insert_challenge(challenge).await;
+        }
+
+        let ids = state
+            .by_diff
+            .read()
+            .await
+            .get("hsk2")
+            .cloned()
+            .unwrap_or_default();
+        let unique = ids.iter().collect::<std::collections::HashSet<_>>();
+        assert!(ids.len() <= MAX_CHALLENGES_PER_DIFFICULTY);
+        assert_eq!(ids.len(), unique.len());
+        assert!(!state.by_id.read().await.contains_key("generated-0"));
+        assert!(state
+            .by_id
+            .read()
+            .await
+            .contains_key(&format!("generated-{}", MAX_CHALLENGES_PER_DIFFICULTY + 19)));
+
+        let mut moved = hard_fallback_challenge("hsk1".into());
+        moved.id = "moved-challenge".into();
+        moved.source = ChallengeSource::Generated;
+        state.insert_challenge(moved.clone()).await;
+        moved.difficulty = "hsk4".into();
+        state.insert_challenge(moved).await;
+        assert!(!state
+            .by_diff
+            .read()
+            .await
+            .get("hsk1")
+            .is_some_and(|ids| ids.iter().any(|id| id == "moved-challenge")));
+    }
+
+    #[tokio::test]
+    async fn writing_guides_and_difficulty_keys_are_bounded() {
+        let state = AppState::new(RuntimeFeatures::default()).unwrap();
+        for index in 0..(MAX_WRITING_GUIDES + 12) {
+            state
+                .choose_writing_guide("unexpected-user-key", &format!("context {index}"))
+                .await;
+        }
+
+        assert_eq!(
+            state.writing_guide_ids.read().await.len(),
+            MAX_WRITING_GUIDES
+        );
+        assert!(state.by_id.read().await.len() <= seed_challenges().len() + MAX_WRITING_GUIDES);
+
+        state.choose_challenge("another-raw-key").await;
+        let last_keys = state
+            .last_by_diff
+            .read()
+            .await
+            .keys()
+            .cloned()
+            .collect::<Vec<_>>();
+        assert_eq!(last_keys, vec!["hsk3".to_string()]);
     }
 }

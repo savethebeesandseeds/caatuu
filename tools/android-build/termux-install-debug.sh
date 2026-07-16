@@ -1,12 +1,11 @@
 #!/usr/bin/env sh
 set -eu
 
-DEFAULT_APK_URL="https://caatuu.waajacu.com/android/caatuu.apk"
 APK_URL="${APK_URL:-}"
-MANIFEST_URL="${MANIFEST_URL:-https://caatuu.waajacu.com/android/caatuu.json}"
-APK_FILE="${APK_FILE:-$HOME/caatuu.apk}"
-MANIFEST_FILE="${MANIFEST_FILE:-$HOME/caatuu.json}"
-SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu.apk}"
+MANIFEST_URL="${MANIFEST_URL:-}"
+APK_FILE="${APK_FILE:-$HOME/caatuu-debug.apk}"
+MANIFEST_FILE="${MANIFEST_FILE:-$HOME/caatuu-debug.json}"
+SHARED_APK="${SHARED_APK:-$HOME/storage/downloads/caatuu-debug.apk}"
 EXPECTED_SHA="${EXPECTED_SHA:-}"
 REPORT_FILE="${REPORT_FILE:-$HOME/caatuu-install-debug-report.txt}"
 LOGCAT_FILE="${LOGCAT_FILE:-$HOME/caatuu-install-logcat.txt}"
@@ -36,7 +35,13 @@ note "Caatuu Android debug install check"
 note "Report file: $REPORT_FILE"
 note ""
 
-if need_command curl; then
+if [ -z "$MANIFEST_URL" ] && { [ -z "$APK_URL" ] || [ -z "$EXPECTED_SHA" ]; }; then
+  note "ERROR: Set MANIFEST_URL, or set both APK_URL and EXPECTED_SHA."
+  note "Debug downloads are intentionally unavailable from the public stable host."
+  exit 1
+fi
+
+if need_command curl && [ -n "$MANIFEST_URL" ]; then
   note "Published APK manifest"
   if curl -L --fail --retry 3 -o "$MANIFEST_FILE" "$MANIFEST_URL" 2>> "$REPORT_FILE"; then
     cat "$MANIFEST_FILE" | tee -a "$REPORT_FILE"
@@ -51,7 +56,10 @@ if need_command curl; then
   note ""
 fi
 
-APK_URL="${APK_URL:-$DEFAULT_APK_URL}"
+if [ -z "$APK_URL" ]; then
+  note "ERROR: No APK URL. Set APK_URL or provide a manifest with apk_url."
+  exit 1
+fi
 if [ -z "$EXPECTED_SHA" ]; then
   note "ERROR: No expected SHA-256. Set EXPECTED_SHA or provide a manifest with sha256."
   exit 1
@@ -105,7 +113,7 @@ if [ -d "$HOME/storage/downloads" ]; then
   chmod 644 "$SHARED_APK" 2>/dev/null || true
   INSTALL_APK="$SHARED_APK"
 elif [ -d /sdcard/Download ]; then
-  SHARED_APK="/sdcard/Download/caatuu.apk"
+  SHARED_APK="/sdcard/Download/caatuu-debug.apk"
   cp "$APK_FILE" "$SHARED_APK" 2>> "$REPORT_FILE" && INSTALL_APK="$SHARED_APK" || true
 fi
 

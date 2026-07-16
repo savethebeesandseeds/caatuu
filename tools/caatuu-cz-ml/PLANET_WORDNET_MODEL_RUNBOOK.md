@@ -237,8 +237,8 @@ docker run --rm -i `
 Verify:
 
 ```powershell
-Invoke-WebRequest http://127.0.0.1:8765/android/caatuu.json -UseBasicParsing
-Invoke-WebRequest https://caatuu.waajacu.com/android/caatuu.json -UseBasicParsing
+Invoke-WebRequest http://127.0.0.1:8765/android/caatuu-debug.json -UseBasicParsing
+Invoke-WebRequest https://caatuu.waajacu.com/android/caatuu-debug.json -UseBasicParsing
 Invoke-WebRequest https://caatuu.waajacu.com/cz/data/models/phone-bench/models.json -UseBasicParsing
 Invoke-WebRequest https://caatuu.waajacu.com/cz/data/models/phone-bench/<model-file>.gguf -Method Head -UseBasicParsing
 ```

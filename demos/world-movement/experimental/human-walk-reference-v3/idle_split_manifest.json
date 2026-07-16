@@ -1,0 +1,209 @@
+{
+  "cols": 3,
+  "count": 6,
+  "input_dir": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals",
+  "output_dir": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split",
+  "prefix": "human-pose-idle",
+  "rows": 2,
+  "sprites": [
+    {
+      "area": 5085,
+      "bbox": [
+        63,
+        17,
+        128,
+        178
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_001.png",
+      "index": 1,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        39,
+        0,
+        152,
+        202
+      ],
+      "restored_padding": [
+        0,
+        7,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 1
+    },
+    {
+      "area": 4995,
+      "bbox": [
+        253,
+        17,
+        318,
+        178
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_002.png",
+      "index": 2,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        229,
+        0,
+        342,
+        202
+      ],
+      "restored_padding": [
+        0,
+        7,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 2
+    },
+    {
+      "area": 4991,
+      "bbox": [
+        443,
+        17,
+        508,
+        178
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_003.png",
+      "index": 3,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        419,
+        0,
+        532,
+        202
+      ],
+      "restored_padding": [
+        0,
+        7,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 3
+    },
+    {
+      "area": 5078,
+      "bbox": [
+        63,
+        207,
+        128,
+        368
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_004.png",
+      "index": 4,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        39,
+        183,
+        152,
+        380
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 4
+    },
+    {
+      "area": 4990,
+      "bbox": [
+        253,
+        207,
+        318,
+        368
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_005.png",
+      "index": 5,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        229,
+        183,
+        342,
+        380
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 5
+    },
+    {
+      "area": 4986,
+      "bbox": [
+        443,
+        207,
+        508,
+        368
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-split/human-pose-idle_006.png",
+      "index": 6,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        209
+      ],
+      "padded_bbox": [
+        419,
+        183,
+        532,
+        380
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v1/idle-originals/human-idle-pose-guide-sheet.png",
+      "source_slot": 6
+    }
+  ],
+  "warnings": []
+}

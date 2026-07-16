@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251f">
+  <title>Caatuu World Movement Lab</title>
+  <link rel="stylesheet" href="./world-movement.css?v=2">
+</head>
+<body>
+  <main class="movement-lab" id="movementLab">
+    <section class="viewport" id="viewport" aria-label="Movement demo world">
+      <div class="world" id="world">
+        <svg class="ground-art" viewBox="0 0 2200 1500" aria-hidden="true">
+          <defs>
+            <pattern id="grassTexture" width="92" height="92" patternUnits="userSpaceOnUse">
+              <rect width="92" height="92" fill="#77955c"/>
+              <path d="M12 72l4-9m4 10l-1-10m54-39l3-8m4 9l-1-8M46 48l3-7" stroke="#587746" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+              <circle cx="69" cy="71" r="2" fill="#d2b65b" opacity=".55"/>
+              <circle cx="25" cy="29" r="1.8" fill="#d8ddd0" opacity=".5"/>
+            </pattern>
+            <pattern id="stoneTexture" width="76" height="54" patternUnits="userSpaceOnUse" patternTransform="skewX(-12)">
+              <rect width="76" height="54" fill="#b7a77b"/>
+              <path d="M0 2h34l4 22-7 26H0M38 2h38v48H31M0 27h38M59 2l-4 25 5 23" fill="none" stroke="#7f765c" stroke-width="3" opacity=".62"/>
+              <path d="M4 7h26M43 8h27" stroke="#d5c79b" stroke-width="2" opacity=".7"/>
+            </pattern>
+            <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3b9c9e"/>
+              <stop offset="1" stop-color="#176f78"/>
+            </linearGradient>
+            <filter id="groundShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="13"/>
+            </filter>
+          </defs>
+          <rect width="2200" height="1500" fill="url(#grassTexture)"/>
+          <path d="M-120 870C260 700 470 720 760 845s610 150 840 18 425-172 720-62" fill="none" stroke="#4d6045" stroke-width="246" opacity=".28" filter="url(#groundShadow)"/>
+          <path d="M-120 840C260 670 470 690 760 815s610 150 840 18 425-172 720-62" fill="none" stroke="#8c805e" stroke-width="226"/>
+          <path d="M-120 840C260 670 470 690 760 815s610 150 840 18 425-172 720-62" fill="none" stroke="url(#stoneTexture)" stroke-width="190"/>
+          <path d="M1050-120C970 230 1030 470 1185 680s120 510-30 940" fill="none" stroke="#6d644e" stroke-width="210"/>
+          <path d="M1050-120C970 230 1030 470 1185 680s120 510-30 940" fill="none" stroke="url(#stoneTexture)" stroke-width="176"/>
+          <path d="M1840-80C1690 220 1725 430 1890 620s120 430-40 970" fill="none" stroke="#274f52" stroke-width="138" opacity=".45"/>
+          <path d="M1840-80C1690 220 1725 430 1890 620s120 430-40 970" fill="none" stroke="url(#water)" stroke-width="112"/>
+          <path d="M1795 170q55 34 110 0m-145 208q70 38 140 0m-90 340q58 35 116 0m-155 280q78 42 156 0m-118 282q62 35 124 0" fill="none" stroke="#8ed5cd" stroke-width="9" stroke-linecap="round" opacity=".42"/>
+          <g fill="#d7bd61" opacity=".9">
+            <circle cx="362" cy="520" r="7"/><circle cx="390" cy="542" r="5"/><circle cx="326" cy="549" r="5"/>
+            <circle cx="1528" cy="470" r="7"/><circle cx="1560" cy="491" r="5"/><circle cx="1496" cy="496" r="5"/>
+          </g>
+        </svg>
+        <div class="destination" id="destination" hidden aria-hidden="true"></div>
+        <div class="actor" id="actor" data-kind="human">
+          <div class="actor-shadow" id="actorShadow"></div>
+          <div class="actor-facing" id="actorFacing">
+            <div class="actor-skeletal-rig" id="actorSkeletalRig" hidden aria-hidden="true"></div>
+            <div class="actor-rig" id="actorRig" aria-hidden="true">
+              <img class="rig-layer rig-foot rig-foot-far" id="rigFootFar" src="/assets/macaw/walk/rig-prototype/macaw-rig-foot-far.png" alt="">
+              <img class="rig-layer rig-foot rig-foot-near" id="rigFootNear" src="/assets/macaw/walk/rig-prototype/macaw-rig-foot-near.png" alt="">
+              <img class="rig-layer rig-body" src="/assets/macaw/walk/rig-prototype/macaw-rig-body.png" alt="">
+            </div>
+            <img class="actor-image" id="actorImage" src="./experimental/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1" alt="Image-generated human pose reference with grayscale values assigned by depth">
+          </div>
+          <span class="anchor-dot" aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="world-hint" id="worldHint">Click anywhere to walk there · WASD or arrow keys also work</p>
+      <nav class="touch-pad" aria-label="Movement controls">
+        <button type="button" data-move="up" aria-label="Move up">▲</button>
+        <button type="button" data-move="left" aria-label="Move left">◀</button>
+        <button type="button" data-move="down" aria-label="Move down">▼</button>
+        <button type="button" data-move="right" aria-label="Move right">▶</button>
+      </nav>
+    </section>
+
+    <aside class="control-panel" aria-label="Movement lab controls">
+      <div class="panel-heading">
+        <p class="eyebrow">Caatuu prototype</p>
+        <h1>World Movement Lab</h1>
+        <p>Existing painted assets, smooth browser movement, and no game mechanics.</p>
+      </div>
+
+      <fieldset>
+        <legend>Walker</legend>
+        <div class="segmented walker-options">
+          <button type="button" class="is-active" data-actor="human">Human reference</button>
+          <button type="button" data-actor="macaw">Macaw comparison</button>
+          <button type="button" data-actor="robot">Gardener robot</button>
+        </div>
+      </fieldset>
+
+      <fieldset id="animationModeFieldset">
+        <legend>Animation source</legend>
+        <div class="segmented animation-modes">
+          <button type="button" class="is-active" data-animation-mode="keyframes">Primary frames</button>
+          <button type="button" data-animation-mode="guided" data-macaw-only hidden>Silhouette-guided</button>
+          <button type="button" data-animation-mode="full" data-macaw-only hidden>Layered rig</button>
+          <button type="button" data-animation-mode="rig" data-macaw-only hidden>Feet rig</button>
+          <button type="button" data-animation-mode="frames" data-macaw-only hidden>Older frames</button>
+        </div>
+      </fieldset>
+
+      <label class="range-row">
+        <span>Movement speed <output id="speedOutput">210</output></span>
+        <input id="speedControl" type="range" min="100" max="360" step="10" value="210">
+      </label>
+
+      <label class="check-row">
+        <input id="cycleToggle" type="checkbox">
+        <span>Preview image cycle in place</span>
+      </label>
+      <label class="check-row">
+        <input id="holdFrameToggle" type="checkbox">
+        <span>Hold selected frame for review</span>
+      </label>
+      <label class="range-row">
+        <span>Frame <output id="frameOutput">1 / 8 · contact A</output></span>
+        <input id="frameControl" type="range" min="1" max="8" step="1" value="1">
+      </label>
+      <a class="review-link" href="./frame-review.html">Show all eight selected human reference frames</a>
+      <a class="review-link" href="./macaw-guided-review.html" data-macaw-only hidden>Compare guides with generated Macaw frames</a>
+      <label class="check-row">
+        <input id="cameraToggle" type="checkbox" checked>
+        <span>Camera follows character</span>
+      </label>
+      <label class="check-row">
+        <input id="diagnosticsToggle" type="checkbox">
+        <span>Show anchors and depth lines</span>
+      </label>
+
+      <dl class="telemetry">
+        <div><dt>Position</dt><dd id="positionReadout">1100, 820</dd></div>
+        <div><dt>Facing</dt><dd id="facingReadout">right</dd></div>
+        <div><dt>Motion</dt><dd id="motionReadout">standing</dd></div>
+        <div><dt>Asset</dt><dd id="assetReadout">Human pose authority - curated eight-frame playback and review sequence</dd></div>
+      </dl>
+
+      <button type="button" class="reset-button" id="resetButton">Return to town centre</button>
+      <p class="prototype-note">The approved human sequence remains the motion authority. Silhouette-guided Macaw v1 is an isolated character-transfer experiment: leg contact and lift transfer clearly, while the robe and backpack still suppress much of the intended arm swing. Running and vertical up/down motion are not part of this candidate yet.</p>
+    </aside>
+  </main>
+  <script type="module" src="./world-movement.js?v=macaw-pose-guided-1"></script>
+</body>
+</html>

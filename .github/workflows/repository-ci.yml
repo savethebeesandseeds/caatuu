@@ -1,0 +1,48 @@
+name: Repository CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    name: Structure and browser contracts
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Check repository structure and documentation links
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+            bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
+
+      - name: Run browser and runtime contract tests
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+            bash -lc "node --test tools/runtime/tests/*.test.mjs"
+
+      - name: Validate Compose boundaries
+        env:
+          CAATUU_PHONE_DEBUG_BIND: 192.0.2.10
+        run: |
+          docker compose config --quiet
+          docker compose -f compose.tools.yaml --profile tools --profile dev config --quiet
+          docker compose -f compose.yaml -f compose.archive.yaml config --quiet
+          docker compose -f compose.yaml -f compose.phone-debug.yaml config --quiet
+
+  rust:
+    name: Rust runtime
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Run locked Rust tests in the repository container
+        run: |
+          docker compose -f compose.tools.yaml --profile tools run --rm \
+            caatuu-build cargo test --locked

@@ -29,18 +29,24 @@ mkdir -p "$download_dir" "$JDK_HOME"
 archive="$download_dir/temurin-jdk-17.tar.gz"
 checksum_file="$download_dir/temurin-jdk-17.tar.gz.sha256.txt"
 
-echo "Downloading Temurin JDK 17"
-effective_url="$(curl -fL --retry 3 -o "$archive" -w "%{url_effective}" "$JDK_DOWNLOAD_URL")"
-if curl -fL --retry 3 -o "$checksum_file" "${effective_url}.sha256.txt"; then
-  expected_checksum="$(sed -nE 's/^([0-9a-fA-F]{64}).*/\1/p' "$checksum_file" | head -1)"
-  if [ -n "$expected_checksum" ]; then
-    printf "%s  %s\n" "$expected_checksum" "$archive" | sha256sum -c -
-  else
-    echo "JDK checksum file did not contain a SHA-256 hash; validating extracted Java version instead." >&2
-  fi
-else
-  echo "JDK checksum file was not available; validating extracted Java version instead." >&2
+echo "Resolving Temurin JDK 17 download"
+redirect_url="$(curl -fsS --retry 3 -o /dev/null -w "%{redirect_url}" "$JDK_DOWNLOAD_URL")"
+download_url="${redirect_url:-$JDK_DOWNLOAD_URL}"
+if [ -z "$download_url" ]; then
+  echo "JDK download did not report a usable URL." >&2
+  exit 1
 fi
+
+echo "Downloading Temurin JDK 17"
+curl -fL --retry 3 -o "$archive" "$download_url"
+curl -fL --retry 3 -o "$checksum_file" "${download_url}.sha256.txt"
+
+expected_checksum="$(awk 'NR == 1 { print $1 }' "$checksum_file")"
+if [[ ! "$expected_checksum" =~ ^[0-9a-fA-F]{64}$ ]]; then
+  echo "JDK checksum file did not contain a valid SHA-256 hash." >&2
+  exit 1
+fi
+printf "%s  %s\n" "$expected_checksum" "$archive" | sha256sum -c -
 
 rm -rf "$JDK_HOME"
 mkdir -p "$JDK_HOME"

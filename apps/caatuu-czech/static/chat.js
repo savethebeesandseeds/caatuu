@@ -17,7 +17,7 @@ const browserFallbackSummary = `Browser: ${browserFallbackModel}. Android: local
 const themeStorageKey = "caatuu-czech.theme";
 const themeOptions = {
   light: { themeColor: "#f5efe5" },
-  dark: { themeColor: "#0d171e" }
+  dark: { themeColor: "#151a18" }
 };
 const settingsStorageKey = "caatuu-czech.chat.settings.v1";
 const chatStorageKey = "caatuu-czech.chat.history.v1";
@@ -426,7 +426,8 @@ function renderModelLicenseList() {
     const row = document.createElement("div");
     const term = document.createElement("dt");
     const detail = document.createElement("dd");
-    const licenseLink = document.createElement("a");
+    const licenseUrl = model.license_url || "";
+    const licenseNode = document.createElement(licenseUrl ? "a" : "span");
 
     term.textContent = displayModelLabel(model);
     const sourceText = model.repo_id || model.source_label || model.key;
@@ -447,17 +448,28 @@ function renderModelLicenseList() {
     } else {
       source.textContent = sourceText;
     }
-    licenseLink.href = model.license_url || "https://www.apache.org/licenses/LICENSE-2.0";
-    licenseLink.rel = "noopener";
-    licenseLink.textContent = model.license || "Apache-2.0";
+    if (licenseUrl) {
+      licenseNode.href = licenseUrl;
+      licenseNode.rel = "noopener";
+    }
+    licenseNode.textContent = modelLicenseDisplay(model);
 
-    detail.append(source, " · ", licenseLink);
+    detail.append(source, " · ", licenseNode);
     if (model.status) detail.append(" · ", model.status);
     if (model.embedding_text_field) detail.append(" · ", `embeds ${model.embedding_text_field}`);
     row.append(term, detail);
     return row;
   }));
-  setText("#licenseMetaSummary", `MIT app, ${models.length} local artifacts`);
+  setText("#licenseMetaSummary", `${models.length} artifacts, separate terms`);
+}
+
+function modelLicenseDisplay(model) {
+  const recordedLicense = model.license || "Review pending";
+  if (model.adapter) return `Base model: ${recordedLicense}; derived artifact review pending`;
+  if (model.artifact_kind === "embedding-vector-db") {
+    return `Embedding model: ${recordedLicense}; embedded content reviewed separately`;
+  }
+  return recordedLicense;
 }
 
 function setText(selector, value) {
@@ -735,12 +747,29 @@ function renderStoredChat() {
   });
 }
 
-function startNewChat() {
+async function startNewChat() {
+  if (generating) return;
   chatMessages = [];
   saveStoredChat();
   resetChat();
   $("#promptInput").value = "";
-  $("#promptInput").focus();
+  setBusy(true);
+  try {
+    const reset = await runtimeAdapter().models.resetConversation?.(selectedModelKey());
+    if (reset?.reloadRequired) {
+      modelLoaded = false;
+      loadedRuntimeKind = "";
+      updateLoadButton("Start");
+      setChatEvent("Conversation cleared. Start the browser model again when ready.", { tone: "muted" });
+    } else {
+      setChatEvent("New conversation ready.", { tone: "muted" });
+    }
+  } catch (error) {
+    setChatEvent(error?.message || "Could not reset the model conversation.", { tone: "error" });
+  } finally {
+    setBusy(false);
+    $("#promptInput").focus();
+  }
 }
 
 function normalizeSettings(input = {}) {
@@ -1076,6 +1105,8 @@ async function refreshNativeUpdateStatus() {
     return;
   }
 
+  setUpdateAppControl(nativeUpdateStatus, { busy: true });
+  setText("#maintenanceStatus", "Checking the update server...");
   try {
     nativeUpdateStatus = await runtimeAdapter().maintenance.updateStatus();
     setUpdateAppControl(nativeUpdateStatus);
@@ -1362,6 +1393,7 @@ async function loadNativeModel({ silent = false } = {}) {
       timeoutMs: nativeLoadInactivityTimeoutMs,
       timeoutMessage: "Model loading is taking too long. The downloaded file is kept in app storage; close and reopen Caatuu, then tap Load downloaded model again."
     });
+    if (wasLoaded) await runtimeAdapter().models.resetConversation?.(selectedModelKey());
     modelLoaded = Boolean(result.loaded);
     loadedRuntimeKind = "android-native";
     renderNativeStatus(result);
@@ -1404,17 +1436,22 @@ function renderNativeEvent(message) {
 }
 
 async function loadBrowserFallback({ silent = false } = {}) {
+  const wasLoaded = modelLoaded;
   const loadToken = ++modelLoadToken;
   chatDownloadAbortRequested = false;
   setBusy(true);
   modelLoaded = false;
+  if (wasLoaded && !silent) {
+    resetChat("Chat cleared. Reloading the browser model.", { clearStored: true });
+    $("#promptInput").value = "";
+  }
   setText("#runtimeBadge", "Browser loading");
   setText("#runtimeStatus", "Loading WebGPU");
   setText("#progressBox", `Loading ${browserFallbackModel}.`);
   setChatEvent("(loading) Caatuu is warming up the browser model.", { progress: 0, tone: "active", abortable: true });
 
   try {
-    const result = await runtimeAdapter().models.load(browserFallbackModel, {
+    let result = await runtimeAdapter().models.load(browserFallbackModel, {
       onEvent(message) {
         if (loadToken !== modelLoadToken || chatDownloadAbortRequested) return;
         if (message.kind !== "progress") return;
@@ -1426,6 +1463,10 @@ async function loadBrowserFallback({ silent = false } = {}) {
       }
     });
     if (loadToken !== modelLoadToken || chatDownloadAbortRequested) return;
+    if (wasLoaded) {
+      const reset = await runtimeAdapter().models.resetConversation?.(browserFallbackModel);
+      if (reset?.reloadRequired) result = await runtimeAdapter().models.load(browserFallbackModel);
+    }
     modelLoaded = Boolean(result.loaded);
     loadedRuntimeKind = result.runtime || "browser-webgpu";
     if (!modelLoaded) throw new Error("Browser WebGPU runtime did not report the fallback model as loaded.");
@@ -1502,6 +1543,8 @@ async function runNativePrompt(prompt) {
   const nativePrompt = nativePromptForModel(prompt, modelKey);
   const maxTokens = maxTokensForModel(modelKey);
   const options = requestOptions();
+  options.stateless = [wordNetModelKey, legacyWordNetModelKey, translationModelKey, legacyTranslationModelKey]
+    .includes(modelKey);
   const request = {
     runtime: "android-native-llama.cpp",
     model: {
@@ -1685,6 +1728,8 @@ async function updateApp() {
     return;
   }
 
+  setUpdateAppControl(nativeUpdateStatus, { busy: true });
+  setText("#maintenanceStatus", "Checking the update server...");
   try {
     nativeUpdateStatus = await runtimeAdapter().maintenance.updateStatus();
     syncAboutVersion(nativeUpdateStatus);
@@ -1694,18 +1739,16 @@ async function updateApp() {
       return;
     }
 
+    setUpdateAppControl(nativeUpdateStatus);
+    setText("#maintenanceStatus", `Update ${nativeUpdateStatus.latestVersionName || nativeUpdateStatus.latestVersionCode || "available"} is ready for confirmation.`);
+    const confirmed = await maintenanceUi().confirmAppUpdate(nativeUpdateStatus);
+    if (!confirmed) {
+      setText("#maintenanceStatus", "Update postponed. You can start it here whenever you are ready.");
+      return;
+    }
     setUpdateAppControl(nativeUpdateStatus, { busy: true });
-    setText("#maintenanceStatus", "Checking the latest debug APK.");
-
-    const result = await runtimeAdapter().maintenance.updateApp({
-      onEvent(message) {
-        const progressText = maintenanceUi().updateProgressMessage(message, formatBytes);
-        if (progressText) setText("#maintenanceStatus", progressText);
-      }
-    });
-
-    setText("#maintenanceStatus", maintenanceUi().updateResultMessage(result));
-    setText("#diagnosticOutput", JSON.stringify(result, null, 2));
+    setText("#maintenanceStatus", "Opening Setup for the app update.");
+    maintenanceUi().beginAppUpdate(nativeUpdateStatus);
   } catch (error) {
     setText("#maintenanceStatus", error?.message || String(error));
   } finally {
@@ -1856,7 +1899,6 @@ function bindUi() {
   $("#cacheProbe")?.addEventListener("click", cacheProbe);
   $("#loadBenchmarks")?.addEventListener("click", loadBenchmarks);
   $("#copyTermuxCommand")?.addEventListener("click", copyTermuxFallbackCommand);
-  $("#updateApp").addEventListener("click", updateApp);
   $("#clearCache").addEventListener("click", clearCache);
   $("#settingsResetVerbMemory")?.addEventListener("click", clearStoredVerbMemory);
 

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "macaw-walk-v3-experimental",
+  "status": "browser-validation",
+  "direction": "side-left",
+  "canvas": [520, 570],
+  "anchor": {
+    "x": 0.5,
+    "y": 1.0
+  },
+  "frame_distance_px": 26,
+  "loop": [
+    "frames/macaw-walk-v3_001.png",
+    "frames/macaw-walk-v3_002.png",
+    "frames/macaw-walk-v3_003.png",
+    "frames/macaw-walk-v3_004.png"
+  ],
+  "phases": [
+    "contact-a",
+    "passing-a",
+    "contact-b",
+    "passing-b"
+  ],
+  "idle": "/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png",
+  "source_manifest": "demos/world-movement/research/generated-candidates/macaw-walk-v3-test/split_manifest.json"
+}

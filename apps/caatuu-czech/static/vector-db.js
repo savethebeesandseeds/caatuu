@@ -1,11 +1,17 @@
-const defaultDbUrl = "data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite?v=465cf1f8";
+const defaultDbUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=765b1062";
 const defaultSqlJsModuleUrl = "./vendor/sql.js/sql-wasm.js";
 const defaultSqlJsWasmUrl = "./vendor/sql.js/sql-wasm.wasm";
+const defaultTransformersModuleUrl = "./vendor/transformers/transformers.min.js";
+const defaultSemanticModelId = "all-minilm-l6-v2-qint8-v0.1/runtime";
+const defaultSemanticModelPath = "data/embeddings/";
+const defaultSemanticModelFileName = "model_qint8_arm64";
+const defaultOrtWasmModuleUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs";
+const defaultOrtWasmBinaryUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm";
 
 export const caatuuVectorSchema = Object.freeze({
   name: "caatuu-cz-vector-db",
   version: 1,
-  defaultModelId: "caatuu-local-hash-v0.1",
+  defaultModelId: "all-minilm-l6-v2-qint8-v0.1",
   embeddingDimension: 384,
   vectorEncoding: "float32le",
   distanceMetric: "cosine",
@@ -15,18 +21,18 @@ export const caatuuVectorSchema = Object.freeze({
 
 export const caatuuEmbeddingModelCatalog = Object.freeze({
   version: 1,
-  defaultModel: "caatuu-local-hash-v0.1",
+  defaultModel: "all-minilm-l6-v2-qint8-v0.1",
   models: [
     Object.freeze({
-      key: "caatuu-local-hash-v0.1",
+      key: "all-minilm-l6-v2-qint8-v0.1",
       label: "Caatuu Curriculum and Asset Embeddings",
       shortLabel: "Embeddings",
       status: "active",
       artifactKind: "embedding-vector-db",
-      runtime: "SQLite vector database with local hash embedder",
+      runtime: "SQLite vector database with local all-MiniLM ONNX embedder",
       format: "sqlite",
-      modelFile: "caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite",
-      manifestFile: "caatuu-local-hash-v0.1/manifest.json",
+      modelFile: "all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      manifestFile: "all-minilm-l6-v2-qint8-v0.1/manifest.json",
       embeddingTextField: "english_text",
       embeddingInputPolicy: "english_text_only",
       trainable: false
@@ -40,6 +46,56 @@ export class LocalHashTextEmbedder {
   }
 }
 
+export class SemanticMiniLmTextEmbedder {
+  constructor(options = {}) {
+    this.moduleUrl = options.moduleUrl || defaultTransformersModuleUrl;
+    this.modelId = options.modelId || defaultSemanticModelId;
+    this.localModelPath = options.localModelPath || defaultSemanticModelPath;
+    this.modelFileName = options.modelFileName || defaultSemanticModelFileName;
+    this.ortWasmModuleUrl = options.ortWasmModuleUrl || defaultOrtWasmModuleUrl;
+    this.ortWasmBinaryUrl = options.ortWasmBinaryUrl || defaultOrtWasmBinaryUrl;
+    this.extractorPromise = null;
+  }
+
+  async embedText(text) {
+    const value = String(text || "").trim();
+    if (!value) throw new Error("Semantic embedding text is empty.");
+    const extractor = await this.loadExtractor();
+    const output = await extractor(value, { pooling: "mean", normalize: true });
+    if (!Array.isArray(output.dims) || output.dims[output.dims.length - 1] !== caatuuVectorSchema.embeddingDimension) {
+      throw new Error(`Unexpected semantic embedding shape ${JSON.stringify(output.dims || [])}.`);
+    }
+    return normalizeVector(Float32Array.from(output.data));
+  }
+
+  async loadExtractor() {
+    if (!this.extractorPromise) {
+      this.extractorPromise = (async () => {
+        const transformers = await import(resolveUrl(this.moduleUrl));
+        const { env, pipeline } = transformers;
+        env.allowRemoteModels = false;
+        env.allowLocalModels = true;
+        env.localModelPath = new URL(this.localModelPath, import.meta.url).pathname;
+        env.backends.onnx.wasm.numThreads = 1;
+        env.backends.onnx.wasm.proxy = false;
+        env.backends.onnx.wasm.wasmPaths = {
+          mjs: resolveUrl(this.ortWasmModuleUrl),
+          wasm: resolveUrl(this.ortWasmBinaryUrl)
+        };
+        return pipeline("feature-extraction", this.modelId, {
+          dtype: "fp32",
+          model_file_name: this.modelFileName,
+          local_files_only: true
+        });
+      })().catch((error) => {
+        this.extractorPromise = null;
+        throw error;
+      });
+    }
+    return this.extractorPromise;
+  }
+}
+
 export class BrowserVectorDatabaseManager {
   constructor(options = {}) {
     this.dbUrl = options.dbUrl || defaultDbUrl;
@@ -47,7 +103,7 @@ export class BrowserVectorDatabaseManager {
     this.sqlJsWasmUrl = options.sqlJsWasmUrl || defaultSqlJsWasmUrl;
     this.sqlJsGlobalName = options.sqlJsGlobalName || "initSqlJs";
     this.sqlJsFactory = options.sqlJsFactory || null;
-    this.embedder = options.embedder || new LocalHashTextEmbedder();
+    this.embedder = options.embedder || new SemanticMiniLmTextEmbedder(options.semanticEmbedderOptions);
     this.fetchImpl = options.fetchImpl || globalThis.fetch?.bind(globalThis);
     this.SQL = null;
     this.db = null;
@@ -82,7 +138,7 @@ export class BrowserVectorDatabaseManager {
 
   async searchText(text, options = {}) {
     const queryVector = await this.embedText(text);
-    return this.searchVector(queryVector, options);
+    return this.searchVector(queryVector, { ...options, queryText: text });
   }
 
   searchVector(queryVector, options = {}) {
@@ -120,6 +176,8 @@ export class BrowserVectorDatabaseManager {
         const row = stmt.getAsObject();
         if (sourceKinds.size && !sourceKinds.has(String(row.source_kind || ""))) continue;
         const candidate = decodeFloat32Vector(row.vector);
+        const semanticScore = dotProduct(normalizedQuery, candidate);
+        const lexicalScore = lexicalOverlapScore(options.queryText, row.text);
         rows.push({
           chunkId: row.chunk_id,
           documentId: row.document_id,
@@ -128,7 +186,9 @@ export class BrowserVectorDatabaseManager {
           sourceId: row.source_id,
           locale: row.locale,
           title: row.title || "",
-          score: dotProduct(normalizedQuery, candidate),
+          score: semanticScore + lexicalScore * 0.035,
+          semanticScore,
+          lexicalScore,
           chunkMetadata: parseJsonObject(row.chunk_metadata_json),
           documentMetadata: parseJsonObject(row.document_metadata_json)
         });
@@ -307,6 +367,21 @@ function parseJsonObject(value) {
   } catch {
     return {};
   }
+}
+
+function lexicalOverlapScore(queryText, candidateText) {
+  const queryTokens = new Set(tokenize(queryText).filter((token) => token.length > 1));
+  if (!queryTokens.size) return 0;
+  const candidateTokens = new Set(tokenize(candidateText));
+  let shared = 0;
+  for (const token of queryTokens) {
+    if (candidateTokens.has(token)) shared += 1;
+  }
+  return shared / queryTokens.size;
+}
+
+function resolveUrl(url) {
+  return new URL(url, import.meta.url).href;
 }
 
 function loadClassicScript(url) {

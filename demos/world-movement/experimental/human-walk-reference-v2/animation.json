@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "human-walk-reference-v2",
+  "status": "motion-system-readable-baseline",
+  "source": "Quaternius Universal Animation Library Standard",
+  "license": "CC0-1.0",
+  "source_clip": "Walk_Loop",
+  "source_duration_seconds": 1.333,
+  "direction": "side-left",
+  "canvas": [160, 224],
+  "anchor": [0.5, 1.0],
+  "frame_distance_px": 23.333333,
+  "idle": "idle/human-idle_001.png",
+  "walk_split_manifest": "walk_split_manifest.json",
+  "idle_split_manifest": "idle_split_manifest.json",
+  "readability_guides": {
+    "authority": "projected source-rig bones",
+    "near_limb_color": "#355b59",
+    "far_limb_color": "#75523c",
+    "covered_joints": ["elbow", "hand", "knee", "foot", "toe"],
+    "pose_geometry_changed": false
+  },
+  "loop": [
+    { "phase": "contact-a", "file": "frames/human-walk_001.png" },
+    { "phase": "8-percent", "file": "frames/human-walk_002.png" },
+    { "phase": "17-percent", "file": "frames/human-walk_003.png" },
+    { "phase": "passing-a", "file": "frames/human-walk_004.png" },
+    { "phase": "33-percent", "file": "frames/human-walk_005.png" },
+    { "phase": "42-percent", "file": "frames/human-walk_006.png" },
+    { "phase": "contact-b", "file": "frames/human-walk_007.png" },
+    { "phase": "58-percent", "file": "frames/human-walk_008.png" },
+    { "phase": "67-percent", "file": "frames/human-walk_009.png" },
+    { "phase": "passing-b", "file": "frames/human-walk_010.png" },
+    { "phase": "83-percent", "file": "frames/human-walk_011.png" },
+    { "phase": "92-percent", "file": "frames/human-walk_012.png" }
+  ]
+}

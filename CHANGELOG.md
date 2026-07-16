@@ -19,7 +19,7 @@ governed beta or stable release.
 - Removed unsupported blanket MIT statements from the product UI.
 - Reserved the public Android launcher for signed, non-debuggable builds rather
   than silently falling back to a debug APK.
-- Disabled remote diagnostic collection, removed its public controls, and
-  documented that older development APKs are not governed releases.
+- Disabled remote diagnostic collection by default, removed its public controls,
+  and clear the retired browser feedback queue when the updated runtime loads.
 - Added explicit AI-interaction disclosure plus development-preview privacy,
   security, support, and product-readiness documents.

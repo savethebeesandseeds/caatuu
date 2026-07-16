@@ -8,26 +8,37 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-2"></script>
     <script>
       try {
-        const storedTheme = localStorage.getItem("caatuu-czech.theme") || "dark";
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
         document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-8"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-2">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-22">
-    <link rel="stylesheet" href="word-net.css?v=word-net-13">
+    <script src="runtime.js?v=runtime-26"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-4">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-41">
+    <link rel="stylesheet" href="word-net.css?v=word-net-45">
   </head>
   <body>
     <div class="word-net-page">
-      <header class="app-header" data-caatuu-app-header data-word-net-title="Word World"></header>
+      <header class="app-header" data-caatuu-app-header data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html#verbs"></header>
 
       <main class="word-net-main" aria-label="Word World">
         <section class="word-net-game" aria-label="Word World game">
-          <section class="word-net-sentence-panel" aria-label="Generated Czech sentence">
+          <section class="word-net-sentence-panel" aria-label="Generated Czech sentence" aria-describedby="wordNetStatus">
+            <aside class="word-net-word-translation" id="wordNetWordTranslation" aria-label="Selected word meaning" aria-live="polite" hidden>
+              <div class="word-net-word-card-copy">
+                <div class="word-net-word-heading">
+                  <strong id="wordNetSelectedWord"></strong>
+                  <span class="word-net-word-pos" id="wordNetSelectedPos"></span>
+                </div>
+                <span class="word-net-word-meaning" id="wordNetSelectedMeaning"></span>
+                <span class="word-net-word-meta" id="wordNetSelectedMeta"></span>
+              </div>
+            </aside>
             <div class="word-net-panel-actions" aria-label="Phrase controls">
               <button class="word-net-icon-button word-net-sound-toggle" id="wordNetSound" type="button" aria-label="Sound unavailable" title="Sound is not available yet" disabled>
                 <span aria-hidden="true">&#128266;</span>
@@ -42,13 +53,41 @@
                 <button type="button" role="menuitemradio" data-translation-mode="timer-30">30s</button>
                 <button type="button" role="menuitemradio" data-translation-mode="visible">Visible</button>
               </div>
-              <button class="word-net-icon-button word-net-shuffle" id="wordNetShuffle" type="button" aria-label="Shuffle phrase">
-                <span aria-hidden="true">&#8635;</span>
+              <button class="word-net-icon-button word-net-generation-toggle" id="wordNetGenerationToggle" type="button" aria-label="Generation options" aria-haspopup="menu" aria-expanded="false">
+                <span class="word-net-generation-icon" id="wordNetGenerationIcon" aria-hidden="true">
+                  <svg class="word-net-shuffle-icon" data-generation-icon="random" viewBox="0 0 24 24" focusable="false">
+                    <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                    <path d="m17 14 3 3-3 3"></path>
+                    <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                    <path d="m17 4 3 3-3 3"></path>
+                  </svg>
+                  <span data-generation-icon="selected" hidden>&#8635;</span>
+                </span>
               </button>
+              <div class="word-net-generation-menu" id="wordNetGenerationMenu" role="menu" aria-label="Sentence generation" hidden>
+                <button type="button" role="menuitemradio" data-generation-mode="random">
+                  <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                    <path d="m17 14 3 3-3 3"></path>
+                    <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                    <path d="m17 4 3 3-3 3"></path>
+                  </svg>
+                  Random
+                </button>
+                <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> Selected word</button>
+              </div>
             </div>
+            <button class="word-net-side-nav word-net-side-previous" id="wordNetPrevious" type="button" aria-label="Previous sentence" title="Previous sentence">
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+            <button class="word-net-side-nav word-net-side-next" id="wordNetNext" type="button" aria-label="Next sentence" title="Next sentence">
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
             <div class="word-net-loading" id="wordNetLoading" hidden>
-              <span></span>
-              <b>Preparing local intelligence</b>
+              <img class="word-net-loading-art" id="wordNetLoadingArt" alt="" aria-hidden="true" fetchpriority="low" hidden>
+              <div class="word-net-loading-copy">
+                <span class="word-net-loading-spinner" aria-hidden="true"></span>
+              </div>
             </div>
             <figure class="word-net-scene" id="wordNetScene" hidden>
               <img id="wordNetSceneImage" alt="">
@@ -57,11 +96,63 @@
               <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
               <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
             </div>
+            <div class="word-net-feedback">
+              <button class="word-net-report-toggle" id="wordNetReportToggle" type="button" hidden>Report this sentence</button>
+              <dialog class="word-net-feedback-dialog" id="wordNetFeedbackDialog" aria-label="Report this sentence">
+                <form class="word-net-feedback-form" id="wordNetFeedbackForm">
+                  <label for="wordNetFeedbackReason">What seems wrong?</label>
+                  <select id="wordNetFeedbackReason" name="reason">
+                    <option value="nonsense_or_incorrect">Nonsense or incorrect</option>
+                    <option value="unnatural_czech">Unnatural Czech</option>
+                    <option value="wrong_translation">Wrong English translation</option>
+                    <option value="repeated_too_soon">Repeated too soon</option>
+                    <option value="other">Something else</option>
+                  </select>
+                  <textarea id="wordNetFeedbackComment" name="comment" rows="2" maxlength="400" placeholder="Optional note"></textarea>
+                  <div class="word-net-feedback-actions">
+                    <button id="wordNetFeedbackSubmit" type="submit">Send</button>
+                    <button id="wordNetFeedbackCancel" type="button">Cancel</button>
+                  </div>
+                </form>
+              </dialog>
+              <p class="word-net-feedback-status" id="wordNetFeedbackStatus" aria-live="polite"></p>
+            </div>
           </section>
 
           <section class="word-net-status-panel" aria-label="Word World status">
-            <p id="wordNetStatus">Tap any word to make the next phrase. Use &#8635; for a fresh random phrase.</p>
-            <p class="word-net-browser-note" id="wordNetBrowserNote" hidden>Browser preview uses local practice sentences. Android uses the Word Sentence and CZ to EN models.</p>
+            <p id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
+            <details class="word-net-diagnostics" id="wordNetDiagnostics">
+              <summary>
+                <span>Runtime</span>
+                <span class="word-net-diagnostics-summary" id="wordNetDiagnosticsSummary">starting · browser · queue 0/0 · cap 512</span>
+              </summary>
+              <dl class="word-net-diagnostics-grid">
+                <div>
+                  <dt>state</dt>
+                  <dd id="wordNetMetaPhase">starting</dd>
+                </div>
+                <div>
+                  <dt>model</dt>
+                  <dd id="wordNetMetaModel">browser fallback</dd>
+                </div>
+                <div>
+                  <dt>queue</dt>
+                  <dd id="wordNetMetaQueue">0 fresh · 0 saved</dd>
+                </div>
+                <div>
+                  <dt>next</dt>
+                  <dd id="wordNetMetaMode">Random</dd>
+                </div>
+                <div>
+                  <dt>source</dt>
+                  <dd id="wordNetMetaSource">—</dd>
+                </div>
+                <div>
+                  <dt>history</dt>
+                  <dd id="wordNetMetaHistory">0</dd>
+                </div>
+              </dl>
+            </details>
             <div class="word-net-progress" id="wordNetProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
               <span id="wordNetProgressBar"></span>
             </div>
@@ -79,7 +170,7 @@
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-          <span>by Waajacu</span>
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
     </div>
@@ -92,7 +183,8 @@
       data-settings-href="index.html#settings"
     ></nav>
 
-    <script src="chrome.js?v=chrome-27"></script>
-    <script type="module" src="word-net.js?v=word-net-9"></script>
+    <script src="chrome.js?v=chrome-47"></script>
+    <script src="maintenance-ui.js?v=maintenance-13"></script>
+    <script type="module" src="word-net.js?v=word-net-41"></script>
   </body>
 </html>

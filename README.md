@@ -1,262 +1,98 @@
-# Caatuu Workspace
+# Caatuu
 
-Caatuu is a workspace for language-learning app variants.
+Caatuu is a local-first language-learning platform built around playful,
+interactive worlds. The current product focuses on Czech and combines a browser
+experience, a native Android shell, offline language models, dictionaries, and
+retrieval tools in one workspace.
 
-## Product, license, and release status
+[![Repository checks](https://github.com/savethebeesandseeds/caatuu/actions/workflows/repository-ci.yml/badge.svg)](https://github.com/savethebeesandseeds/caatuu/actions/workflows/repository-ci.yml)
+[![License: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-blue.svg)](LICENSE)
 
-Caatuu is pre-release software. Its first-party software and developer
-documentation are licensed `AGPL-3.0-only`. Models, data, dictionaries,
-artwork, branding, and third-party components retain separate terms; see
-[`LICENSING.md`](LICENSING.md) and [`LEGAL_INVENTORY.md`](LEGAL_INVENTORY.md).
+> Caatuu is a development preview. It is not yet a supported public beta or a
+> stable release. See the [product-readiness baseline](docs/PRODUCT_READINESS.md)
+> before distributing builds.
 
-Public debug APKs are development artifacts, not normal downloads. The public
-launcher is reserved for a signed, non-debuggable build that passes
-[`RELEASING.md`](RELEASING.md). Outside contributions are temporarily paused as
-described in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+## What is here
 
-The current public status and path to a governed beta are in
-[`PRODUCT_READINESS.md`](PRODUCT_READINESS.md). Development-preview practices
-are documented in [`PRIVACY.md`](PRIVACY.md), [`SECURITY.md`](SECURITY.md), and
-[`SUPPORT.md`](SUPPORT.md).
+| Surface | Purpose |
+| --- | --- |
+| [`apps/caatuu-czech`](apps/caatuu-czech/) | Czech browser app, learning activities, local model setup, dictionaries, and vector retrieval |
+| [`apps/caatuu-android`](apps/caatuu-android/) | Native Android shell with offline GGUF inference and app-update support |
+| [`apps/caatuu-runtime`](apps/caatuu-runtime/) | Rust/Axum server for the launcher, app routes, downloads, and optional archived APIs |
+| [`apps/caatuu-unified`](apps/caatuu-unified/) | Shared landing page, language launcher, and production asset catalog |
+| [`apps/animated-fabric`](apps/animated-fabric/) | Isolated Linux-first toolkit for layered 2D character animation |
+| [`demos`](demos/) | Browser experiments that are deliberately separated from production apps |
 
-## Active Apps
+The active Czech experience is available as a browser app and through the
+Android shell. Archived Chinese experiments remain available for historical
+reference but are not part of the active product path.
 
-- `apps/caatuu-unified` - the root landing page served at `/`.
-- `apps/caatuu-runtime` - Rust/Axum server that owns the runtime routes.
-- `apps/caatuu-czech` - Czech browser app, served at `/cz/`. Local WebLLM model exports live under `static/data/models/` but are generated artifacts, not Git payload.
-- `apps/caatuu-android` - native Android shell for the Czech app and offline GGUF inference through llama.cpp.
+## Quick start
 
-## One Container
-
-The runtime path is reproducible through `compose.yaml`. It defines only the
-daily runtime server and the optional Cloudflare tunnel. Heavy build and ML
-helpers live in `compose.tools.yaml` so they do not get mixed into normal
-startup.
-
-From PowerShell on Windows:
+The repository uses Docker as its authoritative development environment. From
+PowerShell:
 
 ```powershell
 cd C:\Work\caatuu
-```
-
-Rebuild the Rust backend with the Rust tool container:
-
-```powershell
-docker compose -f compose.tools.yaml run --rm caatuu-build
-```
-
-Start or recreate the Debian runtime container:
-
-```powershell
 docker compose up -d --build caatuu
 ```
 
-For normal daily startup after the image already exists, do not rebuild:
+Open:
+
+- `http://127.0.0.1:8765/` — launcher
+- `http://127.0.0.1:8765/cz/` — Czech app
+- `http://127.0.0.1:8765/demos/` — isolated demos
+
+After the first build, normal daily startup is:
 
 ```powershell
 docker compose up -d caatuu
 ```
 
-Watch logs:
+See [development and operations](docs/DEVELOPMENT.md) for logs, the public
+tunnel, Android builds, ML tooling, archived APIs, and validation commands.
 
-```powershell
-docker compose logs -f caatuu
-```
-
-For noisier Rust logs during debugging, set `CAATUU_RUST_LOG` before starting:
-
-```powershell
-$env:CAATUU_RUST_LOG = "debug"
-docker compose up -d --build caatuu
-```
-
-Restart only the running server container:
-
-```powershell
-docker compose restart caatuu
-```
-
-If you need the old manual path for debugging, the equivalent container is:
-
-```powershell
-docker rm -f caatuu 2>$null
-
-docker run -dit `
-  --name caatuu `
-  -p 8765:9172 `
-  -v C:\Work\caatuu:/workspace `
-  -w /workspace `
-  caatuu-runtime:debian-latest
-```
-
-The runtime image already includes these tools:
-
-```bash
-bash ca-certificates cloudflared curl file gpg procps tini
-```
-
-If you change Rust dependencies or the backend source, rerun:
-
-```powershell
-docker compose -f compose.tools.yaml run --rm caatuu-build
-docker compose up -d --build caatuu
-```
-
-The direct Rust build command remains available if Compose is not working:
-
-```powershell
-docker run --rm -v C:\Work\caatuu:/workspace -w /workspace/apps/caatuu-runtime -e CARGO_TARGET_DIR=/workspace/apps/caatuu-runtime/target-linux rust:latest cargo build
-```
-
-The runtime container executes this server command automatically:
-
-```bash
-bash /workspace/tools/runtime/start-caatuu.sh
-```
-
-If you override the image command for debugging, run that same command manually
-inside the container.
-
-Open locally:
+## Repository map
 
 ```text
-http://127.0.0.1:8765/
-http://127.0.0.1:8765/cz/
-http://127.0.0.1:8765/cz/home.html
-http://127.0.0.1:8765/cz/chat.html
-http://127.0.0.1:8765/archive/chinese/
+caatuu/
+├── apps/       active applications with independent runtime boundaries
+├── archive/    preserved, non-active product experiments
+├── demos/      isolated browser and animation experiments
+├── docs/       architecture, development, release, and governance records
+├── tools/      Android, ML, runtime, image, and repository tooling
+├── .github/    CI and GitHub community files
+└── compose*.yaml
 ```
 
-## Cloudflare Tunnel
+Root-level Compose files are intentional entrypoints. Runtime, tools, archived
+API, and phone-debug configuration stay separate so high-risk or heavyweight
+features are never enabled by normal startup.
 
-Cloudflare Tunnel is required for the public app routes and Android in-app
-updates. The app can run locally without it, but `Update app`, phone downloads,
-and public links under `https://caatuu.waajacu.com/` depend on the tunnel.
+## Documentation
 
-Keep the tunnel token outside Git. Create an ignored token file on the host:
+- [Documentation index](docs/README.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Language application contract](docs/LANGUAGE_APP_CONTRACT.md)
+- [Development and operations](docs/DEVELOPMENT.md)
+- [Release policy](docs/RELEASING.md)
+- [Licensing scope](docs/LICENSING.md)
+- [Legal and provenance inventory](docs/LEGAL_INVENTORY.md)
+- [Contributing](.github/CONTRIBUTING.md)
+- [Security](.github/SECURITY.md)
+- [Support](.github/SUPPORT.md)
 
-```powershell
-New-Item -ItemType Directory -Force secrets
-$token = Read-Host "Cloudflare tunnel token"
-Set-Content -NoNewline -Path secrets\cloudflared-token -Value $token
-```
+Each substantial app and tool owns a local README with commands and boundaries
+specific to that component. Start at the root, then follow the README nearest
+to the code you are changing.
 
-Start the runtime and tunnel profile:
+## License and release status
 
-```powershell
-docker compose --profile tunnel up -d caatuu caatuu-tunnel
-```
+First-party software and developer documentation are licensed
+[`AGPL-3.0-only`](LICENSE). Models, datasets, dictionaries, artwork, branding,
+and third-party components retain separate terms; consult
+[the licensing guide](docs/LICENSING.md) and
+[the provenance inventory](docs/LEGAL_INVENTORY.md).
 
-After rebuilding or recreating the `caatuu` container, recreate the tunnel
-service too. The tunnel shares the app container network namespace, so a stale
-tunnel can stay attached to a deleted namespace and Cloudflare will return a
-530 / 1033 page even while `http://127.0.0.1:8765/` works locally:
-
-```powershell
-docker compose --profile tunnel up -d --force-recreate caatuu-tunnel
-```
-
-The Cloudflare named tunnel should point to the Rust server inside the shared
-network namespace:
-
-```text
-http://127.0.0.1:9172
-```
-
-The equivalent manual command inside the `caatuu` container is:
-
-```bash
-cloudflared tunnel --protocol http2 --no-autoupdate run --token-file /run/secrets/cloudflared-token
-```
-
-Public routes after the tunnel is connected:
-
-```text
-https://caatuu.waajacu.com/
-https://caatuu.waajacu.com/cz/
-https://caatuu.waajacu.com/cz/home.html
-https://caatuu.waajacu.com/cz/chat.html
-https://caatuu.waajacu.com/archive/chinese/
-https://caatuu.waajacu.com/android/caatuu.json
-https://caatuu.waajacu.com/android/caatuu.apk
-```
-
-Verify the tunnel after a fresh environment starts:
-
-```powershell
-curl.exe -I https://caatuu.waajacu.com/android/caatuu.json
-```
-
-Unknown app routes are served by `apps/caatuu-unified/static/not-found.html`
-with HTTP `404`, so typo URLs under the app show the Caatuu page instead of
-the launcher. That only applies after the request reaches the Rust server. A
-Cloudflare `1033` or tunnel-origin error means Cloudflare cannot find a healthy
-`cloudflared` connector or origin, so recreate `caatuu-tunnel` or configure a
-Cloudflare Custom Error page if the edge error body itself must be branded.
-
-## Runtime Boundary Audit
-
-After changing routes, browser shell files, archived Chinese files, or Android
-packaging, rebuild/restart the local runtime and run:
-
-```powershell
-node tools\runtime\audit-runtime-boundary.mjs
-```
-
-This verifies the root launcher, Czech `/cz/` app, Chinese
-`/archive/chinese/` archive, retired root Chinese backend routes, retired old
-Czech filenames, and the rebuilt Android APK contents.
-
-## Development Split
-
-The browser/runtime container does not need Python or nginx. The Rust server
-serves the unified landing page, the Czech browser app, Android download
-artifacts, and the archived Chinese app from `archive/caatuu-chinese` under
-`/archive/chinese/`.
-
-Top-level `/api/v1/*` and `/ws` are intentionally retired so old Chinese
-backend paths do not look like active app routes. The old `/zh/` pages redirect
-to `/archive/chinese/` for compatibility only.
-
-Training/export work uses the heavier Debian dev container:
-
-```powershell
-docker compose -f compose.tools.yaml --profile dev up -d --build caatuu-dev
-docker compose -f compose.tools.yaml exec caatuu-dev bash
-```
-
-Verify it from inside the container:
-
-```bash
-check-caatuu-dev
-```
-
-That container includes CUDA 12.8 PyTorch, Transformers, PEFT, Accelerate,
-Node.js, Rust, CMake/build tools, git/git-lfs, Java, and a separate
-`/opt/caatuu-mlc` environment for MLC/WebLLM conversion packages.
-
-The ML workspace is:
-
-```text
-tools/caatuu-cz-ml
-```
-
-That part still depends on Python/PyTorch until we replace the training stack.
-
-## Archive
-
-- `archive/caatuu-chinese` - preserved Chinese trainer static app. It is not
-  part of the active language-selection path.
-- `archive/caatuu-tauri-android-deprecated` - older Tauri/Android packaging experiment.
-- `archive/caatuu-server-deprecated` - older Rust server/profile-engine experiment.
-
-## Tools
-
-- `tools/runtime` - launch script for the unified Rust server.
-- `tools/dev` - heavy Debian dev/ML image for training, export, phone-bench,
-  Android helper builds, and backend development.
-- `tools/phone-bench` - native Android/Termux benchmark path for offline Czech
-  model testing on phones without browser WebGPU.
-- `tools/android-build` - Debian Docker build path for the native Android app,
-  using Android command-line tools instead of host Windows installs.
-- `tools/images-generation` - Stable Diffusion/image generation workspace.
+Public debug APKs are development artifacts, not normal downloads. A release
+must pass the gates in [the release policy](docs/RELEASING.md).

@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "id": "macaw-locomotion-v1",
+  "status": "reference-approved-character-transfer-incomplete",
+  "source": {
+    "name": "Quaternius Universal Animation Library",
+    "edition": "Standard",
+    "license": "CC0-1.0",
+    "archive_sha256": "18FF1A7215F4852B320203E8AAF02A1578B5C8EEF9027FBAEDFCEDC7B85A3AC2"
+  },
+  "render": {
+    "projection": "orthographic",
+    "view": "strict-side",
+    "camera_axis": "+X",
+    "ground_line": "fixed",
+    "sampling": "even-phase"
+  },
+  "sets": [
+    {
+      "id": "idle",
+      "source_clip": "Idle_Loop",
+      "duration_seconds": 2.5,
+      "frames": 6,
+      "sheet": "silhouettes/caatuu-idle_loop-silhouette-sheet.png",
+      "sheet_size": [570, 428]
+    },
+    {
+      "id": "walk",
+      "source_clip": "Walk_Loop",
+      "duration_seconds": 1.333,
+      "frames": 12,
+      "sheet": "silhouettes/caatuu-walk_loop-silhouette-sheet.png",
+      "sheet_size": [760, 642]
+    },
+    {
+      "id": "run",
+      "source_clip": "Sprint_Loop",
+      "duration_seconds": 0.667,
+      "frames": 12,
+      "sheet": "silhouettes/caatuu-sprint_loop-silhouette-sheet.png",
+      "sheet_size": [760, 642]
+    }
+  ],
+  "keypose_authority": {
+    "action": "walk",
+    "board": "keypose-authority/walk-keyposes-4.png",
+    "inbetween_board": "keypose-authority/walk-inbetweens-4.png",
+    "split_directory": "keypose-authority/split",
+    "split_manifest": "keypose-authority/split_manifest.json",
+    "frames": 4,
+    "order": [
+      "contact-a",
+      "passing-a",
+      "contact-b",
+      "passing-b"
+    ],
+    "inbetween_order": [
+      "down-a",
+      "up-a",
+      "down-b",
+      "up-b"
+    ],
+    "warnings": 0
+  },
+  "generated_candidates": [
+    {
+      "file": "generated-candidates/macaw-walk-12frame-v1.png",
+      "status": "diagnostic-rejected",
+      "reason": "insufficient pose separation and arm swing"
+    },
+    {
+      "file": "generated-candidates/macaw-walk-keyposes-v2.png",
+      "status": "promising-needs-revision",
+      "reason": "leg contacts read clearly but arm swing does not alternate"
+    },
+    {
+      "file": "generated-candidates/macaw-walk-keyposes-v3-arm-pass.png",
+      "status": "browser-validation",
+      "reason": "four normalized keyframes with revised arm phases",
+      "split_directory": "generated-candidates/macaw-walk-v3-test/frames",
+      "split_manifest": "generated-candidates/macaw-walk-v3-test/split_manifest.json",
+      "sprite_count": 4,
+      "warnings": 0,
+      "normalized_canvas": [520, 570]
+    },
+    {
+      "file": "generated-candidates/macaw-walk-v4-test/animation.json",
+      "source_sheet": "generated-candidates/macaw-walk-inbetweens-v4.png",
+      "status": "browser-validation",
+      "reason": "four added down and up poses interleaved with the cleaned v3 contact and passing poses",
+      "split_directory": "generated-candidates/macaw-walk-v4-test/frames",
+      "split_manifest": "generated-candidates/macaw-walk-v4-test/inbetween_split_manifest.json",
+      "added_sprite_count": 4,
+      "sprite_count": 8,
+      "warnings": 0,
+      "normalized_canvas": [520, 570]
+    },
+    {
+      "file": "generated-candidates/macaw-walk-v5-optical-flow-test/contact-sheet.png",
+      "status": "diagnostic-rejected",
+      "reason": "motion interpolation introduced ghost hands, doubled feet, dark limb trails, and unstable transparent edges",
+      "source": "macaw-walk-v4 eight-frame loop",
+      "interpolated_sprite_count": 24,
+      "promotion": "none"
+    },
+    {
+      "file": "generated-candidates/human-pose-imagegen-v1/README.md",
+      "status": "motion-playback-baseline",
+      "reason": "curated generated human sequence validates playback order, cadence, and loop presentation",
+      "playback_order": [1, 3, 5, 6, 7, 9, 11, 10],
+      "walk_sprite_count": 8,
+      "idle_sprite_count": 6,
+      "promotion": "demo-only"
+    },
+    {
+      "file": "generated-candidates/macaw-pose-guided-v1/README.md",
+      "status": "isolated-silhouette-transfer-candidate",
+      "reason": "human guides improve leg contact and weight transfer, but the robe and backpack still suppress readable opposing arm movement",
+      "playback_order": [1, 3, 5, 6, 7, 9, 11, 10],
+      "sprite_count": 8,
+      "normalized_canvas": [520, 570],
+      "promotion": "none"
+    }
+  ],
+  "character_dressing": {
+    "motion_authority": "silhouette",
+    "equipment_free_base_cycle": true,
+    "review_before_split": true,
+    "required_landmarks": [
+      "head",
+      "shoulders",
+      "elbows",
+      "hands",
+      "hips",
+      "knees",
+      "feet"
+    ]
+  }
+}

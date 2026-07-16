@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=22">
+    <link rel="stylesheet" href="/app.css?v=30">
+    <script src="/launcher.js?v=5" defer></script>
   </head>
   <body class="home-page">
     <main class="menu-shell">
@@ -20,17 +21,22 @@
               </span>
             </span>
             <span class="available-languages" aria-label="Available languages">
-              <span>Available languages</span>
-              <ul class="language-list">
-                <li aria-label="Czech">
-                  <img class="flag-icon" src="/assets/icons/czech_flag.png" alt="">
+              <span class="available-languages-label">Available languages</span>
+              <ul class="language-list" data-language-list>
+                <li aria-label="Czech" data-language-id="cz">
+                  <span class="language-choice language-choice-static">
+                    <img class="flag-icon" src="/assets/icons/czech_flag.png" alt="">
+                    <span class="language-choice-code">CZ</span>
+                  </span>
                 </li>
               </ul>
             </span>
           </header>
 
           <div class="welcome-stage" aria-hidden="true">
-            <img class="welcome-art" src="/assets/macaw/actions/explorer_hello.png" alt="">
+            <img class="welcome-art welcome-art-study" src="/assets/macaw/actions/macaw%20(23).png" alt="">
+            <img class="welcome-art welcome-art-hero" src="/assets/miscellaneous/burrow-review_062.png" alt="">
+            <img class="welcome-art welcome-art-explore" src="/assets/macaw/actions/macaw%20(62).png" alt="">
           </div>
 
           <div class="menu-heading home-heading">
@@ -40,14 +46,14 @@
           </div>
 
           <nav class="entry-options" aria-label="App entry options">
-            <a class="entry-option entry-download" href="/android/caatuu.apk">
+            <a class="entry-option entry-download" data-android-download aria-disabled="true">
               <span class="entry-icon" aria-hidden="true">APK</span>
               <span class="entry-copy">
-                <small>Android</small>
-                <b>Download the app</b>
+                <small>Android beta</small>
+                <b>Checking signed beta</b>
               </span>
             </a>
-            <a class="entry-option entry-browser" href="/cz/">
+            <a class="entry-option entry-browser" href="/cz/home.html" data-browser-entry>
               <span class="entry-icon" aria-hidden="true">WEB</span>
               <span class="entry-copy">
                 <small>Browser</small>
@@ -62,7 +68,7 @@
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt="">
-          <span>by Waajacu</span>
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
     </main>

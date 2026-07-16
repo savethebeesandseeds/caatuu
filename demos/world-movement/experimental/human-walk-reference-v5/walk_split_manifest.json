@@ -1,0 +1,407 @@
+{
+  "cols": 4,
+  "count": 12,
+  "input_dir": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals",
+  "output_dir": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split",
+  "prefix": "human-pose-walk",
+  "rows": 3,
+  "sprites": [
+    {
+      "area": 5253,
+      "bbox": [
+        48,
+        17,
+        143,
+        178
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_001.png",
+      "index": 1,
+      "mask_engine": "alpha",
+      "output_size": [
+        143,
+        209
+      ],
+      "padded_bbox": [
+        24,
+        0,
+        167,
+        202
+      ],
+      "restored_padding": [
+        0,
+        7,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 1
+    },
+    {
+      "area": 5298,
+      "bbox": [
+        250,
+        18,
+        334,
+        178
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_002.png",
+      "index": 2,
+      "mask_engine": "alpha",
+      "output_size": [
+        132,
+        208
+      ],
+      "padded_bbox": [
+        226,
+        0,
+        358,
+        202
+      ],
+      "restored_padding": [
+        0,
+        6,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 2
+    },
+    {
+      "area": 4714,
+      "bbox": [
+        451,
+        16,
+        516,
+        178
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_003.png",
+      "index": 3,
+      "mask_engine": "alpha",
+      "output_size": [
+        113,
+        210
+      ],
+      "padded_bbox": [
+        427,
+        0,
+        540,
+        202
+      ],
+      "restored_padding": [
+        0,
+        8,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 3
+    },
+    {
+      "area": 4184,
+      "bbox": [
+        642,
+        14,
+        691,
+        178
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_004.png",
+      "index": 4,
+      "mask_engine": "alpha",
+      "output_size": [
+        97,
+        212
+      ],
+      "padded_bbox": [
+        618,
+        0,
+        715,
+        202
+      ],
+      "restored_padding": [
+        0,
+        10,
+        0,
+        0
+      ],
+      "row": 1,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 4
+    },
+    {
+      "area": 4794,
+      "bbox": [
+        65,
+        204,
+        122,
+        368
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_005.png",
+      "index": 5,
+      "mask_engine": "alpha",
+      "output_size": [
+        105,
+        212
+      ],
+      "padded_bbox": [
+        41,
+        180,
+        146,
+        392
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 5
+    },
+    {
+      "area": 5137,
+      "bbox": [
+        244,
+        205,
+        320,
+        368
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_006.png",
+      "index": 6,
+      "mask_engine": "alpha",
+      "output_size": [
+        124,
+        211
+      ],
+      "padded_bbox": [
+        220,
+        181,
+        344,
+        392
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 6
+    },
+    {
+      "area": 5269,
+      "bbox": [
+        428,
+        207,
+        519,
+        368
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_007.png",
+      "index": 7,
+      "mask_engine": "alpha",
+      "output_size": [
+        139,
+        209
+      ],
+      "padded_bbox": [
+        404,
+        183,
+        543,
+        392
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 7
+    },
+    {
+      "area": 5358,
+      "bbox": [
+        630,
+        208,
+        713,
+        370
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_008.png",
+      "index": 8,
+      "mask_engine": "alpha",
+      "output_size": [
+        131,
+        210
+      ],
+      "padded_bbox": [
+        606,
+        184,
+        737,
+        394
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "row": 2,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 8
+    },
+    {
+      "area": 4841,
+      "bbox": [
+        70,
+        396,
+        138,
+        558
+      ],
+      "col": 1,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_009.png",
+      "index": 9,
+      "mask_engine": "alpha",
+      "output_size": [
+        116,
+        210
+      ],
+      "padded_bbox": [
+        46,
+        372,
+        162,
+        570
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 9
+    },
+    {
+      "area": 4271,
+      "bbox": [
+        262,
+        394,
+        311,
+        558
+      ],
+      "col": 2,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_010.png",
+      "index": 10,
+      "mask_engine": "alpha",
+      "output_size": [
+        97,
+        212
+      ],
+      "padded_bbox": [
+        238,
+        370,
+        335,
+        570
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 10
+    },
+    {
+      "area": 4762,
+      "bbox": [
+        444,
+        394,
+        504,
+        558
+      ],
+      "col": 3,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_011.png",
+      "index": 11,
+      "mask_engine": "alpha",
+      "output_size": [
+        108,
+        212
+      ],
+      "padded_bbox": [
+        420,
+        370,
+        528,
+        570
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 11
+    },
+    {
+      "area": 5025,
+      "bbox": [
+        624,
+        396,
+        703,
+        558
+      ],
+      "col": 4,
+      "components": 1,
+      "file": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-split/human-pose-walk_012.png",
+      "index": 12,
+      "mask_engine": "alpha",
+      "output_size": [
+        127,
+        210
+      ],
+      "padded_bbox": [
+        600,
+        372,
+        727,
+        570
+      ],
+      "restored_padding": [
+        0,
+        0,
+        0,
+        12
+      ],
+      "row": 3,
+      "source": "/workspace/tukevejtso/linux/workspaces/images/human-pose-conditioning-v3/walk-originals/human-walk-pose-guide-sheet.png",
+      "source_slot": 12
+    }
+  ],
+  "warnings": []
+}
