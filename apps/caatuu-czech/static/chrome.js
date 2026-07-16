@@ -478,7 +478,7 @@
               <p class="settings-kicker kicker">About</p>
               <h3>Details</h3>
             </div>
-            <p class="about-brand-note"><a href="https://www.waajacu.com/" rel="noopener">Waajacu</a> TM. Caatuu is a Waajacu language-learning app.</p>
+            <p class="about-brand-note">Caatuu is a language-learning project from <a href="https://www.waajacu.com/" rel="noopener">Waajacu</a>.</p>
             <p class="version-note" id="settingsVersion" data-fallback-version="Version check pending">Version check pending</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
@@ -493,26 +493,24 @@
                   <span class="settings-kicker kicker">Legal</span>
                   <strong>Licenses</strong>
                 </span>
-                <small id="licenseMetaSummary">MIT app, local artifacts</small>
+                <small id="licenseMetaSummary">Component-specific terms</small>
               </summary>
               <div class="settings-details-body">
                 <div class="license-copy">
-                  <p>Caatuu app code is provided under the MIT license. Local model weights are separate third-party artifacts and keep their own licenses.</p>
-                  <p>Each artifact row names its own source and license.</p>
-                  <p>The MIT license for this app does not relicense model weights, upstream model names, datasets, or provider trademarks.</p>
+                  <p>Caatuu's first-party software is licensed AGPL-3.0-only and is provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. Models, dictionaries, datasets, artwork, branding, and third-party components keep their separate terms.</p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">
                   <div>
                     <dt>Word Sentence CZ</dt>
-                    <dd>BUT-FIT/CSTinyLlama-1.2B, Apache-2.0</dd>
+                    <dd>Base model: BUT-FIT/CSTinyLlama-1.2B, Apache-2.0. Derived artifact review pending.</dd>
                   </div>
                   <div>
                     <dt>Czech to English</dt>
-                    <dd>BUT-FIT/CSTinyLlama-1.2B, Apache-2.0</dd>
+                    <dd>Base model: Qwen/Qwen3-1.7B, Apache-2.0. Derived artifact review pending.</dd>
                   </div>
                   <div>
                     <dt>Caatuu Curriculum and Asset Embeddings</dt>
-                    <dd>Caatuu curated curriculum corpus, MIT. Embeds english_text only.</dd>
+                    <dd>all-MiniLM-L6-v2 base model, Apache-2.0. Curriculum and asset provenance review pending; embeds English text only.</dd>
                   </div>
                 </dl>
               </div>
@@ -522,7 +520,7 @@
           <footer class="settings-sheet-footer">
             <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
               <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
-              <span>by Waajacu<sup class="footer-tm">TM</sup></span>
+              <span>by Waajacu</span>
             </a>
           </footer>
         </div>

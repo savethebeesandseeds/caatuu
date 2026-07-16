@@ -2,6 +2,7 @@
   "name": "caatuu-cz-ml",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {
     "check": "node --check scripts/build-corpus.mjs && node --check scripts/build-sft-dataset.mjs && node --check scripts/build-planet-wordnet-dataset.mjs && node --check scripts/build-curriculum-core.mjs && node --check scripts/build-curriculum-vector-db.mjs && node --check scripts/build-common-phrases.mjs && node --check scripts/build-curriculum-lora-datasets.mjs && node --check scripts/build-qwen-translation-chat-dataset.mjs && node --check scripts/cleanup-curriculum-diversity.mjs && node --check scripts/fill-czech-text-from-templates.mjs && node --check scripts/validate-curriculum-curated.mjs && node --check scripts/validate-common-phrases.mjs && node --check scripts/validate-czech-text.mjs && node --check scripts/validate-curriculum-lora-datasets.mjs && node --check scripts/compare-benchmarks.mjs && node --check scripts/finalize-webllm-export.mjs",

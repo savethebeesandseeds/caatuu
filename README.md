@@ -2,6 +2,18 @@
 
 Caatuu is a workspace for language-learning app variants.
 
+## Product, license, and release status
+
+Caatuu is pre-release software. Its first-party software and developer
+documentation are licensed `AGPL-3.0-only`. Models, data, dictionaries,
+artwork, branding, and third-party components retain separate terms; see
+[`LICENSING.md`](LICENSING.md) and [`LEGAL_INVENTORY.md`](LEGAL_INVENTORY.md).
+
+Public debug APKs are development artifacts, not normal downloads. The public
+launcher is reserved for a signed, non-debuggable build that passes
+[`RELEASING.md`](RELEASING.md). Outside contributions are temporarily paused as
+described in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Active Apps
 
 - `apps/caatuu-unified` - the root landing page served at `/`.
