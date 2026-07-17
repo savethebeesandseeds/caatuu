@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+# shellcheck source=versions.env
+source "$repo_root/apps/android/tooling/versions.env"
+
+for key in \
+  CAATUU_ANDROID_KEYSTORE \
+  CAATUU_ANDROID_KEYSTORE_PASSWORD \
+  CAATUU_ANDROID_KEY_ALIAS \
+  CAATUU_ANDROID_KEY_PASSWORD
+do
+  if [ -z "${!key:-}" ]; then
+    echo "Set $key before building a signed Play Store bundle." >&2
+    exit 1
+  fi
+done
+
+if ! command -v gradle >/dev/null 2>&1; then
+  echo "Gradle is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
+  exit 1
+fi
+
+bash "$repo_root/apps/android/scripts/prepare-llama-vendor.sh"
+
+cd "$repo_root/apps/android"
+gradle --no-daemon :app:bundlePlay
+
+mkdir -p "$repo_root/artifacts/android"
+cp app/build/outputs/bundle/play/app-play.aab "$repo_root/artifacts/android/caatuu-release.aab"
+echo "Wrote $repo_root/artifacts/android/caatuu-release.aab"

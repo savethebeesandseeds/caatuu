@@ -1,0 +1,6413 @@
+{
+  "generated_at": "2026-07-05T18:31:05.436Z",
+  "source_dataset_dir": "C:\\Work\\caatuu\\tools\\czech-ml\\data\\curriculum\\core-v0.1",
+  "output_dataset_dir": "C:\\Work\\caatuu\\tools\\czech-ml\\data\\curriculum\\core-v0.2",
+  "source_near_duplicate_candidates": 200,
+  "changed_rows": 200,
+  "exact_duplicate_texts": [],
+  "common_openings_top_20": [
+    [
+      "where is the",
+      98
+    ],
+    [
+      "can you see",
+      97
+    ],
+    [
+      "please show me",
+      57
+    ],
+    [
+      "do you like",
+      55
+    ],
+    [
+      "do you want",
+      55
+    ],
+    [
+      "please hold the",
+      44
+    ],
+    [
+      "please find the",
+      41
+    ],
+    [
+      "please take the",
+      40
+    ],
+    [
+      "please close the",
+      39
+    ],
+    [
+      "please open the",
+      37
+    ],
+    [
+      "a child puts",
+      35
+    ],
+    [
+      "a friend puts",
+      35
+    ],
+    [
+      "a friend has",
+      34
+    ],
+    [
+      "a girl has",
+      33
+    ],
+    [
+      "a student has",
+      33
+    ],
+    [
+      "a father has",
+      30
+    ],
+    [
+      "a mother has",
+      30
+    ],
+    [
+      "a teacher puts",
+      29
+    ],
+    [
+      "please put the",
+      29
+    ],
+    [
+      "a boy has",
+      27
+    ]
+  ],
+  "target_words_top_20": [
+    [
+      "has",
+      431
+    ],
+    [
+      "puts",
+      382
+    ],
+    [
+      "eats",
+      288
+    ],
+    [
+      "some",
+      269
+    ],
+    [
+      "friend",
+      258
+    ],
+    [
+      "child",
+      247
+    ],
+    [
+      "father",
+      240
+    ],
+    [
+      "sees",
+      232
+    ],
+    [
+      "small",
+      228
+    ],
+    [
+      "brother",
+      225
+    ],
+    [
+      "teacher",
+      224
+    ],
+    [
+      "mother",
+      223
+    ],
+    [
+      "student",
+      223
+    ],
+    [
+      "girl",
+      208
+    ],
+    [
+      "finds",
+      204
+    ],
+    [
+      "baby",
+      202
+    ],
+    [
+      "grandpa",
+      201
+    ],
+    [
+      "sister",
+      200
+    ],
+    [
+      "neighbor",
+      190
+    ],
+    [
+      "likes",
+      189
+    ]
+  ],
+  "changes": [
+    {
+      "id": "cc-004127",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-001803:cc-004127",
+      "old_text": "A brother gives the mother a small toy.",
+      "new_text": "A brother puts the small toy beside the mother.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "brother",
+        "gives",
+        "mother",
+        "small",
+        "toy"
+      ],
+      "new_target_words": [
+        "brother",
+        "mother",
+        "puts",
+        "small",
+        "toy"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004362",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-002483:cc-004362",
+      "old_text": "A father gives the friend a small drum.",
+      "new_text": "A friend looks at the small drum with the father.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "father",
+        "gives",
+        "friend",
+        "small",
+        "drum"
+      ],
+      "new_target_words": [
+        "father",
+        "friend",
+        "looks",
+        "small",
+        "drum"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-004837",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-003593:cc-004837",
+      "old_text": "A friend gives the sister a small box.",
+      "new_text": "A friend keeps the small box for later.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "friend",
+        "gives",
+        "sister",
+        "small",
+        "box"
+      ],
+      "new_target_words": [
+        "friend",
+        "sister",
+        "keeps",
+        "small",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-002131",
+      "reason": "object_place_swap",
+      "pair_id": "cc-000941:cc-002131",
+      "old_text": "A friend puts the basket in the box.",
+      "new_text": "The basket is next to the box.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "friend",
+        "puts",
+        "basket",
+        "box"
+      ],
+      "new_target_words": [
+        "friend",
+        "is",
+        "basket",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-001291",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001291:cc-003897",
+      "old_text": "Is the picture old?",
+      "new_text": "A teacher looks at the old picture in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "picture",
+        "old"
+      ],
+      "new_target_words": [
+        "teacher",
+        "looks",
+        "old",
+        "picture"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001431",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001422:cc-001431",
+      "old_text": "Is the banana yellow?",
+      "new_text": "A friend eats the yellow banana after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "banana",
+        "yellow"
+      ],
+      "new_target_words": [
+        "friend",
+        "eats",
+        "yellow",
+        "banana"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000721",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000721:cc-000846",
+      "old_text": "Is the blanket brown?",
+      "new_text": "A father folds the brown blanket.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "blanket",
+        "brown"
+      ],
+      "new_target_words": [
+        "father",
+        "folds",
+        "brown",
+        "blanket"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000966",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000966:cc-001309",
+      "old_text": "Is the notebook clean?",
+      "new_text": "A teacher opens the clean notebook in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "notebook",
+        "clean"
+      ],
+      "new_target_words": [
+        "teacher",
+        "opens",
+        "clean",
+        "notebook"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001088",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001088:cc-002299",
+      "old_text": "Is the ticket small?",
+      "new_text": "A child holds the small ticket at the station.",
+      "old_topic": "transport",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "ticket",
+        "small"
+      ],
+      "new_target_words": [
+        "child",
+        "holds",
+        "small",
+        "ticket",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004571",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-004571:cc-004664",
+      "old_text": "Is the notebook small?",
+      "new_text": "A student opens the notebook in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "notebook",
+        "small"
+      ],
+      "new_target_words": [
+        "student",
+        "opens",
+        "notebook"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-000034",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000034:cc-003765",
+      "old_text": "Is the basket small?",
+      "new_text": "A mother carries the small basket to the room.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "basket",
+        "small"
+      ],
+      "new_target_words": [
+        "mother",
+        "carries",
+        "small",
+        "basket",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001654",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000091:cc-001654",
+      "old_text": "Is the swing small?",
+      "new_text": "A brother plays with the small swing after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "swing",
+        "small"
+      ],
+      "new_target_words": [
+        "brother",
+        "plays",
+        "small",
+        "swing"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003893",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000246:cc-003893",
+      "old_text": "Is the notebook new?",
+      "new_text": "A student opens the new notebook in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "notebook",
+        "new"
+      ],
+      "new_target_words": [
+        "student",
+        "opens",
+        "new",
+        "notebook"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004950",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002350:cc-004950",
+      "old_text": "Is the basket green?",
+      "new_text": "A mother carries the green basket to the room.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "basket",
+        "green"
+      ],
+      "new_target_words": [
+        "mother",
+        "carries",
+        "green",
+        "basket",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002833",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002833:cc-003276",
+      "old_text": "Is the water yellow?",
+      "new_text": "A friend drinks the water after lunch.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "water",
+        "yellow"
+      ],
+      "new_target_words": [
+        "friend",
+        "drinks",
+        "water"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004452",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002986:cc-004452",
+      "old_text": "Is the picture clean?",
+      "new_text": "A student looks at the clean picture in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "picture",
+        "clean"
+      ],
+      "new_target_words": [
+        "student",
+        "looks",
+        "clean",
+        "picture"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004706",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-004446:cc-004706",
+      "old_text": "Is the flower pretty?",
+      "new_text": "A teacher finds the pretty flower in the garden.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "flower",
+        "pretty"
+      ],
+      "new_target_words": [
+        "teacher",
+        "finds",
+        "pretty",
+        "flower",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001525",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000226:cc-001525",
+      "old_text": "Is the spoon small?",
+      "new_text": "A friend uses the small spoon for soup.",
+      "old_topic": "home",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "spoon",
+        "small"
+      ],
+      "new_target_words": [
+        "friend",
+        "uses",
+        "small",
+        "spoon"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000506",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000506:cc-002129",
+      "old_text": "Is the drum yellow?",
+      "new_text": "A child plays with the yellow drum after school.",
+      "old_topic": "colors",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "drum",
+        "yellow"
+      ],
+      "new_target_words": [
+        "child",
+        "plays",
+        "yellow",
+        "drum"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000608",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000608:cc-001879",
+      "old_text": "Is the yogurt cold?",
+      "new_text": "A mother tastes the cold yogurt with a spoon.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "yogurt",
+        "cold"
+      ],
+      "new_target_words": [
+        "mother",
+        "tastes",
+        "cold",
+        "yogurt"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004720",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000747:cc-004720",
+      "old_text": "Is the jacket clean?",
+      "new_text": "A brother wears the clean jacket.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "jacket",
+        "clean"
+      ],
+      "new_target_words": [
+        "brother",
+        "wears",
+        "clean",
+        "jacket"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001491",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001008:cc-001491",
+      "old_text": "Are the pants clean?",
+      "new_text": "A child folds the clean pants.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "pants",
+        "clean"
+      ],
+      "new_target_words": [
+        "child",
+        "folds",
+        "clean",
+        "pants"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001033",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001033:cc-004737",
+      "old_text": "Is the sock clean?",
+      "new_text": "A sister folds the clean sock.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "sock",
+        "clean"
+      ],
+      "new_target_words": [
+        "sister",
+        "folds",
+        "clean",
+        "sock"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001207",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001207:cc-001400",
+      "old_text": "Is the yogurt sweet?",
+      "new_text": "A friend tastes the sweet yogurt with a spoon.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "yogurt",
+        "sweet"
+      ],
+      "new_target_words": [
+        "friend",
+        "tastes",
+        "sweet",
+        "yogurt"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001463",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001463:cc-002314",
+      "old_text": "Is the plane small?",
+      "new_text": "A father sees the small plane near the station.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "plane",
+        "small"
+      ],
+      "new_target_words": [
+        "father",
+        "sees",
+        "small",
+        "plane",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001603",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001603:cc-003931",
+      "old_text": "Is the jacket warm?",
+      "new_text": "A sister wears the warm jacket.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "jacket",
+        "warm"
+      ],
+      "new_target_words": [
+        "sister",
+        "wears",
+        "warm",
+        "jacket"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001675",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001675:cc-003345",
+      "old_text": "Is the flower green?",
+      "new_text": "A friend finds the green flower in the garden.",
+      "old_topic": "colors",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "flower",
+        "green"
+      ],
+      "new_target_words": [
+        "friend",
+        "finds",
+        "green",
+        "flower",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002602",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002602:cc-004511",
+      "old_text": "Is the dress clean?",
+      "new_text": "A child wears the clean dress.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "dress",
+        "clean"
+      ],
+      "new_target_words": [
+        "child",
+        "wears",
+        "clean",
+        "dress"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003447",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002759:cc-003447",
+      "old_text": "Is the potato warm?",
+      "new_text": "A mother eats the warm potato after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "potato",
+        "warm"
+      ],
+      "new_target_words": [
+        "mother",
+        "eats",
+        "warm",
+        "potato"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004338",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003025:cc-004338",
+      "old_text": "Is the story small?",
+      "new_text": "A child reads a short story before bed.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "story",
+        "small"
+      ],
+      "new_target_words": [
+        "child",
+        "reads",
+        "short",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003191",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003052:cc-003191",
+      "old_text": "Is the basket full?",
+      "new_text": "A father carries the full basket to the room.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "basket",
+        "full"
+      ],
+      "new_target_words": [
+        "father",
+        "carries",
+        "full",
+        "basket",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004989",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003526:cc-004989",
+      "old_text": "Is the eraser clean?",
+      "new_text": "A teacher uses the clean eraser in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "eraser",
+        "clean"
+      ],
+      "new_target_words": [
+        "teacher",
+        "uses",
+        "clean",
+        "eraser"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000109",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000109:cc-002872",
+      "old_text": "Is the grass green?",
+      "new_text": "A friend finds the green grass in the garden.",
+      "old_topic": "colors",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "grass",
+        "green"
+      ],
+      "new_target_words": [
+        "friend",
+        "finds",
+        "green",
+        "grass",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000143",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000143:cc-001060",
+      "old_text": "Is the apple blue?",
+      "new_text": "A child eats the apple after lunch.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "apple",
+        "blue"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "apple"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-000155",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000155:cc-002091",
+      "old_text": "Is the shoe clean?",
+      "new_text": "A sister wears the clean shoe.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "shoe",
+        "clean"
+      ],
+      "new_target_words": [
+        "sister",
+        "wears",
+        "clean",
+        "shoe"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000165",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000165:cc-001991",
+      "old_text": "Is the story long?",
+      "new_text": "A child reads the long story before bed.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "story",
+        "long"
+      ],
+      "new_target_words": [
+        "child",
+        "reads",
+        "long",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002416",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000287:cc-002416",
+      "old_text": "Is the carrot red?",
+      "new_text": "A child eats the red carrot after lunch.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "carrot",
+        "red"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "red",
+        "carrot"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000408",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000408:cc-004581",
+      "old_text": "Is the shirt clean?",
+      "new_text": "A sister folds the clean shirt.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "shirt",
+        "clean"
+      ],
+      "new_target_words": [
+        "sister",
+        "folds",
+        "clean",
+        "shirt"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002102",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000615:cc-002102",
+      "old_text": "Are the pants cold?",
+      "new_text": "A brother folds the pants.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "pants",
+        "cold"
+      ],
+      "new_target_words": [
+        "brother",
+        "folds",
+        "pants"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-000653",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000653:cc-003159",
+      "old_text": "Is the bed black?",
+      "new_text": "The bed is in the room.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "bed",
+        "black"
+      ],
+      "new_target_words": [
+        "is",
+        "bed",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-002180",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000677:cc-002180",
+      "old_text": "Is the water cold?",
+      "new_text": "A mother drinks the cold water after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "water",
+        "cold"
+      ],
+      "new_target_words": [
+        "mother",
+        "drinks",
+        "cold",
+        "water"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002925",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000707:cc-002925",
+      "old_text": "Is the seed small?",
+      "new_text": "A friend finds the small seed in the garden.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "seed",
+        "small"
+      ],
+      "new_target_words": [
+        "friend",
+        "finds",
+        "small",
+        "seed",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000743",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000743:cc-001846",
+      "old_text": "Is the moon bright?",
+      "new_text": "I can see the bright moon at night.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "moon",
+        "bright"
+      ],
+      "new_target_words": [
+        "see",
+        "bright",
+        "moon"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000845",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000845:cc-003460",
+      "old_text": "Is the toy yellow?",
+      "new_text": "A friend plays with the yellow toy after school.",
+      "old_topic": "colors",
+      "new_topic": "play",
+      "old_difficulty": 1,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "toy",
+        "yellow"
+      ],
+      "new_target_words": [
+        "friend",
+        "plays",
+        "yellow",
+        "toy"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004958",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000928:cc-004958",
+      "old_text": "Is the coat yellow?",
+      "new_text": "A brother wears the yellow coat.",
+      "old_topic": "colors",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "coat",
+        "yellow"
+      ],
+      "new_target_words": [
+        "brother",
+        "wears",
+        "yellow",
+        "coat"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001016",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001016:cc-001299",
+      "old_text": "Is the juice cold?",
+      "new_text": "A child drinks the cold juice after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "juice",
+        "cold"
+      ],
+      "new_target_words": [
+        "child",
+        "drinks",
+        "cold",
+        "juice"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001084",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001084:cc-003742",
+      "old_text": "Is the book clean?",
+      "new_text": "A teacher opens the clean book in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "book",
+        "clean"
+      ],
+      "new_target_words": [
+        "teacher",
+        "opens",
+        "clean",
+        "book"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004679",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001789:cc-004679",
+      "old_text": "Is the star bright?",
+      "new_text": "I can see the bright star at night.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "star",
+        "bright"
+      ],
+      "new_target_words": [
+        "see",
+        "bright",
+        "star"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002775",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001903:cc-002775",
+      "old_text": "Is the drum small?",
+      "new_text": "A child plays with the small drum after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "drum",
+        "small"
+      ],
+      "new_target_words": [
+        "child",
+        "plays",
+        "small",
+        "drum"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004619",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002054:cc-004619",
+      "old_text": "Is the cookie sweet?",
+      "new_text": "A mother shares the sweet cookie after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cookie",
+        "sweet"
+      ],
+      "new_target_words": [
+        "mother",
+        "shares",
+        "sweet",
+        "cookie"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002894",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002366:cc-002894",
+      "old_text": "Is the stone hard?",
+      "new_text": "A friend finds the hard stone in the garden.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "stone",
+        "hard"
+      ],
+      "new_target_words": [
+        "friend",
+        "finds",
+        "hard",
+        "stone",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004867",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002978:cc-004867",
+      "old_text": "Is the doll yellow?",
+      "new_text": "A child plays with the yellow doll after school.",
+      "old_topic": "colors",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "doll",
+        "yellow"
+      ],
+      "new_target_words": [
+        "child",
+        "plays",
+        "yellow",
+        "doll"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004774",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003010:cc-004774",
+      "old_text": "Is the leaf green?",
+      "new_text": "A teacher finds the green leaf in the garden.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "leaf",
+        "green"
+      ],
+      "new_target_words": [
+        "teacher",
+        "finds",
+        "green",
+        "leaf",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003132",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003016:cc-003132",
+      "old_text": "Is the honey cold?",
+      "new_text": "A friend tastes the honey with a spoon.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "honey",
+        "cold"
+      ],
+      "new_target_words": [
+        "friend",
+        "tastes",
+        "honey"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003046",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003046:cc-003590",
+      "old_text": "Is the bike small?",
+      "new_text": "A father rides the small bike on the path.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bike",
+        "small"
+      ],
+      "new_target_words": [
+        "father",
+        "rides",
+        "small",
+        "bike",
+        "path"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004960",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003226:cc-004960",
+      "old_text": "Is the cookie small?",
+      "new_text": "A mother shares the small cookie after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "cookie",
+        "small"
+      ],
+      "new_target_words": [
+        "mother",
+        "shares",
+        "small",
+        "cookie"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003722",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003722:cc-004969",
+      "old_text": "Is the story good?",
+      "new_text": "A child reads the good story before bed.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "story",
+        "good"
+      ],
+      "new_target_words": [
+        "child",
+        "reads",
+        "good",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000390",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000390:cc-004784",
+      "old_text": "Is the bus empty?",
+      "new_text": "A father sees the empty bus near the station.",
+      "old_topic": "transport",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bus",
+        "empty"
+      ],
+      "new_target_words": [
+        "father",
+        "sees",
+        "empty",
+        "bus",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000395",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000395:cc-002763",
+      "old_text": "Is the cup clean?",
+      "new_text": "A mother puts the clean cup on the table.",
+      "old_topic": "home",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cup",
+        "clean"
+      ],
+      "new_target_words": [
+        "mother",
+        "puts",
+        "clean",
+        "cup",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000877",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000877:cc-002516",
+      "old_text": "Is the mud yellow?",
+      "new_text": "A friend sees the mud on the path.",
+      "old_topic": "colors",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "mud",
+        "yellow"
+      ],
+      "new_target_words": [
+        "friend",
+        "sees",
+        "mud",
+        "path"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001047",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001047:cc-001440",
+      "old_text": "Is the pasta hot?",
+      "new_text": "A child eats the hot pasta after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "pasta",
+        "hot"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "hot",
+        "pasta"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001611",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001273:cc-001611",
+      "old_text": "Is the drum warm?",
+      "new_text": "A friend plays with the drum after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "drum",
+        "warm"
+      ],
+      "new_target_words": [
+        "friend",
+        "plays",
+        "drum"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004354",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001306:cc-004354",
+      "old_text": "Is the key small?",
+      "new_text": "A neighbor carries the key to the room.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "key",
+        "small"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "carries",
+        "key",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002157",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001862:cc-002157",
+      "old_text": "Is the bed soft?",
+      "new_text": "The soft bed is in the room.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "bed",
+        "soft"
+      ],
+      "new_target_words": [
+        "is",
+        "soft",
+        "bed",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001918",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001918:cc-002974",
+      "old_text": "Is the apple old?",
+      "new_text": "A mother eats the apple after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "apple",
+        "old"
+      ],
+      "new_target_words": [
+        "mother",
+        "eats",
+        "apple"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003059",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003059:cc-003332",
+      "old_text": "Is the cake sweet?",
+      "new_text": "A friend shares the sweet cake after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cake",
+        "sweet"
+      ],
+      "new_target_words": [
+        "friend",
+        "shares",
+        "sweet",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003193",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003193:cc-003695",
+      "old_text": "Is the story old?",
+      "new_text": "A student reads the old story before bed.",
+      "old_topic": "routine",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "story",
+        "old"
+      ],
+      "new_target_words": [
+        "student",
+        "reads",
+        "old",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004494",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-004328:cc-004494",
+      "old_text": "Is the grass long?",
+      "new_text": "A teacher finds the long grass in the garden.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "grass",
+        "long"
+      ],
+      "new_target_words": [
+        "teacher",
+        "finds",
+        "long",
+        "grass",
+        "garden"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004631",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-004631:cc-004761",
+      "old_text": "Is the rope hard?",
+      "new_text": "A neighbor carries the hard rope to the room.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "rope",
+        "hard"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "carries",
+        "hard",
+        "rope",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003774",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000041:cc-003774",
+      "old_text": "Is the boat dry?",
+      "new_text": "A father sees the dry boat near the station.",
+      "old_topic": "transport",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "boat",
+        "dry"
+      ],
+      "new_target_words": [
+        "father",
+        "sees",
+        "dry",
+        "boat",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000401",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000282:cc-000401",
+      "old_text": "Is the cake new?",
+      "new_text": "A mother shares the cake after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cake",
+        "new"
+      ],
+      "new_target_words": [
+        "mother",
+        "shares",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002795",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000288:cc-002795",
+      "old_text": "Is the cup full?",
+      "new_text": "A friend puts the full cup on the table.",
+      "old_topic": "home",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "cup",
+        "full"
+      ],
+      "new_target_words": [
+        "friend",
+        "puts",
+        "full",
+        "cup",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000428",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000428:cc-000480",
+      "old_text": "Is the rope red?",
+      "new_text": "A father carries the red rope to the room.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "rope",
+        "red"
+      ],
+      "new_target_words": [
+        "father",
+        "carries",
+        "red",
+        "rope",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002257",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000646:cc-002257",
+      "old_text": "Is the rice hot?",
+      "new_text": "A mother eats the hot rice after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "rice",
+        "hot"
+      ],
+      "new_target_words": [
+        "mother",
+        "eats",
+        "hot",
+        "rice"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-000993",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000993:cc-002857",
+      "old_text": "Is the bed red?",
+      "new_text": "The red bed is in the room.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bed",
+        "red"
+      ],
+      "new_target_words": [
+        "is",
+        "red",
+        "bed",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001601",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001601:cc-004566",
+      "old_text": "Is the story fun?",
+      "new_text": "A student reads the fun story before bed.",
+      "old_topic": "routine",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "story",
+        "fun"
+      ],
+      "new_target_words": [
+        "student",
+        "reads",
+        "fun",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001886",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001886:cc-003382",
+      "old_text": "Is the milk small?",
+      "new_text": "A mother drinks the milk after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "milk",
+        "small"
+      ],
+      "new_target_words": [
+        "mother",
+        "drinks",
+        "milk"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002048",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002048:cc-004195",
+      "old_text": "Is the sky clear?",
+      "new_text": "We look at the clear sky after rain.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "sky",
+        "clear"
+      ],
+      "new_target_words": [
+        "clear",
+        "sky"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001166",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001166:cc-001768",
+      "old_text": "Is the box open?",
+      "new_text": "A father opens the open box on the table.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "box",
+        "open"
+      ],
+      "new_target_words": [
+        "father",
+        "opens",
+        "open",
+        "box",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001210",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001210:cc-001587",
+      "old_text": "Is the cup red?",
+      "new_text": "A mother puts the red cup on the table.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "cup",
+        "red"
+      ],
+      "new_target_words": [
+        "mother",
+        "puts",
+        "red",
+        "cup",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001536",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001536:cc-003047",
+      "old_text": "Is the sky blue?",
+      "new_text": "We look at the blue sky after rain.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "sky",
+        "blue"
+      ],
+      "new_target_words": [
+        "blue",
+        "sky"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004897",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-004409:cc-004897",
+      "old_text": "Is the pen new?",
+      "new_text": "A student uses the new pen in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "pen",
+        "new"
+      ],
+      "new_target_words": [
+        "student",
+        "uses",
+        "new",
+        "pen"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002325",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002056:cc-002325",
+      "old_text": "Is the mud wet?",
+      "new_text": "A teacher sees the wet mud on the path.",
+      "old_topic": "nature",
+      "new_topic": "nature",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "mud",
+        "wet"
+      ],
+      "new_target_words": [
+        "teacher",
+        "sees",
+        "wet",
+        "mud",
+        "path"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004869",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000149:cc-004869",
+      "old_text": "Is the sofa small?",
+      "new_text": "The small sofa is in the room.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "sofa",
+        "small"
+      ],
+      "new_target_words": [
+        "is",
+        "small",
+        "sofa",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-002672",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001058:cc-002672",
+      "old_text": "Is the tomato red?",
+      "new_text": "A child eats the red tomato after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "tomato",
+        "red"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "red",
+        "tomato"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003878",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001204:cc-003878",
+      "old_text": "Is the plane quiet?",
+      "new_text": "A mother sees the plane near the station.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "plane",
+        "quiet"
+      ],
+      "new_target_words": [
+        "mother",
+        "sees",
+        "plane",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001333",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001333:cc-001684",
+      "old_text": "Is the plane fast?",
+      "new_text": "A child sees the plane near the station.",
+      "old_topic": "transport",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "plane",
+        "fast"
+      ],
+      "new_target_words": [
+        "child",
+        "sees",
+        "plane",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004660",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000278:cc-004660",
+      "old_text": "Is the boat empty?",
+      "new_text": "A father sees the boat near the station.",
+      "old_topic": "transport",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "boat",
+        "empty"
+      ],
+      "new_target_words": [
+        "father",
+        "sees",
+        "boat",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-000519",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000519:cc-002617",
+      "old_text": "Is the story short?",
+      "new_text": "A teacher reads the story before bed.",
+      "old_topic": "routine",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "story",
+        "short"
+      ],
+      "new_target_words": [
+        "teacher",
+        "reads",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004483",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001510:cc-004483",
+      "old_text": "Is the plane new?",
+      "new_text": "A child sees the new plane near the station.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "plane",
+        "new"
+      ],
+      "new_target_words": [
+        "child",
+        "sees",
+        "new",
+        "plane",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003759",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003759:cc-004365",
+      "old_text": "Is the bike fast?",
+      "new_text": "A father rides the bike on the path.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bike",
+        "fast"
+      ],
+      "new_target_words": [
+        "father",
+        "rides",
+        "bike",
+        "path"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004700",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-003309:cc-004700",
+      "old_text": "Is the car full?",
+      "new_text": "A mother sees the full car near the station.",
+      "old_topic": "play",
+      "new_topic": "transport",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "car",
+        "full"
+      ],
+      "new_target_words": [
+        "mother",
+        "sees",
+        "full",
+        "car",
+        "station"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-004393",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-001923:cc-004393",
+      "old_text": "A girl gives the father a small ball.",
+      "new_text": "A girl puts the small ball beside the father.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "girl",
+        "gives",
+        "father",
+        "small",
+        "ball"
+      ],
+      "new_target_words": [
+        "girl",
+        "father",
+        "puts",
+        "small",
+        "ball"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002397",
+      "reason": "polite_request_template",
+      "pair_id": "cc-000456:cc-002397",
+      "old_text": "Please put the pencil on the table.",
+      "new_text": "I can find the put on the table.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "put",
+        "pencil",
+        "table"
+      ],
+      "new_target_words": [
+        "student",
+        "put",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004907",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001693:cc-004907",
+      "old_text": "Please put the ruler on the table.",
+      "new_text": "The put is ready on the table.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "put",
+        "ruler",
+        "table"
+      ],
+      "new_target_words": [
+        "teacher",
+        "is",
+        "put",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-000753",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000297:cc-000753",
+      "old_text": "A neighbor needs a pencil.",
+      "new_text": "A neighbor uses the pencil in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "neighbor",
+        "needs",
+        "pencil"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "uses",
+        "pencil"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "need_verb"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002563",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001478:cc-002563",
+      "old_text": "A mother needs a ball.",
+      "new_text": "A mother plays with the ball after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "mother",
+        "needs",
+        "ball"
+      ],
+      "new_target_words": [
+        "mother",
+        "plays",
+        "ball"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004281",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-003167:cc-004281",
+      "old_text": "A neighbor has a castle.",
+      "new_text": "A neighbor builds the castle after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "neighbor",
+        "has",
+        "castle"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "builds",
+        "castle"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002844",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002114:cc-002844",
+      "old_text": "A child likes a castle.",
+      "new_text": "A child builds the castle after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "child",
+        "likes",
+        "castle"
+      ],
+      "new_target_words": [
+        "child",
+        "builds",
+        "castle"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001971",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001794:cc-001971",
+      "old_text": "A parent has a cake.",
+      "new_text": "A parent shares the cake after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "parent",
+        "has",
+        "cake"
+      ],
+      "new_target_words": [
+        "parent",
+        "shares",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001560",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000590:cc-001560",
+      "old_text": "A friend has a pencil.",
+      "new_text": "A friend uses the pencil in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "friend",
+        "has",
+        "pencil"
+      ],
+      "new_target_words": [
+        "friend",
+        "uses",
+        "pencil"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004844",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000348:cc-004844",
+      "old_text": "A boy needs a pencil.",
+      "new_text": "A boy uses the pencil in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "boy",
+        "needs",
+        "pencil"
+      ],
+      "new_target_words": [
+        "boy",
+        "uses",
+        "pencil"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002197",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001718:cc-002197",
+      "old_text": "A father takes the ball.",
+      "new_text": "A father plays with the ball after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "father",
+        "takes",
+        "ball"
+      ],
+      "new_target_words": [
+        "father",
+        "plays",
+        "ball"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003007",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000766:cc-003007",
+      "old_text": "A baby has a pencil.",
+      "new_text": "A baby uses the pencil in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "baby",
+        "has",
+        "pencil"
+      ],
+      "new_target_words": [
+        "baby",
+        "uses",
+        "pencil"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002148",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002095:cc-002148",
+      "old_text": "A brother sees the shirt.",
+      "new_text": "A brother wears the shirt today.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "brother",
+        "sees",
+        "shirt"
+      ],
+      "new_target_words": [
+        "brother",
+        "wears",
+        "shirt"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002243",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000551:cc-002243",
+      "old_text": "A boy has a cake.",
+      "new_text": "A boy shares the cake after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "boy",
+        "has",
+        "cake"
+      ],
+      "new_target_words": [
+        "boy",
+        "shares",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001920",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001421:cc-001920",
+      "old_text": "A boy has a ball.",
+      "new_text": "A boy plays with the ball after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "boy",
+        "has",
+        "ball"
+      ],
+      "new_target_words": [
+        "boy",
+        "plays",
+        "ball"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003406",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002631:cc-003406",
+      "old_text": "A brother has a basket.",
+      "new_text": "A brother carries the basket to the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "brother",
+        "has",
+        "basket"
+      ],
+      "new_target_words": [
+        "brother",
+        "carries",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004310",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000529:cc-004310",
+      "old_text": "A neighbor has a basket.",
+      "new_text": "A neighbor carries the basket to the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "neighbor",
+        "has",
+        "basket"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "carries",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002530",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000806:cc-002530",
+      "old_text": "A neighbor has a story.",
+      "new_text": "A neighbor reads the story before bed.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "neighbor",
+        "has",
+        "story"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "reads",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004093",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-003847:cc-004093",
+      "old_text": "A grandma likes a cake.",
+      "new_text": "A grandma shares the cake after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "grandma",
+        "likes",
+        "cake"
+      ],
+      "new_target_words": [
+        "grandma",
+        "shares",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002505",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002073:cc-002505",
+      "old_text": "A girl has a ruler.",
+      "new_text": "A girl uses the ruler in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "girl",
+        "has",
+        "ruler"
+      ],
+      "new_target_words": [
+        "girl",
+        "uses",
+        "ruler"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001582",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000947:cc-001582",
+      "old_text": "A teacher has a basket.",
+      "new_text": "A teacher carries the basket to the shelf.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "teacher",
+        "has",
+        "basket"
+      ],
+      "new_target_words": [
+        "teacher",
+        "carries",
+        "basket",
+        "shelf"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003364",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000258:cc-003364",
+      "old_text": "A parent has a ruler.",
+      "new_text": "A parent uses the ruler in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "parent",
+        "has",
+        "ruler"
+      ],
+      "new_target_words": [
+        "parent",
+        "uses",
+        "ruler"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004415",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-003307:cc-004415",
+      "old_text": "A father has a ruler.",
+      "new_text": "A father uses the ruler in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "father",
+        "has",
+        "ruler"
+      ],
+      "new_target_words": [
+        "father",
+        "uses",
+        "ruler"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003880",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002031:cc-003880",
+      "old_text": "A parent has a potato.",
+      "new_text": "A parent eats the potato after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "parent",
+        "has",
+        "potato"
+      ],
+      "new_target_words": [
+        "parent",
+        "eats",
+        "potato"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004934",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000814:cc-004934",
+      "old_text": "A friend has a basket.",
+      "new_text": "A friend carries the basket to the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "friend",
+        "has",
+        "basket"
+      ],
+      "new_target_words": [
+        "friend",
+        "carries",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002296",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-000492:cc-002296",
+      "old_text": "A sister has a potato.",
+      "new_text": "A sister eats the potato after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "sister",
+        "has",
+        "potato"
+      ],
+      "new_target_words": [
+        "sister",
+        "eats",
+        "potato"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003670",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001867:cc-003670",
+      "old_text": "A grandpa has a castle.",
+      "new_text": "A grandpa builds the castle after school.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "grandpa",
+        "has",
+        "castle"
+      ],
+      "new_target_words": [
+        "grandpa",
+        "builds",
+        "castle"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004751",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-002063:cc-004751",
+      "old_text": "A student touches the basket.",
+      "new_text": "A student carries the basket to the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "student",
+        "touches",
+        "basket"
+      ],
+      "new_target_words": [
+        "student",
+        "carries",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-005000",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001765:cc-005000",
+      "old_text": "A baby has a basket.",
+      "new_text": "A baby carries the basket to the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "baby",
+        "has",
+        "basket"
+      ],
+      "new_target_words": [
+        "baby",
+        "carries",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001496",
+      "reason": "generic_template_repetition",
+      "pair_id": "cc-001393:cc-001496",
+      "old_text": "A girl has a potato.",
+      "new_text": "A girl eats the potato after lunch.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 1,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "girl",
+        "has",
+        "potato"
+      ],
+      "new_target_words": [
+        "girl",
+        "eats",
+        "potato"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004121",
+      "reason": "polite_request_template",
+      "pair_id": "cc-000800:cc-004121",
+      "old_text": "Please show me the cake.",
+      "new_text": "The cake is ready on the plate.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "show",
+        "cake"
+      ],
+      "new_target_words": [
+        "friend",
+        "is",
+        "cake",
+        "plate"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004944",
+      "reason": "can_you_template",
+      "pair_id": "cc-004447:cc-004944",
+      "old_text": "Can you see the shelf?",
+      "new_text": "We look at the shelf together.",
+      "old_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "shelf"
+      ],
+      "new_target_words": [
+        "shelf",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002827",
+      "reason": "can_you_template",
+      "pair_id": "cc-002312:cc-002827",
+      "old_text": "Can you see the cake?",
+      "new_text": "I can see the cake near the bag.",
+      "old_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "cake"
+      ],
+      "new_target_words": [
+        "see",
+        "cake",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001842",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001578:cc-001842",
+      "old_text": "Please show me the ball.",
+      "new_text": "I can find the ball on the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "show",
+        "ball"
+      ],
+      "new_target_words": [
+        "brother",
+        "ball",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004707",
+      "reason": "can_you_template",
+      "pair_id": "cc-003174:cc-004707",
+      "old_text": "Can you see the pencil?",
+      "new_text": "A child points to the pencil.",
+      "old_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "pencil"
+      ],
+      "new_target_words": [
+        "points",
+        "pencil",
+        "desk"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003384",
+      "reason": "object_place_swap",
+      "pair_id": "cc-002570:cc-003384",
+      "old_text": "A student puts the basket in the bag.",
+      "new_text": "The basket is next to the bag.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "student",
+        "puts",
+        "basket",
+        "bag"
+      ],
+      "new_target_words": [
+        "student",
+        "is",
+        "basket",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004688",
+      "reason": "object_place_swap",
+      "pair_id": "cc-001513:cc-004688",
+      "old_text": "A student puts the box in the box.",
+      "new_text": "A student takes the box out of the basket.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "student",
+        "puts",
+        "box"
+      ],
+      "new_target_words": [
+        "student",
+        "takes",
+        "box",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-002570",
+      "reason": "object_place_swap",
+      "pair_id": "cc-001997:cc-002570",
+      "old_text": "A student puts the basket in the basket.",
+      "new_text": "A student looks for the basket near the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "student",
+        "puts",
+        "basket"
+      ],
+      "new_target_words": [
+        "student",
+        "looks",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004210",
+      "reason": "object_place_swap",
+      "pair_id": "cc-000312:cc-004210",
+      "old_text": "A baby puts the ruler in the room.",
+      "new_text": "A baby moves the ruler away from the room.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "baby",
+        "puts",
+        "ruler",
+        "room"
+      ],
+      "new_target_words": [
+        "baby",
+        "moves",
+        "ruler",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004742",
+      "reason": "polite_request_template",
+      "pair_id": "cc-004611:cc-004742",
+      "old_text": "Please open the toy box now.",
+      "new_text": "A brother carries the toy to the box.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "open",
+        "toy",
+        "box",
+        "now"
+      ],
+      "new_target_words": [
+        "brother",
+        "carries",
+        "toy",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002279",
+      "reason": "object_place_swap",
+      "pair_id": "cc-000621:cc-002279",
+      "old_text": "A grandma puts the basket in the basket.",
+      "new_text": "A grandma takes the basket out of the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "grandma",
+        "puts",
+        "basket"
+      ],
+      "new_target_words": [
+        "grandma",
+        "takes",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004050",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001363:cc-004050",
+      "old_text": "Please close the toy box now.",
+      "new_text": "I can find the toy on the box.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "close",
+        "toy",
+        "box",
+        "now"
+      ],
+      "new_target_words": [
+        "friend",
+        "toy",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004492",
+      "reason": "polite_request_template",
+      "pair_id": "cc-000346:cc-004492",
+      "old_text": "Please take the ball.",
+      "new_text": "The ball is ready on the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "take",
+        "ball"
+      ],
+      "new_target_words": [
+        "brother",
+        "is",
+        "ball",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004265",
+      "reason": "polite_request_template",
+      "pair_id": "cc-002058:cc-004265",
+      "old_text": "Please hold the pencil.",
+      "new_text": "A student carries the pencil to the desk.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "hold",
+        "pencil"
+      ],
+      "new_target_words": [
+        "student",
+        "carries",
+        "pencil",
+        "desk"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004442",
+      "reason": "polite_request_template",
+      "pair_id": "cc-003665:cc-004442",
+      "old_text": "Please find the pencil.",
+      "new_text": "A teacher puts the pencil near the bag.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "find",
+        "pencil"
+      ],
+      "new_target_words": [
+        "teacher",
+        "puts",
+        "pencil",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003934",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001624:cc-003934",
+      "old_text": "Is the shelf white?",
+      "new_text": "The shelf is in the room.",
+      "old_topic": "colors",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "shelf",
+        "white"
+      ],
+      "new_target_words": [
+        "is",
+        "shelf",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-002952",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-002952:cc-004114",
+      "old_text": "Is the cake green?",
+      "new_text": "A child shares the cake after lunch.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cake",
+        "green"
+      ],
+      "new_target_words": [
+        "child",
+        "shares",
+        "cake"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002269",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001085:cc-002269",
+      "old_text": "Please show me the story.",
+      "new_text": "A teacher carries the story to the bag.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "show",
+        "story"
+      ],
+      "new_target_words": [
+        "teacher",
+        "carries",
+        "story",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004765",
+      "reason": "polite_request_template",
+      "pair_id": "cc-004027:cc-004765",
+      "old_text": "Please show me the basket.",
+      "new_text": "A neighbor puts the basket near the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "show",
+        "basket"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "puts",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002152",
+      "reason": "object_place_swap",
+      "pair_id": "cc-000994:cc-002152",
+      "old_text": "A father puts the spoon in the basket.",
+      "new_text": "A father looks for the spoon near the basket.",
+      "old_topic": "home",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "father",
+        "puts",
+        "spoon",
+        "basket"
+      ],
+      "new_target_words": [
+        "father",
+        "looks",
+        "spoon",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-001324",
+      "reason": "where_template",
+      "pair_id": "cc-000344:cc-001324",
+      "old_text": "Where is the shirt?",
+      "new_text": "I put the shirt beside the bag.",
+      "old_topic": "clothing",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "where",
+        "shirt"
+      ],
+      "new_target_words": [
+        "shirt",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004124",
+      "reason": "where_template",
+      "pair_id": "cc-002145:cc-004124",
+      "old_text": "Where is the pencil?",
+      "new_text": "A child finds the pencil near the classroom.",
+      "old_topic": "school",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "where",
+        "pencil"
+      ],
+      "new_target_words": [
+        "pencil",
+        "classroom",
+        "finds"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001029",
+      "reason": "can_you_template",
+      "pair_id": "cc-000087:cc-001029",
+      "old_text": "Can you see the ruler?",
+      "new_text": "I can see the ruler near the desk.",
+      "old_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "ruler"
+      ],
+      "new_target_words": [
+        "see",
+        "ruler",
+        "desk"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004935",
+      "reason": "can_you_template",
+      "pair_id": "cc-004916:cc-004935",
+      "old_text": "Can you see the story?",
+      "new_text": "The story is beside the bag.",
+      "old_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "story"
+      ],
+      "new_target_words": [
+        "is",
+        "story",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003650",
+      "reason": "object_place_swap",
+      "pair_id": "cc-003575:cc-003650",
+      "old_text": "A neighbor puts the bag in the basket.",
+      "new_text": "A neighbor moves the bag away from the basket.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "neighbor",
+        "puts",
+        "bag",
+        "basket"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "moves",
+        "bag",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-003380",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-000702:cc-003380",
+      "old_text": "Is the salad brown?",
+      "new_text": "A child eats the salad after lunch.",
+      "old_topic": "colors",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "salad",
+        "brown"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "salad"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002166",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001898:cc-002166",
+      "old_text": "Is the shirt small?",
+      "new_text": "A sister folds the shirt.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "shirt",
+        "small"
+      ],
+      "new_target_words": [
+        "sister",
+        "folds",
+        "shirt"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003315",
+      "reason": "object_place_swap",
+      "pair_id": "cc-002279:cc-003315",
+      "old_text": "A grandma puts the drum in the basket.",
+      "new_text": "A grandma looks for the drum near the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "grandma",
+        "puts",
+        "drum",
+        "basket"
+      ],
+      "new_target_words": [
+        "grandma",
+        "looks",
+        "drum",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004992",
+      "reason": "where_template",
+      "pair_id": "cc-004099:cc-004992",
+      "old_text": "Where is the cake?",
+      "new_text": "The cake is on the table.",
+      "old_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "where",
+        "cake"
+      ],
+      "new_target_words": [
+        "cake",
+        "table",
+        "is"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-004747",
+      "reason": "object_place_swap",
+      "pair_id": "cc-003375:cc-004747",
+      "old_text": "A student puts the spoon in the room.",
+      "new_text": "The spoon is next to the room.",
+      "old_topic": "home",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "student",
+        "puts",
+        "spoon",
+        "room"
+      ],
+      "new_target_words": [
+        "student",
+        "is",
+        "spoon",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004632",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001962:cc-004632",
+      "old_text": "Please close the big cupboard.",
+      "new_text": "A brother puts the cupboard near the shelf.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "close",
+        "big",
+        "cupboard"
+      ],
+      "new_target_words": [
+        "brother",
+        "puts",
+        "cupboard",
+        "shelf"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004794",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001962:cc-004794",
+      "old_text": "Please close the cupboard now.",
+      "new_text": "I can find the cupboard on the chair.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "close",
+        "cupboard",
+        "now"
+      ],
+      "new_target_words": [
+        "child",
+        "cupboard",
+        "chair"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004918",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-001803:cc-004918",
+      "old_text": "A brother gives the mother a small box.",
+      "new_text": "A brother keeps the small box for later.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "brother",
+        "gives",
+        "mother",
+        "small",
+        "box"
+      ],
+      "new_target_words": [
+        "brother",
+        "mother",
+        "keeps",
+        "small",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-002712",
+      "reason": "object_place_swap",
+      "pair_id": "cc-002279:cc-002712",
+      "old_text": "A grandma puts the block in the basket.",
+      "new_text": "The block is next to the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "grandma",
+        "puts",
+        "block",
+        "basket"
+      ],
+      "new_target_words": [
+        "grandma",
+        "is",
+        "block",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004563",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001318:cc-004563",
+      "old_text": "Please open the big cupboard.",
+      "new_text": "A child puts the cupboard near the chair.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "open",
+        "big",
+        "cupboard"
+      ],
+      "new_target_words": [
+        "child",
+        "puts",
+        "cupboard",
+        "chair"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002234",
+      "reason": "polite_request_template",
+      "pair_id": "cc-000497:cc-002234",
+      "old_text": "Please take the basket.",
+      "new_text": "I can find the basket on the shelf.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "take",
+        "basket"
+      ],
+      "new_target_words": [
+        "mother",
+        "basket",
+        "shelf"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003845",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001342:cc-003845",
+      "old_text": "Please find the basket.",
+      "new_text": "The basket is ready on the table.",
+      "old_topic": "home",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "find",
+        "basket"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "is",
+        "basket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004242",
+      "reason": "polite_request_template",
+      "pair_id": "cc-003465:cc-004242",
+      "old_text": "Please hold the ruler.",
+      "new_text": "A student carries the ruler to the desk.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "hold",
+        "ruler"
+      ],
+      "new_target_words": [
+        "student",
+        "carries",
+        "ruler",
+        "desk"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004123",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001197:cc-004123",
+      "old_text": "Please close the big drawer.",
+      "new_text": "A sister puts the drawer near the bag.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "close",
+        "big",
+        "drawer"
+      ],
+      "new_target_words": [
+        "sister",
+        "puts",
+        "drawer",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002784",
+      "reason": "polite_request_template",
+      "pair_id": "cc-002175:cc-002784",
+      "old_text": "Please show me the puzzle.",
+      "new_text": "I can find the puzzle on the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "show",
+        "puzzle"
+      ],
+      "new_target_words": [
+        "brother",
+        "puzzle",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004192",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-003593:cc-004192",
+      "old_text": "A sister gives the friend a small rope.",
+      "new_text": "A sister keeps the small rope for later.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "sister",
+        "gives",
+        "friend",
+        "small",
+        "rope"
+      ],
+      "new_target_words": [
+        "sister",
+        "friend",
+        "keeps",
+        "small",
+        "rope"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-004628",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-004267:cc-004628",
+      "old_text": "A father gives the brother a small bag.",
+      "new_text": "The small bag is between the father and the brother.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "father",
+        "gives",
+        "brother",
+        "small",
+        "bag"
+      ],
+      "new_target_words": [
+        "father",
+        "brother",
+        "is",
+        "small",
+        "bag"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-004821",
+      "reason": "object_place_swap",
+      "pair_id": "cc-003650:cc-004821",
+      "old_text": "A neighbor puts the castle in the basket.",
+      "new_text": "A neighbor takes the castle out of the basket.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "neighbor",
+        "puts",
+        "castle",
+        "basket"
+      ],
+      "new_target_words": [
+        "neighbor",
+        "takes",
+        "castle",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-004911",
+      "reason": "polite_request_template",
+      "pair_id": "cc-002008:cc-004911",
+      "old_text": "Please open the red folder.",
+      "new_text": "I can find the folder on the desk.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "open",
+        "red",
+        "folder"
+      ],
+      "new_target_words": [
+        "student",
+        "folder",
+        "desk"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "modal_can",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001803",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-001108:cc-001803",
+      "old_text": "A mother gives the brother a small toy.",
+      "new_text": "A mother keeps the small toy for later.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "mother",
+        "gives",
+        "brother",
+        "small",
+        "toy"
+      ],
+      "new_target_words": [
+        "mother",
+        "brother",
+        "keeps",
+        "small",
+        "toy"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-003107",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001152:cc-003107",
+      "old_text": "Please open the big drawer.",
+      "new_text": "A brother carries the drawer to the shelf.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "open",
+        "big",
+        "drawer"
+      ],
+      "new_target_words": [
+        "brother",
+        "carries",
+        "drawer",
+        "shelf"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004674",
+      "reason": "polite_request_template",
+      "pair_id": "cc-001152:cc-004674",
+      "old_text": "Please open the drawer now.",
+      "new_text": "A child puts the drawer near the chair.",
+      "old_topic": "clothing",
+      "new_topic": "clothing",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "open",
+        "drawer",
+        "now"
+      ],
+      "new_target_words": [
+        "child",
+        "puts",
+        "drawer",
+        "chair"
+      ],
+      "old_grammar_tags": [
+        "polite_request",
+        "imperative",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003168",
+      "reason": "object_place_swap",
+      "pair_id": "cc-001738:cc-003168",
+      "old_text": "A baby puts the bag in the room.",
+      "new_text": "A baby looks for the bag near the room.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "baby",
+        "puts",
+        "bag",
+        "room"
+      ],
+      "new_target_words": [
+        "baby",
+        "looks",
+        "bag",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "prepositional_phrase"
+      ]
+    },
+    {
+      "id": "cc-003258",
+      "reason": "can_you_template",
+      "pair_id": "cc-003194:cc-003258",
+      "old_text": "Can you see the puzzle?",
+      "new_text": "A child points to the puzzle.",
+      "old_topic": "play",
+      "old_difficulty": 3,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "see",
+        "puzzle"
+      ],
+      "new_target_words": [
+        "points",
+        "puzzle",
+        "basket"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "modal_can",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001596",
+      "reason": "statement_question_mirror",
+      "pair_id": "cc-001596:cc-002350",
+      "old_text": "Is the ruler green?",
+      "new_text": "A student uses the ruler in class.",
+      "old_topic": "colors",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "ruler",
+        "green"
+      ],
+      "new_target_words": [
+        "student",
+        "uses",
+        "ruler"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002051",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-001591:cc-002051",
+      "old_text": "A friend gives the father a small rope.",
+      "new_text": "A friend puts the small rope beside the father.",
+      "old_topic": "play",
+      "new_topic": "home",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "friend",
+        "gives",
+        "father",
+        "small",
+        "rope"
+      ],
+      "new_target_words": [
+        "friend",
+        "father",
+        "puts",
+        "small",
+        "rope"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004783",
+      "reason": "where_template",
+      "pair_id": "cc-003901:cc-004783",
+      "old_text": "Where is the ruler?",
+      "new_text": "A child finds the ruler near the classroom.",
+      "old_topic": "school",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "where",
+        "ruler"
+      ],
+      "new_target_words": [
+        "ruler",
+        "classroom",
+        "finds"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "be_present",
+        "location_question"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002483",
+      "reason": "role_swap_gives",
+      "pair_id": "cc-002051:cc-002483",
+      "old_text": "A friend gives the father a small drum.",
+      "new_text": "A friend keeps the small drum for later.",
+      "old_topic": "play",
+      "new_topic": "play",
+      "old_difficulty": 3,
+      "old_target_words": [
+        "friend",
+        "gives",
+        "father",
+        "small",
+        "drum"
+      ],
+      "new_target_words": [
+        "friend",
+        "father",
+        "keeps",
+        "small",
+        "drum"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ]
+    },
+    {
+      "id": "cc-000809",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A bird touches the banana.",
+      "new_text": "A friend eats the banana after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bird",
+        "touches",
+        "banana"
+      ],
+      "new_target_words": [
+        "friend",
+        "eats",
+        "banana"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001054",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A dog touches the soup.",
+      "new_text": "A child puts the soup on a plate.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "dog",
+        "touches",
+        "soup"
+      ],
+      "new_target_words": [
+        "child",
+        "puts",
+        "soup",
+        "plate"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001278",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "Do you like a potato?",
+      "new_text": "A friend puts the potato on a plate.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "like",
+        "potato"
+      ],
+      "new_target_words": [
+        "friend",
+        "puts",
+        "potato",
+        "plate"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001317",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the pasta.",
+      "new_text": "A child eats the pasta after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "pasta"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "pasta"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001387",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A dog touches the rice.",
+      "new_text": "A friend eats the rice after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "dog",
+        "touches",
+        "rice"
+      ],
+      "new_target_words": [
+        "friend",
+        "eats",
+        "rice"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001456",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the cereal.",
+      "new_text": "A child eats the cereal after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "cereal"
+      ],
+      "new_target_words": [
+        "child",
+        "eats",
+        "cereal"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001667",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "Do you want a story?",
+      "new_text": "A child reads a short story in class.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "want",
+        "story"
+      ],
+      "new_target_words": [
+        "child",
+        "reads",
+        "short",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-001698",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A fish touches the box.",
+      "new_text": "A mother carries the box to the shelf.",
+      "old_topic": "animals",
+      "new_topic": "home",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "fish",
+        "touches",
+        "box"
+      ],
+      "new_target_words": [
+        "mother",
+        "carries",
+        "box",
+        "shelf"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001896",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the yogurt.",
+      "new_text": "A friend tastes the yogurt with a spoon.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "yogurt"
+      ],
+      "new_target_words": [
+        "friend",
+        "tastes",
+        "yogurt"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-001947",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A bird touches the ball.",
+      "new_text": "A child plays with the ball after school.",
+      "old_topic": "animals",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bird",
+        "touches",
+        "ball"
+      ],
+      "new_target_words": [
+        "child",
+        "plays",
+        "ball"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002541",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A cat touches the soup.",
+      "new_text": "A mother puts the soup on the table.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cat",
+        "touches",
+        "soup"
+      ],
+      "new_target_words": [
+        "mother",
+        "puts",
+        "soup",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002707",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A cat touches the spoon.",
+      "new_text": "A child carries the spoon to the table.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cat",
+        "touches",
+        "spoon"
+      ],
+      "new_target_words": [
+        "child",
+        "carries",
+        "spoon",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002710",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A fish touches the toy.",
+      "new_text": "A brother plays with the toy after school.",
+      "old_topic": "animals",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "fish",
+        "touches",
+        "toy"
+      ],
+      "new_target_words": [
+        "brother",
+        "plays",
+        "toy"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002782",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the puzzle.",
+      "new_text": "A brother plays with the puzzle after school.",
+      "old_topic": "animals",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "puzzle"
+      ],
+      "new_target_words": [
+        "brother",
+        "plays",
+        "puzzle"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-002883",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "Do you want a potato?",
+      "new_text": "A teacher puts the potato on the table.",
+      "old_topic": "food",
+      "new_topic": "food",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "want",
+        "potato"
+      ],
+      "new_target_words": [
+        "teacher",
+        "puts",
+        "potato",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003148",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A cat touches the sandwich.",
+      "new_text": "A mother eats the sandwich after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "cat",
+        "touches",
+        "sandwich"
+      ],
+      "new_target_words": [
+        "mother",
+        "eats",
+        "sandwich"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003489",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A baby gives the friend a small story.",
+      "new_text": "A friend reads a short story to the baby.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "baby",
+        "gives",
+        "friend",
+        "small",
+        "story"
+      ],
+      "new_target_words": [
+        "friend",
+        "baby",
+        "reads",
+        "short",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003490",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A boy gives the mother a small story.",
+      "new_text": "A mother reads a short story to the boy.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "boy",
+        "gives",
+        "mother",
+        "small",
+        "story"
+      ],
+      "new_target_words": [
+        "mother",
+        "boy",
+        "reads",
+        "short",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "ditransitive",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ]
+    },
+    {
+      "id": "cc-003745",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A bird touches the basket.",
+      "new_text": "A mother carries the basket to the room.",
+      "old_topic": "animals",
+      "new_topic": "home",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bird",
+        "touches",
+        "basket"
+      ],
+      "new_target_words": [
+        "mother",
+        "carries",
+        "basket",
+        "room"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-003957",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the soup.",
+      "new_text": "A friend eats the soup at lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "soup"
+      ],
+      "new_target_words": [
+        "friend",
+        "eats",
+        "soup"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004357",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the blanket.",
+      "new_text": "A father carries the blanket to the table.",
+      "old_topic": "animals",
+      "new_topic": "home",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "blanket"
+      ],
+      "new_target_words": [
+        "father",
+        "carries",
+        "blanket",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004489",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A bird touches the puzzle.",
+      "new_text": "A friend puts the puzzle on the table.",
+      "old_topic": "animals",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bird",
+        "touches",
+        "puzzle"
+      ],
+      "new_target_words": [
+        "friend",
+        "puts",
+        "puzzle",
+        "table"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004608",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A butterfly touches the toy.",
+      "new_text": "A child puts the toy in a box.",
+      "old_topic": "animals",
+      "new_topic": "play",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "butterfly",
+        "touches",
+        "toy"
+      ],
+      "new_target_words": [
+        "child",
+        "puts",
+        "toy",
+        "box"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004746",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "A bird touches the cookie.",
+      "new_text": "A friend shares the cookie after lunch.",
+      "old_topic": "animals",
+      "new_topic": "food",
+      "old_difficulty": 2,
+      "new_difficulty": 2,
+      "old_target_words": [
+        "bird",
+        "touches",
+        "cookie"
+      ],
+      "new_target_words": [
+        "friend",
+        "shares",
+        "cookie"
+      ],
+      "old_grammar_tags": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    },
+    {
+      "id": "cc-004968",
+      "reason": "semantic_naturalness",
+      "pair_id": "",
+      "old_text": "Do you like a story?",
+      "new_text": "A teacher reads the story after lunch.",
+      "old_topic": "school",
+      "new_topic": "school",
+      "old_difficulty": 3,
+      "new_difficulty": 3,
+      "old_target_words": [
+        "like",
+        "story"
+      ],
+      "new_target_words": [
+        "teacher",
+        "reads",
+        "story"
+      ],
+      "old_grammar_tags": [
+        "question",
+        "do_support",
+        "direct_object"
+      ],
+      "new_grammar_tags": [
+        "present_simple",
+        "direct_object"
+      ]
+    }
+  ]
+}

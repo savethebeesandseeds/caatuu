@@ -56,14 +56,15 @@ history. More languages can join as complete worlds of their own.
 
 ## Built openly
 
-Caatuu is an active development preview. The product is growing in public, and
-contributors interested in language learning, local AI, playful interfaces,
-Android, or educational games are welcome to explore the project.
+Caatuu is an active development preview growing in public. You are welcome to
+explore the code, follow its progress, and learn from the project. External
+contributions are temporarily paused while the core product and collaboration
+process settle; the contribution guide records the current policy.
 
 - [See how Caatuu is designed](docs/ARCHITECTURE.md)
 - [Read the language-app vision](docs/LANGUAGE_APP_CONTRACT.md)
 - [Set up a development environment](docs/DEVELOPMENT.md)
-- [Contribute to Caatuu](.github/CONTRIBUTING.md)
+- [Read the contribution policy](.github/CONTRIBUTING.md)
 
 First-party software and developer documentation are licensed
 [`AGPL-3.0-only`](LICENSE). Models, dictionaries, datasets, artwork, branding,

@@ -1,0 +1,2592 @@
+{
+  "generated_at": "2026-07-14T10:11:44.444Z",
+  "model_id": "all-minilm-l6-v2-qint8-v0.1",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "evaluation_file": "/workspace/tools/czech-ml/data/curriculum/core-v0.2/evaluation/image-retrieval.en.jsonl",
+  "database_file": "/workspace/apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+  "query_count": 40,
+  "candidate_count": 430,
+  "recall_at_1": 0.925,
+  "recall_at_3": 0.975,
+  "recall_at_5": 1,
+  "mean_reciprocal_rank": 0.95625,
+  "gates": {
+    "min_recall_at_1": 0.75,
+    "min_recall_at_5": 0.9
+  },
+  "results": [
+    {
+      "id": "book-at-home",
+      "query": "a child reads a book at home",
+      "acceptable_categories": [
+        "read_book",
+        "learning",
+        "study",
+        "library",
+        "bedroom",
+        "household"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(23).png",
+          "category": "read_book",
+          "description": "A robed macaw reads an open book attentively.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.360626,
+          "lexicalScore": 0.4,
+          "score": 0.374626,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_084.png",
+          "category": "library",
+          "description": "A curved wooden bookshelf filled with books, scrolls, candle, potted plant, storage drawers, and a tiny glowing reading light. It can represent a library, books, reading, knowledge, study, research, learning, or a quiet public place.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.281141,
+          "lexicalScore": 0,
+          "score": 0.281141,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(99).png",
+          "category": "furniture",
+          "description": "A wooden bookshelf cabinet with books, jars, drawers, leafy potted plant on top, and a small dangling key. It can represent furniture, a room, home interior, comfort, sitting, storage, or everyday household life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.260076,
+          "lexicalScore": 0.2,
+          "score": 0.267076,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(116).png",
+          "category": "learning",
+          "description": "A stack of teal and brown books with bookmarks, brass corner plates, worn covers, and layered pages. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.265783,
+          "lexicalScore": 0,
+          "score": 0.265783,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_062.png",
+          "category": "civic_building",
+          "description": "A public schoolhouse with telescope tower, outdoor garden classroom, blank slate board, flowers, teal roofs, and round doors. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.257784,
+          "lexicalScore": 0,
+          "score": 0.257784,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "homework-desk",
+      "query": "the student writes homework at a desk",
+      "acceptable_categories": [
+        "study",
+        "learning",
+        "classroom"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_069.png",
+          "category": "study",
+          "description": "A writing desk with chair, parchment letters, ink pot, feather quill, seal, drawers, teal cloth, and glowing star compass. It can represent a desk, study, homework, reading, writing, planning, office work, or learning.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.57813,
+          "lexicalScore": 0.333333,
+          "score": 0.589797,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(209).png",
+          "category": "classroom",
+          "description": "A student desk with matching chair, teal cushion, writing surface, inkwell, and simple wooden school furniture. It can represent a classroom, school, teacher, student, lesson, learning, education, or study.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.551081,
+          "lexicalScore": 0.333333,
+          "score": 0.562748,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(100).png",
+          "category": "study",
+          "description": "A wooden writing desk with teal cloth, open book, papers, lamp, pencils, drawers, and potted stationery cups. It can represent a desk, study, homework, reading, writing, planning, office work, or learning.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.542819,
+          "lexicalScore": 0.333333,
+          "score": 0.554485,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(121).png",
+          "category": "study",
+          "description": "A writing desk with feather quill, candle lamp, open letter, books, teal cloth, and warm scholarly accessories. It can represent a desk, study, homework, reading, writing, planning, office work, or learning.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.521143,
+          "lexicalScore": 0.333333,
+          "score": 0.53281,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(211).png",
+          "category": "learning",
+          "description": "A cup of pencils and paintbrushes beside upright teal-and-brown books, all arranged as study supplies. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.443567,
+          "lexicalScore": 0,
+          "score": 0.443567,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "classroom-lesson",
+      "query": "children learn together in a classroom",
+      "acceptable_categories": [
+        "classroom",
+        "learning",
+        "study",
+        "civic_building"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_062.png",
+          "category": "civic_building",
+          "description": "A public schoolhouse with telescope tower, outdoor garden classroom, blank slate board, flowers, teal roofs, and round doors. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.456615,
+          "lexicalScore": 0.2,
+          "score": 0.463615,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(128).png",
+          "category": "learning",
+          "description": "A classroom or study corner with chalkboard, globe, gears, desk, books, stool, maps, and scientific decorations. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.430646,
+          "lexicalScore": 0.2,
+          "score": 0.437646,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(211).png",
+          "category": "learning",
+          "description": "A cup of pencils and paintbrushes beside upright teal-and-brown books, all arranged as study supplies. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.394483,
+          "lexicalScore": 0.2,
+          "score": 0.401483,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(215).png",
+          "category": "learning",
+          "description": "A classroom globe on a wooden stand with teal oceans, cream continents, and brass meridian ring. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.376759,
+          "lexicalScore": 0.2,
+          "score": 0.383759,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(209).png",
+          "category": "classroom",
+          "description": "A student desk with matching chair, teal cushion, writing surface, inkwell, and simple wooden school furniture. It can represent a classroom, school, teacher, student, lesson, learning, education, or study.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.309168,
+          "lexicalScore": 0.2,
+          "score": 0.316168,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "library-books",
+      "query": "she chooses a book from the library",
+      "acceptable_categories": [
+        "library",
+        "learning",
+        "study",
+        "civic_building"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_051.png",
+          "category": "civic_building",
+          "description": "A two-story public library with a tall curved glass book facade, teal roof, stone entrance, hanging lantern, and visible shelves. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.447793,
+          "lexicalScore": 0.333333,
+          "score": 0.45946,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(81).png",
+          "category": "carry_books",
+          "description": "A studious robed macaw carries a stack of books.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.436986,
+          "lexicalScore": 0,
+          "score": 0.436986,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_021.png",
+          "category": "robot",
+          "description": "A mobile library-shelving robot with books, reading spectacles, lifting ladder, wheeled base, and articulated arms for organizing a library. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.423792,
+          "lexicalScore": 0.166667,
+          "score": 0.429625,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(129).png",
+          "category": "library",
+          "description": "A rounded arched library alcove with shelves of books, scrolls, ladder, teal cushions, globe, and cozy reading table. It can represent a library, books, reading, knowledge, study, research, learning, or a quiet public place.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.416252,
+          "lexicalScore": 0.166667,
+          "score": 0.422086,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(211).png",
+          "category": "learning",
+          "description": "A cup of pencils and paintbrushes beside upright teal-and-brown books, all arranged as study supplies. It can represent learning, school, study, reading, writing, books, education, or classroom work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.405828,
+          "lexicalScore": 0,
+          "score": 0.405828,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "sleep-bed",
+      "query": "the child sleeps in a warm bed",
+      "acceptable_categories": [
+        "bedroom",
+        "rest",
+        "furniture",
+        "household"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(136).png",
+          "category": "bedroom",
+          "description": "A bunk bed nook with teal blankets, wooden ladder, plants, bookshelves, small rug, and warm sleeping alcove. It can represent a bedroom, bed, sleep, rest, nighttime, comfort, home, or personal space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.303734,
+          "lexicalScore": 0.333333,
+          "score": 0.3154,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_066.png",
+          "category": "household",
+          "description": "A cozy low wooden bed with teal patchwork quilt, round pillow, slippers, bedside table, and softly glowing night lamp. It can represent home, household life, furniture, comfort, daily routine, chores, family, or an interior room.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.295143,
+          "lexicalScore": 0.166667,
+          "score": 0.300976,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(208).png",
+          "category": "bedroom",
+          "description": "A wooden single bed with teal blanket, cream pillow, bedside cabinet, lamp, book, and small plant. It can represent a bedroom, bed, sleep, rest, nighttime, comfort, home, or personal space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.280466,
+          "lexicalScore": 0.166667,
+          "score": 0.286299,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(214).png",
+          "category": "rest",
+          "description": "A round teal floor cushion bed with orange pillow, cream blanket, nearby nightstand, plant, and circular rug. It can represent rest, relaxation, comfort, sitting, sleeping, a break, or quiet time.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.253719,
+          "lexicalScore": 0.166667,
+          "score": 0.259553,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(192).png",
+          "category": "campsite",
+          "description": "A cozy campsite tent with teal-and-cream canvas, rolled sleeping bag, lantern, small plants, and stones around the entrance. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.251737,
+          "lexicalScore": 0.166667,
+          "score": 0.25757,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "rest-hammock",
+      "query": "he relaxes quietly in a hammock",
+      "acceptable_categories": [
+        "rest",
+        "furniture",
+        "garden"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(107).png",
+          "category": "rest",
+          "description": "A fabric hammock tied between two wooden posts with teal and cream sling, orange pillow, and rope bindings. It can represent rest, relaxation, comfort, sitting, sleeping, a break, or quiet time.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.487134,
+          "lexicalScore": 0.2,
+          "score": 0.494134,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(51).png",
+          "category": "meditate",
+          "description": "A calm robed macaw meditates while sitting cross-legged.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.410262,
+          "lexicalScore": 0,
+          "score": 0.410262,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(42).png",
+          "category": "speak_quietly",
+          "description": "A robed macaw speaks quietly with one wing near its beak.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.355556,
+          "lexicalScore": 0.2,
+          "score": 0.362556,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(70).png",
+          "category": "rest_with_cup",
+          "description": "A relaxed robed macaw sits on the ground beside a small cup.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.338273,
+          "lexicalScore": 0,
+          "score": 0.338273,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(84).png",
+          "category": "exhausted",
+          "description": "A tired hooded macaw lies flat on the ground, exhausted.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.334298,
+          "lexicalScore": 0,
+          "score": 0.334298,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "cook-dinner",
+      "query": "the family cooks dinner in the kitchen",
+      "acceptable_categories": [
+        "kitchen",
+        "food",
+        "household"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_067.png",
+          "category": "household",
+          "description": "A compact kitchen stove with orange fire, cream kettle, copper chimney pipe, cooking tools, and stacked firewood. It can represent home, household life, furniture, comfort, daily routine, chores, family, or an interior room.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.308384,
+          "lexicalScore": 0.333333,
+          "score": 0.320051,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(28).png",
+          "category": "cook_pot",
+          "description": "A robed macaw cooks by stirring a steaming pot.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.263545,
+          "lexicalScore": 0.166667,
+          "score": 0.269378,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_082.png",
+          "category": "kitchen",
+          "description": "A breakfast cooking counter with frying egg, hanging pans, chopping board, knives, herbs, spice jars, oven, and food ingredients. It can represent a kitchen, cooking, baking, preparing food, dishes, meals, heat, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.26157,
+          "lexicalScore": 0.166667,
+          "score": 0.267403,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_061.png",
+          "category": "civic_building",
+          "description": "A community kitchen and soup hall with broad chimney, open serving counter, cooking pots, dishes, lanterns, and herb boxes. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.241497,
+          "lexicalScore": 0.166667,
+          "score": 0.24733,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_091.png",
+          "category": "campsite",
+          "description": "A traveler camp kitchen with compact stove, nested pots, canteen, mugs, bedroll, folding stool, and packed outdoor supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.213169,
+          "lexicalScore": 0.166667,
+          "score": 0.219002,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "tea-kettle",
+      "query": "water boils in a kettle for tea",
+      "acceptable_categories": [
+        "kitchen",
+        "cafe",
+        "food",
+        "household",
+        "robot"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_105.png",
+          "category": "robot",
+          "description": "A tea-serving kettle robot in a white apron carrying a tray with teapot, cups, and saucers, with steam chimney and warm manners. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.580153,
+          "lexicalScore": 0.5,
+          "score": 0.597653,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(105).png",
+          "category": "kitchen",
+          "description": "A cream kettle with teal base and handle, gold knob, curved spout, and rounded cozy kitchen shape. It can represent a kitchen, cooking, baking, preparing food, dishes, meals, heat, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.473572,
+          "lexicalScore": 0.166667,
+          "score": 0.479405,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_013.png",
+          "category": "robot",
+          "description": "A friendly cream-and-teal kettle-shaped garden robot with watering-can arm, sturdy boots, brass joints, and a small chimney. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.387874,
+          "lexicalScore": 0.166667,
+          "score": 0.393707,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_057.png",
+          "category": "civic_building",
+          "description": "A two-story neighborhood tea house with round balcony, outdoor tables, cups, plants, warm lanterns, and teal curved roofs. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.37,
+          "lexicalScore": 0.166667,
+          "score": 0.375833,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(153).png",
+          "category": "shop",
+          "description": "A tea or bath stall with steam symbol, teal roof, hanging lantern, wooden counter, buckets, and small potted plants. It can represent a shop, store, business, customer, shopping, goods, buying, or selling.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.363652,
+          "lexicalScore": 0.166667,
+          "score": 0.369485,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "market-vegetables",
+      "query": "we buy fresh vegetables at the market",
+      "acceptable_categories": [
+        "market",
+        "food",
+        "shop",
+        "food_stall"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(79).png",
+          "category": "market",
+          "description": "A vegetable stall with leafy canopy, crates of carrots, greens, apples, pumpkins, bunting, and dense garden produce. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.49899,
+          "lexicalScore": 0.142857,
+          "score": 0.50399,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(64).png",
+          "category": "market",
+          "description": "A produce market stall packed with apples, carrots, leafy vegetables, hanging lights, teal striped canopy, wooden crates, and baskets. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.485784,
+          "lexicalScore": 0.285714,
+          "score": 0.495784,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(134).png",
+          "category": "garden",
+          "description": "A raised vegetable garden with trellis, leafy vines, sunflowers, tomatoes, watering can, potted plants, and soil beds. It can represent gardening, plants, flowers, vegetables, growing food, outdoor work, or a garden.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.388915,
+          "lexicalScore": 0.142857,
+          "score": 0.393915,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_053.png",
+          "category": "civic_building",
+          "description": "A covered produce market pavilion with teal-and-cream canopy, baskets of fruit and vegetables, hanging lights, and circular stone base. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.377741,
+          "lexicalScore": 0.285714,
+          "score": 0.387741,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(67).png",
+          "category": "market",
+          "description": "A fish market stall with teal canopy, hanging fish, crates of seafood, cutting counter, small flags, and lanterns. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.324425,
+          "lexicalScore": 0.142857,
+          "score": 0.329425,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "bakery-bread",
+      "query": "the baker sells warm bread",
+      "acceptable_categories": [
+        "market",
+        "food",
+        "food_stall",
+        "shop",
+        "civic_building"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_050.png",
+          "category": "civic_building",
+          "description": "A neighborhood bakery storefront with teal striped awning, bread-filled display window, round upper windows, planters, and warm lights. A baker bakes fresh bread, cakes, and pastries in this bakery, and customers come to buy food.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.610318,
+          "lexicalScore": 0.6,
+          "score": 0.631318,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_022.png",
+          "category": "robot",
+          "description": "A warm bread-delivery robot with an oven-like bread-box body, wicker side baskets full of loaves, sturdy feet, and brass details. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.582924,
+          "lexicalScore": 0.4,
+          "score": 0.596924,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_106.png",
+          "category": "robot",
+          "description": "A bread-delivery baker robot with oven belly, chef hat, basket of loaves, cream ceramic body, teal scarf, and sturdy hands. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.581151,
+          "lexicalScore": 0.4,
+          "score": 0.595151,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(66).png",
+          "category": "market",
+          "description": "A covered bread cart with cream canopy, wooden wheels, baskets of loaves, smoking chimney, teal panels, and warm bakery styling. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.512,
+          "lexicalScore": 0.4,
+          "score": 0.526,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(73).png",
+          "category": "market",
+          "description": "A bakery cart with teal roof, smoking chimney, hanging lantern, bread display, wooden wheels, and a cream sign cloth. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.451375,
+          "lexicalScore": 0.2,
+          "score": 0.458375,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "doctor-clinic",
+      "query": "a doctor helps a sick child at the clinic",
+      "acceptable_categories": [
+        "clinic",
+        "civic_building"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(151).png",
+          "category": "clinic",
+          "description": "A small clinic house with teal roof, cream walls, medical cross sign, yellow awning, chimney, and potted plants.. A doctor and nurse work at this clinic to provide medicine, health care, examination, and treatment for sick or injured people.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.532855,
+          "lexicalScore": 0.571429,
+          "score": 0.552855,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_052.png",
+          "category": "civic_building",
+          "description": "A small healer clinic with herb garden, leaf emblem, teal roof, warm windows, stone steps, and glowing blue medical window. A doctor and nurse work at this clinic to give medicine, health care, and treatment to sick or injured people.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.494762,
+          "lexicalScore": 0.571429,
+          "score": 0.514762,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(109).png",
+          "category": "bath",
+          "description": "A cream bathtub with teal towel, wooden feet, small pitcher, rounded tub edge, and simple washroom accessories. It can represent a bath, washing, water, hygiene, relaxation, bathroom, or personal care.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.193846,
+          "lexicalScore": 0,
+          "score": 0.193846,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_093.png",
+          "category": "toy",
+          "description": "An empty wooden nursery cradle with patchwork blanket, moon-and-star mobile, cloth rabbit, pull toy, blocks, and round rug. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.172863,
+          "lexicalScore": 0,
+          "score": 0.172863,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(140).png",
+          "category": "science",
+          "description": "An alchemy laboratory bench with colored bottles, glass flasks, test tubes, papers, stool, and teal cloth runner. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.163525,
+          "lexicalScore": 0,
+          "score": 0.163525,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "playground-slide",
+      "query": "the children play outside on a slide",
+      "acceptable_categories": [
+        "playground",
+        "game",
+        "toy"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(132).png",
+          "category": "playground",
+          "description": "A garden play slide with teal roof, curved blue slide, leafy tree, flowers, stones, and small path. It can represent a playground, children, play, exercise, outdoor fun, friends, or recreation.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.529258,
+          "lexicalScore": 0.5,
+          "score": 0.546758,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_041.png",
+          "category": "playground",
+          "description": "A neighborhood playground with rounded slide, rope swing, stepping logs, stone path, flowers, and a spring-mounted wooden animal toy. It can represent a playground, children, play, exercise, outdoor fun, friends, or recreation.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.400995,
+          "lexicalScore": 0.5,
+          "score": 0.418495,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_078.png",
+          "category": "toy",
+          "description": "A children?s toy group with wooden pull wagon, cloth rabbit doll, spinning top, blocks, rope, and tiny toy boat. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.330123,
+          "lexicalScore": 0.333333,
+          "score": 0.34179,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(133).png",
+          "category": "playground",
+          "description": "A covered sand play area with teal-and-yellow canopy, toy castle, buckets, small flags, and garden border. It can represent a playground, children, play, exercise, outdoor fun, friends, or recreation.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.315907,
+          "lexicalScore": 0.333333,
+          "score": 0.327574,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(166).png",
+          "category": "toy",
+          "description": "A pinwheel toy with teal, cream, orange, and brown blades on a wooden stick. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.256166,
+          "lexicalScore": 0.5,
+          "score": 0.273666,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "toy-blocks",
+      "query": "a child builds a tower with toy blocks",
+      "acceptable_categories": [
+        "toy",
+        "game",
+        "playground"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(163).png",
+          "category": "toy",
+          "description": "A set of colorful wooden building blocks shaped like cubes, cylinders, arches, and tiny houses. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.479284,
+          "lexicalScore": 0.333333,
+          "score": 0.490951,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_093.png",
+          "category": "toy",
+          "description": "An empty wooden nursery cradle with patchwork blanket, moon-and-star mobile, cloth rabbit, pull toy, blocks, and round rug. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.434413,
+          "lexicalScore": 0.5,
+          "score": 0.451913,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_078.png",
+          "category": "toy",
+          "description": "A children?s toy group with wooden pull wagon, cloth rabbit doll, spinning top, blocks, rope, and tiny toy boat. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.395273,
+          "lexicalScore": 0.5,
+          "score": 0.412773,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(76).png",
+          "category": "market",
+          "description": "A toy stall with striped tent roof, teddy bear, dolls, small bottles, flags, wheels, and colorful goods on display. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.341439,
+          "lexicalScore": 0.333333,
+          "score": 0.353106,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(12).png",
+          "category": "house",
+          "description": "A tall windmill tower house with white plaster walls, teal roof, wooden balcony, attached canopy, trees, and warm storybook details. It can represent a house, home, dwelling, building, shelter, village neighborhood, or place to live.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.340771,
+          "lexicalScore": 0.333333,
+          "score": 0.352438,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "music-room",
+      "query": "she plays music on the piano",
+      "acceptable_categories": [
+        "music",
+        "stage"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(130).png",
+          "category": "music",
+          "description": "A music room with upright piano, bookshelves, lute, stool, green rug, and warm wooden study walls. It can represent music, musical instruments, sound, song, rhythm, performance, or entertainment.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.437816,
+          "lexicalScore": 0.333333,
+          "score": 0.449482,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_086.png",
+          "category": "music",
+          "description": "A music corner with small lute, hand drum, wooden flute, hanging chimes, pipes, teal rug, and stand with blank sheet music. It can represent music, musical instruments, sound, song, rhythm, performance, or entertainment.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.369377,
+          "lexicalScore": 0.166667,
+          "score": 0.375211,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(88).png",
+          "category": "play_lute",
+          "description": "A musical robed macaw plays a small lute or ukulele.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.334875,
+          "lexicalScore": 0.166667,
+          "score": 0.340708,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_026.png",
+          "category": "robot",
+          "description": "A cheerful street musician robot with a barrel-organ chest, top hat, hanging chimes, small wheels, and a tray for coins. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.30211,
+          "lexicalScore": 0,
+          "score": 0.30211,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(123).png",
+          "category": "music",
+          "description": "A guitar, hand drum, pan flutes, small flag, and wooden music stand arranged as a cozy musical instrument set. It can represent music, musical instruments, sound, song, rhythm, performance, or entertainment.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.287968,
+          "lexicalScore": 0.166667,
+          "score": 0.293801,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "theater-stage",
+      "query": "actors perform for an audience in the theater",
+      "acceptable_categories": [
+        "stage",
+        "music",
+        "festival"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(143).png",
+          "category": "stage",
+          "description": "A small theater stage with teal curtains, wooden steps, decorative trim, potted plants, and warm performance lights. It can represent a stage, theater, performance, music, audience, entertainment, or public event.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.492904,
+          "lexicalScore": 0.25,
+          "score": 0.501654,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(130).png",
+          "category": "music",
+          "description": "A music room with upright piano, bookshelves, lute, stool, green rug, and warm wooden study walls. It can represent music, musical instruments, sound, song, rhythm, performance, or entertainment.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.260147,
+          "lexicalScore": 0,
+          "score": 0.260147,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(88).png",
+          "category": "play_lute",
+          "description": "A musical robed macaw plays a small lute or ukulele.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.242977,
+          "lexicalScore": 0,
+          "score": 0.242977,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_063.png",
+          "category": "civic_building",
+          "description": "A small music hall with curved wooden stage, pipe instruments, musical-note ornament, teal roof, steps, and warm lanterns. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.229274,
+          "lexicalScore": 0,
+          "score": 0.229274,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(93).png",
+          "category": "conduct_music",
+          "description": "A robed macaw conducts music with a baton and raised wing.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.209295,
+          "lexicalScore": 0,
+          "score": 0.209295,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "camping-tent",
+      "query": "they sleep overnight in a tent while camping",
+      "acceptable_categories": [
+        "campsite",
+        "travel",
+        "rest"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(192).png",
+          "category": "campsite",
+          "description": "A cozy campsite tent with teal-and-cream canvas, rolled sleeping bag, lantern, small plants, and stones around the entrance. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.578349,
+          "lexicalScore": 0.428571,
+          "score": 0.593349,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(91).png",
+          "category": "campsite",
+          "description": "A triangular camping tent with teal and cream canvas, orange flag, campfire, smoke, bedrolls, rocks, and nearby trees. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.431716,
+          "lexicalScore": 0.428571,
+          "score": 0.446716,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(193).png",
+          "category": "campsite",
+          "description": "A campfire cooking setup with hanging pot, kettle, flames, stones, wooden tripod, and outdoor cooking supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.370832,
+          "lexicalScore": 0.428571,
+          "score": 0.385832,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_091.png",
+          "category": "campsite",
+          "description": "A traveler camp kitchen with compact stove, nested pots, canteen, mugs, bedroll, folding stool, and packed outdoor supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.357333,
+          "lexicalScore": 0.428571,
+          "score": 0.372333,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(195).png",
+          "category": "travel",
+          "description": "A rolled sleeping mat or bedroll in teal and tan bands with straps and cylindrical travel shape. It can represent travel, a journey, luggage, camping, exploration, vacation, or outdoor adventure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.352618,
+          "lexicalScore": 0.285714,
+          "score": 0.362618,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "campfire-food",
+      "query": "we cook food over a campfire",
+      "acceptable_categories": [
+        "campsite",
+        "kitchen",
+        "food"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(193).png",
+          "category": "campsite",
+          "description": "A campfire cooking setup with hanging pot, kettle, flames, stones, wooden tripod, and outdoor cooking supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.647054,
+          "lexicalScore": 0.2,
+          "score": 0.654054,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(104).png",
+          "category": "kitchen",
+          "description": "A small teal-and-cream wood stove with glowing firebox, black chimney, round legs, and stacked logs underneath. It can represent a kitchen, cooking, baking, preparing food, dishes, meals, heat, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.429829,
+          "lexicalScore": 0.2,
+          "score": 0.436829,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_067.png",
+          "category": "household",
+          "description": "A compact kitchen stove with orange fire, cream kettle, copper chimney pipe, cooking tools, and stacked firewood. It can represent home, household life, furniture, comfort, daily routine, chores, family, or an interior room.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.429209,
+          "lexicalScore": 0,
+          "score": 0.429209,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(192).png",
+          "category": "campsite",
+          "description": "A cozy campsite tent with teal-and-cream canvas, rolled sleeping bag, lantern, small plants, and stones around the entrance. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.398446,
+          "lexicalScore": 0.2,
+          "score": 0.405446,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(91).png",
+          "category": "campsite",
+          "description": "A triangular camping tent with teal and cream canvas, orange flag, campfire, smoke, bedrolls, rocks, and nearby trees. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.38506,
+          "lexicalScore": 0.2,
+          "score": 0.39206,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "spaceship-travel",
+      "query": "a spaceship flies through outer space",
+      "acceptable_categories": [
+        "ship",
+        "travel",
+        "vehicle"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 2,
+      "reciprocal_rank": 0.5,
+      "top": [
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(40).png",
+          "category": "astronaut_walk",
+          "description": "An astronaut macaw walks across the moon with a space backpack.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.432313,
+          "lexicalScore": 0.2,
+          "score": 0.439313,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(4).png",
+          "category": "ship",
+          "description": "A circular ring-shaped spacecraft with teal cockpit glass, cream hull plates, brown scarf-like wrapping, side thrusters, and a central open hole. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.373504,
+          "lexicalScore": 0.4,
+          "score": 0.387504,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(17).png",
+          "category": "ship",
+          "description": "A crescent-shaped cream-and-teal spacecraft with orange nose, dark cockpit opening, circular blue windows, and small rear engine cluster. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.369957,
+          "lexicalScore": 0.4,
+          "score": 0.383957,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(38).png",
+          "category": "ship",
+          "description": "A beetle-inspired flying craft with teal glass body, orange nose, brown armor shell, many small mechanical legs, and rear fins. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.362744,
+          "lexicalScore": 0.4,
+          "score": 0.376744,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(3).png",
+          "category": "ship",
+          "description": "A bird-like cream glider ship with curved wings, teal cockpit glass, a brown fabric wrap, rear jets, and a small fluttering flag. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.361782,
+          "lexicalScore": 0.4,
+          "score": 0.375782,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "boat-water",
+      "query": "a small boat sails across the water",
+      "acceptable_categories": [
+        "row_boat",
+        "boat",
+        "ship",
+        "dock",
+        "travel"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(64).png",
+          "category": "row_boat",
+          "description": "A happy robed macaw rows a small wooden boat on water.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.630433,
+          "lexicalScore": 0.5,
+          "score": 0.647933,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(40).png",
+          "category": "ship",
+          "description": "A small wooden sailboat with cream sail, teal hull, orange flag, brown mast, round porthole, and storybook nautical trim. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.544002,
+          "lexicalScore": 0.333333,
+          "score": 0.555669,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(199).png",
+          "category": "boat",
+          "description": "A small wooden rowboat with teal cushion, cream hull trim, oar, curved bow, and cozy canoe-like interior. It can represent a boat, sailing, rowing, water travel, river, lake, fishing, or transportation.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.417279,
+          "lexicalScore": 0.5,
+          "score": 0.434779,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(87).png",
+          "category": "swim",
+          "description": "A joyful robed macaw swims through splashing blue water.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.427807,
+          "lexicalScore": 0.166667,
+          "score": 0.433641,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(23).png",
+          "category": "ship",
+          "description": "A small sailing airship with teal sail, cream hull, wooden mast, lanterns, flags, rope rigging, and round porthole windows. It can represent a ship, spacecraft, flying vehicle, transportation, travel, a journey, the sky, or outer space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.421866,
+          "lexicalScore": 0.333333,
+          "score": 0.433533,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "garden-flowers",
+      "query": "she waters flowers and vegetables in the garden",
+      "acceptable_categories": [
+        "garden",
+        "nature",
+        "greenhouse"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(134).png",
+          "category": "garden",
+          "description": "A raised vegetable garden with trellis, leafy vines, sunflowers, tomatoes, watering can, potted plants, and soil beds. It can represent gardening, plants, flowers, vegetables, growing food, outdoor work, or a garden.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.471616,
+          "lexicalScore": 0.5,
+          "score": 0.489116,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(59).png",
+          "category": "water_flower",
+          "description": "A gentle robed macaw waters a small flower with a watering can.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.407096,
+          "lexicalScore": 0.125,
+          "score": 0.411471,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_097.png",
+          "category": "robot",
+          "description": "A friendly watering gardener robot with long-spout can arm, hose tank, cream-and-teal body, leaf sprout, and muddy boots. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.398514,
+          "lexicalScore": 0.125,
+          "score": 0.402889,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(202).png",
+          "category": "nature",
+          "description": "A dense flower patch with daisies, orange blossoms, purple lavender spikes, green leaves, and low garden foliage. It can represent nature, outdoors, plants, landscape, countryside, forest, water, or a garden.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.387366,
+          "lexicalScore": 0.25,
+          "score": 0.396116,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(142).png",
+          "category": "place",
+          "description": "A circular garden fountain plaza with turquoise water, benches, trees, lamps, hedges, and stone walking paths. It can represent a public place, destination, town location, community space, meeting area, or city landmark.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.37948,
+          "lexicalScore": 0.25,
+          "score": 0.38823,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "greenhouse-plants",
+      "query": "plants grow inside a greenhouse",
+      "acceptable_categories": [
+        "greenhouse",
+        "garden",
+        "nature",
+        "plant"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(84).png",
+          "category": "garden",
+          "description": "A glass greenhouse with teal metal frame, potted flowers, stone walkway, dense plants, and transparent green panels. It can represent gardening, plants, flowers, vegetables, growing food, outdoor work, or a garden.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.556934,
+          "lexicalScore": 0.5,
+          "score": 0.574434,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_008.png",
+          "category": "greenhouse",
+          "description": "A round glass greenhouse with teal framing, flower pots, warm interior light, and brass antenna petals on the roof. It can represent a greenhouse, glasshouse, plants, flowers, gardening, growing food, farming, or horticulture.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.482919,
+          "lexicalScore": 0.5,
+          "score": 0.500419,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(134).png",
+          "category": "garden",
+          "description": "A raised vegetable garden with trellis, leafy vines, sunflowers, tomatoes, watering can, potted plants, and soil beds. It can represent gardening, plants, flowers, vegetables, growing food, outdoor work, or a garden.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.371701,
+          "lexicalScore": 0.25,
+          "score": 0.380451,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_104.png",
+          "category": "robot",
+          "description": "A greenhouse misting robot with a large clear water dome, spray nozzle arm, hose, cream-and-teal body, and rolling feet. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.360033,
+          "lexicalScore": 0.25,
+          "score": 0.368783,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(111).png",
+          "category": "plant",
+          "description": "A leafy potted plant on a tall wooden stand with shelf, small jar underneath, and broad green leaves. It can represent a plant, houseplant, leaves, growth, nature, gardening, or indoor decoration.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.334323,
+          "lexicalScore": 0,
+          "score": 0.334323,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "laundry-clothes",
+      "query": "he washes dirty clothes in the laundry",
+      "acceptable_categories": [
+        "wash_laundry",
+        "laundry",
+        "cleaning",
+        "household"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(10).png",
+          "category": "wash_laundry",
+          "description": "A robed macaw washes laundry in a round wooden tub with soap bubbles.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.558685,
+          "lexicalScore": 0.428571,
+          "score": 0.573685,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(124).png",
+          "category": "cleaning",
+          "description": "A broom and wooden wash bucket with soap bubbles, brush, cloth, scattered leaves, and simple cleaning supplies. It can represent cleaning, sweeping, washing, tidying, chores, hygiene, or household maintenance.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.487565,
+          "lexicalScore": 0,
+          "score": 0.487565,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_072.png",
+          "category": "laundry",
+          "description": "A wooden laundry frame with shirts, socks, apron, towels, clothespins, wash basket, and a small drying fan. It can represent laundry, clothes, washing, drying, cleaning, chores, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.464497,
+          "lexicalScore": 0.285714,
+          "score": 0.474497,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(156).png",
+          "category": "laundry",
+          "description": "A clothesline scene with teal and yellow garments, wash tubs, basket, wooden posts, and garden laundry setup. It can represent laundry, clothes, washing, drying, cleaning, chores, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.395539,
+          "lexicalScore": 0.285714,
+          "score": 0.405539,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_109.png",
+          "category": "robot",
+          "description": "A laundry helper robot wearing an apron and carrying folded towels, clothespins, sock, wicker basket, and mending supplies. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.384165,
+          "lexicalScore": 0.142857,
+          "score": 0.389165,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "bath-water",
+      "query": "the child takes a bath with warm water",
+      "acceptable_categories": [
+        "bath",
+        "waterworks",
+        "household"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_077.png",
+          "category": "bath",
+          "description": "A wooden bathing tub filled with bubbles, connected to a copper water boiler, with soap, towels, stool, and bathing supplies. It can represent a bath, washing, water, hygiene, relaxation, bathroom, or personal care.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.439451,
+          "lexicalScore": 0.428571,
+          "score": 0.454451,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(109).png",
+          "category": "bath",
+          "description": "A cream bathtub with teal towel, wooden feet, small pitcher, rounded tub edge, and simple washroom accessories. It can represent a bath, washing, water, hygiene, relaxation, bathroom, or personal care.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.396922,
+          "lexicalScore": 0.428571,
+          "score": 0.411922,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(10).png",
+          "category": "wash_laundry",
+          "description": "A robed macaw washes laundry in a round wooden tub with soap bubbles.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.387345,
+          "lexicalScore": 0.142857,
+          "score": 0.392345,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_030.png",
+          "category": "robot",
+          "description": "A bathhouse service robot carrying rolled towels, with a copper steam boiler backpack, basket arms, teal wheels, and warm water equipment. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.286961,
+          "lexicalScore": 0.428571,
+          "score": 0.301961,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_055.png",
+          "category": "civic_building",
+          "description": "A domed public bathhouse with copper pipes, steam chimney, round windows, stone steps, and a small clear bathing pool. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.291888,
+          "lexicalScore": 0.142857,
+          "score": 0.296888,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "park-bench",
+      "query": "friends sit together on a bench in the park",
+      "acceptable_categories": [
+        "bench",
+        "park",
+        "nature",
+        "place"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_035.png",
+          "category": "bench",
+          "description": "A sheltered public bench with teal canopy, wooden seat, drinking fountain, side shelf, cup, waste basket, and climbing plants. It can represent a bench, sitting, rest, park, street furniture, waiting, or a public space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.35979,
+          "lexicalScore": 0.25,
+          "score": 0.36854,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(149).png",
+          "category": "bench",
+          "description": "A wooden garden bench beside a flower planter overflowing with pink and yellow blossoms and teal metal supports. It can represent a bench, sitting, rest, park, street furniture, waiting, or a public space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.347774,
+          "lexicalScore": 0.25,
+          "score": 0.356524,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_040.png",
+          "category": "park",
+          "description": "A broad shade tree surrounded by circular public seating, flowers, a drinking tap, and small floating blue lights for a city square. It can represent a park, tree, public square, garden, shade, sitting, nature, community, or outdoor rest.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.225933,
+          "lexicalScore": 0.125,
+          "score": 0.230308,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_037.png",
+          "category": "transport",
+          "description": "A bicycle parking rack holding two handmade wood-and-brass pedal cycles with teal wheels, saddles, handlebars, and stone paving. It can represent transportation, bicycle, cycling, commuting, parking, travel, movement, or a city street.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.228914,
+          "lexicalScore": 0,
+          "score": 0.228914,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_042.png",
+          "category": "game",
+          "description": "An outdoor game table with checkerboard surface, carved pieces, four teal stools, hanging lantern, and flower basket. It can represent a game, play, recreation, competition, toys, friends, or leisure time.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.21974,
+          "lexicalScore": 0.125,
+          "score": 0.224115,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "science-telescope",
+      "query": "the student looks at stars through a telescope",
+      "acceptable_categories": [
+        "observatory",
+        "science",
+        "learning"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(114).png",
+          "category": "science",
+          "description": "A brass telescope on a tripod with long cream barrel, teal lens, and adjustable wooden legs. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.424428,
+          "lexicalScore": 0.142857,
+          "score": 0.429428,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(138).png",
+          "category": "observatory",
+          "description": "A domed observatory workshop with brass telescope, teal panels, circular floor, stools, tools, and star-gazing equipment. It can represent an observatory, telescope, astronomy, stars, planets, sky, science, or research.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.366068,
+          "lexicalScore": 0.285714,
+          "score": 0.376068,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_001.png",
+          "category": "observatory",
+          "description": "A grassy round-door hill observatory topped by a brass telescope dome, with stone steps, warm lanterns, flowers, and a teal door. It can represent an observatory, telescope, astronomy, stars, planets, sky, science, or research.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.360457,
+          "lexicalScore": 0.285714,
+          "score": 0.370457,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(38).png",
+          "category": "astronaut_explore",
+          "description": "An astronaut macaw studies the moon surface beside a small flag.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.335324,
+          "lexicalScore": 0.142857,
+          "score": 0.340324,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(81).png",
+          "category": "place",
+          "description": "A round observatory building with teal dome, large brass telescope, cream walls, trees, garden path, and small smoking chimney. It can represent a public place, destination, town location, community space, meeting area, or city landmark.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.330861,
+          "lexicalScore": 0.142857,
+          "score": 0.335861,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "science-lab",
+      "query": "children do a science experiment in a laboratory",
+      "acceptable_categories": [
+        "science",
+        "learning",
+        "classroom",
+        "workshop"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(140).png",
+          "category": "science",
+          "description": "An alchemy laboratory bench with colored bottles, glass flasks, test tubes, papers, stool, and teal cloth runner. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.425632,
+          "lexicalScore": 0.5,
+          "score": 0.443132,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(188).png",
+          "category": "science",
+          "description": "A mechanical lab table with round robot head, gears, magnifying arm, plans, tools, hanging lamp, and detailed tinkering setup. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.409245,
+          "lexicalScore": 0.5,
+          "score": 0.426745,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(191).png",
+          "category": "science",
+          "description": "An electronics workbench with circuit board, gauges, wires, teal desk lamp, tools, and mechanical testing equipment. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.35595,
+          "lexicalScore": 0.5,
+          "score": 0.37345,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(223).png",
+          "category": "science",
+          "description": "A small atom model with teal center, colored orbiting balls, brass stand, and circular wire paths. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.331952,
+          "lexicalScore": 0.5,
+          "score": 0.349452,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(190).png",
+          "category": "science",
+          "description": "An alchemy table with green bubbling flask, glass bottles, herbs, books, teal cloth, and small round jars. It can represent science, research, experiment, laboratory work, discovery, technology, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.325716,
+          "lexicalScore": 0.5,
+          "score": 0.343216,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "painting-art",
+      "query": "she paints a colorful picture",
+      "acceptable_categories": [
+        "paint_picture",
+        "art",
+        "craft"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(9).png",
+          "category": "paint_picture",
+          "description": "A calm robed macaw paints with a brush and colorful palette.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.483024,
+          "lexicalScore": 0.5,
+          "score": 0.500524,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(182).png",
+          "category": "art",
+          "description": "A painting studio table with easel, canvas, palette, brushes, bottles, shelves, and teal cloth. It can represent art, painting, drawing, creativity, color, design, or an artist at work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.395947,
+          "lexicalScore": 0,
+          "score": 0.395947,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(218).png",
+          "category": "art",
+          "description": "A small easel with abstract teal and orange paint marks, brushes, paint cup, and folded cloth at the base. It can represent art, painting, drawing, creativity, color, design, or an artist at work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.340775,
+          "lexicalScore": 0,
+          "score": 0.340775,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(131).png",
+          "category": "art",
+          "description": "An art studio corner with easel, map canvas, paint palette, brushes, stools, plants, jars, and teal canopy cloth. It can represent art, painting, drawing, creativity, color, design, or an artist at work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.326859,
+          "lexicalScore": 0,
+          "score": 0.326859,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(71).png",
+          "category": "market",
+          "description": "A flower stand with yellow striped canopy, colorful bouquets, hanging basket, wooden counter, and flower boxes. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.275218,
+          "lexicalScore": 0.25,
+          "score": 0.283968,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "pottery-craft",
+      "query": "he makes a clay pot by hand",
+      "acceptable_categories": [
+        "craft",
+        "workshop",
+        "materials"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(179).png",
+          "category": "craft",
+          "description": "A pottery wheel table with clay vessel, stools, jars, brushes, teal cloth, and ceramic craft tools. It can represent craft, making, repair, tools, skilled work, handmade objects, or an artisan workshop.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.466327,
+          "lexicalScore": 0.166667,
+          "score": 0.472161,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_095.png",
+          "category": "craft",
+          "description": "A pottery drying rack with handmade cups, bowls, plates, wet clay, wheel, glaze pots, carving tools, brush, and apron. It can represent craft, making, repair, tools, skilled work, handmade objects, or an artisan workshop.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.431543,
+          "lexicalScore": 0.166667,
+          "score": 0.437376,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(106).png",
+          "category": "kitchen",
+          "description": "A teal-and-cream cooking pot with lid, gold handles, diamond decorations, and sturdy round shape. It can represent a kitchen, cooking, baking, preparing food, dishes, meals, heat, or household work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.422447,
+          "lexicalScore": 0.166667,
+          "score": 0.42828,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(178).png",
+          "category": "forge",
+          "description": "A small blacksmith forge with teal stove, glowing fire, chimney, stacked logs, bucket, and stone platform. It can represent a forge, blacksmith, metalworking, fire, tools, manufacturing, or workshop labor.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.388126,
+          "lexicalScore": 0,
+          "score": 0.388126,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(28).png",
+          "category": "cook_pot",
+          "description": "A robed macaw cooks by stirring a steaming pot.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.338436,
+          "lexicalScore": 0.333333,
+          "score": 0.350102,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "letter-mail",
+      "query": "she sends a letter through the mail",
+      "acceptable_categories": [
+        "mail"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_076.png",
+          "category": "mail",
+          "description": "A village message post with mechanical courier bird, hanging parcels and envelopes, small blue lamp, and wooden mailbox stand. It can represent mail, a letter, message, parcel, delivery, post office, communication, or correspondence.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.3857,
+          "lexicalScore": 0.333333,
+          "score": 0.397366,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(117).png",
+          "category": "mail",
+          "description": "A teal rural mailbox with orange flag, cream envelope inside, curved metal body, and small plants around the post. It can represent mail, a letter, message, parcel, delivery, post office, communication, or correspondence.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.365288,
+          "lexicalScore": 0.5,
+          "score": 0.382788,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(146).png",
+          "category": "mail",
+          "description": "A postbox on a wooden stand with teal curved top, cream mail slot, small flag, flowers, and garden stones. It can represent mail, a letter, message, parcel, delivery, post office, communication, or correspondence.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.346292,
+          "lexicalScore": 0.333333,
+          "score": 0.357958,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_054.png",
+          "category": "civic_building",
+          "description": "A compact postal station with parcel hatch, stacked packages, mail sacks, mechanical bird perches, teal roof, and stone steps. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.244991,
+          "lexicalScore": 0.166667,
+          "score": 0.250824,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_043.png",
+          "category": "mail",
+          "description": "A wall of brass-and-teal parcel lockers with many numbered-size doors, handles, central receipt slot, and small potted plants. It can represent mail, a letter, message, parcel, delivery, post office, communication, or correspondence.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.219753,
+          "lexicalScore": 0.333333,
+          "score": 0.231419,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "clock-time",
+      "query": "the clock shows what time it is",
+      "acceptable_categories": [
+        "time"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(147).png",
+          "category": "time",
+          "description": "A clock tower with teal dome roof, round clock face, arched teal door, pine trees, and lantern details. It can represent time, a clock, schedule, waiting, morning, evening, duration, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.54285,
+          "lexicalScore": 0.428571,
+          "score": 0.55785,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(219).png",
+          "category": "time",
+          "description": "A round teal-and-gold alarm clock on wooden feet with twin bells, small hands, and warm brass trim. It can represent time, a clock, schedule, waiting, morning, evening, duration, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.535038,
+          "lexicalScore": 0.428571,
+          "score": 0.550038,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(115).png",
+          "category": "time",
+          "description": "A wooden hourglass with teal frame, golden sand, round posts, and carved base. It can represent time, a clock, schedule, waiting, morning, evening, duration, or measurement.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.458031,
+          "lexicalScore": 0.428571,
+          "score": 0.473031,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_112.png",
+          "category": "robot",
+          "description": "A sleepy night-watch robot wearing a star-patterned cap and scarf, carrying hand bell and round glowing shield lamp. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.271708,
+          "lexicalScore": 0.142857,
+          "score": 0.276708,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(165).png",
+          "category": "toy",
+          "description": "A striped spinning top with teal, orange, and cream bands, wooden peg, and pull string. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.229298,
+          "lexicalScore": 0.142857,
+          "score": 0.234298,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "map-journey",
+      "query": "the traveler reads a map before the journey",
+      "acceptable_categories": [
+        "map",
+        "travel"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(122).png",
+          "category": "map",
+          "description": "A cartography table with open map, magnifying glass, small stools, rolled parchment, and teal cloth accents. It can represent a map, geography, direction, navigation, planning, travel, route, or exploration.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.40993,
+          "lexicalScore": 0.166667,
+          "score": 0.415763,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(194).png",
+          "category": "travel",
+          "description": "A large teal-and-tan explorer backpack with bedroll, side bottle, straps, buckle pockets, and a rolled mat at its feet. It can represent travel, a journey, luggage, camping, exploration, vacation, or outdoor adventure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.386689,
+          "lexicalScore": 0.166667,
+          "score": 0.392523,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(206).png",
+          "category": "map",
+          "description": "A round navigation table with compass, map pieces, teal mug, papers, and carved wooden legs. It can represent a map, geography, direction, navigation, planning, travel, route, or exploration.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.377309,
+          "lexicalScore": 0.166667,
+          "score": 0.383143,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_091.png",
+          "category": "campsite",
+          "description": "A traveler camp kitchen with compact stove, nested pots, canteen, mugs, bedroll, folding stool, and packed outdoor supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.361948,
+          "lexicalScore": 0.166667,
+          "score": 0.367782,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_075.png",
+          "category": "travel",
+          "description": "A round teal travel trunk with leather straps beside folded cloak, walking boots, cane, map tube, and rolled bed mat. It can represent travel, a journey, luggage, camping, exploration, vacation, or outdoor adventure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.347042,
+          "lexicalScore": 0.333333,
+          "score": 0.358709,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "bicycle-city",
+      "query": "a person rides a bicycle through town",
+      "acceptable_categories": [
+        "transport",
+        "transit",
+        "vehicle",
+        "travel"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_037.png",
+          "category": "transport",
+          "description": "A bicycle parking rack holding two handmade wood-and-brass pedal cycles with teal wheels, saddles, handlebars, and stone paving. It can represent transportation, bicycle, cycling, commuting, parking, travel, movement, or a city street.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.335854,
+          "lexicalScore": 0.2,
+          "score": 0.342854,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(68).png",
+          "category": "market",
+          "description": "A wheeled drink-and-preserve cart with jars, bottles, hanging herbs, teal canopy, wooden shelves, and small potted plants. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.276434,
+          "lexicalScore": 0.2,
+          "score": 0.283434,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_064.png",
+          "category": "civic_building",
+          "description": "A narrow rounded townhouse topped by a glass rooftop greenhouse, flower garden, teal awnings, balconies, and warm windows. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.239851,
+          "lexicalScore": 0.2,
+          "score": 0.246851,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(80).png",
+          "category": "place",
+          "description": "A small stone courtyard with round turquoise pool, waterfall pipe, teal-roofed shelter, lantern, and mossy garden walls. It can represent a public place, destination, town location, community space, meeting area, or city landmark.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.212753,
+          "lexicalScore": 0.2,
+          "score": 0.219753,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_012.png",
+          "category": "cart",
+          "description": "A wooden two-wheel handcart fitted with chains, teal panels, and a glowing circular anti-gravity ring for moving cargo. It can represent a cart, wagon, cargo, delivery, transport, moving objects, market work, or travel.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.219117,
+          "lexicalScore": 0,
+          "score": 0.219117,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "train-ride",
+      "query": "the train carries passengers to another town",
+      "acceptable_categories": [
+        "transit",
+        "transport",
+        "travel",
+        "toy"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(164).png",
+          "category": "toy",
+          "description": "A small teal-and-cream toy train with gold smokestack, wooden wheels, and a little cargo car. It can represent a toy, childhood, children, play, imagination, fun, or a game.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.307746,
+          "lexicalScore": 0.142857,
+          "score": 0.312746,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(194).png",
+          "category": "travel",
+          "description": "A large teal-and-tan explorer backpack with bedroll, side bottle, straps, buckle pockets, and a rolled mat at its feet. It can represent travel, a journey, luggage, camping, exploration, vacation, or outdoor adventure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.244299,
+          "lexicalScore": 0,
+          "score": 0.244299,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_012.png",
+          "category": "cart",
+          "description": "A wooden two-wheel handcart fitted with chains, teal panels, and a glowing circular anti-gravity ring for moving cargo. It can represent a cart, wagon, cargo, delivery, transport, moving objects, market work, or travel.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.235209,
+          "lexicalScore": 0,
+          "score": 0.235209,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(207).png",
+          "category": "wagon",
+          "description": "A small barrel-shaped wagon or cannon cart with teal bands, wooden wheels, lantern, and tow handle. It can represent a wagon, cart, transport, cargo, delivery, travel, road, or carrying goods.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.231103,
+          "lexicalScore": 0,
+          "score": 0.231103,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(158).png",
+          "category": "market",
+          "description": "A covered wagon cart with teal canopy, wooden wheels, side lantern, cream cloth, and compact travelling-shop body. It can represent a market, shop, stall, vendor, shopping, buying, selling, food, goods, or town commerce.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.225615,
+          "lexicalScore": 0.142857,
+          "score": 0.230615,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "repair-machine",
+      "query": "a worker repairs a broken machine with tools",
+      "acceptable_categories": [
+        "workshop",
+        "tools",
+        "utility",
+        "robot"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_111.png",
+          "category": "robot",
+          "description": "A workshop assistant robot holding a large wrench beside a wooden toolbox, with cream-and-teal body, protective cap, and tools. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.432048,
+          "lexicalScore": 0.666667,
+          "score": 0.455381,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_018.png",
+          "category": "robot",
+          "description": "A squat cobblestone repair robot with a front conveyor of paving blocks, mortar bucket, rollers, tools, and heavy cream-and-teal machinery. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.410231,
+          "lexicalScore": 0.666667,
+          "score": 0.433564,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_015.png",
+          "category": "workshop",
+          "description": "A wooden craft workbench with tools, crystals, teal cloth, drawers, and a large brass star compass for repair, navigation, and invention. It can represent a workshop, tools, repair, machinery, building, crafting, maintenance, or skilled work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.389111,
+          "lexicalScore": 0.333333,
+          "score": 0.400778,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(180).png",
+          "category": "craft",
+          "description": "A sewing machine desk with teal sewing machine, fabric bolts, spools, stool, drawers, and a bottle on the floor. It can represent craft, making, repair, tools, skilled work, handmade objects, or an artisan workshop.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.353162,
+          "lexicalScore": 0.5,
+          "score": 0.370662,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(176).png",
+          "category": "workshop",
+          "description": "A busy workbench with stool, ruler, tools, jars, pencils, teal cloth, and small mechanical craft supplies. It can represent a workshop, tools, repair, machinery, building, crafting, maintenance, or skilled work.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.341942,
+          "lexicalScore": 0.333333,
+          "score": 0.353608,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "helper-robot",
+      "query": "a friendly robot helps with daily work",
+      "acceptable_categories": [
+        "robot"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_017.png",
+          "category": "robot",
+          "description": "A friendly city lamp-care robot carrying a glowing street lantern on a hook, with a wrench hand, tool satchel, cream body, and teal panels. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.56437,
+          "lexicalScore": 0.5,
+          "score": 0.58187,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_013.png",
+          "category": "robot",
+          "description": "A friendly cream-and-teal kettle-shaped garden robot with watering-can arm, sturdy boots, brass joints, and a small chimney. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.518111,
+          "lexicalScore": 0.5,
+          "score": 0.535611,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_111.png",
+          "category": "robot",
+          "description": "A workshop assistant robot holding a large wrench beside a wooden toolbox, with cream-and-teal body, protective cap, and tools. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.51793,
+          "lexicalScore": 0.333333,
+          "score": 0.529597,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_029.png",
+          "category": "robot",
+          "description": "A quiet night street-sweeping robot with two circular brush arms, sleepy glowing eyes, wheels, and a low rounded cleaning body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.502364,
+          "lexicalScore": 0.333333,
+          "score": 0.51403,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_026.png",
+          "category": "robot",
+          "description": "A cheerful street musician robot with a barrel-organ chest, top hat, hanging chimes, small wheels, and a tray for coins. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.500867,
+          "lexicalScore": 0.333333,
+          "score": 0.512533,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "family-home",
+      "query": "the family spends a quiet evening at home",
+      "acceptable_categories": [
+        "house",
+        "household",
+        "bedroom"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 2,
+      "reciprocal_rank": 0.5,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_029.png",
+          "category": "robot",
+          "description": "A quiet night street-sweeping robot with two circular brush arms, sleepy glowing eyes, wheels, and a low rounded cleaning body. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.259872,
+          "lexicalScore": 0.142857,
+          "score": 0.264872,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(45).png",
+          "category": "house",
+          "description": "A walking round house with long bird legs, teal circular windows, small balcony, hanging lantern, potted plant, and cream wooden shell. It can represent a house, home, dwelling, building, shelter, village neighborhood, or place to live.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.247499,
+          "lexicalScore": 0.142857,
+          "score": 0.252499,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(14).png",
+          "category": "house",
+          "description": "A whimsical walking house with bird-like wooden legs, porthole windows, leafy roof tree, smoking chimney, lantern, hanging plant, and teal trim. It can represent a house, home, dwelling, building, shelter, village neighborhood, or place to live.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.247059,
+          "lexicalScore": 0.142857,
+          "score": 0.252059,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(13).png",
+          "category": "house",
+          "description": "A cozy round house on a floating grassy island with teal roof, trees, railings, hanging ladder, yellow awning, and rocky underside. It can represent a house, home, dwelling, building, shelter, village neighborhood, or place to live.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.246627,
+          "lexicalScore": 0.142857,
+          "score": 0.251627,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_002.png",
+          "category": "cafe",
+          "description": "A cozy open tea house sheltered beneath a monumental pale stone energy arch, with a tiled roof, table, cups, cushions, lanterns, and potted plants. It can represent tea, coffee, a cafe, restaurant, conversation, eating, drinking, hospitality, or meeting friends.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.23988,
+          "lexicalScore": 0,
+          "score": 0.23988,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "lamp-night",
+      "query": "she turns on a lamp when the room gets dark",
+      "acceptable_categories": [
+        "lighting",
+        "household",
+        "bedroom"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_066.png",
+          "category": "household",
+          "description": "A cozy low wooden bed with teal patchwork quilt, round pillow, slippers, bedside table, and softly glowing night lamp. It can represent home, household life, furniture, comfort, daily routine, chores, family, or an interior room.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.35688,
+          "lexicalScore": 0.222222,
+          "score": 0.364658,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_110.png",
+          "category": "robot",
+          "description": "A city lamplighter robot holding a tall hooked pole with glowing blue lantern, wearing teal cap and carrying maintenance equipment. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.362125,
+          "lexicalScore": 0,
+          "score": 0.362125,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_017.png",
+          "category": "robot",
+          "description": "A friendly city lamp-care robot carrying a glowing street lantern on a hook, with a wrench hand, tool satchel, cream body, and teal panels. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.333153,
+          "lexicalScore": 0.222222,
+          "score": 0.340931,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(197).png",
+          "category": "lighting",
+          "description": "A wooden lamp post with two hanging lanterns, climbing vines, teal accents, and small garden plants at the base. It can represent a lamp, lantern, light, illumination, evening, night, safety, or a warm interior.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.330892,
+          "lexicalScore": 0.222222,
+          "score": 0.33867,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(208).png",
+          "category": "bedroom",
+          "description": "A wooden single bed with teal blanket, cream pillow, bedside cabinet, lamp, book, and small plant. It can represent a bedroom, bed, sleep, rest, nighttime, comfort, home, or personal space.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.324887,
+          "lexicalScore": 0.111111,
+          "score": 0.328776,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "open-gate",
+      "query": "the traveler walks through the town gate",
+      "acceptable_categories": [
+        "gate",
+        "travel",
+        "place"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 4,
+      "reciprocal_rank": 0.25,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_091.png",
+          "category": "campsite",
+          "description": "A traveler camp kitchen with compact stove, nested pots, canteen, mugs, bedroll, folding stool, and packed outdoor supplies. It can represent camping, a tent, campfire, wilderness, outdoor travel, rest, or an overnight shelter.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.403607,
+          "lexicalScore": 0.166667,
+          "score": 0.40944,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(83).png",
+          "category": "hike_with_pack",
+          "description": "A traveler macaw hikes with a backpack, bedroll, and walking stick.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.376254,
+          "lexicalScore": 0.166667,
+          "score": 0.382087,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(40).png",
+          "category": "astronaut_walk",
+          "description": "An astronaut macaw walks across the moon with a space backpack.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.331245,
+          "lexicalScore": 0.333333,
+          "score": 0.342911,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(85).png",
+          "category": "place",
+          "description": "A peaceful shrine gate garden with orange posts, teal roof, stone path, small stream, lantern, trees, and stepping stones. It can represent a public place, destination, town location, community space, meeting area, or city landmark.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.311609,
+          "lexicalScore": 0.333333,
+          "score": 0.323275,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(157).png",
+          "category": "gate",
+          "description": "A festive gate with teal bunting, hanging lanterns, round ornaments, wooden posts, and small flags. It can represent a gate, entrance, doorway, passage, boundary, arrival, departure, or access to a place.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.266779,
+          "lexicalScore": 0.166667,
+          "score": 0.272612,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "id": "cross-bridge",
+      "query": "people cross a bridge over the river",
+      "acceptable_categories": [
+        "bridge",
+        "place",
+        "travel"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_006.png",
+          "category": "bridge",
+          "description": "A curved cobblestone footbridge with low stone rails, warm lantern posts, and faint turquoise markings for crossing a stream or canal. It can represent a bridge, crossing, river, path, travel, connection, route, or public infrastructure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.438545,
+          "lexicalScore": 0.333333,
+          "score": 0.450212,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(150).png",
+          "category": "bridge",
+          "description": "A short stone bridge with teal posts, chain railings, small flags, lanterns, and water or path below. It can represent a bridge, crossing, river, path, travel, connection, route, or public infrastructure.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.405407,
+          "lexicalScore": 0.333333,
+          "score": 0.417073,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(86).png",
+          "category": "place",
+          "description": "A small arched stone footbridge over water with wooden rail, trees at each side, and a tidy garden path. It can represent a public place, destination, town location, community space, meeting area, or city landmark.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.33212,
+          "lexicalScore": 0.166667,
+          "score": 0.337954,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_039.png",
+          "category": "waterworks",
+          "description": "A stone canal lock gate with hand wheel, water gauge, timber doors, ropes, posts, and life ring for controlling waterways. Boats pass through this canal lock while workers raise or lower the water for safe river travel.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.308797,
+          "lexicalScore": 0.333333,
+          "score": 0.320464,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_060.png",
+          "category": "waterworks",
+          "description": "A canal-side waterworks building with turning wheel, copper pipes, clear blue reservoir, filters, gauges, and teal roof. It pumps and cleans water beside the canal, supporting boats, streets, homes, drainage, and the public water supply.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.261717,
+          "lexicalScore": 0.166667,
+          "score": 0.26755,
+          "accepted": false
+        }
+      ]
+    },
+    {
+      "id": "festival-celebration",
+      "query": "the town celebrates together at a festival",
+      "acceptable_categories": [
+        "festival",
+        "stage",
+        "music",
+        "decor"
+      ],
+      "acceptable_paths": [],
+      "accepted_rank": 1,
+      "reciprocal_rank": 1,
+      "top": [
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_048.png",
+          "category": "festival",
+          "description": "A festival decoration kit with bunting, flower garlands, paper lantern string, blank cloth banner, poles, crates, and stacked stools. It can represent a festival, celebration, party, decorations, lanterns, community event, holiday, or public gathering.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.494352,
+          "lexicalScore": 0.166667,
+          "score": 0.500185,
+          "accepted": true
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_031.png",
+          "category": "robot",
+          "description": "A festival-decorating robot with ribbon-spool body, bunting, lantern basket, cloth streamers, and tools for hanging public decorations. It can represent a robot, helper, worker, machine, automation, service job, maintenance, or technology.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.408727,
+          "lexicalScore": 0.166667,
+          "score": 0.414561,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/burrow-review_061.png",
+          "category": "civic_building",
+          "description": "A community kitchen and soup hall with broad chimney, open serving counter, cooking pots, dishes, lanterns, and herb boxes. It can represent a town building, public service, city destination, community institution, neighborhood, or civic life.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.375603,
+          "lexicalScore": 0.166667,
+          "score": 0.381436,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/miscellaneous/miscellaneous%20(157).png",
+          "category": "gate",
+          "description": "A festive gate with teal bunting, hanging lanterns, round ornaments, wooden posts, and small flags. It can represent a gate, entrance, doorway, passage, boundary, arrival, departure, or access to a place.",
+          "sourceKind": "image_asset",
+          "semanticScore": 0.374273,
+          "lexicalScore": 0,
+          "score": 0.374273,
+          "accepted": false
+        },
+        {
+          "assetPath": "/assets/macaw/actions/macaw%20(50).png",
+          "category": "raise_fists",
+          "description": "A robed macaw celebrates with both fists raised.",
+          "sourceKind": "macaw_action_asset",
+          "semanticScore": 0.329695,
+          "lexicalScore": 0.166667,
+          "score": 0.335529,
+          "accepted": false
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

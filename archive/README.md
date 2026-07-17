@@ -9,3 +9,6 @@ runtime contract and should not be used as a source of current setup guidance.
 
 Large local checkouts, build outputs, dependency caches, signing material, and
 nested Git repositories are not archival source and are intentionally ignored.
+When they must be retained on one workstation, they live under ignored
+`archive/local/` with descriptive names rather than appearing as active archive
+entries.

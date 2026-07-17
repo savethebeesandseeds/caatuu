@@ -5,12 +5,15 @@ tooling. It does not contain deployable Caatuu applications.
 
 | Directory | Responsibility |
 | --- | --- |
-| [`android-build`](android-build/) | Reproducible Android build environment |
-| [`caatuu-cz-ml`](caatuu-cz-ml/) | Czech datasets, model workflows, and ML scripts |
-| [`dev`](dev/) | Shared Docker development and ML environment |
-| [`phone-bench`](phone-bench/) | On-device model preparation and benchmark workflows |
+| [`czech-ml`](czech-ml/) | Czech datasets, model workflows, and ML scripts |
+| [`dev-container`](dev-container/) | Shared Docker development and ML environment |
+| [`on-device-models`](on-device-models/) | On-device model preparation and benchmark workflows |
 | [`repository`](repository/) | Repository policy checks and local cleanup |
-| [`runtime`](runtime/) | Unified production runtime image and launch scripts |
+
+Android build tooling lives beside the Android app in
+[`apps/android/tooling`](../apps/android/tooling/). Runtime image, audit, and
+launch tooling lives beside the Rust service in
+[`apps/runtime/tooling`](../apps/runtime/tooling/).
 
 Generated models, dependencies, build trees, and benchmark artifacts are local
 state. They are intentionally excluded from Git and can be rebuilt or restored

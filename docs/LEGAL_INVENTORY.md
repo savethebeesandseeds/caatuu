@@ -22,7 +22,7 @@ unlawful.
 
 | ID | Material | Evidence | Release status | Required action |
 | --- | --- | --- | --- | --- |
-| FP-001 | Rust runtime | Root [`AGPL-3.0-only`](../LICENSE); prior MIT text preserved at [`apps/caatuu-runtime/LICENSE-MIT-HISTORICAL`](../apps/caatuu-runtime/LICENSE-MIT-HISTORICAL) | `CLEAR` for current first-party code | Maintain the private ownership register and preserve permissions already granted for historical MIT versions |
+| FP-001 | Rust runtime | Root [`AGPL-3.0-only`](../LICENSE); prior MIT text preserved at [`apps/runtime/LICENSE-MIT-HISTORICAL`](../apps/runtime/LICENSE-MIT-HISTORICAL) | `CLEAR` for current first-party code | Maintain the private ownership register and preserve permissions already granted for historical MIT versions |
 | FP-002 | Czech browser app, Android shell, unified launcher, ML tools, demos, and repository developer documentation | Root [`AGPL-3.0-only`](../LICENSE), scoped by [`LICENSING.md`](LICENSING.md) | `CLEAR` for first-party code | Keep product notices, package metadata, and the network corresponding-source offer aligned |
 | FP-003 | Caatuu and Waajacu names, logos, domains, and Android package identity | No published brand policy | `REVIEW` | Publish a separate, owner-approved brand policy; do not imply that the code license grants brand rights |
 | FP-004 | External contributions | No inbound contribution policy | `STOP-SHIP` | Do not merge outside code, data, models, or art until contribution terms are published |
@@ -35,8 +35,8 @@ belong in a private ownership register outside this public repository.
 
 | ID | Component | Version or revision | Evidence | Release status | Required action |
 | --- | --- | --- | --- | --- | --- |
-| SW-001 | sql.js | 1.13.0 | Tracked MIT file at [`apps/caatuu-czech/static/vendor/sql.js/LICENSE`](../apps/caatuu-czech/static/vendor/sql.js/LICENSE) | `CLEAR-WITH-NOTICE` | Keep the MIT text in every web and Android distribution that contains sql.js |
-| SW-002 | Transformers.js | 4.2.0 | Apache-2.0 text exists locally at `apps/caatuu-czech/static/vendor/transformers/LICENSE`, but the directory is not yet tracked | `STOP-SHIP` | Commit the exact source record and license with the bundled component |
+| SW-001 | sql.js | 1.13.0 | Tracked MIT file at [`apps/languages/czech/static/vendor/sql.js/LICENSE`](../apps/languages/czech/static/vendor/sql.js/LICENSE) | `CLEAR-WITH-NOTICE` | Keep the MIT text in every web and Android distribution that contains sql.js |
+| SW-002 | Transformers.js | 4.2.0 | Apache-2.0 text exists locally at `apps/languages/czech/static/vendor/transformers/LICENSE`, but the directory is not yet tracked | `STOP-SHIP` | Commit the exact source record and license with the bundled component |
 | SW-003 | llama.cpp | `4fc4ec5541b243957ae5099edb67372f8f3b550e`, locally patched | Upstream MIT; ignored vendor checkout | `STOP-SHIP` for an APK containing `libllama` without its notice | Package the pinned upstream license and modification record in every APK/AAB |
 | SW-004 | ONNX Runtime Web | `1.26.0-dev.20260416-b7804b056c` | Revision recorded in the embedding runtime manifest; upstream MIT | `STOP-SHIP` until notice is packaged | Add the exact MIT text beside the downloaded runtime and to the offline notice bundle |
 | SW-005 | Rust and Android dependencies | Locked dependency graphs exist | Complete generated notice reports do not | `REVIEW` | Generate dependency inventories and ship all required notices |
@@ -47,7 +47,7 @@ belong in a private ownership register outside this public repository.
 
 | ID | Artifact or lineage | Evidence | Release status | Required action |
 | --- | --- | --- | --- | --- |
-| DATA-001 | Czech–English Wiktionary/Kaikki dictionary | Exact source, dates, hashes, changes, and `CC-BY-SA-4.0 OR GFDL-1.3-or-later` are recorded in [`manifest.json`](../apps/caatuu-czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json) and [`ATTRIBUTION.md`](../apps/caatuu-czech/static/data/dictionaries/ATTRIBUTION.md) | `CLEAR-WITH-NOTICE` after files are tracked and packaged | Preserve attribution, applicable license terms, source links, and share-alike obligations in every distribution |
+| DATA-001 | Czech–English Wiktionary/Kaikki dictionary | Exact source, dates, hashes, changes, and `CC-BY-SA-4.0 OR GFDL-1.3-or-later` are recorded in [`manifest.json`](../apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json) and [`ATTRIBUTION.md`](../apps/languages/czech/static/data/dictionaries/ATTRIBUTION.md) | `CLEAR-WITH-NOTICE` after files are tracked and packaged | Preserve attribution, applicable license terms, source links, and share-alike obligations in every distribution |
 | DATA-002 | all-MiniLM-L6-v2 embedding runtime | Exact revision and Apache-2.0 model terms are recorded in its local manifest | `CLEAR-WITH-NOTICE` for the upstream model runtime; embedded content has separate status | Package its Apache text plus Transformers.js and ONNX notices |
 | DATA-003 | Caatuu curriculum and asset vector database | Manifest identifies the source corpus and 431 image-asset records; “project-local” is not a license | `REVIEW` | Attest ownership and license the curriculum; clear every referenced asset before release |
 | MODEL-001 | Active Word Sentence and Czech-to-English adapters | Base models are recorded as Apache-2.0; current training manifests point to curated Caatuu lanes | `REVIEW` | Add explicit licenses, owner attestation, pinned base revisions, and complete training-lineage cards for the derived artifacts |

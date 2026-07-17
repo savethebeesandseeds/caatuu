@@ -24,16 +24,16 @@ jobs:
       - name: Run browser and runtime contract tests
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
-            bash -lc "node --test tools/runtime/tests/*.test.mjs"
+            bash -lc "node --test apps/runtime/tooling/tests/*.test.mjs"
 
       - name: Validate Compose boundaries
         env:
           CAATUU_PHONE_DEBUG_BIND: 192.0.2.10
         run: |
           docker compose config --quiet
-          docker compose -f compose.tools.yaml --profile tools --profile dev config --quiet
-          docker compose -f compose.yaml -f compose.archive.yaml config --quiet
-          docker compose -f compose.yaml -f compose.phone-debug.yaml config --quiet
+          docker compose --profile tools --profile dev config --quiet
+          docker compose -f compose.yaml -f compose/archived-chinese.yaml config --quiet
+          docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 
   rust:
     name: Rust runtime
@@ -44,5 +44,5 @@ jobs:
 
       - name: Run locked Rust tests in the repository container
         run: |
-          docker compose -f compose.tools.yaml --profile tools run --rm \
+          docker compose --profile tools run --rm \
             caatuu-build cargo test --locked

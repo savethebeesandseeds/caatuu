@@ -1,0 +1,21 @@
+# Shared launcher assets
+
+This is the canonical catalog for visual assets shared by language apps, the
+launcher, and Android packages. Physical directories use descriptive
+lowercase kebab-case names. A few older public URLs remain stable so installed
+apps, manifests, and persisted data continue to work.
+
+| Physical source | Stable public URL |
+| --- | --- |
+| `language-mascots/` | `/assets/aliens/` |
+| `macaw/loading-animation/` | `/assets/macaw/loading_animation/` |
+| `visual-vocabulary/` | `/assets/miscellaneous/` |
+
+The Rust router, setup-manifest generator, Android packaging, and Czech vector
+database builder all implement this compatibility map. Change a public prefix
+only as an explicit migration across those consumers; renaming a physical
+directory alone must not invalidate a downloaded asset URL.
+
+Assets used by only one language belong in that language app. Large experiments
+and generated candidates belong under `demos/` or ignored research workspaces,
+not in this production catalog.

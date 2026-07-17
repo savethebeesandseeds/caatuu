@@ -15,38 +15,41 @@ if (-not (Test-Path -LiteralPath (Join-Path $repoRoot '.git'))) {
 $targets = @(
     @{ Path = 'apps/animated-fabric/.mypy_cache'; Reason = 'Python type-check cache' }
     @{ Path = 'apps/animated-fabric/.pytest_cache'; Reason = 'Python test cache' }
+    @{ Path = 'apps/animated-fabric/.ruff_cache'; Reason = 'Python lint cache' }
+    @{ Path = 'apps/animated-fabric/.tmp'; Reason = 'Temporary test and render output' }
     @{ Path = 'apps/animated-fabric/build'; Reason = 'Generated application build' }
-    @{ Path = 'apps/caatuu-android/.gradle'; Reason = 'Gradle cache' }
-    @{ Path = 'apps/caatuu-android/.kotlin'; Reason = 'Kotlin cache' }
-    @{ Path = 'apps/caatuu-android/app/.cxx'; Reason = 'Android native build cache' }
-    @{ Path = 'apps/caatuu-android/app/build'; Reason = 'Android build output' }
-    @{ Path = 'apps/caatuu-czech/dumps'; Reason = 'Generated diagnostics' }
-    @{ Path = 'apps/caatuu-runtime/target'; Reason = 'Rust build output' }
-    @{ Path = 'target-linux'; Reason = 'Rust Linux build output' }
-    @{ Path = 'tools/caatuu-cz-ml/node_modules'; Reason = 'Node dependency tree' }
-    @{ Path = 'tools/caatuu-cz-ml/scripts/__pycache__'; Reason = 'Python bytecode cache' }
-    @{ Path = 'tools/caatuu-cz-ml/scripts/ml/__pycache__'; Reason = 'Python bytecode cache' }
-    @{ Path = 'tools/phone-bench/scripts/__pycache__'; Reason = 'Python bytecode cache' }
-    @{ Path = 'archive/caatuu-server-deprecated/target'; Reason = 'Archived Rust build output' }
-    @{ Path = 'archive/caatuu-server-deprecated/.git'; Reason = 'Nested repository metadata' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/.git'; Reason = 'Nested repository metadata' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/target'; Reason = 'Archived Rust build output' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/.gradle'; Reason = 'Archived Gradle cache' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/build'; Reason = 'Archived Android build output' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/buildSrc/.gradle'; Reason = 'Archived Gradle cache' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/buildSrc/.kotlin'; Reason = 'Archived Kotlin cache' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/buildSrc/build'; Reason = 'Archived build output' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/gen/android/app/build'; Reason = 'Archived Android build output' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/plugins/speech/android/.tauri'; Reason = 'Archived Tauri cache' }
-    @{ Path = 'archive/caatuu-tauri-android-deprecated/caatuu/src-tauri/plugins/speech/android/build'; Reason = 'Archived Android build output' }
+    @{ Path = 'apps/android/.gradle'; Reason = 'Gradle cache' }
+    @{ Path = 'apps/android/.kotlin'; Reason = 'Kotlin cache' }
+    @{ Path = 'apps/android/app/.cxx'; Reason = 'Android native build cache' }
+    @{ Path = 'apps/android/app/build'; Reason = 'Android build output' }
+    @{ Path = 'apps/languages/czech/dumps'; Reason = 'Generated diagnostics' }
+    @{ Path = 'apps/runtime/target'; Reason = 'Rust build output' }
+    @{ Path = 'apps/runtime/target-linux'; Reason = 'Rust Linux build output' }
+    @{ Path = 'tools/czech-ml/node_modules'; Reason = 'Node dependency tree' }
+    @{ Path = 'tools/czech-ml/data/models/tools/__pycache__'; Reason = 'Python bytecode cache' }
+    @{ Path = 'tools/czech-ml/scripts/__pycache__'; Reason = 'Python bytecode cache' }
+    @{ Path = 'tools/czech-ml/scripts/ml/__pycache__'; Reason = 'Python bytecode cache' }
+    @{ Path = 'tools/on-device-models/scripts/__pycache__'; Reason = 'Python bytecode cache' }
+    @{ Path = 'archive/local/caatuu-server/target'; Reason = 'Archived Rust build output' }
+    @{ Path = 'archive/local/caatuu-server/.git'; Reason = 'Nested repository metadata' }
+    @{ Path = 'archive/local/caatuu-tauri-android/.git'; Reason = 'Nested repository metadata' }
+    @{ Path = 'archive/local/caatuu-tauri-android/target'; Reason = 'Archived Rust build output' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/.gradle'; Reason = 'Archived Gradle cache' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/build'; Reason = 'Archived Android build output' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/buildSrc/.gradle'; Reason = 'Archived Gradle cache' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/buildSrc/.kotlin'; Reason = 'Archived Kotlin cache' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/buildSrc/build'; Reason = 'Archived build output' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/gen/android/app/build'; Reason = 'Archived Android build output' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/plugins/speech/android/.tauri'; Reason = 'Archived Tauri cache' }
+    @{ Path = 'archive/local/caatuu-tauri-android/src-tauri/plugins/speech/android/build'; Reason = 'Archived Android build output' }
 )
 
 if ($IncludeDownloads) {
     $targets += @(
-        @{ Path = 'tools/caatuu-cz-ml/data/dictionaries/downloads'; Reason = 'Replaceable dictionary downloads' }
-        @{ Path = 'tools/caatuu-cz-ml/data/models/english-base/hf-cache'; Reason = 'Hugging Face download cache' }
-        @{ Path = 'tools/phone-bench/artifacts'; Reason = 'Duplicated benchmark artifacts' }
-        @{ Path = 'tools/phone-bench/vendor'; Reason = 'Reproducible patched dependency checkout' }
+        @{ Path = 'tools/czech-ml/data/dictionaries/downloads'; Reason = 'Replaceable dictionary downloads' }
+        @{ Path = 'tools/czech-ml/data/models/english-base/hf-cache'; Reason = 'Hugging Face download cache' }
+        @{ Path = 'tools/on-device-models/artifacts'; Reason = 'Duplicated benchmark artifacts' }
+        @{ Path = 'tools/on-device-models/vendor'; Reason = 'Reproducible patched dependency checkout' }
     )
 }
 

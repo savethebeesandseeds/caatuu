@@ -4,14 +4,14 @@ const WORLD = { width: 2200, height: 1500 };
 const START = { x: 1110, y: 820 };
 const actors = {
   human: {
-    src: "./experimental/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1",
+    src: "./sequences/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1",
     frameSets: {
       keyframes: {
-        frames: [1, 3, 5, 6, 7, 9, 11, 10].map((frame) => `./experimental/human-walk-imagegen-v1/frames/human-pose-walk_${String(frame).padStart(3, "0")}.png?v=4`),
+        frames: [1, 3, 5, 6, 7, 9, 11, 10].map((frame) => `./sequences/human-walk-imagegen-v1/frames/human-pose-walk_${String(frame).padStart(3, "0")}.png?v=4`),
         phases: ["contact A", "17%", "33%", "42%", "contact B", "67%", "83%", "passing B"],
         playbackOrder: [0, 1, 2, 3, 4, 5, 6, 7],
-        idle: "./experimental/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1",
-        idleFrames: Array.from({ length: 6 }, (_, index) => `./experimental/human-walk-imagegen-v1/idle/human-pose-idle_${String(index + 1).padStart(3, "0")}.png?v=1`),
+        idle: "./sequences/human-walk-imagegen-v1/idle/human-pose-idle_001.png?v=1",
+        idleFrames: Array.from({ length: 6 }, (_, index) => `./sequences/human-walk-imagegen-v1/idle/human-pose-idle_${String(index + 1).padStart(3, "0")}.png?v=1`),
         idleFrameDuration: 220,
         frameDistance: 32.083333,
       },
@@ -26,14 +26,14 @@ const actors = {
     src: "/assets/macaw/walk/side/macaw-walk_005.png",
     frameSets: {
       guided: {
-        frames: [1, 3, 5, 6, 7, 9, 11, 10].map((frame) => `./experimental/macaw-pose-guided-v1/frames/macaw-pose-walk_${String(frame).padStart(3, "0")}.png?v=1`),
+        frames: [1, 3, 5, 6, 7, 9, 11, 10].map((frame) => `./sequences/macaw-pose-guided-v1/frames/macaw-pose-walk_${String(frame).padStart(3, "0")}.png?v=1`),
         phases: ["contact A", "17%", "33%", "42%", "contact B", "67%", "83%", "passing B"],
         playbackOrder: [0, 1, 2, 3, 4, 5, 6, 7],
-        idle: "./experimental/macaw-pose-guided-v1/frames/macaw-pose-walk_001.png?v=1",
+        idle: "./sequences/macaw-pose-guided-v1/frames/macaw-pose-walk_001.png?v=1",
         frameDistance: 32.083333,
       },
       keyframes: {
-        frames: Array.from({ length: 8 }, (_, index) => `./experimental/macaw-walk-v4/frames/macaw-walk-v4_${String(index + 1).padStart(3, "0")}.png?v=2`),
+        frames: Array.from({ length: 8 }, (_, index) => `./sequences/macaw-walk-v4/frames/macaw-walk-v4_${String(index + 1).padStart(3, "0")}.png?v=2`),
         phases: ["contact A", "down A", "passing A", "up A", "contact B", "down B", "passing B", "up B"],
         idle: "/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png?v=1",
         frameDistance: 26,

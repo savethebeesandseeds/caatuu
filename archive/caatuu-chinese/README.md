@@ -21,7 +21,7 @@ Use the workspace README for container and Cloudflare commands:
 C:\Work\caatuu\README.md
 ```
 
-The Rust runtime lives in `apps/caatuu-runtime`. Chinese API and WebSocket
+The Rust runtime lives in `apps/runtime`. Chinese API and WebSocket
 routes are exposed only through the `/archive/chinese/` prefix so the archived
 trainer can coexist with the active Czech app without looking like an active
 language target.

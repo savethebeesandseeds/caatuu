@@ -1,0 +1,127 @@
+{
+  "schema_name": "caatuu-cz-vector-db",
+  "schema_version": 1,
+  "model_id": "all-minilm-l6-v2-qint8-v0.1",
+  "model_source": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "model_license": "Apache-2.0",
+  "model_source_url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "model_file_name": "model_qint8_arm64",
+  "pooling": "attention_mask_mean_pooling",
+  "normalized": true,
+  "embedding_dimension": 384,
+  "vector_encoding": "float32le",
+  "distance_metric": "cosine",
+  "embedding_text_field": "english_text",
+  "embedding_input_policy": "english_text_only",
+  "file": "caatuu-cz-curriculum.sqlite",
+  "url": "data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+  "catalog_file": "data/embeddings/models.json",
+  "bytes": 19308544,
+  "sha256": "765b1062f9627f76a3205238c3d0b4f6a287dc59533dd082af1c7c8712245de6",
+  "runtime": {
+    "transformers_js_version": "4.2.0",
+    "onnx_runtime_web_version": "1.26.0-dev.20260416-b7804b056c",
+    "model_root": "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime",
+    "wasm_paths": {
+      "mjs": "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs",
+      "wasm": "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm"
+    },
+    "artifacts": [
+      {
+        "file": "config.json",
+        "bytes": 612,
+        "sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41"
+      },
+      {
+        "file": "special_tokens_map.json",
+        "bytes": 112,
+        "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3"
+      },
+      {
+        "file": "tokenizer.json",
+        "bytes": 466247,
+        "sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037"
+      },
+      {
+        "file": "tokenizer_config.json",
+        "bytes": 350,
+        "sha256": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b"
+      },
+      {
+        "file": "vocab.txt",
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      },
+      {
+        "file": "onnx/model_qint8_arm64.onnx",
+        "bytes": 23026053,
+        "sha256": "4278337fd0ff3c68bfb6291042cad8ab363e1d9fbc43dcb499fe91c871902474"
+      },
+      {
+        "file": "ort/ort-wasm-simd-threaded.mjs",
+        "bytes": 24180,
+        "sha256": "5f2cd914554830762579c372d0211614c1e3f40ab3f6c0cfcf0900343229071d"
+      },
+      {
+        "file": "ort/ort-wasm-simd-threaded.wasm",
+        "bytes": 12942611,
+        "sha256": "f4f290847a4df02d0b93cdbf39b4b0e71acefbe80573e7e6b9342a7abd7b290a"
+      },
+      {
+        "file": "LICENSE-APACHE-2.0.txt",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "file": "THIRD_PARTY_NOTICES.json",
+        "bytes": 1048,
+        "sha256": "67867580f3c9444c894da65a797845d4315cfc2806138d90bd7f0fc048e80ac3"
+      }
+    ]
+  },
+  "document_count": 5431,
+  "chunk_count": 5431,
+  "embedding_count": 5431,
+  "curriculum_count": 5000,
+  "asset_count": 431,
+  "asset_counts": {
+    "macaw_actions": 93,
+    "miscellaneous": 304,
+    "robots": 34
+  },
+  "generated_at": "2026-07-14T12:26:41.357Z",
+  "generated_from": "tools/czech-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
+  "generated_asset_keymap": "apps/launcher/static/assets/visual-vocabulary/keymap.json",
+  "generated_asset_keymaps": {
+    "miscellaneous": "apps/launcher/static/assets/visual-vocabulary/keymap.json",
+    "robots": "apps/launcher/static/assets/robots/keymap.json",
+    "macaw_actions": "apps/launcher/static/assets/macaw/actions/keymaps.json"
+  },
+  "source_counts": {
+    "curriculum": 5000,
+    "image_asset": 304,
+    "macaw_action_asset": 93,
+    "robot_asset": 34
+  },
+  "row_counts": {
+    "topics": {
+      "animals": 557,
+      "clothing": 588,
+      "colors": 182,
+      "food": 822,
+      "home": 576,
+      "nature": 199,
+      "people": 377,
+      "play": 795,
+      "routine": 16,
+      "school": 804,
+      "transport": 84
+    },
+    "difficulties": {
+      "1": 1678,
+      "2": 1890,
+      "3": 1432
+    }
+  }
+}

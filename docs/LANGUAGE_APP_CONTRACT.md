@@ -23,18 +23,18 @@ without naming a particular language.
 
 ## Authoritative contracts
 
-- `apps/caatuu-unified/static/languages.json` is the public registry used by the
+- `apps/launcher/static/languages.json` is the public registry used by the
   launcher. Only active, reachable language apps belong there.
 - Each language app provides `course-profile.js` before `runtime.js` and shared
   Chrome. It exposes an immutable `window.CaatuuCourse` object.
-- `apps/caatuu-runtime/src/routes/mod.rs` mounts active apps from its route
+- `apps/runtime/src/routes/mod.rs` mounts active apps from its route
   registry. The route and entry path must match the public registry.
 - Android receives its bundled language ID, route prefix, entry path, and static
   source directory through Gradle properties and generated `BuildConfig`
   fields. The WebView client must not contain a literal `/cz` route.
 
 The duplicated build-time declarations are intentionally checked by
-`tools/runtime/tests/language-contract.test.mjs`; drift should fail CI instead
+`apps/runtime/tooling/tests/language-contract.test.mjs`; drift should fail CI instead
 of producing an app that launches one language and serves another.
 
 ## Capability boundary
@@ -55,7 +55,7 @@ language has Czech verbs, a Czech-English dictionary, or the same model slots.
 
 ## Adding a language
 
-1. Create `apps/caatuu-<language>/static` with a course profile and language
+1. Create `apps/languages/<language>/static` with a course profile and language
    adapter.
 2. Give every persisted key a language-specific namespace. Never reuse another
    course's progress keys.

@@ -13,7 +13,7 @@ demos/world-movement/
   index.html, world-movement.*  interactive world and animation comparison
   frame-review.*                curated human-frame review
   macaw-guided-review.html      paired silhouette/Macaw review
-  experimental/                 normalized frames actually used by the lab
+  sequences/                    normalized frames actually used by the lab
   motion-reference/             CC0 skeletal motion viewer and sheet exporter
   research/                     prompts and notes; raw sources and generated candidates stay local
   docs/                         effort log and restart checklist

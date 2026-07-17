@@ -49,7 +49,7 @@ included a root MIT license. Commit
 
 Permissions already granted for versions distributed under MIT remain valid.
 The prior runtime text is preserved at
-[`apps/caatuu-runtime/LICENSE-MIT-HISTORICAL`](../apps/caatuu-runtime/LICENSE-MIT-HISTORICAL)
+[`apps/runtime/LICENSE-MIT-HISTORICAL`](../apps/runtime/LICENSE-MIT-HISTORICAL)
 as historical evidence; it does not change the license of new first-party
 runtime changes released under the root AGPL.
 
