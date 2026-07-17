@@ -301,6 +301,8 @@ Executed on 2026-07-17 through the repository-owned Linux container after AF-032
   `python -m animated_fabric doctor`: public entry points passed; doctor reported no problems.
 - Root repository file-policy and Markdown-link checks: passed for 1,165 candidate files and 82
   Markdown files.
+- Push-triggered GitHub Actions `Repository CI` run 29612316036 and `Animated Fabric CI` run
+  29612316041 both completed successfully on commit `d48e1df`.
 - Independent final code, test, and security reviews reported no remaining actionable findings.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-031:
@@ -382,7 +384,6 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
-- The CI workflow must still be exercised by GitHub after these files are committed.
 - The dedicated CUDA image target is defined but was not built in this run. The adapted
   provider passed an offline CUDA smoke against the already validated Tukevejtso dependency
   environment; this does not replace building and scanning Animated Fabric's own CUDA image.
