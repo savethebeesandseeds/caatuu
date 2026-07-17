@@ -32,8 +32,15 @@ class ProjectRepository(Protocol):
         """Load one rig document beneath ``root``."""
         ...
 
-    def save_rig(self, root: Path, path: ProjectPath, rig: RigDefinition) -> None:
-        """Atomically save one rig document beneath ``root``."""
+    def save_rig(
+        self,
+        root: Path,
+        path: ProjectPath,
+        rig: RigDefinition,
+        *,
+        replace_existing: bool = True,
+    ) -> None:
+        """Atomically create or explicitly replace one rig beneath ``root``."""
         ...
 
     def load_animation(self, root: Path, path: ProjectPath) -> AnimationClip:

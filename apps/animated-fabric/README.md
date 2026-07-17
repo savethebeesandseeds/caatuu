@@ -4,13 +4,15 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M2 and the AF-030/AF-031 importer and template-registry slices are complete.
+Milestones M0 through M2 and the AF-030 through AF-032 importer and humanoid-rig slices are complete.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
-project catalog, then load the validated built-in `humanoid_v1` anatomy from its installed package.
+project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
+17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles.
 The vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
-atomically writes PNG frames. It does not yet apply the template to imported layers or contain
-animation generators, an exporter, a functional editor, or a database.
+atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
+yet, and the application does not contain animation generators, an exporter, a functional editor,
+or a database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -80,7 +82,12 @@ docker compose exec animated-fabric-dev animated-fabric import-layers /path/to/p
   --direction SE --source /path/to/prepared/SE
 docker compose exec animated-fabric-dev animated-fabric import-layers /path/to/project `
   --direction NE --source /path/to/prepared/NE --yes --json
+docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project
+docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project `
+  --replace-existing --json
 docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
+docker compose exec animated-fabric-dev python scripts/run_rig_application_demo.py `
+  --out .tmp/af032-demo
 docker compose exec animated-fabric-dev animated-fabric render-frame `
   .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 --out .tmp/preview.png
 ```
@@ -94,11 +101,22 @@ Imports accept direct RGBA or indexed-transparent PNGs, preserve exact trim geom
 an existing source PNG, and save the strict root `layers.manifest.json` catalog. The decision is in
 [`docs/decisions/0001-layer-manifest.md`](docs/decisions/0001-layer-manifest.md).
 
+`rig apply-template` reads the project's declared template and imported layer catalog, creates the
+proportional `humanoid_v1` skeleton, reconstructs trimmed-layer pivots, maps authored SE/NE assets,
+and atomically saves the rig. Required omissions fail before publication; optional omissions and
+unmapped extras remain non-destructive, with a warning when an optional binding is available in only
+one authored direction. The command never replaces an existing rig unless `--replace-existing`
+supplies explicit confirmation. Reference geometry and draw-order policy are recorded in
+[`docs/decisions/0003-humanoid-rig-application.md`](docs/decisions/0003-humanoid-rig-application.md).
+
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
-catalog and built-in template registry are ready for rig application, but AF-031 does not create
-bones, bindings, pivots, or direction profiles before AF-032 defines that use case.
-The package-resource schema and deferred choices are recorded in
+catalog, built-in template registry, and AF-032 application use case now create the same persisted
+rig contracts that the renderer consumes, but loading a general imported catalog into `render-frame`
+remains a later integration. The package-resource schema is recorded in
 [`docs/decisions/0002-rig-template-resource.md`](docs/decisions/0002-rig-template-resource.md).
+`scripts/run_rig_application_demo.py` closes that proof path without changing the public render
+command: it imports both prepared directions into a fresh project, applies the rig, renders the
+reviewed neutral frames, and writes visible bone/socket overlays.
 
 The GUI entry point is `animated-fabric-gui`. Automated tests use
 `QT_QPA_PLATFORM=offscreen`. On a native Linux X11 desktop, keep the GUI inside

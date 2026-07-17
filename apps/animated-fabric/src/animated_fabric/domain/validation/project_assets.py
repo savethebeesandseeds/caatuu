@@ -5,6 +5,7 @@ from __future__ import annotations
 from animated_fabric.domain.assets import AssetLayer
 from animated_fabric.domain.diagnostics import Diagnostic, Severity
 from animated_fabric.domain.project import Direction, DirectionMode
+from animated_fabric.domain.rig import PartBinding
 from animated_fabric.domain.validation.models import (
     AssetObservation,
     ValidationCode,
@@ -107,7 +108,7 @@ def _validate_asset_catalog(
     observations = value.asset_observations
     catalog_asset_ids = {asset.asset_id for asset in assets}
     bound_asset_ids = {
-        asset_id for part in value.rig.parts for asset_id in part.assets_by_direction.values()
+        asset_id for part in value.rig.parts for asset_id in _part_asset_ids(value, part)
     }
 
     first_part_by_direction: dict[tuple[Direction, str], tuple[int, AssetLayer]] = {}
@@ -175,7 +176,7 @@ def _validate_asset_catalog(
                 )
             )
 
-    _validate_authored_asset_coverage(value, first_part_by_direction, diagnostics)
+    _validate_authored_asset_coverage(value, diagnostics)
     _validate_rig_asset_references(value, catalog_asset_ids, diagnostics)
 
 
@@ -273,13 +274,16 @@ def _exceeds_dimension_limit(observation: AssetObservation) -> bool:
 
 def _validate_authored_asset_coverage(
     value: ValidationInput,
-    present_parts: dict[tuple[Direction, str], tuple[int, AssetLayer]],
     diagnostics: list[Diagnostic],
 ) -> None:
     assert value.assets is not None
-    required_semantic_parts = sorted(
-        {asset.semantic_part for asset in value.assets if not asset.optional}
-    )
+    assets_by_id = {asset.asset_id: asset for asset in value.assets}
+    seen_asset_ids: set[str] = set()
+    duplicate_asset_ids: set[str] = set()
+    for asset in value.assets:
+        if asset.asset_id in seen_asset_ids:
+            duplicate_asset_ids.add(asset.asset_id)
+        seen_asset_ids.add(asset.asset_id)
     authored_directions = tuple(
         direction
         for direction in Direction
@@ -289,9 +293,35 @@ def _validate_authored_asset_coverage(
         )
     )
 
-    for semantic_part in required_semantic_parts:
+    parts_by_semantic: dict[str, list[PartBinding]] = {}
+    for part in value.rig.parts:
+        parts_by_semantic.setdefault(part.semantic_part, []).append(part)
+
+    for semantic_part, semantic_parts in parts_by_semantic.items():
+        bound_assets = tuple(
+            assets_by_id[asset_id]
+            for part in semantic_parts
+            for asset_id in _part_asset_ids(value, part)
+            if asset_id in assets_by_id
+        )
+        if not bound_assets or all(asset.optional for asset in bound_assets):
+            continue
         for direction in authored_directions:
-            if (direction, semantic_part) in present_parts:
+            visible_parts = tuple(
+                part for part in semantic_parts if _part_is_visible(value, part, direction)
+            )
+            if not visible_parts:
+                continue
+            if any(
+                _part_selection_covers_direction(
+                    value,
+                    part,
+                    direction,
+                    assets_by_id,
+                    duplicate_asset_ids,
+                )
+                for part in visible_parts
+            ):
                 continue
             diagnostics.append(
                 _diagnostic(
@@ -309,6 +339,47 @@ def _validate_authored_asset_coverage(
                     ),
                 )
             )
+
+
+def _part_is_visible(
+    value: ValidationInput,
+    part: PartBinding,
+    direction: Direction,
+) -> bool:
+    profile = value.rig.direction_profiles.get(direction)
+    if profile is None:
+        return part.visible
+    return profile.part_visibility.get(part.part_id, part.visible)
+
+
+def _part_asset_ids(value: ValidationInput, part: PartBinding) -> tuple[str, ...]:
+    asset_ids = list(part.assets_by_direction.values())
+    for profile in value.rig.direction_profiles.values():
+        asset_id = profile.asset_selection.get(part.part_id)
+        if asset_id is not None:
+            asset_ids.append(asset_id)
+    return tuple(asset_ids)
+
+
+def _part_selection_covers_direction(
+    value: ValidationInput,
+    part: PartBinding,
+    direction: Direction,
+    assets_by_id: dict[str, AssetLayer],
+    duplicate_asset_ids: set[str],
+) -> bool:
+    profile = value.rig.direction_profiles.get(direction)
+    asset_id = (
+        profile.asset_selection.get(part.part_id)
+        if profile is not None and part.part_id in profile.asset_selection
+        else part.assets_by_direction.get(direction)
+    )
+    if asset_id is None:
+        return False
+    if asset_id in duplicate_asset_ids:
+        return True
+    asset = assets_by_id.get(asset_id)
+    return asset is None or asset.direction is direction
 
 
 def _validate_rig_asset_references(

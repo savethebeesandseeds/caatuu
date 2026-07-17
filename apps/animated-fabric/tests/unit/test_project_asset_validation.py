@@ -57,7 +57,11 @@ def _manifest(*, directions: dict[str, object] | None = None) -> ProjectManifest
     return ProjectManifest.model_validate_json(json.dumps(data))
 
 
-def _rig(*, parts: list[dict[str, object]] | None = None) -> RigDefinition:
+def _rig(
+    *,
+    parts: list[dict[str, object]] | None = None,
+    direction_profiles: dict[str, object] | None = None,
+) -> RigDefinition:
     return RigDefinition.model_validate_json(
         json.dumps(
             {
@@ -73,7 +77,7 @@ def _rig(*, parts: list[dict[str, object]] | None = None) -> RigDefinition:
                 ],
                 "parts": parts or [],
                 "sockets": [],
-                "direction_profiles": {},
+                "direction_profiles": direction_profiles or {},
                 "draw_slot_profiles": {},
             }
         )
@@ -375,6 +379,63 @@ def test_optional_semantic_part_does_not_require_cross_direction_coverage() -> N
 
     assert (
         validate_project_and_assets(ValidationInput(manifest=_manifest(), rig=rig, assets=(asset,)))
+        == ()
+    )
+
+
+def test_binding_asset_from_wrong_direction_does_not_satisfy_authored_coverage() -> None:
+    asset = _asset("ne_torso", "NE", "torso")
+    rig = _rig(
+        parts=[
+            _part(
+                "body_torso",
+                "torso",
+                {"SE": "ne_torso", "NE": "ne_torso"},
+            )
+        ]
+    )
+
+    diagnostics = validate_project_and_assets(
+        ValidationInput(manifest=_manifest(), rig=rig, assets=(asset,))
+    )
+
+    assert [item.code for item in diagnostics] == [ValidationCode.AUTHORED_DIRECTION_MISSING]
+    assert diagnostics[0].location == "assets_by_direction.SE.torso"
+
+
+def test_profile_asset_from_wrong_direction_does_not_satisfy_coverage() -> None:
+    assets = (_asset("ne_torso", "NE", "torso"),)
+    rig = _rig(
+        parts=[_part("body_torso", "torso", {})],
+        direction_profiles={
+            "SE": {"asset_selection": {"body_torso": "ne_torso"}},
+            "NE": {"asset_selection": {"body_torso": "ne_torso"}},
+        },
+    )
+
+    diagnostics = validate_project_and_assets(
+        ValidationInput(manifest=_manifest(), rig=rig, assets=assets)
+    )
+
+    assert [item.code for item in diagnostics] == [ValidationCode.AUTHORED_DIRECTION_MISSING]
+    assert diagnostics[0].location == "assets_by_direction.SE.torso"
+
+
+def test_profile_only_asset_selections_are_bound_and_cover_authored_directions() -> None:
+    assets = (
+        _asset("se_torso", "SE", "torso"),
+        _asset("ne_torso", "NE", "torso"),
+    )
+    rig = _rig(
+        parts=[_part("body_torso", "torso", {})],
+        direction_profiles={
+            "SE": {"asset_selection": {"body_torso": "se_torso"}},
+            "NE": {"asset_selection": {"body_torso": "ne_torso"}},
+        },
+    )
+
+    assert (
+        validate_project_and_assets(ValidationInput(manifest=_manifest(), rig=rig, assets=assets))
         == ()
     )
 

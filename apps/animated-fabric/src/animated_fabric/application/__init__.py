@@ -1,5 +1,19 @@
 """Application-layer protocols and use-case boundaries."""
 
+from animated_fabric.application.apply_rig_template import (
+    RIG_TEMPLATE_APPLICATION_FAILURE_CODE,
+    RIG_TEMPLATE_REPLACEMENT_REQUIRED_CODE,
+    ApplyRigTemplate,
+    ApplyRigTemplateRequest,
+    ApplyRigTemplateResult,
+)
+from animated_fabric.application.humanoid_rig import (
+    RIG_TEMPLATE_AMBIGUOUS_PART_CODE,
+    RIG_TEMPLATE_MISSING_PART_CODE,
+    RIG_TEMPLATE_OPTIONAL_DIRECTION_CODE,
+    RIG_TEMPLATE_VALIDATION_CODE,
+    HumanoidRigBuilder,
+)
 from animated_fabric.application.import_layers import (
     IMPORT_CANVAS_MISMATCH_CODE,
     IMPORT_DIRECTION_CODE,
@@ -45,6 +59,9 @@ from animated_fabric.application.rendering import (
 from animated_fabric.application.validation_service import ValidateProject, ValidateProjectRequest
 
 __all__ = [
+    "ApplyRigTemplate",
+    "ApplyRigTemplateRequest",
+    "ApplyRigTemplateResult",
     "ClippingEdges",
     "CompositedFrame",
     "CompositeRequest",
@@ -53,6 +70,7 @@ __all__ = [
     "IMPORT_DIRECTION_CODE",
     "IMPORT_FAILURE_CODE",
     "IMPORT_MAPPING_PROPOSAL_CODE",
+    "HumanoidRigBuilder",
     "ImportInspection",
     "ImportLayerSet",
     "ImportLimits",
@@ -69,6 +87,12 @@ __all__ = [
     "ProjectRepository",
     "RigTemplateRegistry",
     "RENDER_FAILURE_CODE",
+    "RIG_TEMPLATE_AMBIGUOUS_PART_CODE",
+    "RIG_TEMPLATE_APPLICATION_FAILURE_CODE",
+    "RIG_TEMPLATE_MISSING_PART_CODE",
+    "RIG_TEMPLATE_OPTIONAL_DIRECTION_CODE",
+    "RIG_TEMPLATE_REPLACEMENT_REQUIRED_CODE",
+    "RIG_TEMPLATE_VALIDATION_CODE",
     "RenderComputationCache",
     "RenderFrame",
     "RenderedFrame",

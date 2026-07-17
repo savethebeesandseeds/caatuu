@@ -8,6 +8,7 @@ class ProjectValidationKind(StrEnum):
 
     INVALID_DOCUMENT = "invalid_document"
     MISSING_DOCUMENT = "missing_document"
+    DOCUMENT_EXISTS = "document_exists"
     UNSAFE_PATH = "unsafe_path"
     FILESYSTEM = "filesystem"
 

@@ -12,6 +12,11 @@ from typing import Annotated
 import typer
 
 from animated_fabric import __version__
+from animated_fabric.application.apply_rig_template import (
+    RIG_TEMPLATE_APPLICATION_FAILURE_CODE,
+    ApplyRigTemplate,
+    ApplyRigTemplateRequest,
+)
 from animated_fabric.application.import_layers import (
     IMPORT_MAPPING_PROPOSAL_CODE,
     ImportLayerSet,
@@ -39,6 +44,7 @@ from animated_fabric.infrastructure.fixtures import load_stick_humanoid_project
 from animated_fabric.infrastructure.imaging import OpenCvRenderer, PngFrameWriter
 from animated_fabric.infrastructure.importing import FolderLayerImporter
 from animated_fabric.infrastructure.persistence import JsonProjectRepository
+from animated_fabric.templates import JsonRigTemplateRegistry
 
 MINIMUM_PYTHON = (3, 12)
 REQUIRED_MODULES = (
@@ -66,6 +72,12 @@ app = typer.Typer(
     add_completion=False,
     no_args_is_help=True,
 )
+rig_app = typer.Typer(
+    help="Create and manage project rigs.",
+    add_completion=False,
+    no_args_is_help=True,
+)
+app.add_typer(rig_app, name="rig")
 
 
 def collect_doctor_diagnostics() -> tuple[Diagnostic, ...]:
@@ -131,6 +143,17 @@ def create_validate_project() -> ValidateProject:
 def create_folder_layer_importer() -> FolderLayerImporter:
     """Compose the shared layer importer with hardened project persistence."""
     return FolderLayerImporter(JsonProjectRepository())
+
+
+def create_apply_rig_template() -> ApplyRigTemplate:
+    """Compose template application with project-owned persistence and resources."""
+    repository = JsonProjectRepository()
+    return ApplyRigTemplate(
+        repository,
+        repository,
+        JsonRigTemplateRegistry(),
+        ProjectValidator(),
+    )
 
 
 def confirmed_layer_assignments(
@@ -527,6 +550,77 @@ def render_frame_command(
         as_json=as_json,
         success_message=(f"Rendered {description} {direction.value} frame to {out}."),
     )
+
+
+@rig_app.command("apply-template")
+def apply_rig_template_command(
+    root: Annotated[
+        Path,
+        typer.Argument(help="Existing Animated Fabric project root."),
+    ],
+    replace_existing: Annotated[
+        bool,
+        typer.Option(
+            "--replace-existing",
+            help="Explicitly confirm replacement of the configured rig document.",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit diagnostics as structured JSON."),
+    ] = False,
+) -> None:
+    """Apply the project's built-in template to its imported layer catalog."""
+    try:
+        result = create_apply_rig_template().execute(
+            ApplyRigTemplateRequest(
+                project_root=root,
+                replace_existing=replace_existing,
+            )
+        )
+    except Exception as error:
+        LOGGER.error(
+            "%s: rig template application failed with exception type %s.",
+            CLI_INTERNAL_FAILURE_CODE,
+            type(error).__name__,
+        )
+        emit_diagnostics(
+            (
+                Diagnostic(
+                    code=CLI_INTERNAL_FAILURE_CODE,
+                    severity=Severity.ERROR,
+                    message="Unexpected internal failure while applying the rig template.",
+                    suggestion="Review the application logs and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=10) from None
+
+    if result.has_errors or result.value is None:
+        emit_diagnostics(result.diagnostics, as_json=as_json, success_message="")
+        exit_code = (
+            3
+            if any(
+                item.code == RIG_TEMPLATE_APPLICATION_FAILURE_CODE for item in result.diagnostics
+            )
+            else 2
+        )
+        raise typer.Exit(code=exit_code)
+
+    success_message = (
+        f"Applied template '{result.value.rig.template_id}' with "
+        f"{len(result.value.rig.bones)} bones, {result.value.bound_part_count} bound parts, "
+        f"and {len(result.value.rig.sockets)} sockets to {result.value.rig_path}."
+    )
+    emit_diagnostics(
+        result.diagnostics,
+        as_json=as_json,
+        success_message=success_message,
+    )
+    if result.diagnostics and not as_json:
+        typer.echo(success_message)
 
 
 def main() -> None:

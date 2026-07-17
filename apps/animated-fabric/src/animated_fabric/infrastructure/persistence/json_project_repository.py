@@ -101,8 +101,15 @@ class JsonProjectRepository:
             artifact_name="rig",
         )
 
-    def save_rig(self, root: Path, path: ProjectPath, rig: RigDefinition) -> None:
-        """Atomically save one rig document beneath the project root."""
+    def save_rig(
+        self,
+        root: Path,
+        path: ProjectPath,
+        rig: RigDefinition,
+        *,
+        replace_existing: bool = True,
+    ) -> None:
+        """Atomically create or explicitly replace one rig beneath the project root."""
         self._require_suffix(path, _RIG_SUFFIX, "rig")
         self._save_model(
             root,
@@ -110,6 +117,7 @@ class JsonProjectRepository:
             rig,
             expected_format=_RIG_FORMAT,
             artifact_name="rig",
+            replace_existing=replace_existing,
         )
 
     def load_animation(self, root: Path, path: ProjectPath) -> AnimationClip:
@@ -176,6 +184,7 @@ class JsonProjectRepository:
         *,
         expected_format: str,
         artifact_name: str,
+        replace_existing: bool = True,
     ) -> None:
         project_root = self._project_root(root, create=True)
         normalized_path, candidate = self._resolve_project_path(
@@ -197,7 +206,14 @@ class JsonProjectRepository:
             artifact_name=artifact_name,
         )
         payload = self._encode_document(document, normalized_path, artifact_name)
-        self._atomic_write(project_root, candidate, normalized_path, payload, artifact_name)
+        self._atomic_write(
+            project_root,
+            candidate,
+            normalized_path,
+            payload,
+            artifact_name,
+            replace_existing=replace_existing,
+        )
 
     @staticmethod
     def _project_root(root: Path, *, create: bool) -> Path:
@@ -414,6 +430,8 @@ class JsonProjectRepository:
         relative_path: str,
         payload: bytes,
         artifact_name: str,
+        *,
+        replace_existing: bool,
     ) -> None:
         try:
             candidate.parent.mkdir(parents=True, exist_ok=True)
@@ -438,6 +456,7 @@ class JsonProjectRepository:
         descriptor = -1
         temporary_path: Path | None = None
         write_error: OSError | None = None
+        destination_exists = False
         try:
             descriptor, temporary_name = tempfile.mkstemp(
                 dir=candidate.parent,
@@ -451,7 +470,13 @@ class JsonProjectRepository:
                 stream.write(payload)
                 stream.flush()
                 os.fsync(stream.fileno())
-            os.replace(temporary_path, candidate)
+            if replace_existing:
+                os.replace(temporary_path, candidate)
+            else:
+                try:
+                    os.link(temporary_path, candidate)
+                except FileExistsError:
+                    destination_exists = True
         except OSError as error:
             write_error = error
         finally:
@@ -468,6 +493,12 @@ class JsonProjectRepository:
                     if write_error is None:
                         write_error = error
 
+        if destination_exists:
+            raise ProjectValidationError(
+                f"Refusing to replace existing {artifact_name} '{relative_path}'.",
+                kind=ProjectValidationKind.DOCUMENT_EXISTS,
+                path=relative_path,
+            )
         if write_error is not None:
             raise ProjectValidationError(
                 f"Unable to atomically save {artifact_name} '{relative_path}'.",

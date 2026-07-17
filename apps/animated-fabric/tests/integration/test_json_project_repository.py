@@ -223,6 +223,22 @@ def test_manifest_rig_and_animation_round_trip_through_filesystem(tmp_path: Path
     assert after == before
 
 
+def test_conditional_rig_save_atomically_creates_but_never_replaces(tmp_path: Path) -> None:
+    repository = JsonProjectRepository()
+    original = make_rig()
+    replacement = original.model_copy(update={"rig_id": "replacement"})
+    path = "rig/main.animated-rig.json"
+    repository.save_rig(tmp_path, path, original, replace_existing=False)
+    before = (tmp_path / path).read_bytes()
+
+    with pytest.raises(ProjectValidationError) as captured:
+        repository.save_rig(tmp_path, path, replacement, replace_existing=False)
+
+    assert captured.value.kind is ProjectValidationKind.DOCUMENT_EXISTS
+    assert (tmp_path / path).read_bytes() == before
+    assert repository.load_rig(tmp_path, path) == original
+
+
 def test_concrete_repository_satisfies_the_complete_application_port() -> None:
     repository: ProjectRepository = JsonProjectRepository()
 

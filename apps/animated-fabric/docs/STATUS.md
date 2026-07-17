@@ -31,7 +31,7 @@ M3 - importer and humanoid rig.
 
 - [x] AF-030 Layer importer
 - [x] AF-031 Template registry
-- [ ] AF-032 Humanoid rig application
+- [x] AF-032 Humanoid rig application
 - [ ] AF-033 Rig editing
 
 ## Delivered scope
@@ -162,8 +162,28 @@ M3 - importer and humanoid rig.
   depth, nonstandard numeric constants, oversized documents, unsupported schemas, unknown fields,
   filename/ID disagreement, and ambiguous registry entries through `RigDefinitionError`.
 - The JSON resource is explicit wheel package data; CI builds a wheel offline and loads the
-  template from that wheel outside the checkout. Decision 0002 records the intentionally deferred
-  AF-032 geometry and direction-profile choices.
+  template from that wheel outside the checkout. Decision 0002 records the resource boundary;
+  Decision 0003 resolves the application-owned geometry and direction-profile choices.
+- Application-owned `ApplyRigTemplate` orchestration now loads the project, layer catalog, and
+  declared built-in template through typed ports; constructs the complete rig before publication;
+  validates it; and performs one atomic save without changing the project or layer documents.
+- The `humanoid_v1` application policy scales a reviewed 192 x 192 reference skeleton around the
+  project's ground anchor, derives parent-relative rest transforms, and reconstructs each trimmed
+  asset pivot from its canvas-space bone joint and persisted `trim_origin`.
+- Exact semantic-part mapping creates bindings for every required authored-direction asset.
+  Required omissions fail before publication; an entirely absent optional part is accepted, an
+  optional one-view binding is hidden with a warning, and unmatched catalog parts remain validator
+  warnings rather than guessed assignments.
+- All eight template sockets receive application-owned scaled local offsets. Complete SE and NE
+  profiles reorder fixed anatomical far/near binding slots deterministically within the
+  direction-invariant `PartBinding.draw_slot` schema.
+- CLI `rig apply-template ROOT` invokes the same use case, supports JSON diagnostics, and requires
+  explicit `--replace-existing` confirmation before replacing an existing rig. The dedicated
+  AF-032 demo imports the owned SE/NE layers into a fresh project, applies the rig, renders both
+  reviewed neutral frames, and writes bone/socket overlays. Decision 0003 records the policies.
+- Unconfirmed rig publication uses an atomic no-replace hard link at the repository boundary, so a
+  concurrent writer cannot turn the existence check into a silent overwrite; replacement does not
+  parse or allocate an arbitrary pre-existing rig document.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -190,6 +210,8 @@ Principal files:
 - `src/animated_fabric/domain/export.py`
 - `src/animated_fabric/domain/templates.py`
 - `src/animated_fabric/application/ports.py`
+- `src/animated_fabric/application/humanoid_rig.py`
+- `src/animated_fabric/application/apply_rig_template.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
@@ -211,6 +233,7 @@ Principal files:
 - `scripts/generate_fixture_assets.py`
 - `scripts/generate_af022_compositor_golden.py`
 - `scripts/run_demo_pipeline.py`
+- `scripts/run_rig_application_demo.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
@@ -244,12 +267,41 @@ Principal files:
 - `tests/unit/test_rig_template_models.py`
 - `tests/unit/test_template_registry.py`
 - `tests/integration/test_template_package_resource.py`
+- `tests/unit/test_humanoid_rig.py`
+- `tests/integration/test_apply_rig_template.py`
+- `tests/integration/test_apply_rig_template_cli.py`
+- `tests/integration/test_imported_fixture_rig.py`
+- `tests/integration/test_rig_application_demo.py`
 - `docs/decisions/0001-layer-manifest.md`
 - `docs/decisions/0002-rig-template-resource.md`
+- `docs/decisions/0003-humanoid-rig-application.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-17 through the repository-owned Linux container after AF-032:
+
+- `ruff format --check .`: 175 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 56 source files.
+- `pytest -q`: 605 passed; 92.60% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Focused rig-application, repository, CLI, imported-render, and project-validator suite:
+  79 passed.
+- `python scripts/generate_fixture_assets.py --out .tmp/final-af032-fixtures-605`:
+  generated the deterministic 28-layer owned fixture and canonical fixture project.
+- `python scripts/run_demo_pipeline.py --out .tmp/final-af032-legacy-demo-605`: rendered the
+  reviewed 192 x 192 neutral SE and NE fixture frames.
+- `python scripts/run_rig_application_demo.py --out .tmp/final-af032-demo-reviewed-605`:
+  imported both layer sets, applied a 17-bone/14-part/8-socket rig, validated the persisted
+  project, and rendered both neutral frames plus bone/socket overlays. The neutral SE and NE
+  SHA-256 digests remained `0b2632ea...d764b6d4` and `2d416e98...644144d0`.
+- `python -m animated_fabric --help`, `python -m animated_fabric rig --help`, and
+  `python -m animated_fabric doctor`: public entry points passed; doctor reported no problems.
+- Root repository file-policy and Markdown-link checks: passed for 1,165 candidate files and 82
+  Markdown files.
+- Independent final code, test, and security reviews reported no remaining actionable findings.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-031:
 
@@ -341,10 +393,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- The authored-direction renderer, general layer importer, and built-in template registry exist,
-  but template application, complete-frame mirroring, animation generators, and export execution
-  do not. `render-frame` therefore still accepts the owned generated fixture project only; AF-032
-  must create bones, bindings, pivots, sockets, and SE/NE profiles from imported PNGs.
+- The authored-direction renderer, general layer importer, template registry, and humanoid template
+  application exist, but general imported-catalog loading, complete-frame mirroring, animation
+  generators, rig editing, and export execution do not. `render-frame` therefore still accepts the
+  owned generated fixture project only; AF-033 remains the next rig milestone.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -394,10 +446,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   conflicting with the normative lowercase ASCII `snake_case` semantic-ID rule. Executable
   AF-010 examples use `se_torso` and `ne_torso`; the specification was not changed in this
   ticket.
-- The specification does not define a rig-template JSON schema, most socket defaults, complete
-  bone transforms, or exact direction-specific slot profiles. Decision 0002 records the narrow v1
-  resource shape and global slot inventory; proportional placement and SE/NE ordering remain
-  deliberate AF-032 decisions rather than inferred runtime behavior.
+- The specification does not define complete humanoid transforms, most socket offsets, or full
+  direction-specific slot arrays. Decision 0003 records the reviewed AF-032 application defaults.
+  `PartBinding.draw_slot` remains direction-invariant, so anatomical far/near slots are fixed and
+  the SE/NE profiles reorder those slots; per-direction slot reassignment would require migration.
 - Background removal is optional preprocessing and is not connected to the GUI or importer.
 - BiRefNet weights exist only in the local project-owned Docker volume. They are not committed,
   baked into an image, or approved for redistribution by this status record.
@@ -407,7 +459,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M0 Foundations
 - [x] M1 Domain and persistence
 - [x] M2 Mathematics and renderer
-- [ ] M3 Importer and humanoid rig (AF-030 and AF-031 complete)
+- [ ] M3 Importer and humanoid rig (AF-030 through AF-032 complete)
 - [ ] M4 Humanoid generators
 - [ ] M5 Export
 - [ ] M6 Functional GUI
@@ -417,4 +469,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-032 Humanoid rig application
+- AF-033 Rig editing as use cases
