@@ -38,14 +38,14 @@ cd /workspace/tools/caatuu-cz-ml
 npm run check
 npm run build:corpus
 npm run build:dataset
-python data/models/tools/train_lora.py --help
-python data/models/tools/export_webllm.py --help
+python scripts/ml/train_lora.py --help
+python scripts/ml/export_webllm.py --help
 ```
 
 Run MLC/WebLLM conversion commands with the separate MLC Python:
 
 ```bash
-caatuu-mlc-python data/models/tools/export_webllm.py --stage mlc --run-id qwen3-1.7b-lora-next
+caatuu-mlc-python scripts/ml/export_webllm.py --stage mlc --run-id qwen3-1.7b-lora-next
 ```
 
 Run phone-bench preparation:

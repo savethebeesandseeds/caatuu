@@ -166,7 +166,7 @@ Train these sequentially on the RTX A2000. Do not run both at the same time.
 Use the existing completion LoRA merge path:
 
 ```bash
-python data/models/tools/merge_completion_lora.py \
+python scripts/ml/merge_completion_lora.py \
   --model-id BUT-FIT/CSTinyLlama-1.2B \
   --adapter data/models/czech-finetuned/runs/<RUN_ID>/adapter \
   --out data/models/czech-finetuned/exports/<RUN_ID>/merged-hf

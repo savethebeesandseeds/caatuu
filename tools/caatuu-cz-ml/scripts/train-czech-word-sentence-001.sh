@@ -20,7 +20,7 @@ echo "$$" > "$RUN_DIR/train.pid"
 date -Is > "$RUN_DIR/train.started"
 
 args=(
-  data/models/tools/train_completion_lora.py
+  scripts/ml/train_completion_lora.py
   --model-id "${MODEL_ID:-BUT-FIT/CSTinyLlama-1.2B}"
   --train "$TRAIN_FILE"
   --val "$VAL_FILE"

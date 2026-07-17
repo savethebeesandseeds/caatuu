@@ -1,0 +1,35 @@
+FROM python:3.13-slim-bookworm
+
+ENV PYTHONUNBUFFERED=1
+
+RUN python -m pip install --no-cache-dir --pre -U -f https://mlc.ai/wheels \
+    mlc-llm-nightly-cpu \
+    mlc-ai-nightly-cpu
+
+# The 2026-06 MLC wheels expose conversion modules, but the package-level
+# __init__ imports the serving runtime before conversion can run. The serving
+# import fails in this slim conversion container because the bundled TVM/MLC
+# shared-library set is not coherent for runtime serving. The conversion CLI
+# does not need that serving import, so keep package init minimal here.
+RUN python - <<'PY'
+from pathlib import Path
+init = Path("/usr/local/lib/python3.13/site-packages/mlc_llm/__init__.py")
+init.write_text(
+    '"""Minimal MLC LLM init for offline conversion tools."""\n'
+    'from .libinfo import __version__\n',
+    encoding="utf-8",
+)
+
+contrib = Path("/usr/local/lib/python3.13/site-packages/tvm/contrib")
+for name in ["ndk", "tar", "xcode"]:
+    module = contrib / f"{name}.py"
+    if not module.exists():
+        module.write_text(
+            '"""Conversion-container compatibility stub."""\n'
+            'def __getattr__(name):\n'
+            '    raise RuntimeError("tvm.contrib.%s is not available in the Caatuu conversion container" % __name__.rsplit(".", 1)[-1])\n',
+            encoding="utf-8",
+        )
+PY
+
+WORKDIR /models

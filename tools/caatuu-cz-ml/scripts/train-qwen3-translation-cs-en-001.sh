@@ -31,7 +31,7 @@ mkdir -p "$RUN_DIR"
 echo "$$" > "$RUN_DIR/train.pid"
 date -Is > "$RUN_DIR/train.started"
 
-"$PYTHON_BIN" data/models/tools/train_lora.py \
+"$PYTHON_BIN" scripts/ml/train_lora.py \
   --model-id "${MODEL_ID:-Qwen/Qwen3-1.7B}" \
   --train "$DATASET_DIR/train.jsonl" \
   --val "$DATASET_DIR/val.jsonl" \

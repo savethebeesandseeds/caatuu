@@ -7,6 +7,7 @@ and implementation details stay beside the relevant app or tool.
 
 | Document | Use it for |
 | --- | --- |
+| [Workspace map](WORKSPACE.md) | What belongs in apps, demos, tools, archive, and Git |
 | [Architecture](ARCHITECTURE.md) | Product surfaces, runtime boundaries, routes, and repository ownership |
 | [Development](DEVELOPMENT.md) | Docker startup, tunnel operation, tools, Android work, and validation |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |

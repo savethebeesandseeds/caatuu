@@ -13,7 +13,7 @@ This workspace keeps the heavy assets and ML-only tooling:
 ```text
 data/corpus/
 data/models/english-base/
-data/models/tools/
+scripts/ml/
 data/models/czech-finetuned/training-data/
 data/models/czech-finetuned/runs/
 data/models/czech-finetuned/exports/
@@ -86,7 +86,7 @@ From `/workspace/tools/caatuu-cz-ml` inside Debian, after activating the ML
 environment:
 
 ```bash
-python data/models/tools/train_lora.py \
+python scripts/ml/train_lora.py \
   --train data/models/czech-finetuned/training-data/train.jsonl \
   --val data/models/czech-finetuned/training-data/val.jsonl \
   --out data/models/czech-finetuned/runs/qwen3-1.7b-lora-next \
@@ -99,7 +99,7 @@ python data/models/tools/train_lora.py \
 Benchmark:
 
 ```bash
-python data/models/tools/czech_language_benchmark.py \
+python scripts/ml/czech_language_benchmark.py \
   --tuned-model data/models/czech-finetuned/runs/qwen3-1.7b-lora-next/adapter \
   --out-json data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-next.json \
   --out-md data/models/benchmarks/czech-language-benchmark-qwen3-1.7b-lora-next.md
@@ -108,7 +108,7 @@ python data/models/tools/czech_language_benchmark.py \
 Export:
 
 ```bash
-python data/models/tools/export_webllm.py --run-id qwen3-1.7b-lora-next --stage all
+python scripts/ml/export_webllm.py --run-id qwen3-1.7b-lora-next --stage all
 npm run finalize:webllm -- --run-id qwen3-1.7b-lora-next
 ```
 

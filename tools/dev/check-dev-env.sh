@@ -59,9 +59,9 @@ echo
 echo "== Repo command probes =="
 cd /workspace/tools/caatuu-cz-ml
 npm run check
-python data/models/tools/train_lora.py --help >/tmp/caatuu-train-lora-help.txt
-python data/models/tools/export_webllm.py --help >/tmp/caatuu-export-webllm-help.txt
-/opt/caatuu-mlc/bin/python data/models/tools/export_webllm.py --stage status >/tmp/caatuu-export-webllm-status.json
+python scripts/ml/train_lora.py --help >/tmp/caatuu-train-lora-help.txt
+python scripts/ml/export_webllm.py --help >/tmp/caatuu-export-webllm-help.txt
+/opt/caatuu-mlc/bin/python scripts/ml/export_webllm.py --stage status >/tmp/caatuu-export-webllm-status.json
 
 cd /workspace/tools/phone-bench
 python scripts/resolve-model-config.py >/tmp/caatuu-phone-model-config.env

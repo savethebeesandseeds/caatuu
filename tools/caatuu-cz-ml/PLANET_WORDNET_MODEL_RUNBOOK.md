@@ -107,7 +107,7 @@ RUN_ID=cstinyllama-1.2b-planet-wordnet-003-copy
 DATASET=data/models/czech-finetuned/training-data/planet-wordnet-003
 RUN_DIR=data/models/czech-finetuned/runs/$RUN_ID
 
-python data/models/tools/planet_wordnet_eval.py \
+python scripts/ml/planet_wordnet_eval.py \
   --adapter "$RUN_DIR/adapter" \
   --benchmark "$DATASET/benchmark.jsonl" \
   --out-jsonl "$RUN_DIR/eval-full.jsonl" \
@@ -134,7 +134,7 @@ Merge the adapter into a standalone Hugging Face export:
 ```bash
 RUN_ID=cstinyllama-1.2b-planet-wordnet-003-copy
 
-python data/models/tools/merge_completion_lora.py \
+python scripts/ml/merge_completion_lora.py \
   --model-id BUT-FIT/CSTinyLlama-1.2B \
   --adapter "data/models/czech-finetuned/runs/$RUN_ID/adapter" \
   --out "data/models/czech-finetuned/exports/$RUN_ID/merged-hf"

@@ -34,6 +34,10 @@ Desktop.ini
 **/__pycache__/
 **/*.pyc
 **/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.cxx/
+**/build-*/
 **/dist/
 **/build/
 artifacts/
@@ -57,8 +61,8 @@ tools/caatuu-cz-ml/data/models/
 tools/caatuu-cz-ml/data/curriculum/**/batches/
 tools/caatuu-cz-ml/data/curriculum/**/jobs/
 tools/caatuu-cz-ml/logs/
-tools/images-generation/
 archive/*
+!archive/README.md
 !archive/caatuu-chinese/
 !archive/caatuu-chinese/**
 gateway/
