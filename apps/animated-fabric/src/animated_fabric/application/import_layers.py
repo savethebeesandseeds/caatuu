@@ -6,13 +6,21 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
+from animated_fabric.application.ports import ProjectRepository
 from animated_fabric.domain.assets import AssetLayer
 from animated_fabric.domain.diagnostics import Diagnostic, OperationResult, Severity
-from animated_fabric.domain.exceptions import AssetImportError
+from animated_fabric.domain.exceptions import (
+    AssetImportError,
+    ProjectValidationError,
+    ProjectVersionError,
+)
 from animated_fabric.domain.geometry import IntPoint, IntSize
-from animated_fabric.domain.project import Direction
+from animated_fabric.domain.project import Direction, DirectionMode
 
 IMPORT_FAILURE_CODE = "AFI001"
+IMPORT_CANVAS_MISMATCH_CODE = "AFI007"
+IMPORT_DIRECTION_CODE = "AFI008"
+IMPORT_MAPPING_PROPOSAL_CODE = "AFI010"
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,11 +141,64 @@ class InspectLayerFolder:
 class ImportLayerSet:
     """Publish a reviewed layer set through the same importer used by the CLI and GUI."""
 
-    def __init__(self, importer: LayerImporter) -> None:
+    def __init__(self, importer: LayerImporter, projects: ProjectRepository) -> None:
         self._importer = importer
+        self._projects = projects
 
     def execute(self, request: LayerImportRequest) -> OperationResult[ImportResult]:
         """Return imported assets or a typed expected-failure diagnostic."""
+        try:
+            project = self._projects.load(request.project_root)
+            inspection = self._importer.inspect(request.source)
+        except (ProjectValidationError, ProjectVersionError) as error:
+            return OperationResult[ImportResult](
+                diagnostics=(import_failure(AssetImportError(str(error))),)
+            )
+        except AssetImportError as error:
+            return OperationResult[ImportResult](diagnostics=(import_failure(error),))
+
+        if inspection.has_errors:
+            return OperationResult[ImportResult](diagnostics=inspection.diagnostics)
+
+        direction = project.directions.get(request.direction)
+        if direction is None or direction.mode is not DirectionMode.AUTHORED:
+            return OperationResult[ImportResult](
+                diagnostics=(
+                    Diagnostic(
+                        code=IMPORT_DIRECTION_CODE,
+                        severity=Severity.ERROR,
+                        message=(
+                            f"Direction '{request.direction.value}' is not authored by "
+                            "this project."
+                        ),
+                        location=f"directions.{request.direction.value}",
+                        suggestion=(
+                            "Import art only for a project direction configured as authored."
+                        ),
+                    ),
+                )
+            )
+
+        for layer in inspection.layers:
+            size = layer.source_canvas_size
+            if size.width != project.canvas.width or size.height != project.canvas.height:
+                return OperationResult[ImportResult](
+                    diagnostics=(
+                        Diagnostic(
+                            code=IMPORT_CANVAS_MISMATCH_CODE,
+                            severity=Severity.ERROR,
+                            message=(
+                                f"Layer '{layer.source_name}' uses canvas {size.width} x "
+                                f"{size.height}; project canvas is {project.canvas.width} x "
+                                f"{project.canvas.height}."
+                            ),
+                            path=layer.source_name,
+                            location="source_canvas_size",
+                            suggestion="Prepare every authored layer on the project canvas.",
+                        ),
+                    )
+                )
+
         try:
             result = self._importer.import_layers(request)
         except AssetImportError as error:
@@ -149,7 +210,10 @@ class ImportLayerSet:
 
 
 __all__ = [
+    "IMPORT_CANVAS_MISMATCH_CODE",
+    "IMPORT_DIRECTION_CODE",
     "IMPORT_FAILURE_CODE",
+    "IMPORT_MAPPING_PROPOSAL_CODE",
     "ImportInspection",
     "ImportLayerSet",
     "ImportLimits",

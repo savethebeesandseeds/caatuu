@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0, M1, and M2 complete
+**Current state:** Milestones M0, M1, and M2 complete; M3 underway
 
 **Last updated:** 2026-07-17
 
@@ -26,6 +26,13 @@ M2 - mathematics and vertical renderer.
 - [x] AF-021 Animation evaluator
 - [x] AF-022 OpenCV compositor
 - [x] AF-023 Golden render
+
+M3 - importer and humanoid rig.
+
+- [x] AF-030 Layer importer
+- [ ] AF-031 Template registry
+- [ ] AF-032 Humanoid rig application
+- [ ] AF-033 Rig editing
 
 ## Delivered scope
 
@@ -120,6 +127,29 @@ M2 - mathematics and vertical renderer.
   through the same `RenderFrame` use case and renderer used by the CLI.
 - Reviewed 192 x 192 neutral SE and NE goldens lock complete-pipeline draw order, alpha structure,
   metadata-safe composition, direction differences, repeatability, and absence of edge clipping.
+- A side-effect-free `LayerImporter.inspect()` and shared `ImportLayerSet` application boundary now
+  inspect and publish direct direction-specific PNG folders without GUI or CLI logic in the adapter.
+- The folder importer accepts RGBA and indexed-transparent PNGs, verifies the PNG signature, decodes
+  in stable filename order, calculates alpha-only bounds, converts to deterministic RGBA, optionally
+  trims transparent borders, and preserves the original canvas and exact `trim_origin` metadata.
+- Configurable 2048 px, 50 MiB, and 500-layer limits are enforced before publication. Corrupt or
+  unsupported inputs, nonrecursive entries, case-colliding names, unsafe links, invalid mappings,
+  duplicate semantic parts, and immutable destination conflicts fail with actionable diagnostics.
+- The four alias groups listed in specification section 8.6 produce deterministic English semantic
+  proposals; callers confirm every assignment, and CLI users may provide repeatable
+  `--map SOURCE.png=semantic_part` overrides.
+- Normalized layers publish beneath `source/layers/<DIRECTION>/` through project-local staging and
+  no-overwrite hard links. A failed batch rolls back every newly published PNG and leaves the prior
+  catalog authoritative; byte- and metadata-identical retries are deterministic no-ops.
+- A strict root `layers.manifest.json` with format `animated-fabric.layer-manifest.v1` persists sorted
+  `AssetLayer` values through the hardened atomic JSON repository without changing `ProjectManifest`.
+  Decision 0001 records this narrow resolution of the specification's previously undefined catalog.
+- CLI `import-layers ROOT --direction ... --source ...` displays mappings for confirmation, supports
+  trim control and JSON diagnostics, exits 3 for expected input/import failures, and sanitizes
+  unexpected boundary failures with exit 10.
+- The shared import use case requires a valid canonical project, rejects mirrored or undeclared
+  target directions, and verifies every source layer against the fixed project canvas before any
+  source publication. JSON mode exposes proposals as `AFI010` information diagnostics.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -145,6 +175,7 @@ Principal files:
 - `src/animated_fabric/domain/animation.py`
 - `src/animated_fabric/domain/export.py`
 - `src/animated_fabric/application/ports.py`
+- `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
 - `src/animated_fabric/application/rendering.py`
@@ -152,6 +183,7 @@ Principal files:
 - `src/animated_fabric/domain/validation/`
 - `src/animated_fabric/infrastructure/persistence/json_project_repository.py`
 - `src/animated_fabric/infrastructure/fixtures/stick_humanoid.py`
+- `src/animated_fabric/infrastructure/importing/folder_layer_importer.py`
 - `src/animated_fabric/infrastructure/imaging/alpha.py`
 - `src/animated_fabric/infrastructure/imaging/image_store.py`
 - `src/animated_fabric/infrastructure/imaging/opencv_compositor.py`
@@ -185,10 +217,35 @@ Principal files:
 - `tests/integration/test_demo_pipeline.py`
 - `tests/integration/test_json_project_repository.py`
 - `tests/integration/test_validate_cli.py`
+- `tests/unit/test_import_layers.py`
+- `tests/unit/test_folder_layer_importer.py`
+- `tests/unit/test_layer_manifest.py`
+- `tests/integration/test_folder_layer_import_security.py`
+- `tests/integration/test_import_layers_cli.py`
+- `tests/integration/test_layer_manifest_repository.py`
+- `docs/decisions/0001-layer-manifest.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-17 through the repository-owned Linux container after AF-030:
+
+- `ruff format --check .`: 105 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 49 source files.
+- `pytest -q`: 512 passed; 91.96% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Focused importer, catalog, transaction, and CLI suite: 64 passed.
+- `python scripts/generate_fixture_assets.py --out .tmp/final-af030-fixtures`: generated the
+  deterministic 28-layer owned fixture and canonical fixture project successfully.
+- CLI `import-layers` imported the fixture's 14 SE and 14 NE layers into a validated project root
+  with explicit noninteractive confirmation; each JSON result contained only the 14 stable `AFI010`
+  mapping information diagnostics.
+- The persisted `layers.manifest.json` reloaded with 28 layers, directions exactly `NE,SE`, and only
+  project-relative asset paths.
+- `python -m animated_fabric --help`: passed and listed `import-layers`.
+- `python -m animated_fabric doctor`: passed with no problems found.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-023:
 
@@ -241,9 +298,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- The authored-direction renderer is complete for M2, but the general importer, complete-frame
-  mirroring, animation generators, and export execution do not exist yet. `render-frame` therefore
-  accepts the owned generated fixture project only; it does not scan arbitrary layer folders.
+- The authored-direction renderer and general layer importer exist, but template application,
+  complete-frame mirroring, animation generators, and export execution do not. `render-frame`
+  therefore still accepts the owned generated fixture project only; AF-030 catalogs imported PNGs
+  but deliberately does not invent rig bindings before AF-031 and AF-032.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -264,10 +322,11 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   epsilon, tie-breaking, or default threshold.
 - Clipping detection returns edge state only. `allow_clipping` enforcement and `AFV501` emission
   remain export/application policy rather than compositor behavior.
-- The specification defines no persisted asset catalog or importer-owned image-observation
-  document. `AFV101` through `AFV108` therefore run when a caller supplies typed asset metadata
-  and observations; CLI validation does not invent or persist an asset schema. The AF-023 fixture
-  adapter reads only the owned `fixture_manifest.json` convention and is not a product format.
+- The specification names `layers.manifest.json` but does not define its product or optional
+  source-side schema. Decision 0001 defines the smallest root product catalog needed by AF-030;
+  optional same-named files inside selected source folders are tolerated but not interpreted as
+  mapping input. The AF-023 `fixture_manifest.json` remains an owned fixture convention, not a
+  product format.
 - Equipment usage is not modeled yet, so `AFV403` is emitted only when a caller explicitly
   supplies the used socket IDs. Orphan direction-profile override IDs are not assigned an
   invented diagnostic code where Appendix E provides no accurate one.
@@ -281,6 +340,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   it does not invent an aggregate schema on disk.
 - Atomicity is per JSON file, not a multi-file transaction. Migrations, backups, locking,
   autosave, recovery, and multi-writer arbitration remain assigned to later tickets.
+- Import rollback covers expected runtime failures and preserves the authoritative prior catalog,
+  but no multi-process project lock or crash-recovery journal exists yet. Publication relies on
+  same-filesystem hard links from project-local staging; filesystems without hard-link support fail
+  safely rather than falling back to a non-atomic copy.
 - Stable symlink escapes are rejected before access and again before publication. A hostile
   process concurrently swapping path components would require directory-descriptor/no-follow
   traversal beyond the AF-011 desktop threat model.
@@ -297,7 +360,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M0 Foundations
 - [x] M1 Domain and persistence
 - [x] M2 Mathematics and renderer
-- [ ] M3 Importer and humanoid rig
+- [ ] M3 Importer and humanoid rig (AF-030 complete)
 - [ ] M4 Humanoid generators
 - [ ] M5 Export
 - [ ] M6 Functional GUI
@@ -307,4 +370,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-030 Layer importer
+- AF-031 Template registry

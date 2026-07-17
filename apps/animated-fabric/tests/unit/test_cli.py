@@ -20,6 +20,7 @@ def test_help_lists_available_foundation_validation_and_render_commands() -> Non
     assert "version" in result.stdout
     assert "doctor" in result.stdout
     assert "validate" in result.stdout
+    assert "import-layers" in result.stdout
     assert "render-frame" in result.stdout
 
 

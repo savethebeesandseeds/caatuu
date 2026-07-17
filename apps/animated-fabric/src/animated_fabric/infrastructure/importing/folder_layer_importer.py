@@ -12,6 +12,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from io import BytesIO
 from pathlib import Path
+from typing import Literal
 
 from PIL import Image, UnidentifiedImageError
 from pydantic import TypeAdapter, ValidationError
@@ -42,7 +43,9 @@ from animated_fabric.domain.project import Direction
 from animated_fabric.domain.validation.models import ValidationCode, diagnostic_sort_key
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-LAYER_MANIFEST_FORMAT = "animated-fabric.layer-manifest.v1"
+LAYER_MANIFEST_FORMAT: Literal["animated-fabric.layer-manifest.v1"] = (
+    "animated-fabric.layer-manifest.v1"
+)
 LAYER_MANIFEST_SCHEMA_VERSION = "0.1.0"
 
 IMPORT_UNSUPPORTED_ENTRY_CODE = "AFI002"
@@ -182,7 +185,9 @@ class FolderLayerImporter:
             candidate = source_root / inspected.source_name
             decoded, diagnostics = self._inspect_candidate(source_root, candidate)
             if decoded is None or any(item.severity is Severity.ERROR for item in diagnostics):
-                message = diagnostics[0].message if diagnostics else "A source PNG became unavailable."
+                message = (
+                    diagnostics[0].message if diagnostics else "A source PNG became unavailable."
+                )
                 raise AssetImportError(message)
             if decoded.source_sha256 != inspected.source_sha256:
                 raise AssetImportError(
@@ -455,7 +460,9 @@ class FolderLayerImporter:
                 or "\\" in assignment.source_name
                 or assignment.source_name in by_name
             ):
-                raise AssetImportError("Confirmed source mappings must use each direct filename once.")
+                raise AssetImportError(
+                    "Confirmed source mappings must use each direct filename once."
+                )
             if assignment.source_name not in expected_names:
                 raise AssetImportError(
                     f"Confirmed mapping references unknown source '{assignment.source_name}'."
@@ -548,7 +555,17 @@ class FolderLayerImporter:
                         f"Destination '{item.asset.path}' is not a regular file."
                     )
                 try:
+                    existing_size = target.stat().st_size
+                    if existing_size > self._limits.max_file_bytes or existing_size != len(
+                        item.png_bytes
+                    ):
+                        raise AssetImportError(
+                            f"Immutable destination '{item.asset.path}' already exists with "
+                            "different content or metadata."
+                        )
                     existing_bytes = target.read_bytes()
+                except AssetImportError:
+                    raise
                 except OSError as error:
                     raise AssetImportError(
                         f"Existing destination '{item.asset.path}' cannot be read safely."
@@ -578,7 +595,9 @@ class FolderLayerImporter:
             self._require_project_destination(project_root, staging_parent)
             staging_root = Path(tempfile.mkdtemp(prefix="layers-", dir=staging_parent))
         except OSError as error:
-            raise AssetImportError("Unable to create a safe project import staging directory.") from error
+            raise AssetImportError(
+                "Unable to create a safe project import staging directory."
+            ) from error
 
         created: list[Path] = []
         staged: list[tuple[_PreparedLayer, Path]] = []
@@ -614,7 +633,9 @@ class FolderLayerImporter:
                 ) from error
             if isinstance(error, AssetImportError):
                 raise
-            raise AssetImportError("Layer publication failed without changing the catalog.") from error
+            raise AssetImportError(
+                "Layer publication failed without changing the catalog."
+            ) from error
         finally:
             shutil.rmtree(staging_root, ignore_errors=True)
 
@@ -625,7 +646,7 @@ class FolderLayerImporter:
     ) -> tuple[Path | None, Diagnostic | None]:
         try:
             resolved = candidate.resolve(strict=True)
-        except (FileNotFoundError, OSError, RuntimeError) as error:
+        except (FileNotFoundError, OSError, RuntimeError):
             return (
                 None,
                 Diagnostic(
