@@ -5267,13 +5267,14 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   opacity: 0.72;
 }
 
-.verb-match-control-cluster .verb-next-button {
+.verb-match-control-cluster .verb-reveal-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
-.verb-match-control-cluster .verb-next-button.is-ready {
+.verb-match-control-cluster .verb-reveal-button.is-ready {
   border-color: var(--green-dark);
   background: var(--green-dark);
   color: #ffffff;
