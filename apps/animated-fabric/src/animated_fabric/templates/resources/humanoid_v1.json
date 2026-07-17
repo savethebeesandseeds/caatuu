@@ -1,0 +1,305 @@
+{
+  "format": "animated-fabric.rig-template.v1",
+  "schema_version": "0.1.0",
+  "template_id": "humanoid_v1",
+  "display_name": "Humanoid",
+  "bones": [
+    {
+      "bone_id": "root",
+      "parent_id": null
+    },
+    {
+      "bone_id": "pelvis",
+      "parent_id": "root"
+    },
+    {
+      "bone_id": "torso",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "neck",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "head",
+      "parent_id": "neck"
+    },
+    {
+      "bone_id": "upper_arm_l",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "lower_arm_l",
+      "parent_id": "upper_arm_l"
+    },
+    {
+      "bone_id": "hand_l",
+      "parent_id": "lower_arm_l"
+    },
+    {
+      "bone_id": "upper_arm_r",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "lower_arm_r",
+      "parent_id": "upper_arm_r"
+    },
+    {
+      "bone_id": "hand_r",
+      "parent_id": "lower_arm_r"
+    },
+    {
+      "bone_id": "thigh_l",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "shin_l",
+      "parent_id": "thigh_l"
+    },
+    {
+      "bone_id": "foot_l",
+      "parent_id": "shin_l"
+    },
+    {
+      "bone_id": "thigh_r",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "shin_r",
+      "parent_id": "thigh_r"
+    },
+    {
+      "bone_id": "foot_r",
+      "parent_id": "shin_r"
+    }
+  ],
+  "required_parts": [
+    {
+      "part_id": "torso",
+      "bone_id": "torso"
+    },
+    {
+      "part_id": "head",
+      "bone_id": "head"
+    },
+    {
+      "part_id": "upper_arm_l",
+      "bone_id": "upper_arm_l"
+    },
+    {
+      "part_id": "lower_arm_l",
+      "bone_id": "lower_arm_l"
+    },
+    {
+      "part_id": "hand_l",
+      "bone_id": "hand_l"
+    },
+    {
+      "part_id": "upper_arm_r",
+      "bone_id": "upper_arm_r"
+    },
+    {
+      "part_id": "lower_arm_r",
+      "bone_id": "lower_arm_r"
+    },
+    {
+      "part_id": "hand_r",
+      "bone_id": "hand_r"
+    },
+    {
+      "part_id": "thigh_l",
+      "bone_id": "thigh_l"
+    },
+    {
+      "part_id": "shin_l",
+      "bone_id": "shin_l"
+    },
+    {
+      "part_id": "foot_l",
+      "bone_id": "foot_l"
+    },
+    {
+      "part_id": "thigh_r",
+      "bone_id": "thigh_r"
+    },
+    {
+      "part_id": "shin_r",
+      "bone_id": "shin_r"
+    },
+    {
+      "part_id": "foot_r",
+      "bone_id": "foot_r"
+    }
+  ],
+  "optional_parts": [
+    {
+      "part_id": "pelvis_visual",
+      "bone_id": "pelvis"
+    },
+    {
+      "part_id": "neck_visual",
+      "bone_id": "neck"
+    },
+    {
+      "part_id": "hair_back",
+      "bone_id": "head"
+    },
+    {
+      "part_id": "hair_front",
+      "bone_id": "head"
+    },
+    {
+      "part_id": "cape",
+      "bone_id": "torso"
+    },
+    {
+      "part_id": "ground_shadow",
+      "bone_id": "root"
+    }
+  ],
+  "import_aliases": [
+    {
+      "canonical_part": "upper_arm_l",
+      "aliases": [
+        "left_upper_arm",
+        "arm_l_upper",
+        "l_upper_arm"
+      ]
+    },
+    {
+      "canonical_part": "lower_arm_l",
+      "aliases": [
+        "left_forearm",
+        "forearm_l",
+        "l_lower_arm"
+      ]
+    },
+    {
+      "canonical_part": "thigh_r",
+      "aliases": [
+        "right_thigh",
+        "upper_leg_r",
+        "r_upper_leg"
+      ]
+    },
+    {
+      "canonical_part": "foot_r",
+      "aliases": [
+        "right_foot",
+        "r_foot"
+      ]
+    }
+  ],
+  "default_sockets": [
+    {
+      "socket_id": "head_hat",
+      "bone_id": "head",
+      "default_draw_slot": "hair_front"
+    },
+    {
+      "socket_id": "head_face",
+      "bone_id": "head",
+      "default_draw_slot": "fx_front"
+    },
+    {
+      "socket_id": "back_cape",
+      "bone_id": "torso",
+      "default_draw_slot": "cape_back"
+    },
+    {
+      "socket_id": "hand_l_item",
+      "bone_id": "hand_l",
+      "default_draw_slot": "weapon_front"
+    },
+    {
+      "socket_id": "hand_r_weapon",
+      "bone_id": "hand_r",
+      "default_draw_slot": "weapon_front"
+    },
+    {
+      "socket_id": "hand_l_shield",
+      "bone_id": "hand_l",
+      "default_draw_slot": "shield_front"
+    },
+    {
+      "socket_id": "waist_item",
+      "bone_id": "pelvis",
+      "default_draw_slot": "torso"
+    },
+    {
+      "socket_id": "root_shadow",
+      "bone_id": "root",
+      "default_draw_slot": "ground_shadow"
+    }
+  ],
+  "draw_slots": [
+    "ground_shadow",
+    "cape_back",
+    "weapon_back",
+    "leg_far",
+    "leg_near",
+    "body_back",
+    "torso",
+    "arm_far",
+    "head_back",
+    "head",
+    "hair_front",
+    "arm_near",
+    "shield_front",
+    "weapon_front",
+    "fx_front"
+  ],
+  "compatible_generators": [
+    "humanoid_idle_v1",
+    "humanoid_walk_v1"
+  ],
+  "limits": [
+    {
+      "value_id": "canvas_width_px",
+      "minimum": 1.0,
+      "maximum": 2048.0
+    },
+    {
+      "value_id": "canvas_height_px",
+      "minimum": 1.0,
+      "maximum": 2048.0
+    },
+    {
+      "value_id": "ground_anchor_x_px",
+      "minimum": 0.0,
+      "maximum": 2048.0
+    },
+    {
+      "value_id": "ground_anchor_y_px",
+      "minimum": 0.0,
+      "maximum": 2048.0
+    },
+    {
+      "value_id": "joint_overlap_px",
+      "minimum": 6.0,
+      "maximum": 12.0
+    }
+  ],
+  "initial_values": [
+    {
+      "value_id": "canvas_width_px",
+      "value": 192.0
+    },
+    {
+      "value_id": "canvas_height_px",
+      "value": 192.0
+    },
+    {
+      "value_id": "ground_anchor_x_px",
+      "value": 96.0
+    },
+    {
+      "value_id": "ground_anchor_y_px",
+      "value": 160.0
+    },
+    {
+      "value_id": "joint_overlap_px",
+      "value": 8.0
+    }
+  ]
+}

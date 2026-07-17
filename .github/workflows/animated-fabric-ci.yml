@@ -47,6 +47,16 @@ jobs:
           docker compose run --rm --no-deps animated-fabric-dev pytest -q
           docker compose run --rm --no-deps animated-fabric-dev python -m pip check
 
+      - name: Build and smoke-test the installable wheel
+        working-directory: apps/animated-fabric
+        run: |
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python -m pip wheel --no-deps --no-build-isolation \
+            --wheel-dir .tmp/wheels .
+          docker compose run --rm --no-deps --workdir /tmp \
+            animated-fabric-dev python -c \
+            "from pathlib import Path; import sys; wheel = next(Path('/workspace/.tmp/wheels').glob('animated_fabric-*.whl')); sys.path.insert(0, str(wheel)); import animated_fabric; from animated_fabric.templates import JsonRigTemplateRegistry; assert str(wheel) in animated_fabric.__file__; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
+
       - name: Smoke-test the installed CLI and deterministic fixtures
         working-directory: apps/animated-fabric
         run: |
@@ -71,6 +81,11 @@ jobs:
             --cap-drop ALL --security-opt no-new-privileges \
             caatuu-animated-fabric-dev:python3.12-bookworm \
             python -m animated_fabric doctor
+          docker run --rm --network none --read-only --tmpfs /tmp \
+            --cap-drop ALL --security-opt no-new-privileges \
+            caatuu-animated-fabric-dev:python3.12-bookworm \
+            python -c \
+            "from animated_fabric.templates import JsonRigTemplateRegistry; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
 
       - name: Build and smoke-test the lightweight cutout image
         working-directory: apps/animated-fabric

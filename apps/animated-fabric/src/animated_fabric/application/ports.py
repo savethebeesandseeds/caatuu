@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Protocol
 
@@ -10,6 +11,7 @@ from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.assets import LayerManifest
 from animated_fabric.domain.project import ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
+from animated_fabric.domain.templates import RigTemplate, RigTemplateSummary
 
 PROJECT_MANIFEST_FILENAME = "project.animated-fabric.json"
 LAYER_MANIFEST_FILENAME = "layers.manifest.json"
@@ -60,9 +62,22 @@ class LayerManifestRepository(Protocol):
         ...
 
 
+class RigTemplateRegistry(Protocol):
+    """List and retrieve validated built-in anatomical templates."""
+
+    def list_templates(self) -> Sequence[RigTemplateSummary]:
+        """Return stable metadata for every available template."""
+        ...
+
+    def get(self, template_id: str) -> RigTemplate:
+        """Return one validated template or raise a typed definition error."""
+        ...
+
+
 __all__ = [
     "LAYER_MANIFEST_FILENAME",
     "PROJECT_MANIFEST_FILENAME",
     "LayerManifestRepository",
     "ProjectRepository",
+    "RigTemplateRegistry",
 ]

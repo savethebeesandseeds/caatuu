@@ -4,12 +4,13 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M2 and the AF-030 layer-import slice are complete. The application can
-inspect, confirm, trim, and safely publish prepared PNG layers into a typed project catalog. The
-vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
+Milestones M0 through M2 and the AF-030/AF-031 importer and template-registry slices are complete.
+The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
+project catalog, then load the validated built-in `humanoid_v1` anatomy from its installed package.
+The vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
-atomically writes PNG frames. It does not yet contain the template registry and rig application,
-animation generators, exporter, functional editor, or database.
+atomically writes PNG frames. It does not yet apply the template to imported layers or contain
+animation generators, an exporter, a functional editor, or a database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -93,9 +94,11 @@ Imports accept direct RGBA or indexed-transparent PNGs, preserve exact trim geom
 an existing source PNG, and save the strict root `layers.manifest.json` catalog. The decision is in
 [`docs/decisions/0001-layer-manifest.md`](docs/decisions/0001-layer-manifest.md).
 
-`render-frame` still deliberately accepts the generated `stick_humanoid` project root. The new
-general catalog is ready for later rig application, but AF-030 does not invent bindings before
-AF-031 and AF-032 define and apply the anatomical template.
+`render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
+catalog and built-in template registry are ready for rig application, but AF-031 does not create
+bones, bindings, pivots, or direction profiles before AF-032 defines that use case.
+The package-resource schema and deferred choices are recorded in
+[`docs/decisions/0002-rig-template-resource.md`](docs/decisions/0002-rig-template-resource.md).
 
 The GUI entry point is `animated-fabric-gui`. Automated tests use
 `QT_QPA_PLATFORM=offscreen`. On a native Linux X11 desktop, keep the GUI inside
@@ -183,9 +186,10 @@ reproduced deliberately.
 | mypy | static type checking | MIT |
 | Hypothesis | property-based testing | MPL-2.0 |
 
-Setuptools and wheel are build-only dependencies. Cutout-specific software and
-model notices are documented separately because the optional image has a much
-larger dependency and distribution surface.
+Setuptools and wheel are build-only dependencies retained in the development extra so the
+networkless Linux container can build an installable wheel; neither is a runtime application
+dependency. Cutout-specific software and model notices are documented separately because the
+optional image has a much larger dependency and distribution surface.
 
 Container-only system dependencies are also separated: the base image installs
 the Debian Qt/OpenGL/XCB libraries needed for offscreen tests and X11 display;

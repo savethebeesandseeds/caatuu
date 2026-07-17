@@ -322,6 +322,29 @@ def test_malformed_ambiguous_nonstandard_or_top_level_input_is_rejected(
         JsonProjectRepository().load(tmp_path)
 
 
+def test_oversized_integer_failures_remain_typed_repository_errors(tmp_path: Path) -> None:
+    raw = b'{"value":' + b"9" * 5000 + b"}"
+    manifest_path(tmp_path).write_bytes(raw)
+
+    with pytest.raises(ProjectValidationError, match="cannot be decoded safely"):
+        JsonProjectRepository().load(tmp_path)
+
+
+def test_decoder_recursion_remains_a_typed_repository_error(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest_path(tmp_path).write_bytes(b"{}")
+
+    def fail_decode(_raw: bytes) -> dict[str, object]:
+        raise RecursionError("injected decoder depth failure")
+
+    monkeypatch.setattr(repository_module, "decode_json_object", fail_decode)
+
+    with pytest.raises(ProjectValidationError, match="cannot be decoded safely"):
+        JsonProjectRepository().load(tmp_path)
+
+
 @pytest.mark.parametrize(
     "path",
     [

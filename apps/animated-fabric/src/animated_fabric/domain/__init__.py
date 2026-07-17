@@ -71,6 +71,16 @@ from animated_fabric.domain.rig import (
     RigDefinition,
     SocketDefinition,
 )
+from animated_fabric.domain.templates import (
+    RigTemplate,
+    RigTemplateSummary,
+    TemplateAliasGroup,
+    TemplateBone,
+    TemplateInitialValue,
+    TemplateNumericLimit,
+    TemplatePart,
+    TemplateSocket,
+)
 from animated_fabric.domain.transforms import (
     Matrix3,
     identity_matrix,
@@ -137,6 +147,8 @@ __all__ = [
     "RenderError",
     "RigDefinition",
     "RigDefinitionError",
+    "RigTemplate",
+    "RigTemplateSummary",
     "ResolvedPose",
     "SchemaVersion",
     "SelectionEllipse",
@@ -145,6 +157,12 @@ __all__ = [
     "Sha256Digest",
     "SocketDefinition",
     "TargetType",
+    "TemplateAliasGroup",
+    "TemplateBone",
+    "TemplateInitialValue",
+    "TemplateNumericLimit",
+    "TemplatePart",
+    "TemplateSocket",
     "TrackProperty",
     "Transform2D",
     "ValueMode",

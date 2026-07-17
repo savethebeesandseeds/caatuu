@@ -7,7 +7,7 @@ import os
 import tempfile
 from collections.abc import Mapping
 from pathlib import Path, PurePosixPath
-from typing import NoReturn, TypeVar, cast
+from typing import TypeVar, cast
 
 from pydantic import TypeAdapter, ValidationError
 
@@ -22,6 +22,12 @@ from animated_fabric.domain.exceptions import (
 )
 from animated_fabric.domain.project import ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
+from animated_fabric.infrastructure.json_document import (
+    DuplicateJsonKeyError,
+    JsonObjectExpectedError,
+    NonstandardJsonConstantError,
+    decode_json_object,
+)
 
 _PROJECT_FORMAT = "animated-fabric.project.v1"
 _RIG_FORMAT = "animated-fabric.rig.v1"
@@ -34,25 +40,6 @@ _PROJECT_PATH_ADAPTER = TypeAdapter(ProjectPath)
 _SCHEMA_VERSION_ADAPTER = TypeAdapter(SchemaVersion)
 
 ModelT = TypeVar("ModelT", bound=DomainModel)
-
-
-class _DuplicateKeyError(ValueError):
-    """Raised while decoding an ambiguous JSON object."""
-
-
-def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
-    """Build a JSON object while rejecting repeated keys at every depth."""
-    result: dict[str, object] = {}
-    for key, value in pairs:
-        if key in result:
-            raise _DuplicateKeyError(f"duplicate JSON key: {key}")
-        result[key] = value
-    return result
-
-
-def _reject_nonstandard_constant(value: str) -> NoReturn:
-    """Reject NaN and infinities, which are not valid RFC 8259 JSON values."""
-    raise ValueError(f"nonstandard JSON constant: {value}")
 
 
 class JsonProjectRepository:
@@ -313,23 +300,13 @@ class JsonProjectRepository:
         artifact_name: str,
     ) -> dict[str, object]:
         try:
-            text = raw.decode("utf-8")
+            return decode_json_object(raw)
         except UnicodeDecodeError as error:
             raise ProjectValidationError(
                 f"The {artifact_name} '{relative_path}' is not valid UTF-8.",
                 path=relative_path,
             ) from error
-
-        try:
-            value = cast(
-                object,
-                json.loads(
-                    text,
-                    object_pairs_hook=_unique_object,
-                    parse_constant=_reject_nonstandard_constant,
-                ),
-            )
-        except _DuplicateKeyError as error:
+        except DuplicateJsonKeyError as error:
             raise ProjectValidationError(
                 f"The {artifact_name} '{relative_path}' contains {error}.",
                 path=relative_path,
@@ -340,18 +317,22 @@ class JsonProjectRepository:
                 f"line {error.lineno}, column {error.colno}.",
                 path=relative_path,
             ) from error
-        except ValueError as error:
+        except NonstandardJsonConstantError as error:
             raise ProjectValidationError(
                 f"The {artifact_name} '{relative_path}' contains a nonstandard JSON value.",
                 path=relative_path,
             ) from error
-
-        if not isinstance(value, dict):
+        except JsonObjectExpectedError as error:
             raise ProjectValidationError(
                 f"The {artifact_name} '{relative_path}' must contain a JSON object.",
                 path=relative_path,
-            )
-        return cast(dict[str, object], value)
+            ) from error
+        except (RecursionError, ValueError) as error:
+            raise ProjectValidationError(
+                f"The {artifact_name} '{relative_path}' contains JSON that cannot be "
+                "decoded safely.",
+                path=relative_path,
+            ) from error
 
     @staticmethod
     def _validate_identity(

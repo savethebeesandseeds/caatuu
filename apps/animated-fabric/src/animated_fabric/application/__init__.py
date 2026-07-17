@@ -21,6 +21,7 @@ from animated_fabric.application.ports import (
     PROJECT_MANIFEST_FILENAME,
     LayerManifestRepository,
     ProjectRepository,
+    RigTemplateRegistry,
 )
 from animated_fabric.application.render_cache import RenderComputationCache
 from animated_fabric.application.render_frame import (
@@ -66,6 +67,7 @@ __all__ = [
     "PROJECT_MANIFEST_FILENAME",
     "PlannedRenderLayer",
     "ProjectRepository",
+    "RigTemplateRegistry",
     "RENDER_FAILURE_CODE",
     "RenderComputationCache",
     "RenderFrame",

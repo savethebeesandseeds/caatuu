@@ -30,7 +30,7 @@ M2 - mathematics and vertical renderer.
 M3 - importer and humanoid rig.
 
 - [x] AF-030 Layer importer
-- [ ] AF-031 Template registry
+- [x] AF-031 Template registry
 - [ ] AF-032 Humanoid rig application
 - [ ] AF-033 Rig editing
 
@@ -150,6 +150,20 @@ M3 - importer and humanoid rig.
 - The shared import use case requires a valid canonical project, rejects mirrored or undeclared
   target directions, and verifies every source layer against the fixed project canvas before any
   source publication. JSON mode exposes proposals as `AFI010` information diagnostics.
+- An application-owned `RigTemplateRegistry` port and eager package-resource adapter list and load
+  fixed built-in templates without deriving paths from caller input or reading project files.
+- Strict, deeply immutable template records validate stable `0.1.x` identity, one rooted acyclic
+  bone graph, part ownership, aliases, sockets, draw slots, compatible generator IDs, and bounded
+  initial numeric values against matching limits.
+- The packaged `humanoid_v1` resource contains the normative 17-bone hierarchy, 14 required and
+  six named optional parts, all four alias groups, eight initial sockets, the 15-slot inventory,
+  and the compatible idle/walk generator IDs without executable configuration.
+- Resource decoding rejects invalid UTF-8, malformed or non-object JSON, duplicate keys at any
+  depth, nonstandard numeric constants, oversized documents, unsupported schemas, unknown fields,
+  filename/ID disagreement, and ambiguous registry entries through `RigDefinitionError`.
+- The JSON resource is explicit wheel package data; CI builds a wheel offline and loads the
+  template from that wheel outside the checkout. Decision 0002 records the intentionally deferred
+  AF-032 geometry and direction-profile choices.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -174,6 +188,7 @@ Principal files:
 - `src/animated_fabric/domain/rig.py`
 - `src/animated_fabric/domain/animation.py`
 - `src/animated_fabric/domain/export.py`
+- `src/animated_fabric/domain/templates.py`
 - `src/animated_fabric/application/ports.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
@@ -181,7 +196,10 @@ Principal files:
 - `src/animated_fabric/application/rendering.py`
 - `src/animated_fabric/application/validation_service.py`
 - `src/animated_fabric/domain/validation/`
+- `src/animated_fabric/infrastructure/json_document.py`
 - `src/animated_fabric/infrastructure/persistence/json_project_repository.py`
+- `src/animated_fabric/templates/registry.py`
+- `src/animated_fabric/templates/resources/humanoid_v1.json`
 - `src/animated_fabric/infrastructure/fixtures/stick_humanoid.py`
 - `src/animated_fabric/infrastructure/importing/folder_layer_importer.py`
 - `src/animated_fabric/infrastructure/imaging/alpha.py`
@@ -223,11 +241,36 @@ Principal files:
 - `tests/integration/test_folder_layer_import_security.py`
 - `tests/integration/test_import_layers_cli.py`
 - `tests/integration/test_layer_manifest_repository.py`
+- `tests/unit/test_rig_template_models.py`
+- `tests/unit/test_template_registry.py`
+- `tests/integration/test_template_package_resource.py`
 - `docs/decisions/0001-layer-manifest.md`
+- `docs/decisions/0002-rig-template-resource.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-17 through the repository-owned Linux container after AF-031:
+
+- `docker compose build animated-fabric-dev`: passed with the container-owned offline wheel
+  toolchain present in the development environment.
+- `docker compose config --quiet` and the complete profile configuration: passed.
+- `ruff format --check .`: 167 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 54 source files.
+- `pytest -q`: 578 passed; 92.39% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Root repository file-policy and Markdown-link checks: passed for 1,156 candidate files and 81
+  Markdown files.
+- Offline `pip wheel --no-deps --no-build-isolation`: built
+  `animated_fabric-0.1.0-py3-none-any.whl`; an isolated process outside the checkout imported the
+  package from the wheel and loaded all 17 `humanoid_v1` bones through `importlib.resources`.
+- A read-only, networkless baked-image smoke loaded `humanoid_v1` with 17 bones and no checkout
+  mount.
+- `python scripts/generate_fixture_assets.py --out .tmp/final-af031-fixtures`: generated the
+  deterministic 28-layer owned fixture and canonical fixture project successfully.
+- `python -m animated_fabric doctor`: passed with no problems found.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-030:
 
@@ -298,10 +341,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- The authored-direction renderer and general layer importer exist, but template application,
-  complete-frame mirroring, animation generators, and export execution do not. `render-frame`
-  therefore still accepts the owned generated fixture project only; AF-030 catalogs imported PNGs
-  but deliberately does not invent rig bindings before AF-031 and AF-032.
+- The authored-direction renderer, general layer importer, and built-in template registry exist,
+  but template application, complete-frame mirroring, animation generators, and export execution
+  do not. `render-frame` therefore still accepts the owned generated fixture project only; AF-032
+  must create bones, bindings, pivots, sockets, and SE/NE profiles from imported PNGs.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -351,6 +394,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   conflicting with the normative lowercase ASCII `snake_case` semantic-ID rule. Executable
   AF-010 examples use `se_torso` and `ne_torso`; the specification was not changed in this
   ticket.
+- The specification does not define a rig-template JSON schema, most socket defaults, complete
+  bone transforms, or exact direction-specific slot profiles. Decision 0002 records the narrow v1
+  resource shape and global slot inventory; proportional placement and SE/NE ordering remain
+  deliberate AF-032 decisions rather than inferred runtime behavior.
 - Background removal is optional preprocessing and is not connected to the GUI or importer.
 - BiRefNet weights exist only in the local project-owned Docker volume. They are not committed,
   baked into an image, or approved for redistribution by this status record.
@@ -360,7 +407,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M0 Foundations
 - [x] M1 Domain and persistence
 - [x] M2 Mathematics and renderer
-- [ ] M3 Importer and humanoid rig (AF-030 complete)
+- [ ] M3 Importer and humanoid rig (AF-030 and AF-031 complete)
 - [ ] M4 Humanoid generators
 - [ ] M5 Export
 - [ ] M6 Functional GUI
@@ -370,4 +417,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-031 Template registry
+- AF-032 Humanoid rig application

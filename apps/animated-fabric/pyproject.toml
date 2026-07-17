@@ -27,6 +27,8 @@ dev = [
   "pytest-cov>=5,<7",
   "pytest-qt>=4.4,<5",
   "ruff>=0.8,<1",
+  "setuptools==80.9.0",
+  "wheel==0.45.1",
 ]
 
 [project.scripts]
@@ -38,6 +40,9 @@ package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"animated_fabric.templates.resources" = ["*.json"]
 
 [tool.ruff]
 target-version = "py312"
