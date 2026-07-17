@@ -38,10 +38,10 @@ test("shared game titles use the matching small planet artwork", () => {
 
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-41/);
-    assert.match(page, /chrome\.js\?v=chrome-47/);
+    assert.match(page, /chrome\.css\?v=chrome-style-42/);
+    assert.match(page, /chrome\.js\?v=chrome-48/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-41/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-47/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-42/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-48/);
 });

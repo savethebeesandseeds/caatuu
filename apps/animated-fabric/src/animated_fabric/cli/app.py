@@ -12,12 +12,23 @@ from typing import Annotated
 import typer
 
 from animated_fabric import __version__
+from animated_fabric.application.render_frame import RenderFrame, render_failure
+from animated_fabric.application.rendering import RenderQuality, RenderRequest
 from animated_fabric.application.validation_service import (
     ValidateProject,
     ValidateProjectRequest,
 )
+from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.diagnostics import Diagnostic, Severity
+from animated_fabric.domain.exceptions import (
+    ProjectValidationError,
+    ProjectVersionError,
+    RenderError,
+)
+from animated_fabric.domain.project import Direction
 from animated_fabric.domain.validation import ProjectValidator
+from animated_fabric.infrastructure.fixtures import load_stick_humanoid_project
+from animated_fabric.infrastructure.imaging import OpenCvRenderer, PngFrameWriter
 from animated_fabric.infrastructure.persistence import JsonProjectRepository
 
 MINIMUM_PYTHON = (3, 12)
@@ -108,6 +119,30 @@ def create_validate_project() -> ValidateProject:
     return ValidateProject(JsonProjectRepository(), ProjectValidator())
 
 
+def load_requested_clip(
+    repository: JsonProjectRepository,
+    root: Path,
+    paths: tuple[str, ...],
+    clip_id: str | None,
+) -> AnimationClip | None:
+    """Load one uniquely identified clip from project paths when requested."""
+    if clip_id is None:
+        return None
+    matches: list[AnimationClip] = []
+    try:
+        for path in paths:
+            clip = repository.load_animation(root, path)
+            if clip.clip_id == clip_id:
+                matches.append(clip)
+    except (ProjectValidationError, ProjectVersionError) as error:
+        raise RenderError(str(error)) from error
+    if not matches:
+        raise RenderError(f"Project does not contain animation clip '{clip_id}'.")
+    if len(matches) > 1:
+        raise RenderError(f"Project contains more than one animation clip named '{clip_id}'.")
+    return matches[0]
+
+
 def emit_diagnostics(
     diagnostics: tuple[Diagnostic, ...],
     *,
@@ -192,6 +227,99 @@ def validate_command(
     )
     if result.has_errors:
         raise typer.Exit(code=2)
+
+
+@app.command("render-frame")
+def render_frame_command(
+    root: Annotated[
+        Path,
+        typer.Argument(help="Generated fixture project root to render."),
+    ],
+    direction: Annotated[
+        Direction,
+        typer.Option("--direction", help="Logical direction to render (SE, NE, SW, or NW)."),
+    ],
+    out: Annotated[
+        Path,
+        typer.Option("--out", help="Destination RGBA PNG path."),
+    ],
+    clip_id: Annotated[
+        str | None,
+        typer.Option("--clip", help="Animation clip ID; omit for the neutral pose."),
+    ] = None,
+    time_ms: Annotated[
+        float,
+        typer.Option("--time-ms", help="Clip-relative render time in milliseconds."),
+    ] = 0.0,
+    quality: Annotated[
+        RenderQuality,
+        typer.Option("--quality", help="Affine sampling quality."),
+    ] = RenderQuality.CUBIC,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit diagnostics as structured JSON."),
+    ] = False,
+) -> None:
+    """Render one owned-fixture frame through the shared application renderer."""
+    try:
+        repository = JsonProjectRepository()
+        loaded = load_stick_humanoid_project(root, repository)
+        clip = load_requested_clip(
+            repository,
+            root,
+            loaded.project.manifest.animation_paths,
+            clip_id,
+        )
+        request = RenderRequest(
+            project=loaded.project,
+            rig=loaded.rig,
+            clip=clip,
+            direction=direction,
+            time_ms=time_ms,
+            quality=quality,
+        )
+        result = RenderFrame(OpenCvRenderer()).execute(request)
+        if result.has_errors or result.value is None:
+            emit_diagnostics(result.diagnostics, as_json=as_json, success_message="")
+            raise typer.Exit(code=4)
+        try:
+            PngFrameWriter().write_project_frame(out, result.value, loaded.project)
+        except RenderError as error:
+            failure = render_failure(error)
+            emit_diagnostics(failure.diagnostics, as_json=as_json, success_message="")
+            raise typer.Exit(code=4) from None
+    except typer.Exit:
+        raise
+    except RenderError as error:
+        failure = render_failure(error)
+        emit_diagnostics(failure.diagnostics, as_json=as_json, success_message="")
+        raise typer.Exit(code=4) from None
+    except Exception as error:
+        LOGGER.error(
+            "%s: rendering failed with exception type %s.",
+            CLI_INTERNAL_FAILURE_CODE,
+            type(error).__name__,
+        )
+        emit_diagnostics(
+            (
+                Diagnostic(
+                    code=CLI_INTERNAL_FAILURE_CODE,
+                    severity=Severity.ERROR,
+                    message="Unexpected internal failure while rendering the frame.",
+                    suggestion="Review the application logs and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=10) from None
+
+    description = clip_id or "neutral"
+    emit_diagnostics(
+        (),
+        as_json=as_json,
+        success_message=(f"Rendered {description} {direction.value} frame to {out}."),
+    )
 
 
 def main() -> None:

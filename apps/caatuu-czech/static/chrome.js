@@ -10,6 +10,7 @@
     light: { themeColor: "#f5efe5", label: "Use dark theme" },
     dark: { themeColor: "#151a18", label: "Dark theme enabled" }
   };
+  const learning = window.CaatuuLearning;
   const navItems = [
     {
       key: "home",
@@ -227,6 +228,71 @@
 
   function toggleTheme(button) {
     applyTheme(button.dataset.themeToggle || "dark");
+  }
+
+  function learningDifficultyButtons() {
+    const levels = learning?.difficultyLevels || [];
+    return levels.map((option) => `
+      <button type="button" data-difficulty-level="${option.level}" aria-label="Difficulty ${option.level}: ${option.label}">
+        <b>${option.level}</b>
+        <span>${option.label}</span>
+      </button>
+    `).join("");
+  }
+
+  function renderLearningControls(root = document) {
+    if (!learning) return;
+    const profile = learning.snapshot();
+    root.querySelectorAll("[data-difficulty-level]").forEach((button) => {
+      const selected = Number(button.dataset.difficultyLevel) === profile.difficulty;
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    const description = root.querySelector("#difficultyDescription");
+    if (description) description.textContent = profile.difficultyOption.summary;
+    const level = root.querySelector("#difficultyLevelSummary");
+    if (level) level.textContent = `Level ${profile.difficulty} · ${profile.difficultyOption.label}`;
+    const activities = root.querySelector("#courseProgressActivities");
+    if (activities) activities.textContent = String(profile.summary.activities);
+    const successes = root.querySelector("#courseProgressSuccesses");
+    if (successes) successes.textContent = String(profile.summary.successes);
+    const accuracy = root.querySelector("#courseProgressAccuracy");
+    if (accuracy) accuracy.textContent = profile.summary.accuracy === null ? "—" : `${profile.summary.accuracy}%`;
+    const summary = root.querySelector("#courseProgressSummary");
+    if (summary) {
+      summary.textContent = profile.summary.activities
+        ? `${profile.summary.rounds} completed ${profile.summary.rounds === 1 ? "round" : "rounds"} across ${profile.summary.activeGames} ${profile.summary.activeGames === 1 ? "game" : "games"}.`
+        : "Your learning record will begin with the next activity.";
+    }
+  }
+
+  function bindLearningControls() {
+    document.addEventListener("click", (event) => {
+      const difficultyButton = event.target.closest?.("[data-difficulty-level]");
+      if (difficultyButton) {
+        event.preventDefault();
+        learning?.setDifficulty(difficultyButton.dataset.difficultyLevel);
+        renderLearningControls(document);
+        const status = document.querySelector("#learningStatus");
+        const selected = learning?.difficultyOption();
+        if (status && selected) status.textContent = `Difficulty saved: Level ${selected.level}, ${selected.label}.`;
+        return;
+      }
+
+      const resetButton = event.target.closest?.("#settingsResetCourseProgress");
+      if (!resetButton || !learning) return;
+      event.preventDefault();
+      if (!confirmButtonPress(resetButton, {
+        confirmLabel: "Confirm restart",
+        message: "Restart course progress? Difficulty and downloaded files will be kept."
+      })) return;
+      learning.resetProgress();
+      renderLearningControls(document);
+      const status = document.querySelector("#learningStatus");
+      if (status) status.textContent = "Course progress restarted. Difficulty and downloads were preserved.";
+    });
+
+    window.addEventListener("caatuu:learning-change", () => renderLearningControls(document));
   }
 
   function bindThemeToggle() {
@@ -532,6 +598,41 @@
             </div>
           </section>
 
+          <section class="settings-card side-card learning-settings-card" aria-label="Difficulty and progress">
+            <div class="settings-card-head side-head learning-settings-head">
+              <div>
+                <p class="settings-kicker kicker">Learning</p>
+                <h3>Difficulty and progress</h3>
+              </div>
+              <small id="difficultyLevelSummary">Level 2 · Traveler</small>
+            </div>
+            <div class="difficulty-setting-row">
+              <div class="difficulty-control" role="group" aria-label="Course difficulty">
+                ${learningDifficultyButtons()}
+              </div>
+              <p id="difficultyDescription">A balanced course profile for variety, support, and challenge.</p>
+            </div>
+            <div class="course-progress-overview" aria-label="Learning performance">
+              <div>
+                <span>Activities</span>
+                <strong id="courseProgressActivities">0</strong>
+              </div>
+              <div>
+                <span>Correct</span>
+                <strong id="courseProgressSuccesses">0</strong>
+              </div>
+              <div>
+                <span>Accuracy</span>
+                <strong id="courseProgressAccuracy">—</strong>
+              </div>
+            </div>
+            <div class="learning-progress-note">
+              <p id="courseProgressSummary">Your learning record will begin with the next activity.</p>
+              <small>Achievements, rewards, and certificates can build on this course-wide record later.</small>
+            </div>
+            <p class="learning-status" id="learningStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+          </section>
+
           <section class="settings-card side-card ai-settings-card" aria-label="Chat settings">
             <details class="settings-details">
               <summary class="settings-collapsible-summary">
@@ -689,9 +790,9 @@
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
                   <strong>Course progress</strong>
-                  <small>Clear saved mastery and start the course again.</small>
+                  <small>Clear the learning record and start again. Difficulty stays saved.</small>
                 </span>
-                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetVerbMemory">Restart</button>
+                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">Restart</button>
               </div>
             </div>
             <div class="maintenance-install-row" id="browserInstallActions">
@@ -763,6 +864,7 @@
     `;
     bindSettingsReport(panel);
     bindBrowserRefresh(panel);
+    renderLearningControls(panel);
   }
 
   function bindBrowserRefresh(panel) {
@@ -978,6 +1080,7 @@
   }
 
   bindThemeToggle();
+  bindLearningControls();
   bindSharedGameNavigation();
   bindSharedSettingsPanel();
 })();

@@ -20,11 +20,15 @@ from animated_fabric.infrastructure.imaging.opencv_compositor import (
     detect_clipping,
     warp_premultiplied_rgba,
 )
+from animated_fabric.infrastructure.imaging.opencv_renderer import OpenCvRenderer
+from animated_fabric.infrastructure.imaging.png_writer import PngFrameWriter
 
 __all__ = [
     "AssetFileUnavailableError",
     "CachedAssetImage",
     "OpenCvFrameCompositor",
+    "OpenCvRenderer",
+    "PngFrameWriter",
     "PremultipliedRgbaImage",
     "RgbaAssetCache",
     "UInt8RgbaImage",

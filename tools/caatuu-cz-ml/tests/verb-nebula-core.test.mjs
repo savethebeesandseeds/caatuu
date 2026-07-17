@@ -110,7 +110,7 @@ test("Verb Nebula reveals solutions and auto-advances through a robot interstiti
   assert.match(index, /id="verbRevealSolution"[^>]+aria-label="Reveal solution"/);
   assert.doesNotMatch(index, /id="verbNextRound"/);
   assert.match(app, /#verbRevealSolution"\)\?\.addEventListener\("click", revealVerbSolution\)/);
-  assert.match(app, /if \(verbRoundComplete\(\)\) \{\s*void transitionToNextVerbRound\(\);/);
+  assert.match(app, /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete\) \{\s*void transitionToNextVerbRound\(\);/);
   assert.match(app, /state\.verbSolutionRevealed \? state\.verbRound : state\.verbEnglishRound/);
   assert.match(app, /These pairs do not count as matches\./);
   assert.match(app, /preloadVerbHintsForRound\(nextRound\.round\)/);

@@ -58,6 +58,7 @@ fi
 source tools/android-build/versions.env
 
 if ! command -v java >/dev/null 2>&1 \
+  || ! java -version 2>&1 | grep -q 'version "17' \
   || ! command -v gradle >/dev/null 2>&1 \
   || [[ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]] \
   || { [[ ! -x "$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/apksigner" ]] \
@@ -116,7 +117,8 @@ if [[ "$public_version_code" != "$local_version_code" \
   exit 1
 fi
 
-curl -fsS --max-time 180 -o "$temporary_apk" "$public_apk_url"
+curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 \
+  -o "$temporary_apk" "$public_apk_url"
 download_sha="$(sha256sum "$temporary_apk" | awk '{print $1}')"
 download_bytes="$(wc -c < "$temporary_apk" | tr -d '[:space:]')"
 if [[ "$download_sha" != "$public_sha" || "$download_bytes" != "$public_bytes" ]]; then
@@ -124,7 +126,8 @@ if [[ "$download_sha" != "$public_sha" || "$download_bytes" != "$public_bytes" ]
   exit 1
 fi
 
-alias_sha="$(curl -fsS --max-time 180 "$public_base_url/android/caatuu-debug.apk" | sha256sum | awk '{print $1}')"
+alias_sha="$(curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 \
+  "$public_base_url/android/caatuu-debug.apk" | sha256sum | awk '{print $1}')"
 if [[ "$alias_sha" != "$public_sha" ]]; then
   echo "The manual-download alias does not match the immutable published APK." >&2
   exit 1

@@ -21,7 +21,6 @@ const themeOptions = {
 };
 const settingsStorageKey = "caatuu-czech.chat.settings.v1";
 const chatStorageKey = "caatuu-czech.chat.history.v1";
-const verbStorageKey = "caatuu-czech.verb-memory.v2";
 const translationModelKey = "qwen3-1.7b-translation-cs-en-001";
 const legacyTranslationModelKey = "cstinyllama-1.2b-translation-cs-en-001";
 const legacyWordNetModelKey = "cstinyllama-1.2b-planet-wordnet-002-copy";
@@ -1805,24 +1804,6 @@ async function clearCache() {
   }
 }
 
-function clearStoredVerbMemory() {
-  const resetButton = $("#settingsResetVerbMemory");
-  if (!confirmDestructiveAction(resetButton, {
-    confirmLabel: "Confirm restart",
-    message: "Start the course again? This clears saved mastery but keeps downloads and cache."
-  })) {
-    setText("#maintenanceStatus", "Press Start course again once more to clear saved mastery.");
-    return;
-  }
-
-  try {
-    localStorage.removeItem(verbStorageKey);
-    setText("#maintenanceStatus", "Course mastery cleared. Downloads and cache were preserved.");
-  } catch (error) {
-    setText("#maintenanceStatus", "Could not clear saved verb mastery in this browser.");
-  }
-}
-
 function renderBenchmarks(base, tuned) {
   const benchmarkList = $("#benchmarkList");
   if (!benchmarkList) return;
@@ -1900,7 +1881,6 @@ function bindUi() {
   $("#loadBenchmarks")?.addEventListener("click", loadBenchmarks);
   $("#copyTermuxCommand")?.addEventListener("click", copyTermuxFallbackCommand);
   $("#clearCache").addEventListener("click", clearCache);
-  $("#settingsResetVerbMemory")?.addEventListener("click", clearStoredVerbMemory);
 
   document.querySelectorAll("[data-preset]").forEach((button) => {
     button.addEventListener("click", () => applyPreset(button.dataset.preset));

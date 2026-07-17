@@ -18,7 +18,10 @@ from animated_fabric.domain.animation import (
 )
 from animated_fabric.domain.exceptions import AnimationError, RigDefinitionError
 from animated_fabric.domain.geometry import Transform2D, Vec2
-from animated_fabric.domain.hierarchy import topological_bone_order
+from animated_fabric.domain.hierarchy import (
+    topological_bone_order,
+    validate_topological_bone_order,
+)
 from animated_fabric.domain.interpolation import evaluate_track, normalize_clip_time
 from animated_fabric.domain.project import Direction
 from animated_fabric.domain.rig import PartBinding, RigDefinition
@@ -100,6 +103,8 @@ class AnimationEvaluator:
         rig: RigDefinition,
         direction: Direction,
         time_ms: float,
+        *,
+        bone_order: tuple[str, ...] | None = None,
     ) -> EvaluatedAnimation:
         """Resolve tracks into pose-compatible bone deltas and final part states."""
         if clip.template_id != rig.template_id:
@@ -108,7 +113,11 @@ class AnimationEvaluator:
                 f"'{rig.template_id}'."
             )
 
-        bone_order = topological_bone_order(rig)
+        resolved_bone_order = (
+            topological_bone_order(rig)
+            if bone_order is None
+            else validate_topological_bone_order(rig, bone_order)
+        )
         bones_by_id = {bone.bone_id: bone for bone in rig.bones}
         parts_by_id = self._parts_by_id(rig)
         profile = rig.direction_profiles.get(direction)
@@ -164,7 +173,7 @@ class AnimationEvaluator:
 
         bone_deltas = {
             bone_id: bone_builders[bone_id].build()
-            for bone_id in bone_order
+            for bone_id in resolved_bone_order
             if bone_id in bone_builders and bone_builders[bone_id].changed
         }
         part_states = {part.part_id: part_builders[part.part_id].build() for part in rig.parts}

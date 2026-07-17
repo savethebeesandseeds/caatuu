@@ -6,12 +6,15 @@ import math
 from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import StrEnum
+from pathlib import Path
+from types import MappingProxyType
 from typing import Protocol, runtime_checkable
 
+from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.animation_evaluator import EvaluatedAnimation, EvaluatedPartState
 from animated_fabric.domain.assets import AssetLayer
 from animated_fabric.domain.exceptions import RenderError
-from animated_fabric.domain.geometry import IntSize
+from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.pose import (
     ResolvedPose,
     part_pivot_for_direction,
@@ -38,6 +41,45 @@ class RenderQuality(StrEnum):
     NEAREST = "nearest"
     LINEAR = "linear"
     CUBIC = "cubic"
+
+
+@dataclass(frozen=True, slots=True)
+class RenderProject:
+    """Transient render aggregate for one approved project root and asset catalog.
+
+    The persisted specification does not yet define a whole-project or asset-catalog
+    document. This value keeps those runtime facts typed without inventing persistence.
+    """
+
+    root: Path
+    manifest: ProjectManifest
+    assets: Mapping[str, AssetLayer]
+    project_revision: int = 0
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.root, Path):
+            raise TypeError("A render project root must be a pathlib.Path.")
+        if not isinstance(self.manifest, ProjectManifest):
+            raise TypeError("A render project requires a typed project manifest.")
+        if not isinstance(self.assets, Mapping):
+            raise TypeError("A render project asset catalog must be a mapping.")
+        if (
+            isinstance(self.project_revision, bool)
+            or not isinstance(self.project_revision, int)
+            or self.project_revision < 0
+        ):
+            raise ValueError("Project revision must be a non-negative integer.")
+
+        copied_assets: dict[str, AssetLayer] = {}
+        for asset_id, asset in self.assets.items():
+            if not isinstance(asset_id, str) or not isinstance(asset, AssetLayer):
+                raise TypeError("Render project assets require string IDs and AssetLayer values.")
+            if asset.asset_id != asset_id:
+                raise ValueError(
+                    f"Asset catalog key '{asset_id}' does not match asset ID '{asset.asset_id}'."
+                )
+            copied_assets[asset_id] = asset
+        object.__setattr__(self, "assets", MappingProxyType(copied_assets))
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,6 +168,87 @@ class CompositedFrame:
                 f"Composited RGBA data must contain exactly {expected_size} bytes; "
                 f"received {len(self.rgba)}."
             )
+
+
+@dataclass(frozen=True, slots=True)
+class RenderRequest:
+    """Immutable request for one complete render-pipeline evaluation."""
+
+    project: RenderProject
+    rig: RigDefinition
+    clip: AnimationClip | None
+    direction: Direction
+    time_ms: float
+    quality: RenderQuality = RenderQuality.CUBIC
+    alpha_threshold: int = 0
+    include_events: bool = False
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.project, RenderProject) or not isinstance(self.rig, RigDefinition):
+            raise TypeError("Render requests require a typed project and rig.")
+        if self.clip is not None and not isinstance(self.clip, AnimationClip):
+            raise TypeError("Render request clips must be AnimationClip values or None.")
+        if not isinstance(self.direction, Direction):
+            raise TypeError("Render request direction must be a Direction value.")
+        if isinstance(self.time_ms, bool) or not isinstance(self.time_ms, (int, float)):
+            raise TypeError("Render request time must be a finite number.")
+        normalized_time = float(self.time_ms)
+        if not math.isfinite(normalized_time):
+            raise ValueError("Render request time must be finite.")
+        object.__setattr__(self, "time_ms", normalized_time)
+        if not isinstance(self.quality, RenderQuality):
+            raise TypeError("Render request quality must be a RenderQuality value.")
+        if type(self.alpha_threshold) is not int or not 0 <= self.alpha_threshold <= 255:
+            raise ValueError("Alpha threshold must be an integer from 0 through 255.")
+        if type(self.include_events) is not bool:
+            raise TypeError("Event inclusion must be boolean.")
+
+
+@dataclass(frozen=True, slots=True)
+class RenderedFrame:
+    """Immutable straight-alpha frame plus spatial and diagnostic metadata."""
+
+    canvas_size: IntSize
+    rgba: bytes
+    ground_anchor: Vec2
+    resolved_sockets: Mapping[str, Matrix3]
+    active_events: tuple[str, ...]
+    clipping: ClippingEdges
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.canvas_size, IntSize) or not isinstance(self.ground_anchor, Vec2):
+            raise TypeError("Rendered frames require typed canvas and ground-anchor values.")
+        if not isinstance(self.rgba, bytes):
+            raise TypeError("Rendered RGBA data must be immutable bytes.")
+        expected_size = self.canvas_size.width * self.canvas_size.height * 4
+        if len(self.rgba) != expected_size:
+            raise ValueError(
+                f"Rendered RGBA data must contain exactly {expected_size} bytes; "
+                f"received {len(self.rgba)}."
+            )
+        if not isinstance(self.resolved_sockets, Mapping):
+            raise TypeError("Resolved sockets must be a mapping of IDs to matrices.")
+        copied_sockets: dict[str, Matrix3] = {}
+        for socket_id, matrix in self.resolved_sockets.items():
+            if not isinstance(socket_id, str) or not isinstance(matrix, Matrix3):
+                raise TypeError("Resolved sockets require string IDs and Matrix3 values.")
+            copied_sockets[socket_id] = matrix
+        object.__setattr__(self, "resolved_sockets", MappingProxyType(copied_sockets))
+        if not isinstance(self.active_events, tuple) or any(
+            not isinstance(event, str) for event in self.active_events
+        ):
+            raise TypeError("Active events must be an immutable tuple of event IDs.")
+        if not isinstance(self.clipping, ClippingEdges):
+            raise TypeError("Rendered frames require clipping diagnostics.")
+
+
+@runtime_checkable
+class Renderer(Protocol):
+    """Port for the complete preview/export frame pipeline."""
+
+    def render(self, request: RenderRequest) -> RenderedFrame:
+        """Render one frame and its metadata."""
+        ...
 
 
 @runtime_checkable
@@ -348,6 +471,10 @@ __all__ = [
     "CompositeRequest",
     "FrameCompositor",
     "PlannedRenderLayer",
+    "RenderedFrame",
+    "Renderer",
     "RenderPlanner",
+    "RenderProject",
     "RenderQuality",
+    "RenderRequest",
 ]

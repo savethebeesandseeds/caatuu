@@ -8,7 +8,10 @@ from types import MappingProxyType
 
 from animated_fabric.domain.exceptions import RigDefinitionError
 from animated_fabric.domain.geometry import Transform2D, Vec2
-from animated_fabric.domain.hierarchy import topological_bone_order
+from animated_fabric.domain.hierarchy import (
+    topological_bone_order,
+    validate_topological_bone_order,
+)
 from animated_fabric.domain.project import Direction
 from animated_fabric.domain.rig import PartBinding, RigDefinition
 from animated_fabric.domain.transforms import (
@@ -97,9 +100,15 @@ class PoseResolver:
         rig: RigDefinition,
         direction: Direction,
         animation_deltas: Mapping[str, Transform2D] | None = None,
+        *,
+        bone_order: tuple[str, ...] | None = None,
     ) -> ResolvedPose:
         """Return immutable world matrices for bones, bound parts, and sockets."""
-        bone_order = topological_bone_order(rig)
+        resolved_bone_order = (
+            topological_bone_order(rig)
+            if bone_order is None
+            else validate_topological_bone_order(rig, bone_order)
+        )
         bones_by_id = {bone.bone_id: bone for bone in rig.bones}
         bone_ids = frozenset(bones_by_id)
         deltas = animation_deltas or {}
@@ -114,7 +123,7 @@ class PoseResolver:
             )
 
         bone_world_matrices: dict[str, Matrix3] = {}
-        for bone_id in bone_order:
+        for bone_id in resolved_bone_order:
             bone = bones_by_id[bone_id]
             rest_transform = bone.rest_transform
             if profile is not None:
@@ -166,7 +175,7 @@ class PoseResolver:
             )
 
         return ResolvedPose(
-            bone_order=bone_order,
+            bone_order=resolved_bone_order,
             bone_world_matrices=MappingProxyType(bone_world_matrices),
             part_matrices=MappingProxyType(part_matrices),
             socket_matrices=MappingProxyType(socket_matrices),

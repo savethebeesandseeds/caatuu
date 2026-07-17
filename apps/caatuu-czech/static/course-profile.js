@@ -37,6 +37,8 @@
     storage: {
       namespace: "caatuu-czech",
       theme: "caatuu-czech.theme",
+      learningPreferences: "caatuu-czech.learning.preferences.v1",
+      learningPerformance: "caatuu-czech.learning.performance.v1",
       chatSettings: "caatuu-czech.chat.settings.v1",
       verbMemory: "caatuu-czech.verb-memory.v2",
       wordWorldTranslationMode: "caatuu-czech.wordNet.translationMode",

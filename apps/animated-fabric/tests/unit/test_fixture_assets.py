@@ -8,6 +8,9 @@ from pathlib import Path
 
 from PIL import Image
 
+from animated_fabric.domain.project import Direction
+from animated_fabric.infrastructure.fixtures import PART_NAMES, load_stick_humanoid_project
+from animated_fabric.infrastructure.fixtures.stick_humanoid import NE_DRAW_ORDER, SE_DRAW_ORDER
 from scripts.generate_fixture_assets import generate_fixture_assets
 
 REQUIRED_PARTS = {
@@ -93,6 +96,58 @@ def test_generation_is_byte_for_byte_deterministic(tmp_path: Path) -> None:
     assert (first_root / "fixture_manifest.json").read_bytes() == (
         second_root / "fixture_manifest.json"
     ).read_bytes()
+
+
+def test_generator_publishes_a_canonical_render_project_and_rig(tmp_path: Path) -> None:
+    fixture_root = generate_fixture_assets(tmp_path)
+
+    assert (fixture_root / "project.animated-fabric.json").is_file()
+    assert (fixture_root / "rig" / "main.animated-rig.json").is_file()
+
+    loaded = load_stick_humanoid_project(fixture_root)
+
+    assert loaded.project.root == fixture_root
+    assert loaded.project.manifest.slug == "stick_humanoid"
+    assert loaded.project.manifest.canvas.width == 192
+    assert loaded.project.manifest.canvas.height == 192
+    assert loaded.project.manifest.canvas.ground_anchor.x == 96.0
+    assert loaded.project.manifest.canvas.ground_anchor.y == 160.0
+    assert loaded.rig.template_id == "humanoid_v1"
+    assert tuple(part.part_id for part in loaded.rig.parts) == PART_NAMES
+    assert tuple(socket.socket_id for socket in loaded.rig.sockets) == (
+        "head_hat",
+        "hand_r_weapon",
+    )
+    assert len(loaded.project.assets) == len(PART_NAMES) * 2
+
+    for direction in (Direction.SE, Direction.NE):
+        for part_name in PART_NAMES:
+            asset_id = f"{direction.value.lower()}_{part_name}"
+            asset = loaded.project.assets[asset_id]
+            assert asset.asset_id == asset_id
+            assert asset.direction is direction
+            assert asset.path == f"source/layers/{direction.value}/{part_name}.png"
+            assert asset.source_canvas_size.width == 192
+            assert asset.source_canvas_size.height == 192
+
+
+def test_canonical_fixture_rig_records_direction_specific_draw_order(tmp_path: Path) -> None:
+    loaded = load_stick_humanoid_project(generate_fixture_assets(tmp_path))
+
+    base_order = tuple(
+        part.part_id for part in sorted(loaded.rig.parts, key=lambda part: part.slot_order)
+    )
+    ne_profile = loaded.rig.direction_profiles[Direction.NE]
+    ne_order = tuple(
+        part.part_id
+        for part in sorted(
+            loaded.rig.parts,
+            key=lambda part: ne_profile.slot_order[part.part_id],
+        )
+    )
+
+    assert base_order == SE_DRAW_ORDER
+    assert ne_order == NE_DRAW_ORDER
 
 
 def test_script_accepts_required_out_argument(tmp_path: Path) -> None:

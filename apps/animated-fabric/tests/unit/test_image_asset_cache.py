@@ -98,19 +98,53 @@ def test_indexed_png_transparency_is_converted_to_true_rgba(tmp_path: Path) -> N
     )
 
 
-def test_cache_hit_survives_file_removal_until_targeted_invalidation(tmp_path: Path) -> None:
+def test_cache_hit_revalidates_current_project_path_before_reuse(tmp_path: Path) -> None:
     pixels = np.array([[[10, 20, 30, 255]]], dtype=np.uint8)
     asset, path = _write_png(tmp_path, "source/layer.png", pixels)
     cache = RgbaAssetCache()
 
-    expected = cache.load_rgba(tmp_path, asset)
+    cache.load_rgba(tmp_path, asset)
     path.unlink()
 
-    assert cache.load_rgba(tmp_path, asset) is expected
-    cache.invalidate(asset.asset_id)
-    assert cache.entry_count == 0
     with pytest.raises(RenderError, match="unavailable"):
         cache.load_rgba(tmp_path, asset)
+    assert cache.entry_count == 1
+    cache.invalidate(asset.asset_id)
+    assert cache.entry_count == 0
+
+
+def test_cache_does_not_reuse_a_same_id_and_digest_from_another_project(
+    tmp_path: Path,
+) -> None:
+    first_root = tmp_path / "first"
+    second_root = tmp_path / "second"
+    pixels = np.array([[[10, 20, 30, 255]]], dtype=np.uint8)
+    asset, _ = _write_png(first_root, "source/layer.png", pixels)
+    second_root.mkdir()
+    cache = RgbaAssetCache()
+
+    cache.load_rgba(first_root, asset)
+
+    with pytest.raises(RenderError, match="unavailable"):
+        cache.load_rgba(second_root, asset)
+    assert cache.entry_count == 1
+
+
+def test_cache_key_includes_decode_relevant_trim_metadata(tmp_path: Path) -> None:
+    pixels = np.array([[[10, 20, 30, 255], [40, 50, 60, 255]]], dtype=np.uint8)
+    asset, _ = _write_png(tmp_path, "source/layer.png", pixels)
+    cache = RgbaAssetCache()
+    cache.load_rgba(tmp_path, asset)
+    inconsistent = asset.model_copy(
+        update={
+            "source_canvas_size": IntSize(width=1, height=1),
+            "trim_size": IntSize(width=1, height=1),
+        }
+    )
+
+    with pytest.raises(RenderError, match="trim size"):
+        cache.load_rgba(tmp_path, inconsistent)
+    assert cache.entry_count == 1
 
 
 def test_changed_digest_creates_a_distinct_revision_and_invalidation_removes_both(

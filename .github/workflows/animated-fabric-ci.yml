@@ -54,6 +54,11 @@ jobs:
           docker compose run --rm --no-deps animated-fabric-dev animated-fabric version
           docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric doctor
           docker compose run --rm --no-deps animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
+          docker compose run --rm --no-deps animated-fabric-dev animated-fabric render-frame \
+            .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 \
+            --out .tmp/cli-frame.png
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/run_demo_pipeline.py --out .tmp/demo
 
       - name: Smoke-test the baked image without a checkout mount
         working-directory: apps/animated-fabric

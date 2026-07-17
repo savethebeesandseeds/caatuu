@@ -5,7 +5,7 @@
   const download = document.querySelector("[data-android-download]");
   let channelRequest = 0;
 
-  function setDownloadUnavailable(message = "Android build unavailable") {
+  function setDownloadUnavailable(message = "Android release not published") {
     if (!download) return;
     download.removeAttribute("href");
     download.removeAttribute("download");

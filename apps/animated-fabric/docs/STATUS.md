@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 and M1 complete; M2 in progress (AF-020 through AF-022 complete)
+**Current state:** Milestones M0, M1, and M2 complete
 
-**Last updated:** 2026-07-16
+**Last updated:** 2026-07-17
 
 ## Completed work
 
@@ -20,12 +20,12 @@ M1 - domain and persistence.
 - [x] AF-011 JSON repository
 - [x] AF-012 Validation engine
 
-M2 - mathematics and vertical renderer (in progress).
+M2 - mathematics and vertical renderer.
 
 - [x] AF-020 Transforms
 - [x] AF-021 Animation evaluator
 - [x] AF-022 OpenCV compositor
-- [ ] AF-023 Golden render
+- [x] AF-023 Golden render
 
 ## Delivered scope
 
@@ -86,7 +86,8 @@ M2 - mathematics and vertical renderer (in progress).
   normative bind and pivot matrix; subpixel transforms remain untouched by the default mode.
 - A bounded LRU asset cache safely resolves project-local PNG paths, rejects symlink escapes,
   enforces file/dimension limits and SHA-256/trim metadata, and retains strongly read-only decoded
-  RGBA plus premultiplied revisions keyed by `(asset_id, sha256)`.
+  RGBA plus premultiplied revisions. Keys include project/root path, `(asset_id, sha256)`, and
+  decode-relevant trim metadata; every hit revalidates current path availability and containment.
 - Indexed or RGBA PNG input converts to true RGBA without channel swapping. Missing optional
   assets contribute no pixels; missing required, corrupt, mismatched, or unsafe assets fail with
   typed `RenderError` exceptions.
@@ -96,7 +97,29 @@ M2 - mathematics and vertical renderer (in progress).
 - Final-frame clipping reports top/right/bottom/left alpha contact against a configurable
   threshold without prematurely applying export policy.
 - A hand-authored 4 x 3 owned golden locks exact channel order, affine placement, alpha blend,
-  dimensions, and clipping behavior while AF-023 retains the full neutral-pose golden renderer.
+  dimensions, and clipping behavior.
+- A transient `RenderProject` closes the specification's undefined runtime-aggregate boundary
+  without adding a persisted asset schema. Immutable `RenderRequest` and `RenderedFrame` values
+  carry exact RGBA bytes, canvas size, ground anchor, resolved sockets, requested exact-time
+  events, and clipping diagnostics.
+- `OpenCvRenderer` now orchestrates authored-direction validation, cached hierarchy and clip
+  evaluation, pose resolution, stable render planning, the shared OpenCV compositor, and frame
+  metadata. Mirrored directions fail explicitly because complete-frame mirroring remains AF-052.
+- Revision-aware bounded LRU caches retain rig topological order and direction-aware normalized
+  clip evaluations. A project revision change eagerly invalidates dependent computations; image
+  revisions remain independently content-addressed and project-scoped. Eviction also prunes the
+  tracked project-revision registry.
+- The generated `stick_humanoid` fixture now includes canonical project and rig documents. Its
+  fixture-only adapter creates 28 transient `AssetLayer` values from owned manifest facts and
+  does not impersonate the importer or a general asset-catalog format.
+- CLI `render-frame` follows the normative root/direction/time/output shape, renders neutral SE
+  and NE fixture frames, selects a clip by ID when one is present, writes RGBA PNG atomically,
+  refuses destinations under immutable source roots or at referenced asset paths, returns exit 4
+  with `AFR001` for expected render failures, and sanitizes unexpected failures.
+- `scripts/run_demo_pipeline.py` generates the fixture and renders both authored directions
+  through the same `RenderFrame` use case and renderer used by the CLI.
+- Reviewed 192 x 192 neutral SE and NE goldens lock complete-pipeline draw order, alpha structure,
+  metadata-safe composition, direction differences, repeatability, and absence of edge clipping.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -122,16 +145,22 @@ Principal files:
 - `src/animated_fabric/domain/animation.py`
 - `src/animated_fabric/domain/export.py`
 - `src/animated_fabric/application/ports.py`
+- `src/animated_fabric/application/render_cache.py`
+- `src/animated_fabric/application/render_frame.py`
 - `src/animated_fabric/application/rendering.py`
 - `src/animated_fabric/application/validation_service.py`
 - `src/animated_fabric/domain/validation/`
 - `src/animated_fabric/infrastructure/persistence/json_project_repository.py`
+- `src/animated_fabric/infrastructure/fixtures/stick_humanoid.py`
 - `src/animated_fabric/infrastructure/imaging/alpha.py`
 - `src/animated_fabric/infrastructure/imaging/image_store.py`
 - `src/animated_fabric/infrastructure/imaging/opencv_compositor.py`
+- `src/animated_fabric/infrastructure/imaging/opencv_renderer.py`
+- `src/animated_fabric/infrastructure/imaging/png_writer.py`
 - `src/animated_fabric/gui/app.py`
 - `scripts/generate_fixture_assets.py`
 - `scripts/generate_af022_compositor_golden.py`
+- `scripts/run_demo_pipeline.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
@@ -144,7 +173,16 @@ Principal files:
 - `tests/unit/test_premultiplied_alpha.py`
 - `tests/unit/test_image_asset_cache.py`
 - `tests/unit/test_opencv_compositor.py`
+- `tests/unit/test_opencv_renderer.py`
+- `tests/unit/test_render_cache.py`
+- `tests/unit/test_render_contracts.py`
+- `tests/unit/test_cached_bone_order.py`
+- `tests/unit/test_png_frame_writer.py`
 - `tests/golden/af022_compositor.png`
+- `tests/golden/af023_stick_humanoid_neutral_se.png`
+- `tests/golden/af023_stick_humanoid_neutral_ne.png`
+- `tests/integration/test_render_frame_cli.py`
+- `tests/integration/test_demo_pipeline.py`
 - `tests/integration/test_json_project_repository.py`
 - `tests/integration/test_validate_cli.py`
 - `tests/cutout/`
@@ -152,28 +190,29 @@ Principal files:
 
 ## Verification
 
-Executed on 2026-07-16 through the repository-owned Linux container after AF-022:
+Executed on 2026-07-17 through the repository-owned Linux container after AF-023:
 
-- `ruff format --check .`: 82 files already formatted.
+- `ruff format --check .`: 96 files already formatted.
 - `ruff check .`: all checks passed.
-- `mypy src`: no issues in 40 source files.
-- `pytest -q`: 396 passed; 94.89% branch coverage against an 85% floor.
+- `mypy src`: no issues in 46 source files.
+- `pytest -q`: 448 passed; 92.60% branch coverage against an 85% floor.
 - `python -m pip check`: no broken requirements.
-- `python scripts/generate_fixture_assets.py --out .tmp/fixtures`: deterministic fixture
-  generated successfully.
-- CLI module help and `doctor`: passed in English; doctor reported no problems.
-- CLI `validate`: healthy, warning-only, schema, path, missing-document, and structural-error
-  scenarios passed in integration tests; a process-level missing-project smoke emitted `AFV001`
-  JSON and exited 2.
-- `python scripts/generate_af022_compositor_golden.py --out .tmp/af022_compositor.png`:
-  passed; `cmp` matched the committed golden and both SHA-256 values were
-  `a094760e3f53a72b89a9a4e075215f544f6f0b61a5acc961e169f892f8eea56c`.
-- `python scripts/run_demo_pipeline.py --out .tmp/demo`: not runnable because the script does
-  not exist at AF-022. The narrow compositor is complete, but the full fixture renderer and demo
-  pipeline remain AF-023 work.
+- `python scripts/generate_fixture_assets.py --out .tmp/final-af023-fixtures`: generated the
+  deterministic 28-layer fixture plus canonical project and rig documents successfully.
+- `python scripts/run_demo_pipeline.py --out .tmp/final-af023-demo`: rendered neutral SE and NE
+  192 x 192 RGBA frames successfully through the complete pipeline.
+- Reproduced demo and committed golden PNG hashes matched byte for byte: SE
+  `0b2632ea0670e3d66931a849acfaeb76256d6800e6103931ed89cb22d764b6d4`; NE
+  `2d416e98997e8f6cde343f3213947b3e54e4ed97564ccdd544de25d6644144d0`.
+- `python -m animated_fabric --help`: passed and listed `render-frame`.
+- `python -m animated_fabric doctor`: passed with no problems.
+- CLI `render-frame` against `.tmp/final-af023-fixtures/stick_humanoid` in direction NE at
+  0 ms: passed and wrote `.tmp/final-af023-cli-ne.png`.
+- Golden tests decoded RGBA pixels, enforced exact 192 x 192 dimensions and alpha structure,
+  allowed at most channel difference 2 and 0.1% out-of-tolerance pixels, and passed exactly.
 
-Infrastructure and cutout checks retained from the preceding M0/M1 verification on the same
-date:
+Infrastructure and cutout checks retained from the preceding M0/M1 verification recorded on
+2026-07-16:
 
 - `docker compose config --quiet` and the complete profile configuration: passed.
 - `docker compose build animated-fabric-dev`: passed from the digest-pinned Python 3.12
@@ -202,9 +241,9 @@ date:
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- No full renderer orchestration, importer, complete-frame mirroring, or export execution exists
-  at AF-022. `CompositeRequest` and `CompositedFrame` are deliberately narrow so they do not
-  impersonate the specification's later `RenderRequest` and metadata-rich `RenderedFrame`.
+- The authored-direction renderer is complete for M2, but the general importer, complete-frame
+  mirroring, animation generators, and export execution do not exist yet. `render-frame` therefore
+  accepts the owned generated fixture project only; it does not scan arbitrary layer folders.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -213,12 +252,12 @@ date:
   profile pivot uses image origin. Direction multipliers affect delta channels only; scale
   multipliers adjust the factor around identity `1`, while absolute channels remain absolute.
 - Part visibility is a discrete final override, opacity deltas are additive and clamped to
-  `[0, 1]`, and z-bias is a step-only integer. Clip events remain persisted metadata and are not
-  emitted by AF-021 because event dispatch belongs to a later application use case.
-- AF-022 implements the explicit ticket-owned decoded and premultiplied asset cache. The remaining
-  whole-renderer caches in section 14.5 (topological order, clip evaluations, and optional complete
-  frames) require the still-undefined `project_revision`/full renderer lifecycle and are deferred
-  to AF-023 rather than introduced as unused cache stubs.
+  `[0, 1]`, and z-bias is a step-only integer. A render request may return events declared exactly
+  at its normalized sample time; interval-crossing dispatch semantics remain unspecified.
+- The full renderer caches topological order and evaluated clips against a transient non-negative
+  `project_revision`. No mutation service or persisted revision exists yet, so future mutation
+  tickets must construct the incremented runtime aggregate or explicitly invalidate the cache.
+  The optional complete-frame cache remains unimplemented.
 - Cubic overshoot is clamped back to `0 <= RGB <= alpha <= 1`; unpremultiplication uses float32
   epsilon, final conversion uses nearest-even NumPy rounding, and clipping defaults to alpha above
   zero. These are deterministic implementation choices where the specification provides no numeric
@@ -227,7 +266,8 @@ date:
   remain export/application policy rather than compositor behavior.
 - The specification defines no persisted asset catalog or importer-owned image-observation
   document. `AFV101` through `AFV108` therefore run when a caller supplies typed asset metadata
-  and observations; CLI validation does not invent or persist an asset schema.
+  and observations; CLI validation does not invent or persist an asset schema. The AF-023 fixture
+  adapter reads only the owned `fixture_manifest.json` convention and is not a product format.
 - Equipment usage is not modeled yet, so `AFV403` is emitted only when a caller explicitly
   supplies the used socket IDs. Orphan direction-profile override IDs are not assigned an
   invented diagnostic code where Appendix E provides no accurate one.
@@ -235,9 +275,10 @@ date:
   AF-012 conservatively warns outside one trimmed-image extent before zero or two extents after
   it (`[-width, 2 * width]`, `[-height, 2 * height]`) until template-specific policy exists.
 - Appendix C references an undefined `Project` aggregate, while the specification defines no
-  persisted asset manifest or whole-project transaction. AF-011 therefore implements the
-  application port as canonical `ProjectManifest` load/save plus typed per-file rig and clip
-  operations; it does not invent an aggregate schema.
+  persisted asset manifest or whole-project transaction. Persistence remains canonical
+  `ProjectManifest` load/save plus typed per-file rig and clip operations. AF-023 adds a transient
+  immutable `RenderProject` containing the approved root, manifest, typed assets, and revision;
+  it does not invent an aggregate schema on disk.
 - Atomicity is per JSON file, not a multi-file transaction. Migrations, backups, locking,
   autosave, recovery, and multi-writer arbitration remain assigned to later tickets.
 - Stable symlink escapes are rejected before access and again before publication. A hostile
@@ -255,7 +296,7 @@ date:
 
 - [x] M0 Foundations
 - [x] M1 Domain and persistence
-- [ ] M2 Mathematics and renderer
+- [x] M2 Mathematics and renderer
 - [ ] M3 Importer and humanoid rig
 - [ ] M4 Humanoid generators
 - [ ] M5 Export
@@ -266,4 +307,4 @@ date:
 
 ## Next permitted work
 
-- AF-023 Golden render
+- AF-030 Layer importer

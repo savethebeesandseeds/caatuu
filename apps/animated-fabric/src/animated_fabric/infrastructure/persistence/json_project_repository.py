@@ -11,9 +11,10 @@ from typing import NoReturn, TypeVar, cast
 
 from pydantic import TypeAdapter, ValidationError
 
-from animated_fabric.application.ports import PROJECT_MANIFEST_FILENAME
+from animated_fabric.application.ports import LAYER_MANIFEST_FILENAME, PROJECT_MANIFEST_FILENAME
 from animated_fabric.domain._base import DomainModel, ProjectPath, SchemaVersion
 from animated_fabric.domain.animation import AnimationClip
+from animated_fabric.domain.assets import LayerManifest
 from animated_fabric.domain.exceptions import (
     ProjectValidationError,
     ProjectValidationKind,
@@ -25,6 +26,7 @@ from animated_fabric.domain.rig import RigDefinition
 _PROJECT_FORMAT = "animated-fabric.project.v1"
 _RIG_FORMAT = "animated-fabric.rig.v1"
 _ANIMATION_FORMAT = "animated-fabric.animation-clip.v1"
+_LAYER_MANIFEST_FORMAT = "animated-fabric.layer-manifest.v1"
 _RIG_SUFFIX = ".animated-rig.json"
 _ANIMATION_SUFFIX = ".animated-clip.json"
 _SUPPORTED_SCHEMA_FAMILIES = frozenset({(0, 1)})
@@ -79,6 +81,26 @@ class JsonProjectRepository:
             project,
             expected_format=_PROJECT_FORMAT,
             artifact_name="project manifest",
+        )
+
+    def load_layer_manifest(self, root: Path) -> LayerManifest:
+        """Load the canonical layer catalog from an existing project root."""
+        return self._load_model(
+            root,
+            LAYER_MANIFEST_FILENAME,
+            LayerManifest,
+            expected_format=_LAYER_MANIFEST_FORMAT,
+            artifact_name="layer manifest",
+        )
+
+    def save_layer_manifest(self, root: Path, manifest: LayerManifest) -> None:
+        """Atomically save the canonical layer catalog beneath the project root."""
+        self._save_model(
+            root,
+            LAYER_MANIFEST_FILENAME,
+            manifest,
+            expected_format=_LAYER_MANIFEST_FORMAT,
+            artifact_name="layer manifest",
         )
 
     def load_rig(self, root: Path, path: ProjectPath) -> RigDefinition:
@@ -485,4 +507,4 @@ class JsonProjectRepository:
             raise ProjectValidationError(f"The {artifact_name} path must end with '{suffix}'.")
 
 
-__all__ = ["JsonProjectRepository", "PROJECT_MANIFEST_FILENAME"]
+__all__ = ["LAYER_MANIFEST_FILENAME", "JsonProjectRepository", "PROJECT_MANIFEST_FILENAME"]

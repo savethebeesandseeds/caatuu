@@ -187,6 +187,12 @@ This keeps generic debug builds fail-closed while publishing the installed
 debug-signing lineage at `https://caatuu.waajacu.com/android/caatuu-debug.json`.
 The current debug-signed app can update only from this matching channel.
 
+When `CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS=1` is present in the ignored root
+`.env`, the generic sideload builder refuses to run with its invalid default
+update host. This prevents a local build from silently replacing the live
+public manifest. Use `publish-public-debug.sh` for the hosted channel, or
+disable the public route before making a sideload-only build.
+
 The default runtime binds only to Windows loopback and keeps all debug download
 routes disabled. For a trusted LAN phone test, temporarily opt in from
 PowerShell using the same IP that you put in the APK:

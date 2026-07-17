@@ -1581,15 +1581,22 @@ function settleVerbMatch() {
     state.verbMatchedIds.add(czechId);
     resetVerbSelections();
 
-    if (verbRoundComplete()) {
+    const roundComplete = verbRoundComplete();
+    if (roundComplete) {
       state.verbStats.rounds += 1;
       setVerbMatchFeedback("Round complete.", "correct");
     } else {
       setVerbMatchFeedback(`${pair?.cz || "This verb"} means ${pair?.eng || "this meaning"}.`, "correct");
     }
+    window.CaatuuLearning?.record("verb-nebula", {
+      activities: 1,
+      attempts: 1,
+      successes: 1,
+      rounds: roundComplete ? 1 : 0
+    });
     saveVerbMemory();
     renderVerbNebula();
-    if (verbRoundComplete()) {
+    if (roundComplete) {
       void transitionToNextVerbRound();
     }
     return;
@@ -1599,6 +1606,7 @@ function settleVerbMatch() {
   // storing bare ids would also mark the two correct counterparts and reveal
   // the answer during the mistake animation.
   state.verbWrongIds = new Set([`cz:${czechId}`, `en:${englishId}`]);
+  window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
   setVerbMatchFeedback("Those two do not match. Keep the Czech verb and try another meaning.", "wrong");
   saveVerbMemory();
   renderVerbNebula();
@@ -1821,13 +1829,13 @@ function resetVerbProgress() {
   startVerbRound();
 }
 
-function clearVerbMemory() {
-  const resetButton = $("#settingsResetVerbMemory");
-  if (!confirmDestructiveAction(resetButton, {
+function clearVerbMemory({ confirmed = false } = {}) {
+  const resetButton = $("#settingsResetCourseProgress");
+  if (!confirmed && !confirmDestructiveAction(resetButton, {
     confirmLabel: "Confirm restart",
-    message: "Restart Verb Nebula? This clears its queue and score but keeps downloads and cache."
+    message: "Restart course progress? Difficulty, downloads, and cache will be kept."
   })) {
-    setText("#maintenanceStatus", "Press Start course again once more to restart Verb Nebula.");
+    setText("#maintenanceStatus", "Press Restart again to clear course progress.");
     return;
   }
 
@@ -1853,7 +1861,7 @@ function clearVerbMemory() {
   resetVerbSelections();
   loadVerbMemory();
   startVerbRound();
-  setText("#maintenanceStatus", "Verb Nebula restarted. Downloads and cache were preserved.");
+  setText("#maintenanceStatus", "Course progress restarted. Difficulty, downloads, and cache were preserved.");
 }
 
 function bindVerbNebulaControls() {
@@ -2928,7 +2936,9 @@ function bindUi() {
     control.addEventListener("input", readGenerationSettingsControls);
     control.addEventListener("change", readGenerationSettingsControls);
   });
-  $("#settingsResetVerbMemory")?.addEventListener("click", clearVerbMemory);
+  window.addEventListener("caatuu:learning-change", (event) => {
+    if (event.detail?.reason === "progress-reset") clearVerbMemory({ confirmed: true });
+  });
   $("#clearCache")?.addEventListener("click", clearAppCache);
 
   window.addEventListener("hashchange", setInitialViewFromHash);

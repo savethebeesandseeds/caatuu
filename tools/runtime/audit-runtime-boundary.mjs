@@ -1090,6 +1090,7 @@ function auditAndroidSource() {
   const playManifestPath = join(workspaceRoot, "apps/caatuu-android/app/src/play/AndroidManifest.xml");
   const maintenanceUiPath = join(workspaceRoot, "apps/caatuu-czech/static/maintenance-ui.js");
   const debugBuildPath = join(workspaceRoot, "tools/android-build/build-debug-apk.sh");
+  const publicDebugPublisherPath = join(workspaceRoot, "tools/android-build/publish-public-debug.sh");
   const releaseBuildPath = join(workspaceRoot, "tools/android-build/build-release-apk.sh");
   const releaseAabBuildPath = join(workspaceRoot, "tools/android-build/build-release-aab.sh");
   const runtimeConfigPath = join(workspaceRoot, "apps/caatuu-runtime/src/config.rs");
@@ -1117,6 +1118,7 @@ function auditAndroidSource() {
   const playManifest = readFileSync(playManifestPath, "utf8");
   const maintenanceUi = readFileSync(maintenanceUiPath, "utf8");
   const debugBuild = readFileSync(debugBuildPath, "utf8");
+  const publicDebugPublisher = readFileSync(publicDebugPublisherPath, "utf8");
   const releaseBuild = readFileSync(releaseBuildPath, "utf8");
   const releaseAabBuild = readFileSync(releaseAabBuildPath, "utf8");
   const runtimeConfig = readFileSync(runtimeConfigPath, "utf8");
@@ -1222,6 +1224,9 @@ function auditAndroidSource() {
   assert(debugBuild.includes('artifacts/android/caatuu-debug.json'), "debug build script should only publish caatuu-debug.json");
   assert(debugBuild.includes('debug-releases/$version_code/caatuu-debug.apk'), "debug build should publish immutable versioned APKs");
   assert(debugBuild.includes('Refusing to replace immutable APK'), "debug build should reject same-version byte replacement");
+  assert(debugBuild.includes('CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS'), "generic debug builds should detect an enabled public debug route");
+  assert(debugBuild.includes('overwrite the live manifest with an invalid update origin'), "generic debug builds should refuse to poison the public update manifest");
+  assert(publicDebugPublisher.includes("java -version 2>&1 | grep -q 'version \"17'"), "public debug publisher should verify Java 17 before building");
   assert(debugBuild.includes('"build_type": "debug"'), "debug build manifest should identify the debug channel");
   assert(debugBuild.includes('"debuggable": true'), "debug build manifest should identify the APK as debuggable");
   assert(debugBuild.includes("verify --verbose --print-certs"), "debug build should cryptographically verify the APK before publishing");

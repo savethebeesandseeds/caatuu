@@ -1492,11 +1492,15 @@ function renderCzechSentence(sentence, selectedWord = "") {
 
 function rememberStep(word, sentence) {
   const fingerprint = sentenceFingerprint(sentence);
+  const alreadyRemembered = state.history.some((entry) => sentenceFingerprint(entry.sentence) === fingerprint);
   state.history = state.history.filter((entry) => sentenceFingerprint(entry.sentence) !== fingerprint);
   state.history.unshift({ word, sentence });
   state.history = state.history.slice(0, HISTORY_LIMIT);
   state.historyCursor = 0;
   saveHistory();
+  if (!alreadyRemembered) {
+    window.CaatuuLearning?.record("word-world", { activities: 1 });
+  }
   renderTrail();
   syncDiagnostics();
 }

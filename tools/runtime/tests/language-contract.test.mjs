@@ -8,9 +8,10 @@ const czechStatic = new URL("apps/caatuu-czech/static/", repoRoot);
 const unifiedStatic = new URL("apps/caatuu-unified/static/", repoRoot);
 
 const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html"];
-const [registrySource, profileSource, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
+const [registrySource, profileSource, learningProfile, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
   readFile(new URL("languages.json", unifiedStatic), "utf8"),
   readFile(new URL("course-profile.js", czechStatic), "utf8"),
+  readFile(new URL("learning-profile.js", czechStatic), "utf8"),
   readFile(new URL("launcher.js", unifiedStatic), "utf8"),
   readFile(new URL("chrome.js", czechStatic), "utf8"),
   readFile(new URL("runtime.js", czechStatic), "utf8"),
@@ -62,6 +63,8 @@ test("course profile is immutable and owns language-scoped persistence", () => {
   }
 
   assert.match(chrome, /const themeStorageKey = course\.storage\.theme/);
+  assert.match(learningProfile, /course\.storage\.learningPreferences/);
+  assert.match(learningProfile, /course\.storage\.learningPerformance/);
   assert.match(runtime, /const cachePrefix = course\.cache\.prefix/);
   assert.match(app, /const verbStorageKey = course\.storage\.verbMemory/);
   assert.doesNotMatch(app, /["']cs-CZ["']/);
@@ -71,15 +74,18 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-2"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-3"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-1"');
     const runtimeIndex = source.indexOf('src="runtime.js');
     const chromeIndex = source.indexOf('src="chrome.js');
     assert.ok(profileIndex >= 0, `${name} must load the course profile`);
+    assert.ok(learningIndex > profileIndex, `${name} must load learning state after the course profile`);
     assert.ok(runtimeIndex > profileIndex, `${name} must load the profile before runtime.js`);
-    assert.ok(chromeIndex > profileIndex, `${name} must load the profile before chrome.js`);
+    assert.ok(chromeIndex > learningIndex, `${name} must load learning state before chrome.js`);
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-2/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-3/);
+  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-1/);
 });
 
 test("launcher discovers active languages instead of embedding product behavior", () => {

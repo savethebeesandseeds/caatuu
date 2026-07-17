@@ -25,8 +25,6 @@ DEFAULT_MAX_CACHE_ENTRIES = 500
 DEFAULT_MAX_FILE_BYTES = 50 * 1024 * 1024
 DEFAULT_MAX_LAYER_DIMENSION = 2048
 
-type AssetCacheKey = tuple[str, str]
-
 
 class AssetFileUnavailableError(RenderError):
     """Raised when an otherwise valid asset file is absent during rendering."""
@@ -40,8 +38,24 @@ class CachedAssetImage:
     premultiplied: PremultipliedRgbaImage
 
 
+@dataclass(frozen=True, slots=True)
+class _AssetCacheKey:
+    """Project-scoped image revision and decode-relevant metadata."""
+
+    project_root: str
+    resolved_path: str
+    asset_id: str
+    sha256: str
+    source_width: int
+    source_height: int
+    trim_x: int
+    trim_y: int
+    trim_width: int
+    trim_height: int
+
+
 class RgbaAssetCache:
-    """Load validated project PNGs and retain a bounded LRU keyed by ID and digest."""
+    """Load validated project PNGs and retain a bounded project-scoped LRU."""
 
     def __init__(
         self,
@@ -56,7 +70,7 @@ class RgbaAssetCache:
             max_layer_dimension,
             "max_layer_dimension",
         )
-        self._entries: OrderedDict[AssetCacheKey, CachedAssetImage] = OrderedDict()
+        self._entries: OrderedDict[_AssetCacheKey, CachedAssetImage] = OrderedDict()
         self._lock = RLock()
 
     @property
@@ -71,14 +85,15 @@ class RgbaAssetCache:
         asset: AssetLayer,
     ) -> CachedAssetImage:
         """Return a cached immutable RGBA/premultiplied pair for ``asset``."""
-        key = (asset.asset_id, asset.sha256)
+        resolved_root, candidate = self._resolve_asset_path(project_root, asset)
+        key = self._cache_key(resolved_root, candidate, asset)
         with self._lock:
             cached = self._entries.get(key)
             if cached is not None:
                 self._entries.move_to_end(key)
                 return cached
 
-        loaded = self._load_uncached(project_root, asset)
+        loaded = self._load_uncached(candidate, asset)
         with self._lock:
             cached = self._entries.get(key)
             if cached is not None:
@@ -105,7 +120,7 @@ class RgbaAssetCache:
     def invalidate(self, asset_id: str) -> None:
         """Discard every retained revision for one semantic asset ID."""
         with self._lock:
-            keys = tuple(key for key in self._entries if key[0] == asset_id)
+            keys = tuple(key for key in self._entries if key.asset_id == asset_id)
             for key in keys:
                 del self._entries[key]
 
@@ -116,10 +131,9 @@ class RgbaAssetCache:
 
     def _load_uncached(
         self,
-        project_root: Path,
+        candidate: Path,
         asset: AssetLayer,
     ) -> CachedAssetImage:
-        candidate = self._resolve_asset_path(project_root, asset)
         encoded = self._read_asset(candidate, asset)
         digest = hashlib.sha256(encoded).hexdigest()
         if digest != asset.sha256:
@@ -134,7 +148,11 @@ class RgbaAssetCache:
             premultiplied=premultiplied,
         )
 
-    def _resolve_asset_path(self, project_root: Path, asset: AssetLayer) -> Path:
+    def _resolve_asset_path(
+        self,
+        project_root: Path,
+        asset: AssetLayer,
+    ) -> tuple[Path, Path]:
         if Path(asset.path).suffix.lower() != ".png":
             raise RenderError(f"Asset '{asset.asset_id}' must reference a PNG file.")
         try:
@@ -161,7 +179,26 @@ class RgbaAssetCache:
             )
         if not candidate.is_file():
             raise RenderError(f"Asset path for '{asset.asset_id}' is not a regular file.")
-        return candidate
+        return resolved_root, candidate
+
+    @staticmethod
+    def _cache_key(
+        resolved_root: Path,
+        candidate: Path,
+        asset: AssetLayer,
+    ) -> _AssetCacheKey:
+        return _AssetCacheKey(
+            project_root=str(resolved_root),
+            resolved_path=str(candidate),
+            asset_id=asset.asset_id,
+            sha256=asset.sha256,
+            source_width=asset.source_canvas_size.width,
+            source_height=asset.source_canvas_size.height,
+            trim_x=asset.trim_origin.x,
+            trim_y=asset.trim_origin.y,
+            trim_width=asset.trim_size.width,
+            trim_height=asset.trim_size.height,
+        )
 
     def _read_asset(self, candidate: Path, asset: AssetLayer) -> bytes:
         try:

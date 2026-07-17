@@ -7,10 +7,12 @@ from typing import Protocol
 
 from animated_fabric.domain._base import ProjectPath
 from animated_fabric.domain.animation import AnimationClip
+from animated_fabric.domain.assets import LayerManifest
 from animated_fabric.domain.project import ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
 
 PROJECT_MANIFEST_FILENAME = "project.animated-fabric.json"
+LAYER_MANIFEST_FILENAME = "layers.manifest.json"
 
 
 class ProjectRepository(Protocol):
@@ -46,4 +48,21 @@ class ProjectRepository(Protocol):
         ...
 
 
-__all__ = ["PROJECT_MANIFEST_FILENAME", "ProjectRepository"]
+class LayerManifestRepository(Protocol):
+    """Load and save the canonical layer catalog within an approved root."""
+
+    def load_layer_manifest(self, root: Path) -> LayerManifest:
+        """Load the canonical layer catalog from ``root``."""
+        ...
+
+    def save_layer_manifest(self, root: Path, manifest: LayerManifest) -> None:
+        """Atomically save the canonical layer catalog beneath ``root``."""
+        ...
+
+
+__all__ = [
+    "LAYER_MANIFEST_FILENAME",
+    "PROJECT_MANIFEST_FILENAME",
+    "LayerManifestRepository",
+    "ProjectRepository",
+]

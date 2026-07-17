@@ -12,25 +12,13 @@ from typing import Literal
 
 from PIL import Image, ImageDraw
 
-CANVAS_SIZE = (192, 192)
-GROUND_ANCHOR = (96, 160)
-FIXTURE_ID = "stick_humanoid"
-DIRECTIONS = ("SE", "NE")
-PART_NAMES = (
-    "torso",
-    "head",
-    "upper_arm_l",
-    "lower_arm_l",
-    "hand_l",
-    "upper_arm_r",
-    "lower_arm_r",
-    "hand_r",
-    "thigh_l",
-    "shin_l",
-    "foot_l",
-    "thigh_r",
-    "shin_r",
-    "foot_r",
+from animated_fabric.infrastructure.fixtures import (
+    CANVAS_SIZE,
+    DIRECTIONS,
+    FIXTURE_ID,
+    GROUND_ANCHOR,
+    PART_NAMES,
+    write_stick_humanoid_project,
 )
 
 Point = tuple[int, int]
@@ -190,6 +178,7 @@ def generate_fixture_assets(output_root: Path) -> Path:
         "layers": layers,
     }
     _write_manifest(fixture_root / "fixture_manifest.json", manifest)
+    write_stick_humanoid_project(fixture_root)
     return fixture_root
 
 

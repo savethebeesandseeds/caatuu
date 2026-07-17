@@ -26,7 +26,7 @@ from animated_fabric.domain.animation_evaluator import (
     EvaluatedAnimation,
     EvaluatedPartState,
 )
-from animated_fabric.domain.assets import AssetLayer
+from animated_fabric.domain.assets import AssetLayer, LayerManifest
 from animated_fabric.domain.diagnostics import Diagnostic, OperationResult, Severity
 from animated_fabric.domain.exceptions import (
     AnimatedFabricError,
@@ -41,7 +41,10 @@ from animated_fabric.domain.exceptions import (
 )
 from animated_fabric.domain.export import ExportProfile
 from animated_fabric.domain.geometry import IntPoint, IntSize, SelectionEllipse, Transform2D, Vec2
-from animated_fabric.domain.hierarchy import topological_bone_order
+from animated_fabric.domain.hierarchy import (
+    topological_bone_order,
+    validate_topological_bone_order,
+)
 from animated_fabric.domain.interpolation import evaluate_track, normalize_clip_time
 from animated_fabric.domain.pose import (
     PoseResolver,
@@ -118,6 +121,7 @@ __all__ = [
     "Interpolation",
     "JsonValue",
     "Keyframe",
+    "LayerManifest",
     "Matrix3",
     "OperationResult",
     "PartBinding",
@@ -160,6 +164,7 @@ __all__ = [
     "scale_matrix",
     "socket_to_canvas_matrix",
     "topological_bone_order",
+    "validate_topological_bone_order",
     "transform_matrix",
     "transform_point",
     "translation_matrix",

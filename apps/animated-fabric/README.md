@@ -4,12 +4,12 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 and M1 are complete, and M2 now includes immutable affine matrices,
-stable bone ordering, direction-aware pose resolution, and deterministic animation
-evaluation plus an OpenCV premultiplied-alpha compositor. The repository also contains
-the installable package, English CLI and GUI shells, deterministic geometric fixtures,
-strict data contracts, atomic JSON persistence, structural validation, and a bounded
-project asset cache. It does not yet contain an importer, full renderer orchestration,
+Milestones M0 through M2 are complete. The vertical renderer now evaluates a typed
+request, resolves pose and sockets, plans stable draw order, loads bounded cached assets,
+composites premultiplied RGBA through OpenCV, reports clipping, and atomically writes PNG
+frames. The repository also contains the installable package, English CLI and GUI shells,
+deterministic geometric fixtures, strict data contracts, atomic JSON persistence, and
+structural validation. It does not yet contain the general importer, animation generators,
 exporter, functional editor, or database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
@@ -76,7 +76,16 @@ docker compose exec animated-fabric-dev animated-fabric version
 docker compose exec animated-fabric-dev python -m animated_fabric doctor
 docker compose exec animated-fabric-dev python -m animated_fabric validate /path/to/project
 docker compose exec animated-fabric-dev python -m animated_fabric validate /path/to/project --json
+docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
+docker compose exec animated-fabric-dev animated-fabric render-frame `
+  .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 --out .tmp/preview.png
 ```
+
+At AF-023, `render-frame` deliberately accepts the generated `stick_humanoid` project
+root. Its fixture manifest supplies transient asset metadata to the same renderer used by
+the application; it is not a general asset-catalog schema. General imported-project
+rendering begins with the importer work in AF-030, because the current normative project
+format does not persist an asset catalog.
 
 The GUI entry point is `animated-fabric-gui`. Automated tests use
 `QT_QPA_PLATFORM=offscreen`. On a native Linux X11 desktop, keep the GUI inside
@@ -103,6 +112,7 @@ docker compose exec animated-fabric-dev mypy src
 docker compose exec animated-fabric-dev pytest -q
 docker compose exec animated-fabric-dev python -m pip check
 docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
+docker compose exec animated-fabric-dev python scripts/run_demo_pipeline.py --out .tmp/demo
 ```
 
 GitHub Actions builds the same Linux development image before running these

@@ -74,4 +74,48 @@ def topological_bone_order(rig: RigDefinition) -> tuple[str, ...]:
     return tuple(order)
 
 
-__all__ = ["topological_bone_order"]
+def validate_topological_bone_order(
+    rig: RigDefinition,
+    bone_order: tuple[str, ...],
+) -> tuple[str, ...]:
+    """Validate and return a complete parent-before-child order for ``rig``."""
+    if not isinstance(bone_order, tuple) or any(
+        not isinstance(bone_id, str) for bone_id in bone_order
+    ):
+        raise RigDefinitionError("A cached bone order must be an immutable tuple of IDs.")
+
+    declared_ids = tuple(bone.bone_id for bone in rig.bones)
+    if len(set(declared_ids)) != len(declared_ids):
+        duplicate = next(
+            bone_id for index, bone_id in enumerate(declared_ids) if bone_id in declared_ids[:index]
+        )
+        raise RigDefinitionError(f"The rig contains duplicate bone ID '{duplicate}'.")
+    if len(bone_order) != len(declared_ids) or set(bone_order) != set(declared_ids):
+        raise RigDefinitionError("A cached bone order must contain every rig bone exactly once.")
+
+    resolved: set[str] = set()
+    bones_by_id = {bone.bone_id: bone for bone in rig.bones}
+    roots = tuple(bone.bone_id for bone in rig.bones if bone.parent_id is None)
+    if roots != ("root",):
+        raise RigDefinitionError(
+            "A cached bone order requires exactly one parentless bone named 'root'."
+        )
+    for bone in rig.bones:
+        if bone.parent_id is not None and bone.parent_id not in bones_by_id:
+            raise RigDefinitionError(
+                f"Bone '{bone.bone_id}' references missing parent '{bone.parent_id}'."
+            )
+    for bone_id in bone_order:
+        bone = bones_by_id[bone_id]
+        if bone.parent_id is not None and bone.parent_id not in resolved:
+            raise RigDefinitionError(
+                f"Cached bone order places '{bone_id}' before parent '{bone.parent_id}'."
+            )
+        resolved.add(bone_id)
+
+    if not bone_order or bone_order[0] != "root":
+        raise RigDefinitionError("A cached bone order must begin with the root bone.")
+    return bone_order
+
+
+__all__ = ["topological_bone_order", "validate_topological_bone_order"]

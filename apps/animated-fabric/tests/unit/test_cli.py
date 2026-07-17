@@ -12,7 +12,7 @@ from animated_fabric.domain.diagnostics import Diagnostic, Severity
 runner = CliRunner()
 
 
-def test_help_lists_available_foundation_and_validation_commands() -> None:
+def test_help_lists_available_foundation_validation_and_render_commands() -> None:
     result = runner.invoke(app, ["--help"])
 
     assert result.exit_code == 0
@@ -20,7 +20,7 @@ def test_help_lists_available_foundation_and_validation_commands() -> None:
     assert "version" in result.stdout
     assert "doctor" in result.stdout
     assert "validate" in result.stdout
-    assert "render-frame" not in result.stdout
+    assert "render-frame" in result.stdout
 
 
 def test_usage_errors_are_in_english() -> None:

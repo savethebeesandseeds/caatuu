@@ -5,6 +5,27 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # shellcheck source=versions.env
 source "$repo_root/tools/android-build/versions.env"
 
+# A generic debug build is sideload-only. Phone update testing must opt in to
+# an explicit trusted-LAN origin before Gradle embeds the update endpoint.
+export CAATUU_ANDROID_UPDATE_BASE_URL="${CAATUU_ANDROID_UPDATE_BASE_URL:-https://updates.caatuu.invalid/android}"
+
+# The public runtime serves this workspace's mutable debug manifest directly.
+# Refuse a fail-closed sideload build while that route is enabled, because it
+# would replace the public manifest with an updates.caatuu.invalid APK URL and
+# break every installed public-debug client. The hosted wrapper supplies the
+# correct public origin and passes this guard.
+if grep -Eq '^[[:space:]]*CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS[[:space:]]*=[[:space:]]*1[[:space:]]*$' \
+  "$repo_root/.env" 2>/dev/null \
+  && [[ "$CAATUU_ANDROID_UPDATE_BASE_URL" == "https://updates.caatuu.invalid/android" ]]; then
+  cat >&2 <<'EOF'
+Public Android debug downloads are enabled, so a generic sideload build would
+overwrite the live manifest with an invalid update origin. Use:
+  bash tools/android-build/publish-public-debug.sh
+or disable CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS before building locally.
+EOF
+  exit 1
+fi
+
 find_apksigner() {
   local version candidate
   for version in "$ANDROID_BUILD_TOOLS_VERSION" "$ANDROID_FALLBACK_BUILD_TOOLS_VERSION"; do
@@ -55,10 +76,6 @@ export CAATUU_ANDROID_DEBUG_KEYSTORE="$debug_keystore"
 export CAATUU_ANDROID_DEBUG_KEYSTORE_PASSWORD="${CAATUU_ANDROID_DEBUG_KEYSTORE_PASSWORD:-android}"
 export CAATUU_ANDROID_DEBUG_KEY_ALIAS="${CAATUU_ANDROID_DEBUG_KEY_ALIAS:-androiddebugkey}"
 export CAATUU_ANDROID_DEBUG_KEY_PASSWORD="${CAATUU_ANDROID_DEBUG_KEY_PASSWORD:-android}"
-# A generic debug build is sideload-only. Phone update testing must opt in to
-# an explicit trusted-LAN origin before Gradle embeds the update endpoint.
-export CAATUU_ANDROID_UPDATE_BASE_URL="${CAATUU_ANDROID_UPDATE_BASE_URL:-https://updates.caatuu.invalid/android}"
-
 bash "$repo_root/apps/caatuu-android/scripts/prepare-llama-vendor.sh"
 
 cd "$repo_root/apps/caatuu-android"
