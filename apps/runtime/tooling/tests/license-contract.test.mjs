@@ -22,7 +22,7 @@ const [
   chat,
   chatHtml,
   routes,
-  modelCatalogSource
+  modelConfigsSource
 ] = await Promise.all([
   read("LICENSE"),
   read("docs/LICENSING.md"),
@@ -37,11 +37,11 @@ const [
   read("apps/languages/czech/static/chat.js"),
   read("apps/languages/czech/static/chat.html"),
   read("apps/runtime/src/routes/mod.rs"),
-  read("apps/languages/czech/static/data/models/phone-bench/models.json")
+  read("tools/on-device-models/model-configs.json")
 ]);
 
 const languages = JSON.parse(languagesSource);
-const modelCatalog = JSON.parse(modelCatalogSource);
+const modelConfigs = JSON.parse(modelConfigsSource);
 
 test("first-party software is AGPL-3.0-only with explicit scope boundaries", () => {
   assert.match(rootLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
@@ -85,9 +85,9 @@ test("public Android discovery accepts only a non-debuggable release channel", (
 });
 
 test("models under rights review are absent from selectors and blocked at the server", () => {
-  const activeKeys = modelCatalog.models
-    .filter((model) => model.status === "active" && !model.deprecated)
-    .map((model) => model.key);
+  const activeKeys = Object.entries(modelConfigs.models)
+    .filter(([, model]) => model.status === "active" && !model.deprecated)
+    .map(([key]) => key);
   assert.doesNotMatch(chatHtml, /qwen3-lora-003-hard|planet-wordnet-002-copy/);
   assert.doesNotMatch(chrome, /<option[^>]+(?:qwen3-lora-003-hard|planet-wordnet-002-copy)/);
   assert.ok(!activeKeys.includes("qwen3-lora-003-hard"));
