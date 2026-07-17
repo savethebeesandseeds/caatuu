@@ -69,7 +69,15 @@ console.log(`Markdown link check passed for ${markdownFiles.length} files.`);
 function listRepositoryCandidates() {
   const output = execFileSync(
     "git",
-    ["ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+    [
+      "-c",
+      `safe.directory=${repositoryRoot}`,
+      "ls-files",
+      "--cached",
+      "--others",
+      "--exclude-standard",
+      "-z",
+    ],
     { cwd: repositoryRoot }
   );
   return [...new Set(output.toString("utf8").split("\0").filter(Boolean))].sort();

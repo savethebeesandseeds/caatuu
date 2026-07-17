@@ -54,7 +54,15 @@ console.log(`Repository file policy passed for ${paths.length} tracked and candi
 function listRepositoryCandidates() {
   const output = execFileSync(
     "git",
-    ["ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+    [
+      "-c",
+      `safe.directory=${repositoryRoot}`,
+      "ls-files",
+      "--cached",
+      "--others",
+      "--exclude-standard",
+      "-z",
+    ],
     { cwd: repositoryRoot }
   );
 
