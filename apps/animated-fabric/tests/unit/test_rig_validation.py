@@ -103,12 +103,18 @@ def make_part(
     )
 
 
-def make_asset(asset_id: str = "se_torso", *, width: int = 10, height: int = 20) -> AssetLayer:
+def make_asset(
+    asset_id: str = "se_torso",
+    *,
+    width: int = 10,
+    height: int = 20,
+    direction: Direction = Direction.SE,
+) -> AssetLayer:
     return AssetLayer(
         asset_id=asset_id,
-        direction=Direction.SE,
+        direction=direction,
         semantic_part="torso",
-        path=f"source/layers/SE/{asset_id}.png",
+        path=f"source/layers/{direction.value}/{asset_id}.png",
         source_canvas_size=IntSize(width=100, height=100),
         trim_origin=IntPoint(x=0, y=0),
         trim_size=IntSize(width=width, height=height),
@@ -289,6 +295,104 @@ def test_pivot_uses_conservative_trimmed_asset_bounds(pivot: Vec2, warned: bool)
         assert pivot_diagnostics[0].suggestion == (
             "Keep pivot x within [-10, 20] and y within [-20, 40], or correct the asset binding."
         )
+
+
+def test_profile_pivot_override_uses_base_asset_and_profile_location() -> None:
+    profile = DirectionProfile(pivots={"body_torso": Vec2(x=20.01, y=0.0)})
+    rig = make_rig(
+        parts=(make_part(pivot=Vec2(x=0.0, y=0.0)),),
+        direction_profiles={Direction.SE: profile},
+    )
+
+    diagnostics = validate_rig(make_input(rig, assets=(make_asset(),)))
+    pivot_diagnostics = [
+        item for item in diagnostics if item.code == ValidationCode.PIVOT_FAR_OUTSIDE_ASSET
+    ]
+
+    assert len(pivot_diagnostics) == 1
+    assert pivot_diagnostics[0].location == "direction_profiles.SE.pivots.body_torso"
+    assert "asset 'se_torso' (10 x 20)" in pivot_diagnostics[0].message
+
+
+def test_profile_asset_override_changes_bounds_for_base_pivot_fallback() -> None:
+    profile = DirectionProfile(asset_selection={"body_torso": "se_torso_small"})
+    rig = make_rig(
+        parts=(make_part(pivot=Vec2(x=21.0, y=0.0), asset_id="se_torso_large"),),
+        direction_profiles={Direction.SE: profile},
+    )
+    assets = (
+        make_asset("se_torso_large", width=100, height=100),
+        make_asset("se_torso_small", width=10, height=20),
+    )
+
+    diagnostics = validate_rig(make_input(rig, assets=assets))
+    pivot_diagnostics = [
+        item for item in diagnostics if item.code == ValidationCode.PIVOT_FAR_OUTSIDE_ASSET
+    ]
+
+    assert len(pivot_diagnostics) == 1
+    assert pivot_diagnostics[0].location == "parts[0].pivot_by_direction.SE"
+    assert "asset 'se_torso_small' (10 x 20)" in pivot_diagnostics[0].message
+
+
+def test_profile_pivot_and_asset_overrides_define_the_effective_afv206_check() -> None:
+    profile = DirectionProfile(
+        asset_selection={"body_torso": "se_torso_small"},
+        pivots={"body_torso": Vec2(x=20.01, y=0.0)},
+    )
+    rig = make_rig(
+        parts=(
+            make_part(
+                pivot=Vec2(x=0.0, y=0.0),
+                asset_id="se_torso_large",
+            ),
+        ),
+        direction_profiles={Direction.SE: profile},
+    )
+    assets = (
+        make_asset("se_torso_large", width=100, height=100),
+        make_asset("se_torso_small", width=10, height=20),
+    )
+
+    diagnostics = validate_rig(make_input(rig, assets=assets))
+    pivot_diagnostics = [
+        item for item in diagnostics if item.code == ValidationCode.PIVOT_FAR_OUTSIDE_ASSET
+    ]
+
+    assert len(pivot_diagnostics) == 1
+    assert pivot_diagnostics[0].location == "direction_profiles.SE.pivots.body_torso"
+    assert "asset 'se_torso_small' (10 x 20)" in pivot_diagnostics[0].message
+    assert pivot_diagnostics[0].suggestion == (
+        "Keep pivot x within [-10, 20] and y within [-20, 40], or correct the asset binding."
+    )
+
+
+def test_profile_pivot_precedence_avoids_base_and_override_duplicates() -> None:
+    profile = DirectionProfile(pivots={"body_torso": Vec2(x=1001.0, y=0.0)})
+    rig = make_rig(
+        parts=(make_part(pivot=Vec2(x=1000.0, y=0.0)),),
+        direction_profiles={Direction.SE: profile},
+    )
+
+    diagnostics = validate_rig(make_input(rig, assets=(make_asset(),)))
+    pivot_diagnostics = [
+        item for item in diagnostics if item.code == ValidationCode.PIVOT_FAR_OUTSIDE_ASSET
+    ]
+
+    assert len(pivot_diagnostics) == 1
+    assert pivot_diagnostics[0].location == "direction_profiles.SE.pivots.body_torso"
+
+
+def test_in_bounds_profile_pivot_suppresses_far_outside_base_pivot() -> None:
+    profile = DirectionProfile(pivots={"body_torso": Vec2(x=0.0, y=0.0)})
+    rig = make_rig(
+        parts=(make_part(pivot=Vec2(x=1000.0, y=0.0)),),
+        direction_profiles={Direction.SE: profile},
+    )
+
+    diagnostics = validate_rig(make_input(rig, assets=(make_asset(),)))
+
+    assert all(item.code != ValidationCode.PIVOT_FAR_OUTSIDE_ASSET for item in diagnostics)
 
 
 def test_unknown_assets_skip_asset_dependent_pivot_checks() -> None:

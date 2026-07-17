@@ -4,10 +4,12 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M2 and the AF-030 through AF-032 importer and humanoid-rig slices are complete.
+Milestones M0 through M3 are complete.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
-17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles.
+17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
+use cases can move authored-direction bones and pivots, rebind existing parts, and change draw
+slots through validated atomic updates.
 The vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
 atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
@@ -109,10 +111,18 @@ one authored direction. The command never replaces an existing rig unless `--rep
 supplies explicit confirmation. Reference geometry and draw-order policy are recorded in
 [`docs/decisions/0003-humanoid-rig-application.md`](docs/decisions/0003-humanoid-rig-application.md).
 
+`UpdateRigElement` is the Qt-independent AF-033 editing boundary for moving one bone or pivot in an
+authored direction, assigning an existing part to a bone, and changing its direction-invariant draw
+slot. Every changed candidate is fully validated before one atomic rig save; exact-value updates are
+write-free no-ops. The v1 semantics and deferred GUI/undo boundary are recorded in
+[`docs/decisions/0004-rig-editing-use-cases.md`](docs/decisions/0004-rig-editing-use-cases.md).
+The functional editor and its `QUndoStack` remain AF-062 rather than being approximated by an
+undocumented CLI command.
+
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
-catalog, built-in template registry, and AF-032 application use case now create the same persisted
-rig contracts that the renderer consumes, but loading a general imported catalog into `render-frame`
-remains a later integration. The package-resource schema is recorded in
+catalog, built-in template registry, template application, and rig-editing use cases now create and
+update the same persisted rig contracts that the renderer consumes, but loading a general imported
+catalog into `render-frame` remains a later integration. The package-resource schema is recorded in
 [`docs/decisions/0002-rig-template-resource.md`](docs/decisions/0002-rig-template-resource.md).
 `scripts/run_rig_application_demo.py` closes that proof path without changing the public render
 command: it imports both prepared directions into a fresh project, applies the rig, renders the

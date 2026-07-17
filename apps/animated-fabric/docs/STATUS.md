@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0, M1, and M2 complete; M3 underway
+**Current state:** Milestones M0 through M3 complete; M4 next
 
 **Last updated:** 2026-07-17
 
@@ -32,7 +32,7 @@ M3 - importer and humanoid rig.
 - [x] AF-030 Layer importer
 - [x] AF-031 Template registry
 - [x] AF-032 Humanoid rig application
-- [ ] AF-033 Rig editing
+- [x] AF-033 Rig editing
 
 ## Delivered scope
 
@@ -184,6 +184,19 @@ M3 - importer and humanoid rig.
 - Unconfirmed rig publication uses an atomic no-replace hard link at the repository boundary, so a
   concurrent writer cannot turn the existence check into a silent overwrite; replacement does not
   parse or allocate an arbitrary pre-existing rig document.
+- Application-owned `UpdateRigElement` orchestration provides frozen typed operations for moving a
+  bone, moving a pivot, assigning an existing part to a bone, and changing its draw slot without
+  coupling the rig model to Qt or a presentation surface.
+- Bone and pivot edits target one authored direction profile and preserve base values, rotation,
+  scale, the other direction, and stable tuple ordering. Locked bones, mirrored directions,
+  missing or ambiguous targets, pivots without selected assets, and unknown slots fail before a
+  write.
+- Each detached candidate is validated with the project layer catalog before exactly one atomic rig
+  replacement. Warning-only edits may publish; exact-value updates are write-free no-ops and report
+  a transient revision delta of zero rather than inventing a persisted revision field.
+- Effective direction-profile pivots are validated against effective profile-selected assets, so
+  rendered overrides receive the same `AFV206` bounds warning as base binding pivots. Decision 0004
+  records assignment, direction, revision, CLI, and deferred undo semantics.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -212,6 +225,7 @@ Principal files:
 - `src/animated_fabric/application/ports.py`
 - `src/animated_fabric/application/humanoid_rig.py`
 - `src/animated_fabric/application/apply_rig_template.py`
+- `src/animated_fabric/application/update_rig_element.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
@@ -272,13 +286,35 @@ Principal files:
 - `tests/integration/test_apply_rig_template_cli.py`
 - `tests/integration/test_imported_fixture_rig.py`
 - `tests/integration/test_rig_application_demo.py`
+- `tests/unit/test_update_rig_element.py`
+- `tests/integration/test_update_rig_element.py`
 - `docs/decisions/0001-layer-manifest.md`
 - `docs/decisions/0002-rig-template-resource.md`
 - `docs/decisions/0003-humanoid-rig-application.md`
+- `docs/decisions/0004-rig-editing-use-cases.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-17 through the repository-owned Linux container after AF-033:
+
+- `ruff format --check .`: 178 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 57 source files.
+- `pytest -q`: 654 passed; 92.91% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Focused AF-033 unit and rig-validation suite: 52 passed.
+- Focused AF-033 real-repository integration and render suite: 15 passed.
+- `python scripts/generate_fixture_assets.py --out .tmp/final-af033-fixtures-650`:
+  generated the deterministic 28-layer owned fixture and canonical fixture project.
+- `python scripts/run_demo_pipeline.py --out .tmp/final-af033-demo-650`: rendered the reviewed
+  neutral frames and matched both goldens exactly. The SE SHA-256 digest was
+  `0b2632ea0670e3d66931a849acfaeb76256d6800e6103931ed89cb22d764b6d4`; the NE digest was
+  `2d416e98997e8f6cde343f3213947b3e54e4ed97564ccdd544de25d6644144d0`.
+- `python -m animated_fabric --help`, `python -m animated_fabric rig --help`, and
+  `python -m animated_fabric doctor`: CLI help passed and doctor reported no problems.
+- Final code- and test-review gaps were addressed before the focused and complete suites passed.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-032:
 
@@ -384,6 +420,12 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
+- Persisted project, rig, and layer-catalog JSON still lack global file-size and collection-count
+  bounds. Add both before production use accepts untrusted projects.
+- Frozen domain models still expose mutable nested mappings. Resolve deep immutability or enforce
+  controller-owned defensive copies before the AF-060 long-lived document controller.
+- AF-033 edit dataclasses currently rely on trusted typed callers. Validate externally derived
+  values before GUI or plugin deserialization can construct rig-edit requests.
 - The dedicated CUDA image target is defined but was not built in this run. The adapted
   provider passed an offline CUDA smoke against the already validated Tukevejtso dependency
   environment; this does not replace building and scanning Animated Fabric's own CUDA image.
@@ -394,10 +436,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- The authored-direction renderer, general layer importer, template registry, and humanoid template
-  application exist, but general imported-catalog loading, complete-frame mirroring, animation
-  generators, rig editing, and export execution do not. `render-frame` therefore still accepts the
-  owned generated fixture project only; AF-033 remains the next rig milestone.
+- The authored-direction renderer, general layer importer, template registry, humanoid template
+  application, and rig-editing use cases exist, but general imported-catalog loading,
+  complete-frame mirroring, animation generators, and export execution do not. `render-frame`
+  therefore still accepts the owned generated fixture project only; AF-040 is the next milestone.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -409,9 +451,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   `[0, 1]`, and z-bias is a step-only integer. A render request may return events declared exactly
   at its normalized sample time; interval-crossing dispatch semantics remain unspecified.
 - The full renderer caches topological order and evaluated clips against a transient non-negative
-  `project_revision`. No mutation service or persisted revision exists yet, so future mutation
-  tickets must construct the incremented runtime aggregate or explicitly invalidate the cache.
-  The optional complete-frame cache remains unimplemented.
+  `project_revision`. AF-033 reports a revision delta for the future document controller but does
+  not persist or globally own that counter; AF-060 must apply it to the runtime aggregate for eager
+  invalidation. Rig fingerprints already prevent stale hits. The optional complete-frame cache
+  remains unimplemented.
 - Cubic overshoot is clamped back to `0 <= RGB <= alpha <= 1`; unpremultiplication uses float32
   epsilon, final conversion uses nearest-even NumPy rounding, and clipping defaults to alpha above
   zero. These are deterministic implementation choices where the specification provides no numeric
@@ -436,6 +479,8 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   it does not invent an aggregate schema on disk.
 - Atomicity is per JSON file, not a multi-file transaction. Migrations, backups, locking,
   autosave, recovery, and multi-writer arbitration remain assigned to later tickets.
+- Rig editing is therefore atomic but currently last-writer-wins across concurrent processes. The
+  project lock, stale-lock handling, autosave, and recovery remain AF-060 concerns.
 - Import rollback covers expected runtime failures and preserves the authoritative prior catalog,
   but no multi-process project lock or crash-recovery journal exists yet. Publication relies on
   same-filesystem hard links from project-local staging; filesystems without hard-link support fail
@@ -460,7 +505,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M0 Foundations
 - [x] M1 Domain and persistence
 - [x] M2 Mathematics and renderer
-- [ ] M3 Importer and humanoid rig (AF-030 through AF-032 complete)
+- [x] M3 Importer and humanoid rig
 - [ ] M4 Humanoid generators
 - [ ] M5 Export
 - [ ] M6 Functional GUI
@@ -470,4 +515,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-033 Rig editing as use cases
+- AF-040 Interpolation and clip builder

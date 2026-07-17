@@ -211,8 +211,28 @@ def _pivot_diagnostics(value: ValidationInput, path: str) -> list[Diagnostic]:
     assets_by_id = {asset.asset_id: asset for asset in reversed(value.assets)}
     diagnostics: list[Diagnostic] = []
     for part_index, part in enumerate(value.rig.parts):
-        for direction, pivot in part.pivot_by_direction.items():
-            asset_id = part.assets_by_direction.get(direction)
+        profile_pivot_directions = {
+            direction
+            for direction, profile in value.rig.direction_profiles.items()
+            if part.part_id in profile.pivots
+        }
+        pivot_directions = set(part.pivot_by_direction) | profile_pivot_directions
+        for direction in sorted(pivot_directions, key=lambda item: item.value):
+            profile = value.rig.direction_profiles.get(direction)
+            has_profile_pivot = profile is not None and part.part_id in profile.pivots
+            if has_profile_pivot:
+                assert profile is not None
+                pivot = profile.pivots[part.part_id]
+                location = f"direction_profiles.{direction.value}.pivots.{part.part_id}"
+            else:
+                pivot = part.pivot_by_direction[direction]
+                location = f"parts[{part_index}].pivot_by_direction.{direction.value}"
+
+            asset_id = (
+                profile.asset_selection.get(part.part_id)
+                if profile is not None and part.part_id in profile.asset_selection
+                else part.assets_by_direction.get(direction)
+            )
             asset = assets_by_id.get(asset_id) if asset_id is not None else None
             if asset is None:
                 continue
@@ -229,7 +249,7 @@ def _pivot_diagnostics(value: ValidationInput, path: str) -> list[Diagnostic]:
                         f"outside asset '{asset.asset_id}' ({width} x {height})."
                     ),
                     path=path,
-                    location=(f"parts[{part_index}].pivot_by_direction.{direction.value}"),
+                    location=location,
                     suggestion=(
                         f"Keep pivot x within [{-width}, {2 * width}] and y within "
                         f"[{-height}, {2 * height}], or correct the asset binding."
