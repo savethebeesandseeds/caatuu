@@ -1,5 +1,10 @@
 """Application-layer protocols and use-case boundaries."""
 
+from animated_fabric.application.animation_clip_builder import (
+    ANIMATION_BUILD_FAILURE_CODE,
+    AnimationClipBuilder,
+    AnimationClipBuildRequest,
+)
 from animated_fabric.application.apply_rig_template import (
     RIG_TEMPLATE_APPLICATION_FAILURE_CODE,
     RIG_TEMPLATE_REPLACEMENT_REQUIRED_CODE,
@@ -72,6 +77,9 @@ from animated_fabric.application.update_rig_element import (
 from animated_fabric.application.validation_service import ValidateProject, ValidateProjectRequest
 
 __all__ = [
+    "ANIMATION_BUILD_FAILURE_CODE",
+    "AnimationClipBuildRequest",
+    "AnimationClipBuilder",
     "ApplyRigTemplate",
     "ApplyRigTemplateRequest",
     "ApplyRigTemplateResult",

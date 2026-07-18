@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M3 complete; M4 next
+**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040 complete
 
-**Last updated:** 2026-07-17
+**Last updated:** 2026-07-18
 
 ## Completed work
 
@@ -33,6 +33,10 @@ M3 - importer and humanoid rig.
 - [x] AF-031 Template registry
 - [x] AF-032 Humanoid rig application
 - [x] AF-033 Rig editing
+
+M4 - humanoid generators.
+
+- [x] AF-040 Interpolation and clip builder
 
 ## Delivered scope
 
@@ -197,6 +201,18 @@ M3 - importer and humanoid rig.
 - Effective direction-profile pivots are validated against effective profile-selected assets, so
   rendered overrides receive the same `AFV206` bounds warning as base binding pivots. Decision 0004
   records assignment, direction, revision, CLI, and deferred undo semantics.
+- Application-owned `AnimationClipBuilder` accepts a frozen `AnimationClipBuildRequest` and returns
+  a detached typed clip without retaining mutable state. It owns fixed
+  `animated-fabric.animation-clip.v1` / `0.1.0` metadata and derives the template ID from the rig.
+- Track declaration order is preserved while keys and events are stably sorted by time. Key values
+  and interpolation modes survive normalization; event ties and duplicates remain distinct, and
+  recursive provenance parameters are defensively copied with canonical map order.
+- A looping track without an explicit duration endpoint receives one matching its first value and
+  interpolation mode. Authored duration endpoints remain unchanged, invalid authored data keeps
+  the existing `AFV` diagnostics, warning-only clips return a value, and typed construction failures
+  use bounded `AFB001` diagnostics.
+- Focused normalization, detachment, diagnostic, determinism, and boundary tests accompany accepted
+  decision 0005; the builder does not duplicate interpolation or rig-aware validation policy.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -226,6 +242,7 @@ Principal files:
 - `src/animated_fabric/application/humanoid_rig.py`
 - `src/animated_fabric/application/apply_rig_template.py`
 - `src/animated_fabric/application/update_rig_element.py`
+- `src/animated_fabric/application/animation_clip_builder.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
@@ -287,15 +304,31 @@ Principal files:
 - `tests/integration/test_imported_fixture_rig.py`
 - `tests/integration/test_rig_application_demo.py`
 - `tests/unit/test_update_rig_element.py`
+- `tests/unit/test_animation_clip_builder.py`
+- `tests/integration/test_animation_clip_builder.py`
 - `tests/integration/test_update_rig_element.py`
 - `docs/decisions/0001-layer-manifest.md`
 - `docs/decisions/0002-rig-template-resource.md`
 - `docs/decisions/0003-humanoid-rig-application.md`
 - `docs/decisions/0004-rig-editing-use-cases.md`
+- `docs/decisions/0005-animation-clip-normalization.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-18 through the repository-owned Linux container after AF-040:
+
+- `ruff format --check .`: 181 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 58 source files.
+- `pytest -q`: 676 passed; 93.02% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Fixture generation, the demo pipeline, `python -m animated_fabric --help`, and
+  `python -m animated_fabric doctor` all completed successfully.
+- Demo output matched both reviewed goldens exactly. The SE SHA-256 digest was
+  `0b2632ea0670e3d66931a849acfaeb76256d6800e6103931ed89cb22d764b6d4`; the NE digest was
+  `2d416e98997e8f6cde343f3213947b3e54e4ed97564ccdd544de25d6644144d0`.
 
 Executed on 2026-07-17 through the repository-owned Linux container after AF-033:
 
@@ -437,9 +470,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
 - The authored-direction renderer, general layer importer, template registry, humanoid template
-  application, and rig-editing use cases exist, but general imported-catalog loading,
-  complete-frame mirroring, animation generators, and export execution do not. `render-frame`
-  therefore still accepts the owned generated fixture project only; AF-040 is the next milestone.
+  application, rig-editing use cases, and pure clip builder exist, but general imported-catalog
+  loading, complete-frame mirroring, animation generators and their registry, `GenerateAnimation`,
+  animation persistence or publication, animation CLI or GUI controls, and export execution do not.
+  `render-frame` therefore still accepts the owned generated fixture project only; AF-041 is next.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -448,8 +482,9 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   profile pivot uses image origin. Direction multipliers affect delta channels only; scale
   multipliers adjust the factor around identity `1`, while absolute channels remain absolute.
 - Part visibility is a discrete final override, opacity deltas are additive and clamped to
-  `[0, 1]`, and z-bias is a step-only integer. A render request may return events declared exactly
-  at its normalized sample time; interval-crossing dispatch semantics remain unspecified.
+  `[0, 1]`, and z-bias is a step-only integer. AF-040 preserves an event authored at `duration_ms`;
+  exact event-at-duration sampling for a loop remains renderer-defined, and interval-crossing
+  dispatch semantics remain unspecified.
 - The full renderer caches topological order and evaluated clips against a transient non-negative
   `project_revision`. AF-033 reports a revision delta for the future document controller but does
   not persist or globally own that counter; AF-060 must apply it to the runtime aggregate for eager
@@ -515,4 +550,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-040 Interpolation and clip builder
+- AF-041 `humanoid_idle_v1`

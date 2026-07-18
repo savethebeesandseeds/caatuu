@@ -4,7 +4,7 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M3 are complete.
+Milestones M0 through M3 are complete; M4 is underway, with AF-040 complete.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -118,6 +118,13 @@ write-free no-ops. The v1 semantics and deferred GUI/undo boundary are recorded 
 [`docs/decisions/0004-rig-editing-use-cases.md`](docs/decisions/0004-rig-editing-use-cases.md).
 The functional editor and its `QUndoStack` remain AF-062 rather than being approximated by an
 undocumented CLI command.
+
+AF-040 adds a pure application clip builder that reuses the existing interpolation and validation
+contracts, preserves authored track and event semantics, normalizes key order, and closes an
+otherwise implicit loop endpoint without overwriting an explicit one. It returns a detached typed
+clip with diagnostics but does not persist it or update the project manifest; generator formulas and
+animation publication remain later tickets. The compatibility rules are recorded in
+[decision 0005](docs/decisions/0005-animation-clip-normalization.md).
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and
