@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040 complete
+**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040 and AF-041 complete
 
 **Last updated:** 2026-07-18
 
@@ -37,6 +37,7 @@ M3 - importer and humanoid rig.
 M4 - humanoid generators.
 
 - [x] AF-040 Interpolation and clip builder
+- [x] AF-041 `humanoid_idle_v1`
 
 ## Delivered scope
 
@@ -213,6 +214,22 @@ M4 - humanoid generators.
   use bounded `AFB001` diagnostics.
 - Focused normalization, detachment, diagnostic, determinism, and boundary tests accompany accepted
   decision 0005; the builder does not duplicate interpolation or rig-aware validation policy.
+- Pure `HumanoidIdleV1Generator` and strict frozen `HumanoidIdleV1Parameters` implement the direct
+  clip-return contract without IO. Defaults and recommended-range metadata follow specification
+  section 12.2; unknown, coerced, negative, non-finite, and structurally unsafe inputs fail safely.
+- Six fixed-order smooth bone-delta tracks implement the exact torso, head, pelvis, and upper-arm
+  idle coefficients. Cumulative integer-floor quarters support every duration of at least 4 ms, and
+  AF-040 supplies the matching loop endpoint without a competing generator rule.
+- Generation reconstructs detached effective rig and parameter values before use. Incompatible or
+  post-mutated inputs and builder failures become bounded typed `AnimationError` messages without
+  exposing submitted nested values; provenance records all six effective parameters.
+- The AF-041 demo imports the owned SE/NE layers into a fresh project, applies the real 17-bone
+  humanoid rig, generates the clip in memory, renders all eight authored-direction quarter frames,
+  and verifies a byte snapshot showing that no clip or manifest update was published.
+- Four reviewed SE/NE goldens at time zero and the first quarter lock the visible breath and
+  counter-motion. Focused unit and full-rig integration tests also cover periodic closure, the final
+  loop quarter, deterministic repetition, validation, clipping, and project immutability. Decision
+  0006 records the parameter, phase, identity, diagnostic-context, and deferred-publication rules.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -243,6 +260,8 @@ Principal files:
 - `src/animated_fabric/application/apply_rig_template.py`
 - `src/animated_fabric/application/update_rig_element.py`
 - `src/animated_fabric/application/animation_clip_builder.py`
+- `src/animated_fabric/generators/__init__.py`
+- `src/animated_fabric/generators/humanoid_idle_v1.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
@@ -265,6 +284,7 @@ Principal files:
 - `scripts/generate_af022_compositor_golden.py`
 - `scripts/run_demo_pipeline.py`
 - `scripts/run_rig_application_demo.py`
+- `scripts/run_idle_animation_demo.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
@@ -285,6 +305,11 @@ Principal files:
 - `tests/golden/af022_compositor.png`
 - `tests/golden/af023_stick_humanoid_neutral_se.png`
 - `tests/golden/af023_stick_humanoid_neutral_ne.png`
+- `tests/golden/af041_humanoid_idle_se_t0000.png`
+- `tests/golden/af041_humanoid_idle_se_t0500.png`
+- `tests/golden/af041_humanoid_idle_ne_t0000.png`
+- `tests/golden/af041_humanoid_idle_ne_t0500.png`
+- `tests/golden/README.md`
 - `tests/integration/test_render_frame_cli.py`
 - `tests/integration/test_demo_pipeline.py`
 - `tests/integration/test_json_project_repository.py`
@@ -305,17 +330,37 @@ Principal files:
 - `tests/integration/test_rig_application_demo.py`
 - `tests/unit/test_update_rig_element.py`
 - `tests/unit/test_animation_clip_builder.py`
+- `tests/unit/test_humanoid_idle_v1.py`
 - `tests/integration/test_animation_clip_builder.py`
+- `tests/integration/test_humanoid_idle_v1.py`
 - `tests/integration/test_update_rig_element.py`
 - `docs/decisions/0001-layer-manifest.md`
 - `docs/decisions/0002-rig-template-resource.md`
 - `docs/decisions/0003-humanoid-rig-application.md`
 - `docs/decisions/0004-rig-editing-use-cases.md`
 - `docs/decisions/0005-animation-clip-normalization.md`
+- `docs/decisions/0006-humanoid-idle-generator.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-18 through the repository-owned Linux container after AF-041:
+
+- `ruff format --check .`: 186 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 60 source files.
+- `pytest -q`: 707 passed; 93.13% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- The neutral SE/NE demo and eight-frame SE/NE idle demo completed successfully. Final neutral
+  outputs byte-matched both AF-023 goldens, and the four reviewed AF-041 samples also matched.
+- AF-041 idle golden SHA-256 digests were SE at 0 ms
+  `2e00e27fd454378fa8138c0279eb05ae117f547cde81dc1fba2134c979480340`, SE at 500 ms
+  `c92cc37bdb4cd56e743fd0a029eec28c56e0ec8573debd664ea786a5628be6f6`, NE at 0 ms
+  `0413bb2ee39900bcd5ab12fc5db87dde47297658b358cf66830357e2408d128f`, and NE at 500 ms
+  `e461d6a0bebacbd09f79db96d591c6066de9edb761c0b16377864d59f66c1cf7`.
+- `python -m animated_fabric --help` and `python -m animated_fabric doctor`: CLI help passed and
+  doctor reported no problems.
 
 Executed on 2026-07-18 through the repository-owned Linux container after AF-040:
 
@@ -470,10 +515,15 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
 - The authored-direction renderer, general layer importer, template registry, humanoid template
-  application, rig-editing use cases, and pure clip builder exist, but general imported-catalog
-  loading, complete-frame mirroring, animation generators and their registry, `GenerateAnimation`,
-  animation persistence or publication, animation CLI or GUI controls, and export execution do not.
-  `render-frame` therefore still accepts the owned generated fixture project only; AF-041 is next.
+  application, rig-editing use cases, pure clip builder, and `humanoid_idle_v1` generator exist, but
+  general imported-catalog loading, complete-frame mirroring, `humanoid_walk_v1`, the animation
+  generator registry, `GenerateAnimation`, animation persistence or publication, animation CLI or
+  GUI controls, and export execution do not. `render-frame` therefore still accepts the owned
+  generated fixture project only; AF-042 is next.
+- AF-041 owns fixed `idle` / `Idle` clip identity and
+  `animations/idle.animated-clip.json` diagnostic context only. AF-043 retains user-selected naming,
+  destination, persistence, replacement, and manifest policy. Recommended idle parameter ranges
+  remain schema metadata rather than hard validity bounds.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -550,4 +600,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-041 `humanoid_idle_v1`
+- AF-042 `humanoid_walk_v1`

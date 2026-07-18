@@ -4,7 +4,7 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M3 are complete; M4 is underway, with AF-040 complete.
+Milestones M0 through M3 are complete; M4 is underway, with AF-040 and AF-041 complete.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -13,8 +13,8 @@ slots through validated atomic updates.
 The vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
 atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
-yet, and the application does not contain animation generators, an exporter, a functional editor,
-or a database.
+yet. The pure `humanoid_idle_v1` generator now exists, but the application does not yet contain the
+walk generator, generator registry, exporter, functional editor, or database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -125,6 +125,12 @@ otherwise implicit loop endpoint without overwriting an explicit one. It returns
 clip with diagnostics but does not persist it or update the project manifest; generator formulas and
 animation publication remain later tickets. The compatibility rules are recorded in
 [decision 0005](docs/decisions/0005-animation-clip-normalization.md).
+
+AF-041 defines the pure `humanoid_idle_v1` generator: strict effective parameters feed six fixed
+humanoid tracks, exact quarter-phase coefficients, and the AF-040 loop endpoint. The generator has
+no IO and does not yet add registry, persistence, CLI, or GUI behavior; those remain AF-043.
+Parameter, timing, provenance, and reviewed SE/NE golden-frame rules are recorded in
+[decision 0006](docs/decisions/0006-humanoid-idle-generator.md).
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and
