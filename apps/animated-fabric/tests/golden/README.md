@@ -11,6 +11,11 @@ pixels rather than encoded PNG bytes.
 - `af041_humanoid_idle_se_t0000.png`, `af041_humanoid_idle_se_t0500.png`,
   `af041_humanoid_idle_ne_t0000.png`, and `af041_humanoid_idle_ne_t0500.png` lock the default
   `humanoid_idle_v1` breath and quarter-phase counter-motion on the fully applied owned rig.
+- `af042_humanoid_walk_se_t0000.png`, `af042_humanoid_walk_se_t0200.png`,
+  `af042_humanoid_walk_se_t0400.png`, `af042_humanoid_walk_ne_t0000.png`,
+  `af042_humanoid_walk_ne_t0200.png`, and `af042_humanoid_walk_ne_t0400.png` lock the default
+  `humanoid_walk_v1` contact, first lifted-foot, and opposite-contact phases on the fully applied
+  owned rig.
 
 To propose an AF-023 replacement, run `python scripts/run_demo_pipeline.py --out .tmp/demo`
 inside the Linux development container, inspect both candidate frames, state the visual reason
@@ -21,3 +26,9 @@ To generate AF-041 candidates, run
 container. The script writes all four quarter phases for both authored directions. Inspect all eight
 frames, then copy only the four names listed above from `.tmp/af041-idle/frames/` after review;
 tests never regenerate or replace reviewed goldens.
+
+To generate AF-042 candidates, run
+`python scripts/run_walk_animation_demo.py --out .tmp/af042-walk` inside the Linux development
+container. The script writes all four quarter phases for both authored directions. Inspect all eight
+frames, including the 600 ms opposite lifted-foot phase, then copy only the six names listed above
+from `.tmp/af042-walk/frames/` after review; tests never regenerate or replace reviewed goldens.

@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-import math
 from collections.abc import Mapping
 from typing import ClassVar
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pydantic import Field, ValidationError, field_validator
 
 from animated_fabric.application.animation_clip_builder import (
     AnimationClipBuilder,
@@ -24,9 +23,14 @@ from animated_fabric.domain.animation import (
 )
 from animated_fabric.domain.exceptions import AnimationError
 from animated_fabric.domain.rig import RigDefinition
+from animated_fabric.generators._support import (
+    GeneratorParameters,
+    canonical_nonnegative_float,
+    detached_compatible_rig,
+    parameter_failure_message,
+)
 
 _SQRT_THREE_OVER_TWO = 0.8660254037844386
-_RIG_FAILURE_MESSAGE = "humanoid_idle_v1 requires a rig using the humanoid_v1 template."
 _PARAMETER_FIELDS = frozenset(
     {
         "arm_drift_deg",
@@ -39,16 +43,8 @@ _PARAMETER_FIELDS = frozenset(
 )
 
 
-class HumanoidIdleV1Parameters(BaseModel):
+class HumanoidIdleV1Parameters(GeneratorParameters):
     """Validated effective parameters for ``humanoid_idle_v1``."""
-
-    model_config = ConfigDict(
-        allow_inf_nan=False,
-        extra="forbid",
-        frozen=True,
-        strict=True,
-        validate_default=True,
-    )
 
     duration_ms: int = Field(
         default=2000,
@@ -95,15 +91,7 @@ class HumanoidIdleV1Parameters(BaseModel):
     @classmethod
     def normalize_amplitude(cls, value: object) -> float:
         """Accept only finite non-negative Python numbers and canonicalize zero."""
-        if isinstance(value, bool) or not isinstance(value, (int, float)):
-            raise ValueError("must be a finite non-negative number")
-        try:
-            normalized = float(value)
-        except (OverflowError, ValueError) as error:
-            raise ValueError("must be a finite non-negative number") from error
-        if not math.isfinite(normalized) or normalized < 0.0:
-            raise ValueError("must be a finite non-negative number")
-        return 0.0 if normalized == 0.0 else normalized
+        return canonical_nonnegative_float(value)
 
 
 class HumanoidIdleV1Generator:
@@ -120,7 +108,15 @@ class HumanoidIdleV1Generator:
         try:
             return HumanoidIdleV1Parameters.model_validate(raw)
         except ValidationError as error:
-            raise AnimationError(_parameter_failure_message(error)) from None
+            raise AnimationError(
+                parameter_failure_message(
+                    error,
+                    generator_id=self.generator_id,
+                    allowed_fields=_PARAMETER_FIELDS,
+                )
+            ) from None
+        except Exception:
+            raise AnimationError("Invalid humanoid_idle_v1 parameters.") from None
 
     def generate(
         self,
@@ -128,17 +124,12 @@ class HumanoidIdleV1Generator:
         params: HumanoidIdleV1Parameters,
     ) -> AnimationClip:
         """Return a deterministic looping idle clip for one compatible rig."""
-        if not isinstance(rig, RigDefinition):
-            raise AnimationError(_RIG_FAILURE_MESSAGE)
-        try:
-            effective_rig = RigDefinition.model_validate(
-                rig.model_dump(mode="python", round_trip=True, warnings=False)
-            )
-        except (ValidationError, TypeError, ValueError, OverflowError, RecursionError):
-            raise AnimationError(_RIG_FAILURE_MESSAGE) from None
-        if effective_rig.template_id != self.template_id:
-            raise AnimationError(_RIG_FAILURE_MESSAGE)
-        if not isinstance(params, HumanoidIdleV1Parameters):
+        effective_rig = detached_compatible_rig(
+            rig,
+            generator_id=self.generator_id,
+            template_id=self.template_id,
+        )
+        if type(params) is not HumanoidIdleV1Parameters:
             raise AnimationError("humanoid_idle_v1 requires validated HumanoidIdleV1Parameters.")
         try:
             effective = HumanoidIdleV1Parameters(
@@ -150,7 +141,15 @@ class HumanoidIdleV1Generator:
                 pelvis_shift_px=params.pelvis_shift_px,
             )
         except ValidationError as error:
-            raise AnimationError(_parameter_failure_message(error)) from None
+            raise AnimationError(
+                parameter_failure_message(
+                    error,
+                    generator_id=self.generator_id,
+                    allowed_fields=_PARAMETER_FIELDS,
+                )
+            ) from None
+        except Exception:
+            raise AnimationError("Invalid humanoid_idle_v1 parameters.") from None
 
         phase_times = (
             0,
@@ -270,19 +269,6 @@ def _scaled(coefficient: float, amplitude: float) -> float:
     if coefficient == 0.0 or amplitude == 0.0:
         return 0.0
     return coefficient * amplitude
-
-
-def _parameter_failure_message(error: ValidationError) -> str:
-    field: str | None = None
-    errors = error.errors(include_url=False, include_input=False)
-    if errors:
-        location = errors[0]["loc"]
-        top_level = location[0] if location else None
-        if isinstance(top_level, str) and top_level in _PARAMETER_FIELDS:
-            field = top_level
-    if field is None:
-        return "Invalid humanoid_idle_v1 parameters."
-    return f"Invalid humanoid_idle_v1 parameter '{field}'."
 
 
 __all__ = ["HumanoidIdleV1Generator", "HumanoidIdleV1Parameters"]

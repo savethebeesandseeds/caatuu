@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Iterator, Mapping
 
 import pytest
 from pydantic import ValidationError
@@ -20,6 +21,39 @@ from animated_fabric.domain.rig import BoneDefinition, RigDefinition
 from animated_fabric.generators import HumanoidIdleV1Generator, HumanoidIdleV1Parameters
 
 _SQRT_THREE_OVER_TWO = 0.8660254037844386
+
+
+class _HostileInt(int):
+    def __float__(self) -> float:
+        raise RuntimeError("sensitive_numeric_value")
+
+
+class _HostileFloat(float):
+    def __float__(self) -> float:
+        raise RuntimeError("sensitive_numeric_value")
+
+
+class _HostileMapping(Mapping[str, object]):
+    def __getitem__(self, key: str) -> object:
+        raise RuntimeError("sensitive_mapping_value")
+
+    def __iter__(self) -> Iterator[str]:
+        raise RuntimeError("sensitive_mapping_value")
+
+    def __len__(self) -> int:
+        raise RuntimeError("sensitive_mapping_value")
+
+
+class _HostileRig(RigDefinition):
+    def model_dump(self, *args: object, **kwargs: object) -> dict[str, object]:
+        raise RuntimeError("sensitive_rig_value")
+
+
+class _HostileIdleParameters(HumanoidIdleV1Parameters):
+    def __getattribute__(self, name: str) -> object:
+        if name == "duration_ms":
+            raise RuntimeError("sensitive_parameter_value")
+        return super().__getattribute__(name)
 
 
 def _rig(*, template_id: str = "humanoid_v1", include_head: bool = True) -> RigDefinition:
@@ -99,6 +133,15 @@ def test_parameter_error_never_echoes_sensitive_submitted_value() -> None:
     assert captured.value.__cause__ is None
 
 
+def test_raw_mapping_callbacks_raise_a_fixed_sanitized_error() -> None:
+    with pytest.raises(AnimationError) as captured:
+        HumanoidIdleV1Generator().validate_parameters(_HostileMapping())
+
+    assert str(captured.value) == "Invalid humanoid_idle_v1 parameters."
+    assert "sensitive_mapping_value" not in str(captured.value)
+    assert captured.value.__cause__ is None
+
+
 def test_numeric_amplitudes_are_canonical_floats_without_hard_recommended_caps() -> None:
     params = HumanoidIdleV1Generator().validate_parameters(
         {
@@ -116,6 +159,18 @@ def test_numeric_amplitudes_are_canonical_floats_without_hard_recommended_caps()
     assert params.head_counter_deg == 3.0
     assert params.arm_drift_deg == 4.0
     assert math.copysign(1.0, params.pelvis_shift_px) == 1.0
+
+
+def test_numeric_subclasses_are_canonicalized_without_conversion_callbacks() -> None:
+    params = HumanoidIdleV1Generator().validate_parameters(
+        {
+            "breath_y_px": _HostileInt(3),
+            "torso_rotation_deg": _HostileFloat(2.5),
+        }
+    )
+
+    assert params.breath_y_px == 3.0 and type(params.breath_y_px) is float
+    assert params.torso_rotation_deg == 2.5
 
 
 def test_default_generation_has_exact_fixed_tracks_metadata_and_provenance() -> None:
@@ -294,6 +349,19 @@ def test_generate_revalidates_mutated_rigs_without_nested_value_leaks() -> None:
     assert captured.value.__cause__ is None
 
 
+def test_generate_rejects_rig_subclasses_before_override_callbacks() -> None:
+    hostile = _HostileRig.model_validate(_rig().model_dump(mode="python"))
+
+    with pytest.raises(AnimationError) as captured:
+        HumanoidIdleV1Generator().generate(hostile, HumanoidIdleV1Parameters())
+
+    assert str(captured.value) == (
+        "humanoid_idle_v1 requires a rig using the humanoid_v1 template."
+    )
+    assert "sensitive_rig_value" not in str(captured.value)
+    assert captured.value.__cause__ is None
+
+
 def test_generation_is_repeatable_and_does_not_mutate_inputs() -> None:
     generator = HumanoidIdleV1Generator()
     rig = _rig()
@@ -312,6 +380,15 @@ def test_generation_is_repeatable_and_does_not_mutate_inputs() -> None:
 def test_generate_rejects_unvalidated_parameter_objects() -> None:
     with pytest.raises(AnimationError, match="requires validated"):
         HumanoidIdleV1Generator().generate(_rig(), {})  # type: ignore[arg-type]
+
+
+def test_generate_rejects_parameter_subclasses_before_field_callbacks() -> None:
+    with pytest.raises(AnimationError) as captured:
+        HumanoidIdleV1Generator().generate(_rig(), _HostileIdleParameters())
+
+    assert str(captured.value) == ("humanoid_idle_v1 requires validated HumanoidIdleV1Parameters.")
+    assert "sensitive_parameter_value" not in str(captured.value)
+    assert captured.value.__cause__ is None
 
 
 def test_generate_revalidates_mutated_parameter_copies_without_value_leaks() -> None:

@@ -2,7 +2,8 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040 and AF-041 complete
+**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040, AF-041, and AF-042
+complete
 
 **Last updated:** 2026-07-18
 
@@ -38,6 +39,7 @@ M4 - humanoid generators.
 
 - [x] AF-040 Interpolation and clip builder
 - [x] AF-041 `humanoid_idle_v1`
+- [x] AF-042 `humanoid_walk_v1`
 
 ## Delivered scope
 
@@ -230,6 +232,25 @@ M4 - humanoid generators.
   counter-motion. Focused unit and full-rig integration tests also cover periodic closure, the final
   loop quarter, deterministic repetition, validation, clipping, and project immutability. Decision
   0006 records the parameter, phase, identity, diagnostic-context, and deferred-publication rules.
+- Pure `HumanoidWalkV1Generator` and strict frozen `HumanoidWalkV1Parameters` implement all nine
+  section 12.3 defaults without inventing hard maxima. Unknown, coerced, negative, non-finite, and
+  structurally unsafe inputs fail through bounded typed errors.
+- Twelve fixed-order smooth bone-delta tracks implement the exact quarter-phase FK gait, including
+  opposed thighs and arms, pelvis/head counter-motion, torso bob, negative shin counter-bend, and
+  local-Y foot lift. Cumulative floor quarters support every duration of at least 4 ms, and AF-040
+  supplies the loop endpoint without adding IK.
+- Fixed `foot_contact_l` and `foot_contact_r` events use the zero and half-cycle floor phases.
+  Provenance records all nine effective parameters, including defaults.
+- Private shared generator support now provides callback-hardened strict parameter handling,
+  canonical finite amplitudes, bounded parameter errors, and detached full-rig validation for both
+  idle and walk without sharing their motion tables.
+- The AF-042 demo imports and applies the owned full 17-bone SE/NE rig, generates the walk clip in
+  memory, renders all eight quarter-phase candidates, and proves the project and manifest remain
+  unchanged. A private demo helper shares only this full-rig bootstrap and rendering machinery.
+- Six reviewed SE/NE goldens at `t_0`, `t_1`, and `t_2` lock the required walk samples. The `t_0`
+  and `t_2` pixels are intentionally identical while their left/right contact events remain
+  distinct; numeric and visual inspection also cover the `t_3` right-forward crossover. Decision
+  0007 records the exact table, identity, timing, event, validation, and AF-043 deferral rules.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -261,7 +282,9 @@ Principal files:
 - `src/animated_fabric/application/update_rig_element.py`
 - `src/animated_fabric/application/animation_clip_builder.py`
 - `src/animated_fabric/generators/__init__.py`
+- `src/animated_fabric/generators/_support.py`
 - `src/animated_fabric/generators/humanoid_idle_v1.py`
+- `src/animated_fabric/generators/humanoid_walk_v1.py`
 - `src/animated_fabric/application/import_layers.py`
 - `src/animated_fabric/application/render_cache.py`
 - `src/animated_fabric/application/render_frame.py`
@@ -284,7 +307,9 @@ Principal files:
 - `scripts/generate_af022_compositor_golden.py`
 - `scripts/run_demo_pipeline.py`
 - `scripts/run_rig_application_demo.py`
+- `scripts/_humanoid_animation_demo.py`
 - `scripts/run_idle_animation_demo.py`
+- `scripts/run_walk_animation_demo.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
@@ -309,6 +334,12 @@ Principal files:
 - `tests/golden/af041_humanoid_idle_se_t0500.png`
 - `tests/golden/af041_humanoid_idle_ne_t0000.png`
 - `tests/golden/af041_humanoid_idle_ne_t0500.png`
+- `tests/golden/af042_humanoid_walk_se_t0000.png`
+- `tests/golden/af042_humanoid_walk_se_t0200.png`
+- `tests/golden/af042_humanoid_walk_se_t0400.png`
+- `tests/golden/af042_humanoid_walk_ne_t0000.png`
+- `tests/golden/af042_humanoid_walk_ne_t0200.png`
+- `tests/golden/af042_humanoid_walk_ne_t0400.png`
 - `tests/golden/README.md`
 - `tests/integration/test_render_frame_cli.py`
 - `tests/integration/test_demo_pipeline.py`
@@ -331,8 +362,10 @@ Principal files:
 - `tests/unit/test_update_rig_element.py`
 - `tests/unit/test_animation_clip_builder.py`
 - `tests/unit/test_humanoid_idle_v1.py`
+- `tests/unit/test_humanoid_walk_v1.py`
 - `tests/integration/test_animation_clip_builder.py`
 - `tests/integration/test_humanoid_idle_v1.py`
+- `tests/integration/test_humanoid_walk_v1.py`
 - `tests/integration/test_update_rig_element.py`
 - `docs/decisions/0001-layer-manifest.md`
 - `docs/decisions/0002-rig-template-resource.md`
@@ -340,10 +373,30 @@ Principal files:
 - `docs/decisions/0004-rig-editing-use-cases.md`
 - `docs/decisions/0005-animation-clip-normalization.md`
 - `docs/decisions/0006-humanoid-idle-generator.md`
+- `docs/decisions/0007-humanoid-walk-generator.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-18 through the repository-owned Linux container after AF-042:
+
+- `ruff format --check .`: 192 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 62 source files.
+- `pytest -q`: 749 passed; 93.06% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Fresh neutral, eight-frame idle, and eight-frame walk demos completed successfully with the real
+  SE/NE rig. Their reviewed samples matched, and the in-memory animation demos did not publish clips
+  or change either project manifest.
+- AF-042 walk golden SHA-256 digests were SE at 0 and 400 ms
+  `0b2632ea0670e3d66931a849acfaeb76256d6800e6103931ed89cb22d764b6d4`, SE at 200 ms
+  `14816d5bb742b318c2b79c15ec6069306077dc9309fa00caa4817aa54f81400c`, NE at 0 and 400 ms
+  `2d416e98997e8f6cde343f3213947b3e54e4ed97564ccdd544de25d6644144d0`, and NE at 200 ms
+  `f56397a3f98574e3926e5933952ba9aded8619de4295cff685be326ce0e42460`.
+- The previously recorded AF-023 neutral and AF-041 idle golden hashes were unchanged.
+- `python -m animated_fabric --help` and `python -m animated_fabric doctor`: CLI help passed and
+  doctor reported no problems.
 
 Executed on 2026-07-18 through the repository-owned Linux container after AF-041:
 
@@ -515,15 +568,17 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
 - The authored-direction renderer, general layer importer, template registry, humanoid template
-  application, rig-editing use cases, pure clip builder, and `humanoid_idle_v1` generator exist, but
-  general imported-catalog loading, complete-frame mirroring, `humanoid_walk_v1`, the animation
-  generator registry, `GenerateAnimation`, animation persistence or publication, animation CLI or
-  GUI controls, and export execution do not. `render-frame` therefore still accepts the owned
-  generated fixture project only; AF-042 is next.
-- AF-041 owns fixed `idle` / `Idle` clip identity and
-  `animations/idle.animated-clip.json` diagnostic context only. AF-043 retains user-selected naming,
-  destination, persistence, replacement, and manifest policy. Recommended idle parameter ranges
-  remain schema metadata rather than hard validity bounds.
+  application, rig-editing use cases, pure clip builder, and both humanoid generators exist, but
+  general imported-catalog loading, complete-frame mirroring, the animation generator registry,
+  `GenerateAnimation`, animation persistence or publication, animation CLI or GUI controls, and
+  export execution do not. `render-frame` therefore still accepts the owned generated fixture
+  project only; AF-043 owns the registry, generation use case, persistence, and animation CLI.
+- AF-041 owns fixed `idle` / `Idle` identity and `animations/idle.animated-clip.json` diagnostic
+  context; AF-042 likewise owns fixed `walk` / `Walk` identity and
+  `animations/walk.animated-clip.json` diagnostic context. Neither path authorizes publication.
+  AF-043 retains user-selected naming, destination, persistence, replacement, and manifest policy.
+  Recommended idle parameter ranges remain schema metadata rather than hard validity bounds; the
+  walk specification provides no recommended ranges or hard maxima.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -600,4 +655,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-042 `humanoid_walk_v1`
+- AF-043 Animation CLI
