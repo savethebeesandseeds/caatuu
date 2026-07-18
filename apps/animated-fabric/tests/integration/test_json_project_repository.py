@@ -239,6 +239,25 @@ def test_conditional_rig_save_atomically_creates_but_never_replaces(tmp_path: Pa
     assert repository.load_rig(tmp_path, path) == original
 
 
+def test_conditional_animation_save_atomically_creates_but_never_replaces(
+    tmp_path: Path,
+) -> None:
+    repository = JsonProjectRepository()
+    original = make_clip()
+    replacement = original.model_copy(update={"display_name": "Replacement"})
+    path = "animations/idle.animated-clip.json"
+    repository.save_animation(tmp_path, path, original, replace_existing=False)
+    before = (tmp_path / path).read_bytes()
+
+    with pytest.raises(ProjectValidationError) as captured:
+        repository.save_animation(tmp_path, path, replacement, replace_existing=False)
+
+    assert captured.value.kind is ProjectValidationKind.DOCUMENT_EXISTS
+    assert (tmp_path / path).read_bytes() == before
+    assert repository.load_animation(tmp_path, path) == original
+    assert temporary_files(tmp_path / "animations") == []
+
+
 def test_concrete_repository_satisfies_the_complete_application_port() -> None:
     repository: ProjectRepository = JsonProjectRepository()
 

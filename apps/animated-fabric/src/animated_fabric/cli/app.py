@@ -5,6 +5,8 @@ from __future__ import annotations
 import importlib.util
 import json
 import logging
+import math
+import re
 import sys
 from pathlib import Path
 from typing import Annotated
@@ -16,6 +18,12 @@ from animated_fabric.application.apply_rig_template import (
     RIG_TEMPLATE_APPLICATION_FAILURE_CODE,
     ApplyRigTemplate,
     ApplyRigTemplateRequest,
+)
+from animated_fabric.application.generate_animation import (
+    ANIMATION_GENERATION_FAILURE_CODE,
+    ANIMATION_REPLACEMENT_REQUIRED_CODE,
+    GenerateAnimation,
+    GenerateAnimationRequest,
 )
 from animated_fabric.application.import_layers import (
     IMPORT_MAPPING_PROPOSAL_CODE,
@@ -33,13 +41,16 @@ from animated_fabric.application.validation_service import (
 from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.diagnostics import Diagnostic, Severity
 from animated_fabric.domain.exceptions import (
+    AnimationError,
     AssetImportError,
     ProjectValidationError,
     ProjectVersionError,
     RenderError,
 )
+from animated_fabric.domain.generators import GeneratorParameterSummary, GeneratorSummary
 from animated_fabric.domain.project import Direction
 from animated_fabric.domain.validation import ProjectValidator
+from animated_fabric.generators import BuiltinAnimationGeneratorRegistry
 from animated_fabric.infrastructure.fixtures import load_stick_humanoid_project
 from animated_fabric.infrastructure.imaging import OpenCvRenderer, PngFrameWriter
 from animated_fabric.infrastructure.importing import FolderLayerImporter
@@ -65,6 +76,9 @@ HUMAN_SEVERITY = {
 }
 LOGGER = logging.getLogger(__name__)
 CLI_INTERNAL_FAILURE_CODE = "AFC010"
+_MAX_ANIMATION_PARAMETER_ASSIGNMENTS = 64
+_MAX_ANIMATION_PARAMETER_ASSIGNMENT_BYTES = 4096
+_SEMANTIC_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
 
 app = typer.Typer(
     name="animated-fabric",
@@ -77,7 +91,17 @@ rig_app = typer.Typer(
     add_completion=False,
     no_args_is_help=True,
 )
+animation_app = typer.Typer(
+    help="List animation generators and create project clips.",
+    add_completion=False,
+    no_args_is_help=True,
+)
 app.add_typer(rig_app, name="rig")
+app.add_typer(animation_app, name="animation")
+
+
+class _AnimationCliInputError(ValueError):
+    """One sanitized command-line assignment or identifier failure."""
 
 
 def collect_doctor_diagnostics() -> tuple[Diagnostic, ...]:
@@ -156,6 +180,20 @@ def create_apply_rig_template() -> ApplyRigTemplate:
     )
 
 
+def create_animation_generator_registry() -> BuiltinAnimationGeneratorRegistry:
+    """Compose the package-owned deterministic generator registry."""
+    return BuiltinAnimationGeneratorRegistry()
+
+
+def create_generate_animation() -> GenerateAnimation:
+    """Compose animation generation with hardened project persistence."""
+    return GenerateAnimation(
+        JsonProjectRepository(),
+        create_animation_generator_registry(),
+        ProjectValidator(),
+    )
+
+
 def confirmed_layer_assignments(
     source_layers: tuple[tuple[str, str | None], ...],
     overrides: list[str] | None,
@@ -208,6 +246,111 @@ def layer_mapping_diagnostics(
         )
         for assignment in assignments
     )
+
+
+def parse_animation_parameter_assignments(
+    assignments: list[str] | None,
+) -> dict[str, object]:
+    """Parse bounded repeatable ``NAME=JSON_SCALAR`` animation parameters."""
+    values = assignments or []
+    if len(values) > _MAX_ANIMATION_PARAMETER_ASSIGNMENTS:
+        raise _AnimationCliInputError("Too many --set assignments; at most 64 are allowed.")
+
+    parsed: dict[str, object] = {}
+    for assignment in values:
+        try:
+            encoded = assignment.encode("utf-8")
+        except UnicodeEncodeError:
+            raise _AnimationCliInputError("Each --set value must be valid UTF-8 text.") from None
+        if len(encoded) > _MAX_ANIMATION_PARAMETER_ASSIGNMENT_BYTES:
+            raise _AnimationCliInputError("A --set assignment exceeds the 4096-byte limit.")
+
+        parameter_id, separator, raw_value = assignment.partition("=")
+        if not separator or not parameter_id or not raw_value:
+            raise _AnimationCliInputError("Each --set value must use NAME=JSON_SCALAR syntax.")
+        if _SEMANTIC_ID_PATTERN.fullmatch(parameter_id) is None:
+            raise _AnimationCliInputError(
+                "Each --set parameter name must be a canonical ASCII snake_case identifier."
+            )
+        if parameter_id in parsed:
+            raise _AnimationCliInputError("Each --set parameter may be provided only once.")
+
+        try:
+            scalar: object = json.loads(
+                raw_value,
+                parse_constant=_reject_nonstandard_json_constant,
+            )
+        except (json.JSONDecodeError, OverflowError, RecursionError, UnicodeError, ValueError):
+            raise _AnimationCliInputError(
+                "Each --set value must be one finite JSON scalar."
+            ) from None
+        if isinstance(scalar, (dict, list)) or not isinstance(
+            scalar,
+            (str, int, float, bool, type(None)),
+        ):
+            raise _AnimationCliInputError("Each --set value must be one finite JSON scalar.")
+        if isinstance(scalar, float) and not math.isfinite(scalar):
+            raise _AnimationCliInputError("Each --set value must be one finite JSON scalar.")
+        parsed[parameter_id] = scalar
+    return parsed
+
+
+def _reject_nonstandard_json_constant(_value: str) -> object:
+    raise ValueError("Nonstandard JSON constants are not accepted.")
+
+
+def _animation_cli_failure(message: str, *, suggestion: str) -> Diagnostic:
+    return Diagnostic(
+        code=ANIMATION_GENERATION_FAILURE_CODE,
+        severity=Severity.ERROR,
+        message=message,
+        suggestion=suggestion,
+    )
+
+
+def _format_generator_parameter(parameter: GeneratorParameterSummary) -> str:
+    details = [
+        parameter.value_type.value,
+        f"default={json.dumps(parameter.default, allow_nan=False)}",
+    ]
+    if parameter.minimum is not None:
+        details.append(f"minimum={json.dumps(parameter.minimum, allow_nan=False)}")
+    if parameter.maximum is not None:
+        details.append(f"maximum={json.dumps(parameter.maximum, allow_nan=False)}")
+    if parameter.recommended_minimum is not None:
+        details.append(
+            f"recommended-minimum={json.dumps(parameter.recommended_minimum, allow_nan=False)}"
+        )
+    if parameter.recommended_maximum is not None:
+        details.append(
+            f"recommended-maximum={json.dumps(parameter.recommended_maximum, allow_nan=False)}"
+        )
+    return f"  {parameter.parameter_id}: {'; '.join(details)}"
+
+
+def emit_generator_summaries(
+    summaries: tuple[GeneratorSummary, ...],
+    *,
+    template_id: str,
+    as_json: bool,
+) -> None:
+    """Emit stable package-owned generator metadata in human or JSON form."""
+    if as_json:
+        typer.echo(
+            json.dumps(
+                [summary.model_dump(mode="json") for summary in summaries],
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return
+    if not summaries:
+        typer.echo(f"No animation generators are available for template '{template_id}'.")
+        return
+    for summary in summaries:
+        typer.echo(f"{summary.generator_id} (template: {summary.template_id})")
+        for parameter in summary.parameters:
+            typer.echo(_format_generator_parameter(parameter))
 
 
 def load_requested_clip(
@@ -276,6 +419,182 @@ def doctor(
 
     if any(item.severity is Severity.ERROR for item in diagnostics):
         raise typer.Exit(code=2)
+
+
+@animation_app.command("list-generators")
+def list_animation_generators_command(
+    template_id: Annotated[
+        str,
+        typer.Option("--template", help="Template ID used to filter compatible generators."),
+    ],
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit generator summaries as structured JSON."),
+    ] = False,
+) -> None:
+    """List deterministic built-in generators and their typed parameter schemas."""
+    try:
+        if _SEMANTIC_ID_PATTERN.fullmatch(template_id) is None:
+            raise _AnimationCliInputError(
+                "The template ID must be a canonical ASCII snake_case identifier."
+            )
+        summaries = create_animation_generator_registry().list_generators(template_id)
+    except _AnimationCliInputError as error:
+        emit_diagnostics(
+            (
+                _animation_cli_failure(
+                    str(error),
+                    suggestion="Use a lowercase ASCII snake_case template ID.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=3) from None
+    except AnimationError as error:
+        emit_diagnostics(
+            (
+                _animation_cli_failure(
+                    str(error) or "Animation generators could not be listed.",
+                    suggestion="Check the installed built-in generator package and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=3) from None
+    except Exception as error:
+        LOGGER.error(
+            "%s: generator listing failed with exception type %s.",
+            CLI_INTERNAL_FAILURE_CODE,
+            type(error).__name__,
+        )
+        emit_diagnostics(
+            (
+                Diagnostic(
+                    code=CLI_INTERNAL_FAILURE_CODE,
+                    severity=Severity.ERROR,
+                    message="Unexpected internal failure while listing animation generators.",
+                    suggestion="Review the application logs and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=10) from None
+
+    emit_generator_summaries(
+        summaries,
+        template_id=template_id,
+        as_json=as_json,
+    )
+
+
+@animation_app.command("generate")
+def generate_animation_command(
+    root: Annotated[
+        Path,
+        typer.Argument(help="Existing Animated Fabric project root."),
+    ],
+    generator_id: Annotated[
+        str,
+        typer.Option("--generator", help="Registered animation generator ID."),
+    ],
+    clip_id: Annotated[
+        str,
+        typer.Option("--clip", help="Canonical ID for the generated project clip."),
+    ],
+    parameter_assignments: Annotated[
+        list[str] | None,
+        typer.Option(
+            "--set",
+            help="Set one generator parameter as NAME=JSON_SCALAR; repeat as needed.",
+        ),
+    ] = None,
+    replace_existing: Annotated[
+        bool,
+        typer.Option(
+            "--replace-existing",
+            help="Explicitly confirm replacement of the registered animation clip.",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit diagnostics as structured JSON."),
+    ] = False,
+) -> None:
+    """Generate, validate, and atomically publish one editable animation clip."""
+    try:
+        parameters = parse_animation_parameter_assignments(parameter_assignments)
+        result = create_generate_animation().execute(
+            GenerateAnimationRequest(
+                project_root=root,
+                generator_id=generator_id,
+                clip_id=clip_id,
+                parameters=parameters,
+                replace_existing=replace_existing,
+            )
+        )
+    except _AnimationCliInputError as error:
+        emit_diagnostics(
+            (
+                _animation_cli_failure(
+                    str(error),
+                    suggestion=(
+                        "Use repeatable --set NAME=JSON_SCALAR options with unique parameter names."
+                    ),
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=3) from None
+    except Exception as error:
+        LOGGER.error(
+            "%s: animation generation failed with exception type %s.",
+            CLI_INTERNAL_FAILURE_CODE,
+            type(error).__name__,
+        )
+        emit_diagnostics(
+            (
+                Diagnostic(
+                    code=CLI_INTERNAL_FAILURE_CODE,
+                    severity=Severity.ERROR,
+                    message="Unexpected internal failure while generating the animation clip.",
+                    suggestion="Review the application logs and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=10) from None
+
+    if result.has_errors or result.value is None:
+        emit_diagnostics(result.diagnostics, as_json=as_json, success_message="")
+        validation_failure = any(
+            diagnostic.severity is Severity.ERROR
+            and (
+                diagnostic.code == ANIMATION_REPLACEMENT_REQUIRED_CODE
+                or diagnostic.code.startswith("AFB")
+                or diagnostic.code.startswith("AFV")
+            )
+            for diagnostic in result.diagnostics
+        )
+        raise typer.Exit(code=2 if validation_failure else 3)
+
+    generated = result.value
+    action = "Replaced" if generated.replaced_existing else "Generated"
+    success_message = (
+        f"{action} animation clip '{generated.clip.clip_id}' with generator "
+        f"'{generator_id}' at {generated.animation_path}."
+    )
+    emit_diagnostics(
+        result.diagnostics,
+        as_json=as_json,
+        success_message=success_message,
+    )
+    if result.diagnostics and not as_json:
+        typer.echo(success_message)
 
 
 @app.command("validate")

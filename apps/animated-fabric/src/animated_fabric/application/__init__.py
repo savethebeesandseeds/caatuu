@@ -12,6 +12,14 @@ from animated_fabric.application.apply_rig_template import (
     ApplyRigTemplateRequest,
     ApplyRigTemplateResult,
 )
+from animated_fabric.application.generate_animation import (
+    ANIMATION_GENERATION_FAILURE_CODE,
+    ANIMATION_PUBLICATION_FAILURE_CODE,
+    ANIMATION_REPLACEMENT_REQUIRED_CODE,
+    GenerateAnimation,
+    GenerateAnimationRequest,
+    GenerateAnimationResult,
+)
 from animated_fabric.application.humanoid_rig import (
     RIG_TEMPLATE_AMBIGUOUS_PART_CODE,
     RIG_TEMPLATE_MISSING_PART_CODE,
@@ -38,6 +46,7 @@ from animated_fabric.application.import_layers import (
 from animated_fabric.application.ports import (
     LAYER_MANIFEST_FILENAME,
     PROJECT_MANIFEST_FILENAME,
+    AnimationGeneratorRegistry,
     LayerManifestRepository,
     ProjectRepository,
     RigTemplateRegistry,
@@ -78,8 +87,12 @@ from animated_fabric.application.validation_service import ValidateProject, Vali
 
 __all__ = [
     "ANIMATION_BUILD_FAILURE_CODE",
+    "ANIMATION_GENERATION_FAILURE_CODE",
+    "ANIMATION_PUBLICATION_FAILURE_CODE",
+    "ANIMATION_REPLACEMENT_REQUIRED_CODE",
     "AnimationClipBuildRequest",
     "AnimationClipBuilder",
+    "AnimationGeneratorRegistry",
     "ApplyRigTemplate",
     "ApplyRigTemplateRequest",
     "ApplyRigTemplateResult",
@@ -89,6 +102,9 @@ __all__ = [
     "CompositedFrame",
     "CompositeRequest",
     "FrameCompositor",
+    "GenerateAnimation",
+    "GenerateAnimationRequest",
+    "GenerateAnimationResult",
     "IMPORT_CANVAS_MISMATCH_CODE",
     "IMPORT_DIRECTION_CODE",
     "IMPORT_FAILURE_CODE",

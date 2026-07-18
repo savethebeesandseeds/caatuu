@@ -136,8 +136,10 @@ class JsonProjectRepository:
         root: Path,
         path: ProjectPath,
         clip: AnimationClip,
+        *,
+        replace_existing: bool = True,
     ) -> None:
-        """Atomically save one animation clip beneath the project root."""
+        """Atomically create or explicitly replace one animation clip."""
         self._require_suffix(path, _ANIMATION_SUFFIX, "animation clip")
         self._save_model(
             root,
@@ -145,6 +147,7 @@ class JsonProjectRepository:
             clip,
             expected_format=_ANIMATION_FORMAT,
             artifact_name="animation clip",
+            replace_existing=replace_existing,
         )
 
     def _load_model(

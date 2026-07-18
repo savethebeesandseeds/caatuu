@@ -40,6 +40,11 @@ from animated_fabric.domain.exceptions import (
     RigDefinitionError,
 )
 from animated_fabric.domain.export import ExportProfile
+from animated_fabric.domain.generators import (
+    GeneratorParameterSummary,
+    GeneratorParameterValueType,
+    GeneratorSummary,
+)
 from animated_fabric.domain.geometry import IntPoint, IntSize, SelectionEllipse, Transform2D, Vec2
 from animated_fabric.domain.hierarchy import (
     topological_bone_order,
@@ -126,6 +131,9 @@ __all__ = [
     "ExportError",
     "ExportProfile",
     "GeneratorProvenance",
+    "GeneratorParameterSummary",
+    "GeneratorParameterValueType",
+    "GeneratorSummary",
     "IntPoint",
     "IntSize",
     "Interpolation",

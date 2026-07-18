@@ -2,8 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M3 complete; M4 underway with AF-040, AF-041, and AF-042
-complete
+**Current state:** Milestones M0 through M4 complete
 
 **Last updated:** 2026-07-18
 
@@ -40,6 +39,7 @@ M4 - humanoid generators.
 - [x] AF-040 Interpolation and clip builder
 - [x] AF-041 `humanoid_idle_v1`
 - [x] AF-042 `humanoid_walk_v1`
+- [x] AF-043 Animation CLI
 
 ## Delivered scope
 
@@ -251,6 +251,25 @@ M4 - humanoid generators.
   and `t_2` pixels are intentionally identical while their left/right contact events remain
   distinct; numeric and visual inspection also cover the `t_3` right-forward crossover. Decision
   0007 records the exact table, identity, timing, event, validation, and AF-043 deferral rules.
+- A fixed application-owned `AnimationGeneratorRegistry` exposes idle and walk summaries in stable
+  ID order and invokes only package-owned implementations. Parameter summaries retain strict types,
+  defaults, hard minima, and idle recommendation metadata without exposing raw Pydantic schemas or
+  adding dynamic plugin discovery.
+- `GenerateAnimation` loads the declared project and rig, verifies template compatibility, rebuilds
+  the selected clip identity through `AnimationClipBuilder`, rejects ambiguous registered paths or
+  IDs, and validates the complete candidate animation set before publication.
+- New clips publish atomically with no-replace semantics at
+  `animations/<clip_id>.animated-clip.json` and append once to the manifest in stable order. Existing
+  registered clips require explicit replacement and retain their registered path; an unregistered
+  collision is never overwritten.
+- A failed manifest update leaves the newly created clip in place and reports it as unregistered.
+  Automatic deletion is intentionally unsafe without project locking because another process may
+  already have registered the same bytes. Clip-first ordering still prevents this process from
+  publishing a manifest reference before the clip exists; AF-060 retains locking and recovery.
+- CLI `animation list-generators --template ...` displays the normalized parameter contract, and
+  `animation generate ROOT --generator ... --clip ...` accepts bounded repeatable JSON-scalar
+  `--set` values, emits stable human or JSON results, and sanitizes unexpected boundary failures.
+  Decision 0008 records discovery, naming, validation, replacement, rollback, and wire policies.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -274,6 +293,7 @@ Principal files:
 - `src/animated_fabric/domain/assets.py`
 - `src/animated_fabric/domain/rig.py`
 - `src/animated_fabric/domain/animation.py`
+- `src/animated_fabric/domain/generators.py`
 - `src/animated_fabric/domain/export.py`
 - `src/animated_fabric/domain/templates.py`
 - `src/animated_fabric/application/ports.py`
@@ -281,8 +301,10 @@ Principal files:
 - `src/animated_fabric/application/apply_rig_template.py`
 - `src/animated_fabric/application/update_rig_element.py`
 - `src/animated_fabric/application/animation_clip_builder.py`
+- `src/animated_fabric/application/generate_animation.py`
 - `src/animated_fabric/generators/__init__.py`
 - `src/animated_fabric/generators/_support.py`
+- `src/animated_fabric/generators/registry.py`
 - `src/animated_fabric/generators/humanoid_idle_v1.py`
 - `src/animated_fabric/generators/humanoid_walk_v1.py`
 - `src/animated_fabric/application/import_layers.py`
@@ -313,6 +335,7 @@ Principal files:
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
+- `docs/decisions/0008-animation-generation-cli.md`
 - `tests/unit/test_transform_matrices.py`
 - `tests/unit/test_bone_hierarchy.py`
 - `tests/unit/test_pose_resolution.py`
@@ -378,6 +401,29 @@ Principal files:
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-18 through the repository-owned Linux container after AF-043:
+
+- `ruff format --check .`: 199 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 65 source files.
+- `pytest -q`: 808 passed; 92.75% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- `python scripts/generate_fixture_assets.py --out .tmp/af043-final-fixtures`: generated the
+  deterministic geometric humanoid fixture and canonical fixture project.
+- `python scripts/run_demo_pipeline.py --out .tmp/af043-final-demo`: rendered the reviewed neutral
+  SE and NE fixture frames successfully after the final concurrency correction.
+- A fresh rig-application demo imported both authored directions, applied the 17-bone humanoid rig,
+  and rendered SE/NE frames and overlays. The public animation CLI then listed both built-ins with
+  schemas, generated persisted `idle` and overridden `walk` clips, and passed `validate` with no
+  problems. An unconfirmed replacement returned `AFG003`; confirmed JSON replacement returned `[]`.
+- `python -m animated_fabric doctor` reported no problems, and animation help exposed
+  `list-generators` and `generate` with English descriptions.
+- Root repository file-policy and Markdown-link checks passed for 1,205 candidate files and 87
+  Markdown files before the final status record; the Markdown checks were rerun after this update.
+- Independent application, CLI, persistence, and adversarial concurrency reviews found no remaining
+  actionable defect. Unsafe automatic deletion after a manifest failure was removed before the
+  final gates.
 
 Executed on 2026-07-18 through the repository-owned Linux container after AF-042:
 
@@ -567,18 +613,17 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- The authored-direction renderer, general layer importer, template registry, humanoid template
-  application, rig-editing use cases, pure clip builder, and both humanoid generators exist, but
-  general imported-catalog loading, complete-frame mirroring, the animation generator registry,
-  `GenerateAnimation`, animation persistence or publication, animation CLI or GUI controls, and
-  export execution do not. `render-frame` therefore still accepts the owned generated fixture
-  project only; AF-043 owns the registry, generation use case, persistence, and animation CLI.
-- AF-041 owns fixed `idle` / `Idle` identity and `animations/idle.animated-clip.json` diagnostic
-  context; AF-042 likewise owns fixed `walk` / `Walk` identity and
-  `animations/walk.animated-clip.json` diagnostic context. Neither path authorizes publication.
-  AF-043 retains user-selected naming, destination, persistence, replacement, and manifest policy.
-  Recommended idle parameter ranges remain schema metadata rather than hard validity bounds; the
-  walk specification provides no recommended ranges or hard maxima.
+- The authored-direction renderer, general layer importer, template registry and application,
+  rig-editing use cases, clip builder, built-in generator registry, `GenerateAnimation`, animation
+  persistence, and animation CLI exist. General imported-catalog loading and complete-frame
+  mirroring are still absent from `render-frame`, so that command continues to accept the owned
+  generated fixture project only. Export execution and animation GUI controls remain later work.
+- AF-043 derives new destinations from validated clip IDs and retains a unique existing registered
+  path during replacement. Per-file publication is atomic, but a failed manifest write or process
+  crash after clip creation may leave a reported unreferenced file. It is not automatically deleted
+  because another process could already have registered it; locking, recovery, and multi-writer
+  arbitration remain AF-060 work. Recommended idle ranges remain schema metadata rather than hard
+  validity bounds, and walk has no invented recommendations or maxima.
 - Domain matrices deliberately use immutable Python floats because the normative dependency rule
   permits only the standard library and Pydantic in `domain`. AF-022 converts to contiguous NumPy
   `float32` only at the OpenCV infrastructure boundary.
@@ -646,7 +691,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M1 Domain and persistence
 - [x] M2 Mathematics and renderer
 - [x] M3 Importer and humanoid rig
-- [ ] M4 Humanoid generators
+- [x] M4 Humanoid generators
 - [ ] M5 Export
 - [ ] M6 Functional GUI
 - [ ] M7 Sockets and equipment
@@ -655,4 +700,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-043 Animation CLI
+- AF-050 Frame exporter

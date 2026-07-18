@@ -4,7 +4,7 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M3 are complete; M4 is underway, with AF-040, AF-041, and AF-042 complete.
+Milestones M0 through M4 are complete.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -13,8 +13,9 @@ slots through validated atomic updates.
 The vertical renderer evaluates typed requests, resolves pose and sockets, plans stable draw order,
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
 atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
-yet. The pure `humanoid_idle_v1` and `humanoid_walk_v1` generators now exist, but the application
-does not yet contain the generator registry, exporter, functional editor, or database.
+yet. The deterministic `humanoid_idle_v1` and `humanoid_walk_v1` generators are discoverable through
+the CLI and can publish validated editable clips into a project. The application does not yet
+contain the exporter, functional editor, or database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -87,6 +88,13 @@ docker compose exec animated-fabric-dev animated-fabric import-layers /path/to/p
 docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project
 docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project `
   --replace-existing --json
+docker compose exec animated-fabric-dev animated-fabric animation list-generators `
+  --template humanoid_v1
+docker compose exec animated-fabric-dev animated-fabric animation generate /path/to/project `
+  --generator humanoid_idle_v1 --clip idle
+docker compose exec animated-fabric-dev animated-fabric animation generate /path/to/project `
+  --generator humanoid_walk_v1 --clip walk `
+  --set duration_ms=800 --set step_angle_deg=18
 docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
 docker compose exec animated-fabric-dev python scripts/run_rig_application_demo.py `
   --out .tmp/af032-demo
@@ -139,6 +147,14 @@ inspection, and locks six reviewed frames without changing the project manifest.
 discovery, `GenerateAnimation`, persistence, and animation CLI or GUI behavior remain AF-043. The
 motion and acceptance rules are recorded in
 [decision 0007](docs/decisions/0007-humanoid-walk-generator.md).
+
+AF-043 closes M4 with a fixed built-in generator registry and the shared `GenerateAnimation` use
+case. `animation list-generators` presents strict defaults and bounds, while `animation generate`
+parses repeatable JSON-scalar parameters, validates the complete candidate project, atomically
+publishes an editable clip, and registers new destinations in stable manifest order. Existing clips
+require `--replace-existing`; unregistered files are never claimed or overwritten. The registry,
+naming, failure recovery, and CLI wire decisions are recorded in
+[decision 0008](docs/decisions/0008-animation-generation-cli.md).
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and

@@ -2,19 +2,37 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Protocol
 
 from animated_fabric.domain._base import ProjectPath
 from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.assets import LayerManifest
+from animated_fabric.domain.generators import GeneratorSummary
 from animated_fabric.domain.project import ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
 from animated_fabric.domain.templates import RigTemplate, RigTemplateSummary
 
 PROJECT_MANIFEST_FILENAME = "project.animated-fabric.json"
 LAYER_MANIFEST_FILENAME = "layers.manifest.json"
+
+
+class AnimationGeneratorRegistry(Protocol):
+    """Discover and invoke animation generators through application-owned types."""
+
+    def list_generators(self, template_id: str) -> Sequence[GeneratorSummary]:
+        """Return stable generator metadata compatible with ``template_id``."""
+        ...
+
+    def generate(
+        self,
+        generator_id: str,
+        rig: RigDefinition,
+        parameters: Mapping[str, object],
+    ) -> AnimationClip:
+        """Generate one explicit clip from validated built-in parameters."""
+        ...
 
 
 class ProjectRepository(Protocol):
@@ -52,8 +70,10 @@ class ProjectRepository(Protocol):
         root: Path,
         path: ProjectPath,
         clip: AnimationClip,
+        *,
+        replace_existing: bool = True,
     ) -> None:
-        """Atomically save one animation document beneath ``root``."""
+        """Atomically create or explicitly replace one animation beneath ``root``."""
         ...
 
 
@@ -82,6 +102,7 @@ class RigTemplateRegistry(Protocol):
 
 
 __all__ = [
+    "AnimationGeneratorRegistry",
     "LAYER_MANIFEST_FILENAME",
     "PROJECT_MANIFEST_FILENAME",
     "LayerManifestRepository",
