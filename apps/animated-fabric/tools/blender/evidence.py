@@ -227,6 +227,26 @@ def verify_evidence_root(
     if not root.is_dir():
         raise ValueError("The AF-044 source root must be a directory.")
 
+    try:
+        root_entries = tuple(root.iterdir())
+    except OSError as error:
+        raise ValueError("The AF-044 source root cannot be inspected.") from error
+    expected_root_entries = {
+        "walk",
+        motion.DIRECTIONAL_PRERENDER_FILENAME,
+        "provenance.json",
+    }
+    if (
+        {entry.name for entry in root_entries} != expected_root_entries
+        or any(entry.is_symlink() for entry in root_entries)
+        or not (root / "walk").is_dir()
+        or any(
+            not (root / name).is_file()
+            for name in (motion.DIRECTIONAL_PRERENDER_FILENAME, "provenance.json")
+        )
+    ):
+        raise ValueError("The AF-044 source root disagrees with the exact bounded layout.")
+
     walk = root / "walk"
     if walk.is_symlink():
         raise ValueError("The AF-044 walk directory must not be a symbolic link.")

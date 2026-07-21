@@ -1,8 +1,8 @@
 # Animated Fabric
 
-Animated Fabric is a Linux-first desktop application and Python library for
-turning prepared 2D image layers into reusable rigged actors, animation clips,
-frames, and spritesheets.
+Animated Fabric is a Linux-first desktop application and Python library for turning prepared 2D
+image layers or an explicitly approved bounded 3D prerender source into reusable animation frames
+and spritesheets.
 
 Milestones M0 through M4 and tickets AF-044, AF-050, AF-051, and AF-052 are complete; milestone M5
 is still underway.
@@ -23,7 +23,9 @@ pixels through the same fixed-grid packer. Blender remains isolated from the app
 current layered-2D product contracts remain unchanged.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
-is recorded in [`docs/STATUS.md`](docs/STATUS.md).
+is recorded in [`docs/STATUS.md`](docs/STATUS.md). First-party, generated-media, adapted-source,
+and internal-container terms are indexed in
+[`docs/LEGAL_INVENTORY.md`](docs/LEGAL_INVENTORY.md).
 
 ## Repository boundary
 
@@ -58,7 +60,7 @@ The infrastructure boundary is explicit:
 | `cutout-provision` profile | The only network-enabled runtime action; seeds one pinned, hash-verified model snapshot |
 | `blender` profile | Opt-in Blender 4.5.12 Linux/amd64 directional worker; fixed baked actor and walk, non-root, offline, read-only, no project mount |
 | Named volumes | Independent pip cache and BiRefNet cache owned by this Compose project |
-| GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender evidence workflow without installing project Python packages on the runner |
+| GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender workflow that exercises the bounded host command and may publish only cleared sample media and reports |
 
 From this directory, build and start the normal development environment:
 
@@ -204,47 +206,66 @@ silently route them through Blender. Grid schema, profile, verification, resourc
 replacement-cleanup decisions are recorded in
 [decision 0011](docs/decisions/0011-grid-spritesheet-export.md).
 
-## Bounded 3D directional prerender
+## Bounded 3D end-to-end demo
 
 AF-044 established the isolated Blender evidence boundary. AF-052 promotes only its fixed owned
 actor and one analytical in-place walk: the worker constructs one immutable twelve-frame motion
 tuple, holds the camera fixed, and rerenders it at actor-root yaws `SE=-90`, `SW=180`, `NE=0`, and
 `NW=90`. It never rotates or mirrors a finished 2D frame. No `.blend`, user script, add-on, model,
-texture, font, or external motion file is accepted. Only `workspaces/blender/` is writable.
+texture, font, or external motion file is accepted.
 
-Run it from this directory without installing Blender or Python dependencies on Windows:
+From a native non-root Linux shell, run the complete bounded path from this directory:
 
-```powershell
-docker compose --profile blender build animated-fabric-blender
-docker compose --profile blender run --rm --no-deps animated-fabric-blender
-docker compose run --rm --no-deps animated-fabric-dev `
-  python scripts/verify_blender_directional_goldens.py `
-  --source workspaces/blender/af052-demo
-docker compose run --rm --no-deps animated-fabric-dev `
-  python scripts/package_blender_directional_export.py `
-  --source workspaces/blender/af052-demo `
-  --out workspaces/blender/af052-product
-docker compose run --rm --no-deps animated-fabric-dev `
-  python scripts/package_blender_walk_demo.py `
-  --source workspaces/blender/af052-demo `
-  --out workspaces/blender/af052-demo/review
+```bash
+bash scripts/run_blender_directional_demo.sh
 ```
 
-Each render contains exactly 50 evidence files: 48 RGBA frames, `walk/animation.json`, and the
-adjacent `directional-prerender.json`; `provenance.json` records their hashes and the historical
-AF-044 evidence identity. The directional document adds one stable motion digest and the exact yaw
-map. Verification enforces source identities, dimensions, alpha bounds, the 4 MiB ceiling, reviewed
-decoded-pixel goldens, and independent proof that direct west views differ materially from mirrors.
+The command validates Compose, builds the development and Blender images, verifies the non-root
+worker, applies a five-minute render timeout, checks evidence and reviewed goldens, creates human
+review media, packages the grid, and prints SHA-256 values. A deliberate repeatability run may use
+`bash scripts/run_blender_directional_demo.sh --skip-build` after those exact images are built. No
+project dependency or productive Python process runs on the host.
 
-The product packager runs separately in `animated-fabric-dev`, reopens and verifies the evidence,
-copies every source pixel byte for byte into a 2,304 x 768 four-row grid, and atomically publishes
-only `walk.png` plus `walk.spritesheet.json` to a destination outside the immutable render root.
-The review package remains a GIF and contact sheet for humans. Cross-host encoded-PNG identity is
-not assumed; goldens compare decoded RGBA with an explicit tolerance. The primitive rigid actor is
-still a bounded demo, not an arbitrary 3D importer or production mesh pipeline. Decisions
-[0010](docs/decisions/0010-experimental-blender-prerender.md) and
-[0012](docs/decisions/0012-directional-yaw-prerender.md) record the evidence and promotion rules;
-exact commands are in [`tools/blender/README.md`](tools/blender/README.md).
+Outputs use fixed sibling roots so review files never mutate the exact evidence set:
+
+```text
+workspaces/blender/
+|-- af053-demo/
+|   |-- directional-prerender.json
+|   |-- provenance.json
+|   `-- walk/
+|       |-- animation.json
+|       |-- SE/000.png ... 011.png
+|       |-- SW/000.png ... 011.png
+|       |-- NE/000.png ... 011.png
+|       `-- NW/000.png ... 011.png
+|-- af053-product/
+|   |-- walk.png
+|   `-- walk.spritesheet.json
+`-- af053-demo-review/
+    |-- walk_contact_sheet.png
+    `-- walk_review.gif
+```
+
+The evidence verifier requires exactly 48 192 x 192 RGBA frames, strict frame and directional
+metadata, complete provenance and hashes, reviewed decoded-pixel goldens, alpha bounds, and proof
+that direct west views differ materially from 2D mirrors. The development container copies every
+verified source pixel into a 2,304 x 768 four-row grid and preserves the walk's foot-contact events.
+
+Only the Linux host shell invokes Docker Compose. Product Python neither invokes Docker nor imports
+`bpy`; Blender and the normal development dependencies remain in different containers. The public
+layered-project CLI and `OpenCvRenderer` are unchanged, and this fixed command is not an arbitrary
+3D importer or a general layered-project export route. Decisions
+[0010](docs/decisions/0010-experimental-blender-prerender.md),
+[0012](docs/decisions/0012-directional-yaw-prerender.md), and
+[0013](docs/decisions/0013-end-to-end-directional-demo.md) record the evidence, promotion, and
+orchestration rules; operational details are in
+[`tools/blender/README.md`](tools/blender/README.md).
+
+The official CI `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` outputs may be shared
+and reused under the scoped [`CC0-1.0` dedication](docs/AF053-DEMO-CC0.md). JSON, reports, and source
+remain `AGPL-3.0-only`. The Blender container image is still internal-only under its independent
+redistribution gates.
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and

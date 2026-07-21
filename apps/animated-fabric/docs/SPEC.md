@@ -4,7 +4,7 @@
 
 | Property | Value |
 |---|---|
-| Document version | 0.3.0 |
+| Document version | 0.3.1 |
 | Status | approved normative plan |
 | Date | July 21, 2026 |
 | Repository location | `apps/animated-fabric` inside the Caatuu repository |
@@ -334,6 +334,11 @@ AF-044 established the evidence and isolation boundary. AF-052 and decision 0012
 fixed owned actor and walk: one precomputed pose tuple is rerendered at four actor-root yaws, then a
 strict directional manifest and provenance gate the shared AF-051 grid packer. Arbitrary `.blend`
 files, models, motions, scripts, and project-driven 3D rendering remain prohibited.
+
+AF-053 and decision 0013 add one Linux-host shell command around those already approved stages. The
+host shell invokes Docker Compose; Blender renders, and the normal development container validates,
+creates review media, and packages the product. Product Python still neither invokes Docker nor
+imports `bpy`, and this bounded command does not replace or impersonate layered-project orchestration.
 
 ## 4.3 Dependency rule
 
@@ -1880,6 +1885,11 @@ The authoritative CI job runs on Linux and MUST:
 7. build the release image or wheel in Linux when packaging begins; and
 8. publish the sample spritesheet and relevant reports as CI artifacts.
 
+For AF-053, the public visual sample is limited to `walk.png`, `walk_contact_sheet.png`, and
+`walk_review.gif`, accompanied by the scoped CC0 notice. Product/evidence JSON and repository source
+remain `AGPL-3.0-only`. Raw directional frames are not selected for CI publication, and publishing
+generated pixels does not approve the Blender container image for redistribution.
+
 A Windows Python 3.12 CI lane MAY remain for future native distribution compatibility. If enabled, it is an additional check and does not authorize host-side development. GUI tests use `QT_QPA_PLATFORM=offscreen` where applicable.
 
 The optional cutout image has its own scheduled or manually triggered CI lane because model size and GPU availability MUST NOT slow or destabilize every core change. Lightweight adapter tests remain in core CI.
@@ -1985,6 +1995,7 @@ apps/animated-fabric/
 ├── docs/
 │   ├── SPEC.md
 │   ├── STATUS.md
+│   ├── LEGAL_INVENTORY.md
 │   ├── architecture/
 │   ├── decisions/
 │   └── third-party/
@@ -2364,9 +2375,42 @@ the fixed owned actor/walk sequence while preserving the layered OpenCV path.
 
 ### AF-053 End-to-end demo
 
-A command or script renders, validates, and exports the approved 3D fixture from scratch. General
-layered-project orchestration remains a separate path and MUST NOT be fabricated through the 3D
-adapter.
+The Linux-host command is:
+
+```bash
+bash scripts/run_blender_directional_demo.sh
+```
+
+It MUST:
+
+- validate the Blender Compose profile and build both `animated-fabric-dev` and
+  `animated-fabric-blender` by default; `--skip-build` MAY reuse images that were built deliberately;
+- reject a root host identity or unsafe workspace link, verify that the Blender worker is non-root,
+  and apply the five-minute render timeout;
+- render the approved fixed actor and canonical `walk` into the exact evidence root
+  `workspaces/blender/af053-demo`;
+- verify the exact evidence layout, hashes, metadata, reviewed goldens, alpha bounds, and
+  direct-view-versus-mirror thresholds;
+- create human review media in the sibling `workspaces/blender/af053-demo-review` and atomically
+  package the product in the sibling `workspaces/blender/af053-product`;
+- leave the evidence root immutable and exact, with review and product files outside it; and
+- report SHA-256 values for the two evidence reports, two product files, and two review files.
+
+The evidence root contains exactly `walk/`, `directional-prerender.json`, and `provenance.json` at
+its top level. The product root contains exactly `walk.png` and `walk.spritesheet.json`; the review
+root contains exactly `walk_contact_sheet.png` and `walk_review.gif`. Repeating the command in the
+same pinned native-Linux environment MUST replace stale derived outputs and produce identical
+evidence, product, and review trees.
+
+This is host-side orchestration, not application orchestration. The host shell may invoke Docker
+Compose, but product Python MUST NOT invoke Docker, mount its socket, import `bpy`, or combine the
+Blender and development dependency planes. The script accepts no actor, scene, motion, project,
+destination, or renderer override. General layered-project orchestration remains a separate path
+and MUST NOT be fabricated through the 3D adapter.
+
+Native Linux CI MUST exercise the command from scratch, repeat it, compare all three output trees,
+and publish only the cleared sample media and reports described in Section 19.9. AF-053 is accepted
+only after that authoritative native run passes. On acceptance, AF-060 is the next permitted ticket.
 
 **M5 output:** the first usable product without the GUI.
 
@@ -2515,16 +2559,20 @@ M9 starts only after the stable M0–M8 flow. Planning and dependency isolation 
 ## E2E-001 Basic owned 3D humanoid
 
 Given the repository-owned procedural 3D humanoid and its canonical `walk`, when the isolated worker
-renders and the verified packer exports it:
+renders and the verified packer exports it through
+`bash scripts/run_blender_directional_demo.sh` from a clean bounded workspace:
 
 - validation contains no errors;
+- the evidence, product, and review roots are exactly `workspaces/blender/af053-demo`,
+  `workspaces/blender/af053-product`, and `workspaces/blender/af053-demo-review`;
 - `SE`, `SW`, `NE`, and `NW` are direct actor-root yaw views of the same pose tuple;
 - `SW` is materially different from a horizontal mirror of `SE`;
 - `NW` is materially different from a horizontal mirror of `NE`;
 - `walk` has PNG and JSON output;
 - the sheet is 2,304 x 768 with twelve 192 x 192 cells per row;
 - foot events appear in `walk`; and
-- repeated export produces the same result.
+- a repeated complete command produces the same evidence, product, and review results without stale
+  files.
 
 The layered-2D humanoid remains covered by its import, rig, animation, authored-direction render,
 and explicit-direction export tests. AF-052 does not invent 3D data for that project format.
@@ -2784,6 +2832,8 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | Caatuu unintentionally publishes source | medium | high | application under `apps`, explicit public-artifact boundary |
 | bounded 3D prerender expands into unsafe arbitrary execution | medium | high | fixed baked worker, strict source manifest, no user scripts/models, decision 0012 scope |
 | Blender output differs across CPU hosts | medium | medium | native reference artifacts and decoded-pixel golden tolerance |
+| demo orchestration collapses container trust boundaries | medium | high | Linux host owns Compose; Blender renders; dev validates and packages; product Python has no Docker or `bpy` access |
+| CI publishes uncleared generated or container material | medium | high | exact artifact allowlist, scoped CC0 notice for three visual files, AGPL for JSON/source, Blender image remains internal-only |
 
 ---
 
@@ -2793,7 +2843,7 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 |---|---|---|
 | game engine | generic export | after M5 |
 | first engine adapter | Godot 4 recommended | after engine selection |
-| repository license | pending | before public release |
+| repository license | `AGPL-3.0-only` | recorded at the repository root |
 | final canvas | 192 × 192 | first real-art test |
 | animation fps | 12 | after visual-style evaluation |
 | extra views | 4 direct yaws for the owned 3D actor; layered declarations unchanged | after M8 |
@@ -2803,7 +2853,7 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | cutout device | GPU when available, explicit CPU fallback if validated | AF-095 |
 | cutout IPC | job directory/CLI | review during GUI integration |
 | Windows release | not promised by Linux development baseline | packaging milestone |
-| Blender/3D prerender | fixed owned actor/walk only, isolated and internal | after AF-053 demo |
+| Blender/3D prerender | fixed owned actor/walk only; three generated demo media files may be CC0, container remains internal | after AF-053 demo |
 
 These decisions do not block M0 through M8.
 

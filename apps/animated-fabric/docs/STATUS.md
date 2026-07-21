@@ -2,8 +2,8 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-052 complete and AF-053
-next
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-053 implemented and its
+authoritative native-Linux acceptance pending
 
 **Last updated:** 2026-07-21
 
@@ -51,6 +51,7 @@ M5 - export.
 - [x] AF-050 Frame exporter
 - [x] AF-051 Grid spritesheet
 - [x] AF-052 Directional yaw prerender
+- [ ] AF-053 End-to-end demo - implementation complete; native acceptance pending
 
 ## Delivered scope
 
@@ -339,7 +340,17 @@ M5 - export.
   reusable under `CC0-1.0` without attribution.
 - Blender remains an isolated non-root, offline, read-only, resource-bounded Linux/amd64 worker.
   It does not enter the base package, layered renderer, public project command, GUI, or persisted
-  project schema. Arbitrary 3D input and one-command orchestration remain out of scope.
+  project schema. Arbitrary 3D input remains out of scope.
+- AF-053 adds one fixed non-root Linux-host command around the approved two-container stages. It
+  renders from scratch into exact `af053-demo`, `af053-product`, and `af053-demo-review` sibling
+  roots; validates the closed evidence tree and goldens; publishes review and product directories
+  independently; and prints six result hashes. Product Python still neither invokes Docker nor
+  imports `bpy`.
+- The native workflow executes that command twice, injects stale probes between runs, compares
+  sorted hashes for all three complete trees, and may upload only the three owner-cleared demo
+  images plus their scoped CC0 notice and AGPL reports. Pull requests still run verification but
+  cannot publish the licensed artifact. Review backup-cleanup failure retains the verified new
+  preview and reports the recovery path rather than attempting an unsafe rollback.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -409,6 +420,7 @@ Principal files:
 - `scripts/generate_af052_directional_goldens.py`
 - `scripts/package_blender_directional_export.py`
 - `scripts/package_blender_walk_demo.py`
+- `scripts/run_blender_directional_demo.sh`
 - `scripts/verify_blender_directional_goldens.py`
 - `containers/blender/`
 - `tools/blender/`
@@ -420,6 +432,8 @@ Principal files:
 - `docs/decisions/0010-experimental-blender-prerender.md`
 - `docs/decisions/0011-grid-spritesheet-export.md`
 - `docs/decisions/0012-directional-yaw-prerender.md`
+- `docs/decisions/0013-end-to-end-directional-demo.md`
+- `docs/AF053-DEMO-CC0.md` and `docs/LEGAL_INVENTORY.md`
 - `docs/third-party/blender.md`
 - `tests/unit/test_blender_motion.py`
 - `tests/unit/test_blender_output_paths.py`
@@ -431,6 +445,7 @@ Principal files:
 - `tests/unit/test_export_profiles.py`
 - `tests/integration/test_frame_exporter.py`
 - `tests/integration/test_grid_spritesheet_exporter.py`
+- `tests/integration/test_blender_directional_demo_script.py`
 - `tests/integration/test_export_cli.py`
 - `tests/integration/test_export_project_pipeline.py`
 - `tests/unit/test_transform_matrices.py`
@@ -502,6 +517,26 @@ Principal files:
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Local pre-publication verification executed on 2026-07-21 for the AF-053 implementation through
+the repository-owned Linux development container; native Blender acceptance remains pending:
+
+- `docker compose --profile blender config --quiet`: passed.
+- `ruff format --check .`: 229 files already formatted; `ruff check .`: all checks passed.
+- `mypy src`: no issues in 73 source files; strict checking also passed for the four Blender
+  verification and packaging scripts.
+- `pytest -q`: 1,003 passed in 194.85 s with 91.95% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- `python scripts/generate_fixture_assets.py --out .tmp/af053-fixtures`,
+  `python scripts/run_demo_pipeline.py --out .tmp/af053-layered-demo`, and
+  `python -m animated_fabric doctor`: completed successfully.
+- The focused exact-evidence, sibling review publication, cleanup-warning, and fake-Docker host
+  orchestration contracts reported 35 passed. They cover fixed stage order, both build modes,
+  failure short-circuiting, prior-product preservation, stale-review replacement, non-root and
+  linked-workspace rejection, and the absence of host Python execution.
+- The productive AF-053 command was not treated as a Windows-host acceptance run. Its two clean
+  renders, exact-tree comparison, and cleared artifact publication are intentionally reserved for
+  the path-scoped native Ubuntu workflow.
 
 Local pre-publication verification executed on 2026-07-21 for AF-052 through the repository-owned
 Linux containers:
@@ -865,9 +900,9 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
 - AF-051 provides the public layered-project fixed-grid CLI. Its mirror-mode rows still report
   `AFV502`; AF-052 deliberately adds a separate fixed 3D actor path instead of fabricating geometry
-  for layered projects. AF-053 owns reusable from-scratch orchestration. Sample Blender media is not
-  uploaded from the public workflow while the container and broader generated-asset distribution
-  gates remain unresolved; M5 is still open.
+  for layered projects. AF-053 now owns fixed from-scratch orchestration and a trusted-main artifact
+  allowlist for three scoped-CC0 visual files; raw evidence and the Blender image remain internal.
+  The authoritative AF-053 native run is still pending, so M5 remains open.
 - Export publication assumes one writer. The same-filesystem backup swap restores prior output for
   failures before promotion. A process crash between directory renames may leave staging or backup
   debris, and failed cleanup after successful promotion deliberately leaves the verified new output
@@ -978,4 +1013,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-053 End-to-end demo
+- Complete AF-053 native-Linux acceptance. AF-060 is permitted only after that run passes.

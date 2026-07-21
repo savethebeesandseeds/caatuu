@@ -4,7 +4,8 @@ This opt-in headless Linux image renders one repository-owned procedural humanoi
 walk from four direct actor-root yaws. It is not an arbitrary importer, interactive preview,
 development image, or base application dependency. Blender produces a verified frame sequence;
 the normal development container separately validates and packages those pixels for the bounded
-AF-052 product path.
+AF-052 product path. AF-053 adds only a Linux-host shell command that invokes both containers; it
+does not merge their dependency or trust boundaries.
 
 ## Pinned inputs
 
@@ -50,7 +51,8 @@ The image always starts Blender with:
 
 The repository's `tools/blender/` sources are baked read-only. The entrypoint terminates Blender
 option parsing with `--`, so arguments cannot add a `.blend`, startup file, add-on, or different
-Python script. The default output is `--out /output/af052-demo`; do not replace the entrypoint.
+Python script. The AF-053 host command passes only `--out /output/af053-demo`; do not replace the
+entrypoint.
 
 Compose supplies a non-root user, no network, a read-only root, dropped capabilities,
 `no-new-privileges`, bounded CPU/memory/process/shared-memory resources, fresh temporary storage,
@@ -60,7 +62,8 @@ or other assets. No port, display, audio, GPU, or input mount is needed.
 
 The worker enforces a 4 MiB ceiling across 50 hashed evidence files: 48 frames,
 `walk/animation.json`, and `directional-prerender.json`. `provenance.json` is adjacent. The caller
-owns the five-minute wall-clock timeout and should quota the host output filesystem when needed.
+owns the five-minute wall-clock timeout; `scripts/run_blender_directional_demo.sh` applies it for
+AF-053. Operators should still quota the host output filesystem when needed.
 
 The exact Dockerfile and Compose recipe are baked into the image and hashed into every evidence
 document. The base image and Blender archive are immutable inputs, but Debian runtime packages
@@ -75,8 +78,11 @@ and notices remain intact under `/opt/blender`. Exact upstream and corresponding
 are recorded in [`docs/third-party/blender.md`](../../docs/third-party/blender.md).
 
 The image remains internal-only until its SBOM, complete notice inventory, Debian snapshot policy,
-vulnerability review, and GPL-compliant corresponding-source distribution are approved. Generated
-product pixels do not make the Blender container itself redistributable.
+vulnerability review, and GPL-compliant corresponding-source distribution are approved. The
+official AF-053 CI `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` files are separate
+first-party procedural outputs dedicated under the scoped
+[`CC0-1.0` notice](../../docs/AF053-DEMO-CC0.md). JSON and source remain `AGPL-3.0-only`.
+Publishing those generated pixels does not distribute, approve, or relicense the Blender image.
 
 To update Blender, change the version, URL, checksum, source record, labels, tests, and evidence as
 one reviewed change. Never turn the URL or checksum into a convenient untrusted build override.

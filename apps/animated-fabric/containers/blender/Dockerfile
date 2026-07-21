@@ -113,4 +113,4 @@ ENTRYPOINT ["/opt/blender/blender", \
     "--python", \
     "/opt/animated-fabric/render_walk.py", \
     "--"]
-CMD ["--out", "/output/af052-demo"]
+CMD ["--out", "/output/af053-demo"]

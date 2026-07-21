@@ -5,49 +5,49 @@ on:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/tools/blender/**"
-      - "apps/animated-fabric/scripts/__init__.py"
-      - "apps/animated-fabric/scripts/generate_af052_directional_goldens.py"
-      - "apps/animated-fabric/scripts/package_blender_directional_export.py"
-      - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
-      - "apps/animated-fabric/scripts/verify_blender_directional_goldens.py"
+      - "apps/animated-fabric/scripts/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
+      - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
       - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
       - "apps/animated-fabric/Dockerfile"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
       - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/AF053-DEMO-CC0.md"
+      - "apps/animated-fabric/docs/LEGAL_INVENTORY.md"
       - "apps/animated-fabric/docs/SPEC.md"
       - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
       - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
       - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
+      - "apps/animated-fabric/docs/decisions/0013-end-to-end-directional-demo.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   pull_request:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/tools/blender/**"
-      - "apps/animated-fabric/scripts/__init__.py"
-      - "apps/animated-fabric/scripts/generate_af052_directional_goldens.py"
-      - "apps/animated-fabric/scripts/package_blender_directional_export.py"
-      - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
-      - "apps/animated-fabric/scripts/verify_blender_directional_goldens.py"
+      - "apps/animated-fabric/scripts/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
+      - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
       - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
       - "apps/animated-fabric/Dockerfile"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
       - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/AF053-DEMO-CC0.md"
+      - "apps/animated-fabric/docs/LEGAL_INVENTORY.md"
       - "apps/animated-fabric/docs/SPEC.md"
       - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
       - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
       - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
+      - "apps/animated-fabric/docs/decisions/0013-end-to-end-directional-demo.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   workflow_dispatch:
 
@@ -56,7 +56,7 @@ permissions:
 
 jobs:
   evidence:
-    name: Native Linux directional product evidence
+    name: Native Linux end-to-end directional demo
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     defaults:
@@ -103,91 +103,94 @@ jobs:
           test "$status" -eq 10
           test ! -e workspaces/blender/escape
 
-      - name: Render two clean bounded runs
-        run: |
-          timeout --signal=TERM --kill-after=30s 5m \
-            docker compose --profile blender run --rm --no-deps \
-            animated-fabric-blender --out /output/af052-linux-first
-          timeout --signal=TERM --kill-after=30s 5m \
-            docker compose --profile blender run --rm --no-deps \
-            animated-fabric-blender --out /output/af052-linux-second
+      - name: Run the complete AF-053 demo once
+        run: bash scripts/run_blender_directional_demo.sh --skip-build
 
-      - name: Verify goldens, package products, and prove repeatability
+      - name: Record first result and seed stale-output probes
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/verify_blender_directional_goldens.py \
-            --source workspaces/blender/af052-linux-first
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/verify_blender_directional_goldens.py \
-            --source workspaces/blender/af052-linux-second
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/package_blender_directional_export.py \
-            --source workspaces/blender/af052-linux-first \
-            --out workspaces/blender/af052-product-first
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/package_blender_directional_export.py \
-            --source workspaces/blender/af052-linux-second \
-            --out workspaces/blender/af052-product-second
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/package_blender_walk_demo.py \
-            --source workspaces/blender/af052-linux-first \
-            --out workspaces/blender/af052-linux-first/review
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/package_blender_walk_demo.py \
-            --source workspaces/blender/af052-linux-second \
-            --out workspaces/blender/af052-linux-second/review
-          diff -qr \
-            workspaces/blender/af052-linux-first/walk \
-            workspaces/blender/af052-linux-second/walk
-          cmp \
-            workspaces/blender/af052-linux-first/directional-prerender.json \
-            workspaces/blender/af052-linux-second/directional-prerender.json
-          cmp \
-            workspaces/blender/af052-linux-first/provenance.json \
-            workspaces/blender/af052-linux-second/provenance.json
-          diff -qr \
-            workspaces/blender/af052-product-first \
-            workspaces/blender/af052-product-second
-          diff -qr \
-            workspaces/blender/af052-linux-first/review \
-            workspaces/blender/af052-linux-second/review
-          sha256sum \
-            workspaces/blender/af052-linux-first/directional-prerender.json \
-            workspaces/blender/af052-linux-first/provenance.json \
-            workspaces/blender/af052-product-first/walk.png \
-            workspaces/blender/af052-product-first/walk.spritesheet.json \
-            workspaces/blender/af052-linux-first/review/walk_contact_sheet.png \
-            workspaces/blender/af052-linux-first/review/walk_review.gif
-          cat workspaces/blender/af052-linux-first/provenance.json
-          cat workspaces/blender/af052-product-first/walk.spritesheet.json
+          set -Eeuo pipefail
+          mkdir -p .tmp/af053-manifests
+          manifest_tree() {
+            root="$1"
+            destination="$2"
+            (
+              cd "$root"
+              find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+            ) > "$destination"
+          }
+          manifest_tree workspaces/blender/af053-demo .tmp/af053-manifests/evidence-first.sha256
+          manifest_tree workspaces/blender/af053-product .tmp/af053-manifests/product-first.sha256
+          manifest_tree \
+            workspaces/blender/af053-demo-review \
+            .tmp/af053-manifests/review-first.sha256
+          touch workspaces/blender/af053-demo/stale-evidence.txt
+          touch workspaces/blender/af053-product/stale-product.txt
+          touch workspaces/blender/af053-demo-review/stale-review.txt
 
-      - name: Run focused pure-Python contracts
+      - name: Rerun from scratch and prove deterministic replacement
+        run: |
+          set -Eeuo pipefail
+          bash scripts/run_blender_directional_demo.sh --skip-build
+          test ! -e workspaces/blender/af053-demo/stale-evidence.txt
+          test ! -e workspaces/blender/af053-product/stale-product.txt
+          test ! -e workspaces/blender/af053-demo-review/stale-review.txt
+          manifest_tree() {
+            root="$1"
+            destination="$2"
+            (
+              cd "$root"
+              find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+            ) > "$destination"
+          }
+          manifest_tree workspaces/blender/af053-demo .tmp/af053-manifests/evidence-second.sha256
+          manifest_tree workspaces/blender/af053-product .tmp/af053-manifests/product-second.sha256
+          manifest_tree \
+            workspaces/blender/af053-demo-review \
+            .tmp/af053-manifests/review-second.sha256
+          cmp \
+            .tmp/af053-manifests/evidence-first.sha256 \
+            .tmp/af053-manifests/evidence-second.sha256
+          cmp \
+            .tmp/af053-manifests/product-first.sha256 \
+            .tmp/af053-manifests/product-second.sha256
+          cmp \
+            .tmp/af053-manifests/review-first.sha256 \
+            .tmp/af053-manifests/review-second.sha256
+
+      - name: Report bounded result
+        run: |
+          set -Eeuo pipefail
+          test "$(find workspaces/blender/af053-demo -mindepth 1 -maxdepth 1 \
+            -printf '%f\n' | LC_ALL=C sort)" = \
+            "$(printf '%s\n' directional-prerender.json provenance.json walk)"
+          test "$(find workspaces/blender/af053-product -mindepth 1 -maxdepth 1 \
+            -type f -printf '%f\n' | LC_ALL=C sort)" = \
+            "$(printf '%s\n' walk.png walk.spritesheet.json)"
+          test "$(find workspaces/blender/af053-demo-review -mindepth 1 -maxdepth 1 \
+            -type f -printf '%f\n' | LC_ALL=C sort)" = \
+            "$(printf '%s\n' walk_contact_sheet.png walk_review.gif)"
+          cat .tmp/af053-manifests/evidence-second.sha256
+          cat .tmp/af053-manifests/product-second.sha256
+          cat .tmp/af053-manifests/review-second.sha256
+          cat workspaces/blender/af053-demo/provenance.json
+          cat workspaces/blender/af053-product/walk.spritesheet.json
+
+      - name: Run focused pure-Python and host-orchestration contracts
         run: |
           docker compose run --rm --no-deps animated-fabric-dev \
-            ruff format --check tools/blender scripts/__init__.py \
-            scripts/generate_af052_directional_goldens.py \
-            scripts/package_blender_directional_export.py \
-            scripts/package_blender_walk_demo.py \
-            scripts/verify_blender_directional_goldens.py \
-            src/animated_fabric/domain/export.py \
-            src/animated_fabric/infrastructure/exporters \
-            tests/unit/test_animation_export_models.py \
-            tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
-            tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
+            ruff format --check tools/blender scripts tests/unit/test_blender_motion.py \
+            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
+            tests/unit/test_blender_walk_review.py \
+            tests/integration/test_blender_directional_demo_script.py
           docker compose run --rm --no-deps animated-fabric-dev \
-            ruff check tools/blender scripts/__init__.py \
-            scripts/generate_af052_directional_goldens.py \
-            scripts/package_blender_directional_export.py \
-            scripts/package_blender_walk_demo.py \
-            scripts/verify_blender_directional_goldens.py \
-            src/animated_fabric/domain/export.py \
-            src/animated_fabric/infrastructure/exporters \
-            tests/unit/test_animation_export_models.py \
-            tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
-            tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
+            ruff check tools/blender scripts tests/unit/test_blender_motion.py \
+            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
+            tests/unit/test_blender_walk_review.py \
+            tests/integration/test_blender_directional_demo_script.py
           docker compose run --rm --no-deps animated-fabric-dev \
             sh -c 'MYPYPATH=src mypy --strict \
             scripts/package_blender_directional_export.py \
+            scripts/package_blender_walk_demo.py \
             scripts/generate_af052_directional_goldens.py \
             scripts/verify_blender_directional_goldens.py'
           docker compose run --rm --no-deps animated-fabric-dev \
@@ -195,4 +198,22 @@ jobs:
             tests/unit/test_animation_export_models.py \
             tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
             tests/unit/test_blender_walk_review.py \
+            tests/integration/test_blender_directional_demo_script.py \
             tests/integration/test_grid_spritesheet_exporter.py
+
+      - name: Publish cleared AF-053 demo media and reports
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: animated-fabric-af053-demo-${{ github.sha }}
+          path: |
+            apps/animated-fabric/workspaces/blender/af053-product/walk.png
+            apps/animated-fabric/workspaces/blender/af053-product/walk.spritesheet.json
+            apps/animated-fabric/workspaces/blender/af053-demo-review/walk_contact_sheet.png
+            apps/animated-fabric/workspaces/blender/af053-demo-review/walk_review.gif
+            apps/animated-fabric/workspaces/blender/af053-demo/directional-prerender.json
+            apps/animated-fabric/workspaces/blender/af053-demo/provenance.json
+            apps/animated-fabric/docs/AF053-DEMO-CC0.md
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0

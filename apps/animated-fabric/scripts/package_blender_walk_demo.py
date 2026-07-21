@@ -39,6 +39,7 @@ class ReviewArtifacts:
 
     contact_sheet: Path
     animated_preview: Path
+    retained_backup: Path | None = None
 
 
 def _load_metadata(source_root: Path) -> tuple[FrameSequenceMetadata, Path]:
@@ -204,18 +205,24 @@ def _publish_review(
             backup.rmdir()
             destination.replace(backup)
         stage.replace(destination)
-        if backup is not None:
-            shutil.rmtree(backup)
-        return ReviewArtifacts(
-            contact_sheet=destination / contact_path.name,
-            animated_preview=destination / preview_path.name,
-        )
     except Exception:
         if stage.exists():
             shutil.rmtree(stage, ignore_errors=True)
         if backup is not None and backup.exists() and not destination.exists():
             os.replace(backup, destination)
         raise
+
+    retained_backup: Path | None = None
+    if backup is not None:
+        try:
+            shutil.rmtree(backup)
+        except OSError:
+            retained_backup = backup
+    return ReviewArtifacts(
+        contact_sheet=destination / contact_path.name,
+        animated_preview=destination / preview_path.name,
+        retained_backup=retained_backup,
+    )
 
 
 def _resolve_review_destination(source_root: Path, destination: Path) -> tuple[Path, Path]:
@@ -227,16 +234,17 @@ def _resolve_review_destination(source_root: Path, destination: Path) -> tuple[P
         raise ValueError("The Blender source root does not exist.") from error
     if not resolved_source.is_dir():
         raise ValueError("The Blender source root must be a directory.")
-    if destination.name != "review":
-        raise ValueError("The AF-052 review destination must be named 'review'.")
+    expected_name = f"{resolved_source.name}-review"
+    if destination.name != expected_name:
+        raise ValueError(f"The AF-052 review destination must be named '{expected_name}'.")
     if destination.is_symlink():
         raise ValueError("The AF-052 review destination must not be a symbolic link.")
     try:
         resolved_parent = destination.parent.resolve(strict=True)
     except OSError as error:
         raise ValueError("The AF-052 review destination parent does not exist.") from error
-    if resolved_parent != resolved_source:
-        raise ValueError("The AF-052 review must be a direct child of its source root.")
+    if resolved_parent != resolved_source.parent:
+        raise ValueError("The AF-052 review must be a direct sibling of its source root.")
     resolved_destination = resolved_parent / destination.name
     if resolved_destination.exists() and not resolved_destination.is_dir():
         raise ValueError("The AF-052 review destination must be a directory.")
@@ -284,6 +292,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 5
     print(f"Wrote AF-052 contact sheet to {artifacts.contact_sheet}")
     print(f"Wrote AF-052 animated preview to {artifacts.animated_preview}")
+    if artifacts.retained_backup is not None:
+        print(f"Warning: retained previous review backup at {artifacts.retained_backup}")
     return 0
 
 

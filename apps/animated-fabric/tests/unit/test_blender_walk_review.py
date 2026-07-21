@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from collections.abc import Callable
 from pathlib import Path
 
@@ -25,6 +26,10 @@ from scripts.verify_blender_directional_goldens import verify_directional_golden
 from tools.blender import evidence, motion
 
 APP_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _review_destination(source: Path) -> Path:
+    return source.parent / f"{source.name}-review"
 
 
 def _mirror_difference(root: Path, direct: str, source: str) -> float:
@@ -316,6 +321,10 @@ def test_directional_product_packager_writes_verified_deterministic_grid(
     assert metadata.duration_ms == motion.DURATION_MS
     assert metadata.frame_size.width == motion.FRAME_SIZE[0]
     assert metadata.frame_size.height == motion.FRAME_SIZE[1]
+    for row in range(len(motion.DIRECTIONS)):
+        offset = row * motion.FRAME_COUNT
+        assert metadata.frames[offset].events == ("foot_contact_l",)
+        assert metadata.frames[offset + 6].events == ("foot_contact_r",)
 
     with Image.open(destination / "walk.png") as sheet:
         sheet.load()
@@ -503,7 +512,7 @@ def test_review_packager_writes_deterministic_contact_sheet_and_animation(
     tmp_path: Path,
 ) -> None:
     source = tmp_path / "render"
-    destination = source / "review"
+    destination = _review_destination(source)
     _write_sequence(source)
 
     first = package_blender_walk_demo(source, destination)
@@ -526,9 +535,41 @@ def test_review_packager_writes_deterministic_contact_sheet_and_animation(
         assert preview.n_frames == 12
 
 
+def test_review_packager_keeps_new_review_when_backup_cleanup_fails(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = tmp_path / "render"
+    destination = _review_destination(source)
+    _write_sequence(source)
+    first = package_blender_walk_demo(source, destination)
+    expected = _published_bytes(destination)
+    (destination / "stale.txt").write_text("stale", encoding="utf-8")
+    original_rmtree = shutil.rmtree
+
+    def fail_backup_cleanup(path: str | Path, *args: object, **kwargs: object) -> None:
+        candidate = Path(path)
+        if candidate.name.startswith(f".{destination.name}-backup-"):
+            raise OSError("simulated review backup cleanup failure")
+        original_rmtree(candidate, *args, **kwargs)
+
+    monkeypatch.setattr(
+        "scripts.package_blender_walk_demo.shutil.rmtree",
+        fail_backup_cleanup,
+    )
+
+    second = package_blender_walk_demo(source, destination)
+
+    assert first.retained_backup is None
+    assert second.retained_backup is not None
+    assert second.retained_backup.is_dir()
+    assert (second.retained_backup / "stale.txt").is_file()
+    assert _published_bytes(destination) == expected
+
+
 def test_review_packager_rejects_a_completely_transparent_frame(tmp_path: Path) -> None:
     source = tmp_path / "render"
-    destination = source / "review"
+    destination = _review_destination(source)
     _write_sequence(source, transparent_frame=True)
 
     with pytest.raises(ValueError, match="completely transparent"):
@@ -539,7 +580,7 @@ def test_review_packager_rejects_a_completely_transparent_frame(tmp_path: Path) 
 
 def test_review_packager_rejects_alpha_touching_the_canvas_edge(tmp_path: Path) -> None:
     source = tmp_path / "render"
-    destination = source / "review"
+    destination = _review_destination(source)
     _write_sequence(source, edge_frame=True)
 
     with pytest.raises(ValueError, match="touches the canvas edge"):
@@ -549,7 +590,7 @@ def test_review_packager_rejects_alpha_touching_the_canvas_edge(tmp_path: Path) 
 
 
 def test_review_packager_rejects_missing_or_invalid_metadata(tmp_path: Path) -> None:
-    destination = tmp_path / "missing" / "review"
+    destination = tmp_path / "missing-review"
 
     with pytest.raises(ValueError, match="does not exist"):
         package_blender_walk_demo(tmp_path / "missing", destination)
@@ -557,16 +598,19 @@ def test_review_packager_rejects_missing_or_invalid_metadata(tmp_path: Path) -> 
     invalid_root = tmp_path / "invalid"
     (invalid_root / "walk").mkdir(parents=True)
     (invalid_root / "walk" / "animation.json").write_text("{}\n", encoding="utf-8")
-    with pytest.raises(ValueError, match="disagrees with the fixed motion manifest"):
-        package_blender_walk_demo(invalid_root, invalid_root / "review")
+    with pytest.raises(ValueError, match="exact bounded layout"):
+        package_blender_walk_demo(invalid_root, _review_destination(invalid_root))
 
 
 @pytest.mark.parametrize(
     ("destination_factory", "message"),
     [
-        (lambda source: source, "named 'review'"),
-        (lambda source: source / "walk", "named 'review'"),
-        (lambda source: source.parent / "review", "direct child"),
+        (lambda source: source, "must be named"),
+        (lambda source: source / f"{source.name}-review", "direct sibling"),
+        (
+            lambda source: source.parent.parent / f"{source.name}-review",
+            "direct sibling",
+        ),
     ],
 )
 def test_review_packager_rejects_destructive_or_unrelated_destinations(
@@ -585,9 +629,9 @@ def test_review_packager_rejects_destructive_or_unrelated_destinations(
 def test_review_packager_rejects_symlink_destination(tmp_path: Path) -> None:
     source = tmp_path / "render"
     _write_sequence(source)
-    target = source / "existing-review"
+    target = tmp_path / "existing-review"
     target.mkdir()
-    destination = source / "review"
+    destination = _review_destination(source)
     try:
         destination.symlink_to(target, target_is_directory=True)
     except OSError:
@@ -607,7 +651,7 @@ def test_review_packager_rejects_symlink_source(tmp_path: Path) -> None:
         pytest.skip("Filesystem does not permit symlinks.")
 
     with pytest.raises(ValueError, match="source root must not be a symbolic link"):
-        package_blender_walk_demo(alias, alias / "review")
+        package_blender_walk_demo(alias, _review_destination(alias))
 
 
 def test_review_packager_rejects_valid_png_tampering_against_provenance(tmp_path: Path) -> None:
@@ -617,7 +661,7 @@ def test_review_packager_rejects_valid_png_tampering_against_provenance(tmp_path
     Image.new("RGBA", motion.FRAME_SIZE, (220, 30, 40, 255)).save(target, format="PNG")
 
     with pytest.raises(ValueError, match="evidence hash mismatch"):
-        package_blender_walk_demo(source, source / "review")
+        package_blender_walk_demo(source, _review_destination(source))
 
 
 def test_review_packager_rejects_extra_walk_file(tmp_path: Path) -> None:
@@ -626,7 +670,7 @@ def test_review_packager_rejects_extra_walk_file(tmp_path: Path) -> None:
     (source / "walk" / "unexpected.txt").write_text("extra", encoding="utf-8")
 
     with pytest.raises(ValueError, match="exact bounded file set"):
-        package_blender_walk_demo(source, source / "review")
+        package_blender_walk_demo(source, _review_destination(source))
 
 
 def test_review_packager_rejects_extra_walk_directory(tmp_path: Path) -> None:
@@ -635,4 +679,35 @@ def test_review_packager_rejects_extra_walk_directory(tmp_path: Path) -> None:
     (source / "walk" / "extra").mkdir()
 
     with pytest.raises(ValueError, match="exact bounded layout"):
-        package_blender_walk_demo(source, source / "review")
+        package_blender_walk_demo(source, _review_destination(source))
+
+
+@pytest.mark.parametrize("entry_kind", ["file", "directory"])
+def test_review_packager_rejects_extra_evidence_root_entry(
+    tmp_path: Path,
+    entry_kind: str,
+) -> None:
+    source = tmp_path / "render"
+    _write_sequence(source)
+    extra = source / "unexpected"
+    if entry_kind == "file":
+        extra.write_text("extra", encoding="utf-8")
+    else:
+        extra.mkdir()
+
+    with pytest.raises(ValueError, match="exact bounded layout"):
+        package_blender_walk_demo(source, _review_destination(source))
+
+
+def test_review_packager_rejects_root_symlink_entry(tmp_path: Path) -> None:
+    source = tmp_path / "render"
+    _write_sequence(source)
+    target = tmp_path / "outside.txt"
+    target.write_text("outside", encoding="utf-8")
+    try:
+        (source / "unexpected").symlink_to(target)
+    except OSError:
+        pytest.skip("Filesystem does not permit symlinks.")
+
+    with pytest.raises(ValueError, match="exact bounded layout"):
+        package_blender_walk_demo(source, _review_destination(source))

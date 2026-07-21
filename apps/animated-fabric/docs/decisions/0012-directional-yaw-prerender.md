@@ -1,11 +1,17 @@
 # 0012: One canonical 3D motion drives four yaw-rendered directions
 
-- Status: accepted
+- Status: accepted; clarified in part by decision 0013
 - Date: 2026-07-21
 - Ticket: AF-052
 - Replaces: the 3D-output portions of SPEC ADR-001, SPEC ADR-002, and SPEC ADR-004;
   decision 0010's product-promotion prohibition; and the AF-052 mirroring clauses of decisions
   0009 and 0011
+
+Decision 0013 implements the deferred Linux-host one-command orchestration. It also replaces only
+this decision's internal-use restriction for the official `walk.png`, `walk_contact_sheet.png`, and
+`walk_review.gif` CI outputs, which now have a scoped `CC0-1.0` dedication. JSON, source, raw
+evidence frames, and the Blender container retain their existing terms and distribution gates; all
+other security, rendering, and source-path boundaries below remain normative.
 
 ## Context
 
@@ -88,7 +94,8 @@ modifies source evidence.
 
 This two-stage boundary is deliberate. The Blender container renders; the normal development
 container validates and packs. Product Python does not invoke Docker, mount the Docker socket, or
-import `bpy`. AF-053 may later orchestrate the already approved stages from scratch.
+import `bpy`. Decision 0013 later adds Linux-host orchestration around the already approved stages
+without changing that boundary.
 
 ### Compatibility and migration
 
@@ -96,8 +103,8 @@ No persisted project, rig, animation, frame-sequence, or grid schema changes in 
 layered projects require no migration and retain their authored/mirrored declarations. The
 project-based `animated-fabric export --profile default_grid` does not silently switch renderers;
 for now it still requires explicit authored direction overrides. The bounded prerender packager
-selects `walk` explicitly because the 3D source has no `idle` clip. AF-053 or a later product-input
-ticket must define general 3D actors before the normal project command can claim that behavior.
+selects `walk` explicitly because the 3D source has no `idle` clip. A later product-input ticket
+must define general 3D actors before the normal project command can claim that behavior.
 
 ### Isolation, security, licensing, and support
 
@@ -107,8 +114,9 @@ bounded output mount, CPU/memory/process/time limits, and prohibition on user `.
 scripts, add-ons, models, textures, fonts, HDRIs, and external motion.
 
 The container remains internal-only while the Blender notice inventory, corresponding-source
-offer, SBOM, Debian snapshot policy, and redistribution review are unresolved.
-Generated PNG output may be reviewed and consumed internally; this decision does not claim that the
+offer, SBOM, Debian snapshot policy, and redistribution review are unresolved. At AF-052 acceptance,
+generated PNG output was limited to internal review and consumption. Decision 0013 later permits
+only three named official CI media files under its scoped CC0 dedication; it does not claim that the
 container image is ready for public distribution. General user models, arbitrary scenes, armature
 or skinning import, editor support, and cross-platform Blender support remain out of scope.
 
@@ -136,6 +144,7 @@ the same 10% different-pixel floor; the verifier also enforces that threshold at
 - Direct `SW` and `NW` replace complete-frame mirroring for the bounded 3D actor.
 - The existing 2D project format and renderer remain usable without a migration or Blender.
 - AF-052 yields a real four-direction walk spritesheet but not a general 3D project importer.
-- A new idle motion, arbitrary actor input, sockets/hitboxes projected from 3D, public Blender image
-  distribution, and one-command from-scratch orchestration remain later work.
-- AF-053 is the next permitted ticket.
+- A new idle motion, arbitrary actor input, sockets/hitboxes projected from 3D, and public Blender
+  image distribution remain later work. Decision 0013 separately supplies the bounded host command
+  and the narrow generated-media publication rule.
+- AF-053 was the next permitted ticket after this decision; decision 0013 governs it.
