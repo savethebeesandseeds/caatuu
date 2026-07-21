@@ -473,16 +473,23 @@ def _render_stage(stage: Path) -> None:
     decoded: dict[tuple[str, int], array[float]] = {}
     output_hashes: dict[str, str] = {}
     first_hashes: dict[str, str] = {}
+    frames = motion.walk_frames()
+    shared_motion_sha256 = motion.motion_sha256(frames)
 
     for direction in motion.DIRECTIONS:
-        direction_root = animation_root / direction
-        direction_root.mkdir()
-        actor.rotation_euler = (0.0, 0.0, math.radians(motion.direction_yaw_degrees(direction)))
-        for frame in motion.walk_frames():
-            _apply_pose(parts, frame.pose)
-            scene.frame_set(frame.index + 1)
+        (animation_root / direction).mkdir()
+
+    for frame in frames:
+        _apply_pose(parts, frame.pose)
+        scene.frame_set(frame.index + 1)
+        for direction in motion.DIRECTIONS:
+            actor.rotation_euler = (
+                0.0,
+                0.0,
+                math.radians(motion.direction_yaw_degrees(direction)),
+            )
             bpy.context.view_layer.update()
-            destination = direction_root / f"{frame.index:03d}.png"
+            destination = animation_root / direction / f"{frame.index:03d}.png"
             scene.render.filepath = str(destination)
             bpy.ops.render.render(write_still=True)
             if not destination.is_file():
@@ -505,9 +512,14 @@ def _render_stage(stage: Path) -> None:
         newline="\n",
     )
     output_hashes[metadata_path.relative_to(stage).as_posix()] = _sha256(metadata_path)
-    total_output_bytes = sum(
-        path.stat().st_size for path in animation_root.rglob("*") if path.is_file()
+    directional_path = stage / motion.DIRECTIONAL_PRERENDER_FILENAME
+    directional_path.write_text(
+        motion.canonical_directional_prerender_json(frames),
+        encoding="utf-8",
+        newline="\n",
     )
+    output_hashes[directional_path.relative_to(stage).as_posix()] = _sha256(directional_path)
+    total_output_bytes = sum((stage / relative).stat().st_size for relative in output_hashes)
     if total_output_bytes > evidence.MAX_OUTPUT_BYTES:
         raise RuntimeError("Rendered evidence exceeds the AF-044 output-byte bound.")
     source_identities = evidence.source_hashes(
@@ -547,6 +559,7 @@ def _render_stage(stage: Path) -> None:
             "pelvis_bob": motion.PELVIS_BOB,
             "pelvis_sway": motion.PELVIS_SWAY,
             "arm_swing": motion.ARM_SWING,
+            "sha256": shared_motion_sha256,
         },
         "render": {
             "frame_size": list(motion.FRAME_SIZE),

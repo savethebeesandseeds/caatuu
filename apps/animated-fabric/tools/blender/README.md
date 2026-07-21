@@ -1,28 +1,36 @@
-# AF-044 procedural 3D walk spike
+# AF-052 bounded directional prerender
 
-This directory owns the complete source for the bounded Blender feasibility experiment. It creates
-one low-poly articulated humanoid from primitives, evaluates one analytical in-place walk, keeps a
-single orthographic camera fixed, and rotates the actor root to render `SE`, `SW`, `NE`, and `NW`.
-It does not load a `.blend`, model, texture, motion file, add-on, font, or project-provided script.
+This directory owns the complete Blender source for one fixed low-poly humanoid and one analytical
+in-place walk. The worker constructs the twelve motion samples once, keeps one orthographic camera
+fixed, and changes only actor-root yaw to rerender `SE`, `SW`, `NE`, and `NW`. It does not load a
+`.blend`, model, texture, motion file, add-on, font, or project-provided script, and it never
+transforms a finished 2D frame to fabricate another direction.
 
-The boundary and promotion rules are recorded in
-[decision 0010](../../docs/decisions/0010-experimental-blender-prerender.md). Blender image details
-and licensing are in the [container README](../../containers/blender/README.md) and
+The original evidence boundary is recorded in
+[decision 0010](../../docs/decisions/0010-experimental-blender-prerender.md); the narrow product
+promotion is [decision 0012](../../docs/decisions/0012-directional-yaw-prerender.md). Blender image
+details and licensing are in the [container README](../../containers/blender/README.md) and
 [third-party record](../../docs/third-party/blender.md).
 
 ## Source split
 
 - `motion.py` is standard-library-only and defines every sampled joint, foot contact, event,
-  direction yaw, duration, and frame-sequence metadata value. The normal Python test suite covers
-  it without installing or mocking `bpy`.
+  direction yaw, duration, frame-sequence value, directional manifest, and stable motion digest.
 - `render_walk.py` is the only module that imports Blender APIs. It constructs owned geometry,
-  applies each immutable pose directly, renders with headless Cycles CPU, validates RGBA and alpha
-  bounds, compares direct left-facing views with mirrors, and transactionally publishes evidence.
-- `scripts/package_blender_walk_demo.py` runs later in `animated-fabric-dev`. It validates the strict
-  frame-sequence document and PNG set, then creates a contact sheet and synchronized GIF solely for
-  human review. Those files are not the AF-051 product spritesheet.
+  applies each immutable pose once before its four yaw renders, validates RGBA and alpha bounds,
+  compares direct left-facing views with mirrors, and transactionally publishes evidence.
+- `scripts/package_blender_directional_export.py` runs later in `animated-fabric-dev`. It verifies
+  the evidence before and after packing, invokes the shared AF-051 grid packer, verifies every
+  product cell against its source, and atomically publishes one PNG and one JSON document.
+- `scripts/verify_blender_directional_goldens.py` compares decoded pixels with four reviewed
+  phase-zero goldens and independently recomputes direct-view versus mirror differences.
+- `scripts/package_blender_walk_demo.py` creates a contact sheet and synchronized GIF for human
+  review from the same verified source sequence.
 
-## Run the complete experiment
+Only `render_walk.py` requires `bpy`. The motion, evidence, packaging, and golden contracts run in
+the ordinary Linux development image.
+
+## Run the complete path
 
 All commands run from `apps/animated-fabric`. Docker performs productive work in Linux; no Python,
 Blender, Pillow, or image dependency is installed on Windows.
@@ -32,55 +40,75 @@ docker compose --profile blender config --quiet
 docker compose --profile blender build animated-fabric-blender
 docker compose --profile blender run --rm --no-deps animated-fabric-blender
 docker compose run --rm --no-deps animated-fabric-dev `
+  python scripts/verify_blender_directional_goldens.py `
+  --source workspaces/blender/af052-demo
+docker compose run --rm --no-deps animated-fabric-dev `
+  python scripts/package_blender_directional_export.py `
+  --source workspaces/blender/af052-demo `
+  --out workspaces/blender/af052-product
+docker compose run --rm --no-deps animated-fabric-dev `
   python scripts/package_blender_walk_demo.py `
-  --source workspaces/blender/af044-demo `
-  --out workspaces/blender/af044-demo/review
+  --source workspaces/blender/af052-demo `
+  --out workspaces/blender/af052-demo/review
 ```
 
-The default renderer writes exactly 49 source-evidence files (48 frames plus metadata), capped at
-4 MiB, plus its adjacent provenance document:
+The worker writes exactly 50 hashed evidence files, capped at 4 MiB, plus its adjacent provenance
+document. Product and review directories are separate derived outputs:
 
 ```text
-workspaces/blender/af044-demo/
-├── provenance.json
-├── walk/
-│   ├── animation.json
-│   ├── SE/000.png ... 011.png
-│   ├── SW/000.png ... 011.png
-│   ├── NE/000.png ... 011.png
-│   └── NW/000.png ... 011.png
-└── review/
-    ├── walk_contact_sheet.png
-    └── walk_review.gif
+workspaces/blender/
+|-- af052-demo/
+|   |-- directional-prerender.json
+|   |-- provenance.json
+|   |-- walk/
+|   |   |-- animation.json
+|   |   |-- SE/000.png ... 011.png
+|   |   |-- SW/000.png ... 011.png
+|   |   |-- NE/000.png ... 011.png
+|   |   `-- NW/000.png ... 011.png
+|   `-- review/
+|       |-- walk_contact_sheet.png
+|       `-- walk_review.gif
+`-- af052-product/
+    |-- walk.png
+    `-- walk.spritesheet.json
 ```
 
-`workspaces/blender/` is deliberately untracked. The frame metadata uses the existing strict
-`animated-fabric.frame-sequence.v1` contract so application-owned validation and future adapters
-can inspect it mechanically. The adjacent `provenance.json` and experimental root are mandatory
-context: metadata alone cannot distinguish these four direct views from authored/mirrored product
-semantics. It is still experimental Blender evidence, not `ExportProject` output and not a product
-export destination.
+`workspaces/blender/` is untracked. `walk/animation.json` uses the strict
+`animated-fabric.frame-sequence.v1` contract. The adjacent
+`animated-fabric.directional-prerender.v1` document is mandatory: it identifies the fixed source,
+one motion digest, the `actor_root_yaw` strategy, and the exact ordered yaw map. The product package
+is intentionally not the general project-based `ExportProject` path and supports only this owned
+`walk`.
+
+The provenance schema and its `AF-044` ticket field remain the historical evidence identity.
+AF-052 adds the directional manifest and product boundary rather than silently rewriting old
+evidence semantics.
 
 ## Repeatability check
 
-Render a second destination through the same fixed worker and compare every generated source frame
-and deterministic document. Review media is packaged after that comparison.
+Render a second fresh destination, verify its goldens, and package it into a second sibling product
+directory:
 
 ```powershell
 docker compose --profile blender run --rm --no-deps animated-fabric-blender `
-  --out /output/af044-repeat
+  --out /output/af052-repeat
 docker compose run --rm --no-deps animated-fabric-dev `
-  sh -lc "diff -qr workspaces/blender/af044-demo/walk workspaces/blender/af044-repeat/walk && cmp workspaces/blender/af044-demo/provenance.json workspaces/blender/af044-repeat/provenance.json"
+  python scripts/verify_blender_directional_goldens.py `
+  --source workspaces/blender/af052-repeat
+docker compose run --rm --no-deps animated-fabric-dev `
+  python scripts/package_blender_directional_export.py `
+  --source workspaces/blender/af052-repeat `
+  --out workspaces/blender/af052-product-repeat
 ```
 
-The worker canonicalizes each PNG after Blender writes it. Blender embeds the wall-clock date and
-measured render duration in ancillary `tEXt` chunks; removing all ancillary chunks leaves the
-encoded RGBA pixels intact and makes the complete evidence directory byte-repeatable.
+Compare both `walk/` trees, both directional and provenance documents, and both product directories
+recursively. The worker removes volatile PNG ancillary chunks without re-encoding pixels, so two
+runs in one pinned environment are byte-repeatable. Cross-host encoded bytes are measured rather
+than assumed; reviewed goldens compare decoded RGBA pixels with an explicit tolerance.
 
-The authoritative evidence run is native x86-64 Linux. A Docker Desktop result is a convenience
-smoke check and must be identified as such. `provenance.json` intentionally contains no timestamp,
-hostname, absolute host path, elapsed time, or container ID. Elapsed time is printed to the log and
-recorded in `docs/STATUS.md` with the final go, revise, or stop conclusion. The separate
-`animated-fabric-blender-evidence.yml` workflow repeats the build, isolation smoke, two timed
-renders, strict hash verification, recursive comparison, packaging, and focused tests on native
-Ubuntu x86-64 without changing the normal product quality gate.
+The authoritative evidence run is native x86-64 Linux. Docker Desktop is a convenience smoke only.
+`provenance.json` intentionally contains no timestamp, hostname, host path, elapsed time, or
+container ID. The path-scoped `animated-fabric-blender-evidence.yml` workflow repeats the isolated
+build, two renders, golden checks, packaging, recursive comparison, hashes, and focused contracts on
+native Ubuntu without changing the normal quality gate or publishing internal artifacts.

@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-import json
-import os
 from dataclasses import replace
 from pathlib import Path
 
-from PIL import Image, UnidentifiedImageError
 from pydantic import ValidationError
 
 from animated_fabric.application.exporting import (
@@ -25,12 +22,8 @@ from animated_fabric.domain.exceptions import ExportError, ExportFailureKind
 from animated_fabric.domain.export import (
     FRAME_SEQUENCE_FORMAT,
     FRAME_SEQUENCE_SCHEMA_VERSION,
-    GRID_SPRITESHEET_FORMAT,
-    GRID_SPRITESHEET_SCHEMA_VERSION,
     FrameSequenceFrame,
     FrameSequenceMetadata,
-    GridSpritesheetFrame,
-    GridSpritesheetMetadata,
 )
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.infrastructure.exporters._transaction import (
@@ -41,6 +34,9 @@ from animated_fabric.infrastructure.exporters._transaction import (
     validate_export_destination,
 )
 from animated_fabric.infrastructure.exporters.frame_exporter import FrameSequenceExporter
+from animated_fabric.infrastructure.exporters.grid_spritesheet_packer import (
+    GridSpritesheetPacker,
+)
 
 
 class GridSpritesheetExporter:
@@ -52,8 +48,10 @@ class GridSpritesheetExporter:
         self,
         renderer: Renderer,
         frame_exporter: FrameSequenceExporter | None = None,
+        packer: GridSpritesheetPacker | None = None,
     ) -> None:
         self._frame_exporter = frame_exporter or FrameSequenceExporter(renderer)
+        self._packer = packer or GridSpritesheetPacker()
 
     def export(self, request: ExportRequest) -> ExportResult[GridAnimationExportResult]:
         """Render through AF-050, pack, verify, and publish one grid transaction."""
@@ -71,14 +69,13 @@ class GridSpritesheetExporter:
             sequence_result = self._frame_exporter.export(
                 replace(request, destination=sequence_root)
             )
-            results, metadata = self._pack_sheets(
+            results = self._pack_sheets(
                 request,
                 schedules,
                 sequence_root,
                 sequence_result,
                 staging,
             )
-            self._write_and_verify_metadata(request, staging, metadata)
             discard_export_staging(sequence_root)
             if sequence_root.exists():
                 raise ExportError(
@@ -159,9 +156,8 @@ class GridSpritesheetExporter:
         sequence_root: Path,
         sequence_result: ExportResult[AnimationExportResult],
         staging: Path,
-    ) -> tuple[tuple[GridAnimationExportResult, ...], tuple[GridSpritesheetMetadata, ...]]:
+    ) -> tuple[GridAnimationExportResult, ...]:
         results: list[GridAnimationExportResult] = []
-        metadata_documents: list[GridSpritesheetMetadata] = []
         canvas = request.project.manifest.canvas
 
         if (
@@ -228,49 +224,15 @@ class GridSpritesheetExporter:
                     path=animation.clip_id,
                 )
 
-            image_path = Path(f"{animation.clip_id}.png")
-            grid_metadata_path = Path(f"{animation.clip_id}.spritesheet.json")
-            grid_frames = self._write_and_verify_sheet(
-                request,
-                sequence_root / animation.clip_id,
-                staging / image_path,
-                sequence_metadata,
+            result, _ = self._packer.pack_animation(
+                animation_root=sequence_root / animation.clip_id,
+                destination_root=staging,
+                metadata=sequence_metadata,
+                cancellation=request.cancellation,
             )
-            try:
-                grid_metadata = GridSpritesheetMetadata(
-                    format=GRID_SPRITESHEET_FORMAT,
-                    schema_version=GRID_SPRITESHEET_SCHEMA_VERSION,
-                    project=request.project.manifest.slug,
-                    animation=animation.clip_id,
-                    image=image_path.as_posix(),
-                    frame_size=IntSize(width=canvas.width, height=canvas.height),
-                    origin=Vec2(
-                        x=canvas.ground_anchor.x,
-                        y=canvas.ground_anchor.y,
-                    ),
-                    fps=request.fps,
-                    duration_ms=animation.duration_ms,
-                    directions=request.directions,
-                    frames_per_direction=len(schedule),
-                    frames=grid_frames,
-                )
-            except ValidationError as error:
-                raise ExportError(
-                    "The generated grid spritesheet metadata is invalid.",
-                    kind=ExportFailureKind.VERIFICATION,
-                    path=grid_metadata_path.as_posix(),
-                ) from error
-            results.append(
-                GridAnimationExportResult(
-                    animation=animation.clip_id,
-                    frame_count=len(schedule),
-                    image_path=image_path,
-                    metadata_path=grid_metadata_path,
-                )
-            )
-            metadata_documents.append(grid_metadata)
+            results.append(result)
 
-        return tuple(results), tuple(metadata_documents)
+        return tuple(results)
 
     @staticmethod
     def _load_sequence_metadata(path: Path, animation_id: str) -> FrameSequenceMetadata:
@@ -289,191 +251,6 @@ class GridSpritesheetExporter:
                 path=f"{animation_id}/animation.json",
             )
         return metadata
-
-    def _write_and_verify_sheet(
-        self,
-        request: ExportRequest,
-        animation_root: Path,
-        destination: Path,
-        metadata: FrameSequenceMetadata,
-    ) -> tuple[GridSpritesheetFrame, ...]:
-        frame_width = metadata.frame_size.width
-        frame_height = metadata.frame_size.height
-        sheet_size = (
-            frame_width * metadata.frames_per_direction,
-            frame_height * len(metadata.directions),
-        )
-        grid_frames: list[GridSpritesheetFrame] = []
-        source_paths: list[Path] = []
-
-        try:
-            with Image.new("RGBA", sheet_size, (0, 0, 0, 0)) as sheet:
-                for row, direction in enumerate(metadata.directions):
-                    start = row * metadata.frames_per_direction
-                    end = start + metadata.frames_per_direction
-                    for frame in metadata.frames[start:end]:
-                        relative_source = Path(*frame.image.split("/"))
-                        source = animation_root / relative_source
-                        self._check_cancelled(
-                            request,
-                            f"{metadata.animation}/{frame.image}",
-                        )
-                        with Image.open(source) as image:
-                            image.load()
-                            if (
-                                image.format != "PNG"
-                                or image.mode != "RGBA"
-                                or image.size != (frame_width, frame_height)
-                            ):
-                                raise ExportError(
-                                    "An intermediate frame does not match the RGBA "
-                                    "canvas contract.",
-                                    kind=ExportFailureKind.VERIFICATION,
-                                    path=f"{metadata.animation}/{frame.image}",
-                                )
-                            cell = (frame.index * frame_width, row * frame_height)
-                            sheet.paste(image, cell)
-                        rect = (
-                            frame.index * frame_width,
-                            row * frame_height,
-                            frame_width,
-                            frame_height,
-                        )
-                        grid_frames.append(
-                            GridSpritesheetFrame(
-                                direction=direction,
-                                index=frame.index,
-                                rect=rect,
-                                duration_ms=frame.duration_ms,
-                                events=frame.events,
-                            )
-                        )
-                        source_paths.append(source)
-
-                self._check_cancelled(request, destination.name)
-                with destination.open("w+b") as stream:
-                    sheet.save(
-                        stream,
-                        format="PNG",
-                        optimize=False,
-                        compress_level=9,
-                        pnginfo=None,
-                    )
-                    stream.flush()
-                    os.fsync(stream.fileno())
-        except ExportError:
-            raise
-        except MemoryError:
-            raise
-        except (
-            Image.DecompressionBombError,
-            OSError,
-            SyntaxError,
-            UnidentifiedImageError,
-            ValueError,
-        ) as error:
-            raise ExportError(
-                "The grid spritesheet image could not be assembled safely.",
-                kind=ExportFailureKind.VERIFICATION,
-                path=destination.name,
-            ) from error
-
-        self._verify_sheet(
-            request,
-            destination,
-            sheet_size,
-            tuple(source_paths),
-            tuple(grid_frames),
-        )
-        return tuple(grid_frames)
-
-    def _verify_sheet(
-        self,
-        request: ExportRequest,
-        destination: Path,
-        expected_size: tuple[int, int],
-        source_paths: tuple[Path, ...],
-        frames: tuple[GridSpritesheetFrame, ...],
-    ) -> None:
-        try:
-            with Image.open(destination) as sheet:
-                sheet.load()
-                if sheet.format != "PNG" or sheet.mode != "RGBA" or sheet.size != expected_size:
-                    raise ExportError(
-                        "The staged grid spritesheet has the wrong image contract.",
-                        kind=ExportFailureKind.VERIFICATION,
-                        path=destination.name,
-                    )
-                for source_path, frame in zip(source_paths, frames, strict=True):
-                    self._check_cancelled(
-                        request,
-                        f"verify:{frame.direction.value}/{frame.index}",
-                    )
-                    x, y, width, height = frame.rect
-                    with Image.open(source_path) as source:
-                        source.load()
-                        if (
-                            source.format != "PNG"
-                            or source.mode != "RGBA"
-                            or source.size != (width, height)
-                            or sheet.crop((x, y, x + width, y + height)).tobytes()
-                            != source.tobytes()
-                        ):
-                            raise ExportError(
-                                "A grid cell differs from its shared-renderer source frame.",
-                                kind=ExportFailureKind.VERIFICATION,
-                                path=destination.name,
-                                location=f"frames[{frame.direction.value}:{frame.index}]",
-                            )
-        except ExportError:
-            raise
-        except (
-            Image.DecompressionBombError,
-            OSError,
-            SyntaxError,
-            UnidentifiedImageError,
-            ValueError,
-        ) as error:
-            raise ExportError(
-                "The staged grid spritesheet could not be decoded and verified.",
-                kind=ExportFailureKind.VERIFICATION,
-                path=destination.name,
-            ) from error
-
-    @staticmethod
-    def _write_and_verify_metadata(
-        request: ExportRequest,
-        staging: Path,
-        metadata_documents: tuple[GridSpritesheetMetadata, ...],
-    ) -> None:
-        for metadata in metadata_documents:
-            relative_path = f"{metadata.animation}.spritesheet.json"
-            GridSpritesheetExporter._check_cancelled(request, relative_path)
-            destination = staging / relative_path
-            try:
-                payload = json.dumps(
-                    metadata.model_dump(mode="json"),
-                    ensure_ascii=False,
-                    indent=2,
-                    sort_keys=True,
-                )
-                with destination.open("w", encoding="utf-8", newline="\n") as stream:
-                    stream.write(payload + "\n")
-                    stream.flush()
-                    os.fsync(stream.fileno())
-                parsed = GridSpritesheetMetadata.model_validate_json(destination.read_bytes())
-            except (OSError, ValidationError) as error:
-                raise ExportError(
-                    "The grid spritesheet metadata could not be written and verified.",
-                    kind=ExportFailureKind.VERIFICATION,
-                    path=relative_path,
-                ) from error
-            if parsed != metadata:
-                raise ExportError(
-                    "The verified grid metadata does not match the export plan.",
-                    kind=ExportFailureKind.VERIFICATION,
-                    path=relative_path,
-                )
 
     @staticmethod
     def _check_cancelled(request: ExportRequest, location: str) -> None:

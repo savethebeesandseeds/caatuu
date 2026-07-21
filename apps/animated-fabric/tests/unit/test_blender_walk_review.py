@@ -6,13 +6,40 @@ import json
 from collections.abc import Callable
 from pathlib import Path
 
+import numpy as np
 import pytest
-from PIL import Image
+from PIL import Image, PngImagePlugin
 
+from animated_fabric.domain.exceptions import ExportError, ExportFailureKind
+from animated_fabric.domain.export import GridSpritesheetMetadata
+from animated_fabric.infrastructure.exporters import GridSpritesheetPacker
+from scripts.generate_af052_directional_goldens import generate_directional_goldens
+from scripts.package_blender_directional_export import (
+    main as directional_export_main,
+)
+from scripts.package_blender_directional_export import (
+    package_blender_directional_export,
+)
 from scripts.package_blender_walk_demo import package_blender_walk_demo
+from scripts.verify_blender_directional_goldens import verify_directional_goldens
 from tools.blender import evidence, motion
 
 APP_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _mirror_difference(root: Path, direct: str, source: str) -> float:
+    different_pixels = 0
+    pixel_count = motion.FRAME_SIZE[0] * motion.FRAME_SIZE[1] * motion.FRAME_COUNT
+    for index in range(motion.FRAME_COUNT):
+        with Image.open(root / "walk" / direct / f"{index:03d}.png") as direct_image:
+            direct_pixels = np.asarray(direct_image, dtype=np.uint8).copy()
+        with Image.open(root / "walk" / source / f"{index:03d}.png") as source_image:
+            source_pixels = np.asarray(source_image, dtype=np.uint8).copy()
+        delta = np.abs(
+            direct_pixels.astype(np.int16) - np.flip(source_pixels, axis=1).astype(np.int16)
+        )
+        different_pixels += int(np.count_nonzero(np.any(delta > 1, axis=2)))
+    return round(different_pixels / pixel_count, 8)
 
 
 def _write_sequence(
@@ -39,12 +66,19 @@ def _write_sequence(
         motion.canonical_manifest_json(),
         encoding="utf-8",
     )
+    shared_frames = motion.walk_frames()
+    directional_path = root / motion.DIRECTIONAL_PRERENDER_FILENAME
+    directional_path.write_text(
+        motion.canonical_directional_prerender_json(shared_frames),
+        encoding="utf-8",
+    )
     hashes = {
         path.relative_to(root).as_posix(): evidence.sha256_file(path)
         for path in animation_root.rglob("*")
         if path.is_file()
     }
-    total_bytes = sum(path.stat().st_size for path in animation_root.rglob("*") if path.is_file())
+    hashes[motion.DIRECTIONAL_PRERENDER_FILENAME] = evidence.sha256_file(directional_path)
+    total_bytes = sum(root.joinpath(*relative.split("/")).stat().st_size for relative in hashes)
     provenance = {
         "format": evidence.EVIDENCE_FORMAT,
         "schema_version": evidence.EVIDENCE_SCHEMA_VERSION,
@@ -81,6 +115,7 @@ def _write_sequence(
             "pelvis_bob": motion.PELVIS_BOB,
             "pelvis_sway": motion.PELVIS_SWAY,
             "arm_swing": motion.ARM_SWING,
+            "sha256": motion.motion_sha256(shared_frames),
         },
         "render": {
             "frame_size": list(motion.FRAME_SIZE),
@@ -102,12 +137,12 @@ def _write_sequence(
             "direct_SW_vs_mirrored_SE": {
                 "mean_absolute_rgba": 0.03,
                 "maximum_absolute_rgba": 1.0,
-                "different_pixel_fraction": 0.30,
+                "different_pixel_fraction": _mirror_difference(root, "SW", "SE"),
             },
             "direct_NW_vs_mirrored_NE": {
                 "mean_absolute_rgba": 0.03,
                 "maximum_absolute_rgba": 1.0,
-                "different_pixel_fraction": 0.31,
+                "different_pixel_fraction": _mirror_difference(root, "NW", "NE"),
             },
         },
         "outputs": {
@@ -121,6 +156,347 @@ def _write_sequence(
         json.dumps(provenance, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+
+
+def _published_bytes(destination: Path) -> dict[str, bytes]:
+    return {
+        path.relative_to(destination).as_posix(): path.read_bytes()
+        for path in sorted(destination.rglob("*"))
+        if path.is_file()
+    }
+
+
+def _assert_no_transaction_debris(destination: Path) -> None:
+    assert list(destination.parent.glob(f".{destination.name}.stage-*")) == []
+    assert list(destination.parent.glob(f".{destination.name}.backup-*")) == []
+
+
+def _refresh_output_provenance(source: Path, relative: str) -> None:
+    provenance_path = source / "provenance.json"
+    payload = json.loads(provenance_path.read_text(encoding="utf-8"))
+    payload["outputs"]["sha256"][relative] = evidence.sha256_file(source / relative)
+    payload["outputs"]["total_bytes"] = sum(
+        source.joinpath(*path.split("/")).stat().st_size for path in payload["outputs"]["sha256"]
+    )
+    provenance_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+class _OccupiedOutputPacker(GridSpritesheetPacker):
+    def pack_animation(self, **kwargs: object) -> object:
+        destination_root = kwargs["destination_root"]
+        assert isinstance(destination_root, Path)
+        (destination_root / "walk.png").write_bytes(b"occupied")
+        return super().pack_animation(**kwargs)  # type: ignore[arg-type,return-value]
+
+
+class _SourceMutatingPacker(GridSpritesheetPacker):
+    def __init__(self, source: Path) -> None:
+        self._source = source
+
+    def pack_animation(self, **kwargs: object) -> object:
+        result = super().pack_animation(**kwargs)  # type: ignore[arg-type]
+        (self._source / "walk" / "SE" / "000.png").write_bytes(b"changed")
+        return result
+
+
+class _Cancellation:
+    def is_cancelled(self) -> bool:
+        return True
+
+
+class _CancelAfterProductStaged:
+    def __init__(self, destination: Path) -> None:
+        self._destination = destination
+
+    def is_cancelled(self) -> bool:
+        return any(
+            (stage / "walk.spritesheet.json").is_file()
+            for stage in self._destination.parent.glob(f".{self._destination.name}.stage-*")
+        )
+
+
+def test_directional_golden_candidates_verify_decoded_pixels_and_mirror_distinction(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    golden_root = tmp_path / "goldens"
+    _write_sequence(source)
+
+    written = generate_directional_goldens(source, golden_root)
+    summary = verify_directional_goldens(source, golden_root)
+
+    assert len(written) == len(motion.DIRECTIONS)
+    assert summary.maximum_golden_difference == 0
+    assert summary.maximum_golden_outlier_fraction == 0.0
+    assert summary.direct_sw_difference >= 0.10
+    assert summary.direct_nw_difference >= 0.10
+    with pytest.raises(ValueError, match="Refusing to replace"):
+        generate_directional_goldens(source, golden_root)
+    with pytest.raises(ExportError):
+        generate_directional_goldens(source, source / "goldens")
+
+
+def test_directional_golden_verifier_enforces_channel_and_pixel_tolerances(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    golden_root = tmp_path / "goldens"
+    _write_sequence(source)
+    generate_directional_goldens(source, golden_root)
+    target = golden_root / "af052_blender_walk_se_t0000.png"
+    with Image.open(target) as image:
+        changed = image.copy()
+    original = changed.getpixel((0, 0))
+    changed.putpixel((0, 0), (original[0] + 2, *original[1:]))
+    changed.save(target, format="PNG")
+    assert verify_directional_goldens(source, golden_root).maximum_golden_difference == 2
+
+    second = changed.getpixel((1, 0))
+    changed.putpixel((1, 0), (second[0] + 3, *second[1:]))
+    changed.save(target, format="PNG")
+    with pytest.raises(ValueError, match="max_channel=3"):
+        verify_directional_goldens(source, golden_root)
+
+    changed.putpixel((1, 0), second)
+    for x in range(1, 37):
+        pixel = changed.getpixel((x, 0))
+        changed.putpixel((x, 0), (pixel[0] + 1, *pixel[1:]))
+    changed.save(target, format="PNG")
+    with pytest.raises(ValueError, match="outlier_fraction"):
+        verify_directional_goldens(source, golden_root)
+
+
+def test_committed_directional_goldens_match_scoped_cc0_provenance() -> None:
+    golden_root = APP_ROOT / "tests" / "golden"
+    provenance = json.loads(
+        (golden_root / "af052_blender_walk.provenance.json").read_text(encoding="utf-8")
+    )
+    expected_names = {name for name in provenance["paths"]}
+
+    assert expected_names == {
+        "af052_blender_walk_se_t0000.png",
+        "af052_blender_walk_sw_t0000.png",
+        "af052_blender_walk_ne_t0000.png",
+        "af052_blender_walk_nw_t0000.png",
+    }
+    assert provenance["license"] == "CC0-1.0"
+    assert provenance["attribution_required"] is False
+    assert "SPDX-License-Identifier: CC0-1.0" in (
+        golden_root / provenance["license_notice"]
+    ).read_text(encoding="utf-8")
+    for name, expected_hash in provenance["paths"].items():
+        assert evidence.sha256_file(golden_root / name) == expected_hash
+
+
+def test_directional_product_packager_writes_verified_deterministic_grid(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+
+    first = package_blender_directional_export(source, destination)
+    first_bytes = _published_bytes(destination)
+    (destination / "stale.txt").write_text("stale", encoding="utf-8")
+    second = package_blender_directional_export(source, destination)
+
+    assert first == second
+    assert _published_bytes(destination) == first_bytes
+    assert set(first_bytes) == {"walk.png", "walk.spritesheet.json"}
+    assert first.animations[0].frame_count == motion.FRAME_COUNT
+    metadata = GridSpritesheetMetadata.model_validate_json(
+        (destination / "walk.spritesheet.json").read_bytes()
+    )
+    assert tuple(direction.value for direction in metadata.directions) == motion.DIRECTIONS
+    assert metadata.frames_per_direction == motion.FRAME_COUNT
+    assert metadata.fps == motion.FPS
+    assert metadata.duration_ms == motion.DURATION_MS
+    assert metadata.frame_size.width == motion.FRAME_SIZE[0]
+    assert metadata.frame_size.height == motion.FRAME_SIZE[1]
+
+    with Image.open(destination / "walk.png") as sheet:
+        sheet.load()
+        assert sheet.format == "PNG"
+        assert sheet.mode == "RGBA"
+        assert sheet.size == (
+            motion.FRAME_SIZE[0] * motion.FRAME_COUNT,
+            motion.FRAME_SIZE[1] * len(motion.DIRECTIONS),
+        )
+        for row, direction in enumerate(motion.DIRECTIONS):
+            for index in range(motion.FRAME_COUNT):
+                left = index * motion.FRAME_SIZE[0]
+                top = row * motion.FRAME_SIZE[1]
+                cell = sheet.crop(
+                    (
+                        left,
+                        top,
+                        left + motion.FRAME_SIZE[0],
+                        top + motion.FRAME_SIZE[1],
+                    )
+                )
+                with Image.open(source / "walk" / direction / f"{index:03d}.png") as frame:
+                    frame.load()
+                    assert cell.tobytes() == frame.tobytes()
+    _assert_no_transaction_debris(destination)
+
+
+def test_directional_product_packager_preserves_previous_output_on_tampering(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+    destination.mkdir()
+    (destination / "previous.txt").write_bytes(b"previous")
+    directional_path = source / motion.DIRECTIONAL_PRERENDER_FILENAME
+    payload = json.loads(directional_path.read_text(encoding="utf-8"))
+    payload["views"][0]["actor_yaw_degrees"] = -89
+    directional_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(source, destination)
+
+    assert captured.value.kind is ExportFailureKind.VERIFICATION
+    assert _published_bytes(destination) == {"previous.txt": b"previous"}
+    _assert_no_transaction_debris(destination)
+
+
+@pytest.mark.parametrize(
+    "packer_factory",
+    [
+        lambda source: _OccupiedOutputPacker(),
+        _SourceMutatingPacker,
+    ],
+)
+def test_directional_product_packager_rejects_transaction_or_source_races(
+    tmp_path: Path,
+    packer_factory: Callable[[Path], GridSpritesheetPacker],
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+    destination.mkdir()
+    (destination / "previous.txt").write_bytes(b"previous")
+
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(
+            source,
+            destination,
+            packer=packer_factory(source),
+        )
+
+    assert captured.value.kind is ExportFailureKind.VERIFICATION
+    assert _published_bytes(destination) == {"previous.txt": b"previous"}
+    _assert_no_transaction_debris(destination)
+
+
+def test_directional_product_packager_rejects_wrong_dimensions_before_decode(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+    target = source / "walk" / "SE" / "000.png"
+    Image.new("RGBA", (motion.FRAME_SIZE[0] + 1, motion.FRAME_SIZE[1]), (1, 2, 3, 4)).save(
+        target,
+        format="PNG",
+    )
+    _refresh_output_provenance(source, "walk/SE/000.png")
+
+    def fail_if_decoded(self: Image.Image) -> None:
+        del self
+        raise AssertionError("wrong-sized source was decoded")
+
+    monkeypatch.setattr(PngImagePlugin.PngImageFile, "load", fail_if_decoded)
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(source, destination)
+
+    assert captured.value.kind is ExportFailureKind.VERIFICATION
+    assert not destination.exists()
+    _assert_no_transaction_debris(destination)
+
+
+def test_directional_product_packager_rejects_destination_inside_source(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    _write_sequence(source)
+
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(source, source / "exports" / "product")
+
+    assert captured.value.kind is ExportFailureKind.DESTINATION
+    assert not (source / "exports").exists()
+
+
+def test_directional_product_packager_cancellation_preserves_previous_output(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+    destination.mkdir()
+    (destination / "previous.txt").write_bytes(b"previous")
+
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(
+            source,
+            destination,
+            cancellation=_Cancellation(),
+        )
+
+    assert captured.value.kind is ExportFailureKind.CANCELLED
+    assert _published_bytes(destination) == {"previous.txt": b"previous"}
+    _assert_no_transaction_debris(destination)
+
+
+def test_directional_product_packager_cancels_after_staging_before_publication(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+    destination.mkdir()
+    (destination / "previous.txt").write_bytes(b"previous")
+
+    with pytest.raises(ExportError) as captured:
+        package_blender_directional_export(
+            source,
+            destination,
+            cancellation=_CancelAfterProductStaged(destination),
+        )
+
+    assert captured.value.kind is ExportFailureKind.CANCELLED
+    assert captured.value.location == "before product publication"
+    assert _published_bytes(destination) == {"previous.txt": b"previous"}
+    _assert_no_transaction_debris(destination)
+
+
+def test_directional_product_packager_cli_reports_success_and_verification_failure(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    source = tmp_path / "render"
+    destination = tmp_path / "product"
+    _write_sequence(source)
+
+    assert directional_export_main(["--source", str(source), "--out", str(destination)]) == 0
+    success_output = capsys.readouterr().out
+    assert "Wrote AF-052 spritesheet" in success_output
+    assert "Wrote AF-052 metadata" in success_output
+
+    (source / "walk" / "SE" / "000.png").unlink()
+    assert (
+        directional_export_main(["--source", str(source), "--out", str(tmp_path / "failed")]) == 5
+    )
+    assert "AF-052 directional export packaging failed" in capsys.readouterr().out
 
 
 def test_review_packager_writes_deterministic_contact_sheet_and_animation(

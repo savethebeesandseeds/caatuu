@@ -61,10 +61,12 @@ def test_neutral_authored_frames_preserve_metadata_and_repeat_exact_pixels(
     assert renderer.computation_cache.topology_entry_count == 1
 
 
-def test_renderer_rejects_complete_frame_mirroring_until_af052(fixture_project) -> None:  # type: ignore[no-untyped-def]
+def test_renderer_keeps_layered_mirroring_separate_from_directional_yaw(
+    fixture_project,
+) -> None:  # type: ignore[no-untyped-def]
     renderer = OpenCvRenderer()
 
-    with pytest.raises(RenderError, match="mirrored.*AF-052"):
+    with pytest.raises(RenderError, match="authored directions only.*separate 3D path"):
         renderer.render(_request(fixture_project, Direction.SW))
 
     assert renderer.asset_cache.entry_count == 0

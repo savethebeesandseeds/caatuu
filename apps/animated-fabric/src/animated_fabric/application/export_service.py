@@ -411,10 +411,14 @@ def _validate_directions(
             )
         if definition.mode is not DirectionMode.AUTHORED:
             return _profile_diagnostic(
-                f"Direction '{direction.value}' is mirrored and cannot be exported before AF-052.",
+                f"Direction '{direction.value}' uses layered mirroring and cannot be exported "
+                "by the authored-layer pipeline.",
                 path=PROJECT_MANIFEST_FILENAME,
                 location=f"directions.{direction.value}.mode",
-                suggestion="Select an authored direction; mirrored export is introduced in AF-052.",
+                suggestion=(
+                    "Select an authored direction; AF-052 directional yaw prerender is a "
+                    "separate 3D workflow."
+                ),
             )
     return None
 

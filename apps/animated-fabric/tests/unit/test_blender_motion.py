@@ -11,7 +11,10 @@ from typing import cast
 
 import pytest
 
-from animated_fabric.domain.export import FrameSequenceMetadata
+from animated_fabric.domain.export import (
+    DirectionalPrerenderMetadata,
+    FrameSequenceMetadata,
+)
 from tools.blender import motion
 
 
@@ -159,6 +162,58 @@ def test_direction_yaws_are_fixed_complete_and_immutable() -> None:
         mutable_view["SE"] = 0
     with pytest.raises(ValueError, match="Direction must be one of"):
         motion.direction_yaw_degrees("se")
+
+
+def test_one_motion_fingerprint_drives_the_strict_four_yaw_manifest() -> None:
+    frames = motion.walk_frames()
+
+    first_digest = motion.motion_sha256(frames)
+    second_digest = motion.motion_sha256(frames)
+    document = motion.build_directional_prerender_manifest(frames)
+    metadata = DirectionalPrerenderMetadata.model_validate_json(
+        json.dumps(document, allow_nan=False)
+    )
+
+    assert first_digest == second_digest == metadata.motion_sha256
+    assert len(first_digest) == 64
+    assert metadata.frame_sequence == "walk/animation.json"
+    assert tuple(
+        (view.direction.value, view.actor_yaw_degrees) for view in metadata.views
+    ) == tuple(motion.DIRECTION_YAW_DEGREES.items())
+    assert motion.canonical_directional_prerender_json(frames).endswith("\n")
+
+
+def test_motion_fingerprint_rejects_a_noncanonical_schedule() -> None:
+    frames = motion.walk_frames()
+    invalid = (
+        motion.WalkFrame(
+            index=0,
+            time_ms=frames[0].time_ms,
+            duration_ms=frames[0].duration_ms + 1,
+            events=frames[0].events,
+            pose=frames[0].pose,
+        ),
+        *frames[1:],
+    )
+
+    with pytest.raises(ValueError, match="canonical walk schedule"):
+        motion.motion_sha256(invalid)
+
+
+def test_blender_worker_constructs_the_walk_tuple_once() -> None:
+    source = (Path(motion.__file__).parent / "render_walk.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    calls = [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and isinstance(node.func.value, ast.Name)
+        and node.func.value.id == "motion"
+        and node.func.attr == "walk_frames"
+    ]
+
+    assert len(calls) == 1
 
 
 def test_frame_durations_events_and_paths_are_exact() -> None:

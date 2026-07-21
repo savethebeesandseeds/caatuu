@@ -187,7 +187,7 @@ services:
     pids_limit: 256
     shm_size: 512m
     init: true
-    command: ["--out", "/output/af044-demo"]
+    command: ["--out", "/output/af052-demo"]
 
 volumes:
   animated-fabric-pip-cache:

@@ -21,10 +21,14 @@ from animated_fabric.domain.animation import (
 )
 from animated_fabric.domain.exceptions import ExportError, ExportFailureKind
 from animated_fabric.domain.export import (
+    DIRECTIONAL_PRERENDER_FORMAT,
+    DIRECTIONAL_PRERENDER_SCHEMA_VERSION,
     FRAME_SEQUENCE_FORMAT,
     FRAME_SEQUENCE_SCHEMA_VERSION,
     GRID_SPRITESHEET_FORMAT,
     GRID_SPRITESHEET_SCHEMA_VERSION,
+    DirectionalPrerenderMetadata,
+    DirectionalPrerenderView,
     ExportProfile,
     FrameSequenceFrame,
     FrameSequenceMetadata,
@@ -33,6 +37,76 @@ from animated_fabric.domain.export import (
 )
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction
+
+
+def _directional_prerender_metadata() -> DirectionalPrerenderMetadata:
+    return DirectionalPrerenderMetadata(
+        format=DIRECTIONAL_PRERENDER_FORMAT,
+        schema_version=DIRECTIONAL_PRERENDER_SCHEMA_VERSION,
+        project="blender_humanoid",
+        animation="walk",
+        frame_sequence="walk/animation.json",
+        view_strategy="actor_root_yaw",
+        motion_sha256="a" * 64,
+        views=(
+            DirectionalPrerenderView(direction=Direction.SE, actor_yaw_degrees=-90),
+            DirectionalPrerenderView(direction=Direction.SW, actor_yaw_degrees=180),
+            DirectionalPrerenderView(direction=Direction.NE, actor_yaw_degrees=0),
+            DirectionalPrerenderView(direction=Direction.NW, actor_yaw_degrees=90),
+        ),
+    )
+
+
+def test_directional_prerender_metadata_round_trips_one_motion_four_yaws() -> None:
+    metadata = _directional_prerender_metadata()
+
+    restored = DirectionalPrerenderMetadata.model_validate_json(metadata.model_dump_json())
+
+    assert restored == metadata
+    assert json.loads(restored.model_dump_json()) == {
+        "format": "animated-fabric.directional-prerender.v1",
+        "schema_version": "0.1.0",
+        "project": "blender_humanoid",
+        "animation": "walk",
+        "frame_sequence": "walk/animation.json",
+        "view_strategy": "actor_root_yaw",
+        "motion_sha256": "a" * 64,
+        "views": [
+            {"direction": "SE", "actor_yaw_degrees": -90},
+            {"direction": "SW", "actor_yaw_degrees": 180},
+            {"direction": "NE", "actor_yaw_degrees": 0},
+            {"direction": "NW", "actor_yaw_degrees": 90},
+        ],
+    }
+
+
+@pytest.mark.parametrize(
+    ("replacement", "message"),
+    [
+        ({"frame_sequence": "idle/animation.json"}, "canonical path"),
+        ({"motion_sha256": "invalid"}, "String should match pattern"),
+        ({"view_strategy": "pixel_rotation"}, "Input should be 'actor_root_yaw'"),
+        (
+            {
+                "views": (
+                    {"direction": "SE", "actor_yaw_degrees": -90},
+                    {"direction": "NE", "actor_yaw_degrees": 0},
+                    {"direction": "SW", "actor_yaw_degrees": 180},
+                    {"direction": "NW", "actor_yaw_degrees": 90},
+                )
+            },
+            "canonical SE, SW, NE, NW",
+        ),
+    ],
+)
+def test_directional_prerender_metadata_rejects_noncanonical_contract(
+    replacement: dict[str, object],
+    message: str,
+) -> None:
+    payload = _directional_prerender_metadata().model_dump(mode="json") | replacement
+
+    with pytest.raises(ValidationError, match=message):
+        DirectionalPrerenderMetadata.model_validate_json(json.dumps(payload))
 
 
 def test_animation_clip_round_trips_normative_json() -> None:

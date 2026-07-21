@@ -8,10 +8,9 @@
 ## Context
 
 AF-051 owns direction rows, frame columns, exact duration, the public profile-based export command,
-and `animated-fabric.grid-spritesheet.v1` JSON. AF-052 separately owns complete-frame `SW`/`NW`
-mirroring and mirrored spatial metadata. The normative `default_grid` profile already names all four
-directions, so silently omitting mirrored rows or implementing mirroring here would make either the
-profile or the ticket boundary untrue.
+and `animated-fabric.grid-spritesheet.v1` JSON. At the time, AF-052 separately owned complete-frame
+`SW`/`NW` mirroring. Decision 0012 replaces that later ticket boundary with a bounded direct-yaw 3D
+path while preserving AF-051's refusal to fabricate rows.
 
 Section 18.3's illustrative metadata omits `schema_version`, while the global data rule requires it
 on every persisted file. AF-050 also established a verified directory transaction, but decision
@@ -20,7 +19,7 @@ started, that backup may be incomplete and is no longer safe restoration materia
 
 ## Decision
 
-### Profile and AF-052 boundary
+### Profile and direction-source boundary
 
 `default_grid` is one fixed package-owned profile. It uses the normative `idle`, `walk`,
 `SE`/`SW`/`NE`/`NW`, 12 FPS, fixed cells, JSON, no timestamp, and no trimming defaults. A project
@@ -37,7 +36,7 @@ animated-fabric export ROOT --profile PROFILE --out DESTINATION
 
 Explicit repeated animation and direction overrides preserve caller order. AF-051 succeeds only for
 authored directions, such as `--direction SE --direction NE`. Selecting the unmodified four-row
-default against the normative mirrored project reports actionable `AFV502` and names AF-052. It
+default against the layered project reports actionable `AFV502`. It
 does not drop rows, duplicate source rows, mirror pixels, or invent mirrored metadata.
 
 ### Artifact contract
@@ -102,6 +101,6 @@ frame-sequence API while giving grid callers precise sheet and metadata paths.
 - Every persisted grid document is versioned despite the abbreviated Section 18.3 example.
 - Successful publication may report recoverable backup debris instead of risking replacement with a
   partially deleted tree.
-- The unmodified `default_grid` command becomes successful only when AF-052 supplies complete-frame
-  mirroring and its spatial metadata contract.
+- Decision 0012 does not silently switch the project command to Blender. Its bounded packager
+  selects the one available 3D `walk` sequence and reuses this grid contract directly.
 - The from-scratch export demonstration remains AF-053.

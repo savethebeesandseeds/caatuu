@@ -6,7 +6,12 @@ from typing import Final, Literal, Self
 
 from pydantic import Field, model_validator
 
-from animated_fabric.domain._base import DomainModel, ProjectPath, SemanticId
+from animated_fabric.domain._base import (
+    DomainModel,
+    ProjectPath,
+    SemanticId,
+    Sha256Digest,
+)
 from animated_fabric.domain.animation import EventId
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction, ProjectSlug
@@ -15,6 +20,46 @@ FRAME_SEQUENCE_FORMAT: Final = "animated-fabric.frame-sequence.v1"
 FRAME_SEQUENCE_SCHEMA_VERSION: Final = "0.1.0"
 GRID_SPRITESHEET_FORMAT: Final = "animated-fabric.grid-spritesheet.v1"
 GRID_SPRITESHEET_SCHEMA_VERSION: Final = "0.1.0"
+DIRECTIONAL_PRERENDER_FORMAT: Final = "animated-fabric.directional-prerender.v1"
+DIRECTIONAL_PRERENDER_SCHEMA_VERSION: Final = "0.1.0"
+DIRECTIONAL_PRERENDER_VIEWS: Final = (
+    (Direction.SE, -90),
+    (Direction.SW, 180),
+    (Direction.NE, 0),
+    (Direction.NW, 90),
+)
+
+
+class DirectionalPrerenderView(DomainModel):
+    """One logical direction and its direct actor-root yaw."""
+
+    direction: Direction
+    actor_yaw_degrees: int = Field(ge=-180, le=180)
+
+
+class DirectionalPrerenderMetadata(DomainModel):
+    """Strict provenance boundary for one shared-motion 3D prerender batch."""
+
+    format: Literal["animated-fabric.directional-prerender.v1"]
+    schema_version: Literal["0.1.0"]
+    project: ProjectSlug
+    animation: SemanticId
+    frame_sequence: ProjectPath
+    view_strategy: Literal["actor_root_yaw"]
+    motion_sha256: Sha256Digest
+    views: tuple[DirectionalPrerenderView, ...]
+
+    @model_validator(mode="after")
+    def _validate_directional_contract(self) -> Self:
+        expected_sequence = f"{self.animation}/animation.json"
+        if self.frame_sequence != expected_sequence:
+            raise ValueError(f"frame_sequence must be the canonical path '{expected_sequence}'")
+        actual_views = tuple((view.direction, view.actor_yaw_degrees) for view in self.views)
+        if actual_views != DIRECTIONAL_PRERENDER_VIEWS:
+            raise ValueError(
+                "views must contain the canonical SE, SW, NE, NW actor-root yaw mapping"
+            )
+        return self
 
 
 class ExportProfile(DomainModel):
@@ -162,6 +207,11 @@ class GridSpritesheetMetadata(DomainModel):
 
 
 __all__ = [
+    "DIRECTIONAL_PRERENDER_FORMAT",
+    "DIRECTIONAL_PRERENDER_SCHEMA_VERSION",
+    "DIRECTIONAL_PRERENDER_VIEWS",
+    "DirectionalPrerenderMetadata",
+    "DirectionalPrerenderView",
     "FRAME_SEQUENCE_FORMAT",
     "FRAME_SEQUENCE_SCHEMA_VERSION",
     "GRID_SPRITESHEET_FORMAT",

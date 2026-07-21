@@ -14,7 +14,7 @@ from typing import Any
 try:
     from tools.blender import motion
 except ModuleNotFoundError:  # Blender loads the baked modules as top-level files.
-    import motion  # type: ignore[no-redef]
+    import motion  # type: ignore[import-not-found,no-redef]
 
 EVIDENCE_FORMAT = "animated-fabric.blender-prerender-evidence.v1"
 EVIDENCE_SCHEMA_VERSION = "0.1.0"
@@ -24,7 +24,7 @@ CONTAINER_IMAGE = "caatuu-animated-fabric-blender:4.5.12-cycles-cpu"
 CONTAINER_PLATFORM = "linux/amd64"
 MAX_OUTPUT_BYTES = 4 * 1024 * 1024
 MAX_SCENE_OBJECTS = 64
-EXPECTED_FILE_COUNT = len(motion.DIRECTIONS) * motion.FRAME_COUNT + 1
+EXPECTED_FILE_COUNT = len(motion.DIRECTIONS) * motion.FRAME_COUNT + 2
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -134,7 +134,7 @@ def _verify_fixed_contract(
         {"version", "archive_sha256", "render_engine", "device", "samples", "threads", "seed"},
         "blender",
     )
-    for key, expected in {
+    for key, expected_blender_value in {
         "version": BLENDER_VERSION,
         "archive_sha256": BLENDER_ARCHIVE_SHA256,
         "render_engine": "CYCLES",
@@ -143,7 +143,7 @@ def _verify_fixed_contract(
         "threads": 2,
         "seed": 0,
     }.items():
-        _expect(blender, key, expected, "blender")
+        _expect(blender, key, expected_blender_value, "blender")
 
     motion_data = _object(provenance.get("motion"), "motion")
     expected_motion = {
@@ -155,10 +155,11 @@ def _verify_fixed_contract(
         "pelvis_bob": motion.PELVIS_BOB,
         "pelvis_sway": motion.PELVIS_SWAY,
         "arm_swing": motion.ARM_SWING,
+        "sha256": motion.motion_sha256(motion.walk_frames()),
     }
     _exact_keys(motion_data, set(expected_motion), "motion")
-    for key, expected in expected_motion.items():
-        _expect(motion_data, key, expected, "motion")
+    for key, expected_motion_value in expected_motion.items():
+        _expect(motion_data, key, expected_motion_value, "motion")
 
     render = _object(provenance.get("render"), "render")
     expected_render = {
@@ -177,8 +178,8 @@ def _verify_fixed_contract(
         "scene_objects_max": MAX_SCENE_OBJECTS,
     }
     _exact_keys(render, {*expected_render, "scene_objects"}, "render")
-    for key, expected in expected_render.items():
-        _expect(render, key, expected, "render")
+    for key, expected_render_value in expected_render.items():
+        _expect(render, key, expected_render_value, "render")
     object_count = render.get("scene_objects")
     if not isinstance(object_count, int) or isinstance(object_count, bool):
         raise ValueError("AF-044 provenance render.scene_objects must be an integer.")
@@ -205,7 +206,10 @@ def _comparison_fraction(provenance: Mapping[str, object], key: str) -> float:
         value = float(raw_value)
         if not math.isfinite(value) or not 0.0 <= value <= 1.0:
             raise ValueError(f"AF-044 comparison metric {metric} is outside [0, 1].")
-    return float(comparison["different_pixel_fraction"])
+    difference = comparison["different_pixel_fraction"]
+    if isinstance(difference, bool) or not isinstance(difference, (int, float)):
+        raise ValueError("AF-044 comparison difference must be finite numeric data.")
+    return float(difference)
 
 
 def verify_evidence_root(
@@ -241,7 +245,22 @@ def verify_evidence_root(
     if metadata_payload != motion.canonical_manifest_json():
         raise ValueError("AF-044 frame metadata disagrees with the fixed motion manifest.")
 
-    expected_paths = {"walk/animation.json"}
+    directional_path = root / motion.DIRECTIONAL_PRERENDER_FILENAME
+    if directional_path.is_symlink():
+        raise ValueError("AF-052 directional metadata must not be a symbolic link.")
+    try:
+        directional_payload = directional_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        raise ValueError("Unable to read AF-052 directional metadata.") from error
+    if directional_payload != motion.canonical_directional_prerender_json(motion.walk_frames()):
+        raise ValueError(
+            "AF-052 directional metadata disagrees with the fixed motion and yaw plan."
+        )
+
+    expected_paths = {
+        motion.DIRECTIONAL_PRERENDER_FILENAME,
+        "walk/animation.json",
+    }
     for direction in motion.DIRECTIONS:
         direction_root = resolved_walk / direction
         if direction_root.is_symlink():
@@ -257,7 +276,10 @@ def verify_evidence_root(
     }
     if actual_directories != set(motion.DIRECTIONS):
         raise ValueError("AF-044 walk directories disagree with the exact bounded layout.")
-    actual_paths = {path.relative_to(root).as_posix() for path in entries if path.is_file()}
+    actual_paths = {
+        motion.DIRECTIONAL_PRERENDER_FILENAME,
+        *(path.relative_to(root).as_posix() for path in entries if path.is_file()),
+    }
     if actual_paths != expected_paths:
         raise ValueError("AF-044 walk files disagree with the exact bounded file set.")
 

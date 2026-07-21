@@ -1,6 +1,6 @@
 # Caatuu legal and provenance inventory
 
-Last reviewed: 16 July 2026
+Last reviewed: 21 July 2026
 Baseline commit: `51d5d63dd32fd7e0c521d6b6d596cf1484fcee57`
 
 This is a working release-control inventory, not legal advice and not a license.
@@ -75,6 +75,10 @@ paid release. A complete row needs:
 - material modifications;
 - required attribution; and
 - the release surfaces that contain it.
+
+| ID | Material | Evidence | Release status | Required action |
+| --- | --- | --- | --- | --- |
+| VIS-001 | Four AF-052 procedural directional walk phase-zero golden PNGs under `apps/animated-fabric/tests/golden/af052_blender_walk_*_t0000.png` | Author/provider, generator and source identities, creation date, exact hashes, modifications, review purpose, distribution surfaces, and no-attribution decision are recorded in [`af052_blender_walk.provenance.json`](../apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json); owner-approved [`CC0-1.0`](../apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md) dedication | `CLEAR` for public source and unrestricted reuse | Keep the four PNG hashes, provenance record, and scoped CC0 notice synchronized; do not infer these terms for any other visual asset or for the Blender container |
 
 ## Distribution gates
 

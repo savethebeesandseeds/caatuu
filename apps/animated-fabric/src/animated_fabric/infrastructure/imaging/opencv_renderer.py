@@ -99,8 +99,9 @@ class OpenCvRenderer(Renderer):
             raise RenderError(f"Project does not define direction '{request.direction.value}'.")
         if direction.mode is not DirectionMode.AUTHORED:
             raise RenderError(
-                f"Direction '{request.direction.value}' is mirrored; complete-frame mirroring "
-                "is assigned to AF-052."
+                f"Direction '{request.direction.value}' uses layered mirroring; the OpenCV "
+                "renderer accepts authored directions only. AF-052 directional yaw prerender "
+                "is a separate 3D path."
             )
 
     def _evaluate_animation(

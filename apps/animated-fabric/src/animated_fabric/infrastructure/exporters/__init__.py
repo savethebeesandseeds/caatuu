@@ -4,5 +4,8 @@ from animated_fabric.infrastructure.exporters.frame_exporter import FrameSequenc
 from animated_fabric.infrastructure.exporters.grid_spritesheet_exporter import (
     GridSpritesheetExporter,
 )
+from animated_fabric.infrastructure.exporters.grid_spritesheet_packer import (
+    GridSpritesheetPacker,
+)
 
-__all__ = ["FrameSequenceExporter", "GridSpritesheetExporter"]
+__all__ = ["FrameSequenceExporter", "GridSpritesheetExporter", "GridSpritesheetPacker"]

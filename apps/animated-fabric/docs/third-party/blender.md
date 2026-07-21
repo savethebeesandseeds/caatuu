@@ -14,10 +14,11 @@
 | Upstream project | `https://www.blender.org/` |
 | License | GNU GPL Version 3 as a whole; individual files may have different compatible licenses |
 
-Blender is used only inside the opt-in AF-044 headless experiment image. It runs the fixed
-repository-owned procedural worker and is not linked into, imported by, or required by the
-Animated Fabric Python package, development image, product renderer, CLI, or GUI. No third-party
-`.blend`, plug-in, model, texture, font, motion, or other art asset is part of the experiment.
+Blender is used only inside the opt-in bounded headless worker. It runs the fixed repository-owned
+procedural actor and walk and is not linked into, imported by, or required by the Animated Fabric
+Python package, development image, layered renderer, CLI, or GUI. Its verified RGBA sequence may
+feed the separate AF-052 product packager in the normal development container. No third-party
+`.blend`, plug-in, model, texture, font, motion, or other art asset is accepted.
 
 ## Image provenance and integrity
 
@@ -32,7 +33,7 @@ on native x86-64 Linux. Runtime is non-root, headless, offline, audio-free, and 
 settings, automatic script execution disabled, user script paths disabled, and a fixed baked
 Python script. Runtime isolation must also supply `--network none`, a read-only root filesystem,
 dropped capabilities, `no-new-privileges`, resource limits, fresh temporary storage, and only a
-bounded writable experimental output mount.
+bounded writable evidence output mount.
 
 ## Redistribution obligations
 
@@ -46,12 +47,12 @@ its extracted Blender binary, the release owner must:
    treating an upstream hyperlink alone as the offer;
 4. record checksums for the retained source and all published image identities;
 5. generate and review an image SBOM, vulnerability scan, and complete third-party notice set; and
-6. approve a GPL-compatible license for the repository worker scripts that use Blender's Python
-   API.
+6. preserve the repository worker scripts and corresponding source under the root
+   `AGPL-3.0-only` terms.
 
-Animated Fabric's first-party license is currently pending, so this image is internal-only until
-those conditions are resolved. The base image and Debian runtime libraries retain their own
-licenses and must also appear in the image's generated notice and SBOM records.
+Animated Fabric first-party source is `AGPL-3.0-only`. The image nevertheless remains internal-only
+until the other conditions above are resolved. The base image and Debian runtime libraries retain
+their own licenses and must also appear in the generated notice and SBOM records.
 
 This record summarizes the upstream license and is not a substitute for the exact license files in
 the pinned archive. Those files control if this summary and the distribution ever differ.
@@ -59,7 +60,8 @@ the pinned archive. Those files control if this summary and the distribution eve
 ## Deliberate update procedure
 
 An update must select an official Blender release, pin its exact archive URL and verified SHA-256,
-update the upstream source identity, rebuild on native Linux, and rerun the complete AF-044 offline
-and deterministic evidence checks. Version, checksum, labels, documentation, and evidence change
-together. Rollback means rebuilding the last reviewed Dockerfile and archive checksum; floating
-tags, mutable download URLs, and unverified local archives are not accepted.
+update the upstream source identity, rebuild on native Linux, and rerun the complete AF-052 offline
+directional evidence, decoded-golden, packaging, and repeatability checks. Version, checksum,
+labels, documentation, and evidence change together. Rollback means rebuilding the last reviewed
+Dockerfile and archive checksum; floating tags, mutable download URLs, and unverified local
+archives are not accepted.

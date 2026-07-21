@@ -1,6 +1,6 @@
 # 0010: Experimental Blender prerender remains upstream tooling
 
-- Status: accepted
+- Status: superseded in part by decision 0012
 - Date: 2026-07-21
 - Ticket: AF-044
 
@@ -14,7 +14,8 @@ directions in ADR-002, and the shared preview/export renderer in ADR-004.
 
 AF-044 is therefore a bounded feasibility spike, not another product pipeline. It must provide
 repeatable evidence without making Blender a dependency of the application, redefining project or
-export schemas, or displacing M5 work.
+export schemas, or displacing M5 work. Decision 0012 later promotes only this fixed owned
+actor/walk result through a strict directional manifest and shared grid packer.
 
 ## Decision
 
@@ -35,16 +36,17 @@ Blender is experimental upstream tooling. It is not:
 - a new animation, rig, or export schema; or
 - a dependency of the core package, development image, CLI, GUI, or normal CI gate.
 
-ADR-001, ADR-002, and ADR-004 remain normative without modification. M5 remains responsible for
-product export through `ExportProject` and the shared `OpenCvRenderer` composition core.
+This was the AF-044 boundary. Decision 0012 subsequently replaces it only for the bounded 3D path;
+the layered project path still uses `ExportProject` and `OpenCvRenderer` without Blender.
 
 ### Experimental artifacts
 
 The spike may arrange review-only RGBA frames using the strict AF-050 frame-sequence metadata,
 sampling, direction ordering, and folder conventions so validation and comparisons are mechanical.
 Those files remain under an explicitly experimental, untracked output root. Matching the existing
-artifact contract does not make them `ExportProject` output, and they MUST NOT be promoted into a
-product export destination. A separate provenance document identifies the experimental Blender
+artifact contract does not by itself make them `ExportProject` output. Decision 0012 permits only a
+fully verified fixed batch, with its new directional manifest and adjacent provenance, to enter the
+AF-052 product packer. A separate provenance document identifies the Blender
 source and records stable relative paths rather than host-specific details. `animation.json` alone
 is not sufficient provenance: any consumer of this evidence MUST require the adjacent
 `provenance.json` and the explicitly experimental root, because the four direct views are not the
@@ -61,7 +63,7 @@ The evidence set records:
 - repeatability results from clean runs; and
 - a clear go, revise, or stop recommendation.
 
-Frames are evidence, not production art or reviewed Animated Fabric goldens. Generated workspaces,
+In AF-044, frames are evidence rather than production art or reviewed Animated Fabric goldens. Generated workspaces,
 cache data, `.blend` files, and candidate frame sets are not committed. The repository golden rule
 applies to changes in the application renderer; AF-044 changes no product renderer and instead uses
 two byte-repeatable runs, a human-review contact sheet, and a review GIF. Any later promotion into
@@ -89,8 +91,9 @@ Blender describes the application as GNU GPL Version 3 as a whole; individual fi
 different compatible terms, and the exact notices in the pinned archive control. Binary
 provenance, corresponding-source obligations, and notices are recorded before an image is
 distributed. Any repository script using Blender's Python API must have a compatible approved
-license before public distribution; the internal spike does not resolve Animated Fabric's
-still-pending first-party license.
+license before public distribution. Animated Fabric now records its first-party source as
+`AGPL-3.0-only`; the remaining distribution gates concern Blender's binaries, corresponding
+source, exact notices, the SBOM, and scanning rather than a pending first-party license.
 
 ### Acceptance
 
@@ -114,17 +117,15 @@ reproducible and documented.
 
 ### Promotion boundary
 
-No AF-044 result is promoted into the stable workflow automatically. Any proposal to accept 3D
-source as product input, ship Blender-backed authoring, use directly rendered `SW`/`NW`, or publish
-Blender frames as preview/export output requires a later ticket and an explicit replacement ADR
-that names the affected parts of ADR-001, ADR-002, and ADR-004, including migration, testing,
-security, licensing, and support consequences.
+No AF-044 result is promoted into the stable workflow automatically. Decision 0012 satisfies this
+gate for exactly one owned actor, one walk, four fixed actor-root yaws, and verified grid packaging;
+it records migration, testing, security, licensing, and support consequences. Any broader 3D input,
+Blender-backed authoring, or arbitrary scene execution still requires another explicit decision.
 
 ## Consequences
 
 - The spike can measure 3D prerender value without creating a shadow application architecture.
-- Four direct camera views are available for comparison while the product remains two-authored and
-  two-mirrored.
+- Four direct views established the evidence later promoted narrowly by decision 0012.
 - Core installation, projects, rendering, export, and M5 progress remain independent of Blender.
 - Positive evidence creates an option, not an implicit commitment; negative evidence is still a
   useful completed result.

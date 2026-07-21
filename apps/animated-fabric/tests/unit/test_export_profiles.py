@@ -230,7 +230,7 @@ def test_project_must_register_the_selected_builtin_profile() -> None:
     assert layers.calls == 0
 
 
-def test_default_profile_stops_at_the_intentional_af052_mirroring_boundary() -> None:
+def test_default_profile_keeps_layered_mirroring_out_of_directional_yaw() -> None:
     use_case, layers = _real_use_case(registered=True)
 
     result = use_case.execute(_request())
@@ -239,5 +239,5 @@ def test_default_profile_stops_at_the_intentional_af052_mirroring_boundary() -> 
     assert [(item.code, item.location) for item in result.diagnostics] == [
         (EXPORT_PROFILE_CODE, "directions.SW.mode")
     ]
-    assert "AF-052" in (result.diagnostics[0].suggestion or "")
+    assert "separate 3D workflow" in (result.diagnostics[0].suggestion or "")
     assert layers.calls == 1

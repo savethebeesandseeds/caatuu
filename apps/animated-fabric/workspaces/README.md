@@ -15,8 +15,9 @@ Create the local directories before the first run:
 mkdir -p workspaces/cutout/input workspaces/cutout/output workspaces/blender
 ```
 
-The optional `blender` Compose profile mounts `blender/` read/write at `/output`. Its fixed AF-044
-worker produces only procedural, reproducible feasibility evidence there; it does not read project
-files or user artwork and it is not a product export destination.
+The optional `blender` Compose profile mounts `blender/` read/write at `/output`. Its fixed AF-052
+worker writes only procedural direct-yaw evidence there and never reads project files or user art.
+The normal development container may validate that immutable evidence and publish a bounded
+product grid into a separate sibling directory under this untracked workspace.
 
 Never place the model cache, credentials, or irreplaceable source artwork here.

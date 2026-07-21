@@ -113,7 +113,9 @@ def test_export_cli_publishes_authored_rows_in_explicit_order(tmp_path: Path) ->
         assert sheet.size == (384, 384)
 
 
-def test_default_profile_reports_af052_boundary_without_partial_output(tmp_path: Path) -> None:
+def test_default_profile_reports_layered_mirroring_boundary_without_partial_output(
+    tmp_path: Path,
+) -> None:
     project_root = _ready_project(tmp_path)
     destination = tmp_path / "published" / "hero"
 
@@ -135,7 +137,7 @@ def test_default_profile_reports_af052_boundary_without_partial_output(tmp_path:
     assert result.exit_code == 5
     payload = json.loads(result.stdout)
     assert [item["code"] for item in payload] == ["AFV502"]
-    assert "AF-052" in payload[0]["message"]
+    assert "authored-layer pipeline" in payload[0]["message"]
     assert not destination.exists()
 
 

@@ -8,8 +8,9 @@
 
 AF-050 is the first export slice. The specification requires the existing renderer, normative
 frame sampling, per-frame PNG folders, metadata, verification, cancellation, and preservation of a
-previous export on ordinary failure. It assigns grid spritesheets to AF-051 and complete-frame
-mirroring to AF-052.
+previous export on ordinary failure. It assigns grid spritesheets to AF-051. Its original
+complete-frame-mirroring assignment for AF-052 is replaced by decision 0012's bounded direct-yaw
+prerender path.
 
 The only profile format currently specified is `animated-fabric.grid-spritesheet.v1`. Reusing that
 identity for a folder sequence would be misleading because its metadata requires a sheet image and
@@ -82,5 +83,5 @@ export boundary code `AFE001` with a typed `ExportFailureKind` retained internal
   deterministic.
 - A failed or cancelled export normally preserves the prior usable output.
 - AF-050 does not expose the normative grid-profile CLI because that would claim AF-051 behavior.
-- Grid spritesheets, mirroring, the public export command, and the from-scratch M5 demo remain
-  explicitly assigned to AF-051 through AF-053.
+- Grid spritesheets, directional derivation, the public project export command, and the from-scratch
+  M5 demo remain explicitly assigned to AF-051 through AF-053, as amended by decision 0012.

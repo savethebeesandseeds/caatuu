@@ -2,8 +2,8 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-044, AF-050, and AF-051
-complete
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-052 implemented and
+awaiting its native-Linux workflow result
 
 **Last updated:** 2026-07-21
 
@@ -50,6 +50,8 @@ M5 - export.
 
 - [x] AF-050 Frame exporter
 - [x] AF-051 Grid spritesheet
+- [ ] AF-052 Directional yaw prerender - implementation and local verification complete; native CI
+  pending
 
 ## Delivered scope
 
@@ -126,9 +128,10 @@ M5 - export.
   without adding a persisted asset schema. Immutable `RenderRequest` and `RenderedFrame` values
   carry exact RGBA bytes, canvas size, ground anchor, resolved sockets, requested exact-time
   events, and clipping diagnostics.
-- `OpenCvRenderer` now orchestrates authored-direction validation, cached hierarchy and clip
+- `OpenCvRenderer` orchestrates authored-direction validation, cached hierarchy and clip
   evaluation, pose resolution, stable render planning, the shared OpenCV compositor, and frame
-  metadata. Mirrored directions fail explicitly because complete-frame mirroring remains AF-052.
+  metadata. Mirror-mode directions still fail explicitly in this layered-2D path; AF-052 adds a
+  separate bounded 3D source and does not invent geometry for layered projects.
 - Revision-aware bounded LRU caches retain rig topological order and direction-aware normalized
   clip evaluations. A project revision change eagerly invalidates dependent computations; image
   revisions remain independently content-addressed and project-scoped. Eviction also prunes the
@@ -313,29 +316,31 @@ M5 - export.
   and a post-publication backup-cleanup failure keeps the verified new export live while returning
   and warning about the retained recovery path. Decision 0011 explicitly replaces decision 0009's
   unsafe post-cleanup rollback clause.
-- The four-direction `default_grid` remains truthful: AF-051 rejects mirror-mode `SW`/`NW` with
-  actionable `AFV502` unless callers explicitly select authored rows. It neither drops rows nor
-  implements AF-052 mirroring early.
-- An opt-in Blender 4.5.12 Linux/amd64 image now bakes one fixed repository-owned worker, procedural
-  low-poly humanoid, analytical 12-frame in-place walk, PNG canonicalizer, output boundary, and
-  evidence verifier. Blender, `bpy`, and 3D dependencies do not enter `src`, the development image,
-  product schemas, CLI, GUI, OpenCV renderer, or the normal quality gate.
-- One fixed orthographic camera and exact actor-root yaws render direct `SE`, `SW`, `NE`, and `NW`
-  192 x 192 RGBA evidence. No `.blend`, model, texture, material library, HDRI, font, add-on, user
-  startup file, external motion, project script, repository mount, network, port, GPU, or host
-  Python participates at runtime.
-- The non-root, read-only worker hard-bounds 48 frames, 64 scene objects, and 4 MiB of source
-  evidence; Compose also bounds CPU, memory, processes, shared memory, and temporary storage. The
-  native workflow adds a five-minute timeout with forced termination and rejects output escape.
-- Every run records exact Blender, source, Dockerfile, Compose, camera, gait, render, file, and
-  SHA-256 identities. The review packager independently requires the exact 49-file source set,
-  strict experimental frame metadata plus adjacent provenance, valid bounded RGBA content, and
-  every recorded digest before creating a deterministic contact sheet and four-direction GIF.
-- AF-044's verdict is **GO for continued 3D-as-upstream-source exploration**. The four rotations
-  preserve anatomy and directional lighting substantially better than mirroring a finished 2D
-  figure. The current primitive rigid-joint actor is not production art: it still needs an
-  art-directed mesh, armature, skinning, gait polish, style targets, and a later reviewed adapter.
-  ADR-001, ADR-002, ADR-004, and M5 remain unchanged; promotion requires a replacement decision.
+- The layered four-direction `default_grid` remains truthful: mirror-mode `SW`/`NW` reports
+  actionable `AFV502` unless callers select authored rows. AF-052 does not silently switch that
+  project path to Blender.
+- AF-051's verified frame-sequence-to-grid implementation is now a reusable packer. Both the
+  layered exporter and bounded Blender product path retain exact metadata, dimension, raw-byte,
+  cancellation, cell-equality, and transaction guarantees.
+- Decision 0012 promotes only one fixed repository-owned procedural actor and one twelve-frame,
+  one-second walk. The worker constructs one immutable motion tuple once, fingerprints it with
+  SHA-256, and applies each pose once before rerendering `SE=-90`, `SW=180`, `NE=0`, and `NW=90`
+  actor-root yaws. No finished 2D frame is rotated, mirrored, warped, or reused as another view.
+- Each render contains 48 direct 192 x 192 RGBA frames, strict frame metadata, a strict
+  `animated-fabric.directional-prerender.v1` document, and adjacent provenance. The exact 50 hashed
+  evidence files remain below 4 MiB and identify every source, container, render, camera, motion,
+  yaw, file, and checksum input.
+- The AF-052 packager verifies the immutable source before and after packing, rejects linked,
+  missing, extra, malformed, oversized, changed, or nonregular trees, copies every pixel through
+  the shared packer, reopens every output cell, and atomically publishes exactly `walk.png` and
+  `walk.spritesheet.json`. The fixed product sheet is 2,304 x 768 with four rows and twelve columns.
+- Four reviewed frame-zero goldens lock all direct views with a decoded-channel tolerance of 2,
+  at most 0.1% changed pixels, strict alpha bounds, and a 10% direct-versus-mirror floor at frame
+  zero and across the walk. Their exact provenance is recorded and the owner-approved images are
+  reusable under `CC0-1.0` without attribution.
+- Blender remains an isolated non-root, offline, read-only, resource-bounded Linux/amd64 worker.
+  It does not enter the base package, layered renderer, public project command, GUI, or persisted
+  project schema. Arbitrary 3D input and one-command orchestration remain out of scope.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -402,7 +407,10 @@ Principal files:
 - `scripts/_humanoid_animation_demo.py`
 - `scripts/run_idle_animation_demo.py`
 - `scripts/run_walk_animation_demo.py`
+- `scripts/generate_af052_directional_goldens.py`
+- `scripts/package_blender_directional_export.py`
 - `scripts/package_blender_walk_demo.py`
+- `scripts/verify_blender_directional_goldens.py`
 - `containers/blender/`
 - `tools/blender/`
 - `tools/cutout/`
@@ -412,6 +420,7 @@ Principal files:
 - `docs/decisions/0009-frame-sequence-export.md`
 - `docs/decisions/0010-experimental-blender-prerender.md`
 - `docs/decisions/0011-grid-spritesheet-export.md`
+- `docs/decisions/0012-directional-yaw-prerender.md`
 - `docs/third-party/blender.md`
 - `tests/unit/test_blender_motion.py`
 - `tests/unit/test_blender_output_paths.py`
@@ -452,6 +461,9 @@ Principal files:
 - `tests/golden/af042_humanoid_walk_ne_t0000.png`
 - `tests/golden/af042_humanoid_walk_ne_t0200.png`
 - `tests/golden/af042_humanoid_walk_ne_t0400.png`
+- `tests/golden/af052_blender_walk_{se,sw,ne,nw}_t0000.png`
+- `tests/golden/af052_blender_walk.provenance.json`
+- `tests/golden/LICENSE-AF052-CC0.md`
 - `tests/golden/README.md`
 - `tests/integration/test_render_frame_cli.py`
 - `tests/integration/test_demo_pipeline.py`
@@ -491,6 +503,40 @@ Principal files:
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Local pre-publication verification executed on 2026-07-21 for AF-052 through the repository-owned
+Linux containers:
+
+- `ruff format --check .`: 228 files already formatted; `ruff check .`: all checks passed.
+- `mypy src`: no issues in 73 source files. The dedicated strict mypy gate for the three AF-052
+  packaging/golden scripts and their imports also passed.
+- `pytest -q`: 992 passed in 101.64 s with 91.95% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- Deterministic fixture generation, the complete OpenCV demo pipeline, and
+  `python -m animated_fabric doctor` completed successfully.
+- A freshly rebuilt pinned Blender image
+  `sha256:f0d878b8f11f357eee8f2d190648bf387811d56163bdbf3c04a57c8a5c0d6e03`
+  produced two clean Docker Desktop convenience renders. Their 48-frame `walk/` trees, directional
+  manifests, provenance documents, review packages, and separately published products compared
+  byte for byte. Native Ubuntu remains the final authority and is pending the pushed workflow.
+- Each source contains exactly 50 hashed evidence files plus adjacent provenance. The shared motion
+  tuple digest is `3bbfad26dab616bf651cfd9a97300688de412e34520c9f6cbddf023229e6ce72`.
+- Both verified products are 2,304 x 768 four-row/twelve-column RGBA sheets. The PNG is 741,766
+  bytes with SHA-256 `596da8f7ef59ed63108d12da41a376d55d4cf1c962b7fb9ff4cb57f616beb25d`;
+  metadata SHA-256 is `324328f2153659cd60e1240b43b0aea09ba3986b887d9471d4ce213a1f971fba`.
+- Independent decoded-byte comparison found direct `SW` versus mirrored `SE` differed across
+  17.866573% of pixels and direct `NW` versus mirrored `NE` differed across 17.290129%. Blender's
+  color-managed decoder independently reported 30.721029% and 30.232069%; all exceed the 10% floor.
+- Both renders matched all four reviewed phase-zero goldens exactly: maximum decoded channel delta
+  zero and changed-pixel fraction zero. Golden SHA-256 values are NE `a7586c98...2ea2e7`, NW
+  `37ef95fc...c76c1a`, SE `d4a71027...95fa97`, and SW `676049f0...683652`.
+- The four first-party procedural test images have complete provenance and an owner-approved
+  `CC0-1.0` public-domain dedication with no attribution requirement. The Blender image itself
+  remains internal-only under its separate redistribution gates.
+- Independent architecture, contract, transaction/security, CI/documentation, and golden-design
+  audits found no remaining actionable AF-052 implementation blocker after hardening.
+- Root repository file policy passed for 1,364 tracked and candidate files; Markdown links passed
+  for 95 files.
 
 Executed on 2026-07-21 through the repository-owned networkless Linux container after AF-051:
 
@@ -781,15 +827,16 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   environment; this does not replace building and scanning Animated Fabric's own CUDA image.
 - M0 uses exact version constraints but not hash-locked Python wheels or a Debian snapshot.
   Hash locks, SBOMs, image scanning, and generated dependency notices remain release gates.
-- Animated Fabric first-party code has no approved repository or component license yet;
-  the retained MIT notices apply only to the identified upstream cutout materials.
+- Animated Fabric first-party source is `AGPL-3.0-only`; third-party software, models, data,
+  generated assets, and brand rights retain their separately recorded terms and gates.
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- AF-051 provides the public fixed-grid CLI and complete authored-direction sheets. The normative
-  four-row default remains blocked with actionable `AFV502` until AF-052 supplies complete-frame
-  SW/NW mirroring and mirrored spatial metadata. The standalone from-scratch export demonstration
-  and publication of its sample spritesheet as a CI artifact remain AF-053; M5 is still open.
+- AF-051 provides the public layered-project fixed-grid CLI. Its mirror-mode rows still report
+  `AFV502`; AF-052 deliberately adds a separate fixed 3D actor path instead of fabricating geometry
+  for layered projects. AF-053 owns reusable from-scratch orchestration. Sample Blender media is not
+  uploaded from the public workflow while the container and broader generated-asset distribution
+  gates remain unresolved; M5 is still open.
 - Export publication assumes one writer. The same-filesystem backup swap restores prior output for
   failures before promotion. A process crash between directory renames may leave staging or backup
   debris, and failed cleanup after successful promotion deliberately leaves the verified new output
@@ -803,9 +850,9 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - AF-044 proves same-host byte repeatability on native Linux but not cross-host bit identity. Five
   of 48 encoded frame hashes differed between the native runner and Docker Desktop despite matching
   metadata, a three-byte total-size delta, nearly identical comparison metrics, and an identical
-  reviewed contact sheet. Any product promotion must retain native artifacts and define decoded
-  pixel tolerances or cross-CPU goldens rather than assuming universal byte equality.
-- The AF-044 actor uses rigid procedural primitives rather than a skinned production mesh. It has
+  reviewed contact sheet. AF-052 now uses committed decoded-pixel goldens with explicit tolerance
+  rather than assuming universal encoded-byte equality; wider cross-CPU evidence remains useful.
+- The promoted bounded actor uses rigid procedural primitives rather than a skinned production mesh. It has
   no authored deformation, heel/toe shape change, polished hip/shoulder mechanics, asset adapter,
   or editor workflow. Those are deliberate prototype limits, not tasks silently assigned to M5.
 - The Blender image uses a digest-pinned base and checksum-pinned Blender archive, but Debian
@@ -813,9 +860,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   approved for redistribution.
 - The authored-direction renderer, general layer importer, template registry and application,
   rig-editing use cases, clip builder, built-in generator registry, `GenerateAnimation`, animation
-  persistence, and animation CLI exist. General imported-catalog loading and complete-frame
-  mirroring are still absent from `render-frame`, so that command continues to accept the owned
-  generated fixture project only. Animation GUI controls remain later work.
+  persistence, and animation CLI exist. General imported-catalog loading remains absent from
+  `render-frame`, which continues to accept the owned generated fixture project only. The bounded
+  Blender path is separate and does not add final-frame mirroring to the layered renderer. Animation
+  GUI controls remain later work.
 - AF-043 derives new destinations from validated clip IDs and retains a unique existing registered
   path during replacement. Per-file publication is atomic, but a failed manifest write or process
   crash after clip creation may leave a reported unreferenced file. It is not automatically deleted
@@ -899,4 +947,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-052 Direction mirroring
+- AF-052 native-Linux workflow verification and status finalization; then AF-053

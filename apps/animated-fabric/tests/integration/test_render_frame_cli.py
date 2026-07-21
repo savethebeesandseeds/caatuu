@@ -88,7 +88,9 @@ def test_render_frame_maps_an_unknown_clip_to_structured_render_diagnostics(
     assert not output_path.exists()
 
 
-def test_render_frame_rejects_mirroring_reserved_for_af052(tmp_path: Path) -> None:
+def test_render_frame_keeps_layered_mirroring_separate_from_directional_yaw(
+    tmp_path: Path,
+) -> None:
     fixture_root = generate_fixture_assets(tmp_path / "fixture")
     output_path = tmp_path / "neutral-sw.png"
 
@@ -108,7 +110,7 @@ def test_render_frame_rejects_mirroring_reserved_for_af052(tmp_path: Path) -> No
     assert result.exit_code == 4
     payload = json.loads(result.stdout)
     assert [item["code"] for item in payload] == ["AFR001"]
-    assert "AF-052" in payload[0]["message"]
+    assert "separate 3D path" in payload[0]["message"]
     assert not output_path.exists()
 
 

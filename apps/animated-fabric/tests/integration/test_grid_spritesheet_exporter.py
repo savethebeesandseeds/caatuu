@@ -112,6 +112,15 @@ class _TamperingFrameExporter(FrameSequenceExporter):
         elif self._tamper == "frame_size":
             with Image.new("RGBA", (1, 1), (1, 2, 3, 4)) as image:
                 image.save(result.destination / animation.frame_paths[0], format="PNG")
+        elif self._tamper == "directory":
+            (result.destination / animation.animation / "unexpected").mkdir()
+        elif self._tamper == "metadata_symlink":
+            metadata_path = result.destination / animation.metadata_path
+            payload = metadata_path.read_bytes()
+            metadata_path.unlink()
+            target = result.destination / "metadata-target.json"
+            target.write_bytes(payload)
+            metadata_path.symlink_to(Path("..") / target.name)
         else:
             raise AssertionError(f"Unknown tamper mode: {self._tamper}")
         return result
@@ -348,7 +357,10 @@ def test_grid_cancellation_is_observed_during_cell_verification(tmp_path: Path) 
     _assert_no_transaction_debris(destination)
 
 
-@pytest.mark.parametrize("tamper", ["metadata", "frame_size"])
+@pytest.mark.parametrize(
+    "tamper",
+    ["metadata", "frame_size", "directory", "metadata_symlink"],
+)
 def test_grid_rejects_a_tampered_intermediate_contract(
     tmp_path: Path,
     tamper: str,

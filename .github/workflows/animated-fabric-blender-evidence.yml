@@ -5,27 +5,49 @@ on:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/scripts/__init__.py"
+      - "apps/animated-fabric/scripts/generate_af052_directional_goldens.py"
+      - "apps/animated-fabric/scripts/package_blender_directional_export.py"
       - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
+      - "apps/animated-fabric/scripts/verify_blender_directional_goldens.py"
+      - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
+      - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
+      - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
+      - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
       - "apps/animated-fabric/Dockerfile"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
       - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/SPEC.md"
       - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
+      - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
+      - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   pull_request:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/scripts/__init__.py"
+      - "apps/animated-fabric/scripts/generate_af052_directional_goldens.py"
+      - "apps/animated-fabric/scripts/package_blender_directional_export.py"
       - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
+      - "apps/animated-fabric/scripts/verify_blender_directional_goldens.py"
+      - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
+      - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
+      - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
+      - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
       - "apps/animated-fabric/Dockerfile"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
       - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/SPEC.md"
       - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
+      - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
+      - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   workflow_dispatch:
 
@@ -34,7 +56,7 @@ permissions:
 
 jobs:
   evidence:
-    name: Native Linux Blender feasibility evidence
+    name: Native Linux directional product evidence
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     defaults:
@@ -43,6 +65,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
 
       - name: Match container ownership to the Linux runner
         run: |
@@ -83,44 +107,92 @@ jobs:
         run: |
           timeout --signal=TERM --kill-after=30s 5m \
             docker compose --profile blender run --rm --no-deps \
-            animated-fabric-blender --out /output/af044-linux-first
+            animated-fabric-blender --out /output/af052-linux-first
           timeout --signal=TERM --kill-after=30s 5m \
             docker compose --profile blender run --rm --no-deps \
-            animated-fabric-blender --out /output/af044-linux-second
+            animated-fabric-blender --out /output/af052-linux-second
 
-      - name: Verify hashes and byte repeatability recursively
+      - name: Verify goldens, package products, and prove repeatability
         run: |
           docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/package_blender_walk_demo.py \
-            --source workspaces/blender/af044-linux-first \
-            --out workspaces/blender/af044-linux-first/review
+            python scripts/verify_blender_directional_goldens.py \
+            --source workspaces/blender/af052-linux-first
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/verify_blender_directional_goldens.py \
+            --source workspaces/blender/af052-linux-second
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/package_blender_directional_export.py \
+            --source workspaces/blender/af052-linux-first \
+            --out workspaces/blender/af052-product-first
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/package_blender_directional_export.py \
+            --source workspaces/blender/af052-linux-second \
+            --out workspaces/blender/af052-product-second
           docker compose run --rm --no-deps animated-fabric-dev \
             python scripts/package_blender_walk_demo.py \
-            --source workspaces/blender/af044-linux-second \
-            --out workspaces/blender/af044-linux-second/review
+            --source workspaces/blender/af052-linux-first \
+            --out workspaces/blender/af052-linux-first/review
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/package_blender_walk_demo.py \
+            --source workspaces/blender/af052-linux-second \
+            --out workspaces/blender/af052-linux-second/review
           diff -qr \
-            workspaces/blender/af044-linux-first/walk \
-            workspaces/blender/af044-linux-second/walk
+            workspaces/blender/af052-linux-first/walk \
+            workspaces/blender/af052-linux-second/walk
           cmp \
-            workspaces/blender/af044-linux-first/provenance.json \
-            workspaces/blender/af044-linux-second/provenance.json
+            workspaces/blender/af052-linux-first/directional-prerender.json \
+            workspaces/blender/af052-linux-second/directional-prerender.json
+          cmp \
+            workspaces/blender/af052-linux-first/provenance.json \
+            workspaces/blender/af052-linux-second/provenance.json
+          diff -qr \
+            workspaces/blender/af052-product-first \
+            workspaces/blender/af052-product-second
+          diff -qr \
+            workspaces/blender/af052-linux-first/review \
+            workspaces/blender/af052-linux-second/review
           sha256sum \
-            workspaces/blender/af044-linux-first/provenance.json \
-            workspaces/blender/af044-linux-first/review/walk_contact_sheet.png \
-            workspaces/blender/af044-linux-first/review/walk_review.gif
-          cat workspaces/blender/af044-linux-first/provenance.json
+            workspaces/blender/af052-linux-first/directional-prerender.json \
+            workspaces/blender/af052-linux-first/provenance.json \
+            workspaces/blender/af052-product-first/walk.png \
+            workspaces/blender/af052-product-first/walk.spritesheet.json \
+            workspaces/blender/af052-linux-first/review/walk_contact_sheet.png \
+            workspaces/blender/af052-linux-first/review/walk_review.gif
+          cat workspaces/blender/af052-linux-first/provenance.json
+          cat workspaces/blender/af052-product-first/walk.spritesheet.json
 
       - name: Run focused pure-Python contracts
         run: |
           docker compose run --rm --no-deps animated-fabric-dev \
-            ruff format --check tools/blender scripts/package_blender_walk_demo.py \
+            ruff format --check tools/blender scripts/__init__.py \
+            scripts/generate_af052_directional_goldens.py \
+            scripts/package_blender_directional_export.py \
+            scripts/package_blender_walk_demo.py \
+            scripts/verify_blender_directional_goldens.py \
+            src/animated_fabric/domain/export.py \
+            src/animated_fabric/infrastructure/exporters \
+            tests/unit/test_animation_export_models.py \
             tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
             tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
           docker compose run --rm --no-deps animated-fabric-dev \
-            ruff check tools/blender scripts/package_blender_walk_demo.py \
+            ruff check tools/blender scripts/__init__.py \
+            scripts/generate_af052_directional_goldens.py \
+            scripts/package_blender_directional_export.py \
+            scripts/package_blender_walk_demo.py \
+            scripts/verify_blender_directional_goldens.py \
+            src/animated_fabric/domain/export.py \
+            src/animated_fabric/infrastructure/exporters \
+            tests/unit/test_animation_export_models.py \
             tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
             tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            sh -c 'MYPYPATH=src mypy --strict \
+            scripts/package_blender_directional_export.py \
+            scripts/generate_af052_directional_goldens.py \
+            scripts/verify_blender_directional_goldens.py'
           docker compose run --rm --no-deps animated-fabric-dev \
             pytest -q --no-cov tests/unit/test_blender_motion.py \
+            tests/unit/test_animation_export_models.py \
             tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
-            tests/unit/test_blender_walk_review.py
+            tests/unit/test_blender_walk_review.py \
+            tests/integration/test_grid_spritesheet_exporter.py

@@ -1,0 +1,35 @@
+{
+  "asset_id": "af052_blender_walk_phase_zero_goldens_v1",
+  "attribution_required": false,
+  "author_provider": "Caatuu project contributors",
+  "created": "2026-07-21",
+  "distribution_surfaces": [
+    "public GitHub source",
+    "automated test fixtures",
+    "developer documentation"
+  ],
+  "generator": {
+    "blender_archive_sha256": "95e3a2dfedba3bd32ca54fc355eac6b15a11986954ccb02815a07535d0120a25",
+    "blender_version": "4.5.12 LTS",
+    "container_image_id": "sha256:f0d878b8f11f357eee8f2d190648bf387811d56163bdbf3c04a57c8a5c0d6e03",
+    "motion_file_sha256": "46b8e3d58171799584b8515ba73b51cd6c65b7310dad1756684954933749496e",
+    "motion_tuple_sha256": "3bbfad26dab616bf651cfd9a97300688de412e34520c9f6cbddf023229e6ce72",
+    "renderer_sha256": "7469081a9f29a2d5e3fe1581d37d4ad944cf79a5ab7d8d33f0894e1877a1c4cf"
+  },
+  "license": "CC0-1.0",
+  "license_notice": "LICENSE-AF052-CC0.md",
+  "modifications": "Rendered from first-party procedural geometry; volatile PNG ancillary chunks removed without decoding or pixel editing; frame zero copied byte-for-byte from verified evidence.",
+  "paths": {
+    "af052_blender_walk_ne_t0000.png": "a7586c987117dc2c56869d549ab64e33395921be08a882298b88971f7b2ea2e7",
+    "af052_blender_walk_nw_t0000.png": "37ef95fc6ad7430040d3742f5f126f35c80142217ac90530893fdc1760c76c1a",
+    "af052_blender_walk_se_t0000.png": "d4a710275fa6312062794fb0e852dfd33edd137625aa48ea65cdf76b1a95fa97",
+    "af052_blender_walk_sw_t0000.png": "676049f0f5de054cb8d0a6d545e7b0421baa51c4c61ac10eb5dd34b9aa683652"
+  },
+  "review": "Approved phase-zero references for one shared walk rerendered at SE, SW, NE, and NW actor-root yaws; all views are centered, bounded, transparent RGBA and visually distinct from 2D mirrors.",
+  "source": {
+    "evidence_provenance_sha256": "4bb92a14fc1fc6240f6a45a4a41a52c5463f189494f040383eb91cf489cc6685",
+    "generator_script": "scripts/generate_af052_directional_goldens.py",
+    "repository": "https://github.com/savethebeesandseeds/caatuu",
+    "worker_sources": "tools/blender"
+  }
+}

@@ -1,4 +1,4 @@
-"""Validate Blender walk frames and build non-product review media for AF-044."""
+"""Validate Blender walk frames and build AF-052 human-review media."""
 
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ def _load_metadata(source_root: Path) -> tuple[FrameSequenceMetadata, Path]:
     except ValidationError as error:
         raise ValueError("Blender output is not valid frame-sequence metadata.") from error
     if metadata.animation != "walk":
-        raise ValueError("The AF-044 review packager accepts only the 'walk' animation.")
+        raise ValueError("The AF-052 review packager accepts only the 'walk' animation.")
     return metadata, metadata_path.parent
 
 
@@ -228,23 +228,23 @@ def _resolve_review_destination(source_root: Path, destination: Path) -> tuple[P
     if not resolved_source.is_dir():
         raise ValueError("The Blender source root must be a directory.")
     if destination.name != "review":
-        raise ValueError("The AF-044 review destination must be named 'review'.")
+        raise ValueError("The AF-052 review destination must be named 'review'.")
     if destination.is_symlink():
-        raise ValueError("The AF-044 review destination must not be a symbolic link.")
+        raise ValueError("The AF-052 review destination must not be a symbolic link.")
     try:
         resolved_parent = destination.parent.resolve(strict=True)
     except OSError as error:
-        raise ValueError("The AF-044 review destination parent does not exist.") from error
+        raise ValueError("The AF-052 review destination parent does not exist.") from error
     if resolved_parent != resolved_source:
-        raise ValueError("The AF-044 review must be a direct child of its source root.")
+        raise ValueError("The AF-052 review must be a direct child of its source root.")
     resolved_destination = resolved_parent / destination.name
     if resolved_destination.exists() and not resolved_destination.is_dir():
-        raise ValueError("The AF-044 review destination must be a directory.")
+        raise ValueError("The AF-052 review destination must be a directory.")
     return resolved_source, resolved_destination
 
 
 def package_blender_walk_demo(source_root: Path, destination: Path) -> ReviewArtifacts:
-    """Validate AF-044 output and atomically publish a contact sheet and review GIF."""
+    """Validate direct-yaw output and atomically publish a contact sheet and review GIF."""
     resolved_source, resolved_destination = _resolve_review_destination(source_root, destination)
     verify_evidence_root(
         resolved_source,
@@ -265,9 +265,9 @@ def package_blender_walk_demo(source_root: Path, destination: Path) -> ReviewArt
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the narrow AF-044 review command parser."""
+    """Build the narrow AF-052 review command parser."""
     parser = argparse.ArgumentParser(
-        description="Validate Blender walk frames and build non-product review media."
+        description="Validate Blender walk frames and build human-review media."
     )
     parser.add_argument("--source", required=True, type=Path, help="Blender output root.")
     parser.add_argument("--out", required=True, type=Path, help="Review output directory.")
@@ -280,10 +280,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         artifacts = package_blender_walk_demo(arguments.source, arguments.out)
     except (OSError, ValueError) as error:
-        print(f"AF-044 review packaging failed: {error}")
+        print(f"AF-052 review packaging failed: {error}")
         return 5
-    print(f"Wrote AF-044 contact sheet to {artifacts.contact_sheet}")
-    print(f"Wrote AF-044 animated preview to {artifacts.animated_preview}")
+    print(f"Wrote AF-052 contact sheet to {artifacts.contact_sheet}")
+    print(f"Wrote AF-052 animated preview to {artifacts.animated_preview}")
     return 0
 
 

@@ -1,4 +1,4 @@
-"""Pure deterministic motion plan for the AF-044 Blender walk prototype.
+"""Pure deterministic motion plan for the AF-052 directional Blender walk.
 
 This module intentionally depends only on the Python standard library. Blender is a
 raster adapter for these immutable poses; the regular test suite can therefore review
@@ -7,11 +7,12 @@ the gait, sampling, events, and metadata without importing ``bpy`` or ``mathutil
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
 from collections.abc import Iterator, Mapping
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from types import MappingProxyType
 
 FRAME_COUNT = 12
@@ -23,6 +24,7 @@ DIRECTIONS = ("SE", "SW", "NE", "NW")
 DIRECTION_YAW_DEGREES: Mapping[str, int] = MappingProxyType(
     {"SE": -90, "SW": 180, "NE": 0, "NW": 90}
 )
+DIRECTIONAL_PRERENDER_FILENAME = "directional-prerender.json"
 
 STANCE_RATIO = 0.62
 STRIDE_LENGTH = 0.60
@@ -418,6 +420,90 @@ def walk_frames() -> tuple[WalkFrame, ...]:
     return tuple(walk_frame(index) for index in range(FRAME_COUNT))
 
 
+def canonical_motion_json(frames: tuple[WalkFrame, ...]) -> str:
+    """Encode the exact shared 3D motion tuple independently of any direction."""
+    if not isinstance(frames, tuple) or len(frames) != FRAME_COUNT:
+        raise ValueError(f"Motion must contain exactly {FRAME_COUNT} immutable frames.")
+    durations = frame_durations_ms()
+    for index, frame in enumerate(frames):
+        if not isinstance(frame, WalkFrame):
+            raise TypeError("Motion frames must contain only WalkFrame values.")
+        if (
+            frame.index != index
+            or frame.time_ms != index * DURATION_MS / FRAME_COUNT
+            or frame.duration_ms != durations[index]
+            or frame.events != frame_events(index)
+        ):
+            raise ValueError("Motion frames must preserve the canonical walk schedule.")
+    payload = {
+        "animation": "walk",
+        "duration_ms": DURATION_MS,
+        "fps": FPS,
+        "frames": [asdict(frame) for frame in frames],
+    }
+    return (
+        json.dumps(
+            payload,
+            allow_nan=False,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n"
+    )
+
+
+def motion_sha256(frames: tuple[WalkFrame, ...]) -> str:
+    """Fingerprint one precomputed motion tuple shared by every yaw pass."""
+    return hashlib.sha256(canonical_motion_json(frames).encode("utf-8")).hexdigest()
+
+
+def build_directional_prerender_manifest(
+    frames: tuple[WalkFrame, ...],
+    project: str = "blender_humanoid",
+    animation: str = "walk",
+) -> dict[str, object]:
+    """Build strict AF-052 metadata proving one motion and four direct yaws."""
+    if _PROJECT_SLUG.fullmatch(project) is None:
+        raise ValueError("Project must be a lowercase snake_case project slug.")
+    if _SEMANTIC_ID.fullmatch(animation) is None:
+        raise ValueError("Animation must be a lowercase snake_case semantic ID.")
+    return {
+        "format": "animated-fabric.directional-prerender.v1",
+        "schema_version": "0.1.0",
+        "project": project,
+        "animation": animation,
+        "frame_sequence": f"{animation}/animation.json",
+        "view_strategy": "actor_root_yaw",
+        "motion_sha256": motion_sha256(frames),
+        "views": [
+            {
+                "direction": direction,
+                "actor_yaw_degrees": direction_yaw_degrees(direction),
+            }
+            for direction in DIRECTIONS
+        ],
+    }
+
+
+def canonical_directional_prerender_json(
+    frames: tuple[WalkFrame, ...],
+    project: str = "blender_humanoid",
+    animation: str = "walk",
+) -> str:
+    """Encode deterministic AF-052 directional-prerender metadata."""
+    return (
+        json.dumps(
+            build_directional_prerender_manifest(frames, project, animation),
+            allow_nan=False,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n"
+    )
+
+
 def direction_yaw_degrees(direction: str) -> int:
     """Return the fixed actor-root yaw for one logical direction."""
     if not isinstance(direction, str) or direction not in DIRECTION_YAW_DEGREES:
@@ -485,6 +571,7 @@ __all__ = [
     "ARM_SWING",
     "DIRECTIONS",
     "DIRECTION_YAW_DEGREES",
+    "DIRECTIONAL_PRERENDER_FILENAME",
     "DURATION_MS",
     "FOOT_LIFT",
     "FPS",
@@ -510,10 +597,14 @@ __all__ = [
     "WalkFrame",
     "WalkPose",
     "build_frame_sequence_manifest",
+    "build_directional_prerender_manifest",
+    "canonical_directional_prerender_json",
     "canonical_manifest_json",
+    "canonical_motion_json",
     "direction_yaw_degrees",
     "frame_durations_ms",
     "frame_events",
+    "motion_sha256",
     "pose_at_phase",
     "walk_frame",
     "walk_frames",

@@ -27,8 +27,8 @@ FROM python:3.12-slim-bookworm@sha256:d50fb7611f86d04a3b0471b46d7557818d88983fc3
 ARG APP_GID=1000
 ARG APP_UID=1000
 
-LABEL org.opencontainers.image.title="Animated Fabric experimental Blender worker" \
-    org.opencontainers.image.description="Isolated AF-044 headless prerender evidence worker" \
+LABEL org.opencontainers.image.title="Animated Fabric directional Blender worker" \
+    org.opencontainers.image.description="Isolated AF-052 fixed-actor direct-yaw prerender worker" \
     io.caatuu.animated-fabric.blender.version="4.5.12" \
     io.caatuu.animated-fabric.blender.sha256="95e3a2dfedba3bd32ca54fc355eac6b15a11986954ccb02815a07535d0120a25"
 
@@ -113,4 +113,4 @@ ENTRYPOINT ["/opt/blender/blender", \
     "--python", \
     "/opt/animated-fabric/render_walk.py", \
     "--"]
-CMD ["--out", "/output/af044-demo"]
+CMD ["--out", "/output/af052-demo"]

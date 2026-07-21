@@ -4,9 +4,9 @@
 
 | Property | Value |
 |---|---|
-| Document version | 0.2.1 |
+| Document version | 0.3.0 |
 | Status | approved normative plan |
-| Date | July 16, 2026 |
+| Date | July 21, 2026 |
 | Repository location | `apps/animated-fabric` inside the Caatuu repository |
 | Python package | `animated_fabric` |
 | CLI executable | `animated-fabric` |
@@ -51,12 +51,15 @@ When requirements appear to conflict, use this order:
 
 # 1. Mission and expected result
 
-Animated Fabric is a desktop application and Python library that turns prepared layered 2D illustrations into reusable animated actors. It MUST let a small team produce characters and creatures with an illustrated, isometric, limited-animation aesthetic without drawing every frame manually.
+Animated Fabric is a desktop application and Python library that turns prepared layered 2D
+illustrations or explicitly approved 3D prerender sources into reusable animated actors. It MUST
+let a small team produce characters and creatures with an illustrated, isometric,
+limited-animation aesthetic without drawing every frame manually.
 
 The system separates three responsibilities:
 
-1. **Appearance:** head, torso, limbs, clothing, weapons, and other image layers.
-2. **Structure:** a hierarchical rig with bones, pivots, sockets, and draw order.
+1. **Appearance:** image layers or one approved, self-contained 3D actor source.
+2. **Structure:** a hierarchical rig or the bounded actor hierarchy owned by its prerender adapter.
 3. **Motion:** clips and parametric generators shared by actors in one anatomical family.
 
 The primary output is a PNG sequence or fixed-cell spritesheet accompanied by JSON metadata. The game engine moves the actor through the world; Animated Fabric produces in-place actions such as `idle` and `walk`.
@@ -65,13 +68,12 @@ The primary output is a PNG sequence or fixed-cell spritesheet accompanied by JS
 
 The first useful version succeeds when one person can:
 
-1. import two isometric layered views of a humanoid;
-2. apply the `humanoid_v1` template;
-3. adjust bones and pivots visually;
-4. generate `idle` and `walk` from parameters;
-5. preview four directions, two authored and two mirrored;
-6. export deterministic spritesheets and metadata; and
-7. repeat the process for another actor while reusing the same animations.
+1. select a supported layered-2D or approved 3D prerender source;
+2. define or reuse one canonical in-place motion;
+3. preview four logical directions from the same rendering authority used for export;
+4. export deterministic spritesheets and metadata;
+5. verify that direction changes do not create new animation timelines; and
+6. repeat the process for another actor while reusing compatible motion.
 
 ## 1.2 Guiding principle
 
@@ -87,8 +89,9 @@ The MVP MUST include:
 
 - a local, folder-based project with versioned JSON;
 - import of transparent PNG layers;
-- two authored isometric directions, `SE` and `NE`;
-- two mirrored directions, `SW` from `SE` and `NW` from `NE`;
+- layered-2D support for authored `SE` and `NE` views and explicit legacy mirror declarations;
+- a bounded 3D prerender path whose `SE`, `SW`, `NE`, and `NW` views reuse one motion and differ
+  only by actor-root yaw;
 - the `humanoid_v1` anatomical family;
 - the `quadruped_v1` anatomical family before stable version 0.1 closes;
 - rigid-part rigs with translation, rotation, and scale;
@@ -117,10 +120,9 @@ The MVP MUST NOT require:
 - accounts, cloud services, telemetry, networking, or multi-user collaboration;
 - a marketplace, third-party plugins, or execution of project-provided scripts.
 
-The MVP does not require Blender, 3D source files, a 3D authoring workflow, or a second rendering
-stack. AF-044 may evaluate Blender as isolated upstream tooling, but its evidence is not product
-input, preview, or export unless a later explicit replacement decision changes the relevant
-architecture contracts.
+The general MVP does not require arbitrary Blender files, user-authored 3D import, or an embedded
+3D editor. AF-052 promotes only the fixed repository-owned actor and walk proven by AF-044. That
+path remains an isolated Linux prerender worker and does not make Blender a base runtime dependency.
 
 Background removal is an approved, self-contained optional capability described in ADR-009 and Section 15.7. Its availability MUST NOT make it a prerequisite for the prepared-layer workflow.
 
@@ -154,16 +156,22 @@ Therefore:
 - generated masks and cutouts are proposals or derived assets; and
 - source files are never overwritten.
 
-## ADR-002: two authored isometric views and two mirrored views
+This decision remains normative for the layered-2D path. Decision 0012 permits a separate bounded
+3D prerender source; it does not claim that segmentation can reconstruct hidden 2D art.
+
+## ADR-002: source-specific four-direction derivation
 
 The initial logical direction set is `SE`, `SW`, `NE`, and `NW`.
 
-- `SE` and `NE` are authored and rigged.
-- `SW` horizontally mirrors the rendered `SE` output.
-- `NW` horizontally mirrors the rendered `NE` output.
-- A derived direction MAY later be replaced by an authored direction.
+- A layered-2D project may author and rig `SE` and `NE` and retain explicit `SW`/`NW` mirror
+  declarations for backward compatibility.
+- The approved 3D prerender path renders all four views directly from one canonical motion by
+  changing only actor-root yaw.
+- A 3D-derived direction MUST NOT be produced by rotating or mirroring finished pixels.
+- A source path must declare its direction strategy explicitly; no exporter may silently switch it.
 
-This halves the art workload without pretending that one view can accurately produce both front and back.
+The bounded 3D path is defined by decision 0012. General 3D sources and any future replacement of
+legacy layered mirroring require their own versioned input contract.
 
 ## ADR-003: limited animation and world movement are separate
 
@@ -173,9 +181,11 @@ This halves the art workload without pretending that one view can accurately pro
 - The game engine owns world position.
 - The visual root MAY move by a few pixels but MUST NOT transport the actor across the map.
 
-## ADR-004: one renderer for preview and export
+## ADR-004: one rendering authority per source path for preview and export
 
-Preview and export MUST use the same composition core. Maintaining independent visual implementations is prohibited because they would eventually disagree.
+Preview and export MUST consume the same pixels from the same rendering authority for a given source
+path. Maintaining independent preview and export implementations for one source is prohibited
+because they would eventually disagree.
 
 The reference renderer uses:
 
@@ -183,6 +193,10 @@ The reference renderer uses:
 - `opencv-python-headless` for affine transforms;
 - premultiplied alpha to prevent dark edges; and
 - `Pillow` for PNG input, output, fixtures, and metadata where appropriate.
+
+For the bounded 3D path, the isolated Blender worker is the frame authority. Human review and grid
+export both consume its verified RGBA sequence; neither recreates the scene or motion. Blender does
+not enter the base package or the layered-2D renderer.
 
 ## ADR-005: a Qt-independent core
 
@@ -301,24 +315,25 @@ VendoredBiRefNetCutoutAdapter ──► derived RGBA PNG + mask + diagnostics
         └──► normal layered import, after explicit user review
 ```
 
-Experimental 3D prerender investigation is also separate:
+The bounded 3D prerender path is also separate:
 
 ```text
-owned procedural 3D humanoid + in-place walk
+owned procedural 3D humanoid + one canonical in-place walk
         |
         v
-isolated headless Blender spike
+isolated headless Blender directional worker
         |
         v
-direct SE / SW / NE / NW review frames + reproducibility report
+verified direct SE / SW / NE / NW RGBA frame sequence
         |
-        `--> comparison evidence only; no product preview or export
+        +--> review media
+        `--> shared verified grid packer --> product spritesheet + JSON
 ```
 
-AF-044 MAY arrange its untracked review frames with AF-050-compatible sampling and folder
-conventions. Blender does not become an application renderer, the direct left-facing views do not
-replace ADR-002 mirroring, and no experimental artifact enters a project or product export without
-a later explicit replacement ADR.
+AF-044 established the evidence and isolation boundary. AF-052 and decision 0012 promote only that
+fixed owned actor and walk: one precomputed pose tuple is rerendered at four actor-root yaws, then a
+strict directional manifest and provenance gate the shared AF-051 grid packer. Arbitrary `.blend`
+files, models, motions, scripts, and project-driven 3D rendering remain prohibited.
 
 ## 4.3 Dependency rule
 
@@ -617,7 +632,8 @@ Each authored direction may adjust:
 - slot order; and
 - optional track multipliers.
 
-A mirrored direction needs no assets. Its source frame is rendered first and the complete frame is mirrored afterward.
+In the layered-2D schema, a mirrored direction needs no assets and retains its declared authored
+source. This declaration does not apply to the 3D prerender path, whose views are direct yaw renders.
 
 ## 7.7 `RigDefinition`
 
@@ -655,7 +671,7 @@ Visual stability begins before code. A badly prepared layer may be technically v
 
 ## 8.1 Required views
 
-For four-direction isometry:
+For layered-2D four-direction isometry:
 
 - `SE`: front-diagonal facing right;
 - `NE`: rear-diagonal facing right;
@@ -663,6 +679,10 @@ For four-direction isometry:
 - `NW`: mirrored from `NE`.
 
 `SE` and `NE` MUST share apparent height, scale, ground contact position, proportions, palette, and line weight.
+
+The bounded 3D actor instead uses one fixed camera and one actor. Its four views are generated from
+the yaw table in decision 0012, so apparent scale, anchor, geometry, materials, lighting, timing,
+and motion remain common across directions.
 
 ## 8.2 Canvas and resolution
 
@@ -1088,9 +1108,9 @@ This creates identity without drawing every animation again.
 
 ---
 
-# 13. Direction, mirroring, and profiles
+# 13. Direction derivation and profiles
 
-## 13.1 Direction resolution
+## 13.1 Layered-2D direction resolution
 
 ```python
 class DirectionMode(str, Enum):
@@ -1106,15 +1126,27 @@ Algorithm:
 4. Mirror spatial metadata: anchor X, exported sockets, and hitboxes.
 5. Preserve semantic event IDs.
 
-## 13.2 Why the final frame is mirrored
+## 13.2 Why a legacy layered direction mirrors the final frame
 
-Mirroring each bone, pivot, and asset separately introduces many failure points. For the MVP, mirroring the complete frame is deterministic and visually identical to its source.
+Mirroring each bone, pivot, and asset separately introduces many failure points. When the legacy
+layered strategy is selected, mirroring the complete frame is deterministic and visually identical
+to its source. This rule does not apply to 3D-derived output.
 
-## 13.3 Future overrides
+## 13.3 Direct 3D yaw resolution
+
+The bounded 3D path builds one immutable motion tuple once per render transaction. For every sampled
+pose, it holds the camera fixed and rerenders the actor at `SE=-90`, `SW=180`, `NE=0`, and `NW=90`
+degrees of root yaw. Frame indexes, times, durations, events, geometry, camera, lighting, and
+materials remain identical across views. Finished RGBA pixels are never rotated or mirrored.
+
+The output requires adjacent strict directional-prerender metadata containing one shared motion
+SHA-256 and the ordered yaw table. Preview and export consume the same verified frame sequence.
+
+## 13.4 Future overrides
 
 The schema MUST allow `SW` or `NW` to change from `mirror` to `authored` without changing clips. Non-isometric projects MAY later add `S` or `N`.
 
-## 13.4 Direction motion profiles
+## 13.5 Direction motion profiles
 
 A `DirectionProfile` MAY declare per-channel multipliers when the same rotation reads differently in `SE` and `NE`:
 
@@ -1159,7 +1191,7 @@ class Renderer(Protocol):
 - active events when requested; and
 - clipping diagnostics.
 
-## 14.2 Per-frame pipeline
+## 14.2 Layered-2D per-frame pipeline
 
 1. Perform lightweight request validation.
 2. Resolve the authored source direction.
@@ -1176,6 +1208,10 @@ class Renderer(Protocol):
 13. Mirror if the requested direction is derived.
 14. Detect alpha pixels touching canvas edges.
 15. Return frame and metadata.
+
+The 3D prerender pipeline is batch-oriented rather than a call to this 2D compositor: construct one
+pose tuple, apply each pose, rerender the actor at each fixed yaw, validate and fingerprint the
+complete sequence, and let review and export consume those verified pixels.
 
 ## 14.3 Premultiplied alpha
 
@@ -1757,7 +1793,8 @@ Minimum coverage includes:
 - temporal looping;
 - generator periodicity;
 - slot resolution;
-- metadata mirroring;
+- directional-prerender metadata and motion fingerprints;
+- legacy layered metadata mirroring when that path is implemented;
 - premultiplied alpha;
 - exact duration distribution;
 - JSON save and round trip;
@@ -1781,7 +1818,7 @@ Core cases:
 
 - neutral `SE` pose;
 - neutral `NE` pose;
-- mirrored `SW`;
+- direct-yaw `SE`, `SW`, `NE`, and `NW` at one common 3D motion phase;
 - walk at one-quarter cycle;
 - equipment composition; and
 - rotated transparency without a halo.
@@ -2296,9 +2333,9 @@ This is a non-gating research ticket and does not reopen M4 or delay M5.
   export path.
 
 Acceptance requires two clean reproducibility runs, structural validation of every RGBA output, a
-clear go/revise/stop report, and an unchanged normal Linux quality gate without Blender. A negative
-result is valid evidence. Promotion requires a later explicit replacement ADR; AF-044 does not
-replace ADR-001, ADR-002, ADR-004, the shared OpenCV renderer, or any M5 ticket.
+clear go/revise/stop report, and an unchanged normal Linux quality gate without Blender. AF-044 did
+not itself replace ADR-001, ADR-002, or ADR-004. AF-052 and decision 0012 subsequently promote only
+the fixed owned actor/walk sequence while preserving the layered OpenCV path.
 
 **M4 output:** the humanoid walks and idles through the complete CLI pipeline.
 
@@ -2317,15 +2354,19 @@ replace ADR-001, ADR-002, ADR-004, the shared OpenCV renderer, or any M5 ticket.
 - exact duration; and
 - JSON v1.
 
-### AF-052 Direction mirroring
+### AF-052 Directional yaw prerender
 
-- `SW`/`NW`;
-- mirrored metadata; and
-- golden tests.
+- build one canonical walk tuple once and reuse it for `SE`, `SW`, `NE`, and `NW`;
+- change only actor-root yaw and rerender, never transform finished 2D frames;
+- strict motion fingerprint, direction/yaw metadata, provenance, and source verification;
+- package the verified 48-frame sequence through the shared AF-051 grid packer; and
+- direct-view golden tests plus native-Linux repeatability evidence.
 
 ### AF-053 End-to-end demo
 
-A command or script creates, imports, rigs, generates, and exports the fixture from scratch.
+A command or script renders, validates, and exports the approved 3D fixture from scratch. General
+layered-project orchestration remains a separate path and MUST NOT be fabricated through the 3D
+adapter.
 
 **M5 output:** the first usable product without the GUI.
 
@@ -2471,18 +2512,22 @@ M9 starts only after the stable M0–M8 flow. Planning and dependency isolation 
 
 # 23. End-to-end acceptance cases
 
-## E2E-001 Basic humanoid
+## E2E-001 Basic owned 3D humanoid
 
-Given geometric `SE` and `NE` layers, when a project is created, imported, assigned `humanoid_v1`, given `idle` and `walk`, and exported:
+Given the repository-owned procedural 3D humanoid and its canonical `walk`, when the isolated worker
+renders and the verified packer exports it:
 
 - validation contains no errors;
-- four directions exist;
-- `SW` is an exact mirror of `SE`;
-- `NW` is an exact mirror of `NE`;
-- each animation has PNG and JSON;
-- dimensions are correct;
+- `SE`, `SW`, `NE`, and `NW` are direct actor-root yaw views of the same pose tuple;
+- `SW` is materially different from a horizontal mirror of `SE`;
+- `NW` is materially different from a horizontal mirror of `NE`;
+- `walk` has PNG and JSON output;
+- the sheet is 2,304 x 768 with twelve 192 x 192 cells per row;
 - foot events appear in `walk`; and
 - repeated export produces the same result.
+
+The layered-2D humanoid remains covered by its import, rig, animation, authored-direction render,
+and explicit-direction export tests. AF-052 does not invent 3D data for that project format.
 
 ## E2E-002 Reusable equipment
 
@@ -2492,7 +2537,7 @@ Given that humanoid with two hats and two weapons:
 - every combination exports;
 - equipment follows sockets;
 - visual order is correct; and
-- mirrored combinations remain coherent.
+- every direction strategy retains coherent combinations without a silent renderer switch.
 
 ## E2E-003 Quadruped
 
@@ -2729,7 +2774,7 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | heavy ML stack contaminates core | high | high | separate image, lock, cache, and profile |
 | upstream Tukevejtso drift | medium | medium | vendored revision and deliberate update procedure |
 | model or code license ambiguity | medium | high | attribution and license gate before integration |
-| preview differs from export | medium | high | one renderer |
+| preview differs from export | medium | high | one verified rendering authority per source path |
 | jitter from variable canvas | medium | high | fixed canvas and anchor |
 | halos on rotated edges | medium | medium | premultiplied alpha |
 | schema changes break projects | medium | high | versioning, migrations, backups |
@@ -2737,7 +2782,8 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | real art required for testing | high | medium | generated geometric fixtures |
 | host/container inconsistency | high | high | Linux container is authoritative |
 | Caatuu unintentionally publishes source | medium | high | application under `apps`, explicit public-artifact boundary |
-| experimental 3D prerender becomes a shadow product renderer | medium | high | isolated non-gating spike, review-only artifacts, explicit replacement ADR before promotion |
+| bounded 3D prerender expands into unsafe arbitrary execution | medium | high | fixed baked worker, strict source manifest, no user scripts/models, decision 0012 scope |
+| Blender output differs across CPU hosts | medium | medium | native reference artifacts and decoded-pixel golden tolerance |
 
 ---
 
@@ -2750,14 +2796,14 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | repository license | pending | before public release |
 | final canvas | 192 × 192 | first real-art test |
 | animation fps | 12 | after visual-style evaluation |
-| extra views | 2 authored + 2 mirrored | after M8 |
+| extra views | 4 direct yaws for the owned 3D actor; layered declarations unchanged | after M8 |
 | PSD/Krita | unsupported | after stable PNG importer |
 | mesh deformation | no | after Cut Studio |
 | background removal | optional vendored BiRefNet plane | M9, never before core stability |
 | cutout device | GPU when available, explicit CPU fallback if validated | AF-095 |
 | cutout IPC | job directory/CLI | review during GUI integration |
 | Windows release | not promised by Linux development baseline | packaging milestone |
-| Blender/3D prerender | isolated experimental upstream evidence only | after AF-044 evidence and an explicit replacement ADR |
+| Blender/3D prerender | fixed owned actor/walk only, isolated and internal | after AF-053 demo |
 
 These decisions do not block M0 through M8.
 
@@ -2777,6 +2823,10 @@ These decisions do not block M0 through M8.
 - **Cutout plane:** separately packaged optional BiRefNet dependency and model environment.
 - **Derived asset:** a generated or normalized file.
 - **Direction profile:** rig and draw adjustments for an orientation.
+- **Directional prerender:** a verified RGBA sequence produced by rendering one 3D motion at fixed
+  actor-root yaws.
+- **Direct-yaw direction:** a logical direction rendered from 3D by changing actor-root yaw while
+  preserving the camera, motion, timing, materials, and lighting.
 - **Draw slot:** semantic category used to order layers.
 - **Generator:** deterministic function producing an explicit clip.
 - **Ground anchor:** canvas point representing ground contact.
@@ -3069,6 +3119,10 @@ class BackgroundRemovalPort(Protocol):
 
 ## Closing statement
 
-Animated Fabric will not win through the raw volume of illustrations. It will win by turning a small amount of carefully prepared art into a living, repeatable, extensible system. Its first victory is not a forest filled with creatures. It is one geometric actor that traverses the entire core pipeline without tricks: layers, rig, motion, mirroring, export, and proof.
+Animated Fabric will not win through the raw volume of illustrations. It will win by turning a small
+amount of carefully prepared appearance and one reusable motion into a living, repeatable,
+extensible system. Its first 3D-path victory is one owned actor that traverses the pipeline without
+direction-specific animation tricks: one motion, four actor-root yaws, verified frames, export,
+and proof. The layered-2D path remains available for art that benefits from direct illustration.
 
 Professional cutout is valuable when source art needs it, but it remains a tool at the edge of that pipeline: local, reviewed, self-contained, and isolated. From the first proven actor onward, each new creature becomes less of a mountain and more of a recipe.
