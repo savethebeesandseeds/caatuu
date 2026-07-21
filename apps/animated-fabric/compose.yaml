@@ -157,6 +157,38 @@ services:
     init: true
     command: ["prefetch"]
 
+  animated-fabric-blender:
+    profiles:
+      - blender
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: containers/blender/Dockerfile
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-blender:4.5.12-cycles-cpu
+    container_name: caatuu-animated-fabric-blender
+    working_dir: /work
+    environment:
+      ANIMATED_FABRIC_BLENDER_OUTPUT_ROOT: /output
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=1g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - ./workspaces/blender:/output
+    cpus: 4.0
+    mem_limit: 4g
+    pids_limit: 256
+    shm_size: 512m
+    init: true
+    command: ["--out", "/output/af044-demo"]
+
 volumes:
   animated-fabric-pip-cache:
     name: caatuu-animated-fabric-pip-cache

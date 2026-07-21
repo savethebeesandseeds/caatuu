@@ -12,7 +12,11 @@ The cutout profiles mount:
 Create the local directories before the first run:
 
 ```bash
-mkdir -p workspaces/cutout/input workspaces/cutout/output
+mkdir -p workspaces/cutout/input workspaces/cutout/output workspaces/blender
 ```
+
+The optional `blender` Compose profile mounts `blender/` read/write at `/output`. Its fixed AF-044
+worker produces only procedural, reproducible feasibility evidence there; it does not read project
+files or user artwork and it is not a product export destination.
 
 Never place the model cache, credentials, or irreplaceable source artwork here.

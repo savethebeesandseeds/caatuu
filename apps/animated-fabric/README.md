@@ -4,7 +4,8 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M4 and ticket AF-050 are complete; milestone M5 is still underway.
+Milestones M0 through M4 and ticket AF-050 are complete; milestone M5 is still underway. The AF-044
+implementation is complete locally and awaits its authoritative native-Linux evidence run.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -16,7 +17,9 @@ atomically writes PNG frames. General imported-project rendering is not wired in
 yet. The deterministic `humanoid_idle_v1` and `humanoid_walk_v1` generators are discoverable through
 the CLI and can publish validated editable clips into a project. A programmatic frame-sequence
 export path now renders those clips through the shared renderer. The application does not yet
-contain the functional editor or a database.
+contain the functional editor or a database. AF-044 also proves a separate 3D-to-2D upstream
+option: one procedural 3D walk can be rendered reproducibly from four rotations, without making
+Blender part of the application or changing the current layered-2D product contracts.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -52,8 +55,9 @@ The infrastructure boundary is explicit:
 | `cutout-classic` profile | Lightweight Pillow/NumPy cutout image with no model or ML packages |
 | `cutout` / `cutout-cuda` profiles | Separate CPU or NVIDIA BiRefNet images; no source checkout and no runtime network |
 | `cutout-provision` profile | The only network-enabled runtime action; seeds one pinned, hash-verified model snapshot |
+| `blender` profile | Opt-in Blender 4.5.12 Linux/amd64 feasibility worker; fixed baked script, non-root, offline, read-only, no project mount |
 | Named volumes | Independent pip cache and BiRefNet cache owned by this Compose project |
-| GitHub Actions | Ubuntu 24.04 builds the same images and never installs project Python packages on the runner |
+| GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender evidence workflow without installing project Python packages on the runner |
 
 From this directory, build and start the normal development environment:
 
@@ -179,6 +183,38 @@ The full sampling, destination, transaction, and failure contracts are recorded 
 AF-050 does not claim the public `export --profile default_grid` CLI, a grid spritesheet, or mirrored
 SW/NW output. The grid command and sheet remain AF-051, while complete-frame mirroring remains
 AF-052.
+
+## Experimental 3D prerender evidence
+
+AF-044 is a bounded feasibility result, not a second product renderer. The isolated worker builds
+one owned low-poly humanoid, evaluates one analytical in-place walk, holds an orthographic camera
+fixed, and rotates the actor root to render direct `SE`, `SW`, `NE`, and `NW` RGBA sequences. It
+loads no `.blend`, user script, add-on, model, texture, font, or external motion file. The repository
+is not mounted into the worker, and only `workspaces/blender/` is writable.
+
+Run it from this directory without installing Blender or Python dependencies on Windows:
+
+```powershell
+docker compose --profile blender build animated-fabric-blender
+docker compose --profile blender run --rm --no-deps animated-fabric-blender
+docker compose run --rm --no-deps animated-fabric-dev `
+  python scripts/package_blender_walk_demo.py `
+  --source workspaces/blender/af044-demo `
+  --out workspaces/blender/af044-demo/review
+```
+
+The review package contains a four-direction GIF and contact sheet. Each run independently checks
+the exact 49-file source set, strict AF-050-compatible metadata, RGBA dimensions and alpha bounds,
+source/configuration identities, a 4 MiB ceiling, and every recorded SHA-256. Blender's volatile
+date and render-duration PNG chunks are removed without re-encoding pixels, allowing complete
+frame and provenance trees to compare byte for byte. The adjacent experimental provenance is
+mandatory context: these four direct views are not authored/mirrored product exports.
+
+The result supports continuing with 3D as an upstream motion source, while the current primitive
+geometry and rigid joints still require an art-directed mesh, armature, skinning, and a later
+adapter before any product integration. Architecture, security, licensing, evidence, and promotion
+rules are recorded in [decision 0010](docs/decisions/0010-experimental-blender-prerender.md); exact
+commands are in [`tools/blender/README.md`](tools/blender/README.md).
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and

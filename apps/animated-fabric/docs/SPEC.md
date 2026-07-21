@@ -4,7 +4,7 @@
 
 | Property | Value |
 |---|---|
-| Document version | 0.2.0 |
+| Document version | 0.2.1 |
 | Status | approved normative plan |
 | Date | July 16, 2026 |
 | Repository location | `apps/animated-fabric` inside the Caatuu repository |
@@ -116,6 +116,11 @@ The MVP MUST NOT require:
 - a game-engine-specific exporter;
 - accounts, cloud services, telemetry, networking, or multi-user collaboration;
 - a marketplace, third-party plugins, or execution of project-provided scripts.
+
+The MVP does not require Blender, 3D source files, a 3D authoring workflow, or a second rendering
+stack. AF-044 may evaluate Blender as isolated upstream tooling, but its evidence is not product
+input, preview, or export unless a later explicit replacement decision changes the relevant
+architecture contracts.
 
 Background removal is an approved, self-contained optional capability described in ADR-009 and Section 15.7. Its availability MUST NOT make it a prerequisite for the prepared-layer workflow.
 
@@ -295,6 +300,25 @@ VendoredBiRefNetCutoutAdapter ──► derived RGBA PNG + mask + diagnostics
         │
         └──► normal layered import, after explicit user review
 ```
+
+Experimental 3D prerender investigation is also separate:
+
+```text
+owned procedural 3D humanoid + in-place walk
+        |
+        v
+isolated headless Blender spike
+        |
+        v
+direct SE / SW / NE / NW review frames + reproducibility report
+        |
+        `--> comparison evidence only; no product preview or export
+```
+
+AF-044 MAY arrange its untracked review frames with AF-050-compatible sampling and folder
+conventions. Blender does not become an application renderer, the direct left-facing views do not
+replace ADR-002 mirroring, and no experimental artifact enters a project or product export without
+a later explicit replacement ADR.
 
 ## 4.3 Dependency rule
 
@@ -2256,6 +2280,26 @@ docker compose run --rm animated-fabric-dev pytest -q
 - generate/replace clip; and
 - validation.
 
+### AF-044 Experimental Blender prerender feasibility
+
+This is a non-gating research ticket and does not reopen M4 or delay M5.
+
+- create one repository-owned procedural 3D humanoid without external assets;
+- create one deterministic in-place walk;
+- render direct `SE`, `SW`, `NE`, and `NW` review sequences in an isolated, headless, offline
+  Blender container;
+- record pinned tool provenance, settings, hashes, repeatability, direct-versus-mirrored
+  comparisons, security, licensing, runtime, and output size;
+- MAY emit untracked experimental frames using AF-050-compatible sampling and folder conventions;
+  and
+- add no core dependency, project schema, public CLI or GUI behavior, product renderer, or final
+  export path.
+
+Acceptance requires two clean reproducibility runs, structural validation of every RGBA output, a
+clear go/revise/stop report, and an unchanged normal Linux quality gate without Blender. A negative
+result is valid evidence. Promotion requires a later explicit replacement ADR; AF-044 does not
+replace ADR-001, ADR-002, ADR-004, the shared OpenCV renderer, or any M5 ticket.
+
 **M4 output:** the humanoid walks and idles through the complete CLI pipeline.
 
 ## Milestone M5: export
@@ -2693,6 +2737,7 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | real art required for testing | high | medium | generated geometric fixtures |
 | host/container inconsistency | high | high | Linux container is authoritative |
 | Caatuu unintentionally publishes source | medium | high | application under `apps`, explicit public-artifact boundary |
+| experimental 3D prerender becomes a shadow product renderer | medium | high | isolated non-gating spike, review-only artifacts, explicit replacement ADR before promotion |
 
 ---
 
@@ -2712,6 +2757,7 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | cutout device | GPU when available, explicit CPU fallback if validated | AF-095 |
 | cutout IPC | job directory/CLI | review during GUI integration |
 | Windows release | not promised by Linux development baseline | packaging milestone |
+| Blender/3D prerender | isolated experimental upstream evidence only | after AF-044 evidence and an explicit replacement ADR |
 
 These decisions do not block M0 through M8.
 

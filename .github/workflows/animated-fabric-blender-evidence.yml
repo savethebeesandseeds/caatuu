@@ -1,0 +1,126 @@
+name: Animated Fabric Blender evidence
+
+on:
+  push:
+    paths:
+      - "apps/animated-fabric/containers/blender/**"
+      - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
+      - "apps/animated-fabric/tests/unit/test_blender_*.py"
+      - "apps/animated-fabric/src/animated_fabric/domain/**"
+      - "apps/animated-fabric/Dockerfile"
+      - "apps/animated-fabric/pyproject.toml"
+      - "apps/animated-fabric/constraints/linux-py312.txt"
+      - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
+      - ".github/workflows/animated-fabric-blender-evidence.yml"
+  pull_request:
+    paths:
+      - "apps/animated-fabric/containers/blender/**"
+      - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/scripts/package_blender_walk_demo.py"
+      - "apps/animated-fabric/tests/unit/test_blender_*.py"
+      - "apps/animated-fabric/src/animated_fabric/domain/**"
+      - "apps/animated-fabric/Dockerfile"
+      - "apps/animated-fabric/pyproject.toml"
+      - "apps/animated-fabric/constraints/linux-py312.txt"
+      - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/docs/decisions/0010-experimental-blender-prerender.md"
+      - ".github/workflows/animated-fabric-blender-evidence.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    name: Native Linux Blender feasibility evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/animated-fabric
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Match container ownership to the Linux runner
+        run: |
+          echo "LOCAL_UID=$(id -u)" >> "$GITHUB_ENV"
+          echo "LOCAL_GID=$(id -g)" >> "$GITHUB_ENV"
+          mkdir -p workspaces/blender
+
+      - name: Validate the isolated profile
+        run: docker compose --profile blender config --quiet
+
+      - name: Build pinned development and Blender images
+        run: |
+          docker compose build animated-fabric-dev
+          docker compose --profile blender build animated-fabric-blender
+          docker image inspect caatuu-animated-fabric-blender:4.5.12-cycles-cpu \
+            --format 'Blender evidence image ID: {{.Id}}'
+
+      - name: Verify fixed version, architecture, and non-root identity
+        run: |
+          docker compose --profile blender run --rm --no-deps \
+            --entrypoint /opt/blender/blender animated-fabric-blender --version
+          worker_uid="$(docker compose --profile blender run --rm --no-deps \
+            --entrypoint /usr/bin/id animated-fabric-blender -u)"
+          echo "Blender worker UID: $worker_uid"
+          test "$worker_uid" != "0"
+
+      - name: Reject output escape before rendering
+        run: |
+          set +e
+          docker compose --profile blender run --rm --no-deps \
+            animated-fabric-blender --out /tmp/escape
+          status=$?
+          set -e
+          test "$status" -eq 10
+          test ! -e workspaces/blender/escape
+
+      - name: Render two clean bounded runs
+        run: |
+          timeout --signal=TERM --kill-after=30s 5m \
+            docker compose --profile blender run --rm --no-deps \
+            animated-fabric-blender --out /output/af044-linux-first
+          timeout --signal=TERM --kill-after=30s 5m \
+            docker compose --profile blender run --rm --no-deps \
+            animated-fabric-blender --out /output/af044-linux-second
+
+      - name: Verify hashes and byte repeatability recursively
+        run: |
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/package_blender_walk_demo.py \
+            --source workspaces/blender/af044-linux-first \
+            --out workspaces/blender/af044-linux-first/review
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/package_blender_walk_demo.py \
+            --source workspaces/blender/af044-linux-second \
+            --out workspaces/blender/af044-linux-second/review
+          diff -qr \
+            workspaces/blender/af044-linux-first/walk \
+            workspaces/blender/af044-linux-second/walk
+          cmp \
+            workspaces/blender/af044-linux-first/provenance.json \
+            workspaces/blender/af044-linux-second/provenance.json
+          sha256sum \
+            workspaces/blender/af044-linux-first/provenance.json \
+            workspaces/blender/af044-linux-first/review/walk_contact_sheet.png \
+            workspaces/blender/af044-linux-first/review/walk_review.gif
+          cat workspaces/blender/af044-linux-first/provenance.json
+
+      - name: Run focused pure-Python contracts
+        run: |
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff format --check tools/blender scripts/package_blender_walk_demo.py \
+            tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
+            tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff check tools/blender scripts/package_blender_walk_demo.py \
+            tests/unit/test_blender_motion.py tests/unit/test_blender_output_paths.py \
+            tests/unit/test_blender_png_canonical.py tests/unit/test_blender_walk_review.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            pytest -q --no-cov tests/unit/test_blender_motion.py \
+            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
+            tests/unit/test_blender_walk_review.py
