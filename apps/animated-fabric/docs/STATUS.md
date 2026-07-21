@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 complete; AF-060 is next
+**Current state:** Milestones M0 through M5 complete; AF-054 is active in the inserted M5A macaw vertical slice
 
 **Last updated:** 2026-07-21
 
@@ -51,6 +51,17 @@ M5 - export.
 - [x] AF-051 Grid spritesheet
 - [x] AF-052 Directional yaw prerender
 - [x] AF-053 End-to-end demo
+
+M5A - reviewed traveler-macaw actor bridge.
+
+- [ ] AF-054 Reviewed macaw reference package - active, awaiting visual approval
+- [ ] AF-055 Validated 3D actor package
+- [ ] AF-056 `avian_v1` rig and skinned macaw
+- [ ] AF-057 `avian_walk_v1`
+- [ ] AF-058 Actor-package directional yaw prerender
+- [ ] AF-059 Macaw end-to-end demo
+
+AF-060 remains the first M6 ticket and is deferred, not cancelled.
 
 ## Delivered scope
 
@@ -432,6 +443,7 @@ Principal files:
 - `docs/decisions/0011-grid-spritesheet-export.md`
 - `docs/decisions/0012-directional-yaw-prerender.md`
 - `docs/decisions/0013-end-to-end-directional-demo.md`
+- `docs/decisions/0014-reviewed-macaw-actor-bridge.md`
 - `docs/AF053-DEMO-CC0.md` and `docs/LEGAL_INVENTORY.md`
 - `docs/third-party/blender.md`
 - `tests/unit/test_blender_motion.py`
@@ -922,6 +934,19 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
+- AF-054 has a corrected four-view turnaround candidate in the ignored review workspace, with
+  status `candidate` and no approval record. It MUST NOT be consumed by AF-056, published, or
+  described as recovered geometry until explicit human approval is recorded. The authoritative
+  source package and tracked provenance are still pending that approval.
+- The candidate's foreground heights differ by up to 10 px (about 1.65%), and tail feathers,
+  talons, hand/toe silhouettes, backpack details, and hidden joint landmarks require explicit
+  modeling judgment. Its proposed base actor and first walk omit the staff as a separate prop; that
+  scope also awaits approval.
+- The repository already contains useful macaw identity, side-walk, and prepared puppet-layer
+  assets outside Animated Fabric. They are source evidence only; M5A must copy accepted inputs into
+  Animated Fabric with hashes and provenance rather than creating a runtime sibling dependency.
+  The root and application legal inventories must both clear exact files before they are tracked as
+  accepted inputs or published.
 - Persisted project, rig, and layer-catalog JSON still lack global file-size and collection-count
   bounds. Add both before production use accepts untrusted projects.
 - Frozen domain models still expose mutable nested mappings. Resolve deep immutability or enforce
@@ -1054,4 +1079,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-060 Shell and document state
+- AF-054 Reviewed macaw reference package

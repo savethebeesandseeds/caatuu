@@ -1,11 +1,12 @@
 # Animated Fabric
 
 Animated Fabric is a Linux-first desktop application and Python library for turning prepared 2D
-image layers or an explicitly approved bounded 3D prerender source into reusable animation frames
+image layers or explicitly approved, bounded 3D prerender sources into reusable animation frames
 and spritesheets.
 
 Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, and AF-053 are complete.
-AF-060 is the next permitted ticket.
+AF-054 is active as the first ticket in the user-directed M5A traveler-macaw vertical slice.
+AF-060 remains planned after AF-059.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -20,7 +21,9 @@ and the public fixed-grid spritesheet command render those clips through the sha
 application does not yet contain the functional editor or a database. The bounded 3D path now
 reuses one procedural walk across four direct actor-root yaw renders and packages their verified
 pixels through the same fixed-grid packer. Blender remains isolated from the application and the
-current layered-2D product contracts remain unchanged.
+current layered-2D product contracts remain unchanged. Decision 0014 now defines the missing bridge
+as a reviewed reference package, a strict data-only actor package, `avian_v1`, one canonical avian
+walk, and four direct yaw renders. It explicitly does not claim automatic single-image-to-3D.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md). First-party, generated-media, adapted-source,
@@ -58,7 +61,7 @@ The infrastructure boundary is explicit:
 | `cutout-classic` profile | Lightweight Pillow/NumPy cutout image with no model or ML packages |
 | `cutout` / `cutout-cuda` profiles | Separate CPU or NVIDIA BiRefNet images; no source checkout and no runtime network |
 | `cutout-provision` profile | The only network-enabled runtime action; seeds one pinned, hash-verified model snapshot |
-| `blender` profile | Opt-in Blender 4.5.12 Linux/amd64 directional worker; fixed baked actor and walk, non-root, offline, read-only, no project mount |
+| `blender` profile | Opt-in Blender 4.5.12 Linux/amd64 directional worker; currently fixed baked actor and walk, non-root, offline, read-only, no project mount; M5A adds only one validated read-only macaw package |
 | Named volumes | Independent pip cache and BiRefNet cache owned by this Compose project |
 | GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender workflow that exercises the bounded host command and may publish only cleared sample media and reports |
 
@@ -259,7 +262,8 @@ layered-project CLI and `OpenCvRenderer` are unchanged, and this fixed command i
 [0010](docs/decisions/0010-experimental-blender-prerender.md),
 [0012](docs/decisions/0012-directional-yaw-prerender.md), and
 [0013](docs/decisions/0013-end-to-end-directional-demo.md) record the evidence, promotion, and
-orchestration rules; operational details are in
+orchestration rules. [Decision 0014](docs/decisions/0014-reviewed-macaw-actor-bridge.md) records the
+reviewed macaw bridge without changing the current fixed demo; operational details are in
 [`tools/blender/README.md`](tools/blender/README.md).
 
 The official CI `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` outputs may be shared

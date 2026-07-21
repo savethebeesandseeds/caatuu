@@ -4,7 +4,7 @@
 
 | Property | Value |
 |---|---|
-| Document version | 0.3.1 |
+| Document version | 0.4.0 |
 | Status | approved normative plan |
 | Date | July 21, 2026 |
 | Repository location | `apps/animated-fabric` inside the Caatuu repository |
@@ -92,6 +92,8 @@ The MVP MUST include:
 - layered-2D support for authored `SE` and `NE` views and explicit legacy mirror declarations;
 - a bounded 3D prerender path whose `SE`, `SW`, `NE`, and `NW` views reuse one motion and differ
   only by actor-root yaw;
+- one reviewed traveler-macaw vertical slice whose versioned reference package, validated 3D actor
+  package, `avian_v1` rig, and `avian_walk_v1` motion remain inside the isolated prerender plane;
 - the `humanoid_v1` anatomical family;
 - the `quadruped_v1` anatomical family before stable version 0.1 closes;
 - rigid-part rigs with translation, rotation, and scale;
@@ -111,7 +113,7 @@ The MVP MUST NOT require:
 
 - automatic segmentation or background removal;
 - automatic inpainting of hidden regions;
-- mesh deformation or vertex skinning;
+- mesh deformation or vertex skinning in the layered-2D renderer or editor;
 - advanced inverse kinematics;
 - cloth, hair, or tail physics;
 - real-time clip blending;
@@ -120,9 +122,11 @@ The MVP MUST NOT require:
 - accounts, cloud services, telemetry, networking, or multi-user collaboration;
 - a marketplace, third-party plugins, or execution of project-provided scripts.
 
-The general MVP does not require arbitrary Blender files, user-authored 3D import, or an embedded
-3D editor. AF-052 promotes only the fixed repository-owned actor and walk proven by AF-044. That
-path remains an isolated Linux prerender worker and does not make Blender a base runtime dependency.
+The general MVP does not require arbitrary Blender files, unreviewed 3D import, automatic
+single-image reconstruction, or an embedded 3D editor. AF-052 retains the fixed repository-owned
+actor and walk proven by AF-044. Decision 0014 adds only one reviewed, data-only macaw actor package
+and avian skinning inside the same isolated Linux prerender plane; Blender remains outside the base
+runtime dependency set.
 
 Background removal is an approved, self-contained optional capability described in ADR-009 and Section 15.7. Its availability MUST NOT make it a prerequisite for the prepared-layer workflow.
 
@@ -156,8 +160,9 @@ Therefore:
 - generated masks and cutouts are proposals or derived assets; and
 - source files are never overwritten.
 
-This decision remains normative for the layered-2D path. Decision 0012 permits a separate bounded
-3D prerender source; it does not claim that segmentation can reconstruct hidden 2D art.
+This decision remains normative for the layered-2D path. Decisions 0012 and 0014 permit separate
+bounded 3D prerender sources; neither claims that segmentation or a single view can reconstruct
+hidden art or geometry.
 
 ## ADR-002: source-specific four-direction derivation
 
@@ -170,8 +175,9 @@ The initial logical direction set is `SE`, `SW`, `NE`, and `NW`.
 - A 3D-derived direction MUST NOT be produced by rotating or mirroring finished pixels.
 - A source path must declare its direction strategy explicitly; no exporter may silently switch it.
 
-The bounded 3D path is defined by decision 0012. General 3D sources and any future replacement of
-legacy layered mirroring require their own versioned input contract.
+The fixed 3D path is defined by decision 0012. Decision 0014 adds one reviewed macaw through a
+strict versioned actor-package contract. General 3D sources and any future replacement of legacy
+layered mirroring remain out of scope.
 
 ## ADR-003: limited animation and world movement are separate
 
@@ -194,9 +200,10 @@ The reference renderer uses:
 - premultiplied alpha to prevent dark edges; and
 - `Pillow` for PNG input, output, fixtures, and metadata where appropriate.
 
-For the bounded 3D path, the isolated Blender worker is the frame authority. Human review and grid
+For each bounded 3D path, the isolated Blender worker is the frame authority. Human review and grid
 export both consume its verified RGBA sequence; neither recreates the scene or motion. Blender does
-not enter the base package or the layered-2D renderer.
+not enter the base package or the layered-2D renderer. Decision 0014 permits only a validated,
+read-only, data-only actor package; it does not permit executable scene input.
 
 ## ADR-005: a Qt-independent core
 
@@ -339,6 +346,34 @@ AF-053 and decision 0013 add one Linux-host shell command around those already a
 host shell invokes Docker Compose; Blender renders, and the normal development container validates,
 creates review media, and packages the product. Product Python still neither invokes Docker nor
 imports `bpy`, and this bounded command does not replace or impersonate layered-project orchestration.
+
+Decision 0014 adds a reviewed macaw vertical slice without changing the accepted AF-053 demo:
+
+```text
+repository-held macaw candidate evidence
+        |
+        v
+approved front / left / back / right reference package
+        |
+        v
+human-reviewed mesh/material authoring --> validated actor package
+        |
+        v
+avian_v1 skin --> avian_walk_v1
+        |
+        v
+isolated headless Blender directional worker
+        |
+        v
+verified direct SE / SW / NE / NW RGBA frame sequence
+        |
+        +--> review media
+        `--> shared verified grid packer --> product spritesheet + JSON
+```
+
+The inferred views require explicit approval before modeling. The worker accepts no `.blend`,
+script, driver, add-on, external URI, or embedded animation from the actor package. AF-054 through
+AF-059 deliver this one rights-cleared actor; they do not create a general 3D importer.
 
 ## 4.3 Dependency rule
 
@@ -754,6 +789,29 @@ Optional:
 - `cape`, `ground_shadow`; and
 - additional garments.
 
+## 8.8 Reviewed 3D reference package
+
+The macaw bridge stages review candidates under `.tmp/af054-review/`. After approval and rights
+clearance, its canonical tracked reference package is
+`assets/reference-packages/macaw-traveler-v1/`. It MUST:
+
+- preserve every original source and record its SHA-256;
+- contain individually hashed `front`, `left`, `back`, and `right` files at a common canvas, scale,
+  and ground line under actor axes `+Y` forward, `+X` anatomical right, and `+Z` up; the cameras are
+  respectively at `+Y`, `-X`, `-Y`, and `+X`, with the left beak pointing screen-left and the right
+  beak pointing screen-right;
+- treat a combined review sheet as convenience and record exact crop rectangles when one exists;
+- identify generated or otherwise inferred views as proposals;
+- record the selected gait style as `anthropomorphic_traveler`;
+- record the candidate prop scope `staff_separate`, with the staff omitted from the first actor and
+  walk but a compatible hand socket reserved for later equipment work;
+- keep provenance for every source and derivative; and
+- remain `candidate` until a separate human approval record names the exact manifest SHA-256,
+  ordered view-set digest, decision, UTC date, and reviewer role.
+
+A cutout or single view MUST NOT be interpreted as recovered hidden geometry. AF-056 MUST reject a
+reference package that is unapproved, incomplete, ambiguously ordered, or missing provenance.
+
 ---
 
 # 9. Anatomical templates
@@ -837,7 +895,43 @@ root
 
 `jaw` and `tail_1` are optional. A highly stylized body MAY bind chest and hips to one visual image while retaining separate bones.
 
-## 9.4 Applying a template
+## 9.4 `avian_v1`
+
+The first avian profile is an upright anthropomorphic bird, not a natural four-legged gait.
+
+```text
+root
+`-- pelvis
+    |-- torso
+    |   |-- neck
+    |   |   `-- head
+    |   |       `-- beak
+    |   |-- wing_upper_l
+    |   |   `-- wing_lower_l
+    |   |       `-- wing_hand_l
+    |   |-- wing_upper_r
+    |   |   `-- wing_lower_r
+    |   |       `-- wing_hand_r
+    |   `-- tail_base
+    |       `-- tail_mid
+    |           `-- tail_tip
+    |-- thigh_l
+    |   `-- shin_l
+    |       `-- foot_l
+    `-- thigh_r
+        `-- shin_r
+            `-- foot_r
+```
+
+`beak`, both `wing_hand` bones, and `tail_tip` MAY have no weighted vertices when a reviewed actor
+does not need them, but their transforms remain stable motion and attachment targets. Initial
+sockets are `head_hat`, `back_pack`, `wing_hand_l_item`, `wing_hand_r_item`, and `root_shadow`.
+
+The isolated 3D actor validator MUST require explicit joint mapping, finite normalized skin
+weights, bounded influences per vertex, a single actor root, and a reviewed neutral bind pose.
+This template does not authorize mesh deformation in the layered-2D renderer.
+
+## 9.5 Applying a template
 
 The rig service:
 
@@ -1100,7 +1194,23 @@ The initial gait is a simplified diagonal walk:
 
 The generator is not an exact biomechanics simulation; it MUST read clearly and pleasantly at 12 fps.
 
-## 12.6 Variation without losing reuse
+## 12.6 `avian_walk_v1`
+
+The first avian walk is an in-place anthropomorphic traveler gait for `avian_v1`. One immutable
+pose tuple is built once per render transaction and shared by every root-yaw direction. It MUST:
+
+- close exactly at the loop boundary;
+- alternate left and right support contacts;
+- bound stance-foot drift in actor space and prevent ground penetration;
+- lift the swing foot visibly before the next contact;
+- include pelvis weight transfer and torso counter-motion;
+- stabilize the head while allowing small readable secondary motion; and
+- apply delayed, bounded follow-through to the wing-arms and tail.
+
+AF-057 defines numeric defaults and tolerances from the reviewed geometric-avian and macaw tests.
+The motion is reusable only by packages that validate against `avian_v1`.
+
+## 12.7 Variation without losing reuse
 
 Each actor can save a parameter preset. Examples:
 
@@ -1139,13 +1249,16 @@ to its source. This rule does not apply to 3D-derived output.
 
 ## 13.3 Direct 3D yaw resolution
 
-The bounded 3D path builds one immutable motion tuple once per render transaction. For every sampled
-pose, it holds the camera fixed and rerenders the actor at `SE=-90`, `SW=180`, `NE=0`, and `NW=90`
-degrees of root yaw. Frame indexes, times, durations, events, geometry, camera, lighting, and
-materials remain identical across views. Finished RGBA pixels are never rotated or mirrored.
+Each bounded 3D path builds one immutable motion tuple once per render transaction. For every
+sampled pose, it holds the camera fixed and rerenders the actor at `SE=-90`, `SW=180`, `NE=0`, and
+`NW=90` degrees of root yaw. Frame indexes, times, durations, events, actor package, geometry,
+camera, lighting, and materials remain identical across views. Finished RGBA pixels are never
+rotated or mirrored.
 
 The output requires adjacent strict directional-prerender metadata containing one shared motion
 SHA-256 and the ordered yaw table. Preview and export consume the same verified frame sequence.
+AF-058 applies this rule to the validated macaw actor package without weakening AF-052's fixed
+actor contract or accepting arbitrary scenes.
 
 ## 13.4 Future overrides
 
@@ -1414,6 +1527,25 @@ Before accepting the vendored engine:
 - compare edge quality and alpha output against the known-good implementation;
 - add CPU/GPU capability checks without making GPU a base requirement; and
 - document how to update the engine deliberately rather than silently tracking upstream.
+
+## 15.10 Reviewed 3D actor-package contract
+
+AF-055 defines `animated-fabric.actor-package.v1` as a data-only boundary and proves it with a
+repository-generated geometric fixture. The package MAY contain one bounded GLB, declared textures,
+and one manifest. The isolated worker MUST validate exact filenames and hashes, canonical axes and
+units, one actor root, contained
+resources, finite geometry, and recorded limits before Blender loads the actor.
+
+The package MUST NOT contain or reference `.blend` files, Python, drivers, expressions, add-ons,
+external references, symbolic links, hard links, reparse points, traversal segments, absolute
+paths, unsupported URI schemes, embedded animation, cameras, lights, audio, undeclared files, or
+unsupported extensions. It is mounted read-only and cannot select the renderer, motion, output
+path, or worker code. AF-056 authors and validates the first rights-cleared macaw package; general
+or untrusted 3D import requires a later decision.
+
+AF-056 MUST add the reviewed armature and skin data within these bounds. Mesh deformation remains
+confined to the isolated 3D prerender plane and never becomes a dependency or behavior of
+layered-2D projects.
 
 ---
 
@@ -2410,9 +2542,86 @@ and MUST NOT be fabricated through the 3D adapter.
 
 Native Linux CI MUST exercise the command from scratch, repeat it, compare all three output trees,
 and publish only the cleared sample media and reports described in Section 19.9. AF-053 is accepted
-only after that authoritative native run passes. On acceptance, AF-060 is the next permitted ticket.
+only after that authoritative native run passes. AF-060 was next at AF-053 acceptance; decision
+0014 subsequently inserts the user-directed AF-054 through AF-059 vertical slice before it.
 
 **M5 output:** the first usable product without the GUI.
+
+## Milestone M5A: reviewed macaw actor bridge
+
+M5 remains complete. M5A is the user-directed real-character vertical slice that adds a production
+candidate after the fixed proof actor without changing that accepted implementation or turning the
+worker into a general 3D importer. AF-060 is deferred until M5A closes.
+
+### AF-054 Reviewed macaw reference package
+
+- preserve the original identity, side-walk, and prepared-parts sources without modification;
+- create one versioned reference manifest with exact hashes and provenance;
+- produce individually hashed `front`, `left`, `back`, and `right` modeling references at a common
+  canvas, scale, and ground line, with left/right defined by image-space beak direction;
+- record exact crop rectangles for any combined review sheet;
+- identify every inferred or generated view as a candidate rather than recovered geometry;
+- record the selected `anthropomorphic_traveler` gait; and
+- require a separate approval record bound to the exact manifest and ordered view-set digests before
+  AF-056 may consume the package;
+- publish the accepted package only under `assets/reference-packages/macaw-traveler-v1/`; and
+- update both the root and application legal inventories before accepted source art or derivatives
+  are tracked or published.
+
+AF-054 may use the self-contained cutout plane only as optional preprocessing. It does not claim
+semantic separation, hidden-surface recovery, a 3D model, rig, animation, or final render.
+
+### AF-055 Validated 3D actor package
+
+- define strict `animated-fabric.actor-package.v1` JSON;
+- prove one bounded data-only GLB plus declared textures with a repository-generated geometric
+  fixture, without authoring or accepting the macaw yet;
+- validate exact files, hashes, axes, units, root, geometry, materials, textures, joints, and
+  resource limits before load;
+- reject executable or scene-level behavior, external references, embedded animation, symlinks,
+  hardlinks, reparse points, traversal, absolute paths, and unsupported URIs;
+  and
+- produce a deterministic neutral validation render in the isolated Blender worker.
+
+### AF-056 `avian_v1` rig and skinned macaw
+
+- publish the stable avian hierarchy and explicit actor-package bone mapping;
+- perform the human-reviewed modeling and material-authoring step from the approved references;
+- create the first rights-cleared macaw package with mesh, materials, armature, weights, and bind
+  pose;
+- enforce finite normalized weights, bounded influences, valid joints, and ground contact; and
+- review neutral, limb-extreme, tail, and wing deformation poses.
+
+No generic automatic modeling or rigging is implied.
+
+### AF-057 `avian_walk_v1`
+
+- build one deterministic in-place anthropomorphic traveler walk once;
+- prove exact loop closure, alternating contacts, bounded stance-foot drift, swing clearance, and
+  no ground penetration;
+- include readable weight transfer, head stabilization, and controlled tail/wing follow-through;
+  and
+- validate the same motion on a geometric avian fixture and the approved macaw.
+
+### AF-058 Actor-package directional yaw prerender
+
+- extend the bounded worker only to `animated-fabric.actor-package.v1`;
+- reuse one immutable pose tuple and fingerprint at `SE=-90`, `SW=180`, `NE=0`, and `NW=90`;
+- keep camera, timing, geometry, materials, textures, and lighting common across directions;
+- never transform finished RGBA frames; and
+- feed the verified sequence to the unchanged AF-051 grid packer.
+
+### AF-059 Macaw end-to-end demo
+
+- provide one fixed native-Linux command starting from the pre-authored validated actor package and
+  its approved reference provenance, then run the avian walk, four direct views, review media,
+  spritesheet, and JSON;
+- run twice from clean state and prove repeatable evidence, review, and product trees;
+- require no clipping, visible skin collapse, ground penetration, or unacceptable foot sliding;
+- obtain explicit visual approval; and
+- publish only named, rights-cleared sample artifacts.
+
+**M5A output:** the real traveler macaw walks in four direct yaw-rendered directions from one motion.
 
 ## Milestone M6: functional GUI
 
@@ -2628,6 +2837,20 @@ Given an owned composite fixture and an available pinned cutout profile:
 - runtime network remains disabled; and
 - the same project still imports prepared PNG layers when the cutout service is absent.
 
+## E2E-007 Reviewed traveler macaw
+
+Given the approved traveler-macaw reference package, validated actor package, `avian_v1` mapping,
+and one canonical `avian_walk_v1`, when the AF-059 native-Linux command runs twice from clean state:
+
+- all source and derived identities match their declared hashes and provenance;
+- the actor validates without executable or external package content;
+- neutral and deformation review poses contain no visible skin collapse;
+- the walk closes, alternates contacts, clears swing feet, and has acceptable planted-foot drift;
+- `SE`, `SW`, `NE`, and `NW` are direct root-yaw renders of the same pose tuple;
+- every direction retains the approved identity, materials, anchor, scale, and timing;
+- review GIF, contact sheet, spritesheet, and JSON pass structural and visual review; and
+- the repeated evidence, review, and product trees match under the recorded native environment.
+
 ---
 
 # 24. Codex execution protocol
@@ -2787,7 +3010,7 @@ Report actual results, primary files, and any deviation. Do not start M1.
 
 Stable version 0.1 requires:
 
-- M0 through M8 complete;
+- M0 through M8 complete, including the user-directed M5A macaw vertical slice;
 - GUI completes the core flow without the CLI;
 - CLI completes the same flow without the GUI;
 - humanoid and quadruped support;
@@ -2830,10 +3053,14 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | real art required for testing | high | medium | generated geometric fixtures |
 | host/container inconsistency | high | high | Linux container is authoritative |
 | Caatuu unintentionally publishes source | medium | high | application under `apps`, explicit public-artifact boundary |
-| bounded 3D prerender expands into unsafe arbitrary execution | medium | high | fixed baked worker, strict source manifest, no user scripts/models, decision 0012 scope |
+| bounded 3D prerender expands into unsafe arbitrary execution | medium | high | fixed actor or strict data-only package, no executable input, decisions 0012 and 0014 |
 | Blender output differs across CPU hosts | medium | medium | native reference artifacts and decoded-pixel golden tolerance |
 | demo orchestration collapses container trust boundaries | medium | high | Linux host owns Compose; Blender renders; dev validates and packages; product Python has no Docker or `bpy` access |
 | CI publishes uncleared generated or container material | medium | high | exact artifact allowlist, scoped CC0 notice for three visual files, AGPL for JSON/source, Blender image remains internal-only |
+| one-view macaw art is mistaken for complete 3D truth | high | high | four-view candidate, explicit inference labels, human approval before actor construction |
+| actor-package parsing expands the input attack surface | medium | high | rights-cleared bounded GLB, exact hashes and limits, regular files only, read-only mount, no executable or external input |
+| avian skin collapses or feet slide | medium | high | reviewed extreme poses, normalized bounded weights, contact and drift tests, visual acceptance |
+| generated turnaround drifts from the approved identity | medium | high | immutable source hashes, side-by-side review, candidate status until explicit approval |
 
 ---
 
@@ -2848,20 +3075,22 @@ A feature that is “almost done” does not count. It must be visible, tested, 
 | animation fps | 12 | after visual-style evaluation |
 | extra views | 4 direct yaws for the owned 3D actor; layered declarations unchanged | after M8 |
 | PSD/Krita | unsupported | after stable PNG importer |
-| mesh deformation | no | after Cut Studio |
+| mesh deformation | only approved `avian_v1` skinning inside the isolated 3D prerender plane; none in layered 2D | after AF-059 |
 | background removal | optional vendored BiRefNet plane | M9, never before core stability |
 | cutout device | GPU when available, explicit CPU fallback if validated | AF-095 |
 | cutout IPC | job directory/CLI | review during GUI integration |
 | Windows release | not promised by Linux development baseline | packaging milestone |
-| Blender/3D prerender | fixed owned actor/walk only; three generated demo media files may be CC0, container remains internal | after AF-053 demo |
+| Blender/3D prerender | fixed humanoid proof plus one reviewed data-only macaw actor package; container remains internal | after AF-059 demo |
 
-These decisions do not block M0 through M8.
+These defaults do not authorize work beyond the active ticket; decision 0014 governs the narrow
+M5A exceptions.
 
 ---
 
 # 29. Glossary
 
 - **Actor:** an animatable character or creature.
+- **Actor package:** a bounded, hashed, data-only 3D input accepted by the isolated prerender worker.
 - **Asset layer:** a PNG image representing one visual piece.
 - **Authored direction:** a direction backed by directly created art.
 - **Background removal:** optional foreground-mask estimation that creates reviewed derived artifacts.
@@ -2884,8 +3113,10 @@ These decisions do not block M0 through M8.
 - **Pivot:** local point in an image around which it transforms.
 - **Prepared layer:** a transparent, complete visual part ready for normal import.
 - **Rig:** bones, bindings, sockets, and direction profiles.
+- **Skin:** bounded vertex-to-bone weights used only by an approved actor inside the isolated 3D plane.
 - **Socket:** attachment point for equipment or accessories.
 - **Source asset:** original art, immutable after import.
+- **Turnaround:** approved front, left, back, and right reference views at common scale and ground line.
 - **Vendored method:** source and behavior copied into this repository at a recorded revision, not imported from a sibling checkout.
 
 ---

@@ -19,6 +19,15 @@ evidence sequence, source, container, and any independently modified file with t
 Those exclusions remain `AGPL-3.0-only` when they are first-party material, or retain their own
 third-party terms.
 
+## Unapproved authoring candidates
+
+AF-054 turnaround proposals remain in ignored review workspaces and are not tracked, published, or
+licensed as accepted product assets. Before any proposal, texture, mesh, or macaw demo output is
+accepted, its immutable source identities, generated-media provenance, chosen terms, and exact
+publication scope MUST be added to this inventory. Candidate status is not publication approval.
+For first-party macaw art that Caatuu can license, decision 0014 records `CC0-1.0` as the intended
+default; the dedication applies only after this inventory names the exact accepted files.
+
 ## Adapted and third-party components
 
 | ID | Component | Scope and record | Terms | Distribution status |

@@ -20,6 +20,12 @@ Python package, development image, layered renderer, CLI, or GUI. Its verified R
 feed the separate AF-052 product packager in the normal development container. No third-party
 `.blend`, plug-in, model, texture, font, motion, or other art asset is accepted.
 
+Decision 0014 plans one rights-cleared, data-only macaw actor package. That boundary is not active
+until AF-055 defines and tests its exact validation, read-only mount, supported GLB subset, resource
+limits, and provenance. The current worker continues to reject external models and textures. AF-055
+MUST update this record before any actor package is accepted; executable scene input remains
+prohibited.
+
 ## Image provenance and integrity
 
 [`containers/blender/Dockerfile`](../../containers/blender/Dockerfile) uses the repository's
