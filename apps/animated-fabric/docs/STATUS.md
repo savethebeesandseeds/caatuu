@@ -2,8 +2,8 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-052 implemented and
-awaiting its native-Linux workflow result
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-052 complete and AF-053
+next
 
 **Last updated:** 2026-07-21
 
@@ -50,8 +50,7 @@ M5 - export.
 
 - [x] AF-050 Frame exporter
 - [x] AF-051 Grid spritesheet
-- [ ] AF-052 Directional yaw prerender - implementation and local verification complete; native CI
-  pending
+- [x] AF-052 Directional yaw prerender
 
 ## Delivered scope
 
@@ -518,7 +517,7 @@ Linux containers:
   `sha256:f0d878b8f11f357eee8f2d190648bf387811d56163bdbf3c04a57c8a5c0d6e03`
   produced two clean Docker Desktop convenience renders. Their 48-frame `walk/` trees, directional
   manifests, provenance documents, review packages, and separately published products compared
-  byte for byte. Native Ubuntu remains the final authority and is pending the pushed workflow.
+  byte for byte. The native Ubuntu result below remains the final authority.
 - Each source contains exactly 50 hashed evidence files plus adjacent provenance. The shared motion
   tuple digest is `3bbfad26dab616bf651cfd9a97300688de412e34520c9f6cbddf023229e6ce72`.
 - Both verified products are 2,304 x 768 four-row/twelve-column RGBA sheets. The PNG is 741,766
@@ -537,6 +536,38 @@ Linux containers:
   audits found no remaining actionable AF-052 implementation blocker after hardening.
 - Root repository file policy passed for 1,364 tracked and candidate files; Markdown links passed
   for 95 files.
+
+Executed on 2026-07-21 through GitHub-hosted native Ubuntu 24.04 x86-64 after AF-052 commit
+`d5aee2b`:
+
+- [Animated Fabric Blender evidence run 2](https://github.com/savethebeesandseeds/caatuu/actions/runs/29852501227)
+  passed in 2m 57s. The pinned native image ID was
+  `sha256:1038da7988d011d6dcfc93c61f3bce93338c9541cb5424d66e93b827497b2682`;
+  Blender reported 4.5.12 LTS and the worker ran as non-root UID 1001.
+- Two clean native runs rendered 48 RGBA frames in 21.00 s and 19.58 s. Their verified source
+  trees, directional manifests, provenance, four-row products, and review packages compared byte
+  for byte within the host. Each source recorded 50 hashed evidence files plus provenance and the
+  common motion digest `3bbfad26dab616bf651cfd9a97300688de412e34520c9f6cbddf023229e6ce72`.
+- Both native runs matched every reviewed phase-zero golden exactly. Independent decoded-byte
+  mirror differences were 17.866573% for `SW` and 17.290129% for `NW`; Blender's color-managed
+  values were 30.721029% and 30.232069%. All four checks exceeded the 10% distinction floor.
+- Native SHA-256 values were directional manifest
+  `f2609d76ab4ac37b3218ac4c6b4b8e952df1d728f8183b91d1df9965ffac1400`, provenance
+  `cca738751b2f3ab79398a22249f9714dd151f989cb5f9f2b47e7f85668ee085f`, product PNG
+  `2512fbb12ba90af1768e82a3f874fd6883290d0ea19b085d7c372be56f00d666`, product metadata
+  `324328f2153659cd60e1240b43b0aea09ba3986b887d9471d4ce213a1f971fba`, contact sheet
+  `76ea2093becdafc5bdba4be2f02fea50c65d207176b62497711191f1e50c05c4`, and review GIF
+  `df8cd03f643c052baf8e180c81f5e29f85e727596244e7cc57d95460f3f29d40`.
+- Focused native AF-052 contracts reported 103 passed, strict mypy passed for the three scripts,
+  Ruff reported 21 files formatted and no lint failures, and both isolated output-escape and
+  non-root checks passed.
+- [Animated Fabric CI run 12](https://github.com/savethebeesandseeds/caatuu/actions/runs/29852501230)
+  passed in 3m 12s: 174 files formatted, lint clean, mypy clean across 73 source files, 992 tests
+  passed in 65.06 s with 91.95% branch coverage, dependency checks clean, and wheel, CLI, fixture,
+  demo, baked-image, and cutout smokes passed.
+- [Repository CI run 18](https://github.com/savethebeesandseeds/caatuu/actions/runs/29852501245)
+  passed in 1m 19s. Cross-host encoded PNG identity remains deliberately out of scope; decoded
+  golden pixels and same-host repeatability are the required contracts.
 
 Executed on 2026-07-21 through the repository-owned networkless Linux container after AF-051:
 
@@ -947,4 +978,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-052 native-Linux workflow verification and status finalization; then AF-053
+- AF-053 End-to-end demo
