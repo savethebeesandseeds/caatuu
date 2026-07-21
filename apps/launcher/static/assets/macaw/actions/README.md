@@ -7,6 +7,10 @@ runtime under:
 /assets/macaw/actions/
 ```
 
+The source sheets used to create these processed sprites are preserved under
+`originals/`. Keep them as archival source art even when every visible frame
+has already been extracted.
+
 The curated action keymap is:
 
 ```text

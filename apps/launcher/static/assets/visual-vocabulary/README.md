@@ -6,6 +6,10 @@ This folder contains manually reviewed visual assets served by the runtime under
 /assets/miscellaneous/
 ```
 
+The original object, city, and scenery sheets are preserved under
+`originals/`. Keep them as archival source art even when processed vocabulary
+images already exist at the top level.
+
 The curated image keymap is:
 
 ```text
