@@ -12,6 +12,12 @@ from animated_fabric.application.apply_rig_template import (
     ApplyRigTemplateRequest,
     ApplyRigTemplateResult,
 )
+from animated_fabric.application.export_profiles import (
+    DEFAULT_GRID_PROFILE_ID,
+    ExportGridProject,
+    GridExportProjectRequest,
+    resolve_builtin_export_profile,
+)
 from animated_fabric.application.export_service import (
     EXPORT_CLIPPING_CODE,
     EXPORT_DESTINATION_CODE,
@@ -24,11 +30,14 @@ from animated_fabric.application.exporting import (
     MAX_EXPORT_FPS,
     MAX_EXPORT_FRAMES,
     MAX_EXPORT_RAW_BYTES,
+    MAX_EXPORT_SHEET_DIMENSION,
+    AnimationArtifactResult,
     AnimationExportResult,
     CancellationToken,
     ExportRequest,
     ExportResult,
     FrameSample,
+    GridAnimationExportResult,
     build_frame_schedule,
 )
 from animated_fabric.application.generate_animation import (
@@ -112,6 +121,7 @@ __all__ = [
     "ANIMATION_REPLACEMENT_REQUIRED_CODE",
     "AnimationClipBuildRequest",
     "AnimationClipBuilder",
+    "AnimationArtifactResult",
     "AnimationExportResult",
     "AnimationGeneratorRegistry",
     "ApplyRigTemplate",
@@ -127,12 +137,16 @@ __all__ = [
     "EXPORT_DESTINATION_CODE",
     "EXPORT_FAILURE_CODE",
     "EXPORT_PROFILE_CODE",
+    "DEFAULT_GRID_PROFILE_ID",
+    "ExportGridProject",
     "ExportProject",
     "ExportProjectRequest",
     "ExportRequest",
     "ExportResult",
     "FrameCompositor",
     "FrameSample",
+    "GridAnimationExportResult",
+    "GridExportProjectRequest",
     "GenerateAnimation",
     "GenerateAnimationRequest",
     "GenerateAnimationResult",
@@ -155,6 +169,7 @@ __all__ = [
     "MAX_EXPORT_FPS",
     "MAX_EXPORT_FRAMES",
     "MAX_EXPORT_RAW_BYTES",
+    "MAX_EXPORT_SHEET_DIMENSION",
     "MoveBone",
     "MovePivot",
     "PROJECT_MANIFEST_FILENAME",
@@ -189,4 +204,5 @@ __all__ = [
     "build_frame_schedule",
     "import_failure",
     "render_failure",
+    "resolve_builtin_export_profile",
 ]

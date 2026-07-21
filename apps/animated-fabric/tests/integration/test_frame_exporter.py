@@ -21,7 +21,7 @@ from animated_fabric.domain.export import FrameSequenceMetadata
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction
 from animated_fabric.infrastructure.exporters import FrameSequenceExporter
-from animated_fabric.infrastructure.exporters import frame_exporter as frame_exporter_module
+from animated_fabric.infrastructure.exporters import _transaction as transaction_module
 from animated_fabric.infrastructure.fixtures import (
     build_stick_humanoid_manifest,
     build_stick_humanoid_rig,
@@ -101,6 +101,12 @@ class _Renderer:
             active_events=(),
             clipping=ClippingEdges(right=self.clipped),
         )
+
+
+class _UnexpectedRenderer:
+    def render(self, request: RenderRequest) -> RenderedFrame:
+        del request
+        raise RuntimeError("simulated unexpected renderer failure")
 
 
 class _Cancellation:
@@ -217,14 +223,14 @@ def test_failed_staging_promotion_restores_previous_destination(
     destination.mkdir(parents=True)
     (destination / "previous.txt").write_text("previous", encoding="utf-8")
     request = _request(tmp_path, destination=destination)
-    original_replace = frame_exporter_module.os.replace
+    original_replace = transaction_module.os.replace
 
     def fail_staging_promotion(source: Path, target: Path) -> None:
         if Path(source).name.startswith(".actor.stage-") and Path(target) == destination:
             raise OSError("simulated staging promotion failure")
         original_replace(source, target)
 
-    monkeypatch.setattr(frame_exporter_module.os, "replace", fail_staging_promotion)
+    monkeypatch.setattr(transaction_module.os, "replace", fail_staging_promotion)
 
     with pytest.raises(ExportError) as caught:
         FrameSequenceExporter(_Renderer()).export(request)
@@ -234,7 +240,7 @@ def test_failed_staging_promotion_restores_previous_destination(
     _assert_no_transaction_debris(destination)
 
 
-def test_backup_cleanup_failure_rolls_back_new_destination(
+def test_backup_cleanup_failure_keeps_new_destination_and_recoverable_backup(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -242,21 +248,25 @@ def test_backup_cleanup_failure_rolls_back_new_destination(
     destination.mkdir(parents=True)
     (destination / "previous.txt").write_text("previous", encoding="utf-8")
     request = _request(tmp_path, destination=destination)
-    original_rmtree = frame_exporter_module.shutil.rmtree
+    original_rmtree = transaction_module.shutil.rmtree
 
     def fail_backup_cleanup(path: Path, *args: object, **kwargs: object) -> None:
         if Path(path).name.startswith(".actor.backup-"):
             raise OSError("simulated backup cleanup failure")
         original_rmtree(path, *args, **kwargs)
 
-    monkeypatch.setattr(frame_exporter_module.shutil, "rmtree", fail_backup_cleanup)
+    monkeypatch.setattr(transaction_module.shutil, "rmtree", fail_backup_cleanup)
 
-    with pytest.raises(ExportError) as caught:
-        FrameSequenceExporter(_Renderer()).export(request)
+    result = FrameSequenceExporter(_Renderer()).export(request)
 
-    assert caught.value.kind is ExportFailureKind.PUBLICATION
-    assert _published_bytes(destination) == {"previous.txt": b"previous"}
-    _assert_no_transaction_debris(destination)
+    assert result.destination == destination.resolve()
+    assert "previous.txt" not in _published_bytes(destination)
+    assert (destination / "walk/animation.json").is_file()
+    assert list(destination.parent.glob(f".{destination.name}.stage-*")) == []
+    backups = list(destination.parent.glob(f".{destination.name}.backup-*"))
+    assert len(backups) == 1
+    assert result.retained_backup == backups[0]
+    assert _published_bytes(backups[0]) == {"previous.txt": b"previous"}
 
 
 def test_metadata_uses_exact_schedule_durations_events_and_order(tmp_path: Path) -> None:
@@ -360,6 +370,20 @@ def test_renderer_failure_preserves_previous_destination(tmp_path: Path) -> None
 
     assert caught.value.kind is ExportFailureKind.RENDER
     assert caught.value.path == "walk/SE/001.png"
+    assert _published_bytes(destination) == {"previous.txt": b"previous"}
+    _assert_no_transaction_debris(destination)
+
+
+def test_unexpected_failure_still_removes_owned_staging(tmp_path: Path) -> None:
+    destination = tmp_path / "published" / "actor"
+    destination.mkdir(parents=True)
+    (destination / "previous.txt").write_text("previous", encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="unexpected renderer failure"):
+        FrameSequenceExporter(_UnexpectedRenderer()).export(
+            _request(tmp_path, destination=destination)
+        )
+
     assert _published_bytes(destination) == {"previous.txt": b"previous"}
     _assert_no_transaction_debris(destination)
 

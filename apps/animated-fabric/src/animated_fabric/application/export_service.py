@@ -11,6 +11,7 @@ from animated_fabric.application.exporting import (
     MAX_EXPORT_FPS,
     MAX_EXPORT_FRAMES,
     MAX_EXPORT_RAW_BYTES,
+    AnimationArtifactResult,
     CancellationToken,
     ExportRequest,
     ExportResult,
@@ -24,6 +25,10 @@ from animated_fabric.application.ports import (
     ProjectRepository,
 )
 from animated_fabric.application.rendering import RenderProject
+from animated_fabric.application.validation_service import (
+    project_validation_diagnostic,
+    project_version_diagnostic,
+)
 from animated_fabric.domain._base import SemanticId
 from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.diagnostics import Diagnostic, OperationResult, Severity
@@ -36,7 +41,7 @@ from animated_fabric.domain.exceptions import (
 from animated_fabric.domain.project import Direction, DirectionMode, ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
 from animated_fabric.domain.validation import AnimationDocument, ProjectValidator, ValidationInput
-from animated_fabric.domain.validation.models import diagnostic_sort_key
+from animated_fabric.domain.validation.models import ValidationCode, diagnostic_sort_key
 
 EXPORT_CLIPPING_CODE = "AFV501"
 EXPORT_PROFILE_CODE = "AFV502"
@@ -57,6 +62,7 @@ class ExportProjectRequest:
     fps: int
     allow_clipping: bool = False
     cancellation: CancellationToken | None = None
+    profile_id: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -66,7 +72,7 @@ class _LoadedProject:
     documents: tuple[AnimationDocument, ...]
 
 
-class ExportProject:
+class ExportProject[ExportArtifactT: AnimationArtifactResult]:
     """Load, validate, preflight, and export one coherent actor snapshot."""
 
     def __init__(
@@ -74,47 +80,54 @@ class ExportProject:
         projects: ProjectRepository,
         layers: LayerManifestRepository,
         validator: ProjectValidator,
-        exporter: ProjectExporter,
+        exporter: ProjectExporter[ExportArtifactT],
     ) -> None:
         self._projects = projects
         self._layers = layers
         self._validator = validator
         self._exporter = exporter
 
-    def execute(self, request: ExportProjectRequest) -> OperationResult[ExportResult]:
+    def execute(
+        self,
+        request: ExportProjectRequest,
+    ) -> OperationResult[ExportResult[ExportArtifactT]]:
         """Export only a fully loaded and structurally valid project snapshot."""
         request_failure = _validate_request(request)
         if request_failure is not None:
-            return OperationResult[ExportResult](diagnostics=(request_failure,))
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=(request_failure,))
 
         loaded = self._load_project(request.project_root)
         if isinstance(loaded, Diagnostic):
-            return OperationResult[ExportResult](diagnostics=(loaded,))
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=(loaded,))
+
+        profile_failure = _validate_profile_registration(loaded.manifest, request.profile_id)
+        if profile_failure is not None:
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=(profile_failure,))
 
         try:
             catalog = self._layers.load_layer_manifest(request.project_root)
-        except (ProjectValidationError, ProjectVersionError) as error:
-            return OperationResult[ExportResult](
-                diagnostics=(
-                    _profile_diagnostic(
-                        str(error) or "The project layer catalog could not be loaded.",
-                        path=getattr(error, "path", None) or LAYER_MANIFEST_FILENAME,
-                        suggestion="Restore a valid layer catalog before exporting.",
-                    ),
-                )
+        except ProjectVersionError as error:
+            return OperationResult[ExportResult[ExportArtifactT]](
+                diagnostics=(project_version_diagnostic(error, LAYER_MANIFEST_FILENAME),)
+            )
+        except ProjectValidationError as error:
+            return OperationResult[ExportResult[ExportArtifactT]](
+                diagnostics=(project_validation_diagnostic(error, LAYER_MANIFEST_FILENAME),)
             )
 
         compatibility_failure = _compatibility_failure(loaded)
         if compatibility_failure is not None:
-            return OperationResult[ExportResult](diagnostics=(compatibility_failure,))
+            return OperationResult[ExportResult[ExportArtifactT]](
+                diagnostics=(compatibility_failure,)
+            )
 
         selection = _select_animations(loaded.documents, request.animation_ids)
         if isinstance(selection, Diagnostic):
-            return OperationResult[ExportResult](diagnostics=(selection,))
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=(selection,))
 
         direction_failure = _validate_directions(loaded.manifest, request.directions)
         if direction_failure is not None:
-            return OperationResult[ExportResult](diagnostics=(direction_failure,))
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=(direction_failure,))
 
         diagnostics = tuple(
             sorted(
@@ -130,7 +143,7 @@ class ExportProject:
             )
         )
         if any(item.severity is Severity.ERROR for item in diagnostics):
-            return OperationResult[ExportResult](diagnostics=diagnostics)
+            return OperationResult[ExportResult[ExportArtifactT]](diagnostics=diagnostics)
 
         limit_failure = _limit_failure(
             selection,
@@ -140,7 +153,7 @@ class ExportProject:
             canvas_height=loaded.manifest.canvas.height,
         )
         if limit_failure is not None:
-            return OperationResult[ExportResult](
+            return OperationResult[ExportResult[ExportArtifactT]](
                 diagnostics=_sorted_diagnostics((*diagnostics, limit_failure))
             )
 
@@ -165,7 +178,7 @@ class ExportProject:
                 str(error) or "The export settings are invalid.",
                 suggestion="Correct the selected animations, directions, and frame settings.",
             )
-            return OperationResult[ExportResult](
+            return OperationResult[ExportResult[ExportArtifactT]](
                 diagnostics=_sorted_diagnostics((*diagnostics, failure))
             )
 
@@ -173,32 +186,54 @@ class ExportProject:
             result = self._exporter.export(export_request)
         except ExportError as error:
             failure = _export_error_diagnostic(error, request.destination)
-            return OperationResult[ExportResult](
+            return OperationResult[ExportResult[ExportArtifactT]](
                 diagnostics=_sorted_diagnostics((*diagnostics, failure))
             )
-        return OperationResult[ExportResult](value=result, diagnostics=diagnostics)
+        if result.retained_backup is not None:
+            diagnostics = _sorted_diagnostics(
+                (
+                    *diagnostics,
+                    Diagnostic(
+                        code=EXPORT_FAILURE_CODE,
+                        severity=Severity.WARNING,
+                        message=(
+                            "The export completed, but its previous-output backup could not "
+                            "be removed."
+                        ),
+                        path=str(result.retained_backup),
+                        suggestion=(
+                            "Inspect the published export, then remove the retained backup "
+                            "when recovery is no longer needed."
+                        ),
+                    ),
+                )
+            )
+        return OperationResult[ExportResult[ExportArtifactT]](
+            value=result,
+            diagnostics=diagnostics,
+        )
 
     def _load_project(self, root: Path) -> _LoadedProject | Diagnostic:
         try:
             manifest = self._projects.load(root)
-        except (ProjectValidationError, ProjectVersionError) as error:
-            return _profile_diagnostic(
-                str(error) or "The project manifest could not be loaded.",
-                path=getattr(error, "path", None) or PROJECT_MANIFEST_FILENAME,
-                suggestion="Open a valid Animated Fabric project before exporting.",
+        except ProjectVersionError as error:
+            return project_version_diagnostic(error, PROJECT_MANIFEST_FILENAME)
+        except ProjectValidationError as error:
+            return project_validation_diagnostic(
+                error,
+                PROJECT_MANIFEST_FILENAME,
+                is_manifest=True,
             )
 
         try:
             rig = self._projects.load_rig(root, manifest.rig_path)
-        except (ProjectValidationError, ProjectVersionError) as error:
-            return _profile_diagnostic(
-                str(error) or "The project rig could not be loaded.",
-                path=getattr(error, "path", None) or manifest.rig_path,
-                suggestion="Restore a valid rig document before exporting.",
-            )
+        except ProjectVersionError as error:
+            return project_version_diagnostic(error, manifest.rig_path)
+        except ProjectValidationError as error:
+            return project_validation_diagnostic(error, manifest.rig_path)
 
         if len(manifest.animation_paths) != len(set(manifest.animation_paths)):
-            return _profile_diagnostic(
+            return _invalid_project_diagnostic(
                 "The project manifest registers the same animation path more than once.",
                 path=PROJECT_MANIFEST_FILENAME,
                 location="animation_paths",
@@ -209,17 +244,15 @@ class ExportProject:
         for path in manifest.animation_paths:
             try:
                 clip = self._projects.load_animation(root, path)
-            except (ProjectValidationError, ProjectVersionError) as error:
-                return _profile_diagnostic(
-                    str(error) or "A registered animation clip could not be loaded.",
-                    path=getattr(error, "path", None) or path,
-                    suggestion="Restore or remove the invalid registered animation document.",
-                )
+            except ProjectVersionError as error:
+                return project_version_diagnostic(error, path)
+            except ProjectValidationError as error:
+                return project_validation_diagnostic(error, path)
             documents.append(AnimationDocument(path=path, clip=clip))
 
         clip_ids = tuple(document.clip.clip_id for document in documents)
         if len(clip_ids) != len(set(clip_ids)):
-            return _profile_diagnostic(
+            return _invalid_project_diagnostic(
                 "The project registers more than one animation with the same clip ID.",
                 path=PROJECT_MANIFEST_FILENAME,
                 location="animation_paths",
@@ -299,13 +332,38 @@ def _validate_request(request: ExportProjectRequest) -> Diagnostic | None:
             location="cancellation",
             suggestion="Provide a compatible cancellation token or omit it.",
         )
+    if request.profile_id is not None:
+        try:
+            _SEMANTIC_ID_ADAPTER.validate_python(request.profile_id)
+        except (ValidationError, TypeError, ValueError, RecursionError):
+            return _profile_diagnostic(
+                "The export profile ID must be a lowercase snake_case identifier.",
+                location="profile_id",
+                suggestion="Select a project-registered built-in export profile.",
+            )
+    return None
+
+
+def _validate_profile_registration(
+    manifest: ProjectManifest,
+    profile_id: str | None,
+) -> Diagnostic | None:
+    if profile_id is None:
+        return None
+    if profile_id not in manifest.export_profiles:
+        return _profile_diagnostic(
+            f"Export profile '{profile_id}' is not registered by this project.",
+            path=PROJECT_MANIFEST_FILENAME,
+            location="export_profiles",
+            suggestion="Register the built-in profile before exporting this project.",
+        )
     return None
 
 
 def _compatibility_failure(loaded: _LoadedProject) -> Diagnostic | None:
     manifest = loaded.manifest
     if loaded.rig.template_id != manifest.template_id:
-        return _profile_diagnostic(
+        return _invalid_project_diagnostic(
             "The project manifest and rig use different anatomical templates.",
             path=manifest.rig_path,
             location="template_id",
@@ -313,7 +371,7 @@ def _compatibility_failure(loaded: _LoadedProject) -> Diagnostic | None:
         )
     for document in loaded.documents:
         if document.clip.template_id != manifest.template_id:
-            return _profile_diagnostic(
+            return _invalid_project_diagnostic(
                 f"Animation '{document.clip.clip_id}' does not match the project template.",
                 path=document.path,
                 location="template_id",
@@ -353,7 +411,7 @@ def _validate_directions(
             )
         if definition.mode is not DirectionMode.AUTHORED:
             return _profile_diagnostic(
-                f"Direction '{direction.value}' is mirrored and cannot be exported by AF-050.",
+                f"Direction '{direction.value}' is mirrored and cannot be exported before AF-052.",
                 path=PROJECT_MANIFEST_FILENAME,
                 location=f"directions.{direction.value}.mode",
                 suggestion="Select an authored direction; mirrored export is introduced in AF-052.",
@@ -439,6 +497,23 @@ def _profile_diagnostic(
 ) -> Diagnostic:
     return Diagnostic(
         code=EXPORT_PROFILE_CODE,
+        severity=Severity.ERROR,
+        message=message,
+        path=path,
+        location=location,
+        suggestion=suggestion,
+    )
+
+
+def _invalid_project_diagnostic(
+    message: str,
+    *,
+    path: str,
+    location: str,
+    suggestion: str,
+) -> Diagnostic:
+    return Diagnostic(
+        code=ValidationCode.INVALID_PROJECT_DOCUMENT,
         severity=Severity.ERROR,
         message=message,
         path=path,

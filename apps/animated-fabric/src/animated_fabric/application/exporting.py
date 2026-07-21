@@ -15,6 +15,7 @@ from animated_fabric.domain.rig import RigDefinition
 MAX_EXPORT_FPS = 240
 MAX_EXPORT_FRAMES = 4096
 MAX_EXPORT_RAW_BYTES = 512 * 1024 * 1024
+MAX_EXPORT_SHEET_DIMENSION = 65_535
 
 
 @runtime_checkable
@@ -182,11 +183,35 @@ class AnimationExportResult:
 
 
 @dataclass(frozen=True, slots=True)
-class ExportResult:
+class GridAnimationExportResult:
+    """Published image and metadata paths for one grid spritesheet."""
+
+    animation: str
+    frame_count: int
+    image_path: Path
+    metadata_path: Path
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.animation, str):
+            raise TypeError("Grid export result animation ID must be a string.")
+        if not self.animation:
+            raise ValueError("A grid export result requires an animation ID.")
+        if type(self.frame_count) is not int or self.frame_count <= 0:
+            raise ValueError("Grid export frame count must be a positive integer.")
+        if not isinstance(self.image_path, Path) or not isinstance(self.metadata_path, Path):
+            raise TypeError("Grid export artifact paths must be pathlib.Path values.")
+
+
+type AnimationArtifactResult = AnimationExportResult | GridAnimationExportResult
+
+
+@dataclass(frozen=True, slots=True)
+class ExportResult[AnimationArtifactT_co: AnimationArtifactResult]:
     """Published destination and stable per-animation export results."""
 
     destination: Path
-    animations: tuple[AnimationExportResult, ...]
+    animations: tuple[AnimationArtifactT_co, ...]
+    retained_backup: Path | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.destination, Path):
@@ -195,18 +220,28 @@ class ExportResult:
             raise TypeError("Export result animations must be an immutable tuple.")
         if not self.animations:
             raise ValueError("Export results must contain at least one animation.")
-        if any(not isinstance(animation, AnimationExportResult) for animation in self.animations):
-            raise TypeError("Export results must contain AnimationExportResult values.")
+        if any(
+            not isinstance(animation, (AnimationExportResult, GridAnimationExportResult))
+            for animation in self.animations
+        ):
+            raise TypeError("Export results must contain typed animation artifact values.")
+        if len({type(animation) for animation in self.animations}) != 1:
+            raise ValueError("One export result must not mix sequence and grid artifacts.")
+        if self.retained_backup is not None and not isinstance(self.retained_backup, Path):
+            raise TypeError("A retained export backup must be a pathlib.Path.")
 
 
 __all__ = [
     "MAX_EXPORT_FPS",
     "MAX_EXPORT_FRAMES",
     "MAX_EXPORT_RAW_BYTES",
+    "MAX_EXPORT_SHEET_DIMENSION",
+    "AnimationArtifactResult",
     "AnimationExportResult",
     "CancellationToken",
     "ExportRequest",
     "ExportResult",
     "FrameSample",
+    "GridAnimationExportResult",
     "build_frame_schedule",
 ]

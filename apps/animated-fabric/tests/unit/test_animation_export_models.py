@@ -23,9 +23,13 @@ from animated_fabric.domain.exceptions import ExportError, ExportFailureKind
 from animated_fabric.domain.export import (
     FRAME_SEQUENCE_FORMAT,
     FRAME_SEQUENCE_SCHEMA_VERSION,
+    GRID_SPRITESHEET_FORMAT,
+    GRID_SPRITESHEET_SCHEMA_VERSION,
     ExportProfile,
     FrameSequenceFrame,
     FrameSequenceMetadata,
+    GridSpritesheetFrame,
+    GridSpritesheetMetadata,
 )
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction
@@ -308,6 +312,161 @@ def test_frame_sequence_metadata_rejects_wrong_format_schema_and_invalid_event()
             direction=Direction.SE,
             index=0,
             image="SE/000.png",
+            duration_ms=1,
+            events=("Foot Contact",),
+        )
+
+
+def _grid_metadata(
+    *,
+    image: str = "walk.png",
+    directions: tuple[Direction, ...] = (Direction.SE, Direction.NE),
+    frames: tuple[GridSpritesheetFrame, ...] | None = None,
+) -> GridSpritesheetMetadata:
+    frame_size = IntSize(width=192, height=192)
+    if frames is None:
+        frames = tuple(
+            GridSpritesheetFrame(
+                direction=direction,
+                index=index,
+                rect=(index * frame_size.width, row * frame_size.height, 192, 192),
+                duration_ms=(2, 3)[index],
+                events=("foot_contact_l",) if index == 0 else (),
+            )
+            for row, direction in enumerate(directions)
+            for index in range(2)
+        )
+    return GridSpritesheetMetadata(
+        format=GRID_SPRITESHEET_FORMAT,
+        schema_version=GRID_SPRITESHEET_SCHEMA_VERSION,
+        project="eva_mage",
+        animation="walk",
+        image=image,
+        frame_size=frame_size,
+        origin=Vec2(x=96.0, y=160.0),
+        fps=12,
+        duration_ms=5,
+        directions=directions,
+        frames_per_direction=2,
+        frames=frames,
+    )
+
+
+def test_grid_spritesheet_metadata_round_trips_versioned_json() -> None:
+    metadata = _grid_metadata()
+
+    restored = GridSpritesheetMetadata.model_validate_json(metadata.model_dump_json())
+
+    assert restored == metadata
+    assert json.loads(restored.model_dump_json()) == {
+        "format": "animated-fabric.grid-spritesheet.v1",
+        "schema_version": "0.1.0",
+        "project": "eva_mage",
+        "animation": "walk",
+        "image": "walk.png",
+        "frame_size": [192, 192],
+        "origin": [96.0, 160.0],
+        "fps": 12,
+        "duration_ms": 5,
+        "directions": ["SE", "NE"],
+        "frames_per_direction": 2,
+        "frames": [
+            {
+                "direction": direction,
+                "index": index,
+                "rect": [index * 192, row * 192, 192, 192],
+                "duration_ms": (2, 3)[index],
+                "events": ["foot_contact_l"] if index == 0 else [],
+            }
+            for row, direction in enumerate(("SE", "NE"))
+            for index in range(2)
+        ],
+    }
+
+
+def test_grid_spritesheet_metadata_requires_canonical_image_and_exact_frame_count() -> None:
+    valid = _grid_metadata()
+
+    with pytest.raises(ValidationError, match="canonical path 'walk.png'"):
+        _grid_metadata(image="other.png")
+    with pytest.raises(ValidationError, match="exactly 4"):
+        GridSpritesheetMetadata.model_validate(valid.model_dump() | {"frames": valid.frames[:-1]})
+
+
+def test_grid_spritesheet_metadata_rejects_duplicate_directions() -> None:
+    with pytest.raises(ValidationError, match="duplicates"):
+        _grid_metadata(directions=(Direction.SE, Direction.SE))
+
+
+@pytest.mark.parametrize(
+    ("replacement", "message"),
+    [
+        (
+            GridSpritesheetFrame(
+                direction=Direction.NE,
+                index=0,
+                rect=(0, 0, 192, 192),
+                duration_ms=2,
+            ),
+            "direction-major",
+        ),
+        (
+            GridSpritesheetFrame(
+                direction=Direction.SE,
+                index=0,
+                rect=(1, 0, 192, 192),
+                duration_ms=2,
+            ),
+            "canonical cell",
+        ),
+        (
+            GridSpritesheetFrame(
+                direction=Direction.SE,
+                index=0,
+                rect=(0, 0, 192, 192),
+                duration_ms=1,
+            ),
+            "sum exactly",
+        ),
+    ],
+)
+def test_grid_spritesheet_metadata_rejects_inconsistent_frame_records(
+    replacement: GridSpritesheetFrame,
+    message: str,
+) -> None:
+    valid = _grid_metadata()
+    frames = (replacement, *valid.frames[1:])
+
+    with pytest.raises(ValidationError, match=message):
+        GridSpritesheetMetadata.model_validate(valid.model_dump() | {"frames": frames})
+
+
+def test_grid_spritesheet_metadata_rejects_wrong_version_invalid_rect_and_event() -> None:
+    valid = _grid_metadata()
+
+    with pytest.raises(ValidationError):
+        GridSpritesheetMetadata.model_validate(valid.model_dump() | {"format": "other"})
+    with pytest.raises(ValidationError):
+        GridSpritesheetMetadata.model_validate(valid.model_dump() | {"schema_version": "0.2.0"})
+    with pytest.raises(ValidationError, match="origin coordinates"):
+        GridSpritesheetFrame(
+            direction=Direction.SE,
+            index=0,
+            rect=(-1, 0, 192, 192),
+            duration_ms=1,
+        )
+    with pytest.raises(ValidationError, match="dimensions must be positive"):
+        GridSpritesheetFrame(
+            direction=Direction.SE,
+            index=0,
+            rect=(0, 0, 0, 192),
+            duration_ms=1,
+        )
+    with pytest.raises(ValidationError):
+        GridSpritesheetFrame(
+            direction=Direction.SE,
+            index=0,
+            rect=(0, 0, 192, 192),
             duration_ms=1,
             events=("Foot Contact",),
         )

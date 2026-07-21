@@ -1,4 +1,4 @@
-"""AF-050 acceptance coverage for the real project-to-frame export pipeline."""
+"""AF-050/AF-051 acceptance coverage for the real project export pipeline."""
 
 from __future__ import annotations
 
@@ -15,12 +15,16 @@ from animated_fabric.domain.export import (
     FRAME_SEQUENCE_FORMAT,
     FRAME_SEQUENCE_SCHEMA_VERSION,
     FrameSequenceMetadata,
+    GridSpritesheetMetadata,
 )
 from animated_fabric.domain.geometry import IntSize
 from animated_fabric.domain.project import Direction
 from animated_fabric.domain.validation import ProjectValidator
 from animated_fabric.generators import BuiltinAnimationGeneratorRegistry
-from animated_fabric.infrastructure.exporters import FrameSequenceExporter
+from animated_fabric.infrastructure.exporters import (
+    FrameSequenceExporter,
+    GridSpritesheetExporter,
+)
 from animated_fabric.infrastructure.imaging import OpenCvRenderer
 from animated_fabric.infrastructure.persistence import JsonProjectRepository
 from scripts.run_rig_application_demo import run_rig_application_demo
@@ -118,3 +122,75 @@ def test_real_project_generates_and_exports_deterministic_idle_sequences(
             assert frame.format == "PNG"
             assert frame.mode == "RGBA"
             assert frame.size == (192, 192)
+
+
+def test_real_grid_cells_match_shared_renderer_frame_export_exactly(tmp_path: Path) -> None:
+    demo_root = tmp_path / "rig_demo"
+    run_rig_application_demo(demo_root)
+    project_root = demo_root / "imported_project"
+    repository = JsonProjectRepository()
+    validator = ProjectValidator()
+    generated = GenerateAnimation(
+        repository,
+        BuiltinAnimationGeneratorRegistry(),
+        validator,
+    ).execute(
+        GenerateAnimationRequest(
+            project_root=project_root,
+            generator_id="humanoid_idle_v1",
+            clip_id="short_idle",
+            parameters={"duration_ms": 200},
+        )
+    )
+    assert generated.value is not None, generated.diagnostics
+
+    sequence_destination = tmp_path / "sequences"
+    grid_destination = tmp_path / "grids"
+    request_values = {
+        "project_root": project_root,
+        "animation_ids": ("short_idle",),
+        "directions": (Direction.NE, Direction.SE),
+        "fps": 10,
+        "allow_clipping": True,
+    }
+    sequence = ExportProject(
+        repository,
+        repository,
+        validator,
+        FrameSequenceExporter(OpenCvRenderer()),
+    ).execute(ExportProjectRequest(destination=sequence_destination, **request_values))
+    grid = ExportProject(
+        repository,
+        repository,
+        validator,
+        GridSpritesheetExporter(OpenCvRenderer()),
+    ).execute(ExportProjectRequest(destination=grid_destination, **request_values))
+
+    assert sequence.value is not None, sequence.diagnostics
+    assert grid.value is not None, grid.diagnostics
+    sequence_metadata = FrameSequenceMetadata.model_validate_json(
+        (sequence_destination / "short_idle" / "animation.json").read_bytes()
+    )
+    grid_metadata = GridSpritesheetMetadata.model_validate_json(
+        (grid_destination / "short_idle.spritesheet.json").read_bytes()
+    )
+    assert grid_metadata.directions == sequence_metadata.directions
+    assert grid_metadata.frames_per_direction == sequence_metadata.frames_per_direction
+    assert [frame.duration_ms for frame in grid_metadata.frames] == [
+        frame.duration_ms for frame in sequence_metadata.frames
+    ]
+    assert [frame.events for frame in grid_metadata.frames] == [
+        frame.events for frame in sequence_metadata.frames
+    ]
+
+    with Image.open(grid_destination / "short_idle.png") as sheet:
+        sheet.load()
+        for grid_frame, sequence_frame in zip(
+            grid_metadata.frames,
+            sequence_metadata.frames,
+            strict=True,
+        ):
+            x, y, width, height = grid_frame.rect
+            with Image.open(sequence_destination / "short_idle" / sequence_frame.image) as frame:
+                frame.load()
+                assert sheet.crop((x, y, x + width, y + height)).tobytes() == frame.tobytes()

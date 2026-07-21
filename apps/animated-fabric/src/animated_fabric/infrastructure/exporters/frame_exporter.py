@@ -3,9 +3,6 @@
 from __future__ import annotations
 
 import json
-import os
-import shutil
-import tempfile
 from pathlib import Path
 
 from PIL import Image, UnidentifiedImageError
@@ -27,6 +24,13 @@ from animated_fabric.domain.exceptions import ExportError, ExportFailureKind, Re
 from animated_fabric.domain.export import FrameSequenceFrame, FrameSequenceMetadata
 from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction, DirectionMode
+from animated_fabric.infrastructure.exporters._transaction import (
+    create_export_staging,
+    discard_export_staging,
+    promote_export_staging,
+    relative_export_files,
+    validate_export_destination,
+)
 from animated_fabric.infrastructure.imaging import PngFrameWriter
 
 
@@ -43,15 +47,16 @@ class FrameSequenceExporter:
         self._renderer = renderer
         self._writer = writer or PngFrameWriter()
 
-    def export(self, request: ExportRequest) -> ExportResult:
+    def export(self, request: ExportRequest) -> ExportResult[AnimationExportResult]:
         """Render, verify, and replace the complete requested destination."""
         if not isinstance(request, ExportRequest):
             raise TypeError("Frame-sequence export requires an ExportRequest.")
 
         schedules = self._validate_request(request)
         self._check_cancelled(request, "before export IO")
-        destination = self._validate_destination(request)
-        staging = self._create_staging(destination)
+        destination = validate_export_destination(request.destination, request.project.root)
+        staging = create_export_staging(destination)
+        retained_backup: Path | None = None
 
         try:
             results, metadata = self._render_frames(request, schedules, staging)
@@ -66,19 +71,23 @@ class FrameSequenceExporter:
             )
             self._write_and_verify_metadata(request, staging, metadata, expected_pngs)
             self._check_cancelled(request, "before export publication")
-            self._promote(staging, destination)
+            retained_backup = promote_export_staging(staging, destination)
         except ExportError:
-            self._discard_staging(staging)
             raise
         except OSError as error:
-            self._discard_staging(staging)
             raise ExportError(
                 "The frame-sequence export could not be published safely.",
                 kind=ExportFailureKind.PUBLICATION,
                 path=str(destination),
             ) from error
+        finally:
+            discard_export_staging(staging)
 
-        return ExportResult(destination=destination, animations=results)
+        return ExportResult(
+            destination=destination,
+            animations=results,
+            retained_backup=retained_backup,
+        )
 
     @staticmethod
     def _validate_request(
@@ -123,84 +132,6 @@ class FrameSequenceExporter:
                 kind=ExportFailureKind.INVALID_PROFILE,
             )
         return schedules
-
-    @classmethod
-    def _validate_destination(cls, request: ExportRequest) -> Path:
-        try:
-            destination = request.destination.absolute()
-            cls._reject_symlink_components(destination)
-            if destination.exists() and not destination.is_dir():
-                raise ExportError(
-                    "The export destination is a file, not a directory.",
-                    kind=ExportFailureKind.DESTINATION,
-                    path=str(destination),
-                )
-            resolved_destination = destination.resolve(strict=False)
-            project_root = request.project.root.resolve(strict=False)
-            exports_root = (project_root / "exports").resolve(strict=False)
-        except ExportError:
-            raise
-        except (OSError, RuntimeError) as error:
-            raise ExportError(
-                "The export destination cannot be resolved safely.",
-                kind=ExportFailureKind.DESTINATION,
-                path=str(request.destination),
-            ) from error
-
-        if project_root == resolved_destination or project_root.is_relative_to(
-            resolved_destination
-        ):
-            raise ExportError(
-                "The export destination cannot contain the project root.",
-                kind=ExportFailureKind.DESTINATION,
-                path=str(destination),
-            )
-        if resolved_destination.is_relative_to(project_root) and (
-            resolved_destination == exports_root
-            or not resolved_destination.is_relative_to(exports_root)
-        ):
-            raise ExportError(
-                "Project-local exports must use a named directory below 'exports'.",
-                kind=ExportFailureKind.DESTINATION,
-                path=str(destination),
-            )
-        return resolved_destination
-
-    @staticmethod
-    def _reject_symlink_components(destination: Path) -> None:
-        current = Path(destination.anchor)
-        for part in destination.parts[1:]:
-            current /= part
-            try:
-                is_link = current.is_symlink()
-            except OSError as error:
-                raise ExportError(
-                    "The export destination cannot be inspected safely.",
-                    kind=ExportFailureKind.DESTINATION,
-                    path=str(destination),
-                ) from error
-            if is_link:
-                raise ExportError(
-                    "The export destination and its existing ancestors must not be symlinks.",
-                    kind=ExportFailureKind.DESTINATION,
-                    path=str(destination),
-                )
-
-    @staticmethod
-    def _create_staging(destination: Path) -> Path:
-        try:
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            name = tempfile.mkdtemp(
-                prefix=f".{destination.name}.stage-",
-                dir=destination.parent,
-            )
-        except OSError as error:
-            raise ExportError(
-                "The export destination is not writable.",
-                kind=ExportFailureKind.DESTINATION,
-                path=str(destination),
-            ) from error
-        return Path(name)
 
     def _render_frames(
         self,
@@ -333,7 +264,7 @@ class FrameSequenceExporter:
         width: int,
         height: int,
     ) -> None:
-        actual_files = FrameSequenceExporter._relative_files(staging)
+        actual_files = relative_export_files(staging)
         if actual_files != expected_pngs:
             raise ExportError(
                 "The staged PNG file set does not match the export plan.",
@@ -373,32 +304,6 @@ class FrameSequenceExporter:
                 ) from error
 
     @staticmethod
-    def _relative_files(root: Path) -> set[str]:
-        files: set[str] = set()
-        try:
-            candidates = tuple(root.rglob("*"))
-        except OSError as error:
-            raise ExportError(
-                "The staged export cannot be inspected.",
-                kind=ExportFailureKind.VERIFICATION,
-            ) from error
-        for candidate in candidates:
-            try:
-                if candidate.is_symlink():
-                    raise ExportError(
-                        "The staged export must not contain symbolic links.",
-                        kind=ExportFailureKind.VERIFICATION,
-                    )
-                if candidate.is_file():
-                    files.add(candidate.relative_to(root).as_posix())
-            except OSError as error:
-                raise ExportError(
-                    "The staged export cannot be inspected.",
-                    kind=ExportFailureKind.VERIFICATION,
-                ) from error
-        return files
-
-    @staticmethod
     def _write_and_verify_metadata(
         request: ExportRequest,
         staging: Path,
@@ -433,7 +338,7 @@ class FrameSequenceExporter:
                     path=relative_path,
                 )
 
-        if FrameSequenceExporter._relative_files(staging) != expected_pngs | expected_metadata:
+        if relative_export_files(staging) != expected_pngs | expected_metadata:
             raise ExportError(
                 "The staged export file set changed during metadata publication.",
                 kind=ExportFailureKind.VERIFICATION,
@@ -447,69 +352,6 @@ class FrameSequenceExporter:
                 kind=ExportFailureKind.CANCELLED,
                 location=location,
             )
-
-    @staticmethod
-    def _promote(staging: Path, destination: Path) -> None:
-        backup: Path | None = None
-        empty_backup: Path | None = None
-        try:
-            if destination.exists():
-                backup_name = tempfile.mkdtemp(
-                    prefix=f".{destination.name}.backup-",
-                    dir=destination.parent,
-                )
-                empty_backup = Path(backup_name)
-                empty_backup.rmdir()
-                os.replace(destination, empty_backup)
-                backup = empty_backup
-                empty_backup = None
-            os.replace(staging, destination)
-            if backup is not None:
-                shutil.rmtree(backup)
-        except OSError as error:
-            if empty_backup is not None:
-                FrameSequenceExporter._discard_staging(empty_backup)
-            rollback_error = FrameSequenceExporter._rollback_publication(
-                staging,
-                destination,
-                backup,
-            )
-            if rollback_error is not None:
-                raise ExportError(
-                    "Export publication failed and the previous output could not be restored.",
-                    kind=ExportFailureKind.PUBLICATION,
-                    path=str(destination),
-                ) from rollback_error
-            raise ExportError(
-                "Export publication failed; the previous output was restored.",
-                kind=ExportFailureKind.PUBLICATION,
-                path=str(destination),
-            ) from error
-
-    @staticmethod
-    def _rollback_publication(
-        staging: Path,
-        destination: Path,
-        backup: Path | None,
-    ) -> OSError | None:
-        try:
-            if backup is None or not backup.exists():
-                return None
-            if destination.exists():
-                os.replace(destination, staging)
-            os.replace(backup, destination)
-        except OSError as error:
-            return error
-        return None
-
-    @staticmethod
-    def _discard_staging(staging: Path) -> None:
-        try:
-            if staging.exists():
-                shutil.rmtree(staging)
-        except OSError:
-            # Crash recovery and abandoned-transaction cleanup remain separate work.
-            return
 
 
 __all__ = ["FrameSequenceExporter"]

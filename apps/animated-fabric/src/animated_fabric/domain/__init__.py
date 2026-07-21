@@ -43,9 +43,13 @@ from animated_fabric.domain.exceptions import (
 from animated_fabric.domain.export import (
     FRAME_SEQUENCE_FORMAT,
     FRAME_SEQUENCE_SCHEMA_VERSION,
+    GRID_SPRITESHEET_FORMAT,
+    GRID_SPRITESHEET_SCHEMA_VERSION,
     ExportProfile,
     FrameSequenceFrame,
     FrameSequenceMetadata,
+    GridSpritesheetFrame,
+    GridSpritesheetMetadata,
 )
 from animated_fabric.domain.generators import (
     GeneratorParameterSummary,
@@ -142,10 +146,14 @@ __all__ = [
     "FRAME_SEQUENCE_SCHEMA_VERSION",
     "FrameSequenceFrame",
     "FrameSequenceMetadata",
+    "GRID_SPRITESHEET_FORMAT",
+    "GRID_SPRITESHEET_SCHEMA_VERSION",
     "GeneratorProvenance",
     "GeneratorParameterSummary",
     "GeneratorParameterValueType",
     "GeneratorSummary",
+    "GridSpritesheetFrame",
+    "GridSpritesheetMetadata",
     "IntPoint",
     "IntSize",
     "Interpolation",

@@ -15,6 +15,7 @@ from animated_fabric.application.exporting import (
     ExportRequest,
     ExportResult,
     FrameSample,
+    GridAnimationExportResult,
     build_frame_schedule,
 )
 from animated_fabric.application.rendering import RenderProject
@@ -283,8 +284,15 @@ def test_export_results_require_typed_non_empty_paths(tmp_path: Path) -> None:
     result = ExportResult(destination=tmp_path, animations=(animation,))
 
     assert result.animations == (animation,)
+    assert result.retained_backup is None
     with pytest.raises(ValueError, match="at least one"):
         ExportResult(destination=tmp_path, animations=())
+    with pytest.raises(TypeError, match="retained export backup"):
+        ExportResult(
+            destination=tmp_path,
+            animations=(animation,),
+            retained_backup="backup",  # type: ignore[arg-type]
+        )
 
 
 def test_export_results_reject_invalid_transport_values(tmp_path: Path) -> None:
@@ -313,3 +321,55 @@ def test_export_results_reject_invalid_transport_values(tmp_path: Path) -> None:
         ExportResult(destination="exports", animations=())  # type: ignore[arg-type]
     with pytest.raises(TypeError, match="animations.*tuple"):
         ExportResult(destination=tmp_path, animations=[])  # type: ignore[arg-type]
+
+
+def test_grid_export_result_requires_typed_non_empty_values(tmp_path: Path) -> None:
+    animation = GridAnimationExportResult(
+        animation="walk",
+        frame_count=12,
+        image_path=Path("walk.png"),
+        metadata_path=Path("walk.spritesheet.json"),
+    )
+
+    result = ExportResult(destination=tmp_path, animations=(animation,))
+
+    assert result.animations == (animation,)
+    with pytest.raises(ValueError, match="animation ID"):
+        GridAnimationExportResult(
+            animation="",
+            frame_count=12,
+            image_path=Path("walk.png"),
+            metadata_path=Path("walk.spritesheet.json"),
+        )
+    with pytest.raises(ValueError, match="frame count"):
+        GridAnimationExportResult(
+            animation="walk",
+            frame_count=0,
+            image_path=Path("walk.png"),
+            metadata_path=Path("walk.spritesheet.json"),
+        )
+    with pytest.raises(TypeError, match="artifact paths"):
+        GridAnimationExportResult(
+            animation="walk",
+            frame_count=12,
+            image_path="walk.png",  # type: ignore[arg-type]
+            metadata_path=Path("walk.spritesheet.json"),
+        )
+
+
+def test_export_result_rejects_mixed_sequence_and_grid_artifacts(tmp_path: Path) -> None:
+    sequence = AnimationExportResult(
+        animation="idle",
+        frame_count=1,
+        metadata_path=Path("idle/animation.json"),
+        frame_paths=(Path("idle/SE/000.png"),),
+    )
+    grid = GridAnimationExportResult(
+        animation="walk",
+        frame_count=12,
+        image_path=Path("walk.png"),
+        metadata_path=Path("walk.spritesheet.json"),
+    )
+
+    with pytest.raises(ValueError, match="must not mix"):
+        ExportResult(destination=tmp_path, animations=(sequence, grid))

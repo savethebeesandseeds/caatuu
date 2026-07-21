@@ -4,7 +4,8 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M4 and tickets AF-044 and AF-050 are complete; milestone M5 is still underway.
+Milestones M0 through M4 and tickets AF-044, AF-050, and AF-051 are complete; milestone M5 is still
+underway.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -14,9 +15,10 @@ The vertical renderer evaluates typed requests, resolves pose and sockets, plans
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
 atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
 yet. The deterministic `humanoid_idle_v1` and `humanoid_walk_v1` generators are discoverable through
-the CLI and can publish validated editable clips into a project. A programmatic frame-sequence
-export path now renders those clips through the shared renderer. The application does not yet
-contain the functional editor or a database. AF-044 also proves a separate 3D-to-2D upstream
+the CLI and can publish validated editable clips into a project. Programmatic frame-sequence export
+and the public fixed-grid spritesheet command render those clips through the shared renderer. The
+application does not yet contain the functional editor or a database. AF-044 also proves a separate
+3D-to-2D upstream
 option: one procedural 3D walk can be rendered reproducibly from four rotations, without making
 Blender part of the application or changing the current layered-2D product contracts.
 
@@ -179,9 +181,28 @@ and one request is limited to 240 FPS, 4,096 total frames, and 512 MiB of uncomp
 The full sampling, destination, transaction, and failure contracts are recorded in
 [decision 0009](docs/decisions/0009-frame-sequence-export.md).
 
-AF-050 does not claim the public `export --profile default_grid` CLI, a grid spritesheet, or mirrored
-SW/NW output. The grid command and sheet remain AF-051, while complete-frame mirroring remains
-AF-052.
+AF-051 adds the project-registered `default_grid` profile and public grid command. Explicit authored
+direction rows can be exported now:
+
+```bash
+animated-fabric export ./eva_mage \
+  --profile default_grid \
+  --out ./build/eva_mage \
+  --direction SE \
+  --direction NE
+```
+
+Each animation becomes `<clip>.png` plus strict versioned `<clip>.spritesheet.json`. Rows preserve
+the selected direction order, columns preserve increasing frame index, fixed cells retain the full
+canvas, per-row integer durations sum exactly to the clip duration, and every packed cell is checked
+byte for byte against the shared AF-050 frame output. The complete selected set is published as one
+verified directory transaction.
+
+The normative unmodified profile includes `SE`, `SW`, `NE`, and `NW`. Until AF-052 supplies
+complete-frame mirroring and mirrored spatial metadata, selecting that four-row default reports
+actionable `AFV502`; AF-051 never silently drops or fabricates mirrored rows. Grid schema, profile,
+verification, resource, and replacement-cleanup decisions are recorded in
+[decision 0011](docs/decisions/0011-grid-spritesheet-export.md).
 
 ## Experimental 3D prerender evidence
 

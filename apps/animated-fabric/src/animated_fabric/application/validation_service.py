@@ -40,18 +40,18 @@ class ValidateProject:
         try:
             manifest = self._repository.load(request.root)
         except ProjectVersionError as error:
-            return self._failure(self._version_diagnostic(error, PROJECT_MANIFEST_FILENAME))
+            return self._failure(project_version_diagnostic(error, PROJECT_MANIFEST_FILENAME))
         except ProjectValidationError as error:
             return self._failure(
-                self._validation_diagnostic(error, PROJECT_MANIFEST_FILENAME, is_manifest=True)
+                project_validation_diagnostic(error, PROJECT_MANIFEST_FILENAME, is_manifest=True)
             )
 
         try:
             rig = self._repository.load_rig(request.root, manifest.rig_path)
         except ProjectVersionError as error:
-            return self._failure(self._version_diagnostic(error, manifest.rig_path))
+            return self._failure(project_version_diagnostic(error, manifest.rig_path))
         except ProjectValidationError as error:
-            return self._failure(self._validation_diagnostic(error, manifest.rig_path))
+            return self._failure(project_validation_diagnostic(error, manifest.rig_path))
 
         diagnostics: list[Diagnostic] = []
         animations: list[AnimationDocument] = []
@@ -59,9 +59,9 @@ class ValidateProject:
             try:
                 clip = self._repository.load_animation(request.root, path)
             except ProjectVersionError as error:
-                diagnostics.append(self._version_diagnostic(error, path))
+                diagnostics.append(project_version_diagnostic(error, path))
             except ProjectValidationError as error:
-                diagnostics.append(self._validation_diagnostic(error, path))
+                diagnostics.append(project_validation_diagnostic(error, path))
             else:
                 animations.append(AnimationDocument(path=path, clip=clip))
 
@@ -79,39 +79,46 @@ class ValidateProject:
     def _failure(diagnostic: Diagnostic) -> OperationResult[None]:
         return OperationResult[None](diagnostics=(diagnostic,))
 
-    @staticmethod
-    def _version_diagnostic(error: ProjectVersionError, fallback_path: str) -> Diagnostic:
-        return Diagnostic(
-            code=ValidationCode.INCOMPATIBLE_SCHEMA,
-            severity=Severity.ERROR,
-            message=str(error),
-            path=error.path or fallback_path,
-            suggestion="Open the project with a compatible Animated Fabric version.",
-        )
 
-    @staticmethod
-    def _validation_diagnostic(
-        error: ProjectValidationError,
-        fallback_path: str,
-        *,
-        is_manifest: bool = False,
-    ) -> Diagnostic:
-        if error.kind is ProjectValidationKind.UNSAFE_PATH:
-            code = ValidationCode.PATH_OUTSIDE_PROJECT
-            suggestion = "Keep every project path inside the selected root."
-        elif error.kind is ProjectValidationKind.MISSING_DOCUMENT and is_manifest:
-            code = ValidationCode.MANIFEST_MISSING
-            suggestion = "Select a project containing project.animated-fabric.json."
-        else:
-            code = ValidationCode.INVALID_PROJECT_DOCUMENT
-            suggestion = "Restore or recreate the referenced project JSON document."
-        return Diagnostic(
-            code=code,
-            severity=Severity.ERROR,
-            message=str(error),
-            path=error.path or fallback_path,
-            suggestion=suggestion,
-        )
+def project_version_diagnostic(error: ProjectVersionError, fallback_path: str) -> Diagnostic:
+    """Map one repository schema failure to the shared project-validation wire contract."""
+    return Diagnostic(
+        code=ValidationCode.INCOMPATIBLE_SCHEMA,
+        severity=Severity.ERROR,
+        message=str(error),
+        path=error.path or fallback_path,
+        suggestion="Open the project with a compatible Animated Fabric version.",
+    )
 
 
-__all__ = ["ValidateProject", "ValidateProjectRequest"]
+def project_validation_diagnostic(
+    error: ProjectValidationError,
+    fallback_path: str,
+    *,
+    is_manifest: bool = False,
+) -> Diagnostic:
+    """Map one repository document failure consistently across application use cases."""
+    if error.kind is ProjectValidationKind.UNSAFE_PATH:
+        code = ValidationCode.PATH_OUTSIDE_PROJECT
+        suggestion = "Keep every project path inside the selected root."
+    elif error.kind is ProjectValidationKind.MISSING_DOCUMENT and is_manifest:
+        code = ValidationCode.MANIFEST_MISSING
+        suggestion = "Select a project containing project.animated-fabric.json."
+    else:
+        code = ValidationCode.INVALID_PROJECT_DOCUMENT
+        suggestion = "Restore or recreate the referenced project JSON document."
+    return Diagnostic(
+        code=code,
+        severity=Severity.ERROR,
+        message=str(error),
+        path=error.path or fallback_path,
+        suggestion=suggestion,
+    )
+
+
+__all__ = [
+    "ValidateProject",
+    "ValidateProjectRequest",
+    "project_validation_diagnostic",
+    "project_version_diagnostic",
+]

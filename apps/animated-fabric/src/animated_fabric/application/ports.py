@@ -4,8 +4,13 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import TYPE_CHECKING, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
+from animated_fabric.application.exporting import (
+    AnimationArtifactResult,
+    ExportRequest,
+    ExportResult,
+)
 from animated_fabric.domain._base import ProjectPath
 from animated_fabric.domain.animation import AnimationClip
 from animated_fabric.domain.assets import LayerManifest
@@ -13,9 +18,6 @@ from animated_fabric.domain.generators import GeneratorSummary
 from animated_fabric.domain.project import ProjectManifest
 from animated_fabric.domain.rig import RigDefinition
 from animated_fabric.domain.templates import RigTemplate, RigTemplateSummary
-
-if TYPE_CHECKING:
-    from animated_fabric.application.exporting import ExportRequest, ExportResult
 
 PROJECT_MANIFEST_FILENAME = "project.animated-fabric.json"
 LAYER_MANIFEST_FILENAME = "layers.manifest.json"
@@ -105,12 +107,12 @@ class RigTemplateRegistry(Protocol):
 
 
 @runtime_checkable
-class ProjectExporter(Protocol):
+class ProjectExporter[ExportArtifactT_co: AnimationArtifactResult](Protocol):
     """Publish a validated project export through one concrete profile adapter."""
 
     exporter_id: str
 
-    def export(self, request: ExportRequest) -> ExportResult:
+    def export(self, request: ExportRequest) -> ExportResult[ExportArtifactT_co]:
         """Render and atomically publish one complete export request."""
         ...
 

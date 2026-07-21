@@ -2,7 +2,8 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-044 and AF-050 complete
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-044, AF-050, and AF-051
+complete
 
 **Last updated:** 2026-07-21
 
@@ -48,6 +49,7 @@ Experimental upstream tooling.
 M5 - export.
 
 - [x] AF-050 Frame exporter
+- [x] AF-051 Grid spritesheet
 
 ## Delivered scope
 
@@ -293,6 +295,27 @@ M5 - export.
 - Real imported layers, the applied 17-bone rig, a generated short idle clip, and the OpenCV
   renderer now pass through the frame exporter without fixture-only shortcuts. Repeated exports of
   the same loaded project produce byte-identical PNG and JSON output.
+- Strict `animated-fabric.grid-spritesheet.v1` metadata records one canonical flat PNG path per
+  animation, fixed frame size and origin, direction-major canonical rectangles, exact per-row
+  duration, and frame events. Every persisted grid document includes schema version `0.1.0`.
+- The fixed package-owned `default_grid` profile requires project registration. Public
+  `export --profile ... --out ...` supports ordered animation, direction, and FPS overrides, JSON
+  diagnostics, reviewed clipping, stable export exit codes, and sanitized unexpected failures.
+- `GridSpritesheetExporter` reuses the AF-050 exporter as its private rendering authority, validates
+  the complete intermediate transaction and metadata against the request, packs transparent
+  fixed-canvas cells, decodes and compares every cell byte for byte, and publishes only the two
+  canonical flat artifacts per selected animation.
+- Grid sheets retain caller direction and frame order, remain deterministic across equivalent runs,
+  and enforce 65,535-pixel sheet dimensions plus the existing 4,096-frame and 512 MiB raw-RGBA
+  bounds. Cancellation is checked while rendering, packing, cell verification, metadata writing,
+  and before publication.
+- Export results are generic over sequence or grid artifacts. Owned staging cleanup is unconditional,
+  and a post-publication backup-cleanup failure keeps the verified new export live while returning
+  and warning about the retained recovery path. Decision 0011 explicitly replaces decision 0009's
+  unsafe post-cleanup rollback clause.
+- The four-direction `default_grid` remains truthful: AF-051 rejects mirror-mode `SW`/`NW` with
+  actionable `AFV502` unless callers explicitly select authored rows. It neither drops rows nor
+  implements AF-052 mirroring early.
 - An opt-in Blender 4.5.12 Linux/amd64 image now bakes one fixed repository-owned worker, procedural
   low-poly humanoid, analytical 12-frame in-place walk, PNG canonicalizer, output boundary, and
   evidence verifier. Blender, `bpy`, and 3D dependencies do not enter `src`, the development image,
@@ -347,6 +370,7 @@ Principal files:
 - `src/animated_fabric/application/generate_animation.py`
 - `src/animated_fabric/application/exporting.py`
 - `src/animated_fabric/application/export_service.py`
+- `src/animated_fabric/application/export_profiles.py`
 - `src/animated_fabric/generators/__init__.py`
 - `src/animated_fabric/generators/_support.py`
 - `src/animated_fabric/generators/registry.py`
@@ -387,6 +411,7 @@ Principal files:
 - `docs/decisions/0008-animation-generation-cli.md`
 - `docs/decisions/0009-frame-sequence-export.md`
 - `docs/decisions/0010-experimental-blender-prerender.md`
+- `docs/decisions/0011-grid-spritesheet-export.md`
 - `docs/third-party/blender.md`
 - `tests/unit/test_blender_motion.py`
 - `tests/unit/test_blender_output_paths.py`
@@ -395,7 +420,10 @@ Principal files:
 - `tests/unit/test_animation_export_models.py`
 - `tests/unit/test_export_sampling.py`
 - `tests/unit/test_export_service.py`
+- `tests/unit/test_export_profiles.py`
 - `tests/integration/test_frame_exporter.py`
+- `tests/integration/test_grid_spritesheet_exporter.py`
+- `tests/integration/test_export_cli.py`
 - `tests/integration/test_export_project_pipeline.py`
 - `tests/unit/test_transform_matrices.py`
 - `tests/unit/test_bone_hierarchy.py`
@@ -463,6 +491,32 @@ Principal files:
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-21 through the repository-owned networkless Linux container after AF-051:
+
+- `ruff format --check .`: 223 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 72 source files.
+- `pytest -q`: 970 passed in 104.72 s; 92.28% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- `python scripts/generate_fixture_assets.py --out .tmp/af051-final-20260721-fixtures`:
+  generated the deterministic geometric humanoid fixture and canonical fixture project.
+- `python scripts/run_demo_pipeline.py --out .tmp/af051-final-20260721-demo`: rendered the reviewed
+  neutral SE and NE fixture frames successfully through the shared OpenCV renderer.
+- `python -m animated_fabric --help` and `python -m animated_fabric export --help`: passed; root
+  help lists `export`, and export help exposes the required profile, destination, ordered overrides,
+  clipping, and JSON options.
+- `python -m animated_fabric doctor`: completed with no problems found.
+- Focused AF-050/AF-051 sampling, models, profile, service, transaction, cleanup, cancellation,
+  tampering, CLI, and real-pipeline regression gate: 107 passed.
+- A retained real CLI acceptance artifact is a 384 x 384 RGBA sheet with two authored direction
+  rows and two time columns. Its strict JSON durations sum to the 200 ms clip duration in each row.
+- Three independent read-only audits identified and then verified fixes for unconditional stage
+  cleanup, complete intermediate-contract verification, precise generic result typing, validation
+  diagnostic/exit mapping, cancellation during cell verification, and explicit transaction-decision
+  replacement. No AF-052 pixel mirroring or mirrored metadata was introduced.
+- Root repository file policy passed for 1,352 tracked and candidate files, and Markdown links
+  passed for 93 files.
 
 Executed on 2026-07-21 through GitHub-hosted native Ubuntu 24.04 x86-64 after AF-044 commit
 `3bb5bff`:
@@ -732,13 +786,20 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
-- AF-050 provides application-level authored-direction folder-sequence export only. The public
-  grid export CLI and spritesheet belong to AF-051, complete-frame SW/NW mirroring belongs to
-  AF-052, and the standalone from-scratch export demonstration belongs to AF-053.
-- Export publication assumes one writer. The same-filesystem backup swap rolls back ordinary
-  failures, but a process crash between directory renames may leave a staging or backup directory
-  requiring recovery. Project locking, stale-operation recovery, and writer arbitration remain
-  AF-060 work.
+- AF-051 provides the public fixed-grid CLI and complete authored-direction sheets. The normative
+  four-row default remains blocked with actionable `AFV502` until AF-052 supplies complete-frame
+  SW/NW mirroring and mirrored spatial metadata. The standalone from-scratch export demonstration
+  and publication of its sample spritesheet as a CI artifact remain AF-053; M5 is still open.
+- Export publication assumes one writer. The same-filesystem backup swap restores prior output for
+  failures before promotion. A process crash between directory renames may leave staging or backup
+  debris, and failed cleanup after successful promotion deliberately leaves the verified new output
+  live plus an `AFE001` warning naming the retained, potentially partial backup. Project locking,
+  stale-operation recovery, parent-directory durability, cleanup tooling, and writer arbitration
+  remain AF-060 work.
+- Typer/Click usage and type-conversion failures occur before command callbacks, so malformed option
+  syntax still uses Click's human-readable usage error and exit 2 even when `--json` is present.
+  Application-level export validation and failures do return structured JSON and the normative
+  validation/export exit codes. A global structured usage-error boundary remains future CLI work.
 - AF-044 proves same-host byte repeatability on native Linux but not cross-host bit identity. Five
   of 48 encoded frame hashes differed between the native runner and Docker Desktop despite matching
   metadata, a three-byte total-size delta, nearly identical comparison metrics, and an identical
@@ -838,4 +899,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-051 Grid spritesheet
+- AF-052 Direction mirroring

@@ -61,6 +61,7 @@ jobs:
         working-directory: apps/animated-fabric
         run: |
           docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric --help
+          docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric export --help
           docker compose run --rm --no-deps animated-fabric-dev animated-fabric version
           docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric doctor
           docker compose run --rm --no-deps animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures

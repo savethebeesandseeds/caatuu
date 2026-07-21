@@ -19,6 +19,11 @@ from animated_fabric.application.apply_rig_template import (
     ApplyRigTemplate,
     ApplyRigTemplateRequest,
 )
+from animated_fabric.application.export_profiles import (
+    ExportGridProject,
+    GridExportProjectRequest,
+)
+from animated_fabric.application.export_service import ExportProject
 from animated_fabric.application.generate_animation import (
     ANIMATION_GENERATION_FAILURE_CODE,
     ANIMATION_REPLACEMENT_REQUIRED_CODE,
@@ -51,6 +56,7 @@ from animated_fabric.domain.generators import GeneratorParameterSummary, Generat
 from animated_fabric.domain.project import Direction
 from animated_fabric.domain.validation import ProjectValidator
 from animated_fabric.generators import BuiltinAnimationGeneratorRegistry
+from animated_fabric.infrastructure.exporters import GridSpritesheetExporter
 from animated_fabric.infrastructure.fixtures import load_stick_humanoid_project
 from animated_fabric.infrastructure.imaging import OpenCvRenderer, PngFrameWriter
 from animated_fabric.infrastructure.importing import FolderLayerImporter
@@ -191,6 +197,19 @@ def create_generate_animation() -> GenerateAnimation:
         JsonProjectRepository(),
         create_animation_generator_registry(),
         ProjectValidator(),
+    )
+
+
+def create_export_grid_project() -> ExportGridProject:
+    """Compose the public grid export use case with the shared OpenCV renderer."""
+    repository = JsonProjectRepository()
+    return ExportGridProject(
+        ExportProject(
+            repository,
+            repository,
+            ProjectValidator(),
+            GridSpritesheetExporter(OpenCvRenderer()),
+        )
     )
 
 
@@ -776,6 +795,106 @@ def import_layers_command(
             f"catalog: {result.value.manifest_path}."
         ),
     )
+
+
+@app.command("export")
+def export_command(
+    root: Annotated[
+        Path,
+        typer.Argument(help="Existing Animated Fabric project root."),
+    ],
+    profile_id: Annotated[
+        str,
+        typer.Option("--profile", help="Project-registered built-in export profile ID."),
+    ],
+    out: Annotated[
+        Path,
+        typer.Option("--out", help="Actor-scoped destination directory."),
+    ],
+    animation_ids: Annotated[
+        list[str] | None,
+        typer.Option(
+            "--animation",
+            help="Override one profile animation ID; repeat to preserve explicit order.",
+        ),
+    ] = None,
+    directions: Annotated[
+        list[Direction] | None,
+        typer.Option(
+            "--direction",
+            help="Override one profile direction; repeat to preserve row order.",
+        ),
+    ] = None,
+    fps: Annotated[
+        int | None,
+        typer.Option("--fps", help="Override the profile frame rate."),
+    ] = None,
+    allow_clipping: Annotated[
+        bool,
+        typer.Option(
+            "--allow-clipping",
+            help="Permit canvas-edge alpha only after deliberate visual review.",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit diagnostics as structured JSON."),
+    ] = False,
+) -> None:
+    """Export deterministic fixed-cell spritesheets through a built-in profile."""
+    try:
+        result = create_export_grid_project().execute(
+            GridExportProjectRequest(
+                project_root=root,
+                destination=out,
+                profile_id=profile_id,
+                animation_ids=None if animation_ids is None else tuple(animation_ids),
+                directions=None if directions is None else tuple(directions),
+                fps=fps,
+                allow_clipping=allow_clipping,
+            )
+        )
+    except Exception as error:
+        LOGGER.error(
+            "%s: grid export failed with exception type %s.",
+            CLI_INTERNAL_FAILURE_CODE,
+            type(error).__name__,
+        )
+        emit_diagnostics(
+            (
+                Diagnostic(
+                    code=CLI_INTERNAL_FAILURE_CODE,
+                    severity=Severity.ERROR,
+                    message="Unexpected internal failure while exporting spritesheets.",
+                    suggestion="Review the application logs and retry.",
+                ),
+            ),
+            as_json=as_json,
+            success_message="",
+        )
+        raise typer.Exit(code=10) from None
+
+    if result.has_errors or result.value is None:
+        emit_diagnostics(result.diagnostics, as_json=as_json, success_message="")
+        project_validation_failure = any(
+            item.severity is Severity.ERROR
+            and item.code.startswith("AFV")
+            and item.code not in {"AFV501", "AFV502", "AFV503"}
+            for item in result.diagnostics
+        )
+        raise typer.Exit(code=2 if project_validation_failure else 5)
+
+    success_message = (
+        f"Exported {len(result.value.animations)} grid spritesheet(s) "
+        f"to {result.value.destination}."
+    )
+    emit_diagnostics(
+        result.diagnostics,
+        as_json=as_json,
+        success_message=success_message,
+    )
+    if result.diagnostics and not as_json:
+        typer.echo(success_message)
 
 
 @app.command("render-frame")

@@ -36,7 +36,7 @@ from animated_fabric.domain.exceptions import (
 )
 from animated_fabric.domain.project import Direction, ProjectManifest
 from animated_fabric.domain.rig import BoneDefinition, RigDefinition
-from animated_fabric.domain.validation import ProjectValidator, ValidationInput
+from animated_fabric.domain.validation import ProjectValidator, ValidationCode, ValidationInput
 
 
 def _project(
@@ -194,8 +194,14 @@ class FakeExporter:
 
     exporter_id = "frame_sequence"
 
-    def __init__(self, error: ExportError | None = None) -> None:
+    def __init__(
+        self,
+        error: ExportError | None = None,
+        *,
+        retained_backup: Path | None = None,
+    ) -> None:
         self.error = error
+        self.retained_backup = retained_backup
         self.requests: list[ExportRequest] = []
 
     def export(self, request: ExportRequest) -> ExportResult:
@@ -211,7 +217,11 @@ class FakeExporter:
             )
             for clip in request.animations
         )
-        return ExportResult(destination=request.destination, animations=animations)
+        return ExportResult(
+            destination=request.destination,
+            animations=animations,
+            retained_backup=self.retained_backup,
+        )
 
 
 class NeverCancelled:
@@ -306,6 +316,22 @@ def test_success_loads_complete_snapshot_once_and_preserves_selected_order() -> 
     assert low_level.cancellation is not None
 
 
+def test_success_surfaces_a_retained_previous_output_backup() -> None:
+    backup = Path("/build/.test_actor.backup-retained")
+    use_case, _, _, _ = _use_case(
+        _repository(),
+        exporter=FakeExporter(retained_backup=backup),
+    )
+
+    result = use_case.execute(_request())
+
+    assert result.value is not None
+    assert result.value.retained_backup == backup
+    assert [(item.code, item.severity, item.path) for item in result.diagnostics] == [
+        (EXPORT_FAILURE_CODE, Severity.WARNING, str(backup))
+    ]
+
+
 def test_project_exporter_protocol_is_runtime_checkable() -> None:
     assert isinstance(FakeExporter(), ProjectExporter)
 
@@ -349,14 +375,21 @@ def test_invalid_request_is_rejected_before_repository_access(
 
 
 @pytest.mark.parametrize(
-    "error",
+    ("error", "expected_code"),
     [
-        ProjectValidationError("Malformed project.", path="project.animated-fabric.json"),
-        ProjectVersionError("Unsupported project.", path="project.animated-fabric.json"),
+        (
+            ProjectValidationError("Malformed project.", path="project.animated-fabric.json"),
+            ValidationCode.INVALID_PROJECT_DOCUMENT,
+        ),
+        (
+            ProjectVersionError("Unsupported project.", path="project.animated-fabric.json"),
+            ValidationCode.INCOMPATIBLE_SCHEMA,
+        ),
     ],
 )
-def test_project_boundary_failures_map_to_profile_diagnostic(
+def test_project_boundary_failures_map_to_validation_diagnostic(
     error: ProjectValidationError | ProjectVersionError,
+    expected_code: ValidationCode,
 ) -> None:
     repository = _repository()
     repository.project_error = error
@@ -365,14 +398,14 @@ def test_project_boundary_failures_map_to_profile_diagnostic(
     result = use_case.execute(_request())
 
     assert [(item.code, item.path) for item in result.diagnostics] == [
-        (EXPORT_PROFILE_CODE, "project.animated-fabric.json")
+        (expected_code, "project.animated-fabric.json")
     ]
     assert layers.roots == []
     assert validator.inputs == []
     assert exporter.requests == []
 
 
-def test_layer_catalog_failure_maps_to_profile_diagnostic() -> None:
+def test_layer_catalog_failure_maps_to_validation_diagnostic() -> None:
     repository = _repository()
     layers = FakeLayerRepository(
         error=ProjectValidationError("Missing layer catalog.", path="layers.manifest.json")
@@ -382,7 +415,7 @@ def test_layer_catalog_failure_maps_to_profile_diagnostic() -> None:
     result = use_case.execute(_request())
 
     assert [(item.code, item.path) for item in result.diagnostics] == [
-        (EXPORT_PROFILE_CODE, "layers.manifest.json")
+        (ValidationCode.INVALID_PROJECT_DOCUMENT, "layers.manifest.json")
     ]
     assert len(repository.animation_loads) == 2
     assert validator.inputs == []
@@ -397,7 +430,7 @@ def test_duplicate_registered_paths_are_rejected_without_loading_clips() -> None
     result = use_case.execute(_request(animation_ids=("idle",)))
 
     assert [(item.code, item.location) for item in result.diagnostics] == [
-        (EXPORT_PROFILE_CODE, "animation_paths")
+        (ValidationCode.INVALID_PROJECT_DOCUMENT, "animation_paths")
     ]
     assert repository.animation_loads == []
     assert validator.inputs == []
@@ -415,7 +448,7 @@ def test_duplicate_clip_ids_are_rejected_after_each_registered_file_is_loaded_on
 
     result = use_case.execute(_request(animation_ids=("idle",)))
 
-    assert result.diagnostics[0].code == EXPORT_PROFILE_CODE
+    assert result.diagnostics[0].code == ValidationCode.INVALID_PROJECT_DOCUMENT
     assert result.diagnostics[0].location == "animation_paths"
     assert [path for _, path in repository.animation_loads] == [first, second]
     assert validator.inputs == []
@@ -432,7 +465,7 @@ def test_template_mismatch_blocks_export(mismatch: str) -> None:
 
     result = use_case.execute(_request(animation_ids=("idle",)))
 
-    assert result.diagnostics[0].code == EXPORT_PROFILE_CODE
+    assert result.diagnostics[0].code == ValidationCode.INVALID_PROJECT_DOCUMENT
     assert result.diagnostics[0].location == "template_id"
     assert validator.inputs == []
     assert exporter.requests == []
