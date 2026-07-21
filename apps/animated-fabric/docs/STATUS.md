@@ -2,8 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-053 implemented and its
-authoritative native-Linux acceptance pending
+**Current state:** Milestones M0 through M5 complete; AF-060 is next
 
 **Last updated:** 2026-07-21
 
@@ -51,7 +50,7 @@ M5 - export.
 - [x] AF-050 Frame exporter
 - [x] AF-051 Grid spritesheet
 - [x] AF-052 Directional yaw prerender
-- [ ] AF-053 End-to-end demo - implementation complete; native acceptance pending
+- [x] AF-053 End-to-end demo
 
 ## Delivered scope
 
@@ -519,7 +518,7 @@ Principal files:
 ## Verification
 
 Local pre-publication verification executed on 2026-07-21 for the AF-053 implementation through
-the repository-owned Linux development container; native Blender acceptance remains pending:
+the repository-owned Linux development container, before the native acceptance recorded below:
 
 - `docker compose --profile blender config --quiet`: passed.
 - `ruff format --check .`: 229 files already formatted; `ruff check .`: all checks passed.
@@ -537,6 +536,47 @@ the repository-owned Linux development container; native Blender acceptance rema
 - The productive AF-053 command was not treated as a Windows-host acceptance run. Its two clean
   renders, exact-tree comparison, and cleared artifact publication are intentionally reserved for
   the path-scoped native Ubuntu workflow.
+
+Executed on 2026-07-21 through GitHub-hosted native Ubuntu 24.04 x86-64 after AF-053 implementation
+commit `58ad0b1`:
+
+- [Animated Fabric Blender evidence run 3](https://github.com/savethebeesandseeds/caatuu/actions/runs/29861953895)
+  passed in 2m 56s. The pinned native Blender image ID was
+  `sha256:cb28550c7c7f92d888a917103e648b01820bc5b6eb8bed3f3a5003afca6e24b7`; Blender
+  reported 4.5.12 LTS and both the host and worker used non-root UID 1001.
+- The first fixed host-command run rendered 48 RGBA frames in 21.09 s; the rerun rendered them in
+  19.63 s. Both verified every reviewed golden exactly, with maximum channel delta zero and maximum
+  outlier fraction zero. Independent direct-versus-mirror differences were 17.866573% for `SW` and
+  17.290129% for `NW`; Blender independently reported 30.721029% and 30.232069%.
+- Deliberate stale files in the evidence, product, and review roots disappeared on rerun. Sorted
+  SHA-256 manifests for all three complete trees then compared byte for byte, proving repeatable
+  replacement inside the pinned native environment.
+- Both runs produced directional manifest
+  `f2609d76ab4ac37b3218ac4c6b4b8e952df1d728f8183b91d1df9965ffac1400`, provenance
+  `d9d77b9a1f6001398f40348359169ff300f254dcb9b018c612d45fd353bb7bac`, product PNG
+  `2512fbb12ba90af1768e82a3f874fd6883290d0ea19b085d7c372be56f00d666`, product JSON
+  `324328f2153659cd60e1240b43b0aea09ba3986b887d9471d4ce213a1f971fba`, contact sheet
+  `76ea2093becdafc5bdba4be2f02fea50c65d207176b62497711191f1e50c05c4`, and review GIF
+  `df8cd03f643c052baf8e180c81f5e29f85e727596244e7cc57d95460f3f29d40`.
+- Focused native orchestration, evidence, golden, product, and review contracts reported 114 passed
+  in 16.06 s; Ruff reported 22 files formatted and lint-clean, and strict mypy passed for four
+  Blender verification/packaging scripts.
+- The trusted-main workflow published
+  [artifact 8507720706](https://github.com/savethebeesandseeds/caatuu/actions/runs/29861953895/artifacts/8507720706),
+  named `animated-fabric-af053-demo-58ad0b1d267c4fe38aa8e855191f4250d9dead7a`. It is
+  1,293,140 bytes, has archive digest
+  `1ccdfe220e055a986e5c2ef8b3918246f9f698f063488fcef6b38827ff321920`, expires on
+  2026-08-20, and contains only the cleared sample media, scoped CC0 notice, and AGPL reports.
+- [Animated Fabric CI run 13](https://github.com/savethebeesandseeds/caatuu/actions/runs/29861954164)
+  passed in 2m 54s: 175 files were formatted, lint and mypy were clean, 1,003 tests passed in
+  63.85 s with 91.95% branch coverage, dependencies were consistent, and wheel, CLI, fixture,
+  layered demo, baked-image, and classic-cutout smokes passed.
+- [Repository CI run 19](https://github.com/savethebeesandseeds/caatuu/actions/runs/29861953730)
+  passed in 1m 40s. Both repository structure/browser contracts and locked Rust runtime jobs were
+  green.
+
+AF-053 and milestone M5 are complete. The accepted result is one canonical 3D walk rerendered at
+four actor-root yaws, not four separately generated animations and never a transformed final frame.
 
 Local pre-publication verification executed on 2026-07-21 for AF-052 through the repository-owned
 Linux containers:
@@ -900,9 +940,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
 - AF-051 provides the public layered-project fixed-grid CLI. Its mirror-mode rows still report
   `AFV502`; AF-052 deliberately adds a separate fixed 3D actor path instead of fabricating geometry
-  for layered projects. AF-053 now owns fixed from-scratch orchestration and a trusted-main artifact
+  for layered projects. AF-053 owns fixed from-scratch orchestration and a trusted-main artifact
   allowlist for three scoped-CC0 visual files; raw evidence and the Blender image remain internal.
-  The authoritative AF-053 native run is still pending, so M5 remains open.
+  Its native acceptance passed, closing M5 without expanding the bounded actor into a general 3D
+  importer.
 - Export publication assumes one writer. The same-filesystem backup swap restores prior output for
   failures before promotion. A process crash between directory renames may leave staging or backup
   debris, and failed cleanup after successful promotion deliberately leaves the verified new output
@@ -1005,7 +1046,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [x] M2 Mathematics and renderer
 - [x] M3 Importer and humanoid rig
 - [x] M4 Humanoid generators
-- [ ] M5 Export
+- [x] M5 Export
 - [ ] M6 Functional GUI
 - [ ] M7 Sockets and equipment
 - [ ] M8 Quadrupeds
@@ -1013,4 +1054,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- Complete AF-053 native-Linux acceptance. AF-060 is permitted only after that run passes.
+- AF-060 Shell and document state

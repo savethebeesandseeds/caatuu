@@ -4,8 +4,8 @@ Animated Fabric is a Linux-first desktop application and Python library for turn
 image layers or an explicitly approved bounded 3D prerender source into reusable animation frames
 and spritesheets.
 
-Milestones M0 through M4 and tickets AF-044, AF-050, AF-051, and AF-052 are complete; milestone M5
-is still underway.
+Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, and AF-053 are complete.
+AF-060 is the next permitted ticket.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
