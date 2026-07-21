@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-050 complete
 
-**Last updated:** 2026-07-18
+**Last updated:** 2026-07-21
 
 ## Completed work
 
@@ -40,6 +40,10 @@ M4 - humanoid generators.
 - [x] AF-041 `humanoid_idle_v1`
 - [x] AF-042 `humanoid_walk_v1`
 - [x] AF-043 Animation CLI
+
+M5 - export.
+
+- [x] AF-050 Frame exporter
 
 ## Delivered scope
 
@@ -270,6 +274,21 @@ M4 - humanoid generators.
   `animation generate ROOT --generator ... --clip ...` accepts bounded repeatable JSON-scalar
   `--set` values, emits stable human or JSON results, and sanitizes unexpected boundary failures.
   Decision 0008 records discovery, naming, validation, replacement, rollback, and wire policies.
+- Strict `animated-fabric.frame-sequence.v1` metadata records canonical direction-major PNG paths,
+  frame size, origin, FPS, exact integer frame durations, and per-frame events. Pure sampling uses
+  deterministic half-to-even frame counts, excludes the duplicate duration endpoint, apportions
+  durations by cumulative integer floors, and bins events into stable half-open frame intervals.
+- Application-owned `ExportProject` loads every registered clip once, validates the complete rig,
+  layer, and animation aggregate, preserves sorted warnings, and exports selected clips and authored
+  directions in caller order. It enforces 240 FPS, 4,096 total-frame, and 512 MiB raw-RGBA limits
+  before output and maps expected failures to `AFV501`, `AFV502`, `AFV503`, or `AFE001`.
+- `FrameSequenceExporter` renders through the shared renderer into a same-filesystem sibling stage,
+  verifies every RGBA PNG and strict metadata document, writes metadata last, and publishes the
+  complete actor-scoped tree through a backup swap. Ordinary failures roll back to prior output;
+  cancellation is checked only at safe boundaries, and unapproved edge clipping blocks export.
+- Real imported layers, the applied 17-bone rig, a generated short idle clip, and the OpenCV
+  renderer now pass through the frame exporter without fixture-only shortcuts. Repeated exports of
+  the same loaded project produce byte-identical PNG and JSON output.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -302,6 +321,8 @@ Principal files:
 - `src/animated_fabric/application/update_rig_element.py`
 - `src/animated_fabric/application/animation_clip_builder.py`
 - `src/animated_fabric/application/generate_animation.py`
+- `src/animated_fabric/application/exporting.py`
+- `src/animated_fabric/application/export_service.py`
 - `src/animated_fabric/generators/__init__.py`
 - `src/animated_fabric/generators/_support.py`
 - `src/animated_fabric/generators/registry.py`
@@ -319,6 +340,7 @@ Principal files:
 - `src/animated_fabric/templates/resources/humanoid_v1.json`
 - `src/animated_fabric/infrastructure/fixtures/stick_humanoid.py`
 - `src/animated_fabric/infrastructure/importing/folder_layer_importer.py`
+- `src/animated_fabric/infrastructure/exporters/`
 - `src/animated_fabric/infrastructure/imaging/alpha.py`
 - `src/animated_fabric/infrastructure/imaging/image_store.py`
 - `src/animated_fabric/infrastructure/imaging/opencv_compositor.py`
@@ -336,6 +358,12 @@ Principal files:
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
 - `docs/decisions/0008-animation-generation-cli.md`
+- `docs/decisions/0009-frame-sequence-export.md`
+- `tests/unit/test_animation_export_models.py`
+- `tests/unit/test_export_sampling.py`
+- `tests/unit/test_export_service.py`
+- `tests/integration/test_frame_exporter.py`
+- `tests/integration/test_export_project_pipeline.py`
 - `tests/unit/test_transform_matrices.py`
 - `tests/unit/test_bone_hierarchy.py`
 - `tests/unit/test_pose_resolution.py`
@@ -401,6 +429,24 @@ Principal files:
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-21 through the repository-owned Linux container after AF-050:
+
+- `ruff format --check .`: 207 files already formatted.
+- `ruff check .`: all checks passed.
+- `mypy src`: no issues in 69 source files.
+- `pytest -q`: 892 passed; 92.49% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- `python scripts/generate_fixture_assets.py --out .tmp/af050-final-fixtures`: generated the
+  deterministic geometric humanoid fixture and canonical fixture project.
+- `python scripts/run_demo_pipeline.py --out .tmp/af050-final-demo`: rendered the reviewed neutral
+  SE and NE fixture frames successfully through the shared OpenCV renderer.
+- `python -m animated_fabric doctor`: completed with no problems found.
+- Focused AF-050 metadata, sampling, service, transaction, rollback, cancellation, clipping, and
+  real-pipeline coverage: 98 passed.
+- A fresh project imported both authored layer sets, applied the real 17-bone rig, generated a short
+  idle clip, and exported both authored directions through OpenCV. A repeated export produced the
+  same PNG and JSON files byte for byte.
 
 Executed on 2026-07-18 through the repository-owned Linux container after AF-043:
 
@@ -613,11 +659,18 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - Qt runs offscreen in automated tests; interactive GUI display from Linux requires host display
   forwarding.
 - M0 fixtures are intentionally geometric; no production artwork is bundled.
+- AF-050 provides application-level authored-direction folder-sequence export only. The public
+  grid export CLI and spritesheet belong to AF-051, complete-frame SW/NW mirroring belongs to
+  AF-052, and the standalone from-scratch export demonstration belongs to AF-053.
+- Export publication assumes one writer. The same-filesystem backup swap rolls back ordinary
+  failures, but a process crash between directory renames may leave a staging or backup directory
+  requiring recovery. Project locking, stale-operation recovery, and writer arbitration remain
+  AF-060 work.
 - The authored-direction renderer, general layer importer, template registry and application,
   rig-editing use cases, clip builder, built-in generator registry, `GenerateAnimation`, animation
   persistence, and animation CLI exist. General imported-catalog loading and complete-frame
   mirroring are still absent from `render-frame`, so that command continues to accept the owned
-  generated fixture project only. Export execution and animation GUI controls remain later work.
+  generated fixture project only. Animation GUI controls remain later work.
 - AF-043 derives new destinations from validated clip IDs and retains a unique existing registered
   path during replacement. Per-file publication is atomic, but a failed manifest write or process
   crash after clip creation may leave a reported unreferenced file. It is not automatically deleted
@@ -662,8 +715,9 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   `ProjectManifest` load/save plus typed per-file rig and clip operations. AF-023 adds a transient
   immutable `RenderProject` containing the approved root, manifest, typed assets, and revision;
   it does not invent an aggregate schema on disk.
-- Atomicity is per JSON file, not a multi-file transaction. Migrations, backups, locking,
-  autosave, recovery, and multi-writer arbitration remain assigned to later tickets.
+- Project-document atomicity remains per JSON file rather than a multi-document transaction.
+  Migrations, project backups, locking, autosave, recovery, and multi-writer arbitration remain
+  assigned to later tickets; AF-050 separately owns its derived-output directory transaction.
 - Rig editing is therefore atomic but currently last-writer-wins across concurrent processes. The
   project lock, stale-lock handling, autosave, and recovery remain AF-060 concerns.
 - Import rollback covers expected runtime failures and preserves the authoritative prior catalog,
@@ -700,4 +754,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-050 Frame exporter
+- AF-051 Grid spritesheet

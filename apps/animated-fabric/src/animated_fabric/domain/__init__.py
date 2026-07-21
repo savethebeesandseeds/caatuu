@@ -33,13 +33,20 @@ from animated_fabric.domain.exceptions import (
     AnimationError,
     AssetImportError,
     ExportError,
+    ExportFailureKind,
     ProjectValidationError,
     ProjectValidationKind,
     ProjectVersionError,
     RenderError,
     RigDefinitionError,
 )
-from animated_fabric.domain.export import ExportProfile
+from animated_fabric.domain.export import (
+    FRAME_SEQUENCE_FORMAT,
+    FRAME_SEQUENCE_SCHEMA_VERSION,
+    ExportProfile,
+    FrameSequenceFrame,
+    FrameSequenceMetadata,
+)
 from animated_fabric.domain.generators import (
     GeneratorParameterSummary,
     GeneratorParameterValueType,
@@ -129,7 +136,12 @@ __all__ = [
     "EvaluatedAnimation",
     "EvaluatedPartState",
     "ExportError",
+    "ExportFailureKind",
     "ExportProfile",
+    "FRAME_SEQUENCE_FORMAT",
+    "FRAME_SEQUENCE_SCHEMA_VERSION",
+    "FrameSequenceFrame",
+    "FrameSequenceMetadata",
     "GeneratorProvenance",
     "GeneratorParameterSummary",
     "GeneratorParameterValueType",

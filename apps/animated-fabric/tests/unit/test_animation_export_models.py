@@ -19,7 +19,15 @@ from animated_fabric.domain.animation import (
     TrackProperty,
     ValueMode,
 )
-from animated_fabric.domain.export import ExportProfile
+from animated_fabric.domain.exceptions import ExportError, ExportFailureKind
+from animated_fabric.domain.export import (
+    FRAME_SEQUENCE_FORMAT,
+    FRAME_SEQUENCE_SCHEMA_VERSION,
+    ExportProfile,
+    FrameSequenceFrame,
+    FrameSequenceMetadata,
+)
+from animated_fabric.domain.geometry import IntSize, Vec2
 from animated_fabric.domain.project import Direction
 
 
@@ -168,3 +176,153 @@ def test_export_profile_is_strict_and_requires_positive_fps() -> None:
         ExportProfile(**common, fps=12, extra_field=False)
     with pytest.raises(ValidationError):
         ExportProfile(**{**common, "format": "other"}, fps=12)
+
+
+def _frame_metadata(
+    *,
+    directions: tuple[Direction, ...] = (Direction.SE, Direction.NE),
+    frames: tuple[FrameSequenceFrame, ...] | None = None,
+) -> FrameSequenceMetadata:
+    if frames is None:
+        frames = tuple(
+            FrameSequenceFrame(
+                direction=direction,
+                index=index,
+                image=f"{direction.value}/{index:03d}.png",
+                duration_ms=(2, 3)[index],
+                events=("foot_contact_l",) if index == 0 else (),
+            )
+            for direction in directions
+            for index in range(2)
+        )
+    return FrameSequenceMetadata(
+        format=FRAME_SEQUENCE_FORMAT,
+        schema_version=FRAME_SEQUENCE_SCHEMA_VERSION,
+        project="eva_mage",
+        animation="walk",
+        frame_size=IntSize(width=192, height=192),
+        origin=Vec2(x=96.0, y=160.0),
+        fps=12,
+        duration_ms=5,
+        directions=directions,
+        frames_per_direction=2,
+        frames=frames,
+    )
+
+
+def test_frame_sequence_metadata_round_trips_versioned_json() -> None:
+    metadata = _frame_metadata()
+
+    restored = FrameSequenceMetadata.model_validate_json(metadata.model_dump_json())
+
+    assert restored == metadata
+    assert json.loads(restored.model_dump_json()) == {
+        "format": "animated-fabric.frame-sequence.v1",
+        "schema_version": "0.1.0",
+        "project": "eva_mage",
+        "animation": "walk",
+        "frame_size": [192, 192],
+        "origin": [96.0, 160.0],
+        "fps": 12,
+        "duration_ms": 5,
+        "directions": ["SE", "NE"],
+        "frames_per_direction": 2,
+        "frames": [
+            {
+                "direction": direction,
+                "index": index,
+                "image": f"{direction}/{index:03d}.png",
+                "duration_ms": (2, 3)[index],
+                "events": ["foot_contact_l"] if index == 0 else [],
+            }
+            for direction in ("SE", "NE")
+            for index in range(2)
+        ],
+    }
+
+
+def test_frame_sequence_metadata_rejects_duplicate_directions() -> None:
+    with pytest.raises(ValidationError, match="duplicates"):
+        _frame_metadata(directions=(Direction.SE, Direction.SE))
+
+
+def test_frame_sequence_metadata_requires_exact_frame_count() -> None:
+    valid = _frame_metadata()
+
+    with pytest.raises(ValidationError, match="exactly 4"):
+        FrameSequenceMetadata.model_validate(valid.model_dump() | {"frames": valid.frames[:-1]})
+
+
+@pytest.mark.parametrize(
+    ("replacement", "message"),
+    [
+        (
+            FrameSequenceFrame(
+                direction=Direction.NE,
+                index=0,
+                image="NE/000.png",
+                duration_ms=2,
+            ),
+            "direction-major",
+        ),
+        (
+            FrameSequenceFrame(
+                direction=Direction.SE,
+                index=0,
+                image="SE/wrong.png",
+                duration_ms=2,
+            ),
+            "canonical path",
+        ),
+        (
+            FrameSequenceFrame(
+                direction=Direction.SE,
+                index=0,
+                image="SE/000.png",
+                duration_ms=1,
+            ),
+            "sum exactly",
+        ),
+    ],
+)
+def test_frame_sequence_metadata_rejects_inconsistent_frame_records(
+    replacement: FrameSequenceFrame,
+    message: str,
+) -> None:
+    valid = _frame_metadata()
+    frames = (replacement, *valid.frames[1:])
+
+    with pytest.raises(ValidationError, match=message):
+        FrameSequenceMetadata.model_validate(valid.model_dump() | {"frames": frames})
+
+
+def test_frame_sequence_metadata_rejects_wrong_format_schema_and_invalid_event() -> None:
+    valid = _frame_metadata()
+
+    with pytest.raises(ValidationError):
+        FrameSequenceMetadata.model_validate(valid.model_dump() | {"format": "other"})
+    with pytest.raises(ValidationError):
+        FrameSequenceMetadata.model_validate(valid.model_dump() | {"schema_version": "0.2.0"})
+    with pytest.raises(ValidationError):
+        FrameSequenceFrame(
+            direction=Direction.SE,
+            index=0,
+            image="SE/000.png",
+            duration_ms=1,
+            events=("Foot Contact",),
+        )
+
+
+def test_export_error_preserves_message_and_typed_context() -> None:
+    error = ExportError(
+        "The frame touched the canvas edge.",
+        kind=ExportFailureKind.CLIPPING,
+        path="walk/SE/000.png",
+        location="right",
+    )
+
+    assert str(error) == "The frame touched the canvas edge."
+    assert error.args == ("The frame touched the canvas edge.",)
+    assert error.kind is ExportFailureKind.CLIPPING
+    assert error.path == "walk/SE/000.png"
+    assert error.location == "right"

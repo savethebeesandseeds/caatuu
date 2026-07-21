@@ -4,7 +4,7 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M4 are complete.
+Milestones M0 through M4 and ticket AF-050 are complete; milestone M5 is still underway.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -14,8 +14,9 @@ The vertical renderer evaluates typed requests, resolves pose and sockets, plans
 loads bounded cached assets, composites premultiplied RGBA through OpenCV, reports clipping, and
 atomically writes PNG frames. General imported-project rendering is not wired into `render-frame`
 yet. The deterministic `humanoid_idle_v1` and `humanoid_walk_v1` generators are discoverable through
-the CLI and can publish validated editable clips into a project. The application does not yet
-contain the exporter, functional editor, or database.
+the CLI and can publish validated editable clips into a project. A programmatic frame-sequence
+export path now renders those clips through the shared renderer. The application does not yet
+contain the functional editor or a database.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md).
@@ -155,6 +156,29 @@ publishes an editable clip, and registers new destinations in stable manifest or
 require `--replace-existing`; unregistered files are never claimed or overwritten. The registry,
 naming, failure recovery, and CLI wire decisions are recorded in
 [decision 0008](docs/decisions/0008-animation-generation-cli.md).
+
+AF-050 starts M5 with the shared `ExportProject` use case and the programmatic
+`FrameSequenceExporter(OpenCvRenderer())` adapter. It loads and validates a complete project
+snapshot, samples selected clips deterministically, and publishes each authored direction as:
+
+```text
+<destination>/<clip>/<direction>/<index>.png
+<destination>/<clip>/animation.json
+```
+
+Frame indexes use at least three digits, and `animation.json` is a strict
+`animated-fabric.frame-sequence.v1` document containing timing, events, frame paths, canvas size,
+origin, and direction order. Each selected animation set is one transaction: the exporter renders
+into a sibling staging directory, verifies the exact file set, decodes every PNG as correctly sized
+RGBA, writes and parses metadata last, and then replaces the destination with backup-based rollback.
+Cancellation is checked only at safe boundaries, clipping is rejected unless explicitly allowed,
+and one request is limited to 240 FPS, 4,096 total frames, and 512 MiB of uncompressed RGBA data.
+The full sampling, destination, transaction, and failure contracts are recorded in
+[decision 0009](docs/decisions/0009-frame-sequence-export.md).
+
+AF-050 does not claim the public `export --profile default_grid` CLI, a grid spritesheet, or mirrored
+SW/NW output. The grid command and sheet remain AF-051, while complete-frame mirroring remains
+AF-052.
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and
