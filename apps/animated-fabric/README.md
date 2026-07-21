@@ -4,8 +4,7 @@ Animated Fabric is a Linux-first desktop application and Python library for
 turning prepared 2D image layers into reusable rigged actors, animation clips,
 frames, and spritesheets.
 
-Milestones M0 through M4 and ticket AF-050 are complete; milestone M5 is still underway. The AF-044
-implementation is complete locally and awaits its authoritative native-Linux evidence run.
+Milestones M0 through M4 and tickets AF-044 and AF-050 are complete; milestone M5 is still underway.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
 17-bone rig with bindings, pivots, sockets, and authored SE/NE draw profiles. Shared application
@@ -207,8 +206,9 @@ The review package contains a four-direction GIF and contact sheet. Each run ind
 the exact 49-file source set, strict AF-050-compatible metadata, RGBA dimensions and alpha bounds,
 source/configuration identities, a 4 MiB ceiling, and every recorded SHA-256. Blender's volatile
 date and render-duration PNG chunks are removed without re-encoding pixels, allowing complete
-frame and provenance trees to compare byte for byte. The adjacent experimental provenance is
-mandatory context: these four direct views are not authored/mirrored product exports.
+frame and provenance trees to compare byte for byte within one pinned evidence environment.
+Cross-host byte identity is measured and reported rather than assumed. The adjacent experimental
+provenance is mandatory context: these four direct views are not authored/mirrored product exports.
 
 The result supports continuing with 3D as an upstream motion source, while the current primitive
 geometry and rigid joints still require an art-directed mesh, armature, skinning, and a later

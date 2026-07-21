@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M4 complete; M5 underway with AF-050 complete
+**Current state:** Milestones M0 through M4 complete; M5 underway with AF-044 and AF-050 complete
 
 **Last updated:** 2026-07-21
 
@@ -40,6 +40,10 @@ M4 - humanoid generators.
 - [x] AF-041 `humanoid_idle_v1`
 - [x] AF-042 `humanoid_walk_v1`
 - [x] AF-043 Animation CLI
+
+Experimental upstream tooling.
+
+- [x] AF-044 Blender prerender feasibility
 
 M5 - export.
 
@@ -289,6 +293,26 @@ M5 - export.
 - Real imported layers, the applied 17-bone rig, a generated short idle clip, and the OpenCV
   renderer now pass through the frame exporter without fixture-only shortcuts. Repeated exports of
   the same loaded project produce byte-identical PNG and JSON output.
+- An opt-in Blender 4.5.12 Linux/amd64 image now bakes one fixed repository-owned worker, procedural
+  low-poly humanoid, analytical 12-frame in-place walk, PNG canonicalizer, output boundary, and
+  evidence verifier. Blender, `bpy`, and 3D dependencies do not enter `src`, the development image,
+  product schemas, CLI, GUI, OpenCV renderer, or the normal quality gate.
+- One fixed orthographic camera and exact actor-root yaws render direct `SE`, `SW`, `NE`, and `NW`
+  192 x 192 RGBA evidence. No `.blend`, model, texture, material library, HDRI, font, add-on, user
+  startup file, external motion, project script, repository mount, network, port, GPU, or host
+  Python participates at runtime.
+- The non-root, read-only worker hard-bounds 48 frames, 64 scene objects, and 4 MiB of source
+  evidence; Compose also bounds CPU, memory, processes, shared memory, and temporary storage. The
+  native workflow adds a five-minute timeout with forced termination and rejects output escape.
+- Every run records exact Blender, source, Dockerfile, Compose, camera, gait, render, file, and
+  SHA-256 identities. The review packager independently requires the exact 49-file source set,
+  strict experimental frame metadata plus adjacent provenance, valid bounded RGBA content, and
+  every recorded digest before creating a deterministic contact sheet and four-direction GIF.
+- AF-044's verdict is **GO for continued 3D-as-upstream-source exploration**. The four rotations
+  preserve anatomy and directional lighting substantially better than mirroring a finished 2D
+  figure. The current primitive rigid-joint actor is not production art: it still needs an
+  art-directed mesh, armature, skinning, gait polish, style targets, and a later reviewed adapter.
+  ADR-001, ADR-002, ADR-004, and M5 remain unchanged; promotion requires a replacement decision.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -354,11 +378,20 @@ Principal files:
 - `scripts/_humanoid_animation_demo.py`
 - `scripts/run_idle_animation_demo.py`
 - `scripts/run_walk_animation_demo.py`
+- `scripts/package_blender_walk_demo.py`
+- `containers/blender/`
+- `tools/blender/`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
 - `docs/decisions/0008-animation-generation-cli.md`
 - `docs/decisions/0009-frame-sequence-export.md`
+- `docs/decisions/0010-experimental-blender-prerender.md`
+- `docs/third-party/blender.md`
+- `tests/unit/test_blender_motion.py`
+- `tests/unit/test_blender_output_paths.py`
+- `tests/unit/test_blender_png_canonical.py`
+- `tests/unit/test_blender_walk_review.py`
 - `tests/unit/test_animation_export_models.py`
 - `tests/unit/test_export_sampling.py`
 - `tests/unit/test_export_service.py`
@@ -427,8 +460,48 @@ Principal files:
 - `docs/decisions/0007-humanoid-walk-generator.md`
 - `tests/cutout/`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
+- `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Executed on 2026-07-21 through GitHub-hosted native Ubuntu 24.04 x86-64 after AF-044 commit
+`3bb5bff`:
+
+- [Animated Fabric Blender evidence run 1](https://github.com/savethebeesandseeds/caatuu/actions/runs/29827952119)
+  passed in 2m 21s; every step completed, including isolation, two renders, recursive comparison,
+  strict packaging, and focused contracts.
+- The pinned image ID was
+  `sha256:b5468bb4f3e3f676dece1dd962ab236c57195f43e48fd7f7a539ceec960fdf03`.
+  Blender reported 4.5.12 LTS; Cycles used CPU, 32 samples, two threads, and seed zero. The process
+  ran as UID 1001, and `/tmp/escape` was rejected with the reserved script failure exit.
+- Two clean native renders produced 48 RGBA frames each in 20.79 s and 19.52 s. Their complete
+  `walk/` trees and provenance documents compared byte for byte; both independently passed every
+  recorded SHA-256 check. Focused contracts reported 40 passed.
+- Each native source set contained exactly 49 files and 1,064,442 bytes, with 30 scene objects.
+  Direct `SW` versus mirrored `SE` differed in 30.721029% of pixels with mean absolute RGBA
+  difference 0.0317486. Direct `NW` versus mirrored `NE` differed in 30.232069% with mean absolute
+  RGBA difference 0.03213945.
+- Native evidence SHA-256 values were provenance
+  `cfa5b51a9aa9cccce39ccc4f4ab00047e0c610c6e4f44cdf8553fc60d71ba410`, contact sheet
+  `76ea2093becdafc5bdba4be2f02fea50c65d207176b62497711191f1e50c05c4`, and review GIF
+  `df8cd03f643c052baf8e180c81f5e29f85e727596244e7cc57d95460f3f29d40`.
+- [Animated Fabric CI run 11](https://github.com/savethebeesandseeds/caatuu/actions/runs/29827952148)
+  passed in 2m 32s: 163 files formatted, lint clean, mypy clean across 69 source files, 932 tests
+  passed with 92.49% branch coverage, dependency check clean, wheel/CLI/fixture/demo/baked-image
+  smokes passed, and the lightweight cutout image remained healthy.
+- [Repository CI run 17](https://github.com/savethebeesandseeds/caatuu/actions/runs/29827953147)
+  passed in 1m 21s.
+- A Docker Desktop convenience run used final local image
+  `sha256:9df5e14db3f44e455fb8611ec35ce2175950e44bb3e475be40325bf80d7345e1`.
+  Its two runs completed in 24.77 s and 24.96 s and were byte-identical to each other, including
+  review media. Across native Linux and Docker Desktop, the metadata and 43 of 48 PNG hashes were
+  identical; five encoded PNG hashes, provenance, and GIF differed, with only a three-byte total
+  source-size delta and a `0.00000001` change in one aggregate mirror metric. The contact sheet hash
+  was identical. Cross-host byte identity is therefore not claimed or required for this spike.
+- Blender describes the application as GNU GPL Version 3 as a whole, with exact archive notices
+  controlling. The image remains internal-only until first-party licensing, corresponding-source
+  handling, an SBOM, a complete notice inventory, a vulnerability scan, and Debian snapshot/package
+  locks are approved.
 
 Executed on 2026-07-21 through the repository-owned Linux container after AF-050:
 
@@ -666,6 +739,17 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   failures, but a process crash between directory renames may leave a staging or backup directory
   requiring recovery. Project locking, stale-operation recovery, and writer arbitration remain
   AF-060 work.
+- AF-044 proves same-host byte repeatability on native Linux but not cross-host bit identity. Five
+  of 48 encoded frame hashes differed between the native runner and Docker Desktop despite matching
+  metadata, a three-byte total-size delta, nearly identical comparison metrics, and an identical
+  reviewed contact sheet. Any product promotion must retain native artifacts and define decoded
+  pixel tolerances or cross-CPU goldens rather than assuming universal byte equality.
+- The AF-044 actor uses rigid procedural primitives rather than a skinned production mesh. It has
+  no authored deformation, heel/toe shape change, polished hip/shoulder mechanics, asset adapter,
+  or editor workflow. Those are deliberate prototype limits, not tasks silently assigned to M5.
+- The Blender image uses a digest-pinned base and checksum-pinned Blender archive, but Debian
+  runtime packages still come from live Bookworm repositories. The image is internal-only and not
+  approved for redistribution.
 - The authored-direction renderer, general layer importer, template registry and application,
   rig-editing use cases, clip builder, built-in generator registry, `GenerateAnimation`, animation
   persistence, and animation CLI exist. General imported-catalog loading and complete-frame
