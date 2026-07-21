@@ -16,6 +16,10 @@ database builder all implement this compatibility map. Change a public prefix
 only as an explicit migration across those consumers; renaming a physical
 directory alone must not invalidate a downloaded asset URL.
 
+Directories named `originals/` contain archival source art. They are
+intentionally tracked even when processed frames or split assets exist, and
+must not be treated as generated or redundant output during cleanup.
+
 Assets used by only one language belong in that language app. Large experiments
 and generated candidates belong under `demos/` or ignored research workspaces,
 not in this production catalog.
