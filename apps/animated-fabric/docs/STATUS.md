@@ -2,7 +2,7 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 and AF-054 complete; AF-055 is next in the inserted M5A macaw vertical slice
+**Current state:** Milestones M0 through M5 and AF-055 complete; AF-056 is next in the inserted M5A macaw vertical slice
 
 **Last updated:** 2026-07-22
 
@@ -55,7 +55,7 @@ M5 - export.
 M5A - reviewed traveler-macaw actor bridge.
 
 - [x] AF-054 Reviewed macaw reference package
-- [ ] AF-055 Validated 3D actor package
+- [x] AF-055 Validated 3D actor package
 - [ ] AF-056 `avian_v1` rig and skinned macaw
 - [ ] AF-057 `avian_walk_v1`
 - [ ] AF-058 Actor-package directional yaw prerender
@@ -383,6 +383,29 @@ AF-060 remains the first M6 ticket and is deferred, not cancelled.
   authorizes open reuse. The root and application inventories scope `CC0-1.0` to only the eight
   exact PNG identities; JSON, prompts, code, other macaw art, and future derivatives retain their
   separate terms and review gates.
+- AF-055 defines the exact canonical `animated-fabric.actor-package.v1` manifest and
+  `af055-bounded-core-gltf-v1` policy profile. Standard-library preflight verifies one closed
+  regular-file tree, an externally supplied manifest trust anchor, exact content hashes, canonical
+  axes and meters, a fully referenced core GLB/PNG subset, decoded observations, and explicit
+  package, geometry, texture, scene, and skin ceilings before Blender import.
+- The repository-generated `geometric-fixture-v1` proves the boundary with one 24-vertex,
+  12-triangle textured box, one material, one 32 x 32 RGBA8 texture, and a minimal two-joint skin.
+  Its manifest, content-set, GLB, and texture identities are respectively
+  `1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`,
+  `a84df998d86644671bcbde1f1723132fd1f2b3fac8288ed28debac8f9cb245c4`,
+  `e3079588a75b9553609ee41939119cd00b119e750706e29426eafc472f2bafa3`, and
+  `fd6abcd872a1f4ada38e541352dfac74452597072fc5fea5d9ad5450a01e94e6`.
+- A separate fixed `actor-validator` Docker target mounts only that package read-only, verifies a
+  bounded private snapshot, imports it with automatic script execution disabled and no runtime
+  network, rejects imported actions, drivers, constraints, libraries, scene objects, unexpected
+  images, and count/bound drift, then renders one deterministic transparent rest-pose frame.
+- The closed AF-055 evidence tree contains only `neutral.png` and `validation.json`. The reviewed
+  192 x 192 RGBA golden has SHA-256
+  `e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880` and is checked as decoded
+  pixels with channel delta at most 2 and changed-pixel fraction at most 0.1%.
+- AF-053 remains frozen. AF-055 does not author or accept the macaw, define `avian_v1`, add a walk
+  or directional actor export, expose a product import command, or authorize general/untrusted 3D
+  input; those scoped next steps begin with AF-056.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -444,6 +467,8 @@ Principal files:
 - `src/animated_fabric/gui/app.py`
 - `scripts/generate_fixture_assets.py`
 - `scripts/prepare_macaw_reference_package.py`
+- `scripts/generate_actor_package_fixture.py`
+- `scripts/verify_blender_actor_neutral.py`
 - `scripts/generate_af022_compositor_golden.py`
 - `scripts/run_demo_pipeline.py`
 - `scripts/run_rig_application_demo.py`
@@ -457,6 +482,8 @@ Principal files:
 - `scripts/verify_blender_directional_goldens.py`
 - `containers/blender/`
 - `tools/blender/`
+- `tools/blender/actor_package.py`
+- `tools/blender/render_actor_package.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
 - `tests/unit/`
@@ -512,6 +539,9 @@ Principal files:
 - `tests/golden/af052_blender_walk_{se,sw,ne,nw}_t0000.png`
 - `tests/golden/af052_blender_walk.provenance.json`
 - `tests/golden/LICENSE-AF052-CC0.md`
+- `tests/golden/af055_actor_fixture_neutral.png`
+- `tests/golden/af055_actor_fixture_neutral.provenance.json`
+- `tests/golden/LICENSE-AF055-CC0.md`
 - `tests/golden/README.md`
 - `tests/integration/test_render_frame_cli.py`
 - `tests/integration/test_demo_pipeline.py`
@@ -548,6 +578,8 @@ Principal files:
 - `docs/decisions/0007-humanoid-walk-generator.md`
 - `tests/cutout/`
 - `tests/unit/test_reference_package.py`
+- `tests/unit/test_actor_package.py`
+- `tests/unit/test_blender_actor_neutral.py`
 - `tools/reference_package.py`
 - `assets/reference-packages/macaw-traveler-v1/`
 - `docs/LEGAL_INVENTORY.md`
@@ -555,6 +587,43 @@ Principal files:
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Local pre-publication verification executed on 2026-07-22 for AF-055 through the exact
+repository-built Linux development image and the isolated Blender images:
+
+- Every Compose profile resolved. The development image rebuilt as
+  `sha256:985ca1cf7c0057420f50de55b898b8b35d74805d9a20bc57f2924c66d387eade`; the final
+  actor-validator image rebuilt as
+  `sha256:3cd6fb7eea2b1708030ccd86f5fe084e8d75b4767d85f0061ae48c9280dcc766`.
+- `ruff format --check .`: 238 files already formatted; `ruff check .`: all checks passed.
+- `mypy src`: no issues in 73 source files. Strict namespace-package-aware checking also passed
+  for the actor-package verifier, fixture generator, and neutral-evidence verifier.
+- `pytest -q`: 1,132 passed in 196.81 s with 91.95% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements. Module help listed the complete existing CLI and
+  `python -m animated_fabric doctor` reported no problems.
+- The focused AF-055 suite reported 98 passed. It covers canonical schemas and numeric types,
+  exact files and directories, output replacement safety, links and path aliases, bounded PNG/GLB
+  decoding, composed transforms, inverse binds, every positive skin influence, snapshot sealing
+  and revalidation, imported/evaluated Blender geometry, evidence tampering, byte ceilings, and
+  golden provenance.
+- Two independently generated geometric package trees were byte-identical: manifest
+  `1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`, content set
+  `a84df998d86644671bcbde1f1723132fd1f2b3fac8288ed28debac8f9cb245c4`, GLB
+  `e3079588a75b9553609ee41939119cd00b119e750706e29426eafc472f2bafa3`, and texture
+  `fd6abcd872a1f4ada38e541352dfac74452597072fc5fea5d9ad5450a01e94e6`.
+- Two isolated Blender runs produced byte-identical closed evidence trees. The reviewed neutral PNG
+  remained `e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880`; validation remained
+  `9cfa126ae25049dd25de88f99938ccd0c028e07665298f663ec945bc3873ff5d`; decoded comparison reported
+  maximum channel delta zero and changed-pixel fraction zero.
+- The separate AF-053 directional target rebuilt and reported Blender 4.5.12 LTS, preserving its
+  fixed entrypoint. The layered demo rendered neutral SE/NE frames, both fixture generators passed,
+  and the actor worker proved non-root/read-only/offline isolation. Headless Blender emitted benign
+  EGL context warnings after successful renders; outputs and exit status remained valid.
+- The repository-owned Node 24 checks accepted 1,773 tracked and candidate files and all links in
+  105 Markdown files.
+- These local commands ran in Linux/amd64 containers invoked through Docker Desktop and are not
+  claimed as native-Linux acceptance. The dedicated Ubuntu 24.04 AF-055 workflow must pass after
+  publication to `main` before this evidence is treated as authoritative cross-host acceptance.
 
 Local pre-publication verification executed on 2026-07-22 for AF-054 through the
 repository-owned Linux development container:
@@ -989,6 +1058,10 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
+- AF-055 intentionally pins one repository-generated geometric fixture and its fixture-specific
+  provenance. AF-056 must replace the external trust anchor only after the exact macaw GLB,
+  textures, generator/source identities, licensing, `avian_v1` mapping, bind pose, weights, ground
+  contact, and deformation views are reviewed. The current boundary is not a general importer.
 - AF-054's generated views remain approved inferred modeling references, not recovered geometry.
   Their foreground heights differ by up to 10 px (about 1.65%); tail feathers, talons, hand/toe
   silhouettes, backpack details, hidden joint landmarks, and rear surfaces still require explicit
@@ -1132,4 +1205,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-055 Validated 3D actor package
+- AF-056 `avian_v1` rig and skinned macaw

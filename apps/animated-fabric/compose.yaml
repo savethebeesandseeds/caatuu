@@ -164,6 +164,7 @@ services:
     build:
       context: .
       dockerfile: containers/blender/Dockerfile
+      target: directional-worker
       args:
         APP_GID: ${LOCAL_GID:-1000}
         APP_UID: ${LOCAL_UID:-1000}
@@ -188,6 +189,40 @@ services:
     shm_size: 512m
     init: true
     command: ["--out", "/output/af053-demo"]
+
+  animated-fabric-blender-actor-validator:
+    profiles:
+      - blender-actor
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: containers/blender/Dockerfile
+      target: actor-validator
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-blender-actor-validator:4.5.12
+    container_name: caatuu-animated-fabric-blender-actor-validator
+    working_dir: /work
+    environment:
+      ANIMATED_FABRIC_BLENDER_OUTPUT_ROOT: /output
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=1g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - ./workspaces/actor-packages/geometric-fixture-v1:/actor-package:ro
+      - ./workspaces/blender:/output
+    cpus: 4.0
+    mem_limit: 4g
+    pids_limit: 256
+    shm_size: 512m
+    init: true
+    command: ["--out", "/output/af055-neutral"]
 
 volumes:
   animated-fabric-pip-cache:

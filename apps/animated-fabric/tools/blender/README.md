@@ -1,10 +1,11 @@
-# AF-053 bounded directional demo
+# Bounded Blender pipelines
 
-This directory owns the complete Blender source for one fixed low-poly humanoid and one analytical
-in-place walk. The worker constructs the twelve motion samples once, keeps one orthographic camera
-fixed, and changes only actor-root yaw to rerender `SE`, `SW`, `NE`, and `NW`. It does not load a
-`.blend`, model, texture, motion file, add-on, font, or project-provided script, and it never
-transforms a finished 2D frame to fabricate another direction.
+This directory owns two isolated, fixed Blender paths. Frozen AF-053 constructs one low-poly
+humanoid and analytical walk in trusted code, keeps one orthographic camera fixed, and changes only
+actor-root yaw to rerender `SE`, `SW`, `NE`, and `NW`. AF-055 separately validates one externally
+hash-pinned, repository-generated geometric actor package before import and renders one neutral
+rest-pose frame. Neither path loads a `.blend`, motion file, add-on, font, or project-provided
+script, and neither transforms a finished 2D frame to fabricate another direction.
 
 The evidence boundary is recorded in
 [decision 0010](../../docs/decisions/0010-experimental-blender-prerender.md), the narrow product
@@ -19,9 +20,19 @@ Blender image details and licensing are in the
 
 - `motion.py` is standard-library-only and defines every sampled joint, foot contact, event,
   direction yaw, duration, frame-sequence value, directional manifest, and stable motion digest.
-- `render_walk.py` is the only module that imports Blender APIs. It constructs owned geometry,
+- `render_walk.py` is the AF-053 module that imports Blender APIs. It constructs owned geometry,
   applies each immutable pose once before its four yaw renders, validates RGBA and alpha bounds,
   compares direct left-facing views with mirrors, and transactionally publishes evidence.
+- `actor_package.py` is standard-library-only. It verifies the exact manifest trust anchor, closed
+  regular-file tree, hashes, coordinates, compiled resource ceilings, PNG structure, and bounded
+  core glTF subset before Blender can interpret any package byte.
+- `render_actor_package.py` is the second and only other module that imports Blender APIs. It proves
+  the read-only input mount, creates and validates a private snapshot, runs the fixed glTF import,
+  rejects imported behavior or count/bound drift, and transactionally publishes one neutral frame
+  plus validation evidence.
+- `scripts/generate_actor_package_fixture.py` atomically produces the deterministic textured and
+  skinned geometric proof package; `scripts/verify_blender_actor_neutral.py` closes and verifies the
+  evidence tree and compares decoded pixels against the reviewed golden.
 - `scripts/verify_blender_directional_goldens.py` compares decoded pixels with four reviewed
   phase-zero goldens and independently recomputes direct-view-versus-mirror differences.
 - `scripts/package_blender_walk_demo.py` atomically creates a sibling contact sheet and synchronized
@@ -32,11 +43,49 @@ Blender image details and licensing are in the
 - `scripts/run_blender_directional_demo.sh` is the Linux-host entry point that invokes those fixed
   stages through Docker Compose and reports the final hashes.
 
-Only `render_walk.py` requires `bpy`. Motion, evidence, golden, review, and packaging contracts run
-in the normal Linux development image. Product Python does not invoke Docker, mount its socket, or
-import Blender APIs.
+Only `render_walk.py` and `render_actor_package.py` require `bpy`. Motion, package preflight,
+evidence, golden, review, and packaging contracts otherwise run in the normal Linux development
+image. Product Python does not invoke Docker, mount its socket, or import Blender APIs.
 
-## Run the complete path
+## AF-055 actor-package proof
+
+Run this proof from `apps/animated-fabric` on a native non-root x86-64 Linux host. Docker Desktop is
+useful for a convenience smoke but is not the evidence authority.
+
+```bash
+docker compose run --rm animated-fabric-dev \
+  python scripts/generate_actor_package_fixture.py \
+  --out workspaces/actor-packages/geometric-fixture-v1
+docker compose --profile blender-actor build animated-fabric-blender-actor-validator
+docker compose --profile blender-actor run --rm animated-fabric-blender-actor-validator
+docker compose run --rm animated-fabric-dev \
+  python scripts/verify_blender_actor_neutral.py \
+  --source workspaces/blender/af055-neutral \
+  --package workspaces/actor-packages/geometric-fixture-v1
+```
+
+The generator produces exactly `actor-package.json`, `actor.glb`, and
+`textures/albedo.png`. The validator service mounts that package at `/actor-package:ro`, uses no
+runtime network, runs as non-root with a read-only root and dropped capabilities, and writes only
+to the bounded output mount. The external manifest trust anchor is
+`1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`; the content-set, GLB, and
+texture hashes are respectively `a84df998d86644671bcbde1f1723132fd1f2b3fac8288ed28debac8f9cb245c4`,
+`e3079588a75b9553609ee41939119cd00b119e750706e29426eafc472f2bafa3`, and
+`fd6abcd872a1f4ada38e541352dfac74452597072fc5fea5d9ad5450a01e94e6`.
+
+The closed result root contains only `neutral.png` and `validation.json`. The reviewed neutral PNG
+is 192 x 192 RGBA with SHA-256
+`e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880`; verification permits a
+maximum decoded channel delta of 2 and at most 0.1% changed pixels. The schema, GLB subset,
+coordinates, ceilings, filesystem protections, and post-import gate are normative in
+[`docs/SPEC.md`](../../docs/SPEC.md#1510-reviewed-3d-actor-package-contract).
+
+This package is deliberately a striped box with a minimal two-joint skin. It proves validation and
+ingestion, not macaw modeling, `avian_v1`, a walk, directional rendering, or general 3D import.
+Those first three remain AF-056 through AF-058; general or untrusted import requires a later
+decision. AF-053's worker, hashes, output contract, and product path remain frozen.
+
+## Run the complete AF-053 path
 
 Run from `apps/animated-fabric` on a native non-root Linux host:
 

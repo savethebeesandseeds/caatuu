@@ -22,13 +22,13 @@ RUN mkdir -p /opt/blender \
     && test -x /opt/blender/blender \
     && find /opt/blender -type f -perm /6000 -exec chmod a-s {} +
 
-FROM python:3.12-slim-bookworm@sha256:d50fb7611f86d04a3b0471b46d7557818d88983fc3136726336b2a4c657aa30b AS blender-runtime
+FROM python:3.12-slim-bookworm@sha256:d50fb7611f86d04a3b0471b46d7557818d88983fc3136726336b2a4c657aa30b AS blender-runtime-base
 
 ARG APP_GID=1000
 ARG APP_UID=1000
 
-LABEL org.opencontainers.image.title="Animated Fabric directional Blender worker" \
-    org.opencontainers.image.description="Isolated AF-052 fixed-actor direct-yaw prerender worker" \
+LABEL org.opencontainers.image.title="Animated Fabric bounded Blender runtime" \
+    org.opencontainers.image.description="Shared isolated runtime for fixed repository Blender workers" \
     io.caatuu.animated-fabric.blender.version="4.5.12" \
     io.caatuu.animated-fabric.blender.sha256="95e3a2dfedba3bd32ca54fc355eac6b15a11986954ccb02815a07535d0120a25"
 
@@ -97,10 +97,17 @@ COPY containers/blender/Dockerfile /opt/animated-fabric/container.Dockerfile
 COPY compose.yaml /opt/animated-fabric/compose.yaml
 
 RUN chmod -R a-w /opt/animated-fabric /opt/blender-user-disabled \
-    && test -r /opt/animated-fabric/render_walk.py
+    && test -r /opt/animated-fabric/render_walk.py \
+    && test -r /opt/animated-fabric/render_actor_package.py \
+    && test -r /opt/animated-fabric/actor_package.py
 
 WORKDIR /work
 USER blender
+
+FROM blender-runtime-base AS directional-worker
+
+LABEL org.opencontainers.image.title="Animated Fabric directional Blender worker" \
+    org.opencontainers.image.description="Isolated AF-052 fixed-actor direct-yaw prerender worker"
 
 ENTRYPOINT ["/opt/blender/blender", \
     "--background", \
@@ -114,3 +121,24 @@ ENTRYPOINT ["/opt/blender/blender", \
     "/opt/animated-fabric/render_walk.py", \
     "--"]
 CMD ["--out", "/output/af053-demo"]
+
+FROM blender-runtime-base AS actor-validator
+
+LABEL org.opencontainers.image.title="Animated Fabric actor-package validator" \
+    org.opencontainers.image.description="Isolated AF-055 pinned data-only actor neutral renderer"
+
+ENTRYPOINT ["/opt/blender/blender", \
+    "--background", \
+    "--factory-startup", \
+    "--disable-autoexec", \
+    "--offline-mode", \
+    "-noaudio", \
+    "--python-exit-code", \
+    "10", \
+    "--python", \
+    "/opt/animated-fabric/render_actor_package.py", \
+    "--"]
+CMD ["--out", "/output/af055-neutral"]
+
+# Preserve the historical default target and entrypoint for direct builds.
+FROM directional-worker AS blender-runtime

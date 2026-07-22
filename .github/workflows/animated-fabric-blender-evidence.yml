@@ -4,11 +4,16 @@ on:
   push:
     paths:
       - "apps/animated-fabric/containers/blender/**"
+      - "apps/animated-fabric/.dockerignore"
       - "apps/animated-fabric/tools/blender/**"
       - "apps/animated-fabric/scripts/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
+      - "apps/animated-fabric/tests/golden/LICENSE-AF055-CC0.md"
+      - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.png"
+      - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.provenance.json"
+      - "apps/animated-fabric/tests/unit/test_actor_package.py"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
@@ -24,15 +29,23 @@ on:
       - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
       - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
       - "apps/animated-fabric/docs/decisions/0013-end-to-end-directional-demo.md"
+      - "apps/animated-fabric/docs/decisions/0014-reviewed-macaw-actor-bridge.md"
+      - "apps/animated-fabric/docs/third-party/blender.md"
+      - "docs/LEGAL_INVENTORY.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   pull_request:
     paths:
       - "apps/animated-fabric/containers/blender/**"
+      - "apps/animated-fabric/.dockerignore"
       - "apps/animated-fabric/tools/blender/**"
       - "apps/animated-fabric/scripts/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
+      - "apps/animated-fabric/tests/golden/LICENSE-AF055-CC0.md"
+      - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.png"
+      - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.provenance.json"
+      - "apps/animated-fabric/tests/unit/test_actor_package.py"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
@@ -48,6 +61,9 @@ on:
       - "apps/animated-fabric/docs/decisions/0011-grid-spritesheet-export.md"
       - "apps/animated-fabric/docs/decisions/0012-directional-yaw-prerender.md"
       - "apps/animated-fabric/docs/decisions/0013-end-to-end-directional-demo.md"
+      - "apps/animated-fabric/docs/decisions/0014-reviewed-macaw-actor-bridge.md"
+      - "apps/animated-fabric/docs/third-party/blender.md"
+      - "docs/LEGAL_INVENTORY.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   workflow_dispatch:
 
@@ -217,3 +233,133 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
+
+  actor-package-evidence:
+    name: Native Linux AF-055 actor-package validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/animated-fabric
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+
+      - name: Match container ownership to the Linux runner
+        run: |
+          echo "LOCAL_UID=$(id -u)" >> "$GITHUB_ENV"
+          echo "LOCAL_GID=$(id -g)" >> "$GITHUB_ENV"
+          mkdir -p .tmp/af055-manifests workspaces/actor-packages workspaces/blender
+
+      - name: Validate the isolated actor-package profile
+        run: docker compose --profile blender-actor config --quiet
+
+      - name: Build the authoritative development image
+        run: docker compose build animated-fabric-dev
+
+      - name: Generate the geometric fixture once
+        run: |
+          set -Eeuo pipefail
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/generate_actor_package_fixture.py \
+            --out workspaces/actor-packages/geometric-fixture-v1
+          (
+            cd workspaces/actor-packages/geometric-fixture-v1
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af055-manifests/package-first.sha256
+
+      - name: Regenerate the fixture and prove deterministic replacement
+        run: |
+          set -Eeuo pipefail
+          touch workspaces/actor-packages/geometric-fixture-v1/stale-package.txt
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/generate_actor_package_fixture.py \
+            --out workspaces/actor-packages/geometric-fixture-v1
+          test ! -e workspaces/actor-packages/geometric-fixture-v1/stale-package.txt
+          (
+            cd workspaces/actor-packages/geometric-fixture-v1
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af055-manifests/package-second.sha256
+          cmp \
+            .tmp/af055-manifests/package-first.sha256 \
+            .tmp/af055-manifests/package-second.sha256
+
+      - name: Build the separate pinned actor validator
+        run: |
+          docker compose --profile blender-actor build animated-fabric-blender-actor-validator
+          docker image inspect caatuu-animated-fabric-blender-actor-validator:4.5.12 \
+            --format 'AF-055 actor-validator image ID: {{.Id}}'
+
+      - name: Verify fixed version, architecture, and non-root identity
+        run: |
+          docker compose --profile blender-actor run --rm --no-deps \
+            --entrypoint /opt/blender/blender \
+            animated-fabric-blender-actor-validator --version
+          worker_uid="$(docker compose --profile blender-actor run --rm --no-deps \
+            --entrypoint /usr/bin/id animated-fabric-blender-actor-validator -u)"
+          echo "AF-055 actor-validator UID: $worker_uid"
+          test "$worker_uid" != "0"
+
+      - name: Run the neutral actor validation once
+        run: |
+          set -Eeuo pipefail
+          docker compose --profile blender-actor run --rm --no-deps \
+            animated-fabric-blender-actor-validator
+          (
+            cd workspaces/blender/af055-neutral
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af055-manifests/neutral-first.sha256
+
+      - name: Rerun neutral validation and prove deterministic replacement
+        run: |
+          set -Eeuo pipefail
+          touch workspaces/blender/af055-neutral/stale-evidence.txt
+          docker compose --profile blender-actor run --rm --no-deps \
+            animated-fabric-blender-actor-validator
+          test ! -e workspaces/blender/af055-neutral/stale-evidence.txt
+          (
+            cd workspaces/blender/af055-neutral
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af055-manifests/neutral-second.sha256
+          cmp \
+            .tmp/af055-manifests/neutral-first.sha256 \
+            .tmp/af055-manifests/neutral-second.sha256
+
+      - name: Verify bounded AF-055 evidence against the reviewed golden
+        run: |
+          set -Eeuo pipefail
+          test "$(find workspaces/actor-packages/geometric-fixture-v1 \
+            -mindepth 1 -maxdepth 1 -printf '%f\n' | LC_ALL=C sort)" = \
+            "$(printf '%s\n' actor-package.json actor.glb textures)"
+          test "$(find workspaces/blender/af055-neutral \
+            -mindepth 1 -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort)" = \
+            "$(printf '%s\n' neutral.png validation.json)"
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/verify_blender_actor_neutral.py \
+            --source workspaces/blender/af055-neutral \
+            --package workspaces/actor-packages/geometric-fixture-v1
+          cat .tmp/af055-manifests/package-second.sha256
+          cat .tmp/af055-manifests/neutral-second.sha256
+          cat workspaces/blender/af055-neutral/validation.json
+
+      - name: Run focused actor-package lint and tests
+        run: |
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff format --check tools/blender/actor_package.py \
+            tools/blender/render_actor_package.py scripts/generate_actor_package_fixture.py \
+            scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
+            tests/unit/test_blender_actor_neutral.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff check tools/blender/actor_package.py tools/blender/render_actor_package.py \
+            scripts/generate_actor_package_fixture.py \
+            scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
+            tests/unit/test_blender_actor_neutral.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            sh -c 'MYPYPATH=src mypy --strict --explicit-package-bases \
+            tools/blender/actor_package.py scripts/generate_actor_package_fixture.py \
+            scripts/verify_blender_actor_neutral.py'
+          docker compose run --rm --no-deps animated-fabric-dev \
+            pytest -q --no-cov tests/unit/test_actor_package.py \
+            tests/unit/test_blender_actor_neutral.py

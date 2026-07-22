@@ -4,8 +4,8 @@ Animated Fabric is a Linux-first desktop application and Python library for turn
 image layers or explicitly approved, bounded 3D prerender sources into reusable animation frames
 and spritesheets.
 
-Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, AF-053, and AF-054 are
-complete. AF-055 is next in the user-directed M5A traveler-macaw vertical slice.
+Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, AF-053, AF-054, and AF-055
+are complete. AF-056 is next in the user-directed M5A traveler-macaw vertical slice.
 AF-060 remains planned after AF-059.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
@@ -25,7 +25,9 @@ current layered-2D product contracts remain unchanged. The first bridge step is 
 self-contained traveler-macaw reference package with immutable evidence, four ordered views, a
 digest-bound product-owner approval, and a scoped open-art notice. Decision 0014 defines the
 remaining bridge as a strict data-only actor package, `avian_v1`, one canonical avian walk, and four
-direct yaw renders. It explicitly does not claim automatic single-image-to-3D.
+direct yaw renders. AF-055 now proves the package boundary with a hash-pinned, textured and skinned
+geometric fixture plus a deterministic neutral Blender render; it does not claim macaw modeling,
+automatic single-image-to-3D, or general 3D import.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md). First-party, generated-media, adapted-source,
@@ -63,7 +65,8 @@ The infrastructure boundary is explicit:
 | `cutout-classic` profile | Lightweight Pillow/NumPy cutout image with no model or ML packages |
 | `cutout` / `cutout-cuda` profiles | Separate CPU or NVIDIA BiRefNet images; no source checkout and no runtime network |
 | `cutout-provision` profile | The only network-enabled runtime action; seeds one pinned, hash-verified model snapshot |
-| `blender` profile | Opt-in Blender 4.5.12 Linux/amd64 directional worker; currently fixed baked actor and walk, non-root, offline, read-only, no project mount; M5A adds only one validated read-only macaw package |
+| `blender` profile | Frozen opt-in Blender 4.5.12 Linux/amd64 directional worker; fixed baked actor and walk, non-root, offline, read-only, and no input mount |
+| `blender-actor` profile | Separate Blender 4.5.12 actor validator; one externally pinned geometric package mounted read-only, private verified snapshot, fixed neutral render, no macaw or arbitrary input |
 | Named volumes | Independent pip cache and BiRefNet cache owned by this Compose project |
 | GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender workflow that exercises the bounded host command and may publish only cleared sample media and reports |
 
@@ -272,6 +275,44 @@ The official CI `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` outp
 and reused under the scoped [`CC0-1.0` dedication](docs/AF053-DEMO-CC0.md). JSON, reports, and source
 remain `AGPL-3.0-only`. The Blender container image is still internal-only under its independent
 redistribution gates.
+
+### Validated actor-package proof
+
+AF-055 adds a second fixed Blender target without changing the AF-053 worker. Its strict
+`animated-fabric.actor-package.v1` preflight accepts only a closed regular-file tree, an externally
+pinned canonical manifest, one bounded GLB, and declared RGBA8 PNG textures. It verifies hashes,
+axes and meters, one actor root, finite and fully referenced geometry, materials, textures, an
+optional bounded skin, compiled resource ceilings, and exact provenance before Blender import. A
+post-import gate independently rejects scene behavior and imported count or bound drift.
+
+Run the proof only through the owned containers from a native non-root x86-64 Linux shell:
+
+```bash
+docker compose run --rm animated-fabric-dev \
+  python scripts/generate_actor_package_fixture.py \
+  --out workspaces/actor-packages/geometric-fixture-v1
+docker compose --profile blender-actor build animated-fabric-blender-actor-validator
+docker compose --profile blender-actor run --rm animated-fabric-blender-actor-validator
+docker compose run --rm animated-fabric-dev \
+  python scripts/verify_blender_actor_neutral.py \
+  --source workspaces/blender/af055-neutral \
+  --package workspaces/actor-packages/geometric-fixture-v1
+```
+
+The package mount is read-only and runtime networking is disabled. The worker validates a private
+snapshot before import, then publishes exactly `neutral.png` and `validation.json` under
+`workspaces/blender/af055-neutral/`. The manifest trust anchor is
+`1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`; the reviewed 192 x 192 RGBA
+neutral render is
+`e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880`.
+Docker Desktop may run a convenience smoke, but only native Linux evidence is authoritative.
+
+The proof actor is a repository-generated geometric box with a minimal two-joint skin. It is not
+the approved traveler macaw, does not define `avian_v1`, and exposes no product-facing or general
+3D-import command. AF-056 is the next permitted ticket and owns the reviewed macaw model, armature,
+weights, bind pose, and deformation acceptance. The exact boundary is in
+[`docs/SPEC.md`](docs/SPEC.md#1510-reviewed-3d-actor-package-contract); operational detail is in
+[`tools/blender/README.md`](tools/blender/README.md).
 
 `render-frame` still deliberately accepts the generated `stick_humanoid` project root. The general
 catalog, built-in template registry, template application, and rig-editing use cases now create and

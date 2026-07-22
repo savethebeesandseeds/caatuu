@@ -12,7 +12,8 @@ The cutout profiles mount:
 Create the local directories before the first run:
 
 ```bash
-mkdir -p workspaces/cutout/input workspaces/cutout/output workspaces/blender
+mkdir -p workspaces/cutout/input workspaces/cutout/output \
+  workspaces/actor-packages workspaces/blender
 ```
 
 The optional `blender` Compose profile mounts `blender/` read/write at `/output`. Its fixed worker
@@ -33,5 +34,30 @@ workspaces/blender/af053-demo-review
 GIF belong only in `af053-demo-review`. An extra entry or symbolic link invalidates evidence. Run
 `bash scripts/run_blender_directional_demo.sh` from a native non-root Linux host rather than
 creating alternate productive roots by hand.
+
+AF-055 owns a separate generated input and output pair:
+
+```text
+workspaces/actor-packages/geometric-fixture-v1/
+|-- actor-package.json
+|-- actor.glb
+`-- textures/albedo.png
+
+workspaces/blender/af055-neutral/
+|-- neutral.png
+`-- validation.json
+```
+
+Generate the package only with `scripts/generate_actor_package_fixture.py` in the development
+container. The `blender-actor` profile mounts that exact package read-only at `/actor-package` and
+mounts `workspaces/blender/` read/write at `/output`; the worker copies verified bounded bytes into
+a private temporary snapshot before import. An extra, missing, linked, hard-linked, case-colliding,
+renamed, or hash-mismatched input invalidates the package. An extra output invalidates the closed
+neutral evidence tree. AF-055 does not accept a macaw or an arbitrary 3D file; AF-056 owns the first
+reviewed actor package.
+
+Native x86-64 Linux is authoritative for Blender evidence. Docker Desktop may exercise the same
+Compose services as a convenience smoke, but its output does not replace the native acceptance
+record.
 
 Never place the model cache, credentials, or irreplaceable source artwork here.

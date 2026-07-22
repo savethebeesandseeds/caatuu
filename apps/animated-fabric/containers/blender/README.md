@@ -1,11 +1,12 @@
-# Bounded Blender directional worker
+# Bounded Blender workers
 
-This opt-in headless Linux image renders one repository-owned procedural humanoid and one fixed
-walk from four direct actor-root yaws. It is not an arbitrary importer, interactive preview,
-development image, or base application dependency. Blender produces a verified frame sequence;
-the normal development container separately validates and packages those pixels for the bounded
-AF-052 product path. AF-053 adds only a Linux-host shell command that invokes both containers; it
-does not merge their dependency or trust boundaries.
+This opt-in headless Linux image has two fixed final targets. `directional-worker` renders the
+repository-owned procedural humanoid and walk from four direct actor-root yaws for frozen AF-053.
+`actor-validator` accepts only the externally hash-pinned AF-055 geometric actor package, validates
+it as data before import, and renders one fixed neutral frame. Neither target is an arbitrary
+importer, interactive preview, development image, or base application dependency. The normal
+development container independently verifies their output; the dependency and trust boundaries do
+not merge.
 
 ## Pinned inputs
 
@@ -30,8 +31,22 @@ docker build \
   --platform linux/amd64 \
   --build-arg APP_UID="$(id -u)" \
   --build-arg APP_GID="$(id -g)" \
+  --target directional-worker \
   --file containers/blender/Dockerfile \
   --tag caatuu-animated-fabric-blender:4.5.12-cycles-cpu \
+  .
+```
+
+Build the actor validator from the same pinned base with its separate fixed entrypoint:
+
+```bash
+docker build \
+  --platform linux/amd64 \
+  --build-arg APP_UID="$(id -u)" \
+  --build-arg APP_GID="$(id -g)" \
+  --target actor-validator \
+  --file containers/blender/Dockerfile \
+  --tag caatuu-animated-fabric-blender-actor-validator:4.5.12 \
   .
 ```
 
@@ -39,7 +54,7 @@ Both IDs must be nonzero. Build-time network access retrieves Debian packages an
 checksum-pinned Blender archive. Runtime networking is prohibited. Native x86-64 Linux is the
 authority; emulation and Docker Desktop are convenience smokes only.
 
-## Fixed runtime contract
+## Fixed AF-053 runtime contract
 
 The image always starts Blender with:
 
@@ -65,6 +80,45 @@ The worker enforces a 4 MiB ceiling across 50 hashed evidence files: 48 frames,
 owns the five-minute wall-clock timeout; `scripts/run_blender_directional_demo.sh` applies it for
 AF-053. Operators should still quota the host output filesystem when needed.
 
+## Fixed AF-055 actor-validation contract
+
+The separate `actor-validator` target always starts Blender with the same background,
+factory-startup, auto-execution-disabled, offline, audio-disabled, and reserved-exit-code controls,
+but bakes and selects only `/opt/animated-fabric/render_actor_package.py`. Arguments terminate after
+`--`; the only worker option is a safe child destination beneath the fixed output root, and Compose
+fixes the documented run to `/output/af055-neutral`. Arguments cannot select a `.blend`, package,
+importer, script, renderer, motion, camera, light, or container option.
+
+Compose mounts exactly:
+
+- `workspaces/actor-packages/geometric-fixture-v1/` read-only at `/actor-package`; and
+- `workspaces/blender/` read/write at `/output`.
+
+The worker proves `/actor-package` is read-only from Linux mount metadata, reads singly linked
+regular files without following links, copies their bounded bytes into a private `/tmp` snapshot,
+rechecks the source tree for mutation, and verifies that snapshot against the manifest trust anchor
+`1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c` before Blender sees the GLB.
+The exact schema, GLB/PNG subset, coordinate mapping, and ceilings are normative in
+[`docs/SPEC.md`](../../docs/SPEC.md#1510-reviewed-3d-actor-package-contract).
+
+After import, a second gate rejects actions, drivers, NLA, constraints, linked libraries, imported
+cameras/lights/speakers, packed or unexpected images, unsupported objects/modifiers, and decoded
+count or world-bound drift. Only then does trusted worker code add its fixed orthographic camera and
+lights and render the rest pose with Blender 4.5.12 LTS, EEVEE Next, 16 samples, one thread, and a
+transparent 192 x 192 RGBA target. Publication is one closed transaction containing exactly:
+
+```text
+workspaces/blender/af055-neutral/
+|-- neutral.png
+`-- validation.json
+```
+
+The report binds package files, decoded observations, imported counts and bounds, renderer inputs,
+output identity, isolation statements, and current trusted-source hashes. The reviewed neutral hash
+is `e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880`.
+This is a validator fixture, not traveler-macaw geometry or a general 3D-import path. AF-056 owns
+the first rights-cleared macaw actor and `avian_v1`; AF-053 remains unchanged.
+
 The exact Dockerfile and Compose recipe are baked into the image and hashed into every evidence
 document. The base image and Blender archive are immutable inputs, but Debian runtime packages
 still come from live Bookworm repositories. Record the image ID for evidence runs; snapshot locks,
@@ -82,7 +136,10 @@ vulnerability review, and GPL-compliant corresponding-source distribution are ap
 official AF-053 CI `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` files are separate
 first-party procedural outputs dedicated under the scoped
 [`CC0-1.0` notice](../../docs/AF053-DEMO-CC0.md). JSON and source remain `AGPL-3.0-only`.
-Publishing those generated pixels does not distribute, approve, or relicense the Blender image.
+The geometric AF-055 neutral golden is separately covered by
+[`LICENSE-AF055-CC0.md`](../../tests/golden/LICENSE-AF055-CC0.md). Neither dedication distributes,
+approves, or relicenses the Blender image, and the AF-055 dedication does not cover future macaw
+geometry or renders.
 
 To update Blender, change the version, URL, checksum, source record, labels, tests, and evidence as
 one reviewed change. Never turn the URL or checksum into a convenient untrusted build override.

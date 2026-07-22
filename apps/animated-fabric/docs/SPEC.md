@@ -1530,22 +1530,130 @@ Before accepting the vendored engine:
 
 ## 15.10 Reviewed 3D actor-package contract
 
-AF-055 defines `animated-fabric.actor-package.v1` as a data-only boundary and proves it with a
-repository-generated geometric fixture. The package MAY contain one bounded GLB, declared textures,
-and one manifest. The isolated worker MUST validate exact filenames and hashes, canonical axes and
-units, one actor root, contained
-resources, finite geometry, and recorded limits before Blender loads the actor.
+AF-055 defines `animated-fabric.actor-package.v1` as a closed, data-only boundary and proves it
+only with the repository-generated `geometric-fixture-v1`. The accepted tree contains exactly the
+canonical UTF-8 `actor-package.json`, one `actor.glb`, and one to eight declared files named
+`textures/<texture-id>.png`; no other file or empty directory is allowed. The manifest is canonical
+JSON with exact keys, two-space indentation, sorted object keys, ASCII escaping, and one final
+newline. The actor-package verifier MUST receive the expected manifest SHA-256 from trusted worker
+code rather than from the package. AF-055 pins that external trust anchor to
+`1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`.
+
+### 15.10.1 Manifest schema
+
+The manifest has `schema_version: "0.1.0"` and exactly these top-level members:
+
+| Member | Exact AF-055 contract |
+|---|---|
+| `format` | `animated-fabric.actor-package.v1` |
+| `package_id` | Lowercase ASCII identifier, at most 64 characters |
+| `actor` | Exact `root_node`, `neutral_pose: "rest"`, and `ground_z_m: 0.0` |
+| `asset` | Exact path `actor.glb`, media type `model/gltf-binary`, positive byte count, and lowercase SHA-256 |
+| `textures` | One to eight records sorted by path; exact identity-derived path, `image/png`, `RGBA8`, dimensions, bytes, and lowercase SHA-256 |
+| `coordinates` | The exact axes, units, handedness, storage convention, and conversion below |
+| `limits` | Profile `af055-bounded-core-gltf-v1` and the exact compiled ceiling map below |
+| `observed` | Decoded counts, bounds, texture properties, and content sizes; every value MUST equal verifier observations |
+| `content_set` | Format `animated-fabric.actor-content-set.v1`, exact ordered content paths, and their framed SHA-256 |
+| `provenance` | Exact `geometry_license`, `kind`, `sources`, `texture_license`, and `ticket`; kind is `repository-generated-geometric-fixture` or `reviewed-authored-actor`, ticket is `AF-NNN`, licenses are bounded SPDX identifiers, and one to 32 source records are unique and sorted by lowercase ID with canonical safe relative path and SHA-256 |
+
+The content-set order is `actor.glb` followed by the sorted texture paths. Its digest is SHA-256
+over the ASCII format line and, for every record in that order, path, NUL, lowercase file hash,
+NUL, decimal byte count, and newline. The manifest, content-set, GLB, texture, and neutral-render
+identities for the reviewed proof are respectively:
+
+- `1539adf989faee41bdb6b20a2bc46a04dfb95a3ff5c171d6b9175a68d04eec7c`;
+- `a84df998d86644671bcbde1f1723132fd1f2b3fac8288ed28debac8f9cb245c4`;
+- `e3079588a75b9553609ee41939119cd00b119e750706e29426eafc472f2bafa3`;
+- `fd6abcd872a1f4ada38e541352dfac74452597072fc5fea5d9ad5450a01e94e6`;
+  and
+- `e0c02f7af9371fb84a6695ff92bf298e1a955db2238266865d4d76bd09174880`.
+
+These identities approve only the geometric validator fixture. They do not identify or approve a
+macaw actor.
+
+### 15.10.2 Coordinates and bounded GLB subset
+
+Actor space is right-handed, uses meters, and fixes `+X` right, `+Y` forward, `+Z` up, with the
+neutral ground plane at actor `Z=0`. GLB storage is glTF 2.0 right-handed Y-up; storage axes map as
+`+X -> +X`, `+Y -> +Z`, and `+Z -> -Y`. The one scene MUST expose one identity-transform actor
+root whose unique name matches `actor.root_node`. Every node MUST belong to that acyclic,
+singly-parented tree; mesh nodes MUST already be in actor coordinates.
+
+The GLB has exactly one JSON chunk followed by one embedded BIN chunk and exactly the root members
+`accessors`, `asset`, `bufferViews`, `buffers`, `images`, `materials`, `meshes`, `nodes`, `samplers`,
+`scene`, `scenes`, `skins`, and `textures`. Extensions and extras are forbidden at every depth. The
+accepted geometry is indexed triangles with tightly packed, unstrided accessors and only
+`POSITION`, `NORMAL`, `TEXCOORD_0`, plus paired `JOINTS_0` and `WEIGHTS_0` for skinned primitives.
+Positions, normals, UVs, weights, matrices, transforms, and declared bounds MUST be finite. Local
+node rest transforms and every composed world matrix remain within the compiled coordinate bound,
+node scales are nonzero, and each mesh's composed world transform is identity because its vertices
+are already in actor coordinates. Normals are unit length, UVs and material factors remain in
+`[0, 1]`, weights are normalized, and every mathematically positive influence addresses the
+declared skin and counts toward the influence ceiling. Every node, mesh, material, texture, image,
+sampler, accessor, buffer view, and declared skin MUST be reachable and used by the actor; hidden
+or unused data is rejected.
+
+Images are external only in the narrow sense that the GLB URI names a manifest-declared package
+PNG. URI escapes, schemes, percent/query/fragment syntax, data URIs, and undeclared files are
+forbidden. PNGs MUST contain only one `IHDR`, contiguous `IDAT`, and one `IEND`; each is
+non-interlaced RGBA8 with valid CRCs and decoded size. Materials are the bounded metallic-roughness
+base-color subset with `OPAQUE` or `MASK` alpha, one explicit fixed linear-mipmapped-repeat sampler
+per texture, and `TEXCOORD_0`. One optional skin is accepted; it has an in-tree skeleton, one to 64
+unique descendant joints, finite invertible FLOAT `MAT4` inverse-bind matrices, and at most four
+normalized influences per vertex. Every inverse-bind matrix is finite, invertible, within the
+coordinate bound, and when multiplied by its joint's composed rest transform yields identity.
+This validates the AF-055 fixture skin but does not define the `avian_v1` hierarchy or approve its
+deformation.
+
+### 15.10.3 Compiled ceilings
+
+The manifest MUST repeat this complete policy map exactly; lower self-declared limits do not
+replace the compiled verifier policy.
+
+| Resource | Maximum |
+|---|---:|
+| Package files / total bytes | 10 / 33,554,432 |
+| Manifest bytes | 262,144 |
+| GLB bytes / GLB JSON bytes / embedded buffer bytes | 25,165,824 / 1,048,576 / 25,165,824 |
+| Textures / bytes each | 8 / 4,194,304 |
+| Texture dimension / pixels each / pixels total | 2,048 px / 4,194,304 / 16,777,216 |
+| Nodes / meshes / primitives | 128 / 16 / 32 |
+| Accessors / buffer views | 256 / 256 |
+| Vertices / indices / triangles | 100,000 / 600,000 / 200,000 |
+| Materials / skins / joints / influences per vertex | 16 / 1 / 64 / 4 |
+| Absolute actor coordinate | 10.0 m |
+
+### 15.10.4 Filesystem, worker, and evidence boundary
+
+Package paths are canonical ASCII, relative, forward-slash paths without aliases, traversal, drive
+syntax, absolute paths, case collisions, trailing-dot segments, portable device basenames, or
+unsupported names. The only directory is the nonempty root `textures/`; enumeration stops at the
+compiled entry ceiling. The verifier accepts only singly linked regular files and real directories;
+symbolic links, hard links, junctions, reparse points, device-like entries, and linked ancestors
+are rejected. It reads without following links, copies bounded bytes to a private snapshot, seals
+directories and files read-only, validates only that snapshot, rechecks its closed tree and hashes
+after use, and rejects a source tree that changes during the copy. The isolated Linux worker MUST
+also prove `/actor-package` is a read-only mount and its runtime namespace has only loopback before
+preflight.
+
+Only after the complete preflight may the fixed baked Blender worker import `actor.glb`. A second
+gate MUST reject imported actions, drivers, NLA, constraints, linked libraries, cameras, lights,
+speakers, packed or unexpected images, unsupported objects or modifiers, topology/count drift,
+joint or weight drift, noncanonical armature-modifier settings, nonfinite evaluated geometry,
+deformed-bound drift, and lost ground contact. The package cannot choose worker code, render
+settings, camera, light, motion, output path, or container configuration. The fixed worker then
+renders only the 192 x 192 transparent rest-pose validation frame and atomically publishes a closed
+`neutral.png` plus `validation.json` evidence tree bound to the package and every executed local
+worker-source hash. The neutral PNG is at most 1,048,576 bytes and contains only CRC-valid `IHDR`,
+contiguous `IDAT`, and empty `IEND`; the canonical validation report is at most 262,144 bytes.
 
 The package MUST NOT contain or reference `.blend` files, Python, drivers, expressions, add-ons,
-external references, symbolic links, hard links, reparse points, traversal segments, absolute
-paths, unsupported URI schemes, embedded animation, cameras, lights, audio, undeclared files, or
-unsupported extensions. It is mounted read-only and cannot select the renderer, motion, output
-path, or worker code. AF-056 authors and validates the first rights-cleared macaw package; general
-or untrusted 3D import requires a later decision.
-
-AF-056 MUST add the reviewed armature and skin data within these bounds. Mesh deformation remains
-confined to the isolated 3D prerender plane and never becomes a dependency or behavior of
-layered-2D projects.
+external references, embedded animation, cameras, lights, audio, unsupported extensions, or
+undeclared behavior. AF-053 remains frozen and continues to use its separate procedural worker and
+input-free contract. AF-056 authors and validates the first rights-cleared macaw package and defines
+the reviewed `avian_v1` hierarchy, bone mapping, bind pose, weights, and deformation review within
+this isolated plane. General or untrusted 3D import requires a later decision. Mesh deformation
+never becomes a dependency or behavior of layered-2D projects.
 
 ---
 
