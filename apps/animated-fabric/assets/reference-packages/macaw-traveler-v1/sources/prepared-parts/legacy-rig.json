@@ -1,0 +1,95 @@
+{
+  "$schema": "../rig.schema.json",
+  "format": "caatuu-character-rig-v1",
+  "character": "macaw-traveler-v1",
+  "canvas": { "width": 420, "height": 440 },
+  "origin": { "x": 210, "y": 420 },
+  "bones": [
+    { "id": "root", "parent": null, "pivot": { "x": 210, "y": 420 }, "z": 0 },
+    { "id": "pelvis", "parent": "root", "pivot": { "x": 0, "y": -80 }, "z": 0 },
+    { "id": "torso", "parent": "pelvis", "pivot": { "x": 0, "y": 0 }, "z": 0 },
+    { "id": "tail", "parent": "torso", "pivot": { "x": 82, "y": -75 }, "z": -5 },
+    { "id": "arm_far_upper", "parent": "torso", "pivot": { "x": -50, "y": -160 }, "z": 4 },
+    { "id": "arm_far_lower", "parent": "arm_far_upper", "pivot": { "x": -24, "y": 58 }, "z": 1 },
+    { "id": "leg_far_lower", "parent": "pelvis", "pivot": { "x": -33, "y": 0 }, "z": -3 },
+    { "id": "leg_near_lower", "parent": "pelvis", "pivot": { "x": 32, "y": 0 }, "z": 2 },
+    { "id": "head", "parent": "torso", "pivot": { "x": 0, "y": -170 }, "z": 3 },
+    { "id": "arm_near_upper", "parent": "torso", "pivot": { "x": 52, "y": -155 }, "z": 5 },
+    { "id": "arm_near_lower", "parent": "arm_near_upper", "pivot": { "x": 20, "y": 65 }, "z": 1 },
+    { "id": "prop_primary", "parent": "arm_far_lower", "pivot": { "x": -42, "y": 0 }, "z": 0 }
+  ],
+  "layers": [
+    { "id": "tail", "bone": "tail", "src": "./layers/tail.png", "z": 0, "size": { "width": 311, "height": 250 }, "pivot": { "x": 50, "y": 125 }, "rest": { "scaleX": 0.44, "scaleY": 0.44 } },
+    { "id": "arm_far_upper", "bone": "arm_far_upper", "src": "./layers/arm-far-upper.png", "z": 0, "size": { "width": 210, "height": 287 }, "pivot": { "x": 104, "y": 35 }, "rest": { "scaleX": 0.42, "scaleY": 0.42 } },
+    { "id": "hand_staff", "bone": "arm_far_lower", "src": "./layers/hand-grip-spare.png", "z": 2, "size": { "width": 193, "height": 180 }, "pivot": { "x": 165, "y": 90 }, "rest": { "scaleX": 0.40, "scaleY": 0.40 } },
+    { "id": "leg_far_foot", "bone": "leg_far_lower", "src": "./layers/leg-far-foot.png", "z": 0, "size": { "width": 238, "height": 260 }, "pivot": { "x": 119, "y": 35 }, "rest": { "scaleX": 0.34, "scaleY": 0.34 } },
+    { "id": "torso", "bone": "torso", "src": "./layers/torso.png", "z": 0, "size": { "width": 415, "height": 388 }, "pivot": { "x": 207.5, "y": 356 }, "rest": { "scaleX": 0.56, "scaleY": 0.56 } },
+    { "id": "leg_near_foot", "bone": "leg_near_lower", "src": "./layers/leg-near-foot.png", "z": 0, "size": { "width": 229, "height": 274 }, "pivot": { "x": 114.5, "y": 35 }, "rest": { "scaleX": 0.33, "scaleY": 0.33 } },
+    { "id": "head", "bone": "head", "src": "./layers/head.png", "z": 0, "size": { "width": 300, "height": 388 }, "pivot": { "x": 150, "y": 350 }, "rest": { "scaleX": 0.49, "scaleY": 0.49 } },
+    { "id": "arm_near_upper", "bone": "arm_near_upper", "src": "./layers/arm-near-upper.png", "z": 0, "size": { "width": 209, "height": 271 }, "pivot": { "x": 100, "y": 36 }, "rest": { "scaleX": 0.43, "scaleY": 0.43 } },
+    { "id": "arm_near_lower_hand", "bone": "arm_near_lower", "src": "./layers/arm-near-lower-hand.png", "z": 0, "size": { "width": 256, "height": 199 }, "pivot": { "x": 226, "y": 100 }, "rest": { "scaleX": 0.43, "scaleY": 0.43 } },
+    { "id": "staff", "bone": "prop_primary", "src": "./layers/staff.png", "z": 0, "size": { "width": 118, "height": 441 }, "pivot": { "x": 59, "y": 220 }, "rest": { "scaleX": 0.78, "scaleY": 0.78 } }
+  ],
+  "contacts": {
+    "foot_far": { "bone": "leg_far_lower", "point": { "x": 0, "y": 66 } },
+    "foot_near": { "bone": "leg_near_lower", "point": { "x": 0, "y": 68 } },
+    "staff_tip": { "bone": "prop_primary", "point": { "x": 0, "y": 172 }, "optional": true }
+  },
+  "clips": {
+    "standing": { "durationMs": 700, "loop": true, "channels": {} },
+    "starting": { "durationMs": 180, "loop": false, "channels": {} },
+    "walking": {
+      "durationMs": 440,
+      "loop": true,
+      "distanceDriven": true,
+      "channels": {
+        "pelvis.y": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -4.4, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -4.4, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "pelvis.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.2, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -1.2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "torso.x": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.4, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -1.4, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "torso.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -2.2, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": 2.2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "head.y": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.8, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": 1.8, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "head.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.1, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -1.1, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "tail.y": [{ "at": 0, "value": -1.08, "ease": "smooth" }, { "at": 0.25, "value": 1.05, "ease": "smooth" }, { "at": 0.5, "value": 1.08, "ease": "smooth" }, { "at": 0.75, "value": -1.04, "ease": "smooth" }, { "at": 1, "value": -1.08, "ease": "smooth" }],
+        "tail.rotation": [{ "at": 0, "value": -6.45, "ease": "smooth" }, { "at": 0.25, "value": 6.27, "ease": "smooth" }, { "at": 0.5, "value": 6.46, "ease": "smooth" }, { "at": 0.75, "value": -6.26, "ease": "smooth" }, { "at": 1, "value": -6.45, "ease": "smooth" }],
+        "arm_far_upper.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -5, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": 5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_lower.x": [{ "at": 0, "value": -0.52, "ease": "smooth" }, { "at": 0.25, "value": 1.08, "ease": "smooth" }, { "at": 0.5, "value": 0.52, "ease": "smooth" }, { "at": 0.75, "value": -1.08, "ease": "smooth" }, { "at": 1, "value": -0.52, "ease": "smooth" }],
+        "arm_far_lower.y": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -1.08, "ease": "smooth" }, { "at": 0.5, "value": -0.52, "ease": "smooth" }, { "at": 0.75, "value": 0, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_lower.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 3, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -3, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_upper.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 16, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -16, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.x": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.5, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -1.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.y": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -1.5, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": 0, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": -24, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": 24, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "prop_primary.y": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 1.35, "ease": "smooth" }, { "at": 0.5, "value": 0.65, "ease": "smooth" }, { "at": 0.75, "value": 0, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "prop_primary.rotation": [{ "at": 0, "value": 0, "ease": "smooth" }, { "at": 0.25, "value": 2, "ease": "smooth" }, { "at": 0.5, "value": 0, "ease": "smooth" }, { "at": 0.75, "value": -2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }]
+      }
+    },
+    "arriving": {
+      "durationMs": 360,
+      "loop": false,
+      "channels": {
+        "pelvis.y": [{ "at": 0, "value": 7, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "pelvis.rotation": [{ "at": 0, "value": -1.2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "torso.x": [{ "at": 0, "value": -1.2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "torso.y": [{ "at": 0, "value": 2.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "torso.rotation": [{ "at": 0, "value": 2.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "head.y": [{ "at": 0, "value": 3.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "head.rotation": [{ "at": 0, "value": -2.2, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "tail.y": [{ "at": 0, "value": 1.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "tail.rotation": [{ "at": 0, "value": -5.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "leg_near_lower.x": [{ "at": 0, "value": -3, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "leg_near_lower.rotation": [{ "at": 0, "value": -2.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "leg_far_lower.x": [{ "at": 0, "value": 4, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "leg_far_lower.rotation": [{ "at": 0, "value": 3, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_upper.rotation": [{ "at": 0, "value": 2.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_lower.x": [{ "at": 0, "value": -1, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_lower.y": [{ "at": 0, "value": 1.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_far_lower.rotation": [{ "at": 0, "value": -1.5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_upper.rotation": [{ "at": 0, "value": -5, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.x": [{ "at": 0, "value": -1, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.y": [{ "at": 0, "value": 1, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "arm_near_lower.rotation": [{ "at": 0, "value": 7, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }],
+        "prop_primary.rotation": [{ "at": 0, "value": -1, "ease": "smooth" }, { "at": 1, "value": 0, "ease": "smooth" }]
+      }
+    }
+  }
+}

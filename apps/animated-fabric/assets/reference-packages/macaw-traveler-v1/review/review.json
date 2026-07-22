@@ -1,0 +1,92 @@
+{
+  "format": "animated-fabric.reference-review.v1",
+  "schema_version": "0.1.0",
+  "ticket": "AF-054",
+  "status": "candidate",
+  "gait": "anthropomorphic_traveler",
+  "prop_scope": {
+    "staff": "separate_prop_excluded_from_base_actor_and_first_walk",
+    "requires_approval": true
+  },
+  "source_evidence": [
+    {
+      "path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png",
+      "role": "identity_and_assembled_proportions",
+      "sha256": "e0edf058e018138e0dcb20c28b4a73b0d8c3f029d746b1f45c829f2296de8b0e"
+    },
+    {
+      "path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/originals/macaw-traveler-parts-sheet-v1.png",
+      "role": "component_and_joint_intent",
+      "sha256": "8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b15024d16378419"
+    },
+    {
+      "path": "apps/launcher/static/assets/macaw/walk/originals/macaw-walk-sheet-v1.png",
+      "role": "anthropomorphic_gait_reference",
+      "sha256": "deb5206e8dc8fcf65641059e5462c6c1e01092cdba8017e22726164da4ba7b60"
+    },
+    {
+      "path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/rig.json",
+      "role": "existing_articulation_intent",
+      "sha256": "23295e877ff9adde4dfb96e3133e76414d69dbb209b97ce6bed190d2c550cda3"
+    }
+  ],
+  "turnaround": {
+    "file": "macaw-traveler-turnaround-candidate-v1.png",
+    "sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0",
+    "width_px": 1860,
+    "height_px": 845,
+    "views": [
+      {
+        "id": "front",
+        "foreground_bounds_xywh": [41, 108, 454, 616],
+        "candidate_crop_xywh": [15, 59, 506, 704]
+      },
+      {
+        "id": "left",
+        "foreground_bounds_xywh": [547, 114, 347, 607],
+        "candidate_crop_xywh": [521, 56, 399, 704]
+      },
+      {
+        "id": "back",
+        "foreground_bounds_xywh": [949, 112, 450, 617],
+        "candidate_crop_xywh": [930, 64, 488, 704]
+      },
+      {
+        "id": "right",
+        "foreground_bounds_xywh": [1437, 114, 350, 607],
+        "candidate_crop_xywh": [1418, 56, 388, 704]
+      }
+    ],
+    "view_convention": {
+      "actor_forward_axis": "+Y",
+      "actor_right_axis": "+X",
+      "up_axis": "+Z",
+      "front_camera_axis": "+Y",
+      "left_camera_axis": "-X",
+      "back_camera_axis": "-Y",
+      "right_camera_axis": "+X",
+      "left_beak_points": "screen_left",
+      "right_beak_points": "screen_right"
+    },
+    "normalization_review": {
+      "candidate_ground_row_px": 664,
+      "foreground_height_range_px": [607, 617],
+      "maximum_scale_drift_percent": 1.65,
+      "crop_and_padding_preserve_source_pixels": true,
+      "scale_normalization_requires_resampling_or_corrected_art": true
+    },
+    "generation": {
+      "authoring_tool": "OpenAI built-in image generation",
+      "attempt": 2,
+      "inferred_content": true,
+      "notes": "Attempt 2 corrects both side panels to strict profile views; all generated views remain proposals."
+    }
+  },
+  "unresolved_inferences": [
+    "tail feather count and attachment differ between profile and rear proposals",
+    "rear talon orientation and foot anatomy require modeling judgment",
+    "hand, toe, backpack pouch, strap, and bedroll details drift between views",
+    "backpack and robe hide rear torso, tail root, and joint landmarks"
+  ],
+  "approval": null
+}

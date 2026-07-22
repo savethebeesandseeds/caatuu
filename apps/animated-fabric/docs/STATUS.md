@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 complete; AF-054 is active in the inserted M5A macaw vertical slice
+**Current state:** Milestones M0 through M5 and AF-054 complete; AF-055 is next in the inserted M5A macaw vertical slice
 
-**Last updated:** 2026-07-21
+**Last updated:** 2026-07-22
 
 ## Completed work
 
@@ -54,7 +54,7 @@ M5 - export.
 
 M5A - reviewed traveler-macaw actor bridge.
 
-- [ ] AF-054 Reviewed macaw reference package - active, awaiting visual approval
+- [x] AF-054 Reviewed macaw reference package
 - [ ] AF-055 Validated 3D actor package
 - [ ] AF-056 `avian_v1` rig and skinned macaw
 - [ ] AF-057 `avian_walk_v1`
@@ -361,6 +361,28 @@ AF-060 remains the first M6 ticket and is deferred, not cancelled.
   images plus their scoped CC0 notice and AGPL reports. Pull requests still run verification but
   cannot publish the licensed artifact. Review backup-cleanup failure retains the verified new
   preview and reports the recovery path rather than attempting an unsafe rollback.
+- AF-054 promotes the product-owner-approved traveler-macaw turnaround into one self-contained,
+  exact-file reference package. It preserves the identity, prepared-parts, side-walk, prompt,
+  split, legacy-rig, and combined-sheet evidence without modifying the source bytes.
+- The four individual authorities are ordered `front`, `left`, `back`, `right` as 512 x 704 RGB
+  PNGs at one 1:1 combined-sheet pixel scale and zero-based ground row 664. Horizontal edge-column
+  extension supplies only the common canvas padding; every approved crop pixel remains unchanged.
+- Canonical `reference.json` records SHA-256 identities, axes, camera/beak conventions, source and
+  derivative provenance, C2PA claim identifiers and verification limits, unresolved inference,
+  `anthropomorphic_traveler`, and `staff_separate`. The package preserves the exact candidate review
+  and separately supplied canonical product-owner approval; canonical `approval.json` carries that
+  decision unchanged and binds it to the exact manifest hash and ordered view-set digest.
+- The fixed validator enforces the exact regular-file allowlist, no links, Windows junctions, or hard
+  links, canonical paths/JSON, file and image limits, hashes, image modes and dimensions, recomputed
+  scale variance, crop/ground/padding pixel equivalence, ordered views, deterministic derivation from
+  the exact approved review, and approval bindings. Verification uses one bounded private snapshot
+  and rejects concurrent source-tree changes. Preparation also rejects linked destination/input
+  ancestors, stages a complete package, verifies it before atomic publication, permits byte-identical
+  reruns, and never replaces a different versioned v1.
+- Caatuu owner confirmation records that the character material was created from scratch and
+  authorizes open reuse. The root and application inventories scope `CC0-1.0` to only the eight
+  exact PNG identities; JSON, prompts, code, other macaw art, and future derivatives retain their
+  separate terms and review gates.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -421,6 +443,7 @@ Principal files:
 - `src/animated_fabric/infrastructure/imaging/png_writer.py`
 - `src/animated_fabric/gui/app.py`
 - `scripts/generate_fixture_assets.py`
+- `scripts/prepare_macaw_reference_package.py`
 - `scripts/generate_af022_compositor_golden.py`
 - `scripts/run_demo_pipeline.py`
 - `scripts/run_rig_application_demo.py`
@@ -524,10 +547,42 @@ Principal files:
 - `docs/decisions/0006-humanoid-idle-generator.md`
 - `docs/decisions/0007-humanoid-walk-generator.md`
 - `tests/cutout/`
+- `tests/unit/test_reference_package.py`
+- `tools/reference_package.py`
+- `assets/reference-packages/macaw-traveler-v1/`
+- `docs/LEGAL_INVENTORY.md`
 - `.github/workflows/animated-fabric-ci.yml` at the Caatuu repository root
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Local pre-publication verification executed on 2026-07-22 for AF-054 through the
+repository-owned Linux development container:
+
+- `ruff format --check .`: 232 files already formatted; `ruff check .`: all checks passed.
+- `mypy src`: no issues in 73 source files. Namespace-package-aware strict checking also passed
+  for `tools/reference_package.py` and `scripts/prepare_macaw_reference_package.py`.
+- `pytest -q`: 1,034 passed in 116.38 s with 91.95% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements.
+- The focused AF-054 suite reported 31 passed. It covers byte-identical reruns, immutable inputs,
+  independent source/crop/padding pixel checks, computed scale variance, exact review and approval
+  bindings, approval-semantic and timestamp tampering, prompt/split drift, reordered and extra files,
+  traversal, duplicate keys and source roles, JSON/image/file limits, linked input/output ancestors,
+  symbolic and hard links, concurrent package mutation, differing-version preservation, CLI
+  sanitization, and pinned tracked identities.
+- The real package preparation command reproduced all 17 files byte for byte from the tracked review
+  and separate source approval. Direct verification reported manifest SHA-256
+  `a88520b026a4c48b98c6b50785fe49ffa60d01f1e94157650dbfbbb754b11f77`, approval SHA-256
+  `e6dc9202b6608ab5821c2fb9c76811a5a69296061bf20314b6c7ea3bafa142bc`, and ordered view-set
+  SHA-256 `3c625d9ff3e87567d2e1eb2878866243629c2af18ed0af011fe2526c2aee9311`.
+- All four 512 x 704 modeling views were inspected at original resolution after normalization;
+  their order, strict profiles, ground alignment, unscaled character pixels, and clean background
+  extension matched the approved combined sheet.
+- `python scripts/generate_fixture_assets.py --out .tmp/af054-fixtures` generated the complete
+  geometric fixture; `python scripts/run_demo_pipeline.py --out .tmp/af054-demo` rendered neutral
+  SE and NE frames; `python -m animated_fabric doctor` reported no problems.
+- The documented Node 24 container reported repository file policy passed for 1,756 tracked and
+  candidate files and Markdown links passed for 104 files.
 
 Local pre-publication verification executed on 2026-07-21 for the AF-053 implementation through
 the repository-owned Linux development container, before the native acceptance recorded below:
@@ -934,19 +989,17 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
-- AF-054 has a corrected four-view turnaround candidate in the ignored review workspace, with
-  status `candidate` and no approval record. It MUST NOT be consumed by AF-056, published, or
-  described as recovered geometry until explicit human approval is recorded. The authoritative
-  source package and tracked provenance are still pending that approval.
-- The candidate's foreground heights differ by up to 10 px (about 1.65%), and tail feathers,
-  talons, hand/toe silhouettes, backpack details, and hidden joint landmarks require explicit
-  modeling judgment. Its proposed base actor and first walk omit the staff as a separate prop; that
-  scope also awaits approval.
-- The repository already contains useful macaw identity, side-walk, and prepared puppet-layer
-  assets outside Animated Fabric. They are source evidence only; M5A must copy accepted inputs into
-  Animated Fabric with hashes and provenance rather than creating a runtime sibling dependency.
-  The root and application legal inventories must both clear exact files before they are tracked as
-  accepted inputs or published.
+- AF-054's generated views remain approved inferred modeling references, not recovered geometry.
+  Their foreground heights differ by up to 10 px (about 1.65%); tail feathers, talons, hand/toe
+  silhouettes, backpack details, hidden joint landmarks, and rear surfaces still require explicit
+  human modeling judgment in AF-056.
+- The embedded OpenAI C2PA claims on the prepared-parts, side-walk, and turnaround sheets were
+  detected and preserved byte for byte but not cryptographically validated. The historical
+  prepared-parts prompt names two inputs without stable identifiers, and the side-walk prompt was
+  not preserved; owner confirmation supplies the controlling first-party rights evidence without
+  treating C2PA as proof of ownership.
+- The staff remains a separate prop excluded from the first actor and walk. AF-056 must preserve a
+  future-compatible hand-socket requirement but must not infer an AF-054 socket identifier.
 - Persisted project, rig, and layer-catalog JSON still lack global file-size and collection-count
   bounds. Add both before production use accepts untrusted projects.
 - Frozen domain models still expose mutable nested mappings. Resolve deep immutability or enforce
@@ -1079,4 +1132,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-054 Reviewed macaw reference package
+- AF-055 Validated 3D actor package

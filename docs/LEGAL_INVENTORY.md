@@ -1,7 +1,7 @@
 # Caatuu legal and provenance inventory
 
-Last reviewed: 21 July 2026
-Baseline commit: `51d5d63dd32fd7e0c521d6b6d596cf1484fcee57`
+Last reviewed: 22 July 2026
+Baseline commit: `0714ab3fe036c36b4061c419464a8332218b6075`
 
 This is a working release-control inventory, not legal advice and not a license.
 It grants no rights. A `STOP-SHIP` entry is a conservative Caatuu release
@@ -79,6 +79,7 @@ paid release. A complete row needs:
 | ID | Material | Evidence | Release status | Required action |
 | --- | --- | --- | --- | --- |
 | VIS-001 | Four AF-052 procedural directional walk phase-zero golden PNGs under `apps/animated-fabric/tests/golden/af052_blender_walk_*_t0000.png` | Author/provider, generator and source identities, creation date, exact hashes, modifications, review purpose, distribution surfaces, and no-attribution decision are recorded in [`af052_blender_walk.provenance.json`](../apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json); owner-approved [`CC0-1.0`](../apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md) dedication | `CLEAR` for public source and unrestricted reuse | Keep the four PNG hashes, provenance record, and scoped CC0 notice synchronized; do not infer these terms for any other visual asset or for the Blender container |
+| VIS-002 | Eight approved AF-054 traveler-macaw PNG identities under `apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/` | Caatuu owner confirmation records that the character material was created from scratch and authorizes open reuse under evidence ID `CAATUU-AF054-OWNER-APPROVAL-2026-07-22`; the separately supplied decision is preserved in [`review/source-approval.json`](../apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/review/source-approval.json); exact paths and hashes, authoring/provider records, embedded-but-unverified C2PA claim IDs, dates, transformations, source commit, and release surfaces are in [`reference.json`](../apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/reference.json); [`approval.json`](../apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/approval.json) binds the decision to the exact manifest and ordered view set; scoped [`CC0-1.0`](../apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/LICENSE-CC0.md) notice | `CLEAR` for only the eight exact PNG hashes named by the scoped notice | Preserve the byte-identical generated sheets and their embedded claims; keep the package validator, hashes, approval, and notice synchronized; do not infer clearance for other macaw art, JSON, future meshes, textures, animation, or renders |
 
 ## Distribution gates
 

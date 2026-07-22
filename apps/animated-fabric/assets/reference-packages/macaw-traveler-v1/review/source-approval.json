@@ -1,0 +1,82 @@
+{
+  "accepted_limitations": [
+    "The four generated views remain inferred modeling references, not recovered geometry.",
+    "The disclosed 607-617 px silhouette-height variance (maximum 1.65%) is accepted at one common 1:1 sheet scale.",
+    "Tail, talon, hand, toe, backpack, hidden joint, and rear-surface details require modeling judgment."
+  ],
+  "accepted_scope": {
+    "foreground_height_range_px": [
+      607,
+      617
+    ],
+    "gait": "anthropomorphic_traveler",
+    "generated_views_remain_inferred_modeling_references": true,
+    "maximum_visual_height_variance_percent": 1.65,
+    "prop_scope": {
+      "base_actor": "excluded",
+      "first_walk": "excluded",
+      "future_compatible_hand_socket_required": true,
+      "staff": "separate"
+    }
+  },
+  "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+  "approved_inputs": [
+    {
+      "id": "identity-neutral-reference",
+      "sha256": "e0edf058e018138e0dcb20c28b4a73b0d8c3f029d746b1f45c829f2296de8b0e",
+      "source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png"
+    },
+    {
+      "id": "prepared-parts-sheet",
+      "sha256": "8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b15024d16378419",
+      "source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/originals/macaw-traveler-parts-sheet-v1.png"
+    },
+    {
+      "id": "prepared-parts-prompt",
+      "sha256": "f02473d3964895687bbce0207d9ff99e923ef8acf6320060daccd4950ef8cc9f",
+      "source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/generation-prompt.md"
+    },
+    {
+      "id": "prepared-parts-split-evidence",
+      "sha256": "429da660ad6ad14ffcdc2f50f7bab2e299ce10a32f56c27dfb7c90420d58f267",
+      "source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/split_manifest.candidate-v1.json"
+    },
+    {
+      "id": "legacy-rig",
+      "sha256": "23295e877ff9adde4dfb96e3133e76414d69dbb209b97ce6bed190d2c550cda3",
+      "source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/rig.json"
+    },
+    {
+      "id": "side-walk-sheet",
+      "sha256": "deb5206e8dc8fcf65641059e5462c6c1e01092cdba8017e22726164da4ba7b60",
+      "source_path": "apps/launcher/static/assets/macaw/walk/originals/macaw-walk-sheet-v1.png"
+    },
+    {
+      "id": "turnaround",
+      "sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0",
+      "source_path": "macaw-traveler-turnaround-candidate-v1.png"
+    }
+  ],
+  "decided_at_utc": "2026-07-22T06:34:51Z",
+  "decision": "approved",
+  "format": "animated-fabric.reference-review-approval.v1",
+  "package_id": "macaw-traveler-v1",
+  "provenance_confirmation": {
+    "turnaround_authoring_tool": "OpenAI built-in image generation",
+    "turnaround_generation_attempt": 2,
+    "turnaround_inferred_content": true
+  },
+  "review": {
+    "path": "review.json",
+    "sha256": "cde02dd5d1b24f68bed63c62f0a8116b2964506eba089391c62688265618cc60"
+  },
+  "reviewer_role": "product_owner",
+  "rights_confirmation": {
+    "created_from_scratch_for_caatuu": true,
+    "scope": "only_the_eight_exact_png_identities_listed_in_the_package_notice",
+    "scoped_cc0_authorized": true
+  },
+  "rights_statement": "The product owner confirmed that Caatuu created the character material from scratch and approved public reuse under the scoped CC0 notice only for rights Caatuu owns or is authorized to exercise.",
+  "schema_version": "0.1.0",
+  "ticket": "AF-054"
+}

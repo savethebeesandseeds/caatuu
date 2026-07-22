@@ -1,0 +1,49 @@
+{
+  "accepted_limitations": [
+    "The four generated views remain inferred modeling references, not recovered geometry.",
+    "The disclosed 607-617 px silhouette-height variance (maximum 1.65%) is accepted at one common 1:1 sheet scale.",
+    "Tail, talon, hand, toe, backpack, hidden joint, and rear-surface details require modeling judgment."
+  ],
+  "accepted_scope": {
+    "foreground_height_range_px": [
+      607,
+      617
+    ],
+    "gait": "anthropomorphic_traveler",
+    "generated_views_remain_inferred_modeling_references": true,
+    "maximum_visual_height_variance_percent": 1.65,
+    "prop_scope": {
+      "base_actor": "excluded",
+      "first_walk": "excluded",
+      "future_compatible_hand_socket_required": true,
+      "staff": "separate"
+    }
+  },
+  "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+  "decided_at_utc": "2026-07-22T06:34:51Z",
+  "decision": "approved",
+  "format": "animated-fabric.reference-approval.v1",
+  "manifest": {
+    "path": "reference.json",
+    "sha256": "a88520b026a4c48b98c6b50785fe49ffa60d01f1e94157650dbfbbb754b11f77"
+  },
+  "ordered_view_set": {
+    "format": "animated-fabric.reference-view-set.v1",
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "sha256": "3c625d9ff3e87567d2e1eb2878866243629c2af18ed0af011fe2526c2aee9311"
+  },
+  "package_id": "macaw-traveler-v1",
+  "reviewer_role": "product_owner",
+  "rights_statement": "The product owner confirmed that Caatuu created the character material from scratch and approved public reuse under the scoped CC0 notice only for rights Caatuu owns or is authorized to exercise.",
+  "schema_version": "0.1.0",
+  "source_approval": {
+    "path": "review/source-approval.json",
+    "sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+  },
+  "ticket": "AF-054"
+}

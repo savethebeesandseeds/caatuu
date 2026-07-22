@@ -1,0 +1,359 @@
+{
+  "actor_axes": {
+    "actor_forward": "+Y",
+    "actor_right": "+X",
+    "up": "+Z"
+  },
+  "approval_record": {
+    "path": "approval.json",
+    "required_before_ticket": "AF-056"
+  },
+  "combined_review_sheet": {
+    "c2pa": {
+      "claim_manifest_id": "urn:c2pa:c9b53b89-c905-4753-bdc8-5034535363e6",
+      "instance_id": "xmp:iid:4f442129-f3c4-4164-989c-df43c732e763",
+      "recorded_action": "trainedAlgorithmicMedia",
+      "recorded_created_date": "2026-07-21",
+      "recorded_generator": "gpt-image 2.0",
+      "recorded_provider": "OpenAI Media Service API",
+      "verification": "embedded_claim_detected_not_cryptographically_validated"
+    },
+    "classification": "approved_generated_inferred_combined_review_sheet",
+    "height_px": 845,
+    "media_type": "image/png",
+    "mode": "RGB",
+    "original_review_filename": "macaw-traveler-turnaround-candidate-v1.png",
+    "path": "review/macaw-traveler-turnaround-candidate-v1.png",
+    "provenance": {
+      "author_provider": "Caatuu-directed OpenAI image generation",
+      "created_date": "2026-07-21",
+      "generation_attempt": 2,
+      "input_evidence_sha256": [
+        "e0edf058e018138e0dcb20c28b4a73b0d8c3f029d746b1f45c829f2296de8b0e",
+        "8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b15024d16378419",
+        "deb5206e8dc8fcf65641059e5462c6c1e01092cdba8017e22726164da4ba7b60",
+        "23295e877ff9adde4dfb96e3133e76414d69dbb209b97ce6bed190d2c550cda3"
+      ],
+      "modifications": "Copied byte for byte without modification; embedded claim retained.",
+      "review_record_sha256": "cde02dd5d1b24f68bed63c62f0a8116b2964506eba089391c62688265618cc60"
+    },
+    "sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0",
+    "width_px": 1860
+  },
+  "common_view": {
+    "approved_maximum_visual_height_variance_percent": 1.65,
+    "ground_row_px": 664,
+    "height_px": 704,
+    "mode": "RGB",
+    "normalization": "one_to_one_crop_with_horizontal_edge_extension",
+    "observed_foreground_height_range_px": [
+      607,
+      617
+    ],
+    "scale_basis": "one_to_one_pixels_from_one_combined_sheet",
+    "width_px": 512
+  },
+  "documentation": {
+    "path": "README.md",
+    "sha256": "5b3222ab61ab7fd13f0a76d227783cdbafd54176f54b76af53c2520c40f07e63"
+  },
+  "format": "animated-fabric.reference-package.v1",
+  "gait": "anthropomorphic_traveler",
+  "license": {
+    "attribution_required": false,
+    "expression": "CC0-1.0",
+    "notice_path": "LICENSE-CC0.md",
+    "notice_sha256": "3185a4005a31eb8aabed1b0e3936a49115c9909cb9987f780c145f79ba141f08",
+    "scope": "only_the_eight_exact_png_identities_listed_in_the_notice"
+  },
+  "ordered_view_set": {
+    "format": "animated-fabric.reference-view-set.v1",
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "sha256": "3c625d9ff3e87567d2e1eb2878866243629c2af18ed0af011fe2526c2aee9311"
+  },
+  "package_id": "macaw-traveler-v1",
+  "prop_scope": {
+    "base_actor": "excluded",
+    "first_walk": "excluded",
+    "future_compatible_hand_socket_required": true,
+    "staff": "separate"
+  },
+  "provenance_limitations": [
+    "Embedded C2PA claims were detected but not cryptographically validated.",
+    "The historical prepared-parts prompt names two inputs without stable identities.",
+    "The historical side-walk prompt and input lineage were not preserved.",
+    "Generated views are proposals accepted for modeling reference, not recovered geometry."
+  ],
+  "review_evidence": {
+    "review_path": "review/review.json",
+    "review_sha256": "cde02dd5d1b24f68bed63c62f0a8116b2964506eba089391c62688265618cc60",
+    "source_approval_path": "review/source-approval.json",
+    "source_approval_sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+  },
+  "rights_evidence": {
+    "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+    "grant": "owner-approved scoped CC0 for rights Caatuu owns or may exercise",
+    "release_surfaces": [
+      "public GitHub source",
+      "developer documentation",
+      "offline modeling reference input"
+    ],
+    "source_approval_sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+  },
+  "schema_version": "0.1.0",
+  "sources": [
+    {
+      "height_px": 414,
+      "id": "identity-neutral-reference",
+      "media_type": "image/png",
+      "mode": "RGBA",
+      "path": "sources/identity/neutral-reference.png",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu project contributors using the prepared-parts workflow",
+        "copied_without_modification": true,
+        "derivation": "Byte-identical to prepared-parts split slot 12 after documented alpha extraction.",
+        "embedded_c2pa": "none; lineage points to the credentialed prepared-parts sheet",
+        "imported_date": "2026-07-17",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "e0edf058e018138e0dcb20c28b4a73b0d8c3f029d746b1f45c829f2296de8b0e"
+      },
+      "repository_source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/layers/neutral-reference.png",
+      "role": "identity_and_assembled_proportions",
+      "sha256": "e0edf058e018138e0dcb20c28b4a73b0d8c3f029d746b1f45c829f2296de8b0e",
+      "width_px": 377
+    },
+    {
+      "height_px": 1024,
+      "id": "prepared-parts-sheet",
+      "media_type": "image/png",
+      "mode": "RGB",
+      "path": "sources/prepared-parts/macaw-traveler-parts-sheet-v1.png",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu-directed OpenAI image generation",
+        "c2pa": {
+          "claim_manifest_id": "urn:c2pa:12281797-1ae4-43ed-a50a-1f29c4dfd7fd",
+          "instance_id": "xmp:iid:09bf7ca9-6db3-4727-a185-94c944ffc4bb",
+          "recorded_action": "trainedAlgorithmicMedia",
+          "recorded_created_date": "2026-07-14",
+          "recorded_generator": "gpt-image 2.0",
+          "recorded_provider": "OpenAI Media Service API",
+          "verification": "embedded_claim_detected_not_cryptographically_validated"
+        },
+        "copied_without_modification": true,
+        "imported_date": "2026-07-17",
+        "modifications": "None in this package; embedded claim bytes retained.",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b15024d16378419"
+      },
+      "repository_source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/originals/macaw-traveler-parts-sheet-v1.png",
+      "role": "component_and_joint_intent",
+      "sha256": "8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b15024d16378419",
+      "width_px": 1536
+    },
+    {
+      "id": "prepared-parts-prompt",
+      "media_type": "text/markdown",
+      "path": "sources/prepared-parts/generation-prompt.md",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu project contributors",
+        "copied_without_modification": true,
+        "imported_date": "2026-07-17",
+        "purpose": "Self-contained historical provenance evidence.",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "f02473d3964895687bbce0207d9ff99e923ef8acf6320060daccd4950ef8cc9f"
+      },
+      "repository_source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/generation-prompt.md",
+      "role": "prepared_parts_generation_prompt",
+      "sha256": "f02473d3964895687bbce0207d9ff99e923ef8acf6320060daccd4950ef8cc9f"
+    },
+    {
+      "id": "prepared-parts-split-evidence",
+      "media_type": "application/json",
+      "path": "sources/prepared-parts/split-manifest.json",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu project contributors",
+        "copied_without_modification": true,
+        "imported_date": "2026-07-17",
+        "purpose": "Self-contained historical provenance evidence.",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "429da660ad6ad14ffcdc2f50f7bab2e299ce10a32f56c27dfb7c90420d58f267"
+      },
+      "repository_source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/split_manifest.candidate-v1.json",
+      "role": "neutral_reference_derivation_evidence",
+      "sha256": "429da660ad6ad14ffcdc2f50f7bab2e299ce10a32f56c27dfb7c90420d58f267"
+    },
+    {
+      "id": "legacy-rig",
+      "media_type": "application/json",
+      "path": "sources/prepared-parts/legacy-rig.json",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu project contributors",
+        "copied_without_modification": true,
+        "imported_date": "2026-07-17",
+        "limitations": "Evidence only; its legacy relative layer references are not resolved by this package.",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "23295e877ff9adde4dfb96e3133e76414d69dbb209b97ce6bed190d2c550cda3"
+      },
+      "repository_source_path": "apps/launcher/static/assets/character-rigs/macaw-traveler-v1/rig.json",
+      "role": "existing_articulation_intent_evidence_only",
+      "sha256": "23295e877ff9adde4dfb96e3133e76414d69dbb209b97ce6bed190d2c550cda3"
+    },
+    {
+      "height_px": 1024,
+      "id": "side-walk-sheet",
+      "media_type": "image/png",
+      "mode": "RGB",
+      "path": "sources/side-walk/macaw-walk-sheet-v1.png",
+      "provenance": {
+        "approval_evidence_id": "CAATUU-AF054-OWNER-APPROVAL-2026-07-22",
+        "author_provider": "Caatuu-directed OpenAI image generation",
+        "c2pa": {
+          "claim_manifest_id": "urn:c2pa:d668b86a-16c3-4239-af8b-255963e6cb99",
+          "instance_id": "xmp:iid:d7518a6b-30bc-4c82-9943-34e8ff437f80",
+          "recorded_action": "trainedAlgorithmicMedia",
+          "recorded_created_date": "2026-07-14",
+          "recorded_generator": "gpt-image 2.0",
+          "recorded_provider": "OpenAI Media Service API",
+          "verification": "embedded_claim_detected_not_cryptographically_validated"
+        },
+        "copied_without_modification": true,
+        "imported_date": "2026-07-17",
+        "modifications": "None in this package; embedded claim bytes retained.",
+        "repository_import_commit": "2cfa4398e443a5beb786305d1e2bb0a40feb833a",
+        "source_sha256": "deb5206e8dc8fcf65641059e5462c6c1e01092cdba8017e22726164da4ba7b60"
+      },
+      "repository_source_path": "apps/launcher/static/assets/macaw/walk/originals/macaw-walk-sheet-v1.png",
+      "role": "anthropomorphic_gait_reference",
+      "sha256": "deb5206e8dc8fcf65641059e5462c6c1e01092cdba8017e22726164da4ba7b60",
+      "width_px": 1536
+    }
+  ],
+  "status": "approved",
+  "ticket": "AF-054",
+  "unresolved_inferences": [
+    "tail feather count and attachment differ between profile and rear proposals",
+    "rear talon orientation and foot anatomy require modeling judgment",
+    "hand, toe, backpack pouch, strap, and bedroll details drift between views",
+    "backpack and robe hide rear torso, tail root, and joint landmarks"
+  ],
+  "views": [
+    {
+      "beak_direction": "not_applicable",
+      "camera_axis": "+Y",
+      "classification": "approved_generated_inferred_modeling_reference",
+      "crop_xywh": [
+        15,
+        59,
+        506,
+        704
+      ],
+      "foreground_bounds_sheet_xywh": [
+        41,
+        108,
+        454,
+        616
+      ],
+      "id": "front",
+      "normalization": "one_to_one_crop_with_horizontal_edge_extension",
+      "path": "views/front.png",
+      "placement_xy": [
+        3,
+        0
+      ],
+      "sha256": "386ff6120a72d88e171eef570b771b277c4455e9930e5e38d821146d247fbbb2",
+      "source_sheet_path": "review/macaw-traveler-turnaround-candidate-v1.png",
+      "source_sheet_sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0"
+    },
+    {
+      "beak_direction": "screen_left",
+      "camera_axis": "-X",
+      "classification": "approved_generated_inferred_modeling_reference",
+      "crop_xywh": [
+        521,
+        56,
+        399,
+        704
+      ],
+      "foreground_bounds_sheet_xywh": [
+        547,
+        114,
+        347,
+        607
+      ],
+      "id": "left",
+      "normalization": "one_to_one_crop_with_horizontal_edge_extension",
+      "path": "views/left.png",
+      "placement_xy": [
+        56,
+        0
+      ],
+      "sha256": "bab4a6c76b66f477832eb2e1cbd85f6be56fd678c0df7b4acb58da65eb30ce1a",
+      "source_sheet_path": "review/macaw-traveler-turnaround-candidate-v1.png",
+      "source_sheet_sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0"
+    },
+    {
+      "beak_direction": "not_applicable",
+      "camera_axis": "-Y",
+      "classification": "approved_generated_inferred_modeling_reference",
+      "crop_xywh": [
+        930,
+        64,
+        488,
+        704
+      ],
+      "foreground_bounds_sheet_xywh": [
+        949,
+        112,
+        450,
+        617
+      ],
+      "id": "back",
+      "normalization": "one_to_one_crop_with_horizontal_edge_extension",
+      "path": "views/back.png",
+      "placement_xy": [
+        12,
+        0
+      ],
+      "sha256": "babc4da2f8ccc113dbc06e2f85fc686720bf3aeb28464398d7ea47e2a231c2ed",
+      "source_sheet_path": "review/macaw-traveler-turnaround-candidate-v1.png",
+      "source_sheet_sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0"
+    },
+    {
+      "beak_direction": "screen_right",
+      "camera_axis": "+X",
+      "classification": "approved_generated_inferred_modeling_reference",
+      "crop_xywh": [
+        1418,
+        56,
+        388,
+        704
+      ],
+      "foreground_bounds_sheet_xywh": [
+        1437,
+        114,
+        350,
+        607
+      ],
+      "id": "right",
+      "normalization": "one_to_one_crop_with_horizontal_edge_extension",
+      "path": "views/right.png",
+      "placement_xy": [
+        62,
+        0
+      ],
+      "sha256": "3876f841e91c7e3f96b8054cee6eda3caefca2f0410f2dc9e1732e7b4ce47aae",
+      "source_sheet_path": "review/macaw-traveler-turnaround-candidate-v1.png",
+      "source_sheet_sha256": "e006454eed9c1085e32dd88c90f8f8f90484f171b2a0a4f348f78d6214c21fb0"
+    }
+  ]
+}

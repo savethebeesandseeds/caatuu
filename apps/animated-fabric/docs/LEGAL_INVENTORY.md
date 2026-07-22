@@ -1,6 +1,6 @@
 # Animated Fabric legal inventory
 
-**Last reviewed:** 2026-07-21
+**Last reviewed:** 2026-07-22
 
 This inventory distinguishes first-party source, generated visual assets, adapted code, and
 container tooling. Exact license texts and component records control if this summary differs from
@@ -13,6 +13,7 @@ them. A license on generated pixels does not relicense the software that produce
 | `SRC-001` | Animated Fabric first-party source, JSON, reports, tests, and documentation | `apps/animated-fabric/`, except material listed separately below | `AGPL-3.0-only`; repository [license](../../../LICENSE) | Public source under the stated terms |
 | `VIS-001` | Four AF-052 phase-zero directional golden PNGs | The four files named in [`tests/golden/LICENSE-AF052-CC0.md`](../tests/golden/LICENSE-AF052-CC0.md) | `CC0-1.0`; owned procedural output, no attribution required | Approved for public reuse |
 | `VIS-002` | AF-053 spritesheet, contact sheet, and review GIF | Official CI outputs `walk.png`, `walk_contact_sheet.png`, and `walk_review.gif` at the exact paths in [`AF053-DEMO-CC0.md`](AF053-DEMO-CC0.md) | `CC0-1.0`; owned procedural output, no attribution required | Approved for public CI publication and reuse |
+| `VIS-003` | AF-054 traveler-macaw reference art created from scratch for Caatuu | Only the eight PNG paths and SHA-256 values named in [`assets/reference-packages/macaw-traveler-v1/LICENSE-CC0.md`](../assets/reference-packages/macaw-traveler-v1/LICENSE-CC0.md); full lineage and limitations in [`reference.json`](../assets/reference-packages/macaw-traveler-v1/reference.json); exact separately supplied product-owner decision and open-reuse confirmation under evidence ID `CAATUU-AF054-OWNER-APPROVAL-2026-07-22` in [`review/source-approval.json`](../assets/reference-packages/macaw-traveler-v1/review/source-approval.json), with [`approval.json`](../assets/reference-packages/macaw-traveler-v1/approval.json) binding it to the manifest and ordered view set | `CC0-1.0` only for rights Caatuu owns or is authorized to exercise; no attribution required | Approved for public source, developer documentation, and offline modeling-reference use; embedded C2PA claims are recorded but not cryptographically validated |
 
 `VIS-002` excludes the spritesheet JSON, directional manifest, provenance report, raw 48-frame
 evidence sequence, source, container, and any independently modified file with the same basename.
@@ -21,12 +22,12 @@ third-party terms.
 
 ## Unapproved authoring candidates
 
-AF-054 turnaround proposals remain in ignored review workspaces and are not tracked, published, or
-licensed as accepted product assets. Before any proposal, texture, mesh, or macaw demo output is
-accepted, its immutable source identities, generated-media provenance, chosen terms, and exact
-publication scope MUST be added to this inventory. Candidate status is not publication approval.
-For first-party macaw art that Caatuu can license, decision 0014 records `CC0-1.0` as the intended
-default; the dedication applies only after this inventory names the exact accepted files.
+`VIS-003` is the sole AF-054 exception promoted from an ignored review workspace. Other turnaround
+proposals, textures, meshes, actor packages, animations, renders, and macaw demo outputs remain
+unapproved. Before any is accepted, its immutable source identities, generated-media provenance,
+chosen terms, and exact publication scope MUST be added to this inventory. Candidate status is not
+publication approval, and the `VIS-003` dedication must not be extended by filename similarity or
+lineage alone.
 
 ## Adapted and third-party components
 

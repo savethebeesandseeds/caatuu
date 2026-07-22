@@ -4,8 +4,8 @@ Animated Fabric is a Linux-first desktop application and Python library for turn
 image layers or explicitly approved, bounded 3D prerender sources into reusable animation frames
 and spritesheets.
 
-Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, and AF-053 are complete.
-AF-054 is active as the first ticket in the user-directed M5A traveler-macaw vertical slice.
+Milestones M0 through M5 and tickets AF-044, AF-050, AF-051, AF-052, AF-053, and AF-054 are
+complete. AF-055 is next in the user-directed M5A traveler-macaw vertical slice.
 AF-060 remains planned after AF-059.
 The application can inspect, confirm, trim, and safely publish prepared PNG layers into a typed
 project catalog, load the validated built-in `humanoid_v1` anatomy, and apply it as a persistent
@@ -21,9 +21,11 @@ and the public fixed-grid spritesheet command render those clips through the sha
 application does not yet contain the functional editor or a database. The bounded 3D path now
 reuses one procedural walk across four direct actor-root yaw renders and packages their verified
 pixels through the same fixed-grid packer. Blender remains isolated from the application and the
-current layered-2D product contracts remain unchanged. Decision 0014 now defines the missing bridge
-as a reviewed reference package, a strict data-only actor package, `avian_v1`, one canonical avian
-walk, and four direct yaw renders. It explicitly does not claim automatic single-image-to-3D.
+current layered-2D product contracts remain unchanged. The first bridge step is now an approved,
+self-contained traveler-macaw reference package with immutable evidence, four ordered views, a
+digest-bound product-owner approval, and a scoped open-art notice. Decision 0014 defines the
+remaining bridge as a strict data-only actor package, `avian_v1`, one canonical avian walk, and four
+direct yaw renders. It explicitly does not claim automatic single-image-to-3D.
 
 The normative contract is [`docs/SPEC.md`](docs/SPEC.md), and verified progress
 is recorded in [`docs/STATUS.md`](docs/STATUS.md). First-party, generated-media, adapted-source,
