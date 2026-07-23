@@ -1,0 +1,2544 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-authoring-report-v1",
+  "batchId": "codex-expansion-0001",
+  "createdOn": "2026-07-21",
+  "disposition": "candidate_only_pending_independent_review",
+  "selfReviewIsAcceptance": false,
+  "counts": {
+    "records": 250,
+    "byDifficulty": {
+      "1": 62,
+      "2": 188
+    },
+    "level2Share": 0.752,
+    "byTopic": {
+      "people": 25,
+      "home": 25,
+      "food": 25,
+      "school": 25,
+      "play": 25,
+      "transport": 25,
+      "location": 25,
+      "weather": 25,
+      "time": 25,
+      "technology": 24,
+      "shopping": 1
+    },
+    "bySentenceType": {
+      "statement": 171,
+      "imperative": 76,
+      "question": 3
+    }
+  },
+  "targetCoverage": {
+    "distinctTargets": 241,
+    "singletonTargetsBefore": 228,
+    "nonStrongTargetsBefore": 241,
+    "absentTargetsBefore": 0,
+    "alreadyStrongTargetsBefore": 0,
+    "coreDictionaryTokenMatches": 96,
+    "projectedNewBranchableTargets": 228,
+    "projectedNewStrongTargets": 2,
+    "perTarget": [
+      {
+        "target": "autě",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "auto",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "autobuse",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "banány",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "baterie",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "blízko",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "bojím",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "bráška",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "bratr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "břicho",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "bunda",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "bundu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "cesta",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "cítím",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "času",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "čepice",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "čepici",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "čerstvý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "čistá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "čte",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "daleko",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "dej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "shopping"
+        ]
+      },
+      {
+        "target": "deštník",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "dílek",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "dlouhá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "doleva",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "doprava",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "dovnitř",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "dvanáct",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "džusu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "fouká",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "heslo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "hlasitý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "hláskuje",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "hlava",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "hoď",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "hodin",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "hodina",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "horké",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "hotový",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "hračky",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "hrnek",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "chutná",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "chybějící",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "chyť",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "internet",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "jablka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "jdou",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "jeď",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "jednu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "jméno",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "kalhoty",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "kamarádi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "klepni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "klíč",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "klíče",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "kočku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "kolo",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "kopni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "košile",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "krabicí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "květinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "letadlo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "letí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "loď",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "lžíci",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "malý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "mé",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "měkká",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "míče",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "minut",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "minutu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "modrá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "mokré",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "nabij",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "načítá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "nádobí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "nahlas",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "najdi",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "nakresli",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "navzájem",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "nejdřív",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "nejez",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "nervózní",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "nesdílej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "neslyším",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "neuklizený",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "nezapomeň",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "oblečení",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "obloha",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "obrazovka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "odcházíme",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "odpovědět",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "oknu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "omyj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "opakuj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "otázku",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "park",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "peníze",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "shopping"
+        ]
+      },
+      {
+        "target": "písničku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "pití",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "počítač",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "podej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "podělit",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "podlaha",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "podlahu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "pohovka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "poledne",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "polévka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "polici",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "pomalý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "pondělí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "ponožky",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "posbírej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "poslouchej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "pospěš",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "postav",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "pošli",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "pověs",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "pozorně",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "pracuj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "prší",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "přejdi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "příběh",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "přichází",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "přijdu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "přijede",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "připoutej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "příští",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "psa",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "rodina",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "rodinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "rohu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "rostlinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "rovně",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "rozsviť",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "rušno",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "rychle",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "řekni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "sejít",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "skončil",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "skončila",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "slož",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "slunečno",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "sněží",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "snídám",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "snídaně",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "soused",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "spí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "stiskni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "stole",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "střídejme",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "studené",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "stůl",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "suché",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "sušenku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "svetr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "šaty",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "škole",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "špatné",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "špinavé",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "tablet",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "tabuli",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "talíř",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "tamhle",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "tancuj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "taška",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "tebou",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "teplá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "teplý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "tlačítko",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "tobě",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "trochu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "třída",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "tužku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "tvoje",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "týden",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "učitel",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "uklizený",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "uklízet",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "úkol",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "ulici",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "ulož",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "umíš",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "ustup",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "úterý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "utři",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "vaří",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "včera",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "večeřím",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "vedle",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "venku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "větrák",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "větu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "věž",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "vítr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "vlak",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "vlaku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "vody",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "vstávám",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "vstávat",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "vybarvi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "vyberme",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "vybitá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "vyfoť",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "vyhláskovat",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "vynes",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "vypnutý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "vystoupit",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "vysvětlit",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "zábavná",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "začíná",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "začni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "záchod",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "zalij",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "zameť",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "zapni",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "zataženo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "zazpívej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "zbývá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "zelenou",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "zeptat",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "zkontroluj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "zpomal",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "time"
+        ]
+      },
+      {
+        "target": "zpoždění",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "zprávu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "zvuk",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "židlí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "babička",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "cestu",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "domů",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation",
+          "people"
+        ]
+      },
+      {
+        "target": "hlad",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "food",
+          "people"
+        ]
+      },
+      {
+        "target": "maminka",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "nevím",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation",
+          "school"
+        ]
+      },
+      {
+        "target": "obrázek",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "inCoreDictionary": false,
+        "priorTopics": [
+          "play",
+          "technology"
+        ]
+      },
+      {
+        "target": "autobus",
+        "before": 3,
+        "added": 2,
+        "projected": 5,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "time",
+          "transport"
+        ]
+      },
+      {
+        "target": "knihu",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "pomoc",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation",
+          "routine"
+        ]
+      },
+      {
+        "target": "práce",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation",
+          "people"
+        ]
+      },
+      {
+        "target": "radost",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "conversation",
+          "people"
+        ]
+      },
+      {
+        "target": "tým",
+        "before": 3,
+        "added": 2,
+        "projected": 5,
+        "inCoreDictionary": true,
+        "priorTopics": [
+          "people",
+          "play"
+        ]
+      }
+    ]
+  },
+  "duplicateScan": {
+    "candidateExactCzech": 0,
+    "candidateExactEnglish": 0,
+    "canonicalExactCzech": [],
+    "canonicalExactEnglish": [],
+    "highSimilarityCandidatePairs": []
+  },
+  "diversity": {
+    "topCzechOpenings": [
+      {
+        "opening": "dnes",
+        "count": 4
+      },
+      {
+        "opening": "na",
+        "count": 4
+      },
+      {
+        "opening": "najdi",
+        "count": 4
+      },
+      {
+        "opening": "naše",
+        "count": 4
+      },
+      {
+        "opening": "mám",
+        "count": 3
+      },
+      {
+        "opening": "moje",
+        "count": 3
+      },
+      {
+        "opening": "můj",
+        "count": 3
+      },
+      {
+        "opening": "můžeme",
+        "count": 3
+      },
+      {
+        "opening": "přečti",
+        "count": 3
+      },
+      {
+        "opening": "tady",
+        "count": 3
+      },
+      {
+        "opening": "vezmi",
+        "count": 3
+      },
+      {
+        "opening": "autobus",
+        "count": 2
+      }
+    ]
+  },
+  "selfCheck": {
+    "passed": true,
+    "errors": [],
+    "warnings": [],
+    "checks": [
+      "record ids unique within batch",
+      "Czech and English exact duplicates absent within batch",
+      "Czech exact duplicates absent against current canonical pilot",
+      "difficulty token and character limits",
+      "target surface and token position exactness",
+      "weak-target coverage projection",
+      "high token-overlap pair scan",
+      "speaker gender and hidden-context author pass"
+    ]
+  },
+  "reviewRequired": [
+    "independent Czech-English naturalness and semantic-equivalence review",
+    "independent difficulty and guided-learning review",
+    "license confirmation for first-party candidate data",
+    "promotion decision per record; rejected records must not enter source/"
+  ]
+}

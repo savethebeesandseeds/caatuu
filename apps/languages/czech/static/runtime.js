@@ -7,10 +7,15 @@
   const setupManifestPath = "setup-assets.json";
   const bugReportPath = "/api/bug-report";
   const fallbackSetupCacheName = course.cache.setupFallback;
+  const semanticLearningDatabaseName = course.storage.semanticLearningDatabase
+    || `${course.storage.namespace || `caatuu-${course.id}`}.semantic-learning`;
   const modelCatalogPath = "data/models/phone-bench/models.json";
   const embeddingCatalogPath = "data/embeddings/models.json";
   const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
   const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
+  const browserFreshnessAutoReloadWindowMs = 15 * 1000;
+  const browserFreshnessVisibleRecheckMs = 60 * 1000;
+  const runtimeStartedAtMs = Date.now();
   const nativePending = new Map();
   let activeBrowserSetupAbortController = null;
   let browserSetupGeneration = 0;
@@ -21,6 +26,12 @@
   let feedbackOutbox = null;
   let feedbackOutboxPromise = null;
   let feedbackFlushTimer = null;
+  let serviceWorkerRegistrationPromise = null;
+  let serviceWorkerFreshnessCheck = null;
+  let serviceWorkerFreshnessBound = false;
+  let serviceWorkerReloadStarted = false;
+  let serviceWorkerLastCheckedAtMs = 0;
+  const observedServiceWorkerRegistrations = new WeakSet();
 
   function hasNativeBridge() {
     return Boolean(window.CaatuuAndroid && typeof window.CaatuuAndroid.postMessage === "function");
@@ -517,18 +528,127 @@
     return { aborted: true, setupActive: false };
   }
 
-  async function registerServiceWorker() {
-    if (!capabilities.serviceWorker) return false;
+  function announceBrowserFreshness(state, detail = {}) {
+    if (typeof window.CustomEvent !== "function") return;
+    window.dispatchEvent(new window.CustomEvent("caatuu:app-freshness", {
+      detail: { state, ...detail }
+    }));
+  }
+
+  async function probeBrowserShell() {
     try {
-      await navigator.serviceWorker.register("sw.js");
+      const url = new URL("sw.js", window.location.href);
+      url.searchParams.set("caatuu_freshness", String(Date.now()));
+      const response = await fetch(url.href, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Freshness probe returned HTTP ${response.status}.`);
       return true;
     } catch (error) {
       return false;
     }
   }
 
+  function observeServiceWorkerRegistration(registration) {
+    if (!registration || observedServiceWorkerRegistrations.has(registration)) return;
+    observedServiceWorkerRegistrations.add(registration);
+    registration.addEventListener("updatefound", () => {
+      announceBrowserFreshness("checking", { reason: "worker-update-found" });
+    });
+  }
+
+  function bindBrowserFreshnessEvents() {
+    if (!capabilities.serviceWorker || serviceWorkerFreshnessBound) return;
+    serviceWorkerFreshnessBound = true;
+    let controllerSeen = Boolean(navigator.serviceWorker.controller);
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!controllerSeen) {
+        controllerSeen = true;
+        announceBrowserFreshness("current", { reason: "first-worker-ready" });
+        return;
+      }
+      if (serviceWorkerReloadStarted) return;
+      const safeToReloadNow = Date.now() - runtimeStartedAtMs <= browserFreshnessAutoReloadWindowMs
+        && document.visibilityState !== "hidden";
+      if (safeToReloadNow) {
+        serviceWorkerReloadStarted = true;
+        announceBrowserFreshness("refreshing", { reason: "new-worker-active" });
+        window.setTimeout(() => window.location.reload(), 60);
+        return;
+      }
+      announceBrowserFreshness("update-ready", { reason: "new-worker-active" });
+    });
+    window.addEventListener("online", () => {
+      void checkBrowserFreshness({ force: true, reason: "browser-online" });
+    });
+    window.addEventListener("offline", () => {
+      announceBrowserFreshness("offline", { reason: "browser-offline" });
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      if (Date.now() - serviceWorkerLastCheckedAtMs < browserFreshnessVisibleRecheckMs) return;
+      void checkBrowserFreshness({ force: true, reason: "page-visible" });
+    });
+  }
+
+  function browserServiceWorkerRegistration() {
+    if (serviceWorkerRegistrationPromise) return serviceWorkerRegistrationPromise;
+    serviceWorkerRegistrationPromise = navigator.serviceWorker
+      .register("sw.js", { updateViaCache: "none" })
+      .then((registration) => {
+        observeServiceWorkerRegistration(registration);
+        return registration;
+      })
+      .catch((error) => {
+        serviceWorkerRegistrationPromise = null;
+        throw error;
+      });
+    return serviceWorkerRegistrationPromise;
+  }
+
+  function checkBrowserFreshness({ force = false, reason = "app-load" } = {}) {
+    if (!capabilities.serviceWorker) return Promise.resolve(false);
+    if (serviceWorkerFreshnessCheck) return serviceWorkerFreshnessCheck;
+    const now = Date.now();
+    if (!force && now - serviceWorkerLastCheckedAtMs < browserFreshnessVisibleRecheckMs) {
+      return Promise.resolve(true);
+    }
+    serviceWorkerLastCheckedAtMs = now;
+    serviceWorkerFreshnessCheck = (async () => {
+      announceBrowserFreshness("checking", { reason });
+      if (!await probeBrowserShell()) {
+        announceBrowserFreshness("offline", { reason: "server-unreachable" });
+        return false;
+      }
+      const registration = await browserServiceWorkerRegistration();
+      await registration.update();
+      if (registration.waiting) {
+        announceBrowserFreshness("refreshing", { reason: "worker-waiting" });
+        registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      } else if (registration.installing) {
+        announceBrowserFreshness("checking", { reason: "worker-installing" });
+      } else {
+        announceBrowserFreshness("current", { reason: "worker-current" });
+      }
+      return true;
+    })().catch((error) => {
+      announceBrowserFreshness("offline", { reason: "update-check-failed" });
+      return false;
+    }).finally(() => {
+      serviceWorkerFreshnessCheck = null;
+    });
+    return serviceWorkerFreshnessCheck;
+  }
+
+  function registerServiceWorker() {
+    bindBrowserFreshnessEvents();
+    return checkBrowserFreshness({ force: true, reason: "app-load" });
+  }
+
   function shouldClearCacheName(name) {
     return /caatuu-czech|webllm|mlc|tvm|wasm|model/i.test(name);
+  }
+
+  function shouldClearIndexedDatabaseName(name) {
+    return name !== semanticLearningDatabaseName && shouldClearCacheName(name);
   }
 
   function deleteIndexedDatabase(name) {
@@ -563,6 +683,14 @@
       result.bytesBefore = estimate.usage || 0;
     }
 
+    if (typeof window.CaatuuSemanticLearning?.clearEmbeddingCache === "function") {
+      try {
+        result.semanticEmbeddingCache = await window.CaatuuSemanticLearning.clearEmbeddingCache();
+      } catch (error) {
+        result.semanticEmbeddingCache = { cleared: [], error: error?.message || String(error) };
+      }
+    }
+
     if ("caches" in window) {
       const cacheNames = await caches.keys();
       const deleteNames = cacheNames.filter((name) => shouldClearCacheName(name));
@@ -576,7 +704,7 @@
       const deleteDatabases = databases
         .map((database) => database.name)
         .filter(Boolean)
-        .filter((name) => shouldClearCacheName(name));
+        .filter((name) => shouldClearIndexedDatabaseName(name));
       const databaseResults = await Promise.all(deleteDatabases.map(deleteIndexedDatabase));
       result.databasesDeleted = databaseResults.filter((item) => item.deleted).map((item) => item.name);
       result.databasesSkipped = databaseResults.filter((item) => !item.deleted);
@@ -593,8 +721,40 @@
 
   async function updateBrowserServiceWorker() {
     if ("serviceWorker" in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
+      if (!await checkBrowserFreshness({ force: true, reason: "manual-update" })) {
+        return { updateAvailable: false, reloaded: false, offline: true };
+      }
+      const previousController = navigator.serviceWorker.controller;
+      let stopWatching = () => {};
+      const controllerChanged = new Promise((resolve) => {
+        let settled = false;
+        const finish = (changed) => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timer);
+          navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
+          resolve(changed);
+        };
+        const onControllerChange = () => finish(true);
+        const timer = window.setTimeout(() => finish(false), 4000);
+        stopWatching = () => finish(false);
+        navigator.serviceWorker.addEventListener("controllerchange", onControllerChange, { once: true });
+      });
+      let registrations = await navigator.serviceWorker.getRegistrations();
+      if (!registrations.length) registrations = [await browserServiceWorkerRegistration()];
+      registrations.forEach(observeServiceWorkerRegistration);
       await Promise.all(registrations.map((registration) => registration.update().catch(() => {})));
+      registrations.forEach((registration) => {
+        registration.waiting?.postMessage({ type: "SKIP_WAITING" });
+      });
+      const workerStillChanging = registrations.some((registration) => (
+        registration.installing || registration.waiting
+      ));
+      if (navigator.serviceWorker.controller === previousController && workerStillChanging) {
+        await controllerChanged;
+      } else {
+        stopWatching();
+      }
     }
     window.location.reload();
     return { updateAvailable: false, reloaded: true };
@@ -616,6 +776,14 @@
           targetWord: clampReportText(payload.feedback.targetWord || "", 120),
           sentence: clampReportText(payload.feedback.sentence || "", 360),
           translation: clampReportText(payload.feedback.translation || "", 360),
+          entryId: clampReportText(payload.feedback.entryId || "", 120),
+          contentMode: clampReportText(payload.feedback.contentMode || "", 40),
+          corpusVersion: clampReportText(payload.feedback.corpusVersion || "", 80),
+          difficulty: payload.feedback.difficulty != null
+            && payload.feedback.difficulty !== ""
+            && Number.isFinite(Number(payload.feedback.difficulty))
+            ? Math.max(1, Math.min(3, Math.floor(Number(payload.feedback.difficulty))))
+            : null,
           generationSource: clampReportText(payload.feedback.generationSource || "", 80),
           translationMode: clampReportText(payload.feedback.translationMode || "", 40),
           sentenceModelKey: clampReportText(payload.feedback.sentenceModelKey || "", 120),
@@ -966,6 +1134,26 @@
     };
   }
 
+  async function embedBrowserSemanticText(text, options = {}) {
+    const value = String(text || "").trim();
+    if (!value) throw new Error("Semantic embedding text is empty.");
+    const module = await import("./vector-db.js?v=vector-db-9");
+    const modelId = String(options.modelId || module.caatuuVectorSchema.defaultModelId);
+    if (modelId !== module.caatuuVectorSchema.defaultModelId) {
+      throw new Error(`Unsupported semantic embedding model ${modelId}.`);
+    }
+    const Manager = module.BrowserVectorDatabaseManager;
+    if (!browserVectorDatabase) browserVectorDatabase = new Manager();
+    const vector = await browserVectorDatabase.embedText(value);
+    return {
+      runtime: env === "android" ? "android-webview-semantic-embedder" : "browser-semantic-embedder",
+      modelId,
+      dimension: module.caatuuVectorSchema.embeddingDimension,
+      normalized: true,
+      vector
+    };
+  }
+
   function browserDictionaryStatus() {
     return fetchJson("api/dictionary/status", { cache: "no-store" });
   }
@@ -1046,6 +1234,9 @@
         // implementation across the browser and Android WebView. Android still
         // owns verified post-install artifact downloads and serves them locally.
         return searchBrowserVectorDatabase(text, options);
+      },
+      embed(text, options = {}) {
+        return embedBrowserSemanticText(text, options);
       }
     },
     dictionary: {

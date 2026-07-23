@@ -79,7 +79,7 @@ test("legacy public asset URLs resolve to descriptive source folders", async (t)
 
   const aliases = [
     ["mascot", "/assets/aliens/czech.png", "assets/language-mascots/czech.png"],
-    ["loading", "/assets/macaw/loading_animation/frame.png", "assets/macaw/loading-animation/frame.png"],
+    ["loading", "/assets/loading_animation/frame.png", "assets/loading-animation/frame.png"],
     ["vocabulary", "/assets/miscellaneous/house.png", "assets/visual-vocabulary/house.png"]
   ];
   const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));

@@ -26,24 +26,19 @@
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
-  const setupVisualFrameDelayMs = 6000;
+  const setupVisualFrameDelayMs = 110;
   const setupManifestPath = "setup-assets.json";
-  const setupFrameManifestPath = "/assets/macaw/loading_animation/split_manifest.json";
+  const setupAnimationManifestPath = "/assets/loading_animation/animations_manifest.json";
   const setupReadyArt = "/assets/icons/hello.png";
   let setupVisualFrames = [];
+  let setupVisualLoopStart = 0;
+  let setupStageRequest = 0;
   let appUpdateLocked = new URLSearchParams(window.location.search).get("app-update") === "1" ||
     Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
   let appUpdateUiState = appUpdateLocked ? "checking" : "idle";
 
-  const setupMessages = [
-    "Checking local storage before Caatuu starts.",
-    "Preparing the Czech practice files.",
-    "Saving verified files so setup can resume later.",
-    "Keeping the app usable without repeating finished downloads.",
-    "Checking every file before Caatuu trusts it.",
-    "Preparing the offline workspace.",
-    "Finishing the local setup."
-  ];
+  const stableSetupMessage = "Preparing local files for offline use.";
+  const setupMessages = [stableSetupMessage];
 
   function hasNativeRuntime() {
     return runtime?.env === "android";
@@ -219,21 +214,23 @@
   }
 
   function setupMessage(progress, label = "") {
-    const message = setupMessages[setupMessageIndex % setupMessages.length] || setupMessages[0];
-    return message;
+    return setupMessages[0];
   }
 
   function stageFallback(art) {
-    return art?.dataset.setupArtFallback || "icons/caatuu-czech-512.png";
+    return art?.dataset.setupArtFallback || "icons/setup-default.png";
   }
 
   function setStageImage(art, src, { looping = false } = {}) {
+    const request = ++setupStageRequest;
     const probe = new Image();
     probe.onload = () => {
+      if (request !== setupStageRequest) return;
       if (art.getAttribute("src") !== src) art.src = src;
       art.classList.toggle("is-looping", looping);
     };
     probe.onerror = () => {
+      if (request !== setupStageRequest) return;
       if (!looping) {
         art.src = stageFallback(art);
       }
@@ -244,64 +241,79 @@
   function advanceStageFrame() {
     const art = $(".stage-art");
     if (!art || !setupVisualFrames.length) return;
-    const src = setupVisualFrames[setupVisualIndex % setupVisualFrames.length];
-    setupVisualIndex = (setupVisualIndex + 1) % setupVisualFrames.length;
+    if (setupVisualIndex >= setupVisualFrames.length) setupVisualIndex = setupVisualLoopStart;
+    const src = setupVisualFrames[setupVisualIndex];
+    setupVisualIndex += 1;
+    if (setupVisualIndex >= setupVisualFrames.length) setupVisualIndex = setupVisualLoopStart;
     setStageImage(art, src, { looping: true });
   }
 
   function fallbackStageFrames() {
-    return Array.from({ length: 72 }, (_, index) => {
-      const frame = String(index + 1).padStart(3, "0");
-      return `/assets/macaw/loading_animation/loading-animation_${frame}.png`;
-    });
+    return [setupReadyArt];
   }
 
   function setupFrameNumber(value) {
-    const match = String(value || "").match(/loading-animation(?:[_-](\d+)|(?:%20|\s)*\((\d+)\))\.png$/i);
-    if (!match) return Number.MAX_SAFE_INTEGER;
-    return Number(match[1] || match[2]);
+    const matches = [...String(value || "").matchAll(/(\d+)/g)];
+    return matches.length ? Number(matches.at(-1)[1]) : Number.MAX_SAFE_INTEGER;
   }
 
-  function frameUrlFromManifestPath(value) {
-    const text = String(value || "").replaceAll("\\", "/");
-    const file = text.split("/").filter(Boolean).pop();
-    if (!file || !/^loading-animation[_-]\d+\.png$/i.test(file)) return "";
-    return `/assets/macaw/loading_animation/${file}`;
+  function frameUrlFromManifestPath(folder, value) {
+    const file = String(value || "").replaceAll("\\", "/").split("/").filter(Boolean).pop();
+    if (!folder || !file || !/\.png$/i.test(file)) return "";
+    return `/assets/loading_animation/${[folder, file].map(encodeURIComponent).join("/")}`;
+  }
+
+  function animationSequenceFrames(manifest, ids) {
+    const wanted = new Set(ids);
+    const sequence = (Array.isArray(manifest?.animations) ? manifest.animations : [])
+      .find((item) => wanted.has(String(item?.id || "")));
+    if (!sequence) return [];
+    return (Array.isArray(sequence.sprites) ? sequence.sprites : [])
+      .map((item) => frameUrlFromManifestPath(sequence.folder, item?.file || item?.path))
+      .filter(Boolean)
+      .sort((a, b) => setupFrameNumber(a) - setupFrameNumber(b) || a.localeCompare(b));
   }
 
   async function loadSetupVisualManifestFrames() {
-    const response = await fetch(setupFrameManifestPath, { cache: "reload" });
+    const response = await fetch(setupAnimationManifestPath, { cache: "reload" });
     if (!response.ok) throw new Error(`Loading animation manifest returned ${response.status}`);
     const manifest = await response.json();
-    const frames = (Array.isArray(manifest?.sprites) ? manifest.sprites : [])
-      .map((item) => frameUrlFromManifestPath(item?.file || item?.url || item?.path))
-      .filter(Boolean)
-      .sort((a, b) => setupFrameNumber(a) - setupFrameNumber(b) || a.localeCompare(b));
-    return [...new Set(frames)];
+    const backpack = animationSequenceFrames(manifest, ["backpack"]);
+    const walking = animationSequenceFrames(manifest, ["walking-arround", "walking-around"]);
+    const frames = [...new Set([...backpack, ...walking])];
+    return {
+      frames,
+      loopStart: backpack.length && walking.length ? backpack.length : 0
+    };
   }
 
   function setupAssetManifestFrames(manifest) {
     return (Array.isArray(manifest?.artifacts) ? manifest.artifacts : [])
-      .filter((item) => String(item?.url || "").includes("/assets/macaw/loading_animation/"))
+      .filter((item) => /\/assets\/loading_animation\/animation-(?:backpack|walking-ar+ound)\//i.test(String(item?.url || "")))
       .map((item) => String(item.url || ""))
-      .filter(Boolean)
-      .sort((a, b) => setupFrameNumber(a) - setupFrameNumber(b) || a.localeCompare(b));
+      .filter(Boolean);
   }
 
-  function normalizeSetupVisualFrames(frames) {
+  function normalizeSetupVisualFrames(frames, loopStart = 0) {
     const uniqueFrames = [...new Set(frames.filter(Boolean))];
-    return uniqueFrames.length ? uniqueFrames : fallbackStageFrames();
+    return {
+      frames: uniqueFrames.length ? uniqueFrames : fallbackStageFrames(),
+      loopStart: uniqueFrames.length ? Math.min(loopStart, uniqueFrames.length - 1) : 0
+    };
   }
 
   function isLoadingFrameAvailable(src) {
-    return /^\/assets\/macaw\/loading_animation\/loading-animation[_-]\d+\.png$/i.test(src) ||
-      /\/assets\/macaw\/loading_animation\/loading-animation(?:%20|\s)*\(\d+\)\.png$/i.test(src);
+    return /^\/assets\/loading_animation\/animation-[^/]+\/[^/]+\.png$/i.test(src) ||
+      src === setupReadyArt;
   }
 
   async function loadSetupVisualFrames() {
     if (setupVisualFrames.length) return setupVisualFrames;
     try {
-      setupVisualFrames = normalizeSetupVisualFrames(await loadSetupVisualManifestFrames());
+      const loaded = await loadSetupVisualManifestFrames();
+      const normalized = normalizeSetupVisualFrames(loaded.frames, loaded.loopStart);
+      setupVisualFrames = normalized.frames;
+      setupVisualLoopStart = normalized.loopStart;
       return setupVisualFrames;
     } catch (error) {
       // Fall back to the setup artifact manifest below.
@@ -311,9 +323,12 @@
       const response = await fetch(setupManifestPath, { cache: "reload" });
       if (!response.ok) throw new Error(`Setup manifest returned ${response.status}`);
       const manifest = await response.json();
-      setupVisualFrames = normalizeSetupVisualFrames(setupAssetManifestFrames(manifest));
+      const normalized = normalizeSetupVisualFrames(setupAssetManifestFrames(manifest));
+      setupVisualFrames = normalized.frames;
+      setupVisualLoopStart = normalized.loopStart;
     } catch (error) {
       setupVisualFrames = fallbackStageFrames();
+      setupVisualLoopStart = 0;
     }
     return setupVisualFrames;
   }
@@ -323,6 +338,8 @@
     if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
     setupVisualFrames = setupVisualFrames.filter(isLoadingFrameAvailable);
     if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
+    setupVisualLoopStart = Math.min(setupVisualLoopStart, setupVisualFrames.length - 1);
+    setupVisualIndex = 0;
     advanceStageFrame();
     setupVisualTimer = window.setInterval(advanceStageFrame, setupVisualFrameDelayMs);
   }
@@ -347,22 +364,12 @@
     const totals = totalsFromArtifacts();
     setText(
       "#setupMessage",
-      totals.verifying
-        ? `Download finished. Checking ${totals.verifyingArtifacts} ${totals.verifyingArtifacts === 1 ? "file" : "files"} before setup can finish.`
-        : setupMessage(totals.progress, latestSetupLabel)
+      setupMessage(totals.progress, latestSetupLabel)
     );
   }
 
   function startSetupMessageCycle() {
-    if (setupMessageTimer !== null) return;
-    setupMessageTimer = window.setInterval(() => {
-      if (!setupRunning && !nativeSetupActive) {
-        stopSetupMessageCycle();
-        return;
-      }
-      setupMessageIndex = (setupMessageIndex + 1) % setupMessages.length;
-      refreshWaitingMessage();
-    }, 20000);
+    refreshWaitingMessage();
   }
 
   function stopSetupMessageCycle() {
@@ -786,11 +793,12 @@
     }
     setText("#setupCount", `${Math.min(totals.readyArtifacts, totals.artifactCount)}/${totals.artifactCount || "?"}`);
     const displayKind = totals.verifying && kind !== "error" && kind !== "ready" ? "verify" : kind;
-    const defaultMessage = totals.verifying
-      ? `Download finished. Checking ${totals.verifyingArtifacts} ${totals.verifyingArtifacts === 1 ? "file" : "files"} before setup can finish.`
-      : setupMessage(totals.progress, label);
+    const defaultMessage = setupMessage(totals.progress, label);
+    const displayMessage = kind === "error" || kind === "ready"
+      ? (message || defaultMessage)
+      : defaultMessage;
     setText("#setupPhase", phaseText(displayKind));
-    setText("#setupMessage", message || defaultMessage);
+    setText("#setupMessage", displayMessage);
     setProgress(
       totals.progress,
       bytesText,
@@ -951,7 +959,7 @@
   async function runStoragePreflight() {
     if (!runtime?.setup?.preflight) return true;
     setText("#setupPhase", phaseText("verify"));
-    setText("#setupMessage", "Checking device storage before setup starts.");
+    setText("#setupMessage", stableSetupMessage);
     pushLog("status", "Storage check started", "Checking free space before downloads.");
 
     const preflight = await runtime.setup.preflight();

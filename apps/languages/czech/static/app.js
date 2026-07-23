@@ -24,6 +24,20 @@ const supportedModelKeys = new Set([
   "qwen3-1.7b-translation-cs-en-001",
   "cstinyllama-1.2b-czech-word-sentence-001"
 ]);
+const wordWorldStandardArtifact = Object.freeze({
+  key: "caatuu-word-world-standard-v0.1",
+  label: "Word World Standard Corpus",
+  sourceLabel: "Caatuu-authored and Codex-authored reviewed bilingual learning sentences",
+  sourceUrl: "data/word-world/manifest.json",
+  license: "MIT source license",
+  intendedUse: "Standard Word World guided offline sentences. Corpus standard-v0.1 · 760 rows · L1 175 · L2 533 · L3 52 · codex_reviewed · humanApproved=false.",
+  artifactKind: "guided-learning-corpus",
+  runtime: "Compiled bilingual JSON data pack",
+  status: "active",
+  entryCount: 760,
+  usageScope: "standard_word_world_offline"
+});
+
 let modelLicenseCatalog = [
   {
     key: "qwen3-lora-003-hard",
@@ -97,7 +111,8 @@ let modelLicenseCatalog = [
     runtime: "SQLite vector database with local hash embedder",
     embeddingTextField: "english_text",
     embeddingInputPolicy: "english_text_only"
-  }
+  },
+  wordWorldStandardArtifact
 ];
 const generationPresets = {
   fast: {
@@ -149,7 +164,7 @@ async function loadContentData() {
   const [dictionary, scripts, verbModule] = await Promise.all([
     loadJson("data/dictionary.json"),
     loadJson("data/scripts.json"),
-    import("./verb-nebula-core.mjs?v=verb-nebula-core-4")
+    import("./verb-nebula-core.mjs?v=verb-nebula-core-7")
   ]);
 
   assertArrayData("dictionary", dictionary);
@@ -162,6 +177,7 @@ async function loadContentData() {
 const state = {
   activeView: "verbs",
   trainTab: "galaxy",
+  verbDifficulty: 1,
   verbPairs: [],
   verbQueueIds: [],
   verbRound: [],
@@ -343,7 +359,12 @@ async function loadModelLicenseCatalog() {
     // Missing dictionary metadata should not prevent the settings screen from opening.
   }
 
-  if (nextCatalog.length) modelLicenseCatalog = nextCatalog;
+  if (nextCatalog.length) {
+    const runtimeArtifactKeys = new Set(nextCatalog.map((artifact) => artifact.key));
+    modelLicenseCatalog = runtimeArtifactKeys.has(wordWorldStandardArtifact.key)
+      ? nextCatalog
+      : [...nextCatalog, wordWorldStandardArtifact];
+  }
   generationSettings = normalizeGenerationSettings(generationSettings);
 }
 
@@ -838,11 +859,11 @@ function formatBytes(bytes) {
 const verbStorageKey = course.storage.verbMemory;
 const verbMemorySchemaVersion = 2;
 const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
+const verbHintFallbackPath = "/assets/macaw/actions/macaw (1).png";
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
 const verbRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
 const verbRoundInterstitialMillis = 800;
 const verbRoundCompleteHoldMillis = 420;
-const verbSolutionRevealHoldMillis = 1500;
 const verbHintLookupTimeoutMillis = 6000;
 const verbHintImageTimeoutMillis = 1800;
 const verbHintStopwords = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
@@ -1158,6 +1179,7 @@ function saveVerbMemory() {
   try {
     localStorage.setItem(verbStorageKey, JSON.stringify({
       schemaVersion: verbMemorySchemaVersion,
+      difficulty: state.verbDifficulty,
       knownPairIds: state.verbPairs.map((pair) => pair.id),
       pairCount: state.verbPairCount,
       queueIds: state.verbQueueIds,
@@ -1186,9 +1208,14 @@ function loadVerbMemory() {
   if (state.verbMemoryLoaded) return;
   if (!verbNebulaCore) throw new Error("Verb Nebula engine is not available.");
 
-  state.verbPairs = verbNebulaCore.extractCoreVerbPairs(countryDictionary);
+  state.verbDifficulty = Number(window.CaatuuLearning?.difficulty?.()) || 1;
+  state.verbPairs = verbNebulaCore.filterVerbPairsForDifficulty(
+    verbNebulaCore.extractCoreVerbPairs(countryDictionary),
+    state.verbDifficulty
+  );
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
   const memory = readVerbMemory();
+  const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
   state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
   state.verbHintsEnabled = Boolean(memory?.hintsEnabled);
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
@@ -1198,19 +1225,21 @@ function loadVerbMemory() {
     rounds: safeVerbStat(memory?.stats?.rounds)
   };
 
-  const savedRoundIds = validVerbIds(memory?.roundIds, pairById);
+  const savedRoundIds = sameDifficulty ? validVerbIds(memory?.roundIds, pairById) : [];
   const canRestoreRound = savedRoundIds.length === state.verbPairCount;
   const restoredRoundIds = canRestoreRound ? savedRoundIds : [];
   const restoredRoundSet = new Set(restoredRoundIds);
-  const queueSeed = canRestoreRound
-    ? memory?.queueIds
-    : [...savedRoundIds, ...Array.from(memory?.queueIds || [])];
+  const queueSeed = sameDifficulty
+    ? (canRestoreRound
+        ? memory?.queueIds
+        : [...savedRoundIds, ...Array.from(memory?.queueIds || [])])
+    : [];
   const queuePairs = state.verbPairs.filter((pair) => !restoredRoundSet.has(pair.id));
   state.verbQueueIds = verbNebulaCore.restoreVerbQueue(
     queuePairs,
     queueSeed,
     Math.random,
-    memory?.knownPairIds || null
+    sameDifficulty ? (memory?.knownPairIds || null) : null
   );
 
   if (canRestoreRound) {
@@ -1289,14 +1318,18 @@ function applyVerbRound(plan, preloadedHints = null) {
   state.verbHintById.clear();
   if (state.verbHintsEnabled && preloadedHints instanceof Map) {
     plan.round.forEach((pair) => {
-      state.verbHintById.set(pair.id, preloadedHints.get(pair.id) || { status: "unavailable" });
+      state.verbHintById.set(pair.id, preloadedHints.get(pair.id) || {
+        status: "ready",
+        assetPath: verbHintFallbackPath,
+        alt: "Macaw picture clue"
+      });
     });
   }
   state.verbRoundNumber += 1;
   saveVerbMemory();
 
   if (state.verbRound.length) {
-    setVerbMatchFeedback("Choose a Czech verb, then its English match.");
+    setVerbMatchFeedback("Match each Czech verb with its English meaning.");
   } else {
     setVerbMatchFeedback("No Core verbs are available for this game.", "wrong");
   }
@@ -1333,11 +1366,17 @@ function renderVerbMatchStats() {
 
   const revealButton = $("#verbRevealSolution");
   if (revealButton) {
-    const canReveal = Boolean(state.verbRound.length)
+    const canToggleSolution = Boolean(state.verbRound.length)
       && !state.verbRoundTransitioning
       && !verbRoundComplete();
-    revealButton.disabled = !canReveal;
+    revealButton.disabled = !canToggleSolution;
     revealButton.classList.toggle("is-ready", state.verbSolutionRevealed);
+    revealButton.setAttribute("aria-pressed", String(state.verbSolutionRevealed));
+    revealButton.setAttribute(
+      "aria-label",
+      state.verbSolutionRevealed ? "Hide solution" : "Reveal solution"
+    );
+    revealButton.title = state.verbSolutionRevealed ? "Hide solution" : "Reveal solution";
   }
 }
 
@@ -1368,17 +1407,21 @@ function renderVerbHintSlot(pair) {
     image.src = hint.assetPath;
     image.alt = hint.alt || "Picture clue";
     image.addEventListener("error", () => {
-      state.verbHintById.set(pair.id, { status: "unavailable" });
+      state.verbHintById.set(pair.id, {
+        status: "ready",
+        assetPath: verbHintFallbackPath,
+        alt: "Macaw picture clue"
+      });
       renderVerbNebula();
     }, { once: true });
     slot.append(image);
     return slot;
   }
 
-  const unavailable = document.createElement("span");
-  unavailable.className = "verb-hint-unavailable";
-  unavailable.textContent = "—";
-  slot.append(unavailable);
+  const fallback = document.createElement("img");
+  fallback.src = verbHintFallbackPath;
+  fallback.alt = "Macaw picture clue";
+  slot.append(fallback);
   return slot;
 }
 
@@ -1387,9 +1430,6 @@ function createVerbMatchCard(pair, side) {
   const selected = side === "cz"
     ? state.verbSelectedCzechId === pair.id
     : state.verbSelectedEnglishId === pair.id;
-  const solutionOrdinal = state.verbSolutionRevealed
-    ? state.verbRound.findIndex((item) => item.id === pair.id) + 1
-    : 0;
   const button = document.createElement("button");
   button.type = "button";
   button.className = `verb-match-card verb-match-card-${side}`;
@@ -1397,20 +1437,83 @@ function createVerbMatchCard(pair, side) {
   button.dataset.verbSide = side;
   button.disabled = matched || state.verbRoundTransitioning || state.verbSolutionRevealed;
   button.setAttribute("aria-pressed", String(selected));
-  button.classList.toggle("is-selected", selected || solutionOrdinal > 0);
+  button.classList.toggle("is-selected", selected);
   button.classList.toggle("is-matched", matched);
   button.classList.toggle("is-wrong", state.verbWrongIds.has(`${side}:${pair.id}`));
+  button.classList.toggle("is-solution", state.verbSolutionRevealed);
 
   const copy = document.createElement("span");
   copy.className = "verb-match-card-copy";
   const label = side === "cz" ? pair.cz : pair.eng;
-  copy.textContent = solutionOrdinal > 0 ? `${solutionOrdinal}. ${label}` : label;
-  if (solutionOrdinal > 0) {
-    button.setAttribute("aria-label", `Pair ${solutionOrdinal}: ${label}`);
-  }
-  if (side === "cz") button.append(renderVerbHintSlot(pair));
+  copy.textContent = label;
+  if (state.verbSolutionRevealed) button.setAttribute("aria-label", `${pair.cz} means ${pair.eng}`);
   button.append(copy);
+  if (side === "cz") {
+    const row = document.createElement("div");
+    row.className = "verb-match-card-row verb-match-card-row-cz";
+    row.dataset.verbRowId = pair.id;
+    row.append(renderVerbHintSlot(pair), button);
+    return row;
+  }
   return button;
+}
+
+function verbMatchCardForId(column, pairId) {
+  return Array.from(column?.querySelectorAll("[data-verb-id]") || [])
+    .find((card) => card.dataset.verbId === pairId) || null;
+}
+
+function renderVerbSolutionArrows() {
+  const board = document.querySelector(".verb-match-board");
+  const svg = $("#verbSolutionArrows");
+  const paths = $("#verbSolutionArrowPaths");
+  const czechColumn = $("#verbCzechColumn");
+  const englishColumn = $("#verbEnglishColumn");
+  const visible = state.verbSolutionRevealed && !state.verbRoundInterstitial;
+  if (svg) {
+    svg.toggleAttribute("hidden", !visible);
+    svg.classList.toggle("is-visible", Boolean(visible));
+    svg.setAttribute("aria-hidden", String(!visible));
+  }
+  if (!board || !svg || !paths || !czechColumn || !englishColumn || !visible) {
+    if (paths) paths.replaceChildren();
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    if (!state.verbSolutionRevealed || state.verbRoundInterstitial || !svg.isConnected) {
+      svg.toggleAttribute("hidden", true);
+      svg.classList.remove("is-visible");
+      svg.setAttribute("aria-hidden", "true");
+      paths.replaceChildren();
+      return;
+    }
+    const boardRect = board.getBoundingClientRect();
+    if (!boardRect.width || !boardRect.height) return;
+    svg.setAttribute("viewBox", `0 0 ${boardRect.width} ${boardRect.height}`);
+    svg.setAttribute("width", String(boardRect.width));
+    svg.setAttribute("height", String(boardRect.height));
+    const curveWidth = Math.max(12, Math.min(34, boardRect.width * 0.035));
+    const arrowPaths = state.verbRound.map((pair, index) => {
+      const leftCard = verbMatchCardForId(czechColumn, pair.id);
+      const rightCard = verbMatchCardForId(englishColumn, pair.id);
+      if (!leftCard || !rightCard) return null;
+      const leftRect = leftCard.getBoundingClientRect();
+      const rightRect = rightCard.getBoundingClientRect();
+      const startX = leftRect.right - boardRect.left - 4;
+      const startY = leftRect.top - boardRect.top + leftRect.height / 2;
+      const endX = rightRect.left - boardRect.left + 4;
+      const endY = rightRect.top - boardRect.top + rightRect.height / 2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.dataset.verbPairId = pair.id;
+      path.setAttribute("d", `M ${startX} ${startY} C ${startX + curveWidth} ${startY}, ${endX - curveWidth} ${endY}, ${endX} ${endY}`);
+      path.setAttribute("pathLength", "1");
+      path.setAttribute("marker-end", "url(#verbSolutionArrowhead)");
+      path.style.setProperty("--verb-solution-index", String(index));
+      return path;
+    }).filter(Boolean);
+    paths.replaceChildren(...arrowPaths);
+  });
 }
 
 function renderVerbHintButton() {
@@ -1479,13 +1582,13 @@ function renderVerbNebula() {
     ...state.verbRound.map((pair) => createVerbMatchCard(pair, "cz"))
   );
   $("#verbEnglishColumn")?.replaceChildren(
-    ...(state.verbSolutionRevealed ? state.verbRound : state.verbEnglishRound)
-      .map((pair) => createVerbMatchCard(pair, "en"))
+    ...state.verbEnglishRound.map((pair) => createVerbMatchCard(pair, "en"))
   );
   renderVerbPairCountControls();
   renderVerbMatchStats();
   renderVerbHintButton();
   renderVerbRoundInterstitial();
+  renderVerbSolutionArrows();
   if (state.verbHintsEnabled && state.verbRound.length && !state.verbHintById.size) {
     void loadVerbHintsForRound();
   }
@@ -1520,28 +1623,60 @@ async function nextVerbInterstitialRobot() {
 }
 
 async function preloadVerbHintsForRound(round) {
-  const entries = await Promise.all(Array.from(round || []).map(async (pair) => (
-    [pair.id, await cachedVerbHint(pair)]
-  )));
-  return new Map(entries);
+  const pairs = Array.from(round || []);
+  const candidateGroups = await Promise.all(
+    pairs.map((pair) => cachedVerbHintCandidates(pair))
+  );
+  const assignments = verbNebulaCore.assignUniqueVerbHintCandidates(candidateGroups);
+  const entries = await Promise.all(pairs.map(async (pair, index) => {
+    const assigned = assignments[index];
+    const hint = assigned ? await loadableVerbHint([assigned], pair) : null;
+    return [pair.id, hint || {
+      status: "ready",
+      assetPath: verbHintFallbackPath,
+      alt: "Macaw picture clue"
+    }];
+  }));
+  const hints = new Map(entries);
+  await Promise.all([...hints.values()].map((hint) => preloadVerbHintAsset(hint?.assetPath)));
+  return hints;
 }
 
-async function transitionToNextVerbRound({ revealSolution = false } = {}) {
+function preloadVerbHintAsset(assetPath) {
+  const path = String(assetPath || verbHintFallbackPath);
+  return new Promise((resolve) => {
+    const image = new Image();
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      image.onload = null;
+      image.onerror = null;
+      resolve();
+    };
+    const timer = window.setTimeout(finish, verbHintImageTimeoutMillis);
+    image.onload = finish;
+    image.onerror = finish;
+    image.src = path;
+    if (image.complete) {
+      if (typeof image.decode === "function") image.decode().catch(() => {}).finally(finish);
+      else finish();
+    }
+  });
+}
+
+async function transitionToNextVerbRound() {
   if (state.verbRoundTransitioning || !state.verbRound.length) return;
   const transitionId = state.verbRoundTransitionId + 1;
   state.verbRoundTransitionId = transitionId;
   state.verbRoundTransitioning = true;
-  state.verbSolutionRevealed = revealSolution;
+  state.verbSolutionRevealed = false;
   state.verbHintRequestId += 1;
   resetVerbSelections();
 
-  if (revealSolution) {
-    setVerbMatchFeedback("Solution revealed. These pairs do not count as matches.", "hint");
-  }
   renderVerbNebula();
-  await waitForVerbTransition(
-    revealSolution ? verbSolutionRevealHoldMillis : verbRoundCompleteHoldMillis
-  );
+  await waitForVerbTransition(verbRoundCompleteHoldMillis);
   if (transitionId !== state.verbRoundTransitionId) return;
 
   const nextRound = planVerbRound();
@@ -1555,18 +1690,95 @@ async function transitionToNextVerbRound({ revealSolution = false } = {}) {
     state.verbInterstitialRobotPath = path;
     renderVerbRoundInterstitial();
   });
-  const [preloadedHints] = await Promise.all([
-    preloadVerbHintsForRound(nextRound.round),
+  const hintPromise = state.verbHintsEnabled
+    ? preloadVerbHintsForRound(nextRound.round)
+    : Promise.resolve(null);
+  let preloadedHints = null;
+  await Promise.all([
     waitForVerbTransition(verbRoundInterstitialMillis),
-    robotPromise
+    robotPromise,
+    hintPromise.then((hints) => {
+      preloadedHints = hints;
+    })
   ]);
   if (transitionId !== state.verbRoundTransitionId) return;
   applyVerbRound(nextRound, preloadedHints);
 }
 
-function revealVerbSolution() {
-  if (verbRoundComplete()) return;
-  void transitionToNextVerbRound({ revealSolution: true });
+function toggleVerbSolution() {
+  if (verbRoundComplete() || state.verbRoundTransitioning) return;
+  resetVerbSelections();
+  state.verbSolutionRevealed = !state.verbSolutionRevealed;
+  setVerbMatchFeedback(
+    state.verbSolutionRevealed
+      ? "Follow the arrows to review every pair."
+      : "Match each Czech verb with its English meaning.",
+    state.verbSolutionRevealed ? "hint" : ""
+  );
+  renderVerbNebula();
+}
+
+function recordVerbSemanticAttempt(pair, {
+  correct,
+  chosenEnglish = "",
+  roundComplete = false
+} = {}) {
+  const semanticLearning = window.CaatuuSemanticLearning;
+  if (!semanticLearning || !pair?.id || !pair?.eng) return;
+  const hint = state.verbHintById.get(pair.id);
+  const hintShown = Boolean(state.verbHintsEnabled && hint && hint.status !== "loading");
+  const solutionShown = Boolean(state.verbSolutionRevealed);
+  const totalWeight = solutionShown ? 0.25 : (hintShown ? 0.65 : 1);
+  const masteryWeight = solutionShown ? 0 : totalWeight;
+  const score = solutionShown ? null : (correct ? 1 : 0);
+  const signalWeight = totalWeight / 2;
+  const signalMasteryWeight = masteryWeight / 2;
+  void semanticLearning.recordAttempt({
+    activityId: "verb-nebula",
+    itemId: `verb-nebula:${pair.id}`,
+    item: {
+      sourceId: pair.id,
+      sourceIndex: pair.sourceIndex,
+      czech: pair.cz,
+      english: pair.eng,
+      difficulty: pair.difficulty
+    },
+    signals: [
+      {
+        conceptId: `cz.verb.${pair.id}.meaning`,
+        statementRevision: "1",
+        kind: "meaning",
+        locale: "en",
+        text: `Understands the Czech verb meaning “${pair.eng}”.`,
+        score,
+        coverageWeight: signalWeight,
+        masteryWeight: signalMasteryWeight
+      },
+      {
+        conceptId: `cz.verb.${pair.id}.meaning-match`,
+        statementRevision: "1",
+        kind: "skill",
+        locale: "en",
+        text: `Recognizes a Czech verb and matches it to the English meaning “${pair.eng}”.`,
+        score,
+        coverageWeight: signalWeight,
+        masteryWeight: signalMasteryWeight
+      }
+    ],
+    context: {
+      correct: Boolean(correct),
+      chosenEnglish,
+      expectedEnglish: pair.eng,
+      courseDifficulty: state.verbDifficulty,
+      pairCount: state.verbPairCount,
+      roundNumber: state.verbRoundNumber,
+      roundComplete: Boolean(roundComplete),
+      hintsEnabled: state.verbHintsEnabled,
+      hintShown,
+      hintStatus: hint?.status || "",
+      solutionShown
+    }
+  }).catch(() => {});
 }
 
 function settleVerbMatch() {
@@ -1594,6 +1806,11 @@ function settleVerbMatch() {
       successes: 1,
       rounds: roundComplete ? 1 : 0
     });
+    recordVerbSemanticAttempt(pair, {
+      correct: true,
+      chosenEnglish: pair?.eng || "",
+      roundComplete
+    });
     saveVerbMemory();
     renderVerbNebula();
     if (roundComplete) {
@@ -1607,6 +1824,12 @@ function settleVerbMatch() {
   // the answer during the mistake animation.
   state.verbWrongIds = new Set([`cz:${czechId}`, `en:${englishId}`]);
   window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
+  const pair = state.verbRound.find((item) => item.id === czechId);
+  const chosenPair = state.verbEnglishRound.find((item) => item.id === englishId);
+  recordVerbSemanticAttempt(pair, {
+    correct: false,
+    chosenEnglish: chosenPair?.eng || ""
+  });
   setVerbMatchFeedback("Those two do not match. Keep the Czech verb and try another meaning.", "wrong");
   saveVerbMemory();
   renderVerbNebula();
@@ -1659,7 +1882,7 @@ function normalizeVerbHintPath(value) {
 function vectorVerbHintCandidates(pair) {
   const englishText = verbNebulaCore.verbHintSearchText(pair);
   return runtimeAdapter().vector.search(englishText, {
-    limit: 5,
+    limit: 10,
     sourceKinds: ["macaw_action_asset"]
   }).then((response) => (Array.isArray(response?.results) ? response.results : [])
     .filter((row) => row?.sourceKind === "macaw_action_asset")
@@ -1669,7 +1892,8 @@ function vectorVerbHintCandidates(pair) {
           || row.chunkMetadata?.asset_path
           || row.sourceId
       ),
-      alt: row.text || "Picture clue"
+      alt: row.text || "Picture clue",
+      score: 100 + (Number.isFinite(Number(row.score)) ? Number(row.score) : 0)
     }))
     .filter((row) => row.assetPath));
 }
@@ -1708,12 +1932,46 @@ async function fallbackVerbHintCandidates(pair) {
       return {
         assetPath: row.assetPath,
         alt: row.description || "Picture clue",
-        score: exact + shared / queryTokens.size
+        score: 50 + exact + shared / queryTokens.size
       };
     })
     .filter((row) => row.score > 0)
     .sort((left, right) => right.score - left.score)
-    .slice(0, 5);
+    .slice(0, 10);
+}
+
+function stableVerbHintOffset(value, length) {
+  if (!length) return 0;
+  let hash = 0;
+  Array.from(String(value || "")).forEach((character) => {
+    hash = ((hash * 31) + character.codePointAt(0)) >>> 0;
+  });
+  return hash % length;
+}
+
+function genericVerbHintCandidates(pair, rows) {
+  if (!rows.length) return [];
+  const offset = stableVerbHintOffset(verbNebulaCore.verbHintSearchText(pair), rows.length);
+  return rows.map((_, rank) => {
+    const row = rows[(offset + rank) % rows.length];
+    return {
+      assetPath: row.assetPath,
+      alt: row.description || "Macaw picture clue",
+      score: -100 - rank
+    };
+  });
+}
+
+function mergeVerbHintCandidates(...candidateGroups) {
+  const byPath = new Map();
+  candidateGroups.flat().forEach((candidate) => {
+    if (!candidate?.assetPath) return;
+    const current = byPath.get(candidate.assetPath);
+    if (!current || Number(candidate.score) > Number(current.score)) {
+      byPath.set(candidate.assetPath, candidate);
+    }
+  });
+  return [...byPath.values()].sort((left, right) => Number(right.score) - Number(left.score));
 }
 
 function loadableVerbHint(candidates, pair) {
@@ -1748,18 +2006,20 @@ function loadableVerbHint(candidates, pair) {
   });
 }
 
-function cachedVerbHint(pair) {
+function cachedVerbHintCandidates(pair) {
   const key = verbNebulaCore.verbHintSearchText(pair).toLocaleLowerCase("en");
   if (!state.verbHintCache.has(key)) {
-    const lookup = vectorVerbHintCandidates(pair)
-      .catch(() => [])
-      .then(async (candidates) => (
-        candidates.length ? candidates : fallbackVerbHintCandidates(pair)
-      ))
-      .then((candidates) => loadableVerbHint(candidates, pair))
-      .catch(() => null);
+    const lookup = Promise.all([
+      vectorVerbHintCandidates(pair).catch(() => []),
+      fallbackVerbHintCandidates(pair),
+      loadVerbHintKeymap()
+    ]).then(([vectorCandidates, lexicalCandidates, keymapRows]) => mergeVerbHintCandidates(
+      vectorCandidates,
+      lexicalCandidates,
+      genericVerbHintCandidates(pair, keymapRows)
+    )).catch(() => []);
     const deadline = new Promise((resolve) => {
-      window.setTimeout(() => resolve(null), verbHintLookupTimeoutMillis);
+      window.setTimeout(() => resolve([]), verbHintLookupTimeoutMillis);
     });
     const request = Promise.race([lookup, deadline]);
     state.verbHintCache.set(key, request);
@@ -1777,21 +2037,14 @@ async function loadVerbHintsForRound() {
   setVerbMatchFeedback("Loading picture clues…", "hint");
   renderVerbNebula();
 
-  let available = 0;
-  for (const pair of round) {
-    const hint = await cachedVerbHint(pair);
-    if (requestId !== state.verbHintRequestId || !state.verbHintsEnabled) return;
-    state.verbHintById.set(pair.id, hint || { status: "unavailable" });
-    if (hint) available += 1;
-    renderVerbNebula();
-  }
-
-  setVerbMatchFeedback(
-    available
-      ? "Picture clues are on; each image acts out its Czech verb."
-      : "Picture clues are unavailable; keep matching the words.",
-    available ? "hint" : ""
-  );
+  const hints = await preloadVerbHintsForRound(round);
+  if (requestId !== state.verbHintRequestId || !state.verbHintsEnabled) return;
+  round.forEach((pair) => state.verbHintById.set(pair.id, hints.get(pair.id) || {
+    status: "ready",
+    assetPath: verbHintFallbackPath,
+    alt: "Macaw picture clue"
+  }));
+  setVerbMatchFeedback("Match each Czech verb with its English meaning.");
   renderVerbNebula();
 }
 
@@ -1804,7 +2057,7 @@ function toggleVerbHints() {
   setVerbMatchFeedback(
     state.verbHintsEnabled
       ? "Loading picture clues…"
-      : "Choose a Czech verb, then its English match.",
+      : "Match each Czech verb with its English meaning.",
     state.verbHintsEnabled ? "hint" : ""
   );
   renderVerbNebula();
@@ -1816,6 +2069,27 @@ function cancelVerbRoundTransition() {
   state.verbRoundInterstitial = false;
   state.verbSolutionRevealed = false;
   state.verbInterstitialRobotPath = "";
+}
+
+function rebaseVerbDifficulty() {
+  if (!state.verbMemoryLoaded) return;
+
+  // Persist the old pool before rebuilding. loadVerbMemory deliberately
+  // refuses to restore that round when its recorded level differs from the
+  // newly selected course difficulty.
+  saveVerbMemory();
+  cancelVerbRoundTransition();
+  state.verbMemoryLoaded = false;
+  state.verbPairs = [];
+  state.verbQueueIds = [];
+  state.verbRound = [];
+  state.verbEnglishRound = [];
+  state.verbMatchedIds = new Set();
+  state.verbHintRequestId += 1;
+  state.verbHintById.clear();
+  resetVerbSelections();
+  loadVerbMemory();
+  startVerbRound();
 }
 
 function resetVerbProgress() {
@@ -1846,6 +2120,7 @@ function clearVerbMemory({ confirmed = false } = {}) {
   }
   cancelVerbRoundTransition();
   state.verbMemoryLoaded = false;
+  state.verbDifficulty = 1;
   state.verbPairs = [];
   state.verbQueueIds = [];
   state.verbRound = [];
@@ -1870,7 +2145,10 @@ function bindVerbNebulaControls() {
     else if (event.target.closest("[data-verb-pair-count]")) changeVerbPairCount(event);
   });
   $("#verbHintButton")?.addEventListener("click", toggleVerbHints);
-  $("#verbRevealSolution")?.addEventListener("click", revealVerbSolution);
+  $("#verbRevealSolution")?.addEventListener("click", toggleVerbSolution);
+  window.addEventListener("resize", () => {
+    if (state.verbSolutionRevealed) renderVerbSolutionArrows();
+  });
 }
 
 function printOptions() {
@@ -2828,9 +3106,6 @@ function setView(view) {
   $(`#view-${view}`)?.classList.add("is-active");
   $(".nav-tab.is-active")?.classList.remove("is-active");
   $(`.nav-tab[data-view="${view}"]`)?.classList.add("is-active");
-  if (window.location.hash !== `#${view}`) {
-    window.history.replaceState(null, "", `#${view}`);
-  }
   const viewTitle = view === "verbs" ? ({
     "verb-lab": "Verb Nebula",
     "word-net": "Word World",
@@ -2838,9 +3113,98 @@ function setView(view) {
   }[state.trainTab] || "") : "";
   window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
     backLabel: "← Menu",
-    backHref: viewTitle ? "index.html#verbs" : "",
+    backHref: viewTitle ? "index.html" : "",
     trainTab: viewTitle ? "galaxy" : ""
   });
+}
+
+const sharedAnimationManifestPath = "/assets/loading_animation/animations_manifest.json";
+const worldLandingFrameDelayMs = 80;
+let worldLandingFramesPromise = null;
+let worldLandingActive = false;
+
+function animationFrameNumber(value) {
+  const matches = [...String(value || "").matchAll(/(\d+)/g)];
+  return matches.length ? Number(matches.at(-1)[1]) : Number.MAX_SAFE_INTEGER;
+}
+
+function sharedAnimationFrameUrl(folder, file) {
+  if (!folder || !file) return "";
+  return `/assets/loading_animation/${[folder, file].map(encodeURIComponent).join("/")}`;
+}
+
+function preloadAnimationFrame(src) {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(src);
+    image.onerror = () => resolve("");
+    image.src = src;
+  });
+}
+
+async function loadWorldLandingFrames() {
+  const response = await fetch(sharedAnimationManifestPath);
+  if (!response.ok) throw new Error(`Animation manifest returned ${response.status}`);
+  const manifest = await response.json();
+  const landing = (Array.isArray(manifest?.animations) ? manifest.animations : [])
+    .find((sequence) => sequence?.id === "landing");
+  if (!landing) return [];
+  const frames = (Array.isArray(landing.sprites) ? landing.sprites : [])
+    .map((frame) => sharedAnimationFrameUrl(landing.folder, frame?.file))
+    .filter(Boolean)
+    .sort((left, right) => animationFrameNumber(left) - animationFrameNumber(right) || left.localeCompare(right));
+  return (await Promise.all(frames.map(preloadAnimationFrame))).filter(Boolean);
+}
+
+function worldLandingFrames() {
+  if (!worldLandingFramesPromise) {
+    worldLandingFramesPromise = loadWorldLandingFrames().catch((error) => {
+      console.warn("Could not load the landing animation.", error);
+      return [];
+    });
+  }
+  return worldLandingFramesPromise;
+}
+
+function animationDelay(milliseconds) {
+  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+}
+
+async function playWorldLandingAnimation() {
+  if (worldLandingActive) return false;
+  worldLandingActive = true;
+  const overlay = $("#worldLandingAnimation");
+  const image = $("#worldLandingAnimationFrame");
+  try {
+    const frames = await worldLandingFrames();
+    if (!overlay || !image || !frames.length) return true;
+    document.body.classList.add("world-landing-active");
+    overlay.hidden = false;
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.classList.remove("is-finishing");
+    window.requestAnimationFrame(() => overlay.classList.add("is-visible"));
+
+    for (const frame of frames) {
+      image.src = frame;
+      await animationDelay(worldLandingFrameDelayMs);
+    }
+
+    overlay.classList.add("is-finishing");
+    await animationDelay(180);
+    overlay.classList.remove("is-visible", "is-finishing");
+    overlay.hidden = true;
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("world-landing-active");
+    return true;
+  } finally {
+    overlay?.classList.remove("is-visible", "is-finishing");
+    if (overlay) {
+      overlay.hidden = true;
+      overlay.setAttribute("aria-hidden", "true");
+    }
+    document.body.classList.remove("world-landing-active");
+    worldLandingActive = false;
+  }
 }
 
 function setTrainTab(tab) {
@@ -2862,7 +3226,7 @@ function setTrainTab(tab) {
   const title = trainTitles[activeTab] || "";
   window.CaatuuChrome?.setHeaderTitle?.(title, {
     backLabel: "← Menu",
-    backHref: title ? "index.html#verbs" : "",
+    backHref: title ? "index.html" : "",
     trainTab: title ? "galaxy" : ""
   });
   document.querySelectorAll(".train-world").forEach((button) => {
@@ -2877,14 +3241,26 @@ function setTrainTab(tab) {
   });
 }
 
-function setInitialViewFromHash() {
-  const view = window.location.hash.replace("#", "");
-  if (view === "settings") {
+function setInitialViewFromLocation() {
+  const url = new URL(window.location.href);
+  const legacyView = url.hash.replace("#", "");
+  const requestedView = url.searchParams.get("view") || legacyView;
+  const openSettings = url.searchParams.get("settings") === "1" || legacyView === "settings";
+
+  if (openSettings) {
     setView(state.activeView);
     window.requestAnimationFrame(openSettingsPanel);
-    return;
+  } else if (requestedView) {
+    setView(requestedView);
   }
-  if (view) setView(view);
+
+  const hadTransientRoute = url.hash || url.searchParams.has("view") || url.searchParams.has("settings");
+  if (hadTransientRoute) {
+    url.hash = "";
+    url.searchParams.delete("view");
+    url.searchParams.delete("settings");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+  }
 }
 
 function render() {
@@ -2903,17 +3279,22 @@ function renderDataError(error) {
 function bindUi() {
   bindPwaInstall();
 
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", async (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
     const trainTab = event.target.closest("[data-train-tab]");
     if (trainTab) {
       event.preventDefault();
-      if (trainTab.dataset.trainTab === "word-net") {
+      const selectedTab = trainTab.dataset.trainTab;
+      if (trainTab.classList.contains("train-world") && selectedTab !== "galaxy") {
+        if (worldLandingActive) return;
+        await playWorldLandingAnimation();
+      }
+      if (selectedTab === "word-net") {
         window.location.href = "word-net.html";
         return;
       }
-      setTrainTab(trainTab.dataset.trainTab);
+      setTrainTab(selectedTab);
     }
   });
 
@@ -2938,10 +3319,9 @@ function bindUi() {
   });
   window.addEventListener("caatuu:learning-change", (event) => {
     if (event.detail?.reason === "progress-reset") clearVerbMemory({ confirmed: true });
+    else if (event.detail?.reason === "difficulty") rebaseVerbDifficulty();
   });
   $("#clearCache")?.addEventListener("click", clearAppCache);
-
-  window.addEventListener("hashchange", setInitialViewFromHash);
 
   document.querySelectorAll("[data-dictionary-section]").forEach((button) => {
     button.addEventListener("click", () => setDictionarySection(button.dataset.dictionarySection));
@@ -3006,12 +3386,13 @@ function bindUi() {
 async function init() {
   try {
     await loadContentData();
+    void worldLandingFrames();
     await loadModelLicenseCatalog().catch(() => {});
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();
     renderModelLicenseList();
     syncGenerationSettingsUi();
-    setInitialViewFromHash();
+    setInitialViewFromLocation();
     render();
     registerServiceWorker();
   } catch (error) {

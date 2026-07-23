@@ -140,5 +140,36 @@ ENTRYPOINT ["/opt/blender/blender", \
     "--"]
 CMD ["--out", "/output/af055-neutral"]
 
+FROM blender-runtime-base AS macaw-actor-validator
+
+LABEL org.opencontainers.image.title="Animated Fabric macaw actor validator" \
+    org.opencontainers.image.description="Isolated AF-056 pinned macaw rig and deformation-review renderer"
+
+USER root
+
+COPY assets/actor-reviews/macaw-traveler-avian-v1/rig-mapping.json \
+    /opt/animated-fabric/macaw-rig-mapping.json
+
+RUN chmod a-w /opt/animated-fabric/macaw-rig-mapping.json \
+    && test -r /opt/animated-fabric/render_macaw_actor_review.py \
+    && test -r /opt/animated-fabric/macaw-rig-mapping.json \
+    && test -r /opt/animated-fabric/contracts/avian_v1.json \
+    && test -r /opt/animated-fabric/contracts/af056_review_poses.json
+
+USER blender
+
+ENTRYPOINT ["/opt/blender/blender", \
+    "--background", \
+    "--factory-startup", \
+    "--disable-autoexec", \
+    "--offline-mode", \
+    "-noaudio", \
+    "--python-exit-code", \
+    "10", \
+    "--python", \
+    "/opt/animated-fabric/render_macaw_actor_review.py", \
+    "--"]
+CMD ["--out", "/output/af056-review"]
+
 # Preserve the historical default target and entrypoint for direct builds.
 FROM directional-worker AS blender-runtime

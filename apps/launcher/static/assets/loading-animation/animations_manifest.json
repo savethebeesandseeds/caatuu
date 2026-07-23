@@ -1,0 +1,478 @@
+{
+  "schema_version": 1,
+  "animations": [
+    {
+      "id": "backpack",
+      "folder": "animation-backpack",
+      "count": 6,
+      "sprites": [
+        {
+          "index": 1,
+          "file": "load-animation_1.png",
+          "path": "animation-backpack/load-animation_1.png"
+        },
+        {
+          "index": 2,
+          "file": "load-animation_2.png",
+          "path": "animation-backpack/load-animation_2.png"
+        },
+        {
+          "index": 3,
+          "file": "load-animation_3.png",
+          "path": "animation-backpack/load-animation_3.png"
+        },
+        {
+          "index": 4,
+          "file": "load-animation_4.png",
+          "path": "animation-backpack/load-animation_4.png"
+        },
+        {
+          "index": 5,
+          "file": "load-animation_5.png",
+          "path": "animation-backpack/load-animation_5.png"
+        },
+        {
+          "index": 6,
+          "file": "load-animation_6.png",
+          "path": "animation-backpack/load-animation_6.png"
+        }
+      ]
+    },
+    {
+      "id": "walking-arround",
+      "folder": "animation-walking-arround",
+      "count": 33,
+      "sprites": [
+        {
+          "index": 1,
+          "file": "loading-animation (1).png",
+          "path": "animation-walking-arround/loading-animation (1).png"
+        },
+        {
+          "index": 2,
+          "file": "loading-animation (2).png",
+          "path": "animation-walking-arround/loading-animation (2).png"
+        },
+        {
+          "index": 3,
+          "file": "loading-animation (3).png",
+          "path": "animation-walking-arround/loading-animation (3).png"
+        },
+        {
+          "index": 4,
+          "file": "loading-animation (4).png",
+          "path": "animation-walking-arround/loading-animation (4).png"
+        },
+        {
+          "index": 5,
+          "file": "loading-animation (5).png",
+          "path": "animation-walking-arround/loading-animation (5).png"
+        },
+        {
+          "index": 6,
+          "file": "loading-animation (6).png",
+          "path": "animation-walking-arround/loading-animation (6).png"
+        },
+        {
+          "index": 7,
+          "file": "loading-animation (7).png",
+          "path": "animation-walking-arround/loading-animation (7).png"
+        },
+        {
+          "index": 8,
+          "file": "loading-animation (8).png",
+          "path": "animation-walking-arround/loading-animation (8).png"
+        },
+        {
+          "index": 9,
+          "file": "loading-animation (9).png",
+          "path": "animation-walking-arround/loading-animation (9).png"
+        },
+        {
+          "index": 10,
+          "file": "loading-animation (10).png",
+          "path": "animation-walking-arround/loading-animation (10).png"
+        },
+        {
+          "index": 11,
+          "file": "loading-animation (11).png",
+          "path": "animation-walking-arround/loading-animation (11).png"
+        },
+        {
+          "index": 12,
+          "file": "loading-animation (12).png",
+          "path": "animation-walking-arround/loading-animation (12).png"
+        },
+        {
+          "index": 13,
+          "file": "loading-animation (13).png",
+          "path": "animation-walking-arround/loading-animation (13).png"
+        },
+        {
+          "index": 14,
+          "file": "loading-animation (14).png",
+          "path": "animation-walking-arround/loading-animation (14).png"
+        },
+        {
+          "index": 15,
+          "file": "loading-animation (15).png",
+          "path": "animation-walking-arround/loading-animation (15).png"
+        },
+        {
+          "index": 16,
+          "file": "loading-animation (16).png",
+          "path": "animation-walking-arround/loading-animation (16).png"
+        },
+        {
+          "index": 17,
+          "file": "loading-animation (17).png",
+          "path": "animation-walking-arround/loading-animation (17).png"
+        },
+        {
+          "index": 18,
+          "file": "loading-animation (18).png",
+          "path": "animation-walking-arround/loading-animation (18).png"
+        },
+        {
+          "index": 19,
+          "file": "loading-animation (19).png",
+          "path": "animation-walking-arround/loading-animation (19).png"
+        },
+        {
+          "index": 20,
+          "file": "loading-animation (20).png",
+          "path": "animation-walking-arround/loading-animation (20).png"
+        },
+        {
+          "index": 21,
+          "file": "loading-animation (21).png",
+          "path": "animation-walking-arround/loading-animation (21).png"
+        },
+        {
+          "index": 22,
+          "file": "loading-animation (22).png",
+          "path": "animation-walking-arround/loading-animation (22).png"
+        },
+        {
+          "index": 23,
+          "file": "loading-animation (23).png",
+          "path": "animation-walking-arround/loading-animation (23).png"
+        },
+        {
+          "index": 24,
+          "file": "loading-animation (24).png",
+          "path": "animation-walking-arround/loading-animation (24).png"
+        },
+        {
+          "index": 25,
+          "file": "loading-animation (25).png",
+          "path": "animation-walking-arround/loading-animation (25).png"
+        },
+        {
+          "index": 26,
+          "file": "loading-animation (26).png",
+          "path": "animation-walking-arround/loading-animation (26).png"
+        },
+        {
+          "index": 27,
+          "file": "loading-animation (27).png",
+          "path": "animation-walking-arround/loading-animation (27).png"
+        },
+        {
+          "index": 28,
+          "file": "loading-animation (28).png",
+          "path": "animation-walking-arround/loading-animation (28).png"
+        },
+        {
+          "index": 29,
+          "file": "loading-animation (29).png",
+          "path": "animation-walking-arround/loading-animation (29).png"
+        },
+        {
+          "index": 30,
+          "file": "loading-animation (30).png",
+          "path": "animation-walking-arround/loading-animation (30).png"
+        },
+        {
+          "index": 31,
+          "file": "loading-animation (31).png",
+          "path": "animation-walking-arround/loading-animation (31).png"
+        },
+        {
+          "index": 32,
+          "file": "loading-animation (32).png",
+          "path": "animation-walking-arround/loading-animation (32).png"
+        },
+        {
+          "index": 33,
+          "file": "loading-animation (33).png",
+          "path": "animation-walking-arround/loading-animation (33).png"
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "folder": "animation-landing",
+      "count": 29,
+      "sprites": [
+        {
+          "index": 10,
+          "file": "loading-animation_010.png",
+          "path": "animation-landing/loading-animation_010.png"
+        },
+        {
+          "index": 11,
+          "file": "loading-animation_011.png",
+          "path": "animation-landing/loading-animation_011.png"
+        },
+        {
+          "index": 12,
+          "file": "loading-animation_012.png",
+          "path": "animation-landing/loading-animation_012.png"
+        },
+        {
+          "index": 13,
+          "file": "013.png",
+          "path": "animation-landing/013.png"
+        },
+        {
+          "index": 14,
+          "file": "loading-animation_014.png",
+          "path": "animation-landing/loading-animation_014.png"
+        },
+        {
+          "index": 15,
+          "file": "loading-animation_015.png",
+          "path": "animation-landing/loading-animation_015.png"
+        },
+        {
+          "index": 16,
+          "file": "loading-animation_016.png",
+          "path": "animation-landing/loading-animation_016.png"
+        },
+        {
+          "index": 17,
+          "file": "loading-animation_017.png",
+          "path": "animation-landing/loading-animation_017.png"
+        },
+        {
+          "index": 20,
+          "file": "loading-animation_20.png",
+          "path": "animation-landing/loading-animation_20.png"
+        },
+        {
+          "index": 21,
+          "file": "loading-animation_021.png",
+          "path": "animation-landing/loading-animation_021.png"
+        },
+        {
+          "index": 22,
+          "file": "loading-animation_022.png",
+          "path": "animation-landing/loading-animation_022.png"
+        },
+        {
+          "index": 23,
+          "file": "loading-animation_023.png",
+          "path": "animation-landing/loading-animation_023.png"
+        },
+        {
+          "index": 24,
+          "file": "loading-animation_024.png",
+          "path": "animation-landing/loading-animation_024.png"
+        },
+        {
+          "index": 25,
+          "file": "loading-animation_025.png",
+          "path": "animation-landing/loading-animation_025.png"
+        },
+        {
+          "index": 26,
+          "file": "loading-animation_026.png",
+          "path": "animation-landing/loading-animation_026.png"
+        },
+        {
+          "index": 27,
+          "file": "loading-animation_027.png",
+          "path": "animation-landing/loading-animation_027.png"
+        },
+        {
+          "index": 28,
+          "file": "loading-animation_028.png",
+          "path": "animation-landing/loading-animation_028.png"
+        },
+        {
+          "index": 29,
+          "file": "loading-animation_029.png",
+          "path": "animation-landing/loading-animation_029.png"
+        },
+        {
+          "index": 30,
+          "file": "loading-animation_030.png",
+          "path": "animation-landing/loading-animation_030.png"
+        },
+        {
+          "index": 31,
+          "file": "loading-animation_031.png",
+          "path": "animation-landing/loading-animation_031.png"
+        },
+        {
+          "index": 32,
+          "file": "loading-animation_032.png",
+          "path": "animation-landing/loading-animation_032.png"
+        },
+        {
+          "index": 33,
+          "file": "loading-animation_033.png",
+          "path": "animation-landing/loading-animation_033.png"
+        },
+        {
+          "index": 34,
+          "file": "loading-animation_034.png",
+          "path": "animation-landing/loading-animation_034.png"
+        },
+        {
+          "index": 35,
+          "file": "loading-animation_035.png",
+          "path": "animation-landing/loading-animation_035.png"
+        },
+        {
+          "index": 36,
+          "file": "loading-animation_036.png",
+          "path": "animation-landing/loading-animation_036.png"
+        },
+        {
+          "index": 37,
+          "file": "loading-animation_037.png",
+          "path": "animation-landing/loading-animation_037.png"
+        },
+        {
+          "index": 38,
+          "file": "loading-animation_038.png",
+          "path": "animation-landing/loading-animation_038.png"
+        },
+        {
+          "index": 40,
+          "file": "loading-animation_040.png",
+          "path": "animation-landing/loading-animation_040.png"
+        },
+        {
+          "index": 62,
+          "file": "loading-animation_062.png",
+          "path": "animation-landing/loading-animation_062.png"
+        }
+      ]
+    },
+    {
+      "id": "leaving",
+      "folder": "animation-leaving",
+      "count": 21,
+      "sprites": [
+        {
+          "index": 100,
+          "file": "loading-animation_100.png",
+          "path": "animation-leaving/loading-animation_100.png"
+        },
+        {
+          "index": 101,
+          "file": "loading-animation_101.png",
+          "path": "animation-leaving/loading-animation_101.png"
+        },
+        {
+          "index": 200,
+          "file": "loading-animation_200.png",
+          "path": "animation-leaving/loading-animation_200.png"
+        },
+        {
+          "index": 201,
+          "file": "loading-animation_201.png",
+          "path": "animation-leaving/loading-animation_201.png"
+        },
+        {
+          "index": 202,
+          "file": "loading-animation_202.png",
+          "path": "animation-leaving/loading-animation_202.png"
+        },
+        {
+          "index": 203,
+          "file": "loading-animation_203.png",
+          "path": "animation-leaving/loading-animation_203.png"
+        },
+        {
+          "index": 204,
+          "file": "loading-animation_204.png",
+          "path": "animation-leaving/loading-animation_204.png"
+        },
+        {
+          "index": 300,
+          "file": "loading-animation_300.png",
+          "path": "animation-leaving/loading-animation_300.png"
+        },
+        {
+          "index": 301,
+          "file": "loading-animation_301.png",
+          "path": "animation-leaving/loading-animation_301.png"
+        },
+        {
+          "index": 400,
+          "file": "loading-animation_400.png",
+          "path": "animation-leaving/loading-animation_400.png"
+        },
+        {
+          "index": 401,
+          "file": "loading-animation_401.png",
+          "path": "animation-leaving/loading-animation_401.png"
+        },
+        {
+          "index": 402,
+          "file": "loading-animation_402.png",
+          "path": "animation-leaving/loading-animation_402.png"
+        },
+        {
+          "index": 403,
+          "file": "loading-animation_403.png",
+          "path": "animation-leaving/loading-animation_403.png"
+        },
+        {
+          "index": 404,
+          "file": "loading-animation_404.png",
+          "path": "animation-leaving/loading-animation_404.png"
+        },
+        {
+          "index": 405,
+          "file": "loading-animation_405.png",
+          "path": "animation-leaving/loading-animation_405.png"
+        },
+        {
+          "index": 500,
+          "file": "loading-animation_500.png",
+          "path": "animation-leaving/loading-animation_500.png"
+        },
+        {
+          "index": 501,
+          "file": "loading-animation_501.png",
+          "path": "animation-leaving/loading-animation_501.png"
+        },
+        {
+          "index": 502,
+          "file": "loading-animation_502.png",
+          "path": "animation-leaving/loading-animation_502.png"
+        },
+        {
+          "index": 503,
+          "file": "loading-animation_503.png",
+          "path": "animation-leaving/loading-animation_503.png"
+        },
+        {
+          "index": 600,
+          "file": "loading-animation_600.png",
+          "path": "animation-leaving/loading-animation_600.png"
+        },
+        {
+          "index": 601,
+          "file": "loading-animation_601.png",
+          "path": "animation-leaving/loading-animation_601.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# Keep model binaries and training outputs out of normal source control.
+*.bin
+*.ckpt
+*.gguf
+*.mlmodel
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.tflite
+*.zip
+*.tar
+*.tar.gz
+*.7z
+checkpoints/
+exports/
+hf-cache/
+logs/
+raw/
+tmp/
+*.mlpackage/
+
+!README.md
+!models.json
+!.gitignore
+!metadata.json
+!model-card.json

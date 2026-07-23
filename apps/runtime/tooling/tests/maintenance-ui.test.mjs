@@ -7,6 +7,18 @@ const source = await readFile(
   new URL("../../../../apps/languages/czech/static/maintenance-ui.js", import.meta.url),
   "utf8"
 );
+const runtimeSource = await readFile(
+  new URL("../../../../apps/languages/czech/static/runtime.js", import.meta.url),
+  "utf8"
+);
+const chromeSource = await readFile(
+  new URL("../../../../apps/languages/czech/static/chrome.js", import.meta.url),
+  "utf8"
+);
+const serviceWorkerSource = await readFile(
+  new URL("../../../../apps/languages/czech/static/sw.js", import.meta.url),
+  "utf8"
+);
 const stored = new Map();
 const sessionStored = new Map();
 function storage(map) {
@@ -25,6 +37,27 @@ const context = {
 };
 runInNewContext(source, context, { filename: "maintenance-ui.js" });
 const ui = context.window.CaatuuMaintenanceUi;
+
+test("browser Update waits for the service-worker controller before reloading", () => {
+  assert.match(chromeSource, /CaatuuRuntime\?\.maintenance\?\.updateApp/);
+  assert.match(runtimeSource, /addEventListener\("controllerchange"/);
+  assert.match(runtimeSource, /registration\.installing \|\| registration\.waiting/);
+  assert.match(runtimeSource, /await controllerChanged/);
+});
+
+test("browser freshness bypasses stale HTTP caches and never silently serves an old cache", () => {
+  assert.match(runtimeSource, /register\("sw\.js", \{ updateViaCache: "none" \}\)/);
+  assert.match(runtimeSource, /fetch\(url\.href, \{ cache: "no-store" \}\)/);
+  assert.match(runtimeSource, /caatuu:app-freshness/);
+  assert.match(runtimeSource, /browserFreshnessAutoReloadWindowMs/);
+  assert.match(runtimeSource, /document\.addEventListener\("visibilitychange"/);
+  assert.match(chromeSource, /Offline copy — the latest Caatuu version cannot be checked yet\./);
+  assert.match(chromeSource, /A newer Caatuu version is ready\./);
+  assert.match(chromeSource, /function bindAppFreshness/);
+  assert.match(serviceWorkerSource, /event\.data\?\.type === "SKIP_WAITING"/);
+  assert.match(serviceWorkerSource, /async function currentCacheMatch/);
+  assert.doesNotMatch(serviceWorkerSource, /const cached = await caches\.match\(request\)/);
+});
 
 function control() {
   const copy = { textContent: "" };
@@ -65,6 +98,21 @@ test("native self-update control remains visible for a manual check", () => {
   assert.equal(button.textContent, "Check for updates");
   assert.equal(button.getAttribute("aria-disabled"), "false");
   assert.equal(row.hidden, false);
+});
+
+test("a successful check confirms the installed app is current on the button", () => {
+  const { button, copy } = control();
+  ui.setUpdateAppControl(button, { env: "android" }, {
+    selfUpdateEnabled: true,
+    updateAvailable: false,
+    currentVersionCode: 123,
+    currentVersionName: "0.1.122"
+  }, { checked: true });
+
+  assert.equal(button.textContent, "Up to date");
+  assert.equal(button.disabled, false);
+  assert.match(copy.textContent, /no newer release was found/i);
+  assert.match(copy.textContent, /0\.1\.122 is up to date/i);
 });
 
 test("checking state is visible in the control and accessible status", () => {
@@ -338,6 +386,6 @@ test("the shared controller announces a single in-flight update check immediatel
   });
   await Promise.all([first, second]);
 
-  assert.equal(button.textContent, "Check for updates");
+  assert.equal(button.textContent, "Up to date");
   assert.equal(statusNode.textContent, "Caatuu 0.1.92 (93). App is up to date.");
 });

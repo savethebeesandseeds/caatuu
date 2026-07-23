@@ -51,10 +51,23 @@ if ! command -v java >/dev/null 2>&1 || ! java -version 2>&1 | grep -q 'version 
   echo "Java 17 is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
   exit 1
 fi
+if ! command -v flock >/dev/null 2>&1; then
+  echo "flock is unavailable. Install util-linux before publishing Android artifacts." >&2
+  exit 1
+fi
 
 mkdir -p "$repo_root/artifacts/android"
 debug_keystore="$repo_root/artifacts/android/caatuu-debug.keystore"
 if [[ ! -f "$debug_keystore" ]]; then
+  if [[ "${CAATUU_REQUIRE_EXISTING_DEBUG_KEYSTORE:-0}" == "1" ]]; then
+    cat >&2 <<EOF
+The public debug signing keystore is missing:
+  $debug_keystore
+Refusing to create a new signing lineage. Restore the existing ignored
+keystore before publishing an update for installed Caatuu clients.
+EOF
+    exit 1
+  fi
   if ! command -v keytool >/dev/null 2>&1; then
     echo "keytool is not on PATH. Run: bash apps/android/tooling/setup-container.sh" >&2
     exit 1
@@ -89,7 +102,36 @@ staged_apk="$publish_dir/caatuu-debug.apk"
 staged_manifest="$publish_dir/caatuu-debug.json"
 cp app/build/outputs/apk/debug/app-debug.apk "$staged_apk"
 apksigner_bin="$(find_apksigner)"
-"$apksigner_bin" verify --verbose --print-certs "$staged_apk"
+verification_output="$("$apksigner_bin" verify --verbose --print-certs "$staged_apk")"
+printf '%s\n' "$verification_output"
+signer_sha="$(
+  awk -F': ' '/Signer #1 certificate SHA-256 digest:/ { print tolower($2); exit }' \
+    <<<"$verification_output"
+)"
+if [[ ! "$signer_sha" =~ ^[a-f0-9]{64}$ ]]; then
+  echo "Could not read the APK signing certificate SHA-256 digest." >&2
+  exit 1
+fi
+if [[ -n "${CAATUU_EXPECTED_DEBUG_CERT_SHA256:-}" ]]; then
+  expected_signer_sha="$(
+    printf '%s' "$CAATUU_EXPECTED_DEBUG_CERT_SHA256" \
+      | tr -d ':[:space:]' \
+      | tr '[:upper:]' '[:lower:]'
+  )"
+  if [[ ! "$expected_signer_sha" =~ ^[a-f0-9]{64}$ ]]; then
+    echo "CAATUU_EXPECTED_DEBUG_CERT_SHA256 is not a valid SHA-256 digest." >&2
+    exit 1
+  fi
+  if [[ "$signer_sha" != "$expected_signer_sha" ]]; then
+    cat >&2 <<EOF
+The APK signing certificate does not match the pinned public update lineage.
+Expected: $expected_signer_sha
+Actual:   $signer_sha
+Refusing to publish an APK that installed Caatuu clients cannot update to.
+EOF
+    exit 1
+  fi
+fi
 
 apk_sha="$(sha256sum "$staged_apk" | awk '{print $1}')"
 apk_bytes="$(wc -c < "$staged_apk" | tr -d ' ')"
@@ -121,6 +163,12 @@ JSON
 
 # A version code owns one immutable APK forever. This prevents an interrupted
 # Android download from resuming against bytes from a later publication.
+publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"
+exec {publication_lock_fd}>"$publication_lock"
+if ! flock -w "${CAATUU_ANDROID_PUBLICATION_LOCK_TIMEOUT_SECONDS:-120}" "$publication_lock_fd"; then
+  echo "Timed out waiting for the Android artifact publication lock." >&2
+  exit 1
+fi
 mkdir -p "$(dirname "$versioned_apk_path")"
 if [[ -f "$versioned_apk_path" ]]; then
   existing_sha="$(sha256sum "$versioned_apk_path" | awk '{print $1}')"

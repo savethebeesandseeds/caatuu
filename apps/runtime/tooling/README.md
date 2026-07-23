@@ -75,6 +75,23 @@ authentication boundary and model requests can incur charges.
 
 ## Boundary Audit
 
+Folders directly under `assets/loading-animation/` whose names begin with
+`animation` are playable sequences. When their PNGs are added, replaced, moved,
+or deleted, synchronize both the playback manifest and the offline setup
+catalog from the files that remain:
+
+```powershell
+docker exec caatuu-dev bash -lc `
+  'cd /workspace && node apps/runtime/tooling/sync-loading-animation-assets.mjs'
+```
+
+Use `--check` in CI or before packaging to detect a stale frame list without
+rewriting either manifest. The final numeric component of each filename defines
+playback order. Numbers may contain gaps; playback follows the sorted manifest
+entries rather than assuming a contiguous numeric range. The setup screen plays
+`animation-backpack` once and then loops `animation-walking-arround`; selecting
+a training world plays `animation-landing` once.
+
 After changing runtime routes, Czech static files, Chinese archive paths, or the
 Android package, run the boundary audit from `C:\Work\caatuu`:
 

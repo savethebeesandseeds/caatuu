@@ -737,10 +737,13 @@ h1 {
 
 .brand-trademark {
   position: relative;
-  top: -0.22em;
+  top: -0.3em;
   margin-left: 0.1em;
-  font-size: 0.9em;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 900;
   line-height: 0;
+  vertical-align: baseline;
 }
 
 .footer-logo {

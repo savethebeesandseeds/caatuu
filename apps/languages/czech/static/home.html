@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f5efe5">
-    <title>Caatuu Czech</title>
+    <title>Caatuu</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-3"></script>
-    <script src="learning-profile.js?v=learning-1"></script>
+    <script src="course-profile.js?v=course-5"></script>
+    <script src="learning-profile.js?v=learning-2"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -18,11 +18,12 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-26"></script>
+  <script src="runtime.js?v=runtime-30"></script>
+  <script src="semantic-learning.js?v=semantic-learning-6"></script>
     <link rel="stylesheet" href="theme.css?v=theme-4">
-    <link rel="stylesheet" href="app.css?v=shell-54">
-    <link rel="stylesheet" href="home.css?v=home-27">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-42">
+    <link rel="stylesheet" href="app.css?v=shell-61">
+    <link rel="stylesheet" href="home.css?v=home-28">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-60">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -31,7 +32,7 @@
       <main class="home-main">
         <section class="home-hero" aria-labelledby="homeTitle">
           <p class="home-kicker">Start</p>
-          <h1 id="homeTitle">Caatuu Czech</h1>
+          <h1 id="homeTitle">Caatuu</h1>
           <div class="setup-visual" aria-hidden="true">
             <span class="setup-orbit setup-orbit-one"></span>
             <span class="setup-orbit setup-orbit-two"></span>
@@ -49,7 +50,7 @@
             </div>
             <div class="setup-message-zone" aria-live="polite">
               <p class="setup-phase" id="setupPhase">Preparing Caatuu</p>
-              <p class="setup-message" id="setupMessage">Reading the setup manifest.</p>
+              <p class="setup-message" id="setupMessage">Preparing local files for offline use.</p>
               <button class="setup-report-link" id="setupReportBug" type="button" hidden>Report bug</button>
             </div>
             <div class="setup-progress-meta">
@@ -87,10 +88,10 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-    <script src="chrome.js?v=chrome-48"></script>
-    <script src="maintenance-ui.js?v=maintenance-13"></script>
+  <script src="chrome.js?v=chrome-66"></script>
+    <script src="maintenance-ui.js?v=maintenance-14"></script>
     <script src="setup-progress.js?v=setup-progress-1"></script>
-    <script src="setup.js?v=setup-29"></script>
+    <script src="setup.js?v=setup-31"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

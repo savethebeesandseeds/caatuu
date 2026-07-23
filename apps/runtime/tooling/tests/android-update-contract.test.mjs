@@ -73,8 +73,6 @@ test("update identity and verified APK survive process and cache recreation", ()
   const downloadLatest = kotlinFunction(manager, "suspend fun downloadLatest(");
   assert.match(downloadLatest, /integrityRetryCount < MAX_UPDATE_INTEGRITY_RETRIES/,
     "retry one clean download after a genuine transport integrity failure");
-  assert.match(downloadLatest, /PROCESS_UPDATE_MUTEX\.withLock[\s\S]*val raced = reconcileLocalStateLocked\(\)[\s\S]*raced\?\.state == DOWNLOAD_STATE_DOWNLOADING[\s\S]*startManagedDownloadLocked\(activeTarget\)/,
-    "concurrent integrity retries must reuse a raced active download instead of cancelling it");
 
   assert.match(startDownload, /clearStoredArtifactsLocked\(loadStoredStateLocked\(\)\)/,
     "every replacement download must remove the previous managed record and partial file first");
@@ -129,23 +127,109 @@ test("update handoff and Setup labels remain durable and unambiguous", () => {
   assert.match(setup, /continuing in the background/i);
 });
 
-test("status checks stay responsive and a ready APK installs without contacting the server", () => {
+test("status and download reconcile the server before reusing a local APK", () => {
   assert.match(bridge, /"update_app_status"\s*->\s*emitDone\(id,\s*appUpdateManager\.statusJson\(\)\)/);
   assert.doesNotMatch(bridge, /"update_app_status"[^\n]*updateMutex/);
 
   const statusJson = kotlinFunction(manager, "suspend fun statusJson(");
-  const localStatus = statusJson.indexOf("if (local != null)");
   const statusFetch = statusJson.indexOf("fetchJson(updateManifestUrl)");
-  assert.ok(localStatus >= 0 && localStatus < statusFetch,
-    "status must return persisted local state before checking the network");
+  const statusReconcile = statusJson.indexOf("reconcileServerTargetLocked(remote)");
+  const statusOverlay = statusJson.indexOf("putDownloadSnapshot(local)");
+  assert.ok(statusFetch >= 0 && statusFetch < statusReconcile && statusReconcile < statusOverlay,
+    "server identity must be validated before local download state is overlaid");
+  assert.doesNotMatch(statusJson, /return@withContext status\.putLocalSnapshot/,
+    "a reachable server must get a chance to invalidate stale local state");
+  assert.match(statusJson,
+    /catch \(error: Exception\)[\s\S]*reconcileLocalStateLocked\(\)[\s\S]*putLocalSnapshot\(local\)/,
+    "verified local state remains available when the manifest cannot be reached");
 
   const downloadLatest = kotlinFunction(manager, "suspend fun downloadLatest(");
-  const cachedReady = downloadLatest.indexOf("if (snapshot?.ready == true)");
   const manifestFetch = downloadLatest.indexOf("fetchJson(updateManifestUrl)");
-  assert.ok(cachedReady >= 0 && cachedReady < manifestFetch,
-    "downloadLatest must reuse a verified local APK before fetching a manifest");
+  const downloadReconcile = downloadLatest.indexOf("reconcileServerTargetLocked(remote)");
+  const cachedReady = downloadLatest.indexOf("if (snapshot?.ready == true)");
+  assert.ok(manifestFetch >= 0 && manifestFetch < downloadReconcile && downloadReconcile < cachedReady,
+    "downloadLatest must reconcile the current manifest before reusing a ready APK");
 
   const updateApp = kotlinFunction(bridge, "private suspend fun updateApp(");
   assert.match(updateApp, /appUpdateManager\.downloadLatest[\s\S]*appUpdateManager\.openInstaller\(\)/,
     "the bridge should reuse-or-download first, then open only a verified installer");
+});
+
+test("server artifact identity wins without treating a URL change as new bytes", () => {
+  const sameArtifactStart = manager.indexOf("fun sameArtifact(other: UpdateTarget)");
+  assert.notEqual(sameArtifactStart, -1);
+  const sameArtifactEnd = manager.indexOf("\n    }", sameArtifactStart);
+  const sameArtifact = manager.slice(sameArtifactStart, sameArtifactEnd);
+  assert.match(sameArtifact, /versionCode == other\.versionCode/);
+  assert.match(sameArtifact, /sha256 == other\.sha256/);
+  assert.match(sameArtifact, /bytes == other\.bytes/);
+  assert.doesNotMatch(sameArtifact, /apkUrl/,
+    "a same-origin URL alias change must not discard identical verified APK bytes");
+
+  const reconciliation = kotlinFunction(manager, "private fun reconcileServerTargetLocked(");
+  assert.match(reconciliation,
+    /remote\.versionCode <= BuildConfig\.VERSION_CODE\.toLong\(\)[\s\S]*clearStoredArtifactsLocked/,
+    "a server version that is no longer newer must clear the old local target");
+  assert.match(reconciliation,
+    /!local\.target\.sameArtifact\(remote\)[\s\S]*clearStoredArtifactsLocked/,
+    "different server bytes must replace the locally persisted target");
+  assert.match(reconciliation, /stored\.copy\(target = remote\)/,
+    "matching bytes retain their download while adopting the latest server metadata");
+});
+
+test("ready APK verification is stamped for polling but repeated before installer launch", () => {
+  assert.match(manager, /val verifiedBytes: Long = 0L/);
+  assert.match(manager, /val verifiedLastModified: Long = 0L/);
+  assert.match(manager, /\.put\("verifiedBytes", stored\.verifiedBytes\)/);
+  assert.match(manager, /\.put\("verifiedLastModified", stored\.verifiedLastModified\)/);
+  assert.match(manager, /verifiedBytes = body\.optLong\("verifiedBytes", 0L\)/);
+  assert.match(manager, /verifiedLastModified = body\.optLong\("verifiedLastModified", 0L\)/);
+
+  const reconciliation = kotlinFunction(manager, "private fun reconcileLocalStateLocked(");
+  assert.match(reconciliation,
+    /if \(!verificationStampMatches\(stored, updateApk\)\) \{\s*verifyTargetFile\(updateApk, stored\.target\)/,
+    "status polling may skip hashing only when the persisted file stamp still matches");
+
+  const stamp = kotlinFunction(manager, "private fun verificationStampMatches(");
+  assert.match(stamp, /stored\.verified/);
+  assert.match(stamp, /stored\.state == DOWNLOAD_STATE_READY/);
+  assert.match(stamp, /stored\.verifiedBytes == stored\.target\.bytes/);
+  assert.match(stamp, /file\.lastModified\(\) == stored\.verifiedLastModified/);
+
+  const promotion = kotlinFunction(manager, "private fun promoteManagedDownloadLocked(");
+  assert.match(promotion, /verifiedBytes = updateApk\.length\(\)/);
+  assert.match(promotion, /verifiedLastModified = updateApk\.lastModified\(\)/);
+
+  const installer = kotlinFunction(manager, "suspend fun openInstaller()");
+  assert.match(installer, /verifyTargetFile\(updateApk, snapshot\.target\)/,
+    "installer launch must always reverify the full APK regardless of its poll stamp");
+});
+
+test("integrity retries reconcile a fresh manifest without replacing a raced download", () => {
+  const downloadLatest = kotlinFunction(manager, "suspend fun downloadLatest(");
+  const retryStart = downloadLatest.indexOf("integrityRetryCount < MAX_UPDATE_INTEGRITY_RETRIES");
+  const retryEnd = downloadLatest.indexOf(
+    "error(current.error.ifBlank",
+    retryStart
+  );
+  assert.ok(retryStart >= 0 && retryEnd > retryStart, "missing integrity retry branch");
+  const retry = downloadLatest.slice(retryStart, retryEnd);
+
+  const raceCheck = retry.indexOf("val raced = synchronized(PROCESS_STATE_LOCK)");
+  const racedActive = retry.indexOf("raced?.state == DOWNLOAD_STATE_DOWNLOADING");
+  const manifestFetch = retry.indexOf("fetchJson(updateManifestUrl)");
+  const manifestReconcile = retry.indexOf("reconcileServerTargetLocked(retryTarget)");
+  const reconciledActive = retry.indexOf("reconciled?.state == DOWNLOAD_STATE_DOWNLOADING");
+  const restart = retry.indexOf("startManagedDownloadLocked(retryTarget)");
+  assert.ok(
+    raceCheck >= 0 &&
+      raceCheck < racedActive &&
+      racedActive < manifestFetch &&
+      manifestFetch < manifestReconcile &&
+      manifestReconcile < reconciledActive &&
+      reconciledActive < restart,
+    "only a still-fresh integrity failure may refetch, reconcile, and restart its target"
+  );
+  assert.doesNotMatch(retry, /startManagedDownloadLocked\(activeTarget\)/,
+    "the target that failed integrity must never be restarted after the manifest can change");
 });

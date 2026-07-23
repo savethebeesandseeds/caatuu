@@ -6,8 +6,9 @@ const repoRoot = new URL("../../../../", import.meta.url);
 const androidRoot = new URL("apps/android/app/src/main/", repoRoot);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
 
-const [activity, bridge, chrome, runtime] = await Promise.all([
+const [activity, manifest, bridge, chrome, runtime] = await Promise.all([
   readFile(new URL("java/com/caatuu/android/MainActivity.kt", androidRoot), "utf8"),
+  readFile(new URL("AndroidManifest.xml", androidRoot), "utf8"),
   readFile(new URL("java/com/caatuu/android/CaatuuBridge.kt", androidRoot), "utf8"),
   readFile(new URL("chrome.js", staticRoot), "utf8"),
   readFile(new URL("runtime.js", staticRoot), "utf8"),
@@ -34,4 +35,12 @@ test("Android persists the theme and paints edge-to-edge system areas", () => {
   assert.match(activity, /putString\(SYSTEM_THEME_KEY, normalizedTheme\)/);
   assert.match(activity, /DARK_SYSTEM_BAR_COLOR = Color\.rgb\(21, 26, 24\)/);
   assert.match(activity, /LIGHT_SYSTEM_BAR_COLOR = Color\.rgb\(247, 244, 238\)/);
+});
+
+test("Android system back gestures use the lifecycle-aware dispatcher and shared game back control", () => {
+  assert.match(activity, /class MainActivity : ComponentActivity\(\)/);
+  assert.match(activity, /onBackPressedDispatcher\.addCallback\(this, object : OnBackPressedCallback\(true\)/);
+  assert.match(activity, /window\.CaatuuChrome\.handleAndroidBack/);
+  assert.doesNotMatch(activity, /OnBackInvokedDispatcher/);
+  assert.match(manifest, /android:enableOnBackInvokedCallback="true"/);
 });

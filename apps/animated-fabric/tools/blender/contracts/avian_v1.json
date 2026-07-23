@@ -1,0 +1,151 @@
+{
+  "actor_root_bone_id": "root",
+  "bones": [
+    {
+      "bone_id": "root",
+      "parent_id": null
+    },
+    {
+      "bone_id": "pelvis",
+      "parent_id": "root"
+    },
+    {
+      "bone_id": "torso",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "neck",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "head",
+      "parent_id": "neck"
+    },
+    {
+      "bone_id": "beak",
+      "parent_id": "head"
+    },
+    {
+      "bone_id": "wing_upper_l",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "wing_lower_l",
+      "parent_id": "wing_upper_l"
+    },
+    {
+      "bone_id": "wing_hand_l",
+      "parent_id": "wing_lower_l"
+    },
+    {
+      "bone_id": "wing_upper_r",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "wing_lower_r",
+      "parent_id": "wing_upper_r"
+    },
+    {
+      "bone_id": "wing_hand_r",
+      "parent_id": "wing_lower_r"
+    },
+    {
+      "bone_id": "tail_base",
+      "parent_id": "torso"
+    },
+    {
+      "bone_id": "tail_mid",
+      "parent_id": "tail_base"
+    },
+    {
+      "bone_id": "tail_tip",
+      "parent_id": "tail_mid"
+    },
+    {
+      "bone_id": "thigh_l",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "shin_l",
+      "parent_id": "thigh_l"
+    },
+    {
+      "bone_id": "foot_l",
+      "parent_id": "shin_l"
+    },
+    {
+      "bone_id": "thigh_r",
+      "parent_id": "pelvis"
+    },
+    {
+      "bone_id": "shin_r",
+      "parent_id": "thigh_r"
+    },
+    {
+      "bone_id": "foot_r",
+      "parent_id": "shin_r"
+    }
+  ],
+  "coordinate_space": {
+    "forward": "+Y",
+    "right": "+X",
+    "up": "+Z"
+  },
+  "format": "animated-fabric.avian-rig-contract.v1",
+  "optional_unweighted_bones": [
+    "beak",
+    "tail_tip",
+    "wing_hand_l",
+    "wing_hand_r"
+  ],
+  "rig_id": "avian_v1",
+  "schema_version": "0.1.0",
+  "skin_skeleton_bone_id": "pelvis",
+  "sockets": [
+    {
+      "bone_id": "head",
+      "offset_m": [
+        0.0,
+        0.0,
+        0.3
+      ],
+      "socket_id": "head_hat"
+    },
+    {
+      "bone_id": "torso",
+      "offset_m": [
+        0.0,
+        -0.28,
+        0.2
+      ],
+      "socket_id": "back_pack"
+    },
+    {
+      "bone_id": "wing_hand_l",
+      "offset_m": [
+        -0.08,
+        0.0,
+        -0.1
+      ],
+      "socket_id": "wing_hand_l_item"
+    },
+    {
+      "bone_id": "wing_hand_r",
+      "offset_m": [
+        0.08,
+        0.0,
+        -0.1
+      ],
+      "socket_id": "wing_hand_r_item"
+    },
+    {
+      "bone_id": "root",
+      "offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "socket_id": "root_shadow"
+    }
+  ]
+}

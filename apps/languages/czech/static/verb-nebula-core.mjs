@@ -2,6 +2,7 @@ export const VERB_NEBULA_PAIR_COUNTS = Object.freeze([2, 4, 6, 8]);
 
 const verbKindPattern = /^V(?:\s|$)/u;
 const deliberateSlashSeparator = /\s+\/\s+/u;
+const defaultVerbDifficulty = 3;
 
 function normalizedLabel(value) {
   return String(value || "").trim().normalize("NFC");
@@ -13,6 +14,16 @@ function labelKey(value) {
 
 function firstLearnerLabel(value) {
   return normalizedLabel(value).split(deliberateSlashSeparator)[0].trim();
+}
+
+function normalizeVerbDifficulty(value, fallback = defaultVerbDifficulty) {
+  const level = Number(value);
+  return Number.isInteger(level) && level >= 1 && level <= 3 ? level : fallback;
+}
+
+function hasVerbDifficultyMetadata(value) {
+  const level = Number(value);
+  return Number.isInteger(level) && level >= 1 && level <= 3;
 }
 
 export function extractCoreVerbPairs(dictionary) {
@@ -36,6 +47,8 @@ export function extractCoreVerbPairs(dictionary) {
       id: `core-verb-${sourceIndex}`,
       cz,
       eng,
+      difficulty: normalizeVerbDifficulty(row.difficulty),
+      difficultyIsAuthored: hasVerbDifficultyMetadata(row.difficulty),
       sourceIndex
     }));
   });
@@ -43,8 +56,67 @@ export function extractCoreVerbPairs(dictionary) {
   return pairs;
 }
 
+export function filterVerbPairsForDifficulty(pairs, difficulty) {
+  const catalog = Array.from(pairs || []);
+  const maximumDifficulty = normalizeVerbDifficulty(difficulty, 1);
+
+  // During an app upgrade, an older service-worker cache can briefly pair the
+  // new game code with the pre-tier dictionary. Keep that legacy catalog
+  // playable until the authored metadata arrives on the next refresh. A
+  // partially classified catalog remains conservative: unclassified verbs
+  // stay at Navigator level.
+  const catalogHasAuthoredDifficulty = catalog.some((pair) => (
+    pair?.difficultyIsAuthored === true
+      || (pair?.difficultyIsAuthored == null && hasVerbDifficultyMetadata(pair?.difficulty))
+  ));
+  if (!catalogHasAuthoredDifficulty) return catalog;
+
+  return catalog.filter((pair) => (
+    normalizeVerbDifficulty(pair?.difficulty) <= maximumDifficulty
+  ));
+}
+
 export function verbHintSearchText(pair) {
   return normalizedLabel(pair?.eng);
+}
+
+export function assignUniqueVerbHintCandidates(candidateGroups) {
+  const groups = Array.from(candidateGroups || []);
+  const assignments = new Array(groups.length).fill(null);
+  const usedPaths = new Set();
+  const candidates = [];
+
+  groups.forEach((group, groupIndex) => {
+    const seenPaths = new Set();
+    Array.from(group || []).forEach((candidate, rank) => {
+      const assetPath = normalizedLabel(candidate?.assetPath);
+      if (!assetPath || seenPaths.has(assetPath)) return;
+      seenPaths.add(assetPath);
+      const rawScore = Number(candidate?.score);
+      candidates.push({
+        groupIndex,
+        rank,
+        score: Number.isFinite(rawScore) ? rawScore : 0,
+        candidate: { ...candidate, assetPath }
+      });
+    });
+  });
+
+  // Resolve the whole round together. If two verbs want the same picture,
+  // the verb with the stronger similarity keeps it and the other verb falls
+  // through to its next-best unused candidate.
+  candidates.sort((left, right) => (
+    right.score - left.score
+    || left.rank - right.rank
+    || left.groupIndex - right.groupIndex
+  ));
+  candidates.forEach(({ groupIndex, candidate }) => {
+    if (assignments[groupIndex] || usedPaths.has(candidate.assetPath)) return;
+    assignments[groupIndex] = candidate;
+    usedPaths.add(candidate.assetPath);
+  });
+
+  return assignments;
 }
 
 export function normalizeVerbPairCount(value, fallback = 4) {

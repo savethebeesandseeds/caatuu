@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "caatuu-word-world-import-report-v1",
+  "sourceDataset": "tools/czech-ml/data/curriculum/common-phrases-v0.1/curated/common-phrases.en.jsonl",
+  "sourceRows": 500,
+  "importedRecords": 489,
+  "rejectedRows": 8,
+  "mergedRows": 3,
+  "mergedGroups": [
+    {
+      "recordId": "ww-cp-000001",
+      "cs": "Ahoj.",
+      "sourceIds": [
+        "cc-000001",
+        "cc-000002"
+      ],
+      "en": "Hello.",
+      "enAlternates": [
+        "Hi."
+      ]
+    },
+    {
+      "recordId": "ww-cp-000006",
+      "cs": "Jak se máš?",
+      "sourceIds": [
+        "cc-000006",
+        "cc-000008"
+      ],
+      "en": "How are you?",
+      "enAlternates": [
+        "How's it going?"
+      ]
+    },
+    {
+      "recordId": "ww-cp-000030",
+      "cs": "To nevadí.",
+      "sourceIds": [
+        "cc-000030",
+        "cc-000034"
+      ],
+      "en": "No problem.",
+      "enAlternates": [
+        "No worries."
+      ]
+    }
+  ],
+  "difficultyDistribution": {
+    "1": 126,
+    "2": 363
+  },
+  "reviewStatus": {
+    "codex_reviewed": 489
+  },
+  "blindReview": {
+    "report": "tools/czech-ml/data/word-world/standard-v0.1/reports/blind-review-2026-07-21.json",
+    "findingsResolved": 69,
+    "reviewerRole": "independent Codex bilingual and guided-learning audit",
+    "humanApproved": false
+  },
+  "warning": "Codex review is not human approval. The pilot remains a seed for native-speaker review and corpus expansion."
+}

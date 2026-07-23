@@ -1,8 +1,14 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { normalizeWord, sentenceFingerprint } from "../../../../apps/languages/czech/static/word-net-core.mjs";
 import { WordNetBranchQueue } from "../../../../apps/languages/czech/static/word-net-queue.mjs";
+
+const wordNetSource = readFileSync(
+  new URL("../../../../apps/languages/czech/static/word-net.js", import.meta.url),
+  "utf8"
+);
 
 function queue(options = {}) {
   return new WordNetBranchQueue({
@@ -116,10 +122,97 @@ test("can enrich an existing Czech-only queue entry with English", () => {
   assert.equal(prepared.take("vlak").translation, "The train is waiting at the station.");
 });
 
+test("prefers translation-ready entries without discarding Czech-only work", () => {
+  const prepared = queue();
+  prepared.put("pes", { sentence: "Pes čeká doma." });
+  prepared.put("kočka", {
+    sentence: "Kočka spí doma.",
+    translation: "The cat is sleeping at home."
+  });
+
+  assert.equal(prepared.takeAny({ preferTranslated: true }).word, "kočka");
+  assert.equal(prepared.has("pes"), true);
+});
+
+test("prefers a translated branch for the requested word", () => {
+  const prepared = queue();
+  prepared.put("vlak", { sentence: "Vlak přijíždí." });
+  prepared.put("vlak", {
+    sentence: "Vlak čeká na nádraží.",
+    translation: "The train is waiting at the station."
+  });
+
+  assert.equal(prepared.take("vlak", { preferTranslated: true }).translation, "The train is waiting at the station.");
+});
+
 test("supports an explicit TTL when a caller opts into expiration", () => {
   let now = 1_000;
   const prepared = queue({ ttlMs: 500, now: () => now });
   prepared.put("pes", { sentence: "Pes je tady." });
   now += 501;
   assert.equal(prepared.size, 0);
+});
+
+test("keeps native prefetch conservative and prioritizes translation-ready buffer health", () => {
+  assert.match(wordNetSource, /const PREFETCH_NATIVE_IDLE_DELAY_MS = 1200;/);
+  assert.match(wordNetSource, /const PREFETCH_TRANSLATED_LOW_WATER = 4;/);
+  assert.match(wordNetSource, /translatedFresh < PREFETCH_TRANSLATED_LOW_WATER/);
+  assert.match(
+    wordNetSource,
+    /state\.prefetchGeneratedSinceTranslation >= PREFETCH_TRANSLATION_BATCH_SIZE/
+  );
+  assert.match(wordNetSource, /\|\| allowance === 0/);
+  assert.match(wordNetSource, /if \(allowance === PREFETCH_PAUSED\) return;/);
+  assert.doesNotMatch(wordNetSource, /prepareNextWordTurn/);
+});
+
+test("preserves only speculative queue work when navigating to translation-ready phrases", () => {
+  assert.match(
+    wordNetSource,
+    /const PRESERVABLE_BACKGROUND_ACTIVITIES = new Set\(\["prefetch", "translation-batch"\]\);/
+  );
+  assert.match(
+    wordNetSource,
+    /function cancelBackgroundWork\(\{ preserveSpeculative = false \} = \{\}\)/
+  );
+  assert.equal(
+    [...wordNetSource.matchAll(/preserveSpeculative:\s*Boolean\(queued\?\.translation\)/g)].length,
+    2
+  );
+  assert.doesNotMatch(wordNetSource, /preservePrefetch/);
+});
+
+test("does not replace the visible phrase status while translating prepared entries", () => {
+  const start = wordNetSource.indexOf("async function translatePreparedBatch");
+  const end = wordNetSource.indexOf("async function runPrefetch", start);
+  assert.ok(start >= 0 && end > start);
+  assert.doesNotMatch(wordNetSource.slice(start, end), /setStatus\(/);
+});
+
+test("prepares English before a generative phrase is displayed", () => {
+  assert.match(
+    wordNetSource,
+    /async function prepareCandidateForDisplay\(word, candidate\)/
+  );
+  assert.match(
+    wordNetSource,
+    /const prepared = await prepareCandidateForDisplay\(target, queued\);[\s\S]*?showPreparedPhrase\(target, prepared\);/
+  );
+  assert.match(
+    wordNetSource,
+    /const prepared = await prepareCandidateForDisplay\(target, candidate\);[\s\S]*?showPreparedPhrase\(target, prepared\);/
+  );
+});
+
+test("holds the transition after the robot artwork itself becomes visible", () => {
+  assert.match(wordNetSource, /loadingRobotReadyPromise: Promise\.resolve\(false\)/);
+  assert.match(wordNetSource, /state\.loadingRobotVisibleAt = performance\.now\(\);/);
+  assert.match(
+    wordNetSource,
+    /await Promise\.resolve\(state\.loadingRobotReadyPromise\)\.catch\(\(\) => false\);/
+  );
+  assert.match(
+    wordNetSource,
+    /const transitionAnchor = Math\.max\(startedAt, visibleAt\);/
+  );
 });

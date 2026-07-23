@@ -31,14 +31,15 @@
     routes: {
       languageSelection: "/",
       home: "home.html",
-      games: "index.html#verbs",
-      settings: "index.html#settings"
+      games: "index.html",
+      settings: "index.html?settings=1"
     },
     storage: {
       namespace: "caatuu-czech",
       theme: "caatuu-czech.theme",
       learningPreferences: "caatuu-czech.learning.preferences.v1",
       learningPerformance: "caatuu-czech.learning.performance.v1",
+      semanticLearningDatabase: "caatuu-czech.semantic-learning",
       chatSettings: "caatuu-czech.chat.settings.v1",
       verbMemory: "caatuu-czech.verb-memory.v2",
       wordWorldTranslationMode: "caatuu-czech.wordNet.translationMode",

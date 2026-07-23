@@ -9,13 +9,19 @@ public server does not make it a production release.
 | --- | --- | --- | --- |
 | Development | Maintainer's local devices | May be debug-signed and incomplete | Never offered |
 | Invited test | Named testers working directly with the maintainer | Debuggable only when explicitly disclosed and delivered privately | Never offered |
+| Public preview | Maintainer-led device testing before beta | Debug-signed and debuggable, immutable, hashed, and visibly labeled as a preview | May be offered only while the preview gate is enabled |
 | Private beta | Small invited group | Signed, non-debuggable, versioned, hashed, and release-gated | Not generally advertised |
 | Public beta | Public testers | Same integrity gates as stable, with visible beta label and known limitations | May be offered explicitly as beta |
 | Stable | General users | Signed, non-debuggable, supported production artifact | May be the default download |
 
 The stable Android paths `/android/caatuu.json` and
-`/android/caatuu.apk` are reserved for a signed, non-debuggable artifact. Debug
-paths must never be used as an automatic public fallback.
+`/android/caatuu.apk` are reserved for a signed, non-debuggable artifact. The
+launcher may try the gated `/android/caatuu-preview.json` and
+`/android/caatuu-preview.apk` aliases only after stable is absent, and must call
+that channel a preview. The technical `caatuu-debug.*` compatibility paths are
+reserved for already-installed preview clients and are never advertised. Debug
+paths must never be used as an automatic public fallback; only the explicitly
+labeled, gated preview aliases may follow an unavailable stable channel.
 
 ## Versioning and immutable artifacts
 

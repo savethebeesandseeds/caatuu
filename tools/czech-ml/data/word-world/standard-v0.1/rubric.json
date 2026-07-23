@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "caatuu-word-world-rubric-v1",
+  "corpusVersion": "standard-v0.1",
+  "distribution": {
+    "minimumLevel2Share": 0.6,
+    "minimumLevel3Records": 50,
+    "minimumRecords": 450
+  },
+  "branchability": {
+    "branchableTargetMinimumRecords": 2,
+    "strongTargetMinimumRecords": 5
+  },
+  "reviewPolicy": {
+    "allowedStatuses": ["codex_reviewed"],
+    "humanApprovalAllowed": false
+  },
+  "levels": {
+    "1": {
+      "name": "First contact",
+      "description": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+      "allowedCefr": ["Pre-A1", "Pre-A1/A1", "A1"],
+      "minimumTokens": 1,
+      "maximumCzechTokens": 5,
+      "maximumEnglishTokens": 5,
+      "maximumCzechCharacters": 40,
+      "maximumEnglishCharacters": 40,
+      "maximumClauses": 1,
+      "prerequisites": []
+    },
+    "2": {
+      "name": "Everyday connections",
+      "description": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+      "allowedCefr": ["Pre-A1/A1", "A1", "A1/A2"],
+      "minimumTokens": 1,
+      "maximumCzechTokens": 10,
+      "maximumEnglishTokens": 10,
+      "maximumCzechCharacters": 80,
+      "maximumEnglishCharacters": 80,
+      "maximumClauses": 2,
+      "prerequisites": ["recognize-level-1-words-and-formulas"]
+    },
+    "3": {
+      "name": "Richer use",
+      "description": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+      "allowedCefr": ["A1", "A1/A2", "A2"],
+      "minimumTokens": 3,
+      "maximumCzechTokens": 16,
+      "maximumEnglishTokens": 18,
+      "maximumCzechCharacters": 130,
+      "maximumEnglishCharacters": 140,
+      "maximumClauses": 3,
+      "prerequisites": [
+        "recognize-level-1-words-and-formulas",
+        "combine-level-2-everyday-patterns"
+      ]
+    }
+  }
+}

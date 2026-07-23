@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "default_model": "cstinyllama-1.2b-czech-word-sentence-001",
+  "base_url": "https://caatuu.waajacu.com/cz/data/models/phone-bench",
+  "models": [
+    {
+      "key": "qwen3-1.7b-translation-cs-en-001",
+      "label": "Czech to English Qwen",
+      "short_label": "CZ -> EN",
+      "run_id": "qwen3-1.7b-translation-cs-en-001",
+      "repo_id": "Qwen/Qwen3-1.7B",
+      "license": "Apache-2.0",
+      "base_model": "Qwen3 1.7B",
+      "adapter": "qwen3-1.7b-translation-cs-en-001",
+      "intended_use": "Optional Generative mode: translate one simple Czech sentence into simple English for Caatuu learning activities.",
+      "status": "active",
+      "deprecated": false,
+      "replacement_status": "",
+      "install_policy": "on_demand",
+      "supports_thinking": false,
+      "runtime": "llama.cpp",
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "model_file": "caatuu-czech-qwen3-1.7b-translation-cs-en-001-q4_k_m.gguf",
+      "manifest_file": "qwen3-1.7b-translation-cs-en-001.manifest.json",
+      "bytes": 1107408576,
+      "sha256": "e81c61885e21b8cbc9fc6facfc764014210fe4a0f94d1c9808c74e066fc4cc75",
+      "notes": [
+        "Qwen3 translation LoRA trained from the curated bilingual Caatuu corpus using the chat-template SFT path, then continued once over train_all.jsonl for the release artifact after validation was complete.",
+        "Use with prompt format: Translate this Czech sentence into simple English. Return only the English sentence. newline Czech: SENTENCE newline English:"
+      ]
+    },
+    {
+      "key": "cstinyllama-1.2b-czech-word-sentence-001",
+      "label": "Word Sentence CZ",
+      "short_label": "Word Sentence",
+      "run_id": "cstinyllama-1.2b-czech-word-sentence-001",
+      "repo_id": "BUT-FIT/CSTinyLlama-1.2B",
+      "license": "Apache-2.0",
+      "base_model": "BUT-FIT CSTinyLlama 1.2B",
+      "adapter": "cstinyllama-1.2b-czech-word-sentence-001",
+      "intended_use": "Optional Generative mode: given one Czech target word, generate one short ordinary Czech sentence for Word World.",
+      "status": "active",
+      "deprecated": false,
+      "replacement_status": "",
+      "install_policy": "on_demand",
+      "supports_thinking": false,
+      "runtime": "llama.cpp",
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "model_file": "caatuu-czech-cstinyllama-1.2b-word-sentence-001-q4_k_m.gguf",
+      "manifest_file": "cstinyllama-1.2b-czech-word-sentence-001.manifest.json",
+      "bytes": 760305888,
+      "sha256": "28818cb4b7e65a448e2cfac697f2fbd7543a761cbf9644b4374fab3b2376722a",
+      "notes": [
+        "Curriculum utility LoRA trained from the curated child-safe Caatuu corpus.",
+        "Relaxed smoke benchmark passed 74/80; all 80 outputs were Czech one-sentence responses with no meta-language."
+      ]
+    }
+  ]
+}

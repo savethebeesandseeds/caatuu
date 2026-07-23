@@ -11,6 +11,14 @@ export function normalizeWord(word) {
     .trim();
 }
 
+export function isReservedEdgeGesture(startX, viewportWidth, { edgeGutter = 36 } = {}) {
+  const x = Number(startX);
+  const width = Number(viewportWidth);
+  const gutter = Math.max(0, Number(edgeGutter) || 0);
+  if (!Number.isFinite(x) || !Number.isFinite(width) || width <= 0) return false;
+  return x <= gutter || x >= width - gutter;
+}
+
 export function interpretHorizontalSwipe(start, end, {
   minDistance = 64,
   maxVerticalRatio = 0.65,

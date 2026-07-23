@@ -17,7 +17,7 @@ const defaultWorkspaceRoot = resolve(dirname(scriptPath), "..", "..", "..");
 
 const LEGACY_ASSET_SOURCE_PREFIXES = [
   ["aliens/", "language-mascots/"],
-  ["macaw/loading_animation/", "macaw/loading-animation/"],
+  ["loading_animation/", "loading-animation/"],
   ["miscellaneous/", "visual-vocabulary/"]
 ];
 

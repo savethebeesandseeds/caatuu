@@ -60,25 +60,44 @@ services:
         forward_pid=
         shared_forward_pid=
         tunnel_pid=
+        watchdog_pid=
         cleanup() {
           [[ -z "$${forward_pid}" ]] || kill "$${forward_pid}" 2>/dev/null || true
           [[ -z "$${shared_forward_pid}" ]] || kill "$${shared_forward_pid}" 2>/dev/null || true
           [[ -z "$${tunnel_pid}" ]] || kill "$${tunnel_pid}" 2>/dev/null || true
+          [[ -z "$${watchdog_pid}" ]] || kill "$${watchdog_pid}" 2>/dev/null || true
         }
         trap cleanup EXIT INT TERM
         socat TCP-LISTEN:9172,reuseaddr,fork TCP:caatuu:9172 &
         forward_pid=$$!
         socat TCP-LISTEN:7979,reuseaddr,fork TCP:host.docker.internal:7979 &
         shared_forward_pid=$$!
-        cloudflared tunnel --protocol http2 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token &
+        cloudflared tunnel --protocol auto --metrics 127.0.0.1:20241 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token &
         tunnel_pid=$$!
-        wait -n "$${forward_pid}" "$${shared_forward_pid}" "$${tunnel_pid}"
+        (
+          failure_count=0
+          while kill -0 "$${tunnel_pid}" 2>/dev/null; do
+            if curl -fsS http://127.0.0.1:20241/ready >/dev/null 2>&1; then
+              failure_count=0
+            else
+              failure_count=$$((failure_count + 1))
+              if [[ "$${failure_count}" -ge 6 ]]; then
+                echo "cloudflared has had no ready edge connection for 60 seconds; restarting the connector." >&2
+                exit 1
+              fi
+            fi
+            sleep 10
+          done
+          exit 1
+        ) &
+        watchdog_pid=$$!
+        wait -n "$${forward_pid}" "$${shared_forward_pid}" "$${tunnel_pid}" "$${watchdog_pid}"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9172/ >/dev/null || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:20241/ready >/dev/null || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 15s
+      start_period: 30s
     logging:
       driver: json-file
       options:

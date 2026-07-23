@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-manifest-v1",
+  "batchId": "codex-expansion-0001",
+  "createdOn": "2026-07-21",
+  "recordsFile": "codex-expansion-0001.candidates.jsonl",
+  "recordsSha256": "a719737b2658fe4a269eeba629122760760f4244bb3fd90fcc903df51adc32c6",
+  "authoringReport": "codex-expansion-0001.authoring-report.json",
+  "generatorFile": "codex-expansion-0001.generate.mjs",
+  "recordCount": 250,
+  "difficultyIntent": {
+    "level1": "very simple review",
+    "level2": "main learning volume",
+    "level3": "not included in this batch"
+  },
+  "status": "candidate",
+  "acceptedIntoCanonicalSource": false,
+  "compiledIntoRuntimePack": false,
+  "externalCorpusTextUsed": false,
+  "sourceName": "Caatuu Word World Codex expansion",
+  "sourceType": "codex_authored",
+  "licenseDisposition": "pending project confirmation before promotion",
+  "reviewDisposition": "author self-check complete; independent review required",
+  "intendedUse": "Add second or later meaningful contexts for weak Word World branch targets while preserving a guided Level 1/Level 2 progression."
+}

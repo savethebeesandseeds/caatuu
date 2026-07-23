@@ -4,14 +4,56 @@
   const browserEntry = document.querySelector("[data-browser-entry]");
   const download = document.querySelector("[data-android-download]");
   let channelRequest = 0;
+  let registryRequest = 0;
+  let refreshTimer = 0;
 
-  function setDownloadUnavailable(message = "Android release not published") {
+  function freshRequestUrl(path, purpose = "availability") {
+    const url = new URL(path, window.location.origin);
+    url.searchParams.set("caatuu_check", `${purpose}-${Date.now()}`);
+    return `${url.pathname}${url.search}`;
+  }
+
+  function versionedArtifactUrl(path, manifest) {
+    const url = new URL(path, window.location.origin);
+    const version = manifest?.version_code || manifest?.version_name || String(manifest?.sha256 || "").slice(0, 16);
+    if (version) url.searchParams.set("caatuu_release", String(version));
+    return `${url.pathname}${url.search}`;
+  }
+
+  function setDownloadChecking() {
     if (!download) return;
     download.removeAttribute("href");
     download.removeAttribute("download");
+    download.removeAttribute("role");
+    download.removeAttribute("tabindex");
+    download.removeAttribute("aria-label");
     download.setAttribute("aria-disabled", "true");
+    download.dataset.state = "checking";
     const label = download.querySelector("b");
-    if (label) label.textContent = message;
+    if (label) label.textContent = "Checking Android build";
+  }
+
+  function setDownloadUnavailable(message = "Android preview not published") {
+    if (!download) return;
+    download.removeAttribute("href");
+    download.removeAttribute("download");
+    download.removeAttribute("aria-disabled");
+    download.setAttribute("role", "button");
+    download.setAttribute("tabindex", "0");
+    download.setAttribute("aria-label", `${message}. Check again.`);
+    download.dataset.state = "retry";
+    const channelLabel = download.querySelector("small");
+    if (channelLabel) channelLabel.textContent = "Android temporarily unavailable";
+    const label = download.querySelector("b");
+    if (label) label.textContent = "Check Android download again";
+  }
+
+  function validChannelManifest(channel, manifest) {
+    if (manifest?.package_name !== "com.waajacu.caatuu") return false;
+    if (channel.kind === "preview") {
+      return manifest.build_type === "debug" && manifest.debuggable === true;
+    }
+    return manifest.build_type === "release" && manifest.debuggable === false;
   }
 
   async function selectAvailableChannel(language) {
@@ -23,22 +65,27 @@
       return;
     }
 
-    download.setAttribute("aria-disabled", "true");
+    setDownloadChecking();
     const label = download.querySelector("b");
-    if (label) label.textContent = "Checking Android build";
 
     for (const channel of android.channels) {
       try {
-        const response = await fetch(channel.manifest, { cache: "no-store" });
+        const response = await fetch(freshRequestUrl(channel.manifest, channel.kind), { cache: "no-store" });
         if (!response.ok) continue;
         const manifest = await response.json();
         if (request !== channelRequest) return;
-        if (manifest?.package_name !== "com.waajacu.caatuu") continue;
-        if (manifest?.build_type !== "release" || manifest?.debuggable !== false) continue;
-        download.href = channel.artifact;
+        if (!validChannelManifest(channel, manifest)) continue;
+        download.href = versionedArtifactUrl(channel.artifact, manifest);
         download.setAttribute("download", "");
         download.removeAttribute("aria-disabled");
-        if (label) label.textContent = `Download ${language.label} beta`;
+        download.removeAttribute("role");
+        download.removeAttribute("tabindex");
+        download.removeAttribute("aria-label");
+        download.dataset.state = "available";
+        const channelLabel = download.querySelector("small");
+        const preview = channel.kind === "preview";
+        if (channelLabel) channelLabel.textContent = preview ? "Android preview" : "Android beta";
+        if (label) label.textContent = `Download ${language.label} ${preview ? "preview" : "beta"}`;
         return;
       } catch (error) {
         // Try the next explicitly supported channel.
@@ -92,10 +139,12 @@
   }
 
   async function loadRegistry() {
+    const request = ++registryRequest;
     try {
-      const response = await fetch(registryPath, { cache: "no-store" });
+      const response = await fetch(freshRequestUrl(registryPath, "languages"), { cache: "no-store" });
       if (!response.ok) throw new Error(`Language registry returned ${response.status}.`);
       const registry = await response.json();
+      if (request !== registryRequest) return;
       if (registry?.schemaVersion !== 1 || !Array.isArray(registry.languages)) {
         throw new Error("Language registry has an unsupported shape.");
       }
@@ -108,7 +157,8 @@
           android: {
             enabled: true,
             channels: [
-              { manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" }
+              { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" },
+              { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk" }
             ]
           }
         }
@@ -116,5 +166,44 @@
     }
   }
 
-  loadRegistry();
+  function scheduleAvailabilityRefresh(delay = 0) {
+    window.clearTimeout(refreshTimer);
+    refreshTimer = window.setTimeout(() => {
+      if (document.visibilityState === "hidden") return;
+      loadRegistry();
+    }, Math.max(0, delay));
+  }
+
+  async function removeLegacyRootServiceWorker() {
+    if (!("serviceWorker" in navigator) || !navigator.serviceWorker.getRegistrations) return;
+    try {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map((registration) => {
+        const scopePath = new URL(registration.scope).pathname;
+        return scopePath === "/" ? registration.unregister() : false;
+      }));
+    } catch (error) {
+      // Availability checks below still bypass the normal HTTP cache.
+    }
+  }
+
+  download?.addEventListener("click", (event) => {
+    if (download.dataset.state === "available") return;
+    event.preventDefault();
+    if (download.dataset.state === "retry") scheduleAvailabilityRefresh();
+  });
+  download?.addEventListener("keydown", (event) => {
+    if (download.dataset.state !== "retry" || !["Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    scheduleAvailabilityRefresh();
+  });
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) scheduleAvailabilityRefresh();
+  });
+  window.addEventListener("online", () => scheduleAvailabilityRefresh());
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") scheduleAvailabilityRefresh(150);
+  });
+
+  removeLegacyRootServiceWorker().finally(loadRegistry);
 })();

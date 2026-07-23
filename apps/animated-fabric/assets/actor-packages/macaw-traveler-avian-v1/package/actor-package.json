@@ -1,0 +1,267 @@
+{
+  "actor": {
+    "ground_z_m": 0.0,
+    "neutral_pose": "rest",
+    "root_node": "root"
+  },
+  "asset": {
+    "bytes": 372752,
+    "media_type": "model/gltf-binary",
+    "path": "actor.glb",
+    "sha256": "3999263c3af5a1c5d1ed56cad1f70bc799979f62715d0280af6afc13961b0cb0"
+  },
+  "content_set": {
+    "format": "animated-fabric.actor-content-set.v1",
+    "order": [
+      "actor.glb",
+      "textures/black.png",
+      "textures/brown.png",
+      "textures/cream.png",
+      "textures/cyan.png",
+      "textures/dark-brown.png",
+      "textures/gray.png",
+      "textures/orange.png"
+    ],
+    "sha256": "4483d9d469eb7d1364a2e463fec74d3e9d2e648ae42d150b3639aa264977c59d"
+  },
+  "coordinates": {
+    "actor_forward": "+Y",
+    "actor_right": "+X",
+    "actor_up": "+Z",
+    "handedness": "right",
+    "meters_per_unit": 1.0,
+    "storage": "gltf-2.0-right-handed-y-up",
+    "storage_to_actor": {
+      "+X": "+X",
+      "+Y": "+Z",
+      "+Z": "-Y"
+    }
+  },
+  "format": "animated-fabric.actor-package.v1",
+  "limits": {
+    "profile": "af055-bounded-core-gltf-v1",
+    "values": {
+      "absolute_coordinate_m": 10.0,
+      "accessors": 256,
+      "buffer_bytes": 25165824,
+      "buffer_views": 256,
+      "glb_bytes": 25165824,
+      "glb_json_bytes": 1048576,
+      "indices": 600000,
+      "influences_per_vertex": 4,
+      "joints": 64,
+      "manifest_bytes": 262144,
+      "materials": 16,
+      "meshes": 16,
+      "nodes": 128,
+      "package_bytes": 33554432,
+      "package_files": 10,
+      "primitives": 32,
+      "skins": 1,
+      "texture_bytes_each": 4194304,
+      "texture_dimension_px": 2048,
+      "texture_files": 8,
+      "texture_pixels_each": 4194304,
+      "texture_pixels_total": 16777216,
+      "triangles": 200000,
+      "vertices": 100000
+    }
+  },
+  "observed": {
+    "accessors": 43,
+    "actor_bounds_m": {
+      "max": [
+        0.71803,
+        0.55,
+        1.99
+      ],
+      "min": [
+        -0.71803,
+        -0.7675,
+        0.0
+      ]
+    },
+    "buffer_bytes": 360468,
+    "buffer_views": 43,
+    "content_bytes": 374259,
+    "content_files": 8,
+    "images": 7,
+    "indices": 28248,
+    "joints": 20,
+    "materials": 7,
+    "max_influences_per_vertex": 1,
+    "meshes": 1,
+    "nodes": 22,
+    "primitives": 7,
+    "root_node_index": 0,
+    "samplers": 7,
+    "skins": 1,
+    "texture_pixels": 7168,
+    "texture_properties": [
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/black.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/brown.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/cream.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/cyan.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/dark-brown.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/gray.png",
+        "pixels": 1024,
+        "width_px": 32
+      },
+      {
+        "height_px": 32,
+        "mode": "RGBA8",
+        "path": "textures/orange.png",
+        "pixels": 1024,
+        "width_px": 32
+      }
+    ],
+    "textures": 7,
+    "triangles": 9416,
+    "vertices": 5821
+  },
+  "package_id": "macaw-traveler-avian-v1",
+  "provenance": {
+    "geometry_license": "CC0-1.0",
+    "kind": "reviewed-authored-actor",
+    "sources": [
+      {
+        "id": "approved-reference-approval",
+        "path": "assets/reference-packages/macaw-traveler-v1/approval.json",
+        "sha256": "e6dc9202b6608ab5821c2fb9c76811a5a69296061bf20314b6c7ea3bafa142bc"
+      },
+      {
+        "id": "approved-reference-manifest",
+        "path": "assets/reference-packages/macaw-traveler-v1/reference.json",
+        "sha256": "a88520b026a4c48b98c6b50785fe49ffa60d01f1e94157650dbfbbb754b11f77"
+      },
+      {
+        "id": "approved-source-approval",
+        "path": "assets/reference-packages/macaw-traveler-v1/review/source-approval.json",
+        "sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+      },
+      {
+        "id": "avian-rig-contract",
+        "path": "tools/blender/contracts/avian_v1.json",
+        "sha256": "b8b4fe43bdb20c41870785df7aee2e315001cd9dcfd09df3e59ee308437169ec"
+      },
+      {
+        "id": "macaw-authoring-record",
+        "path": "assets/actor-reviews/macaw-traveler-avian-v1/authoring.json",
+        "sha256": "eb478b7760be99dad2da0719a292e093874b6bcc733505d3ea885f0334bdf016"
+      },
+      {
+        "id": "macaw-package-generator",
+        "path": "scripts/generate_macaw_actor_package.py",
+        "sha256": "e2c7c9b3c83985dbb94b87caee7bdabdd676d3d788ecc5b3e08199816357e4ef"
+      }
+    ],
+    "texture_license": "CC0-1.0",
+    "ticket": "AF-056"
+  },
+  "schema_version": "0.1.0",
+  "textures": [
+    {
+      "bytes": 216,
+      "height_px": 32,
+      "id": "black",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/black.png",
+      "sha256": "a2c787530b69577fd522d18b830fd646768c5813f85c5cec31df10bfe5606fbf",
+      "width_px": 32
+    },
+    {
+      "bytes": 217,
+      "height_px": 32,
+      "id": "brown",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/brown.png",
+      "sha256": "2dd4294eb886863818e5009c7a3c6fcf1ca14c06fbdb8eefe5f93f3f510442e3",
+      "width_px": 32
+    },
+    {
+      "bytes": 215,
+      "height_px": 32,
+      "id": "cream",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/cream.png",
+      "sha256": "d1373cafcc900f08f504921d6601dec4fa02f417bb3c045e89fe81e941061f48",
+      "width_px": 32
+    },
+    {
+      "bytes": 212,
+      "height_px": 32,
+      "id": "cyan",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/cyan.png",
+      "sha256": "3a933621fcc6f459288c466f61aaef48ae3681075bb8ba3390bcf9e0dcbfeb7e",
+      "width_px": 32
+    },
+    {
+      "bytes": 217,
+      "height_px": 32,
+      "id": "dark-brown",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/dark-brown.png",
+      "sha256": "4847986635a684da9ef9d38b126e645985a5b858d1b78788f19b7e1ed0722d06",
+      "width_px": 32
+    },
+    {
+      "bytes": 215,
+      "height_px": 32,
+      "id": "gray",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/gray.png",
+      "sha256": "d4ad4c2dad341e0825c2dcee396d88df5b689060bbbcabe2626c7ebdc51c46c8",
+      "width_px": 32
+    },
+    {
+      "bytes": 215,
+      "height_px": 32,
+      "id": "orange",
+      "media_type": "image/png",
+      "mode": "RGBA8",
+      "path": "textures/orange.png",
+      "sha256": "78454d60bad8d4a596e3d688dad7caf9491f86085758841e63241ac684e80bc7",
+      "width_px": 32
+    }
+  ]
+}

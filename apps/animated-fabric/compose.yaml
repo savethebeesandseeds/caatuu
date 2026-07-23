@@ -224,8 +224,121 @@ services:
     init: true
     command: ["--out", "/output/af055-neutral"]
 
+  animated-fabric-blender-macaw-actor-validator:
+    profiles:
+      - blender-macaw
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: containers/blender/Dockerfile
+      target: macaw-actor-validator
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-blender-macaw-actor-validator:4.5.12
+    container_name: caatuu-animated-fabric-blender-macaw-actor-validator
+    working_dir: /work
+    environment:
+      ANIMATED_FABRIC_BLENDER_OUTPUT_ROOT: /output
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=1g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - ./assets/actor-packages/macaw-traveler-avian-v1/package:/actor-package:ro
+      - ./workspaces/blender:/output
+    cpus: 4.0
+    mem_limit: 4g
+    pids_limit: 256
+    shm_size: 512m
+    init: true
+    command: ["--out", "/output/af056-review"]
+
+  animated-fabric-3d-lab:
+    profiles:
+      - reconstruction
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: containers/reconstruction/Dockerfile
+      target: triposr-runtime
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-3d-lab:triposr-0.1
+    container_name: caatuu-animated-fabric-3d-lab
+    working_dir: /work
+    environment:
+      ANIMATED_FABRIC_MODEL_CACHE: /models/huggingface/hub
+      HF_HOME: /models/huggingface
+      HF_HUB_CACHE: /models/huggingface/hub
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=2g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - ./workspaces/reconstruction/input:/input:ro
+      - ./workspaces/reconstruction/output:/output
+      - animated-fabric-reconstruction-models:/models:ro
+    gpus: all
+    cpus: 12.0
+    mem_limit: 24g
+    pids_limit: 512
+    shm_size: 1g
+    init: true
+    command: ["doctor"]
+
+  animated-fabric-3d-lab-provision:
+    profiles:
+      - reconstruction-provision
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: containers/reconstruction/Dockerfile
+      target: triposr-runtime
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-animated-fabric-3d-lab:triposr-0.1
+    container_name: caatuu-animated-fabric-3d-lab-provision
+    working_dir: /work
+    environment:
+      ANIMATED_FABRIC_MODEL_CACHE: /models/huggingface/hub
+      HF_HOME: /models/huggingface
+      HF_HUB_CACHE: /models/huggingface/hub
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      HF_HUB_OFFLINE: "0"
+      TRANSFORMERS_OFFLINE: "0"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=512m,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - animated-fabric-reconstruction-models:/models
+    cpus: 4.0
+    mem_limit: 8g
+    pids_limit: 256
+    init: true
+    command: ["prefetch"]
+
 volumes:
   animated-fabric-pip-cache:
     name: caatuu-animated-fabric-pip-cache
   animated-fabric-cutout-models:
     name: caatuu-animated-fabric-cutout-models
+  animated-fabric-reconstruction-models:
+    name: caatuu-animated-fabric-reconstruction-models

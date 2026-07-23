@@ -1,0 +1,29 @@
+{
+  "models": [
+    {
+      "files": {
+        "config.yaml": {
+          "bytes": 987,
+          "sha256": "74ca708ce086bf68e97709ea6b3d91f14717921c04691e84043f0eb8fcc68e62"
+        },
+        "model.ckpt": {
+          "bytes": 1677246742,
+          "sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee"
+        }
+      },
+      "model_id": "stabilityai/TripoSR",
+      "revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+    },
+    {
+      "files": {
+        "config.json": {
+          "bytes": 454,
+          "sha256": "b87c0270b97db085fd82cf114a761fd0f62ae7914fbd407c752a2260646b689c"
+        }
+      },
+      "model_id": "facebook/dino-vitb16",
+      "revision": "f205d5d8e640a89a2b8ef0369670dfc37cc07fc2"
+    }
+  ],
+  "schema_version": "1.0.0"
+}

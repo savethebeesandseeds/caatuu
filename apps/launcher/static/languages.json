@@ -37,8 +37,14 @@
           "enabled": true,
           "channels": [
             {
+              "kind": "release",
               "manifest": "/android/caatuu.json",
               "artifact": "/android/caatuu.apk"
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk"
             }
           ]
         }

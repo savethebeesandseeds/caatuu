@@ -1,0 +1,952 @@
+{
+  "format": "animated-fabric.actor-rig-mapping.v1",
+  "ground_contacts": [
+    {
+      "bone_id": "foot_l",
+      "point_actor_m": [
+        -0.17000000178813934,
+        0.11999999731779099,
+        0.0
+      ],
+      "tolerance_m": 1e-05
+    },
+    {
+      "bone_id": "foot_r",
+      "point_actor_m": [
+        0.17000000178813934,
+        0.11999999731779099,
+        0.0
+      ],
+      "tolerance_m": 1e-05
+    }
+  ],
+  "joints": [
+    {
+      "bone_id": "pelvis",
+      "joint_node": "pelvis",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 2,
+      "parent_id": "root",
+      "rest_local_translation_m": [
+        0.0,
+        0.0,
+        0.78
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.78,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 0
+    },
+    {
+      "bone_id": "torso",
+      "joint_node": "torso",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 3,
+      "parent_id": "pelvis",
+      "rest_local_translation_m": [
+        0.0,
+        0.0,
+        0.24
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.02,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 1
+    },
+    {
+      "bone_id": "neck",
+      "joint_node": "neck",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 4,
+      "parent_id": "torso",
+      "rest_local_translation_m": [
+        0.0,
+        0.02,
+        0.4099999999999999
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.02,
+        0.0,
+        0.0,
+        1.0,
+        1.43,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 2
+    },
+    {
+      "bone_id": "head",
+      "joint_node": "head",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 5,
+      "parent_id": "neck",
+      "rest_local_translation_m": [
+        0.0,
+        0.009999999999999998,
+        0.19000000000000017
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.03,
+        0.0,
+        0.0,
+        1.0,
+        1.62,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 3
+    },
+    {
+      "bone_id": "beak",
+      "joint_node": "beak",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 6,
+      "parent_id": "head",
+      "rest_local_translation_m": [
+        0.0,
+        0.2,
+        0.05999999999999983
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.23,
+        0.0,
+        0.0,
+        1.0,
+        1.68,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 4
+    },
+    {
+      "bone_id": "wing_upper_l",
+      "joint_node": "wing_upper_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 7,
+      "parent_id": "torso",
+      "rest_local_translation_m": [
+        -0.34,
+        0.0,
+        0.26
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.34,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.28,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 5
+    },
+    {
+      "bone_id": "wing_lower_l",
+      "joint_node": "wing_lower_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 8,
+      "parent_id": "wing_upper_l",
+      "rest_local_translation_m": [
+        -0.19,
+        0.02,
+        -0.22999999999999998
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.53,
+        0.0,
+        1.0,
+        0.0,
+        0.02,
+        0.0,
+        0.0,
+        1.0,
+        1.05,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 6
+    },
+    {
+      "bone_id": "wing_hand_l",
+      "joint_node": "wing_hand_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 9,
+      "parent_id": "wing_lower_l",
+      "rest_local_translation_m": [
+        -0.04999999999999993,
+        0.09999999999999999,
+        -0.2300000000000001
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.58,
+        0.0,
+        1.0,
+        0.0,
+        0.12,
+        0.0,
+        0.0,
+        1.0,
+        0.82,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 7
+    },
+    {
+      "bone_id": "wing_upper_r",
+      "joint_node": "wing_upper_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 10,
+      "parent_id": "torso",
+      "rest_local_translation_m": [
+        0.34,
+        0.0,
+        0.26
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.34,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.28,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 8
+    },
+    {
+      "bone_id": "wing_lower_r",
+      "joint_node": "wing_lower_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 11,
+      "parent_id": "wing_upper_r",
+      "rest_local_translation_m": [
+        0.19,
+        0.02,
+        -0.22999999999999998
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.53,
+        0.0,
+        1.0,
+        0.0,
+        0.02,
+        0.0,
+        0.0,
+        1.0,
+        1.05,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 9
+    },
+    {
+      "bone_id": "wing_hand_r",
+      "joint_node": "wing_hand_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 12,
+      "parent_id": "wing_lower_r",
+      "rest_local_translation_m": [
+        0.04999999999999993,
+        0.09999999999999999,
+        -0.2300000000000001
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.58,
+        0.0,
+        1.0,
+        0.0,
+        0.12,
+        0.0,
+        0.0,
+        1.0,
+        0.82,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 10
+    },
+    {
+      "bone_id": "tail_base",
+      "joint_node": "tail_base",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 13,
+      "parent_id": "torso",
+      "rest_local_translation_m": [
+        0.0,
+        -0.16,
+        -0.020000000000000018
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.16,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 11
+    },
+    {
+      "bone_id": "tail_mid",
+      "joint_node": "tail_mid",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 14,
+      "parent_id": "tail_base",
+      "rest_local_translation_m": [
+        0.0,
+        -0.13999999999999999,
+        -0.21999999999999997
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.3,
+        0.0,
+        0.0,
+        1.0,
+        0.78,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 12
+    },
+    {
+      "bone_id": "tail_tip",
+      "joint_node": "tail_tip",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 15,
+      "parent_id": "tail_mid",
+      "rest_local_translation_m": [
+        0.0,
+        -0.18,
+        -0.21999999999999997
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.48,
+        0.0,
+        0.0,
+        1.0,
+        0.56,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 13
+    },
+    {
+      "bone_id": "thigh_l",
+      "joint_node": "thigh_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 16,
+      "parent_id": "pelvis",
+      "rest_local_translation_m": [
+        -0.17,
+        0.0,
+        -0.09999999999999998
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.68,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 14
+    },
+    {
+      "bone_id": "shin_l",
+      "joint_node": "shin_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 17,
+      "parent_id": "thigh_l",
+      "rest_local_translation_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.4,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 15
+    },
+    {
+      "bone_id": "foot_l",
+      "joint_node": "foot_l",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 18,
+      "parent_id": "shin_l",
+      "rest_local_translation_m": [
+        0.0,
+        0.08,
+        -0.26
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        -0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.08,
+        0.0,
+        0.0,
+        1.0,
+        0.14,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 16
+    },
+    {
+      "bone_id": "thigh_r",
+      "joint_node": "thigh_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 19,
+      "parent_id": "pelvis",
+      "rest_local_translation_m": [
+        0.17,
+        0.0,
+        -0.09999999999999998
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.68,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 17
+    },
+    {
+      "bone_id": "shin_r",
+      "joint_node": "shin_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 20,
+      "parent_id": "thigh_r",
+      "rest_local_translation_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.4,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 18
+    },
+    {
+      "bone_id": "foot_r",
+      "joint_node": "foot_r",
+      "motion_basis_quaternion_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "node_index": 21,
+      "parent_id": "shin_r",
+      "rest_local_translation_m": [
+        0.0,
+        0.08,
+        -0.26
+      ],
+      "rest_world_matrix_actor": [
+        1.0,
+        0.0,
+        0.0,
+        0.17,
+        0.0,
+        1.0,
+        0.0,
+        0.08,
+        0.0,
+        0.0,
+        1.0,
+        0.14,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "role": "skin_joint",
+      "skin_joint_ordinal": 19
+    }
+  ],
+  "package": {
+    "content_set_sha256": "4483d9d469eb7d1364a2e463fec74d3e9d2e648ae42d150b3639aa264977c59d",
+    "glb_sha256": "3999263c3af5a1c5d1ed56cad1f70bc799979f62715d0280af6afc13961b0cb0",
+    "id": "macaw-traveler-avian-v1",
+    "manifest_sha256": "a26e95456963af80d2d468af19680855dd3c9fbe176d7c3bb0ceb4943ea759c7"
+  },
+  "reference": {
+    "approval_sha256": "e6dc9202b6608ab5821c2fb9c76811a5a69296061bf20314b6c7ea3bafa142bc",
+    "manifest_sha256": "a88520b026a4c48b98c6b50785fe49ffa60d01f1e94157650dbfbbb754b11f77",
+    "ordered_view_set_sha256": "3c625d9ff3e87567d2e1eb2878866243629c2af18ed0af011fe2526c2aee9311",
+    "package_id": "macaw-traveler-v1",
+    "source_approval_sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+  },
+  "rig": {
+    "contract_path": "tools/blender/contracts/avian_v1.json",
+    "contract_sha256": "b8b4fe43bdb20c41870785df7aee2e315001cd9dcfd09df3e59ee308437169ec",
+    "id": "avian_v1"
+  },
+  "root": {
+    "bone_id": "root",
+    "joint_node": "root",
+    "motion_basis_quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "node_index": 0,
+    "parent_id": null,
+    "rest_local_translation_m": [
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "rest_world_matrix_actor": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      -0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "role": "actor_root",
+    "skin_joint_ordinal": null
+  },
+  "schema_version": "0.1.0",
+  "sockets": [
+    {
+      "bone_id": "head",
+      "offset_m": [
+        0.0,
+        0.0,
+        0.3
+      ],
+      "socket_id": "head_hat"
+    },
+    {
+      "bone_id": "torso",
+      "offset_m": [
+        0.0,
+        -0.28,
+        0.2
+      ],
+      "socket_id": "back_pack"
+    },
+    {
+      "bone_id": "wing_hand_l",
+      "offset_m": [
+        -0.08,
+        0.0,
+        -0.1
+      ],
+      "socket_id": "wing_hand_l_item"
+    },
+    {
+      "bone_id": "wing_hand_r",
+      "offset_m": [
+        0.08,
+        0.0,
+        -0.1
+      ],
+      "socket_id": "wing_hand_r_item"
+    },
+    {
+      "bone_id": "root",
+      "offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "socket_id": "root_shadow"
+    }
+  ],
+  "ticket": "AF-056",
+  "vertex_skin_sha256": "5d106cc7474fab4b720d34afcaf0bd2fb0b999d444c432005055f5ce345622cb",
+  "weight_coverage": [
+    {
+      "bone_id": "pelvis",
+      "positive_vertex_count": 439
+    },
+    {
+      "bone_id": "torso",
+      "positive_vertex_count": 816
+    },
+    {
+      "bone_id": "neck",
+      "positive_vertex_count": 265
+    },
+    {
+      "bone_id": "head",
+      "positive_vertex_count": 781
+    },
+    {
+      "bone_id": "beak",
+      "positive_vertex_count": 356
+    },
+    {
+      "bone_id": "wing_upper_l",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "wing_lower_l",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "wing_hand_l",
+      "positive_vertex_count": 381
+    },
+    {
+      "bone_id": "wing_upper_r",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "wing_lower_r",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "wing_hand_r",
+      "positive_vertex_count": 381
+    },
+    {
+      "bone_id": "tail_base",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "tail_mid",
+      "positive_vertex_count": 135
+    },
+    {
+      "bone_id": "tail_tip",
+      "positive_vertex_count": 312
+    },
+    {
+      "bone_id": "thigh_l",
+      "positive_vertex_count": 104
+    },
+    {
+      "bone_id": "shin_l",
+      "positive_vertex_count": 104
+    },
+    {
+      "bone_id": "foot_l",
+      "positive_vertex_count": 432
+    },
+    {
+      "bone_id": "thigh_r",
+      "positive_vertex_count": 104
+    },
+    {
+      "bone_id": "shin_r",
+      "positive_vertex_count": 104
+    },
+    {
+      "bone_id": "foot_r",
+      "positive_vertex_count": 432
+    }
+  ]
+}

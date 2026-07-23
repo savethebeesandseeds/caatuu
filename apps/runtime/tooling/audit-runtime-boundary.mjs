@@ -14,6 +14,8 @@ const workspaceRoot = resolve(scriptDir, "..", "..", "..");
 const failures = [];
 const HTTP_REQUEST_TIMEOUT_MS = 10_000;
 const HTTP_MAX_BODY_BYTES = 1024 * 1024;
+const ANDROID_IMMUTABLE_CACHE_CONTROL = "public, max-age=31536000, immutable";
+const ANDROID_MUTABLE_CACHE_CONTROL = "no-store, no-cache, must-revalidate, max-age=0";
 
 const options = parseArgs(process.argv.slice(2));
 if (failures.length > 0) {
@@ -290,6 +292,14 @@ function parseHttpJson(response, label) {
   }
 }
 
+function assertCacheControl(response, expected, label) {
+  const actual = response.headers["cache-control"] ?? "";
+  assert(
+    actual === expected,
+    `${label} should use Cache-Control: ${expected}, got ${actual || "<missing>"}`
+  );
+}
+
 async function auditHttpRoutes() {
   if (skipHttp) {
     note("HTTP route audit skipped");
@@ -301,8 +311,8 @@ async function auditHttpRoutes() {
   assert(root.body.includes("<title>Caatuu</title>"), "launcher root should serve the Caatuu title");
   assert(root.body.includes('href="/cz/home.html"'), "launcher fallback should link to the Czech entry page");
   assert(root.body.includes('data-android-download'), "launcher root should expose a channel-aware Android download");
-  assert(root.body.includes('/launcher.js?v=5'), "launcher root should load language and Android channel discovery");
-  assert(root.body.includes("Checking signed beta"), "launcher root should wait for a signed Android beta");
+  assert(root.body.includes('/launcher.js?v=7'), "launcher root should load current language and Android channel discovery");
+  assert(root.body.includes("Checking Android build"), "launcher root should announce Android channel discovery");
   assert(!root.body.includes('href="/android/caatuu-debug.apk"'), "launcher root must not offer a debug APK as a normal download");
   assert(root.body.includes("Continue in Browser"), "launcher root should offer browser continuation");
   assert(root.body.includes("Welcome space language traveler"), "launcher root should use the welcome eyebrow");
@@ -325,8 +335,9 @@ async function auditHttpRoutes() {
   const launcher = await request("/launcher.js");
   assert(launcher.status === 200, `/launcher.js should return 200, got ${launcher.status}`);
   assert(launcher.body.includes('const registryPath = "/languages.json"'), "launcher should discover active languages from the registry");
-  assert(launcher.body.includes('manifest?.build_type !== "release"'), "launcher should reject non-release Android manifests");
-  assert(launcher.body.includes("manifest?.debuggable !== false"), "launcher should reject debuggable Android manifests");
+  assert(launcher.body.includes('channel.kind === "preview"'), "launcher should identify the explicit preview channel");
+  assert(launcher.body.includes('manifest.build_type === "debug" && manifest.debuggable === true'), "launcher should require preview manifests to describe debuggable builds");
+  assert(launcher.body.includes('manifest.build_type === "release" && manifest.debuggable === false'), "launcher should require stable manifests to describe non-debuggable release builds");
   assert(!launcher.body.includes("caatuu-debug"), "launcher must not contain a public debug-channel fallback");
 
   const demos = await request("/demos/");
@@ -344,8 +355,11 @@ async function auditHttpRoutes() {
   assert(languageRegistry?.schemaVersion === 1, "language registry should use the supported schema");
   assert(languageRegistry?.defaultLanguage === "cz", "language registry should name its default app");
   assert(activeCzech?.entryPath === "/cz/home.html", "active Czech registry entry should match the served route");
-  assert(activeCzech?.platforms?.android?.channels?.length === 1, "public language registry should expose only one Android channel");
-  assert(activeCzech?.platforms?.android?.channels?.[0]?.manifest === "/android/caatuu.json", "public language registry should expose only the signed release manifest");
+  assert(activeCzech?.platforms?.android?.channels?.length === 2, "public language registry should expose stable and explicit preview channels");
+  assert(activeCzech?.platforms?.android?.channels?.[0]?.kind === "release", "public language registry should prefer the stable Android channel");
+  assert(activeCzech?.platforms?.android?.channels?.[0]?.manifest === "/android/caatuu.json", "public language registry should expose the signed release manifest first");
+  assert(activeCzech?.platforms?.android?.channels?.[1]?.kind === "preview", "public language registry should label the gated preview channel");
+  assert(activeCzech?.platforms?.android?.channels?.[1]?.manifest === "/android/caatuu-preview.json", "public language registry should use the user-facing preview alias");
 
   const unknownRoot = await request("/definitely-missing-caatuu-page");
   assert(unknownRoot.status === 404, `/definitely-missing-caatuu-page should return 404, got ${unknownRoot.status}`);
@@ -357,16 +371,33 @@ async function auditHttpRoutes() {
 
   const czechHome = await request("/cz/home.html");
   assert(czechHome.status === 200, `/cz/home.html should return 200, got ${czechHome.status}`);
-  assert(czechHome.body.includes("<title>Caatuu Czech</title>"), "Czech home should serve the Czech title");
+  assert(czechHome.body.includes("<title>Caatuu</title>"), "Czech home should serve the shared Caatuu title");
   assert(!czechHome.body.includes("archive/chinese"), "Czech home should not include archive links");
 
   const setupAssets = await request("/cz/setup-assets.json");
   assert(setupAssets.status === 200, `/cz/setup-assets.json should return 200, got ${setupAssets.status}`);
   assert(setupAssets.body.includes("/assets/aliens/Czech_Macaw.png"), "Czech setup assets should use moved Czech_Macaw art");
 
+  const loadingAnimationManifestResponse = await request("/assets/loading_animation/animations_manifest.json");
+  assert(
+    loadingAnimationManifestResponse.status === 200,
+    `loading animation manifest should return 200, got ${loadingAnimationManifestResponse.status}`
+  );
+  const loadingAnimationManifest = parseHttpJson(
+    loadingAnimationManifestResponse,
+    "loading animation manifest"
+  );
+  const loadingAnimationSequence = loadingAnimationManifest?.animations?.[0];
+  const loadingAnimationFile = loadingAnimationSequence?.sprites?.[0]?.file;
+  assert(loadingAnimationFile, "loading animation manifest should contain at least one available frame");
+  const loadingAnimationUrl = `/assets/loading_animation/${[
+    loadingAnimationSequence.folder,
+    loadingAnimationFile
+  ].map(encodeURIComponent).join("/")}`;
+
   for (const [url, label] of [
     ["/assets/aliens/Czech_Macaw.png", "language mascot alias"],
-    ["/assets/macaw/loading_animation/loading-animation_001.png", "loading animation alias"],
+    [loadingAnimationUrl, "loading animation alias"],
     ["/assets/miscellaneous/burrow-review_062.png", "visual vocabulary alias"]
   ]) {
     const asset = await request(url, { method: "HEAD" });
@@ -394,6 +425,9 @@ async function auditHttpRoutes() {
   const androidApk = await request("/android/caatuu.apk", { method: "HEAD" });
   const stablePublicationContract = await request("/android/releases/status");
   assert(stablePublicationContract.status === 204, `stable immutable publication contract should return 204, got ${stablePublicationContract.status}`);
+  assertCacheControl(androidManifest, ANDROID_MUTABLE_CACHE_CONTROL, "stable manifest alias");
+  assertCacheControl(androidApk, ANDROID_MUTABLE_CACHE_CONTROL, "stable APK alias");
+  assertCacheControl(stablePublicationContract, ANDROID_MUTABLE_CACHE_CONTROL, "stable publication status");
   if (androidManifest.status === 200) {
     const manifest = parseHttpJson(androidManifest, "stable Android manifest");
     assert(androidApk.status === 200, `/android/caatuu.apk should return 200 when its manifest is published, got ${androidApk.status}`);
@@ -405,6 +439,7 @@ async function auditHttpRoutes() {
       assert(new URL(manifest.apk_url).pathname === expectedPath, `stable Android manifest should point to immutable ${expectedPath}`);
       const immutableApk = await request(expectedPath, { method: "HEAD" });
       assert(immutableApk.status === 200, `stable immutable APK should return 200, got ${immutableApk.status}`);
+      assertCacheControl(immutableApk, ANDROID_IMMUTABLE_CACHE_CONTROL, "stable versioned APK");
     }
   } else {
     assert(androidManifest.status === 404, `/android/caatuu.json should return a release manifest or 404, got ${androidManifest.status}`);
@@ -413,12 +448,23 @@ async function auditHttpRoutes() {
 
   const debugAndroidManifest = await request("/android/caatuu-debug.json");
   const debugAndroidApk = await request("/android/caatuu-debug.apk", { method: "HEAD" });
+  const previewAndroidManifest = await request("/android/caatuu-preview.json");
+  const previewAndroidApk = await request("/android/caatuu-preview.apk", { method: "HEAD" });
   const debugPublicationContract = await request("/android/debug-releases/status");
   const termuxInstall = await request("/android/termux-install-debug.sh");
   if (allowDebugArtifacts) {
     assert(debugAndroidManifest.status === 200, `/android/caatuu-debug.json should return 200 when debug artifacts are enabled, got ${debugAndroidManifest.status}`);
     assert(debugAndroidApk.status === 200, `/android/caatuu-debug.apk should return 200 when debug artifacts are enabled, got ${debugAndroidApk.status}`);
+    assert(previewAndroidManifest.status === 200, `/android/caatuu-preview.json should return 200 when preview artifacts are enabled, got ${previewAndroidManifest.status}`);
+    assert(previewAndroidApk.status === 200, `/android/caatuu-preview.apk should return 200 when preview artifacts are enabled, got ${previewAndroidApk.status}`);
+    assert(previewAndroidManifest.body === debugAndroidManifest.body, "preview and installed-client manifests should describe identical bytes");
     assert(debugPublicationContract.status === 204, `debug immutable publication contract should return 204, got ${debugPublicationContract.status}`);
+    assertCacheControl(debugAndroidManifest, ANDROID_MUTABLE_CACHE_CONTROL, "debug manifest alias");
+    assertCacheControl(debugAndroidApk, ANDROID_MUTABLE_CACHE_CONTROL, "debug APK alias");
+    assertCacheControl(previewAndroidManifest, ANDROID_MUTABLE_CACHE_CONTROL, "preview manifest alias");
+    assertCacheControl(previewAndroidApk, ANDROID_MUTABLE_CACHE_CONTROL, "preview APK alias");
+    assertCacheControl(debugPublicationContract, ANDROID_MUTABLE_CACHE_CONTROL, "debug publication status");
+    assertCacheControl(termuxInstall, ANDROID_MUTABLE_CACHE_CONTROL, "debug install helper");
     const manifest = parseHttpJson(debugAndroidManifest, "debug Android manifest");
     if (manifest) {
       assert(manifest.build_type === "debug", "debug Android manifest should identify its channel");
@@ -428,6 +474,7 @@ async function auditHttpRoutes() {
       assert(new URL(manifest.apk_url).pathname === expectedPath, `debug manifest should point to immutable ${expectedPath}`);
       const immutableApk = await request(expectedPath, { method: "HEAD" });
       assert(immutableApk.status === 200, `debug immutable APK should return 200, got ${immutableApk.status}`);
+      assertCacheControl(immutableApk, ANDROID_IMMUTABLE_CACHE_CONTROL, "debug versioned APK");
     }
     assert(termuxInstall.status === 200, `/android/termux-install-debug.sh should return 200 when debug artifacts are enabled, got ${termuxInstall.status}`);
     assert(termuxInstall.body.includes('EXPECTED_SHA="${EXPECTED_SHA:-}"'), "Termux install helper should not hardcode a stale expected SHA");
@@ -435,6 +482,8 @@ async function auditHttpRoutes() {
   } else {
     assert(debugAndroidManifest.status === 404, `/android/caatuu-debug.json should be private by default, got ${debugAndroidManifest.status}`);
     assert(debugAndroidApk.status === 404, `/android/caatuu-debug.apk should be private by default, got ${debugAndroidApk.status}`);
+    assert(previewAndroidManifest.status === 404, `/android/caatuu-preview.json should be private by default, got ${previewAndroidManifest.status}`);
+    assert(previewAndroidApk.status === 404, `/android/caatuu-preview.apk should be private by default, got ${previewAndroidApk.status}`);
     assert(debugPublicationContract.status === 404, `debug immutable publication contract should be private by default, got ${debugPublicationContract.status}`);
     assert(termuxInstall.status === 404, `/android/termux-install-debug.sh should be private by default, got ${termuxInstall.status}`);
   }
@@ -450,6 +499,7 @@ function unzip(args) {
   const execOptions = {
     cwd: workspaceRoot,
     encoding: "utf8",
+    maxBuffer: 128 * 1024 * 1024,
     stdio: ["ignore", "pipe", "pipe"]
   };
   try {
@@ -472,6 +522,7 @@ function unzip(args) {
 function unzipBuffer(archive, entry) {
   const execOptions = {
     cwd: workspaceRoot,
+    maxBuffer: 128 * 1024 * 1024,
     stdio: ["ignore", "pipe", "pipe"]
   };
   try {
@@ -717,9 +768,12 @@ function auditApk() {
     "assets/assets/icons/czech_flag.png",
     "assets/assets/icons/dark_mode.png",
     "assets/assets/icons/games_icon.png",
+    "assets/assets/icons/gear_icon.png",
     "assets/assets/icons/hello.png",
     "assets/assets/icons/home_icon.png",
-    "assets/assets/icons/settings_icon.png",
+    "assets/assets/icons/backpack_icon.png",
+    "assets/assets/icons/items_icon.png",
+    "assets/assets/icons/stats_icon.png",
     "assets/vendor/sql.js/sql-wasm.js",
     "assets/vendor/sql.js/sql-wasm.wasm",
     "assets/vendor/transformers/transformers.min.js"
@@ -1084,8 +1138,8 @@ function sourceAssetPathForPublic(publicPath) {
   if (publicPath.startsWith("assets/aliens/")) {
     return `assets/language-mascots/${publicPath.slice("assets/aliens/".length)}`;
   }
-  if (publicPath.startsWith("assets/macaw/loading_animation/")) {
-    return `assets/macaw/loading-animation/${publicPath.slice("assets/macaw/loading_animation/".length)}`;
+  if (publicPath.startsWith("assets/loading_animation/")) {
+    return `assets/loading-animation/${publicPath.slice("assets/loading_animation/".length)}`;
   }
   if (publicPath.startsWith("assets/miscellaneous/")) {
     return `assets/visual-vocabulary/${publicPath.slice("assets/miscellaneous/".length)}`;
@@ -1198,7 +1252,7 @@ function auditAndroidSource() {
   assert(staticAssetManager.includes("native_required"), "Android StaticAssetManager should filter setup-assets.json by native_required");
   assert(!staticAssetManager.includes("private val REQUIRED_ASSETS = listOf"), "Android setup assets should not be duplicated as a hard-coded Kotlin list");
   assert(
-    bridge.includes('it.assetPath.startsWith("assets/macaw/loading_animation/")'),
+    bridge.includes('it.assetPath.startsWith("assets/loading_animation/")'),
     "Android initial setup should prioritize the loading animation within the visual assets",
   );
   assert(
@@ -1222,6 +1276,11 @@ function auditAndroidSource() {
   assert(gradle.includes('gradleProperty("caatuuLanguageId")'), "Android builds should select the bundled language explicitly");
   assert(gradle.includes('buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX"'), "Android builds should expose the selected language route");
   assert(gradle.includes('buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH"'), "Android builds should expose the selected language entry page");
+  assert(gradle.includes("provider.orNull?.isNotBlank() == true"), "Android release signing should reject missing and blank credentials");
+  assert(gradle.includes("gradle.taskGraph.whenReady"), "Android builds should inspect the requested task graph before packaging");
+  assert(gradle.includes('listOf("assemble", "bundle", "package", "sign")'), "Android should guard every release and Play packaging task");
+  assert(gradle.includes("releasePackagingRequested && !hasReleaseSigning"), "Android release and Play packaging should fail closed without signing credentials");
+  assert(!/if \(previousVersion == BuildConfig\.VERSION_CODE\) \{\s*webView\.clearCache\(true\)/.test(main), "Android should preserve the WebView cache when the bundled version has not changed");
   assert(bridge.includes("URL(BuildConfig.CAATUU_REPORT_URL)"), "Android bug reports should not derive their endpoint from the updater URL");
   assert(bridge.includes('check(remote.optBoolean("ok"))'), "Android should not report locally stored but unsent bug reports as sent");
   assert(/debug\s*\{[\s\S]*?buildConfigField\("boolean", "CAATUU_SELF_UPDATE_ENABLED", "true"\)/.test(gradle), "Android debug builds should keep explicit self-update support");
@@ -1309,6 +1368,10 @@ function auditAndroidSource() {
   assert(runtimeRoutes.includes(".merge(android_debug_router("), "runtime should isolate Android debug routes behind their gate");
   assert(runtimeRoutes.includes('"/android/releases"'), "runtime should expose immutable stable APK paths");
   assert(runtimeRoutes.includes('"/android/debug-releases"'), "runtime should expose immutable debug APK paths behind the debug gate");
+  assert(runtimeRoutes.includes('"/android/caatuu-preview.apk"'), "runtime should expose a user-facing preview APK alias behind the debug gate");
+  assert(runtimeRoutes.includes('"/android/caatuu-preview.json"'), "runtime should expose a user-facing preview manifest alias behind the debug gate");
+  assert(runtimeRoutes.includes('"public, max-age=31536000, immutable"'), "versioned Android artifacts should be explicitly immutable");
+  assert(runtimeRoutes.includes('"no-store, no-cache, must-revalidate, max-age=0"'), "mutable Android aliases and status routes should bypass caches");
   assert(runtimeRoutes.includes('HeaderName::from_static("x-content-type-options")'), "runtime should prevent MIME sniffing on every response");
   assert(runtimeRoutes.includes('HeaderName::from_static("referrer-policy")'), "runtime should set a global referrer policy");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-referrer")'), "runtime should suppress referrer disclosure");

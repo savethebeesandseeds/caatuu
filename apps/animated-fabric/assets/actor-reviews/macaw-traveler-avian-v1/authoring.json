@@ -1,0 +1,57 @@
+{
+  "actor": {
+    "ground_to_crown_m": 1.99,
+    "package_id": "macaw-traveler-avian-v1",
+    "rig_id": "avian_v1",
+    "staff_included": false
+  },
+  "authoring_method": {
+    "description": "Human-directed low-poly modeling decisions encoded as deterministic first-party geometry; no image-to-3D reconstruction is claimed.",
+    "geometry": "Manually placed ellipsoids, tapered feather solids, robe volumes, pack volumes, and articulated limb forms.",
+    "materials": "Seven flat authored color materials derived by visual comparison, without copying source pixels into textures.",
+    "tool": "scripts/generate_macaw_actor_package.py"
+  },
+  "format": "animated-fabric.actor-authoring.v1",
+  "modeling_decisions": [
+    {
+      "decision": "Use three overlapping tapered tail feathers rooted beneath the robe at tail_base.",
+      "inference": true,
+      "subject": "tail_attachment"
+    },
+    {
+      "decision": "Use three forward talons per foot with separate dark claws and no recovered hidden rear toe.",
+      "inference": true,
+      "subject": "talon_anatomy"
+    },
+    {
+      "decision": "Use three rounded wing-hand digits and reserve both canonical item sockets without adding a staff.",
+      "inference": true,
+      "subject": "wing_hands"
+    },
+    {
+      "decision": "Model a symmetric hidden torso under the robe because the approved references do not expose rear body surfaces.",
+      "inference": true,
+      "subject": "hidden_torso"
+    },
+    {
+      "decision": "Model the backpack as a main pack, flap, straps, and rolled bedroll attached to torso deformation.",
+      "inference": true,
+      "subject": "backpack"
+    },
+    {
+      "decision": "Keep the robe, belt, sleeves, beard, beak, face patches, and feather colors as separate bounded material groups.",
+      "inference": false,
+      "subject": "material_groups"
+    }
+  ],
+  "reference": {
+    "approval_sha256": "e6dc9202b6608ab5821c2fb9c76811a5a69296061bf20314b6c7ea3bafa142bc",
+    "manifest_sha256": "a88520b026a4c48b98c6b50785fe49ffa60d01f1e94157650dbfbbb754b11f77",
+    "ordered_view_set_sha256": "3c625d9ff3e87567d2e1eb2878866243629c2af18ed0af011fe2526c2aee9311",
+    "package_id": "macaw-traveler-v1",
+    "source_approval_sha256": "4b6d2348fff593ece021d12a32cc1713afb0d05367b9f660d493a7431e7c4cfc"
+  },
+  "review_status": "candidate_pending_deformation_review",
+  "schema_version": "0.1.0",
+  "ticket": "AF-056"
+}

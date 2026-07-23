@@ -884,6 +884,7 @@
     "cs": "být",
     "en": "be",
     "kind": "V irregular",
+    "difficulty": 1,
     "cue": "jsem/je; byl/a; bude",
     "use": "Jsem tady."
   },
@@ -892,6 +893,7 @@
     "cs": "mít",
     "en": "have",
     "kind": "V irregular",
+    "difficulty": 1,
     "cue": "mám; měl/a jsem",
     "use": "Mám čas."
   },
@@ -900,6 +902,7 @@
     "cs": "chtít",
     "en": "want",
     "kind": "V modal-like",
+    "difficulty": 1,
     "cue": "chci; chtěl/a bych",
     "use": "Chtěl bych kávu."
   },
@@ -908,6 +911,7 @@
     "cs": "potřebovat",
     "en": "need",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "potřebuji + A",
     "use": "Potřebuji pomoc."
   },
@@ -916,6 +920,7 @@
     "cs": "muset",
     "en": "must / have to",
     "kind": "V modal",
+    "difficulty": 1,
     "cue": "musím; musel/a jsem",
     "use": "Musím jít."
   },
@@ -924,6 +929,7 @@
     "cs": "moct / moci",
     "en": "can / may",
     "kind": "V modal",
+    "difficulty": 1,
     "cue": "můžu; mohl/a bych",
     "use": "Můžu platit kartou?"
   },
@@ -932,6 +938,7 @@
     "cs": "umět",
     "en": "know how to",
     "kind": "V modal-like",
+    "difficulty": 1,
     "cue": "umím + inf",
     "use": "Umím trochu česky."
   },
@@ -940,6 +947,7 @@
     "cs": "vědět",
     "en": "know a fact",
     "kind": "V irregular",
+    "difficulty": 2,
     "cue": "vím/nevím; věděl/a jsem",
     "use": "Nevím."
   },
@@ -948,6 +956,7 @@
     "cs": "znát",
     "en": "know a person/place",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "znám + A",
     "use": "Znám adresu."
   },
@@ -956,6 +965,7 @@
     "cs": "dělat / udělat",
     "en": "do / make",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "dělám/udělám + A",
     "use": "Udělám to."
   },
@@ -964,6 +974,7 @@
     "cs": "hledat / najít",
     "en": "look for / find",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "hledám/najdu + A",
     "use": "Hledám nádraží."
   },
@@ -972,6 +983,7 @@
     "cs": "čekat / počkat",
     "en": "wait",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "čekám/počkám",
     "use": "Čekám na vlak."
   },
@@ -980,6 +992,7 @@
     "cs": "dávat / dát",
     "en": "give / put",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "dám; dal/a jsem + A",
     "use": "Dám vám kartu."
   },
@@ -988,6 +1001,7 @@
     "cs": "brát / vzít",
     "en": "take",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "beru/vezmu + A",
     "use": "Vezmu si taxi."
   },
@@ -996,6 +1010,7 @@
     "cs": "dostávat / dostat",
     "en": "receive / get",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "dostanu + A",
     "use": "Dostanu účet?"
   },
@@ -1004,6 +1019,7 @@
     "cs": "používat / použít",
     "en": "use",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "používám/použiju + A",
     "use": "Použiju kartu."
   },
@@ -1012,6 +1028,7 @@
     "cs": "kupovat / koupit",
     "en": "buy",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "kupuji/koupím + A",
     "use": "Koupím jízdenku."
   },
@@ -1020,6 +1037,7 @@
     "cs": "platit / zaplatit",
     "en": "pay",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "platím/zaplatím",
     "use": "Zaplatím kartou."
   },
@@ -1028,6 +1046,7 @@
     "cs": "otevírat / otevřít",
     "en": "open",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "otevřu + A",
     "use": "Otevřu dveře."
   },
@@ -1036,6 +1055,7 @@
     "cs": "zavírat / zavřít",
     "en": "close",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "zavřu + A",
     "use": "Zavřu okno."
   },
@@ -1044,6 +1064,7 @@
     "cs": "začínat / začít",
     "en": "start",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "začnu",
     "use": "Začnu zítra."
   },
@@ -1052,6 +1073,7 @@
     "cs": "končit / skončit",
     "en": "finish / end",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "skončím",
     "use": "Skončím v pět."
   },
@@ -1060,6 +1082,7 @@
     "cs": "měnit / změnit",
     "en": "change",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "změním + A",
     "use": "Změním rezervaci."
   },
@@ -1068,6 +1091,7 @@
     "cs": "zkoušet / zkusit",
     "en": "try",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zkusím + A/inf",
     "use": "Zkusím to."
   },
@@ -1076,6 +1100,7 @@
     "cs": "pamatovat si",
     "en": "remember",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "pamatuji si + A",
     "use": "Pamatuji si adresu."
   },
@@ -1084,6 +1109,7 @@
     "cs": "zapomínat / zapomenout",
     "en": "forget",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zapomenu + A",
     "use": "Zapomněl jsem heslo."
   },
@@ -1092,6 +1118,7 @@
     "cs": "nechat",
     "en": "leave / let",
     "kind": "V pf/ipf",
+    "difficulty": 3,
     "cue": "nechám + A",
     "use": "Nechám to tady."
   },
@@ -1100,6 +1127,7 @@
     "cs": "stát se",
     "en": "happen / become",
     "kind": "V pf",
+    "difficulty": 3,
     "cue": "stalo se",
     "use": "Co se stalo?"
   },
@@ -1108,6 +1136,7 @@
     "cs": "trvat",
     "en": "last / take time",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "trvá + time",
     "use": "Jak dlouho to trvá?"
   },
@@ -1116,6 +1145,7 @@
     "cs": "znamenat",
     "en": "mean",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "znamená",
     "use": "Co to znamená?"
   },
@@ -1124,6 +1154,7 @@
     "cs": "jít",
     "en": "go by foot / go now",
     "kind": "V motion",
+    "difficulty": 1,
     "cue": "jdu; šel/šla; půjdu",
     "use": "Jdu do města."
   },
@@ -1132,6 +1163,7 @@
     "cs": "chodit",
     "en": "go regularly / walk",
     "kind": "V motion",
+    "difficulty": 1,
     "cue": "chodím",
     "use": "Chodím do práce."
   },
@@ -1140,6 +1172,7 @@
     "cs": "jet",
     "en": "go by vehicle now",
     "kind": "V motion",
+    "difficulty": 1,
     "cue": "jedu; jel/a; pojedu",
     "use": "Jedu vlakem."
   },
@@ -1148,6 +1181,7 @@
     "cs": "jezdit",
     "en": "go by vehicle regularly",
     "kind": "V motion",
+    "difficulty": 2,
     "cue": "jezdím",
     "use": "Jezdím metrem."
   },
@@ -1156,6 +1190,7 @@
     "cs": "přijít",
     "en": "come / arrive by foot",
     "kind": "V pf",
+    "difficulty": 1,
     "cue": "přijdu",
     "use": "Přijdu v osm."
   },
@@ -1164,6 +1199,7 @@
     "cs": "přijet",
     "en": "arrive by vehicle",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "přijedu",
     "use": "Přijedu vlakem."
   },
@@ -1172,6 +1208,7 @@
     "cs": "odejít",
     "en": "leave by foot",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "odejdu",
     "use": "Odejdu za chvíli."
   },
@@ -1180,6 +1217,7 @@
     "cs": "odjet",
     "en": "leave by vehicle",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "odjedu",
     "use": "Odjedu zítra."
   },
@@ -1188,6 +1226,7 @@
     "cs": "vracet se / vrátit se",
     "en": "return",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vrátím se",
     "use": "Vrátím se večer."
   },
@@ -1196,6 +1235,7 @@
     "cs": "dostat se",
     "en": "get somewhere",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "dostanu se do+G",
     "use": "Jak se dostanu na nádraží?"
   },
@@ -1204,6 +1244,7 @@
     "cs": "bydlet",
     "en": "live / reside",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "bydlím v+L",
     "use": "Bydlím v Praze."
   },
@@ -1212,6 +1253,7 @@
     "cs": "žít",
     "en": "live",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "žiju v+L",
     "use": "Žiju v Česku."
   },
@@ -1220,6 +1262,7 @@
     "cs": "stát",
     "en": "stand / cost",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "stojím / stojí",
     "use": "Kolik to stojí?"
   },
@@ -1228,6 +1271,7 @@
     "cs": "sedět",
     "en": "sit",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "sedím",
     "use": "Sedím tady."
   },
@@ -1236,6 +1280,7 @@
     "cs": "ležet",
     "en": "lie / be located",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "leží",
     "use": "Hotel leží v centru."
   },
@@ -1244,6 +1289,7 @@
     "cs": "běžet",
     "en": "run",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "běžím",
     "use": "Běžím na vlak."
   },
@@ -1252,6 +1298,7 @@
     "cs": "vstát",
     "en": "get up",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "vstanu",
     "use": "Vstanu v sedm."
   },
@@ -1260,6 +1307,7 @@
     "cs": "spát",
     "en": "sleep",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "spím",
     "use": "Spím v hotelu."
   },
@@ -1268,6 +1316,7 @@
     "cs": "cestovat",
     "en": "travel",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "cestuji",
     "use": "Cestuji po Česku."
   },
@@ -1276,6 +1325,7 @@
     "cs": "nastupovat / nastoupit",
     "en": "get on",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "nastoupím do+G",
     "use": "Nastoupím do vlaku."
   },
@@ -1284,6 +1334,7 @@
     "cs": "vystupovat / vystoupit",
     "en": "get off",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vystoupím z+G",
     "use": "Vystoupím na další zastávce."
   },
@@ -1292,6 +1343,7 @@
     "cs": "přestupovat / přestoupit",
     "en": "transfer",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "přestoupím na+A",
     "use": "Přestoupím na metro."
   },
@@ -1300,6 +1352,7 @@
     "cs": "zastavit",
     "en": "stop",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "zastavím",
     "use": "Zastavte tady, prosím."
   },
@@ -1308,6 +1361,7 @@
     "cs": "parkovat / zaparkovat",
     "en": "park",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zaparkuji",
     "use": "Zaparkuji tady."
   },
@@ -1316,6 +1370,7 @@
     "cs": "pospíchat",
     "en": "hurry",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "pospíchám",
     "use": "Pospíchám na vlak."
   },
@@ -1324,6 +1379,7 @@
     "cs": "přejít",
     "en": "cross / go across",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "přejdu A",
     "use": "Přejdu ulici."
   },
@@ -1332,6 +1388,7 @@
     "cs": "odbočit",
     "en": "turn",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "odbočím",
     "use": "Odbočte vlevo."
   },
@@ -1340,6 +1397,7 @@
     "cs": "pokračovat",
     "en": "continue",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "pokračuji",
     "use": "Pokračujte rovně."
   },
@@ -1348,6 +1406,7 @@
     "cs": "letět",
     "en": "fly",
     "kind": "V motion",
+    "difficulty": 2,
     "cue": "letím do+G",
     "use": "Letím do Prahy."
   },
@@ -1356,6 +1415,7 @@
     "cs": "nést / přinést",
     "en": "carry / bring",
     "kind": "V motion→pf",
+    "difficulty": 2,
     "cue": "přinesu + A",
     "use": "Přinesu vodu."
   },
@@ -1364,6 +1424,7 @@
     "cs": "vést / dovést",
     "en": "lead / guide",
     "kind": "V motion→pf",
+    "difficulty": 3,
     "cue": "dovedu + A",
     "use": "Dovedu vás k hotelu."
   },
@@ -1372,6 +1433,7 @@
     "cs": "ztratit se",
     "en": "get lost",
     "kind": "V pf",
+    "difficulty": 2,
     "cue": "ztratil jsem se",
     "use": "Ztratil jsem se."
   },
@@ -1380,6 +1442,7 @@
     "cs": "říkat / říct",
     "en": "say / tell",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "řeknu; řekl/a jsem",
     "use": "Řeknu vám to."
   },
@@ -1388,6 +1451,7 @@
     "cs": "mluvit",
     "en": "speak / talk",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "mluvím o+L/s+I",
     "use": "Mluvím anglicky."
   },
@@ -1396,6 +1460,7 @@
     "cs": "ptát se / zeptat se",
     "en": "ask",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "zeptám se",
     "use": "Zeptám se recepce."
   },
@@ -1404,6 +1469,7 @@
     "cs": "odpovídat / odpovědět",
     "en": "answer",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "odpovím",
     "use": "Odpovím později."
   },
@@ -1412,6 +1478,7 @@
     "cs": "rozumět / porozumět",
     "en": "understand",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "rozumím + D",
     "use": "Rozumím vám."
   },
@@ -1420,6 +1487,7 @@
     "cs": "slyšet / uslyšet",
     "en": "hear",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "slyším + A",
     "use": "Neslyším vás."
   },
@@ -1428,6 +1496,7 @@
     "cs": "vidět / uvidět",
     "en": "see",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "vidím; viděl/a jsem",
     "use": "Vidím hotel."
   },
@@ -1436,6 +1505,7 @@
     "cs": "číst / přečíst",
     "en": "read",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "čtu/přečtu + A",
     "use": "Přečtu si zprávu."
   },
@@ -1444,6 +1514,7 @@
     "cs": "psát / napsat",
     "en": "write",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "píšu/napíšu + A",
     "use": "Napíšu e-mail."
   },
@@ -1452,6 +1523,7 @@
     "cs": "volat / zavolat",
     "en": "call",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "zavolám + D/A",
     "use": "Zavolám doktorovi."
   },
@@ -1460,6 +1532,7 @@
     "cs": "posílat / poslat",
     "en": "send",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "pošlu + A",
     "use": "Pošlu zprávu."
   },
@@ -1468,6 +1541,7 @@
     "cs": "ukazovat / ukázat",
     "en": "show",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "ukážu + A",
     "use": "Ukážu vám pas."
   },
@@ -1476,6 +1550,7 @@
     "cs": "vysvětlovat / vysvětlit",
     "en": "explain",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vysvětlím + A",
     "use": "Vysvětlíte mi to?"
   },
@@ -1484,6 +1559,7 @@
     "cs": "objednávat / objednat",
     "en": "order / book",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "objednám + A",
     "use": "Objednám si kávu."
   },
@@ -1492,6 +1568,7 @@
     "cs": "rezervovat / zarezervovat",
     "en": "reserve",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "rezervuji + A",
     "use": "Rezervuji pokoj."
   },
@@ -1500,6 +1577,7 @@
     "cs": "pomáhat / pomoct",
     "en": "help",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "pomůžu + D",
     "use": "Pomůžete mi?"
   },
@@ -1508,6 +1586,7 @@
     "cs": "půjčovat / půjčit",
     "en": "lend / borrow",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "půjčím si + A",
     "use": "Půjčím si kolo."
   },
@@ -1516,6 +1595,7 @@
     "cs": "domlouvat se / domluvit se",
     "en": "agree / arrange",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "domluvíme se",
     "use": "Domluvíme se zítra."
   },
@@ -1524,6 +1604,7 @@
     "cs": "myslet si",
     "en": "think / believe",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "myslím si",
     "use": "Myslím si, že ano."
   },
@@ -1532,6 +1613,7 @@
     "cs": "cítit se",
     "en": "feel",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "cítím se",
     "use": "Necítím se dobře."
   },
@@ -1540,6 +1622,7 @@
     "cs": "líbit se",
     "en": "like / be pleasing",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "líbí se mi",
     "use": "Líbí se mi Praha."
   },
@@ -1548,6 +1631,7 @@
     "cs": "opakovat / zopakovat",
     "en": "repeat",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zopakujete A",
     "use": "Můžete to zopakovat?"
   },
@@ -1556,6 +1640,7 @@
     "cs": "překládat / přeložit",
     "en": "translate",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "přeložím + A",
     "use": "Můžete to přeložit?"
   },
@@ -1564,6 +1649,7 @@
     "cs": "diktovat / nadiktovat",
     "en": "dictate",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "nadiktuji + A",
     "use": "Nadiktuji číslo."
   },
@@ -1572,6 +1658,7 @@
     "cs": "hláskovat",
     "en": "spell out",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "hláskuji + A",
     "use": "Můžete to hláskovat?"
   },
@@ -1580,6 +1667,7 @@
     "cs": "souhlasit",
     "en": "agree",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "souhlasím",
     "use": "Souhlasím."
   },
@@ -1588,6 +1676,7 @@
     "cs": "nesouhlasit",
     "en": "disagree",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "nesouhlasím",
     "use": "Nesouhlasím."
   },
@@ -1596,6 +1685,7 @@
     "cs": "navrhovat / navrhnout",
     "en": "suggest / propose",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "navrhnu + A",
     "use": "Navrhnu termín."
   },
@@ -1604,6 +1694,7 @@
     "cs": "omlouvat se / omluvit se",
     "en": "apologize",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "omlouvám se",
     "use": "Omlouvám se."
   },
@@ -1612,6 +1703,7 @@
     "cs": "děkovat / poděkovat",
     "en": "thank",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "děkuji + D",
     "use": "Děkuji vám."
   },
@@ -1620,6 +1712,7 @@
     "cs": "jíst / sníst",
     "en": "eat / eat up",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "jím/sním + A",
     "use": "Chci jíst."
   },
@@ -1628,6 +1721,7 @@
     "cs": "pít / vypít",
     "en": "drink",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "piju/vypiju + A",
     "use": "Piju vodu."
   },
@@ -1636,6 +1730,7 @@
     "cs": "vařit / uvařit",
     "en": "cook",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "uvařím + A",
     "use": "Uvařím večeři."
   },
@@ -1644,6 +1739,7 @@
     "cs": "uklízet / uklidit",
     "en": "clean / tidy",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "uklidím + A",
     "use": "Uklidím pokoj."
   },
@@ -1652,6 +1748,7 @@
     "cs": "prát / vyprat",
     "en": "wash clothes",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vyperu + A",
     "use": "Vyperu oblečení."
   },
@@ -1660,6 +1757,7 @@
     "cs": "mýt / umýt",
     "en": "wash",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "umyju + A",
     "use": "Umyju ruce."
   },
@@ -1668,6 +1766,7 @@
     "cs": "sprchovat se",
     "en": "take a shower",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "sprchuji se",
     "use": "Chci se sprchovat."
   },
@@ -1676,6 +1775,7 @@
     "cs": "oblékat se / obléct se",
     "en": "get dressed",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "obleču se",
     "use": "Obleču se rychle."
   },
@@ -1684,6 +1784,7 @@
     "cs": "nakupovat / nakoupit",
     "en": "shop",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "nakoupím",
     "use": "Nakoupím jídlo."
   },
@@ -1692,6 +1793,7 @@
     "cs": "pracovat",
     "en": "work",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "pracuji",
     "use": "Pracuji dnes."
   },
@@ -1700,6 +1802,7 @@
     "cs": "studovat",
     "en": "study",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "studuji",
     "use": "Studuji češtinu."
   },
@@ -1708,6 +1811,7 @@
     "cs": "učit se / naučit se",
     "en": "learn",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "učím se",
     "use": "Učím se česky."
   },
@@ -1716,6 +1820,7 @@
     "cs": "odpočívat",
     "en": "rest",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "odpočívám",
     "use": "Odpočívám doma."
   },
@@ -1724,6 +1829,7 @@
     "cs": "hrát",
     "en": "play",
     "kind": "V ipf",
+    "difficulty": 1,
     "cue": "hraju",
     "use": "Hraju fotbal."
   },
@@ -1732,6 +1838,7 @@
     "cs": "fotit / vyfotit",
     "en": "take photos",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vyfotím + A",
     "use": "Vyfotím mapu."
   },
@@ -1740,6 +1847,7 @@
     "cs": "dívat se / podívat se",
     "en": "look / watch",
     "kind": "V ipf→pf",
+    "difficulty": 1,
     "cue": "podívám se na+A",
     "use": "Podívám se na mapu."
   },
@@ -1748,6 +1856,7 @@
     "cs": "probouzet se / probudit se",
     "en": "wake up",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "probudím se",
     "use": "Probudím se v sedm."
   },
@@ -1756,6 +1865,7 @@
     "cs": "vstávat / vstát",
     "en": "get up",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vstanu",
     "use": "Vstanu brzy."
   },
@@ -1764,6 +1874,7 @@
     "cs": "usínat / usnout",
     "en": "fall asleep",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "usnu",
     "use": "Usnu pozdě."
   },
@@ -1772,6 +1883,7 @@
     "cs": "snídat / nasnídat se",
     "en": "eat breakfast",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "snídám",
     "use": "Snídám doma."
   },
@@ -1780,6 +1892,7 @@
     "cs": "obědvat",
     "en": "eat lunch",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "obědvám",
     "use": "Obědvám v práci."
   },
@@ -1788,6 +1901,7 @@
     "cs": "večeřet",
     "en": "eat dinner",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "večeřím",
     "use": "Večeřím doma."
   },
@@ -1796,6 +1910,7 @@
     "cs": "čistit si zuby",
     "en": "brush teeth",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "čistím si zuby",
     "use": "Čistím si zuby."
   },
@@ -1804,6 +1919,7 @@
     "cs": "česat se / učesat se",
     "en": "comb hair",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "učešu se",
     "use": "Učešu se rychle."
   },
@@ -1812,6 +1928,7 @@
     "cs": "holit se / oholit se",
     "en": "shave",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "oholím se",
     "use": "Oholím se ráno."
   },
@@ -1820,6 +1937,7 @@
     "cs": "nosit",
     "en": "wear / carry",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "nosím + A",
     "use": "Nosím brýle."
   },
@@ -1828,6 +1946,7 @@
     "cs": "řídit",
     "en": "drive / manage",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "řídím + A",
     "use": "Řídím auto."
   },
@@ -1836,6 +1955,7 @@
     "cs": "zapínat / zapnout",
     "en": "turn on",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zapnu + A",
     "use": "Zapnu světlo."
   },
@@ -1844,6 +1964,7 @@
     "cs": "vypínat / vypnout",
     "en": "turn off",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vypnu + A",
     "use": "Vypnu telefon."
   },
@@ -1852,6 +1973,7 @@
     "cs": "tisknout / vytisknout",
     "en": "print",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "vytisknu + A",
     "use": "Vytisknu dokument."
   },
@@ -1860,6 +1982,7 @@
     "cs": "ukládat / uložit",
     "en": "save / store",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "uložím + A",
     "use": "Uložím soubor."
   },
@@ -1868,6 +1991,7 @@
     "cs": "opravovat / opravit",
     "en": "repair / fix",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "opravím + A",
     "use": "Opravím telefon."
   },
@@ -6028,6 +6152,7 @@
     "cs": "smát se",
     "en": "laugh / smile",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "směju se",
     "use": "Směju se."
   },
@@ -6036,6 +6161,7 @@
     "cs": "plakat",
     "en": "cry",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "pláču",
     "use": "Pláču."
   },
@@ -6044,6 +6170,7 @@
     "cs": "bát se",
     "en": "be afraid",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "bojím se",
     "use": "Bojím se."
   },
@@ -6052,6 +6179,7 @@
     "cs": "těšit se",
     "en": "look forward to",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "těším se na+A",
     "use": "Těším se na víkend."
   },
@@ -6060,6 +6188,7 @@
     "cs": "vadit",
     "en": "bother / matter",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "vadí mi",
     "use": "Vadí mi to."
   },
@@ -6252,6 +6381,7 @@
     "cs": "jmenovat se",
     "en": "be called / have name",
     "kind": "V reflexive",
+    "difficulty": 1,
     "cue": "jmenuji se",
     "use": "Jmenuji se Ana."
   },
@@ -6260,6 +6390,7 @@
     "cs": "stačit",
     "en": "be enough",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "stačí",
     "use": "To stačí."
   },
@@ -6268,6 +6399,7 @@
     "cs": "chybět",
     "en": "be missing",
     "kind": "V ipf",
+    "difficulty": 3,
     "cue": "chybí mi + N",
     "use": "Chybí mi klíč."
   },
@@ -6276,6 +6408,7 @@
     "cs": "zůstávat / zůstat",
     "en": "stay",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zůstanu",
     "use": "Zůstanu tady."
   },
@@ -6284,6 +6417,7 @@
     "cs": "vracet / vrátit",
     "en": "return something",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "vrátím + A",
     "use": "Vrátím klíč."
   },
@@ -6292,6 +6426,7 @@
     "cs": "vybírat / vybrat si",
     "en": "choose / pick",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "vyberu si + A",
     "use": "Vyberu si menu."
   },
@@ -6300,6 +6435,7 @@
     "cs": "rozhodovat se / rozhodnout se",
     "en": "decide",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "rozhodnu se",
     "use": "Rozhodnu se zítra."
   },
@@ -6308,6 +6444,7 @@
     "cs": "žádat / požádat",
     "en": "request / ask for",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "požádám o+A",
     "use": "Požádám o pomoc."
   },
@@ -6316,6 +6453,7 @@
     "cs": "dojít",
     "en": "reach by foot",
     "kind": "V pf motion",
+    "difficulty": 3,
     "cue": "dojdu do+G",
     "use": "Dojdu do hotelu."
   },
@@ -6324,6 +6462,7 @@
     "cs": "dojet",
     "en": "reach by vehicle",
     "kind": "V pf motion",
+    "difficulty": 3,
     "cue": "dojedu do+G",
     "use": "Dojedu do Prahy."
   },
@@ -6332,6 +6471,7 @@
     "cs": "poslouchat / poslechnout",
     "en": "listen",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "poslouchám + A",
     "use": "Poslouchám hudbu."
   },
@@ -6340,6 +6480,7 @@
     "cs": "hlásit / nahlásit",
     "en": "report",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "nahlásím + A",
     "use": "Nahlásím problém."
   },
@@ -6348,6 +6489,7 @@
     "cs": "stěžovat si / postěžovat si",
     "en": "complain",
     "kind": "V reflexive",
+    "difficulty": 3,
     "cue": "na+A",
     "use": "Chci si stěžovat."
   },
@@ -6356,6 +6498,7 @@
     "cs": "připravovat / připravit",
     "en": "prepare",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "připravím + A",
     "use": "Připravím dokument."
   },
@@ -6364,6 +6507,7 @@
     "cs": "kontrolovat / zkontrolovat",
     "en": "check",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "zkontroluji + A",
     "use": "Zkontroluji účet."
   },
@@ -6372,6 +6516,7 @@
     "cs": "plánovat / naplánovat",
     "en": "plan",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "naplánuji + A",
     "use": "Naplánuji cestu."
   },
@@ -6380,6 +6525,7 @@
     "cs": "vyzvedávat / vyzvednout",
     "en": "pick up",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "vyzvednu + A",
     "use": "Vyzvednu balíček."
   },
@@ -6716,6 +6862,7 @@
     "cs": "sdílet / nasdílet",
     "en": "share",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "nasdílím + A",
     "use": "Nasdílím polohu."
   },
@@ -6860,6 +7007,7 @@
     "cs": "pršet",
     "en": "rain",
     "kind": "V impersonal",
+    "difficulty": 2,
     "cue": "prší",
     "use": "Prší."
   },
@@ -6868,6 +7016,7 @@
     "cs": "sněžit",
     "en": "snow",
     "kind": "V impersonal",
+    "difficulty": 2,
     "cue": "sněží",
     "use": "Sněží."
   },
@@ -6876,6 +7025,7 @@
     "cs": "foukat",
     "en": "blow / be windy",
     "kind": "V ipf",
+    "difficulty": 2,
     "cue": "fouká",
     "use": "Fouká vítr."
   },
@@ -6892,6 +7042,7 @@
     "cs": "setkávat se / setkat se",
     "en": "meet",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "setkám se s+I",
     "use": "Setkám se s kamarádem."
   },
@@ -6900,6 +7051,7 @@
     "cs": "zvát / pozvat",
     "en": "invite",
     "kind": "V ipf→pf",
+    "difficulty": 2,
     "cue": "pozvu + A",
     "use": "Pozvu kamaráda."
   },
@@ -6908,6 +7060,7 @@
     "cs": "gratulovat / pogratulovat",
     "en": "congratulate",
     "kind": "V ipf→pf",
+    "difficulty": 3,
     "cue": "gratulovat + D",
     "use": "Gratuluji vám."
   },

@@ -369,7 +369,7 @@ class CaatuuBridge(
         val requiredModels = modelManager.requiredModelSpecs()
         val requiredAssets = staticAssetManager.requiredAssetSpecs()
         val (setupAnimationAssets, remainingAssets) = requiredAssets.partition {
-            it.assetPath.startsWith("assets/macaw/loading_animation/")
+            it.assetPath.startsWith("assets/loading_animation/")
         }
         val prioritizedAssets = setupAnimationAssets + remainingAssets
         val artifactCount = requiredModels.size + 2 + requiredAssets.size

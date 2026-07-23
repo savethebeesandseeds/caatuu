@@ -59,6 +59,9 @@ def model_entry(model_key: str, model: dict[str, Any], manifest: dict[str, Any],
         "status": model.get("status", "active"),
         "deprecated": bool(model.get("deprecated", False)),
         "replacement_status": model.get("replacement_status", ""),
+        # Legacy model definitions remain setup-required. New catalogs can
+        # explicitly make large weights optional without changing old builds.
+        "install_policy": model.get("install_policy", "setup_required"),
         "supports_thinking": bool(model.get("supports_thinking", False)),
         "runtime": manifest.get("runtime", "llama.cpp"),
         "format": manifest.get("format", "gguf"),

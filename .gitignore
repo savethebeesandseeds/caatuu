@@ -45,6 +45,11 @@ artifacts/
 # Heavy model, training, and generated workspaces
 apps/languages/czech/dumps/
 apps/languages/czech/static/data/models/
+!apps/languages/czech/static/data/models/
+apps/languages/czech/static/data/models/*
+!apps/languages/czech/static/data/models/phone-bench/
+apps/languages/czech/static/data/models/phone-bench/*
+!apps/languages/czech/static/data/models/phone-bench/models.json
 apps/languages/czech/static/data/embeddings/**/*.sqlite
 !apps/languages/czech/static/data/embeddings/caatuu-local-hash-v0.1/caatuu-cz-curriculum.sqlite
 !apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite

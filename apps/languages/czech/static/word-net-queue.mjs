@@ -165,16 +165,18 @@ export class WordNetBranchQueue {
     return this.entries.some((entry) => entry.id === id);
   }
 
-  take(word, { excludeFingerprints = [] } = {}) {
+  take(word, { excludeFingerprints = [], preferTranslated = false } = {}) {
     const key = this.keyFor(word);
     const excluded = new Set(excludeFingerprints.map((value) => String(value || "")).filter(Boolean));
     this.prune();
     const matches = this.entries.filter((entry) => key && entry.words.includes(key) && !excluded.has(entry.id));
     const primaryMatches = matches.filter((entry) => entry.word === key);
-    return this.use(this.choose(primaryMatches.length ? primaryMatches : matches));
+    const pool = primaryMatches.length ? primaryMatches : matches;
+    const translated = preferTranslated ? pool.filter((entry) => entry.translation) : [];
+    return this.use(this.choose(translated.length ? translated : pool));
   }
 
-  takeAny({ preferredWords = [], excludeWords = [], excludeFingerprints = [] } = {}) {
+  takeAny({ preferredWords = [], excludeWords = [], excludeFingerprints = [], preferTranslated = false } = {}) {
     const preferred = new Set(preferredWords.map((word) => this.keyFor(word)).filter(Boolean));
     const excludedWords = new Set(excludeWords.map((word) => this.keyFor(word)).filter(Boolean));
     const excludedSentences = new Set(excludeFingerprints.map((value) => String(value || "")).filter(Boolean));
@@ -184,7 +186,9 @@ export class WordNetBranchQueue {
       && !excludedSentences.has(entry.id)
     ));
     const preferredCandidates = candidates.filter((entry) => entry.words.some((word) => preferred.has(word)));
-    return this.use(this.choose(preferredCandidates.length ? preferredCandidates : candidates));
+    const pool = preferredCandidates.length ? preferredCandidates : candidates;
+    const translated = preferTranslated ? pool.filter((entry) => entry.translation) : [];
+    return this.use(this.choose(translated.length ? translated : pool));
   }
 
   markUsed(sentence) {

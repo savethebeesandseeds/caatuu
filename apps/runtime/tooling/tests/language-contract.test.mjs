@@ -7,7 +7,7 @@ const repoRoot = new URL("../../../../", import.meta.url);
 const czechStatic = new URL("apps/languages/czech/static/", repoRoot);
 const launcherStatic = new URL("apps/launcher/static/", repoRoot);
 
-const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html"];
+const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html"];
 const [registrySource, profileSource, learningProfile, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
   readFile(new URL("languages.json", launcherStatic), "utf8"),
   readFile(new URL("course-profile.js", czechStatic), "utf8"),
@@ -49,8 +49,9 @@ test("public registry and Czech course profile describe the same active app", ()
   assert.equal(publicCourse.sourceLanguage.id, course.sourceLanguage.id);
   assert.deepEqual([...publicCourse.capabilities].sort(), Object.keys(course.capabilities).filter((key) => course.capabilities[key]).sort());
   assert.deepEqual(publicCourse.platforms.android.channels, [
-    { manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" }
-  ], "the public launcher must not silently fall back to a debug APK");
+    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" },
+    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk" }
+  ], "the public launcher must label its gated preview channel explicitly");
 });
 
 test("course profile is immutable and owns language-scoped persistence", () => {
@@ -74,18 +75,21 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-3"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-1"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-5"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-2"');
     const runtimeIndex = source.indexOf('src="runtime.js');
+    const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-6"');
     const chromeIndex = source.indexOf('src="chrome.js');
     assert.ok(profileIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > profileIndex, `${name} must load learning state after the course profile`);
     assert.ok(runtimeIndex > profileIndex, `${name} must load the profile before runtime.js`);
-    assert.ok(chromeIndex > learningIndex, `${name} must load learning state before chrome.js`);
+    assert.ok(semanticIndex > runtimeIndex, `${name} must load semantic state after runtime.js`);
+    assert.ok(chromeIndex > semanticIndex, `${name} must load semantic state before chrome.js`);
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-3/);
-  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-1/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-5/);
+  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-2/);
+  assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-6/);
 });
 
 test("launcher discovers active languages instead of embedding product behavior", () => {
@@ -93,9 +97,25 @@ test("launcher discovers active languages instead of embedding product behavior"
   assert.match(launcher, /registry\.languages\.filter\(\(language\) => language\.status === "active"\)/);
   assert.match(launcher, /browserEntry\.href = browser\?\.enabled \? browser\.entryPath : language\.entryPath/);
   assert.match(launcher, /android\.channels/);
-  assert.match(launcher, /manifest\?\.build_type !== "release"/);
-  assert.match(launcher, /manifest\?\.debuggable !== false/);
+  assert.match(launcher, /channel\.kind === "preview"/);
+  assert.match(launcher, /manifest\.build_type === "debug" && manifest\.debuggable === true/);
+  assert.match(launcher, /manifest\.build_type === "release" && manifest\.debuggable === false/);
   assert.doesNotMatch(launcher, /caatuu-debug/);
+});
+
+test("launcher recovers from stale normal-browser availability state", () => {
+  assert.match(launcher, /function freshRequestUrl\(path, purpose = "availability"\)/);
+  assert.match(launcher, /function versionedArtifactUrl\(path, manifest\)/);
+  assert.match(launcher, /caatuu_release/);
+  assert.match(launcher, /Check Android download again/);
+  assert.match(launcher, /window\.addEventListener\("pageshow"/);
+  assert.match(launcher, /document\.addEventListener\("visibilitychange"/);
+  assert.match(launcher, /removeLegacyRootServiceWorker/);
+  assert.match(launcher, /scopePath === "\/" \? registration\.unregister\(\)/);
+  assert.match(routes, /HeaderValue::from_static\("no-store, max-age=0"\)/);
+  assert.match(chrome, /caatuu_release/);
+  assert.match(chrome, /caatuu:settings-open/);
+  assert.match(chrome, /action\.textContent = "Check again"/);
 });
 
 test("runtime and Android mount the language declared by their build contracts", () => {

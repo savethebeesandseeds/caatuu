@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schema/word-world/standard-record-v1.json",
+  "title": "Caatuu Word World canonical multilingual record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "languages", "difficulty", "cefr", "topic", "targets", "learning", "grammar", "scene", "provenance", "review"],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-word-world-record-v1"},
+    "id": {"type": "string", "pattern": "^ww-[a-z0-9-]+$"},
+    "languages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "cs"],
+      "properties": {
+        "en": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text", "alternates"],
+          "properties": {
+            "text": {"type": "string", "minLength": 1},
+            "alternates": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+          }
+        },
+        "cs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {"text": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "difficulty": {"type": "integer", "minimum": 1, "maximum": 3},
+    "cefr": {"type": "string", "enum": ["Pre-A1", "Pre-A1/A1", "A1", "A1/A2", "A2"]},
+    "topic": {"type": "string", "minLength": 1},
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface", "normalized", "tokenIndex", "playable"],
+        "properties": {
+          "surface": {"type": "string", "minLength": 1},
+          "normalized": {"type": "string", "minLength": 1},
+          "tokenIndex": {"type": "integer", "minimum": 0},
+          "playable": {"type": "boolean"}
+        }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objective", "skillFocus", "ageBand", "progression", "support"],
+      "properties": {
+        "objective": {"type": "string", "minLength": 1},
+        "skillFocus": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "ageBand": {"type": "string", "minLength": 1},
+        "progression": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "rationale", "prerequisites"],
+          "properties": {
+            "level": {"type": "integer", "minimum": 1, "maximum": 3},
+            "rationale": {"type": "string", "minLength": 1},
+            "prerequisites": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "support": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["translationAvailable", "imageSuitable", "audioSuitable", "dictionarySuitable"],
+          "properties": {
+            "translationAvailable": {"type": "boolean"},
+            "imageSuitable": {"type": "boolean"},
+            "audioSuitable": {"type": "boolean"},
+            "dictionarySuitable": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "grammar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tags", "sentenceType", "clauseCount"],
+      "properties": {
+        "tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "sentenceType": {"type": "string", "enum": ["statement", "question", "imperative", "formula"]},
+        "clauseCount": {"type": "integer", "minimum": 1, "maximum": 3}
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query", "assetIds"],
+      "properties": {
+        "query": {"type": "string"},
+        "assetIds": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceName", "sourceIds", "sourceLicense", "sourceType", "transformation"],
+      "properties": {
+        "sourceName": {"type": "string", "minLength": 1},
+        "sourceIds": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "sourceLicense": {"type": "string", "minLength": 1},
+        "sourceType": {"type": "string", "minLength": 1},
+        "transformation": {"type": "string", "minLength": 1}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedOn", "humanApproved", "checks", "notes"],
+      "properties": {
+        "status": {"type": "string", "enum": ["candidate", "codex_reviewed", "human_approved", "rejected"]},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewedOn": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "humanApproved": {"type": "boolean"},
+        "checks": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "notes": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

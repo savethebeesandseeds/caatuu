@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  background: var(--theme-page, #f5efe5);
+  color: var(--theme-ink, #17201d);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.verb-difficulty-page {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.verb-difficulty-page .app-header {
+  position: relative;
+}
+
+.verb-difficulty-page .app-header::after {
+  content: attr(data-verb-difficulty-title);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--theme-ink, #17201d);
+  font-size: clamp(0.92rem, 3vw, 1.16rem);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.verb-difficulty-main {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 14px clamp(12px, 3.5vw, 28px) 28px;
+}
+
+.verb-difficulty-hero,
+.verb-difficulty-group {
+  border: 1px solid var(--theme-line, #cfd8d1);
+  border-radius: 12px;
+  background: var(--theme-panel, #fffdf8);
+}
+
+.verb-difficulty-hero {
+  padding: clamp(16px, 4vw, 24px);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.verb-difficulty-kicker,
+.verb-difficulty-level {
+  margin: 0 0 5px;
+  color: var(--theme-green-strong, #1c4a40);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.verb-difficulty-hero h1,
+.verb-difficulty-group h2 {
+  margin: 0;
+  line-height: 1.08;
+}
+
+.verb-difficulty-hero h1 {
+  font-size: clamp(1.35rem, 5vw, 2.25rem);
+}
+
+.verb-difficulty-hero p:last-child {
+  max-width: 630px;
+  margin: 8px 0 0;
+  color: var(--theme-muted, #5d6b65);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+#verbDifficultyTotal,
+.verb-difficulty-count {
+  flex: 0 0 auto;
+  border: 1px solid var(--theme-control-border, #b8c5bd);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--theme-control-bg, #fffefa);
+  color: var(--theme-green-strong, #1c4a40);
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.verb-difficulty-groups {
+  margin-top: 14px;
+  display: grid;
+  gap: 14px;
+}
+
+.verb-difficulty-group {
+  overflow: hidden;
+}
+
+.verb-difficulty-group-head {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: color-mix(in srgb, var(--theme-green, #2d6a5b) 7%, transparent);
+}
+
+.verb-difficulty-group h2 {
+  font-size: 1.02rem;
+}
+
+.verb-difficulty-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.verb-difficulty-row {
+  min-width: 0;
+  padding: 11px 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--theme-line, #cfd8d1) 76%, transparent);
+}
+
+.verb-difficulty-row:nth-child(odd) {
+  border-right: 1px solid color-mix(in srgb, var(--theme-line, #cfd8d1) 76%, transparent);
+}
+
+.verb-difficulty-czech,
+.verb-difficulty-english {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.verb-difficulty-czech {
+  color: var(--theme-green-strong, #1c4a40);
+  font-weight: 900;
+}
+
+.verb-difficulty-english {
+  color: var(--theme-ink, #17201d);
+}
+
+.verb-difficulty-empty,
+.verb-difficulty-error {
+  margin: 0;
+  padding: 18px;
+  color: var(--theme-muted, #5d6b65);
+}
+
+@media (max-width: 620px) {
+  .verb-difficulty-hero {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .verb-difficulty-list {
+    grid-template-columns: 1fr;
+  }
+
+  .verb-difficulty-row:nth-child(odd) {
+    border-right: 0;
+  }
+}
+
+html[data-theme="dark"] .verb-difficulty-group-head {
+  background: color-mix(in srgb, var(--theme-green, #5bd68e) 8%, transparent);
+}

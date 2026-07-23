@@ -7,13 +7,13 @@ const [chrome, chromeCss, serviceWorker, ...pages] = await Promise.all([
   readFile(new URL("chrome.js", staticRoot), "utf8"),
   readFile(new URL("chrome.css", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
-  ...["chat.html", "embedding-images.html", "home.html", "index.html", "word-net.html"]
+  ...["chat.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html"]
     .map((file) => readFile(new URL(file, staticRoot), "utf8"))
 ]);
 
 test("Games remembers and restores the active game without resetting an open game", () => {
   assert.match(chrome, /navigation\.active-game\.v1/);
-  assert.match(chrome, /"verb-lab"[\s\S]*?href: `index\.html\?\$\{gameNavigationQueryKey\}=verb-lab#verbs`/);
+  assert.match(chrome, /"verb-lab"[\s\S]*?href: `index\.html\?\$\{gameNavigationQueryKey\}=verb-lab`/);
   assert.match(chrome, /"word-net"[\s\S]*?href: "word-net\.html"/);
   assert.match(chrome, /item\.key === "games"[\s\S]*?gameNavigationHref\(\)/);
   assert.match(chrome, /activeGameId && activeGameId !== "galaxy"[\s\S]*?event\.preventDefault\(\)[\s\S]*?event\.stopImmediatePropagation\(\)/);
@@ -28,6 +28,13 @@ test("the game back arrow alone returns navigation memory to the planets", () =>
   assert.match(chrome, /const trainTarget = event\.target\.closest\?\.\("\[data-train-tab\]"\)/);
 });
 
+test("Android back gestures activate the same visible game back control", () => {
+  assert.match(chrome, /function handleAndroidBack\(\)/);
+  assert.match(chrome, /\.app-header-back:not\(\[hidden\]\)/);
+  assert.match(chrome, /back\.click\(\)/);
+  assert.match(chrome, /handleAndroidBack/);
+});
+
 test("shared game titles use the matching small planet artwork", () => {
   assert.match(chrome, /title: "Verb Nebula"[\s\S]*?iconSrc: "\/assets\/planets\/nebula\.png"/);
   assert.match(chrome, /title: "Word World"[\s\S]*?iconSrc: "\/assets\/planets\/planet_A\.png"/);
@@ -38,10 +45,16 @@ test("shared game titles use the matching small planet artwork", () => {
 
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-42/);
-    assert.match(page, /chrome\.js\?v=chrome-48/);
+    assert.match(page, /chrome\.css\?v=chrome-style-60/);
+    assert.match(page, /chrome\.js\?v=chrome-66/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-42/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-48/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-60/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-66/);
+});
+
+test("shared headers stay focused while each game owns its theme control", () => {
+  assert.doesNotMatch(chrome, /actions\.append\(theme, language\)/);
+  assert.match(pages.find((page) => page.includes("trainPanelGalaxy")), /data-theme-toggle/);
+  assert.match(pages.find((page) => page.includes("word-net-page")), /data-theme-toggle/);
 });

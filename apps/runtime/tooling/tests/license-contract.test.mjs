@@ -22,7 +22,8 @@ const [
   chat,
   chatHtml,
   routes,
-  modelConfigsSource
+  modelConfigsSource,
+  wordWorldManifestSource
 ] = await Promise.all([
   read("LICENSE"),
   read("docs/LICENSING.md"),
@@ -37,11 +38,13 @@ const [
   read("apps/languages/czech/static/chat.js"),
   read("apps/languages/czech/static/chat.html"),
   read("apps/runtime/src/routes/mod.rs"),
-  read("tools/on-device-models/model-configs.json")
+  read("tools/on-device-models/model-configs.json"),
+  read("apps/languages/czech/static/data/word-world/manifest.json")
 ]);
 
 const languages = JSON.parse(languagesSource);
 const modelConfigs = JSON.parse(modelConfigsSource);
+const wordWorldManifest = JSON.parse(wordWorldManifestSource);
 
 test("first-party software is AGPL-3.0-only with explicit scope boundaries", () => {
   assert.match(rootLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
@@ -71,16 +74,36 @@ test("product UI presents AGPL code terms without relicensing models or branding
   assert.match(chat, /derived artifact review pending/);
 });
 
-test("public Android discovery accepts only a non-debuggable release channel", () => {
+test("Settings identifies the shipped Standard Word World corpus and its review state", () => {
+  assert.match(app, /key: "caatuu-word-world-standard-v0\.1"/);
+  assert.match(app, /label: "Word World Standard Corpus"/);
+  assert.match(app, /Caatuu-authored and Codex-authored reviewed bilingual learning sentences/);
+  assert.match(app, /sourceUrl: "data\/word-world\/manifest\.json"/);
+  assert.match(app, /license: "MIT source license"/);
+  assert.match(app, /Standard Word World guided offline sentences/);
+  assert.match(app, new RegExp(`Corpus standard-v0\\.1 · ${wordWorldManifest.recordCount} rows`));
+  for (const [level, count] of Object.entries(wordWorldManifest.difficultyDistribution)) {
+    assert.match(app, new RegExp(`L${level} ${count}`));
+  }
+  assert.match(app, /artifactKind: "guided-learning-corpus"/);
+  assert.match(app, new RegExp(`entryCount: ${wordWorldManifest.recordCount}`));
+  assert.match(app, /runtimeArtifactKeys\.has\(wordWorldStandardArtifact\.key\)/);
+});
+
+test("public Android discovery distinguishes stable and gated preview channels", () => {
   const czech = languages.languages.find((language) => language.id === "cz");
   assert.ok(czech);
   assert.deepEqual(czech.platforms.android.channels, [
-    { manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" }
+    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" },
+    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk" }
   ]);
   assert.doesNotMatch(index, /caatuu-debug\.apk/);
-  assert.match(index, /Checking signed beta/);
-  assert.match(launcher, /manifest\?\.build_type !== "release"/);
-  assert.match(launcher, /manifest\?\.debuggable !== false/);
+  assert.match(index, /Checking Android build/);
+  assert.match(launcher, /channel\.kind === "preview"/);
+  assert.match(launcher, /manifest\.build_type === "debug" && manifest\.debuggable === true/);
+  assert.match(launcher, /manifest\.build_type === "release" && manifest\.debuggable === false/);
+  assert.match(launcher, /versionedArtifactUrl/);
+  assert.match(launcher, /caatuu_release/);
   assert.doesNotMatch(launcher, /caatuu-debug/);
 });
 

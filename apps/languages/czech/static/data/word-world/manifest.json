@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "caatuu-word-world-runtime-manifest-v1",
+  "corpusVersion": "standard-v0.1",
+  "mode": "standard",
+  "runtimeFile": "standard-v0.1/records.json?v=01b7901834527668",
+  "recordCount": 760,
+  "contentSha256": "01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
+  "difficultyDistribution": {
+    "1": 175,
+    "2": 533,
+    "3": 52
+  },
+  "difficultyShare": {
+    "1": 0.230263,
+    "2": 0.701316,
+    "3": 0.068421
+  },
+  "minimumLevel2Share": 0.6,
+  "minimumLevel3Records": 50,
+  "playableTargets": 570,
+  "branchability": {
+    "branchableMinimumRecords": 2,
+    "branchableTargets": 360,
+    "strongMinimumRecords": 5,
+    "strongTargets": 24
+  },
+  "translationIncluded": true,
+  "sceneQueriesIncluded": true,
+  "reviewStatus": "codex_reviewed",
+  "humanApproved": false,
+  "authoringSchema": "caatuu-word-world-record-v1"
+}

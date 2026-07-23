@@ -8,8 +8,13 @@ apps, manifests, and persisted data continue to work.
 | Physical source | Stable public URL |
 | --- | --- |
 | `language-mascots/` | `/assets/aliens/` |
-| `macaw/loading-animation/` | `/assets/macaw/loading_animation/` |
+| `loading-animation/` | `/assets/loading_animation/` |
 | `visual-vocabulary/` | `/assets/miscellaneous/` |
+
+Within `loading-animation/`, every immediate child folder beginning with
+`animation` is an animation sequence. `animations_manifest.json` is generated
+from those folders, and frames play by the final number in each filename;
+numeric gaps are valid.
 
 The Rust router, setup-manifest generator, Android packaging, and Czech vector
 database builder all implement this compatibility map. Change a public prefix

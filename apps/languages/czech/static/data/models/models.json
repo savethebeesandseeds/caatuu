@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "status": "final-webllm-export-ready",
+  "ml_workspace": "../../../../../tools/czech-ml/data/models",
+  "notes": [
+    "The full Qwen/Qwen3-1.7B LoRA adapter lives in the ML workspace; this static app keeps only browser metadata and the WebLLM export.",
+    "The browser demo includes saved benchmark data and the generated MLC/WebLLM q4f16_1 export.",
+    "Use this file to record the exact base model, Czech adapter, merged export, quantization, checksums, licenses, and evaluation results."
+  ],
+  "export_standard": {
+    "spec": "export-spec.json",
+    "tool": "../../../../../tools/czech-ml/scripts/ml/export_webllm.py",
+    "windows_wrapper": "../../../../../tools/czech-ml/scripts/ml/export-webllm.ps1",
+    "default_run_id": "qwen3-1.7b-lora-003-hard",
+    "runtime": "webllm",
+    "ready_condition": "resolve/<servable_revision>/mlc-chat-config.json + resolve/<servable_revision>/tensor-cache.json + resolve/<servable_revision>/params_shard_*.bin + tokenizer files + compatible model_lib",
+    "docker_runner": "../../../../../tools/czech-ml/scripts/ml/export-webllm-docker.ps1",
+    "finalizer": "../../../../../tools/czech-ml/scripts/finalize-webllm-export.mjs"
+  },
+  "targets": {
+    "english_base": {
+      "directory": "english-base",
+      "status": "selected",
+      "role": "Base English/instruction model before Czech adaptation.",
+      "selected_model": {
+        "id": "Qwen/Qwen3-1.7B",
+        "provider": "Qwen",
+        "license": "apache-2.0",
+        "source": "https://huggingface.co/Qwen/Qwen3-1.7B",
+        "selection_reason": "Selected for the first benchmark because it is a normal text-generation model, Apache-2.0, small enough for LoRA on the local RTX A2000 8GB GPU, and has an existing GGUF baseline already tested locally.",
+        "local_training_target": "LoRA SFT, text-only, fp16, short context, batch size 1",
+        "selected_on": "2026-06-30"
+      },
+      "candidate_notes": [
+        "Qwen3.5-2B was considered, but its Hugging Face metadata tags it as image-text-to-text, which is not the cleanest first target for a text-only LoRA benchmark.",
+        "Qwen3-1.7B is the first text-only training target because it should fit the local 8GB GPU.",
+        "Qwen3-4B remains the stretch target if 1.7B improves but is still too weak.",
+        "Qwen3-4B Q4 was the smallest model previously tested that showed partial Czech behavior, but it was not reliable enough without fine-tuning."
+      ],
+      "expected_files": [
+        "model.gguf or runtime-specific model artifact",
+        "tokenizer files if the runtime requires them",
+        "model-card.json"
+      ]
+    },
+    "czech_finetuned": {
+      "directory": "czech-finetuned",
+      "status": "final-webllm-export-ready",
+      "role": "Czech LoRA, merged model, or mobile export trained from Caatuu Czech examples.",
+      "planned_base_model": "Qwen/Qwen3-1.7B",
+      "planned_training_method": "LoRA supervised fine-tuning",
+      "planned_gpu": {
+        "name": "NVIDIA RTX A2000 8GB Laptop GPU",
+        "vram_mib": 8192
+      },
+      "training_sources": [
+        "../../../../../tools/czech-ml/data/corpus/processed/czech_seed_corpus.jsonl",
+        "../../../../../tools/czech-ml/data/corpus/processed/czech_seed_sentences.txt"
+      ],
+      "prepared_dataset": {
+        "path": "../../../../../tools/czech-ml/data/models/czech-finetuned/training-data",
+        "train_examples": 7787,
+        "val_examples": 80,
+        "total_examples": 7867,
+        "prepared_after_run": "qwen3-1.7b-lora-002-full",
+        "used_by_latest_run": true,
+        "used_by_run": "qwen3-1.7b-lora-003-hard",
+        "note": "The expanded SFT dataset was used by qwen3-1.7b-lora-003-hard."
+      },
+      "latest_run": {
+        "id": "qwen3-1.7b-lora-003-hard",
+        "adapter": "czech-finetuned/runs/qwen3-1.7b-lora-003-hard/adapter/adapter_config.json",
+        "ml_adapter": "../../../../../tools/czech-ml/data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/adapter",
+        "training_run": "czech-finetuned/runs/qwen3-1.7b-lora-003-hard/training-run.json",
+        "base_benchmark": "benchmarks/base-qwen3-1.7b.json",
+        "language_benchmark": "benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.json",
+        "language_benchmark_report": "benchmarks/czech-language-benchmark-qwen3-1.7b-lora-003-hard.md",
+        "browser_demo_id": "caatuu-czech-qwen3-1.7b-lora-003-hard",
+        "export_spec": "export-spec.json",
+        "export_manifest": "czech-finetuned/exports/qwen3-1.7b-lora-003-hard/export-manifest.json",
+        "merged_hf_dir": "../../../../../tools/czech-ml/data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/merged-hf",
+        "webllm_model_dir": "czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003",
+        "webllm_model_url": "data/models/czech-finetuned/exports/qwen3-1.7b-lora-003-hard/webllm/Caatuu-Czech-Qwen3-1.7B-q4f16_1-MLC-003/resolve/caatuu-v1/",
+        "runtime_status": "webllm-export-ready",
+        "training_steps": 3200,
+        "training_seconds": 9189.2288,
+        "best_validation_loss": 0.10792277008295059,
+        "best_checkpoint": "../../../../../tools/czech-ml/data/models/czech-finetuned/runs/qwen3-1.7b-lora-003-hard/checkpoints/checkpoint-2600",
+        "language_benchmark_overall": 1.0,
+        "language_benchmark_pass_at_0_8": "16/16",
+        "previous_run": "qwen3-1.7b-lora-002-full",
+        "status": "best-local-czech-webllm-candidate"
+      },
+      "expected_files": [
+        "adapter or merged model artifact",
+        "training-config.json",
+        "eval-results.json",
+        "model-card.json"
+      ]
+    }
+  }
+}

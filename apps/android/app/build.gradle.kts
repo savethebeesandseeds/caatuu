@@ -15,6 +15,9 @@ val generatedLanguageAssetsDir = layout.buildDirectory.dir("generated/assets/caa
 val workspaceRootDir = layout.projectDirectory.dir("../../..")
 val setupAssetManifest = languageStaticDir.file("setup-assets.json")
 val setupAssetRefreshScript = workspaceRootDir.file("apps/runtime/tooling/refresh-setup-assets.mjs")
+val staticModelCatalog = languageStaticDir.file("data/models/phone-bench/models.json")
+val modelCatalogConfig = workspaceRootDir.file("tools/on-device-models/model-configs.json")
+val modelCatalogCheckScript = workspaceRootDir.file("apps/runtime/tooling/check-static-model-catalog.mjs")
 val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
 val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
@@ -44,7 +47,7 @@ val hasReleaseSigning = listOf(
     releaseKeystorePassword,
     releaseKeyAlias,
     releaseKeyPassword,
-).all { it.isPresent }
+).all { provider -> provider.orNull?.isNotBlank() == true }
 
 fun buildConfigString(value: String): String =
     "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
@@ -77,8 +80,8 @@ val refreshSetupAssetManifest by tasks.registering(Exec::class) {
                 url.startsWith("/assets/aliens/") -> launcherStaticDir.file(
                     "assets/language-mascots/${url.removePrefix("/assets/aliens/")}"
                 ).asFile
-                url.startsWith("/assets/macaw/loading_animation/") -> launcherStaticDir.file(
-                    "assets/macaw/loading-animation/${url.removePrefix("/assets/macaw/loading_animation/")}"
+                url.startsWith("/assets/loading_animation/") -> launcherStaticDir.file(
+                    "assets/loading-animation/${url.removePrefix("/assets/loading_animation/")}"
                 ).asFile
                 url.startsWith("/assets/miscellaneous/") -> launcherStaticDir.file(
                     "assets/visual-vocabulary/${url.removePrefix("/assets/miscellaneous/")}"
@@ -92,8 +95,25 @@ val refreshSetupAssetManifest by tasks.registering(Exec::class) {
     outputs.file(setupAssetManifest)
 }
 
+val verifyStaticModelCatalog by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Fail the Android build when the shipped model catalog is missing or stale."
+    workingDir(workspaceRootDir)
+    commandLine(
+        "node",
+        modelCatalogCheckScript.asFile.absolutePath,
+        "--config",
+        modelCatalogConfig.asFile.absolutePath,
+        "--catalog",
+        staticModelCatalog.asFile.absolutePath,
+    )
+    inputs.file(modelCatalogCheckScript)
+    inputs.file(modelCatalogConfig)
+    inputs.file(staticModelCatalog)
+}
+
 val syncLanguageAssets by tasks.registering(Sync::class) {
-    dependsOn(refreshSetupAssetManifest)
+    dependsOn(refreshSetupAssetManifest, verifyStaticModelCatalog)
     from(languageStaticDir) {
         exclude("data/models/**/*.gguf")
         exclude("data/models/**/*.bin")
@@ -116,9 +136,12 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
             "czech_flag.png",
             "dark_mode.png",
             "games_icon.png",
+            "gear_icon.png",
             "hello.png",
             "home_icon.png",
-            "settings_icon.png",
+            "backpack_icon.png",
+            "items_icon.png",
+            "stats_icon.png",
         )
         into("assets/icons")
     }
@@ -133,8 +156,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 122
-        versionName = "0.1.121"
+        versionCode = 129
+        versionName = "0.1.128"
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))
@@ -228,12 +251,30 @@ android {
     }
 }
 
+gradle.taskGraph.whenReady {
+    val releasePackagingRequested = allTasks.any { task ->
+        val taskName = task.name.lowercase()
+        val releaseOrPlay = taskName.contains("release") || taskName.contains("play")
+        val packagesApplication = listOf("assemble", "bundle", "package", "sign")
+            .any(taskName::contains)
+        releaseOrPlay && packagesApplication
+    }
+    if (releasePackagingRequested && !hasReleaseSigning) {
+        throw GradleException(
+            "Release and Play packaging require nonblank CAATUU_ANDROID_KEYSTORE, " +
+                "CAATUU_ANDROID_KEYSTORE_PASSWORD, CAATUU_ANDROID_KEY_ALIAS, and " +
+                "CAATUU_ANDROID_KEY_PASSWORD.",
+        )
+    }
+}
+
 tasks.named("preBuild").configure {
     dependsOn(syncLanguageAssets)
 }
 
 dependencies {
     implementation(project(":llamaLib"))
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
 }

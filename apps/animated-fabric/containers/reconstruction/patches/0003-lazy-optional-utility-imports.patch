@@ -1,0 +1,32 @@
+diff --git a/tsr/utils.py b/tsr/utils.py
+--- a/tsr/utils.py
++++ b/tsr/utils.py
+@@ -4,10 +4,8 @@ from collections import defaultdict
+ from dataclasses import dataclass
+ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+ 
+-import imageio
+ import numpy as np
+ import PIL.Image
+-import rembg
+ import torch
+ import torch.nn as nn
+ import torch.nn.functional as F
+@@ -421,6 +419,8 @@ def remove_background(
+     if image.mode == "RGBA" and image.getextrema()[3][0] < 255:
+         do_remove = False
+     do_remove = do_remove or force
+     if do_remove:
++        import rembg
++
+         image = rembg.remove(image, session=rembg_session, **rembg_kwargs)
+     return image
+@@ -458,6 +458,8 @@ def save_video(
+     fps: int = 30,
+ ):
+     # use imageio to save video
++    import imageio
++
+     frames = [np.array(frame) for frame in frames]
+     writer = imageio.get_writer(output_path, fps=fps)
+     for frame in frames:

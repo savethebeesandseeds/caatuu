@@ -1,6 +1,6 @@
 # Vector Quality Notes
 
-Generated: 2026-07-14T12:26:49.404Z
+Generated: 2026-07-22T05:42:32.369Z
 
 Rows: 5000
 Vector DB: `apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite`

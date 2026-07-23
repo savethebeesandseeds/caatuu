@@ -1464,8 +1464,8 @@ function publicAssetPathForSource(sourcePath) {
   if (sourcePath.startsWith("assets/language-mascots/")) {
     return `assets/aliens/${sourcePath.slice("assets/language-mascots/".length)}`;
   }
-  if (sourcePath.startsWith("assets/macaw/loading-animation/")) {
-    return `assets/macaw/loading_animation/${sourcePath.slice("assets/macaw/loading-animation/".length)}`;
+  if (sourcePath.startsWith("assets/loading-animation/")) {
+    return `assets/loading_animation/${sourcePath.slice("assets/loading-animation/".length)}`;
   }
   if (sourcePath.startsWith("assets/visual-vocabulary/")) {
     return `assets/miscellaneous/${sourcePath.slice("assets/visual-vocabulary/".length)}`;
@@ -1477,8 +1477,8 @@ function sourceAssetPathForPublic(publicPath) {
   if (publicPath.startsWith("assets/aliens/")) {
     return `assets/language-mascots/${publicPath.slice("assets/aliens/".length)}`;
   }
-  if (publicPath.startsWith("assets/macaw/loading_animation/")) {
-    return `assets/macaw/loading-animation/${publicPath.slice("assets/macaw/loading_animation/".length)}`;
+  if (publicPath.startsWith("assets/loading_animation/")) {
+    return `assets/loading-animation/${publicPath.slice("assets/loading_animation/".length)}`;
   }
   if (publicPath.startsWith("assets/miscellaneous/")) {
     return `assets/visual-vocabulary/${publicPath.slice("assets/miscellaneous/".length)}`;

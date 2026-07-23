@@ -13,6 +13,7 @@
 .venv
 .venvs
 .vscode
+assets/actor-packages
 htmlcov
 model-cache
 workspaces

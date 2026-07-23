@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Verb Difficulty - Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-5"></script>
+    <script src="learning-profile.js?v=learning-2"></script>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+  <script src="runtime.js?v=runtime-30"></script>
+  <script src="semantic-learning.js?v=semantic-learning-6"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-4">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-60">
+    <link rel="stylesheet" href="verb-difficulty.css?v=verb-difficulty-1">
+  </head>
+  <body>
+    <div class="verb-difficulty-page">
+      <header class="app-header" data-caatuu-app-header data-verb-difficulty-title="Verb Difficulty"></header>
+
+      <main class="verb-difficulty-main" aria-labelledby="verbDifficultyTitle">
+        <header class="verb-difficulty-hero">
+          <div>
+            <p class="verb-difficulty-kicker">Developer</p>
+            <h1 id="verbDifficultyTitle">Verb difficulty catalog</h1>
+            <p>Each Core verb belongs to one level. Verb Nebula includes that level and every level below it.</p>
+          </div>
+          <output id="verbDifficultyTotal" aria-live="polite">Loading…</output>
+        </header>
+
+        <div class="verb-difficulty-groups" id="verbDifficultyGroups" aria-live="polite"></div>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">&trade;</sup></span>
+        </a>
+      </footer>
+    </div>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="settings"
+      data-settings-target="openSettings"
+    ></nav>
+
+    <div data-caatuu-settings-panel hidden></div>
+
+  <script src="chrome.js?v=chrome-66"></script>
+    <script src="maintenance-ui.js?v=maintenance-14"></script>
+    <script type="module" src="verb-difficulty.js?v=verb-difficulty-3"></script>
+  </body>
+</html>

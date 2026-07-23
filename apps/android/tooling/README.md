@@ -7,8 +7,10 @@ bootstrap or recovery path. Both mount the checkout at `/workspace`.
 
 The app package stays light: it includes the Czech WebView UI and native
 llama.cpp bridge for the target phone ABI, but it does not bundle GGUF weights
-or browser WebLLM exports. The first model download is stored in app-private
-storage and checked against the SHA-256 in the Android code.
+or browser WebLLM exports. Initial setup installs the shared assets, Czech to
+English dictionary, and embedding pack. Generation models are optional,
+on-demand artifacts: choosing a generative activity starts its model download,
+stores it in app-private storage, and checks it against the catalog SHA-256.
 
 ## Plan
 
@@ -62,6 +64,15 @@ Before running it, increment `versionCode` and `versionName` in
 equal or newer public version. For an intentional same-version repair, pass
 `ALLOW_SAME_VERSION=1` to the Linux process.
 
+The public-preview publisher is intentionally fail-closed about signing. It
+requires the existing ignored
+`artifacts/android/caatuu-debug.keystore` and verifies the built APK against
+the tracked, non-secret certificate fingerprint in
+`apps/android/tooling/public-debug-certificate.sha256`. If the keystore is
+missing or the fingerprint differs, restore the original keystore; do not
+generate a replacement for an update. A replacement key starts a new install
+lineage and existing phones cannot accept it as an update.
+
 ```bash
 docker exec -e ALLOW_SAME_VERSION=1 caatuu-dev bash -lc \
   'cd /workspace && bash apps/android/tooling/publish-public-debug.sh'
@@ -74,12 +85,24 @@ The helper performs the complete publication contract:
 2. Runs `build-public-debug-apk.sh` inside that container.
 3. Requires the public runtime's immutable-publication capability before it
    changes any artifacts.
-4. Publishes the APK at a version-owned URL such as
+4. Requires the established debug keystore and verifies its public certificate
+   fingerprint before any artifact is finalized.
+5. Serializes artifact finalization with a Linux publication lock so concurrent
+   builds cannot race the immutable-version check.
+6. Publishes the APK at a version-owned URL such as
    `/android/debug-releases/112/caatuu-debug.apk`; a version code can never be
    overwritten with different bytes.
-5. Publishes the small latest-version manifest last, then downloads both the
+7. Publishes the small latest-version manifest last, then downloads both the
    immutable APK and the manual-download alias and verifies SHA-256 and byte
    count before running the public runtime-boundary audit.
+
+The gated runtime exposes the same published pair through two names:
+
+- `/android/caatuu-debug.json` and `/android/caatuu-debug.apk` remain the
+  compatibility contract used by installed debug-signing-lineage apps.
+- `/android/caatuu-preview.json` and `/android/caatuu-preview.apk` are the
+  user-facing aliases used by the website. They are labeled **preview**, never
+  release or beta, and disappear when the debug-download gate is disabled.
 
 This split is deliberate: the manifest is mutable and answers "what is
 latest?", while every APK URL is immutable and answers "what exact bytes did
@@ -329,6 +352,12 @@ latest manual-download alias.
   signing continuity and makes an unsafe artifact look like a release.
 - Never reuse a `versionCode` for changed bytes. Both build scripts refuse to
   replace an existing immutable APK whose SHA-256 differs.
+- Both build scripts serialize the immutable check and final artifact moves
+  through `artifacts/android/.artifact-publication.lock`; do not bypass that
+  lock with manual copies.
+- The public debug wrapper pins the installed certificate lineage. Treat a
+  missing keystore or fingerprint mismatch as a recovery task, never as
+  permission to mint a new public update key.
 - Publish the immutable APK first and the mutable manifest last. The canonical
   publisher enforces and verifies this ordering.
 - It is valid for the stable pair to be absent until release signing material

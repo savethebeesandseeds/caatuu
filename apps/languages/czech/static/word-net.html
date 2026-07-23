@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-3"></script>
-    <script src="learning-profile.js?v=learning-1"></script>
+    <script src="course-profile.js?v=course-5"></script>
+    <script src="learning-profile.js?v=learning-2"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -18,14 +18,15 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-26"></script>
+  <script src="runtime.js?v=runtime-30"></script>
+  <script src="semantic-learning.js?v=semantic-learning-6"></script>
     <link rel="stylesheet" href="theme.css?v=theme-4">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-42">
-    <link rel="stylesheet" href="word-net.css?v=word-net-45">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-60">
+    <link rel="stylesheet" href="word-net.css?v=word-net-48">
   </head>
   <body>
     <div class="word-net-page">
-      <header class="app-header" data-caatuu-app-header data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html#verbs"></header>
+      <header class="app-header" data-caatuu-app-header data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html"></header>
 
       <main class="word-net-main" aria-label="Word World">
         <section class="word-net-game" aria-label="Word World game">
@@ -41,6 +42,9 @@
               </div>
             </aside>
             <div class="word-net-panel-actions" aria-label="Phrase controls">
+              <button class="word-net-icon-button theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+                <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode.png" alt="" aria-hidden="true">
+              </button>
               <button class="word-net-icon-button word-net-sound-toggle" id="wordNetSound" type="button" aria-label="Sound unavailable" title="Sound is not available yet" disabled>
                 <span aria-hidden="true">&#128266;</span>
               </button>
@@ -122,6 +126,20 @@
 
           <section class="word-net-status-panel" aria-label="Word World status">
             <p id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
+            <div class="word-net-content-source" id="wordNetContentSource" role="group" aria-label="Sentence source">
+              <span class="word-net-content-source-label">Sentence source</span>
+              <div class="word-net-content-source-options">
+                <button type="button" data-content-mode="standard" aria-pressed="true">
+                  <strong>Standard</strong>
+                  <small>guided · offline</small>
+                </button>
+                <button type="button" data-content-mode="generative" aria-pressed="false">
+                  <strong>Generative</strong>
+                  <small>optional local AI</small>
+                </button>
+              </div>
+            </div>
+            <p class="word-net-generative-note" id="wordNetGenerativeNote" hidden>Generative uses optional local models (about 1.9 GB). They download only after you request a new sentence.</p>
             <details class="word-net-diagnostics" id="wordNetDiagnostics">
               <summary>
                 <span>Runtime</span>
@@ -137,7 +155,7 @@
                   <dd id="wordNetMetaModel">browser fallback</dd>
                 </div>
                 <div>
-                  <dt>queue</dt>
+                  <dt id="wordNetMetaPoolLabel">corpus</dt>
                   <dd id="wordNetMetaQueue">0 fresh · 0 saved</dd>
                 </div>
                 <div>
@@ -176,16 +194,39 @@
       </footer>
     </div>
 
+    <dialog
+      class="word-net-generative-dialog"
+      id="wordNetGenerativeDialog"
+      aria-labelledby="wordNetGenerativeDialogTitle"
+      aria-describedby="wordNetGenerativeDialogDescription"
+    >
+      <form class="word-net-generative-dialog-card" method="dialog">
+        <div class="word-net-generative-dialog-art" aria-hidden="true">
+          <img src="/assets/robots/word-world-waiting.svg" alt="">
+        </div>
+        <div class="word-net-generative-dialog-copy">
+          <p class="word-net-generative-dialog-kicker">Optional local AI</p>
+          <h2 id="wordNetGenerativeDialogTitle">Prepare Generative mode?</h2>
+          <p id="wordNetGenerativeDialogDescription">The first use downloads about 1.9 GB of models to this device and may take several minutes. Wi-Fi is recommended.</p>
+          <p class="word-net-generative-dialog-note">Nothing downloads yet. The download starts only when you ask for a new Generative sentence; Standard remains available offline.</p>
+          <div class="word-net-generative-dialog-actions">
+            <button type="submit" value="cancel">Not now</button>
+            <button class="is-primary" type="submit" value="confirm">Continue</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
     <nav
       class="bottom-app-nav"
       aria-label="Caatuu Czech sections"
       data-caatuu-bottom-nav
       data-active-section="verbs"
-      data-settings-href="index.html#settings"
+      data-settings-href="index.html?settings=1"
     ></nav>
 
-    <script src="chrome.js?v=chrome-48"></script>
-    <script src="maintenance-ui.js?v=maintenance-13"></script>
-    <script type="module" src="word-net.js?v=word-net-42"></script>
+  <script src="chrome.js?v=chrome-66"></script>
+    <script src="maintenance-ui.js?v=maintenance-14"></script>
+  <script type="module" src="word-net.js?v=word-net-50"></script>
   </body>
 </html>

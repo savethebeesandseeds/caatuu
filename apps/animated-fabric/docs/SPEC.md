@@ -4,9 +4,9 @@
 
 | Property | Value |
 |---|---|
-| Document version | 0.4.0 |
+| Document version | 0.5.0 |
 | Status | approved normative plan |
-| Date | July 21, 2026 |
+| Date | July 23, 2026 |
 | Repository location | `apps/animated-fabric` inside the Caatuu repository |
 | Python package | `animated_fabric` |
 | CLI executable | `animated-fabric` |
@@ -126,7 +126,9 @@ The general MVP does not require arbitrary Blender files, unreviewed 3D import, 
 single-image reconstruction, or an embedded 3D editor. AF-052 retains the fixed repository-owned
 actor and walk proven by AF-044. Decision 0014 adds only one reviewed, data-only macaw actor package
 and avian skinning inside the same isolated Linux prerender plane; Blender remains outside the base
-runtime dependency set.
+runtime dependency set. Decision 0015 inserts AF-045 as a non-product, local reconstruction
+feasibility spike before manual AF-056 authoring resumes. Its ignored proposals do not become
+project input or accepted actor packages merely because inference succeeds.
 
 Background removal is an approved, self-contained optional capability described in ADR-009 and Section 15.7. Its availability MUST NOT make it a prerequisite for the prepared-layer workflow.
 
@@ -375,6 +377,28 @@ The inferred views require explicit approval before modeling. The worker accepts
 script, driver, add-on, external URI, or embedded animation from the actor package. AF-054 through
 AF-059 deliver this one rights-cleared actor; they do not create a general 3D importer.
 
+Decision 0015 pauses manual AF-056 authoring while AF-045 evaluates an isolated proposal plane:
+
+```text
+approved reference image (read-only)
+        |
+        v
+self-contained cutout + deterministic normalization
+        |
+        v
+pinned local reconstruction model, offline at inference
+        |
+        v
+ignored GLB proposal + canonical provenance
+        |
+        v
+human and structural go / revise / stop review
+```
+
+This research plane does not feed project schemas, the public CLI, the GUI, the layered renderer,
+or the accepted Blender worker. A generated mesh remains untrusted candidate data until a later
+ticket normalizes and admits it through the unchanged actor-package boundary.
+
 ## 4.3 Dependency rule
 
 - `domain` may depend on the standard library and Pydantic.
@@ -383,6 +407,8 @@ AF-059 deliver this one rights-cleared actor; they do not create a general 3D im
 - `gui` and `cli` depend on `application`.
 - No domain module imports GUI, concrete filesystem adapters, OpenCV, or ML libraries.
 - Optional background-removal implementation code MUST remain behind `BackgroundRemovalPort` and an optional dependency/container boundary.
+- Optional reconstruction code, CUDA dependencies, source checkouts, model weights, and candidates
+  MUST remain outside the base package in the AF-045 research container and ignored workspace.
 
 ## 4.4 Primary services
 
@@ -1655,6 +1681,37 @@ the reviewed `avian_v1` hierarchy, bone mapping, bind pose, weights, and deforma
 this isolated plane. General or untrusted 3D import requires a later decision. Mesh deformation
 never becomes a dependency or behavior of layered-2D projects.
 
+## 15.11 Local reconstruction research boundary
+
+AF-045 MAY generate ignored 3D proposals from rights-cleared reference images before AF-056
+resumes. This is authoring research, not a product importer. The reconstruction plane MUST:
+
+- use an application-owned Linux/CUDA image separate from development, cutout, Blender, and product
+  images;
+- pin source repositories and model snapshots by full commit, pin binary wheels by exact version
+  and SHA-256, verify every runtime model file by byte count and SHA-256, and keep weights outside
+  Git and release images;
+- isolate network-enabled provisioning from networkless inference;
+- accept only a bounded regular image beneath a read-only input mount and publish only beneath an
+  ignored output mount;
+- require a reviewed RGBA cutout rather than silently running a second background-removal model;
+- write a normalized input, one GLB proposal, and a canonical provenance manifest through an
+  immutable candidate directory transaction;
+- identify generated geometry as a `proposal`, never recovered hidden truth;
+- reject path escapes, links, unsafe candidate IDs, unsupported limits, missing CUDA, missing
+  models, model hash drift, empty meshes, and destination replacement;
+- add no dependency or import to `src/animated_fabric`; and
+- preserve the complete AF-055 actor-package validator as the later admission boundary.
+
+The first provider is TripoSR at the exact identities recorded by decision 0015 and
+`tools/reconstruction/model-manifest.json`. Initial inference uses one candidate at a time,
+vertex-colored GLB, a 512 px normalized input, marching-cubes resolution at most 256, and a chunk
+size no greater than 8192. It MUST NOT start a server or accept executable model/project input.
+
+Candidates from different runs or providers do not have common vertex identities. Ensemble work
+MUST compare or fuse them only after canonical alignment through rendered evidence, points, voxels,
+or signed-distance fields. Direct vertex-index averaging is prohibited.
+
 ---
 
 # 16. Desktop GUI
@@ -2587,6 +2644,28 @@ Acceptance requires two clean reproducibility runs, structural validation of eve
 clear go/revise/stop report, and an unchanged normal Linux quality gate without Blender. AF-044 did
 not itself replace ADR-001, ADR-002, or ADR-004. AF-052 and decision 0012 subsequently promote only
 the fixed owned actor/walk sequence while preserving the layered OpenCV path.
+
+### AF-045 Local image-to-3D reconstruction feasibility
+
+This user-directed research ticket runs after AF-055 and pauses manual AF-056 authoring. Its number
+keeps it beside AF-044 because neither ticket is a product milestone.
+
+- add an isolated Linux/CUDA reconstruction image without changing core dependencies;
+- pin TripoSR, the TripoSR checkpoint, and the auxiliary DINO configuration by full immutable
+  revisions; pin the PyMCubes CPU extraction wheel by version and SHA-256; and verify model runtime
+  files by byte count and SHA-256;
+- separate the one-time network-enabled provisioner from offline, read-only-model inference;
+- process one approved macaw reference through the existing self-contained cutout plane;
+- create one immutable vertex-colored GLB proposal without manual mesh editing;
+- record normalized input, source/model identities, parameters, mesh identity and structure,
+  runtime, GPU, and peak CUDA allocation;
+- repeat from the same normalized source and compare normalized PNG and GLB hashes; and
+- issue a go/revise/stop recommendation before candidate scoring, automatic rigging, or AF-056
+  resumes.
+
+AF-045 adds no public CLI, GUI behavior, application dependency, general 3D importer, actor-package
+acceptance, rig, skin weights, animation, or published mesh. Decision 0015 and Section 15.11 govern
+its security, provenance, ensemble, and workspace boundaries.
 
 **M4 output:** the humanoid walks and idles through the complete CLI pipeline.
 

@@ -45,6 +45,7 @@ data class LocalModelSpec(
     val deprecated: Boolean = false,
     val status: String = "active",
     val replacementStatus: String = "",
+    val installPolicy: String = "setup_required",
 )
 
 data class LocalModelCatalog(
@@ -149,6 +150,9 @@ class ModelManager(context: Context) {
             .put("status", spec.status)
             .put("replacementStatus", spec.replacementStatus)
             .put("replacement_status", spec.replacementStatus)
+            .put("installPolicy", spec.installPolicy)
+            .put("install_policy", spec.installPolicy)
+            .put("setupRequired", spec.installPolicy == INSTALL_POLICY_SETUP_REQUIRED)
             .put("format", spec.format)
             .put("quantization", spec.quantization)
             .put("modelName", spec.fileName)
@@ -343,6 +347,9 @@ class ModelManager(context: Context) {
     }
 
     fun requiredModelSpecs(): List<LocalModelSpec> =
+        availableModelSpecs().filter { spec -> spec.installPolicy == INSTALL_POLICY_SETUP_REQUIRED }
+
+    fun availableModelSpecs(): List<LocalModelSpec> =
         modelSpecs.filter { spec -> spec.status == "active" && !spec.deprecated }
 
     private fun modelUrl(spec: LocalModelSpec): String = "$modelBaseUrl/${spec.fileName}"
@@ -696,7 +703,7 @@ class ModelManager(context: Context) {
 
     private fun modelCatalogJson(): JSONArray =
         JSONArray().also { array ->
-            requiredModelSpecs().forEach { spec ->
+            availableModelSpecs().forEach { spec ->
                 array.put(
                     JSONObject()
                         .put("key", spec.key)
@@ -711,6 +718,8 @@ class ModelManager(context: Context) {
                         .put("deprecated", spec.deprecated)
                         .put("status", spec.status)
                         .put("replacement_status", spec.replacementStatus)
+                        .put("install_policy", spec.installPolicy)
+                        .put("setup_required", spec.installPolicy == INSTALL_POLICY_SETUP_REQUIRED)
                         .put("supports_thinking", spec.supportsThinking)
                         .put("runtime", spec.runtime)
                         .put("format", spec.format)
@@ -767,6 +776,11 @@ class ModelManager(context: Context) {
             deprecated = item.optBoolean("deprecated", false),
             status = item.optString("status", "active"),
             replacementStatus = item.optString("replacement_status", ""),
+            installPolicy = item.optString("install_policy", INSTALL_POLICY_SETUP_REQUIRED).also { policy ->
+                require(policy in SUPPORTED_INSTALL_POLICIES) {
+                    "$MODEL_CATALOG_ASSET model $key has unsupported install_policy '$policy'."
+                }
+            },
         )
     }
 
@@ -811,6 +825,9 @@ class ModelManager(context: Context) {
         private const val MODEL_DIRECT_RETRY_DELAY_MS = 1_500L
         private const val MODEL_CATALOG_ASSET = "data/models/phone-bench/models.json"
         private const val FALLBACK_DEFAULT_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001"
+        private const val INSTALL_POLICY_SETUP_REQUIRED = "setup_required"
+        private const val INSTALL_POLICY_ON_DEMAND = "on_demand"
+        private val SUPPORTED_INSTALL_POLICIES = setOf(INSTALL_POLICY_SETUP_REQUIRED, INSTALL_POLICY_ON_DEMAND)
         private val FALLBACK_MODEL_BASE_URL =
             "https://caatuu.waajacu.com/${BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX.trim('/')}/data/models/phone-bench"
     }

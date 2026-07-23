@@ -40,6 +40,10 @@ if ! command -v gradle >/dev/null 2>&1; then
   echo "Gradle is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
   exit 1
 fi
+if ! command -v flock >/dev/null 2>&1; then
+  echo "flock is unavailable. Install util-linux before publishing Android artifacts." >&2
+  exit 1
+fi
 
 bash "$repo_root/apps/android/scripts/prepare-llama-vendor.sh"
 
@@ -86,6 +90,12 @@ cat > "$staged_manifest" <<JSON
 JSON
 
 # Never mutate the bytes owned by a published version code.
+publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"
+exec {publication_lock_fd}>"$publication_lock"
+if ! flock -w "${CAATUU_ANDROID_PUBLICATION_LOCK_TIMEOUT_SECONDS:-120}" "$publication_lock_fd"; then
+  echo "Timed out waiting for the Android artifact publication lock." >&2
+  exit 1
+fi
 mkdir -p "$(dirname "$versioned_apk_path")"
 if [[ -f "$versioned_apk_path" ]]; then
   existing_sha="$(sha256sum "$versioned_apk_path" | awk '{print $1}')"

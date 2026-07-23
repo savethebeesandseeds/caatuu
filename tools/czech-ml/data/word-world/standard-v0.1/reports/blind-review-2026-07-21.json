@@ -1,0 +1,2690 @@
+{
+  "schemaVersion": "caatuu-word-world-blind-review-v1",
+  "corpusVersion": "standard-v0.1",
+  "reviewDate": "2026-07-22",
+  "reviewPasses": [
+    {
+      "id": "blind_review_2026-07-21",
+      "date": "2026-07-21",
+      "scope": "All 489 imported records",
+      "method": "Blind review of Czech naturalness, bilingual equivalence, unsupported gender defaults, and difficulty placement."
+    },
+    {
+      "id": "independent_reaudit_2026-07-22",
+      "date": "2026-07-22",
+      "scope": "All 489 corrected records; 17 records required bounded second-pass corrections",
+      "method": "Fresh bilingual and guided-learning metadata re-audit after the first-pass corrections."
+    }
+  ],
+  "reviewerRole": "independent Codex bilingual and guided-learning audit",
+  "method": "A full blind review followed by an independent re-audit of Czech naturalness, Czech-English equivalence, unsupported gender defaults, difficulty placement, and generated grammar guidance.",
+  "humanApproved": false,
+  "sourceRowsReviewed": 500,
+  "findings": 69,
+  "correctedSourceRows": 69,
+  "reviewEvents": 76,
+  "overlappingReviewRows": 7,
+  "findingsByCategory": {
+    "bilingual_equivalence": 30,
+    "czech_naturalness": 14,
+    "difficulty": 24,
+    "metadata_accuracy": 6,
+    "unsupported_gender_default": 35
+  },
+  "findingsByReviewPass": {
+    "blind_review_2026-07-21": 59,
+    "independent_reaudit_2026-07-22": 17
+  },
+  "difficultyChanges": 24,
+  "textChanges": 58,
+  "guidanceChanges": 8,
+  "explicitGuidanceCorrections": 6,
+  "resolutions": [
+    {
+      "sourceId": "cc-000010",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Good to see you.",
+        "cs": "Rád tě vidím.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "prepositional_phrase",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Good to see you.",
+        "cs": "Je fajn tě vidět.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "prepositional_phrase",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Replaced the masculine speaker form with a neutral natural expression."
+      }
+    },
+    {
+      "sourceId": "cc-000013",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "This is my friend.",
+        "cs": "To je můj kamarád.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "This is my friend Tom.",
+        "cs": "To je můj kamarád Tom.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Named the referent so Czech grammatical gender is explicit in both languages."
+      }
+    },
+    {
+      "sourceId": "cc-000021",
+      "categories": [
+        "difficulty",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "How was your day?",
+        "cs": "Jaký byl tvůj den?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "possessive",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "How was your day?",
+        "cs": "Jaký byl tvůj den?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "past",
+          "possessive",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved a past-tense possessive question out of first-contact level; the re-audit replaced stale be-present guidance with past-tense guidance."
+      }
+    },
+    {
+      "sourceId": "cc-000024",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Are you new here?",
+        "cs": "Jsi tu nový?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Is this your first visit?",
+        "cs": "Jsi tu poprvé?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "question",
+        "rationale": "Replaced the gendered adjective with a neutral, aligned beginner question."
+      }
+    },
+    {
+      "sourceId": "cc-000025",
+      "categories": [
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Let's say hello.",
+        "cs": "Řekněme ahoj.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Let's say hello.",
+        "cs": "Řekněme si ahoj.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_greet_and_introduce",
+          "category_greetings_intro"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Added the natural reflexive pronoun."
+      }
+    },
+    {
+      "sourceId": "cc-000036",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "May I sit here?",
+        "cs": "Můžu si sednout sem?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "May I sit here?",
+        "cs": "Můžu si sednout sem?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved a modal reflexive question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000042",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I didn't mean it.",
+        "cs": "To jsem nechtěl.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "It wasn't intentional.",
+        "cs": "Nebylo to úmyslně.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Replaced the masculine past form with a neutral impersonal pair."
+      }
+    },
+    {
+      "sourceId": "cc-000044",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Can I borrow this?",
+        "cs": "Můžu si to půjčit?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can I borrow this?",
+        "cs": "Můžu si to půjčit?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved a modal reflexive question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000047",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "You are very kind.",
+        "cs": "To je od tebe milé.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "That's kind of you.",
+        "cs": "To je od tebe milé.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Aligned the English meaning with the Czech construction."
+      }
+    },
+    {
+      "sourceId": "cc-000048",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Please be careful.",
+        "cs": "Prosím, buď opatrný.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Please be careful.",
+        "cs": "Dávej prosím pozor.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_be_polite",
+          "category_courtesy"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Replaced the gendered adjective with a neutral imperative."
+      }
+    },
+    {
+      "sourceId": "cc-000058",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Look at the board.",
+        "cs": "Podívej se na tabuli.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "prepositional_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Look at the board.",
+        "cs": "Podívej se na tabuli.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "prepositional_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Moved a multi-part reflexive imperative to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000066",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Can you spell it?",
+        "cs": "Umíš to vyhláskovat?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can you spell it?",
+        "cs": "Umíš to vyhláskovat?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved the spelling modal question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000069",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Work with a partner.",
+        "cs": "Pracuj s kamarádem.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "prepositional_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Work in pairs.",
+        "cs": "Pracuj ve dvojici.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "prepositional_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Replaced the friend-specific paraphrase with the ordinary classroom instruction and moved its less-basic classroom noun and locative phrase to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000070",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Check your answer.",
+        "cs": "Zkontroluj svou odpověď.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "possessive",
+          "short_formula",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Check your answer.",
+        "cs": "Zkontroluj svou odpověď.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "possessive",
+          "short_formula",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Moved a possessive perfective imperative to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000073",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I made a mistake.",
+        "cs": "Udělal jsem chybu.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "It was my mistake.",
+        "cs": "Byla to moje chyba.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_learn_in_class",
+          "category_classroom_learning"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral aligned past construction and moved it to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000083",
+      "categories": [
+        "bilingual_equivalence",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Can you show me?",
+        "cs": "Můžeš mi to ukázat?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can you show it to me?",
+        "cs": "Můžeš mi to ukázat?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question",
+        "rationale": "Aligned the English object and recipient with Czech and moved the modal, dative question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000088",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I am not sure.",
+        "cs": "Nejsem si jistý.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "be_present",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I am not sure.",
+        "cs": "Nevím to jistě.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "be_present",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral uncertainty expression and moved it to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000094",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Can you explain it?",
+        "cs": "Můžeš mi to vysvětlit?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can you explain it?",
+        "cs": "Můžeš mi to vysvětlit?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved the modal dative question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000096",
+      "categories": [
+        "difficulty",
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Which one is it?",
+        "cs": "Které to je?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Which word is it?",
+        "cs": "Které slovo to je?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved the selection question to the main practice level; the re-audit made the selected noun explicit in both languages."
+      }
+    },
+    {
+      "sourceId": "cc-000098",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I found it.",
+        "cs": "Našel jsem to.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Here it is.",
+        "cs": "Je to tady.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Replaced the masculine past form with a neutral aligned deictic pair."
+      }
+    },
+    {
+      "sourceId": "cc-000099",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Let me try.",
+        "cs": "Nech mě to zkusit.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Let me try.",
+        "cs": "Nech mě to zkusit.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_ask_for_help",
+          "category_help_clarification"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Moved the multi-verb request to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000101",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm happy.",
+        "cs": "Jsem šťastný.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm happy.",
+        "cs": "Mám radost.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral natural emotion expression."
+      }
+    },
+    {
+      "sourceId": "cc-000102",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm sad.",
+        "cs": "Jsem smutný.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm sad.",
+        "cs": "Je mi smutno.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral natural emotion expression."
+      }
+    },
+    {
+      "sourceId": "cc-000103",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm tired.",
+        "cs": "Jsem unavený.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I need some rest.",
+        "cs": "Potřebuji odpočinek.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Replaced the gendered adjective with a distinct neutral need statement and moved the advanced noun to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000109",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm excited.",
+        "cs": "Jsem nadšený.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm looking forward to it.",
+        "cs": "Těším se na to.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral aligned anticipation expression and moved the reflexive prepositional construction to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000111",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I feel better.",
+        "cs": "Cítím se lépe.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I feel better.",
+        "cs": "Cítím se lépe.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Moved the comparative reflexive expression to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000117",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I need to rest.",
+        "cs": "Potřebuji si odpočinout.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "prepositional_phrase",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I need to rest.",
+        "cs": "Potřebuji si odpočinout.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "prepositional_phrase",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Moved the reflexive infinitive construction to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000121",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm ready.",
+        "cs": "Jsem připravený.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm done.",
+        "cs": "Mám hotovo.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral completion expression."
+      }
+    },
+    {
+      "sourceId": "cc-000122",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm not ready.",
+        "cs": "Nejsem připravený.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm not done yet.",
+        "cs": "Ještě nemám hotovo.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral incomplete-state expression."
+      }
+    },
+    {
+      "sourceId": "cc-000123",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm busy.",
+        "cs": "Jsem zaneprázdněný.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I have lots of work.",
+        "cs": "Mám moc práce.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Replaced the gendered adjective with a neutral workload statement and moved it to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000125",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm proud.",
+        "cs": "Jsem pyšný.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm happy with my work.",
+        "cs": "Mám radost ze své práce.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_express_feelings_and_needs",
+          "category_feelings_needs"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Replaced the gendered adjective with a neutral, aligned achievement statement and moved its possessive and case pattern to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000133",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "My friend is coming.",
+        "cs": "Můj kamarád přichází.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "My friend Tom is coming.",
+        "cs": "Můj kamarád Tom přichází.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Named the referent so masculine grammatical gender is explicit."
+      }
+    },
+    {
+      "sourceId": "cc-000134",
+      "categories": [
+        "unsupported_gender_default",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Where is your friend?",
+        "cs": "Kde je tvůj kamarád?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Where is Tom?",
+        "cs": "Kde je Tom?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "question",
+        "rationale": "Named the referent in both languages instead of silently defaulting friend to masculine; the re-audit removed stale possessive guidance."
+      }
+    },
+    {
+      "sourceId": "cc-000136",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "That is my teacher.",
+        "cs": "To je můj učitel.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "That man is my teacher.",
+        "cs": "Ten muž je můj učitel.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Made the teacher's masculine referent explicit in English and Czech."
+      }
+    },
+    {
+      "sourceId": "cc-000147",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I love my family.",
+        "cs": "Mám rád svou rodinu.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I love my family.",
+        "cs": "Miluji svou rodinu.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Removed the masculine rád construction and moved the possessive sentence to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000148",
+      "categories": [
+        "unsupported_gender_default",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I miss my friend.",
+        "cs": "Stýská se mi po kamarádovi.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I miss my friends.",
+        "cs": "Chybí mi přátelé.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral plural referent and moved the dative construction to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000149",
+      "categories": [
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Can we play together?",
+        "cs": "Můžeme si hrát spolu?",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can we play together?",
+        "cs": "Můžeme si hrát spolu?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "question",
+        "rationale": "Moved the modal reflexive question to the main practice level."
+      }
+    },
+    {
+      "sourceId": "cc-000150",
+      "categories": [
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Let's help each other.",
+        "cs": "Pomáhejme si navzájem.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Let's help each other.",
+        "cs": "Pomozme si navzájem.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_talk_about_people",
+          "category_family_people"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the natural perfective invitation for a single cooperative action."
+      }
+    },
+    {
+      "sourceId": "cc-000151",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I wake up early.",
+        "cs": "Vstávám brzy.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_talk_about_daily_routine",
+          "category_daily_routine"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I get up early.",
+        "cs": "Vstávám brzy.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_talk_about_daily_routine",
+          "category_daily_routine"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Aligned English with the Czech verb vstávat."
+      }
+    },
+    {
+      "sourceId": "cc-000159",
+      "categories": [
+        "bilingual_equivalence",
+        "difficulty"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I do my homework.",
+        "cs": "Dělám si úkol.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_daily_routine",
+          "category_daily_routine"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I do my homework.",
+        "cs": "Dělám si domácí úkol.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_daily_routine",
+          "category_daily_routine"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Made homework explicit and moved the reflexive possessive construction to level 2."
+      }
+    },
+    {
+      "sourceId": "cc-000222",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I lost my way.",
+        "cs": "Ztratil jsem cestu.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_ask_and_give_directions",
+          "category_location_directions"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I can’t find the right way.",
+        "cs": "Nemůžu najít správnou cestu.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "modal",
+          "negative",
+          "function_ask_and_give_directions",
+          "category_location_directions"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Replaced the masculine past form with a neutral aligned modal-negative statement; the re-audit made 'right way' explicit and removed stale possessive guidance."
+      }
+    },
+    {
+      "sourceId": "cc-000230",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I like apples.",
+        "cs": "Mám rád jablka.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I like apples.",
+        "cs": "Chutnají mi jablka.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral natural preference construction."
+      }
+    },
+    {
+      "sourceId": "cc-000231",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I like bananas.",
+        "cs": "Mám rád banány.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I like bananas.",
+        "cs": "Chutnají mi banány.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral natural preference construction."
+      }
+    },
+    {
+      "sourceId": "cc-000232",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I don't like onions.",
+        "cs": "Nemám rád cibuli.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I don't like onions.",
+        "cs": "Cibule mi nechutná.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "negative",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral natural dislike construction."
+      }
+    },
+    {
+      "sourceId": "cc-000244",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I spilled my drink.",
+        "cs": "Rozlil jsem pití.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "The drink spilled.",
+        "cs": "Pití se rozlilo.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "past",
+          "event",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used a neutral aligned past event construction; the re-audit removed stale possessive guidance."
+      }
+    },
+    {
+      "sourceId": "cc-000246",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I'm full.",
+        "cs": "Už jsem plný.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I'm not hungry anymore.",
+        "cs": "Už nemám hlad.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_talk_about_food",
+          "category_food_drink"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used a neutral natural fullness expression."
+      }
+    },
+    {
+      "sourceId": "cc-000260",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "This one costs less.",
+        "cs": "Tenhle stojí méně.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "This costs less.",
+        "cs": "Tohle stojí méně.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the natural neuter demonstrative for an unspecified item and aligned the English wording."
+      }
+    },
+    {
+      "sourceId": "cc-000261",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I like this one.",
+        "cs": "Tenhle se mi líbí.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I like this.",
+        "cs": "Tohle se mi líbí.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the natural neuter demonstrative for an unspecified item and aligned the English wording."
+      }
+    },
+    {
+      "sourceId": "cc-000268",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Do we wait in line here?",
+        "cs": "Čekáme tady ve frontě?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "prepositional_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Are we waiting in line here?",
+        "cs": "Čekáme tady ve frontě?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "prepositional_phrase",
+          "function_shop_and_pay",
+          "category_shopping_money"
+        ],
+        "sentenceType": "question",
+        "rationale": "Aligned the English progressive question with the Czech sentence."
+      }
+    },
+    {
+      "sourceId": "cc-000285",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Wear your hat.",
+        "cs": "Vezmi si čepici.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "possessive",
+          "short_formula",
+          "function_talk_about_weather_and_clothes",
+          "category_weather_clothing"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Put on your hat.",
+        "cs": "Nasaď si čepici.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "possessive",
+          "short_formula",
+          "function_talk_about_weather_and_clothes",
+          "category_weather_clothing"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Aligned the action and used the ordinary Czech collocation."
+      }
+    },
+    {
+      "sourceId": "cc-000322",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I won.",
+        "cs": "Vyhrál jsem.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_play_and_share",
+          "category_play_hobbies"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Our team won.",
+        "cs": "Náš tým vyhrál.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_play_and_share",
+          "category_play_hobbies"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Moved past gender agreement onto an explicit nonhuman noun."
+      }
+    },
+    {
+      "sourceId": "cc-000323",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "You won.",
+        "cs": "Vyhrál jsi.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_play_and_share",
+          "category_play_hobbies"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Your team won.",
+        "cs": "Tvůj tým vyhrál.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_play_and_share",
+          "category_play_hobbies"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Moved past gender agreement onto an explicit nonhuman noun."
+      }
+    },
+    {
+      "sourceId": "cc-000328",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Be careful.",
+        "cs": "Buď opatrný.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Be careful.",
+        "cs": "Dávej pozor.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Replaced the gendered adjective with a neutral imperative."
+      }
+    },
+    {
+      "sourceId": "cc-000336",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Call a teacher.",
+        "cs": "Zavolej učitele.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Call one of the teachers.",
+        "cs": "Zavolej někoho z učitelů.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Used an explicitly non-gendered teacher group in both languages."
+      }
+    },
+    {
+      "sourceId": "cc-000337",
+      "categories": [
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Get help, please.",
+        "cs": "Prosím, přiveď pomoc.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Get help, please.",
+        "cs": "Prosím, dojdi pro pomoc.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Used the natural instruction to go get help."
+      }
+    },
+    {
+      "sourceId": "cc-000339",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I hurt my knee.",
+        "cs": "Bolí mě koleno.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "My knee hurts.",
+        "cs": "Bolí mě koleno.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_stay_safe",
+          "category_health_safety"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Aligned English with the Czech pain construction."
+      }
+    },
+    {
+      "sourceId": "cc-000353",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "The room is clean.",
+        "cs": "Pokoj je uklizený.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_talk_about_home",
+          "category_home_chores"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "The room is tidy.",
+        "cs": "Pokoj je uklizený.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_talk_about_home",
+          "category_home_chores"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Aligned English 'tidy' with Czech uklizený rather than the broader adjective 'clean'."
+      }
+    },
+    {
+      "sourceId": "cc-000372",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I found my keys.",
+        "cs": "Našel jsem klíče.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_home",
+          "category_home_chores"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "My keys are here.",
+        "cs": "Moje klíče jsou tady.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "possessive",
+          "function_talk_about_home",
+          "category_home_chores"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Replaced the masculine past form with a neutral aligned location statement."
+      }
+    },
+    {
+      "sourceId": "cc-000405",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I want this one.",
+        "cs": "Chci tenhle.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I want this.",
+        "cs": "Chci tohle.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used the natural neuter demonstrative for an unspecified option and aligned the English wording."
+      }
+    },
+    {
+      "sourceId": "cc-000406",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I want that one.",
+        "cs": "Chci tamten.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I want that.",
+        "cs": "Chci tamto.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Used the natural neuter demonstrative for an unspecified option and aligned the English wording."
+      }
+    },
+    {
+      "sourceId": "cc-000407",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Which one do you want?",
+        "cs": "Který chceš?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Which option do you want?",
+        "cs": "Kterou možnost chceš?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "question",
+        "rationale": "Made the choice noun explicit so Czech gender is supported and the pair is self-contained."
+      }
+    },
+    {
+      "sourceId": "cc-000408",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "This one is better.",
+        "cs": "Tenhle je lepší.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "This is better.",
+        "cs": "Tohle je lepší.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the natural neuter demonstrative for an unspecified option and aligned the English wording."
+      }
+    },
+    {
+      "sourceId": "cc-000409",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "That one is nice.",
+        "cs": "Tamten je hezký.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "That is nice.",
+        "cs": "Tamto je hezké.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "function_choose_and_give_opinion",
+          "category_choices_opinions"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the natural neuter demonstrative and adjective agreement for an unspecified option."
+      }
+    },
+    {
+      "sourceId": "cc-000448",
+      "categories": [
+        "unsupported_gender_default"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "I forgot.",
+        "cs": "Zapomněl jsem.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_respond_socially",
+          "category_social_responses"
+        ],
+        "sentenceType": "formula"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "I don't remember.",
+        "cs": "Nepamatuji si.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "short_formula",
+          "function_respond_socially",
+          "category_social_responses"
+        ],
+        "sentenceType": "formula",
+        "rationale": "Replaced the masculine past form with a neutral present expression."
+      }
+    },
+    {
+      "sourceId": "cc-000469",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "What should we do?",
+        "cs": "Co budeme dělat?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "What are we going to do?",
+        "cs": "Co budeme dělat?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "question",
+        "rationale": "Aligned English with the Czech future construction."
+      }
+    },
+    {
+      "sourceId": "cc-000471",
+      "categories": [
+        "bilingual_equivalence",
+        "czech_naturalness"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Let's finish later.",
+        "cs": "Dokončíme to později.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Let's finish later.",
+        "cs": "Dokončeme to později.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Used the first-person plural imperative that matches let's."
+      }
+    },
+    {
+      "sourceId": "cc-000472",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "Are you ready to go?",
+        "cs": "Jsi připravený jít?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "be_present",
+          "prepositional_phrase",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "question"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Can we leave?",
+        "cs": "Můžeme vyrazit?",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "question",
+          "modal",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "question",
+        "rationale": "Replaced the gendered adjective with a neutral aligned departure question; the re-audit replaced stale be-present and prepositional guidance with modal guidance."
+      }
+    },
+    {
+      "sourceId": "cc-000473",
+      "categories": [
+        "unsupported_gender_default",
+        "bilingual_equivalence",
+        "metadata_accuracy"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21",
+        "independent_reaudit_2026-07-22"
+      ],
+      "original": {
+        "en": "I am ready to go.",
+        "cs": "Jsem připravený jít.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "be_present",
+          "prepositional_phrase",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "statement"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "We can leave.",
+        "cs": "Můžeme vyrazit.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "modal",
+          "function_make_plans",
+          "category_plans_invitations"
+        ],
+        "sentenceType": "statement",
+        "rationale": "Replaced the gendered adjective with a neutral aligned modal statement; the re-audit removed stale be-present and prepositional guidance and corrected its sentence type."
+      }
+    },
+    {
+      "sourceId": "cc-000489",
+      "categories": [
+        "bilingual_equivalence"
+      ],
+      "reviewOrigins": [
+        "blind_review_2026-07-21"
+      ],
+      "original": {
+        "en": "Take a photo.",
+        "cs": "Vyfoť to.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_use_simple_technology",
+          "category_phone_technology"
+        ],
+        "sentenceType": "imperative"
+      },
+      "resolution": {
+        "action": "corrected",
+        "en": "Take a photo of it.",
+        "cs": "Vyfoť to.",
+        "difficulty": 2,
+        "cefr": "A1",
+        "grammarTags": [
+          "common_phrase",
+          "imperative",
+          "short_formula",
+          "function_use_simple_technology",
+          "category_phone_technology"
+        ],
+        "sentenceType": "imperative",
+        "rationale": "Made the Czech object explicit in English."
+      }
+    }
+  ],
+  "caveat": "This receipt covers two independent Codex review passes. It is not human or native-speaker approval."
+}

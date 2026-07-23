@@ -48,14 +48,22 @@ function createLearningContext(initial = {}) {
 
 test("difficulty is course-scoped, constrained to levels 1-3, and saved independently", () => {
   const { learning, rows, events } = createLearningContext();
-  assert.equal(learning.difficulty(), 2);
-  assert.equal(learning.difficultyOption().label, "Traveler");
+  assert.equal(learning.difficulty(), 1);
+  assert.equal(learning.difficultyOption().label, "Explorer");
   assert.equal(learning.setDifficulty(3), 3);
   assert.equal(learning.difficulty(), 3);
-  assert.equal(learning.setDifficulty(99), 2);
-  assert.equal(learning.difficulty(), 2);
-  assert.equal(JSON.parse(rows.get("caatuu-czech.learning.preferences.v1")).difficulty, 2);
+  assert.equal(learning.setDifficulty(99), 1);
+  assert.equal(learning.difficulty(), 1);
+  assert.equal(JSON.parse(rows.get("caatuu-czech.learning.preferences.v1")).difficulty, 1);
   assert.ok(events.some((event) => event.detail.reason === "difficulty"));
+});
+
+test("an explicit saved difficulty is preserved when the default changes", () => {
+  const { learning } = createLearningContext({
+    "caatuu-czech.learning.preferences.v1": JSON.stringify({ schemaVersion: 1, difficulty: 2 })
+  });
+  assert.equal(learning.difficulty(), 2);
+  assert.equal(learning.difficultyOption().label, "Traveler");
 });
 
 test("performance aggregates game activity without inventing achievements", () => {
@@ -96,12 +104,21 @@ test("restarting progress preserves difficulty while clearing global and legacy 
   assert.ok(events.some((event) => event.detail.reason === "progress-reset"));
 });
 
-test("shared settings and both active games use the global learning contract", () => {
-  assert.match(chromeSource, /Difficulty and progress/);
+test("the backpack progression hub and both active games use the global learning contract", () => {
+  assert.match(chromeSource, /label: "Backpack"/);
+  assert.match(chromeSource, /data-settings-view="items"/);
+  assert.match(chromeSource, /data-settings-view="stats"/);
+  assert.match(chromeSource, /data-settings-view="settings"/);
+  assert.match(chromeSource, /Traveler badge/);
   assert.match(chromeSource, /data-difficulty-level/);
+  assert.match(chromeSource, /courseProgressXp/);
+  assert.match(chromeSource, /courseProgressCoins/);
   assert.match(chromeSource, /courseProgressActivities/);
+  assert.match(chromeSource, /xp: profile\.summary\.successes/);
+  assert.match(chromeSource, /coins: profile\.summary\.rounds/);
   assert.match(chromeSource, /settingsResetCourseProgress/);
   assert.match(appSource, /CaatuuLearning\?\.record\("verb-nebula"/);
   assert.match(wordWorldSource, /CaatuuLearning\?\.record\("word-world"/);
+  assert.doesNotMatch(chromeSource, /Difficulty and progress/);
   assert.doesNotMatch(chromeSource, /settingsResetVerbMemory/);
 });

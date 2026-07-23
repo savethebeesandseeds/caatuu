@@ -13,7 +13,8 @@ Create the local directories before the first run:
 
 ```bash
 mkdir -p workspaces/cutout/input workspaces/cutout/output \
-  workspaces/actor-packages workspaces/blender
+  workspaces/actor-packages workspaces/blender \
+  workspaces/reconstruction/input workspaces/reconstruction/output
 ```
 
 The optional `blender` Compose profile mounts `blender/` read/write at `/output`. Its fixed worker
@@ -59,5 +60,22 @@ reviewed actor package.
 Native x86-64 Linux is authoritative for Blender evidence. Docker Desktop may exercise the same
 Compose services as a convenience smoke, but its output does not replace the native acceptance
 record.
+
+AF-045 owns a separate, ignored reconstruction exchange:
+
+```text
+workspaces/reconstruction/
+|-- input/                         # reviewed RGBA cutouts, mounted read-only
+`-- output/
+    `-- <candidate-id>/
+        |-- candidate.json
+        |-- input.png
+        `-- mesh.glb
+```
+
+The `reconstruction-provision` profile writes pinned model files only to the
+project-owned Docker volume. Offline inference mounts that volume read-only.
+Candidate directories are immutable proposals and are not actor packages,
+accepted geometry, or release artifacts.
 
 Never place the model cache, credentials, or irreplaceable source artwork here.

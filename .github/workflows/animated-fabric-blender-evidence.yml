@@ -5,15 +5,22 @@ on:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/.dockerignore"
+      - ".gitattributes"
       - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/tools/reference_package.py"
       - "apps/animated-fabric/scripts/**"
+      - "apps/animated-fabric/assets/actor-packages/macaw-traveler-avian-v1/**"
+      - "apps/animated-fabric/assets/actor-reviews/macaw-traveler-avian-v1/**"
+      - "apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/golden/LICENSE-AF055-CC0.md"
       - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.png"
       - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.provenance.json"
+      - "apps/animated-fabric/tests/golden/af056_macaw_deformation/**"
       - "apps/animated-fabric/tests/unit/test_actor_package.py"
+      - "apps/animated-fabric/tests/unit/test_avian_contract.py"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
@@ -37,15 +44,22 @@ on:
     paths:
       - "apps/animated-fabric/containers/blender/**"
       - "apps/animated-fabric/.dockerignore"
+      - ".gitattributes"
       - "apps/animated-fabric/tools/blender/**"
+      - "apps/animated-fabric/tools/reference_package.py"
       - "apps/animated-fabric/scripts/**"
+      - "apps/animated-fabric/assets/actor-packages/macaw-traveler-avian-v1/**"
+      - "apps/animated-fabric/assets/actor-reviews/macaw-traveler-avian-v1/**"
+      - "apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/**"
       - "apps/animated-fabric/tests/golden/LICENSE-AF052-CC0.md"
       - "apps/animated-fabric/tests/golden/af052_blender_walk.provenance.json"
       - "apps/animated-fabric/tests/golden/af052_blender_walk_*.png"
       - "apps/animated-fabric/tests/golden/LICENSE-AF055-CC0.md"
       - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.png"
       - "apps/animated-fabric/tests/golden/af055_actor_fixture_neutral.provenance.json"
+      - "apps/animated-fabric/tests/golden/af056_macaw_deformation/**"
       - "apps/animated-fabric/tests/unit/test_actor_package.py"
+      - "apps/animated-fabric/tests/unit/test_avian_contract.py"
       - "apps/animated-fabric/tests/unit/test_blender_*.py"
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
@@ -363,3 +377,151 @@ jobs:
           docker compose run --rm --no-deps animated-fabric-dev \
             pytest -q --no-cov tests/unit/test_actor_package.py \
             tests/unit/test_blender_actor_neutral.py
+
+  macaw-actor-evidence:
+    name: Native Linux AF-056 macaw rig validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/animated-fabric
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+
+      - name: Match container ownership to the Linux runner
+        run: |
+          echo "LOCAL_UID=$(id -u)" >> "$GITHUB_ENV"
+          echo "LOCAL_GID=$(id -g)" >> "$GITHUB_ENV"
+          mkdir -p .tmp/af056-manifests workspaces/blender
+
+      - name: Validate the isolated macaw actor profile
+        run: docker compose --profile blender-macaw config --quiet
+
+      - name: Build the authoritative development image
+        run: docker compose build animated-fabric-dev
+
+      - name: Reproduce the tracked actor package twice
+        run: |
+          set -Eeuo pipefail
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/generate_macaw_actor_package.py \
+            --out .tmp/af056-package-first
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/generate_macaw_actor_package.py \
+            --out .tmp/af056-package-second
+          (
+            cd .tmp/af056-package-first
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af056-manifests/package-first.sha256
+          (
+            cd .tmp/af056-package-second
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af056-manifests/package-second.sha256
+          (
+            cd assets/actor-packages/macaw-traveler-avian-v1/package
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af056-manifests/package-tracked.sha256
+          cmp .tmp/af056-manifests/package-first.sha256 \
+            .tmp/af056-manifests/package-second.sha256
+          cmp .tmp/af056-manifests/package-first.sha256 \
+            .tmp/af056-manifests/package-tracked.sha256
+
+      - name: Reproduce the tracked avian mapping
+        run: |
+          set -Eeuo pipefail
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/generate_macaw_rig_mapping.py \
+            --package assets/actor-packages/macaw-traveler-avian-v1/package \
+            --expected-manifest-sha256 \
+            a26e95456963af80d2d468af19680855dd3c9fbe176d7c3bb0ceb4943ea759c7 \
+            --out .tmp/af056-rig-mapping.json
+          cmp .tmp/af056-rig-mapping.json \
+            assets/actor-reviews/macaw-traveler-avian-v1/rig-mapping.json
+
+      - name: Build the separate pinned macaw validator
+        run: |
+          docker compose --profile blender-macaw build \
+            animated-fabric-blender-macaw-actor-validator
+          docker image inspect \
+            caatuu-animated-fabric-blender-macaw-actor-validator:4.5.12 \
+            --format 'AF-056 macaw-validator image ID: {{.Id}}'
+
+      - name: Verify fixed version, architecture, and non-root identity
+        run: |
+          docker compose --profile blender-macaw run --rm --no-deps \
+            --entrypoint /opt/blender/blender \
+            animated-fabric-blender-macaw-actor-validator --version
+          worker_uid="$(docker compose --profile blender-macaw run --rm --no-deps \
+            --entrypoint /usr/bin/id animated-fabric-blender-macaw-actor-validator -u)"
+          echo "AF-056 macaw-validator UID: $worker_uid"
+          test "$worker_uid" != "0"
+
+      - name: Run the macaw deformation review once
+        run: |
+          set -Eeuo pipefail
+          docker compose --profile blender-macaw run --rm --no-deps \
+            animated-fabric-blender-macaw-actor-validator
+          (
+            cd workspaces/blender/af056-review
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af056-manifests/review-first.sha256
+
+      - name: Rerun the review and prove deterministic replacement
+        run: |
+          set -Eeuo pipefail
+          touch workspaces/blender/af056-review/stale-evidence.txt
+          docker compose --profile blender-macaw run --rm --no-deps \
+            animated-fabric-blender-macaw-actor-validator
+          test ! -e workspaces/blender/af056-review/stale-evidence.txt
+          (
+            cd workspaces/blender/af056-review
+            find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum
+          ) > .tmp/af056-manifests/review-second.sha256
+          cmp .tmp/af056-manifests/review-first.sha256 \
+            .tmp/af056-manifests/review-second.sha256
+
+      - name: Verify the closed AF-056 evidence tree
+        run: |
+          set -Eeuo pipefail
+          test "$(find workspaces/blender/af056-review -maxdepth 1 -type f \
+            -name '*.png' | wc -l)" -eq 16
+          test "$(find workspaces/blender/af056-review -maxdepth 1 -type f | wc -l)" -eq 17
+          docker compose run --rm --no-deps animated-fabric-dev \
+            python scripts/verify_macaw_actor_review.py \
+            --source workspaces/blender/af056-review \
+            --package assets/actor-packages/macaw-traveler-avian-v1/package \
+            --contact-sheet workspaces/blender/af056-review-contact-sheet.png
+          cat .tmp/af056-manifests/package-tracked.sha256
+          cat .tmp/af056-manifests/review-second.sha256
+          cat workspaces/blender/af056-review/validation.json
+
+      - name: Run focused avian contract lint, typing, and tests
+        run: |
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff format --check tools/blender/avian_contract.py \
+            tools/blender/render_macaw_actor_review.py \
+            scripts/generate_macaw_actor_package.py \
+            scripts/generate_macaw_rig_mapping.py \
+            scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
+            tests/unit/test_blender_macaw_review.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            ruff check tools/blender/avian_contract.py \
+            tools/blender/render_macaw_actor_review.py \
+            scripts/generate_macaw_actor_package.py \
+            scripts/generate_macaw_rig_mapping.py \
+            scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
+            tests/unit/test_blender_macaw_review.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            mypy --strict scripts/generate_macaw_actor_package.py
+          docker compose run --rm --no-deps animated-fabric-dev \
+            sh -c 'MYPYPATH=tools/blender mypy --strict --explicit-package-bases \
+            scripts/generate_macaw_rig_mapping.py'
+          docker compose run --rm --no-deps animated-fabric-dev \
+            sh -c 'MYPYPATH=tools/blender mypy --strict --explicit-package-bases \
+            --follow-imports=skip scripts/verify_macaw_actor_review.py'
+          docker compose run --rm --no-deps animated-fabric-dev \
+            pytest -q --no-cov tests/unit/test_avian_contract.py \
+            tests/unit/test_blender_macaw_review.py

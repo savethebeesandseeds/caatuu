@@ -51,3 +51,15 @@ That override mounts only the secret file at `/run/secrets/openai-api-key`.
 Under `/android/`, `caatuu.apk` and `caatuu.json` always mean a signed,
 non-debuggable release. Debug builds are served as `caatuu-debug.apk` and
 `caatuu-debug.json`.
+
+Android caching follows the publication contract rather than the file type:
+
+- Versioned files under `/android/releases/<version>/` and gated
+  `/android/debug-releases/<version>/` are immutable and may be cached for one
+  year.
+- Mutable APK and manifest aliases, publication-status endpoints, preview
+  aliases, and the Termux install helper are always served with `no-store`.
+
+Release and Play packaging also fail closed unless every release-signing
+environment variable is present and nonblank. Debug packaging remains
+available without release credentials.

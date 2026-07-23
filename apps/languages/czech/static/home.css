@@ -294,6 +294,8 @@ body.app-update-lock [data-caatuu-app-header] button {
 }
 
 .native-setup-card.is-error .setup-message-zone {
+  grid-template-rows: auto auto auto;
+  overflow: visible;
   border-color: color-mix(in srgb, var(--setup-danger) 45%, var(--setup-line));
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--setup-danger) 16%, var(--setup-panel)), color-mix(in srgb, var(--setup-danger) 10%, var(--setup-panel)));
@@ -357,7 +359,20 @@ body.app-update-lock [data-caatuu-app-header] button {
 }
 
 .native-setup-card.is-error .setup-message {
+  min-height: 0;
+  overflow: visible;
+  padding-right: 0;
   color: color-mix(in srgb, var(--setup-danger) 58%, var(--setup-text));
+  display: block;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: unset;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.native-setup-card.is-error .setup-report-link {
+  position: static;
+  justify-self: end;
 }
 
 .setup-progress {

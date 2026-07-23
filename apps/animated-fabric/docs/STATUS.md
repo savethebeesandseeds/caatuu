@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 and AF-055 complete; AF-056 is next in the inserted M5A macaw vertical slice
+**Current state:** Milestones M0 through M5 and AF-055 complete; AF-045 local reconstruction feasibility is active and AF-056 is paused
 
-**Last updated:** 2026-07-22
+**Last updated:** 2026-07-23
 
 ## Completed work
 
@@ -44,6 +44,7 @@ M4 - humanoid generators.
 Experimental upstream tooling.
 
 - [x] AF-044 Blender prerender feasibility
+- [ ] AF-045 Local image-to-3D reconstruction feasibility
 
 M5 - export.
 
@@ -1058,6 +1059,13 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
+- AF-045 is an isolated proposal plane, not a product importer. A successful GLB still needs
+  identity review, canonical orientation and scale, topology/material assessment, admission through
+  the unchanged actor-package validator, skeleton and skin-weight estimation, retargeting, and
+  deformation acceptance before it can replace manual AF-056 authoring.
+- TripoSR is feed-forward rather than seed-diverse. A useful ensemble will require controlled input
+  variants or a second compatible provider; unrelated mesh vertices must never be averaged
+  directly. Decision 0015 requires rendered/field-space comparison or fusion.
 - AF-055 intentionally pins one repository-generated geometric fixture and its fixture-specific
   provenance. AF-056 must replace the external trust anchor only after the exact macaw GLB,
   textures, generator/source identities, licensing, `avian_v1` mapping, bind pose, weights, ground
@@ -1205,4 +1213,4 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-056 `avian_v1` rig and skinned macaw
+- AF-045 Local image-to-3D reconstruction feasibility

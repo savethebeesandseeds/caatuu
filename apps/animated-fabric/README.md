@@ -309,8 +309,8 @@ Docker Desktop may run a convenience smoke, but only native Linux evidence is au
 
 The proof actor is a repository-generated geometric box with a minimal two-joint skin. It is not
 the approved traveler macaw, does not define `avian_v1`, and exposes no product-facing or general
-3D-import command. AF-056 is the next permitted ticket and owns the reviewed macaw model, armature,
-weights, bind pose, and deformation acceptance. The exact boundary is in
+3D-import command. AF-045 now evaluates local image-to-3D proposals before manual AF-056 authoring
+resumes; neither ticket weakens the reviewed actor-package boundary. The exact boundary is in
 [`docs/SPEC.md`](docs/SPEC.md#1510-reviewed-3d-actor-package-contract); operational detail is in
 [`tools/blender/README.md`](tools/blender/README.md).
 
@@ -336,6 +336,39 @@ LOCAL_UID="$(id -u)" LOCAL_GID="$(id -g)" \
 The GUI profile remains networkless and exposes no port. Wayland-only desktops
 need an XWayland-compatible display or a deliberately configured Wayland
 override; the headless test service does not pretend to be an interactive GUI.
+
+## Local image-to-3D research lab
+
+AF-045 owns an internal TripoSR CUDA image for testing whether one reviewed
+character cutout can become a useful 3D proposal without manual mesh editing.
+It adds nothing to the base Python package and runs no inference on Windows.
+
+From this directory on Linux, build and provision the pinned model once:
+
+```bash
+mkdir -p workspaces/reconstruction/input workspaces/reconstruction/output
+docker compose --profile reconstruction build animated-fabric-3d-lab
+docker compose --profile reconstruction-provision run --rm \
+  animated-fabric-3d-lab-provision
+```
+
+Provisioning is the only network-enabled runtime step. Normal checks and
+inference mount the verified model volume read-only and disable networking:
+
+```bash
+docker compose --profile reconstruction run --rm animated-fabric-3d-lab doctor
+docker compose --profile reconstruction run --rm animated-fabric-3d-lab \
+  reconstruct /input/subject-cutout.png \
+  --candidate-id subject-triposr-r1 \
+  --chunk-size 4096 \
+  --mc-resolution 256
+```
+
+The input must be a prepared RGBA cutout. Each candidate is an immutable ignored
+directory containing `input.png`, `mesh.glb`, and `candidate.json`. It is a
+proposal, not accepted actor geometry or recovered hidden truth. See
+[`docs/RECONSTRUCTION_LAB.md`](docs/RECONSTRUCTION_LAB.md) for the full workflow,
+model identities, limits, licensing, and review gates.
 
 ## Quality gate
 

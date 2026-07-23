@@ -9,6 +9,7 @@ import {
   isMiscellaneousAssetPath,
   isPlausibleSentence,
   isRecentSentence,
+  isReservedEdgeGesture,
   interpretHorizontalSwipe,
   normalizeAssetPath,
   normalizeWord,
@@ -58,6 +59,14 @@ test("maps deliberate horizontal swipes to Word World navigation", () => {
   assert.equal(interpretHorizontalSwipe({ x: 100, y: 200, time: 10 }, { x: 145, y: 202, time: 250 }), null);
   assert.equal(interpretHorizontalSwipe({ x: 100, y: 200, time: 10 }, { x: 180, y: 275, time: 250 }), null);
   assert.equal(interpretHorizontalSwipe({ x: 100, y: 200, time: 10 }, { x: 180, y: 205, time: 1200 }), null);
+});
+
+test("reserves both screen edges for Android system navigation", () => {
+  assert.equal(isReservedEdgeGesture(0, 475), true);
+  assert.equal(isReservedEdgeGesture(24, 475), true);
+  assert.equal(isReservedEdgeGesture(451, 475), true);
+  assert.equal(isReservedEdgeGesture(237, 475), false);
+  assert.equal(isReservedEdgeGesture(20, 475, { edgeGutter: 12 }), false);
 });
 
 test("cleans model wrappers and falls back for unusable output", () => {

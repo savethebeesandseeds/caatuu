@@ -44,7 +44,7 @@
     return latest > current;
   }
 
-  function setUpdateAppControl(button, runtime, status, { busy = false } = {}) {
+  function setUpdateAppControl(button, runtime, status, { busy = false, checked = false } = {}) {
     if (!button) return;
     const native = runtime?.env === "android";
     const selfUpdateEnabled = status?.selfUpdateEnabled !== false;
@@ -70,7 +70,9 @@
             ? `Update${latestName ? ` ${latestName}` : ""}`
             : statusProblem
               ? "Retry check"
-              : "Check for updates";
+              : checked
+                ? "Up to date"
+                : "Check for updates";
     button.setAttribute("aria-disabled", button.disabled ? "true" : "false");
     button.setAttribute("aria-busy", busy ? "true" : "false");
     button.classList?.toggle("is-busy", busy);
@@ -94,7 +96,9 @@
                 ? `Version ${latestName || status?.latestVersionCode || "new"} is available. Installed: ${currentName || status?.currentVersionCode || "unknown"}.`
                 : statusProblem
                   ? "The last update check did not finish. Try checking again."
-                  : `Installed version ${currentName || status?.currentVersionCode || "unknown"}. Check for a newer version.`;
+                  : checked
+                    ? `No newer release was found. Caatuu ${currentName || status?.currentVersionCode || "this version"} is up to date.`
+                    : `Installed version ${currentName || status?.currentVersionCode || "unknown"}. Check for a newer version.`;
       }
     }
   }
@@ -105,6 +109,7 @@
     let currentStatus = null;
     let checkedAt = 0;
     let inFlight = null;
+    let confirmedCurrent = false;
 
     const statusNode = () => document.querySelector("#maintenanceStatus");
     const versionNode = () => document.querySelector("#settingsVersion");
@@ -113,7 +118,10 @@
       if (node) node.textContent = message;
     };
     const render = (status = currentStatus, { busy = false } = {}) => {
-      setUpdateAppControl(button, runtime, status || { updateAvailable: false }, { busy });
+      setUpdateAppControl(button, runtime, status || { updateAvailable: false }, {
+        busy,
+        checked: confirmedCurrent
+      });
       if (runtime.env === "android") {
         setVersionNote(versionNode(), status);
       } else {
@@ -143,12 +151,16 @@
       }
       if (inFlight) return inFlight;
 
+      confirmedCurrent = false;
       render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: true });
       if (announce) setMessage("Checking the update server...");
       inFlight = runtime.maintenance.updateStatus()
         .then((status) => {
           currentStatus = status;
           checkedAt = Date.now();
+          confirmedCurrent = !hasNativeAppUpdate(status)
+            && status?.serverReachable !== false
+            && !status?.updateError;
           render(status);
           if (announce) setMessage(updateStatusLine(status));
           return status;
@@ -159,6 +171,7 @@
             serverReachable: false,
             updateError: error?.message || String(error)
           };
+          confirmedCurrent = false;
           render(currentStatus);
           setMessage(`Update check failed. ${currentStatus.updateError}`);
           return currentStatus;

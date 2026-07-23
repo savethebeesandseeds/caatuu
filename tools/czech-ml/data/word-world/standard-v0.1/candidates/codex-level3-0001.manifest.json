@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-manifest-v1",
+  "batchId": "codex-level3-0001",
+  "createdOn": "2026-07-22",
+  "recordsFile": "codex-level3-0001.candidates.jsonl",
+  "recordsSha256": "f69b73cf2e3f70cbc93a67db2896d7c6875c5ec198b53c6b8b0cd2d39f48c454",
+  "authoringReport": "codex-level3-0001.authoring-report.json",
+  "generatorFile": "codex-level3-0001.generate.mjs",
+  "recordCount": 80,
+  "difficultyIntent": {
+    "level1": "not included",
+    "level2": "not included",
+    "level3": "richer bounded language candidate layer"
+  },
+  "status": "candidate",
+  "acceptedIntoCanonicalSource": false,
+  "compiledIntoRuntimePack": false,
+  "externalCorpusTextUsed": false,
+  "sourceName": "Caatuu Word World Codex Level 3 expansion",
+  "sourceType": "codex_authored",
+  "licenseDisposition": "pending project confirmation before promotion",
+  "reviewDisposition": "author self-check complete; independent review required",
+  "intendedUse": "Supply a genuine Level 3 layer with bounded richer syntax, useful morphology, concrete contexts, and existing weak branch targets."
+}

@@ -559,10 +559,12 @@ def test_dockerfile_keeps_separate_fixed_workers_and_af053_entrypoint() -> None:
 
     assert "FROM blender-runtime-base AS directional-worker" in dockerfile
     assert "FROM blender-runtime-base AS actor-validator" in dockerfile
+    assert "FROM blender-runtime-base AS macaw-actor-validator" in dockerfile
     assert '"/opt/animated-fabric/render_walk.py"' in dockerfile
     assert '"/opt/animated-fabric/render_actor_package.py"' in dockerfile
-    assert dockerfile.count('"--disable-autoexec"') == 2
-    assert dockerfile.count('"--offline-mode"') == 2
+    assert '"/opt/animated-fabric/render_macaw_actor_review.py"' in dockerfile
+    assert dockerfile.count('"--disable-autoexec"') == 3
+    assert dockerfile.count('"--offline-mode"') == 3
     assert "FROM directional-worker AS blender-runtime" in dockerfile
 
     actor_source = (APP_ROOT / "tools/blender/render_actor_package.py").read_text(encoding="utf-8")

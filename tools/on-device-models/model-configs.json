@@ -114,12 +114,14 @@
       "short_label": "CZ -> EN",
       "base_model": "Qwen3 1.7B",
       "adapter": "qwen3-1.7b-translation-cs-en-001",
-      "intended_use": "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
+      "intended_use": "Optional Generative mode: translate one simple Czech sentence into simple English for Caatuu learning activities.",
       "status": "active",
       "deprecated": false,
       "replacement_status": "",
+      "install_policy": "on_demand",
       "supports_thinking": false,
       "notes": [
+        "On-demand only: excluded from initial setup and downloaded when a learner chooses a generative activity.",
         "Qwen3 translation LoRA trained from the curated bilingual Caatuu corpus using the chat-template SFT path, then continued once over train_all.jsonl for the release artifact after validation was complete.",
         "Use with prompt format: Translate this Czech sentence into simple English. Return only the English sentence. newline Czech: SENTENCE newline English:"
       ]
@@ -138,12 +140,14 @@
       "short_label": "Word Sentence",
       "base_model": "BUT-FIT CSTinyLlama 1.2B",
       "adapter": "cstinyllama-1.2b-czech-word-sentence-001",
-      "intended_use": "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word Net.",
+      "intended_use": "Optional Generative mode: given one Czech target word, generate one short ordinary Czech sentence for Word World.",
       "status": "active",
       "deprecated": false,
       "replacement_status": "",
+      "install_policy": "on_demand",
       "supports_thinking": false,
       "notes": [
+        "On-demand only: excluded from initial setup and downloaded when a learner chooses Word World Generative mode.",
         "Curriculum utility LoRA trained from the curated child-safe Caatuu corpus.",
         "Relaxed smoke benchmark passed 74/80; all 80 outputs were Czech one-sentence responses with no meta-language."
       ]

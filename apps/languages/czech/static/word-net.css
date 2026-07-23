@@ -71,7 +71,7 @@ a {
   background: var(--theme-panel-raised, #ffffff);
   display: block;
   overflow: hidden;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
 }
 
 .word-net-scene,
@@ -255,6 +255,28 @@ html[data-theme="dark"] .word-net-word-translation {
   font-weight: 900;
   line-height: 1;
   cursor: pointer;
+}
+
+.word-net-panel-actions > .theme-toggle {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--theme-control-border, #b8c5bd);
+  background: var(--theme-control-bg, #fffefa);
+  display: grid;
+  place-items: center;
+}
+
+html[data-theme] .word-net-panel-actions > .theme-toggle {
+  border-color: var(--theme-control-border, #b8c5bd);
+  background: var(--theme-control-bg, #fffefa);
+}
+
+html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
+  border-color: var(--theme-green, #22594d);
+  background: var(--theme-soft-green, #e8f5ee);
 }
 
 .word-net-translate-icon {
@@ -481,11 +503,11 @@ html[data-theme="dark"] .cz-word-token.is-selected {
   max-width: min(620px, 100%);
   min-height: 1.45em;
   margin: 0;
-  color: var(--theme-quiet, #74817b);
+  color: var(--theme-entry-accent, #8f4b40);
   font-size: clamp(0.88rem, 2vw, 1.02rem);
   font-weight: 560;
   line-height: 1.35;
-  opacity: 0.72;
+  opacity: 0.82;
   text-align: center;
 }
 
@@ -705,6 +727,211 @@ html[data-theme="dark"] .word-net-report-toggle {
   line-height: 1.35;
 }
 
+.word-net-content-source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.word-net-content-source-label {
+  flex: 0 0 auto;
+  color: var(--theme-quiet, #74817b);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.word-net-content-source-options {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.word-net-content-source-options button {
+  min-width: 126px;
+  padding: 6px 10px 7px;
+  border: 1px solid var(--theme-control-border, #b8c5bd);
+  border-bottom: 3px solid color-mix(in srgb, var(--theme-green, #22594d) 46%, var(--theme-control-border));
+  border-radius: 7px;
+  background: var(--theme-control-bg, #fffefa);
+  color: var(--theme-green-strong, #1c4a40);
+  display: grid;
+  gap: 1px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.word-net-content-source-options button.is-selected {
+  border-color: var(--theme-green, #22594d);
+  border-bottom-color: var(--theme-green, #22594d);
+  background: var(--theme-soft-green, #e8f5ee);
+}
+
+.word-net-content-source-options button:focus-visible {
+  outline: 3px solid var(--theme-focus-ring, #5b8fc3);
+  outline-offset: 2px;
+}
+
+.word-net-content-source-options button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.word-net-content-source-options strong {
+  font-size: 0.72rem;
+}
+
+.word-net-content-source-options small {
+  color: var(--theme-quiet, #74817b);
+  font-size: 0.58rem;
+  white-space: nowrap;
+}
+
+.word-net-status-panel .word-net-generative-note {
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--theme-amber) 12%, transparent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+}
+
+.word-net-generative-note[hidden] {
+  display: none;
+}
+
+.word-net-generative-dialog {
+  width: min(430px, calc(100vw - 28px));
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--theme-ink, #17201d);
+}
+
+.word-net-generative-dialog::backdrop {
+  background: rgba(20, 31, 27, 0.4);
+  backdrop-filter: blur(3px);
+}
+
+.word-net-generative-dialog-card {
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--theme-line-strong, #a9b9af);
+  border-radius: 16px;
+  background: var(--theme-panel, #fffdf8);
+  box-shadow: 0 22px 56px rgba(23, 32, 29, 0.28);
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr);
+}
+
+.word-net-generative-dialog-art {
+  min-height: 100%;
+  padding: 18px 10px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--theme-blue, #356f9d) 20%, transparent), transparent 58%),
+    color-mix(in srgb, var(--theme-green, #22594d) 8%, var(--theme-panel, #fffdf8));
+}
+
+.word-net-generative-dialog-art img {
+  width: 108px;
+  height: 108px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--theme-ink, #17201d) 18%, transparent));
+}
+
+.word-net-generative-dialog-copy {
+  min-width: 0;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.word-net-generative-dialog-kicker,
+.word-net-generative-dialog-card h2,
+.word-net-generative-dialog-card p {
+  margin: 0;
+}
+
+.word-net-generative-dialog-kicker {
+  color: var(--theme-green, #22594d);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.word-net-generative-dialog-card h2 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.word-net-generative-dialog-card p:not(.word-net-generative-dialog-kicker) {
+  color: var(--theme-muted, #5d6b65);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.word-net-generative-dialog-note {
+  padding: 9px 10px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--theme-amber, #d39330) 11%, transparent);
+}
+
+.word-net-generative-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 3px;
+}
+
+.word-net-generative-dialog-actions button {
+  min-height: 36px;
+  padding: 6px 13px;
+  border: 1px solid var(--theme-control-border, #b8c5bd);
+  border-radius: 7px;
+  background: var(--theme-control-bg, #fffefa);
+  color: var(--theme-green-strong, #1c4a40);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.word-net-generative-dialog-actions .is-primary {
+  border-color: var(--theme-green, #22594d);
+  background: var(--theme-green, #22594d);
+  color: #ffffff;
+}
+
+@media (max-width: 480px) {
+  .word-net-generative-dialog-card {
+    grid-template-columns: 1fr;
+  }
+
+  .word-net-generative-dialog-art {
+    min-height: 88px;
+    padding: 8px;
+  }
+
+  .word-net-generative-dialog-art img {
+    width: 78px;
+    height: 78px;
+  }
+
+  .word-net-generative-dialog-copy {
+    padding: 15px;
+  }
+}
+
 .word-net-diagnostics {
   padding-top: 6px;
   border-top: 1px solid color-mix(in srgb, var(--theme-amber) 25%, var(--theme-line));
@@ -784,6 +1011,15 @@ html[data-theme="dark"] .word-net-status-panel {
 }
 
 @media (max-width: 560px) {
+  .word-net-content-source {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .word-net-content-source-options button {
+    min-width: 0;
+  }
+
   .word-net-diagnostics-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -879,6 +1115,13 @@ html[data-theme="dark"] .word-net-trail-head {
   .word-net-icon-button {
     width: 40px;
     height: 40px;
+  }
+
+  .word-net-panel-actions > .theme-toggle {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
   }
 
   .word-net-side-nav {

@@ -43,6 +43,8 @@ const ACTIVE_LANGUAGE_APPS: &[LanguageAppSpec] = &[LanguageAppSpec {
     entry_file: "home.html",
     backend: LanguageBackend::CzechDictionary,
 }];
+const ANDROID_IMMUTABLE_CACHE_CONTROL: &str = "public, max-age=31536000, immutable";
+const ANDROID_MUTABLE_CACHE_CONTROL: &str = "no-store, no-cache, must-revalidate, max-age=0";
 
 /// Build the Caatuu runtime:
 /// - `/` serves the Caatuu landing page.
@@ -98,7 +100,7 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
     }
     .fallback_service(chinese_static_service);
 
-    let router = Router::new()
+    let launcher = Router::new()
         .route_service("/", ServeFile::new(launcher_static.join("index.html")))
         .route_service("/app.css", ServeFile::new(launcher_static.join("app.css")))
         .route_service(
@@ -109,6 +111,36 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
             "/languages.json",
             ServeFile::new(launcher_static.join("languages.json")),
         )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static("no-store, max-age=0"),
+        ));
+    let stable_android_releases = Router::new()
+        .nest_service(
+            "/android/releases",
+            ServeDir::new(workspace.join("artifacts/android/releases")),
+        )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static(ANDROID_IMMUTABLE_CACHE_CONTROL),
+        ));
+    let stable_android_mutable = Router::new()
+        .route(
+            "/android/releases/status",
+            get(|| async { StatusCode::NO_CONTENT }),
+        )
+        .route_service("/android/caatuu.apk", ServeFile::new(android_apk.clone()))
+        .route_service(
+            "/android/caatuu.json",
+            ServeFile::new(android_manifest.clone()),
+        )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static(ANDROID_MUTABLE_CACHE_CONTROL),
+        ));
+
+    let router = Router::new()
+        .merge(launcher)
         .route("/ws", get(retired_root_chinese_backend))
         .merge(bug_report_router(features.bug_reports))
         .nest("/api/v1", retired_root_api_router())
@@ -124,27 +156,16 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
             ServeDir::new(shared_assets.join("language-mascots")),
         )
         .nest_service(
-            "/assets/macaw/loading_animation",
-            ServeDir::new(shared_assets.join("macaw/loading-animation")),
+            "/assets/loading_animation",
+            ServeDir::new(shared_assets.join("loading-animation")),
         )
         .nest_service(
             "/assets/miscellaneous",
             ServeDir::new(shared_assets.join("visual-vocabulary")),
         )
         .nest_service("/assets", ServeDir::new(shared_assets))
-        .route(
-            "/android/releases/status",
-            get(|| async { StatusCode::NO_CONTENT }),
-        )
-        .nest_service(
-            "/android/releases",
-            ServeDir::new(workspace.join("artifacts/android/releases")),
-        )
-        .route_service("/android/caatuu.apk", ServeFile::new(android_apk.clone()))
-        .route_service(
-            "/android/caatuu.json",
-            ServeFile::new(android_manifest.clone()),
-        )
+        .merge(stable_android_releases)
+        .merge(stable_android_mutable)
         .merge(android_debug_router(
             &workspace,
             features.android_debug_downloads,
@@ -298,14 +319,19 @@ fn android_debug_router(
         return Router::new();
     }
 
-    Router::new()
-        .route(
-            "/android/debug-releases/status",
-            get(|| async { StatusCode::NO_CONTENT }),
-        )
+    let immutable_releases = Router::new()
         .nest_service(
             "/android/debug-releases",
             ServeDir::new(workspace.join("artifacts/android/debug-releases")),
+        )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static(ANDROID_IMMUTABLE_CACHE_CONTROL),
+        ));
+    let mutable_downloads = Router::new()
+        .route(
+            "/android/debug-releases/status",
+            get(|| async { StatusCode::NO_CONTENT }),
         )
         .route_service(
             "/android/caatuu-debug.apk",
@@ -315,10 +341,27 @@ fn android_debug_router(
             "/android/caatuu-debug.json",
             ServeFile::new(workspace.join("artifacts/android/caatuu-debug.json")),
         )
+        // User-facing aliases for the gated development channel. Installed
+        // debug-lineage clients keep using the legacy names above, while the
+        // public launcher can describe the same bytes honestly as a preview.
+        .route_service(
+            "/android/caatuu-preview.apk",
+            ServeFile::new(workspace.join("artifacts/android/caatuu-debug.apk")),
+        )
+        .route_service(
+            "/android/caatuu-preview.json",
+            ServeFile::new(workspace.join("artifacts/android/caatuu-debug.json")),
+        )
         .route_service(
             "/android/termux-install-debug.sh",
             ServeFile::new(workspace.join("apps/android/tooling/termux-install-debug.sh")),
         )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static(ANDROID_MUTABLE_CACHE_CONTROL),
+        ));
+
+    immutable_releases.merge(mutable_downloads)
 }
 
 fn bug_report_router(enabled: bool) -> Router<Arc<AppState>> {
@@ -430,6 +473,8 @@ mod tests {
             "/archive/chinese/ws",
             "/android/caatuu-debug.json",
             "/android/caatuu-debug.apk",
+            "/android/caatuu-preview.json",
+            "/android/caatuu-preview.apk",
             "/android/debug-releases/status",
             "/android/debug-releases/1/caatuu-debug.apk",
         ] {

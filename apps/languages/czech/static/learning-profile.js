@@ -31,7 +31,7 @@
 
   const normalizeDifficulty = (value) => {
     const level = Number(value);
-    return difficultyLevels.some((option) => option.level === level) ? level : 2;
+    return difficultyLevels.some((option) => option.level === level) ? level : 1;
   };
 
   const readJson = (key) => {
@@ -107,7 +107,7 @@
   const readDifficulty = () => normalizeDifficulty(readJson(preferenceStorageKey)?.difficulty);
 
   const difficultyOption = (level = readDifficulty()) => (
-    difficultyLevels.find((option) => option.level === normalizeDifficulty(level)) || difficultyLevels[1]
+    difficultyLevels.find((option) => option.level === normalizeDifficulty(level)) || difficultyLevels[0]
   );
 
   const summarize = (performance = readPerformance()) => {

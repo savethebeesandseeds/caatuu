@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-3"></script>
-    <script src="learning-profile.js?v=learning-1"></script>
+    <script src="course-profile.js?v=course-5"></script>
+    <script src="learning-profile.js?v=learning-2"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -18,10 +18,11 @@
         document.documentElement.dataset.theme = "dark";
       }
     </script>
-    <script src="runtime.js?v=runtime-26"></script>
+  <script src="runtime.js?v=runtime-30"></script>
+  <script src="semantic-learning.js?v=semantic-learning-6"></script>
     <link rel="stylesheet" href="theme.css?v=theme-4">
-    <link rel="stylesheet" href="app.css?v=shell-54">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-42">
+    <link rel="stylesheet" href="app.css?v=shell-62">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-60">
   </head>
   <body>
     <div class="app-shell">
@@ -354,6 +355,9 @@
               <section class="verb-match-board" aria-label="Match Czech verbs with English meanings">
                 <div class="verb-match-controls" aria-label="Verb Nebula controls">
                   <div class="verb-match-control-cluster">
+                    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+                      <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode.png" alt="" aria-hidden="true">
+                    </button>
                     <details class="verb-pair-menu">
                       <summary aria-label="Choose number of verb pairs" title="Choose number of verb pairs">
                         <span class="verb-pair-menu-icon" aria-hidden="true">
@@ -383,23 +387,31 @@
                     >
                       <span aria-hidden="true">🪶</span>
                     </button>
-                    <button type="button" id="verbRevealSolution" class="verb-reveal-button" aria-label="Reveal solution" title="Reveal solution" disabled>
+                    <button type="button" id="verbRevealSolution" class="verb-reveal-button" aria-label="Reveal solution" aria-pressed="false" title="Reveal solution" disabled>
                       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
-                        <circle cx="12" cy="12" r="2.6"></circle>
+                        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Z"></path>
+                        <circle cx="12" cy="12" r="2.75"></circle>
                       </svg>
                     </button>
                   </div>
                 </div>
 
-                <div class="verb-match-column-heading">
+                <div class="verb-match-column-heading verb-match-column-heading-cz">
                   <span>Česky</span>
                 </div>
-                <div class="verb-match-column-heading">
+                <div class="verb-match-column-heading verb-match-column-heading-en">
                   <span>English</span>
                 </div>
                 <div class="verb-match-column verb-match-column-cz" id="verbCzechColumn"></div>
                 <div class="verb-match-column verb-match-column-en" id="verbEnglishColumn"></div>
+                <svg id="verbSolutionArrows" class="verb-solution-arrows" aria-hidden="true" hidden>
+                  <defs>
+                    <marker id="verbSolutionArrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L7,3.5 L0,7 Z"></path>
+                    </marker>
+                  </defs>
+                  <g id="verbSolutionArrowPaths"></g>
+                </svg>
                 <div id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" hidden>
                   <img id="verbRoundRobot" src="/assets/robots/word-world-waiting.svg" alt="">
                 </div>
@@ -408,7 +420,7 @@
               <footer class="verb-match-footer">
                 <div class="verb-match-note">
                   <p class="verb-match-feedback" id="verbMatchFeedback" aria-live="polite">
-                    Choose a Czech verb, then its English match.
+                    Match each Czech verb with its English meaning.
                   </p>
                 </div>
                 <div class="verb-match-status" aria-label="Round status">
@@ -471,6 +483,21 @@
           <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
+    </div>
+
+    <div
+      class="world-landing-animation"
+      id="worldLandingAnimation"
+      role="status"
+      aria-live="polite"
+      aria-label="Landing on the selected world"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="world-landing-animation-stage">
+        <img id="worldLandingAnimationFrame" alt="">
+        <span>Landing…</span>
+      </div>
     </div>
 
     <nav
@@ -615,9 +642,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="chrome.js?v=chrome-48"></script>
-    <script src="maintenance-ui.js?v=maintenance-13"></script>
-    <script src="app.js?v=shell-57"></script>
+  <script src="chrome.js?v=chrome-66"></script>
+    <script src="maintenance-ui.js?v=maintenance-14"></script>
+    <script src="app.js?v=shell-67"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>

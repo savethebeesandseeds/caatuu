@@ -41,6 +41,11 @@ class AppUpdateManager(context: Context) {
         val apkUrl: String,
     ) {
         fun manifest(): JSONObject = JSONObject(manifestJson)
+
+        fun sameArtifact(other: UpdateTarget): Boolean =
+            versionCode == other.versionCode &&
+                sha256 == other.sha256 &&
+                bytes == other.bytes
     }
 
     private data class StoredUpdateState(
@@ -50,6 +55,8 @@ class AppUpdateManager(context: Context) {
         val verified: Boolean,
         val state: String,
         val error: String,
+        val verifiedBytes: Long = 0L,
+        val verifiedLastModified: Long = 0L,
     )
 
     private data class ManagedDownloadStatus(
@@ -106,19 +113,21 @@ class AppUpdateManager(context: Context) {
                     .put("updateManagement", "store")
             }
 
-            val local = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
-            if (local != null) {
-                return@withContext status.putLocalSnapshot(local)
-            }
-
             try {
-                val manifest = fetchJson(updateManifestUrl)
-                status.putManifestStatus(manifest)
-            } catch (error: Exception) {
+                val remote = updateTarget(fetchJson(updateManifestUrl), requireNewer = false)
+                val local = synchronized(PROCESS_STATE_LOCK) {
+                    reconcileServerTargetLocked(remote)
+                }
+                status.putManifestStatus(remote)
+                if (local != null) status.putDownloadSnapshot(local)
                 status
+            } catch (error: Exception) {
+                val local = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
+                val fallback = status
                     .put("serverReachable", false)
                     .put("updateAvailable", false)
                     .put("updateError", publicUpdateError(error))
+                if (local != null) fallback.putLocalSnapshot(local) else fallback
             }
         }
 
@@ -159,6 +168,33 @@ class AppUpdateManager(context: Context) {
             }
 
             var snapshot = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
+            var target = snapshot?.target
+            val remote = try {
+                updateTarget(fetchJson(updateManifestUrl), requireNewer = false)
+            } catch (error: Exception) {
+                if (
+                    snapshot == null ||
+                    snapshot.state == DOWNLOAD_STATE_IDLE ||
+                    snapshot.state == DOWNLOAD_STATE_FAILED
+                ) {
+                    throw error
+                }
+                null
+            }
+
+            if (remote != null) {
+                if (remote.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
+                    synchronized(PROCESS_STATE_LOCK) {
+                        clearStoredArtifactsLocked(loadStoredStateLocked())
+                    }
+                    updateTarget(remote.manifest(), requireNewer = true)
+                }
+                snapshot = synchronized(PROCESS_STATE_LOCK) {
+                    reconcileServerTargetLocked(remote)
+                }
+                target = remote
+            }
+
             if (snapshot?.ready == true) {
                 return@withContext updateResult(snapshot.target, reused = true)
             }
@@ -171,10 +207,8 @@ class AppUpdateManager(context: Context) {
                 snapshot = null
             }
 
-            val target = snapshot?.target ?: run {
-                val manifest = fetchJson(updateManifestUrl)
-                updateTarget(manifest, requireNewer = true)
-            }
+            val downloadTarget = target ?: snapshot?.target
+                ?: error("Could not determine the available Caatuu update.")
             val hadManagedDownload = snapshot?.state == DOWNLOAD_STATE_DOWNLOADING ||
                 snapshot?.state == DOWNLOAD_STATE_PAUSED
             var integrityRetryCount = 0
@@ -186,7 +220,7 @@ class AppUpdateManager(context: Context) {
                         when {
                             raced?.ready == true -> raced
                             raced?.state == DOWNLOAD_STATE_DOWNLOADING || raced?.state == DOWNLOAD_STATE_PAUSED -> raced
-                            else -> startManagedDownloadLocked(raced?.target ?: target)
+                            else -> startManagedDownloadLocked(downloadTarget)
                         }
                     }
                 }
@@ -214,12 +248,30 @@ class AppUpdateManager(context: Context) {
                             isRetryableIntegrityFailure(current.error)
                         ) {
                             PROCESS_UPDATE_MUTEX.withLock {
-                                synchronized(PROCESS_STATE_LOCK) {
-                                    val raced = reconcileLocalStateLocked()
-                                    when {
-                                        raced?.ready == true -> raced
-                                        raced?.state == DOWNLOAD_STATE_DOWNLOADING || raced?.state == DOWNLOAD_STATE_PAUSED -> raced
-                                        else -> startManagedDownloadLocked(activeTarget)
+                                val raced = synchronized(PROCESS_STATE_LOCK) {
+                                    reconcileLocalStateLocked()
+                                }
+                                when {
+                                    raced?.ready == true -> raced
+                                    raced?.state == DOWNLOAD_STATE_DOWNLOADING ||
+                                        raced?.state == DOWNLOAD_STATE_PAUSED -> raced
+                                    else -> {
+                                        val retryTarget = updateTarget(
+                                            fetchJson(updateManifestUrl),
+                                            requireNewer = false,
+                                        )
+                                        synchronized(PROCESS_STATE_LOCK) {
+                                            val reconciled = reconcileServerTargetLocked(retryTarget)
+                                            if (retryTarget.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
+                                                updateTarget(retryTarget.manifest(), requireNewer = true)
+                                            }
+                                            when {
+                                                reconciled?.ready == true -> reconciled
+                                                reconciled?.state == DOWNLOAD_STATE_DOWNLOADING ||
+                                                    reconciled?.state == DOWNLOAD_STATE_PAUSED -> reconciled
+                                                else -> startManagedDownloadLocked(retryTarget)
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -261,6 +313,8 @@ class AppUpdateManager(context: Context) {
                             verified = false,
                             state = DOWNLOAD_STATE_FAILED,
                             error = error.message ?: "Downloaded APK verification failed.",
+                            verifiedBytes = 0L,
+                            verifiedLastModified = 0L,
                         ),
                     )
                     throw error
@@ -495,6 +549,26 @@ class AppUpdateManager(context: Context) {
         }
     }
 
+    private fun reconcileServerTargetLocked(remote: UpdateTarget): UpdateSnapshot? {
+        val local = reconcileLocalStateLocked()
+        if (remote.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
+            if (local != null || loadStoredStateLocked() != null || updateApk.exists()) {
+                clearStoredArtifactsLocked(loadStoredStateLocked())
+            }
+            return null
+        }
+        if (local == null) return null
+        if (!local.target.sameArtifact(remote)) {
+            clearStoredArtifactsLocked(loadStoredStateLocked())
+            return null
+        }
+
+        val stored = loadStoredStateLocked() ?: return local
+        if (stored.target.manifestJson == remote.manifestJson) return local
+        persistStateLocked(stored.copy(target = remote))
+        return local.copy(target = remote)
+    }
+
     private fun reconcileLocalStateLocked(): UpdateSnapshot? {
         var stored = loadStoredStateLocked() ?: return null
         if (stored.target.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
@@ -504,16 +578,28 @@ class AppUpdateManager(context: Context) {
 
         if (updateApk.isFile) {
             try {
-                verifyTargetFile(updateApk, stored.target)
+                if (!verificationStampMatches(stored, updateApk)) {
+                    verifyTargetFile(updateApk, stored.target)
+                }
                 val managedState = stored
                 cleanupManagedDownloadLocked(managedState)
-                if (!stored.verified || stored.downloadId != null || stored.downloadFileName.isNotBlank()) {
+                val verifiedBytes = updateApk.length()
+                val verifiedLastModified = updateApk.lastModified()
+                if (
+                    !stored.verified ||
+                    stored.downloadId != null ||
+                    stored.downloadFileName.isNotBlank() ||
+                    stored.verifiedBytes != verifiedBytes ||
+                    stored.verifiedLastModified != verifiedLastModified
+                ) {
                     stored = stored.copy(
                         downloadId = null,
                         downloadFileName = "",
                         verified = true,
                         state = DOWNLOAD_STATE_READY,
                         error = "",
+                        verifiedBytes = verifiedBytes,
+                        verifiedLastModified = verifiedLastModified,
                     )
                     persistStateLocked(stored)
                 }
@@ -526,6 +612,8 @@ class AppUpdateManager(context: Context) {
                     verified = false,
                     state = DOWNLOAD_STATE_FAILED,
                     error = error.message ?: "Downloaded APK verification failed.",
+                    verifiedBytes = 0L,
+                    verifiedLastModified = 0L,
                 )
                 persistStateLocked(stored)
             }
@@ -534,6 +622,8 @@ class AppUpdateManager(context: Context) {
                 verified = false,
                 state = DOWNLOAD_STATE_FAILED,
                 error = "The verified update APK is missing. Download it again.",
+                verifiedBytes = 0L,
+                verifiedLastModified = 0L,
             )
             persistStateLocked(stored)
         }
@@ -558,6 +648,8 @@ class AppUpdateManager(context: Context) {
                     verified = false,
                     state = DOWNLOAD_STATE_FAILED,
                     error = error.message ?: "Downloaded APK verification failed.",
+                    verifiedBytes = 0L,
+                    verifiedLastModified = 0L,
                 )
                 persistStateLocked(failed)
                 snapshot(
@@ -633,6 +725,8 @@ class AppUpdateManager(context: Context) {
             verified = true,
             state = DOWNLOAD_STATE_READY,
             error = "",
+            verifiedBytes = updateApk.length(),
+            verifiedLastModified = updateApk.lastModified(),
         )
         persistStateLocked(ready)
         managed?.id?.let { runCatching { downloadManager.remove(it) } }
@@ -752,6 +846,8 @@ class AppUpdateManager(context: Context) {
             .put("verified", stored.verified)
             .put("state", stored.state)
             .put("error", stored.error)
+            .put("verifiedBytes", stored.verifiedBytes)
+            .put("verifiedLastModified", stored.verifiedLastModified)
             .toString()
         check(updatePrefs.edit().putString(UPDATE_STATE_KEY, body).commit()) {
             "Could not persist app update state."
@@ -771,6 +867,8 @@ class AppUpdateManager(context: Context) {
                 state = body.optString("state", DOWNLOAD_STATE_IDLE).takeIf { it in DOWNLOAD_STATES }
                     ?: DOWNLOAD_STATE_IDLE,
                 error = body.optString("error"),
+                verifiedBytes = body.optLong("verifiedBytes", 0L),
+                verifiedLastModified = body.optLong("verifiedLastModified", 0L),
             )
         } catch (_: Exception) {
             updatePrefs.edit().remove(UPDATE_STATE_KEY).commit()
@@ -803,6 +901,15 @@ class AppUpdateManager(context: Context) {
         }
         verifyUpdateArchive(file, target.manifest())
     }
+
+    private fun verificationStampMatches(stored: StoredUpdateState, file: File): Boolean =
+        stored.verified &&
+            stored.state == DOWNLOAD_STATE_READY &&
+            file.isFile &&
+            stored.verifiedBytes == stored.target.bytes &&
+            file.length() == stored.verifiedBytes &&
+            stored.verifiedLastModified > 0L &&
+            file.lastModified() == stored.verifiedLastModified
 
     private fun isRetryableIntegrityFailure(error: String): Boolean =
         error.startsWith("APK size mismatch:") || error.startsWith("APK SHA-256 mismatch:")
@@ -919,13 +1026,7 @@ class AppUpdateManager(context: Context) {
             .put("updateAvailable", false)
 
     private fun JSONObject.putLocalSnapshot(snapshot: UpdateSnapshot): JSONObject {
-        val progress = if (snapshot.totalBytes > 0L) {
-            (snapshot.downloadedBytes.toDouble() / snapshot.totalBytes.toDouble() * 100.0)
-                .coerceIn(0.0, 100.0)
-        } else {
-            0.0
-        }
-        return put("statusSource", "local")
+        put("statusSource", "local")
             .put("latestVersionCode", snapshot.target.versionCode)
             .put("latestVersionName", snapshot.target.versionName)
             .put("latestBytes", snapshot.target.bytes)
@@ -933,7 +1034,17 @@ class AppUpdateManager(context: Context) {
             .put("manifest", snapshot.target.manifest())
             .put("apkUrl", snapshot.target.apkUrl)
             .put("updateAvailable", snapshot.target.versionCode > BuildConfig.VERSION_CODE.toLong())
-            .put("downloaded", snapshot.ready)
+        return putDownloadSnapshot(snapshot)
+    }
+
+    private fun JSONObject.putDownloadSnapshot(snapshot: UpdateSnapshot): JSONObject {
+        val progress = if (snapshot.totalBytes > 0L) {
+            (snapshot.downloadedBytes.toDouble() / snapshot.totalBytes.toDouble() * 100.0)
+                .coerceIn(0.0, 100.0)
+        } else {
+            0.0
+        }
+        return put("downloaded", snapshot.ready)
             .put("downloadReady", snapshot.ready)
             .put("readyToInstall", snapshot.ready)
             .put("downloadState", snapshot.state)
@@ -950,22 +1061,17 @@ class AppUpdateManager(context: Context) {
             .put("downloadError", snapshot.error)
     }
 
-    private fun JSONObject.putManifestStatus(manifest: JSONObject): JSONObject {
-        val latestVersionCode = manifest.optLong("version_code", 0L)
-        val latestVersionName = manifest.optString("version_name", "")
-        val latestBytes = manifest.optLong("bytes", 0L)
-        if (latestVersionCode > BuildConfig.VERSION_CODE.toLong()) {
-            updateTarget(manifest, requireNewer = true)
-        }
+    private fun JSONObject.putManifestStatus(target: UpdateTarget): JSONObject {
         return put("statusSource", "server")
             .put("serverReachable", true)
-            .put("latestVersionCode", latestVersionCode)
-            .put("latestVersionName", latestVersionName)
-            .put("latestBytes", latestBytes)
-            .put("totalBytes", latestBytes)
-            .put("latestSha256", manifest.optString("sha256", ""))
-            .put("manifest", manifest)
-            .put("updateAvailable", latestVersionCode > BuildConfig.VERSION_CODE.toLong())
+            .put("latestVersionCode", target.versionCode)
+            .put("latestVersionName", target.versionName)
+            .put("latestBytes", target.bytes)
+            .put("totalBytes", target.bytes)
+            .put("latestSha256", target.sha256)
+            .put("manifest", target.manifest())
+            .put("apkUrl", target.apkUrl)
+            .put("updateAvailable", target.versionCode > BuildConfig.VERSION_CODE.toLong())
     }
 
     private fun updateResult(

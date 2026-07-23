@@ -12,6 +12,10 @@ const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise
   ...["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
+const [homeCss, launcherCss] = await Promise.all([
+  readFile(new URL("home.css", staticRoot), "utf8"),
+  readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
+]);
 
 function cssRules(source) {
   const rules = [];
@@ -311,4 +315,100 @@ test("the update action has resolvable shared colors and readable dark tokens on
     "dark update action"
   );
   assert.ok(ratio >= 4.5, `dark update action tokens have only ${ratio.toFixed(2)}:1 contrast`);
+});
+
+test("setup failures expand instead of clipping long update diagnostics", () => {
+  const zone = ruleWithSelector(homeCss, ".native-setup-card.is-error .setup-message-zone");
+  const message = ruleWithSelector(homeCss, ".native-setup-card.is-error .setup-message");
+  assert.equal(zone.declarations.get("overflow"), "visible");
+  assert.equal(message.declarations.get("overflow"), "visible");
+  assert.equal(message.declarations.get("display"), "block");
+  assert.equal(message.declarations.get("-webkit-line-clamp"), "unset");
+  assert.equal(message.declarations.get("overflow-wrap"), "anywhere");
+});
+
+test("the shared Waajacu trademark stays legible in language and launcher footers", () => {
+  for (const [name, source] of [["Czech Chrome", chromeCss], ["launcher", launcherCss]]) {
+    const mark = ruleWithSelector(source, ".brand-trademark");
+    assert.equal(mark.declarations.get("display"), "inline-block", `${name} trademark should have a stable box`);
+    assert.equal(mark.declarations.get("font-size"), "1em", `${name} trademark should match the surrounding scale`);
+    assert.equal(mark.declarations.get("font-weight"), "900", `${name} trademark should remain visible`);
+  }
+});
+
+test("the backpack progression hub has a distinct reward-focused surface", () => {
+  const card = ruleWithSelector(chromeCss, ".backpack-card");
+  assert.match(card.declarations.get("background") || "", /var\(--theme-amber/);
+  assert.match(card.declarations.get("background") || "", /var\(--green\)/);
+  assert.match(card.declarations.get("border") || "", /var\(--theme-amber/);
+  const coin = ruleWithSelector(chromeCss, ".wallet-token-coin");
+  assert.match(coin.declarations.get("background") || "", /radial-gradient/);
+  const sheet = ruleWithSelector(chromeCss, ".settings-sheet");
+  assert.match(sheet.declarations.get("grid-template-rows") || "", /auto minmax\(0, 1fr\) auto/);
+  const sectionNav = ruleWithSelector(chromeCss, ".settings-section-switcher");
+  assert.match(sectionNav.declarations.get("grid-template-columns") || "", /repeat\(3/);
+  assert.equal(sectionNav.declarations.get("border")?.includes("var(--theme-amber"), true);
+  assert.equal(sectionNav.declarations.get("margin"), "0 clamp(8px, 2vw, 22px)");
+  assert.equal(sectionNav.declarations.get("padding"), "4px 0 5px");
+  assert.equal(sectionNav.declarations.get("gap"), "6px");
+  assert.equal(sectionNav.declarations.get("border-radius"), "12px 12px 0 12px");
+  assert.match(sectionNav.declarations.get("box-shadow") || "", /0 3px 10px/);
+  const sectionIcon = ruleWithSelector(chromeCss, ".settings-section-switcher button img");
+  assert.equal(sectionIcon.declarations.get("width"), "34px");
+  assert.equal(sectionIcon.declarations.get("height"), "34px");
+  const sectionButton = ruleWithSelector(chromeCss, ".settings-section-switcher button");
+  assert.equal(sectionButton.declarations.get("border-radius"), "8px");
+  const activeSectionButton = ruleWithSelector(chromeCss, ".settings-section-switcher button.is-active");
+  assert.match(activeSectionButton.declarations.get("background") || "", /var\(--green\)/);
+  const backpackButton = ruleWithSelector(chromeCss, "body.settings-open #openSettings");
+  assert.equal(backpackButton.declarations.get("border-radius"), "0 0 10px 10px");
+  const backpackConnector = ruleWithSelector(chromeCss, "body.settings-open #openSettings::before");
+  assert.equal(backpackConnector.declarations.get("top"), "-10px");
+  assert.equal(backpackConnector.declarations.get("left"), "-1px");
+  assert.equal(backpackConnector.declarations.get("border-top-left-radius"), "10px");
+  assert.equal(backpackConnector.declarations.get("pointer-events"), "none");
+  const sectionOutline = ruleWithSelector(chromeCss, ".settings-section-switcher::before");
+  assert.equal(sectionOutline.declarations.get("inset"), "-1px");
+  assert.equal(sectionOutline.declarations.get("pointer-events"), "none");
+  const sectionJoin = ruleWithSelector(chromeCss, ".settings-section-switcher::after");
+  assert.equal(sectionJoin.declarations.get("bottom"), "-1px");
+  assert.equal(sectionJoin.declarations.get("height"), "3px");
+  const settingsBody = ruleWithSelector(chromeCss, ".settings-sheet-body");
+  assert.equal(settingsBody.declarations.get("display"), "flex");
+  assert.equal(settingsBody.declarations.get("flex-direction"), "column");
+  const settingsFooter = ruleWithSelector(chromeCss, ".settings-sheet-footer");
+  assert.equal(settingsFooter.declarations.get("margin-top"), "auto");
+});
+
+test("the skill compass uses shared theme tokens and keeps exact values beside the chart", () => {
+  const compass = ruleWithSelector(chromeCss, ".skill-compass");
+  assert.match(compass.declarations.get("border") || "", /var\(--green\)/);
+  const practice = declarationsForSelector(chromeCss, ".skill-compass-practice-shape");
+  assert.match(practice.get("stroke") || "", /var\(--theme-amber/);
+  const strength = declarationsForSelector(chromeCss, ".skill-compass-strength-shape");
+  assert.match(strength.get("stroke") || "", /var\(--green/);
+  assert.match(chromeCss, /\.skill-compass-map \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
+  assert.doesNotMatch(chromeCss, /\.skill-compass-map \{[\s\S]*?grid-template-columns: minmax\(230px/);
+  assert.match(chromeCss, /\.skill-compass-axis-metrics \{[\s\S]*?grid-template-columns: minmax\(86px, 1\.15fr\)/);
+  assert.match(chromeCss, /\.skill-compass-emblem-mark \{[\s\S]*?stroke: currentColor/);
+  assert.match(chromeCss, /\.skill-compass-emblem-ring \{[\s\S]*?stroke:/);
+  assert.match(chromeCss, /\.skill-compass-axis-list li \{[\s\S]*?grid-template-columns: minmax\(150px/);
+  assert.match(chromeCss, /\.skill-compass-axis-heading \.skill-compass-axis-emblem \{[\s\S]*?width: 28px/);
+  assert.match(chromeCss, /\.skill-compass-axis-practice-meter::after \{[\s\S]*?var\(--axis-practice/);
+  assert.match(
+    chromeCss,
+    /@media screen and \(max-width: 560px\) \{[\s\S]*?\.skill-compass-axis-list li \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/
+  );
+  for (const axisId of ["people", "home-school", "food-shopping", "places-travel", "actions-abilities", "time-plans", "world-description"]) {
+    assert.match(chromeCss, new RegExp(`data-axis-id="${axisId}"`));
+  }
+});
+
+test("browser freshness notices remain visible, themed, and dismiss only when current", () => {
+  const notice = ruleWithSelector(chromeCss, ".app-freshness-notice");
+  assert.match(notice.declarations.get("position") || "", /fixed/);
+  assert.match(notice.declarations.get("background") || "", /var\(--theme-panel-raised/);
+  assert.match(chromeCss, /\.app-freshness-notice\[hidden\] \{[\s\S]*?display: none/);
+  assert.match(chromeCss, /\.app-freshness-notice\[data-state="update-ready"\]/);
+  assert.match(chromeCss, /\.app-freshness-notice\[data-state="refreshing"\]/);
 });

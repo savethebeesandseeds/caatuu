@@ -1,0 +1,869 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-authoring-report-v1",
+  "batchId": "codex-level3-0001",
+  "createdOn": "2026-07-22",
+  "disposition": "candidate_only_pending_independent_review",
+  "selfReviewIsAcceptance": false,
+  "counts": {
+    "records": 80,
+    "byDifficulty": {
+      "3": 80
+    },
+    "byCefr": {
+      "A1/A2": 50,
+      "A2": 30
+    },
+    "byTopic": {
+      "people": 8,
+      "home": 8,
+      "school": 8,
+      "play": 8,
+      "nature": 8,
+      "transport": 8,
+      "feelings": 8,
+      "food": 8,
+      "weather": 8,
+      "technology": 8
+    },
+    "byClauseCount": {
+      "1": 4,
+      "2": 73,
+      "3": 3
+    },
+    "bySentenceType": {
+      "statement": 66,
+      "imperative": 13,
+      "question": 1
+    },
+    "czechTokenRange": {
+      "minimum": 7,
+      "maximum": 10,
+      "withinPreferred7To13": 80,
+      "shareWithinPreferred7To13": 1
+    }
+  },
+  "targetCoverage": {
+    "distinctTargets": 79,
+    "absentFromCanonicalPlayable": 0,
+    "singletonTargetsBefore": 74,
+    "nonStrongTargetsBefore": 79,
+    "alreadyStrongTargetsBefore": 0,
+    "projectedNewBranchableTargets": 74,
+    "projectedNewStrongTargets": 0,
+    "perTarget": [
+      {
+        "target": "autobuse",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "baterie",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "bojím",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "bratr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "bundu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "byl",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "cesta",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "cítím",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "čepici",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "deštník",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "džusu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "heslo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "hodiny",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "hračky",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "hrnek",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "chybějící",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "jablka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "kamarádi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "klíče",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "kolo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "košile",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "květinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "lépe",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "letadlo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "míče",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "mokré",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "načítá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "nádobí",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "nahlas",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "najdi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "nervózní",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "obloha",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "obrazovka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "odpovědět",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "otázku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "park",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "location"
+        ]
+      },
+      {
+        "target": "podlahu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "pohovka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "polévka",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "postav",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "pošli",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "prší",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "příběh",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "připoutej",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "rodina",
+        "before": 1,
+        "added": 2,
+        "projected": 3,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "rodinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "rostlinu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "slunečno",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "sněží",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "snídaně",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "soused",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "studené",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "suché",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "sušenku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "svetr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "tabuli",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "school"
+        ]
+      },
+      {
+        "target": "tancuj",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "teplá",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "food"
+        ]
+      },
+      {
+        "target": "učitel",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "uklízet",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "home"
+        ]
+      },
+      {
+        "target": "úkol",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "routine"
+        ]
+      },
+      {
+        "target": "venku",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "věž",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "vítr",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "vlak",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "vybarvi",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "play"
+        ]
+      },
+      {
+        "target": "vypnutý",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "vystoupit",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "vysvětlit",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "conversation"
+        ]
+      },
+      {
+        "target": "zataženo",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "weather"
+        ]
+      },
+      {
+        "target": "zpoždění",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "transport"
+        ]
+      },
+      {
+        "target": "zprávu",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "zvuk",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "technology"
+        ]
+      },
+      {
+        "target": "žízeň",
+        "before": 1,
+        "added": 1,
+        "projected": 2,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "dědeček",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "priorTopics": [
+          "people"
+        ]
+      },
+      {
+        "target": "hlad",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "priorTopics": [
+          "food",
+          "people"
+        ]
+      },
+      {
+        "target": "nevím",
+        "before": 2,
+        "added": 1,
+        "projected": 3,
+        "priorTopics": [
+          "conversation",
+          "school"
+        ]
+      },
+      {
+        "target": "pomoc",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "priorTopics": [
+          "conversation",
+          "routine"
+        ]
+      },
+      {
+        "target": "tým",
+        "before": 3,
+        "added": 1,
+        "projected": 4,
+        "priorTopics": [
+          "people",
+          "play"
+        ]
+      }
+    ]
+  },
+  "duplicateScan": {
+    "exactWithinBatch": {
+      "czech": 0,
+      "english": 0
+    },
+    "exactAgainstCanonical": {
+      "czech": 0,
+      "english": 0
+    },
+    "exactAgainstFirstCandidateBatch": {
+      "czech": 0,
+      "english": 0
+    },
+    "nearWithinBatch": [],
+    "nearAgainstCanonical": [],
+    "nearAgainstFirstCandidateBatch": [],
+    "thresholds": {
+      "minimumCzechTokens": 5,
+      "czechJaccard": 0.75,
+      "englishJaccard": 0.8
+    }
+  },
+  "diversity": {
+    "topCzechOpenings": [
+      {
+        "opening": "když",
+        "count": 5
+      },
+      {
+        "opening": "dítě",
+        "count": 3
+      },
+      {
+        "opening": "než",
+        "count": 3
+      },
+      {
+        "opening": "po",
+        "count": 3
+      },
+      {
+        "opening": "náš",
+        "count": 2
+      },
+      {
+        "opening": "baterie",
+        "count": 1
+      },
+      {
+        "opening": "bojím",
+        "count": 1
+      },
+      {
+        "opening": "budeme",
+        "count": 1
+      },
+      {
+        "opening": "cesta",
+        "count": 1
+      },
+      {
+        "opening": "dědeček",
+        "count": 1
+      },
+      {
+        "opening": "deštník",
+        "count": 1
+      },
+      {
+        "opening": "děti",
+        "count": 1
+      }
+    ]
+  },
+  "selfCheck": {
+    "passed": true,
+    "errors": [],
+    "warnings": [],
+    "checks": [
+      "exactly 80 Level 3 candidate records",
+      "difficulty and CEFR contract",
+      "Czech and English token and character caps",
+      "preferred 7-13 Czech-token band",
+      "UTF-8 NFC strings",
+      "exactly one exact-position playable target",
+      "target exists in canonical coverage and is not strong",
+      "exact duplicate scan against canonical and first candidate batch",
+      "Jaccard near-duplicate scan against canonical and first candidate batch",
+      "author bilingual, grammatical-gender, child-safety, and hidden-context pass"
+    ]
+  },
+  "reviewRequired": [
+    "independent Czech-English naturalness and semantic-equivalence review",
+    "independent Level 3 difficulty, clause, and morphology review",
+    "independent child-safety and guided-learning review",
+    "license confirmation for first-party candidate data",
+    "promotion decision per record; rejected records must not enter source/"
+  ]
+}

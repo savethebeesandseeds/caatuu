@@ -745,6 +745,50 @@ button:focus-visible {
 .train-tab-panel[hidden] {
   display: none;
 }
+.world-landing-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 58%, rgba(91, 214, 142, 0.16), transparent 34%),
+    rgba(3, 9, 14, 0.9);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.world-landing-animation[hidden] {
+  display: none;
+}
+.world-landing-animation.is-visible {
+  opacity: 1;
+}
+.world-landing-animation.is-finishing {
+  opacity: 0;
+}
+.world-landing-animation-stage {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+}
+.world-landing-animation img {
+  display: block;
+  width: min(76vw, 520px);
+  height: min(68vh, 520px);
+  object-fit: contain;
+  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.42));
+}
+.world-landing-animation span {
+  color: #eaf8f1;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+body.world-landing-active {
+  overflow: hidden;
+}
 .train-galaxy {
   --train-orbit-perspective: 920px;
   --train-orbit-pitch: 68deg;
@@ -799,7 +843,7 @@ button:focus-visible {
 .train-galaxy-copy {
   position: relative;
   z-index: 2;
-  max-width: 430px;
+  max-width: min(82%, 620px);
 }
 .train-galaxy-copy h2 {
   margin: 0;
@@ -833,7 +877,7 @@ button:focus-visible {
 }
 .train-world img {
   display: block;
-  width: min(28vw, 260px);
+  width: clamp(68px, 21vw, 104px);
   max-width: none;
   filter: drop-shadow(0 22px 24px rgba(0, 0, 0, 0.42));
   transition: transform 180ms ease, filter 180ms ease;
@@ -868,7 +912,7 @@ button:focus-visible {
   transform-origin: 50% 50%;
 }
 .train-world-label {
-  width: min(230px, 42vw);
+  width: clamp(126px, 46vw, 200px);
   display: grid;
   gap: 3px;
   padding: 9px 11px;
@@ -890,8 +934,8 @@ button:focus-visible {
   line-height: 1.25;
 }
 .train-world-word {
-  right: clamp(22px, 8vw, 88px);
-  top: clamp(130px, 18vh, 190px);
+  top: 30%;
+  right: clamp(12px, 4vw, 24px);
 }
 .train-world-word .train-orbit {
   --word-orbit-left: clamp(-96px, -34%, -76px);
@@ -912,21 +956,22 @@ button:focus-visible {
   display: none;
 }
 .train-world-verb {
-  left: clamp(-42px, -5%, -18px);
-  bottom: clamp(130px, 25%, 190px);
+  left: clamp(8px, 4vw, 18px);
+  bottom: 25%;
 }
 .train-world-verb .train-world-label {
-  transform: translate(32px, -20px);
+  transform: translate(10px, -8px);
 }
 .train-world-memory {
-  left: clamp(230px, 45%, 340px);
-  bottom: clamp(75px, 5vh, 160px);
+  left: auto;
+  right: clamp(18px, 8vw, 44px);
+  bottom: clamp(24px, 6%, 44px);
 }
 .train-world-memory img {
-  width: clamp(82px, 14vw, 154px);
+  width: clamp(56px, 17vw, 82px);
 }
 .train-world-verb img {
-  width: clamp(112px, 20vw, 254px);
+  width: clamp(68px, 21vw, 104px);
 }
 .verb-hero,
 .verb-practice-head,
@@ -5230,6 +5275,39 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   font-weight: 900;
 }
 
+.verb-match-control-cluster > .theme-toggle {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+html[data-theme] .verb-match-control-cluster > .theme-toggle {
+  border: 1px solid var(--theme-line-strong, var(--line));
+  background: var(--theme-input, var(--panel));
+}
+
+html[data-theme] .verb-match-control-cluster > .theme-toggle.is-selected {
+  border-color: color-mix(in srgb, var(--blue) 58%, var(--line));
+  background: color-mix(in srgb, var(--blue) 11%, var(--theme-input, var(--panel)));
+  color: var(--ink);
+  opacity: 1;
+}
+
+html[data-theme] .verb-match-control-cluster > .theme-toggle:hover,
+html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
+  border-color: var(--blue);
+  background: color-mix(in srgb, var(--blue) 15%, var(--theme-input, var(--panel)));
+  opacity: 1;
+}
+
+.verb-match-control-cluster > .theme-toggle .theme-toggle-icon {
+  margin: 0;
+}
+
 .verb-pair-count button {
   min-width: 34px;
   min-height: 34px;
@@ -5328,10 +5406,12 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 
 .verb-match-board {
   --verb-pair-count: 4;
+  --verb-hint-size: clamp(92px, 11vw, 124px);
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto auto repeat(var(--verb-pair-count), minmax(54px, auto));
-  gap: 6px clamp(18px, 3vw, 30px);
+  grid-template-rows: auto auto repeat(var(--verb-pair-count), minmax(var(--verb-hint-size), auto));
+  gap: 6px clamp(34px, 5vw, 58px);
   padding: clamp(8px, 1.4vw, 12px);
   border: 1px solid var(--line);
   border-radius: 13px;
@@ -5342,13 +5422,22 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   padding: 0 5px 1px;
 }
 
+.verb-match-column-heading-cz {
+  padding-inline-start: calc(var(--verb-hint-size) + 13px);
+}
+
 .verb-match-column-heading span {
   color: var(--ink);
-  font-size: 0.72rem;
-  font-weight: 900;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: clamp(0.78rem, 1.2vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1.15;
 }
 
 .verb-match-column {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   display: grid;
   grid-row: 3 / -1;
@@ -5365,12 +5454,36 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   grid-column: 2;
 }
 
+.verb-match-card-row {
+  position: relative;
+  min-width: 0;
+  min-height: var(--verb-hint-size);
+  display: grid;
+  grid-template-columns: var(--verb-hint-size) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.verb-match-card-row:has(.verb-match-hint-slot[hidden]) {
+  min-height: 70px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.verb-match-card-row > .verb-match-card {
+  grid-column: 2;
+}
+
+.verb-match-card-row:has(.verb-match-hint-slot[hidden]) > .verb-match-card {
+  grid-column: 1;
+}
+
 .verb-match-card {
   position: relative;
   min-width: 0;
-  min-height: 54px;
+  min-height: 64px;
+  align-self: center;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: 6px;
   overflow: hidden;
@@ -5382,6 +5495,19 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   text-align: left;
   box-shadow: none;
   transition: border-color 150ms ease, background 150ms ease, color 150ms ease, opacity 180ms ease, transform 150ms ease;
+}
+
+.verb-match-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 2px 2px, currentColor 0 0.55px, transparent 0.75px) 0 0 / 11px 11px,
+    repeating-linear-gradient(135deg, currentColor 0 0.45px, transparent 0.45px 10px);
+  opacity: 0.026;
+  pointer-events: none;
 }
 
 .verb-match-card-en {
@@ -5422,7 +5548,14 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   animation: verb-match-nudge 220ms ease-in-out;
 }
 
+.verb-match-card.is-solution {
+  border-color: color-mix(in srgb, var(--blue) 38%, var(--line));
+  background: color-mix(in srgb, var(--blue) 5%, var(--theme-input, var(--panel)));
+}
+
 .verb-match-card-copy {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   font-size: clamp(0.82rem, 1.65vw, 1rem);
   font-weight: 900;
@@ -5431,14 +5564,17 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 }
 
 .verb-match-hint-slot {
-  width: 52px;
-  height: 52px;
+  position: relative;
+  z-index: 2;
+  width: var(--verb-hint-size, clamp(92px, 11vw, 124px));
+  height: var(--verb-hint-size, clamp(92px, 11vw, 124px));
   flex: 0 0 auto;
   overflow: hidden;
   display: grid;
   place-items: center;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--blue) 6%, transparent);
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .verb-match-hint-slot[hidden] {
@@ -5446,10 +5582,18 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 }
 
 .verb-match-hint-slot img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: var(--verb-hint-size, clamp(92px, 11vw, 124px));
+  height: var(--verb-hint-size, clamp(92px, 11vw, 124px));
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center;
   filter: drop-shadow(0 5px 6px rgba(11, 34, 29, 0.14));
+}
+
+.verb-match-card-row:has(.verb-match-card.is-matched) .verb-match-hint-slot {
+  opacity: 0.52;
 }
 
 .verb-hint-loader {
@@ -5466,6 +5610,45 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   font-size: 0.55rem;
   font-weight: 900;
   text-align: center;
+}
+
+.verb-solution-arrows {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  display: none;
+}
+
+.verb-solution-arrows.is-visible {
+  display: block;
+}
+
+.verb-solution-arrows > g > path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--blue) 78%, var(--green-dark));
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--ink) 16%, transparent));
+  animation: verb-solution-draw 560ms cubic-bezier(0.3, 0.72, 0.28, 1) forwards;
+  animation-delay: calc(var(--verb-solution-index, 0) * 140ms);
+}
+
+.verb-solution-arrows marker path {
+  fill: color-mix(in srgb, var(--blue) 78%, var(--green-dark));
+  stroke: none;
+  filter: none;
+}
+
+@keyframes verb-solution-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 #verbRoundInterstitial[hidden] {
@@ -5571,14 +5754,13 @@ html[data-theme="dark"] .verb-match-board {
     flex-wrap: wrap;
   }
 
-  .verb-match-card {
-    min-height: 60px;
-    padding: 6px 8px;
+  .verb-match-board {
+    --verb-hint-size: 82px;
   }
 
-  .verb-match-hint-slot {
-    width: 50px;
-    height: 50px;
+  .verb-match-card {
+    min-height: 58px;
+    padding: 6px 8px;
   }
 
   .verb-match-footer {
@@ -5599,8 +5781,9 @@ html[data-theme="dark"] .verb-match-board {
   }
 
   .verb-match-board {
+    --verb-hint-size: 76px;
     row-gap: 6px;
-    column-gap: clamp(14px, 4vw, 20px);
+    column-gap: clamp(30px, 8vw, 40px);
     padding: 7px;
   }
 
@@ -5614,6 +5797,15 @@ html[data-theme="dark"] .verb-match-board {
     min-height: 31px;
   }
 
+  .verb-match-control-cluster > .theme-toggle {
+    width: 31px;
+    height: 31px;
+  }
+
+  .verb-match-card-row {
+    gap: 5px;
+  }
+
   .verb-match-card {
     min-height: 56px;
     padding: 5px 7px;
@@ -5623,10 +5815,6 @@ html[data-theme="dark"] .verb-match-board {
     font-size: 0.82rem;
   }
 
-  .verb-match-hint-slot {
-    width: 46px;
-    height: 46px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

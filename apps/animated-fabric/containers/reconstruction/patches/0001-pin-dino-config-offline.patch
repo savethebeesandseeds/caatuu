@@ -1,0 +1,13 @@
+diff --git a/tsr/models/tokenizers/image.py b/tsr/models/tokenizers/image.py
+index 89180aa..33671bf 100644
+--- a/tsr/models/tokenizers/image.py
++++ b/tsr/models/tokenizers/image.py
+@@ -20,6 +20,8 @@ class DINOSingleImageTokenizer(BaseModule):
+                 hf_hub_download(
+                     repo_id=self.cfg.pretrained_model_name_or_path,
+                     filename="config.json",
++                    revision="f205d5d8e640a89a2b8ef0369670dfc37cc07fc2",
++                    local_files_only=True,
+                 )
+             )
+         )

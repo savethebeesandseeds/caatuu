@@ -1,7 +1,6 @@
 package com.caatuu.android
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -13,16 +12,18 @@ import android.webkit.WebSettings
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.window.OnBackInvokedDispatcher
 import android.widget.FrameLayout
+import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowCompat
 import java.io.ByteArrayInputStream
 
-class MainActivity : Activity() {
+class MainActivity : ComponentActivity() {
     private lateinit var appRoot: FrameLayout
     private lateinit var webView: WebView
     private lateinit var bridge: CaatuuBridge
     private var systemTheme = DARK_THEME
+    private var backRequestInFlight = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,12 +75,11 @@ class MainActivity : Activity() {
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            onBackInvokedDispatcher.registerOnBackInvokedCallback(
-                OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-                ::handleBackRequest,
-            )
-        }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackRequest()
+            }
+        })
     }
 
     private fun readPersistedSystemTheme(): String =
@@ -151,7 +151,6 @@ class MainActivity : Activity() {
         val prefs = getSharedPreferences("caatuu-webview-runtime", Context.MODE_PRIVATE)
         val previousVersion = prefs.getInt("versionCode", -1)
         if (previousVersion == BuildConfig.VERSION_CODE) {
-            webView.clearCache(true)
             return
         }
 
@@ -162,26 +161,28 @@ class MainActivity : Activity() {
         prefs.edit().putInt("versionCode", BuildConfig.VERSION_CODE).apply()
     }
 
-    @Suppress("DEPRECATION")
-    @Deprecated("Android 12 and older back-navigation fallback.")
-    override fun onBackPressed() {
-        handleBackRequest()
-    }
-
     private fun handleBackRequest() {
         if (!::webView.isInitialized) return finish()
+        if (backRequestInFlight) return
+        backRequestInFlight = true
 
         webView.evaluateJavascript(
             """
             (() => {
               try {
-                return Boolean(window.CaatuuHandleAndroidBack && window.CaatuuHandleAndroidBack());
+                if (window.CaatuuHandleAndroidBack && window.CaatuuHandleAndroidBack()) return true;
+                return Boolean(
+                  window.CaatuuChrome
+                  && window.CaatuuChrome.handleAndroidBack
+                  && window.CaatuuChrome.handleAndroidBack()
+                );
               } catch (error) {
                 return false;
               }
             })();
             """.trimIndent(),
         ) { handled ->
+            backRequestInFlight = false
             if (handled == "true") return@evaluateJavascript
             if (webView.canGoBack()) {
                 webView.goBack()
