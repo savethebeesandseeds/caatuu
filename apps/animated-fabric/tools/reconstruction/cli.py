@@ -9,7 +9,6 @@ import sys
 from pathlib import Path
 
 from tools.reconstruction import __version__, configured_model_cache
-from tools.reconstruction.candidate import run_triposr
 from tools.reconstruction.errors import ReconstructionError
 from tools.reconstruction.integrity import (
     load_model_specs,
@@ -43,8 +42,6 @@ def build_parser() -> argparse.ArgumentParser:
     )
     reconstruct.add_argument("input", type=Path)
     reconstruct.add_argument("--candidate-id", required=True)
-    reconstruct.add_argument("--input-root", type=Path, default=Path("/input"))
-    reconstruct.add_argument("--output-root", type=Path, default=Path("/output"))
     reconstruct.add_argument("--model-cache", type=Path)
     reconstruct.add_argument("--chunk-size", type=int, default=4096)
     reconstruct.add_argument("--mc-resolution", type=int, default=256)
@@ -119,10 +116,12 @@ def cmd_prefetch(args: argparse.Namespace) -> int:
 
 def cmd_reconstruct(args: argparse.Namespace) -> int:
     """Run one offline TripoSR proposal."""
+    from tools.reconstruction.candidate import run_triposr
+
     destination = run_triposr(
         input_path=args.input,
-        input_root=args.input_root,
-        output_root=args.output_root,
+        input_root=Path("/input"),
+        output_root=Path("/output"),
         candidate_id=args.candidate_id,
         model_cache=configured_model_cache(args.model_cache),
         chunk_size=args.chunk_size,

@@ -1,14 +1,18 @@
 # Reconstruction container
 
-This internal-only Linux/CUDA image owns the AF-045 TripoSR feasibility spike.
-It is independent from the base application, cutout, and Blender images.
+These internal-only Linux images own the AF-045 TripoSR feasibility spike.
+They are independent from the base application, cutout, and Blender images.
 
-- Build-time networking fetches immutable TripoSR source and pinned Python wheels.
-- `prefetch` is the only runtime command allowed to download model files.
+- Build-time networking fetches immutable TripoSR source and only
+  version-and-SHA-locked Python artifacts for Linux x86-64 / CPython 3.12.
+  Debian packages are not snapshot-locked, so future OCI byte identity is not
+  claimed.
+- The small provisioner has the only network-enabled runtime and contains no
+  inference code. Its resumable range staging is never mounted by inference.
 - `doctor` and `reconstruct` operate with networking disabled.
 - Inputs are mounted read-only, model snapshots read-only, and candidates are
   written only beneath the ignored reconstruction workspace.
-- The image contains no server, public port, Docker socket, GUI, or product
+- Neither image contains a server, public port, Docker socket, GUI, or product
   entry point.
 
 The upstream patches pin the DINO configuration revision, force a cache-only

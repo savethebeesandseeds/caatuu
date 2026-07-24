@@ -29,7 +29,7 @@ test("every Czech page installs the synchronous semantic facade before shared Ch
     const learningIndex = source.indexOf('src="learning-profile.js?v=learning-2"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-30"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-6"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-66"');
+    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-70"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -272,13 +272,14 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v320/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v334/);
   assert.match(serviceWorker, /\/assets\/icons\/items_icon\.png\?v=items-2/);
+  assert.match(serviceWorker, /\/assets\/icons\/coin_icon\.png/);
   assert.match(serviceWorker, /semantic-learning\.js\?v=semantic-learning-6/);
   assert.match(serviceWorker, /semantic-learning-core\.mjs\?v=semantic-learning-core-5/);
   assert.match(semantic, /import\("\.\/semantic-learning-core\.mjs\?v=semantic-learning-core-5"\)/);
   assert.match(serviceWorker, /vendor\/transformers\/transformers\.min\.js/);
   assert.match(serviceWorker, /runtime\.js\?v=runtime-30/);
-  assert.match(serviceWorker, /app\.js\?v=shell-67/);
+  assert.match(serviceWorker, /app\.js\?v=shell-69/);
   assert.match(serviceWorker, /word-net\.js\?v=word-net-50/);
 });

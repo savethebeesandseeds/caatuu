@@ -1,12 +1,13 @@
-# Pinned TripoSR runtime dependencies. This dependency plane is not installed in
-# the Animated Fabric development or product images.
+# Exact direct TripoSR runtime roots. The generated platform lock adds hashes
+# and exact transitive versions. This plane is not installed in product images.
 einops==0.7.0
-huggingface-hub==0.19.4
+huggingface-hub==0.17.3
 moderngl==5.10.0
 numpy==1.26.4
 omegaconf==2.3.0
 Pillow==10.1.0
 PyMCubes @ https://files.pythonhosted.org/packages/b5/13/63d018ea286c95b758f8b5cbe97d88a16b38f5672411138287bd2123d877/PyMCubes-0.1.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=ea366a2064af0846093e0ad3f9035e375f4b14b62bb565c95dcc8dcaf78308a5
+tokenizers==0.14.1
 transformers==4.35.0
 trimesh==4.0.5
 xatlas==0.0.9

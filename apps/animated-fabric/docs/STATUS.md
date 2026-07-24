@@ -2,9 +2,9 @@
 
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 and AF-055 complete; AF-045 local reconstruction feasibility is active and AF-056 is paused
+**Current state:** Milestones M0 through M5 plus AF-045 and AF-055 complete; the local reconstruction baseline is a GO and AF-056 remains paused pending a scoped reconstruction-to-rig decision
 
-**Last updated:** 2026-07-23
+**Last updated:** 2026-07-24
 
 ## Completed work
 
@@ -44,7 +44,7 @@ M4 - humanoid generators.
 Experimental upstream tooling.
 
 - [x] AF-044 Blender prerender feasibility
-- [ ] AF-045 Local image-to-3D reconstruction feasibility
+- [x] AF-045 Local image-to-3D reconstruction feasibility
 
 M5 - export.
 
@@ -407,6 +407,20 @@ AF-060 remains the first M6 ticket and is deferred, not cancelled.
 - AF-053 remains frozen. AF-055 does not author or accept the macaw, define `avian_v1`, add a walk
   or directional actor export, expose a product import command, or authorize general/untrusted 3D
   input; those scoped next steps begin with AF-056.
+- AF-045 adds a separate application-owned Linux/CUDA proposal plane with a small network-enabled
+  model provisioner and a networkless GPU inference image. Exact source, checkpoint, DINO
+  configuration, Torch, and PyMCubes identities remain outside the base package and release
+  artifacts. Runtime model files are hash-verified and read-only; inputs are read-only and outputs
+  remain ignored proposals.
+- The approved AF-054 front view passed through the self-contained BiRefNet cutout plane. Two
+  clean TripoSR runs produced the same 159,456-byte normalized PNG and the same 2,555,024-byte
+  vertex-colored GLB, with 63,850 vertices and 127,700 triangles. Runtime was 12.814 s and
+  12.018 s; both recorded a 2,494,066,176-byte PyTorch CUDA allocator peak on the RTX A2000.
+- Fixed Blender front, left, back, and front-right three-quarter reviews repeated byte for byte.
+  The recognizable front/three-quarter identity, coherent generated rear, readable limbs, and
+  observed GPU fit support a bounded `GO` to candidate scoring, normalization, joint estimation,
+  and deformation feasibility. Six connected components and five degenerate faces require later
+  treatment. Neither proposal is an accepted actor package, rig, animation, or product input.
 
 The cutout engine was brought forward as an explicit infrastructure request. This does
 not complete M9 or AF-095: cutout application ports, reviewed importer/GUI integration, owned
@@ -487,6 +501,13 @@ Principal files:
 - `tools/blender/render_actor_package.py`
 - `tools/cutout/`
 - `Dockerfile.cutout`, `requirements-cutout-*.txt`, and `docs/CUTOUT.md`
+- `containers/reconstruction/` and `requirements-reconstruction*.txt`
+- `tools/reconstruction/`
+- `tools/blender/reconstruction_candidate_review.py`
+- `tools/blender/render_reconstruction_candidate.py`
+- `scripts/run_reconstruction_candidate_review.sh`
+- `docs/RECONSTRUCTION_LAB.md`
+- `docs/decisions/0015-local-image-to-3d-research-plane.md`
 - `tests/unit/`
 - `docs/decisions/0008-animation-generation-cli.md`
 - `docs/decisions/0009-frame-sequence-export.md`
@@ -588,6 +609,53 @@ Principal files:
 - `.github/workflows/animated-fabric-blender-evidence.yml` at the Caatuu repository root
 
 ## Verification
+
+Local AF-045 acceptance executed on 2026-07-24 through application-owned Linux containers on
+Docker Desktop. No project dependency, Python tool, Node tool, model, CUDA component, or productive
+image operation was installed or run on the Windows host:
+
+- Final image identities were development
+  `sha256:1d093f39ef5a1d090ca70cae8d277358b20be45fe1657c454e869383c28fb53e`,
+  offline TripoSR
+  `sha256:0c0206f0f153881825eb8abb969084523c7a12684c8cf62cee13485f53103976`,
+  model provisioner
+  `sha256:9baf28492e1e3e22afa3dcbed7567daa6fa695e353de847fd68cf864b3143165`,
+  and Blender
+  `sha256:4e99a578efe0e41e75def8e58dccfef02d01266c871fdec7703bf55765b626f8`.
+- The official model provisioner completed the resumable eight-range checkpoint transfer,
+  published the exact 1,677,246,742-byte checkpoint, and verified both pinned snapshots. A second
+  clean invocation reported `Verified existing pinned TripoSR checkpoint` and completed
+  idempotently. The networkless inference doctor reported Pillow, PyTorch, PyMCubes, Transformers,
+  Trimesh, `tsr.system.TSR`, the RTX A2000, and all three model files as `ok`.
+- Two fresh inference containers created `macaw-front-triposr-r1` and
+  `macaw-front-triposr-r2` in 12.814 s and 12.018 s. Their normalized input SHA-256 was identically
+  `d38da7d98b8be0ee786542e7651b719eb80856530cb8b0377e780813d1805e4f`; their GLB SHA-256 was
+  identically `88ac489f649e0459e2c87417706e79eb20cc8aed3af7f92286b3f74726c9698a`.
+  Both recorded 2,494,066,176 peak CUDA allocator bytes, 63,850 vertices, and 127,700 triangles.
+- Read-only structural inspection reported six connected components, watertight and
+  winding-consistent geometry, no boundary or non-manifold edges, no duplicate faces, and five
+  degenerate faces. The complete fixed-view R1 and R2 renders passed strict candidate import,
+  private-copy, topology, vertex-color, network, read-only-mount, alpha, framing, and output
+  checks. All four corresponding PNG hashes matched byte for byte across the two reviews.
+- The first integration attempt safely exposed a PyMCubes `uint64` triangle-index incompatibility
+  before publication; the pinned source patch now converts contiguous indices to `int64`. Real
+  headless Blender then exposed absent `Render Result` retention, camera roll, and the proposal's
+  image-oriented Y-up frame. The accepted renderer validates the saved canonical PNG, uses a
+  world-up camera basis, and records a -90 degree X review rotation on only the private imported
+  copy. Faulty review outputs were discarded and both immutable candidates were regenerated under
+  the corrected review contract.
+- `ruff format --check .`: 257 files already formatted. `ruff check .`: all checks passed.
+- `mypy src`: no issues in 73 source files.
+- `pytest -q`: 1,234 passed in 189.52 s with 91.95% branch coverage against an 85% floor.
+- `python -m pip check`: no broken requirements in the development, offline inference, or separate
+  provisioner images. Every Compose profile resolved to the expected 11 services; all four AF-045
+  Bash entry points passed `bash -n`.
+- `python scripts/run_demo_pipeline.py --out .tmp/af045-final-demo-1234` rendered the unchanged
+  neutral SE and NE layered fixtures. `python -m animated_fabric doctor` reported no problems.
+  A baked development image with no checkout bind, network, or writable root passed the same
+  doctor.
+- The repository-owned Node 24 container accepted 1,794 tracked and candidate files and all links
+  in 105 Markdown files.
 
 Local pre-publication verification executed on 2026-07-22 for AF-055 through the exact
 repository-built Linux development image and the isolated Blender images:
@@ -1059,10 +1127,11 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Known debt and risks
 
-- AF-045 is an isolated proposal plane, not a product importer. A successful GLB still needs
-  identity review, canonical orientation and scale, topology/material assessment, admission through
-  the unchanged actor-package validator, skeleton and skin-weight estimation, retargeting, and
-  deformation acceptance before it can replace manual AF-056 authoring.
+- AF-045 proved an isolated proposal plane, not a product importer. Its successful GLB still needs
+  component labeling, degenerate-face repair, canonical orientation and scale, topology/material
+  assessment, admission through the unchanged actor-package validator, skeleton and skin-weight
+  estimation, retargeting, and deformation acceptance before it can replace manual AF-056
+  authoring.
 - TripoSR is feed-forward rather than seed-diverse. A useful ensemble will require controlled input
   variants or a second compatible provider; unrelated mesh vertices must never be averaged
   directly. Decision 0015 requires rendered/field-space comparison or fusion.
@@ -1213,4 +1282,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 
 ## Next permitted work
 
-- AF-045 Local image-to-3D reconstruction feasibility
+- Define and approve a bounded post-AF-045 ticket for candidate scoring, normalization, joint
+  estimation, skin-weight proposal, and deformation feasibility. AF-056 remains paused until that
+  decision states how a reviewed reconstruction derivative may approach the unchanged AF-055
+  actor-package boundary.

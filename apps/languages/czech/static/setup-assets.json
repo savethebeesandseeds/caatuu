@@ -2920,8 +2920,8 @@
       "artifact_kind": "visual-asset",
       "url": "/assets/miscellaneous/miscellaneous%20(166).png",
       "asset_path": "assets/miscellaneous/miscellaneous (166).png",
-      "bytes": 54853,
-      "sha256": "2a4980f4695881c4bd07b6726f7207c93df70cdf837840fc9827a5469d0f79bb",
+      "bytes": 54214,
+      "sha256": "fa8d6a5de50f61542d95dbd6a85b465d7f51f5e9e85b71ef5887858ca61c7c2e",
       "native_required": true,
       "browser_required": true
     },

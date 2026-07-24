@@ -1,5 +1,83 @@
 /* Shared Caatuu chrome: header, language pill, settings sheet, bottom nav, footer. */
 
+:root {
+  --caatuu-scroll-track:
+    color-mix(in srgb, var(--theme-page-alt, var(--panel)) 88%, var(--theme-amber, #c19138));
+  --caatuu-scroll-track-edge:
+    color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--theme-control-border, var(--line)));
+  --caatuu-scroll-thumb:
+    color-mix(in srgb, var(--theme-green-strong, var(--green)) 74%, var(--theme-amber, #c19138));
+  --caatuu-scroll-thumb-hover:
+    color-mix(in srgb, var(--theme-green-strong, var(--green)) 62%, var(--theme-amber, #c19138));
+}
+
+html {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--caatuu-scroll-thumb) var(--caatuu-scroll-track);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--caatuu-scroll-thumb) var(--caatuu-scroll-track);
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  border-inline-start: 1px solid var(--caatuu-scroll-track-edge);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--caatuu-scroll-track) 94%, #ffffff),
+      var(--caatuu-scroll-track)
+    );
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 44px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-green-strong, var(--green)) 92%, #2aa6a0),
+      var(--caatuu-scroll-thumb) 58%,
+      color-mix(in srgb, var(--theme-amber, #c19138) 74%, var(--theme-green-strong, var(--green)))
+    )
+    padding-box,
+    linear-gradient(
+      180deg,
+      var(--theme-amber, #c19138),
+      color-mix(in srgb, var(--theme-green-strong, var(--green)) 76%, var(--theme-amber, #c19138))
+    )
+    border-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-green-strong, var(--green)) 86%, #37bdb4),
+      var(--caatuu-scroll-thumb-hover) 54%,
+      color-mix(in srgb, var(--theme-amber, #c19138) 82%, var(--theme-green-strong, var(--green)))
+    )
+    padding-box,
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-amber, #c19138) 88%, #ffffff),
+      color-mix(in srgb, var(--theme-green-strong, var(--green)) 82%, var(--theme-amber, #c19138))
+    )
+    border-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 .app-header {
   position: relative;
   width: min(1280px, 100%);
@@ -11,6 +89,10 @@
   justify-content: space-between;
   gap: 14px;
   color: var(--ink);
+}
+
+.games-page .app-shell {
+  padding-bottom: 0;
 }
 
 .app-freshness-notice {
@@ -69,6 +151,7 @@
 
 .brand-link {
   min-width: 0;
+  max-width: min(58vw, 440px);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -97,16 +180,50 @@
   border-radius: 6px;
 }
 
-.brand-link strong {
+.games-page .brand-icon {
+  width: auto;
+  max-width: none;
+  height: 36px;
+  max-height: 36px;
+}
+
+.app-header-page-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.app-header-page-kicker,
+.app-header-title-kicker {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.app-header-page-title {
+  overflow: hidden;
   display: block;
-  font-size: 0.98rem;
-  font-weight: 850;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header.has-screen-title .brand-link {
+  display: none;
 }
 
 .app-header-center {
   position: absolute;
   left: 50%;
-  max-width: min(42vw, 420px);
+  max-width: min(58vw, 420px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,24 +234,46 @@
   display: none;
 }
 
+.app-header.has-screen-title .app-header-back {
+  order: 1;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.app-header.has-screen-title .app-header-center {
+  order: 2;
+  position: absolute;
+  left: 50%;
+  min-width: 42px;
+  max-width: 42px;
+  margin: 0;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+.app-header.has-screen-title .header-actions {
+  order: 3;
+  margin-left: auto;
+}
+
 .app-header-title {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  padding: 4px 10px 4px 5px;
-  border: 1px solid color-mix(in srgb, var(--theme-control-border, var(--line)) 72%, transparent);
-  border-radius: 999px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  background: color-mix(in srgb, var(--theme-control-bg, var(--control-bg, #ffffff)) 76%, transparent);
-  box-shadow: 0 8px 22px color-mix(in srgb, var(--ink) 7%, transparent);
+  gap: 10px;
+  background: transparent;
+  box-shadow: none;
   color: var(--ink);
-  font-size: clamp(0.88rem, 2vw, 1.08rem);
+  font-size: clamp(0.98rem, 2vw, 1.12rem);
   font-weight: 900;
   line-height: 1.1;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
 }
 
@@ -143,12 +282,22 @@
 }
 
 .app-header-title-icon {
-  width: 26px;
-  min-width: 26px;
-  height: 26px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   display: block;
   object-fit: contain;
+  background: transparent;
   filter: drop-shadow(0 3px 5px color-mix(in srgb, var(--ink) 15%, transparent));
+}
+
+.app-header-title-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
 }
 
 .app-header-title-label {
@@ -159,19 +308,74 @@
 }
 
 .app-header[data-caatuu-active-game] .app-header-title {
-  padding: 2px 4px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
   gap: 10px;
   font-size: clamp(1.08rem, 2.4vw, 1.38rem);
 }
 
 .app-header[data-caatuu-active-game] .app-header-title-icon {
-  width: 38px;
-  min-width: 38px;
-  height: 38px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+}
+
+.app-header[data-caatuu-active-game] .app-header-title-copy {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.app-header[data-caatuu-active-game] .app-header-back {
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 2px;
+  border-color: var(--theme-control-border, var(--line));
+  border-radius: 8px;
+  background: var(--theme-control-bg, var(--control-bg, #ffffff));
+  filter: drop-shadow(0 3px 5px color-mix(in srgb, var(--ink) 15%, transparent));
+}
+
+.app-header-back-image {
+  width: auto;
+  max-width: none;
+  height: 36px;
+  max-height: 36px;
+  display: block;
+  object-fit: contain;
+}
+
+.app-header-language-pill {
+  flex: 0 0 32px;
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+  border: 0;
+  border-radius: 0;
+  gap: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.app-header-language-pill .cz-flag {
+  flex-basis: 24px;
+  width: 24px;
+  min-width: 24px;
+  max-width: 24px;
+  height: 16px;
+  min-height: 16px;
+  max-height: 16px;
+}
+
+.app-header-language-pill .language-code {
+  display: none;
 }
 
 .app-header-back {
@@ -313,7 +517,7 @@
   right: 0;
   bottom: 0;
   z-index: 30;
-  width: 100%;
+  width: auto;
   min-height: calc(70px + env(safe-area-inset-bottom));
   padding: 8px clamp(8px, 2vw, 22px) calc(8px + env(safe-area-inset-bottom));
   display: grid;
@@ -466,12 +670,16 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .settings-language-pill {
-  flex: 0 0 auto;
-  min-width: 0;
-  min-height: 36px;
-  padding: 0 8px;
-  border: 1px solid var(--line);
-  gap: 5px;
+  flex: 0 0 32px;
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+  border: 0;
+  border-radius: 0;
+  gap: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .settings-language-pill .cz-flag {
@@ -485,7 +693,7 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .settings-language-pill .language-code {
-  font-size: 0.64rem;
+  display: none;
 }
 
 .settings-title-copy {
@@ -533,6 +741,18 @@ html[data-theme="light"] .bottom-app-nav {
   overflow-y: auto;
 }
 
+.settings-sheet-body,
+.model-license-list,
+.chat-log,
+.print-menu,
+.print-book,
+.matrix-wrap,
+.request-box pre,
+.diagnostic-output,
+.command-box {
+  scrollbar-gutter: stable;
+}
+
 .settings-card {
   padding: 9px;
   border: 1px solid var(--line);
@@ -544,6 +764,74 @@ html[data-theme="light"] .bottom-app-nav {
 
 .settings-card-compact {
   padding: 7px 8px;
+}
+
+.settings-section-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.settings-section-details > summary {
+  min-height: 58px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 24px;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.settings-section-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.settings-section-details > summary::after {
+  width: 22px;
+  height: 22px;
+  border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line));
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  content: "+";
+  color: var(--green-dark, var(--green));
+  font-size: 0.88rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.settings-section-details[open] > summary::after {
+  content: "-";
+}
+
+.settings-section-title {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.settings-section-title strong {
+  font-size: 0.92rem;
+}
+
+.settings-section-summary > small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.settings-section-body {
+  padding: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--green) 18%, var(--line));
+  display: grid;
+  gap: 7px;
+  background: color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 34%, transparent);
+}
+
+.settings-section-body > .settings-card {
+  background: var(--panel);
 }
 
 .settings-card-head h3 {
@@ -767,9 +1055,10 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .settings-section-switcher {
+  --settings-section-edge: clamp(8px, 2vw, 22px);
   position: relative;
   z-index: 4;
-  margin: 0 clamp(8px, 2vw, 22px);
+  margin: 0 var(--settings-section-edge) 0 clamp(32px, 7vw, 64px);
   padding: 4px 6px 5px;
   border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
   border-radius: 12px 12px 0 12px;
@@ -803,7 +1092,7 @@ html[data-theme="light"] .bottom-app-nav {
   z-index: 6;
   right: -1px;
   bottom: -1px;
-  width: calc((100% - 12px) / 3 + 1px);
+  width: calc((100vw - var(--settings-section-edge) - var(--settings-section-edge) - 12px) / 3 + 1px);
   height: 3px;
   background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
   pointer-events: none;
@@ -865,7 +1154,7 @@ body.settings-open #openSettings::before {
   position: absolute;
   top: -10px;
   left: -1px;
-  right: -1px;
+  right: 0;
   height: 11px;
   border-right: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
   border-left: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
@@ -1061,25 +1350,19 @@ body.settings-open #openSettings::before {
 }
 
 .wallet-token-xp {
-  border: 1px solid color-mix(in srgb, var(--green) 42%, var(--line));
-  background: color-mix(in srgb, var(--green) 15%, transparent);
-  color: var(--green-dark, var(--green));
-  font-size: 1.25rem;
+  border: 0;
+  background: url("/assets/icons/icon_gem.png") center / contain no-repeat;
 }
 
 .wallet-token-coin {
   position: relative;
-  border: 3px double color-mix(in srgb, var(--theme-amber, #c19138) 80%, #6b4917);
-  background: radial-gradient(circle at 36% 30%, #ffe8a2, #d7a53e 58%, #956219);
-  box-shadow: 0 3px 0 color-mix(in srgb, #6b4917 60%, transparent);
+  border: 0;
+  background: url("/assets/icons/coin_icon.png") center / contain no-repeat;
+  box-shadow: none;
 }
 
 .wallet-token-coin::after {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(107, 73, 23, 0.62);
-  border-radius: 50%;
-  content: "";
+  display: none;
 }
 
 .wallet-copy {
@@ -1648,11 +1931,18 @@ body.settings-open #openSettings::before {
 }
 
 .badge-collection .difficulty-control button b {
-  width: 32px;
-  height: 32px;
-  border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 28%, var(--line));
-  background: color-mix(in srgb, var(--theme-amber, #c19138) 10%, transparent);
-  color: var(--ink);
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.badge-collection .difficulty-control button b img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .badge-collection .difficulty-control button.is-active {
@@ -1664,9 +1954,8 @@ body.settings-open #openSettings::before {
 }
 
 .badge-collection .difficulty-control button.is-active b {
-  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 85%, #6b4917);
-  background: var(--theme-amber, #c19138);
-  color: #241b0d;
+  background: transparent;
+  filter: drop-shadow(0 2px 1px color-mix(in srgb, #5f431b 36%, transparent));
 }
 
 .settings-details-body {
@@ -2724,6 +3013,13 @@ html[data-theme="dark"] .language-pill {
   color: var(--muted);
 }
 
+html[data-theme] .settings-language-pill,
+html[data-theme] .app-header-language-pill {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 html[data-theme="dark"] .theme-toggle {
   border-color: transparent;
   background: transparent;
@@ -2813,12 +3109,15 @@ html[data-theme="dark"] .preset-control button.is-active {
   }
 
   .app-header.has-screen-title .app-header-back {
-    margin-left: 2px;
-    padding: 0;
+    margin-left: 0;
+  }
+
+  .app-header[data-caatuu-active-game] .app-header-back {
+    padding: 2px;
   }
 
   .app-header.has-screen-title .app-header-center {
-    max-width: 40vw;
+    max-width: 42px;
   }
 
   .appearance-card {

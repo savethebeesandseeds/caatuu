@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 from collections.abc import Callable
 from pathlib import Path
 
@@ -33,16 +34,27 @@ def prefetch_model(
     """Download only expected files from one immutable model snapshot."""
     cache_dir.mkdir(parents=True, exist_ok=True)
     download = downloader or _snapshot_download()
-    snapshot = Path(
-        download(
-            repo_id=spec.model_id,
-            revision=spec.revision,
-            repo_type="model",
-            allow_patterns=[expected.path for expected in spec.files],
-            cache_dir=str(cache_dir),
-            local_files_only=False,
-        )
-    )
+    download_arguments: dict[str, object] = {
+        "repo_id": spec.model_id,
+        "revision": spec.revision,
+        "repo_type": "model",
+        "allow_patterns": [expected.path for expected in spec.files],
+        "cache_dir": str(cache_dir),
+        "local_files_only": False,
+        "max_workers": 2,
+    }
+    signature = inspect.signature(download)
+    if "etag_timeout" in signature.parameters or any(
+        parameter.kind is inspect.Parameter.VAR_KEYWORD
+        for parameter in signature.parameters.values()
+    ):
+        download_arguments["etag_timeout"] = 30
+    if "resume_download" in signature.parameters or any(
+        parameter.kind is inspect.Parameter.VAR_KEYWORD
+        for parameter in signature.parameters.values()
+    ):
+        download_arguments["resume_download"] = True
+    snapshot = Path(download(**download_arguments))
     expected_snapshot = require_valid_snapshot(cache_dir, spec)
     if snapshot.resolve() != expected_snapshot.resolve():
         raise RuntimeError(f"Unexpected snapshot path returned for {spec.model_id}.")

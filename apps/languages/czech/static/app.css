@@ -5549,8 +5549,9 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 }
 
 .verb-match-card.is-solution {
-  border-color: color-mix(in srgb, var(--blue) 38%, var(--line));
-  background: color-mix(in srgb, var(--blue) 5%, var(--theme-input, var(--panel)));
+  border-color: color-mix(in srgb, var(--verb-solution-color, var(--blue)) 72%, var(--line));
+  background: color-mix(in srgb, var(--verb-solution-color, var(--blue)) 8%, var(--theme-input, var(--panel)));
+  box-shadow: inset 4px 0 0 var(--verb-solution-color, var(--blue));
 }
 
 .verb-match-card-copy {
@@ -5627,20 +5628,31 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   display: block;
 }
 
-.verb-solution-arrows > g > path {
+.verb-solution-route-halo,
+.verb-solution-route-line {
   fill: none;
-  stroke: color-mix(in srgb, var(--blue) 78%, var(--green-dark));
-  stroke-width: 3;
   stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--ink) 16%, transparent));
   animation: verb-solution-draw 560ms cubic-bezier(0.3, 0.72, 0.28, 1) forwards;
   animation-delay: calc(var(--verb-solution-index, 0) * 140ms);
 }
 
+.verb-solution-route-halo {
+  stroke: color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 92%, transparent);
+  stroke-width: 8;
+  opacity: 0.94;
+}
+
+.verb-solution-route-line {
+  stroke: var(--verb-solution-color, var(--blue));
+  stroke-width: 3.5;
+  filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--ink) 18%, transparent));
+}
+
 .verb-solution-arrows marker path {
-  fill: color-mix(in srgb, var(--blue) 78%, var(--green-dark));
+  fill: context-stroke;
   stroke: none;
   filter: none;
 }

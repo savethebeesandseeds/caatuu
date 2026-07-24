@@ -29,6 +29,7 @@ const defaultApk = existsSync(join(workspaceRoot, "artifacts/android/caatuu.apk"
 const apkPath = resolve(workspaceRoot, options.apk ?? defaultApk);
 const skipHttp = Boolean(options.skipHttp);
 const skipApk = Boolean(options.skipApk);
+const skipUpdateManifest = Boolean(options.skipUpdateManifest);
 const allowDebugArtifacts = Boolean(options.allowDebugArtifacts);
 
 function parseArgs(args) {
@@ -39,6 +40,8 @@ function parseArgs(args) {
       parsed.skipHttp = true;
     } else if (arg === "--skip-apk") {
       parsed.skipApk = true;
+    } else if (arg === "--skip-update-manifest") {
+      parsed.skipUpdateManifest = true;
     } else if (arg === "--allow-debug-artifacts") {
       parsed.allowDebugArtifacts = true;
     } else if (arg.startsWith("--base-url=")) {
@@ -772,6 +775,8 @@ function auditApk() {
     "assets/assets/icons/hello.png",
     "assets/assets/icons/home_icon.png",
     "assets/assets/icons/backpack_icon.png",
+    "assets/assets/icons/coin_icon.png",
+    "assets/assets/icons/icon_gem.png",
     "assets/assets/icons/items_icon.png",
     "assets/assets/icons/stats_icon.png",
     "assets/vendor/sql.js/sql-wasm.js",
@@ -870,8 +875,10 @@ function auditApk() {
     }
 
     const manifestPath = join(workspaceRoot, debugBuild ? "artifacts/android/caatuu-debug.json" : "artifacts/android/caatuu.json");
-    assert(existsSync(manifestPath), `Android APK should have a matching update manifest at ${manifestPath}`);
-    if (existsSync(manifestPath)) {
+    if (!skipUpdateManifest) {
+      assert(existsSync(manifestPath), `Android APK should have a matching update manifest at ${manifestPath}`);
+    }
+    if (!skipUpdateManifest && existsSync(manifestPath)) {
       const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
       const sha256 = createHash("sha256").update(apkBuffer).digest("hex");
       assert(manifest.sha256 === sha256, "Android update manifest sha256 should match the APK");
@@ -1003,7 +1010,7 @@ function auditRuntimeAdapterBoundary() {
   assert(
     wordNetRandomGeneration.includes("state.branchQueue.takeAny({")
       && wordNetRandomGeneration.includes("async function generateRandomPhrase")
-      && wordNetRandomGeneration.includes('cancelBackgroundWork({ preservePrefetch: state.translationMode === "off" })')
+      && wordNetRandomGeneration.includes("cancelBackgroundWork({ preserveSpeculative: Boolean(queued?.translation) })")
       && wordNetQueueTakeAny.includes("return this.use(this.choose(")
       && !wordNetQueueTakeAny.includes("this.entries ="),
     "Word World's random path should reuse saved entries without deleting them",
@@ -1015,7 +1022,7 @@ function auditRuntimeAdapterBoundary() {
   assert(
     wordNetSelectedGeneration.includes("state.branchQueue.take(target, {")
       && wordNetSelectedGeneration.includes("excludeFingerprints: queueAvoidFingerprints()")
-      && wordNetSelectedGeneration.includes('cancelBackgroundWork({ preservePrefetch: Boolean(queued) && state.translationMode === "off" })'),
+      && wordNetSelectedGeneration.includes("cancelBackgroundWork({ preserveSpeculative: Boolean(queued?.translation) })"),
     "Word World's selected-word path should prefer an exact queued branch while avoiding recent sentences",
   );
   const wordNetSchedulePrefetch = wordNet.slice(
@@ -1024,8 +1031,8 @@ function auditRuntimeAdapterBoundary() {
   );
   assert(
     wordNetSchedulePrefetch.includes('document.visibilityState === "hidden"')
-      && wordNetSchedulePrefetch.includes('state.backgroundActivity === "prefetch"')
-      && !wordNetSchedulePrefetch.includes("nativeWordNetRuntimeAvailable"),
+      && wordNetSchedulePrefetch.includes("PRESERVABLE_BACKGROUND_ACTIVITIES.has(state.backgroundActivity)")
+      && !wordNetSchedulePrefetch.includes("if (!nativeWordNetRuntimeAvailable())"),
     "Word World should prepare its queue in browser fallback as well as Android",
   );
   const wordNetPrefetchAllowance = wordNet.slice(

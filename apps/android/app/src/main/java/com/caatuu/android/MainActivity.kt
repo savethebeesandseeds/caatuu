@@ -15,7 +15,10 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import java.io.ByteArrayInputStream
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +46,20 @@ class MainActivity : ComponentActivity() {
             ),
         )
         setContentView(appRoot)
+        ViewCompat.setOnApplyWindowInsetsListener(appRoot) { _, insets ->
+            val safeArea = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout(),
+            )
+            webView.updateLayoutParams<FrameLayout.LayoutParams> {
+                leftMargin = safeArea.left
+                topMargin = safeArea.top
+                rightMargin = safeArea.right
+                bottomMargin = safeArea.bottom
+            }
+            insets
+        }
+        ViewCompat.requestApplyInsets(appRoot)
         applySystemTheme(systemTheme, persist = false)
         resetWebViewStateAfterUpdate()
 

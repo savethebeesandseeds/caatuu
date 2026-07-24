@@ -198,6 +198,7 @@ const state = {
   verbRoundTransitioning: false,
   verbRoundInterstitial: false,
   verbRoundTransitionId: 0,
+  verbSolutionAdvanceTimer: null,
   verbInterstitialRobotPath: "",
   verbRobotPathsPromise: null,
   verbRobotCursor: -1,
@@ -862,8 +863,19 @@ const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
 const verbHintFallbackPath = "/assets/macaw/actions/macaw (1).png";
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
 const verbRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
-const verbRoundInterstitialMillis = 800;
+const verbSolutionRouteColors = [
+  "#b84e45",
+  "#23856f",
+  "#af741f",
+  "#3977ad",
+  "#825f9e",
+  "#267f94",
+  "#a64f78",
+  "#627f45"
+];
+const verbRoundInterstitialMillis = 1600;
 const verbRoundCompleteHoldMillis = 420;
+const verbSolutionRevealMillis = 2200;
 const verbHintLookupTimeoutMillis = 6000;
 const verbHintImageTimeoutMillis = 1800;
 const verbHintStopwords = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
@@ -1305,6 +1317,7 @@ function planVerbRound() {
 }
 
 function applyVerbRound(plan, preloadedHints = null) {
+  clearVerbSolutionAdvance();
   resetVerbSelections();
   state.verbHintRequestId += 1;
   state.verbRound = plan.round;
@@ -1336,10 +1349,17 @@ function applyVerbRound(plan, preloadedHints = null) {
   renderVerbNebula();
 }
 
-function startVerbRound(options = {}) {
+async function startVerbRound(options = {}) {
   loadVerbMemory();
+  if (state.verbRoundTransitioning) return;
   if (options.returnUnmatched) returnUnmatchedVerbsToQueue();
-  applyVerbRound(planVerbRound());
+  const transitionId = state.verbRoundTransitionId + 1;
+  state.verbRoundTransitionId = transitionId;
+  state.verbRoundTransitioning = true;
+  state.verbSolutionRevealed = false;
+  state.verbHintRequestId += 1;
+  resetVerbSelections();
+  await prepareVerbRound(planVerbRound(), transitionId);
 }
 
 function verbRoundComplete() {
@@ -1493,8 +1513,7 @@ function renderVerbSolutionArrows() {
     svg.setAttribute("viewBox", `0 0 ${boardRect.width} ${boardRect.height}`);
     svg.setAttribute("width", String(boardRect.width));
     svg.setAttribute("height", String(boardRect.height));
-    const curveWidth = Math.max(12, Math.min(34, boardRect.width * 0.035));
-    const arrowPaths = state.verbRound.map((pair, index) => {
+    const arrowRoutes = state.verbRound.map((pair, index) => {
       const leftCard = verbMatchCardForId(czechColumn, pair.id);
       const rightCard = verbMatchCardForId(englishColumn, pair.id);
       if (!leftCard || !rightCard) return null;
@@ -1504,15 +1523,43 @@ function renderVerbSolutionArrows() {
       const startY = leftRect.top - boardRect.top + leftRect.height / 2;
       const endX = rightRect.left - boardRect.left + 4;
       const endY = rightRect.top - boardRect.top + rightRect.height / 2;
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.dataset.verbPairId = pair.id;
-      path.setAttribute("d", `M ${startX} ${startY} C ${startX + curveWidth} ${startY}, ${endX - curveWidth} ${endY}, ${endX} ${endY}`);
-      path.setAttribute("pathLength", "1");
-      path.setAttribute("marker-end", "url(#verbSolutionArrowhead)");
-      path.style.setProperty("--verb-solution-index", String(index));
-      return path;
+      const gapWidth = Math.max(1, endX - startX);
+      const laneInset = Math.max(7, Math.min(12, gapWidth * 0.18));
+      const laneSpan = Math.max(0, gapWidth - laneInset * 2);
+      const laneX = state.verbRound.length > 1
+        ? startX + laneInset + laneSpan * (index / (state.verbRound.length - 1))
+        : startX + gapWidth / 2;
+      const middleY = (startY + endY) / 2;
+      const bendWidth = Math.max(6, Math.min(14, gapWidth * 0.24));
+      const routeColor = verbSolutionRouteColors[index % verbSolutionRouteColors.length];
+      const routeData = `M ${startX} ${startY} C ${startX + bendWidth} ${startY}, ${laneX} ${startY}, ${laneX} ${middleY} C ${laneX} ${endY}, ${endX - bendWidth} ${endY}, ${endX} ${endY}`;
+
+      [leftCard, rightCard].forEach((card) => {
+        card.style.setProperty("--verb-solution-color", routeColor);
+        card.dataset.solutionRoute = String(index + 1);
+      });
+
+      const route = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      route.classList.add("verb-solution-route");
+      route.dataset.verbPairId = pair.id;
+      route.style.setProperty("--verb-solution-color", routeColor);
+      route.style.setProperty("--verb-solution-index", String(index));
+
+      const halo = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      halo.classList.add("verb-solution-route-halo");
+      halo.setAttribute("d", routeData);
+      halo.setAttribute("pathLength", "1");
+
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      line.classList.add("verb-solution-route-line");
+      line.setAttribute("d", routeData);
+      line.setAttribute("pathLength", "1");
+      line.setAttribute("marker-end", "url(#verbSolutionArrowhead)");
+
+      route.append(halo, line);
+      return route;
     }).filter(Boolean);
-    paths.replaceChildren(...arrowPaths);
+    paths.replaceChildren(...arrowRoutes);
   });
 }
 
@@ -1567,8 +1614,8 @@ function renderVerbRoundInterstitial() {
 function renderVerbNebula() {
   if (!$("#trainPanelVerbLab")) return;
   loadVerbMemory();
-  if (!state.verbRound.length && state.verbPairs.length) {
-    startVerbRound();
+  if (!state.verbRound.length && state.verbPairs.length && !state.verbRoundTransitioning) {
+    void startVerbRound();
     return;
   }
 
@@ -1642,44 +1689,7 @@ async function preloadVerbHintsForRound(round) {
   return hints;
 }
 
-function preloadVerbHintAsset(assetPath) {
-  const path = String(assetPath || verbHintFallbackPath);
-  return new Promise((resolve) => {
-    const image = new Image();
-    let settled = false;
-    const finish = () => {
-      if (settled) return;
-      settled = true;
-      window.clearTimeout(timer);
-      image.onload = null;
-      image.onerror = null;
-      resolve();
-    };
-    const timer = window.setTimeout(finish, verbHintImageTimeoutMillis);
-    image.onload = finish;
-    image.onerror = finish;
-    image.src = path;
-    if (image.complete) {
-      if (typeof image.decode === "function") image.decode().catch(() => {}).finally(finish);
-      else finish();
-    }
-  });
-}
-
-async function transitionToNextVerbRound() {
-  if (state.verbRoundTransitioning || !state.verbRound.length) return;
-  const transitionId = state.verbRoundTransitionId + 1;
-  state.verbRoundTransitionId = transitionId;
-  state.verbRoundTransitioning = true;
-  state.verbSolutionRevealed = false;
-  state.verbHintRequestId += 1;
-  resetVerbSelections();
-
-  renderVerbNebula();
-  await waitForVerbTransition(verbRoundCompleteHoldMillis);
-  if (transitionId !== state.verbRoundTransitionId) return;
-
-  const nextRound = planVerbRound();
+async function prepareVerbRound(nextRound, transitionId) {
   state.verbRoundInterstitial = true;
   state.verbInterstitialRobotPath = verbRobotFallbackPath;
   setVerbMatchFeedback("Preparing the next round…", "hint");
@@ -1705,10 +1715,58 @@ async function transitionToNextVerbRound() {
   applyVerbRound(nextRound, preloadedHints);
 }
 
+function preloadVerbHintAsset(assetPath) {
+  const path = String(assetPath || verbHintFallbackPath);
+  return new Promise((resolve) => {
+    const image = new Image();
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      image.onload = null;
+      image.onerror = null;
+      resolve();
+    };
+    const timer = window.setTimeout(finish, verbHintImageTimeoutMillis);
+    image.onload = finish;
+    image.onerror = finish;
+    image.src = path;
+    if (image.complete) {
+      if (typeof image.decode === "function") image.decode().catch(() => {}).finally(finish);
+      else finish();
+    }
+  });
+}
+
+async function transitionToNextVerbRound({ holdMillis = verbRoundCompleteHoldMillis } = {}) {
+  if (state.verbRoundTransitioning || !state.verbRound.length) return;
+  clearVerbSolutionAdvance();
+  const transitionId = state.verbRoundTransitionId + 1;
+  state.verbRoundTransitionId = transitionId;
+  state.verbRoundTransitioning = true;
+  state.verbSolutionRevealed = false;
+  state.verbHintRequestId += 1;
+  resetVerbSelections();
+
+  renderVerbNebula();
+  await waitForVerbTransition(Math.max(0, holdMillis));
+  if (transitionId !== state.verbRoundTransitionId) return;
+  await prepareVerbRound(planVerbRound(), transitionId);
+}
+
+function clearVerbSolutionAdvance() {
+  if (state.verbSolutionAdvanceTimer !== null) {
+    window.clearTimeout(state.verbSolutionAdvanceTimer);
+    state.verbSolutionAdvanceTimer = null;
+  }
+}
+
 function toggleVerbSolution() {
   if (verbRoundComplete() || state.verbRoundTransitioning) return;
   resetVerbSelections();
   state.verbSolutionRevealed = !state.verbSolutionRevealed;
+  clearVerbSolutionAdvance();
   setVerbMatchFeedback(
     state.verbSolutionRevealed
       ? "Follow the arrows to review every pair."
@@ -1716,6 +1774,13 @@ function toggleVerbSolution() {
     state.verbSolutionRevealed ? "hint" : ""
   );
   renderVerbNebula();
+  if (state.verbSolutionRevealed) {
+    state.verbSolutionAdvanceTimer = window.setTimeout(() => {
+      state.verbSolutionAdvanceTimer = null;
+      if (!state.verbSolutionRevealed || state.verbRoundTransitioning) return;
+      void transitionToNextVerbRound({ holdMillis: 0 });
+    }, verbSolutionRevealMillis);
+  }
 }
 
 function recordVerbSemanticAttempt(pair, {
@@ -2064,6 +2129,7 @@ function toggleVerbHints() {
 }
 
 function cancelVerbRoundTransition() {
+  clearVerbSolutionAdvance();
   state.verbRoundTransitionId += 1;
   state.verbRoundTransitioning = false;
   state.verbRoundInterstitial = false;
@@ -3119,9 +3185,12 @@ function setView(view) {
 }
 
 const sharedAnimationManifestPath = "/assets/loading_animation/animations_manifest.json";
-const worldLandingFrameDelayMs = 80;
+const worldLandingFrameDelayMs = 600;
+const worldLandingFramesPerSelection = 4;
+const worldLandingCursorStorageKey = "caatuu.czech.animation.landing.cursor.v1";
 let worldLandingFramesPromise = null;
 let worldLandingActive = false;
+let worldLandingCursorFallback = 0;
 
 function animationFrameNumber(value) {
   const matches = [...String(value || "").matchAll(/(\d+)/g)];
@@ -3170,6 +3239,32 @@ function animationDelay(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
+function nextWorldLandingFrames(frames) {
+  let cursor = worldLandingCursorFallback;
+  try {
+    const storedCursor = Number(window.sessionStorage.getItem(worldLandingCursorStorageKey));
+    if (Number.isInteger(storedCursor) && storedCursor >= 0) cursor = storedCursor;
+  } catch (error) {
+    // The in-memory cursor still advances when session storage is unavailable.
+  }
+  cursor %= frames.length;
+  const count = Math.min(worldLandingFramesPerSelection, frames.length);
+  const selectedFrames = Array.from(
+    { length: count },
+    (_, offset) => frames[(cursor + offset) % frames.length]
+  );
+  worldLandingCursorFallback = (cursor + count) % frames.length;
+  try {
+    window.sessionStorage.setItem(
+      worldLandingCursorStorageKey,
+      String(worldLandingCursorFallback)
+    );
+  } catch (error) {
+    // The in-memory cursor above remains authoritative for this page.
+  }
+  return selectedFrames;
+}
+
 async function playWorldLandingAnimation() {
   if (worldLandingActive) return false;
   worldLandingActive = true;
@@ -3178,13 +3273,14 @@ async function playWorldLandingAnimation() {
   try {
     const frames = await worldLandingFrames();
     if (!overlay || !image || !frames.length) return true;
+    const selectedFrames = nextWorldLandingFrames(frames);
     document.body.classList.add("world-landing-active");
     overlay.hidden = false;
     overlay.setAttribute("aria-hidden", "false");
     overlay.classList.remove("is-finishing");
     window.requestAnimationFrame(() => overlay.classList.add("is-visible"));
 
-    for (const frame of frames) {
+    for (const frame of selectedFrames) {
       image.src = frame;
       await animationDelay(worldLandingFrameDelayMs);
     }

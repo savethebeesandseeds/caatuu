@@ -30,6 +30,7 @@ download_segment() {
   local current
   local next
   local attempts=0
+  local retry_delay
 
   if ((end >= wheel_bytes)); then
     end=$((wheel_bytes - 1))
@@ -51,21 +52,31 @@ download_segment() {
     fi
 
     attempts=$((attempts + 1))
-    if ((attempts > 40)); then
+    if ((attempts > 240)); then
       printf "Torch segment %s exhausted resumable attempts.\n" "$index" >&2
       return 22
     fi
     next=$((start + current))
-    curl \
+    if curl \
       --location \
       --fail \
+      --http1.1 \
       --silent \
       --show-error \
       --connect-timeout 30 \
       --speed-limit 1024 \
       --speed-time 120 \
       --range "$next-$end" \
-      "$wheel_url" >>"$target" || true
+      "$wheel_url" >>"$target"; then
+      continue
+    fi
+    retry_delay=$((attempts * 5))
+    if ((retry_delay > 30)); then
+      retry_delay=30
+    fi
+    printf "Torch segment %s paused for %ss before resumable attempt %s.\n" \
+      "$index" "$retry_delay" "$((attempts + 1))" >&2
+    sleep "$retry_delay"
   done
   printf "Torch segment %s complete: %s bytes\n" "$index" "$expected"
 }
@@ -80,10 +91,21 @@ if [[ -e "$wheel_path" ]]; then
   exit 23
 fi
 
+pids=()
 for index in $(seq 0 $((segment_count - 1))); do
   download_segment "$index" &
+  pids+=("$!")
 done
-wait
+failed=0
+for pid in "${pids[@]}"; do
+  if ! wait "$pid"; then
+    failed=1
+  fi
+done
+if ((failed != 0)); then
+  printf "At least one Torch segment failed; the partial cache is preserved.\n" >&2
+  exit 26
+fi
 
 temporary_path="${wheel_path}.partial"
 cat "${cache_root}/${wheel_name}".segment-?? >"$temporary_path"

@@ -14,7 +14,7 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 _TRUSTED_SCRIPT_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(_TRUSTED_SCRIPT_ROOT))
@@ -33,6 +33,7 @@ RENDER_SAMPLES = 16
 MAX_FRAME_BYTES = 8 * 1024 * 1024
 MAX_REVIEW_BYTES = 40 * 1024 * 1024
 CONTAINER_IMAGE = "caatuu-animated-fabric-blender:4.5.12-cycles-cpu"
+SOURCE_TO_REVIEW_ROTATION_DEGREES_X = -90.0
 
 
 def _rounded(values: Sequence[float]) -> list[float]:
@@ -43,8 +44,18 @@ def _look_at(
     obj: bpy.types.Object,
     target: tuple[float, float, float],
 ) -> None:
-    direction = Vector(target) - obj.location
-    obj.rotation_euler = direction.to_track_quat("-Z", "Y").to_euler()
+    forward = Vector(target) - obj.location
+    if forward.length_squared <= 1e-16:
+        raise RuntimeError("AF-045 cannot orient scene equipment from the camera target.")
+    forward.normalize()
+    world_up = Vector((0.0, 0.0, 1.0))
+    camera_up = world_up - forward * world_up.dot(forward)
+    if camera_up.length_squared <= 1e-16:
+        raise RuntimeError("AF-045 camera direction is parallel to its required world-up axis.")
+    camera_up.normalize()
+    camera_z = -forward
+    camera_x = camera_up.cross(camera_z).normalized()
+    obj.rotation_euler = Matrix((camera_x, camera_up, camera_z)).transposed().to_euler()
 
 
 def _assert_runtime_network_isolated() -> None:
@@ -142,6 +153,18 @@ def _assert_import_subset() -> tuple[bpy.types.Object, ...]:
     return meshes
 
 
+def _normalize_import_orientation(meshes: Sequence[bpy.types.Object]) -> None:
+    """Rotate TripoSR's Y-up proposal into the review plane's Z-up frame."""
+    rotation = Matrix.Rotation(
+        math.radians(SOURCE_TO_REVIEW_ROTATION_DEGREES_X),
+        4,
+        "X",
+    )
+    for obj in meshes:
+        obj.matrix_world = rotation @ obj.matrix_world
+    bpy.context.view_layer.update()
+
+
 def _add_area_light(
     name: str,
     location: tuple[float, float, float],
@@ -222,43 +245,46 @@ def _configure_scene(
     return camera
 
 
-def _render_result_observations() -> dict[str, object]:
-    result = bpy.data.images.get("Render Result")
-    if result is None or tuple(result.size) != FRAME_SIZE:
-        raise RuntimeError("Blender did not retain the expected AF-045 render result.")
-    pixels = result.pixels[:]
-    expected_values = FRAME_SIZE[0] * FRAME_SIZE[1] * 4
-    if len(pixels) != expected_values:
-        raise RuntimeError("Blender returned a malformed AF-045 render buffer.")
+def _rendered_png_observations(path: Path) -> dict[str, object]:
+    result = bpy.data.images.load(filepath=str(path), check_existing=False)
+    try:
+        if tuple(result.size) != FRAME_SIZE or result.channels != 4:
+            raise RuntimeError("Blender did not load the expected AF-045 RGBA review frame.")
+        pixels = result.pixels[:]
+        expected_values = FRAME_SIZE[0] * FRAME_SIZE[1] * 4
+        if len(pixels) != expected_values:
+            raise RuntimeError("Blender loaded a malformed AF-045 review frame.")
 
-    minimum_x = FRAME_SIZE[0]
-    minimum_y = FRAME_SIZE[1]
-    maximum_x = -1
-    maximum_y = -1
-    visible_pixels = 0
-    for pixel_index in range(FRAME_SIZE[0] * FRAME_SIZE[1]):
-        if float(pixels[pixel_index * 4 + 3]) <= 0.00001:
-            continue
-        x = pixel_index % FRAME_SIZE[0]
-        y = pixel_index // FRAME_SIZE[0]
-        minimum_x = min(minimum_x, x)
-        minimum_y = min(minimum_y, y)
-        maximum_x = max(maximum_x, x)
-        maximum_y = max(maximum_y, y)
-        visible_pixels += 1
-    if visible_pixels == 0:
-        raise RuntimeError("AF-045 candidate review is fully transparent.")
-    if (
-        minimum_x == 0
-        or minimum_y == 0
-        or maximum_x == FRAME_SIZE[0] - 1
-        or maximum_y == FRAME_SIZE[1] - 1
-    ):
-        raise RuntimeError("AF-045 candidate review touches a frame edge.")
-    return {
-        "alpha_bounds_bottom_left": [minimum_x, minimum_y, maximum_x + 1, maximum_y + 1],
-        "visible_pixels": visible_pixels,
-    }
+        minimum_x = FRAME_SIZE[0]
+        minimum_y = FRAME_SIZE[1]
+        maximum_x = -1
+        maximum_y = -1
+        visible_pixels = 0
+        for pixel_index in range(FRAME_SIZE[0] * FRAME_SIZE[1]):
+            if float(pixels[pixel_index * 4 + 3]) <= 0.00001:
+                continue
+            x = pixel_index % FRAME_SIZE[0]
+            y = pixel_index // FRAME_SIZE[0]
+            minimum_x = min(minimum_x, x)
+            minimum_y = min(minimum_y, y)
+            maximum_x = max(maximum_x, x)
+            maximum_y = max(maximum_y, y)
+            visible_pixels += 1
+        if visible_pixels == 0:
+            raise RuntimeError("AF-045 candidate review is fully transparent.")
+        if (
+            minimum_x == 0
+            or minimum_y == 0
+            or maximum_x == FRAME_SIZE[0] - 1
+            or maximum_y == FRAME_SIZE[1] - 1
+        ):
+            raise RuntimeError("AF-045 candidate review touches a frame edge.")
+        return {
+            "alpha_bounds_bottom_left": [minimum_x, minimum_y, maximum_x + 1, maximum_y + 1],
+            "visible_pixels": visible_pixels,
+        }
+    finally:
+        bpy.data.images.remove(result)
 
 
 def _source_hashes() -> dict[str, str]:
@@ -310,6 +336,7 @@ def _render_stage(stage: Path, expected_candidate_id: str) -> None:
         if "FINISHED" not in result:
             raise RuntimeError("Blender did not finish importing the AF-045 candidate.")
         meshes = _assert_import_subset()
+        _normalize_import_orientation(meshes)
         minimum, maximum, vertices, triangles = _world_geometry(meshes)
         if vertices != proposal.vertices or triangles != proposal.triangles:
             raise RuntimeError("Imported AF-045 topology disagrees with candidate.json.")
@@ -327,10 +354,10 @@ def _render_stage(stage: Path, expected_candidate_id: str) -> None:
             destination = stage / f"{view.view_id}.png"
             scene.render.filepath = str(destination)
             bpy.ops.render.render(write_still=True)
-            observations = _render_result_observations()
             if not destination.is_file():
                 raise RuntimeError("Blender did not publish an AF-045 review frame.")
             canonicalize_rgba_png(destination, expected_size=FRAME_SIZE)
+            observations = _rendered_png_observations(destination)
             frame_bytes = destination.stat().st_size
             if not 0 < frame_bytes <= MAX_FRAME_BYTES:
                 raise RuntimeError("AF-045 candidate review frame exceeds its byte ceiling.")
@@ -409,7 +436,12 @@ def _render_stage(stage: Path, expected_candidate_id: str) -> None:
                 "camera_target": _rounded(framing.target),
                 "coordinate_frame": {
                     "handedness": "right",
-                    "x": "back",
+                    "source_to_review_rotation_degrees_xyz": [
+                        SOURCE_TO_REVIEW_ROTATION_DEGREES_X,
+                        0.0,
+                        0.0,
+                    ],
+                    "x": "front",
                     "y": "right",
                     "z": "up",
                 },

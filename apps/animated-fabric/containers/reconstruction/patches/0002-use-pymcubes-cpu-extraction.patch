@@ -22,7 +22,7 @@ index bf62b8a..069db79 100644
          self._grid_vertices: Optional[torch.FloatTensor] = None
  
      @property
-@@ -41,13 +41,10 @@ class MarchingCubeHelper(IsosurfaceHelper):
+@@ -41,12 +41,9 @@ class MarchingCubeHelper(IsosurfaceHelper):
          self,
          level: torch.FloatTensor,
      ) -> Tuple[torch.FloatTensor, torch.LongTensor]:
@@ -34,7 +34,7 @@ index bf62b8a..069db79 100644
 -            v_pos, t_pos_idx = self.mc_func(level.detach().cpu(), 0.0)
 -        v_pos = v_pos[..., [2, 1, 0]]
 +        vertices, triangles = self.mc_func(level.detach().cpu().numpy(), 0.0)
-+        v_pos = torch.from_numpy(vertices).to(dtype=torch.float32)
-+        t_pos_idx = torch.from_numpy(triangles).to(dtype=torch.long)
++        v_pos = torch.from_numpy(np.ascontiguousarray(vertices, dtype=np.float32))
++        t_pos_idx = torch.from_numpy(np.ascontiguousarray(triangles, dtype=np.int64))
          v_pos = v_pos / (self.resolution - 1.0)
          return v_pos.to(level.device), t_pos_idx.to(level.device)

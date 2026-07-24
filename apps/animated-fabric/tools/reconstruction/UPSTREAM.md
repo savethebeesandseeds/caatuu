@@ -23,6 +23,21 @@ omits Gradio and automatic background removal, requires an already prepared
 RGBA cutout, writes an immutable candidate manifest, and refuses runtime
 networking.
 
+The source revision pins Transformers 4.35.0. Its Tokenizers 0.14.1 dependency
+requires Hugging Face Hub 0.16.4 through 0.17.x, so the image pins the compatible
+set `transformers==4.35.0`, `tokenizers==0.14.1`, and
+`huggingface-hub==0.17.3` rather than accepting a resolver-dependent
+combination.
+
+Model download is isolated in a smaller provisioner image with
+`huggingface-hub==1.22.0` and `hf-xet==1.5.1`. That image does not import
+Transformers or run inference; it only downloads the full immutable snapshots
+and verifies the committed byte counts and SHA-256 values. The compatible Hub
+0.17.3 runtime then consumes the same completed cache offline and read-only.
+The large checkpoint is additionally fetched as eight persistent HTTP/1.1
+ranges and is not published into the Hub snapshot until its exact
+1,677,246,742-byte size and committed SHA-256 both match.
+
 ## DINO configuration
 
 - Model/config source: <https://huggingface.co/facebook/dino-vitb16>

@@ -331,7 +331,9 @@
     const levels = learning?.difficultyLevels || [];
     return levels.map((option) => `
       <button type="button" data-difficulty-level="${option.level}" aria-label="${option.label} challenge badge, level ${option.level}">
-        <b>${option.level}</b>
+        <b aria-hidden="true">
+          <img src="/assets/icons/difficulty_medal_${option.level}.png?v=royal-orders-1" alt="">
+        </b>
         <span>${option.label}</span>
       </button>
     `).join("");
@@ -1024,6 +1026,10 @@
   function renderAppHeader(header) {
     header.replaceChildren();
 
+    const pageKicker = String(header.dataset.caatuuPageKicker || course.workspaceLabel || "Caatuu Czech").trim();
+    const pageTitle = String(header.dataset.caatuuPageTitle || "Home").trim();
+    const pageIcon = String(header.dataset.caatuuPageIcon || "icons/caatuu-czech-512.png").trim();
+
     const brand = document.createElement("a");
     brand.className = "brand-link";
     brand.href = course.routes.home;
@@ -1035,8 +1041,19 @@
 
     const icon = document.createElement("img");
     icon.className = "brand-icon";
-    icon.src = "icons/caatuu-czech-512.png";
+    icon.src = pageIcon;
     icon.alt = "";
+
+    const pageCopy = document.createElement("span");
+    pageCopy.className = "app-header-page-copy";
+
+    const pageKickerLabel = document.createElement("span");
+    pageKickerLabel.className = "app-header-page-kicker";
+    pageKickerLabel.textContent = pageKicker;
+
+    const pageTitleLabel = document.createElement("strong");
+    pageTitleLabel.className = "app-header-page-title";
+    pageTitleLabel.textContent = pageTitle;
 
     const screenTitle = document.createElement("strong");
     screenTitle.className = "app-header-title";
@@ -1050,7 +1067,7 @@
     screenCenter.className = "app-header-center";
 
     const language = document.createElement("a");
-    language.className = "language-pill language-switch";
+    language.className = "language-pill app-header-language-pill language-switch";
     language.href = course.routes.languageSelection;
     language.dataset.caatuuLanguageSwitch = "";
     language.dataset.label = targetLanguage.shortCode;
@@ -1059,7 +1076,8 @@
     actions.className = "header-actions";
 
     mark.append(icon);
-    brand.append(mark);
+    pageCopy.append(pageKickerLabel, pageTitleLabel);
+    brand.append(mark, pageCopy);
     screenCenter.append(screenTitle);
     actions.append(language);
     header.append(brand, screenBack, screenCenter, actions);
@@ -1095,10 +1113,18 @@
         element.append(titleIcon);
       }
       if (normalizedTitle) {
+        const titleCopy = document.createElement("span");
+        titleCopy.className = "app-header-title-copy";
+
+        const titleKicker = document.createElement("span");
+        titleKicker.className = "app-header-title-kicker";
+        titleKicker.textContent = "Train";
+
         const titleLabel = document.createElement("span");
         titleLabel.className = "app-header-title-label";
         titleLabel.textContent = normalizedTitle;
-        element.append(titleLabel);
+        titleCopy.append(titleKicker, titleLabel);
+        element.append(titleCopy);
       }
       element.hidden = !normalizedTitle;
       if (gameId) rememberActiveGame(gameId);
@@ -1116,14 +1142,23 @@
           ? `Back to ${conciseBackLabel.toLowerCase()}`
           : "Go back";
       back.replaceChildren();
-      const backIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      backIcon.classList.add("app-header-back-icon");
-      backIcon.setAttribute("viewBox", "0 0 24 24");
-      backIcon.setAttribute("aria-hidden", "true");
-      const backPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      backPath.setAttribute("d", "M15 5.5 8.5 12l6.5 6.5");
-      backIcon.append(backPath);
-      back.append(backIcon);
+      if (gameId) {
+        const backArtwork = document.createElement("img");
+        backArtwork.className = "app-header-back-image";
+        backArtwork.src = "/assets/icons/games_icon.png";
+        backArtwork.alt = "";
+        backArtwork.setAttribute("aria-hidden", "true");
+        back.append(backArtwork);
+      } else {
+        const backIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        backIcon.classList.add("app-header-back-icon");
+        backIcon.setAttribute("viewBox", "0 0 24 24");
+        backIcon.setAttribute("aria-hidden", "true");
+        const backPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        backPath.setAttribute("d", "M15 5.5 8.5 12l6.5 6.5");
+        backIcon.append(backPath);
+        back.append(backIcon);
+      }
       back.setAttribute("aria-label", accessibleBackLabel);
       back.title = accessibleBackLabel;
       back.hidden = !normalizedTitle || !backHref;
@@ -1184,7 +1219,7 @@
 
               <div class="backpack-wallet" aria-label="Experience and coins">
                 <div class="backpack-wallet-item backpack-wallet-xp">
-                  <span class="wallet-token wallet-token-xp" aria-hidden="true">&#10022;</span>
+                  <span class="wallet-token wallet-token-xp" aria-hidden="true"></span>
                   <span class="wallet-copy">
                     <span>Experience</span>
                     <strong><b id="courseProgressXp">0</b> XP</strong>
@@ -1264,13 +1299,8 @@
                           <span><i class="is-strength" aria-hidden="true"></i>Strength</span>
                         </figcaption>
                       </figure>
-                      <ol class="skill-compass-axis-list" id="semanticSkillCompassAxes" aria-label="Skill compass values"></ol>
                     </div>
                     <progress class="skill-compass-progress" id="semanticSkillCompassProgress" aria-label="Skill compass mapping progress" hidden></progress>
-                    <div class="skill-compass-footer">
-                      <p id="semanticSkillCompassStatus" role="status" aria-live="polite" aria-atomic="true">Your saved learning evidence becomes the shape shown here.</p>
-                      <button type="button" id="semanticSkillCompassRetry" hidden>Try again</button>
-                    </div>
                   </div>
                 </details>
               </div>
@@ -1278,6 +1308,16 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
+          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="App">
+            <details class="settings-section-details">
+              <summary class="settings-section-summary">
+                <span class="settings-section-title">
+                  <span class="settings-kicker kicker">App</span>
+                  <strong>Controls</strong>
+                </span>
+                <small>Theme, AI, storage</small>
+              </summary>
+              <div class="settings-section-body">
           <section class="settings-card side-card appearance-card settings-card-compact" aria-label="Appearance">
             <div class="settings-card-head side-head">
               <p class="settings-kicker kicker">Appearance</p>
@@ -1438,6 +1478,9 @@
               </span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
+          </section>
+              </div>
+            </details>
           </section>
 
           <section class="settings-card side-card about-card" aria-label="About">

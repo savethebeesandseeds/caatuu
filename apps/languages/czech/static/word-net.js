@@ -56,6 +56,7 @@ const PREFETCH_TRANSLATION_BATCH_SIZE = 5;
 const PREFETCH_TRANSLATED_LOW_WATER = 4;
 const PREFETCH_PAUSED = -1;
 const PRESERVABLE_BACKGROUND_ACTIVITIES = new Set(["prefetch", "translation-batch"]);
+const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;
 const MIN_SENTENCE_TRANSITION_MS = 800;
 const LOADING_FADE_MS = 240;
 const LOADING_ROBOT_KEYMAP_WAIT_MS = 700;
@@ -930,9 +931,15 @@ async function generateRandomPhrase({ source = "seed" } = {}) {
   setBusy(true);
   setProgress(null);
   setStatus("Ready from the saved sentence queue.", { tone: "active" });
-  const prepared = await prepareCandidateForDisplay(target, queued);
-  await holdSentenceTransition(transitionStartedAt);
-  showPreparedPhrase(target, prepared);
+  try {
+    await presentPreparedCandidate(target, queued, transitionStartedAt);
+  } catch (error) {
+    await presentPreparedCandidate(target, {
+      sentence: localSentence(target, generationAvoidList()),
+      source: "queue-error-fallback"
+    }, transitionStartedAt);
+    setStatus(error?.message || "Could not restore the saved phrase.", { tone: "error" });
+  }
 }
 
 function applyTranslationMode({ restartTimer = false } = {}) {
@@ -1171,6 +1178,12 @@ function hideLoadingRobot() {
   image.removeAttribute("src");
 }
 
+function waitForVisiblePaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+  });
+}
+
 async function showLoadingRobot() {
   const image = $("#wordNetLoadingArt");
   const loading = $("#wordNetLoading");
@@ -1196,6 +1209,16 @@ async function showLoadingRobot() {
     let timeoutId = 0;
     const finish = (visible) => {
       if (settled) return;
+      if (
+        !visible
+        && requestId === state.robotRequestId
+        && !loading.hidden
+        && !state.loadingRobotVisibleAt
+      ) {
+        // Even if every artwork fails, keep a calm, predictable pause on the
+        // loading layer instead of flashing directly to the next sentence.
+        state.loadingRobotVisibleAt = performance.now();
+      }
       settled = true;
       window.clearTimeout(timeoutId);
       image.onload = null;
@@ -1211,12 +1234,18 @@ async function showLoadingRobot() {
       image.onload = null;
       image.onerror = null;
       image.hidden = true;
-      image.onload = () => {
+      image.onload = async () => {
         if (requestId !== state.robotRequestId || loading.hidden) {
           finish(false);
           return;
         }
         image.hidden = false;
+        await waitForVisiblePaint();
+        if (settled) return;
+        if (requestId !== state.robotRequestId || loading.hidden) {
+          finish(false);
+          return;
+        }
         state.loadingRobotVisibleAt = performance.now();
         finish(true);
       };
@@ -1430,7 +1459,11 @@ function cacheTranslation(sentence, translation) {
   saveTranslationCache();
 }
 
-async function requestEnglishTranslation(sentence, word, { signal, onStatus } = {}) {
+async function requestEnglishTranslation(
+  sentence,
+  word,
+  { signal, onStatus, timeoutMs = 180000 } = {}
+) {
   const cached = state.translationCache.get(sentenceFingerprint(sentence));
   if (cached) return cached;
   if (!nativeTranslationRuntimeAvailable()) {
@@ -1451,8 +1484,10 @@ async function requestEnglishTranslation(sentence, word, { signal, onStatus } = 
         }
       },
       {
-        timeoutMs: 180000,
-        timeoutMessage: "English translation took too long.",
+        timeoutMs,
+        timeoutMessage: timeoutMs <= FOREGROUND_TRANSLATION_TIMEOUT_MS
+          ? "English is still being prepared in the background."
+          : "English translation took too long.",
         signal,
         onEvent(message) {
           if (message.kind === "token") {
@@ -1479,12 +1514,34 @@ async function prepareCandidateForDisplay(word, candidate) {
   }
 
   setStatus("Preparing English before the phrase appears.", { tone: "active" });
-  const translation = await requestEnglishTranslation(candidate.sentence, word);
+  let translation = "";
+  try {
+    translation = await requestEnglishTranslation(candidate.sentence, word, {
+      timeoutMs: FOREGROUND_TRANSLATION_TIMEOUT_MS
+    });
+  } catch (error) {
+    // A navigation cancellation must never leave the sentence covered by the
+    // loading layer. The queue can continue richer translation work later.
+    translation = localTranslation(candidate.sentence, word);
+  }
   if (state.branchQueue.setTranslation(candidate.sentence, translation)) savePreparedQueue();
   return {
     ...candidate,
     translation
   };
+}
+
+async function presentPreparedCandidate(target, candidate, transitionStartedAt) {
+  let presented = false;
+  try {
+    const prepared = await prepareCandidateForDisplay(target, candidate);
+    await holdSentenceTransition(transitionStartedAt);
+    showPreparedPhrase(target, prepared);
+    presented = true;
+    return prepared;
+  } finally {
+    if (!presented) setBusy(false);
+  }
 }
 
 async function translateCurrentSentence(sentence, word, { signal } = {}) {
@@ -2058,9 +2115,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
     const transitionStartedAt = performance.now();
     setBusy(true);
     setStatus(`Ready from the saved queue for "${target}".`, { tone: "active" });
-    const prepared = await prepareCandidateForDisplay(target, queued);
-    await holdSentenceTransition(transitionStartedAt);
-    showPreparedPhrase(target, prepared);
+    await presentPreparedCandidate(target, queued, transitionStartedAt);
     return;
   }
 
@@ -2081,16 +2136,12 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
         }
       }
     });
-    const prepared = await prepareCandidateForDisplay(target, candidate);
-    await holdSentenceTransition(transitionStartedAt);
-    showPreparedPhrase(target, prepared);
+    await presentPreparedCandidate(target, candidate, transitionStartedAt);
   } catch (error) {
-    const candidate = await prepareCandidateForDisplay(target, {
+    await presentPreparedCandidate(target, {
       sentence: localSentence(target, generationAvoidList()),
       source: "error-fallback"
-    });
-    await holdSentenceTransition(transitionStartedAt);
-    showPreparedPhrase(target, candidate);
+    }, transitionStartedAt);
     setStatus(error?.message || "Could not generate with the model.", { tone: "error" });
   }
 }

@@ -101,6 +101,17 @@ trap 'rm -rf "$publish_dir"' EXIT
 staged_apk="$publish_dir/caatuu-debug.apk"
 staged_manifest="$publish_dir/caatuu-debug.json"
 cp app/build/outputs/apk/debug/app-debug.apk "$staged_apk"
+
+# Validate the staged package before it can acquire an immutable public URL.
+# In particular, compare every packaged Czech HTML/CSS/JS/JSON source file
+# byte-for-byte with the workspace. This keeps Gradle cache drift or a source
+# change during the build from publishing an internally stale APK.
+node "$repo_root/apps/runtime/tooling/audit-runtime-boundary.mjs" \
+  --skip-http \
+  --skip-update-manifest \
+  --apk "$staged_apk" \
+  --allow-debug-artifacts
+
 apksigner_bin="$(find_apksigner)"
 verification_output="$("$apksigner_bin" verify --verbose --print-certs "$staged_apk")"
 printf '%s\n' "$verification_output"

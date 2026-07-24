@@ -9,7 +9,7 @@ import re
 import struct
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 CANDIDATE_FORMAT = "animated-fabric.reconstruction-candidate.v1"
@@ -20,6 +20,8 @@ REVIEW_SCHEMA_VERSION = "0.1.0"
 CANDIDATE_FILES = frozenset({"candidate.json", "input.png", "mesh.glb"})
 MAX_MANIFEST_BYTES = 256 * 1024
 MAX_INPUT_BYTES = 4 * 1024 * 1024
+MAX_SOURCE_BYTES = 50 * 1024 * 1024
+MAX_SOURCE_DIMENSION = 4096
 MAX_MESH_BYTES = 256 * 1024 * 1024
 MAX_GLB_JSON_BYTES = 4 * 1024 * 1024
 MAX_GLTF_ACCESSORS = 128
@@ -31,6 +33,7 @@ MAX_GLTF_PRIMITIVES = 64
 MAX_VERTICES = 5_000_000
 MAX_TRIANGLES = 10_000_000
 NORMALIZED_SIZE = (512, 512)
+PROPOSAL_NOTE = "Generated geometry is a proposal, not recovered hidden truth."
 
 EXPECTED_PROVIDER = {
     "dino_model_id": "facebook/dino-vitb16",
@@ -49,6 +52,40 @@ PARAMETER_KEYS = {
     "mc_resolution",
     "vertex_colors",
 }
+MESH_KEYS = {
+    "bytes",
+    "media_type",
+    "path",
+    "sha256",
+    "triangles",
+    "vertices",
+}
+PREPROCESSING_KEYS = {
+    "alpha_bottom",
+    "alpha_left",
+    "alpha_right",
+    "alpha_top",
+    "canvas_size",
+    "foreground_ratio",
+    "normalized_height",
+    "normalized_width",
+    "offset_x",
+    "offset_y",
+    "output",
+    "output_bytes",
+    "output_sha256",
+    "source_height",
+    "source_width",
+}
+REVIEW_KEYS = {"decision", "notes"}
+RUNTIME_KEYS = {
+    "cuda_version",
+    "elapsed_seconds",
+    "gpu_name",
+    "peak_cuda_bytes",
+    "torch_version",
+}
+SOURCE_KEYS = {"bytes", "path", "sha256"}
 ALLOWED_CHUNK_SIZES = frozenset({1024, 2048, 4096, 8192})
 ALLOWED_MC_RESOLUTIONS = frozenset({128, 192, 256})
 
@@ -113,10 +150,10 @@ class Framing:
 
 _SQRT_HALF = math.sqrt(0.5)
 VIEW_SPECS = (
-    ViewSpec("front", (-1.0, 0.0, 0.0)),
+    ViewSpec("front", (1.0, 0.0, 0.0)),
     ViewSpec("left", (0.0, -1.0, 0.0)),
-    ViewSpec("back", (1.0, 0.0, 0.0)),
-    ViewSpec("front-right-3q", (-_SQRT_HALF, _SQRT_HALF, 0.0)),
+    ViewSpec("back", (-1.0, 0.0, 0.0)),
+    ViewSpec("front-right-3q", (_SQRT_HALF, _SQRT_HALF, 0.0)),
 )
 
 
@@ -162,10 +199,32 @@ def _object(value: object, context: str) -> dict[str, object]:
     return value
 
 
+def _require_exact_keys(
+    record: Mapping[str, object],
+    expected: set[str],
+    context: str,
+) -> None:
+    if set(record) != expected:
+        raise ValueError(f"Candidate {context} has unexpected or missing fields.")
+
+
 def _string(record: Mapping[str, object], key: str, context: str) -> str:
     value = record.get(key)
     if not isinstance(value, str):
         raise ValueError(f"Candidate {context}.{key} must be a string.")
+    return value
+
+
+def _nonempty_string(
+    record: Mapping[str, object],
+    key: str,
+    context: str,
+    *,
+    maximum_length: int,
+) -> str:
+    value = _string(record, key, context)
+    if not value or len(value) > maximum_length or any(ord(character) < 32 for character in value):
+        raise ValueError(f"Candidate {context}.{key} must be a bounded non-empty string.")
     return value
 
 
@@ -177,6 +236,18 @@ def _positive_integer(
 ) -> int:
     value = record.get(key)
     if isinstance(value, bool) or not isinstance(value, int) or not 0 < value <= maximum:
+        raise ValueError(f"Candidate {context}.{key} is outside policy.")
+    return value
+
+
+def _non_negative_integer(
+    record: Mapping[str, object],
+    key: str,
+    context: str,
+    maximum: int,
+) -> int:
+    value = record.get(key)
+    if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= maximum:
         raise ValueError(f"Candidate {context}.{key} is outside policy.")
     return value
 
@@ -196,6 +267,23 @@ def _finite_number(record: Mapping[str, object], key: str, context: str) -> floa
     if not math.isfinite(result):
         raise ValueError(f"Candidate {context}.{key} must be a finite number.")
     return result
+
+
+def _portable_relative_path(record: Mapping[str, object], key: str, context: str) -> str:
+    value = _string(record, key, context)
+    path = PurePosixPath(value)
+    if (
+        not value
+        or not path.parts
+        or "\\" in value
+        or len(value) > 1024
+        or any(ord(character) < 32 for character in value)
+        or path.is_absolute()
+        or path.as_posix() != value
+        or any(part in {"", ".", ".."} for part in path.parts)
+    ):
+        raise ValueError(f"Candidate {context}.{key} must be a canonical relative POSIX path.")
+    return value
 
 
 def _array(value: object, context: str, maximum: int) -> list[object]:
@@ -407,7 +495,96 @@ def verify_candidate(
     if _string(document, "status", "manifest") != "proposal":
         raise ValueError("Candidate status must remain proposal.")
 
+    source = _object(document.get("source"), "source")
+    _require_exact_keys(source, SOURCE_KEYS, "source")
+    _portable_relative_path(source, "path", "source")
+    _positive_integer(source, "bytes", "source", MAX_SOURCE_BYTES)
+    _sha256(source, "sha256", "source")
+
     preprocessing = _object(document.get("preprocessing"), "preprocessing")
+    _require_exact_keys(preprocessing, PREPROCESSING_KEYS, "preprocessing")
+    canvas_size = _positive_integer(
+        preprocessing,
+        "canvas_size",
+        "preprocessing",
+        NORMALIZED_SIZE[0],
+    )
+    if canvas_size != NORMALIZED_SIZE[0]:
+        raise ValueError("Candidate preprocessing.canvas_size must be 512.")
+    preprocessing_ratio = _finite_number(
+        preprocessing,
+        "foreground_ratio",
+        "preprocessing",
+    )
+    if not 0.5 <= preprocessing_ratio <= 0.95:
+        raise ValueError("Candidate preprocessing.foreground_ratio is outside policy.")
+    source_width = _positive_integer(
+        preprocessing,
+        "source_width",
+        "preprocessing",
+        MAX_SOURCE_DIMENSION,
+    )
+    source_height = _positive_integer(
+        preprocessing,
+        "source_height",
+        "preprocessing",
+        MAX_SOURCE_DIMENSION,
+    )
+    alpha_left = _non_negative_integer(
+        preprocessing,
+        "alpha_left",
+        "preprocessing",
+        source_width,
+    )
+    alpha_top = _non_negative_integer(
+        preprocessing,
+        "alpha_top",
+        "preprocessing",
+        source_height,
+    )
+    alpha_right = _positive_integer(
+        preprocessing,
+        "alpha_right",
+        "preprocessing",
+        source_width,
+    )
+    alpha_bottom = _positive_integer(
+        preprocessing,
+        "alpha_bottom",
+        "preprocessing",
+        source_height,
+    )
+    if alpha_left >= alpha_right or alpha_top >= alpha_bottom:
+        raise ValueError("Candidate preprocessing alpha bounds are empty or inverted.")
+    normalized_width = _positive_integer(
+        preprocessing,
+        "normalized_width",
+        "preprocessing",
+        canvas_size,
+    )
+    normalized_height = _positive_integer(
+        preprocessing,
+        "normalized_height",
+        "preprocessing",
+        canvas_size,
+    )
+    offset_x = _non_negative_integer(
+        preprocessing,
+        "offset_x",
+        "preprocessing",
+        canvas_size,
+    )
+    offset_y = _non_negative_integer(
+        preprocessing,
+        "offset_y",
+        "preprocessing",
+        canvas_size,
+    )
+    if (
+        offset_x != (canvas_size - normalized_width) // 2
+        or offset_y != (canvas_size - normalized_height) // 2
+    ):
+        raise ValueError("Candidate preprocessing normalized foreground is not centered.")
     if _string(preprocessing, "output", "preprocessing") != "input.png":
         raise ValueError("Candidate preprocessing output must be input.png.")
     input_bytes = _positive_integer(
@@ -438,6 +615,8 @@ def verify_candidate(
     foreground_ratio = _finite_number(parameters, "foreground_ratio", "parameters")
     if not 0.5 <= foreground_ratio <= 0.95:
         raise ValueError("Candidate parameters.foreground_ratio is outside policy.")
+    if foreground_ratio != preprocessing_ratio:
+        raise ValueError("Candidate preprocessing and parameter foreground ratios disagree.")
     mc_resolution = _positive_integer(
         parameters,
         "mc_resolution",
@@ -450,6 +629,7 @@ def verify_candidate(
         raise ValueError("Candidate must explicitly require vertex colors.")
 
     mesh = _object(document.get("mesh"), "mesh")
+    _require_exact_keys(mesh, MESH_KEYS, "mesh")
     if _string(mesh, "path", "mesh") != "mesh.glb":
         raise ValueError("Candidate mesh path must be mesh.glb.")
     if _string(mesh, "media_type", "mesh") != "model/gltf-binary":
@@ -459,9 +639,27 @@ def verify_candidate(
     vertices = _positive_integer(mesh, "vertices", "mesh", MAX_VERTICES)
     triangles = _positive_integer(mesh, "triangles", "mesh", MAX_TRIANGLES)
 
+    runtime = _object(document.get("runtime"), "runtime")
+    _require_exact_keys(runtime, RUNTIME_KEYS, "runtime")
+    _nonempty_string(runtime, "cuda_version", "runtime", maximum_length=64)
+    elapsed_seconds = _finite_number(runtime, "elapsed_seconds", "runtime")
+    if elapsed_seconds < 0:
+        raise ValueError("Candidate runtime.elapsed_seconds cannot be negative.")
+    _nonempty_string(runtime, "gpu_name", "runtime", maximum_length=256)
+    _positive_integer(
+        runtime,
+        "peak_cuda_bytes",
+        "runtime",
+        1024 * 1024 * 1024 * 1024,
+    )
+    _nonempty_string(runtime, "torch_version", "runtime", maximum_length=128)
+
     review = _object(document.get("review"), "review")
+    _require_exact_keys(review, REVIEW_KEYS, "review")
     if _string(review, "decision", "review") != "pending":
         raise ValueError("Candidate must remain pending before Blender review.")
+    if _string(review, "notes", "review") != PROPOSAL_NOTE:
+        raise ValueError("Candidate review must preserve the generated-geometry disclaimer.")
 
     if input_path.stat().st_size != input_bytes or sha256_file(input_path) != input_sha256:
         raise ValueError("Candidate normalized input disagrees with its manifest.")

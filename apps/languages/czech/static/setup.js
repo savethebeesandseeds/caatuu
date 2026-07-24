@@ -17,6 +17,7 @@
   let updateStatusPollTimer = null;
   let setupMessageTimer = null;
   let setupVisualTimer = null;
+  let setupVisualRunning = false;
   let setupMessageIndex = 0;
   let setupVisualIndex = 0;
   let activeArtifactKey = "";
@@ -26,7 +27,7 @@
   const artifactState = new Map();
   const setupLog = [];
   const progressLogBuckets = new Map();
-  const setupVisualFrameDelayMs = 110;
+  const setupVisualFrameDelayMs = 600;
   const setupManifestPath = "setup-assets.json";
   const setupAnimationManifestPath = "/assets/loading_animation/animations_manifest.json";
   const setupReadyArt = "/assets/icons/hello.png";
@@ -221,31 +222,49 @@
     return art?.dataset.setupArtFallback || "icons/setup-default.png";
   }
 
-  function setStageImage(art, src, { looping = false } = {}) {
+  function setStageImage(art, src, { looping = false, onSettled = null } = {}) {
     const request = ++setupStageRequest;
     const probe = new Image();
     probe.onload = () => {
       if (request !== setupStageRequest) return;
       if (art.getAttribute("src") !== src) art.src = src;
       art.classList.toggle("is-looping", looping);
+      onSettled?.(true);
     };
     probe.onerror = () => {
       if (request !== setupStageRequest) return;
       if (!looping) {
         art.src = stageFallback(art);
       }
+      onSettled?.(false);
     };
     probe.src = src;
   }
 
+  function scheduleStageFrame(delay = setupVisualFrameDelayMs) {
+    if (!setupVisualRunning) return;
+    if (setupVisualTimer !== null) window.clearTimeout(setupVisualTimer);
+    setupVisualTimer = window.setTimeout(() => {
+      setupVisualTimer = null;
+      advanceStageFrame();
+    }, delay);
+  }
+
   function advanceStageFrame() {
     const art = $(".stage-art");
-    if (!art || !setupVisualFrames.length) return;
+    if (!setupVisualRunning || !art || !setupVisualFrames.length) return;
     if (setupVisualIndex >= setupVisualFrames.length) setupVisualIndex = setupVisualLoopStart;
+    const frameIndex = setupVisualIndex;
     const src = setupVisualFrames[setupVisualIndex];
-    setupVisualIndex += 1;
-    if (setupVisualIndex >= setupVisualFrames.length) setupVisualIndex = setupVisualLoopStart;
-    setStageImage(art, src, { looping: true });
+    setStageImage(art, src, {
+      looping: true,
+      onSettled: () => {
+        if (!setupVisualRunning) return;
+        setupVisualIndex = frameIndex + 1;
+        if (setupVisualIndex >= setupVisualFrames.length) setupVisualIndex = setupVisualLoopStart;
+        scheduleStageFrame();
+      }
+    });
   }
 
   function fallbackStageFrames() {
@@ -334,19 +353,21 @@
   }
 
   function startStageAnimation() {
-    if (setupVisualTimer !== null) return;
+    if (setupVisualRunning) return;
     if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
     setupVisualFrames = setupVisualFrames.filter(isLoadingFrameAvailable);
     if (!setupVisualFrames.length) setupVisualFrames = fallbackStageFrames();
     setupVisualLoopStart = Math.min(setupVisualLoopStart, setupVisualFrames.length - 1);
     setupVisualIndex = 0;
+    setupVisualRunning = true;
     advanceStageFrame();
-    setupVisualTimer = window.setInterval(advanceStageFrame, setupVisualFrameDelayMs);
   }
 
   function stopStageAnimation() {
+    setupVisualRunning = false;
+    setupStageRequest += 1;
     if (setupVisualTimer !== null) {
-      window.clearInterval(setupVisualTimer);
+      window.clearTimeout(setupVisualTimer);
       setupVisualTimer = null;
     }
   }

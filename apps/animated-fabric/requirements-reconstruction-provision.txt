@@ -1,0 +1,4 @@
+# Network-enabled model provisioning only. These packages are not installed in
+# the offline inference, development, or product images.
+hf-xet==1.5.1
+huggingface-hub==1.22.0

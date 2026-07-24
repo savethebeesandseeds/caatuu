@@ -140,10 +140,16 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
             "hello.png",
             "home_icon.png",
             "backpack_icon.png",
+            "coin_icon.png",
+            "icon_gem.png",
             "items_icon.png",
             "stats_icon.png",
         )
         into("assets/icons")
+    }
+    from(launcherStaticDir.dir("assets/loading-animation")) {
+        include("animations_manifest.json")
+        into("assets/loading_animation")
     }
     into(generatedLanguageAssetsDir)
 }
@@ -156,8 +162,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 129
-        versionName = "0.1.128"
+        versionCode = 130
+        versionName = "0.1.129"
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))

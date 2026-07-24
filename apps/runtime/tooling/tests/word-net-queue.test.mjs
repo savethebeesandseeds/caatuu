@@ -196,11 +196,27 @@ test("prepares English before a generative phrase is displayed", () => {
   );
   assert.match(
     wordNetSource,
-    /const prepared = await prepareCandidateForDisplay\(target, queued\);[\s\S]*?showPreparedPhrase\(target, prepared\);/
+    /await presentPreparedCandidate\(target, queued, transitionStartedAt\);/
   );
   assert.match(
     wordNetSource,
-    /const prepared = await prepareCandidateForDisplay\(target, candidate\);[\s\S]*?showPreparedPhrase\(target, prepared\);/
+    /async function presentPreparedCandidate\(target, candidate, transitionStartedAt\)[\s\S]*?showPreparedPhrase\(target, prepared\);/
+  );
+  assert.match(
+    wordNetSource,
+    /const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;/
+  );
+  assert.match(
+    wordNetSource,
+    /timeoutMs: FOREGROUND_TRANSLATION_TIMEOUT_MS/
+  );
+  assert.match(
+    wordNetSource,
+    /catch \(error\) \{[\s\S]*?translation = localTranslation\(candidate\.sentence, word\);/
+  );
+  assert.match(
+    wordNetSource,
+    /finally \{[\s\S]*?if \(!presented\) setBusy\(false\);/
   );
 });
 
@@ -214,5 +230,13 @@ test("holds the transition after the robot artwork itself becomes visible", () =
   assert.match(
     wordNetSource,
     /const transitionAnchor = Math\.max\(startedAt, visibleAt\);/
+  );
+  assert.match(
+    wordNetSource,
+    /await waitForVisiblePaint\(\);[\s\S]*?state\.loadingRobotVisibleAt = performance\.now\(\);/
+  );
+  assert.match(
+    wordNetSource,
+    /!visible[\s\S]*?!state\.loadingRobotVisibleAt[\s\S]*?state\.loadingRobotVisibleAt = performance\.now\(\);/
   );
 });

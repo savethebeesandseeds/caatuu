@@ -7,6 +7,9 @@ import os
 import re
 import tempfile
 import time
+from collections.abc import Iterator
+from contextlib import contextmanager
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -36,6 +39,15 @@ MAX_INPUT_BYTES = 50 * 1024 * 1024
 MAX_INPUT_DIMENSION = 4096
 
 
+@dataclass(frozen=True, slots=True)
+class SourceIdentity:
+    """Stable source facts captured before expensive inference begins."""
+
+    relative_path: str
+    bytes: int
+    sha256: str
+
+
 def canonical_json_bytes(payload: Mapping[str, Any]) -> bytes:
     """Encode canonical, human-readable JSON for evidence files."""
     return (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
@@ -58,6 +70,22 @@ def _safe_output_root(path: Path) -> Path:
     if path.is_symlink() or not path.is_dir():
         raise UnsafePathError(f"Output root must be one real directory: {path}")
     return path.resolve(strict=True)
+
+
+def _capture_source_identity(source: Path, input_root: Path) -> SourceIdentity:
+    size = source.stat().st_size
+    if size > MAX_INPUT_BYTES:
+        raise ReconstructionError("Input image exceeds the 50 MiB research limit.")
+    digest = sha256_file(source)
+    if source.stat().st_size != size:
+        raise ReconstructionError("Input changed while its identity was captured.")
+    relative_path = source.relative_to(input_root.resolve(strict=True)).as_posix()
+    return SourceIdentity(relative_path=relative_path, bytes=size, sha256=digest)
+
+
+def _require_source_unchanged(source: Path, identity: SourceIdentity) -> None:
+    if source.stat().st_size != identity.bytes or sha256_file(source) != identity.sha256:
+        raise ReconstructionError("Input changed while the reconstruction candidate was running.")
 
 
 def validate_candidate_id(candidate_id: str) -> str:
@@ -85,9 +113,9 @@ def normalize_cutout(
         raise ReconstructionError("Input image exceeds the 50 MiB research limit.")
 
     with Image.open(source) as opened:
-        opened.load()
         if opened.width > MAX_INPUT_DIMENSION or opened.height > MAX_INPUT_DIMENSION:
             raise ReconstructionError("Input image exceeds the 4096 px research limit.")
+        opened.load()
         rgba = opened.convert("RGBA")
 
     alpha = rgba.getchannel("A")
@@ -148,6 +176,19 @@ def _write_bytes_atomic(path: Path, payload: bytes) -> None:
         temporary_path.unlink(missing_ok=True)
 
 
+@contextmanager
+def _translate_cuda_oom(torch_module: Any) -> Iterator[None]:
+    """Turn CUDA exhaustion into the typed, actionable lab failure contract."""
+    try:
+        yield
+    except torch_module.cuda.OutOfMemoryError as exc:
+        torch_module.cuda.empty_cache()
+        raise ReconstructionError(
+            "CUDA ran out of memory. Retry in a fresh container with a new "
+            "candidate ID and a smaller allowed --chunk-size."
+        ) from exc
+
+
 def run_triposr(
     *,
     input_path: Path,
@@ -167,6 +208,7 @@ def run_triposr(
         raise ReconstructionError("Marching-cubes resolution must be 128, 192, or 256.")
 
     source = _contained_regular_file(input_path, input_root)
+    source_identity = _capture_source_identity(source, input_root)
     destination_root = _safe_output_root(output_root)
     destination = destination_root / candidate_id
     if destination.exists() or destination.is_symlink():
@@ -198,22 +240,23 @@ def run_triposr(
 
         torch.cuda.empty_cache()
         torch.cuda.reset_peak_memory_stats()
-        model = TSR.from_pretrained(
-            str(triposr_snapshot),
-            config_name="config.yaml",
-            weight_name="model.ckpt",
-        )
-        model.renderer.set_chunk_size(chunk_size)
-        model.to("cuda:0")
-        with Image.open(normalized) as opened:
-            image = opened.convert("RGB")
-        with torch.inference_mode():
-            scene_codes = model([image], device="cuda:0")
-            meshes = model.extract_mesh(
-                scene_codes,
-                True,
-                resolution=mc_resolution,
+        with _translate_cuda_oom(torch):
+            model = TSR.from_pretrained(
+                str(triposr_snapshot),
+                config_name="config.yaml",
+                weight_name="model.ckpt",
             )
+            model.renderer.set_chunk_size(chunk_size)
+            model.to("cuda:0")
+            with Image.open(normalized) as opened:
+                image = opened.convert("RGB")
+            with torch.inference_mode():
+                scene_codes = model([image], device="cuda:0")
+                meshes = model.extract_mesh(
+                    scene_codes,
+                    True,
+                    resolution=mc_resolution,
+                )
         if len(meshes) != 1:
             raise ReconstructionError("TripoSR returned an unexpected mesh count.")
         mesh = meshes[0]
@@ -223,6 +266,7 @@ def run_triposr(
         if not mesh_path.is_file() or mesh_path.stat().st_size <= 0:
             raise ReconstructionError("TripoSR did not publish a GLB candidate.")
 
+        _require_source_unchanged(source, source_identity)
         elapsed_seconds = round(time.perf_counter() - started, 3)
         manifest: dict[str, Any] = {
             "schema_version": "1.0.0",
@@ -230,9 +274,9 @@ def run_triposr(
             "candidate_id": candidate_id,
             "status": "proposal",
             "source": {
-                "path": source.name,
-                "bytes": source.stat().st_size,
-                "sha256": sha256_file(source),
+                "path": source_identity.relative_path,
+                "bytes": source_identity.bytes,
+                "sha256": source_identity.sha256,
             },
             "preprocessing": {
                 **preprocessing,

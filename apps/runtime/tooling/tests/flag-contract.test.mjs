@@ -22,7 +22,7 @@ const [chromeCss, appCss, chatCss, chromeJs, courseProfile, serviceWorker, launc
 
 function ruleBody(source, selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = source.match(new RegExp(`${escaped}\\s*\\{([^}]*)\\}`));
+  const match = source.match(new RegExp(`(?:^|})\\s*${escaped}\\s*\\{([^}]*)\\}`, "m"));
   assert.ok(match, `missing CSS rule for ${selector}`);
   return match[1];
 }

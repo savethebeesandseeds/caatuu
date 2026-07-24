@@ -27,6 +27,12 @@ test("shared web theme changes reach the Android system-theme hook", () => {
 
 test("Android persists the theme and paints edge-to-edge system areas", () => {
   assert.match(activity, /WindowCompat\.enableEdgeToEdge\(window\)/);
+  assert.match(activity, /ViewCompat\.setOnApplyWindowInsetsListener\(appRoot\)/);
+  assert.match(activity, /WindowInsetsCompat\.Type\.systemBars\(\) or\s+WindowInsetsCompat\.Type\.displayCutout\(\)/);
+  assert.match(activity, /webView\.updateLayoutParams<FrameLayout\.LayoutParams>/);
+  assert.match(activity, /topMargin = safeArea\.top/);
+  assert.match(activity, /bottomMargin = safeArea\.bottom/);
+  assert.match(activity, /ViewCompat\.requestApplyInsets\(appRoot\)/);
   assert.match(activity, /appRoot\.setBackgroundColor\(color\)/);
   assert.match(activity, /webView\.setBackgroundColor\(color\)/);
   assert.match(activity, /window\.isNavigationBarContrastEnforced = false/);

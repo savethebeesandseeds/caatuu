@@ -21,12 +21,12 @@
   <script src="runtime.js?v=runtime-30"></script>
   <script src="semantic-learning.js?v=semantic-learning-6"></script>
     <link rel="stylesheet" href="theme.css?v=theme-4">
-    <link rel="stylesheet" href="app.css?v=shell-62">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-60">
+    <link rel="stylesheet" href="app.css?v=shell-63">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-71">
   </head>
-  <body>
+  <body class="games-page">
     <div class="app-shell">
-      <header class="app-header" data-caatuu-app-header></header>
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Games" data-caatuu-page-icon="/assets/icons/games_icon.png"></header>
 
       <main class="workspace">
         <section class="view" id="view-dictionary" aria-labelledby="dictionaryWorkspaceTitle">
@@ -318,11 +318,7 @@
 
         <section class="view is-active" id="view-verbs" aria-label="Train">
           <div class="verb-game-shell">
-            <section class="train-tab-panel train-galaxy is-active" id="trainPanelGalaxy" aria-labelledby="trainGalaxyTitle">
-              <div class="train-galaxy-copy">
-                <p class="verb-kicker">Train</p>
-                <h2 id="trainGalaxyTitle">Choose a world</h2>
-              </div>
+            <section class="train-tab-panel train-galaxy is-active" id="trainPanelGalaxy" aria-label="Choose a world">
               <div class="train-worlds" aria-label="Training games">
                 <button class="train-world train-world-word" type="button" data-train-tab="word-net">
                   <span class="train-orbit" aria-hidden="true"></span>
@@ -406,14 +402,14 @@
                 <div class="verb-match-column verb-match-column-en" id="verbEnglishColumn"></div>
                 <svg id="verbSolutionArrows" class="verb-solution-arrows" aria-hidden="true" hidden>
                   <defs>
-                    <marker id="verbSolutionArrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
-                      <path d="M0,0 L7,3.5 L0,7 Z"></path>
+                    <marker id="verbSolutionArrowhead" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+                      <path d="M0,0 L9,5 L0,10 Z" fill="context-stroke"></path>
                     </marker>
                   </defs>
                   <g id="verbSolutionArrowPaths"></g>
                 </svg>
                 <div id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" hidden>
-                  <img id="verbRoundRobot" src="/assets/robots/word-world-waiting.svg" alt="">
+                  <img id="verbRoundRobot" src="/assets/robots/word-world-waiting.svg" alt="A friendly robot preparing the next verb round">
                 </div>
               </section>
 
@@ -642,9 +638,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="chrome.js?v=chrome-66"></script>
+    <script src="chrome.js?v=chrome-72"></script>
     <script src="maintenance-ui.js?v=maintenance-14"></script>
-    <script src="app.js?v=shell-67"></script>
+    <script src="app.js?v=shell-69"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>
