@@ -1160,7 +1160,18 @@
       const storedState = updateDownloadState(status);
       if (!hasAppUpdate(status)) {
         const completed = appUpdateLocked && installedUpdateReached(status);
-        if (updateStatusProblem(status)) {
+        if (completed) {
+          const currentVersion = status?.currentVersionName || status?.currentVersionCode || "";
+          pushLog("ready", "Update installed", `Caatuu ${currentVersion} is installed locally.`);
+          setText("#setupTitle", "Caatuu is current");
+          setText("#setupPhase", "Update installed");
+          setText("#setupMessage", `Caatuu ${currentVersion} is installed and ready.`);
+          setText("#setupCount", "Current");
+          setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "Installed", "Installed app update confirmed locally");
+          $("#nativeSetup")?.classList.toggle("is-error", false);
+          clearAppUpdateHandoff();
+          setNavigationLocked(!setupComplete);
+        } else if (updateStatusProblem(status)) {
           const message = status?.updateError || "The update server could not be reached.";
           pushLog("error", "Update check failed", message);
           setText("#setupTitle", "Update check failed");
@@ -1175,14 +1186,12 @@
           pushLog("ready", "App is current", `No newer APK is exposed by the server (${label}).`);
           setText("#setupTitle", "Caatuu is current");
           setText("#setupPhase", "App is current");
-          setText("#setupMessage", completed
-            ? `Caatuu ${status?.currentVersionName || status?.currentVersionCode || ""} is installed and ready.`
-            : `No newer app update is exposed by the server (${label}).`);
+          setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
           setText("#setupCount", "Current");
           setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "No update", "No app update is required");
           $("#nativeSetup")?.classList.toggle("is-error", false);
         }
-        if (!updateStatusProblem(status)) {
+        if (completed || !updateStatusProblem(status)) {
           if (appUpdateLocked) clearAppUpdateHandoff();
           setNavigationLocked(!setupComplete);
         } else {

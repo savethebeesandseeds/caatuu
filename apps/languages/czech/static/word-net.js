@@ -662,13 +662,15 @@ function syncGenerationControl() {
   const mode = hasGenerationMode(state.generationMode) ? state.generationMode : "random";
   if (mode !== state.generationMode) state.generationMode = mode;
   const config = generationModes[mode];
+  const selectedModeLabel = state.contentMode === "standard" ? "More with this word" : config.label;
   icon?.querySelectorAll("[data-generation-icon]").forEach((generationIcon) => {
     generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== mode);
   });
   if (button) {
     button.disabled = state.busy;
-    button.setAttribute("aria-label", `Generation options. Current: ${config.label}.`);
-    button.setAttribute("title", `Generation: ${config.label}`);
+    const label = mode === "selected" ? selectedModeLabel : config.label;
+    button.setAttribute("aria-label", `Generation options. Current: ${label}.`);
+    button.setAttribute("title", `Generation: ${label}`);
   }
   document.querySelectorAll("[data-generation-mode]").forEach((option) => {
     const optionMode = option.dataset.generationMode;
@@ -676,6 +678,8 @@ function syncGenerationControl() {
     option.classList.toggle("is-selected", selected);
     option.setAttribute("aria-checked", selected ? "true" : "false");
     option.disabled = state.busy || (optionMode === "selected" && !normalizeWord(state.selectedWord));
+    const label = option.querySelector("[data-generation-label]");
+    if (label) label.textContent = state.contentMode === "standard" ? "More with this word" : "Selected word";
   });
   syncDiagnostics();
 }
@@ -842,22 +846,37 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode) {
     generationMode: mode,
     selectedWord: state.selectedWord,
     difficulty,
-    excludeIds: recentStandardEntryIds()
+    excludeIds: mode === "selected" ? [state.currentEntryId].filter(Boolean) : recentStandardEntryIds(),
+    allowSelectedRandomFallback: false
   });
   if (!selection?.record) {
+    if (mode === "selected") {
+      setStatus(
+        `No other Level ${difficulty} Standard sentence uses "${state.selectedWord}". Choose Random for a different guided sentence.`,
+        { tone: "active" }
+      );
+      return;
+    }
     setStatus(`No Standard sentences are available for Level ${difficulty}.`, { tone: "error" });
     return;
   }
-  showStandardPhrase(selection, { difficulty });
+  await showStandardPhrase(selection, { difficulty });
 }
 
-function showStandardPhrase(selection, { difficulty = learningDifficulty() } = {}) {
+async function showStandardPhrase(selection, { difficulty = learningDifficulty() } = {}) {
   const provider = state.standardProvider;
   const record = selection?.record;
   if (!provider || !record) return;
   cancelBackgroundWork();
+  const transitionStartedAt = performance.now();
+  const requestId = state.phraseRequestId + 1;
+  state.phraseRequestId = requestId;
+  setBusy(true);
+  setStatus("Preparing the next guided sentence.", { tone: "active" });
+  await holdSentenceTransition(transitionStartedAt);
+  if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
+
   const target = normalizeWord(provider.primaryWord(record, selection.fallback ? "" : selection.requestedWord));
-  state.phraseRequestId += 1;
   state.currentWord = target;
   state.currentSentence = record.cs;
   state.currentTranslation = record.en;
@@ -867,7 +886,6 @@ function showStandardPhrase(selection, { difficulty = learningDifficulty() } = {
   state.currentDifficulty = record.difficulty;
   state.currentContentMode = "standard";
   state.currentGenerationSource = "standard-corpus";
-  setBusy(true, { cover: false });
   selectWord(target, { lookup: false, render: false });
   hideSceneAsset({ cancel: true });
   renderCzechSentence(record.cs, target);

@@ -80,14 +80,35 @@ test("the themed scrollbar reserves its gutter without shifting fixed navigation
   assert.match(chromeCss, /\.bottom-app-nav \{[\s\S]*?left: 0;[\s\S]*?right: 0;[\s\S]*?width: auto;/);
 });
 
+test("phone navigation yields a frame before semantic work and avoids expensive Android compositing", () => {
+  assert.match(chrome, /function scheduleSemanticSkillCompassLoad\(panel/);
+  assert.match(chrome, /window\.requestAnimationFrame\(\(\) => \{[\s\S]*?window\.requestAnimationFrame\(\(\) => \{/);
+  assert.match(chrome, /if \(view === "stats"\) scheduleSemanticSkillCompassLoad\(panel\)/);
+  assert.match(
+    chrome,
+    /querySelectorAll\("#settingsPanel, \[data-caatuu-settings-panel\]"\)\.forEach\(renderSettingsPanel\)/
+  );
+  assert.match(chrome, /document\.documentElement\.dataset\.caatuuRuntime = window\.CaatuuRuntime\?\.env \|\| "browser"/);
+  assert.match(chrome, /coin_icon_ui\.png" alt="" loading="lazy" decoding="async"/);
+  assert.match(chrome, /difficulty_medal_\$\{option\.level\}_ui\.png\?v=ui-1/);
+  assert.match(chromeCss, /touch-action: manipulation;/);
+  assert.match(chromeCss, /html\[data-caatuu-runtime="android"\] \.bottom-app-nav \{[\s\S]*?backdrop-filter: none;/);
+  assert.match(chromeCss, /html\[data-caatuu-runtime="android"\] \.settings-sheet \{[\s\S]*?box-shadow: none;/);
+  assert.match(chromeCss, /\.settings-view-panel \{[\s\S]*?contain: layout style;/);
+  assert.match(serviceWorker, /\/assets\/icons\/coin_icon_ui\.png/);
+  assert.match(serviceWorker, /\/assets\/icons\/dark_mode_ui\.png/);
+  assert.match(serviceWorker, /\/assets\/icons\/czech_flag_ui\.png/);
+  assert.doesNotMatch(serviceWorker, /\/assets\/icons\/(?:coin_icon|dark_mode|czech_flag)\.png/);
+});
+
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-70/);
-    assert.match(page, /chrome\.js\?v=chrome-70/);
+    assert.match(page, /chrome\.css\?v=chrome-style-72/);
+    assert.match(page, /chrome\.js\?v=chrome-74/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-70/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-70/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-72/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-74/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {

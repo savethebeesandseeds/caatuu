@@ -875,10 +875,16 @@ const verbSolutionRouteColors = [
 ];
 const verbRoundInterstitialMillis = 1600;
 const verbRoundCompleteHoldMillis = 420;
-const verbSolutionRevealMillis = 2200;
+const verbSolutionRevealBaseMillis = 1400;
+const verbSolutionRevealMillisPerPair = 450;
 const verbHintLookupTimeoutMillis = 6000;
 const verbHintImageTimeoutMillis = 1800;
 const verbHintStopwords = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
+
+function verbSolutionRevealDuration(pairCount) {
+  const visiblePairs = Math.max(1, Number(pairCount) || 1);
+  return verbSolutionRevealBaseMillis + (visiblePairs * verbSolutionRevealMillisPerPair);
+}
 
 const defaultPrintOptions = {
   orientation: "landscape",
@@ -1775,11 +1781,12 @@ function toggleVerbSolution() {
   );
   renderVerbNebula();
   if (state.verbSolutionRevealed) {
+    const revealDuration = verbSolutionRevealDuration(state.verbRound.length);
     state.verbSolutionAdvanceTimer = window.setTimeout(() => {
       state.verbSolutionAdvanceTimer = null;
       if (!state.verbSolutionRevealed || state.verbRoundTransitioning) return;
       void transitionToNextVerbRound({ holdMillis: 0 });
-    }, verbSolutionRevealMillis);
+    }, revealDuration);
   }
 }
 

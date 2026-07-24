@@ -125,6 +125,16 @@ test("update handoff and Setup labels remain durable and unambiguous", () => {
     assert.match(setup, new RegExp(label));
   }
   assert.match(setup, /continuing in the background/i);
+  assert.match(
+    setup,
+    /if \(completed\)[\s\S]*clearAppUpdateHandoff\(\)[\s\S]*else if \(updateStatusProblem\(status\)\)/,
+    "an installed update must clear its handoff locally before a transient server error can lock Setup"
+  );
+  assert.match(
+    setup,
+    /if \(completed \|\| !updateStatusProblem\(status\)\)[\s\S]*setNavigationLocked\(!setupComplete\)/,
+    "a locally confirmed install must leave Setup usable while the update service recovers"
+  );
 });
 
 test("status and download reconcile the server before reusing a local APK", () => {

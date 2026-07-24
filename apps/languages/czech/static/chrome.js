@@ -4,7 +4,7 @@
 
   const themeStorageKey = course.storage.theme;
   const targetLanguage = course.targetLanguage;
-  const darkModeIconSrc = "/assets/icons/dark_mode.png";
+  const darkModeIconSrc = "/assets/icons/dark_mode_ui.png";
   let sharedSettingsTrigger = null;
   let appFreshnessBound = false;
   const themeOptions = {
@@ -43,6 +43,7 @@
         id: "food-shopping",
         label: "Food & choices",
         chartLabel: "Food & choices",
+        chartLabelBelow: true,
         emblem: "food",
         probe: {
           locale: "en",
@@ -76,6 +77,7 @@
         id: "time-plans",
         label: "Time & plans",
         chartLabel: "Time & plans",
+        chartLabelBelow: true,
         emblem: "time",
         probe: {
           locale: "en",
@@ -332,7 +334,7 @@
     return levels.map((option) => `
       <button type="button" data-difficulty-level="${option.level}" aria-label="${option.label} challenge badge, level ${option.level}">
         <b aria-hidden="true">
-          <img src="/assets/icons/difficulty_medal_${option.level}.png?v=royal-orders-1" alt="">
+          <img src="/assets/icons/difficulty_medal_${option.level}_ui.png?v=ui-1" alt="" loading="lazy" decoding="async">
         </b>
         <span>${option.label}</span>
       </button>
@@ -483,7 +485,9 @@
         request: 0,
         loading: false,
         rendered: false,
-        abortController: null
+        abortController: null,
+        scheduledFrame: null,
+        scheduledForce: false
       });
     }
     return semanticSkillCompassControllers.get(panel);
@@ -596,11 +600,13 @@
         width: 26,
         height: 26
       }));
-      const labelPoint = semanticCompassPoint(index, axisCount, 1, semanticSkillCompassLayout.labelRadius);
+      const labelPoint = axis.chartLabelBelow
+        ? { x: emblemPoint.x, y: emblemPoint.y + 23 }
+        : semanticCompassPoint(index, axisCount, 1, semanticSkillCompassLayout.labelRadius);
       const label = semanticCompassSvgElement("text", {
         x: labelPoint.x.toFixed(2),
         y: labelPoint.y.toFixed(2),
-        "text-anchor": Math.abs(labelPoint.x - semanticSkillCompassLayout.centerX) < 4
+        "text-anchor": axis.chartLabelBelow || Math.abs(labelPoint.x - semanticSkillCompassLayout.centerX) < 4
           ? "middle"
           : (labelPoint.x < semanticSkillCompassLayout.centerX ? "end" : "start"),
         dy: "0.34em"
@@ -811,9 +817,30 @@
     }
   }
 
+  function scheduleSemanticSkillCompassLoad(panel, { force = false } = {}) {
+    const controller = semanticSkillCompassController(panel);
+    controller.scheduledForce = controller.scheduledForce || force;
+    if (controller.scheduledFrame !== null) return;
+    controller.scheduledFrame = window.requestAnimationFrame(() => {
+      controller.scheduledFrame = window.requestAnimationFrame(() => {
+        controller.scheduledFrame = null;
+        const scheduledForce = controller.scheduledForce;
+        controller.scheduledForce = false;
+        if (semanticSkillCompassIsVisible(panel)) {
+          void loadSemanticSkillCompass(panel, { force: scheduledForce });
+        }
+      });
+    });
+  }
+
   function pauseSemanticSkillCompass(panel) {
     const controller = semanticSkillCompassController(panel);
     const wasLoading = controller.loading;
+    if (controller.scheduledFrame !== null) {
+      window.cancelAnimationFrame(controller.scheduledFrame);
+      controller.scheduledFrame = null;
+    }
+    controller.scheduledForce = false;
     controller.request += 1;
     controller.loading = false;
     controller.abortController?.abort("Skill compass hidden");
@@ -841,20 +868,20 @@
     if (!details) return;
     renderSemanticSkillCompassFrame(panel);
     details.addEventListener("toggle", () => {
-      if (details.open) void loadSemanticSkillCompass(panel);
+      if (details.open) scheduleSemanticSkillCompassLoad(panel);
       else pauseSemanticSkillCompass(panel);
     });
     panel.querySelector("#semanticSkillCompassRetry")?.addEventListener("click", () => {
-      void loadSemanticSkillCompass(panel, { force: true });
+      scheduleSemanticSkillCompassLoad(panel, { force: true });
     });
     document.addEventListener("caatuu:settings-open", () => {
-      if (details.open) void loadSemanticSkillCompass(panel);
+      if (details.open) scheduleSemanticSkillCompassLoad(panel);
     });
     window.addEventListener("caatuu:semantic-learning-change", () => {
       const controller = semanticSkillCompassController(panel);
       controller.revision += 1;
       controller.abortController?.abort("Semantic evidence changed");
-      if (semanticSkillCompassIsVisible(panel)) void loadSemanticSkillCompass(panel);
+      if (semanticSkillCompassIsVisible(panel)) scheduleSemanticSkillCompassLoad(panel);
       else if (controller.rendered) {
         const summary = panel.querySelector("#semanticSkillCompassSummaryState");
         if (summary) summary.textContent = "Update ready";
@@ -917,6 +944,7 @@
       image.className = "app-nav-icon-img";
       image.src = item.iconSrc;
       image.alt = "";
+      image.decoding = "async";
       icon.append(image);
     } else {
       icon.textContent = item.icon;
@@ -1005,6 +1033,7 @@
     flag.className = targetLanguage.flagClass;
     flag.src = targetLanguage.flagSrc;
     flag.alt = "";
+    flag.decoding = "async";
 
     const code = document.createElement("span");
     code.className = "language-code";
@@ -1043,6 +1072,7 @@
     icon.className = "brand-icon";
     icon.src = pageIcon;
     icon.alt = "";
+    icon.decoding = "async";
 
     const pageCopy = document.createElement("span");
     pageCopy.className = "app-header-page-copy";
@@ -1109,6 +1139,7 @@
         titleIcon.className = "app-header-title-icon";
         titleIcon.src = presentation.iconSrc;
         titleIcon.alt = "";
+        titleIcon.decoding = "async";
         titleIcon.setAttribute("aria-hidden", "true");
         element.append(titleIcon);
       }
@@ -1147,6 +1178,7 @@
         backArtwork.className = "app-header-back-image";
         backArtwork.src = "/assets/icons/games_icon.png";
         backArtwork.alt = "";
+        backArtwork.decoding = "async";
         backArtwork.setAttribute("aria-hidden", "true");
         back.append(backArtwork);
       } else {
@@ -1176,6 +1208,7 @@
   }
 
   function renderSettingsPanel(panel) {
+    if (!panel || panel.dataset.caatuuSettingsRendered === "true") return panel;
     panel.id = "settingsPanel";
     panel.className = "settings-backdrop app-settings-backdrop";
     panel.hidden = true;
@@ -1184,7 +1217,7 @@
         <header class="settings-sheet-head">
           <div class="settings-title-row">
             <span class="settings-brand-mark" aria-hidden="true">
-              <img src="/assets/icons/backpack_icon.png" alt="">
+              <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
             </span>
             <div class="settings-title-copy">
               <p class="settings-kicker kicker" id="settingsViewKicker">Items &amp; rewards</p>
@@ -1206,7 +1239,7 @@
                 <div class="traveler-badge" aria-label="Current traveler badge">
                   <span class="traveler-badge-level" id="difficultyLevelSummary">Level 2</span>
                   <span class="traveler-badge-emblem" aria-hidden="true">
-                    <img src="/assets/icons/backpack_icon.png" alt="">
+                    <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
                   </span>
                   <strong id="difficultyBadgeName">Traveler</strong>
                 </div>
@@ -1227,7 +1260,9 @@
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-coins">
-                  <span class="wallet-token wallet-token-coin" aria-hidden="true"></span>
+                  <span class="wallet-token wallet-token-coin" aria-hidden="true">
+                    <img src="/assets/icons/coin_icon_ui.png" alt="" loading="lazy" decoding="async">
+                  </span>
                   <span class="wallet-copy">
                     <span>Coins</span>
                     <strong id="courseProgressCoins">0</strong>
@@ -1263,7 +1298,7 @@
           <section class="settings-view-panel" id="statsViewPanel" data-settings-view-panel="stats" role="tabpanel" aria-labelledby="statsViewTab" hidden>
             <section class="backpack-card backpack-stats-card side-card" aria-label="Learning statistics">
               <header class="backpack-section-intro">
-                <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true">
+                <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
                 <span>
                   <span class="settings-kicker kicker">Journey record</span>
                   <strong>Learning stats</strong>
@@ -1308,16 +1343,6 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
-          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="App">
-            <details class="settings-section-details">
-              <summary class="settings-section-summary">
-                <span class="settings-section-title">
-                  <span class="settings-kicker kicker">App</span>
-                  <strong>Controls</strong>
-                </span>
-                <small>Theme, AI, storage</small>
-              </summary>
-              <div class="settings-section-body">
           <section class="settings-card side-card appearance-card settings-card-compact" aria-label="Appearance">
             <div class="settings-card-head side-head">
               <p class="settings-kicker kicker">Appearance</p>
@@ -1329,12 +1354,22 @@
                 <b>Light</b>
               </button>
               <button type="button" data-theme-option="dark">
-                <img class="theme-control-icon" src="/assets/icons/dark_mode.png" alt="" aria-hidden="true">
+                <img class="theme-control-icon" src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
                 <b>Dark</b>
               </button>
             </div>
           </section>
 
+          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="Advanced app settings">
+            <details class="settings-section-details">
+              <summary class="settings-section-summary">
+                <span class="settings-section-title">
+                  <span class="settings-kicker kicker">App</span>
+                  <strong>Advanced</strong>
+                </span>
+                <small>AI, developer, storage</small>
+              </summary>
+              <div class="settings-section-body">
           <section class="settings-card side-card ai-settings-card" aria-label="Chat settings">
             <details class="settings-details">
               <summary class="settings-collapsible-summary">
@@ -1561,22 +1596,22 @@
 
           <footer class="settings-sheet-footer">
             <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
-              <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+              <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="" loading="lazy" decoding="async">
               <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
             </a>
           </footer>
         </div>
         <nav class="settings-section-switcher" role="tablist" aria-label="Backpack sections">
           <button class="is-active" type="button" role="tab" id="itemsViewTab" data-settings-view="items" aria-controls="itemsViewPanel" aria-selected="true">
-            <img src="/assets/icons/items_icon.png?v=items-2" alt="" aria-hidden="true">
+            <img src="/assets/icons/items_icon.png?v=items-2" alt="" aria-hidden="true" decoding="async">
             <span>Items</span>
           </button>
           <button type="button" role="tab" id="statsViewTab" data-settings-view="stats" aria-controls="statsViewPanel" aria-selected="false">
-            <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true">
+            <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" decoding="async">
             <span>Stats</span>
           </button>
           <button type="button" role="tab" id="settingsViewTab" data-settings-view="settings" aria-controls="settingsViewPanel" aria-selected="false">
-            <img src="/assets/icons/gear_icon.png" alt="" aria-hidden="true">
+            <img src="/assets/icons/gear_icon.png" alt="" aria-hidden="true" decoding="async">
             <span>Settings</span>
           </button>
         </nav>
@@ -1588,13 +1623,23 @@
     bindSemanticSkillCompass(panel);
     renderLearningControls(panel);
     setSettingsView(panel, "items");
+    panel.dataset.caatuuSettingsRendered = "true";
+    return panel;
   }
 
   function setSettingsView(panel, requestedView = "items") {
     if (!panel) return;
     const view = ["items", "stats", "settings"].includes(requestedView) ? requestedView : "items";
-    if (view !== "stats") pauseSemanticSkillCompass(panel);
     const sheet = panel.querySelector(".settings-sheet");
+    const body = panel.querySelector(".settings-sheet-body");
+    if (panel.dataset.settingsViewInitialized === "true"
+      && sheet?.dataset.settingsCurrentView === view) {
+      if (body) body.scrollTop = 0;
+      if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
+      return;
+    }
+    panel.dataset.settingsViewInitialized = "true";
+    if (view !== "stats") pauseSemanticSkillCompass(panel);
     if (sheet) sheet.dataset.settingsCurrentView = view;
     panel.querySelectorAll("[data-settings-view]").forEach((button) => {
       const active = button.dataset.settingsView === view;
@@ -1615,9 +1660,8 @@
         settings: "App controls"
       }[view];
     }
-    const body = panel.querySelector(".settings-sheet-body");
     if (body) body.scrollTop = 0;
-    if (view === "stats") void loadSemanticSkillCompass(panel);
+    if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
   }
 
   function validAndroidChannelManifest(channel, manifest) {
@@ -2022,6 +2066,7 @@
   }
 
   function initChrome() {
+    document.documentElement.dataset.caatuuRuntime = window.CaatuuRuntime?.env || "browser";
     applyTheme(readStoredTheme(), { persist: false });
     document.querySelectorAll(".app-header").forEach(renderAppHeader);
     document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach(renderSettingsPanel);

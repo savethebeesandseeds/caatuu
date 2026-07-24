@@ -11,7 +11,7 @@
       "locale": "cs-CZ",
       "direction": "ltr",
       "flagClass": "flag-icon",
-      "flagSrc": "/assets/icons/czech_flag.png",
+      "flagSrc": "/assets/icons/czech_flag_ui.png",
       "routePrefix": "/cz",
       "entryPath": "/cz/home.html",
       "sourceLanguage": {

@@ -25,11 +25,11 @@ const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, .
 
 test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-5"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-6"');
     const learningIndex = source.indexOf('src="learning-profile.js?v=learning-2"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-30"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-6"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-70"');
+    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-74"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -174,9 +174,13 @@ test("the Backpack skill compass is versioned, visible, accessible, and honest a
   assert.equal((chrome.match(/emblem: "/g) || []).length, 7);
   assert.match(chrome, /id: "actions-abilities"/);
   assert.match(chrome, /chartLabel: "Actions"/);
+  assert.equal((chrome.match(/chartLabelBelow: true/g) || []).length, 2);
+  assert.match(chrome, /id: "food-shopping"[\s\S]*?chartLabelBelow: true/);
+  assert.match(chrome, /id: "time-plans"[\s\S]*?chartLabelBelow: true/);
+  assert.match(chrome, /axis\.chartLabelBelow[\s\S]*?emblemPoint\.y \+ 23/);
   assert.match(chrome, /<details class="skill-compass" id="semanticSkillCompass" data-state="idle" open>/);
   assert.match(chrome, /viewBox="0 0 340 290" role="img" aria-labelledby=/);
-  assert.match(chrome, /id="semanticSkillCompassAxes" aria-label="Skill compass values"/);
+  assert.doesNotMatch(chrome, /id="semanticSkillCompassAxes"/);
   assert.match(chrome, /role="status" aria-live="polite"/);
   for (const section of ["items", "stats", "settings"]) {
     assert.match(chrome, new RegExp(`id="${section}ViewTab"[\\s\\S]*?data-settings-view="${section}"`));
@@ -234,7 +238,7 @@ test("the Backpack skill compass is versioned, visible, accessible, and honest a
   );
   assert.match(
     chrome.slice(settingsViewStart, settingsViewEnd),
-    /if \(view === "stats"\) void loadSemanticSkillCompass\(panel\)/
+    /if \(view === "stats"\) scheduleSemanticSkillCompassLoad\(panel\)/
   );
   const panelBindingStart = chrome.indexOf("function bindSharedSettingsPanel");
   const panelBindingEnd = chrome.indexOf("function clampReportText", panelBindingStart);
@@ -272,9 +276,9 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v334/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v339/);
   assert.match(serviceWorker, /\/assets\/icons\/items_icon\.png\?v=items-2/);
-  assert.match(serviceWorker, /\/assets\/icons\/coin_icon\.png/);
+  assert.match(serviceWorker, /\/assets\/icons\/coin_icon_ui\.png/);
   assert.match(serviceWorker, /semantic-learning\.js\?v=semantic-learning-6/);
   assert.match(serviceWorker, /semantic-learning-core\.mjs\?v=semantic-learning-core-5/);
   assert.match(semantic, /import\("\.\/semantic-learning-core\.mjs\?v=semantic-learning-core-5"\)/);

@@ -26,7 +26,7 @@
       locale: "cs-CZ",
       direction: "ltr",
       flagClass: "cz-flag",
-      flagSrc: "/assets/icons/czech_flag.png"
+      flagSrc: "/assets/icons/czech_flag_ui.png"
     },
     routes: {
       languageSelection: "/",

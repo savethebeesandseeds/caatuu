@@ -104,10 +104,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
                 charsetFor(assetPath),
                 context.assets.open(assetPath),
             ).apply {
-                responseHeaders = mapOf(
-                    "Access-Control-Allow-Origin" to "*",
-                    "Cache-Control" to "no-store",
-                )
+                responseHeaders = BUNDLED_ASSET_HEADERS
             }
         } catch (_: FileNotFoundException) {
             notFound()
@@ -203,6 +200,10 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
 
     companion object {
         private const val HOST = "caatuu.local"
+        private val BUNDLED_ASSET_HEADERS = mapOf(
+            "Access-Control-Allow-Origin" to "*",
+            "Cache-Control" to "private, max-age=31536000, immutable",
+        )
         private val LANGUAGE_ROUTE_PREFIX = normalizePath(BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX)
             .trimEnd('/')
         private val LANGUAGE_ENTRY_PATH = normalizePath(BuildConfig.CAATUU_LANGUAGE_ENTRY_PATH)

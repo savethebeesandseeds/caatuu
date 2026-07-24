@@ -7,6 +7,9 @@ They are independent from the base application, cutout, and Blender images.
   version-and-SHA-locked Python artifacts for Linux x86-64 / CPython 3.12.
   Debian packages are not snapshot-locked, so future OCI byte identity is not
   claimed.
+- Images consume only the committed bootstrap, provisioner, Torch, and runtime
+  lock files with pip hash checking. Torch is rechecked from a local
+  no-index wheelhouse, and final dependency layers run `pip check`.
 - The small provisioner has the only network-enabled runtime and contains no
   inference code. Its resumable range staging is never mounted by inference.
 - `doctor` and `reconstruct` operate with networking disabled.
@@ -14,6 +17,12 @@ They are independent from the base application, cutout, and Blender images.
   written only beneath the ignored reconstruction workspace.
 - Neither image contains a server, public port, Docker socket, GUI, or product
   entry point.
+
+Direct requirement files document the accepted roots. Lock updates are
+deliberate Linux/amd64 maintenance: regenerate from the corresponding `.in` or
+root file, review the platform artifact hashes, rebuild the affected stages,
+run offline `doctor`, and replay the accepted candidate before replacing an
+observed image identity.
 
 The upstream patches pin the DINO configuration revision, force a cache-only
 lookup, and move marching-cubes extraction to the pinned PyMCubes CPU wheel.

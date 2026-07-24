@@ -31,7 +31,10 @@ test("Verb Nebula reveal shows animated answers and automatically advances", () 
   assert.match(app, /state\.verbSolutionRevealed = !state\.verbSolutionRevealed/);
   assert.match(app, /state\.verbSolutionAdvanceTimer = window\.setTimeout/);
   assert.match(app, /transitionToNextVerbRound\(\{ holdMillis: 0 \}\)/);
-  assert.match(app, /const verbSolutionRevealMillis = 2200/);
+  assert.match(app, /const verbSolutionRevealBaseMillis = 1400/);
+  assert.match(app, /const verbSolutionRevealMillisPerPair = 450/);
+  assert.match(app, /function verbSolutionRevealDuration\(pairCount\)/);
+  assert.match(app, /const revealDuration = verbSolutionRevealDuration\(state\.verbRound\.length\)/);
   assert.match(app, /svg\.classList\.toggle\("is-visible", Boolean\(visible\)\)/);
   assert.match(appCss, /\.verb-solution-arrows\.is-visible \{[\s\S]*?display: block;/);
   assert.match(app, /const verbSolutionRouteColors = \[/);

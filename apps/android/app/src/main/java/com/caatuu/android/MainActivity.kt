@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
         webView.settings.apply {
             javaScriptEnabled = true
             domStorageEnabled = true
-            cacheMode = WebSettings.LOAD_NO_CACHE
+            cacheMode = WebSettings.LOAD_DEFAULT
             mediaPlaybackRequiresUserGesture = false
             allowFileAccess = false
             allowContentAccess = false
@@ -167,7 +167,14 @@ class MainActivity : ComponentActivity() {
     private fun resetWebViewStateAfterUpdate() {
         val prefs = getSharedPreferences("caatuu-webview-runtime", Context.MODE_PRIVATE)
         val previousVersion = prefs.getInt("versionCode", -1)
-        if (previousVersion == BuildConfig.VERSION_CODE) {
+        val packageLastUpdateTime = packageManager
+            .getPackageInfo(packageName, 0)
+            .lastUpdateTime
+        val previousPackageUpdateTime = prefs.getLong("packageLastUpdateTime", -1L)
+        if (
+            previousVersion == BuildConfig.VERSION_CODE &&
+            previousPackageUpdateTime == packageLastUpdateTime
+        ) {
             return
         }
 
@@ -175,7 +182,10 @@ class MainActivity : ComponentActivity() {
         webView.clearHistory()
         CookieManager.getInstance().removeAllCookies(null)
         CookieManager.getInstance().flush()
-        prefs.edit().putInt("versionCode", BuildConfig.VERSION_CODE).apply()
+        prefs.edit()
+            .putInt("versionCode", BuildConfig.VERSION_CODE)
+            .putLong("packageLastUpdateTime", packageLastUpdateTime)
+            .apply()
     }
 
     private fun handleBackRequest() {

@@ -230,11 +230,12 @@ export class StandardWordWorldProvider {
     return record ? { record, fallback: false, requestedWord: "" } : null;
   }
 
-  nextForWord(word, options = {}) {
+  nextForWord(word, { allowRandomFallback = true, ...options } = {}) {
     const requestedWord = normalizeStandardWord(word);
     const exactRecords = this.targetIndex.get(requestedWord) || [];
     const exact = this.choose(exactRecords, { ...options, allowExcludedFallback: false });
     if (exact) return { record: exact, fallback: false, requestedWord };
+    if (!allowRandomFallback) return null;
     const random = this.nextRandom(options);
     return random ? { ...random, fallback: true, requestedWord } : null;
   }
@@ -349,10 +350,15 @@ export function selectStandardTurn(provider, {
   generationMode = "random",
   selectedWord = "",
   difficulty = 1,
-  excludeIds = []
+  excludeIds = [],
+  allowSelectedRandomFallback = true
 } = {}) {
   if (!(provider instanceof StandardWordWorldProvider)) throw new TypeError("A Standard Word World provider is required.");
   return generationMode === "selected"
-    ? provider.nextForWord(selectedWord, { difficulty, excludeIds })
+    ? provider.nextForWord(selectedWord, {
+        difficulty,
+        excludeIds,
+        allowRandomFallback: allowSelectedRandomFallback
+      })
     : provider.nextRandom({ difficulty, excludeIds });
 }

@@ -2,6 +2,8 @@
 
 # Exact transitive versions observed in the accepted Linux/Python 3.12 image.
 # Torch itself remains in the separately hashed requirements-reconstruction-torch.txt.
+# Torch's Triton dependency is marked for Python < 3.12 and is intentionally
+# absent from this CPython 3.12 graph; the image build enforces this with pip check.
 antlr4-python3-runtime==4.9.3
 certifi==2026.7.22
 charset-normalizer==3.4.9

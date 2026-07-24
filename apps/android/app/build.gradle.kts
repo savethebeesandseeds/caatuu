@@ -133,6 +133,7 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
     }
     from(launcherStaticDir.dir("assets/icons")) {
         include(
+            "*_ui.png",
             "czech_flag.png",
             "dark_mode.png",
             "games_icon.png",
@@ -162,8 +163,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 130
-        versionName = "0.1.129"
+        versionCode = 134
+        versionName = "0.1.133"
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))

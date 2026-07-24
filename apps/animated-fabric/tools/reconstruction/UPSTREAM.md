@@ -38,6 +38,37 @@ The large checkpoint is additionally fetched as eight persistent HTTP/1.1
 ranges and is not published into the Hub snapshot until its exact
 1,677,246,742-byte size and committed SHA-256 both match.
 
+## Python artifact locks
+
+The reconstruction images install Python artifacts only from four committed
+hash-checking inputs:
+
+- `requirements-reconstruction-bootstrap-lock.txt` pins pip, setuptools, and
+  wheel used while constructing the images;
+- `requirements-reconstruction-provision-lock.txt` pins the complete
+  network-enabled provisioner graph;
+- `requirements-reconstruction-torch.txt` binds the official local Torch wheel
+  to the downloader's independently checked SHA-256; and
+- `requirements-reconstruction-lock.txt` pins the complete CPython 3.12 /
+  Linux x86-64 inference graph.
+
+The inference lock permits exactly one source artifact,
+`antlr4-python3-runtime==4.9.3`; `--no-build-isolation` forces it to use the
+pinned bootstrap toolchain. All other inference artifacts are compatible
+binary wheels. Torch is installed with `--no-index`, `--no-deps`, and
+`--require-hashes`, after which the complete locked graph is installed and
+`pip check` must pass. The exact Torch wheel declares Triton only for Python
+versions below 3.12, so Triton is intentionally absent from this CPython 3.12
+graph.
+
+The `.in` and direct-root files record the accepted version graph. Updates are
+performed only in the repository-owned Linux/amd64 Python 3.12 environment:
+regenerate the affected lock, review every compatible artifact hash, rebuild
+the relevant image stages, pass their in-build dependency checks, run the
+networkless doctor, and reproduce the accepted candidate. Debian Bookworm
+packages still come from live repositories, so tested image digests—not future
+OCI byte identity—remain the environment evidence.
+
 ## DINO configuration
 
 - Model/config source: <https://huggingface.co/facebook/dino-vitb16>

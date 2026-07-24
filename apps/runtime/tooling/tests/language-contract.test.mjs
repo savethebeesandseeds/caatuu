@@ -8,6 +8,14 @@ const czechStatic = new URL("apps/languages/czech/static/", repoRoot);
 const launcherStatic = new URL("apps/launcher/static/", repoRoot);
 
 const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html"];
+const androidUiIconNames = [
+  "coin_icon_ui.png",
+  "czech_flag_ui.png",
+  "dark_mode_ui.png",
+  "difficulty_medal_1_ui.png",
+  "difficulty_medal_2_ui.png",
+  "difficulty_medal_3_ui.png"
+];
 const [registrySource, profileSource, learningProfile, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
   readFile(new URL("languages.json", launcherStatic), "utf8"),
   readFile(new URL("course-profile.js", czechStatic), "utf8"),
@@ -23,6 +31,9 @@ const [registrySource, profileSource, learningProfile, launcher, chrome, runtime
   readFile(new URL("apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt", repoRoot), "utf8"),
   ...pageNames.map((name) => readFile(new URL(name, czechStatic), "utf8").then((source) => ({ name, source })))
 ]);
+const androidUiIcons = await Promise.all(
+  androidUiIconNames.map((name) => readFile(new URL(`assets/icons/${name}`, launcherStatic)))
+);
 
 const registry = JSON.parse(registrySource);
 const profileContext = { window: {} };
@@ -44,8 +55,8 @@ test("public registry and Czech course profile describe the same active app", ()
   assert.equal(publicCourse.locale, course.targetLanguage.locale);
   assert.equal(publicCourse.direction, course.targetLanguage.direction);
   assert.equal(publicCourse.shortCode, course.targetLanguage.shortCode);
-  assert.equal(publicCourse.flagSrc, "/assets/icons/czech_flag.png");
-  assert.equal(course.targetLanguage.flagSrc, "/assets/icons/czech_flag.png");
+  assert.equal(publicCourse.flagSrc, "/assets/icons/czech_flag_ui.png");
+  assert.equal(course.targetLanguage.flagSrc, "/assets/icons/czech_flag_ui.png");
   assert.equal(publicCourse.sourceLanguage.id, course.sourceLanguage.id);
   assert.deepEqual([...publicCourse.capabilities].sort(), Object.keys(course.capabilities).filter((key) => course.capabilities[key]).sort());
   assert.deepEqual(publicCourse.platforms.android.channels, [
@@ -75,7 +86,7 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-5"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-6"');
     const learningIndex = source.indexOf('src="learning-profile.js?v=learning-2"');
     const runtimeIndex = source.indexOf('src="runtime.js');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-6"');
@@ -87,7 +98,7 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.ok(chromeIndex > semanticIndex, `${name} must load semantic state before chrome.js`);
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-5/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-6/);
   assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-2/);
   assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-6/);
 });
@@ -133,4 +144,26 @@ test("runtime and Android mount the language declared by their build contracts",
   assert.match(assetClient, /val START_URL = "https:\/\/\$HOST\$LANGUAGE_ENTRY_PATH"/);
   assert.doesNotMatch(assetClient, /path == "\/cz"/);
   assert.doesNotMatch(assetClient, /location\.replace\("\/cz/);
+});
+
+test("Android caches immutable APK resources while mutable local assets stay fresh", () => {
+  assert.match(assetClient, /BUNDLED_ASSET_HEADERS = mapOf\(/);
+  assert.match(assetClient, /"Cache-Control" to "private, max-age=31536000, immutable"/);
+  assert.match(assetClient, /context\.assets\.open\(assetPath\),[\s\S]*?responseHeaders = BUNDLED_ASSET_HEADERS/);
+  assert.match(assetClient, /localVectorDatabase\.inputStream\(\),[\s\S]*?"Cache-Control" to "no-store"/);
+  assert.match(assetClient, /localSetupAsset\.inputStream\(\),[\s\S]*?"Cache-Control" to "no-store"/);
+});
+
+test("Android packages every optimized interface icon referenced by shared Chrome", () => {
+  assert.match(
+    gradle,
+    /from\(launcherStaticDir\.dir\("assets\/icons"\)\)[\s\S]*?include\([\s\S]*?"\*_ui\.png"/
+  );
+  assert.deepEqual(
+    androidUiIcons.map((icon) => icon.byteLength > 0),
+    androidUiIconNames.map(() => true)
+  );
+  for (const iconName of androidUiIconNames) {
+    assert.match(serviceWorker, new RegExp(`/assets/icons/${iconName.replace(".", "\\.")}`));
+  }
 });

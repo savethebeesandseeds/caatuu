@@ -342,7 +342,8 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   assert.match(card.declarations.get("background") || "", /var\(--green\)/);
   assert.match(card.declarations.get("border") || "", /var\(--theme-amber/);
   const coin = ruleWithSelector(chromeCss, ".wallet-token-coin");
-  assert.match(coin.declarations.get("background") || "", /\/assets\/icons\/coin_icon\.png/);
+  assert.equal(coin.declarations.get("background"), "transparent");
+  assert.match(chromeJs, /wallet-token-coin[\s\S]*?\/assets\/icons\/coin_icon_ui\.png/);
   const sheet = ruleWithSelector(chromeCss, ".settings-sheet");
   assert.match(sheet.declarations.get("grid-template-rows") || "", /auto minmax\(0, 1fr\) auto/);
   const sectionNav = ruleWithSelector(chromeCss, ".settings-section-switcher");
@@ -386,7 +387,7 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   assert.equal(settingsFooter.declarations.get("margin-top"), "auto");
 });
 
-test("the skill compass uses shared theme tokens and keeps exact values beside the chart", () => {
+test("the skill compass keeps the chart concise without duplicating values below it", () => {
   const compass = ruleWithSelector(chromeCss, ".skill-compass");
   assert.match(compass.declarations.get("border") || "", /var\(--green\)/);
   const practice = declarationsForSelector(chromeCss, ".skill-compass-practice-shape");
@@ -395,19 +396,25 @@ test("the skill compass uses shared theme tokens and keeps exact values beside t
   assert.match(strength.get("stroke") || "", /var\(--green/);
   assert.match(chromeCss, /\.skill-compass-map \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
   assert.doesNotMatch(chromeCss, /\.skill-compass-map \{[\s\S]*?grid-template-columns: minmax\(230px/);
-  assert.match(chromeCss, /\.skill-compass-axis-metrics \{[\s\S]*?grid-template-columns: minmax\(86px, 1\.15fr\)/);
-  assert.match(chromeCss, /\.skill-compass-emblem-mark \{[\s\S]*?stroke: currentColor/);
-  assert.match(chromeCss, /\.skill-compass-emblem-ring \{[\s\S]*?stroke:/);
-  assert.match(chromeCss, /\.skill-compass-axis-list li \{[\s\S]*?grid-template-columns: minmax\(150px/);
-  assert.match(chromeCss, /\.skill-compass-axis-heading \.skill-compass-axis-emblem \{[\s\S]*?width: 28px/);
-  assert.match(chromeCss, /\.skill-compass-axis-practice-meter::after \{[\s\S]*?var\(--axis-practice/);
-  assert.match(
-    chromeCss,
-    /@media screen and \(max-width: 560px\) \{[\s\S]*?\.skill-compass-axis-list li \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/
-  );
-  for (const axisId of ["people", "home-school", "food-shopping", "places-travel", "actions-abilities", "time-plans", "world-description"]) {
-    assert.match(chromeCss, new RegExp(`data-axis-id="${axisId}"`));
-  }
+  assert.match(chromeJs, /class="skill-compass-chart"/);
+  assert.match(chromeJs, /class="skill-compass-legend"/);
+  assert.doesNotMatch(chromeJs, /<ol class="skill-compass-axis-list"/);
+  assert.doesNotMatch(chromeJs, /<p id="semanticSkillCompassStatus"/);
+});
+
+test("settings expose Theme and About immediately while Advanced stays collapsed", () => {
+  const themeStart = chromeJs.indexOf('aria-label="Appearance"');
+  const advancedStart = chromeJs.indexOf('aria-label="Advanced app settings"');
+  const advancedBodyStart = chromeJs.indexOf('<div class="settings-section-body">', advancedStart);
+  assert.ok(themeStart >= 0 && advancedStart > themeStart);
+  assert.match(chromeJs, /<section class="settings-card side-card settings-section-card app-controls-card" aria-label="Advanced app settings">/);
+  assert.match(chromeJs, /<strong>Advanced<\/strong>[\s\S]*?<small>AI, developer, storage<\/small>/);
+  assert.match(chromeJs, /<details class="settings-section-details">/);
+  assert.doesNotMatch(chromeJs, /<details class="settings-section-details" open>/);
+  assert.match(chromeJs, /<section class="settings-card side-card about-card" aria-label="About">/);
+  assert.ok(advancedBodyStart > advancedStart);
+  assert.ok(chromeJs.indexOf('aria-label="Chat settings"', advancedBodyStart) > advancedBodyStart);
+  assert.ok(chromeJs.indexOf('aria-label="App settings"', advancedBodyStart) > advancedBodyStart);
 });
 
 test("browser freshness notices remain visible, themed, and dismiss only when current", () => {

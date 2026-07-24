@@ -132,6 +132,26 @@ test("does not repeat the current sentence when an exact selected-word branch is
   assert.equal(next.requestedWord, "psa");
 });
 
+test("can keep Standard selected-word mode exact instead of silently changing topic", () => {
+  const corpus = provider({
+    records: [
+      row("only-dog", 1, "VidÃ­m psa.", "I see a dog.", ["psa"]),
+      row("cat", 1, "KoÄka spÃ­.", "The cat sleeps.", ["KoÄka"])
+    ],
+    random: () => 0
+  });
+
+  const next = selectStandardTurn(corpus, {
+    generationMode: "selected",
+    selectedWord: "psa",
+    difficulty: 1,
+    excludeIds: ["only-dog"],
+    allowSelectedRandomFallback: false
+  });
+
+  assert.equal(next, null);
+});
+
 test("Standard selection has no model dependency or model-call path", () => {
   let modelCalls = 0;
   const runtime = { models: { generate() { modelCalls += 1; } } };

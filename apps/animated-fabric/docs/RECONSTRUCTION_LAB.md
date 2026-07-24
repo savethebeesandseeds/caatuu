@@ -64,13 +64,15 @@ The committed `tools/reconstruction/model-manifest.json` records exact sizes
 and SHA-256 values for every model file used at runtime. The approximately
 1.68 GB checkpoint is never committed or baked into the image.
 
-Both dependency-install steps use one locked BuildKit pip cache. Interrupted
-image builds therefore reuse already downloaded transitive wheels while the
-cache itself remains outside the final runtime image. The cache path is set
-explicitly rather than inferred from the non-root runtime `HOME`, so build-time
-pip cannot silently disable it on an ownership check. The image pins pip 25.2,
+Bootstrap, provisioner, and inference dependencies are installed with pip's
+hash-checking mode from committed locks. Bootstrap and transitive installs use
+separate, versioned BuildKit caches; interrupted builds therefore reuse only
+artifacts accepted by the same lock revision, and the caches remain outside
+the final images. The local PyTorch wheel install bypasses pip's cache, disables
+indexes, and rechecks the downloader-verified wheel against the committed hash.
+Each final dependency layer runs `python -m pip check`. The image pins pip 25.2,
 the first stable pip release with automatic download resumption, and allows up
-to 240 resume attempts for the large CUDA runtime wheels.
+to 240 resume attempts for remote wheels.
 
 The larger PyTorch wheel is fetched as four resumable, hash-verified HTTP/1.1
 ranges in its own locked BuildKit cache. This avoids observed CDN HTTP/2 stream
@@ -83,6 +85,17 @@ source-only Antlr runtime and its pinned local build tools. Debian packages
 still resolve from live Bookworm repositories without an immutable snapshot;
 that remains a release-hardening gate, and the accepted image digests identify
 the exact local environments tested here.
+
+The direct root files document intent. The `*-lock.txt` files are the only
+Python requirement files consumed by the images. Bootstrap and provisioner
+locks are generated from `requirements-reconstruction-bootstrap.in` and
+`requirements-reconstruction-provision.txt` with pip-tools in the owned Linux
+environment. The runtime `.in` records the accepted complete version graph;
+its lock intentionally retains only CPython 3.12/Linux x86-64 artifacts.
+Dependency updates must regenerate the affected lock in that target
+environment, review every selected artifact hash, rebuild both affected image
+stages, pass their in-build dependency checks, run offline `doctor`, and replay
+the accepted candidate. A resolver-only edit is not an accepted update.
 
 ## Prepare an input
 
@@ -218,6 +231,19 @@ mesh edit or an OOM retry.
 | vertices / triangles | 63,850 / 127,700 | 63,850 / 127,700 |
 | inference time | 12.814 s | 12.018 s |
 | peak CUDA allocator bytes | 2,494,066,176 | 2,494,066,176 |
+
+A final replay after the complete Python artifact graph was moved into pip
+hash-checking mode created `macaw-front-triposr-lock-r1`. Its manifest SHA-256
+is `d8ab379968f193b8584377f4bbbfe9a62dda960860ca90a58e17777546655817`.
+It completed in 14.261 s with the same 2,494,066,176-byte allocator peak, and
+its normalized PNG and GLB are byte-identical to R1 and R2. Its four review
+PNGs are also byte-identical to the accepted fixed views below; its
+candidate-bound review manifest SHA-256 is
+`505d2cb4dcb61a44ffdde5a8b74757a8b9e7a9714ae25987423a2992897951e5`.
+The replay used offline runtime image
+`sha256:26fa5e5d274378798ff37fb57f02a9752f73048c08ca09c6e0b79cde488a084e`;
+the separately rebuilt provisioner is
+`sha256:b4c5bc26913ad8932b72735fd73bb36a66728ecb06206842c938c4e282c5cabe`.
 
 The manifests intentionally differ because candidate ID and elapsed time are
 evidence. The normalized source, GLB, topology, and all four rendered review

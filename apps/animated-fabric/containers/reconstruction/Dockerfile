@@ -46,12 +46,22 @@ RUN apt-get update \
     && mkdir -p /models/huggingface/hub /opt/animated-fabric/tools /staging \
     && chown -R reconstruction:reconstruction /models /opt/animated-fabric /staging
 
-COPY requirements-reconstruction-provision.txt /tmp/requirements-reconstruction-provision.txt
+COPY requirements-reconstruction-bootstrap-lock.txt \
+    /tmp/requirements-reconstruction-bootstrap-lock.txt
+COPY requirements-reconstruction-provision-lock.txt \
+    /tmp/requirements-reconstruction-provision-lock.txt
 RUN --mount=type=cache,id=animated-fabric-reconstruction-provision-pip-py312,target=/var/cache/animated-fabric/pip,sharing=locked \
     PIP_CACHE_DIR=/var/cache/animated-fabric/pip \
-        python -m pip install "pip==25.2" \
+        python -m pip install \
+            --only-binary=:all: \
+            --require-hashes \
+            --requirement /tmp/requirements-reconstruction-bootstrap-lock.txt \
     && PIP_CACHE_DIR=/var/cache/animated-fabric/pip \
-        python -m pip install --requirement /tmp/requirements-reconstruction-provision.txt
+        python -m pip install \
+            --only-binary=:all: \
+            --require-hashes \
+            --requirement /tmp/requirements-reconstruction-provision-lock.txt \
+    && python -m pip check
 
 COPY --chown=reconstruction:reconstruction \
     tools/reconstruction/__init__.py \
@@ -102,21 +112,33 @@ RUN apt-get update \
     && mkdir -p /input /models/huggingface/hub /opt/animated-fabric/tools /output \
     && chown -R reconstruction:reconstruction /models /opt/animated-fabric /output
 
+COPY requirements-reconstruction-bootstrap-lock.txt \
+    /tmp/requirements-reconstruction-bootstrap-lock.txt
 RUN --mount=type=cache,id=animated-fabric-reconstruction-pip-py312,target=/var/cache/animated-fabric/pip,sharing=locked \
     PIP_CACHE_DIR=/var/cache/animated-fabric/pip \
-        python -m pip install "pip==25.2"
+        python -m pip install \
+            --only-binary=:all: \
+            --require-hashes \
+            --requirement /tmp/requirements-reconstruction-bootstrap-lock.txt
 
-RUN --mount=type=cache,id=animated-fabric-reconstruction-pip-py312,target=/var/cache/animated-fabric/pip,sharing=locked \
-    --mount=type=bind,from=torch-wheel-fetcher,source=/torch-2.2.2+cu118-cp312-cp312-linux_x86_64.whl,target=/tmp/torch-2.2.2+cu118-cp312-cp312-linux_x86_64.whl \
-    PIP_CACHE_DIR=/var/cache/animated-fabric/pip python -m pip install \
-        --index-url https://download.pytorch.org/whl/cu118 \
-        /tmp/torch-2.2.2+cu118-cp312-cp312-linux_x86_64.whl
+COPY requirements-reconstruction-torch.txt /tmp/requirements-reconstruction-torch.txt
+RUN --mount=type=bind,from=torch-wheel-fetcher,source=/torch-2.2.2+cu118-cp312-cp312-linux_x86_64.whl,target=/tmp/torch-2.2.2+cu118-cp312-cp312-linux_x86_64.whl \
+    python -m pip install \
+        --find-links=/tmp \
+        --no-deps \
+        --no-index \
+        --require-hashes \
+        --requirement /tmp/requirements-reconstruction-torch.txt
 
-COPY requirements-reconstruction.txt /tmp/requirements-reconstruction.txt
+COPY requirements-reconstruction-lock.txt /tmp/requirements-reconstruction-lock.txt
 
-RUN --mount=type=cache,id=animated-fabric-reconstruction-pip-py312,target=/var/cache/animated-fabric/pip,sharing=locked \
+RUN --mount=type=cache,id=animated-fabric-reconstruction-lock-pip-py312-v1,target=/var/cache/animated-fabric/pip,sharing=locked \
     PIP_CACHE_DIR=/var/cache/animated-fabric/pip \
-        python -m pip install --requirement /tmp/requirements-reconstruction.txt
+        python -m pip install \
+            --no-build-isolation \
+            --require-hashes \
+            --requirement /tmp/requirements-reconstruction-lock.txt \
+    && python -m pip check
 
 RUN git clone https://github.com/VAST-AI-Research/TripoSR.git /opt/triposr \
     && git -C /opt/triposr checkout --detach "d26e33181947bbbc4c6fc0f5734e1ec6c080956e" \

@@ -324,7 +324,7 @@ async function auditHttpRoutes() {
   assert(root.body.includes("Don't lose time, let's get started learning."), "launcher root should include the getting-started footnote");
   assert(root.body.includes("Available languages"), "launcher root should list available languages");
   assert(root.body.includes('aria-label="Czech"'), "launcher root should list Czech as an available language");
-  assert(root.body.includes('<img class="flag-icon" src="/assets/icons/czech_flag.png" alt="">'), "launcher root should render the Czech flag PNG");
+  assert(root.body.includes('<img class="flag-icon" src="/assets/icons/czech_flag_ui.png" alt=""'), "launcher root should render the optimized Czech flag PNG");
   assert(root.body.includes('<span class="language-choice-code">CZ</span>'), "launcher root should label the Czech language row");
   assert(root.body.includes("/assets/miscellaneous/burrow-review_062.png"), "launcher root should use the storybook schoolhouse showcase art");
   assert(root.body.includes("/assets/macaw/actions/macaw%20(23).png"), "launcher root should include the reading macaw");

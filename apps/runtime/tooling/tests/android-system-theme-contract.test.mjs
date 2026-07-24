@@ -43,6 +43,17 @@ test("Android persists the theme and paints edge-to-edge system areas", () => {
   assert.match(activity, /LIGHT_SYSTEM_BAR_COLOR = Color\.rgb\(247, 244, 238\)/);
 });
 
+test("Android reuses bundled interface resources without risking stale APK assets", () => {
+  assert.match(activity, /cacheMode = WebSettings\.LOAD_DEFAULT/);
+  assert.doesNotMatch(activity, /cacheMode = WebSettings\.LOAD_NO_CACHE/);
+  assert.match(activity, /getPackageInfo\(packageName, 0\)[\s\S]*?\.lastUpdateTime/);
+  assert.match(activity, /previousVersion == BuildConfig\.VERSION_CODE &&/);
+  assert.match(activity, /previousPackageUpdateTime == packageLastUpdateTime/);
+  assert.match(activity, /webView\.clearCache\(true\)/);
+  assert.match(activity, /putInt\("versionCode", BuildConfig\.VERSION_CODE\)/);
+  assert.match(activity, /putLong\("packageLastUpdateTime", packageLastUpdateTime\)/);
+});
+
 test("Android system back gestures use the lifecycle-aware dispatcher and shared game back control", () => {
   assert.match(activity, /class MainActivity : ComponentActivity\(\)/);
   assert.match(activity, /onBackPressedDispatcher\.addCallback\(this, object : OnBackPressedCallback\(true\)/);

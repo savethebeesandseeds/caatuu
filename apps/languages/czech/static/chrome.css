@@ -533,6 +533,14 @@ html {
   backdrop-filter: blur(16px);
 }
 
+.bottom-app-nav .app-nav-item,
+.settings-backdrop button,
+.settings-backdrop a,
+.app-header button,
+.app-header a {
+  touch-action: manipulation;
+}
+
 .bottom-app-nav .app-nav-item {
   position: relative;
   min-width: 0;
@@ -625,6 +633,7 @@ html[data-theme="light"] .bottom-app-nav {
   max-height: calc(100dvh - var(--settings-nav-offset, 70px) - 28px);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  contain: layout style;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -739,6 +748,8 @@ html[data-theme="light"] .bottom-app-nav {
   flex-direction: column;
   gap: 7px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .settings-sheet-body,
@@ -1101,6 +1112,7 @@ html[data-theme="light"] .bottom-app-nav {
 .settings-section-switcher button {
   min-width: 0;
   min-height: 54px;
+  touch-action: manipulation;
   padding: 3px 8px 4px;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -1166,6 +1178,7 @@ body.settings-open #openSettings::before {
   display: grid;
   flex: 0 0 auto;
   gap: 7px;
+  contain: layout style;
 }
 
 .settings-view-panel[hidden] {
@@ -1357,8 +1370,15 @@ body.settings-open #openSettings::before {
 .wallet-token-coin {
   position: relative;
   border: 0;
-  background: url("/assets/icons/coin_icon.png") center / contain no-repeat;
+  background: transparent;
   box-shadow: none;
+}
+
+.wallet-token-coin img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .wallet-token-coin::after {
@@ -3090,17 +3110,45 @@ html[data-theme="dark"] .preset-control button.is-active {
 @media screen and (max-width: 860px) {
   .settings-backdrop {
     padding: 0;
+    background: var(--panel);
   }
 
   .settings-sheet {
     width: 100%;
     max-height: calc(100dvh - var(--settings-nav-offset, 70px));
     border-radius: 0;
+    box-shadow: none;
   }
 
   .preset-control {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+html[data-caatuu-runtime="android"] .bottom-app-nav {
+  backdrop-filter: none;
+}
+
+html[data-caatuu-runtime="android"] .settings-backdrop {
+  background: var(--panel);
+}
+
+html[data-caatuu-runtime="android"] .settings-sheet {
+  box-shadow: none;
+}
+
+html[data-caatuu-runtime="android"] .backpack-card {
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 94%, var(--theme-amber, #c19138) 6%),
+      var(--panel)
+    );
+  box-shadow: none;
+}
+
+html[data-caatuu-runtime="android"] .settings-section-switcher {
+  box-shadow: none;
 }
 
 @media screen and (max-width: 560px) {

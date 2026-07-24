@@ -411,7 +411,9 @@ AF-060 remains the first M6 ticket and is deferred, not cancelled.
   model provisioner and a networkless GPU inference image. Exact source, checkpoint, DINO
   configuration, Torch, and PyMCubes identities remain outside the base package and release
   artifacts. Runtime model files are hash-verified and read-only; inputs are read-only and outputs
-  remain ignored proposals.
+  remain ignored proposals. Every Python artifact in both images is exact-version and SHA-256
+  locked for CPython 3.12/Linux x86-64; the sole Antlr source artifact builds with pinned tools,
+  every pip install uses hash-checking mode, and final dependency layers enforce `pip check`.
 - The approved AF-054 front view passed through the self-contained BiRefNet cutout plane. Two
   clean TripoSR runs produced the same 159,456-byte normalized PNG and the same 2,555,024-byte
   vertex-colored GLB, with 63,850 vertices and 127,700 triangles. Runtime was 12.814 s and
@@ -617,9 +619,9 @@ image operation was installed or run on the Windows host:
 - Final image identities were development
   `sha256:1d093f39ef5a1d090ca70cae8d277358b20be45fe1657c454e869383c28fb53e`,
   offline TripoSR
-  `sha256:0c0206f0f153881825eb8abb969084523c7a12684c8cf62cee13485f53103976`,
+  `sha256:26fa5e5d274378798ff37fb57f02a9752f73048c08ca09c6e0b79cde488a084e`,
   model provisioner
-  `sha256:9baf28492e1e3e22afa3dcbed7567daa6fa695e353de847fd68cf864b3143165`,
+  `sha256:b4c5bc26913ad8932b72735fd73bb36a66728ecb06206842c938c4e282c5cabe`,
   and Blender
   `sha256:4e99a578efe0e41e75def8e58dccfef02d01266c871fdec7703bf55765b626f8`.
 - The official model provisioner completed the resumable eight-range checkpoint transfer,
@@ -632,6 +634,13 @@ image operation was installed or run on the Windows host:
   `d38da7d98b8be0ee786542e7651b719eb80856530cb8b0377e780813d1805e4f`; their GLB SHA-256 was
   identically `88ac489f649e0459e2c87417706e79eb20cc8aed3af7f92286b3f74726c9698a`.
   Both recorded 2,494,066,176 peak CUDA allocator bytes, 63,850 vertices, and 127,700 triangles.
+- The final fully hash-locked runtime created immutable
+  `macaw-front-triposr-lock-r1` in 14.261 s with the same allocator peak and topology. Its
+  normalized PNG and GLB matched the accepted hashes byte for byte. Its front, left, back, and
+  front-right three-quarter review PNGs also matched the R1/R2 hashes exactly; only the
+  candidate-bound manifest differed, with SHA-256
+  `d8ab379968f193b8584377f4bbbfe9a62dda960860ca90a58e17777546655817` for the candidate and
+  `505d2cb4dcb61a44ffdde5a8b74757a8b9e7a9714ae25987423a2992897951e5` for its review.
 - Read-only structural inspection reported six connected components, watertight and
   winding-consistent geometry, no boundary or non-manifold edges, no duplicate faces, and five
   degenerate faces. The complete fixed-view R1 and R2 renders passed strict candidate import,
@@ -646,15 +655,16 @@ image operation was installed or run on the Windows host:
   the corrected review contract.
 - `ruff format --check .`: 257 files already formatted. `ruff check .`: all checks passed.
 - `mypy src`: no issues in 73 source files.
-- `pytest -q`: 1,234 passed in 189.52 s with 91.95% branch coverage against an 85% floor.
+- `pytest -q`: 1,238 passed in 175.80 s with 91.95% branch coverage against an 85% floor.
 - `python -m pip check`: no broken requirements in the development, offline inference, or separate
-  provisioner images. Every Compose profile resolved to the expected 11 services; all four AF-045
-  Bash entry points passed `bash -n`.
-- `python scripts/run_demo_pipeline.py --out .tmp/af045-final-demo-1234` rendered the unchanged
+  provisioner images, both during image construction and in independent networkless checks. Every
+  Compose profile resolved to the expected 11 services; all four AF-045 Bash entry points passed
+  `bash -n`.
+- `python scripts/run_demo_pipeline.py --out .tmp/af045-hash-lock-final-1238` rendered the unchanged
   neutral SE and NE layered fixtures. `python -m animated_fabric doctor` reported no problems.
   A baked development image with no checkout bind, network, or writable root passed the same
   doctor.
-- The repository-owned Node 24 container accepted 1,794 tracked and candidate files and all links
+- The repository-owned Node 24 container accepted 1,806 tracked and candidate files and all links
   in 105 Markdown files.
 
 Local pre-publication verification executed on 2026-07-22 for AF-055 through the exact
@@ -1132,6 +1142,9 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
   assessment, admission through the unchanged actor-package validator, skeleton and skin-weight
   estimation, retargeting, and deformation acceptance before it can replace manual AF-056
   authoring.
+- AF-045 hash-locks its complete Python artifact graph, but Debian Bookworm packages still resolve
+  from live repositories. The recorded image digests identify the accepted environments; future
+  OCI byte identity is not claimed until a Debian snapshot policy is approved.
 - TripoSR is feed-forward rather than seed-diverse. A useful ensemble will require controlled input
   variants or a second compatible provider; unrelated mesh vertices must never be averaged
   directly. Decision 0015 requires rendered/field-space comparison or fusion.

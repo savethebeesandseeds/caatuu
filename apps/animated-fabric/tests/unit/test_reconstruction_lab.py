@@ -41,6 +41,25 @@ from tools.reconstruction.provision import main as provision_main
 
 APP_ROOT = Path(__file__).resolve().parents[2]
 PATCH_HUNK_PATTERN = re.compile(r"^@@ -\d+(?:,(\d+))? \+\d+(?:,(\d+))? @@")
+RECONSTRUCTION_LOCKS = (
+    "requirements-reconstruction-bootstrap-lock.txt",
+    "requirements-reconstruction-lock.txt",
+    "requirements-reconstruction-provision-lock.txt",
+    "requirements-reconstruction-torch.txt",
+)
+
+
+def _requirement_blocks(contents: str) -> tuple[str, ...]:
+    lines = contents.splitlines()
+    starts = [
+        index
+        for index, line in enumerate(lines)
+        if line and not line[0].isspace() and not line.startswith(("#", "--"))
+    ]
+    return tuple(
+        "\n".join(lines[start : starts[index + 1] if index + 1 < len(starts) else None])
+        for index, start in enumerate(starts)
+    )
 
 
 def test_model_manifest_pins_complete_runtime_identities() -> None:
@@ -557,21 +576,42 @@ def test_compose_keeps_provisioning_and_offline_inference_separate() -> None:
     assert "animated-fabric-reconstruction-direct-staging:/staging" in provision
 
 
+@pytest.mark.parametrize("lock_name", RECONSTRUCTION_LOCKS)
+def test_reconstruction_install_locks_hash_every_exact_requirement(lock_name: str) -> None:
+    contents = (APP_ROOT / lock_name).read_text(encoding="utf-8")
+    blocks = _requirement_blocks(contents)
+
+    assert blocks
+    for block in blocks:
+        requirement = block.splitlines()[0]
+        assert "==" in requirement or " @ https://" in requirement
+        assert "--hash=sha256:" in block or "#sha256=" in block
+        digests = re.findall(r"(?:--hash=sha256:|#sha256=)([0-9a-f]+)", block)
+        assert digests
+        for digest in digests:
+            assert len(digest) == 64
+
+
 def test_dockerfile_pins_sources_and_keeps_model_weights_out() -> None:
     dockerfile = (APP_ROOT / "containers/reconstruction/Dockerfile").read_text(encoding="utf-8")
     requirements = (APP_ROOT / "requirements-reconstruction.txt").read_text(encoding="utf-8")
+    lock = (APP_ROOT / "requirements-reconstruction-lock.txt").read_text(encoding="utf-8")
     pymcubes_patch = (
         APP_ROOT / "containers/reconstruction/patches/0002-use-pymcubes-cpu-extraction.patch"
     ).read_text(encoding="utf-8")
 
     assert "d26e33181947bbbc4c6fc0f5734e1ec6c080956e" in dockerfile
     assert "ARG TRIPOSR_REVISION" not in dockerfile
+    assert dockerfile.count("python -m pip install") == 5
+    assert dockerfile.count("--require-hashes") == 5
     assert "PyMCubes-0.1.6" in requirements
-    assert "ea366a2064af0846093e0ad3f9035e375f4b14b62bb565c95dcc8dcaf78308a5" in (requirements)
-    assert "transformers==4.35.0" in requirements
-    assert "tokenizers==0.14.1" in requirements
-    assert "huggingface-hub==0.17.3" in requirements
-    assert "huggingface-hub==0.19.4" not in requirements
+    assert "ea366a2064af0846093e0ad3f9035e375f4b14b62bb565c95dcc8dcaf78308a5" in lock
+    assert "transformers==4.35.0" in lock
+    assert "tokenizers==0.14.1" in lock
+    assert "huggingface-hub==0.17.3" in lock
+    assert "huggingface-hub==0.19.4" not in lock
+    assert "--only-binary=:all:" in lock
+    assert "--no-binary=antlr4-python3-runtime" in lock
     assert "tools/reconstruction" in dockerfile
     assert "/opt/animated-fabric/tools/reconstruction" in dockerfile
     assert "model.ckpt" not in dockerfile
@@ -593,7 +633,12 @@ def test_model_provisioner_is_small_pinned_and_separate_from_inference() -> None
 
     assert "huggingface-hub==1.22.0" in requirements
     assert "hf-xet==1.5.1" in requirements
-    assert "requirements-reconstruction-provision.txt" in provisioner
+    assert "requirements-reconstruction-bootstrap-lock.txt" in provisioner
+    assert "requirements-reconstruction-provision-lock.txt" in provisioner
+    assert "requirements-reconstruction-provision.txt" not in provisioner
+    assert provisioner.count("--require-hashes") == 2
+    assert provisioner.count("--only-binary=:all:") == 2
+    assert provisioner.count("python -m pip check") == 1
     assert "tools/reconstruction/provision.py" in provisioner
     assert "tools/reconstruction/candidate.py" not in provisioner
     assert 'ENTRYPOINT ["provision-animated-fabric-models"]' in provisioner
@@ -638,21 +683,29 @@ def test_torch_wheel_download_is_resumable_and_hash_pinned() -> None:
     assert "--http1.1" in downloader
     assert "--range" in downloader
     assert "type=cache,id=animated-fabric-torch-2.2.2-cu118-cp312" in dockerfile
-    assert runtime.count("type=cache,id=animated-fabric-reconstruction-pip-py312") == 3
-    assert runtime.count("PIP_CACHE_DIR=/var/cache/animated-fabric/pip") == 3
-    assert 'python -m pip install "pip==25.2"' in runtime
+    assert runtime.count("type=cache,id=animated-fabric-reconstruction-pip-py312") == 1
+    assert runtime.count("type=cache,id=animated-fabric-reconstruction-lock-pip-py312-v1") == 1
+    assert runtime.count("PIP_CACHE_DIR=/var/cache/animated-fabric/pip") == 2
+    assert "requirements-reconstruction-bootstrap-lock.txt" in runtime
+    assert "requirements-reconstruction-lock.txt" in runtime
+    assert "COPY requirements-reconstruction.txt" not in runtime
+    assert runtime.count("--require-hashes") == 3
+    assert "--no-build-isolation" in runtime
+    assert "--no-deps" in runtime
+    assert "--no-index" in runtime
+    assert "--find-links=/tmp" in runtime
+    assert runtime.count("python -m pip check") == 1
+    assert 'python -m pip install "pip==25.2"' not in runtime
     assert "PIP_RESUME_RETRIES=240" in runtime
     assert "PIP_NO_CACHE_DIR" not in runtime
     assert "from=torch-wheel-fetcher" in runtime
     torch_install = runtime.index("from=torch-wheel-fetcher")
     runtime_requirements = runtime.index(
-        "COPY requirements-reconstruction.txt /tmp/requirements-reconstruction.txt"
+        "COPY requirements-reconstruction-lock.txt /tmp/requirements-reconstruction-lock.txt"
     )
     assert torch_install < runtime_requirements
-    assert "COPY requirements-reconstruction-torch.txt" not in runtime
-    dependency_install = runtime.index(
-        "python -m pip install --requirement /tmp/requirements-reconstruction.txt"
-    )
+    assert "COPY requirements-reconstruction-torch.txt" in runtime
+    dependency_install = runtime.index("--requirement /tmp/requirements-reconstruction-lock.txt")
     source_clone = runtime.index(
         "git clone https://github.com/VAST-AI-Research/TripoSR.git /opt/triposr"
     )
