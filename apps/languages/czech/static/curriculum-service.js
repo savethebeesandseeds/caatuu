@@ -2,7 +2,7 @@
   let service = null;
   let failure = null;
 
-  const loading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-4")
+  const loading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-5")
     .then(({ createCurriculumService }) => {
       service = createCurriculumService({ courseProfile: window.CaatuuCourse });
       return service.ready();

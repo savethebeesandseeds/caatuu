@@ -22,6 +22,8 @@ const registryUrl = new URL("../data/cs-CZ.cross-game-bindings.v1.json", import.
 
 const WORD_BINDING = "binding.word-world.ww-cp-000146";
 const VERB_BINDING = "binding.verb-nebula.cs.verb.cist.read";
+const WORD_CAPABILITY = "independent-comprehension";
+const VERB_CAPABILITY = "independent-discrimination";
 
 async function readJson(url) {
   return JSON.parse(await readFile(url, "utf8"));
@@ -47,7 +49,7 @@ function taskFor(registry, {
   sessionId,
   taskSequence,
   bindingId,
-  capabilityId = "independent-retrieval"
+  capabilityId = bindingId === WORD_BINDING ? WORD_CAPABILITY : VERB_CAPABILITY
 }) {
   return issueLearningTask(registry, {
     taskId,
@@ -137,8 +139,71 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
   assert.equal(wordBinding.opportunityId, null);
   assert.equal(verbBinding.contextId, null);
   assert.equal(verbBinding.opportunityId, null);
+  assert.deepEqual(wordBinding.evidenceCapabilities[1], {
+    id: WORD_CAPABILITY,
+    mechanicId: "translation-reconstruction",
+    learningStage: "comprehend",
+    evidenceKind: "comprehension",
+    independence: "independent",
+    scoreRequired: true,
+    masteryEligible: false,
+    minimumScore: 1
+  });
+  assert.deepEqual(verbBinding.evidenceCapabilities[1], {
+    id: VERB_CAPABILITY,
+    mechanicId: "association-grid-match",
+    learningStage: "discriminate",
+    evidenceKind: "comprehension",
+    independence: "independent",
+    scoreRequired: true,
+    masteryEligible: false,
+    minimumScore: 1
+  });
 
   assert.equal(pack.contexts.some((row) => row.id === wordBinding.contextId), false);
+});
+
+test("Word comprehension and Verb discrimination reject mismatched stage evidence", async () => {
+  const { curriculum, pack, catalog, registry } = await fixtures();
+  for (const [bindingId, mutate] of [
+    [WORD_BINDING, (capability) => { capability.learningStage = "retrieve"; }],
+    [VERB_BINDING, (capability) => { capability.evidenceKind = "retrieval"; }]
+  ]) {
+    const invalid = structuredClone(registry);
+    const capability = invalid.bindings
+      .find((binding) => binding.id === bindingId)
+      .evidenceCapabilities[1];
+    mutate(capability);
+    const result = validateCrossGameBindings(curriculum, pack, catalog, invalid);
+    assert.equal(result.valid, false);
+    assert.ok(result.errors.some((entry) => (
+      entry.code === "BIND_STAGE_EVIDENCE_MISMATCH"
+        && entry.relatedIds.includes(bindingId)
+        && entry.relatedIds.includes(capability.id)
+    )));
+  }
+});
+
+test("clean comprehension and discrimination are valid independent assessments but never mastery", async () => {
+  const { curriculum, registry } = await fixtures();
+  for (const [index, bindingId] of [WORD_BINDING, VERB_BINDING].entries()) {
+    const task = taskFor(registry, {
+      taskId: `task-clean-assessment-${index + 1}`,
+      issuedAt: `2026-08-01T07:0${index}:00.000Z`,
+      sessionId: "session-clean-assessment",
+      taskSequence: index + 1,
+      bindingId
+    });
+    const event = eventFor(task, {
+      eventId: `event-clean-assessment-${index + 1}`,
+      occurredAt: `2026-08-01T07:0${index}:30.000Z`,
+      score: 1
+    });
+    const result = validateLearningEvidenceEvent(curriculum, registry, task, event);
+    assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
+    assert.equal(result.qualifiesForIndependentAssessment, true);
+    assert.equal(result.qualifiesForMastery, false);
+  }
 });
 
 test("a bound opportunity cannot authorize the wrong evidence modality", async () => {
@@ -152,6 +217,7 @@ test("a bound opportunity cannot authorize the wrong evidence modality", async (
   const result = validateCrossGameBindings(curriculum, pack, catalog, invalid);
   assert.equal(result.valid, false);
   assert.ok(result.errors.some((entry) => entry.code === "BIND_CAPABILITY_OPPORTUNITY_MISMATCH"));
+  assert.ok(result.errors.some((entry) => entry.code === "BIND_STAGE_OPPORTUNITY_MISMATCH"));
 });
 
 test("content revisions, digests, and the legacy Verb locator fail closed", async () => {
@@ -320,29 +386,32 @@ test("forged task payloads and evidence fingerprints are rejected", async () => 
   assert.ok(evidenceResult.errors.some((entry) => entry.code === "EVIDENCE_TASK_MISMATCH"));
 });
 
-test("exposure is excluded while first clean evidence aggregates across both games", async () => {
+test("clean comprehension and discrimination aggregate as assessed attempts without manufacturing mastery", async () => {
   const { curriculum, registry } = await fixtures();
   const tasks = [
     taskFor(registry, { taskId: "task-exposure-word-1", issuedAt: "2026-08-01T08:00:00.000Z", sessionId: "session-1", taskSequence: 1, bindingId: WORD_BINDING, capabilityId: "exposure" }),
-    taskFor(registry, { taskId: "task-retrieval-word-1", issuedAt: "2026-08-01T08:01:00.000Z", sessionId: "session-1", taskSequence: 2, bindingId: WORD_BINDING }),
-    taskFor(registry, { taskId: "task-retrieval-verb-1", issuedAt: "2026-08-01T08:02:00.000Z", sessionId: "session-1", taskSequence: 3, bindingId: VERB_BINDING }),
-    taskFor(registry, { taskId: "task-retrieval-word-2", issuedAt: "2026-08-02T08:00:00.000Z", sessionId: "session-2", taskSequence: 1, bindingId: WORD_BINDING })
+    taskFor(registry, { taskId: "task-comprehension-word-1", issuedAt: "2026-08-01T08:01:00.000Z", sessionId: "session-1", taskSequence: 2, bindingId: WORD_BINDING }),
+    taskFor(registry, { taskId: "task-discrimination-verb-1", issuedAt: "2026-08-01T08:02:00.000Z", sessionId: "session-1", taskSequence: 3, bindingId: VERB_BINDING }),
+    taskFor(registry, { taskId: "task-comprehension-word-2", issuedAt: "2026-08-02T08:00:00.000Z", sessionId: "session-2", taskSequence: 1, bindingId: WORD_BINDING })
   ];
   const events = [
     eventFor(tasks[0], { eventId: "event-exposure-word-1", occurredAt: "2026-08-01T08:00:30.000Z", score: null }),
-    eventFor(tasks[1], { eventId: "event-retrieval-word-1", occurredAt: "2026-08-01T08:01:30.000Z", score: 1 }),
-    eventFor(tasks[2], { eventId: "event-retrieval-verb-1", occurredAt: "2026-08-01T08:02:30.000Z", score: 1 }),
-    eventFor(tasks[3], { eventId: "event-retrieval-word-2", occurredAt: "2026-08-02T08:00:30.000Z", score: 1 })
+    eventFor(tasks[1], { eventId: "event-comprehension-word-1", occurredAt: "2026-08-01T08:01:30.000Z", score: 1 }),
+    eventFor(tasks[2], { eventId: "event-discrimination-verb-1", occurredAt: "2026-08-01T08:02:30.000Z", score: 1 }),
+    eventFor(tasks[3], { eventId: "event-comprehension-word-2", occurredAt: "2026-08-02T08:00:30.000Z", score: 1 })
   ];
 
   const [summary] = aggregateLearningEvidence(curriculum, registry, tasks, events);
   assert.equal(summary.exposureEvents, 1);
-  assert.equal(summary.qualifyingIndependentEvidence, 3);
-  assert.equal(summary.independentRetrievals, 3);
-  assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
-  assert.deepEqual(summary.qualifyingSessionIds, ["session-1", "session-2"]);
+  assert.equal(summary.assessedAttempts, 3);
+  assert.equal(summary.qualifyingIndependentEvidence, 0);
+  assert.equal(summary.independentRetrievals, 0);
+  assert.deepEqual(summary.contributingActivityIds, []);
+  assert.deepEqual(summary.qualifyingSessionIds, []);
   assert.deepEqual(summary.qualifyingContextIds, []);
   assert.equal(summary.masteryReady, false);
+  assert.ok(summary.masteryShortfalls.includes("independent-retrievals"));
+  assert.ok(summary.masteryShortfalls.includes("sessions"));
   assert.ok(summary.masteryShortfalls.includes("distinct-contexts"));
   assert.ok(summary.masteryShortfalls.includes("production"));
   assert.ok(summary.masteryShortfalls.includes("transfer"));
@@ -366,6 +435,7 @@ test("revealed, hinted, and non-first responses cannot qualify", async () => {
   });
   let validation = validateLearningEvidenceEvent(curriculum, registry, task, revealed);
   assert.equal(validation.valid, true);
+  assert.equal(validation.qualifiesForIndependentAssessment, false);
   assert.equal(validation.qualifiesForMastery, false);
 
   const correction = eventFor(task, {
@@ -377,6 +447,7 @@ test("revealed, hinted, and non-first responses cannot qualify", async () => {
   validation = validateLearningEvidenceEvent(curriculum, registry, task, correction);
   assert.equal(validation.valid, true);
   assert.equal(validation.firstCleanResponse, false);
+  assert.equal(validation.qualifiesForIndependentAssessment, false);
   assert.equal(validation.qualifiesForMastery, false);
 
   const [summary] = aggregateLearningEvidence(curriculum, registry, [task], [revealed, correction]);
@@ -413,11 +484,11 @@ test("a too-early same-session retry cannot repair failure, but the canonical ga
 
   let [summary] = aggregateLearningEvidence(curriculum, registry, [failedTask, earlyTask], [failed, early]);
   assert.equal(summary.unresolvedRecentFailure, true);
-  assert.equal(summary.qualifyingIndependentEvidence, 1);
+  assert.equal(summary.qualifyingIndependentEvidence, 0);
 
   [summary] = aggregateLearningEvidence(curriculum, registry, [failedTask, earlyTask, validTask], [failed, early, valid]);
   assert.equal(summary.unresolvedRecentFailure, false);
-  assert.equal(summary.qualifyingIndependentEvidence, 2);
+  assert.equal(summary.qualifyingIndependentEvidence, 0);
 });
 
 test("a clean task in a later session may repair the unresolved failure", async () => {
@@ -429,7 +500,7 @@ test("a clean task in a later session may repair the unresolved failure", async 
 
   const [summary] = aggregateLearningEvidence(curriculum, registry, [failedTask, laterTask], [failed, repaired]);
   assert.equal(summary.unresolvedRecentFailure, false);
-  assert.equal(summary.qualifyingIndependentEvidence, 1);
+  assert.equal(summary.qualifyingIndependentEvidence, 0);
 });
 
 test("evidence cannot rewrite bound content, context, opportunity, or task sequence", async () => {

@@ -353,7 +353,7 @@ test("the browser Standard render path cannot call models or contaminate the gen
   assert.doesNotMatch(standardPath, /models\.generate|requestEnglishTranslation|enrichCurrentPhrase/);
   assert.doesNotMatch(standardPath, /branchQueue|rememberPreparedCandidate/);
   assert.match(standardPath, /const sceneReady = guidedLifecycle[\s\S]*?: updateSceneAsset\(record\.sceneQuery \|\| record\.en\)/);
-  assert.match(standardPath, /guidedLifecycle[\s\S]*?hideSceneAsset/, "clean Guided retrieval must not leak a semantic scene clue");
+  assert.match(standardPath, /guidedLifecycle[\s\S]*?hideSceneAsset/, "clean Guided comprehension must not leak a semantic scene clue");
   assert.match(
     standardPath,
     /await Promise\.all\(\[holdSentenceTransition\(transitionStartedAt\), sceneReady\]\)/,

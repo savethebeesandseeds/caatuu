@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-cross-game-binding-registry-v1",
   "registryId": "caatuu.cs-CZ.cross-game-bindings",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "curriculum": {
     "id": "caatuu.shared-beginner",
     "version": "1.0.0",
@@ -51,13 +51,13 @@
           "masteryEligible": false
         },
         {
-          "id": "independent-retrieval",
+          "id": "independent-comprehension",
           "mechanicId": "translation-reconstruction",
-          "learningStage": "retrieve",
-          "evidenceKind": "retrieval",
+          "learningStage": "comprehend",
+          "evidenceKind": "comprehension",
           "independence": "independent",
           "scoreRequired": true,
-          "masteryEligible": true,
+          "masteryEligible": false,
           "minimumScore": 1
         }
       ]
@@ -95,13 +95,13 @@
           "masteryEligible": false
         },
         {
-          "id": "independent-retrieval",
+          "id": "independent-discrimination",
           "mechanicId": "association-grid-match",
-          "learningStage": "retrieve",
-          "evidenceKind": "retrieval",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
           "independence": "independent",
           "scoreRequired": true,
-          "masteryEligible": true,
+          "masteryEligible": false,
           "minimumScore": 1
         }
       ]

@@ -227,7 +227,7 @@ test("issued tasks and idempotent evidence persist across service reloads", asyn
   await service.ready();
 
   await service.recordExposure("binding.word-world.ww-cp-000146", { targetSkillId: "cs.skill.sense.cist.read" });
-  const wordTask = await service.issueTask("binding.word-world.ww-cp-000146", "independent-retrieval", {
+  const wordTask = await service.issueTask("binding.word-world.ww-cp-000146", "independent-comprehension", {
     targetSkillId: "cs.skill.sense.cist.read"
   });
   const wordResult = await service.recordEvidence(wordTask, {
@@ -235,7 +235,8 @@ test("issued tasks and idempotent evidence persist across service reloads", asyn
     attemptNumber: 1,
     score: 1
   });
-  assert.equal(wordResult.qualifiesForMastery, true);
+  assert.equal(wordResult.qualifiesForIndependentAssessment, true);
+  assert.equal(wordResult.qualifiesForMastery, false);
   const repeated = await service.recordEvidence(wordTask, {
     occurredAt: "2026-08-01T10:01:00.000Z",
     attemptNumber: 1,
@@ -251,7 +252,7 @@ test("issued tasks and idempotent evidence persist across service reloads", asyn
     (error) => error.code === "EVIDENCE_ID_CONFLICT"
   );
 
-  const verbTask = await service.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-retrieval", {
+  const verbTask = await service.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-discrimination", {
     targetSkillId: "cs.skill.sense.cist.read"
   });
   await service.recordEvidence(verbTask, {
@@ -260,7 +261,8 @@ test("issued tasks and idempotent evidence persist across service reloads", asyn
     score: 1
   });
   const summary = await service.skillSummary("cs.skill.sense.cist.read");
-  assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
+  assert.deepEqual(summary.contributingActivityIds, []);
+  assert.equal(summary.independentRetrievals, 0);
   assert.equal(summary.masteryReady, false);
   assert.ok(summary.masteryShortfalls.includes("production"));
 
@@ -288,8 +290,8 @@ test("separate game services serialize concurrent task and evidence writes", asy
   await Promise.all([wordService.ready(), verbService.ready()]);
   const targetSkillId = "cs.skill.sense.cist.read";
   const [wordTask, verbTask] = await Promise.all([
-    wordService.issueTask("binding.word-world.ww-cp-000146", "independent-retrieval", { targetSkillId }),
-    verbService.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-retrieval", { targetSkillId })
+    wordService.issueTask("binding.word-world.ww-cp-000146", "independent-comprehension", { targetSkillId }),
+    verbService.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-discrimination", { targetSkillId })
   ]);
   assert.deepEqual(
     [wordTask.taskSequence, verbTask.taskSequence].sort((left, right) => left - right),
@@ -304,7 +306,7 @@ test("separate game services serialize concurrent task and evidence writes", asy
   assert.equal(wordService.snapshot().storedEventCount, 2);
   assert.deepEqual(
     (await verbService.skillSummary(targetSkillId)).contributingActivityIds,
-    ["verb-nebula", "word-world"]
+    []
   );
 });
 
@@ -325,9 +327,9 @@ test("paired ledger readers wait for one atomic cross-context task and evidence 
   const targetSkillId = "cs.skill.sense.cist.read";
   await service.recordExposure("binding.word-world.ww-cp-000146", { targetSkillId });
 
-  const tasksKey = "caatuu-czech-test.curriculum.tasks.v1";
-  const eventsKey = "caatuu-czech-test.curriculum.events.v1";
-  const ledgerLockName = "caatuu-czech-test.curriculum.ledger.v1";
+  const tasksKey = "caatuu-czech-test.curriculum.tasks.v2";
+  const eventsKey = "caatuu-czech-test.curriculum.events.v2";
+  const ledgerLockName = "caatuu-czech-test.curriculum.ledger.v2";
   const committedTasks = localStorage.getItem(tasksKey);
   const committedEvents = localStorage.getItem(eventsKey);
   localStorage.setItem(tasksKey, "[]");
@@ -409,7 +411,7 @@ test("a developer pilot claim is a durable one-shot exposure for one exact bindi
   assert.equal(first.status, "claimed");
   assert.equal(first.claimed, true);
   assert.equal(first.exposure.task.capabilityId, "exposure");
-  assert.equal(first.opportunity.task.capabilityId, "independent-retrieval");
+  assert.equal(first.opportunity.task.capabilityId, "independent-comprehension");
   assert.ok(first.exposure.task.taskSequence < first.opportunity.task.taskSequence);
   assert.deepEqual(first.exposure.event.outcome, {
     score: null,
@@ -514,7 +516,7 @@ test("a hidden presentation defers without consuming the pilot marker", async ()
   await claimed.release();
 });
 
-test("presentation loss during retrieval validation consumes only the exposure and releases the lease", async () => {
+test("presentation loss during assessed-task validation consumes only the exposure and releases the lease", async () => {
   const base = await fixture();
   const localStorage = new MemoryStorage();
   let presented = true;
@@ -541,7 +543,7 @@ test("presentation loss during retrieval validation consumes only the exposure a
   assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 1);
   assert.equal(service.snapshot().storedTaskCount, 1);
   assert.equal(service.snapshot().storedEventCount, 1);
-  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v1"));
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v2"));
   assert.deepEqual(tasks.map((task) => task.evidenceKind), ["exposure"]);
 
   presented = true;
@@ -553,7 +555,7 @@ test("presentation loss during retrieval validation consumes only the exposure a
   assert.equal(retried.reason, "prior-claim");
 });
 
-test("developer pilot re-entry closes pending exposure and in-memory-hinted retrieval tasks without mastery", async () => {
+test("developer pilot re-entry closes pending exposure and in-memory-hinted comprehension tasks without mastery", async () => {
   const base = await fixture();
   const localStorage = new MemoryStorage();
   const sessionStorage = new MemoryStorage();
@@ -569,11 +571,11 @@ test("developer pilot re-entry closes pending exposure and in-memory-hinted retr
   const targetSkillId = "cs.skill.sense.cist.read";
   const exposureTask = await service.issueTask(bindingId, "exposure", { targetSkillId });
   const pendingOpportunity = await service.beginOpportunity("word-world", "ww-cp-000146", {
-    capabilityId: "independent-retrieval",
+    capabilityId: "independent-comprehension",
     targetSkillId
   });
   pendingOpportunity.markHint();
-  const retrievalTask = pendingOpportunity.task;
+  const comprehensionTask = pendingOpportunity.task;
   assert.equal(pendingOpportunity.state().hintsUsed, 1);
   assert.equal(service.snapshot().storedTaskCount, 2);
   assert.equal(service.snapshot().storedEventCount, 0);
@@ -582,21 +584,21 @@ test("developer pilot re-entry closes pending exposure and in-memory-hinted retr
   await reloaded.ready();
   const blocked = await reloaded.claimDeveloperPilot(bindingId, { targetSkillId });
   assert.equal(blocked.status, "blocked");
-  assert.deepEqual(new Set(blocked.priorTaskIds), new Set([exposureTask.taskId, retrievalTask.taskId]));
-  assert.deepEqual(new Set(blocked.closedTaskIds), new Set([exposureTask.taskId, retrievalTask.taskId]));
+  assert.deepEqual(new Set(blocked.priorTaskIds), new Set([exposureTask.taskId, comprehensionTask.taskId]));
+  assert.deepEqual(new Set(blocked.closedTaskIds), new Set([exposureTask.taskId, comprehensionTask.taskId]));
   assert.equal(reloaded.snapshot().storedTaskCount, 2);
   assert.equal(reloaded.snapshot().storedEventCount, 2);
   assert.equal(reloaded.snapshot().storedDeveloperPilotClaimCount, 1);
 
-  const events = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.events.v1"));
+  const events = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.events.v2"));
   const exposureClosure = events.find((event) => event.taskId === exposureTask.taskId);
-  const retrievalClosure = events.find((event) => event.taskId === retrievalTask.taskId);
+  const comprehensionClosure = events.find((event) => event.taskId === comprehensionTask.taskId);
   assert.deepEqual(exposureClosure.outcome, {
     score: null,
     solutionRevealed: true,
     hintsUsed: 0
   });
-  assert.deepEqual(retrievalClosure.outcome, {
+  assert.deepEqual(comprehensionClosure.outcome, {
     score: 0,
     solutionRevealed: true,
     hintsUsed: 0
@@ -619,7 +621,7 @@ test("hinted, revealed, incorrect, and completed evidence all block developer pi
     { name: "hinted", score: 1, solutionRevealed: false, hintsUsed: 1, independentRetrievals: 0 },
     { name: "revealed", score: 0, solutionRevealed: true, hintsUsed: 0, independentRetrievals: 0 },
     { name: "incorrect", score: 0, solutionRevealed: false, hintsUsed: 0, independentRetrievals: 0 },
-    { name: "completed", score: 1, solutionRevealed: false, hintsUsed: 0, independentRetrievals: 1 }
+    { name: "completed", score: 1, solutionRevealed: false, hintsUsed: 0, independentRetrievals: 0 }
   ];
   for (const scenario of scenarios) {
     await t.test(scenario.name, async () => {
@@ -635,7 +637,7 @@ test("hinted, revealed, incorrect, and completed evidence all block developer pi
       await service.ready();
       const bindingId = "binding.word-world.ww-cp-000146";
       const targetSkillId = "cs.skill.sense.cist.read";
-      const task = await service.issueTask(bindingId, "independent-retrieval", { targetSkillId });
+      const task = await service.issueTask(bindingId, "independent-comprehension", { targetSkillId });
       await service.recordEvidence(task, {
         attemptNumber: 1,
         score: scenario.score,
@@ -656,7 +658,7 @@ test("hinted, revealed, incorrect, and completed evidence all block developer pi
   }
 });
 
-test("both Guided games preserve encounter-before-retrieval and aggregate without claiming mastery", async () => {
+test("both Guided games preserve encounter-before-assessment without manufacturing retrieval", async () => {
   const base = await fixture();
   const localStorage = new MemoryStorage();
   let id = 0;
@@ -674,6 +676,9 @@ test("both Guided games preserve encounter-before-retrieval and aggregate withou
     const lifecycle = createGuidedOpportunityLifecycle({
       curriculum: service,
       resolution,
+      capabilityId: activityId === "word-world"
+        ? "independent-comprehension"
+        : "independent-discrimination",
       targetSkillId: "cs.skill.sense.cist.read"
     });
     await lifecycle.activate();
@@ -682,22 +687,22 @@ test("both Guided games preserve encounter-before-retrieval and aggregate withou
 
   assert.equal(service.snapshot().storedTaskCount, 4);
   assert.equal(service.snapshot().storedEventCount, 4);
-  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v1"));
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v2"));
   for (const activityId of ["word-world", "verb-nebula"]) {
     const activityTasks = tasks.filter((task) => task.activityId === activityId);
     const exposure = activityTasks.find((task) => task.evidenceKind === "exposure");
-    const retrieval = activityTasks.find((task) => task.evidenceKind === "retrieval");
-    assert.ok(exposure.taskSequence < retrieval.taskSequence);
+    const assessment = activityTasks.find((task) => task.evidenceKind === "comprehension");
+    assert.ok(exposure.taskSequence < assessment.taskSequence);
   }
 
   const summary = await service.skillSummary("cs.skill.sense.cist.read");
   assert.equal(summary.exposureEvents, 2);
   assert.equal(summary.assessedAttempts, 2);
-  assert.equal(summary.independentRetrievals, 2);
+  assert.equal(summary.independentRetrievals, 0);
   assert.equal(summary.productionEvidence, 0);
   assert.equal(summary.transferEvidence, 0);
-  assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
-  assert.equal(summary.qualifyingSessionIds.length, 1);
+  assert.deepEqual(summary.contributingActivityIds, []);
+  assert.equal(summary.qualifyingSessionIds.length, 0);
   assert.deepEqual(summary.qualifyingContextIds, []);
   assert.equal(summary.masteryReady, false);
   for (const shortfall of ["independent-retrievals", "sessions", "distinct-contexts", "production", "transfer"]) {
@@ -713,7 +718,7 @@ test("revealed or hinted responses remain valid practice but never qualify", asy
   const base = await fixture();
   const service = createCurriculumService(serviceOptions(base));
   await service.ready();
-  const task = await service.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-retrieval", {
+  const task = await service.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-discrimination", {
     targetSkillId: "cs.skill.sense.cist.read"
   });
   const result = await service.recordEvidence(task, {
@@ -732,6 +737,7 @@ test("a guided opportunity keeps hints and the first response attached to one im
   const service = createCurriculumService(serviceOptions(base));
   await service.ready();
   const opportunity = await service.beginOpportunity("word-world", "ww-cp-000146", {
+    capabilityId: "independent-comprehension",
     targetSkillId: "cs.skill.sense.cist.read"
   });
 
@@ -767,6 +773,7 @@ test("a reveal without a response closes the opportunity as non-mastery evidence
   const service = createCurriculumService(serviceOptions(base));
   await service.ready();
   const opportunity = await service.beginOpportunity("verb-nebula", "cs.verb.cist.read", {
+    capabilityId: "independent-discrimination",
     targetSkillId: "cs.skill.sense.cist.read"
   });
 
@@ -796,7 +803,9 @@ test("a post-failure reveal remains sticky without rewriting first-response evid
   const base = await fixture();
   const service = createCurriculumService(serviceOptions(base));
   await service.ready();
-  const opportunity = await service.beginOpportunity("word-world", "ww-cp-000146");
+  const opportunity = await service.beginOpportunity("word-world", "ww-cp-000146", {
+    capabilityId: "independent-comprehension"
+  });
   const first = await opportunity.recordFirstResponse({
     score: 0,
     occurredAt: "2026-08-01T10:06:00.000Z"
@@ -807,6 +816,21 @@ test("a post-failure reveal remains sticky without rewriting first-response evid
   assert.equal(revealed.event.outcome.solutionRevealed, false);
   assert.equal(opportunity.state().solutionRevealed, true);
   assert.equal(service.snapshot().storedEventCount, 1);
+});
+
+test("the v2 ledger ignores incompatible pre-reclassification v1 storage", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  localStorage.setItem("caatuu-czech-test.curriculum.tasks.v1", "not-json");
+  localStorage.setItem("caatuu-czech-test.curriculum.events.v1", "not-json");
+  localStorage.setItem("caatuu-czech-test.curriculum.developer-pilot-claims.v1", "not-json");
+  const service = createCurriculumService(serviceOptions(base, { localStorage }));
+
+  const readiness = await service.ready();
+  assert.equal(readiness.status, "ready");
+  assert.equal(service.snapshot().storedTaskCount, 0);
+  assert.equal(service.snapshot().storedEventCount, 0);
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 0);
 });
 
 test("invalid release pins and corrupted persisted evidence fail readiness closed", async () => {
@@ -821,7 +845,7 @@ test("invalid release pins and corrupted persisted evidence fail readiness close
   assert.equal(mismatched.snapshot().status, "failed");
 
   const localStorage = new MemoryStorage();
-  localStorage.setItem("caatuu-czech-test.curriculum.events.v1", "not-json");
+  localStorage.setItem("caatuu-czech-test.curriculum.events.v2", "not-json");
   const corrupt = createCurriculumService(serviceOptions(base, { localStorage }));
   await assert.rejects(
     () => corrupt.ready(),

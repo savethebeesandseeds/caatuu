@@ -22,15 +22,15 @@ function normalizedId(value) {
 /**
  * Own one immutable Guided learning opportunity.
  *
- * Activation deliberately records the encounter before issuing the retrieval
- * task. This preserves the real learning sequence used by repair-spacing and
- * delayed-retrieval rules. Games should present the bound content disabled,
- * await activate(), and only then accept an answer.
+ * Activation deliberately records the encounter before issuing the assessed
+ * task. This preserves the real learning sequence used by stage and repair
+ * rules. Games should present the bound content disabled, await activate(),
+ * and only then accept an answer.
  */
 export function createGuidedOpportunityLifecycle({
   curriculum,
   resolution,
-  capabilityId = "independent-retrieval",
+  capabilityId,
   targetSkillId
 } = {}) {
   requiredMethod(curriculum, "claimDeveloperPilot");
@@ -40,10 +40,11 @@ export function createGuidedOpportunityLifecycle({
   const stableContentId = normalizedId(binding?.contentRef?.contentId);
   const bindingId = normalizedId(binding?.id);
   const skillId = normalizedId(targetSkillId || binding?.targetSkillRefs?.[0]?.id);
-  if (!bindingId || !activityId || !stableContentId || !skillId) {
+  const assessedCapabilityId = normalizedId(capabilityId);
+  if (!bindingId || !activityId || !stableContentId || !skillId || !assessedCapabilityId) {
     throw guidedError(
       "GUIDED_OPPORTUNITY_BINDING_INVALID",
-      "Guided opportunity lifecycle requires a resolved binding and target skill."
+      "Guided opportunity lifecycle requires a resolved binding, target skill, and assessed capability."
     );
   }
 
@@ -67,6 +68,7 @@ export function createGuidedOpportunityLifecycle({
       stableContentId,
       bindingId,
       targetSkillId: skillId,
+      capabilityId: assessedCapabilityId,
       taskId: active?.taskId || "",
       taskFingerprint: active?.taskFingerprint || "",
       hintsUsed: Number(active?.hintsUsed || 0),
@@ -95,7 +97,7 @@ export function createGuidedOpportunityLifecycle({
     phase = "activating";
     const activation = (async () => {
       const claim = await curriculum.claimDeveloperPilot(bindingId, {
-        capabilityId,
+        capabilityId: assessedCapabilityId,
         targetSkillId: skillId,
         requirePresented
       });

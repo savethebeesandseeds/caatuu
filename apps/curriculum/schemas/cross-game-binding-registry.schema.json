@@ -114,7 +114,29 @@
         "scoreRequired": {"type": "boolean"},
         "masteryEligible": {"type": "boolean"},
         "minimumScore": {"type": "number", "minimum": 0, "maximum": 1}
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"learningStage": {"const": "encounter"}}},
+          "then": {"properties": {"evidenceKind": {"const": "exposure"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["comprehend", "discriminate"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "comprehension"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["retrieve", "delayed-retrieval"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "retrieval"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["supported-produce", "interact"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "production"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"const": "transfer"}}},
+          "then": {"properties": {"evidenceKind": {"const": "transfer"}}}
+        }
+      ]
     },
     "binding": {
       "type": "object",

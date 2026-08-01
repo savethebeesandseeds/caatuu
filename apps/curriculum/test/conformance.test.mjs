@@ -212,6 +212,32 @@ test("the canonical learning operations cannot be reordered", async () => {
   assert.ok(result.errors.some((entry) => entry.code === "CURR_STAGE_ORDER"));
 });
 
+test("a target language cannot reorder the English within-unit semantic or skill sequence", async () => {
+  const curriculum = await readJson(curriculumUrl);
+  const pack = await readJson(packUrl);
+
+  const reorderedMappings = clone(pack);
+  reorderedMappings.unitBindings[0].functionBindings.reverse();
+  const mappingResult = validateConformance(curriculum, reorderedMappings);
+  assert.equal(mappingResult.valid, false);
+  assert.ok(mappingResult.errors.some((entry) => (
+    entry.code === "CURR_ORDER_OVERRIDE"
+      && entry.path === "/unitBindings/0/functionBindings"
+  )));
+
+  const reorderedSkills = clone(pack);
+  [reorderedSkills.unitBindings[0].targetSkillIds[0], reorderedSkills.unitBindings[0].targetSkillIds[1]] = [
+    reorderedSkills.unitBindings[0].targetSkillIds[1],
+    reorderedSkills.unitBindings[0].targetSkillIds[0]
+  ];
+  const skillResult = validateConformance(curriculum, reorderedSkills);
+  assert.equal(skillResult.valid, false);
+  assert.ok(skillResult.errors.some((entry) => (
+    entry.code === "CURR_ORDER_OVERRIDE"
+      && entry.path === "/unitBindings/0/targetSkillIds"
+  )));
+});
+
 test("release validation blocks prototype content pending human approval", async () => {
   const curriculum = await readJson(curriculumUrl);
   const pack = await readJson(packUrl);

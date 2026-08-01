@@ -1237,7 +1237,7 @@ async function initializeVerbGuidedMode() {
   try {
     const curriculum = window.CaatuuCurriculum;
     if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
-    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-2");
+    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-3");
     await curriculum.ready();
     if (!curriculum.guidedModeEnabled()) {
       throw new Error("Developer Guided mode is not enabled for this local course profile.");
@@ -1266,6 +1266,7 @@ async function initializeVerbGuidedMode() {
     const lifecycle = guidedOpportunityCore.createGuidedOpportunityLifecycle({
       curriculum,
       resolution,
+      capabilityId: "independent-discrimination",
       targetSkillId
     });
     state.verbGuidedMode = true;
@@ -1328,7 +1329,7 @@ function renderVerbGuidedStatus() {
   } else if (lifecycle?.firstResponseRecorded) {
     detail.textContent = "First response recorded · finish this one pilot round";
   } else if (state.verbGuidedStatus === "ready") {
-    detail.textContent = "Unit 3 mechanic pilot · independent retrieval";
+    detail.textContent = "Unit 3 mechanic pilot · independent discrimination, non-mastery";
   } else {
     detail.textContent = "Verifying the exact bound content and evidence task…";
   }

@@ -12,11 +12,30 @@ export const EVIDENCE_EVENT_SCHEMA = "caatuu-cross-game-learning-evidence-v1";
 
 const EVIDENCE_KINDS = new Set(["exposure", "comprehension", "retrieval", "production", "transfer"]);
 const INDEPENDENCE_LEVELS = new Set(["exposure", "supported", "independent"]);
+const STAGE_EVIDENCE_KIND = new Map([
+  ["encounter", "exposure"],
+  ["comprehend", "comprehension"],
+  ["discriminate", "comprehension"],
+  ["retrieve", "retrieval"],
+  ["supported-produce", "production"],
+  ["interact", "production"],
+  ["transfer", "transfer"],
+  ["delayed-retrieval", "retrieval"]
+]);
+const STAGE_OPPORTUNITY_OPERATIONS = new Map([
+  ["comprehend", new Set(["interpret"])],
+  ["discriminate", new Set(["discriminate"])],
+  ["retrieve", new Set(["retrieve"])],
+  ["supported-produce", new Set(["produce"])],
+  ["interact", new Set(["respond"])],
+  ["transfer", new Set(["produce", "respond"])],
+  ["delayed-retrieval", new Set(["retrieve"])]
+]);
 const OPPORTUNITY_EVIDENCE_KINDS = new Map([
   ["interpret", new Set(["comprehension", "retrieval"])],
   ["discriminate", new Set(["comprehension", "retrieval"])],
   ["retrieve", new Set(["retrieval"])],
-  ["produce", new Set(["production"])],
+  ["produce", new Set(["production", "transfer"])],
   ["respond", new Set(["production", "transfer"])]
 ]);
 const LEARNING_TASK_KEYS = new Set([
@@ -491,7 +510,7 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
       report("BIND_ID_DUPLICATE", `${path}/evidenceCapabilities`, `Duplicate capability ID ${duplicate}.`, [binding.id, duplicate]);
     }
     let hasExposure = false;
-    let hasIndependentMasteryEvidence = false;
+    let hasAssessedEvidence = false;
     capabilities.forEach((capability, capabilityIndex) => {
       const capabilityPath = `${path}/evidenceCapabilities/${capabilityIndex}`;
       if (!isObject(capability)
@@ -505,6 +524,15 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
       if (unit && !rows(unit.requiredLearningStages).includes(capability.learningStage)) {
         report("BIND_CAPABILITY_INVALID", `${capabilityPath}/learningStage`, `Stage ${capability.learningStage} is not required by ${unit.id}.`, [binding.id]);
       }
+      const requiredEvidenceKind = STAGE_EVIDENCE_KIND.get(capability.learningStage);
+      if (!requiredEvidenceKind || capability.evidenceKind !== requiredEvidenceKind) {
+        report(
+          "BIND_STAGE_EVIDENCE_MISMATCH",
+          capabilityPath,
+          `Stage ${capability.learningStage} requires ${requiredEvidenceKind || "a known"} evidence classification.`,
+          [binding.id, capability.id]
+        );
+      }
       if (capability.evidenceKind === "exposure") {
         hasExposure = true;
         if (capability.independence !== "exposure"
@@ -513,17 +541,8 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
             || Object.hasOwn(capability, "minimumScore")) {
           report("BIND_EXPOSURE_MASTERY_FORBIDDEN", capabilityPath, "Exposure must be unscored and ineligible for mastery.", [binding.id, capability.id]);
         }
-      }
-      if (capability.masteryEligible) {
-        hasIndependentMasteryEvidence = true;
-        if (capability.independence !== "independent"
-            || capability.scoreRequired !== true
-            || !Number.isFinite(capability.minimumScore)
-            || capability.minimumScore < 0
-            || capability.minimumScore > 1
-            || capability.evidenceKind === "exposure") {
-          report("BIND_MASTERY_CAPABILITY_INVALID", capabilityPath, "Mastery evidence must be independent, scored, and non-exposure.", [binding.id, capability.id]);
-        }
+      } else if (capability.scoreRequired === true) {
+        hasAssessedEvidence = true;
         const allowedEvidenceKinds = OPPORTUNITY_EVIDENCE_KINDS.get(boundOpportunity?.operation);
         if (boundOpportunity && !allowedEvidenceKinds?.has(capability.evidenceKind)) {
           report(
@@ -533,12 +552,41 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
             [binding.id, boundOpportunity.id, capability.id]
           );
         }
+        const allowedOperations = STAGE_OPPORTUNITY_OPERATIONS.get(capability.learningStage);
+        if (boundOpportunity && !allowedOperations?.has(boundOpportunity.operation)) {
+          report(
+            "BIND_STAGE_OPPORTUNITY_MISMATCH",
+            capabilityPath,
+            `Stage ${capability.learningStage} requires one of: ${[...(allowedOperations || [])].join(", ")}.`,
+            [binding.id, boundOpportunity.id, capability.id]
+          );
+        }
+        if (boundOpportunity
+            && capability.learningStage === "interact"
+            && rows(boundOpportunity.stimulusUtteranceIds).length === 0) {
+          report(
+            "BIND_INTERACTION_STIMULUS_REQUIRED",
+            capabilityPath,
+            "Interaction evidence requires an interlocutor stimulus.",
+            [binding.id, boundOpportunity.id, capability.id]
+          );
+        }
+      }
+      if (capability.masteryEligible) {
+        if (capability.independence !== "independent"
+            || capability.scoreRequired !== true
+            || !Number.isFinite(capability.minimumScore)
+            || capability.minimumScore < 0
+            || capability.minimumScore > 1
+            || capability.evidenceKind === "exposure") {
+          report("BIND_MASTERY_CAPABILITY_INVALID", capabilityPath, "Mastery evidence must be independent, scored, and non-exposure.", [binding.id, capability.id]);
+        }
       } else if (capability.scoreRequired === true && !Number.isFinite(capability.minimumScore)) {
         report("BIND_CAPABILITY_INVALID", `${capabilityPath}/minimumScore`, "A scored capability requires a minimum score.", [binding.id, capability.id]);
       }
     });
-    if (!hasExposure || !hasIndependentMasteryEvidence) {
-      report("BIND_CAPABILITY_INCOMPLETE", `${path}/evidenceCapabilities`, "Pilot bindings require both exposure and independent mastery evidence.", [binding.id]);
+    if (!hasExposure || !hasAssessedEvidence) {
+      report("BIND_CAPABILITY_INCOMPLETE", `${path}/evidenceCapabilities`, "Pilot bindings require both exposure and assessed evidence.", [binding.id]);
     }
   });
 
@@ -577,9 +625,11 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
             skillRef?.id === groupSkillRef?.id && skillRef?.revision === groupSkillRef?.revision
           ))
           || !rows(binding.evidenceCapabilities).some((capability) => (
-            capability.masteryEligible === true && capability.independence === "independent"
+            capability.scoreRequired === true
+              && capability.independence === "independent"
+              && capability.evidenceKind !== "exposure"
           ))) {
-        report("BIND_AGGREGATION_INVALID", `${path}/bindingIds`, `Binding ${binding.id} cannot contribute independent evidence to this group.`, [group.id, binding.id]);
+        report("BIND_AGGREGATION_INVALID", `${path}/bindingIds`, `Binding ${binding.id} cannot contribute independent assessed evidence to this group.`, [group.id, binding.id]);
       }
     }
     if (activityIds.size < 2) {
@@ -829,7 +879,13 @@ export function validateLearningEvidenceEvent(curriculum, registry, task, event)
   const capability = taskValidation.capability;
   const score = event.outcome?.score;
   if (!capability) {
-    return { valid: false, errors, qualifiesForMastery: false, task };
+    return {
+      valid: false,
+      errors,
+      qualifiesForIndependentAssessment: false,
+      qualifiesForMastery: false,
+      task
+    };
   }
   if (capability.scoreRequired) {
     if (!Number.isFinite(score) || score < 0 || score > 1) {
@@ -838,14 +894,15 @@ export function validateLearningEvidenceEvent(curriculum, registry, task, event)
   } else if (score !== null) {
     error("EVIDENCE_SCORE_FORBIDDEN", "/outcome/score", "Unscored exposure must use a null score.");
   }
-  const qualifiesForMastery = errors.length === 0
-    && capability.masteryEligible === true
+  const qualifiesForIndependentAssessment = errors.length === 0
     && capability.independence === "independent"
     && capability.evidenceKind !== "exposure"
     && event.attemptNumber === 1
     && event.outcome.solutionRevealed === false
     && event.outcome.hintsUsed === 0
     && score >= capability.minimumScore;
+  const qualifiesForMastery = qualifiesForIndependentAssessment
+    && capability.masteryEligible === true;
   return {
     valid: errors.length === 0,
     errors,
@@ -855,6 +912,7 @@ export function validateLearningEvidenceEvent(curriculum, registry, task, event)
     firstCleanResponse: event.attemptNumber === 1
       && event.outcome?.solutionRevealed === false
       && event.outcome?.hintsUsed === 0,
+    qualifiesForIndependentAssessment,
     qualifiesForMastery
   };
 }
@@ -999,8 +1057,9 @@ export function aggregateLearningEvidence(curriculum, registry, tasks, events) {
       aggregate.assessedAttempts += 1;
       if (capability.independence === "independent"
           && event.attemptNumber === 1
-          && event.outcome.score < capability.minimumScore) {
+          && !validation.qualifiesForIndependentAssessment) {
         aggregate.unresolvedFailure = {
+          learningStage: capability.learningStage,
           occurredAt: event.occurredAt,
           opportunityId: event.opportunityId,
           sessionId: event.sessionId,
@@ -1017,8 +1076,12 @@ export function aggregateLearningEvidence(curriculum, registry, tasks, events) {
       aggregate.contributingActivityIds.add(event.activityId);
       aggregate.qualifyingSessionIds.add(event.sessionId);
       if (isNonEmptyString(event.contextId)) aggregate.qualifyingContextIds.add(event.contextId);
+    }
+    if (validation.qualifiesForIndependentAssessment) {
       const failure = aggregate.unresolvedFailure;
-      if (failure && task.taskId !== failure.taskId) {
+      if (failure
+          && capability.learningStage === failure.learningStage
+          && task.taskId !== failure.taskId) {
         const laterSession = task.sessionId !== failure.sessionId;
         const interveningTaskCount = task.taskSequence - failure.taskSequence - 1;
         const validSameSessionGap = !laterSession

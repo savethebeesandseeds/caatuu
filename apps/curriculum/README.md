@@ -122,24 +122,55 @@ revision-pinned Verb Nebula source for `číst` to
 identity. Exposure, hints, reveals, duplicate events, stale revisions, and
 context-free recognition are prevented from manufacturing mastery.
 
-Both current mechanics are still receptive. They can contribute exposure and
-retrieval evidence, but they cannot complete Unit 3 because the canonical
-policy also requires target-language production, transfer, spacing, and context
-diversity. That limitation is intentional and executable.
+Both current mechanics are receptive. Sentence or grid presentation can emit
+encounter exposure. A successful assessed response contributes bounded,
+independent, non-mastery receptive evidence: Word World's English-token
+reconstruction is comprehension of a Czech prompt, while Verb Nebula's visible
+bilingual grid is discrimination represented as comprehension evidence. Neither
+mechanic emits retrieval evidence, so they cannot complete Unit 3. The canonical
+policy also requires retrieval, target-language production, transfer, spacing,
+and context diversity. That limitation is intentional and executable.
+
+The meanings of comprehension, discrimination, retrieval, and mastery
+eligibility come from the canonical English backbone. This audited Czech
+registry declares which category each concrete mechanic can honestly
+demonstrate, and executable stage/evidence rules reject contradictory tuples.
+The mechanic-to-category mapping still lives in the target registry; moving
+that mapping into a shared English-owned mechanic contract is required before
+additional languages can inherit these game classifications automatically.
 
 The source seams, service-level cross-game flow, and one developer-only Guided
 interaction in each game are implemented. On loopback with the explicit
 `curriculum-guided=1` query, Word World presents the exact `čte` focus token and
-Verb Nebula presents the exact `číst` retrieval before allowing contrast
-practice. Both games persist exposure before retrieval, persist the immutable
-first response before feedback, keep hint/reveal support sticky, verify the
-deployed source bytes, and leave ordinary Explore history and XP untouched.
+assesses comprehension through an English-token reconstruction. Verb Nebula
+presents the exact `číst` target in a visible bilingual association grid and
+assesses discrimination before allowing contrast practice. Both games persist
+presentation exposure before accepting the immutable assessed first response,
+persist that response before feedback, keep hint/reveal support sticky, verify
+the deployed source bytes, and leave ordinary Explore history and XP untouched.
 The developer probe is a durable one-shot per binding and skill: refreshes and
 concurrent tabs cannot manufacture a second clean attempt. Word World claims no
 context until its presentation supplies a genuine setting/time cue. Verb
 Nebula derives its contrast concepts from the canonical English Unit 3 order
 and binds exact Czech dictionary rows for `eat`, `drink`, and `sleep`; task
 fingerprints vary the deranged card positions.
+
+Within each canonical unit, the English `functionIds`, `frameIds`, and
+`conceptIds` arrays are normative ordered sequences. Target mappings and their
+first-occurrence target-skill sequence must preserve that order in the
+authoring validator, browser runtime, and planner. Issued encounter tasks
+reserve the session's new-skill and semantic-concept load even if a task is
+abandoned, so refresh cannot reset the introduction budget. Shared concepts
+count once.
+
+The planner also schedules legitimate consolidation retrievals when a mastery
+threshold exceeds the number of retrieval stages. Unit 1's three-retrieval
+threshold is schedulable as initial retrieval, consolidation retrieval, and
+later-session delayed retrieval. Only evidence accepted in stage order can
+contribute to planner mastery. Until target packs declare explicit construction
+identities, each first target-skill encounter reserves one slot from
+`maxNewTargetConstructionsPerSession`; exact multi-construction accounting
+remains a required contract extension before learner release.
 
 This is an integration probe, not a learner release. The profile still labels
 the pack `prototype-not-human-approved`, release remains disabled, Unit 3

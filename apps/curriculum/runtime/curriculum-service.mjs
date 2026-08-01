@@ -10,7 +10,7 @@ import {
 } from "./curriculum-runtime-core.mjs";
 import { computeCurriculumProgression } from "./curriculum-planner-core.mjs";
 
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = 2;
 const MAX_STORED_TASKS = 2000;
 const MAX_STORED_EVENTS = 4000;
 const MAX_STORED_DEVELOPER_PILOT_CLAIMS = 256;
@@ -305,6 +305,7 @@ export function createCurriculumService({
     const summaries = await aggregateLearningEvidence(bundle.curriculum, bundle.bindingRegistry, tasks, existing ? events : [...events]);
     return {
       event: clone(existing || event),
+      qualifiesForIndependentAssessment: eventValidation.qualifiesForIndependentAssessment,
       qualifiesForMastery: eventValidation.qualifiesForMastery,
       skillSummary: clone(summaries.find((row) => row.targetSkillId === task.targetSkillId) || null)
     };
@@ -399,7 +400,7 @@ export function createCurriculumService({
 
   async function performDeveloperPilotClaim(bindingId, {
     targetSkillId,
-    capabilityId = "independent-retrieval",
+    capabilityId,
     requirePresented
   } = {}) {
     await requireReady();
@@ -429,11 +430,21 @@ export function createCurriculumService({
       );
     }
     const requestedCapabilityId = String(capabilityId || "").trim();
-    const capability = binding.evidenceCapabilities.find((row) => row?.id === requestedCapabilityId);
-    if (!capability || capability.evidenceKind !== "retrieval" || capability.scoreRequired !== true) {
+    const assessedCapabilities = binding.evidenceCapabilities.filter((row) => (
+      row?.evidenceKind !== "exposure"
+        && row?.independence === "independent"
+        && row?.scoreRequired === true
+    ));
+    const capability = requestedCapabilityId
+      ? assessedCapabilities.find((row) => row?.id === requestedCapabilityId)
+      : assessedCapabilities.length === 1 ? assessedCapabilities[0] : null;
+    if (!capability
+        || capability.evidenceKind === "exposure"
+        || capability.independence !== "independent"
+        || capability.scoreRequired !== true) {
       throw new CurriculumServiceError(
         "CURRICULUM_DEVELOPER_PILOT_CAPABILITY_MISMATCH",
-        `Binding ${binding.id} does not supply scored retrieval capability ${requestedCapabilityId || "(empty)"}.`
+        `Binding ${binding.id} does not supply independent scored capability ${requestedCapabilityId || "(empty)"}.`
       );
     }
     if (requirePresented !== undefined && typeof requirePresented !== "function") {
@@ -494,10 +505,7 @@ export function createCurriculumService({
               writeStoredArray(developerPilotClaimsKey, claims, MAX_STORED_DEVELOPER_PILOT_CLAIMS);
             }
             const evidencedTaskIds = new Set(events.map((event) => event?.taskId).filter(Boolean));
-            const openTasks = priorTasks.filter((task) => (
-              !evidencedTaskIds.has(task.taskId)
-              && ["exposure", "retrieval"].includes(task.evidenceKind)
-            ));
+            const openTasks = priorTasks.filter((task) => !evidencedTaskIds.has(task.taskId));
             const closedTaskIds = [];
             for (const task of openTasks) {
               const taskCapability = binding.evidenceCapabilities.find((row) => row?.id === task.capabilityId);
@@ -591,7 +599,7 @@ export function createCurriculumService({
           ) {
             throw new CurriculumServiceError(
               "CURRICULUM_DEVELOPER_PILOT_TASK_MISMATCH",
-              "Developer pilot retrieval task differs from its claimed binding, skill, or capability."
+              "Developer pilot assessed task differs from its claimed binding, skill, or capability."
             );
           }
           return Object.freeze({
@@ -625,13 +633,27 @@ export function createCurriculumService({
   }
 
   async function beginOpportunityUnlocked(activityId, stableContentId, {
-    capabilityId = "independent-retrieval",
+    capabilityId,
     targetSkillId,
     requirePresented
   } = {}) {
     await requireReady();
     const resolution = resolveRuntimeBinding(bundle, activityId, stableContentId);
-    const task = await issueTaskUnlocked(resolution.binding.id, capabilityId, {
+    const requestedCapabilityId = String(capabilityId || "").trim();
+    const assessedCapabilities = resolution.binding.evidenceCapabilities.filter((row) => (
+      row?.evidenceKind !== "exposure"
+        && row?.independence === "independent"
+        && row?.scoreRequired === true
+    ));
+    const selectedCapabilityId = requestedCapabilityId
+      || (assessedCapabilities.length === 1 ? assessedCapabilities[0].id : "");
+    if (!selectedCapabilityId) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_OPPORTUNITY_CAPABILITY_REQUIRED",
+        `Binding ${resolution.binding.id} requires an explicit assessed capability.`
+      );
+    }
+    const task = await issueTaskUnlocked(resolution.binding.id, selectedCapabilityId, {
       targetSkillId,
       requirePresented
     });

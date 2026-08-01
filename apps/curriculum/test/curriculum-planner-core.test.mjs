@@ -25,9 +25,26 @@ const STAGES = [
   "transfer",
   "delayed-retrieval"
 ];
+const STAGE_OPERATION = {
+  comprehend: "interpret",
+  discriminate: "discriminate",
+  retrieve: "retrieve",
+  "supported-produce": "produce",
+  interact: "respond",
+  transfer: "respond",
+  "delayed-retrieval": "retrieve"
+};
 
 async function readJson(name) {
   return JSON.parse(await readFile(new URL(name, dataUrl), "utf8"));
+}
+
+async function repinFixture(fixture) {
+  const canonicalDigest = await computeCanonicalContractDigest(fixture.curriculum);
+  fixture.targetPack.canonicalContractDigest = canonicalDigest;
+  fixture.bindingRegistry.curriculum.canonicalContractDigest = canonicalDigest;
+  fixture.bindingRegistry.targetPack.targetPackDigest = await computeTargetPackDigest(fixture.targetPack);
+  return fixture;
 }
 
 async function productionFixture() {
@@ -73,7 +90,7 @@ function capability(stage) {
   };
 }
 
-async function syntheticFixture() {
+async function syntheticFixture({ minimumIndependentRetrievals = 2 } = {}) {
   const unitId = "unit.synthetic.01";
   const skillId = "xx.skill.synthetic";
   const curriculum = {
@@ -92,7 +109,13 @@ async function syntheticFixture() {
       solutionRevealCanQualifyForMastery: false
     },
     learningStageSequence: [...STAGES],
-    semanticDefinitions: [],
+    semanticDefinitions: [{
+      id: "function.synthetic",
+      revision: 1,
+      kind: "function",
+      requiredEvidenceMode: "production",
+      definitionEn: "Complete the synthetic target-language function."
+    }],
     unitOrder: [unitId],
     units: [{
       id: unitId,
@@ -101,12 +124,12 @@ async function syntheticFixture() {
       title: "Synthetic unit",
       description: "Test unit.",
       canDo: { observableOutcome: "Complete the synthetic sequence." },
-      semanticScope: { functionIds: [], frameIds: [], conceptIds: [] },
+      semanticScope: { functionIds: ["function.synthetic"], frameIds: [], conceptIds: [] },
       transferPolicy: { requiredContextDimensions: [], minimumNovelDimensionsPerTransfer: 0 },
       prerequisiteUnitIds: [],
       requiredLearningStages: [...STAGES],
       masteryPolicy: {
-        minimumIndependentRetrievals: 2,
+        minimumIndependentRetrievals,
         minimumSessions: 2,
         minimumDistinctContexts: 1,
         scope: "each-required-target-skill",
@@ -127,7 +150,15 @@ async function syntheticFixture() {
     curriculum: { id: curriculum.curriculumId, version: curriculum.version },
     canonicalContractDigest: await computeCanonicalContractDigest(curriculum),
     unitOrder: [unitId],
-    unitBindings: [{ unitId, canonicalRevision: 1, targetSkillIds: [skillId] }],
+    unitBindings: [{
+      unitId,
+      canonicalRevision: 1,
+      functionBindings: [{ canonicalId: "function.synthetic", targetSkillIds: [skillId] }],
+      frameBindings: [],
+      conceptBindings: [],
+      targetSkillIds: [skillId],
+      contextIds: ["xx.context.synthetic"]
+    }],
     skills: [{
       id: skillId,
       revision: 1,
@@ -135,7 +166,7 @@ async function syntheticFixture() {
       locale: "xx-XX",
       kind: "function",
       descriptionEn: "Synthetic target-language realization.",
-      canonicalIds: []
+      canonicalIds: ["function.synthetic"]
     }],
     utterances: [],
     contexts: [{
@@ -146,12 +177,18 @@ async function syntheticFixture() {
       descriptionEn: "Synthetic assessment context.",
       featureValues: { setting: "synthetic" },
       opportunities: [{
-        id: "synthetic-opportunity",
-        operation: "respond",
+        id: "synthetic-opportunity.comprehend",
+        operation: "interpret",
         targetSkillIds: [skillId],
         stimulusUtteranceIds: [],
         expectedUtteranceIds: []
-      }]
+      }, ...STAGES.filter((stage) => !["encounter", "comprehend"].includes(stage)).map((stage) => ({
+        id: `synthetic-opportunity.${stage}`,
+        operation: STAGE_OPERATION[stage],
+        targetSkillIds: [skillId],
+        stimulusUtteranceIds: ["interact", "transfer"].includes(stage) ? ["xx.utterance.synthetic-stimulus"] : [],
+        expectedUtteranceIds: []
+      }))]
     }]
   };
   const bindingRegistry = {
@@ -169,8 +206,8 @@ async function syntheticFixture() {
       targetLocale: targetPack.targetLocale,
       targetPackDigest: await computeTargetPackDigest(targetPack)
     },
-    bindings: [{
-      id: "binding.synthetic",
+    bindings: STAGES.map((stage) => ({
+      id: `binding.synthetic.${stage}`,
       activityId: "synthetic-game",
       contentRef: {
         catalogId: "synthetic-catalog",
@@ -183,13 +220,73 @@ async function syntheticFixture() {
       canonicalUnitId: unitId,
       canonicalUnitRevision: 1,
       targetSkillRefs: [{ id: skillId, revision: 1 }],
-      contextId: "xx.context.synthetic",
-      contextRevision: 1,
-      opportunityId: "synthetic-opportunity",
-      evidenceCapabilities: STAGES.map(capability)
-    }]
+      contextId: stage === "encounter" ? null : "xx.context.synthetic",
+      contextRevision: stage === "encounter" ? null : 1,
+      opportunityId: stage === "encounter" ? null : `synthetic-opportunity.${stage}`,
+      evidenceCapabilities: [capability(stage)]
+    }))
   };
   return { curriculum, targetPack, bindingRegistry, unitId, skillId };
+}
+
+async function twoSkillFixture() {
+  const fixture = await syntheticFixture();
+  const secondSkillId = "xx.skill.synthetic.second";
+  const unit = fixture.curriculum.units[0];
+  const unitBinding = fixture.targetPack.unitBindings[0];
+  fixture.curriculum.semanticDefinitions.push(
+    {
+      id: "function.synthetic.second",
+      revision: 1,
+      kind: "function",
+      requiredEvidenceMode: "production",
+      definitionEn: "Complete the second synthetic target-language function."
+    },
+    ...["concept.synthetic.first", "concept.synthetic.shared", "concept.synthetic.second"].map((id) => ({
+      id,
+      revision: 1,
+      kind: "concept",
+      definitionEn: `Synthetic concept ${id}.`
+    }))
+  );
+  unit.semanticScope.functionIds.push("function.synthetic.second");
+  unit.semanticScope.conceptIds.push(
+    "concept.synthetic.first",
+    "concept.synthetic.shared",
+    "concept.synthetic.second"
+  );
+  fixture.targetPack.skills[0].canonicalIds.push("concept.synthetic.first", "concept.synthetic.shared");
+  fixture.targetPack.skills.push({
+    id: secondSkillId,
+    revision: 1,
+    unitId: fixture.unitId,
+    locale: "xx-XX",
+    kind: "function",
+    descriptionEn: "Second synthetic target-language realization.",
+    canonicalIds: ["function.synthetic.second", "concept.synthetic.shared", "concept.synthetic.second"]
+  });
+  unitBinding.functionBindings.push({
+    canonicalId: "function.synthetic.second",
+    targetSkillIds: [secondSkillId]
+  });
+  unitBinding.conceptBindings.push(
+    { canonicalId: "concept.synthetic.first", targetSkillIds: [fixture.skillId] },
+    { canonicalId: "concept.synthetic.shared", targetSkillIds: [fixture.skillId, secondSkillId] },
+    { canonicalId: "concept.synthetic.second", targetSkillIds: [secondSkillId] }
+  );
+  unitBinding.targetSkillIds.push(secondSkillId);
+  for (const opportunity of fixture.targetPack.contexts[0].opportunities) {
+    opportunity.targetSkillIds.push(secondSkillId);
+  }
+  const secondBindings = fixture.bindingRegistry.bindings.map((binding) => ({
+    ...structuredClone(binding),
+    id: binding.id.replace("binding.synthetic.", "binding.synthetic.second."),
+    targetSkillRefs: [{ id: secondSkillId, revision: 1 }]
+  }));
+  fixture.bindingRegistry.bindings.push(...secondBindings);
+
+  await repinFixture(fixture);
+  return { ...fixture, secondSkillId };
 }
 
 function history() {
@@ -216,7 +313,7 @@ async function addAttempt(fixture, state, {
     issuedAt: iso(sessionNumber, taskSequence),
     sessionId,
     taskSequence,
-    bindingId: "binding.synthetic",
+    bindingId: `binding.synthetic.${stage}`,
     capabilityId: `cap.${stage}`,
     targetSkillId: fixture.skillId
   });
@@ -257,10 +354,32 @@ test("production bindings cannot jump ahead of the English canonical unit sequen
   assert.ok(actionUnit.blockers.some((entry) => entry.code === PLANNER_REASON_CODES.UNIT_PREREQUISITE_UNMET));
   const readSkill = actionUnit.skills.find((skill) => skill.targetSkillId === "cs.skill.sense.cist.read");
   assert.equal(readSkill.stages.find((stage) => stage.id === "encounter").capabilityCount, 2);
-  assert.equal(readSkill.stages.find((stage) => stage.id === "comprehend").capabilityCount, 0);
+  assert.equal(readSkill.stages.find((stage) => stage.id === "comprehend").capabilityCount, 1);
+  assert.equal(readSkill.stages.find((stage) => stage.id === "discriminate").capabilityCount, 1);
   const actionCoverage = progression.developerDiagnostics.mechanicCoverage.find((unit) => unit.canonicalUnitId === actionUnit.canonicalUnitId);
   assert.ok(actionCoverage.coveredStageSlotCount > 0, "developer diagnostics should still expose the Unit 3 pilot mechanics");
-  assert.ok(actionCoverage.missingStageSlots.some((slot) => slot.targetSkillId === "cs.skill.sense.cist.read" && slot.learningStage === "comprehend"));
+  assert.ok(actionCoverage.missingStageSlots.some((slot) => slot.targetSkillId === "cs.skill.sense.cist.read" && slot.learningStage === "retrieve"));
+});
+
+test("the planner rejects a target-pack reorder of the English within-unit sequence", async () => {
+  const fixture = await productionFixture();
+  [fixture.targetPack.unitBindings[0].targetSkillIds[0], fixture.targetPack.unitBindings[0].targetSkillIds[1]] = [
+    fixture.targetPack.unitBindings[0].targetSkillIds[1],
+    fixture.targetPack.unitBindings[0].targetSkillIds[0]
+  ];
+  fixture.bindingRegistry.targetPack.targetPackDigest = await computeTargetPackDigest(fixture.targetPack);
+
+  await assert.rejects(
+    () => computeCurriculumProgression({
+      ...fixture,
+      tasks: [],
+      events: [],
+      currentSession: { id: "session-reordered" }
+    }),
+    (error) => error instanceof CurriculumPlannerError
+      && error.code === "PLANNER_CONTRACT_INVALID"
+      && error.details.path === "/targetPack/unitBindings/0/targetSkillIds"
+  );
 });
 
 test("ordered stages and delayed retrieval require a later session before honest mastery", async () => {
@@ -306,6 +425,143 @@ test("ordered stages and delayed retrieval require a later session before honest
   assert.deepEqual(completed.masteredUnitIds, [fixture.unitId]);
 });
 
+test("a three-retrieval mastery threshold schedules consolidation without weakening the stage ladder", async () => {
+  const fixture = await syntheticFixture({ minimumIndependentRetrievals: 3 });
+  const state = history();
+  for (const [index, stage] of STAGES.slice(0, 4).entries()) {
+    await addAttempt(fixture, state, { stage, taskSequence: index + 1 });
+  }
+
+  const consolidation = await plan(fixture, state, { id: "session-1" });
+  assert.equal(consolidation.nextTask.status, "ready");
+  assert.equal(consolidation.nextTask.purpose, "consolidation");
+  assert.equal(consolidation.nextTask.learningStage, "retrieve");
+  assert.equal(consolidation.nextTask.reservedFutureRetrievals, 1);
+  assert.equal(consolidation.nextTask.remainingRetrievalsAfterTask, 0);
+
+  await addAttempt(fixture, state, {
+    stage: "retrieve",
+    taskSequence: 5,
+    label: "consolidation-retrieve"
+  });
+  const afterConsolidation = await plan(fixture, state, { id: "session-1" });
+  assert.equal(afterConsolidation.nextTask.purpose, "stage");
+  assert.equal(afterConsolidation.nextTask.learningStage, "supported-produce");
+  assert.equal(afterConsolidation.units[0].skills[0].evidence.independentRetrievals, 2);
+
+  for (const [offset, stage] of ["supported-produce", "interact", "transfer"].entries()) {
+    await addAttempt(fixture, state, { stage, taskSequence: 6 + offset });
+  }
+  const sameSession = await plan(fixture, state, { id: "session-1" });
+  assert.ok(sameSession.nextTask.reasons.some((entry) => entry.code === PLANNER_REASON_CODES.DELAYED_RETRIEVAL_SESSION_GAP));
+
+  const later = await plan(fixture, state, { id: "session-2" });
+  assert.equal(later.nextTask.learningStage, "delayed-retrieval");
+  await addAttempt(fixture, state, {
+    stage: "delayed-retrieval",
+    sessionId: "session-2",
+    sessionNumber: 2,
+    taskSequence: 1,
+    label: "threshold-three-delay"
+  });
+  const complete = await plan(fixture, state, { id: "session-2" });
+  assert.equal(complete.status, "complete");
+  assert.equal(complete.units[0].skills[0].evidence.independentRetrievals, 3);
+});
+
+test("out-of-order retrieval cannot prepay a later consolidation requirement", async () => {
+  const fixture = await syntheticFixture({ minimumIndependentRetrievals: 3 });
+  const state = history();
+  await addAttempt(fixture, state, { stage: "retrieve", taskSequence: 1, label: "early-retrieve" });
+  for (const [offset, stage] of STAGES.slice(0, 4).entries()) {
+    await addAttempt(fixture, state, { stage, taskSequence: offset + 2, label: `ordered-${stage}` });
+  }
+
+  const progression = await plan(fixture, state, { id: "session-1" });
+  assert.equal(progression.units[0].skills[0].evidence.independentRetrievals, 1);
+  assert.equal(progression.nextTask.purpose, "consolidation");
+  assert.ok(progression.ignoredEvidence.some((entry) => (
+    entry.eventId === "event-early-retrieve" && entry.reason === "out-of-order-stage-evidence"
+  )));
+});
+
+test("session introduction budgets block a second new target skill and a third semantic concept", async (t) => {
+  await t.test("target-skill reservation", async () => {
+    const fixture = await twoSkillFixture();
+    fixture.curriculum.planningPolicy.maxNewSemanticConceptsPerSession = 3;
+    fixture.curriculum.planningPolicy.maxNewTargetConstructionsPerSession = 1;
+    await repinFixture(fixture);
+    fixture.bindingRegistry.bindings = fixture.bindingRegistry.bindings.filter((binding) => (
+      binding.targetSkillRefs[0].id !== fixture.skillId
+        || binding.evidenceCapabilities[0].learningStage === "encounter"
+    ));
+    const state = history();
+    await addAttempt(fixture, state, { stage: "encounter", taskSequence: 1 });
+
+    const progression = await plan(fixture, state, { id: "session-1" });
+    const blocker = progression.nextTask.reasons.find((entry) => (
+      entry.code === PLANNER_REASON_CODES.SESSION_TARGET_CONSTRUCTION_BUDGET
+    ));
+    assert.equal(progression.nextTask.status, "blocked");
+    assert.equal(blocker.targetSkillId, fixture.secondSkillId);
+    assert.deepEqual(progression.planningContext.introductionBudget.introducedTargetSkillIds, [fixture.skillId]);
+  });
+
+  await t.test("semantic concept limit with shared concepts counted once", async () => {
+    const fixture = await twoSkillFixture();
+    fixture.curriculum.planningPolicy.maxNewSemanticConceptsPerSession = 2;
+    fixture.curriculum.planningPolicy.maxNewTargetConstructionsPerSession = 2;
+    await repinFixture(fixture);
+    fixture.bindingRegistry.bindings = fixture.bindingRegistry.bindings.filter((binding) => (
+      binding.targetSkillRefs[0].id !== fixture.skillId
+        || binding.evidenceCapabilities[0].learningStage === "encounter"
+    ));
+    const state = history();
+    await addAttempt(fixture, state, { stage: "encounter", taskSequence: 1 });
+
+    const blocked = await plan(fixture, state, { id: "session-1" });
+    const conceptBlocker = blocked.nextTask.reasons.find((entry) => (
+      entry.code === PLANNER_REASON_CODES.SESSION_SEMANTIC_CONCEPT_BUDGET
+    ));
+    assert.deepEqual(conceptBlocker.conceptIds, ["concept.synthetic.second"]);
+    assert.deepEqual(
+      blocked.planningContext.introductionBudget.introducedSemanticConceptIds,
+      ["concept.synthetic.first", "concept.synthetic.shared"]
+    );
+
+    fixture.curriculum.planningPolicy.maxNewSemanticConceptsPerSession = 3;
+    await repinFixture(fixture);
+    const allowed = await plan(fixture, state, { id: "session-1" });
+    assert.equal(allowed.nextTask.status, "ready");
+    assert.equal(allowed.nextTask.targetSkillId, fixture.secondSkillId);
+    assert.equal(allowed.nextTask.learningStage, "encounter");
+  });
+});
+
+test("an issued encounter reserves the session introduction budget even before evidence arrives", async () => {
+  const fixture = await twoSkillFixture();
+  const state = history();
+  const task = await issueLearningTask(fixture.bindingRegistry, {
+    taskId: "task-open-encounter",
+    issuedAt: iso(1, 1),
+    sessionId: "session-1",
+    taskSequence: 1,
+    bindingId: "binding.synthetic.encounter",
+    capabilityId: "cap.encounter",
+    targetSkillId: fixture.skillId
+  });
+  state.tasks.push(task);
+
+  const progression = await plan(fixture, state, { id: "session-1" });
+  assert.equal(progression.nextTask.status, "blocked");
+  assert.equal(progression.nextTask.reasons[0].code, PLANNER_REASON_CODES.OPEN_TASK_AWAITING_EVIDENCE);
+  assert.deepEqual(progression.planningContext.introductionBudget.introducedTargetSkillIds, [fixture.skillId]);
+  assert.deepEqual(
+    progression.planningContext.introductionBudget.introducedSemanticConceptIds,
+    ["concept.synthetic.first", "concept.synthetic.shared"]
+  );
+});
+
 test("reveals and independent hints are valid practice records but cannot advance a stage or mastery", async () => {
   const fixture = await syntheticFixture();
   const state = history();
@@ -321,7 +577,9 @@ test("reveals and independent hints are valid practice records but cannot advanc
   });
   const progression = await plan(fixture, state, { id: "session-1" });
   const skill = progression.units[0].skills[0];
-  assert.equal(progression.nextTask.learningStage, "retrieve");
+  assert.equal(progression.nextTask.status, "blocked");
+  assert.ok(progression.nextTask.reasons.some((entry) => entry.code === PLANNER_REASON_CODES.REPAIR_SPACING_NOT_REACHED));
+  assert.equal(progression.repairQueue[0].learningStage, "retrieve");
   assert.equal(skill.evidence.independentRetrievals, 0);
   assert.equal(skill.stages.find((stage) => stage.id === "retrieve").status, "current");
   assert.ok(progression.ignoredEvidence.some((entry) => entry.eventId === "event-revealed-retrieve" && entry.reason === "solution-revealed"));
@@ -390,6 +648,18 @@ test("invalid contracts, tampered history, and sequence rewinds fail closed", as
   await assert.rejects(
     () => plan(unsafePolicy, history(), { id: "session-1" }),
     (error) => error instanceof CurriculumPlannerError && error.code === "PLANNER_CONTRACT_INVALID"
+  );
+
+  const unstimulatedInteraction = await syntheticFixture();
+  unstimulatedInteraction.targetPack.contexts[0].opportunities
+    .find((opportunity) => opportunity.id === "synthetic-opportunity.interact")
+    .stimulusUtteranceIds = [];
+  await repinFixture(unstimulatedInteraction);
+  await assert.rejects(
+    () => plan(unstimulatedInteraction, history(), { id: "session-1" }),
+    (error) => error instanceof CurriculumPlannerError
+      && error.code === "PLANNER_CONTRACT_INVALID"
+      && /requires an interlocutor stimulus/.test(error.message)
   );
 
   const state = history();

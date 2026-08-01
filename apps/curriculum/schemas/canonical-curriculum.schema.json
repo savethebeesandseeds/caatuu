@@ -111,9 +111,18 @@
           "additionalProperties": false,
           "required": ["functionIds", "frameIds", "conceptIds"],
           "properties": {
-            "functionIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
-            "frameIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
-            "conceptIds": {"$ref": "#/$defs/nonEmptyUniqueIds"}
+            "functionIds": {
+              "description": "Normative English-authored function sequence. Target packs must preserve this order.",
+              "$ref": "#/$defs/nonEmptyUniqueIds"
+            },
+            "frameIds": {
+              "description": "Normative English-authored frame sequence. Target packs must preserve this order.",
+              "$ref": "#/$defs/nonEmptyUniqueIds"
+            },
+            "conceptIds": {
+              "description": "Normative English-authored concept sequence. Target packs must preserve this order.",
+              "$ref": "#/$defs/nonEmptyUniqueIds"
+            }
           }
         },
         "transferPolicy": {

@@ -4,12 +4,13 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../languages/czech/static/", import.meta.url);
 const curriculumRoot = new URL("../../../curriculum/data/", import.meta.url);
-const [app, indexHtml, wordWorld, wordWorldHtml, sourceCatalog] = await Promise.all([
+const [app, indexHtml, wordWorld, wordWorldHtml, sourceCatalog, bindingRegistry] = await Promise.all([
   readFile(new URL("app.js", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
   readFile(new URL("word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("pilot-content-sources.v1.json", curriculumRoot), "utf8").then(JSON.parse)
+  readFile(new URL("pilot-content-sources.v1.json", curriculumRoot), "utf8").then(JSON.parse),
+  readFile(new URL("cs-CZ.cross-game-bindings.v1.json", curriculumRoot), "utf8").then(JSON.parse)
 ]);
 
 function functionSource(source, name, nextName) {
@@ -35,10 +36,42 @@ test("developer lifecycle modules stay outside ordinary Explore startup", () => 
   const verbLoadEnd = app.indexOf("const state =", verbLoadStart);
   const verbGuided = functionSource(app, "initializeVerbGuidedMode", "verbGuidedInteractionLocked");
   assert.doesNotMatch(app.slice(verbLoadStart, verbLoadEnd), /guided-opportunity/);
-  assert.match(verbGuided, /await import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-2"\)/);
+  assert.match(verbGuided, /await import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-3"\)/);
   assert.doesNotMatch(wordWorld, /^import .*guided-opportunity/m);
   const wordGuided = functionSource(wordWorld, "initializeGuidedWordWorldMode", "runtimeAdapter");
-  assert.match(wordGuided, /await import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-2"\)/);
+  assert.match(wordGuided, /await import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-3"\)/);
+});
+
+test("Guided games declare their honest receptive evidence modalities", () => {
+  const wordBinding = bindingRegistry.bindings.find((binding) => binding.activityId === "word-world");
+  const verbBinding = bindingRegistry.bindings.find((binding) => binding.activityId === "verb-nebula");
+  const wordCapability = wordBinding.evidenceCapabilities.find((capability) => capability.scoreRequired);
+  const verbCapability = verbBinding.evidenceCapabilities.find((capability) => capability.scoreRequired);
+
+  assert.deepEqual(wordCapability, {
+    id: "independent-comprehension",
+    mechanicId: "translation-reconstruction",
+    learningStage: "comprehend",
+    evidenceKind: "comprehension",
+    independence: "independent",
+    scoreRequired: true,
+    masteryEligible: false,
+    minimumScore: 1
+  });
+  assert.deepEqual(verbCapability, {
+    id: "independent-discrimination",
+    mechanicId: "association-grid-match",
+    learningStage: "discriminate",
+    evidenceKind: "comprehension",
+    independence: "independent",
+    scoreRequired: true,
+    masteryEligible: false,
+    minimumScore: 1
+  });
+  assert.match(wordWorld, /capabilityId: "independent-comprehension"/);
+  assert.match(app, /capabilityId: "independent-discrimination"/);
+  assert.doesNotMatch(wordWorld, /capabilityId: "independent-retrieval"/);
+  assert.doesNotMatch(app, /capabilityId: "independent-retrieval"/);
 });
 
 test("Word World consumes the revisioned exact focus token and has no Guided random fallback", () => {
@@ -52,13 +85,13 @@ test("Word World consumes the revisioned exact focus token and has no Guided ran
   assert.match(wordWorld, /function generateFromConfiguredMode[\s\S]*?if \(state\.guidedRequested\) return;/);
 });
 
-test("Word World persists the first response and reveals before rendering any solution", () => {
+test("Word World persists the assessed first response and reveals before rendering any solution", () => {
   const show = functionSource(wordWorld, "showStandardPhrase", "takeQueuedRandomCandidate");
   assert.ok(show.indexOf("state.guidedLifecycle = guidedLifecycle") < show.indexOf("setTranslation(record.en)"));
   assert.ok(show.indexOf("renderCzechSentence(record.cs, target)") < show.indexOf("activatePresentedGuidedWord"));
   assert.ok(show.indexOf("setBusy(false, { immediate: true })") < show.indexOf("activatePresentedGuidedWord"));
   assert.ok(show.indexOf("activatePresentedGuidedWord") < show.indexOf("setTranslation(record.en)"));
-  assert.match(show, /guidedLifecycle[\s\S]*?hideSceneAsset/, "clean retrieval must suppress the semantic scene clue");
+  assert.match(show, /guidedLifecycle[\s\S]*?hideSceneAsset/, "clean comprehension must suppress the semantic scene clue");
   assert.match(wordWorld, /guidedTaskFingerprint[\s\S]*?taskFingerprint/);
 
   const submit = functionSource(wordWorld, "submitReconstructionChallenge", "shouldBlockReconstructionAdvance");
@@ -106,7 +139,7 @@ test("Verb Nebula verifies raw dictionary bytes and builds one deterministic bou
   assert.match(app, /if \(state\.verbGuidedRequested\) \{[\s\S]*?renderVerbNebula\(\);\s*return;\s*\}/);
 });
 
-test("Verb Nebula persists target evidence before feedback and keeps support sticky", () => {
+test("Verb Nebula persists target discrimination evidence before feedback and keeps support sticky", () => {
   const activate = functionSource(app, "activateVerbGuidedOpportunity", "readVerbMemory");
   assert.ok(activate.indexOf("waitForVerbPaintedFrame()") < activate.indexOf("lifecycle.activate("));
   assert.match(activate, /verbGuidedPresentationReady\(activationEpoch, lifecycle\)[\s\S]*?requirePresented/);

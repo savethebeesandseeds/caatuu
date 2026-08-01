@@ -67,8 +67,8 @@
         sourceCatalogVersion: "1.2.0",
         sourceCatalogDigest: "sha256:c7c91b85781c985a561184d5c19cb766c8b5cc7eb6f93e5e6fb5a81b12478e20",
         bindingRegistryId: "caatuu.cs-CZ.cross-game-bindings",
-        bindingRegistryVersion: "1.2.0",
-        bindingRegistryDigest: "sha256:382f928df9ddab758c7bd1b82b12baedbbbc86ebfdf11c56d7c2dff634acf4f0"
+        bindingRegistryVersion: "1.3.0",
+        bindingRegistryDigest: "sha256:86297b1887baea41a3078a9d45e54f288f5251f798747f4b43537aeb885e4a7b"
       },
       guidedMode: {
         enabled: true,

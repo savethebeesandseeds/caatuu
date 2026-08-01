@@ -692,6 +692,14 @@ export function validateConformance(curriculum, pack, options = {}) {
     for (const missing of difference(requiredIds, suppliedIds)) error("CURR_ALIGNMENT_INCOMPLETE", `/unitBindings/${bindingIndex}/${fieldName}`, `Missing mapping for ${missing}.`, [unit.id, missing]);
     for (const extra of difference(suppliedIds, requiredIds)) error("CURR_REALIZATION_UNKNOWN_ITEM", `/unitBindings/${bindingIndex}/${fieldName}`, `Unknown canonical mapping ${extra}.`, [unit.id, extra]);
     for (const duplicate of duplicateValues(suppliedIds)) error("CURR_ID_DUPLICATE", `/unitBindings/${bindingIndex}/${fieldName}`, `Duplicate canonical mapping ${duplicate}.`, [unit.id, duplicate]);
+    if (sameSet(suppliedIds, requiredIds) && !sameArray(suppliedIds, requiredIds)) {
+      error(
+        "CURR_ORDER_OVERRIDE",
+        `/unitBindings/${bindingIndex}/${fieldName}`,
+        `Target mappings must preserve the English canonical ${canonicalFieldName} order.`,
+        [unit.id]
+      );
+    }
     rows.forEach((row, rowIndex) => {
       const rowPath = `/unitBindings/${bindingIndex}/${fieldName}/${rowIndex}`;
       if (!isObject(row)) {
@@ -749,6 +757,14 @@ export function validateConformance(curriculum, pack, options = {}) {
     const aggregateUtterances = validateReferenceList(binding.utteranceIds, utteranceById, unit.id, "utterance", `${bindingPath}/utteranceIds`);
     validateReferenceList(binding.contextIds, contextById, unit.id, "context", `${bindingPath}/contextIds`);
     if (!sameSet([...semanticSkillUnion], aggregateSkills)) error("CURR_ALIGNMENT_INCOMPLETE", `${bindingPath}/targetSkillIds`, "Unit targetSkillIds must exactly equal the union of semantic binding skill references.", [unit.id]);
+    else if (!sameArray([...semanticSkillUnion], aggregateSkills)) {
+      error(
+        "CURR_ORDER_OVERRIDE",
+        `${bindingPath}/targetSkillIds`,
+        "Unit targetSkillIds must follow their first occurrence in the English-ordered semantic mappings.",
+        [unit.id]
+      );
+    }
     if (!sameSet([...semanticUtteranceUnion], aggregateUtterances)) error("CURR_ALIGNMENT_INCOMPLETE", `${bindingPath}/utteranceIds`, "Unit utteranceIds must exactly equal the union of semantic binding utterance references.", [unit.id]);
     if (!Array.isArray(binding.withinUnitScaffolds) || binding.withinUnitScaffolds.some((value) => typeof value !== "string" || !value.trim())) error("CURR_MANIFEST_SCHEMA", `${bindingPath}/withinUnitScaffolds`, "Within-unit scaffolds must be English-described strings.", [unit.id]);
     validateReview(binding.review, `${bindingPath}/review`, `Unit ${unit.id} realization`, [unit.id]);

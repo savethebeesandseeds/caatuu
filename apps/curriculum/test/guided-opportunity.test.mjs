@@ -70,12 +70,20 @@ function fixture({ failEvidence = false, claimStatus = "claimed" } = {}) {
   return { calls, curriculum, resolution };
 }
 
-test("activation claims the durable encounter and retrieval opportunity exactly once", async () => {
+test("a Guided lifecycle requires an explicit assessed capability", () => {
+  const { curriculum, resolution } = fixture();
+  assert.throws(
+    () => createGuidedOpportunityLifecycle({ curriculum, resolution }),
+    (error) => error.code === "GUIDED_OPPORTUNITY_BINDING_INVALID"
+  );
+});
+
+test("activation claims the durable encounter and assessed opportunity exactly once", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await Promise.all([lifecycle.activate(), lifecycle.activate()]);
   assert.deepEqual(calls, [
-    "curriculum:claim:binding.word:independent-retrieval:cs.skill.read"
+    "curriculum:claim:binding.word:independent-comprehension:cs.skill.read"
   ]);
   assert.equal(lifecycle.state().phase, "ready");
   assert.equal(lifecycle.state().taskFingerprint, "sha256:task");
@@ -83,7 +91,7 @@ test("activation claims the durable encounter and retrieval opportunity exactly 
 
 test("a hidden presentation defers activation without consuming the lifecycle", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   let presented = false;
   const deferred = await lifecycle.activate({ requirePresented: () => presented });
   assert.equal(deferred.phase, "pending");
@@ -96,7 +104,7 @@ test("a hidden presentation defers activation without consuming the lifecycle", 
 
 test("a used or active developer pilot fails lifecycle activation closed", async () => {
   const { curriculum, resolution } = fixture({ claimStatus: "blocked" });
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await assert.rejects(
     () => lifecycle.activate(),
     (error) => error.code === "GUIDED_OPPORTUNITY_REENTRY_BLOCKED"
@@ -107,7 +115,7 @@ test("a used or active developer pilot fails lifecycle activation closed", async
 
 test("hint support is sticky and each explicit hint kind is counted at most once", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await lifecycle.activate();
   lifecycle.markHint("dictionary");
   lifecycle.markHint("dictionary");
@@ -118,7 +126,7 @@ test("hint support is sticky and each explicit hint kind is counted at most once
 
 test("the first response closes evidence while later corrections remain practice", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await lifecycle.activate();
   const first = await lifecycle.recordFirstResponse({ score: 0 });
   const correction = await lifecycle.recordFirstResponse({ score: 1 });
@@ -131,7 +139,7 @@ test("the first response closes evidence while later corrections remain practice
 
 test("a reveal closes the opportunity before the answer may be displayed", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await lifecycle.activate();
   const reveal = await lifecycle.recordSolutionReveal();
   assert.equal(reveal.recorded, true);
@@ -143,7 +151,7 @@ test("a reveal closes the opportunity before the answer may be displayed", async
 
 test("an incorrect answer can persist sticky reveal support in its immutable first response", async () => {
   const { calls, curriculum, resolution } = fixture();
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await lifecycle.activate();
   lifecycle.markSolutionRevealed();
   await lifecycle.recordFirstResponse({ score: 0 });
@@ -155,7 +163,7 @@ test("an incorrect answer can persist sticky reveal support in its immutable fir
 
 test("evidence persistence failure releases the lease and never reports success", async () => {
   const { calls, curriculum, resolution } = fixture({ failEvidence: true });
-  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution });
+  const lifecycle = createGuidedOpportunityLifecycle({ curriculum, resolution, capabilityId: "independent-comprehension" });
   await lifecycle.activate();
   await assert.rejects(() => lifecycle.recordFirstResponse({ score: 1 }), /storage unavailable/);
   assert.equal(lifecycle.state().phase, "failed");

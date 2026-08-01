@@ -9,8 +9,27 @@ const OPPORTUNITY_EVIDENCE_KINDS = new Map([
   ["interpret", new Set(["comprehension", "retrieval"])],
   ["discriminate", new Set(["comprehension", "retrieval"])],
   ["retrieve", new Set(["retrieval"])],
-  ["produce", new Set(["production"])],
+  ["produce", new Set(["production", "transfer"])],
   ["respond", new Set(["production", "transfer"])]
+]);
+const STAGE_EVIDENCE_KIND = new Map([
+  ["encounter", "exposure"],
+  ["comprehend", "comprehension"],
+  ["discriminate", "comprehension"],
+  ["retrieve", "retrieval"],
+  ["supported-produce", "production"],
+  ["interact", "production"],
+  ["transfer", "transfer"],
+  ["delayed-retrieval", "retrieval"]
+]);
+const STAGE_OPPORTUNITY_OPERATIONS = new Map([
+  ["comprehend", new Set(["interpret"])],
+  ["discriminate", new Set(["discriminate"])],
+  ["retrieve", new Set(["retrieve"])],
+  ["supported-produce", new Set(["produce"])],
+  ["interact", new Set(["respond"])],
+  ["transfer", new Set(["produce", "respond"])],
+  ["delayed-retrieval", new Set(["retrieve"])]
 ]);
 const LEARNING_TASK_KEYS = new Set([
   "schemaVersion", "taskId", "issuedAt", "sessionId", "taskSequence", "registry",
@@ -255,6 +274,47 @@ export async function validateRuntimeBundle(bundle, releasePins) {
   const skillById = new Map(rows(targetPack.skills).map((skill) => [skill?.id, skill]));
   const contextById = new Map(rows(targetPack.contexts).map((context) => [context?.id, context]));
   const sourceById = new Map(rows(sourceCatalog.sources).map((source) => [sourceKey(source?.catalogId, source?.contentId), source]));
+  for (const [unitBindingIndex, unitBinding] of rows(targetPack.unitBindings).entries()) {
+    const path = `/targetPack/unitBindings/${unitBindingIndex}`;
+    const unit = unitById.get(unitBinding?.unitId);
+    if (!unit || unit.revision !== unitBinding?.canonicalRevision) {
+      error("RUNTIME_UNIT_BINDING_MISMATCH", `${path}/unitId`, "Target unit binding is missing or stale.", [unitBinding?.unitId].filter(Boolean));
+      continue;
+    }
+    const orderedTargetSkillIds = [];
+    const seenTargetSkillIds = new Set();
+    for (const [bindingField, canonicalField] of [
+      ["functionBindings", "functionIds"],
+      ["frameBindings", "frameIds"],
+      ["conceptBindings", "conceptIds"]
+    ]) {
+      const mappings = rows(unitBinding[bindingField]);
+      const requiredCanonicalIds = rows(unit.semanticScope?.[canonicalField]);
+      if (!sameArray(mappings.map((mapping) => mapping?.canonicalId), requiredCanonicalIds)) {
+        error(
+          "RUNTIME_SEMANTIC_ORDER_MISMATCH",
+          `${path}/${bindingField}`,
+          `Target mappings changed the English canonical ${canonicalField} order.`,
+          [unit.id]
+        );
+      }
+      for (const mapping of mappings) {
+        for (const targetSkillId of rows(mapping?.targetSkillIds)) {
+          if (seenTargetSkillIds.has(targetSkillId)) continue;
+          seenTargetSkillIds.add(targetSkillId);
+          orderedTargetSkillIds.push(targetSkillId);
+        }
+      }
+    }
+    if (!sameArray(rows(unitBinding.targetSkillIds), orderedTargetSkillIds)) {
+      error(
+        "RUNTIME_TARGET_SKILL_ORDER_MISMATCH",
+        `${path}/targetSkillIds`,
+        "Target skills changed their first occurrence in the English-ordered semantic mappings.",
+        [unit.id]
+      );
+    }
+  }
   for (const source of rows(sourceCatalog.sources)) {
     const digest = await computeContentDigest(source);
     if (source.contentDigest !== digest) error("RUNTIME_CONTENT_DIGEST_MISMATCH", "/sourceCatalog/sources", `Source ${source.contentId} content digest is stale.`, [source.contentId]);
@@ -358,10 +418,36 @@ export async function validateRuntimeBundle(bundle, releasePins) {
       error("RUNTIME_BINDING_CONTEXT_MISMATCH", `${path}/contextId`, "Context-free binding must use null context revision and opportunity.", [binding?.id].filter(Boolean));
     }
     for (const capability of rows(binding?.evidenceCapabilities)) {
-      if (capability?.masteryEligible === true && opportunity) {
+      const requiredEvidenceKind = STAGE_EVIDENCE_KIND.get(capability?.learningStage);
+      if (!requiredEvidenceKind || capability?.evidenceKind !== requiredEvidenceKind) {
+        error(
+          "RUNTIME_STAGE_EVIDENCE_MISMATCH",
+          `${path}/evidenceCapabilities`,
+          `Stage ${capability?.learningStage || "(missing)"} has the wrong evidence classification.`,
+          [binding?.id, capability?.id].filter(Boolean)
+        );
+      }
+      if (capability?.evidenceKind !== "exposure" && opportunity) {
         const allowed = OPPORTUNITY_EVIDENCE_KINDS.get(opportunity.operation);
         if (!allowed?.has(capability.evidenceKind)) {
           error("RUNTIME_CAPABILITY_OPPORTUNITY_MISMATCH", `${path}/evidenceCapabilities`, `Opportunity ${opportunity.id} cannot authorize ${capability.evidenceKind} evidence.`, [binding.id, capability.id]);
+        }
+        const allowedOperations = STAGE_OPPORTUNITY_OPERATIONS.get(capability.learningStage);
+        if (!allowedOperations?.has(opportunity.operation)) {
+          error(
+            "RUNTIME_STAGE_OPPORTUNITY_MISMATCH",
+            `${path}/evidenceCapabilities`,
+            `Stage ${capability.learningStage} requires one of: ${[...(allowedOperations || [])].join(", ")}.`,
+            [binding.id, capability.id]
+          );
+        }
+        if (capability.learningStage === "interact" && rows(opportunity.stimulusUtteranceIds).length === 0) {
+          error(
+            "RUNTIME_INTERACTION_STIMULUS_REQUIRED",
+            `${path}/evidenceCapabilities`,
+            "Interaction evidence requires an interlocutor stimulus.",
+            [binding.id, capability.id]
+          );
         }
       }
       if (capability?.evidenceKind === "exposure"
@@ -606,15 +692,22 @@ export async function validateLearningEvidenceEvent(curriculum, registry, task, 
   const score = event?.outcome?.score;
   if (capability?.scoreRequired && (!Number.isFinite(score) || score < 0 || score > 1)) error("EVIDENCE_SCORE_INVALID", "/outcome/score", "Scored evidence requires a score from zero to one.");
   if (capability?.scoreRequired === false && score !== null) error("EVIDENCE_SCORE_FORBIDDEN", "/outcome/score", "Unscored exposure must use a null score.");
-  const qualifiesForMastery = errors.length === 0
-    && capability?.masteryEligible === true
-    && capability.independence === "independent"
-    && capability.evidenceKind !== "exposure"
+  const qualifiesForIndependentAssessment = errors.length === 0
+    && capability?.independence === "independent"
+    && capability?.evidenceKind !== "exposure"
     && event.attemptNumber === 1
     && event.outcome.solutionRevealed === false
     && event.outcome.hintsUsed === 0
-    && score >= capability.minimumScore;
-  return { valid: errors.length === 0, errors, capability, qualifiesForMastery };
+    && score >= capability?.minimumScore;
+  const qualifiesForMastery = qualifiesForIndependentAssessment
+    && capability?.masteryEligible === true;
+  return {
+    valid: errors.length === 0,
+    errors,
+    capability,
+    qualifiesForIndependentAssessment,
+    qualifiesForMastery
+  };
 }
 
 export async function aggregateLearningEvidence(curriculum, registry, tasks, events) {
@@ -679,8 +772,15 @@ export async function aggregateLearningEvidence(curriculum, registry, tasks, eve
     if (capability.evidenceKind === "exposure") aggregate.exposureEvents += 1;
     if (capability.scoreRequired) {
       aggregate.assessedAttempts += 1;
-      if (capability.independence === "independent" && event.attemptNumber === 1 && event.outcome.score < capability.minimumScore) {
-        aggregate.unresolvedFailure = { sessionId: event.sessionId, taskId: event.taskId, taskSequence: event.taskSequence };
+      if (capability.independence === "independent"
+          && event.attemptNumber === 1
+          && !validation.qualifiesForIndependentAssessment) {
+        aggregate.unresolvedFailure = {
+          learningStage: capability.learningStage,
+          sessionId: event.sessionId,
+          taskId: event.taskId,
+          taskSequence: event.taskSequence
+        };
       }
     }
     if (validation.qualifiesForMastery) {
@@ -690,8 +790,12 @@ export async function aggregateLearningEvidence(curriculum, registry, tasks, eve
       aggregate.contributingActivityIds.add(event.activityId);
       aggregate.qualifyingSessionIds.add(event.sessionId);
       if (nonEmptyString(event.contextId)) aggregate.qualifyingContextIds.add(event.contextId);
+    }
+    if (validation.qualifiesForIndependentAssessment) {
       const failure = aggregate.unresolvedFailure;
-      if (failure && failure.taskId !== task.taskId) {
+      if (failure
+          && capability.learningStage === failure.learningStage
+          && failure.taskId !== task.taskId) {
         const laterSession = task.sessionId !== failure.sessionId;
         const intervening = task.taskSequence - failure.taskSequence - 1;
         if (laterSession || (intervening >= repairGap.minimum && intervening <= repairGap.maximum)) aggregate.unresolvedFailure = null;

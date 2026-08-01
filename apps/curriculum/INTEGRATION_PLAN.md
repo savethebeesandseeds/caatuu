@@ -15,8 +15,9 @@ Implemented here:
 - a canonical planner that enforces unit order, stage order, repair spacing,
   delayed retrieval, and honest unlock blockers;
 - one exact, source-pinned developer Guided task in Word World and Verb Nebula;
-- prompt presentation before exposure/retrieval issuance, evidence persistence
-  before feedback or solution display, and isolation from Explore history/XP;
+- prompt presentation before exposure and assessed-task activation, evidence
+  persistence before feedback or solution display, and isolation from Explore
+  history/XP;
 - byte-level integrity checks for the deployed Word World pack and Verb Nebula
   dictionary, including BOM mutation rejection;
 - one-shot, cross-tab-safe developer claims that prevent refresh, hint, reveal,
@@ -137,9 +138,11 @@ Explore retains the existing random and selected-word selectors.
 For `ww-cp-000146`:
 
 - sentence viewing emits exposure only;
-- first-try, no-hint English reconstruction may emit bounded retrieval evidence;
+- first-try, no-hint English reconstruction may emit bounded independent
+  comprehension evidence, explicitly ineligible for mastery;
 - timed reveal records sticky solution-support state and zero mastery;
-- the Czech sentence is painted before exposure and retrieval are issued;
+- the Czech sentence is painted before exposure is recorded and before the
+  comprehension task is activated;
 - the English reconstruction is built only after the task fingerprint exists;
 - the curriculum focus remains visually distinct from a dictionary selection;
 - the complete normalized source snapshot and exact NFC focus surface must
@@ -149,7 +152,10 @@ For `ww-cp-000146`:
 - the developer task writes no normal history, usage, XP, or semantic metrics;
 - the binding is context-free because the current presentation supplies no
   honest setting or time-profile cue;
-- the current mechanic emits no Czech production or transfer evidence.
+- the English answer bank tests understanding of the Czech sentence; it does
+  not elicit Czech retrieval;
+- the current mechanic emits no Czech retrieval, production, or transfer
+  evidence.
 
 ## 6. Verb Nebula seam
 
@@ -159,17 +165,20 @@ first three other concepts in the canonical English Unit 3 order (`eat`,
 references only. It does not use nearby dictionary rows, English-gloss identity,
 the saved Explore queue, pair count, difficulty selector, or random deal.
 
-- preview emits exposure;
-- a first clean match may emit retrieval evidence;
+- preview emits encounter exposure;
+- a first clean match may emit bounded independent discrimination evidence,
+  represented as comprehension evidence and explicitly ineligible for mastery;
 - the canonical target must be answered before distractor feedback can create
   an answer-by-elimination path;
 - a hint or reveal makes the attempt supported;
 - source bytes are hashed before strict UTF-8 decode and locator validation;
 - Czech and English card positions are deterministically varied from the
-  immutable retrieval-task fingerprint and remain positionally deranged;
+  immutable assessed-task fingerprint and remain positionally deranged;
 - the developer task writes no normal XP, performance, or semantic metrics;
 - the binding has no context, so it cannot increase distinct-context mastery;
-- the grid emits no production, interaction, or transfer evidence.
+- because both sides remain visible, the grid discriminates associations rather
+  than eliciting recall;
+- the grid emits no retrieval, production, interaction, or transfer evidence.
 
 ## 7. Evidence and repair rules
 
@@ -182,9 +191,11 @@ the saved Explore queue, pair count, difficulty selector, or random deal.
 - Every event is bound to the exact task fingerprint, registry, unit, skill,
   content revision, activity, mechanic, and optional context.
 - Only the first clean response in an opportunity can qualify independently.
-- A corrected response in the same opportunity is practice, not retrieval.
+- A corrected response in the same opportunity is practice, not independent
+  evidence.
 - Same-session repair must respect the canonical two-to-four intervening-task
-  window; later-session clean retrieval may resolve the failure.
+  window; a later-session clean assessment in the same learning stage may
+  resolve the failure.
 - Exposure, reveal, hint use, XP, and game completion never imply mastery.
 - Full Unit 3 mastery remains false until production, transfer, spacing, context,
   retrieval, and failure-resolution requirements are all satisfied.
@@ -197,12 +208,12 @@ the saved Explore queue, pair count, difficulty selector, or random deal.
    at startup.
 3. **Complete:** resolve both real source items and prove snapshot/hash equality.
 4. **Complete for the developer slice:** wire one Word World task and its
-   exposure/retrieval events into the current game UI.
+   exposure/comprehension events into the current game UI.
 5. **Complete for the developer slice:** wire one Verb Nebula task and its
-   exposure/retrieval/reveal events into the current game UI.
-6. **Complete at the service boundary:** demonstrate one skill summary with
-   contributions from both activity IDs and
-   explicit mastery shortfalls.
+   exposure/discrimination/reveal events into the current game UI.
+6. **Complete at the service boundary:** demonstrate assessed attempts from
+   both activities while leaving mastery-contributing activity IDs empty and
+   reporting explicit mastery shortfalls.
 7. **Complete at the planner boundary:** add repair scheduling and prove
    too-early retries do not resolve failure.
 8. Add a genuine Czech-production task before enabling unit mastery or unlock.

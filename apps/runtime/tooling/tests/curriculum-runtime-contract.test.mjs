@@ -86,13 +86,13 @@ test("the immutable course profile pins every runtime authority and keeps releas
 
 test("only game pages install the synchronous curriculum facade in dependency order", () => {
   for (const [name, source, gameScript] of [
-    ["index.html", indexHtml, 'src="app.js?v=shell-75"'],
-    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-69"']
+    ["index.html", indexHtml, 'src="app.js?v=shell-76"'],
+    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-70"']
   ]) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-8"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-9"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-34"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const curriculumIndex = source.indexOf('src="curriculum-service.js?v=curriculum-service-4"');
+    const curriculumIndex = source.indexOf('src="curriculum-service.js?v=curriculum-service-5"');
     const gameIndex = source.indexOf(gameScript);
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(runtimeIndex > courseIndex, `${name} must load runtime after the profile`);
@@ -107,13 +107,13 @@ test("only game pages install the synchronous curriculum facade in dependency or
 });
 
 test("the service worker makes every pinned curriculum asset available offline", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v380/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v381/);
   for (const asset of [
-    "curriculum-service.js?v=curriculum-service-4",
-    "curriculum/curriculum-service.mjs?v=curriculum-service-4",
+    "curriculum-service.js?v=curriculum-service-5",
+    "curriculum/curriculum-service.mjs?v=curriculum-service-5",
     "curriculum/curriculum-runtime-core.mjs",
     "curriculum/curriculum-planner-core.mjs",
-    "curriculum/guided-opportunity.mjs?v=guided-opportunity-2",
+    "curriculum/guided-opportunity.mjs?v=guided-opportunity-3",
     "data/curriculum/canonical-curriculum.v1.en.json",
     "data/curriculum/cs-CZ.realization-pack.v1.json",
     "data/curriculum/pilot-content-sources.v1.json",

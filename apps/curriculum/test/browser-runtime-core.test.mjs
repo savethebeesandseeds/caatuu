@@ -30,6 +30,8 @@ import {
 const dataUrl = new URL("../data/", import.meta.url);
 const WORD_BINDING = "binding.word-world.ww-cp-000146";
 const VERB_BINDING = "binding.verb-nebula.cs.verb.cist.read";
+const WORD_CAPABILITY = "independent-comprehension";
+const VERB_CAPABILITY = "independent-discrimination";
 const SKILL_ID = "cs.skill.sense.cist.read";
 
 async function readJson(name) {
@@ -150,6 +152,65 @@ test("the browser runtime rejects Guided verb contrasts outside canonical Englis
   assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_VERB_CONTRAST_SCOPE_MISMATCH"));
 });
 
+test("the browser runtime rejects mismatched stage and evidence tuples", async () => {
+  const { bundle, releasePins } = await fixture();
+  for (const [bindingId, capabilityId, mutate] of [
+    [WORD_BINDING, WORD_CAPABILITY, (capability) => { capability.learningStage = "retrieve"; }],
+    [VERB_BINDING, VERB_CAPABILITY, (capability) => { capability.evidenceKind = "retrieval"; }]
+  ]) {
+    const changed = structuredClone(bundle);
+    const binding = changed.bindingRegistry.bindings.find((row) => row.id === bindingId);
+    const capability = binding.evidenceCapabilities.find((row) => row.id === capabilityId);
+    mutate(capability);
+    const repinned = {
+      ...releasePins,
+      bindingRegistryDigest: await computeBindingRegistryDigest(changed.bindingRegistry)
+    };
+    const result = await validateRuntimeBundle(changed, repinned);
+    assert.equal(result.valid, false);
+    assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_STAGE_EVIDENCE_MISMATCH"));
+  }
+});
+
+test("the browser runtime rejects an assessed stage on the wrong opportunity operation", async () => {
+  const { bundle, releasePins } = await fixture();
+  const changed = structuredClone(bundle);
+  const binding = changed.bindingRegistry.bindings.find((row) => row.id === WORD_BINDING);
+  binding.contextId = "cs.context.u3.read-library-current";
+  binding.contextRevision = 1;
+  binding.opportunityId = "read-library-current";
+  const repinned = {
+    ...releasePins,
+    bindingRegistryDigest: await computeBindingRegistryDigest(changed.bindingRegistry)
+  };
+
+  const result = await validateRuntimeBundle(changed, repinned);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_CAPABILITY_OPPORTUNITY_MISMATCH"));
+  assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_STAGE_OPPORTUNITY_MISMATCH"));
+});
+
+test("the browser runtime rejects target-pack reordering of the English sequence", async () => {
+  const { bundle, releasePins } = await fixture();
+  const changed = structuredClone(bundle);
+  const unitBinding = changed.targetPack.unitBindings[0];
+  [unitBinding.targetSkillIds[0], unitBinding.targetSkillIds[1]] = [
+    unitBinding.targetSkillIds[1],
+    unitBinding.targetSkillIds[0]
+  ];
+  const targetPackDigest = await computeTargetPackDigest(changed.targetPack);
+  changed.bindingRegistry.targetPack.targetPackDigest = targetPackDigest;
+  const repinned = {
+    ...releasePins,
+    targetPackDigest,
+    bindingRegistryDigest: await computeBindingRegistryDigest(changed.bindingRegistry)
+  };
+
+  const result = await validateRuntimeBundle(changed, repinned);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_TARGET_SKILL_ORDER_MISMATCH"));
+});
+
 test("tasks and evidence stay immutable and bound to the selected mechanic", async () => {
   const { bundle } = await fixture();
   const task = await issueLearningTask(bundle.bindingRegistry, {
@@ -158,11 +219,13 @@ test("tasks and evidence stay immutable and bound to the selected mechanic", asy
     sessionId: "session-runtime-1",
     taskSequence: 1,
     bindingId: WORD_BINDING,
-    capabilityId: "independent-retrieval",
+    capabilityId: WORD_CAPABILITY,
     targetSkillId: SKILL_ID
   });
   const taskValidation = await validateLearningTask(bundle.curriculum, bundle.bindingRegistry, task);
   assert.equal(taskValidation.valid, true, JSON.stringify(taskValidation.errors, null, 2));
+  assert.equal(task.learningStage, "comprehend");
+  assert.equal(task.evidenceKind, "comprehension");
 
   const event = evidence(task, {
     eventId: "event-runtime-word-1",
@@ -171,7 +234,34 @@ test("tasks and evidence stay immutable and bound to the selected mechanic", asy
   });
   const eventValidation = await validateLearningEvidenceEvent(bundle.curriculum, bundle.bindingRegistry, task, event);
   assert.equal(eventValidation.valid, true, JSON.stringify(eventValidation.errors, null, 2));
-  assert.equal(eventValidation.qualifiesForMastery, true);
+  assert.equal(eventValidation.qualifiesForIndependentAssessment, true);
+  assert.equal(eventValidation.qualifiesForMastery, false);
+
+  const verbTask = await issueLearningTask(bundle.bindingRegistry, {
+    taskId: "task-runtime-verb-1",
+    issuedAt: "2026-08-01T10:02:00.000Z",
+    sessionId: "session-runtime-1",
+    taskSequence: 2,
+    bindingId: VERB_BINDING,
+    capabilityId: VERB_CAPABILITY,
+    targetSkillId: SKILL_ID
+  });
+  const verbEvent = evidence(verbTask, {
+    eventId: "event-runtime-verb-1",
+    occurredAt: "2026-08-01T10:03:00.000Z",
+    score: 1
+  });
+  const verbValidation = await validateLearningEvidenceEvent(
+    bundle.curriculum,
+    bundle.bindingRegistry,
+    verbTask,
+    verbEvent
+  );
+  assert.equal(verbTask.learningStage, "discriminate");
+  assert.equal(verbTask.evidenceKind, "comprehension");
+  assert.equal(verbValidation.valid, true, JSON.stringify(verbValidation.errors, null, 2));
+  assert.equal(verbValidation.qualifiesForIndependentAssessment, true);
+  assert.equal(verbValidation.qualifiesForMastery, false);
 
   const forged = structuredClone(task);
   forged.contextId = "cs.context.forged";
@@ -190,7 +280,7 @@ test("browser task and evidence validation rejects every field the authoring con
     sessionId: "session-runtime-parity",
     taskSequence: 1,
     bindingId: WORD_BINDING,
-    capabilityId: "independent-retrieval",
+    capabilityId: WORD_CAPABILITY,
     targetSkillId: SKILL_ID
   });
   for (const mutate of [
@@ -248,13 +338,13 @@ test("browser task and evidence validation rejects every field the authoring con
   }
 });
 
-test("both games aggregate honestly while exposure, reveal, and hints remain outside mastery", async () => {
+test("both games retain assessed attempts while comprehension and discrimination remain outside mastery", async () => {
   const { bundle } = await fixture();
   const requests = [
     ["word-exposure", WORD_BINDING, "exposure", "session-a", 1],
-    ["word-retrieval", WORD_BINDING, "independent-retrieval", "session-a", 2],
-    ["verb-revealed", VERB_BINDING, "independent-retrieval", "session-a", 3],
-    ["verb-clean", VERB_BINDING, "independent-retrieval", "session-b", 1]
+    ["word-comprehension", WORD_BINDING, WORD_CAPABILITY, "session-a", 2],
+    ["verb-revealed", VERB_BINDING, VERB_CAPABILITY, "session-a", 3],
+    ["verb-discrimination", VERB_BINDING, VERB_CAPABILITY, "session-b", 1]
   ];
   const tasks = [];
   for (const [taskId, bindingId, capabilityId, sessionId, taskSequence] of requests) {
@@ -278,14 +368,54 @@ test("both games aggregate honestly while exposure, reveal, and hints remain out
   assert.equal(summaries.length, 1);
   const summary = summaries[0];
   assert.equal(summary.exposureEvents, 1);
-  assert.equal(summary.independentRetrievals, 2);
-  assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
-  assert.deepEqual(summary.qualifyingSessionIds, ["session-a", "session-b"]);
+  assert.equal(summary.assessedAttempts, 3);
+  assert.equal(summary.independentRetrievals, 0);
+  assert.deepEqual(summary.contributingActivityIds, []);
+  assert.deepEqual(summary.qualifyingSessionIds, []);
   assert.deepEqual(summary.qualifyingContextIds, []);
   assert.equal(summary.masteryReady, false);
+  assert.ok(summary.masteryShortfalls.includes("independent-retrievals"));
+  assert.ok(summary.masteryShortfalls.includes("sessions"));
   assert.ok(summary.masteryShortfalls.includes("production"));
   assert.ok(summary.masteryShortfalls.includes("transfer"));
   assert.ok(summary.masteryShortfalls.includes("distinct-contexts"));
+});
+
+test("a non-mastery failure clears only after a spaced clean assessment in the same stage", async () => {
+  const { bundle } = await fixture();
+  const requests = [
+    ["word-failure", WORD_BINDING, WORD_CAPABILITY, "session-a"],
+    ["verb-other-stage", VERB_BINDING, VERB_CAPABILITY, "session-b"],
+    ["word-repair", WORD_BINDING, WORD_CAPABILITY, "session-c"]
+  ];
+  const tasks = [];
+  for (const [taskId, bindingId, capabilityId, sessionId] of requests) {
+    tasks.push(await issueLearningTask(bundle.bindingRegistry, {
+      taskId,
+      issuedAt: `2026-08-0${tasks.length + 1}T10:00:00.000Z`,
+      sessionId,
+      taskSequence: 1,
+      bindingId,
+      capabilityId,
+      targetSkillId: SKILL_ID
+    }));
+  }
+  const events = [
+    evidence(tasks[0], { eventId: "word-failed", occurredAt: "2026-08-01T10:01:00.000Z", score: 0 }),
+    evidence(tasks[1], { eventId: "verb-clean-other-stage", occurredAt: "2026-08-02T10:01:00.000Z", score: 1 }),
+    evidence(tasks[2], { eventId: "word-clean-repair", occurredAt: "2026-08-03T10:01:00.000Z", score: 1 })
+  ];
+
+  let [summary] = await aggregateLearningEvidence(
+    bundle.curriculum,
+    bundle.bindingRegistry,
+    tasks.slice(0, 2),
+    events.slice(0, 2)
+  );
+  assert.equal(summary.unresolvedRecentFailure, true);
+  [summary] = await aggregateLearningEvidence(bundle.curriculum, bundle.bindingRegistry, tasks, events);
+  assert.equal(summary.unresolvedRecentFailure, false);
+  assert.equal(summary.independentRetrievals, 0);
 });
 
 test("changed-payload reuse of a task or event ID fails idempotently", async () => {
@@ -296,7 +426,7 @@ test("changed-payload reuse of a task or event ID fails idempotently", async () 
     sessionId: "session-idempotent",
     taskSequence: 1,
     bindingId: WORD_BINDING,
-    capabilityId: "independent-retrieval",
+    capabilityId: WORD_CAPABILITY,
     targetSkillId: SKILL_ID
   });
   const event = evidence(task, {

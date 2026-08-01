@@ -15,12 +15,15 @@ export const PLANNER_REASON_CODES = Object.freeze({
   MASTERY_DISTINCT_CONTEXTS: "mastery-distinct-contexts",
   MASTERY_INDEPENDENT_RETRIEVALS: "mastery-independent-retrievals",
   MASTERY_PRODUCTION: "mastery-production",
+  MASTERY_RETRIEVAL_UNSCHEDULABLE: "mastery-retrieval-unschedulable",
   MASTERY_SESSIONS: "mastery-sessions",
   MASTERY_TRANSFER: "mastery-transfer",
   OPEN_TASK_AWAITING_EVIDENCE: "open-task-awaiting-evidence",
   REPAIR_REQUIRES_LATER_SESSION: "repair-requires-later-session",
   REPAIR_SPACING_NOT_REACHED: "repair-spacing-not-reached",
   REQUIRED_STAGE_INCOMPLETE: "required-stage-incomplete",
+  SESSION_SEMANTIC_CONCEPT_BUDGET: "session-semantic-concept-budget",
+  SESSION_TARGET_CONSTRUCTION_BUDGET: "session-target-construction-budget",
   STAGE_CAPABILITY_UNAVAILABLE: "stage-capability-unavailable",
   TARGET_SKILL_COVERAGE_EMPTY: "target-skill-coverage-empty",
   UNIT_PREREQUISITE_UNMET: "unit-prerequisite-unmet",
@@ -32,6 +35,25 @@ const PACK_SCHEMA = "caatuu-target-realization-pack-v1";
 const REGISTRY_SCHEMA = "caatuu-cross-game-binding-registry-v1";
 const EVIDENCE_KINDS = new Set(["exposure", "comprehension", "retrieval", "production", "transfer"]);
 const INDEPENDENCE_VALUES = new Set(["exposure", "supported", "independent"]);
+const STAGE_EVIDENCE_KIND = new Map([
+  ["encounter", "exposure"],
+  ["comprehend", "comprehension"],
+  ["discriminate", "comprehension"],
+  ["retrieve", "retrieval"],
+  ["supported-produce", "production"],
+  ["interact", "production"],
+  ["transfer", "transfer"],
+  ["delayed-retrieval", "retrieval"]
+]);
+const STAGE_OPPORTUNITY_OPERATIONS = new Map([
+  ["comprehend", new Set(["interpret"])],
+  ["discriminate", new Set(["discriminate"])],
+  ["retrieve", new Set(["retrieve"])],
+  ["supported-produce", new Set(["produce"])],
+  ["interact", new Set(["respond"])],
+  ["transfer", new Set(["produce", "respond"])],
+  ["delayed-retrieval", new Set(["retrieve"])]
+]);
 const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/;
 
 function isObject(value) {
@@ -90,9 +112,58 @@ function assertUniqueStrings(values, path) {
   return seen;
 }
 
+function canonicalTargetSkillSequence(unit, unitBinding, path) {
+  const orderedSkillIds = [];
+  const seenSkillIds = new Set();
+  const mappingGroups = [
+    ["functionBindings", "functionIds"],
+    ["frameBindings", "frameIds"],
+    ["conceptBindings", "conceptIds"]
+  ];
+  for (const [bindingField, canonicalField] of mappingGroups) {
+    const requiredCanonicalIds = rows(unit.semanticScope?.[canonicalField]);
+    assertUniqueStrings(requiredCanonicalIds, `/curriculum/units/${unit.ordinal - 1}/semanticScope/${canonicalField}`);
+    const mappings = rows(unitBinding[bindingField]);
+    requireContract(
+      mappings.length === requiredCanonicalIds.length,
+      `${path}/${bindingField}`,
+      `Unit ${unit.id} must map every canonical ${canonicalField} entry in English order.`
+    );
+    const suppliedCanonicalIds = mappings.map((mapping) => mapping?.canonicalId);
+    assertUniqueStrings(suppliedCanonicalIds, `${path}/${bindingField}`);
+    requireContract(
+      sameArray(suppliedCanonicalIds, requiredCanonicalIds),
+      `${path}/${bindingField}`,
+      `Unit ${unit.id} changed the English canonical ${canonicalField} order.`
+    );
+    for (const [mappingIndex, mapping] of mappings.entries()) {
+      const skillIds = rows(mapping?.targetSkillIds);
+      assertUniqueStrings(skillIds, `${path}/${bindingField}/${mappingIndex}/targetSkillIds`);
+      requireContract(
+        skillIds.length > 0,
+        `${path}/${bindingField}/${mappingIndex}/targetSkillIds`,
+        `Canonical mapping ${mapping?.canonicalId || "(unknown)"} requires at least one target skill.`
+      );
+      for (const skillId of skillIds) {
+        if (seenSkillIds.has(skillId)) continue;
+        seenSkillIds.add(skillId);
+        orderedSkillIds.push(skillId);
+      }
+    }
+  }
+  return orderedSkillIds;
+}
+
 function validatePlanningPolicy(curriculum) {
   const policy = curriculum.planningPolicy;
   requireContract(isObject(policy), "/curriculum/planningPolicy", "Canonical planning policy is required.");
+  for (const field of ["maxNewSemanticConceptsPerSession", "maxNewTargetConstructionsPerSession"]) {
+    requireContract(
+      Number.isInteger(policy[field]) && policy[field] >= 0,
+      `/curriculum/planningPolicy/${field}`,
+      `${field} must be a non-negative integer.`
+    );
+  }
   const repair = policy.repairRetryTaskGap;
   requireContract(
     Number.isInteger(repair?.minimum)
@@ -221,16 +292,24 @@ async function validateContracts(curriculum, targetPack, bindingRegistry) {
     requireContract(skill.locale === targetPack.targetLocale, `${path}/locale`, `Target skill ${skill.id} has the wrong target locale.`);
     skillById.set(skill.id, skill);
   }
+  const contextById = new Map(rows(targetPack.contexts).map((context) => [context?.id, context]));
   const unitBindingById = new Map();
   const boundPackSkillIds = new Set();
   for (const [index, unitBinding] of rows(targetPack.unitBindings).entries()) {
     const path = `/targetPack/unitBindings/${index}`;
     requireContract(isObject(unitBinding) && unitById.has(unitBinding.unitId), path, "Every unit realization must reference a canonical unit.");
     requireContract(!unitBindingById.has(unitBinding.unitId), `${path}/unitId`, `Duplicate realization for unit ${unitBinding.unitId}.`);
-    requireContract(unitBinding.canonicalRevision === unitById.get(unitBinding.unitId).revision, `${path}/canonicalRevision`, `Unit realization ${unitBinding.unitId} is stale.`);
+    const canonicalUnit = unitById.get(unitBinding.unitId);
+    requireContract(unitBinding.canonicalRevision === canonicalUnit.revision, `${path}/canonicalRevision`, `Unit realization ${unitBinding.unitId} is stale.`);
     const targetSkillIds = rows(unitBinding.targetSkillIds);
     assertUniqueStrings(targetSkillIds, `${path}/targetSkillIds`);
     requireContract(targetSkillIds.length > 0, `${path}/targetSkillIds`, `Unit ${unitBinding.unitId} must define required target skills.`);
+    const canonicalSkillSequence = canonicalTargetSkillSequence(canonicalUnit, unitBinding, path);
+    requireContract(
+      sameArray(targetSkillIds, canonicalSkillSequence),
+      `${path}/targetSkillIds`,
+      `Unit ${unitBinding.unitId} target skills must follow their first occurrence in the English-ordered semantic mappings.`
+    );
     for (const skillId of targetSkillIds) {
       const skill = skillById.get(skillId);
       requireContract(Boolean(skill), `${path}/targetSkillIds`, `Unit ${unitBinding.unitId} references unknown skill ${skillId}.`);
@@ -283,10 +362,27 @@ async function validateContracts(curriculum, targetPack, bindingRegistry) {
       `${path}/contentRef`,
       `Game binding ${binding.id} requires a revision- and digest-pinned content reference.`
     );
+    let opportunity = null;
     if (binding.contextId === null) {
       requireContract(binding.contextRevision === null && binding.opportunityId === null, `${path}/contextId`, `Context-free binding ${binding.id} must use null context metadata.`);
     } else {
       requireContract(nonEmptyString(binding.contextId) && Number.isInteger(binding.contextRevision) && binding.contextRevision >= 1 && nonEmptyString(binding.opportunityId), `${path}/contextId`, `Contextual binding ${binding.id} requires a revision-pinned opportunity.`);
+      const context = contextById.get(binding.contextId);
+      requireContract(Boolean(context), `${path}/contextId`, `Game binding ${binding.id} references an unknown context.`);
+      requireContract(
+        context.revision === binding.contextRevision
+          && context.unitId === binding.canonicalUnitId
+          && context.locale === targetPack.targetLocale,
+        `${path}/contextId`,
+        `Game binding ${binding.id} context is stale or misaligned.`
+      );
+      requireContract(
+        rows(unitBindingById.get(binding.canonicalUnitId)?.contextIds).includes(context.id),
+        `${path}/contextId`,
+        `Game binding ${binding.id} context is not declared by its unit realization.`
+      );
+      opportunity = rows(context.opportunities).find((row) => row?.id === binding.opportunityId) || null;
+      requireContract(Boolean(opportunity), `${path}/opportunityId`, `Game binding ${binding.id} references an unknown opportunity.`);
     }
     const unit = unitById.get(binding.canonicalUnitId);
     requireContract(Boolean(unit) && binding.canonicalUnitRevision === unit.revision, `${path}/canonicalUnitId`, `Game binding ${binding.id} references a missing or stale unit.`);
@@ -310,6 +406,26 @@ async function validateContracts(curriculum, targetPack, bindingRegistry) {
       requireContract(stageSet.has(capability.learningStage), `${capabilityPath}/learningStage`, `Capability ${capability.id} uses an unknown learning stage.`);
       requireContract(unit.requiredLearningStages.includes(capability.learningStage), `${capabilityPath}/learningStage`, `Capability ${capability.id} is outside unit ${unit.id}'s required stages.`);
       requireContract(EVIDENCE_KINDS.has(capability.evidenceKind), `${capabilityPath}/evidenceKind`, `Capability ${capability.id} has an unknown evidence kind.`);
+      requireContract(
+        STAGE_EVIDENCE_KIND.get(capability.learningStage) === capability.evidenceKind,
+        `${capabilityPath}/evidenceKind`,
+        `Capability ${capability.id} evidence kind does not match canonical stage ${capability.learningStage}.`
+      );
+      if (opportunity && capability.evidenceKind !== "exposure") {
+        const allowedOperations = STAGE_OPPORTUNITY_OPERATIONS.get(capability.learningStage);
+        requireContract(
+          allowedOperations?.has(opportunity.operation),
+          `${capabilityPath}/learningStage`,
+          `Capability ${capability.id} stage ${capability.learningStage} requires one of: ${[...(allowedOperations || [])].join(", ")}.`
+        );
+        if (capability.learningStage === "interact") {
+          requireContract(
+            rows(opportunity.stimulusUtteranceIds).length > 0,
+            `${path}/opportunityId`,
+            `Interaction capability ${capability.id} requires an interlocutor stimulus.`
+          );
+        }
+      }
       requireContract(INDEPENDENCE_VALUES.has(capability.independence), `${capabilityPath}/independence`, `Capability ${capability.id} has an unknown independence classification.`);
       requireContract(typeof capability.scoreRequired === "boolean" && typeof capability.masteryEligible === "boolean", capabilityPath, `Capability ${capability.id} requires explicit scoring and mastery flags.`);
       if (capability.evidenceKind === "exposure") {
@@ -440,9 +556,64 @@ function stageEvidenceQualifies(entry) {
   return capability.independence !== "independent" || event.outcome.hintsUsed === 0;
 }
 
+function canonicalConceptIdsForSkill(contracts, unitId, targetSkillId) {
+  const canonicalConceptIds = new Set(rows(contracts.unitById.get(unitId)?.semanticScope?.conceptIds));
+  return rows(contracts.skillById.get(targetSkillId)?.canonicalIds).filter((id) => canonicalConceptIds.has(id));
+}
+
+function computeSessionIntroductionBudget(contracts, taskById, sessionContext, curriculum) {
+  const encounterTasks = [...taskById.values()]
+    .map(({ task }) => task)
+    .filter((task) => task.learningStage === "encounter")
+    .sort((left, right) => (
+      (sessionContext.ordinalById.get(left.sessionId) || 0) - (sessionContext.ordinalById.get(right.sessionId) || 0)
+        || left.taskSequence - right.taskSequence
+        || compareText(left.taskId, right.taskId)
+    ));
+  const introducedTargetSkillIds = new Set();
+  const introducedSemanticConceptIds = new Set();
+  const currentSessionTargetSkillIds = new Set();
+  const currentSessionSemanticConceptIds = new Set();
+
+  const introduce = (task, currentSession) => {
+    const { canonicalUnitId, targetSkillId } = task;
+    if (!introducedTargetSkillIds.has(targetSkillId) && currentSession) {
+      currentSessionTargetSkillIds.add(targetSkillId);
+    }
+    introducedTargetSkillIds.add(targetSkillId);
+    for (const conceptId of canonicalConceptIdsForSkill(contracts, canonicalUnitId, targetSkillId)) {
+      if (!introducedSemanticConceptIds.has(conceptId) && currentSession) {
+        currentSessionSemanticConceptIds.add(conceptId);
+      }
+      introducedSemanticConceptIds.add(conceptId);
+    }
+  };
+
+  for (const task of encounterTasks) {
+    if (task.sessionId !== sessionContext.id) introduce(task, false);
+  }
+  for (const task of encounterTasks) {
+    if (task.sessionId === sessionContext.id) introduce(task, true);
+  }
+
+  const semanticLimit = curriculum.planningPolicy.maxNewSemanticConceptsPerSession;
+  const constructionLimit = curriculum.planningPolicy.maxNewTargetConstructionsPerSession;
+  return {
+    introducedTargetSkillIds,
+    introducedSemanticConceptIds,
+    currentSessionTargetSkillIds,
+    currentSessionSemanticConceptIds,
+    maxNewSemanticConcepts: semanticLimit,
+    maxNewTargetConstructions: constructionLimit,
+    remainingSemanticConcepts: Math.max(0, semanticLimit - currentSessionSemanticConceptIds.size),
+    remainingTargetConstructions: Math.max(0, constructionLimit - currentSessionTargetSkillIds.size)
+  };
+}
+
 function computeStageProgress(contracts, history, sessionContext, curriculum) {
   const progressBySkill = new Map();
   const ignoredEvidence = [];
+  const stageQualifiedEventIds = new Set();
   for (const unitId of contracts.unitOrder) {
     const unit = contracts.unitById.get(unitId);
     const unitBinding = contracts.unitBindingById.get(unitId);
@@ -474,7 +645,27 @@ function computeStageProgress(contracts, history, sessionContext, curriculum) {
       ignoredEvidence.push({ eventId: entry.event.eventId, targetSkillId: entry.event.targetSkillId, learningStage: stageId, reason: failureReason });
       continue;
     }
-    if (progress.completed.has(stageId)) continue;
+    if (progress.completed.has(stageId)) {
+      if (stageId === "delayed-retrieval") {
+        const previousStageId = progress.requiredStages[stageIndex - 1];
+        const previous = progress.completed.get(previousStageId);
+        const observedGap = (sessionContext.ordinalById.get(entry.event.sessionId) || 0) - (sessionContext.ordinalById.get(previous?.sessionId) || 0);
+        const requiredGap = curriculum.planningPolicy.delayedRetrievalMinimumSessionGap;
+        if (!previous || observedGap < requiredGap) {
+          ignoredEvidence.push({
+            eventId: entry.event.eventId,
+            targetSkillId: entry.event.targetSkillId,
+            learningStage: stageId,
+            reason: "delayed-retrieval-too-early",
+            requiredSessionGap: requiredGap,
+            observedSessionGap: observedGap
+          });
+          continue;
+        }
+      }
+      stageQualifiedEventIds.add(entry.event.eventId);
+      continue;
+    }
     if (nextIndex !== stageIndex) {
       ignoredEvidence.push({ eventId: entry.event.eventId, targetSkillId: entry.event.targetSkillId, learningStage: stageId, reason: "out-of-order-stage-evidence" });
       continue;
@@ -503,8 +694,9 @@ function computeStageProgress(contracts, history, sessionContext, curriculum) {
       sessionOrdinal: sessionContext.ordinalById.get(entry.event.sessionId),
       occurredAt: entry.event.occurredAt
     });
+    stageQualifiedEventIds.add(entry.event.eventId);
   }
-  return { progressBySkill, ignoredEvidence, orderedEvents };
+  return { progressBySkill, ignoredEvidence, orderedEvents, stageQualifiedEventIds };
 }
 
 function computeRepairStates(orderedEvents, curriculum, sessionContext) {
@@ -516,7 +708,7 @@ function computeRepairStates(orderedEvents, curriculum, sessionContext) {
     if (capability.scoreRequired
         && capability.independence === "independent"
         && entry.event.attemptNumber === 1
-        && entry.event.outcome.score < capability.minimumScore) {
+        && !entry.validation.qualifiesForIndependentAssessment) {
       unresolved.set(key, {
         canonicalUnitId: entry.event.canonicalUnitId,
         targetSkillId: entry.event.targetSkillId,
@@ -532,7 +724,10 @@ function computeRepairStates(orderedEvents, curriculum, sessionContext) {
       continue;
     }
     const failure = unresolved.get(key);
-    if (!failure || !entry.validation.qualifiesForMastery || entry.event.taskId === failure.taskId) continue;
+    if (!failure
+        || !entry.validation.qualifiesForIndependentAssessment
+        || entry.validation.capability.learningStage !== failure.learningStage
+        || entry.event.taskId === failure.taskId) continue;
     const laterSession = entry.event.sessionId !== failure.sessionId
       && (sessionContext.ordinalById.get(entry.event.sessionId) || 0) > failure.sessionOrdinal;
     const intervening = entry.event.taskSequence - failure.taskSequence - 1;
@@ -601,7 +796,93 @@ function stageRowsForSkill(unit, progress, capabilitiesByStage) {
   });
 }
 
-function candidateForSkill(skillRow, contracts, sessionContext, curriculum) {
+function masteryRetrievalEntries(skillRow, contracts, learningStage) {
+  return rows(
+    contracts.capabilitiesBySkillStage
+      .get(skillKey(skillRow.canonicalUnitId, skillRow.targetSkillId))
+      ?.get(learningStage)
+  ).filter(({ capability }) => (
+    capability.evidenceKind === "retrieval"
+      && capability.independence === "independent"
+      && capability.scoreRequired === true
+      && capability.masteryEligible === true
+      && Number.isFinite(capability.minimumScore)
+  ));
+}
+
+function consolidationCandidateForSkill(skillRow, contracts, sessionContext, curriculum) {
+  if (skillRow.masteryReady) return { required: false, candidate: null, blockers: [] };
+  const retrieveIndex = skillRow.stages.findIndex((stage) => stage.id === "retrieve");
+  if (retrieveIndex < 0 || skillRow.stages[retrieveIndex].status !== "complete") {
+    return { required: false, candidate: null, blockers: [] };
+  }
+  const unit = contracts.unitById.get(skillRow.canonicalUnitId);
+  const reservedFutureRetrievals = skillRow.stages
+    .slice(retrieveIndex + 1)
+    .filter((stage) => stage.status !== "complete" && masteryRetrievalEntries(skillRow, contracts, stage.id).length > 0)
+    .length;
+  const observedRetrievals = skillRow.evidence.independentRetrievals;
+  const deficit = unit.masteryPolicy.minimumIndependentRetrievals
+    - observedRetrievals
+    - reservedFutureRetrievals;
+  if (deficit <= 0) return { required: false, candidate: null, blockers: [] };
+
+  const allStagesComplete = skillRow.stages.every((stage) => stage.status === "complete");
+  const learningStage = allStagesComplete ? "delayed-retrieval" : "retrieve";
+  const entries = masteryRetrievalEntries(skillRow, contracts, learningStage);
+  if (entries.length === 0) {
+    return {
+      required: true,
+      candidate: null,
+      blockers: [reason(PLANNER_REASON_CODES.MASTERY_RETRIEVAL_UNSCHEDULABLE, {
+        targetSkillId: skillRow.targetSkillId,
+        required: unit.masteryPolicy.minimumIndependentRetrievals,
+        observed: observedRetrievals,
+        reservedFutureRetrievals
+      })]
+    };
+  }
+  if (learningStage === "delayed-retrieval") {
+    const completion = skillRow.stages.find((stage) => stage.id === learningStage)?.completion;
+    const observedGap = sessionContext.ordinal - (completion?.sessionOrdinal || sessionContext.ordinal);
+    const requiredGap = curriculum.planningPolicy.delayedRetrievalMinimumSessionGap;
+    if (observedGap < requiredGap) {
+      return {
+        required: true,
+        candidate: null,
+        blockers: [reason(PLANNER_REASON_CODES.DELAYED_RETRIEVAL_SESSION_GAP, {
+          targetSkillId: skillRow.targetSkillId,
+          purpose: "consolidation",
+          requiredSessionGap: requiredGap,
+          observedSessionGap: observedGap
+        })]
+      };
+    }
+  }
+  const selected = entries[0];
+  return {
+    required: true,
+    candidate: {
+      purpose: "consolidation",
+      canonicalUnitId: skillRow.canonicalUnitId,
+      targetSkillId: skillRow.targetSkillId,
+      learningStage,
+      activityId: selected.binding.activityId,
+      bindingId: selected.binding.id,
+      capabilityId: selected.capability.id,
+      remainingRetrievalsAfterTask: Math.max(0, deficit - 1),
+      reservedFutureRetrievals,
+      request: {
+        bindingId: selected.binding.id,
+        capabilityId: selected.capability.id,
+        targetSkillId: skillRow.targetSkillId
+      }
+    },
+    blockers: []
+  };
+}
+
+function candidateForSkill(skillRow, contracts, sessionContext, curriculum, introductionBudget) {
   if (skillRow.masteryReady) return { candidate: null, blockers: [] };
   const currentStage = skillRow.stages.find((stage) => stage.status !== "complete");
   if (!currentStage) return { candidate: null, blockers: skillRow.shortfalls };
@@ -611,6 +892,32 @@ function candidateForSkill(skillRow, contracts, sessionContext, curriculum) {
       candidate: null,
       blockers: [reason(PLANNER_REASON_CODES.STAGE_CAPABILITY_UNAVAILABLE, { targetSkillId: skillRow.targetSkillId, learningStage: currentStage.id })]
     };
+  }
+  if (currentStage.id === "encounter" && !introductionBudget.introducedTargetSkillIds.has(skillRow.targetSkillId)) {
+    const blockers = [];
+    const nextConstructionCount = introductionBudget.currentSessionTargetSkillIds.size + 1;
+    if (nextConstructionCount > introductionBudget.maxNewTargetConstructions) {
+      blockers.push(reason(PLANNER_REASON_CODES.SESSION_TARGET_CONSTRUCTION_BUDGET, {
+        targetSkillId: skillRow.targetSkillId,
+        limit: introductionBudget.maxNewTargetConstructions,
+        introducedThisSession: introductionBudget.currentSessionTargetSkillIds.size
+      }));
+    }
+    const newConceptIds = canonicalConceptIdsForSkill(
+      contracts,
+      skillRow.canonicalUnitId,
+      skillRow.targetSkillId
+    ).filter((conceptId) => !introductionBudget.introducedSemanticConceptIds.has(conceptId));
+    const nextConceptCount = introductionBudget.currentSessionSemanticConceptIds.size + newConceptIds.length;
+    if (nextConceptCount > introductionBudget.maxNewSemanticConcepts) {
+      blockers.push(reason(PLANNER_REASON_CODES.SESSION_SEMANTIC_CONCEPT_BUDGET, {
+        targetSkillId: skillRow.targetSkillId,
+        conceptIds: newConceptIds,
+        limit: introductionBudget.maxNewSemanticConcepts,
+        introducedThisSession: introductionBudget.currentSessionSemanticConceptIds.size
+      }));
+    }
+    if (blockers.length) return { candidate: null, blockers };
   }
   if (currentStage.id === "delayed-retrieval") {
     const previousStage = skillRow.stages[skillRow.stages.length - 2];
@@ -684,10 +991,54 @@ export async function computeCurriculumProgression({
   const contracts = await validateContracts(curriculum, targetPack, bindingRegistry);
   const history = await validateHistory(curriculum, bindingRegistry, tasks, events);
   const sessionContext = buildSessionContext(history.taskById, currentSession);
-  const { progressBySkill, ignoredEvidence, orderedEvents } = computeStageProgress(contracts, history, sessionContext, curriculum);
+  const {
+    progressBySkill,
+    ignoredEvidence,
+    orderedEvents,
+    stageQualifiedEventIds
+  } = computeStageProgress(contracts, history, sessionContext, curriculum);
+  const introductionBudget = computeSessionIntroductionBudget(
+    contracts,
+    history.taskById,
+    sessionContext,
+    curriculum
+  );
   const repairQueue = computeRepairStates(orderedEvents, curriculum, sessionContext);
   const repairBySkill = new Map(repairQueue.map((entry) => [skillKey(entry.canonicalUnitId, entry.targetSkillId), entry]));
-  const aggregateBySkill = new Map(history.aggregateRows.map((row) => [skillKey(row.canonicalUnitId, row.targetSkillId), row]));
+  const stageQualifiedEvents = [...history.eventById.values()]
+    .filter(({ event }) => stageQualifiedEventIds.has(event.eventId))
+    .map(({ event }) => event);
+  const stageQualifiedAggregates = await aggregateLearningEvidence(
+    curriculum,
+    bindingRegistry,
+    tasks,
+    stageQualifiedEvents
+  );
+  const rawAggregateBySkill = new Map(history.aggregateRows.map((row) => [skillKey(row.canonicalUnitId, row.targetSkillId), row]));
+  const aggregateBySkill = new Map(stageQualifiedAggregates.map((row) => {
+    const key = skillKey(row.canonicalUnitId, row.targetSkillId);
+    const raw = rawAggregateBySkill.get(key);
+    return [key, {
+      ...row,
+      exposureEvents: raw?.exposureEvents ?? row.exposureEvents,
+      assessedAttempts: raw?.assessedAttempts ?? row.assessedAttempts,
+      unresolvedRecentFailure: raw?.unresolvedRecentFailure ?? row.unresolvedRecentFailure
+    }];
+  }));
+  for (const [key, raw] of rawAggregateBySkill) {
+    if (!aggregateBySkill.has(key)) {
+      aggregateBySkill.set(key, {
+        ...raw,
+        independentRetrievals: 0,
+        productionEvidence: 0,
+        transferEvidence: 0,
+        contributingActivityIds: [],
+        qualifyingSessionIds: [],
+        qualifyingContextIds: [],
+        masteryReady: false
+      });
+    }
+  }
 
   const skillsByUnit = new Map();
   const skillRowByKey = new Map();
@@ -798,7 +1149,13 @@ export async function computeCurriculumProgression({
           }));
           continue;
         }
-        const result = candidateForSkill(skill, contracts, sessionContext, curriculum);
+        const consolidation = consolidationCandidateForSkill(skill, contracts, sessionContext, curriculum);
+        if (consolidation.required) {
+          if (consolidation.candidate) readyCandidates.push(consolidation.candidate);
+          blockers.push(...consolidation.blockers);
+          continue;
+        }
+        const result = candidateForSkill(skill, contracts, sessionContext, curriculum, introductionBudget);
         if (result.candidate) readyCandidates.push(result.candidate);
         blockers.push(...result.blockers);
       }
@@ -856,7 +1213,15 @@ export async function computeCurriculumProgression({
     planningContext: {
       sessionId: sessionContext.id,
       sessionOrdinal: sessionContext.ordinal,
-      nextTaskSequence: sessionContext.taskSequence
+      nextTaskSequence: sessionContext.taskSequence,
+      introductionBudget: {
+        maxNewSemanticConcepts: introductionBudget.maxNewSemanticConcepts,
+        introducedSemanticConceptIds: [...introductionBudget.currentSessionSemanticConceptIds],
+        remainingSemanticConcepts: introductionBudget.remainingSemanticConcepts,
+        maxNewTargetConstructions: introductionBudget.maxNewTargetConstructions,
+        introducedTargetSkillIds: [...introductionBudget.currentSessionTargetSkillIds],
+        remainingTargetConstructions: introductionBudget.remainingTargetConstructions
+      }
     },
     activeUnitId: activeUnit?.canonicalUnitId || null,
     masteredUnitIds: [...masteredUnitIds],

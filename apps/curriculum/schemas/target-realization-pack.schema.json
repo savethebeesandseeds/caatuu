@@ -88,21 +88,27 @@
         "unitId": {"type": "string", "pattern": "^unit\\."},
         "canonicalRevision": {"type": "integer", "minimum": 1},
         "functionBindings": {
+          "description": "Mappings in the exact English canonical function order.",
           "type": "array",
           "minItems": 1,
           "items": {"$ref": "#/$defs/semanticBinding"}
         },
         "frameBindings": {
+          "description": "Mappings in the exact English canonical frame order.",
           "type": "array",
           "minItems": 1,
           "items": {"$ref": "#/$defs/semanticBinding"}
         },
         "conceptBindings": {
+          "description": "Mappings in the exact English canonical concept order.",
           "type": "array",
           "minItems": 1,
           "items": {"$ref": "#/$defs/semanticBinding"}
         },
-        "targetSkillIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "targetSkillIds": {
+          "description": "Target skills in first-occurrence order from the English-ordered semantic mappings.",
+          "$ref": "#/$defs/nonEmptyUniqueIds"
+        },
         "utteranceIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
         "contextIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
         "realizationComplexity": {

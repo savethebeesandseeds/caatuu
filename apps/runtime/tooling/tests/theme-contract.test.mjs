@@ -378,7 +378,7 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.equal(fontSizeButton.declarations.get("flex-direction"), "row");
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-8"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-9"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
     const themeIndex = source.indexOf('href="theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
