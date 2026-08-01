@@ -7,7 +7,7 @@ const repoRoot = new URL("../../../../", import.meta.url);
 const czechStatic = new URL("apps/languages/czech/static/", repoRoot);
 const launcherStatic = new URL("apps/launcher/static/", repoRoot);
 
-const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html"];
+const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"];
 const androidUiIconNames = [
   "coin_icon_ui.png",
   "czech_flag_ui.png",
@@ -75,6 +75,7 @@ test("course profile is immutable and owns language-scoped persistence", () => {
   }
 
   assert.match(chrome, /const themeStorageKey = course\.storage\.theme/);
+  assert.match(chrome, /const fontSizeStorageKey = course\.storage\.fontSize/);
   assert.match(learningProfile, /course\.storage\.learningPreferences/);
   assert.match(learningProfile, /course\.storage\.learningPerformance/);
   assert.match(runtime, /const cachePrefix = course\.cache\.prefix/);
@@ -86,10 +87,10 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-6"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-2"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-7"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-3"');
     const runtimeIndex = source.indexOf('src="runtime.js');
-    const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-6"');
+    const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
     const chromeIndex = source.indexOf('src="chrome.js');
     assert.ok(profileIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > profileIndex, `${name} must load learning state after the course profile`);
@@ -97,10 +98,11 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.ok(semanticIndex > runtimeIndex, `${name} must load semantic state after runtime.js`);
     assert.ok(chromeIndex > semanticIndex, `${name} must load semantic state before chrome.js`);
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
+    assert.match(source, /window\.CaatuuCourse\.storage\.fontSize/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-6/);
-  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-2/);
-  assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-6/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-7/);
+  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-3/);
+  assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-7/);
 });
 
 test("launcher discovers active languages instead of embedding product behavior", () => {

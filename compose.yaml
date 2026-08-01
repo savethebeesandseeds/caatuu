@@ -146,6 +146,63 @@ services:
     tty: true
     command: ["bash"]
 
+  memory-moon-godot-provision:
+    profiles:
+      - game-tools-provision
+    platform: linux/amd64
+    build:
+      context: ./apps/games/memory-moon
+      dockerfile: tooling/Dockerfile
+      target: godot-provisioner
+    image: caatuu-memory-moon-godot-provision:4.7.1
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=256m,mode=1777
+    volumes:
+      - caatuu-memory-moon-godot-toolchain:/toolchain
+    cpus: 2.0
+    mem_limit: 1g
+    pids_limit: 128
+    init: true
+
+  memory-moon-godot-export:
+    profiles:
+      - game-tools
+    platform: linux/amd64
+    build:
+      context: ./apps/games/memory-moon
+      dockerfile: tooling/Dockerfile
+      target: godot-exporter
+      args:
+        APP_GID: ${LOCAL_GID:-1000}
+        APP_UID: ${LOCAL_UID:-1000}
+    image: caatuu-memory-moon-godot-export:4.7.1
+    working_dir: /work
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=256m,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+      - /work:rw,noexec,nosuid,nodev,size=1g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
+    volumes:
+      - ./apps/games/memory-moon:/project:ro
+      - ./apps/launcher/static/assets/scenery:/scenery-source:ro
+      - ./demos/world-movement/motion-reference/source:/reference:ro
+      - ./apps/animated-fabric/assets/reference-packages/macaw-traveler-v1:/macaw-reference:ro
+      - ./apps/languages/czech/static/games/memory-moon/godot-v1:/output
+      - caatuu-memory-moon-godot-toolchain:/toolchain:ro
+    cpus: 2.0
+    mem_limit: 2g
+    pids_limit: 128
+    init: true
+
 volumes:
   caatuu-cargo-registry:
   caatuu-cargo-git:
@@ -157,3 +214,5 @@ volumes:
     name: caatuu-gradle-dist
   caatuu-gradle-cache:
     name: caatuu-gradle-cache
+  caatuu-memory-moon-godot-toolchain:
+    name: caatuu-memory-moon-godot-toolchain

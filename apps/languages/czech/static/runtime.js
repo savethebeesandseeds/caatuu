@@ -5,12 +5,12 @@
   const nativeHost = "caatuu.local";
   const cachePrefix = course.cache.prefix;
   const setupManifestPath = "setup-assets.json";
-  const bugReportPath = "/api/bug-report";
   const fallbackSetupCacheName = course.cache.setupFallback;
   const semanticLearningDatabaseName = course.storage.semanticLearningDatabase
     || `${course.storage.namespace || `caatuu-${course.id}`}.semantic-learning`;
   const modelCatalogPath = "data/models/phone-bench/models.json";
   const embeddingCatalogPath = "data/embeddings/models.json";
+  const dictionaryPatchPath = "data/dictionaries/patches/reviewed-cs-en.v1.json";
   const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
   const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
   const browserFreshnessAutoReloadWindowMs = 15 * 1000;
@@ -23,6 +23,7 @@
   let browserEngineModelKey = "";
   let browserModelLoad = null;
   let browserVectorDatabase = null;
+  let dictionaryPatchRuntimePromise = null;
   let feedbackOutbox = null;
   let feedbackOutboxPromise = null;
   let feedbackFlushTimer = null;
@@ -66,6 +67,7 @@
     browserVectorDb: "WebAssembly" in window,
     sharedSemanticVectorDb: "WebAssembly" in window,
     androidVectorDb: env === "android",
+    nativeTextToSpeech: env === "android",
     canUpdateApk: env === "android"
   };
 
@@ -774,6 +776,15 @@
           reason: clampReportText(payload.feedback.reason || "", 80),
           comment: clampReportText(payload.feedback.comment || "", 400),
           targetWord: clampReportText(payload.feedback.targetWord || "", 120),
+          normalizedWord: clampReportText(payload.feedback.normalizedWord || "", 120),
+          dictionaryKey: clampReportText(payload.feedback.dictionaryKey || "", 120),
+          dictionaryDirection: clampReportText(payload.feedback.dictionaryDirection || "", 40),
+          lookupOutcome: clampReportText(payload.feedback.lookupOutcome || "", 80),
+          lookupReturned: payload.feedback.lookupReturned != null
+            && payload.feedback.lookupReturned !== ""
+            && Number.isFinite(Number(payload.feedback.lookupReturned))
+            ? Math.max(0, Math.min(60, Math.floor(Number(payload.feedback.lookupReturned))))
+            : null,
           sentence: clampReportText(payload.feedback.sentence || "", 360),
           translation: clampReportText(payload.feedback.translation || "", 360),
           entryId: clampReportText(payload.feedback.entryId || "", 120),
@@ -811,21 +822,8 @@
     };
   }
 
-  async function reportBrowserBug(payload = {}) {
-    const body = JSON.stringify(compactBugReport(payload));
-    if (body.length > 16 * 1024) {
-      throw new Error("Bug report is too large.");
-    }
-    const response = await fetch(bugReportPath, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      cache: "no-store",
-      body
-    });
-    const result = await response.json().catch(() => null);
-    if (!response.ok) throw new Error(result?.message || `Bug report failed with HTTP ${response.status}.`);
-    if (result?.ok !== true) throw new Error("The bug report server did not acknowledge storage.");
-    return result;
+  function rejectRemoteFeedbackDelivery() {
+    return Promise.reject(new Error("Remote diagnostic reporting is disabled."));
   }
 
   function feedbackStorage() {
@@ -836,19 +834,6 @@
     }
   }
 
-  function clearDisabledFeedbackQueue() {
-    const storage = feedbackStorage();
-    if (!storage) return;
-    const keys = [];
-    for (let index = 0; index < storage.length; index += 1) {
-      const key = storage.key(index);
-      if (key === "caatuu.feedbackOutbox.v1" || key?.startsWith("caatuu.feedbackOutbox.v1.item.")) {
-        keys.push(key);
-      }
-    }
-    for (const key of keys) storage.removeItem(key);
-  }
-
   async function getFeedbackOutbox() {
     if (feedbackOutbox) return feedbackOutbox;
     if (!feedbackOutboxPromise) {
@@ -856,12 +841,14 @@
         .then(({ FeedbackOutbox }) => {
           feedbackOutbox = new FeedbackOutbox({
             storage: feedbackStorage(),
-            send: (payload) => env === "android"
-              ? nativeCall("report_bug", { payload })
-              : reportBrowserBug(payload),
-            online: () => navigator.onLine !== false,
+            // Device-local feedback is available before the remote privacy and
+            // operations gate opens. Both guards must change deliberately
+            // before this queue can ever attempt delivery.
+            send: rejectRemoteFeedbackDelivery,
+            online: () => false,
             visible: () => document.visibilityState !== "hidden",
-            saveData: () => navigator.connection?.saveData === true
+            saveData: () => navigator.connection?.saveData === true,
+            maxItems: 128
           });
           return feedbackOutbox;
         })
@@ -891,7 +878,7 @@
     const outbox = await getFeedbackOutbox();
     const result = outbox.enqueue(payload, options);
     scheduleFeedbackFlush(0);
-    return { ...result, pending: outbox.list().length };
+    return { ...result, pending: outbox.list().length, localOnly: true };
   }
 
   async function flushQueuedReports() {
@@ -902,7 +889,19 @@
       const delay = outbox.nextDelayMs();
       scheduleFeedbackFlush(delay === null ? 30_000 : Math.max(1_000, delay));
     }
-    return result;
+    return { ...result, disabled: true, localOnly: true };
+  }
+
+  async function prepareDictionaryGapExport(options = {}) {
+    const outbox = await getFeedbackOutbox();
+    outbox.refreshFromStorage();
+    const { buildDictionaryGapExport } = await import("./dictionary-gap-export.mjs?v=dictionary-gap-export-1");
+    const document = buildDictionaryGapExport(outbox.list(), options);
+    return {
+      document,
+      count: document.gaps.length,
+      localOnly: true
+    };
   }
 
   async function loadModelCatalog() {
@@ -1166,6 +1165,96 @@
     });
   }
 
+  function baseDictionarySearch(query, options = {}) {
+    const limit = Math.max(1, Math.min(60, Number(options.limit || 12)));
+    if (env === "android") {
+      return nativeCall(
+        "dictionary_search",
+        { query, limit },
+        { signal: options.signal }
+      );
+    }
+    return browserDictionarySearch(query, { ...options, limit });
+  }
+
+  function loadDictionaryPatchRuntime() {
+    if (!dictionaryPatchRuntimePromise) {
+      dictionaryPatchRuntimePromise = Promise.all([
+        fetchJson(dictionaryPatchPath),
+        import("./dictionary-patch-core.mjs?v=dictionary-patch-core-1")
+      ]).then(([rawPatch, core]) => ({
+        core,
+        patch: core.compileDictionaryPatch(rawPatch)
+      })).catch((error) => {
+        dictionaryPatchRuntimePromise = null;
+        throw error;
+      });
+    }
+    return dictionaryPatchRuntimePromise;
+  }
+
+  async function searchDictionaryWithPatch(query, options = {}) {
+    const limit = Math.max(1, Math.min(60, Number(options.limit || 12)));
+    const baseRequest = baseDictionarySearch(query, { ...options, limit });
+    const [baseResult, patchRuntimeResult] = await Promise.allSettled([
+      baseRequest,
+      loadDictionaryPatchRuntime()
+    ]);
+    if (options.signal?.aborted) {
+      if (baseResult.status === "rejected") throw baseResult.reason;
+      throw new DOMException("Dictionary search was aborted.", "AbortError");
+    }
+    if (patchRuntimeResult.status === "rejected") {
+      if (baseResult.status === "fulfilled") return baseResult.value;
+      throw baseResult.reason;
+    }
+
+    const { core, patch } = patchRuntimeResult.value;
+    const basePayload = baseResult.status === "fulfilled"
+      ? baseResult.value
+      : { query, normalizedQuery: core.normalizeCzechPatchSearch(query), direction: "cs-en", returned: 0, limit, results: [] };
+    const directPayload = core.searchDictionaryPatch(patch, query, { limit, prefix: true });
+    // Aliases are maintenance corrections for complete observed forms. Resolving
+    // them only on exact searches avoids one short prefix fanning out into a
+    // base-dictionary request for every reviewed alias.
+    const aliasTargets = core.discoverDictionaryAliasTargets(patch, query, { prefix: false });
+    const targetPayloads = [basePayload];
+    if (aliasTargets.length) {
+      const targetResults = await Promise.allSettled(aliasTargets.map((target) => {
+        if (core.normalizeCzechPatchSearch(target.lemma) === core.normalizeCzechPatchSearch(query)) {
+          return Promise.resolve(basePayload);
+        }
+        return baseDictionarySearch(target.lemma, { ...options, limit: 60 });
+      }));
+      for (const result of targetResults) {
+        if (result.status === "fulfilled") targetPayloads.push(result.value);
+      }
+    }
+    if (options.signal?.aborted) {
+      if (baseResult.status === "rejected") throw baseResult.reason;
+      throw new DOMException("Dictionary search was aborted.", "AbortError");
+    }
+
+    const aliasResults = core.materializeDictionaryAliasResults(
+      patch,
+      query,
+      targetPayloads,
+      { limit, prefix: false }
+    );
+    const overlayResults = core.dedupeDictionaryResults(
+      [...directPayload.results, ...aliasResults],
+      { limit }
+    );
+    const overlayPayload = {
+      ...directPayload,
+      returned: overlayResults.length,
+      results: overlayResults
+    };
+    const merged = core.mergeDictionarySearchPayload(basePayload, overlayPayload, { limit });
+    if (baseResult.status === "rejected" && !merged.results.length) throw baseResult.reason;
+    return merged;
+  }
+
   window.CaatuuRuntime = {
     env,
     capabilities,
@@ -1225,6 +1314,65 @@
         return env === "android" ? nativeCall("prompt", request, handlers) : generateBrowser(request, handlers);
       }
     },
+    speech: {
+      status(locale = course.targetLanguage.locale, options = {}) {
+        if (env !== "android") {
+          return Promise.resolve({
+            runtime: "browser-web-speech",
+            supported: false,
+            ready: false,
+            available: false,
+            locale,
+            reason: "browser-managed"
+          });
+        }
+        return nativeCall(
+          "speech_status",
+          {
+            locale,
+            voice: String(options.voice || "").trim().slice(0, 256)
+          },
+          {
+            timeoutMs: 10_000,
+            timeoutMessage: "Android text-to-speech did not finish its availability check."
+          }
+        );
+      },
+      speak(text, options = {}, handlers = {}) {
+        if (env !== "android") {
+          return Promise.reject(new Error("Native Android text-to-speech is not available."));
+        }
+        const rate = Number(options.rate);
+        const pitch = Number(options.pitch);
+        const voice = String(options.voice || "").trim().slice(0, 256);
+        return nativeCall(
+          "speech_speak",
+          {
+            text: String(text || ""),
+            locale: options.locale || course.targetLanguage.locale,
+            rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.9,
+            pitch: Number.isFinite(pitch) ? Math.max(0.5, Math.min(1.5, pitch)) : 1,
+            voice
+          },
+          {
+            ...handlers,
+            timeoutMs: Number(handlers.timeoutMs || 60_000),
+            timeoutMessage: handlers.timeoutMessage || "Android text-to-speech did not finish in time."
+          }
+        );
+      },
+      stop() {
+        if (env !== "android") return Promise.resolve({ runtime: "browser-web-speech", stopped: false });
+        return nativeCall(
+          "speech_stop",
+          {},
+          {
+            timeoutMs: 3_000,
+            timeoutMessage: "Android text-to-speech did not stop in time."
+          }
+        );
+      }
+    },
     vector: {
       status() {
         return env === "android" ? nativeCall("vector_status") : Promise.resolve({ runtime: "browser-vector-db" });
@@ -1247,14 +1395,7 @@
         return env === "android" ? nativeCall("dictionary_download", {}, handlers) : browserDictionaryStatus();
       },
       search(query, options = {}) {
-        if (env === "android") {
-          return nativeCall(
-            "dictionary_search",
-            { query, limit: Math.max(1, Math.min(60, Number(options.limit || 12))) },
-            { signal: options.signal }
-          );
-        }
-        return browserDictionarySearch(query, options);
+        return searchDictionaryWithPatch(query, options);
       }
     },
     maintenance: {
@@ -1278,22 +1419,29 @@
           ? nativeCall("delete_model", {}, handlers)
           : clearBrowserCache();
       },
-      reportBug(payload = {}) {
-        return Promise.resolve({
-          ok: false,
+      async reportBug(payload = {}) {
+        const result = await enqueueReport(payload);
+        return {
+          ...result,
+          ok: result.queued === true,
           disabled: true,
-          message: "Remote diagnostic reporting is disabled."
-        });
+          localOnly: true,
+          message: result.queued
+            ? "Feedback was saved on this device; remote delivery is disabled."
+            : "Feedback could not be saved on this device."
+        };
       },
       enqueueReport(payload = {}, options = {}) {
-        return Promise.resolve({ queued: false, disabled: true, pending: 0 });
+        return enqueueReport(payload, options);
+      },
+      exportDictionaryGaps(options = {}) {
+        return prepareDictionaryGapExport(options);
       },
       flushReports() {
-        return Promise.resolve({ sent: [], pending: 0, paused: true, disabled: true });
+        return flushQueuedReports();
       }
     }
   };
 
   clearNativeBrowserState();
-  clearDisabledFeedbackQueue();
 })();

@@ -32,6 +32,12 @@ npm run build:lora-datasets
 npm run validate:lora-datasets
 ```
 
+Periodic Word World missing-dictionary reports are reviewed through a narrow,
+device-local export and a tracked runtime overlay. The classification rules,
+reusable Codex prompt, patch schema, provenance requirements, and container
+validation commands are in
+[`docs/dictionary-gap-maintenance.md`](docs/dictionary-gap-maintenance.md).
+
 For a safe dataset-builder check that does not overwrite the saved dataset:
 
 ```bash

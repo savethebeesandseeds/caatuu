@@ -1,0 +1,547 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/memory-moon/scenery/catalog-v2.schema.json",
+  "title": "Memory Moon scenery catalog v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "catalog_id",
+    "catalog_version",
+    "release_status",
+    "projection",
+    "style_family",
+    "floor_atlas",
+    "collision_profiles",
+    "objects"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "catalog_id": {
+      "$ref": "#/$defs/slug"
+    },
+    "catalog_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "release_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projection": {
+      "$ref": "#/$defs/projection"
+    },
+    "style_family": {
+      "$ref": "#/$defs/styleFamily"
+    },
+    "floor_atlas": {
+      "$ref": "#/$defs/floorAtlas"
+    },
+    "collision_profiles": {
+      "$ref": "#/$defs/collisionProfiles"
+    },
+    "objects": {
+      "$ref": "#/$defs/objects"
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "safeRelativePath": {
+      "type": "string",
+      "pattern": "^(?:[A-Za-z0-9][A-Za-z0-9._-]*/)*[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "safePngPath": {
+      "type": "string",
+      "pattern": "^(?!.*(?:^|/)(?:launcher|originals|miscellaneous)(?:/|$))(?:[a-z0-9][a-z0-9._-]*/)*[a-z0-9][a-z0-9._-]*\\.png$"
+    },
+    "positiveNumber": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "nonNegativeNumber": {
+      "type": "number",
+      "minimum": 0
+    },
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "nonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "size2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        {
+          "$ref": "#/$defs/positiveInteger"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "number2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "number3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "positiveNumber3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "stringSet": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "rotationSet": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "enum": [
+          0,
+          90,
+          180,
+          270
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "projection": {
+      "type": "object",
+      "required": [
+        "id",
+        "yaw_degrees",
+        "elevation_degrees"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "yaw_degrees": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 360
+        },
+        "elevation_degrees": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 90
+        }
+      }
+    },
+    "palette": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z0-9]+(?:[_-][a-z0-9]+)*$": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "styleFamily": {
+      "type": "object",
+      "required": [
+        "id",
+        "authority_path",
+        "palette",
+        "rules"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "authority_path": {
+          "$ref": "#/$defs/safeRelativePath"
+        },
+        "palette": {
+          "$ref": "#/$defs/palette"
+        },
+        "rules": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stringSet"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        }
+      }
+    },
+    "edgeContract": {
+      "type": "object",
+      "required": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "north": {
+          "$ref": "#/$defs/slug"
+        },
+        "east": {
+          "$ref": "#/$defs/slug"
+        },
+        "south": {
+          "$ref": "#/$defs/slug"
+        },
+        "west": {
+          "$ref": "#/$defs/slug"
+        }
+      }
+    },
+    "atlasRect": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        {
+          "$ref": "#/$defs/positiveInteger"
+        }
+      ],
+      "items": false,
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "floorTile": {
+      "type": "object",
+      "required": [
+        "kind",
+        "tags",
+        "uv_rect_px",
+        "grid_size",
+        "walkable",
+        "edges",
+        "allowed_rotations_degrees",
+        "seam_contract"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/slug"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "uv_rect_px": {
+          "$ref": "#/$defs/atlasRect"
+        },
+        "grid_size": {
+          "$ref": "#/$defs/size2"
+        },
+        "walkable": {
+          "type": "boolean"
+        },
+        "edges": {
+          "$ref": "#/$defs/edgeContract"
+        },
+        "allowed_rotations_degrees": {
+          "$ref": "#/$defs/rotationSet"
+        },
+        "seam_contract": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "floorTiles": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "$ref": "#/$defs/floorTile"
+        }
+      },
+      "additionalProperties": false
+    },
+    "floorAtlas": {
+      "type": "object",
+      "required": [
+        "texture",
+        "size_px",
+        "gutter_px",
+        "tiles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "texture": {
+          "$ref": "#/$defs/safePngPath"
+        },
+        "size_px": {
+          "$ref": "#/$defs/size2"
+        },
+        "gutter_px": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "tiles": {
+          "$ref": "#/$defs/floorTiles"
+        }
+      }
+    },
+    "cylinderShape": {
+      "type": "object",
+      "required": [
+        "type",
+        "radius",
+        "height",
+        "offset"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "cylinder"
+        },
+        "radius": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "height": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "offset": {
+          "$ref": "#/$defs/number3"
+        }
+      }
+    },
+    "boxShape": {
+      "type": "object",
+      "required": [
+        "type",
+        "size",
+        "offset"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "box"
+        },
+        "size": {
+          "$ref": "#/$defs/positiveNumber3"
+        },
+        "offset": {
+          "$ref": "#/$defs/number3"
+        }
+      }
+    },
+    "collisionShape": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/cylinderShape"
+        },
+        {
+          "$ref": "#/$defs/boxShape"
+        }
+      ]
+    },
+    "collisionProfile": {
+      "type": "object",
+      "required": [
+        "shapes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "shapes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/collisionShape"
+          }
+        }
+      }
+    },
+    "collisionProfiles": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "$ref": "#/$defs/collisionProfile"
+        }
+      },
+      "additionalProperties": false
+    },
+    "occlusion": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "const": "depth"
+        }
+      }
+    },
+    "reuse": {
+      "type": "object",
+      "required": [
+        "single_object",
+        "allow_horizontal_flip",
+        "allowed_rotations_degrees",
+        "minimum_repeat_distance",
+        "maximum_placements_per_layout"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "single_object": {
+          "const": true
+        },
+        "allow_horizontal_flip": {
+          "type": "boolean"
+        },
+        "allowed_rotations_degrees": {
+          "$ref": "#/$defs/rotationSet"
+        },
+        "minimum_repeat_distance": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "maximum_placements_per_layout": {
+          "$ref": "#/$defs/positiveInteger"
+        }
+      }
+    },
+    "worldHeightRange": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "object": {
+      "type": "object",
+      "required": [
+        "texture",
+        "image_size_px",
+        "anchor_px",
+        "kind",
+        "tags",
+        "source_id",
+        "default_world_height",
+        "allowed_world_height",
+        "collision_profile",
+        "collision_scale_mode",
+        "occlusion",
+        "reuse"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "texture": {
+          "$ref": "#/$defs/safePngPath"
+        },
+        "image_size_px": {
+          "$ref": "#/$defs/size2"
+        },
+        "anchor_px": {
+          "$ref": "#/$defs/number2"
+        },
+        "kind": {
+          "$ref": "#/$defs/slug"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "source_id": {
+          "$ref": "#/$defs/slug"
+        },
+        "default_world_height": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "allowed_world_height": {
+          "$ref": "#/$defs/worldHeightRange"
+        },
+        "collision_profile": {
+          "$ref": "#/$defs/slug"
+        },
+        "collision_scale_mode": {
+          "const": "fixed"
+        },
+        "occlusion": {
+          "$ref": "#/$defs/occlusion"
+        },
+        "reuse": {
+          "$ref": "#/$defs/reuse"
+        }
+      }
+    },
+    "objects": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "$ref": "#/$defs/object"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -18,7 +18,8 @@ const [
   setup,
   runtimeConfig,
   routes,
-  compose
+  compose,
+  dictionaryGapExport
 ] = await Promise.all([
   read("docs/PRIVACY.md"),
   read(".github/SECURITY.md"),
@@ -29,10 +30,11 @@ const [
   read("apps/languages/czech/static/setup.js"),
   read("apps/runtime/src/config.rs"),
   read("apps/runtime/src/routes/mod.rs"),
-  read("compose.yaml")
+  read("compose.yaml"),
+  read("apps/languages/czech/static/dictionary-gap-export.mjs")
 ]);
 
-test("remote diagnostics are fail-closed throughout the public product", () => {
+test("remote diagnostics stay fail-closed while feedback remains device-local", () => {
   assert.match(runtimeConfig, /bug_reports: env_flag\("ENABLE_BUG_REPORTS"\)/);
   assert.match(compose, /ENABLE_BUG_REPORTS: \$\{CAATUU_ENABLE_BUG_REPORTS:-0\}/);
   assert.doesNotMatch(compose, /artifacts\/bug-reports:\/workspace\/artifacts\/bug-reports/);
@@ -40,9 +42,54 @@ test("remote diagnostics are fail-closed throughout the public product", () => {
   assert.match(routes, /Remote diagnostic reporting is disabled on this server/);
   assert.doesNotMatch(chrome, /id="settingsReportBug"/);
   assert.match(setup, /report\.hidden = true/);
-  assert.match(runtime, /clearDisabledFeedbackQueue\(\)/);
   assert.match(runtime, /Remote diagnostic reporting is disabled/);
+  assert.doesNotMatch(runtime, /clearDisabledFeedbackQueue/);
+  assert.doesNotMatch(runtime, /bugReportPath|reportBrowserBug|nativeCall\("report_bug"/);
   assert.doesNotMatch(runtime, /window\.addEventListener\("online", \(\) => scheduleFeedbackFlush/);
+});
+
+test("the feedback outbox is durable, bounded, and unable to transmit", () => {
+  assert.match(runtime, /send: rejectRemoteFeedbackDelivery/);
+  assert.match(runtime, /online: \(\) => false/);
+  assert.match(runtime, /maxItems: 128/);
+  assert.match(
+    runtime,
+    /enqueueReport\(payload = \{\}, options = \{\}\) \{\s*return enqueueReport\(payload, options\);\s*\}/
+  );
+  assert.match(runtime, /async reportBug\(payload = \{\}\) \{\s*const result = await enqueueReport\(payload\)/);
+  assert.match(runtime, /flushReports\(\) \{\s*return flushQueuedReports\(\);\s*\}/);
+  assert.match(runtime, /localOnly: true/);
+  assert.match(runtime, /send: rejectRemoteFeedbackDelivery/);
+  assert.match(runtime, /online: \(\) => false/);
+  assert.match(runtime, /exportDictionaryGaps\(options = \{\}\)/);
+  assert.match(dictionaryGapExport, /payload\?\.kind !== TARGET_PAYLOAD_KIND/);
+  assert.match(dictionaryGapExport, /feedback\?\.kind !== TARGET_FEEDBACK_KIND/);
+  for (const field of [
+    "targetWord",
+    "normalizedWord",
+    "dictionaryKey",
+    "dictionaryDirection",
+    "lookupOutcome",
+    "lookupReturned"
+  ]) {
+    assert.match(dictionaryGapExport, new RegExp(`${field}[:,]`));
+  }
+  for (const forbidden of ["clientReportId", "reportedAt", "sentence", "translation", "comment", "device", "url"]) {
+    assert.doesNotMatch(dictionaryGapExport, new RegExp(`feedback\\.${forbidden}`));
+  }
+  for (const field of [
+    "normalizedWord",
+    "dictionaryKey",
+    "dictionaryDirection",
+    "lookupOutcome",
+    "lookupReturned"
+  ]) {
+    assert.match(runtime, new RegExp(`payload\\.feedback\\.${field}`));
+  }
+  assert.match(privacy, /device-local outbox/);
+  assert.match(privacy, /not transmitted to or collected by the maintainer/);
+  assert.match(readiness, /device-local outbox/);
+  assert.match(readiness, /delivery adapter remains forced offline/);
 });
 
 test("development-preview disclosures are linked and avoid a false beta claim", () => {
@@ -56,7 +103,7 @@ test("development-preview disclosures are linked and avoid a false beta claim", 
   ]) {
     assert.match(chrome, new RegExp(documentPath.replaceAll(".", "\\.")));
   }
-  assert.match(privacy, /Remote diagnostic reporting is disabled by default/);
+  assert.match(privacy, /Remote diagnostic reporting remains disabled/);
   assert.match(privacy, /development preview, not a governed public beta/);
   assert.match(security, /No version is currently declared a\s+supported public beta/);
   assert.match(support, /best-effort basis/);

@@ -3,6 +3,10 @@
 Caatuu is pre-release software. A file being buildable or reachable on the
 public server does not make it a production release.
 
+Before planning the first invited Android beta or any wider Android release,
+review [`FIRST_ANDROID_RELEASE.md`](FIRST_ANDROID_RELEASE.md) and record its
+maintainer decisions and candidate evidence.
+
 ## Channels
 
 | Channel | Audience | Artifact requirements | Public launcher |

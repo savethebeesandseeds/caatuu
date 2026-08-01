@@ -1,30 +1,33 @@
-const CACHE_NAME = "caatuu-czech-pwa-v339";
+const CACHE_NAME = "caatuu-czech-pwa-v377";
 const CORE_ASSETS = [
   "./",
   "./home.html",
   "./home.css?v=home-28",
   "./index.html",
-  "./theme.css?v=theme-4",
-  "./app.css?v=shell-63",
-  "./chrome.css?v=chrome-style-72",
-  "./course-profile.js?v=course-6",
-  "./learning-profile.js?v=learning-2",
-  "./runtime.js?v=runtime-30",
-  "./semantic-learning.js?v=semantic-learning-6",
+  "./theme.css?v=theme-5",
+  "./app.css?v=shell-66",
+  "./chrome.css?v=chrome-style-87",
+  "./course-profile.js?v=course-7",
+  "./learning-profile.js?v=learning-3",
+  "./runtime.js?v=runtime-34",
+  "./semantic-learning.js?v=semantic-learning-7",
   "./semantic-learning-core.mjs?v=semantic-learning-core-5",
   "./feedback-outbox.mjs?v=feedback-outbox-5",
-  "./chrome.js?v=chrome-74",
+  "./dictionary-gap-export.mjs?v=dictionary-gap-export-1",
+  "./dictionary-patch-core.mjs?v=dictionary-patch-core-1",
+  "./data/dictionaries/patches/reviewed-cs-en.v1.json",
+  "./chrome.js?v=chrome-84",
   "./setup-progress.js?v=setup-progress-1",
   "./setup.js?v=setup-33",
   "./setup-assets.json",
   "./maintenance-ui.js?v=maintenance-14",
-  "./app.js?v=shell-69",
+  "./app.js?v=shell-72",
   "./verb-nebula-core.mjs?v=verb-nebula-core-7",
   "./dictionary-full.js?v=full-dictionary-4",
   "./word-net.html",
-  "./word-net.css?v=word-net-48",
-  "./word-net.js?v=word-net-50",
-  "./word-net-core.mjs?v=word-net-core-11",
+  "./word-net.css?v=word-net-62",
+  "./word-net.js?v=word-net-66",
+  "./word-net-core.mjs?v=word-net-core-15",
   "./word-net-queue.mjs?v=word-net-queue-6",
   "./word-net-standard.mjs?v=word-net-standard-1",
   "./vector-db.js?v=vector-db-9",
@@ -35,6 +38,9 @@ const CORE_ASSETS = [
   "./embedding-images.html",
   "./embedding-images.css?v=embedding-images-7",
   "./embedding-images.js?v=embedding-images-1",
+  "./audio-lab.html",
+  "./audio-lab.css?v=audio-lab-2",
+  "./audio-lab.js?v=audio-lab-1",
   "./verb-difficulty.html",
   "./verb-difficulty.css?v=verb-difficulty-1",
   "./verb-difficulty.js?v=verb-difficulty-3",
@@ -50,9 +56,13 @@ const CORE_ASSETS = [
   "/assets/icons/items_icon.png?v=items-2",
   "/assets/icons/stats_icon.png",
   "/assets/icons/gear_icon.png",
+  "/assets/planets/nebula.png",
+  "/assets/planets/planet_A.png",
+  "/assets/planets/planet_C.png",
   "/assets/robots/keymap.json",
   "/assets/robots/word-world-waiting.svg",
   "/assets/icons/dark_mode_ui.png",
+  "/assets/icons/light_mode_ui.png",
   "/assets/icons/czech_flag_ui.png",
   "/assets/icons/difficulty_medal_1_ui.png?v=ui-1",
   "/assets/icons/difficulty_medal_2_ui.png?v=ui-1",
@@ -94,6 +104,10 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin === location.origin) {
+    if (url.pathname.includes("/games/memory-moon/")) {
+      event.respondWith(networkThenCache(request));
+      return;
+    }
     if (request.cache === "no-store") {
       event.respondWith(fetch(request));
       return;

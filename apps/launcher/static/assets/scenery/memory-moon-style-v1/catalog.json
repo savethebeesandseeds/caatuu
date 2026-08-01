@@ -1,0 +1,351 @@
+{
+  "schema_version": 2,
+  "catalog_id": "memory-moon-style-v1",
+  "catalog_version": 1,
+  "release_status": "local-preview-only",
+  "projection": {
+    "id": "isometric-orthographic-45-30",
+    "yaw_degrees": 45,
+    "elevation_degrees": 30
+  },
+  "style_family": {
+    "id": "memory-moon-burrow-storybook-v1",
+    "authority_path": "PROVENANCE.md",
+    "palette": {
+      "ink": "#17150f",
+      "warm_wood": "#76501f",
+      "moss": "#4c5b1c",
+      "olive": "#707820",
+      "teal": "#145f5b",
+      "magic_cyan": "#31cdd0",
+      "brass": "#bc7c25",
+      "amber": "#ffc653",
+      "cream_stone": "#b9a270"
+    },
+    "rules": [
+      "Use one standalone object per transparent sprite.",
+      "Keep the fixed three-quarter camera direction and upper-left illumination.",
+      "Anchor collisions to the visible ground footprint, never to foliage.",
+      "Reserve cyan for small magical accents and amber for practical light.",
+      "Use square top-down floor materials; the Godot camera supplies the diamond projection."
+    ]
+  },
+  "floor_atlas": {
+    "texture": "floor/floor-atlas.png",
+    "size_px": [1024, 512],
+    "gutter_px": 8,
+    "tiles": {
+      "grass-moss-a": {
+        "kind": "grass",
+        "tags": ["base", "moss", "walkable"],
+        "uv_rect_px": [8, 8, 256, 256],
+        "grid_size": [1, 1],
+        "walkable": true,
+        "edges": {
+          "north": "grass",
+          "east": "grass",
+          "south": "grass",
+          "west": "grass"
+        },
+        "allowed_rotations_degrees": [0, 90, 180, 270],
+        "seam_contract": "opposite-edge-exact"
+      },
+      "grass-flowers-a": {
+        "kind": "grass",
+        "tags": ["variation", "flowers", "walkable"],
+        "uv_rect_px": [280, 8, 256, 256],
+        "grid_size": [1, 1],
+        "walkable": true,
+        "edges": {
+          "north": "grass",
+          "east": "grass",
+          "south": "grass",
+          "west": "grass"
+        },
+        "allowed_rotations_degrees": [0, 90, 180, 270],
+        "seam_contract": "opposite-edge-exact"
+      },
+      "earth-packed-a": {
+        "kind": "earth",
+        "tags": ["path", "packed", "walkable"],
+        "uv_rect_px": [552, 8, 256, 256],
+        "grid_size": [1, 1],
+        "walkable": true,
+        "edges": {
+          "north": "earth",
+          "east": "earth",
+          "south": "earth",
+          "west": "earth"
+        },
+        "allowed_rotations_degrees": [0, 90, 180, 270],
+        "seam_contract": "opposite-edge-exact"
+      }
+    }
+  },
+  "collision_profiles": {
+    "none": {
+      "shapes": []
+    },
+    "hero-tree-trunk": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 1.1,
+          "height": 0.42,
+          "offset": [0, 0.21, 0]
+        }
+      ]
+    },
+    "sapling-trunk": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.3,
+          "height": 0.85,
+          "offset": [0, 0.425, 0]
+        }
+      ]
+    },
+    "bush-footprint": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.38,
+          "height": 0.42,
+          "offset": [0, 0.21, 0]
+        }
+      ]
+    },
+    "boulder-footprint": {
+      "shapes": [
+        {
+          "type": "box",
+          "size": [0.78, 0.56, 0.66],
+          "offset": [0, 0.28, 0]
+        }
+      ]
+    },
+    "well-ring": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.52,
+          "height": 0.72,
+          "offset": [0, 0.36, 0]
+        }
+      ]
+    },
+    "stump-footprint": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.36,
+          "height": 0.42,
+          "offset": [0, 0.21, 0]
+        }
+      ]
+    },
+    "lamp-post": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.13,
+          "height": 1.0,
+          "offset": [0, 0.5, 0]
+        }
+      ]
+    },
+    "sign-post": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.11,
+          "height": 0.8,
+          "offset": [0, 0.4, 0]
+        }
+      ]
+    }
+  },
+  "objects": {
+    "community-tree-a": {
+      "texture": "objects/community-tree-a.png",
+      "image_size_px": [351, 340],
+      "anchor_px": [175.5, 310],
+      "kind": "landmark-tree",
+      "tags": ["hero", "tree", "community", "cyan-lights"],
+      "source_id": "visual-vocabulary-burrow-review-040",
+      "default_world_height": 3.2,
+      "allowed_world_height": [2.9, 3.6],
+      "collision_profile": "hero-tree-trunk",
+      "collision_scale_mode": "fixed",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 8.0,
+        "maximum_placements_per_layout": 1
+      }
+    },
+    "village-well-a": {
+      "texture": "objects/village-well-a.png",
+      "image_size_px": [303, 335],
+      "anchor_px": [151.5, 305],
+      "kind": "well",
+      "tags": ["landmark", "water", "stone", "teal-roof"],
+      "source_id": "visual-vocabulary-miscellaneous-145",
+      "default_world_height": 1.55,
+      "allowed_world_height": [1.35, 1.75],
+      "collision_profile": "well-ring",
+      "collision_scale_mode": "fixed",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 6.0,
+        "maximum_placements_per_layout": 1
+      }
+    },
+    "trail-sign-a": {
+      "texture": "objects/trail-sign-a.png",
+      "image_size_px": [248, 328],
+      "anchor_px": [124, 298],
+      "kind": "sign",
+      "tags": ["wayfinding", "wood", "teal"],
+      "source_id": "visual-vocabulary-miscellaneous-118",
+      "default_world_height": 1.5,
+      "allowed_world_height": [1.3, 1.65],
+      "collision_profile": "sign-post",
+      "collision_scale_mode": "fixed",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 4.0,
+        "maximum_placements_per_layout": 2
+      }
+    },
+    "flower-patch-a": {
+      "texture": "objects/flower-patch-a.png",
+      "image_size_px": [316, 286],
+      "anchor_px": [158, 256],
+      "kind": "ground-accent",
+      "tags": ["flowers", "nature", "walkable"],
+      "source_id": "visual-vocabulary-miscellaneous-202",
+      "default_world_height": 0.5,
+      "allowed_world_height": [0.4, 0.62],
+      "collision_profile": "none",
+      "collision_scale_mode": "fixed",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 0.8,
+        "maximum_placements_per_layout": 8
+      }
+    },
+    "tree-stump-a": {
+      "texture": "objects/tree-stump-a.png",
+      "image_size_px": [351, 250],
+      "anchor_px": [175.5, 220],
+      "kind": "stump",
+      "tags": ["wood", "moss", "obstacle"],
+      "source_id": "visual-vocabulary-miscellaneous-203",
+      "default_world_height": 0.82,
+      "allowed_world_height": [0.68, 0.95],
+      "collision_profile": "stump-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 2.5,
+        "maximum_placements_per_layout": 3
+      }
+    },
+    "street-lamp-a": {
+      "texture": "objects/street-lamp-a.png",
+      "image_size_px": [136, 349],
+      "anchor_px": [68, 319],
+      "kind": "lamp",
+      "tags": ["lighting", "teal", "brass", "amber"],
+      "source_id": "visual-vocabulary-burrow-review-036",
+      "default_world_height": 1.85,
+      "allowed_world_height": [1.65, 2.0],
+      "collision_profile": "lamp-post",
+      "collision_scale_mode": "fixed",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 2.0,
+        "maximum_placements_per_layout": 4
+      }
+    },
+    "moon-bush-round-a": {
+      "texture": "objects/moon-bush-round-a.png",
+      "image_size_px": [419, 392],
+      "anchor_px": [209.5, 376],
+      "kind": "bush",
+      "tags": ["foliage", "boundary", "cyan-lights"],
+      "source_id": "imagegen-moon-bush-round-a-20260801",
+      "default_world_height": 1.0,
+      "allowed_world_height": [0.82, 1.15],
+      "collision_profile": "bush-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 1.25,
+        "maximum_placements_per_layout": 7
+      }
+    },
+    "moss-boulder-a": {
+      "texture": "objects/moss-boulder-a.png",
+      "image_size_px": [436, 332],
+      "anchor_px": [218, 316],
+      "kind": "boulder",
+      "tags": ["stone", "boundary", "moss", "cyan-mineral"],
+      "source_id": "imagegen-moss-boulder-a-20260801",
+      "default_world_height": 0.78,
+      "allowed_world_height": [0.65, 0.92],
+      "collision_profile": "boulder-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 1.2,
+        "maximum_placements_per_layout": 7
+      }
+    },
+    "moon-sapling-a": {
+      "texture": "objects/moon-sapling-a.png",
+      "image_size_px": [374, 452],
+      "anchor_px": [187, 436],
+      "kind": "tree",
+      "tags": ["tree", "foliage", "cyan-lights"],
+      "source_id": "imagegen-moon-sapling-a-20260801",
+      "default_world_height": 2.65,
+      "allowed_world_height": [2.3, 3.0],
+      "collision_profile": "sapling-trunk",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {"mode": "depth"},
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [0],
+        "minimum_repeat_distance": 2.0,
+        "maximum_placements_per_layout": 5
+      }
+    }
+  }
+}

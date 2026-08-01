@@ -1,20 +1,25 @@
 import {
+  alignWordReconstructionAttempt,
+  buildWordReconstructionChallenge,
   cleanTranslation,
   interpretHorizontalSwipe,
   isMiscellaneousAssetPath,
   isReservedEdgeGesture,
   isPlausibleSentence,
   isRecentSentence,
+  isWordReconstructionCorrect,
+  isSpeechSynthesisSupported,
   normalizeWord,
   parseSceneKeymap,
   selectDictionaryMeaning,
+  selectSpeechSynthesisVoice,
   sentenceFingerprint,
   sentenceIncludesWord,
   sentenceTargets,
   stripModelEcho,
   tokenizeCzechSentence,
   wordMatchesTarget
-} from "./word-net-core.mjs?v=word-net-core-11";
+} from "./word-net-core.mjs?v=word-net-core-15";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import {
   loadStandardWordWorldCorpus,
@@ -28,6 +33,11 @@ const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
 const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
 const ROBOT_FALLBACK_URL = "/assets/robots/word-world-waiting.svg";
 const SCENE_ASSET_LIMIT = 5;
+const SCENE_ASSET_READY_TIMEOUT_MS = 8000;
+const SCENE_SEMANTIC_SEARCH_TIMEOUT_MS = 1600;
+const SCENE_KEYMAP_SEARCH_TIMEOUT_MS = 1800;
+const SCENE_CANDIDATE_SEARCH_TIMEOUT_MS = 3600;
+const SCENE_CANDIDATE_LOAD_TIMEOUT_MS = 1200;
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Word World.");
 const targetLocale = course.targetLanguage.locale;
@@ -40,6 +50,16 @@ const HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.v2`;
 const LEGACY_HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.v1`;
 const RECENT_SENTENCES_STORAGE_KEY = course.storage.wordWorldRecentSentences;
 const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache;
+const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.wordCardPreferences.v1`;
+const DICTIONARY_GAP_STORAGE_KEY = `${course.storage.namespace}.dictionary.missing.kaikki-cs-en-2026-07-09.v1`;
+const DICTIONARY_GAP_SOURCE_KEY = "kaikki-cs-en-2026-07-09";
+const DICTIONARY_GAP_NOTICE = "Missing word saved on this device. Sending is not enabled yet.";
+const DICTIONARY_GAP_LIMIT = 80;
+const RECONSTRUCTION_DISTRACTOR_COUNT = 2;
+const SENTENCE_REWARD_LIMIT = 128;
+const CZECH_SPEECH_RATE = 0.9;
+const CZECH_SPEECH_TIMEOUT_MS = 30_000;
+const EXPECTED_SPEECH_CANCELLATIONS = new Set(["canceled", "cancelled", "interrupted"]);
 const RECENT_SENTENCE_LIMIT = 48;
 const HISTORY_LIMIT = 256;
 const PREPARED_QUEUE_CAPACITY = 512;
@@ -66,10 +86,12 @@ const PREFETCH_STOPWORDS = new Set([
 ]);
 const translationModes = {
   off: { label: "Off", delayMs: null },
+  "timer-0": { label: "0s", delayMs: 0 },
   "timer-5": { label: "5s", delayMs: 5000 },
   "timer-10": { label: "10s", delayMs: 10000 },
   "timer-30": { label: "30s", delayMs: 30000 },
-  visible: { label: "Visible", delayMs: 0 }
+  visible: { label: "Visible", delayMs: 0 },
+  reconstruct: { label: "Rebuild", delayMs: null }
 };
 const generationModes = {
   random: { label: "Random" },
@@ -81,6 +103,19 @@ const contentModes = {
 };
 
 const playInstruction = "Use the side arrows or swipe to move between sentences. Tap any word for its meaning.";
+const reconstructionInstruction = "Build the English sentence. Submit, then swipe to continue.";
+const reconstructionFallbackTexts = [
+  "I am here.",
+  "You are ready.",
+  "We have time.",
+  "He is at home.",
+  "She is outside.",
+  "It is cold today.",
+  "The book is on the table.",
+  "My friend has a dog.",
+  "They are not far away.",
+  "This is very good."
+];
 
 const seedWords = [
   "dům",
@@ -147,16 +182,22 @@ const state = {
   selectedWord: "",
   selectedWordMeaning: "",
   selectedWordDetails: null,
+  selectedWordGapNotice: "",
   wordMeaningLoading: false,
   wordMeaningCache: new Map(),
+  dictionaryGapKeys: loadDictionaryGapKeys(),
+  dictionaryGapCopying: false,
   wordLookupController: null,
   wordLookupRequestId: 0,
+  wordCardPreferences: loadWordCardPreferences(),
   currentSentence: "",
   currentTranslation: "",
   currentSceneQuery: "",
+  currentSceneAsset: null,
   currentEntryId: "",
   currentCorpusVersion: "",
   currentDifficulty: null,
+  currentStandardRecord: null,
   currentContentMode: "",
   generativeTurnActive: false,
   translationMode: loadTranslationMode(),
@@ -164,6 +205,19 @@ const state = {
   contentMode: loadContentMode(),
   translationVisible: true,
   translationTimerId: 0,
+  sentenceRewardKeys: new Set(),
+  reconstruction: null,
+  speechSession: null,
+  speechBackend: "",
+  speechSource: "",
+  speechText: "",
+  speechRequestId: 0,
+  speechState: "idle",
+  speechTimeoutId: 0,
+  nativeSpeechAvailable: false,
+  nativeSpeechReason: "",
+  nativeSpeechStatusPending: false,
+  nativeSpeechStatusRequestId: 0,
   sceneAssetRowsPromise: null,
   sceneCandidates: [],
   sceneRequestId: 0,
@@ -209,6 +263,339 @@ function runtimeAdapter() {
   return window.CaatuuRuntime || null;
 }
 
+function browserSpeechSynthesisSupported() {
+  return isSpeechSynthesisSupported(
+    window.speechSynthesis,
+    window.SpeechSynthesisUtterance
+  );
+}
+
+function androidSpeechRuntime() {
+  const runtime = runtimeAdapter();
+  if (runtime?.env !== "android" || !runtime.speech) return null;
+  return runtime.speech;
+}
+
+function speechControlSupported() {
+  return androidSpeechRuntime()
+    ? state.nativeSpeechAvailable
+    : browserSpeechSynthesisSupported();
+}
+
+function preferredSpeechVoice() {
+  return String(window.CaatuuChrome?.getSpeechVoicePreference?.() || "").trim().slice(0, 256);
+}
+
+function unavailableSpeechTitle() {
+  if (!androidSpeechRuntime()) return "This browser does not expose built-in speech synthesis.";
+  if (state.nativeSpeechReason === "missing-language-data") {
+    return "Install or enable a Czech voice in Android text-to-speech settings.";
+  }
+  if (state.nativeSpeechReason === "no-language-voice") {
+    return "The selected Android text-to-speech engine does not provide a Czech voice.";
+  }
+  return "Android text-to-speech is not ready on this device.";
+}
+
+function unavailableSpeechLabel() {
+  if (state.nativeSpeechReason === "missing-language-data") {
+    return "Czech pronunciation unavailable; install or enable a Czech voice in Android text-to-speech settings";
+  }
+  if (state.nativeSpeechReason === "no-language-voice") {
+    return "Czech pronunciation unavailable; select an Android text-to-speech engine with a Czech voice";
+  }
+  return "Czech pronunciation unavailable on this device";
+}
+
+function syncSpeechControl() {
+  const sentenceButton = $("#wordNetSound");
+  const wordButton = $("#wordNetSelectedWordSound");
+  if (!sentenceButton && !wordButton) return;
+
+  const supported = speechControlSupported();
+  const checking = Boolean(androidSpeechRuntime() && state.nativeSpeechStatusPending);
+  const hasSentence = Boolean(String(state.currentSentence || "").trim());
+  const speaking = state.speechState === "speaking" && Boolean(state.speechSession);
+  const sentenceSpeaking = speaking && state.speechSource === "sentence";
+  let sentenceLabel = "Play Czech sentence aloud";
+  let sentenceTitle = sentenceLabel;
+
+  if (checking) {
+    sentenceLabel = "Checking Czech pronunciation support";
+    sentenceTitle = "Checking the device's Czech text-to-speech voice.";
+  } else if (!supported) {
+    sentenceLabel = unavailableSpeechLabel();
+    sentenceTitle = unavailableSpeechTitle();
+  } else if (state.busy || !hasSentence) {
+    sentenceLabel = "Czech pronunciation will be available when the sentence is ready";
+    sentenceTitle = "Wait for the Czech sentence to finish loading.";
+  } else if (sentenceSpeaking) {
+    sentenceLabel = "Stop Czech sentence pronunciation";
+    sentenceTitle = sentenceLabel;
+  }
+
+  if (sentenceButton) {
+    sentenceButton.disabled = checking || state.busy || !supported || !hasSentence;
+    sentenceButton.classList.toggle("is-speaking", sentenceSpeaking);
+    sentenceButton.setAttribute("aria-pressed", String(sentenceSpeaking));
+    sentenceButton.setAttribute("aria-label", sentenceLabel);
+    sentenceButton.title = sentenceTitle;
+    sentenceButton.querySelector('[data-speech-icon="play"]')?.toggleAttribute("hidden", sentenceSpeaking);
+    sentenceButton.querySelector('[data-speech-icon="stop"]')?.toggleAttribute("hidden", !sentenceSpeaking);
+  }
+
+  const selectedWord = normalizeWord(state.selectedWord);
+  const wordAvailable = Boolean(selectedWord) && state.translationMode !== "off";
+  const wordSpeaking = speaking && state.speechSource === "word";
+  let wordLabel = selectedWord ? `Play “${selectedWord}” aloud` : "Play selected Czech word aloud";
+  let wordTitle = wordLabel;
+  if (checking) {
+    wordLabel = "Checking Czech pronunciation support";
+    wordTitle = "Checking the device's Czech text-to-speech voice.";
+  } else if (!supported) {
+    wordLabel = unavailableSpeechLabel();
+    wordTitle = unavailableSpeechTitle();
+  } else if (state.busy || !wordAvailable) {
+    wordLabel = "Select a Czech word to hear it";
+    wordTitle = wordLabel;
+  } else if (wordSpeaking) {
+    wordLabel = `Stop pronunciation of “${selectedWord}”`;
+    wordTitle = wordLabel;
+  }
+  if (wordButton) {
+    wordButton.disabled = checking || state.busy || !supported || !wordAvailable;
+    wordButton.classList.toggle("is-speaking", wordSpeaking);
+    wordButton.setAttribute("aria-pressed", String(wordSpeaking));
+    wordButton.setAttribute("aria-label", wordLabel);
+    wordButton.title = wordTitle;
+    wordButton.querySelector('[data-speech-icon="play"]')?.toggleAttribute("hidden", wordSpeaking);
+    wordButton.querySelector('[data-speech-icon="stop"]')?.toggleAttribute("hidden", !wordSpeaking);
+  }
+}
+
+function clearCzechSpeechTimeout() {
+  if (!state.speechTimeoutId) return;
+  window.clearTimeout(state.speechTimeoutId);
+  state.speechTimeoutId = 0;
+}
+
+function cancelCzechSpeech({ force = false } = {}) {
+  const session = state.speechSession;
+  const active = Boolean(state.speechSession) || state.speechState === "speaking";
+  if (!active && !force) {
+    syncSpeechControl();
+    return false;
+  }
+
+  const backend = state.speechBackend;
+  clearCzechSpeechTimeout();
+  state.speechRequestId += 1;
+  state.speechSession = null;
+  state.speechBackend = "";
+  state.speechSource = "";
+  state.speechText = "";
+  state.speechState = "idle";
+  if (backend === "android") {
+    session?.controller?.abort?.();
+  } else if (backend === "browser" || (force && browserSpeechSynthesisSupported())) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (error) {
+      // The control still returns to idle if the platform speech queue disappeared.
+    }
+  }
+  syncSpeechControl();
+  return active;
+}
+
+function reportCzechSpeechFailure() {
+  setStatus(
+    "This device could not pronounce the Czech text. Check its Czech text-to-speech voice and try again.",
+    { tone: "error" }
+  );
+}
+
+function finishCzechSpeech(session, requestId, errorCode = "") {
+  if (state.speechSession !== session || state.speechRequestId !== requestId) return;
+  state.speechSession = null;
+  state.speechBackend = "";
+  state.speechSource = "";
+  state.speechText = "";
+  state.speechState = "idle";
+  clearCzechSpeechTimeout();
+  syncSpeechControl();
+
+  const normalizedError = String(errorCode || "").toLocaleLowerCase("en-US");
+  if (normalizedError && !EXPECTED_SPEECH_CANCELLATIONS.has(normalizedError)) {
+    reportCzechSpeechFailure();
+  }
+}
+
+function speakCzechWithAndroid(text, source) {
+  const speech = androidSpeechRuntime();
+  if (!speech || !state.nativeSpeechAvailable) {
+    syncSpeechControl();
+    return;
+  }
+
+  const session = { backend: "android", text, source, controller: new AbortController() };
+  const requestId = state.speechRequestId + 1;
+  state.speechRequestId = requestId;
+  state.speechSession = session;
+  state.speechBackend = "android";
+  state.speechSource = source;
+  state.speechText = text;
+  state.speechState = "speaking";
+  syncSpeechControl();
+
+  void speech.speak(
+    text,
+    { locale: targetLocale, rate: CZECH_SPEECH_RATE, pitch: 1, voice: preferredSpeechVoice() },
+    {
+      signal: session.controller.signal,
+      onEvent(event) {
+        if (
+          state.speechSession !== session
+          || state.speechRequestId !== requestId
+          || event?.kind !== "speech"
+          || event?.phase !== "started"
+        ) return;
+        state.speechState = "speaking";
+        syncSpeechControl();
+      }
+    }
+  ).then((result) => {
+    const errorCode = result?.outcome === "error" ? "native-synthesis-failed" : "";
+    finishCzechSpeech(session, requestId, errorCode);
+  }).catch((error) => {
+    const errorCode = error?.name === "AbortError" ? "canceled" : "native-synthesis-failed";
+    finishCzechSpeech(session, requestId, errorCode);
+  });
+}
+
+function speakCzechWithBrowser(text, source) {
+  const synthesis = window.speechSynthesis;
+  const requestId = state.speechRequestId + 1;
+  state.speechRequestId = requestId;
+  let utterance = null;
+  try {
+    utterance = new window.SpeechSynthesisUtterance(text);
+    utterance.lang = targetLocale;
+    utterance.rate = CZECH_SPEECH_RATE;
+    utterance.pitch = 1;
+    try {
+      const voices = typeof synthesis.getVoices === "function" ? synthesis.getVoices() : [];
+      const requestedVoice = preferredSpeechVoice();
+      const requestedLanguage = targetLocale.split(/[-_]/u)[0].toLocaleLowerCase("en-US");
+      const savedVoice = voices.find((voice) => (
+        String(voice?.voiceURI || voice?.name || "") === requestedVoice
+        && String(voice?.lang || "").split(/[-_]/u)[0].toLocaleLowerCase("en-US") === requestedLanguage
+      ));
+      const preferredVoice = savedVoice || selectSpeechSynthesisVoice(voices, targetLocale);
+      if (preferredVoice) utterance.voice = preferredVoice;
+    } catch (error) {
+      // Leaving voice unset lets the device resolve utterance.lang itself.
+    }
+  } catch (error) {
+    syncSpeechControl();
+    reportCzechSpeechFailure();
+    return;
+  }
+
+  utterance.onstart = () => {
+    if (state.speechSession !== utterance || state.speechRequestId !== requestId) return;
+    state.speechState = "speaking";
+    syncSpeechControl();
+  };
+  utterance.onend = () => finishCzechSpeech(utterance, requestId);
+  utterance.onerror = (event) => finishCzechSpeech(utterance, requestId, event?.error);
+  state.speechSession = utterance;
+  state.speechBackend = "browser";
+  state.speechSource = source;
+  state.speechText = text;
+  state.speechState = "speaking";
+  syncSpeechControl();
+
+  try {
+    synthesis.cancel();
+    state.speechTimeoutId = window.setTimeout(() => {
+      finishCzechSpeech(utterance, requestId, "synthesis-timeout");
+    }, CZECH_SPEECH_TIMEOUT_MS);
+    synthesis.speak(utterance);
+  } catch (error) {
+    finishCzechSpeech(utterance, requestId, "synthesis-failed");
+  }
+}
+
+function toggleCzechSpeech(text, source) {
+  const normalizedText = String(text || "").normalize("NFC").trim();
+  const sameSpeech = Boolean(
+    state.speechSession
+    && state.speechSource === source
+    && state.speechText === normalizedText
+  );
+  if (state.speechSession || state.speechState === "speaking") {
+    cancelCzechSpeech();
+    if (sameSpeech) return;
+  }
+  if (!speechControlSupported() || state.busy || !normalizedText) {
+    syncSpeechControl();
+    return;
+  }
+
+  if (androidSpeechRuntime()) speakCzechWithAndroid(normalizedText, source);
+  else speakCzechWithBrowser(normalizedText, source);
+}
+
+function speakCurrentCzechSentence() {
+  toggleCzechSpeech(state.currentSentence, "sentence");
+}
+
+function speakSelectedCzechWord() {
+  if (state.translationMode === "off") return;
+  toggleCzechSpeech(state.selectedWord, "word");
+}
+
+async function refreshAndroidSpeechStatus({ force = false } = {}) {
+  const speech = androidSpeechRuntime();
+  if (!speech || (state.nativeSpeechStatusPending && !force)) return;
+  const requestId = state.nativeSpeechStatusRequestId + 1;
+  state.nativeSpeechStatusRequestId = requestId;
+  state.nativeSpeechStatusPending = true;
+  syncSpeechControl();
+  try {
+    const status = await speech.status(targetLocale, { voice: preferredSpeechVoice() });
+    if (requestId !== state.nativeSpeechStatusRequestId) return;
+    state.nativeSpeechAvailable = status?.available === true;
+    state.nativeSpeechReason = String(status?.reason || "");
+  } catch (error) {
+    if (requestId !== state.nativeSpeechStatusRequestId) return;
+    state.nativeSpeechAvailable = false;
+    state.nativeSpeechReason = "engine-unavailable";
+  } finally {
+    if (requestId === state.nativeSpeechStatusRequestId) {
+      state.nativeSpeechStatusPending = false;
+      syncSpeechControl();
+    }
+  }
+}
+
+function initializeSpeechControl() {
+  syncSpeechControl();
+  window.addEventListener("caatuu:speech-voice-change", () => {
+    cancelCzechSpeech();
+    if (androidSpeechRuntime()) void refreshAndroidSpeechStatus({ force: true });
+    else syncSpeechControl();
+  });
+  if (androidSpeechRuntime()) {
+    void refreshAndroidSpeechStatus();
+    return;
+  }
+  const synthesis = window.speechSynthesis;
+  if (!browserSpeechSynthesisSupported() || typeof synthesis.addEventListener !== "function") return;
+  synthesis.addEventListener("voiceschanged", syncSpeechControl);
+}
+
 function randomItem(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
@@ -229,6 +616,68 @@ function readStoredObject(key) {
     return value && typeof value === "object" && !Array.isArray(value) ? value : {};
   } catch (error) {
     return {};
+  }
+}
+
+function loadWordCardPreferences() {
+  const stored = readStoredObject(WORD_CARD_PREFERENCES_STORAGE_KEY);
+  return {
+    showCard: stored.showCard !== false,
+    autoPronounce: stored.autoPronounce === true
+  };
+}
+
+function saveWordCardPreferences() {
+  try {
+    window.localStorage.setItem(
+      WORD_CARD_PREFERENCES_STORAGE_KEY,
+      JSON.stringify(state.wordCardPreferences)
+    );
+  } catch (error) {
+    // Word-card preferences remain active for the current session.
+  }
+}
+
+function loadDictionaryGapKeys() {
+  const seen = new Set();
+  return readStoredArray(DICTIONARY_GAP_STORAGE_KEY)
+    .map((value) => normalizeWord(value).toLocaleLowerCase(targetLocale))
+    .filter((value) => {
+      if (!value || seen.has(value)) return false;
+      seen.add(value);
+      return true;
+    })
+    .slice(0, DICTIONARY_GAP_LIMIT);
+}
+
+function rememberDictionaryGap(key) {
+  const normalized = normalizeWord(key).toLocaleLowerCase(targetLocale);
+  if (!normalized || state.dictionaryGapKeys.includes(normalized)) return true;
+  const previousKeys = [...state.dictionaryGapKeys];
+  state.dictionaryGapKeys = [
+    ...state.dictionaryGapKeys.slice(-(DICTIONARY_GAP_LIMIT - 1)),
+    normalized
+  ];
+  try {
+    localStorage.setItem(DICTIONARY_GAP_STORAGE_KEY, JSON.stringify(state.dictionaryGapKeys));
+    return true;
+  } catch (error) {
+    state.dictionaryGapKeys = previousKeys;
+    return false;
+  }
+}
+
+function forgetDictionaryGap(key) {
+  const normalized = normalizeWord(key).toLocaleLowerCase(targetLocale);
+  if (!normalized || !state.dictionaryGapKeys.includes(normalized)) return true;
+  const previousKeys = [...state.dictionaryGapKeys];
+  state.dictionaryGapKeys = state.dictionaryGapKeys.filter((value) => value !== normalized);
+  try {
+    localStorage.setItem(DICTIONARY_GAP_STORAGE_KEY, JSON.stringify(state.dictionaryGapKeys));
+    return true;
+  } catch (error) {
+    state.dictionaryGapKeys = previousKeys;
+    return false;
   }
 }
 
@@ -374,32 +823,48 @@ function hydrateQueueFromHistory() {
   if (changed) savePreparedQueue();
 }
 
-function restoreSavedGenerativePhraseAtInit() {
+async function restoreSavedGenerativePhraseAtInit() {
   const historyIndex = state.history.findIndex((entry) => (
     entry.contentMode !== "standard" && entry.sentence
   ));
   if (historyIndex < 0) return false;
 
   const saved = state.history[historyIndex];
-  state.historyCursor = historyIndex;
-  state.currentWord = saved.word;
-  state.currentSentence = saved.sentence;
-  state.currentTranslation = saved.en || "";
-  state.currentSceneQuery = saved.sceneQuery || saved.en || "";
-  state.currentEntryId = saved.id || "";
-  state.currentCorpusVersion = saved.corpusVersion || "";
-  state.currentDifficulty = saved.difficulty || null;
-  state.currentContentMode = "generative";
-  state.currentGenerationSource = saved.source || "history";
-  selectWord(saved.word, { lookup: state.translationMode !== "off", render: false });
+  const transitionStartedAt = performance.now();
+  const requestId = state.phraseRequestId + 1;
+  state.phraseRequestId = requestId;
   hideSceneAsset({ cancel: true });
-  setTranslation(saved.en || "");
-  renderCzechSentence(saved.sentence, saved.word);
-  resetSentenceFeedback();
-  renderTrail();
-  syncDiagnostics();
-  void updateSceneAsset(saved.sceneQuery || saved.en || localTranslation(saved.sentence, saved.word));
-  setStatus("Saved Generative sentence restored. Press Next when you want a new one.", { tone: "muted" });
+  setBusy(true);
+  try {
+    state.historyCursor = historyIndex;
+    state.currentWord = saved.word;
+    state.currentSentence = saved.sentence;
+    state.currentTranslation = saved.en || "";
+    state.currentSceneQuery = saved.sceneQuery || saved.en || "";
+    state.currentEntryId = saved.id || "";
+    state.currentCorpusVersion = saved.corpusVersion || "";
+    state.currentDifficulty = saved.difficulty || null;
+    state.currentStandardRecord = null;
+    state.currentContentMode = "generative";
+    state.currentGenerationSource = saved.source || "history";
+    selectWord(saved.word, { lookup: state.translationMode !== "off", render: false });
+    setTranslation(saved.en || "");
+    renderCzechSentence(saved.sentence, saved.word);
+    resetSentenceFeedback();
+    renderTrail();
+    syncDiagnostics();
+    const sceneReady = updateSceneAsset(saved.sceneQuery || saved.en || localTranslation(saved.sentence, saved.word));
+    await Promise.all([holdSentenceTransition(transitionStartedAt), sceneReady]);
+    if (requestId === state.phraseRequestId) {
+      setStatus("Saved Generative sentence restored. Press Next when you want a new one.", { tone: "muted" });
+    }
+  } catch (error) {
+    if (requestId === state.phraseRequestId) {
+      setStatus("The saved sentence could not be restored.", { tone: "error" });
+    }
+  } finally {
+    if (requestId === state.phraseRequestId) setBusy(false);
+  }
   return true;
 }
 
@@ -464,11 +929,25 @@ function localTranslation(sentence, word) {
   return `A sentence with ${english}.`;
 }
 
+function currentPlayInstruction() {
+  return state.translationMode === "reconstruct" ? reconstructionInstruction : playInstruction;
+}
+
+function syncPlayInstruction() {
+  const instruction = $("#wordNetInstructions");
+  if (instruction) instruction.textContent = currentPlayInstruction();
+}
+
 function setStatus(message, { tone = "muted" } = {}) {
   const status = $("#wordNetStatus");
   const panel = $(".word-net-status-panel");
-  if (status) status.textContent = message;
-  if (panel) panel.dataset.tone = tone;
+  const isRestingInstruction = message === playInstruction || message === reconstructionInstruction;
+  syncPlayInstruction();
+  if (status) {
+    status.textContent = isRestingInstruction ? "" : message;
+    status.hidden = isRestingInstruction || !message;
+  }
+  if (panel) panel.dataset.tone = isRestingInstruction ? "muted" : tone;
   syncDiagnostics();
 }
 
@@ -545,13 +1024,21 @@ function syncDiagnostics() {
 function loadTranslationMode() {
   try {
     const value = localStorage.getItem(TRANSLATION_MODE_STORAGE_KEY);
+    if (value === "visible" || value === "off") {
+      try {
+        localStorage.setItem(TRANSLATION_MODE_STORAGE_KEY, "timer-5");
+      } catch (error) {
+        // The current session can still use the migrated mode.
+      }
+      return "timer-5";
+    }
     if (hasTranslationMode(value)) return value;
   } catch (error) {
     // Ignore storage failures and use the default.
   }
-  // Batched queue enrichment limits model swaps, so English can be ready by
-  // default while an explicit Off choice still disables translation work.
-  return "visible";
+  // Rebuild turns the English translation into the default challenge while a
+  // learner's explicit saved choice continues to take precedence.
+  return "reconstruct";
 }
 
 function loadGenerationMode() {
@@ -576,6 +1063,10 @@ function loadContentMode() {
 
 function hasTranslationMode(mode) {
   return Object.prototype.hasOwnProperty.call(translationModes, mode);
+}
+
+function isTimedTranslationMode(mode) {
+  return typeof mode === "string" && mode.startsWith("timer-") && hasTranslationMode(mode);
 }
 
 function hasGenerationMode(mode) {
@@ -616,20 +1107,84 @@ function clearTranslationTimer() {
   state.translationTimerId = 0;
 }
 
-function closeTranslationMenu() {
+function toggleWordCardPreference(key) {
+  if (!Object.prototype.hasOwnProperty.call(state.wordCardPreferences, key)) return;
+  state.wordCardPreferences[key] = !state.wordCardPreferences[key];
+  saveWordCardPreferences();
+  syncTranslationMenu();
+  syncWordTranslation();
+}
+
+function translationMenuItems() {
+  const menu = $("#wordNetTranslationMenu");
+  return menu
+    ? [...menu.querySelectorAll('[role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"]')]
+      .filter((item) => !item.closest("[hidden]"))
+    : [];
+}
+
+function closeTranslationMenu({ restoreFocus = false } = {}) {
   const menu = $("#wordNetTranslationMenu");
   const button = $("#wordNetTranslationToggle");
   if (menu) menu.hidden = true;
   if (button) button.setAttribute("aria-expanded", "false");
+  if (restoreFocus) button?.focus({ preventScroll: true });
+}
+
+function openTranslationMenu({ focus = "selected" } = {}) {
+  const menu = $("#wordNetTranslationMenu");
+  const button = $("#wordNetTranslationToggle");
+  if (!menu || !button) return;
+  closeGenerationMenu();
+  syncTranslationMenu();
+  menu.hidden = false;
+  button.setAttribute("aria-expanded", "true");
+  const items = translationMenuItems();
+  const target = focus === "last"
+    ? items.at(-1)
+    : items.find((item) => item.getAttribute("aria-checked") === "true") || items[0];
+  window.requestAnimationFrame(() => target?.focus({ preventScroll: true }));
 }
 
 function toggleTranslationMenu() {
   const menu = $("#wordNetTranslationMenu");
-  const button = $("#wordNetTranslationToggle");
-  if (!menu || !button) return;
-  const nextHidden = !menu.hidden;
-  menu.hidden = nextHidden;
-  button.setAttribute("aria-expanded", nextHidden ? "false" : "true");
+  if (!menu) return;
+  if (menu.hidden) openTranslationMenu();
+  else closeTranslationMenu({ restoreFocus: true });
+}
+
+function handleTranslationToggleKeydown(event) {
+  if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+  event.preventDefault();
+  openTranslationMenu({ focus: event.key === "ArrowUp" ? "last" : "selected" });
+}
+
+function handleTranslationMenuKeydown(event) {
+  const menu = $("#wordNetTranslationMenu");
+  if (!menu || menu.hidden) return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeTranslationMenu({ restoreFocus: true });
+    return;
+  }
+  if (event.key === "Tab") {
+    event.preventDefault();
+    closeTranslationMenu();
+    const target = event.shiftKey ? $("#wordNetTranslationToggle") : $("#wordNetGenerationToggle");
+    target?.focus({ preventScroll: true });
+    return;
+  }
+  const items = translationMenuItems();
+  if (!items.length) return;
+  const currentIndex = Math.max(0, items.indexOf(document.activeElement));
+  let nextIndex = -1;
+  if (event.key === "ArrowDown") nextIndex = (currentIndex + 1) % items.length;
+  if (event.key === "ArrowUp") nextIndex = (currentIndex - 1 + items.length) % items.length;
+  if (event.key === "Home") nextIndex = 0;
+  if (event.key === "End") nextIndex = items.length - 1;
+  if (nextIndex < 0) return;
+  event.preventDefault();
+  items[nextIndex].focus({ preventScroll: true });
 }
 
 function closeGenerationMenu() {
@@ -649,11 +1204,87 @@ function toggleGenerationMenu() {
 }
 
 function syncTranslationMenu() {
-  document.querySelectorAll("[data-translation-mode]").forEach((button) => {
-    const selected = button.dataset.translationMode === state.translationMode;
+  const showTimers = isTimedTranslationMode(state.translationMode);
+  const timers = $("#wordNetTranslationTimers");
+  if (timers) timers.hidden = !showTimers;
+  document.querySelectorAll("[data-answer-mode]").forEach((button) => {
+    const selected = button.dataset.answerMode === "reconstruct"
+      ? state.translationMode === "reconstruct"
+      : isTimedTranslationMode(state.translationMode);
     button.classList.toggle("is-selected", selected);
     button.setAttribute("aria-checked", selected ? "true" : "false");
   });
+  document.querySelectorAll("[data-translation-delay]").forEach((button) => {
+    const selected = button.dataset.translationDelay === state.translationMode;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-checked", selected ? "true" : "false");
+  });
+  document.querySelectorAll("[data-word-card-setting]").forEach((button) => {
+    const key = button.dataset.wordCardSetting;
+    button.setAttribute("aria-checked", String(Boolean(state.wordCardPreferences[key])));
+  });
+  const gapExportButton = $("#wordNetDictionaryGapExport");
+  if (gapExportButton) gapExportButton.disabled = state.dictionaryGapCopying;
+  const gapExportSummary = $("#wordNetDictionaryGapExportSummary");
+  if (gapExportSummary) {
+    gapExportSummary.textContent = state.dictionaryGapCopying
+      ? "Preparing the local batch..."
+      : "Narrow device-local JSON for Codex";
+  }
+}
+
+async function copyTextToClipboard(value) {
+  const copy = String(value || "");
+  if (!copy) return false;
+  if (typeof navigator.clipboard?.writeText === "function") {
+    try {
+      await navigator.clipboard.writeText(copy);
+      return true;
+    } catch (error) {
+      // The selectable-text fallback also works in older Android WebViews.
+    }
+  }
+  const textarea = document.createElement("textarea");
+  textarea.value = copy;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  document.body.append(textarea);
+  textarea.select();
+  let copied = false;
+  try {
+    copied = document.execCommand("copy") === true;
+  } catch (error) {
+    copied = false;
+  }
+  textarea.remove();
+  return copied;
+}
+
+async function copyDictionaryGapBatch() {
+  if (state.dictionaryGapCopying) return;
+  closeTranslationMenu();
+  state.dictionaryGapCopying = true;
+  syncTranslationMenu();
+  try {
+    const exported = await runtimeAdapter()?.maintenance?.exportDictionaryGaps?.();
+    if (!exported?.document || exported.count < 1) {
+      setStatus("No missing dictionary words are queued on this device.", { tone: "muted" });
+      return;
+    }
+    const copy = `${JSON.stringify(exported.document, null, 2)}\n`;
+    if (!(await copyTextToClipboard(copy))) {
+      setStatus("The missing-word batch could not be copied. Check clipboard permission and try again.", { tone: "error" });
+      return;
+    }
+    const wordLabel = exported.count === 1 ? "word" : "words";
+    setStatus(`Copied ${exported.count} missing ${wordLabel}. Paste the JSON into a Codex maintenance task.`, { tone: "active" });
+  } catch (error) {
+    setStatus("The device-local missing-word batch is unavailable right now.", { tone: "error" });
+  } finally {
+    state.dictionaryGapCopying = false;
+    syncTranslationMenu();
+  }
 }
 
 function syncGenerationControl() {
@@ -779,6 +1410,7 @@ function confirmGenerativeMode() {
 }
 
 async function requestContentMode(mode) {
+  if (mode !== state.contentMode && shouldBlockReconstructionAdvance()) return;
   if (!hasContentMode(mode) || mode === state.contentMode) {
     await setContentMode(mode);
     return;
@@ -798,8 +1430,9 @@ function setGenerationMode(mode) {
   closeGenerationMenu();
 }
 
-function generateFromConfiguredMode(mode = state.generationMode) {
+function generateFromConfiguredMode(mode = state.generationMode, { force = false } = {}) {
   if (state.busy) return;
+  if (!force && shouldBlockReconstructionAdvance()) return;
   if (state.contentMode === "standard") {
     void generateStandardFromConfiguredMode(mode);
     return;
@@ -828,8 +1461,8 @@ function recentStandardEntryIds() {
   ])].filter(Boolean);
 }
 
-async function generateStandardFromConfiguredMode(mode = state.generationMode) {
-  if (state.busy) return;
+async function generateStandardFromConfiguredMode(mode = state.generationMode, { allowBusy = false } = {}) {
+  if (state.busy && !allowBusy) return;
   if (mode === "selected" && !normalizeWord(state.selectedWord)) {
     setStatus("Tap a word before using selected-word mode.", { tone: "muted" });
     return;
@@ -871,49 +1504,53 @@ async function showStandardPhrase(selection, { difficulty = learningDifficulty()
   const transitionStartedAt = performance.now();
   const requestId = state.phraseRequestId + 1;
   state.phraseRequestId = requestId;
-  setBusy(true);
-  setStatus("Preparing the next guided sentence.", { tone: "active" });
-  await holdSentenceTransition(transitionStartedAt);
-  if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
-
-  const target = normalizeWord(provider.primaryWord(record, selection.fallback ? "" : selection.requestedWord));
-  state.currentWord = target;
-  state.currentSentence = record.cs;
-  state.currentTranslation = record.en;
-  state.currentSceneQuery = record.sceneQuery || record.en;
-  state.currentEntryId = record.id;
-  state.currentCorpusVersion = provider.corpusVersion;
-  state.currentDifficulty = record.difficulty;
-  state.currentContentMode = "standard";
-  state.currentGenerationSource = "standard-corpus";
-  selectWord(target, { lookup: false, render: false });
   hideSceneAsset({ cancel: true });
-  renderCzechSentence(record.cs, target);
-  provider.markUsed(record);
-  saveStandardUsage();
-  setTranslation(record.en);
-  rememberStep(target, record.cs, {
-    id: record.id,
-    en: record.en,
-    contentMode: "standard",
-    source: "standard-corpus",
-    corpusVersion: provider.corpusVersion,
-    difficulty: record.difficulty,
-    sceneQuery: record.sceneQuery || record.en
-  });
-  recordStandardSemanticExposure(record, provider, target);
-  rememberSeenSentence(record.cs);
-  resetSentenceFeedback();
-  setProgress(null);
-  setBusy(false);
-  void updateSceneAsset(record.sceneQuery || record.en);
-  if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
-    void lookupSelectedWord(target);
-  }
-  if (selection.fallback) {
-    setStatus(`No unused Level ${difficulty} Standard sentence remains for “${selection.requestedWord}”. Showing another guided sentence.`, { tone: "active" });
-  } else {
-    setStatus(playInstruction, { tone: "muted" });
+  if (!state.busy) setBusy(true);
+  setStatus("Preparing the next guided sentence.", { tone: "active" });
+  try {
+    if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
+    const target = normalizeWord(provider.primaryWord(record, selection.fallback ? "" : selection.requestedWord));
+    state.currentWord = target;
+    state.currentSentence = record.cs;
+    state.currentTranslation = record.en;
+    state.currentSceneQuery = record.sceneQuery || record.en;
+    state.currentEntryId = record.id;
+    state.currentCorpusVersion = provider.corpusVersion;
+    state.currentDifficulty = record.difficulty;
+    state.currentStandardRecord = record;
+    state.currentContentMode = "standard";
+    state.currentGenerationSource = "standard-corpus";
+    selectWord(target, { lookup: false, render: false });
+    renderCzechSentence(record.cs, target);
+    provider.markUsed(record);
+    saveStandardUsage();
+    setTranslation(record.en);
+    rememberStep(target, record.cs, {
+      id: record.id,
+      en: record.en,
+      contentMode: "standard",
+      source: "standard-corpus",
+      corpusVersion: provider.corpusVersion,
+      difficulty: record.difficulty,
+      sceneQuery: record.sceneQuery || record.en
+    });
+    recordStandardSemanticExposure(record, provider, target);
+    rememberSeenSentence(record.cs);
+    resetSentenceFeedback();
+    setProgress(null);
+    const sceneReady = updateSceneAsset(record.sceneQuery || record.en);
+    await Promise.all([holdSentenceTransition(transitionStartedAt), sceneReady]);
+    if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
+    if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
+      void lookupSelectedWord(target);
+    }
+    if (selection.fallback) {
+      setStatus(`No unused Level ${difficulty} Standard sentence remains for “${selection.requestedWord}”. Showing another guided sentence.`, { tone: "active" });
+    } else {
+      setStatus(playInstruction, { tone: "muted" });
+    }
+  } finally {
+    if (requestId === state.phraseRequestId) setBusy(false);
   }
 }
 
@@ -952,6 +1589,7 @@ async function generateRandomPhrase({ source = "seed" } = {}) {
   try {
     await presentPreparedCandidate(target, queued, transitionStartedAt);
   } catch (error) {
+    if (!state.busy) setBusy(true);
     await presentPreparedCandidate(target, {
       sentence: localSentence(target, generationAvoidList()),
       source: "queue-error-fallback"
@@ -960,32 +1598,476 @@ async function generateRandomPhrase({ source = "seed" } = {}) {
   }
 }
 
+function reconstructionGrammarSignals(record) {
+  const grammar = record?.grammar;
+  if (Array.isArray(grammar)) return grammar.map((value) => String(value || "").toLocaleLowerCase("en-US"));
+  if (!grammar || typeof grammar !== "object") return [];
+  return Object.entries(grammar).flatMap(([key, value]) => [
+    key,
+    ...(Array.isArray(value) ? value : [value])
+  ]).map((value) => String(value || "").toLocaleLowerCase("en-US"));
+}
+
+function reconstructionWordCount(text) {
+  return String(text || "").match(/[\p{L}\p{M}\d]+(?:[’'-][\p{L}\p{M}\d]+)*/gu)?.length || 0;
+}
+
+function reconstructionCandidateTexts() {
+  const current = state.currentStandardRecord;
+  const currentSignals = new Set(reconstructionGrammarSignals(current));
+  const currentObjective = String(current?.learning?.objective || "").toLocaleLowerCase("en-US");
+  const answerLength = reconstructionWordCount(state.currentTranslation);
+  const scoredRecords = (state.standardProvider?.records || [])
+    .filter((record) => record?.id !== current?.id)
+    .map((record) => {
+      const signals = reconstructionGrammarSignals(record);
+      const sharedSignals = signals.filter((signal) => currentSignals.has(signal)).length;
+      const objective = String(record?.learning?.objective || "").toLocaleLowerCase("en-US");
+      const score = (currentObjective && objective === currentObjective ? 80 : 0)
+        + (current?.topic && record.topic === current.topic ? 32 : 0)
+        + sharedSignals * 14
+        + (Number(record.difficulty) === Number(state.currentDifficulty) ? 10 : 0)
+        - Math.abs(reconstructionWordCount(record.en) - answerLength) * 2;
+      return { record, score };
+    })
+    .sort((left, right) => right.score - left.score || left.record.id.localeCompare(right.record.id, "en-US"))
+    .slice(0, 48)
+    .flatMap(({ record }) => [record.en, ...(record.enAlternates || [])]);
+  const historyTexts = state.history.map((entry) => entry.en).filter(Boolean);
+  const seen = new Set();
+  return [...scoredRecords, ...historyTexts, ...reconstructionFallbackTexts].filter((text) => {
+    const value = String(text || "").trim();
+    const key = value.toLocaleLowerCase("en-US");
+    if (!value || value === state.currentTranslation || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function currentReconstructionKey() {
+  const translation = String(state.currentTranslation || "").normalize("NFC").trim();
+  if (!translation || !state.currentSentence) return "";
+  return [
+    state.currentContentMode,
+    state.currentCorpusVersion,
+    state.currentEntryId,
+    sentenceFingerprint(state.currentSentence),
+    translation.toLocaleLowerCase("en-US")
+  ].join("|");
+}
+
+function ensureReconstructionChallenge() {
+  const key = currentReconstructionKey();
+  if (!key) {
+    state.reconstruction = null;
+    return null;
+  }
+  if (state.reconstruction?.key === key) return state.reconstruction;
+  const challenge = buildWordReconstructionChallenge(
+    state.currentTranslation,
+    reconstructionCandidateTexts(),
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT }
+  );
+  if (!challenge.answerTokens.length) {
+    state.reconstruction = null;
+    return null;
+  }
+  state.reconstruction = {
+    key,
+    challenge,
+    selectedIds: [],
+    submitted: false,
+    correct: false,
+    awardedXp: 0,
+    submittedText: "",
+    announcement: ""
+  };
+  return state.reconstruction;
+}
+
+function reconstructionSelectedOptions(round) {
+  const options = new Map(round.challenge.options.map((option) => [option.id, option]));
+  return round.selectedIds.map((id) => options.get(id)).filter(Boolean);
+}
+
+function reconstructionSelectedText(round) {
+  const words = reconstructionSelectedOptions(round).map((option) => option.text).join(" ");
+  return `${words}${round.challenge.punctuation || ""}`.trim();
+}
+
+function reconstructionTokenButton(option, location, { inAnswer = false } = {}) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "word-net-reconstruction-token";
+  button.dataset.reconstructionOptionId = option.id;
+  button.dataset.reconstructionLocation = location;
+  button.textContent = option.text;
+  button.classList.toggle("is-in-answer", location === "bank" && inAnswer);
+  button.disabled = state.busy || inAnswer;
+  if (location === "answer") {
+    button.setAttribute("aria-label", `Remove ${option.text}`);
+  } else if (inAnswer) {
+    button.tabIndex = -1;
+    button.setAttribute("aria-hidden", "true");
+  } else {
+    button.setAttribute("aria-label", `Add ${option.text}`);
+  }
+  return button;
+}
+
+function reconstructionOptionNode(id, location) {
+  return [...document.querySelectorAll("[data-reconstruction-option-id]")].find((node) => (
+    node.dataset.reconstructionOptionId === id
+    && node.dataset.reconstructionLocation === location
+  )) || null;
+}
+
+function animateReconstructionTransfer(id, fromRect, toLocation, { restoreFocus = false } = {}) {
+  const target = reconstructionOptionNode(id, toLocation);
+  const host = $("#wordNetReconstruction");
+  if (!target) return;
+  if (restoreFocus && !target.disabled) target.focus({ preventScroll: true });
+  if (
+    !fromRect
+    || typeof target.animate !== "function"
+    || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  ) return;
+  const toRect = target.getBoundingClientRect();
+  if (!toRect.width || !toRect.height) return;
+  const deltaX = fromRect.left - toRect.left;
+  const deltaY = fromRect.top - toRect.top;
+  const scaleX = Math.max(0.72, Math.min(1.28, fromRect.width / toRect.width));
+  const scaleY = Math.max(0.72, Math.min(1.28, fromRect.height / toRect.height));
+  host?.classList.add("is-transferring");
+  target.classList.add("is-moving");
+  const animation = target.animate([
+    {
+      transform: `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scaleX}, ${scaleY})`,
+      opacity: 0.58
+    },
+    { transform: "translate3d(0, 0, 0) scale(1)", opacity: 1 }
+  ], {
+    duration: 240,
+    easing: "cubic-bezier(0.22, 1, 0.36, 1)"
+  });
+  Promise.resolve(animation.finished)
+    .catch(() => {})
+    .finally(() => {
+      target.classList.remove("is-moving");
+      host?.classList.remove("is-transferring");
+    });
+}
+
+function renderReconstructionAttempt(round, host) {
+  const selected = reconstructionSelectedOptions(round);
+  host.classList.toggle("is-complete-sentence", round.correct);
+  if (round.correct) {
+    const sentence = round.submittedText || reconstructionSelectedText(round);
+    host.textContent = sentence;
+    host.removeAttribute("role");
+    host.setAttribute("aria-label", `Your answer: ${sentence} Correct.`);
+    return;
+  }
+
+  const operations = alignWordReconstructionAttempt(
+    selected.map((option) => option.text),
+    round.challenge.answerTokens
+  );
+  const nodes = operations.map((operation) => {
+    const position = document.createElement("span");
+    position.className = `word-net-reconstruction-result-position is-${operation.type}`;
+    position.classList.toggle("is-error", operation.type !== "match");
+    position.setAttribute("role", "listitem");
+
+    const entered = document.createElement("span");
+    entered.className = "word-net-reconstruction-result-entered";
+    entered.textContent = operation.type === "missing" ? `+ ${operation.expected}` : operation.entered;
+    position.append(entered);
+
+    let label = `Correct word ${operation.entered}.`;
+    if (operation.type === "replacement") {
+      const expectedNode = document.createElement("span");
+      expectedNode.className = "word-net-reconstruction-result-expected";
+      expectedNode.textContent = `\u2192 ${operation.expected}`;
+      position.append(expectedNode);
+      label = `Replace ${operation.entered} with ${operation.expected}.`;
+    } else if (operation.type === "missing") {
+      label = `Add missing word ${operation.expected}.`;
+    } else if (operation.type === "extra") {
+      const expectedNode = document.createElement("span");
+      expectedNode.className = "word-net-reconstruction-result-expected";
+      expectedNode.textContent = "remove";
+      position.append(expectedNode);
+      label = `Remove extra word ${operation.entered}.`;
+    }
+    position.setAttribute("aria-label", label);
+    return position;
+  });
+
+  if (round.challenge.punctuation) {
+    const punctuation = document.createElement("span");
+    punctuation.className = "word-net-reconstruction-result-punctuation";
+    punctuation.textContent = round.challenge.punctuation;
+    punctuation.setAttribute("aria-hidden", "true");
+    nodes.push(punctuation);
+  }
+  host.replaceChildren(...nodes);
+  host.setAttribute("role", "list");
+  host.setAttribute("aria-label", "Your answer feedback");
+}
+
+function renderReconstructionResult(round, result) {
+  if (!round.submitted) {
+    result.hidden = true;
+    $("#wordNetReconstructionResultPoints")?.classList.remove("is-xp-awarded");
+    return;
+  }
+
+  const outcome = round.correct ? "correct" : "incorrect";
+  const outcomeContent = {
+    correct: {
+      mark: "\u2713",
+      message: "",
+      points: `+${round.awardedXp || 0} XP`
+    },
+    incorrect: {
+      mark: "\u21ba",
+      message: "Almost there — compare the highlighted words.",
+      points: "+0 XP"
+    }
+  }[outcome];
+
+  result.hidden = false;
+  result.dataset.outcome = outcome;
+  result.classList.toggle("is-correct", outcome === "correct");
+  result.classList.toggle("is-incorrect", outcome === "incorrect");
+
+  const mark = $("#wordNetReconstructionResultMark");
+  const title = $("#wordNetReconstructionResultTitle");
+  const message = $("#wordNetReconstructionResultMessage");
+  const points = $("#wordNetReconstructionResultPoints");
+  const attempt = $("#wordNetReconstructionResultAttempt");
+  const attemptText = $("#wordNetReconstructionResultAttemptText");
+  const correct = $("#wordNetReconstructionResultCorrect");
+  const correctText = $("#wordNetReconstructionResultCorrectText");
+
+  if (mark) mark.textContent = outcomeContent.mark;
+  if (title) title.textContent = state.currentSentence;
+  if (points) {
+    points.textContent = outcomeContent.points;
+    points.classList.remove("is-xp-awarded");
+    if (outcome === "correct") {
+      void points.offsetWidth;
+      points.classList.add("is-xp-awarded");
+    }
+  }
+  if (message) {
+    message.textContent = outcomeContent.message;
+    message.hidden = !outcomeContent.message;
+  }
+
+  if (attempt && attemptText) {
+    attempt.hidden = false;
+    attempt.classList.toggle("is-correct-attempt", outcome === "correct");
+    renderReconstructionAttempt(round, attemptText);
+  }
+  if (correct && correctText) {
+    correct.hidden = outcome === "correct";
+    correctText.textContent = `\u201c${round.challenge.text}\u201d`;
+  }
+}
+
+function syncNextSentenceControl(round = null) {
+  const next = $("#wordNetNext");
+  if (!next) return;
+  const challengeLocked = Boolean(round && !round.submitted);
+  const challengeReady = Boolean(round?.submitted && !state.busy);
+  next.disabled = state.busy || challengeLocked;
+  next.classList.toggle("is-challenge-locked", challengeLocked);
+  next.classList.toggle("is-challenge-ready", challengeReady);
+  const label = challengeLocked ? "Submit the challenge to continue" : "Next sentence";
+  next.setAttribute("aria-label", label);
+  next.title = label;
+}
+
+function renderReconstruction() {
+  const host = $("#wordNetReconstruction");
+  const play = $("#wordNetReconstructionPlay");
+  const answer = $("#wordNetReconstructionAnswer");
+  const bank = $("#wordNetReconstructionBank");
+  const actions = $("#wordNetReconstructionActions");
+  const submit = $("#wordNetReconstructionSubmit");
+  const status = $("#wordNetReconstructionStatus");
+  const result = $("#wordNetReconstructionResult");
+  if (!host || !play || !answer || !bank || !actions || !submit || !status || !result) return;
+
+  const round = state.translationMode === "reconstruct" ? ensureReconstructionChallenge() : null;
+  const panel = host.closest(".word-net-sentence-panel");
+  panel?.classList.toggle("has-reconstruction-actions", Boolean(round && !round.submitted));
+  panel?.classList.toggle("has-reconstruction-result", Boolean(round?.submitted));
+  host.hidden = !round;
+  syncNextSentenceControl(round);
+  if (!round) {
+    actions.hidden = true;
+    status.textContent = "";
+    result.hidden = true;
+    return;
+  }
+  const selected = reconstructionSelectedOptions(round);
+  const selectedIds = new Set(round.selectedIds);
+  const answerNodes = selected.map((option) => reconstructionTokenButton(option, "answer"));
+  if (selected.length && round.challenge.punctuation) {
+    const punctuation = document.createElement("span");
+    punctuation.className = "word-net-reconstruction-punctuation";
+    punctuation.textContent = round.challenge.punctuation;
+    punctuation.setAttribute("aria-hidden", "true");
+    answerNodes.push(punctuation);
+  }
+  answer.replaceChildren(...answerNodes);
+  bank.replaceChildren(...round.challenge.options.map((option) => reconstructionTokenButton(option, "bank", {
+    inAnswer: selectedIds.has(option.id)
+  })));
+  submit.disabled = state.busy || selected.length === 0;
+  status.textContent = round.announcement;
+
+  play.hidden = round.submitted;
+  actions.hidden = round.submitted;
+  renderReconstructionResult(round, result);
+}
+
+function stabilizeReconstructionResultViewport() {
+  const scrollLeft = window.scrollX;
+  const scrollTop = window.scrollY;
+  const restoreScroll = () => window.scrollTo(scrollLeft, scrollTop);
+  window.requestAnimationFrame(() => {
+    restoreScroll();
+    window.requestAnimationFrame(restoreScroll);
+  });
+}
+
+function selectReconstructionOption(id) {
+  if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
+  const round = ensureReconstructionChallenge();
+  const option = round?.challenge.options.find((candidate) => candidate.id === id);
+  if (!round || !option || round.submitted || round.selectedIds.includes(id)) return;
+  const source = reconstructionOptionNode(id, "bank");
+  const sourceRect = source?.getBoundingClientRect();
+  const restoreFocus = source === document.activeElement;
+  round.selectedIds.push(id);
+  round.announcement = `Added ${option.text}.`;
+  renderReconstruction();
+  animateReconstructionTransfer(id, sourceRect, "answer", { restoreFocus });
+}
+
+function removeReconstructionOption(id) {
+  if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
+  const round = ensureReconstructionChallenge();
+  const option = round?.challenge.options.find((candidate) => candidate.id === id);
+  if (!round || !option || round.submitted) return;
+  const source = reconstructionOptionNode(id, "answer");
+  const sourceRect = source?.getBoundingClientRect();
+  const restoreFocus = source === document.activeElement;
+  round.selectedIds = round.selectedIds.filter((selectedId) => selectedId !== id);
+  round.announcement = `Removed ${option.text}.`;
+  renderReconstruction();
+  animateReconstructionTransfer(id, sourceRect, "bank", { restoreFocus });
+}
+
+function submitReconstructionChallenge() {
+  if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
+  const round = ensureReconstructionChallenge();
+  if (!round || round.submitted) return;
+  const selected = reconstructionSelectedOptions(round);
+  if (!selected.length) {
+    round.announcement = "Choose at least one word before submitting.";
+    renderReconstruction();
+    return;
+  }
+  round.correct = isWordReconstructionCorrect(
+    selected.map((option) => option.text),
+    round.challenge.answerTokens
+  );
+  const rewardAvailable = claimSentenceReward(round.key);
+  round.awardedXp = round.correct && rewardAvailable ? 3 : 0;
+  round.submitted = true;
+  round.submittedText = reconstructionSelectedText(round);
+  round.announcement = round.correct
+    ? (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
+    : "Almost there. Compare the highlighted words with the answer.";
+  window.CaatuuLearning?.record("word-world", {
+    attempts: 1,
+    successes: round.correct ? 1 : 0,
+    xp: round.awardedXp,
+    rounds: 1
+  });
+  renderReconstruction();
+  stabilizeReconstructionResultViewport();
+  window.requestAnimationFrame(() => $("#wordNetNext")?.focus({ preventScroll: true }));
+}
+
+function shouldBlockReconstructionAdvance() {
+  if (state.translationMode !== "reconstruct") return false;
+  const round = ensureReconstructionChallenge();
+  if (!round || round.submitted) return false;
+  round.announcement = "Submit your answer before moving to the next sentence.";
+  renderReconstruction();
+  $("#wordNetReconstructionSubmit")?.focus({ preventScroll: true });
+  return true;
+}
+
+function activateNextSentence() {
+  if (state.busy) return;
+  if (shouldBlockReconstructionAdvance()) return;
+  generateFromConfiguredMode(state.generationMode, { force: true });
+}
+
+function claimSentenceReward(rewardKey = currentReconstructionKey()) {
+  if (!rewardKey || state.sentenceRewardKeys.has(rewardKey)) return false;
+  state.sentenceRewardKeys.add(rewardKey);
+  while (state.sentenceRewardKeys.size > SENTENCE_REWARD_LIMIT) {
+    state.sentenceRewardKeys.delete(state.sentenceRewardKeys.values().next().value);
+  }
+  return true;
+}
+
+function awardTimedRevealXp() {
+  if (!claimSentenceReward()) return false;
+  window.CaatuuLearning?.record("word-world", { xp: 1 });
+  setStatus("English revealed. +1 XP.", { tone: "success" });
+  return true;
+}
+
 function applyTranslationMode({ restartTimer = false } = {}) {
   clearTranslationTimer();
 
-  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "visible";
+  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "reconstruct";
   if (mode !== state.translationMode) state.translationMode = mode;
+  const delayMs = translationModes[mode].delayMs;
 
   state.translationVisible = mode === "visible";
-  if (restartTimer && translationModes[mode].delayMs && state.currentTranslation) {
+  if (restartTimer && isTimedTranslationMode(mode) && Number.isFinite(delayMs) && state.currentTranslation) {
     state.translationTimerId = window.setTimeout(() => {
       state.translationTimerId = 0;
+      if (document.visibilityState === "hidden") return;
       state.translationVisible = true;
       syncTranslationToggle();
-    }, translationModes[mode].delayMs);
+      awardTimedRevealXp();
+    }, delayMs);
   }
 
   syncTranslationToggle();
 }
 
-function setTranslationMode(mode) {
+function setTranslationMode(mode, { closeMenu = true } = {}) {
   if (!hasTranslationMode(mode)) return;
   cancelBackgroundWork();
   state.translationMode = mode;
   saveTranslationMode();
   applyTranslationMode({ restartTimer: true });
-  closeTranslationMenu();
+  setStatus(currentPlayInstruction());
+  if (closeMenu) closeTranslationMenu({ restoreFocus: true });
   if (mode === "off") {
+    if (state.speechSource === "word") cancelCzechSpeech();
     abortWordLookup();
   } else if (state.selectedWord && !state.selectedWordMeaning) {
     void lookupSelectedWord(state.selectedWord);
@@ -1022,14 +2104,20 @@ function syncTranslationToggle() {
   const button = $("#wordNetTranslationToggle");
   const translation = $("#wordNetTranslation");
   if (!button || !translation) return;
-  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "visible";
+  const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "reconstruct";
+  const reconstructing = mode === "reconstruct";
   const label = translationModes[mode].label;
   button.classList.toggle("is-off", mode === "off");
   button.classList.toggle("is-waiting", mode.startsWith("timer-") && !state.translationVisible);
-  button.setAttribute("aria-label", `Translation options. Current: ${label}.`);
-  button.setAttribute("title", `Translation: ${label}`);
-  translation.classList.toggle("is-hidden", !state.translationVisible);
-  translation.setAttribute("aria-hidden", state.translationVisible ? "false" : "true");
+  button.setAttribute("aria-label", `English answer and dictionary settings. Current answer mode: ${label}.`);
+  button.setAttribute("title", `Answer mode: ${label}`);
+  translation.hidden = reconstructing;
+  translation.classList.toggle("is-hidden", !state.translationVisible && !reconstructing);
+  translation.setAttribute("aria-hidden", state.translationVisible && !reconstructing ? "false" : "true");
+  const panel = $(".word-net-sentence-panel");
+  if (panel) panel.dataset.translationMode = mode;
+  syncPlayInstruction();
+  renderReconstruction();
   syncWordTranslation();
   syncTranslationMenu();
 }
@@ -1043,7 +2131,7 @@ function syncWordTranslation() {
   if (!panel || !wordNode || !meaningNode || !posNode || !metaNode) return;
 
   const translationEnabled = state.translationMode !== "off";
-  const visible = Boolean(state.selectedWord) && translationEnabled;
+  const visible = Boolean(state.selectedWord) && translationEnabled && state.wordCardPreferences.showCard;
   const details = state.selectedWordDetails;
   const normalizedSelected = normalizeWord(state.selectedWord).toLocaleLowerCase(targetLocale);
   const normalizedLemma = normalizeWord(details?.lemma).toLocaleLowerCase(targetLocale);
@@ -1053,6 +2141,7 @@ function syncWordTranslation() {
   const grammarTags = (details?.senseTags || []).filter((tag) => !details?.formTags?.includes(tag));
   if (grammarTags.length) metadata.push(grammarTags.slice(0, 2).join(" ").replaceAll("-", " "));
   if (details?.synonyms?.length) metadata.push(`also ${details.synonyms.slice(0, 2).join(", ")}`);
+  if (state.selectedWordGapNotice) metadata.push(state.selectedWordGapNotice);
   panel.hidden = !visible;
   panel.setAttribute("aria-hidden", visible ? "false" : "true");
   panel.classList.toggle("is-loading", visible && state.wordMeaningLoading);
@@ -1064,7 +2153,10 @@ function syncWordTranslation() {
       ? "Looking up..."
       : state.selectedWordMeaning || "No English meaning found.";
   metaNode.textContent = visible && !state.wordMeaningLoading ? metadata.join(" · ") : "";
+  metaNode.hidden = !metaNode.textContent;
   metaNode.title = metaNode.textContent;
+  syncTranslationMenu();
+  syncSpeechControl();
 }
 
 function abortWordLookup() {
@@ -1083,6 +2175,51 @@ function cacheWordMeaning(key, meaning) {
   }
 }
 
+async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0 } = {}) {
+  const normalizedWord = normalizeWord(selectedWord).toLocaleLowerCase(targetLocale);
+  if (!normalizedWord) return;
+  if (state.dictionaryGapKeys.includes(normalizedWord)) {
+    if (normalizedWord === state.selectedWord.toLocaleLowerCase(targetLocale)) {
+      state.selectedWordGapNotice = DICTIONARY_GAP_NOTICE;
+      syncWordTranslation();
+    }
+    return;
+  }
+  const clientReportId = createClientReportId();
+  const lookupOutcome = Number(lookupReturned) > 0 ? "no_exact_usable_entry" : "no_results";
+  const feedback = {
+    clientReportId,
+    reportedAt: new Date().toISOString(),
+    kind: "dictionary_missing_entry",
+    reason: lookupOutcome,
+    targetWord: selectedWord,
+    normalizedWord,
+    dictionaryKey: DICTIONARY_GAP_SOURCE_KEY,
+    dictionaryDirection: "cs-en",
+    lookupOutcome,
+    lookupReturned: Math.max(0, Math.floor(Number(lookupReturned) || 0))
+  };
+  const payload = {
+    kind: "dictionary_gap_feedback",
+    title: "Czech dictionary gap",
+    message: "No usable Czech-English dictionary entry.",
+    feedback
+  };
+  try {
+    const queued = await runtimeAdapter()?.maintenance?.enqueueReport?.(payload, {
+      id: clientReportId,
+      dedupeKey: [feedback.kind, feedback.dictionaryDirection, feedback.dictionaryKey, normalizedWord].join("|")
+    });
+    if (!queued?.queued || queued.persisted === false || !rememberDictionaryGap(normalizedWord)) return;
+    if (normalizedWord === state.selectedWord.toLocaleLowerCase(targetLocale)) {
+      state.selectedWordGapNotice = DICTIONARY_GAP_NOTICE;
+      syncWordTranslation();
+    }
+  } catch (error) {
+    // The general fallback meaning remains useful even when device storage is full.
+  }
+}
+
 async function lookupSelectedWord(word) {
   const selectedWord = normalizeWord(word);
   if (!selectedWord || state.translationMode === "off") {
@@ -1095,7 +2232,15 @@ async function lookupSelectedWord(word) {
     state.selectedWordDetails = state.wordMeaningCache.get(key);
     state.selectedWordMeaning = state.selectedWordDetails?.meaning || "No English meaning found.";
     state.wordMeaningLoading = false;
+    if (state.selectedWordDetails && !state.selectedWordDetails.dictionaryMissing && forgetDictionaryGap(key)) {
+      state.selectedWordGapNotice = "";
+    }
     syncWordTranslation();
+    if (state.selectedWordDetails?.dictionaryMissing) {
+      void queueMissingDictionaryFeedback(selectedWord, {
+        lookupReturned: state.selectedWordDetails.lookupReturned
+      });
+    }
     return;
   }
 
@@ -1113,12 +2258,25 @@ async function lookupSelectedWord(word) {
     if (!dictionary?.search) throw new Error("Dictionary lookup is unavailable.");
     const payload = await dictionary.search(selectedWord, { limit: 8, signal: controller.signal });
     const result = selectDictionaryMeaning(payload, selectedWord, { maxGlosses: 2 });
+    const lookupReturned = Array.isArray(payload?.results) ? payload.results.length : 0;
     const meaning = result?.meaning || fallback || "No English meaning found.";
-    const details = result || { lemma: selectedWord, pos: "", formTags: [], senseTags: [], synonyms: [], meaning };
+    const details = result || {
+      lemma: selectedWord,
+      pos: "",
+      formTags: [],
+      senseTags: [],
+      synonyms: [],
+      meaning,
+      dictionaryMissing: true,
+      lookupReturned
+    };
     cacheWordMeaning(key, details);
+    if (result) forgetDictionaryGap(key);
     if (requestId !== state.wordLookupRequestId || key !== state.selectedWord.toLocaleLowerCase(targetLocale)) return;
     state.selectedWordMeaning = meaning;
     state.selectedWordDetails = details;
+    if (result) state.selectedWordGapNotice = "";
+    if (!result) void queueMissingDictionaryFeedback(selectedWord, { lookupReturned });
   } catch (error) {
     if (error?.name === "AbortError" || requestId !== state.wordLookupRequestId) return;
     state.selectedWordMeaning = fallback || "Meaning unavailable.";
@@ -1132,14 +2290,18 @@ async function lookupSelectedWord(word) {
   }
 }
 
-function selectWord(word, { lookup = true, render = true } = {}) {
+function selectWord(word, { lookup = true, render = true, userInitiated = false } = {}) {
   const selectedWord = normalizeWord(word);
   if (!selectedWord) return;
   const previousKey = state.selectedWord.toLocaleLowerCase(targetLocale);
   const nextKey = selectedWord.toLocaleLowerCase(targetLocale);
   state.selectedWord = selectedWord;
   if (previousKey !== nextKey) {
+    if (state.speechSource === "word") cancelCzechSpeech();
     abortWordLookup();
+    state.selectedWordGapNotice = state.dictionaryGapKeys.includes(nextKey)
+      ? DICTIONARY_GAP_NOTICE
+      : "";
     state.selectedWordDetails = state.wordMeaningCache.get(nextKey) || null;
     state.selectedWordMeaning = state.selectedWordDetails?.meaning || "";
   }
@@ -1148,6 +2310,13 @@ function selectWord(word, { lookup = true, render = true } = {}) {
   syncWordTranslation();
   if (lookup && state.translationMode !== "off" && !state.selectedWordMeaning) {
     void lookupSelectedWord(selectedWord);
+  }
+  if (
+    userInitiated
+    && state.translationMode !== "off"
+    && state.wordCardPreferences.autoPronounce
+  ) {
+    speakSelectedCzechWord();
   }
 }
 
@@ -1225,6 +2394,14 @@ async function showLoadingRobot() {
   return new Promise((resolve) => {
     let settled = false;
     let timeoutId = 0;
+    let loadHandler = null;
+    let errorHandler = null;
+    const removeImageListeners = () => {
+      if (loadHandler) image.removeEventListener("load", loadHandler);
+      if (errorHandler) image.removeEventListener("error", errorHandler);
+      loadHandler = null;
+      errorHandler = null;
+    };
     const finish = (visible) => {
       if (settled) return;
       if (
@@ -1239,8 +2416,7 @@ async function showLoadingRobot() {
       }
       settled = true;
       window.clearTimeout(timeoutId);
-      image.onload = null;
-      image.onerror = null;
+      removeImageListeners();
       resolve(visible);
     };
     const tryPath = (offset) => {
@@ -1249,10 +2425,12 @@ async function showLoadingRobot() {
         finish(false);
         return;
       }
-      image.onload = null;
-      image.onerror = null;
+      removeImageListeners();
       image.hidden = true;
-      image.onload = async () => {
+      const expectedSrc = new URL(path, window.location.href).href;
+      loadHandler = async () => {
+        if (image.currentSrc !== expectedSrc && image.src !== expectedSrc) return;
+        removeImageListeners();
         if (requestId !== state.robotRequestId || loading.hidden) {
           finish(false);
           return;
@@ -1267,8 +2445,17 @@ async function showLoadingRobot() {
         state.loadingRobotVisibleAt = performance.now();
         finish(true);
       };
-      image.onerror = () => tryPath(offset + 1);
+      errorHandler = () => {
+        if (image.currentSrc !== expectedSrc && image.src !== expectedSrc) return;
+        removeImageListeners();
+        tryPath(offset + 1);
+      };
+      image.addEventListener("load", loadHandler);
+      image.addEventListener("error", errorHandler);
       image.src = path;
+      if (image.complete && image.naturalWidth && (image.currentSrc === expectedSrc || image.src === expectedSrc)) {
+        void loadHandler();
+      }
     };
     timeoutId = window.setTimeout(() => finish(false), LOADING_ROBOT_IMAGE_WAIT_MS);
     tryPath(0);
@@ -1288,7 +2475,11 @@ async function holdSentenceTransition(startedAt) {
 
 function setBusy(busy, { cover = busy } = {}) {
   state.busy = busy;
-  document.querySelectorAll(".word-net-generation-toggle, .word-net-generation-menu button, .word-net-side-nav, .cz-word-token, [data-content-mode]").forEach((button) => {
+  if (busy) {
+    closeTranslationMenu();
+    cancelCzechSpeech();
+  }
+  document.querySelectorAll(".word-net-generation-toggle, .word-net-generation-menu button, .word-net-translation-toggle, .word-net-translation-menu button, .word-net-word-pronounce, .word-net-side-nav, .cz-word-token, .word-net-reconstruction button, #wordNetReconstructionSubmit, .word-net-reconstruction-result button, [data-content-mode]").forEach((button) => {
     button.disabled = busy;
   });
   syncGenerationControl();
@@ -1317,6 +2508,8 @@ function setBusy(busy, { cover = busy } = {}) {
       }, LOADING_FADE_MS);
     }
   }
+  renderReconstruction();
+  syncSpeechControl();
   syncDiagnostics();
 }
 
@@ -1351,13 +2544,32 @@ async function sceneAssetRows() {
 async function rankedSceneCandidates(englishText) {
   const text = String(englishText || "").trim();
   if (!text) return [];
+  const [semanticRows, keymapRows] = await Promise.all([
+    semanticSceneCandidates(text),
+    Promise.race([
+      rankedKeymapSceneCandidates(text),
+      sceneDelay(SCENE_KEYMAP_SEARCH_TIMEOUT_MS, [])
+    ])
+  ]);
+  const seenPaths = new Set();
+  return [...semanticRows, ...keymapRows].filter((candidate) => {
+    const path = String(candidate?.assetPath || "");
+    if (!path || seenPaths.has(path)) return false;
+    seenPaths.add(path);
+    return true;
+  });
+}
 
+async function semanticSceneCandidates(text) {
   try {
-    const response = await runtimeAdapter()?.vector?.search?.(text, {
-      limit: SCENE_ASSET_LIMIT,
-      sourceKinds: ["image_asset"]
-    });
-    const semanticRows = (Array.isArray(response?.results) ? response.results : [])
+    const response = await Promise.race([
+      Promise.resolve(runtimeAdapter()?.vector?.search?.(text, {
+        limit: SCENE_ASSET_LIMIT,
+        sourceKinds: ["image_asset"]
+      })),
+      sceneDelay(SCENE_SEMANTIC_SEARCH_TIMEOUT_MS, null)
+    ]);
+    return (Array.isArray(response?.results) ? response.results : [])
       .map((row) => ({
         assetPath: row.documentMetadata?.asset_path || row.chunkMetadata?.asset_path || row.sourceId || "",
         description: row.text || row.title || "Caatuu scene",
@@ -1366,12 +2578,14 @@ async function rankedSceneCandidates(englishText) {
         lexicalScore: Number(row.lexicalScore || 0)
       }))
       .filter((row) => isMiscellaneousAssetPath(row.assetPath));
-    if (semanticRows.length) return semanticRows;
   } catch (error) {
     // The game must remain playable if setup is incomplete or a runtime is not
     // available. The keymap-only fallback below still chooses a related image.
   }
+  return [];
+}
 
+async function rankedKeymapSceneCandidates(text) {
   const rows = await sceneAssetRows();
   if (!rows.length) return [];
   const queryTokens = englishSceneTokens(text);
@@ -1416,6 +2630,7 @@ function stableSceneOffset(text, length) {
 function hideSceneAsset({ cancel = false } = {}) {
   if (cancel) state.sceneRequestId += 1;
   state.sceneCandidates = [];
+  state.currentSceneAsset = null;
   const scene = $("#wordNetScene");
   const image = $("#wordNetSceneImage");
   if (image) {
@@ -1427,39 +2642,111 @@ function hideSceneAsset({ cancel = false } = {}) {
   if (scene) scene.hidden = true;
 }
 
-function renderSceneCandidate(candidateIndex, requestId) {
+function sceneDelay(milliseconds, value = false) {
+  return new Promise((resolve) => window.setTimeout(() => resolve(value), Math.max(0, milliseconds)));
+}
+
+function sceneTimeRemaining(deadline) {
+  return Math.max(0, Number(deadline || 0) - performance.now());
+}
+
+async function waitForImageLoad(image, src, deadline) {
+  const remaining = sceneTimeRemaining(deadline);
+  if (remaining <= 0) return false;
+  const expectedSrc = new URL(src, window.location.href).href;
+  return new Promise((resolve) => {
+    let settled = false;
+    const matchesExpectedSource = () => image.currentSrc === expectedSrc || image.src === expectedSrc;
+    const onLoad = () => {
+      if (matchesExpectedSource()) finish(Boolean(image.complete && image.naturalWidth));
+    };
+    const onError = () => {
+      if (matchesExpectedSource()) finish(false);
+    };
+    const finish = (ready) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeoutId);
+      image.removeEventListener("load", onLoad);
+      image.removeEventListener("error", onError);
+      resolve(ready);
+    };
+    const timeoutId = window.setTimeout(() => finish(false), remaining);
+    image.addEventListener("load", onLoad);
+    image.addEventListener("error", onError);
+    image.src = src;
+    if (matchesExpectedSource() && image.complete) finish(Boolean(image.naturalWidth));
+  });
+}
+
+async function waitForImageDecode(image, deadline) {
+  if (typeof image.decode !== "function") return true;
+  const remaining = sceneTimeRemaining(deadline);
+  if (remaining <= 0) return false;
+  return Promise.race([
+    image.decode()
+      .then(() => Boolean(image.complete && image.naturalWidth))
+      .catch(() => Boolean(image.complete && image.naturalWidth)),
+    sceneDelay(remaining, false)
+  ]);
+}
+
+async function renderSceneCandidate(candidateIndex, requestId, deadline) {
   const scene = $("#wordNetScene");
   const image = $("#wordNetSceneImage");
   const candidate = state.sceneCandidates[candidateIndex];
-  if (!scene || !image || !candidate) {
-    hideSceneAsset();
-    return;
-  }
+  if (!scene || !image || !candidate || requestId !== state.sceneRequestId) return false;
 
+  const candidateDeadline = Math.min(deadline, performance.now() + SCENE_CANDIDATE_LOAD_TIMEOUT_MS);
   scene.hidden = true;
-  image.onload = () => {
-    if (requestId === state.sceneRequestId) scene.hidden = false;
-  };
-  image.onerror = () => {
-    if (requestId === state.sceneRequestId) renderSceneCandidate(candidateIndex + 1, requestId);
-  };
   image.alt = candidate.description;
-  image.src = candidate.assetPath;
+  if (!(await waitForImageLoad(image, candidate.assetPath, candidateDeadline))) return false;
+  if (!(await waitForImageDecode(image, candidateDeadline))) return false;
+  if (requestId !== state.sceneRequestId) return false;
+  state.currentSceneAsset = {
+    src: image.currentSrc || image.src || candidate.assetPath,
+    alt: candidate.description
+  };
+  scene.hidden = false;
+  await Promise.race([
+    waitForVisiblePaint(),
+    sceneDelay(Math.min(180, sceneTimeRemaining(deadline)), true)
+  ]);
+  return requestId === state.sceneRequestId && !scene.hidden;
 }
 
 async function updateSceneAsset(englishText) {
   const requestId = state.sceneRequestId + 1;
   state.sceneRequestId = requestId;
   hideSceneAsset();
+  const deadline = performance.now() + SCENE_ASSET_READY_TIMEOUT_MS;
 
   try {
-    const candidates = await rankedSceneCandidates(englishText);
-    if (requestId !== state.sceneRequestId) return;
+    let candidates = await Promise.race([
+      rankedSceneCandidates(englishText),
+      sceneDelay(Math.min(SCENE_CANDIDATE_SEARCH_TIMEOUT_MS, sceneTimeRemaining(deadline)), null)
+    ]);
+    if (requestId !== state.sceneRequestId) return false;
+    if (!Array.isArray(candidates)) {
+      const fallbackBudget = Math.max(0, Math.min(1200, sceneTimeRemaining(deadline) - 1800));
+      candidates = fallbackBudget > 0
+        ? await Promise.race([
+            rankedKeymapSceneCandidates(String(englishText || "").trim()),
+            sceneDelay(fallbackBudget, [])
+          ])
+        : [];
+    }
+    if (requestId !== state.sceneRequestId) return false;
     state.sceneCandidates = candidates;
-    renderSceneCandidate(0, requestId);
+    for (let index = 0; index < candidates.length && sceneTimeRemaining(deadline) > 0; index += 1) {
+      if (await renderSceneCandidate(index, requestId, deadline)) return true;
+      if (requestId !== state.sceneRequestId) return false;
+    }
+    if (requestId === state.sceneRequestId) hideSceneAsset();
   } catch (error) {
     if (requestId === state.sceneRequestId) hideSceneAsset();
   }
+  return false;
 }
 
 function isAbortError(error) {
@@ -1550,15 +2837,19 @@ async function prepareCandidateForDisplay(word, candidate) {
 }
 
 async function presentPreparedCandidate(target, candidate, transitionStartedAt) {
-  let presented = false;
+  let requestId = state.phraseRequestId;
   try {
     const prepared = await prepareCandidateForDisplay(target, candidate);
-    await holdSentenceTransition(transitionStartedAt);
-    showPreparedPhrase(target, prepared);
-    presented = true;
+    if (requestId !== state.phraseRequestId) return null;
+    requestId += 1;
+    state.phraseRequestId = requestId;
+    await Promise.all([
+      holdSentenceTransition(transitionStartedAt),
+      showPreparedPhrase(target, prepared)
+    ]);
     return prepared;
   } finally {
-    if (!presented) setBusy(false);
+    if (requestId === state.phraseRequestId) setBusy(false);
   }
 }
 
@@ -1910,6 +3201,7 @@ function renderCzechSentence(sentence, selectedWord = "") {
     empty.className = "word-net-empty";
     empty.textContent = "Preparing a Czech phrase.";
     host.replaceChildren(empty);
+    syncSpeechControl();
     return;
   }
 
@@ -1955,6 +3247,7 @@ function renderCzechSentence(sentence, selectedWord = "") {
   nodes.push(...openingPunctuation);
   host.replaceChildren(...nodes);
   syncGenerationControl();
+  syncSpeechControl();
 }
 
 function rememberStep(word, sentence, metadata = {}) {
@@ -2035,6 +3328,7 @@ function updateHistoryTranslation(sentence, translation) {
 
 async function showPreviousSentence() {
   if (state.busy) return;
+  if (shouldBlockReconstructionAdvance()) return;
   const previousIndex = state.historyCursor + 1;
   const previous = state.history[previousIndex];
   if (!previous) {
@@ -2045,43 +3339,50 @@ async function showPreviousSentence() {
   const transitionStartedAt = performance.now();
   cancelBackgroundWork();
   state.generativeTurnActive = false;
-  setBusy(true, { cover: previous.contentMode !== "standard" });
-  setStatus("Restoring the previous sentence.", { tone: "active" });
-  if (previous.contentMode !== "standard") await holdSentenceTransition(transitionStartedAt);
-  state.historyCursor = previousIndex;
-  state.phraseRequestId += 1;
-  state.currentWord = previous.word;
-  state.currentSentence = previous.sentence;
-  state.currentTranslation = previous.en || "";
-  state.currentSceneQuery = previous.sceneQuery || previous.en || "";
-  state.currentEntryId = previous.id || "";
-  state.currentCorpusVersion = previous.corpusVersion || "";
-  state.currentDifficulty = previous.difficulty || null;
-  state.currentContentMode = previous.contentMode || "generative";
-  state.currentGenerationSource = previous.source || "history";
-  if (previous.contentMode !== "standard") {
-    state.branchQueue.markUsed(previous.sentence);
-    savePreparedQueue();
-  }
-  selectWord(previous.word, { lookup: state.translationMode !== "off", render: false });
+  const requestId = state.phraseRequestId + 1;
+  state.phraseRequestId = requestId;
   hideSceneAsset({ cancel: true });
-  setTranslation(previous.en || "");
-  renderCzechSentence(previous.sentence, previous.word);
-  resetSentenceFeedback();
-  setProgress(null);
-  setBusy(false);
-
-  if (previous.contentMode === "standard") {
-    void updateSceneAsset(previous.sceneQuery || previous.en);
-    setStatus("Previous Standard sentence restored.", { tone: "muted" });
-  } else {
-    void updateSceneAsset(previous.en || localTranslation(previous.sentence, previous.word));
-    if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
-      void lookupSelectedWord(previous.word);
+  setBusy(true);
+  setStatus("Restoring the previous sentence.", { tone: "active" });
+  try {
+    state.historyCursor = previousIndex;
+    state.currentWord = previous.word;
+    state.currentSentence = previous.sentence;
+    state.currentTranslation = previous.en || "";
+    state.currentSceneQuery = previous.sceneQuery || previous.en || "";
+    state.currentEntryId = previous.id || "";
+    state.currentCorpusVersion = previous.corpusVersion || "";
+    state.currentDifficulty = previous.difficulty || null;
+    state.currentStandardRecord = previous.contentMode === "standard"
+      ? state.standardProvider?.records?.find((record) => record.id === previous.id) || null
+      : null;
+    state.currentContentMode = previous.contentMode || "generative";
+    state.currentGenerationSource = previous.source || "history";
+    if (previous.contentMode !== "standard") {
+      state.branchQueue.markUsed(previous.sentence);
+      savePreparedQueue();
     }
-    setStatus(previous.en
-      ? "Previous sentence restored."
-      : "Previous sentence restored. English was not saved for this older phrase.", { tone: "muted" });
+    selectWord(previous.word, { lookup: state.translationMode !== "off", render: false });
+    setTranslation(previous.en || "");
+    renderCzechSentence(previous.sentence, previous.word);
+    resetSentenceFeedback();
+    setProgress(null);
+    const sceneText = previous.sceneQuery || previous.en || localTranslation(previous.sentence, previous.word);
+    await Promise.all([holdSentenceTransition(transitionStartedAt), updateSceneAsset(sceneText)]);
+    if (requestId !== state.phraseRequestId) return;
+
+    if (previous.contentMode === "standard") {
+      setStatus("Previous Standard sentence restored.", { tone: "muted" });
+    } else {
+      if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
+        void lookupSelectedWord(previous.word);
+      }
+      setStatus(previous.en
+        ? "Previous sentence restored."
+        : "Previous sentence restored. English was not saved for this older phrase.", { tone: "muted" });
+    }
+  } finally {
+    if (requestId === state.phraseRequestId) setBusy(false);
   }
 }
 
@@ -2156,6 +3457,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
     });
     await presentPreparedCandidate(target, candidate, transitionStartedAt);
   } catch (error) {
+    if (!state.busy) setBusy(true);
     await presentPreparedCandidate(target, {
       sentence: localSentence(target, generationAvoidList()),
       source: "error-fallback"
@@ -2164,9 +3466,8 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
   }
 }
 
-function showPreparedPhrase(target, candidate) {
+async function showPreparedPhrase(target, candidate) {
   const sentence = candidate?.sentence || localSentence(target, generationAvoidList());
-  state.phraseRequestId += 1;
   state.currentWord = target;
   selectWord(target, { lookup: false, render: false });
   state.currentSentence = sentence;
@@ -2175,6 +3476,7 @@ function showPreparedPhrase(target, candidate) {
   state.currentEntryId = "";
   state.currentCorpusVersion = "";
   state.currentDifficulty = learningDifficulty();
+  state.currentStandardRecord = null;
   state.currentContentMode = "generative";
   state.currentGenerationSource = candidate?.source || "unknown";
   hideSceneAsset({ cancel: true });
@@ -2191,24 +3493,28 @@ function showPreparedPhrase(target, candidate) {
   rememberSeenSentence(sentence);
   resetSentenceFeedback();
   setProgress(null);
-  setBusy(false);
 
+  let sceneText = "";
   if (state.translationMode === "off") {
-    void updateSceneAsset(localTranslation(sentence, target));
+    sceneText = localTranslation(sentence, target);
     setStatus(playInstruction, { tone: "muted" });
     schedulePrefetch(sentence);
   } else if (candidate?.translation) {
     cacheTranslation(sentence, candidate.translation);
     setTranslation(candidate.translation);
-    void updateSceneAsset(candidate.translation);
+    sceneText = candidate.translation;
     setStatus(playInstruction, { tone: "muted" });
     if (!state.selectedWordMeaning && !state.wordMeaningLoading) void lookupSelectedWord(target);
     schedulePrefetch(sentence);
   } else {
-    setStatus("Phrase ready. Preparing English in the background.", { tone: "active" });
+    const fallbackEnglish = localTranslation(sentence, target);
+    setTranslation(fallbackEnglish);
+    sceneText = fallbackEnglish;
+    setStatus(playInstruction, { tone: "muted" });
     if (!state.selectedWordMeaning && !state.wordMeaningLoading) void lookupSelectedWord(target);
-    void enrichCurrentPhrase();
+    schedulePrefetch(sentence);
   }
+  await updateSceneAsset(sceneText);
 }
 
 function freshSeedWord() {
@@ -2311,8 +3617,8 @@ async function submitSentenceFeedback(event) {
       }
       if (status) {
         status.textContent = queued.persisted === false
-          ? "Kept for this session — keep Caatuu open while we send it."
-          : "Saved — thank you. We’ll send it quietly when a connection is available.";
+          ? "Kept for this session, but device storage is unavailable."
+          : "Saved on this device. Sending remains off until a reviewed feedback channel is enabled.";
       }
     }
     const flush = runtimeAdapter()?.maintenance?.flushReports?.();
@@ -2351,11 +3657,34 @@ function bindUi() {
     closeGenerationMenu();
     toggleTranslationMenu();
   });
+  $("#wordNetTranslationToggle")?.addEventListener("keydown", handleTranslationToggleKeydown);
   $("#wordNetTranslationMenu")?.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-translation-mode]");
-    if (!button) return;
-    setTranslationMode(button.dataset.translationMode);
+    const answerMode = event.target.closest("button[data-answer-mode]");
+    if (answerMode?.dataset.answerMode === "reconstruct") {
+      setTranslationMode("reconstruct");
+      return;
+    }
+    if (answerMode?.dataset.answerMode === "wait") {
+      const delay = isTimedTranslationMode(state.translationMode) ? state.translationMode : "timer-5";
+      setTranslationMode(delay, { closeMenu: false });
+      const selectedDelay = $("#wordNetTranslationTimers")?.querySelector(`[data-translation-delay="${delay}"]`);
+      window.requestAnimationFrame(() => selectedDelay?.focus({ preventScroll: true }));
+      return;
+    }
+    const delayOption = event.target.closest("button[data-translation-delay]");
+    if (delayOption) {
+      setTranslationMode(delayOption.dataset.translationDelay);
+      return;
+    }
+    const wordCardOption = event.target.closest("button[data-word-card-setting]");
+    if (wordCardOption) {
+      toggleWordCardPreference(wordCardOption.dataset.wordCardSetting);
+      return;
+    }
+    const dictionaryGapAction = event.target.closest("button[data-dictionary-gap-action]");
+    if (dictionaryGapAction?.dataset.dictionaryGapAction === "copy") void copyDictionaryGapBatch();
   });
+  $("#wordNetTranslationMenu")?.addEventListener("keydown", handleTranslationMenuKeydown);
   $("#wordNetGenerationToggle")?.addEventListener("click", () => {
     closeTranslationMenu();
     toggleGenerationMenu();
@@ -2363,12 +3692,27 @@ function bindUi() {
   $("#wordNetGenerationMenu")?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-generation-mode]");
     if (!button || button.disabled) return;
+    if (shouldBlockReconstructionAdvance()) return;
     const mode = button.dataset.generationMode;
     setGenerationMode(mode);
     generateFromConfiguredMode(mode);
   });
   $("#wordNetPrevious")?.addEventListener("click", showPreviousSentence);
-  $("#wordNetNext")?.addEventListener("click", () => generateFromConfiguredMode());
+  $("#wordNetNext")?.addEventListener("click", activateNextSentence);
+  $("#wordNetSound")?.addEventListener("click", speakCurrentCzechSentence);
+  $("#wordNetSelectedWordSound")?.addEventListener("click", speakSelectedCzechWord);
+  $("#wordNetReconstruction")?.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-reconstruction-option-id]");
+    if (option) {
+      if (option.dataset.reconstructionLocation === "answer") {
+        removeReconstructionOption(option.dataset.reconstructionOptionId);
+      } else {
+        selectReconstructionOption(option.dataset.reconstructionOptionId);
+      }
+      return;
+    }
+  });
+  $("#wordNetReconstructionSubmit")?.addEventListener("click", submitReconstructionChallenge);
   document.addEventListener("click", (event) => {
     if (event.target.closest(".word-net-panel-actions")) return;
     closeTranslationMenu();
@@ -2383,7 +3727,7 @@ function bindUi() {
   $("#wordNetSentence")?.addEventListener("click", (event) => {
     const button = event.target.closest(".cz-word-token");
     if (!button || state.busy) return;
-    selectWord(button.dataset.word);
+    selectWord(button.dataset.word, { userInitiated: true });
     setStatus(`Selected "${button.dataset.word}". Choose ↻ in Generation to continue with it.`, { tone: "muted" });
   });
   const sentencePanel = $(".word-net-sentence-panel");
@@ -2424,7 +3768,7 @@ function bindUi() {
       maxDurationMs: 1200
     });
     if (action === "random") {
-      generateFromConfiguredMode();
+      activateNextSentence();
     } else if (action === "previous") {
       showPreviousSentence();
     }
@@ -2437,14 +3781,22 @@ function bindUi() {
   $("#wordNetFeedbackForm")?.addEventListener("submit", submitSentenceFeedback);
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
+      clearTranslationTimer();
+      cancelCzechSpeech();
       cancelBackgroundWork();
       abortWordLookup();
-    }
-    else if (!state.busy && state.currentSentence) {
-      if (state.translationMode !== "off" && !state.currentTranslation) void enrichCurrentPhrase();
-      else schedulePrefetch(state.currentSentence, 180);
+    } else {
+      if (androidSpeechRuntime() && !state.nativeSpeechAvailable) void refreshAndroidSpeechStatus();
+      if (isTimedTranslationMode(state.translationMode) && state.currentTranslation && !state.translationVisible) {
+        applyTranslationMode({ restartTimer: true });
+      }
+      if (!state.busy && state.currentSentence) {
+        if (state.translationMode !== "off" && !state.currentTranslation) void enrichCurrentPhrase();
+        else schedulePrefetch(state.currentSentence, 180);
+      }
     }
   });
+  window.addEventListener("pagehide", () => cancelCzechSpeech());
   window.addEventListener("caatuu:learning-change", (event) => {
     if (event.detail?.reason !== "difficulty") return;
     syncDiagnostics();
@@ -2454,6 +3806,7 @@ function bindUi() {
 
 async function init() {
   bindUi();
+  initializeSpeechControl();
   runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
   const diagnostics = $("#wordNetDiagnostics");
   if (diagnostics) diagnostics.open = false;
@@ -2467,11 +3820,17 @@ async function init() {
   hydrateQueueFromHistory();
   if (state.contentMode === "standard") {
     abortOptionalGenerationDownloads();
-    await initializeStandardCorpus();
-    await generateStandardFromConfiguredMode("random");
+    setBusy(true);
+    setStatus("Preparing the guided sentence pack.", { tone: "active" });
+    try {
+      await initializeStandardCorpus();
+      await generateStandardFromConfiguredMode("random", { allowBusy: true });
+    } finally {
+      if (state.busy) setBusy(false);
+    }
   } else {
     state.generativeTurnActive = false;
-    if (!restoreSavedGenerativePhraseAtInit()) {
+    if (!(await restoreSavedGenerativePhraseAtInit())) {
       setStatus("Generative mode is ready. Press Next to create a sentence.", { tone: "muted" });
     }
   }

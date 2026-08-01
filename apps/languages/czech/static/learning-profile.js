@@ -61,6 +61,7 @@
     activities: safeCount(value.activities),
     attempts: safeCount(value.attempts),
     successes: safeCount(value.successes),
+    xp: safeCount(value.xp ?? value.successes),
     rounds: safeCount(value.rounds),
     lastPlayedAt: typeof value.lastPlayedAt === "string" ? value.lastPlayedAt : ""
   });
@@ -89,6 +90,7 @@
         activities: attempts,
         attempts,
         successes,
+        xp: successes,
         rounds,
         lastPlayedAt: ""
       };
@@ -115,8 +117,9 @@
       activities: summary.activities + game.activities,
       attempts: summary.attempts + game.attempts,
       successes: summary.successes + game.successes,
+      xp: summary.xp + game.xp,
       rounds: summary.rounds + game.rounds
-    }), { activities: 0, attempts: 0, successes: 0, rounds: 0 });
+    }), { activities: 0, attempts: 0, successes: 0, xp: 0, rounds: 0 });
     return {
       ...totals,
       accuracy: totals.attempts ? Math.round((totals.successes / totals.attempts) * 100) : null,
@@ -159,6 +162,7 @@
       activities: current.activities + safeCount(delta.activities),
       attempts: current.attempts + safeCount(delta.attempts),
       successes: current.successes + safeCount(delta.successes),
+      xp: current.xp + safeCount(delta.xp ?? delta.successes),
       rounds: current.rounds + safeCount(delta.rounds),
       lastPlayedAt: new Date().toISOString()
     };

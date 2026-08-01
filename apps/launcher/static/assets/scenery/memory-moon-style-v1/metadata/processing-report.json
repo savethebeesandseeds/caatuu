@@ -1,0 +1,125 @@
+{
+  "objects": [
+    {
+      "file": "moon-bush-round-a.png",
+      "width": 419,
+      "height": 392,
+      "anchor_px": [
+        209.5,
+        376
+      ],
+      "alpha": {
+        "transparent": 60799,
+        "partial": 6201,
+        "opaque": 97248
+      },
+      "sha256": "989054b0099f8edfd825365d6c73e1d1b068df17ceee2484d675262aa17fe208",
+      "byte_length": 246154
+    },
+    {
+      "file": "moss-boulder-a.png",
+      "width": 436,
+      "height": 332,
+      "anchor_px": [
+        218.0,
+        316
+      ],
+      "alpha": {
+        "transparent": 52448,
+        "partial": 4063,
+        "opaque": 88241
+      },
+      "sha256": "6f19941d983b05d7075155c57e1b67ba19e85c7632194fd84c53165fb1ede545",
+      "byte_length": 181339
+    },
+    {
+      "file": "moon-sapling-a.png",
+      "width": 374,
+      "height": 452,
+      "anchor_px": [
+        187.0,
+        436
+      ],
+      "alpha": {
+        "transparent": 100512,
+        "partial": 13454,
+        "opaque": 55082
+      },
+      "sha256": "9d82a2ae418b28b01ca2cb57aa362ff8a6a535cdc9f1e007d7a8b4ab2e847439",
+      "byte_length": 195972
+    }
+  ],
+  "tiles": [
+    {
+      "file": "grass-moss-a.png",
+      "width": 256,
+      "height": 256,
+      "opposite_edge_max_delta": [
+        0,
+        0
+      ],
+      "sha256": "22e9cfb7f17ebb41fbad3605a36fe16efedb0ebd4e4aa1fef7d381054c5bd7e6",
+      "byte_length": 143970
+    },
+    {
+      "file": "grass-flowers-a.png",
+      "width": 256,
+      "height": 256,
+      "opposite_edge_max_delta": [
+        0,
+        0
+      ],
+      "sha256": "cd0a501e9e6afd0b4fa98d04228166c0a8aa594f27df6bafbc7d0a8a02408037",
+      "byte_length": 144268,
+      "harmonization": {
+        "base_tile": "grass-moss-a.png",
+        "accent_source_tile": "grass-flowers-a.png",
+        "accent_mask_rgb_exclusive_min": [
+          100,
+          90,
+          20
+        ],
+        "purpose": "Preserve sparse petals while matching the base grass tone."
+      }
+    },
+    {
+      "file": "earth-packed-a.png",
+      "width": 256,
+      "height": 256,
+      "opposite_edge_max_delta": [
+        0,
+        0
+      ],
+      "sha256": "84b4d91e29a4dee0f4f3844c302280d0b0ff6d2895b4966088191828d01c5eea",
+      "byte_length": 126839
+    }
+  ],
+  "atlas": {
+    "file": "floor-atlas.png",
+    "width": 1024,
+    "height": 512,
+    "gutter_px": 8,
+    "rects": {
+      "grass-moss-a": [
+        8,
+        8,
+        256,
+        256
+      ],
+      "grass-flowers-a": [
+        280,
+        8,
+        256,
+        256
+      ],
+      "earth-packed-a": [
+        552,
+        8,
+        256,
+        256
+      ]
+    },
+    "sha256": "85d37e41f0c735e75cfef6cf26d509892978417cf59cafd7981662e1d4218d7c",
+    "byte_length": 286193
+  }
+}

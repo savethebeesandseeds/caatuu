@@ -1,0 +1,7 @@
+**
+!GODOT-LICENSE.txt
+!tooling/
+!tooling/Dockerfile
+!tooling/export-web.sh
+!tooling/extract_remote_zip.py
+!tooling/provision-toolchain.sh

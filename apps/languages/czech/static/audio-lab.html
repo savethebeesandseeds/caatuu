@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Audio Lab - Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-7"></script>
+    <script src="learning-profile.js?v=learning-3"></script>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+        const storedFontSize = localStorage.getItem(window.CaatuuCourse.storage.fontSize) || "largest";
+        document.documentElement.dataset.fontSize = ["standard", "large", "largest"].includes(storedFontSize) ? storedFontSize : "largest";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.fontSize = "largest";
+      }
+    </script>
+    <script src="runtime.js?v=runtime-34"></script>
+    <script src="semantic-learning.js?v=semantic-learning-7"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-5">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-87">
+    <link rel="stylesheet" href="audio-lab.css?v=audio-lab-2">
+  </head>
+  <body class="audio-lab-page">
+    <div class="audio-lab-shell">
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Developer" data-caatuu-page-title="Audio lab" data-caatuu-page-icon="/assets/icons/gear_icon.png"></header>
+
+      <main class="audio-lab-main" aria-labelledby="audioLabTitle">
+        <section class="audio-lab-panel">
+          <header class="audio-lab-head">
+            <p class="audio-lab-kicker">Developer</p>
+            <h1 id="audioLabTitle">Audio lab</h1>
+            <p>Hear short Czech samples through the same voice used by the learning screens.</p>
+          </header>
+
+          <div class="audio-lab-voice-row">
+            <label for="audioLabVoice">
+              <b>Voice</b>
+              <small>Saved for the whole app</small>
+            </label>
+            <select id="audioLabVoice" aria-describedby="audioLabStatus" disabled>
+              <option value="">Automatic (recommended)</option>
+            </select>
+          </div>
+
+          <section class="audio-lab-samples" aria-labelledby="audioLabSamplesTitle">
+            <div class="audio-lab-section-head">
+              <span>
+                <small>Quick tests</small>
+                <h2 id="audioLabSamplesTitle">Default Czech phrases</h2>
+              </span>
+              <span>One tap to hear</span>
+            </div>
+            <div class="audio-lab-sample-grid" role="group" aria-label="Quick Czech audio samples">
+              <button type="button" data-audio-sample="Dobrý den. Jak se máte?" disabled>
+                <b>Greeting</b>
+                <span>Dobrý den. Jak se máte?</span>
+              </button>
+              <button type="button" data-audio-sample="Potřebuji vodu, prosím." disabled>
+                <b>Everyday</b>
+                <span>Potřebuji vodu, prosím.</span>
+              </button>
+              <button type="button" data-audio-sample="Příští týden pojedeme vlakem do Prahy." disabled>
+                <b>Longer sentence</b>
+                <span>Příští týden pojedeme vlakem do Prahy.</span>
+              </button>
+              <button type="button" data-audio-sample="Čtyři černí koně běží přes zelenou louku." disabled>
+                <b>Pronunciation</b>
+                <span>Čtyři černí koně běží přes zelenou louku.</span>
+              </button>
+            </div>
+          </section>
+
+          <label class="audio-lab-text-field" for="audioLabText">
+            <span>
+              <b>Custom Czech text</b>
+              <small>Up to 1,000 characters</small>
+            </span>
+            <textarea id="audioLabText" rows="5" maxlength="1000" spellcheck="true">Dobrý den. Tohle je zkouška českého hlasu.</textarea>
+          </label>
+
+          <div class="audio-lab-tuning">
+            <label for="audioLabRate">
+              <span><b>Speed</b><output id="audioLabRateValue" for="audioLabRate">0.9×</output></span>
+              <input id="audioLabRate" type="range" min="0.5" max="1.5" step="0.05" value="0.9">
+            </label>
+            <label for="audioLabPitch">
+              <span><b>Pitch</b><output id="audioLabPitchValue" for="audioLabPitch">1.0×</output></span>
+              <input id="audioLabPitch" type="range" min="0.5" max="1.5" step="0.05" value="1">
+            </label>
+          </div>
+
+          <div class="audio-lab-actions">
+            <button class="audio-lab-stop" type="button" id="audioLabStop" aria-describedby="audioLabStatus" disabled>Stop</button>
+            <button class="audio-lab-play" type="button" id="audioLabPlay" aria-describedby="audioLabStatus" disabled>Hear text</button>
+            <p id="audioLabStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+        </a>
+      </footer>
+    </div>
+
+    <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="settings" data-settings-target="openSettings"></nav>
+    <div data-caatuu-settings-panel hidden></div>
+
+    <script src="chrome.js?v=chrome-84"></script>
+    <script type="module" src="audio-lab.js?v=audio-lab-1"></script>
+  </body>
+</html>

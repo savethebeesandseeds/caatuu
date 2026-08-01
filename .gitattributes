@@ -3,7 +3,10 @@
 .gitattributes text eol=lf
 .gitignore text eol=lf
 *.css text eol=lf
+*.cfg text eol=lf
 *.env text eol=lf
+*.gd text eol=lf
+*.godot text eol=lf
 *.html text eol=lf
 *.js text eol=lf
 *.json text eol=lf
@@ -21,6 +24,7 @@
 *.sh text eol=lf
 *.sql text eol=lf
 *.svg text eol=lf
+*.tscn text eol=lf
 *.txt text eol=lf
 *.toml text eol=lf
 *.webmanifest text eol=lf

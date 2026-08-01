@@ -864,6 +864,13 @@
 
     const total = evidence.length + axisDefinitions.length;
     let completed = 0;
+    const yieldProjectionTurn = async () => {
+      if (typeof window.scheduler?.yield === "function") {
+        await window.scheduler.yield();
+        return;
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, 0));
+    };
     const withProgress = async (request, kind, id) => {
       assertCurrent();
       const cached = cachedVectors.get(request.key);
@@ -880,6 +887,7 @@
       cachedVectors.set(request.key, { text: request.text, vector: embedded.vector });
       completed += 1;
       options.onProgress?.({ phase: "embedding", kind, id, completed, total, cached: embedded.cached });
+      if (completed < total && completed % 4 === 0) await yieldProjectionTurn();
       assertCurrent();
       return embedded.vector;
     };
@@ -904,6 +912,8 @@
 
     assertCurrent();
     await assertPersistedWorkEpoch(workEpochToken);
+    assertCurrent();
+    await yieldProjectionTurn();
     assertCurrent();
     const projection = {
       ...core.projectSemanticEvidence(projectedEvidence, {

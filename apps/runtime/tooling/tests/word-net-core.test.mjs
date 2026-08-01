@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  alignWordReconstructionAttempt,
+  buildWordReconstructionChallenge,
   capitalizeWord,
   cleanGeneratedSentence,
   cleanTranslation,
@@ -10,6 +12,8 @@ import {
   isPlausibleSentence,
   isRecentSentence,
   isReservedEdgeGesture,
+  isSpeechSynthesisSupported,
+  isWordReconstructionCorrect,
   interpretHorizontalSwipe,
   normalizeAssetPath,
   normalizeWord,
@@ -19,8 +23,10 @@ import {
   sentenceSimilarity,
   sentenceTargets,
   selectDictionaryMeaning,
+  selectSpeechSynthesisVoice,
   stripModelEcho,
   tokenizeCzechSentence,
+  tokenizeEnglishReconstruction,
   wordMatchesTarget
 } from "../../../../apps/languages/czech/static/word-net-core.mjs";
 
@@ -45,6 +51,59 @@ test("tokenizes Czech sentences into playable words and punctuation", () => {
   assert.equal(wordMatchesTarget("hra", "hru"), true);
   assert.equal(wordMatchesTarget("autobus", "auto"), false);
   assert.equal(sentenceIncludesWord("Vidím kočku.", "kočka"), true);
+});
+
+test("detects native speech support without requiring voices to be loaded", () => {
+  class MockUtterance {}
+  const synthesis = {
+    speak() {},
+    cancel() {},
+    getVoices() { return []; }
+  };
+
+  assert.equal(isSpeechSynthesisSupported(synthesis, MockUtterance), true);
+  assert.equal(isSpeechSynthesisSupported({ cancel() {} }, MockUtterance), false);
+  assert.equal(isSpeechSynthesisSupported({ speak() {} }, MockUtterance), false);
+  assert.equal(isSpeechSynthesisSupported(synthesis, null), false);
+  assert.equal(isSpeechSynthesisSupported(null, MockUtterance), false);
+});
+
+test("selects a stable Czech device voice without forcing a foreign fallback", () => {
+  const englishDefault = { name: "English", lang: "en-US", localService: true, default: true };
+  const genericCzech = { name: "Czech generic", lang: "cs", localService: true };
+  const exactRemote = { name: "Czech cloud", lang: "cs-CZ", localService: false };
+  const exactLocalLater = { name: "Zora", lang: "cs_CZ", localService: true };
+  const exactLocalFirst = { name: "Alena", lang: "cs-CZ", localService: true };
+  const exactLocalDefault = { name: "Zuzana", lang: "cs-CZ", localService: true, default: true };
+
+  assert.equal(selectSpeechSynthesisVoice([genericCzech, exactRemote], "cs-CZ"), exactRemote);
+  assert.equal(
+    selectSpeechSynthesisVoice([
+      { name: "Alpha remote", lang: "cs-CZ", localService: false },
+      exactLocalLater
+    ], "cs-CZ"),
+    exactLocalLater
+  );
+  assert.equal(selectSpeechSynthesisVoice([exactLocalLater], "cs-CZ"), exactLocalLater);
+  assert.equal(
+    selectSpeechSynthesisVoice([exactLocalFirst, exactLocalDefault], "cs-CZ"),
+    exactLocalDefault
+  );
+  assert.equal(
+    selectSpeechSynthesisVoice([
+      englishDefault,
+      genericCzech,
+      exactRemote,
+      exactLocalLater,
+      exactLocalFirst
+    ], "cs-CZ"),
+    exactLocalFirst
+  );
+  assert.equal(selectSpeechSynthesisVoice([englishDefault, genericCzech], "cs-CZ"), genericCzech);
+  assert.equal(selectSpeechSynthesisVoice([englishDefault], "cs-CZ"), null);
+  assert.equal(selectSpeechSynthesisVoice([], "cs-CZ"), null);
+  assert.equal(selectSpeechSynthesisVoice(null, "cs-CZ"), null);
+  assert.equal(selectSpeechSynthesisVoice([genericCzech], ""), null);
 });
 
 test("maps deliberate horizontal swipes to Word World navigation", () => {
@@ -149,6 +208,99 @@ test("uses an inflected-form dictionary match and ignores form-only senses", () 
   assert.deepEqual(selected?.formTags, ["accusative", "singular"]);
   assert.deepEqual(selected?.senseTags, ["feminine"]);
   assert.equal(selectDictionaryMeaning({ results: [] }, "vodu"), null);
+});
+
+test("finds an exact accented form when search matched an accent-normalized sibling", () => {
+  const payload = {
+    results: [{
+      lemma: "říci",
+      pos: "verb",
+      matchedBy: "form",
+      matchedTerm: "řekneme",
+      forms: [
+        { form: "řekneme", tags: ["indicative", "first-person", "plural"] },
+        { form: "řekněme", tags: ["imperative", "first-person", "plural"] }
+      ],
+      senses: [{ gloss: "to say", tags: ["perfective"] }]
+    }]
+  };
+
+  const selected = selectDictionaryMeaning(payload, "Řekněme");
+  assert.equal(selected?.meaning, "to say");
+  assert.equal(selected?.lemma, "říci");
+  assert.deepEqual(selected?.formTags, ["imperative", "first-person", "plural"]);
+});
+
+test("rejects dictionary prefix suggestions that are not exact lemma or form matches", () => {
+  const payload = {
+    results: [{
+      lemma: "autobus",
+      pos: "noun",
+      matchedBy: "prefix",
+      matchedTerm: "autobus",
+      senses: [{ gloss: "bus", tags: [] }]
+    }]
+  };
+
+  assert.equal(selectDictionaryMeaning(payload, "auto"), null);
+});
+
+test("builds deterministic English reconstruction challenges with two distractors", () => {
+  const candidates = [
+    "I'm cold.",
+    "She feels calm.",
+    "They are ready."
+  ];
+  const first = buildWordReconstructionChallenge("I'm hot.", candidates, { distractorCount: 2 });
+  const second = buildWordReconstructionChallenge("I'm hot.", candidates, { distractorCount: 2 });
+
+  assert.deepEqual(first, second);
+  assert.deepEqual(first.answerTokens, ["I'm", "hot"]);
+  assert.equal(first.punctuation, ".");
+  assert.equal(first.options.filter((option) => option.answer).length, 2);
+  assert.equal(first.options.filter((option) => !option.answer).length, 2);
+  assert.equal(new Set(first.options.map((option) => option.id)).size, first.options.length);
+});
+
+test("reconstruction keeps contractions intact and checks the complete order", () => {
+  assert.deepEqual(tokenizeEnglishReconstruction("I'm sure we’ll win."), ["I'm", "sure", "we’ll", "win"]);
+  assert.equal(isWordReconstructionCorrect(["I’m", "HOT"], ["I'm", "hot"]), true);
+  assert.equal(isWordReconstructionCorrect(["hot", "I'm"], ["I'm", "hot"]), false);
+  assert.equal(isWordReconstructionCorrect(["I'm"], ["I'm", "hot"]), false);
+  assert.equal(isWordReconstructionCorrect(["I'm", "hot", "today"], ["I'm", "hot"]), false);
+});
+
+test("aligns reconstruction feedback without losing words that already match", () => {
+  assert.deepEqual(
+    alignWordReconstructionAttempt(["your"], ["What", "is", "your", "name"]),
+    [
+      { type: "missing", entered: "", expected: "What" },
+      { type: "missing", entered: "", expected: "is" },
+      { type: "match", entered: "your", expected: "your" },
+      { type: "missing", entered: "", expected: "name" }
+    ]
+  );
+  assert.deepEqual(
+    alignWordReconstructionAttempt(["What", "is", "your", "very", "name"], ["What", "is", "your", "name"]),
+    [
+      { type: "match", entered: "What", expected: "What" },
+      { type: "match", entered: "is", expected: "is" },
+      { type: "match", entered: "your", expected: "your" },
+      { type: "extra", entered: "very", expected: "" },
+      { type: "match", entered: "name", expected: "name" }
+    ]
+  );
+  assert.deepEqual(
+    alignWordReconstructionAttempt(["Who", "is", "your", "name"], ["What", "is", "your", "name"])[0],
+    { type: "replacement", entered: "Who", expected: "What" }
+  );
+  assert.deepEqual(
+    alignWordReconstructionAttempt(["very", "very"], ["very"]),
+    [
+      { type: "match", entered: "very", expected: "very" },
+      { type: "extra", entered: "very", expected: "" }
+    ]
+  );
 });
 
 test("recognizes recent and near-duplicate Word World sentences", () => {

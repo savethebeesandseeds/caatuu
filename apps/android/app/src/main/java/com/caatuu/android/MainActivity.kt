@@ -67,6 +67,8 @@ class MainActivity : ComponentActivity() {
             javaScriptEnabled = true
             domStorageEnabled = true
             cacheMode = WebSettings.LOAD_DEFAULT
+            useWideViewPort = true
+            loadWithOverviewMode = false
             mediaPlaybackRequiresUserGesture = false
             allowFileAccess = false
             allowContentAccess = false
@@ -84,6 +86,7 @@ class MainActivity : ComponentActivity() {
             dictionaryManager = DictionaryManager(applicationContext),
             staticAssetManager = StaticAssetManager(applicationContext),
             appUpdateManager = AppUpdateManager(applicationContext),
+            speechManager = AndroidSpeechManager(applicationContext),
             model = NativeCzechModel(applicationContext),
             onThemeChanged = { theme -> applySystemTheme(theme) },
         )
@@ -217,6 +220,16 @@ class MainActivity : ComponentActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onPause() {
+        if (::bridge.isInitialized) bridge.onPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::bridge.isInitialized) bridge.onResume()
     }
 
     override fun onDestroy() {

@@ -25,3 +25,7 @@ http://127.0.0.1:8765/
 Large interactive experiments do not belong in this app's `static/assets`
 catalog. They live under the workspace-level `demos/` directory and are served
 separately at `/demos/` by the same runtime.
+
+Production shared asset catalogs, including reusable scenery, do belong under
+`static/assets/`. That path is Caatuu's common catalog and delivery location;
+it does not imply that the launcher component owns those assets.

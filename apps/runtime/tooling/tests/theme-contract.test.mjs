@@ -9,7 +9,7 @@ const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise
   readFile(new URL("chat.css", staticRoot), "utf8"),
   readFile(new URL("chrome.css", staticRoot), "utf8"),
   readFile(new URL("chrome.js", staticRoot), "utf8"),
-  ...["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html"]
+  ...["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
 const [homeCss, launcherCss] = await Promise.all([
@@ -258,6 +258,17 @@ test("dark mode keeps its calm surfaces and readable semantic pairs", () => {
   }
 });
 
+test("dark settings separate the canvas, expanded section, and nested cards", () => {
+  const settingsCanvas = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .settings-sheet-body');
+  assert.equal(
+    settingsCanvas.declarations.get("background"),
+    "color-mix(in srgb, var(--theme-panel-raised) 72%, var(--theme-panel))"
+  );
+
+  const expandedSection = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .settings-section-body');
+  assert.equal(expandedSection.declarations.get("background"), "var(--theme-panel-raised)");
+});
+
 test("theme.css resolves the shared aliases used by Chrome in both themes", () => {
   const sharedAliases = [
     "--ink", "--muted", "--quiet", "--paper", "--panel", "--panel-raised", "--line",
@@ -296,6 +307,89 @@ test("every settings surface receives shared theme tokens before shared Chrome",
   }
 });
 
+test("text-size preferences are persistent, immediate, and shared by every HTML screen", () => {
+  const standard = declarationsForSelector(themeCss, "html");
+  const large = declarationsForSelector(themeCss, 'html[data-font-size="large"]');
+  const largest = declarationsForSelector(themeCss, 'html[data-font-size="largest"]');
+  assert.equal(standard.get("font-size"), "100%");
+  assert.equal(standard.get("-webkit-text-size-adjust"), "100%");
+  assert.equal(standard.get("text-size-adjust"), "100%");
+  assert.equal(large.get("font-size"), "112.5%");
+  assert.equal(largest.get("font-size"), "125%");
+
+  assert.match(chromeJs, /const fontSizeStorageKey = course\.storage\.fontSize/);
+  assert.match(chromeJs, /standard: \{ label: "Smaller" \}/);
+  assert.match(chromeJs, /large: \{ label: "Small" \}/);
+  assert.match(chromeJs, /largest: \{ label: "Standard" \}/);
+  assert.match(chromeJs, /hasOwnProperty\.call\(fontSizeOptions, value\) \? value : "largest"/);
+  assert.match(chromeJs, /function readStoredFontSize\(\)[\s\S]*?catch \(error\) \{[\s\S]*?return "largest"/);
+  assert.match(chromeJs, /document\.documentElement\.dataset\.fontSize = normalizedFontSize/);
+  assert.match(chromeJs, /localStorage\.setItem\(fontSizeStorageKey, normalizedFontSize\)/);
+  assert.match(chromeJs, /data-font-size-option="standard"/);
+  assert.match(chromeJs, /data-font-size-option="large"/);
+  assert.match(chromeJs, /data-font-size-option="largest"/);
+  assert.match(chromeJs, /data-font-size-option="largest" aria-label="Use standard text size"[\s\S]*?<b>Standard<\/b>/);
+  assert.match(chromeJs, /data-font-size-option="large" aria-label="Use small text size"[\s\S]*?<b>Small<\/b>/);
+  assert.match(chromeJs, /data-font-size-option="standard" aria-label="Use smaller text size"[\s\S]*?<b>Smaller<\/b>/);
+  assert.match(chromeJs, /const lightModeIconSrc = "\/assets\/icons\/light_mode_ui\.png"/);
+  assert.match(chromeJs, /data-theme-option="light"[\s\S]*?src="\$\{lightModeIconSrc\}"[\s\S]*?<b>Light<\/b>/);
+  assert.doesNotMatch(chromeJs, /<h3>Pronunciation<\/h3>/);
+  assert.doesNotMatch(chromeJs, /Choose the installed voice that reads Czech sentences aloud\./);
+  assert.match(chromeJs, /Automatic will use the best available Czech voice\./);
+  assert.match(chromeJs, /updateFontSizeControls\(readStoredFontSize\(\)\);[\s\S]*?setSettingsView\(panel, readRememberedBackpackView\(\), \{ persist: false \}\)/);
+
+  const appearance = ruleWithSelector(chromeCss, ".appearance-card");
+  const appearanceControls = ruleWithSelector(chromeCss, ".appearance-controls");
+  const appearanceRow = ruleWithSelector(chromeCss, ".appearance-control-row");
+  const appearanceDivider = ruleWithSelector(chromeCss, ".appearance-control-row + .appearance-control-row");
+  const themeTray = ruleWithSelector(chromeCss, ".theme-control");
+  const appearanceButton = ruleWithSelector(chromeCss, ".theme-control button");
+  const activeAppearanceButton = ruleWithSelector(chromeCss, ".theme-control button.is-active");
+  const activeAppearanceSample = ruleWithSelector(chromeCss, ".font-size-control button.is-active .font-size-sample");
+  const darkAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button');
+  const darkActiveAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button.is-active');
+  const fontSizeButton = ruleWithSelector(chromeCss, ".font-size-control button");
+  assert.equal(appearance.declarations.get("grid-template-columns"), "1fr");
+  assert.equal(appearance.declarations.get("gap"), "10px");
+  assert.equal(appearanceControls.declarations.get("grid-template-columns"), "1fr");
+  assert.equal(appearanceControls.declarations.get("gap"), "0");
+  assert.equal(appearanceControls.declarations.get("border-radius"), "10px");
+  assert.equal(appearanceControls.declarations.get("overflow"), "hidden");
+  assert.match(appearanceRow.declarations.get("grid-template-columns") || "", /minmax\(92px/);
+  assert.equal(appearanceRow.declarations.get("align-items"), "center");
+  assert.equal(appearanceRow.declarations.get("border"), "0");
+  assert.equal(appearanceRow.declarations.get("border-radius"), "0");
+  assert.match(appearanceDivider.declarations.get("border-top") || "", /^1px solid /);
+  assert.equal(themeTray.declarations.get("padding"), "0");
+  assert.equal(themeTray.declarations.get("border"), "0");
+  assert.equal(themeTray.declarations.get("gap"), "6px");
+  assert.equal(themeTray.declarations.get("background"), "transparent");
+  assert.match(appearanceButton.declarations.get("border") || "", /^1px solid /);
+  assert.equal(appearanceButton.declarations.get("border-bottom-width"), "3px");
+  assert.equal(appearanceButton.declarations.get("border-radius"), "8px");
+  assert.equal(appearanceButton.declarations.get("box-shadow"), "none");
+  assert.match(appearanceButton.declarations.get("background") || "", /--theme-amber/);
+  assert.equal(activeAppearanceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #376a5a))");
+  assert.equal(activeAppearanceButton.declarations.get("color"), "#fffaf0");
+  assert.equal(activeAppearanceSample.declarations.get("color"), "#fffaf0");
+  assert.match(darkAppearanceButton.declarations.get("background") || "", /--theme-amber/);
+  assert.equal(darkActiveAppearanceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #456f5d))");
+  assert.equal(darkActiveAppearanceButton.declarations.get("color"), "#fffaf0");
+  assert.equal(fontSizeButton.declarations.get("flex-direction"), "row");
+
+  for (const { name, source } of pages) {
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-7"');
+    const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
+    const themeIndex = source.indexOf('href="theme.css?v=theme-5"');
+    assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
+    assert.ok(bootstrapIndex > profileIndex, `${name} must read its font size after the course profile`);
+    assert.ok(themeIndex > bootstrapIndex, `${name} must apply font size before loading CSS`);
+    assert.match(source, /storage\.fontSize\) \|\| "largest"/, `${name} must default to the new Standard size`);
+    assert.match(source, /includes\(storedFontSize\) \? storedFontSize : "largest"/, `${name} must reject invalid sizes safely`);
+    assert.match(source, /dataset\.fontSize = "largest"/, `${name} must keep first paint stable when storage is blocked`);
+  }
+});
+
 test("the update action has resolvable shared colors and readable dark tokens on every page", () => {
   assert.match(chromeJs, /class="maintenance-row-control pwa-install-action"[^>]*id="updateApp"/);
   const updateRule = ruleWithSelector(chromeCss, ".maintenance-install-actions .pwa-install-action");
@@ -304,6 +398,8 @@ test("the update action has resolvable shared colors and readable dark tokens on
 
   assert.ok(background, "the shared update control needs an explicit background");
   assert.ok(color, "the shared update control needs an explicit label color");
+  assert.equal(background, "var(--theme-green-filled, var(--green, #376a5a))");
+  assert.equal(color, "#fffaf0");
   assertVariablesResolve(background, lightTheme, "light update background");
   assertVariablesResolve(color, lightTheme, "light update label");
   assertVariablesResolve(background, darkTheme, "dark update background");
@@ -344,13 +440,14 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   const xp = ruleWithSelector(chromeCss, ".wallet-token-xp");
   assert.match(xp.declarations.get("background") || "", /url\("\/assets\/icons\/icon_gem\.png"\)/);
   const coin = ruleWithSelector(chromeCss, ".wallet-token-coin");
-  assert.match(coin.declarations.get("background") || "", /url\("\/assets\/icons\/coin_icon\.png"\)/);
+  assert.equal(coin.declarations.get("background"), "transparent");
+  assert.match(chromeJs, /class="wallet-token wallet-token-coin"[\s\S]*?coin_icon_ui\.png/);
   const sheet = ruleWithSelector(chromeCss, ".settings-sheet");
   assert.match(sheet.declarations.get("grid-template-rows") || "", /auto minmax\(0, 1fr\) auto/);
   const sectionNav = ruleWithSelector(chromeCss, ".settings-section-switcher");
   assert.match(sectionNav.declarations.get("grid-template-columns") || "", /repeat\(3/);
   assert.equal(sectionNav.declarations.get("border")?.includes("var(--theme-amber"), true);
-  assert.equal(sectionNav.declarations.get("margin"), "0 var(--settings-section-edge) 0 clamp(32px, 7vw, 64px)");
+  assert.equal(sectionNav.declarations.get("margin"), "0 calc(var(--settings-section-edge) - 1px) 0 var(--settings-section-left)");
   assert.equal(sectionNav.declarations.get("padding"), "4px 6px 5px");
   assert.equal(sectionNav.declarations.get("gap"), "6px");
   assert.equal(sectionNav.declarations.get("border-radius"), "12px 12px 0 12px");
@@ -370,12 +467,25 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   assert.equal(backpackConnector.declarations.get("right"), "0");
   assert.equal(backpackConnector.declarations.has("border-top-left-radius"), false);
   assert.equal(backpackConnector.declarations.get("pointer-events"), "none");
-  const sectionOutline = ruleWithSelector(chromeCss, ".settings-section-switcher::before");
-  assert.equal(sectionOutline.declarations.get("inset"), "-1px");
-  assert.equal(sectionOutline.declarations.get("pointer-events"), "none");
+  const navIcon = ruleWithSelector(chromeCss, ".bottom-app-nav .app-nav-icon");
+  assert.equal(navIcon.declarations.get("position"), "relative");
+  const submenuIcon = ruleWithSelector(chromeCss, ".bottom-app-nav .app-nav-submenu-icon");
+  assert.equal(submenuIcon.declarations.get("position"), "absolute");
+  assert.equal(submenuIcon.declarations.get("right"), "-2px");
+  assert.equal(submenuIcon.declarations.get("bottom"), "-2px");
+  assert.equal(submenuIcon.declarations.get("width"), "18px");
+  assert.equal(submenuIcon.declarations.get("height"), "18px");
+  assert.doesNotMatch(chromeCss, /\.settings-section-switcher::before\s*\{/);
   const sectionJoin = ruleWithSelector(chromeCss, ".settings-section-switcher::after");
   assert.equal(sectionJoin.declarations.get("bottom"), "-1px");
   assert.equal(sectionJoin.declarations.get("height"), "3px");
+  const openNav = ruleWithSelector(chromeCss, "body.settings-open .bottom-app-nav");
+  assert.equal(openNav.declarations.get("border-top-color"), "transparent");
+  const openSheet = ruleWithSelector(chromeCss, "body.settings-open .settings-sheet");
+  assert.equal(openSheet.declarations.get("border-bottom-color"), "transparent");
+  const openNavBorder = ruleWithSelector(chromeCss, "body.settings-open .bottom-app-nav::before");
+  assert.match(openNavBorder.declarations.get("right") || "", /var\(--app-nav-edge\)/);
+  assert.equal(openNavBorder.declarations.get("pointer-events"), "none");
   const settingsBody = ruleWithSelector(chromeCss, ".settings-sheet-body");
   assert.equal(settingsBody.declarations.get("display"), "flex");
   assert.equal(settingsBody.declarations.get("flex-direction"), "column");

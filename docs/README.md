@@ -10,9 +10,12 @@ and implementation details stay beside the relevant app or tool.
 | [Workspace map](WORKSPACE.md) | What belongs in apps, demos, tools, archive, and Git |
 | [Architecture](ARCHITECTURE.md) | Product surfaces, runtime boundaries, routes, and repository ownership |
 | [Development](DEVELOPMENT.md) | Docker startup, tunnel operation, tools, Android work, and validation |
+| [Deployment standard](DEPLOYMENT_STANDARD.md) | Provider-neutral release identity, immutable delivery, promotion, rollback, operations, and recovery |
+| [Component release validators](COMPONENT_RELEASE_VALIDATORS.md) | Contract ownership, executable release checks, and explicit payload-closure gaps |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |
 | [Product readiness](PRODUCT_READINESS.md) | Current release posture and the path to a governed beta |
 | [Release policy](RELEASING.md) | Channels, versioning, artifact integrity, and release gates |
+| [First Android release](FIRST_ANDROID_RELEASE.md) | Planning decisions, signing posture, Play Protect notes, and candidate evidence |
 
 ## Governance
 

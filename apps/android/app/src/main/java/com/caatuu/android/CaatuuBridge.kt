@@ -39,6 +39,7 @@ class CaatuuBridge(
     private val dictionaryManager: DictionaryManager,
     private val staticAssetManager: StaticAssetManager,
     private val appUpdateManager: AppUpdateManager,
+    private val speechManager: AndroidSpeechManager,
     private val model: NativeCzechModel,
     private val onThemeChanged: (String) -> Unit,
 ) {
@@ -122,6 +123,9 @@ class CaatuuBridge(
                     "dictionary_status" -> emitDone(id, dictionaryManager.statusJson())
                     "dictionary_download" -> downloadDictionary(id)
                     "dictionary_search" -> searchDictionary(id, request)
+                    "speech_status" -> speechStatus(id, request)
+                    "speech_speak" -> speakSpeech(id, request)
+                    "speech_stop" -> stopSpeech(id)
                     "delete_model" -> deleteLocalPack(id)
                     "clear_cache" -> clearCache(id)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
@@ -140,8 +144,55 @@ class CaatuuBridge(
     }
 
     fun destroy() {
+        speechManager.destroy()
         scope.cancel()
         model.destroy()
+    }
+
+    fun onPause() {
+        speechManager.onPause()
+    }
+
+    fun onResume() {
+        speechManager.onResume()
+    }
+
+    private suspend fun speechStatus(id: String, request: JSONObject) {
+        val locale = request.optString("locale", "cs-CZ")
+        val voice = request.optString("voice").trim()
+        require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
+        emitDone(id, speechManager.status(locale, voice))
+    }
+
+    private suspend fun speakSpeech(id: String, request: JSONObject) {
+        val text = request.optString("text").trim()
+        val locale = request.optString("locale", "cs-CZ")
+        val rate = request.optDouble("rate", 0.9).toFloat()
+        val pitch = request.optDouble("pitch", 1.0).toFloat()
+        val voice = request.optString("voice").trim()
+        require(rate.isFinite()) { "Speech rate is invalid." }
+        require(pitch.isFinite()) { "Speech pitch is invalid." }
+        require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
+        val result = speechManager.speak(text, locale, rate, pitch, voice) { utteranceId ->
+            emit(
+                id,
+                "speech",
+                JSONObject()
+                    .put("phase", "started")
+                    .put("utteranceId", utteranceId)
+                    .put("runtime", "android-text-to-speech"),
+            )
+        }
+        emitDone(id, result)
+    }
+
+    private fun stopSpeech(id: String) {
+        emitDone(
+            id,
+            JSONObject()
+                .put("runtime", "android-text-to-speech")
+                .put("stopped", speechManager.stop()),
+        )
     }
 
     private suspend fun downloadModel(id: String, request: JSONObject) {
@@ -1154,6 +1205,7 @@ class CaatuuBridge(
         private const val GENERATION_TIMEOUT_FLOOR_MILLIS = 3L * 60L * 1000L
         private const val GENERATION_TIMEOUT_PER_TOKEN_MILLIS = 2_000L
         private const val GENERATION_TIMEOUT_CEILING_MILLIS = 30L * 60L * 1000L
+        private const val MAX_SPEECH_VOICE_CHARACTERS = 256
         private const val MAX_BUG_REPORT_BYTES = 16 * 1024
         private const val MAX_BUG_REPORT_RESPONSE_CHARS = 600
         private const val MAX_LOCAL_BUG_REPORTS = 100

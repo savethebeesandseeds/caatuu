@@ -37,6 +37,7 @@
     storage: {
       namespace: "caatuu-czech",
       theme: "caatuu-czech.theme",
+      fontSize: "caatuu-czech.font-size",
       learningPreferences: "caatuu-czech.learning.preferences.v1",
       learningPerformance: "caatuu-czech.learning.performance.v1",
       semanticLearningDatabase: "caatuu-czech.semantic-learning",

@@ -69,13 +69,31 @@ test("an explicit saved difficulty is preserved when the default changes", () =>
 test("performance aggregates game activity without inventing achievements", () => {
   const { learning } = createLearningContext();
   learning.record("verb-nebula", { activities: 2, attempts: 2, successes: 1, rounds: 1 });
-  learning.record("word-world", { activities: 3 });
+  learning.record("word-world", { activities: 3, attempts: 1, successes: 1, xp: 3, rounds: 1 });
   const profile = learning.snapshot();
   assert.equal(profile.summary.activities, 5);
-  assert.equal(profile.summary.successes, 1);
-  assert.equal(profile.summary.rounds, 1);
-  assert.equal(profile.summary.accuracy, 50);
+  assert.equal(profile.summary.successes, 2);
+  assert.equal(profile.summary.xp, 4);
+  assert.equal(profile.summary.rounds, 2);
+  assert.equal(profile.summary.accuracy, 67);
   assert.equal(profile.summary.activeGames, 2);
+});
+
+test("legacy game records use successes as XP until an explicit XP total exists", () => {
+  const performance = JSON.stringify({
+    schemaVersion: 1,
+    updatedAt: "",
+    games: {
+      "word-world": { activities: 2, attempts: 2, successes: 1, rounds: 2 }
+    }
+  });
+  const { learning } = createLearningContext({
+    "caatuu-czech.learning.performance.v1": performance
+  });
+  assert.equal(learning.snapshot().summary.xp, 1);
+  learning.record("word-world", { activities: 1, attempts: 1, successes: 1, xp: 3, rounds: 1 });
+  assert.equal(learning.snapshot().summary.xp, 4);
+  assert.equal(learning.snapshot().summary.successes, 2);
 });
 
 test("existing Verb Nebula statistics migrate once into the global learning record", () => {
@@ -87,6 +105,7 @@ test("existing Verb Nebula statistics migrate once into the global learning reco
     "caatuu-czech.verb-memory.v2": legacy
   });
   assert.equal(learning.snapshot().summary.accuracy, 71);
+  assert.equal(learning.snapshot().summary.xp, 5);
   assert.ok(rows.has("caatuu-czech.learning.performance.v1"));
   learning.record("verb-nebula", { activities: 1, attempts: 1, successes: 1 });
   assert.equal(learning.snapshot().summary.attempts, 8);
@@ -114,7 +133,7 @@ test("the backpack progression hub and both active games use the global learning
   assert.match(chromeSource, /courseProgressXp/);
   assert.match(chromeSource, /courseProgressCoins/);
   assert.match(chromeSource, /courseProgressActivities/);
-  assert.match(chromeSource, /xp: profile\.summary\.successes/);
+  assert.match(chromeSource, /xp: profile\.summary\.xp/);
   assert.match(chromeSource, /coins: profile\.summary\.rounds/);
   assert.match(chromeSource, /settingsResetCourseProgress/);
   assert.match(appSource, /CaatuuLearning\?\.record\("verb-nebula"/);

@@ -1,0 +1,209 @@
+{
+  "schema_name": "caatuu-release",
+  "schema_version": 1,
+  "release_id": "0.2.0-beta.1",
+  "released_at": "2026-08-01T12:00:00Z",
+  "source": {
+    "repository": "https://github.com/savethebeesandseeds/caatuu",
+    "revision": {
+      "algorithm": "git-sha1",
+      "digest": "0123456789abcdef0123456789abcdef01234567"
+    },
+    "tag": "v0.2.0-beta.1",
+    "tree_clean": true
+  },
+  "build": {
+    "command": "docker run --rm example.invalid/caatuu-build@sha256:d1127bb280e438fbf52e13749997dffd76835c0a7ffedbcf5a1070b32b0472ef bash apps/android/tooling/build-release-apk.sh",
+    "environment": "oci-image:example.invalid/caatuu-build@sha256:d1127bb280e438fbf52e13749997dffd76835c0a7ffedbcf5a1070b32b0472ef",
+    "environment_sha256": "d1127bb280e438fbf52e13749997dffd76835c0a7ffedbcf5a1070b32b0472ef",
+    "built_at": "2026-08-01T11:30:00Z",
+    "tools": [
+      {
+        "name": "jdk",
+        "version": "17.0.15"
+      },
+      {
+        "name": "android-sdk",
+        "version": "36"
+      },
+      {
+        "name": "gradle",
+        "version": "8.14.2"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "web-czech",
+      "kind": "web",
+      "manifest": {
+        "schema_name": "caatuu-web-bundle",
+        "schema_version": 1,
+        "href": "components/web/manifest.json",
+        "media_type": "application/json",
+        "bytes": 2048,
+        "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+      }
+    },
+    {
+      "id": "android-direct",
+      "kind": "android",
+      "manifest": {
+        "schema_name": "caatuu-android-update",
+        "schema_version": 1,
+        "href": "components/android/caatuu.json",
+        "media_type": "application/json",
+        "bytes": 512,
+        "sha256": "3fd64bc8b8ce66b6d1a44bfe484bfa0d25491f461040cce18ae7449da9943d71"
+      }
+    },
+    {
+      "id": "czech-models",
+      "kind": "model-catalog",
+      "manifest": {
+        "schema_name": "caatuu-model-catalog",
+        "schema_version": 1,
+        "href": "components/czech/models.json",
+        "media_type": "application/json",
+        "bytes": 4096,
+        "sha256": "3b3aa4dea0ee3f510dd6b2f0a721f7df3980e38fb56e06db43fe575f2586d637"
+      }
+    },
+    {
+      "id": "czech-dictionary",
+      "kind": "dictionary-catalog",
+      "manifest": {
+        "schema_name": "caatuu-dictionary-catalog",
+        "schema_version": 1,
+        "href": "components/czech/dictionaries.json",
+        "media_type": "application/json",
+        "bytes": 3072,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "release-notes",
+      "kind": "release-notes",
+      "href": "evidence/release-notes.md",
+      "media_type": "text/markdown",
+      "bytes": 1024,
+      "sha256": "250b18081a7274cc4271eabf33e12bca4f719edc0fd2ea20df356285a5dd6c01"
+    },
+    {
+      "id": "third-party-notices",
+      "kind": "notices",
+      "href": "evidence/THIRD_PARTY_NOTICES.txt",
+      "media_type": "text/plain",
+      "bytes": 8192,
+      "sha256": "5109c0105fb0b4a5ec408c27161275d3c0347e41a0ef8e1aebe3cabb1da21bbd"
+    },
+    {
+      "id": "software-bill-of-materials",
+      "kind": "sbom",
+      "href": "evidence/sbom.spdx.json",
+      "media_type": "application/json",
+      "bytes": 16384,
+      "sha256": "7b84c60ed4b71fde34d4b0f4b0cb104a5cd0915c0de38784280367fd589b0280"
+    },
+    {
+      "id": "source-review",
+      "kind": "source-review",
+      "href": "evidence/source-review.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "id": "test-record",
+      "kind": "automated-tests",
+      "href": "evidence/tests.json",
+      "media_type": "application/json",
+      "bytes": 4096,
+      "sha256": "211be97b0589e3df3cba49bd9b240d1ade53f1c1c49ef93b1394d864dc408cf4"
+    },
+    {
+      "id": "rights-review",
+      "kind": "rights-review",
+      "href": "evidence/rights-review.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "f44e64e75f3948e9f73f8dfa94721c4ce8c16c7d3f91ca86f09167809fb80bf1"
+    },
+    {
+      "id": "privacy-review",
+      "kind": "privacy-review",
+      "href": "evidence/privacy-review.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "8fbd04882081e24b0d9f9aeea570e6561599493366256048d9271d9d6e5d6e77"
+    },
+    {
+      "id": "build-provenance",
+      "kind": "build-provenance",
+      "href": "evidence/build-provenance.json",
+      "media_type": "application/json",
+      "bytes": 4096,
+      "sha256": "4ebd7f9c839afc6a7f9ec8ff14e3f26b07bb9ed282c73ea7734f368db9e1f951"
+    },
+    {
+      "id": "package-audit",
+      "kind": "package-audit",
+      "href": "evidence/package-audit.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    {
+      "id": "artifact-checksums",
+      "kind": "checksums",
+      "href": "evidence/SHA256SUMS",
+      "media_type": "text/plain",
+      "bytes": 1024,
+      "sha256": "79e0a9c8273ba237e905e5b353a7bc8c1f52fda817e6246838f7ba13d4cf8917"
+    },
+    {
+      "id": "signing-record",
+      "kind": "signature",
+      "href": "evidence/signing-record.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "52767129bebefd1937c27e19e9cd8c0baba630feb6de35aeb52eafbabb22b305"
+    },
+    {
+      "id": "public-download-verification",
+      "kind": "public-download-verification",
+      "href": "evidence/public-download-verification.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    {
+      "id": "device-smoke",
+      "kind": "device-smoke",
+      "href": "evidence/device-smoke.json",
+      "media_type": "application/json",
+      "bytes": 2048,
+      "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  ],
+  "checks": {
+    "source_review": "passed",
+    "automated_tests": "passed",
+    "artifact_integrity": "passed",
+    "notices": "passed",
+    "provenance": "passed",
+    "privacy": "passed",
+    "package_audit": "passed",
+    "signature_verification": "passed",
+    "public_download": "passed",
+    "physical_device_smoke": "passed"
+  },
+  "migration_effects": [
+    "Existing debug-signed preview installs require a documented migration to the release signing lineage."
+  ],
+  "known_limitations": [
+    "Illustrative example only; referenced component and evidence files are not published."
+  ]
+}

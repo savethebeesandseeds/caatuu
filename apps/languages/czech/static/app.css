@@ -1647,7 +1647,7 @@ body.world-landing-active {
   text-decoration: none;
 }
 .memory-moon-panel {
-  min-height: 460px;
+  min-height: 520px;
   display: grid;
   gap: 18px;
   padding: 18px;
@@ -1664,18 +1664,119 @@ body.world-landing-active {
   font-size: 0.9rem;
 }
 .memory-moon-stage {
-  min-height: 320px;
+  position: relative;
+  width: min(100%, 960px);
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgba(139, 161, 218, 0.34);
+  border-radius: 12px;
+  background: #050719;
+  box-shadow: inset 0 0 48px rgba(11, 23, 62, 0.64);
+}
+.memory-moon-game {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  border: 0;
+  background: #050719;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.memory-moon-game.is-ready {
+  opacity: 1;
+}
+.memory-moon-status {
+  position: absolute;
+  inset: 0;
   display: grid;
-  place-items: center;
-  gap: 8px;
+  place-content: center;
+  justify-items: center;
+  gap: 9px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(73, 104, 187, 0.28), transparent 36%),
+    #050719;
+  color: #eaf1ff;
+  text-align: center;
 }
-.memory-moon-stage img {
-  width: min(38vw, 220px);
-  filter: drop-shadow(0 22px 24px rgba(0, 0, 0, 0.26));
+.memory-moon-status[hidden] {
+  display: none;
 }
-.memory-moon-stage span {
-  color: var(--muted);
-  font-weight: 900;
+.memory-moon-status strong {
+  font-size: 1rem;
+}
+.memory-moon-status small {
+  color: #9caed3;
+  font-size: 0.78rem;
+}
+.memory-moon-status.is-error .memory-moon-loader {
+  animation: none;
+  border-color: #d36d7b;
+}
+.memory-moon-loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(174, 196, 245, 0.24);
+  border-top-color: #f4d26b;
+  border-radius: 50%;
+  animation: memory-moon-spin 900ms linear infinite;
+}
+@keyframes memory-moon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 720px) {
+  .memory-moon-panel {
+    padding: 10px;
+  }
+}
+@media (max-width: 680px) and (orientation: portrait) {
+  body.memory-moon-active .app-shell {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    min-height: 100dvh;
+    height: 100dvh;
+    padding-bottom: 0;
+  }
+  body.memory-moon-active .workspace {
+    display: flex;
+    min-height: 0;
+    padding-bottom: 8px;
+  }
+  body.memory-moon-active #view-verbs.is-active {
+    display: flex;
+    width: 100%;
+    min-height: 0;
+  }
+  body.memory-moon-active .memory-moon-panel {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
+  body.memory-moon-active .memory-moon-copy,
+  body.memory-moon-active .app-footer {
+    display: none;
+  }
+  body.memory-moon-active .bottom-app-nav {
+    display: none;
+  }
+  body.memory-moon-active .memory-moon-stage {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+  body.memory-moon-active .memory-moon-game {
+    height: 100%;
+    min-height: 0;
+  }
 }
 .verb-reference-panel {
   padding: 16px;
@@ -5558,8 +5659,8 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   position: relative;
   z-index: 1;
   min-width: 0;
-  font-size: clamp(0.82rem, 1.65vw, 1rem);
-  font-weight: 900;
+  font-size: clamp(1rem, 2.35vw, 1.18rem);
+  font-weight: 500;
   line-height: 1.18;
   overflow-wrap: anywhere;
 }
@@ -5667,6 +5768,139 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   display: none !important;
 }
 
+#verbRoundInterstitial {
+  position: relative;
+  isolation: isolate;
+}
+
+.verb-round-reward[hidden] {
+  display: none !important;
+}
+
+.verb-round-reward {
+  position: absolute;
+  z-index: 3;
+  top: clamp(12px, 6%, 28px);
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 28px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 8px;
+  border: 1px solid color-mix(in srgb, #d4a43a 64%, var(--theme-line-strong, var(--line)));
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 16% 20%, color-mix(in srgb, #f4ca58 28%, transparent), transparent 36%),
+    color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 90%, var(--green-dark));
+  color: var(--ink);
+  box-shadow:
+    0 15px 30px color-mix(in srgb, var(--ink) 16%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, #ffffff 58%, transparent);
+  opacity: 0;
+  transform: translate(-50%, 10px) scale(0.86);
+  pointer-events: none;
+}
+
+.verb-round-reward.is-visible {
+  animation: verb-round-reward-arrive 880ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.verb-round-reward-gem {
+  position: relative;
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+}
+
+.verb-round-reward-gem::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border: 1px solid color-mix(in srgb, #efc75e 72%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 18px color-mix(in srgb, #efc75e 44%, transparent);
+}
+
+.verb-round-reward-gem img {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 6px color-mix(in srgb, var(--ink) 22%, transparent));
+}
+
+.verb-round-reward.is-visible .verb-round-reward-gem {
+  animation: verb-round-reward-gem-comet 760ms cubic-bezier(0.2, 0.88, 0.28, 1.18) both;
+}
+
+.verb-round-reward-copy {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+  text-align: left;
+}
+
+.verb-round-reward-copy small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.verb-round-reward-copy strong {
+  color: var(--green-dark);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 950;
+  line-height: 1.08;
+  white-space: nowrap;
+}
+
+.verb-round-reward-comet {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.verb-round-reward-comet i {
+  --verb-reward-mote-delay: 0ms;
+  position: absolute;
+  left: 29px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #efc75e;
+  box-shadow: 0 0 8px color-mix(in srgb, #efc75e 72%, transparent);
+  opacity: 0;
+}
+
+.verb-round-reward-comet i:nth-child(1) {
+  --verb-reward-mote-x: -54px;
+  --verb-reward-mote-y: -18px;
+}
+
+.verb-round-reward-comet i:nth-child(2) {
+  --verb-reward-mote-x: -66px;
+  --verb-reward-mote-y: 4px;
+  --verb-reward-mote-delay: 70ms;
+}
+
+.verb-round-reward-comet i:nth-child(3) {
+  --verb-reward-mote-x: -46px;
+  --verb-reward-mote-y: 22px;
+  --verb-reward-mote-delay: 130ms;
+}
+
+.verb-round-reward.is-visible .verb-round-reward-comet i {
+  animation: verb-round-reward-mote 650ms ease-out both;
+  animation-delay: var(--verb-reward-mote-delay);
+}
+
 .verb-match-board[aria-busy="true"] {
   background:
     radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--blue) 10%, transparent), transparent 42%),
@@ -5674,6 +5908,8 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 }
 
 #verbRoundRobot {
+  position: relative;
+  z-index: 1;
   display: block;
   filter: drop-shadow(0 14px 20px rgba(11, 34, 29, 0.14));
   animation: verb-round-robot-breathe 1.45s ease-in-out infinite alternate;
@@ -5728,6 +5964,50 @@ html[data-theme="dark"] .verb-match-board {
 @keyframes verb-round-robot-breathe {
   from { opacity: 0.68; }
   to { opacity: 0.92; }
+}
+
+@keyframes verb-round-reward-arrive {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.86);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-50%, -2px) scale(1.035);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes verb-round-reward-gem-comet {
+  0% {
+    opacity: 0;
+    transform: translate(-76px, 24px) rotate(-26deg) scale(0.54);
+  }
+  72% {
+    opacity: 1;
+    transform: translate(4px, -2px) rotate(8deg) scale(1.09);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes verb-round-reward-mote {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  28% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--verb-reward-mote-x), var(--verb-reward-mote-y)) scale(1.15);
+  }
 }
 
 @media (max-width: 680px) {
@@ -5824,12 +6104,20 @@ html[data-theme="dark"] .verb-match-board {
   }
 
   .verb-match-card-copy {
-    font-size: 0.82rem;
+    font-size: 0.98rem;
   }
 
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .memory-moon-game {
+    transition: none;
+  }
+
+  .memory-moon-loader {
+    animation: none;
+  }
+
   .verb-match-card,
   .verb-hint-loader,
   #verbRoundRobot {
@@ -5839,6 +6127,21 @@ html[data-theme="dark"] .verb-match-board {
 
   #verbRoundRobot {
     opacity: 0.84;
+  }
+
+  .verb-round-reward.is-visible,
+  .verb-round-reward.is-visible .verb-round-reward-gem,
+  .verb-round-reward.is-visible .verb-round-reward-comet i {
+    animation: none;
+  }
+
+  .verb-round-reward.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  .verb-round-reward-comet {
+    display: none;
   }
 }
 

@@ -1,0 +1,489 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/memory-moon/scenery/layout-v2.schema.json",
+  "title": "Memory Moon scenery layout v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "layout_id",
+    "catalog_id",
+    "catalog_version",
+    "projection_id",
+    "terrain",
+    "placements",
+    "boundaries",
+    "spawn_points",
+    "critical_routes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "layout_id": {
+      "$ref": "#/$defs/slug"
+    },
+    "catalog_id": {
+      "$ref": "#/$defs/slug"
+    },
+    "catalog_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "projection_id": {
+      "$ref": "#/$defs/slug"
+    },
+    "terrain": {
+      "$ref": "#/$defs/terrain"
+    },
+    "placements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/placement"
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/boundary"
+      }
+    },
+    "spawn_points": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/spawnPoint"
+      },
+      "minItems": 1
+    },
+    "critical_routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criticalRoute"
+      }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "entityId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+    },
+    "positiveNumber": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "number2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "positiveNumber2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "positiveInteger2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        {
+          "$ref": "#/$defs/positiveInteger"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "number3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "positiveNumber3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        {
+          "$ref": "#/$defs/positiveNumber"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "stringSet": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "tileLegend": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^.$": {
+          "$ref": "#/$defs/slug"
+        }
+      },
+      "additionalProperties": false
+    },
+    "terrain": {
+      "type": "object",
+      "required": [
+        "columns",
+        "rows",
+        "cell_size",
+        "tile_legend",
+        "tile_rows"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "ground_plate"
+          ]
+        },
+        {
+          "required": [
+            "render_tiles",
+            "tile_index_rows"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "rows": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "cell_size": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "ground_plate": {
+          "$ref": "#/$defs/groundPlate"
+        },
+        "render_tiles": {
+          "$ref": "#/$defs/renderTiles"
+        },
+        "tile_index_rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 1
+          },
+          "minItems": 1
+        },
+        "tile_legend": {
+          "$ref": "#/$defs/tileLegend"
+        },
+        "tile_rows": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "renderTiles": {
+      "type": "object",
+      "required": [
+        "texture",
+        "image_size_px",
+        "tile_size_px",
+        "tile_content_size_px",
+        "tile_gutter_px",
+        "atlas_grid",
+        "world_tile_size",
+        "chunk_size_tiles",
+        "stream_radius_chunks",
+        "padding_tiles",
+        "padding_tile_index",
+        "tile_ids",
+        "path_connectivity",
+        "pixels_per_world_unit",
+        "projection",
+        "render_role",
+        "source_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "texture": {
+          "type": "string",
+          "pattern": "^terrain/[A-Za-z0-9._-]+\\.png$"
+        },
+        "image_size_px": {
+          "$ref": "#/$defs/positiveInteger2"
+        },
+        "tile_size_px": {
+          "$ref": "#/$defs/positiveInteger2"
+        },
+        "tile_content_size_px": {
+          "$ref": "#/$defs/positiveInteger2"
+        },
+        "tile_gutter_px": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "atlas_grid": {
+          "$ref": "#/$defs/positiveInteger2"
+        },
+        "world_tile_size": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "chunk_size_tiles": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "stream_radius_chunks": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "padding_tiles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "padding_tile_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tile_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slug"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "path_connectivity": {
+          "type": "object",
+          "required": [
+            "first_index",
+            "north_bit",
+            "east_bit",
+            "south_bit",
+            "west_bit"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "first_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "north_bit": {
+              "const": 1
+            },
+            "east_bit": {
+              "const": 2
+            },
+            "south_bit": {
+              "const": 4
+            },
+            "west_bit": {
+              "const": 8
+            }
+          }
+        },
+        "pixels_per_world_unit": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "projection": {
+          "const": "top-down"
+        },
+        "render_role": {
+          "const": "streamed-reusable-tile-map"
+        },
+        "source_id": {
+          "$ref": "#/$defs/slug"
+        }
+      }
+    },
+    "groundPlate": {
+      "type": "object",
+      "required": [
+        "texture",
+        "image_size_px",
+        "world_size",
+        "pixels_per_world_unit",
+        "projection",
+        "render_role",
+        "source_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "texture": {
+          "type": "string",
+          "pattern": "^terrain/[A-Za-z0-9._-]+\\.png$"
+        },
+        "image_size_px": {
+          "$ref": "#/$defs/positiveNumber2"
+        },
+        "world_size": {
+          "$ref": "#/$defs/positiveNumber2"
+        },
+        "pixels_per_world_unit": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "projection": {
+          "const": "top-down"
+        },
+        "render_role": {
+          "const": "authored-map-plate"
+        },
+        "source_id": {
+          "$ref": "#/$defs/slug"
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "required": [
+        "id",
+        "object",
+        "layer",
+        "position",
+        "scale",
+        "flip_horizontal",
+        "collision_enabled",
+        "tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entityId"
+        },
+        "object": {
+          "$ref": "#/$defs/slug"
+        },
+        "layer": {
+          "enum": [
+            "back",
+            "middle",
+            "front"
+          ]
+        },
+        "position": {
+          "$ref": "#/$defs/number2"
+        },
+        "scale": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "flip_horizontal": {
+          "type": "boolean"
+        },
+        "collision_enabled": {
+          "type": "boolean"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringSet"
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "required": [
+        "id",
+        "position",
+        "size"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entityId"
+        },
+        "position": {
+          "$ref": "#/$defs/number3"
+        },
+        "size": {
+          "$ref": "#/$defs/positiveNumber3"
+        }
+      }
+    },
+    "spawnPoint": {
+      "type": "object",
+      "required": [
+        "id",
+        "position"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entityId"
+        },
+        "position": {
+          "$ref": "#/$defs/number3"
+        }
+      }
+    },
+    "criticalRoute": {
+      "type": "object",
+      "required": [
+        "id",
+        "points"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entityId"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/number2"
+          },
+          "minItems": 2
+        }
+      }
+    }
+  }
+}

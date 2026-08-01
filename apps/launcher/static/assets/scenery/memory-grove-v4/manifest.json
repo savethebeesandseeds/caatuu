@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "layout_id": "memory-grove-v4",
+  "release_status": "local-preview-only",
+  "catalog_id": "memory-moon-style-v1",
+  "catalog_version": 1,
+  "catalog_file": "../memory-moon-style-v1/catalog.json",
+  "catalog_sha256": "16ef062ef37baaa266282845141751cd9688ef8e808fb9dfddf3411bf2849f14",
+  "layout_file": "layout.json",
+  "layout_sha256": "56a17cd35f108654a5421df4885d86bb7296214af6674a48e172d3d00b6017b1",
+  "derived_counts": {
+    "terrain_cells": 1296,
+    "terrain_render_batches": 1,
+    "tile_types": 3,
+    "catalog_objects": 9,
+    "placements": 24,
+    "back_placements": 8,
+    "middle_placements": 8,
+    "front_placements": 8,
+    "solid_props": 20,
+    "boundaries": 4,
+    "collision_objects": 24,
+    "spawn_points": 1,
+    "critical_routes": 3
+  },
+  "asset_placement_counts": {
+    "community-tree-a": 1,
+    "flower-patch-a": 4,
+    "moon-bush-round-a": 5,
+    "moon-sapling-a": 4,
+    "moss-boulder-a": 4,
+    "street-lamp-a": 2,
+    "trail-sign-a": 1,
+    "tree-stump-a": 2,
+    "village-well-a": 1
+  }
+}

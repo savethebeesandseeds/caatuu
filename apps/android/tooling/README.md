@@ -53,6 +53,37 @@ existing Linux development container:
 docker exec caatuu-dev bash -lc 'cd /workspace && bash apps/android/tooling/publish-public-debug.sh'
 ```
 
+### Efficient publication practices
+
+The command above is the complete publication workflow. It builds the
+public-channel APK, verifies the signing lineage, publishes the immutable
+version and latest manifest, downloads the public artifact and compatibility
+alias, checks their hashes and byte counts, and runs the runtime-boundary
+audit.
+
+For a routine **publish the app** request, a good default is:
+
+1. Run relevant focused source tests.
+2. Run `publish-public-debug.sh` and wait for its result.
+3. If it exits successfully, optionally read the public manifest once to report
+   the published version and URL.
+
+Avoid automatically preceding it with `assembleDebug` or
+`build-public-debug-apk.sh`, and avoid automatically repeating its APK download
+or full audit afterward. Those duplicate passes often add minutes without
+increasing assurance. A separate local build remains useful when a local APK,
+device test, or pre-publication package inspection is part of the task.
+
+If the terminal or client stops waiting while publication continues, inspect
+the existing process and its output before deciding whether a retry is needed.
+Additional verification is reasonable when output is incomplete, the publisher
+fails, an artifact does not match, signing is in doubt, publication tooling
+changed, or the user requests an independent release audit.
+
+These are efficiency practices rather than hard restrictions. Keep the
+certificate, immutable-version, and public verification safeguards inside the
+canonical script.
+
 If the development container is not already running, start it once:
 
 ```bash

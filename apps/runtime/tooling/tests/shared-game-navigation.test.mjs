@@ -7,16 +7,17 @@ const [chrome, chromeCss, serviceWorker, ...pages] = await Promise.all([
   readFile(new URL("chrome.js", staticRoot), "utf8"),
   readFile(new URL("chrome.css", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
-  ...["chat.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html"]
+  ...["chat.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html", "audio-lab.html"]
     .map((file) => readFile(new URL(file, staticRoot), "utf8"))
 ]);
 
-test("Games remembers and restores the active game without resetting an open game", () => {
+test("Games returns every active game to the planet selector", () => {
   assert.match(chrome, /navigation\.active-game\.v1/);
   assert.match(chrome, /"verb-lab"[\s\S]*?href: `index\.html\?\$\{gameNavigationQueryKey\}=verb-lab`/);
   assert.match(chrome, /"word-net"[\s\S]*?href: "word-net\.html"/);
   assert.match(chrome, /item\.key === "games"[\s\S]*?gameNavigationHref\(\)/);
-  assert.match(chrome, /activeGameId && activeGameId !== "galaxy"[\s\S]*?event\.preventDefault\(\)[\s\S]*?event\.stopImmediatePropagation\(\)/);
+  assert.match(chrome, /activeGameId && activeGameId !== "galaxy"[\s\S]*?rememberActiveGame\("galaxy"\)[\s\S]*?event\.preventDefault\(\)[\s\S]*?event\.stopImmediatePropagation\(\)/);
+  assert.match(chrome, /const backToGalaxy = document\.querySelector\("\.app-header-back:not\(\[hidden\]\)"\)[\s\S]*?backToGalaxy\.click\(\)/);
   assert.match(chrome, /settingsPanel && !settingsPanel\.hidden[\s\S]*?closeSharedSettings\(\{ restoreFocus: false \}\)/);
   assert.match(chrome, /restoreRequestedGame\(\)/);
   assert.match(chrome, /if \(panel\.hidden\) trigger\.click\(\)/);
@@ -84,6 +85,12 @@ test("phone navigation yields a frame before semantic work and avoids expensive 
   assert.match(chrome, /function scheduleSemanticSkillCompassLoad\(panel/);
   assert.match(chrome, /window\.requestAnimationFrame\(\(\) => \{[\s\S]*?window\.requestAnimationFrame\(\(\) => \{/);
   assert.match(chrome, /if \(view === "stats"\) scheduleSemanticSkillCompassLoad\(panel\)/);
+  assert.match(chrome, /function scheduleSettingsViewTransition\(panel/);
+  assert.match(chrome, /setSettingsViewTransitionState\(panel, view, true\)/);
+  assert.match(chrome, /button\.classList\.toggle\("is-active", isRequested\)/);
+  assert.match(chrome, /button\.setAttribute\("aria-selected", String\(isRequested\)\)/);
+  assert.match(chromeCss, /\.settings-section-switcher button\.is-pending::after/);
+  assert.match(chromeCss, /animation: maintenance-spin 0\.75s linear infinite/);
   assert.match(
     chrome,
     /querySelectorAll\("#settingsPanel, \[data-caatuu-settings-panel\]"\)\.forEach\(renderSettingsPanel\)/
@@ -97,18 +104,46 @@ test("phone navigation yields a frame before semantic work and avoids expensive 
   assert.match(chromeCss, /\.settings-view-panel \{[\s\S]*?contain: layout style;/);
   assert.match(serviceWorker, /\/assets\/icons\/coin_icon_ui\.png/);
   assert.match(serviceWorker, /\/assets\/icons\/dark_mode_ui\.png/);
+  assert.match(serviceWorker, /\/assets\/icons\/light_mode_ui\.png/);
   assert.match(serviceWorker, /\/assets\/icons\/czech_flag_ui\.png/);
   assert.doesNotMatch(serviceWorker, /\/assets\/icons\/(?:coin_icon|dark_mode|czech_flag)\.png/);
 });
 
+test("Backpack remembers its submenu and mirrors it on the bottom-nav badge", () => {
+  assert.match(chrome, /navigation\.backpack-view\.v1/);
+  assert.match(chrome, /function normalizeBackpackView\(view\)/);
+  assert.match(chrome, /localStorage\.getItem\(backpackViewStorageKey\)/);
+  assert.match(chrome, /localStorage\.setItem\(backpackViewStorageKey, normalizedView\)/);
+  assert.match(chrome, /className = "app-nav-submenu-icon"/);
+  assert.match(chrome, /items_icon\.png\?v=items-2/);
+  assert.match(chrome, /stats_icon\.png/);
+  assert.match(chrome, /gear_icon\.png/);
+  assert.match(chrome, /function setSettingsView\(panel, requestedView = "items", \{ persist = true \} = \{\}\)[\s\S]*?rememberBackpackView\(view\)[\s\S]*?syncBackpackViewIndicators\(view\)/);
+  assert.match(chrome, /setSettingsView\(panel, readRememberedBackpackView\(\), \{ persist: false \}\)/);
+  assert.match(chrome, /setSettingsView\(panel, readRememberedBackpackView\(\)\)/);
+});
+
+test("Games mirrors the remembered planet on its bottom-nav badge", () => {
+  assert.match(chrome, /function syncGameNavigationIndicators\(gameId = readRememberedGame\(\)\)/);
+  assert.match(chrome, /badge\.className = "app-nav-submenu-icon"/);
+  assert.match(chrome, /badge\.src = presentation\.iconSrc/);
+  assert.match(chrome, /button\.dataset\.activeGame = normalizedGameId/);
+  assert.match(chrome, /button\.setAttribute\("aria-label", `Games, \$\{presentation\.title\}`\)/);
+  assert.match(chrome, /rememberActiveGame\(gameId\)[\s\S]*?syncGameNavigationIndicators\(normalizedGameId\)/);
+  assert.match(chrome, /activeGameId && activeGameId !== "galaxy" \? activeGameId : readRememberedGame\(\)/);
+  assert.match(serviceWorker, /\/assets\/planets\/nebula\.png/);
+  assert.match(serviceWorker, /\/assets\/planets\/planet_A\.png/);
+  assert.match(serviceWorker, /\/assets\/planets\/planet_C\.png/);
+});
+
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-72/);
-    assert.match(page, /chrome\.js\?v=chrome-74/);
+    assert.match(page, /chrome\.css\?v=chrome-style-87/);
+    assert.match(page, /chrome\.js\?v=chrome-84/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-72/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-74/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-87/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-84/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {

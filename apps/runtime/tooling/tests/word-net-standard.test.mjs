@@ -171,6 +171,16 @@ test("the browser Standard render path cannot call models or contaminate the gen
   const standardPath = runtimeSource.slice(start, end);
   assert.doesNotMatch(standardPath, /models\.generate|requestEnglishTranslation|enrichCurrentPhrase/);
   assert.doesNotMatch(standardPath, /branchQueue|rememberPreparedCandidate/);
+  assert.match(standardPath, /const sceneReady = updateSceneAsset\(record\.sceneQuery \|\| record\.en\)/);
+  assert.match(
+    standardPath,
+    /await Promise\.all\(\[holdSentenceTransition\(transitionStartedAt\), sceneReady\]\)/,
+    "Standard must keep the robot cover up until the central image is loaded and decoded"
+  );
+  assert.ok(
+    standardPath.indexOf("await Promise.all") < standardPath.lastIndexOf("setBusy(false)"),
+    "Standard must await scene readiness before clearing its busy state"
+  );
   assert.match(runtimeSource, /if \(state\.contentMode === "standard"\) \{\s*void generateStandardFromConfiguredMode/);
   assert.match(
     runtimeSource,

@@ -3046,5 +3046,15 @@
                                                                              },
                                                                "category":  "macaw_action",
                                                                "action":  "astronaut_pilot_ship"
-                                                           }
+                                                           },
+    "/assets/macaw/actions/180-hear_listen.png":  {
+                                                        "description":  "The robed macaw cups one wing behind its head and listens to approaching sound waves.",
+                                                        "category":  "macaw_action",
+                                                        "action":  "hear_listen"
+                                                    },
+    "/assets/macaw/actions/181-see_look.png":  {
+                                                     "description":  "The robed macaw shades its eyes with one wing and looks carefully into the distance.",
+                                                     "category":  "macaw_action",
+                                                     "action":  "see_look"
+                                                 }
 }

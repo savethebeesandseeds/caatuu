@@ -3,14 +3,31 @@
   if (!course) throw new Error("Caatuu course profile must load before shared Chrome.");
 
   const themeStorageKey = course.storage.theme;
+  const fontSizeStorageKey = course.storage.fontSize;
+  const speechVoiceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.voice.v1`;
+  const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const targetLanguage = course.targetLanguage;
+  const lightModeIconSrc = "/assets/icons/light_mode_ui.png";
   const darkModeIconSrc = "/assets/icons/dark_mode_ui.png";
   let sharedSettingsTrigger = null;
   let appFreshnessBound = false;
+  let browserSpeechVoiceEventsBound = false;
+  let activeBrowserSpeechSession = null;
+  const speechTestText = "Dobrý den. Tohle je zkouška českého hlasu.";
   const themeOptions = {
     light: { themeColor: "#f5efe5", label: "Use dark theme" },
     dark: { themeColor: "#151a18", label: "Use light theme" }
   };
+  const fontSizeOptions = Object.freeze({
+    standard: { label: "Smaller" },
+    large: { label: "Small" },
+    largest: { label: "Standard" }
+  });
+  const backpackViewOptions = Object.freeze({
+    items: { label: "Items", iconSrc: "/assets/icons/items_icon.png?v=items-2" },
+    stats: { label: "Stats", iconSrc: "/assets/icons/stats_icon.png" },
+    settings: { label: "Settings", iconSrc: "/assets/icons/gear_icon.png" }
+  });
   const learning = window.CaatuuLearning;
   const semanticSkillCompassAxisPack = Object.freeze({
     id: "cz-everyday-compass",
@@ -169,6 +186,7 @@
     } catch (error) {
       // Navigation remains usable when storage is unavailable.
     }
+    syncGameNavigationIndicators(normalizedGameId);
   }
 
   function readRememberedGame() {
@@ -182,6 +200,37 @@
   function gameNavigationHref(gameId = readRememberedGame()) {
     const normalizedGameId = normalizeGameId(gameId);
     return gamePresentations[normalizedGameId]?.href || course.routes.games;
+  }
+
+  function syncGameNavigationIndicators(gameId = readRememberedGame()) {
+    const normalizedGameId = normalizeGameId(gameId);
+    const presentation = gamePresentations[normalizedGameId];
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]').forEach((button) => {
+      let badge = button.querySelector(".app-nav-submenu-icon");
+      if (!presentation) {
+        badge?.remove();
+        delete button.dataset.activeGame;
+        button.setAttribute("aria-label", "Games");
+        button.title = "Open Games";
+        return;
+      }
+
+      if (!badge) {
+        const icon = button.querySelector(".app-nav-icon");
+        if (!icon) return;
+        badge = document.createElement("img");
+        badge.className = "app-nav-submenu-icon";
+        badge.alt = "";
+        badge.setAttribute("aria-hidden", "true");
+        badge.decoding = "async";
+        icon.append(badge);
+      }
+      badge.src = presentation.iconSrc;
+      badge.dataset.activeGame = normalizedGameId;
+      button.dataset.activeGame = normalizedGameId;
+      button.setAttribute("aria-label", `Games, ${presentation.title}`);
+      button.title = `Open Games, ${presentation.title}`;
+    });
   }
 
   function currentGameId() {
@@ -253,11 +302,14 @@
       if (!gameNav) return;
       const activeGameId = currentGameId();
       if (activeGameId && activeGameId !== "galaxy") {
-        rememberActiveGame(activeGameId);
         const settingsPanel = document.querySelector("#settingsPanel");
         if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
+        rememberActiveGame("galaxy");
         event.preventDefault();
         event.stopImmediatePropagation();
+        const backToGalaxy = document.querySelector(".app-header-back:not([hidden])");
+        if (backToGalaxy) backToGalaxy.click();
+        else window.location.href = course.routes.games;
         return;
       }
       if (gameNav.tagName === "A") gameNav.href = gameNavigationHref();
@@ -277,6 +329,410 @@
       return normalizeTheme(localStorage.getItem(themeStorageKey));
     } catch (error) {
       return "dark";
+    }
+  }
+
+  function normalizeFontSize(fontSize) {
+    const value = String(fontSize || "").trim();
+    return Object.prototype.hasOwnProperty.call(fontSizeOptions, value) ? value : "largest";
+  }
+
+  function readStoredFontSize() {
+    try {
+      return normalizeFontSize(localStorage.getItem(fontSizeStorageKey));
+    } catch (error) {
+      return "largest";
+    }
+  }
+
+  function normalizeBackpackView(view) {
+    const value = String(view || "").trim();
+    return Object.prototype.hasOwnProperty.call(backpackViewOptions, value) ? value : "items";
+  }
+
+  function readRememberedBackpackView() {
+    try {
+      return normalizeBackpackView(localStorage.getItem(backpackViewStorageKey));
+    } catch (error) {
+      return "items";
+    }
+  }
+
+  function rememberBackpackView(view) {
+    const normalizedView = normalizeBackpackView(view);
+    try {
+      localStorage.setItem(backpackViewStorageKey, normalizedView);
+    } catch (error) {
+      // Storage can be unavailable in constrained WebView contexts.
+    }
+    return normalizedView;
+  }
+
+  function syncBackpackViewIndicators(view) {
+    const normalizedView = normalizeBackpackView(view);
+    const option = backpackViewOptions[normalizedView];
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="backpack"]').forEach((button) => {
+      button.dataset.backpackView = normalizedView;
+      button.setAttribute("aria-label", `Backpack, ${option.label}`);
+      button.title = `Open Backpack ${option.label}`;
+      const badge = button.querySelector(".app-nav-submenu-icon");
+      if (!badge) return;
+      badge.src = option.iconSrc;
+      badge.dataset.backpackView = normalizedView;
+    });
+  }
+
+  function updateFontSizeControls(fontSize) {
+    document.querySelectorAll("[data-font-size-option]").forEach((button) => {
+      const active = button.dataset.fontSizeOption === fontSize;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  }
+
+  function applyFontSize(fontSize, { persist = true } = {}) {
+    const normalizedFontSize = normalizeFontSize(fontSize);
+    document.documentElement.dataset.fontSize = normalizedFontSize;
+    if (persist) {
+      try {
+        localStorage.setItem(fontSizeStorageKey, normalizedFontSize);
+      } catch (error) {
+        // Storage can be unavailable in constrained WebView contexts.
+      }
+    }
+    updateFontSizeControls(normalizedFontSize);
+  }
+
+  function speechVoiceBackend() {
+    return isNativeShell() ? "android" : "browser";
+  }
+
+  function normalizeStoredSpeechVoice(value) {
+    const normalized = String(value || "").trim();
+    if (!normalized || normalized.length > 320) return "";
+    return /^(android|browser):[^\u0000-\u001f\u007f]+$/u.test(normalized) ? normalized : "";
+  }
+
+  function readStoredSpeechVoice() {
+    try {
+      return normalizeStoredSpeechVoice(localStorage.getItem(speechVoiceStorageKey));
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function getSpeechVoicePreference() {
+    const backend = speechVoiceBackend();
+    const prefix = `${backend}:`;
+    const stored = readStoredSpeechVoice();
+    return stored.startsWith(prefix) ? stored.slice(prefix.length) : "";
+  }
+
+  function writeStoredSpeechVoice(value) {
+    const normalized = normalizeStoredSpeechVoice(value);
+    try {
+      if (normalized) localStorage.setItem(speechVoiceStorageKey, normalized);
+      else localStorage.removeItem(speechVoiceStorageKey);
+    } catch (error) {
+      // Automatic pronunciation remains available when storage is unavailable.
+    }
+    window.dispatchEvent(new CustomEvent("caatuu:speech-voice-change", {
+      detail: {
+        backend: speechVoiceBackend(),
+        voice: getSpeechVoicePreference()
+      }
+    }));
+  }
+
+  function speechVoiceMatchesLocale(locale) {
+    const requestedLanguage = String(targetLanguage.locale || "cs-CZ").split(/[-_]/u)[0].toLocaleLowerCase("en-US");
+    const voiceLanguage = String(locale || "").split(/[-_]/u)[0].toLocaleLowerCase("en-US");
+    return Boolean(requestedLanguage && requestedLanguage === voiceLanguage);
+  }
+
+  function browserSpeechVoiceOptions() {
+    const synthesis = window.speechSynthesis;
+    if (!synthesis || typeof synthesis.getVoices !== "function") return [];
+    return synthesis.getVoices()
+      .filter((voice) => speechVoiceMatchesLocale(voice.lang))
+      .map((voice) => ({
+        id: String(voice.voiceURI || voice.name || "").trim(),
+        name: String(voice.name || voice.voiceURI || "Czech voice").trim(),
+        locale: String(voice.lang || targetLanguage.locale || "cs-CZ"),
+        localService: voice.localService !== false
+      }))
+      .filter((voice) => voice.id)
+      .sort((left, right) => (
+        Number(right.localService) - Number(left.localService)
+        || left.name.localeCompare(right.name, "en", { sensitivity: "base" })
+        || left.id.localeCompare(right.id, "en", { sensitivity: "base" })
+      ));
+  }
+
+  function normalizeNativeSpeechVoiceOptions(voices) {
+    if (!Array.isArray(voices)) return [];
+    return voices
+      .map((voice) => ({
+        id: String(voice?.id || voice?.name || "").trim(),
+        name: String(voice?.name || voice?.id || "Czech voice").trim(),
+        locale: String(voice?.locale || targetLanguage.locale || "cs-CZ"),
+        localService: voice?.localService === true
+      }))
+      .filter((voice) => voice.id && speechVoiceMatchesLocale(voice.locale));
+  }
+
+  function appendSpeechVoiceOption(select, backend, voice) {
+    const option = document.createElement("option");
+    option.value = `${backend}:${voice.id}`;
+    const service = voice.localService ? "On device" : "Network";
+    option.textContent = `${voice.name} (${voice.locale} · ${service})`;
+    select.append(option);
+  }
+
+  async function listSpeechVoiceOptions() {
+    const backend = speechVoiceBackend();
+    let voices = [];
+    let available = true;
+    try {
+      if (backend === "android") {
+        const response = await window.CaatuuRuntime?.speech?.status?.(
+          targetLanguage.locale,
+          { voice: getSpeechVoicePreference() }
+        );
+        voices = normalizeNativeSpeechVoiceOptions(response?.voices);
+        available = response?.available === true;
+      } else {
+        available = Boolean(
+          window.speechSynthesis
+          && typeof window.speechSynthesis.speak === "function"
+          && typeof window.speechSynthesis.cancel === "function"
+          && window.SpeechSynthesisUtterance
+        );
+        voices = browserSpeechVoiceOptions();
+      }
+    } catch (error) {
+      available = false;
+      voices = [];
+    }
+    return {
+      backend,
+      available,
+      voices: voices.map((voice) => ({
+        ...voice,
+        value: `${backend}:${voice.id}`,
+        service: voice.localService ? "On device" : "Network"
+      }))
+    };
+  }
+
+  function setSpeechVoicePreference(value) {
+    writeStoredSpeechVoice(value);
+    return getSpeechVoicePreference();
+  }
+
+  function clampSpeechControl(value, minimum, maximum, fallback) {
+    const number = Number(value);
+    return Number.isFinite(number) ? Math.max(minimum, Math.min(maximum, number)) : fallback;
+  }
+
+  function callSpeechCallback(callback, ...args) {
+    try {
+      callback?.(...args);
+    } catch (error) {
+      // UI callbacks must never keep a speech request from settling.
+    }
+  }
+
+  async function stopCzechSpeech() {
+    if (speechVoiceBackend() === "android") {
+      return window.CaatuuRuntime?.speech?.stop?.();
+    }
+    if (activeBrowserSpeechSession) {
+      return activeBrowserSpeechSession.stop();
+    }
+    window.speechSynthesis?.cancel?.();
+    return { runtime: "browser-web-speech", stopped: true };
+  }
+
+  async function speakCzechText(text, options = {}) {
+    const normalizedText = String(text || "").normalize("NFC").trim();
+    if (!normalizedText) throw new Error("Enter Czech text to hear.");
+    if (normalizedText.length > 1_000) throw new Error("Czech audio supports up to 1,000 characters.");
+    const locale = String(options.locale || targetLanguage.locale || "cs-CZ");
+    const rate = clampSpeechControl(options.rate, 0.5, 1.5, 0.9);
+    const pitch = clampSpeechControl(options.pitch, 0.5, 1.5, 1);
+    const voice = String(options.voice ?? getSpeechVoicePreference()).trim().slice(0, 256);
+
+    await stopCzechSpeech();
+    if (speechVoiceBackend() === "android") {
+      const speech = window.CaatuuRuntime?.speech;
+      if (!speech?.speak) throw new Error("Czech pronunciation is not available on this device.");
+      const result = await speech.speak(
+        normalizedText,
+        { locale, rate, pitch, voice },
+        {
+          onEvent(event) {
+            if (event?.kind === "speech" && event?.phase === "started") {
+              callSpeechCallback(options.onStart, event);
+            }
+          }
+        }
+      );
+      callSpeechCallback(options.onEnd, result);
+      return result;
+    }
+
+    const synthesis = window.speechSynthesis;
+    const Utterance = window.SpeechSynthesisUtterance;
+    if (!synthesis || !Utterance) throw new Error("Czech pronunciation is not available in this browser.");
+    const utterance = new Utterance(normalizedText);
+    utterance.lang = locale;
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    if (voice && typeof synthesis.getVoices === "function") {
+      const matchingVoice = synthesis.getVoices().find((candidate) => (
+        String(candidate?.voiceURI || candidate?.name || "") === voice
+        && speechVoiceMatchesLocale(candidate?.lang)
+      ));
+      if (matchingVoice) utterance.voice = matchingVoice;
+    }
+
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      let timeout = null;
+      const session = {
+        stop() {
+          const result = { runtime: "browser-web-speech", outcome: "stopped", stopped: true };
+          finish(null, result);
+          synthesis.cancel();
+          return result;
+        }
+      };
+      const finish = (error = null, result = { runtime: "browser-web-speech", outcome: "completed" }) => {
+        if (settled) return;
+        settled = true;
+        if (timeout !== null) window.clearTimeout(timeout);
+        utterance.onstart = null;
+        utterance.onend = null;
+        utterance.onerror = null;
+        if (activeBrowserSpeechSession === session) activeBrowserSpeechSession = null;
+        if (error) reject(error);
+        else {
+          callSpeechCallback(options.onEnd, result);
+          resolve(result);
+        }
+      };
+      activeBrowserSpeechSession = session;
+      timeout = window.setTimeout(() => {
+        finish(new Error("The voice test took too long."));
+        synthesis.cancel();
+      }, 20_000);
+      utterance.onstart = (event) => callSpeechCallback(options.onStart, event);
+      utterance.onend = () => {
+        finish();
+      };
+      utterance.onerror = (event) => {
+        const reason = String(event?.error || "Speech synthesis failed.");
+        finish(new Error(reason));
+      };
+      try {
+        synthesis.speak(utterance);
+      } catch (error) {
+        finish(error);
+      }
+    });
+  }
+
+  async function refreshSpeechVoiceControl(panel) {
+    const select = panel?.querySelector("#settingsSpeechVoice");
+    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
+    const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
+    if (!select || !status || !testButton) return;
+    const request = Number(panel.dataset.speechVoiceRequest || 0) + 1;
+    panel.dataset.speechVoiceRequest = String(request);
+    select.disabled = true;
+    testButton.disabled = true;
+    status.textContent = "Checking Czech voices...";
+
+    const { backend, voices, available } = await listSpeechVoiceOptions();
+    if (request !== Number(panel.dataset.speechVoiceRequest)) return;
+
+    const automatic = document.createElement("option");
+    automatic.value = "";
+    automatic.textContent = "Automatic (recommended)";
+    select.replaceChildren(automatic);
+    voices.forEach((voice) => appendSpeechVoiceOption(select, backend, voice));
+
+    const stored = readStoredSpeechVoice();
+    const currentPrefix = `${backend}:`;
+    const storedForBackend = stored.startsWith(currentPrefix) ? stored : "";
+    const selectedVoice = voices.find((voice) => `${backend}:${voice.id}` === storedForBackend);
+    select.value = selectedVoice ? storedForBackend : "";
+    select.disabled = !available || voices.length === 0;
+    select.dataset.available = String(available);
+    select.dataset.voiceCount = String(voices.length);
+    testButton.disabled = !available;
+    testButton.dataset.available = String(available);
+    testButton.setAttribute("aria-label", `Test ${selectedVoice?.name || "automatic Czech voice"}`);
+
+    if (!available) {
+      status.textContent = "Czech pronunciation is not available on this device.";
+    } else if (selectedVoice) {
+      status.textContent = `Using ${selectedVoice.name}.`;
+    } else if (storedForBackend) {
+      status.textContent = "Saved voice unavailable; using Automatic.";
+    } else if (voices.length) {
+      status.textContent = "Automatic will use the best available Czech voice.";
+    } else {
+      status.textContent = "Czech voices are still loading. Automatic stays selected.";
+    }
+  }
+
+  function bindSpeechVoiceControl(panel) {
+    const select = panel?.querySelector("#settingsSpeechVoice");
+    const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
+    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
+    if (!select || !testButton || !status || panel.dataset.speechVoiceBound === "true") return;
+    panel.dataset.speechVoiceBound = "true";
+    select.addEventListener("change", async () => {
+      select.disabled = true;
+      await stopCzechSpeech();
+      writeStoredSpeechVoice(select.value);
+      await refreshSpeechVoiceControl(panel);
+    });
+    testButton.addEventListener("click", async () => {
+      if (testButton.disabled || testButton.getAttribute("aria-busy") === "true") return;
+      const label = testButton.textContent;
+      testButton.disabled = true;
+      testButton.setAttribute("aria-busy", "true");
+      testButton.textContent = "Playing...";
+      status.textContent = "Playing the selected Czech voice...";
+      try {
+        const result = await speakCzechText(speechTestText);
+        if (result?.outcome !== "stopped") status.textContent = "Voice test finished.";
+      } catch (error) {
+        status.textContent = "Unable to play the Czech voice on this device.";
+      } finally {
+        testButton.removeAttribute("aria-busy");
+        testButton.textContent = label;
+        testButton.disabled = testButton.dataset.available !== "true";
+        select.disabled = select.dataset.available !== "true" || select.dataset.voiceCount === "0";
+      }
+    });
+
+    if (!isNativeShell() && !browserSpeechVoiceEventsBound) {
+      const synthesis = window.speechSynthesis;
+      if (synthesis && typeof synthesis.addEventListener === "function") {
+        browserSpeechVoiceEventsBound = true;
+        synthesis.addEventListener("voiceschanged", () => {
+          document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach((settingsPanel) => {
+            const sheet = settingsPanel.querySelector(".settings-sheet");
+            if (!settingsPanel.hidden && sheet?.dataset.settingsCurrentView === "settings") {
+              void refreshSpeechVoiceControl(settingsPanel);
+            }
+          });
+        });
+      }
     }
   }
 
@@ -345,7 +801,7 @@
     if (!learning) return;
     const profile = learning.snapshot();
     const rewards = {
-      xp: profile.summary.successes,
+      xp: profile.summary.xp,
       coins: profile.summary.rounds
     };
     root.querySelectorAll("[data-difficulty-level]").forEach((button) => {
@@ -933,6 +1389,13 @@
       event.preventDefault();
       applyTheme(button.dataset.themeOption);
     });
+
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-font-size-option]");
+      if (!button) return;
+      event.preventDefault();
+      applyFontSize(button.dataset.fontSizeOption);
+    });
   }
 
   function appendNavContent(element, item) {
@@ -946,6 +1409,17 @@
       image.alt = "";
       image.decoding = "async";
       icon.append(image);
+      if (item.key === "backpack") {
+        const view = readRememberedBackpackView();
+        const submenuImage = document.createElement("img");
+        submenuImage.className = "app-nav-submenu-icon";
+        submenuImage.src = backpackViewOptions[view].iconSrc;
+        submenuImage.alt = "";
+        submenuImage.setAttribute("aria-hidden", "true");
+        submenuImage.decoding = "async";
+        submenuImage.dataset.backpackView = view;
+        icon.append(submenuImage);
+      }
     } else {
       icon.textContent = item.icon;
     }
@@ -1005,6 +1479,11 @@
     };
     const availableItems = navItems.filter((item) => !item.capability || course.capabilities[item.capability]);
     nav.replaceChildren(...availableItems.map((item) => createNavItem(item, options)));
+    syncBackpackViewIndicators(readRememberedBackpackView());
+    const activeGameId = currentGameId();
+    syncGameNavigationIndicators(
+      activeGameId && activeGameId !== "galaxy" ? activeGameId : readRememberedGame()
+    );
   }
 
   function syncBottomNavActive(nav, activeSection = "") {
@@ -1343,20 +1822,70 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
-          <section class="settings-card side-card appearance-card settings-card-compact" aria-label="Appearance">
-            <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">Appearance</p>
-              <h3>Theme</h3>
+          <section class="settings-card side-card appearance-card" aria-label="Appearance">
+            <div class="settings-card-head side-head appearance-card-head">
+              <span>
+                <span class="settings-kicker kicker">Appearance</span>
+                <h3>Display</h3>
+              </span>
+              <p>Choose a comfortable look and reading size.</p>
             </div>
-            <div class="theme-control" role="group" aria-label="Theme">
-              <button type="button" data-theme-option="light">
-                <span aria-hidden="true">&#9788;</span>
-                <b>Light</b>
-              </button>
-              <button type="button" data-theme-option="dark">
-                <img class="theme-control-icon" src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                <b>Dark</b>
-              </button>
+            <div class="appearance-controls">
+              <div class="appearance-control-row">
+                <span class="appearance-control-label">
+                  <strong>Theme</strong>
+                  <small>Choose the atmosphere</small>
+                </span>
+                <div class="theme-control" role="group" aria-label="Theme">
+                  <button type="button" data-theme-option="light">
+                    <img class="theme-control-icon" src="${lightModeIconSrc}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    <b>Light</b>
+                  </button>
+                  <button type="button" data-theme-option="dark">
+                    <img class="theme-control-icon" src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    <b>Dark</b>
+                  </button>
+                </div>
+              </div>
+              <div class="appearance-control-row">
+                <span class="appearance-control-label">
+                  <strong>Text size</strong>
+                  <small>Scale every screen</small>
+                </span>
+                <div class="font-size-control" role="group" aria-label="Text size">
+                  <button type="button" data-font-size-option="largest" aria-label="Use standard text size">
+                    <span class="font-size-sample is-largest" aria-hidden="true">A</span>
+                    <b>Standard</b>
+                  </button>
+                  <button type="button" data-font-size-option="large" aria-label="Use small text size">
+                    <span class="font-size-sample is-large" aria-hidden="true">A</span>
+                    <b>Small</b>
+                  </button>
+                  <button type="button" data-font-size-option="standard" aria-label="Use smaller text size">
+                    <span class="font-size-sample is-standard" aria-hidden="true">A</span>
+                    <b>Smaller</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-card side-card speech-settings-card" aria-label="Czech pronunciation">
+            <div class="settings-card-head side-head speech-settings-head">
+              <span class="settings-kicker kicker">Audio</span>
+            </div>
+            <div class="speech-voice-row">
+              <label class="speech-voice-label" for="settingsSpeechVoice">
+                <b>Czech voice</b>
+                <small>Phone or browser speech</small>
+              </label>
+              <div class="speech-voice-controls">
+                <select id="settingsSpeechVoice" aria-describedby="settingsSpeechVoiceStatus" disabled>
+                  <option value="">Automatic (recommended)</option>
+                </select>
+                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>Test</button>
+                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Automatic will use the best available Czech voice.</p>
+              </div>
             </div>
           </section>
 
@@ -1463,6 +1992,7 @@
               <div class="settings-details-body">
                 <nav class="advanced-link-list" aria-label="Developer tools">
                   <a class="advanced-link" href="chat.html?advanced=debug-chat">debug-chat</a>
+                  <a class="advanced-link" href="audio-lab.html">audio-lab</a>
                   <a class="advanced-link" href="index.html?advanced=${course.id}-dictionary&amp;view=dictionary">${course.id}-dictionary</a>
                   <a class="advanced-link" href="embedding-images.html">embedding-images</a>
                   <a class="advanced-link" href="verb-difficulty.html">verb-difficulty</a>
@@ -1601,6 +2131,7 @@
             </a>
           </footer>
         </div>
+        <p class="settings-view-transition-status" id="settingsViewTransitionStatus" role="status" aria-live="polite"></p>
         <nav class="settings-section-switcher" role="tablist" aria-label="Backpack sections">
           <button class="is-active" type="button" role="tab" id="itemsViewTab" data-settings-view="items" aria-controls="itemsViewPanel" aria-selected="true">
             <img src="/assets/icons/items_icon.png?v=items-2" alt="" aria-hidden="true" decoding="async">
@@ -1621,24 +2152,89 @@
     bindBrowserRefresh(panel);
     bindAndroidInstallDiscovery(panel);
     bindSemanticSkillCompass(panel);
+    bindSpeechVoiceControl(panel);
     renderLearningControls(panel);
-    setSettingsView(panel, "items");
+    updateThemeControls(readStoredTheme());
+    updateFontSizeControls(readStoredFontSize());
+    setSettingsView(panel, readRememberedBackpackView(), { persist: false });
     panel.dataset.caatuuSettingsRendered = "true";
     return panel;
   }
 
-  function setSettingsView(panel, requestedView = "items") {
+  function setSettingsViewTransitionState(panel, requestedView, pending) {
+    const view = ["items", "stats", "settings"].includes(requestedView) ? requestedView : "items";
+    const label = { items: "Items", stats: "Stats", settings: "Settings" }[view];
+    panel.querySelectorAll("[data-settings-view]").forEach((button) => {
+      const isRequested = button.dataset.settingsView === view;
+      const isPending = pending && isRequested;
+      button.classList.toggle("is-pending", isPending);
+      if (pending) {
+        button.classList.toggle("is-active", isRequested);
+        button.setAttribute("aria-selected", String(isRequested));
+        button.tabIndex = isRequested ? 0 : -1;
+      }
+      if (isPending) button.setAttribute("aria-busy", "true");
+      else button.removeAttribute("aria-busy");
+    });
+    const status = panel.querySelector("#settingsViewTransitionStatus");
+    if (status) status.textContent = pending ? `Opening ${label}...` : "";
+  }
+
+  function cancelSettingsViewTransition(panel) {
+    if (!panel) return;
+    const transition = (Number(panel.dataset.settingsViewTransition) || 0) + 1;
+    panel.dataset.settingsViewTransition = String(transition);
+    setSettingsViewTransitionState(panel, "items", false);
+  }
+
+  function scheduleSettingsViewTransition(panel, requestedView = "items") {
     if (!panel) return;
     const view = ["items", "stats", "settings"].includes(requestedView) ? requestedView : "items";
     const sheet = panel.querySelector(".settings-sheet");
+    const transition = (Number(panel.dataset.settingsViewTransition) || 0) + 1;
+    panel.dataset.settingsViewTransition = String(transition);
+    if (sheet?.dataset.settingsCurrentView === view) {
+      setSettingsViewTransitionState(panel, view, false);
+      setSettingsView(panel, view);
+      return;
+    }
+    setSettingsViewTransitionState(panel, view, true);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (panel.dataset.settingsViewTransition !== String(transition)) return;
+        setSettingsView(panel, view);
+        window.requestAnimationFrame(() => {
+          if (panel.dataset.settingsViewTransition !== String(transition)) return;
+          setSettingsViewTransitionState(panel, view, false);
+        });
+      });
+    });
+  }
+
+  function setSettingsView(panel, requestedView = "items", { persist = true } = {}) {
+    if (!panel) return;
+    const view = normalizeBackpackView(requestedView);
+    if (persist) rememberBackpackView(view);
+    syncBackpackViewIndicators(view);
+    const sheet = panel.querySelector(".settings-sheet");
+    const previousView = sheet?.dataset.settingsCurrentView;
     const body = panel.querySelector(".settings-sheet-body");
     if (panel.dataset.settingsViewInitialized === "true"
       && sheet?.dataset.settingsCurrentView === view) {
       if (body) body.scrollTop = 0;
       if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
+      if (view === "settings") void refreshSpeechVoiceControl(panel);
       return;
     }
     panel.dataset.settingsViewInitialized = "true";
+    if (previousView === "settings" && view !== "settings") {
+      const testButton = panel.querySelector("#settingsSpeechVoiceTest");
+      if (testButton) {
+        testButton.removeAttribute("aria-busy");
+        testButton.textContent = "Test";
+      }
+      void stopCzechSpeech();
+    }
     if (view !== "stats") pauseSemanticSkillCompass(panel);
     if (sheet) sheet.dataset.settingsCurrentView = view;
     panel.querySelectorAll("[data-settings-view]").forEach((button) => {
@@ -1662,6 +2258,7 @@
     }
     if (body) body.scrollTop = 0;
     if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
+    if (view === "settings") void refreshSpeechVoiceControl(panel);
   }
 
   function validAndroidChannelManifest(channel, manifest) {
@@ -1775,7 +2372,7 @@
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
     sharedSettingsTrigger = document.activeElement;
-    setSettingsView(panel, "items");
+    setSettingsView(panel, readRememberedBackpackView());
     panel.hidden = false;
     document.body.classList.add("settings-open");
     setSettingsNavActive(true);
@@ -1786,7 +2383,9 @@
   function closeSharedSettings({ restoreFocus = true } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
+    cancelSettingsViewTransition(panel);
     pauseSemanticSkillCompass(panel);
+    void stopCzechSpeech();
     panel.hidden = true;
     document.body.classList.remove("settings-open");
     setSettingsNavActive(false);
@@ -1800,7 +2399,7 @@
         const panel = settingsView.closest("#settingsPanel");
         if (panel) {
           event.preventDefault();
-          setSettingsView(panel, settingsView.dataset.settingsView);
+          scheduleSettingsViewTransition(panel, settingsView.dataset.settingsView);
           return;
         }
       }
@@ -1837,7 +2436,7 @@
           event.preventDefault();
           const nextView = tabs[nextIndex];
           const viewPanel = nextView.closest("#settingsPanel");
-          setSettingsView(viewPanel, nextView.dataset.settingsView);
+          scheduleSettingsViewTransition(viewPanel, nextView.dataset.settingsView);
           nextView.focus();
           return;
         }
@@ -2068,6 +2667,7 @@
   function initChrome() {
     document.documentElement.dataset.caatuuRuntime = window.CaatuuRuntime?.env || "browser";
     applyTheme(readStoredTheme(), { persist: false });
+    applyFontSize(readStoredFontSize(), { persist: false });
     document.querySelectorAll(".app-header").forEach(renderAppHeader);
     document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach(renderSettingsPanel);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach(renderBottomNav);
@@ -2081,6 +2681,11 @@
     renderBottomNav,
     renderLanguageSwitch,
     renderSettingsPanel,
+    getSpeechVoicePreference,
+    listSpeechVoiceOptions,
+    setSpeechVoicePreference,
+    speakCzechText,
+    stopCzechSpeech,
     setHeaderTitle,
     setSettingsNavActive,
     confirmButtonPress,
@@ -2089,6 +2694,10 @@
     closeSharedSettings,
     handleAndroidBack
   };
+
+  window.addEventListener("pagehide", () => {
+    void stopCzechSpeech();
+  });
 
   const chromeTargetsReady = () =>
     Boolean(document.querySelector(".app-header, #settingsPanel, [data-caatuu-settings-panel], [data-caatuu-bottom-nav], [data-caatuu-language-switch]"));

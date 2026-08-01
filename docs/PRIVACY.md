@@ -1,6 +1,6 @@
 # Caatuu development-preview privacy notice
 
-Last updated: 16 July 2026
+Last updated: 1 August 2026
 
 Caatuu is currently a development preview, not a governed public beta. It is
 operated by the individual maintainer publishing the project under the Waajacu
@@ -14,11 +14,30 @@ or product analytics. Language progress, settings, downloaded models,
 dictionaries, and similar learning data are intended to remain on the user's
 device.
 
-Remote diagnostic reporting is disabled by default. The public server rejects
-`/api/bug-report`, the product does not present a report-submission control,
-and the browser app removes its retired local diagnostic outbox when the new
-runtime loads. Older development APKs may still contain an earlier local report
-queue and should not be treated as governed releases.
+Caatuu feedback actions place reports in a device-local outbox. This currently
+includes explicit Word World sentence reports and compact records of dictionary
+words for which no usable English meaning was found. The outbox is kept in browser storage on the device,
+accepts at most 128 pending items, and may also be present inside the Android
+app's private WebView storage. Clearing site data or uninstalling the Android
+app removes that local data.
+
+Remote diagnostic reporting remains disabled. The current runtime forces the
+outbox into local-only mode and rejects every delivery attempt without making a
+report request. The public server also rejects `/api/bug-report`. Consequently,
+locally queued feedback is not transmitted to or collected by the maintainer in
+this development preview. Enabling delivery requires a separate implementation
+and privacy review; retaining an outbox on the device does not authorize later
+transmission.
+
+Word World provides an explicit **Copy missing-word batch** action for manual
+dictionary maintenance. It copies a narrow JSON projection to the system
+clipboard containing only the observed Czech word, its normalized form, the
+dictionary key and direction, and the lookup outcome and result count. It does
+not include sentences, translations, comments, report identifiers, timestamps,
+URLs, device data, or retry metadata. Copying makes no network request, does not
+enable the disabled sender, and does not remove the local reports. The user
+decides whether to paste that clipboard text into a separate Codex task or any
+other tool.
 
 ## Network and infrastructure data
 

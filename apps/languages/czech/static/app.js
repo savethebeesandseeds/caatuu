@@ -197,6 +197,7 @@ const state = {
   verbSolutionRevealed: false,
   verbRoundTransitioning: false,
   verbRoundInterstitial: false,
+  verbRoundRewardXp: 0,
   verbRoundTransitionId: 0,
   verbSolutionAdvanceTimer: null,
   verbInterstitialRobotPath: "",
@@ -861,6 +862,16 @@ const verbStorageKey = course.storage.verbMemory;
 const verbMemorySchemaVersion = 2;
 const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
 const verbHintFallbackPath = "/assets/macaw/actions/macaw (1).png";
+const verbHintExactAssets = new Map([
+  ["hear", {
+    assetPath: "/assets/macaw/actions/180-hear_listen.png",
+    alt: "The robed macaw cups one wing behind its head and listens to approaching sound waves."
+  }],
+  ["see", {
+    assetPath: "/assets/macaw/actions/181-see_look.png",
+    alt: "The robed macaw shades its eyes with one wing and looks carefully into the distance."
+  }]
+]);
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
 const verbRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
 const verbSolutionRouteColors = [
@@ -1333,6 +1344,7 @@ function applyVerbRound(plan, preloadedHints = null) {
   state.verbSolutionRevealed = false;
   state.verbRoundTransitioning = false;
   state.verbRoundInterstitial = false;
+  state.verbRoundRewardXp = 0;
   state.verbInterstitialRobotPath = "";
   state.verbHintById.clear();
   if (state.verbHintsEnabled && preloadedHints instanceof Map) {
@@ -1587,6 +1599,10 @@ function renderVerbRoundInterstitial() {
   const board = document.querySelector(".verb-match-board");
   const interstitial = $("#verbRoundInterstitial");
   const image = $("#verbRoundRobot");
+  const reward = $("#verbRoundReward");
+  const rewardAmount = $("#verbRoundRewardAmount");
+  const rewardXp = Math.max(0, Number(state.verbRoundRewardXp) || 0);
+  const rewardVisible = active && rewardXp > 0;
   const gameNodes = [
     document.querySelector(".verb-match-controls"),
     ...document.querySelectorAll(".verb-match-column-heading"),
@@ -1602,12 +1618,23 @@ function renderVerbRoundInterstitial() {
   if (!interstitial) return;
 
   interstitial.hidden = !active;
+  interstitial.setAttribute(
+    "aria-label",
+    rewardVisible
+      ? `Round cleared. ${rewardXp} XP earned this round. Preparing the next round.`
+      : "Preparing the next round"
+  );
   interstitial.style.display = active ? "grid" : "none";
   interstitial.style.gridColumn = "1 / -1";
   interstitial.style.gridRow = "1 / -1";
   interstitial.style.minHeight = "clamp(260px, 52vh, 420px)";
   interstitial.style.placeItems = "center";
   interstitial.style.padding = "18px";
+  if (reward) {
+    reward.hidden = !rewardVisible;
+    reward.classList.toggle("is-visible", rewardVisible);
+  }
+  if (rewardAmount) rewardAmount.textContent = rewardVisible ? `+${rewardXp} XP` : "";
   if (!image) return;
   image.style.width = "clamp(150px, 34vw, 240px)";
   image.style.maxHeight = "300px";
@@ -1868,6 +1895,7 @@ function settleVerbMatch() {
     const roundComplete = verbRoundComplete();
     if (roundComplete) {
       state.verbStats.rounds += 1;
+      state.verbRoundRewardXp = state.verbRound.length;
       setVerbMatchFeedback("Round complete.", "correct");
     } else {
       setVerbMatchFeedback(`${pair?.cz || "This verb"} means ${pair?.eng || "this meaning"}.`, "correct");
@@ -1876,6 +1904,7 @@ function settleVerbMatch() {
       activities: 1,
       attempts: 1,
       successes: 1,
+      xp: 1,
       rounds: roundComplete ? 1 : 0
     });
     recordVerbSemanticAttempt(pair, {
@@ -2080,6 +2109,8 @@ function loadableVerbHint(candidates, pair) {
 
 function cachedVerbHintCandidates(pair) {
   const key = verbNebulaCore.verbHintSearchText(pair).toLocaleLowerCase("en");
+  const exactAsset = verbHintExactAssets.get(key);
+  if (exactAsset) return Promise.resolve([{ ...exactAsset, score: 1000 }]);
   if (!state.verbHintCache.has(key)) {
     const lookup = Promise.all([
       vectorVerbHintCandidates(pair).catch(() => []),
@@ -2140,6 +2171,7 @@ function cancelVerbRoundTransition() {
   state.verbRoundTransitionId += 1;
   state.verbRoundTransitioning = false;
   state.verbRoundInterstitial = false;
+  state.verbRoundRewardXp = 0;
   state.verbSolutionRevealed = false;
   state.verbInterstitialRobotPath = "";
 }
@@ -3310,6 +3342,45 @@ async function playWorldLandingAnimation() {
   }
 }
 
+function ensureMemoryMoonLoaded() {
+  const frame = document.getElementById("memoryMoonGame");
+  const stage = document.getElementById("memoryMoonStage");
+  const status = document.getElementById("memoryMoonStatus");
+  if (!frame || frame.dataset.loading === "true" || frame.dataset.ready === "true") return;
+
+  const source = frame.dataset.src;
+  if (!source) return;
+  frame.dataset.loading = "true";
+
+  const handleMessage = (event) => {
+    if (event.origin !== window.location.origin || event.source !== frame.contentWindow) return;
+    if (event.data?.source !== "caatuu-memory-moon") return;
+
+    if (event.data.type === "ready") {
+      frame.dataset.ready = "true";
+      frame.classList.add("is-ready");
+      frame.removeAttribute("aria-hidden");
+      frame.removeAttribute("tabindex");
+      stage?.setAttribute("aria-busy", "false");
+      if (status) status.hidden = true;
+    }
+    if (event.data.type === "complete") {
+      frame.dataset.lastCompletion = String(event.data.value || "");
+    }
+  };
+  window.addEventListener("message", handleMessage);
+  frame.src = source;
+
+  window.setTimeout(() => {
+    if (frame.dataset.ready === "true" || !status) return;
+    status.classList.add("is-error");
+    const title = status.querySelector("strong");
+    const copy = status.querySelector("small");
+    if (title) title.textContent = "Memory Moon could not start";
+    if (copy) copy.textContent = "Reload the page and try entering the orbit again.";
+  }, 20000);
+}
+
 function setTrainTab(tab) {
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
@@ -3320,6 +3391,7 @@ function setTrainTab(tab) {
   const activeTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
+  document.body.classList.toggle("memory-moon-active", activeTab === "memory-moon");
   const trainTitles = {
     galaxy: "",
     "verb-lab": "Verb Nebula",
@@ -3342,6 +3414,7 @@ function setTrainTab(tab) {
     panel.hidden = !selected;
     panel.classList.toggle("is-active", selected);
   });
+  if (activeTab === "memory-moon") ensureMemoryMoonLoaded();
 }
 
 function setInitialViewFromLocation() {

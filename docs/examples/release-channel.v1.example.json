@@ -1,0 +1,12 @@
+{
+  "schema_name": "caatuu-release-channel",
+  "schema_version": 1,
+  "channel": "private-beta",
+  "updated_at": "2026-08-01T13:00:00Z",
+  "release": {
+    "id": "0.2.0-beta.1",
+    "href": "0.2.0-beta.1/release.json",
+    "bytes": 6656,
+    "sha256": "5def164f93f2013dc8e47f323a21a6ec00178592c5334ee48e2b37d77c6616e0"
+  }
+}

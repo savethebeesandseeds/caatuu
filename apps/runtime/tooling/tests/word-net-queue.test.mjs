@@ -200,7 +200,7 @@ test("prepares English before a generative phrase is displayed", () => {
   );
   assert.match(
     wordNetSource,
-    /async function presentPreparedCandidate\(target, candidate, transitionStartedAt\)[\s\S]*?showPreparedPhrase\(target, prepared\);/
+    /async function presentPreparedCandidate\(target, candidate, transitionStartedAt\)[\s\S]*?await Promise\.all\(\[[\s\S]*?showPreparedPhrase\(target, prepared\)[\s\S]*?\]\);/
   );
   assert.match(
     wordNetSource,
@@ -216,7 +216,7 @@ test("prepares English before a generative phrase is displayed", () => {
   );
   assert.match(
     wordNetSource,
-    /finally \{[\s\S]*?if \(!presented\) setBusy\(false\);/
+    /finally \{[\s\S]*?if \(requestId === state\.phraseRequestId\) setBusy\(false\);/
   );
 });
 

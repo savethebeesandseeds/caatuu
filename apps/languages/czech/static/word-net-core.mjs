@@ -74,17 +74,21 @@ export function selectDictionaryMeaning(payload, word, { maxGlosses = 2 } = {}) 
     .map((entry, index) => {
       const lemmaKey = dictionaryKey(entry?.lemma);
       const matchedKey = dictionaryKey(entry?.matchedTerm);
+      const matchedForm = (Array.isArray(entry?.forms) ? entry.forms : [])
+        .find((form) => dictionaryKey(form?.form) === queryKey);
       const senses = usableDictionarySenses(entry);
       const pos = String(entry?.pos || "").toLocaleLowerCase("en-US");
+      const exact = lemmaKey === queryKey || matchedKey === queryKey || Boolean(matchedForm);
       let score = 0;
       if (lemmaKey === queryKey) score += 80;
       if (matchedKey === queryKey) score += 80;
+      if (matchedForm) score += 80;
       if (entry?.matchedBy === "form" && matchedKey === queryKey) score += 25;
       if (senses.length) score += 20;
       if (pos === "name" || pos === "proper noun" || pos === "proper-name") score -= 70;
-      return { entry, index, score, senses };
+      return { entry, index, score, senses, exact, matchedForm };
     })
-    .filter((candidate) => candidate.senses.length)
+    .filter((candidate) => candidate.exact && candidate.senses.length)
     .sort((left, right) => right.score - left.score || left.index - right.index);
 
   const selected = candidates[0];
@@ -101,8 +105,7 @@ export function selectDictionaryMeaning(payload, word, { maxGlosses = 2 } = {}) 
   }
   if (!glosses.length) return null;
 
-  const matchedForm = (Array.isArray(selected.entry.forms) ? selected.entry.forms : [])
-    .find((form) => dictionaryKey(form?.form) === queryKey);
+  const matchedForm = selected.matchedForm;
   const senseTags = uniqueDictionaryValues(selected.senses.flatMap((sense) => sense?.tags || []))
     .filter((tag) => tag.toLocaleLowerCase("en-US") !== "form-of");
   const topics = uniqueDictionaryValues(selected.senses.flatMap((sense) => sense?.topics || []));
@@ -136,6 +139,214 @@ export function tokenizeCzechSentence(sentence) {
     tokens.push({ type: isWord ? "word" : "punctuation", text: part });
   }
   return tokens;
+}
+
+export function isSpeechSynthesisSupported(synthesis, UtteranceConstructor) {
+  return Boolean(
+    synthesis
+    && typeof synthesis.speak === "function"
+    && typeof synthesis.cancel === "function"
+    && typeof UtteranceConstructor === "function"
+  );
+}
+
+function normalizeSpeechLocale(value) {
+  return String(value || "")
+    .trim()
+    .replaceAll("_", "-")
+    .toLocaleLowerCase("en-US");
+}
+
+export function selectSpeechSynthesisVoice(voices, targetLocale) {
+  const locale = normalizeSpeechLocale(targetLocale);
+  const primaryLanguage = locale.split("-")[0];
+  if (!locale || !primaryLanguage || !Array.isArray(voices)) return null;
+
+  const ranked = voices
+    .map((voice, index) => {
+      const voiceLocale = normalizeSpeechLocale(voice?.lang);
+      const voicePrimaryLanguage = voiceLocale.split("-")[0];
+      const languageRank = voiceLocale === locale
+        ? 2
+        : voicePrimaryLanguage === primaryLanguage
+          ? 1
+          : 0;
+      return {
+        voice,
+        index,
+        languageRank,
+        localRank: voice?.localService === true ? 1 : 0,
+        defaultRank: voice?.default === true ? 1 : 0,
+        stableName: String(voice?.name || voice?.voiceURI || "")
+      };
+    })
+    .filter((candidate) => candidate.voice && candidate.languageRank > 0)
+    .sort((left, right) => (
+      right.languageRank - left.languageRank
+      || right.localRank - left.localRank
+      || right.defaultRank - left.defaultRank
+      || left.stableName.localeCompare(right.stableName, "en-US")
+      || left.index - right.index
+    ));
+
+  return ranked[0]?.voice || null;
+}
+
+function normalizeEnglishReconstructionToken(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .replaceAll("’", "'")
+    .toLocaleLowerCase("en-US")
+    .trim();
+}
+
+function stableReconstructionHash(value) {
+  let hash = 2166136261;
+  for (const character of String(value || "")) {
+    hash ^= character.codePointAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function tokenizeEnglishReconstruction(sentence) {
+  return String(sentence || "")
+    .normalize("NFC")
+    .match(/[\p{L}\p{M}\d]+(?:[’'-][\p{L}\p{M}\d]+)*/gu) || [];
+}
+
+export function buildWordReconstructionChallenge(
+  translation,
+  candidateTexts = [],
+  { distractorCount = 2 } = {}
+) {
+  const text = String(translation || "").normalize("NFC").replace(/\s+/g, " ").trim();
+  const answerTokens = tokenizeEnglishReconstruction(text);
+  const answerKeys = new Set(answerTokens.map(normalizeEnglishReconstructionToken));
+  const frequency = new Map();
+  let candidatePosition = 0;
+  for (const candidateText of Array.isArray(candidateTexts) ? candidateTexts : []) {
+    for (const token of tokenizeEnglishReconstruction(candidateText)) {
+      const key = normalizeEnglishReconstructionToken(token);
+      if (!key || answerKeys.has(key)) continue;
+      const current = frequency.get(key) || { key, text: token, count: 0, firstSeen: candidatePosition };
+      current.count += 1;
+      frequency.set(key, current);
+      candidatePosition += 1;
+    }
+  }
+
+  const requestedDistractors = Math.max(0, Math.floor(Number(distractorCount) || 0));
+  const commonCandidatePool = [...frequency.values()]
+    .sort((left, right) => left.firstSeen - right.firstSeen || right.count - left.count || left.key.localeCompare(right.key, "en-US"))
+    .slice(0, Math.max(48, requestedDistractors * 12));
+  const distractors = commonCandidatePool
+    .slice(0, requestedDistractors)
+    .map((candidate, index) => ({
+      id: `distractor-${index}-${stableReconstructionHash(candidate.key).toString(16)}`,
+      text: candidate.text,
+      answer: false
+    }));
+
+  const seed = answerTokens.map(normalizeEnglishReconstructionToken).join("|");
+  const options = [
+    ...answerTokens.map((token, index) => ({
+      id: `answer-${index}`,
+      text: token,
+      answer: true
+    })),
+    ...distractors
+  ].sort((left, right) => (
+    stableReconstructionHash(`${seed}|option|${left.id}|${left.text}`)
+    - stableReconstructionHash(`${seed}|option|${right.id}|${right.text}`)
+    || left.id.localeCompare(right.id, "en-US")
+  ));
+
+  return {
+    text,
+    answerTokens,
+    punctuation: text.match(/([.!?…]+)["'’”)]*$/u)?.[1] || "",
+    options
+  };
+}
+
+export function isWordReconstructionCorrect(selectedTokens, answerTokens) {
+  const selected = (Array.isArray(selectedTokens) ? selectedTokens : [])
+    .map(normalizeEnglishReconstructionToken);
+  const expected = (Array.isArray(answerTokens) ? answerTokens : [])
+    .map(normalizeEnglishReconstructionToken);
+  return selected.length === expected.length
+    && selected.every((token, index) => token === expected[index]);
+}
+
+export function alignWordReconstructionAttempt(selectedTokens, answerTokens) {
+  const selected = (Array.isArray(selectedTokens) ? selectedTokens : []).map((text) => ({
+    text: String(text || ""),
+    normalized: normalizeEnglishReconstructionToken(text)
+  }));
+  const expected = (Array.isArray(answerTokens) ? answerTokens : []).map((text) => ({
+    text: String(text || ""),
+    normalized: normalizeEnglishReconstructionToken(text)
+  }));
+  const rows = Array.from({ length: selected.length + 1 }, () => (
+    Array(expected.length + 1).fill(0)
+  ));
+
+  for (let selectedIndex = selected.length - 1; selectedIndex >= 0; selectedIndex -= 1) {
+    for (let expectedIndex = expected.length - 1; expectedIndex >= 0; expectedIndex -= 1) {
+      rows[selectedIndex][expectedIndex] = selected[selectedIndex].normalized === expected[expectedIndex].normalized
+        ? rows[selectedIndex + 1][expectedIndex + 1] + 1
+        : Math.max(rows[selectedIndex + 1][expectedIndex], rows[selectedIndex][expectedIndex + 1]);
+    }
+  }
+
+  const matches = [];
+  let selectedIndex = 0;
+  let expectedIndex = 0;
+  while (selectedIndex < selected.length && expectedIndex < expected.length) {
+    if (selected[selectedIndex].normalized === expected[expectedIndex].normalized) {
+      matches.push([selectedIndex, expectedIndex]);
+      selectedIndex += 1;
+      expectedIndex += 1;
+    } else if (rows[selectedIndex + 1][expectedIndex] >= rows[selectedIndex][expectedIndex + 1]) {
+      selectedIndex += 1;
+    } else {
+      expectedIndex += 1;
+    }
+  }
+
+  const operations = [];
+  let previousSelected = -1;
+  let previousExpected = -1;
+  const boundaries = [...matches, [selected.length, expected.length]];
+  for (const [matchedSelected, matchedExpected] of boundaries) {
+    const selectedGap = selected.slice(previousSelected + 1, matchedSelected);
+    const expectedGap = expected.slice(previousExpected + 1, matchedExpected);
+    const replacements = Math.min(selectedGap.length, expectedGap.length);
+    for (let index = 0; index < replacements; index += 1) {
+      operations.push({
+        type: "replacement",
+        entered: selectedGap[index].text,
+        expected: expectedGap[index].text
+      });
+    }
+    selectedGap.slice(replacements).forEach((token) => {
+      operations.push({ type: "extra", entered: token.text, expected: "" });
+    });
+    expectedGap.slice(replacements).forEach((token) => {
+      operations.push({ type: "missing", entered: "", expected: token.text });
+    });
+    if (matchedSelected < selected.length && matchedExpected < expected.length) {
+      operations.push({
+        type: "match",
+        entered: selected[matchedSelected].text,
+        expected: expected[matchedExpected].text
+      });
+    }
+    previousSelected = matchedSelected;
+    previousExpected = matchedExpected;
+  }
+  return operations;
 }
 
 export function stripModelEcho(text) {

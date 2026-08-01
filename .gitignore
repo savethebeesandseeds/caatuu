@@ -40,6 +40,7 @@ Desktop.ini
 **/build-*/
 **/dist/
 **/build/
+**/.godot/
 artifacts/
 
 # Heavy model, training, and generated workspaces
@@ -75,3 +76,5 @@ gateway/
 # Demo research inputs and generated intermediates
 demos/**/research/source/
 demos/**/research/generated-candidates/
+apps/languages/czech/static/games/memory-moon/godot-v*/*
+!apps/languages/czech/static/games/memory-moon/godot-v*/.gitkeep

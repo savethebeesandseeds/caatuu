@@ -40,3 +40,26 @@
 - Run `tools/repository/check-tracked-files.mjs` and
   `tools/repository/check-markdown-links.mjs` in a Node container before
   committing structural or documentation changes.
+
+## Android public preview publication practices
+
+- Prefer the canonical publisher for a routine Android publication:
+  `docker exec -w /workspace caatuu-dev bash apps/android/tooling/publish-public-debug.sh`.
+- The publisher already performs the public build, signing-lineage checks,
+  immutable release checks, public download verification, and runtime-boundary
+  audit. Avoid repeating that work unless the publisher reports a problem or
+  the task specifically calls for independent verification.
+- Run focused source tests before publication. A separate local APK build is
+  usually unnecessary when the publisher will immediately build the same
+  source, but it can still be useful for local delivery or device testing.
+- After a successful routine publication, a lightweight read of
+  `/android/caatuu-debug.json` is normally enough to report the public version
+  and URL.
+- If the terminal stops waiting while publication continues, first inspect the
+  existing process and output. Reuse its result when possible instead of
+  immediately starting another build or verification pass.
+- Use judgment: extra checks are appropriate after publication-tool changes,
+  ambiguous or incomplete output, signing concerns, artifact mismatch, or an
+  explicit request for deeper release validation.
+- Keep version monotonicity, immutable release paths, certificate pinning, and
+  the publisher's built-in safeguards intact.

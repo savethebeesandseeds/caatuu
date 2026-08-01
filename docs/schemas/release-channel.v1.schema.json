@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "This schema describes the portable v1 document structure. tools/repository/validate-release-manifest.mjs is normative for semantic, cross-document, and filesystem publication constraints.",
+  "title": "Caatuu mutable release channel pointer v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_name", "schema_version", "channel", "updated_at", "release"],
+  "properties": {
+    "schema_name": {
+      "const": "caatuu-release-channel"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "channel": {
+      "enum": [
+        "development",
+        "invited-test",
+        "public-preview",
+        "private-beta",
+        "public-beta",
+        "stable"
+      ]
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$"
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "href", "bytes", "sha256"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/semanticVersion"
+        },
+        "href": {
+          "$ref": "#/$defs/relativeHref"
+        },
+        "bytes": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "relativeHref": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*//)(?!.*(?:^|/)\\.\\.?(?:/|$))(?!.*\\/$)[A-Za-z0-9][A-Za-z0-9._+@/-]*$"
+    }
+  }
+}

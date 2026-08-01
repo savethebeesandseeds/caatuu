@@ -512,6 +512,7 @@ html {
 }
 
 .bottom-app-nav {
+  --app-nav-edge: clamp(8px, 2vw, 22px);
   position: fixed;
   left: 0;
   right: 0;
@@ -519,7 +520,7 @@ html {
   z-index: 30;
   width: auto;
   min-height: calc(70px + env(safe-area-inset-bottom));
-  padding: 8px clamp(8px, 2vw, 22px) calc(8px + env(safe-area-inset-bottom));
+  padding: 8px var(--app-nav-edge) calc(8px + env(safe-area-inset-bottom));
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
@@ -564,6 +565,7 @@ html {
 }
 
 .bottom-app-nav .app-nav-icon {
+  position: relative;
   width: 58px;
   min-width: 58px;
   height: 46px;
@@ -593,6 +595,22 @@ html {
   max-height: 42px;
   display: block;
   object-fit: contain;
+}
+
+.bottom-app-nav .app-nav-submenu-icon {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: block;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .bottom-app-nav .app-nav-item:hover,
@@ -851,39 +869,162 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .appearance-card {
-  grid-template-columns: auto minmax(152px, 200px);
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  padding: 11px;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  border-color: color-mix(in srgb, var(--green) 22%, var(--line));
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 86%, var(--green) 4%),
+      var(--panel)
+    );
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--theme-ink, #17241f) 5%, transparent);
 }
 
-.appearance-card .settings-card-head {
-  min-width: 96px;
+.appearance-card-head {
+  min-width: 0;
+  padding: 1px 2px 9px;
+  border-bottom: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
+  display: grid;
+  gap: 4px;
+}
+
+.appearance-card-head > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.appearance-card-head > p {
+  max-width: none;
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.appearance-controls {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
+  border-radius: 10px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 54%, transparent);
+}
+
+.appearance-control-row {
+  min-width: 0;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  display: grid;
+  grid-template-columns: minmax(92px, 0.65fr) minmax(0, 1.85fr);
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+}
+
+.appearance-control-row + .appearance-control-row {
+  border-top: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
+}
+
+.appearance-control-label {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 1px;
+}
+
+.appearance-control-label strong {
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.appearance-control-label small {
+  color: var(--muted);
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 .theme-control {
   min-width: 0;
-  width: min(200px, 100%);
+  width: 100%;
   justify-self: end;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3px;
+  gap: 6px;
+  background: transparent;
 }
 
-.theme-control button {
+.font-size-control {
   min-width: 0;
-  min-height: 28px;
-  padding: 2px 7px;
-  border: 1px solid var(--line);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  background: transparent;
+}
+
+.theme-control button,
+.font-size-control button {
+  min-width: 0;
+  min-height: 42px;
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--theme-amber, #8a692c) 34%, var(--theme-line-strong, var(--line, #cfd8d1)));
+  border-bottom-width: 3px;
+  border-bottom-color: color-mix(in srgb, var(--theme-amber, #8a692c) 54%, var(--theme-line-strong, var(--line, #cfd8d1)));
   border-radius: 8px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: transparent;
-  color: var(--ink);
-  font-size: 0.76rem;
+  background: color-mix(in srgb, var(--theme-amber, #8a692c) 12%, var(--theme-panel-raised, var(--panel, #fffdf8)));
+  color: var(--theme-green-strong, var(--green-dark, var(--green, #1c4a40)));
+  font-size: 0.66rem;
   font-weight: 850;
+  box-shadow: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.font-size-control button {
+  padding: 4px 5px;
+  gap: 4px;
+  font-size: 0.5rem;
+}
+
+.font-size-sample {
+  color: var(--green-dark, var(--green));
+  font-weight: 950;
+  line-height: 1;
+}
+
+.font-size-sample.is-standard {
+  font-size: 0.68rem;
+}
+
+.font-size-sample.is-large {
+  font-size: 0.82rem;
+}
+
+.font-size-sample.is-largest {
+  font-size: 0.96rem;
 }
 
 .theme-control button span {
@@ -898,10 +1039,48 @@ html[data-theme="light"] .bottom-app-nav {
   object-fit: contain;
 }
 
-.theme-control button.is-active {
-  border-color: color-mix(in srgb, var(--green) 52%, transparent);
-  background: color-mix(in srgb, var(--green) 14%, transparent);
-  color: var(--green-dark, var(--green));
+.theme-control button.is-active,
+.font-size-control button.is-active {
+  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 74%, #17251f);
+  border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 56%, #17251f);
+  background: var(--theme-green-filled, var(--green, #376a5a));
+  color: #fffaf0;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fffaf0 24%, transparent);
+}
+
+.theme-control button.is-active span,
+.font-size-control button.is-active .font-size-sample {
+  color: #fffaf0;
+}
+
+html[data-theme="dark"] .theme-control button,
+html[data-theme="dark"] .font-size-control button {
+  border-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 34%, var(--theme-line-strong, var(--line)));
+  border-bottom-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 54%, var(--theme-line-strong, var(--line)));
+  background: color-mix(in srgb, var(--theme-amber, #c9ad78) 12%, var(--theme-panel-raised, var(--panel)));
+  color: var(--theme-green-strong, var(--green-dark, var(--green)));
+}
+
+html[data-theme="dark"] .theme-control button.is-active,
+html[data-theme="dark"] .font-size-control button.is-active {
+  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 74%, #17251f);
+  border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 56%, #17251f);
+  background: var(--theme-green-filled, var(--green, #456f5d));
+  color: #fffaf0;
+}
+
+.theme-control button:not(.is-active):not(:disabled):hover,
+.font-size-control button:not(.is-active):not(:disabled):hover,
+html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hover,
+html[data-theme="dark"] .font-size-control button:not(.is-active):not(:disabled):hover {
+  border-color: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 54%, var(--theme-line, var(--line, #cfd8d1)));
+  background: color-mix(in srgb, var(--theme-amber, #8a692c) 18%, var(--theme-panel-raised, var(--panel, #fffdf8)));
+}
+
+.theme-control button:not(:disabled):active,
+.font-size-control button:not(:disabled):active {
+  border-bottom-width: 2px;
+  transform: translateY(1px);
 }
 
 .learning-settings-card {
@@ -1067,9 +1246,10 @@ html[data-theme="light"] .bottom-app-nav {
 
 .settings-section-switcher {
   --settings-section-edge: clamp(8px, 2vw, 22px);
+  --settings-section-left: clamp(32px, 7vw, 64px);
   position: relative;
   z-index: 4;
-  margin: 0 var(--settings-section-edge) 0 clamp(32px, 7vw, 64px);
+  margin: 0 calc(var(--settings-section-edge) - 1px) 0 var(--settings-section-left);
   padding: 4px 6px 5px;
   border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
   border-radius: 12px 12px 0 12px;
@@ -1087,29 +1267,20 @@ html[data-theme="light"] .bottom-app-nav {
     inset 0 1px 0 color-mix(in srgb, var(--theme-paper, #fff) 38%, transparent);
 }
 
-.settings-section-switcher::before {
-  content: "";
-  position: absolute;
-  z-index: 5;
-  inset: -1px;
-  border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
-  border-radius: inherit;
-  pointer-events: none;
-}
-
 .settings-section-switcher::after {
   content: "";
   position: absolute;
   z-index: 6;
-  right: -1px;
+  right: -2px;
   bottom: -1px;
-  width: calc((100vw - var(--settings-section-edge) - var(--settings-section-edge) - 12px) / 3 + 1px);
+  width: calc((100% + var(--settings-section-left) - var(--settings-section-edge) - 13px) / 3 + 4px);
   height: 3px;
   background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
   pointer-events: none;
 }
 
 .settings-section-switcher button {
+  position: relative;
   min-width: 0;
   min-height: 54px;
   touch-action: manipulation;
@@ -1126,6 +1297,40 @@ html[data-theme="light"] .bottom-app-nav {
   font: inherit;
   font-size: 0.62rem;
   font-weight: 900;
+}
+
+.settings-section-switcher button.is-pending {
+  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 62%, var(--line));
+  background: color-mix(in srgb, var(--theme-amber, #c19138) 12%, var(--theme-control-bg, var(--panel)));
+  color: var(--green-dark, var(--green));
+}
+
+.settings-section-switcher button.is-pending::after {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid color-mix(in srgb, var(--green) 72%, var(--theme-amber, #c19138));
+  border-right-color: transparent;
+  border-radius: 50%;
+  content: "";
+  animation: maintenance-spin 0.75s linear infinite;
+}
+
+.settings-section-switcher button.is-pending img {
+  opacity: 0.62;
+}
+
+.settings-view-transition-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .settings-section-switcher button img {
@@ -1159,6 +1364,29 @@ body.settings-open #openSettings {
   border-radius: 0 0 10px 10px;
   background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
   box-shadow: 0 4px 10px color-mix(in srgb, var(--theme-ink, #17241f) 8%, transparent);
+}
+
+body.settings-open .bottom-app-nav {
+  border-top-color: transparent;
+}
+
+body.settings-open .settings-sheet {
+  border-bottom-color: transparent;
+}
+
+body.settings-open .bottom-app-nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: calc(
+    var(--app-nav-edge)
+    + (100% - var(--app-nav-edge) - var(--app-nav-edge) - 12px) / 3
+    + 1px
+  );
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
 }
 
 body.settings-open #openSettings::before {
@@ -2076,6 +2304,45 @@ body.settings-open #openSettings::before {
   gap: 5px;
 }
 
+.speech-voice-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1.8fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.speech-voice-label {
+  min-width: 0;
+  padding-top: 7px;
+  display: grid;
+  gap: 1px;
+}
+
+.speech-voice-label b {
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+
+.speech-voice-label small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.24;
+}
+
+.speech-voice-controls {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 6px;
+}
+
+.speech-voice-controls .settings-summary {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
 .setting-toggle {
   min-height: 40px;
   grid-template-columns: 1fr auto;
@@ -2127,7 +2394,8 @@ body.settings-open #openSettings::before {
 }
 
 .setting-select select,
-.settings-details-body select {
+.settings-details-body select,
+.speech-voice-controls select {
   width: 100%;
   min-height: 34px;
   padding: 5px 30px 5px 9px;
@@ -2154,7 +2422,8 @@ body.settings-open #openSettings::before {
 }
 
 .setting-select select:disabled,
-.settings-details-body select:disabled {
+.settings-details-body select:disabled,
+.speech-voice-controls select:disabled {
   color: var(--muted);
   background-color: var(--surface-3, #f1f5f1);
   opacity: 1;
@@ -2228,18 +2497,39 @@ body.settings-open #openSettings::before {
 }
 
 .browser-refresh-action,
-.maintenance-install-actions .pwa-install-action {
-  border: 1px solid color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 46%, var(--theme-line, var(--line, #cfd8d1)));
+.maintenance-install-actions .pwa-install-action,
+.settings-raised-action {
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 72%, #17251f);
   border-bottom-width: 3px;
-  background: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 5%, var(--theme-panel, var(--panel, #fffdf8)));
-  color: var(--theme-green-strong, var(--green-dark, var(--green, #1c4a40)));
+  border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 52%, #17251f);
+  border-radius: 8px;
+  background: var(--theme-green-filled, var(--green, #376a5a));
+  color: #fffaf0;
+  font: inherit;
+  font-size: 0.74rem;
   font-weight: 850;
 }
 
 .browser-refresh-action:not(:disabled):hover,
-.maintenance-install-actions .pwa-install-action:not(:disabled):hover {
-  border-color: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 68%, var(--theme-line, var(--line, #cfd8d1)));
-  background: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 10%, var(--theme-panel, var(--panel, #fffdf8)));
+.maintenance-install-actions .pwa-install-action:not(:disabled):hover,
+.settings-raised-action:not(:disabled):hover {
+  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 62%, #17251f);
+  background: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 88%, #fffaf0);
+}
+
+.settings-raised-action:disabled {
+  opacity: 0.58;
+}
+
+.speech-voice-controls select {
+  min-width: 0;
+  min-height: 34px;
+  border-color: color-mix(in srgb, var(--theme-amber-strong, #9b782d) 62%, var(--line));
+  border-bottom-width: 3px;
+  border-bottom-color: color-mix(in srgb, var(--theme-amber-strong, #9b782d) 78%, var(--line));
+  background-color: color-mix(in srgb, var(--theme-amber, #d9bd79) 12%, var(--theme-control-bg, var(--control-bg, #ffffff)));
 }
 
 .maintenance-update-row {
@@ -2270,14 +2560,15 @@ body.settings-open #openSettings::before {
 }
 
 html[data-theme="light"] .about-update-region .maintenance-row-control {
-  border-color: color-mix(in srgb, var(--theme-green) 48%, var(--theme-control-border));
-  background: color-mix(in srgb, var(--theme-green) 7%, var(--theme-control-bg));
-  color: var(--theme-green-strong);
+  border-color: color-mix(in srgb, var(--theme-green-filled) 72%, #17251f);
+  border-bottom-color: color-mix(in srgb, var(--theme-green-filled) 52%, #17251f);
+  background: var(--theme-green-filled);
+  color: #fffaf0;
 }
 
 html[data-theme="light"] .about-update-region .maintenance-row-control:not(:disabled):hover {
-  border-color: color-mix(in srgb, var(--theme-green) 66%, var(--theme-control-border));
-  background: color-mix(in srgb, var(--theme-green) 12%, var(--theme-control-bg));
+  border-color: color-mix(in srgb, var(--theme-green-filled) 62%, #17251f);
+  background: color-mix(in srgb, var(--theme-green-filled) 88%, #fffaf0);
 }
 
 html[data-theme="light"] .about-update-region .maintenance-row-control:disabled {
@@ -2304,7 +2595,8 @@ html[data-theme="light"] .about-update-region .maintenance-row-control:disabled 
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .maintenance-row-control.is-busy::before {
+  .maintenance-row-control.is-busy::before,
+  .settings-section-switcher button.is-pending::after {
     animation: none;
   }
 }
@@ -2958,7 +3250,6 @@ html[data-theme="light"] .settings-sheet-head {
 html[data-theme="light"] .brand-mark,
 html[data-theme="light"] .settings-brand-mark,
 html[data-theme="light"] .settings-close,
-html[data-theme="light"] .theme-control button,
 html[data-theme="light"] .preset-control button,
 html[data-theme="light"] .setting-select select,
 html[data-theme="light"] .settings-details-body select {
@@ -3003,7 +3294,6 @@ html[data-theme="light"] .settings-report-action:focus-visible {
 
 html[data-theme="light"] .bottom-app-nav .app-nav-item:hover,
 html[data-theme="light"] .bottom-app-nav .app-nav-item.is-active,
-html[data-theme="light"] .theme-control button.is-active,
 html[data-theme="light"] .preset-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green) 50%, var(--theme-control-border));
   background: color-mix(in srgb, var(--theme-green) 12%, var(--theme-control-bg));
@@ -3014,11 +3304,18 @@ html[data-theme="dark"] .app-header {
   background: transparent;
 }
 
+html[data-theme="dark"] .settings-sheet-body {
+  background: color-mix(in srgb, var(--theme-panel-raised) 72%, var(--theme-panel));
+}
+
+html[data-theme="dark"] .settings-section-body {
+  background: var(--theme-panel-raised);
+}
+
 html[data-theme="dark"] .settings-sheet-head,
 html[data-theme="dark"] .brand-mark,
 html[data-theme="dark"] .settings-brand-mark,
 html[data-theme="dark"] .settings-close,
-html[data-theme="dark"] .theme-control button,
 html[data-theme="dark"] .preset-control button,
 html[data-theme="dark"] .setting-select select,
 html[data-theme="dark"] .settings-details-body select {
@@ -3100,7 +3397,6 @@ html[data-theme="dark"] .model-license-list div {
 
 html[data-theme="dark"] .bottom-app-nav .app-nav-item:hover,
 html[data-theme="dark"] .bottom-app-nav .app-nav-item.is-active,
-html[data-theme="dark"] .theme-control button.is-active,
 html[data-theme="dark"] .preset-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green) 48%, var(--theme-control-border));
   background: color-mix(in srgb, var(--theme-green) 15%, var(--theme-control-bg));
@@ -3168,14 +3464,6 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     max-width: 42px;
   }
 
-  .appearance-card {
-    grid-template-columns: auto minmax(166px, 240px);
-  }
-
-  .appearance-card .settings-card-head {
-    min-width: 0;
-  }
-
   .backpack-card {
     padding: 11px;
   }
@@ -3228,14 +3516,36 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
 }
 
 @media screen and (max-width: 360px) {
+  .speech-voice-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .speech-voice-label {
+    padding-top: 0;
+  }
+
   .appearance-card,
   .model-license-list div,
   .meta-list.model-license-list div {
     grid-template-columns: 1fr;
   }
 
-  .theme-control {
+  .theme-control,
+  .font-size-control {
     width: 100%;
+    gap: 4px;
+  }
+
+  .appearance-control-row {
+    grid-template-columns: minmax(74px, 0.6fr) minmax(0, 1.9fr);
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .font-size-control button {
+    padding-inline: 2px;
+    font-size: 0.46rem;
   }
 
   .maintenance-card .course-meta,

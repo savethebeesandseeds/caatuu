@@ -1,7 +1,9 @@
-# Shared launcher assets
+# Shared Caatuu assets
 
-This is the canonical catalog for visual assets shared by language apps, the
-launcher, and Android packages. Physical directories use descriptive
+This is the canonical repository catalog for visual assets shared by language
+apps, games, the launcher, and Android packages. Its location below the
+launcher's static directory provides one delivery boundary; it does not imply
+that the launcher owns the assets. Physical directories use descriptive
 lowercase kebab-case names. A few older public URLs remain stable so installed
 apps, manifests, and persisted data continue to work.
 
@@ -9,6 +11,7 @@ apps, manifests, and persisted data continue to work.
 | --- | --- |
 | `language-mascots/` | `/assets/aliens/` |
 | `loading-animation/` | `/assets/loading_animation/` |
+| `scenery/` | `/assets/scenery/` |
 | `visual-vocabulary/` | `/assets/miscellaneous/` |
 
 Within `loading-animation/`, every immediate child folder beginning with
@@ -25,6 +28,13 @@ Directories named `originals/` contain archival source art. They are
 intentionally tracked even when processed frames or split assets exist, and
 must not be treated as generated or redundant output during cleanup.
 
+`scenery/` is the single canonical repository home for reusable world art,
+versioned layouts, schemas, manifests, and provenance. Games consume these
+packages; they do not keep canonical copies in their own source directories.
+An engine build may stage the minimum active package into an ignored private
+workspace when it requires project-local resources. Such staging is disposable
+build output and must never become another source of truth.
+
 Assets used by only one language belong in that language app. Large experiments
-and generated candidates belong under `demos/` or ignored research workspaces,
-not in this production catalog.
+and unreviewed generated candidates belong under `demos/` or ignored research
+workspaces, not in this production catalog.

@@ -8,21 +8,24 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-6"></script>
-    <script src="learning-profile.js?v=learning-2"></script>
+    <script src="course-profile.js?v=course-7"></script>
+    <script src="learning-profile.js?v=learning-3"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
         document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+        const storedFontSize = localStorage.getItem(window.CaatuuCourse.storage.fontSize) || "largest";
+        document.documentElement.dataset.fontSize = ["standard", "large", "largest"].includes(storedFontSize) ? storedFontSize : "largest";
       } catch (error) {
         document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="runtime.js?v=runtime-30"></script>
-  <script src="semantic-learning.js?v=semantic-learning-6"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-4">
-    <link rel="stylesheet" href="app.css?v=shell-63">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-72">
+  <script src="runtime.js?v=runtime-34"></script>
+  <script src="semantic-learning.js?v=semantic-learning-7"></script>
+  <link rel="stylesheet" href="theme.css?v=theme-5">
+    <link rel="stylesheet" href="app.css?v=shell-66">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-87">
   </head>
   <body class="games-page">
     <div class="app-shell">
@@ -409,6 +412,16 @@
                   <g id="verbSolutionArrowPaths"></g>
                 </svg>
                 <div id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" hidden>
+                  <div class="verb-round-reward" id="verbRoundReward" hidden>
+                    <span class="verb-round-reward-gem" aria-hidden="true">
+                      <img src="/assets/icons/icon_gem.png" alt="" decoding="async">
+                    </span>
+                    <span class="verb-round-reward-copy">
+                      <small>Round cleared</small>
+                      <strong id="verbRoundRewardAmount"></strong>
+                    </span>
+                    <span class="verb-round-reward-comet" aria-hidden="true"><i></i><i></i><i></i></span>
+                  </div>
                   <img id="verbRoundRobot" src="/assets/robots/word-world-waiting.svg" alt="A friendly robot preparing the next verb round">
                 </div>
               </section>
@@ -460,13 +473,27 @@
                 <div>
                   <p class="verb-kicker">Memory moon</p>
                   <h2>Memory Moon</h2>
-                  <p class="memory-moon-copy">A smaller orbit for recall games will live here.</p>
+                  <p class="memory-moon-copy">One shared Godot world, running in the browser and the app.</p>
                 </div>
                 <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
               </header>
-              <div class="memory-moon-stage">
-                <img src="/assets/planets/planet_C.png" alt="">
-                <span>Coming next</span>
+              <div class="memory-moon-stage" id="memoryMoonStage" aria-busy="true">
+                <iframe
+                  class="memory-moon-game"
+                  id="memoryMoonGame"
+                  data-src="games/memory-moon/godot-v1/index.html"
+                  title="Memory Moon Godot game"
+                  allow="autoplay; fullscreen"
+                  allowfullscreen
+                  aria-hidden="true"
+                  loading="lazy"
+                  tabindex="-1"
+                ></iframe>
+                <div class="memory-moon-status" id="memoryMoonStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="memory-moon-loader" aria-hidden="true"></span>
+                  <strong>Preparing Memory Moon</strong>
+                  <small>The shared Godot world loads when you enter its orbit.</small>
+                </div>
               </div>
             </section>
           </div>
@@ -638,9 +665,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="chrome.js?v=chrome-74"></script>
+  <script src="chrome.js?v=chrome-84"></script>
     <script src="maintenance-ui.js?v=maintenance-14"></script>
-    <script src="app.js?v=shell-69"></script>
+    <script src="app.js?v=shell-72"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>
