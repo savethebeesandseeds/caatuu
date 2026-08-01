@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schema/cross-game-learning-task-v1.json",
+  "title": "Caatuu immutable cross-game learning task envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskId",
+    "issuedAt",
+    "sessionId",
+    "taskSequence",
+    "registry",
+    "bindingId",
+    "capabilityId",
+    "activityId",
+    "mechanicId",
+    "learningStage",
+    "evidenceKind",
+    "independence",
+    "targetLocale",
+    "contentRef",
+    "canonicalUnitId",
+    "canonicalUnitRevision",
+    "targetSkillId",
+    "targetSkillRevision",
+    "contextId",
+    "contextRevision",
+    "opportunityId",
+    "taskFingerprint"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-cross-game-learning-task-v1"},
+    "taskId": {"type": "string", "minLength": 8, "maxLength": 200},
+    "issuedAt": {"type": "string", "format": "date-time"},
+    "sessionId": {"type": "string", "minLength": 1, "maxLength": 160},
+    "taskSequence": {"type": "integer", "minimum": 1},
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      }
+    },
+    "bindingId": {"type": "string", "pattern": "^binding\\."},
+    "capabilityId": {"type": "string", "minLength": 3},
+    "activityId": {"enum": ["word-world", "verb-nebula"]},
+    "mechanicId": {"type": "string", "minLength": 3},
+    "learningStage": {"type": "string", "minLength": 3},
+    "evidenceKind": {"enum": ["exposure", "comprehension", "retrieval", "production", "transfer"]},
+    "independence": {"enum": ["exposure", "supported", "independent"]},
+    "targetLocale": {"type": "string", "minLength": 2},
+    "contentRef": {"$ref": "cross-game-binding-registry-v1.json#/$defs/contentRef"},
+    "canonicalUnitId": {"type": "string", "pattern": "^unit\\."},
+    "canonicalUnitRevision": {"type": "integer", "minimum": 1},
+    "targetSkillId": {"type": "string", "minLength": 3},
+    "targetSkillRevision": {"type": "integer", "minimum": 1},
+    "contextId": {
+      "oneOf": [
+        {"type": "string", "pattern": "^[a-z]{2,3}\\.context\\."},
+        {"type": "null"}
+      ]
+    },
+    "contextRevision": {
+      "oneOf": [
+        {"type": "integer", "minimum": 1},
+        {"type": "null"}
+      ]
+    },
+    "opportunityId": {
+      "oneOf": [
+        {"type": "string", "minLength": 3},
+        {"type": "null"}
+      ]
+    },
+    "taskFingerprint": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+  }
+}

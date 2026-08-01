@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "Removing the teacher greeting leaves greeting and identity without required interlocutor transfer.",
+  "mutations": [
+    {"op": "remove", "path": "/contexts/1"}
+  ],
+  "expectedErrorCodes": ["CURR_COVERAGE_INSUFFICIENT"]
+}

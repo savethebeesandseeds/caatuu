@@ -1,0 +1,590 @@
+export const LEARNING_TASK_SCHEMA = "caatuu-cross-game-learning-task-v1";
+export const EVIDENCE_EVENT_SCHEMA = "caatuu-cross-game-learning-evidence-v1";
+
+const CURRICULUM_SCHEMA = "caatuu-canonical-curriculum-v1";
+const PACK_SCHEMA = "caatuu-target-realization-pack-v1";
+const SOURCE_SCHEMA = "caatuu-content-source-catalog-v1";
+const REGISTRY_SCHEMA = "caatuu-cross-game-binding-registry-v1";
+const OPPORTUNITY_EVIDENCE_KINDS = new Map([
+  ["interpret", new Set(["comprehension", "retrieval"])],
+  ["discriminate", new Set(["comprehension", "retrieval"])],
+  ["retrieve", new Set(["retrieval"])],
+  ["produce", new Set(["production"])],
+  ["respond", new Set(["production", "transfer"])]
+]);
+
+function isObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function rows(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function nonEmptyString(value) {
+  return typeof value === "string" && Boolean(value.trim());
+}
+
+function clone(value) {
+  return globalThis.structuredClone
+    ? globalThis.structuredClone(value)
+    : JSON.parse(JSON.stringify(value));
+}
+
+export function canonicalJson(value) {
+  if (value === null || typeof value === "string" || typeof value === "boolean") return JSON.stringify(value);
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) throw new TypeError("Canonical JSON cannot contain a non-finite number.");
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (!isObject(value)) throw new TypeError(`Canonical JSON cannot contain ${typeof value}.`);
+  return `{${Object.keys(value).sort().map((key) => (
+    `${JSON.stringify(key)}:${canonicalJson(value[key])}`
+  )).join(",")}}`;
+}
+
+export async function sha256Canonical(value) {
+  if (!globalThis.crypto?.subtle) throw new Error("Web Crypto SHA-256 is required by the curriculum runtime.");
+  const bytes = new TextEncoder().encode(canonicalJson(value));
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
+  return `sha256:${[...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+}
+
+export function canonicalContractProjection(curriculum) {
+  return {
+    projectionVersion: "caatuu-canonical-contract-projection-v1",
+    schemaVersion: curriculum?.schemaVersion,
+    curriculumId: curriculum?.curriculumId,
+    version: curriculum?.version,
+    specLocale: curriculum?.specLocale,
+    title: curriculum?.title,
+    description: curriculum?.description,
+    planningPolicy: curriculum?.planningPolicy,
+    learningStageSequence: rows(curriculum?.learningStageSequence),
+    semanticDefinitions: rows(curriculum?.semanticDefinitions),
+    unitOrder: rows(curriculum?.unitOrder),
+    units: rows(curriculum?.units).map((unit) => ({
+      id: unit?.id,
+      revision: unit?.revision,
+      ordinal: unit?.ordinal,
+      title: unit?.title,
+      description: unit?.description,
+      canDo: unit?.canDo,
+      semanticScope: unit?.semanticScope,
+      transferPolicy: unit?.transferPolicy,
+      prerequisiteUnitIds: rows(unit?.prerequisiteUnitIds),
+      requiredLearningStages: rows(unit?.requiredLearningStages),
+      masteryPolicy: unit?.masteryPolicy
+    }))
+  };
+}
+
+export function contentContractProjection(source) {
+  return {
+    activityId: source?.activityId,
+    catalogDigest: source?.catalogDigest,
+    catalogId: source?.catalogId,
+    catalogRevision: source?.catalogRevision,
+    contentId: source?.contentId,
+    projectionVersion: source?.projectionVersion,
+    revision: source?.revision,
+    snapshot: source?.snapshot
+  };
+}
+
+export function learningTaskProjection(task) {
+  return {
+    activityId: task?.activityId,
+    bindingId: task?.bindingId,
+    canonicalUnitId: task?.canonicalUnitId,
+    canonicalUnitRevision: task?.canonicalUnitRevision,
+    capabilityId: task?.capabilityId,
+    contentRef: task?.contentRef,
+    contextId: task?.contextId,
+    contextRevision: task?.contextRevision,
+    evidenceKind: task?.evidenceKind,
+    independence: task?.independence,
+    issuedAt: task?.issuedAt,
+    learningStage: task?.learningStage,
+    mechanicId: task?.mechanicId,
+    opportunityId: task?.opportunityId,
+    projectionVersion: "caatuu-cross-game-learning-task-projection-v1",
+    registry: task?.registry,
+    schemaVersion: task?.schemaVersion,
+    sessionId: task?.sessionId,
+    targetLocale: task?.targetLocale,
+    targetSkillId: task?.targetSkillId,
+    targetSkillRevision: task?.targetSkillRevision,
+    taskId: task?.taskId,
+    taskSequence: task?.taskSequence
+  };
+}
+
+export const computeCanonicalContractDigest = (curriculum) => sha256Canonical(canonicalContractProjection(curriculum));
+export const computeTargetPackDigest = (pack) => sha256Canonical({
+  projectionVersion: "caatuu-target-pack-projection-v1",
+  pack
+});
+export const computeContentDigest = (source) => sha256Canonical(contentContractProjection(source));
+export const computeSourceCatalogDigest = (catalog) => sha256Canonical({
+  projectionVersion: "caatuu-content-source-catalog-file-v1",
+  catalog
+});
+export const computeBindingRegistryDigest = (registry) => sha256Canonical({
+  projectionVersion: "caatuu-cross-game-binding-registry-file-v1",
+  registry
+});
+export const computeLearningTaskFingerprint = (task) => sha256Canonical(learningTaskProjection(task));
+
+function sameArray(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function sameContentRef(left, right) {
+  return left?.catalogId === right?.catalogId
+    && left?.catalogRevision === right?.catalogRevision
+    && left?.catalogDigest === right?.catalogDigest
+    && left?.contentId === right?.contentId
+    && left?.revision === right?.revision
+    && left?.contentDigest === right?.contentDigest;
+}
+
+function sourceKey(catalogId, contentId) {
+  return `${catalogId}\u0000${contentId}`;
+}
+
+export async function validateRuntimeBundle(bundle, releasePins) {
+  const errors = [];
+  const error = (code, path, message, relatedIds = []) => errors.push({
+    severity: "error", code, path, relatedIds, message
+  });
+  if (!isObject(bundle) || !isObject(releasePins)) {
+    error("RUNTIME_BUNDLE_SCHEMA", "/", "Runtime bundle and externally trusted release pins must be objects.");
+    return { valid: false, errors };
+  }
+  const { curriculum, targetPack, sourceCatalog, bindingRegistry } = bundle;
+  for (const [value, schema, path] of [
+    [curriculum, CURRICULUM_SCHEMA, "/curriculum"],
+    [targetPack, PACK_SCHEMA, "/targetPack"],
+    [sourceCatalog, SOURCE_SCHEMA, "/sourceCatalog"],
+    [bindingRegistry, REGISTRY_SCHEMA, "/bindingRegistry"]
+  ]) {
+    if (!isObject(value) || value.schemaVersion !== schema) error("RUNTIME_BUNDLE_SCHEMA", path, `Expected ${schema}.`);
+  }
+  if (errors.length) return { valid: false, errors };
+
+  const [canonicalContractDigest, targetPackDigest, sourceCatalogDigest, bindingRegistryDigest] = await Promise.all([
+    computeCanonicalContractDigest(curriculum),
+    computeTargetPackDigest(targetPack),
+    computeSourceCatalogDigest(sourceCatalog),
+    computeBindingRegistryDigest(bindingRegistry)
+  ]);
+  const computedDigests = { canonicalContractDigest, targetPackDigest, sourceCatalogDigest, bindingRegistryDigest };
+  for (const [field, value] of Object.entries(computedDigests)) {
+    if (!nonEmptyString(releasePins[field])) error("RUNTIME_RELEASE_PIN_REQUIRED", `/releasePins/${field}`, `Trusted ${field} is required.`);
+    else if (releasePins[field] !== value) error("RUNTIME_RELEASE_PIN_MISMATCH", `/releasePins/${field}`, `Trusted ${field} does not match the loaded runtime asset.`);
+  }
+  if (releasePins.curriculumId !== curriculum.curriculumId || releasePins.curriculumVersion !== curriculum.version) {
+    error("RUNTIME_CURRICULUM_MISMATCH", "/releasePins", "Trusted curriculum identity/version does not match the loaded curriculum.");
+  }
+  if (releasePins.targetPackId !== targetPack.packId
+      || releasePins.targetPackVersion !== targetPack.version
+      || releasePins.targetLocale !== targetPack.targetLocale) {
+    error("RUNTIME_TARGET_PACK_MISMATCH", "/releasePins", "Trusted target-pack identity/version/locale does not match the loaded pack.");
+  }
+  if (releasePins.sourceCatalogId !== sourceCatalog.catalogId || releasePins.sourceCatalogVersion !== sourceCatalog.version) {
+    error("RUNTIME_SOURCE_CATALOG_MISMATCH", "/releasePins", "Trusted source-catalog identity/version does not match the loaded catalog.");
+  }
+  if (releasePins.bindingRegistryId !== bindingRegistry.registryId || releasePins.bindingRegistryVersion !== bindingRegistry.version) {
+    error("RUNTIME_BINDING_REGISTRY_MISMATCH", "/releasePins", "Trusted binding-registry identity/version does not match the loaded registry.");
+  }
+
+  if (targetPack.curriculum?.id !== curriculum.curriculumId
+      || targetPack.curriculum?.version !== curriculum.version
+      || targetPack.canonicalContractDigest !== canonicalContractDigest) {
+    error("RUNTIME_CURRICULUM_MISMATCH", "/targetPack/curriculum", "Target pack does not pin the loaded canonical curriculum.");
+  }
+  if (!sameArray(rows(targetPack.unitOrder), rows(curriculum.unitOrder))) {
+    error("RUNTIME_UNIT_ORDER_MISMATCH", "/targetPack/unitOrder", "Target pack changed the canonical unit order.");
+  }
+  if (bindingRegistry.curriculum?.id !== curriculum.curriculumId
+      || bindingRegistry.curriculum?.version !== curriculum.version
+      || bindingRegistry.curriculum?.canonicalContractDigest !== canonicalContractDigest) {
+    error("RUNTIME_CURRICULUM_MISMATCH", "/bindingRegistry/curriculum", "Binding registry does not pin the loaded curriculum.");
+  }
+  if (bindingRegistry.targetPack?.id !== targetPack.packId
+      || bindingRegistry.targetPack?.version !== targetPack.version
+      || bindingRegistry.targetPack?.targetLocale !== targetPack.targetLocale
+      || bindingRegistry.targetPack?.targetPackDigest !== targetPackDigest) {
+    error("RUNTIME_TARGET_PACK_MISMATCH", "/bindingRegistry/targetPack", "Binding registry does not pin the loaded target pack.");
+  }
+  if (bindingRegistry.sourceCatalog?.id !== sourceCatalog.catalogId
+      || bindingRegistry.sourceCatalog?.version !== sourceCatalog.version
+      || sourceCatalog.targetLocale !== targetPack.targetLocale) {
+    error("RUNTIME_SOURCE_CATALOG_MISMATCH", "/bindingRegistry/sourceCatalog", "Binding registry does not pin the loaded target-locale source catalog.");
+  }
+
+  const unitById = new Map(rows(curriculum.units).map((unit) => [unit?.id, unit]));
+  const skillById = new Map(rows(targetPack.skills).map((skill) => [skill?.id, skill]));
+  const contextById = new Map(rows(targetPack.contexts).map((context) => [context?.id, context]));
+  const sourceById = new Map(rows(sourceCatalog.sources).map((source) => [sourceKey(source?.catalogId, source?.contentId), source]));
+  for (const source of rows(sourceCatalog.sources)) {
+    const digest = await computeContentDigest(source);
+    if (source.contentDigest !== digest) error("RUNTIME_CONTENT_DIGEST_MISMATCH", "/sourceCatalog/sources", `Source ${source.contentId} content digest is stale.`, [source.contentId]);
+  }
+  for (const binding of rows(bindingRegistry.bindings)) {
+    const path = `/bindingRegistry/bindings/${binding?.id || "unknown"}`;
+    const source = sourceById.get(sourceKey(binding?.contentRef?.catalogId, binding?.contentRef?.contentId));
+    if (!source || source.activityId !== binding.activityId || !sameContentRef(source, binding.contentRef)) {
+      error("RUNTIME_BINDING_CONTENT_MISMATCH", `${path}/contentRef`, "Binding content does not match a revision-pinned source snapshot.", [binding?.id].filter(Boolean));
+    }
+    const unit = unitById.get(binding?.canonicalUnitId);
+    if (!unit || unit.revision !== binding.canonicalUnitRevision) {
+      error("RUNTIME_BINDING_UNIT_MISMATCH", `${path}/canonicalUnitId`, "Binding canonical unit is missing or stale.", [binding?.id].filter(Boolean));
+    }
+    for (const skillRef of rows(binding?.targetSkillRefs)) {
+      const skill = skillById.get(skillRef?.id);
+      if (!skill || skill.revision !== skillRef?.revision || skill.unitId !== binding.canonicalUnitId) {
+        error("RUNTIME_BINDING_SKILL_MISMATCH", `${path}/targetSkillRefs`, "Binding target skill is missing, stale, or belongs to another unit.", [binding?.id, skillRef?.id].filter(Boolean));
+      }
+    }
+    let opportunity = null;
+    if (binding.contextId !== null) {
+      const context = contextById.get(binding.contextId);
+      opportunity = rows(context?.opportunities).find((row) => row?.id === binding.opportunityId);
+      if (!context || context.revision !== binding.contextRevision || context.unitId !== binding.canonicalUnitId || !opportunity) {
+        error("RUNTIME_BINDING_CONTEXT_MISMATCH", `${path}/contextId`, "Binding context/opportunity is missing, stale, or misaligned.", [binding?.id].filter(Boolean));
+      }
+    } else if (binding.contextRevision !== null || binding.opportunityId !== null) {
+      error("RUNTIME_BINDING_CONTEXT_MISMATCH", `${path}/contextId`, "Context-free binding must use null context revision and opportunity.", [binding?.id].filter(Boolean));
+    }
+    for (const capability of rows(binding?.evidenceCapabilities)) {
+      if (capability?.masteryEligible === true && opportunity) {
+        const allowed = OPPORTUNITY_EVIDENCE_KINDS.get(opportunity.operation);
+        if (!allowed?.has(capability.evidenceKind)) {
+          error("RUNTIME_CAPABILITY_OPPORTUNITY_MISMATCH", `${path}/evidenceCapabilities`, `Opportunity ${opportunity.id} cannot authorize ${capability.evidenceKind} evidence.`, [binding.id, capability.id]);
+        }
+      }
+      if (capability?.evidenceKind === "exposure"
+          && (capability.masteryEligible !== false || capability.scoreRequired !== false || capability.independence !== "exposure")) {
+        error("RUNTIME_EXPOSURE_MASTERY_FORBIDDEN", `${path}/evidenceCapabilities`, "Exposure capability cannot qualify for mastery.", [binding?.id, capability?.id].filter(Boolean));
+      }
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    ...computedDigests,
+    summary: {
+      units: rows(curriculum.units).length,
+      targetSkills: rows(targetPack.skills).length,
+      sources: rows(sourceCatalog.sources).length,
+      bindings: rows(bindingRegistry.bindings).length
+    }
+  };
+}
+
+export function resolveRuntimeBinding(bundle, activityId, contentId) {
+  const matches = rows(bundle?.bindingRegistry?.bindings).filter((binding) => (
+    binding?.activityId === activityId && binding?.contentRef?.contentId === contentId
+  ));
+  if (matches.length !== 1) throw new Error(`Expected one binding for ${activityId}/${contentId}; found ${matches.length}.`);
+  const binding = matches[0];
+  const source = rows(bundle.sourceCatalog.sources).find((row) => (
+    row?.activityId === activityId
+      && row?.catalogId === binding.contentRef.catalogId
+      && row?.contentId === contentId
+  ));
+  const unit = rows(bundle.curriculum.units).find((row) => row?.id === binding.canonicalUnitId);
+  const skills = rows(binding.targetSkillRefs).map((ref) => rows(bundle.targetPack.skills).find((row) => row?.id === ref.id));
+  const context = binding.contextId === null
+    ? null
+    : rows(bundle.targetPack.contexts).find((row) => row?.id === binding.contextId);
+  const opportunity = context
+    ? rows(context.opportunities).find((row) => row?.id === binding.opportunityId)
+    : null;
+  return clone({ binding, source, unit, skills, context, opportunity });
+}
+
+export class CurriculumTaskError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.name = "CurriculumTaskError";
+    this.code = code;
+  }
+}
+
+export async function issueLearningTask(registry, request) {
+  const binding = rows(registry?.bindings).find((row) => row?.id === request?.bindingId);
+  if (!binding) throw new CurriculumTaskError("TASK_BINDING_UNKNOWN", `Unknown binding ${request?.bindingId}.`);
+  const capability = rows(binding.evidenceCapabilities).find((row) => row?.id === request?.capabilityId);
+  if (!capability) throw new CurriculumTaskError("TASK_CAPABILITY_UNKNOWN", `Unknown capability ${request?.capabilityId}.`);
+  const skillRef = rows(binding.targetSkillRefs).find((row) => row?.id === request?.targetSkillId)
+    || (request?.targetSkillId === undefined ? rows(binding.targetSkillRefs)[0] : null);
+  if (!skillRef) throw new CurriculumTaskError("TASK_SKILL_MISMATCH", `Binding ${binding.id} does not supply skill ${request?.targetSkillId}.`);
+  if (!nonEmptyString(request?.taskId)
+      || !nonEmptyString(request?.sessionId)
+      || !nonEmptyString(request?.issuedAt)
+      || !Number.isFinite(Date.parse(request.issuedAt))
+      || !Number.isInteger(request?.taskSequence)
+      || request.taskSequence < 1) {
+    throw new CurriculumTaskError("TASK_SCHEMA", "Task request requires IDs, an ISO issue time, and a positive sequence.");
+  }
+  const task = {
+    schemaVersion: LEARNING_TASK_SCHEMA,
+    taskId: request.taskId,
+    issuedAt: request.issuedAt,
+    sessionId: request.sessionId,
+    taskSequence: request.taskSequence,
+    registry: { id: registry.registryId, version: registry.version },
+    bindingId: binding.id,
+    capabilityId: capability.id,
+    activityId: binding.activityId,
+    mechanicId: capability.mechanicId,
+    learningStage: capability.learningStage,
+    evidenceKind: capability.evidenceKind,
+    independence: capability.independence,
+    targetLocale: registry.targetPack?.targetLocale,
+    contentRef: clone(binding.contentRef),
+    canonicalUnitId: binding.canonicalUnitId,
+    canonicalUnitRevision: binding.canonicalUnitRevision,
+    targetSkillId: skillRef.id,
+    targetSkillRevision: skillRef.revision,
+    contextId: binding.contextId,
+    contextRevision: binding.contextRevision,
+    opportunityId: binding.opportunityId
+  };
+  task.taskFingerprint = await computeLearningTaskFingerprint(task);
+  return task;
+}
+
+export async function validateLearningTask(curriculum, registry, task) {
+  const errors = [];
+  const error = (code, path, message) => errors.push({ severity: "error", code, path, message });
+  if (!isObject(curriculum) || !isObject(registry) || !isObject(task)) {
+    error("TASK_SCHEMA", "/", "Curriculum, registry, and task must be objects.");
+    return { valid: false, errors };
+  }
+  const expectedFingerprint = await computeLearningTaskFingerprint(task);
+  if (task.schemaVersion !== LEARNING_TASK_SCHEMA) error("TASK_SCHEMA", "/schemaVersion", `Expected ${LEARNING_TASK_SCHEMA}.`);
+  if (task.taskFingerprint !== expectedFingerprint) error("TASK_FINGERPRINT_MISMATCH", "/taskFingerprint", "Task payload does not match its immutable fingerprint.");
+  if (task.registry?.id !== registry.registryId || task.registry?.version !== registry.version) error("TASK_REGISTRY_MISMATCH", "/registry", "Task references a different registry release.");
+  const binding = rows(registry.bindings).find((row) => row?.id === task.bindingId);
+  const capability = rows(binding?.evidenceCapabilities).find((row) => row?.id === task.capabilityId);
+  const skillRef = rows(binding?.targetSkillRefs).find((row) => row?.id === task.targetSkillId);
+  const unit = rows(curriculum.units).find((row) => row?.id === task.canonicalUnitId);
+  if (!binding) error("TASK_BINDING_UNKNOWN", "/bindingId", "Task binding is unknown.");
+  else {
+    if (!capability
+        || task.activityId !== binding.activityId
+        || task.mechanicId !== capability?.mechanicId
+        || task.learningStage !== capability?.learningStage
+        || task.evidenceKind !== capability?.evidenceKind
+        || task.independence !== capability?.independence) {
+      error("TASK_CAPABILITY_MISMATCH", "/capabilityId", "Task classification differs from its binding capability.");
+    }
+    if (!sameContentRef(task.contentRef, binding.contentRef)) error("TASK_CONTENT_STALE", "/contentRef", "Task content is stale.");
+    if (!skillRef || skillRef.revision !== task.targetSkillRevision) error("TASK_SKILL_MISMATCH", "/targetSkillId", "Task skill is absent or stale.");
+    if (task.contextId !== binding.contextId || task.contextRevision !== binding.contextRevision || task.opportunityId !== binding.opportunityId) {
+      error("TASK_CONTEXT_MISMATCH", "/contextId", "Task invented or changed its binding context/opportunity.");
+    }
+  }
+  if (!unit || unit.revision !== task.canonicalUnitRevision) error("TASK_UNIT_MISMATCH", "/canonicalUnitId", "Task canonical unit is absent or stale.");
+  if (task.targetLocale !== registry.targetPack?.targetLocale) error("TASK_LOCALE_MISMATCH", "/targetLocale", "Task target locale differs from the registry.");
+  return { valid: errors.length === 0, errors, expectedFingerprint, binding, capability };
+}
+
+export function createLearningEvidenceEvent(task, request) {
+  return {
+    schemaVersion: EVIDENCE_EVENT_SCHEMA,
+    eventId: request.eventId,
+    occurredAt: request.occurredAt,
+    taskId: task.taskId,
+    taskFingerprint: task.taskFingerprint,
+    sessionId: task.sessionId,
+    taskSequence: task.taskSequence,
+    attemptNumber: request.attemptNumber,
+    registry: clone(task.registry),
+    bindingId: task.bindingId,
+    capabilityId: task.capabilityId,
+    activityId: task.activityId,
+    mechanicId: task.mechanicId,
+    contentRef: clone(task.contentRef),
+    canonicalUnitId: task.canonicalUnitId,
+    canonicalUnitRevision: task.canonicalUnitRevision,
+    targetSkillId: task.targetSkillId,
+    targetSkillRevision: task.targetSkillRevision,
+    contextId: task.contextId,
+    contextRevision: task.contextRevision,
+    opportunityId: task.opportunityId,
+    outcome: {
+      score: request.score,
+      solutionRevealed: request.solutionRevealed,
+      hintsUsed: request.hintsUsed
+    }
+  };
+}
+
+export async function validateLearningEvidenceEvent(curriculum, registry, task, event) {
+  const errors = [];
+  const error = (code, path, message) => errors.push({ severity: "error", code, path, message });
+  const taskValidation = await validateLearningTask(curriculum, registry, task);
+  errors.push(...taskValidation.errors);
+  const capability = taskValidation.capability;
+  if (!isObject(event) || event.schemaVersion !== EVIDENCE_EVENT_SCHEMA) error("EVIDENCE_SCHEMA", "/schemaVersion", `Expected ${EVIDENCE_EVENT_SCHEMA}.`);
+  if (!nonEmptyString(event?.eventId)
+      || !nonEmptyString(event?.occurredAt)
+      || !Number.isFinite(Date.parse(event?.occurredAt))
+      || !Number.isInteger(event?.attemptNumber)
+      || event.attemptNumber < 1) error("EVIDENCE_SCHEMA", "/", "Evidence requires an ID, ISO time, and positive attempt number.");
+  if (Date.parse(event?.occurredAt) < Date.parse(task?.issuedAt)) error("EVIDENCE_TIME_INVALID", "/occurredAt", "Evidence cannot predate its task.");
+  for (const [field, expected] of Object.entries({
+    taskId: task.taskId,
+    taskFingerprint: task.taskFingerprint,
+    sessionId: task.sessionId,
+    taskSequence: task.taskSequence,
+    bindingId: task.bindingId,
+    capabilityId: task.capabilityId,
+    activityId: task.activityId,
+    mechanicId: task.mechanicId,
+    canonicalUnitId: task.canonicalUnitId,
+    canonicalUnitRevision: task.canonicalUnitRevision,
+    targetSkillId: task.targetSkillId,
+    targetSkillRevision: task.targetSkillRevision,
+    contextId: task.contextId,
+    contextRevision: task.contextRevision,
+    opportunityId: task.opportunityId
+  })) {
+    if (event?.[field] !== expected) error("EVIDENCE_TASK_MISMATCH", `/${field}`, `Evidence ${field} differs from its task.`);
+  }
+  if (!sameContentRef(event?.contentRef, task.contentRef)) error("EVIDENCE_CONTENT_STALE", "/contentRef", "Evidence content differs from its task.");
+  if (event?.registry?.id !== task.registry.id || event?.registry?.version !== task.registry.version) error("EVIDENCE_REGISTRY_MISMATCH", "/registry", "Evidence registry differs from its task.");
+  if (!isObject(event?.outcome)
+      || typeof event.outcome.solutionRevealed !== "boolean"
+      || !Number.isInteger(event.outcome.hintsUsed)
+      || event.outcome.hintsUsed < 0) error("EVIDENCE_SCHEMA", "/outcome", "Evidence outcome requires reveal and hint state.");
+  const score = event?.outcome?.score;
+  if (capability?.scoreRequired && (!Number.isFinite(score) || score < 0 || score > 1)) error("EVIDENCE_SCORE_INVALID", "/outcome/score", "Scored evidence requires a score from zero to one.");
+  if (capability?.scoreRequired === false && score !== null) error("EVIDENCE_SCORE_FORBIDDEN", "/outcome/score", "Unscored exposure must use a null score.");
+  const qualifiesForMastery = errors.length === 0
+    && capability?.masteryEligible === true
+    && capability.independence === "independent"
+    && capability.evidenceKind !== "exposure"
+    && event.attemptNumber === 1
+    && event.outcome.solutionRevealed === false
+    && event.outcome.hintsUsed === 0
+    && score >= capability.minimumScore;
+  return { valid: errors.length === 0, errors, capability, qualifiesForMastery };
+}
+
+export async function aggregateLearningEvidence(curriculum, registry, tasks, events) {
+  const repairGap = curriculum?.planningPolicy?.repairRetryTaskGap;
+  if (!Number.isInteger(repairGap?.minimum) || !Number.isInteger(repairGap?.maximum)) {
+    throw new CurriculumTaskError("EVIDENCE_POLICY_INVALID", "Canonical repair task gap is invalid.");
+  }
+  const taskById = new Map();
+  const sequenceSlots = new Map();
+  for (const task of rows(tasks)) {
+    const validation = await validateLearningTask(curriculum, registry, task);
+    if (!validation.valid) throw new CurriculumTaskError(validation.errors[0].code, validation.errors[0].message);
+    const fingerprint = canonicalJson(task);
+    const existing = taskById.get(task.taskId);
+    if (existing && existing.fingerprint !== fingerprint) throw new CurriculumTaskError("TASK_ID_CONFLICT", `Task ID ${task.taskId} has conflicting payloads.`);
+    const sequenceKey = `${task.sessionId}\u0000${task.taskSequence}`;
+    if (sequenceSlots.has(sequenceKey) && sequenceSlots.get(sequenceKey) !== task.taskId) throw new CurriculumTaskError("TASK_SEQUENCE_CONFLICT", "A session sequence belongs to multiple tasks.");
+    sequenceSlots.set(sequenceKey, task.taskId);
+    if (!existing) taskById.set(task.taskId, { task, validation, fingerprint });
+  }
+  const eventById = new Map();
+  const attemptSlots = new Map();
+  for (const event of rows(events)) {
+    const taskEntry = taskById.get(event?.taskId);
+    if (!taskEntry) throw new CurriculumTaskError("EVIDENCE_TASK_UNKNOWN", `Evidence references unknown task ${event?.taskId}.`);
+    const validation = await validateLearningEvidenceEvent(curriculum, registry, taskEntry.task, event);
+    if (!validation.valid) throw new CurriculumTaskError(validation.errors[0].code, validation.errors[0].message);
+    const fingerprint = canonicalJson(event);
+    const existing = eventById.get(event.eventId);
+    if (existing && existing.fingerprint !== fingerprint) throw new CurriculumTaskError("EVIDENCE_ID_CONFLICT", `Event ID ${event.eventId} has conflicting payloads.`);
+    const attemptKey = `${event.taskId}\u0000${event.attemptNumber}`;
+    if (attemptSlots.has(attemptKey) && attemptSlots.get(attemptKey) !== event.eventId) throw new CurriculumTaskError("EVIDENCE_ATTEMPT_CONFLICT", "A task attempt has multiple events.");
+    attemptSlots.set(attemptKey, event.eventId);
+    if (!existing) eventById.set(event.eventId, { event, task: taskEntry.task, validation, fingerprint });
+  }
+  const unitById = new Map(rows(curriculum.units).map((unit) => [unit?.id, unit]));
+  const aggregates = new Map();
+  const ordered = [...eventById.values()].sort((left, right) => (
+    Date.parse(left.event.occurredAt) - Date.parse(right.event.occurredAt)
+      || left.event.taskSequence - right.event.taskSequence
+      || left.event.attemptNumber - right.event.attemptNumber
+  ));
+  for (const { event, task, validation } of ordered) {
+    const key = `${event.canonicalUnitId}\u0000${event.targetSkillId}\u0000${event.targetSkillRevision}`;
+    const aggregate = aggregates.get(key) || {
+      canonicalUnitId: event.canonicalUnitId,
+      canonicalUnitRevision: event.canonicalUnitRevision,
+      targetSkillId: event.targetSkillId,
+      targetSkillRevision: event.targetSkillRevision,
+      exposureEvents: 0,
+      assessedAttempts: 0,
+      independentRetrievals: 0,
+      productionEvidence: 0,
+      transferEvidence: 0,
+      unresolvedFailure: null,
+      contributingActivityIds: new Set(),
+      qualifyingSessionIds: new Set(),
+      qualifyingContextIds: new Set()
+    };
+    aggregates.set(key, aggregate);
+    const capability = validation.capability;
+    if (capability.evidenceKind === "exposure") aggregate.exposureEvents += 1;
+    if (capability.scoreRequired) {
+      aggregate.assessedAttempts += 1;
+      if (capability.independence === "independent" && event.attemptNumber === 1 && event.outcome.score < capability.minimumScore) {
+        aggregate.unresolvedFailure = { sessionId: event.sessionId, taskId: event.taskId, taskSequence: event.taskSequence };
+      }
+    }
+    if (validation.qualifiesForMastery) {
+      if (capability.evidenceKind === "retrieval") aggregate.independentRetrievals += 1;
+      if (capability.evidenceKind === "production") aggregate.productionEvidence += 1;
+      if (capability.evidenceKind === "transfer") aggregate.transferEvidence += 1;
+      aggregate.contributingActivityIds.add(event.activityId);
+      aggregate.qualifyingSessionIds.add(event.sessionId);
+      if (nonEmptyString(event.contextId)) aggregate.qualifyingContextIds.add(event.contextId);
+      const failure = aggregate.unresolvedFailure;
+      if (failure && failure.taskId !== task.taskId) {
+        const laterSession = task.sessionId !== failure.sessionId;
+        const intervening = task.taskSequence - failure.taskSequence - 1;
+        if (laterSession || (intervening >= repairGap.minimum && intervening <= repairGap.maximum)) aggregate.unresolvedFailure = null;
+      }
+    }
+  }
+  return [...aggregates.values()].map((aggregate) => {
+    const policy = unitById.get(aggregate.canonicalUnitId)?.masteryPolicy;
+    const shortfalls = [];
+    if (aggregate.independentRetrievals < policy.minimumIndependentRetrievals) shortfalls.push("independent-retrievals");
+    if (aggregate.qualifyingSessionIds.size < policy.minimumSessions) shortfalls.push("sessions");
+    if (aggregate.qualifyingContextIds.size < policy.minimumDistinctContexts) shortfalls.push("distinct-contexts");
+    if (policy.requiresProduction && aggregate.productionEvidence < 1) shortfalls.push("production");
+    if (policy.requiresTransfer && aggregate.transferEvidence < 1) shortfalls.push("transfer");
+    if (policy.unresolvedRecentFailureBlocksMastery && aggregate.unresolvedFailure) shortfalls.push("unresolved-recent-failure");
+    return {
+      canonicalUnitId: aggregate.canonicalUnitId,
+      canonicalUnitRevision: aggregate.canonicalUnitRevision,
+      targetSkillId: aggregate.targetSkillId,
+      targetSkillRevision: aggregate.targetSkillRevision,
+      exposureEvents: aggregate.exposureEvents,
+      assessedAttempts: aggregate.assessedAttempts,
+      independentRetrievals: aggregate.independentRetrievals,
+      productionEvidence: aggregate.productionEvidence,
+      transferEvidence: aggregate.transferEvidence,
+      unresolvedRecentFailure: Boolean(aggregate.unresolvedFailure),
+      contributingActivityIds: [...aggregate.contributingActivityIds].sort(),
+      qualifyingSessionIds: [...aggregate.qualifyingSessionIds].sort(),
+      qualifyingContextIds: [...aggregate.qualifyingContextIds].sort(),
+      masteryReady: shortfalls.length === 0,
+      masteryShortfalls: shortfalls
+    };
+  });
+}

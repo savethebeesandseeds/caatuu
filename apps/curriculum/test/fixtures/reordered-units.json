@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A target language attempts to change the canonical unit order.",
+  "expectedErrorCodes": ["CURR_ORDER_OVERRIDE"],
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/unitOrder",
+      "value": [
+        "unit.needs.possession-and-choice.01",
+        "unit.interaction.entry-and-repair.01",
+        "unit.routine.familiar-actions.01"
+      ]
+    }
+  ]
+}

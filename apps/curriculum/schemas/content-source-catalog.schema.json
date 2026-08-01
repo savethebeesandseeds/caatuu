@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schema/content-source-catalog-v1.json",
+  "title": "Caatuu revisioned game-content source catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "catalogId", "version", "targetLocale", "sources"],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-content-source-catalog-v1"},
+    "catalogId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "targetLocale": {"type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"},
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/source"}
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activityId",
+        "catalogId",
+        "catalogRevision",
+        "catalogDigest",
+        "contentId",
+        "revision",
+        "projectionVersion",
+        "contentDigest",
+        "sourceLocator",
+        "snapshot"
+      ],
+      "properties": {
+        "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "catalogId": {"type": "string", "minLength": 3, "maxLength": 128},
+        "catalogRevision": {"type": "string", "minLength": 1, "maxLength": 160},
+        "catalogDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "contentId": {"type": "string", "minLength": 3, "maxLength": 160},
+        "revision": {"type": "integer", "minimum": 1},
+        "projectionVersion": {"const": "caatuu-game-content-binding-v1"},
+        "contentDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "sourceLocator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "selector", "transform"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "selector": {"type": "string", "minLength": 1},
+            "transform": {"type": "string", "minLength": 1}
+          }
+        },
+        "snapshot": {"type": "object"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"activityId": {"const": "word-world"}}},
+          "then": {"properties": {"snapshot": {"$ref": "#/$defs/wordWorldSnapshot"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
+          "then": {"properties": {"snapshot": {"$ref": "#/$defs/verbNebulaSnapshot"}}}
+        }
+      ]
+    },
+    "wordWorldSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "cs", "en", "difficulty", "cefr", "topic", "targets", "learning", "grammar"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^ww-"},
+        "cs": {"type": "string", "minLength": 1},
+        "en": {"type": "string", "minLength": 1},
+        "difficulty": {"type": "integer", "minimum": 1, "maximum": 3},
+        "cefr": {"type": "string", "minLength": 1},
+        "topic": {"type": "string", "minLength": 1},
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["surface", "normalized", "tokenIndex", "playable"],
+            "properties": {
+              "surface": {"type": "string", "minLength": 1},
+              "normalized": {"type": "string", "minLength": 1},
+              "tokenIndex": {"type": "integer", "minimum": 0},
+              "playable": {"type": "boolean"}
+            }
+          }
+        },
+        "learning": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["objective", "skillFocus", "progressionLevel", "prerequisites"],
+          "properties": {
+            "objective": {"type": "string", "minLength": 1},
+            "skillFocus": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "progressionLevel": {"type": "integer", "minimum": 1, "maximum": 3},
+            "prerequisites": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "grammar": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tags", "sentenceType", "clauseCount"],
+          "properties": {
+            "tags": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "sentenceType": {"type": "string", "minLength": 1},
+            "clauseCount": {"type": "integer", "minimum": 1}
+          }
+        }
+      }
+    },
+    "verbNebulaSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "cz", "eng", "difficulty", "difficultyIsAuthored", "legacyLocator"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z]{2,3}\\.verb\\.[a-z0-9.-]+$"},
+        "cz": {"type": "string", "minLength": 1},
+        "eng": {"type": "string", "minLength": 1},
+        "difficulty": {"type": "integer", "minimum": 1, "maximum": 3},
+        "difficultyIsAuthored": {"type": "boolean"},
+        "legacyLocator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pairId", "sourceIndex"],
+          "properties": {
+            "pairId": {"type": "string", "pattern": "^core-verb-[0-9]+$"},
+            "sourceIndex": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    }
+  }
+}

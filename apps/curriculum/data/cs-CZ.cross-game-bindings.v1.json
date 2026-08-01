@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "caatuu-cross-game-binding-registry-v1",
+  "registryId": "caatuu.cs-CZ.cross-game-bindings",
+  "version": "1.0.0",
+  "curriculum": {
+    "id": "caatuu.shared-beginner",
+    "version": "1.0.0",
+    "canonicalContractDigest": "sha256:ea771050c38c0bac732fa5ae02a0494b6505b98b8a635590ee3fa7ff2cb32dd9"
+  },
+  "targetPack": {
+    "id": "caatuu.cs-CZ.shared-beginner",
+    "version": "1.0.0",
+    "targetLocale": "cs-CZ",
+    "targetPackDigest": "sha256:5be7e8dea2b427d6195d2f50cf99c9b49d538f25cfd2f404f81d0d8bd46eb7f2"
+  },
+  "sourceCatalog": {
+    "id": "caatuu.cs-CZ.cross-game-pilot-sources",
+    "version": "1.0.0"
+  },
+  "bindings": [
+    {
+      "id": "binding.word-world.ww-cp-000146",
+      "activityId": "word-world",
+      "contentRef": {
+        "catalogId": "word-world-standard-v0.1",
+        "catalogRevision": "standard-v0.1",
+        "catalogDigest": "sha256:01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
+        "contentId": "ww-cp-000146",
+        "revision": 1,
+        "contentDigest": "sha256:470815532678440da2301606493aeec33e63973a6ced5631d3a1700ba7712a64"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.sense.cist.read",
+          "revision": 1
+        }
+      ],
+      "contextId": "cs.context.u3.read-library-current",
+      "contextRevision": 1,
+      "opportunityId": "interpret-read-library-current",
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "sentence-exploration",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-retrieval",
+          "mechanicId": "translation-reconstruction",
+          "learningStage": "retrieve",
+          "evidenceKind": "retrieval",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": true,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.verb-nebula.cs.verb.cist.read",
+      "activityId": "verb-nebula",
+      "contentRef": {
+        "catalogId": "verb-nebula-v1",
+        "catalogRevision": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+        "catalogDigest": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+        "contentId": "cs.verb.cist.read",
+        "revision": 1,
+        "contentDigest": "sha256:1e43fb32a2cd8ebf00aeba5d837d5aa24db784eaf895eb8b7b8aa44d3140e3ab"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.sense.cist.read",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "association-grid-preview",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-retrieval",
+          "mechanicId": "association-grid-match",
+          "learningStage": "retrieve",
+          "evidenceKind": "retrieval",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": true,
+          "minimumScore": 1
+        }
+      ]
+    }
+  ],
+  "aggregationGroups": [
+    {
+      "id": "aggregation.cs.skill.sense.cist.read.cross-game",
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRef": {
+        "id": "cs.skill.sense.cist.read",
+        "revision": 1
+      },
+      "bindingIds": [
+        "binding.word-world.ww-cp-000146",
+        "binding.verb-nebula.cs.verb.cist.read"
+      ]
+    }
+  ]
+}

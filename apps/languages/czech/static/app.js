@@ -164,7 +164,7 @@ async function loadContentData() {
   const [dictionary, scripts, verbModule] = await Promise.all([
     loadJson("data/dictionary.json"),
     loadJson("data/scripts.json"),
-    import("./verb-nebula-core.mjs?v=verb-nebula-core-7")
+    import("./verb-nebula-core.mjs?v=verb-nebula-core-8")
   ]);
 
   assertArrayData("dictionary", dictionary);

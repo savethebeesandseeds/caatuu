@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "caatuu-content-source-catalog-v1",
+  "catalogId": "caatuu.cs-CZ.cross-game-pilot-sources",
+  "version": "1.0.0",
+  "targetLocale": "cs-CZ",
+  "sources": [
+    {
+      "activityId": "word-world",
+      "catalogId": "word-world-standard-v0.1",
+      "catalogRevision": "standard-v0.1",
+      "catalogDigest": "sha256:01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
+      "contentId": "ww-cp-000146",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:470815532678440da2301606493aeec33e63973a6ced5631d3a1700ba7712a64",
+      "sourceLocator": {
+        "path": "apps/languages/czech/static/data/word-world/standard-v0.1/records.json",
+        "selector": "records[id=ww-cp-000146]",
+        "transform": "word-net-standard.normalizeStandardRecord"
+      },
+      "snapshot": {
+        "id": "ww-cp-000146",
+        "cs": "Dědeček čte.",
+        "en": "Grandpa is reading.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "topic": "people",
+        "targets": [
+          {"surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true},
+          {"surface": "čte", "normalized": "čte", "tokenIndex": 1, "playable": true}
+        ],
+        "learning": {
+          "objective": "talk about people",
+          "skillFocus": ["be present", "short formula"],
+          "progressionLevel": 1,
+          "prerequisites": []
+        },
+        "grammar": {
+          "tags": ["common_phrase", "be_present", "short_formula", "function_talk_about_people", "category_family_people"],
+          "sentenceType": "formula",
+          "clauseCount": 1
+        }
+      }
+    },
+    {
+      "activityId": "verb-nebula",
+      "catalogId": "verb-nebula-v1",
+      "catalogRevision": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+      "catalogDigest": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+      "contentId": "cs.verb.cist.read",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:1e43fb32a2cd8ebf00aeba5d837d5aa24db784eaf895eb8b7b8aa44d3140e3ab",
+      "sourceLocator": {
+        "path": "apps/languages/czech/static/data/dictionary.json",
+        "selector": "row[179] -> pairId=core-verb-179",
+        "transform": "verb-nebula-core.extractCoreVerbPairs"
+      },
+      "snapshot": {
+        "id": "cs.verb.cist.read",
+        "cz": "číst",
+        "eng": "read",
+        "difficulty": 1,
+        "difficultyIsAuthored": true,
+        "legacyLocator": {
+          "pairId": "core-verb-179",
+          "sourceIndex": 179
+        }
+      }
+    }
+  ]
+}

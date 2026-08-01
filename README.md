@@ -11,7 +11,8 @@ language models, and memorable characters so practice feels like exploration
 rather than another worksheet.
 
 The vision is bigger than any single course: **one welcoming universe where
-any language can have its own world, personality, and way of teaching.**
+every language follows the same learning journey while keeping its own voice,
+personality, and natural way of expressing it.**
 
 ![Caatuu language launcher](docs/assets/screenshots/caatuu-language-launcher.png)
 
@@ -45,10 +46,12 @@ returning to places and characters you remember.
 
 ## Any language, one universe
 
-Caatuu is not a Czech-only or Chinese-only application. Languages have real
-differences, so each course can bring its own writing system, grammar,
-dictionaries, models, stories, and learning activities without rebuilding the
-whole product.
+Caatuu is not a Czech-only or Chinese-only application. One canonical
+curriculum, specified in English, owns the learning sequence, outcomes,
+prerequisites, evidence demands, and mastery standard. Each target-language
+pack realizes that shared journey through its own writing system, grammar,
+dictionaries, models, stories, and natural language without silently creating
+a different course.
 
 Czech is the first active reference course and the experience shown in these
 screenshots. Earlier Chinese work is preserved as part of the project's

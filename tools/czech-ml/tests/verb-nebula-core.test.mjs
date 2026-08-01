@@ -10,7 +10,10 @@ import {
   verbHintSearchText,
   normalizeVerbPairCount,
   restoreVerbQueue,
+  resolvePinnedStableVerbPair,
+  resolveStableVerbPair,
   shuffleVerbMeanings,
+  validatePinnedVerbPairLocator,
   verbPairMatches,
 } from "../../../apps/languages/czech/static/verb-nebula-core.mjs";
 
@@ -60,6 +63,109 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.equal(new Set(pairs.map((pair) => pair.cz.toLowerCase())).size, pairs.length);
   assert.equal(new Set(pairs.map((pair) => pair.eng.toLowerCase())).size, pairs.length);
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
+});
+
+const reviewedReadReference = Object.freeze({
+  id: "cs.verb.cist.read",
+  cz: "číst",
+  eng: "read",
+  difficulty: 1,
+  difficultyIsAuthored: true,
+  legacyLocator: Object.freeze({
+    pairId: "core-verb-179",
+    sourceIndex: 179,
+  }),
+});
+const reviewedDictionaryDigest = "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b";
+
+test("resolves the reviewed read pair by stable curriculum identity", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const pair = resolveStableVerbPair(dictionary, reviewedReadReference);
+
+  assert.equal(pair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(pair.cz, "číst");
+  assert.equal(pair.eng, "read");
+  assert.equal(pair.id, "core-verb-179");
+  assert.equal(pair.sourceIndex, 179);
+  assert.deepEqual(validatePinnedVerbPairLocator(dictionary, reviewedReadReference), pair);
+});
+
+test("stable lookup survives unrelated reordering but the pinned locator detects it", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const reordered = [
+    ...dictionary.slice(0, 179),
+    { kind: "N", cs: "testovací zástupný řádek", en: "test placeholder row" },
+    ...dictionary.slice(179),
+  ];
+
+  const movedPair = resolveStableVerbPair(reordered, reviewedReadReference);
+  assert.equal(movedPair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(movedPair.cz, "číst");
+  assert.equal(movedPair.eng, "read");
+  assert.equal(movedPair.sourceIndex, 180);
+  assert.equal(movedPair.id, "core-verb-180");
+  assert.throws(
+    () => validatePinnedVerbPairLocator(reordered, reviewedReadReference),
+    { code: "VERB_STABLE_LOCATOR_DRIFT" }
+  );
+});
+
+test("stable lookup rejects reviewed-label drift and ambiguity", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const drifted = dictionary.map((row, index) => (
+    index === 179 ? { ...row, en: "study" } : row
+  ));
+  assert.throws(
+    () => resolveStableVerbPair(drifted, reviewedReadReference),
+    { code: "VERB_STABLE_SOURCE_DRIFT" }
+  );
+
+  const ambiguous = [...dictionary, { ...dictionary[179] }];
+  assert.throws(
+    () => resolveStableVerbPair(ambiguous, reviewedReadReference),
+    { code: "VERB_STABLE_AMBIGUOUS" }
+  );
+});
+
+test("strict runtime lookup verifies the exact dictionary bytes before resolving", async () => {
+  const dictionaryJsonText = await readFile(dictionaryUrl, "utf8");
+  const pair = await resolvePinnedStableVerbPair(
+    dictionaryJsonText,
+    reviewedDictionaryDigest,
+    reviewedReadReference
+  );
+
+  assert.equal(pair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(pair.id, "core-verb-179");
+  assert.equal(pair.cz, "číst");
+  assert.equal(pair.eng, "read");
+});
+
+test("strict runtime lookup rejects missing, mismatched, and reordered catalog pins", async () => {
+  const dictionaryJsonText = await readFile(dictionaryUrl, "utf8");
+  await assert.rejects(
+    resolvePinnedStableVerbPair(dictionaryJsonText, "", reviewedReadReference),
+    { code: "VERB_STABLE_INVALID_CATALOG_DIGEST" }
+  );
+  await assert.rejects(
+    resolvePinnedStableVerbPair(
+      dictionaryJsonText,
+      `sha256:${"0".repeat(64)}`,
+      reviewedReadReference
+    ),
+    { code: "VERB_STABLE_CATALOG_DIGEST_MISMATCH" }
+  );
+
+  const reordered = JSON.parse(dictionaryJsonText);
+  [reordered[0], reordered[1]] = [reordered[1], reordered[0]];
+  await assert.rejects(
+    resolvePinnedStableVerbPair(
+      JSON.stringify(reordered),
+      reviewedDictionaryDigest,
+      reviewedReadReference
+    ),
+    { code: "VERB_STABLE_CATALOG_DIGEST_MISMATCH" }
+  );
 });
 
 test("keeps the curated difficulty metadata and defaults unclassified verbs to Navigator", () => {
@@ -226,11 +332,11 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(index, /id="verbSolutionArrows"/);
   assert.match(app, /renderVerbSolutionArrows\(\)/);
   assert.match(app, /svg\.classList\.toggle\("is-visible", Boolean\(visible\)\)/);
-  assert.match(app, /path\.dataset\.verbPairId = pair\.id/);
+  assert.match(app, /route\.dataset\.verbPairId = pair\.id/);
   assert.doesNotMatch(app, /solutionOrdinal/);
   assert.match(app, /assignUniqueVerbHintCandidates\(candidateGroups\)/);
   assert.match(app, /Follow the arrows to review every pair\./);
-  assert.match(app, /state\.verbSolutionRevealed = !state\.verbSolutionRevealed;\s*setVerbMatchFeedback/);
+  assert.match(app, /state\.verbSolutionRevealed = !state\.verbSolutionRevealed;\s*clearVerbSolutionAdvance\(\);\s*setVerbMatchFeedback/);
   assert.doesNotMatch(app, /transitionToNextVerbRound\(\{ revealSolution: true \}\)/);
   assert.match(app, /preloadVerbHintsForRound\(nextRound\.round\)/);
   assert.match(app, /preloadVerbHintAsset\(hint\?\.assetPath\)/);

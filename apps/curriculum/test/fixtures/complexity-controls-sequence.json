@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A target pack marks local complexity as authoritative instead of advisory.",
+  "expectedErrorCodes": ["CURR_REALIZATION_OVERRIDE"],
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/unitBindings/2/realizationComplexity/advisoryOnly",
+      "value": false
+    }
+  ]
+}

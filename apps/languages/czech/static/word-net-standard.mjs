@@ -1,5 +1,23 @@
 const DEFAULT_MANIFEST_URL = "./data/word-world/manifest.json";
 const DEFAULT_USAGE_CAPACITY = 8192;
+const verifiedRuntimeSources = new WeakSet();
+
+function normalizedSha256(value) {
+  const digest = String(value || "").trim().toLocaleLowerCase("en-US");
+  if (/^[a-f0-9]{64}$/.test(digest)) return `sha256:${digest}`;
+  return /^sha256:[a-f0-9]{64}$/.test(digest) ? digest : "";
+}
+
+function createVerifiedRuntimeSource({ corpusVersion, catalogRevision, catalogDigest }) {
+  const source = Object.freeze({
+    corpusVersion: String(corpusVersion || "").trim(),
+    catalogRevision: String(catalogRevision || "").trim(),
+    catalogDigest: normalizedSha256(catalogDigest)
+  });
+  if (!source.corpusVersion || !source.catalogRevision || !source.catalogDigest) return null;
+  verifiedRuntimeSources.add(source);
+  return source;
+}
 
 function boundedDifficulty(value) {
   const level = Math.floor(Number(value));
@@ -162,10 +180,17 @@ function weightedTier(level, availableTiers, random) {
 }
 
 export class StandardWordWorldProvider {
-  constructor({ manifest = {}, pack = {}, usageLedger, random = Math.random } = {}) {
+  constructor({ manifest = {}, pack = {}, usageLedger, random = Math.random, sourceVerification = null } = {}) {
     this.manifest = manifest && typeof manifest === "object" ? { ...manifest } : {};
     this.corpusVersion = String(pack?.corpusVersion || manifest?.corpusVersion || "unknown");
     this.schemaVersion = String(pack?.schemaVersion || manifest?.schemaVersion || "");
+    const verifiedSource = verifiedRuntimeSources.has(sourceVerification) ? sourceVerification : null;
+    this.source = Object.freeze({
+      verified: Boolean(verifiedSource),
+      corpusVersion: verifiedSource?.corpusVersion || "",
+      catalogRevision: verifiedSource?.catalogRevision || "",
+      catalogDigest: verifiedSource?.catalogDigest || ""
+    });
     this.random = random;
     this.usage = usageLedger || new WordWorldUsageLedger({ corpusVersion: this.corpusVersion });
     const seenIds = new Set();
@@ -180,6 +205,7 @@ export class StandardWordWorldProvider {
         seenSentences.add(sentenceKey);
         return true;
       });
+    this.recordIndex = new Map(this.records.map((record) => [record.id, record]));
     this.targetIndex = new Map();
     for (const record of this.records) {
       for (const target of record.targets) {
@@ -193,6 +219,51 @@ export class StandardWordWorldProvider {
 
   get size() {
     return this.records.length;
+  }
+
+  getRecordById(recordId) {
+    return this.recordIndex.get(String(recordId || "").trim()) || null;
+  }
+
+  assertVerifiedSource({ corpusVersion = "", catalogRevision = "", catalogDigest = "" } = {}) {
+    const expectedDigest = normalizedSha256(catalogDigest);
+    const expectedCatalogRevision = String(catalogRevision || "").trim();
+    const expectedCorpusVersion = String(corpusVersion || expectedCatalogRevision).trim();
+    return this.source.verified
+      && Boolean(expectedCorpusVersion)
+      && Boolean(expectedCatalogRevision)
+      && Boolean(expectedDigest)
+      && this.source.corpusVersion === expectedCorpusVersion
+      && this.source.catalogRevision === expectedCatalogRevision
+      && this.source.catalogDigest === expectedDigest;
+  }
+
+  selectBoundTarget(recordOrId, { surface = "", normalized = "", tokenIndex = null } = {}) {
+    const record = typeof recordOrId === "string" ? this.getRecordById(recordOrId) : recordOrId;
+    if (!record || !this.recordIndex.has(record.id)) return null;
+    const requestedSurface = String(surface || "").normalize("NFC").trim();
+    const requestedNormalized = normalizeStandardWord(normalized || requestedSurface);
+    const hasTokenIndex = Number.isInteger(tokenIndex) && tokenIndex >= 0;
+    if (!requestedNormalized && !hasTokenIndex) return null;
+    return record.targets.find((target) => (
+      target.playable
+      && (!requestedNormalized || target.normalized === requestedNormalized)
+      && (!hasTokenIndex || target.tokenIndex === tokenIndex)
+    )) || null;
+  }
+
+  nextForBinding(recordId, { source = {}, target = {} } = {}) {
+    if (!this.assertVerifiedSource(source)) return null;
+    const record = this.getRecordById(recordId);
+    if (!record) return null;
+    const boundTarget = this.selectBoundTarget(record, target);
+    if (!boundTarget) return null;
+    return {
+      record,
+      target: boundTarget,
+      fallback: false,
+      requestedWord: boundTarget.normalized
+    };
   }
 
   difficultyCounts() {
@@ -271,13 +342,16 @@ function resolveRuntimeUrl(manifestUrl, manifest) {
 }
 
 async function verifyRuntimePackText(text, expectedSha256) {
-  const expected = String(expectedSha256 || "").trim().toLocaleLowerCase("en-US");
-  if (!expected || !globalThis.crypto?.subtle || typeof TextEncoder !== "function") return;
+  const expected = normalizedSha256(expectedSha256);
+  if (!expected || !globalThis.crypto?.subtle || typeof TextEncoder !== "function") {
+    return { verified: false, catalogDigest: "" };
+  }
   const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  const actual = [...new Uint8Array(digest)]
+  const actual = `sha256:${[...new Uint8Array(digest)]
     .map((value) => value.toString(16).padStart(2, "0"))
-    .join("");
+    .join("")}`;
   if (actual !== expected) throw new Error("The Standard Word World records failed their integrity check.");
+  return { verified: true, catalogDigest: actual };
 }
 
 export async function loadStandardWordWorldCorpus({
@@ -297,10 +371,24 @@ export async function loadStandardWordWorldCorpus({
   const packResponse = await fetchImpl(runtimeUrl, { cache: "force-cache" });
   if (!packResponse?.ok) throw new Error(`Could not load the Standard Word World records (${packResponse?.status || "network"}).`);
   let pack;
+  let sourceVerification = null;
   if (typeof packResponse.text === "function") {
     const packText = await packResponse.text();
-    await verifyRuntimePackText(packText, manifest?.contentSha256);
+    const integrity = await verifyRuntimePackText(packText, manifest?.contentSha256);
     pack = JSON.parse(packText);
+    const manifestCorpusVersion = String(manifest?.corpusVersion || "").trim();
+    const packCorpusVersion = String(pack?.corpusVersion || "").trim();
+    const manifestCatalogRevision = String(manifest?.catalogRevision || manifestCorpusVersion).trim();
+    const packCatalogRevision = String(pack?.catalogRevision || packCorpusVersion).trim();
+    if (integrity.verified
+        && manifestCorpusVersion === packCorpusVersion
+        && manifestCatalogRevision === packCatalogRevision) {
+      sourceVerification = createVerifiedRuntimeSource({
+        corpusVersion: packCorpusVersion,
+        catalogRevision: packCatalogRevision,
+        catalogDigest: integrity.catalogDigest
+      });
+    }
   } else {
     // Test doubles and older adapters may expose json() only.
     pack = await packResponse.json();
@@ -308,7 +396,7 @@ export async function loadStandardWordWorldCorpus({
   const corpusVersion = String(pack?.corpusVersion || manifest?.corpusVersion || "unknown");
   const ledgerPayload = usageEntries?.corpusVersion === corpusVersion ? usageEntries.entries : {};
   const usageLedger = new WordWorldUsageLedger({ corpusVersion, entries: ledgerPayload, now });
-  const provider = new StandardWordWorldProvider({ manifest, pack, usageLedger, random });
+  const provider = new StandardWordWorldProvider({ manifest, pack, usageLedger, random, sourceVerification });
   if (!provider.size) throw new Error("The Standard Word World corpus is empty.");
   return provider;
 }
@@ -361,4 +449,9 @@ export function selectStandardTurn(provider, {
         allowRandomFallback: allowSelectedRandomFallback
       })
     : provider.nextRandom({ difficulty, excludeIds });
+}
+
+export function selectStandardBoundTurn(provider, { recordId = "", source = {}, target = {} } = {}) {
+  if (!(provider instanceof StandardWordWorldProvider)) throw new TypeError("A Standard Word World provider is required.");
+  return provider.nextForBinding(recordId, { source, target });
 }

@@ -38,6 +38,14 @@ embeddings, service-worker behavior, and language-specific interaction logic.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
 
+### `apps/curriculum`
+
+Owns the English-specified canonical learning contract, target-language
+realization packs, cross-game bindings, conformance schemas, and dependency-free
+validation/evidence tooling. Language apps consume validated, revision-pinned
+runtime copies. A target language may vary its natural realization and
+scaffolding, but not the canonical learning sequence or mastery standard.
+
 ### `apps/android`
 
 Packages the Czech experience for Android and supplies native capabilities such

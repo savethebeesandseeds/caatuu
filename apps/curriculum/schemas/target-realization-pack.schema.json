@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schema/target-realization-pack-v1.json",
+  "title": "Caatuu target-language realization pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "packId",
+    "version",
+    "specLocale",
+    "targetLocale",
+    "supportLocales",
+    "curriculum",
+    "canonicalContractDigest",
+    "unitOrder",
+    "unitBindings",
+    "skills",
+    "utterances",
+    "contexts"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-target-realization-pack-v1"},
+    "packId": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "specLocale": {"const": "en"},
+    "targetLocale": {"type": "string", "minLength": 2},
+    "supportLocales": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 2}
+    },
+    "curriculum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      }
+    },
+    "canonicalContractDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "unitOrder": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^unit\\."}
+    },
+    "unitBindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/unitBinding"}
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/skill"}
+    },
+    "utterances": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/utterance"}
+    },
+    "contexts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/context"}
+    }
+  },
+  "$defs": {
+    "unitBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unitId",
+        "canonicalRevision",
+        "functionBindings",
+        "frameBindings",
+        "conceptBindings",
+        "targetSkillIds",
+        "utteranceIds",
+        "contextIds",
+        "realizationComplexity",
+        "withinUnitScaffolds",
+        "review"
+      ],
+      "properties": {
+        "unitId": {"type": "string", "pattern": "^unit\\."},
+        "canonicalRevision": {"type": "integer", "minimum": 1},
+        "functionBindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/semanticBinding"}
+        },
+        "frameBindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/semanticBinding"}
+        },
+        "conceptBindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/semanticBinding"}
+        },
+        "targetSkillIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "utteranceIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "contextIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "realizationComplexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["receptive", "productive", "drivers", "advisoryOnly"],
+          "properties": {
+            "receptive": {"type": "integer", "minimum": 1, "maximum": 5},
+            "productive": {"type": "integer", "minimum": 1, "maximum": 5},
+            "drivers": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "advisoryOnly": {"const": true}
+          }
+        },
+        "withinUnitScaffolds": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "semanticBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalId", "mappingStatus", "targetSkillIds", "utteranceIds"],
+      "properties": {
+        "canonicalId": {"type": "string", "minLength": 3},
+        "mappingStatus": {
+          "enum": ["direct", "multiword", "implicit", "incorporated", "split", "merged", "unavailable"]
+        },
+        "targetSkillIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "utteranceIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "rationaleEn": {"type": "string", "minLength": 1}
+      }
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "unitId", "locale", "kind", "descriptionEn", "canonicalIds", "review"],
+      "properties": {
+        "id": {"type": "string", "minLength": 3},
+        "revision": {"type": "integer", "minimum": 1},
+        "unitId": {"type": "string", "pattern": "^unit\\."},
+        "locale": {"type": "string", "minLength": 2},
+        "kind": {"enum": ["function", "lexeme", "sense", "form", "construction", "pronunciation", "script"]},
+        "descriptionEn": {"type": "string", "minLength": 1},
+        "canonicalIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "utterance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "unitId", "locale", "normalization", "text", "functionIds", "frameIds", "conceptIds", "skillIds", "review"],
+      "properties": {
+        "id": {"type": "string", "minLength": 3},
+        "revision": {"type": "integer", "minimum": 1},
+        "unitId": {"type": "string", "pattern": "^unit\\."},
+        "locale": {"type": "string", "minLength": 2},
+        "normalization": {"const": "NFC"},
+        "text": {"type": "string", "minLength": 1},
+        "functionIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        },
+        "frameIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        },
+        "conceptIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        },
+        "skillIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "unitId",
+        "locale",
+        "descriptionEn",
+        "featureValues",
+        "opportunities",
+        "review"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 3},
+        "revision": {"type": "integer", "minimum": 1},
+        "unitId": {"type": "string", "pattern": "^unit\\."},
+        "locale": {"type": "string", "minLength": 2},
+        "descriptionEn": {"type": "string", "minLength": 1},
+        "featureValues": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"pattern": "^[a-z][a-z0-9-]+$"},
+          "additionalProperties": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$"}
+        },
+        "opportunities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/opportunity"}
+        },
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "opportunity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "operation", "targetSkillIds", "stimulusUtteranceIds", "expectedUtteranceIds"],
+      "properties": {
+        "id": {"type": "string", "minLength": 3},
+        "operation": {"enum": ["interpret", "discriminate", "retrieve", "produce", "respond"]},
+        "targetSkillIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "stimulusUtteranceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        },
+        "expectedUtteranceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"operation": {"const": "interpret"}}},
+          "then": {"properties": {"stimulusUtteranceIds": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"operation": {"enum": ["retrieve", "produce", "respond"]}}},
+          "then": {"properties": {"expectedUtteranceIds": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"operation": {"const": "respond"}}},
+          "then": {"properties": {"stimulusUtteranceIds": {"minItems": 1}}}
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "notesEn"],
+      "properties": {
+        "status": {"enum": ["prototype-not-human-approved", "human-approved", "rejected"]},
+        "notesEn": {"type": "string"}
+      }
+    },
+    "nonEmptyUniqueIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 3}
+    }
+  }
+}

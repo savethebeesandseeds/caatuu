@@ -25,7 +25,7 @@ import {
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
   selectStandardTurn
-} from "./word-net-standard.mjs?v=word-net-standard-1";
+} from "./word-net-standard.mjs?v=word-net-standard-2";
 
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";

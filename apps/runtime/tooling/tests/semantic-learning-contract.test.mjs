@@ -281,8 +281,8 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v377/);
-  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v376/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v378/);
+  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v377/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/audio-lab\.css\?v=audio-lab-2/);
   assert.match(serviceWorker, /\.\/audio-lab\.js\?v=audio-lab-1/);
@@ -297,9 +297,9 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.match(serviceWorker, /dictionary-gap-export\.mjs\?v=dictionary-gap-export-1/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json/);
-  assert.match(serviceWorker, /app\.js\?v=shell-72/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-66/);
-  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-65/);
+  assert.match(serviceWorker, /app\.js\?v=shell-73/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-67/);
+  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-66/);
   assert.match(serviceWorker, /word-net\.css\?v=word-net-62/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-61/);
   assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);

@@ -1,20 +1,27 @@
 # Caatuu Language App Contract
 
-Caatuu is one product with language-owned learning adapters. A new language
-should not require a fork of navigation, setup, updates, feedback, storage, or
-the Android WebView shell.
+Caatuu is one product with one English-specified curriculum and
+language-owned realization adapters. A new language should not require a fork
+of the learning sequence, navigation, setup, updates, feedback, storage, or the
+Android WebView shell.
 
-## The four layers
+## The five layers
 
 1. **Product shell** owns the launcher, theme, navigation, settings, setup,
    update flow, feedback outbox, accessibility conventions, and platform
    boundaries.
-2. **Course profile** owns stable metadata: route, source and target languages,
-   locale, writing direction, storage namespace, capabilities, and entry paths.
-3. **Language adapter** owns real linguistic differences: tokenization,
-   normalization, morphology, dictionaries, prompts, model catalogs, sentence
-   rendering, and language-specific games.
-4. **Platform adapter** supplies browser or Android implementations for the
+2. **Canonical curriculum** is specified in English and owns stable unit IDs,
+   order, prerequisites, observable outcomes, learning stages, semantic scope,
+   transfer requirements, and mastery policy for every target language.
+3. **Course profile** owns stable metadata and release pins: route, source and
+   target languages, locale, writing direction, storage namespace,
+   capabilities, entry paths, and exact curriculum/realization digests.
+4. **Target-language realization adapter** owns real linguistic differences:
+   natural utterances, accepted variants, tokenization, normalization,
+   morphology, dictionaries, prompts, model catalogs, sentence rendering,
+   scaffolding, and language-specific game presentation. It cannot reorder,
+   omit, split, merge, or redefine canonical units.
+5. **Platform adapter** supplies browser or Android implementations for the
    capabilities requested by a course profile.
 
 Do not move morphology or prompts into the product shell merely to make them
@@ -25,8 +32,15 @@ without naming a particular language.
 
 - `apps/launcher/static/languages.json` is the public registry used by the
   launcher. Only active, reachable language apps belong there.
+- `apps/curriculum/data/canonical-curriculum.v1.en.json` is the current shared
+  learning contract. Target packs reference it by ID, version, unit revision,
+  and digest; they do not copy or override its pedagogical fields.
+- `apps/curriculum/data/<locale>.realization-pack.v1.json` contains reviewed
+  target-language realizations and executable opportunities. The conformance
+  validator must reject divergence before runtime assets are generated.
 - Each language app provides `course-profile.js` before `runtime.js` and shared
-  Chrome. It exposes an immutable `window.CaatuuCourse` object.
+  Chrome. It exposes an immutable `window.CaatuuCourse` object whose curriculum
+  pins come from trusted release configuration, not from the pack itself.
 - `apps/runtime/src/routes/mod.rs` mounts active apps from its route
   registry. The route and entry path must match the public registry.
 - Android receives its bundled language ID, route prefix, entry path, and static
@@ -57,14 +71,19 @@ language has Czech verbs, a Czech-English dictionary, or the same model slots.
 
 1. Create `apps/languages/<language>/static` with a course profile and language
    adapter.
-2. Give every persisted key a language-specific namespace. Never reuse another
+2. Create a complete target realization pack for the existing canonical unit
+   IDs and order. Escalate an impossible realization to shared curriculum
+   governance instead of silently forking the course.
+3. Give every persisted key a language-specific namespace. Never reuse another
    course's progress keys.
-3. Add the runtime mount and only the API adapter that language implements.
-4. Add the active course to `languages.json` after its route is reachable.
-5. For Android, build with the new language Gradle properties and provide its
+4. Add the runtime mount and only the API adapter that language implements.
+5. Add the active course to `languages.json` only after curriculum conformance,
+   native-teacher review, and its route are verified.
+6. For Android, build with the new language Gradle properties and provide its
    own model, dictionary, vector, and setup catalogs.
-6. Run the language contract, runtime boundary audit, browser checks, and an
-   Android package audit before publishing.
+7. Run curriculum and binding conformance, the language contract, runtime
+   boundary audit, browser checks, and an Android package audit before
+   publishing.
 
 Archived experiments are not active language apps. Moving an archive into the
 registry requires behavior parity, not only a redirect or a matching screen.

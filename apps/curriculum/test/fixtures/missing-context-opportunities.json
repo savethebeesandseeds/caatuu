@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A context label without executable opportunities is not instructional coverage.",
+  "mutations": [
+    {"op": "remove", "path": "/contexts/0/opportunities"}
+  ],
+  "expectedErrorCodes": ["CURR_MANIFEST_SCHEMA"]
+}
