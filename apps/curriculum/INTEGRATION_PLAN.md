@@ -1,10 +1,9 @@
 # Curriculum integration plan
 
-This foundation is implemented on the isolated
-`codex/curriculum-guided-mode` branch. The active application worktree remains
-unchanged because it contains substantial uncommitted Word World and Verb
-Nebula work. Reconcile that work deliberately before applying the final UI
-wiring; do not copy, stash, or overwrite it implicitly.
+The curriculum foundation and first developer Guided vertical slice are
+implemented on the isolated `codex/curriculum-guided-mode` branch, rebased on
+the current application mainline. The learner-facing release path remains
+closed.
 
 Implemented here:
 
@@ -14,13 +13,24 @@ Implemented here:
 - immutable tasks, first-response evidence, sticky hint/reveal state, and
   cross-game aggregation;
 - a canonical planner that enforces unit order, stage order, repair spacing,
-  delayed retrieval, and honest unlock blockers.
+  delayed retrieval, and honest unlock blockers;
+- one exact, source-pinned developer Guided task in Word World and Verb Nebula;
+- prompt presentation before exposure/retrieval issuance, evidence persistence
+  before feedback or solution display, and isolation from Explore history/XP;
+- byte-level integrity checks for the deployed Word World pack and Verb Nebula
+  dictionary, including BOM mutation rejection;
+- one-shot, cross-tab-safe developer claims that prevent refresh, hint, reveal,
+  or concurrent-tab evidence laundering;
+- canonical-scope Verb contrasts: the English Unit 3 concept order selects
+  `eat`, `drink`, and `sleep`, while the Czech source catalog pins their exact
+  reviewed dictionary realizations.
 
 Still pending:
 
-- calls from the current game UI into these seams;
-- complete Unit 1 game coverage and learner-facing Guided navigation;
-- native-teacher Czech approval and a protected release attestation.
+- complete Unit 1 game coverage and planner-driven learner Guided navigation;
+- a genuine target-language production mechanic and the later evidence stages;
+- native Czech educator approval and a protected release attestation;
+- learner testing before any release or later-unit expansion.
 
 ## 1. First vertical slice
 
@@ -30,12 +40,12 @@ Integrate exactly one shared Czech skill and two source items:
 |---|---|
 | Canonical unit | `unit.routine.familiar-actions.01@1` |
 | Target skill | `cs.skill.sense.cist.read@1` |
-| Word World content | `ww-cp-000146`: `Dědeček čte.` |
-| Word World context | `cs.context.u3.read-library-current@1` |
+| Word World content | `ww-cp-000146`: `Dědeček čte.`; focus token `čte`, index 1 |
+| Word World context | none; the current UI does not present a setting or time-profile cue |
 | Verb stable sidecar ID | `cs.verb.cist.read@1` |
 | Verb legacy locator | dictionary row 179 / `core-verb-179` |
 
-The Word corpus and dictionary hashes are pinned in
+The Word corpus and dictionary byte hashes are pinned in
 `data/pilot-content-sources.v1.json`. Resolve the legacy Verb locator only
 inside that exact dictionary snapshot. A reorder or changed hash requires an
 explicit source crosswalk update.
@@ -106,6 +116,8 @@ resolveBinding(activityId, stableContentId)
 issueTask(bindingId, capabilityId, { targetSkillId })
 beginOpportunity(activityId, stableContentId, { capabilityId, targetSkillId })
 recordEvidence(task, outcome)
+recordExposure(bindingId, { targetSkillId })
+claimDeveloperPilot(bindingId, { targetSkillId, capabilityId, requirePresented })
 skillSummary(targetSkillId)
 progression()
 nextRequest()
@@ -117,38 +129,45 @@ content revision, learning stage, evidence kind, or mastery weight.
 
 ## 5. Word World seam
 
-Relevant current locations:
-
-- standard selection: `word-net.js:1395-1414`;
-- selected record state: `word-net.js:1417-1455`;
-- reconstruction submission: `word-net.js:1894-1923`;
-- current semantic exposure emission: `word-net.js:3194-3231`.
-
-Guided mode asks the curriculum service for the next task. Explore mode may keep
-the current random and selected-word selectors.
+The developer slice is gated to loopback plus `curriculum-guided=1`. It resolves
+the exact binding and `focusTarget`; it never calls a random or selected-word
+fallback. Full learner Guided navigation will later consume planner requests.
+Explore retains the existing random and selected-word selectors.
 
 For `ww-cp-000146`:
 
 - sentence viewing emits exposure only;
 - first-try, no-hint English reconstruction may emit bounded retrieval evidence;
-- timed reveal emits exposure/support state and zero mastery;
+- timed reveal records sticky solution-support state and zero mastery;
+- the Czech sentence is painted before exposure and retrieval are issued;
+- the English reconstruction is built only after the task fingerprint exists;
+- the curriculum focus remains visually distinct from a dictionary selection;
+- the complete normalized source snapshot and exact NFC focus surface must
+  match the rendered record before the task can start;
+- an incorrect reconstruction marks solution support before the immutable
+  first-response event is persisted and before the answer is rendered;
+- the developer task writes no normal history, usage, XP, or semantic metrics;
+- the binding is context-free because the current presentation supplies no
+  honest setting or time-profile cue;
 - the current mechanic emits no Czech production or transfer evidence.
 
 ## 6. Verb Nebula seam
 
-Relevant current locations:
-
-- pair extraction: `verb-nebula-core.mjs:29-56`;
-- round dealing: `verb-nebula-core.mjs:160-190`;
-- reveal: `app.js:1788-1806`;
-- response/evidence handling: `app.js:1810-1870`, `1900`, and `1920`.
-
-Guided mode resolves `cs.verb.cist.read` to the pinned legacy row, then builds a
-planner-approved contrast set. It must not select the entire eligible catalog.
+Guided mode resolves `cs.verb.cist.read` plus exact Czech realizations of the
+first three other concepts in the canonical English Unit 3 order (`eat`,
+`drink`, `sleep`). It builds a deterministic four-pair set from those reviewed
+references only. It does not use nearby dictionary rows, English-gloss identity,
+the saved Explore queue, pair count, difficulty selector, or random deal.
 
 - preview emits exposure;
 - a first clean match may emit retrieval evidence;
+- the canonical target must be answered before distractor feedback can create
+  an answer-by-elimination path;
 - a hint or reveal makes the attempt supported;
+- source bytes are hashed before strict UTF-8 decode and locator validation;
+- Czech and English card positions are deterministically varied from the
+  immutable retrieval-task fingerprint and remain positionally deranged;
+- the developer task writes no normal XP, performance, or semantic metrics;
 - the binding has no context, so it cannot increase distinct-context mastery;
 - the grid emits no production, interaction, or transfer evidence.
 
@@ -156,6 +175,10 @@ planner-approved contrast set. It must not select the entire eligible catalog.
 
 - Event identity is immutable and idempotent; reuse with changed payload is
   corruption.
+- A durable per-binding developer claim is written before either task. Web
+  Locks serialize cross-tab claims and ledger writes; a prior or interrupted
+  claim blocks re-entry and any orphaned task is closed conservatively without
+  qualifying for mastery.
 - Every event is bound to the exact task fingerprint, registry, unit, skill,
   content revision, activity, mechanic, and optional context.
 - Only the first clean response in an opportunity can qualify independently.
@@ -173,10 +196,10 @@ planner-approved contrast set. It must not select the entire eligible catalog.
 2. **Complete:** add release pins to `course-profile.js` and validate all assets
    at startup.
 3. **Complete:** resolve both real source items and prove snapshot/hash equality.
-4. Wire one Word World task and its exposure/retrieval events into the current
-   game UI.
-5. Wire one Verb Nebula task and its exposure/retrieval/reveal events into the
-   current game UI.
+4. **Complete for the developer slice:** wire one Word World task and its
+   exposure/retrieval events into the current game UI.
+5. **Complete for the developer slice:** wire one Verb Nebula task and its
+   exposure/retrieval/reveal events into the current game UI.
 6. **Complete at the service boundary:** demonstrate one skill summary with
    contributions from both activity IDs and
    explicit mastery shortfalls.
@@ -186,6 +209,9 @@ planner-approved contrast set. It must not select the entire eligible catalog.
 9. Obtain native-teacher approval for every content record used in Guided mode,
    issue the exact digest-bound attestation, and prove that release validation
    rejects stale or mismatched attestations.
+10. Expand the same verified interaction contract across Unit 1, run a learner
+    pilot, then validate the English backbone with a second target language
+    before expanding Units 2–3.
 
 ## 9. Do not do during this slice
 

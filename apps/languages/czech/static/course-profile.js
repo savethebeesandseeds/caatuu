@@ -64,11 +64,11 @@
         targetLocale: "cs-CZ",
         targetPackDigest: "sha256:5be7e8dea2b427d6195d2f50cf99c9b49d538f25cfd2f404f81d0d8bd46eb7f2",
         sourceCatalogId: "caatuu.cs-CZ.cross-game-pilot-sources",
-        sourceCatalogVersion: "1.0.0",
-        sourceCatalogDigest: "sha256:e571f49d35d062ba6b9db7eb1e2aa84e4617f62380fa9a30dad13d40e1123476",
+        sourceCatalogVersion: "1.2.0",
+        sourceCatalogDigest: "sha256:c7c91b85781c985a561184d5c19cb766c8b5cc7eb6f93e5e6fb5a81b12478e20",
         bindingRegistryId: "caatuu.cs-CZ.cross-game-bindings",
-        bindingRegistryVersion: "1.0.0",
-        bindingRegistryDigest: "sha256:57d2d214291db6f44fc85dcd41cef24be4d1e2ba52452571cbec6c3c1e4e7be5"
+        bindingRegistryVersion: "1.2.0",
+        bindingRegistryDigest: "sha256:382f928df9ddab758c7bd1b82b12baedbbbc86ebfdf11c56d7c2dff634acf4f0"
       },
       guidedMode: {
         enabled: true,

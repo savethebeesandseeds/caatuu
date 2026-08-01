@@ -12,6 +12,21 @@ const OPPORTUNITY_EVIDENCE_KINDS = new Map([
   ["produce", new Set(["production"])],
   ["respond", new Set(["production", "transfer"])]
 ]);
+const LEARNING_TASK_KEYS = new Set([
+  "schemaVersion", "taskId", "issuedAt", "sessionId", "taskSequence", "registry",
+  "bindingId", "capabilityId", "activityId", "mechanicId", "learningStage",
+  "evidenceKind", "independence", "targetLocale", "contentRef", "canonicalUnitId",
+  "canonicalUnitRevision", "targetSkillId", "targetSkillRevision", "contextId",
+  "contextRevision", "opportunityId", "taskFingerprint"
+]);
+const EVIDENCE_EVENT_KEYS = new Set([
+  "schemaVersion", "eventId", "occurredAt", "taskId", "taskFingerprint", "sessionId",
+  "taskSequence", "attemptNumber", "registry", "bindingId", "capabilityId", "activityId",
+  "mechanicId", "contentRef", "canonicalUnitId", "canonicalUnitRevision", "targetSkillId",
+  "targetSkillRevision", "contextId", "contextRevision", "opportunityId", "outcome"
+]);
+const ID_VERSION_KEYS = new Set(["id", "version"]);
+const OUTCOME_KEYS = new Set(["score", "solutionRevealed", "hintsUsed"]);
 
 function isObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -19,6 +34,10 @@ function isObject(value) {
 
 function rows(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function unknownKeys(value, allowed) {
+  return isObject(value) ? Object.keys(value).filter((key) => !allowed.has(key)) : [];
 }
 
 function nonEmptyString(value) {
@@ -154,6 +173,13 @@ function sourceKey(catalogId, contentId) {
   return `${catalogId}\u0000${contentId}`;
 }
 
+function validLegacyVerbLocator(reference) {
+  const pairId = reference?.legacyLocator?.pairId;
+  const sourceIndex = reference?.legacyLocator?.sourceIndex;
+  const parsed = typeof pairId === "string" && /^core-verb-([0-9]+)$/.exec(pairId);
+  return Boolean(parsed && Number.isInteger(sourceIndex) && Number(parsed[1]) === sourceIndex);
+}
+
 export async function validateRuntimeBundle(bundle, releasePins) {
   const errors = [];
   const error = (code, path, message, relatedIds = []) => errors.push({
@@ -232,6 +258,45 @@ export async function validateRuntimeBundle(bundle, releasePins) {
   for (const source of rows(sourceCatalog.sources)) {
     const digest = await computeContentDigest(source);
     if (source.contentDigest !== digest) error("RUNTIME_CONTENT_DIGEST_MISMATCH", "/sourceCatalog/sources", `Source ${source.contentId} content digest is stale.`, [source.contentId]);
+    if (source.activityId === "word-world") {
+      const focus = source.snapshot?.focusTarget;
+      const matchingTargets = rows(source.snapshot?.targets).filter((target) => (
+        target?.playable === true
+        && target.surface === focus?.surface
+        && target.normalized === focus?.normalized
+        && target.tokenIndex === focus?.tokenIndex
+      ));
+      if (!isObject(focus) || matchingTargets.length !== 1) {
+        error(
+          "RUNTIME_WORD_TARGET_LOCATOR_INVALID",
+          "/sourceCatalog/sources",
+          `Source ${source.contentId} does not pin one exact playable Word World focus target.`,
+          [source.contentId]
+        );
+      }
+    }
+    if (source.activityId === "verb-nebula") {
+      const contrasts = rows(source.snapshot?.guidedContrasts);
+      const unique = (field) => {
+        const values = contrasts.map((contrast) => contrast?.[field]);
+        return values.every(nonEmptyString) && new Set(values).size === values.length;
+      };
+      if (contrasts.length !== 3
+          || !["conceptId", "targetSkillId", "id", "cz", "eng"].every(unique)
+          || contrasts.some((contrast) => (
+            !validLegacyVerbLocator(contrast)
+            || contrast.id === source.snapshot?.id
+            || contrast.difficulty !== source.snapshot?.difficulty
+            || contrast.difficultyIsAuthored !== true
+          ))) {
+        error(
+          "RUNTIME_VERB_CONTRASTS_INVALID",
+          "/sourceCatalog/sources",
+          `Source ${source.contentId} does not pin three distinct reviewed Guided contrasts.`,
+          [source.contentId]
+        );
+      }
+    }
   }
   for (const binding of rows(bindingRegistry.bindings)) {
     const path = `/bindingRegistry/bindings/${binding?.id || "unknown"}`;
@@ -248,6 +313,39 @@ export async function validateRuntimeBundle(bundle, releasePins) {
       if (!skill || skill.revision !== skillRef?.revision || skill.unitId !== binding.canonicalUnitId) {
         error("RUNTIME_BINDING_SKILL_MISMATCH", `${path}/targetSkillRefs`, "Binding target skill is missing, stale, or belongs to another unit.", [binding?.id, skillRef?.id].filter(Boolean));
       }
+    }
+    if (binding.activityId === "verb-nebula" && source && unit) {
+      const unitConceptIds = rows(unit.semanticScope?.conceptIds);
+      const targetConceptIds = [...new Set(rows(binding.targetSkillRefs).flatMap((skillRef) => (
+        rows(skillById.get(skillRef?.id)?.canonicalIds).filter((id) => unitConceptIds.includes(id))
+      )))];
+      const contrasts = rows(source.snapshot?.guidedContrasts);
+      const expectedConceptIds = targetConceptIds.length === 1
+        ? unitConceptIds.filter((id) => id !== targetConceptIds[0]).slice(0, 3)
+        : [];
+      const actualConceptIds = contrasts.map((contrast) => contrast?.conceptId);
+      if (targetConceptIds.length !== 1 || !sameArray(actualConceptIds, expectedConceptIds)) {
+        error(
+          "RUNTIME_VERB_CONTRAST_SCOPE_MISMATCH",
+          `${path}/contentRef`,
+          "Guided verb contrasts do not follow the English backbone's canonical concept order.",
+          [binding.id]
+        );
+      }
+      contrasts.forEach((contrast) => {
+        const contrastSkill = skillById.get(contrast?.targetSkillId);
+        if (!contrastSkill
+            || contrastSkill.unitId !== binding.canonicalUnitId
+            || contrastSkill.locale !== targetPack.targetLocale
+            || !rows(contrastSkill.canonicalIds).includes(contrast?.conceptId)) {
+          error(
+            "RUNTIME_VERB_CONTRAST_SKILL_MISMATCH",
+            `${path}/contentRef`,
+            "A target-language Guided contrast is not aligned to its canonical English concept.",
+            [binding.id, contrast?.targetSkillId].filter(Boolean)
+          );
+        }
+      });
     }
     let opportunity = null;
     if (binding.contextId !== null) {
@@ -367,8 +465,27 @@ export async function validateLearningTask(curriculum, registry, task) {
     error("TASK_SCHEMA", "/", "Curriculum, registry, and task must be objects.");
     return { valid: false, errors };
   }
-  const expectedFingerprint = await computeLearningTaskFingerprint(task);
+  let expectedFingerprint = null;
+  try {
+    expectedFingerprint = await computeLearningTaskFingerprint(task);
+  } catch (cause) {
+    error("TASK_SCHEMA", "/", `Task fingerprint projection is invalid: ${cause.message}`);
+  }
   if (task.schemaVersion !== LEARNING_TASK_SCHEMA) error("TASK_SCHEMA", "/schemaVersion", `Expected ${LEARNING_TASK_SCHEMA}.`);
+  for (const key of unknownKeys(task, LEARNING_TASK_KEYS)) {
+    error("TASK_SCHEMA", `/${key}`, `Unknown task field ${key} is not covered by the immutable task contract.`);
+  }
+  for (const key of unknownKeys(task.registry, ID_VERSION_KEYS)) {
+    error("TASK_SCHEMA", `/registry/${key}`, `Unknown task registry field ${key}.`);
+  }
+  if (!nonEmptyString(task.taskId)
+      || !nonEmptyString(task.sessionId)
+      || !nonEmptyString(task.issuedAt)
+      || !Number.isFinite(Date.parse(task.issuedAt))
+      || !Number.isInteger(task.taskSequence)
+      || task.taskSequence < 1) {
+    error("TASK_SCHEMA", "/", "Task requires an ID, session, ISO issue time, and positive sequence.");
+  }
   if (task.taskFingerprint !== expectedFingerprint) error("TASK_FINGERPRINT_MISMATCH", "/taskFingerprint", "Task payload does not match its immutable fingerprint.");
   if (task.registry?.id !== registry.registryId || task.registry?.version !== registry.version) error("TASK_REGISTRY_MISMATCH", "/registry", "Task references a different registry release.");
   const binding = rows(registry.bindings).find((row) => row?.id === task.bindingId);
@@ -386,7 +503,12 @@ export async function validateLearningTask(curriculum, registry, task) {
       error("TASK_CAPABILITY_MISMATCH", "/capabilityId", "Task classification differs from its binding capability.");
     }
     if (!sameContentRef(task.contentRef, binding.contentRef)) error("TASK_CONTENT_STALE", "/contentRef", "Task content is stale.");
-    if (!skillRef || skillRef.revision !== task.targetSkillRevision) error("TASK_SKILL_MISMATCH", "/targetSkillId", "Task skill is absent or stale.");
+    if (!skillRef) error("TASK_SKILL_MISMATCH", "/targetSkillId", "Task skill is absent from this binding.");
+    else if (skillRef.revision !== task.targetSkillRevision) error("TASK_SKILL_REVISION_MISMATCH", "/targetSkillRevision", "Task skill revision is stale.");
+    if (task.canonicalUnitId !== binding.canonicalUnitId
+        || task.canonicalUnitRevision !== binding.canonicalUnitRevision) {
+      error("TASK_UNIT_MISMATCH", "/canonicalUnitId", "Task canonical unit differs from its binding.");
+    }
     if (task.contextId !== binding.contextId || task.contextRevision !== binding.contextRevision || task.opportunityId !== binding.opportunityId) {
       error("TASK_CONTEXT_MISMATCH", "/contextId", "Task invented or changed its binding context/opportunity.");
     }
@@ -434,12 +556,28 @@ export async function validateLearningEvidenceEvent(curriculum, registry, task, 
   errors.push(...taskValidation.errors);
   const capability = taskValidation.capability;
   if (!isObject(event) || event.schemaVersion !== EVIDENCE_EVENT_SCHEMA) error("EVIDENCE_SCHEMA", "/schemaVersion", `Expected ${EVIDENCE_EVENT_SCHEMA}.`);
+  for (const key of unknownKeys(event, EVIDENCE_EVENT_KEYS)) {
+    error("EVIDENCE_SCHEMA", `/${key}`, `Unknown evidence field ${key} is not allowed.`);
+  }
+  for (const key of unknownKeys(event?.registry, ID_VERSION_KEYS)) {
+    error("EVIDENCE_SCHEMA", `/registry/${key}`, `Unknown evidence registry field ${key}.`);
+  }
+  for (const key of unknownKeys(event?.outcome, OUTCOME_KEYS)) {
+    error("EVIDENCE_SCHEMA", `/outcome/${key}`, `Unknown evidence outcome field ${key}.`);
+  }
   if (!nonEmptyString(event?.eventId)
+      || !nonEmptyString(event?.sessionId)
       || !nonEmptyString(event?.occurredAt)
       || !Number.isFinite(Date.parse(event?.occurredAt))
+      || !Number.isInteger(event?.taskSequence)
+      || event.taskSequence < 1
       || !Number.isInteger(event?.attemptNumber)
-      || event.attemptNumber < 1) error("EVIDENCE_SCHEMA", "/", "Evidence requires an ID, ISO time, and positive attempt number.");
-  if (Date.parse(event?.occurredAt) < Date.parse(task?.issuedAt)) error("EVIDENCE_TIME_INVALID", "/occurredAt", "Evidence cannot predate its task.");
+      || event.attemptNumber < 1) error("EVIDENCE_SCHEMA", "/", "Evidence requires IDs, an ISO timestamp, positive task sequence, and positive attempt number.");
+  if (Number.isFinite(Date.parse(event?.occurredAt))
+      && Number.isFinite(Date.parse(task?.issuedAt))
+      && Date.parse(event.occurredAt) < Date.parse(task.issuedAt)) {
+    error("EVIDENCE_TIME_INVALID", "/occurredAt", "Evidence cannot predate its task.");
+  }
   for (const [field, expected] of Object.entries({
     taskId: task.taskId,
     taskFingerprint: task.taskFingerprint,

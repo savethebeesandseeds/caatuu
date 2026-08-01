@@ -47,6 +47,56 @@ function normalizeTarget(target = {}) {
   };
 }
 
+function normalizeBoundText(value) {
+  return String(value || "").normalize("NFC").replace(/\s+/gu, " ").trim();
+}
+
+function normalizeBoundList(values) {
+  return (Array.isArray(values) ? values : []).map(normalizeBoundText).filter(Boolean);
+}
+
+function boundSnapshotProjection(value = {}) {
+  const learning = value.learning && typeof value.learning === "object" ? value.learning : {};
+  const progression = learning.progression && typeof learning.progression === "object"
+    ? learning.progression
+    : {};
+  const grammar = value.grammar && !Array.isArray(value.grammar) ? value.grammar : {};
+  return {
+    id: String(value.id || "").trim(),
+    cs: normalizeBoundText(value.cs),
+    en: normalizeBoundText(value.en),
+    difficulty: Math.floor(Number(value.difficulty)),
+    cefr: normalizeBoundText(value.cefr),
+    topic: normalizeBoundText(value.topic),
+    targets: (Array.isArray(value.targets) ? value.targets : [])
+      .map(normalizeTarget)
+      .filter(Boolean)
+      .map((target) => ({
+        surface: target.surface,
+        normalized: target.normalized,
+        tokenIndex: target.tokenIndex,
+        playable: target.playable
+      })),
+    learning: {
+      objective: normalizeBoundText(learning.objective),
+      skillFocus: normalizeBoundList(learning.skillFocus),
+      progressionLevel: Math.floor(Number(learning.progressionLevel ?? progression.level)),
+      prerequisites: normalizeBoundList(learning.prerequisites ?? progression.prerequisites)
+    },
+    grammar: {
+      tags: normalizeBoundList(grammar.tags),
+      sentenceType: normalizeBoundText(grammar.sentenceType),
+      clauseCount: Math.floor(Number(grammar.clauseCount))
+    }
+  };
+}
+
+function matchesBoundSnapshot(record, sourceSnapshot) {
+  if (!record || !sourceSnapshot || typeof sourceSnapshot !== "object") return false;
+  return JSON.stringify(boundSnapshotProjection(record))
+    === JSON.stringify(boundSnapshotProjection(sourceSnapshot));
+}
+
 export function normalizeStandardRecord(record = {}, index = 0) {
   const id = String(record.id || `standard-${index + 1}`).trim();
   const cs = String(record.cs || "").normalize("NFC").replace(/\s+/g, " ").trim();
@@ -244,11 +294,12 @@ export class StandardWordWorldProvider {
     const requestedSurface = String(surface || "").normalize("NFC").trim();
     const requestedNormalized = normalizeStandardWord(normalized || requestedSurface);
     const hasTokenIndex = Number.isInteger(tokenIndex) && tokenIndex >= 0;
-    if (!requestedNormalized && !hasTokenIndex) return null;
+    if (!requestedSurface || !requestedNormalized || !hasTokenIndex) return null;
     return record.targets.find((target) => (
       target.playable
-      && (!requestedNormalized || target.normalized === requestedNormalized)
-      && (!hasTokenIndex || target.tokenIndex === tokenIndex)
+      && target.surface === requestedSurface
+      && target.normalized === requestedNormalized
+      && target.tokenIndex === tokenIndex
     )) || null;
   }
 
@@ -256,6 +307,7 @@ export class StandardWordWorldProvider {
     if (!this.assertVerifiedSource(source)) return null;
     const record = this.getRecordById(recordId);
     if (!record) return null;
+    if (!matchesBoundSnapshot(record, source.snapshot)) return null;
     const boundTarget = this.selectBoundTarget(record, target);
     if (!boundTarget) return null;
     return {
@@ -341,12 +393,12 @@ function resolveRuntimeUrl(manifestUrl, manifest) {
   return new URL(runtimeFile, new URL(manifestUrl, globalThis.location?.href || "http://localhost/")).toString();
 }
 
-async function verifyRuntimePackText(text, expectedSha256) {
+async function verifyRuntimePackBytes(bytes, expectedSha256) {
   const expected = normalizedSha256(expectedSha256);
-  if (!expected || !globalThis.crypto?.subtle || typeof TextEncoder !== "function") {
+  if (!expected || !globalThis.crypto?.subtle) {
     return { verified: false, catalogDigest: "" };
   }
-  const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
   const actual = `sha256:${[...new Uint8Array(digest)]
     .map((value) => value.toString(16).padStart(2, "0"))
     .join("")}`;
@@ -372,9 +424,10 @@ export async function loadStandardWordWorldCorpus({
   if (!packResponse?.ok) throw new Error(`Could not load the Standard Word World records (${packResponse?.status || "network"}).`);
   let pack;
   let sourceVerification = null;
-  if (typeof packResponse.text === "function") {
-    const packText = await packResponse.text();
-    const integrity = await verifyRuntimePackText(packText, manifest?.contentSha256);
+  if (typeof packResponse.arrayBuffer === "function") {
+    const packBytes = new Uint8Array(await packResponse.arrayBuffer());
+    const integrity = await verifyRuntimePackBytes(packBytes, manifest?.contentSha256);
+    const packText = new TextDecoder("utf-8", { fatal: true }).decode(packBytes);
     pack = JSON.parse(packText);
     const manifestCorpusVersion = String(manifest?.corpusVersion || "").trim();
     const packCorpusVersion = String(pack?.corpusVersion || "").trim();
@@ -389,6 +442,10 @@ export async function loadStandardWordWorldCorpus({
         catalogDigest: integrity.catalogDigest
       });
     }
+  } else if (typeof packResponse.text === "function") {
+    // Text-only adapters remain playable, but decoded/re-encoded content is
+    // not trusted as an exact byte-pinned source for curriculum bindings.
+    pack = JSON.parse(await packResponse.text());
   } else {
     // Test doubles and older adapters may expose json() only.
     pack = await packResponse.json();
@@ -454,4 +511,38 @@ export function selectStandardTurn(provider, {
 export function selectStandardBoundTurn(provider, { recordId = "", source = {}, target = {} } = {}) {
   if (!(provider instanceof StandardWordWorldProvider)) throw new TypeError("A Standard Word World provider is required.");
   return provider.nextForBinding(recordId, { source, target });
+}
+
+export function requireGuidedStandardTurn(provider, resolution) {
+  if (!(provider instanceof StandardWordWorldProvider)) {
+    const error = new TypeError("A Standard Word World provider is required.");
+    error.code = "WORD_WORLD_GUIDED_PROVIDER_INVALID";
+    throw error;
+  }
+  const binding = resolution?.binding;
+  const source = resolution?.source;
+  const target = source?.snapshot?.focusTarget;
+  if (
+    binding?.activityId !== "word-world"
+    || source?.activityId !== "word-world"
+    || binding?.contentRef?.contentId !== source?.contentId
+    || typeof target?.surface !== "string"
+    || typeof target?.normalized !== "string"
+    || !Number.isInteger(target?.tokenIndex)
+  ) {
+    const error = new Error("Guided Word World requires a resolved source with one exact focus target.");
+    error.code = "WORD_WORLD_GUIDED_BINDING_INVALID";
+    throw error;
+  }
+  const selection = selectStandardBoundTurn(provider, {
+    recordId: binding.contentRef.contentId,
+    source,
+    target
+  });
+  if (!selection) {
+    const error = new Error("The verified Word World corpus does not match its Guided binding.");
+    error.code = "WORD_WORLD_GUIDED_SOURCE_DRIFT";
+    throw error;
+  }
+  return selection;
 }

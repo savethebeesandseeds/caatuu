@@ -7,6 +7,7 @@ import {
   computeBindingRegistryDigest,
   computeCanonicalContractDigest,
   computeContentDigest,
+  computeLearningTaskFingerprint,
   computeSourceCatalogDigest,
   computeTargetPackDigest,
   createLearningEvidenceEvent,
@@ -17,7 +18,9 @@ import {
   validateRuntimeBundle
 } from "../runtime/curriculum-runtime-core.mjs";
 import {
-  computeContentDigest as computeNodeContentDigest
+  computeContentDigest as computeNodeContentDigest,
+  validateLearningEvidenceEvent as validateNodeLearningEvidenceEvent,
+  validateLearningTask as validateNodeLearningTask
 } from "../src/cross-game-binding-core.mjs";
 import {
   computeCanonicalContractDigest as computeNodeCanonicalDigest,
@@ -112,14 +115,39 @@ test("the runtime resolves exact reviewed sources and semantic opportunities", a
   const word = resolveRuntimeBinding(bundle, "word-world", "ww-cp-000146");
   assert.equal(word.source.snapshot.cs, "Dědeček čte.");
   assert.equal(word.source.snapshot.targets[1].surface, "čte");
-  assert.equal(word.context.id, "cs.context.u3.read-library-current");
-  assert.equal(word.opportunity.id, "interpret-read-library-current");
-  assert.equal(word.opportunity.operation, "interpret");
+  assert.deepEqual(word.source.snapshot.focusTarget, { surface: "čte", normalized: "čte", tokenIndex: 1 });
+  assert.equal(word.context, null);
+  assert.equal(word.opportunity, null);
 
   const verb = resolveRuntimeBinding(bundle, "verb-nebula", "cs.verb.cist.read");
   assert.equal(verb.source.snapshot.cz, "číst");
   assert.equal(verb.source.snapshot.legacyLocator.pairId, "core-verb-179");
+  assert.deepEqual(
+    verb.source.snapshot.guidedContrasts.map((contrast) => contrast.conceptId),
+    ["concept.action.eat", "concept.action.drink", "concept.action.sleep"]
+  );
   assert.equal(verb.context, null);
+});
+
+test("the browser runtime rejects Guided verb contrasts outside canonical English order", async () => {
+  const { bundle, releasePins } = await fixture();
+  const changed = structuredClone(bundle);
+  const source = changed.sourceCatalog.sources.find((row) => row.activityId === "verb-nebula");
+  [source.snapshot.guidedContrasts[0], source.snapshot.guidedContrasts[1]] = [
+    source.snapshot.guidedContrasts[1],
+    source.snapshot.guidedContrasts[0]
+  ];
+  source.contentDigest = await computeContentDigest(source);
+  const binding = changed.bindingRegistry.bindings.find((row) => row.activityId === "verb-nebula");
+  binding.contentRef.contentDigest = source.contentDigest;
+  const repinned = {
+    ...releasePins,
+    sourceCatalogDigest: await computeSourceCatalogDigest(changed.sourceCatalog),
+    bindingRegistryDigest: await computeBindingRegistryDigest(changed.bindingRegistry)
+  };
+  const result = await validateRuntimeBundle(changed, repinned);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "RUNTIME_VERB_CONTRAST_SCOPE_MISMATCH"));
 });
 
 test("tasks and evidence stay immutable and bound to the selected mechanic", async () => {
@@ -152,6 +180,72 @@ test("tasks and evidence stay immutable and bound to the selected mechanic", asy
   const codes = new Set(forgedValidation.errors.map((entry) => entry.code));
   assert.ok(codes.has("TASK_FINGERPRINT_MISMATCH"));
   assert.ok(codes.has("TASK_CONTEXT_MISMATCH"));
+});
+
+test("browser task and evidence validation rejects every field the authoring contract rejects", async () => {
+  const { bundle } = await fixture();
+  const task = await issueLearningTask(bundle.bindingRegistry, {
+    taskId: "task-runtime-parity-1",
+    issuedAt: "2026-08-01T10:00:00.000Z",
+    sessionId: "session-runtime-parity",
+    taskSequence: 1,
+    bindingId: WORD_BINDING,
+    capabilityId: "independent-retrieval",
+    targetSkillId: SKILL_ID
+  });
+  for (const mutate of [
+    (changed) => { changed.untrusted = true; },
+    (changed) => { changed.registry.untrusted = true; },
+    (changed) => { changed.taskId = ""; },
+    (changed) => { changed.issuedAt = "not-a-time"; },
+    (changed) => { changed.taskSequence = 0; },
+    (changed) => {
+      changed.canonicalUnitId = bundle.curriculum.unitOrder[0];
+      changed.canonicalUnitRevision = bundle.curriculum.units.find((unit) => unit.id === changed.canonicalUnitId).revision;
+    }
+  ]) {
+    const changed = structuredClone(task);
+    mutate(changed);
+    changed.taskFingerprint = await computeLearningTaskFingerprint(changed);
+    const browserResult = await validateLearningTask(bundle.curriculum, bundle.bindingRegistry, changed);
+    const authoringResult = validateNodeLearningTask(bundle.curriculum, bundle.bindingRegistry, changed);
+    assert.equal(browserResult.valid, false);
+    assert.equal(authoringResult.valid, false);
+  }
+
+  const event = createLearningEvidenceEvent(task, {
+    eventId: "event-runtime-parity-1",
+    occurredAt: "2026-08-01T10:01:00.000Z",
+    attemptNumber: 1,
+    score: 1,
+    solutionRevealed: false,
+    hintsUsed: 0
+  });
+  for (const mutate of [
+    (changed) => { changed.untrusted = true; },
+    (changed) => { changed.registry.untrusted = true; },
+    (changed) => { changed.outcome.untrusted = true; },
+    (changed) => { changed.sessionId = ""; },
+    (changed) => { changed.occurredAt = "not-a-time"; },
+    (changed) => { changed.taskSequence = 0; }
+  ]) {
+    const changed = structuredClone(event);
+    mutate(changed);
+    const browserResult = await validateLearningEvidenceEvent(
+      bundle.curriculum,
+      bundle.bindingRegistry,
+      task,
+      changed
+    );
+    const authoringResult = validateNodeLearningEvidenceEvent(
+      bundle.curriculum,
+      bundle.bindingRegistry,
+      task,
+      changed
+    );
+    assert.equal(browserResult.valid, false);
+    assert.equal(authoringResult.valid, false);
+  }
 });
 
 test("both games aggregate honestly while exposure, reveal, and hints remain outside mastery", async () => {
@@ -187,7 +281,7 @@ test("both games aggregate honestly while exposure, reveal, and hints remain out
   assert.equal(summary.independentRetrievals, 2);
   assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
   assert.deepEqual(summary.qualifyingSessionIds, ["session-a", "session-b"]);
-  assert.deepEqual(summary.qualifyingContextIds, ["cs.context.u3.read-library-current"]);
+  assert.deepEqual(summary.qualifyingContextIds, []);
   assert.equal(summary.masteryReady, false);
   assert.ok(summary.masteryShortfalls.includes("production"));
   assert.ok(summary.masteryShortfalls.includes("transfer"));

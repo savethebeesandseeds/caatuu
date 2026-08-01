@@ -132,6 +132,21 @@ function duplicateIds(values) {
   return [...duplicates];
 }
 
+function sameOrderedValues(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function validLegacyVerbLocator(reference) {
+  const pairId = reference?.legacyLocator?.pairId;
+  const sourceIndex = reference?.legacyLocator?.sourceIndex;
+  const parsed = typeof pairId === "string" && /^core-verb-([0-9]+)$/.exec(pairId);
+  return Boolean(
+    parsed
+    && Number.isInteger(sourceIndex)
+    && Number(parsed[1]) === sourceIndex
+  );
+}
+
 function sameContentRef(left, right) {
   return left?.catalogId === right?.catalogId
     && left?.catalogRevision === right?.catalogRevision
@@ -218,6 +233,23 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
     if (!isObject(source.snapshot) || source.snapshot.id !== source.contentId) {
       report("BIND_CONTENT_ID_MISMATCH", `${path}/snapshot/id`, "Snapshot ID must equal its source content ID.", [source.contentId]);
     }
+    if (source.activityId === "word-world") {
+      const focus = source.snapshot?.focusTarget;
+      const matchingTargets = rows(source.snapshot?.targets).filter((target) => (
+        target?.playable === true
+        && target.surface === focus?.surface
+        && target.normalized === focus?.normalized
+        && target.tokenIndex === focus?.tokenIndex
+      ));
+      if (!isObject(focus) || matchingTargets.length !== 1) {
+        report(
+          "BIND_WORD_TARGET_LOCATOR_INVALID",
+          `${path}/snapshot/focusTarget`,
+          "Word World source requires one exact playable focus target.",
+          [source.contentId]
+        );
+      }
+    }
     if (source.activityId === "verb-nebula") {
       const pairId = source.snapshot?.legacyLocator?.pairId;
       const sourceIndex = source.snapshot?.legacyLocator?.sourceIndex;
@@ -231,6 +263,39 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
           || !String(source.sourceLocator?.selector || "").includes(pairId)) {
         report("BIND_LEGACY_LOCATOR_INVALID", `${path}/snapshot/legacyLocator`, "Verb source requires a stable sidecar content ID plus a consistent legacy pair/index assertion.", [source.contentId].filter(Boolean));
       }
+      const contrasts = rows(source.snapshot?.guidedContrasts);
+      if (contrasts.length !== 3) {
+        report(
+          "BIND_VERB_CONTRASTS_INVALID",
+          `${path}/snapshot/guidedContrasts`,
+          "The four-pair Guided mechanic requires exactly three reviewed contrast references.",
+          [source.contentId]
+        );
+      }
+      for (const field of ["conceptId", "targetSkillId", "id", "cz", "eng"]) {
+        const values = contrasts.map((contrast) => contrast?.[field]);
+        if (values.some((value) => !isNonEmptyString(value)) || duplicateIds(values).length) {
+          report(
+            "BIND_VERB_CONTRASTS_INVALID",
+            `${path}/snapshot/guidedContrasts`,
+            `Guided verb contrasts require unique non-empty ${field} values.`,
+            [source.contentId]
+          );
+        }
+      }
+      contrasts.forEach((contrast, contrastIndex) => {
+        if (!validLegacyVerbLocator(contrast)
+            || contrast.id === source.snapshot?.id
+            || contrast.difficulty !== source.snapshot?.difficulty
+            || contrast.difficultyIsAuthored !== true) {
+          report(
+            "BIND_VERB_CONTRASTS_INVALID",
+            `${path}/snapshot/guidedContrasts/${contrastIndex}`,
+            "Each contrast must be a distinct, authored-difficulty stable verb reference aligned to the target level.",
+            [source.contentId, contrast?.id].filter(Boolean)
+          );
+        }
+      });
     }
     let computedDigest = null;
     try {
@@ -318,6 +383,42 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
         report("BIND_SKILL_ALIGNMENT", skillPath, `Skill ${skillRef.id} is not aligned to this unit and locale.`, [binding.id, skillRef.id]);
       }
     });
+
+    if (binding.activityId === "verb-nebula" && source && unit) {
+      const unitConceptIds = rows(unit.semanticScope?.conceptIds);
+      const targetConceptIds = targetSkillRefs.flatMap((skillRef) => {
+        const skill = skillById.get(skillRef?.id);
+        return rows(skill?.canonicalIds).filter((id) => unitConceptIds.includes(id));
+      });
+      const uniqueTargetConceptIds = [...new Set(targetConceptIds)];
+      const contrasts = rows(source.snapshot?.guidedContrasts);
+      const expectedConceptIds = uniqueTargetConceptIds.length === 1
+        ? unitConceptIds.filter((id) => id !== uniqueTargetConceptIds[0]).slice(0, 3)
+        : [];
+      const actualConceptIds = contrasts.map((contrast) => contrast?.conceptId);
+      if (uniqueTargetConceptIds.length !== 1 || !sameOrderedValues(actualConceptIds, expectedConceptIds)) {
+        report(
+          "BIND_VERB_CONTRAST_SCOPE_MISMATCH",
+          `${path}/contentRef`,
+          "Guided verb contrasts must follow the English backbone's canonical concept order, excluding the assessed concept.",
+          [binding.id, ...actualConceptIds].filter(Boolean)
+        );
+      }
+      contrasts.forEach((contrast, contrastIndex) => {
+        const contrastSkill = skillById.get(contrast?.targetSkillId);
+        if (!contrastSkill
+            || contrastSkill.unitId !== binding.canonicalUnitId
+            || contrastSkill.locale !== targetPack.targetLocale
+            || !rows(contrastSkill.canonicalIds).includes(contrast?.conceptId)) {
+          report(
+            "BIND_VERB_CONTRAST_SKILL_MISMATCH",
+            `${path}/contentRef/guidedContrasts/${contrastIndex}`,
+            "Each target-language contrast must realize its declared canonical English concept in the bound unit.",
+            [binding.id, contrast?.targetSkillId, contrast?.conceptId].filter(Boolean)
+          );
+        }
+      });
+    }
 
     let boundOpportunity = null;
     if (binding.contextId === null) {

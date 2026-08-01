@@ -7,6 +7,7 @@ import {
   WordWorldUsageLedger,
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
+  requireGuidedStandardTurn,
   selectStandardBoundTurn,
   selectStandardTurn
 } from "../../../languages/czech/static/word-net-standard.mjs";
@@ -34,13 +35,18 @@ function provider({ records, random = () => 0, now = () => 1_000 } = {}) {
 }
 
 async function loadedShippedProvider() {
-  const manifest = JSON.parse(await readFile(
-    new URL("../../../languages/czech/static/data/word-world/manifest.json", import.meta.url),
-    "utf8"
-  ));
-  const packText = await readFile(
-    new URL("../../../languages/czech/static/data/word-world/standard-v0.1/records.json", import.meta.url),
-    "utf8"
+  const [manifest, sourceCatalog] = await Promise.all([
+    readFile(
+      new URL("../../../languages/czech/static/data/word-world/manifest.json", import.meta.url),
+      "utf8"
+    ).then(JSON.parse),
+    readFile(
+      new URL("../../../curriculum/data/pilot-content-sources.v1.json", import.meta.url),
+      "utf8"
+    ).then(JSON.parse)
+  ]);
+  const packBytes = await readFile(
+    new URL("../../../languages/czech/static/data/word-world/standard-v0.1/records.json", import.meta.url)
   );
   let call = 0;
   const fetchImpl = async () => {
@@ -55,18 +61,16 @@ async function loadedShippedProvider() {
         }
       : {
           ok: true,
-          async text() {
-            return packText;
+          async arrayBuffer() {
+            return Uint8Array.from(packBytes).buffer;
           }
         };
   };
   return {
     corpus: await loadStandardWordWorldCorpus({ fetchImpl }),
-    source: {
-      corpusVersion: manifest.corpusVersion,
-      catalogRevision: manifest.catalogRevision || manifest.corpusVersion,
-      catalogDigest: `sha256:${manifest.contentSha256}`
-    }
+    source: structuredClone(
+      sourceCatalog.sources.find((entry) => entry.activityId === "word-world")
+    )
   };
 }
 
@@ -177,7 +181,7 @@ test("accepts the unchanged Word World source-catalog record as a strict source 
   ));
   const source = sourceCatalog.sources.find((entry) => entry.activityId === "word-world");
   const { corpus } = await loadedShippedProvider();
-  const target = source?.snapshot?.targets?.find((entry) => entry.tokenIndex === 1);
+  const target = source?.snapshot?.focusTarget;
 
   assert.equal(source?.corpusVersion, undefined);
   assert.equal(corpus.assertVerifiedSource(source), true);
@@ -190,6 +194,45 @@ test("accepts the unchanged Word World source-catalog record as a strict source 
   assert.equal(turn?.record.id, "ww-cp-000146");
   assert.equal(turn?.target.surface, "\u010dte");
   assert.equal(turn?.target.tokenIndex, 1);
+});
+
+test("requires the digest-bound source projection to supply the Guided focus target", async () => {
+  const [sourceCatalog, bindingRegistry] = await Promise.all([
+    readFile(new URL("../../../curriculum/data/pilot-content-sources.v1.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../../../curriculum/data/cs-CZ.cross-game-bindings.v1.json", import.meta.url), "utf8").then(JSON.parse)
+  ]);
+  const source = sourceCatalog.sources.find((entry) => entry.activityId === "word-world");
+  const binding = bindingRegistry.bindings.find((entry) => entry.activityId === "word-world");
+  const { corpus } = await loadedShippedProvider();
+  const turn = requireGuidedStandardTurn(corpus, { source, binding });
+
+  assert.equal(turn.record.id, "ww-cp-000146");
+  assert.equal(turn.target.surface, "\u010dte");
+  assert.equal(turn.target.tokenIndex, 1);
+  assert.equal(turn.fallback, false);
+
+  const drifted = structuredClone(source);
+  drifted.snapshot.focusTarget.tokenIndex = 0;
+  assert.throws(
+    () => requireGuidedStandardTurn(corpus, { source: drifted, binding }),
+    { code: "WORD_WORLD_GUIDED_SOURCE_DRIFT" }
+  );
+
+  const mutations = [
+    (changed) => { changed.snapshot.focusTarget.surface = "Čte"; },
+    (changed) => { changed.snapshot.cs = "Dědeček čte doma."; },
+    (changed) => { changed.snapshot.en = "Grandpa reads."; },
+    (changed) => { changed.snapshot.difficulty = 2; },
+    (changed) => { changed.snapshot.targets[1].surface = "čtu"; }
+  ];
+  for (const mutate of mutations) {
+    const changed = structuredClone(source);
+    mutate(changed);
+    assert.throws(
+      () => requireGuidedStandardTurn(corpus, { source: changed, binding }),
+      { code: "WORD_WORLD_GUIDED_SOURCE_DRIFT" }
+    );
+  }
 });
 
 test("Guided bound selection never substitutes a record or a different target", async () => {
@@ -309,7 +352,8 @@ test("the browser Standard render path cannot call models or contaminate the gen
   const standardPath = runtimeSource.slice(start, end);
   assert.doesNotMatch(standardPath, /models\.generate|requestEnglishTranslation|enrichCurrentPhrase/);
   assert.doesNotMatch(standardPath, /branchQueue|rememberPreparedCandidate/);
-  assert.match(standardPath, /const sceneReady = updateSceneAsset\(record\.sceneQuery \|\| record\.en\)/);
+  assert.match(standardPath, /const sceneReady = guidedLifecycle[\s\S]*?: updateSceneAsset\(record\.sceneQuery \|\| record\.en\)/);
+  assert.match(standardPath, /guidedLifecycle[\s\S]*?hideSceneAsset/, "clean Guided retrieval must not leak a semantic scene clue");
   assert.match(
     standardPath,
     /await Promise\.all\(\[holdSentenceTransition\(transitionStartedAt\), sceneReady\]\)/,
@@ -448,10 +492,46 @@ test("stable-ID selection remains behind the runtime pack integrity check", asyn
     }
     return {
       ok: true,
-      async text() {
-        return packText;
+      async arrayBuffer() {
+        return new TextEncoder().encode(packText).buffer;
       }
     };
+  };
+
+  await assert.rejects(
+    loadStandardWordWorldCorpus({ fetchImpl }),
+    /failed their integrity check/
+  );
+});
+
+test("runtime integrity rejects a BOM-prefixed byte mutation", async () => {
+  const manifest = JSON.parse(await readFile(
+    new URL("../../../languages/czech/static/data/word-world/manifest.json", import.meta.url),
+    "utf8"
+  ));
+  const cleanBytes = await readFile(
+    new URL("../../../languages/czech/static/data/word-world/standard-v0.1/records.json", import.meta.url)
+  );
+  const bomPrefixed = new Uint8Array(cleanBytes.length + 3);
+  bomPrefixed.set([0xef, 0xbb, 0xbf]);
+  bomPrefixed.set(cleanBytes, 3);
+  let call = 0;
+  const fetchImpl = async () => {
+    call += 1;
+    return call === 1
+      ? {
+          ok: true,
+          url: "https://example.test/cz/data/word-world/manifest.json",
+          async json() {
+            return manifest;
+          }
+        }
+      : {
+          ok: true,
+          async arrayBuffer() {
+            return bomPrefixed.buffer;
+          }
+        };
   };
 
   await assert.rejects(

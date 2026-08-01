@@ -739,6 +739,11 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
   color: var(--theme-green-strong, #1c4a40);
 }
 
+.cz-word-token.is-curriculum-focus {
+  border-color: color-mix(in srgb, var(--theme-amber, #c47a22) 72%, var(--theme-line, #cfd8d1));
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--theme-amber, #c47a22) 58%, transparent);
+}
+
 html[data-theme="dark"] .cz-word-token {
   border-color: color-mix(in srgb, var(--theme-line) 48%, transparent);
   background: color-mix(in srgb, var(--theme-soft-green) 10%, transparent);
@@ -750,6 +755,11 @@ html[data-theme="dark"] .cz-word-token.is-selected {
   border-color: color-mix(in srgb, var(--theme-green) 20%, var(--theme-line));
   background: color-mix(in srgb, var(--theme-green) 5%, var(--theme-panel));
   color: color-mix(in srgb, var(--theme-ink) 90%, var(--theme-green) 10%);
+}
+
+html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
+  border-color: color-mix(in srgb, var(--theme-amber) 62%, var(--theme-line));
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--theme-amber) 48%, transparent);
 }
 
 .cz-word-token:disabled {
@@ -1472,6 +1482,44 @@ html[data-theme="dark"] .word-net-report-toggle {
   color: var(--theme-muted, #5d6b65);
   font-size: 0.82rem;
   line-height: 1.35;
+}
+
+.word-net-guided-status {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 7px 14px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-amber) 58%, var(--theme-line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--theme-amber) 12%, var(--theme-panel));
+  color: var(--theme-ink);
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.word-net-guided-status[hidden] {
+  display: none;
+}
+
+.word-net-guided-status strong {
+  font-size: 0.74rem;
+  letter-spacing: 0.025em;
+}
+
+.word-net-guided-status span {
+  color: var(--theme-muted);
+  font-weight: 700;
+}
+
+.word-net-guided-status.is-supported {
+  border-color: color-mix(in srgb, var(--theme-amber) 82%, var(--theme-line));
+}
+
+.word-net-guided-status.is-error {
+  border-color: color-mix(in srgb, var(--theme-red) 68%, var(--theme-line));
+  background: color-mix(in srgb, var(--theme-red) 10%, var(--theme-panel));
 }
 
 .word-net-instructions {

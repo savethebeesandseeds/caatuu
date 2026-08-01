@@ -13,6 +13,7 @@ import { computeCurriculumProgression } from "./curriculum-planner-core.mjs";
 const STORAGE_VERSION = 1;
 const MAX_STORED_TASKS = 2000;
 const MAX_STORED_EVENTS = 4000;
+const MAX_STORED_DEVELOPER_PILOT_CLAIMS = 256;
 
 function isObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -49,7 +50,8 @@ export function createCurriculumService({
   sessionStorage = globalThis.sessionStorage,
   location = globalThis.location,
   now = () => new Date().toISOString(),
-  uuid = defaultUuid
+  uuid = defaultUuid,
+  lockManager = globalThis.navigator?.locks
 } = {}) {
   const configuration = courseProfile?.curriculum;
   if (!isObject(configuration)) throw new CurriculumServiceError("CURRICULUM_CONFIG_MISSING", "Course profile requires a curriculum configuration.");
@@ -59,6 +61,7 @@ export function createCurriculumService({
   const namespace = String(courseProfile?.storage?.namespace || courseProfile?.id || "caatuu");
   const tasksKey = `${namespace}.curriculum.tasks.v${STORAGE_VERSION}`;
   const eventsKey = `${namespace}.curriculum.events.v${STORAGE_VERSION}`;
+  const developerPilotClaimsKey = `${namespace}.curriculum.developer-pilot-claims.v${STORAGE_VERSION}`;
   const sessionKey = `${namespace}.curriculum.session.v${STORAGE_VERSION}`;
   const paths = configuration.paths;
   const requiredPaths = ["canonicalManifest", "realizationPack", "sourceCatalog", "bindingRegistry"];
@@ -90,6 +93,31 @@ export function createCurriculumService({
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  function readDeveloperPilotClaims() {
+    const claims = readStoredArray(developerPilotClaimsKey);
+    for (const claim of claims) {
+      if (
+        !isObject(claim)
+        || typeof claim.bindingId !== "string"
+        || !claim.bindingId
+        || typeof claim.targetSkillId !== "string"
+        || !claim.targetSkillId
+        || typeof claim.capabilityId !== "string"
+        || !claim.capabilityId
+        || typeof claim.claimedAt !== "string"
+        || !Number.isFinite(Date.parse(claim.claimedAt))
+        || typeof claim.sessionId !== "string"
+        || !claim.sessionId
+      ) {
+        throw new CurriculumServiceError(
+          "CURRICULUM_STORAGE_CORRUPT",
+          `Stored developer pilot claim data at ${developerPilotClaimsKey} is invalid.`
+        );
+      }
+    }
+    return claims;
+  }
+
   function currentSessionId() {
     let sessionId = sessionStorage.getItem(sessionKey);
     if (!sessionId) {
@@ -117,7 +145,7 @@ export function createCurriculumService({
   }
 
   async function fetchJson(path, label) {
-    const response = await fetchImpl(path, { cache: "no-store", headers: { accept: "application/json" } });
+    const response = await fetchImpl(path, { cache: "reload", headers: { accept: "application/json" } });
     if (!response?.ok) throw new CurriculumServiceError("CURRICULUM_ASSET_UNAVAILABLE", `${label} failed to load from ${path} (${response?.status || "no response"}).`);
     try {
       return await response.json();
@@ -142,7 +170,9 @@ export function createCurriculumService({
       }
       bundle = loaded;
       validation = result;
-      await aggregateLearningEvidence(curriculum, bindingRegistry, readStoredArray(tasksKey), readStoredArray(eventsKey));
+      readDeveloperPilotClaims();
+      const ledger = await readCurriculumLedgerSnapshot();
+      await aggregateLearningEvidence(curriculum, bindingRegistry, ledger.tasks, ledger.events);
       status = "ready";
       return {
         status,
@@ -175,7 +205,39 @@ export function createCurriculumService({
     return resolveRuntimeBinding(bundle, activityId, stableContentId);
   }
 
-  async function issueTask(bindingId, capabilityId, { targetSkillId } = {}) {
+  function withCurriculumLedgerLock(callback) {
+    if (typeof lockManager?.request !== "function") {
+      throw new CurriculumServiceError(
+        "CURRICULUM_LEDGER_LOCK_UNAVAILABLE",
+        "Curriculum task and evidence writes require a cross-context Web Lock."
+      );
+    }
+    return lockManager.request(
+      `${namespace}.curriculum.ledger.v${STORAGE_VERSION}`,
+      { mode: "exclusive" },
+      (lock) => {
+        if (!lock) {
+          throw new CurriculumServiceError(
+            "CURRICULUM_LEDGER_LOCK_UNAVAILABLE",
+            "Curriculum ledger lock was not acquired."
+          );
+        }
+        return callback();
+      }
+    );
+  }
+
+  function readCurriculumLedgerSnapshot() {
+    return withCurriculumLedgerLock(() => Object.freeze({
+      tasks: readStoredArray(tasksKey),
+      events: readStoredArray(eventsKey)
+    }));
+  }
+
+  async function issueTaskUnlocked(bindingId, capabilityId, {
+    targetSkillId,
+    requirePresented
+  } = {}) {
     await requireReady();
     if (!guidedModeEnabled()) throw new CurriculumServiceError("CURRICULUM_GUIDED_MODE_DISABLED", "Curriculum tasks are available only in explicitly enabled developer Guided mode.");
     const sessionId = currentSessionId();
@@ -194,13 +256,23 @@ export function createCurriculumService({
     const existing = tasks.find((row) => row?.taskId === task.taskId);
     if (existing && canonicalJson(existing) !== canonicalJson(task)) throw new CurriculumServiceError("TASK_ID_CONFLICT", `Task ID ${task.taskId} already has a different payload.`);
     if (!existing) {
+      if (!developerPilotIsPresented(requirePresented)) {
+        throw new CurriculumServiceError(
+          "CURRICULUM_DEVELOPER_PILOT_PRESENTATION_LOST",
+          "Developer pilot presentation was lost before retrieval persistence."
+        );
+      }
       tasks.push(task);
       writeStoredArray(tasksKey, tasks, MAX_STORED_TASKS);
     }
     return clone(task);
   }
 
-  async function recordEvidence(task, {
+  function issueTask(bindingId, capabilityId, options = {}) {
+    return withCurriculumLedgerLock(() => issueTaskUnlocked(bindingId, capabilityId, options));
+  }
+
+  async function recordEvidenceUnlocked(task, {
     attemptNumber = 1,
     score,
     solutionRevealed = false,
@@ -238,18 +310,331 @@ export function createCurriculumService({
     };
   }
 
-  async function recordExposure(bindingId, { targetSkillId } = {}) {
-    const task = await issueTask(bindingId, "exposure", { targetSkillId });
-    return recordEvidence(task, { score: null, solutionRevealed: false, hintsUsed: 0 });
+  function recordEvidence(task, options = {}) {
+    return withCurriculumLedgerLock(() => recordEvidenceUnlocked(task, options));
   }
 
-  async function beginOpportunity(activityId, stableContentId, {
+  function recordExposure(bindingId, { targetSkillId } = {}) {
+    return withCurriculumLedgerLock(async () => {
+      const task = await issueTaskUnlocked(bindingId, "exposure", { targetSkillId });
+      return recordEvidenceUnlocked(task, { score: null, solutionRevealed: false, hintsUsed: 0 });
+    });
+  }
+
+  function requireDeveloperPilotLockManager() {
+    if (typeof lockManager?.request !== "function") {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_LOCK_UNAVAILABLE",
+        "Developer pilot claims require a cross-context Web Lock and fail closed without one."
+      );
+    }
+  }
+
+  function acquireDeveloperPilotLease(name) {
+    return new Promise((resolve, reject) => {
+      let callbackStarted = false;
+      let released = false;
+      let releaseHold;
+      const hold = new Promise((release) => {
+        releaseHold = release;
+      });
+      let request;
+      try {
+        request = lockManager.request(name, { mode: "exclusive", ifAvailable: true }, async (lock) => {
+          callbackStarted = true;
+          if (!lock) {
+            resolve(null);
+            return;
+          }
+          resolve(Object.freeze({
+            release() {
+              if (!released) {
+                released = true;
+                releaseHold();
+              }
+              return Promise.resolve(request).then(() => undefined);
+            }
+          }));
+          await hold;
+        });
+      } catch (cause) {
+        reject(cause);
+        return;
+      }
+      Promise.resolve(request).catch((cause) => {
+        if (!callbackStarted) reject(cause);
+      });
+    });
+  }
+
+  function developerPilotIsPresented(requirePresented) {
+    if (requirePresented === undefined) return true;
+    if (typeof requirePresented !== "function") {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_PRESENTATION_INVALID",
+        "Developer pilot presentation guard must be a function."
+      );
+    }
+    try {
+      return requirePresented() === true;
+    } catch (cause) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_PRESENTATION_FAILED",
+        "Developer pilot presentation guard failed.",
+        [cause?.message || String(cause)]
+      );
+    }
+  }
+
+  function developerPilotClaimTime() {
+    const claimedAt = now();
+    if (typeof claimedAt !== "string" || !Number.isFinite(Date.parse(claimedAt))) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_TIME_INVALID",
+        "Developer pilot claim time must be an ISO timestamp."
+      );
+    }
+    return claimedAt;
+  }
+
+  async function performDeveloperPilotClaim(bindingId, {
+    targetSkillId,
     capabilityId = "independent-retrieval",
-    targetSkillId
+    requirePresented
+  } = {}) {
+    await requireReady();
+    if (!guidedModeEnabled()) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_GUIDED_MODE_DISABLED",
+        "Developer pilot claims are available only in explicitly enabled developer Guided mode."
+      );
+    }
+
+    const requestedBindingId = String(bindingId || "").trim();
+    const binding = bundle.bindingRegistry.bindings.find((row) => row?.id === requestedBindingId);
+    if (!binding) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_BINDING_UNKNOWN",
+        `Unknown developer pilot binding ${requestedBindingId || "(empty)"}.`
+      );
+    }
+    const requestedSkillId = String(targetSkillId || "").trim();
+    const skillRef = requestedSkillId
+      ? binding.targetSkillRefs.find((row) => row?.id === requestedSkillId)
+      : null;
+    if (!skillRef) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_SKILL_MISMATCH",
+        `Binding ${binding.id} does not supply developer pilot skill ${requestedSkillId || "(empty)"}.`
+      );
+    }
+    const requestedCapabilityId = String(capabilityId || "").trim();
+    const capability = binding.evidenceCapabilities.find((row) => row?.id === requestedCapabilityId);
+    if (!capability || capability.evidenceKind !== "retrieval" || capability.scoreRequired !== true) {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_CAPABILITY_MISMATCH",
+        `Binding ${binding.id} does not supply scored retrieval capability ${requestedCapabilityId || "(empty)"}.`
+      );
+    }
+    if (requirePresented !== undefined && typeof requirePresented !== "function") {
+      throw new CurriculumServiceError(
+        "CURRICULUM_DEVELOPER_PILOT_PRESENTATION_INVALID",
+        "Developer pilot presentation guard must be a function."
+      );
+    }
+    requireDeveloperPilotLockManager();
+
+    const pairLockName = `${namespace}.curriculum.developer-pilot.${binding.id}.${skillRef.id}`;
+    const lease = await acquireDeveloperPilotLease(pairLockName);
+    if (!lease) {
+      return Object.freeze({
+        status: "blocked",
+        claimed: false,
+        reason: "active-elsewhere",
+        bindingId: binding.id,
+        targetSkillId: skillRef.id,
+        priorTaskIds: Object.freeze([]),
+        closedTaskIds: Object.freeze([])
+      });
+    }
+
+    try {
+      const result = await withCurriculumLedgerLock(
+        async () => {
+          const tasks = readStoredArray(tasksKey);
+          const events = readStoredArray(eventsKey);
+          const claims = readDeveloperPilotClaims();
+          const priorTasks = tasks.filter((task) => (
+            task?.bindingId === binding.id && task?.targetSkillId === skillRef.id
+          ));
+          const existingClaim = claims.find((claim) => (
+            claim.bindingId === binding.id && claim.targetSkillId === skillRef.id
+          ));
+          if (!developerPilotIsPresented(requirePresented)) {
+            return Object.freeze({
+              status: "deferred",
+              claimed: false,
+              reason: "not-presented",
+              bindingId: binding.id,
+              targetSkillId: skillRef.id,
+              priorTaskIds: Object.freeze(priorTasks.map((task) => task.taskId)),
+              closedTaskIds: Object.freeze([])
+            });
+          }
+
+          if (existingClaim || priorTasks.length) {
+            if (!existingClaim) {
+              claims.push({
+                bindingId: binding.id,
+                targetSkillId: skillRef.id,
+                capabilityId: capability.id,
+                claimedAt: developerPilotClaimTime(),
+                sessionId: currentSessionId()
+              });
+              writeStoredArray(developerPilotClaimsKey, claims, MAX_STORED_DEVELOPER_PILOT_CLAIMS);
+            }
+            const evidencedTaskIds = new Set(events.map((event) => event?.taskId).filter(Boolean));
+            const openTasks = priorTasks.filter((task) => (
+              !evidencedTaskIds.has(task.taskId)
+              && ["exposure", "retrieval"].includes(task.evidenceKind)
+            ));
+            const closedTaskIds = [];
+            for (const task of openTasks) {
+              const taskCapability = binding.evidenceCapabilities.find((row) => row?.id === task.capabilityId);
+              if (!taskCapability) {
+                throw new CurriculumServiceError(
+                  "CURRICULUM_DEVELOPER_PILOT_TASK_INVALID",
+                  `Open developer pilot task ${task.taskId} has no current capability.`
+                );
+              }
+              const closure = await recordEvidenceUnlocked(task, {
+                attemptNumber: 1,
+                score: taskCapability.scoreRequired ? 0 : null,
+                solutionRevealed: true,
+                hintsUsed: 0,
+                // A task-local timestamp keeps racing recovery attempts byte-identical.
+                occurredAt: task.issuedAt
+              });
+              if (closure.qualifiesForMastery) {
+                throw new CurriculumServiceError(
+                  "CURRICULUM_DEVELOPER_PILOT_CLOSE_QUALIFIED",
+                  `Conservative closure of developer pilot task ${task.taskId} unexpectedly qualified for mastery.`
+                );
+              }
+              closedTaskIds.push(task.taskId);
+            }
+            return Object.freeze({
+              status: "blocked",
+              claimed: false,
+              reason: existingClaim ? "prior-claim" : "prior-task",
+              bindingId: binding.id,
+              targetSkillId: skillRef.id,
+              priorTaskIds: Object.freeze(priorTasks.map((task) => task.taskId)),
+              closedTaskIds: Object.freeze(closedTaskIds)
+            });
+          }
+
+          const claimedAt = developerPilotClaimTime();
+          // This marker is the crash-safe claim. It is written before either
+          // task, so a reload cannot obtain a clean pilot after a partial write.
+          claims.push({
+            bindingId: binding.id,
+            targetSkillId: skillRef.id,
+            capabilityId: capability.id,
+            claimedAt,
+            sessionId: currentSessionId()
+          });
+          writeStoredArray(developerPilotClaimsKey, claims, MAX_STORED_DEVELOPER_PILOT_CLAIMS);
+          const exposureTask = await issueTaskUnlocked(binding.id, "exposure", { targetSkillId: skillRef.id });
+          const exposure = await recordEvidenceUnlocked(exposureTask, {
+            attemptNumber: 1,
+            score: null,
+            solutionRevealed: false,
+            hintsUsed: 0
+          });
+          if (!developerPilotIsPresented(requirePresented)) {
+            return Object.freeze({
+              status: "blocked",
+              claimed: false,
+              reason: "presentation-lost-after-exposure",
+              bindingId: binding.id,
+              targetSkillId: skillRef.id,
+              priorTaskIds: Object.freeze([exposureTask.taskId]),
+              closedTaskIds: Object.freeze([])
+            });
+          }
+          let opportunity;
+          try {
+            opportunity = await beginOpportunityUnlocked(binding.activityId, binding.contentRef.contentId, {
+              capabilityId: capability.id,
+              targetSkillId: skillRef.id,
+              requirePresented
+            });
+          } catch (cause) {
+            if (cause?.code === "CURRICULUM_DEVELOPER_PILOT_PRESENTATION_LOST") {
+              return Object.freeze({
+                status: "blocked",
+                claimed: false,
+                reason: "presentation-lost-after-exposure",
+                bindingId: binding.id,
+                targetSkillId: skillRef.id,
+                priorTaskIds: Object.freeze([exposureTask.taskId]),
+                closedTaskIds: Object.freeze([])
+              });
+            }
+            throw cause;
+          }
+          if (
+            opportunity.task?.bindingId !== binding.id
+            || opportunity.task?.targetSkillId !== skillRef.id
+            || opportunity.task?.capabilityId !== capability.id
+          ) {
+            throw new CurriculumServiceError(
+              "CURRICULUM_DEVELOPER_PILOT_TASK_MISMATCH",
+              "Developer pilot retrieval task differs from its claimed binding, skill, or capability."
+            );
+          }
+          return Object.freeze({
+            status: "claimed",
+            claimed: true,
+            reason: null,
+            bindingId: binding.id,
+            targetSkillId: skillRef.id,
+            capabilityId: capability.id,
+            exposure: Object.freeze({
+              task: clone(exposureTask),
+              event: clone(exposure.event)
+            }),
+            opportunity
+          });
+        }
+      );
+      if (result.status !== "claimed") await lease.release();
+      if (result.status === "claimed") {
+        return Object.freeze({ ...result, release: lease.release });
+      }
+      return result;
+    } catch (cause) {
+      await lease.release();
+      throw cause;
+    }
+  }
+
+  function claimDeveloperPilot(bindingId, options = {}) {
+    return performDeveloperPilotClaim(bindingId, options);
+  }
+
+  async function beginOpportunityUnlocked(activityId, stableContentId, {
+    capabilityId = "independent-retrieval",
+    targetSkillId,
+    requirePresented
   } = {}) {
     await requireReady();
     const resolution = resolveRuntimeBinding(bundle, activityId, stableContentId);
-    const task = await issueTask(resolution.binding.id, capabilityId, { targetSkillId });
+    const task = await issueTaskUnlocked(resolution.binding.id, capabilityId, {
+      targetSkillId,
+      requirePresented
+    });
     let hintsUsed = 0;
     let solutionRevealed = false;
     let responseSignature = null;
@@ -275,6 +660,7 @@ export function createCurriculumService({
     }
 
     function markSolutionRevealed() {
+      ensureOpen("mark a solution reveal");
       solutionRevealed = true;
       return state();
     }
@@ -346,13 +732,18 @@ export function createCurriculumService({
     });
   }
 
+  function beginOpportunity(activityId, stableContentId, options = {}) {
+    return withCurriculumLedgerLock(() => beginOpportunityUnlocked(activityId, stableContentId, options));
+  }
+
   async function skillSummary(targetSkillId) {
     await requireReady();
+    const ledger = await readCurriculumLedgerSnapshot();
     const summaries = await aggregateLearningEvidence(
       bundle.curriculum,
       bundle.bindingRegistry,
-      readStoredArray(tasksKey),
-      readStoredArray(eventsKey)
+      ledger.tasks,
+      ledger.events
     );
     return clone(summaries.find((row) => row.targetSkillId === targetSkillId) || null);
   }
@@ -360,12 +751,13 @@ export function createCurriculumService({
   async function progression() {
     await requireReady();
     const sessionId = currentSessionId();
+    const ledger = await readCurriculumLedgerSnapshot();
     return clone(await computeCurriculumProgression({
       curriculum: bundle.curriculum,
       targetPack: bundle.targetPack,
       bindingRegistry: bundle.bindingRegistry,
-      tasks: readStoredArray(tasksKey),
-      events: readStoredArray(eventsKey),
+      tasks: ledger.tasks,
+      events: ledger.events,
       currentSession: {
         id: sessionId,
         taskSequence: nextTaskSequence(sessionId)
@@ -384,7 +776,8 @@ export function createCurriculumService({
       failure: failure ? { code: failure.code, message: failure.message, details: clone(failure.details) } : null,
       validation: validation ? clone(validation) : null,
       storedTaskCount: (() => { try { return readStoredArray(tasksKey).length; } catch { return null; } })(),
-      storedEventCount: (() => { try { return readStoredArray(eventsKey).length; } catch { return null; } })()
+      storedEventCount: (() => { try { return readStoredArray(eventsKey).length; } catch { return null; } })(),
+      storedDeveloperPilotClaimCount: (() => { try { return readDeveloperPilotClaims().length; } catch { return null; } })()
     };
   }
 
@@ -396,6 +789,7 @@ export function createCurriculumService({
     beginOpportunity,
     recordEvidence,
     recordExposure,
+    claimDeveloperPilot,
     skillSummary,
     progression,
     nextRequest,

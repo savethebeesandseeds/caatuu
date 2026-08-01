@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-content-source-catalog-v1",
   "catalogId": "caatuu.cs-CZ.cross-game-pilot-sources",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "targetLocale": "cs-CZ",
   "sources": [
     {
@@ -10,9 +10,9 @@
       "catalogRevision": "standard-v0.1",
       "catalogDigest": "sha256:01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
       "contentId": "ww-cp-000146",
-      "revision": 1,
+      "revision": 2,
       "projectionVersion": "caatuu-game-content-binding-v1",
-      "contentDigest": "sha256:470815532678440da2301606493aeec33e63973a6ced5631d3a1700ba7712a64",
+      "contentDigest": "sha256:6a264e969c1f9e512b578cb03cea5be366e2bc616688340afb98750c61c10c63",
       "sourceLocator": {
         "path": "apps/languages/czech/static/data/word-world/standard-v0.1/records.json",
         "selector": "records[id=ww-cp-000146]",
@@ -29,6 +29,7 @@
           {"surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true},
           {"surface": "čte", "normalized": "čte", "tokenIndex": 1, "playable": true}
         ],
+        "focusTarget": {"surface": "čte", "normalized": "čte", "tokenIndex": 1},
         "learning": {
           "objective": "talk about people",
           "skillFocus": ["be present", "short formula"],
@@ -48,9 +49,9 @@
       "catalogRevision": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
       "catalogDigest": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
       "contentId": "cs.verb.cist.read",
-      "revision": 1,
+      "revision": 2,
       "projectionVersion": "caatuu-game-content-binding-v1",
-      "contentDigest": "sha256:1e43fb32a2cd8ebf00aeba5d837d5aa24db784eaf895eb8b7b8aa44d3140e3ab",
+      "contentDigest": "sha256:90c58824d0e310b8bedec78140bced958b6481323b71318e71f99822d16a6881",
       "sourceLocator": {
         "path": "apps/languages/czech/static/data/dictionary.json",
         "selector": "row[179] -> pairId=core-verb-179",
@@ -65,7 +66,48 @@
         "legacyLocator": {
           "pairId": "core-verb-179",
           "sourceIndex": 179
-        }
+        },
+        "guidedContrasts": [
+          {
+            "conceptId": "concept.action.eat",
+            "targetSkillId": "cs.skill.sense.jist.eat",
+            "id": "cs.verb.jist.eat",
+            "cz": "jíst",
+            "eng": "eat",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-202",
+              "sourceIndex": 202
+            }
+          },
+          {
+            "conceptId": "concept.action.drink",
+            "targetSkillId": "cs.skill.sense.pit.drink",
+            "id": "cs.verb.pit.drink",
+            "cz": "pít",
+            "eng": "drink",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-203",
+              "sourceIndex": 203
+            }
+          },
+          {
+            "conceptId": "concept.action.sleep",
+            "targetSkillId": "cs.skill.sense.spat.sleep",
+            "id": "cs.verb.spat.sleep",
+            "cz": "spát",
+            "eng": "sleep",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-157",
+              "sourceIndex": 157
+            }
+          }
+        ]
       }
     }
   ]

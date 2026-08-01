@@ -27,6 +27,8 @@ const [
   runtimePlanner,
   sourceService,
   runtimeService,
+  sourceGuidedOpportunity,
+  runtimeGuidedOpportunity,
   curriculum,
   targetPack,
   sourceCatalog,
@@ -43,6 +45,8 @@ const [
   readFile(new URL("curriculum/curriculum-planner-core.mjs", staticRoot), "utf8"),
   readFile(new URL("runtime/curriculum-service.mjs", curriculumRoot), "utf8"),
   readFile(new URL("curriculum/curriculum-service.mjs", staticRoot), "utf8"),
+  readFile(new URL("runtime/guided-opportunity.mjs", curriculumRoot), "utf8"),
+  readFile(new URL("curriculum/guided-opportunity.mjs", staticRoot), "utf8"),
   readFile(new URL("canonical-curriculum.v1.en.json", runtimeDataRoot), "utf8").then(JSON.parse),
   readFile(new URL("cs-CZ.realization-pack.v1.json", runtimeDataRoot), "utf8").then(JSON.parse),
   readFile(new URL("pilot-content-sources.v1.json", runtimeDataRoot), "utf8").then(JSON.parse),
@@ -57,6 +61,7 @@ test("runtime curriculum copies are byte-identical to their authoritative compon
   assert.equal(runtimeCore, sourceCore);
   assert.equal(runtimePlanner, sourcePlanner);
   assert.equal(runtimeService, sourceService);
+  assert.equal(runtimeGuidedOpportunity, sourceGuidedOpportunity);
 });
 
 test("the immutable course profile pins every runtime authority and keeps release disabled", async () => {
@@ -81,13 +86,13 @@ test("the immutable course profile pins every runtime authority and keeps releas
 
 test("only game pages install the synchronous curriculum facade in dependency order", () => {
   for (const [name, source, gameScript] of [
-    ["index.html", indexHtml, 'src="app.js?v=shell-73"'],
-    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-67"']
+    ["index.html", indexHtml, 'src="app.js?v=shell-75"'],
+    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-69"']
   ]) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-7"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-8"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-34"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const curriculumIndex = source.indexOf('src="curriculum-service.js?v=curriculum-service-3"');
+    const curriculumIndex = source.indexOf('src="curriculum-service.js?v=curriculum-service-4"');
     const gameIndex = source.indexOf(gameScript);
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(runtimeIndex > courseIndex, `${name} must load runtime after the profile`);
@@ -96,18 +101,19 @@ test("only game pages install the synchronous curriculum facade in dependency or
     assert.ok(gameIndex > curriculumIndex, `${name} game code must load after the curriculum facade`);
   }
   assert.match(facadeSource, /window\.CaatuuCurriculum = Object\.freeze/);
-  for (const method of ["ready", "resolveBinding", "issueTask", "beginOpportunity", "recordEvidence", "recordExposure", "skillSummary", "progression", "nextRequest"]) {
+  for (const method of ["ready", "resolveBinding", "issueTask", "beginOpportunity", "recordEvidence", "recordExposure", "claimDeveloperPilot", "skillSummary", "progression", "nextRequest"]) {
     assert.match(facadeSource, new RegExp(`${method}:`), `facade must expose ${method}`);
   }
 });
 
 test("the service worker makes every pinned curriculum asset available offline", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v378/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v380/);
   for (const asset of [
-    "curriculum-service.js?v=curriculum-service-3",
-    "curriculum/curriculum-service.mjs?v=curriculum-service-3",
+    "curriculum-service.js?v=curriculum-service-4",
+    "curriculum/curriculum-service.mjs?v=curriculum-service-4",
     "curriculum/curriculum-runtime-core.mjs",
     "curriculum/curriculum-planner-core.mjs",
+    "curriculum/guided-opportunity.mjs?v=guided-opportunity-2",
     "data/curriculum/canonical-curriculum.v1.en.json",
     "data/curriculum/cs-CZ.realization-pack.v1.json",
     "data/curriculum/pilot-content-sources.v1.json",
@@ -115,4 +121,7 @@ test("the service worker makes every pinned curriculum asset available offline",
   ]) {
     assert.ok(serviceWorker.includes(`"./${asset}"`), `service worker must precache ${asset}`);
   }
+  assert.match(sourceService, /fetchImpl\(path, \{ cache: "reload"/);
+  assert.doesNotMatch(sourceService, /fetchImpl\(path, \{ cache: "no-store"/);
+  assert.match(serviceWorker, /request\.cache === "reload"[\s\S]*?networkThenCache\(request\)/);
 });

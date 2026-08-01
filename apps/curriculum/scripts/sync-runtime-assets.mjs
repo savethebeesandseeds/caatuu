@@ -16,7 +16,8 @@ const runtimeAssets = [
   ...[
     "curriculum-runtime-core.mjs",
     "curriculum-planner-core.mjs",
-    "curriculum-service.mjs"
+    "curriculum-service.mjs",
+    "guided-opportunity.mjs"
   ].map((name) => ({ name, sourceBase: curriculumRuntimeUrl, destinationBase: runtimeModuleUrl }))
 ];
 

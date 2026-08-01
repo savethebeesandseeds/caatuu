@@ -107,33 +107,46 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
   const verb = catalog.sources.find((source) => source.contentId === "cs.verb.cist.read");
   assert.equal(word.snapshot.cs, "Dědeček čte.");
   assert.equal(word.snapshot.en, "Grandpa is reading.");
+  assert.deepEqual(word.snapshot.focusTarget, { surface: "čte", normalized: "čte", tokenIndex: 1 });
   assert.equal(verb.snapshot.id, "cs.verb.cist.read");
   assert.equal(verb.snapshot.cz, "číst");
   assert.equal(verb.snapshot.eng, "read");
   assert.deepEqual(verb.snapshot.legacyLocator, { pairId: "core-verb-179", sourceIndex: 179 });
+  assert.deepEqual(
+    verb.snapshot.guidedContrasts.map((contrast) => ({
+      conceptId: contrast.conceptId,
+      targetSkillId: contrast.targetSkillId,
+      id: contrast.id,
+      cz: contrast.cz,
+      eng: contrast.eng,
+      legacyLocator: contrast.legacyLocator
+    })),
+    [
+      { conceptId: "concept.action.eat", targetSkillId: "cs.skill.sense.jist.eat", id: "cs.verb.jist.eat", cz: "jíst", eng: "eat", legacyLocator: { pairId: "core-verb-202", sourceIndex: 202 } },
+      { conceptId: "concept.action.drink", targetSkillId: "cs.skill.sense.pit.drink", id: "cs.verb.pit.drink", cz: "pít", eng: "drink", legacyLocator: { pairId: "core-verb-203", sourceIndex: 203 } },
+      { conceptId: "concept.action.sleep", targetSkillId: "cs.skill.sense.spat.sleep", id: "cs.verb.spat.sleep", cz: "spát", eng: "sleep", legacyLocator: { pairId: "core-verb-157", sourceIndex: 157 } }
+    ]
+  );
   assert.equal(computeContentDigest(word), word.contentDigest);
   assert.equal(computeContentDigest(verb), verb.contentDigest);
 
   const wordBinding = registry.bindings.find((binding) => binding.id === WORD_BINDING);
   const verbBinding = registry.bindings.find((binding) => binding.id === VERB_BINDING);
-  assert.equal(wordBinding.contextId, "cs.context.u3.read-library-current");
-  assert.equal(wordBinding.contextRevision, 1);
-  assert.equal(wordBinding.opportunityId, "interpret-read-library-current");
+  assert.equal(wordBinding.contextId, null);
+  assert.equal(wordBinding.contextRevision, null);
+  assert.equal(wordBinding.opportunityId, null);
   assert.equal(verbBinding.contextId, null);
   assert.equal(verbBinding.opportunityId, null);
 
-  const context = pack.contexts.find((row) => row.id === wordBinding.contextId);
-  const opportunity = context.opportunities.find((row) => row.id === wordBinding.opportunityId);
-  const evidenceUtterances = [...opportunity.stimulusUtteranceIds, ...opportunity.expectedUtteranceIds]
-    .map((id) => pack.utterances.find((row) => row.id === id));
-  assert.ok(evidenceUtterances.some((utterance) => utterance.text === word.snapshot.cs));
-  assert.equal(opportunity.operation, "interpret");
+  assert.equal(pack.contexts.some((row) => row.id === wordBinding.contextId), false);
 });
 
 test("a bound opportunity cannot authorize the wrong evidence modality", async () => {
   const { curriculum, pack, catalog, registry } = await fixtures();
   const invalid = structuredClone(registry);
   const binding = invalid.bindings.find((row) => row.id === WORD_BINDING);
+  binding.contextId = "cs.context.u3.read-library-current";
+  binding.contextRevision = 1;
   binding.opportunityId = "read-library-current";
 
   const result = validateCrossGameBindings(curriculum, pack, catalog, invalid);
@@ -150,7 +163,7 @@ test("content revisions, digests, and the legacy Verb locator fail closed", asyn
   assert.ok(result.errors.some((entry) => entry.code === "BIND_CONTENT_DIGEST_MISMATCH"));
 
   const staleRegistry = structuredClone(registry);
-  staleRegistry.bindings[1].contentRef.revision = 2;
+  staleRegistry.bindings[1].contentRef.revision = 3;
   result = validateCrossGameBindings(curriculum, pack, catalog, staleRegistry);
   assert.equal(result.valid, false);
   assert.ok(result.errors.some((entry) => entry.code === "BIND_CONTENT_REVISION_MISMATCH"));
@@ -162,6 +175,37 @@ test("content revisions, digests, and the legacy Verb locator fail closed", asyn
   const codes = new Set(result.errors.map((entry) => entry.code));
   assert.ok(codes.has("BIND_LEGACY_LOCATOR_INVALID"));
   assert.ok(codes.has("BIND_CONTENT_DIGEST_MISMATCH"));
+});
+
+test("Word World focus selection must identify one exact playable token", async () => {
+  const { curriculum, pack, catalog, registry } = await fixtures();
+  const invalid = structuredClone(catalog);
+  invalid.sources[0].snapshot.focusTarget.tokenIndex = 0;
+  const result = validateCrossGameBindings(curriculum, pack, invalid, registry);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "BIND_WORD_TARGET_LOCATOR_INVALID"));
+});
+
+test("Verb Nebula contrasts must follow canonical English scope and exact target-skill mappings", async () => {
+  const { curriculum, pack, catalog, registry } = await fixtures();
+  const wrongOrder = structuredClone(catalog);
+  const contrasts = wrongOrder.sources[1].snapshot.guidedContrasts;
+  [contrasts[0], contrasts[1]] = [contrasts[1], contrasts[0]];
+  wrongOrder.sources[1].contentDigest = computeContentDigest(wrongOrder.sources[1]);
+  const wrongOrderRegistry = structuredClone(registry);
+  wrongOrderRegistry.bindings[1].contentRef.contentDigest = wrongOrder.sources[1].contentDigest;
+  let result = validateCrossGameBindings(curriculum, pack, wrongOrder, wrongOrderRegistry);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "BIND_VERB_CONTRAST_SCOPE_MISMATCH"));
+
+  const wrongSkill = structuredClone(catalog);
+  wrongSkill.sources[1].snapshot.guidedContrasts[0].targetSkillId = "cs.skill.sense.pit.drink";
+  wrongSkill.sources[1].contentDigest = computeContentDigest(wrongSkill.sources[1]);
+  const wrongSkillRegistry = structuredClone(registry);
+  wrongSkillRegistry.bindings[1].contentRef.contentDigest = wrongSkill.sources[1].contentDigest;
+  result = validateCrossGameBindings(curriculum, pack, wrongSkill, wrongSkillRegistry);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some((entry) => entry.code === "BIND_VERB_CONTRAST_SKILL_MISMATCH"));
 });
 
 test("target-pack tampering invalidates the registry digest pin", async () => {
@@ -188,6 +232,9 @@ test("unknown contexts and non-matching opportunity utterances are rejected", as
   utterance.text = "Dědeček spí.";
   const repinnedRegistry = structuredClone(registry);
   repinnedRegistry.targetPack.targetPackDigest = computeTargetPackDigest(changedPack);
+  repinnedRegistry.bindings[0].contextId = "cs.context.u3.read-library-current";
+  repinnedRegistry.bindings[0].contextRevision = 1;
+  repinnedRegistry.bindings[0].opportunityId = "interpret-read-library-current";
   result = validateCrossGameBindings(curriculum, changedPack, catalog, repinnedRegistry);
   assert.equal(result.valid, false);
   assert.ok(result.errors.some((entry) => entry.code === "BIND_SOURCE_TEXT_MISMATCH"));
@@ -294,7 +341,7 @@ test("exposure is excluded while first clean evidence aggregates across both gam
   assert.equal(summary.independentRetrievals, 3);
   assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
   assert.deepEqual(summary.qualifyingSessionIds, ["session-1", "session-2"]);
-  assert.deepEqual(summary.qualifyingContextIds, ["cs.context.u3.read-library-current"]);
+  assert.deepEqual(summary.qualifyingContextIds, []);
   assert.equal(summary.masteryReady, false);
   assert.ok(summary.masteryShortfalls.includes("distinct-contexts"));
   assert.ok(summary.masteryShortfalls.includes("production"));
@@ -399,7 +446,7 @@ test("evidence cannot rewrite bound content, context, opportunity, or task seque
     occurredAt: "2026-08-01T12:01:00.000Z",
     score: 1
   });
-  event.contentRef.revision = 2;
+  event.contentRef.revision = 3;
   event.contextId = "cs.context.u3.read-home-current";
   event.opportunityId = "forged-opportunity";
   event.taskSequence = 2;

@@ -8,7 +8,7 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-7"></script>
+    <script src="course-profile.js?v=course-8"></script>
     <script src="learning-profile.js?v=learning-3"></script>
     <script>
       try {
@@ -23,10 +23,10 @@
     </script>
   <script src="runtime.js?v=runtime-34"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
-  <script src="curriculum-service.js?v=curriculum-service-3"></script>
+  <script src="curriculum-service.js?v=curriculum-service-4"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
   <link rel="stylesheet" href="chrome.css?v=chrome-style-87">
-  <link rel="stylesheet" href="word-net.css?v=word-net-62">
+  <link rel="stylesheet" href="word-net.css?v=word-net-63">
   </head>
   <body>
     <div class="word-net-page">
@@ -200,6 +200,10 @@
 
           <section class="word-net-status-panel" aria-label="Word World status">
             <p class="word-net-instructions" id="wordNetInstructions">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
+            <aside class="word-net-guided-status" id="wordNetGuidedStatus" role="status" aria-live="polite" hidden>
+              <strong>Developer Guided · prototype-not-human-approved</strong>
+              <span id="wordNetGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
+            </aside>
             <p class="word-net-live-status" id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
             <div class="word-net-content-source" id="wordNetContentSource" role="group" aria-label="Sentence source">
               <span class="word-net-content-source-label">Sentence source</span>
@@ -302,6 +306,6 @@
 
   <script src="chrome.js?v=chrome-84"></script>
     <script src="maintenance-ui.js?v=maintenance-14"></script>
-  <script type="module" src="word-net.js?v=word-net-67"></script>
+  <script type="module" src="word-net.js?v=word-net-69"></script>
   </body>
 </html>

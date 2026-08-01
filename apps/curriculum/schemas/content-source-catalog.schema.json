@@ -67,7 +67,7 @@
     "wordWorldSnapshot": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "cs", "en", "difficulty", "cefr", "topic", "targets", "learning", "grammar"],
+      "required": ["id", "cs", "en", "difficulty", "cefr", "topic", "targets", "focusTarget", "learning", "grammar"],
       "properties": {
         "id": {"type": "string", "pattern": "^ww-"},
         "cs": {"type": "string", "minLength": 1},
@@ -88,6 +88,16 @@
               "tokenIndex": {"type": "integer", "minimum": 0},
               "playable": {"type": "boolean"}
             }
+          }
+        },
+        "focusTarget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["surface", "normalized", "tokenIndex"],
+          "properties": {
+            "surface": {"type": "string", "minLength": 1},
+            "normalized": {"type": "string", "minLength": 1},
+            "tokenIndex": {"type": "integer", "minimum": 0}
           }
         },
         "learning": {
@@ -116,8 +126,46 @@
     "verbNebulaSnapshot": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "cz", "eng", "difficulty", "difficultyIsAuthored", "legacyLocator"],
+      "required": ["id", "cz", "eng", "difficulty", "difficultyIsAuthored", "legacyLocator", "guidedContrasts"],
       "properties": {
+        "id": {"type": "string", "pattern": "^[a-z]{2,3}\\.verb\\.[a-z0-9.-]+$"},
+        "cz": {"type": "string", "minLength": 1},
+        "eng": {"type": "string", "minLength": 1},
+        "difficulty": {"type": "integer", "minimum": 1, "maximum": 3},
+        "difficultyIsAuthored": {"type": "boolean"},
+        "legacyLocator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pairId", "sourceIndex"],
+          "properties": {
+            "pairId": {"type": "string", "pattern": "^core-verb-[0-9]+$"},
+            "sourceIndex": {"type": "integer", "minimum": 0}
+          }
+        },
+        "guidedContrasts": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/verbNebulaContrast"}
+        }
+      }
+    },
+    "verbNebulaContrast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conceptId",
+        "targetSkillId",
+        "id",
+        "cz",
+        "eng",
+        "difficulty",
+        "difficultyIsAuthored",
+        "legacyLocator"
+      ],
+      "properties": {
+        "conceptId": {"type": "string", "pattern": "^concept\\.action\\."},
+        "targetSkillId": {"type": "string", "pattern": "^[a-z]{2,3}\\.skill\\."},
         "id": {"type": "string", "pattern": "^[a-z]{2,3}\\.verb\\.[a-z0-9.-]+$"},
         "cz": {"type": "string", "minLength": 1},
         "eng": {"type": "string", "minLength": 1},

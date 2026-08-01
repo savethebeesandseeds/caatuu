@@ -1,6 +1,8 @@
 let countryDictionary = [];
+let countryDictionaryBytes = new Uint8Array();
 let countryScripts = [];
 let verbNebulaCore = null;
+let guidedOpportunityCore = null;
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
@@ -156,20 +158,29 @@ async function loadJson(path) {
   return response.json();
 }
 
+async function loadJsonBytes(path) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error(`Could not load ${path}: ${response.status}`);
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  return { bytes, value: JSON.parse(text) };
+}
+
 function assertArrayData(name, value) {
   if (!Array.isArray(value)) throw new Error(`Expected ${name} to be an array.`);
 }
 
 async function loadContentData() {
-  const [dictionary, scripts, verbModule] = await Promise.all([
-    loadJson("data/dictionary.json"),
+  const [dictionarySource, scripts, verbModule] = await Promise.all([
+    loadJsonBytes("data/dictionary.json"),
     loadJson("data/scripts.json"),
-    import("./verb-nebula-core.mjs?v=verb-nebula-core-8")
+    import("./verb-nebula-core.mjs?v=verb-nebula-core-10")
   ]);
 
-  assertArrayData("dictionary", dictionary);
+  assertArrayData("dictionary", dictionarySource.value);
   assertArrayData("scripts", scripts);
-  countryDictionary = dictionary;
+  countryDictionaryBytes = dictionarySource.bytes;
+  countryDictionary = dictionarySource.value;
   countryScripts = scripts;
   verbNebulaCore = verbModule;
 }
@@ -205,6 +216,21 @@ const state = {
   verbRobotCursor: -1,
   verbWrongIds: new Set(),
   verbWrongTimer: null,
+  verbGuidedRequested: false,
+  verbGuidedMode: false,
+  verbGuidedStatus: "off",
+  verbGuidedError: "",
+  verbGuidedPlan: null,
+  verbGuidedTargetId: "",
+  verbGuidedResolution: null,
+  verbGuidedLifecycle: null,
+  verbGuidedActivationPromise: null,
+  verbGuidedActivationEpoch: 0,
+  verbGuidedEvidencePending: false,
+  verbGuidedCatalog: [],
+  verbGuidedTargetPair: null,
+  verbGuidedContrastPairs: [],
+  verbGuidedSupportAtFirstResponse: false,
   dictionarySection: "rules",
   coreDictionarySearch: "",
   dictionaryBrowseAll: false
@@ -215,6 +241,18 @@ const $ = (selector) => document.querySelector(selector);
 function setText(selector, value) {
   const node = $(selector);
   if (node) node.textContent = value;
+}
+
+function loopbackLocation() {
+  return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(
+    String(window.location.hostname || "").toLowerCase()
+  );
+}
+
+function explicitLocalGuidedRequest() {
+  const parameter = course.curriculum?.guidedMode?.developerQueryParameter || "curriculum-guided";
+  return loopbackLocation()
+    && new URLSearchParams(window.location.search).get(parameter) === "1";
 }
 
 function confirmDestructiveAction(button, options = {}) {
@@ -1192,6 +1230,205 @@ function safeVerbStat(value) {
   return Number.isFinite(number) && number >= 0 ? Math.floor(number) : 0;
 }
 
+async function initializeVerbGuidedMode() {
+  if (!explicitLocalGuidedRequest()) return;
+  state.verbGuidedRequested = true;
+  state.verbGuidedStatus = "loading";
+  try {
+    const curriculum = window.CaatuuCurriculum;
+    if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
+    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-2");
+    await curriculum.ready();
+    if (!curriculum.guidedModeEnabled()) {
+      throw new Error("Developer Guided mode is not enabled for this local course profile.");
+    }
+    const resolution = await curriculum.resolveBinding("verb-nebula", "cs.verb.cist.read");
+    const reviewedReferences = [
+      resolution.source.snapshot,
+      ...Array.from(resolution.source.snapshot.guidedContrasts || [])
+    ];
+    const [targetPair, ...contrastPairs] = await verbNebulaCore.resolvePinnedStableVerbPairs(
+      countryDictionaryBytes,
+      resolution.source.catalogDigest,
+      reviewedReferences
+    );
+    const catalog = verbNebulaCore.extractCoreVerbPairs(countryDictionary);
+    const plan = verbNebulaCore.buildGuidedVerbRound(
+      catalog,
+      targetPair,
+      {
+        pairCount: 4,
+        contrastPairs,
+        taskFingerprint: `preview:${resolution.source.contentDigest}`
+      }
+    );
+    const targetSkillId = resolution.binding.targetSkillRefs[0]?.id;
+    const lifecycle = guidedOpportunityCore.createGuidedOpportunityLifecycle({
+      curriculum,
+      resolution,
+      targetSkillId
+    });
+    state.verbGuidedMode = true;
+    state.verbGuidedStatus = "pending";
+    state.verbGuidedPlan = plan;
+    state.verbGuidedTargetId = plan.targetId;
+    state.verbGuidedResolution = resolution;
+    state.verbGuidedLifecycle = lifecycle;
+    state.verbGuidedCatalog = catalog;
+    state.verbGuidedTargetPair = targetPair;
+    state.verbGuidedContrastPairs = contrastPairs;
+  } catch (error) {
+    state.verbGuidedStatus = "failed";
+    state.verbGuidedError = error?.message || String(error);
+    console.error("Verb Nebula Guided mode failed closed", error);
+  }
+}
+
+function verbGuidedInteractionLocked() {
+  if (!state.verbGuidedRequested) return false;
+  return !state.verbGuidedMode
+    || state.verbGuidedStatus !== "ready"
+    || state.verbGuidedEvidencePending;
+}
+
+function verbGuidedTargetPending() {
+  return state.verbGuidedMode
+    && state.verbGuidedStatus === "ready"
+    && !state.verbGuidedLifecycle?.state().firstResponseRecorded;
+}
+
+function renderVerbGuidedStatus() {
+  const banner = $("#verbGuidedStatus");
+  const detail = $("#verbGuidedStatusDetail");
+  const pairMenu = document.querySelector(".verb-pair-menu");
+  if (pairMenu) pairMenu.hidden = state.verbGuidedRequested;
+  if (!banner || !detail) return;
+  banner.hidden = !state.verbGuidedRequested;
+  banner.classList.toggle("is-error", state.verbGuidedStatus === "failed");
+  const lifecycle = state.verbGuidedLifecycle?.state();
+  const supported = Boolean(lifecycle?.hintsUsed || lifecycle?.solutionRevealed);
+  const supportedBeforeResponse = Boolean(state.verbGuidedSupportAtFirstResponse);
+  const reviewedAfterResponse = Boolean(
+    lifecycle?.firstResponseRecorded && supported && !supportedBeforeResponse
+  );
+  banner.classList.toggle("is-supported", supported);
+  if (!state.verbGuidedRequested) return;
+  if (state.verbGuidedStatus === "failed") {
+    detail.textContent = `Locked: ${state.verbGuidedError || "curriculum evidence is unavailable"}`;
+  } else if (state.verbGuidedStatus === "complete") {
+    detail.textContent = supportedBeforeResponse
+      ? "Pilot complete · supported practice, not independent evidence"
+      : reviewedAfterResponse
+        ? "Pilot complete · first response recorded independently; solution reviewed afterward"
+      : "Pilot complete · Unit 3 remains locked behind Units 1–2";
+  } else if (supportedBeforeResponse) {
+    detail.textContent = "Supported practice · not independent evidence";
+  } else if (reviewedAfterResponse) {
+    detail.textContent = "First response recorded independently · solution reviewed afterward";
+  } else if (lifecycle?.firstResponseRecorded) {
+    detail.textContent = "First response recorded · finish this one pilot round";
+  } else if (state.verbGuidedStatus === "ready") {
+    detail.textContent = "Unit 3 mechanic pilot · independent retrieval";
+  } else {
+    detail.textContent = "Verifying the exact bound content and evidence task…";
+  }
+}
+
+function waitForVerbPaintedFrame() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+  });
+}
+
+function verbGuidedPresentationReady(epoch, lifecycle) {
+  const panel = $("#trainPanelVerbLab");
+  return Boolean(
+    state.verbGuidedMode
+    && state.verbGuidedStatus === "activating"
+    && state.verbGuidedActivationEpoch === epoch
+    && state.verbGuidedLifecycle === lifecycle
+    && document.visibilityState !== "hidden"
+    && panel
+    && !panel.hidden
+    && panel.classList.contains("is-active")
+  );
+}
+
+function applyActivatedGuidedVerbPlan(plan) {
+  state.verbGuidedPlan = plan;
+  state.verbPairs = [...plan.round];
+  state.verbQueueIds = [];
+  state.verbRound = [...plan.round];
+  state.verbEnglishRound = [...plan.englishRound];
+  state.verbMatchedIds = new Set();
+  state.verbSelectedCzechId = "";
+  state.verbSelectedEnglishId = "";
+}
+
+function deferVerbGuidedActivation() {
+  if (!state.verbGuidedMode || state.verbGuidedStatus !== "activating") return;
+  state.verbGuidedActivationEpoch += 1;
+  state.verbGuidedStatus = "pending";
+  state.verbGuidedActivationPromise = null;
+}
+
+async function activateVerbGuidedOpportunity() {
+  if (!state.verbGuidedMode || state.verbGuidedStatus !== "pending") return;
+  if (state.verbGuidedActivationPromise) return state.verbGuidedActivationPromise;
+  const activationEpoch = state.verbGuidedActivationEpoch + 1;
+  const lifecycle = state.verbGuidedLifecycle;
+  state.verbGuidedActivationEpoch = activationEpoch;
+  state.verbGuidedStatus = "activating";
+  renderVerbNebula();
+  const activationPromise = waitForVerbPaintedFrame()
+    .then(() => {
+      if (!verbGuidedPresentationReady(activationEpoch, lifecycle)) return null;
+      return lifecycle.activate({
+        requirePresented: () => verbGuidedPresentationReady(activationEpoch, lifecycle)
+      });
+    })
+    .then((activation) => {
+      if (!activation || activation.phase === "pending") {
+        if (state.verbGuidedActivationEpoch === activationEpoch) {
+          state.verbGuidedStatus = "pending";
+        }
+        return;
+      }
+      if (!verbGuidedPresentationReady(activationEpoch, lifecycle)) {
+        if (state.verbGuidedActivationEpoch === activationEpoch) {
+          state.verbGuidedStatus = "pending";
+        }
+        return;
+      }
+      const plan = verbNebulaCore.buildGuidedVerbRound(
+        state.verbGuidedCatalog,
+        state.verbGuidedTargetPair,
+        {
+          pairCount: 4,
+          contrastPairs: state.verbGuidedContrastPairs,
+          taskFingerprint: lifecycle.state().taskFingerprint
+        }
+      );
+      applyActivatedGuidedVerbPlan(plan);
+      state.verbGuidedStatus = "ready";
+      setVerbMatchFeedback("Match each Czech verb with its English meaning.");
+      renderVerbNebula();
+    })
+    .catch((error) => {
+      state.verbGuidedStatus = "failed";
+      state.verbGuidedError = error?.message || String(error);
+      setVerbMatchFeedback("Guided evidence could not be prepared. This round is locked.", "wrong");
+      renderVerbNebula();
+    })
+    .finally(() => {
+      if (state.verbGuidedActivationPromise === activationPromise) {
+        state.verbGuidedActivationPromise = null;
+      }
+    });
+  state.verbGuidedActivationPromise = activationPromise;
+  return activationPromise;
+}
+
 function readVerbMemory() {
   try {
     const parsed = JSON.parse(localStorage.getItem(verbStorageKey) || "null");
@@ -1204,7 +1441,7 @@ function readVerbMemory() {
 }
 
 function saveVerbMemory() {
-  if (!state.verbMemoryLoaded) return;
+  if (!state.verbMemoryLoaded || state.verbGuidedRequested) return;
   try {
     localStorage.setItem(verbStorageKey, JSON.stringify({
       schemaVersion: verbMemorySchemaVersion,
@@ -1236,6 +1473,26 @@ function validVerbIds(ids, pairById) {
 function loadVerbMemory() {
   if (state.verbMemoryLoaded) return;
   if (!verbNebulaCore) throw new Error("Verb Nebula engine is not available.");
+
+  if (state.verbGuidedRequested) {
+    const plan = state.verbGuidedPlan;
+    state.verbDifficulty = Number(plan?.round?.[0]?.difficulty) || 1;
+    state.verbPairs = plan ? [...plan.round] : [];
+    state.verbQueueIds = [];
+    state.verbRound = plan ? [...plan.round] : [];
+    state.verbEnglishRound = plan ? [...plan.englishRound] : [];
+    state.verbMatchedIds = new Set();
+    state.verbSelectedCzechId = "";
+    state.verbSelectedEnglishId = "";
+    state.verbPairCount = 4;
+    state.verbRoundNumber = plan ? 1 : 0;
+    state.verbStats = emptyVerbStats();
+    state.verbHintsEnabled = false;
+    state.verbSolutionRevealed = false;
+    state.verbMemoryLoaded = true;
+    void loadVerbRobotPaths();
+    return;
+  }
 
   state.verbDifficulty = Number(window.CaatuuLearning?.difficulty?.()) || 1;
   state.verbPairs = verbNebulaCore.filterVerbPairsForDifficulty(
@@ -1321,6 +1578,7 @@ function returnUnmatchedVerbsToQueue() {
 }
 
 function planVerbRound() {
+  if (state.verbGuidedMode && state.verbGuidedPlan) return state.verbGuidedPlan;
   const dealt = verbNebulaCore.dealVerbRound(
     state.verbPairs,
     state.verbQueueIds,
@@ -1369,6 +1627,10 @@ function applyVerbRound(plan, preloadedHints = null) {
 
 async function startVerbRound(options = {}) {
   loadVerbMemory();
+  if (state.verbGuidedRequested) {
+    renderVerbNebula();
+    return;
+  }
   if (state.verbRoundTransitioning) return;
   if (options.returnUnmatched) returnUnmatchedVerbsToQueue();
   const transitionId = state.verbRoundTransitionId + 1;
@@ -1389,6 +1651,7 @@ function renderVerbPairCountControls() {
     const selected = Number(button.dataset.verbPairCount) === state.verbPairCount;
     button.setAttribute("aria-pressed", String(selected));
     button.classList.toggle("is-active", selected);
+    button.disabled = state.verbGuidedRequested;
   });
   setText("#verbPairCurrent", String(state.verbPairCount));
 }
@@ -1406,7 +1669,8 @@ function renderVerbMatchStats() {
   if (revealButton) {
     const canToggleSolution = Boolean(state.verbRound.length)
       && !state.verbRoundTransitioning
-      && !verbRoundComplete();
+      && !verbRoundComplete()
+      && !verbGuidedInteractionLocked();
     revealButton.disabled = !canToggleSolution;
     revealButton.classList.toggle("is-ready", state.verbSolutionRevealed);
     revealButton.setAttribute("aria-pressed", String(state.verbSolutionRevealed));
@@ -1473,7 +1737,11 @@ function createVerbMatchCard(pair, side) {
   button.className = `verb-match-card verb-match-card-${side}`;
   button.dataset.verbId = pair.id;
   button.dataset.verbSide = side;
-  button.disabled = matched || state.verbRoundTransitioning || state.verbSolutionRevealed;
+  button.disabled = matched
+    || state.verbRoundTransitioning
+    || state.verbSolutionRevealed
+    || verbGuidedInteractionLocked()
+    || (verbGuidedTargetPending() && side === "cz" && pair.id !== state.verbGuidedTargetId);
   button.setAttribute("aria-pressed", String(selected));
   button.classList.toggle("is-selected", selected);
   button.classList.toggle("is-matched", matched);
@@ -1587,6 +1855,7 @@ function renderVerbHintButton() {
   const loading = state.verbHintsEnabled
     && [...state.verbHintById.values()].some((hint) => hint?.status === "loading");
   button.disabled = !state.verbRound.length || state.verbRoundTransitioning;
+  if (state.verbGuidedRequested) button.disabled ||= verbGuidedInteractionLocked();
   button.setAttribute("aria-pressed", String(state.verbHintsEnabled));
   button.setAttribute("aria-label", state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues");
   button.title = state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues";
@@ -1645,7 +1914,8 @@ function renderVerbRoundInterstitial() {
 }
 
 function renderVerbNebula() {
-  if (!$("#trainPanelVerbLab")) return;
+  const panel = $("#trainPanelVerbLab");
+  if (!panel) return;
   loadVerbMemory();
   if (!state.verbRound.length && state.verbPairs.length && !state.verbRoundTransitioning) {
     void startVerbRound();
@@ -1667,10 +1937,14 @@ function renderVerbNebula() {
   renderVerbPairCountControls();
   renderVerbMatchStats();
   renderVerbHintButton();
+  renderVerbGuidedStatus();
   renderVerbRoundInterstitial();
   renderVerbSolutionArrows();
   if (state.verbHintsEnabled && state.verbRound.length && !state.verbHintById.size) {
     void loadVerbHintsForRound();
+  }
+  if (state.verbGuidedMode && state.verbGuidedStatus === "pending" && !panel.hidden) {
+    void activateVerbGuidedOpportunity();
   }
 }
 
@@ -1773,6 +2047,13 @@ function preloadVerbHintAsset(assetPath) {
 }
 
 async function transitionToNextVerbRound({ holdMillis = verbRoundCompleteHoldMillis } = {}) {
+  if (state.verbGuidedRequested) {
+    state.verbGuidedStatus = "complete";
+    state.verbRoundTransitioning = false;
+    setVerbMatchFeedback("Developer Guided pilot complete. This round will not repeat automatically.", "correct");
+    renderVerbNebula();
+    return;
+  }
   if (state.verbRoundTransitioning || !state.verbRound.length) return;
   clearVerbSolutionAdvance();
   const transitionId = state.verbRoundTransitionId + 1;
@@ -1795,19 +2076,41 @@ function clearVerbSolutionAdvance() {
   }
 }
 
-function toggleVerbSolution() {
-  if (verbRoundComplete() || state.verbRoundTransitioning) return;
+async function toggleVerbSolution() {
+  if (verbRoundComplete() || state.verbRoundTransitioning || state.verbGuidedEvidencePending) return;
   resetVerbSelections();
-  state.verbSolutionRevealed = !state.verbSolutionRevealed;
   clearVerbSolutionAdvance();
+  if (state.verbSolutionRevealed) {
+    state.verbSolutionRevealed = false;
+    setVerbMatchFeedback("Match each Czech verb with its English meaning.");
+    renderVerbNebula();
+    return;
+  }
+  if (state.verbGuidedMode) {
+    if (!state.verbGuidedLifecycle.state().firstResponseRecorded) {
+      state.verbGuidedSupportAtFirstResponse = true;
+    }
+    state.verbGuidedEvidencePending = true;
+    renderVerbNebula();
+    try {
+      await state.verbGuidedLifecycle.recordSolutionReveal({ occurredAt: new Date().toISOString() });
+    } catch (error) {
+      state.verbGuidedStatus = "failed";
+      state.verbGuidedError = error?.message || String(error);
+      setVerbMatchFeedback("The solution stayed hidden because its evidence could not be saved.", "wrong");
+      return;
+    } finally {
+      state.verbGuidedEvidencePending = false;
+      renderVerbNebula();
+    }
+  }
+  state.verbSolutionRevealed = true;
   setVerbMatchFeedback(
-    state.verbSolutionRevealed
-      ? "Follow the arrows to review every pair."
-      : "Match each Czech verb with its English meaning.",
-    state.verbSolutionRevealed ? "hint" : ""
+    "Follow the arrows to review every pair.",
+    "hint"
   );
   renderVerbNebula();
-  if (state.verbSolutionRevealed) {
+  if (!state.verbGuidedMode) {
     const revealDuration = verbSolutionRevealDuration(state.verbRound.length);
     state.verbSolutionAdvanceTimer = window.setTimeout(() => {
       state.verbSolutionAdvanceTimer = null;
@@ -1880,13 +2183,46 @@ function recordVerbSemanticAttempt(pair, {
   }).catch(() => {});
 }
 
-function settleVerbMatch() {
+async function settleVerbMatch() {
   const czechId = state.verbSelectedCzechId;
   const englishId = state.verbSelectedEnglishId;
-  if (!czechId || !englishId || state.verbWrongTimer) return;
+  if (
+    !czechId
+    || !englishId
+    || state.verbWrongTimer
+    || state.verbGuidedEvidencePending
+    || verbGuidedInteractionLocked()
+  ) return;
+
+  const correct = verbNebulaCore.verbPairMatches(czechId, englishId);
+  const isGuidedTargetAttempt = state.verbGuidedMode
+    && czechId === state.verbGuidedTargetId
+    && !state.verbGuidedLifecycle.state().firstResponseRecorded;
+  if (isGuidedTargetAttempt) {
+    const supportState = state.verbGuidedLifecycle.state();
+    state.verbGuidedSupportAtFirstResponse = Boolean(
+      supportState.hintsUsed || supportState.solutionRevealed
+    );
+    state.verbGuidedEvidencePending = true;
+    renderVerbNebula();
+    try {
+      await state.verbGuidedLifecycle.recordFirstResponse({
+        score: correct ? 1 : 0,
+        occurredAt: new Date().toISOString()
+      });
+    } catch (error) {
+      state.verbGuidedStatus = "failed";
+      state.verbGuidedError = error?.message || String(error);
+      setVerbMatchFeedback("Your answer stayed unscored because its evidence could not be saved.", "wrong");
+      state.verbGuidedEvidencePending = false;
+      renderVerbNebula();
+      return;
+    }
+    state.verbGuidedEvidencePending = false;
+  }
 
   state.verbStats.attempts += 1;
-  if (verbNebulaCore.verbPairMatches(czechId, englishId)) {
+  if (correct) {
     const pair = state.verbRound.find((item) => item.id === czechId);
     state.verbStats.matches += 1;
     state.verbMatchedIds.add(czechId);
@@ -1895,26 +2231,32 @@ function settleVerbMatch() {
     const roundComplete = verbRoundComplete();
     if (roundComplete) {
       state.verbStats.rounds += 1;
-      state.verbRoundRewardXp = state.verbRound.length;
+      state.verbRoundRewardXp = state.verbGuidedMode ? 0 : state.verbRound.length;
       setVerbMatchFeedback("Round complete.", "correct");
     } else {
       setVerbMatchFeedback(`${pair?.cz || "This verb"} means ${pair?.eng || "this meaning"}.`, "correct");
     }
-    window.CaatuuLearning?.record("verb-nebula", {
-      activities: 1,
-      attempts: 1,
-      successes: 1,
-      xp: 1,
-      rounds: roundComplete ? 1 : 0
-    });
-    recordVerbSemanticAttempt(pair, {
-      correct: true,
-      chosenEnglish: pair?.eng || "",
-      roundComplete
-    });
+    if (!state.verbGuidedMode) {
+      window.CaatuuLearning?.record("verb-nebula", {
+        activities: 1,
+        attempts: 1,
+        successes: 1,
+        xp: 1,
+        rounds: roundComplete ? 1 : 0
+      });
+      recordVerbSemanticAttempt(pair, {
+        correct: true,
+        chosenEnglish: pair?.eng || "",
+        roundComplete
+      });
+    }
     saveVerbMemory();
+    if (roundComplete && state.verbGuidedMode) {
+      state.verbGuidedStatus = "complete";
+      setVerbMatchFeedback("Developer Guided pilot complete. Unit 3 remains locked behind Units 1–2.", "correct");
+    }
     renderVerbNebula();
-    if (roundComplete) {
+    if (roundComplete && !state.verbGuidedMode) {
       void transitionToNextVerbRound();
     }
     return;
@@ -1924,13 +2266,15 @@ function settleVerbMatch() {
   // storing bare ids would also mark the two correct counterparts and reveal
   // the answer during the mistake animation.
   state.verbWrongIds = new Set([`cz:${czechId}`, `en:${englishId}`]);
-  window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
   const pair = state.verbRound.find((item) => item.id === czechId);
   const chosenPair = state.verbEnglishRound.find((item) => item.id === englishId);
-  recordVerbSemanticAttempt(pair, {
-    correct: false,
-    chosenEnglish: chosenPair?.eng || ""
-  });
+  if (!state.verbGuidedMode) {
+    window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
+    recordVerbSemanticAttempt(pair, {
+      correct: false,
+      chosenEnglish: chosenPair?.eng || ""
+    });
+  }
   setVerbMatchFeedback("Those two do not match. Keep the Czech verb and try another meaning.", "wrong");
   saveVerbMemory();
   renderVerbNebula();
@@ -1954,12 +2298,12 @@ function chooseVerbMatchCard(event) {
   }
 
   renderVerbNebula();
-  settleVerbMatch();
+  void settleVerbMatch();
 }
 
 function changeVerbPairCount(event) {
   const button = event.target.closest("[data-verb-pair-count]");
-  if (!button || state.verbRoundTransitioning) return;
+  if (!button || state.verbRoundTransitioning || state.verbGuidedRequested) return;
   button.closest("details")?.removeAttribute("open");
   const nextCount = verbNebulaCore.normalizeVerbPairCount(button.dataset.verbPairCount, state.verbPairCount);
   if (nextCount === state.verbPairCount) return;
@@ -2152,7 +2496,18 @@ async function loadVerbHintsForRound() {
 }
 
 function toggleVerbHints() {
-  if (state.verbRoundTransitioning) return;
+  if (state.verbRoundTransitioning || verbGuidedInteractionLocked()) return;
+  if (state.verbGuidedMode && !state.verbHintsEnabled) {
+    try {
+      state.verbGuidedLifecycle.markHint("picture-clue");
+    } catch (error) {
+      state.verbGuidedStatus = "failed";
+      state.verbGuidedError = error?.message || String(error);
+      setVerbMatchFeedback("The clue stayed hidden because support could not be recorded.", "wrong");
+      renderVerbNebula();
+      return;
+    }
+  }
   state.verbHintsEnabled = !state.verbHintsEnabled;
   state.verbHintRequestId += 1;
   state.verbHintById.clear();
@@ -2177,7 +2532,7 @@ function cancelVerbRoundTransition() {
 }
 
 function rebaseVerbDifficulty() {
-  if (!state.verbMemoryLoaded) return;
+  if (!state.verbMemoryLoaded || state.verbGuidedRequested) return;
 
   // Persist the old pool before rebuilding. loadVerbMemory deliberately
   // refuses to restore that round when its recorded level differs from the
@@ -2253,6 +2608,10 @@ function bindVerbNebulaControls() {
   $("#verbRevealSolution")?.addEventListener("click", toggleVerbSolution);
   window.addEventListener("resize", () => {
     if (state.verbSolutionRevealed) renderVerbSolutionArrows();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") deferVerbGuidedActivation();
+    else if (state.trainTab === "verb-lab") renderVerbNebula();
   });
 }
 
@@ -3389,6 +3748,7 @@ function setTrainTab(tab) {
     "memory-moon": "trainPanelMemoryMoon"
   };
   const activeTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
+  if (activeTab !== "verb-lab") deferVerbGuidedActivation();
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
   document.body.classList.toggle("memory-moon-active", activeTab === "memory-moon");
@@ -3414,6 +3774,7 @@ function setTrainTab(tab) {
     panel.hidden = !selected;
     panel.classList.toggle("is-active", selected);
   });
+  if (activeTab === "verb-lab") renderVerbNebula();
   if (activeTab === "memory-moon") ensureMemoryMoonLoaded();
 }
 
@@ -3562,6 +3923,7 @@ function bindUi() {
 async function init() {
   try {
     await loadContentData();
+    await initializeVerbGuidedMode();
     void worldLandingFrames();
     await loadModelLicenseCatalog().catch(() => {});
     applyTheme(readStoredTheme(), { persist: false });

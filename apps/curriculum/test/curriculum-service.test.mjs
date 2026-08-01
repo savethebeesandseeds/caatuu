@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { createCurriculumService } from "../runtime/curriculum-service.mjs";
+import { createGuidedOpportunityLifecycle } from "../runtime/guided-opportunity.mjs";
 import {
   computeBindingRegistryDigest,
   computeCanonicalContractDigest,
@@ -27,6 +28,45 @@ class MemoryStorage {
 
   setItem(key, value) {
     this.#values.set(String(key), String(value));
+  }
+}
+
+class MemoryLockManager {
+  #states = new Map();
+
+  #state(name) {
+    if (!this.#states.has(name)) this.#states.set(name, { held: false, queue: [] });
+    return this.#states.get(name);
+  }
+
+  #start(name, state, callback, resolve, reject) {
+    state.held = true;
+    Promise.resolve()
+      .then(() => callback(Object.freeze({ name, mode: "exclusive" })))
+      .then(resolve, reject)
+      .finally(() => {
+        state.held = false;
+        const next = state.queue.shift();
+        if (next) this.#start(name, state, next.callback, next.resolve, next.reject);
+      });
+  }
+
+  request(name, options, callback) {
+    if (typeof options === "function") {
+      callback = options;
+      options = {};
+    }
+    const state = this.#state(String(name));
+    if (state.held && options?.ifAvailable) return Promise.resolve().then(() => callback(null));
+    return new Promise((resolve, reject) => {
+      const request = { callback, resolve, reject };
+      if (state.held) state.queue.push(request);
+      else this.#start(String(name), state, callback, resolve, reject);
+    });
+  }
+
+  waitingCount(name) {
+    return this.#state(String(name)).queue.length;
   }
 }
 
@@ -93,20 +133,31 @@ function serviceOptions(base, overrides = {}) {
     location: { hostname: "localhost", search: "?curriculum-guided=1" },
     now: () => "2026-08-01T10:00:00.000Z",
     uuid: () => `uuid-${++id}`,
+    lockManager: new MemoryLockManager(),
     ...overrides
   };
 }
 
 test("the service loads four pinned assets and exposes only explicit loopback Guided mode", async () => {
   const base = await fixture();
-  const service = createCurriculumService(serviceOptions(base));
+  const fetchRequests = [];
+  const service = createCurriculumService(serviceOptions(base, {
+    fetchImpl: async (path, options) => {
+      fetchRequests.push({ path, options });
+      return base.fetchImpl(path, options);
+    }
+  }));
   const ready = await service.ready();
   assert.equal(ready.status, "ready");
   assert.equal(ready.guidedModeEnabled, true);
   assert.equal(service.snapshot().storedTaskCount, 0);
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 0);
+  assert.equal(fetchRequests.length, 4);
+  assert.ok(fetchRequests.every(({ options }) => options?.cache === "reload"));
 
   const word = await service.resolveBinding("word-world", "ww-cp-000146");
-  assert.equal(word.opportunity.operation, "interpret");
+  assert.equal(word.context, null);
+  assert.equal(word.opportunity, null);
   assert.equal(word.source.snapshot.targets[1].surface, "čte");
 
   const remote = createCurriculumService(serviceOptions(base, {
@@ -116,6 +167,12 @@ test("the service loads four pinned assets and exposes only explicit loopback Gu
   assert.equal(remote.guidedModeEnabled(), false);
   await assert.rejects(
     () => remote.issueTask("binding.word-world.ww-cp-000146", "exposure"),
+    (error) => error.code === "CURRICULUM_GUIDED_MODE_DISABLED"
+  );
+  await assert.rejects(
+    () => remote.claimDeveloperPilot("binding.word-world.ww-cp-000146", {
+      targetSkillId: "cs.skill.sense.cist.read"
+    }),
     (error) => error.code === "CURRICULUM_GUIDED_MODE_DISABLED"
   );
 
@@ -129,6 +186,12 @@ test("the service loads four pinned assets and exposes only explicit loopback Gu
   }));
   await unapprovedPublic.ready();
   assert.equal(unapprovedPublic.guidedModeEnabled(), false);
+
+  const unlocked = createCurriculumService(serviceOptions(base, { lockManager: null }));
+  await assert.rejects(
+    () => unlocked.ready(),
+    (error) => error.code === "CURRICULUM_LEDGER_LOCK_UNAVAILABLE"
+  );
 });
 
 test("the service exposes canonical progression without promoting the Unit 3 developer pilot", async () => {
@@ -206,6 +269,444 @@ test("issued tasks and idempotent evidence persist across service reloads", asyn
   assert.equal(reloaded.snapshot().storedTaskCount, 3);
   assert.equal(reloaded.snapshot().storedEventCount, 3);
   assert.deepEqual(await reloaded.skillSummary("cs.skill.sense.cist.read"), summary);
+});
+
+test("separate game services serialize concurrent task and evidence writes", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  const lockManager = new MemoryLockManager();
+  let id = 0;
+  const shared = serviceOptions(base, {
+    localStorage,
+    sessionStorage,
+    lockManager,
+    uuid: () => `concurrent-ledger-${++id}`
+  });
+  const wordService = createCurriculumService(shared);
+  const verbService = createCurriculumService(shared);
+  await Promise.all([wordService.ready(), verbService.ready()]);
+  const targetSkillId = "cs.skill.sense.cist.read";
+  const [wordTask, verbTask] = await Promise.all([
+    wordService.issueTask("binding.word-world.ww-cp-000146", "independent-retrieval", { targetSkillId }),
+    verbService.issueTask("binding.verb-nebula.cs.verb.cist.read", "independent-retrieval", { targetSkillId })
+  ]);
+  assert.deepEqual(
+    [wordTask.taskSequence, verbTask.taskSequence].sort((left, right) => left - right),
+    [1, 2]
+  );
+
+  await Promise.all([
+    wordService.recordEvidence(wordTask, { score: 1 }),
+    verbService.recordEvidence(verbTask, { score: 1 })
+  ]);
+  assert.equal(wordService.snapshot().storedTaskCount, 2);
+  assert.equal(wordService.snapshot().storedEventCount, 2);
+  assert.deepEqual(
+    (await verbService.skillSummary(targetSkillId)).contributingActivityIds,
+    ["verb-nebula", "word-world"]
+  );
+});
+
+test("paired ledger readers wait for one atomic cross-context task and evidence commit", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  const lockManager = new MemoryLockManager();
+  let id = 0;
+  const shared = serviceOptions(base, {
+    localStorage,
+    sessionStorage,
+    lockManager,
+    uuid: () => `atomic-reader-${++id}`
+  });
+  const service = createCurriculumService(shared);
+  await service.ready();
+  const targetSkillId = "cs.skill.sense.cist.read";
+  await service.recordExposure("binding.word-world.ww-cp-000146", { targetSkillId });
+
+  const tasksKey = "caatuu-czech-test.curriculum.tasks.v1";
+  const eventsKey = "caatuu-czech-test.curriculum.events.v1";
+  const ledgerLockName = "caatuu-czech-test.curriculum.ledger.v1";
+  const committedTasks = localStorage.getItem(tasksKey);
+  const committedEvents = localStorage.getItem(eventsKey);
+  localStorage.setItem(tasksKey, "[]");
+  localStorage.setItem(eventsKey, "[]");
+
+  let partialCommitReady;
+  const partialCommit = new Promise((resolve) => {
+    partialCommitReady = resolve;
+  });
+  let finishCommit;
+  const commitGate = new Promise((resolve) => {
+    finishCommit = resolve;
+  });
+  const writer = lockManager.request(ledgerLockName, { mode: "exclusive" }, async () => {
+    localStorage.setItem(tasksKey, committedTasks);
+    partialCommitReady();
+    await commitGate;
+    localStorage.setItem(eventsKey, committedEvents);
+  });
+  await partialCommit;
+
+  const reloaded = createCurriculumService(shared);
+  const summaryPromise = service.skillSummary(targetSkillId);
+  const progressionPromise = service.progression();
+  const readinessPromise = reloaded.ready();
+  for (let attempts = 0; lockManager.waitingCount(ledgerLockName) < 3 && attempts < 200; attempts += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  assert.equal(lockManager.waitingCount(ledgerLockName), 3);
+
+  finishCommit();
+  const [, summary, progression, readiness] = await Promise.all([
+    writer,
+    summaryPromise,
+    progressionPromise,
+    readinessPromise
+  ]);
+  assert.equal(readiness.status, "ready");
+  assert.equal(summary.exposureEvents, 1);
+  const unitThree = progression.units.find((unit) => (
+    unit.canonicalUnitId === "unit.routine.familiar-actions.01"
+  ));
+  const skill = unitThree.skills.find((row) => row.targetSkillId === targetSkillId);
+  assert.equal(skill.evidence.exposureEvents, 1);
+});
+
+test("a developer pilot claim is a durable one-shot exposure for one exact binding and skill", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  let id = 0;
+  const shared = serviceOptions(base, {
+    localStorage,
+    sessionStorage,
+    uuid: () => `pilot-${++id}`
+  });
+  const service = createCurriculumService(shared);
+  await service.ready();
+
+  await assert.rejects(
+    () => service.claimDeveloperPilot("binding.missing", {
+      targetSkillId: "cs.skill.sense.cist.read"
+    }),
+    (error) => error.code === "CURRICULUM_DEVELOPER_PILOT_BINDING_UNKNOWN"
+  );
+  await assert.rejects(
+    () => service.claimDeveloperPilot("binding.word-world.ww-cp-000146"),
+    (error) => error.code === "CURRICULUM_DEVELOPER_PILOT_SKILL_MISMATCH"
+  );
+
+  const [first, duplicate] = await Promise.all([
+    service.claimDeveloperPilot("binding.word-world.ww-cp-000146", {
+      targetSkillId: "cs.skill.sense.cist.read"
+    }),
+    service.claimDeveloperPilot("binding.word-world.ww-cp-000146", {
+      targetSkillId: "cs.skill.sense.cist.read"
+    })
+  ]);
+  assert.equal(first.status, "claimed");
+  assert.equal(first.claimed, true);
+  assert.equal(first.exposure.task.capabilityId, "exposure");
+  assert.equal(first.opportunity.task.capabilityId, "independent-retrieval");
+  assert.ok(first.exposure.task.taskSequence < first.opportunity.task.taskSequence);
+  assert.deepEqual(first.exposure.event.outcome, {
+    score: null,
+    solutionRevealed: false,
+    hintsUsed: 0
+  });
+  assert.equal(duplicate.status, "blocked");
+  assert.equal(duplicate.claimed, false);
+  assert.equal(duplicate.reason, "active-elsewhere");
+  assert.deepEqual(duplicate.priorTaskIds, []);
+  assert.deepEqual(duplicate.closedTaskIds, []);
+  assert.equal(service.snapshot().storedTaskCount, 2);
+  assert.equal(service.snapshot().storedEventCount, 1);
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 1);
+  await first.opportunity.recordFirstResponse({ score: 1 });
+  await first.release();
+
+  const reloaded = createCurriculumService(shared);
+  await reloaded.ready();
+  const blockedAfterReload = await reloaded.claimDeveloperPilot(
+    "binding.word-world.ww-cp-000146",
+    { targetSkillId: "cs.skill.sense.cist.read" }
+  );
+  assert.equal(blockedAfterReload.status, "blocked");
+  assert.equal(reloaded.snapshot().storedTaskCount, 2);
+  assert.equal(reloaded.snapshot().storedEventCount, 2);
+  assert.equal(reloaded.snapshot().storedDeveloperPilotClaimCount, 1);
+
+  const otherBinding = await reloaded.claimDeveloperPilot(
+    "binding.verb-nebula.cs.verb.cist.read",
+    { targetSkillId: "cs.skill.sense.cist.read" }
+  );
+  assert.equal(otherBinding.status, "claimed");
+  assert.equal(reloaded.snapshot().storedTaskCount, 4);
+  assert.equal(reloaded.snapshot().storedEventCount, 3);
+  assert.equal(reloaded.snapshot().storedDeveloperPilotClaimCount, 2);
+  await otherBinding.opportunity.recordSolutionReveal();
+  await otherBinding.release();
+});
+
+test("a persisted pilot marker blocks re-entry when the first task write crashes", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  const lockManager = new MemoryLockManager();
+  let failTaskId = true;
+  let id = 0;
+  const shared = serviceOptions(base, {
+    localStorage,
+    sessionStorage,
+    lockManager,
+    uuid: () => {
+      id += 1;
+      if (failTaskId && id > 1) throw new Error("simulated task-id crash");
+      return `marker-recovery-${id}`;
+    }
+  });
+  const service = createCurriculumService(shared);
+  await service.ready();
+  const bindingId = "binding.word-world.ww-cp-000146";
+  const targetSkillId = "cs.skill.sense.cist.read";
+  await assert.rejects(
+    () => service.claimDeveloperPilot(bindingId, { targetSkillId }),
+    /simulated task-id crash/
+  );
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 1);
+  assert.equal(service.snapshot().storedTaskCount, 0);
+  assert.equal(service.snapshot().storedEventCount, 0);
+
+  failTaskId = false;
+  const reloaded = createCurriculumService(shared);
+  await reloaded.ready();
+  const blocked = await reloaded.claimDeveloperPilot(bindingId, { targetSkillId });
+  assert.equal(blocked.status, "blocked");
+  assert.equal(blocked.reason, "prior-claim");
+  assert.deepEqual(blocked.priorTaskIds, []);
+  assert.equal(reloaded.snapshot().storedTaskCount, 0);
+  assert.equal(reloaded.snapshot().storedEventCount, 0);
+});
+
+test("a hidden presentation defers without consuming the pilot marker", async () => {
+  const base = await fixture();
+  const service = createCurriculumService(serviceOptions(base));
+  await service.ready();
+  const bindingId = "binding.word-world.ww-cp-000146";
+  const targetSkillId = "cs.skill.sense.cist.read";
+  const deferred = await service.claimDeveloperPilot(bindingId, {
+    targetSkillId,
+    requirePresented: () => false
+  });
+  assert.equal(deferred.status, "deferred");
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 0);
+  assert.equal(service.snapshot().storedTaskCount, 0);
+  assert.equal(service.snapshot().storedEventCount, 0);
+
+  const claimed = await service.claimDeveloperPilot(bindingId, {
+    targetSkillId,
+    requirePresented: () => true
+  });
+  assert.equal(claimed.status, "claimed");
+  await claimed.opportunity.recordSolutionReveal();
+  await claimed.release();
+});
+
+test("presentation loss during retrieval validation consumes only the exposure and releases the lease", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  let presented = true;
+  let id = 0;
+  const service = createCurriculumService(serviceOptions(base, {
+    localStorage,
+    uuid: () => {
+      id += 1;
+      if (id === 3) queueMicrotask(() => {
+        presented = false;
+      });
+      return `presentation-race-${id}`;
+    }
+  }));
+  await service.ready();
+  const bindingId = "binding.word-world.ww-cp-000146";
+  const targetSkillId = "cs.skill.sense.cist.read";
+  const blocked = await service.claimDeveloperPilot(bindingId, {
+    targetSkillId,
+    requirePresented: () => presented
+  });
+  assert.equal(blocked.status, "blocked");
+  assert.equal(blocked.reason, "presentation-lost-after-exposure");
+  assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 1);
+  assert.equal(service.snapshot().storedTaskCount, 1);
+  assert.equal(service.snapshot().storedEventCount, 1);
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v1"));
+  assert.deepEqual(tasks.map((task) => task.evidenceKind), ["exposure"]);
+
+  presented = true;
+  const retried = await service.claimDeveloperPilot(bindingId, {
+    targetSkillId,
+    requirePresented: () => presented
+  });
+  assert.equal(retried.status, "blocked");
+  assert.equal(retried.reason, "prior-claim");
+});
+
+test("developer pilot re-entry closes pending exposure and in-memory-hinted retrieval tasks without mastery", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  let id = 0;
+  const shared = serviceOptions(base, {
+    localStorage,
+    sessionStorage,
+    uuid: () => `pending-pilot-${++id}`
+  });
+  const service = createCurriculumService(shared);
+  await service.ready();
+  const bindingId = "binding.word-world.ww-cp-000146";
+  const targetSkillId = "cs.skill.sense.cist.read";
+  const exposureTask = await service.issueTask(bindingId, "exposure", { targetSkillId });
+  const pendingOpportunity = await service.beginOpportunity("word-world", "ww-cp-000146", {
+    capabilityId: "independent-retrieval",
+    targetSkillId
+  });
+  pendingOpportunity.markHint();
+  const retrievalTask = pendingOpportunity.task;
+  assert.equal(pendingOpportunity.state().hintsUsed, 1);
+  assert.equal(service.snapshot().storedTaskCount, 2);
+  assert.equal(service.snapshot().storedEventCount, 0);
+
+  const reloaded = createCurriculumService(shared);
+  await reloaded.ready();
+  const blocked = await reloaded.claimDeveloperPilot(bindingId, { targetSkillId });
+  assert.equal(blocked.status, "blocked");
+  assert.deepEqual(new Set(blocked.priorTaskIds), new Set([exposureTask.taskId, retrievalTask.taskId]));
+  assert.deepEqual(new Set(blocked.closedTaskIds), new Set([exposureTask.taskId, retrievalTask.taskId]));
+  assert.equal(reloaded.snapshot().storedTaskCount, 2);
+  assert.equal(reloaded.snapshot().storedEventCount, 2);
+  assert.equal(reloaded.snapshot().storedDeveloperPilotClaimCount, 1);
+
+  const events = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.events.v1"));
+  const exposureClosure = events.find((event) => event.taskId === exposureTask.taskId);
+  const retrievalClosure = events.find((event) => event.taskId === retrievalTask.taskId);
+  assert.deepEqual(exposureClosure.outcome, {
+    score: null,
+    solutionRevealed: true,
+    hintsUsed: 0
+  });
+  assert.deepEqual(retrievalClosure.outcome, {
+    score: 0,
+    solutionRevealed: true,
+    hintsUsed: 0
+  });
+  const summary = await reloaded.skillSummary(targetSkillId);
+  assert.equal(summary.independentRetrievals, 0);
+  assert.equal(summary.masteryReady, false);
+
+  const repeated = await reloaded.claimDeveloperPilot(bindingId, { targetSkillId });
+  assert.equal(repeated.status, "blocked");
+  assert.equal(repeated.reason, "prior-claim");
+  assert.deepEqual(repeated.closedTaskIds, []);
+  assert.equal(reloaded.snapshot().storedTaskCount, 2);
+  assert.equal(reloaded.snapshot().storedEventCount, 2);
+});
+
+test("hinted, revealed, incorrect, and completed evidence all block developer pilot re-entry", async (t) => {
+  const base = await fixture();
+  const scenarios = [
+    { name: "hinted", score: 1, solutionRevealed: false, hintsUsed: 1, independentRetrievals: 0 },
+    { name: "revealed", score: 0, solutionRevealed: true, hintsUsed: 0, independentRetrievals: 0 },
+    { name: "incorrect", score: 0, solutionRevealed: false, hintsUsed: 0, independentRetrievals: 0 },
+    { name: "completed", score: 1, solutionRevealed: false, hintsUsed: 0, independentRetrievals: 1 }
+  ];
+  for (const scenario of scenarios) {
+    await t.test(scenario.name, async () => {
+      const localStorage = new MemoryStorage();
+      const sessionStorage = new MemoryStorage();
+      let id = 0;
+      const shared = serviceOptions(base, {
+        localStorage,
+        sessionStorage,
+        uuid: () => `${scenario.name}-pilot-${++id}`
+      });
+      const service = createCurriculumService(shared);
+      await service.ready();
+      const bindingId = "binding.word-world.ww-cp-000146";
+      const targetSkillId = "cs.skill.sense.cist.read";
+      const task = await service.issueTask(bindingId, "independent-retrieval", { targetSkillId });
+      await service.recordEvidence(task, {
+        attemptNumber: 1,
+        score: scenario.score,
+        solutionRevealed: scenario.solutionRevealed,
+        hintsUsed: scenario.hintsUsed
+      });
+
+      const reloaded = createCurriculumService(shared);
+      await reloaded.ready();
+      const blocked = await reloaded.claimDeveloperPilot(bindingId, { targetSkillId });
+      assert.equal(blocked.status, "blocked");
+      assert.deepEqual(blocked.priorTaskIds, [task.taskId]);
+      assert.deepEqual(blocked.closedTaskIds, []);
+      assert.equal(reloaded.snapshot().storedTaskCount, 1);
+      assert.equal(reloaded.snapshot().storedEventCount, 1);
+      assert.equal((await reloaded.skillSummary(targetSkillId)).independentRetrievals, scenario.independentRetrievals);
+    });
+  }
+});
+
+test("both Guided games preserve encounter-before-retrieval and aggregate without claiming mastery", async () => {
+  const base = await fixture();
+  const localStorage = new MemoryStorage();
+  let id = 0;
+  const service = createCurriculumService(serviceOptions(base, {
+    localStorage,
+    uuid: () => `cross-game-${++id}`
+  }));
+  await service.ready();
+
+  for (const [activityId, contentId] of [
+    ["word-world", "ww-cp-000146"],
+    ["verb-nebula", "cs.verb.cist.read"]
+  ]) {
+    const resolution = await service.resolveBinding(activityId, contentId);
+    const lifecycle = createGuidedOpportunityLifecycle({
+      curriculum: service,
+      resolution,
+      targetSkillId: "cs.skill.sense.cist.read"
+    });
+    await lifecycle.activate();
+    await lifecycle.recordFirstResponse({ score: 1 });
+  }
+
+  assert.equal(service.snapshot().storedTaskCount, 4);
+  assert.equal(service.snapshot().storedEventCount, 4);
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v1"));
+  for (const activityId of ["word-world", "verb-nebula"]) {
+    const activityTasks = tasks.filter((task) => task.activityId === activityId);
+    const exposure = activityTasks.find((task) => task.evidenceKind === "exposure");
+    const retrieval = activityTasks.find((task) => task.evidenceKind === "retrieval");
+    assert.ok(exposure.taskSequence < retrieval.taskSequence);
+  }
+
+  const summary = await service.skillSummary("cs.skill.sense.cist.read");
+  assert.equal(summary.exposureEvents, 2);
+  assert.equal(summary.assessedAttempts, 2);
+  assert.equal(summary.independentRetrievals, 2);
+  assert.equal(summary.productionEvidence, 0);
+  assert.equal(summary.transferEvidence, 0);
+  assert.deepEqual(summary.contributingActivityIds, ["verb-nebula", "word-world"]);
+  assert.equal(summary.qualifyingSessionIds.length, 1);
+  assert.deepEqual(summary.qualifyingContextIds, []);
+  assert.equal(summary.masteryReady, false);
+  for (const shortfall of ["independent-retrievals", "sessions", "distinct-contexts", "production", "transfer"]) {
+    assert.ok(summary.masteryShortfalls.includes(shortfall), shortfall);
+  }
+
+  const progression = await service.progression();
+  const unitThree = progression.units.find((unit) => unit.canonicalUnitId === "unit.routine.familiar-actions.01");
+  assert.equal(unitThree.status, "locked");
 });
 
 test("revealed or hinted responses remain valid practice but never qualify", async () => {

@@ -284,6 +284,11 @@ registry.targetPack = {
   targetPackDigest
 };
 const wordWorldBinding = registry.bindings.find((row) => row.id === "binding.word-world.ww-cp-000146");
-wordWorldBinding.opportunityId = "interpret-read-library-current";
+// The Guided Word World pilot currently presents only its bound sentence. It
+// must not claim a library/current context until the learner receives those
+// cues in the actual game presentation.
+wordWorldBinding.contextId = null;
+wordWorldBinding.contextRevision = null;
+wordWorldBinding.opportunityId = null;
 await writeFile(registryUrl, `${JSON.stringify(registry, null, 2)}\n`, "utf8");
 process.stdout.write(`Wrote ${pack.skills.length} reviewed-shape skills, ${pack.utterances.length} utterances, ${contexts.length} structured prototype contexts, and target-pack pin ${targetPackDigest}.\n`);

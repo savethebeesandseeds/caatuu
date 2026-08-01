@@ -127,6 +127,21 @@ retrieval evidence, but they cannot complete Unit 3 because the canonical
 policy also requires target-language production, transfer, spacing, and context
 diversity. That limitation is intentional and executable.
 
-The source seams and service-level cross-game flow are implemented. Calls from
-the current game UI remain an explicit integration step, so this component does
-not claim that ordinary play is already curriculum-guided.
+The source seams, service-level cross-game flow, and one developer-only Guided
+interaction in each game are implemented. On loopback with the explicit
+`curriculum-guided=1` query, Word World presents the exact `čte` focus token and
+Verb Nebula presents the exact `číst` retrieval before allowing contrast
+practice. Both games persist exposure before retrieval, persist the immutable
+first response before feedback, keep hint/reveal support sticky, verify the
+deployed source bytes, and leave ordinary Explore history and XP untouched.
+The developer probe is a durable one-shot per binding and skill: refreshes and
+concurrent tabs cannot manufacture a second clean attempt. Word World claims no
+context until its presentation supplies a genuine setting/time cue. Verb
+Nebula derives its contrast concepts from the canonical English Unit 3 order
+and binds exact Czech dictionary rows for `eat`, `drink`, and `sleep`; task
+fingerprints vary the deranged card positions.
+
+This is an integration probe, not a learner release. The profile still labels
+the pack `prototype-not-human-approved`, release remains disabled, Unit 3
+remains locked, and full Unit 1 Guided coverage plus native Czech educator
+approval are still required.

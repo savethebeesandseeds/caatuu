@@ -2,7 +2,7 @@
   let service = null;
   let failure = null;
 
-  const loading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-3")
+  const loading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-4")
     .then(({ createCurriculumService }) => {
       service = createCurriculumService({ courseProfile: window.CaatuuCourse });
       return service.ready();
@@ -33,6 +33,7 @@
     beginOpportunity: invoke("beginOpportunity"),
     recordEvidence: invoke("recordEvidence"),
     recordExposure: invoke("recordExposure"),
+    claimDeveloperPilot: invoke("claimDeveloperPilot"),
     skillSummary: invoke("skillSummary"),
     progression: invoke("progression"),
     nextRequest: invoke("nextRequest"),
