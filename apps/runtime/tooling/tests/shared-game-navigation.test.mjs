@@ -139,11 +139,11 @@ test("Games mirrors the remembered planet on its bottom-nav badge", () => {
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
     assert.match(page, /chrome\.css\?v=chrome-style-87/);
-    assert.match(page, /chrome\.js\?v=chrome-84/);
+    assert.match(page, /chrome\.js\?v=chrome-85/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
   assert.match(serviceWorker, /chrome\.css\?v=chrome-style-87/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-84/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-85/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {

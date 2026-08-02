@@ -123,6 +123,44 @@ test("restarting progress preserves difficulty while clearing global and legacy 
   assert.ok(events.some((event) => event.detail.reason === "progress-reset"));
 });
 
+test("progress-reset preparers drain before reset, can unregister, and fail without clearing", async () => {
+  const { learning } = createLearningContext();
+  const order = [];
+  let releasePreparation;
+  const gate = new Promise((resolve) => { releasePreparation = resolve; });
+  learning.record("verb-nebula", { activities: 2, attempts: 1, successes: 1 });
+  learning.registerProgressResetPreparation(async () => {
+    order.push("prepare-start");
+    await gate;
+    order.push("prepare-finish");
+  });
+  const unregister = learning.registerProgressResetPreparation(() => {
+    order.push("unregistered");
+  });
+  unregister();
+
+  const preparation = learning.prepareProgressReset();
+  await Promise.resolve();
+  assert.deepEqual(order, ["prepare-start"]);
+  assert.equal(learning.snapshot().summary.activities, 2);
+  releasePreparation();
+  await preparation;
+  learning.resetProgress();
+  assert.deepEqual(order, ["prepare-start", "prepare-finish"]);
+  assert.equal(learning.snapshot().summary.activities, 0);
+
+  learning.record("word-world", { activities: 3, attempts: 1, successes: 1 });
+  learning.registerProgressResetPreparation(async () => {
+    throw new Error("lifecycle drain failed");
+  });
+  await assert.rejects(learning.prepareProgressReset(), /lifecycle drain failed/);
+  assert.equal(
+    learning.snapshot().summary.activities,
+    3,
+    "a rejected preparation must leave global progress untouched"
+  );
+});
+
 test("the backpack progression hub and both active games use the global learning contract", () => {
   assert.match(chromeSource, /label: "Backpack"/);
   assert.match(chromeSource, /data-settings-view="items"/);
@@ -136,6 +174,15 @@ test("the backpack progression hub and both active games use the global learning
   assert.match(chromeSource, /xp: profile\.summary\.xp/);
   assert.match(chromeSource, /coins: profile\.summary\.rounds/);
   assert.match(chromeSource, /settingsResetCourseProgress/);
+  assert.ok(
+    chromeSource.indexOf("await window.CaatuuCurriculum?.resetProgress?.()")
+      < chromeSource.indexOf("learning.resetProgress()"),
+    "curriculum evidence must clear before the global progress-reset event is announced"
+  );
+  assert.match(appSource, /registerProgressResetPreparation\?\.\(prepareVerbProgressReset\)/);
+  assert.match(appSource, /async function prepareVerbProgressReset[\s\S]*?lifecycle\?\.abort\?\.\(\)/);
+  assert.match(wordWorldSource, /registerProgressResetPreparation\?\.\(prepareGuidedWordProgressReset\)/);
+  assert.match(wordWorldSource, /async function prepareGuidedWordProgressReset[\s\S]*?lifecycle\.abort\(\)/);
   assert.match(appSource, /CaatuuLearning\?\.record\("verb-nebula"/);
   assert.match(wordWorldSource, /CaatuuLearning\?\.record\("word-world"/);
   assert.doesNotMatch(chromeSource, /Difficulty and progress/);

@@ -95,7 +95,13 @@ test("runtime loading is fail-closed on four externally trusted artifact digests
   const { bundle, releasePins } = await fixture();
   const valid = await validateRuntimeBundle(bundle, releasePins);
   assert.equal(valid.valid, true, JSON.stringify(valid.errors, null, 2));
-  assert.deepEqual(valid.summary, { units: 3, targetSkills: 20, sources: 2, bindings: 2 });
+  assert.deepEqual(valid.summary, {
+    units: 3,
+    targetSkills: 21,
+    sources: 5,
+    bindings: 5,
+    exerciseSequences: 1
+  });
 
   const changedRegistry = structuredClone(bundle);
   changedRegistry.bindingRegistry.bindings[0].evidenceCapabilities[1].minimumScore = 0.5;

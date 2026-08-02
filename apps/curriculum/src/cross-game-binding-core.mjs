@@ -38,6 +38,13 @@ const OPPORTUNITY_EVIDENCE_KINDS = new Map([
   ["produce", new Set(["production", "transfer"])],
   ["respond", new Set(["production", "transfer"])]
 ]);
+const ACTIVITY_EXERCISE_FAMILIES = new Map([
+  ["word-world", new Set(["word-world.sentence-reconstruction"])],
+  ["verb-nebula", new Set([
+    "verb-nebula.meaning-match",
+    "verb-nebula.contextual-target-realization"
+  ])]
+]);
 const LEARNING_TASK_KEYS = new Set([
   "schemaVersion", "taskId", "issuedAt", "sessionId", "taskSequence", "registry",
   "bindingId", "capabilityId", "activityId", "mechanicId", "learningStage",
@@ -91,6 +98,7 @@ function sha256(value) {
 export function contentContractProjection(source) {
   return {
     activityId: source?.activityId,
+    exerciseFamilyId: source?.exerciseFamilyId,
     catalogDigest: source?.catalogDigest,
     catalogId: source?.catalogId,
     catalogRevision: source?.catalogRevision,
@@ -164,6 +172,13 @@ function validLegacyVerbLocator(reference) {
     && Number.isInteger(sourceIndex)
     && Number(parsed[1]) === sourceIndex
   );
+}
+
+function validRevisionRef(reference) {
+  return isObject(reference)
+    && isNonEmptyString(reference.id)
+    && Number.isInteger(reference.revision)
+    && reference.revision > 0;
 }
 
 function sameContentRef(left, right) {
@@ -252,6 +267,14 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
     if (!isObject(source.snapshot) || source.snapshot.id !== source.contentId) {
       report("BIND_CONTENT_ID_MISMATCH", `${path}/snapshot/id`, "Snapshot ID must equal its source content ID.", [source.contentId]);
     }
+    if (!ACTIVITY_EXERCISE_FAMILIES.get(source.activityId)?.has(source.exerciseFamilyId)) {
+      report(
+        "BIND_EXERCISE_FAMILY_INVALID",
+        `${path}/exerciseFamilyId`,
+        "Content source exercise family must be an explicitly supported family for its activity.",
+        [source.contentId, source.exerciseFamilyId].filter(Boolean)
+      );
+    }
     if (source.activityId === "word-world") {
       const focus = source.snapshot?.focusTarget;
       const matchingTargets = rows(source.snapshot?.targets).filter((target) => (
@@ -269,7 +292,8 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
         );
       }
     }
-    if (source.activityId === "verb-nebula") {
+    if (source.activityId === "verb-nebula"
+        && source.exerciseFamilyId === "verb-nebula.meaning-match") {
       const pairId = source.snapshot?.legacyLocator?.pairId;
       const sourceIndex = source.snapshot?.legacyLocator?.sourceIndex;
       const parsedPairIndex = typeof pairId === "string" && /^core-verb-([0-9]+)$/.exec(pairId);
@@ -316,6 +340,45 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
         }
       });
     }
+    if (source.activityId === "verb-nebula"
+        && source.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+      const familyRef = source.snapshot?.familyRef;
+      const itemRefs = rows(source.snapshot?.itemRefs);
+      const cueRefs = rows(source.snapshot?.cueRefs);
+      const selectedCueRef = source.snapshot?.selectedCueRef;
+      const targetItemRef = source.snapshot?.targetItemRef;
+      const exerciseRef = source.snapshot?.exerciseRef;
+      const sequenceRef = source.snapshot?.sequenceRef;
+      const sequenceStep = source.snapshot?.sequenceStep;
+      const refKeys = (references) => references.map((reference) => `${reference?.id}@${reference?.revision}`);
+      if (!validRevisionRef(familyRef)
+          || itemRefs.length < 2
+          || cueRefs.length !== itemRefs.length
+          || !itemRefs.every(validRevisionRef)
+          || !cueRefs.every(validRevisionRef)
+          || duplicateIds(refKeys(itemRefs)).length
+          || duplicateIds(refKeys(cueRefs)).length
+          || !validRevisionRef(selectedCueRef)
+          || !refKeys(cueRefs).includes(refKeys([selectedCueRef])[0])
+          || !validRevisionRef(targetItemRef)
+          || !refKeys(itemRefs).includes(refKeys([targetItemRef])[0])
+          || !validRevisionRef(exerciseRef)
+          || !validRevisionRef(sequenceRef)
+          || !Number.isInteger(sequenceStep)
+          || sequenceStep < 1
+          || source.snapshot?.id !== source.contentId
+          || !validRevisionRef(source.snapshot?.capabilityRef)
+          || !validRevisionRef(source.snapshot?.targetSkillRef)
+          || source.snapshot?.review?.status !== "prototype-not-human-approved"
+          || source.snapshot?.review?.releaseEnabled !== false) {
+        report(
+          "BIND_MORPHOLOGY_SNAPSHOT_INVALID",
+          `${path}/snapshot`,
+          "Developer morphology source must pin one family, its distinct forms and cues, one selected cue/exercise, a sequence step, and an explicit non-approved review status.",
+          [source.contentId]
+        );
+      }
+    }
     let computedDigest = null;
     try {
       computedDigest = computeContentDigest(source);
@@ -351,6 +414,14 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
       report("BIND_MANIFEST_SCHEMA", path, "Every binding requires a stable ID.");
       return;
     }
+    if (!ACTIVITY_EXERCISE_FAMILIES.get(binding.activityId)?.has(binding.exerciseFamilyId)) {
+      report(
+        "BIND_EXERCISE_FAMILY_INVALID",
+        `${path}/exerciseFamilyId`,
+        "Binding exercise family must be an explicitly supported family for its activity.",
+        [binding.id, binding.exerciseFamilyId].filter(Boolean)
+      );
+    }
     bindingById.set(binding.id, binding);
     const source = sourceById.get(contentKey(binding.contentRef?.catalogId, binding.contentRef?.contentId));
     if (!source) {
@@ -368,6 +439,14 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
       }
       if (binding.activityId !== source.activityId) {
         report("BIND_ACTIVITY_MISMATCH", `${path}/activityId`, `Source ${source.contentId} belongs to ${source.activityId}.`, [binding.id]);
+      }
+      if (binding.exerciseFamilyId !== source.exerciseFamilyId) {
+        report(
+          "BIND_EXERCISE_FAMILY_MISMATCH",
+          `${path}/exerciseFamilyId`,
+          `Source ${source.contentId} belongs to ${source.exerciseFamilyId}.`,
+          [binding.id, source.contentId]
+        );
       }
     }
 
@@ -403,7 +482,35 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
       }
     });
 
-    if (binding.activityId === "verb-nebula" && source && unit) {
+    if (binding.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+      const skill = targetSkillRefs.length === 1
+        ? skillById.get(targetSkillRefs[0]?.id)
+        : null;
+      const assessed = rows(binding.evidenceCapabilities).filter((capability) => capability?.scoreRequired === true);
+      const capability = assessed[0];
+      if (!skill
+          || skill.kind !== "form"
+          || skill.requiredForOutcome !== false
+          || assessed.length !== 1
+          || capability.id !== "independent-form-discrimination"
+          || capability.learningStage !== "discriminate"
+          || capability.evidenceKind !== "comprehension"
+          || capability.independence !== "independent"
+          || capability.masteryEligible !== false
+          || capability.minimumScore !== 1) {
+        report(
+          "BIND_MORPHOLOGY_EVIDENCE_INVALID",
+          `${path}/evidenceCapabilities`,
+          "Visible-form morphology must target one supplemental form skill and remain independent comprehension evidence that is not mastery-eligible.",
+          [binding.id, ...targetSkillRefs.map((reference) => reference?.id)].filter(Boolean)
+        );
+      }
+    }
+
+    if (binding.activityId === "verb-nebula"
+        && binding.exerciseFamilyId === "verb-nebula.meaning-match"
+        && source
+        && unit) {
       const unitConceptIds = rows(unit.semanticScope?.conceptIds);
       const targetConceptIds = targetSkillRefs.flatMap((skillRef) => {
         const skill = skillById.get(skillRef?.id);
@@ -590,6 +697,55 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
     }
   });
 
+  const exerciseSequences = rows(registry.exerciseSequences);
+  if (!Array.isArray(registry.exerciseSequences)) {
+    report("BIND_SEQUENCE_INVALID", "/registry/exerciseSequences", "Binding registries must explicitly declare their exercise-sequence list, which may be empty when no sequenced capability is available.");
+  }
+  for (const duplicate of duplicateIds(exerciseSequences.map((sequence) => sequence?.id))) {
+    report("BIND_ID_DUPLICATE", "/registry/exerciseSequences", `Duplicate exercise sequence ID ${duplicate}.`, [duplicate]);
+  }
+  const sequenceMembership = new Map();
+  exerciseSequences.forEach((sequence, sequenceIndex) => {
+    const path = `/registry/exerciseSequences/${sequenceIndex}`;
+    const orderedBindingIds = rows(sequence?.orderedBindingIds);
+    const memberBindings = orderedBindingIds.map((bindingId) => bindingById.get(bindingId));
+    if (!isNonEmptyString(sequence?.id)
+        || !Number.isInteger(sequence?.revision)
+        || sequence.revision < 1
+        || orderedBindingIds.length < 2
+        || duplicateIds(orderedBindingIds).length
+        || memberBindings.some((binding) => !binding)) {
+      report("BIND_SEQUENCE_INVALID", path, "Exercise sequences require a stable revision and at least two distinct known bindings.", [sequence?.id].filter(Boolean));
+      return;
+    }
+    memberBindings.forEach((binding, memberIndex) => {
+      const priorSequence = sequenceMembership.get(binding.id);
+      if (priorSequence) {
+        report("BIND_SEQUENCE_INVALID", `${path}/orderedBindingIds/${memberIndex}`, `Binding ${binding.id} already belongs to sequence ${priorSequence}.`, [sequence.id, priorSequence, binding.id]);
+      }
+      sequenceMembership.set(binding.id, sequence.id);
+      const source = sourceById.get(contentKey(binding.contentRef?.catalogId, binding.contentRef?.contentId));
+      const snapshot = source?.snapshot;
+      if (binding.activityId !== sequence.activityId
+          || binding.exerciseFamilyId !== sequence.exerciseFamilyId
+          || snapshot?.sequenceRef?.id !== sequence.id
+          || snapshot?.sequenceRef?.revision !== sequence.revision
+          || snapshot?.sequenceStep !== memberIndex + 1) {
+        report(
+          "BIND_SEQUENCE_INVALID",
+          `${path}/orderedBindingIds/${memberIndex}`,
+          "Sequence binding order must match each source's revision-pinned sequence step and exercise family.",
+          [sequence.id, binding.id]
+        );
+      }
+    });
+  });
+  for (const binding of bindings.filter((entry) => entry?.exerciseFamilyId === "verb-nebula.contextual-target-realization")) {
+    if (!sequenceMembership.has(binding.id)) {
+      report("BIND_SEQUENCE_INVALID", "/registry/exerciseSequences", `Morphology binding ${binding.id} is not owned by an exercise sequence.`, [binding.id]);
+    }
+  }
+
   const groups = rows(registry.aggregationGroups);
   if (!Array.isArray(registry.aggregationGroups) || !groups.length) {
     report("BIND_AGGREGATION_INVALID", "/registry/aggregationGroups", "At least one cross-game aggregation group is required.");
@@ -607,6 +763,8 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
     const skill = skillById.get(groupSkillRef?.id);
     if (!skill || skill.unitId !== group?.canonicalUnitId || skill.locale !== targetPack.targetLocale) {
       report("BIND_AGGREGATION_INVALID", `${path}/targetSkillRef`, "Aggregation group target skill must belong to its unit and locale.", [group?.id].filter(Boolean));
+    } else if (skill.requiredForOutcome === false) {
+      report("BIND_AGGREGATION_INVALID", `${path}/targetSkillRef`, "Supplemental target-language realization skills cannot contribute to canonical cross-game mastery aggregation.", [group?.id, skill.id].filter(Boolean));
     } else if (!Number.isInteger(groupSkillRef?.revision)
         || groupSkillRef.revision < 1
         || groupSkillRef.revision !== skill.revision) {
@@ -646,6 +804,7 @@ export function validateCrossGameBindings(curriculum, targetPack, sourceCatalog,
     summary: {
       sources: sources.length,
       bindings: bindings.length,
+      exerciseSequences: exerciseSequences.length,
       aggregationGroups: groups.length,
       activities: [...new Set(bindings.map((binding) => binding?.activityId).filter(Boolean))].sort()
     }

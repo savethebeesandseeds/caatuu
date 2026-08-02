@@ -2,11 +2,13 @@
   let service = null;
   let failure = null;
 
-  const loading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-5")
+  const serviceLoading = import("./curriculum/curriculum-service.mjs?v=curriculum-service-9")
     .then(({ createCurriculumService }) => {
       service = createCurriculumService({ courseProfile: window.CaatuuCourse });
-      return service.ready();
-    })
+      return service;
+    });
+  const loading = serviceLoading
+    .then((loadedService) => loadedService.ready())
     .then((result) => {
       window.dispatchEvent(new CustomEvent("caatuu:curriculum-status", {
         detail: { status: "ready", result }
@@ -25,15 +27,24 @@
     });
 
   const invoke = (method) => (...args) => loading.then(() => service[method](...args));
+  const invokeWithoutReadiness = (method) => (...args) => (
+    serviceLoading.then((loadedService) => loadedService[method](...args))
+  );
   window.CaatuuCurriculum = Object.freeze({
     ready: () => loading,
     guidedModeEnabled: () => service?.guidedModeEnabled() === true,
+    developerPilotModeEnabled: () => service?.developerPilotModeEnabled() === true,
     resolveBinding: invoke("resolveBinding"),
     issueTask: invoke("issueTask"),
     beginOpportunity: invoke("beginOpportunity"),
     recordEvidence: invoke("recordEvidence"),
     recordExposure: invoke("recordExposure"),
     claimDeveloperPilot: invoke("claimDeveloperPilot"),
+    claimDeveloperPilotSequence: invoke("claimDeveloperPilotSequence"),
+    completeDeveloperPilotStep: invoke("completeDeveloperPilotStep"),
+    saveMorphologyRoundState: invoke("saveMorphologyRoundState"),
+    restoreMorphologyRoundState: invoke("restoreMorphologyRoundState"),
+    resetProgress: invokeWithoutReadiness("resetProgress"),
     skillSummary: invoke("skillSummary"),
     progression: invoke("progression"),
     nextRequest: invoke("nextRequest"),

@@ -12,6 +12,13 @@ const OPPORTUNITY_EVIDENCE_KINDS = new Map([
   ["produce", new Set(["production", "transfer"])],
   ["respond", new Set(["production", "transfer"])]
 ]);
+const ACTIVITY_EXERCISE_FAMILIES = new Map([
+  ["word-world", new Set(["word-world.sentence-reconstruction"])],
+  ["verb-nebula", new Set([
+    "verb-nebula.meaning-match",
+    "verb-nebula.contextual-target-realization"
+  ])]
+]);
 const STAGE_EVIDENCE_KIND = new Map([
   ["encounter", "exposure"],
   ["comprehend", "comprehension"],
@@ -121,6 +128,7 @@ export function canonicalContractProjection(curriculum) {
 export function contentContractProjection(source) {
   return {
     activityId: source?.activityId,
+    exerciseFamilyId: source?.exerciseFamilyId,
     catalogDigest: source?.catalogDigest,
     catalogId: source?.catalogId,
     catalogRevision: source?.catalogRevision,
@@ -197,6 +205,13 @@ function validLegacyVerbLocator(reference) {
   const sourceIndex = reference?.legacyLocator?.sourceIndex;
   const parsed = typeof pairId === "string" && /^core-verb-([0-9]+)$/.exec(pairId);
   return Boolean(parsed && Number.isInteger(sourceIndex) && Number(parsed[1]) === sourceIndex);
+}
+
+function validRevisionRef(reference) {
+  return isObject(reference)
+    && nonEmptyString(reference.id)
+    && Number.isInteger(reference.revision)
+    && reference.revision > 0;
 }
 
 export async function validateRuntimeBundle(bundle, releasePins) {
@@ -318,6 +333,14 @@ export async function validateRuntimeBundle(bundle, releasePins) {
   for (const source of rows(sourceCatalog.sources)) {
     const digest = await computeContentDigest(source);
     if (source.contentDigest !== digest) error("RUNTIME_CONTENT_DIGEST_MISMATCH", "/sourceCatalog/sources", `Source ${source.contentId} content digest is stale.`, [source.contentId]);
+    if (!ACTIVITY_EXERCISE_FAMILIES.get(source.activityId)?.has(source.exerciseFamilyId)) {
+      error(
+        "RUNTIME_EXERCISE_FAMILY_INVALID",
+        "/sourceCatalog/sources",
+        `Source ${source.contentId} does not declare a supported exercise family for its activity.`,
+        [source.contentId, source.exerciseFamilyId].filter(Boolean)
+      );
+    }
     if (source.activityId === "word-world") {
       const focus = source.snapshot?.focusTarget;
       const matchingTargets = rows(source.snapshot?.targets).filter((target) => (
@@ -335,7 +358,8 @@ export async function validateRuntimeBundle(bundle, releasePins) {
         );
       }
     }
-    if (source.activityId === "verb-nebula") {
+    if (source.activityId === "verb-nebula"
+        && source.exerciseFamilyId === "verb-nebula.meaning-match") {
       const contrasts = rows(source.snapshot?.guidedContrasts);
       const unique = (field) => {
         const values = contrasts.map((contrast) => contrast?.[field]);
@@ -357,11 +381,63 @@ export async function validateRuntimeBundle(bundle, releasePins) {
         );
       }
     }
+    if (source.activityId === "verb-nebula"
+        && source.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+      const familyRef = source.snapshot?.familyRef;
+      const itemRefs = rows(source.snapshot?.itemRefs);
+      const cueRefs = rows(source.snapshot?.cueRefs);
+      const selectedCueRef = source.snapshot?.selectedCueRef;
+      const targetItemRef = source.snapshot?.targetItemRef;
+      const exerciseRef = source.snapshot?.exerciseRef;
+      const sequenceRef = source.snapshot?.sequenceRef;
+      const uniqueRefs = (references) => new Set(
+        references.map((reference) => `${reference?.id}@${reference?.revision}`)
+      ).size === references.length;
+      const refKey = (reference) => `${reference?.id}@${reference?.revision}`;
+      if (!validRevisionRef(familyRef)
+          || itemRefs.length < 2
+          || cueRefs.length !== itemRefs.length
+          || !itemRefs.every(validRevisionRef)
+          || !cueRefs.every(validRevisionRef)
+          || !uniqueRefs(itemRefs)
+          || !uniqueRefs(cueRefs)
+          || !validRevisionRef(selectedCueRef)
+          || !cueRefs.some((reference) => refKey(reference) === refKey(selectedCueRef))
+          || !validRevisionRef(targetItemRef)
+          || !itemRefs.some((reference) => refKey(reference) === refKey(targetItemRef))
+          || !validRevisionRef(exerciseRef)
+          || !validRevisionRef(sequenceRef)
+          || !Number.isInteger(source.snapshot?.sequenceStep)
+          || source.snapshot.sequenceStep < 1
+          || source.snapshot?.id !== source.contentId
+          || !validRevisionRef(source.snapshot?.capabilityRef)
+          || !validRevisionRef(source.snapshot?.targetSkillRef)
+          || source.snapshot?.review?.status !== "prototype-not-human-approved"
+          || source.snapshot?.review?.releaseEnabled !== false) {
+        error(
+          "RUNTIME_MORPHOLOGY_SNAPSHOT_INVALID",
+          "/sourceCatalog/sources",
+          `Source ${source.contentId} does not pin one explicit developer-only morphology sequence step.`,
+          [source.contentId]
+        );
+      }
+    }
   }
   for (const binding of rows(bindingRegistry.bindings)) {
     const path = `/bindingRegistry/bindings/${binding?.id || "unknown"}`;
+    if (!ACTIVITY_EXERCISE_FAMILIES.get(binding?.activityId)?.has(binding?.exerciseFamilyId)) {
+      error(
+        "RUNTIME_EXERCISE_FAMILY_INVALID",
+        `${path}/exerciseFamilyId`,
+        "Binding does not declare a supported exercise family for its activity.",
+        [binding?.id, binding?.exerciseFamilyId].filter(Boolean)
+      );
+    }
     const source = sourceById.get(sourceKey(binding?.contentRef?.catalogId, binding?.contentRef?.contentId));
-    if (!source || source.activityId !== binding.activityId || !sameContentRef(source, binding.contentRef)) {
+    if (!source
+        || source.activityId !== binding.activityId
+        || source.exerciseFamilyId !== binding.exerciseFamilyId
+        || !sameContentRef(source, binding.contentRef)) {
       error("RUNTIME_BINDING_CONTENT_MISMATCH", `${path}/contentRef`, "Binding content does not match a revision-pinned source snapshot.", [binding?.id].filter(Boolean));
     }
     const unit = unitById.get(binding?.canonicalUnitId);
@@ -374,7 +450,35 @@ export async function validateRuntimeBundle(bundle, releasePins) {
         error("RUNTIME_BINDING_SKILL_MISMATCH", `${path}/targetSkillRefs`, "Binding target skill is missing, stale, or belongs to another unit.", [binding?.id, skillRef?.id].filter(Boolean));
       }
     }
-    if (binding.activityId === "verb-nebula" && source && unit) {
+    if (binding.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+      const targetSkillRefs = rows(binding.targetSkillRefs);
+      const skill = targetSkillRefs.length === 1
+        ? skillById.get(targetSkillRefs[0]?.id)
+        : null;
+      const assessed = rows(binding.evidenceCapabilities).filter((capability) => capability?.scoreRequired === true);
+      const capability = assessed[0];
+      if (!skill
+          || skill.kind !== "form"
+          || skill.requiredForOutcome !== false
+          || assessed.length !== 1
+          || capability.id !== "independent-form-discrimination"
+          || capability.learningStage !== "discriminate"
+          || capability.evidenceKind !== "comprehension"
+          || capability.independence !== "independent"
+          || capability.masteryEligible !== false
+          || capability.minimumScore !== 1) {
+        error(
+          "RUNTIME_MORPHOLOGY_EVIDENCE_INVALID",
+          `${path}/evidenceCapabilities`,
+          "Visible-form morphology must target one supplemental form skill and remain independent comprehension evidence that is not mastery-eligible.",
+          [binding.id, ...targetSkillRefs.map((reference) => reference?.id)].filter(Boolean)
+        );
+      }
+    }
+    if (binding.activityId === "verb-nebula"
+        && binding.exerciseFamilyId === "verb-nebula.meaning-match"
+        && source
+        && unit) {
       const unitConceptIds = rows(unit.semanticScope?.conceptIds);
       const targetConceptIds = [...new Set(rows(binding.targetSkillRefs).flatMap((skillRef) => (
         rows(skillById.get(skillRef?.id)?.canonicalIds).filter((id) => unitConceptIds.includes(id))
@@ -457,6 +561,49 @@ export async function validateRuntimeBundle(bundle, releasePins) {
     }
   }
 
+  const bindingById = new Map(rows(bindingRegistry.bindings).map((binding) => [binding?.id, binding]));
+  const exerciseSequences = rows(bindingRegistry.exerciseSequences);
+  if (!Array.isArray(bindingRegistry.exerciseSequences)) {
+    error("RUNTIME_SEQUENCE_INVALID", "/bindingRegistry/exerciseSequences", "Runtime binding registry must explicitly declare its exercise-sequence list.");
+  }
+  const seenSequenceIds = new Set();
+  const sequenceMembership = new Map();
+  for (const [sequenceIndex, sequence] of exerciseSequences.entries()) {
+    const path = `/bindingRegistry/exerciseSequences/${sequenceIndex}`;
+    const orderedBindingIds = rows(sequence?.orderedBindingIds);
+    const members = orderedBindingIds.map((bindingId) => bindingById.get(bindingId));
+    if (!nonEmptyString(sequence?.id)
+        || seenSequenceIds.has(sequence?.id)
+        || !Number.isInteger(sequence?.revision)
+        || sequence.revision < 1
+        || orderedBindingIds.length < 2
+        || new Set(orderedBindingIds).size !== orderedBindingIds.length
+        || members.some((binding) => !binding)) {
+      error("RUNTIME_SEQUENCE_INVALID", path, "Exercise sequence identity and ordered binding membership are invalid.", [sequence?.id].filter(Boolean));
+      continue;
+    }
+    seenSequenceIds.add(sequence.id);
+    members.forEach((binding, memberIndex) => {
+      if (sequenceMembership.has(binding.id)) {
+        error("RUNTIME_SEQUENCE_INVALID", `${path}/orderedBindingIds/${memberIndex}`, `Binding ${binding.id} belongs to more than one sequence.`, [binding.id]);
+      }
+      sequenceMembership.set(binding.id, sequence.id);
+      const source = sourceById.get(sourceKey(binding.contentRef?.catalogId, binding.contentRef?.contentId));
+      if (binding.activityId !== sequence.activityId
+          || binding.exerciseFamilyId !== sequence.exerciseFamilyId
+          || source?.snapshot?.sequenceRef?.id !== sequence.id
+          || source?.snapshot?.sequenceRef?.revision !== sequence.revision
+          || source?.snapshot?.sequenceStep !== memberIndex + 1) {
+        error("RUNTIME_SEQUENCE_INVALID", `${path}/orderedBindingIds/${memberIndex}`, "Runtime sequence order does not match the pinned source step.", [sequence.id, binding.id]);
+      }
+    });
+  }
+  for (const binding of rows(bindingRegistry.bindings).filter((entry) => entry?.exerciseFamilyId === "verb-nebula.contextual-target-realization")) {
+    if (!sequenceMembership.has(binding.id)) {
+      error("RUNTIME_SEQUENCE_INVALID", "/bindingRegistry/exerciseSequences", `Morphology binding ${binding.id} is not sequence-owned.`, [binding.id]);
+    }
+  }
+
   return {
     valid: errors.length === 0,
     errors,
@@ -465,7 +612,8 @@ export async function validateRuntimeBundle(bundle, releasePins) {
       units: rows(curriculum.units).length,
       targetSkills: rows(targetPack.skills).length,
       sources: rows(sourceCatalog.sources).length,
-      bindings: rows(bindingRegistry.bindings).length
+      bindings: rows(bindingRegistry.bindings).length,
+      exerciseSequences: exerciseSequences.length
     }
   };
 }

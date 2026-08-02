@@ -159,6 +159,10 @@
         "kind": {"enum": ["function", "lexeme", "sense", "form", "construction", "pronunciation", "script"]},
         "descriptionEn": {"type": "string", "minLength": 1},
         "canonicalIds": {"$ref": "#/$defs/nonEmptyUniqueIds"},
+        "requiredForOutcome": {
+          "description": "False marks an optional target-language realization skill that must not be added to the canonical unit mastery inventory.",
+          "type": "boolean"
+        },
         "review": {"$ref": "#/$defs/review"}
       }
     },

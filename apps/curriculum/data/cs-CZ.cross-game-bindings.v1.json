@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-cross-game-binding-registry-v1",
   "registryId": "caatuu.cs-CZ.cross-game-bindings",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "curriculum": {
     "id": "caatuu.shared-beginner",
     "version": "1.0.0",
@@ -9,25 +9,26 @@
   },
   "targetPack": {
     "id": "caatuu.cs-CZ.shared-beginner",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "targetLocale": "cs-CZ",
-    "targetPackDigest": "sha256:5be7e8dea2b427d6195d2f50cf99c9b49d538f25cfd2f404f81d0d8bd46eb7f2"
+    "targetPackDigest": "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461"
   },
   "sourceCatalog": {
     "id": "caatuu.cs-CZ.cross-game-pilot-sources",
-    "version": "1.2.0"
+    "version": "1.4.0"
   },
   "bindings": [
     {
       "id": "binding.word-world.ww-cp-000146",
       "activityId": "word-world",
+      "exerciseFamilyId": "word-world.sentence-reconstruction",
       "contentRef": {
         "catalogId": "word-world-standard-v0.1",
         "catalogRevision": "standard-v0.1",
         "catalogDigest": "sha256:01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
         "contentId": "ww-cp-000146",
         "revision": 2,
-        "contentDigest": "sha256:6a264e969c1f9e512b578cb03cea5be366e2bc616688340afb98750c61c10c63"
+        "contentDigest": "sha256:c412ff9b660efc267cdf3a80385c69b6c13f5d538f3ce24e5afc1beb1be26e0f"
       },
       "canonicalUnitId": "unit.routine.familiar-actions.01",
       "canonicalUnitRevision": 1,
@@ -65,13 +66,14 @@
     {
       "id": "binding.verb-nebula.cs.verb.cist.read",
       "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.meaning-match",
       "contentRef": {
         "catalogId": "verb-nebula-v1",
         "catalogRevision": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
         "catalogDigest": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
         "contentId": "cs.verb.cist.read",
         "revision": 2,
-        "contentDigest": "sha256:90c58824d0e310b8bedec78140bced958b6481323b71318e71f99822d16a6881"
+        "contentDigest": "sha256:9d59cdd04d49f47ae845b7cc24b0b89c7e6307937f884053f796608e4ad5931b"
       },
       "canonicalUnitId": "unit.routine.familiar-actions.01",
       "canonicalUnitRevision": 1,
@@ -104,6 +106,148 @@
           "masteryEligible": false,
           "minimumScore": 1
         }
+      ]
+    },
+    {
+      "id": "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
+      "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+        "catalogRevision": "1.1.0",
+        "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+        "contentId": "cs.morphology.cist.present-singular-person.1sg",
+        "revision": 1,
+        "contentDigest": "sha256:f983838a4bd54c56daaab193898d4714747caf05737850df2e1cceb9e3c2f5a8"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
+      "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+        "catalogRevision": "1.1.0",
+        "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+        "contentId": "cs.morphology.cist.present-singular-person.2sg",
+        "revision": 1,
+        "contentDigest": "sha256:62b3a383ebb475ba7dde26f1b30cd4f7cf6a051394ff36c52a498ccafff39a17"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {"id": "cs.skill.form.cist.present-singular-person", "revision": 1}
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg",
+      "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+        "catalogRevision": "1.1.0",
+        "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+        "contentId": "cs.morphology.cist.present-singular-person.3sg",
+        "revision": 1,
+        "contentDigest": "sha256:37e4dde8f08470f03a67887ad889b3c03a120cf06f966941862f34fee749eb42"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {"id": "cs.skill.form.cist.present-singular-person", "revision": 1}
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    }
+  ],
+  "exerciseSequences": [
+    {
+      "id": "sequence.verb-nebula.cs.morphology.cist.present-singular-person",
+      "revision": 1,
+      "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "orderedBindingIds": [
+        "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
+        "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
+        "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg"
       ]
     }
   ],

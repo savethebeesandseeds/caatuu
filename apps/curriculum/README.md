@@ -16,11 +16,14 @@ invariants.
 - `schemas/canonical-curriculum.schema.json`: structural contract for the shared curriculum.
 - `schemas/target-realization-pack.schema.json`: structural contract for target packs.
 - `schemas/target-pack-review-attestation.schema.json`: digest-bound native-teacher release approval.
+- `schemas/shared-mechanic-capability-catalog.schema.json`: English-owned exercise-capability and evidence-ceiling contract.
+- `schemas/target-morphology-catalog.schema.json`: target-language forms, cues, metadata, and review contract.
 - `data/canonical-curriculum.v1.en.json`: the three-unit English-authored pilot.
 - `data/cs-CZ.realization-pack.v1.json`: a provisional Czech realization fixture.
 - `data/pilot-content-sources.v1.json`: revisioned snapshots of the two real game items.
 - `data/cs-CZ.cross-game-bindings.v1.json`: Word World and Verb Nebula bindings to one skill identity.
 - `src/validate-conformance.mjs`: dependency-free structural, semantic, transfer, and cross-file validator.
+- `src/validate-morphology-contracts.mjs`: strict schema and semantic gate for shared mechanics and target morphology.
 - `src/cross-game-binding-core.mjs`: binding, task/evidence, and shared-skill reduction core.
 - `runtime/curriculum-planner-core.mjs`: browser-safe canonical unit, stage,
   repair, delayed-retrieval, and unlock planner.
@@ -42,6 +45,7 @@ attestation is shipped for the provisional Czech fixture.
 npm test
 npm run validate
 npm run validate:bindings
+npm run validate:morphology
 npm run sync:runtime
 ```
 
@@ -176,3 +180,50 @@ This is an integration probe, not a learner release. The profile still labels
 the pack `prototype-not-human-approved`, release remains disabled, Unit 3
 remains locked, and full Unit 1 Guided coverage plus native Czech educator
 approval are still required.
+
+## Morphology capability pilot boundaries
+
+Morphology is a shared curriculum exercise capability, not a Czech-only game
+branch. English owns each capability definition, its canonical context
+dimensions, prerequisites, and evidence ceiling. A reviewed target-language
+catalog declares only the language-specific forms and namespaced feature
+constraints needed to realize that capability. Natural English translation is
+kept separate from an explicit English teaching label: the former must stay
+natural, while the latter may name the contrast without inventing a misleading
+translation. A future language enables only the dimensions and exercise
+templates its reviewed catalog supports; saying that the language "has
+conjugation" is never sufficient authorization.
+
+The current Czech `číst` visible-form sequence—speaker singular, familiar
+addressee singular, then named third person singular—is a three-step developer
+pilot, not a universal template or cardinality rule. It deliberately defers
+aspect, reflexive `se`/`si`, dropped-subject production, irregular paradigms,
+past-gender contrasts, polite/plural ambiguity, and broader accepted-variant
+policy. The activity is untimed, keeps every target option visible, records
+only supplemental form discrimination, cannot advance meaning or conjugation
+mastery, and awards 0 XP. Explore remains outside this Guided evidence path.
+
+Scored exercise keys must come from deterministic, revisioned, digest-pinned
+content. Generative tools may draft or audit material before review, but they
+must never silently create answer keys at runtime. In this developer pilot the
+service proves immutable binding, task, cue/target references, evidence, and
+settlement shape, while the client recomposes the visible cue and options from
+the digest-pinned morphology catalog and rejects any restored projection that
+differs. The service does not yet load that catalog, so it cannot independently
+attest the displayed text and surfaces; this is an explicit prototype trust
+boundary. Before release or mastery-eligible scoring, the service must either
+load and recompose the pinned catalog itself or validate an authored exact
+round-projection digest. A game may not synthesize, substitute, or upgrade a
+key at runtime.
+
+Sequence, task, round, evidence, and recovery state must survive refresh with
+compare-and-swap and cross-tab ownership protections. Reset first quiesces or
+aborts outstanding opportunities, then clears the curriculum ledger and
+rebuilds derived state, so an active task cannot outlive its evidence history.
+
+This pilot is permanently `developer-only` and
+`prototype-not-human-approved`; changing review fields cannot promote it in
+place. Learner release requires a new catalog reviewed by a qualified native
+educator, a digest-bound attestation, and build/release gates covering the two
+JSON Schemas, semantic validation, source and binding pins, visible-projection
+tests, accessibility, and offline/cache behavior.

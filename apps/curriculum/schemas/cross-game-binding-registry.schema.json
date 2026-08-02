@@ -12,6 +12,7 @@
     "targetPack",
     "sourceCatalog",
     "bindings",
+    "exerciseSequences",
     "aggregationGroups"
   ],
   "properties": {
@@ -53,6 +54,10 @@
       "minItems": 1,
       "items": {"$ref": "#/$defs/binding"}
     },
+    "exerciseSequences": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/exerciseSequence"}
+    },
     "aggregationGroups": {
       "type": "array",
       "minItems": 1,
@@ -60,6 +65,23 @@
     }
   },
   "$defs": {
+    "exerciseSequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "activityId", "exerciseFamilyId", "orderedBindingIds"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^sequence\\.[a-z0-9.-]+$"},
+        "revision": {"type": "integer", "minimum": 1},
+        "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "orderedBindingIds": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"}
+        }
+      }
+    },
     "contentRef": {
       "type": "object",
       "additionalProperties": false,
@@ -144,6 +166,7 @@
       "required": [
         "id",
         "activityId",
+        "exerciseFamilyId",
         "contentRef",
         "canonicalUnitId",
         "canonicalUnitRevision",
@@ -156,6 +179,7 @@
       "properties": {
         "id": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"},
         "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
         "contentRef": {"$ref": "#/$defs/contentRef"},
         "canonicalUnitId": {"type": "string", "pattern": "^unit\\."},
         "canonicalUnitRevision": {"type": "integer", "minimum": 1},
@@ -187,7 +211,26 @@
           "minItems": 1,
           "items": {"$ref": "#/$defs/capability"}
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"activityId": {"const": "word-world"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "word-world.sentence-reconstruction"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
+          "then": {
+            "properties": {
+              "exerciseFamilyId": {
+                "enum": [
+                  "verb-nebula.meaning-match",
+                  "verb-nebula.contextual-target-realization"
+                ]
+              }
+            }
+          }
+        }
+      ]
     },
     "aggregationGroup": {
       "type": "object",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-target-realization-pack-v1",
   "packId": "caatuu.cs-CZ.shared-beginner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "specLocale": "en",
   "targetLocale": "cs-CZ",
   "supportLocales": [
@@ -1137,6 +1137,24 @@
       "review": {
         "status": "prototype-not-human-approved",
         "notesEn": "Target skill definition requires native Czech educator review."
+      }
+    },
+    {
+      "id": "cs.skill.form.cist.present-singular-person",
+      "revision": 1,
+      "unitId": "unit.routine.familiar-actions.01",
+      "locale": "cs-CZ",
+      "kind": "form",
+      "descriptionEn": "Discriminate the reviewed singular present forms of číst by speaker, familiar addressee, or named third person in a current-action context.",
+      "canonicalIds": [
+        "function.describe-action",
+        "frame.action",
+        "concept.action.read"
+      ],
+      "requiredForOutcome": false,
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "Supplemental developer-only form discrimination; native Czech educator approval is required before learner release."
       }
     },
     {

@@ -43,6 +43,36 @@ async function fixtures() {
   return { curriculum, pack, catalog, registry };
 }
 
+function authorSyntheticMorphologySequenceLength(catalog, registry, length) {
+  const sequence = registry.exerciseSequences[0];
+  const orderedBindingIds = [...sequence.orderedBindingIds];
+  if (length === 2) {
+    const removedBindingIds = new Set(orderedBindingIds.splice(2));
+    const removedContentIds = new Set(registry.bindings
+      .filter((binding) => removedBindingIds.has(binding.id))
+      .map((binding) => binding.contentRef.contentId));
+    registry.bindings = registry.bindings.filter((binding) => !removedBindingIds.has(binding.id));
+    catalog.sources = catalog.sources.filter((source) => !removedContentIds.has(source.contentId));
+  } else if (length === 4) {
+    const templateBinding = registry.bindings.find((binding) => binding.id === orderedBindingIds[2]);
+    const templateSource = catalog.sources.find((source) => source.contentId === templateBinding.contentRef.contentId);
+    const binding = structuredClone(templateBinding);
+    const source = structuredClone(templateSource);
+    binding.id = `${binding.id}.synthetic-step-4`;
+    source.contentId = `${source.contentId}.synthetic-step-4`;
+    source.snapshot.id = source.contentId;
+    source.snapshot.sequenceStep = 4;
+    source.snapshot.difficulty.rationaleEn = "Synthetic fourth step used to verify authored sequence cardinality.";
+    source.contentDigest = computeContentDigest(source);
+    binding.contentRef.contentId = source.contentId;
+    binding.contentRef.contentDigest = source.contentDigest;
+    registry.bindings.push(binding);
+    catalog.sources.push(source);
+    orderedBindingIds.push(binding.id);
+  }
+  sequence.orderedBindingIds = orderedBindingIds;
+}
+
 function taskFor(registry, {
   taskId,
   issuedAt,
@@ -103,7 +133,8 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
   assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
   assert.equal(result.targetPackDigest, computeTargetPackDigest(pack));
   assert.deepEqual(result.summary.activities, ["verb-nebula", "word-world"]);
-  assert.equal(result.summary.bindings, 2);
+  assert.equal(result.summary.bindings, 5);
+  assert.equal(result.summary.exerciseSequences, 1);
 
   const word = catalog.sources.find((source) => source.contentId === "ww-cp-000146");
   const verb = catalog.sources.find((source) => source.contentId === "cs.verb.cist.read");
@@ -161,6 +192,26 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
   });
 
   assert.equal(pack.contexts.some((row) => row.id === wordBinding.contextId), false);
+});
+
+test("morphology bindings must preserve their source-pinned sequence order", async () => {
+  const { curriculum, pack, catalog, registry } = await fixtures();
+  const invalid = structuredClone(registry);
+  const ordered = invalid.exerciseSequences[0].orderedBindingIds;
+  [ordered[1], ordered[2]] = [ordered[2], ordered[1]];
+  const result = validateCrossGameBindings(curriculum, pack, catalog, invalid);
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(({ code }) => code === "BIND_SEQUENCE_INVALID"));
+});
+
+test("the binding contract accepts authored two-step and four-step morphology sequences", async () => {
+  for (const length of [2, 4]) {
+    const { curriculum, pack, catalog, registry } = await fixtures();
+    authorSyntheticMorphologySequenceLength(catalog, registry, length);
+    const result = validateCrossGameBindings(curriculum, pack, catalog, registry);
+    assert.equal(result.valid, true, `${length} steps: ${JSON.stringify(result.errors, null, 2)}`);
+    assert.equal(registry.exerciseSequences[0].orderedBindingIds.length, length);
+  }
 });
 
 test("Word comprehension and Verb discrimination reject mismatched stage evidence", async () => {

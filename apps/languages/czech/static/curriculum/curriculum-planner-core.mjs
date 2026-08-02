@@ -295,6 +295,11 @@ async function validateContracts(curriculum, targetPack, bindingRegistry) {
   const contextById = new Map(rows(targetPack.contexts).map((context) => [context?.id, context]));
   const unitBindingById = new Map();
   const boundPackSkillIds = new Set();
+  const requiredPackSkillIds = new Set(
+    [...skillById.values()]
+      .filter((skill) => skill.requiredForOutcome !== false)
+      .map((skill) => skill.id)
+  );
   for (const [index, unitBinding] of rows(targetPack.unitBindings).entries()) {
     const path = `/targetPack/unitBindings/${index}`;
     requireContract(isObject(unitBinding) && unitById.has(unitBinding.unitId), path, "Every unit realization must reference a canonical unit.");
@@ -314,13 +319,23 @@ async function validateContracts(curriculum, targetPack, bindingRegistry) {
       const skill = skillById.get(skillId);
       requireContract(Boolean(skill), `${path}/targetSkillIds`, `Unit ${unitBinding.unitId} references unknown skill ${skillId}.`);
       requireContract(skill.unitId === unitBinding.unitId, `${path}/targetSkillIds`, `Skill ${skillId} belongs to another unit.`);
+      requireContract(
+        skill.requiredForOutcome !== false,
+        `${path}/targetSkillIds`,
+        `Supplemental skill ${skillId} cannot become a required progression or mastery target.`
+      );
       requireContract(!boundPackSkillIds.has(skillId), `${path}/targetSkillIds`, `Skill ${skillId} is required by more than one unit.`);
       boundPackSkillIds.add(skillId);
     }
     unitBindingById.set(unitBinding.unitId, unitBinding);
   }
   requireContract(unitBindingById.size === unitOrder.length, "/targetPack/unitBindings", "Every canonical unit requires exactly one realization binding.");
-  requireContract(boundPackSkillIds.size === skillById.size, "/targetPack/skills", "Every target skill must be required by exactly one canonical unit.");
+  requireContract(
+    boundPackSkillIds.size === requiredPackSkillIds.size
+      && [...requiredPackSkillIds].every((skillId) => boundPackSkillIds.has(skillId)),
+    "/targetPack/skills",
+    "Every outcome-required target skill must be required by exactly one canonical unit."
+  );
 
   const [canonicalDigest, targetPackDigest] = await Promise.all([
     computeCanonicalContractDigest(curriculum),

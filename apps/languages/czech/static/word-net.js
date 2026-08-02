@@ -267,7 +267,8 @@ const state = {
   guidedFocusTarget: null,
   guidedEvidencePending: false,
   guidedActivationEpoch: 0,
-  guidedSupportAtFirstResponse: false
+  guidedSupportAtFirstResponse: false,
+  guidedResetPending: false
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -295,6 +296,7 @@ function guidedWordPresentationReady(requestId, recordId, lifecycle, activationE
   return Boolean(
     state.guidedMode
     && state.guidedStatus === "activating"
+    && !state.guidedResetPending
     && state.guidedActivationEpoch === activationEpoch
     && state.phraseRequestId === requestId
     && state.currentEntryId === recordId
@@ -360,10 +362,18 @@ function guidedWordInteractionLocked() {
     !state.guidedMode
     || ["loading", "pending", "activating", "failed"].includes(state.guidedStatus)
     || state.guidedEvidencePending
+    || state.guidedResetPending
   );
 }
 
 function failGuidedWordWorld(error, message = "Guided Word World is locked.") {
+  const lifecycle = state.guidedLifecycle;
+  if (lifecycle?.abort) {
+    void lifecycle.abort().catch((abortError) => {
+      console.error("Guided Word World lifecycle could not be released", abortError);
+    });
+  }
+  if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
   state.guidedStatus = "failed";
   state.guidedError = error?.message || String(error || message);
   state.guidedEvidencePending = false;
@@ -420,7 +430,7 @@ async function initializeGuidedWordWorldMode() {
   try {
     const curriculum = window.CaatuuCurriculum;
     if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
-    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-3");
+    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-5");
     await curriculum.ready();
     if (!curriculum.guidedModeEnabled()) {
       throw new Error("Developer Guided mode is not enabled for this local course profile.");
@@ -432,6 +442,53 @@ async function initializeGuidedWordWorldMode() {
     state.guidedError = error?.message || String(error);
     state.guidedStatus = "failed";
     console.error("Word World Guided mode failed closed", error);
+  }
+}
+
+async function prepareGuidedWordProgressReset() {
+  if (!state.guidedRequested && !state.guidedLifecycle) return;
+  state.guidedResetPending = true;
+  state.guidedActivationEpoch += 1;
+  state.phraseRequestId += 1;
+  clearTranslationTimer();
+  cancelBackgroundWork();
+  const lifecycle = state.guidedLifecycle;
+  if (lifecycle?.abort) await lifecycle.abort();
+  if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
+  state.guidedEvidencePending = false;
+}
+
+async function restartGuidedWordWorldAfterReset({ resetCompleted = true } = {}) {
+  state.guidedResetPending = false;
+  state.guidedActivationEpoch += 1;
+  state.phraseRequestId += 1;
+  state.guidedMode = false;
+  state.guidedStatus = "loading";
+  state.guidedError = "";
+  state.guidedResolution = null;
+  state.guidedLifecycle = null;
+  state.guidedFocusTarget = null;
+  state.guidedEvidencePending = false;
+  state.guidedSupportAtFirstResponse = false;
+  state.reconstruction = null;
+  setBusy(true);
+  setStatus(
+    resetCompleted
+      ? "Preparing the first Guided Word World task again."
+      : "The restart was cancelled. Rechecking the existing Guided task.",
+    { tone: "active" }
+  );
+  await initializeGuidedWordWorldMode();
+  if (!state.guidedMode) {
+    setBusy(false);
+    renderWordGuidedStatus();
+    return;
+  }
+  try {
+    await initializeStandardCorpus();
+    await generateGuidedStandardPhrase({ allowBusy: true });
+  } finally {
+    if (state.busy) setBusy(false);
   }
 }
 
@@ -2302,6 +2359,11 @@ async function submitReconstructionChallenge() {
         score: correct ? 1 : 0,
         occurredAt: new Date().toISOString()
       });
+      if (state.guidedResetPending || round.guidedLifecycle !== state.guidedLifecycle) {
+        round.evidencePending = false;
+        state.guidedEvidencePending = false;
+        return;
+      }
     } catch (error) {
       round.evidencePending = false;
       failGuidedWordWorld(error, "Your answer stayed hidden because its evidence could not be saved.");
@@ -4054,6 +4116,12 @@ async function submitSentenceFeedback(event) {
 }
 
 function bindUi() {
+  window.CaatuuLearning?.registerProgressResetPreparation?.(prepareGuidedWordProgressReset);
+  window.addEventListener("caatuu:progress-reset-cancelled", () => {
+    if (state.guidedResetPending && state.guidedRequested) {
+      void restartGuidedWordWorldAfterReset({ resetCompleted: false });
+    }
+  });
   $("#wordNetContentSource")?.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-content-mode]");
     if (!button || button.disabled) return;
@@ -4212,6 +4280,10 @@ function bindUi() {
   });
   window.addEventListener("pagehide", () => cancelCzechSpeech());
   window.addEventListener("caatuu:learning-change", (event) => {
+    if (event.detail?.reason === "progress-reset" && state.guidedRequested) {
+      void restartGuidedWordWorldAfterReset();
+      return;
+    }
     if (event.detail?.reason !== "difficulty") return;
     syncDiagnostics();
     setStatus(`Learning level changed to ${learningDifficulty()}. The next Standard sentence will follow it.`, { tone: "active" });

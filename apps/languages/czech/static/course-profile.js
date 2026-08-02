@@ -42,7 +42,8 @@
       learningPerformance: "caatuu-czech.learning.performance.v1",
       semanticLearningDatabase: "caatuu-czech.semantic-learning",
       chatSettings: "caatuu-czech.chat.settings.v1",
-      verbMemory: "caatuu-czech.verb-memory.v2",
+      verbMemory: "caatuu-czech.verb-memory.v3",
+      verbMemoryLegacy: "caatuu-czech.verb-memory.v2",
       wordWorldTranslationMode: "caatuu-czech.wordNet.translationMode",
       wordWorldRecentSentences: "caatuu-czech.wordNet.recentSentences.v1",
       wordWorldTranslationCache: "caatuu-czech.wordNet.translationCache.v1"
@@ -53,22 +54,59 @@
         canonicalManifest: "data/curriculum/canonical-curriculum.v1.en.json",
         realizationPack: "data/curriculum/cs-CZ.realization-pack.v1.json",
         sourceCatalog: "data/curriculum/pilot-content-sources.v1.json",
-        bindingRegistry: "data/curriculum/cs-CZ.cross-game-bindings.v1.json"
+        bindingRegistry: "data/curriculum/cs-CZ.cross-game-bindings.v1.json",
+        sharedMechanicCapabilities: "data/curriculum/shared-mechanic-capabilities.v1.en.json",
+        morphologyCatalog: "data/curriculum/cs-CZ.morphology-developer-pilot.v1.json"
       },
       releasePins: {
         curriculumId: "caatuu.shared-beginner",
         curriculumVersion: "1.0.0",
         canonicalContractDigest: "sha256:ea771050c38c0bac732fa5ae02a0494b6505b98b8a635590ee3fa7ff2cb32dd9",
         targetPackId: "caatuu.cs-CZ.shared-beginner",
-        targetPackVersion: "1.0.0",
+        targetPackVersion: "1.1.0",
         targetLocale: "cs-CZ",
-        targetPackDigest: "sha256:5be7e8dea2b427d6195d2f50cf99c9b49d538f25cfd2f404f81d0d8bd46eb7f2",
+        targetPackDigest: "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461",
         sourceCatalogId: "caatuu.cs-CZ.cross-game-pilot-sources",
-        sourceCatalogVersion: "1.2.0",
-        sourceCatalogDigest: "sha256:c7c91b85781c985a561184d5c19cb766c8b5cc7eb6f93e5e6fb5a81b12478e20",
+        sourceCatalogVersion: "1.4.0",
+        sourceCatalogDigest: "sha256:a181e41db3b93f6f19e66dba7e13e61104089a719279d3e0baa56297a9b9cb7b",
         bindingRegistryId: "caatuu.cs-CZ.cross-game-bindings",
-        bindingRegistryVersion: "1.3.0",
-        bindingRegistryDigest: "sha256:86297b1887baea41a3078a9d45e54f288f5251f798747f4b43537aeb885e4a7b"
+        bindingRegistryVersion: "1.5.0",
+        bindingRegistryDigest: "sha256:7837b28bc69e453340ae1446565e4f639d0bc83f07abc631748be1d98094bdec"
+      },
+      verbExerciseFamilies: {
+        queryParameter: "verb-family",
+        defaultFamily: "meaning",
+        families: {
+          meaning: {
+            exerciseFamilyId: "verb-nebula.meaning-match",
+            stableContentId: "cs.verb.cist.read",
+            assessedCapabilityId: "independent-discrimination",
+            developerOnly: false
+          },
+          morphology: {
+            exerciseFamilyId: "verb-nebula.contextual-target-realization",
+            stableContentId: "cs.morphology.cist.present-singular-person.1sg",
+            targetSkillId: "cs.skill.form.cist.present-singular-person",
+            assessedCapabilityId: "independent-form-discrimination",
+            developerOnly: true,
+            requiresPinnedCatalog: true,
+            optionCount: 3,
+            sequence: {
+              id: "sequence.verb-nebula.cs.morphology.cist.present-singular-person",
+              revision: 1,
+              orderedContentIds: [
+                "cs.morphology.cist.present-singular-person.1sg",
+                "cs.morphology.cist.present-singular-person.2sg",
+                "cs.morphology.cist.present-singular-person.3sg"
+              ],
+              orderedBindingIds: [
+                "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
+                "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
+                "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg"
+              ]
+            }
+          }
+        }
       },
       guidedMode: {
         enabled: true,

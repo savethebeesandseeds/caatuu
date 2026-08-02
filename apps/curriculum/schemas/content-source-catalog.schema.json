@@ -22,6 +22,7 @@
       "additionalProperties": false,
       "required": [
         "activityId",
+        "exerciseFamilyId",
         "catalogId",
         "catalogRevision",
         "catalogDigest",
@@ -34,6 +35,7 @@
       ],
       "properties": {
         "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
         "catalogId": {"type": "string", "minLength": 3, "maxLength": 128},
         "catalogRevision": {"type": "string", "minLength": 1, "maxLength": 160},
         "catalogDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
@@ -56,11 +58,45 @@
       "allOf": [
         {
           "if": {"properties": {"activityId": {"const": "word-world"}}},
-          "then": {"properties": {"snapshot": {"$ref": "#/$defs/wordWorldSnapshot"}}}
+          "then": {
+            "properties": {
+              "exerciseFamilyId": {"const": "word-world.sentence-reconstruction"},
+              "snapshot": {"$ref": "#/$defs/wordWorldSnapshot"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "activityId": {"const": "verb-nebula"},
+              "exerciseFamilyId": {"const": "verb-nebula.meaning-match"}
+            },
+            "required": ["activityId", "exerciseFamilyId"]
+          },
+          "then": {"properties": {"snapshot": {"$ref": "#/$defs/verbNebulaSnapshot"}}}
         },
         {
           "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
-          "then": {"properties": {"snapshot": {"$ref": "#/$defs/verbNebulaSnapshot"}}}
+          "then": {
+            "properties": {
+              "exerciseFamilyId": {
+                "enum": [
+                  "verb-nebula.meaning-match",
+                  "verb-nebula.contextual-target-realization"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "activityId": {"const": "verb-nebula"},
+              "exerciseFamilyId": {"const": "verb-nebula.contextual-target-realization"}
+            },
+            "required": ["activityId", "exerciseFamilyId"]
+          },
+          "then": {"properties": {"snapshot": {"$ref": "#/$defs/morphologySnapshot"}}}
         }
       ]
     },
@@ -178,6 +214,78 @@
           "properties": {
             "pairId": {"type": "string", "pattern": "^core-verb-[0-9]+$"},
             "sourceIndex": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "revisionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision"],
+      "properties": {
+        "id": {"type": "string", "minLength": 3, "maxLength": 180},
+        "revision": {"type": "integer", "minimum": 1}
+      }
+    },
+    "morphologySnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "familyRef",
+        "itemRefs",
+        "cueRefs",
+        "selectedCueRef",
+        "targetItemRef",
+        "exerciseRef",
+        "sequenceRef",
+        "sequenceStep",
+        "capabilityRef",
+        "targetSkillRef",
+        "difficulty",
+        "review"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z]{2,3}\\.morphology\\."},
+        "familyRef": {"$ref": "#/$defs/revisionRef"},
+        "itemRefs": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/revisionRef"}
+        },
+        "cueRefs": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/revisionRef"}
+        },
+        "selectedCueRef": {"$ref": "#/$defs/revisionRef"},
+        "targetItemRef": {"$ref": "#/$defs/revisionRef"},
+        "exerciseRef": {"$ref": "#/$defs/revisionRef"},
+        "sequenceRef": {"$ref": "#/$defs/revisionRef"},
+        "sequenceStep": {"type": "integer", "minimum": 1},
+        "capabilityRef": {"$ref": "#/$defs/revisionRef"},
+        "targetSkillRef": {"$ref": "#/$defs/revisionRef"},
+        "difficulty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dimension", "level", "advisoryOnly", "rationaleEn"],
+          "properties": {
+            "dimension": {"enum": ["task-challenge"]},
+            "level": {"type": "integer", "minimum": 1},
+            "advisoryOnly": {"const": true},
+            "rationaleEn": {"type": "string", "minLength": 1}
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "releaseEnabled", "notesEn"],
+          "properties": {
+            "status": {"const": "prototype-not-human-approved"},
+            "releaseEnabled": {"const": false},
+            "notesEn": {"type": "string", "minLength": 1}
           }
         }
       }

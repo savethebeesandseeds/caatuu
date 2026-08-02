@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-9"></script>
-    <script src="learning-profile.js?v=learning-3"></script>
+  <script src="course-profile.js?v=course-12"></script>
+    <script src="learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -23,9 +23,9 @@
     </script>
   <script src="runtime.js?v=runtime-34"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
-  <script src="curriculum-service.js?v=curriculum-service-5"></script>
+  <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-67">
+    <link rel="stylesheet" href="app.css?v=shell-70">
   <link rel="stylesheet" href="chrome.css?v=chrome-style-87">
   </head>
   <body class="games-page">
@@ -337,7 +337,7 @@
                   <img src="/assets/planets/nebula.png" alt="">
                   <span class="train-world-label">
                     <b>Verb Nebula</b>
-                    <small>Match meanings</small>
+                    <small id="verbWorldSubtitle">Match meanings</small>
                   </span>
                 </button>
                 <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
@@ -352,11 +352,11 @@
             </section>
 
             <div class="train-tab-panel verb-match-panel" id="trainPanelVerbLab" aria-label="Verb Nebula" hidden>
-              <aside class="verb-guided-status" id="verbGuidedStatus" role="status" aria-live="polite" hidden>
-                <strong>Developer Guided · prototype-not-human-approved</strong>
+              <aside class="verb-guided-status" id="verbGuidedStatus" role="status" aria-live="polite" aria-atomic="true" hidden>
+                <strong id="verbGuidedStatusTitle">Developer Guided · prototype-not-human-approved</strong>
                 <span id="verbGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
               </aside>
-              <section class="verb-match-board" aria-label="Match Czech verbs with English meanings">
+              <section class="verb-match-board" id="verbMeaningBoard" aria-label="Match Czech verbs with English meanings">
                 <div class="verb-match-controls" aria-label="Verb Nebula controls">
                   <div class="verb-match-control-cluster">
                     <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
@@ -431,7 +431,7 @@
                 </div>
               </section>
 
-              <footer class="verb-match-footer">
+              <footer class="verb-match-footer" id="verbMeaningFooter">
                 <div class="verb-match-note">
                   <p class="verb-match-feedback" id="verbMatchFeedback" aria-live="polite">
                     Match each Czech verb with its English meaning.
@@ -443,6 +443,74 @@
                   <span><b id="verbMatchAccuracy">—</b> accuracy</span>
                 </div>
               </footer>
+
+              <section
+                class="verb-morphology-board"
+                id="verbMorphologyBoard"
+                aria-labelledby="verbMorphologyTitle"
+                aria-describedby="verbMorphologyInstructions verbMorphologyFeedback"
+                hidden
+              >
+                <header class="verb-morphology-head">
+                  <div>
+                    <p class="verb-kicker">Verb forms · developer pilot</p>
+                    <h2 id="verbMorphologyTitle">Which form fits?</h2>
+                  </div>
+                  <span class="verb-morphology-lemma" id="verbMorphologyLemma">
+                    <span id="verbMorphologyLemmaTarget" lang="cs-CZ">číst</span>
+                    <span aria-hidden="true"> · </span>
+                    <span id="verbMorphologyGloss" lang="en">read</span>
+                  </span>
+                </header>
+
+                <div class="verb-morphology-cue" id="verbMorphologyCue">
+                  <span class="verb-morphology-role" id="verbMorphologyRole" aria-hidden="true">I</span>
+                  <div>
+                    <p class="verb-morphology-context" id="verbMorphologyContext">The speaker describes what they are doing now.</p>
+                    <p class="verb-morphology-prompt" id="verbMorphologyPrompt" lang="en">I’m reading a book now.</p>
+                    <p class="verb-morphology-label" id="verbMorphologyTeachingLabel">speaker · singular · present</p>
+                  </div>
+                </div>
+
+                <p class="verb-morphology-instructions" id="verbMorphologyInstructions">
+                  Choose the target-language form that fits this exact situation. All choices stay available on every trial.
+                </p>
+                <div
+                  class="verb-morphology-choices"
+                  id="verbMorphologyChoices"
+                  role="group"
+                  aria-label="Target-language verb-form choices"
+                ></div>
+
+                <aside class="verb-morphology-hint" id="verbMorphologyHint" role="note" hidden>
+                  <strong id="verbMorphologyHintTitle">Participant cue</strong>
+                  <span id="verbMorphologyHintCopy"></span>
+                </aside>
+
+                <div class="verb-morphology-actions">
+                  <button type="button" id="verbMorphologyHintButton" aria-describedby="verbMorphologyFeedback">
+                    Context hint
+                  </button>
+                  <button type="button" id="verbMorphologyRevealButton" aria-describedby="verbMorphologyFeedback">
+                    Reveal form
+                  </button>
+                  <button
+                    type="button"
+                    class="verb-morphology-next"
+                    id="verbMorphologyNextButton"
+                    hidden
+                  >
+                    Next form
+                  </button>
+                </div>
+
+                <footer class="verb-morphology-footer">
+                  <p id="verbMorphologyFeedback" role="status" aria-live="polite">
+                    Review the situation, then choose a form.
+                  </p>
+                  <span id="verbMorphologyProgress">One cue · three forms</span>
+                </footer>
+              </section>
             </div>
 
             <section class="train-tab-panel word-net-panel" id="trainPanelWordNet" aria-label="Word World" hidden>
@@ -670,9 +738,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="chrome.js?v=chrome-84"></script>
+  <script src="chrome.js?v=chrome-85"></script>
     <script src="maintenance-ui.js?v=maintenance-14"></script>
-    <script src="app.js?v=shell-76"></script>
+    <script src="app.js?v=shell-81"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>

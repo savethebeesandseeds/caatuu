@@ -87,8 +87,8 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-9"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-3"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-12"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="runtime.js');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
     const chromeIndex = source.indexOf('src="chrome.js');
@@ -100,8 +100,8 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
     assert.match(source, /window\.CaatuuCourse\.storage\.fontSize/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-9/);
-  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-3/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-12/);
+  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-5/);
   assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-7/);
 });
 

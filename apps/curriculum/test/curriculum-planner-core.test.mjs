@@ -351,6 +351,8 @@ test("production bindings cannot jump ahead of the English canonical unit sequen
   const actionUnit = progression.units.find((unit) => unit.canonicalUnitId === "unit.routine.familiar-actions.01");
   assert.equal(actionUnit.status, "locked");
   assert.equal(actionUnit.requiredTargetSkillIds.length, 8);
+  assert.ok(!actionUnit.requiredTargetSkillIds.includes("cs.skill.form.cist.present-singular-person"));
+  assert.ok(!actionUnit.skills.some((skill) => skill.targetSkillId === "cs.skill.form.cist.present-singular-person"));
   assert.ok(actionUnit.blockers.some((entry) => entry.code === PLANNER_REASON_CODES.UNIT_PREREQUISITE_UNMET));
   const readSkill = actionUnit.skills.find((skill) => skill.targetSkillId === "cs.skill.sense.cist.read");
   assert.equal(readSkill.stages.find((stage) => stage.id === "encounter").capabilityCount, 2);
@@ -359,6 +361,57 @@ test("production bindings cannot jump ahead of the English canonical unit sequen
   const actionCoverage = progression.developerDiagnostics.mechanicCoverage.find((unit) => unit.canonicalUnitId === actionUnit.canonicalUnitId);
   assert.ok(actionCoverage.coveredStageSlotCount > 0, "developer diagnostics should still expose the Unit 3 pilot mechanics");
   assert.ok(actionCoverage.missingStageSlots.some((slot) => slot.targetSkillId === "cs.skill.sense.cist.read" && slot.learningStage === "retrieve"));
+});
+
+test("an unbound skill cannot escape required progression by omitting requiredForOutcome", async () => {
+  const fixture = await productionFixture();
+  const supplemental = fixture.targetPack.skills.find(
+    (skill) => skill.id === "cs.skill.form.cist.present-singular-person"
+  );
+  assert.equal(supplemental.requiredForOutcome, false);
+  delete supplemental.requiredForOutcome;
+  await repinFixture(fixture);
+
+  await assert.rejects(
+    () => computeCurriculumProgression({
+      ...fixture,
+      tasks: [],
+      events: [],
+      currentSession: { id: "session-required-skill-escape" }
+    }),
+    (error) => error instanceof CurriculumPlannerError
+      && error.code === "PLANNER_CONTRACT_INVALID"
+      && error.details.path === "/targetPack/skills"
+  );
+});
+
+test("a supplemental skill cannot be inserted into unit progression or mastery", async () => {
+  const fixture = await productionFixture();
+  const unitBinding = fixture.targetPack.unitBindings.find(
+    (binding) => binding.unitId === "unit.routine.familiar-actions.01"
+  );
+  const readConcept = unitBinding.conceptBindings.find(
+    (binding) => binding.canonicalId === "concept.action.read"
+  );
+  const requiredReadSkillId = "cs.skill.sense.cist.read";
+  const supplementalSkillId = "cs.skill.form.cist.present-singular-person";
+  readConcept.targetSkillIds.push(supplementalSkillId);
+  assert.ok(unitBinding.targetSkillIds.includes(requiredReadSkillId));
+  unitBinding.targetSkillIds.push(supplementalSkillId);
+  await repinFixture(fixture);
+
+  await assert.rejects(
+    () => computeCurriculumProgression({
+      ...fixture,
+      tasks: [],
+      events: [],
+      currentSession: { id: "session-supplemental-mastery" }
+    }),
+    (error) => error instanceof CurriculumPlannerError
+      && error.code === "PLANNER_CONTRACT_INVALID"
+      && error.details.path.endsWith("/targetSkillIds")
+      && error.message.includes("cannot become a required progression or mastery target")
+  );
 });
 
 test("the planner rejects a target-pack reorder of the English within-unit sequence", async () => {

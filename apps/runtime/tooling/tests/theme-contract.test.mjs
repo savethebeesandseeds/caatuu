@@ -17,6 +17,13 @@ const [homeCss, launcherCss] = await Promise.all([
   readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
 ]);
 
+test("the home page uses the same cached application shell stylesheet as the game", () => {
+  const home = pages.find((page) => page.name === "home.html")?.source || "";
+  const game = pages.find((page) => page.name === "index.html")?.source || "";
+  assert.match(home, /href="app\.css\?v=shell-70"/);
+  assert.match(game, /href="app\.css\?v=shell-70"/);
+});
+
 function cssRules(source) {
   const rules = [];
   const withoutComments = source.replace(/\/\*[\s\S]*?\*\//g, "");
@@ -378,7 +385,7 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.equal(fontSizeButton.declarations.get("flex-direction"), "row");
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-9"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-12"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
     const themeIndex = source.indexOf('href="theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);

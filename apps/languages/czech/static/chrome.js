@@ -1365,6 +1365,15 @@
         confirmLabel: "Confirm restart",
         message: "Restart course progress? Difficulty and downloaded files will be kept."
       })) return;
+      try {
+        await learning.prepareProgressReset?.();
+        await window.CaatuuCurriculum?.resetProgress?.();
+      } catch (error) {
+        window.dispatchEvent(new CustomEvent("caatuu:progress-reset-cancelled"));
+        const status = document.querySelector("#learningStatus");
+        if (status) status.textContent = "Course progress could not be restarted. Nothing was cleared.";
+        return;
+      }
       learning.resetProgress();
       await window.CaatuuSemanticLearning?.whenIdle?.();
       renderLearningControls(document);

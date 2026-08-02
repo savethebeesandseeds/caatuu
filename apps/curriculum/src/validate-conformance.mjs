@@ -53,7 +53,8 @@ const ALLOWED_SEMANTIC_BINDING_KEYS = new Set([
   "canonicalId", "mappingStatus", "targetSkillIds", "utteranceIds", "rationaleEn"
 ]);
 const ALLOWED_SKILL_KEYS = new Set([
-  "id", "revision", "unitId", "locale", "kind", "descriptionEn", "canonicalIds", "review"
+  "id", "revision", "unitId", "locale", "kind", "descriptionEn", "canonicalIds",
+  "requiredForOutcome", "review"
 ]);
 const ALLOWED_UTTERANCE_KEYS = new Set([
   "id", "revision", "unitId", "locale", "normalization", "text", "functionIds",
@@ -785,6 +786,17 @@ export function validateConformance(curriculum, pack, options = {}) {
     if (!unit) error("CURR_REALIZATION_UNKNOWN_ITEM", `${path}/unitId`, `Skill ${skill.id} references unknown unit ${skill.unitId}.`, [skill.id, skill.unitId]);
     if (!Number.isInteger(skill.revision) || skill.revision < 1) error("CURR_REVISION_REQUIRED", `${path}/revision`, `Skill ${skill.id} requires a positive revision.`, [skill.id]);
     if (skill.locale !== pack.targetLocale) error("CURR_REALIZATION_LOCALE", `${path}/locale`, `Skill ${skill.id} locale must be ${pack.targetLocale}.`, [skill.id]);
+    if (skill.requiredForOutcome !== undefined && typeof skill.requiredForOutcome !== "boolean") {
+      error("CURR_MANIFEST_SCHEMA", `${path}/requiredForOutcome`, `Skill ${skill.id} requiredForOutcome must be boolean.`, [skill.id]);
+    }
+    if (skill.requiredForOutcome === false && !["form", "construction", "pronunciation", "script"].includes(skill.kind)) {
+      error(
+        "CURR_SUPPLEMENTAL_SKILL_INVALID",
+        `${path}/requiredForOutcome`,
+        `Supplemental skill ${skill.id} must be a target-language form, construction, pronunciation, or script realization.`,
+        [skill.id]
+      );
+    }
     requireNonEmptyString(skill.descriptionEn, `${path}/descriptionEn`, `Skill ${skill.id} English description`);
     const claims = requireArray(skill.canonicalIds, `${path}/canonicalIds`, `Skill ${skill.id} canonical claims`);
     for (const duplicate of duplicateValues(claims)) error("CURR_ID_DUPLICATE", `${path}/canonicalIds`, `Skill ${skill.id} repeats claim ${duplicate}.`, [skill.id, duplicate]);
@@ -939,7 +951,12 @@ export function validateConformance(curriculum, pack, options = {}) {
     }
   });
 
-  for (const skillId of skillIds) if (!referencedSkillIds.has(skillId)) warn("CURR_WARN_UNUSED_REALIZATION", "/skills", `Skill ${skillId} is not referenced by a binding, utterance, or context.`, [skillId]);
+  for (const skillId of skillIds) {
+    const skill = skillById.get(skillId);
+    if (!referencedSkillIds.has(skillId) && skill?.requiredForOutcome !== false) {
+      warn("CURR_WARN_UNUSED_REALIZATION", "/skills", `Skill ${skillId} is not referenced by a binding, utterance, or context.`, [skillId]);
+    }
+  }
   for (const utteranceId of utteranceIds) {
     if (!referencedUtteranceIds.has(utteranceId)) warn("CURR_WARN_UNUSED_REALIZATION", "/utterances", `Utterance ${utteranceId} is not referenced by a binding or context.`, [utteranceId]);
     else if (!opportunityUtteranceIds.has(utteranceId)) warn("CURR_WARN_NO_OPPORTUNITY", "/utterances", `Utterance ${utteranceId} has no executable context opportunity.`, [utteranceId]);

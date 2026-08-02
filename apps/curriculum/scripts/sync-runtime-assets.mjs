@@ -11,13 +11,16 @@ const runtimeAssets = [
     "canonical-curriculum.v1.en.json",
     "cs-CZ.realization-pack.v1.json",
     "pilot-content-sources.v1.json",
-    "cs-CZ.cross-game-bindings.v1.json"
+    "cs-CZ.cross-game-bindings.v1.json",
+    "shared-mechanic-capabilities.v1.en.json",
+    "cs-CZ.morphology-developer-pilot.v1.json"
   ].map((name) => ({ name, sourceBase: curriculumDataUrl, destinationBase: runtimeDataUrl })),
   ...[
     "curriculum-runtime-core.mjs",
     "curriculum-planner-core.mjs",
     "curriculum-service.mjs",
-    "guided-opportunity.mjs"
+    "guided-opportunity.mjs",
+    "morphology-round-core.mjs"
   ].map((name) => ({ name, sourceBase: curriculumRuntimeUrl, destinationBase: runtimeModuleUrl }))
 ];
 
