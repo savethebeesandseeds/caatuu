@@ -126,7 +126,7 @@
         setVersionNote(versionNode(), status);
       } else {
         const node = versionNode();
-        if (node) node.textContent = "Browser app - use Update to load the latest version";
+        if (node) node.textContent = "Update to the latest version.";
       }
       const browserInstall = document.querySelector("#browserInstallActions");
       if (browserInstall) browserInstall.hidden = runtime.env === "android";

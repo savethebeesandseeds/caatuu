@@ -222,8 +222,8 @@ test("the Word World UI exposes Standard and Generative as independent sentence 
   assert.match(html, /id="wordNetContentSource"/);
   assert.match(html, /data-content-mode="standard" aria-pressed="true"/);
   assert.match(html, /data-content-mode="generative" aria-pressed="false"/);
-  assert.match(html, /guided · offline/);
-  assert.match(html, /optional local AI/);
+  assert.match(html, />offline</);
+  assert.match(html, />local AI</);
 });
 
 test("migrates legacy history and retains complete Standard history metadata", () => {

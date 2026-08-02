@@ -1,0 +1,539 @@
+{
+  "schema_version": 2,
+  "catalog_id": "memory-moon-style-v1",
+  "catalog_version": 3,
+  "release_status": "local-preview-only",
+  "style_authority": {
+    "root": "apps/launcher/static/assets/visual-vocabulary",
+    "readme": "apps/launcher/static/assets/visual-vocabulary/README.md",
+    "keymap": "apps/launcher/static/assets/visual-vocabulary/keymap.json",
+    "family": "burrow-review props plus the selected Clean Graphic tree study",
+    "publication_gate": "Asset rights are not documented in the authority folder; public or paid release remains blocked pending an owner-approved grant."
+  },
+  "build_pipeline": {
+    "generator": "OpenAI ImageGen (built-in)",
+    "generated_on": "2026-08-02",
+    "image_workspace": "apps/launcher/static/assets/scenery/sources",
+    "background_removal": {
+      "tool": "imagegen/scripts/remove_chroma_key.py",
+      "auto_key": "border",
+      "soft_matte": true,
+      "transparent_threshold": 12,
+      "opaque_threshold": 220,
+      "despill": true
+    },
+    "object_processing": "Tukevejtso Linux chroma removal, alpha trim, LANCZOS normalization to declared content height and padding, and optimized RGBA PNG; Clean Graphic trees use 420 px visible height, 16 px padding, ground row 436, and binary alpha.",
+    "tile_processing": "512 px source crop, LANCZOS downsample, mirrored 2x2 construction to 256 px, exact opposing edges, then sparse flower accents composited over the base grass material to prevent cell-tone seams.",
+    "atlas_processing": "1024x512 RGB atlas with 8 px extruded gutters around three 256 px tiles."
+  },
+  "sources": [
+    {
+      "id": "imagegen-community-tree-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/community-tree.raw.png",
+      "source_sha256": "a31f07f38527ca6cb2326aec21661e1ce71d314d3fe22b0fe48f62fc4fa0de2a",
+      "rights_status": "local-preview-only",
+      "description": "Single community shade tree with circular seating, simplified to the trail-sign and village-well art language.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One broad community tree with integrated circular bench, large grouped olive foliage, bold brown ink, ochre wood, cream stone, muted teal, and one restrained cyan accent; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/burrow-review_040.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize into the preserved 291x297 visible bounds on a 351x340 canvas, ground row 310, binary alpha."
+    },
+    {
+      "id": "visual-vocabulary-burrow-review-036",
+      "kind": "copied",
+      "source_file": "images/street-lamp.png",
+      "source_sha256": "238d830db1e853637bd97899dbecc80e03fab5b1e8245b55907897706fd8b5e5",
+      "rights_status": "local-preview-only",
+      "description": "Teal and brass street lamp with amber light.",
+      "authoritative_path": "apps/launcher/static/assets/visual-vocabulary/burrow-review_036.png",
+      "authoritative_sha256": "238d830db1e853637bd97899dbecc80e03fab5b1e8245b55907897706fd8b5e5"
+    },
+    {
+      "id": "visual-vocabulary-miscellaneous-145",
+      "kind": "copied",
+      "source_file": "images/village-well.png",
+      "source_sha256": "3e79d500d02db993feddcd86faafb11c228b5b3c2063d93d9fee2de874dd03e1",
+      "rights_status": "local-preview-only",
+      "description": "Stone village well with teal roof.",
+      "authoritative_path": "apps/launcher/static/assets/visual-vocabulary/miscellaneous (145).png",
+      "authoritative_sha256": "3e79d500d02db993feddcd86faafb11c228b5b3c2063d93d9fee2de874dd03e1"
+    },
+    {
+      "id": "visual-vocabulary-miscellaneous-118",
+      "kind": "copied",
+      "source_file": "images/trail-sign.png",
+      "source_sha256": "0cafb1329ee7164be8ad41d2130f887b420351bf8025175deaff08ac8f8f3baf",
+      "rights_status": "local-preview-only",
+      "description": "Standalone wooden trail sign with teal and cream boards.",
+      "authoritative_path": "apps/launcher/static/assets/visual-vocabulary/miscellaneous (118).png",
+      "authoritative_sha256": "0cafb1329ee7164be8ad41d2130f887b420351bf8025175deaff08ac8f8f3baf"
+    },
+    {
+      "id": "visual-vocabulary-miscellaneous-202",
+      "kind": "copied",
+      "source_file": "images/flower-patch.png",
+      "source_sha256": "7577298fe398e3ad488c5869fef51c32680cfcdd01e042354f32a9cdf8a881cc",
+      "rights_status": "local-preview-only",
+      "description": "Standalone mixed flower patch.",
+      "authoritative_path": "apps/launcher/static/assets/visual-vocabulary/miscellaneous (202).png",
+      "authoritative_sha256": "7577298fe398e3ad488c5869fef51c32680cfcdd01e042354f32a9cdf8a881cc"
+    },
+    {
+      "id": "visual-vocabulary-miscellaneous-203",
+      "kind": "copied",
+      "source_file": "images/tree-stump.png",
+      "source_sha256": "8aee82a66afa4f897281f91cd8f24b000759015bddae1d84147fc399e7d8daff",
+      "rights_status": "local-preview-only",
+      "description": "Standalone mossy tree stump.",
+      "authoritative_path": "apps/launcher/static/assets/visual-vocabulary/miscellaneous (203).png",
+      "authoritative_sha256": "8aee82a66afa4f897281f91cd8f24b000759015bddae1d84147fc399e7d8daff"
+    },
+    {
+      "id": "imagegen-moon-bush-round-a-20260801",
+      "kind": "generated",
+      "source_file": "sources/moon-bush.raw.png",
+      "source_sha256": "b54cfb48439fde1c5d6cff1d18d49d9661663465af5506794847ca1fa5dba715",
+      "rights_status": "local-preview-only",
+      "description": "Single compact rounded moon-grove bush.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-01",
+      "prompt_summary": "One reusable rounded bush matching botanical linework, grouped olive foliage, brown ink and restrained cyan lights; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (202).png",
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (203).png",
+        "apps/launcher/static/assets/visual-vocabulary/burrow-review_040.png"
+      ],
+      "transform": "Chroma removal, alpha trim, LANCZOS resize to 360 px content height, 16 px padding."
+    },
+    {
+      "id": "imagegen-moss-boulder-a-20260801",
+      "kind": "generated",
+      "source_file": "sources/moss-boulder.raw.png",
+      "source_sha256": "145576eaf41fbc2bde8aa46d80550fef140f1a3dbd67a0275931b9529ab33821",
+      "rights_status": "local-preview-only",
+      "description": "Single warm stone boulder with moss and a restrained cyan mineral fleck.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-01",
+      "prompt_summary": "One low rounded boulder matching warm stone, dark brown ink, restrained moss and cyan accent; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (145).png",
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (203).png",
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (118).png"
+      ],
+      "transform": "Chroma removal, alpha trim, LANCZOS resize to 300 px content height, 16 px padding."
+    },
+    {
+      "id": "imagegen-moon-sapling-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/moon-sapling.raw.png",
+      "source_sha256": "da988585421a01b3c0f333640f379e5d61948f6fb161cc1ad056d7dd87d846f4",
+      "rights_status": "local-preview-only",
+      "description": "Single asymmetric young moon-grove tree in the trail-sign and village-well art language.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One rustic asymmetric young tree with four broad olive canopy masses, darker matte wood, heavy imperfect ink, and one tiny inset cyan stone; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/images/community-tree.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize into the preserved 342x420 visible bounds on a 374x452 canvas, ground row 436, binary alpha."
+    },
+    {
+      "id": "imagegen-grass-moss-a-20260801",
+      "kind": "generated",
+      "source_file": "sources/floor-grass-moss.raw.png",
+      "source_sha256": "21c46733054d75fa6a34e4b8fb914aacb46da90cf6974e9670f5be77ff88bc69",
+      "rights_status": "local-preview-only",
+      "description": "Opaque straight-down moss grass material source.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-01",
+      "prompt_summary": "Square orthographic top-down moss grass, low contrast, edge-to-edge and without objects.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/originals/burrow_space_mystic_ground_grass_tiles_01.png"
+      ],
+      "transform": "Center crop, LANCZOS downsample and mirrored 2x2 construction to 256 px."
+    },
+    {
+      "id": "imagegen-grass-flowers-a-20260801",
+      "kind": "generated",
+      "source_file": "sources/floor-grass-flowers.raw.png",
+      "source_sha256": "931c9c9f02035b6fcd60592ab3961cf131a2e96adeeb204bc74cfc9c25ac4f0c",
+      "rights_status": "local-preview-only",
+      "description": "Opaque straight-down flowered grass material source.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-01",
+      "prompt_summary": "Square orthographic top-down dark moss grass with sparse tiny flowers, low contrast and edge-to-edge.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/originals/burrow_space_mystic_ground_grass_tiles_01.png",
+        "apps/launcher/static/assets/visual-vocabulary/miscellaneous (202).png"
+      ],
+      "transform": "Offset crop, LANCZOS downsample and mirrored 2x2 construction; sparse pale flower pixels composited over grass-moss-a so both grass variants share one ground tone."
+    },
+    {
+      "id": "imagegen-earth-packed-a-20260801",
+      "kind": "generated",
+      "source_file": "sources/floor-earth-packed.raw.png",
+      "source_sha256": "1ad53416e9cb8785f857af857ab7a738c7a06a22eab995933c48a4444ea79f90",
+      "rights_status": "local-preview-only",
+      "description": "Opaque straight-down compacted earth material source.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-01",
+      "prompt_summary": "Square orthographic top-down ochre packed earth with tiny stones and sparse moss, low contrast and edge-to-edge.",
+      "reference_paths": [
+        "apps/launcher/static/assets/visual-vocabulary/originals/burrow_space_mystic_ground_grass_tiles_01.png",
+        "apps/launcher/static/assets/visual-vocabulary/originals/burrow_space_mystic_street_tiles_core_01.png"
+      ],
+      "transform": "Offset crop, LANCZOS downsample and mirrored 2x2 construction to 256 px."
+    },
+    {
+      "id": "floor-atlas-derived-v1",
+      "kind": "derived",
+      "source_file": "metadata/floor.processing.json",
+      "source_sha256": "4f717c6937f0478d72b1cb6290814166c057eb0fbedf941dedaa944bde774975",
+      "rights_status": "local-preview-only",
+      "description": "Deterministic processing report for generated objects and the retained three-tile guttered floor atlas.",
+      "reference_paths": [
+        "sources/floor-grass-moss.derived.png",
+        "sources/floor-grass-flowers.derived.png",
+        "sources/floor-earth-packed.derived.png"
+      ],
+      "transform": "Generated-object alpha and anchor audit plus three 256 px tiles packed into a 1024x512 RGB atlas with 8 px edge-extruded gutters."
+    },
+    {
+      "id": "imagegen-tree-style-clean-graphic-reference-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-style-clean-graphic-reference.png",
+      "source_sha256": "ae4d87b36cc8a49ac8bee1e7d9ff73995f50dc610ec975615858fbe82d7b64db",
+      "rights_status": "local-preview-only",
+      "description": "Selected 3 by 2 Clean Graphic comparison board for standard tree anatomy and treatment.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "Six ordinary trees in a clean graphic storybook RPG treatment with bold dark-brown ink, broad foliage groups, restrained flat shading, and no accessories.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Unmodified non-runtime style authority retained from the approved comparison study."
+    },
+    {
+      "id": "imagegen-tree-oak-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-oak.raw.png",
+      "source_sha256": "1df608caacf31c3363517a2e9bb74900a74f43fdc8b7aa1c7423eb58b0f5f265",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature oak with a broad crown and sturdy branching.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One ordinary mature oak with a broad irregular crown, sturdy branching, large olive foliage groups, bold brown ink, flat tonal bands, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    },
+    {
+      "id": "imagegen-tree-maple-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-maple.raw.png",
+      "source_sha256": "fb8e2f44c681eb16aadffe6a4cd0f5836275e575ec28009b21688aa5b21f60ed",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature maple with large palmate amber foliage groups.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One ordinary mature maple with 10 to 14 large palmate amber-gold foliage groups, muted olive shadows, clear upward branching, bold brown ink, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    },
+    {
+      "id": "imagegen-tree-birch-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-birch.raw.png",
+      "source_sha256": "cf6ebb738aedf3a7c401017bb5e60abd050722328c8a6ae43b6f476e26825f19",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature birch group with pale trunks and an airy crown.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One cohesive mature birch tree with grouped pale trunks, sparse dark bark marks, an airy olive crown, broad foliage groups, bold rustic ink, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    },
+    {
+      "id": "imagegen-tree-pine-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-pine.raw.png",
+      "source_sha256": "92b674b3eb6647cbbc69d87c396275eed262fad9dbd645210b55846a35354cc8",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature pine with layered evergreen boughs.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One ordinary mature pine with a straight trunk, layered triangular dark teal and olive bough groups, bold brown ink, flat tonal bands, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    },
+    {
+      "id": "imagegen-tree-willow-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-willow.raw.png",
+      "source_sha256": "5ff98199661dc6fa5496a78ccaa2c527232db393251743a962728480298eb6b6",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature weeping willow with broad hanging foliage curtains.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One ordinary mature weeping willow with an asymmetric trunk, five to seven broad hanging olive foliage curtains, clean gaps, bold brown ink, flat tonal bands, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    },
+    {
+      "id": "imagegen-tree-poplar-clean-graphic-a-20260802",
+      "kind": "generated",
+      "source_file": "sources/tree-poplar.raw.png",
+      "source_sha256": "c414bc6d91c0fd99ffc44dc06d78a08ee6d599cb7914a709349f095d79cf2302",
+      "rights_status": "local-preview-only",
+      "description": "Ordinary mature Lombardy poplar with a narrow tapered crown.",
+      "generator": "OpenAI ImageGen (built-in)",
+      "generated_on": "2026-08-02",
+      "prompt_summary": "One ordinary mature Lombardy poplar with a tall narrow tapered olive crown, visible lower trunk, bold brown ink, flat tonal bands, and no accessories; one object on #ff00ff.",
+      "reference_paths": [
+        "apps/launcher/static/assets/scenery/sources/tree-style-clean-graphic-reference.png",
+        "apps/launcher/static/assets/scenery/images/trail-sign.png",
+        "apps/launcher/static/assets/scenery/images/village-well.png"
+      ],
+      "transform": "Chroma removal in the Tukevejtso Linux cutout environment, alpha trim, LANCZOS resize to 420 px visible height, 16 px padding, ground row 436, and binary alpha."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "community-tree-a",
+      "kind": "object",
+      "file": "images/community-tree.png",
+      "source_id": "imagegen-community-tree-a-20260802",
+      "width": 351,
+      "height": 340,
+      "sha256": "2a1f8662959a8e1a7834a3257870d582e24ec8654829062bfb5285010447dddb",
+      "byte_length": 147555,
+      "runtime_used": true
+    },
+    {
+      "id": "village-well-a",
+      "kind": "object",
+      "file": "images/village-well.png",
+      "source_id": "visual-vocabulary-miscellaneous-145",
+      "width": 303,
+      "height": 335,
+      "sha256": "3e79d500d02db993feddcd86faafb11c228b5b3c2063d93d9fee2de874dd03e1",
+      "byte_length": 110969,
+      "runtime_used": true
+    },
+    {
+      "id": "trail-sign-a",
+      "kind": "object",
+      "file": "images/trail-sign.png",
+      "source_id": "visual-vocabulary-miscellaneous-118",
+      "width": 248,
+      "height": 328,
+      "sha256": "0cafb1329ee7164be8ad41d2130f887b420351bf8025175deaff08ac8f8f3baf",
+      "byte_length": 69653,
+      "runtime_used": true
+    },
+    {
+      "id": "flower-patch-a",
+      "kind": "object",
+      "file": "images/flower-patch.png",
+      "source_id": "visual-vocabulary-miscellaneous-202",
+      "width": 316,
+      "height": 286,
+      "sha256": "7577298fe398e3ad488c5869fef51c32680cfcdd01e042354f32a9cdf8a881cc",
+      "byte_length": 107760,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-stump-a",
+      "kind": "object",
+      "file": "images/tree-stump.png",
+      "source_id": "visual-vocabulary-miscellaneous-203",
+      "width": 351,
+      "height": 250,
+      "sha256": "8aee82a66afa4f897281f91cd8f24b000759015bddae1d84147fc399e7d8daff",
+      "byte_length": 97133,
+      "runtime_used": true
+    },
+    {
+      "id": "street-lamp-a",
+      "kind": "object",
+      "file": "images/street-lamp.png",
+      "source_id": "visual-vocabulary-burrow-review-036",
+      "width": 136,
+      "height": 349,
+      "sha256": "238d830db1e853637bd97899dbecc80e03fab5b1e8245b55907897706fd8b5e5",
+      "byte_length": 33397,
+      "runtime_used": true
+    },
+    {
+      "id": "moon-bush-round-a",
+      "kind": "object",
+      "file": "images/moon-bush.png",
+      "source_id": "imagegen-moon-bush-round-a-20260801",
+      "width": 419,
+      "height": 392,
+      "sha256": "989054b0099f8edfd825365d6c73e1d1b068df17ceee2484d675262aa17fe208",
+      "byte_length": 246154,
+      "runtime_used": true
+    },
+    {
+      "id": "moss-boulder-a",
+      "kind": "object",
+      "file": "images/moss-boulder.png",
+      "source_id": "imagegen-moss-boulder-a-20260801",
+      "width": 436,
+      "height": 332,
+      "sha256": "6f19941d983b05d7075155c57e1b67ba19e85c7632194fd84c53165fb1ede545",
+      "byte_length": 181339,
+      "runtime_used": true
+    },
+    {
+      "id": "moon-sapling-a",
+      "kind": "object",
+      "file": "images/moon-sapling.png",
+      "source_id": "imagegen-moon-sapling-a-20260802",
+      "width": 374,
+      "height": 452,
+      "sha256": "b0bdac7af8a08a3fbdf325d3b52290ee07ed27be5e80ffab8facaea749dd7246",
+      "byte_length": 169207,
+      "runtime_used": true
+    },
+    {
+      "id": "grass-moss-a",
+      "kind": "floor-tile",
+      "file": "sources/floor-grass-moss.derived.png",
+      "source_id": "imagegen-grass-moss-a-20260801",
+      "width": 256,
+      "height": 256,
+      "sha256": "22e9cfb7f17ebb41fbad3605a36fe16efedb0ebd4e4aa1fef7d381054c5bd7e6",
+      "byte_length": 143970,
+      "runtime_used": false
+    },
+    {
+      "id": "grass-flowers-a",
+      "kind": "floor-tile",
+      "file": "sources/floor-grass-flowers.derived.png",
+      "source_id": "imagegen-grass-flowers-a-20260801",
+      "width": 256,
+      "height": 256,
+      "sha256": "cd0a501e9e6afd0b4fa98d04228166c0a8aa594f27df6bafbc7d0a8a02408037",
+      "byte_length": 144268,
+      "runtime_used": false
+    },
+    {
+      "id": "earth-packed-a",
+      "kind": "floor-tile",
+      "file": "sources/floor-earth-packed.derived.png",
+      "source_id": "imagegen-earth-packed-a-20260801",
+      "width": 256,
+      "height": 256,
+      "sha256": "84b4d91e29a4dee0f4f3844c302280d0b0ff6d2895b4966088191828d01c5eea",
+      "byte_length": 126839,
+      "runtime_used": false
+    },
+    {
+      "id": "floor-atlas",
+      "kind": "floor-atlas",
+      "file": "sources/floor-atlas.derived.png",
+      "source_id": "floor-atlas-derived-v1",
+      "width": 1024,
+      "height": 512,
+      "sha256": "85d37e41f0c735e75cfef6cf26d509892978417cf59cafd7981662e1d4218d7c",
+      "byte_length": 286193,
+      "runtime_used": false
+    },
+    {
+      "id": "tree-oak-a",
+      "kind": "object",
+      "file": "images/tree-oak.png",
+      "source_id": "imagegen-tree-oak-clean-graphic-a-20260802",
+      "width": 473,
+      "height": 452,
+      "sha256": "806f9eec280ab6a67fa4dc1f1ea0294bb3b29c6f31e85b208ff4c45dd9a527d9",
+      "byte_length": 262870,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-maple-a",
+      "kind": "object",
+      "file": "images/tree-maple.png",
+      "source_id": "imagegen-tree-maple-clean-graphic-a-20260802",
+      "width": 428,
+      "height": 452,
+      "sha256": "52ba033f3938e53616f085c2159e0033d095317cf140b7d42dd3637cbfc8fcca",
+      "byte_length": 212148,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-birch-a",
+      "kind": "object",
+      "file": "images/tree-birch.png",
+      "source_id": "imagegen-tree-birch-clean-graphic-a-20260802",
+      "width": 332,
+      "height": 452,
+      "sha256": "7de6b44d64b5ed1afc6ead5e81966e0b6898261f8be4bd2c41cbf258ed2e757d",
+      "byte_length": 182135,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-pine-a",
+      "kind": "object",
+      "file": "images/tree-pine.png",
+      "source_id": "imagegen-tree-pine-clean-graphic-a-20260802",
+      "width": 292,
+      "height": 452,
+      "sha256": "2ec084bb44da3ec13f156bb24c68ab78368660ec9df8175d84fc38ff0564a8a7",
+      "byte_length": 125221,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-willow-a",
+      "kind": "object",
+      "file": "images/tree-willow.png",
+      "source_id": "imagegen-tree-willow-clean-graphic-a-20260802",
+      "width": 420,
+      "height": 452,
+      "sha256": "1bef874c2616e01ad2848f130096b25ea6cf4592cb9f94a4ded3d1ed04abbaf9",
+      "byte_length": 245535,
+      "runtime_used": true
+    },
+    {
+      "id": "tree-poplar-a",
+      "kind": "object",
+      "file": "images/tree-poplar.png",
+      "source_id": "imagegen-tree-poplar-clean-graphic-a-20260802",
+      "width": 136,
+      "height": 452,
+      "sha256": "3eb957669a4ab0617bcaef5fcab628f6a4a141e82bd572fcd901564467515830",
+      "byte_length": 73613,
+      "runtime_used": true
+    }
+  ]
+}

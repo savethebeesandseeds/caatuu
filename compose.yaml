@@ -17,6 +17,7 @@ services:
       ENABLE_ARCHIVED_CHINESE_API: ${CAATUU_ENABLE_ARCHIVED_CHINESE_API:-0}
       ENABLE_ANDROID_DEBUG_DOWNLOADS: ${CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS:-0}
       ENABLE_BUG_REPORTS: ${CAATUU_ENABLE_BUG_REPORTS:-0}
+      DICTIONARY_GAP_STORE_PATH: /var/lib/caatuu/dictionary-gaps/czech-missing-words.v1.json
     ports:
       - "127.0.0.1:8765:9172"
     volumes:
@@ -26,6 +27,7 @@ services:
       - ./archive/caatuu-chinese/static:/workspace/archive/caatuu-chinese/static:ro
       - ./apps/runtime/profiles:/workspace/apps/runtime/profiles:ro
       - ./artifacts/android:/workspace/artifacts/android:ro
+      - ./artifacts/dictionary-gaps:/var/lib/caatuu/dictionary-gaps
       - ./apps/android/tooling/termux-install-debug.sh:/workspace/apps/android/tooling/termux-install-debug.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$${PORT:-9172}/ >/dev/null || exit 1"]

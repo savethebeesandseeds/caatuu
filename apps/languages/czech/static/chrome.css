@@ -871,9 +871,9 @@ html[data-theme="light"] .bottom-app-nav {
 .appearance-card {
   position: relative;
   overflow: hidden;
-  padding: 11px;
+  padding: 0;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 0;
   border-color: color-mix(in srgb, var(--green) 22%, var(--line));
   background:
     linear-gradient(
@@ -884,27 +884,8 @@ html[data-theme="light"] .bottom-app-nav {
   box-shadow: 0 8px 18px color-mix(in srgb, var(--theme-ink, #17241f) 5%, transparent);
 }
 
-.appearance-card-head {
-  min-width: 0;
-  padding: 1px 2px 9px;
-  border-bottom: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
-  display: grid;
-  gap: 4px;
-}
-
-.appearance-card-head > span {
-  min-width: 0;
-  display: grid;
-  gap: 2px;
-}
-
-.appearance-card-head > p {
-  max-width: none;
-  color: var(--muted);
-  font-size: 0.58rem;
-  font-weight: 700;
-  line-height: 1.35;
-  text-align: left;
+.appearance-settings-intro {
+  margin: 0;
 }
 
 .appearance-controls {
@@ -968,7 +949,8 @@ html[data-theme="light"] .bottom-app-nav {
   background: transparent;
 }
 
-.font-size-control {
+.font-size-control,
+.speech-pace-control {
   min-width: 0;
   width: 100%;
   padding: 0;
@@ -981,7 +963,8 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .theme-control button,
-.font-size-control button {
+.font-size-control button,
+.speech-pace-control button {
   min-width: 0;
   min-height: 42px;
   padding: 5px 8px;
@@ -1007,6 +990,20 @@ html[data-theme="light"] .bottom-app-nav {
   padding: 4px 5px;
   gap: 4px;
   font-size: 0.5rem;
+}
+
+.speech-pace-control button {
+  padding: 4px 5px;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.56rem;
+}
+
+.speech-pace-control button small {
+  color: var(--muted);
+  font-size: 0.46rem;
+  font-weight: 750;
+  line-height: 1;
 }
 
 .font-size-sample {
@@ -1040,7 +1037,8 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .theme-control button.is-active,
-.font-size-control button.is-active {
+.font-size-control button.is-active,
+.speech-pace-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 74%, #17251f);
   border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 56%, #17251f);
   background: var(--theme-green-filled, var(--green, #376a5a));
@@ -1049,20 +1047,31 @@ html[data-theme="light"] .bottom-app-nav {
 }
 
 .theme-control button.is-active span,
-.font-size-control button.is-active .font-size-sample {
+.font-size-control button.is-active .font-size-sample,
+.speech-pace-control button.is-active small {
   color: #fffaf0;
 }
 
 html[data-theme="dark"] .theme-control button,
-html[data-theme="dark"] .font-size-control button {
+html[data-theme="dark"] .font-size-control button,
+html[data-theme="dark"] .speech-pace-control button {
   border-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 34%, var(--theme-line-strong, var(--line)));
   border-bottom-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 54%, var(--theme-line-strong, var(--line)));
   background: color-mix(in srgb, var(--theme-amber, #c9ad78) 12%, var(--theme-panel-raised, var(--panel)));
   color: var(--theme-green-strong, var(--green-dark, var(--green)));
 }
 
+.speech-pace-control button.is-badge-default,
+html[data-theme="dark"] .speech-pace-control button.is-badge-default {
+  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 48%, var(--theme-line-strong, var(--line)));
+  border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 58%, var(--theme-line-strong, var(--line)));
+  background: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 13%, var(--theme-panel-raised, var(--panel)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 14%, transparent);
+}
+
 html[data-theme="dark"] .theme-control button.is-active,
-html[data-theme="dark"] .font-size-control button.is-active {
+html[data-theme="dark"] .font-size-control button.is-active,
+html[data-theme="dark"] .speech-pace-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 74%, #17251f);
   border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 56%, #17251f);
   background: var(--theme-green-filled, var(--green, #456f5d));
@@ -1071,14 +1080,17 @@ html[data-theme="dark"] .font-size-control button.is-active {
 
 .theme-control button:not(.is-active):not(:disabled):hover,
 .font-size-control button:not(.is-active):not(:disabled):hover,
+.speech-pace-control button:not(.is-active):not(:disabled):hover,
 html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hover,
-html[data-theme="dark"] .font-size-control button:not(.is-active):not(:disabled):hover {
+html[data-theme="dark"] .font-size-control button:not(.is-active):not(:disabled):hover,
+html[data-theme="dark"] .speech-pace-control button:not(.is-active):not(:disabled):hover {
   border-color: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 54%, var(--theme-line, var(--line, #cfd8d1)));
   background: color-mix(in srgb, var(--theme-amber, #8a692c) 18%, var(--theme-panel-raised, var(--panel, #fffdf8)));
 }
 
 .theme-control button:not(:disabled):active,
-.font-size-control button:not(:disabled):active {
+.font-size-control button:not(:disabled):active,
+.speech-pace-control button:not(:disabled):active {
   border-bottom-width: 2px;
   transform: translateY(1px);
 }
@@ -2304,12 +2316,19 @@ body.settings-open #openSettings::before {
   gap: 5px;
 }
 
-.speech-voice-row {
+.speech-voice-row,
+.speech-rate-row {
   min-width: 0;
   display: grid;
   grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1.8fr);
   align-items: start;
   gap: 12px;
+}
+
+.speech-rate-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
 }
 
 .speech-voice-label {
@@ -2340,6 +2359,22 @@ body.settings-open #openSettings::before {
 
 .speech-voice-controls .settings-summary {
   grid-column: 1 / -1;
+  margin: 0;
+}
+
+.speech-voice-install {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.speech-rate-controls {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.speech-rate-controls .settings-summary {
+  min-width: 0;
   margin: 0;
 }
 
@@ -3516,7 +3551,8 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
 }
 
 @media screen and (max-width: 360px) {
-  .speech-voice-row {
+  .speech-voice-row,
+  .speech-rate-row {
     grid-template-columns: 1fr;
     gap: 6px;
   }
@@ -3532,7 +3568,8 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
   }
 
   .theme-control,
-  .font-size-control {
+  .font-size-control,
+  .speech-pace-control {
     width: 100%;
     gap: 4px;
   }

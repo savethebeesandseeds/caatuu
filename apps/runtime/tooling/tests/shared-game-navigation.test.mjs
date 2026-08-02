@@ -123,14 +123,15 @@ test("Backpack remembers its submenu and mirrors it on the bottom-nav badge", ()
   assert.match(chrome, /setSettingsView\(panel, readRememberedBackpackView\(\)\)/);
 });
 
-test("Games mirrors the remembered planet on its bottom-nav badge", () => {
+test("Games shows the current child badge and clears it on the planet selector", () => {
   assert.match(chrome, /function syncGameNavigationIndicators\(gameId = readRememberedGame\(\)\)/);
   assert.match(chrome, /badge\.className = "app-nav-submenu-icon"/);
   assert.match(chrome, /badge\.src = presentation\.iconSrc/);
   assert.match(chrome, /button\.dataset\.activeGame = normalizedGameId/);
   assert.match(chrome, /button\.setAttribute\("aria-label", `Games, \$\{presentation\.title\}`\)/);
   assert.match(chrome, /rememberActiveGame\(gameId\)[\s\S]*?syncGameNavigationIndicators\(normalizedGameId\)/);
-  assert.match(chrome, /activeGameId && activeGameId !== "galaxy" \? activeGameId : readRememberedGame\(\)/);
+  assert.match(chrome, /syncGameNavigationIndicators\(activeGameId \|\| readRememberedGame\(\)\)/);
+  assert.match(chrome, /if \(!presentation\) \{[\s\S]*?badge\?\.remove\(\)[\s\S]*?delete button\.dataset\.activeGame[\s\S]*?button\.setAttribute\("aria-label", "Games"\)/);
   assert.match(serviceWorker, /\/assets\/planets\/nebula\.png/);
   assert.match(serviceWorker, /\/assets\/planets\/planet_A\.png/);
   assert.match(serviceWorker, /\/assets\/planets\/planet_C\.png/);
@@ -138,16 +139,16 @@ test("Games mirrors the remembered planet on its bottom-nav badge", () => {
 
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-87/);
-    assert.match(page, /chrome\.js\?v=chrome-84/);
+    assert.match(page, /chrome\.css\?v=chrome-style-90/);
+    assert.match(page, /chrome\.js\?v=chrome-89/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-87/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-84/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-90/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-89/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {
   assert.doesNotMatch(chrome, /actions\.append\(theme, language\)/);
   assert.match(pages.find((page) => page.includes("trainPanelGalaxy")), /data-theme-toggle/);
-  assert.match(pages.find((page) => page.includes("word-net-page")), /data-theme-toggle/);
+  assert.match(pages.find((page) => page.includes("word-net-page")), /id="wordNetDisplayToggle"/);
 });

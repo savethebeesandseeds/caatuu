@@ -964,7 +964,7 @@ function auditRuntimeAdapterBoundary() {
   assert(chrome.includes('id="refreshBrowserAction">Update</button>'), "browser Settings should expose an explicit Update action");
   assert(chrome.includes('navigationAction.id !== "openSettings"'), "bottom navigation should dismiss Settings before continuing to another section");
   assert(chrome.includes("navigator.serviceWorker?.getRegistration"), "browser Update should ask the service worker for current assets before reloading");
-  assert(maintenanceUi.includes("Browser app - use Update to load the latest version"), "browser version guidance should match the Update action");
+  assert(maintenanceUi.includes("Update to the latest version."), "browser version guidance should match the Update action");
   assert(chromeCss.includes("max-height: none"), "the local-artifact license list should show every row without an inner scroller");
   assert(!dictionaryFull.includes('source.textContent = "Wiktionary"'), "dictionary results should not repeat a Wiktionary link on every entry");
   assert(app.includes("CaatuuMaintenanceUi"), "app.js should use the shared maintenance UI helper");
@@ -978,7 +978,7 @@ function auditRuntimeAdapterBoundary() {
   assert(wordNetHtml.includes('id="wordNetPrevious"') && wordNetHtml.includes('id="wordNetNext"') && wordNet.includes('$("#wordNetPrevious")') && wordNet.includes('$("#wordNetNext")'), "Word World should provide clickable previous and next controls at the panel edges");
   assert(!wordNet.includes("word-net-next-word") && !wordNetHtml.includes('id="wordNetNextWord"'), "Word World should not render a generation action above the selected token");
   assert(wordNet.includes("interpretHorizontalSwipe") && wordNet.includes("showPreviousSentence()"), "Word World should support next-on-swipe-left and previous-on-swipe-right navigation");
-  assert(wordNet.includes("selectWord(button.dataset.word)"), "word clicks should select and translate instead of generating immediately");
+  assert(wordNet.includes('selectWord(button.dataset.word, { userInitiated: true })'), "word clicks should select and translate instead of generating immediately");
   assert(!wordNet.includes('generateSentenceForWord(button.dataset.word, { source: "choice" })'), "word clicks should not generate the next sentence directly");
   assert(wordNetHtml.includes('id="wordNetDiagnostics"') && wordNet.includes("syncDiagnostics"), "Word World should expose compact live runtime details");
   assert(wordNet.includes("state.branchQueue.size") && wordNet.includes("diagnosticsModel"), "Word World runtime details should report the real branch queue and active model lane");
@@ -1063,7 +1063,7 @@ function auditRuntimeAdapterBoundary() {
       && wordNetRunPrefetch.includes("translatePreparedBatch")
       && wordNetRunPrefetch.includes("state.prefetchGeneratedSinceTranslation")
       && wordNetQueue.includes("setTranslation(sentence, translation)")
-      && wordNet.includes('return "visible";'),
+      && wordNetRunPrefetch.includes('state.translationMode === "off"'),
     "Word World should batch English enrichment and persist translations with prepared Czech sentences",
   );
   const wordNetRememberStep = wordNet.slice(

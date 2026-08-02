@@ -864,12 +864,12 @@ const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
 const verbHintFallbackPath = "/assets/macaw/actions/macaw (1).png";
 const verbHintExactAssets = new Map([
   ["hear", {
-    assetPath: "/assets/macaw/actions/180-hear_listen.png",
-    alt: "The robed macaw cups one wing behind its head and listens to approaching sound waves."
+    assetPath: "/assets/macaw/actions/180-hear_listen.png?art=2",
+    alt: "The robed macaw cups one wing beside its ear and listens carefully."
   }],
   ["see", {
-    assetPath: "/assets/macaw/actions/181-see_look.png",
-    alt: "The robed macaw shades its eyes with one wing and looks carefully into the distance."
+    assetPath: "/assets/macaw/actions/181-see_look.png?art=2",
+    alt: "The robed macaw looks carefully through a magnifying glass."
   }]
 ]);
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";

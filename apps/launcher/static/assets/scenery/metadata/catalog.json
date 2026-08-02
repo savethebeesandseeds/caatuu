@@ -1,0 +1,877 @@
+{
+  "schema_version": 2,
+  "catalog_id": "memory-moon-style-v1",
+  "catalog_version": 3,
+  "release_status": "local-preview-only",
+  "projection": {
+    "id": "isometric-orthographic-45-30",
+    "yaw_degrees": 45,
+    "elevation_degrees": 30
+  },
+  "scale_reference": {
+    "id": "memory-moon-humanoid-v1",
+    "visual_height_world": 1.4264,
+    "capsule_height_world": 1.45,
+    "capsule_radius_world": 0.28,
+    "model_runtime_scale": 0.78,
+    "measurement_basis": "visible-silhouette-above-ground-anchor"
+  },
+  "style_family": {
+    "id": "memory-moon-clean-graphic-storybook-v1",
+    "authority_path": "metadata/catalog.provenance.md",
+    "palette": {
+      "ink": "#17150f",
+      "warm_wood": "#76501f",
+      "moss": "#4c5b1c",
+      "olive": "#707820",
+      "teal": "#145f5b",
+      "magic_cyan": "#31cdd0",
+      "brass": "#bc7c25",
+      "amber": "#ffc653",
+      "cream_stone": "#b9a270"
+    },
+    "rules": [
+      "Use one standalone object per transparent sprite.",
+      "Keep the fixed three-quarter camera direction and upper-left illumination.",
+      "Anchor collisions to the visible ground footprint, never to foliage.",
+      "Reserve cyan for small magical accents and amber for practical light.",
+      "Use square top-down floor materials; the Godot camera supplies the diamond projection.",
+      "Standard trees use broad foliage groups, two or three tonal bands, bold imperfect ink, species-specific silhouettes, and no embedded accessories."
+    ]
+  },
+  "floor_atlas": {
+    "texture": "sources/floor-atlas.derived.png",
+    "size_px": [
+      1024,
+      512
+    ],
+    "gutter_px": 8,
+    "tiles": {
+      "grass-moss-a": {
+        "kind": "grass",
+        "tags": [
+          "base",
+          "moss",
+          "walkable"
+        ],
+        "uv_rect_px": [
+          8,
+          8,
+          256,
+          256
+        ],
+        "grid_size": [
+          1,
+          1
+        ],
+        "walkable": true,
+        "edges": {
+          "north": "grass",
+          "east": "grass",
+          "south": "grass",
+          "west": "grass"
+        },
+        "allowed_rotations_degrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "seam_contract": "opposite-edge-exact"
+      },
+      "grass-flowers-a": {
+        "kind": "grass",
+        "tags": [
+          "variation",
+          "flowers",
+          "walkable"
+        ],
+        "uv_rect_px": [
+          280,
+          8,
+          256,
+          256
+        ],
+        "grid_size": [
+          1,
+          1
+        ],
+        "walkable": true,
+        "edges": {
+          "north": "grass",
+          "east": "grass",
+          "south": "grass",
+          "west": "grass"
+        },
+        "allowed_rotations_degrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "seam_contract": "opposite-edge-exact"
+      },
+      "earth-packed-a": {
+        "kind": "earth",
+        "tags": [
+          "path",
+          "packed",
+          "walkable"
+        ],
+        "uv_rect_px": [
+          552,
+          8,
+          256,
+          256
+        ],
+        "grid_size": [
+          1,
+          1
+        ],
+        "walkable": true,
+        "edges": {
+          "north": "earth",
+          "east": "earth",
+          "south": "earth",
+          "west": "earth"
+        },
+        "allowed_rotations_degrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "seam_contract": "opposite-edge-exact"
+      }
+    }
+  },
+  "collision_profiles": {
+    "none": {
+      "shapes": []
+    },
+    "hero-tree-trunk": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 1.375,
+          "height": 0.525,
+          "offset": [
+            0,
+            0.2625,
+            0
+          ]
+        }
+      ]
+    },
+    "sapling-trunk": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.39,
+          "height": 1.105,
+          "offset": [
+            0,
+            0.5525,
+            0
+          ]
+        }
+      ]
+    },
+    "bush-footprint": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.456,
+          "height": 0.504,
+          "offset": [
+            0,
+            0.252,
+            0
+          ]
+        }
+      ]
+    },
+    "boulder-footprint": {
+      "shapes": [
+        {
+          "type": "box",
+          "size": [
+            0.98,
+            0.7,
+            0.83
+          ],
+          "offset": [
+            0,
+            0.35,
+            0
+          ]
+        }
+      ]
+    },
+    "well-ring": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.65,
+          "height": 0.9,
+          "offset": [
+            0,
+            0.45,
+            0
+          ]
+        }
+      ]
+    },
+    "stump-footprint": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.378,
+          "height": 0.441,
+          "offset": [
+            0,
+            0.2205,
+            0
+          ]
+        }
+      ]
+    },
+    "lamp-post": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.169,
+          "height": 1.3,
+          "offset": [
+            0,
+            0.65,
+            0
+          ]
+        }
+      ]
+    },
+    "sign-post": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.18,
+          "height": 0.96,
+          "offset": [
+            0,
+            0.48,
+            0
+          ]
+        }
+      ]
+    },
+    "tree-trunk-broad": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.48,
+          "height": 1.2,
+          "offset": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      ]
+    },
+    "tree-trunk-standard": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.38,
+          "height": 1.15,
+          "offset": [
+            0,
+            0.575,
+            0
+          ]
+        }
+      ]
+    },
+    "tree-trunk-slender": {
+      "shapes": [
+        {
+          "type": "cylinder",
+          "radius": 0.3,
+          "height": 1.25,
+          "offset": [
+            0,
+            0.625,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "objects": {
+    "community-tree-a": {
+      "texture": "images/community-tree.png",
+      "image_size_px": [
+        351,
+        340
+      ],
+      "anchor_px": [
+        175.5,
+        310
+      ],
+      "kind": "landmark-tree",
+      "tags": [
+        "hero",
+        "tree",
+        "community",
+        "cyan-lights"
+      ],
+      "source_id": "imagegen-community-tree-a-20260802",
+      "default_world_height": 4,
+      "allowed_world_height": [
+        3.6,
+        4.6
+      ],
+      "collision_profile": "hero-tree-trunk",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 8,
+        "maximum_placements_per_layout": 1
+      }
+    },
+    "village-well-a": {
+      "texture": "images/village-well.png",
+      "image_size_px": [
+        303,
+        335
+      ],
+      "anchor_px": [
+        151.5,
+        305
+      ],
+      "kind": "well",
+      "tags": [
+        "landmark",
+        "water",
+        "stone",
+        "teal-roof"
+      ],
+      "source_id": "visual-vocabulary-miscellaneous-145",
+      "default_world_height": 1.95,
+      "allowed_world_height": [
+        1.75,
+        2.2
+      ],
+      "collision_profile": "well-ring",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 6,
+        "maximum_placements_per_layout": 1
+      }
+    },
+    "trail-sign-a": {
+      "texture": "images/trail-sign.png",
+      "image_size_px": [
+        248,
+        328
+      ],
+      "anchor_px": [
+        124,
+        298
+      ],
+      "kind": "sign",
+      "tags": [
+        "wayfinding",
+        "wood",
+        "teal"
+      ],
+      "source_id": "visual-vocabulary-miscellaneous-118",
+      "default_world_height": 1.8,
+      "allowed_world_height": [
+        1.6,
+        2
+      ],
+      "collision_profile": "sign-post",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 4,
+        "maximum_placements_per_layout": 2
+      }
+    },
+    "flower-patch-a": {
+      "texture": "images/flower-patch.png",
+      "image_size_px": [
+        316,
+        286
+      ],
+      "anchor_px": [
+        158,
+        256
+      ],
+      "kind": "ground-accent",
+      "tags": [
+        "flowers",
+        "nature",
+        "walkable"
+      ],
+      "source_id": "visual-vocabulary-miscellaneous-202",
+      "default_world_height": 0.525,
+      "allowed_world_height": [
+        0.45,
+        0.62
+      ],
+      "collision_profile": "none",
+      "collision_scale_mode": "fixed",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 0.8,
+        "maximum_placements_per_layout": 8
+      }
+    },
+    "tree-stump-a": {
+      "texture": "images/tree-stump.png",
+      "image_size_px": [
+        351,
+        250
+      ],
+      "anchor_px": [
+        175.5,
+        220
+      ],
+      "kind": "stump",
+      "tags": [
+        "wood",
+        "moss",
+        "obstacle"
+      ],
+      "source_id": "visual-vocabulary-miscellaneous-203",
+      "default_world_height": 0.86,
+      "allowed_world_height": [
+        0.75,
+        0.98
+      ],
+      "collision_profile": "stump-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2.5,
+        "maximum_placements_per_layout": 3
+      }
+    },
+    "street-lamp-a": {
+      "texture": "images/street-lamp.png",
+      "image_size_px": [
+        136,
+        349
+      ],
+      "anchor_px": [
+        68,
+        319
+      ],
+      "kind": "lamp",
+      "tags": [
+        "lighting",
+        "teal",
+        "brass",
+        "amber"
+      ],
+      "source_id": "visual-vocabulary-burrow-review-036",
+      "default_world_height": 2.4,
+      "allowed_world_height": [
+        2.15,
+        2.65
+      ],
+      "collision_profile": "lamp-post",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2,
+        "maximum_placements_per_layout": 4
+      }
+    },
+    "moon-bush-round-a": {
+      "texture": "images/moon-bush.png",
+      "image_size_px": [
+        419,
+        392
+      ],
+      "anchor_px": [
+        209.5,
+        376
+      ],
+      "kind": "bush",
+      "tags": [
+        "foliage",
+        "boundary",
+        "cyan-lights"
+      ],
+      "source_id": "imagegen-moon-bush-round-a-20260801",
+      "default_world_height": 1.2,
+      "allowed_world_height": [
+        1,
+        1.4
+      ],
+      "collision_profile": "bush-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 1.25,
+        "maximum_placements_per_layout": 7
+      }
+    },
+    "moss-boulder-a": {
+      "texture": "images/moss-boulder.png",
+      "image_size_px": [
+        436,
+        332
+      ],
+      "anchor_px": [
+        218,
+        316
+      ],
+      "kind": "boulder",
+      "tags": [
+        "stone",
+        "boundary",
+        "moss",
+        "cyan-mineral"
+      ],
+      "source_id": "imagegen-moss-boulder-a-20260801",
+      "default_world_height": 0.98,
+      "allowed_world_height": [
+        0.8,
+        1.15
+      ],
+      "collision_profile": "boulder-footprint",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 1.2,
+        "maximum_placements_per_layout": 7
+      }
+    },
+    "moon-sapling-a": {
+      "texture": "images/moon-sapling.png",
+      "image_size_px": [
+        374,
+        452
+      ],
+      "anchor_px": [
+        187,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "cyan-lights"
+      ],
+      "source_id": "imagegen-moon-sapling-a-20260802",
+      "default_world_height": 3.45,
+      "allowed_world_height": [
+        3,
+        3.8
+      ],
+      "collision_profile": "sapling-trunk",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2,
+        "maximum_placements_per_layout": 5
+      }
+    },
+    "tree-oak-a": {
+      "texture": "images/tree-oak.png",
+      "image_size_px": [
+        473,
+        452
+      ],
+      "anchor_px": [
+        236.5,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "oak",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-oak-clean-graphic-a-20260802",
+      "default_world_height": 4.4,
+      "allowed_world_height": [
+        4,
+        4.8
+      ],
+      "collision_profile": "tree-trunk-broad",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 3,
+        "maximum_placements_per_layout": 5
+      }
+    },
+    "tree-maple-a": {
+      "texture": "images/tree-maple.png",
+      "image_size_px": [
+        428,
+        452
+      ],
+      "anchor_px": [
+        214,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "maple",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-maple-clean-graphic-a-20260802",
+      "default_world_height": 4.2,
+      "allowed_world_height": [
+        3.8,
+        4.6
+      ],
+      "collision_profile": "tree-trunk-standard",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2.6,
+        "maximum_placements_per_layout": 6
+      }
+    },
+    "tree-birch-a": {
+      "texture": "images/tree-birch.png",
+      "image_size_px": [
+        332,
+        452
+      ],
+      "anchor_px": [
+        166,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "birch",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-birch-clean-graphic-a-20260802",
+      "default_world_height": 4.5,
+      "allowed_world_height": [
+        4,
+        4.9
+      ],
+      "collision_profile": "tree-trunk-standard",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2.4,
+        "maximum_placements_per_layout": 6
+      }
+    },
+    "tree-pine-a": {
+      "texture": "images/tree-pine.png",
+      "image_size_px": [
+        292,
+        452
+      ],
+      "anchor_px": [
+        146,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "pine",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-pine-clean-graphic-a-20260802",
+      "default_world_height": 5.1,
+      "allowed_world_height": [
+        4.6,
+        5.6
+      ],
+      "collision_profile": "tree-trunk-slender",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 2.2,
+        "maximum_placements_per_layout": 8
+      }
+    },
+    "tree-willow-a": {
+      "texture": "images/tree-willow.png",
+      "image_size_px": [
+        420,
+        452
+      ],
+      "anchor_px": [
+        210,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "willow",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-willow-clean-graphic-a-20260802",
+      "default_world_height": 4.3,
+      "allowed_world_height": [
+        3.9,
+        4.8
+      ],
+      "collision_profile": "tree-trunk-broad",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 3.2,
+        "maximum_placements_per_layout": 4
+      }
+    },
+    "tree-poplar-a": {
+      "texture": "images/tree-poplar.png",
+      "image_size_px": [
+        136,
+        452
+      ],
+      "anchor_px": [
+        68,
+        436
+      ],
+      "kind": "tree",
+      "tags": [
+        "tree",
+        "foliage",
+        "poplar",
+        "clean-graphic"
+      ],
+      "source_id": "imagegen-tree-poplar-clean-graphic-a-20260802",
+      "default_world_height": 5.2,
+      "allowed_world_height": [
+        4.7,
+        5.8
+      ],
+      "collision_profile": "tree-trunk-slender",
+      "collision_scale_mode": "with-visual",
+      "occlusion": {
+        "mode": "depth"
+      },
+      "reuse": {
+        "single_object": true,
+        "allow_horizontal_flip": false,
+        "allowed_rotations_degrees": [
+          0
+        ],
+        "minimum_repeat_distance": 1.8,
+        "maximum_placements_per_layout": 8
+      }
+    }
+  }
+}

@@ -8,8 +8,26 @@ readonly scenery_source_root="/scenery-source"
 readonly work_root="/work/memory-moon"
 readonly stage_root="/work/web-export"
 readonly output_root="/output"
-readonly scenery_style_root="${scenery_source_root}/memory-moon-style-v1"
-readonly scenery_layout_root="${scenery_source_root}/memory-grove-v6"
+readonly scenery_metadata_root="${scenery_source_root}/metadata"
+readonly scenery_images_root="${scenery_source_root}/images"
+readonly -a scenery_image_names=(
+    "community-tree.png"
+    "flower-patch.png"
+    "moon-bush.png"
+    "moon-sapling.png"
+    "moss-boulder.png"
+    "street-lamp.png"
+    "terrain-atlas.png"
+    "trail-sign.png"
+    "tree-birch.png"
+    "tree-maple.png"
+    "tree-oak.png"
+    "tree-pine.png"
+    "tree-poplar.png"
+    "tree-stump.png"
+    "tree-willow.png"
+    "village-well.png"
+)
 readonly glb_name="AnimationLibrary_Godot_Standard.glb"
 readonly reference_license_name="Quaternius-License.txt"
 readonly macaw_parts_relative_path="sources/prepared-parts/macaw-traveler-parts-sheet-v1.png"
@@ -23,9 +41,9 @@ readonly macaw_parts_sha256="8761ea535ad5d5550989a9c2b9c92e7b163af032f6ed952b3b1
 readonly macaw_license_sha256="3185a4005a31eb8aabed1b0e3936a49115c9909cb9987f780c145f79ba141f08"
 readonly template_sha256="b7b7d7da29fc6cc2f4934fdd26cc571a40e7af57f716ea3eb7e18da720dae28a"
 readonly version_sha256="233b4ce93ffa3c6bc967b45dcfcdf2d29c7d65878d0af6d2fc7c95661d585013"
-readonly scenery_catalog_sha256="dfcb4d6b1152d1a6789b73332b98b6e455f57da3c4d7845929dc58d668693320"
-readonly scenery_layout_sha256="58060ac36a3fbdbdb9859fcfd5789ee5ad31ab6f499267881453c690ab5a092a"
-readonly scenery_tileset_sha256="2599b115dd4f5528eb9e8a1e62dff2cc786541593f9e3a803392f97e663b6bcb"
+readonly scenery_catalog_sha256="cf27415129bf1d90b146d4abd1d8856ce40d364f6bc4df91a444fef6c72ff391"
+readonly scenery_layout_sha256="e72968db90a879e71d498f12446af1cca083e93977f114627560943dd4195a79"
+readonly scenery_tileset_sha256="06d5b133ff7bcba2c23f3fc015421badf22aeb50198b670b809621d3b4828dd4"
 
 run_godot_checked() {
     local label="$1"
@@ -49,14 +67,14 @@ test "$(realpath -m "${scenery_source_root}")" = "/scenery-source"
 test -r "${project_source}/project.godot"
 test -r "${project_source}/export_presets.cfg"
 test ! -e "${project_source}/assets/scenery"
-test -r "${scenery_style_root}/catalog.json"
-test -r "${scenery_style_root}/manifest.json"
-test -r "${scenery_style_root}/SHA256SUMS"
-test -r "${scenery_style_root}/PROVENANCE.md"
-test -r "${scenery_layout_root}/layout.json"
-test -r "${scenery_layout_root}/manifest.json"
-test -r "${scenery_layout_root}/PROVENANCE.md"
-test -r "${scenery_layout_root}/terrain/moonroot-reusable-tiles-v1.png"
+test -r "${scenery_metadata_root}/catalog.json"
+test -r "${scenery_metadata_root}/world.json"
+test -r "${scenery_metadata_root}/checksums.sha256"
+test -r "${scenery_metadata_root}/catalog.provenance.md"
+test -r "${scenery_metadata_root}/world.provenance.md"
+for scenery_image_name in "${scenery_image_names[@]}"; do
+    test -r "${scenery_images_root}/${scenery_image_name}"
+done
 test -r "${reference_root}/${glb_name}"
 test -r "${reference_root}/${reference_license_name}"
 test -r "${macaw_reference_root}/${macaw_parts_relative_path}"
@@ -106,19 +124,19 @@ printf '%s  %s\n' \
     | sha256sum --check --strict
 printf '%s  %s\n' \
     "${scenery_catalog_sha256}" \
-    "${scenery_style_root}/catalog.json" \
+    "${scenery_metadata_root}/catalog.json" \
     | sha256sum --check --strict
 printf '%s  %s\n' \
     "${scenery_layout_sha256}" \
-    "${scenery_layout_root}/layout.json" \
+    "${scenery_metadata_root}/world.json" \
     | sha256sum --check --strict
 printf '%s  %s\n' \
 	"${scenery_tileset_sha256}" \
-	"${scenery_layout_root}/terrain/moonroot-reusable-tiles-v1.png" \
+	"${scenery_images_root}/terrain-atlas.png" \
 	| sha256sum --check --strict
 (
-    cd "${scenery_style_root}"
-    sha256sum --check --strict SHA256SUMS
+    cd "${scenery_source_root}"
+    sha256sum --check --strict metadata/checksums.sha256
 )
 
 rm -rf -- "${work_root}" "${stage_root}"
@@ -129,20 +147,23 @@ mkdir -p \
     "${XDG_DATA_HOME}/godot/export_templates" \
     "${work_root}/assets" \
     "${work_root}/assets/macaw" \
-    "${work_root}/assets/scenery/memory-moon-style-v1" \
-    "${work_root}/assets/scenery/memory-grove-v6" \
+    "${work_root}/assets/scenery/metadata" \
+    "${work_root}/assets/scenery/images" \
     "${stage_root}"
 
 ln -s /toolchain/templates/4.7.1.stable \
     "${XDG_DATA_HOME}/godot/export_templates/4.7.1.stable"
 
 cp -R "${project_source}/." "${work_root}/"
-cp -R \
-    "${scenery_style_root}/." \
-    "${work_root}/assets/scenery/memory-moon-style-v1/"
-cp -R \
-    "${scenery_layout_root}/." \
-    "${work_root}/assets/scenery/memory-grove-v6/"
+cp \
+    "${scenery_metadata_root}/catalog.json" \
+    "${scenery_metadata_root}/world.json" \
+    "${work_root}/assets/scenery/metadata/"
+for scenery_image_name in "${scenery_image_names[@]}"; do
+    cp \
+        "${scenery_images_root}/${scenery_image_name}" \
+        "${work_root}/assets/scenery/images/${scenery_image_name}"
+done
 cp "${reference_root}/${glb_name}" "${work_root}/assets/humanoid.glb"
 cp \
     "${macaw_reference_root}/${macaw_parts_relative_path}" \
@@ -159,8 +180,15 @@ run_godot_checked scenery \
     --path "${work_root}" \
     --script res://tooling/verify-world-scenery.gd
 grep -Fxq \
-	"MEMORY_MOON_SCENERY_SMOKE_OK layout=memory-grove-v6 terrain=chunk-stream chunks=25/64 tiles=225/576 map_tiles=144 atlas_tiles=20 used_tile_types=16 navigation=true prop_placements=18 collision_objects=18 shadows=0" \
+	"MEMORY_MOON_SCENERY_SMOKE_OK layout=memory-grove-v6 terrain=chunk-stream chunks=49/144 tiles=441/1296 map_tiles=144 atlas_tiles=48 used_tile_types=32 navigation=true prop_placements=18 collision_objects=18 shadows=0" \
 	/work/scenery.log
+run_godot_checked movement \
+    --headless \
+    --path "${work_root}" \
+    --script res://tooling/verify-movement.gd
+grep -Fxq \
+    "MEMORY_MOON_MOVEMENT_SMOKE_OK rates=30/60/120 acceleration=true braking=true arrival=true overshoot=false reversal=brake-first corner_drift_max=0.16 speed_cap=2.6 arrival_spread_max=0.12 los=string-pulled capsule_clearance=0.28 supercover=safe deterministic=true precise_target=fallback same_cell=move-to-center stall_progress=route-distance" \
+    /work/movement.log
 run_godot_checked responsive \
     --headless \
     --path "${work_root}" \
@@ -201,10 +229,10 @@ cp "${project_source}/GODOT-LICENSE.txt" "${output_root}/LICENSES/Godot-MIT.txt"
 cp "${reference_root}/${reference_license_name}" "${output_root}/LICENSES/Quaternius-CC0.txt"
 cp "${macaw_reference_root}/${macaw_license_name}" "${output_root}/LICENSES/Macaw-Parts-CC0.md"
 cp \
-    "${scenery_style_root}/PROVENANCE.md" \
+    "${scenery_metadata_root}/catalog.provenance.md" \
     "${output_root}/LICENSES/Memory-Moon-Style-Provenance.md"
 cp \
-    "${scenery_layout_root}/PROVENANCE.md" \
+    "${scenery_metadata_root}/world.provenance.md" \
     "${output_root}/LICENSES/Memory-Grove-Provenance.md"
 cp "${project_source}/THIRD_PARTY_NOTICES.md" "${output_root}/THIRD_PARTY_NOTICES.md"
 

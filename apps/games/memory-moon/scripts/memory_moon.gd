@@ -18,9 +18,19 @@ const ARTICULATION_POSITION_EPSILON := 0.002
 const ARTICULATION_UP_EPSILON := 0.01
 const ACTOR_VISUAL_TURNAROUND := PI
 const WALK_SPEED := 2.6
-const WAYPOINT_REACHED_DISTANCE := 0.1
-const TARGET_REACHED_DISTANCE := 0.14
+const WALK_ACCELERATION := 8.0
+const WALK_BRAKING := 11.0
+const WALK_ANIMATION_MIN_SCALE := 0.35
+const WALK_ANIMATION_IDLE_SPEED := 0.08
+const WAYPOINT_REACHED_DISTANCE := 0.04
+const TARGET_REACHED_DISTANCE := 0.05
+const CORNER_APPROACH_DISTANCE := 0.55
+const CORNER_SPEED := 1.35
+const CORNER_DOT_THRESHOLD := 0.85
+const TURN_RESPONSE := 14.0
+const VELOCITY_STOP_EPSILON := 0.0001
 const REPLAN_STALL_SECONDS := 0.45
+const REPLAN_PROGRESS_DISTANCE := 0.04
 const CAMERA_FOCUS_HEIGHT := 0.9
 const CAMERA_YAW_RADIANS := PI / 4.0
 const CAMERA_ELEVATION_RADIANS := PI / 6.0
@@ -50,7 +60,9 @@ var _movement_path_index := 0
 var _move_target := Vector3.ZERO
 var _has_move_target := false
 var _target_marker: MeshInstance3D
+var _move_speed := 0.0
 var _stalled_seconds := 0.0
+var _stall_reference_remaining := INF
 var _title_label: Label
 var _boundary_label: Label
 var _appearance_label: Label
@@ -108,13 +120,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var direction := _path_direction()
-	_actor.velocity = direction * WALK_SPEED
-	if direction.length_squared() > 0.0:
-		var facing := atan2(direction.x, direction.z)
-		_actor.rotation.y = lerp_angle(_actor.rotation.y, facing, 1.0 - exp(-delta * 10.0))
-		_play_clip("Walk")
-	else:
-		_play_clip("Idle")
+	_advance_movement_velocity(direction, delta)
+	_update_actor_facing(direction, delta)
+	_sync_locomotion_animation(_actor.velocity)
 	var position_before_move := _actor.position
 	_actor.move_and_slide()
 	_update_path_progress(position_before_move, delta)
@@ -312,7 +320,8 @@ func _request_move_to_screen_position(screen_position: Vector2) -> void:
 	requested_target.y = 0.0
 	var path: PackedVector3Array = _navigator.find_path(_actor.position, requested_target)
 	if path.is_empty():
-		_clear_move_path()
+		# A missed or invalid click should not cancel a valid order already in
+		# progress. The existing safe route remains authoritative.
 		return
 	_set_move_path(path)
 	_notify_host("walk-target")
@@ -324,6 +333,7 @@ func _set_move_path(path: PackedVector3Array) -> void:
 	_move_target = path[-1]
 	_has_move_target = true
 	_stalled_seconds = 0.0
+	_stall_reference_remaining = _remaining_path_distance()
 	if _target_marker != null:
 		_target_marker.position = Vector3(_move_target.x, 0.012, _move_target.z)
 		_target_marker.visible = true
@@ -343,7 +353,159 @@ func _path_direction() -> Vector3:
 	return Vector3.ZERO
 
 
-func _update_path_progress(position_before_move: Vector3, delta: float) -> void:
+func _advance_movement_velocity(direction: Vector3, delta: float) -> Vector3:
+	if _actor == null:
+		return Vector3.ZERO
+	var desired_speed := _desired_move_speed(direction)
+	var waypoint_distance := INF
+	if direction.length_squared() > 0.0:
+		waypoint_distance = _distance_to_current_waypoint()
+	var next_velocity := _steer_movement_velocity(
+		_actor.velocity,
+		direction,
+		desired_speed,
+		waypoint_distance,
+		delta,
+	)
+	_actor.velocity = next_velocity
+	_move_speed = next_velocity.length()
+	return next_velocity
+
+
+func _steer_movement_velocity(
+	current_velocity: Vector3,
+	direction: Vector3,
+	desired_speed: float,
+	waypoint_distance: float,
+	delta: float,
+) -> Vector3:
+	var current := current_velocity
+	current.y = 0.0
+	if delta <= 0.0:
+		return current
+	var desired_direction := direction
+	desired_direction.y = 0.0
+	if desired_direction.length_squared() > 0.0:
+		desired_direction = desired_direction.normalized()
+	if desired_direction.length_squared() <= 0.0 or desired_speed <= 0.0:
+		return current.move_toward(Vector3.ZERO, WALK_BRAKING * delta)
+
+	var current_speed := current.length()
+	if (
+		current_speed > VELOCITY_STOP_EPSILON
+		and current.normalized().dot(desired_direction) < 0.0
+	):
+		# A sharp retarget must dissipate the old velocity before applying force
+		# along the opposite route. Reassigning a speed scalar to the new direction
+		# would reverse the complete velocity vector in a single physics frame.
+		return current.move_toward(Vector3.ZERO, WALK_BRAKING * delta)
+
+	var desired_velocity := desired_direction * minf(desired_speed, WALK_SPEED)
+	var alignment := 1.0
+	if current_speed > VELOCITY_STOP_EPSILON:
+		alignment = current.normalized().dot(desired_direction)
+	var steering_rate := (
+		WALK_BRAKING
+		if desired_speed < current_speed or alignment < CORNER_DOT_THRESHOLD
+		else WALK_ACCELERATION
+	)
+	var next_velocity := current.move_toward(desired_velocity, steering_rate * delta)
+	if next_velocity.length() > WALK_SPEED:
+		next_velocity = next_velocity.normalized() * WALK_SPEED
+
+	# Limit only the component aimed through the waypoint. Lateral velocity is
+	# steered down instead of being teleported into the new direction, while the
+	# forward component remains unable to cross a waypoint in one Web frame.
+	if waypoint_distance < INF and delta > 0.0:
+		var maximum_forward_speed := waypoint_distance / delta
+		var forward_speed := next_velocity.dot(desired_direction)
+		if forward_speed > maximum_forward_speed:
+			next_velocity -= desired_direction * (forward_speed - maximum_forward_speed)
+	next_velocity.y = 0.0
+	return next_velocity
+
+
+func _update_actor_facing(direction: Vector3, delta: float) -> void:
+	if _actor == null:
+		return
+	var facing_direction := _actor.velocity
+	facing_direction.y = 0.0
+	if facing_direction.length_squared() <= WALK_ANIMATION_IDLE_SPEED * WALK_ANIMATION_IDLE_SPEED:
+		facing_direction = direction
+		facing_direction.y = 0.0
+	if facing_direction.length_squared() <= 0.0:
+		return
+	var facing := atan2(facing_direction.x, facing_direction.z)
+	_actor.rotation.y = lerp_angle(
+		_actor.rotation.y,
+		facing,
+		1.0 - exp(-delta * TURN_RESPONSE),
+	)
+
+
+func _desired_move_speed(direction: Vector3) -> float:
+	if direction.length_squared() <= 0.0 or not _has_move_target:
+		return 0.0
+	var remaining_after_stop := maxf(
+		_remaining_path_distance() - TARGET_REACHED_DISTANCE,
+		0.0,
+	)
+	var arrival_limit := sqrt(2.0 * WALK_BRAKING * remaining_after_stop)
+	var desired_speed := minf(WALK_SPEED, arrival_limit)
+	desired_speed = minf(desired_speed, _corner_speed_limit(direction))
+
+	# A new route can reverse the actor before it reaches its first authored
+	# corner. Keep that turn deliberate instead of sliding sideways at full pace.
+	var actor_forward := Vector3(sin(_actor.rotation.y), 0.0, cos(_actor.rotation.y))
+	if actor_forward.dot(direction) < CORNER_DOT_THRESHOLD:
+		desired_speed = minf(desired_speed, CORNER_SPEED)
+	return desired_speed
+
+
+func _corner_speed_limit(incoming_direction: Vector3) -> float:
+	if _movement_path_index + 1 >= _movement_path.size():
+		return WALK_SPEED
+	var waypoint_distance := _distance_to_current_waypoint()
+	if waypoint_distance >= CORNER_APPROACH_DISTANCE:
+		return WALK_SPEED
+	var outgoing := _movement_path[_movement_path_index + 1] - _movement_path[_movement_path_index]
+	outgoing.y = 0.0
+	if outgoing.length_squared() <= 0.0:
+		return WALK_SPEED
+	var turn_alignment := incoming_direction.dot(outgoing.normalized())
+	if turn_alignment >= CORNER_DOT_THRESHOLD:
+		return WALK_SPEED
+	var approach_weight := smoothstep(
+		0.0,
+		1.0,
+		clampf(waypoint_distance / CORNER_APPROACH_DISTANCE, 0.0, 1.0),
+	)
+	return lerpf(CORNER_SPEED, WALK_SPEED, approach_weight)
+
+
+func _remaining_path_distance() -> float:
+	if not _has_move_target or _movement_path_index >= _movement_path.size():
+		return 0.0
+	var cursor := _actor.position
+	cursor.y = 0.0
+	var remaining := 0.0
+	for index in range(_movement_path_index, _movement_path.size()):
+		var waypoint := _movement_path[index]
+		waypoint.y = 0.0
+		remaining += cursor.distance_to(waypoint)
+		cursor = waypoint
+	return remaining
+
+
+func _distance_to_current_waypoint() -> float:
+	if _movement_path_index >= _movement_path.size():
+		return 0.0
+	var offset := _movement_path[_movement_path_index] - _actor.position
+	offset.y = 0.0
+	return offset.length()
+
+
+func _update_path_progress(_position_before_move: Vector3, delta: float) -> void:
 	if not _has_move_target:
 		return
 	var remaining := _move_target - _actor.position
@@ -351,15 +513,18 @@ func _update_path_progress(position_before_move: Vector3, delta: float) -> void:
 	if remaining.length() <= TARGET_REACHED_DISTANCE:
 		_clear_move_path()
 		return
-	var travelled := _actor.position - position_before_move
-	travelled.y = 0.0
-	if travelled.length_squared() > 0.000004:
-		_stalled_seconds = 0.0
-		return
+	var route_remaining := _remaining_path_distance()
+	if _stall_reference_remaining == INF:
+		_stall_reference_remaining = route_remaining
 	_stalled_seconds += delta
+	if _stall_reference_remaining - route_remaining >= REPLAN_PROGRESS_DISTANCE:
+		_stalled_seconds = 0.0
+		_stall_reference_remaining = route_remaining
+		return
 	if _stalled_seconds < REPLAN_STALL_SECONDS or _navigator == null:
 		return
 	_stalled_seconds = 0.0
+	_stall_reference_remaining = route_remaining
 	var replanned: PackedVector3Array = _navigator.find_path(_actor.position, _move_target)
 	if replanned.is_empty():
 		_clear_move_path()
@@ -371,7 +536,11 @@ func _clear_move_path() -> void:
 	_movement_path = PackedVector3Array()
 	_movement_path_index = 0
 	_has_move_target = false
+	_move_speed = 0.0
 	_stalled_seconds = 0.0
+	_stall_reference_remaining = INF
+	if _actor != null:
+		_actor.velocity = Vector3.ZERO
 	if _target_marker != null:
 		_target_marker.visible = false
 
@@ -594,6 +763,21 @@ func _camera_ground_forward() -> Vector3:
 	var camera_forward := -_camera.global_transform.basis.z
 	camera_forward.y = 0.0
 	return camera_forward.normalized()
+
+
+func _sync_locomotion_animation(direction: Vector3) -> void:
+	if _animation_player == null:
+		return
+	if direction.length_squared() > 0.0 and _move_speed > WALK_ANIMATION_IDLE_SPEED:
+		_play_clip("Walk")
+		_animation_player.speed_scale = clampf(
+			_move_speed / WALK_SPEED,
+			WALK_ANIMATION_MIN_SCALE,
+			1.0,
+		)
+	else:
+		_animation_player.speed_scale = 1.0
+		_play_clip("Idle")
 
 
 func _play_clip(clip_name: String) -> void:

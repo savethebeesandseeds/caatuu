@@ -14,7 +14,8 @@ const androidUiIconNames = [
   "dark_mode_ui.png",
   "difficulty_medal_1_ui.png",
   "difficulty_medal_2_ui.png",
-  "difficulty_medal_3_ui.png"
+  "difficulty_medal_3_ui.png",
+  "paper_plane_submit_ui.png"
 ];
 const [registrySource, profileSource, learningProfile, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
   readFile(new URL("languages.json", launcherStatic), "utf8"),

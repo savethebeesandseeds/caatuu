@@ -33,13 +33,14 @@ class AndroidSpeechManager(context: Context) {
 
     private val applicationContext = context.applicationContext
     private val mainHandler = Handler(Looper.getMainLooper())
-    private val initialization = CompletableDeferred<Int>()
+    @Volatile private var initialization = CompletableDeferred<Int>()
     private val stateLock = Any()
     @Volatile private var engine: TextToSpeech? = null
     @Volatile private var destroyed = false
     private var acceptingSpeech = false
     private var lifecycleGeneration = 0L
     private var activeUtterance: ActiveUtterance? = null
+    private var refreshVoiceDataOnResume = false
 
     private val progressListener = object : UtteranceProgressListener() {
         override fun onStart(utteranceId: String?) {
@@ -68,7 +69,8 @@ class AndroidSpeechManager(context: Context) {
     }
 
     init {
-        runOnMain { initializeEngine() }
+        val initialInitialization = initialization
+        runOnMain { initializeEngine(initialInitialization) }
     }
 
     suspend fun status(localeTag: String, requestedVoiceName: String = ""): JSONObject {
@@ -106,9 +108,28 @@ class AndroidSpeechManager(context: Context) {
                 return@withContext unavailableStatus(locale, "no-language-voice")
             }
 
-            val voice = selectVoice(currentEngine, locale, requestedVoiceName)
-            if (voice != null) currentEngine.voice = voice
-            availableStatus(locale, currentEngine.voice ?: voice, eligibleVoices(currentEngine, locale))
+            val voices = eligibleVoices(currentEngine, locale)
+            if (voices.isEmpty()) {
+                val reason = if (hasUninstalledVoiceData(currentEngine, locale)) {
+                    "missing-language-data"
+                } else {
+                    "no-language-voice"
+                }
+                return@withContext unavailableStatus(locale, reason)
+            }
+
+            val requested = requestedVoiceName.trim()
+            val voice = selectVoice(voices, requested)
+            if (voice == null) {
+                return@withContext unavailableStatus(
+                    locale,
+                    "requested-voice-unavailable",
+                    voices = voices,
+                    requestedVoiceName = requested,
+                )
+            }
+            val activeVoice = activateVoice(currentEngine, voice, requested)
+            availableStatus(locale, activeVoice, voices, requested)
         }
     }
 
@@ -161,8 +182,20 @@ class AndroidSpeechManager(context: Context) {
                 "This text-to-speech engine does not support Czech."
             }
 
-            val preferredVoice = selectVoice(currentEngine, locale, requestedVoiceName)
-            if (preferredVoice != null) currentEngine.voice = preferredVoice
+            val voices = eligibleVoices(currentEngine, locale)
+            check(voices.isNotEmpty()) {
+                if (hasUninstalledVoiceData(currentEngine, locale)) {
+                    "The Czech text-to-speech voice data is not installed."
+                } else {
+                    "This text-to-speech engine has no available Czech voice."
+                }
+            }
+            val requested = requestedVoiceName.trim()
+            val preferredVoice = selectVoice(voices, requested)
+            check(preferredVoice != null) {
+                "The selected Czech voice is not installed or is no longer available."
+            }
+            val selectedVoice = activateVoice(currentEngine, preferredVoice, requested)
             check(currentEngine.setSpeechRate(rate.coerceIn(MIN_RATE, MAX_RATE)) == TextToSpeech.SUCCESS) {
                 "The text-to-speech engine rejected the speech rate."
             }
@@ -171,7 +204,6 @@ class AndroidSpeechManager(context: Context) {
             }
 
             stopActiveUtterance(currentEngine)
-            val selectedVoice = currentEngine.voice ?: preferredVoice
             withTimeout(UTTERANCE_TIMEOUT_MILLIS) {
                 awaitUtterance(
                     currentEngine,
@@ -186,9 +218,11 @@ class AndroidSpeechManager(context: Context) {
     }
 
     fun onResume() {
-        synchronized(stateLock) {
+        val shouldRefreshVoiceData = synchronized(stateLock) {
             if (!destroyed) acceptingSpeech = true
+            refreshVoiceDataOnResume.also { refreshVoiceDataOnResume = false }
         }
+        if (shouldRefreshVoiceData) runOnMain { reinitializeEngine() }
     }
 
     fun onPause() {
@@ -198,6 +232,14 @@ class AndroidSpeechManager(context: Context) {
         }
         stop()
     }
+
+    fun refreshVoiceDataAfterInstallerReturns() {
+        synchronized(stateLock) {
+            if (!destroyed) refreshVoiceDataOnResume = true
+        }
+    }
+
+    fun defaultEnginePackageName(): String = engine?.defaultEngine.orEmpty()
 
     fun stop(): Boolean {
         val active = synchronized(stateLock) {
@@ -228,7 +270,7 @@ class AndroidSpeechManager(context: Context) {
         }
     }
 
-    private fun initializeEngine() {
+    private fun initializeEngine(initializationState: CompletableDeferred<Int>) {
         if (destroyed || engine != null) return
         try {
             var candidate: TextToSpeech? = null
@@ -236,7 +278,9 @@ class AndroidSpeechManager(context: Context) {
                 mainHandler.post {
                     if (destroyed) {
                         candidate?.shutdown()
-                        if (!initialization.isCompleted) initialization.complete(TextToSpeech.ERROR)
+                        if (!initializationState.isCompleted) {
+                            initializationState.complete(TextToSpeech.ERROR)
+                        }
                         return@post
                     }
                     val readyStatus = if (status == TextToSpeech.SUCCESS) {
@@ -245,13 +289,25 @@ class AndroidSpeechManager(context: Context) {
                     } else {
                         status
                     }
-                    if (!initialization.isCompleted) initialization.complete(readyStatus)
+                    if (!initializationState.isCompleted) initializationState.complete(readyStatus)
                 }
             }
             engine = candidate
         } catch (error: Exception) {
-            if (!initialization.isCompleted) initialization.complete(TextToSpeech.ERROR)
+            if (!initializationState.isCompleted) initializationState.complete(TextToSpeech.ERROR)
         }
+    }
+
+    private fun reinitializeEngine() {
+        if (destroyed) return
+        val previousEngine = engine
+        engine = null
+        previousEngine?.stop()
+        previousEngine?.shutdown()
+
+        val nextInitialization = CompletableDeferred<Int>()
+        initialization = nextInitialization
+        initializeEngine(nextInitialization)
     }
 
     private suspend fun awaitUtterance(
@@ -300,10 +356,11 @@ class AndroidSpeechManager(context: Context) {
             ?.asSequence()
             ?.filter { it.locale.language.equals(locale.language, ignoreCase = true) }
             ?.filter { it.name.isNotBlank() && it.name.length <= MAX_VOICE_NAME_CHARACTERS }
+            ?.filterNot { voiceDataIsMissing(it) }
             ?.sortedWith(
                 compareBy<Voice>(
-                    { if (it.locale.toLanguageTag().lowercase(Locale.ROOT) == requestedTag) 0 else 1 },
                     { if (it.isNetworkConnectionRequired) 1 else 0 },
+                    { if (it.locale.toLanguageTag().lowercase(Locale.ROOT) == requestedTag) 0 else 1 },
                     { if (it.name == currentVoiceName) 0 else 1 },
                     { it.name.lowercase(Locale.ROOT) },
                 ),
@@ -312,15 +369,45 @@ class AndroidSpeechManager(context: Context) {
             .orEmpty()
     }
 
-    private fun selectVoice(
+    private fun hasUninstalledVoiceData(currentEngine: TextToSpeech, locale: Locale): Boolean =
+        currentEngine.voices
+            ?.any {
+                it.locale.language.equals(locale.language, ignoreCase = true) &&
+                    voiceDataIsMissing(it)
+            }
+            ?: false
+
+    private fun voiceDataIsMissing(voice: Voice): Boolean =
+        voice.features?.contains(TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED) == true
+
+    private fun selectVoice(voices: List<Voice>, requestedVoiceName: String): Voice? =
+        if (requestedVoiceName.isNotBlank()) {
+            voices.firstOrNull { it.name == requestedVoiceName }
+        } else {
+            voices.firstOrNull()
+        }
+
+    private fun activateVoice(
         currentEngine: TextToSpeech,
-        locale: Locale,
-        requestedVoiceName: String = "",
-    ): Voice? {
-        val voices = eligibleVoices(currentEngine, locale)
-        val requested = requestedVoiceName.trim()
-        return voices.firstOrNull { requested.isNotBlank() && it.name == requested }
-            ?: voices.firstOrNull()
+        selectedVoice: Voice,
+        requestedVoiceName: String,
+    ): Voice {
+        check(currentEngine.setVoice(selectedVoice) == TextToSpeech.SUCCESS) {
+            if (requestedVoiceName.isNotBlank()) {
+                "The text-to-speech engine rejected the selected Czech voice."
+            } else {
+                "The text-to-speech engine rejected its preferred Czech voice."
+            }
+        }
+        val activeVoice = currentEngine.voice
+        check(activeVoice != null && activeVoice.name == selectedVoice.name) {
+            if (requestedVoiceName.isNotBlank()) {
+                "The text-to-speech engine did not activate the selected Czech voice."
+            } else {
+                "The text-to-speech engine did not activate its preferred Czech voice."
+            }
+        }
+        return activeVoice
     }
 
     private fun stopActiveUtterance(currentEngine: TextToSpeech) {
@@ -389,7 +476,12 @@ class AndroidSpeechManager(context: Context) {
             .put("voice", active.voiceName)
             .put("localService", active.localService ?: JSONObject.NULL)
 
-    private fun availableStatus(locale: Locale, voice: Voice?, voices: List<Voice>): JSONObject =
+    private fun availableStatus(
+        locale: Locale,
+        voice: Voice?,
+        voices: List<Voice>,
+        requestedVoiceName: String = "",
+    ): JSONObject =
         JSONObject()
             .put("runtime", RUNTIME_NAME)
             .put("supported", true)
@@ -398,7 +490,10 @@ class AndroidSpeechManager(context: Context) {
             .put("locale", locale.toLanguageTag())
             .put("voice", voice?.name.orEmpty())
             .put("localService", voice?.let { !it.isNetworkConnectionRequired } ?: JSONObject.NULL)
+            .put("localVoiceAvailable", voices.any { !it.isNetworkConnectionRequired })
             .put("voices", voiceOptions(voices))
+            .put("requestedVoice", requestedVoiceName)
+            .put("requestedVoiceAvailable", true)
             .put("reason", "")
 
     private fun voiceOptions(voices: List<Voice>): JSONArray =
@@ -409,7 +504,8 @@ class AndroidSpeechManager(context: Context) {
                         .put("id", voice.name)
                         .put("name", voice.name)
                         .put("locale", voice.locale.toLanguageTag())
-                        .put("localService", !voice.isNetworkConnectionRequired),
+                        .put("localService", !voice.isNetworkConnectionRequired)
+                        .put("installed", true),
                 )
             }
         }
@@ -418,6 +514,8 @@ class AndroidSpeechManager(context: Context) {
         locale: Locale,
         reason: String,
         ready: Boolean = true,
+        voices: List<Voice> = emptyList(),
+        requestedVoiceName: String = "",
     ): JSONObject =
         JSONObject()
             .put("runtime", RUNTIME_NAME)
@@ -427,7 +525,10 @@ class AndroidSpeechManager(context: Context) {
             .put("locale", locale.toLanguageTag())
             .put("voice", "")
             .put("localService", JSONObject.NULL)
-            .put("voices", JSONArray())
+            .put("localVoiceAvailable", voices.any { !it.isNetworkConnectionRequired })
+            .put("voices", voiceOptions(voices))
+            .put("requestedVoice", requestedVoiceName)
+            .put("requestedVoiceAvailable", requestedVoiceName.isBlank())
             .put("reason", reason)
 
     private fun parseLocale(localeTag: String): Locale {

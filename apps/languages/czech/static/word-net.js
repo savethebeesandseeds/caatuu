@@ -16,10 +16,11 @@ import {
   sentenceFingerprint,
   sentenceIncludesWord,
   sentenceTargets,
+  resolveSpeechPace,
   stripModelEcho,
   tokenizeCzechSentence,
   wordMatchesTarget
-} from "./word-net-core.mjs?v=word-net-core-15";
+} from "./word-net-core.mjs?v=word-net-core-18";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import {
   loadStandardWordWorldCorpus,
@@ -51,13 +52,13 @@ const LEGACY_HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.
 const RECENT_SENTENCES_STORAGE_KEY = course.storage.wordWorldRecentSentences;
 const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache;
 const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.wordCardPreferences.v1`;
+const AUDIO_AUTOPLAY_STORAGE_KEY = `${course.storage.namespace}.wordNet.speechAutoplay.v2`;
 const DICTIONARY_GAP_STORAGE_KEY = `${course.storage.namespace}.dictionary.missing.kaikki-cs-en-2026-07-09.v1`;
 const DICTIONARY_GAP_SOURCE_KEY = "kaikki-cs-en-2026-07-09";
-const DICTIONARY_GAP_NOTICE = "Missing word saved on this device. Sending is not enabled yet.";
+const DICTIONARY_GAP_NOTICE = "Missing word queued for server review.";
 const DICTIONARY_GAP_LIMIT = 80;
 const RECONSTRUCTION_DISTRACTOR_COUNT = 2;
 const SENTENCE_REWARD_LIMIT = 128;
-const CZECH_SPEECH_RATE = 0.9;
 const CZECH_SPEECH_TIMEOUT_MS = 30_000;
 const EXPECTED_SPEECH_CANCELLATIONS = new Set(["canceled", "cancelled", "interrupted"]);
 const RECENT_SENTENCE_LIMIT = 48;
@@ -94,13 +95,18 @@ const translationModes = {
   reconstruct: { label: "Rebuild", delayMs: null }
 };
 const generationModes = {
-  random: { label: "Random" },
-  selected: { label: "Selected word" }
+  random: { label: "New word" },
+  selected: { label: "This word" }
 };
 const contentModes = {
   standard: { label: "Standard", summary: "Curated, guided, and fully offline." },
   generative: { label: "Generative", summary: "Optional local AI for open-ended sentences." }
 };
+const audioSpeedOptions = Object.freeze([
+  Object.freeze({ key: "slower", label: "Slower", rateLabel: "0.65×" }),
+  Object.freeze({ key: "slow", label: "Slow", rateLabel: "0.82×" }),
+  Object.freeze({ key: "normal", label: "Normal", rateLabel: "1×" })
+]);
 
 const playInstruction = "Use the side arrows or swipe to move between sentences. Tap any word for its meaning.";
 const reconstructionInstruction = "Build the English sentence. Submit, then swipe to continue.";
@@ -186,10 +192,11 @@ const state = {
   wordMeaningLoading: false,
   wordMeaningCache: new Map(),
   dictionaryGapKeys: loadDictionaryGapKeys(),
-  dictionaryGapCopying: false,
   wordLookupController: null,
   wordLookupRequestId: 0,
   wordCardPreferences: loadWordCardPreferences(),
+  audioAutoplay: loadAudioAutoplay(),
+  lastAutoplayFingerprint: "",
   currentSentence: "",
   currentTranslation: "",
   currentSceneQuery: "",
@@ -216,6 +223,10 @@ const state = {
   speechTimeoutId: 0,
   nativeSpeechAvailable: false,
   nativeSpeechReason: "",
+  nativeSpeechVoice: "",
+  nativeSpeechVoiceLocal: false,
+  nativeSpeechLocalVoiceAvailable: false,
+  nativeSpeechRequestedVoiceAvailable: true,
   nativeSpeechStatusPending: false,
   nativeSpeechStatusRequestId: 0,
   sceneAssetRowsPromise: null,
@@ -286,6 +297,33 @@ function preferredSpeechVoice() {
   return String(window.CaatuuChrome?.getSpeechVoicePreference?.() || "").trim().slice(0, 256);
 }
 
+function czechSpeechPace() {
+  const difficulty = learningDifficulty();
+  const preference = window.CaatuuChrome?.getSpeechPacePreference?.() || "";
+  const pace = resolveSpeechPace(difficulty, preference);
+  const badge = String(
+    window.CaatuuLearning?.difficultyOption?.(difficulty)?.label || `Level ${difficulty}`
+  );
+  return { ...pace, difficulty, badge };
+}
+
+function loadAudioAutoplay() {
+  try {
+    const stored = window.localStorage.getItem(AUDIO_AUTOPLAY_STORAGE_KEY);
+    return stored === null ? true : stored === "true";
+  } catch (error) {
+    return true;
+  }
+}
+
+function saveAudioAutoplay() {
+  try {
+    window.localStorage.setItem(AUDIO_AUTOPLAY_STORAGE_KEY, String(state.audioAutoplay));
+  } catch (error) {
+    // The choice remains active for this session when storage is unavailable.
+  }
+}
+
 function unavailableSpeechTitle() {
   if (!androidSpeechRuntime()) return "This browser does not expose built-in speech synthesis.";
   if (state.nativeSpeechReason === "missing-language-data") {
@@ -308,16 +346,18 @@ function unavailableSpeechLabel() {
 }
 
 function syncSpeechControl() {
-  const sentenceButton = $("#wordNetSound");
+  const sentenceButton = $("#wordNetPhraseSound");
   const wordButton = $("#wordNetSelectedWordSound");
   if (!sentenceButton && !wordButton) return;
 
+  const speechPace = czechSpeechPace();
+  const paceDescription = `${speechPace.label} speed`;
   const supported = speechControlSupported();
   const checking = Boolean(androidSpeechRuntime() && state.nativeSpeechStatusPending);
   const hasSentence = Boolean(String(state.currentSentence || "").trim());
   const speaking = state.speechState === "speaking" && Boolean(state.speechSession);
   const sentenceSpeaking = speaking && state.speechSource === "sentence";
-  let sentenceLabel = "Play Czech sentence aloud";
+  let sentenceLabel = `Play Czech sentence aloud — ${paceDescription}`;
   let sentenceTitle = sentenceLabel;
 
   if (checking) {
@@ -335,6 +375,10 @@ function syncSpeechControl() {
   }
 
   if (sentenceButton) {
+    sentenceButton.dataset.speechPace = speechPace.label;
+    sentenceButton.dataset.speechPaceSource = speechPace.source;
+    sentenceButton.dataset.speechDifficulty = String(speechPace.difficulty);
+    sentenceButton.dataset.speechRate = String(speechPace.rate);
     sentenceButton.disabled = checking || state.busy || !supported || !hasSentence;
     sentenceButton.classList.toggle("is-speaking", sentenceSpeaking);
     sentenceButton.setAttribute("aria-pressed", String(sentenceSpeaking));
@@ -347,7 +391,9 @@ function syncSpeechControl() {
   const selectedWord = normalizeWord(state.selectedWord);
   const wordAvailable = Boolean(selectedWord) && state.translationMode !== "off";
   const wordSpeaking = speaking && state.speechSource === "word";
-  let wordLabel = selectedWord ? `Play “${selectedWord}” aloud` : "Play selected Czech word aloud";
+  let wordLabel = selectedWord
+    ? `Play “${selectedWord}” aloud — ${paceDescription}`
+    : `Play selected Czech word aloud — ${paceDescription}`;
   let wordTitle = wordLabel;
   if (checking) {
     wordLabel = "Checking Czech pronunciation support";
@@ -363,6 +409,10 @@ function syncSpeechControl() {
     wordTitle = wordLabel;
   }
   if (wordButton) {
+    wordButton.dataset.speechPace = speechPace.label;
+    wordButton.dataset.speechPaceSource = speechPace.source;
+    wordButton.dataset.speechDifficulty = String(speechPace.difficulty);
+    wordButton.dataset.speechRate = String(speechPace.rate);
     wordButton.disabled = checking || state.busy || !supported || !wordAvailable;
     wordButton.classList.toggle("is-speaking", wordSpeaking);
     wordButton.setAttribute("aria-pressed", String(wordSpeaking));
@@ -371,6 +421,190 @@ function syncSpeechControl() {
     wordButton.querySelector('[data-speech-icon="play"]')?.toggleAttribute("hidden", wordSpeaking);
     wordButton.querySelector('[data-speech-icon="stop"]')?.toggleAttribute("hidden", !wordSpeaking);
   }
+  syncAudioSettingsControl();
+}
+
+function syncAudioSettingsControl() {
+  const toggle = $("#wordNetSound");
+  const autoplay = $("#wordNetAudioAutoplay");
+  const speed = $("#wordNetAudioSpeed");
+  const pace = czechSpeechPace();
+  const paceDescription = `${pace.label} speed`;
+  if (toggle) {
+    toggle.dataset.speechPace = pace.label;
+    toggle.dataset.speechPaceSource = pace.source;
+    toggle.dataset.speechRate = String(pace.rate);
+    toggle.setAttribute("aria-label", `Czech audio settings. Current: ${paceDescription}.`);
+    toggle.title = `Czech audio settings — ${paceDescription}`;
+  }
+  const paceIndex = Math.max(0, audioSpeedOptions.findIndex((option) => option.key === pace.key));
+  const paceOption = audioSpeedOptions[paceIndex];
+  if (speed) {
+    speed.value = String(paceIndex);
+    speed.setAttribute("aria-valuetext", `${paceOption.label}, ${paceOption.rateLabel} speed`);
+    speed.style.setProperty("--audio-speed-progress", `${paceIndex * 50}%`);
+  }
+  if (autoplay) autoplay.setAttribute("aria-checked", String(state.audioAutoplay));
+}
+
+async function refreshAudioVoiceOptions() {
+  const select = $("#wordNetAudioVoice");
+  const status = $("#wordNetAudioVoiceStatus");
+  const installButton = $("#wordNetAudioInstallVoice");
+  const api = window.CaatuuChrome;
+  if (!select || !api?.listSpeechVoiceOptions) return;
+  select.disabled = true;
+  if (status) status.textContent = "Checking Czech voices...";
+  try {
+    const result = api.getSpeechVoiceControlState
+      ? await api.getSpeechVoiceControlState()
+      : await api.listSpeechVoiceOptions();
+    const preferred = preferredSpeechVoice();
+    const options = [new Option("Automatic (recommended)", "")];
+    for (const voice of result?.voices || []) {
+      options.push(new Option(
+        `${voice.name}${voice.locale ? ` · ${voice.locale}` : ""}`,
+        voice.value || ""
+      ));
+    }
+    select.replaceChildren(...options);
+    const matching = [...select.options].find((option) => (
+      option.value === preferred || option.value.endsWith(`:${preferred}`)
+    ));
+    select.value = matching?.value || "";
+    select.disabled = result?.available === false && !(result?.voices || []).length;
+    if (status) {
+      status.textContent = api.describeSpeechVoiceState
+        ? api.describeSpeechVoiceState(result)
+        : (result?.available ? "Czech voice ready." : "Czech voice unavailable.");
+    }
+    if (installButton) {
+      installButton.hidden = result?.backend !== "android" || result?.canInstallVoice !== true;
+      installButton.disabled = false;
+    }
+  } catch (error) {
+    select.disabled = true;
+    if (status) status.textContent = "Unable to check Czech voices.";
+    if (installButton) installButton.hidden = true;
+  }
+}
+
+async function previewAudioSettingsSample() {
+  const status = $("#wordNetAudioVoiceStatus");
+  const preview = window.CaatuuChrome?.previewCzechSpeech;
+  if (!preview) return;
+  if (status) status.textContent = "Playing a short Czech sample...";
+  try {
+    await preview();
+  } catch (error) {
+    if (status) status.textContent = "Unable to play the selected Czech voice.";
+    return;
+  }
+  await refreshAudioVoiceOptions();
+}
+
+async function installCzechVoiceFromAudioMenu() {
+  const button = $("#wordNetAudioInstallVoice");
+  const status = $("#wordNetAudioVoiceStatus");
+  const install = window.CaatuuChrome?.installCzechSpeechData;
+  if (!button || button.disabled || !install || !androidSpeechRuntime()) return;
+  button.disabled = true;
+  if (status) status.textContent = "Opening Android voice installation...";
+  try {
+    const result = await install();
+    if (status) {
+      status.textContent = result?.launched === false
+        ? "Open Android speech settings to add a Czech voice."
+        : "Finish adding the Czech voice in Android, then return here.";
+    }
+  } catch (error) {
+    if (status) status.textContent = "Android could not open its voice installation settings.";
+  } finally {
+    button.disabled = false;
+    void refreshAndroidSpeechStatus({ force: true });
+  }
+}
+
+function syncDisplaySettingsControl() {
+  const toggle = $("#wordNetDisplayToggle");
+  const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  const fontSize = document.documentElement.dataset.fontSize || "largest";
+  const themeLabel = theme === "dark" ? "Dark" : "Light";
+  const fontSizeLabel = {
+    largest: "Standard",
+    large: "Small",
+    standard: "Smaller"
+  }[fontSize] || "Standard";
+  if (toggle) {
+    const label = `Display settings. Current: ${themeLabel} theme, ${fontSizeLabel} text.`;
+    toggle.setAttribute("aria-label", label);
+    toggle.title = label;
+  }
+  document.querySelectorAll("#wordNetDisplayMenu [data-theme-option]").forEach((button) => {
+    const selected = button.dataset.themeOption === theme;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  document.querySelectorAll("#wordNetDisplayMenu [data-font-size-option]").forEach((button) => {
+    const selected = button.dataset.fontSizeOption === fontSize;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+function closeDisplayMenu({ restoreFocus = false } = {}) {
+  const menu = $("#wordNetDisplayMenu");
+  const button = $("#wordNetDisplayToggle");
+  if (menu) menu.hidden = true;
+  if (button) button.setAttribute("aria-expanded", "false");
+  if (restoreFocus) button?.focus({ preventScroll: true });
+}
+
+function openDisplayMenu() {
+  const menu = $("#wordNetDisplayMenu");
+  const button = $("#wordNetDisplayToggle");
+  if (!menu || !button) return;
+  closeAudioMenu();
+  closeTranslationMenu();
+  closeGenerationMenu();
+  syncDisplaySettingsControl();
+  menu.hidden = false;
+  button.setAttribute("aria-expanded", "true");
+}
+
+function toggleDisplayMenu() {
+  const menu = $("#wordNetDisplayMenu");
+  if (!menu) return;
+  if (menu.hidden) openDisplayMenu();
+  else closeDisplayMenu({ restoreFocus: true });
+}
+
+function closeAudioMenu({ restoreFocus = false } = {}) {
+  const menu = $("#wordNetAudioMenu");
+  const button = $("#wordNetSound");
+  if (menu) menu.hidden = true;
+  if (button) button.setAttribute("aria-expanded", "false");
+  if (restoreFocus) button?.focus({ preventScroll: true });
+}
+
+function openAudioMenu() {
+  const menu = $("#wordNetAudioMenu");
+  const button = $("#wordNetSound");
+  if (!menu || !button) return;
+  closeDisplayMenu();
+  closeTranslationMenu();
+  closeGenerationMenu();
+  syncAudioSettingsControl();
+  menu.hidden = false;
+  button.setAttribute("aria-expanded", "true");
+  void refreshAudioVoiceOptions();
+}
+
+function toggleAudioMenu() {
+  const menu = $("#wordNetAudioMenu");
+  if (!menu) return;
+  if (menu.hidden) openAudioMenu();
+  else closeAudioMenu({ restoreFocus: true });
 }
 
 function clearCzechSpeechTimeout() {
@@ -431,7 +665,7 @@ function finishCzechSpeech(session, requestId, errorCode = "") {
   }
 }
 
-function speakCzechWithAndroid(text, source) {
+function speakCzechWithAndroid(text, source, pace) {
   const speech = androidSpeechRuntime();
   if (!speech || !state.nativeSpeechAvailable) {
     syncSpeechControl();
@@ -450,7 +684,7 @@ function speakCzechWithAndroid(text, source) {
 
   void speech.speak(
     text,
-    { locale: targetLocale, rate: CZECH_SPEECH_RATE, pitch: 1, voice: preferredSpeechVoice() },
+    { locale: targetLocale, rate: pace.rate, pitch: 1, voice: preferredSpeechVoice() },
     {
       signal: session.controller.signal,
       onEvent(event) {
@@ -473,7 +707,7 @@ function speakCzechWithAndroid(text, source) {
   });
 }
 
-function speakCzechWithBrowser(text, source) {
+function speakCzechWithBrowser(text, source, pace) {
   const synthesis = window.speechSynthesis;
   const requestId = state.speechRequestId + 1;
   state.speechRequestId = requestId;
@@ -481,7 +715,7 @@ function speakCzechWithBrowser(text, source) {
   try {
     utterance = new window.SpeechSynthesisUtterance(text);
     utterance.lang = targetLocale;
-    utterance.rate = CZECH_SPEECH_RATE;
+    utterance.rate = pace.rate;
     utterance.pitch = 1;
     try {
       const voices = typeof synthesis.getVoices === "function" ? synthesis.getVoices() : [];
@@ -543,8 +777,9 @@ function toggleCzechSpeech(text, source) {
     return;
   }
 
-  if (androidSpeechRuntime()) speakCzechWithAndroid(normalizedText, source);
-  else speakCzechWithBrowser(normalizedText, source);
+  const pace = czechSpeechPace();
+  if (androidSpeechRuntime()) speakCzechWithAndroid(normalizedText, source, pace);
+  else speakCzechWithBrowser(normalizedText, source, pace);
 }
 
 function speakCurrentCzechSentence() {
@@ -554,6 +789,19 @@ function speakCurrentCzechSentence() {
 function speakSelectedCzechWord() {
   if (state.translationMode === "off") return;
   toggleCzechSpeech(state.selectedWord, "word");
+}
+
+function maybeAutoplayCurrentSentence({ force = false } = {}) {
+  const fingerprint = sentenceFingerprint(state.currentSentence);
+  if (
+    !state.audioAutoplay
+    || state.busy
+    || !fingerprint
+    || !speechControlSupported()
+    || (!force && fingerprint === state.lastAutoplayFingerprint)
+  ) return;
+  state.lastAutoplayFingerprint = fingerprint;
+  toggleCzechSpeech(state.currentSentence, "sentence");
 }
 
 async function refreshAndroidSpeechStatus({ force = false } = {}) {
@@ -568,10 +816,20 @@ async function refreshAndroidSpeechStatus({ force = false } = {}) {
     if (requestId !== state.nativeSpeechStatusRequestId) return;
     state.nativeSpeechAvailable = status?.available === true;
     state.nativeSpeechReason = String(status?.reason || "");
+    state.nativeSpeechVoice = String(status?.voice || "");
+    state.nativeSpeechVoiceLocal = status?.localService === true;
+    state.nativeSpeechLocalVoiceAvailable = typeof status?.localVoiceAvailable === "boolean"
+      ? status.localVoiceAvailable
+      : (status?.voices || []).some((voice) => voice?.localService === true);
+    state.nativeSpeechRequestedVoiceAvailable = status?.requestedVoiceAvailable !== false;
   } catch (error) {
     if (requestId !== state.nativeSpeechStatusRequestId) return;
     state.nativeSpeechAvailable = false;
     state.nativeSpeechReason = "engine-unavailable";
+    state.nativeSpeechVoice = "";
+    state.nativeSpeechVoiceLocal = false;
+    state.nativeSpeechLocalVoiceAvailable = false;
+    state.nativeSpeechRequestedVoiceAvailable = true;
   } finally {
     if (requestId === state.nativeSpeechStatusRequestId) {
       state.nativeSpeechStatusPending = false;
@@ -582,10 +840,27 @@ async function refreshAndroidSpeechStatus({ force = false } = {}) {
 
 function initializeSpeechControl() {
   syncSpeechControl();
-  window.addEventListener("caatuu:speech-voice-change", () => {
+  window.addEventListener("caatuu:speech-voice-change", async () => {
     cancelCzechSpeech();
-    if (androidSpeechRuntime()) void refreshAndroidSpeechStatus({ force: true });
+    if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
     else syncSpeechControl();
+  });
+  window.addEventListener("caatuu:speech-pace-change", () => {
+    cancelCzechSpeech();
+    const pace = czechSpeechPace();
+    syncSpeechControl();
+    setStatus(
+      pace.source === "override"
+        ? `Czech audio now uses manual ${pace.label} speed.`
+        : `${pace.badge} controls Czech audio at ${pace.label} speed.`,
+      { tone: "active" }
+    );
+  });
+  window.addEventListener("caatuu:speech-voices-refresh", async () => {
+    cancelCzechSpeech();
+    if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
+    const menu = $("#wordNetAudioMenu");
+    if (menu && !menu.hidden) await refreshAudioVoiceOptions();
   });
   if (androidSpeechRuntime()) {
     void refreshAndroidSpeechStatus();
@@ -593,7 +868,11 @@ function initializeSpeechControl() {
   }
   const synthesis = window.speechSynthesis;
   if (!browserSpeechSynthesisSupported() || typeof synthesis.addEventListener !== "function") return;
-  synthesis.addEventListener("voiceschanged", syncSpeechControl);
+  synthesis.addEventListener("voiceschanged", () => {
+    syncSpeechControl();
+    const menu = $("#wordNetAudioMenu");
+    if (menu && !menu.hidden) void refreshAudioVoiceOptions();
+  });
 }
 
 function randomItem(items) {
@@ -1135,6 +1414,8 @@ function openTranslationMenu({ focus = "selected" } = {}) {
   const menu = $("#wordNetTranslationMenu");
   const button = $("#wordNetTranslationToggle");
   if (!menu || !button) return;
+  closeDisplayMenu();
+  closeAudioMenu();
   closeGenerationMenu();
   syncTranslationMenu();
   menu.hidden = false;
@@ -1198,6 +1479,8 @@ function toggleGenerationMenu() {
   const menu = $("#wordNetGenerationMenu");
   const button = $("#wordNetGenerationToggle");
   if (!menu || !button) return;
+  closeDisplayMenu();
+  closeAudioMenu();
   const nextHidden = !menu.hidden;
   menu.hidden = nextHidden;
   button.setAttribute("aria-expanded", nextHidden ? "false" : "true");
@@ -1223,68 +1506,6 @@ function syncTranslationMenu() {
     const key = button.dataset.wordCardSetting;
     button.setAttribute("aria-checked", String(Boolean(state.wordCardPreferences[key])));
   });
-  const gapExportButton = $("#wordNetDictionaryGapExport");
-  if (gapExportButton) gapExportButton.disabled = state.dictionaryGapCopying;
-  const gapExportSummary = $("#wordNetDictionaryGapExportSummary");
-  if (gapExportSummary) {
-    gapExportSummary.textContent = state.dictionaryGapCopying
-      ? "Preparing the local batch..."
-      : "Narrow device-local JSON for Codex";
-  }
-}
-
-async function copyTextToClipboard(value) {
-  const copy = String(value || "");
-  if (!copy) return false;
-  if (typeof navigator.clipboard?.writeText === "function") {
-    try {
-      await navigator.clipboard.writeText(copy);
-      return true;
-    } catch (error) {
-      // The selectable-text fallback also works in older Android WebViews.
-    }
-  }
-  const textarea = document.createElement("textarea");
-  textarea.value = copy;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.left = "-9999px";
-  document.body.append(textarea);
-  textarea.select();
-  let copied = false;
-  try {
-    copied = document.execCommand("copy") === true;
-  } catch (error) {
-    copied = false;
-  }
-  textarea.remove();
-  return copied;
-}
-
-async function copyDictionaryGapBatch() {
-  if (state.dictionaryGapCopying) return;
-  closeTranslationMenu();
-  state.dictionaryGapCopying = true;
-  syncTranslationMenu();
-  try {
-    const exported = await runtimeAdapter()?.maintenance?.exportDictionaryGaps?.();
-    if (!exported?.document || exported.count < 1) {
-      setStatus("No missing dictionary words are queued on this device.", { tone: "muted" });
-      return;
-    }
-    const copy = `${JSON.stringify(exported.document, null, 2)}\n`;
-    if (!(await copyTextToClipboard(copy))) {
-      setStatus("The missing-word batch could not be copied. Check clipboard permission and try again.", { tone: "error" });
-      return;
-    }
-    const wordLabel = exported.count === 1 ? "word" : "words";
-    setStatus(`Copied ${exported.count} missing ${wordLabel}. Paste the JSON into a Codex maintenance task.`, { tone: "active" });
-  } catch (error) {
-    setStatus("The device-local missing-word batch is unavailable right now.", { tone: "error" });
-  } finally {
-    state.dictionaryGapCopying = false;
-    syncTranslationMenu();
-  }
 }
 
 function syncGenerationControl() {
@@ -1293,7 +1514,7 @@ function syncGenerationControl() {
   const mode = hasGenerationMode(state.generationMode) ? state.generationMode : "random";
   if (mode !== state.generationMode) state.generationMode = mode;
   const config = generationModes[mode];
-  const selectedModeLabel = state.contentMode === "standard" ? "More with this word" : config.label;
+  const selectedModeLabel = config.label;
   icon?.querySelectorAll("[data-generation-icon]").forEach((generationIcon) => {
     generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== mode);
   });
@@ -1310,7 +1531,7 @@ function syncGenerationControl() {
     option.setAttribute("aria-checked", selected ? "true" : "false");
     option.disabled = state.busy || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
-    if (label) label.textContent = state.contentMode === "standard" ? "More with this word" : "Selected word";
+    if (label) label.textContent = generationModes[optionMode]?.label || "This word";
   });
   syncDiagnostics();
 }
@@ -2185,13 +2406,8 @@ async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0
     }
     return;
   }
-  const clientReportId = createClientReportId();
   const lookupOutcome = Number(lookupReturned) > 0 ? "no_exact_usable_entry" : "no_results";
   const feedback = {
-    clientReportId,
-    reportedAt: new Date().toISOString(),
-    kind: "dictionary_missing_entry",
-    reason: lookupOutcome,
     targetWord: selectedWord,
     normalizedWord,
     dictionaryKey: DICTIONARY_GAP_SOURCE_KEY,
@@ -2199,17 +2415,8 @@ async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0
     lookupOutcome,
     lookupReturned: Math.max(0, Math.floor(Number(lookupReturned) || 0))
   };
-  const payload = {
-    kind: "dictionary_gap_feedback",
-    title: "Czech dictionary gap",
-    message: "No usable Czech-English dictionary entry.",
-    feedback
-  };
   try {
-    const queued = await runtimeAdapter()?.maintenance?.enqueueReport?.(payload, {
-      id: clientReportId,
-      dedupeKey: [feedback.kind, feedback.dictionaryDirection, feedback.dictionaryKey, normalizedWord].join("|")
-    });
+    const queued = await runtimeAdapter()?.maintenance?.enqueueDictionaryGap?.(feedback);
     if (!queued?.queued || queued.persisted === false || !rememberDictionaryGap(normalizedWord)) return;
     if (normalizedWord === state.selectedWord.toLocaleLowerCase(targetLocale)) {
       state.selectedWordGapNotice = DICTIONARY_GAP_NOTICE;
@@ -2476,6 +2683,7 @@ async function holdSentenceTransition(startedAt) {
 function setBusy(busy, { cover = busy } = {}) {
   state.busy = busy;
   if (busy) {
+    closeAudioMenu();
     closeTranslationMenu();
     cancelCzechSpeech();
   }
@@ -2511,6 +2719,7 @@ function setBusy(busy, { cover = busy } = {}) {
   renderReconstruction();
   syncSpeechControl();
   syncDiagnostics();
+  if (!busy) window.requestAnimationFrame(() => maybeAutoplayCurrentSentence());
 }
 
 function renderTrail() {
@@ -3648,12 +3857,25 @@ async function submitSentenceFeedback(event) {
 }
 
 function bindUi() {
+  $("#wordNetDisplayToggle")?.addEventListener("click", toggleDisplayMenu);
+  $("#wordNetDisplayMenu")?.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-theme-option], [data-font-size-option]")) return;
+    window.requestAnimationFrame(syncDisplaySettingsControl);
+  });
+  $("#wordNetDisplayMenu")?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    closeDisplayMenu({ restoreFocus: true });
+  });
   $("#wordNetContentSource")?.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-content-mode]");
     if (!button || button.disabled) return;
+    closeGenerationMenu();
     await requestContentMode(button.dataset.contentMode);
   });
   $("#wordNetTranslationToggle")?.addEventListener("click", () => {
+    closeDisplayMenu();
+    closeAudioMenu();
     closeGenerationMenu();
     toggleTranslationMenu();
   });
@@ -3681,11 +3903,11 @@ function bindUi() {
       toggleWordCardPreference(wordCardOption.dataset.wordCardSetting);
       return;
     }
-    const dictionaryGapAction = event.target.closest("button[data-dictionary-gap-action]");
-    if (dictionaryGapAction?.dataset.dictionaryGapAction === "copy") void copyDictionaryGapBatch();
   });
   $("#wordNetTranslationMenu")?.addEventListener("keydown", handleTranslationMenuKeydown);
   $("#wordNetGenerationToggle")?.addEventListener("click", () => {
+    closeDisplayMenu();
+    closeAudioMenu();
     closeTranslationMenu();
     toggleGenerationMenu();
   });
@@ -3699,7 +3921,39 @@ function bindUi() {
   });
   $("#wordNetPrevious")?.addEventListener("click", showPreviousSentence);
   $("#wordNetNext")?.addEventListener("click", activateNextSentence);
-  $("#wordNetSound")?.addEventListener("click", speakCurrentCzechSentence);
+  $("#wordNetSound")?.addEventListener("click", toggleAudioMenu);
+  $("#wordNetSound")?.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowDown") return;
+    event.preventDefault();
+    openAudioMenu();
+    window.requestAnimationFrame(() => $("#wordNetAudioAutoplay")?.focus({ preventScroll: true }));
+  });
+  $("#wordNetAudioVoice")?.addEventListener("change", async (event) => {
+    window.CaatuuChrome?.setSpeechVoicePreference?.(event.currentTarget.value);
+    if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
+    await previewAudioSettingsSample();
+  });
+  $("#wordNetAudioInstallVoice")?.addEventListener("click", installCzechVoiceFromAudioMenu);
+  $("#wordNetAudioSpeed")?.addEventListener("input", (event) => {
+    const option = audioSpeedOptions[Number(event.currentTarget.value)] || audioSpeedOptions[0];
+    window.CaatuuChrome?.setSpeechPacePreference?.(option.key);
+    syncAudioSettingsControl();
+  });
+  $("#wordNetAudioSpeed")?.addEventListener("change", previewAudioSettingsSample);
+  $("#wordNetAudioMenu")?.addEventListener("click", async (event) => {
+    if (event.target.closest("#wordNetAudioAutoplay")) {
+      state.audioAutoplay = !state.audioAutoplay;
+      saveAudioAutoplay();
+      syncAudioSettingsControl();
+      if (state.audioAutoplay) maybeAutoplayCurrentSentence({ force: true });
+    }
+  });
+  $("#wordNetAudioMenu")?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    closeAudioMenu({ restoreFocus: true });
+  });
+  $("#wordNetPhraseSound")?.addEventListener("click", speakCurrentCzechSentence);
   $("#wordNetSelectedWordSound")?.addEventListener("click", speakSelectedCzechWord);
   $("#wordNetReconstruction")?.addEventListener("click", (event) => {
     const option = event.target.closest("[data-reconstruction-option-id]");
@@ -3715,11 +3969,15 @@ function bindUi() {
   $("#wordNetReconstructionSubmit")?.addEventListener("click", submitReconstructionChallenge);
   document.addEventListener("click", (event) => {
     if (event.target.closest(".word-net-panel-actions")) return;
+    closeDisplayMenu();
+    closeAudioMenu();
     closeTranslationMenu();
     closeGenerationMenu();
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
+      closeDisplayMenu();
+      closeAudioMenu();
       closeTranslationMenu();
       closeGenerationMenu();
     }
@@ -3799,13 +4057,21 @@ function bindUi() {
   window.addEventListener("pagehide", () => cancelCzechSpeech());
   window.addEventListener("caatuu:learning-change", (event) => {
     if (event.detail?.reason !== "difficulty") return;
+    const pace = czechSpeechPace();
+    cancelCzechSpeech();
     syncDiagnostics();
-    setStatus(`Learning level changed to ${learningDifficulty()}. The next Standard sentence will follow it.`, { tone: "active" });
+    setStatus(
+      pace.source === "override"
+        ? `${pace.badge} equipped. Czech audio remains at manual ${pace.label} speed.`
+        : `${pace.badge} equipped. Czech audio now uses ${pace.label} speed. The next Standard sentence will follow this level.`,
+      { tone: "active" }
+    );
   });
 }
 
 async function init() {
   bindUi();
+  syncDisplaySettingsControl();
   initializeSpeechControl();
   runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
   const diagnostics = $("#wordNetDiagnostics");

@@ -6,16 +6,14 @@ import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const sceneryRoot = new URL("apps/launcher/static/assets/scenery/", repoRoot);
-const styleRoot = new URL("memory-moon-style-v1/", sceneryRoot);
-const layoutRoot = new URL("memory-grove-v6/", sceneryRoot);
-const catalogUrl = new URL("catalog.json", styleRoot);
-const layoutUrl = new URL("layout.json", layoutRoot);
-const styleManifestUrl = new URL("manifest.json", styleRoot);
-const layoutManifestUrl = new URL("manifest.json", layoutRoot);
-const layoutProvenanceUrl = new URL("PROVENANCE.md", layoutRoot);
-const styleSumsUrl = new URL("SHA256SUMS", styleRoot);
-const catalogSchemaUrl = new URL("schemas/v2/catalog.schema.json", sceneryRoot);
-const layoutSchemaUrl = new URL("schemas/v2/layout.schema.json", sceneryRoot);
+const catalogUrl = new URL("metadata/catalog.json", sceneryRoot);
+const layoutUrl = new URL("metadata/world.json", sceneryRoot);
+const styleManifestUrl = new URL("metadata/catalog.manifest.json", sceneryRoot);
+const layoutManifestUrl = new URL("metadata/world.manifest.json", sceneryRoot);
+const layoutProvenanceUrl = new URL("metadata/world.provenance.md", sceneryRoot);
+const styleSumsUrl = new URL("metadata/checksums.sha256", sceneryRoot);
+const catalogSchemaUrl = new URL("metadata/catalog.schema.json", sceneryRoot);
+const layoutSchemaUrl = new URL("metadata/world.schema.json", sceneryRoot);
 
 const [catalogSchema, layoutSchema] = await Promise.all([
   readJson(catalogSchemaUrl),
@@ -35,6 +33,7 @@ const CATALOG_KEYS = [
   "catalog_version",
   "release_status",
   "projection",
+  "scale_reference",
   "style_family",
   "floor_atlas",
   "collision_profiles",
@@ -63,6 +62,14 @@ const validCatalog = {
     yaw_degrees: 45,
     elevation_degrees: 30
   },
+  scale_reference: {
+    id: "memory-moon-humanoid-v1",
+    visual_height_world: 1.4264,
+    capsule_height_world: 1.45,
+    capsule_radius_world: 0.28,
+    model_runtime_scale: 0.78,
+    measurement_basis: "visible-silhouette-above-ground-anchor"
+  },
   style_family: {
     id: "memory-moon-hand-painted",
     authority_path: "docs/art-direction.md",
@@ -74,7 +81,7 @@ const validCatalog = {
     rules: ["Use one fixed three-quarter projection.", "Keep silhouettes readable at play scale."]
   },
   floor_atlas: {
-    texture: "floor/floor-atlas.png",
+    texture: "sources/floor-atlas.derived.png",
     size_px: [512, 256],
     gutter_px: 8,
     tiles: {
@@ -127,7 +134,7 @@ const validCatalog = {
   },
   objects: {
     "moon-sapling-a": {
-      texture: "objects/moon-sapling-a.png",
+      texture: "images/moon-sapling-a.png",
       image_size_px: [374, 452],
       anchor_px: [187, 436],
       kind: "tree",
@@ -162,7 +169,7 @@ const validLayout = {
     rows: 2,
     cell_size: 0.5,
     render_tiles: {
-      texture: "terrain/moonroot-reusable-tiles.png",
+      texture: "images/terrain-atlas.png",
       image_size_px: [400, 400],
       tile_size_px: [100, 100],
       tile_content_size_px: [96, 96],
@@ -198,6 +205,7 @@ const validLayout = {
         south_bit: 4,
         west_bit: 8
       },
+      terrain_regions: [],
       pixels_per_world_unit: 192,
       projection: "top-down",
       render_role: "streamed-reusable-tile-map",
@@ -251,54 +259,102 @@ const validLayout = {
 
 const V6_STANDARD_SCALE_BY_OBJECT = {
   "community-tree-a": 1,
-  "flower-patch-a": 0.9,
-  "moon-bush-round-a": 0.9,
-  "moon-sapling-a": 0.88,
-  "moss-boulder-a": 0.88,
-  "street-lamp-a": 0.95,
-  "trail-sign-a": 0.9,
-  "tree-stump-a": 0.85,
+  "flower-patch-a": 1,
+  "moon-bush-round-a": 1,
+  "moon-sapling-a": 1,
+  "moss-boulder-a": 1,
+  "street-lamp-a": 1,
+  "trail-sign-a": 1,
+  "tree-birch-a": 1,
+  "tree-maple-a": 1,
+  "tree-oak-a": 1,
+  "tree-pine-a": 1,
+  "tree-poplar-a": 1,
+  "tree-stump-a": 1,
+  "tree-willow-a": 1,
   "village-well-a": 1
+};
+
+const V6_SCALE_REFERENCE = {
+  id: "memory-moon-humanoid-v1",
+  visual_height_world: 1.4264,
+  capsule_height_world: 1.45,
+  capsule_radius_world: 0.28,
+  model_runtime_scale: 0.78,
+  measurement_basis: "visible-silhouette-above-ground-anchor"
+};
+
+const V6_WORLD_HEIGHT_CONTRACT = {
+  "community-tree-a": [4, [3.6, 4.6]],
+  "flower-patch-a": [0.525, [0.45, 0.62]],
+  "moon-bush-round-a": [1.2, [1, 1.4]],
+  "moon-sapling-a": [3.45, [3, 3.8]],
+  "moss-boulder-a": [0.98, [0.8, 1.15]],
+  "street-lamp-a": [2.4, [2.15, 2.65]],
+  "trail-sign-a": [1.8, [1.6, 2]],
+  "tree-birch-a": [4.5, [4, 4.9]],
+  "tree-maple-a": [4.2, [3.8, 4.6]],
+  "tree-oak-a": [4.4, [4, 4.8]],
+  "tree-pine-a": [5.1, [4.6, 5.6]],
+  "tree-poplar-a": [5.2, [4.7, 5.8]],
+  "tree-stump-a": [0.86, [0.75, 0.98]],
+  "tree-willow-a": [4.3, [3.9, 4.8]],
+  "village-well-a": [1.95, [1.75, 2.2]]
 };
 
 const V6_COLLISION_PROFILES = {
   none: { shapes: [] },
   "hero-tree-trunk": {
-    shapes: [{ type: "cylinder", radius: 1.1, height: 0.42, offset: [0, 0.21, 0] }]
+    shapes: [{ type: "cylinder", radius: 1.375, height: 0.525, offset: [0, 0.2625, 0] }]
   },
   "sapling-trunk": {
-    shapes: [{ type: "cylinder", radius: 0.3, height: 0.85, offset: [0, 0.425, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.39, height: 1.105, offset: [0, 0.5525, 0] }]
   },
   "bush-footprint": {
-    shapes: [{ type: "cylinder", radius: 0.38, height: 0.42, offset: [0, 0.21, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.456, height: 0.504, offset: [0, 0.252, 0] }]
   },
   "boulder-footprint": {
-    shapes: [{ type: "box", size: [0.78, 0.56, 0.66], offset: [0, 0.28, 0] }]
+    shapes: [{ type: "box", size: [0.98, 0.7, 0.83], offset: [0, 0.35, 0] }]
   },
   "well-ring": {
-    shapes: [{ type: "cylinder", radius: 0.52, height: 0.72, offset: [0, 0.36, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.65, height: 0.9, offset: [0, 0.45, 0] }]
   },
   "stump-footprint": {
-    shapes: [{ type: "cylinder", radius: 0.36, height: 0.42, offset: [0, 0.21, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.378, height: 0.441, offset: [0, 0.2205, 0] }]
   },
   "lamp-post": {
-    shapes: [{ type: "cylinder", radius: 0.13, height: 1, offset: [0, 0.5, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.169, height: 1.3, offset: [0, 0.65, 0] }]
   },
   "sign-post": {
-    shapes: [{ type: "cylinder", radius: 0.11, height: 0.8, offset: [0, 0.4, 0] }]
+    shapes: [{ type: "cylinder", radius: 0.18, height: 0.96, offset: [0, 0.48, 0] }]
+  },
+  "tree-trunk-broad": {
+    shapes: [{ type: "cylinder", radius: 0.48, height: 1.2, offset: [0, 0.6, 0] }]
+  },
+  "tree-trunk-standard": {
+    shapes: [{ type: "cylinder", radius: 0.38, height: 1.15, offset: [0, 0.575, 0] }]
+  },
+  "tree-trunk-slender": {
+    shapes: [{ type: "cylinder", radius: 0.3, height: 1.25, offset: [0, 0.625, 0] }]
   }
 };
 
 const V6_OBJECT_COLLISION_CONTRACT = {
-  "community-tree-a": ["hero-tree-trunk", "fixed"],
+  "community-tree-a": ["hero-tree-trunk", "with-visual"],
   "flower-patch-a": ["none", "fixed"],
   "moon-bush-round-a": ["bush-footprint", "with-visual"],
   "moon-sapling-a": ["sapling-trunk", "with-visual"],
   "moss-boulder-a": ["boulder-footprint", "with-visual"],
-  "street-lamp-a": ["lamp-post", "fixed"],
-  "trail-sign-a": ["sign-post", "fixed"],
+  "street-lamp-a": ["lamp-post", "with-visual"],
+  "trail-sign-a": ["sign-post", "with-visual"],
+  "tree-birch-a": ["tree-trunk-standard", "with-visual"],
+  "tree-maple-a": ["tree-trunk-standard", "with-visual"],
+  "tree-oak-a": ["tree-trunk-broad", "with-visual"],
+  "tree-pine-a": ["tree-trunk-slender", "with-visual"],
+  "tree-poplar-a": ["tree-trunk-slender", "with-visual"],
   "tree-stump-a": ["stump-footprint", "with-visual"],
-  "village-well-a": ["well-ring", "fixed"]
+  "tree-willow-a": ["tree-trunk-broad", "with-visual"],
+  "village-well-a": ["well-ring", "with-visual"]
 };
 
 async function readJson(url) {
@@ -403,6 +459,13 @@ function assertSafeRuntimeTexture(value, label) {
   }
 }
 
+function assertFlatSceneryPngPath(value, directory, label) {
+  assertSafeRuntimeTexture(value, label);
+  const segments = value.split("/");
+  assert.equal(segments.length, 2, `${label} must be flat under the shared ${directory} directory`);
+  assert.equal(segments[0], directory, `${label} must be stored in the shared ${directory} directory`);
+}
+
 function assertUniqueIds(items, label) {
   const ids = items.map((item, index) => {
     assertPlainObject(item, `${label}[${index}]`);
@@ -487,6 +550,33 @@ function validateCatalog(catalog) {
   });
   assert.ok(catalog.projection.elevation_degrees < 90, "catalog projection elevation must be below 90 degrees");
 
+  assertExactKeys(
+    catalog.scale_reference,
+    [
+      "id",
+      "visual_height_world",
+      "capsule_height_world",
+      "capsule_radius_world",
+      "model_runtime_scale",
+      "measurement_basis"
+    ],
+    "catalog.scale_reference"
+  );
+  assertSlug(catalog.scale_reference.id, "catalog.scale_reference.id");
+  for (const key of [
+    "visual_height_world",
+    "capsule_height_world",
+    "capsule_radius_world",
+    "model_runtime_scale"
+  ]) {
+    assertFiniteNumber(catalog.scale_reference[key], `catalog.scale_reference.${key}`, { positive: true });
+  }
+  assert.equal(
+    catalog.scale_reference.measurement_basis,
+    "visible-silhouette-above-ground-anchor",
+    "catalog.scale_reference.measurement_basis is invalid"
+  );
+
   assertExactKeys(catalog.style_family, ["id", "authority_path", "palette", "rules"], "catalog.style_family");
   assertSlug(catalog.style_family.id, "catalog.style_family.id");
   assertSafeRelativePath(catalog.style_family.authority_path, "catalog.style_family.authority_path");
@@ -499,7 +589,12 @@ function validateCatalog(catalog) {
   assertStringSet(catalog.style_family.rules, "catalog.style_family.rules", { minimum: 1 });
 
   assertExactKeys(catalog.floor_atlas, ["texture", "size_px", "gutter_px", "tiles"], "catalog.floor_atlas");
-  assertSafeRuntimeTexture(catalog.floor_atlas.texture, "catalog.floor_atlas.texture");
+  assertFlatSceneryPngPath(catalog.floor_atlas.texture, "sources", "catalog.floor_atlas.texture");
+  assert.equal(
+    catalog.floor_atlas.texture,
+    "sources/floor-atlas.derived.png",
+    "catalog.floor_atlas.texture must identify the canonical non-runtime floor atlas"
+  );
   assertTuple(catalog.floor_atlas.size_px, 2, "catalog.floor_atlas.size_px", (item, label) =>
     assertInteger(item, label, { positive: true })
   );
@@ -581,7 +676,7 @@ function validateCatalog(catalog) {
       ],
       label
     );
-    assertSafeRuntimeTexture(object.texture, `${label}.texture`);
+    assertFlatSceneryPngPath(object.texture, "images", `${label}.texture`);
     assertTuple(object.image_size_px, 2, `${label}.image_size_px`, (item, itemLabel) =>
       assertInteger(item, itemLabel, { positive: true })
     );
@@ -651,8 +746,7 @@ function validateGroundPlate(groundPlate, terrain) {
     ],
     "layout.terrain.ground_plate"
   );
-  assertSafeRuntimeTexture(groundPlate.texture, "layout.terrain.ground_plate.texture");
-  assert.ok(groundPlate.texture.startsWith("terrain/"), "layout ground plate must remain under the layout terrain directory");
+  assertFlatSceneryPngPath(groundPlate.texture, "images", "layout.terrain.ground_plate.texture");
   assertTuple(groundPlate.image_size_px, 2, "layout.terrain.ground_plate.image_size_px", (item, label) =>
     assertInteger(item, label, { positive: true })
   );
@@ -701,6 +795,7 @@ function validateRenderTiles(renderTiles, tileIndexRows, terrain) {
       "padding_tile_index",
       "tile_ids",
       "path_connectivity",
+      "terrain_regions",
       "pixels_per_world_unit",
       "projection",
       "render_role",
@@ -708,8 +803,7 @@ function validateRenderTiles(renderTiles, tileIndexRows, terrain) {
     ],
     "layout.terrain.render_tiles"
   );
-  assertSafeRuntimeTexture(renderTiles.texture, "layout.terrain.render_tiles.texture");
-  assert.ok(renderTiles.texture.startsWith("terrain/"), "layout render tiles must remain under the layout terrain directory");
+  assertFlatSceneryPngPath(renderTiles.texture, "images", "layout.terrain.render_tiles.texture");
   for (const key of ["image_size_px", "tile_size_px", "tile_content_size_px", "atlas_grid"]) {
     assertTuple(renderTiles[key], 2, `layout.terrain.render_tiles.${key}`, (item, label) =>
       assertInteger(item, label, { positive: true })
@@ -778,6 +872,64 @@ function validateRenderTiles(renderTiles, tileIndexRows, terrain) {
   assert.equal(connectivity.south_bit, 4);
   assert.equal(connectivity.west_bit, 8);
   assert.ok(connectivity.first_index + 15 < atlasCapacity, "path_connectivity must reserve 16 atlas cells");
+
+  assert.ok(Array.isArray(renderTiles.terrain_regions), "layout.terrain.render_tiles.terrain_regions must be an array");
+  const terrainRegionIds = new Set();
+  const terrainRegionFirstIndices = [];
+  const terrainRegionFullVariantIndices = new Set();
+  const rangesOverlap = (firstIndex, otherFirstIndex) =>
+    firstIndex <= otherFirstIndex + 15 && otherFirstIndex <= firstIndex + 15;
+  renderTiles.terrain_regions.forEach((region, regionIndex) => {
+    const context = `layout.terrain.render_tiles.terrain_regions[${regionIndex}]`;
+    assertAllowedKeys(
+      region,
+      ["id", "first_index", "northwest_bit", "northeast_bit", "southeast_bit", "southwest_bit"],
+      ["full_variant_indices"],
+      context
+    );
+    assertSlug(region.id, `${context}.id`);
+    assert.ok(!terrainRegionIds.has(region.id), "terrain_regions ids must be unique");
+    terrainRegionIds.add(region.id);
+    assertInteger(region.first_index, `${context}.first_index`, { nonNegative: true });
+    assert.equal(region.northwest_bit, 1);
+    assert.equal(region.northeast_bit, 2);
+    assert.equal(region.southeast_bit, 4);
+    assert.equal(region.southwest_bit, 8);
+    assert.ok(region.first_index + 15 < atlasCapacity, `${context} must reserve 16 atlas cells`);
+    assert.ok(
+      !rangesOverlap(region.first_index, connectivity.first_index),
+      `${context} must not overlap path_connectivity`
+    );
+    for (const occupiedFirstIndex of terrainRegionFirstIndices) {
+      assert.ok(!rangesOverlap(region.first_index, occupiedFirstIndex), `${context} must not overlap another terrain region`);
+    }
+    terrainRegionFirstIndices.push(region.first_index);
+    if (region.full_variant_indices !== undefined) {
+      assert.ok(Array.isArray(region.full_variant_indices), `${context}.full_variant_indices must be an array`);
+      assert.ok(region.full_variant_indices.length > 0, `${context}.full_variant_indices must not be empty`);
+      for (const [variantIndex, atlasIndex] of region.full_variant_indices.entries()) {
+        assertInteger(atlasIndex, `${context}.full_variant_indices[${variantIndex}]`, { nonNegative: true });
+        assert.ok(atlasIndex < atlasCapacity, `${context}.full_variant_indices[${variantIndex}] exceeds the atlas`);
+        assert.ok(
+          !terrainRegionFullVariantIndices.has(atlasIndex),
+          "terrain_regions full_variant_indices must be unique"
+        );
+        terrainRegionFullVariantIndices.add(atlasIndex);
+      }
+    }
+  });
+  for (const atlasIndex of terrainRegionFullVariantIndices) {
+    assert.ok(
+      atlasIndex < connectivity.first_index || atlasIndex > connectivity.first_index + 15,
+      "terrain_regions full_variant_indices must not overlap path_connectivity"
+    );
+    for (const occupiedFirstIndex of terrainRegionFirstIndices) {
+      assert.ok(
+        atlasIndex < occupiedFirstIndex || atlasIndex > occupiedFirstIndex + 15,
+        "terrain_regions full_variant_indices must not overlap a terrain region"
+      );
+    }
+  }
 
   assert.ok(Array.isArray(tileIndexRows), "layout.terrain.tile_index_rows must be an array");
   assert.ok(tileIndexRows.length > 0, "layout.terrain.tile_index_rows must not be empty");
@@ -922,12 +1074,18 @@ function validateLayout(layout, catalog) {
 }
 
 function validateV6ScaleAndCollisionContract(catalog, layout) {
+  assert.deepEqual(catalog.scale_reference, V6_SCALE_REFERENCE, "v6 humanoid scale reference changed");
   assert.deepEqual(catalog.collision_profiles, V6_COLLISION_PROFILES, "v6 collision footprints changed");
   assertExactKeys(catalog.objects, Object.keys(V6_OBJECT_COLLISION_CONTRACT), "v6 catalog objects");
   for (const [objectId, [profileId, scaleMode]] of Object.entries(V6_OBJECT_COLLISION_CONTRACT)) {
     const object = catalog.objects[objectId];
     assert.equal(object.collision_profile, profileId, `${objectId} collision profile changed`);
     assert.equal(object.collision_scale_mode, scaleMode, `${objectId} collision scale mode changed`);
+    assert.deepEqual(
+      [object.default_world_height, object.allowed_world_height],
+      V6_WORLD_HEIGHT_CONTRACT[objectId],
+      `${objectId} humanoid-relative world-height contract changed`
+    );
   }
   for (const placement of layout.placements) {
     assert.ok(Object.hasOwn(V6_STANDARD_SCALE_BY_OBJECT, placement.object), `${placement.id} has no standardized scale`);
@@ -1021,7 +1179,7 @@ async function validateStyleManifest(manifest, catalog) {
     if (source.reference_paths !== undefined) {
       assertStringSet(source.reference_paths, `${label}.reference_paths`);
     }
-    const sourceUrl = new URL(source.source_file, source.source_file.startsWith("apps/") ? repoRoot : styleRoot);
+    const sourceUrl = new URL(source.source_file, source.source_file.startsWith("apps/") ? repoRoot : sceneryRoot);
     assert.ok(existsSync(sourceUrl), `${label}.source_file must exist`);
     const sourceBytes = await readFile(sourceUrl);
     assert.equal(
@@ -1053,13 +1211,25 @@ async function validateStyleManifest(manifest, catalog) {
     assertInteger(artifact.byte_length, `${label}.byte_length`, { positive: true });
     assert.equal(typeof artifact.runtime_used, "boolean", `${label}.runtime_used must be boolean`);
     if (artifact.runtime_used) {
-      assertSafeRuntimeTexture(artifact.file, `${label}.file`);
+      assertFlatSceneryPngPath(artifact.file, "images", `${label}.file`);
       runtimeArtifacts.set(artifact.file, artifact);
+    } else {
+      assertFlatSceneryPngPath(artifact.file, "sources", `${label}.file`);
     }
   }
 
+  const floorArtifact = manifest.artifacts.find((artifact) => artifact.file === catalog.floor_atlas.texture);
+  assert.ok(floorArtifact, "style manifest must include the catalog floor atlas as a derived artifact");
+  assert.equal(floorArtifact.id, "floor-atlas", "style manifest floor atlas id mismatch");
+  assert.equal(floorArtifact.runtime_used, false, "catalog floor atlas must remain a non-runtime source artifact");
+  assert.deepEqual(
+    [floorArtifact.width, floorArtifact.height],
+    catalog.floor_atlas.size_px,
+    "style manifest floor atlas dimensions mismatch"
+  );
+  await validateArtifactBytes(floorArtifact, sceneryRoot, catalog.floor_atlas.size_px);
+
   const expectedRuntime = new Map([
-    [catalog.floor_atlas.texture, { id: "floor-atlas", size: catalog.floor_atlas.size_px, sourceId: null }],
     ...Object.entries(catalog.objects).map(([id, object]) => [
       object.texture,
       { id, size: object.image_size_px, sourceId: object.source_id }
@@ -1077,7 +1247,7 @@ async function validateStyleManifest(manifest, catalog) {
     if (expectation.sourceId !== null) {
       assert.equal(artifact.source_id, expectation.sourceId, `manifest source id mismatch for ${file}`);
     }
-    await validateArtifactBytes(artifact, styleRoot, expectation.size);
+    await validateArtifactBytes(artifact, sceneryRoot, expectation.size);
   }
 }
 
@@ -1085,8 +1255,8 @@ function parseSha256Sums(text) {
   const sums = new Map();
   for (const [index, line] of text.trim().split(/\r?\n/).entries()) {
     const match = /^([a-f0-9]{64})  (.+)$/.exec(line);
-    assert.ok(match, `SHA256SUMS line ${index + 1} is malformed`);
-    assert.ok(!sums.has(match[2]), `SHA256SUMS repeats ${match[2]}`);
+    assert.ok(match, `checksum line ${index + 1} is malformed`);
+    assert.ok(!sums.has(match[2]), `checksum inventory repeats ${match[2]}`);
     sums.set(match[2], match[1]);
   }
   return sums;
@@ -1095,16 +1265,17 @@ function parseSha256Sums(text) {
 async function validateSha256Sums(catalog, manifest) {
   if (!existsSync(styleSumsUrl)) return;
   const sums = parseSha256Sums(await readFile(styleSumsUrl, "utf8"));
-  const runtimeFiles = [catalog.floor_atlas.texture, ...Object.values(catalog.objects).map((object) => object.texture)];
+  const runtimeFiles = Object.values(catalog.objects).map((object) => object.texture);
   const artifactByFile = new Map(manifest.artifacts.map((artifact) => [artifact.file, artifact]));
   for (const file of runtimeFiles) {
-    assert.ok(sums.has(file), `SHA256SUMS is missing runtime file ${file}`);
-    assert.equal(sums.get(file), artifactByFile.get(file).sha256, `SHA256SUMS disagrees with manifest for ${file}`);
+    assert.ok(sums.has(file), `checksum inventory is missing runtime file ${file}`);
+    assert.equal(sums.get(file), artifactByFile.get(file).sha256, `checksum inventory disagrees with manifest for ${file}`);
   }
   for (const [file, expectedHash] of sums) {
-    assertSafeRelativePath(file, `SHA256SUMS path ${file}`);
-    const bytes = await readFile(new URL(file, styleRoot));
-    assert.equal(createHash("sha256").update(bytes).digest("hex"), expectedHash, `SHA256SUMS mismatch for ${file}`);
+    const directory = file.startsWith("images/") ? "images" : "sources";
+    assertFlatSceneryPngPath(file, directory, `checksum path ${file}`);
+    const bytes = await readFile(new URL(file, sceneryRoot));
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), expectedHash, `checksum mismatch for ${file}`);
   }
 }
 
@@ -1135,8 +1306,8 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
   assert.equal(manifest.catalog_id, catalog.catalog_id);
   assert.equal(manifest.catalog_version, catalog.catalog_version);
   assert.equal(manifest.release_status, "local-preview-only");
-  assert.equal(manifest.catalog_file, "../memory-moon-style-v1/catalog.json");
-  assert.equal(manifest.layout_file, "layout.json");
+  assert.equal(manifest.catalog_file, "metadata/catalog.json");
+  assert.equal(manifest.layout_file, "metadata/world.json");
   assert.match(manifest.catalog_sha256, SHA256);
   assert.match(manifest.layout_sha256, SHA256);
   assert.equal(
@@ -1161,7 +1332,7 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
       ["file", "source_id", "role", "width", "height", "sha256", "byte_length"],
       `layout manifest source_materials[${index}]`
     );
-    assertSafeRelativePath(source.file, `layout manifest source_materials[${index}].file`);
+    assertFlatSceneryPngPath(source.file, "sources", `layout manifest source_materials[${index}].file`);
     assertSlug(source.source_id, `layout manifest source_materials[${index}].source_id`);
     assert.ok(["grass", "earth"].includes(source.role), `layout manifest source_materials[${index}].role is invalid`);
     assert.ok(!sourceRoles.has(source.role), `layout manifest source material role '${source.role}' is duplicated`);
@@ -1170,7 +1341,7 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
     assertInteger(source.height, `layout manifest source_materials[${index}].height`, { positive: true });
     assert.match(source.sha256, SHA256);
     assertInteger(source.byte_length, `layout manifest source_materials[${index}].byte_length`, { positive: true });
-    const sourceBytes = await readFile(new URL(source.file, layoutRoot));
+    const sourceBytes = await readFile(new URL(source.file, sceneryRoot));
     assert.equal(sourceBytes.byteLength, source.byte_length, `layout source material byte length mismatch: ${source.file}`);
     assert.equal(
       createHash("sha256").update(sourceBytes).digest("hex"),
@@ -1202,6 +1373,7 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
       "padding_tile_index",
       "tile_ids",
       "path_connectivity",
+      "terrain_regions",
       "pixels_per_world_unit",
       "projection",
       "render_role",
@@ -1229,6 +1401,7 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
     "padding_tile_index",
     "tile_ids",
     "path_connectivity",
+    "terrain_regions",
     "pixels_per_world_unit",
     "projection",
     "render_role"
@@ -1237,7 +1410,7 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
   }
   assert.match(terrainTileset.sha256, SHA256);
   assertInteger(terrainTileset.byte_length, "layout manifest terrain_tileset.byte_length", { positive: true });
-  const terrainBytes = await readFile(new URL(terrainTileset.file, layoutRoot));
+  const terrainBytes = await readFile(new URL(terrainTileset.file, sceneryRoot));
   assert.equal(terrainBytes.byteLength, terrainTileset.byte_length, "terrain tileset byte length mismatch");
   assert.equal(
     createHash("sha256").update(terrainBytes).digest("hex"),
@@ -1295,28 +1468,60 @@ async function validateLayoutManifest(manifest, catalog, layout, catalogBytes, l
 test("the v2 catalog and layout schemas are strict, self-contained Draft 2020-12 contracts", () => {
   assertSchemaContract(catalogSchema, CATALOG_KEYS, "catalog schema");
   assertSchemaContract(layoutSchema, LAYOUT_KEYS, "layout schema");
+  assert.ok(layoutSchema.$defs.renderTiles.required.includes("terrain_regions"));
+  assert.deepEqual(layoutSchema.$defs.terrainRegion.required, [
+    "id",
+    "first_index",
+    "northwest_bit",
+    "northeast_bit",
+    "southeast_bit",
+    "southwest_bit"
+  ]);
+  assert.equal(layoutSchema.$defs.terrainRegion.additionalProperties, false);
+  assert.equal(layoutSchema.$defs.terrainRegion.properties.full_variant_indices.uniqueItems, true);
+  assert.equal(layoutSchema.$defs.terrainRegion.properties.full_variant_indices.minItems, 1);
+  assert.deepEqual(catalogSchema.$defs.object.properties.collision_scale_mode.enum, ["fixed", "with-visual"]);
+  assert.equal(
+    catalogSchema.$defs.scaleReference.properties.measurement_basis.const,
+    "visible-silhouette-above-ground-anchor"
+  );
   validateCatalog(validCatalog);
   validateLayout(validLayout, validCatalog);
 });
 
 test("the catalog contract rejects unsafe runtime paths, loose metadata, bad geometry, and broken refs", () => {
   const schemaPathPattern = new RegExp(catalogSchema.$defs.safePngPath.pattern);
+  const runtimeImagePattern = new RegExp(catalogSchema.$defs.runtimeImagePath.pattern);
+  const sourceImagePattern = new RegExp(catalogSchema.$defs.sourceImagePath.pattern);
   for (const unsafePath of [
-    "../objects/tree.png",
-    "C:/objects/tree.png",
-    "/objects/tree.png",
-    "objects\\tree.png",
+    "../images/tree.png",
+    "C:/images/tree.png",
+    "/images/tree.png",
+    "images\\tree.png",
     "launcher/tree.png",
     "originals/tree.png",
     "miscellaneous/tree.png",
-    "objects/tree.jpg"
+    "images/tree.jpg"
   ]) {
     assert.equal(schemaPathPattern.test(unsafePath), false, `catalog schema must reject ${unsafePath}`);
     const catalog = clone(validCatalog);
     catalog.objects["moon-sapling-a"].texture = unsafePath;
     assert.throws(() => validateCatalog(catalog), /texture|path|relative|root|drive|isolated|PNG|slashes/);
   }
-  assert.equal(schemaPathPattern.test("objects/tree.png"), true);
+  assert.equal(schemaPathPattern.test("images/tree.png"), true);
+  assert.equal(schemaPathPattern.test("sources/floor-atlas.derived.png"), true);
+  assert.equal(runtimeImagePattern.test("images/tree.png"), true);
+  assert.equal(runtimeImagePattern.test("objects/tree.png"), false);
+  assert.equal(sourceImagePattern.test("sources/floor-atlas.derived.png"), true);
+  assert.equal(sourceImagePattern.test("floor/floor-atlas.png"), false);
+
+  const misplacedObjectTexture = clone(validCatalog);
+  misplacedObjectTexture.objects["moon-sapling-a"].texture = "objects/tree.png";
+  assert.throws(() => validateCatalog(misplacedObjectTexture), /shared images directory/);
+
+  const misplacedFloorAtlas = clone(validCatalog);
+  misplacedFloorAtlas.floor_atlas.texture = "images/floor-atlas.derived.png";
+  assert.throws(() => validateCatalog(misplacedFloorAtlas), /shared sources directory/);
 
   const loose = clone(validCatalog);
   loose.objects["moon-sapling-a"].runtime_note = "not part of v2";
@@ -1341,6 +1546,10 @@ test("the catalog contract rejects unsafe runtime paths, loose metadata, bad geo
   const badProfile = clone(validCatalog);
   badProfile.objects["moon-sapling-a"].collision_profile = "missing-profile";
   assert.throws(() => validateCatalog(badProfile), /unknown profile/);
+
+  const badScaleReference = clone(validCatalog);
+  badScaleReference.scale_reference.visual_height_world = 0;
+  assert.throws(() => validateCatalog(badScaleReference), /scale_reference\.visual_height_world must be positive/);
 });
 
 test("the layout contract accepts reusable indices and rejects unsafe tiles, malformed maps, bad grids, and invalid scale", () => {
@@ -1352,9 +1561,79 @@ test("the layout contract accepts reusable indices and rejects unsafe tiles, mal
   );
   validateLayout(repeatedTileIndices, validCatalog);
 
+  const terrainRegionLayout = clone(validLayout);
+  terrainRegionLayout.terrain.render_tiles.image_size_px = [400, 1200];
+  terrainRegionLayout.terrain.render_tiles.atlas_grid = [4, 12];
+  terrainRegionLayout.terrain.render_tiles.tile_ids.push(
+    ...Array.from({ length: 16 }, (_, index) => `region-${index}`),
+    ...Array.from({ length: 16 }, (_, index) => `reserved-${index}`)
+  );
+  terrainRegionLayout.terrain.render_tiles.terrain_regions = [
+    {
+      id: "grove-floor",
+      first_index: 16,
+      northwest_bit: 1,
+      northeast_bit: 2,
+      southeast_bit: 4,
+      southwest_bit: 8
+    }
+  ];
+  validateLayout(terrainRegionLayout, validCatalog);
+
+  const fullVariantRegion = clone(terrainRegionLayout);
+  fullVariantRegion.terrain.render_tiles.terrain_regions[0].full_variant_indices = [32, 33];
+  validateLayout(fullVariantRegion, validCatalog);
+
+  const overlappingFullVariant = clone(fullVariantRegion);
+  overlappingFullVariant.terrain.render_tiles.terrain_regions[0].full_variant_indices = [31];
+  assert.throws(() => validateLayout(overlappingFullVariant, validCatalog), /must not overlap a terrain region/);
+
+  const duplicateFullVariant = clone(fullVariantRegion);
+  duplicateFullVariant.terrain.render_tiles.terrain_regions[0].full_variant_indices = [32, 32];
+  assert.throws(() => validateLayout(duplicateFullVariant, validCatalog), /must be unique/);
+
+  const outsideFullVariant = clone(fullVariantRegion);
+  outsideFullVariant.terrain.render_tiles.terrain_regions[0].full_variant_indices = [48];
+  assert.throws(() => validateLayout(outsideFullVariant, validCatalog), /exceeds the atlas/);
+
+  const looseTerrainRegion = clone(terrainRegionLayout);
+  looseTerrainRegion.terrain.render_tiles.terrain_regions[0].variant_count = 16;
+  assert.throws(() => validateLayout(looseTerrainRegion, validCatalog), /not allowed/);
+
+  const badTerrainRegionId = clone(terrainRegionLayout);
+  badTerrainRegionId.terrain.render_tiles.terrain_regions[0].id = "Grove Floor";
+  assert.throws(() => validateLayout(badTerrainRegionId, validCatalog), /slug/);
+
+  const duplicateTerrainRegionId = clone(terrainRegionLayout);
+  duplicateTerrainRegionId.terrain.render_tiles.terrain_regions.push({
+    ...clone(duplicateTerrainRegionId.terrain.render_tiles.terrain_regions[0]),
+    first_index: 32
+  });
+  assert.throws(() => validateLayout(duplicateTerrainRegionId, validCatalog), /ids must be unique/);
+
+  const outOfBoundsTerrainRegion = clone(terrainRegionLayout);
+  outOfBoundsTerrainRegion.terrain.render_tiles.terrain_regions[0].first_index = 40;
+  assert.throws(() => validateLayout(outOfBoundsTerrainRegion, validCatalog), /reserve 16 atlas cells/);
+
+  const pathOverlappingTerrainRegion = clone(terrainRegionLayout);
+  pathOverlappingTerrainRegion.terrain.render_tiles.terrain_regions[0].first_index = 8;
+  assert.throws(() => validateLayout(pathOverlappingTerrainRegion, validCatalog), /overlap path_connectivity/);
+
+  const mutuallyOverlappingTerrainRegions = clone(terrainRegionLayout);
+  mutuallyOverlappingTerrainRegions.terrain.render_tiles.terrain_regions.push({
+    ...clone(mutuallyOverlappingTerrainRegions.terrain.render_tiles.terrain_regions[0]),
+    id: "grove-floor-edge",
+    first_index: 24
+  });
+  assert.throws(() => validateLayout(mutuallyOverlappingTerrainRegions, validCatalog), /overlap another terrain region/);
+
+  const badTerrainRegionBits = clone(terrainRegionLayout);
+  badTerrainRegionBits.terrain.render_tiles.terrain_regions[0].northeast_bit = 4;
+  assert.throws(() => validateLayout(badTerrainRegionBits, validCatalog), /4 !== 2/);
+
   const unsafeTiles = clone(validLayout);
   unsafeTiles.terrain.render_tiles.texture = "../visual-vocabulary/floor.png";
-  assert.throws(() => validateLayout(unsafeTiles, validCatalog), /relative|root|escape|terrain directory/);
+  assert.throws(() => validateLayout(unsafeTiles, validCatalog), /relative|root|escape|images directory/);
 
   const badTileDensity = clone(validLayout);
   badTileDensity.terrain.render_tiles.pixels_per_world_unit = 64;
@@ -1408,7 +1687,7 @@ test("the layout contract accepts reusable indices and rejects unsafe tiles, mal
   delete legacyGroundPlate.terrain.render_tiles;
   delete legacyGroundPlate.terrain.tile_index_rows;
   legacyGroundPlate.terrain.ground_plate = {
-    texture: "terrain/moonroot-ground-plate.png",
+    texture: "images/legacy-ground-plate.png",
     image_size_px: [300, 200],
     world_size: [1.5, 1],
     pixels_per_world_unit: 200,
@@ -1424,8 +1703,8 @@ test("the real Memory Grove v6 reusable tiles, scales, collisions, hashes, and m
   const layoutExists = existsSync(layoutUrl);
   if (!catalogExists && !layoutExists) return;
 
-  assert.ok(catalogExists, "Memory Grove v6 layout exists without its v2 catalog");
-  assert.ok(layoutExists, "Memory Moon v2 catalog exists without its v6 layout");
+  assert.ok(catalogExists, "Memory Grove v6 layout exists without its v3 catalog");
+  assert.ok(layoutExists, "Memory Moon v3 catalog exists without its v6 layout");
 
   const [catalogBytes, layoutBytes] = await Promise.all([
     readFile(catalogUrl),
@@ -1436,6 +1715,8 @@ test("the real Memory Grove v6 reusable tiles, scales, collisions, hashes, and m
   validateCatalog(catalog);
   validateLayout(layout, catalog);
   assert.equal(layout.layout_id, "memory-grove-v6");
+  assert.equal(catalog.catalog_version, 3, "Memory Moon scale calibration requires catalog version 3");
+  assert.equal(layout.catalog_version, 3, "Memory Grove v6 must consume catalog version 3");
   validateV6ScaleAndCollisionContract(catalog, layout);
 
   assert.ok(existsSync(styleManifestUrl), "Memory Grove v6 requires the style package manifest");

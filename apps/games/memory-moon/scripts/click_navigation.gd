@@ -16,6 +16,8 @@ const META_BLOCKED_CELLS := &"navigation_blocked_cells"
 const INVALID_CELL := Vector2i(-2147483648, -2147483648)
 const WORLD_Y := 0.0
 const DISTANCE_EPSILON := 0.000001
+const GRID_TRAVERSAL_EPSILON := 0.000001
+const ACTOR_CLEARANCE_RADIUS := 0.28
 
 var _grid := AStarGrid2D.new()
 var _configured := false
@@ -96,24 +98,38 @@ func find_path(start: Vector3, target: Vector3) -> PackedVector3Array:
 	var cell_path: Array[Vector2i] = _grid.get_id_path(start_cell, target_cell, true)
 	if cell_path.is_empty():
 		return empty
-	var simplified_cells := _simplify_cell_path(cell_path)
-	var world_path := PackedVector3Array()
-	for cell in simplified_cells:
-		world_path.append(cell_to_world(cell))
+	var raw_world_path := PackedVector3Array()
+	for cell in cell_path:
+		raw_world_path.append(cell_to_world(cell))
 
-	# Preserve precise clicks inside the first and last walkable cells. When a
-	# click was clamped, blocked, or only partially reachable, keep the safe cell
-	# center returned by the grid.
+	# Preserve the actor's precise start when it is already in the route's first
+	# walkable cell. Every later shortcut is checked from this exact point.
 	if is_world_walkable(start) and cell_path[0] == world_to_cell(start):
-		world_path[0] = Vector3(start.x, WORLD_Y, start.z)
+		raw_world_path[0] = Vector3(start.x, WORLD_Y, start.z)
+
+	# Exact destinations remain pleasant in open ground. Near a blocked cell or
+	# map edge the target cell center is the safer authority: the navigation grid
+	# is sampled at cell centers, so accepting an arbitrary edge click there can
+	# disagree with the capsule's continuous physics footprint.
 	var reached_requested_cell := cell_path[-1] == target_cell
-	if reached_requested_cell and is_world_walkable(target) and target_cell == world_to_cell(target):
-		var exact_target := Vector3(target.x, WORLD_Y, target.z)
-		if world_path[-1].distance_squared_to(exact_target) <= DISTANCE_EPSILON:
-			world_path[-1] = exact_target
-		else:
-			world_path.append(exact_target)
-	return world_path
+	var resolved_target := cell_to_world(cell_path[-1])
+	if (
+		reached_requested_cell
+		and target_cell == world_to_cell(target)
+		and _can_preserve_precise_target(target, target_cell)
+	):
+		resolved_target = Vector3(target.x, WORLD_Y, target.z)
+	# Replacing the only point with an exact start must never erase the resolved
+	# destination. This matters when the requested point shares the actor's cell
+	# but its blocked neighborhood requires a move back to the safe cell center.
+	if raw_world_path[-1].distance_squared_to(resolved_target) <= DISTANCE_EPSILON:
+		raw_world_path[-1] = resolved_target
+	else:
+		raw_world_path.append(resolved_target)
+
+	# Greedy string-pulling removes grid stair-steps while the supercover test
+	# preserves every blocked-cell and no-corner-cut guarantee from AStarGrid2D.
+	return _string_pull_world_path(raw_world_path)
 
 
 func is_world_walkable(world_position: Vector3) -> bool:
@@ -216,23 +232,130 @@ func _nearest_walkable_cell(seed: Vector2i) -> Variant:
 	return null
 
 
-func _simplify_cell_path(cell_path: Array[Vector2i]) -> Array[Vector2i]:
-	if cell_path.size() <= 2:
-		return cell_path.duplicate()
-	var simplified: Array[Vector2i] = [cell_path[0]]
-	var previous_direction := _cell_direction(cell_path[0], cell_path[1])
-	for index in range(2, cell_path.size()):
-		var direction := _cell_direction(cell_path[index - 1], cell_path[index])
-		if direction != previous_direction:
-			simplified.append(cell_path[index - 1])
-			previous_direction = direction
-	simplified.append(cell_path[-1])
-	return simplified
+func _can_preserve_precise_target(target: Vector3, target_cell: Vector2i) -> bool:
+	if not is_world_walkable(target):
+		return false
+	for y_offset in range(-1, 2):
+		for x_offset in range(-1, 2):
+			var neighbor := target_cell + Vector2i(x_offset, y_offset)
+			if not _is_cell_walkable(neighbor):
+				return false
+	return true
 
 
-func _cell_direction(from: Vector2i, to: Vector2i) -> Vector2i:
-	var delta := to - from
-	return Vector2i(clampi(delta.x, -1, 1), clampi(delta.y, -1, 1))
+func _string_pull_world_path(raw_path: PackedVector3Array) -> PackedVector3Array:
+	if raw_path.size() <= 1:
+		return raw_path
+	var pulled := PackedVector3Array([raw_path[0]])
+	var anchor_index := 0
+	while anchor_index < raw_path.size() - 1:
+		var next_index := anchor_index + 1
+		for candidate_index in range(raw_path.size() - 1, anchor_index, -1):
+			if _segment_is_walkable(raw_path[anchor_index], raw_path[candidate_index]):
+				next_index = candidate_index
+				break
+		pulled.append(raw_path[next_index])
+		anchor_index = next_index
+	return pulled
+
+
+func _segment_is_walkable(from: Vector3, to: Vector3) -> bool:
+	var from_grid := Vector2(
+		(from.x - _origin.x) / _cell_size,
+		(from.z - _origin.y) / _cell_size,
+	)
+	var to_grid := Vector2(
+		(to.x - _origin.x) / _cell_size,
+		(to.z - _origin.y) / _cell_size,
+	)
+	var current := Vector2i(floori(from_grid.x), floori(from_grid.y))
+	var destination := Vector2i(floori(to_grid.x), floori(to_grid.y))
+	if not _is_cell_walkable(current) or not _is_cell_walkable(destination):
+		return false
+	if not _segment_has_capsule_clearance(from, to):
+		return false
+	if current == destination:
+		return true
+
+	var delta := to_grid - from_grid
+	var step_x := int(signf(delta.x))
+	var step_y := int(signf(delta.y))
+	var t_delta_x := INF if step_x == 0 else absf(1.0 / delta.x)
+	var t_delta_y := INF if step_y == 0 else absf(1.0 / delta.y)
+	var next_boundary_x := float(current.x + 1) if step_x > 0 else float(current.x)
+	var next_boundary_y := float(current.y + 1) if step_y > 0 else float(current.y)
+	var t_max_x := INF if step_x == 0 else (next_boundary_x - from_grid.x) / delta.x
+	var t_max_y := INF if step_y == 0 else (next_boundary_y - from_grid.y) / delta.y
+
+	while current != destination:
+		if absf(t_max_x - t_max_y) <= GRID_TRAVERSAL_EPSILON:
+			# A segment touching a grid corner must not squeeze diagonally between
+			# two solids. Requiring both side cells matches ONLY_IF_NO_OBSTACLES.
+			var horizontal_neighbor := current + Vector2i(step_x, 0)
+			var vertical_neighbor := current + Vector2i(0, step_y)
+			if (
+				not _is_cell_walkable(horizontal_neighbor)
+				or not _is_cell_walkable(vertical_neighbor)
+			):
+				return false
+			current += Vector2i(step_x, step_y)
+			t_max_x += t_delta_x
+			t_max_y += t_delta_y
+		elif t_max_x < t_max_y:
+			current.x += step_x
+			t_max_x += t_delta_x
+		else:
+			current.y += step_y
+			t_max_y += t_delta_y
+		if not _is_cell_walkable(current):
+			return false
+	return true
+
+
+func _segment_has_capsule_clearance(from: Vector3, to: Vector3) -> bool:
+	var segment_start := Vector2(from.x, from.z)
+	var segment_end := Vector2(to.x, to.z)
+	var segment := segment_end - segment_start
+	var segment_length_squared := segment.length_squared()
+	var minimum := Vector2(
+		minf(segment_start.x, segment_end.x) - ACTOR_CLEARANCE_RADIUS,
+		minf(segment_start.y, segment_end.y) - ACTOR_CLEARANCE_RADIUS,
+	)
+	var maximum := Vector2(
+		maxf(segment_start.x, segment_end.x) + ACTOR_CLEARANCE_RADIUS,
+		maxf(segment_start.y, segment_end.y) + ACTOR_CLEARANCE_RADIUS,
+	)
+	var clearance_squared := ACTOR_CLEARANCE_RADIUS * ACTOR_CLEARANCE_RADIUS
+	for blocked_cell in _blocked_cells:
+		var blocked_center := (
+			_origin
+			+ (Vector2(blocked_cell) + Vector2.ONE * 0.5) * _cell_size
+		)
+		if (
+			blocked_center.x < minimum.x
+			or blocked_center.x > maximum.x
+			or blocked_center.y < minimum.y
+			or blocked_center.y > maximum.y
+		):
+			continue
+		var closest_weight := 0.0
+		if segment_length_squared > DISTANCE_EPSILON:
+			closest_weight = clampf(
+				(blocked_center - segment_start).dot(segment) / segment_length_squared,
+				0.0,
+				1.0,
+			)
+		var closest_point := segment_start + segment * closest_weight
+		if (
+			closest_point.distance_squared_to(blocked_center)
+			<= clearance_squared + DISTANCE_EPSILON
+		):
+			return false
+	return true
+
+
+func _is_cell_walkable(cell: Vector2i) -> bool:
+	return _is_cell_in_bounds(cell) and not _grid.is_point_solid(cell)
 
 
 func _parse_origin(value: Variant) -> Variant:

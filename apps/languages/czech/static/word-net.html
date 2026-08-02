@@ -21,11 +21,11 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="runtime.js?v=runtime-34"></script>
+  <script src="runtime.js?v=runtime-36"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-87">
-  <link rel="stylesheet" href="word-net.css?v=word-net-62">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
+    <link rel="stylesheet" href="word-net.css?v=word-net-70">
   </head>
   <body>
     <div class="word-net-page">
@@ -55,19 +55,63 @@
               </button>
             </aside>
             <div class="word-net-panel-actions" aria-label="Phrase controls">
-              <button class="word-net-icon-button theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+              <button class="word-net-icon-button theme-toggle" id="wordNetDisplayToggle" type="button" aria-label="Display settings" aria-haspopup="dialog" aria-controls="wordNetDisplayMenu" aria-expanded="false" title="Display settings">
                 <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
               </button>
-              <button class="word-net-icon-button word-net-sound-toggle" id="wordNetSound" type="button" aria-label="Play Czech sentence aloud" aria-pressed="false" title="Play Czech sentence aloud" disabled>
-                <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <div class="word-net-display-menu" id="wordNetDisplayMenu" role="dialog" aria-label="Display settings" hidden>
+                <span class="word-net-display-menu-label">Display</span>
+                <section class="word-net-display-menu-section" aria-labelledby="wordNetThemeLabel">
+                  <span id="wordNetThemeLabel">Theme</span>
+                  <div class="word-net-display-options" role="group" aria-label="Theme">
+                    <button type="button" data-theme-option="light" aria-pressed="true">
+                      <img src="/assets/icons/light_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      <span>Light</span>
+                    </button>
+                    <button type="button" data-theme-option="dark" aria-pressed="false">
+                      <img src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      <span>Dark</span>
+                    </button>
+                  </div>
+                </section>
+                <section class="word-net-display-menu-section" aria-labelledby="wordNetTextSizeLabel">
+                  <span id="wordNetTextSizeLabel">Text size</span>
+                  <div class="word-net-display-options word-net-display-size-options" role="group" aria-label="Text size">
+                    <button type="button" data-font-size-option="largest" aria-pressed="true"><span class="word-net-display-size-sample is-standard" aria-hidden="true">A</span><span>Standard</span></button>
+                    <button type="button" data-font-size-option="large" aria-pressed="false"><span class="word-net-display-size-sample is-small" aria-hidden="true">A</span><span>Small</span></button>
+                    <button type="button" data-font-size-option="standard" aria-pressed="false"><span class="word-net-display-size-sample is-smaller" aria-hidden="true">A</span><span>Smaller</span></button>
+                  </div>
+                </section>
+              </div>
+              <button class="word-net-icon-button word-net-audio-toggle" id="wordNetSound" type="button" aria-label="Czech audio settings" aria-haspopup="dialog" aria-controls="wordNetAudioMenu" aria-expanded="false" title="Czech audio settings">
+                <svg class="word-net-sound-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
                   <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
                   <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                 </svg>
-                <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
-                  <rect x="7" y="7" width="10" height="10" rx="1"></rect>
-                </svg>
               </button>
+              <div class="word-net-audio-menu" id="wordNetAudioMenu" role="dialog" aria-label="Audio settings" hidden>
+                <span class="word-net-audio-menu-label">Audio</span>
+                <button class="word-net-audio-autoplay" id="wordNetAudioAutoplay" type="button" role="switch" aria-checked="true">
+                  <span>Autoplay sentences</span>
+                </button>
+                <label class="word-net-audio-voice" for="wordNetAudioVoice">
+                  <span>Voice</span>
+                  <select id="wordNetAudioVoice">
+                    <option value="">Automatic (recommended)</option>
+                  </select>
+                </label>
+                <p class="word-net-audio-status" id="wordNetAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</p>
+                <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
+                <fieldset class="word-net-audio-speed">
+                  <legend>Speed</legend>
+                  <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.65 times">
+                  <div class="word-net-audio-speed-ticks" id="wordNetAudioSpeedTicks" aria-hidden="true">
+                    <span>Slower <small>0.65×</small></span>
+                    <span>Slow <small>0.82×</small></span>
+                    <span>Normal <small>1×</small></span>
+                  </div>
+                </fieldset>
+              </div>
               <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="English answer and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
                 <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
               </button>
@@ -88,10 +132,6 @@
                   <span class="word-net-translation-menu-label" id="wordNetDictionarySettingsLabel">Dictionary card</span>
                   <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="showCard" aria-checked="true">Show dictionary card</button>
                   <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="autoPronounce" aria-checked="false">Speak selected words</button>
-                  <button type="button" role="menuitem" tabindex="-1" id="wordNetDictionaryGapExport" data-dictionary-gap-action="copy">
-                    <span>Copy missing-word batch</span>
-                    <small id="wordNetDictionaryGapExportSummary">Narrow device-local JSON for Codex</small>
-                  </button>
                 </section>
               </div>
               <button class="word-net-icon-button word-net-generation-toggle" id="wordNetGenerationToggle" type="button" aria-label="Generation options" aria-haspopup="menu" aria-expanded="false">
@@ -106,16 +146,35 @@
                 </span>
               </button>
               <div class="word-net-generation-menu" id="wordNetGenerationMenu" role="menu" aria-label="Sentence generation" hidden>
-                <button type="button" role="menuitemradio" data-generation-mode="random">
-                  <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
-                    <path d="m17 14 3 3-3 3"></path>
-                    <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
-                    <path d="m17 4 3 3-3 3"></path>
-                  </svg>
-                  Random
-                </button>
-                <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>More with this word</span></button>
+                <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetGenerationModeLabel">
+                  <span class="word-net-generation-menu-label" id="wordNetGenerationModeLabel">Next sentence</span>
+                  <button type="button" role="menuitemradio" data-generation-mode="random">
+                    <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                      <path d="m17 14 3 3-3 3"></path>
+                      <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                      <path d="m17 4 3 3-3 3"></path>
+                    </svg>
+                    <span data-generation-label>New word</span>
+                  </button>
+                  <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>This word</span></button>
+                </section>
+                <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">
+                  <span class="word-net-generation-menu-label" id="wordNetContentSourceLabel">Sentence source</span>
+                  <div class="word-net-content-source" id="wordNetContentSource" role="group" aria-label="Sentence source">
+                    <div class="word-net-content-source-options">
+                      <button type="button" data-content-mode="standard" aria-pressed="true">
+                        <strong>Standard</strong>
+                        <small>offline</small>
+                      </button>
+                      <button type="button" data-content-mode="generative" aria-pressed="false">
+                        <strong>Generative</strong>
+                        <small>local AI</small>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="word-net-generative-note" id="wordNetGenerativeNote" hidden>Optional local AI requires an initial download.</p>
+                </section>
               </div>
             </div>
             <button class="word-net-side-nav word-net-side-previous" id="wordNetPrevious" type="button" aria-label="Previous sentence" title="Previous sentence">
@@ -134,7 +193,19 @@
               <img id="wordNetSceneImage" alt="">
             </figure>
             <div class="word-net-phrase-stack">
-              <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
+              <div class="word-net-sentence-row">
+                <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
+                <button class="word-net-sound-toggle word-net-word-pronounce word-net-phrase-pronounce" id="wordNetPhraseSound" type="button" aria-label="Play Czech sentence aloud" aria-pressed="false" title="Play Czech sentence aloud" disabled>
+                  <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                    <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                    <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                  </svg>
+                  <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                    <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                  </svg>
+                </button>
+              </div>
               <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
               <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the English sentence" hidden>
                 <div class="word-net-reconstruction-play" id="wordNetReconstructionPlay">
@@ -200,20 +271,6 @@
           <section class="word-net-status-panel" aria-label="Word World status">
             <p class="word-net-instructions" id="wordNetInstructions">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
             <p class="word-net-live-status" id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
-            <div class="word-net-content-source" id="wordNetContentSource" role="group" aria-label="Sentence source">
-              <span class="word-net-content-source-label">Sentence source</span>
-              <div class="word-net-content-source-options">
-                <button type="button" data-content-mode="standard" aria-pressed="true">
-                  <strong>Standard</strong>
-                  <small>guided · offline</small>
-                </button>
-                <button type="button" data-content-mode="generative" aria-pressed="false">
-                  <strong>Generative</strong>
-                  <small>optional local AI</small>
-                </button>
-              </div>
-            </div>
-            <p class="word-net-generative-note" id="wordNetGenerativeNote" hidden>Generative uses optional local models (about 1.9 GB). They download only after you request a new sentence.</p>
             <details class="word-net-diagnostics" id="wordNetDiagnostics">
               <summary>
                 <span>Runtime</span>
@@ -299,8 +356,8 @@
       data-settings-href="index.html?settings=1"
     ></nav>
 
-  <script src="chrome.js?v=chrome-84"></script>
-    <script src="maintenance-ui.js?v=maintenance-14"></script>
-  <script type="module" src="word-net.js?v=word-net-66"></script>
+  <script src="chrome.js?v=chrome-89"></script>
+    <script src="maintenance-ui.js?v=maintenance-15"></script>
+    <script type="module" src="word-net.js?v=word-net-75"></script>
   </body>
 </html>

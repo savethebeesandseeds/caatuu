@@ -19,6 +19,7 @@ use tracing::Level;
 use crate::{config::RuntimeFeatures, state::AppState};
 
 pub mod dictionary;
+pub mod dictionary_gaps;
 pub mod http;
 pub mod ws;
 
@@ -269,6 +270,10 @@ fn build_language_app(workspace: &std::path::Path, spec: LanguageAppSpec) -> Rou
         LanguageBackend::CzechDictionary => router
             .route("/api/dictionary/status", get(dictionary::status))
             .route("/api/dictionary/search", get(dictionary::search))
+            .route(
+                "/api/dictionary/gaps",
+                post(dictionary_gaps::submit).layer(DefaultBodyLimit::max(2 * 1024)),
+            )
             .route(
                 "/data/models/phone-bench/caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf",
                 get(|| async { StatusCode::NOT_FOUND }),
@@ -599,5 +604,41 @@ mod tests {
         assert_eq!(response.status(), StatusCode::PAYLOAD_TOO_LARGE);
     }
 
+    #[tokio::test]
+    async fn dictionary_gap_route_rejects_expansive_and_oversized_bodies() {
+        let expansive = disabled_router()
+            .oneshot(
+                Request::builder()
+                    .method("POST")
+                    .uri("/cz/api/dictionary/gaps")
+                    .header("content-type", "application/json")
+                    .body(Body::from(
+                        r#"{"schema":"caatuu.dictionary-gap-report.v1","targetWord":"Řekněme","normalizedWord":"řekněme","dictionaryKey":"kaikki-cs-en-2026-07-09","dictionaryDirection":"cs-en","lookupOutcome":"no_results","lookupReturned":0,"sentence":"must stay local"}"#,
+                    ))
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+        assert!(expansive.status().is_client_error());
+
+        let oversized_body = format!(
+            r#"{{"schema":"caatuu.dictionary-gap-report.v1","targetWord":"{}"}}"#,
+            "x".repeat(MAX_DICTIONARY_GAP_TEST_BYTES)
+        );
+        let oversized = disabled_router()
+            .oneshot(
+                Request::builder()
+                    .method("POST")
+                    .uri("/cz/api/dictionary/gaps")
+                    .header("content-type", "application/json")
+                    .body(Body::from(oversized_body))
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+        assert_eq!(oversized.status(), StatusCode::PAYLOAD_TOO_LARGE);
+    }
+
     const MAX_REPORT_TEST_BYTES: usize = 17 * 1024;
+    const MAX_DICTIONARY_GAP_TEST_BYTES: usize = 3 * 1024;
 }

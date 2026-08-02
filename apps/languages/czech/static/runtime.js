@@ -10,12 +10,13 @@
     || `${course.storage.namespace || `caatuu-${course.id}`}.semantic-learning`;
   const modelCatalogPath = "data/models/phone-bench/models.json";
   const embeddingCatalogPath = "data/embeddings/models.json";
-  const dictionaryPatchPath = "data/dictionaries/patches/reviewed-cs-en.v1.json";
+  const dictionaryPatchPath = "data/dictionaries/patches/reviewed-cs-en.v1.json?v=sha256-3d86c8c0ddddb0122023a1dd686aaa7c9be2c37bf6ae664c8a5bc72d384762d9";
   const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
   const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
   const browserFreshnessAutoReloadWindowMs = 15 * 1000;
   const browserFreshnessVisibleRecheckMs = 60 * 1000;
   const runtimeStartedAtMs = Date.now();
+  const dictionaryGapMigrationKey = "caatuu.dictionaryGapMigration.v1";
   const nativePending = new Map();
   let activeBrowserSetupAbortController = null;
   let browserSetupGeneration = 0;
@@ -27,6 +28,9 @@
   let feedbackOutbox = null;
   let feedbackOutboxPromise = null;
   let feedbackFlushTimer = null;
+  let dictionaryGapOutbox = null;
+  let dictionaryGapOutboxPromise = null;
+  let dictionaryGapFlushTimer = null;
   let serviceWorkerRegistrationPromise = null;
   let serviceWorkerFreshnessCheck = null;
   let serviceWorkerFreshnessBound = false;
@@ -892,16 +896,124 @@
     return { ...result, disabled: true, localOnly: true };
   }
 
-  async function prepareDictionaryGapExport(options = {}) {
-    const outbox = await getFeedbackOutbox();
-    outbox.refreshFromStorage();
-    const { buildDictionaryGapExport } = await import("./dictionary-gap-export.mjs?v=dictionary-gap-export-1");
-    const document = buildDictionaryGapExport(outbox.list(), options);
-    return {
-      document,
-      count: document.gaps.length,
-      localOnly: true
-    };
+  async function sendDictionaryGapReport(payload) {
+    if (env === "android") {
+      const result = await nativeCall("report_dictionary_gap", { payload }, {
+        timeoutMs: 8_000,
+        timeoutMessage: "The dictionary-gap server did not respond."
+      });
+      if (result?.ok !== true || result?.stored !== true) {
+        throw new Error(result?.message || "The dictionary-gap server did not acknowledge the report.");
+      }
+      return { ok: true };
+    }
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 8_000);
+    try {
+      const response = await fetch("/cz/api/dictionary/gaps", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+        cache: "no-store",
+        credentials: "same-origin",
+        signal: controller.signal
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result?.ok !== true || result?.stored !== true) {
+        throw new Error(result?.message || `Dictionary-gap delivery returned HTTP ${response.status}.`);
+      }
+      return { ok: true };
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
+  async function migrateLegacyDictionaryGaps(outbox, collectLegacyDictionaryGapReports) {
+    const storage = feedbackStorage();
+    try {
+      if (storage?.getItem(dictionaryGapMigrationKey) === "complete") return;
+    } catch (error) {
+      // A failed marker read must never discard an older persisted observation.
+    }
+    const legacyOutbox = await getFeedbackOutbox();
+    legacyOutbox.refreshFromStorage();
+    for (const report of collectLegacyDictionaryGapReports(legacyOutbox.list())) {
+      const result = outbox.enqueue(report, {
+        dedupeKey: [report.dictionaryKey, report.dictionaryDirection, report.normalizedWord].join("|")
+      });
+      if (!result.queued || result.persisted === false) return;
+    }
+    try {
+      storage?.setItem(dictionaryGapMigrationKey, "complete");
+    } catch (error) {
+      // Repeating a deduplicated migration is safer than marking an incomplete one.
+    }
+  }
+
+  async function getDictionaryGapOutbox() {
+    if (dictionaryGapOutbox) return dictionaryGapOutbox;
+    if (!dictionaryGapOutboxPromise) {
+      dictionaryGapOutboxPromise = Promise.all([
+        import("./feedback-outbox.mjs?v=feedback-outbox-5"),
+        import("./dictionary-gap-report.mjs?v=dictionary-gap-report-1")
+      ])
+        .then(async ([{ FeedbackOutbox }, { collectLegacyDictionaryGapReports }]) => {
+          dictionaryGapOutbox = new FeedbackOutbox({
+            storage: feedbackStorage(),
+            storageKey: "caatuu.dictionaryGapOutbox.v1",
+            send: sendDictionaryGapReport,
+            online: () => navigator.onLine !== false,
+            visible: () => document.visibilityState !== "hidden",
+            saveData: () => false,
+            maxItems: 128
+          });
+          await migrateLegacyDictionaryGaps(dictionaryGapOutbox, collectLegacyDictionaryGapReports);
+          return dictionaryGapOutbox;
+        })
+        .catch((error) => {
+          dictionaryGapOutboxPromise = null;
+          throw error;
+        });
+    }
+    return dictionaryGapOutboxPromise;
+  }
+
+  function clearDictionaryGapFlushTimer() {
+    if (dictionaryGapFlushTimer === null) return;
+    window.clearTimeout(dictionaryGapFlushTimer);
+    dictionaryGapFlushTimer = null;
+  }
+
+  function scheduleDictionaryGapFlush(delayMs = 0) {
+    clearDictionaryGapFlushTimer();
+    dictionaryGapFlushTimer = window.setTimeout(() => {
+      dictionaryGapFlushTimer = null;
+      void flushQueuedDictionaryGaps();
+    }, Math.max(0, Number(delayMs) || 0));
+  }
+
+  async function enqueueDictionaryGap(feedback = {}) {
+    const { buildDictionaryGapReport } = await import("./dictionary-gap-report.mjs?v=dictionary-gap-report-1");
+    const report = buildDictionaryGapReport(feedback);
+    if (!report) return { queued: false, persisted: false, invalid: true, pending: 0 };
+    const outbox = await getDictionaryGapOutbox();
+    const result = outbox.enqueue(report, {
+      dedupeKey: [report.dictionaryKey, report.dictionaryDirection, report.normalizedWord].join("|")
+    });
+    scheduleDictionaryGapFlush(0);
+    return { ...result, pending: outbox.list().length, automaticDelivery: true };
+  }
+
+  async function flushQueuedDictionaryGaps() {
+    const outbox = await getDictionaryGapOutbox();
+    const result = await outbox.flush({ maxItems: 4 });
+    clearDictionaryGapFlushTimer();
+    if (!result.paused && result.pending > 0) {
+      const delay = outbox.nextDelayMs();
+      scheduleDictionaryGapFlush(delay === null ? 30_000 : Math.max(1_000, delay));
+    }
+    return { ...result, automaticDelivery: true };
   }
 
   async function loadModelCatalog() {
@@ -1350,7 +1462,7 @@
           {
             text: String(text || ""),
             locale: options.locale || course.targetLanguage.locale,
-            rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.9,
+            rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.82,
             pitch: Number.isFinite(pitch) ? Math.max(0.5, Math.min(1.5, pitch)) : 1,
             voice
           },
@@ -1369,6 +1481,23 @@
           {
             timeoutMs: 3_000,
             timeoutMessage: "Android text-to-speech did not stop in time."
+          }
+        );
+      },
+      installData() {
+        if (env !== "android") {
+          return Promise.resolve({
+            runtime: "browser-web-speech",
+            launched: false,
+            reason: "browser-managed"
+          });
+        }
+        return nativeCall(
+          "speech_install_data",
+          {},
+          {
+            timeoutMs: 10_000,
+            timeoutMessage: "Android could not open its Czech voice installer."
           }
         );
       }
@@ -1434,14 +1563,22 @@
       enqueueReport(payload = {}, options = {}) {
         return enqueueReport(payload, options);
       },
-      exportDictionaryGaps(options = {}) {
-        return prepareDictionaryGapExport(options);
+      enqueueDictionaryGap(feedback = {}) {
+        return enqueueDictionaryGap(feedback);
       },
       flushReports() {
         return flushQueuedReports();
+      },
+      flushDictionaryGaps() {
+        return flushQueuedDictionaryGaps();
       }
     }
   };
 
+  window.addEventListener("online", () => scheduleDictionaryGapFlush(0));
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") scheduleDictionaryGapFlush(0);
+  });
+  scheduleDictionaryGapFlush(1_000);
   clearNativeBrowserState();
 })();

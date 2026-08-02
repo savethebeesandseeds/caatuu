@@ -35,6 +35,45 @@ Direct `run.sh` or Cargo launches also bind to loopback by default on port
 already in place; Compose sets `BIND_ADDR=0.0.0.0` inside its isolated container
 and controls host exposure through its port mapping.
 
+## Czech dictionary-gap ledger
+
+The active Czech runtime accepts the narrow, write-only dictionary maintenance
+request:
+
+```text
+POST /cz/api/dictionary/gaps
+```
+
+The `caatuu.dictionary-gap-report.v1` body contains a schema discriminator and
+only six observation fields: `targetWord`, `normalizedWord`, `dictionaryKey`,
+`dictionaryDirection`, `lookupOutcome`, and `lookupReturned`. The route rejects
+unknown fields, unsupported dictionary identities, and oversized or malformed
+requests. It does not accept sentences, translations, comments, client
+timestamps, report identifiers, URLs, retry metadata, or device information.
+
+After validation, the server deduplicates by dictionary key, direction, and
+normalized word, adds server-side first-seen and last-seen timestamps, and
+atomically publishes the private ledger. It returns
+`{"ok":true,"stored":true}` only after that durable publish succeeds, allowing
+the client to retain failed attempts in its dedicated device outbox and retry
+later.
+
+Compose persists the ledger at:
+
+```text
+artifacts/dictionary-gaps/czech-missing-words.v1.json
+```
+
+inside the ignored host artifact directory, mounted at
+`/var/lib/caatuu/dictionary-gaps` in the container. Direct launches can override
+the path with `DICTIONARY_GAP_STORE_PATH`. There is deliberately no GET or
+listing route for the ledger. Records currently remain until a maintainer
+reviews, archives, or deletes them; there is no automatic retention expiry.
+
+This endpoint is not a general diagnostic channel. Word World sentence reports
+remain device-local, and the generic `/api/bug-report` route remains disabled
+for the development preview.
+
 The archived Chinese API and WebSocket are opt-in. Keep them disabled for the
 normal runtime; enabling them exposes an unauthenticated, potentially billable
 backend anywhere the runtime is reachable:

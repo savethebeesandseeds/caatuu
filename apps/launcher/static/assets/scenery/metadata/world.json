@@ -1,0 +1,752 @@
+{
+  "schema_version": 2,
+  "layout_id": "memory-grove-v6",
+  "catalog_id": "memory-moon-style-v1",
+  "catalog_version": 3,
+  "projection_id": "isometric-orthographic-45-30",
+  "terrain": {
+    "columns": 36,
+    "rows": 36,
+    "cell_size": 0.333333,
+    "tile_legend": {
+      "g": "grass-moss-a"
+    },
+    "tile_rows": [
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggggggggg"
+    ],
+    "render_tiles": {
+      "texture": "images/terrain-atlas.png",
+      "image_size_px": [
+        832,
+        2496
+      ],
+      "tile_size_px": [
+        208,
+        208
+      ],
+      "tile_content_size_px": [
+        192,
+        192
+      ],
+      "tile_gutter_px": 8,
+      "atlas_grid": [
+        4,
+        12
+      ],
+      "world_tile_size": 1,
+      "chunk_size_tiles": 3,
+      "stream_radius_chunks": 3,
+      "padding_tiles": 12,
+      "padding_tile_index": 0,
+      "pixels_per_world_unit": 192,
+      "projection": "top-down",
+      "render_role": "streamed-reusable-tile-map",
+      "source_id": "imagegen-materials-deterministic-regions-topology-v4-20260802",
+      "tile_ids": [
+        "grass-moss-a",
+        "grass-moss-b",
+        "grass-moss-c",
+        "grass-moss-d",
+        "grass-flowers-cream-a",
+        "grass-flowers-amber-a",
+        "grass-leaf-litter-a",
+        "grass-pebbles-a",
+        "grass-worn-small-a",
+        "grass-worn-large-a",
+        "grass-moss-cool-a",
+        "grass-moss-warm-a",
+        "path-isolated",
+        "path-n",
+        "path-e",
+        "path-ne",
+        "path-s",
+        "path-ns",
+        "path-es",
+        "path-nes",
+        "path-w",
+        "path-nw",
+        "path-ew",
+        "path-new",
+        "path-sw",
+        "path-nsw",
+        "path-esw",
+        "path-nesw",
+        "moonstone-none",
+        "moonstone-nw",
+        "moonstone-ne",
+        "moonstone-nw-ne",
+        "moonstone-se",
+        "moonstone-nw-se",
+        "moonstone-ne-se",
+        "moonstone-nw-ne-se",
+        "moonstone-sw",
+        "moonstone-nw-sw",
+        "moonstone-ne-sw",
+        "moonstone-nw-ne-sw",
+        "moonstone-se-sw",
+        "moonstone-nw-se-sw",
+        "moonstone-ne-se-sw",
+        "moonstone-full",
+        "moonstone-full-b",
+        "moonstone-full-c",
+        "moonstone-full-d",
+        "moonstone-full-e"
+      ],
+      "path_connectivity": {
+        "first_index": 12,
+        "north_bit": 1,
+        "east_bit": 2,
+        "south_bit": 4,
+        "west_bit": 8
+      },
+      "terrain_regions": [
+        {
+          "id": "moonstone-court",
+          "first_index": 28,
+          "northwest_bit": 1,
+          "northeast_bit": 2,
+          "southeast_bit": 4,
+          "southwest_bit": 8,
+          "full_variant_indices": [
+            44,
+            45,
+            46,
+            47
+          ]
+        }
+      ]
+    },
+    "tile_index_rows": [
+      [
+        0,
+        3,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0
+      ],
+      [
+        3,
+        7,
+        0,
+        2,
+        4,
+        0,
+        0,
+        0,
+        1,
+        10,
+        2,
+        3
+      ],
+      [
+        0,
+        6,
+        6,
+        0,
+        16,
+        3,
+        2,
+        3,
+        0,
+        6,
+        10,
+        3
+      ],
+      [
+        3,
+        2,
+        2,
+        14,
+        23,
+        24,
+        1,
+        1,
+        1,
+        3,
+        2,
+        0
+      ],
+      [
+        32,
+        40,
+        40,
+        40,
+        36,
+        17,
+        0,
+        0,
+        2,
+        0,
+        18,
+        20
+      ],
+      [
+        34,
+        43,
+        43,
+        43,
+        41,
+        36,
+        0,
+        1,
+        0,
+        18,
+        21,
+        2
+      ],
+      [
+        34,
+        43,
+        43,
+        43,
+        43,
+        41,
+        40,
+        36,
+        26,
+        21,
+        7,
+        0
+      ],
+      [
+        30,
+        35,
+        43,
+        43,
+        43,
+        43,
+        43,
+        41,
+        36,
+        1,
+        0,
+        3
+      ],
+      [
+        3,
+        30,
+        31,
+        35,
+        43,
+        43,
+        43,
+        43,
+        37,
+        2,
+        1,
+        2
+      ],
+      [
+        0,
+        3,
+        5,
+        30,
+        35,
+        43,
+        43,
+        39,
+        29,
+        2,
+        11,
+        6
+      ],
+      [
+        3,
+        10,
+        0,
+        0,
+        30,
+        31,
+        31,
+        29,
+        3,
+        3,
+        7,
+        1
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        9,
+        3,
+        1,
+        0,
+        0
+      ]
+    ]
+  },
+  "placements": [
+    {
+      "id": "HeroCommunityTree",
+      "object": "community-tree-a",
+      "layer": "back",
+      "position": [
+        -3.05,
+        -3.8
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "hero",
+        "landmark",
+        "clearing"
+      ]
+    },
+    {
+      "id": "HeroClearingFlowers",
+      "object": "flower-patch-a",
+      "layer": "back",
+      "position": [
+        -0.9,
+        -4.45
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": false,
+      "tags": [
+        "accent",
+        "clearing"
+      ]
+    },
+    {
+      "id": "NorthRimBoulder",
+      "object": "moss-boulder-a",
+      "layer": "back",
+      "position": [
+        -4.8,
+        -4.85
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "cluster"
+      ]
+    },
+    {
+      "id": "NorthEastOak",
+      "object": "tree-oak-a",
+      "layer": "back",
+      "position": [
+        3.65,
+        -4.65
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "canopy",
+        "deciduous"
+      ]
+    },
+    {
+      "id": "UpperRouteLamp",
+      "object": "street-lamp-a",
+      "layer": "back",
+      "position": [
+        -0.75,
+        -2.4
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "path",
+        "wayfinding"
+      ]
+    },
+    {
+      "id": "NorthEastBush",
+      "object": "moon-bush-round-a",
+      "layer": "back",
+      "position": [
+        5,
+        -3.1
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "cluster"
+      ]
+    },
+    {
+      "id": "EastBranchBush",
+      "object": "moon-bush-round-a",
+      "layer": "back",
+      "position": [
+        5.05,
+        -1.55
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "east-branch"
+      ]
+    },
+    {
+      "id": "WestVillageWell",
+      "object": "village-well-a",
+      "layer": "middle",
+      "position": [
+        -3.1,
+        0.4
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "landmark",
+        "water",
+        "well-pocket"
+      ]
+    },
+    {
+      "id": "WellPocketFlowers",
+      "object": "flower-patch-a",
+      "layer": "middle",
+      "position": [
+        -4.25,
+        0.85
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": false,
+      "tags": [
+        "accent",
+        "well-pocket"
+      ]
+    },
+    {
+      "id": "JunctionSign",
+      "object": "trail-sign-a",
+      "layer": "middle",
+      "position": [
+        -0.1,
+        2.35
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "wayfinding",
+        "junction"
+      ]
+    },
+    {
+      "id": "JunctionLamp",
+      "object": "street-lamp-a",
+      "layer": "middle",
+      "position": [
+        1.9,
+        1.35
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "path",
+        "junction"
+      ]
+    },
+    {
+      "id": "EastBranchBoulder",
+      "object": "moss-boulder-a",
+      "layer": "middle",
+      "position": [
+        3.8,
+        0.7
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "east-branch"
+      ]
+    },
+    {
+      "id": "WestPocketStump",
+      "object": "tree-stump-a",
+      "layer": "middle",
+      "position": [
+        -4.75,
+        1.75
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "obstacle",
+        "cluster"
+      ]
+    },
+    {
+      "id": "SouthWestBush",
+      "object": "moon-bush-round-a",
+      "layer": "front",
+      "position": [
+        -4.7,
+        4
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "cluster"
+      ]
+    },
+    {
+      "id": "SouthWestFlowers",
+      "object": "flower-patch-a",
+      "layer": "front",
+      "position": [
+        -3.35,
+        3.2
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": false,
+      "tags": [
+        "accent",
+        "cluster"
+      ]
+    },
+    {
+      "id": "SouthEastBoulder",
+      "object": "moss-boulder-a",
+      "layer": "front",
+      "position": [
+        3.55,
+        4.35
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "cluster"
+      ]
+    },
+    {
+      "id": "SouthEastWillow",
+      "object": "tree-willow-a",
+      "layer": "front",
+      "position": [
+        5,
+        3.55
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": true,
+      "tags": [
+        "boundary",
+        "canopy",
+        "deciduous"
+      ]
+    },
+    {
+      "id": "SouthGateFlowers",
+      "object": "flower-patch-a",
+      "layer": "front",
+      "position": [
+        0.35,
+        4.85
+      ],
+      "scale": 1,
+      "flip_horizontal": false,
+      "collision_enabled": false,
+      "tags": [
+        "accent",
+        "spawn"
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "NorthBoundary",
+      "position": [
+        0,
+        0.5,
+        -5.88
+      ],
+      "size": [
+        12,
+        1,
+        0.24
+      ]
+    },
+    {
+      "id": "SouthBoundary",
+      "position": [
+        0,
+        0.5,
+        5.88
+      ],
+      "size": [
+        12,
+        1,
+        0.24
+      ]
+    },
+    {
+      "id": "WestBoundary",
+      "position": [
+        -5.88,
+        0.5,
+        0
+      ],
+      "size": [
+        0.24,
+        1,
+        12
+      ]
+    },
+    {
+      "id": "EastBoundary",
+      "position": [
+        5.88,
+        0.5,
+        0
+      ],
+      "size": [
+        0.24,
+        1,
+        12
+      ]
+    }
+  ],
+  "spawn_points": [
+    {
+      "id": "player-default",
+      "position": [
+        1.9,
+        0,
+        5.4
+      ]
+    }
+  ],
+  "critical_routes": [
+    {
+      "id": "south-to-hero-clearing",
+      "points": [
+        [
+          1.9,
+          5.4
+        ],
+        [
+          1.37,
+          3.57
+        ],
+        [
+          0.75,
+          1.46
+        ],
+        [
+          0.12,
+          -0.07
+        ],
+        [
+          -1.22,
+          -1.69
+        ],
+        [
+          -2.25,
+          -2.85
+        ]
+      ]
+    },
+    {
+      "id": "junction-to-well-pocket",
+      "points": [
+        [
+          0.75,
+          1.46
+        ],
+        [
+          -0.74,
+          1.66
+        ],
+        [
+          -2,
+          0.75
+        ]
+      ]
+    },
+    {
+      "id": "junction-to-east-exit",
+      "points": [
+        [
+          0.75,
+          1.46
+        ],
+        [
+          1.56,
+          0.32
+        ],
+        [
+          3.33,
+          -0.45
+        ],
+        [
+          5.48,
+          -1.07
+        ]
+      ]
+    }
+  ]
+}

@@ -278,6 +278,13 @@ x86_64 emulator, pass `-e CAATUU_ANDROID_ABIS=arm64-v8a,x86_64`.
 `https://caatuu.waajacu.com/api/bug-report`, including for the Play variant.
 Override it only for a trusted development diagnostics endpoint.
 
+`CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defaults to
+`https://caatuu.waajacu.com/cz/api/dictionary/gaps`. It is used only by the
+strict `report_dictionary_gap` bridge request: the native shell forwards the
+validated dictionary-gap payload without a device, app, or diagnostics
+envelope. Release variants require HTTPS; debug builds may override it with a
+trusted HTTP LAN endpoint.
+
 ## Device Smoke Check
 
 After building the debug APK, connect one authorized Android device to the

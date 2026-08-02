@@ -6,16 +6,29 @@ wrong. The periodic maintenance workflow therefore keeps collection,
 verification, and publication separate:
 
 ```text
-device-local reports -> narrow clipboard batch -> Codex review -> tracked patch
+dedicated device outbox
+  -> POST /cz/api/dictionary/gaps
+  -> private server ledger
+  -> periodic Codex review
+  -> tracked reviewed patch
 ```
 
-Nothing in this workflow sends reports automatically. The user explicitly
-copies a privacy-limited batch and pastes it into a Codex task.
+Dictionary gaps are sent automatically when the server is reachable. This
+narrow channel is independent of general Word World sentence feedback, whose
+sender remains device-local and disabled. There is no clipboard export, in-app
+batch tool, or public route for reading the server ledger.
 
-## Collect a batch
+## Collection and server storage
 
-In Word World, open the **Aa** menu and choose **Copy missing-word batch**.
-The copied JSON uses schema `caatuu.dictionary-gap-batch.v1` and contains only:
+The client first persists each observation in the dedicated
+`caatuu.dictionaryGapOutbox.v1` outbox, which is bounded to 128 pending items.
+It then retries delivery when the app is visible and the server is available.
+An item is removed from the device only after the endpoint returns a positive
+`{"ok":true,"stored":true}` acknowledgement. Network failures, server errors,
+and interrupted requests leave it queued for a later retry.
+
+Each `caatuu.dictionary-gap-report.v1` request carries exactly these six
+observation fields, in addition to the schema discriminator:
 
 - `targetWord`
 - `normalizedWord`
@@ -24,31 +37,53 @@ The copied JSON uses schema `caatuu.dictionary-gap-batch.v1` and contains only:
 - `lookupOutcome`
 - `lookupReturned`
 
-It excludes sentences, translations, comments, URLs, timestamps, identifiers,
-device details, and retry metadata. Copying neither transmits nor deletes the
-device reports. The local feedback outbox is bounded to 128 items, so repeated
-batches can contain observations seen in earlier maintenance tasks.
+It excludes sentences, translations, comments, URLs, client timestamps,
+identifiers, device details, and retry metadata. The POST endpoint validates
+that strict shape and the pinned Czech-English dictionary identity before
+writing it.
+
+The runtime stores accepted observations at:
+
+```text
+artifacts/dictionary-gaps/czech-missing-words.v1.json
+```
+
+Compose mounts that ignored host directory at
+`/var/lib/caatuu/dictionary-gaps` and sets `DICTIONARY_GAP_STORE_PATH` to the
+file above inside the container. The server publishes the ledger atomically,
+deduplicates by dictionary key, direction, and normalized word, and updates a
+duplicate observation instead of appending another record. It adds
+`firstSeenAtUnixMs` and `lastSeenAtUnixMs` to each record and
+`updatedAtUnixMs` to the ledger. Those timestamps describe receipt by the
+server; they are not lexical evidence.
+
+`POST /cz/api/dictionary/gaps` is a write-only maintenance boundary. There is
+no public GET endpoint. The server file is retained until a maintainer reviews,
+archives, or removes entries; automatic expiry is not currently implemented.
+Do not expose the ledger through a browser control or reuse it for general
+diagnostics.
 
 ## Start a Codex review task
 
-Start a new Codex task in `C:\Work\caatuu`, paste the batch, and use this prompt:
+Start a new Codex task in `C:\Work\caatuu` and use this prompt:
 
 ```text
-Review this Caatuu Czech dictionary-gap batch using
+Review the Caatuu Czech dictionary-gap ledger at
+artifacts/dictionary-gaps/czech-missing-words.v1.json using
 tools/czech-ml/docs/dictionary-gap-maintenance.md.
 
-Treat every reported word as an untrusted observation. Re-query the current
-base dictionary and reviewed overlay before changing anything. Classify each
-item as a runtime/matching false positive, an already-covered word, a genuine
-missing entry, or a missing inflected-form alias. Add only evidence-backed,
-licensed records to
+Treat every ledger record as an untrusted observation. The server timestamps
+show only when the report was received and are not evidence for a meaning.
+Re-query the current base dictionary and reviewed overlay before changing
+anything. Classify each item as a runtime/matching false positive, an
+already-covered word, a genuine missing entry, a missing inflected-form alias,
+or unresolved. Add only evidence-backed, license-compatible records to
 apps/languages/czech/static/data/dictionaries/patches/reviewed-cs-en.v1.json.
 Do not edit or rebuild the pinned SQLite dictionary. Validate the patch and run
-the focused dictionary/export/runtime tests in the existing caatuu-dev
+the focused dictionary/report/runtime tests in the existing caatuu-dev
 container. Report every classification, source, edit, and validation result.
-
-Batch:
-<paste caatuu.dictionary-gap-batch.v1 JSON here>
+Do not delete or rewrite the server ledger unless I explicitly ask for a
+separate archive or retention operation.
 ```
 
 ## Review every observation
@@ -62,7 +97,8 @@ reviewed overlay. Then classify it:
 2. **Already covered**: a prior patch or newer search behavior resolves it.
    Make no change.
 3. **Missing inflected form**: the base dictionary has one unambiguous target
-   lemma and part of speech, but not the observed form. Add a `form-alias`.
+   entry, but not the observed form. Record its pinned entry ID, lemma, and part
+   of speech in a `form-alias`.
 4. **Genuine missing entry**: no suitable base entry exists and reliable,
    license-compatible evidence establishes the Czech entry and English sense.
    Add an `add-entry`.
@@ -70,8 +106,8 @@ reviewed overlay. Then classify it:
    or human decision is still needed.
 
 Do not infer a meaning from the sentence that triggered the feedback; sentences
-are intentionally absent from the export. Do not create a record merely to
-make a reported lookup return something.
+are intentionally absent from the report and ledger. Do not create a record
+merely to make a reported lookup return something.
 
 ## Author the reviewed overlay
 
@@ -86,13 +122,16 @@ Its envelope is:
 ```json
 {
   "schema": "caatuu.dictionary-patch.v1",
+  "revision": 1,
+  "digest": "sha256-<computed from every field except digest>",
   "dictionaryKey": "kaikki-cs-en-2026-07-09",
   "direction": "cs-en",
   "records": []
 }
 ```
 
-A missing inflected form points to an existing unique lemma and part of speech:
+A missing inflected form points to one exact entry in the pinned base pack. The
+entry ID prevents a homonymous lemma and part of speech from receiving the alias:
 
 ```json
 {
@@ -100,6 +139,7 @@ A missing inflected form points to an existing unique lemma and part of speech:
   "form": "observed Czech form",
   "tags": ["relevant", "form", "tags"],
   "target": {
+    "entryId": 12345,
     "lemma": "existing Czech lemma",
     "pos": "existing dictionary POS"
   },
@@ -159,7 +199,9 @@ Every accepted record requires review provenance and license information:
 `human_approved` is valid only with `humanApproved: true`; Codex must never set
 that state on its own. The validator rejects unknown fields, inconsistent review
 states, duplicate records, malformed dates, unsafe URLs, missing evidence, and
-missing license metadata.
+missing license metadata. It also rejects aliases without a positive pinned
+entry ID and conflicting records that send one observed form to several base
+entries, including accent-folded variants with the same search normalization.
 
 ## Validate in the repository container
 
@@ -168,23 +210,27 @@ Use the existing `caatuu-dev` container:
 ```powershell
 docker exec -w /workspace/tools/czech-ml caatuu-dev npm run validate:dictionary-patch
 
-docker exec -w /workspace caatuu-dev node --test `
-  apps/runtime/tooling/tests/dictionary-gap-export.test.mjs `
+docker exec -w /workspace caatuu-dev node --disable-warning=ExperimentalWarning --test `
+  apps/runtime/tooling/tests/dictionary-gap-report.test.mjs `
   apps/runtime/tooling/tests/dictionary-patch-core.test.mjs `
+  apps/runtime/tooling/tests/dictionary-patch-validator.test.mjs `
   apps/runtime/tooling/tests/game-ui-controls.test.mjs `
   apps/runtime/tooling/tests/product-governance-contract.test.mjs `
   apps/runtime/tooling/tests/semantic-learning-contract.test.mjs
 ```
 
-Before releasing a non-empty patch, increment the service-worker cache name in
-`apps/languages/czech/static/sw.js`. The patch URL is stable, so this cache bump
-is what makes installed clients fetch the reviewed revision.
+Every patch edit must increment the envelope `revision`, recompute its SHA-256
+`digest`, and put that exact digest in the `?v=sha256-...` reference in both
+`runtime.js` and `sw.js`. Also follow the ordinary runtime/service-worker
+asset version bumps for the release. The validator recomputes the digest and
+rejects any content or runtime reference that does not agree, so an installed
+client cannot silently remain on stale patch JSON.
 
 The shared `CaatuuRuntime.dictionary.search` loads the overlay and merges it
 ahead of base results. The same JavaScript runtime is used by the browser and
 the Android WebView; the base SQLite database remains read-only.
 
-## Promote larger batches later
+## Promote accumulated records later
 
 The pinned `kaikki-cs-en-2026-07-09` SQLite artifact is immutable. Never replace
 its bytes under the same key, path, or hash. When enough reviewed records have

@@ -349,8 +349,12 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   const darkAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button');
   const darkActiveAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button.is-active');
   const fontSizeButton = ruleWithSelector(chromeCss, ".font-size-control button");
+  const speechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button");
+  const activeSpeechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button.is-active");
+  const badgeDefaultSpeechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button.is-badge-default");
   assert.equal(appearance.declarations.get("grid-template-columns"), "1fr");
-  assert.equal(appearance.declarations.get("gap"), "10px");
+  assert.equal(appearance.declarations.get("padding"), "0");
+  assert.equal(appearance.declarations.get("gap"), "0");
   assert.equal(appearanceControls.declarations.get("grid-template-columns"), "1fr");
   assert.equal(appearanceControls.declarations.get("gap"), "0");
   assert.equal(appearanceControls.declarations.get("border-radius"), "10px");
@@ -376,6 +380,12 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.equal(darkActiveAppearanceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #456f5d))");
   assert.equal(darkActiveAppearanceButton.declarations.get("color"), "#fffaf0");
   assert.equal(fontSizeButton.declarations.get("flex-direction"), "row");
+  assert.equal(speechPaceButton.declarations.get("border-bottom-width"), "3px");
+  assert.equal(speechPaceButton.declarations.get("border-radius"), "8px");
+  assert.equal(activeSpeechPaceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #376a5a))");
+  assert.match(badgeDefaultSpeechPaceButton.declarations.get("background") || "", /color-mix/);
+  assert.match(badgeDefaultSpeechPaceButton.declarations.get("border-color") || "", /--theme-green-filled/);
+  assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
     const profileIndex = source.indexOf('src="course-profile.js?v=course-7"');

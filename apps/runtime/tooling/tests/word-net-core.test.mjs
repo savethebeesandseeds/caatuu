@@ -24,6 +24,9 @@ import {
   sentenceTargets,
   selectDictionaryMeaning,
   selectSpeechSynthesisVoice,
+  resolveSpeechPace,
+  speechPaceForDifficulty,
+  speechPaceForPreference,
   stripModelEcho,
   tokenizeCzechSentence,
   tokenizeEnglishReconstruction,
@@ -66,6 +69,45 @@ test("detects native speech support without requiring voices to be loaded", () =
   assert.equal(isSpeechSynthesisSupported({ speak() {} }, MockUtterance), false);
   assert.equal(isSpeechSynthesisSupported(synthesis, null), false);
   assert.equal(isSpeechSynthesisSupported(null, MockUtterance), false);
+});
+
+test("maps course difficulty badges to distinct Word World speech paces", () => {
+  assert.deepEqual(speechPaceForDifficulty(1), { rate: 0.65, label: "slower" });
+  assert.deepEqual(speechPaceForDifficulty(2), { rate: 0.82, label: "slow" });
+  assert.deepEqual(speechPaceForDifficulty(3), { rate: 1, label: "normal" });
+  assert.deepEqual(speechPaceForDifficulty("unknown"), { rate: 0.65, label: "slower" });
+});
+
+test("lets an explicit speech pace override the badge and safely return to it", () => {
+  assert.deepEqual(speechPaceForPreference("slower"), { rate: 0.65, label: "slower" });
+  assert.deepEqual(speechPaceForPreference("SLOW"), { rate: 0.82, label: "slow" });
+  assert.deepEqual(speechPaceForPreference("normal"), { rate: 1, label: "normal" });
+  assert.equal(speechPaceForPreference("fast"), null);
+
+  assert.deepEqual(resolveSpeechPace(1, "normal"), {
+    rate: 1,
+    label: "normal",
+    key: "normal",
+    source: "override"
+  });
+  assert.deepEqual(resolveSpeechPace(3, "slower"), {
+    rate: 0.65,
+    label: "slower",
+    key: "slower",
+    source: "override"
+  });
+  assert.deepEqual(resolveSpeechPace(2, ""), {
+    rate: 0.82,
+    label: "slow",
+    key: "slow",
+    source: "badge"
+  });
+  assert.deepEqual(resolveSpeechPace(3, "invalid"), {
+    rate: 1,
+    label: "normal",
+    key: "normal",
+    source: "badge"
+  });
 });
 
 test("selects a stable Czech device voice without forcing a foreign fallback", () => {

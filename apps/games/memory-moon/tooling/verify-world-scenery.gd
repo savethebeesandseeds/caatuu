@@ -2,44 +2,90 @@ extends SceneTree
 
 const WorldScenery := preload("res://scripts/world_scenery.gd")
 const ClickNavigationScript := preload("res://scripts/click_navigation.gd")
-const CATALOG_PATH := "res://assets/scenery/memory-moon-style-v1/catalog.json"
-const LAYOUT_PATH := "res://assets/scenery/memory-grove-v6/layout.json"
-const LAYOUT_ROOT := "res://assets/scenery/memory-grove-v6/"
-const STYLE_ROOT := "res://assets/scenery/memory-moon-style-v1/"
+const SCENERY_ROOT := "res://assets/scenery/"
+const CATALOG_PATH := SCENERY_ROOT + "metadata/catalog.json"
+const LAYOUT_PATH := SCENERY_ROOT + "metadata/world.json"
 const EXPECTED_SCHEMA_VERSION := 2
 const EXPECTED_CATALOG_ID := "memory-moon-style-v1"
+const EXPECTED_CATALOG_VERSION := 3
 const EXPECTED_LAYOUT_ID := "memory-grove-v6"
 const EXPECTED_PROJECTION_ID := "isometric-orthographic-45-30"
-const EXPECTED_TERRAIN_TEXTURE := "terrain/moonroot-reusable-tiles-v1.png"
-const EXPECTED_TERRAIN_IMAGE_SIZE := Vector2i(832, 1040)
+const EXPECTED_TERRAIN_TEXTURE := "images/terrain-atlas.png"
+const EXPECTED_TERRAIN_IMAGE_SIZE := Vector2i(832, 2496)
 const EXPECTED_TERRAIN_TILE_SIZE := Vector2i(208, 208)
 const EXPECTED_TERRAIN_TILE_CONTENT_SIZE := Vector2i(192, 192)
 const EXPECTED_TERRAIN_TILE_GUTTER := 8
-const EXPECTED_TERRAIN_ATLAS_GRID := Vector2i(4, 5)
-const EXPECTED_TERRAIN_ATLAS_TILES := 20
-const EXPECTED_TERRAIN_USED_TILE_TYPES := 16
+const EXPECTED_TERRAIN_ATLAS_GRID := Vector2i(4, 12)
+const EXPECTED_TERRAIN_ATLAS_TILES := 48
+const EXPECTED_TERRAIN_USED_TILE_TYPES := 32
 const EXPECTED_TERRAIN_MAP_SIZE := Vector2i(12, 12)
 const EXPECTED_TERRAIN_MAP_TILES := 144
 const EXPECTED_TERRAIN_WORLD_TILE_SIZE := 1.0
-const EXPECTED_TERRAIN_PADDING_TILES := 6
+const EXPECTED_TERRAIN_PADDING_TILES := 12
 const EXPECTED_TERRAIN_PADDING_TILE_INDEX := 0
 const EXPECTED_TERRAIN_CHUNK_SIZE_TILES := 3
-const EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS := 2
-const EXPECTED_TERRAIN_RENDER_SIZE := Vector2i(24, 24)
-const EXPECTED_TERRAIN_CHUNK_GRID := Vector2i(8, 8)
-const EXPECTED_TERRAIN_TOTAL_CHUNKS := 64
-const EXPECTED_TERRAIN_LOADED_CHUNKS := 25
-const EXPECTED_TERRAIN_TOTAL_RENDER_TILES := 576
-const EXPECTED_TERRAIN_LOADED_RENDER_TILES := 225
-const EXPECTED_TERRAIN_FOCUS_CHUNK := Vector2i(4, 5)
+const EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS := 3
+const EXPECTED_TERRAIN_RENDER_SIZE := Vector2i(36, 36)
+const EXPECTED_TERRAIN_CHUNK_GRID := Vector2i(12, 12)
+const EXPECTED_TERRAIN_TOTAL_CHUNKS := 144
+const EXPECTED_TERRAIN_LOADED_CHUNKS := 49
+const EXPECTED_TERRAIN_TOTAL_RENDER_TILES := 1296
+const EXPECTED_TERRAIN_LOADED_RENDER_TILES := 441
+const EXPECTED_TERRAIN_FOCUS_CHUNK := Vector2i(6, 7)
 const EXPECTED_TERRAIN_PIXELS_PER_WORLD_UNIT := 192.0
 const EXPECTED_TERRAIN_PROJECTION := "top-down"
 const EXPECTED_TERRAIN_RENDER_ROLE := "streamed-reusable-tile-map"
-const EXPECTED_PATH_FIRST_INDEX := 4
+const EXPECTED_PATH_FIRST_INDEX := 12
 const EXPECTED_PATH_NORTH_BIT := 1
 const EXPECTED_PATH_EAST_BIT := 2
 const EXPECTED_PATH_SOUTH_BIT := 4
 const EXPECTED_PATH_WEST_BIT := 8
+const EXPECTED_REGION_ID := "moonstone-court"
+const EXPECTED_REGION_FIRST_INDEX := 28
+const EXPECTED_REGION_NORTHWEST_BIT := 1
+const EXPECTED_REGION_NORTHEAST_BIT := 2
+const EXPECTED_REGION_SOUTHEAST_BIT := 4
+const EXPECTED_REGION_SOUTHWEST_BIT := 8
+const EXPECTED_REGION_FULL_VARIANT_INDICES := [44, 45, 46, 47]
+const EXPECTED_SCALE_REFERENCE := {
+	"id": "memory-moon-humanoid-v1",
+	"visual_height_world": 1.4264,
+	"capsule_height_world": 1.45,
+	"capsule_radius_world": 0.28,
+	"model_runtime_scale": 0.78,
+	"measurement_basis": "visible-silhouette-above-ground-anchor",
+}
+const EXPECTED_OBJECT_WORLD_HEIGHTS := {
+	"community-tree-a": [4.0, [3.6, 4.6]],
+	"flower-patch-a": [0.525, [0.45, 0.62]],
+	"moon-bush-round-a": [1.2, [1.0, 1.4]],
+	"moon-sapling-a": [3.45, [3.0, 3.8]],
+	"moss-boulder-a": [0.98, [0.8, 1.15]],
+	"street-lamp-a": [2.4, [2.15, 2.65]],
+	"trail-sign-a": [1.8, [1.6, 2.0]],
+	"tree-birch-a": [4.5, [4.0, 4.9]],
+	"tree-maple-a": [4.2, [3.8, 4.6]],
+	"tree-oak-a": [4.4, [4.0, 4.8]],
+	"tree-pine-a": [5.1, [4.6, 5.6]],
+	"tree-poplar-a": [5.2, [4.7, 5.8]],
+	"tree-stump-a": [0.86, [0.75, 0.98]],
+	"tree-willow-a": [4.3, [3.9, 4.8]],
+	"village-well-a": [1.95, [1.75, 2.2]],
+}
+const EXPECTED_COLLISION_PROFILES := {
+	"none": {"shapes": []},
+	"hero-tree-trunk": {"shapes": [{"type": "cylinder", "radius": 1.375, "height": 0.525, "offset": [0, 0.2625, 0]}]},
+	"sapling-trunk": {"shapes": [{"type": "cylinder", "radius": 0.39, "height": 1.105, "offset": [0, 0.5525, 0]}]},
+	"bush-footprint": {"shapes": [{"type": "cylinder", "radius": 0.456, "height": 0.504, "offset": [0, 0.252, 0]}]},
+	"boulder-footprint": {"shapes": [{"type": "box", "size": [0.98, 0.7, 0.83], "offset": [0, 0.35, 0]}]},
+	"well-ring": {"shapes": [{"type": "cylinder", "radius": 0.65, "height": 0.9, "offset": [0, 0.45, 0]}]},
+	"stump-footprint": {"shapes": [{"type": "cylinder", "radius": 0.378, "height": 0.441, "offset": [0, 0.2205, 0]}]},
+	"lamp-post": {"shapes": [{"type": "cylinder", "radius": 0.169, "height": 1.3, "offset": [0, 0.65, 0]}]},
+	"sign-post": {"shapes": [{"type": "cylinder", "radius": 0.18, "height": 0.96, "offset": [0, 0.48, 0]}]},
+	"tree-trunk-broad": {"shapes": [{"type": "cylinder", "radius": 0.48, "height": 1.2, "offset": [0, 0.6, 0]}]},
+	"tree-trunk-standard": {"shapes": [{"type": "cylinder", "radius": 0.38, "height": 1.15, "offset": [0, 0.575, 0]}]},
+	"tree-trunk-slender": {"shapes": [{"type": "cylinder", "radius": 0.3, "height": 1.25, "offset": [0, 0.625, 0]}]},
+}
 const FORBIDDEN_PATH_PARTS := ["launcher", "originals", "miscellaneous", "visual-vocabulary"]
 const EPSILON := 0.0001
 
@@ -84,7 +130,7 @@ func _verify() -> void:
 	_check(WorldScenery.LAYOUT_ID == EXPECTED_LAYOUT_ID, "runtime layout constant must select v6")
 	_check(WorldScenery.CATALOG_PATH == CATALOG_PATH, "runtime catalog path changed")
 	_check(WorldScenery.LAYOUT_PATH == LAYOUT_PATH, "runtime layout path changed")
-	_check(WorldScenery.STYLE_ROOT == STYLE_ROOT, "runtime style root changed")
+	_check(WorldScenery.SCENERY_ROOT == SCENERY_ROOT, "runtime scenery root changed")
 	var grove_loaded := bool(grove.get_meta("loaded", false))
 	_check(grove_loaded, "MemoryGrove must report a successful data load")
 	_check(String(grove.get_meta("layout_id", "")) == EXPECTED_LAYOUT_ID, "MemoryGrove must expose the v6 layout id")
@@ -151,6 +197,7 @@ func _verify_data_contracts() -> void:
 		"catalog_version",
 		"release_status",
 		"projection",
+		"scale_reference",
 		"style_family",
 		"floor_atlas",
 		"collision_profiles",
@@ -175,6 +222,7 @@ func _verify_data_contracts() -> void:
 	_check(_is_integral_number(_catalog["schema_version"]) and int(_catalog["schema_version"]) == EXPECTED_SCHEMA_VERSION, "catalog schema_version must be integer 2")
 	_check(_is_integral_number(_layout["schema_version"]) and int(_layout["schema_version"]) == EXPECTED_SCHEMA_VERSION, "layout schema_version must be integer 2")
 	_check(String(_catalog["catalog_id"]) == EXPECTED_CATALOG_ID, "catalog id changed")
+	_check(_is_integral_number(_catalog["catalog_version"]) and int(_catalog["catalog_version"]) == EXPECTED_CATALOG_VERSION, "catalog version must remain 3")
 	_check(String(_layout["layout_id"]) == EXPECTED_LAYOUT_ID, "layout id changed")
 	_check(String(_layout["catalog_id"]) == EXPECTED_CATALOG_ID, "layout catalog id changed")
 	_check(_layout["catalog_version"] == _catalog["catalog_version"], "layout and catalog versions must match")
@@ -185,9 +233,29 @@ func _verify_data_contracts() -> void:
 		_check(String(projection.get("id", "")) == EXPECTED_PROJECTION_ID, "catalog projection id changed")
 		_check(_number_matches(projection.get("yaw_degrees", null), 45.0), "catalog yaw must remain 45 degrees")
 		_check(_number_matches(projection.get("elevation_degrees", null), 30.0), "catalog elevation must remain 30 degrees")
+	_verify_scale_reference()
 	_verify_floor_catalog()
 	_verify_object_catalog()
 	_verify_layout_data()
+
+
+func _verify_scale_reference() -> void:
+	_check(typeof(_catalog["scale_reference"]) == TYPE_DICTIONARY, "catalog scale_reference must be an object")
+	if typeof(_catalog["scale_reference"]) != TYPE_DICTIONARY:
+		return
+	var reference: Dictionary = _catalog["scale_reference"]
+	var required := [
+		"id",
+		"visual_height_world",
+		"capsule_height_world",
+		"capsule_radius_world",
+		"model_runtime_scale",
+		"measurement_basis",
+	]
+	_require_keys(reference, required, "catalog.scale_reference")
+	if not _has_keys(reference, required):
+		return
+	_check(_contract_value_matches(reference, EXPECTED_SCALE_REFERENCE), "catalog scale_reference must remain calibrated to the runtime humanoid")
 
 
 func _verify_floor_catalog() -> void:
@@ -198,7 +266,7 @@ func _verify_floor_catalog() -> void:
 	_require_keys(atlas, ["texture", "size_px", "gutter_px", "tiles"], "catalog.floor_atlas")
 	if not _has_keys(atlas, ["texture", "size_px", "gutter_px", "tiles"]):
 		return
-	var atlas_path := _verify_catalog_texture_path(String(atlas["texture"]), "floor atlas", "floor/")
+	var atlas_path := _verify_scenery_texture_path(String(atlas["texture"]), "floor atlas", "sources/")
 	_check(_valid_number_array(atlas["size_px"], 2, true), "floor atlas size_px must contain two positive numbers")
 	_check(_is_number(atlas["gutter_px"]) and float(atlas["gutter_px"]) >= 0.0, "floor atlas gutter must be non-negative")
 	_check(typeof(atlas["tiles"]) == TYPE_DICTIONARY and not (atlas["tiles"] as Dictionary).is_empty(), "floor atlas tiles must be a non-empty object")
@@ -237,6 +305,7 @@ func _verify_object_catalog() -> void:
 	if typeof(_catalog["collision_profiles"]) != TYPE_DICTIONARY or typeof(_catalog["objects"]) != TYPE_DICTIONARY:
 		return
 	var profiles: Dictionary = _catalog["collision_profiles"]
+	_check(_contract_value_matches(profiles, EXPECTED_COLLISION_PROFILES), "catalog collision footprints must remain calibrated to the humanoid-relative prop scale")
 	for profile_id_variant in profiles.keys():
 		var profile_id := String(profile_id_variant)
 		var profile_value: Variant = profiles[profile_id]
@@ -261,7 +330,7 @@ func _verify_object_catalog() -> void:
 		_require_keys(definition, required_object_keys, "object '%s'" % object_id)
 		if not _has_keys(definition, required_object_keys):
 			continue
-		var texture_path := _verify_catalog_texture_path(String(definition["texture"]), "object '%s'" % object_id, "objects/")
+		var texture_path := _verify_scenery_texture_path(String(definition["texture"]), "object '%s'" % object_id, "images/")
 		_check(_valid_number_array(definition["image_size_px"], 2, true), "object '%s' image_size_px is invalid" % object_id)
 		_check(_valid_number_array(definition["anchor_px"], 2, false), "object '%s' anchor_px is invalid" % object_id)
 		if _valid_number_array(definition["image_size_px"], 2, true) and _valid_number_array(definition["anchor_px"], 2, false):
@@ -272,6 +341,17 @@ func _verify_object_catalog() -> void:
 				_verify_texture(texture_path, image_size, true)
 		_check(profiles.has(String(definition["collision_profile"])), "object '%s' collision profile is unknown" % object_id)
 		_check(String(definition["collision_scale_mode"]) in ["fixed", "with-visual"], "object '%s' collision scale mode is invalid" % object_id)
+		_check(EXPECTED_OBJECT_WORLD_HEIGHTS.has(object_id), "object '%s' is missing its humanoid-relative height contract" % object_id)
+		if EXPECTED_OBJECT_WORLD_HEIGHTS.has(object_id):
+			var expected_height_contract: Array = EXPECTED_OBJECT_WORLD_HEIGHTS[object_id]
+			var expected_allowed: Array = expected_height_contract[1]
+			var actual_allowed: Array = definition["allowed_world_height"] if typeof(definition["allowed_world_height"]) == TYPE_ARRAY else []
+			_check(_number_matches(definition["default_world_height"], float(expected_height_contract[0])), "object '%s' default height changed from its humanoid-relative contract" % object_id)
+			_check(actual_allowed.size() == 2, "object '%s' allowed height range is invalid" % object_id)
+			if actual_allowed.size() == 2:
+				_check(_number_matches(actual_allowed[0], float(expected_allowed[0])) and _number_matches(actual_allowed[1], float(expected_allowed[1])), "object '%s' allowed height range changed" % object_id)
+		var expected_scale_mode := "fixed" if String(definition["collision_profile"]) == "none" else "with-visual"
+		_check(String(definition["collision_scale_mode"]) == expected_scale_mode, "object '%s' collision scaling must follow its visual instance scale" % object_id)
 		_check(typeof(definition["occlusion"]) == TYPE_DICTIONARY and String((definition["occlusion"] as Dictionary).get("mode", "")) == "depth", "object '%s' must use depth-only occlusion" % object_id)
 		_check(typeof(definition["reuse"]) == TYPE_DICTIONARY, "object '%s' reuse must be an object" % object_id)
 
@@ -365,15 +445,16 @@ func _verify_render_tiles_data(value: Variant, index_rows_value: Variant) -> voi
 		"source_id",
 		"tile_ids",
 		"path_connectivity",
+		"terrain_regions",
 	]
 	_require_keys(render_tiles, required, "layout.terrain.render_tiles")
 	if not _has_keys(render_tiles, required):
 		return
 
-	var texture_path := _verify_layout_texture_path(
+	var texture_path := _verify_scenery_texture_path(
 		String(render_tiles["texture"]),
 		"terrain reusable-tile atlas",
-		"terrain/",
+		"images/",
 	)
 	_check(String(render_tiles["texture"]) == EXPECTED_TERRAIN_TEXTURE, "terrain must use the exact v6 reusable-tile atlas")
 	_check(
@@ -395,8 +476,8 @@ func _verify_render_tiles_data(value: Variant, index_rows_value: Variant) -> voi
 	_check(_is_integral_number(render_tiles["tile_gutter_px"]) and int(render_tiles["tile_gutter_px"]) == EXPECTED_TERRAIN_TILE_GUTTER, "terrain tile gutter must remain 8 texels")
 	_check(_number_matches(render_tiles["world_tile_size"], EXPECTED_TERRAIN_WORLD_TILE_SIZE), "terrain world tile size must remain 1")
 	_check(_is_integral_number(render_tiles["chunk_size_tiles"]) and int(render_tiles["chunk_size_tiles"]) == EXPECTED_TERRAIN_CHUNK_SIZE_TILES, "terrain chunk size must remain 3 tiles")
-	_check(_is_integral_number(render_tiles["stream_radius_chunks"]) and int(render_tiles["stream_radius_chunks"]) == EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS, "terrain stream radius must remain 2 chunks")
-	_check(_is_integral_number(render_tiles["padding_tiles"]) and int(render_tiles["padding_tiles"]) == EXPECTED_TERRAIN_PADDING_TILES, "terrain padding must remain 6 tiles")
+	_check(_is_integral_number(render_tiles["stream_radius_chunks"]) and int(render_tiles["stream_radius_chunks"]) == EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS, "terrain stream radius must remain 3 chunks")
+	_check(_is_integral_number(render_tiles["padding_tiles"]) and int(render_tiles["padding_tiles"]) == EXPECTED_TERRAIN_PADDING_TILES, "terrain padding must remain 12 tiles")
 	_check(_is_integral_number(render_tiles["padding_tile_index"]) and int(render_tiles["padding_tile_index"]) == EXPECTED_TERRAIN_PADDING_TILE_INDEX, "terrain padding must use reusable grass tile 0")
 	_check(
 		_number_matches(render_tiles["pixels_per_world_unit"], EXPECTED_TERRAIN_PIXELS_PER_WORLD_UNIT),
@@ -415,11 +496,11 @@ func _verify_render_tiles_data(value: Variant, index_rows_value: Variant) -> voi
 	var atlas_grid := _array_to_vector2i(render_tiles["atlas_grid"]) if _valid_number_array(render_tiles["atlas_grid"], 2, true) else Vector2i.ZERO
 	var gutter := int(render_tiles["tile_gutter_px"]) if _is_integral_number(render_tiles["tile_gutter_px"]) else -1
 	var atlas_tile_count := atlas_grid.x * atlas_grid.y
-	_check(image_size == EXPECTED_TERRAIN_IMAGE_SIZE, "terrain atlas must remain 832x1040 texels")
+	_check(image_size == EXPECTED_TERRAIN_IMAGE_SIZE, "terrain atlas must remain 832x2496 texels")
 	_check(tile_size == EXPECTED_TERRAIN_TILE_SIZE, "terrain atlas cells must remain 208x208 texels")
 	_check(content_size == EXPECTED_TERRAIN_TILE_CONTENT_SIZE, "terrain tile content must remain 192x192 texels")
-	_check(atlas_grid == EXPECTED_TERRAIN_ATLAS_GRID, "terrain atlas grid must remain 4x5")
-	_check(atlas_tile_count == EXPECTED_TERRAIN_ATLAS_TILES, "terrain atlas must contain exactly 20 reusable tile types")
+	_check(atlas_grid == EXPECTED_TERRAIN_ATLAS_GRID, "terrain atlas grid must remain 4x12")
+	_check(atlas_tile_count == EXPECTED_TERRAIN_ATLAS_TILES, "terrain atlas must contain exactly 48 reusable tile types")
 	_check(tile_size * atlas_grid == image_size, "terrain tile grid must exactly cover the atlas")
 	_check(tile_size == content_size + Vector2i.ONE * gutter * 2, "terrain atlas cells must contain content plus an 8-texel gutter on every edge")
 	if content_size != Vector2i.ZERO:
@@ -441,8 +522,23 @@ func _verify_render_tiles_data(value: Variant, index_rows_value: Variant) -> voi
 		_check(not unique_tile_ids.has(tile_id), "render_tiles tile_ids must be unique")
 		unique_tile_ids[tile_id] = true
 	if tile_ids.size() == EXPECTED_TERRAIN_ATLAS_TILES:
+		_check(String(tile_ids[0]) == "grass-moss-a", "base grass tile id changed")
+		_check(String(tile_ids[4]) == "grass-flowers-cream-a", "cream-flower accent tile id changed")
+		_check(String(tile_ids[5]) == "grass-flowers-amber-a", "amber-flower accent tile id changed")
+		_check(String(tile_ids[6]) == "grass-leaf-litter-a", "leaf-litter accent tile id changed")
+		_check(String(tile_ids[7]) == "grass-pebbles-a", "pebble accent tile id changed")
+		_check(String(tile_ids[8]) == "grass-worn-small-a", "small worn-grass tile id changed")
+		_check(String(tile_ids[9]) == "grass-worn-large-a", "large worn-grass tile id changed")
+		_check(String(tile_ids[10]) == "grass-moss-cool-a", "cool-moss accent tile id changed")
+		_check(String(tile_ids[11]) == "grass-moss-warm-a", "warm-moss accent tile id changed")
 		_check(String(tile_ids[EXPECTED_PATH_FIRST_INDEX]) == "path-isolated", "path mask 0 must use the path-isolated tile")
 		_check(String(tile_ids[EXPECTED_PATH_FIRST_INDEX + 15]) == "path-nesw", "path mask 15 must use the path-nesw tile")
+		_check(String(tile_ids[EXPECTED_REGION_FIRST_INDEX]) == "moonstone-none", "moonstone mask 0 must use the empty region tile")
+		_check(String(tile_ids[EXPECTED_REGION_FIRST_INDEX + 15]) == "moonstone-full", "moonstone mask 15 must use the full region tile")
+		_check(String(tile_ids[44]) == "moonstone-full-b", "moonstone full variant B id changed")
+		_check(String(tile_ids[45]) == "moonstone-full-c", "moonstone full variant C id changed")
+		_check(String(tile_ids[46]) == "moonstone-full-d", "moonstone full variant D id changed")
+		_check(String(tile_ids[47]) == "moonstone-full-e", "moonstone full variant E id changed")
 
 	_check(typeof(index_rows_value) == TYPE_ARRAY, "terrain tile_index_rows must be an array")
 	if typeof(index_rows_value) != TYPE_ARRAY:
@@ -469,9 +565,10 @@ func _verify_render_tiles_data(value: Variant, index_rows_value: Variant) -> voi
 				used_indices[atlas_index] = true
 	_check(map_entry_count == EXPECTED_TERRAIN_MAP_TILES, "terrain tile map must contain exactly 144 authored entries")
 	_check(EXPECTED_TERRAIN_ATLAS_TILES < map_entry_count, "terrain must reuse a smaller atlas vocabulary across the authored map")
-	_check(used_indices.size() == EXPECTED_TERRAIN_USED_TILE_TYPES, "terrain map must use exactly 16 reusable tile types")
+	_check(used_indices.size() == EXPECTED_TERRAIN_USED_TILE_TYPES, "terrain map must use exactly 32 reusable tile types")
 	_check(used_indices.size() < map_entry_count, "terrain map entries must repeat reusable atlas tiles")
 	_verify_path_connectivity(index_rows, render_tiles)
+	_verify_terrain_regions(index_rows, render_tiles)
 
 
 func _verify_path_connectivity(index_rows: Array, render_tiles: Dictionary) -> void:
@@ -483,7 +580,7 @@ func _verify_path_connectivity(index_rows: Array, render_tiles: Dictionary) -> v
 	_require_keys(connectivity, required, "layout.terrain.render_tiles.path_connectivity")
 	if not _has_keys(connectivity, required):
 		return
-	_check(_is_integral_number(connectivity["first_index"]) and int(connectivity["first_index"]) == EXPECTED_PATH_FIRST_INDEX, "path tiles must begin at atlas index 4")
+	_check(_is_integral_number(connectivity["first_index"]) and int(connectivity["first_index"]) == EXPECTED_PATH_FIRST_INDEX, "path tiles must begin at atlas index 12")
 	_check(_is_integral_number(connectivity["north_bit"]) and int(connectivity["north_bit"]) == EXPECTED_PATH_NORTH_BIT, "path north bit must remain 1")
 	_check(_is_integral_number(connectivity["east_bit"]) and int(connectivity["east_bit"]) == EXPECTED_PATH_EAST_BIT, "path east bit must remain 2")
 	_check(_is_integral_number(connectivity["south_bit"]) and int(connectivity["south_bit"]) == EXPECTED_PATH_SOUTH_BIT, "path south bit must remain 4")
@@ -498,39 +595,127 @@ func _verify_path_connectivity(index_rows: Array, render_tiles: Dictionary) -> v
 				continue
 			var atlas_index := int(row[column_index])
 			var mask := _terrain_path_mask(atlas_index)
-			if atlas_index >= EXPECTED_PATH_FIRST_INDEX:
+			if _is_path_index(atlas_index):
 				_check(atlas_index < EXPECTED_PATH_FIRST_INDEX + 16, "path tile %d,%d must fit the four-bit topology vocabulary" % [column_index, row_index])
 
 			if column_index + 1 < row.size() and _is_integral_number(row[column_index + 1]):
-				var east_mask := _terrain_path_mask(int(row[column_index + 1]))
-				_check(
-					bool(mask & EXPECTED_PATH_EAST_BIT) == bool(east_mask & EXPECTED_PATH_WEST_BIT),
-					"path connectivity must agree east/west at %d,%d" % [column_index, row_index],
-				)
-			else:
+				var east_index := int(row[column_index + 1])
+				if not _is_terrain_region_index(atlas_index) and not _is_terrain_region_index(east_index):
+					var east_mask := _terrain_path_mask(east_index)
+					_check(
+						bool(mask & EXPECTED_PATH_EAST_BIT) == bool(east_mask & EXPECTED_PATH_WEST_BIT),
+						"path connectivity must agree east/west at %d,%d" % [column_index, row_index],
+					)
+			elif _is_path_index(atlas_index):
+				_check((mask & EXPECTED_PATH_EAST_BIT) == 0, "path must not exit the east map edge at %d,%d" % [column_index, row_index])
+			elif column_index + 1 >= row.size():
 				_check((mask & EXPECTED_PATH_EAST_BIT) == 0, "path must not exit the east map edge at %d,%d" % [column_index, row_index])
 
 			if row_index + 1 < index_rows.size() and typeof(index_rows[row_index + 1]) == TYPE_ARRAY:
 				var south_row: Array = index_rows[row_index + 1]
 				if column_index < south_row.size() and _is_integral_number(south_row[column_index]):
-					var south_mask := _terrain_path_mask(int(south_row[column_index]))
-					_check(
-						bool(mask & EXPECTED_PATH_SOUTH_BIT) == bool(south_mask & EXPECTED_PATH_NORTH_BIT),
-						"path connectivity must agree north/south at %d,%d" % [column_index, row_index],
-					)
-			else:
+					var south_index := int(south_row[column_index])
+					if not _is_terrain_region_index(atlas_index) and not _is_terrain_region_index(south_index):
+						var south_mask := _terrain_path_mask(south_index)
+						_check(
+							bool(mask & EXPECTED_PATH_SOUTH_BIT) == bool(south_mask & EXPECTED_PATH_NORTH_BIT),
+							"path connectivity must agree north/south at %d,%d" % [column_index, row_index],
+						)
+			elif _is_path_index(atlas_index):
+				_check((mask & EXPECTED_PATH_SOUTH_BIT) == 0, "path must not exit the south map edge at %d,%d" % [column_index, row_index])
+			elif row_index + 1 >= index_rows.size():
 				_check((mask & EXPECTED_PATH_SOUTH_BIT) == 0, "path must not exit the south map edge at %d,%d" % [column_index, row_index])
 
-			if column_index == 0:
+			if column_index == 0 and _is_path_index(atlas_index):
 				_check((mask & EXPECTED_PATH_WEST_BIT) == 0, "path must not exit the west map edge at %d,%d" % [column_index, row_index])
-			if row_index == 0:
+			if row_index == 0 and _is_path_index(atlas_index):
 				_check((mask & EXPECTED_PATH_NORTH_BIT) == 0, "path must not exit the north map edge at %d,%d" % [column_index, row_index])
 
 
 func _terrain_path_mask(atlas_index: int) -> int:
-	if atlas_index < EXPECTED_PATH_FIRST_INDEX or atlas_index >= EXPECTED_PATH_FIRST_INDEX + 16:
+	if not _is_path_index(atlas_index):
 		return 0
 	return atlas_index - EXPECTED_PATH_FIRST_INDEX
+
+
+func _is_path_index(atlas_index: int) -> bool:
+	return atlas_index >= EXPECTED_PATH_FIRST_INDEX and atlas_index < EXPECTED_PATH_FIRST_INDEX + 16
+
+
+func _verify_terrain_regions(index_rows: Array, render_tiles: Dictionary) -> void:
+	_check(typeof(render_tiles["terrain_regions"]) == TYPE_ARRAY, "render_tiles terrain_regions must be an array")
+	if typeof(render_tiles["terrain_regions"]) != TYPE_ARRAY:
+		return
+	var regions: Array = render_tiles["terrain_regions"]
+	_check(regions.size() == 1, "the active terrain contract must define exactly one authored region family")
+	if regions.size() != 1 or typeof(regions[0]) != TYPE_DICTIONARY:
+		return
+	var region: Dictionary = regions[0]
+	var required := ["id", "first_index", "northwest_bit", "northeast_bit", "southeast_bit", "southwest_bit"]
+	_require_keys(region, required, "layout.terrain.render_tiles.terrain_regions[0]")
+	if not _has_keys(region, required):
+		return
+	_check(String(region["id"]) == EXPECTED_REGION_ID, "terrain region id must remain moonstone-court")
+	_check(_is_integral_number(region["first_index"]) and int(region["first_index"]) == EXPECTED_REGION_FIRST_INDEX, "moonstone region tiles must begin at atlas index 28")
+	_check(_is_integral_number(region["northwest_bit"]) and int(region["northwest_bit"]) == EXPECTED_REGION_NORTHWEST_BIT, "moonstone northwest bit must remain 1")
+	_check(_is_integral_number(region["northeast_bit"]) and int(region["northeast_bit"]) == EXPECTED_REGION_NORTHEAST_BIT, "moonstone northeast bit must remain 2")
+	_check(_is_integral_number(region["southeast_bit"]) and int(region["southeast_bit"]) == EXPECTED_REGION_SOUTHEAST_BIT, "moonstone southeast bit must remain 4")
+	_check(_is_integral_number(region["southwest_bit"]) and int(region["southwest_bit"]) == EXPECTED_REGION_SOUTHWEST_BIT, "moonstone southwest bit must remain 8")
+	var full_variant_indices_value: Variant = region.get("full_variant_indices", [])
+	_check(typeof(full_variant_indices_value) == TYPE_ARRAY, "moonstone full visual variants must be an array")
+	if typeof(full_variant_indices_value) == TYPE_ARRAY:
+		var full_variant_indices: Array = full_variant_indices_value
+		_check(full_variant_indices.size() == EXPECTED_REGION_FULL_VARIANT_INDICES.size(), "moonstone must define exactly four extra full visual variants")
+		for variant_offset in mini(full_variant_indices.size(), EXPECTED_REGION_FULL_VARIANT_INDICES.size()):
+			_check(
+				_is_integral_number(full_variant_indices[variant_offset])
+				and int(full_variant_indices[variant_offset]) == int(EXPECTED_REGION_FULL_VARIANT_INDICES[variant_offset]),
+				"moonstone full visual variant %d must remain atlas index %d" % [variant_offset, EXPECTED_REGION_FULL_VARIANT_INDICES[variant_offset]],
+			)
+
+	for row_index in index_rows.size():
+		if typeof(index_rows[row_index]) != TYPE_ARRAY:
+			continue
+		var row: Array = index_rows[row_index]
+		for column_index in row.size():
+			if not _is_integral_number(row[column_index]):
+				continue
+			var atlas_index := int(row[column_index])
+			var mask := _terrain_region_mask(atlas_index)
+			if column_index + 1 < row.size() and _is_integral_number(row[column_index + 1]):
+				var east_index := int(row[column_index + 1])
+				if not _is_path_index(atlas_index) and not _is_path_index(east_index):
+					var east_mask := _terrain_region_mask(east_index)
+					_check(bool(mask & EXPECTED_REGION_NORTHEAST_BIT) == bool(east_mask & EXPECTED_REGION_NORTHWEST_BIT), "terrain region north edge must agree east/west at %d,%d" % [column_index, row_index])
+					_check(bool(mask & EXPECTED_REGION_SOUTHEAST_BIT) == bool(east_mask & EXPECTED_REGION_SOUTHWEST_BIT), "terrain region south edge must agree east/west at %d,%d" % [column_index, row_index])
+			elif _is_terrain_region_index(atlas_index):
+				_check((mask & (EXPECTED_REGION_NORTHEAST_BIT | EXPECTED_REGION_SOUTHEAST_BIT)) == 0, "terrain region must not exit the east map edge at %d,%d" % [column_index, row_index])
+
+			if row_index + 1 < index_rows.size() and typeof(index_rows[row_index + 1]) == TYPE_ARRAY:
+				var south_row: Array = index_rows[row_index + 1]
+				if column_index < south_row.size() and _is_integral_number(south_row[column_index]):
+					var south_index := int(south_row[column_index])
+					if not _is_path_index(atlas_index) and not _is_path_index(south_index):
+						var south_mask := _terrain_region_mask(south_index)
+						_check(bool(mask & EXPECTED_REGION_SOUTHWEST_BIT) == bool(south_mask & EXPECTED_REGION_NORTHWEST_BIT), "terrain region west edge must agree north/south at %d,%d" % [column_index, row_index])
+						_check(bool(mask & EXPECTED_REGION_SOUTHEAST_BIT) == bool(south_mask & EXPECTED_REGION_NORTHEAST_BIT), "terrain region east edge must agree north/south at %d,%d" % [column_index, row_index])
+			elif _is_terrain_region_index(atlas_index):
+				_check((mask & (EXPECTED_REGION_SOUTHWEST_BIT | EXPECTED_REGION_SOUTHEAST_BIT)) == 0, "terrain region must not exit the south map edge at %d,%d" % [column_index, row_index])
+
+			if column_index == 0 and _is_terrain_region_index(atlas_index):
+				_check((mask & (EXPECTED_REGION_NORTHWEST_BIT | EXPECTED_REGION_SOUTHWEST_BIT)) == 0, "terrain region must not exit the west map edge at %d,%d" % [column_index, row_index])
+			if row_index == 0 and _is_terrain_region_index(atlas_index):
+				_check((mask & (EXPECTED_REGION_NORTHWEST_BIT | EXPECTED_REGION_NORTHEAST_BIT)) == 0, "terrain region must not exit the north map edge at %d,%d" % [column_index, row_index])
+
+
+func _terrain_region_mask(atlas_index: int) -> int:
+	if not _is_terrain_region_index(atlas_index):
+		return 0
+	return atlas_index - EXPECTED_REGION_FIRST_INDEX
+
+
+func _is_terrain_region_index(atlas_index: int) -> bool:
+	return atlas_index >= EXPECTED_REGION_FIRST_INDEX and atlas_index < EXPECTED_REGION_FIRST_INDEX + 16
 
 
 func _verify_placement_data() -> void:
@@ -554,6 +739,7 @@ func _verify_placement_data() -> void:
 		_check(objects.has(String(placement["object"])), "placement '%s' references an unknown object" % placement_id)
 		_check(_valid_number_array(placement["position"], 2, false), "placement '%s' position is invalid" % placement_id)
 		_check(_is_number(placement["scale"]) and float(placement["scale"]) > 0.0, "placement '%s' scale is invalid" % placement_id)
+		_check(_number_matches(placement["scale"], 1.0), "placement '%s' must use the catalog's canonical humanoid-relative scale" % placement_id)
 		_check(String(placement["layer"]) in ["back", "middle", "front"], "placement '%s' layer is invalid" % placement_id)
 		_check(typeof(placement["flip_horizontal"]) == TYPE_BOOL, "placement '%s' flip must be boolean" % placement_id)
 		_check(typeof(placement["collision_enabled"]) == TYPE_BOOL, "placement '%s' collision flag must be boolean" % placement_id)
@@ -568,7 +754,7 @@ func _verify_terrain(grove: Node3D, terrain_surface: Node3D) -> void:
 	var terrain: Dictionary = _layout["terrain"]
 	var render_tiles: Dictionary = terrain["render_tiles"]
 	var logical_cells := int(terrain["columns"]) * int(terrain["rows"])
-	var expected_texture_path := _resolve_layout_path(EXPECTED_TERRAIN_TEXTURE)
+	var expected_texture_path := _resolve_scenery_path(EXPECTED_TERRAIN_TEXTURE)
 	_check(terrain_surface.has_method("configure") and terrain_surface.has_method("set_target"), "TerrainSurface must use the chunk streamer contract")
 	_check(bool(terrain_surface.get_meta("configured", false)), "terrain chunk streamer must configure successfully")
 	_check(String(terrain_surface.get_meta("failure_message", "")).is_empty(), "terrain chunk streamer must not report a failure")
@@ -588,21 +774,42 @@ func _verify_terrain(grove: Node3D, terrain_surface: Node3D) -> void:
 	_check(int(terrain_surface.get_meta("padding_tile_index", -1)) == EXPECTED_TERRAIN_PADDING_TILE_INDEX, "terrain stream padding-tile metadata changed")
 	_check(terrain_surface.get_meta("tile_ids", []) == render_tiles["tile_ids"], "terrain stream tile-id vocabulary metadata changed")
 	_check(terrain_surface.get_meta("path_connectivity", {}) == render_tiles["path_connectivity"], "terrain stream path-connectivity metadata changed")
+	_check(terrain_surface.get_meta("terrain_regions", []) == render_tiles["terrain_regions"], "terrain stream region-family metadata changed")
+	var expected_full_candidates: Array[int] = [EXPECTED_REGION_FIRST_INDEX + 15]
+	for variant_index in EXPECTED_REGION_FULL_VARIANT_INDICES:
+		expected_full_candidates.append(int(variant_index))
+	var observed_full_variants: Dictionary = {}
+	for logical_y in EXPECTED_TERRAIN_MAP_SIZE.y:
+		for logical_x in EXPECTED_TERRAIN_MAP_SIZE.x:
+			var expected_selection := posmod(
+				logical_x * 7 + logical_y * 11 + logical_x * logical_y * 3,
+				expected_full_candidates.size(),
+			)
+			var visual_index := int(terrain_surface.call(
+				"_visual_atlas_index",
+				logical_x,
+				logical_y,
+				EXPECTED_REGION_FIRST_INDEX + 15,
+			))
+			_check(visual_index == expected_full_candidates[expected_selection], "terrain full-court variation must be deterministic by logical coordinate")
+			observed_full_variants[visual_index] = true
+	_check(observed_full_variants.size() == expected_full_candidates.size(), "terrain full-court variation must exercise all five authored paving appearances")
+	_check(int(terrain_surface.call("_visual_atlas_index", 4, 6, 0)) == 0, "terrain visual variation must not change non-court topology indices")
 	_check(int(terrain_surface.get_meta("stream_radius_chunks", -1)) == EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS, "terrain stream radius metadata changed")
 	_check(terrain_surface.get_meta("logical_size_tiles", Vector2i.ZERO) == EXPECTED_TERRAIN_MAP_SIZE, "terrain stream authored-map metadata changed")
 	_check(terrain_surface.get_meta("render_size_tiles", Vector2i.ZERO) == EXPECTED_TERRAIN_RENDER_SIZE, "terrain stream padded-grid metadata changed")
 	_check(terrain_surface.get_meta("chunk_grid", Vector2i.ZERO) == EXPECTED_TERRAIN_CHUNK_GRID, "terrain stream chunk-grid metadata changed")
-	_check(int(terrain_surface.get_meta("total_chunk_count", 0)) == EXPECTED_TERRAIN_TOTAL_CHUNKS, "terrain stream must expose 64 total chunks")
-	_check(int(terrain_surface.get_meta("loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must load the 25-chunk focus window")
-	_check(int(terrain_surface.get_meta("total_tile_count", 0)) == EXPECTED_TERRAIN_TOTAL_RENDER_TILES, "terrain stream must expose 576 padded render tiles")
-	_check(int(terrain_surface.get_meta("loaded_tile_count", 0)) == EXPECTED_TERRAIN_LOADED_RENDER_TILES, "terrain stream must load 225 render tiles")
+	_check(int(terrain_surface.get_meta("total_chunk_count", 0)) == EXPECTED_TERRAIN_TOTAL_CHUNKS, "terrain stream must expose 144 total chunks")
+	_check(int(terrain_surface.get_meta("loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must load the 49-chunk focus window")
+	_check(int(terrain_surface.get_meta("total_tile_count", 0)) == EXPECTED_TERRAIN_TOTAL_RENDER_TILES, "terrain stream must expose 1296 padded render tiles")
+	_check(int(terrain_surface.get_meta("loaded_tile_count", 0)) == EXPECTED_TERRAIN_LOADED_RENDER_TILES, "terrain stream must load 441 render tiles")
 	_check(int(terrain_surface.get_meta("logical_tile_count", 0)) == EXPECTED_TERRAIN_MAP_TILES, "terrain stream must expose 144 authored map entries")
 	_check(int(terrain_surface.get_meta("surfaces_per_chunk", 0)) == 1, "terrain stream must use one surface per chunk")
-	_check(int(terrain_surface.get_meta("loaded_surface_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must expose 25 loaded surfaces")
-	_check(int(terrain_surface.get_meta("maximum_loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream loaded-window cap must remain 25")
+	_check(int(terrain_surface.get_meta("loaded_surface_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must expose 49 loaded surfaces")
+	_check(int(terrain_surface.get_meta("maximum_loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream loaded-window cap must remain 49")
 	_check(int(terrain_surface.get_meta("shadow_passes", -1)) == 0, "terrain stream must expose zero shadow passes")
 	_check(terrain_surface.get_meta("focus_chunk", Vector2i(-1, -1)) == EXPECTED_TERRAIN_FOCUS_CHUNK, "terrain stream focus chunk must match the walker spawn")
-	_check(terrain_surface.get_child_count() == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must contain exactly 25 loaded chunk nodes")
+	_check(terrain_surface.get_child_count() == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must contain exactly 49 loaded chunk nodes")
 
 	var chunk_coordinates: Dictionary = {}
 	var rendered_tile_count := 0
@@ -617,7 +824,7 @@ func _verify_terrain(grove: Node3D, terrain_surface: Node3D) -> void:
 		_check(
 			absi(coordinate.x - EXPECTED_TERRAIN_FOCUS_CHUNK.x) <= EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS
 			and absi(coordinate.y - EXPECTED_TERRAIN_FOCUS_CHUNK.y) <= EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS,
-			"terrain chunk coordinate must remain inside the walker-centered 5x5 window",
+			"terrain chunk coordinate must remain inside the walker-centered 7x7 window",
 		)
 		_check(not chunk_coordinates.has(coordinate), "terrain chunk coordinates must be unique")
 		chunk_coordinates[coordinate] = true
@@ -685,14 +892,14 @@ func _verify_terrain(grove: Node3D, terrain_surface: Node3D) -> void:
 		_check(String(chunk.get_meta("texture_path", "")) == expected_texture_path, "terrain chunk %s texture metadata changed" % coordinate)
 		_check(int(chunk.get_meta("shadow_passes", -1)) == 0, "terrain chunk %s shadow metadata changed" % coordinate)
 
-	_check(chunk_coordinates.size() == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must load every coordinate in the walker-centered 5x5 window")
-	_check(rendered_tile_count == EXPECTED_TERRAIN_LOADED_RENDER_TILES, "loaded terrain chunks must render exactly 225 tiles")
+	_check(chunk_coordinates.size() == EXPECTED_TERRAIN_LOADED_CHUNKS, "terrain stream must load every coordinate in the walker-centered 7x7 window")
+	_check(rendered_tile_count == EXPECTED_TERRAIN_LOADED_RENDER_TILES, "loaded terrain chunks must render exactly 441 tiles")
 	_check(terrain_surface.find_children("*", "CollisionObject3D", true, false).is_empty(), "terrain must remain presentation-only")
-	_check(int(grove.get_meta("terrain_render_batch_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "grove terrain batch metadata must report 25 loaded chunks")
-	_check(int(grove.get_meta("terrain_total_chunk_count", 0)) == EXPECTED_TERRAIN_TOTAL_CHUNKS, "grove total terrain chunk metadata must report 64")
-	_check(int(grove.get_meta("terrain_loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "grove loaded terrain chunk metadata must report 25")
+	_check(int(grove.get_meta("terrain_render_batch_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "grove terrain batch metadata must report 49 loaded chunks")
+	_check(int(grove.get_meta("terrain_total_chunk_count", 0)) == EXPECTED_TERRAIN_TOTAL_CHUNKS, "grove total terrain chunk metadata must report 144")
+	_check(int(grove.get_meta("terrain_loaded_chunk_count", 0)) == EXPECTED_TERRAIN_LOADED_CHUNKS, "grove loaded terrain chunk metadata must report 49")
 	_check(int(grove.get_meta("terrain_source_tile_count", 0)) == EXPECTED_TERRAIN_MAP_TILES, "grove authored terrain map-entry metadata changed")
-	_check(int(grove.get_meta("terrain_render_tile_count", 0)) == EXPECTED_TERRAIN_TOTAL_RENDER_TILES, "grove total rendered terrain tile metadata must report 576")
+	_check(int(grove.get_meta("terrain_render_tile_count", 0)) == EXPECTED_TERRAIN_TOTAL_RENDER_TILES, "grove total rendered terrain tile metadata must report 1296")
 	_check(int(grove.get_meta("logical_ground_cell_count", 0)) == logical_cells, "grove logical cell metadata changed")
 	_check(absf(float(grove.get_meta("logical_ground_cell_size", 0.0)) - float(terrain["cell_size"])) < EPSILON, "grove cell size metadata changed")
 	_check(String(grove.get_meta("ground_render_mode", "")) == EXPECTED_TERRAIN_RENDER_ROLE, "grove terrain-render metadata changed")
@@ -725,7 +932,7 @@ func _verify_prop_layers(grove: Node3D, prop_layers: Node3D) -> void:
 			continue
 		var object_id := String(placement["object"])
 		var definition: Dictionary = objects[object_id]
-		var texture_path := _resolve_style_path(String(definition["texture"]))
+		var texture_path := _resolve_scenery_path(String(definition["texture"]))
 		var anchor := _array_to_vector2(definition["anchor_px"])
 		var desired_height := float(definition["default_world_height"]) * float(placement["scale"])
 		var expected_pixel_size := desired_height / (float(sprite.texture.get_height()) * WorldScenery.CARD_Y_SCALE_COMPENSATION)
@@ -935,18 +1142,7 @@ func _verify_shadow_contract(grove: Node3D) -> void:
 	_check(int(grove.get_meta("shadow_pass_count", -1)) == 0, "shadow-pass metadata changed")
 
 
-func _verify_catalog_texture_path(raw_path: String, context: String, required_subdirectory: String) -> String:
-	var lower := raw_path.to_lower().replace("\\", "/")
-	_check(not raw_path.is_empty(), "%s texture path must not be empty" % context)
-	_check(".." not in lower.split("/", false), "%s texture path must not traverse parents" % context)
-	for forbidden in FORBIDDEN_PATH_PARTS:
-		_check(String(forbidden) not in lower, "%s texture path must not reference '%s'" % [context, forbidden])
-	var resolved := _resolve_style_path(raw_path)
-	_check(resolved.begins_with(STYLE_ROOT + required_subdirectory), "%s texture must remain under %s%s" % [context, STYLE_ROOT, required_subdirectory])
-	return resolved
-
-
-func _verify_layout_texture_path(raw_path: String, context: String, required_subdirectory: String) -> String:
+func _verify_scenery_texture_path(raw_path: String, context: String, required_subdirectory: String) -> String:
 	var normalized := raw_path.strip_edges().replace("\\", "/")
 	var lower := normalized.to_lower()
 	_check(not normalized.is_empty(), "%s texture path must not be empty" % context)
@@ -958,23 +1154,17 @@ func _verify_layout_texture_path(raw_path: String, context: String, required_sub
 	_check(".." not in normalized.split("/", false), "%s texture path must not traverse parents" % context)
 	for forbidden in FORBIDDEN_PATH_PARTS:
 		_check(String(forbidden) not in lower, "%s texture path must not reference '%s'" % [context, forbidden])
-	var resolved := _resolve_layout_path(normalized)
+	var resolved := _resolve_scenery_path(normalized)
 	_check(
-		resolved.begins_with(LAYOUT_ROOT + required_subdirectory),
-		"%s texture must remain under %s%s" % [context, LAYOUT_ROOT, required_subdirectory],
+		resolved.begins_with(SCENERY_ROOT + required_subdirectory),
+		"%s texture must remain under %s%s" % [context, SCENERY_ROOT, required_subdirectory],
 	)
 	return resolved
 
 
-func _resolve_style_path(raw_path: String) -> String:
+func _resolve_scenery_path(raw_path: String) -> String:
 	var normalized := raw_path.strip_edges().replace("\\", "/")
-	var resolved := normalized if normalized.begins_with("res://") else STYLE_ROOT + normalized
-	return resolved.simplify_path()
-
-
-func _resolve_layout_path(raw_path: String) -> String:
-	var normalized := raw_path.strip_edges().replace("\\", "/")
-	var resolved := normalized if normalized.begins_with("res://") else LAYOUT_ROOT + normalized
+	var resolved := normalized if normalized.begins_with("res://") else SCENERY_ROOT + normalized
 	return resolved.simplify_path()
 
 
@@ -1020,6 +1210,32 @@ func _valid_number_array(value: Variant, expected_length: int, positive: bool) -
 
 func _number_matches(value: Variant, expected: float) -> bool:
 	return _is_number(value) and absf(float(value) - expected) < EPSILON
+
+
+func _contract_value_matches(actual: Variant, expected: Variant) -> bool:
+	if _is_number(expected):
+		return _number_matches(actual, float(expected))
+	if typeof(actual) != typeof(expected):
+		return false
+	if typeof(expected) == TYPE_DICTIONARY:
+		var actual_dictionary: Dictionary = actual
+		var expected_dictionary: Dictionary = expected
+		if actual_dictionary.size() != expected_dictionary.size():
+			return false
+		for key in expected_dictionary:
+			if not actual_dictionary.has(key) or not _contract_value_matches(actual_dictionary[key], expected_dictionary[key]):
+				return false
+		return true
+	if typeof(expected) == TYPE_ARRAY:
+		var actual_array: Array = actual
+		var expected_array: Array = expected
+		if actual_array.size() != expected_array.size():
+			return false
+		for index in expected_array.size():
+			if not _contract_value_matches(actual_array[index], expected_array[index]):
+				return false
+		return true
+	return actual == expected
 
 
 func _array_to_vector2(value: Variant) -> Vector2:

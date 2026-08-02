@@ -19,7 +19,10 @@ const [
   runtimeConfig,
   routes,
   compose,
-  dictionaryGapExport
+  dictionaryGapReport,
+  dictionaryGapRoute,
+  androidBridge,
+  androidGradle
 ] = await Promise.all([
   read("docs/PRIVACY.md"),
   read(".github/SECURITY.md"),
@@ -31,7 +34,10 @@ const [
   read("apps/runtime/src/config.rs"),
   read("apps/runtime/src/routes/mod.rs"),
   read("compose.yaml"),
-  read("apps/languages/czech/static/dictionary-gap-export.mjs")
+  read("apps/languages/czech/static/dictionary-gap-report.mjs"),
+  read("apps/runtime/src/routes/dictionary_gaps.rs"),
+  read("apps/android/app/src/main/java/com/caatuu/android/CaatuuBridge.kt"),
+  read("apps/android/app/build.gradle.kts")
 ]);
 
 test("remote diagnostics stay fail-closed while feedback remains device-local", () => {
@@ -48,7 +54,7 @@ test("remote diagnostics stay fail-closed while feedback remains device-local", 
   assert.doesNotMatch(runtime, /window\.addEventListener\("online", \(\) => scheduleFeedbackFlush/);
 });
 
-test("the feedback outbox is durable, bounded, and unable to transmit", () => {
+test("general feedback stays local while dictionary gaps use a separate narrow server ledger", () => {
   assert.match(runtime, /send: rejectRemoteFeedbackDelivery/);
   assert.match(runtime, /online: \(\) => false/);
   assert.match(runtime, /maxItems: 128/);
@@ -61,9 +67,16 @@ test("the feedback outbox is durable, bounded, and unable to transmit", () => {
   assert.match(runtime, /localOnly: true/);
   assert.match(runtime, /send: rejectRemoteFeedbackDelivery/);
   assert.match(runtime, /online: \(\) => false/);
-  assert.match(runtime, /exportDictionaryGaps\(options = \{\}\)/);
-  assert.match(dictionaryGapExport, /payload\?\.kind !== TARGET_PAYLOAD_KIND/);
-  assert.match(dictionaryGapExport, /feedback\?\.kind !== TARGET_FEEDBACK_KIND/);
+  assert.match(runtime, /storageKey: "caatuu\.dictionaryGapOutbox\.v1"/);
+  assert.match(runtime, /send: sendDictionaryGapReport/);
+  assert.match(runtime, /fetch\("\/cz\/api\/dictionary\/gaps"/);
+  assert.match(runtime, /nativeCall\("report_dictionary_gap"/);
+  assert.match(runtime, /result\?\.ok !== true \|\| result\?\.stored !== true/);
+  assert.match(runtime, /dictionaryGapMigrationKey = "caatuu\.dictionaryGapMigration\.v1"/);
+  assert.match(runtime, /storage\?\.setItem\(dictionaryGapMigrationKey, "complete"\)/);
+  assert.match(runtime, /window\.addEventListener\("online", \(\) => scheduleDictionaryGapFlush\(0\)\)/);
+  assert.doesNotMatch(runtime, /exportDictionaryGaps|Copy missing-word batch/);
+  assert.match(dictionaryGapReport, /DICTIONARY_GAP_REPORT_SCHEMA = "caatuu\.dictionary-gap-report\.v1"/);
   for (const field of [
     "targetWord",
     "normalizedWord",
@@ -72,24 +85,30 @@ test("the feedback outbox is durable, bounded, and unable to transmit", () => {
     "lookupOutcome",
     "lookupReturned"
   ]) {
-    assert.match(dictionaryGapExport, new RegExp(`${field}[:,]`));
+    assert.match(dictionaryGapReport, new RegExp(`\\b${field}\\b`));
   }
   for (const forbidden of ["clientReportId", "reportedAt", "sentence", "translation", "comment", "device", "url"]) {
-    assert.doesNotMatch(dictionaryGapExport, new RegExp(`feedback\\.${forbidden}`));
+    assert.doesNotMatch(dictionaryGapReport, new RegExp(`\\b${forbidden}\\b`));
   }
-  for (const field of [
-    "normalizedWord",
-    "dictionaryKey",
-    "dictionaryDirection",
-    "lookupOutcome",
-    "lookupReturned"
-  ]) {
-    assert.match(runtime, new RegExp(`payload\\.feedback\\.${field}`));
-  }
-  assert.match(privacy, /device-local outbox/);
-  assert.match(privacy, /not transmitted to or collected by the maintainer/);
-  assert.match(readiness, /device-local outbox/);
-  assert.match(readiness, /delivery adapter remains forced offline/);
+  assert.match(routes, /"\/api\/dictionary\/gaps"[\s\S]*?post\(dictionary_gaps::submit\)[\s\S]*?DefaultBodyLimit::max\(2 \* 1024\)/);
+  assert.match(dictionaryGapRoute, /deny_unknown_fields/);
+  assert.match(dictionaryGapRoute, /MAX_GAPS: usize = 4096/);
+  assert.match(dictionaryGapRoute, /first_seen_at_unix_ms[\s\S]*?last_seen_at_unix_ms/);
+  assert.match(dictionaryGapRoute, /temporary_file\.sync_all\(\)[\s\S]*?fs::rename/);
+  assert.match(compose, /DICTIONARY_GAP_STORE_PATH: \/var\/lib\/caatuu\/dictionary-gaps\/czech-missing-words\.v1\.json/);
+  assert.match(compose, /\.\/artifacts\/dictionary-gaps:\/var\/lib\/caatuu\/dictionary-gaps/);
+  assert.match(androidGradle, /CAATUU_ANDROID_DICTIONARY_GAP_URL/);
+  assert.match(androidGradle, /https:\/\/caatuu\.waajacu\.com\/cz\/api\/dictionary\/gaps/);
+  assert.match(androidBridge, /"report_dictionary_gap" -> reportDictionaryGap\(id, request\)/);
+  assert.match(androidBridge, /keys == DICTIONARY_GAP_REPORT_FIELDS/);
+  assert.match(androidBridge, /MAX_DICTIONARY_GAP_REPORT_BYTES = 2 \* 1024/);
+  assert.match(androidBridge, /responseJson\.optBoolean\("ok", false\) && responseJson\.optBoolean\("stored", false\)/);
+  assert.doesNotMatch(androidBridge, /reportDictionaryGap[\s\S]{0,1800}deviceSnapshot|reportDictionaryGap[\s\S]{0,1800}appSnapshot/);
+  assert.match(privacy, /dictionary-gap observations use a separate,\s+narrowly scoped maintenance\s+channel/i);
+  assert.match(privacy, /exactly these six observation fields/i);
+  assert.match(privacy, /There is no public\s+GET or in-app export/i);
+  assert.match(readiness, /General sentence and diagnostic reports remain device-local/);
+  assert.match(readiness, /private server ledger/);
 });
 
 test("development-preview disclosures are linked and avoid a false beta claim", () => {
@@ -103,7 +122,7 @@ test("development-preview disclosures are linked and avoid a false beta claim", 
   ]) {
     assert.match(chrome, new RegExp(documentPath.replaceAll(".", "\\.")));
   }
-  assert.match(privacy, /Remote diagnostic reporting remains disabled/);
+  assert.match(privacy, /general feedback sender remains forced offline/);
   assert.match(privacy, /development preview, not a governed public beta/);
   assert.match(security, /No version is currently declared a\s+supported public beta/);
   assert.match(support, /best-effort basis/);

@@ -104,6 +104,7 @@ func _validate_configuration(
 		"padding_tile_index",
 		"tile_ids",
 		"path_connectivity",
+		"terrain_regions",
 		"pixels_per_world_unit",
 		"render_role",
 	]
@@ -193,6 +194,13 @@ func _validate_configuration(
 		var bit_name := String(bit_name_variant)
 		if not connectivity.has(bit_name) or not _is_integer(connectivity[bit_name]) or int(connectivity[bit_name]) != int(connectivity_bits[bit_name]):
 			return "render_tiles.path_connectivity.%s has an invalid bit value." % bit_name
+	var terrain_regions_error := _validate_terrain_regions(
+		render_tiles["terrain_regions"],
+		int(connectivity["first_index"]),
+		atlas_tile_count,
+	)
+	if not terrain_regions_error.is_empty():
+		return terrain_regions_error
 	for row_index in tile_index_rows.size():
 		if typeof(tile_index_rows[row_index]) != TYPE_ARRAY:
 			return "tile_index_rows[%d] must be an array." % row_index
@@ -207,6 +215,76 @@ func _validate_configuration(
 			if atlas_index < 0 or atlas_index >= atlas_tile_count:
 				return "tile_index_rows[%d][%d] is outside the atlas grid." % [row_index, column_index]
 	return ""
+
+
+func _validate_terrain_regions(
+	value: Variant,
+	path_first_index: int,
+	atlas_tile_count: int,
+) -> String:
+	if typeof(value) != TYPE_ARRAY:
+		return "render_tiles.terrain_regions must be an array."
+	var required_bits := {
+		"northwest_bit": 1,
+		"northeast_bit": 2,
+		"southeast_bit": 4,
+		"southwest_bit": 8,
+	}
+	var seen_ids: Dictionary = {}
+	var first_indices: Array[int] = []
+	var full_variant_indices: Array[int] = []
+	var seen_full_variant_indices: Dictionary = {}
+	for region_index in (value as Array).size():
+		var region_value: Variant = (value as Array)[region_index]
+		if typeof(region_value) != TYPE_DICTIONARY:
+			return "render_tiles.terrain_regions[%d] must be an object." % region_index
+		var region: Dictionary = region_value
+		if not region.has("id") or not _is_slug(region["id"]):
+			return "render_tiles.terrain_regions[%d].id must be a non-empty slug." % region_index
+		var region_id := String(region["id"])
+		if seen_ids.has(region_id):
+			return "render_tiles.terrain_regions ids must be unique."
+		seen_ids[region_id] = true
+		if not region.has("first_index") or not _is_nonnegative_integer(region["first_index"]):
+			return "render_tiles.terrain_regions[%d].first_index must be a non-negative integer." % region_index
+		var first_index := int(region["first_index"])
+		if first_index + 15 >= atlas_tile_count:
+			return "render_tiles.terrain_regions[%d] must reserve 16 consecutive atlas cells." % region_index
+		if _atlas_ranges_overlap(first_index, path_first_index):
+			return "render_tiles.terrain_regions[%d] overlaps the path topology range." % region_index
+		for occupied_first_index in first_indices:
+			if _atlas_ranges_overlap(first_index, occupied_first_index):
+				return "render_tiles.terrain_regions[%d] overlaps another terrain region." % region_index
+		first_indices.append(first_index)
+		for bit_name_variant in required_bits.keys():
+			var bit_name := String(bit_name_variant)
+			if not region.has(bit_name) or not _is_integer(region[bit_name]) or int(region[bit_name]) != int(required_bits[bit_name]):
+				return "render_tiles.terrain_regions[%d].%s has an invalid bit value." % [region_index, bit_name]
+		if region.has("full_variant_indices"):
+			var variants_value: Variant = region["full_variant_indices"]
+			if typeof(variants_value) != TYPE_ARRAY or (variants_value as Array).is_empty():
+				return "render_tiles.terrain_regions[%d].full_variant_indices must be a non-empty array." % region_index
+			for variant_value in (variants_value as Array):
+				if not _is_nonnegative_integer(variant_value):
+					return "render_tiles.terrain_regions[%d].full_variant_indices must contain non-negative integers." % region_index
+				var variant_index := int(variant_value)
+				if variant_index >= atlas_tile_count:
+					return "render_tiles.terrain_regions[%d].full_variant_indices contains an index outside the atlas." % region_index
+				if seen_full_variant_indices.has(variant_index):
+					return "render_tiles.terrain_regions full_variant_indices must be unique."
+				seen_full_variant_indices[variant_index] = true
+				full_variant_indices.append(variant_index)
+	for variant_index in full_variant_indices:
+		if variant_index >= path_first_index and variant_index <= path_first_index + 15:
+			return "render_tiles.terrain_regions full_variant_indices overlap the path topology range."
+		for first_index in first_indices:
+			if variant_index >= first_index and variant_index <= first_index + 15:
+				return "render_tiles.terrain_regions full_variant_indices overlap a terrain-region topology range."
+	return ""
+
+
+func _atlas_ranges_overlap(first_index: int, other_first_index: int) -> bool:
+	return first_index <= other_first_index + 15 and other_first_index <= first_index + 15
 
 
 func _reset_configuration() -> void:
@@ -339,6 +417,11 @@ func _build_chunk(chunk_coordinate: Vector2i) -> MeshInstance3D:
 			):
 				var source_row: Array = _tile_index_rows[logical_y]
 				atlas_index = int(source_row[logical_x])
+			var visual_atlas_index := _visual_atlas_index(
+				logical_x,
+				logical_y,
+				atlas_index,
+			)
 			_append_tile(
 				vertices,
 				colors,
@@ -346,7 +429,7 @@ func _build_chunk(chunk_coordinate: Vector2i) -> MeshInstance3D:
 				indices,
 				logical_x,
 				logical_y,
-				atlas_index,
+				visual_atlas_index,
 			)
 
 	var arrays: Array = []
@@ -374,6 +457,35 @@ func _build_chunk(chunk_coordinate: Vector2i) -> MeshInstance3D:
 	chunk.set_meta("shadow_passes", 0)
 	chunk.add_to_group("memory_grove_terrain_chunk")
 	return chunk
+
+
+func _visual_atlas_index(
+	logical_x: int,
+	logical_y: int,
+	authored_index: int,
+) -> int:
+	for region_value in _render_tiles.get("terrain_regions", []):
+		if typeof(region_value) != TYPE_DICTIONARY:
+			continue
+		var region: Dictionary = region_value
+		if not _is_nonnegative_integer(region.get("first_index")):
+			continue
+		var canonical_full_index := int(region["first_index"]) + 15
+		if authored_index != canonical_full_index:
+			continue
+		var candidates: Array[int] = [canonical_full_index]
+		var extra_indices_value: Variant = region.get("full_variant_indices", [])
+		if typeof(extra_indices_value) == TYPE_ARRAY:
+			for extra_index_value in (extra_indices_value as Array):
+				if _is_nonnegative_integer(extra_index_value):
+					candidates.append(int(extra_index_value))
+		var stable_value := (
+			logical_x * 7
+			+ logical_y * 11
+			+ logical_x * logical_y * 3
+		)
+		return candidates[posmod(stable_value, candidates.size())]
+	return authored_index
 
 
 func _append_tile(
@@ -446,6 +558,7 @@ func _publish_static_metadata() -> void:
 	set_meta("padding_tile_index", _padding_tile_index)
 	set_meta("tile_ids", _render_tiles.get("tile_ids", []))
 	set_meta("path_connectivity", _render_tiles.get("path_connectivity", {}))
+	set_meta("terrain_regions", _render_tiles.get("terrain_regions", []))
 	set_meta("stream_radius_chunks", _stream_radius_chunks)
 	set_meta("logical_size_tiles", _logical_size_tiles)
 	set_meta("render_size_tiles", _render_size_tiles)

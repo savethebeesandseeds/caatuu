@@ -36,6 +36,8 @@ const review = {
 function patchDocument(records = []) {
   return {
     schema: DICTIONARY_PATCH_SCHEMA,
+    revision: 1,
+    digest: `sha256-${"0".repeat(64)}`,
     dictionaryKey: "kaikki-cs-en-2026-07-09",
     direction: "cs-en",
     records
@@ -67,7 +69,7 @@ function formAlias() {
     kind: "form-alias",
     form: "řekněme",
     tags: ["imperative", "first-person", "plural"],
-    target: { lemma: "říci", pos: "verb" },
+    target: { entryId: 42, lemma: "říci", pos: "verb" },
     review
   };
 }
@@ -81,6 +83,8 @@ test("the tracked reviewed overlay starts empty and compiles", async () => {
   const patch = compileDictionaryPatch(raw);
 
   assert.equal(patch.schema, DICTIONARY_PATCH_SCHEMA);
+  assert.equal(patch.revision, 1);
+  assert.match(patch.digest, /^sha256-[0-9a-f]{64}$/u);
   assert.equal(patch.dictionaryKey, "kaikki-cs-en-2026-07-09");
   assert.deepEqual(patch.entries, []);
   assert.deepEqual(patch.aliases, []);
@@ -137,6 +141,13 @@ test("strict compilation requires consistent review provenance, evidence, licens
     tryCompileDictionaryPatch(wrongBasePack).errors.join("\n"),
     /dictionaryKey must be "kaikki-cs-en-2026-07-09"/
   );
+
+  const missingTargetId = formAlias();
+  delete missingTargetId.target.entryId;
+  assert.match(
+    tryCompileDictionaryPatch(patchDocument([missingTargetId])).errors.join("\n"),
+    /target\.entryId must be a positive safe integer/
+  );
 });
 
 test("malformed objects and getters are rejected without executing a partial patch", () => {
@@ -157,7 +168,7 @@ test("stable IDs do not depend on property insertion order and duplicate records
   const first = formAlias();
   const reordered = {
     review: first.review,
-    target: { pos: "verb", lemma: "říci" },
+    target: { pos: "verb", lemma: "říci", entryId: 42 },
     tags: first.tags,
     form: first.form,
     kind: first.kind
@@ -189,10 +200,11 @@ test("patch entries search Czech text accent-insensitively and return API-shaped
   assert.deepEqual(formResult.results[0].forms[0].tags, ["feminine", "singular"]);
 });
 
-test("form aliases expose target requests and materialize only from matching base lemma and POS", () => {
+test("form aliases expose target requests and materialize only from the pinned base entry", () => {
   const patch = compileDictionaryPatch(patchDocument([formAlias()]));
   const targets = discoverDictionaryAliasTargets(patch, "REKNEME", { prefix: false });
   assert.deepEqual(targets, [{
+    entryId: 42,
     lemma: "říci",
     pos: "verb",
     aliasIds: [stableDictionaryPatchRecordId(formAlias(), patch.dictionaryKey)],
@@ -217,6 +229,13 @@ test("form aliases expose target requests and materialize only from matching bas
         pos: "noun",
         forms: [],
         senses: [{ gloss: "wrong POS" }]
+      },
+      {
+        id: 99,
+        lemma: "říci",
+        pos: "verb",
+        forms: [],
+        senses: [{ gloss: "same lemma and POS, wrong pinned entry" }]
       }
     ]
   };
@@ -232,6 +251,17 @@ test("form aliases expose target requests and materialize only from matching bas
     tags: ["imperative", "first-person", "plural"]
   });
   assert.equal(results[0].senses[0].gloss, "to say");
+});
+
+test("one reviewed alias form cannot silently target several base entries", () => {
+  const first = formAlias();
+  const conflicting = formAlias();
+  conflicting.form = "rekneme";
+  conflicting.target = { entryId: 99, lemma: "říci", pos: "verb" };
+
+  const result = tryCompileDictionaryPatch(patchDocument([first, conflicting]));
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join("\n"), /one normalized reviewed form cannot target multiple base entries/);
 });
 
 test("merge and dedupe prefer overlay results and bound malformed input", () => {
@@ -288,7 +318,7 @@ test("the shared runtime applies the reviewed overlay to browser and Android sea
   );
   const runtime = await readFile(runtimeUrl, "utf8");
 
-  assert.match(runtime, /const dictionaryPatchPath = "data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json"/);
+  assert.match(runtime, /const dictionaryPatchPath = "data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}"/);
   assert.match(runtime, /import\("\.\/dictionary-patch-core\.mjs\?v=dictionary-patch-core-1"\)/);
   assert.match(runtime, /patch: core\.compileDictionaryPatch\(rawPatch\)/);
   assert.match(runtime, /if \(env === "android"\) \{\s*return nativeCall\(\s*"dictionary_search"/);

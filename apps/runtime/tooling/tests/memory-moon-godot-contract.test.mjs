@@ -1,12 +1,47 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const gameRoot = new URL("apps/games/memory-moon/", repoRoot);
 const sceneryRoot = new URL("apps/launcher/static/assets/scenery/", repoRoot);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
+const runtimeImageNames = [
+  "community-tree.png",
+  "flower-patch.png",
+  "moon-bush.png",
+  "moon-sapling.png",
+  "moss-boulder.png",
+  "street-lamp.png",
+  "terrain-atlas.png",
+  "trail-sign.png",
+  "tree-birch.png",
+  "tree-maple.png",
+  "tree-oak.png",
+  "tree-pine.png",
+  "tree-poplar.png",
+  "tree-stump.png",
+  "tree-willow.png",
+  "village-well.png"
+];
+const catalogObjectTextures = {
+  "community-tree-a": "images/community-tree.png",
+  "flower-patch-a": "images/flower-patch.png",
+  "moon-bush-round-a": "images/moon-bush.png",
+  "moon-sapling-a": "images/moon-sapling.png",
+  "moss-boulder-a": "images/moss-boulder.png",
+  "street-lamp-a": "images/street-lamp.png",
+  "trail-sign-a": "images/trail-sign.png",
+  "tree-birch-a": "images/tree-birch.png",
+  "tree-maple-a": "images/tree-maple.png",
+  "tree-oak-a": "images/tree-oak.png",
+  "tree-pine-a": "images/tree-pine.png",
+  "tree-poplar-a": "images/tree-poplar.png",
+  "tree-stump-a": "images/tree-stump.png",
+  "tree-willow-a": "images/tree-willow.png",
+  "village-well-a": "images/village-well.png"
+};
 
 const [
   project,
@@ -28,17 +63,12 @@ const [
   terrainChunkStreamer,
   clickNavigation,
   sceneryVerifier,
+  movementVerifier,
   responsiveVerifier,
+  activeSceneryCatalog,
   activeSceneryLayout,
+  activeSceneryRegistry,
   memoryMoonReadme,
-  archivedV1Ignore,
-  archivedV3Ignore,
-  archivedV4Ignore,
-  archivedV5Ignore,
-  styleSourcesIgnore,
-  styleMetadataIgnore,
-  styleTileSourcesIgnore,
-  scenerySchemasIgnore,
   thirdPartyNotices,
   androidActivity
 ] =
@@ -62,17 +92,12 @@ const [
     readFile(new URL("scripts/terrain_chunk_streamer.gd", gameRoot), "utf8"),
     readFile(new URL("scripts/click_navigation.gd", gameRoot), "utf8"),
     readFile(new URL("tooling/verify-world-scenery.gd", gameRoot), "utf8"),
+    readFile(new URL("tooling/verify-movement.gd", gameRoot), "utf8"),
     readFile(new URL("tooling/verify-responsive-layout.gd", gameRoot), "utf8"),
-    readFile(new URL("memory-grove-v6/layout.json", sceneryRoot), "utf8"),
+    readFile(new URL("metadata/catalog.json", sceneryRoot), "utf8"),
+    readFile(new URL("metadata/world.json", sceneryRoot), "utf8"),
+    readFile(new URL("metadata/registry.json", sceneryRoot), "utf8"),
     readFile(new URL("README.md", gameRoot), "utf8"),
-    readFile(new URL("memory-grove-v1/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-grove-v3/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-grove-v4/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-grove-v5/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-moon-style-v1/sources/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-moon-style-v1/metadata/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("memory-moon-style-v1/floor/.gdignore", sceneryRoot), "utf8"),
-    readFile(new URL("schemas/.gdignore", sceneryRoot), "utf8"),
     readFile(new URL("THIRD_PARTY_NOTICES.md", gameRoot), "utf8"),
     readFile(
       new URL("apps/android/app/src/main/java/com/caatuu/android/MainActivity.kt", repoRoot),
@@ -126,6 +151,11 @@ test("the Godot exporter is pinned, isolated, non-root, and verifies its shared 
   assert.match(exporter, /sha256sum --check --strict/);
   assert.match(exporter, /run_godot_checked import/);
   assert.match(exporter, /run_godot_checked responsive/);
+  assert.match(exporter, /run_godot_checked movement/);
+  assert.match(
+    exporter,
+    /MEMORY_MOON_MOVEMENT_SMOKE_OK rates=30\/60\/120 acceleration=true braking=true arrival=true overshoot=false reversal=brake-first corner_drift_max=0\.16 speed_cap=2\.6 arrival_spread_max=0\.12 los=string-pulled capsule_clearance=0\.28 supercover=safe deterministic=true precise_target=fallback same_cell=move-to-center stall_progress=route-distance/
+  );
   assert.match(
     exporter,
     /MEMORY_MOON_RESPONSIVE_SMOKE_OK landscape=960x540 landscape_camera_height=8\.7097 portrait=390x844 portrait_camera_height=10\.5000 click_navigation=true direction_buttons=false compact=true camera=isometric-orthographic yaw=45 elevation=30 axis_dead_zone=true smooth_follow=true large_world_follow=true native_root=true native_hud=true/
@@ -153,9 +183,161 @@ test("the Godot exporter is pinned, isolated, non-root, and verifies its shared 
   assert.match(compose, /caatuu-memory-moon-godot-toolchain:\/toolchain:ro/);
 });
 
+test("the shared scenery registry exposes the reusable catalog and active placement counts", async () => {
+  const registry = JSON.parse(activeSceneryRegistry);
+  const catalog = JSON.parse(activeSceneryCatalog);
+  const layout = JSON.parse(activeSceneryLayout);
+
+  assert.deepEqual(Object.keys(registry).sort(), [
+    "catalog",
+    "history_policy",
+    "release_status",
+    "runtime_images",
+    "schema_version",
+    "support",
+    "world"
+  ]);
+  assert.equal(registry.schema_version, 1);
+  assert.equal(registry.release_status, "local-preview-only");
+  assert.equal(registry.history_policy, "superseded-assets-live-in-git");
+
+  const catalogRef = registry.catalog;
+  const worldRef = registry.world;
+
+  assert.equal(catalogRef.id, catalog.catalog_id);
+  assert.equal(catalogRef.version, catalog.catalog_version);
+  assert.equal(catalogRef.file, "metadata/catalog.json");
+  assert.equal(Object.hasOwn(catalogRef, "root"), false);
+
+  assert.equal(worldRef.id, layout.layout_id);
+  assert.equal(worldRef.file, "metadata/world.json");
+  assert.equal(Object.hasOwn(worldRef, "root"), false);
+  assert.equal(worldRef.catalog_id, layout.catalog_id);
+  assert.equal(worldRef.catalog_version, layout.catalog_version);
+  assert.deepEqual(registry.support, {
+    source_glob: "sources/*.png",
+    checksum_file: "metadata/checksums.sha256",
+    processing_file: "metadata/floor.processing.json"
+  });
+
+  for (const file of [
+    catalogRef.file,
+    catalogRef.manifest,
+    catalogRef.provenance,
+    catalogRef.schema,
+    worldRef.file,
+    worldRef.manifest,
+    worldRef.provenance,
+    worldRef.schema,
+    registry.support.checksum_file,
+    registry.support.processing_file,
+    "metadata/registry.json"
+  ]) {
+    assert.doesNotMatch(file, /(^\/|\\|\.\.)/);
+    assert.equal(existsSync(new URL(file, sceneryRoot)), true, `missing active metadata: ${file}`);
+  }
+
+  assert.ok(
+    sceneryScript.includes(`CATALOG_PATH := SCENERY_ROOT + "${catalogRef.file}"`)
+  );
+  assert.ok(
+    sceneryScript.includes(`LAYOUT_PATH := SCENERY_ROOT + "${worldRef.file}"`)
+  );
+  assert.ok(exportPresets.includes(`assets/scenery/${catalogRef.file}`));
+  assert.ok(exportPresets.includes(`assets/scenery/${worldRef.file}`));
+  assert.ok(exportPresets.includes("assets/scenery/images/*.png"));
+
+  const placementCounts = new Map();
+  for (const placement of layout.placements) {
+    placementCounts.set(placement.object, (placementCounts.get(placement.object) ?? 0) + 1);
+  }
+  const usedObjectIds = [...placementCounts.keys()].sort();
+  for (const objectId of usedObjectIds) {
+    assert.ok(Object.hasOwn(catalog.objects, objectId), `layout uses unknown object: ${objectId}`);
+  }
+  assert.deepEqual(
+    Object.fromEntries(
+      Object.entries(catalog.objects).map(([objectId, object]) => [objectId, object.texture])
+    ),
+    catalogObjectTextures
+  );
+  for (const [objectId, object] of Object.entries(catalog.objects)) {
+    assert.match(object.texture, /^images\/[^/]+\.png$/);
+    assert.equal(
+      existsSync(new URL(object.texture, sceneryRoot)),
+      true,
+      `missing active object sprite: ${objectId}`
+    );
+  }
+  assert.equal(
+    [...placementCounts.values()].reduce((total, count) => total + count, 0),
+    layout.placements.length
+  );
+
+  const terrainTexture = layout.terrain.render_tiles.texture;
+  assert.equal(terrainTexture, "images/terrain-atlas.png");
+  assert.equal(
+    existsSync(new URL(terrainTexture, sceneryRoot)),
+    true
+  );
+  assert.equal(layout.terrain.render_tiles.tile_ids.length, 48);
+  assert.equal(layout.terrain.tile_index_rows.flat().length, 144);
+
+  assert.equal(registry.runtime_images.length, runtimeImageNames.length);
+  assert.deepEqual(
+    registry.runtime_images.map((image) => image.file).sort(),
+    runtimeImageNames.map((name) => `images/${name}`)
+  );
+  assert.deepEqual(
+    [
+      ...Object.values(catalog.objects).map((object) => object.texture),
+      terrainTexture
+    ].sort(),
+    registry.runtime_images.map((image) => image.file).sort()
+  );
+  assert.ok(
+    registry.runtime_images.every((image) => !image.file.includes("sources/")),
+    "runtime registry must exclude source images"
+  );
+  const registryObjects = new Map(
+    registry.runtime_images
+      .filter((image) => image.kind === "object")
+      .map((image) => [image.id, image])
+  );
+  assert.equal(registryObjects.size, Object.keys(catalog.objects).length);
+  for (const objectId of Object.keys(catalog.objects)) {
+    const registryObject = registryObjects.get(objectId);
+    assert.ok(registryObject, `registry is missing catalog object: ${objectId}`);
+    assert.equal(registryObject.placement_count, placementCounts.get(objectId) ?? 0);
+  }
+
+  const rootEntries = await readdir(sceneryRoot, { withFileTypes: true });
+  assert.deepEqual(
+    rootEntries.filter((entry) => entry.isFile()).map((entry) => entry.name).sort(),
+    ["README.md"]
+  );
+  assert.deepEqual(
+    rootEntries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort(),
+    ["images", "metadata", "sources"]
+  );
+  for (const directory of ["images", "metadata", "sources"]) {
+    const entries = await readdir(new URL(`${directory}/`, sceneryRoot), {
+      withFileTypes: true
+    });
+    assert.ok(
+      entries.every((entry) => entry.isFile()),
+      `${directory}/ must not contain nested directories`
+    );
+    if (directory === "images") {
+      assert.deepEqual(entries.map((entry) => entry.name).sort(), runtimeImageNames);
+    }
+  }
+});
+
 test("Memory Grove v6 streams a reusable terrain tile map and navigation into the Web export", () => {
   const sceneryMarker =
-    "MEMORY_MOON_SCENERY_SMOKE_OK layout=memory-grove-v6 terrain=chunk-stream chunks=25/64 tiles=225/576 map_tiles=144 atlas_tiles=20 used_tile_types=16 navigation=true prop_placements=18 collision_objects=18 shadows=0";
+    "MEMORY_MOON_SCENERY_SMOKE_OK layout=memory-grove-v6 terrain=chunk-stream chunks=49/144 tiles=441/1296 map_tiles=144 atlas_tiles=48 used_tile_types=32 navigation=true prop_placements=18 collision_objects=18 shadows=0";
+  const catalog = JSON.parse(activeSceneryCatalog);
   const layout = JSON.parse(activeSceneryLayout);
   const renderTiles = layout.terrain.render_tiles;
 
@@ -171,22 +353,16 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
   assert.match(sceneryScript, /SCHEMA_VERSION := 2/);
   assert.match(sceneryScript, /LAYOUT_ID := "memory-grove-v6"/);
   assert.match(sceneryScript, /CATALOG_ID := "memory-moon-style-v1"/);
+  assert.match(sceneryScript, /SCENERY_ROOT := "res:\/\/assets\/scenery\/"/);
   assert.match(
     sceneryScript,
-    /CATALOG_PATH := "res:\/\/assets\/scenery\/memory-moon-style-v1\/catalog\.json"/
+    /CATALOG_PATH := SCENERY_ROOT \+ "metadata\/catalog\.json"/
   );
   assert.match(
     sceneryScript,
-    /LAYOUT_PATH := "res:\/\/assets\/scenery\/memory-grove-v6\/layout\.json"/
+    /LAYOUT_PATH := SCENERY_ROOT \+ "metadata\/world\.json"/
   );
-  assert.match(
-    sceneryScript,
-    /STYLE_ROOT := "res:\/\/assets\/scenery\/memory-moon-style-v1\/"/
-  );
-  assert.match(
-    sceneryScript,
-    /LAYOUT_ROOT := "res:\/\/assets\/scenery\/memory-grove-v6\/"/
-  );
+  assert.doesNotMatch(sceneryScript, /STYLE_ROOT|LAYOUT_ROOT|ASSET_ROOT/);
   assert.match(sceneryScript, /_read_json_object\(CATALOG_PATH, "catalog"\)/);
   assert.match(sceneryScript, /_read_json_object\(LAYOUT_PATH, "layout"\)/);
   assert.match(sceneryScript, /terrain_surface := TerrainChunkStreamer\.new\(\)/);
@@ -202,35 +378,88 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
 
   assert.equal(layout.layout_id, "memory-grove-v6");
   assert.equal(layout.catalog_id, "memory-moon-style-v1");
+  assert.equal(catalog.catalog_version, 3);
+  assert.equal(layout.catalog_version, 3);
+  assert.deepEqual(catalog.scale_reference, {
+    id: "memory-moon-humanoid-v1",
+    visual_height_world: 1.4264,
+    capsule_height_world: 1.45,
+    capsule_radius_world: 0.28,
+    model_runtime_scale: 0.78,
+    measurement_basis: "visible-silhouette-above-ground-anchor"
+  });
   assert.equal(layout.terrain.columns, 36);
   assert.equal(layout.terrain.rows, 36);
-  assert.equal(renderTiles.texture, "terrain/moonroot-reusable-tiles-v1.png");
+  assert.equal(renderTiles.texture, "images/terrain-atlas.png");
   assert.equal(
-    existsSync(new URL(`memory-grove-v6/${renderTiles.texture}`, sceneryRoot)),
+    existsSync(new URL(renderTiles.texture, sceneryRoot)),
     true,
-    "the reusable terrain atlas must live in the canonical scenery package"
+    "the reusable terrain atlas must live in the canonical flat image directory"
   );
-  assert.deepEqual(renderTiles.image_size_px, [832, 1040]);
+  assert.deepEqual(renderTiles.image_size_px, [832, 2496]);
   assert.deepEqual(renderTiles.tile_size_px, [208, 208]);
   assert.deepEqual(renderTiles.tile_content_size_px, [192, 192]);
   assert.equal(renderTiles.tile_gutter_px, 8);
-  assert.deepEqual(renderTiles.atlas_grid, [4, 5]);
+  assert.deepEqual(renderTiles.atlas_grid, [4, 12]);
   assert.equal(renderTiles.world_tile_size, 1);
   assert.equal(renderTiles.chunk_size_tiles, 3);
-  assert.equal(renderTiles.stream_radius_chunks, 2);
-  assert.equal(renderTiles.padding_tiles, 6);
+  assert.equal(renderTiles.stream_radius_chunks, 3);
+  assert.equal(renderTiles.padding_tiles, 12);
   assert.equal(renderTiles.padding_tile_index, 0);
   assert.equal(renderTiles.pixels_per_world_unit, 192);
   assert.equal(renderTiles.render_role, "streamed-reusable-tile-map");
-  assert.equal(renderTiles.tile_ids.length, 20);
-  assert.equal(new Set(renderTiles.tile_ids).size, 20);
+  assert.equal(renderTiles.tile_ids.length, 48);
+  assert.equal(new Set(renderTiles.tile_ids).size, 48);
+  assert.deepEqual(renderTiles.tile_ids.slice(4, 12), [
+    "grass-flowers-cream-a",
+    "grass-flowers-amber-a",
+    "grass-leaf-litter-a",
+    "grass-pebbles-a",
+    "grass-worn-small-a",
+    "grass-worn-large-a",
+    "grass-moss-cool-a",
+    "grass-moss-warm-a"
+  ]);
   assert.deepEqual(renderTiles.path_connectivity, {
-    first_index: 4,
+    first_index: 12,
     north_bit: 1,
     east_bit: 2,
     south_bit: 4,
     west_bit: 8
   });
+  assert.deepEqual(renderTiles.terrain_regions, [
+    {
+      id: "moonstone-court",
+      first_index: 28,
+      northwest_bit: 1,
+      northeast_bit: 2,
+      southeast_bit: 4,
+      southwest_bit: 8,
+      full_variant_indices: [44, 45, 46, 47]
+    }
+  ]);
+  assert.deepEqual(renderTiles.tile_ids.slice(28), [
+    "moonstone-none",
+    "moonstone-nw",
+    "moonstone-ne",
+    "moonstone-nw-ne",
+    "moonstone-se",
+    "moonstone-nw-se",
+    "moonstone-ne-se",
+    "moonstone-nw-ne-se",
+    "moonstone-sw",
+    "moonstone-nw-sw",
+    "moonstone-ne-sw",
+    "moonstone-nw-ne-sw",
+    "moonstone-se-sw",
+    "moonstone-nw-se-sw",
+    "moonstone-ne-se-sw",
+    "moonstone-full",
+    "moonstone-full-b",
+    "moonstone-full-c",
+    "moonstone-full-d",
+    "moonstone-full-e"
+  ]);
 
   const tileRows = layout.terrain.tile_index_rows;
   const mapEntries = tileRows.flat();
@@ -238,39 +467,85 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
   assert.equal(tileRows.length, 12);
   assert.ok(tileRows.every((row) => row.length === 12), "the tile map must be rectangular");
   assert.equal(mapEntries.length, 144);
-  assert.equal(usedTileTypes.size, 16);
+  assert.equal(usedTileTypes.size, 32);
   assert.ok(renderTiles.tile_ids.length < mapEntries.length, "map cells must reuse atlas tiles");
 
   const topology = renderTiles.path_connectivity;
+  const region = renderTiles.terrain_regions[0];
+  const isPathIndex = (atlasIndex) =>
+    atlasIndex >= topology.first_index && atlasIndex < topology.first_index + 16;
+  const isRegionIndex = (atlasIndex) =>
+    atlasIndex >= region.first_index && atlasIndex < region.first_index + 16;
   const maskFor = (atlasIndex) =>
-    atlasIndex >= topology.first_index && atlasIndex < topology.first_index + 16
-      ? atlasIndex - topology.first_index
-      : 0;
+    isPathIndex(atlasIndex) ? atlasIndex - topology.first_index : 0;
+  const regionMaskFor = (atlasIndex) =>
+    isRegionIndex(atlasIndex) ? atlasIndex - region.first_index : 0;
   for (let rowIndex = 0; rowIndex < tileRows.length; rowIndex += 1) {
     for (let columnIndex = 0; columnIndex < tileRows[rowIndex].length; columnIndex += 1) {
-      const mask = maskFor(tileRows[rowIndex][columnIndex]);
+      const atlasIndex = tileRows[rowIndex][columnIndex];
+      const mask = maskFor(atlasIndex);
       if (columnIndex + 1 < tileRows[rowIndex].length) {
-        const eastMask = maskFor(tileRows[rowIndex][columnIndex + 1]);
-        assert.equal(
-          Boolean(mask & topology.east_bit),
-          Boolean(eastMask & topology.west_bit),
-          `east/west path mismatch at ${columnIndex},${rowIndex}`
-        );
+        const eastIndex = tileRows[rowIndex][columnIndex + 1];
+        if (!isRegionIndex(atlasIndex) && !isRegionIndex(eastIndex)) {
+          const eastMask = maskFor(eastIndex);
+          assert.equal(
+            Boolean(mask & topology.east_bit),
+            Boolean(eastMask & topology.west_bit),
+            `east/west path mismatch at ${columnIndex},${rowIndex}`
+          );
+        }
       } else {
         assert.equal(mask & topology.east_bit, 0);
       }
       if (rowIndex + 1 < tileRows.length) {
-        const southMask = maskFor(tileRows[rowIndex + 1][columnIndex]);
-        assert.equal(
-          Boolean(mask & topology.south_bit),
-          Boolean(southMask & topology.north_bit),
-          `north/south path mismatch at ${columnIndex},${rowIndex}`
-        );
+        const southIndex = tileRows[rowIndex + 1][columnIndex];
+        if (!isRegionIndex(atlasIndex) && !isRegionIndex(southIndex)) {
+          const southMask = maskFor(southIndex);
+          assert.equal(
+            Boolean(mask & topology.south_bit),
+            Boolean(southMask & topology.north_bit),
+            `north/south path mismatch at ${columnIndex},${rowIndex}`
+          );
+        }
       } else {
         assert.equal(mask & topology.south_bit, 0);
       }
       if (columnIndex === 0) assert.equal(mask & topology.west_bit, 0);
       if (rowIndex === 0) assert.equal(mask & topology.north_bit, 0);
+
+      const regionMask = regionMaskFor(atlasIndex);
+      if (columnIndex + 1 < tileRows[rowIndex].length) {
+        const eastIndex = tileRows[rowIndex][columnIndex + 1];
+        if (!isPathIndex(atlasIndex) && !isPathIndex(eastIndex)) {
+          const eastMask = regionMaskFor(eastIndex);
+          assert.equal(
+            Boolean(regionMask & region.northeast_bit),
+            Boolean(eastMask & region.northwest_bit),
+            `east/west north-corner region mismatch at ${columnIndex},${rowIndex}`
+          );
+          assert.equal(
+            Boolean(regionMask & region.southeast_bit),
+            Boolean(eastMask & region.southwest_bit),
+            `east/west south-corner region mismatch at ${columnIndex},${rowIndex}`
+          );
+        }
+      }
+      if (rowIndex + 1 < tileRows.length) {
+        const southIndex = tileRows[rowIndex + 1][columnIndex];
+        if (!isPathIndex(atlasIndex) && !isPathIndex(southIndex)) {
+          const southMask = regionMaskFor(southIndex);
+          assert.equal(
+            Boolean(regionMask & region.southwest_bit),
+            Boolean(southMask & region.northwest_bit),
+            `north/south west-corner region mismatch at ${columnIndex},${rowIndex}`
+          );
+          assert.equal(
+            Boolean(regionMask & region.southeast_bit),
+            Boolean(southMask & region.northeast_bit),
+            `north/south east-corner region mismatch at ${columnIndex},${rowIndex}`
+          );
+        }
+      }
     }
   }
 
@@ -278,6 +553,7 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
   assert.match(terrainChunkStreamer, /func configure\(/);
   assert.match(terrainChunkStreamer, /func set_target\(target: Node3D\)/);
   assert.match(terrainChunkStreamer, /func _stream_around\(focus: Vector2, force: bool\)/);
+  assert.match(terrainChunkStreamer, /func _visual_atlas_index\(/);
   assert.match(terrainChunkStreamer, /var mesh := ArrayMesh\.new\(\)/);
   assert.match(terrainChunkStreamer, /chunk\.name = "TerrainChunk_%d_%d"/);
   assert.match(terrainChunkStreamer, /set_meta\("total_chunk_count", _chunk_grid\.x \* _chunk_grid\.y\)/);
@@ -287,30 +563,40 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
 
   assert.match(
     sceneryVerifier,
-    /CATALOG_PATH := "res:\/\/assets\/scenery\/memory-moon-style-v1\/catalog\.json"/
+    /SCENERY_ROOT := "res:\/\/assets\/scenery\/"/
   );
+  assert.match(sceneryVerifier, /CATALOG_PATH := SCENERY_ROOT \+ "metadata\/catalog\.json"/);
   assert.doesNotMatch(sceneryVerifier, /_verify_texture\(atlas_path/);
   assert.match(
     sceneryVerifier,
-    /LAYOUT_PATH := "res:\/\/assets\/scenery\/memory-grove-v6\/layout\.json"/
+    /LAYOUT_PATH := SCENERY_ROOT \+ "metadata\/world\.json"/
   );
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_IMAGE_SIZE := Vector2i\(832, 1040\)/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TEXTURE := "images\/terrain-atlas\.png"/);
+  assert.doesNotMatch(sceneryVerifier, /STYLE_ROOT|LAYOUT_ROOT/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_IMAGE_SIZE := Vector2i\(832, 2496\)/);
   assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TILE_SIZE := Vector2i\(208, 208\)/);
   assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TILE_CONTENT_SIZE := Vector2i\(192, 192\)/);
   assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TILE_GUTTER := 8/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_ATLAS_GRID := Vector2i\(4, 5\)/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_ATLAS_GRID := Vector2i\(4, 12\)/);
   assert.match(sceneryVerifier, /EXPECTED_TERRAIN_CHUNK_SIZE_TILES := 3/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS := 2/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_RENDER_SIZE := Vector2i\(24, 24\)/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_CHUNK_GRID := Vector2i\(8, 8\)/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TOTAL_CHUNKS := 64/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_LOADED_CHUNKS := 25/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TOTAL_RENDER_TILES := 576/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_LOADED_RENDER_TILES := 225/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_STREAM_RADIUS_CHUNKS := 3/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_PADDING_TILES := 12/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_RENDER_SIZE := Vector2i\(36, 36\)/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_CHUNK_GRID := Vector2i\(12, 12\)/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TOTAL_CHUNKS := 144/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_LOADED_CHUNKS := 49/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_TOTAL_RENDER_TILES := 1296/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_LOADED_RENDER_TILES := 441/);
   assert.match(sceneryVerifier, /EXPECTED_TERRAIN_MAP_TILES := 144/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_ATLAS_TILES := 20/);
-  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_USED_TILE_TYPES := 16/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_ATLAS_TILES := 48/);
+  assert.match(sceneryVerifier, /EXPECTED_TERRAIN_USED_TILE_TYPES := 32/);
+  assert.match(sceneryVerifier, /EXPECTED_PATH_FIRST_INDEX := 12/);
+  assert.match(sceneryVerifier, /EXPECTED_REGION_FIRST_INDEX := 28/);
+  assert.match(sceneryVerifier, /EXPECTED_CATALOG_VERSION := 3/);
+  assert.match(sceneryVerifier, /EXPECTED_SCALE_REFERENCE/);
+  assert.match(sceneryVerifier, /placement[^\n]+canonical humanoid-relative scale/);
   assert.match(sceneryVerifier, /func _verify_path_connectivity\(/);
+  assert.match(sceneryVerifier, /func _verify_terrain_regions\(/);
   assert.match(
     sceneryVerifier,
     /MEMORY_MOON_SCENERY_SMOKE_OK layout=%s terrain=chunk-stream chunks=%d\/%d tiles=%d\/%d map_tiles=%d atlas_tiles=%d used_tile_types=%d navigation=true prop_placements=%d collision_objects=%d shadows=0/
@@ -318,58 +604,72 @@ test("Memory Grove v6 streams a reusable terrain tile map and navigation into th
 
   assert.match(
     exportPresets,
-    /include_filter="assets\/scenery\/memory-moon-style-v1\/catalog\.json,assets\/scenery\/memory-grove-v6\/layout\.json,assets\/scenery\/memory-grove-v6\/terrain\/\*\.png"/
+    /include_filter="assets\/scenery\/metadata\/catalog\.json,assets\/scenery\/metadata\/world\.json,assets\/scenery\/images\/\*\.png"/
   );
   assert.match(exporter, /scenery_source_root="\/scenery-source"/);
-  assert.match(exporter, /scenery_style_root="\$\{scenery_source_root\}\/memory-moon-style-v1"/);
-  assert.match(exporter, /scenery_layout_root="\$\{scenery_source_root\}\/memory-grove-v6"/);
+  assert.match(exporter, /scenery_metadata_root="\$\{scenery_source_root\}\/metadata"/);
+  assert.match(exporter, /scenery_images_root="\$\{scenery_source_root\}\/images"/);
   assert.match(exporter, /test ! -e "\$\{project_source\}\/assets\/scenery"/);
-  assert.match(
-    exporter,
-    /cp -R\s*\\?\s*"\$\{scenery_style_root\}\/\."\s*\\?\s*"\$\{work_root\}\/assets\/scenery\/memory-moon-style-v1\/"/
+  const runtimeImageArray = /readonly -a scenery_image_names=\(([\s\S]*?)\n\)/.exec(exporter);
+  assert.ok(runtimeImageArray, "exporter must declare the canonical runtime image set");
+  assert.deepEqual(
+    [...runtimeImageArray[1].matchAll(/"([^"]+\.png)"/g)].map((match) => match[1]).sort(),
+    runtimeImageNames
   );
   assert.match(
     exporter,
-    /cp -R\s*\\?\s*"\$\{scenery_layout_root\}\/\."\s*\\?\s*"\$\{work_root\}\/assets\/scenery\/memory-grove-v6\/"/
+    /"\$\{scenery_metadata_root\}\/catalog\.json"\s*\\\s*"\$\{scenery_metadata_root\}\/world\.json"\s*\\\s*"\$\{work_root\}\/assets\/scenery\/metadata\/"/
   );
+  assert.match(
+    exporter,
+    /for scenery_image_name in "\$\{scenery_image_names\[@\]\}"; do[\s\S]*?"\$\{scenery_images_root\}\/\$\{scenery_image_name\}"[\s\S]*?"\$\{work_root\}\/assets\/scenery\/images\/\$\{scenery_image_name\}"[\s\S]*?done/
+  );
+  assert.doesNotMatch(exporter, /cp -R[^\n]*\$\{scenery_(?:source|metadata|images)_root\}/);
+  assert.doesNotMatch(exporter, /\$\{work_root\}\/assets\/scenery\/sources/);
+  assert.doesNotMatch(exporter, /\$\{scenery_source_root\}\/sources/);
   assert.doesNotMatch(exporter, /memory-grove-v(?:1|3|4|5)/);
-  assert.match(exporter, /"\$\{scenery_style_root\}\/catalog\.json"/);
-  assert.match(exporter, /"\$\{scenery_layout_root\}\/layout\.json"/);
+  assert.match(exporter, /"\$\{scenery_metadata_root\}\/catalog\.json"/);
+  assert.match(exporter, /"\$\{scenery_metadata_root\}\/world\.json"/);
   assert.match(exporter, /scenery_catalog_sha256=/);
   assert.match(exporter, /scenery_layout_sha256=/);
   assert.match(exporter, /scenery_tileset_sha256=/);
-  assert.match(exporter, /terrain\/moonroot-reusable-tiles-v1\.png/);
-  assert.match(exporter, /sha256sum --check --strict SHA256SUMS/);
+  assert.match(exporter, /images_root\}\/terrain-atlas\.png/);
+  assert.match(exporter, /sha256sum --check --strict metadata\/checksums\.sha256/);
   assert.match(exporter, /run_godot_checked scenery/);
   assert.ok(exporter.includes(sceneryMarker));
   assert.match(exporter, /LICENSES\/Memory-Grove-Provenance\.md/);
   assert.match(exporter, /LICENSES\/Memory-Moon-Style-Provenance\.md/);
+  assert.match(exporter, /metadata_root\}\/catalog\.provenance\.md/);
+  assert.match(exporter, /metadata_root\}\/world\.provenance\.md/);
   assert.doesNotMatch(exporter, /apps\/launcher|visual-vocabulary/);
 
-  assert.match(archivedV1Ignore, /excluded from Godot import and release payloads/);
-  assert.match(archivedV3Ignore, /excluded from Godot import and release payloads/);
-  assert.match(archivedV4Ignore, /excluded from Godot import and release payloads/);
-  assert.match(archivedV5Ignore, /active Web export uses the chunked v6 package/);
-  assert.match(styleSourcesIgnore, /source art is retained in the repository, not the payload/);
-  assert.match(styleMetadataIgnore, /not a runtime resource/);
-  assert.match(styleTileSourcesIgnore, /Memory Grove v6 uses its layout-owned reusable terrain atlas/);
-  assert.match(scenerySchemasIgnore, /build-time inputs, not Godot resources/);
-
   for (const document of [memoryMoonReadme, thirdPartyNotices]) {
-    assert.match(document, /memory-moon-style-v1\/catalog\.json/);
-    assert.match(document, /memory-grove-v6\/layout\.json/);
+    assert.match(document, /metadata\/catalog\.json/);
+    assert.match(document, /metadata\/world\.json/);
   }
-  assert.match(memoryMoonReadme, /local-preview rights/);
+  assert.match(memoryMoonReadme, /local-preview\s+rights/);
   assert.match(thirdPartyNotices, /local-preview-only/);
   assert.match(memoryMoonReadme, /apps\/launcher\/static\/assets\/scenery\//);
   assert.match(memoryMoonReadme, /consumer[^.]+no canonical scenery copy/is);
-  assert.match(memoryMoonReadme, /canonical scenery catalog read-only/);
-  assert.match(memoryMoonReadme, /exporter stages the\s+minimum active, hash-verified scenery subset/);
+  assert.match(memoryMoonReadme, /Physical storage is intentionally unversioned and shallow/i);
+  assert.match(
+    memoryMoonReadme,
+    /exporter\s+stages\s+the\s+minimum active, hash-verified subset/
+  );
   assert.match(memoryMoonReadme, /copy is disposable build output/);
-  assert.match(memoryMoonReadme, /earlier\s+v1, v3, v4, and v5 packages remain as excluded design history/);
+  assert.match(
+    memoryMoonReadme,
+    /superseded scenery packages are preserved in Git history rather than the served\s+asset tree/i
+  );
   assert.match(thirdPartyNotices, /apps\/launcher\/static\/assets\/scenery\//);
-  assert.match(thirdPartyNotices, /location[^.]+does not imply launcher ownership/is);
-  assert.match(thirdPartyNotices, /earlier packages remain unchanged[^.]+not part of the active Web export/);
+  assert.match(
+    thirdPartyNotices,
+    /location[^.]+does not imply launcher\s+ownership/is
+  );
+  assert.match(
+    thirdPartyNotices,
+    /superseded scenery packages are preserved in Git history rather than the active\s+asset tree or Web export/i
+  );
 });
 
 test("one real humanoid motion donor drives a reversible macaw costume shell", () => {
@@ -466,7 +766,17 @@ test("click or tap drives the walker through AStarGrid2D without directional con
   assert.match(gameScript, /_navigator\.find_path\(_actor\.position, requested_target\)/);
   assert.match(gameScript, /_target_marker\.name = "WalkTarget"/);
   assert.match(gameScript, /var marker_mesh := CylinderMesh\.new\(\)/);
-  assert.match(gameScript, /_actor\.velocity = direction \* WALK_SPEED/);
+  assert.match(gameScript, /WALK_ACCELERATION := 8\.0/);
+  assert.match(gameScript, /WALK_BRAKING := 11\.0/);
+  assert.match(gameScript, /CORNER_APPROACH_DISTANCE := 0\.55/);
+  assert.match(gameScript, /CORNER_SPEED := 1\.35/);
+  assert.match(gameScript, /_advance_movement_velocity\(direction, delta\)/);
+  assert.match(gameScript, /func _steer_movement_velocity\(/);
+  assert.match(gameScript, /return current\.move_toward\(Vector3\.ZERO, WALK_BRAKING \* delta\)/);
+  assert.match(gameScript, /sqrt\(2\.0 \* WALK_BRAKING \* remaining_after_stop\)/);
+  assert.match(gameScript, /_actor\.velocity = next_velocity/);
+  assert.match(gameScript, /_animation_player\.speed_scale = clampf\(/);
+  assert.match(gameScript, /_stall_reference_remaining - route_remaining >= REPLAN_PROGRESS_DISTANCE/);
   assert.match(gameScript, /_actor\.move_and_slide\(\)/);
   assert.match(gameScript, /_instruction_label\.text = "Click or tap the ground to walk"/);
   assert.doesNotMatch(
@@ -480,6 +790,25 @@ test("click or tap drives the walker through AStarGrid2D without directional con
   assert.match(clickNavigation, /grid\.diagonal_mode = AStarGrid2D\.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES/);
   assert.match(clickNavigation, /grid\.set_point_solid\(cell, true\)/);
   assert.match(clickNavigation, /_grid\.get_id_path\(start_cell, target_cell, true\)/);
+  assert.match(clickNavigation, /func _string_pull_world_path\(/);
+  assert.match(clickNavigation, /func _segment_is_walkable\(/);
+  assert.match(clickNavigation, /ACTOR_CLEARANCE_RADIUS := 0\.28/);
+  assert.match(clickNavigation, /func _segment_has_capsule_clearance\(/);
+  assert.match(clickNavigation, /func _can_preserve_precise_target\(/);
+  assert.match(clickNavigation, /horizontal_neighbor/);
+  assert.match(clickNavigation, /vertical_neighbor/);
+  assert.match(movementVerifier, /TEST_RATES := \[30, 60, 120\]/);
+  assert.match(movementVerifier, /_verify_open_route_smoothing\(/);
+  assert.match(movementVerifier, /_verify_supercover_safety_and_target_fallback\(/);
+  assert.match(movementVerifier, /_verify_eased_arrival_across_rates\(/);
+  assert.match(movementVerifier, /_verify_braked_retarget_across_rates\(/);
+  assert.match(movementVerifier, /_verify_corner_steering_across_rates\(/);
+  assert.match(movementVerifier, /_verify_stall_progress_uses_route_distance\(/);
+  assert.match(movementVerifier, /_segment_is_walkable/);
+  assert.match(
+    movementVerifier,
+    /MEMORY_MOON_MOVEMENT_SMOKE_OK rates=30\/60\/120 acceleration=true braking=true arrival=true overshoot=false reversal=brake-first corner_drift_max=0\.16 speed_cap=2\.6 arrival_spread_max=0\.12 los=string-pulled capsule_clearance=0\.28 supercover=safe deterministic=true precise_target=fallback same_cell=move-to-center stall_progress=route-distance/
+  );
   assert.match(clickNavigation, /func is_world_walkable\(world_position: Vector3\)/);
 
   assert.match(gameScript, /func _layout_interface_for_size\(viewport_size: Vector2\)/);

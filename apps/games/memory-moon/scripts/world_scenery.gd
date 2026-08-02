@@ -5,11 +5,9 @@ const TerrainChunkStreamer := preload("res://scripts/terrain_chunk_streamer.gd")
 const SCHEMA_VERSION := 2
 const LAYOUT_ID := "memory-grove-v6"
 const CATALOG_ID := "memory-moon-style-v1"
-const CATALOG_PATH := "res://assets/scenery/memory-moon-style-v1/catalog.json"
-const LAYOUT_PATH := "res://assets/scenery/memory-grove-v6/layout.json"
-const STYLE_ROOT := "res://assets/scenery/memory-moon-style-v1/"
-const LAYOUT_ROOT := "res://assets/scenery/memory-grove-v6/"
-const ASSET_ROOT := STYLE_ROOT
+const SCENERY_ROOT := "res://assets/scenery/"
+const CATALOG_PATH := SCENERY_ROOT + "metadata/catalog.json"
+const LAYOUT_PATH := SCENERY_ROOT + "metadata/world.json"
 const PROJECTION_ID := "isometric-orthographic-45-30"
 const TERRAIN_Y := -0.045
 const CARD_GROUND_Y := 0.02
@@ -129,7 +127,7 @@ func build(parent: Node3D) -> Node3D:
 	var texture_cache: Dictionary = {}
 	var terrain: Dictionary = _layout["terrain"]
 	var render_tiles: Dictionary = terrain["render_tiles"]
-	var terrain_path := _resolve_layout_texture(String(render_tiles["texture"]), "terrain tileset")
+	var terrain_path := _resolve_scenery_texture(String(render_tiles["texture"]), "terrain tileset")
 	var terrain_texture := _load_texture(terrain_path, texture_cache)
 	if terrain_texture == null:
 		_record_missing_asset(terrain_path)
@@ -150,7 +148,7 @@ func build(parent: Node3D) -> Node3D:
 	for object_id_variant in objects.keys():
 		var object_id := String(object_id_variant)
 		var definition: Dictionary = objects[object_id]
-		var texture_path := _resolve_style_texture(String(definition["texture"]), "object %s" % object_id)
+		var texture_path := _resolve_scenery_texture(String(definition["texture"]), "object %s" % object_id)
 		var object_texture := _load_texture(texture_path, texture_cache)
 		if object_texture == null:
 			_record_missing_asset(texture_path)
@@ -185,7 +183,7 @@ func build(parent: Node3D) -> Node3D:
 		var placement: Dictionary = placement_variant
 		var object_id := String(placement["object"])
 		var definition: Dictionary = objects[object_id]
-		var texture_path := _resolve_style_texture(String(definition["texture"]), "object %s" % object_id)
+		var texture_path := _resolve_scenery_texture(String(definition["texture"]), "object %s" % object_id)
 		var texture := _load_texture(texture_path, texture_cache)
 		var layer_id := String(placement["layer"])
 		var layer := layer_nodes[layer_id] as Node3D
@@ -280,7 +278,7 @@ func _validate_floor_atlas(value: Variant) -> void:
 	_require_keys(atlas, ["texture", "size_px", "gutter_px", "tiles"], "catalog.floor_atlas")
 	if not _has_keys(atlas, ["texture", "size_px", "gutter_px", "tiles"]):
 		return
-	_expect_safe_texture(atlas["texture"], "catalog.floor_atlas.texture", "floor/")
+	_expect_safe_texture(atlas["texture"], "catalog.floor_atlas.texture", "sources/")
 	_validate_number_array(atlas["size_px"], 2, "catalog.floor_atlas.size_px", true)
 	if not _is_number(atlas["gutter_px"]) or float(atlas["gutter_px"]) < 0.0:
 		_add_error("catalog.floor_atlas.gutter_px must be a non-negative number")
@@ -424,7 +422,7 @@ func _validate_objects(value: Variant) -> void:
 		_require_keys(definition, REQUIRED_OBJECT_KEYS, context)
 		if not _has_keys(definition, REQUIRED_OBJECT_KEYS):
 			continue
-		_expect_safe_texture(definition["texture"], "%s.texture" % context, "objects/")
+		_expect_safe_texture(definition["texture"], "%s.texture" % context, "images/")
 		_validate_number_array(definition["image_size_px"], 2, "%s.image_size_px" % context, true)
 		_validate_number_array(definition["anchor_px"], 2, "%s.anchor_px" % context, false)
 		if _valid_number_array(definition["image_size_px"], 2, true) and _valid_number_array(definition["anchor_px"], 2, false):
@@ -574,6 +572,7 @@ func _validate_render_tiles(value: Variant, rows_value: Variant, terrain: Dictio
 		"padding_tile_index",
 		"tile_ids",
 		"path_connectivity",
+		"terrain_regions",
 		"pixels_per_world_unit",
 		"projection",
 		"render_role",
@@ -582,7 +581,7 @@ func _validate_render_tiles(value: Variant, rows_value: Variant, terrain: Dictio
 	_require_keys(render_tiles, required, "layout.terrain.render_tiles")
 	if not _has_keys(render_tiles, required):
 		return
-	_expect_safe_layout_texture(render_tiles["texture"], "layout.terrain.render_tiles.texture", "terrain/")
+	_expect_safe_texture(render_tiles["texture"], "layout.terrain.render_tiles.texture", "images/")
 	_validate_positive_integer_pair(render_tiles["image_size_px"], "layout.terrain.render_tiles.image_size_px")
 	_validate_positive_integer_pair(render_tiles["tile_size_px"], "layout.terrain.render_tiles.tile_size_px")
 	_validate_positive_integer_pair(
@@ -616,6 +615,11 @@ func _validate_render_tiles(value: Variant, rows_value: Variant, terrain: Dictio
 	)
 	_validate_tile_ids(render_tiles["tile_ids"], atlas_capacity)
 	_validate_path_connectivity(render_tiles["path_connectivity"], atlas_capacity)
+	_validate_terrain_regions(
+		render_tiles["terrain_regions"],
+		render_tiles["path_connectivity"],
+		atlas_capacity,
+	)
 	if (
 		_valid_positive_integer_pair(render_tiles["image_size_px"])
 		and _valid_positive_integer_pair(render_tiles["tile_size_px"])
@@ -741,6 +745,96 @@ func _validate_path_connectivity(value: Variant, atlas_capacity: int) -> void:
 		_add_error("%s must reserve 16 consecutive atlas cells from first_index" % context)
 
 
+func _validate_terrain_regions(
+	value: Variant,
+	path_connectivity_value: Variant,
+	atlas_capacity: int,
+) -> void:
+	var context := "layout.terrain.render_tiles.terrain_regions"
+	if typeof(value) != TYPE_ARRAY:
+		_add_error("%s must be an array" % context)
+		return
+	var path_first_index := -1
+	if (
+		typeof(path_connectivity_value) == TYPE_DICTIONARY
+		and _is_integral_number((path_connectivity_value as Dictionary).get("first_index"))
+	):
+		path_first_index = int((path_connectivity_value as Dictionary)["first_index"])
+	var seen_ids: Dictionary = {}
+	var occupied_ranges: Array[Vector2i] = []
+	var full_variant_indices: Array[int] = []
+	var seen_full_variant_indices: Dictionary = {}
+	var required := [
+		"id",
+		"first_index",
+		"northwest_bit",
+		"northeast_bit",
+		"southeast_bit",
+		"southwest_bit",
+	]
+	for region_index in (value as Array).size():
+		var region_value: Variant = (value as Array)[region_index]
+		var region_context := "%s[%d]" % [context, region_index]
+		if typeof(region_value) != TYPE_DICTIONARY:
+			_add_error("%s must be an object" % region_context)
+			continue
+		var region: Dictionary = region_value
+		_require_keys(region, required, region_context)
+		if not _has_keys(region, required):
+			continue
+		if not _is_slug(region["id"]):
+			_add_error("%s.id must be a non-empty slug" % region_context)
+		else:
+			var region_id := String(region["id"])
+			if seen_ids.has(region_id):
+				_add_error("%s ids must be unique" % context)
+			else:
+				seen_ids[region_id] = true
+		_validate_bounded_atlas_index(region["first_index"], atlas_capacity, "%s.first_index" % region_context)
+		_expect_int(region["northwest_bit"], "%s.northwest_bit" % region_context, 1)
+		_expect_int(region["northeast_bit"], "%s.northeast_bit" % region_context, 2)
+		_expect_int(region["southeast_bit"], "%s.southeast_bit" % region_context, 4)
+		_expect_int(region["southwest_bit"], "%s.southwest_bit" % region_context, 8)
+		if not _is_integral_number(region["first_index"]) or int(region["first_index"]) < 0:
+			continue
+		var first_index := int(region["first_index"])
+		if atlas_capacity > 0 and first_index + 15 >= atlas_capacity:
+			_add_error("%s must reserve 16 consecutive atlas cells from first_index" % region_context)
+		if path_first_index >= 0 and _atlas_ranges_overlap(first_index, path_first_index):
+			_add_error("%s must not overlap the 16-cell path topology range" % region_context)
+		for occupied_range in occupied_ranges:
+			if _atlas_ranges_overlap(first_index, occupied_range.x):
+				_add_error("%s must not overlap another terrain region" % region_context)
+		occupied_ranges.append(Vector2i(first_index, first_index + 15))
+		if region.has("full_variant_indices"):
+			var variants_value: Variant = region["full_variant_indices"]
+			if typeof(variants_value) != TYPE_ARRAY or (variants_value as Array).is_empty():
+				_add_error("%s.full_variant_indices must be a non-empty array" % region_context)
+				continue
+			for variant_value in (variants_value as Array):
+				if not _is_integral_number(variant_value) or int(variant_value) < 0:
+					_add_error("%s.full_variant_indices must contain non-negative integers" % region_context)
+					continue
+				var variant_index := int(variant_value)
+				if atlas_capacity > 0 and variant_index >= atlas_capacity:
+					_add_error("%s.full_variant_indices contains an index outside the atlas" % region_context)
+				if seen_full_variant_indices.has(variant_index):
+					_add_error("%s full_variant_indices must be unique" % context)
+					continue
+				seen_full_variant_indices[variant_index] = true
+				full_variant_indices.append(variant_index)
+	for variant_index in full_variant_indices:
+		if path_first_index >= 0 and variant_index >= path_first_index and variant_index <= path_first_index + 15:
+			_add_error("%s full_variant_indices must not overlap the path topology range" % context)
+		for occupied_range in occupied_ranges:
+			if variant_index >= occupied_range.x and variant_index <= occupied_range.y:
+				_add_error("%s full_variant_indices must not overlap a terrain-region topology range" % context)
+
+
+func _atlas_ranges_overlap(first_index: int, other_first_index: int) -> bool:
+	return first_index <= other_first_index + 15 and other_first_index <= first_index + 15
+
+
 func _validate_ground_plate(value: Variant) -> void:
 	if typeof(value) != TYPE_DICTIONARY:
 		_add_error("layout.terrain.ground_plate must be an object")
@@ -758,7 +852,7 @@ func _validate_ground_plate(value: Variant) -> void:
 	_require_keys(ground_plate, required, "layout.terrain.ground_plate")
 	if not _has_keys(ground_plate, required):
 		return
-	_expect_safe_layout_texture(ground_plate["texture"], "layout.terrain.ground_plate.texture", "terrain/")
+	_expect_safe_texture(ground_plate["texture"], "layout.terrain.ground_plate.texture", "images/")
 	_validate_number_array(ground_plate["image_size_px"], 2, "layout.terrain.ground_plate.image_size_px", true)
 	_validate_number_array(ground_plate["world_size"], 2, "layout.terrain.ground_plate.world_size", true)
 	_expect_positive_number(ground_plate["pixels_per_world_unit"], "layout.terrain.ground_plate.pixels_per_world_unit")
@@ -1249,7 +1343,7 @@ func _load_texture(path: String, cache: Dictionary) -> Texture2D:
 	return texture
 
 
-func _resolve_style_texture(raw_path: String, context: String) -> String:
+func _resolve_scenery_texture(raw_path: String, context: String) -> String:
 	var normalized := raw_path.strip_edges().replace("\\", "/")
 	if normalized.is_empty():
 		return ""
@@ -1267,36 +1361,10 @@ func _resolve_style_texture(raw_path: String, context: String) -> String:
 		if String(forbidden) in lower_raw:
 			_add_error("%s texture references forbidden source segment '%s': %s" % [context, forbidden, raw_path])
 			return ""
-	var resolved := normalized if normalized.begins_with("res://") else STYLE_ROOT + normalized
+	var resolved := normalized if normalized.begins_with("res://") else SCENERY_ROOT + normalized
 	resolved = resolved.simplify_path()
-	if not resolved.begins_with(STYLE_ROOT):
-		_add_error("%s texture escaped %s: %s" % [context, STYLE_ROOT, raw_path])
-		return ""
-	return resolved
-
-
-func _resolve_layout_texture(raw_path: String, context: String) -> String:
-	var normalized := raw_path.strip_edges().replace("\\", "/")
-	if normalized.is_empty():
-		return ""
-	var lower_raw := normalized.to_lower()
-	if (
-		not normalized.begins_with("res://")
-		and (normalized.is_absolute_path() or normalized.begins_with("/") or ":" in normalized)
-	):
-		_add_error("%s texture must use a project-relative or res:// path: %s" % [context, raw_path])
-		return ""
-	if ".." in normalized.split("/", false):
-		_add_error("%s texture cannot traverse parent directories: %s" % [context, raw_path])
-		return ""
-	for forbidden in FORBIDDEN_TEXTURE_SEGMENTS:
-		if String(forbidden) in lower_raw:
-			_add_error("%s texture references forbidden source segment '%s': %s" % [context, forbidden, raw_path])
-			return ""
-	var resolved := normalized if normalized.begins_with("res://") else LAYOUT_ROOT + normalized
-	resolved = resolved.simplify_path()
-	if not resolved.begins_with(LAYOUT_ROOT):
-		_add_error("%s texture escaped %s: %s" % [context, LAYOUT_ROOT, raw_path])
+	if not resolved.begins_with(SCENERY_ROOT):
+		_add_error("%s texture escaped %s: %s" % [context, SCENERY_ROOT, raw_path])
 		return ""
 	return resolved
 
@@ -1305,22 +1373,11 @@ func _expect_safe_texture(value: Variant, context: String, required_subdirectory
 	if typeof(value) != TYPE_STRING or String(value).is_empty():
 		_add_error("%s must be a non-empty string" % context)
 		return
-	var path := _resolve_style_texture(String(value), context)
+	var path := _resolve_scenery_texture(String(value), context)
 	if path.is_empty():
 		return
-	if not path.begins_with(STYLE_ROOT + required_subdirectory):
-		_add_error("%s must remain under %s%s" % [context, STYLE_ROOT, required_subdirectory])
-
-
-func _expect_safe_layout_texture(value: Variant, context: String, required_subdirectory: String) -> void:
-	if typeof(value) != TYPE_STRING or String(value).is_empty():
-		_add_error("%s must be a non-empty string" % context)
-		return
-	var path := _resolve_layout_texture(String(value), context)
-	if path.is_empty():
-		return
-	if not path.begins_with(LAYOUT_ROOT + required_subdirectory):
-		_add_error("%s must remain under %s%s" % [context, LAYOUT_ROOT, required_subdirectory])
+	if not path.begins_with(SCENERY_ROOT + required_subdirectory):
+		_add_error("%s must remain under %s%s" % [context, SCENERY_ROOT, required_subdirectory])
 
 
 func _placement_counts_by_object() -> Dictionary:

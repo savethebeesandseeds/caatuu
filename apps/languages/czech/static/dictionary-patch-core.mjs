@@ -120,6 +120,14 @@ function cleanStringList(value, path, errors, { maxItems = MAX_LIST_VALUES, maxT
   return result;
 }
 
+function cleanPositiveInteger(value, path, errors) {
+  if (!Number.isSafeInteger(value) || value < 1) {
+    errors.push(`${path} must be a positive safe integer.`);
+    return 0;
+  }
+  return value;
+}
+
 function cleanEvidence(value, path, errors) {
   if (!Array.isArray(value) || value.length === 0) {
     errors.push(`${path} must contain at least one evidence item.`);
@@ -246,9 +254,12 @@ function canonicalRecordKey(record, dictionaryKey) {
   if (kind === "form-alias") {
     const target = read(record, "target");
     const form = exactKey(read(record, "form"));
+    const entryId = read(target, "entryId");
     const lemma = exactKey(read(target, "lemma"));
     const pos = exactKey(read(target, "pos"));
-    return form && lemma && pos ? [PATCH_SCHEMA, dictionaryKey, kind, form, lemma, pos].join("|") : "";
+    return form && Number.isSafeInteger(entryId) && entryId > 0 && lemma && pos
+      ? [PATCH_SCHEMA, dictionaryKey, kind, form, entryId, lemma, pos].join("|")
+      : "";
   }
   return "";
 }
@@ -289,12 +300,13 @@ function cleanAddEntry(record, path, dictionaryKey, errors) {
 function cleanAlias(record, path, dictionaryKey, errors) {
   rejectUnknownKeys(record, new Set(["kind", "form", "tags", "target", "review"]), path, errors);
   const target = read(record, "target");
-  rejectUnknownKeys(target, new Set(["lemma", "pos"]), `${path}.target`, errors);
+  rejectUnknownKeys(target, new Set(["entryId", "lemma", "pos"]), `${path}.target`, errors);
   const result = {
     kind: "form-alias",
     form: cleanText(read(record, "form"), `${path}.form`, errors, { max: 120 }),
     tags: cleanStringList(read(record, "tags"), `${path}.tags`, errors),
     target: {
+      entryId: cleanPositiveInteger(read(target, "entryId"), `${path}.target.entryId`, errors),
       lemma: cleanText(read(target, "lemma"), `${path}.target.lemma`, errors, { max: 120 }),
       pos: cleanText(read(target, "pos"), `${path}.target.pos`, errors, { max: 60 })
     },
@@ -313,13 +325,18 @@ function deepFreeze(value, seen = new Set()) {
 
 function parsePatch(raw) {
   const errors = [];
-  if (!rejectUnknownKeys(raw, new Set(["schema", "dictionaryKey", "direction", "records"]), "$", errors)) {
+  if (!rejectUnknownKeys(raw, new Set(["schema", "revision", "digest", "dictionaryKey", "direction", "records"]), "$", errors)) {
     return { errors, patch: null };
   }
   const schema = cleanText(read(raw, "schema"), "$.schema", errors, { max: 80 });
+  const revision = cleanPositiveInteger(read(raw, "revision"), "$.revision", errors);
+  const digest = cleanText(read(raw, "digest"), "$.digest", errors, { max: 80 });
   const dictionaryKey = cleanText(read(raw, "dictionaryKey"), "$.dictionaryKey", errors, { max: 120 });
   const direction = cleanText(read(raw, "direction"), "$.direction", errors, { max: 24 });
   if (schema !== PATCH_SCHEMA) errors.push(`$.schema must be "${PATCH_SCHEMA}".`);
+  if (!/^sha256-[0-9a-f]{64}$/u.test(digest)) {
+    errors.push("$.digest must be a lowercase sha256- digest.");
+  }
   if (dictionaryKey !== PATCH_DICTIONARY_KEY) {
     errors.push(`$.dictionaryKey must be "${PATCH_DICTIONARY_KEY}".`);
   }
@@ -331,6 +348,7 @@ function parsePatch(raw) {
   const entries = [];
   const aliases = [];
   const seenIds = new Map();
+  const seenAliasForms = new Map();
   for (let index = 0; index < Math.min(Array.isArray(records) ? records.length : 0, MAX_RECORDS); index += 1) {
     const record = records[index];
     const path = `$.records[${index}]`;
@@ -352,15 +370,25 @@ function parsePatch(raw) {
     const previous = seenIds.get(compiled.id);
     if (previous) errors.push(`${path} duplicates ${previous}.`);
     else seenIds.set(compiled.id, path);
-    if (compiled.kind === "add-entry") entries.push(compiled);
-    else aliases.push(compiled);
+    if (compiled.kind === "add-entry") {
+      entries.push(compiled);
+    } else {
+      const formKey = normalizeCzechPatchSearch(compiled.form);
+      const previousAlias = seenAliasForms.get(formKey);
+      if (previousAlias && previousAlias.id !== compiled.id) {
+        errors.push(`${path} conflicts with ${previousAlias.path}; one normalized reviewed form cannot target multiple base entries.`);
+      } else if (!previousAlias) {
+        seenAliasForms.set(formKey, { id: compiled.id, path });
+      }
+      aliases.push(compiled);
+    }
   }
 
   entries.sort((left, right) => left.id.localeCompare(right.id));
   aliases.sort((left, right) => left.id.localeCompare(right.id));
   return {
     errors,
-    patch: { schema, dictionaryKey, direction, entries, aliases }
+    patch: { schema, revision, digest, dictionaryKey, direction, entries, aliases }
   };
 }
 
@@ -486,9 +514,15 @@ function matchingAliases(patch, query, { prefix = true } = {}) {
 export function discoverDictionaryAliasTargets(patch, query, { prefix = true } = {}) {
   const grouped = new Map();
   for (const { alias } of matchingAliases(patch, query, { prefix })) {
-    const key = `${exactKey(alias.target.lemma)}|${exactKey(alias.target.pos)}`;
+    const key = `${alias.target.entryId}|${exactKey(alias.target.lemma)}|${exactKey(alias.target.pos)}`;
     if (!grouped.has(key)) {
-      grouped.set(key, { lemma: alias.target.lemma, pos: alias.target.pos, aliasIds: [], forms: [] });
+      grouped.set(key, {
+        entryId: alias.target.entryId,
+        lemma: alias.target.lemma,
+        pos: alias.target.pos,
+        aliasIds: [],
+        forms: []
+      });
     }
     const target = grouped.get(key);
     target.aliasIds.push(alias.id);
@@ -582,11 +616,10 @@ export function dedupeDictionaryResults(results, { limit = MAX_RESULTS } = {}) {
   return deduped;
 }
 
-function aliasTargetMatches(entry, alias, foldedFallback) {
+function aliasTargetMatches(entry, alias) {
+  if (String(entry.id) !== String(alias.target.entryId)) return false;
   if (exactKey(entry.pos) !== exactKey(alias.target.pos)) return false;
-  return foldedFallback
-    ? normalizeCzechPatchSearch(entry.lemma) === normalizeCzechPatchSearch(alias.target.lemma)
-    : exactKey(entry.lemma) === exactKey(alias.target.lemma);
+  return exactKey(entry.lemma) === exactKey(alias.target.lemma);
 }
 
 export function materializeDictionaryAliasResults(patch, query, basePayloads, { limit = MAX_RESULTS, prefix = true } = {}) {
@@ -594,8 +627,7 @@ export function materializeDictionaryAliasResults(patch, query, basePayloads, { 
   const baseEntries = dedupeDictionaryResults(basePayloads, { limit: MAX_RESULTS });
   const results = [];
   for (const { alias } of matchingAliases(patch, query, { prefix })) {
-    let targets = baseEntries.filter((entry) => aliasTargetMatches(entry, alias, false));
-    if (!targets.length) targets = baseEntries.filter((entry) => aliasTargetMatches(entry, alias, true));
+    const targets = baseEntries.filter((entry) => aliasTargetMatches(entry, alias));
     for (const target of targets) {
       const forms = [...target.forms];
       if (!forms.some((item) => exactKey(item.form) === exactKey(alias.form))) {

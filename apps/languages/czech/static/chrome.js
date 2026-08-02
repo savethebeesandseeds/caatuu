@@ -5,6 +5,7 @@
   const themeStorageKey = course.storage.theme;
   const fontSizeStorageKey = course.storage.fontSize;
   const speechVoiceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.voice.v1`;
+  const speechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const targetLanguage = course.targetLanguage;
   const lightModeIconSrc = "/assets/icons/light_mode_ui.png";
@@ -23,6 +24,12 @@
     large: { label: "Small" },
     largest: { label: "Standard" }
   });
+  const speechPaceOptions = Object.freeze({
+    slower: Object.freeze({ label: "Slower", rate: 0.65 }),
+    slow: Object.freeze({ label: "Slow", rate: 0.82 }),
+    normal: Object.freeze({ label: "Normal", rate: 1 })
+  });
+  const speechPaceByDifficulty = Object.freeze({ 1: "slower", 2: "slow", 3: "normal" });
   const backpackViewOptions = Object.freeze({
     items: { label: "Items", iconSrc: "/assets/icons/items_icon.png?v=items-2" },
     stats: { label: "Stats", iconSrc: "/assets/icons/stats_icon.png" },
@@ -444,6 +451,84 @@
     }));
   }
 
+  function normalizeStoredSpeechPace(value) {
+    const normalized = String(value || "").trim().toLocaleLowerCase("en-US");
+    return Object.prototype.hasOwnProperty.call(speechPaceOptions, normalized) ? normalized : "";
+  }
+
+  function readStoredSpeechPace() {
+    try {
+      return normalizeStoredSpeechPace(localStorage.getItem(speechPaceStorageKey));
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function currentSpeechDifficulty() {
+    const difficulty = Number(learning?.difficulty?.());
+    return Object.prototype.hasOwnProperty.call(speechPaceByDifficulty, difficulty) ? difficulty : 1;
+  }
+
+  function getSpeechPacePreference() {
+    return readStoredSpeechPace();
+  }
+
+  function resolveSpeechPace(difficulty = currentSpeechDifficulty()) {
+    const normalizedDifficulty = Object.prototype.hasOwnProperty.call(speechPaceByDifficulty, Number(difficulty))
+      ? Number(difficulty)
+      : 1;
+    const preference = readStoredSpeechPace();
+    const key = preference || speechPaceByDifficulty[normalizedDifficulty];
+    const option = speechPaceOptions[key];
+    const badge = String(learning?.difficultyOption?.(normalizedDifficulty)?.label || `Level ${normalizedDifficulty}`);
+    return {
+      key,
+      label: option.label,
+      rate: option.rate,
+      source: preference ? "override" : "badge",
+      difficulty: normalizedDifficulty,
+      badge
+    };
+  }
+
+  function writeStoredSpeechPace(value) {
+    const preference = normalizeStoredSpeechPace(value);
+    try {
+      if (preference) localStorage.setItem(speechPaceStorageKey, preference);
+      else localStorage.removeItem(speechPaceStorageKey);
+    } catch (error) {
+      // Badge-paced pronunciation remains available when storage is unavailable.
+    }
+    const pace = resolveSpeechPace();
+    window.dispatchEvent(new CustomEvent("caatuu:speech-pace-change", {
+      detail: { preference, pace }
+    }));
+    return pace;
+  }
+
+  function setSpeechPacePreference(value) {
+    return writeStoredSpeechPace(value);
+  }
+
+  function updateSpeechPaceControls(root = document) {
+    const pace = resolveSpeechPace();
+    const preference = getSpeechPacePreference();
+    root.querySelectorAll("[data-speech-pace-option]").forEach((button) => {
+      const active = button.dataset.speechPaceOption === preference;
+      const badgeDefault = !preference && button.dataset.speechPaceOption === pace.key;
+      button.classList.toggle("is-active", active);
+      button.classList.toggle("is-badge-default", badgeDefault);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    const status = root.querySelector("#settingsSpeechPaceStatus");
+    if (status) {
+      status.textContent = pace.source === "badge"
+        ? `${pace.badge} badge · ${pace.label} (${pace.rate}×). Choose a speed to override.`
+        : `Manual · ${pace.label} (${pace.rate}×). Press ${pace.label} again for ${pace.badge} pace.`;
+    }
+    return pace;
+  }
+
   function speechVoiceMatchesLocale(locale) {
     const requestedLanguage = String(targetLanguage.locale || "cs-CZ").split(/[-_]/u)[0].toLocaleLowerCase("en-US");
     const voiceLanguage = String(locale || "").split(/[-_]/u)[0].toLocaleLowerCase("en-US");
@@ -493,12 +578,14 @@
     const backend = speechVoiceBackend();
     let voices = [];
     let available = true;
+    let speechStatus = {};
     try {
       if (backend === "android") {
         const response = await window.CaatuuRuntime?.speech?.status?.(
           targetLanguage.locale,
           { voice: getSpeechVoicePreference() }
         );
+        speechStatus = response || {};
         voices = normalizeNativeSpeechVoiceOptions(response?.voices);
         available = response?.available === true;
       } else {
@@ -509,20 +596,112 @@
           && window.SpeechSynthesisUtterance
         );
         voices = browserSpeechVoiceOptions();
+        const requestedVoice = getSpeechVoicePreference();
+        const selectedVoice = voices.find((voice) => voice.id === requestedVoice) || voices[0] || null;
+        speechStatus = {
+          reason: available && voices.length ? "" : "no-language-voice",
+          voice: selectedVoice?.id || "",
+          localService: selectedVoice?.localService,
+          localVoiceAvailable: voices.some((voice) => voice.localService),
+          requestedVoice,
+          requestedVoiceAvailable: !requestedVoice || voices.some((voice) => voice.id === requestedVoice)
+        };
       }
     } catch (error) {
       available = false;
       voices = [];
+      speechStatus = { reason: "engine-unavailable" };
     }
+    const activeVoice = String(speechStatus.voice || "").trim();
+    const requestedVoice = String(speechStatus.requestedVoice ?? getSpeechVoicePreference()).trim();
+    const localVoiceAvailable = typeof speechStatus.localVoiceAvailable === "boolean"
+      ? speechStatus.localVoiceAvailable
+      : voices.some((voice) => voice.localService);
+    const reason = String(speechStatus.reason || "");
     return {
       backend,
       available,
+      reason,
+      activeVoice,
+      activeVoiceLocal: speechStatus.localService === true,
+      localVoiceAvailable,
+      requestedVoice,
+      requestedVoiceAvailable: speechStatus.requestedVoiceAvailable !== false,
+      canInstallVoice: backend === "android" && (
+        reason === "missing-language-data"
+        || reason === "no-language-voice"
+        || !localVoiceAvailable
+      ),
       voices: voices.map((voice) => ({
         ...voice,
         value: `${backend}:${voice.id}`,
         service: voice.localService ? "On device" : "Network"
       }))
     };
+  }
+
+  async function getSpeechVoiceControlState() {
+    let result = await listSpeechVoiceOptions();
+    let unavailablePreference = "";
+    if (
+      result.requestedVoice
+      && !result.requestedVoiceAvailable
+      && result.voices.length
+    ) {
+      unavailablePreference = result.requestedVoice;
+      writeStoredSpeechVoice("");
+      result = await listSpeechVoiceOptions();
+    }
+    return { ...result, unavailablePreference };
+  }
+
+  function speechVoiceName(result, voiceId) {
+    const normalizedId = String(voiceId || "").trim();
+    if (!normalizedId) return "";
+    return result.voices.find((voice) => voice.id === normalizedId)?.name || normalizedId;
+  }
+
+  function describeSpeechVoiceState(result) {
+    if (result.unavailablePreference) {
+      const activeName = speechVoiceName(result, result.activeVoice);
+      return activeName
+        ? `Saved voice unavailable. Automatic now uses ${activeName}.`
+        : "Saved voice unavailable. Automatic is now selected.";
+    }
+    if (result.available && result.activeVoice) {
+      const activeName = speechVoiceName(result, result.activeVoice);
+      const service = result.activeVoiceLocal ? "on device" : "network";
+      return `${result.requestedVoice ? "Using" : "Automatic uses"} ${activeName} · ${service}.`;
+    }
+    if (result.available && result.voices.length) {
+      return "Automatic will use the best available Czech voice.";
+    }
+    if (result.backend === "android" && result.reason === "missing-language-data") {
+      return "Czech voice data is not installed.";
+    }
+    if (result.backend === "android" && result.reason === "no-language-voice") {
+      return "This speech engine has no Czech voice.";
+    }
+    if (result.backend === "android") return "Czech pronunciation is not ready on this device.";
+    return "No Czech browser voice is installed. Use your browser or system speech settings.";
+  }
+
+  async function previewCzechSpeech() {
+    const pace = resolveSpeechPace();
+    return speakCzechText(speechTestText, { rate: pace.rate });
+  }
+
+  async function installCzechSpeechData() {
+    if (!isNativeShell()) {
+      return {
+        runtime: "browser-web-speech",
+        launched: false,
+        reason: "browser-managed"
+      };
+    }
+    const install = window.CaatuuRuntime?.speech?.installData;
+    if (!install) throw new Error("Android voice installation is unavailable.");
+    return install();
   }
 
   function setSpeechVoicePreference(value) {
@@ -559,7 +738,7 @@
     if (!normalizedText) throw new Error("Enter Czech text to hear.");
     if (normalizedText.length > 1_000) throw new Error("Czech audio supports up to 1,000 characters.");
     const locale = String(options.locale || targetLanguage.locale || "cs-CZ");
-    const rate = clampSpeechControl(options.rate, 0.5, 1.5, 0.9);
+    const rate = clampSpeechControl(options.rate, 0.5, 1.5, resolveSpeechPace().rate);
     const pitch = clampSpeechControl(options.pitch, 0.5, 1.5, 1);
     const voice = String(options.voice ?? getSpeechVoicePreference()).trim().slice(0, 256);
 
@@ -589,12 +768,16 @@
     utterance.lang = locale;
     utterance.rate = rate;
     utterance.pitch = pitch;
-    if (voice && typeof synthesis.getVoices === "function") {
-      const matchingVoice = synthesis.getVoices().find((candidate) => (
-        String(candidate?.voiceURI || candidate?.name || "") === voice
+    let activeVoice = null;
+    if (typeof synthesis.getVoices === "function") {
+      const voiceOptions = browserSpeechVoiceOptions();
+      const selectedOption = voiceOptions.find((candidate) => candidate.id === voice) || voiceOptions[0] || null;
+      activeVoice = synthesis.getVoices().find((candidate) => (
+        String(candidate?.voiceURI || candidate?.name || "") === selectedOption?.id
         && speechVoiceMatchesLocale(candidate?.lang)
-      ));
-      if (matchingVoice) utterance.voice = matchingVoice;
+      )) || null;
+      if (voice && !voiceOptions.some((candidate) => candidate.id === voice)) writeStoredSpeechVoice("");
+      if (activeVoice) utterance.voice = activeVoice;
     }
 
     return new Promise((resolve, reject) => {
@@ -608,7 +791,13 @@
           return result;
         }
       };
-      const finish = (error = null, result = { runtime: "browser-web-speech", outcome: "completed" }) => {
+      const finish = (error = null, result = {
+        runtime: "browser-web-speech",
+        outcome: "completed",
+        voice: String(activeVoice?.voiceURI || activeVoice?.name || ""),
+        localService: activeVoice?.localService !== false,
+        rate
+      }) => {
         if (settled) return;
         settled = true;
         if (timeout !== null) window.clearTimeout(timeout);
@@ -647,15 +836,18 @@
     const select = panel?.querySelector("#settingsSpeechVoice");
     const status = panel?.querySelector("#settingsSpeechVoiceStatus");
     const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
+    const installButton = panel?.querySelector("#settingsSpeechVoiceInstall");
     if (!select || !status || !testButton) return;
+    updateSpeechPaceControls(panel);
     const request = Number(panel.dataset.speechVoiceRequest || 0) + 1;
     panel.dataset.speechVoiceRequest = String(request);
     select.disabled = true;
     testButton.disabled = true;
     status.textContent = "Checking Czech voices...";
 
-    const { backend, voices, available } = await listSpeechVoiceOptions();
+    const result = await getSpeechVoiceControlState();
     if (request !== Number(panel.dataset.speechVoiceRequest)) return;
+    const { backend, voices, available } = result;
 
     const automatic = document.createElement("option");
     automatic.value = "";
@@ -663,35 +855,41 @@
     select.replaceChildren(automatic);
     voices.forEach((voice) => appendSpeechVoiceOption(select, backend, voice));
 
-    const stored = readStoredSpeechVoice();
-    const currentPrefix = `${backend}:`;
-    const storedForBackend = stored.startsWith(currentPrefix) ? stored : "";
-    const selectedVoice = voices.find((voice) => `${backend}:${voice.id}` === storedForBackend);
-    select.value = selectedVoice ? storedForBackend : "";
-    select.disabled = !available || voices.length === 0;
+    const preferredVoice = getSpeechVoicePreference();
+    const selectedVoice = voices.find((voice) => voice.id === preferredVoice);
+    select.value = selectedVoice ? `${backend}:${selectedVoice.id}` : "";
+    const voiceControlAvailable = available || voices.length > 0;
+    select.disabled = !voiceControlAvailable;
     select.dataset.available = String(available);
     select.dataset.voiceCount = String(voices.length);
     testButton.disabled = !available;
     testButton.dataset.available = String(available);
     testButton.setAttribute("aria-label", `Test ${selectedVoice?.name || "automatic Czech voice"}`);
-
-    if (!available) {
-      status.textContent = "Czech pronunciation is not available on this device.";
-    } else if (selectedVoice) {
-      status.textContent = `Using ${selectedVoice.name}.`;
-    } else if (storedForBackend) {
-      status.textContent = "Saved voice unavailable; using Automatic.";
-    } else if (voices.length) {
-      status.textContent = "Automatic will use the best available Czech voice.";
-    } else {
-      status.textContent = "Czech voices are still loading. Automatic stays selected.";
+    status.textContent = describeSpeechVoiceState(result);
+    if (installButton) {
+      installButton.hidden = !result.canInstallVoice;
+      installButton.disabled = false;
+      installButton.textContent = "Install Czech voice";
     }
+  }
+
+  async function playSpeechSettingsPreview(panel) {
+    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
+    if (status) status.textContent = "Playing a short Czech sample...";
+    try {
+      await previewCzechSpeech();
+    } catch (error) {
+      if (status) status.textContent = "Unable to play the selected Czech voice.";
+      return;
+    }
+    await refreshSpeechVoiceControl(panel);
   }
 
   function bindSpeechVoiceControl(panel) {
     const select = panel?.querySelector("#settingsSpeechVoice");
     const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
     const status = panel?.querySelector("#settingsSpeechVoiceStatus");
+    const installButton = panel?.querySelector("#settingsSpeechVoiceInstall");
     if (!select || !testButton || !status || panel.dataset.speechVoiceBound === "true") return;
     panel.dataset.speechVoiceBound = "true";
     select.addEventListener("change", async () => {
@@ -699,6 +897,7 @@
       await stopCzechSpeech();
       writeStoredSpeechVoice(select.value);
       await refreshSpeechVoiceControl(panel);
+      await playSpeechSettingsPreview(panel);
     });
     testButton.addEventListener("click", async () => {
       if (testButton.disabled || testButton.getAttribute("aria-busy") === "true") return;
@@ -706,10 +905,11 @@
       testButton.disabled = true;
       testButton.setAttribute("aria-busy", "true");
       testButton.textContent = "Playing...";
-      status.textContent = "Playing the selected Czech voice...";
+      const pace = resolveSpeechPace();
+      status.textContent = `Playing the selected Czech voice at ${pace.label.toLowerCase()} speed...`;
       try {
-        const result = await speakCzechText(speechTestText);
-        if (result?.outcome !== "stopped") status.textContent = "Voice test finished.";
+        const result = await speakCzechText(speechTestText, { rate: pace.rate });
+        if (result?.outcome !== "stopped") status.textContent = `Voice test finished at ${pace.label.toLowerCase()} speed.`;
       } catch (error) {
         status.textContent = "Unable to play the Czech voice on this device.";
       } finally {
@@ -717,6 +917,21 @@
         testButton.textContent = label;
         testButton.disabled = testButton.dataset.available !== "true";
         select.disabled = select.dataset.available !== "true" || select.dataset.voiceCount === "0";
+      }
+    });
+    installButton?.addEventListener("click", async () => {
+      if (installButton.disabled) return;
+      installButton.disabled = true;
+      status.textContent = "Opening Android voice installation...";
+      try {
+        const result = await installCzechSpeechData();
+        status.textContent = result?.launched === false
+          ? "Open your browser or system speech settings to add a Czech voice."
+          : "Finish adding the Czech voice in Android, then return here.";
+      } catch (error) {
+        status.textContent = "Android could not open its voice installation settings.";
+      } finally {
+        installButton.disabled = false;
       }
     });
 
@@ -734,6 +949,23 @@
         });
       }
     }
+  }
+
+  function bindSpeechPaceControl(panel) {
+    const buttons = panel?.querySelectorAll("[data-speech-pace-option]");
+    if (!buttons?.length || panel.dataset.speechPaceBound === "true") return;
+    panel.dataset.speechPaceBound = "true";
+    buttons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        await stopCzechSpeech();
+        const selectedPace = button.dataset.speechPaceOption;
+        const nextPreference = getSpeechPacePreference() === selectedPace ? "" : selectedPace;
+        setSpeechPacePreference(nextPreference);
+        updateSpeechPaceControls(panel);
+        await playSpeechSettingsPreview(panel);
+      });
+    });
+    updateSpeechPaceControls(panel);
   }
 
   function updateThemeControls(theme) {
@@ -1372,7 +1604,11 @@
       if (status) status.textContent = "Course progress restarted. Difficulty and downloads were preserved.";
     });
 
-    window.addEventListener("caatuu:learning-change", () => renderLearningControls(document));
+    window.addEventListener("caatuu:learning-change", () => {
+      renderLearningControls(document);
+      document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]")
+        .forEach((panel) => updateSpeechPaceControls(panel));
+    });
   }
 
   function bindThemeToggle() {
@@ -1481,9 +1717,7 @@
     nav.replaceChildren(...availableItems.map((item) => createNavItem(item, options)));
     syncBackpackViewIndicators(readRememberedBackpackView());
     const activeGameId = currentGameId();
-    syncGameNavigationIndicators(
-      activeGameId && activeGameId !== "galaxy" ? activeGameId : readRememberedGame()
-    );
+    syncGameNavigationIndicators(activeGameId || readRememberedGame());
   }
 
   function syncBottomNavActive(nav, activeSection = "") {
@@ -1822,15 +2056,18 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
-          <section class="settings-card side-card appearance-card" aria-label="Appearance">
-            <div class="settings-card-head side-head appearance-card-head">
-              <span>
-                <span class="settings-kicker kicker">Appearance</span>
-                <h3>Display</h3>
-              </span>
-              <p>Choose a comfortable look and reading size.</p>
-            </div>
-            <div class="appearance-controls">
+          <section class="settings-card side-card settings-section-card appearance-card" aria-label="Appearance">
+            <details class="settings-section-details" id="settingsAppearanceDetails" open>
+              <summary class="settings-section-summary">
+                <span class="settings-section-title">
+                  <span class="settings-kicker kicker">Appearance</span>
+                  <strong>Display</strong>
+                </span>
+                <small>Theme, text size</small>
+              </summary>
+              <div class="settings-section-body appearance-settings-body">
+                <p class="settings-summary appearance-settings-intro">Choose a comfortable look and reading size.</p>
+                <div class="appearance-controls">
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
                   <strong>Theme</strong>
@@ -1867,14 +2104,22 @@
                   </button>
                 </div>
               </div>
-            </div>
+                </div>
+              </div>
+            </details>
           </section>
 
-          <section class="settings-card side-card speech-settings-card" aria-label="Czech pronunciation">
-            <div class="settings-card-head side-head speech-settings-head">
-              <span class="settings-kicker kicker">Audio</span>
-            </div>
-            <div class="speech-voice-row">
+          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="Czech pronunciation">
+            <details class="settings-section-details" id="settingsSpeechDetails">
+              <summary class="settings-section-summary">
+                <span class="settings-section-title">
+                  <span class="settings-kicker kicker">Audio</span>
+                  <strong>Czech voice</strong>
+                </span>
+                <small>Voice, speed</small>
+              </summary>
+              <div class="settings-section-body speech-settings-body">
+                <div class="speech-voice-row">
               <label class="speech-voice-label" for="settingsSpeechVoice">
                 <b>Czech voice</b>
                 <small>Phone or browser speech</small>
@@ -1884,9 +2129,35 @@
                   <option value="">Automatic (recommended)</option>
                 </select>
                 <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>Test</button>
+                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>Install Czech voice</button>
                 <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Automatic will use the best available Czech voice.</p>
               </div>
             </div>
+            <div class="speech-rate-row">
+              <span class="speech-voice-label">
+                <b>Speech speed</b>
+                <small>Choose a pace</small>
+              </span>
+              <div class="speech-rate-controls">
+                <div class="speech-pace-control" role="group" aria-label="Czech speech speed">
+                  <button type="button" data-speech-pace-option="slower" aria-label="Use slower Czech speech at 0.65 times" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
+                    <b>Slower</b>
+                    <small>0.65×</small>
+                  </button>
+                  <button type="button" data-speech-pace-option="slow" aria-label="Use slow Czech speech at 0.82 times" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
+                    <b>Slow</b>
+                    <small>0.82×</small>
+                  </button>
+                  <button type="button" data-speech-pace-option="normal" aria-label="Use normal Czech speech speed" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
+                    <b>Normal</b>
+                    <small>1×</small>
+                  </button>
+                </div>
+                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">Explorer badge · Slower (0.65×). Choose a speed to override.</p>
+              </div>
+            </div>
+              </div>
+            </details>
           </section>
 
           <section class="settings-card side-card settings-section-card app-controls-card" aria-label="Advanced app settings">
@@ -2084,7 +2355,7 @@
               </form>
             </dialog>
             <p class="about-brand-note">Caatuu is a language-learning project from <a href="https://www.waajacu.com/" rel="noopener">Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></a>.</p>
-            <p class="version-note">Development preview. A governed public beta has not been declared.</p>
+            <p class="version-note">Preparing for release. Features may still change.</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
               <div>
@@ -2153,6 +2424,7 @@
     bindAndroidInstallDiscovery(panel);
     bindSemanticSkillCompass(panel);
     bindSpeechVoiceControl(panel);
+    bindSpeechPaceControl(panel);
     renderLearningControls(panel);
     updateThemeControls(readStoredTheme());
     updateFontSizeControls(readStoredFontSize());
@@ -2682,8 +2954,15 @@
     renderLanguageSwitch,
     renderSettingsPanel,
     getSpeechVoicePreference,
+    getSpeechPacePreference,
     listSpeechVoiceOptions,
+    getSpeechVoiceControlState,
+    describeSpeechVoiceState,
+    resolveSpeechPace,
+    setSpeechPacePreference,
     setSpeechVoicePreference,
+    previewCzechSpeech,
+    installCzechSpeechData,
     speakCzechText,
     stopCzechSpeech,
     setHeaderTitle,
@@ -2694,6 +2973,27 @@
     closeSharedSettings,
     handleAndroidBack
   };
+
+  let speechVoiceRefreshTimer = 0;
+  function scheduleSpeechVoiceRefresh() {
+    if (!isNativeShell()) return;
+    window.clearTimeout(speechVoiceRefreshTimer);
+    speechVoiceRefreshTimer = window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("caatuu:speech-voices-refresh"));
+      document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach((panel) => {
+        const sheet = panel.querySelector(".settings-sheet");
+        if (!panel.hidden && sheet?.dataset.settingsCurrentView === "settings") {
+          void refreshSpeechVoiceControl(panel);
+        }
+      });
+    }, 250);
+  }
+
+  window.addEventListener("focus", scheduleSpeechVoiceRefresh);
+  window.addEventListener("pageshow", scheduleSpeechVoiceRefresh);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") scheduleSpeechVoiceRefresh();
+  });
 
   window.addEventListener("pagehide", () => {
     void stopCzechSpeech();

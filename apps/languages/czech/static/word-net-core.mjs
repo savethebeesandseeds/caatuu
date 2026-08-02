@@ -150,6 +150,31 @@ export function isSpeechSynthesisSupported(synthesis, UtteranceConstructor) {
   );
 }
 
+const speechPacesByDifficulty = Object.freeze({
+  1: Object.freeze({ rate: 0.65, label: "slower" }),
+  2: Object.freeze({ rate: 0.82, label: "slow" }),
+  3: Object.freeze({ rate: 1, label: "normal" })
+});
+
+export function speechPaceForDifficulty(value) {
+  const difficulty = Number(value);
+  return speechPacesByDifficulty[difficulty] || speechPacesByDifficulty[1];
+}
+
+export function speechPaceForPreference(value) {
+  const preference = String(value || "").trim().toLocaleLowerCase("en-US");
+  const pace = Object.values(speechPacesByDifficulty)
+    .find((candidate) => candidate.label === preference);
+  return pace || null;
+}
+
+export function resolveSpeechPace(difficulty, preference) {
+  const override = speechPaceForPreference(preference);
+  if (override) return { ...override, key: override.label, source: "override" };
+  const pace = speechPaceForDifficulty(difficulty);
+  return { ...pace, key: pace.label, source: "badge" };
+}
+
 function normalizeSpeechLocale(value) {
   return String(value || "")
     .trim()

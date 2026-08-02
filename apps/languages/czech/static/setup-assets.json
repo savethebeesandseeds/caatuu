@@ -3217,8 +3217,8 @@
       "artifact_kind": "asset-keymap",
       "url": "/assets/macaw/actions/keymaps.json",
       "asset_path": "assets/macaw/actions/keymaps.json",
-      "bytes": 303752,
-      "sha256": "d371ea807f41e09fd9cb36531a42a2bedfdee57f040e9726e28b70352bbd5fc9",
+      "bytes": 304555,
+      "sha256": "804e1c89d671a79d166224420e1f686eb11214e5b02edbb59265a3c38ccfbf88",
       "native_required": true,
       "browser_required": true
     },
@@ -4262,8 +4262,8 @@
       "artifact_kind": "visual-asset",
       "url": "/assets/miscellaneous/miscellaneous%20(194).png",
       "asset_path": "assets/miscellaneous/miscellaneous (194).png",
-      "bytes": 140392,
-      "sha256": "64b70612d6b10c47d42965637c29e702e7a3cf46dd323712097c91c9de03e24d",
+      "bytes": 117960,
+      "sha256": "14ace4eb2f4cc9970425a9f1338f33fe38bddd9c2fe33c1f22bbdbb3eabbc6ed",
       "native_required": true,
       "browser_required": true
     },
@@ -4306,8 +4306,8 @@
       "artifact_kind": "visual-asset",
       "url": "/assets/miscellaneous/miscellaneous%20(198).png",
       "asset_path": "assets/miscellaneous/miscellaneous (198).png",
-      "bytes": 59183,
-      "sha256": "16c2896489701b9469d4ba373c71d3e29fa6fb5aba334ac7629b12910d706120",
+      "bytes": 81087,
+      "sha256": "9d932d5168a65f3972dde3e2359130c10952725cbe89f2b9b5877cb3b9e01e55",
       "native_required": true,
       "browser_required": true
     },

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "release_status": "local-preview-only",
+  "history_policy": "superseded-assets-live-in-git",
+  "catalog": {
+    "id": "memory-moon-style-v1",
+    "version": 3,
+    "file": "metadata/catalog.json",
+    "manifest": "metadata/catalog.manifest.json",
+    "provenance": "metadata/catalog.provenance.md",
+    "schema": "metadata/catalog.schema.json"
+  },
+  "world": {
+    "id": "memory-grove-v6",
+    "file": "metadata/world.json",
+    "manifest": "metadata/world.manifest.json",
+    "provenance": "metadata/world.provenance.md",
+    "schema": "metadata/world.schema.json",
+    "catalog_id": "memory-moon-style-v1",
+    "catalog_version": 3
+  },
+  "runtime_images": [
+    {
+      "id": "community-tree-a",
+      "kind": "object",
+      "file": "images/community-tree.png",
+      "placement_count": 1
+    },
+    {
+      "id": "flower-patch-a",
+      "kind": "object",
+      "file": "images/flower-patch.png",
+      "placement_count": 4
+    },
+    {
+      "id": "moon-bush-round-a",
+      "kind": "object",
+      "file": "images/moon-bush.png",
+      "placement_count": 3
+    },
+    {
+      "id": "moon-sapling-a",
+      "kind": "object",
+      "file": "images/moon-sapling.png",
+      "placement_count": 0
+    },
+    {
+      "id": "moss-boulder-a",
+      "kind": "object",
+      "file": "images/moss-boulder.png",
+      "placement_count": 3
+    },
+    {
+      "id": "street-lamp-a",
+      "kind": "object",
+      "file": "images/street-lamp.png",
+      "placement_count": 2
+    },
+    {
+      "id": "terrain-atlas",
+      "kind": "terrain-atlas",
+      "file": "images/terrain-atlas.png",
+      "map_cell_count": 144,
+      "atlas_tile_count": 48
+    },
+    {
+      "id": "trail-sign-a",
+      "kind": "object",
+      "file": "images/trail-sign.png",
+      "placement_count": 1
+    },
+    {
+      "id": "tree-birch-a",
+      "kind": "object",
+      "file": "images/tree-birch.png",
+      "placement_count": 0
+    },
+    {
+      "id": "tree-maple-a",
+      "kind": "object",
+      "file": "images/tree-maple.png",
+      "placement_count": 0
+    },
+    {
+      "id": "tree-oak-a",
+      "kind": "object",
+      "file": "images/tree-oak.png",
+      "placement_count": 1
+    },
+    {
+      "id": "tree-pine-a",
+      "kind": "object",
+      "file": "images/tree-pine.png",
+      "placement_count": 0
+    },
+    {
+      "id": "tree-poplar-a",
+      "kind": "object",
+      "file": "images/tree-poplar.png",
+      "placement_count": 0
+    },
+    {
+      "id": "tree-stump-a",
+      "kind": "object",
+      "file": "images/tree-stump.png",
+      "placement_count": 1
+    },
+    {
+      "id": "tree-willow-a",
+      "kind": "object",
+      "file": "images/tree-willow.png",
+      "placement_count": 1
+    },
+    {
+      "id": "village-well-a",
+      "kind": "object",
+      "file": "images/village-well.png",
+      "placement_count": 1
+    }
+  ],
+  "support": {
+    "source_glob": "sources/*.png",
+    "checksum_file": "metadata/checksums.sha256",
+    "processing_file": "metadata/floor.processing.json"
+  }
+}

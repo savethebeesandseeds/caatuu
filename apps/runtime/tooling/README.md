@@ -25,7 +25,7 @@ The image uses a pinned Rust builder stage and a `debian:bookworm-slim` runtime
 stage. `cargo build --release --locked` runs during the image build; Rust and
 the source tree are not present in the final image. The running container
 mounts only the static/model roots and demo projects it serves, Android
-artifacts, and the bug-report data directory.
+artifacts, and the private dictionary-gap data directory.
 
 Start or recreate the Debian runtime container:
 
@@ -48,6 +48,24 @@ docker compose logs -f caatuu
 The server listens on port `9172` inside the container and is published on
 `http://127.0.0.1:8765/` on Windows. The host binding is loopback-only; the
 optional tunnel is the deliberate remote-access path.
+
+## Dictionary-gap persistence
+
+Compose sets `DICTIONARY_GAP_STORE_PATH` to
+`/var/lib/caatuu/dictionary-gaps/czech-missing-words.v1.json` and mounts the
+ignored host directory `artifacts/dictionary-gaps/` there read-write. The
+client automatically submits its dedicated pending observations to
+`POST /cz/api/dictionary/gaps`; it removes one only after the server confirms
+`{"ok":true,"stored":true}`. The server ledger adds receipt timestamps and
+deduplicates repeat observations before an atomic publish.
+
+The endpoint accepts only the documented six-field dictionary-gap report and
+has no public GET counterpart. Periodic Codex maintenance reads the server file
+from `artifacts/dictionary-gaps/czech-missing-words.v1.json`, verifies each
+observation independently, and authors reviewed changes in the tracked Czech
+dictionary overlay. The ledger is not a replacement for the disabled general
+diagnostic channel; sentence reports remain device-local and
+`/api/bug-report` remains disabled.
 
 ## Secrets and archived backend opt-in
 

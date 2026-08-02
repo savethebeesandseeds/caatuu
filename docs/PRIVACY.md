@@ -14,30 +14,47 @@ or product analytics. Language progress, settings, downloaded models,
 dictionaries, and similar learning data are intended to remain on the user's
 device.
 
-Caatuu feedback actions place reports in a device-local outbox. This currently
-includes explicit Word World sentence reports and compact records of dictionary
-words for which no usable English meaning was found. The outbox is kept in browser storage on the device,
-accepts at most 128 pending items, and may also be present inside the Android
-app's private WebView storage. Clearing site data or uninstalling the Android
-app removes that local data.
+Caatuu keeps explicit Word World sentence reports in a device-local outbox. The
+general feedback sender remains forced offline, the server rejects
+`/api/bug-report`, and those reports are not transmitted to or collected by the
+maintainer. Enabling general diagnostic delivery still requires a separate
+implementation and privacy review; retaining a report on the device does not
+authorize its later transmission.
 
-Remote diagnostic reporting remains disabled. The current runtime forces the
-outbox into local-only mode and rejects every delivery attempt without making a
-report request. The public server also rejects `/api/bug-report`. Consequently,
-locally queued feedback is not transmitted to or collected by the maintainer in
-this development preview. Enabling delivery requires a separate implementation
-and privacy review; retaining an outbox on the device does not authorize later
-transmission.
+Dictionary-gap observations use a separate, narrowly scoped maintenance
+channel. When Word World cannot find a usable English meaning for a selected
+Czech word, it stores a report in a dedicated device outbox and automatically
+tries `POST /cz/api/dictionary/gaps` when the server is available. The outbox is
+kept in browser storage, including the Android app's private WebView storage,
+and accepts at most 128 pending observations. It removes an item only after the
+server positively acknowledges that it was stored. Failed, interrupted, or
+offline attempts remain on the device for a later retry. Clearing site data or
+uninstalling the Android app removes pending local observations.
 
-Word World provides an explicit **Copy missing-word batch** action for manual
-dictionary maintenance. It copies a narrow JSON projection to the system
-clipboard containing only the observed Czech word, its normalized form, the
-dictionary key and direction, and the lookup outcome and result count. It does
-not include sentences, translations, comments, report identifiers, timestamps,
-URLs, device data, or retry metadata. Copying makes no network request, does not
-enable the disabled sender, and does not remove the local reports. The user
-decides whether to paste that clipboard text into a separate Codex task or any
-other tool.
+The report protocol is `caatuu.dictionary-gap-report.v1`. In addition to that
+schema discriminator, it carries exactly these six observation fields:
+
+- `targetWord`
+- `normalizedWord`
+- `dictionaryKey`
+- `dictionaryDirection`
+- `lookupOutcome`
+- `lookupReturned`
+
+It does not carry a sentence, translation, comment, account identifier, report
+identifier, client timestamp, URL, device information, or retry metadata. As
+with every web request, the hosting infrastructure can still receive ordinary
+connection data described below.
+
+The server validates and deduplicates accepted observations and stores them in
+a private, server-side ledger. It adds server-generated first-seen and
+last-seen timestamps, plus the ledger's update timestamp. There is no public
+GET or in-app export for this ledger. In the current development preview,
+server records are retained until the maintainer periodically reviews,
+archives, or deletes them; an automatic deletion schedule has not yet been
+implemented. The ledger exists only to identify dictionary coverage work for a
+later reviewed patch and must not be repurposed for user tracking or general
+diagnostics.
 
 ## Network and infrastructure data
 

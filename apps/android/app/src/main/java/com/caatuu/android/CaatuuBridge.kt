@@ -1,7 +1,11 @@
 package com.caatuu.android
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Build
+import android.provider.Settings
+import android.speech.tts.TextToSpeech
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import kotlinx.coroutines.CancellationException
@@ -27,6 +31,7 @@ import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
+import java.text.Normalizer
 import java.util.UUID
 import kotlin.coroutines.coroutineContext
 import kotlin.math.max
@@ -61,6 +66,7 @@ class CaatuuBridge(
     private val modelCancellationsInProgress = mutableSetOf<String>()
     private val updateMutex = Mutex()
     private val bugReportMutex = Mutex()
+    private val dictionaryGapReportMutex = Mutex()
 
     @JavascriptInterface
     fun setTheme(theme: String) {
@@ -126,11 +132,13 @@ class CaatuuBridge(
                     "speech_status" -> speechStatus(id, request)
                     "speech_speak" -> speakSpeech(id, request)
                     "speech_stop" -> stopSpeech(id)
+                    "speech_install_data" -> installSpeechData(id)
                     "delete_model" -> deleteLocalPack(id)
                     "clear_cache" -> clearCache(id)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
                     "update_app" -> updateApp(id)
                     "report_bug" -> reportBug(id, request)
+                    "report_dictionary_gap" -> reportDictionaryGap(id, request)
                     else -> throw IllegalArgumentException("Unknown native request type.")
                 }
             } catch (error: Exception) {
@@ -192,6 +200,44 @@ class CaatuuBridge(
             JSONObject()
                 .put("runtime", "android-text-to-speech")
                 .put("stopped", speechManager.stop()),
+        )
+    }
+
+    private fun installSpeechData(id: String) {
+        val candidates = mutableListOf<Intent>()
+        speechManager.defaultEnginePackageName()
+            .takeIf { it.isNotBlank() }
+            ?.let { enginePackage ->
+                candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+                    .setPackage(enginePackage)
+            }
+        candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        candidates += Intent(ACTION_TEXT_TO_SPEECH_SETTINGS)
+        candidates += Intent(Settings.ACTION_VOICE_INPUT_SETTINGS)
+        candidates += Intent(Settings.ACTION_SETTINGS)
+        var launchedAction = ""
+        for (intent in candidates) {
+            try {
+                activity.startActivity(intent)
+                speechManager.refreshVoiceDataAfterInstallerReturns()
+                launchedAction = intent.action.orEmpty()
+                break
+            } catch (_: ActivityNotFoundException) {
+                // Try the next standard Android settings destination.
+            } catch (_: SecurityException) {
+                // The device may restrict a particular settings destination.
+            }
+        }
+        check(launchedAction.isNotBlank()) {
+            "This device does not expose text-to-speech voice installation settings."
+        }
+        emitDone(
+            id,
+            JSONObject()
+                .put("runtime", "android-text-to-speech")
+                .put("launched", true)
+                .put("action", launchedAction)
+                .put("willRefreshOnResume", true),
         )
     }
 
@@ -695,6 +741,119 @@ class CaatuuBridge(
         emitDone(id, result)
     }
 
+    private suspend fun reportDictionaryGap(id: String, request: JSONObject) {
+        val result = dictionaryGapReportMutex.withLock {
+            withContext(Dispatchers.IO) {
+                val payload = request.optJSONObject("payload")
+                    ?: throw IllegalArgumentException("Dictionary gap payload is missing.")
+                val report = validatedDictionaryGapReport(payload)
+                val bytes = report.toString().toByteArray(StandardCharsets.UTF_8)
+                require(bytes.size <= MAX_DICTIONARY_GAP_REPORT_BYTES) {
+                    "Dictionary gap report is too large."
+                }
+                postRemoteDictionaryGap(bytes)
+            }
+        }
+        emitDone(id, result)
+    }
+
+    private fun validatedDictionaryGapReport(payload: JSONObject): JSONObject {
+        val keys = mutableSetOf<String>()
+        val iterator = payload.keys()
+        while (iterator.hasNext()) keys += iterator.next()
+        require(keys == DICTIONARY_GAP_REPORT_FIELDS) {
+            "Dictionary gap payload has unsupported fields."
+        }
+
+        val schema = strictDictionaryGapString(payload, "schema", MAX_DICTIONARY_GAP_SCHEMA_CHARACTERS)
+        val targetWord = strictDictionaryGapString(payload, "targetWord", MAX_DICTIONARY_GAP_WORD_CHARACTERS)
+        val normalizedWord = strictDictionaryGapString(payload, "normalizedWord", MAX_DICTIONARY_GAP_WORD_CHARACTERS)
+        val dictionaryKey = strictDictionaryGapString(payload, "dictionaryKey", MAX_DICTIONARY_GAP_KEY_CHARACTERS)
+        val dictionaryDirection = strictDictionaryGapString(
+            payload,
+            "dictionaryDirection",
+            MAX_DICTIONARY_GAP_DIRECTION_CHARACTERS,
+        )
+        val lookupOutcome = strictDictionaryGapString(
+            payload,
+            "lookupOutcome",
+            MAX_DICTIONARY_GAP_OUTCOME_CHARACTERS,
+        )
+        val lookupReturned = when (val value = payload.opt("lookupReturned")) {
+            is Int -> value
+            is Long -> {
+                require(value in Int.MIN_VALUE..Int.MAX_VALUE) {
+                    "Dictionary gap lookupReturned is invalid."
+                }
+                value.toInt()
+            }
+            else -> throw IllegalArgumentException("Dictionary gap lookupReturned must be an integer.")
+        }
+
+        require(schema == DICTIONARY_GAP_REPORT_SCHEMA) {
+            "Dictionary gap schema is not supported."
+        }
+        require(dictionaryKey == DICTIONARY_GAP_DICTIONARY_KEY) {
+            "Dictionary gap dictionaryKey is not supported."
+        }
+        require(dictionaryDirection == DICTIONARY_GAP_DICTIONARY_DIRECTION) {
+            "Dictionary gap dictionaryDirection is not supported."
+        }
+        require(normalizedWord == targetWord.lowercase()) {
+            "Dictionary gap normalizedWord does not match targetWord."
+        }
+        require(lookupOutcome in DICTIONARY_GAP_LOOKUP_OUTCOMES) {
+            "Dictionary gap lookupOutcome is not supported."
+        }
+        require(lookupReturned in 0..MAX_DICTIONARY_GAP_LOOKUP_RETURNED) {
+            "Dictionary gap lookupReturned must be between 0 and $MAX_DICTIONARY_GAP_LOOKUP_RETURNED."
+        }
+        require(
+            (lookupOutcome == "no_results" && lookupReturned == 0) ||
+                (lookupOutcome == "no_exact_usable_entry" && lookupReturned > 0),
+        ) { "Dictionary gap lookupOutcome does not match lookupReturned." }
+
+        return JSONObject()
+            .put("schema", schema)
+            .put("targetWord", targetWord)
+            .put("normalizedWord", normalizedWord)
+            .put("dictionaryKey", dictionaryKey)
+            .put("dictionaryDirection", dictionaryDirection)
+            .put("lookupOutcome", lookupOutcome)
+            .put("lookupReturned", lookupReturned)
+    }
+
+    private fun strictDictionaryGapString(payload: JSONObject, key: String, maxCharacters: Int): String {
+        val raw = payload.opt(key)
+        require(raw is String) { "Dictionary gap $key must be text." }
+        val normalized = Normalizer.normalize(raw, Normalizer.Form.NFC)
+        val compact = buildString(normalized.length) {
+            var pendingSpace = false
+            normalized.forEach { character ->
+                if (character.isWhitespace() || Character.isSpaceChar(character)) {
+                    if (isNotEmpty()) pendingSpace = true
+                } else {
+                    require(!Character.isISOControl(character)) {
+                        "Dictionary gap $key contains unsupported characters."
+                    }
+                    require(character !in '\u0300'..'\u036f') {
+                        "Dictionary gap $key must use composed Unicode text."
+                    }
+                    if (pendingSpace) append(' ')
+                    append(character)
+                    pendingSpace = false
+                }
+            }
+        }
+        require(compact.isNotEmpty() && compact == raw) {
+            "Dictionary gap $key is empty or not normalized."
+        }
+        require(compact.codePointCount(0, compact.length) <= maxCharacters) {
+            "Dictionary gap $key is too long."
+        }
+        return compact
+    }
+
     private fun completeBugReportBytes(reportFile: File, reportId: String): ByteArray? {
         if (!reportFile.isFile) return null
         return runCatching {
@@ -1080,6 +1239,77 @@ class CaatuuBridge(
             .put("sdkInt", Build.VERSION.SDK_INT)
             .put("release", Build.VERSION.RELEASE)
 
+    private fun dictionaryGapEndpoint(): String {
+        val endpoint = URL(BuildConfig.CAATUU_DICTIONARY_GAP_URL)
+        require(endpoint.protocol in setOf("http", "https")) {
+            "Dictionary gap URL must use HTTP or HTTPS."
+        }
+        require(BuildConfig.DEBUG || endpoint.protocol == "https") {
+            "Release dictionary gap delivery requires HTTPS."
+        }
+        require(
+            endpoint.host.isNotBlank() &&
+                endpoint.userInfo.isNullOrBlank() &&
+                endpoint.query.isNullOrBlank() &&
+                endpoint.ref.isNullOrBlank(),
+        ) { "Dictionary gap URL must not contain credentials, a query, or a fragment." }
+        return endpoint.toExternalForm()
+    }
+
+    private fun postRemoteDictionaryGap(bytes: ByteArray): JSONObject {
+        val endpoint = dictionaryGapEndpoint()
+        val connection = URL(endpoint).openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.connectTimeout = 5000
+        connection.readTimeout = 5000
+        connection.instanceFollowRedirects = false
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
+        connection.setRequestProperty("Content-Length", bytes.size.toString())
+        return try {
+            connection.outputStream.use { output -> output.write(bytes) }
+            val status = connection.responseCode
+            val body = runCatching {
+                val stream = if (status in 200..299) connection.inputStream else connection.errorStream
+                stream?.bufferedReader()?.use { reader ->
+                    val response = StringBuilder()
+                    val buffer = CharArray(512)
+                    while (true) {
+                        val count = reader.read(buffer)
+                        if (count < 0) break
+                        check(response.length + count <= MAX_DICTIONARY_GAP_RESPONSE_CHARS) {
+                            "Dictionary gap response is too large."
+                        }
+                        response.append(buffer, 0, count)
+                    }
+                    response.toString()
+                }.orEmpty()
+            }.getOrElse { error ->
+                throw IllegalStateException("Could not read the dictionary gap response.", error)
+            }
+            val responseJson = runCatching { JSONObject(body) }
+                .getOrElse { error ->
+                    throw IllegalStateException("Dictionary gap server returned an invalid response.", error)
+                }
+            check(status in 200..299) {
+                responseJson.optString("message").ifBlank {
+                    "Dictionary gap server returned HTTP $status."
+                }
+            }
+            check(responseJson.optBoolean("ok", false) && responseJson.optBoolean("stored", false)) {
+                responseJson.optString("message").ifBlank {
+                    "Dictionary gap server did not confirm durable storage."
+                }
+            }
+            JSONObject()
+                .put("ok", true)
+                .put("stored", true)
+                .put("deduplicated", responseJson.optBoolean("deduplicated", false))
+        } finally {
+            connection.disconnect()
+        }
+    }
+
     private fun reportEndpoint(): String {
         val endpoint = URL(BuildConfig.CAATUU_REPORT_URL)
         require(endpoint.protocol in setOf("http", "https")) {
@@ -1202,10 +1432,35 @@ class CaatuuBridge(
             .coerceAtMost(GENERATION_TIMEOUT_CEILING_MILLIS)
 
     companion object {
+        private const val ACTION_TEXT_TO_SPEECH_SETTINGS = "com.android.settings.TTS_SETTINGS"
         private const val GENERATION_TIMEOUT_FLOOR_MILLIS = 3L * 60L * 1000L
         private const val GENERATION_TIMEOUT_PER_TOKEN_MILLIS = 2_000L
         private const val GENERATION_TIMEOUT_CEILING_MILLIS = 30L * 60L * 1000L
         private const val MAX_SPEECH_VOICE_CHARACTERS = 256
+        private const val DICTIONARY_GAP_REPORT_SCHEMA = "caatuu.dictionary-gap-report.v1"
+        private const val DICTIONARY_GAP_DICTIONARY_KEY = "kaikki-cs-en-2026-07-09"
+        private const val DICTIONARY_GAP_DICTIONARY_DIRECTION = "cs-en"
+        private const val MAX_DICTIONARY_GAP_REPORT_BYTES = 2 * 1024
+        private const val MAX_DICTIONARY_GAP_RESPONSE_CHARS = 600
+        private const val MAX_DICTIONARY_GAP_SCHEMA_CHARACTERS = 80
+        private const val MAX_DICTIONARY_GAP_WORD_CHARACTERS = 120
+        private const val MAX_DICTIONARY_GAP_KEY_CHARACTERS = 120
+        private const val MAX_DICTIONARY_GAP_DIRECTION_CHARACTERS = 24
+        private const val MAX_DICTIONARY_GAP_OUTCOME_CHARACTERS = 80
+        private const val MAX_DICTIONARY_GAP_LOOKUP_RETURNED = 60
+        private val DICTIONARY_GAP_REPORT_FIELDS = setOf(
+            "schema",
+            "targetWord",
+            "normalizedWord",
+            "dictionaryKey",
+            "dictionaryDirection",
+            "lookupOutcome",
+            "lookupReturned",
+        )
+        private val DICTIONARY_GAP_LOOKUP_OUTCOMES = setOf(
+            "no_results",
+            "no_exact_usable_entry",
+        )
         private const val MAX_BUG_REPORT_BYTES = 16 * 1024
         private const val MAX_BUG_REPORT_RESPONSE_CHARS = 600
         private const val MAX_LOCAL_BUG_REPORTS = 100

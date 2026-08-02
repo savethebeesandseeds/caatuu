@@ -1,5 +1,7 @@
 {
   "schema": "caatuu.dictionary-patch.v1",
+  "revision": 1,
+  "digest": "sha256-3d86c8c0ddddb0122023a1dd686aaa7c9be2c37bf6ae664c8a5bc72d384762d9",
   "dictionaryKey": "kaikki-cs-en-2026-07-09",
   "direction": "cs-en",
   "records": []

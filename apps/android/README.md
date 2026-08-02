@@ -108,6 +108,14 @@ Remote diagnostics use `https://caatuu.waajacu.com/api/bug-report` independently
 of the APK update channel. Set `CAATUU_ANDROID_REPORT_URL` only when a trusted
 development server should receive debug reports instead.
 
+Missing Czech dictionary lookups use a separate, narrow native delivery route.
+The bridge accepts only the dictionary-gap schema and its six data fields, adds
+no device or app metadata, and posts it directly to
+`https://caatuu.waajacu.com/cz/api/dictionary/gaps`. The shared UI keeps failed
+deliveries in its device-local outbox and retries them later. Set
+`CAATUU_ANDROID_DICTIONARY_GAP_URL` only for a trusted development server;
+release builds require HTTPS while debug builds may use HTTP for LAN testing.
+
 For local phone testing, point the debug updater at the dev server that serves
 `/android/caatuu-debug.json` and `/android/caatuu-debug.apk`:
 

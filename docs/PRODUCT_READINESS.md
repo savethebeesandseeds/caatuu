@@ -1,6 +1,6 @@
 # Caatuu product-readiness road map
 
-Last reviewed: 31 July 2026
+Last reviewed: 1 August 2026
 
 Caatuu is a public development preview. This document is the public release
 gate; it contains no personal runway, address, tax, identity-document, or
@@ -12,7 +12,7 @@ private financial information.
 | --- | --- | --- |
 | First-party software license | `CLOSED` | `AGPL-3.0-only` is on the default branch; separate model, data, art, dependency, and brand terms remain in force |
 | Exact deployed source | `BLOCKED` | The live development checkout contains unpublished changes; do not call it a governed beta until one clean commit exactly represents the deployed first-party source |
-| Remote diagnostics | `CLOSED FOR PREVIEW` | Word World may retain up to 128 feedback items in a device-local outbox; a deliberate clipboard action can project only six dictionary-gap fields for manual maintenance, but the client delivery adapter remains forced offline and the public report route rejects requests |
+| Feedback collection | `NARROW PREVIEW CHANNEL` | General sentence and diagnostic reports remain device-local and `/api/bug-report` remains disabled. A separate bounded outbox automatically sends only six dictionary-gap observation fields to a private server ledger for periodic dictionary maintenance; the ledger has no public read route |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |
 | Models and training lineage | `IN PROGRESS` | Ship only artifacts whose base revision, adapter owner, training inputs, license, hashes, and model card are complete |
 | Dictionaries and datasets | `IN PROGRESS` | Preserve source, attribution, share-alike terms, modifications, and hashes in every distribution |
@@ -54,11 +54,16 @@ private financial information.
 - No debug APK becomes the public fallback.
 - No payment prompt is added until the recipient and tax/accounting path are
   settled.
-- No account, analytics, sync, hosted community, or diagnostic collection is
-  added without an explicit privacy and support review.
-- A device-local feedback outbox does not authorize remote delivery. Its sender
-  remains fail-closed until the privacy gate, retention policy, and operational
-  feedback channel have been reviewed together.
+- No account, analytics, sync, hosted community, or general diagnostic
+  collection is added without an explicit privacy and support review.
+- A device-local general-feedback outbox does not authorize remote delivery.
+  Its sender remains fail-closed. The only current feedback exception is the
+  separately implemented dictionary-gap channel: it may send the documented
+  six-field observation to the private maintenance ledger and nothing broader.
+- Dictionary-gap collection must remain bounded, require a positive durable
+  server acknowledgement before removing the local item, expose no public
+  ledger read route, and stay separate from sentence reports and device or user
+  identifiers.
 - External contributions do not reopen until inbound rights preserve the
   project's chosen operating and licensing options.
 
