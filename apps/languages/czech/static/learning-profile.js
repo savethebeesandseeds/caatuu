@@ -6,6 +6,7 @@
   const preferenceStorageKey = course.storage.learningPreferences || `${namespace}.learning.preferences.v1`;
   const performanceStorageKey = course.storage.learningPerformance || `${namespace}.learning.performance.v1`;
   const schemaVersion = 1;
+  const progressResetPreparers = new Set();
   const difficultyLevels = Object.freeze([
     Object.freeze({
       level: 1,
@@ -81,7 +82,10 @@
 
   const migrateLegacyPerformance = () => {
     const performance = emptyPerformance();
-    const legacyVerb = readJson(course.storage.verbMemory);
+    const storedVerb = readJson(course.storage.verbMemory);
+    const legacyVerb = storedVerb?.schemaVersion === 3
+      ? (storedVerb.families?.meaning || readJson(course.storage.verbMemoryLegacy))
+      : (storedVerb || readJson(course.storage.verbMemoryLegacy));
     const attempts = safeCount(legacyVerb?.stats?.attempts);
     const successes = safeCount(legacyVerb?.stats?.matches);
     const rounds = safeCount(legacyVerb?.stats?.rounds);
@@ -177,12 +181,23 @@
     try {
       window.localStorage.removeItem(performanceStorageKey);
       if (course.storage.verbMemory) window.localStorage.removeItem(course.storage.verbMemory);
+      if (course.storage.verbMemoryLegacy) window.localStorage.removeItem(course.storage.verbMemoryLegacy);
     } catch (error) {
       // In-memory game state can still respond to the reset event.
     }
     writeJson(performanceStorageKey, emptyPerformance());
     announceChange("progress-reset");
     return snapshot();
+  };
+
+  const registerProgressResetPreparation = (prepare) => {
+    if (typeof prepare !== "function") throw new TypeError("Progress reset preparation must be a function.");
+    progressResetPreparers.add(prepare);
+    return () => progressResetPreparers.delete(prepare);
+  };
+
+  const prepareProgressReset = async () => {
+    await Promise.all([...progressResetPreparers].map((prepare) => prepare()));
   };
 
   window.CaatuuLearning = Object.freeze({
@@ -196,6 +211,8 @@
     summarize,
     snapshot,
     record,
+    registerProgressResetPreparation,
+    prepareProgressReset,
     resetProgress
   });
 })();

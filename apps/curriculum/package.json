@@ -1,0 +1,15 @@
+{
+  "name": "caatuu-multilingual-curriculum-contract",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:contexts": "node scripts/sync-prototype-contexts.mjs",
+    "sync:runtime": "node scripts/sync-runtime-assets.mjs",
+    "check:runtime": "node scripts/sync-runtime-assets.mjs --check",
+    "validate": "node src/validate-conformance.mjs --curriculum data/canonical-curriculum.v1.en.json --pack data/cs-CZ.realization-pack.v1.json",
+    "validate:morphology": "node src/validate-morphology-contracts.mjs --curriculum data/canonical-curriculum.v1.en.json --pack data/cs-CZ.realization-pack.v1.json --mechanic-catalog data/shared-mechanic-capabilities.v1.en.json --morphology-catalog data/cs-CZ.morphology-developer-pilot.v1.json --source-catalog data/pilot-content-sources.v1.json --binding-registry data/cs-CZ.cross-game-bindings.v1.json",
+    "validate:bindings": "node src/validate-cross-game-bindings.mjs --curriculum data/canonical-curriculum.v1.en.json --pack data/cs-CZ.realization-pack.v1.json --catalog data/pilot-content-sources.v1.json --registry data/cs-CZ.cross-game-bindings.v1.json",
+    "test": "node --test"
+  }
+}

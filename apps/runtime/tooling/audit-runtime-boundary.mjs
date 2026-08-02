@@ -755,6 +755,12 @@ function auditApk() {
     "assets/app.js",
     "assets/chat.js",
     "assets/course-profile.js",
+    "assets/curriculum-service.js",
+    "assets/curriculum/curriculum-planner-core.mjs",
+    "assets/curriculum/curriculum-runtime-core.mjs",
+    "assets/curriculum/curriculum-service.mjs",
+    "assets/curriculum/guided-opportunity.mjs",
+    "assets/curriculum/morphology-round-core.mjs",
     "assets/runtime.js",
     "assets/chrome.js",
     "assets/maintenance-ui.js",
@@ -762,8 +768,15 @@ function auditApk() {
     "assets/setup.js",
     "assets/sw.js",
     "assets/vector-db.js",
+    "assets/verb-exercise-family-core.mjs",
     "assets/word-net-core.mjs",
     "assets/setup-assets.json",
+    "assets/data/curriculum/canonical-curriculum.v1.en.json",
+    "assets/data/curriculum/cs-CZ.morphology-developer-pilot.v1.json",
+    "assets/data/curriculum/cs-CZ.cross-game-bindings.v1.json",
+    "assets/data/curriculum/cs-CZ.realization-pack.v1.json",
+    "assets/data/curriculum/pilot-content-sources.v1.json",
+    "assets/data/curriculum/shared-mechanic-capabilities.v1.en.json",
     "assets/data/models/phone-bench/models.json",
     "assets/data/embeddings/models.json",
     "assets/data/embeddings/caatuu-local-hash-v0.1/manifest.json",
@@ -982,7 +995,7 @@ function auditRuntimeAdapterBoundary() {
   assert(!wordNet.includes('generateSentenceForWord(button.dataset.word, { source: "choice" })'), "word clicks should not generate the next sentence directly");
   assert(wordNetHtml.includes('id="wordNetDiagnostics"') && wordNet.includes("syncDiagnostics"), "Word World should expose compact live runtime details");
   assert(wordNet.includes("state.branchQueue.size") && wordNet.includes("diagnosticsModel"), "Word World runtime details should report the real branch queue and active model lane");
-  assert(wordNet.includes('Boolean(state.selectedWord) && translationEnabled') && !wordNet.includes('Translation hidden.'), "Word World should remove the selected-word card when translation is off");
+  assert(/Boolean\(state\.selectedWord\)\s*&&\s*translationEnabled/.test(wordNet) && !wordNet.includes('Translation hidden.'), "Word World should remove the selected-word card when translation is off");
   const wordNetInit = wordNet.slice(
     wordNet.indexOf("async function init"),
     wordNet.indexOf("\ninit();"),

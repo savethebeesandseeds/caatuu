@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "Target locale metadata must be a canonical BCP-47 tag.",
+  "mutations": [
+    {"op": "replace", "path": "/targetLocale", "value": "cz_czech"}
+  ],
+  "expectedErrorCodes": ["CURR_REALIZATION_LOCALE"]
+}

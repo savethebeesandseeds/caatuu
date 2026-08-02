@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   assignUniqueVerbHintCandidates,
+  buildGuidedVerbRound,
   dealVerbRound,
   extractCoreVerbPairs,
   filterVerbPairsForDifficulty,
@@ -10,7 +11,11 @@ import {
   verbHintSearchText,
   normalizeVerbPairCount,
   restoreVerbQueue,
+  resolvePinnedStableVerbPair,
+  resolvePinnedStableVerbPairs,
+  resolveStableVerbPair,
   shuffleVerbMeanings,
+  validatePinnedVerbPairLocator,
   verbPairMatches,
 } from "../../../apps/languages/czech/static/verb-nebula-core.mjs";
 
@@ -60,6 +65,218 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.equal(new Set(pairs.map((pair) => pair.cz.toLowerCase())).size, pairs.length);
   assert.equal(new Set(pairs.map((pair) => pair.eng.toLowerCase())).size, pairs.length);
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
+});
+
+const reviewedReadReference = Object.freeze({
+  id: "cs.verb.cist.read",
+  cz: "číst",
+  eng: "read",
+  difficulty: 1,
+  difficultyIsAuthored: true,
+  legacyLocator: Object.freeze({
+    pairId: "core-verb-179",
+    sourceIndex: 179,
+  }),
+});
+const reviewedContrastReferences = Object.freeze([
+  Object.freeze({
+    id: "cs.verb.jist.eat",
+    cz: "jíst",
+    eng: "eat",
+    difficulty: 1,
+    difficultyIsAuthored: true,
+    legacyLocator: Object.freeze({ pairId: "core-verb-202", sourceIndex: 202 }),
+  }),
+  Object.freeze({
+    id: "cs.verb.pit.drink",
+    cz: "pít",
+    eng: "drink",
+    difficulty: 1,
+    difficultyIsAuthored: true,
+    legacyLocator: Object.freeze({ pairId: "core-verb-203", sourceIndex: 203 }),
+  }),
+  Object.freeze({
+    id: "cs.verb.spat.sleep",
+    cz: "spát",
+    eng: "sleep",
+    difficulty: 1,
+    difficultyIsAuthored: true,
+    legacyLocator: Object.freeze({ pairId: "core-verb-157", sourceIndex: 157 }),
+  }),
+]);
+const reviewedDictionaryDigest = "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b";
+
+test("resolves the reviewed read pair by stable curriculum identity", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const pair = resolveStableVerbPair(dictionary, reviewedReadReference);
+
+  assert.equal(pair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(pair.cz, "číst");
+  assert.equal(pair.eng, "read");
+  assert.equal(pair.id, "core-verb-179");
+  assert.equal(pair.sourceIndex, 179);
+  assert.deepEqual(validatePinnedVerbPairLocator(dictionary, reviewedReadReference), pair);
+});
+
+test("stable lookup survives unrelated reordering but the pinned locator detects it", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const reordered = [
+    ...dictionary.slice(0, 179),
+    { kind: "N", cs: "testovací zástupný řádek", en: "test placeholder row" },
+    ...dictionary.slice(179),
+  ];
+
+  const movedPair = resolveStableVerbPair(reordered, reviewedReadReference);
+  assert.equal(movedPair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(movedPair.cz, "číst");
+  assert.equal(movedPair.eng, "read");
+  assert.equal(movedPair.sourceIndex, 180);
+  assert.equal(movedPair.id, "core-verb-180");
+  assert.throws(
+    () => validatePinnedVerbPairLocator(reordered, reviewedReadReference),
+    { code: "VERB_STABLE_LOCATOR_DRIFT" }
+  );
+});
+
+test("stable lookup rejects reviewed-label drift and ambiguity", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+  const drifted = dictionary.map((row, index) => (
+    index === 179 ? { ...row, en: "study" } : row
+  ));
+  assert.throws(
+    () => resolveStableVerbPair(drifted, reviewedReadReference),
+    { code: "VERB_STABLE_SOURCE_DRIFT" }
+  );
+
+  const ambiguous = [...dictionary, { ...dictionary[179] }];
+  assert.throws(
+    () => resolveStableVerbPair(ambiguous, reviewedReadReference),
+    { code: "VERB_STABLE_AMBIGUOUS" }
+  );
+});
+
+test("strict runtime lookup verifies the exact dictionary bytes before resolving", async () => {
+  const dictionaryBytes = await readFile(dictionaryUrl);
+  const pair = await resolvePinnedStableVerbPair(
+    dictionaryBytes,
+    reviewedDictionaryDigest,
+    reviewedReadReference
+  );
+
+  assert.equal(pair.curriculumContentId, "cs.verb.cist.read");
+  assert.equal(pair.id, "core-verb-179");
+  assert.equal(pair.cz, "číst");
+  assert.equal(pair.eng, "read");
+});
+
+test("builds a task-seeded deranged Guided round from canonical reviewed contrasts", async () => {
+  const dictionaryBytes = await readFile(dictionaryUrl);
+  const dictionary = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(dictionaryBytes));
+  const pairs = extractCoreVerbPairs(dictionary);
+  const [target, ...contrastPairs] = await resolvePinnedStableVerbPairs(
+    dictionaryBytes,
+    reviewedDictionaryDigest,
+    [reviewedReadReference, ...reviewedContrastReferences]
+  );
+  const options = { pairCount: 4, contrastPairs, taskFingerprint: "task-fingerprint-alpha" };
+  const first = buildGuidedVerbRound(pairs, target, options);
+  const second = buildGuidedVerbRound(pairs, target, options);
+
+  assert.deepEqual(second, first);
+  assert.equal(first.round.length, 4);
+  assert.equal(first.round.filter((pair) => pair.id === target.id).length, 1);
+  assert.equal(new Set(first.round.map((pair) => pair.id)).size, 4);
+  assert.deepEqual(
+    new Set(first.round.map((pair) => pair.id)),
+    new Set(["core-verb-179", "core-verb-202", "core-verb-203", "core-verb-157"])
+  );
+  assert.deepEqual(
+    new Set(first.englishRound.map((pair) => pair.id)),
+    new Set(first.round.map((pair) => pair.id))
+  );
+  assert.ok(first.englishRound.every((pair, index) => pair.id !== first.round[index].id));
+  assert.deepEqual(first.queueIds, []);
+
+  const seededPlans = Array.from({ length: 12 }, (_, index) => buildGuidedVerbRound(
+    pairs,
+    target,
+    { pairCount: 4, contrastPairs, taskFingerprint: `task-fingerprint-${index}` }
+  ));
+  assert.ok(new Set(seededPlans.map((plan) => plan.round.findIndex((pair) => pair.id === target.id))).size > 1);
+  assert.ok(new Set(seededPlans.map((plan) => plan.englishRound.findIndex((pair) => pair.id === target.id))).size > 1);
+});
+
+test("Guided verb round construction fails closed without its target or contrasts", () => {
+  const target = { id: "target", sourceIndex: 10, cz: "\u010d\u00edst", eng: "read", difficulty: 1 };
+  assert.throws(
+    () => buildGuidedVerbRound([], target, { taskFingerprint: "task" }),
+    { code: "VERB_GUIDED_TARGET_MISSING" }
+  );
+  assert.throws(
+    () => buildGuidedVerbRound([target], target, { taskFingerprint: "task" }),
+    { code: "VERB_GUIDED_CONTRASTS_MISSING" }
+  );
+});
+
+test("strict batch lookup rejects missing or duplicate reviewed contrasts", async () => {
+  const dictionaryBytes = await readFile(dictionaryUrl);
+  const missing = structuredClone(reviewedContrastReferences[0]);
+  missing.eng = "consume";
+  await assert.rejects(
+    resolvePinnedStableVerbPairs(
+      dictionaryBytes,
+      reviewedDictionaryDigest,
+      [reviewedReadReference, missing]
+    ),
+    { code: "VERB_STABLE_SOURCE_DRIFT" }
+  );
+  await assert.rejects(
+    resolvePinnedStableVerbPairs(
+      dictionaryBytes,
+      reviewedDictionaryDigest,
+      [reviewedReadReference, reviewedReadReference]
+    ),
+    { code: "VERB_STABLE_DUPLICATE_REFERENCE" }
+  );
+});
+
+test("strict runtime lookup rejects missing, mismatched, and reordered catalog pins", async () => {
+  const dictionaryBytes = await readFile(dictionaryUrl);
+  await assert.rejects(
+    resolvePinnedStableVerbPair(dictionaryBytes, "", reviewedReadReference),
+    { code: "VERB_STABLE_INVALID_CATALOG_DIGEST" }
+  );
+  await assert.rejects(
+    resolvePinnedStableVerbPair(
+      dictionaryBytes,
+      `sha256:${"0".repeat(64)}`,
+      reviewedReadReference
+    ),
+    { code: "VERB_STABLE_CATALOG_DIGEST_MISMATCH" }
+  );
+
+  const reordered = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(dictionaryBytes));
+  [reordered[0], reordered[1]] = [reordered[1], reordered[0]];
+  await assert.rejects(
+    resolvePinnedStableVerbPair(
+      new TextEncoder().encode(JSON.stringify(reordered)),
+      reviewedDictionaryDigest,
+      reviewedReadReference
+    ),
+    { code: "VERB_STABLE_CATALOG_DIGEST_MISMATCH" }
+  );
+
+  const bomPrefixed = new Uint8Array(dictionaryBytes.length + 3);
+  bomPrefixed.set([0xef, 0xbb, 0xbf]);
+  bomPrefixed.set(dictionaryBytes, 3);
+  await assert.rejects(
+    resolvePinnedStableVerbPair(
+      bomPrefixed,
+      reviewedDictionaryDigest,
+      reviewedReadReference
+    ),
+    { code: "VERB_STABLE_CATALOG_DIGEST_MISMATCH" }
+  );
 });
 
 test("keeps the curated difficulty metadata and defaults unclassified verbs to Navigator", () => {
@@ -221,16 +438,23 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(index, /data-verb-pair-count="8"/);
   assert.match(index, /id="verbRevealSolution"[^>]+aria-label="Reveal solution"/);
   assert.doesNotMatch(index, /id="verbNextRound"/);
-  assert.match(app, /#verbRevealSolution"\)\?\.addEventListener\("click", toggleVerbSolution\)/);
-  assert.match(app, /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete\) \{\s*void transitionToNextVerbRound\(\);/);
+  assert.match(
+    app,
+    /#verbRevealSolution"\)\?\.addEventListener\("click", \(\) => \{\s*void trackVerbGuidedOperation\(toggleVerbSolution\);\s*\}\)/
+  );
+  assert.match(app, /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete && !state\.verbGuidedMode\) \{\s*void transitionToNextVerbRound\(\);/);
   assert.match(index, /id="verbSolutionArrows"/);
   assert.match(app, /renderVerbSolutionArrows\(\)/);
   assert.match(app, /svg\.classList\.toggle\("is-visible", Boolean\(visible\)\)/);
-  assert.match(app, /path\.dataset\.verbPairId = pair\.id/);
+  assert.match(app, /route\.dataset\.verbPairId = pair\.id/);
   assert.doesNotMatch(app, /solutionOrdinal/);
   assert.match(app, /assignUniqueVerbHintCandidates\(candidateGroups\)/);
   assert.match(app, /Follow the arrows to review every pair\./);
-  assert.match(app, /state\.verbSolutionRevealed = !state\.verbSolutionRevealed;\s*setVerbMatchFeedback/);
+  assert.match(
+    app,
+    /const guidedLifecycle = state\.verbGuidedLifecycle;[\s\S]*?await guidedLifecycle\.recordSolutionReveal[\s\S]*?state\.verbSolutionRevealed = true/
+  );
+  assert.match(app, /if \(!state\.verbGuidedMode\) \{[\s\S]*?state\.verbSolutionAdvanceTimer = window\.setTimeout/);
   assert.doesNotMatch(app, /transitionToNextVerbRound\(\{ revealSolution: true \}\)/);
   assert.match(app, /preloadVerbHintsForRound\(nextRound\.round\)/);
   assert.match(app, /preloadVerbHintAsset\(hint\?\.assetPath\)/);

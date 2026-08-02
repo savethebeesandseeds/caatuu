@@ -7,6 +7,7 @@ const pageNames = [
   "home.html",
   "index.html",
   "chat.html",
+  "conjugation-comet.html",
   "word-net.html",
   "embedding-images.html",
   "verb-difficulty.html",
@@ -26,11 +27,11 @@ const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, .
 
 test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-7"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-3"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-13"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-36"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-89"');
+    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-90"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -281,8 +282,8 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v391/);
-  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v384/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v393/);
+  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v382/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/audio-lab\.css\?v=audio-lab-2/);
   assert.match(serviceWorker, /\.\/audio-lab\.js\?v=audio-lab-1/);
@@ -298,12 +299,12 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-74/);
-  assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-73/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-75/);
-  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-72/);
-  assert.match(serviceWorker, /word-net\.css\?v=word-net-70/);
-  assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-67/);
+  assert.match(serviceWorker, /app\.js\?v=shell-83/);
+  assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-82/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-76/);
+  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-75/);
+  assert.match(serviceWorker, /word-net\.css\?v=word-net-71/);
+  assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-70/);
   assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-18/);
   assert.doesNotMatch(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);
 });

@@ -41,7 +41,7 @@
     {
       "id": "walking-arround",
       "folder": "animation-walking-arround",
-      "count": 33,
+      "count": 32,
       "sprites": [
         {
           "index": 1,
@@ -202,11 +202,6 @@
           "index": 32,
           "file": "loading-animation (32).png",
           "path": "animation-walking-arround/loading-animation (32).png"
-        },
-        {
-          "index": 33,
-          "file": "loading-animation (33).png",
-          "path": "animation-walking-arround/loading-animation (33).png"
         }
       ]
     },

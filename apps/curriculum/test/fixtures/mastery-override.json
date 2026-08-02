@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A target pack attempts to weaken canonical mastery inside one unit.",
+  "expectedErrorCodes": ["CURR_OUTCOME_MUTATION"],
+  "mutations": [
+    {
+      "op": "add",
+      "path": "/unitBindings/1/masteryPolicy",
+      "value": {
+        "minimumIndependentRetrievals": 1,
+        "minimumSessions": 1,
+        "minimumDistinctContexts": 1,
+        "requiresTransfer": false,
+        "requiresProduction": false,
+        "solutionRevealCanQualify": true,
+        "unresolvedRecentFailureBlocksMastery": false
+      }
+    }
+  ]
+}

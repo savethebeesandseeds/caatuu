@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "Target entities cannot smuggle authoritative sequence controls through unknown fields.",
+  "mutations": [
+    {"op": "add", "path": "/skills/0/authoritativeDifficulty", "value": 5}
+  ],
+  "expectedErrorCodes": ["CURR_REALIZATION_OVERRIDE"]
+}

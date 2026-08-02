@@ -1,0 +1,593 @@
+{
+  "schemaVersion": "caatuu-morphology-developer-pilot-v1",
+  "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+  "version": "1.2.0",
+  "targetLocale": "cs-CZ",
+  "review": {
+    "status": "prototype-not-human-approved",
+    "notesEn": "This entire catalog is a developer contract fixture. Native Czech educator approval and a new non-pilot catalog are required before learner release."
+  },
+  "families": [
+    {
+      "id": "cs.morphology.family.cist.present-singular",
+      "revision": 1,
+      "lemmaRef": {
+        "id": "cs.lexeme.cist",
+        "revision": 1
+      },
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The family boundary, Czech forms, register, and teaching order require native Czech educator review."
+      },
+      "metadata": {
+        "lemmaTarget": "číst",
+        "glossEn": "read",
+        "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
+        "unitRef": {
+          "id": "unit.routine.familiar-actions.01",
+          "revision": 1
+        },
+        "senseRef": {
+          "id": "cs.sense.cist.read",
+          "revision": 1
+        },
+        "canonicalSemanticRefs": [
+          {"id": "function.describe-action", "revision": 1},
+          {"id": "frame.action", "revision": 1},
+          {"id": "concept.action.read", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "realization-complexity",
+          "level": 3,
+          "rationaleEn": "The present stem differs from the citation form, so difficulty is recorded as advisory realization complexity rather than as curriculum order or mastery.",
+          "advisoryOnly": true
+        },
+        "register": ["neutral"],
+        "prerequisiteRefs": [
+          {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+        ],
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "Stable forms and features were entered explicitly; no paradigm was inferred from the Core dictionary cue."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Prototype metadata is descriptive only and cannot establish release authority."
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "cs.form.cist.present-indicative.1sg",
+      "revision": 1,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "surface": "čtu",
+      "acceptedVariants": [],
+      "featureKey": "present.indicative.imperfective.1.singular",
+      "features": {
+        "cs.verb.aspect": "imperfective",
+        "cs.verb.form": "finite",
+        "cs.verb.mood": "indicative",
+        "cs.verb.tense": "present",
+        "cs.verb.person": 1,
+        "cs.verb.number": "singular",
+        "cs.verb.polarity": "affirmative"
+      },
+      "ambiguity": {
+        "mode": "none"
+      },
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The form, feature bundle, preferred surface, and beginner suitability require native Czech educator review."
+      },
+      "metadata": {
+        "lexemeRef": {"id": "cs.lexeme.cist", "revision": 1},
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "formRef": {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "realizationType": "synthetic",
+        "normalization": "NFC",
+        "variantRecords": [
+          {
+            "id": "cs.variant.cist.present-indicative.1sg.standard",
+            "revision": 1,
+            "surface": "čtu",
+            "acceptance": "preferred",
+            "register": ["neutral"]
+          }
+        ],
+        "ambiguityRationaleEn": "Within this reviewed three-form family, the NFC surface maps to one feature key.",
+        "register": ["neutral"],
+        "prerequisiteRefs": [
+          {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "realization-complexity",
+          "level": 3,
+          "rationaleEn": "The citation form and present stem differ, so the learner cannot obtain this form by attaching a transparent ending to the displayed infinitive.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The surface and feature analysis were entered explicitly; no automatic conjugator supplied release authority."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Item metadata remains provisional even when deterministic validation succeeds."
+        }
+      }
+    },
+    {
+      "id": "cs.form.cist.present-indicative.2sg",
+      "revision": 2,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "surface": "čteš",
+      "acceptedVariants": [],
+      "featureKey": "present.indicative.imperfective.2.singular",
+      "features": {
+        "cs.verb.aspect": "imperfective",
+        "cs.verb.form": "finite",
+        "cs.verb.mood": "indicative",
+        "cs.verb.tense": "present",
+        "cs.verb.person": 2,
+        "cs.verb.number": "singular",
+        "cs.verb.polarity": "affirmative",
+        "cs.address.formality": "familiar"
+      },
+      "ambiguity": {
+        "mode": "none"
+      },
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The form, feature bundle, preferred surface, register assumptions, and beginner suitability require native Czech educator review."
+      },
+      "metadata": {
+        "lexemeRef": {"id": "cs.lexeme.cist", "revision": 1},
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "formRef": {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "realizationType": "synthetic",
+        "normalization": "NFC",
+        "variantRecords": [
+          {
+            "id": "cs.variant.cist.present-indicative.2sg.standard",
+            "revision": 2,
+            "surface": "čteš",
+            "acceptance": "preferred",
+            "register": ["familiar"]
+          }
+        ],
+        "ambiguityRationaleEn": "Within this reviewed three-form family, the NFC surface maps to one feature key.",
+        "register": ["familiar"],
+        "prerequisiteRefs": [
+          {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "realization-complexity",
+          "level": 3,
+          "rationaleEn": "The present stem differs from the citation form and carries an overt second-person singular ending.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The surface and feature analysis were entered explicitly; no automatic conjugator supplied release authority."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Item metadata remains provisional even when deterministic validation succeeds."
+        }
+      }
+    },
+    {
+      "id": "cs.form.cist.present-indicative.3sg",
+      "revision": 1,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "surface": "čte",
+      "acceptedVariants": [],
+      "featureKey": "present.indicative.imperfective.3.singular",
+      "features": {
+        "cs.verb.aspect": "imperfective",
+        "cs.verb.form": "finite",
+        "cs.verb.mood": "indicative",
+        "cs.verb.tense": "present",
+        "cs.verb.person": 3,
+        "cs.verb.number": "singular",
+        "cs.verb.polarity": "affirmative"
+      },
+      "ambiguity": {
+        "mode": "cue-resolved",
+        "resolutionKey": "named-third-person"
+      },
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The form, feature bundle, preferred surface, cue-based referent handling, and beginner suitability require native Czech educator review."
+      },
+      "metadata": {
+        "lexemeRef": {"id": "cs.lexeme.cist", "revision": 1},
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "formRef": {"id": "cs.form.cist.present-indicative.3sg", "revision": 1},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "realizationType": "synthetic",
+        "normalization": "NFC",
+        "variantRecords": [
+          {
+            "id": "cs.variant.cist.present-indicative.3sg.standard",
+            "revision": 1,
+            "surface": "čte",
+            "acceptance": "preferred",
+            "register": ["neutral"]
+          }
+        ],
+        "ambiguityRationaleEn": "The bare form does not name its third-person referent; the reviewed cue must supply one named singular person before the item can be assessed.",
+        "register": ["neutral"],
+        "prerequisiteRefs": [
+          {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "realization-complexity",
+          "level": 3,
+          "rationaleEn": "The present stem differs from the citation form and the intended referent must be supplied by context rather than an English gloss alone.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The surface, feature analysis, and ambiguity declaration were entered explicitly; no automatic conjugator supplied release authority."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Item metadata remains provisional even when deterministic validation succeeds."
+        }
+      }
+    }
+  ],
+  "cues": [
+    {
+      "id": "cs.cue.cist.read.speaker-singular-current",
+      "revision": 1,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "targetItemRef": {
+        "id": "cs.form.cist.present-indicative.1sg",
+        "revision": 1
+      },
+      "key": "read.current.speaker.singular",
+      "presentation": {
+        "roleTokenEn": "I",
+        "contextEn": "The speaker describes their own current reading action.",
+        "naturalTranslationEn": "I am reading now.",
+        "teachingLabelEn": "first person singular · present",
+        "hintEn": "Choose the Czech form for the speaker.",
+        "solutionExplanationEn": "čtu is the prototype first-person singular present form of číst."
+      },
+      "ambiguityResolutionKey": null,
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The cue, translation, teaching label, hint, and explanation require native Czech educator review."
+      },
+      "metadata": {
+        "exercise": {
+          "id": "cs.exercise.cist.visible-form-choice.1sg",
+          "revision": 1,
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+          "capabilityRef": {
+            "id": "capability.contextual-target-realization.visible-form-choice",
+            "revision": 1
+          },
+          "challenge": {
+            "optionCount": 3,
+            "optionsVisible": true,
+            "distractorPolicy": "same-family-feature-contrast",
+            "timePressure": false
+          },
+          "prerequisiteRefs": [
+            {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+          ],
+          "review": {
+            "status": "prototype-not-human-approved",
+            "notesEn": "Visible-choice contrast quality and learner suitability require native Czech educator review."
+          }
+        },
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "canonicalFeatureValues": {
+          "referent-person": "self",
+          "time-profile": "current"
+        },
+        "targetFeatureConstraints": {
+          "cs.verb.person": 1,
+          "cs.verb.number": "singular",
+          "cs.verb.tense": "present",
+          "cs.verb.mood": "indicative",
+          "cs.verb.polarity": "affirmative"
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
+        "register": ["neutral"],
+        "prerequisiteRefs": [
+          {"entityType": "sense", "id": "cs.sense.cist.read", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 1,
+          "rationaleEn": "Three same-family forms remain visible and the speaker role is explicit; this is discrimination rather than recall.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The cue was authored from an English-specified context and one revision-pinned target form."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Cue metadata is not release-approved."
+        }
+      }
+    },
+    {
+      "id": "cs.cue.cist.read.addressee-singular-current",
+      "revision": 2,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "targetItemRef": {
+        "id": "cs.form.cist.present-indicative.2sg",
+        "revision": 2
+      },
+      "key": "read.current.familiar-addressee.singular",
+      "presentation": {
+        "roleTokenEn": "you",
+        "contextEn": "One familiar addressee is the person performing a current reading action.",
+        "naturalTranslationEn": "You are reading now.",
+        "teachingLabelEn": "second person singular · present",
+        "hintEn": "Choose the Czech form for one familiar addressee.",
+        "solutionExplanationEn": "čteš is the prototype second-person singular present form of číst."
+      },
+      "ambiguityResolutionKey": null,
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The cue, translation, register assumptions, teaching label, hint, and explanation require native Czech educator review."
+      },
+      "metadata": {
+        "exercise": {
+          "id": "cs.exercise.cist.visible-form-choice.2sg",
+          "revision": 2,
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+          "capabilityRef": {
+            "id": "capability.contextual-target-realization.visible-form-choice",
+            "revision": 1
+          },
+          "challenge": {
+            "optionCount": 3,
+            "optionsVisible": true,
+            "distractorPolicy": "same-family-feature-contrast",
+            "timePressure": false
+          },
+          "prerequisiteRefs": [
+            {"entityType": "exercise", "id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1}
+          ],
+          "review": {
+            "status": "prototype-not-human-approved",
+            "notesEn": "Visible-choice contrast quality, register assumptions, and learner suitability require native Czech educator review."
+          }
+        },
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "canonicalFeatureValues": {
+          "referent-person": "addressee",
+          "time-profile": "current"
+        },
+        "targetFeatureConstraints": {
+          "cs.verb.person": 2,
+          "cs.verb.number": "singular",
+          "cs.verb.tense": "present",
+          "cs.verb.mood": "indicative",
+          "cs.verb.polarity": "affirmative",
+          "cs.address.formality": "familiar"
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
+        "register": ["familiar"],
+        "prerequisiteRefs": [
+          {"entityType": "exercise", "id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1}
+        ],
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "rationaleEn": "The learner distinguishes an addressee role while all three target forms remain visible.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The cue was authored from an English-specified context and one revision-pinned target form."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Cue metadata is not release-approved."
+        }
+      }
+    },
+    {
+      "id": "cs.cue.cist.read.named-third-person-current",
+      "revision": 2,
+      "familyRef": {
+        "id": "cs.morphology.family.cist.present-singular",
+        "revision": 1
+      },
+      "targetItemRef": {
+        "id": "cs.form.cist.present-indicative.3sg",
+        "revision": 1
+      },
+      "key": "read.current.named-third-person.grandfather",
+      "presentation": {
+        "roleTokenEn": "Grandpa",
+        "contextEn": "Grandpa is the one familiar other person performing a current reading action.",
+        "naturalTranslationEn": "Grandpa is reading now.",
+        "teachingLabelEn": "third person singular · present",
+        "hintEn": "Choose the Czech form for one named person other than the speaker or addressee.",
+        "solutionExplanationEn": "čte is the prototype third-person singular present form of číst in this named-person context."
+      },
+      "ambiguityResolutionKey": "named-third-person",
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "The cue, translation, ambiguity resolution, teaching label, hint, and explanation require native Czech educator review."
+      },
+      "metadata": {
+        "exercise": {
+          "id": "cs.exercise.cist.visible-form-choice.3sg",
+          "revision": 2,
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+          "capabilityRef": {
+            "id": "capability.contextual-target-realization.visible-form-choice",
+            "revision": 1
+          },
+          "challenge": {
+            "optionCount": 3,
+            "optionsVisible": true,
+            "distractorPolicy": "same-family-feature-contrast",
+            "timePressure": false
+          },
+          "prerequisiteRefs": [
+            {"entityType": "exercise", "id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2}
+          ],
+          "review": {
+            "status": "prototype-not-human-approved",
+            "notesEn": "Visible-choice contrast quality, ambiguity handling, and learner suitability require native Czech educator review."
+          }
+        },
+        "senseRef": {"id": "cs.sense.cist.read", "revision": 1},
+        "unitRef": {"id": "unit.routine.familiar-actions.01", "revision": 1},
+        "canonicalFeatureValues": {
+          "referent-person": "grandfather",
+          "time-profile": "current"
+        },
+        "targetFeatureConstraints": {
+          "cs.verb.person": 3,
+          "cs.verb.number": "singular",
+          "cs.verb.tense": "present",
+          "cs.verb.mood": "indicative",
+          "cs.verb.polarity": "affirmative"
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
+        "register": ["neutral"],
+        "prerequisiteRefs": [
+          {"entityType": "exercise", "id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2}
+        ],
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "rationaleEn": "The learner maps one named third-person referent to a target form while all three target forms remain visible.",
+          "advisoryOnly": true
+        },
+        "provenance": {
+          "sourceType": "authored",
+          "sourceId": "caatuu-morphology-developer-pilot-2026-08-02",
+          "sourceRevision": "1",
+          "licenseId": "MIT",
+          "attributionEn": "Authored as a Caatuu curriculum contract fixture.",
+          "transformationEn": "The cue was authored from an English-specified named-person context and one revision-pinned target form."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "notesEn": "Cue metadata is not release-approved."
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "specLocale": "en",
+    "stableContentId": "cs.morphology.cist.present-singular-person.1sg",
+    "stableContentSequence": {
+      "id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+      "revision": 1,
+      "orderedContentIds": [
+        "cs.morphology.cist.present-singular-person.1sg",
+        "cs.morphology.cist.present-singular-person.2sg",
+        "cs.morphology.cist.present-singular-person.3sg"
+      ],
+      "orderedCueRefs": [
+        {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
+        {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
+        {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+      ],
+      "orderedExerciseRefs": [
+        {"id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1},
+        {"id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2},
+        {"id": "cs.exercise.cist.visible-form-choice.3sg", "revision": 2}
+      ]
+    },
+    "activityId": "conjugation-comet",
+    "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+    "releasePolicy": {
+      "status": "developer-only",
+      "requiresNewCatalogForRelease": true,
+      "reasonEn": "Prototype records can be exercised in developer mode but can never be promoted in place to learner-release content."
+    },
+    "curriculum": {
+      "id": "caatuu.shared-beginner",
+      "version": "1.0.0",
+      "canonicalContractDigest": "sha256:ea771050c38c0bac732fa5ae02a0494b6505b98b8a635590ee3fa7ff2cb32dd9"
+    },
+    "targetPack": {
+      "id": "caatuu.cs-CZ.shared-beginner",
+      "version": "1.1.0",
+      "targetLocale": "cs-CZ",
+      "targetPackDigest": "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461"
+    },
+    "mechanicCatalog": {
+      "id": "caatuu.shared-mechanic-capabilities",
+      "version": "1.0.0",
+      "digest": "sha256:f4d93f3b96467c082fe97bb6f13dc2ac0df0189b9620d74aaff1caa3b0bfc147"
+    }
+  }
+}

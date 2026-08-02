@@ -44,10 +44,11 @@ test("game-local theme controls preserve centered artwork and Word World chrome"
   assert.match(wordNetCss, /\.word-net-reconstruction-token,[\s\S]*?font-weight: 500/);
 });
 
-test("Verb Nebula reveal shows animated answers and automatically advances", () => {
-  assert.match(app, /function toggleVerbSolution\(\)/);
-  assert.match(app, /state\.verbSolutionRevealed = !state\.verbSolutionRevealed/);
-  assert.match(app, /state\.verbSolutionAdvanceTimer = window\.setTimeout/);
+test("Verb Nebula reveal shows animated answers and automatically advances Explore only", () => {
+  assert.match(app, /async function toggleVerbSolution\(\)/);
+  assert.match(app, /if \(state\.verbSolutionRevealed\) \{[\s\S]*?state\.verbSolutionRevealed = false/);
+  assert.match(app, /state\.verbSolutionRevealed = true/);
+  assert.match(app, /if \(!state\.verbGuidedMode\) \{[\s\S]*?state\.verbSolutionAdvanceTimer = window\.setTimeout/);
   assert.match(app, /transitionToNextVerbRound\(\{ holdMillis: 0 \}\)/);
   assert.match(app, /const verbSolutionRevealBaseMillis = 1400/);
   assert.match(app, /const verbSolutionRevealMillisPerPair = 450/);
@@ -89,7 +90,7 @@ test("Verb Nebula gives match words more presence and celebrates earned round XP
   const settleEnd = app.indexOf("function chooseVerbMatchCard", settleStart);
   const settlePath = app.slice(settleStart, settleEnd);
   assert.ok(settleStart >= 0 && settleEnd > settleStart, "the Verb Nebula match path must remain inspectable");
-  assert.match(settlePath, /state\.verbRoundRewardXp = state\.verbRound\.length/);
+  assert.match(settlePath, /state\.verbRoundRewardXp = state\.verbGuidedMode \? 0 : state\.verbRound\.length/);
   assert.match(settlePath, /successes: 1,[\s\S]*?xp: 1,[\s\S]*?rounds: roundComplete \? 1 : 0/);
   assert.match(settlePath, /renderVerbNebula\(\);[\s\S]*?if \(roundComplete\) \{[\s\S]*?transitionToNextVerbRound\(\)/);
 
@@ -229,7 +230,7 @@ test("Settings and Audio Lab share one selectable Czech speech service", () => {
   assert.match(chrome, /class="settings-card side-card settings-section-card appearance-card"[\s\S]*?<details class="settings-section-details" id="settingsAppearanceDetails" open>[\s\S]*?<summary class="settings-section-summary">[\s\S]*?Theme, text size[\s\S]*?class="settings-section-body appearance-settings-body"/);
   assert.match(chrome, /class="settings-card side-card settings-section-card speech-settings-card"[\s\S]*?<details class="settings-section-details" id="settingsSpeechDetails">[\s\S]*?<summary class="settings-section-summary">[\s\S]*?Voice, speed[\s\S]*?class="settings-section-body speech-settings-body"/);
   assert.doesNotMatch(chrome, /<details[^>]*id="settingsSpeechDetails"[^>]*\bopen\b/);
-  assert.match(chrome, /Preparing for release\. Features may still change\./);
+  assert.match(chrome, /Development preview\. A governed public beta has not been declared\./);
   assert.match(chrome, /class="speech-voice-row"[\s\S]*?id="settingsSpeechVoice"[\s\S]*?id="settingsSpeechVoiceTest"[\s\S]*?id="settingsSpeechVoiceStatus"[\s\S]*?class="speech-rate-row"/);
   assert.match(chrome, /async function listSpeechVoiceOptions\(\)/);
   assert.match(chrome, /async function speakCzechText\(text, options = \{\}\)/);
@@ -299,7 +300,7 @@ test("Word World keeps sentence playback beside the phrase and audio settings in
   assert.match(wordNetJs, /wordNetTranslationMenu"\)\?\.addEventListener\("click"[\s\S]*?closest\("button\[data-answer-mode\]"\)[\s\S]*?setTranslationMode\("reconstruct"\)[\s\S]*?setTranslationMode\(delay, \{ closeMenu: false \}\)[\s\S]*?closest\("button\[data-translation-delay\]"\)[\s\S]*?closest\("button\[data-word-card-setting\]"\)/);
   assert.doesNotMatch(wordNetJs, /copyDictionaryGapBatch|exportDictionaryGaps|copyTextToClipboard|data-dictionary-gap-action/);
   assert.doesNotMatch(wordNetCss, /data-dictionary-gap-action/);
-  assert.match(wordNetJs, /function syncWordTranslation\(\)[\s\S]*?Boolean\(state\.selectedWord\)[^\n]*state\.wordCardPreferences\.showCard[\s\S]*?metaNode\.hidden = !metaNode\.textContent/);
+  assert.match(wordNetJs, /function syncWordTranslation\(\)[\s\S]*?Boolean\(state\.selectedWord\)[\s\S]*?state\.wordCardPreferences\.showCard[\s\S]*?guidedCardAllowed[\s\S]*?metaNode\.hidden = !metaNode\.textContent/);
   assert.match(wordNetJs, /function selectWord\(word, \{ lookup = true, render = true, userInitiated = false \} = \{\}\)[\s\S]*?userInitiated[\s\S]*?state\.wordCardPreferences\.autoPronounce[\s\S]*?speakSelectedCzechWord\(\)/);
   assert.match(wordNetJs, /wordButton\.querySelector\('\[data-speech-icon="play"\]'\)[\s\S]*?wordButton\.querySelector\('\[data-speech-icon="stop"\]'\)/);
   assert.match(wordNetJs, /selectWord\(button\.dataset\.word, \{ userInitiated: true \}\)/);
@@ -368,7 +369,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.match(wordNetJs, /reconstruct: \{ label: "Rebuild", delayMs: null \}/);
   assert.match(wordNetJs, /"timer-0": \{ label: "0s", delayMs: 0 \}/);
   assert.match(wordNetJs, /buildWordReconstructionChallenge\([\s\S]*?distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT/);
-  assert.match(wordNetJs, /function submitReconstructionChallenge\(\)[\s\S]*?isWordReconstructionCorrect/);
+  assert.match(wordNetJs, /async function submitReconstructionChallenge\(\)[\s\S]*?isWordReconstructionCorrect/);
   assert.doesNotMatch(wordNetJs, /function revealReconstructionChallenge|Skip and reveal answer/);
   assert.match(wordNetJs, /function shouldBlockReconstructionAdvance\(\)[\s\S]*?Submit your answer before moving to the next sentence/);
   const translationModeStart = wordNetJs.indexOf("function loadTranslationMode");
@@ -390,7 +391,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.doesNotMatch(wordNetJs, /placeSentenceReportToggle|insideResult/);
   assert.doesNotMatch(resultPath, /You rebuilt the English sentence correctly/);
   assert.match(resultPath, /points\.classList\.add\("is-xp-awarded"\)/);
-  assert.match(wordNetJs, /function submitReconstructionChallenge\(\)[\s\S]*?claimSentenceReward\(round\.key\)[\s\S]*?round\.awardedXp = round\.correct && rewardAvailable \? 3 : 0[\s\S]*?Correct\. 3 XP gained\.[\s\S]*?successes: round\.correct \? 1 : 0,[\s\S]*?xp: round\.awardedXp/);
+  assert.match(wordNetJs, /async function submitReconstructionChallenge\(\)[\s\S]*?guidedRound \? false : claimSentenceReward\(round\.key\)[\s\S]*?round\.awardedXp = round\.correct && rewardAvailable \? 3 : 0[\s\S]*?Correct\. 3 XP gained\.[\s\S]*?if \(!guidedRound\) \{[\s\S]*?successes: round\.correct \? 1 : 0,[\s\S]*?xp: round\.awardedXp/);
   assert.match(wordNetJs, /function awardTimedRevealXp\(\)[\s\S]*?claimSentenceReward\(\)[\s\S]*?CaatuuLearning\?\.record\("word-world", \{ xp: 1 \}\)[\s\S]*?English revealed\. \+1 XP\./);
   assert.match(wordNetJs, /function applyTranslationMode\([\s\S]*?isTimedTranslationMode\(mode\)[\s\S]*?Number\.isFinite\(delayMs\)[\s\S]*?window\.setTimeout\([\s\S]*?awardTimedRevealXp\(\)[\s\S]*?, delayMs\)/);
   assert.match(wordNetJs, /state\.translationVisible = true;[\s\S]*?syncTranslationToggle\(\);[\s\S]*?awardTimedRevealXp\(\)/);
@@ -406,7 +407,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.match(nextPath, /shouldBlockReconstructionAdvance\(\)[\s\S]*?generateFromConfiguredMode\(state\.generationMode, \{ force: true \}\)/);
   assert.match(wordNetJs, /\$\("#wordNetNext"\)\?\.addEventListener\("click", activateNextSentence\)/);
   assert.match(wordNetJs, /action === "random"[\s\S]*?activateNextSentence\(\)/);
-  assert.match(wordNetJs, /function syncNextSentenceControl[\s\S]*?challengeLocked[\s\S]*?next\.disabled = state\.busy \|\| challengeLocked[\s\S]*?is-challenge-ready[\s\S]*?"Next sentence"/);
+  assert.match(wordNetJs, /function syncNextSentenceControl[\s\S]*?challengeLocked[\s\S]*?next\.disabled = state\.busy \|\| challengeLocked \|\| state\.guidedRequested[\s\S]*?is-challenge-ready[\s\S]*?"Next sentence"/);
   assert.match(wordNetJs, /const reconstructionInstruction = "Build the English sentence\. Submit, then swipe to continue\.";[\s\S]*?function syncPlayInstruction\(\)[\s\S]*?currentPlayInstruction\(\)/);
   assert.match(wordNetJs, /const answerNodes = selected\.map\(\(option\) => reconstructionTokenButton\(option, "answer"\)\)/);
   assert.doesNotMatch(wordNetJs, /word-net-reconstruction-slot|data\.reconstructionPosition/);
@@ -415,7 +416,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   const reconstructionPath = wordNetJs.slice(reconstructionStart, reconstructionEnd);
   assert.match(reconstructionPath, /round\.challenge\.options\.map\([\s\S]*?inAnswer: selectedIds\.has\(option\.id\)/);
   assert.doesNotMatch(reconstructionPath, /answerIsFull|locked:/);
-  assert.match(reconstructionPath, /submit\.disabled = state\.busy \|\| selected\.length === 0/);
+  assert.match(reconstructionPath, /submit\.disabled = state\.busy \|\| guidedWordInteractionLocked\(\) \|\| round\.evidencePending \|\| selected\.length === 0/);
   assert.doesNotMatch(reconstructionPath, /\.filter\(\(option\) => !selectedIds\.has/);
   assert.match(reconstructionPath, /classList\.toggle\("has-reconstruction-result", Boolean\(round\?\.submitted\)\)/);
   assert.match(reconstructionPath, /actions\.hidden = true[\s\S]*?actions\.hidden = round\.submitted/);

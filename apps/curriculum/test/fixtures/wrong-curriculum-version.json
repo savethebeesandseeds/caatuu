@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A target pack claims a different canonical curriculum release.",
+  "expectedErrorCodes": ["CURR_BACKBONE_MISMATCH"],
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/curriculum/version",
+      "value": "2.0.0"
+    }
+  ]
+}

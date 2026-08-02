@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "caatuu-content-source-catalog-v1",
+  "catalogId": "caatuu.cs-CZ.cross-game-pilot-sources",
+  "version": "1.5.0",
+  "targetLocale": "cs-CZ",
+  "sources": [
+    {
+      "activityId": "word-world",
+      "exerciseFamilyId": "word-world.sentence-reconstruction",
+      "catalogId": "word-world-standard-v0.1",
+      "catalogRevision": "standard-v0.1",
+      "catalogDigest": "sha256:01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809",
+      "contentId": "ww-cp-000146",
+      "revision": 2,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:c412ff9b660efc267cdf3a80385c69b6c13f5d538f3ce24e5afc1beb1be26e0f",
+      "sourceLocator": {
+        "path": "apps/languages/czech/static/data/word-world/standard-v0.1/records.json",
+        "selector": "records[id=ww-cp-000146]",
+        "transform": "word-net-standard.normalizeStandardRecord"
+      },
+      "snapshot": {
+        "id": "ww-cp-000146",
+        "cs": "Dědeček čte.",
+        "en": "Grandpa is reading.",
+        "difficulty": 1,
+        "cefr": "Pre-A1/A1",
+        "topic": "people",
+        "targets": [
+          {"surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true},
+          {"surface": "čte", "normalized": "čte", "tokenIndex": 1, "playable": true}
+        ],
+        "focusTarget": {"surface": "čte", "normalized": "čte", "tokenIndex": 1},
+        "learning": {
+          "objective": "talk about people",
+          "skillFocus": ["be present", "short formula"],
+          "progressionLevel": 1,
+          "prerequisites": []
+        },
+        "grammar": {
+          "tags": ["common_phrase", "be_present", "short_formula", "function_talk_about_people", "category_family_people"],
+          "sentenceType": "formula",
+          "clauseCount": 1
+        }
+      }
+    },
+    {
+      "activityId": "verb-nebula",
+      "exerciseFamilyId": "verb-nebula.meaning-match",
+      "catalogId": "verb-nebula-v1",
+      "catalogRevision": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+      "catalogDigest": "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b",
+      "contentId": "cs.verb.cist.read",
+      "revision": 2,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:9d59cdd04d49f47ae845b7cc24b0b89c7e6307937f884053f796608e4ad5931b",
+      "sourceLocator": {
+        "path": "apps/languages/czech/static/data/dictionary.json",
+        "selector": "row[179] -> pairId=core-verb-179",
+        "transform": "verb-nebula-core.extractCoreVerbPairs"
+      },
+      "snapshot": {
+        "id": "cs.verb.cist.read",
+        "cz": "číst",
+        "eng": "read",
+        "difficulty": 1,
+        "difficultyIsAuthored": true,
+        "legacyLocator": {
+          "pairId": "core-verb-179",
+          "sourceIndex": 179
+        },
+        "guidedContrasts": [
+          {
+            "conceptId": "concept.action.eat",
+            "targetSkillId": "cs.skill.sense.jist.eat",
+            "id": "cs.verb.jist.eat",
+            "cz": "jíst",
+            "eng": "eat",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-202",
+              "sourceIndex": 202
+            }
+          },
+          {
+            "conceptId": "concept.action.drink",
+            "targetSkillId": "cs.skill.sense.pit.drink",
+            "id": "cs.verb.pit.drink",
+            "cz": "pít",
+            "eng": "drink",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-203",
+              "sourceIndex": 203
+            }
+          },
+          {
+            "conceptId": "concept.action.sleep",
+            "targetSkillId": "cs.skill.sense.spat.sleep",
+            "id": "cs.verb.spat.sleep",
+            "cz": "spát",
+            "eng": "sleep",
+            "difficulty": 1,
+            "difficultyIsAuthored": true,
+            "legacyLocator": {
+              "pairId": "core-verb-157",
+              "sourceIndex": 157
+            }
+          }
+        ]
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
+      "contentId": "cs.morphology.cist.present-singular-person.1sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:02efc08bac76f9e9ecb6648eaf417bc0c9c2dfebdca4b529db9e42d038d90d1b",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.speaker-singular-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-singular-person.1sg",
+        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "itemRefs": [
+          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
+          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
+          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+        ],
+        "cueRefs": [
+          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
+          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
+          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+        ],
+        "selectedCueRef": {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
+        "targetItemRef": {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
+        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceStep": 1,
+        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
+        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 1,
+          "advisoryOnly": true,
+          "rationaleEn": "The sequence begins with an explicit speaker cue while keeping all three singular forms visible."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
+      "contentId": "cs.morphology.cist.present-singular-person.2sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:61c92d49bfadba8b7ddfc202ee75b932e56c9bb60e59a2d3052b17a6af84cfa8",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.addressee-singular-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-singular-person.2sg",
+        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "itemRefs": [
+          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
+          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
+          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+        ],
+        "cueRefs": [
+          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
+          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
+          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+        ],
+        "selectedCueRef": {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
+        "targetItemRef": {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
+        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceStep": 2,
+        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
+        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "advisoryOnly": true,
+          "rationaleEn": "The second step contrasts the familiar singular addressee with the already encountered speaker form."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
+      "contentId": "cs.morphology.cist.present-singular-person.3sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:9a4733a49906c976a7c431fb31db0c3faf3bc7e6e96bdefeff7592e12d603b86",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.named-third-person-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-singular-person.3sg",
+        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "itemRefs": [
+          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
+          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
+          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+        ],
+        "cueRefs": [
+          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
+          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
+          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+        ],
+        "selectedCueRef": {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2},
+        "targetItemRef": {"id": "cs.form.cist.present-indicative.3sg", "revision": 1},
+        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.3sg", "revision": 2},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceStep": 3,
+        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
+        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "advisoryOnly": true,
+          "rationaleEn": "The final step distinguishes a named third-person referent after speaker and familiar-addressee practice."
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    }
+  ]
+}

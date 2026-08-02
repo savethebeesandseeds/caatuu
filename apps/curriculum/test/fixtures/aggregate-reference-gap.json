@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "Unit aggregate skill lists must equal the semantic mapping union.",
+  "mutations": [
+    {"op": "remove", "path": "/unitBindings/2/targetSkillIds/0"}
+  ],
+  "expectedErrorCodes": ["CURR_ALIGNMENT_INCOMPLETE"]
+}

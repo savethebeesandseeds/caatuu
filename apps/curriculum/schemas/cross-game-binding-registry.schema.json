@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schema/cross-game-binding-registry-v1.json",
+  "title": "Caatuu cross-game curriculum binding registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registryId",
+    "version",
+    "curriculum",
+    "targetPack",
+    "sourceCatalog",
+    "bindings",
+    "exerciseSequences",
+    "aggregationGroups"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-cross-game-binding-registry-v1"},
+    "registryId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "curriculum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "canonicalContractDigest"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "canonicalContractDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "targetPack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "targetLocale", "targetPackDigest"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "targetLocale": {"type": "string", "minLength": 2},
+        "targetPackDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "sourceCatalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/binding"}
+    },
+    "exerciseSequences": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/exerciseSequence"}
+    },
+    "aggregationGroups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/aggregationGroup"}
+    }
+  },
+  "$defs": {
+    "exerciseSequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "activityId", "exerciseFamilyId", "orderedBindingIds"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^sequence\\.[a-z0-9.-]+$"},
+        "revision": {"type": "integer", "minimum": 1},
+        "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
+        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "orderedBindingIds": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"activityId": {"const": "word-world"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "word-world.sentence-reconstruction"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "verb-nebula.meaning-match"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "conjugation-comet"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"}}}
+        }
+      ]
+    },
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalogId", "catalogRevision", "catalogDigest", "contentId", "revision", "contentDigest"],
+      "properties": {
+        "catalogId": {"type": "string", "minLength": 3},
+        "catalogRevision": {"type": "string", "minLength": 1},
+        "catalogDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "contentId": {"type": "string", "minLength": 3},
+        "revision": {"type": "integer", "minimum": 1},
+        "contentDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "targetSkillRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision"],
+      "properties": {
+        "id": {"type": "string", "minLength": 3},
+        "revision": {"type": "integer", "minimum": 1}
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "mechanicId",
+        "learningStage",
+        "evidenceKind",
+        "independence",
+        "scoreRequired",
+        "masteryEligible"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,79}$"},
+        "mechanicId": {"type": "string", "minLength": 3},
+        "learningStage": {
+          "enum": [
+            "encounter",
+            "comprehend",
+            "discriminate",
+            "retrieve",
+            "supported-produce",
+            "interact",
+            "transfer",
+            "delayed-retrieval"
+          ]
+        },
+        "evidenceKind": {"enum": ["exposure", "comprehension", "retrieval", "production", "transfer"]},
+        "independence": {"enum": ["exposure", "supported", "independent"]},
+        "scoreRequired": {"type": "boolean"},
+        "masteryEligible": {"type": "boolean"},
+        "minimumScore": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"learningStage": {"const": "encounter"}}},
+          "then": {"properties": {"evidenceKind": {"const": "exposure"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["comprehend", "discriminate"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "comprehension"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["retrieve", "delayed-retrieval"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "retrieval"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"enum": ["supported-produce", "interact"]}}},
+          "then": {"properties": {"evidenceKind": {"const": "production"}}}
+        },
+        {
+          "if": {"properties": {"learningStage": {"const": "transfer"}}},
+          "then": {"properties": {"evidenceKind": {"const": "transfer"}}}
+        }
+      ]
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "activityId",
+        "exerciseFamilyId",
+        "contentRef",
+        "canonicalUnitId",
+        "canonicalUnitRevision",
+        "targetSkillRefs",
+        "contextId",
+        "contextRevision",
+        "opportunityId",
+        "evidenceCapabilities"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"},
+        "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
+        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "contentRef": {"$ref": "#/$defs/contentRef"},
+        "canonicalUnitId": {"type": "string", "pattern": "^unit\\."},
+        "canonicalUnitRevision": {"type": "integer", "minimum": 1},
+        "targetSkillRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/targetSkillRef"}
+        },
+        "contextId": {
+          "oneOf": [
+            {"type": "string", "pattern": "^[a-z]{2,3}\\.context\\."},
+            {"type": "null"}
+          ]
+        },
+        "contextRevision": {
+          "oneOf": [
+            {"type": "integer", "minimum": 1},
+            {"type": "null"}
+          ]
+        },
+        "opportunityId": {
+          "oneOf": [
+            {"type": "string", "minLength": 3},
+            {"type": "null"}
+          ]
+        },
+        "evidenceCapabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/capability"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"activityId": {"const": "word-world"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "word-world.sentence-reconstruction"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "verb-nebula.meaning-match"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "conjugation-comet"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"}}}
+        }
+      ]
+    },
+    "aggregationGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "canonicalUnitId", "canonicalUnitRevision", "targetSkillRef", "bindingIds"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^aggregation\\."},
+        "canonicalUnitId": {"type": "string", "pattern": "^unit\\."},
+        "canonicalUnitRevision": {"type": "integer", "minimum": 1},
+        "targetSkillRef": {"$ref": "#/$defs/targetSkillRef"},
+        "bindingIds": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^binding\\."}
+        }
+      }
+    }
+  }
+}

@@ -164,6 +164,18 @@ docker run --rm -v "${PWD}:/workspace" -w /workspace node:24-bookworm `
   bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs && node --test apps/runtime/tooling/tests/*.test.mjs"
 ```
 
+Validate the shared English-authored curriculum, each target-language
+realization pack, cross-game bindings, and generated browser assets separately:
+
+```powershell
+docker run --rm -v "${PWD}:/workspace" -w /workspace/apps/curriculum node:24-bookworm `
+  bash -lc "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
+```
+
+Passing these development checks proves contract consistency. It does not
+replace the digest-bound native-teacher approval required for a target-language
+release.
+
 After route, browser shell, packaged asset, or Android changes, start the local
 runtime and run the boundary audit in the established dev container:
 

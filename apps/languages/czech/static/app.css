@@ -875,6 +875,9 @@ body.world-landing-active {
   text-align: center;
   cursor: pointer;
 }
+.train-world[hidden] {
+  display: none;
+}
 .train-world img {
   display: block;
   width: clamp(68px, 21vw, 104px);
@@ -951,9 +954,17 @@ body.world-landing-active {
 .train-world-word .train-world-label {
   order: -1;
 }
+.train-world-comet .train-orbit,
 .train-world-verb .train-orbit,
 .train-world-memory .train-orbit {
   display: none;
+}
+.train-world-comet {
+  top: clamp(18px, 7%, 46px);
+  left: clamp(12px, 8vw, 72px);
+}
+.train-world-comet img {
+  width: clamp(68px, 19vw, 94px);
 }
 .train-world-verb {
   left: clamp(8px, 4vw, 18px);
@@ -3221,16 +3232,22 @@ body.print-preview-on .print-book {
   .train-worlds {
     position: absolute;
     inset: 0;
-    display: block;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 8px 4px;
     margin: 0;
+    padding: 12px 6px calc(68px + env(safe-area-inset-bottom));
   }
 
   .train-world,
+  .train-world-comet,
   .train-world-word,
   .train-world-verb,
   .train-world-memory {
-    position: absolute;
+    position: relative;
     inset: auto;
+    width: 100%;
     grid-template-columns: none;
     justify-items: center;
     align-items: center;
@@ -3239,12 +3256,13 @@ body.print-preview-on .print-book {
   }
 
   .train-world img,
+  .train-world-comet img,
   .train-world-memory img {
     width: clamp(68px, 21vw, 104px);
   }
 
   .train-world-label {
-    width: clamp(126px, 46vw, 200px);
+    width: clamp(118px, 42vw, 162px);
     padding: 8px 10px;
   }
 
@@ -3256,9 +3274,18 @@ body.print-preview-on .print-book {
     font-size: 0.62rem;
   }
 
+  .train-world-comet {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .train-world-comet img {
+    width: clamp(64px, 20vw, 92px);
+  }
+
   .train-world-word {
-    top: 30%;
-    right: clamp(12px, 4vw, 24px);
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .train-world-word img {
@@ -3270,18 +3297,17 @@ body.print-preview-on .print-book {
   }
 
   .train-world-verb {
-    left: clamp(8px, 4vw, 18px);
-    bottom: 25%;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .train-world-verb .train-world-label {
-    transform: translate(10px, -8px);
+    transform: none;
   }
 
   .train-world-memory {
-    left: auto;
-    right: clamp(18px, 8vw, 44px);
-    bottom: clamp(24px, 6%, 44px);
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .train-world-memory img {
@@ -3298,20 +3324,9 @@ body.print-preview-on .print-book {
     font-size: clamp(2rem, 9.8vw, 2.8rem);
   }
 
-  .train-world-label {
-    width: clamp(122px, 48vw, 184px);
-  }
-
-  .train-world-word {
-    top: 28%;
-  }
-
-  .train-world-verb {
-    bottom: 27%;
-  }
-
-  .train-world-memory {
-    bottom: clamp(18px, 5%, 34px);
+  .train-worlds {
+    gap: 4px;
+    padding: 8px 4px calc(62px + env(safe-area-inset-bottom));
   }
 }
 
@@ -5253,6 +5268,44 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   display: none;
 }
 
+.verb-guided-status {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  padding: 8px 11px;
+  border: 1px solid color-mix(in srgb, var(--theme-amber, #d59a35) 58%, var(--line));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--theme-amber, #d59a35) 12%, var(--panel));
+  color: var(--ink);
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+
+.verb-guided-status[hidden] {
+  display: none;
+}
+
+.verb-guided-status strong {
+  font-size: 0.76rem;
+  letter-spacing: 0.025em;
+}
+
+.verb-guided-status span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.verb-guided-status.is-supported {
+  border-color: color-mix(in srgb, var(--theme-amber, #d59a35) 82%, var(--line));
+}
+
+.verb-guided-status.is-error {
+  border-color: color-mix(in srgb, var(--red) 68%, var(--line));
+  background: color-mix(in srgb, var(--red) 10%, var(--panel));
+}
+
 .verb-match-controls {
   grid-column: 1 / -1;
   display: flex;
@@ -5939,6 +5992,11 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   margin: 0;
 }
 
+#verbMeaningBoard[hidden],
+#verbMeaningFooter[hidden] {
+  display: none;
+}
+
 html[data-theme="dark"] .verb-match-panel {
   background:
     radial-gradient(circle at 14% 0%, rgba(48, 155, 151, 0.15), transparent 30%),
@@ -6065,6 +6123,7 @@ html[data-theme="dark"] .verb-match-board {
     min-width: 0;
     justify-content: start;
   }
+
 }
 
 @media (max-width: 430px) {

@@ -9,13 +9,20 @@ const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise
   readFile(new URL("chat.css", staticRoot), "utf8"),
   readFile(new URL("chrome.css", staticRoot), "utf8"),
   readFile(new URL("chrome.js", staticRoot), "utf8"),
-  ...["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
+  ...["home.html", "index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
 const [homeCss, launcherCss] = await Promise.all([
   readFile(new URL("home.css", staticRoot), "utf8"),
   readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
 ]);
+
+test("the home page uses the same cached application shell stylesheet as the game", () => {
+  const home = pages.find((page) => page.name === "home.html")?.source || "";
+  const game = pages.find((page) => page.name === "index.html")?.source || "";
+  assert.match(home, /href="app\.css\?v=shell-72"/);
+  assert.match(game, /href="app\.css\?v=shell-72"/);
+});
 
 function cssRules(source) {
   const rules = [];
@@ -388,7 +395,7 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-7"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-13"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
     const themeIndex = source.indexOf('href="theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);

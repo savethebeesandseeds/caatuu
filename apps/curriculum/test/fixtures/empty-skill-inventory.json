@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-conformance-mutation-v1",
+  "description": "A pack cannot claim semantic coverage while providing no skill inventory.",
+  "mutations": [
+    {"op": "replace", "path": "/skills", "value": []}
+  ],
+  "expectedErrorCodes": ["CURR_ASSESSMENT_MISSING"]
+}

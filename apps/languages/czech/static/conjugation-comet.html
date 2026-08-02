@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Conjugation Comet - Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="course-profile.js?v=course-13"></script>
+    <script src="learning-profile.js?v=learning-5"></script>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+        const storedFontSize = localStorage.getItem(window.CaatuuCourse.storage.fontSize) || "largest";
+        document.documentElement.dataset.fontSize = ["standard", "large", "largest"].includes(storedFontSize) ? storedFontSize : "largest";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.fontSize = "largest";
+      }
+    </script>
+    <script src="runtime.js?v=runtime-36"></script>
+    <script src="semantic-learning.js?v=semantic-learning-7"></script>
+    <script src="curriculum-service.js?v=curriculum-service-9"></script>
+    <link rel="stylesheet" href="theme.css?v=theme-5">
+    <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
+    <link rel="stylesheet" href="conjugation-comet.css?v=conjugation-comet-2">
+  </head>
+  <body class="conjugation-comet-page">
+    <div class="conjugation-comet-shell">
+      <header
+        class="app-header"
+        data-caatuu-app-header
+        data-caatuu-page-kicker="Train"
+        data-caatuu-page-title="Conjugation Comet"
+        data-caatuu-page-icon="/assets/planets/conjugation-comet.png"
+        data-caatuu-header-title="Conjugation Comet"
+        data-caatuu-header-back-label="Back to games"
+        data-caatuu-header-back-href="index.html"
+      ></header>
+
+      <main class="conjugation-comet-main" aria-label="Conjugation Comet">
+        <div class="conjugation-comet-toolbar">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+            <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+          </button>
+        </div>
+
+        <div class="conjugation-comet-panel is-active" id="conjugationCometPanel">
+          <aside class="verb-guided-status" id="verbGuidedStatus" aria-labelledby="verbGuidedStatusTitle" hidden>
+            <strong id="verbGuidedStatusTitle">Developer Guided · prototype-not-human-approved</strong>
+            <span id="verbGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
+          </aside>
+
+          <section
+            class="verb-morphology-board"
+            id="verbMorphologyBoard"
+            aria-labelledby="verbMorphologyTitle"
+            aria-describedby="verbMorphologyInstructions verbMorphologyFeedback"
+            aria-busy="true"
+          >
+            <header class="verb-morphology-head">
+              <div>
+                <p class="verb-kicker">Conjugation · pinned developer pilot</p>
+                <h1 id="verbMorphologyTitle">Which form fits?</h1>
+              </div>
+              <span class="verb-morphology-lemma" id="verbMorphologyLemma" hidden>
+                <span id="verbMorphologyLemmaTarget"></span>
+                <span aria-hidden="true"> · </span>
+                <span id="verbMorphologyGloss" lang="en"></span>
+              </span>
+            </header>
+
+            <div class="verb-morphology-cue" id="verbMorphologyCue" hidden>
+              <span class="verb-morphology-role" id="verbMorphologyRole" aria-hidden="true"></span>
+              <div>
+                <p class="verb-morphology-context" id="verbMorphologyContext" lang="en"></p>
+                <p class="verb-morphology-prompt" id="verbMorphologyPrompt" lang="en"></p>
+                <p class="verb-morphology-label" id="verbMorphologyTeachingLabel" lang="en"></p>
+              </div>
+            </div>
+
+            <p class="verb-morphology-instructions" id="verbMorphologyInstructions">
+              Choose the target-language form that fits the exact situation. All choices stay available on every trial.
+            </p>
+            <div
+              class="verb-morphology-choices"
+              id="verbMorphologyChoices"
+              role="group"
+              aria-label="Target-language verb-form choices"
+              hidden
+            ></div>
+
+            <aside class="verb-morphology-hint" id="verbMorphologyHint" role="note" hidden>
+              <strong id="verbMorphologyHintTitle">Context cue</strong>
+              <span id="verbMorphologyHintCopy"></span>
+            </aside>
+
+            <div class="verb-morphology-actions">
+              <button type="button" id="verbMorphologyHintButton" aria-describedby="verbMorphologyFeedback" disabled>
+                Context hint
+              </button>
+              <button type="button" id="verbMorphologyRevealButton" aria-describedby="verbMorphologyFeedback" disabled>
+                Reveal form
+              </button>
+              <button
+                type="button"
+                class="verb-morphology-next"
+                id="verbMorphologyNextButton"
+                disabled
+                hidden
+              >
+                Next form
+              </button>
+            </div>
+
+            <footer class="verb-morphology-footer">
+              <p id="verbMorphologyFeedback" role="status" aria-live="polite" aria-atomic="true">
+                Preparing the pinned exercise.
+              </p>
+              <span id="verbMorphologyProgress">Pinned pilot · non-mastery · 0 XP</span>
+            </footer>
+          </section>
+
+          <section class="conjugation-comet-unavailable" id="conjugationCometUnavailable" aria-labelledby="conjugationCometUnavailableTitle" hidden>
+            <img src="/assets/planets/conjugation-comet.png" alt="" aria-hidden="true">
+            <p class="verb-kicker">Course capability</p>
+            <h1 id="conjugationCometUnavailableTitle">Conjugation Comet is not available yet</h1>
+            <p>This course can open the game after its verb-form content has been reviewed and approved.</p>
+            <a href="index.html">Back to games</a>
+          </section>
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+        </a>
+      </footer>
+    </div>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="games"
+      data-settings-href="index.html?settings=1"
+    ></nav>
+
+    <script src="chrome.js?v=chrome-90"></script>
+    <script src="maintenance-ui.js?v=maintenance-15"></script>
+    <script type="module" src="conjugation-comet.js?v=conjugation-comet-3"></script>
+  </body>
+</html>

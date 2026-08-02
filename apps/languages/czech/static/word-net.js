@@ -25,8 +25,11 @@ import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import {
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
+  requireGuidedStandardTurn,
   selectStandardTurn
-} from "./word-net-standard.mjs?v=word-net-standard-1";
+} from "./word-net-standard.mjs?v=word-net-standard-4";
+
+let guidedOpportunityCore = null;
 
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
@@ -265,10 +268,240 @@ const state = {
   standardProvider: null,
   standardCorpusPromise: null,
   standardCorpusError: "",
-  standardCorpusLoading: false
+  standardCorpusLoading: false,
+  guidedRequested: false,
+  guidedMode: false,
+  guidedStatus: "off",
+  guidedError: "",
+  guidedResolution: null,
+  guidedLifecycle: null,
+  guidedFocusTarget: null,
+  guidedEvidencePending: false,
+  guidedActivationEpoch: 0,
+  guidedSupportAtFirstResponse: false,
+  guidedResetPending: false
 };
 
 const $ = (selector) => document.querySelector(selector);
+
+function loopbackLocation() {
+  return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(
+    String(window.location.hostname || "").toLowerCase()
+  );
+}
+
+function explicitLocalGuidedRequest() {
+  const parameter = course.curriculum?.guidedMode?.developerQueryParameter || "curriculum-guided";
+  return loopbackLocation()
+    && new URLSearchParams(window.location.search).get(parameter) === "1";
+}
+
+function waitForPaintedFrame() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+  });
+}
+
+function guidedWordPresentationReady(requestId, recordId, lifecycle, activationEpoch) {
+  const panel = $(".word-net-sentence-panel");
+  return Boolean(
+    state.guidedMode
+    && state.guidedStatus === "activating"
+    && !state.guidedResetPending
+    && state.guidedActivationEpoch === activationEpoch
+    && state.phraseRequestId === requestId
+    && state.currentEntryId === recordId
+    && state.guidedLifecycle === lifecycle
+    && document.visibilityState !== "hidden"
+    && panel
+    && !panel.hidden
+  );
+}
+
+function waitForGuidedWordVisibility(requestId, recordId, lifecycle, activationEpoch) {
+  if (document.visibilityState !== "hidden") return Promise.resolve(true);
+  return new Promise((resolve) => {
+    const finish = () => {
+      const current = state.phraseRequestId === requestId
+        && state.currentEntryId === recordId
+        && state.guidedLifecycle === lifecycle
+        && state.guidedActivationEpoch === activationEpoch;
+      if (document.visibilityState === "hidden" && current) return;
+      document.removeEventListener("visibilitychange", finish);
+      window.removeEventListener("pagehide", finish);
+      resolve(current);
+    };
+    document.addEventListener("visibilitychange", finish);
+    window.addEventListener("pagehide", finish, { once: true });
+  });
+}
+
+async function activatePresentedGuidedWord(requestId, recordId, lifecycle) {
+  const activationEpoch = state.guidedActivationEpoch + 1;
+  state.guidedActivationEpoch = activationEpoch;
+  while (
+    state.phraseRequestId === requestId
+    && state.currentEntryId === recordId
+    && state.guidedLifecycle === lifecycle
+  ) {
+    const visible = await waitForGuidedWordVisibility(
+      requestId,
+      recordId,
+      lifecycle,
+      activationEpoch
+    );
+    if (!visible) return null;
+    await waitForPaintedFrame();
+    if (!guidedWordPresentationReady(requestId, recordId, lifecycle, activationEpoch)) continue;
+    const activation = await lifecycle.activate({
+      requirePresented: () => guidedWordPresentationReady(
+        requestId,
+        recordId,
+        lifecycle,
+        activationEpoch
+      )
+    });
+    if (activation?.phase === "pending") continue;
+    if (!guidedWordPresentationReady(requestId, recordId, lifecycle, activationEpoch)) continue;
+    return activation;
+  }
+  return null;
+}
+
+function guidedWordInteractionLocked() {
+  return state.guidedRequested && (
+    !state.guidedMode
+    || ["loading", "pending", "activating", "failed"].includes(state.guidedStatus)
+    || state.guidedEvidencePending
+    || state.guidedResetPending
+  );
+}
+
+function failGuidedWordWorld(error, message = "Guided Word World is locked.") {
+  const lifecycle = state.guidedLifecycle;
+  if (lifecycle?.abort) {
+    void lifecycle.abort().catch((abortError) => {
+      console.error("Guided Word World lifecycle could not be released", abortError);
+    });
+  }
+  if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
+  state.guidedStatus = "failed";
+  state.guidedError = error?.message || String(error || message);
+  state.guidedEvidencePending = false;
+  setStatus(message, { tone: "error" });
+  renderWordGuidedStatus();
+  syncGenerationControl();
+  syncContentControl();
+  renderReconstruction();
+}
+
+function renderWordGuidedStatus() {
+  const banner = $("#wordNetGuidedStatus");
+  const detail = $("#wordNetGuidedStatusDetail");
+  if (!banner || !detail) return;
+  banner.hidden = !state.guidedRequested;
+  banner.classList.toggle("is-error", state.guidedStatus === "failed");
+  const lifecycle = state.guidedLifecycle?.state();
+  const supported = Boolean(lifecycle?.hintsUsed || lifecycle?.solutionRevealed);
+  const supportedBeforeResponse = Boolean(state.guidedSupportAtFirstResponse);
+  const reviewedAfterResponse = Boolean(
+    lifecycle?.firstResponseRecorded && supported && !supportedBeforeResponse
+  );
+  banner.classList.toggle("is-supported", supported);
+  if (!state.guidedRequested) return;
+  if (state.guidedStatus === "failed") {
+    detail.textContent = `Locked: ${state.guidedError || "curriculum evidence is unavailable"}`;
+  } else if (state.guidedStatus === "complete") {
+    detail.textContent = supportedBeforeResponse
+      ? "Pilot complete · supported practice, not independent evidence"
+      : reviewedAfterResponse
+        ? "Pilot complete · first response recorded independently; solution reviewed afterward"
+      : "Pilot complete · Unit 3 remains locked behind Units 1–2";
+  } else if (supportedBeforeResponse) {
+    detail.textContent = "Supported practice · not independent evidence";
+  } else if (reviewedAfterResponse) {
+    detail.textContent = "First response recorded independently · solution reviewed afterward";
+  } else if (lifecycle?.firstResponseRecorded) {
+    detail.textContent = "First response recorded · this one pilot task is closed";
+  } else if (state.guidedStatus === "ready") {
+    detail.textContent = "Unit 3 mechanic pilot · independent comprehension, non-mastery";
+  } else {
+    detail.textContent = "Verifying the exact bound content and evidence task…";
+  }
+}
+
+async function initializeGuidedWordWorldMode() {
+  if (!explicitLocalGuidedRequest()) return;
+  state.guidedRequested = true;
+  state.guidedStatus = "loading";
+  state.contentMode = "standard";
+  state.generationMode = "random";
+  state.translationMode = "reconstruct";
+  state.wordCardPreferences.showCard = false;
+  try {
+    const curriculum = window.CaatuuCurriculum;
+    if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
+    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-5");
+    await curriculum.ready();
+    if (!curriculum.guidedModeEnabled()) {
+      throw new Error("Developer Guided mode is not enabled for this local course profile.");
+    }
+    state.guidedResolution = await curriculum.resolveBinding("word-world", "ww-cp-000146");
+    state.guidedMode = true;
+    state.guidedStatus = "pending";
+  } catch (error) {
+    state.guidedError = error?.message || String(error);
+    state.guidedStatus = "failed";
+    console.error("Word World Guided mode failed closed", error);
+  }
+}
+
+async function prepareGuidedWordProgressReset() {
+  if (!state.guidedRequested && !state.guidedLifecycle) return;
+  state.guidedResetPending = true;
+  state.guidedActivationEpoch += 1;
+  state.phraseRequestId += 1;
+  clearTranslationTimer();
+  cancelBackgroundWork();
+  const lifecycle = state.guidedLifecycle;
+  if (lifecycle?.abort) await lifecycle.abort();
+  if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
+  state.guidedEvidencePending = false;
+}
+
+async function restartGuidedWordWorldAfterReset({ resetCompleted = true } = {}) {
+  state.guidedResetPending = false;
+  state.guidedActivationEpoch += 1;
+  state.phraseRequestId += 1;
+  state.guidedMode = false;
+  state.guidedStatus = "loading";
+  state.guidedError = "";
+  state.guidedResolution = null;
+  state.guidedLifecycle = null;
+  state.guidedFocusTarget = null;
+  state.guidedEvidencePending = false;
+  state.guidedSupportAtFirstResponse = false;
+  state.reconstruction = null;
+  setBusy(true);
+  setStatus(
+    resetCompleted
+      ? "Preparing the first Guided Word World task again."
+      : "The restart was cancelled. Rechecking the existing Guided task.",
+    { tone: "active" }
+  );
+  await initializeGuidedWordWorldMode();
+  if (!state.guidedMode) {
+    setBusy(false);
+    renderWordGuidedStatus();
+    return;
+  }
+  try {
+    await initializeStandardCorpus();
+    await generateGuidedStandardPhrase({ allowBusy: true });
+  } finally {
+    if (state.busy) setBusy(false);
+  }
+}
 
 function runtimeAdapter() {
   return window.CaatuuRuntime || null;
@@ -907,6 +1140,7 @@ function loadWordCardPreferences() {
 }
 
 function saveWordCardPreferences() {
+  if (state.guidedRequested) return;
   try {
     window.localStorage.setItem(
       WORD_CARD_PREFERENCES_STORAGE_KEY,
@@ -1357,6 +1591,7 @@ function hasContentMode(mode) {
 }
 
 function saveTranslationMode() {
+  if (state.guidedRequested) return;
   try {
     localStorage.setItem(TRANSLATION_MODE_STORAGE_KEY, state.translationMode);
   } catch (error) {
@@ -1365,6 +1600,7 @@ function saveTranslationMode() {
 }
 
 function saveGenerationMode() {
+  if (state.guidedRequested) return;
   try {
     localStorage.setItem(GENERATION_MODE_STORAGE_KEY, state.generationMode);
   } catch (error) {
@@ -1373,6 +1609,7 @@ function saveGenerationMode() {
 }
 
 function saveContentMode() {
+  if (state.guidedRequested) return;
   try {
     localStorage.setItem(CONTENT_MODE_STORAGE_KEY, state.contentMode);
   } catch (error) {
@@ -1386,12 +1623,35 @@ function clearTranslationTimer() {
   state.translationTimerId = 0;
 }
 
+function markGuidedDictionaryHint() {
+  if (!state.guidedMode || !state.guidedLifecycle) return true;
+  try {
+    state.guidedLifecycle.markHint("dictionary-card");
+    renderWordGuidedStatus();
+    return true;
+  } catch (error) {
+    failGuidedWordWorld(error, "The dictionary hint stayed hidden because support could not be recorded.");
+    return false;
+  }
+}
+
 function toggleWordCardPreference(key) {
   if (!Object.prototype.hasOwnProperty.call(state.wordCardPreferences, key)) return;
+  if (key === "showCard" && !state.wordCardPreferences.showCard && !markGuidedDictionaryHint()) return;
   state.wordCardPreferences[key] = !state.wordCardPreferences[key];
   saveWordCardPreferences();
   syncTranslationMenu();
   syncWordTranslation();
+  if (
+    state.guidedMode
+    && key === "showCard"
+    && state.wordCardPreferences.showCard
+    && state.selectedWord
+    && !state.selectedWordMeaning
+    && !state.wordMeaningLoading
+  ) {
+    void lookupSelectedWord(state.selectedWord);
+  }
 }
 
 function translationMenuItems() {
@@ -1496,15 +1756,18 @@ function syncTranslationMenu() {
       : isTimedTranslationMode(state.translationMode);
     button.classList.toggle("is-selected", selected);
     button.setAttribute("aria-checked", selected ? "true" : "false");
+    button.disabled = state.busy || guidedWordInteractionLocked();
   });
   document.querySelectorAll("[data-translation-delay]").forEach((button) => {
     const selected = button.dataset.translationDelay === state.translationMode;
     button.classList.toggle("is-selected", selected);
     button.setAttribute("aria-checked", selected ? "true" : "false");
+    button.disabled = state.busy || guidedWordInteractionLocked();
   });
   document.querySelectorAll("[data-word-card-setting]").forEach((button) => {
     const key = button.dataset.wordCardSetting;
     button.setAttribute("aria-checked", String(Boolean(state.wordCardPreferences[key])));
+    button.disabled = state.busy || guidedWordInteractionLocked();
   });
 }
 
@@ -1519,7 +1782,7 @@ function syncGenerationControl() {
     generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== mode);
   });
   if (button) {
-    button.disabled = state.busy;
+    button.disabled = state.busy || state.guidedRequested;
     const label = mode === "selected" ? selectedModeLabel : config.label;
     button.setAttribute("aria-label", `Generation options. Current: ${label}.`);
     button.setAttribute("title", `Generation: ${label}`);
@@ -1529,7 +1792,9 @@ function syncGenerationControl() {
     const selected = optionMode === mode;
     option.classList.toggle("is-selected", selected);
     option.setAttribute("aria-checked", selected ? "true" : "false");
-    option.disabled = state.busy || (optionMode === "selected" && !normalizeWord(state.selectedWord));
+    option.disabled = state.busy
+      || state.guidedRequested
+      || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
     if (label) label.textContent = generationModes[optionMode]?.label || "This word";
   });
@@ -1548,7 +1813,7 @@ function syncContentControl() {
     const selected = button.dataset.contentMode === mode;
     button.classList.toggle("is-selected", selected);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
-    button.disabled = state.busy;
+    button.disabled = state.busy || state.guidedRequested;
   });
   const note = $("#wordNetGenerativeNote");
   if (note) note.hidden = mode !== "generative";
@@ -1589,6 +1854,7 @@ function abortOptionalGenerationDownloads() {
 }
 
 async function setContentMode(mode) {
+  if (state.guidedRequested) return;
   if (!hasContentMode(mode)) return;
   if (mode === "standard") abortOptionalGenerationDownloads();
   if (mode === state.contentMode) {
@@ -1631,6 +1897,7 @@ function confirmGenerativeMode() {
 }
 
 async function requestContentMode(mode) {
+  if (state.guidedRequested) return;
   if (mode !== state.contentMode && shouldBlockReconstructionAdvance()) return;
   if (!hasContentMode(mode) || mode === state.contentMode) {
     await setContentMode(mode);
@@ -1644,6 +1911,7 @@ async function requestContentMode(mode) {
 }
 
 function setGenerationMode(mode) {
+  if (state.guidedRequested) return;
   if (!hasGenerationMode(mode)) return;
   state.generationMode = mode;
   saveGenerationMode();
@@ -1652,6 +1920,7 @@ function setGenerationMode(mode) {
 }
 
 function generateFromConfiguredMode(mode = state.generationMode, { force = false } = {}) {
+  if (state.guidedRequested) return;
   if (state.busy) return;
   if (!force && shouldBlockReconstructionAdvance()) return;
   if (state.contentMode === "standard") {
@@ -1682,7 +1951,31 @@ function recentStandardEntryIds() {
   ])].filter(Boolean);
 }
 
+async function generateGuidedStandardPhrase({ allowBusy = false } = {}) {
+  if (!state.guidedMode || (state.busy && !allowBusy)) return;
+  const requestId = state.phraseRequestId;
+  try {
+    const provider = state.standardProvider || await initializeStandardCorpus();
+    if (requestId !== state.phraseRequestId || !state.guidedMode) return;
+    if (!provider) throw new Error(state.standardCorpusError || "The curated sentence pack is unavailable.");
+    const selection = requireGuidedStandardTurn(provider, state.guidedResolution);
+    const lifecycle = guidedOpportunityCore.createGuidedOpportunityLifecycle({
+      curriculum: window.CaatuuCurriculum,
+      resolution: state.guidedResolution,
+      capabilityId: "independent-comprehension",
+      targetSkillId: state.guidedResolution.binding.targetSkillRefs[0]?.id
+    });
+    await showStandardPhrase(selection, {
+      difficulty: selection.record.difficulty,
+      guidedLifecycle: lifecycle
+    });
+  } catch (error) {
+    failGuidedWordWorld(error, "Guided Word World could not verify its exact bound sentence.");
+  }
+}
+
 async function generateStandardFromConfiguredMode(mode = state.generationMode, { allowBusy = false } = {}) {
+  if (state.guidedRequested) return;
   if (state.busy && !allowBusy) return;
   if (mode === "selected" && !normalizeWord(state.selectedWord)) {
     setStatus("Tap a word before using selected-word mode.", { tone: "muted" });
@@ -1717,7 +2010,10 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
   await showStandardPhrase(selection, { difficulty });
 }
 
-async function showStandardPhrase(selection, { difficulty = learningDifficulty() } = {}) {
+async function showStandardPhrase(selection, {
+  difficulty = learningDifficulty(),
+  guidedLifecycle = null
+} = {}) {
   const provider = state.standardProvider;
   const record = selection?.record;
   if (!provider || !record) return;
@@ -1730,10 +2026,18 @@ async function showStandardPhrase(selection, { difficulty = learningDifficulty()
   setStatus("Preparing the next guided sentence.", { tone: "active" });
   try {
     if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
-    const target = normalizeWord(provider.primaryWord(record, selection.fallback ? "" : selection.requestedWord));
+    const target = normalizeWord(
+      guidedLifecycle
+        ? selection.target?.surface
+        : provider.primaryWord(record, selection.fallback ? "" : selection.requestedWord)
+    );
+    if (!target) throw new Error("The selected Word World turn has no playable target.");
+    state.guidedLifecycle = guidedLifecycle;
+    if (guidedLifecycle) state.guidedStatus = "activating";
+    state.guidedFocusTarget = guidedLifecycle ? { ...selection.target } : null;
     state.currentWord = target;
     state.currentSentence = record.cs;
-    state.currentTranslation = record.en;
+    state.currentTranslation = guidedLifecycle ? "" : record.en;
     state.currentSceneQuery = record.sceneQuery || record.en;
     state.currentEntryId = record.id;
     state.currentCorpusVersion = provider.corpusVersion;
@@ -1743,29 +2047,46 @@ async function showStandardPhrase(selection, { difficulty = learningDifficulty()
     state.currentGenerationSource = "standard-corpus";
     selectWord(target, { lookup: false, render: false });
     renderCzechSentence(record.cs, target);
-    provider.markUsed(record);
-    saveStandardUsage();
-    setTranslation(record.en);
-    rememberStep(target, record.cs, {
-      id: record.id,
-      en: record.en,
-      contentMode: "standard",
-      source: "standard-corpus",
-      corpusVersion: provider.corpusVersion,
-      difficulty: record.difficulty,
-      sceneQuery: record.sceneQuery || record.en
-    });
-    recordStandardSemanticExposure(record, provider, target);
-    rememberSeenSentence(record.cs);
+    renderWordGuidedStatus();
+    if (guidedLifecycle) {
+      setBusy(false, { immediate: true });
+      const activation = await activatePresentedGuidedWord(requestId, record.id, guidedLifecycle);
+      if (!activation) return;
+      if (requestId !== state.phraseRequestId || state.currentEntryId !== record.id) return;
+      state.guidedStatus = "ready";
+      setTranslation(record.en);
+      renderWordGuidedStatus();
+    } else {
+      setTranslation(record.en);
+    }
+    if (!guidedLifecycle) {
+      provider.markUsed(record);
+      saveStandardUsage();
+      rememberStep(target, record.cs, {
+        id: record.id,
+        en: record.en,
+        contentMode: "standard",
+        source: "standard-corpus",
+        corpusVersion: provider.corpusVersion,
+        difficulty: record.difficulty,
+        sceneQuery: record.sceneQuery || record.en
+      });
+      recordStandardSemanticExposure(record, provider, target);
+      rememberSeenSentence(record.cs);
+    }
     resetSentenceFeedback();
     setProgress(null);
-    const sceneReady = updateSceneAsset(record.sceneQuery || record.en);
+    const sceneReady = guidedLifecycle
+      ? Promise.resolve(hideSceneAsset({ cancel: true }))
+      : updateSceneAsset(record.sceneQuery || record.en);
     await Promise.all([holdSentenceTransition(transitionStartedAt), sceneReady]);
     if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
-    if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
+    if (!guidedLifecycle && state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
       void lookupSelectedWord(target);
     }
-    if (selection.fallback) {
+    if (guidedLifecycle) {
+      setStatus(reconstructionInstruction, { tone: "muted" });
+    } else if (selection.fallback) {
       setStatus(`No unused Level ${difficulty} Standard sentence remains for “${selection.requestedWord}”. Showing another guided sentence.`, { tone: "active" });
     } else {
       setStatus(playInstruction, { tone: "muted" });
@@ -1883,6 +2204,13 @@ function ensureReconstructionChallenge() {
     state.reconstruction = null;
     return null;
   }
+  const guidedTaskFingerprint = state.guidedMode
+    ? state.guidedLifecycle?.state().taskFingerprint || ""
+    : "";
+  if (state.guidedMode && !guidedTaskFingerprint) {
+    state.reconstruction = null;
+    return null;
+  }
   if (state.reconstruction?.key === key) return state.reconstruction;
   const challenge = buildWordReconstructionChallenge(
     state.currentTranslation,
@@ -1898,10 +2226,14 @@ function ensureReconstructionChallenge() {
     challenge,
     selectedIds: [],
     submitted: false,
+    evidencePending: false,
     correct: false,
     awardedXp: 0,
     submittedText: "",
-    announcement: ""
+    announcement: "",
+    guidedLifecycle: state.guidedMode ? state.guidedLifecycle : null,
+    guidedTaskFingerprint,
+    phraseRequestId: state.phraseRequestId
   };
   return state.reconstruction;
 }
@@ -1924,7 +2256,7 @@ function reconstructionTokenButton(option, location, { inAnswer = false } = {}) 
   button.dataset.reconstructionLocation = location;
   button.textContent = option.text;
   button.classList.toggle("is-in-answer", location === "bank" && inAnswer);
-  button.disabled = state.busy || inAnswer;
+  button.disabled = state.busy || guidedWordInteractionLocked() || state.reconstruction?.evidencePending || inAnswer;
   if (location === "answer") {
     button.setAttribute("aria-label", `Remove ${option.text}`);
   } else if (inAnswer) {
@@ -2103,10 +2435,16 @@ function syncNextSentenceControl(round = null) {
   if (!next) return;
   const challengeLocked = Boolean(round && !round.submitted);
   const challengeReady = Boolean(round?.submitted && !state.busy);
-  next.disabled = state.busy || challengeLocked;
+  next.disabled = state.busy || challengeLocked || state.guidedRequested;
   next.classList.toggle("is-challenge-locked", challengeLocked);
   next.classList.toggle("is-challenge-ready", challengeReady);
-  const label = challengeLocked ? "Submit the challenge to continue" : "Next sentence";
+  const label = state.guidedRequested && round?.submitted
+    ? "Developer pilot complete"
+    : challengeLocked
+      ? "Submit the challenge to continue"
+      : state.guidedRequested
+        ? "This developer pilot has one bound task"
+        : "Next sentence";
   next.setAttribute("aria-label", label);
   next.title = label;
 }
@@ -2121,6 +2459,10 @@ function renderReconstruction() {
   const status = $("#wordNetReconstructionStatus");
   const result = $("#wordNetReconstructionResult");
   if (!host || !play || !answer || !bank || !actions || !submit || !status || !result) return;
+
+  const translationToggle = $("#wordNetTranslationToggle");
+  if (translationToggle) translationToggle.disabled = state.busy || guidedWordInteractionLocked();
+  syncTranslationMenu();
 
   const round = state.translationMode === "reconstruct" ? ensureReconstructionChallenge() : null;
   const panel = host.closest(".word-net-sentence-panel");
@@ -2148,7 +2490,7 @@ function renderReconstruction() {
   bank.replaceChildren(...round.challenge.options.map((option) => reconstructionTokenButton(option, "bank", {
     inAnswer: selectedIds.has(option.id)
   })));
-  submit.disabled = state.busy || selected.length === 0;
+  submit.disabled = state.busy || guidedWordInteractionLocked() || round.evidencePending || selected.length === 0;
   status.textContent = round.announcement;
 
   play.hidden = round.submitted;
@@ -2170,7 +2512,7 @@ function selectReconstructionOption(id) {
   if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
-  if (!round || !option || round.submitted || round.selectedIds.includes(id)) return;
+  if (!round || !option || round.submitted || guidedWordInteractionLocked() || round.evidencePending || round.selectedIds.includes(id)) return;
   const source = reconstructionOptionNode(id, "bank");
   const sourceRect = source?.getBoundingClientRect();
   const restoreFocus = source === document.activeElement;
@@ -2184,7 +2526,7 @@ function removeReconstructionOption(id) {
   if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
-  if (!round || !option || round.submitted) return;
+  if (!round || !option || round.submitted || guidedWordInteractionLocked() || round.evidencePending) return;
   const source = reconstructionOptionNode(id, "answer");
   const sourceRect = source?.getBoundingClientRect();
   const restoreFocus = source === document.activeElement;
@@ -2194,33 +2536,87 @@ function removeReconstructionOption(id) {
   animateReconstructionTransfer(id, sourceRect, "bank", { restoreFocus });
 }
 
-function submitReconstructionChallenge() {
+async function submitReconstructionChallenge() {
   if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
   const round = ensureReconstructionChallenge();
-  if (!round || round.submitted) return;
+  if (!round || round.submitted || guidedWordInteractionLocked() || round.evidencePending) return;
+  if (round.guidedLifecycle) {
+    const currentFingerprint = round.guidedLifecycle.state().taskFingerprint;
+    if (
+      !round.guidedTaskFingerprint
+      || round.guidedTaskFingerprint !== currentFingerprint
+      || round.phraseRequestId !== state.phraseRequestId
+      || round.guidedLifecycle !== state.guidedLifecycle
+    ) {
+      failGuidedWordWorld(
+        new Error("The Guided response no longer matches its immutable curriculum task."),
+        "This Guided task changed before submission and is now locked."
+      );
+      return;
+    }
+  }
   const selected = reconstructionSelectedOptions(round);
   if (!selected.length) {
     round.announcement = "Choose at least one word before submitting.";
     renderReconstruction();
     return;
   }
-  round.correct = isWordReconstructionCorrect(
+  const correct = isWordReconstructionCorrect(
     selected.map((option) => option.text),
     round.challenge.answerTokens
   );
-  const rewardAvailable = claimSentenceReward(round.key);
+  if (round.guidedLifecycle && !round.guidedLifecycle.state().firstResponseRecorded) {
+    round.evidencePending = true;
+    state.guidedEvidencePending = true;
+    round.announcement = "Saving the first response before showing feedback…";
+    renderReconstruction();
+    try {
+      if (!correct) round.guidedLifecycle.markSolutionRevealed();
+      const supportState = round.guidedLifecycle.state();
+      state.guidedSupportAtFirstResponse = Boolean(
+        supportState.hintsUsed || supportState.solutionRevealed
+      );
+      await round.guidedLifecycle.recordFirstResponse({
+        score: correct ? 1 : 0,
+        occurredAt: new Date().toISOString()
+      });
+      if (state.guidedResetPending || round.guidedLifecycle !== state.guidedLifecycle) {
+        round.evidencePending = false;
+        state.guidedEvidencePending = false;
+        return;
+      }
+    } catch (error) {
+      round.evidencePending = false;
+      failGuidedWordWorld(error, "Your answer stayed hidden because its evidence could not be saved.");
+      round.announcement = "Evidence was not saved. Feedback remains hidden.";
+      renderReconstruction();
+      return;
+    }
+    round.evidencePending = false;
+    state.guidedEvidencePending = false;
+  }
+  round.correct = correct;
+  const guidedRound = Boolean(round.guidedLifecycle);
+  const rewardAvailable = guidedRound ? false : claimSentenceReward(round.key);
   round.awardedXp = round.correct && rewardAvailable ? 3 : 0;
   round.submitted = true;
   round.submittedText = reconstructionSelectedText(round);
   round.announcement = round.correct
-    ? (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
+    ? guidedRound
+      ? "Correct. First response recorded."
+      : (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
     : "Almost there. Compare the highlighted words with the answer.";
-  window.CaatuuLearning?.record("word-world", {
-    attempts: 1,
-    successes: round.correct ? 1 : 0,
-    xp: round.awardedXp,
-    rounds: 1
-  });
+  if (!guidedRound) {
+    window.CaatuuLearning?.record("word-world", {
+      attempts: 1,
+      successes: round.correct ? 1 : 0,
+      xp: round.awardedXp,
+      rounds: 1
+    });
+  } else {
+    state.guidedStatus = "complete";
+    renderWordGuidedStatus();
+  }
   renderReconstruction();
   stabilizeReconstructionResultViewport();
   window.requestAnimationFrame(() => $("#wordNetNext")?.focus({ preventScroll: true }));
@@ -2237,6 +2633,10 @@ function shouldBlockReconstructionAdvance() {
 }
 
 function activateNextSentence() {
+  if (state.guidedRequested) {
+    setStatus("This developer pilot contains one exact bound task and will not repeat automatically.", { tone: "muted" });
+    return;
+  }
   if (state.busy) return;
   if (shouldBlockReconstructionAdvance()) return;
   generateFromConfiguredMode(state.generationMode, { force: true });
@@ -2258,6 +2658,32 @@ function awardTimedRevealXp() {
   return true;
 }
 
+function currentGuidedPhraseToken() {
+  return [state.phraseRequestId, state.currentEntryId, state.currentSentence].join("|");
+}
+
+async function revealGuidedEnglish(lifecycle, phraseToken) {
+  if (!state.guidedMode || !lifecycle || guidedWordInteractionLocked()) return;
+  state.guidedEvidencePending = true;
+  state.translationVisible = false;
+  syncTranslationToggle();
+  try {
+    if (!lifecycle.state().firstResponseRecorded) {
+      state.guidedSupportAtFirstResponse = true;
+    }
+    await lifecycle.recordSolutionReveal({ occurredAt: new Date().toISOString() });
+  } catch (error) {
+    failGuidedWordWorld(error, "The English answer stayed hidden because its evidence could not be saved.");
+    return;
+  } finally {
+    state.guidedEvidencePending = false;
+  }
+  if (phraseToken !== currentGuidedPhraseToken() || lifecycle !== state.guidedLifecycle) return;
+  state.translationVisible = true;
+  renderWordGuidedStatus();
+  syncTranslationToggle();
+}
+
 function applyTranslationMode({ restartTimer = false } = {}) {
   clearTranslationTimer();
 
@@ -2265,11 +2691,20 @@ function applyTranslationMode({ restartTimer = false } = {}) {
   if (mode !== state.translationMode) state.translationMode = mode;
   const delayMs = translationModes[mode].delayMs;
 
-  state.translationVisible = mode === "visible";
+  state.translationVisible = state.guidedMode ? false : mode === "visible";
+  if (state.guidedMode && mode === "visible" && state.currentTranslation && state.guidedLifecycle) {
+    void revealGuidedEnglish(state.guidedLifecycle, currentGuidedPhraseToken());
+  }
   if (restartTimer && isTimedTranslationMode(mode) && Number.isFinite(delayMs) && state.currentTranslation) {
+    const guidedLifecycle = state.guidedLifecycle;
+    const phraseToken = currentGuidedPhraseToken();
     state.translationTimerId = window.setTimeout(() => {
       state.translationTimerId = 0;
       if (document.visibilityState === "hidden") return;
+      if (state.guidedMode && guidedLifecycle) {
+        void revealGuidedEnglish(guidedLifecycle, phraseToken);
+        return;
+      }
       state.translationVisible = true;
       syncTranslationToggle();
       awardTimedRevealXp();
@@ -2280,6 +2715,7 @@ function applyTranslationMode({ restartTimer = false } = {}) {
 }
 
 function setTranslationMode(mode, { closeMenu = true } = {}) {
+  if (guidedWordInteractionLocked()) return;
   if (!hasTranslationMode(mode)) return;
   cancelBackgroundWork();
   state.translationMode = mode;
@@ -2295,7 +2731,8 @@ function setTranslationMode(mode, { closeMenu = true } = {}) {
   }
   if (state.currentContentMode === "standard" && state.currentSentence) {
     setTranslation(state.currentTranslation);
-    void updateSceneAsset(state.currentSceneQuery || state.currentTranslation);
+    if (state.guidedMode) hideSceneAsset({ cancel: true });
+    else void updateSceneAsset(state.currentSceneQuery || state.currentTranslation);
     return;
   }
   if (mode !== "off" && !state.busy && state.currentSentence && !state.currentTranslation) {
@@ -2352,7 +2789,13 @@ function syncWordTranslation() {
   if (!panel || !wordNode || !meaningNode || !posNode || !metaNode) return;
 
   const translationEnabled = state.translationMode !== "off";
-  const visible = Boolean(state.selectedWord) && translationEnabled && state.wordCardPreferences.showCard;
+  const guidedState = state.guidedLifecycle?.state();
+  const guidedCardAllowed = !state.guidedMode
+    || Boolean(guidedState?.hintsUsed || guidedState?.firstResponseRecorded);
+  const visible = Boolean(state.selectedWord)
+    && translationEnabled
+    && state.wordCardPreferences.showCard
+    && guidedCardAllowed;
   const details = state.selectedWordDetails;
   const normalizedSelected = normalizeWord(state.selectedWord).toLocaleLowerCase(targetLocale);
   const normalizedLemma = normalizeWord(details?.lemma).toLocaleLowerCase(targetLocale);
@@ -2680,7 +3123,7 @@ async function holdSentenceTransition(startedAt) {
   }
 }
 
-function setBusy(busy, { cover = busy } = {}) {
+function setBusy(busy, { cover = busy, immediate = false } = {}) {
   state.busy = busy;
   if (busy) {
     closeAudioMenu();
@@ -2692,6 +3135,8 @@ function setBusy(busy, { cover = busy } = {}) {
   });
   syncGenerationControl();
   syncContentControl();
+  const previous = $("#wordNetPrevious");
+  if (previous) previous.disabled = busy || state.guidedRequested;
   const loading = $("#wordNetLoading");
   const panel = $(".word-net-sentence-panel");
   if (panel) panel.setAttribute("aria-busy", busy ? "true" : "false");
@@ -2706,6 +3151,10 @@ function setBusy(busy, { cover = busy } = {}) {
         if (state.busy && !loading.hidden) loading.classList.add("is-visible");
       });
       state.loadingRobotReadyPromise = showLoadingRobot();
+    } else if (immediate) {
+      loading.classList.remove("is-visible");
+      loading.hidden = true;
+      hideLoadingRobot();
     } else {
       loading.classList.remove("is-visible");
       state.loadingHideTimerId = window.setTimeout(() => {
@@ -3400,7 +3849,11 @@ async function requestSentenceCandidate(target, { signal, speculative = false, o
   return { sentence: localSentence(target, generationAvoidList()), source: "validated-fallback" };
 }
 
-function renderCzechSentence(sentence, selectedWord = "") {
+function renderCzechSentence(
+  sentence,
+  selectedWord = "",
+  curriculumFocus = state.guidedMode ? state.guidedFocusTarget : null
+) {
   const host = $("#wordNetSentence");
   if (!host) return;
 
@@ -3416,6 +3869,7 @@ function renderCzechSentence(sentence, selectedWord = "") {
 
   const nodes = [];
   let openingPunctuation = [];
+  let wordIndex = 0;
   const punctuationNode = (text) => {
     const span = document.createElement("span");
     span.className = "cz-punctuation-token";
@@ -3444,12 +3898,22 @@ function renderCzechSentence(sentence, selectedWord = "") {
     button.className = "cz-word-token";
     button.textContent = token.text;
     button.dataset.word = normalizeWord(token.text);
-    button.setAttribute("aria-label", `Select ${token.text} and show its meaning`);
+    const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
+      && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
+    const label = curriculumFocused
+      ? `Curriculum focus: ${token.text}. Select it to show its meaning`
+      : `Select ${token.text} and show its meaning`;
+    button.setAttribute("aria-label", label);
     const selected = wordMatchesTarget(button.dataset.word, selectedWord);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
     if (selected) {
       button.classList.add("is-selected");
     }
+    if (curriculumFocused) {
+      button.classList.add("is-curriculum-focus");
+      button.dataset.curriculumFocus = "true";
+    }
+    wordIndex += 1;
     cluster.append(button);
     nodes.push(cluster);
   }
@@ -3536,6 +4000,10 @@ function updateHistoryTranslation(sentence, translation) {
 }
 
 async function showPreviousSentence() {
+  if (state.guidedRequested) {
+    setStatus("History is disabled while the exact Guided task is active.", { tone: "muted" });
+    return;
+  }
   if (state.busy) return;
   if (shouldBlockReconstructionAdvance()) return;
   const previousIndex = state.historyCursor + 1;
@@ -3857,6 +4325,12 @@ async function submitSentenceFeedback(event) {
 }
 
 function bindUi() {
+  window.CaatuuLearning?.registerProgressResetPreparation?.(prepareGuidedWordProgressReset);
+  window.addEventListener("caatuu:progress-reset-cancelled", () => {
+    if (state.guidedResetPending && state.guidedRequested) {
+      void restartGuidedWordWorldAfterReset({ resetCompleted: false });
+    }
+  });
   $("#wordNetDisplayToggle")?.addEventListener("click", toggleDisplayMenu);
   $("#wordNetDisplayMenu")?.addEventListener("click", (event) => {
     if (!event.target.closest("[data-theme-option], [data-font-size-option]")) return;
@@ -3874,6 +4348,7 @@ function bindUi() {
     await requestContentMode(button.dataset.contentMode);
   });
   $("#wordNetTranslationToggle")?.addEventListener("click", () => {
+    if (guidedWordInteractionLocked()) return;
     closeDisplayMenu();
     closeAudioMenu();
     closeGenerationMenu();
@@ -3881,6 +4356,7 @@ function bindUi() {
   });
   $("#wordNetTranslationToggle")?.addEventListener("keydown", handleTranslationToggleKeydown);
   $("#wordNetTranslationMenu")?.addEventListener("click", (event) => {
+    if (guidedWordInteractionLocked()) return;
     const answerMode = event.target.closest("button[data-answer-mode]");
     if (answerMode?.dataset.answerMode === "reconstruct") {
       setTranslationMode("reconstruct");
@@ -3984,9 +4460,15 @@ function bindUi() {
   });
   $("#wordNetSentence")?.addEventListener("click", (event) => {
     const button = event.target.closest(".cz-word-token");
-    if (!button || state.busy) return;
+    if (!button || state.busy || guidedWordInteractionLocked()) return;
+    if (state.guidedMode) {
+      if (!markGuidedDictionaryHint()) return;
+      state.wordCardPreferences.showCard = true;
+    }
     selectWord(button.dataset.word, { userInitiated: true });
-    setStatus(`Selected "${button.dataset.word}". Choose ↻ in Generation to continue with it.`, { tone: "muted" });
+    setStatus(state.guidedMode
+      ? `Dictionary support opened for "${button.dataset.word}".`
+      : `Selected "${button.dataset.word}". Choose ↻ in Generation to continue with it.`, { tone: "muted" });
   });
   const sentencePanel = $(".word-net-sentence-panel");
   sentencePanel?.addEventListener("pointerdown", (event) => {
@@ -4056,6 +4538,10 @@ function bindUi() {
   });
   window.addEventListener("pagehide", () => cancelCzechSpeech());
   window.addEventListener("caatuu:learning-change", (event) => {
+    if (event.detail?.reason === "progress-reset" && state.guidedRequested) {
+      void restartGuidedWordWorldAfterReset();
+      return;
+    }
     if (event.detail?.reason !== "difficulty") return;
     const pace = czechSpeechPace();
     cancelCzechSpeech();
@@ -4074,6 +4560,7 @@ async function init() {
   syncDisplaySettingsControl();
   initializeSpeechControl();
   runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
+  await initializeGuidedWordWorldMode();
   const diagnostics = $("#wordNetDiagnostics");
   if (diagnostics) diagnostics.open = false;
   applyTranslationMode();
@@ -4082,8 +4569,26 @@ async function init() {
   syncContentControl();
   syncWordTranslation();
   syncDiagnostics();
+  renderWordGuidedStatus();
   setStatus(playInstruction);
-  hydrateQueueFromHistory();
+  if (!state.guidedRequested) hydrateQueueFromHistory();
+  if (state.guidedRequested) {
+    setBusy(true);
+    if (!state.guidedMode) {
+      setStatus("Guided Word World is locked because its curriculum contract could not be verified.", { tone: "error" });
+      renderWordGuidedStatus();
+      setBusy(false);
+      return;
+    }
+    setStatus("Preparing the exact Guided developer task.", { tone: "active" });
+    try {
+      await initializeStandardCorpus();
+      await generateGuidedStandardPhrase({ allowBusy: true });
+    } finally {
+      if (state.busy) setBusy(false);
+    }
+    return;
+  }
   if (state.contentMode === "standard") {
     abortOptionalGenerationDownloads();
     setBusy(true);

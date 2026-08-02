@@ -52,9 +52,9 @@ test("the shared Czech header uses the configured PNG without a CSS frame", () =
     /function renderLanguageSwitch[\s\S]*?createElement\("img"\)[\s\S]*?className = targetLanguage\.flagClass[\s\S]*?src = targetLanguage\.flagSrc[\s\S]*?alt = ""/,
     "shared Chrome should render the image declared by the language profile"
   );
-  assert.match(courseProfile, /flagClass: "cz-flag",\s*flagSrc: "\/assets\/icons\/czech_flag\.png"/, "the Czech profile should select the shared PNG flag");
-  assert.match(serviceWorker, /"\/assets\/icons\/czech_flag\.png"/, "the Czech flag must remain available offline");
-  assert.match(androidGradle, /"czech_flag\.png"/, "the Android package must include the shared Czech flag");
+  assert.match(courseProfile, /flagClass: "cz-flag",\s*flagSrc: "\/assets\/icons\/czech_flag_ui\.png"/, "the Czech profile should select the shared UI PNG flag");
+  assert.match(serviceWorker, /"\/assets\/icons\/czech_flag_ui\.png"/, "the Czech UI flag must remain available offline");
+  assert.match(androidGradle, /"\*_ui\.png"/, "the Android package must include shared UI image variants");
 });
 
 test("the language landing page uses the registered Czech PNG without a frame", () => {
@@ -62,9 +62,9 @@ test("the language landing page uses the registered Czech PNG without a frame", 
   const holder = ruleBody(launcherCss, ".language-list li");
   assert.match(holder, /\bborder\s*:\s*0\s*;/, "the flag holder must not add a surrounding border");
   assert.match(holder, /\bbackground\s*:\s*transparent\s*;/, "the flag holder must not add a framed tile");
-  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag\.png" alt="">/);
+  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag_ui\.png" alt=""[^>]*>/);
   assert.match(launcherHtml, /<span class="language-choice-code">CZ<\/span>/, "the fallback language row should name Czech explicitly");
-  assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/czech_flag\.png"/);
+  assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/czech_flag_ui\.png"/);
   assert.match(
     launcherJs,
     /createElement\("img"\)[\s\S]*?className = language\.flagClass[\s\S]*?src = language\.flagSrc[\s\S]*?alt = ""/,

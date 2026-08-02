@@ -7,7 +7,7 @@ const repoRoot = new URL("../../../../", import.meta.url);
 const czechStatic = new URL("apps/languages/czech/static/", repoRoot);
 const launcherStatic = new URL("apps/launcher/static/", repoRoot);
 
-const pageNames = ["home.html", "index.html", "chat.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"];
+const pageNames = ["home.html", "index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"];
 const androidUiIconNames = [
   "coin_icon_ui.png",
   "czech_flag_ui.png",
@@ -88,8 +88,8 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-7"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-3"');
+    const profileIndex = source.indexOf('src="course-profile.js?v=course-13"');
+    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="runtime.js');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
     const chromeIndex = source.indexOf('src="chrome.js');
@@ -101,8 +101,8 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
     assert.match(source, /window\.CaatuuCourse\.storage\.fontSize/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-7/);
-  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-3/);
+  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-13/);
+  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-5/);
   assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-7/);
 });
 

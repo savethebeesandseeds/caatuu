@@ -26,6 +26,32 @@ function hasVerbDifficultyMetadata(value) {
   return Number.isInteger(level) && level >= 1 && level <= 3;
 }
 
+function projectCoreVerbPair(row, sourceIndex) {
+  if (!verbKindPattern.test(String(row?.kind || ""))) return null;
+  const cz = firstLearnerLabel(row.cs);
+  const eng = firstLearnerLabel(row.en);
+  if (!labelKey(cz) || !labelKey(eng)) return null;
+
+  return {
+    id: `core-verb-${sourceIndex}`,
+    cz,
+    eng,
+    difficulty: normalizeVerbDifficulty(row.difficulty),
+    difficultyIsAuthored: hasVerbDifficultyMetadata(row.difficulty),
+    sourceIndex
+  };
+}
+
+function stableVerbLookupError(code, message) {
+  const error = new Error(message);
+  error.code = code;
+  return error;
+}
+
+function bytesToHex(bytes) {
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 export function extractCoreVerbPairs(dictionary) {
   if (!Array.isArray(dictionary)) return [];
 
@@ -34,26 +60,352 @@ export function extractCoreVerbPairs(dictionary) {
   const pairs = [];
 
   dictionary.forEach((row, sourceIndex) => {
-    if (!verbKindPattern.test(String(row?.kind || ""))) return;
-    const cz = firstLearnerLabel(row.cs);
-    const eng = firstLearnerLabel(row.en);
-    const czKey = labelKey(cz);
-    const engKey = labelKey(eng);
+    const pair = projectCoreVerbPair(row, sourceIndex);
+    if (!pair) return;
+    const czKey = labelKey(pair.cz);
+    const engKey = labelKey(pair.eng);
     if (!czKey || !engKey || seenCzech.has(czKey) || seenEnglish.has(engKey)) return;
 
     seenCzech.add(czKey);
     seenEnglish.add(engKey);
-    pairs.push(Object.freeze({
-      id: `core-verb-${sourceIndex}`,
-      cz,
-      eng,
-      difficulty: normalizeVerbDifficulty(row.difficulty),
-      difficultyIsAuthored: hasVerbDifficultyMetadata(row.difficulty),
-      sourceIndex
-    }));
+    pairs.push(Object.freeze(pair));
   });
 
   return pairs;
+}
+
+/**
+ * Resolve a curriculum sidecar identity by its reviewed learner labels.
+ *
+ * Positional `core-verb-*` IDs are deliberately not used as identity here:
+ * they may change when unrelated dictionary rows move. The optional
+ * `legacyLocator` on a reference is checked only by
+ * `validatePinnedVerbPairLocator`, after the caller has verified the pinned
+ * dictionary digest.
+ */
+export function resolveStableVerbPair(dictionary, reference) {
+  if (!Array.isArray(dictionary)) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_CATALOG",
+      "Stable verb lookup requires an ordered dictionary array."
+    );
+  }
+
+  const stableId = normalizedLabel(reference?.id || reference?.contentId);
+  const expectedCzech = normalizedLabel(reference?.cz);
+  const expectedEnglish = normalizedLabel(reference?.eng);
+  if (!stableId || !expectedCzech || !expectedEnglish) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_REFERENCE",
+      "Stable verb lookup requires an id plus exact Czech and English labels."
+    );
+  }
+
+  const matchingRows = [];
+  dictionary.forEach((row, sourceIndex) => {
+    const pair = projectCoreVerbPair(row, sourceIndex);
+    if (pair?.cz === expectedCzech && pair.eng === expectedEnglish) matchingRows.push(pair);
+  });
+
+  if (!matchingRows.length) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_SOURCE_DRIFT",
+      `${stableId} no longer resolves to ${expectedCzech} / ${expectedEnglish}.`
+    );
+  }
+  if (matchingRows.length > 1) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_AMBIGUOUS",
+      `${stableId} matches ${matchingRows.length} dictionary rows.`
+    );
+  }
+
+  const candidate = matchingRows[0];
+  const playablePair = extractCoreVerbPairs(dictionary).find((pair) => (
+    pair.sourceIndex === candidate.sourceIndex
+  ));
+  if (!playablePair) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_SOURCE_DRIFT",
+      `${stableId} is no longer a unique playable Verb Nebula pair.`
+    );
+  }
+
+  if (
+    Object.hasOwn(reference, "difficulty")
+    && Number(reference.difficulty) !== playablePair.difficulty
+  ) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_SOURCE_DRIFT",
+      `${stableId} difficulty no longer matches its reviewed snapshot.`
+    );
+  }
+  if (
+    Object.hasOwn(reference, "difficultyIsAuthored")
+    && reference.difficultyIsAuthored !== playablePair.difficultyIsAuthored
+  ) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_SOURCE_DRIFT",
+      `${stableId} difficulty authorship no longer matches its reviewed snapshot.`
+    );
+  }
+
+  return Object.freeze({
+    ...playablePair,
+    curriculumContentId: stableId
+  });
+}
+
+/**
+ * Assert the legacy row locator after the dictionary digest has been checked.
+ * This is a snapshot-integrity check, not a stable lookup mechanism.
+ */
+export function validatePinnedVerbPairLocator(dictionary, reference) {
+  const pair = resolveStableVerbPair(dictionary, reference);
+  const sourceIndex = reference?.legacyLocator?.sourceIndex;
+  const pairId = normalizedLabel(reference?.legacyLocator?.pairId);
+  if (!Number.isInteger(sourceIndex) || !pairId) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_LOCATOR",
+      `${pair.curriculumContentId} requires a pinned legacy pairId and sourceIndex.`
+    );
+  }
+  if (pair.sourceIndex !== sourceIndex || pair.id !== pairId) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_LOCATOR_DRIFT",
+      `${pair.curriculumContentId} moved from ${pairId} at row ${sourceIndex}.`
+    );
+  }
+  return pair;
+}
+
+/**
+ * Verify the exact deployed dictionary bytes before trusting its legacy row
+ * locator. Keep authoring/migration work on `resolveStableVerbPair`, which is
+ * intentionally reorder-tolerant; this runtime boundary is intentionally not.
+ */
+async function verifiedPinnedVerbDictionary(
+  dictionaryBytes,
+  catalogDigest
+) {
+  const sourceBytes = dictionaryBytes instanceof Uint8Array
+    ? new Uint8Array(dictionaryBytes)
+    : dictionaryBytes instanceof ArrayBuffer
+      ? new Uint8Array(dictionaryBytes.slice(0))
+      : null;
+  if (!sourceBytes) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_CATALOG_BYTES",
+      "Pinned verb lookup requires the raw dictionary bytes."
+    );
+  }
+  if (!/^sha256:[0-9a-f]{64}$/u.test(String(catalogDigest || ""))) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_CATALOG_DIGEST",
+      "Pinned verb lookup requires an explicit lowercase sha256 catalog digest."
+    );
+  }
+
+  const cryptoApi = globalThis.crypto;
+  if (!cryptoApi?.subtle || typeof TextDecoder !== "function") {
+    throw stableVerbLookupError(
+      "VERB_STABLE_WEB_CRYPTO_UNAVAILABLE",
+      "Pinned verb lookup requires Web Crypto and UTF-8 TextDecoder support."
+    );
+  }
+
+  const digestBytes = await cryptoApi.subtle.digest(
+    "SHA-256",
+    sourceBytes
+  );
+  const actualDigest = `sha256:${bytesToHex(new Uint8Array(digestBytes))}`;
+  if (actualDigest !== catalogDigest) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_CATALOG_DIGEST_MISMATCH",
+      "The deployed Verb Nebula dictionary does not match its pinned catalog digest."
+    );
+  }
+
+  let dictionaryJsonText;
+  try {
+    dictionaryJsonText = new TextDecoder("utf-8", { fatal: true }).decode(sourceBytes);
+  } catch (cause) {
+    const error = stableVerbLookupError(
+      "VERB_STABLE_INVALID_CATALOG_ENCODING",
+      "The digest-verified Verb Nebula dictionary is not valid UTF-8."
+    );
+    error.cause = cause;
+    throw error;
+  }
+  let dictionary;
+  try {
+    dictionary = JSON.parse(dictionaryJsonText);
+  } catch (cause) {
+    const error = stableVerbLookupError(
+      "VERB_STABLE_INVALID_CATALOG_JSON",
+      "The digest-verified Verb Nebula dictionary is not valid JSON."
+    );
+    error.cause = cause;
+    throw error;
+  }
+  return dictionary;
+}
+
+export async function resolvePinnedStableVerbPairs(
+  dictionaryBytes,
+  catalogDigest,
+  references
+) {
+  const reviewedReferences = Array.from(references || []);
+  if (!reviewedReferences.length) {
+    throw stableVerbLookupError(
+      "VERB_STABLE_INVALID_REFERENCE",
+      "Pinned verb lookup requires at least one reviewed reference."
+    );
+  }
+  const dictionary = await verifiedPinnedVerbDictionary(dictionaryBytes, catalogDigest);
+  const resolved = reviewedReferences.map((reference) => (
+    validatePinnedVerbPairLocator(dictionary, reference)
+  ));
+  for (const field of ["curriculumContentId", "id", "sourceIndex", "cz", "eng"]) {
+    const values = resolved.map((pair) => pair[field]);
+    if (new Set(values).size !== values.length) {
+      throw stableVerbLookupError(
+        "VERB_STABLE_DUPLICATE_REFERENCE",
+        `Pinned Guided verb references require unique ${field} values.`
+      );
+    }
+  }
+  return Object.freeze(resolved);
+}
+
+export async function resolvePinnedStableVerbPair(
+  dictionaryBytes,
+  catalogDigest,
+  reference
+) {
+  const [pair] = await resolvePinnedStableVerbPairs(
+    dictionaryBytes,
+    catalogDigest,
+    [reference]
+  );
+  return pair;
+}
+
+function guidedSeedNumber(value) {
+  const source = normalizedLabel(value);
+  let hash = 2166136261;
+  for (let index = 0; index < source.length; index += 1) {
+    hash ^= source.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function guidedRandom(seed) {
+  let value = guidedSeedNumber(seed);
+  return () => {
+    value += 0x6d2b79f5;
+    let mixed = value;
+    mixed = Math.imul(mixed ^ (mixed >>> 15), mixed | 1);
+    mixed ^= mixed + Math.imul(mixed ^ (mixed >>> 7), mixed | 61);
+    return ((mixed ^ (mixed >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function guidedShuffle(values, seed) {
+  const shuffled = Array.from(values || []);
+  const random = guidedRandom(seed);
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function guidedDerangement(round, seed) {
+  for (let attempt = 0; attempt < 32; attempt += 1) {
+    const candidate = guidedShuffle(round, `${seed}|${attempt}`);
+    if (candidate.every((pair, index) => pair.id !== round[index]?.id)) return candidate;
+  }
+  return round.map((_, index) => round[(index + 1) % round.length]);
+}
+
+export function buildGuidedVerbRound(pairs, targetPair, {
+  pairCount = 4,
+  contrastPairs = [],
+  taskFingerprint
+} = {}) {
+  const catalog = Array.from(pairs || []);
+  const count = Number(pairCount);
+  if (!Number.isInteger(count) || count < 2) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_PAIR_COUNT_INVALID",
+      "A Guided Verb Nebula round requires at least two pairs."
+    );
+  }
+  const target = catalog.find((pair) => (
+    pair?.id === targetPair?.id
+    && pair?.sourceIndex === targetPair?.sourceIndex
+    && pair?.cz === targetPair?.cz
+    && pair?.eng === targetPair?.eng
+  ));
+  if (!target) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_TARGET_MISSING",
+      "The verified Guided verb target is absent from the playable catalog."
+    );
+  }
+  const requestedContrasts = Array.from(contrastPairs || []);
+  if (requestedContrasts.length !== count - 1) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_CONTRASTS_MISSING",
+      `The Guided verb target requires ${count - 1} explicitly reviewed contrasts.`
+    );
+  }
+  const contrasts = requestedContrasts.map((reference) => catalog.find((pair) => (
+    pair?.id === reference?.id
+    && pair?.sourceIndex === reference?.sourceIndex
+    && pair?.cz === reference?.cz
+    && pair?.eng === reference?.eng
+    && pair?.difficulty === reference?.difficulty
+  )));
+  if (contrasts.some((pair) => !pair)) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_CONTRAST_SOURCE_DRIFT",
+      "A reviewed Guided contrast is absent from the playable catalog."
+    );
+  }
+  const uniqueIds = new Set([target.id, ...contrasts.map((pair) => pair.id)]);
+  if (uniqueIds.size !== count || contrasts.some((pair) => pair.difficulty !== target.difficulty)) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_CONTRASTS_INVALID",
+      "Guided contrasts must be distinct reviewed pairs at the target difficulty."
+    );
+  }
+  const seed = normalizedLabel(taskFingerprint);
+  if (!seed) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_TASK_FINGERPRINT_REQUIRED",
+      "Guided card positions require a stable task fingerprint."
+    );
+  }
+  const selected = Object.freeze([target, ...contrasts]);
+  const round = Object.freeze(guidedShuffle(selected, `${seed}|czech`));
+  const englishRound = Object.freeze(guidedDerangement(round, `${seed}|english`));
+  if (round.some((pair, index) => pair.id === englishRound[index]?.id)) {
+    throw stableVerbLookupError(
+      "VERB_GUIDED_DERANGEMENT_FAILED",
+      "The Guided English column must not reveal any positional match."
+    );
+  }
+  return Object.freeze({
+    round,
+    englishRound,
+    queueIds: Object.freeze([]),
+    targetId: target.id,
+    taskFingerprint: seed
+  });
 }
 
 export function filterVerbPairsForDifficulty(pairs, difficulty) {

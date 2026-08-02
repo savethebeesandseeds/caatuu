@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-7"></script>
-    <script src="learning-profile.js?v=learning-3"></script>
+  <script src="course-profile.js?v=course-13"></script>
+    <script src="learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -23,8 +23,9 @@
     </script>
   <script src="runtime.js?v=runtime-36"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
+  <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-66">
+    <link rel="stylesheet" href="app.css?v=shell-72">
   <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
   </head>
   <body class="games-page">
@@ -336,7 +337,22 @@
                   <img src="/assets/planets/nebula.png" alt="">
                   <span class="train-world-label">
                     <b>Verb Nebula</b>
-                    <small>Match meanings</small>
+                    <small id="verbWorldSubtitle">Match meanings</small>
+                  </span>
+                </button>
+                <button
+                  class="train-world train-world-comet"
+                  id="conjugationCometWorld"
+                  type="button"
+                  data-train-tab="conjugation-comet"
+                  data-course-game="conjugation-comet"
+                  hidden
+                >
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/conjugation-comet.png" alt="">
+                  <span class="train-world-label">
+                    <b>Conjugation Comet</b>
+                    <small>Choose the form</small>
                   </span>
                 </button>
                 <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
@@ -351,7 +367,11 @@
             </section>
 
             <div class="train-tab-panel verb-match-panel" id="trainPanelVerbLab" aria-label="Verb Nebula" hidden>
-              <section class="verb-match-board" aria-label="Match Czech verbs with English meanings">
+              <aside class="verb-guided-status" id="verbGuidedStatus" role="status" aria-live="polite" aria-atomic="true" hidden>
+                <strong id="verbGuidedStatusTitle">Developer Guided · prototype-not-human-approved</strong>
+                <span id="verbGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
+              </aside>
+              <section class="verb-match-board" id="verbMeaningBoard" aria-label="Match Czech verbs with English meanings">
                 <div class="verb-match-controls" aria-label="Verb Nebula controls">
                   <div class="verb-match-control-cluster">
                     <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
@@ -426,7 +446,7 @@
                 </div>
               </section>
 
-              <footer class="verb-match-footer">
+              <footer class="verb-match-footer" id="verbMeaningFooter">
                 <div class="verb-match-note">
                   <p class="verb-match-feedback" id="verbMatchFeedback" aria-live="polite">
                     Match each Czech verb with its English meaning.
@@ -438,6 +458,7 @@
                   <span><b id="verbMatchAccuracy">—</b> accuracy</span>
                 </div>
               </footer>
+
             </div>
 
             <section class="train-tab-panel word-net-panel" id="trainPanelWordNet" aria-label="Word World" hidden>
@@ -665,9 +686,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="chrome.js?v=chrome-89"></script>
+  <script src="chrome.js?v=chrome-90"></script>
     <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script src="app.js?v=shell-74"></script>
+    <script src="app.js?v=shell-83"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>

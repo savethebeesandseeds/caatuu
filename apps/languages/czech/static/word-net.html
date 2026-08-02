@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-7"></script>
-    <script src="learning-profile.js?v=learning-3"></script>
+  <script src="course-profile.js?v=course-13"></script>
+    <script src="learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -23,9 +23,10 @@
     </script>
   <script src="runtime.js?v=runtime-36"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
+  <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
   <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
-    <link rel="stylesheet" href="word-net.css?v=word-net-70">
+    <link rel="stylesheet" href="word-net.css?v=word-net-71">
   </head>
   <body>
     <div class="word-net-page">
@@ -214,7 +215,7 @@
                     <div class="word-net-reconstruction-answer" id="wordNetReconstructionAnswer" role="group" aria-label="Your English sentence" aria-describedby="wordNetInstructions"></div>
                     <div class="word-net-reconstruction-actions" id="wordNetReconstructionActions" hidden>
                       <button class="word-net-reconstruction-submit" id="wordNetReconstructionSubmit" type="button" aria-label="Submit answer" aria-describedby="wordNetInstructions" title="Submit answer" disabled>
-                        <span class="word-net-reconstruction-submit-symbol" aria-hidden="true">&#10148;</span>
+                        <img class="word-net-reconstruction-submit-icon" src="/assets/icons/paper_plane_submit_ui.png?v=paper-plane-1" width="30" height="30" alt="" aria-hidden="true">
                         <span class="word-net-visually-hidden">Submit answer</span>
                       </button>
                     </div>
@@ -270,6 +271,10 @@
 
           <section class="word-net-status-panel" aria-label="Word World status">
             <p class="word-net-instructions" id="wordNetInstructions">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
+            <aside class="word-net-guided-status" id="wordNetGuidedStatus" role="status" aria-live="polite" hidden>
+              <strong>Developer Guided · prototype-not-human-approved</strong>
+              <span id="wordNetGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
+            </aside>
             <p class="word-net-live-status" id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
             <details class="word-net-diagnostics" id="wordNetDiagnostics">
               <summary>
@@ -356,8 +361,8 @@
       data-settings-href="index.html?settings=1"
     ></nav>
 
-  <script src="chrome.js?v=chrome-89"></script>
+  <script src="chrome.js?v=chrome-90"></script>
     <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script type="module" src="word-net.js?v=word-net-75"></script>
+    <script type="module" src="word-net.js?v=word-net-76"></script>
   </body>
 </html>

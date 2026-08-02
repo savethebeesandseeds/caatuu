@@ -1,35 +1,46 @@
-const CACHE_NAME = "caatuu-czech-pwa-v391";
+const CACHE_NAME = "caatuu-czech-pwa-v393";
 const CORE_ASSETS = [
   "./",
   "./home.html",
   "./home.css?v=home-28",
   "./index.html",
   "./theme.css?v=theme-5",
-  "./app.css?v=shell-66",
+  "./app.css?v=shell-72",
   "./chrome.css?v=chrome-style-90",
-  "./course-profile.js?v=course-7",
-  "./learning-profile.js?v=learning-3",
+  "./course-profile.js?v=course-13",
+  "./learning-profile.js?v=learning-5",
   "./runtime.js?v=runtime-36",
   "./semantic-learning.js?v=semantic-learning-7",
   "./semantic-learning-core.mjs?v=semantic-learning-core-5",
+  "./curriculum-service.js?v=curriculum-service-9",
+  "./curriculum/curriculum-service.mjs?v=curriculum-service-9",
+  "./curriculum/curriculum-runtime-core.mjs",
+  "./curriculum/curriculum-planner-core.mjs",
+  "./curriculum/guided-opportunity.mjs?v=guided-opportunity-5",
+  "./curriculum/morphology-round-core.mjs",
+  "./curriculum/morphology-round-core.mjs?v=morphology-round-core-2",
   "./feedback-outbox.mjs?v=feedback-outbox-5",
   "./dictionary-gap-report.mjs?v=dictionary-gap-report-1",
   "./dictionary-patch-core.mjs?v=dictionary-patch-core-1",
   "./data/dictionaries/patches/reviewed-cs-en.v1.json?v=sha256-3d86c8c0ddddb0122023a1dd686aaa7c9be2c37bf6ae664c8a5bc72d384762d9",
-  "./chrome.js?v=chrome-89",
+  "./chrome.js?v=chrome-90",
   "./setup-progress.js?v=setup-progress-1",
   "./setup.js?v=setup-33",
   "./setup-assets.json",
   "./maintenance-ui.js?v=maintenance-15",
-  "./app.js?v=shell-74",
-  "./verb-nebula-core.mjs?v=verb-nebula-core-7",
+  "./app.js?v=shell-83",
+  "./verb-nebula-core.mjs?v=verb-nebula-core-10",
+  "./verb-exercise-family-core.mjs?v=verb-exercise-family-core-2",
   "./dictionary-full.js?v=full-dictionary-4",
   "./word-net.html",
-  "./word-net.css?v=word-net-70",
-  "./word-net.js?v=word-net-75",
+  "./word-net.css?v=word-net-71",
+  "./word-net.js?v=word-net-76",
   "./word-net-core.mjs?v=word-net-core-18",
   "./word-net-queue.mjs?v=word-net-queue-6",
-  "./word-net-standard.mjs?v=word-net-standard-1",
+  "./word-net-standard.mjs?v=word-net-standard-4",
+  "./conjugation-comet.html",
+  "./conjugation-comet.css?v=conjugation-comet-2",
+  "./conjugation-comet.js?v=conjugation-comet-3",
   "./vector-db.js?v=vector-db-9",
   "./vendor/transformers/transformers.min.js",
   "./chat.html",
@@ -43,7 +54,7 @@ const CORE_ASSETS = [
   "./audio-lab.js?v=audio-lab-1",
   "./verb-difficulty.html",
   "./verb-difficulty.css?v=verb-difficulty-1",
-  "./verb-difficulty.js?v=verb-difficulty-3",
+  "./verb-difficulty.js?v=verb-difficulty-4",
   "./manifest.webmanifest",
   "./icons/caatuu-czech-192.png",
   "./icons/caatuu-czech-512.png",
@@ -57,6 +68,7 @@ const CORE_ASSETS = [
   "/assets/icons/stats_icon.png",
   "/assets/icons/gear_icon.png",
   "/assets/planets/nebula.png",
+  "/assets/planets/conjugation-comet.png",
   "/assets/planets/planet_A.png",
   "/assets/planets/planet_C.png",
   "/assets/robots/keymap.json",
@@ -71,6 +83,12 @@ const CORE_ASSETS = [
   "/assets/loading_animation/animations_manifest.json",
   "./data/dictionary.json",
   "./data/scripts.json",
+  "./data/curriculum/canonical-curriculum.v1.en.json",
+  "./data/curriculum/cs-CZ.realization-pack.v1.json",
+  "./data/curriculum/pilot-content-sources.v1.json",
+  "./data/curriculum/cs-CZ.cross-game-bindings.v1.json",
+  "./data/curriculum/shared-mechanic-capabilities.v1.en.json",
+  "./data/curriculum/cs-CZ.morphology-developer-pilot.v1.json",
   "./data/word-world/manifest.json",
   "./data/word-world/standard-v0.1/records.json?v=01b7901834527668"
 ];
@@ -155,8 +173,16 @@ async function networkThenCache(request) {
     await cacheResponse(request, response);
     return response;
   } catch (error) {
-    const cached = await currentCacheMatch(request);
+    let cached = await currentCacheMatch(request);
     if (cached) return cached;
+    if (request.mode === "navigate") {
+      const fallbackUrl = new URL(request.url);
+      if (fallbackUrl.origin === location.origin && fallbackUrl.search) {
+        fallbackUrl.search = "";
+        cached = await currentCacheMatch(fallbackUrl.href);
+        if (cached) return cached;
+      }
+    }
     throw error;
   }
 }
