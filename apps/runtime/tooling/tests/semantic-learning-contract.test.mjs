@@ -31,7 +31,7 @@ test("every Czech page installs the synchronous semantic facade before shared Ch
     const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-34"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-86"');
+    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-87"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -282,7 +282,7 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v391/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v392/);
   assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v382/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/audio-lab\.css\?v=audio-lab-2/);

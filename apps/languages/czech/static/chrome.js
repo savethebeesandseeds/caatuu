@@ -177,14 +177,12 @@
     Object.entries(gamePresentations).map(([id, presentation]) => [presentation.title, id])
   );
 
-  function explicitDeveloperGameAccess(configuration) {
+  function localDeveloperGamePreview(configuration) {
     if (!configuration || configuration.developerOnly !== true) return false;
     const guided = course.curriculum?.guidedMode;
     if (!guided?.enabled || !guided?.developerOnly) return false;
     const hostname = String(window.location.hostname || "").toLowerCase();
-    if (!["localhost", "127.0.0.1", "::1", "[::1]"].includes(hostname)) return false;
-    const parameter = String(guided.developerQueryParameter || "curriculum-guided");
-    return new URLSearchParams(window.location.search).get(parameter) === "1";
+    return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(hostname);
   }
 
   function conjugationCometAvailable() {
@@ -198,7 +196,7 @@
       return false;
     }
     if (configuration.developerOnly === true) {
-      return explicitDeveloperGameAccess(configuration);
+      return localDeveloperGamePreview(configuration);
     }
     return configuration.developerOnly === false
       && configuration.releaseEnabled === true

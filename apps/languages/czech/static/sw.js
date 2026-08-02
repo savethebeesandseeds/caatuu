@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v391";
+const CACHE_NAME = "caatuu-czech-pwa-v392";
 const CORE_ASSETS = [
   "./",
   "./home.html",
@@ -23,7 +23,7 @@ const CORE_ASSETS = [
   "./dictionary-gap-export.mjs?v=dictionary-gap-export-1",
   "./dictionary-patch-core.mjs?v=dictionary-patch-core-1",
   "./data/dictionaries/patches/reviewed-cs-en.v1.json",
-  "./chrome.js?v=chrome-86",
+  "./chrome.js?v=chrome-87",
   "./setup-progress.js?v=setup-progress-1",
   "./setup.js?v=setup-33",
   "./setup-assets.json",

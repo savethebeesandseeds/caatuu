@@ -144,7 +144,7 @@ test("only game pages install the synchronous curriculum facade in dependency or
 });
 
 test("the service worker makes every pinned curriculum asset available offline", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v391/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v392/);
   for (const asset of [
     "curriculum-service.js?v=curriculum-service-9",
     "curriculum/curriculum-service.mjs?v=curriculum-service-9",

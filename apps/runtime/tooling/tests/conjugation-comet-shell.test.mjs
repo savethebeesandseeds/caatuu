@@ -32,7 +32,7 @@ test("the standalone shell loads shared state before its game controller", () =>
   const runtime = page.indexOf('src="runtime.js?v=runtime-34"');
   const semantic = page.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
   const curriculum = page.indexOf('src="curriculum-service.js?v=curriculum-service-9"');
-  const chrome = page.indexOf('src="chrome.js?v=chrome-86"');
+  const chrome = page.indexOf('src="chrome.js?v=chrome-87"');
   const controller = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-3"');
   assert.ok(course >= 0 && learning > course && runtime > learning);
   assert.ok(semantic > runtime && curriculum > semantic);

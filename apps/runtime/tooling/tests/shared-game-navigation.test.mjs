@@ -84,12 +84,13 @@ test("Conjugation Comet is a standalone developer-gated game route", () => {
   assert.match(cometPage, /data-caatuu-header-back-href="index\.html"/);
   assert.match(cometPage, /id="conjugationCometPanel"/);
   assert.match(chrome, /document\.querySelector\("\.conjugation-comet-page"\)[\s\S]*?return "conjugation-comet"/);
-  assert.match(chrome, /function explicitDeveloperGameAccess\(configuration\)[\s\S]*?curriculum-guided/);
+  assert.match(chrome, /function localDeveloperGamePreview\(configuration\)[\s\S]*?guided\?\.enabled[\s\S]*?localhost[\s\S]*?127\.0\.0\.1/);
   assert.match(chrome, /course\.capabilities\?\.conjugationComet !== true[\s\S]*?course\.routes\?\.conjugationComet[\s\S]*?configuration\?\.enabled !== true[\s\S]*?activityId !== "conjugation-comet"[\s\S]*?exerciseFamilyId !== "conjugation-comet\.contextual-target-realization"/);
   assert.match(chrome, /configuration\.developerOnly === false[\s\S]*?configuration\.releaseEnabled === true[\s\S]*?configuration\.reviewStatus === "human-approved"/);
   assert.match(gamesPage, /data-course-game="conjugation-comet"/);
   assert.match(chrome, /document\.querySelectorAll\("\[data-course-game\]"\)[\s\S]*?trigger\.hidden = !available/);
   assert.match(chrome, /function gameLandingHref\(gameId\)[\s\S]*?new URL\(course\.routes\.games,[\s\S]*?url\.searchParams\.set\(parameter, "1"\)/);
+  assert.match(chrome, /function gamePresentationHref\(gameId\)[\s\S]*?new URL\(presentation\.href,[\s\S]*?url\.searchParams\.set\(parameter, "1"\)/);
   assert.match(chrome, /back\.href = gameLandingHref\("conjugation-comet"\)/);
   assert.match(chrome, /requestedGame === "conjugation-comet"[\s\S]*?event\.stopImmediatePropagation\(\)[\s\S]*?window\.location\.href = gamePresentationHref\(availableGame\)/);
 });
@@ -161,11 +162,11 @@ test("Games mirrors the remembered planet on its bottom-nav badge", () => {
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
     assert.match(page, /chrome\.css\?v=chrome-style-87/);
-    assert.match(page, /chrome\.js\?v=chrome-86/);
+    assert.match(page, /chrome\.js\?v=chrome-87/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
   assert.match(serviceWorker, /chrome\.css\?v=chrome-style-87/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-86/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-87/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {
