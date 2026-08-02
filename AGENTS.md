@@ -1,5 +1,16 @@
 # Codex repository instructions
 
+## Canonical workspace and shared-session safety
+
+- `C:\Work\caatuu` is the sole canonical local checkout and source of truth for Caatuu implementation, integration, serving, and validation.
+- Do not create or use alternate clones, Git worktrees, mirrored source directories, copied bundles, or parallel repositories unless the user explicitly authorizes that exact isolation strategy.
+- Do not serve or validate Caatuu from a noncanonical checkout. Reuse the established `caatuu` and `caatuu-dev` services and port `8765`; do not create additional containers, Compose projects, preview services, or ports without explicit user authorization.
+- Before implementation or validation, verify the repository path and relevant container bind mounts. A path, branch, mount, service, or source mismatch is a hard stop for coordination, not a reason to create a parallel environment.
+- Treat the canonical worktree as shared by concurrent Codex sessions. Every pre-existing modified, staged, or untracked path belongs to the user or another session unless the current task created it deliberately.
+- Never relocate shared work to another checkout. Do not run repository-wide `git add`, `git stash`, `git reset`, `git clean`, `git checkout`, `git switch`, `git restore`, `git merge`, `git rebase`, or `git cherry-pick` in a shared dirty tree without explicit authorization and one assigned integration owner.
+- Stage only the current task's verified paths. Before integrating separately committed work, first preserve and checkpoint the canonical shared state, inspect overlaps, use one integration owner, and validate the existing application before cleanup.
+- Preserve recovery stashes, branches, and worktrees until the user has validated the final integrated state and explicitly authorized cleanup.
+
 ## Required execution environment
 
 - Use the repository's existing Docker containers for ML, embeddings, vector-database generation, image-processing utilities, model tooling, and other dependency-heavy build work.
