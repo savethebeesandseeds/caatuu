@@ -32,6 +32,7 @@
       languageSelection: "/",
       home: "home.html",
       games: "index.html",
+      conjugationComet: "conjugation-comet.html",
       settings: "index.html?settings=1"
     },
     storage: {
@@ -67,14 +68,13 @@
         targetLocale: "cs-CZ",
         targetPackDigest: "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461",
         sourceCatalogId: "caatuu.cs-CZ.cross-game-pilot-sources",
-        sourceCatalogVersion: "1.4.0",
-        sourceCatalogDigest: "sha256:a181e41db3b93f6f19e66dba7e13e61104089a719279d3e0baa56297a9b9cb7b",
+        sourceCatalogVersion: "1.5.0",
+        sourceCatalogDigest: "sha256:f8a8d800e610d218590456047cdc80246554243940b82d7658acfc9c191be570",
         bindingRegistryId: "caatuu.cs-CZ.cross-game-bindings",
-        bindingRegistryVersion: "1.5.0",
-        bindingRegistryDigest: "sha256:7837b28bc69e453340ae1446565e4f639d0bc83f07abc631748be1d98094bdec"
+        bindingRegistryVersion: "1.6.0",
+        bindingRegistryDigest: "sha256:15edc5609148121b8c72ca1da8a1273f2c63566c777929e3b5ad8470d8a70b47"
       },
       verbExerciseFamilies: {
-        queryParameter: "verb-family",
         defaultFamily: "meaning",
         families: {
           meaning: {
@@ -82,30 +82,34 @@
             stableContentId: "cs.verb.cist.read",
             assessedCapabilityId: "independent-discrimination",
             developerOnly: false
-          },
-          morphology: {
-            exerciseFamilyId: "verb-nebula.contextual-target-realization",
-            stableContentId: "cs.morphology.cist.present-singular-person.1sg",
-            targetSkillId: "cs.skill.form.cist.present-singular-person",
-            assessedCapabilityId: "independent-form-discrimination",
-            developerOnly: true,
-            requiresPinnedCatalog: true,
-            optionCount: 3,
-            sequence: {
-              id: "sequence.verb-nebula.cs.morphology.cist.present-singular-person",
-              revision: 1,
-              orderedContentIds: [
-                "cs.morphology.cist.present-singular-person.1sg",
-                "cs.morphology.cist.present-singular-person.2sg",
-                "cs.morphology.cist.present-singular-person.3sg"
-              ],
-              orderedBindingIds: [
-                "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
-                "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
-                "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg"
-              ]
-            }
           }
+        }
+      },
+      conjugationComet: {
+        enabled: true,
+        activityId: "conjugation-comet",
+        exerciseFamilyId: "conjugation-comet.contextual-target-realization",
+        stableContentId: "cs.morphology.cist.present-singular-person.1sg",
+        targetSkillId: "cs.skill.form.cist.present-singular-person",
+        assessedCapabilityId: "independent-form-discrimination",
+        developerOnly: true,
+        requiresPinnedCatalog: true,
+        reviewStatus: "prototype-not-human-approved",
+        releaseEnabled: false,
+        optionCount: 3,
+        sequence: {
+          id: "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+          revision: 1,
+          orderedContentIds: [
+            "cs.morphology.cist.present-singular-person.1sg",
+            "cs.morphology.cist.present-singular-person.2sg",
+            "cs.morphology.cist.present-singular-person.3sg"
+          ],
+          orderedBindingIds: [
+            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
+            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
+            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg"
+          ]
         }
       },
       guidedMode: {
@@ -128,6 +132,7 @@
       memory: true,
       verbs: true,
       wordWorld: true,
+      conjugationComet: true,
       offlineModels: true,
       semanticSearch: true
     }

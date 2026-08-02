@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-morphology-developer-pilot-v1",
   "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "targetLocale": "cs-CZ",
   "review": {
     "status": "prototype-not-human-approved",
@@ -22,7 +22,7 @@
       "metadata": {
         "lemmaTarget": "číst",
         "glossEn": "read",
-        "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+        "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
         "capabilityRef": {
           "id": "capability.contextual-target-realization.visible-form-choice",
           "revision": 1
@@ -304,7 +304,7 @@
         "exercise": {
           "id": "cs.exercise.cist.visible-form-choice.1sg",
           "revision": 1,
-          "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
           "capabilityRef": {
             "id": "capability.contextual-target-realization.visible-form-choice",
             "revision": 1
@@ -393,7 +393,7 @@
         "exercise": {
           "id": "cs.exercise.cist.visible-form-choice.2sg",
           "revision": 2,
-          "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
           "capabilityRef": {
             "id": "capability.contextual-target-realization.visible-form-choice",
             "revision": 1
@@ -483,7 +483,7 @@
         "exercise": {
           "id": "cs.exercise.cist.visible-form-choice.3sg",
           "revision": 2,
-          "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+          "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
           "capabilityRef": {
             "id": "capability.contextual-target-realization.visible-form-choice",
             "revision": 1
@@ -548,7 +548,7 @@
     "specLocale": "en",
     "stableContentId": "cs.morphology.cist.present-singular-person.1sg",
     "stableContentSequence": {
-      "id": "sequence.verb-nebula.cs.morphology.cist.present-singular-person",
+      "id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
       "revision": 1,
       "orderedContentIds": [
         "cs.morphology.cist.present-singular-person.1sg",
@@ -566,7 +566,8 @@
         {"id": "cs.exercise.cist.visible-form-choice.3sg", "revision": 2}
       ]
     },
-    "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+    "activityId": "conjugation-comet",
+    "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
     "releasePolicy": {
       "status": "developer-only",
       "requiresNewCatalogForRelease": true,

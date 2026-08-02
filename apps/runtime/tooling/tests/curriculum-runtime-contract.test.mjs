@@ -20,6 +20,7 @@ const [
   facadeSource,
   indexHtml,
   wordWorldHtml,
+  conjugationCometHtml,
   serviceWorker,
   sourceCore,
   runtimeCore,
@@ -40,6 +41,7 @@ const [
   readFile(new URL("curriculum-service.js", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
+  readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
   readFile(new URL("runtime/curriculum-runtime-core.mjs", curriculumRoot), "utf8"),
   readFile(new URL("curriculum/curriculum-runtime-core.mjs", staticRoot), "utf8"),
@@ -90,17 +92,24 @@ test("the immutable course profile pins every runtime authority and keeps releas
   assert.equal(course.curriculum.approval.releaseEnabled, false);
   assert.equal(Object.hasOwn(course.curriculum, "approvalAttestation"), false);
   assert.equal(
-    course.curriculum.verbExerciseFamilies.families.morphology.targetSkillId,
+    course.curriculum.conjugationComet.targetSkillId,
     "cs.skill.form.cist.present-singular-person"
   );
+  assert.equal(course.curriculum.conjugationComet.activityId, "conjugation-comet");
+  assert.equal(course.curriculum.conjugationComet.releaseEnabled, false);
 });
 
 test("only game pages install the synchronous curriculum facade in dependency order", () => {
   for (const [name, source, gameScript] of [
-    ["index.html", indexHtml, 'src="app.js?v=shell-81"'],
-    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-72"']
+    ["index.html", indexHtml, 'src="app.js?v=shell-82"'],
+    ["word-net.html", wordWorldHtml, 'src="word-net.js?v=word-net-72"'],
+    [
+      "conjugation-comet.html",
+      conjugationCometHtml,
+      'src="conjugation-comet.js?v=conjugation-comet-3"'
+    ]
   ]) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-12"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-13"');
     const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-34"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
     const curriculumIndex = source.indexOf('src="curriculum-service.js?v=curriculum-service-9"');
@@ -135,7 +144,7 @@ test("only game pages install the synchronous curriculum facade in dependency or
 });
 
 test("the service worker makes every pinned curriculum asset available offline", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v387/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v391/);
   for (const asset of [
     "curriculum-service.js?v=curriculum-service-9",
     "curriculum/curriculum-service.mjs?v=curriculum-service-9",

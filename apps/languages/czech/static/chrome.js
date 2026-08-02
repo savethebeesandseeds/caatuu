@@ -162,6 +162,11 @@
       iconSrc: "/assets/planets/planet_A.png",
       href: "word-net.html"
     },
+    "conjugation-comet": {
+      title: "Conjugation Comet",
+      iconSrc: "/assets/planets/conjugation-comet.png",
+      href: course.routes.conjugationComet
+    },
     "memory-moon": {
       title: "Memory Moon",
       iconSrc: "/assets/planets/planet_C.png",
@@ -172,10 +177,84 @@
     Object.entries(gamePresentations).map(([id, presentation]) => [presentation.title, id])
   );
 
+  function explicitDeveloperGameAccess(configuration) {
+    if (!configuration || configuration.developerOnly !== true) return false;
+    const guided = course.curriculum?.guidedMode;
+    if (!guided?.enabled || !guided?.developerOnly) return false;
+    const hostname = String(window.location.hostname || "").toLowerCase();
+    if (!["localhost", "127.0.0.1", "::1", "[::1]"].includes(hostname)) return false;
+    const parameter = String(guided.developerQueryParameter || "curriculum-guided");
+    return new URLSearchParams(window.location.search).get(parameter) === "1";
+  }
+
+  function conjugationCometAvailable() {
+    const configuration = course.curriculum?.conjugationComet;
+    if (course.capabilities?.conjugationComet !== true
+      || typeof course.routes?.conjugationComet !== "string"
+      || !course.routes.conjugationComet.trim()
+      || configuration?.enabled !== true
+      || configuration?.activityId !== "conjugation-comet"
+      || configuration?.exerciseFamilyId !== "conjugation-comet.contextual-target-realization") {
+      return false;
+    }
+    if (configuration.developerOnly === true) {
+      return explicitDeveloperGameAccess(configuration);
+    }
+    return configuration.developerOnly === false
+      && configuration.releaseEnabled === true
+      && configuration.reviewStatus === "human-approved";
+  }
+
+  function gamePresentationAvailable(gameId, presentation) {
+    if (!presentation) return false;
+    if (gameId === "conjugation-comet") return conjugationCometAvailable();
+    return true;
+  }
+
   function normalizeGameId(value) {
     const gameId = String(value || "").trim();
     if (gameId === "galaxy") return gameId;
-    return Object.prototype.hasOwnProperty.call(gamePresentations, gameId) ? gameId : "";
+    const presentation = gamePresentations[gameId];
+    return gamePresentationAvailable(gameId, presentation) ? gameId : "";
+  }
+
+  function gamePresentationHref(gameId) {
+    const normalizedGameId = normalizeGameId(gameId);
+    const presentation = gamePresentations[normalizedGameId];
+    if (!presentation) return course.routes.games;
+    if (normalizedGameId !== "conjugation-comet"
+      || course.curriculum?.conjugationComet?.developerOnly !== true) {
+      return presentation.href;
+    }
+    const guided = course.curriculum?.guidedMode;
+    const parameter = String(guided?.developerQueryParameter || "curriculum-guided");
+    const url = new URL(presentation.href, window.location.href);
+    url.searchParams.set(parameter, "1");
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function gameLandingHref(gameId) {
+    if (gameId !== "conjugation-comet"
+      || course.curriculum?.conjugationComet?.developerOnly !== true) {
+      return course.routes.games;
+    }
+    const guided = course.curriculum?.guidedMode;
+    const parameter = String(guided?.developerQueryParameter || "curriculum-guided");
+    const url = new URL(course.routes.games, window.location.href);
+    url.searchParams.set(parameter, "1");
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function syncCourseGameTriggers() {
+    document.querySelectorAll("[data-course-game]").forEach((trigger) => {
+      const gameId = String(trigger.dataset.courseGame || "");
+      const available = normalizeGameId(gameId) === gameId;
+      trigger.hidden = !available;
+    });
+
+    if (currentGameId() !== "conjugation-comet" || !conjugationCometAvailable()) return;
+    const back = document.querySelector(".app-header-back");
+    if (back) back.href = gameLandingHref("conjugation-comet");
   }
 
   function rememberActiveGame(gameId) {
@@ -199,7 +278,7 @@
 
   function gameNavigationHref(gameId = readRememberedGame()) {
     const normalizedGameId = normalizeGameId(gameId);
-    return gamePresentations[normalizedGameId]?.href || course.routes.games;
+    return normalizedGameId ? gamePresentationHref(normalizedGameId) : course.routes.games;
   }
 
   function syncGameNavigationIndicators(gameId = readRememberedGame()) {
@@ -234,6 +313,7 @@
   }
 
   function currentGameId() {
+    if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";
     if (document.querySelector(".word-net-page")) return "word-net";
     if (document.querySelector("#trainPanelVerbLab:not([hidden])")) return "verb-lab";
     if (document.querySelector("#trainPanelWordNet:not([hidden])")) return "word-net";
@@ -296,7 +376,20 @@
       }
 
       const trainTarget = event.target.closest?.("[data-train-tab]");
-      if (trainTarget) rememberActiveGame(trainTarget.dataset.trainTab);
+      if (trainTarget) {
+        const requestedGame = String(trainTarget.dataset.trainTab || "");
+        if (requestedGame === "conjugation-comet") {
+          const availableGame = normalizeGameId(requestedGame);
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          if (availableGame) {
+            rememberActiveGame(availableGame);
+            window.location.href = gamePresentationHref(availableGame);
+          }
+          return;
+        }
+        rememberActiveGame(requestedGame);
+      }
 
       const gameNav = event.target.closest?.('[data-caatuu-bottom-nav] [data-nav-key="games"]');
       if (!gameNav) return;
@@ -2681,6 +2774,7 @@
     document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach(renderSettingsPanel);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach(renderBottomNav);
     document.querySelectorAll("[data-caatuu-language-switch]").forEach(renderLanguageSwitch);
+    syncCourseGameTriggers();
     restoreRequestedGame();
     bindAppFreshness();
   }

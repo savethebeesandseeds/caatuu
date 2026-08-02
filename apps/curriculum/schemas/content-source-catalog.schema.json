@@ -34,7 +34,7 @@
         "snapshot"
       ],
       "properties": {
-        "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
         "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
         "catalogId": {"type": "string", "minLength": 3, "maxLength": 128},
         "catalogRevision": {"type": "string", "minLength": 1, "maxLength": 160},
@@ -77,26 +77,16 @@
         },
         {
           "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
-          "then": {
-            "properties": {
-              "exerciseFamilyId": {
-                "enum": [
-                  "verb-nebula.meaning-match",
-                  "verb-nebula.contextual-target-realization"
-                ]
-              }
-            }
-          }
+          "then": {"properties": {"exerciseFamilyId": {"const": "verb-nebula.meaning-match"}}}
         },
         {
-          "if": {
+          "if": {"properties": {"activityId": {"const": "conjugation-comet"}}},
+          "then": {
             "properties": {
-              "activityId": {"const": "verb-nebula"},
-              "exerciseFamilyId": {"const": "verb-nebula.contextual-target-realization"}
-            },
-            "required": ["activityId", "exerciseFamilyId"]
-          },
-          "then": {"properties": {"snapshot": {"$ref": "#/$defs/morphologySnapshot"}}}
+              "exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"},
+              "snapshot": {"$ref": "#/$defs/morphologySnapshot"}
+            }
+          }
         }
       ]
     },

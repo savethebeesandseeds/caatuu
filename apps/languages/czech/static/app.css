@@ -875,6 +875,9 @@ body.world-landing-active {
   text-align: center;
   cursor: pointer;
 }
+.train-world[hidden] {
+  display: none;
+}
 .train-world img {
   display: block;
   width: clamp(68px, 21vw, 104px);
@@ -951,9 +954,17 @@ body.world-landing-active {
 .train-world-word .train-world-label {
   order: -1;
 }
+.train-world-comet .train-orbit,
 .train-world-verb .train-orbit,
 .train-world-memory .train-orbit {
   display: none;
+}
+.train-world-comet {
+  top: clamp(18px, 7%, 46px);
+  left: clamp(12px, 8vw, 72px);
+}
+.train-world-comet img {
+  width: clamp(68px, 19vw, 94px);
 }
 .train-world-verb {
   left: clamp(8px, 4vw, 18px);
@@ -3221,16 +3232,22 @@ body.print-preview-on .print-book {
   .train-worlds {
     position: absolute;
     inset: 0;
-    display: block;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 8px 4px;
     margin: 0;
+    padding: 12px 6px calc(68px + env(safe-area-inset-bottom));
   }
 
   .train-world,
+  .train-world-comet,
   .train-world-word,
   .train-world-verb,
   .train-world-memory {
-    position: absolute;
+    position: relative;
     inset: auto;
+    width: 100%;
     grid-template-columns: none;
     justify-items: center;
     align-items: center;
@@ -3239,12 +3256,13 @@ body.print-preview-on .print-book {
   }
 
   .train-world img,
+  .train-world-comet img,
   .train-world-memory img {
     width: clamp(68px, 21vw, 104px);
   }
 
   .train-world-label {
-    width: clamp(126px, 46vw, 200px);
+    width: clamp(118px, 42vw, 162px);
     padding: 8px 10px;
   }
 
@@ -3256,9 +3274,18 @@ body.print-preview-on .print-book {
     font-size: 0.62rem;
   }
 
+  .train-world-comet {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .train-world-comet img {
+    width: clamp(64px, 20vw, 92px);
+  }
+
   .train-world-word {
-    top: 30%;
-    right: clamp(12px, 4vw, 24px);
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .train-world-word img {
@@ -3270,18 +3297,17 @@ body.print-preview-on .print-book {
   }
 
   .train-world-verb {
-    left: clamp(8px, 4vw, 18px);
-    bottom: 25%;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .train-world-verb .train-world-label {
-    transform: translate(10px, -8px);
+    transform: none;
   }
 
   .train-world-memory {
-    left: auto;
-    right: clamp(18px, 8vw, 44px);
-    bottom: clamp(24px, 6%, 44px);
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .train-world-memory img {
@@ -3298,20 +3324,9 @@ body.print-preview-on .print-book {
     font-size: clamp(2rem, 9.8vw, 2.8rem);
   }
 
-  .train-world-label {
-    width: clamp(122px, 48vw, 184px);
-  }
-
-  .train-world-word {
-    top: 28%;
-  }
-
-  .train-world-verb {
-    bottom: 27%;
-  }
-
-  .train-world-memory {
-    bottom: clamp(18px, 5%, 34px);
+  .train-worlds {
+    gap: 4px;
+    padding: 8px 4px calc(62px + env(safe-area-inset-bottom));
   }
 }
 
@@ -5977,276 +5992,9 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   margin: 0;
 }
 
-.verb-morphology-board {
-  width: min(820px, 100%);
-  margin: clamp(10px, 2vw, 22px) auto;
-  display: grid;
-  gap: clamp(13px, 2vw, 20px);
-  padding: clamp(18px, 3vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--blue) 11%, transparent), transparent 35%),
-    color-mix(in srgb, var(--theme-input, var(--panel)) 88%, transparent);
-}
-
 #verbMeaningBoard[hidden],
-#verbMeaningFooter[hidden],
-.verb-morphology-board[hidden],
-#verbMorphologyLemma[hidden],
-#verbMorphologyCue[hidden],
-#verbMorphologyInstructions[hidden],
-#verbMorphologyChoices[hidden],
-#verbMorphologyHint[hidden],
-.verb-morphology-actions[hidden],
-#verbMorphologyNextButton[hidden] {
+#verbMeaningFooter[hidden] {
   display: none;
-}
-
-.verb-morphology-head {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 12px 24px;
-}
-
-.verb-morphology-head h2,
-.verb-morphology-head p {
-  margin: 0;
-}
-
-.verb-morphology-head h2 {
-  margin-top: 3px;
-  font-size: clamp(1.35rem, 3vw, 2rem);
-  line-height: 1.1;
-}
-
-.verb-morphology-lemma {
-  flex: 0 0 auto;
-  padding: 6px 10px;
-  border: 1px solid color-mix(in srgb, var(--green-dark) 34%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--green-dark) 7%, var(--panel));
-  color: var(--green-dark);
-  font-size: 0.76rem;
-  font-weight: 900;
-}
-
-.verb-morphology-cue {
-  display: grid;
-  grid-template-columns: clamp(54px, 9vw, 76px) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(12px, 2.5vw, 22px);
-  padding: clamp(14px, 2.5vw, 22px);
-  border: 1px solid color-mix(in srgb, var(--blue) 34%, var(--line));
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--blue) 7%, var(--panel));
-}
-
-.verb-morphology-role {
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--theme-blue-filled, #496d84);
-  color: #ffffff;
-  font-size: clamp(1.1rem, 3vw, 1.55rem);
-  font-weight: 950;
-}
-
-.verb-morphology-context,
-.verb-morphology-prompt,
-.verb-morphology-label,
-.verb-morphology-instructions,
-.verb-morphology-hint,
-.verb-morphology-footer p {
-  margin: 0;
-}
-
-.verb-morphology-context {
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 750;
-  line-height: 1.35;
-}
-
-.verb-morphology-prompt {
-  margin-top: 4px;
-  color: var(--ink);
-  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
-  font-weight: 850;
-  line-height: 1.25;
-}
-
-.verb-morphology-label {
-  margin-top: 5px;
-  color: color-mix(in srgb, var(--blue) 78%, var(--ink));
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.035em;
-  text-transform: uppercase;
-}
-
-.verb-morphology-instructions {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
-.verb-morphology-choices {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.verb-morphology-choice {
-  min-width: 0;
-  min-height: 74px;
-  border: 1px solid var(--theme-line-strong, var(--line));
-  border-radius: 12px;
-  background: var(--theme-input, var(--panel));
-  color: var(--ink);
-  padding: 12px;
-  font: inherit;
-  font-size: clamp(1.08rem, 3vw, 1.45rem);
-  font-weight: 900;
-  text-align: center;
-  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
-}
-
-.verb-morphology-visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.verb-morphology-choice:hover:not(:disabled) {
-  border-color: var(--blue);
-  transform: translateY(-1px);
-}
-
-.verb-morphology-choice:focus-visible,
-.verb-morphology-actions button:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--blue) 54%, transparent);
-  outline-offset: 3px;
-}
-
-.verb-morphology-choice.is-selected {
-  border-color: var(--blue);
-  background: color-mix(in srgb, var(--blue) 10%, var(--panel));
-  box-shadow: inset 0 0 0 1px var(--blue);
-}
-
-.verb-morphology-choice.is-wrong {
-  border-color: var(--red);
-  background: color-mix(in srgb, var(--red) 10%, var(--panel));
-  color: var(--red);
-}
-
-.verb-morphology-choice.is-correct,
-.verb-morphology-choice.is-revealed {
-  border-color: var(--green-dark);
-  background: color-mix(in srgb, var(--green-dark) 9%, var(--panel));
-  color: var(--green-dark);
-}
-
-.verb-morphology-choice:disabled {
-  cursor: default;
-  opacity: 0.68;
-}
-
-.verb-morphology-choice.is-correct:disabled,
-.verb-morphology-choice.is-revealed:disabled {
-  opacity: 1;
-}
-
-.verb-morphology-hint {
-  display: grid;
-  gap: 3px;
-  padding: 11px 13px;
-  border-left: 4px solid var(--theme-amber, #d59a35);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--theme-amber, #d59a35) 10%, var(--panel));
-  color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.4;
-}
-
-.verb-morphology-hint strong {
-  color: var(--ink);
-}
-
-.verb-morphology-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.verb-morphology-actions button {
-  min-height: 40px;
-  border: 1px solid var(--theme-line-strong, var(--line));
-  border-radius: 999px;
-  background: var(--theme-input, var(--panel));
-  color: var(--ink);
-  padding: 8px 15px;
-  font: inherit;
-  font-size: 0.76rem;
-  font-weight: 900;
-}
-
-.verb-morphology-actions button:hover:not(:disabled) {
-  border-color: var(--blue);
-}
-
-.verb-morphology-actions .verb-morphology-next {
-  border-color: color-mix(in srgb, var(--blue) 72%, var(--theme-line-strong, var(--line)));
-  background: var(--blue);
-  color: #fff;
-}
-
-.verb-morphology-actions .verb-morphology-next:hover:not(:disabled) {
-  filter: brightness(0.96);
-}
-
-.verb-morphology-actions button:disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
-.verb-morphology-footer {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px 20px;
-  padding-top: 12px;
-  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 750;
-  line-height: 1.4;
-}
-
-.verb-morphology-footer p.is-correct {
-  color: var(--green-dark);
-}
-
-.verb-morphology-footer p.is-wrong {
-  color: var(--red);
-}
-
-.verb-morphology-footer p.is-hint {
-  color: color-mix(in srgb, #bd852b 72%, var(--ink));
-}
-
-.verb-morphology-footer span {
-  flex: 0 0 auto;
 }
 
 html[data-theme="dark"] .verb-match-panel {
@@ -6376,9 +6124,6 @@ html[data-theme="dark"] .verb-match-board {
     justify-content: start;
   }
 
-  .verb-morphology-board {
-    align-self: center;
-  }
 }
 
 @media (max-width: 430px) {
@@ -6421,25 +6166,6 @@ html[data-theme="dark"] .verb-match-board {
     font-size: 0.98rem;
   }
 
-  .verb-morphology-board {
-    margin-block: 0;
-    padding: 15px;
-  }
-
-  .verb-morphology-head,
-  .verb-morphology-footer {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .verb-morphology-choices {
-    grid-template-columns: 1fr;
-  }
-
-  .verb-morphology-choice {
-    min-height: 58px;
-  }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6452,7 +6178,6 @@ html[data-theme="dark"] .verb-match-board {
   }
 
   .verb-match-card,
-  .verb-morphology-choice,
   .verb-hint-loader,
   #verbRoundRobot {
     animation: none;

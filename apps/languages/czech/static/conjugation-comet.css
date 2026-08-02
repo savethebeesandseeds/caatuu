@@ -1,0 +1,456 @@
+html,
+body {
+  min-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  background: var(--theme-page-background, #f5efe5);
+  color: var(--theme-ink, #25312c);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.conjugation-comet-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.conjugation-comet-main {
+  width: min(940px, 100%);
+  margin: 0 auto;
+  padding: 12px clamp(14px, 4vw, 30px) 24px;
+}
+
+.conjugation-comet-toolbar {
+  min-height: 44px;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 4px;
+}
+
+.conjugation-comet-toolbar .theme-toggle {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.conjugation-comet-toolbar .theme-toggle:focus-visible,
+.conjugation-comet-unavailable a:focus-visible {
+  outline: 3px solid var(--theme-focus-ring, #537f70);
+  outline-offset: 3px;
+}
+
+.verb-guided-status {
+  width: min(820px, 100%);
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  padding: 8px 11px;
+  border: 1px solid color-mix(in srgb, var(--theme-amber, #8a692c) 58%, var(--line));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--theme-amber, #8a692c) 12%, var(--panel));
+  color: var(--ink);
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+
+.verb-guided-status[hidden],
+.verb-morphology-board[hidden],
+#verbMorphologyLemma[hidden],
+#verbMorphologyCue[hidden],
+#verbMorphologyInstructions[hidden],
+#verbMorphologyChoices[hidden],
+#verbMorphologyHint[hidden],
+.verb-morphology-actions[hidden],
+#verbMorphologyNextButton[hidden],
+.conjugation-comet-unavailable[hidden] {
+  display: none;
+}
+
+.verb-guided-status strong {
+  font-size: 0.76rem;
+  letter-spacing: 0.025em;
+}
+
+.verb-guided-status span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.verb-guided-status.is-supported {
+  border-color: color-mix(in srgb, var(--theme-amber, #8a692c) 82%, var(--line));
+}
+
+.verb-guided-status.is-error {
+  border-color: color-mix(in srgb, var(--red) 68%, var(--line));
+  background: color-mix(in srgb, var(--red) 10%, var(--panel));
+}
+
+.verb-morphology-board {
+  width: min(820px, 100%);
+  margin: clamp(10px, 2vw, 22px) auto;
+  display: grid;
+  gap: clamp(13px, 2vw, 20px);
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--blue) 11%, transparent), transparent 35%),
+    color-mix(in srgb, var(--theme-input, var(--panel)) 88%, transparent);
+  box-shadow: var(--theme-shadow, 0 18px 44px rgba(37, 49, 44, 0.1));
+}
+
+.verb-morphology-board[aria-busy="true"] {
+  cursor: progress;
+}
+
+.verb-morphology-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.verb-morphology-head h1,
+.verb-morphology-head p {
+  margin: 0;
+}
+
+.verb-morphology-head h1 {
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.1;
+}
+
+.verb-kicker {
+  color: var(--green-dark);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.verb-morphology-lemma {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--green-dark) 34%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--green-dark) 7%, var(--panel));
+  color: var(--green-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.verb-morphology-cue {
+  display: grid;
+  grid-template-columns: clamp(54px, 9vw, 76px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 22px);
+  padding: clamp(14px, 2.5vw, 22px);
+  border: 1px solid color-mix(in srgb, var(--blue) 34%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--blue) 7%, var(--panel));
+}
+
+.verb-morphology-role {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--theme-blue-filled, #496d84);
+  color: #ffffff;
+  font-size: clamp(1.1rem, 3vw, 1.55rem);
+  font-weight: 950;
+}
+
+.verb-morphology-context,
+.verb-morphology-prompt,
+.verb-morphology-label,
+.verb-morphology-instructions,
+.verb-morphology-hint,
+.verb-morphology-footer p {
+  margin: 0;
+}
+
+.verb-morphology-context {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.verb-morphology-prompt {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.verb-morphology-label {
+  margin-top: 5px;
+  color: color-mix(in srgb, var(--blue) 78%, var(--ink));
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.verb-morphology-instructions {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.verb-morphology-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.verb-morphology-choice {
+  min-width: 0;
+  min-height: 74px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 12px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  padding: 12px;
+  font: inherit;
+  font-size: clamp(1.08rem, 3vw, 1.45rem);
+  font-weight: 900;
+  text-align: center;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.verb-morphology-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.verb-morphology-choice:hover:not(:disabled) {
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.verb-morphology-choice:focus-visible,
+.verb-morphology-actions button:focus-visible {
+  outline: 3px solid var(--theme-focus-ring, #537f70);
+  outline-offset: 3px;
+}
+
+.verb-morphology-choice.is-selected {
+  border-color: var(--blue);
+  background: color-mix(in srgb, var(--blue) 10%, var(--panel));
+  box-shadow: inset 0 0 0 1px var(--blue);
+}
+
+.verb-morphology-choice.is-wrong {
+  border-color: var(--red);
+  background: color-mix(in srgb, var(--red) 10%, var(--panel));
+  color: var(--red);
+}
+
+.verb-morphology-choice.is-correct,
+.verb-morphology-choice.is-revealed {
+  border-color: var(--green-dark);
+  background: color-mix(in srgb, var(--green-dark) 9%, var(--panel));
+  color: var(--green-dark);
+}
+
+.verb-morphology-choice:disabled {
+  cursor: default;
+  opacity: 0.68;
+}
+
+.verb-morphology-choice.is-correct:disabled,
+.verb-morphology-choice.is-revealed:disabled {
+  opacity: 1;
+}
+
+.verb-morphology-hint {
+  display: grid;
+  gap: 3px;
+  padding: 11px 13px;
+  border-left: 4px solid var(--theme-amber, #8a692c);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--theme-amber, #8a692c) 10%, var(--panel));
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.verb-morphology-hint strong {
+  color: var(--ink);
+}
+
+.verb-morphology-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.verb-morphology-actions button {
+  min-height: 44px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 999px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  padding: 8px 15px;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.verb-morphology-actions button:hover:not(:disabled) {
+  border-color: var(--blue);
+}
+
+.verb-morphology-actions .verb-morphology-next {
+  border-color: color-mix(in srgb, var(--blue) 72%, var(--theme-line-strong, var(--line)));
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.verb-morphology-actions .verb-morphology-next:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+.verb-morphology-actions button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.verb-morphology-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 20px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.verb-morphology-footer p.is-correct {
+  color: var(--green-dark);
+}
+
+.verb-morphology-footer p.is-wrong {
+  color: var(--red);
+}
+
+.verb-morphology-footer p.is-hint {
+  color: color-mix(in srgb, var(--theme-amber, #8a692c) 72%, var(--ink));
+}
+
+.verb-morphology-footer span {
+  flex: 0 0 auto;
+}
+
+.conjugation-comet-unavailable {
+  width: min(620px, 100%);
+  margin: clamp(18px, 6vh, 70px) auto;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--theme-panel-raised, var(--panel));
+  text-align: center;
+  box-shadow: var(--theme-shadow);
+}
+
+.conjugation-comet-unavailable img {
+  width: min(170px, 46vw);
+  height: auto;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.22));
+}
+
+.conjugation-comet-unavailable h1 {
+  margin: 5px 0 10px;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 4vw, 2rem);
+}
+
+.conjugation-comet-unavailable p:not(.verb-kicker) {
+  margin: 0 auto;
+  max-width: 48ch;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.conjugation-comet-unavailable a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: var(--theme-green-filled, var(--green));
+  color: #ffffff;
+  padding: 9px 17px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+@media (max-width: 430px) {
+  .conjugation-comet-main {
+    padding-inline: 10px;
+  }
+
+  .verb-morphology-board {
+    margin-block: 0;
+    padding: 15px;
+  }
+
+  .verb-morphology-head,
+  .verb-morphology-footer {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .verb-morphology-choices {
+    grid-template-columns: 1fr;
+  }
+
+  .verb-morphology-choice {
+    min-height: 58px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verb-morphology-choice {
+    animation: none;
+    transition: none;
+  }
+}

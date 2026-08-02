@@ -5,10 +5,24 @@ import vm from "node:vm";
 
 const staticRoot = new URL("../../../languages/czech/static/", import.meta.url);
 const curriculumRoot = new URL("../../../curriculum/data/", import.meta.url);
-const [app, appCss, indexHtml, wordWorld, wordWorldHtml, profileSource, sourceCatalog, bindingRegistry, morphologyCatalog] = await Promise.all([
+const [
+  app,
+  indexHtml,
+  cometController,
+  cometCss,
+  cometHtml,
+  wordWorld,
+  wordWorldHtml,
+  profileSource,
+  sourceCatalog,
+  bindingRegistry,
+  morphologyCatalog
+] = await Promise.all([
   readFile(new URL("app.js", staticRoot), "utf8"),
-  readFile(new URL("app.css", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
+  readFile(new URL("conjugation-comet.js", staticRoot), "utf8"),
+  readFile(new URL("conjugation-comet.css", staticRoot), "utf8"),
+  readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
   readFile(new URL("course-profile.js", staticRoot), "utf8"),
@@ -29,7 +43,11 @@ function functionSource(source, name, nextName) {
 }
 
 test("developer Guided badges disclose prototype status without leaking the answer", () => {
-  for (const [html, id] of [[indexHtml, "verbGuidedStatus"], [wordWorldHtml, "wordNetGuidedStatus"]]) {
+  for (const [html, id] of [
+    [indexHtml, "verbGuidedStatus"],
+    [wordWorldHtml, "wordNetGuidedStatus"],
+    [cometHtml, "verbGuidedStatus"]
+  ]) {
     const start = html.indexOf(`id="${id}"`);
     const end = html.indexOf("</aside>", start);
     assert.ok(start >= 0 && end > start);
@@ -48,6 +66,15 @@ test("developer lifecycle modules stay outside ordinary Explore startup", () => 
   assert.doesNotMatch(wordWorld, /^import .*guided-opportunity/m);
   const wordGuided = functionSource(wordWorld, "initializeGuidedWordWorldMode", "runtimeAdapter");
   assert.match(wordGuided, /await import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-5"\)/);
+  const cometLoad = functionSource(
+    cometController,
+    "loadConjugationCometRuntime",
+    "morphologySequenceConfiguration"
+  );
+  assert.match(
+    cometLoad,
+    /import\("\.\/curriculum\/guided-opportunity\.mjs\?v=guided-opportunity-5"\)/
+  );
 });
 
 test("Guided games declare their honest receptive evidence modalities", () => {
@@ -56,7 +83,7 @@ test("Guided games declare their honest receptive evidence modalities", () => {
     binding.exerciseFamilyId === "verb-nebula.meaning-match"
   ));
   const morphologyBinding = bindingRegistry.bindings.find((binding) => (
-    binding.exerciseFamilyId === "verb-nebula.contextual-target-realization"
+    binding.exerciseFamilyId === "conjugation-comet.contextual-target-realization"
   ));
   const wordCapability = wordBinding.evidenceCapabilities.find((capability) => capability.scoreRequired);
   const verbCapability = verbBinding.evidenceCapabilities.find((capability) => capability.scoreRequired);
@@ -93,17 +120,17 @@ test("Guided games declare their honest receptive evidence modalities", () => {
     minimumScore: 1
   });
   assert.match(wordWorld, /capabilityId: "independent-comprehension"/);
-  assert.match(app, /capabilityId: familyConfiguration\.assessedCapabilityId/);
+  assert.match(cometController, /capabilityId: familyConfiguration\.assessedCapabilityId/);
   assert.equal(
     course.curriculum.verbExerciseFamilies.families.meaning.assessedCapabilityId,
     "independent-discrimination"
   );
   assert.equal(
-    course.curriculum.verbExerciseFamilies.families.morphology.assessedCapabilityId,
+    course.curriculum.conjugationComet.assessedCapabilityId,
     "independent-form-discrimination"
   );
   assert.doesNotMatch(wordWorld, /capabilityId: "independent-retrieval"/);
-  assert.doesNotMatch(app, /capabilityId: "independent-retrieval"/);
+  assert.doesNotMatch(cometController, /capabilityId: "independent-retrieval"/);
 });
 
 test("Word World consumes the revisioned exact focus token and has no Guided random fallback", () => {
@@ -175,8 +202,8 @@ test("Verb Nebula verifies raw dictionary bytes and builds one deterministic bou
   assert.match(app, /if \(state\.verbGuidedRequested\) \{[\s\S]*?renderVerbNebula\(\);\s*return;\s*\}/);
 });
 
-test("Verb forms stay course-configured, developer-only, deterministic, and non-semantic", () => {
-  const morphologyConfiguration = course.curriculum.verbExerciseFamilies.families.morphology;
+test("Conjugation Comet stays course-configured, developer-only, deterministic, and non-semantic", () => {
+  const morphologyConfiguration = course.curriculum.conjugationComet;
   const morphologySources = sourceCatalog.sources.filter((entry) => (
     entry.exerciseFamilyId === morphologyConfiguration.exerciseFamilyId
   ));
@@ -214,7 +241,7 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
   const expectedSequence = [
     {
       contentId: "cs.morphology.cist.present-singular-person.1sg",
-      bindingId: "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
+      bindingId: "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
       cueRef: { id: "cs.cue.cist.read.speaker-singular-current", revision: 1 },
       targetItemRef: { id: "cs.form.cist.present-indicative.1sg", revision: 1 },
       role: "I",
@@ -223,7 +250,7 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
     },
     {
       contentId: "cs.morphology.cist.present-singular-person.2sg",
-      bindingId: "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
+      bindingId: "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
       cueRef: { id: "cs.cue.cist.read.addressee-singular-current", revision: 2 },
       targetItemRef: { id: "cs.form.cist.present-indicative.2sg", revision: 2 },
       role: "you",
@@ -232,7 +259,7 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
     },
     {
       contentId: "cs.morphology.cist.present-singular-person.3sg",
-      bindingId: "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg",
+      bindingId: "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg",
       cueRef: { id: "cs.cue.cist.read.named-third-person-current", revision: 2 },
       targetItemRef: { id: "cs.form.cist.present-indicative.3sg", revision: 1 },
       role: "Grandpa",
@@ -267,11 +294,29 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
     assert.equal(item?.surface, expected.surface);
   });
 
-  const requestedFamily = functionSource(app, "requestedVerbExerciseFamily", "verbExerciseFamilyConfiguration");
-  assert.match(requestedFamily, /explicitLocalGuidedRequest\(\) && requested === "morphology"/);
-  assert.match(requestedFamily, /configuration\?\.defaultFamily \|\| "meaning"/);
+  assert.equal(morphologyConfiguration.enabled, true);
+  assert.equal(morphologyConfiguration.activityId, "conjugation-comet");
+  assert.equal(
+    morphologyConfiguration.exerciseFamilyId,
+    "conjugation-comet.contextual-target-realization"
+  );
+  assert.equal(morphologyConfiguration.reviewStatus, "prototype-not-human-approved");
+  assert.equal(morphologyConfiguration.releaseEnabled, false);
+  const availability = functionSource(
+    cometController,
+    "conjugationCometAvailable",
+    "conjugationCometReleaseEnabled"
+  );
+  assert.match(availability, /course\.capabilities\?\.conjugationComet !== true/);
+  assert.match(availability, /configuration\.activityId !== "conjugation-comet"/);
+  assert.match(availability, /configuration\.developerOnly\) return explicitLocalGuidedRequest\(\)/);
+  assert.match(app, /redirectLegacyConjugationCometBookmark[\s\S]*?verb-family"[\s\S]*?"morphology"/);
 
-  const prepare = functionSource(app, "prepareVerbMorphologyGuidedStep", "initializeVerbGuidedMode");
+  const prepare = functionSource(
+    cometController,
+    "prepareVerbMorphologyGuidedStep",
+    "applyMorphologyGuidedRound"
+  );
   assert.match(prepare, /claimDeveloperPilotSequence\([\s\S]*?requirePresented: \(\) => false/);
   assert.match(prepare, /restoreMorphologyRoundState\(claim\.taskRef\)/);
   assert.match(prepare, /JSON\.stringify\(restored\.round\) !== JSON\.stringify\(expectedRound\)/);
@@ -279,21 +324,38 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
   assert.match(prepare, /normalizeVerbMorphologyProgress\(restored\.state, fallbackRoundState, round\)/);
   assert.match(prepare, /composeBoundMorphologyRound\([\s\S]*?`preview:\$\{resolution\.source\.contentDigest\}`/);
   assert.match(prepare, /sequence:[\s\S]*?orderedBindingIds:[\s\S]*?expectedStep: claim\.sequence\.expectedStep/);
-  const resolveStep = functionSource(app, "resolveVerbMorphologyStep", "prepareVerbMorphologyGuidedStep");
+  const resolveStep = functionSource(
+    cometController,
+    "resolveVerbMorphologyStep",
+    "prepareVerbMorphologyGuidedStep"
+  );
   assert.match(resolveStep, /resolvePinnedMorphologyCatalog\([\s\S]*?verbMorphologyCatalogBytes,[\s\S]*?resolution\.source\.catalogDigest/);
   assert.match(resolveStep, /sameRefSet\(resolution\.source\.snapshot\?\.itemRefs, familyItems\)/);
   assert.match(resolveStep, /sameRefSet\(resolution\.source\.snapshot\?\.cueRefs, familyCues\)/);
-  const compose = functionSource(app, "composeBoundMorphologyRound", "resolveVerbMorphologyStep");
+  const compose = functionSource(
+    cometController,
+    "composeBoundMorphologyRound",
+    "resolveVerbMorphologyStep"
+  );
   assert.match(compose, /cueRef: selectedCueRef/);
-  const activate = functionSource(app, "activateVerbGuidedOpportunity", "parseStoredVerbMemory");
+  assert.match(compose, /releaseMode: conjugationCometReleaseEnabled\(\)/);
+  const activate = functionSource(
+    cometController,
+    "activateVerbGuidedOpportunity",
+    "setVerbMorphologyAnnouncement"
+  );
   assert.ok(activate.indexOf("applyMorphologyGuidedRound(round, { task })") < activate.indexOf("await saveVerbMorphologyProgress()"));
   assert.ok(activate.indexOf("await saveVerbMorphologyProgress()") < activate.indexOf('state.verbGuidedStatus = "ready"'));
-  const painted = functionSource(app, "verbMorphologyPresentationPainted", "verbGuidedPresentationReady");
+  const painted = functionSource(
+    cometController,
+    "verbMorphologyPresentationPainted",
+    "verbGuidedPresentationReady"
+  );
   assert.match(painted, /round\.cue\?\.cueRef\?\.id !== selectedCueRef\.id/);
   assert.match(painted, /data-morphology-item-id/);
   assert.match(painted, /naturalTranslationEn/);
 
-  const render = functionSource(app, "renderVerbMorphology", "renderVerbNebula");
+  const render = functionSource(cometController, "renderVerbMorphology", "morphologyRefKey");
   assert.doesNotMatch(render, /createElement\("img"\)|assetPath|picture clue/i);
   assert.match(render, /presentation\.naturalTranslationEn/);
   assert.match(render, /presentation\.teachingLabelEn/);
@@ -315,10 +377,18 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
   assert.ok((render.match(/nextButton\.hidden = true/g) || []).length >= 2);
   assert.match(render, /choices\.replaceChildren\(\);\s*choices\.hidden = true;/);
   assert.match(render, /"Unavailable · non-mastery · 0 XP"/);
-  const guidedStatus = functionSource(app, "renderVerbGuidedStatus", "waitForVerbPaintedFrame");
-  assert.match(guidedStatus, /state\.verbGuidedStatus === "awaiting-next" && morphology[\s\S]*?supportedBeforeResponse[\s\S]*?supported comprehension, not independent evidence/);
+  const guidedStatus = functionSource(
+    cometController,
+    "renderVerbGuidedStatus",
+    "waitForVerbPaintedFrame"
+  );
+  assert.match(guidedStatus, /state\.verbGuidedStatus === "awaiting-next"[\s\S]*?supportedBeforeResponse[\s\S]*?supported comprehension, not independent evidence/);
 
-  const choose = functionSource(app, "chooseVerbMorphologyForm", "showVerbMorphologyHint");
+  const choose = functionSource(
+    cometController,
+    "chooseVerbMorphologyForm",
+    "showVerbMorphologyHint"
+  );
   assert.ok(choose.indexOf("morphologySettlement(") < choose.indexOf("await recordVerbMorphologyEvidence(request)"));
   assert.ok(choose.indexOf("await saveVerbMorphologyProgress(pendingProgress)") < choose.indexOf("await recordVerbMorphologyEvidence(request)"));
   assert.ok(choose.indexOf("await recordVerbMorphologyEvidence(request)") < choose.indexOf("await saveVerbMorphologyProgress(completedEvidenceProgress)"));
@@ -329,7 +399,11 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
   assert.match(choose, /choose Next form when ready/);
   assert.doesNotMatch(choose, /CaatuuLearning\?\.record/);
 
-  const reveal = functionSource(app, "revealVerbMorphologySolution", "advanceVerbMorphologySequence");
+  const reveal = functionSource(
+    cometController,
+    "revealVerbMorphologySolution",
+    "advanceVerbMorphologySequence"
+  );
   assert.ok(reveal.indexOf("await saveVerbMorphologyProgress(pendingProgress)") < reveal.indexOf("await recordVerbMorphologyEvidence(request)"));
   assert.match(reveal, /terminalCompletionKind: "solution-review"/);
   assert.match(reveal, /const settlementId = morphologySettlement\(\s*"solution-reveal"/);
@@ -339,41 +413,69 @@ test("Verb forms stay course-configured, developer-only, deterministic, and non-
   assert.match(reveal, /choose Next form when ready/);
   assert.doesNotMatch(reveal, /CaatuuLearning\?\.record/);
 
-  const advance = functionSource(app, "advanceVerbMorphologySequence", "waitForVerbTransition");
+  const advance = functionSource(
+    cometController,
+    "advanceVerbMorphologySequence",
+    "renderConjugationComet"
+  );
   assert.ok(advance.indexOf("pendingCompletionKind: completionKind") < advance.indexOf("completeVerbMorphologySequenceStep(completionKind)"));
   assert.ok(advance.indexOf("completeVerbMorphologySequenceStep(completionKind)") < advance.indexOf("prepareVerbMorphologyGuidedStep("));
-  const saveProgress = functionSource(app, "saveVerbMorphologyProgress", "failVerbMorphologyOnRevisionConflict");
+  const saveProgress = functionSource(
+    cometController,
+    "saveVerbMorphologyProgress",
+    "abortVerbGuidedLifecycle"
+  );
   assert.match(saveProgress, /expectedRevision: state\.verbMorphologyProgressRevision/);
   assert.match(saveProgress, /state\.verbMorphologyProgressRevision = Number\(saved\?\.revision/);
-  const revisionConflict = functionSource(app, "failVerbMorphologyOnRevisionConflict", "morphologyEvidenceRequest");
+  const revisionConflict = functionSource(
+    cometController,
+    "failVerbMorphologyOnRevisionConflict",
+    "trackVerbGuidedOperation"
+  );
   assert.match(revisionConflict, /CURRICULUM_MORPHOLOGY_ROUND_REVISION_CONFLICT[\s\S]*?CURRICULUM_MORPHOLOGY_ROUND_SETTLED/);
   assert.match(revisionConflict, /changed in another tab[\s\S]*?Reload this page/);
-  assert.ok((app.match(/failVerbMorphologyOnRevisionConflict\(error\)/g) || []).length >= 6);
-  const recover = functionSource(app, "recoverVerbMorphologyProgress", "morphologyPresentation");
+  assert.ok(
+    (cometController.match(/failVerbMorphologyOnRevisionConflict\(error\)/g) || []).length >= 6
+  );
+  const recover = functionSource(
+    cometController,
+    "recoverVerbMorphologyProgress",
+    "morphologyPresentation"
+  );
   assert.match(recover, /recordVerbMorphologyEvidence\(pending\.request, \{ direct: true \}\)/);
   assert.match(recover, /completeVerbMorphologySequenceStep\(completionKind, \{ direct: true \}\)/);
-  assert.match(indexHtml, /id="verbMorphologyNextButton"[\s\S]*?hidden/);
-  assert.match(app, /verbMorphologyNextButton[\s\S]*?advanceVerbMorphologySequence/);
+  assert.match(cometHtml, /id="verbMorphologyNextButton"[\s\S]*?hidden/);
+  assert.match(
+    cometController,
+    /verbMorphologyNextButton[\s\S]*?advanceVerbMorphologySequence/
+  );
 
   const memoryRead = functionSource(app, "readVerbMemoryEnvelope", "readVerbMemory");
   assert.match(memoryRead, /try \{[\s\S]*?localStorage\.setItem\(verbStorageKey, JSON\.stringify\(migrated\)\)[\s\S]*?catch \(error\)[\s\S]*?return migrated/);
 
   assert.match(indexHtml, /id="verbWorldSubtitle">Match meanings<\/small>/);
-  assert.match(app, /state\.verbExerciseFamily === "morphology" \? "Choose forms" : "Match meanings"/);
-  assert.match(indexHtml, /id="verbMorphologyTitle">Which form fits\?<\/h2>/);
-  assert.match(indexHtml, /id="verbMorphologyLemmaTarget" lang="cs-CZ">číst<\/span>/u);
-  assert.match(indexHtml, /id="verbMorphologyGloss" lang="en">read<\/span>/);
-  assert.match(indexHtml, /id="verbMorphologyChoices"[\s\S]*?role="group"/);
-  assert.match(indexHtml, /id="verbMorphologyFeedback"[\s\S]*?aria-live="polite"/);
-  assert.match(indexHtml, /id="verbGuidedStatus"[^>]*role="status"[^>]*aria-live="polite"/);
-  assert.match(app, /if \(morphology\) \{[\s\S]*?banner\.removeAttribute\("aria-live"\)/);
-  assert.doesNotMatch(indexHtml, /id="verbMorphologyNextButton"[^>]*aria-describedby/);
-  assert.match(appCss, /\.verb-morphology-role\s*\{[\s\S]*?background: var\(--theme-blue-filled, #496d84\);[\s\S]*?color: #ffffff;/);
-  assert.match(appCss, /\.verb-morphology-visually-hidden\s*\{[\s\S]*?clip: rect\(0 0 0 0\);/);
-  assert.match(appCss, /#verbMorphologyCue\[hidden\],[\s\S]*?#verbMorphologyNextButton\[hidden\]\s*\{\s*display: none;/);
+  assert.doesNotMatch(indexHtml, /id="verbMorphologyBoard"/);
+  assert.match(cometHtml, /id="verbMorphologyTitle">Which form fits\?<\/h1>/);
+  assert.match(cometHtml, /id="verbMorphologyLemmaTarget"><\/span>/);
+  assert.match(cometHtml, /id="verbMorphologyGloss" lang="en"><\/span>/);
+  assert.doesNotMatch(cometHtml, /\b(?:číst|čtu|čteš|čte)\b/u);
+  assert.match(cometHtml, /id="verbMorphologyChoices"[\s\S]*?role="group"/);
+  assert.match(cometHtml, /id="verbMorphologyFeedback"[\s\S]*?aria-live="polite"/);
+  assert.doesNotMatch(
+    cometHtml,
+    /id="verbGuidedStatus"[^>]*(?:role="status"|aria-live="polite")/
+  );
+  assert.match(
+    cometController,
+    /banner\.removeAttribute\("role"\)[\s\S]*?banner\.removeAttribute\("aria-live"\)/
+  );
+  assert.doesNotMatch(cometHtml, /id="verbMorphologyNextButton"[^>]*aria-describedby/);
+  assert.match(cometCss, /\.verb-morphology-role\s*\{[\s\S]*?background: var\(--theme-blue-filled, #496d84\);[\s\S]*?color: #ffffff;/);
+  assert.match(cometCss, /\.verb-morphology-visually-hidden\s*\{[\s\S]*?clip: rect\(0 0 0 0\);/);
+  assert.match(cometCss, /#verbMorphologyCue\[hidden\],[\s\S]*?#verbMorphologyNextButton\[hidden\],[\s\S]*?display: none;/);
 });
 
-test("Verb forms reject contradictory persisted progress envelopes", () => {
+test("Conjugation Comet rejects contradictory persisted progress envelopes", () => {
   const context = {
     state: { verbMorphologyRound: null },
     verbMorphologyProgressSchema: "caatuu-morphology-guided-progress-v1",
@@ -388,7 +490,7 @@ test("Verb forms reject contradictory persisted progress envelopes", () => {
     morphologyRefKey: (reference) => `${reference?.id || ""}@${reference?.revision || ""}`
   };
   vm.runInNewContext(
-    `${functionSource(app, "normalizeVerbMorphologyProgress", "morphologyTaskRefFor")}; this.normalizeProgress = normalizeVerbMorphologyProgress;`,
+    `${functionSource(cometController, "normalizeVerbMorphologyProgress", "morphologyTaskRefFor")}; this.normalizeProgress = normalizeVerbMorphologyProgress;`,
     context
   );
   const targetItemRef = { id: "cs.form.cist.present-indicative.1sg", revision: 1 };
@@ -561,11 +663,27 @@ test("Guided games drain lifecycle work before reset and keep recovery journals 
   const verbReset = functionSource(app, "prepareVerbProgressReset", "resetGuidedVerbRuntimeState");
   assert.ok(verbReset.indexOf("state.verbProgressResetPending = true") < verbReset.indexOf("lifecycle?.abort?.()"));
   assert.match(verbReset, /state\.verbGuidedActivationEpoch \+= 1/);
-  assert.match(verbReset, /state\.verbMorphologyGeneration \+= 1/);
   assert.match(verbReset, /\.\.\.state\.verbGuidedOperations/);
   assert.match(app, /registerProgressResetPreparation\?\.\(prepareVerbProgressReset\)/);
   assert.match(app, /trackVerbGuidedOperation\(settleVerbMatch\)/);
   assert.match(app, /trackVerbGuidedOperation\(toggleVerbSolution\)/);
+
+  const cometReset = functionSource(
+    cometController,
+    "prepareConjugationCometProgressReset",
+    "resetConjugationCometRuntimeState"
+  );
+  assert.ok(
+    cometReset.indexOf("state.verbProgressResetPending = true")
+      < cometReset.indexOf("lifecycle?.abort?.()")
+  );
+  assert.match(cometReset, /state\.verbGuidedActivationEpoch \+= 1/);
+  assert.match(cometReset, /state\.verbMorphologyGeneration \+= 1/);
+  assert.match(cometReset, /\.\.\.state\.verbGuidedOperations/);
+  assert.match(
+    cometController,
+    /registerProgressResetPreparation\?\.\(\s*prepareConjugationCometProgressReset/
+  );
 
   const wordReset = functionSource(
     wordWorld,
@@ -577,7 +695,11 @@ test("Guided games drain lifecycle work before reset and keep recovery journals 
   assert.match(wordReset, /state\.phraseRequestId \+= 1/);
   assert.match(wordWorld, /registerProgressResetPreparation\?\.\(prepareGuidedWordProgressReset\)/);
 
-  const recovery = functionSource(app, "recoverVerbMorphologyProgress", "morphologyPresentation");
+  const recovery = functionSource(
+    cometController,
+    "recoverVerbMorphologyProgress",
+    "morphologyPresentation"
+  );
   assert.ok(
     recovery.indexOf("await saveVerbMorphologyProgress(recoveredProgress)")
       < recovery.lastIndexOf("progress = state.verbMorphologyProgress"),
@@ -586,7 +708,11 @@ test("Guided games drain lifecycle work before reset and keep recovery journals 
   assert.match(recovery, /state\.verbMorphologyResume = true/);
   assert.match(recovery, /restoredWithSupport[\s\S]*?supported comprehension, not independent evidence/);
 
-  const hint = functionSource(app, "showVerbMorphologyHint", "revealVerbMorphologySolution");
+  const hint = functionSource(
+    cometController,
+    "showVerbMorphologyHint",
+    "revealVerbMorphologySolution"
+  );
   assert.ok(
     hint.indexOf("await saveVerbMorphologyProgress") < hint.indexOf("markHint("),
     "support must not be marked before its visible hint state is durably saved"
@@ -594,7 +720,11 @@ test("Guided games drain lifecycle work before reset and keep recovery journals 
   assert.match(hint, /state\.verbMorphologyFocusNextStep = transferFocus/);
   assert.match(hint, /state\.verbMorphologyFocusHintAction = transferFocus/);
 
-  const conflict = functionSource(app, "failVerbMorphologyOnRevisionConflict", "trackVerbGuidedOperation");
+  const conflict = functionSource(
+    cometController,
+    "failVerbMorphologyOnRevisionConflict",
+    "trackVerbGuidedOperation"
+  );
   for (const code of [
     "CURRICULUM_MORPHOLOGY_ROUND_TASK_INVALID",
     "EVIDENCE_TASK_NOT_ISSUED",
@@ -605,7 +735,11 @@ test("Guided games drain lifecycle work before reset and keep recovery journals 
     "CURRICULUM_STORAGE_CORRUPT"
   ]) assert.match(conflict, new RegExp(code));
 
-  const advance = functionSource(app, "advanceVerbMorphologySequence", "waitForVerbTransition");
+  const advance = functionSource(
+    cometController,
+    "advanceVerbMorphologySequence",
+    "renderConjugationComet"
+  );
   assert.match(advance, /verbMorphologyProgress\?\.terminalCompletionKind[\s\S]*?"awaiting-next"/);
   assert.match(advance, /state\.verbProgressResetPending/);
 });

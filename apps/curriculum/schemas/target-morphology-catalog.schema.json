@@ -112,7 +112,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "specLocale", "stableContentId", "stableContentSequence", "exerciseFamilyId", "releasePolicy", "curriculum", "targetPack", "mechanicCatalog"
+        "specLocale", "stableContentId", "stableContentSequence", "activityId", "exerciseFamilyId", "releasePolicy", "curriculum", "targetPack", "mechanicCatalog"
       ],
       "properties": {
         "specLocale": {"const": "en"},
@@ -142,7 +142,8 @@
             }
           }
         },
-        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "activityId": {"const": "conjugation-comet"},
+        "exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"},
         "releasePolicy": {
           "type": "object",
           "additionalProperties": false,
@@ -197,7 +198,7 @@
       "properties": {
         "lemmaTarget": {"type": "string", "minLength": 1},
         "glossEn": {"type": "string", "minLength": 1},
-        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"},
         "capabilityRef": {"$ref": "#/$defs/capabilityRef"},
         "targetSkillRef": {"$ref": "#/$defs/targetSkillRef"},
         "unitRef": {"$ref": "#/$defs/unitRef"},
@@ -272,7 +273,7 @@
       "properties": {
         "id": {"type": "string", "pattern": "^[a-z]{2,3}\\.exercise\\."},
         "revision": {"type": "integer", "minimum": 1},
-        "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
+        "exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"},
         "capabilityRef": {"$ref": "#/$defs/capabilityRef"},
         "challenge": {
           "type": "object",

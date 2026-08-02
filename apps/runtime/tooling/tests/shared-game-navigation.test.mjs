@@ -7,7 +7,7 @@ const [chrome, chromeCss, serviceWorker, ...pages] = await Promise.all([
   readFile(new URL("chrome.js", staticRoot), "utf8"),
   readFile(new URL("chrome.css", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
-  ...["chat.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html", "audio-lab.html"]
+  ...["chat.html", "conjugation-comet.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html", "audio-lab.html"]
     .map((file) => readFile(new URL(file, staticRoot), "utf8"))
 ]);
 
@@ -15,6 +15,7 @@ test("Games returns every active game to the planet selector", () => {
   assert.match(chrome, /navigation\.active-game\.v1/);
   assert.match(chrome, /"verb-lab"[\s\S]*?href: `index\.html\?\$\{gameNavigationQueryKey\}=verb-lab`/);
   assert.match(chrome, /"word-net"[\s\S]*?href: "word-net\.html"/);
+  assert.match(chrome, /"conjugation-comet"[\s\S]*?href: course\.routes\.conjugationComet/);
   assert.match(chrome, /item\.key === "games"[\s\S]*?gameNavigationHref\(\)/);
   assert.match(chrome, /activeGameId && activeGameId !== "galaxy"[\s\S]*?rememberActiveGame\("galaxy"\)[\s\S]*?event\.preventDefault\(\)[\s\S]*?event\.stopImmediatePropagation\(\)/);
   assert.match(chrome, /const backToGalaxy = document\.querySelector\("\.app-header-back:not\(\[hidden\]\)"\)[\s\S]*?backToGalaxy\.click\(\)/);
@@ -39,6 +40,7 @@ test("Android back gestures activate the same visible game back control", () => 
 test("active game headers center the matching planet and use Games artwork as the back control", () => {
   assert.match(chrome, /title: "Verb Nebula"[\s\S]*?iconSrc: "\/assets\/planets\/nebula\.png"/);
   assert.match(chrome, /title: "Word World"[\s\S]*?iconSrc: "\/assets\/planets\/planet_A\.png"/);
+  assert.match(chrome, /title: "Conjugation Comet"[\s\S]*?iconSrc: "\/assets\/planets\/conjugation-comet\.png"/);
   assert.match(chrome, /titleIcon\.className = "app-header-title-icon"/);
   assert.match(chrome, /titleKicker\.className = "app-header-title-kicker"/);
   assert.match(chrome, /backArtwork\.className = "app-header-back-image"/);
@@ -71,6 +73,25 @@ test("the Games landing screen relies on the shared header and fits above the fi
   assert.doesNotMatch(gamesPage, /class="train-galaxy-copy"/);
   assert.match(chromeCss, /\.games-page \.app-shell \{[\s\S]*?padding-bottom: 0;/);
   assert.match(chromeCss, /\.games-page \.brand-icon \{[\s\S]*?width: auto;[\s\S]*?max-width: none;[\s\S]*?height: 36px;[\s\S]*?max-height: 36px;/);
+});
+
+test("Conjugation Comet is a standalone developer-gated game route", () => {
+  const gamesPage = pages.find((page) => page.includes("trainPanelGalaxy"));
+  const cometPage = pages.find((page) => page.includes("conjugation-comet-page"));
+  assert.match(gamesPage, /id="conjugationCometWorld"[\s\S]*?data-train-tab="conjugation-comet"[\s\S]*?hidden/);
+  assert.match(gamesPage, /\/assets\/planets\/conjugation-comet\.png/);
+  assert.match(cometPage, /data-caatuu-header-title="Conjugation Comet"/);
+  assert.match(cometPage, /data-caatuu-header-back-href="index\.html"/);
+  assert.match(cometPage, /id="conjugationCometPanel"/);
+  assert.match(chrome, /document\.querySelector\("\.conjugation-comet-page"\)[\s\S]*?return "conjugation-comet"/);
+  assert.match(chrome, /function explicitDeveloperGameAccess\(configuration\)[\s\S]*?curriculum-guided/);
+  assert.match(chrome, /course\.capabilities\?\.conjugationComet !== true[\s\S]*?course\.routes\?\.conjugationComet[\s\S]*?configuration\?\.enabled !== true[\s\S]*?activityId !== "conjugation-comet"[\s\S]*?exerciseFamilyId !== "conjugation-comet\.contextual-target-realization"/);
+  assert.match(chrome, /configuration\.developerOnly === false[\s\S]*?configuration\.releaseEnabled === true[\s\S]*?configuration\.reviewStatus === "human-approved"/);
+  assert.match(gamesPage, /data-course-game="conjugation-comet"/);
+  assert.match(chrome, /document\.querySelectorAll\("\[data-course-game\]"\)[\s\S]*?trigger\.hidden = !available/);
+  assert.match(chrome, /function gameLandingHref\(gameId\)[\s\S]*?new URL\(course\.routes\.games,[\s\S]*?url\.searchParams\.set\(parameter, "1"\)/);
+  assert.match(chrome, /back\.href = gameLandingHref\("conjugation-comet"\)/);
+  assert.match(chrome, /requestedGame === "conjugation-comet"[\s\S]*?event\.stopImmediatePropagation\(\)[\s\S]*?window\.location\.href = gamePresentationHref\(availableGame\)/);
 });
 
 test("the themed scrollbar reserves its gutter without shifting fixed navigation", () => {
@@ -132,6 +153,7 @@ test("Games mirrors the remembered planet on its bottom-nav badge", () => {
   assert.match(chrome, /rememberActiveGame\(gameId\)[\s\S]*?syncGameNavigationIndicators\(normalizedGameId\)/);
   assert.match(chrome, /activeGameId && activeGameId !== "galaxy" \? activeGameId : readRememberedGame\(\)/);
   assert.match(serviceWorker, /\/assets\/planets\/nebula\.png/);
+  assert.match(serviceWorker, /\/assets\/planets\/conjugation-comet\.png/);
   assert.match(serviceWorker, /\/assets\/planets\/planet_A\.png/);
   assert.match(serviceWorker, /\/assets\/planets\/planet_C\.png/);
 });
@@ -139,11 +161,11 @@ test("Games mirrors the remembered planet on its bottom-nav badge", () => {
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
     assert.match(page, /chrome\.css\?v=chrome-style-87/);
-    assert.match(page, /chrome\.js\?v=chrome-85/);
+    assert.match(page, /chrome\.js\?v=chrome-86/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
   assert.match(serviceWorker, /chrome\.css\?v=chrome-style-87/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-85/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-86/);
 });
 
 test("shared headers stay focused while each game owns its theme control", () => {

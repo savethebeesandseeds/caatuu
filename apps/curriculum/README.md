@@ -20,8 +20,8 @@ invariants.
 - `schemas/target-morphology-catalog.schema.json`: target-language forms, cues, metadata, and review contract.
 - `data/canonical-curriculum.v1.en.json`: the three-unit English-authored pilot.
 - `data/cs-CZ.realization-pack.v1.json`: a provisional Czech realization fixture.
-- `data/pilot-content-sources.v1.json`: revisioned snapshots of the two real game items.
-- `data/cs-CZ.cross-game-bindings.v1.json`: Word World and Verb Nebula bindings to one skill identity.
+- `data/pilot-content-sources.v1.json`: revisioned snapshots for the reviewed Word World, Verb Nebula, and Conjugation Comet pilot content.
+- `data/cs-CZ.cross-game-bindings.v1.json`: activity-owned bindings for meaning and morphology skills.
 - `src/validate-conformance.mjs`: dependency-free structural, semantic, transfer, and cross-file validator.
 - `src/validate-morphology-contracts.mjs`: strict schema and semantic gate for shared mechanics and target morphology.
 - `src/cross-game-binding-core.mjs`: binding, task/evidence, and shared-skill reduction core.
@@ -182,6 +182,12 @@ remains locked, and full Unit 1 Guided coverage plus native Czech educator
 approval are still required.
 
 ## Morphology capability pilot boundaries
+
+Conjugation Comet is the independent `conjugation-comet` curriculum activity
+and owns the `conjugation-comet.contextual-target-realization` exercise family.
+Verb Nebula retains only `verb-nebula.meaning-match`. The migration changes
+activity-scoped binding and sequence IDs, but deliberately preserves the stable
+learner content, lexeme, sense, form, cue, exercise, and skill IDs.
 
 Morphology is a shared curriculum exercise capability, not a Czech-only game
 branch. English owns each capability definition, its canonical context

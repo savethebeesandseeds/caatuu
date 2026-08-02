@@ -19,7 +19,7 @@ import {
 
 const dataUrl = new URL("../data/", import.meta.url);
 const MORPHOLOGY_CONTENT = "cs.morphology.cist.present-singular-person.1sg";
-const MORPHOLOGY_BINDING = "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg";
+const MORPHOLOGY_BINDING = "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg";
 const MORPHOLOGY_CAPABILITY = "independent-form-discrimination";
 const MORPHOLOGY_SKILL = "cs.skill.form.cist.present-singular-person";
 const MEANING_BINDING = "binding.verb-nebula.cs.verb.cist.read";
@@ -115,11 +115,11 @@ test("runtime resolves the developer morphology family as a separate supplementa
   const validation = await validateRuntimeBundle(bundle, releasePins);
   assert.equal(validation.valid, true, JSON.stringify(validation.errors, null, 2));
 
-  const resolution = resolveRuntimeBinding(bundle, "verb-nebula", MORPHOLOGY_CONTENT);
+  const resolution = resolveRuntimeBinding(bundle, "conjugation-comet", MORPHOLOGY_CONTENT);
   assert.equal(resolution.binding.id, MORPHOLOGY_BINDING);
   assert.equal(
     resolution.binding.exerciseFamilyId,
-    "verb-nebula.contextual-target-realization"
+    "conjugation-comet.contextual-target-realization"
   );
   assert.equal(resolution.source.snapshot.familyRef.id, "cs.morphology.family.cist.present-singular");
   assert.equal(resolution.source.snapshot.itemRefs.length, 3);
@@ -137,15 +137,23 @@ test("runtime resolves the developer morphology family as a separate supplementa
   );
 });
 
+test("the former Verb Nebula activity cannot resolve Conjugation Comet content", async () => {
+  const { bundle } = await fixture();
+  assert.throws(
+    () => resolveRuntimeBinding(bundle, "verb-nebula", MORPHOLOGY_CONTENT),
+    /Expected one binding for verb-nebula\/cs\.morphology\.cist\.present-singular-person\.1sg; found 0\./
+  );
+});
+
 test("runtime preserves the authored morphology binding sequence exactly", async () => {
   const { bundle, releasePins } = await fixture();
   const validation = await validateRuntimeBundle(bundle, releasePins);
   assert.equal(validation.valid, true, JSON.stringify(validation.errors, null, 2));
   const sequence = bundle.bindingRegistry.exerciseSequences[0];
   assert.deepEqual(sequence.orderedBindingIds, [
-    "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
-    "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
-    "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg"
+    "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
+    "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
+    "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg"
   ]);
   assert.deepEqual(
     sequence.orderedBindingIds.map((bindingId) => {

@@ -72,7 +72,7 @@
       "properties": {
         "id": {"type": "string", "pattern": "^sequence\\.[a-z0-9.-]+$"},
         "revision": {"type": "integer", "minimum": 1},
-        "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
         "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
         "orderedBindingIds": {
           "type": "array",
@@ -80,7 +80,21 @@
           "uniqueItems": true,
           "items": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"}
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"activityId": {"const": "word-world"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "word-world.sentence-reconstruction"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "verb-nebula.meaning-match"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "conjugation-comet"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"}}}
+        }
+      ]
     },
     "contentRef": {
       "type": "object",
@@ -178,7 +192,7 @@
       ],
       "properties": {
         "id": {"type": "string", "pattern": "^binding\\.[a-z0-9.-]+$"},
-        "activityId": {"enum": ["word-world", "verb-nebula"]},
+        "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
         "exerciseFamilyId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
         "contentRef": {"$ref": "#/$defs/contentRef"},
         "canonicalUnitId": {"type": "string", "pattern": "^unit\\."},
@@ -219,16 +233,11 @@
         },
         {
           "if": {"properties": {"activityId": {"const": "verb-nebula"}}},
-          "then": {
-            "properties": {
-              "exerciseFamilyId": {
-                "enum": [
-                  "verb-nebula.meaning-match",
-                  "verb-nebula.contextual-target-realization"
-                ]
-              }
-            }
-          }
+          "then": {"properties": {"exerciseFamilyId": {"const": "verb-nebula.meaning-match"}}}
+        },
+        {
+          "if": {"properties": {"activityId": {"const": "conjugation-comet"}}},
+          "then": {"properties": {"exerciseFamilyId": {"const": "conjugation-comet.contextual-target-realization"}}}
         }
       ]
     },

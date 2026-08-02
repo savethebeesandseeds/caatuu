@@ -17,6 +17,8 @@ import {
 
 const MECHANIC_CATALOG_SCHEMA = "caatuu-shared-mechanic-capability-catalog-v1";
 const MORPHOLOGY_CATALOG_SCHEMA = "caatuu-morphology-developer-pilot-v1";
+const CONJUGATION_COMET_ACTIVITY_ID = "conjugation-comet";
+const CONJUGATION_COMET_EXERCISE_FAMILY_ID = "conjugation-comet.contextual-target-realization";
 const MECHANIC_CATALOG_SCHEMA_URL = new URL(
   "../schemas/shared-mechanic-capability-catalog.schema.json",
   import.meta.url
@@ -472,8 +474,14 @@ export function validateMorphologyContracts(inputs, options = {}) {
   if (!isObject(metadata) || metadata.specLocale !== "en") {
     error("MORPH_AUTHORING_LOCALE", "/morphologyCatalog/metadata/specLocale", "Morphology teaching specifications must be authored in English.");
   }
-  if (!nonEmptyString(metadata?.stableContentId) || !nonEmptyString(metadata?.exerciseFamilyId)) {
-    error("MORPH_CONTRACT_SCHEMA", "/morphologyCatalog/metadata", "Morphology catalogs require a stable content ID and exercise-family ID.");
+  if (!nonEmptyString(metadata?.stableContentId)
+      || metadata?.activityId !== CONJUGATION_COMET_ACTIVITY_ID
+      || metadata?.exerciseFamilyId !== CONJUGATION_COMET_EXERCISE_FAMILY_ID) {
+    error(
+      "MORPH_CONTRACT_SCHEMA",
+      "/morphologyCatalog/metadata",
+      `Morphology catalogs require a stable content ID and ${CONJUGATION_COMET_ACTIVITY_ID}/${CONJUGATION_COMET_EXERCISE_FAMILY_ID} ownership.`
+    );
   }
   if (morphologyCatalog.targetLocale !== targetPack.targetLocale) {
     error("MORPH_TARGET_LOCALE_MISMATCH", "/morphologyCatalog/targetLocale", "Morphology and target-pack locales must match.");
@@ -973,7 +981,7 @@ export function validateMorphologyContracts(inputs, options = {}) {
       const memberContentIds = memberBindings.map((binding) => binding?.contentRef?.contentId);
       if (sequences.length !== 1
           || sequence?.revision !== stableSequence.revision
-          || sequence?.activityId !== "verb-nebula"
+          || sequence?.activityId !== metadata.activityId
           || sequence?.exerciseFamilyId !== metadata.exerciseFamilyId
           || !sameStringSet(memberContentIds, orderedContentIds)
           || memberBindings.some((binding, index) => (

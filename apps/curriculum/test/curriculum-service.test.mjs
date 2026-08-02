@@ -21,9 +21,9 @@ const paths = {
   bindingRegistry: "/curriculum/bindings.json"
 };
 const morphologySequenceBindingIds = Object.freeze([
-  "binding.verb-nebula.cs.morphology.cist.present-singular-person.1sg",
-  "binding.verb-nebula.cs.morphology.cist.present-singular-person.2sg",
-  "binding.verb-nebula.cs.morphology.cist.present-singular-person.3sg"
+  "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
+  "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
+  "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg"
 ]);
 const morphologySkillId = "cs.skill.form.cist.present-singular-person";
 const morphologySequenceCueRefs = Object.freeze([
@@ -427,16 +427,16 @@ test("resetProgress clears every curriculum ledger and recovers a storage-failed
   const sessionStorage = new MemoryStorage();
   const namespace = "caatuu-czech-test.curriculum";
   const localKeys = [
-    `${namespace}.tasks.v3`,
-    `${namespace}.events.v3`,
-    `${namespace}.developer-pilot-claims.v3`,
-    `${namespace}.developer-pilot-sequences.v3`,
-    `${namespace}.developer-pilot-step-completions.v3`,
-    `${namespace}.morphology-round-states.v3`
+    `${namespace}.tasks.v4`,
+    `${namespace}.events.v4`,
+    `${namespace}.developer-pilot-claims.v4`,
+    `${namespace}.developer-pilot-sequences.v4`,
+    `${namespace}.developer-pilot-step-completions.v4`,
+    `${namespace}.morphology-round-states.v4`
   ];
   for (const key of localKeys) localStorage.setItem(key, "corrupt");
   localStorage.setItem("unrelated.preference", "keep-me");
-  const sessionKey = `${namespace}.session.v3`;
+  const sessionKey = `${namespace}.session.v4`;
   sessionStorage.setItem(sessionKey, "session.stale");
   const service = createCurriculumService(serviceOptions(base, { localStorage, sessionStorage }));
   await assert.rejects(
@@ -461,6 +461,36 @@ test("resetProgress clears every curriculum ledger and recovers a storage-failed
   assert.equal(service.snapshot().storedDeveloperPilotSequenceCount, 0);
   assert.equal(service.snapshot().storedDeveloperPilotCompletionCount, 0);
   assert.equal(service.snapshot().storedMorphologyRoundStateCount, 0);
+});
+
+test("v4 storage leaves immutable v3 curriculum evidence untouched", async () => {
+  const base = await fixture({ withMorphologySequence: true });
+  const localStorage = new MemoryStorage();
+  const sessionStorage = new MemoryStorage();
+  const namespace = "caatuu-czech-test.curriculum";
+  const legacyLocalValues = new Map([
+    [`${namespace}.tasks.v3`, "immutable-v3-tasks"],
+    [`${namespace}.events.v3`, "immutable-v3-events"],
+    [`${namespace}.developer-pilot-claims.v3`, "immutable-v3-claims"],
+    [`${namespace}.developer-pilot-sequences.v3`, "immutable-v3-sequences"],
+    [`${namespace}.developer-pilot-step-completions.v3`, "immutable-v3-completions"],
+    [`${namespace}.morphology-round-states.v3`, "immutable-v3-round-states"]
+  ]);
+  for (const [key, value] of legacyLocalValues) localStorage.setItem(key, value);
+  const legacySessionKey = `${namespace}.session.v3`;
+  sessionStorage.setItem(legacySessionKey, "immutable-v3-session");
+
+  const service = createCurriculumService(serviceOptions(base, { localStorage, sessionStorage }));
+  const ready = await service.ready();
+  assert.equal(ready.status, "ready");
+  assert.equal(service.snapshot().storedTaskCount, 0);
+  assert.equal(service.snapshot().storedEventCount, 0);
+  for (const [key, value] of legacyLocalValues) assert.equal(localStorage.getItem(key), value);
+  assert.equal(sessionStorage.getItem(legacySessionKey), "immutable-v3-session");
+
+  await service.resetProgress();
+  for (const [key, value] of legacyLocalValues) assert.equal(localStorage.getItem(key), value);
+  assert.equal(sessionStorage.getItem(legacySessionKey), "immutable-v3-session");
 });
 
 test("the service exposes canonical progression without promoting the Unit 3 developer pilot", async () => {
@@ -596,9 +626,9 @@ test("paired ledger readers wait for one atomic cross-context task and evidence 
   const targetSkillId = "cs.skill.sense.cist.read";
   await service.recordExposure("binding.word-world.ww-cp-000146", { targetSkillId });
 
-  const tasksKey = "caatuu-czech-test.curriculum.tasks.v3";
-  const eventsKey = "caatuu-czech-test.curriculum.events.v3";
-  const ledgerLockName = "caatuu-czech-test.curriculum.ledger.v3";
+  const tasksKey = "caatuu-czech-test.curriculum.tasks.v4";
+  const eventsKey = "caatuu-czech-test.curriculum.events.v4";
+  const ledgerLockName = "caatuu-czech-test.curriculum.ledger.v4";
   const committedTasks = localStorage.getItem(tasksKey);
   const committedEvents = localStorage.getItem(eventsKey);
   localStorage.setItem(tasksKey, "[]");
@@ -812,7 +842,7 @@ test("presentation loss during assessed-task validation consumes only the exposu
   assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 1);
   assert.equal(service.snapshot().storedTaskCount, 1);
   assert.equal(service.snapshot().storedEventCount, 1);
-  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v3"));
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v4"));
   assert.deepEqual(tasks.map((task) => task.evidenceKind), ["exposure"]);
 
   presented = true;
@@ -859,7 +889,7 @@ test("developer pilot re-entry closes pending exposure and in-memory-hinted comp
   assert.equal(reloaded.snapshot().storedEventCount, 2);
   assert.equal(reloaded.snapshot().storedDeveloperPilotClaimCount, 1);
 
-  const events = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.events.v3"));
+  const events = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.events.v4"));
   const exposureClosure = events.find((event) => event.taskId === exposureTask.taskId);
   const comprehensionClosure = events.find((event) => event.taskId === comprehensionTask.taskId);
   assert.deepEqual(exposureClosure.outcome, {
@@ -966,10 +996,10 @@ test("an ordered morphology pilot advances only through durable completion recei
   assert.equal(service.snapshot().storedDeveloperPilotClaimCount, 0);
   assert.equal(service.snapshot().storedTaskCount, 0);
   assert.equal(service.snapshot().storedEventCount, 0);
-  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.developer-pilot-sequences.v3"), null);
-  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.developer-pilot-claims.v3"), null);
-  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v3"), null);
-  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.events.v3"), null);
+  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.developer-pilot-sequences.v4"), null);
+  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.developer-pilot-claims.v4"), null);
+  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v4"), null);
+  assert.equal(localStorage.getItem("caatuu-czech-test.curriculum.events.v4"), null);
 
   const first = await service.claimDeveloperPilotSequence(morphologySequenceBindingIds, {
     targetSkillId: morphologySkillId,
@@ -995,12 +1025,12 @@ test("an ordered morphology pilot advances only through durable completion recei
   const firstWrongResult = await first.opportunity.recordFirstResponse({ score: 0 });
   await first.release();
   const persistedSequenceKeys = [
-    "caatuu-czech-test.curriculum.tasks.v3",
-    "caatuu-czech-test.curriculum.events.v3",
-    "caatuu-czech-test.curriculum.developer-pilot-claims.v3",
-    "caatuu-czech-test.curriculum.developer-pilot-sequences.v3",
-    "caatuu-czech-test.curriculum.developer-pilot-step-completions.v3",
-    "caatuu-czech-test.curriculum.morphology-round-states.v3"
+    "caatuu-czech-test.curriculum.tasks.v4",
+    "caatuu-czech-test.curriculum.events.v4",
+    "caatuu-czech-test.curriculum.developer-pilot-claims.v4",
+    "caatuu-czech-test.curriculum.developer-pilot-sequences.v4",
+    "caatuu-czech-test.curriculum.developer-pilot-step-completions.v4",
+    "caatuu-czech-test.curriculum.morphology-round-states.v4"
   ];
   const beforeResumePreview = persistedSequenceKeys.map((key) => localStorage.getItem(key));
   const incomplete = await competingService.claimDeveloperPilotSequence(morphologySequenceBindingIds, {
@@ -1329,7 +1359,7 @@ test("authored two-step and four-step morphology sequences remain durable and op
       assert.equal(service.snapshot().storedDeveloperPilotClaimCount, length);
       assert.equal(service.snapshot().storedDeveloperPilotCompletionCount, length);
 
-      const claimKey = "caatuu-czech-test.curriculum.developer-pilot-claims.v3";
+      const claimKey = "caatuu-czech-test.curriculum.developer-pilot-claims.v4";
       const validClaims = JSON.parse(localStorage.getItem(claimKey));
       const outOfRangeClaims = structuredClone(validClaims);
       outOfRangeClaims[0].sequenceStepIndex = length;
@@ -1340,7 +1370,7 @@ test("authored two-step and four-step morphology sequences remain durable and op
       );
       localStorage.setItem(claimKey, JSON.stringify(validClaims));
 
-      const completionKey = "caatuu-czech-test.curriculum.developer-pilot-step-completions.v3";
+      const completionKey = "caatuu-czech-test.curriculum.developer-pilot-step-completions.v4";
       const validCompletions = JSON.parse(localStorage.getItem(completionKey));
       const mismatchedCompletions = structuredClone(validCompletions);
       mismatchedCompletions[0].bindingId = orderedBindingIds[1];
@@ -1639,7 +1669,7 @@ test("an exact morphology round survives reload while round collisions and corru
   assert.equal(service.snapshot().storedMorphologyRoundStateCount, 1);
   await claim.release();
 
-  const storageKey = "caatuu-czech-test.curriculum.morphology-round-states.v3";
+  const storageKey = "caatuu-czech-test.curriculum.morphology-round-states.v4";
   const legacyRecords = JSON.parse(localStorage.getItem(storageKey));
   legacyRecords[0].schemaVersion = "caatuu-morphology-round-state-v1";
   delete legacyRecords[0].revision;
@@ -1758,7 +1788,7 @@ test("both Guided games preserve encounter-before-assessment without manufacturi
 
   assert.equal(service.snapshot().storedTaskCount, 4);
   assert.equal(service.snapshot().storedEventCount, 4);
-  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v3"));
+  const tasks = JSON.parse(localStorage.getItem("caatuu-czech-test.curriculum.tasks.v4"));
   for (const activityId of ["word-world", "verb-nebula"]) {
     const activityTasks = tasks.filter((task) => task.activityId === activityId);
     const exposure = activityTasks.find((task) => task.evidenceKind === "exposure");
@@ -1916,7 +1946,7 @@ test("invalid release pins and corrupted persisted evidence fail readiness close
   assert.equal(mismatched.snapshot().status, "failed");
 
   const localStorage = new MemoryStorage();
-  localStorage.setItem("caatuu-czech-test.curriculum.events.v3", "not-json");
+  localStorage.setItem("caatuu-czech-test.curriculum.events.v4", "not-json");
   const corrupt = createCurriculumService(serviceOptions(base, { localStorage }));
   await assert.rejects(
     () => corrupt.ready(),

@@ -1026,6 +1026,17 @@
       "browser_required": true
     },
     {
+      "key": "planet-conjugation",
+      "label": "Conjugation Comet",
+      "artifact_kind": "visual-asset",
+      "url": "/assets/planets/conjugation-comet.png",
+      "asset_path": "assets/planets/conjugation-comet.png",
+      "bytes": 534082,
+      "sha256": "78e59571a850aa92a3c3d6862f676d1b7fad54137b8ad10a74ef2eaaba20fee0",
+      "native_required": true,
+      "browser_required": true
+    },
+    {
       "key": "browser-vector-db-js",
       "label": "Browser vector search",
       "artifact_kind": "browser-runtime",

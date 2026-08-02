@@ -1,6 +1,8 @@
 import {
   aggregateLearningEvidence,
   canonicalJson,
+  CONJUGATION_COMET_ACTIVITY_ID,
+  CONJUGATION_COMET_EXERCISE_FAMILY_ID,
   createLearningEvidenceEvent,
   issueLearningTask,
   resolveRuntimeBinding,
@@ -11,10 +13,11 @@ import {
 import { computeCurriculumProgression } from "./curriculum-planner-core.mjs";
 import { MORPHOLOGY_ROUND_SCHEMA } from "./morphology-round-core.mjs";
 
-// v2 tasks predate explicit exercise-family identity in content digests. Keep
-// them intact for audit, but do not migrate semantically stale evidence into
-// the family-aware ledger.
-const STORAGE_VERSION = 3;
+// v2 tasks predate explicit exercise-family identity in content digests, and
+// v3 morphology tasks were issued under the former Verb Nebula activity. Keep
+// both generations intact for audit; immutable tasks, fingerprints, evidence,
+// and completion proofs must not be rewritten into Conjugation Comet.
+const STORAGE_VERSION = 4;
 const MAX_STORED_TASKS = 2000;
 const MAX_STORED_EVENTS = 4000;
 const MAX_STORED_DEVELOPER_PILOT_CLAIMS = 256;
@@ -329,7 +332,9 @@ export function createCurriculumService({
 
   function morphologyBinding(bindingId) {
     const binding = bundle?.bindingRegistry?.bindings?.find((row) => row?.id === bindingId);
-    if (!binding || binding.exerciseFamilyId !== "verb-nebula.contextual-target-realization") return null;
+    if (!binding
+        || binding.activityId !== CONJUGATION_COMET_ACTIVITY_ID
+        || binding.exerciseFamilyId !== CONJUGATION_COMET_EXERCISE_FAMILY_ID) return null;
     return binding;
   }
 
@@ -1266,8 +1271,8 @@ export function createCurriculumService({
         || !authoredSequence.id
         || !Number.isInteger(authoredSequence.revision)
         || authoredSequence.revision < 1
-        || authoredSequence.activityId !== "verb-nebula"
-        || authoredSequence.exerciseFamilyId !== "verb-nebula.contextual-target-realization") {
+        || authoredSequence.activityId !== CONJUGATION_COMET_ACTIVITY_ID
+        || authoredSequence.exerciseFamilyId !== CONJUGATION_COMET_EXERCISE_FAMILY_ID) {
       throw new CurriculumServiceError(
         "CURRICULUM_DEVELOPER_PILOT_SEQUENCE_UNPINNED",
         "Developer pilot binding order must exactly match one pinned morphology exercise sequence."

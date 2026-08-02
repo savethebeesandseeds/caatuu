@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-content-source-catalog-v1",
   "catalogId": "caatuu.cs-CZ.cross-game-pilot-sources",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "targetLocale": "cs-CZ",
   "sources": [
     {
@@ -113,15 +113,15 @@
       }
     },
     {
-      "activityId": "verb-nebula",
-      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
       "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
-      "catalogRevision": "1.1.0",
-      "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
       "contentId": "cs.morphology.cist.present-singular-person.1sg",
       "revision": 1,
       "projectionVersion": "caatuu-game-content-binding-v1",
-      "contentDigest": "sha256:f983838a4bd54c56daaab193898d4714747caf05737850df2e1cceb9e3c2f5a8",
+      "contentDigest": "sha256:02efc08bac76f9e9ecb6648eaf417bc0c9c2dfebdca4b529db9e42d038d90d1b",
       "sourceLocator": {
         "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
         "selector": "cues[id=cs.cue.cist.read.speaker-singular-current]",
@@ -143,7 +143,7 @@
         "selectedCueRef": {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
         "targetItemRef": {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
         "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1},
-        "sequenceRef": {"id": "sequence.verb-nebula.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
         "sequenceStep": 1,
         "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
         "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
@@ -161,15 +161,15 @@
       }
     },
     {
-      "activityId": "verb-nebula",
-      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
       "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
-      "catalogRevision": "1.1.0",
-      "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
       "contentId": "cs.morphology.cist.present-singular-person.2sg",
       "revision": 1,
       "projectionVersion": "caatuu-game-content-binding-v1",
-      "contentDigest": "sha256:62b3a383ebb475ba7dde26f1b30cd4f7cf6a051394ff36c52a498ccafff39a17",
+      "contentDigest": "sha256:61c92d49bfadba8b7ddfc202ee75b932e56c9bb60e59a2d3052b17a6af84cfa8",
       "sourceLocator": {
         "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
         "selector": "cues[id=cs.cue.cist.read.addressee-singular-current]",
@@ -191,7 +191,7 @@
         "selectedCueRef": {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
         "targetItemRef": {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
         "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2},
-        "sequenceRef": {"id": "sequence.verb-nebula.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
         "sequenceStep": 2,
         "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
         "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
@@ -209,15 +209,15 @@
       }
     },
     {
-      "activityId": "verb-nebula",
-      "exerciseFamilyId": "verb-nebula.contextual-target-realization",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
       "catalogId": "caatuu.cs-CZ.morphology-developer-pilot",
-      "catalogRevision": "1.1.0",
-      "catalogDigest": "sha256:7f2e6fb88dd2e7346bcb275ab28db68cf18c2603a599187f596e2dcc6a9d18f9",
+      "catalogRevision": "1.2.0",
+      "catalogDigest": "sha256:df8cd5d9260d8b5acaff922d45e2cd726c52ba4e85f0d73cb185126928e82869",
       "contentId": "cs.morphology.cist.present-singular-person.3sg",
       "revision": 1,
       "projectionVersion": "caatuu-game-content-binding-v1",
-      "contentDigest": "sha256:37e4dde8f08470f03a67887ad889b3c03a120cf06f966941862f34fee749eb42",
+      "contentDigest": "sha256:9a4733a49906c976a7c431fb31db0c3faf3bc7e6e96bdefeff7592e12d603b86",
       "sourceLocator": {
         "path": "apps/curriculum/data/cs-CZ.morphology-developer-pilot.v1.json",
         "selector": "cues[id=cs.cue.cist.read.named-third-person-current]",
@@ -239,7 +239,7 @@
         "selectedCueRef": {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2},
         "targetItemRef": {"id": "cs.form.cist.present-indicative.3sg", "revision": 1},
         "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.3sg", "revision": 2},
-        "sequenceRef": {"id": "sequence.verb-nebula.cs.morphology.cist.present-singular-person", "revision": 1},
+        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
         "sequenceStep": 3,
         "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
         "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},

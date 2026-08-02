@@ -132,7 +132,7 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
 
   assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
   assert.equal(result.targetPackDigest, computeTargetPackDigest(pack));
-  assert.deepEqual(result.summary.activities, ["verb-nebula", "word-world"]);
+  assert.deepEqual(result.summary.activities, ["conjugation-comet", "verb-nebula", "word-world"]);
   assert.equal(result.summary.bindings, 5);
   assert.equal(result.summary.exerciseSequences, 1);
 

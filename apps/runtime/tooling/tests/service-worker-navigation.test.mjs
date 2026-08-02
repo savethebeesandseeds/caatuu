@@ -75,8 +75,34 @@ test("offline query navigation falls back to the precached base document", async
   assert.deepEqual(lookups, [queryUrl, baseUrl]);
 });
 
+test("offline Conjugation Comet developer navigation falls back to its own document", async () => {
+  const baseUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.html";
+  const queryUrl = `${baseUrl}?curriculum-guided=1`;
+  const baseResponse = { source: "conjugation-comet-precache" };
+  const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
+
+  const response = await runNetworkThenCache(
+    context,
+    new FakeRequest(queryUrl, { mode: "navigate" })
+  );
+
+  assert.equal(response, baseResponse);
+  assert.deepEqual(lookups, [queryUrl, baseUrl]);
+});
+
 test("offline script requests preserve version query keys", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/app.js?v=shell-81";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/app.js?v=shell-82";
+  const { context, lookups } = offlineServiceWorker();
+
+  await assert.rejects(
+    runNetworkThenCache(context, new FakeRequest(scriptUrl, { mode: "cors" })),
+    /offline/
+  );
+  assert.deepEqual(lookups, [scriptUrl]);
+});
+
+test("offline Conjugation Comet controller requests preserve their version key", async () => {
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.js?v=conjugation-comet-3";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(

@@ -171,7 +171,12 @@ test("the English-backed Czech morphology pilot validates with stable IDs and co
     mechanicCatalog.capabilities[0].requiredCanonicalContextDimensionIds,
     ["referent-person", "time-profile"]
   );
-  assert.equal(morphologyCatalog.version, "1.1.0");
+  assert.equal(morphologyCatalog.version, "1.2.0");
+  assert.equal(morphologyCatalog.metadata.activityId, "conjugation-comet");
+  assert.equal(
+    morphologyCatalog.metadata.exerciseFamilyId,
+    "conjugation-comet.contextual-target-realization"
+  );
   assert.equal(mechanicCatalog.version, "1.0.0");
   assert.deepEqual(morphologyCatalog.families.map(({ revision }) => revision), [1]);
   assert.deepEqual(morphologyCatalog.items.map(({ revision }) => revision), [1, 2, 1]);
@@ -212,6 +217,30 @@ test("the target catalog pins the exact English mechanic contract bytes", async 
   const inputs = await fixture();
   inputs.mechanicCatalogDigest = `sha256:${"0".repeat(64)}`;
   assertHasCode(validate(inputs), "MORPH_MECHANIC_CATALOG_DIGEST_MISMATCH");
+});
+
+test("the target catalog is owned exclusively by Conjugation Comet", async (t) => {
+  await t.test("former Verb Nebula activity ownership", async () => {
+    const inputs = await fixture();
+    inputs.morphologyCatalog.metadata.activityId = "verb-nebula";
+    assertHasSchemaIssue(
+      validate(inputs),
+      "MORPH_CATALOG_SCHEMA",
+      "/morphologyCatalog/metadata/activityId",
+      "const"
+    );
+  });
+
+  await t.test("unregistered Conjugation Comet exercise family", async () => {
+    const inputs = await fixture();
+    inputs.morphologyCatalog.metadata.exerciseFamilyId = "conjugation-comet.unreviewed-family";
+    assertHasSchemaIssue(
+      validate(inputs),
+      "MORPH_CATALOG_SCHEMA",
+      "/morphologyCatalog/metadata/exerciseFamilyId",
+      "const"
+    );
+  });
 });
 
 test("the authoring gate rejects unknown fields and likely property-name typos", async (t) => {
@@ -522,7 +551,7 @@ test("sequence projections preserve exact 1sg to 2sg to 3sg cue and binding orde
   await t.test("source selected cue cannot drift", async () => {
     const inputs = await fixture();
     const sources = inputs.sourceCatalog.sources.filter((source) => (
-      source.exerciseFamilyId === "verb-nebula.contextual-target-realization"
+      source.exerciseFamilyId === "conjugation-comet.contextual-target-realization"
     ));
     sources[1].snapshot.selectedCueRef = structuredClone(sources[0].snapshot.selectedCueRef);
     assertHasCode(validate(inputs), "MORPH_SEQUENCE_SOURCE_MISMATCH");

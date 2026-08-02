@@ -46,7 +46,7 @@
     },
     "bindingId": {"type": "string", "pattern": "^binding\\."},
     "capabilityId": {"type": "string", "minLength": 3},
-    "activityId": {"enum": ["word-world", "verb-nebula"]},
+    "activityId": {"enum": ["word-world", "verb-nebula", "conjugation-comet"]},
     "mechanicId": {"type": "string", "minLength": 3},
     "learningStage": {"type": "string", "minLength": 3},
     "evidenceKind": {"enum": ["exposure", "comprehension", "retrieval", "production", "transfer"]},

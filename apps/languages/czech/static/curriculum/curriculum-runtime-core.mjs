@@ -1,5 +1,7 @@
 export const LEARNING_TASK_SCHEMA = "caatuu-cross-game-learning-task-v1";
 export const EVIDENCE_EVENT_SCHEMA = "caatuu-cross-game-learning-evidence-v1";
+export const CONJUGATION_COMET_ACTIVITY_ID = "conjugation-comet";
+export const CONJUGATION_COMET_EXERCISE_FAMILY_ID = "conjugation-comet.contextual-target-realization";
 
 const CURRICULUM_SCHEMA = "caatuu-canonical-curriculum-v1";
 const PACK_SCHEMA = "caatuu-target-realization-pack-v1";
@@ -14,10 +16,8 @@ const OPPORTUNITY_EVIDENCE_KINDS = new Map([
 ]);
 const ACTIVITY_EXERCISE_FAMILIES = new Map([
   ["word-world", new Set(["word-world.sentence-reconstruction"])],
-  ["verb-nebula", new Set([
-    "verb-nebula.meaning-match",
-    "verb-nebula.contextual-target-realization"
-  ])]
+  ["verb-nebula", new Set(["verb-nebula.meaning-match"])],
+  [CONJUGATION_COMET_ACTIVITY_ID, new Set([CONJUGATION_COMET_EXERCISE_FAMILY_ID])]
 ]);
 const STAGE_EVIDENCE_KIND = new Map([
   ["encounter", "exposure"],
@@ -381,8 +381,8 @@ export async function validateRuntimeBundle(bundle, releasePins) {
         );
       }
     }
-    if (source.activityId === "verb-nebula"
-        && source.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+    if (source.activityId === CONJUGATION_COMET_ACTIVITY_ID
+        && source.exerciseFamilyId === CONJUGATION_COMET_EXERCISE_FAMILY_ID) {
       const familyRef = source.snapshot?.familyRef;
       const itemRefs = rows(source.snapshot?.itemRefs);
       const cueRefs = rows(source.snapshot?.cueRefs);
@@ -450,7 +450,8 @@ export async function validateRuntimeBundle(bundle, releasePins) {
         error("RUNTIME_BINDING_SKILL_MISMATCH", `${path}/targetSkillRefs`, "Binding target skill is missing, stale, or belongs to another unit.", [binding?.id, skillRef?.id].filter(Boolean));
       }
     }
-    if (binding.exerciseFamilyId === "verb-nebula.contextual-target-realization") {
+    if (binding.activityId === CONJUGATION_COMET_ACTIVITY_ID
+        && binding.exerciseFamilyId === CONJUGATION_COMET_EXERCISE_FAMILY_ID) {
       const targetSkillRefs = rows(binding.targetSkillRefs);
       const skill = targetSkillRefs.length === 1
         ? skillById.get(targetSkillRefs[0]?.id)
@@ -598,7 +599,10 @@ export async function validateRuntimeBundle(bundle, releasePins) {
       }
     });
   }
-  for (const binding of rows(bindingRegistry.bindings).filter((entry) => entry?.exerciseFamilyId === "verb-nebula.contextual-target-realization")) {
+  for (const binding of rows(bindingRegistry.bindings).filter((entry) => (
+    entry?.activityId === CONJUGATION_COMET_ACTIVITY_ID
+      && entry?.exerciseFamilyId === CONJUGATION_COMET_EXERCISE_FAMILY_ID
+  ))) {
     if (!sequenceMembership.has(binding.id)) {
       error("RUNTIME_SEQUENCE_INVALID", "/bindingRegistry/exerciseSequences", `Morphology binding ${binding.id} is not sequence-owned.`, [binding.id]);
     }
