@@ -255,9 +255,10 @@ function loopbackLocation() {
 }
 
 function explicitLocalGuidedRequest() {
-  const parameter = course.curriculum?.guidedMode?.developerQueryParameter || "curriculum-guided";
-  return loopbackLocation()
-    && new URLSearchParams(window.location.search).get(parameter) === "1";
+  // Verb Nebula is the stable meaning-matching game. Curriculum-guided
+  // morphology practice belongs exclusively to the standalone Conjugation
+  // Comet page, so no URL flag may replace Verb Nebula's normal round.
+  return false;
 }
 
 function redirectLegacyConjugationCometBookmark() {
