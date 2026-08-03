@@ -106,7 +106,7 @@ test("only game pages install the synchronous curriculum facade in dependency or
     [
       "conjugation-comet.html",
       conjugationCometHtml,
-      'src="conjugation-comet.js?v=conjugation-comet-3"'
+      'src="conjugation-comet.js?v=conjugation-comet-6"'
     ]
   ]) {
     const courseIndex = source.indexOf('src="course-profile.js?v=course-13"');
@@ -144,7 +144,7 @@ test("only game pages install the synchronous curriculum facade in dependency or
 });
 
 test("the service worker makes every pinned curriculum asset available offline", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v393/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v398/);
   for (const asset of [
     "curriculum-service.js?v=curriculum-service-9",
     "curriculum/curriculum-service.mjs?v=curriculum-service-9",
@@ -152,7 +152,7 @@ test("the service worker makes every pinned curriculum asset available offline",
     "curriculum/curriculum-planner-core.mjs",
     "curriculum/guided-opportunity.mjs?v=guided-opportunity-5",
     "curriculum/morphology-round-core.mjs",
-    "curriculum/morphology-round-core.mjs?v=morphology-round-core-2",
+    "curriculum/morphology-round-core.mjs?v=morphology-round-core-3",
     "data/curriculum/canonical-curriculum.v1.en.json",
     "data/curriculum/cs-CZ.realization-pack.v1.json",
     "data/curriculum/pilot-content-sources.v1.json",

@@ -26,7 +26,8 @@
     <script src="curriculum-service.js?v=curriculum-service-9"></script>
     <link rel="stylesheet" href="theme.css?v=theme-5">
     <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
-    <link rel="stylesheet" href="conjugation-comet.css?v=conjugation-comet-2">
+    <link rel="stylesheet" href="app.css?v=shell-72">
+    <link rel="stylesheet" href="conjugation-comet.css?v=conjugation-comet-4">
   </head>
   <body class="conjugation-comet-page">
     <div class="conjugation-comet-shell">
@@ -55,43 +56,72 @@
           </aside>
 
           <section
-            class="verb-morphology-board"
+            class="verb-match-board conjugation-comet-match-board conjugation-comet-meaning-board"
+            id="verbMeaningGateBoard"
+            aria-labelledby="verbMeaningGateTitle"
+            aria-describedby="verbMeaningGateInstructions verbMeaningGateFeedback"
+            aria-busy="true"
+            hidden
+          >
+            <header class="conjugation-comet-board-intro">
+              <div>
+                <p class="verb-kicker">Meaning rendezvous · one verb</p>
+                <h1 id="verbMeaningGateTitle">Find this verb’s meaning</h1>
+              </div>
+              <span class="conjugation-comet-phase-badge">1 · Meaning</span>
+              <p id="verbMeaningGateInstructions">
+                Select the Czech verb, then match it to one of four reviewed English meanings.
+              </p>
+            </header>
+
+            <div class="verb-match-column-heading verb-match-column-heading-cz">
+              <span>Česky</span>
+            </div>
+            <div class="verb-match-column-heading verb-match-column-heading-en">
+              <span>English</span>
+            </div>
+            <div class="verb-match-column verb-match-column-cz" id="verbMeaningTargetColumn"></div>
+            <div class="verb-match-column verb-match-column-en" id="verbMeaningEnglishColumn"></div>
+
+            <footer class="conjugation-comet-board-footer">
+              <p class="verb-match-feedback" id="verbMeaningGateFeedback" role="status" aria-live="polite" aria-atomic="true">
+                Select the Czech verb to begin.
+              </p>
+              <span id="verbMeaningGateProgress">0 of 1 matched · warm-up · 0 XP</span>
+            </footer>
+          </section>
+
+          <section
+            class="verb-match-board conjugation-comet-match-board conjugation-comet-forms-board"
             id="verbMorphologyBoard"
             aria-labelledby="verbMorphologyTitle"
             aria-describedby="verbMorphologyInstructions verbMorphologyFeedback"
             aria-busy="true"
           >
-            <header class="verb-morphology-head">
+            <header class="conjugation-comet-board-intro">
               <div>
-                <p class="verb-kicker">Conjugation · pinned developer pilot</p>
-                <h1 id="verbMorphologyTitle">Which form fits?</h1>
+                <p class="verb-kicker">Conjugation constellation · reviewed form set</p>
+                <h1 id="verbMorphologyTitle">Match every form</h1>
               </div>
-              <span class="verb-morphology-lemma" id="verbMorphologyLemma" hidden>
+              <span class="verb-morphology-lemma" id="verbMorphologyLemma">
                 <span id="verbMorphologyLemmaTarget"></span>
                 <span aria-hidden="true"> · </span>
                 <span id="verbMorphologyGloss" lang="en"></span>
               </span>
+              <span class="conjugation-comet-phase-badge">2 · Forms</span>
+              <p id="verbMorphologyInstructions">
+                Match the highlighted English cue to its Czech form. You may select either card first.
+              </p>
             </header>
 
-            <div class="verb-morphology-cue" id="verbMorphologyCue" hidden>
-              <span class="verb-morphology-role" id="verbMorphologyRole" aria-hidden="true"></span>
-              <div>
-                <p class="verb-morphology-context" id="verbMorphologyContext" lang="en"></p>
-                <p class="verb-morphology-prompt" id="verbMorphologyPrompt" lang="en"></p>
-                <p class="verb-morphology-label" id="verbMorphologyTeachingLabel" lang="en"></p>
-              </div>
+            <div class="verb-match-column-heading verb-match-column-heading-cz">
+              <span>Czech forms</span>
             </div>
-
-            <p class="verb-morphology-instructions" id="verbMorphologyInstructions">
-              Choose the target-language form that fits the exact situation. All choices stay available on every trial.
-            </p>
-            <div
-              class="verb-morphology-choices"
-              id="verbMorphologyChoices"
-              role="group"
-              aria-label="Target-language verb-form choices"
-              hidden
-            ></div>
+            <div class="verb-match-column-heading verb-match-column-heading-en">
+              <span>English cues</span>
+            </div>
+            <div class="verb-match-column verb-match-column-cz" id="verbMorphologyFormsColumn"></div>
+            <div class="verb-match-column verb-match-column-en" id="verbMorphologyCuesColumn"></div>
 
             <aside class="verb-morphology-hint" id="verbMorphologyHint" role="note" hidden>
               <strong id="verbMorphologyHintTitle">Context cue</strong>
@@ -112,12 +142,12 @@
                 disabled
                 hidden
               >
-                Next form
+                Continue matching
               </button>
             </div>
 
-            <footer class="verb-morphology-footer">
-              <p id="verbMorphologyFeedback" role="status" aria-live="polite" aria-atomic="true">
+            <footer class="conjugation-comet-board-footer">
+              <p class="verb-match-feedback" id="verbMorphologyFeedback" role="status" aria-live="polite" aria-atomic="true">
                 Preparing the pinned exercise.
               </p>
               <span id="verbMorphologyProgress">Pinned pilot · non-mastery · 0 XP</span>
@@ -152,6 +182,6 @@
 
     <script src="chrome.js?v=chrome-90"></script>
     <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script type="module" src="conjugation-comet.js?v=conjugation-comet-3"></script>
+    <script type="module" src="conjugation-comet.js?v=conjugation-comet-6"></script>
   </body>
 </html>

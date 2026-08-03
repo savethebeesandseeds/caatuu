@@ -4,8 +4,11 @@ import test from "node:test";
 
 import {
   MORPHOLOGY_CATALOG_SCHEMA,
+  MORPHOLOGY_MATCH_BOARD_SCHEMA,
   MORPHOLOGY_ROUND_SCHEMA,
+  composeMorphologyMatchBoard,
   composeMorphologyRound,
+  evaluateMorphologyMatchPair,
   evaluateMorphologySelection,
   normalizeMorphologyCatalog,
   normalizeMorphologyItem,
@@ -564,6 +567,81 @@ test("evaluates immutable item selections and rejects stale or foreign choices",
       itemRef: { id: "form.cs.cist.not-in-round", revision: 1 }
     }),
     assertCode("MORPH_SELECTION_NOT_IN_ROUND")
+  );
+});
+
+test("composes a deterministic two-column board with one fair English cue per form", () => {
+  const catalog = fixture();
+  const board = composeMorphologyMatchBoard(catalog, request({
+    itemRefs: catalog.items.map(({ id, revision }) => ({ id, revision })),
+    cueRefs: catalog.cues.map(({ id, revision }) => ({ id, revision }))
+  }));
+
+  assert.equal(board.schemaVersion, MORPHOLOGY_MATCH_BOARD_SCHEMA);
+  assert.equal(board.forms.length, 3);
+  assert.equal(board.cues.length, 3);
+  assert.ok(Object.isFrozen(board));
+  assert.ok(Object.isFrozen(board.forms));
+  assert.deepEqual(
+    board,
+    composeMorphologyMatchBoard(catalog, request({
+      itemRefs: catalog.items.map(({ id, revision }) => ({ id, revision })),
+      cueRefs: catalog.cues.map(({ id, revision }) => ({ id, revision }))
+    }))
+  );
+  assert.ok(board.cues.every((cue, index) => (
+    cue.targetItemRef.id !== board.forms[index].itemRef.id
+  )), "the two columns must not reveal answers by row position");
+  for (const cue of board.cues) {
+    assert.ok(cue.presentation.naturalTranslationEn);
+    assert.ok(cue.presentation.teachingLabelEn);
+    const correct = evaluateMorphologyMatchPair(board, {
+      cueRef: cue.cueRef,
+      itemRef: cue.targetItemRef
+    });
+    assert.equal(correct.correct, true);
+    const distractor = board.forms.find((form) => form.itemRef.id !== cue.targetItemRef.id);
+    assert.equal(evaluateMorphologyMatchPair(board, {
+      cueRef: cue.cueRef,
+      itemRef: distractor.itemRef
+    }).correct, false);
+  }
+});
+
+test("keeps natural English separate from the teaching label used to disambiguate a board", () => {
+  const catalog = fixture();
+  catalog.cues[0].presentation.naturalTranslationEn = "You are reading now.";
+  catalog.cues[1].presentation.naturalTranslationEn = "You are reading now.";
+  catalog.cues[0].presentation.teachingLabelEn = "first person singular · present";
+  catalog.cues[1].presentation.teachingLabelEn = "second person singular · present";
+
+  const board = composeMorphologyMatchBoard(catalog, request());
+  const repeatedNaturalTranslations = board.cues.filter((cue) => (
+    cue.presentation.naturalTranslationEn === "You are reading now."
+  ));
+  assert.equal(repeatedNaturalTranslations.length, 2);
+  assert.equal(
+    new Set(repeatedNaturalTranslations.map((cue) => cue.presentation.teachingLabelEn)).size,
+    2
+  );
+});
+
+test("rejects match boards whose selected cues do not map one-to-one onto displayed forms", () => {
+  const catalog = fixture();
+  catalog.cues.push({
+    ...clone(catalog.cues[0]),
+    id: "cue.cs.cist.speaker.alternate",
+    key: "read.current.speaker.singular.alternate",
+    presentation: {
+      ...clone(catalog.cues[0].presentation),
+      contextEn: "The current reader is the speaker in an alternate reviewed scene."
+    }
+  });
+  const selectedCues = [catalog.cues[0], catalog.cues[1], catalog.cues[3]]
+    .map(({ id, revision }) => ({ id, revision }));
+  assert.throws(
+    () => composeMorphologyMatchBoard(catalog, request({ cueRefs: selectedCues })),
+    assertCode("MORPH_MATCH_BOARD_NOT_BIJECTIVE")
   );
 });
 

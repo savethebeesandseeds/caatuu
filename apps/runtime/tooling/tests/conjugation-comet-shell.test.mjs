@@ -20,8 +20,13 @@ const [page, styles, gamesPage, appStyles, appController, cometController, servi
 test("Conjugation Comet owns the morphology presentation outside Verb Nebula", () => {
   assert.match(page, /class="conjugation-comet-page"/);
   assert.match(page, /id="conjugationCometPanel"[^>]*class="conjugation-comet-panel is-active"|class="conjugation-comet-panel is-active"[^>]*id="conjugationCometPanel"/);
+  assert.match(page, /id="verbMeaningGateBoard"/);
+  assert.match(page, /id="verbMeaningTargetColumn"/);
+  assert.match(page, /id="verbMeaningEnglishColumn"/);
   assert.match(page, /id="verbMorphologyBoard"/);
-  assert.match(page, /id="verbMorphologyChoices"[\s\S]*?role="group"/);
+  assert.match(page, /id="verbMorphologyFormsColumn"/);
+  assert.match(page, /id="verbMorphologyCuesColumn"/);
+  assert.doesNotMatch(page, /id="verbMorphologyChoices"/);
   assert.doesNotMatch(gamesPage, /id="verbMorphologyBoard"/);
   assert.doesNotMatch(appStyles, /verb-morphology|verbMorphology/);
 });
@@ -33,7 +38,7 @@ test("the standalone shell loads shared state before its game controller", () =>
   const semantic = page.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
   const curriculum = page.indexOf('src="curriculum-service.js?v=curriculum-service-9"');
   const chrome = page.indexOf('src="chrome.js?v=chrome-90"');
-  const controller = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-3"');
+  const controller = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-6"');
   assert.ok(course >= 0 && learning > course && runtime > learning);
   assert.ok(semantic > runtime && curriculum > semantic);
   assert.ok(chrome > curriculum && controller > chrome);
@@ -51,9 +56,24 @@ test("the standalone controller owns its configuration and renders safely before
   assert.doesNotMatch(cometController, /\bverbExerciseFamilyConfiguration\b/);
   assert.match(
     cometController,
-    /const totalSteps = sequenceTotalSteps\(\);[\s\S]*?Form \$\{completedNumber\} of \$\{totalSteps\}/
+    /function sequenceTotalSteps\(\)[\s\S]*?orderedBindingIds\?\.length/
   );
   assert.doesNotMatch(cometController, /All three pinned pilot forms|of 3 complete/);
+});
+
+test("the game has a reviewed meaning rendezvous before its full morphology board", () => {
+  assert.match(cometController, /guidedContrasts/);
+  assert.match(cometController, /resolvePinnedStableVerbPairs\(\s*verbDictionaryBytes/);
+  assert.match(cometController, /buildGuidedVerbRound\([\s\S]*?pairCount: 4/);
+  assert.match(cometController, /plan\.englishRound\.length !== 4/);
+  assert.match(cometController, /const meaningPhase = state\.verbGuidedStatus !== "failed"[\s\S]*?Boolean\(state\.verbMeaningPlan\)/);
+  assert.match(cometController, /if \(meaningPhase\) \{[\s\S]*?renderVerbMeaningGate\(\);[\s\S]*?return;/);
+  assert.match(cometController, /composeMorphologyMatchBoard\([\s\S]*?itemRefs: snapshot\.itemRefs[\s\S]*?cueRefs: snapshot\.cueRefs/);
+  assert.match(cometController, /evaluateMorphologyMatchPair\(/);
+  assert.match(cometController, /naturalTranslationEn/);
+  assert.match(cometController, /teachingLabelEn/);
+  assert.match(cometController, /labelNode\.textContent = `\(\$\{teachingLabel\}\)`/);
+  assert.match(cometController, /morphology evidence has not started/);
 });
 
 test("legacy local morphology bookmarks migrate before Verb Nebula starts", () => {
@@ -61,9 +81,11 @@ test("legacy local morphology bookmarks migrate before Verb Nebula starts", () =
   assert.match(appController, /if \(!redirectLegacyConjugationCometBookmark\(\)\) init\(\);/);
 });
 
-test("the initial document exposes no Czech answer key and only one live status", () => {
+test("the initial document exposes no Czech answer key and only one live status per visible phase", () => {
   assert.doesNotMatch(page, /(?:číst|čtu|čteš|čte)/iu);
-  assert.equal((page.match(/aria-live=/g) || []).length, 1);
+  assert.equal((page.match(/aria-live=/g) || []).length, 2);
+  assert.match(page, /id="verbMeaningGateBoard"[\s\S]*?hidden/);
+  assert.match(page, /id="verbMeaningGateFeedback"[^>]*role="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
   assert.match(page, /id="verbMorphologyFeedback"[^>]*role="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
   assert.doesNotMatch(page, /id="verbGuidedStatus"[^>]*aria-live=/);
   assert.match(page, /id="verbMorphologyBoard"[\s\S]*?aria-busy="true"/);
@@ -73,10 +95,11 @@ test("the initial document exposes no Czech answer key and only one live status"
 
 test("controls remain usable at touch, keyboard, mobile, and reduced-motion boundaries", () => {
   assert.match(styles, /\.verb-morphology-actions button \{[\s\S]*?min-height: 44px/);
-  assert.match(styles, /\.verb-morphology-choice:focus-visible,[\s\S]*?outline: 3px solid/);
-  assert.match(styles, /@media \(max-width: 430px\)[\s\S]*?\.verb-morphology-choices \{[\s\S]*?grid-template-columns: 1fr/);
+  assert.match(styles, /\.conjugation-comet-match-board \.verb-match-card:focus-visible[\s\S]*?outline: 3px solid/);
+  assert.match(styles, /\.conjugation-comet-match-board \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(max-width: 430px\)[\s\S]*?\.conjugation-comet-match-board \.verb-match-card/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?transition: none/);
-  assert.match(styles, /#verbMorphologyChoices\[hidden\][\s\S]*?display: none/);
+  assert.match(styles, /\.conjugation-comet-match-board\[hidden\][\s\S]*?display: none/);
   assert.match(
     appStyles,
     /@media screen and \(max-width: 520px\)[\s\S]*?\.train-worlds \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/
@@ -86,8 +109,8 @@ test("controls remain usable at touch, keyboard, mobile, and reduced-motion boun
 test("the offline shell pins its document, controller, styles, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./conjugation-comet.css?v=conjugation-comet-2",
-    "./conjugation-comet.js?v=conjugation-comet-3",
+    "./conjugation-comet.css?v=conjugation-comet-4",
+    "./conjugation-comet.js?v=conjugation-comet-6",
     "/assets/planets/conjugation-comet.png"
   ]) {
     assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);

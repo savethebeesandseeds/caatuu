@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v393";
+const CACHE_NAME = "caatuu-czech-pwa-v398";
 const CORE_ASSETS = [
   "./",
   "./home.html",
@@ -18,7 +18,7 @@ const CORE_ASSETS = [
   "./curriculum/curriculum-planner-core.mjs",
   "./curriculum/guided-opportunity.mjs?v=guided-opportunity-5",
   "./curriculum/morphology-round-core.mjs",
-  "./curriculum/morphology-round-core.mjs?v=morphology-round-core-2",
+  "./curriculum/morphology-round-core.mjs?v=morphology-round-core-3",
   "./feedback-outbox.mjs?v=feedback-outbox-5",
   "./dictionary-gap-report.mjs?v=dictionary-gap-report-1",
   "./dictionary-patch-core.mjs?v=dictionary-patch-core-1",
@@ -39,8 +39,8 @@ const CORE_ASSETS = [
   "./word-net-queue.mjs?v=word-net-queue-6",
   "./word-net-standard.mjs?v=word-net-standard-4",
   "./conjugation-comet.html",
-  "./conjugation-comet.css?v=conjugation-comet-2",
-  "./conjugation-comet.js?v=conjugation-comet-3",
+  "./conjugation-comet.css?v=conjugation-comet-4",
+  "./conjugation-comet.js?v=conjugation-comet-6",
   "./vector-db.js?v=vector-db-9",
   "./vendor/transformers/transformers.min.js",
   "./chat.html",

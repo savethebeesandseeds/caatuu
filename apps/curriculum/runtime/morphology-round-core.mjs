@@ -1,5 +1,6 @@
 export const MORPHOLOGY_CATALOG_SCHEMA = "caatuu-morphology-developer-pilot-v1";
 export const MORPHOLOGY_ROUND_SCHEMA = "caatuu-morphology-selection-round-v1";
+export const MORPHOLOGY_MATCH_BOARD_SCHEMA = "caatuu-morphology-match-board-v1";
 
 const REVIEW_STATUSES = new Set([
   "prototype-not-human-approved",
@@ -762,6 +763,187 @@ export function composeMorphologyRound(rawCatalog, request = {}) {
     schemaVersion: MORPHOLOGY_ROUND_SCHEMA,
     roundId: `morph-${deterministicToken(stableStringify(roundCore))}`,
     ...roundCore
+  });
+}
+
+function requestedFamilyMembers(rows, rawRefs, family, kind, path) {
+  if (rawRefs == null) return rows.filter((row) => sameEntityRef(row.familyRef, family));
+  if (!Array.isArray(rawRefs) || rawRefs.length < 2) {
+    fail(
+      "MORPH_MATCH_BOARD_MEMBERS_INVALID",
+      `${path} must contain at least two revision-pinned references.`,
+      { path }
+    );
+  }
+  const resolved = rawRefs.map((rawRef, index) => (
+    resolveRequestedRef(rows, rawRef, kind, `${path}/${index}`)
+  ));
+  const keys = resolved.map((row) => `${row.id}@${row.revision}`);
+  if (new Set(keys).size !== keys.length) {
+    fail(
+      "MORPH_MATCH_BOARD_MEMBERS_INVALID",
+      `${path} contains duplicate revision-pinned references.`,
+      { path }
+    );
+  }
+  for (const row of resolved) {
+    if (!sameEntityRef(row.familyRef, family)) {
+      fail(
+        "MORPH_MATCH_BOARD_FAMILY_MISMATCH",
+        `${path} contains content from another morphology family.`,
+        { path, memberId: row.id, familyId: family.id }
+      );
+    }
+  }
+  return resolved;
+}
+
+function derangeMorphologyCues(forms, cues, seed) {
+  const ordered = deterministicShuffle(cues, seed);
+  if (ordered.every((cue, index) => !sameEntityRef(cue.targetItemRef, forms[index]))) {
+    return ordered;
+  }
+  for (let offset = 1; offset < ordered.length; offset += 1) {
+    const rotated = ordered.map((_, index) => ordered[(index + offset) % ordered.length]);
+    if (rotated.every((cue, index) => !sameEntityRef(cue.targetItemRef, forms[index]))) {
+      return rotated;
+    }
+  }
+  return ordered;
+}
+
+/**
+ * Compose one deterministic two-column paradigm board. A board is intentionally
+ * presentation-only: the existing revision-pinned cue rounds remain the
+ * evidence authority, while this projection lets a game display every reviewed
+ * form and its fair English cue together.
+ */
+export function composeMorphologyMatchBoard(rawCatalog, request = {}) {
+  const catalog = normalizeMorphologyCatalog(rawCatalog);
+  if (!isObject(request)) {
+    fail("MORPH_MATCH_BOARD_REQUEST_INVALID", "Morphology match-board request must be an object.");
+  }
+  const catalogRef = normalizeCatalogRef(request.catalogRef, "/request/catalogRef");
+  if (catalogRef.id !== catalog.catalogId || catalogRef.version !== catalog.version) {
+    fail("MORPH_CATALOG_REF_STALE", "Morphology match-board request has a stale catalog reference.", {
+      catalogRef,
+      currentCatalogRef: { id: catalog.catalogId, version: catalog.version }
+    });
+  }
+  const family = resolveRequestedRef(catalog.families, request.familyRef, "FAMILY", "/request/familyRef");
+  const taskFingerprint = normalizedString(request.taskFingerprint, "/request/taskFingerprint");
+  const releaseMode = request.releaseMode === true;
+  if (request.releaseMode != null && typeof request.releaseMode !== "boolean") {
+    fail("MORPH_MATCH_BOARD_REQUEST_INVALID", "/request/releaseMode must be boolean.", {
+      path: "/request/releaseMode"
+    });
+  }
+
+  const selectedItems = requestedFamilyMembers(
+    catalog.items,
+    request.itemRefs,
+    family,
+    "ITEM",
+    "/request/itemRefs"
+  );
+  const selectedCues = requestedFamilyMembers(
+    catalog.cues,
+    request.cueRefs,
+    family,
+    "CUE",
+    "/request/cueRefs"
+  );
+  if (selectedItems.length !== selectedCues.length) {
+    fail(
+      "MORPH_MATCH_BOARD_NOT_BIJECTIVE",
+      "A morphology match board requires one reviewed English cue for every displayed form.",
+      { itemCount: selectedItems.length, cueCount: selectedCues.length }
+    );
+  }
+  const itemKeys = new Set(selectedItems.map((item) => `${item.id}@${item.revision}`));
+  const targetKeys = selectedCues.map((cue) => `${cue.targetItemRef.id}@${cue.targetItemRef.revision}`);
+  if (new Set(targetKeys).size !== targetKeys.length
+      || targetKeys.some((key) => !itemKeys.has(key))) {
+    fail(
+      "MORPH_MATCH_BOARD_NOT_BIJECTIVE",
+      "A morphology match board requires each cue to target one distinct displayed form.",
+      { familyId: family.id }
+    );
+  }
+
+  ensureContentReview(catalog, "catalog", releaseMode);
+  ensureContentReview(family, "family", releaseMode);
+  for (const item of selectedItems) ensureContentReview(item, "item", releaseMode);
+  for (const cue of selectedCues) ensureContentReview(cue, "cue", releaseMode);
+
+  const forms = deterministicShuffle(selectedItems, `${taskFingerprint}|forms`);
+  const cues = derangeMorphologyCues(forms, selectedCues, `${taskFingerprint}|cues`);
+  const boardCore = {
+    catalogRef,
+    familyRef: { id: family.id, revision: family.revision },
+    taskFingerprint,
+    forms: forms.map((item) => ({
+      itemRef: { id: item.id, revision: item.revision },
+      surface: item.surface
+    })),
+    cues: cues.map((cue) => ({
+      cueRef: { id: cue.id, revision: cue.revision },
+      targetItemRef: { id: cue.targetItemRef.id, revision: cue.targetItemRef.revision },
+      key: cue.key,
+      presentation: cue.presentation
+    }))
+  };
+  return deepFreeze({
+    schemaVersion: MORPHOLOGY_MATCH_BOARD_SCHEMA,
+    boardId: `morph-board-${deterministicToken(stableStringify(boardCore))}`,
+    ...boardCore
+  });
+}
+
+export function evaluateMorphologyMatchPair(board, selection = {}) {
+  if (!isObject(board)
+      || board.schemaVersion !== MORPHOLOGY_MATCH_BOARD_SCHEMA
+      || !Array.isArray(board.forms)
+      || !Array.isArray(board.cues)) {
+    fail("MORPH_MATCH_BOARD_INVALID", "Pair evaluation requires a composed morphology match board.");
+  }
+  if (!isObject(selection)) {
+    fail("MORPH_MATCH_PAIR_INVALID", "Morphology pair selection must be an object.");
+  }
+  const selectedItemRef = normalizeEntityRef(selection.itemRef, "/selection/itemRef");
+  const selectedCueRef = normalizeEntityRef(selection.cueRef, "/selection/cueRef");
+  const form = board.forms.find((row) => row?.itemRef?.id === selectedItemRef.id);
+  const cue = board.cues.find((row) => row?.cueRef?.id === selectedCueRef.id);
+  if (!form) {
+    fail("MORPH_SELECTION_NOT_IN_ROUND", "Selected morphology item is not on this match board.", {
+      selectedItemRef
+    });
+  }
+  if (form.itemRef.revision !== selectedItemRef.revision) {
+    fail("MORPH_SELECTION_REF_STALE", "Selected morphology item revision is stale.", {
+      selectedItemRef,
+      currentRevision: form.itemRef.revision
+    });
+  }
+  if (!cue) {
+    fail("MORPH_CUE_NOT_IN_BOARD", "Selected English cue is not on this match board.", {
+      selectedCueRef
+    });
+  }
+  if (cue.cueRef.revision !== selectedCueRef.revision) {
+    fail("MORPH_CUE_REF_STALE", "Selected English cue revision is stale.", {
+      selectedCueRef,
+      currentRevision: cue.cueRef.revision
+    });
+  }
+  const targetItemRef = normalizeEntityRef(cue.targetItemRef, "/board/cue/targetItemRef");
+  const correct = sameEntityRef(selectedItemRef, targetItemRef);
+  return deepFreeze({
+    correct,
+    score: correct ? 1 : 0,
+    cueRef: selectedCueRef,
+    selectedItemRef,
+    targetItemRef
   });
 }
 

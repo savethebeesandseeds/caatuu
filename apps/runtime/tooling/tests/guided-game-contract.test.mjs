@@ -356,26 +356,32 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
   assert.match(painted, /naturalTranslationEn/);
 
   const render = functionSource(cometController, "renderVerbMorphology", "morphologyRefKey");
+  const boardRender = functionSource(
+    cometController,
+    "renderMorphologyMatchColumns",
+    "renderVerbMorphology"
+  );
   assert.doesNotMatch(render, /createElement\("img"\)|assetPath|picture clue/i);
-  assert.match(render, /presentation\.naturalTranslationEn/);
-  assert.match(render, /presentation\.teachingLabelEn/);
+  assert.match(boardRender, /cue\.presentation\.naturalTranslationEn/);
+  assert.match(boardRender, /cue\.presentation\.teachingLabelEn/);
+  assert.match(boardRender, /labelNode\.textContent = `\(\$\{teachingLabel\}\)`/);
   assert.doesNotMatch(render, /presentation\.questionEn|Who is reading\?/);
-  assert.match(render, /setText\("#verbMorphologyTitle", "Which form fits\?"\)/);
+  assert.match(render, /setText\("#verbMorphologyTitle", "Match every form"\)/);
   assert.match(render, /course\.targetLanguage\?\.label \|\| "target language"/);
   assert.match(render, /course\.targetLanguage\?\.locale \|\| course\.targetLanguage\?\.id/);
   assert.match(render, /lemmaNode\.lang = targetLanguageLocale/);
-  assert.match(render, /stateDescription\.lang = "en"/);
-  assert.match(render, /button\.removeAttribute\("aria-pressed"\)/);
-  assert.doesNotMatch(render, /button\.setAttribute\("aria-pressed"|choice\.ariaLabel/);
-  assert.match(render, /const reusable = existingButtons\.length/);
-  assert.match(render, /buttons\.find\(\(button\) => \(\s*!button\.disabled && !button\.classList\.contains\("is-wrong"\)/);
+  assert.match(boardRender, /language: targetLanguage/);
+  assert.match(boardRender, /language: "en"/);
+  assert.doesNotMatch(boardRender, /button\.setAttribute\("aria-pressed"/);
+  assert.match(boardRender, /formsColumn\.replaceChildren\(\.\.\.formRows\)/);
+  assert.match(boardRender, /cuesColumn\.replaceChildren\(\.\.\.cueRows\)/);
   assert.match(render, /state\.verbMorphologyFocusNextAction[\s\S]*?!nextButton\.disabled[\s\S]*?focusVerbMorphologyControl\(nextButton, board\)/);
   assert.match(render, /state\.verbGuidedStatus === "awaiting-next"/);
-  assert.match(render, /"Next form"/);
+  assert.match(render, /"Continue matching"/);
   assert.match(render, /0 XP/);
   assert.ok((render.match(/hintPanel\.hidden = true/g) || []).length >= 2);
   assert.ok((render.match(/nextButton\.hidden = true/g) || []).length >= 2);
-  assert.match(render, /choices\.replaceChildren\(\);\s*choices\.hidden = true;/);
+  assert.doesNotMatch(render, /verbMorphologyChoices|choices\.replaceChildren/);
   assert.match(render, /"Unavailable · non-mastery · 0 XP"/);
   const guidedStatus = functionSource(
     cometController,
@@ -396,7 +402,7 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
   assert.doesNotMatch(choose, /completeVerbMorphologySequenceStep/);
   assert.match(choose, /Your answer was not recorded because the local result could not be prepared\./);
   assert.match(choose, /supported form comprehension, not independent evidence/);
-  assert.match(choose, /choose Next form when ready/);
+  assert.match(choose, /continuing to the next match/);
   assert.doesNotMatch(choose, /CaatuuLearning\?\.record/);
 
   const reveal = functionSource(
@@ -410,7 +416,7 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
   assert.doesNotMatch(reveal, /current\.settlementId \|\| morphologySettlement/);
   assert.doesNotMatch(reveal, /completeVerbMorphologySequenceStep/);
   assert.match(reveal, /\{ hintState: nextHintState \}/);
-  assert.match(reveal, /choose Next form when ready/);
+  assert.match(reveal, /continuing to the next match/);
   assert.doesNotMatch(reveal, /CaatuuLearning\?\.record/);
 
   const advance = functionSource(
@@ -455,11 +461,16 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
 
   assert.match(indexHtml, /id="verbWorldSubtitle">Match meanings<\/small>/);
   assert.doesNotMatch(indexHtml, /id="verbMorphologyBoard"/);
-  assert.match(cometHtml, /id="verbMorphologyTitle">Which form fits\?<\/h1>/);
+  assert.match(cometHtml, /id="verbMeaningGateTitle">Find this verb’s meaning<\/h1>/);
+  assert.match(cometHtml, /id="verbMorphologyTitle">Match every form<\/h1>/);
   assert.match(cometHtml, /id="verbMorphologyLemmaTarget"><\/span>/);
   assert.match(cometHtml, /id="verbMorphologyGloss" lang="en"><\/span>/);
   assert.doesNotMatch(cometHtml, /\b(?:číst|čtu|čteš|čte)\b/u);
-  assert.match(cometHtml, /id="verbMorphologyChoices"[\s\S]*?role="group"/);
+  assert.match(cometHtml, /id="verbMeaningTargetColumn"/);
+  assert.match(cometHtml, /id="verbMeaningEnglishColumn"/);
+  assert.match(cometHtml, /id="verbMorphologyFormsColumn"/);
+  assert.match(cometHtml, /id="verbMorphologyCuesColumn"/);
+  assert.doesNotMatch(cometHtml, /id="verbMorphologyChoices"/);
   assert.match(cometHtml, /id="verbMorphologyFeedback"[\s\S]*?aria-live="polite"/);
   assert.doesNotMatch(
     cometHtml,
@@ -470,9 +481,10 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
     /banner\.removeAttribute\("role"\)[\s\S]*?banner\.removeAttribute\("aria-live"\)/
   );
   assert.doesNotMatch(cometHtml, /id="verbMorphologyNextButton"[^>]*aria-describedby/);
-  assert.match(cometCss, /\.verb-morphology-role\s*\{[\s\S]*?background: var\(--theme-blue-filled, #496d84\);[\s\S]*?color: #ffffff;/);
-  assert.match(cometCss, /\.verb-morphology-visually-hidden\s*\{[\s\S]*?clip: rect\(0 0 0 0\);/);
-  assert.match(cometCss, /#verbMorphologyCue\[hidden\],[\s\S]*?#verbMorphologyNextButton\[hidden\],[\s\S]*?display: none;/);
+  assert.match(cometCss, /\.conjugation-comet-match-board\s*\{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(cometCss, /\.conjugation-comet-cue-label\s*\{/);
+  assert.match(cometCss, /\.verb-morphology-visually-hidden\s*\{[\s\S]*?clip: rect\(0 0 0 0\) !important;/);
+  assert.match(cometCss, /\.conjugation-comet-match-board\[hidden\],[\s\S]*?display: none;/);
 });
 
 test("Conjugation Comet rejects contradictory persisted progress envelopes", () => {
