@@ -281,6 +281,37 @@
 }
 
 @media (max-width: 680px) {
+  .conjugation-comet-page .app-shell {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    min-height: 100dvh;
+  }
+
+  .conjugation-comet-page .app-shell > .workspace {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .conjugation-comet-page #view-conjugation-comet.is-active {
+    width: 100%;
+  }
+
+  .conjugation-comet-page #conjugationCometPanel.verb-match-panel.is-active {
+    min-height: max(610px, calc(100dvh - 260px));
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .conjugation-comet-page #conjugationCometPanel.verb-match-panel.is-active > .verb-match-board {
+    width: 100%;
+    align-self: center;
+  }
+
+  .conjugation-comet-page #conjugationCometPanel.verb-match-panel.is-active > .verb-match-footer {
+    align-self: end;
+  }
+
   .conjugation-comet-match-board {
     min-height: min(500px, 62dvh);
   }
