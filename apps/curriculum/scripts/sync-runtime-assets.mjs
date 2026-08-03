@@ -13,7 +13,8 @@ const runtimeAssets = [
     "pilot-content-sources.v1.json",
     "cs-CZ.cross-game-bindings.v1.json",
     "shared-mechanic-capabilities.v1.en.json",
-    "cs-CZ.morphology-developer-pilot.v1.json"
+    "cs-CZ.morphology-developer-pilot.v1.json",
+    "cs-CZ.morphology-present-person-developer-pilot.v1.json"
   ].map((name) => ({ name, sourceBase: curriculumDataUrl, destinationBase: runtimeDataUrl })),
   ...[
     "curriculum-runtime-core.mjs",

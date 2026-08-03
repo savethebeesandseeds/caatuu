@@ -20,6 +20,7 @@ invariants.
 - `schemas/target-morphology-catalog.schema.json`: target-language forms, cues, metadata, and review contract.
 - `data/canonical-curriculum.v1.en.json`: the three-unit English-authored pilot.
 - `data/cs-CZ.realization-pack.v1.json`: a provisional Czech realization fixture.
+- `data/cs-CZ.morphology-present-person-developer-pilot.v1.json`: the active six-form Czech `číst` Conjugation Comet pilot; the earlier three-form catalog remains available only for stable-ID compatibility.
 - `data/pilot-content-sources.v1.json`: revisioned snapshots for the reviewed Word World, Verb Nebula, and Conjugation Comet pilot content.
 - `data/cs-CZ.cross-game-bindings.v1.json`: activity-owned bindings for meaning and morphology skills.
 - `src/validate-conformance.mjs`: dependency-free structural, semantic, transfer, and cross-file validator.
@@ -90,7 +91,7 @@ The command exits `0` for a conforming pack and `1` for violations. Output is
 JSON so CI and future content tooling can consume stable error codes.
 
 The current three-unit integration pilot contains 43 English semantic
-definitions, 20 Czech target
+definitions, 22 Czech target
 skills, 58 provisional utterances, and 48 structured contexts. Context counts
 are computed from explicit skill-to-stimulus/response opportunities. A new ID,
 description, or arbitrary label cannot manufacture transfer diversity.
@@ -200,12 +201,15 @@ translation. A future language enables only the dimensions and exercise
 templates its reviewed catalog supports; saying that the language "has
 conjugation" is never sufficient authorization.
 
-The current Czech `číst` visible-form sequence—speaker singular, familiar
-addressee singular, then named third person singular—is a three-step developer
-pilot, not a universal template or cardinality rule. It deliberately defers
-aspect, reflexive `se`/`si`, dropped-subject production, irregular paradigms,
-past-gender contrasts, polite/plural ambiguity, and broader accepted-variant
-policy. The activity is untimed, keeps every target option visible, records
+The active Czech `číst` visible-form sequence covers first, second, and third
+person in the singular and plural. Its English cues make the person/number
+contrast explicit while keeping the natural translation separate from the
+teaching label. The second-person plural cue is limited to an explicitly
+familiar group; polite address is deferred. This six-step developer pilot is
+not a universal template or cardinality rule. It also defers aspect, reflexive
+`se`/`si`, dropped-subject production, irregular paradigms, past-gender
+contrasts, and broader accepted-variant policy. The activity is untimed, keeps
+every target option visible, records
 only supplemental form discrimination, cannot advance meaning or conjugation
 mastery, and awards 0 XP. Explore remains outside this Guided evidence path.
 

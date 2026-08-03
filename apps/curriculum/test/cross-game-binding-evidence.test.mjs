@@ -133,8 +133,8 @@ test("the pilot binds real Word World content and a stable Verb Nebula sidecar",
   assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
   assert.equal(result.targetPackDigest, computeTargetPackDigest(pack));
   assert.deepEqual(result.summary.activities, ["conjugation-comet", "verb-nebula", "word-world"]);
-  assert.equal(result.summary.bindings, 5);
-  assert.equal(result.summary.exerciseSequences, 1);
+  assert.equal(result.summary.bindings, 11);
+  assert.equal(result.summary.exerciseSequences, 2);
 
   const word = catalog.sources.find((source) => source.contentId === "ww-cp-000146");
   const verb = catalog.sources.find((source) => source.contentId === "cs.verb.cist.read");

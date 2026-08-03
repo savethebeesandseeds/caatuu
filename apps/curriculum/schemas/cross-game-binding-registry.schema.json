@@ -19,6 +19,11 @@
     "schemaVersion": {"const": "caatuu-cross-game-binding-registry-v1"},
     "registryId": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
     "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "compatibleTaskRegistryVersions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"}
+    },
     "curriculum": {
       "type": "object",
       "additionalProperties": false,

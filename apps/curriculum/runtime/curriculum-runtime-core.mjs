@@ -725,7 +725,11 @@ export async function validateLearningTask(curriculum, registry, task) {
     error("TASK_SCHEMA", "/", "Task requires an ID, session, ISO issue time, and positive sequence.");
   }
   if (task.taskFingerprint !== expectedFingerprint) error("TASK_FINGERPRINT_MISMATCH", "/taskFingerprint", "Task payload does not match its immutable fingerprint.");
-  if (task.registry?.id !== registry.registryId || task.registry?.version !== registry.version) error("TASK_REGISTRY_MISMATCH", "/registry", "Task references a different registry release.");
+  const compatibleRegistryVersion = task.registry?.version === registry.version
+    || rows(registry.compatibleTaskRegistryVersions).includes(task.registry?.version);
+  if (task.registry?.id !== registry.registryId || !compatibleRegistryVersion) {
+    error("TASK_REGISTRY_MISMATCH", "/registry", "Task references an incompatible registry release.");
+  }
   const binding = rows(registry.bindings).find((row) => row?.id === task.bindingId);
   const capability = rows(binding?.evidenceCapabilities).find((row) => row?.id === task.capabilityId);
   const skillRef = rows(binding?.targetSkillRefs).find((row) => row?.id === task.targetSkillId);

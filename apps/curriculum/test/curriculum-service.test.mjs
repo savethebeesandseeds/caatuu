@@ -1279,7 +1279,7 @@ test("authored two-step and four-step morphology sequences remain durable and op
       });
       const service = createCurriculumService(shared);
       const ready = await service.ready();
-      assert.equal(ready.validation.summary.exerciseSequences, 1);
+      assert.equal(ready.validation.summary.exerciseSequences, 2);
       const catalog = await readJson("cs-CZ.morphology-developer-pilot.v1.json");
       const orderedBindingIds = base.sequenceBindingIds;
 

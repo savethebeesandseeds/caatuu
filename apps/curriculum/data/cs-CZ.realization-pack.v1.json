@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-target-realization-pack-v1",
   "packId": "caatuu.cs-CZ.shared-beginner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "specLocale": "en",
   "targetLocale": "cs-CZ",
   "supportLocales": [
@@ -1155,6 +1155,24 @@
       "review": {
         "status": "prototype-not-human-approved",
         "notesEn": "Supplemental developer-only form discrimination; native Czech educator approval is required before learner release."
+      }
+    },
+    {
+      "id": "cs.skill.form.cist.present-person-number",
+      "revision": 1,
+      "unitId": "unit.routine.familiar-actions.01",
+      "locale": "cs-CZ",
+      "kind": "form",
+      "descriptionEn": "Discriminate the six reviewed present forms of číst by person and number in explicit current-action contexts.",
+      "canonicalIds": [
+        "function.describe-action",
+        "frame.action",
+        "concept.action.read"
+      ],
+      "requiredForOutcome": false,
+      "review": {
+        "status": "prototype-not-human-approved",
+        "notesEn": "Supplemental developer-only person-and-number discrimination; native Czech educator approval is required before learner release."
       }
     },
     {

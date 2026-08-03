@@ -1,7 +1,11 @@
 {
   "schemaVersion": "caatuu-cross-game-binding-registry-v1",
   "registryId": "caatuu.cs-CZ.cross-game-bindings",
-  "version": "1.6.0",
+  "version": "1.7.1",
+  "compatibleTaskRegistryVersions": [
+    "1.6.0",
+    "1.7.0"
+  ],
   "curriculum": {
     "id": "caatuu.shared-beginner",
     "version": "1.0.0",
@@ -9,13 +13,13 @@
   },
   "targetPack": {
     "id": "caatuu.cs-CZ.shared-beginner",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "targetLocale": "cs-CZ",
-    "targetPackDigest": "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461"
+    "targetPackDigest": "sha256:89d6c728e49299260eba89f136ce046219384b6cd7f16aee1dc5f4217e87562a"
   },
   "sourceCatalog": {
     "id": "caatuu.cs-CZ.cross-game-pilot-sources",
-    "version": "1.5.0"
+    "version": "1.6.0"
   },
   "bindings": [
     {
@@ -168,7 +172,10 @@
       "canonicalUnitId": "unit.routine.familiar-actions.01",
       "canonicalUnitRevision": 1,
       "targetSkillRefs": [
-        {"id": "cs.skill.form.cist.present-singular-person", "revision": 1}
+        {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        }
       ],
       "contextId": null,
       "contextRevision": null,
@@ -210,7 +217,280 @@
       "canonicalUnitId": "unit.routine.familiar-actions.01",
       "canonicalUnitRevision": 1,
       "targetSkillRefs": [
-        {"id": "cs.skill.form.cist.present-singular-person", "revision": 1}
+        {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.1sg",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.1sg",
+        "revision": 1,
+        "contentDigest": "sha256:7392e3880c0629aea356e003358d8658876b5550453de826482ece4c133b9625"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.2sg",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.2sg",
+        "revision": 1,
+        "contentDigest": "sha256:5b6878197eb00327603564f83310acf99554e0e817b19c67c2a8d44ba5b4ef94"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.3sg",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.3sg",
+        "revision": 1,
+        "contentDigest": "sha256:1dabdec6cb14577efafebbd68bff1191031d90a40b08d2297901893c1995f6b7"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.1pl",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.1pl",
+        "revision": 1,
+        "contentDigest": "sha256:770a4cfd73bece805ce7e88c0c7b66204dc6d958f5653ad4a5a8982fd9d865d3"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.2pl",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.2pl",
+        "revision": 1,
+        "contentDigest": "sha256:7d1ecfda2a07870fb1673cd1ea7e5247106e00c01768a75148e705728142dd40"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
+      ],
+      "contextId": null,
+      "contextRevision": null,
+      "opportunityId": null,
+      "evidenceCapabilities": [
+        {
+          "id": "exposure",
+          "mechanicId": "form-context-presentation",
+          "learningStage": "encounter",
+          "evidenceKind": "exposure",
+          "independence": "exposure",
+          "scoreRequired": false,
+          "masteryEligible": false
+        },
+        {
+          "id": "independent-form-discrimination",
+          "mechanicId": "visible-form-choice",
+          "learningStage": "discriminate",
+          "evidenceKind": "comprehension",
+          "independence": "independent",
+          "scoreRequired": true,
+          "masteryEligible": false,
+          "minimumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "binding.conjugation-comet.cs.morphology.cist.present-person-number.3pl",
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "contentRef": {
+        "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+        "catalogRevision": "1.0.0",
+        "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+        "contentId": "cs.morphology.cist.present-person-number.3pl",
+        "revision": 1,
+        "contentDigest": "sha256:85ca5a07282e4f0be6607c109af89d42e697b8068309f1bc89d24bcfa1e1f24c"
+      },
+      "canonicalUnitId": "unit.routine.familiar-actions.01",
+      "canonicalUnitRevision": 1,
+      "targetSkillRefs": [
+        {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        }
       ],
       "contextId": null,
       "contextRevision": null,
@@ -248,6 +528,20 @@
         "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
         "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
         "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg"
+      ]
+    },
+    {
+      "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+      "revision": 1,
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "orderedBindingIds": [
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.1sg",
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.2sg",
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.3sg",
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.1pl",
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.2pl",
+        "binding.conjugation-comet.cs.morphology.cist.present-person-number.3pl"
       ]
     }
   ],

@@ -20,7 +20,7 @@ const mechanicCatalogUrl = new URL(
   import.meta.url
 );
 const morphologyCatalogUrl = new URL(
-  "../data/cs-CZ.morphology-developer-pilot.v1.json",
+  "../data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
   import.meta.url
 );
 const mechanicCatalogSchemaUrl = new URL(
@@ -34,25 +34,34 @@ const morphologyCatalogSchemaUrl = new URL(
 const sourceCatalogUrl = new URL("../data/pilot-content-sources.v1.json", import.meta.url);
 const bindingRegistryUrl = new URL("../data/cs-CZ.cross-game-bindings.v1.json", import.meta.url);
 
-const CONTENT_ID = "cs.morphology.cist.present-singular-person.1sg";
-const FAMILY_ID = "cs.morphology.family.cist.present-singular";
+const CONTENT_ID = "cs.morphology.cist.present-person-number.1sg";
+const FAMILY_ID = "cs.morphology.family.cist.present-person-number";
 const CAPABILITY_ID = "capability.contextual-target-realization.visible-form-choice";
-const TARGET_SKILL_ID = "cs.skill.form.cist.present-singular-person";
+const TARGET_SKILL_ID = "cs.skill.form.cist.present-person-number";
 
 const expectedItemIds = [
   "cs.form.cist.present-indicative.1sg",
   "cs.form.cist.present-indicative.2sg",
-  "cs.form.cist.present-indicative.3sg"
+  "cs.form.cist.present-indicative.3sg",
+  "cs.form.cist.present-indicative.1pl",
+  "cs.form.cist.present-indicative.2pl",
+  "cs.form.cist.present-indicative.3pl"
 ];
 const expectedCueIds = [
   "cs.cue.cist.read.speaker-singular-current",
   "cs.cue.cist.read.addressee-singular-current",
-  "cs.cue.cist.read.named-third-person-current"
+  "cs.cue.cist.read.named-third-person-current",
+  "cs.cue.cist.read.speaker-group-current",
+  "cs.cue.cist.read.addressee-group-current",
+  "cs.cue.cist.read.named-third-person-group-current"
 ];
 const expectedExerciseIds = [
   "cs.exercise.cist.visible-form-choice.1sg",
   "cs.exercise.cist.visible-form-choice.2sg",
-  "cs.exercise.cist.visible-form-choice.3sg"
+  "cs.exercise.cist.visible-form-choice.3sg",
+  "cs.exercise.cist.visible-form-choice.1pl",
+  "cs.exercise.cist.visible-form-choice.2pl",
+  "cs.exercise.cist.visible-form-choice.3pl"
 ];
 
 async function readJson(url) {
@@ -171,7 +180,7 @@ test("the English-backed Czech morphology pilot validates with stable IDs and co
     mechanicCatalog.capabilities[0].requiredCanonicalContextDimensionIds,
     ["referent-person", "time-profile"]
   );
-  assert.equal(morphologyCatalog.version, "1.2.0");
+  assert.equal(morphologyCatalog.version, "1.0.0");
   assert.equal(morphologyCatalog.metadata.activityId, "conjugation-comet");
   assert.equal(
     morphologyCatalog.metadata.exerciseFamilyId,
@@ -179,11 +188,11 @@ test("the English-backed Czech morphology pilot validates with stable IDs and co
   );
   assert.equal(mechanicCatalog.version, "1.0.0");
   assert.deepEqual(morphologyCatalog.families.map(({ revision }) => revision), [1]);
-  assert.deepEqual(morphologyCatalog.items.map(({ revision }) => revision), [1, 2, 1]);
-  assert.deepEqual(morphologyCatalog.cues.map(({ revision }) => revision), [1, 2, 2]);
+  assert.deepEqual(morphologyCatalog.items.map(({ revision }) => revision), [2, 3, 2, 1, 1, 1]);
+  assert.deepEqual(morphologyCatalog.cues.map(({ revision }) => revision), [2, 3, 3, 1, 1, 1]);
   assert.deepEqual(
     morphologyCatalog.cues.map((cue) => cue.metadata.exercise.revision),
-    [1, 2, 2]
+    [2, 3, 3, 1, 1, 1]
   );
   assert.equal(
     [...mechanicCatalog.capabilityFamilies, ...mechanicCatalog.capabilities]
@@ -191,17 +200,20 @@ test("the English-backed Czech morphology pilot validates with stable IDs and co
     true
   );
   assert.deepEqual(morphologyCatalog.metadata.stableContentSequence.orderedContentIds, [
-    "cs.morphology.cist.present-singular-person.1sg",
-    "cs.morphology.cist.present-singular-person.2sg",
-    "cs.morphology.cist.present-singular-person.3sg"
+    "cs.morphology.cist.present-person-number.1sg",
+    "cs.morphology.cist.present-person-number.2sg",
+    "cs.morphology.cist.present-person-number.3sg",
+    "cs.morphology.cist.present-person-number.1pl",
+    "cs.morphology.cist.present-person-number.2pl",
+    "cs.morphology.cist.present-person-number.3pl"
   ]);
 
   assert.equal(result.summary.capabilityFamilies, 1);
   assert.equal(result.summary.capabilities, 1);
   assert.equal(result.summary.morphologyFamilies, 1);
-  assert.equal(result.summary.morphologyItems, 3);
-  assert.equal(result.summary.morphologyCues, 3);
-  assert.equal(result.summary.morphologyExercises, 3);
+  assert.equal(result.summary.morphologyItems, 6);
+  assert.equal(result.summary.morphologyCues, 6);
+  assert.equal(result.summary.morphologyExercises, 6);
   assert.equal(
     result.digests.canonicalContractDigest,
     computeCanonicalContractDigest(inputs.curriculum)
@@ -307,14 +319,17 @@ test("the authoring gate rejects unknown fields and likely property-name typos",
   });
 });
 
-test("the deterministic runtime core accepts the authored catalog and composes its three-form round", async () => {
+test("the deterministic runtime core accepts the authored catalog and composes its six-form round", async () => {
   const { morphologyCatalog } = await fixture();
   const normalized = normalizeMorphologyCatalog(morphologyCatalog);
 
-  assert.equal(normalized.catalogId, "caatuu.cs-CZ.morphology-developer-pilot");
+  assert.equal(normalized.catalogId, "caatuu.cs-CZ.morphology-present-person-developer-pilot");
   assert.deepEqual(normalized.items.map(({ surface }) => surface), [
+    "\u010dteme",
     "\u010dtu",
+    "\u010dtete",
     "\u010dte\u0161",
+    "\u010dtou",
     "\u010dte"
   ]);
 
@@ -329,14 +344,14 @@ test("the deterministic runtime core accepts the authored catalog and composes i
       revision: morphologyCatalog.families[0].revision
     },
     cueRef: { id: cue.id, revision: cue.revision },
-    optionCount: 3,
-    taskFingerprint: "contract-test:cs-cist-present-singular"
+    optionCount: 6,
+    taskFingerprint: "contract-test:cs-cist-present-person-number"
   });
 
-  assert.equal(round.options.length, 3);
+  assert.equal(round.options.length, 6);
   assert.deepEqual(round.targetItemRef, cue.targetItemRef);
   assert.equal(round.cue.presentation.naturalTranslationEn, "I am reading now.");
-  assert.equal(new Set(round.options.map(({ surface }) => surface)).size, 3);
+  assert.equal(new Set(round.options.map(({ surface }) => surface)).size, 6);
   assert.ok(Object.isFrozen(round));
 });
 
@@ -542,16 +557,17 @@ test("revision-pinned exercise prerequisites cannot form a cycle", async () => {
   setCuePrerequisites(inputs.morphologyCatalog.cues[0], [{
     entityType: "exercise",
     id: expectedExerciseIds[2],
-    revision: 2
+    revision: 3
   }]);
   assertHasCode(validate(inputs), "MORPH_PREREQUISITE_CYCLE");
 });
 
-test("sequence projections preserve exact 1sg to 2sg to 3sg cue and binding order", async (t) => {
+test("sequence projections preserve exact singular-then-plural person order", async (t) => {
   await t.test("source selected cue cannot drift", async () => {
     const inputs = await fixture();
     const sources = inputs.sourceCatalog.sources.filter((source) => (
       source.exerciseFamilyId === "conjugation-comet.contextual-target-realization"
+      && source.catalogId === inputs.morphologyCatalog.catalogId
     ));
     sources[1].snapshot.selectedCueRef = structuredClone(sources[0].snapshot.selectedCueRef);
     assertHasCode(validate(inputs), "MORPH_SEQUENCE_SOURCE_MISMATCH");
@@ -559,7 +575,10 @@ test("sequence projections preserve exact 1sg to 2sg to 3sg cue and binding orde
 
   await t.test("binding order cannot drift", async () => {
     const inputs = await fixture();
-    const ordered = inputs.bindingRegistry.exerciseSequences[0].orderedBindingIds;
+    const sequence = inputs.bindingRegistry.exerciseSequences.find(({ id }) => (
+      id === "sequence.conjugation-comet.cs.morphology.cist.present-person-number"
+    ));
+    const ordered = sequence.orderedBindingIds;
     [ordered[0], ordered[1]] = [ordered[1], ordered[0]];
     assertHasCode(validate(inputs), "MORPH_SEQUENCE_BINDING_MISMATCH");
   });

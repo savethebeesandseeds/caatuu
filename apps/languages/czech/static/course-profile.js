@@ -53,26 +53,26 @@
       schemaVersion: 1,
       paths: {
         canonicalManifest: "data/curriculum/canonical-curriculum.v1.en.json",
-        realizationPack: "data/curriculum/cs-CZ.realization-pack.v1.json",
-        sourceCatalog: "data/curriculum/pilot-content-sources.v1.json",
-        bindingRegistry: "data/curriculum/cs-CZ.cross-game-bindings.v1.json",
+        realizationPack: "data/curriculum/cs-CZ.realization-pack.v1.json?v=89d6c728e4929926",
+        sourceCatalog: "data/curriculum/pilot-content-sources.v1.json?v=50ff3e7f35a5ce36",
+        bindingRegistry: "data/curriculum/cs-CZ.cross-game-bindings.v1.json?v=aaf085b226243f22",
         sharedMechanicCapabilities: "data/curriculum/shared-mechanic-capabilities.v1.en.json",
-        morphologyCatalog: "data/curriculum/cs-CZ.morphology-developer-pilot.v1.json"
+        morphologyCatalog: "data/curriculum/cs-CZ.morphology-present-person-developer-pilot.v1.json?v=31ce75b2e464d308"
       },
       releasePins: {
         curriculumId: "caatuu.shared-beginner",
         curriculumVersion: "1.0.0",
         canonicalContractDigest: "sha256:ea771050c38c0bac732fa5ae02a0494b6505b98b8a635590ee3fa7ff2cb32dd9",
         targetPackId: "caatuu.cs-CZ.shared-beginner",
-        targetPackVersion: "1.1.0",
+        targetPackVersion: "1.2.0",
         targetLocale: "cs-CZ",
-        targetPackDigest: "sha256:07526a2a7b54c062aebbda21f4e3c41d43add1ebec1f928575a5d57bbeb2e461",
+        targetPackDigest: "sha256:89d6c728e49299260eba89f136ce046219384b6cd7f16aee1dc5f4217e87562a",
         sourceCatalogId: "caatuu.cs-CZ.cross-game-pilot-sources",
-        sourceCatalogVersion: "1.5.0",
-        sourceCatalogDigest: "sha256:f8a8d800e610d218590456047cdc80246554243940b82d7658acfc9c191be570",
+        sourceCatalogVersion: "1.6.0",
+        sourceCatalogDigest: "sha256:50ff3e7f35a5ce3686ca128b66983460e2e4f5eba18b07a11dd49ca40e60c9df",
         bindingRegistryId: "caatuu.cs-CZ.cross-game-bindings",
-        bindingRegistryVersion: "1.6.0",
-        bindingRegistryDigest: "sha256:15edc5609148121b8c72ca1da8a1273f2c63566c777929e3b5ad8470d8a70b47"
+        bindingRegistryVersion: "1.7.1",
+        bindingRegistryDigest: "sha256:aaf085b226243f221a29ea3d113d78f2e61ad9d14d98697139ca88321b02bb29"
       },
       verbExerciseFamilies: {
         defaultFamily: "meaning",
@@ -89,26 +89,32 @@
         enabled: true,
         activityId: "conjugation-comet",
         exerciseFamilyId: "conjugation-comet.contextual-target-realization",
-        stableContentId: "cs.morphology.cist.present-singular-person.1sg",
-        targetSkillId: "cs.skill.form.cist.present-singular-person",
+        stableContentId: "cs.morphology.cist.present-person-number.1sg",
+        targetSkillId: "cs.skill.form.cist.present-person-number",
         assessedCapabilityId: "independent-form-discrimination",
         developerOnly: true,
         requiresPinnedCatalog: true,
         reviewStatus: "prototype-not-human-approved",
         releaseEnabled: false,
-        optionCount: 3,
+        optionCount: 6,
         sequence: {
-          id: "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+          id: "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
           revision: 1,
           orderedContentIds: [
-            "cs.morphology.cist.present-singular-person.1sg",
-            "cs.morphology.cist.present-singular-person.2sg",
-            "cs.morphology.cist.present-singular-person.3sg"
+            "cs.morphology.cist.present-person-number.1sg",
+            "cs.morphology.cist.present-person-number.2sg",
+            "cs.morphology.cist.present-person-number.3sg",
+            "cs.morphology.cist.present-person-number.1pl",
+            "cs.morphology.cist.present-person-number.2pl",
+            "cs.morphology.cist.present-person-number.3pl"
           ],
           orderedBindingIds: [
-            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.1sg",
-            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.2sg",
-            "binding.conjugation-comet.cs.morphology.cist.present-singular-person.3sg"
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.1sg",
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.2sg",
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.3sg",
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.1pl",
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.2pl",
+            "binding.conjugation-comet.cs.morphology.cist.present-person-number.3pl"
           ]
         }
       },

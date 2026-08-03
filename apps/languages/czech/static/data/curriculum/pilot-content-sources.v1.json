@@ -1,7 +1,7 @@
 {
   "schemaVersion": "caatuu-content-source-catalog-v1",
   "catalogId": "caatuu.cs-CZ.cross-game-pilot-sources",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "targetLocale": "cs-CZ",
   "sources": [
     {
@@ -27,18 +27,41 @@
         "cefr": "Pre-A1/A1",
         "topic": "people",
         "targets": [
-          {"surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true},
-          {"surface": "čte", "normalized": "čte", "tokenIndex": 1, "playable": true}
+          {
+            "surface": "Dědeček",
+            "normalized": "dědeček",
+            "tokenIndex": 0,
+            "playable": true
+          },
+          {
+            "surface": "čte",
+            "normalized": "čte",
+            "tokenIndex": 1,
+            "playable": true
+          }
         ],
-        "focusTarget": {"surface": "čte", "normalized": "čte", "tokenIndex": 1},
+        "focusTarget": {
+          "surface": "čte",
+          "normalized": "čte",
+          "tokenIndex": 1
+        },
         "learning": {
           "objective": "talk about people",
-          "skillFocus": ["be present", "short formula"],
+          "skillFocus": [
+            "be present",
+            "short formula"
+          ],
           "progressionLevel": 1,
           "prerequisites": []
         },
         "grammar": {
-          "tags": ["common_phrase", "be_present", "short_formula", "function_talk_about_people", "category_family_people"],
+          "tags": [
+            "common_phrase",
+            "be_present",
+            "short_formula",
+            "function_talk_about_people",
+            "category_family_people"
+          ],
           "sentenceType": "formula",
           "clauseCount": 1
         }
@@ -129,24 +152,63 @@
       },
       "snapshot": {
         "id": "cs.morphology.cist.present-singular-person.1sg",
-        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-singular",
+          "revision": 1
+        },
         "itemRefs": [
-          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
-          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
-          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 1
+          }
         ],
         "cueRefs": [
-          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
-          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
-          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 2
+          }
         ],
-        "selectedCueRef": {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
-        "targetItemRef": {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
-        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.1sg", "revision": 1},
-        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.speaker-singular-current",
+          "revision": 1
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.1sg",
+          "revision": 1
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.1sg",
+          "revision": 1
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+          "revision": 1
+        },
         "sequenceStep": 1,
-        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
-        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
         "difficulty": {
           "dimension": "task-challenge",
           "level": 1,
@@ -177,24 +239,63 @@
       },
       "snapshot": {
         "id": "cs.morphology.cist.present-singular-person.2sg",
-        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-singular",
+          "revision": 1
+        },
         "itemRefs": [
-          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
-          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
-          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 1
+          }
         ],
         "cueRefs": [
-          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
-          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
-          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 2
+          }
         ],
-        "selectedCueRef": {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
-        "targetItemRef": {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
-        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.2sg", "revision": 2},
-        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.addressee-singular-current",
+          "revision": 2
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.2sg",
+          "revision": 2
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.2sg",
+          "revision": 2
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+          "revision": 1
+        },
         "sequenceStep": 2,
-        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
-        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
         "difficulty": {
           "dimension": "task-challenge",
           "level": 2,
@@ -225,24 +326,63 @@
       },
       "snapshot": {
         "id": "cs.morphology.cist.present-singular-person.3sg",
-        "familyRef": {"id": "cs.morphology.family.cist.present-singular", "revision": 1},
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-singular",
+          "revision": 1
+        },
         "itemRefs": [
-          {"id": "cs.form.cist.present-indicative.1sg", "revision": 1},
-          {"id": "cs.form.cist.present-indicative.2sg", "revision": 2},
-          {"id": "cs.form.cist.present-indicative.3sg", "revision": 1}
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 1
+          }
         ],
         "cueRefs": [
-          {"id": "cs.cue.cist.read.speaker-singular-current", "revision": 1},
-          {"id": "cs.cue.cist.read.addressee-singular-current", "revision": 2},
-          {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2}
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 2
+          }
         ],
-        "selectedCueRef": {"id": "cs.cue.cist.read.named-third-person-current", "revision": 2},
-        "targetItemRef": {"id": "cs.form.cist.present-indicative.3sg", "revision": 1},
-        "exerciseRef": {"id": "cs.exercise.cist.visible-form-choice.3sg", "revision": 2},
-        "sequenceRef": {"id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person", "revision": 1},
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.named-third-person-current",
+          "revision": 2
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.3sg",
+          "revision": 1
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.3sg",
+          "revision": 2
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-singular-person",
+          "revision": 1
+        },
         "sequenceStep": 3,
-        "capabilityRef": {"id": "capability.contextual-target-realization.visible-form-choice", "revision": 1},
-        "targetSkillRef": {"id": "cs.skill.form.cist.present-singular-person", "revision": 1},
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-singular-person",
+          "revision": 1
+        },
         "difficulty": {
           "dimension": "task-challenge",
           "level": 2,
@@ -253,6 +393,672 @@
           "status": "prototype-not-human-approved",
           "releaseEnabled": false,
           "notesEn": "Developer-only deterministic contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.1sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:7392e3880c0629aea356e003358d8658876b5550453de826482ece4c133b9625",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.speaker-singular-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.1sg",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.speaker-singular-current",
+          "revision": 2
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.1sg",
+          "revision": 2
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.1sg",
+          "revision": 2
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 1,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 1,
+          "rationaleEn": "The learner distinguishes first person singular · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.2sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:5b6878197eb00327603564f83310acf99554e0e817b19c67c2a8d44ba5b4ef94",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.addressee-singular-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.2sg",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.addressee-singular-current",
+          "revision": 3
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.2sg",
+          "revision": 3
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.2sg",
+          "revision": 3
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 2,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "rationaleEn": "The learner distinguishes second person singular · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.3sg",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:1dabdec6cb14577efafebbd68bff1191031d90a40b08d2297901893c1995f6b7",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.named-third-person-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.3sg",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.named-third-person-current",
+          "revision": 3
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.3sg",
+          "revision": 2
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.3sg",
+          "revision": 3
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 3,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "rationaleEn": "The learner distinguishes third person singular · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.1pl",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:770a4cfd73bece805ce7e88c0c7b66204dc6d958f5653ad4a5a8982fd9d865d3",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.speaker-group-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.1pl",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.speaker-group-current",
+          "revision": 1
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.1pl",
+          "revision": 1
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.1pl",
+          "revision": 1
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 4,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 2,
+          "rationaleEn": "The learner distinguishes first person plural · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.2pl",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:7d1ecfda2a07870fb1673cd1ea7e5247106e00c01768a75148e705728142dd40",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.addressee-group-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.2pl",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.addressee-group-current",
+          "revision": 1
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.2pl",
+          "revision": 1
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.2pl",
+          "revision": 1
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 5,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 3,
+          "rationaleEn": "The learner distinguishes second person plural · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
+        }
+      }
+    },
+    {
+      "activityId": "conjugation-comet",
+      "exerciseFamilyId": "conjugation-comet.contextual-target-realization",
+      "catalogId": "caatuu.cs-CZ.morphology-present-person-developer-pilot",
+      "catalogRevision": "1.0.0",
+      "catalogDigest": "sha256:31ce75b2e464d308958de437f6f2c88881f16bc900c97a04cbed4933380fb0b4",
+      "contentId": "cs.morphology.cist.present-person-number.3pl",
+      "revision": 1,
+      "projectionVersion": "caatuu-game-content-binding-v1",
+      "contentDigest": "sha256:85ca5a07282e4f0be6607c109af89d42e697b8068309f1bc89d24bcfa1e1f24c",
+      "sourceLocator": {
+        "path": "apps/curriculum/data/cs-CZ.morphology-present-person-developer-pilot.v1.json",
+        "selector": "cues[id=cs.cue.cist.read.named-third-person-group-current]",
+        "transform": "morphology-round-core.composeMorphologyRound"
+      },
+      "snapshot": {
+        "id": "cs.morphology.cist.present-person-number.3pl",
+        "familyRef": {
+          "id": "cs.morphology.family.cist.present-person-number",
+          "revision": 1
+        },
+        "itemRefs": [
+          {
+            "id": "cs.form.cist.present-indicative.1sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2sg",
+            "revision": 3
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3sg",
+            "revision": 2
+          },
+          {
+            "id": "cs.form.cist.present-indicative.1pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.2pl",
+            "revision": 1
+          },
+          {
+            "id": "cs.form.cist.present-indicative.3pl",
+            "revision": 1
+          }
+        ],
+        "cueRefs": [
+          {
+            "id": "cs.cue.cist.read.speaker-singular-current",
+            "revision": 2
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-singular-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-current",
+            "revision": 3
+          },
+          {
+            "id": "cs.cue.cist.read.speaker-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.addressee-group-current",
+            "revision": 1
+          },
+          {
+            "id": "cs.cue.cist.read.named-third-person-group-current",
+            "revision": 1
+          }
+        ],
+        "selectedCueRef": {
+          "id": "cs.cue.cist.read.named-third-person-group-current",
+          "revision": 1
+        },
+        "targetItemRef": {
+          "id": "cs.form.cist.present-indicative.3pl",
+          "revision": 1
+        },
+        "exerciseRef": {
+          "id": "cs.exercise.cist.visible-form-choice.3pl",
+          "revision": 1
+        },
+        "sequenceRef": {
+          "id": "sequence.conjugation-comet.cs.morphology.cist.present-person-number",
+          "revision": 1
+        },
+        "sequenceStep": 6,
+        "capabilityRef": {
+          "id": "capability.contextual-target-realization.visible-form-choice",
+          "revision": 1
+        },
+        "targetSkillRef": {
+          "id": "cs.skill.form.cist.present-person-number",
+          "revision": 1
+        },
+        "difficulty": {
+          "dimension": "task-challenge",
+          "level": 3,
+          "rationaleEn": "The learner distinguishes third person plural · present while all six reviewed present forms remain visible.",
+          "advisoryOnly": true
+        },
+        "review": {
+          "status": "prototype-not-human-approved",
+          "releaseEnabled": false,
+          "notesEn": "Developer-only deterministic six-form contract fixture; native Czech educator approval and a new release catalog are required."
         }
       }
     }

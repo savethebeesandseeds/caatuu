@@ -97,10 +97,10 @@ test("runtime loading is fail-closed on four externally trusted artifact digests
   assert.equal(valid.valid, true, JSON.stringify(valid.errors, null, 2));
   assert.deepEqual(valid.summary, {
     units: 3,
-    targetSkills: 21,
-    sources: 5,
-    bindings: 5,
-    exerciseSequences: 1
+    targetSkills: 22,
+    sources: 11,
+    bindings: 11,
+    exerciseSequences: 2
   });
 
   const changedRegistry = structuredClone(bundle);
@@ -276,6 +276,40 @@ test("tasks and evidence stay immutable and bound to the selected mechanic", asy
   const codes = new Set(forgedValidation.errors.map((entry) => entry.code));
   assert.ok(codes.has("TASK_FINGERPRINT_MISMATCH"));
   assert.ok(codes.has("TASK_CONTEXT_MISMATCH"));
+});
+
+test("explicit registry compatibility preserves unchanged older tasks and rejects undeclared releases", async () => {
+  const { bundle } = await fixture();
+  const task = await issueLearningTask(bundle.bindingRegistry, {
+    taskId: "task-runtime-compatible-registry-1",
+    issuedAt: "2026-08-01T10:00:00.000Z",
+    sessionId: "session-runtime-compatible-registry",
+    taskSequence: 1,
+    bindingId: WORD_BINDING,
+    capabilityId: WORD_CAPABILITY,
+    targetSkillId: SKILL_ID
+  });
+  task.registry.version = "1.6.0";
+  task.taskFingerprint = await computeLearningTaskFingerprint(task);
+
+  const browserCompatible = await validateLearningTask(
+    bundle.curriculum,
+    bundle.bindingRegistry,
+    task
+  );
+  const authoringCompatible = validateNodeLearningTask(
+    bundle.curriculum,
+    bundle.bindingRegistry,
+    task
+  );
+  assert.equal(browserCompatible.valid, true, JSON.stringify(browserCompatible.errors, null, 2));
+  assert.equal(authoringCompatible.valid, true, JSON.stringify(authoringCompatible.errors, null, 2));
+
+  const incompatibleRegistry = structuredClone(bundle.bindingRegistry);
+  incompatibleRegistry.compatibleTaskRegistryVersions = [];
+  const rejected = await validateLearningTask(bundle.curriculum, incompatibleRegistry, task);
+  assert.equal(rejected.valid, false);
+  assert.ok(rejected.errors.some(({ code }) => code === "TASK_REGISTRY_MISMATCH"));
 });
 
 test("browser task and evidence validation rejects every field the authoring contract rejects", async () => {

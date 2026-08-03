@@ -901,8 +901,10 @@ export function validateLearningTask(curriculum, registry, task) {
       || task.taskSequence < 1) {
     error("TASK_SCHEMA", "/", "Task requires an ID, session, ISO issue time, and positive sequence.");
   }
-  if (task.registry?.id !== registry.registryId || task.registry?.version !== registry.version) {
-    error("TASK_REGISTRY_MISMATCH", "/registry", "Task references a different binding registry release.");
+  const compatibleRegistryVersion = task.registry?.version === registry.version
+    || rows(registry.compatibleTaskRegistryVersions).includes(task.registry?.version);
+  if (task.registry?.id !== registry.registryId || !compatibleRegistryVersion) {
+    error("TASK_REGISTRY_MISMATCH", "/registry", "Task references an incompatible binding registry release.");
   }
   let expectedFingerprint = null;
   try {

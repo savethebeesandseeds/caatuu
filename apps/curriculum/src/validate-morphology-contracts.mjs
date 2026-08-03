@@ -896,7 +896,7 @@ export function validateMorphologyContracts(inputs, options = {}) {
       || !nonEmptyString(stableSequence.id)
       || !Number.isInteger(stableSequence.revision)
       || stableSequence.revision < 1
-      || sequenceLength !== 3
+      || sequenceLength < 2
       || orderedCueRefs.length !== sequenceLength
       || orderedExerciseRefs.length !== sequenceLength
       || new Set(orderedContentIds).size !== sequenceLength
@@ -906,7 +906,7 @@ export function validateMorphologyContracts(inputs, options = {}) {
     error(
       "MORPH_SEQUENCE_INVALID",
       "/morphologyCatalog/metadata/stableContentSequence",
-      "The Czech developer pilot must declare three distinct stable content, cue, and exercise steps, with stableContentId pointing to step one."
+      "The developer pilot must declare at least two distinct stable content, cue, and exercise steps, with stableContentId pointing to step one."
     );
   } else {
     orderedCueRefs.forEach((cueRef, index) => {
@@ -992,7 +992,7 @@ export function validateMorphologyContracts(inputs, options = {}) {
         error(
           "MORPH_SEQUENCE_BINDING_MISMATCH",
           "/bindingRegistry/exerciseSequences",
-          "The binding registry must preserve the exact authored 1sg to 2sg to 3sg content order.",
+          "The binding registry must preserve the exact authored morphology content order.",
           [stableSequence.id]
         );
       }
