@@ -1788,7 +1788,10 @@ function renderVerbMorphology() {
   const hintButton = $("#verbMorphologyHintButton");
   if (hintButton) {
     hintButton.disabled = viewModel.hint.actionDisabled;
-    hintButton.textContent = viewModel.hint.used ? "Context hint shown" : "Context hint";
+    const hintLabel = viewModel.hint.used ? "Context hint shown" : "Show context hint";
+    hintButton.setAttribute("aria-label", hintLabel);
+    hintButton.setAttribute("aria-pressed", String(viewModel.hint.used));
+    hintButton.title = hintLabel;
     if (state.verbMorphologyFocusHintAction
         && !hintButton.disabled
         && focusVerbMorphologyControl(hintButton, board)) {
@@ -1798,7 +1801,11 @@ function renderVerbMorphology() {
   const revealButton = $("#verbMorphologyRevealButton");
   if (revealButton) {
     revealButton.disabled = viewModel.completed || verbGuidedInteractionLocked();
-    revealButton.textContent = viewModel.hint.solutionRevealed ? "Form revealed" : "Reveal form";
+    const revealLabel = viewModel.hint.solutionRevealed ? "Form revealed" : "Reveal form";
+    revealButton.setAttribute("aria-label", revealLabel);
+    revealButton.setAttribute("aria-pressed", String(viewModel.hint.solutionRevealed));
+    revealButton.classList.toggle("is-ready", !revealButton.disabled && !viewModel.hint.solutionRevealed);
+    revealButton.title = revealLabel;
     if (state.verbMorphologyFocusRevealAction
         && !revealButton.disabled
         && focusVerbMorphologyControl(revealButton, board)) {
@@ -2348,15 +2355,17 @@ function renderConjugationComet() {
   if (!panel) return;
   const unavailable = $("#conjugationCometUnavailable");
   const meaningBoard = $("#verbMeaningGateBoard");
+  const meaningFooter = $("#verbMeaningGateFooter");
   const morphologyBoard = $("#verbMorphologyBoard");
+  const morphologyFooter = $("#verbMorphologyFooter");
   const banner = $("#verbGuidedStatus");
   const capabilityUnavailable = state.verbGuidedStatus === "unavailable";
   if (unavailable) unavailable.hidden = !capabilityUnavailable;
   if (capabilityUnavailable) {
-    for (const board of [meaningBoard, morphologyBoard]) {
-      if (!board) continue;
-      board.hidden = true;
-      board.setAttribute("aria-busy", "false");
+    for (const surface of [meaningBoard, meaningFooter, morphologyBoard, morphologyFooter]) {
+      if (!surface) continue;
+      surface.hidden = true;
+      if (surface.matches(".verb-match-board")) surface.setAttribute("aria-busy", "false");
     }
     if (banner) banner.hidden = true;
     return;
@@ -2366,7 +2375,9 @@ function renderConjugationComet() {
     && Boolean(state.verbMeaningPlan)
     && (!state.verbMeaningMatched || state.verbMeaningTransitionPending);
   if (meaningBoard) meaningBoard.hidden = !meaningPhase;
+  if (meaningFooter) meaningFooter.hidden = !meaningPhase;
   if (morphologyBoard) morphologyBoard.hidden = meaningPhase;
+  if (morphologyFooter) morphologyFooter.hidden = meaningPhase;
   if (meaningPhase) {
     renderVerbGuidedStatus();
     renderVerbMeaningGate();

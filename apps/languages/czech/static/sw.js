@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v398";
+const CACHE_NAME = "caatuu-czech-pwa-v402";
 const CORE_ASSETS = [
   "./",
   "./home.html",
@@ -39,8 +39,8 @@ const CORE_ASSETS = [
   "./word-net-queue.mjs?v=word-net-queue-6",
   "./word-net-standard.mjs?v=word-net-standard-4",
   "./conjugation-comet.html",
-  "./conjugation-comet.css?v=conjugation-comet-4",
-  "./conjugation-comet.js?v=conjugation-comet-6",
+  "./conjugation-comet.css?v=conjugation-comet-6",
+  "./conjugation-comet.js?v=conjugation-comet-7",
   "./vector-db.js?v=vector-db-9",
   "./vendor/transformers/transformers.min.js",
   "./chat.html",

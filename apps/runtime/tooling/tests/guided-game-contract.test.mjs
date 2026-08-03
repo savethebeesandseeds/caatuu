@@ -10,6 +10,7 @@ const [
   indexHtml,
   cometController,
   cometCss,
+  appCss,
   cometHtml,
   wordWorld,
   wordWorldHtml,
@@ -22,6 +23,7 @@ const [
   readFile(new URL("index.html", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.css", staticRoot), "utf8"),
+  readFile(new URL("app.css", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
@@ -481,7 +483,9 @@ test("Conjugation Comet stays course-configured, developer-only, deterministic, 
     /banner\.removeAttribute\("role"\)[\s\S]*?banner\.removeAttribute\("aria-live"\)/
   );
   assert.doesNotMatch(cometHtml, /id="verbMorphologyNextButton"[^>]*aria-describedby/);
-  assert.match(cometCss, /\.conjugation-comet-match-board\s*\{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(cometHtml, /class="verb-match-board conjugation-comet-match-board/);
+  assert.match(appCss, /\.verb-match-board\s*\{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.doesNotMatch(cometCss, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(cometCss, /\.conjugation-comet-cue-label\s*\{/);
   assert.match(cometCss, /\.verb-morphology-visually-hidden\s*\{[\s\S]*?clip: rect\(0 0 0 0\) !important;/);
   assert.match(cometCss, /\.conjugation-comet-match-board\[hidden\],[\s\S]*?display: none;/);

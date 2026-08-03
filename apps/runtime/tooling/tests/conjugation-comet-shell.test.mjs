@@ -18,8 +18,10 @@ const [page, styles, gamesPage, appStyles, appController, cometController, servi
 ]);
 
 test("Conjugation Comet owns the morphology presentation outside Verb Nebula", () => {
-  assert.match(page, /class="conjugation-comet-page"/);
-  assert.match(page, /id="conjugationCometPanel"[^>]*class="conjugation-comet-panel is-active"|class="conjugation-comet-panel is-active"[^>]*id="conjugationCometPanel"/);
+  assert.match(page, /class="games-page conjugation-comet-page"/);
+  assert.match(page, /class="app-shell"/);
+  assert.match(page, /class="workspace"/);
+  assert.match(page, /class="train-tab-panel verb-match-panel conjugation-comet-panel is-active"/);
   assert.match(page, /id="verbMeaningGateBoard"/);
   assert.match(page, /id="verbMeaningTargetColumn"/);
   assert.match(page, /id="verbMeaningEnglishColumn"/);
@@ -29,6 +31,9 @@ test("Conjugation Comet owns the morphology presentation outside Verb Nebula", (
   assert.doesNotMatch(page, /id="verbMorphologyChoices"/);
   assert.doesNotMatch(gamesPage, /id="verbMorphologyBoard"/);
   assert.doesNotMatch(appStyles, /verb-morphology|verbMorphology/);
+  assert.doesNotMatch(page, /conjugation-comet-shell|conjugation-comet-main|conjugation-comet-toolbar|conjugation-comet-board-intro|conjugation-comet-board-footer/);
+  assert.match(page, /id="verbMeaningGateFooter"[^>]*class="verb-match-footer conjugation-comet-footer"|class="verb-match-footer conjugation-comet-footer"[^>]*id="verbMeaningGateFooter"/);
+  assert.match(page, /id="verbMorphologyFooter"[^>]*class="verb-match-footer conjugation-comet-footer"|class="verb-match-footer conjugation-comet-footer"[^>]*id="verbMorphologyFooter"/);
 });
 
 test("the standalone shell loads shared state before its game controller", () => {
@@ -37,10 +42,14 @@ test("the standalone shell loads shared state before its game controller", () =>
   const runtime = page.indexOf('src="runtime.js?v=runtime-36"');
   const semantic = page.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
   const curriculum = page.indexOf('src="curriculum-service.js?v=curriculum-service-9"');
+  const appStyle = page.indexOf('href="app.css?v=shell-72"');
+  const chromeStyle = page.indexOf('href="chrome.css?v=chrome-style-90"');
+  const cometStyle = page.indexOf('href="conjugation-comet.css?v=conjugation-comet-6"');
   const chrome = page.indexOf('src="chrome.js?v=chrome-90"');
-  const controller = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-6"');
+  const controller = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-7"');
   assert.ok(course >= 0 && learning > course && runtime > learning);
   assert.ok(semantic > runtime && curriculum > semantic);
+  assert.ok(appStyle > curriculum && chromeStyle > appStyle && cometStyle > chromeStyle);
   assert.ok(chrome > curriculum && controller > chrome);
 });
 
@@ -94,9 +103,12 @@ test("the initial document exposes no Czech answer key and only one live status 
 });
 
 test("controls remain usable at touch, keyboard, mobile, and reduced-motion boundaries", () => {
-  assert.match(styles, /\.verb-morphology-actions button \{[\s\S]*?min-height: 44px/);
+  assert.match(page, /class="verb-match-controls"/);
+  assert.match(page, /class="verb-match-control-cluster"/);
+  assert.match(styles, /\.verb-morphology-actions > button \{[\s\S]*?min-height: 34px/);
   assert.match(styles, /\.conjugation-comet-match-board \.verb-match-card:focus-visible[\s\S]*?outline: 3px solid/);
-  assert.match(styles, /\.conjugation-comet-match-board \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(appStyles, /\.verb-match-board \{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(appStyles, /\.app-shell:has\(\.verb-match-panel\.is-active\)[\s\S]*?\.verb-match-panel\.is-active > \.verb-match-footer/);
   assert.match(styles, /@media \(max-width: 430px\)[\s\S]*?\.conjugation-comet-match-board \.verb-match-card/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?transition: none/);
   assert.match(styles, /\.conjugation-comet-match-board\[hidden\][\s\S]*?display: none/);
@@ -109,8 +121,8 @@ test("controls remain usable at touch, keyboard, mobile, and reduced-motion boun
 test("the offline shell pins its document, controller, styles, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./conjugation-comet.css?v=conjugation-comet-4",
-    "./conjugation-comet.js?v=conjugation-comet-6",
+    "./conjugation-comet.css?v=conjugation-comet-6",
+    "./conjugation-comet.js?v=conjugation-comet-7",
     "/assets/planets/conjugation-comet.png"
   ]) {
     assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);

@@ -6069,34 +6069,34 @@ html[data-theme="dark"] .verb-match-board {
 }
 
 @media (max-width: 680px) {
-  .app-shell:has(#trainPanelVerbLab.verb-match-panel.is-active) {
+  .app-shell:has(.verb-match-panel.is-active) {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     min-height: 100dvh;
   }
 
-  .app-shell:has(#trainPanelVerbLab.verb-match-panel.is-active) > .workspace {
+  .app-shell:has(.verb-match-panel.is-active) > .workspace {
     align-self: stretch;
     display: flex;
     align-items: center;
     padding-bottom: 12px;
   }
 
-  .app-shell:has(#trainPanelVerbLab.verb-match-panel.is-active) #view-verbs.is-active {
+  .app-shell:has(.verb-match-panel.is-active) .view.is-active {
     width: 100%;
   }
 
-  #trainPanelVerbLab.verb-match-panel.is-active {
+  .verb-match-panel.is-active {
     min-height: max(610px, calc(100dvh - 260px));
     grid-template-rows: minmax(0, 1fr) auto;
   }
 
-  #trainPanelVerbLab.verb-match-panel.is-active > .verb-match-board {
+  .verb-match-panel.is-active > .verb-match-board {
     width: 100%;
     align-self: center;
   }
 
-  #trainPanelVerbLab.verb-match-panel.is-active > .verb-match-footer {
+  .verb-match-panel.is-active > .verb-match-footer {
     align-self: end;
   }
 
