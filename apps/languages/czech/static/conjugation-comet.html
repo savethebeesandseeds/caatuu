@@ -56,6 +56,23 @@
           </aside>
 
           <section
+            class="conjugation-comet-interstitial"
+            id="conjugationCometInterstitial"
+            role="status"
+            aria-atomic="true"
+            aria-label="Preparing the next challenge"
+            hidden
+          >
+            <img
+              class="conjugation-comet-robot"
+              id="conjugationCometRobot"
+              src="/assets/robots/word-world-waiting.svg"
+              alt="A friendly robot preparing the next Conjugation Comet challenge"
+            >
+            <p id="conjugationCometInterstitialCopy">Preparing the next challenge…</p>
+          </section>
+
+          <section
             class="verb-match-board conjugation-comet-match-board conjugation-comet-meaning-board"
             id="verbMeaningGateBoard"
             aria-labelledby="verbMeaningGateTitle"
@@ -94,7 +111,7 @@
               </p>
             </div>
             <div class="verb-match-status" aria-label="Meaning round status">
-              <span id="verbMeaningGateProgress">0 of 1 matched · warm-up · 0 XP</span>
+              <span id="verbMeaningGateProgress">0 of 1 matched</span>
             </div>
           </footer>
 
@@ -173,7 +190,7 @@
               </aside>
             </div>
             <div class="verb-match-status" aria-label="Conjugation round status">
-              <span id="verbMorphologyProgress">Pinned pilot · non-mastery · 0 XP</span>
+              <span id="verbMorphologyProgress">Preparing…</span>
               <button
                 type="button"
                 class="verb-morphology-next"

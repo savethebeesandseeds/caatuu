@@ -14,6 +14,10 @@ if (!course) throw new Error("Caatuu course profile must load before Conjugation
 const verbMorphologyProgressSchema = "caatuu-morphology-guided-progress-v1";
 const verbMeaningGateSchema = "caatuu-conjugation-comet-meaning-gate-v1";
 const verbMeaningGateStorageKey = `${course.storage?.namespace || "caatuu"}.conjugation-comet.meaning-gate.v1`;
+const conjugationCometRobotKeymapUrl = "/assets/robots/keymap.json";
+const conjugationCometRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
+const conjugationCometTransitionMillis = 1400;
+const conjugationCometCompletionHoldMillis = 1100;
 const $ = (selector) => document.querySelector(selector);
 
 const state = {
@@ -65,6 +69,19 @@ const state = {
   verbMorphologyWrongItemRef: null,
   verbMorphologyWrongCueRef: null,
   verbMorphologyAutoAdvanceTimer: null,
+  verbMorphologyReviewTimer: null,
+  verbMorphologyReviewWrongTimer: null,
+  verbMorphologyReviewMode: false,
+  verbMorphologyReviewRoundNumber: 0,
+  verbMorphologyReviewRoundComplete: false,
+  verbMorphologyReviewMatchedCueKeys: new Set(),
+  verbMorphologyReviewFormOrder: [],
+  verbMorphologyReviewCueOrder: [],
+  verbTransitionActive: true,
+  verbTransitionMessage: "Preparing the first challenge…",
+  verbTransitionRobotPath: conjugationCometRobotFallbackPath,
+  verbRobotPathsPromise: null,
+  verbRobotCursor: -1,
   verbMorphologyAnnouncement: "Preparing the reviewed conjugation matches.",
   verbMorphologyAnnouncementKind: ""
 };
@@ -124,6 +141,64 @@ async function loadJsonBytes(path) {
   const bytes = new Uint8Array(await response.arrayBuffer());
   const text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
   return { bytes, value: JSON.parse(text) };
+}
+
+function waitForConjugationCometTransition(milliseconds) {
+  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+}
+
+async function loadConjugationCometRobotPaths() {
+  if (!state.verbRobotPathsPromise) {
+    state.verbRobotPathsPromise = fetch(conjugationCometRobotKeymapUrl, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
+        return response.json();
+      })
+      .then((raw) => Object.keys(raw || {}).filter((path) => path.startsWith("/assets/robots/")))
+      .catch(() => []);
+  }
+  return state.verbRobotPathsPromise;
+}
+
+async function nextConjugationCometRobot() {
+  const paths = await loadConjugationCometRobotPaths();
+  if (!paths.length) return conjugationCometRobotFallbackPath;
+  let index = Math.floor(Math.random() * paths.length);
+  if (paths.length > 1 && index === state.verbRobotCursor) {
+    index = (index + 1) % paths.length;
+  }
+  state.verbRobotCursor = index;
+  return paths[index];
+}
+
+async function withConjugationCometTransition(
+  message,
+  action,
+  { minimumMillis = conjugationCometTransitionMillis } = {}
+) {
+  if (state.verbTransitionActive) {
+    await waitForConjugationCometTransition(160);
+    return withConjugationCometTransition(message, action, { minimumMillis });
+  }
+  state.verbTransitionActive = true;
+  state.verbTransitionMessage = String(message || "Preparing the next challenge…");
+  state.verbTransitionRobotPath = conjugationCometRobotFallbackPath;
+  renderConjugationComet();
+  const robotPromise = nextConjugationCometRobot().then((path) => {
+    state.verbTransitionRobotPath = path;
+    renderConjugationComet();
+  });
+  try {
+    const [result] = await Promise.all([
+      Promise.resolve().then(action),
+      waitForConjugationCometTransition(minimumMillis),
+      robotPromise
+    ]);
+    return result;
+  } finally {
+    state.verbTransitionActive = false;
+    renderConjugationComet();
+  }
 }
 
 async function loadConjugationCometRuntime() {
@@ -673,9 +748,10 @@ function showCompletedVerbMorphologySequence({ focus = false } = {}) {
   state.verbMorphologyProgressRevision = 0;
   state.verbMorphologyFocusNextStep = focus;
   setVerbMorphologyAnnouncement(
-    `All ${sequenceTotalSteps()} pinned pilot forms are complete. This remains non-mastery practice with 0 XP.`,
+    "Round complete!",
     "correct"
   );
+  scheduleVerbMorphologyReviewRound();
 }
 
 function verbMorphologyPreparationCurrent(generation) {
@@ -884,6 +960,11 @@ function applyMorphologyGuidedRound(round, { task = null, progress = null } = {}
 }
 
 function verbGuidedInteractionLocked() {
+  if (state.verbMorphologyReviewMode) {
+    return state.verbTransitionActive
+      || state.verbMorphologyReviewRoundComplete
+      || state.verbProgressResetPending;
+  }
   return !state.verbGuidedMode
     || state.verbGuidedStatus !== "ready"
     || state.verbGuidedEvidencePending
@@ -895,62 +976,18 @@ function renderVerbGuidedStatus() {
   const title = $("#verbGuidedStatusTitle");
   const detail = $("#verbGuidedStatusDetail");
   if (!banner || !detail) return;
-  banner.hidden = false;
-  banner.removeAttribute("role");
-  banner.removeAttribute("aria-live");
-  banner.removeAttribute("aria-atomic");
-  banner.classList.toggle("is-error", ["failed", "unavailable"].includes(state.verbGuidedStatus));
-  const support = verbMorphologySupportState();
-  const supported = Boolean(support.hintsUsed || support.solutionRevealed);
-  const firstResponseRecorded = verbMorphologyFirstResponseRecorded();
-  const supportedBeforeResponse = Boolean(state.verbGuidedSupportAtFirstResponse);
-  const solutionShownAfterResponse = Boolean(
-    firstResponseRecorded && support.solutionRevealed && !supportedBeforeResponse
-  );
-  const contextHintShownAfterResponse = Boolean(
-    firstResponseRecorded && support.hintsUsed && !support.solutionRevealed && !supportedBeforeResponse
-  );
-  const total = sequenceTotalSteps() || "—";
-  const step = Number(state.verbMorphologySequence?.stepNumber || 1);
-  if (title) {
-    title.textContent = "Conjugation Comet · teacher-review pilot";
+  const visible = ["failed", "recovery-pending"].includes(state.verbGuidedStatus);
+  banner.hidden = !visible;
+  banner.classList.toggle("is-error", state.verbGuidedStatus === "failed");
+  if (!visible) {
+    banner.removeAttribute("role");
+    return;
   }
-  if (state.verbGuidedStatus === "unavailable") {
-    detail.textContent = state.verbGuidedError
-      || "This course has not released reviewed Conjugation Comet content.";
-  } else if (state.verbGuidedStatus === "failed") {
-    detail.textContent = `Locked: ${state.verbGuidedError || "curriculum evidence is unavailable"}`;
-  } else if (state.verbGuidedStatus === "recovery-pending") {
-    detail.textContent = "Saved locally · use Retry to finish the durable evidence checkpoint";
-  } else if (!state.verbMeaningMatched || state.verbMeaningTransitionPending) {
-    detail.textContent = "Meaning warm-up · one reviewed 1-of-4 match · morphology evidence has not started";
-  } else if (state.verbGuidedStatus === "awaiting-next") {
-    detail.textContent = supportedBeforeResponse
-      ? `Match ${step} of ${total} complete · supported comprehension, not independent evidence · advancing…`
-      : solutionShownAfterResponse
-        ? `Match ${step} of ${total} complete · first response recorded independently; solution shown afterward · advancing…`
-        : contextHintShownAfterResponse
-          ? `Match ${step} of ${total} complete · first response recorded independently; context hint shown afterward · advancing…`
-          : `Match ${step} of ${total} complete · advancing to the next reviewed cue…`;
-  } else if (state.verbGuidedStatus === "step-complete") {
-    detail.textContent = `Match ${step} of ${total} complete · preparing the next reviewed cue…`;
-  } else if (state.verbGuidedStatus === "complete") {
-    detail.textContent = `${total}-form reviewed set complete · meaning and unit mastery remain unchanged · 0 XP`;
-  } else if (supportedBeforeResponse) {
-    detail.textContent = "Supported practice · not independent evidence";
-  } else if (supported && !firstResponseRecorded) {
-    detail.textContent = "Context support is visible · the next answer will be supported comprehension";
-  } else if (solutionShownAfterResponse) {
-    detail.textContent = "First response recorded independently · solution shown afterward";
-  } else if (contextHintShownAfterResponse) {
-    detail.textContent = "First response recorded independently · context hint shown afterward";
-  } else if (firstResponseRecorded) {
-    detail.textContent = "First response recorded · finish this exact form contrast";
-  } else if (state.verbGuidedStatus === "ready") {
-    detail.textContent = `Match ${step} of ${total} · whole reviewed form set visible · non-mastery · 0 XP`;
-  } else {
-    detail.textContent = "Verifying the exact bound content and evidence task…";
-  }
+  banner.setAttribute("role", state.verbGuidedStatus === "failed" ? "alert" : "status");
+  if (title) title.textContent = "Conjugation Comet";
+  detail.textContent = state.verbGuidedStatus === "recovery-pending"
+    ? "Your answer is saved. Select Retry to continue."
+    : "This challenge could not be prepared. Reload the game and try again.";
 }
 
 function waitForVerbPaintedFrame() {
@@ -1284,8 +1321,8 @@ async function completeVerbMorphologySequenceStep(completionKind, { direct = fal
   const completedNumber = Number(completion?.stepIndex) + 1;
   setVerbMorphologyAnnouncement(
     finalStep
-      ? `All ${totalSteps} pinned pilot forms are complete. This remains non-mastery practice with 0 XP.`
-      : `Form ${completedNumber} of ${totalSteps} complete. Continue when you are ready for the next pilot contrast.`,
+      ? "Round complete!"
+      : `Match ${completedNumber} of ${totalSteps} complete.`,
     "correct"
   );
   return completion;
@@ -1467,8 +1504,8 @@ function renderVerbMeaningGate() {
   setText(
     "#verbMeaningGateProgress",
     state.verbMeaningMatched
-      ? "1 of 1 matched · opening forms · 0 XP"
-      : "0 of 1 matched · warm-up · 0 XP"
+      ? "1 of 1 matched"
+      : "0 of 1 matched"
   );
 }
 
@@ -1522,17 +1559,17 @@ function selectVerbMeaningEnglish(event) {
     console.warn("Conjugation Comet could not persist its unscored meaning gate.", error);
   }
   renderConjugationComet();
-  if (state.verbMeaningTransitionTimer) window.clearTimeout(state.verbMeaningTransitionTimer);
-  state.verbMeaningTransitionTimer = window.setTimeout(() => {
-    state.verbMeaningTransitionTimer = null;
+  void withConjugationCometTransition("Preparing the conjugation challenge…", () => {
     state.verbMeaningTransitionPending = false;
     state.verbMeaningSelectedTarget = false;
     state.verbMeaningSelectedEnglishId = "";
-    renderConjugationComet();
-  }, 640);
+  });
 }
 
 function completedMorphologyCueKeys() {
+  if (state.verbMorphologyReviewMode) {
+    return new Set(state.verbMorphologyReviewMatchedCueKeys);
+  }
   const total = sequenceTotalSteps();
   let completedCount = Math.max(0, Number(state.verbMorphologySequence?.stepNumber || 1) - 1);
   if (["awaiting-next", "step-complete"].includes(state.verbGuidedStatus)) {
@@ -1571,7 +1608,21 @@ function renderMorphologyMatchColumns() {
   const currentCueKey = morphologyRefKey(currentCueRef);
   const locked = verbGuidedInteractionLocked();
   const targetLanguage = course.targetLanguage?.locale || "cs";
-  const formRows = board.forms.map((form) => {
+  const visibleForms = state.verbMorphologyReviewMode
+    ? morphologyEntriesInOrder(
+      board.forms,
+      state.verbMorphologyReviewFormOrder,
+      (form) => form.itemRef
+    )
+    : board.forms;
+  const visibleCues = state.verbMorphologyReviewMode
+    ? morphologyEntriesInOrder(
+      board.cues,
+      state.verbMorphologyReviewCueOrder,
+      (cue) => cue.cueRef
+    )
+    : board.cues;
+  const formRows = visibleForms.map((form) => {
     const key = morphologyRefKey(form.itemRef);
     const matched = matchedItemKeys.has(key);
     const selected = sameEntityRef(state.verbMorphologySelectedItemRef, form.itemRef);
@@ -1594,10 +1645,11 @@ function renderMorphologyMatchColumns() {
   });
   formsColumn.replaceChildren(...formRows);
 
-  const cueRows = board.cues.map((cue) => {
+  const cueRows = visibleCues.map((cue) => {
     const key = morphologyRefKey(cue.cueRef);
     const matched = completedCueKeys.has(key);
-    const current = key === currentCueKey && !matched;
+    const available = state.verbMorphologyReviewMode && !matched;
+    const current = !state.verbMorphologyReviewMode && key === currentCueKey && !matched;
     const selected = sameEntityRef(state.verbMorphologySelectedCueRef, cue.cueRef);
     const wrong = sameEntityRef(state.verbMorphologyWrongCueRef, cue.cueRef);
     const natural = cue.presentation.naturalTranslationEn;
@@ -1609,12 +1661,12 @@ function renderMorphologyMatchColumns() {
         "verb-match-card-en",
         matched ? "is-matched" : "",
         current ? "is-current" : "",
-        !matched && !current ? "is-upcoming" : "",
+        !state.verbMorphologyReviewMode && !matched && !current ? "is-upcoming" : "",
         selected ? "is-selected" : "",
         wrong ? "is-wrong" : ""
       ].filter(Boolean).join(" "),
       disabled: matched || locked,
-      ariaLabel: `${natural} ${teachingLabel}.${matched ? " Matched." : current ? " Current cue." : " Upcoming cue."}`
+      ariaLabel: `${natural} ${teachingLabel}.${matched ? " Matched." : available || current ? " Available cue." : " Upcoming cue."}`
     });
     const cueCopy = document.createElement("span");
     cueCopy.className = "conjugation-comet-cue-copy";
@@ -1656,7 +1708,7 @@ function renderVerbMorphology() {
   board.classList.toggle("is-sequence-complete", state.verbMorphologySequenceComplete);
   renderMorphologyMatchColumns();
 
-  if (state.verbMorphologySequenceComplete && !round) {
+  if (state.verbMorphologySequenceComplete && !state.verbMorphologyReviewMode && !round) {
     if (instructions) {
       instructions.hidden = false;
       instructions.textContent = "Every reviewed Czech form has been matched to its distinct English cue.";
@@ -1664,12 +1716,16 @@ function renderVerbMorphology() {
     if (actions) actions.hidden = true;
     if (lemma) lemma.hidden = !state.verbMorphologyFamily;
     if (hintPanel) hintPanel.hidden = true;
-    if (nextButton) nextButton.hidden = true;
+    if (nextButton) {
+      nextButton.hidden = false;
+      nextButton.disabled = state.verbTransitionActive || state.verbProgressResetPending;
+      nextButton.textContent = "New challenge";
+    }
     setText("#verbMorphologyTitle", `${total} reviewed forms matched`);
     setText("#verbMorphologyLemmaTarget", state.verbMorphologyFamily?.metadata?.lemmaTarget || "");
     setText("#verbMorphologyGloss", state.verbMorphologyFamily?.metadata?.glossEn || "");
     setText("#verbMorphologyFeedback", state.verbMorphologyAnnouncement);
-    setText("#verbMorphologyProgress", `${total} of ${total} matched · non-mastery · 0 XP`);
+    setText("#verbMorphologyProgress", `${total} of ${total} matched`);
     const feedback = $("#verbMorphologyFeedback");
     if (feedback) feedback.className = "verb-match-feedback is-correct";
     board.setAttribute("aria-busy", state.verbProgressResetPending ? "true" : "false");
@@ -1680,6 +1736,45 @@ function renderVerbMorphology() {
         if (focusVerbMorphologyControl(summary, board)) {
           state.verbMorphologyFocusNextStep = false;
         }
+      }
+    }
+    return;
+  }
+
+  if (state.verbMorphologyReviewMode) {
+    if (instructions) {
+      instructions.hidden = false;
+      instructions.textContent = "Match every Czech form with its English cue.";
+    }
+    if (actions) actions.hidden = true;
+    if (lemma) lemma.hidden = !state.verbMorphologyFamily;
+    if (hintPanel) hintPanel.hidden = true;
+    if (nextButton) {
+      nextButton.hidden = !state.verbMorphologyReviewRoundComplete;
+      nextButton.disabled = state.verbTransitionActive || state.verbProgressResetPending;
+      nextButton.textContent = "New challenge";
+    }
+    setText("#verbMorphologyTitle", "Match every form");
+    setText("#verbMorphologyLemmaTarget", state.verbMorphologyFamily?.metadata?.lemmaTarget || "");
+    setText("#verbMorphologyGloss", state.verbMorphologyFamily?.metadata?.glossEn || "");
+    setText("#verbMorphologyFeedback", state.verbMorphologyAnnouncement);
+    setText(
+      "#verbMorphologyProgress",
+      `${matchedCount} of ${total} matched · round ${state.verbMorphologyReviewRoundNumber}`
+    );
+    const feedback = $("#verbMorphologyFeedback");
+    if (feedback) {
+      feedback.className = `verb-match-feedback${state.verbMorphologyAnnouncementKind
+        ? ` is-${state.verbMorphologyAnnouncementKind}`
+        : ""}`;
+    }
+    board.setAttribute("aria-busy", state.verbTransitionActive ? "true" : "false");
+    if (state.verbMorphologyFocusNextStep && !state.verbMorphologyReviewRoundComplete) {
+      const firstAvailable = board.querySelector(
+        "button[data-morphology-cue-id]:not(:disabled), button[data-morphology-item-id]:not(:disabled)"
+      );
+      if (focusVerbMorphologyControl(firstAvailable, board)) {
+        state.verbMorphologyFocusNextStep = false;
       }
     }
     return;
@@ -1699,7 +1794,7 @@ function renderVerbMorphology() {
         ? "Verifying the reviewed form set and its exact curriculum task."
         : state.verbGuidedError || "The pinned pilot content is unavailable."
     );
-    setText("#verbMorphologyProgress", preparing ? "Preparing · non-mastery · 0 XP" : "Unavailable · non-mastery · 0 XP");
+    setText("#verbMorphologyProgress", preparing ? "Preparing…" : "Unavailable");
     const feedback = $("#verbMorphologyFeedback");
     if (feedback) feedback.className = `verb-match-feedback${preparing ? "" : " is-wrong"}`;
     board.setAttribute(
@@ -1754,7 +1849,7 @@ function renderVerbMorphology() {
   if (glossNode) glossNode.lang = "en";
   setText(
     "#verbMorphologyProgress",
-    `${matchedCount} of ${total} matched · reviewed present-singular set · 0 XP`
+    `${matchedCount} of ${total} matched`
   );
 
   renderMorphologyMatchColumns();
@@ -1882,10 +1977,63 @@ function currentMorphologyCueSelected() {
   );
 }
 
+function clearVerbMorphologyReviewWrongState() {
+  state.verbMorphologyReviewWrongTimer = null;
+  if (!state.verbMorphologyReviewMode) return;
+  state.verbMorphologyWrongItemRef = null;
+  state.verbMorphologyWrongCueRef = null;
+  renderConjugationComet();
+}
+
+function submitVerbMorphologyReviewPair() {
+  const itemRef = state.verbMorphologySelectedItemRef;
+  const cueRef = state.verbMorphologySelectedCueRef;
+  if (!itemRef || !cueRef || verbGuidedInteractionLocked()) return;
+  const evaluation = verbMorphologyCore.evaluateMorphologyMatchPair(
+    state.verbMorphologyMatchBoard,
+    { itemRef, cueRef }
+  );
+  state.verbMorphologySelectedItemRef = null;
+  state.verbMorphologySelectedCueRef = null;
+  if (!evaluation.correct) {
+    state.verbMorphologyWrongItemRef = evaluation.selectedItemRef;
+    state.verbMorphologyWrongCueRef = evaluation.cueRef;
+    setVerbMorphologyAnnouncement("Not quite. Try a different match.", "wrong");
+    if (state.verbMorphologyReviewWrongTimer) {
+      window.clearTimeout(state.verbMorphologyReviewWrongTimer);
+    }
+    state.verbMorphologyReviewWrongTimer = window.setTimeout(
+      clearVerbMorphologyReviewWrongState,
+      620
+    );
+    renderConjugationComet();
+    return;
+  }
+  state.verbMorphologyWrongItemRef = null;
+  state.verbMorphologyWrongCueRef = null;
+  state.verbMorphologyReviewMatchedCueKeys = new Set([
+    ...state.verbMorphologyReviewMatchedCueKeys,
+    morphologyRefKey(evaluation.cueRef)
+  ]);
+  const total = state.verbMorphologyMatchBoard?.cues?.length || 0;
+  const matched = state.verbMorphologyReviewMatchedCueKeys.size;
+  state.verbMorphologyReviewRoundComplete = total > 0 && matched >= total;
+  setVerbMorphologyAnnouncement(
+    state.verbMorphologyReviewRoundComplete ? "Round complete!" : "Correct! Keep matching.",
+    "correct"
+  );
+  renderConjugationComet();
+  if (state.verbMorphologyReviewRoundComplete) scheduleVerbMorphologyReviewRound();
+}
+
 async function submitVerbMorphologyPair() {
   const itemRef = state.verbMorphologySelectedItemRef;
   const cueRef = state.verbMorphologySelectedCueRef;
   if (!itemRef || !cueRef || verbGuidedInteractionLocked()) return;
+  if (state.verbMorphologyReviewMode) {
+    submitVerbMorphologyReviewPair();
+    return;
+  }
   if (!currentMorphologyCueSelected()) {
     state.verbMorphologySelectedCueRef = null;
     setVerbMorphologyAnnouncement(
@@ -1941,7 +2089,8 @@ async function selectVerbMorphologyCue(event) {
   if (!button || button.disabled || verbGuidedInteractionLocked()) return;
   const cueRef = morphologyRefFromButton(button, "cue");
   if (!cueRef) return;
-  if (!sameEntityRef(cueRef, state.verbMorphologyRound?.cue?.cueRef)) {
+  if (!state.verbMorphologyReviewMode
+      && !sameEntityRef(cueRef, state.verbMorphologyRound?.cue?.cueRef)) {
     state.verbMorphologySelectedCueRef = null;
     setVerbMorphologyAnnouncement(
       "That cue is visible for the whole paradigm, but it unlocks after the highlighted cue.",
@@ -2073,11 +2222,7 @@ async function chooseVerbMorphologyForm(event) {
       state.verbGuidedStatus = "awaiting-next";
       state.verbMorphologyFocusNextAction = transferFocus;
       setVerbMorphologyAnnouncement(
-        firstResponseWasRecorded
-          ? `Correct now: ${selectedSurface}. The earlier first response remains recorded; continuing to the next match.`
-          : supportAtFirstResponse
-            ? `Correct: ${selectedSurface}. This is supported form comprehension, not independent evidence; continuing.`
-            : `Correct: ${selectedSurface}. This records form comprehension only; continuing to the next match.`,
+        `Correct: ${selectedSurface}.`,
         "correct"
       );
     } else {
@@ -2277,6 +2422,82 @@ function clearVerbMorphologyAutoAdvance() {
   state.verbMorphologyAutoAdvanceTimer = null;
 }
 
+function clearVerbMorphologyReviewTimer() {
+  if (!state.verbMorphologyReviewTimer) return;
+  window.clearTimeout(state.verbMorphologyReviewTimer);
+  state.verbMorphologyReviewTimer = null;
+}
+
+function shuffledMorphologyRefKeys(entries, referenceFor, previousOrder = []) {
+  const keys = Array.from(entries || [], (entry) => morphologyRefKey(referenceFor(entry)));
+  for (let index = keys.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [keys[index], keys[swapIndex]] = [keys[swapIndex], keys[index]];
+  }
+  if (keys.length > 1 && keys.every((key, index) => key === previousOrder[index])) {
+    keys.push(keys.shift());
+  }
+  return keys;
+}
+
+function morphologyEntriesInOrder(entries, orderedKeys, referenceFor) {
+  const byKey = new Map(Array.from(entries || [], (entry) => [
+    morphologyRefKey(referenceFor(entry)),
+    entry
+  ]));
+  const ordered = Array.from(orderedKeys || [], (key) => byKey.get(key)).filter(Boolean);
+  return ordered.length === byKey.size ? ordered : Array.from(entries || []);
+}
+
+function scheduleVerbMorphologyReviewRound() {
+  clearVerbMorphologyReviewTimer();
+  if (state.verbProgressResetPending) return;
+  state.verbMorphologyReviewTimer = window.setTimeout(() => {
+    state.verbMorphologyReviewTimer = null;
+    if (state.verbTransitionActive) {
+      scheduleVerbMorphologyReviewRound();
+      return;
+    }
+    void trackVerbGuidedOperation(beginVerbMorphologyReviewRound);
+  }, conjugationCometCompletionHoldMillis);
+}
+
+async function beginVerbMorphologyReviewRound() {
+  clearVerbMorphologyReviewTimer();
+  if (state.verbMorphologyReviewWrongTimer) {
+    window.clearTimeout(state.verbMorphologyReviewWrongTimer);
+    state.verbMorphologyReviewWrongTimer = null;
+  }
+  if (state.verbProgressResetPending || !state.verbMorphologyMatchBoard) return;
+  await withConjugationCometTransition("Preparing a new challenge…", () => {
+    const board = state.verbMorphologyMatchBoard;
+    state.verbMorphologyReviewRoundNumber += 1;
+    state.verbMorphologyReviewMode = true;
+    state.verbMorphologyReviewRoundComplete = false;
+    state.verbMorphologyReviewMatchedCueKeys = new Set();
+    state.verbMorphologyReviewFormOrder = shuffledMorphologyRefKeys(
+      board.forms,
+      (form) => form.itemRef,
+      state.verbMorphologyReviewFormOrder
+    );
+    state.verbMorphologyReviewCueOrder = shuffledMorphologyRefKeys(
+      board.cues,
+      (cue) => cue.cueRef,
+      state.verbMorphologyReviewCueOrder
+    );
+    state.verbMorphologySequenceComplete = false;
+    state.verbGuidedStatus = "practice";
+    state.verbMorphologyRound = null;
+    state.verbMorphologyRoundState = null;
+    state.verbMorphologySelectedItemRef = null;
+    state.verbMorphologySelectedCueRef = null;
+    state.verbMorphologyWrongItemRef = null;
+    state.verbMorphologyWrongCueRef = null;
+    state.verbMorphologyFocusNextStep = true;
+    setVerbMorphologyAnnouncement("Match each Czech form with its English cue.");
+  });
+}
+
 function scheduleVerbMorphologyAutoAdvance() {
   clearVerbMorphologyAutoAdvance();
   if (state.verbGuidedStatus !== "awaiting-next" || state.verbProgressResetPending) return;
@@ -2320,11 +2541,13 @@ async function advanceVerbMorphologySequence() {
       return;
     }
     if (state.verbGuidedStatus !== "step-complete") return;
-    state.verbMorphologyFocusNextStep = true;
-    await prepareVerbMorphologyGuidedStep(
-      window.CaatuuCurriculum,
-      conjugationCometConfiguration()
-    );
+    await withConjugationCometTransition("Preparing the next match…", async () => {
+      state.verbMorphologyFocusNextStep = true;
+      await prepareVerbMorphologyGuidedStep(
+        window.CaatuuCurriculum,
+        conjugationCometConfiguration()
+      );
+    });
   } catch (error) {
     state.verbGuidedError = error?.message || String(error);
     console.error("Conjugation Comet sequence advance failed", error);
@@ -2354,6 +2577,9 @@ function renderConjugationComet() {
   const panel = $("#conjugationCometPanel");
   if (!panel) return;
   const unavailable = $("#conjugationCometUnavailable");
+  const interstitial = $("#conjugationCometInterstitial");
+  const interstitialRobot = $("#conjugationCometRobot");
+  const interstitialCopy = $("#conjugationCometInterstitialCopy");
   const meaningBoard = $("#verbMeaningGateBoard");
   const meaningFooter = $("#verbMeaningGateFooter");
   const morphologyBoard = $("#verbMorphologyBoard");
@@ -2361,6 +2587,25 @@ function renderConjugationComet() {
   const banner = $("#verbGuidedStatus");
   const capabilityUnavailable = state.verbGuidedStatus === "unavailable";
   if (unavailable) unavailable.hidden = !capabilityUnavailable;
+  if (state.verbTransitionActive && !capabilityUnavailable) {
+    for (const surface of [meaningBoard, meaningFooter, morphologyBoard, morphologyFooter]) {
+      if (!surface) continue;
+      surface.hidden = true;
+      if (surface.matches(".verb-match-board")) surface.setAttribute("aria-busy", "true");
+    }
+    if (banner) banner.hidden = true;
+    if (interstitial) {
+      interstitial.hidden = false;
+      interstitial.setAttribute("aria-label", state.verbTransitionMessage);
+    }
+    if (interstitialRobot
+        && interstitialRobot.getAttribute("src") !== state.verbTransitionRobotPath) {
+      interstitialRobot.src = state.verbTransitionRobotPath;
+    }
+    if (interstitialCopy) interstitialCopy.textContent = state.verbTransitionMessage;
+    return;
+  }
+  if (interstitial) interstitial.hidden = true;
   if (capabilityUnavailable) {
     for (const surface of [meaningBoard, meaningFooter, morphologyBoard, morphologyFooter]) {
       if (!surface) continue;
@@ -2401,6 +2646,11 @@ async function prepareConjugationCometProgressReset() {
   state.verbGuidedActivationEpoch += 1;
   state.verbMorphologyGeneration += 1;
   clearVerbMorphologyAutoAdvance();
+  clearVerbMorphologyReviewTimer();
+  if (state.verbMorphologyReviewWrongTimer) {
+    window.clearTimeout(state.verbMorphologyReviewWrongTimer);
+    state.verbMorphologyReviewWrongTimer = null;
+  }
   if (state.verbMeaningTransitionTimer) {
     window.clearTimeout(state.verbMeaningTransitionTimer);
     state.verbMeaningTransitionTimer = null;
@@ -2424,6 +2674,10 @@ async function prepareConjugationCometProgressReset() {
 
 function resetConjugationCometRuntimeState() {
   clearVerbMorphologyAutoAdvance();
+  clearVerbMorphologyReviewTimer();
+  if (state.verbMorphologyReviewWrongTimer) {
+    window.clearTimeout(state.verbMorphologyReviewWrongTimer);
+  }
   if (state.verbMeaningTransitionTimer) window.clearTimeout(state.verbMeaningTransitionTimer);
   state.verbGuidedActivationEpoch += 1;
   state.verbMorphologyGeneration += 1;
@@ -2468,6 +2722,17 @@ function resetConjugationCometRuntimeState() {
   state.verbMorphologyWrongItemRef = null;
   state.verbMorphologyWrongCueRef = null;
   state.verbMorphologyAutoAdvanceTimer = null;
+  state.verbMorphologyReviewTimer = null;
+  state.verbMorphologyReviewWrongTimer = null;
+  state.verbMorphologyReviewMode = false;
+  state.verbMorphologyReviewRoundNumber = 0;
+  state.verbMorphologyReviewRoundComplete = false;
+  state.verbMorphologyReviewMatchedCueKeys = new Set();
+  state.verbMorphologyReviewFormOrder = [];
+  state.verbMorphologyReviewCueOrder = [];
+  state.verbTransitionActive = true;
+  state.verbTransitionMessage = "Preparing the first challenge…";
+  state.verbTransitionRobotPath = conjugationCometRobotFallbackPath;
 }
 
 function restartConjugationCometRuntimeAfterReset({ resetCompleted = true } = {}) {
@@ -2512,7 +2777,11 @@ function bindConjugationCometControls() {
     void trackVerbGuidedOperation(revealVerbMorphologySolution);
   });
   $("#verbMorphologyNextButton")?.addEventListener("click", () => {
-    void trackVerbGuidedOperation(advanceVerbMorphologySequence);
+    const action = state.verbMorphologySequenceComplete
+      || state.verbMorphologyReviewRoundComplete
+      ? beginVerbMorphologyReviewRound
+      : advanceVerbMorphologySequence;
+    void trackVerbGuidedOperation(action);
   });
   window.CaatuuLearning?.registerProgressResetPreparation?.(
     prepareConjugationCometProgressReset
@@ -2537,7 +2806,12 @@ async function initializeConjugationCometRuntime() {
   state.verbGuidedRequested = true;
   state.verbGuidedStatus = "loading";
   state.verbGuidedError = "";
+  state.verbTransitionActive = true;
+  state.verbTransitionMessage = "Preparing the first challenge…";
+  state.verbTransitionRobotPath = conjugationCometRobotFallbackPath;
+  renderConjugationComet();
   if (!conjugationCometAvailable()) {
+    state.verbTransitionActive = false;
     state.verbGuidedStatus = "unavailable";
     state.verbGuidedError = conjugationCometConfiguration()
       ? "This teacher-review preview is available only through the explicit local Guided gate."
@@ -2547,8 +2821,16 @@ async function initializeConjugationCometRuntime() {
     return;
   }
 
+  const robotPromise = nextConjugationCometRobot().then((path) => {
+    state.verbTransitionRobotPath = path;
+    renderConjugationComet();
+  });
   try {
-    await loadConjugationCometRuntime();
+    await Promise.all([
+      loadConjugationCometRuntime(),
+      waitForConjugationCometTransition(900),
+      robotPromise
+    ]);
     const configuration = conjugationCometConfiguration();
     const curriculum = window.CaatuuCurriculum;
     if (!configuration || !curriculum) {
@@ -2569,6 +2851,8 @@ async function initializeConjugationCometRuntime() {
       "wrong"
     );
     console.error("Conjugation Comet failed closed", error);
+  } finally {
+    state.verbTransitionActive = false;
   }
   renderConjugationComet();
 }

@@ -7,10 +7,55 @@
 .conjugation-comet-panel[hidden],
 .conjugation-comet-match-board[hidden],
 .conjugation-comet-footer[hidden],
+.conjugation-comet-interstitial[hidden],
 .verb-morphology-actions[hidden],
 .verb-morphology-hint[hidden],
 .conjugation-comet-unavailable[hidden] {
   display: none;
+}
+
+.conjugation-comet-interstitial {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  min-height: max(610px, calc(100dvh - 260px));
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--blue) 10%, transparent), transparent 42%),
+    color-mix(in srgb, var(--theme-input, var(--panel)) 82%, transparent);
+  text-align: center;
+}
+
+.conjugation-comet-robot {
+  width: clamp(150px, 34vw, 240px);
+  max-height: 300px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 20px rgba(11, 34, 29, 0.14));
+  animation: conjugation-comet-robot-breathe 1.45s ease-in-out infinite alternate;
+}
+
+.conjugation-comet-interstitial p {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+@keyframes conjugation-comet-robot-breathe {
+  from {
+    opacity: 0.72;
+    transform: translateY(3px) scale(0.985);
+  }
+
+  to {
+    opacity: 0.96;
+    transform: translateY(-3px) scale(1.015);
+  }
 }
 
 .conjugation-comet-match-board {
@@ -346,6 +391,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .conjugation-comet-match-board .verb-match-card,
+  .conjugation-comet-robot,
   .verb-morphology-actions > button {
     animation: none;
     transition: none;
