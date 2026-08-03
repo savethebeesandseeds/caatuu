@@ -49,16 +49,16 @@ image. Product Python does not invoke Docker, mount its socket, or import Blende
 
 ## AF-055 actor-package proof
 
-Run this proof from `apps/animated-fabric` on a native non-root x86-64 Linux host. Docker Desktop is
+Run this proof from the Caatuu repository root on a native non-root x86-64 Linux host. Docker Desktop is
 useful for a convenience smoke but is not the evidence authority.
 
 ```bash
-docker compose run --rm animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/generate_actor_package_fixture.py \
   --out workspaces/actor-packages/geometric-fixture-v1
 docker compose --profile blender-actor build animated-fabric-blender-actor-validator
 docker compose --profile blender-actor run --rm animated-fabric-blender-actor-validator
-docker compose run --rm animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/verify_blender_actor_neutral.py \
   --source workspaces/blender/af055-neutral \
   --package workspaces/actor-packages/geometric-fixture-v1
@@ -87,15 +87,16 @@ decision. AF-053's worker, hashes, output contract, and product path remain froz
 
 ## Run the complete AF-053 path
 
-Run from `apps/animated-fabric` on a native non-root Linux host:
+Run from the Caatuu repository root on a native non-root Linux host:
 
 ```bash
 bash scripts/run_blender_directional_demo.sh
 ```
 
 The host requires Docker with Compose, GNU `timeout`, and `sha256sum`; it does not require Python,
-Blender, Pillow, or project dependencies. The command validates Compose, builds
-`animated-fabric-dev` and `animated-fabric-blender`, checks the Blender worker UID, renders with a
+Blender, Pillow, or project dependencies. The command validates root Compose,
+checks the existing `caatuu-dev`, builds `animated-fabric-blender`, checks the
+Blender worker UID, renders with a
 five-minute limit, verifies goldens and evidence, creates review media, packages the product, and
 checks all six top-level result files before printing their SHA-256 values.
 

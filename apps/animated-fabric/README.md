@@ -42,15 +42,17 @@ The authoritative checkout is:
 C:\Work\caatuu\apps\animated-fabric
 ```
 
-Animated Fabric is an application inside the Caatuu monorepo, but it has its
-own dependency and container boundary. Caatuu does not serve this source tree
+Animated Fabric is an application inside the Caatuu monorepo with its own
+Python package boundary and a shared Caatuu development environment. Caatuu does not serve this source tree
 as web content. Only deliberately promoted export artifacts may be copied into
 a Caatuu browser application or demo later.
 
 ## Authoritative Linux environment
 
-All productive Python, Qt, OpenCV, fixture, test, rendering, packaging, and
-cutout commands run in the repository-owned Linux containers.
+All productive Python, Qt, OpenCV, fixture, test, rendering, and packaging
+commands run in the established `caatuu-dev` Linux container. Opt-in cutout,
+Blender, and reconstruction jobs use bounded workers in the same root Compose
+project.
 
 The Windows host is limited to Git, text editing, read-only inspection, and
 Docker invocation. Do not install project dependencies on Windows and do not
@@ -60,61 +62,59 @@ The infrastructure boundary is explicit:
 
 | Surface | Ownership and isolation |
 |---|---|
-| `animated-fabric-dev` | Python 3.12/Debian development and test image; non-root, no ports, runtime network disabled |
-| `gui` profile | Same owned image with native-Linux X11 socket forwarding; still networkless |
+| `caatuu-dev` | Sole interactive Caatuu development container; canonical repository mount plus the baked `/opt/animated-fabric` Python 3.12 environment |
 | `cutout-classic` profile | Lightweight Pillow/NumPy cutout image with no model or ML packages |
 | `cutout` / `cutout-cuda` profiles | Separate CPU or NVIDIA BiRefNet images; no source checkout and no runtime network |
 | `cutout-provision` profile | The only network-enabled runtime action; seeds one pinned, hash-verified model snapshot |
 | `blender` profile | Frozen opt-in Blender 4.5.12 Linux/amd64 directional worker; fixed baked actor and walk, non-root, offline, read-only, and no input mount |
 | `blender-actor` profile | Separate Blender 4.5.12 actor validator; one externally pinned geometric package mounted read-only, private verified snapshot, fixed neutral render, no macaw or arbitrary input |
-| Named volumes | Independent pip cache and BiRefNet cache owned by this Compose project |
+| Named volumes | Shared Caatuu package caches plus bounded model caches owned by the root `caatuu` Compose project |
 | GitHub Actions | Ubuntu 24.04 runs the normal product gate and a separate path-scoped Blender workflow that exercises the bounded host command and may publish only cleared sample media and reports |
 
-From this directory, build and start the normal development environment:
+From the repository root, build and start the normal development environment:
 
 ```powershell
-docker compose up -d --build animated-fabric-dev
+docker compose --profile dev up -d --build caatuu-dev
 ```
 
-The image uses Python 3.12 on Debian Bookworm, installs the project editable
-with its development dependencies, and runs as the non-root `animatedfabric`
-user. The running container has no network access and exposes no ports. Image
-construction still requires network access to obtain Debian and Python
-packages.
+The shared image contains a dedicated Python 3.12 tool environment at
+`/opt/animated-fabric`. The canonical repository is mounted once at
+`/workspace`; no application-specific source container or Compose project is
+permitted.
 
-On native Linux, map generated files to the current user when the account is
-not UID/GID 1000:
+On a GPU host, attach the GPU to the same service and same Compose project:
 
 ```bash
-LOCAL_UID="$(id -u)" LOCAL_GID="$(id -g)" docker compose build animated-fabric-dev
+docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev \
+  up -d --build caatuu-dev
 ```
 
 ## CLI and GUI
 
 ```powershell
-docker compose exec animated-fabric-dev python -m animated_fabric --help
-docker compose exec animated-fabric-dev animated-fabric version
-docker compose exec animated-fabric-dev python -m animated_fabric doctor
-docker compose exec animated-fabric-dev python -m animated_fabric validate /path/to/project
-docker compose exec animated-fabric-dev python -m animated_fabric validate /path/to/project --json
-docker compose exec animated-fabric-dev animated-fabric import-layers /path/to/project `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric --help
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric version
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric doctor
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric validate /path/to/project
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric validate /path/to/project --json
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric import-layers /path/to/project `
   --direction SE --source /path/to/prepared/SE
-docker compose exec animated-fabric-dev animated-fabric import-layers /path/to/project `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric import-layers /path/to/project `
   --direction NE --source /path/to/prepared/NE --yes --json
-docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project
-docker compose exec animated-fabric-dev animated-fabric rig apply-template /path/to/project `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric rig apply-template /path/to/project
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric rig apply-template /path/to/project `
   --replace-existing --json
-docker compose exec animated-fabric-dev animated-fabric animation list-generators `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric animation list-generators `
   --template humanoid_v1
-docker compose exec animated-fabric-dev animated-fabric animation generate /path/to/project `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric animation generate /path/to/project `
   --generator humanoid_idle_v1 --clip idle
-docker compose exec animated-fabric-dev animated-fabric animation generate /path/to/project `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric animation generate /path/to/project `
   --generator humanoid_walk_v1 --clip walk `
   --set duration_ms=800 --set step_angle_deg=18
-docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
-docker compose exec animated-fabric-dev python scripts/run_rig_application_demo.py `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python scripts/generate_fixture_assets.py --out .tmp/fixtures
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python scripts/run_rig_application_demo.py `
   --out .tmp/af032-demo
-docker compose exec animated-fabric-dev animated-fabric render-frame `
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric animated-fabric render-frame `
   .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 --out .tmp/preview.png
 ```
 
@@ -228,8 +228,9 @@ From a native non-root Linux shell, run the complete bounded path from this dire
 bash scripts/run_blender_directional_demo.sh
 ```
 
-The command validates Compose, builds the development and Blender images, verifies the non-root
-worker, applies a five-minute render timeout, checks evidence and reviewed goldens, creates human
+The command validates the root Compose project, requires the already-running shared `caatuu-dev`
+service, builds the bounded Blender worker, verifies its non-root contract, applies a five-minute
+render timeout, checks evidence and reviewed goldens, creates human
 review media, packages the grid, and prints SHA-256 values. A deliberate repeatability run may use
 `bash scripts/run_blender_directional_demo.sh --skip-build` after those exact images are built. No
 project dependency or productive Python process runs on the host.
@@ -285,15 +286,15 @@ axes and meters, one actor root, finite and fully referenced geometry, materials
 optional bounded skin, compiled resource ceilings, and exact provenance before Blender import. A
 post-import gate independently rejects scene behavior and imported count or bound drift.
 
-Run the proof only through the owned containers from a native non-root x86-64 Linux shell:
+Run the proof from the Caatuu repository root on a native non-root x86-64 Linux shell:
 
 ```bash
-docker compose run --rm animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/generate_actor_package_fixture.py \
   --out workspaces/actor-packages/geometric-fixture-v1
 docker compose --profile blender-actor build animated-fabric-blender-actor-validator
 docker compose --profile blender-actor run --rm animated-fabric-blender-actor-validator
-docker compose run --rm animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/verify_blender_actor_neutral.py \
   --source workspaces/blender/af055-neutral \
   --package workspaces/actor-packages/geometric-fixture-v1
@@ -324,16 +325,20 @@ command: it imports both prepared directions into a fresh project, applies the r
 reviewed neutral frames, and writes visible bone/socket overlays.
 
 The GUI entry point is `animated-fabric-gui`. Automated tests use
-`QT_QPA_PLATFORM=offscreen`. On a native Linux X11 desktop, keep the GUI inside
-the project container and forward only the local display socket:
+`QT_QPA_PLATFORM=offscreen`. On a native Linux X11 desktop, recreate the same
+`caatuu-dev` service with the reviewed display-only override. Because `caatuu-dev` is shared by
+repository work, coordinate this recreation with other active sessions before running it:
 
 ```bash
 export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
-LOCAL_UID="$(id -u)" LOCAL_GID="$(id -g)" \
-  docker compose --profile gui run --rm animated-fabric-gui
+docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev \
+  up -d --build --force-recreate caatuu-dev
+docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+  caatuu-animated-fabric python -c \
+  'from animated_fabric.gui.app import main; raise SystemExit(main())'
 ```
 
-The GUI profile remains networkless and exposes no port. Wayland-only desktops
+The override creates no second service or port. Wayland-only desktops
 need an XWayland-compatible display or a deliberately configured Wayland
 override; the headless test service does not pretend to be an interactive GUI.
 
@@ -343,7 +348,7 @@ AF-045 owns an internal TripoSR CUDA image for testing whether one reviewed
 character cutout can become a useful 3D proposal without manual mesh editing.
 It adds nothing to the base Python package and runs no inference on Windows.
 
-From this directory on Linux, build and provision the pinned model once:
+From the Caatuu repository root on Linux, build and provision the pinned model once:
 
 ```bash
 mkdir -p workspaces/reconstruction/input workspaces/reconstruction/output
@@ -375,13 +380,13 @@ model identities, limits, licensing, and review gates.
 Run every gate inside Linux:
 
 ```powershell
-docker compose exec animated-fabric-dev ruff format --check .
-docker compose exec animated-fabric-dev ruff check .
-docker compose exec animated-fabric-dev mypy src
-docker compose exec animated-fabric-dev pytest -q
-docker compose exec animated-fabric-dev python -m pip check
-docker compose exec animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
-docker compose exec animated-fabric-dev python scripts/run_demo_pipeline.py --out .tmp/demo
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric ruff format --check .
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric ruff check .
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric mypy src
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric pytest -q
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m pip check
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python scripts/generate_fixture_assets.py --out .tmp/fixtures
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python scripts/run_demo_pipeline.py --out .tmp/demo
 ```
 
 GitHub Actions builds the same Linux development image before running these
@@ -403,7 +408,7 @@ layer workflows never require automatic segmentation.
 See [`docs/CUTOUT.md`](docs/CUTOUT.md) for provisioning, single-image, batch,
 CPU, CUDA, offline-runtime, attribution, and update instructions.
 
-The minimal offline path is:
+From the Caatuu repository root, the minimal offline path is:
 
 ```bash
 mkdir -p workspaces/cutout/input workspaces/cutout/output
@@ -457,11 +462,12 @@ The current constraint file pins the resolved Python versions. A hash-locked rel
 set, Debian snapshot policy, SBOMs, and generated third-party notice reports
 remain release gates rather than claims made by this development milestone.
 
-## Stop the environment
+## Stop the development service
 
 ```powershell
-docker compose down
+docker compose stop caatuu-dev
 ```
 
-Use `docker compose down --volumes` only when intentionally discarding project
-caches. Do not remove model or package volumes as routine cleanup.
+Run this from the Caatuu repository root and coordinate first because the service is shared by
+repository work. Do not use project-wide `down` or remove shared model/package volumes as routine
+Animated Fabric cleanup.

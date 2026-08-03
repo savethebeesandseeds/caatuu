@@ -64,7 +64,7 @@ def generated_package(tmp_path_factory: pytest.TempPathFactory) -> Path:
 def _trusted_source_hashes() -> dict[str, str]:
     return {
         "actor_package.py": _sha256(APP_ROOT / "tools/blender/actor_package.py"),
-        "compose.yaml": _sha256(APP_ROOT / "compose.yaml"),
+        "worker-contract.json": _sha256(APP_ROOT / "containers/worker-contract.json"),
         "container.Dockerfile": _sha256(APP_ROOT / "containers/blender/Dockerfile"),
         "evidence.py": _sha256(APP_ROOT / "tools/blender/evidence.py"),
         "motion.py": _sha256(APP_ROOT / "tools/blender/motion.py"),
@@ -588,13 +588,15 @@ def test_dockerfile_keeps_separate_fixed_workers_and_af053_entrypoint() -> None:
 
 
 def test_compose_actor_mount_is_read_only_and_worker_remains_isolated() -> None:
-    compose = (APP_ROOT / "compose.yaml").read_text(encoding="utf-8")
+    compose = (APP_ROOT.parents[1] / "compose.yaml").read_text(encoding="utf-8")
     actor = _compose_service_block(compose, "animated-fabric-blender-actor-validator")
     directional = _compose_service_block(compose, "animated-fabric-blender")
 
     assert "target: actor-validator" in actor
-    assert "./workspaces/actor-packages/geometric-fixture-v1:/actor-package:ro" in actor
-    assert "./workspaces/blender:/output" in actor
+    assert (
+        "./apps/animated-fabric/workspaces/actor-packages/geometric-fixture-v1:/actor-package:ro"
+    ) in actor
+    assert "./apps/animated-fabric/workspaces/blender:/output" in actor
     assert "network_mode: none" in actor
     assert "read_only: true" in actor
     assert "cap_drop:\n      - ALL" in actor

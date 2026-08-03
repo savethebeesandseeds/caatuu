@@ -12,8 +12,8 @@ The prototype humanoid and animation clips are from the Quaternius Universal
 Animation Library, Standard edition, released under CC0. Caatuu's authoritative
 source and notice are:
 
-- `demos/world-movement/motion-reference/source/AnimationLibrary_Godot_Standard.glb`
-- `demos/world-movement/motion-reference/source/Quaternius-License.txt`
+- `apps/launcher/static/assets/motion/quaternius-standard-v1/source/AnimationLibrary_Godot_Standard.glb`
+- `apps/launcher/static/assets/motion/quaternius-standard-v1/source/Quaternius-License.txt`
 
 The exporter verifies these committed files before use and copies the notice
 beside the generated Web bundle.

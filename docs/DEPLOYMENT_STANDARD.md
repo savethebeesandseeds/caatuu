@@ -66,7 +66,7 @@ development Compose stack unchanged:
 
 | Plane | Current fact | Clean target |
 | --- | --- | --- |
-| Static product and resources | The Rust runtime serves read-only bind mounts from the live local checkout through the local connector. Availability therefore depends on that workstation and its mutable files. | Assemble a channel-approved, version-owned web/resource bundle and publish it at a conforming HTTPS origin. Browser and installer availability then survives the loss of the workstation. |
+| Static product and resources | The Rust server serves read-only bind mounts from the live local checkout through the local connector. Availability therefore depends on that workstation and its mutable files. | Assemble a channel-approved, version-owned web/resource bundle and publish it at a conforming HTTPS origin. Browser and installer availability then survives the loss of the workstation. |
 | Release discovery and Android updates | Updater JSON and APKs are exposed through the same local runtime path. Existing installed clients constrain the hostname and compatibility aliases. | Keep the client-facing compatibility paths, but make each APK immutable and reduce mutable state to atomically replaced, hash-pinned channel/updater documents. |
 | Dynamic Czech dictionary | The browser dictionary is the active feature that still needs the Rust API. | Either operate that narrow API whenever the browser feature is advertised, or replace it with a measured client-local/static implementation. An occasionally started server means occasional dictionary availability. |
 | Feedback | Reports queue on the device and remote delivery is deliberately disabled by the privacy gate. | Keep remote delivery disabled until governance and durability pass. An intermittent receiver can drain only from clients that reconnect while it is reachable; it is not reliable reception and must not be described as such. |
@@ -198,7 +198,7 @@ Each release should contain the smallest approved content set:
 
 - a web bundle produced from an explicit, channel-specific route allowlist;
   routes currently described in [`ARCHITECTURE.md`](ARCHITECTURE.md), including
-  `/demos/` and `/archive/chinese/`, are not included automatically and require
+  `/archive/chinese/`, are not included automatically and require
   a deliberate release decision; secrets, raw sources, and unapproved assets
   are always excluded;
 - an immutable runtime image or package when a dynamic runtime is required;

@@ -4,10 +4,20 @@ on:
   push:
     paths:
       - "apps/animated-fabric/**"
+      - "tools/dev-container/**"
+      - "compose.yaml"
+      - "compose/dev-gpu.yaml"
+      - "compose/dev-gui.yaml"
+      - ".dockerignore"
       - ".github/workflows/animated-fabric-ci.yml"
   pull_request:
     paths:
       - "apps/animated-fabric/**"
+      - "tools/dev-container/**"
+      - "compose.yaml"
+      - "compose/dev-gpu.yaml"
+      - "compose/dev-gui.yaml"
+      - ".dockerignore"
       - ".github/workflows/animated-fabric-ci.yml"
   workflow_dispatch:
 
@@ -16,93 +26,108 @@ permissions:
 
 jobs:
   quality:
-    name: Linux container quality gate
+    name: Shared Caatuu Linux quality gate
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - name: Match container ownership to the Linux runner
+      - name: Match bounded worker ownership to the Linux runner
         run: |
           echo "LOCAL_UID=$(id -u)" >> "$GITHUB_ENV"
           echo "LOCAL_GID=$(id -g)" >> "$GITHUB_ENV"
 
-      - name: Validate Compose
-        working-directory: apps/animated-fabric
+      - name: Validate the root Caatuu Compose project
         run: |
-          docker compose config --quiet
-          docker compose --profile gui --profile cutout-classic --profile cutout \
+          docker compose --profile dev config --quiet
+          docker compose --profile cutout-classic --profile cutout \
             --profile cutout-cuda --profile cutout-provision config --quiet
+          docker compose -f compose.yaml -f compose/dev-gui.yaml \
+            --profile dev config --quiet
+          docker compose -f compose.yaml -f compose/dev-gpu.yaml \
+            --profile dev config --quiet
+          mkdir -p apps/animated-fabric/.tmp
+          docker compose --profile dev --profile blender \
+            --profile blender-actor --profile blender-macaw \
+            --profile cutout-classic --profile reconstruction \
+            config --format json \
+            > apps/animated-fabric/.tmp/resolved-worker-compose.json
 
-      - name: Build the authoritative Linux development image
-        working-directory: apps/animated-fabric
-        run: docker compose build animated-fabric-dev
+      - name: Build and start the sole development container
+        run: docker compose --profile dev up -d --build caatuu-dev
 
-      - name: Run the complete quality gate in Linux
-        working-directory: apps/animated-fabric
+      - name: Verify the shared environment
+        run: docker exec caatuu-dev check-caatuu-dev
+
+      - name: Validate specialist workers against the resolved root project
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev ruff format --check .
-          docker compose run --rm --no-deps animated-fabric-dev ruff check .
-          docker compose run --rm --no-deps animated-fabric-dev mypy src
-          docker compose run --rm --no-deps animated-fabric-dev pytest -q
-          docker compose run --rm --no-deps animated-fabric-dev python -m pip check
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python scripts/validate_worker_contract.py \
+              --compose-config .tmp/resolved-worker-compose.json \
+              --host-repository-root "$GITHUB_WORKSPACE"
+
+      - name: Run the complete quality gate
+        run: |
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric ruff format --check .
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric ruff check .
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric mypy src
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric pytest -q
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m pip check
 
       - name: Build and smoke-test the installable wheel
-        working-directory: apps/animated-fabric
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python -m pip wheel --no-deps --no-build-isolation \
-            --wheel-dir .tmp/wheels .
-          docker compose run --rm --no-deps --workdir /tmp \
-            animated-fabric-dev python -c \
-            "from pathlib import Path; import sys; wheel = next(Path('/workspace/.tmp/wheels').glob('animated_fabric-*.whl')); sys.path.insert(0, str(wheel)); import animated_fabric; from animated_fabric.templates import JsonRigTemplateRegistry; assert str(wheel) in animated_fabric.__file__; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m pip wheel --no-deps \
+              --no-build-isolation --wheel-dir .tmp/wheels .
+          docker exec -w /tmp caatuu-dev /opt/animated-fabric/bin/python -c \
+            "from pathlib import Path; import sys; wheel = next(Path('/workspace/apps/animated-fabric/.tmp/wheels').glob('animated_fabric-*.whl')).resolve(); sys.path.insert(0, str(wheel)); import animated_fabric; from animated_fabric.templates import JsonRigTemplateRegistry; assert str(wheel) in animated_fabric.__file__; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
 
-      - name: Smoke-test the installed CLI and deterministic fixtures
-        working-directory: apps/animated-fabric
+      - name: Smoke-test the CLI and deterministic fixtures
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric --help
-          docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric export --help
-          docker compose run --rm --no-deps animated-fabric-dev animated-fabric version
-          docker compose run --rm --no-deps animated-fabric-dev python -m animated_fabric doctor
-          docker compose run --rm --no-deps animated-fabric-dev python scripts/generate_fixture_assets.py --out .tmp/fixtures
-          docker compose run --rm --no-deps animated-fabric-dev animated-fabric render-frame \
-            .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 \
-            --out .tmp/cli-frame.png
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/run_demo_pipeline.py --out .tmp/demo
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            animated-fabric --help
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -c \
+              "from animated_fabric.gui.app import main; assert callable(main)"
+          docker exec caatuu-dev sh -c 'command -v animated-fabric-gui'
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m animated_fabric --help
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m animated_fabric export --help
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m animated_fabric version
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m animated_fabric doctor
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python scripts/generate_fixture_assets.py \
+              --out .tmp/fixtures
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python -m animated_fabric render-frame \
+              .tmp/fixtures/stick_humanoid --direction SE --time-ms 0 \
+              --out .tmp/cli-frame.png
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python scripts/run_demo_pipeline.py --out .tmp/demo
 
-      - name: Smoke-test the baked image without a checkout mount
-        working-directory: apps/animated-fabric
-        run: |
-          docker run --rm --network none --read-only --tmpfs /tmp \
-            --cap-drop ALL --security-opt no-new-privileges \
-            caatuu-animated-fabric-dev:python3.12-bookworm \
-            python -m animated_fabric --help
-          docker run --rm --network none --read-only --tmpfs /tmp \
-            --cap-drop ALL --security-opt no-new-privileges \
-            caatuu-animated-fabric-dev:python3.12-bookworm \
-            python -m animated_fabric doctor
-          docker run --rm --network none --read-only --tmpfs /tmp \
-            --cap-drop ALL --security-opt no-new-privileges \
-            caatuu-animated-fabric-dev:python3.12-bookworm \
-            python -c \
-            "from animated_fabric.templates import JsonRigTemplateRegistry; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
-
-      - name: Build and smoke-test the lightweight cutout image
-        working-directory: apps/animated-fabric
+      - name: Build and smoke-test the lightweight cutout worker
         run: |
           docker compose --profile cutout-classic build animated-fabric-cutout-classic
-          docker compose run --rm --no-deps animated-fabric-dev \
-            mkdir -p workspaces/cutout/input workspaces/cutout/output
-          docker compose run --rm --no-deps animated-fabric-dev \
-            python scripts/generate_fixture_assets.py --out workspaces/cutout/input
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric mkdir -p workspaces/cutout/input workspaces/cutout/output
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric python scripts/generate_fixture_assets.py \
+              --out workspaces/cutout/input
           docker compose --profile cutout-classic run --rm --no-deps \
             animated-fabric-cutout-classic doctor
           docker compose --profile cutout-classic run --rm --no-deps \
             animated-fabric-cutout-classic models
           docker compose --profile cutout-classic run --rm --no-deps \
             animated-fabric-cutout-classic image \
-            /input/stick_humanoid/source/layers/SE/head.png \
-            /output/head.png --engine classic
-          docker compose run --rm --no-deps animated-fabric-dev \
-            test -s workspaces/cutout/output/head.png
+              /input/stick_humanoid/source/layers/SE/head.png \
+              /output/head.png --engine classic
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+            caatuu-animated-fabric test -s workspaces/cutout/output/head.png

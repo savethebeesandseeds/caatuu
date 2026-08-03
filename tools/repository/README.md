@@ -62,7 +62,7 @@ docker run --rm -v "${PWD}:/workspace" -w /workspace $validatorImage `
 ```
 
 The existing runtime contract-test glob includes
-`apps/runtime/tooling/tests/release-manifest-contract.test.mjs`, so schema,
+`apps/server/tooling/tests/release-manifest-contract.test.mjs`, so schema,
 example, integrity, and fail-closed validation run in non-publishing repository
 CI.
 

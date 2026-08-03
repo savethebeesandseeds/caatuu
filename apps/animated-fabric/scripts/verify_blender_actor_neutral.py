@@ -447,7 +447,7 @@ def verify_actor_neutral(
 
     expected_trusted = {
         "actor_package.py": _sha256(APP_ROOT / "tools/blender/actor_package.py"),
-        "compose.yaml": _sha256(APP_ROOT / "compose.yaml"),
+        "worker-contract.json": _sha256(APP_ROOT / "containers/worker-contract.json"),
         "container.Dockerfile": _sha256(APP_ROOT / "containers/blender/Dockerfile"),
         "evidence.py": _sha256(APP_ROOT / "tools/blender/evidence.py"),
         "motion.py": _sha256(APP_ROOT / "tools/blender/motion.py"),

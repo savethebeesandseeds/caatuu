@@ -7,11 +7,12 @@ usage() {
 Usage: scripts/run_blender_directional_demo.sh [--skip-build]
 
 Render, visually verify, review, and package the fixed AF-053 directional demo.
-Docker Compose performs all Python and Blender work inside the repository-owned
-Linux containers. Outputs are fixed below workspaces/blender/.
+The existing caatuu-dev service performs Python work and the root Caatuu
+Compose project runs the bounded Blender worker. Outputs are fixed below
+workspaces/blender/.
 
 Options:
-  --skip-build  Reuse the existing development and Blender images.
+  --skip-build  Reuse the existing Blender image.
   -h, --help    Show this help text.
 EOF
 }
@@ -51,6 +52,7 @@ export LOCAL_GID="$local_gid"
 
 script_root="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 app_root="$(CDPATH= cd -- "$script_root/.." && pwd -P)"
+repo_root="$(CDPATH= cd -- "$app_root/../.." && pwd -P)"
 workspace_parent="$app_root/workspaces"
 workspace_root="$workspace_parent/blender"
 
@@ -82,11 +84,11 @@ command -v sha256sum >/dev/null 2>&1 || {
   exit 2
 }
 
-cd -- "$app_root"
+cd -- "$repo_root"
 compose=(
   docker compose
-  --file "$app_root/compose.yaml"
-  --project-directory "$app_root"
+  --file "$repo_root/compose.yaml"
+  --project-directory "$repo_root"
 )
 
 evidence_relative="workspaces/blender/af053-demo"
@@ -100,8 +102,31 @@ review_root="$app_root/$review_relative"
 "${compose[@]}" --profile blender config --quiet
 
 if [[ "$skip_build" == false ]]; then
-  "${compose[@]}" --profile blender build \
-    animated-fabric-dev animated-fabric-blender
+  "${compose[@]}" --profile blender build animated-fabric-blender
+fi
+
+if [[ "$(docker inspect --format '{{.State.Running}}' caatuu-dev 2>/dev/null || true)" != "true" ]]; then
+  printf 'The canonical caatuu-dev container must already be running.\n' >&2
+  exit 2
+fi
+dev_project="$(
+  docker inspect --format '{{ index .Config.Labels "com.docker.compose.project" }}' \
+    caatuu-dev
+)"
+if [[ "$dev_project" != "caatuu" ]]; then
+  printf 'caatuu-dev belongs to Compose project %s, not caatuu.\n' "$dev_project" >&2
+  exit 2
+fi
+dev_workspace_source="$(
+  docker inspect --format \
+    '{{ range .Mounts }}{{ if eq .Destination "/workspace" }}{{ .Source }}{{ end }}{{ end }}' \
+    caatuu-dev
+)"
+if [[ -z "$dev_workspace_source" \
+  || "$(realpath -- "$dev_workspace_source")" != "$repo_root" ]]; then
+  printf 'caatuu-dev /workspace is not bound from %s (got %s).\n' \
+    "$repo_root" "${dev_workspace_source:-no bind}" >&2
+  exit 2
 fi
 
 worker_uid="$(
@@ -119,16 +144,16 @@ timeout --signal=TERM --kill-after=30s 5m \
   "${compose[@]}" --profile blender run --rm --no-deps \
   animated-fabric-blender --out /output/af053-demo
 
-"${compose[@]}" run --rm --no-deps animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/verify_blender_directional_goldens.py \
   --source "$evidence_relative"
 
-"${compose[@]}" run --rm --no-deps animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/package_blender_walk_demo.py \
   --source "$evidence_relative" \
   --out "$review_relative"
 
-"${compose[@]}" run --rm --no-deps animated-fabric-dev \
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
   python scripts/package_blender_directional_export.py \
   --source "$evidence_relative" \
   --out "$product_relative"

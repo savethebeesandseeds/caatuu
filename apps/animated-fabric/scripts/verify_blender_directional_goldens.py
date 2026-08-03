@@ -19,7 +19,7 @@ from tools.blender import evidence, motion  # noqa: E402
 
 BLENDER_TOOL_ROOT = APP_ROOT / "tools" / "blender"
 BLENDER_CONTAINER_RECIPE = APP_ROOT / "containers" / "blender" / "Dockerfile"
-BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "compose.yaml"
+BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "containers/worker-contract.json"
 DEFAULT_GOLDEN_ROOT = APP_ROOT / "tests" / "golden"
 GOLDEN_FILENAMES = {
     direction: f"af052_blender_walk_{direction.lower()}_t0000.png"

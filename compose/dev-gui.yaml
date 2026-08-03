@@ -1,0 +1,9 @@
+services:
+  caatuu-dev:
+    environment:
+      DISPLAY: ${DISPLAY:-:0}
+      QT_QPA_PLATFORM: xcb
+      XAUTHORITY: /root/.Xauthority
+    volumes:
+      - ${XAUTHORITY:-/dev/null}:/root/.Xauthority:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw

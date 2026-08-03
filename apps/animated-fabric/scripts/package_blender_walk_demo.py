@@ -24,7 +24,7 @@ from tools.blender.evidence import source_hashes, verify_evidence_root  # noqa: 
 
 BLENDER_TOOL_ROOT = APP_ROOT / "tools" / "blender"
 BLENDER_CONTAINER_RECIPE = APP_ROOT / "containers" / "blender" / "Dockerfile"
-BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "compose.yaml"
+BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "containers/worker-contract.json"
 
 CHECKER_LIGHT = (47, 54, 68, 255)
 CHECKER_DARK = (30, 35, 46, 255)

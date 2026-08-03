@@ -525,7 +525,7 @@ def _render_stage(stage: Path) -> None:
     source_identities = evidence.source_hashes(
         _TRUSTED_SCRIPT_ROOT,
         _TRUSTED_SCRIPT_ROOT / "container.Dockerfile",
-        _TRUSTED_SCRIPT_ROOT / "compose.yaml",
+        _TRUSTED_SCRIPT_ROOT / "worker-contract.json",
     )
     provenance = {
         "format": evidence.EVIDENCE_FORMAT,

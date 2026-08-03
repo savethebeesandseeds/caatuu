@@ -297,7 +297,7 @@ def _trusted_sources() -> dict[str, str]:
     paths = {
         "actor_package.py": BLENDER_TOOLS_ROOT / "actor_package.py",
         "avian_contract.py": BLENDER_TOOLS_ROOT / "avian_contract.py",
-        "compose.yaml": APP_ROOT / "compose.yaml",
+        "worker-contract.json": APP_ROOT / "containers/worker-contract.json",
         "container.Dockerfile": APP_ROOT / "containers/blender/Dockerfile",
         "contracts/af056_review_poses.json": BLENDER_TOOLS_ROOT
         / "contracts/af056_review_poses.json",

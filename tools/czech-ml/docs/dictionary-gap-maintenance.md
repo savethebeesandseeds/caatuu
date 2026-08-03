@@ -211,12 +211,12 @@ Use the existing `caatuu-dev` container:
 docker exec -w /workspace/tools/czech-ml caatuu-dev npm run validate:dictionary-patch
 
 docker exec -w /workspace caatuu-dev node --disable-warning=ExperimentalWarning --test `
-  apps/runtime/tooling/tests/dictionary-gap-report.test.mjs `
-  apps/runtime/tooling/tests/dictionary-patch-core.test.mjs `
-  apps/runtime/tooling/tests/dictionary-patch-validator.test.mjs `
-  apps/runtime/tooling/tests/game-ui-controls.test.mjs `
-  apps/runtime/tooling/tests/product-governance-contract.test.mjs `
-  apps/runtime/tooling/tests/semantic-learning-contract.test.mjs
+  apps/server/tooling/tests/dictionary-gap-report.test.mjs `
+  apps/server/tooling/tests/dictionary-patch-core.test.mjs `
+  apps/server/tooling/tests/dictionary-patch-validator.test.mjs `
+  apps/server/tooling/tests/game-ui-controls.test.mjs `
+  apps/server/tooling/tests/product-governance-contract.test.mjs `
+  apps/server/tooling/tests/semantic-learning-contract.test.mjs
 ```
 
 Every patch edit must increment the envelope `revision`, recompute its SHA-256

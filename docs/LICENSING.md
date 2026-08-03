@@ -45,11 +45,11 @@ The initial repository commit, `0f6a4af679b10d76ebb04964761661e53e2d7dcf`,
 included a root MIT license. Commit
 `7963709d8c9793d8f026a5615fa949a4d79f95ad` moved that exact file to
 `apps/caatuu-chinese`, and commit
-`ae94d213aaf127b9a833b441b3fad9251d5ef62c` moved it to the Rust runtime.
+`ae94d213aaf127b9a833b441b3fad9251d5ef62c` moved it to the Rust server.
 
 Permissions already granted for versions distributed under MIT remain valid.
 The prior runtime text is preserved at
-[`apps/runtime/LICENSE-MIT-HISTORICAL`](../apps/runtime/LICENSE-MIT-HISTORICAL)
+[`apps/server/LICENSE-MIT-HISTORICAL`](../apps/server/LICENSE-MIT-HISTORICAL)
 as historical evidence; it does not change the license of new first-party
 runtime changes released under the root AGPL.
 

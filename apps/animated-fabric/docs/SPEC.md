@@ -244,7 +244,10 @@ The initial integration MAY expose a project-local CLI and shared job directory 
 
 ## ADR-010: Linux containers are the authoritative development environment
 
-Animated Fabric remains within Caatuu at `apps/animated-fabric`, but it owns an independent Compose project, images, caches, and service names.
+Animated Fabric remains within Caatuu at `apps/animated-fabric`. ADR 0016
+supersedes the original orchestration detail: interactive work uses the shared
+`caatuu-dev` service and root Compose project, while optional bounded workers
+retain distinct images and model caches.
 
 - Productive Python execution, dependency installation, formatting, typing, testing, fixture generation, rendering, packaging, and release builds MUST run in Linux containers.
 - Windows MAY provide Git, the editor, Docker Desktop, and Docker/Compose invocation only.
@@ -2070,8 +2073,8 @@ pytest -q
 The preferred host invocation is:
 
 ```bash
-docker compose run --rm animated-fabric-dev \
-  sh -lc 'ruff format --check . && ruff check . && mypy src && pytest -q'
+docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+  caatuu-animated-fabric sh -lc 'ruff format --check . && ruff check . && mypy src && pytest -q'
 ```
 
 Codex MUST report actual command results. It MUST NOT claim a check passed without running it in the project container.
@@ -2267,8 +2270,8 @@ caatuu/apps/animated-fabric/
 It is contained by the Caatuu repository but owns its application boundary:
 
 - independent `pyproject.toml`;
-- independent `Dockerfile` and `compose.yaml`;
-- unique Compose project, image, container, volume, and cache names;
+- the root Caatuu `compose.yaml` and `caatuu-dev` development environment;
+- no application-specific checkout, development container, or Compose project;
 - no dependency on Caatuu runtime routes or web-server code;
 - no source mount under public `/demos`; and
 - intentionally exported demo artifacts only, if a Caatuu showcase is added later.
@@ -2280,8 +2283,6 @@ apps/animated-fabric/
 ├── AGENTS.md
 ├── README.md
 ├── pyproject.toml
-├── Dockerfile
-├── compose.yaml
 ├── constraints/
 │   ├── core-linux.lock
 │   └── cutout-linux.lock
@@ -2399,21 +2400,17 @@ The optional cutout plane MAY include, according to the proven vendored implemen
 - optional CUDA runtime and NVIDIA container support; and
 - model artifacts with immutable revision, checksum, and license record.
 
-Exact packages and versions MUST be derived from a verified port of the Tukevejtso method and locked separately. They MUST NOT be guessed in the core `pyproject.toml` or installed into `animated-fabric-dev` merely because future M9 work is planned.
+Exact packages and versions MUST be derived from a verified port of the Tukevejtso method and locked separately. They MUST NOT be guessed in the core `pyproject.toml` or installed into the `caatuu-dev` Animated Fabric Python environment merely because future M9 work is planned.
 
 ## 21.5 Container contract
 
-Core service `animated-fabric-dev`:
+Shared development service `caatuu-dev`:
 
-- Linux base with Python 3.12;
-- project virtual environment inside the image or dedicated container path;
-- non-root runtime user;
-- repository mounted at `/workspace` for development;
-- no published ports;
-- no GPU requirement;
-- runtime `network_mode: none` or equivalent;
-- only project-scoped cache volumes; and
-- deterministic locale and timezone where output can depend on them.
+- the canonical Caatuu repository mounted at `/workspace`;
+- a baked Python 3.12 Animated Fabric environment at `/opt/animated-fabric`;
+- normal commands executed through `caatuu-animated-fabric` and `docker exec`;
+- no Animated Fabric port, second source mount, or project-local environment; and
+- CPU-compatible startup by default, with the same service optionally receiving a GPU.
 
 Optional service `animated-fabric-cutout`:
 
@@ -2426,7 +2423,9 @@ Optional service `animated-fabric-cutout`:
 - no port, Docker socket, or runtime network; and
 - resource limits and cancellation behavior documented before GUI integration.
 
-Neither service uses the generic Caatuu runtime container as its Python environment.
+The interactive application uses `caatuu-dev`, never the lightweight `caatuu`
+server. Optional workers are defined by root Compose profiles in the
+same `caatuu` project and never act as source-bearing development environments.
 
 ## 21.6 Code rules
 
@@ -2471,7 +2470,8 @@ Deliverables:
 - `python -m animated_fabric --help`;
 - minimal `animated-fabric-gui` window titled “Animated Fabric”;
 - Ruff, mypy, pytest, and coverage configuration;
-- independent Linux `Dockerfile` and `compose.yaml` under `apps/animated-fabric`;
+- Linux-authoritative development through Caatuu's shared `caatuu-dev` service
+  (superseded by ADR 0016);
 - authoritative Linux CI plus optional Windows portability lane;
 - `README.md`, `AGENTS.md`, and `docs/STATUS.md`; and
 - no host-side project dependency installation.
@@ -2479,13 +2479,13 @@ Deliverables:
 Acceptance:
 
 ```bash
-docker compose build animated-fabric-dev
-docker compose run --rm animated-fabric-dev python -m pip check
-docker compose run --rm animated-fabric-dev python -m animated_fabric --help
-docker compose run --rm animated-fabric-dev animated-fabric version
-docker compose run --rm animated-fabric-dev ruff check .
-docker compose run --rm animated-fabric-dev mypy src
-docker compose run --rm animated-fabric-dev pytest -q
+docker compose --profile dev up -d --build caatuu-dev
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m pip check
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric --help
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric python -m animated_fabric version
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric ruff check .
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric mypy src
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric pytest -q
 ```
 
 ### AF-002 Diagnostics and errors
@@ -2702,8 +2702,9 @@ bash scripts/run_blender_directional_demo.sh
 
 It MUST:
 
-- validate the Blender Compose profile and build both `animated-fabric-dev` and
-  `animated-fabric-blender` by default; `--skip-build` MAY reuse images that were built deliberately;
+- validate the root Blender Compose profile, verify the running `caatuu-dev`, and
+  build `animated-fabric-blender` by default; `--skip-build` MAY reuse an image
+  that was built deliberately;
 - reject a root host identity or unsafe workspace link, verify that the Blender worker is non-root,
   and apply the five-minute render timeout;
 - render the approved fixed actor and canonical `walk` into the exact evidence root
@@ -3057,7 +3058,8 @@ Codex MUST:
 3. list affected contracts;
 4. note material ambiguity;
 5. use documented defaults before requesting a new decision;
-6. inspect `Dockerfile` and `compose.yaml` before executing project tools; and
+6. inspect the root `compose.yaml`, `tools/dev-container/Dockerfile`, and affected
+   specialist worker Dockerfile before executing project tools; and
 7. confirm commands target `apps/animated-fabric`, not an old demo copy or a host environment.
 
 ## 24.3 During implementation
@@ -3095,7 +3097,7 @@ Inspect dimensions, output files, hashes, and diagnostics. For visual tickets, s
 If the ticket affects container or optional cutout infrastructure, also validate:
 
 ```bash
-docker compose config --quiet
+docker compose --profile dev config --quiet
 docker compose build <affected-service>
 ```
 
@@ -3164,7 +3166,8 @@ Objectives:
 6. Create typed base exceptions.
 7. Create scripts/generate_fixture_assets.py producing deterministic geometric SE and NE humanoid PNG layers without external assets.
 8. Configure Ruff, mypy, pytest, coverage, Linux-authoritative CI, and the optional Windows portability lane.
-9. Create an independent Linux Dockerfile and compose.yaml for apps/animated-fabric.
+9. Use the canonical Caatuu Linux development environment. The earlier
+   independent-container requirement is superseded by ADR 0016.
 10. Create README.md and update docs/STATUS.md when complete.
 
 Restrictions:

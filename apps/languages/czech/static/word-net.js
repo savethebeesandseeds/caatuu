@@ -99,7 +99,7 @@ const translationModes = {
 };
 const generationModes = {
   random: { label: "New word" },
-  selected: { label: "This word" }
+  selected: { label: "Selected word" }
 };
 const contentModes = {
   standard: { label: "Standard", summary: "Curated, guided, and fully offline." },
@@ -530,6 +530,13 @@ function preferredSpeechVoice() {
   return String(window.CaatuuChrome?.getSpeechVoicePreference?.() || "").trim().slice(0, 256);
 }
 
+function sharedCzechSpeechApi() {
+  const api = window.CaatuuChrome;
+  return typeof api?.speakCzechText === "function" && typeof api?.stopCzechSpeech === "function"
+    ? api
+    : null;
+}
+
 function czechSpeechPace() {
   const difficulty = learningDifficulty();
   const preference = window.CaatuuChrome?.getSpeechPacePreference?.() || "";
@@ -722,18 +729,11 @@ async function refreshAudioVoiceOptions() {
   }
 }
 
-async function previewAudioSettingsSample() {
-  const status = $("#wordNetAudioVoiceStatus");
-  const preview = window.CaatuuChrome?.previewCzechSpeech;
-  if (!preview) return;
-  if (status) status.textContent = "Playing a short Czech sample...";
-  try {
-    await preview();
-  } catch (error) {
-    if (status) status.textContent = "Unable to play the selected Czech voice.";
-    return;
-  }
-  await refreshAudioVoiceOptions();
+function previewCurrentCzechSentenceFromAudioMenu() {
+  const sentence = String(state.currentSentence || "").normalize("NFC").trim();
+  if (!sentence) return;
+  cancelCzechSpeech({ force: true });
+  toggleCzechSpeech(sentence, "sentence");
 }
 
 async function installCzechVoiceFromAudioMenu() {
@@ -862,7 +862,9 @@ function cancelCzechSpeech({ force = false } = {}) {
   state.speechSource = "";
   state.speechText = "";
   state.speechState = "idle";
-  if (backend === "android") {
+  if (backend === "shared") {
+    void sharedCzechSpeechApi()?.stopCzechSpeech?.();
+  } else if (backend === "android") {
     session?.controller?.abort?.();
   } else if (backend === "browser" || (force && browserSpeechSynthesisSupported())) {
     try {
@@ -896,6 +898,40 @@ function finishCzechSpeech(session, requestId, errorCode = "") {
   if (normalizedError && !EXPECTED_SPEECH_CANCELLATIONS.has(normalizedError)) {
     reportCzechSpeechFailure();
   }
+}
+
+function speakCzechWithSharedService(text, source, pace) {
+  const api = sharedCzechSpeechApi();
+  if (!api) return false;
+
+  const session = { backend: "shared", text, source };
+  const requestId = state.speechRequestId + 1;
+  state.speechRequestId = requestId;
+  state.speechSession = session;
+  state.speechBackend = "shared";
+  state.speechSource = source;
+  state.speechText = text;
+  state.speechState = "speaking";
+  syncSpeechControl();
+
+  void api.speakCzechText(text, {
+    locale: targetLocale,
+    rate: pace.rate,
+    pitch: 1,
+    voice: preferredSpeechVoice(),
+    onStart() {
+      if (state.speechSession !== session || state.speechRequestId !== requestId) return;
+      state.speechState = "speaking";
+      syncSpeechControl();
+    }
+  }).then((result) => {
+    const errorCode = result?.outcome === "error" ? "synthesis-failed" : "";
+    finishCzechSpeech(session, requestId, errorCode);
+  }).catch((error) => {
+    const errorCode = error?.name === "AbortError" ? "canceled" : "synthesis-failed";
+    finishCzechSpeech(session, requestId, errorCode);
+  });
+  return true;
 }
 
 function speakCzechWithAndroid(text, source, pace) {
@@ -1011,6 +1047,7 @@ function toggleCzechSpeech(text, source) {
   }
 
   const pace = czechSpeechPace();
+  if (speakCzechWithSharedService(normalizedText, source, pace)) return;
   if (androidSpeechRuntime()) speakCzechWithAndroid(normalizedText, source, pace);
   else speakCzechWithBrowser(normalizedText, source, pace);
 }
@@ -1796,7 +1833,7 @@ function syncGenerationControl() {
       || state.guidedRequested
       || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
-    if (label) label.textContent = generationModes[optionMode]?.label || "This word";
+    if (label) label.textContent = generationModes[optionMode]?.label || generationModes.selected.label;
   });
   syncDiagnostics();
 }
@@ -2430,6 +2467,25 @@ function renderReconstructionResult(round, result) {
   }
 }
 
+function syncPreviousSentenceControl(round = null) {
+  const previous = $("#wordNetPrevious");
+  if (!previous) return;
+  const challengeLocked = Boolean(round && !round.submitted);
+  const historyUnavailable = !state.history[state.historyCursor + 1];
+  const navigationLocked = state.guidedRequested || challengeLocked || historyUnavailable;
+  previous.disabled = state.busy || navigationLocked;
+  previous.classList.toggle("is-navigation-locked", navigationLocked);
+  const label = challengeLocked
+    ? "Submit the challenge before viewing history"
+    : state.guidedRequested
+      ? "History is unavailable for this guided task"
+      : historyUnavailable
+        ? "No previous sentence"
+        : "Previous sentence";
+  previous.setAttribute("aria-label", label);
+  previous.title = label;
+}
+
 function syncNextSentenceControl(round = null) {
   const next = $("#wordNetNext");
   if (!next) return;
@@ -2447,6 +2503,7 @@ function syncNextSentenceControl(round = null) {
         : "Next sentence";
   next.setAttribute("aria-label", label);
   next.title = label;
+  syncPreviousSentenceControl(round);
 }
 
 function renderReconstruction() {
@@ -3135,8 +3192,7 @@ function setBusy(busy, { cover = busy, immediate = false } = {}) {
   });
   syncGenerationControl();
   syncContentControl();
-  const previous = $("#wordNetPrevious");
-  if (previous) previous.disabled = busy || state.guidedRequested;
+  syncPreviousSentenceControl(state.translationMode === "reconstruct" ? state.reconstruction : null);
   const loading = $("#wordNetLoading");
   const panel = $(".word-net-sentence-panel");
   if (panel) panel.setAttribute("aria-busy", busy ? "true" : "false");
@@ -4407,7 +4463,7 @@ function bindUi() {
   $("#wordNetAudioVoice")?.addEventListener("change", async (event) => {
     window.CaatuuChrome?.setSpeechVoicePreference?.(event.currentTarget.value);
     if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
-    await previewAudioSettingsSample();
+    previewCurrentCzechSentenceFromAudioMenu();
   });
   $("#wordNetAudioInstallVoice")?.addEventListener("click", installCzechVoiceFromAudioMenu);
   $("#wordNetAudioSpeed")?.addEventListener("input", (event) => {
@@ -4415,7 +4471,7 @@ function bindUi() {
     window.CaatuuChrome?.setSpeechPacePreference?.(option.key);
     syncAudioSettingsControl();
   });
-  $("#wordNetAudioSpeed")?.addEventListener("change", previewAudioSettingsSample);
+  $("#wordNetAudioSpeed")?.addEventListener("change", previewCurrentCzechSentenceFromAudioMenu);
   $("#wordNetAudioMenu")?.addEventListener("click", async (event) => {
     if (event.target.closest("#wordNetAudioAutoplay")) {
       state.audioAutoplay = !state.audioAutoplay;
@@ -4556,6 +4612,7 @@ function bindUi() {
 }
 
 async function init() {
+  bindEmbeddedShellBridge();
   bindUi();
   syncDisplaySettingsControl();
   initializeSpeechControl();
@@ -4607,4 +4664,35 @@ async function init() {
   }
 }
 
-init();
+function notifyEmbeddedShell(type, detail = {}) {
+  if (window.parent === window) return;
+  window.parent.postMessage({
+    source: "caatuu-word-world",
+    type,
+    ...detail
+  }, window.location.origin);
+}
+
+function bindEmbeddedShellBridge() {
+  if (window.parent === window) return;
+  window.addEventListener("message", (event) => {
+    if (event.origin !== window.location.origin || event.source !== window.parent) return;
+    if (event.data?.source !== "caatuu-app-shell" || event.data.type !== "visibility") return;
+
+    if (["light", "dark"].includes(event.data.theme)) {
+      document.documentElement.dataset.theme = event.data.theme;
+    }
+    if (["standard", "large", "largest"].includes(event.data.fontSize)) {
+      document.documentElement.dataset.fontSize = event.data.fontSize;
+    }
+    syncDisplaySettingsControl();
+    if (!event.data.active) cancelCzechSpeech();
+  });
+}
+
+void init()
+  .then(() => notifyEmbeddedShell("ready"))
+  .catch((error) => {
+    console.error("Word World could not initialize", error);
+    notifyEmbeddedShell("error", { message: String(error?.message || error) });
+  });

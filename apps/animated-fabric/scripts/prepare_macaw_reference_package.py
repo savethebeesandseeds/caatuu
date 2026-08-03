@@ -760,15 +760,15 @@ recorded but not cryptographically validated. Derived views deliberately omit co
 Reproduce into an ignored workspace and verify inside the offline Linux development container:
 
 ```bash
-docker compose run --rm -v ../..:/caatuu:ro animated-fabric-dev \\
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \\
   python scripts/prepare_macaw_reference_package.py prepare \\
-  --review /workspace/assets/reference-packages/macaw-traveler-v1/review/review.json \\
-  --approval /workspace/assets/reference-packages/macaw-traveler-v1/review/source-approval.json \\
-  --source-repository-root /caatuu \\
-  --out /workspace/.tmp/af054-rebuild/macaw-traveler-v1
-docker compose run --rm animated-fabric-dev \\
+  --review assets/reference-packages/macaw-traveler-v1/review/review.json \\
+  --approval assets/reference-packages/macaw-traveler-v1/review/source-approval.json \\
+  --source-repository-root /workspace \\
+  --out .tmp/af054-rebuild/macaw-traveler-v1
+docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \\
   python scripts/prepare_macaw_reference_package.py verify \\
-  --package /workspace/assets/reference-packages/macaw-traveler-v1
+  --package assets/reference-packages/macaw-traveler-v1
 ```
 """
 

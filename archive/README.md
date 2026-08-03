@@ -6,6 +6,8 @@ runtime contract and should not be used as a source of current setup guidance.
 
 - [`caatuu-chinese`](caatuu-chinese/) preserves the earlier Chinese language
   application while the active reference course is Czech.
+- [`demos`](demos/) preserves retired browser experiments without exposing
+  them through the active runtime.
 
 Large local checkouts, build outputs, dependency caches, signing material, and
 nested Git repositories are not archival source and are intentionally ignored.

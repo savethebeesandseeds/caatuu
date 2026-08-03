@@ -520,7 +520,7 @@ def _trusted_source_hashes() -> dict[str, str]:
         "contracts/avian_v1.json",
         "contracts/af056_review_poses.json",
         "container.Dockerfile",
-        "compose.yaml",
+        "worker-contract.json",
     )
     return {name: _sha256(_TRUSTED_SCRIPT_ROOT / name) for name in names}
 

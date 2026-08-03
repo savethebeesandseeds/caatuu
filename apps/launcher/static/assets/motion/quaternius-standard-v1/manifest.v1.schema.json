@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.local/schemas/motion-reference-manifest.v1.schema.json",
+  "title": "Caatuu motion reference manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_name",
+    "schema_version",
+    "manifest_version",
+    "id",
+    "release_status",
+    "authority_status",
+    "files",
+    "original_archive_sha256",
+    "provenance_status",
+    "distribution_status",
+    "consumers",
+    "promotion_requirements"
+  ],
+  "properties": {
+    "schema_name": {
+      "const": "caatuu-motion-reference"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "manifest_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "release_status": {
+      "const": "local-preview-only"
+    },
+    "authority_status": {
+      "const": "catalog-candidate"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/file"
+      }
+    },
+    "original_archive_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "provenance_status": {
+      "const": "incomplete"
+    },
+    "distribution_status": {
+      "const": "not-distributed"
+    },
+    "consumers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/safeRelativePath"
+      }
+    },
+    "promotion_requirements": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "exact upstream source identity",
+          "retrieval date",
+          "modification record",
+          "license and distribution review"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "safeRelativePath": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*(?:/[A-Za-z0-9][A-Za-z0-9._-]*)*$"
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/safeRelativePath"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

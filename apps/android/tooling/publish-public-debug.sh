@@ -11,10 +11,15 @@ trap 'rm -f "$temporary_apk"' EXIT
 
 cd "$repo_root"
 
+node apps/games/tooling/check-release-readiness.mjs \
+  --repo-root "$repo_root" \
+  --surface public-debug-apk \
+  --require-game memory-moon
+
 if ! grep -Eq '^[[:space:]]*CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS[[:space:]]*=[[:space:]]*1[[:space:]]*$' .env 2>/dev/null; then
   cat >&2 <<'EOF'
 The public debug route is not enabled in the ignored root .env file.
-Set CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS=1 and recreate the caatuu runtime
+Set CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS=1 and recreate the caatuu server
 before publishing. See apps/android/tooling/README.md.
 EOF
   exit 1
@@ -133,7 +138,7 @@ if [[ "$alias_sha" != "$public_sha" ]]; then
   exit 1
 fi
 
-node apps/runtime/tooling/audit-runtime-boundary.mjs \
+node apps/server/tooling/audit-runtime-boundary.mjs \
   --base-url "$public_base_url" \
   --apk "$local_apk_path" \
   --allow-debug-artifacts

@@ -3907,6 +3907,64 @@ async function playWorldLandingAnimation() {
   }
 }
 
+function syncEmbeddedWordNetVisibility(active) {
+  const frame = document.getElementById("wordNetEmbeddedGame");
+  if (!frame?.contentWindow || frame.dataset.ready !== "true") return;
+  frame.contentWindow.postMessage({
+    source: "caatuu-app-shell",
+    type: "visibility",
+    active: Boolean(active),
+    theme: document.documentElement.dataset.theme || "dark",
+    fontSize: document.documentElement.dataset.fontSize || "largest"
+  }, window.location.origin);
+}
+
+function ensureWordNetLoaded() {
+  const frame = document.getElementById("wordNetEmbeddedGame");
+  const stage = document.getElementById("wordNetEmbeddedStage");
+  const status = document.getElementById("wordNetEmbeddedStatus");
+  if (!frame || frame.dataset.loading === "true" || frame.dataset.ready === "true") return;
+
+  const source = frame.dataset.src;
+  if (!source) return;
+  frame.dataset.loading = "true";
+
+  const handleMessage = (event) => {
+    if (event.origin !== window.location.origin || event.source !== frame.contentWindow) return;
+    if (event.data?.source !== "caatuu-word-world") return;
+
+    if (event.data.type === "ready") {
+      frame.dataset.ready = "true";
+      frame.dataset.loading = "false";
+      frame.classList.add("is-ready");
+      frame.removeAttribute("aria-hidden");
+      frame.removeAttribute("tabindex");
+      stage?.setAttribute("aria-busy", "false");
+      if (status) status.hidden = true;
+      syncEmbeddedWordNetVisibility(state.trainTab === "word-net");
+    }
+
+    if (event.data.type === "error" && status) {
+      status.classList.add("is-error");
+      const title = status.querySelector("strong");
+      const copy = status.querySelector("small");
+      if (title) title.textContent = "Word World could not start";
+      if (copy) copy.textContent = "Return to the planets and try opening it again.";
+    }
+  };
+  window.addEventListener("message", handleMessage);
+  frame.src = source;
+
+  window.setTimeout(() => {
+    if (frame.dataset.ready === "true" || !status) return;
+    status.classList.add("is-error");
+    const title = status.querySelector("strong");
+    const copy = status.querySelector("small");
+    if (title) title.textContent = "Word World is taking longer than expected";
+    if (copy) copy.textContent = "You can return to the planets while it finishes loading.";
+  }, 20000);
+}
+
 function ensureMemoryMoonLoaded() {
   const frame = document.getElementById("memoryMoonGame");
   const stage = document.getElementById("memoryMoonStage");
@@ -3958,6 +4016,7 @@ function setTrainTab(tab) {
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
   document.body.classList.toggle("memory-moon-active", activeTab === "memory-moon");
+  document.body.classList.toggle("word-net-active", activeTab === "word-net");
   const trainTitles = {
     galaxy: "",
     "verb-lab": "Verb Nebula",
@@ -3981,7 +4040,9 @@ function setTrainTab(tab) {
     panel.classList.toggle("is-active", selected);
   });
   if (activeTab === "verb-lab") renderVerbNebula();
+  if (activeTab === "word-net") ensureWordNetLoaded();
   if (activeTab === "memory-moon") ensureMemoryMoonLoaded();
+  syncEmbeddedWordNetVisibility(activeTab === "word-net");
 }
 
 function setInitialViewFromLocation() {
@@ -4037,10 +4098,8 @@ function bindUi() {
       const selectedTab = trainTab.dataset.trainTab;
       if (trainTab.classList.contains("train-world") && selectedTab !== "galaxy") {
         if (worldLandingActive) return;
+        setTrainTab(selectedTab);
         await playWorldLandingAnimation();
-      }
-      if (selectedTab === "word-net") {
-        window.location.href = "word-net.html";
         return;
       }
       setTrainTab(selectedTab);

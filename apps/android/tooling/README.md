@@ -38,7 +38,7 @@ stops the build. To inspect drift without writing the manifest, run inside
 `caatuu-dev`:
 
 ```bash
-node apps/runtime/tooling/refresh-setup-assets.mjs --check
+node apps/server/tooling/refresh-setup-assets.mjs --check
 ```
 
 The build task intentionally updates the tracked manifest when an asset was
@@ -260,7 +260,7 @@ Do not combine the phone-debug override with the public tunnel. You can audit
 the deliberately exposed debug channel with:
 
 ```powershell
-node apps\runtime\tooling\audit-runtime-boundary.mjs --base-url http://<your-pc-lan-ip>:8765 --apk artifacts\android\caatuu-debug.apk --allow-debug-artifacts
+node apps\server\tooling\audit-runtime-boundary.mjs --base-url http://<your-pc-lan-ip>:8765 --apk artifacts\android\caatuu-debug.apk --allow-debug-artifacts
 ```
 
 Restore loopback-only, debug-disabled service after testing:

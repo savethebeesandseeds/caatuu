@@ -1,5 +1,9 @@
 # Optional background cutout
 
+Run every Compose command in this document from the canonical Caatuu repository root
+`C:\Work\caatuu`. The cutout services are bounded opt-in workers in the root `caatuu` Compose
+project; normal development remains inside the shared `caatuu-dev` service.
+
 Animated Fabric owns an optional, self-contained preprocessing tool derived from the
 proven Tukevejtso cutout engine. Prepared layered PNG files remain the stable application
 input, so the base application neither imports this code nor installs ML dependencies.

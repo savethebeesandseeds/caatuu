@@ -23,8 +23,8 @@ $targets = @(
     @{ Path = 'apps/android/app/.cxx'; Reason = 'Android native build cache' }
     @{ Path = 'apps/android/app/build'; Reason = 'Android build output' }
     @{ Path = 'apps/languages/czech/dumps'; Reason = 'Generated diagnostics' }
-    @{ Path = 'apps/runtime/target'; Reason = 'Rust build output' }
-    @{ Path = 'apps/runtime/target-linux'; Reason = 'Rust Linux build output' }
+    @{ Path = 'apps/server/target'; Reason = 'Rust build output' }
+    @{ Path = 'apps/server/target-linux'; Reason = 'Rust Linux build output' }
     @{ Path = 'tools/czech-ml/node_modules'; Reason = 'Node dependency tree' }
     @{ Path = 'tools/czech-ml/data/models/tools/__pycache__'; Reason = 'Python bytecode cache' }
     @{ Path = 'tools/czech-ml/scripts/__pycache__'; Reason = 'Python bytecode cache' }

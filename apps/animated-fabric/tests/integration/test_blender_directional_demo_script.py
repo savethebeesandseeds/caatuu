@@ -21,13 +21,17 @@ pytestmark = pytest.mark.skipif(
 
 
 def _prepare_app(tmp_path: Path) -> tuple[Path, Path, dict[str, str], Path]:
-    app_root = tmp_path / "animated-fabric"
+    repo_root = tmp_path / "repo"
+    app_root = repo_root / "apps" / "animated-fabric"
     script_root = app_root / "scripts"
     script_root.mkdir(parents=True)
     script = script_root / SCRIPT_SOURCE.name
     shutil.copy2(SCRIPT_SOURCE, script)
     script.chmod(0o755)
-    (app_root / "compose.yaml").write_text("name: af053-test\nservices: {}\n", encoding="utf-8")
+    (repo_root / "compose.yaml").write_text(
+        "name: caatuu\nservices: {}\n",
+        encoding="utf-8",
+    )
 
     binary_root = tmp_path / "bin"
     binary_root.mkdir()
@@ -40,6 +44,10 @@ def _prepare_app(tmp_path: Path) -> tuple[Path, Path, dict[str, str], Path]:
 set -eu
 command_line="$*"
 printf '%s\n' "$command_line" >> "$FAKE_DOCKER_LOG"
+
+if [[ "$command_line" == "inspect --format {{.State.Running}} caatuu-dev" ]]; then
+  printf 'true\n'
+fi
 
 if [[ "$command_line" == *"--entrypoint /usr/bin/id animated-fabric-blender -u"* ]]; then
   printf '%s\n' "${FAKE_WORKER_UID:-1001}"
@@ -124,8 +132,10 @@ def _commands(environment: dict[str, str]) -> list[str]:
 def _stage(command: str) -> str:
     if command.endswith("--profile blender config --quiet"):
         return "config"
-    if "--profile blender build animated-fabric-dev animated-fabric-blender" in command:
+    if "--profile blender build animated-fabric-blender" in command:
         return "build"
+    if command == "inspect --format {{.State.Running}} caatuu-dev":
+        return "dev"
     if "--entrypoint /usr/bin/id animated-fabric-blender -u" in command:
         return "uid"
     if "animated-fabric-blender --out /output/af053-demo" in command:
@@ -152,11 +162,11 @@ def _published_bytes(root: Path) -> dict[str, bytes]:
     [
         (
             (),
-            ("config", "build", "uid", "render", "golden", "review", "product"),
+            ("config", "build", "dev", "uid", "render", "golden", "review", "product"),
         ),
         (
             ("--skip-build",),
-            ("config", "uid", "render", "golden", "review", "product"),
+            ("config", "dev", "uid", "render", "golden", "review", "product"),
         ),
     ],
 )
@@ -204,11 +214,11 @@ def test_demo_script_runs_fixed_container_stages_and_publishes_outputs(
     [
         (
             "scripts/verify_blender_directional_goldens.py",
-            ("config", "build", "uid", "render", "golden"),
+            ("config", "build", "dev", "uid", "render", "golden"),
         ),
         (
             "scripts/package_blender_directional_export.py",
-            ("config", "build", "uid", "render", "golden", "review", "product"),
+            ("config", "build", "dev", "uid", "render", "golden", "review", "product"),
         ),
     ],
 )
@@ -273,5 +283,5 @@ def test_demo_script_rejects_a_root_blender_worker_before_rendering(tmp_path: Pa
 
     assert completed.returncode == 2
     assert "must run with a non-root numeric UID" in completed.stderr
-    assert tuple(_stage(command) for command in _commands(environment)) == ("config", "uid")
+    assert tuple(_stage(command) for command in _commands(environment)) == ("config", "dev", "uid")
     assert not (app_root / "workspaces" / "blender" / "af053-demo").exists()

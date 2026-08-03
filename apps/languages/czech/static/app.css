@@ -1657,6 +1657,72 @@ body.world-landing-active {
   justify-content: center;
   text-decoration: none;
 }
+.word-net-embedded-panel {
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: transparent;
+}
+.word-net-embedded-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(640px, calc(100dvh - 164px), 1040px);
+  min-height: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--panel);
+}
+.word-net-embedded-game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--theme-page-background, #f5efe5);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.word-net-embedded-game.is-ready {
+  opacity: 1;
+}
+.word-net-embedded-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 9px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--green) 14%, transparent), transparent 34%),
+    var(--panel);
+  color: var(--ink);
+  text-align: center;
+}
+.word-net-embedded-status[hidden] {
+  display: none;
+}
+.word-net-embedded-status strong {
+  font-size: 1rem;
+}
+.word-net-embedded-status small {
+  max-width: 36ch;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.word-net-embedded-loader {
+  width: 34px;
+  height: 34px;
+  border: 3px solid color-mix(in srgb, var(--green) 20%, transparent);
+  border-top-color: var(--theme-amber, #c68b2c);
+  border-radius: 50%;
+  animation: memory-moon-spin 900ms linear infinite;
+}
+.word-net-embedded-status.is-error .word-net-embedded-loader {
+  animation: none;
+  border-color: var(--red);
+}
 .memory-moon-panel {
   min-height: 520px;
   display: grid;
@@ -1741,6 +1807,20 @@ body.world-landing-active {
   }
 }
 @media (max-width: 720px) {
+  body.word-net-active .app-footer {
+    display: none;
+  }
+  body.word-net-active .workspace {
+    padding: 0;
+  }
+  body.word-net-active .word-net-embedded-panel {
+    border-right: 0;
+    border-left: 0;
+  }
+  body.word-net-active .word-net-embedded-stage {
+    height: calc(100dvh - 144px);
+    min-height: 560px;
+  }
   .memory-moon-panel {
     padding: 10px;
   }

@@ -1,7 +1,7 @@
 # Caatuu Launcher
 
 This app is the static browser landing page for the workspace. It is served at
-`/` by the Rust runtime in `apps/runtime`.
+`/` by the Rust server in `apps/server`.
 
 The launcher discovers active courses from `static/languages.json`; Czech is the
 current default and only active entry. Browser and Android entry points belong
@@ -22,9 +22,9 @@ Docker runtime and open:
 http://127.0.0.1:8765/
 ```
 
-Large interactive experiments do not belong in this app's `static/assets`
-catalog. They live under the workspace-level `demos/` directory and are served
-separately at `/demos/` by the same runtime.
+Inactive interactive experiments do not belong in this app's `static/assets`
+catalog or the live runtime. Reviewed historical implementations live under
+`archive/`, while ignored raw research remains under `artifacts/research/`.
 
 Production shared asset catalogs, including reusable scenery, do belong under
 `static/assets/`. That path is Caatuu's common catalog and delivery location;

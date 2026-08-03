@@ -1,5 +1,9 @@
 # Local reconstruction lab
 
+Run every Compose command in this document from the canonical Caatuu repository root
+`C:\Work\caatuu`. Reconstruction services are bounded opt-in workers in the root `caatuu`
+Compose project; normal development remains inside the shared `caatuu-dev` service.
+
 AF-045 evaluates whether local single-image reconstruction can replace repeated
 manual character modeling. It is intentionally separate from the product
 runtime and from accepted actor packages.

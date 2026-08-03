@@ -15,10 +15,10 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.audio-lab-page button,
-.audio-lab-page textarea,
-.audio-lab-page select,
-.audio-lab-page input {
+.audio-lab-shell button,
+.audio-lab-shell textarea,
+.audio-lab-shell select,
+.audio-lab-shell input {
   font: inherit;
 }
 

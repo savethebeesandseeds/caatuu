@@ -1,0 +1,30 @@
+{
+  "schema_name": "caatuu-motion-reference",
+  "schema_version": 1,
+  "manifest_version": "1.0.0",
+  "id": "quaternius-universal-animation-library-standard-v1",
+  "release_status": "local-preview-only",
+  "authority_status": "catalog-candidate",
+  "files": [
+    {
+      "path": "source/AnimationLibrary_Godot_Standard.glb",
+      "sha256": "1b7bf67866360665426bb99e4c71bd619f19b408453c24e30f0c3071601eee5c"
+    },
+    {
+      "path": "source/Quaternius-License.txt",
+      "sha256": "dfd829af5caf503d6f6bf80096124e8a60117c3c123a6e6a20199547203e0a3e"
+    }
+  ],
+  "original_archive_sha256": "18ff1a7215f4852b320203e8aaf02a1578b5c8eef9027fbaedfcedc7b85a3ac2",
+  "provenance_status": "incomplete",
+  "distribution_status": "not-distributed",
+  "consumers": [
+    "apps/games/memory-moon"
+  ],
+  "promotion_requirements": [
+    "exact upstream source identity",
+    "retrieval date",
+    "modification record",
+    "license and distribution review"
+  ]
+}

@@ -71,10 +71,6 @@ archive/*
 !archive/README.md
 !archive/caatuu-chinese/
 !archive/caatuu-chinese/**
+!archive/demos/
+!archive/demos/**
 gateway/
-
-# Demo research inputs and generated intermediates
-demos/**/research/source/
-demos/**/research/generated-candidates/
-apps/languages/czech/static/games/memory-moon/godot-v*/*
-!apps/languages/czech/static/games/memory-moon/godot-v*/.gitkeep

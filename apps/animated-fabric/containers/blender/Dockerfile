@@ -94,12 +94,13 @@ RUN test "${APP_UID}" -gt 0 \
 COPY --from=blender-archive /opt/blender /opt/blender
 COPY tools/blender/ /opt/animated-fabric/
 COPY containers/blender/Dockerfile /opt/animated-fabric/container.Dockerfile
-COPY compose.yaml /opt/animated-fabric/compose.yaml
+COPY containers/worker-contract.json /opt/animated-fabric/worker-contract.json
 
 RUN chmod -R a-w /opt/animated-fabric /opt/blender-user-disabled \
     && test -r /opt/animated-fabric/render_walk.py \
     && test -r /opt/animated-fabric/render_actor_package.py \
-    && test -r /opt/animated-fabric/actor_package.py
+    && test -r /opt/animated-fabric/actor_package.py \
+    && test -r /opt/animated-fabric/worker-contract.json
 
 WORKDIR /work
 USER blender

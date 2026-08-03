@@ -7,7 +7,8 @@ usage() {
 Usage: scripts/run_reconstruction_candidate_review.sh [--build] CANDIDATE_ID
 
 Render four fixed Blender views of one immutable AF-045 reconstruction proposal.
-All Python and Blender work runs in the existing repository-owned Linux container.
+Python validation runs in caatuu-dev; rendering uses the root project's bounded
+Blender worker service.
 
 Options:
   --build     Rebuild the existing directional Blender image before review.
@@ -63,6 +64,7 @@ export LOCAL_GID="$local_gid"
 
 script_root="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 app_root="$(CDPATH= cd -- "$script_root/.." && pwd -P)"
+repo_root="$(CDPATH= cd -- "$app_root/../.." && pwd -P)"
 candidate_parent="$app_root/workspaces/reconstruction/output"
 candidate_root="$candidate_parent/$candidate_id"
 blender_root="$app_root/workspaces/blender"
@@ -135,11 +137,11 @@ command -v sha256sum >/dev/null 2>&1 || {
   exit 2
 }
 
-cd -- "$app_root"
+cd -- "$repo_root"
 compose=(
   docker compose
-  --file "$app_root/compose.yaml"
-  --project-directory "$app_root"
+  --file "$repo_root/compose.yaml"
+  --project-directory "$repo_root"
 )
 "${compose[@]}" --profile blender config --quiet
 

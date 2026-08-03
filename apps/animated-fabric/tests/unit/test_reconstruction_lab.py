@@ -548,11 +548,11 @@ def test_triposr_runtime_status_reports_transitive_import_failure(
 
 
 def test_compose_keeps_provisioning_and_offline_inference_separate() -> None:
-    compose = (APP_ROOT / "compose.yaml").read_text(encoding="utf-8")
+    compose = (APP_ROOT.parents[1] / "compose.yaml").read_text(encoding="utf-8")
 
     assert "animated-fabric-3d-lab:" in compose
     assert "animated-fabric-3d-lab-provision:" in compose
-    assert "./workspaces/reconstruction/input:/input:ro" in compose
+    assert "./apps/animated-fabric/workspaces/reconstruction/input:/input:ro" in compose
     assert "animated-fabric-reconstruction-models:/models:ro" in compose
     runtime = compose.split("  animated-fabric-3d-lab:", 1)[1].split(
         "  animated-fabric-3d-lab-provision:",

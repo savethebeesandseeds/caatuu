@@ -13,9 +13,11 @@ MLC/WebLLM conversion venv at /opt/caatuu-mlc
 Node.js and npm
 Rust stable through rustup
 git, git-lfs, CMake, Ninja, GCC/G++, Make
-Debian default JDK, unzip, zip, rsync, jq
+Pinned Temurin JDK 17 for Android builds, unzip, zip, rsync, jq
 Persistent Android SDK, Gradle distribution, and Gradle cache volumes for
 repeat Android publishes
+Animated Fabric Python 3.12 tool environment at `/opt/animated-fabric`
+PySide6, OpenCV, Ruff, mypy, pytest, and the locked Animated Fabric dependencies
 ```
 
 Start an interactive shell from `C:\Work\caatuu`:
@@ -25,11 +27,41 @@ docker compose --profile dev up -d --build caatuu-dev
 docker compose exec caatuu-dev bash
 ```
 
+This CPU-compatible definition is the default and is also used by CI. On a
+host with working NVIDIA Container Toolkit support, request the GPU on the same
+service and in the same `caatuu` Compose project:
+
+```powershell
+docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev `
+  up -d --build caatuu-dev
+```
+
 Verify the environment:
 
 ```bash
 check-caatuu-dev
 ```
+
+Run Animated Fabric work through the same running container:
+
+```bash
+docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+  caatuu-animated-fabric ruff format --check .
+docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+  caatuu-animated-fabric pytest -q
+docker exec -w /workspace/apps/animated-fabric caatuu-dev \
+  caatuu-animated-fabric python -m animated_fabric doctor
+```
+
+`caatuu-animated-fabric` selects the baked Python 3.12 environment and the
+canonical source mounted at `/workspace/apps/animated-fabric`. Do not create a
+second source mount, virtual environment, development container, or Compose
+project for this application.
+
+Docker receives only this small tool directory as its primary build context.
+`animated-fabric-linux-py312.txt` is a byte-identical build-context mirror of
+`apps/animated-fabric/constraints/linux-py312.txt`; `check-caatuu-dev` rejects
+any drift between them.
 
 Run Czech ML tasks:
 
@@ -64,5 +96,6 @@ docker exec caatuu-dev bash -lc 'cd /workspace && bash apps/android/tooling/publ
 The Bash publisher uses the existing container and its persistent Android tool
 volumes. Do not launch a new container for routine publishes.
 
-The service requests all available GPUs. Training still depends on the host
-Docker NVIDIA integration being available.
+The default service is CPU-compatible. The GPU override requests all available
+GPUs, and training still depends on the host Docker NVIDIA integration being
+available.

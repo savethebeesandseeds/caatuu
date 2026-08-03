@@ -949,22 +949,32 @@ html[data-theme="light"] .bottom-app-nav {
   background: transparent;
 }
 
-.font-size-control,
-.speech-pace-control {
+.font-size-control {
+  position: relative;
   min-width: 0;
   width: 100%;
-  padding: 0;
+  padding: 0 4px;
   border: 0;
   border-radius: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
+  gap: 0;
   background: transparent;
 }
 
-.theme-control button,
-.font-size-control button,
-.speech-pace-control button {
+.font-size-control::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 17px;
+  right: 15%;
+  left: 15%;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-line-strong, var(--line, #cfd8d1)) 76%, transparent);
+}
+
+.theme-control button {
   min-width: 0;
   min-height: 42px;
   padding: 5px 8px;
@@ -986,30 +996,41 @@ html[data-theme="light"] .bottom-app-nav {
   touch-action: manipulation;
 }
 
-.font-size-control button {
-  padding: 4px 5px;
-  gap: 4px;
-  font-size: 0.5rem;
-}
-
-.speech-pace-control button {
-  padding: 4px 5px;
+.settings-sheet .font-size-control button {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 3px 2px;
+  border: 0;
+  border-radius: 8px;
+  display: flex;
   flex-direction: column;
-  gap: 1px;
-  font-size: 0.56rem;
-}
-
-.speech-pace-control button small {
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  background: transparent;
   color: var(--muted);
-  font-size: 0.46rem;
-  font-weight: 750;
-  line-height: 1;
+  font-size: 0.5rem;
+  font-weight: 800;
+  box-shadow: none;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .font-size-sample {
+  width: 34px;
+  height: 34px;
+  border: 2px solid color-mix(in srgb, var(--theme-line-strong, var(--line, #cfd8d1)) 82%, transparent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--theme-panel-raised, var(--panel, #fffdf8));
   color: var(--green-dark, var(--green));
   font-weight: 950;
   line-height: 1;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-amber, #8a692c) 32%, transparent);
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
 }
 
 .font-size-sample.is-standard {
@@ -1036,9 +1057,7 @@ html[data-theme="light"] .bottom-app-nav {
   object-fit: contain;
 }
 
-.theme-control button.is-active,
-.font-size-control button.is-active,
-.speech-pace-control button.is-active {
+.theme-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 74%, #17251f);
   border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 56%, #17251f);
   background: var(--theme-green-filled, var(--green, #376a5a));
@@ -1046,32 +1065,18 @@ html[data-theme="light"] .bottom-app-nav {
   box-shadow: inset 0 1px 0 color-mix(in srgb, #fffaf0 24%, transparent);
 }
 
-.theme-control button.is-active span,
-.font-size-control button.is-active .font-size-sample,
-.speech-pace-control button.is-active small {
+.theme-control button.is-active span {
   color: #fffaf0;
 }
 
-html[data-theme="dark"] .theme-control button,
-html[data-theme="dark"] .font-size-control button,
-html[data-theme="dark"] .speech-pace-control button {
+html[data-theme="dark"] .theme-control button {
   border-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 34%, var(--theme-line-strong, var(--line)));
   border-bottom-color: color-mix(in srgb, var(--theme-amber, #c9ad78) 54%, var(--theme-line-strong, var(--line)));
   background: color-mix(in srgb, var(--theme-amber, #c9ad78) 12%, var(--theme-panel-raised, var(--panel)));
   color: var(--theme-green-strong, var(--green-dark, var(--green)));
 }
 
-.speech-pace-control button.is-badge-default,
-html[data-theme="dark"] .speech-pace-control button.is-badge-default {
-  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 48%, var(--theme-line-strong, var(--line)));
-  border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 58%, var(--theme-line-strong, var(--line)));
-  background: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 13%, var(--theme-panel-raised, var(--panel)));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 14%, transparent);
-}
-
-html[data-theme="dark"] .theme-control button.is-active,
-html[data-theme="dark"] .font-size-control button.is-active,
-html[data-theme="dark"] .speech-pace-control button.is-active {
+html[data-theme="dark"] .theme-control button.is-active {
   border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 74%, #17251f);
   border-bottom-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #456f5d)) 56%, #17251f);
   background: var(--theme-green-filled, var(--green, #456f5d));
@@ -1079,20 +1084,128 @@ html[data-theme="dark"] .speech-pace-control button.is-active {
 }
 
 .theme-control button:not(.is-active):not(:disabled):hover,
-.font-size-control button:not(.is-active):not(:disabled):hover,
-.speech-pace-control button:not(.is-active):not(:disabled):hover,
-html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hover,
-html[data-theme="dark"] .font-size-control button:not(.is-active):not(:disabled):hover,
-html[data-theme="dark"] .speech-pace-control button:not(.is-active):not(:disabled):hover {
+html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hover {
   border-color: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 54%, var(--theme-line, var(--line, #cfd8d1)));
   background: color-mix(in srgb, var(--theme-amber, #8a692c) 18%, var(--theme-panel-raised, var(--panel, #fffdf8)));
 }
 
-.theme-control button:not(:disabled):active,
-.font-size-control button:not(:disabled):active,
-.speech-pace-control button:not(:disabled):active {
+.theme-control button:not(:disabled):active {
   border-bottom-width: 2px;
   transform: translateY(1px);
+}
+
+.settings-sheet .font-size-control button.is-active {
+  color: var(--theme-green-strong, var(--green-dark, var(--green)));
+}
+
+.settings-sheet .font-size-control button.is-active .font-size-sample {
+  border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 76%, #17251f);
+  background: var(--theme-green-filled, var(--green, #376a5a));
+  color: #fffaf0;
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 55%, #17251f);
+  transform: translateY(-1px);
+}
+
+.settings-sheet .font-size-control button:not(.is-active):not(:disabled):hover .font-size-sample {
+  border-color: color-mix(in srgb, var(--theme-green, var(--green, #22594d)) 58%, var(--theme-line, var(--line, #cfd8d1)));
+  transform: translateY(-1px);
+}
+
+.speech-pace-control {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  gap: 2px;
+}
+
+.speech-pace-control input[type="range"] {
+  --speech-pace-position: 0%;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.speech-pace-control input[type="range"]::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--theme-green-filled, var(--green, #376a5a)) 0 var(--speech-pace-position),
+    color-mix(in srgb, var(--theme-line-strong, var(--line, #cfd8d1)) 76%, transparent) var(--speech-pace-position) 100%
+  );
+}
+
+.speech-pace-control input[type="range"]::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-line-strong, var(--line, #cfd8d1)) 76%, transparent);
+}
+
+.speech-pace-control input[type="range"]::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--theme-green-filled, var(--green, #376a5a));
+}
+
+.speech-pace-control input[type="range"]::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border: 3px solid var(--theme-green-filled, var(--green, #376a5a));
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--theme-panel-raised, var(--panel, #fffdf8));
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 40%, #17251f);
+}
+
+.speech-pace-control input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--theme-green-filled, var(--green, #376a5a));
+  border-radius: 50%;
+  background: var(--theme-panel-raised, var(--panel, #fffdf8));
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 40%, #17251f);
+}
+
+.speech-pace-ticks {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.5rem;
+  line-height: 1.08;
+}
+
+.speech-pace-ticks > span {
+  display: grid;
+  gap: 1px;
+}
+
+.speech-pace-ticks > span:nth-child(2) {
+  text-align: center;
+}
+
+.speech-pace-ticks > span:last-child {
+  text-align: right;
+}
+
+.speech-pace-ticks b {
+  color: var(--theme-green-strong, var(--green-dark, var(--green)));
+  font-size: 0.56rem;
+}
+
+.speech-pace-ticks small {
+  color: var(--muted);
+  font-size: 0.44rem;
+  font-weight: 750;
 }
 
 .learning-settings-card {
@@ -3567,9 +3680,12 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     grid-template-columns: 1fr;
   }
 
-  .theme-control,
   .font-size-control,
   .speech-pace-control {
+    width: 100%;
+  }
+
+  .theme-control {
     width: 100%;
     gap: 4px;
   }
@@ -3580,7 +3696,7 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     padding: 8px;
   }
 
-  .font-size-control button {
+  .settings-sheet .font-size-control button {
     padding-inline: 2px;
     font-size: 0.46rem;
   }

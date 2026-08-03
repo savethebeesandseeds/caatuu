@@ -94,7 +94,7 @@ def _write_sequence(
             **evidence.source_hashes(
                 APP_ROOT / "tools" / "blender",
                 APP_ROOT / "containers" / "blender" / "Dockerfile",
-                APP_ROOT / "compose.yaml",
+                APP_ROOT / "containers" / "worker-contract.json",
             ),
         },
         "container": {

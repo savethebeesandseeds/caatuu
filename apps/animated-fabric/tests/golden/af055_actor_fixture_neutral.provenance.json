@@ -36,7 +36,7 @@
     "samples": 16,
     "worker": {
       "path": "tools/blender/render_actor_package.py",
-      "sha256": "3a5e17db3f47c272a910a00f50996344b013978320c0768cd8469d9f0c0fa4b3"
+      "sha256": "b4d3bf6fd1d6c096240a02c47152d831953a718cfb9ee8ef8adb373eea0f0547"
     }
   },
   "review": {

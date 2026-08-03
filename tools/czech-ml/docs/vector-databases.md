@@ -128,7 +128,7 @@ It also updates the embedding entries in:
 apps/languages/czech/static/setup-assets.json
 ```
 
-That path is served by the existing Caatuu runtime under:
+That path is served by the existing Caatuu server under:
 
 ```text
 /cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite
@@ -160,7 +160,7 @@ must reject a mismatched query embedder rather than silently use local hashing.
 
 ## Boundaries
 
-Do not put semantic vector DB generation in the small runtime container. Build
+Do not put semantic vector DB generation in the small server container. Build
 MiniLM/ONNX refreshes from `caatuu-dev`; app runtime code consumes the generated
 SQLite file and post-install runtime artifacts.
 

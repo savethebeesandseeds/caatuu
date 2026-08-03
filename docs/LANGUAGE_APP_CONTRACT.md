@@ -5,7 +5,7 @@ language-owned realization adapters. A new language should not require a fork
 of the learning sequence, navigation, setup, updates, feedback, storage, or the
 Android WebView shell.
 
-## The five layers
+## The six layers
 
 1. **Product shell** owns the launcher, theme, navigation, settings, setup,
    update flow, feedback outbox, accessibility conventions, and platform
@@ -21,7 +21,11 @@ Android WebView shell.
    morphology, dictionaries, prompts, model catalogs, sentence rendering,
    scaffolding, and language-specific game presentation. It cannot reorder,
    omit, split, merge, or redefine canonical units.
-5. **Platform adapter** supplies browser or Android implementations for the
+5. **Game implementation** owns language-independent mechanics and generated
+   delivery artifacts. A language adapter may provide localized host copy,
+   curriculum bindings, and navigation placement, but never owns engine source
+   or compiled game payloads.
+6. **Platform adapter** supplies browser or Android implementations for the
    capabilities requested by a course profile.
 
 Do not move morphology or prompts into the product shell merely to make them
@@ -41,14 +45,17 @@ without naming a particular language.
 - Each language app provides `course-profile.js` before `runtime.js` and shared
   Chrome. It exposes an immutable `window.CaatuuCourse` object whose curriculum
   pins come from trusted release configuration, not from the pack itself.
-- `apps/runtime/src/routes/mod.rs` mounts active apps from its route
+- `apps/server/src/routes/mod.rs` mounts active apps from its route
   registry. The route and entry path must match the public registry.
+- `apps/games/catalog.json` indexes authored games and their delivery
+  manifests. Generated exports are served through `/games/**`, independently
+  of a language route.
 - Android receives its bundled language ID, route prefix, entry path, and static
   source directory through Gradle properties and generated `BuildConfig`
   fields. The WebView client must not contain a literal `/cz` route.
 
 The duplicated build-time declarations are intentionally checked by
-`apps/runtime/tooling/tests/language-contract.test.mjs`; drift should fail CI instead
+`apps/server/tooling/tests/language-contract.test.mjs`; drift should fail CI instead
 of producing an app that launches one language and serves another.
 
 ## Capability boundary

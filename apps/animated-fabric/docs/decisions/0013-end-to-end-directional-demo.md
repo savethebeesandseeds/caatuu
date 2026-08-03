@@ -39,7 +39,9 @@ and `sha256sum`. It must run as a non-root user and use the real application-loc
 `workspaces/blender/` directory rather than a symbolic link.
 
 By default, the script validates the Compose configuration and builds both
-`animated-fabric-blender` and `animated-fabric-dev`. `--skip-build` is reserved for a deliberately
+`animated-fabric-blender` and the shared `caatuu-dev` environment. ADR 0016
+supersedes the original standalone development-container orchestration.
+`--skip-build` is reserved for a deliberately
 prebuilt pair, including the repeatability phase of the native workflow. Before rendering, the
 script verifies that the Blender service resolves to a non-root numeric UID. It gives the render a
 five-minute wall-clock limit and reports stable SHA-256 results only after every stage succeeds.

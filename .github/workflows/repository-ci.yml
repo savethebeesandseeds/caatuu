@@ -19,17 +19,20 @@ jobs:
       - name: Check repository structure and documentation links
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
-            bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
+            bash -lc \
+            "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
 
-      - name: Run browser and runtime contract tests
+      - name: Run browser and server contract tests
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
-            bash -lc "node --test apps/runtime/tooling/tests/*.test.mjs"
+            bash -lc \
+            "node --test apps/server/tooling/tests/*.test.mjs apps/games/test/*.test.mjs apps/android/tooling/tests/*.test.mjs apps/languages/czech/test/*.test.mjs"
 
       - name: Validate the shared curriculum and cross-game evidence contracts
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace/apps/curriculum node:24-bookworm \
-            bash -lc "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
+            bash -lc \
+            "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
 
       - name: Validate Compose boundaries
         env:
@@ -37,11 +40,13 @@ jobs:
         run: |
           docker compose config --quiet
           docker compose --profile tools --profile dev config --quiet
+          docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
+          docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
           docker compose -f compose.yaml -f compose/archived-chinese.yaml config --quiet
           docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 
   rust:
-    name: Rust runtime
+    name: Rust server
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository

@@ -13,7 +13,7 @@ tooling. It does not contain deployable Caatuu applications.
 Android build tooling lives beside the Android app in
 [`apps/android/tooling`](../apps/android/tooling/). Runtime image, audit, and
 launch tooling lives beside the Rust service in
-[`apps/runtime/tooling`](../apps/runtime/tooling/).
+[`apps/server/tooling`](../apps/server/tooling/).
 
 Generated models, dependencies, build trees, and benchmark artifacts are local
 state. They are intentionally excluded from Git and can be rebuilt or restored

@@ -4,7 +4,7 @@
 
 **Current state:** Milestones M0 through M5 plus AF-045 and AF-055 complete; the local reconstruction baseline is a GO and AF-056 remains paused pending a scoped reconstruction-to-rig decision
 
-**Last updated:** 2026-07-24
+**Last updated:** 2026-08-03
 
 ## Completed work
 
@@ -72,8 +72,8 @@ AF-060 remains the first M6 ticket and is deferred, not cancelled.
 - Minimal PySide6 GUI titled "Animated Fabric".
 - Strict `Diagnostic`, `Severity`, and `OperationResult` contracts and typed exceptions.
 - Deterministic generator for 28 RGBA PNG layers across `SE` and `NE` directions.
-- Dedicated `caatuu-animated-fabric-dev` Linux container, running as a non-root user with
-  no ports and no runtime network.
+- Python 3.12 Animated Fabric toolchain inside the shared root `caatuu-dev` Linux service, with
+  no separate development container, Compose project, source checkout, or port.
 - Linux-primary CI and container-based quality gates.
 - A self-contained, optional background-removal tool isolated from the base application
   runtime under `tools/cutout`.
@@ -431,7 +431,8 @@ work.
 
 Principal files:
 
-- `pyproject.toml`, `README.md`, `Dockerfile`, and `compose.yaml`
+- `pyproject.toml`, `README.md`, root `../../compose.yaml`, root
+  `../../tools/dev-container/`, and `containers/worker-contract.json`
 - `src/animated_fabric/cli/app.py`
 - `src/animated_fabric/domain/diagnostics.py`
 - `src/animated_fabric/domain/exceptions.py`
@@ -612,6 +613,42 @@ Principal files:
 
 ## Verification
 
+Shared-environment and delivery cleanup verification executed on 2026-08-03 through the root
+`caatuu` Compose project and its canonical `C:\Work\caatuu` checkout:
+
+- `caatuu-dev` is the sole development service. It bind-mounts the canonical repository at
+  `/workspace`, publishes no port, supplies Python 3.12.13 and Java 17.0.19, and passed the full
+  shared environment check. No separate Animated Fabric development image, source checkout,
+  Compose project, or productive Windows dependency environment remains part of the design.
+- Root Compose configuration and the resolved five-service Animated Fabric worker contract passed.
+  The required-GPU branch now fails closed unless both `nvidia-smi` device enumeration and
+  `torch.cuda.is_available()` succeed; CPU development remains the default. Focused shared-GPU and
+  worker-contract coverage reported 16 passed.
+- The optional Blender 4.5.12 CPU worker rebuilt as
+  `sha256:c7dcacf69c18a06d4dd83ea5fa724be700f4ef4e66a962a8ccdbed3f5f85bc9f`; its build verified that
+  the read-only worker contract is baked at `/opt/animated-fabric/worker-contract.json`.
+- `ruff format --check .`, `ruff check .`, and `mypy src` passed. CLI help, version, doctor,
+  deterministic fixture generation, layered rendering, and the end-to-end demo passed. The wheel
+  built and imported successfully in an isolated environment.
+- The complete Python suite reached 1,229 passed and 7 skipped. Five failures and nine setup errors
+  remain deliberately unresolved because replacing obsolete separate-Compose commands in the
+  approved macaw reference-package README changes its cryptographic manifest and approval chain.
+  Rebinding those approval records requires an explicit product-owner decision; the obsolete
+  commands were not restored and approval metadata was not silently rewritten.
+- The shared Memory Moon Web export produced a deterministic 15-file bundle manifest; independent
+  byte-size, SHA-256, exact-file-set, and required-notice verification passed. Android bundle
+  verification and a local arm64 debug build passed. The resulting debug APK is 42,227,610 bytes
+  with SHA-256 `1c01597d1ab5ae84a9cc927385d13f682540f3df5f52fa6223f386c8d9d737ce`.
+- The fresh APK passed its source-byte, package, debug-signing, debuggable, and ABI audit under a
+  temporary channel-correct filename; it was not published. The rebuilt local runtime passed the
+  live HTTP boundary audit with explicitly enabled debug artifacts.
+- Runtime, game-delivery, Czech-adapter, and Android packaging contracts reported 353 passed.
+  Repository file policy accepted 2,012 tracked and candidate files, and all links in 120 Markdown
+  files passed.
+- The canonical public-release checker correctly remains closed: Memory Moon, its scenery and
+  motion dependencies, and their authorities are still preview-only. This cleanup does not promote
+  preview evidence or publish an Android/game release.
+
 Local AF-045 acceptance executed on 2026-07-24 through application-owned Linux containers on
 Docker Desktop. No project dependency, Python tool, Node tool, model, CUDA component, or productive
 image operation was installed or run on the Windows host:
@@ -787,7 +824,7 @@ commit `58ad0b1`:
   63.85 s with 91.95% branch coverage, dependencies were consistent, and wheel, CLI, fixture,
   layered demo, baked-image, and classic-cutout smokes passed.
 - [Repository CI run 19](https://github.com/savethebeesandseeds/caatuu/actions/runs/29861953730)
-  passed in 1m 40s. Both repository structure/browser contracts and locked Rust runtime jobs were
+  passed in 1m 40s. Both repository structure/browser contracts and locked Rust server jobs were
   green.
 
 AF-053 and milestone M5 are complete. The accepted result is one canonical 3D walk rerendered at
@@ -1058,7 +1095,8 @@ Executed on 2026-07-17 through the repository-owned Linux container after AF-032
   29612316041 both completed successfully on commit `d48e1df`.
 - Independent final code, test, and security reviews reported no remaining actionable findings.
 
-Executed on 2026-07-17 through the repository-owned Linux container after AF-031:
+Executed on 2026-07-17 through the then-dedicated repository-owned Linux container after AF-031
+(historical; the environment was superseded by ADR 0016):
 
 - `docker compose build animated-fabric-dev`: passed with the container-owned offline wheel
   toolchain present in the development environment.
@@ -1119,7 +1157,7 @@ Executed on 2026-07-17 through the repository-owned Linux container after AF-023
   allowed at most channel difference 2 and 0.1% out-of-tolerance pixels, and passed exactly.
 
 Infrastructure and cutout checks retained from the preceding M0/M1 verification recorded on
-2026-07-16:
+2026-07-16 (historical; the environment was superseded by ADR 0016):
 
 - `docker compose config --quiet` and the complete profile configuration: passed.
 - `docker compose build animated-fabric-dev`: passed from the digest-pinned Python 3.12

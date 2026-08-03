@@ -1,0 +1,7 @@
+services:
+  caatuu-dev:
+    gpus: all
+    environment:
+      CAATUU_REQUIRE_NVIDIA: "1"
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      NVIDIA_VISIBLE_DEVICES: all

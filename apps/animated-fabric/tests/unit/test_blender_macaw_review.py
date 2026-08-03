@@ -416,7 +416,7 @@ def test_parser_and_container_keep_the_macaw_worker_fixed_and_isolated() -> None
             parser.parse_args(["--source", "evidence", "--package", "package", override, "x"])
 
     dockerfile = (APP_ROOT / "containers/blender/Dockerfile").read_text(encoding="utf-8")
-    compose = (APP_ROOT / "compose.yaml").read_text(encoding="utf-8")
+    compose = (APP_ROOT.parents[1] / "compose.yaml").read_text(encoding="utf-8")
     service = _compose_service(compose, "animated-fabric-blender-macaw-actor-validator")
     worker = (APP_ROOT / "tools/blender/render_macaw_actor_review.py").read_text(encoding="utf-8")
     assert "FROM blender-runtime-base AS macaw-actor-validator" in dockerfile
@@ -424,7 +424,10 @@ def test_parser_and_container_keep_the_macaw_worker_fixed_and_isolated() -> None
     assert '"--offline-mode"' in dockerfile
     assert '"/opt/animated-fabric/render_macaw_actor_review.py"' in dockerfile
     assert "target: macaw-actor-validator" in service
-    assert "./assets/actor-packages/macaw-traveler-avian-v1/package:/actor-package:ro" in service
+    assert (
+        "./apps/animated-fabric/assets/actor-packages/"
+        "macaw-traveler-avian-v1/package:/actor-package:ro"
+    ) in service
     assert "network_mode: none" in service
     assert "read_only: true" in service
     assert "cap_drop:\n      - ALL" in service

@@ -8,8 +8,22 @@ readonly scenery_source_root="/scenery-source"
 readonly work_root="/work/memory-moon"
 readonly stage_root="/work/web-export"
 readonly output_root="/output"
+readonly bundle_manifest_name="bundle-manifest.json"
+readonly bundle_manifest_schema="caatuu-game-web-bundle"
+readonly game_id="memory-moon"
+readonly game_version="0.1.0"
+readonly artifact_version="godot-v1"
+readonly engine_name="godot"
 readonly scenery_metadata_root="${scenery_source_root}/metadata"
 readonly scenery_images_root="${scenery_source_root}/images"
+readonly -a required_notice_paths=(
+    "LICENSES/Godot-MIT.txt"
+    "LICENSES/Macaw-Parts-CC0.md"
+    "LICENSES/Memory-Grove-Provenance.md"
+    "LICENSES/Memory-Moon-Style-Provenance.md"
+    "LICENSES/Quaternius-CC0.txt"
+    "THIRD_PARTY_NOTICES.md"
+)
 readonly -a scenery_image_names=(
     "community-tree.png"
     "flower-patch.png"
@@ -235,6 +249,98 @@ cp \
     "${scenery_metadata_root}/world.provenance.md" \
     "${output_root}/LICENSES/Memory-Grove-Provenance.md"
 cp "${project_source}/THIRD_PARTY_NOTICES.md" "${output_root}/THIRD_PARTY_NOTICES.md"
+
+for artifact in index.html index.js index.pck index.wasm; do
+    test -s "${output_root}/${artifact}"
+done
+for notice_path in "${required_notice_paths[@]}"; do
+    test -s "${output_root}/${notice_path}"
+done
+
+unexpected_entry="$(
+    find "${output_root}" \
+        -mindepth 1 \
+        \( -type l -o \( ! -type d ! -type f \) \) \
+        -print \
+        -quit
+)"
+if test -n "${unexpected_entry}"; then
+    printf 'Web bundle contains an unsupported entry: %s\n' "${unexpected_entry}" >&2
+    exit 1
+fi
+
+readonly bundle_manifest_path="${output_root}/${bundle_manifest_name}"
+readonly bundle_manifest_temp_path="${output_root}/.${bundle_manifest_name}.tmp"
+rm -f -- "${bundle_manifest_path}" "${bundle_manifest_temp_path}"
+
+file_count=0
+first_file=true
+{
+    printf '{\n'
+    printf '  "schema_name": "%s",\n' "${bundle_manifest_schema}"
+    printf '  "schema_version": 1,\n'
+    printf '  "game": {\n'
+    printf '    "id": "%s",\n' "${game_id}"
+    printf '    "version": "%s",\n' "${game_version}"
+    printf '    "artifact_version": "%s"\n' "${artifact_version}"
+    printf '  },\n'
+    printf '  "engine": {\n'
+    printf '    "name": "%s",\n' "${engine_name}"
+    printf '    "version": "%s"\n' "${godot_version}"
+    printf '  },\n'
+    printf '  "entrypoint": "index.html",\n'
+    printf '  "required_notices": [\n'
+    for notice_index in "${!required_notice_paths[@]}"; do
+        notice_path="${required_notice_paths[${notice_index}]}"
+        if test "${notice_index}" -lt "$((${#required_notice_paths[@]} - 1))"; then
+            printf '    "%s",\n' "${notice_path}"
+        else
+            printf '    "%s"\n' "${notice_path}"
+        fi
+    done
+    printf '  ],\n'
+    printf '  "files": [\n'
+    while IFS= read -r -d '' relative_path; do
+        if [[ ! "${relative_path}" =~ ^[A-Za-z0-9._/-]+$ ]] \
+            || [[ "${relative_path}" == /* ]] \
+            || [[ "${relative_path}" == *//* ]] \
+            || [[ "/${relative_path}/" == */./* ]] \
+            || [[ "/${relative_path}/" == */../* ]]; then
+            printf 'Web bundle path is not manifest-safe: %s\n' "${relative_path}" >&2
+            exit 1
+        fi
+        file_path="${output_root}/${relative_path}"
+        byte_count="$(stat --format='%s' "${file_path}")"
+        hash_line="$(sha256sum "${file_path}")"
+        sha256="${hash_line%% *}"
+        if test "${first_file}" = true; then
+            first_file=false
+        else
+            printf ',\n'
+        fi
+        printf '    {\n'
+        printf '      "path": "%s",\n' "${relative_path}"
+        printf '      "bytes": %s,\n' "${byte_count}"
+        printf '      "sha256": "%s"\n' "${sha256}"
+        printf '    }'
+        file_count="$((file_count + 1))"
+    done < <(
+        find "${output_root}" \
+            -type f \
+            ! -path "${bundle_manifest_path}" \
+            ! -path "${bundle_manifest_temp_path}" \
+            -printf '%P\0' \
+            | LC_ALL=C sort --zero-terminated
+    )
+    printf '\n  ]\n'
+    printf '}\n'
+} > "${bundle_manifest_temp_path}"
+
+if test "${file_count}" -eq 0; then
+    printf 'Web bundle manifest would contain no files.\n' >&2
+    exit 1
+fi
+mv -- "${bundle_manifest_temp_path}" "${bundle_manifest_path}"
 
 printf 'Memory Moon Web export completed with Godot '
 godot --headless --version

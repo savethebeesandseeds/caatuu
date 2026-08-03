@@ -11,6 +11,7 @@ apps, manifests, and persisted data continue to work.
 | --- | --- |
 | `language-mascots/` | `/assets/aliens/` |
 | `loading-animation/` | `/assets/loading_animation/` |
+| `motion/` | `/assets/motion/` |
 | `scenery/` | `/assets/scenery/` |
 | `visual-vocabulary/` | `/assets/miscellaneous/` |
 
@@ -35,6 +36,10 @@ An engine build may stage the minimum active package into an ignored private
 workspace when it requires project-local resources. Such staging is disposable
 build output and must never become another source of truth.
 
-Assets used by only one language belong in that language app. Large experiments
-and unreviewed generated candidates belong under `demos/` or ignored research
-workspaces, not in this production catalog.
+`motion/` contains reusable animation and motion-reference packages. Each
+package keeps its binary inputs, license, strict manifest, and promotion state
+together so games never depend on an experimental workspace.
+
+Assets used by only one language belong in that language app. Inactive experiments
+belong under `archive/`; raw inputs and generated candidates belong under ignored
+`artifacts/research/`, not in this production catalog.

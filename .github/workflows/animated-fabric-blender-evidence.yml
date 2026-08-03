@@ -25,10 +25,11 @@ on:
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
       - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
-      - "apps/animated-fabric/Dockerfile"
+      - "tools/dev-container/**"
+      - "compose.yaml"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
-      - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/containers/worker-contract.json"
       - "apps/animated-fabric/docs/AF053-DEMO-CC0.md"
       - "apps/animated-fabric/docs/LEGAL_INVENTORY.md"
       - "apps/animated-fabric/docs/SPEC.md"
@@ -64,10 +65,11 @@ on:
       - "apps/animated-fabric/tests/integration/test_blender_directional_demo_script.py"
       - "apps/animated-fabric/src/animated_fabric/domain/**"
       - "apps/animated-fabric/src/animated_fabric/infrastructure/exporters/**"
-      - "apps/animated-fabric/Dockerfile"
+      - "tools/dev-container/**"
+      - "compose.yaml"
       - "apps/animated-fabric/pyproject.toml"
       - "apps/animated-fabric/constraints/linux-py312.txt"
-      - "apps/animated-fabric/compose.yaml"
+      - "apps/animated-fabric/containers/worker-contract.json"
       - "apps/animated-fabric/docs/AF053-DEMO-CC0.md"
       - "apps/animated-fabric/docs/LEGAL_INVENTORY.md"
       - "apps/animated-fabric/docs/SPEC.md"
@@ -84,11 +86,14 @@ on:
 permissions:
   contents: read
 
+env:
+  COMPOSE_FILE: ../../compose.yaml
+
 jobs:
   evidence:
     name: Native Linux end-to-end directional demo
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: apps/animated-fabric
@@ -109,7 +114,7 @@ jobs:
 
       - name: Build pinned development and Blender images
         run: |
-          docker compose build animated-fabric-dev
+          docker compose --profile dev up -d --build caatuu-dev
           docker compose --profile blender build animated-fabric-blender
           docker image inspect caatuu-animated-fabric-blender:4.5.12-cycles-cpu \
             --format 'Blender evidence image ID: {{.Id}}'
@@ -207,23 +212,23 @@ jobs:
 
       - name: Run focused pure-Python and host-orchestration contracts
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff format --check tools/blender scripts tests/unit/test_blender_motion.py \
             tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
             tests/unit/test_blender_walk_review.py \
             tests/integration/test_blender_directional_demo_script.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff check tools/blender scripts tests/unit/test_blender_motion.py \
             tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
             tests/unit/test_blender_walk_review.py \
             tests/integration/test_blender_directional_demo_script.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=src mypy --strict \
             scripts/package_blender_directional_export.py \
             scripts/package_blender_walk_demo.py \
             scripts/generate_af052_directional_goldens.py \
             scripts/verify_blender_directional_goldens.py'
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             pytest -q --no-cov tests/unit/test_blender_motion.py \
             tests/unit/test_animation_export_models.py \
             tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
@@ -251,7 +256,7 @@ jobs:
   actor-package-evidence:
     name: Native Linux AF-055 actor-package validation
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: apps/animated-fabric
@@ -271,12 +276,12 @@ jobs:
         run: docker compose --profile blender-actor config --quiet
 
       - name: Build the authoritative development image
-        run: docker compose build animated-fabric-dev
+        run: docker compose --profile dev up -d --build caatuu-dev
 
       - name: Generate the geometric fixture once
         run: |
           set -Eeuo pipefail
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/generate_actor_package_fixture.py \
             --out workspaces/actor-packages/geometric-fixture-v1
           (
@@ -288,7 +293,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           touch workspaces/actor-packages/geometric-fixture-v1/stale-package.txt
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/generate_actor_package_fixture.py \
             --out workspaces/actor-packages/geometric-fixture-v1
           test ! -e workspaces/actor-packages/geometric-fixture-v1/stale-package.txt
@@ -350,7 +355,7 @@ jobs:
           test "$(find workspaces/blender/af055-neutral \
             -mindepth 1 -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort)" = \
             "$(printf '%s\n' neutral.png validation.json)"
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/verify_blender_actor_neutral.py \
             --source workspaces/blender/af055-neutral \
             --package workspaces/actor-packages/geometric-fixture-v1
@@ -360,28 +365,28 @@ jobs:
 
       - name: Run focused actor-package lint and tests
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff format --check tools/blender/actor_package.py \
             tools/blender/render_actor_package.py scripts/generate_actor_package_fixture.py \
             scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
             tests/unit/test_blender_actor_neutral.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff check tools/blender/actor_package.py tools/blender/render_actor_package.py \
             scripts/generate_actor_package_fixture.py \
             scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
             tests/unit/test_blender_actor_neutral.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=src mypy --strict --explicit-package-bases \
             tools/blender/actor_package.py scripts/generate_actor_package_fixture.py \
             scripts/verify_blender_actor_neutral.py'
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             pytest -q --no-cov tests/unit/test_actor_package.py \
             tests/unit/test_blender_actor_neutral.py
 
   macaw-actor-evidence:
     name: Native Linux AF-056 macaw rig validation
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: apps/animated-fabric
@@ -401,15 +406,15 @@ jobs:
         run: docker compose --profile blender-macaw config --quiet
 
       - name: Build the authoritative development image
-        run: docker compose build animated-fabric-dev
+        run: docker compose --profile dev up -d --build caatuu-dev
 
       - name: Reproduce the tracked actor package twice
         run: |
           set -Eeuo pipefail
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/generate_macaw_actor_package.py \
             --out .tmp/af056-package-first
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/generate_macaw_actor_package.py \
             --out .tmp/af056-package-second
           (
@@ -432,7 +437,7 @@ jobs:
       - name: Reproduce the tracked avian mapping
         run: |
           set -Eeuo pipefail
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/generate_macaw_rig_mapping.py \
             --package assets/actor-packages/macaw-traveler-avian-v1/package \
             --expected-manifest-sha256 \
@@ -489,7 +494,7 @@ jobs:
           test "$(find workspaces/blender/af056-review -maxdepth 1 -type f \
             -name '*.png' | wc -l)" -eq 16
           test "$(find workspaces/blender/af056-review -maxdepth 1 -type f | wc -l)" -eq 17
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             python scripts/verify_macaw_actor_review.py \
             --source workspaces/blender/af056-review \
             --package assets/actor-packages/macaw-traveler-avian-v1/package \
@@ -500,28 +505,28 @@ jobs:
 
       - name: Run focused avian contract lint, typing, and tests
         run: |
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff format --check tools/blender/avian_contract.py \
             tools/blender/render_macaw_actor_review.py \
             scripts/generate_macaw_actor_package.py \
             scripts/generate_macaw_rig_mapping.py \
             scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
             tests/unit/test_blender_macaw_review.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             ruff check tools/blender/avian_contract.py \
             tools/blender/render_macaw_actor_review.py \
             scripts/generate_macaw_actor_package.py \
             scripts/generate_macaw_rig_mapping.py \
             scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
             tests/unit/test_blender_macaw_review.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             mypy --strict scripts/generate_macaw_actor_package.py
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=tools/blender mypy --strict --explicit-package-bases \
             scripts/generate_macaw_rig_mapping.py'
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=tools/blender mypy --strict --explicit-package-bases \
             --follow-imports=skip scripts/verify_macaw_actor_review.py'
-          docker compose run --rm --no-deps animated-fabric-dev \
+          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             pytest -q --no-cov tests/unit/test_avian_contract.py \
             tests/unit/test_blender_macaw_review.py

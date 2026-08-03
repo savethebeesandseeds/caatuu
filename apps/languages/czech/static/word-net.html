@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f5efe5">
     <title>Word World - Caatuu Czech</title>
+    <script>
+      if (new URLSearchParams(window.location.search).get("embed") === "1") {
+        document.documentElement.classList.add("caatuu-embedded");
+      }
+    </script>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
@@ -25,8 +30,8 @@
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
   <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
-    <link rel="stylesheet" href="word-net.css?v=word-net-71">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-91">
+    <link rel="stylesheet" href="word-net.css?v=word-net-74">
   </head>
   <body>
     <div class="word-net-page">
@@ -95,23 +100,25 @@
                 <button class="word-net-audio-autoplay" id="wordNetAudioAutoplay" type="button" role="switch" aria-checked="true">
                   <span>Autoplay sentences</span>
                 </button>
-                <label class="word-net-audio-voice" for="wordNetAudioVoice">
-                  <span>Voice</span>
-                  <select id="wordNetAudioVoice">
-                    <option value="">Automatic (recommended)</option>
-                  </select>
-                </label>
-                <p class="word-net-audio-status" id="wordNetAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</p>
-                <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
-                <fieldset class="word-net-audio-speed">
-                  <legend>Speed</legend>
+                <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="wordNetAudioSpeedLabel">
+                  <span class="word-net-audio-setting-title" id="wordNetAudioSpeedLabel">Speed</span>
                   <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.65 times">
                   <div class="word-net-audio-speed-ticks" id="wordNetAudioSpeedTicks" aria-hidden="true">
                     <span>Slower <small>0.65×</small></span>
                     <span>Slow <small>0.82×</small></span>
                     <span>Normal <small>1×</small></span>
                   </div>
-                </fieldset>
+                </section>
+                <section class="word-net-audio-setting word-net-audio-voice-setting" aria-labelledby="wordNetAudioVoiceLabel">
+                  <label class="word-net-audio-voice" for="wordNetAudioVoice">
+                    <span class="word-net-audio-setting-title" id="wordNetAudioVoiceLabel">Voice</span>
+                    <select id="wordNetAudioVoice">
+                      <option value="">Automatic (recommended)</option>
+                    </select>
+                  </label>
+                  <p class="word-net-audio-status" id="wordNetAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</p>
+                  <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
+                </section>
               </div>
               <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="English answer and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
                 <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
@@ -158,7 +165,7 @@
                     </svg>
                     <span data-generation-label>New word</span>
                   </button>
-                  <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>This word</span></button>
+                  <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>Selected word</span></button>
                 </section>
                 <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">
                   <span class="word-net-generation-menu-label" id="wordNetContentSourceLabel">Sentence source</span>
@@ -361,8 +368,8 @@
       data-settings-href="index.html?settings=1"
     ></nav>
 
-  <script src="chrome.js?v=chrome-90"></script>
+  <script src="chrome.js?v=chrome-92"></script>
     <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script type="module" src="word-net.js?v=word-net-76"></script>
+    <script type="module" src="word-net.js?v=word-net-80"></script>
   </body>
 </html>

@@ -29,6 +29,7 @@
     slow: Object.freeze({ label: "Slow", rate: 0.82 }),
     normal: Object.freeze({ label: "Normal", rate: 1 })
   });
+  const speechPaceOrder = Object.freeze(["slower", "slow", "normal"]);
   const speechPaceByDifficulty = Object.freeze({ 1: "slower", 2: "slow", 3: "normal" });
   const backpackViewOptions = Object.freeze({
     items: { label: "Items", iconSrc: "/assets/icons/items_icon.png?v=items-2" },
@@ -167,7 +168,7 @@
     "word-net": {
       title: "Word World",
       iconSrc: "/assets/planets/planet_A.png",
-      href: "word-net.html"
+      href: `index.html?${gameNavigationQueryKey}=word-net`
     },
     "conjugation-comet": {
       title: "Conjugation Comet",
@@ -611,11 +612,21 @@
       button.classList.toggle("is-badge-default", badgeDefault);
       button.setAttribute("aria-pressed", String(active));
     });
+    const paceIndex = Math.max(0, speechPaceOrder.indexOf(pace.key));
+    const paceProgress = speechPaceOrder.length > 1
+      ? `${(paceIndex / (speechPaceOrder.length - 1)) * 100}%`
+      : "0%";
+    root.querySelectorAll("[data-speech-pace-slider]").forEach((slider) => {
+      slider.value = String(paceIndex);
+      slider.style.setProperty("--speech-pace-position", paceProgress);
+      slider.setAttribute("aria-valuetext", `${pace.label}, ${pace.rate} times`);
+      slider.dataset.paceSource = pace.source;
+    });
     const status = root.querySelector("#settingsSpeechPaceStatus");
     if (status) {
       status.textContent = pace.source === "badge"
-        ? `${pace.badge} badge · ${pace.label} (${pace.rate}×). Choose a speed to override.`
-        : `Manual · ${pace.label} (${pace.rate}×). Press ${pace.label} again for ${pace.badge} pace.`;
+        ? `${pace.badge} · ${pace.label} ${pace.rate}×`
+        : `Manual · ${pace.label} ${pace.rate}×`;
     }
     return pace;
   }
@@ -1044,7 +1055,8 @@
 
   function bindSpeechPaceControl(panel) {
     const buttons = panel?.querySelectorAll("[data-speech-pace-option]");
-    if (!buttons?.length || panel.dataset.speechPaceBound === "true") return;
+    const sliders = panel?.querySelectorAll("[data-speech-pace-slider]");
+    if ((!buttons?.length && !sliders?.length) || panel.dataset.speechPaceBound === "true") return;
     panel.dataset.speechPaceBound = "true";
     buttons.forEach((button) => {
       button.addEventListener("click", async () => {
@@ -1053,6 +1065,20 @@
         const nextPreference = getSpeechPacePreference() === selectedPace ? "" : selectedPace;
         setSpeechPacePreference(nextPreference);
         updateSpeechPaceControls(panel);
+        await playSpeechSettingsPreview(panel);
+      });
+    });
+    sliders.forEach((slider) => {
+      slider.addEventListener("input", () => {
+        const paceIndex = Math.max(0, Math.min(
+          speechPaceOrder.length - 1,
+          Math.round(Number(slider.value) || 0)
+        ));
+        setSpeechPacePreference(speechPaceOrder[paceIndex]);
+        updateSpeechPaceControls(panel);
+      });
+      slider.addEventListener("change", async () => {
+        await stopCzechSpeech();
         await playSpeechSettingsPreview(panel);
       });
     });
@@ -2240,20 +2266,14 @@
               </span>
               <div class="speech-rate-controls">
                 <div class="speech-pace-control" role="group" aria-label="Czech speech speed">
-                  <button type="button" data-speech-pace-option="slower" aria-label="Use slower Czech speech at 0.65 times" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
-                    <b>Slower</b>
-                    <small>0.65×</small>
-                  </button>
-                  <button type="button" data-speech-pace-option="slow" aria-label="Use slow Czech speech at 0.82 times" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
-                    <b>Slow</b>
-                    <small>0.82×</small>
-                  </button>
-                  <button type="button" data-speech-pace-option="normal" aria-label="Use normal Czech speech speed" aria-describedby="settingsSpeechPaceStatus" aria-pressed="false">
-                    <b>Normal</b>
-                    <small>1×</small>
-                  </button>
+                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="Czech speech speed" aria-describedby="settingsSpeechPaceStatus">
+                  <span class="speech-pace-ticks" aria-hidden="true">
+                    <span><b>Slower</b><small>0.65×</small></span>
+                    <span><b>Slow</b><small>0.82×</small></span>
+                    <span><b>Normal</b><small>1×</small></span>
+                  </span>
                 </div>
-                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">Explorer badge · Slower (0.65×). Choose a speed to override.</p>
+                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">Explorer · Slower 0.65×</p>
               </div>
             </div>
               </div>

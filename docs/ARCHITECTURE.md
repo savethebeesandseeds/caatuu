@@ -1,7 +1,7 @@
 # Caatuu architecture
 
 Caatuu is a workspace of deliberately separated applications rather than one
-large application. The Rust runtime assembles the public routes, while browser,
+large application. The Rust server assembles the public routes, while browser,
 Android, ML, animation, and archived code retain distinct ownership boundaries.
 
 ## System map
@@ -11,18 +11,20 @@ Browser                         Android app
    |                                |
    | HTTP                           | packaged web assets + native bridge
    v                                v
-caatuu-runtime                 offline GGUF inference
+Caatuu server                  offline GGUF inference
+(binary: caatuu-runtime)
    |
    +-- /                  unified launcher
    +-- /cz/               Czech browser app
-   +-- /demos/            isolated experiments
+   +-- /games/            language-independent generated game exports
    +-- /archive/chinese/  preserved Chinese app
    +-- /android/          governed build artifacts and manifests
 ```
 
-The normal browser/runtime container does not contain the training stack. Model
-training, export, Android builds, image work, and animation tooling use separate
-containers so daily startup remains small and reproducible.
+The normal browser/server container does not contain the training stack. Model
+training, export, Android builds, image work, and animation tooling use the
+shared `caatuu-dev` environment plus narrowly bounded worker profiles so daily
+runtime startup remains small and reproducible.
 
 ## Application ownership
 
@@ -53,7 +55,15 @@ as offline llama.cpp inference, model lifecycle management, vector database
 installation, and application updates. The native bridge is an adapter; it must
 not silently fork browser behavior.
 
-### `apps/runtime`
+### `apps/games`
+
+Owns language-independent authored games, the game catalog, and per-game build
+and delivery manifests. Generated exports live under `artifacts/games`, while
+language applications retain only localized presentation and curriculum
+adapters. The detailed decision is recorded in
+[`docs/decisions/0001-game-source-delivery-and-language-ownership.md`](decisions/0001-game-source-delivery-and-language-ownership.md).
+
+### `apps/server`
 
 Owns HTTP routing, static surface assembly, operational configuration, and the
 explicit opt-in boundary for archived backend routes. Top-level legacy Chinese
@@ -61,30 +71,32 @@ API and WebSocket paths are retired.
 
 ### `apps/animated-fabric`
 
-Is an independent Linux-first desktop application and Python library for
-layered 2D animation. It has its own Compose project, specification, tests, and
-dependency boundary. Caatuu may consume deliberate exports; it does not import
-the Python package at runtime.
+Is a Linux-first desktop application and Python library for layered 2D
+animation. It retains its own specification, tests, and Python dependency
+boundary while using the shared `caatuu-dev` environment and root Compose
+project. Caatuu may consume deliberate exports; it does not import the Python
+package at runtime.
 
 ## Supporting areas
 
-- `demos/` contains browser experiments. A demo is not a production asset
-  catalog and must not be mounted at an active app route by accident.
 - `tools/` contains maintained build and generation workflows. Generated
   workspaces, caches, models, and local research inputs remain ignored.
-- `archive/` preserves inactive implementations. Archived code is not a source
-  of default routes or configuration.
-- `artifacts/` contains local build outputs and is never source-controlled.
+- `archive/` preserves inactive implementations and experiments. Archived code
+  is not a source of default routes, assets, or configuration.
+- `artifacts/` contains local build outputs and research workspaces and is never
+  source-controlled.
 - `secrets/` contains local tokens or keys and is never source-controlled.
 
 ## Operational boundaries
 
-The root Compose project contains the normal runtime plus opt-in services behind
+The root Compose project contains the normal server plus opt-in services behind
 profiles. Files under `compose/` are narrow overrides for exceptional modes.
 
 | File | Responsibility |
 | --- | --- |
 | `compose.yaml` | Runtime plus opt-in `tunnel`, `tools`, and `dev` profiles |
+| `compose/dev-gpu.yaml` | Adds GPU access to the same `caatuu-dev` service and project |
+| `compose/dev-gui.yaml` | Adds native-X11 forwarding to the same `caatuu-dev` service and project |
 | `compose/archived-chinese.yaml` | Explicitly enables the archived Chinese backend |
 | `compose/archived-chinese-openai.yaml` | Separately mounts the optional OpenAI secret |
 | `compose/phone-debug.yaml` | Explicit trusted-LAN exposure for phone debugging |

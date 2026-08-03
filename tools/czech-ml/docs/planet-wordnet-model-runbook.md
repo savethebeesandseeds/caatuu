@@ -19,7 +19,7 @@ cd /workspace/tools/czech-ml
 . /opt/caatuu-ml/bin/activate
 ```
 
-The runtime container should stay small. Do not install training packages in `caatuu`.
+The server container should stay small. Do not install training packages in `caatuu`.
 
 ## 1. Build A Dataset
 

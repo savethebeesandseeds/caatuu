@@ -42,7 +42,7 @@ from tools.blender import evidence, motion  # noqa: E402
 
 BLENDER_TOOL_ROOT = APP_ROOT / "tools" / "blender"
 BLENDER_CONTAINER_RECIPE = APP_ROOT / "containers" / "blender" / "Dockerfile"
-BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "compose.yaml"
+BLENDER_ORCHESTRATOR_RECIPE = APP_ROOT / "containers/worker-contract.json"
 
 
 def _verify_evidence(source_root: Path) -> evidence.EvidenceSummary:

@@ -106,7 +106,7 @@ cp app/build/outputs/apk/debug/app-debug.apk "$staged_apk"
 # In particular, compare every packaged Czech HTML/CSS/JS/JSON source file
 # byte-for-byte with the workspace. This keeps Gradle cache drift or a source
 # change during the build from publishing an internally stale APK.
-node "$repo_root/apps/runtime/tooling/audit-runtime-boundary.mjs" \
+node "$repo_root/apps/server/tooling/audit-runtime-boundary.mjs" \
   --skip-http \
   --skip-update-manifest \
   --apk "$staged_apk" \

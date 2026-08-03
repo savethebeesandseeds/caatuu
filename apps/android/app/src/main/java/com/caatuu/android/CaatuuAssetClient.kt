@@ -65,6 +65,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
                 .ifBlank { "home.html" }
                 .replace('\\', '/')
             path.startsWith("/assets/") -> path.trimStart('/').replace('\\', '/')
+            path.startsWith("/games/") -> path.trimStart('/').replace('\\', '/')
             else -> return notFound()
         }
 

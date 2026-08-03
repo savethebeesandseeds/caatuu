@@ -46,14 +46,14 @@ $env:CAATUU_RUST_LOG = "debug"
 docker compose up -d --build caatuu
 ```
 
-The normal runtime binds only to Windows loopback at port `8765`. Open:
+The normal server binds only to Windows loopback at port `8765`. Open:
 
 ```text
 http://127.0.0.1:8765/
 http://127.0.0.1:8765/cz/
 http://127.0.0.1:8765/cz/home.html
 http://127.0.0.1:8765/cz/chat.html
-http://127.0.0.1:8765/demos/
+http://127.0.0.1:8765/games/memory-moon/godot-v1/
 http://127.0.0.1:8765/archive/chinese/
 ```
 
@@ -75,8 +75,13 @@ Remove-Variable token
 Start the runtime and tunnel:
 
 ```powershell
-docker compose --profile tunnel up -d caatuu caatuu-tunnel
+docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
 ```
+
+The tunnel fails closed while its schema-valid catalog omits a delivered game
+or any game, dependency, or authority remains preview-only. Its watchdog
+rechecks the same policy after startup. Check the gate before public operation
+with `docker exec -w /workspace caatuu-dev node apps/games/tooling/check-release-readiness.mjs --surface public-tunnel --require-game memory-moon`.
 
 Recreate only the connector after token or tunnel-command changes:
 
@@ -113,8 +118,8 @@ authentication layer.
 
 ## Tooling container
 
-Heavy build, ML, embedding, model-export, and Android helper work runs in the
-separate development image:
+Heavy build, ML, embedding, model-export, Android helper, and Animated Fabric
+work runs in the single shared development service:
 
 ```powershell
 docker compose --profile dev up -d --build caatuu-dev
@@ -125,6 +130,22 @@ Inside the container:
 
 ```bash
 check-caatuu-dev
+```
+
+Animated Fabric selects its baked Python 3.12 tool environment through the
+wrapper while retaining the same repository mount and container:
+
+```powershell
+docker exec -w /workspace/apps/animated-fabric caatuu-dev `
+  caatuu-animated-fabric python -m animated_fabric doctor
+```
+
+GPU and native-X11 overrides modify this same service in the same `caatuu`
+Compose project; they do not define additional development containers:
+
+```powershell
+docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
+docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
 ```
 
 The main ML workspace is [`tools/czech-ml`](../tools/czech-ml/). Follow
@@ -153,6 +174,8 @@ Validate Compose configuration:
 ```powershell
 docker compose config --quiet
 docker compose --profile tools --profile dev config --quiet
+docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
+docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
 docker compose -f compose.yaml -f compose/archived-chinese.yaml config --quiet
 docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 ```
@@ -160,16 +183,16 @@ docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 Run repository and browser/runtime contract tests in a container:
 
 ```powershell
-docker run --rm -v "${PWD}:/workspace" -w /workspace node:24-bookworm `
-  bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs && node --test apps/runtime/tooling/tests/*.test.mjs"
+docker exec -w /workspace caatuu-dev bash -lc `
+  "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs && node --test apps/server/tooling/tests/*.test.mjs"
 ```
 
 Validate the shared English-authored curriculum, each target-language
 realization pack, cross-game bindings, and generated browser assets separately:
 
 ```powershell
-docker run --rm -v "${PWD}:/workspace" -w /workspace/apps/curriculum node:24-bookworm `
-  bash -lc "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
+docker exec -w /workspace/apps/curriculum caatuu-dev bash -lc `
+  "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
 ```
 
 Passing these development checks proves contract consistency. It does not
@@ -180,8 +203,8 @@ After route, browser shell, packaged asset, or Android changes, start the local
 runtime and run the boundary audit in the established dev container:
 
 ```powershell
-docker compose --profile dev run --rm caatuu-dev `
-  node apps/runtime/tooling/audit-runtime-boundary.mjs `
+docker exec -w /workspace caatuu-dev `
+  node apps/server/tooling/audit-runtime-boundary.mjs `
   --base-url http://host.docker.internal:8765 `
   --allow-debug-artifacts
 ```

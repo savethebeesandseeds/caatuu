@@ -29,17 +29,24 @@ Before changing files:
 
 Linux is the authoritative development and production environment. Run Python,
 dependency installation, formatting, linting, type checking, tests, fixture generation,
-rendering, background removal, and packaging inside the application's own Linux container.
+rendering, background removal, and packaging through Caatuu's established Linux tooling.
 
-- Build with `docker compose build animated-fabric-dev` from this directory.
-- Run tools with `docker compose run --rm animated-fabric-dev <command>`.
-- Use the `gui` profile for native-Linux X11 display forwarding; keep test services offscreen.
-- Use only the documented cutout profiles for background removal and model provisioning.
+- `C:\Work\caatuu` is the sole checkout and source authority.
+- `caatuu-dev` is the sole interactive development container.
+- Build it from the repository root with
+  `docker compose --profile dev up -d --build caatuu-dev`.
+- Run project tools with
+  `docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric <command>`.
+- Do not use `docker compose run` for normal development; it creates another container.
+- Opt-in cutout, Blender, and reconstruction workers belong to root `compose.yaml`
+  under the `caatuu` project. They are bounded workers, not development environments.
+- Use only those documented profiles for background removal, model provisioning, and Blender.
 - Do not install project dependencies on Windows.
 - Do not use Codex-bundled Python, Node.js, or libraries for productive project work.
 - Windows may invoke Docker, Git, and read-only inspection tools; it is not the reference runtime.
 - Linux CI must exercise the same image and commands used locally.
-- Keep this application isolated from Caatuu's other application containers.
+- Do not create another checkout, source mount, development container, Compose project,
+  service, or port for Animated Fabric.
 
 ## 4. Architecture boundaries
 
@@ -72,7 +79,8 @@ rendering, background removal, and packaging inside the application's own Linux 
 
 ## 6. Required verification
 
-Before declaring a ticket complete, run inside the Linux container:
+Before declaring a ticket complete, run through `caatuu-animated-fabric` inside
+the running `caatuu-dev` container:
 
 ```bash
 ruff format --check .
@@ -82,10 +90,10 @@ pytest -q
 python -m pip check
 ```
 
-When container infrastructure changes, also validate every Compose profile and smoke-test
-the baked image without a source bind mount. When cutout code or packaging changes, build
-and smoke-test at least the `cutout-classic` profile; CPU/CUDA verification is recorded
-separately because those images are intentionally not base-development dependencies.
+When container infrastructure changes, validate root Compose and inspect the canonical
+`caatuu-dev` bind mount. When cutout code or packaging changes, build and smoke-test at
+least the root `cutout-classic` profile; CPU/CUDA verification is recorded separately
+because those images are intentionally not base-development dependencies.
 
 When a ticket affects rendering, animation, or export, also run:
 

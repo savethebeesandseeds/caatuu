@@ -418,7 +418,7 @@ def _trusted_source_hashes() -> dict[str, str]:
         "render_actor_package.py",
         "png_canonical.py",
         "container.Dockerfile",
-        "compose.yaml",
+        "worker-contract.json",
     )
     return {name: _sha256(_TRUSTED_SCRIPT_ROOT / name) for name in names}
 

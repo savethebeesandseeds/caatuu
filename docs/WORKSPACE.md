@@ -6,7 +6,7 @@ Caatuu is a small monorepo with explicit boundaries:
 | --- | --- |
 | [`apps/`](../apps/) | Active applications and the runtime that serves them |
 | [`archive/`](../archive/) | Preserved superseded implementations |
-| [`demos/`](../demos/) | Reviewed, isolated experiments used by the runtime |
+| `artifacts/` | Ignored build outputs and local research workspaces |
 | [`docs/`](./) | Project-wide architecture, policy, and development guidance |
 | [`tools/`](../tools/) | Build, model, benchmark, validation, and release tooling |
 

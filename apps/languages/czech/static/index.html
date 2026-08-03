@@ -25,8 +25,8 @@
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
   <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-72">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-90">
+    <link rel="stylesheet" href="app.css?v=shell-73">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-91">
   </head>
   <body class="games-page">
     <div class="app-shell">
@@ -461,31 +461,22 @@
 
             </div>
 
-            <section class="train-tab-panel word-net-panel" id="trainPanelWordNet" aria-label="Word World" hidden>
-              <header class="word-net-head">
-                <div>
-                  <p class="verb-kicker">Word world</p>
-                  <h2>Word World</h2>
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel" id="trainPanelWordNet" aria-label="Word World" hidden>
+              <div class="word-net-embedded-stage" id="wordNetEmbeddedStage" aria-busy="true">
+                <iframe
+                  class="word-net-embedded-game"
+                  id="wordNetEmbeddedGame"
+                  data-src="word-net.html?embed=1"
+                  title="Word World"
+                  allow="autoplay"
+                  aria-hidden="true"
+                  tabindex="-1"
+                ></iframe>
+                <div class="word-net-embedded-status" id="wordNetEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="word-net-embedded-loader" aria-hidden="true"></span>
+                  <strong>Opening Word World</strong>
+                  <small>Your current challenge will stay ready when you come back.</small>
                 </div>
-                <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
-              </header>
-              <div class="word-net-grid">
-                <label class="word-net-search">
-                  <span>Seed word</span>
-                  <input type="search" autocomplete="off" placeholder="Search">
-                </label>
-                <div class="word-net-canvas" aria-label="Word network preview">
-                  <span>Word</span>
-                </div>
-                <aside class="word-net-side">
-                  <h3>Links</h3>
-                  <div class="word-net-chip-row">
-                    <span>Meaning</span>
-                    <span>Form</span>
-                    <span>Phrase</span>
-                  </div>
-                  <a class="train-back-button word-net-play-link" href="word-net.html">Play Word World</a>
-                </aside>
               </div>
             </section>
 
@@ -502,7 +493,7 @@
                 <iframe
                   class="memory-moon-game"
                   id="memoryMoonGame"
-                  data-src="games/memory-moon/godot-v1/index.html"
+                  data-src="/games/memory-moon/godot-v1/index.html"
                   title="Memory Moon Godot game"
                   allow="autoplay; fullscreen"
                   allowfullscreen
@@ -686,9 +677,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="chrome.js?v=chrome-90"></script>
+  <script src="chrome.js?v=chrome-92"></script>
     <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script src="app.js?v=shell-84"></script>
+    <script src="app.js?v=shell-85"></script>
     <script src="dictionary-full.js?v=full-dictionary-4"></script>
   </body>
 </html>

@@ -4,8 +4,9 @@ This is the native Android shell. Its current default course and native model
 adapter are Czech, but the packaged static app and WebView entry route are build
 configuration rather than literals in the shell.
 
-The app packages the existing Czech browser UI from `apps/languages/czech/static`
-and exposes a native `llama.cpp` bridge to that UI. The GGUF model is not put in
+The app packages the Czech browser UI from `apps/languages/czech/static`,
+selected language-independent game artifacts from `artifacts/games`, and a
+native `llama.cpp` bridge. The GGUF model is not put in
 Git and is not bundled into the APK. On first use, the app downloads the model
 from `caatuu.waajacu.com`, verifies its SHA-256, stores it in app-private
 storage, and then works offline.
@@ -13,6 +14,8 @@ storage, and then works offline.
 ## Runtime Shape
 
 - UI: existing Czech static app, loaded in a WebView from APK assets.
+- Games: selected exports are verified and copied explicitly under `/games/`;
+  they are not inherited from the Czech directory.
 - Start URL: `https://caatuu.local/cz/home.html`.
 - The shared Czech source assets are packaged for browser/Android parity; heavy
   browser model payloads are excluded.
@@ -159,6 +162,19 @@ heavy model payloads such as `.gguf`, `.bin`, `.params`, `.safetensors`, and
 the browser-only WebLLM export. The default APK includes only `arm64-v8a`
 native libraries for phones; set `CAATUU_ANDROID_ABIS=arm64-v8a,x86_64` when
 you need an emulator build.
+
+Before Android packaging, `verifyBundledGameArtifacts` requires a generated
+`bundle-manifest.json` under `artifacts/games/memory-moon/web/godot-v1`. It
+checks the game and Godot versions, required notices, complete file set, byte
+counts, and SHA-256 values before any bundle bytes are copied. Unlisted stale
+files and symbolic links are rejected. `syncLanguageAssets` explicitly excludes
+`games/**`, while `syncGameAssets` copies the verified central artifact to the
+stable APK path `assets/games/memory-moon/godot-v1`. Release and Play packaging
+also run the canonical schema-aware catalog gate, which requires Memory Moon
+and every declared authority to be release-cleared; debug local builds remain
+available for preview-only game metadata. Both
+`/games/**` and the temporary `/cz/games/**` compatibility URL resolve to those
+same packaged bytes.
 
 The same rule applies to the Czech semantic-search artifacts. The APK excludes
 the SQLite database, ONNX weights, ONNX Runtime WASM, and model configuration

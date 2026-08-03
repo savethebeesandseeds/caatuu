@@ -24,7 +24,7 @@ The first vertical slice is deliberately small:
 - Compatibility rendering, single-threaded Web export, and no nested PWA.
 
 The authoritative humanoid remains at
-`demos/world-movement/motion-reference/source/AnimationLibrary_Godot_Standard.glb`.
+`apps/launcher/static/assets/motion/quaternius-standard-v1/source/AnimationLibrary_Godot_Standard.glb`.
 The exporter verifies its SHA-256 and copies it only into its private build
 workspace, so the repository does not acquire a duplicate asset.
 
@@ -191,11 +191,20 @@ http://127.0.0.1:8765/cz/index.html?game=memory-moon
 ```
 
 The generated bundle is written to
-`apps/languages/czech/static/games/memory-moon/godot-v1/`. It is intentionally
-ignored because it is reproducible build output. The directory remains
+`artifacts/games/memory-moon/web/godot-v1/`. It is intentionally ignored
+because it is reproducible build output. Each export writes a deterministic
+`bundle-manifest.json` with game and engine versions, required notices, and the
+byte count and SHA-256 of every other delivered file. Caatuu serves that one
+directory at the neutral `/games/memory-moon/godot-v1/` route and temporarily
+aliases it at `/cz/games/memory-moon/godot-v1/` for installed clients. The directory remains
 versioned for incompatible releases. During local iteration, the Caatuu service
 worker fetches Memory Moon payloads network-first so a newly exported `.wasm`
 or `.pck` cannot be hidden by a stale preview cache.
+
+[`game.json`](game.json) is the machine-readable authority for the game ID,
+engine, source, generated delivery path, platforms, host messaging, dependencies,
+notices, and preview-only release status. Localized host presentation belongs to
+the language adapter rather than this project.
 
 Godot is never installed on the Windows host. The provisioner resumably fetches
 the verified official editor and reads only the single-threaded Web template

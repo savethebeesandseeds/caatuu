@@ -1020,8 +1020,8 @@
       "artifact_kind": "visual-asset",
       "url": "/assets/planets/conjugation-comet.png",
       "asset_path": "assets/planets/conjugation-comet.png",
-      "bytes": 534082,
-      "sha256": "78e59571a850aa92a3c3d6862f676d1b7fad54137b8ad10a74ef2eaaba20fee0",
+      "bytes": 614649,
+      "sha256": "03d018fd7d5d128b59154220b3b899239c2987eab69f1a03eca2bb783855a8e0",
       "native_required": true,
       "browser_required": true
     },

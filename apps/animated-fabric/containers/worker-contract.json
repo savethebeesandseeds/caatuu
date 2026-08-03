@@ -1,0 +1,43 @@
+{
+  "schema_name": "animated-fabric-worker-contract",
+  "schema_version": 1,
+  "compose_project": "caatuu",
+  "compose_authority": "compose.yaml",
+  "source_authority": "apps/animated-fabric",
+  "interactive_development_service": "caatuu-dev",
+  "workers": {
+    "blender_directional": {
+      "service": "animated-fabric-blender",
+      "image": "caatuu-animated-fabric-blender:4.5.12-cycles-cpu",
+      "profile": "blender"
+    },
+    "blender_actor": {
+      "service": "animated-fabric-blender-actor-validator",
+      "image": "caatuu-animated-fabric-blender-actor-validator:4.5.12",
+      "profile": "blender-actor"
+    },
+    "blender_macaw": {
+      "service": "animated-fabric-blender-macaw-actor-validator",
+      "image": "caatuu-animated-fabric-blender-macaw-actor-validator:4.5.12",
+      "profile": "blender-macaw"
+    },
+    "cutout_classic": {
+      "service": "animated-fabric-cutout-classic",
+      "image": "caatuu-animated-fabric-cutout:core-py312",
+      "profile": "cutout-classic"
+    },
+    "reconstruction": {
+      "service": "animated-fabric-3d-lab",
+      "image": "caatuu-animated-fabric-3d-lab:triposr-0.1",
+      "profile": "reconstruction"
+    }
+  },
+  "worker_invariants": {
+    "interactive": false,
+    "source_authority": false,
+    "runtime_network": "none",
+    "read_only_root": true,
+    "drop_all_capabilities": true,
+    "no_new_privileges": true
+  }
+}
