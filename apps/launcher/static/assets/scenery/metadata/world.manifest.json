@@ -2,13 +2,13 @@
   "schema_version": 2,
   "layout_id": "memory-grove-v6",
   "release_status": "local-preview-only",
-  "catalog_id": "memory-moon-style-v1",
+  "catalog_id": "caatuu-game-style-v1",
   "catalog_version": 3,
   "catalog_file": "metadata/catalog.json",
-  "catalog_sha256": "cf27415129bf1d90b146d4abd1d8856ce40d364f6bc4df91a444fef6c72ff391",
+  "catalog_sha256": "a45077c4291590e0d918bb72e1b6edf584505cd1be3bc4feaa488ce13e8ee531",
   "catalog_byte_length": 19025,
   "layout_file": "metadata/world.json",
-  "layout_sha256": "e72968db90a879e71d498f12446af1cca083e93977f114627560943dd4195a79",
+  "layout_sha256": "85915b86e4641aec8a2670045d19fe6db5009d996bc2750d1b738cae2efea71c",
   "layout_byte_length": 13588,
   "source_materials": [
     {

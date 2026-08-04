@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://caatuu.org/schemas/memory-moon/scenery/layout-v2.schema.json",
-  "title": "Memory Moon scenery layout v2",
+  "$id": "https://caatuu.org/schemas/caatuu-game/scenery/layout-v2.schema.json",
+  "title": "Caatuu Game scenery layout v2",
   "type": "object",
   "required": [
     "schema_version",

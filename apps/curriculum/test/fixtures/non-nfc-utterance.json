@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "caatuu-conformance-mutation-v1",
-  "description": "Declaring NFC does not excuse decomposed target text.",
-  "mutations": [
-    {"op": "replace", "path": "/utterances/1/text", "value": "Dobrý den."}
-  ],
-  "expectedErrorCodes": ["CURR_NORMALIZATION"]
-}

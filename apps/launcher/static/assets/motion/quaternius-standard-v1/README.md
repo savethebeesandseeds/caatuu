@@ -1,7 +1,7 @@
 # Quaternius Standard motion package
 
 This package contains the Quaternius Universal Animation Library Standard GLB
-used by Memory Moon's local preview, together with its source license and
+used by Caatuu Game's local preview, together with its source license and
 strict integrity manifest.
 
 The package remains `local-preview-only` and `not-distributed` until the exact

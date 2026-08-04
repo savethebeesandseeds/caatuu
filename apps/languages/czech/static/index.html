@@ -8,7 +8,7 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-  <script src="course-profile.js?v=course-13"></script>
+  <script src="course-profile.js?v=course-16"></script>
     <script src="learning-profile.js?v=learning-5"></script>
     <script>
       try {
@@ -21,12 +21,11 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="runtime.js?v=runtime-36"></script>
+  <script src="runtime.js?v=runtime-37"></script>
   <script src="semantic-learning.js?v=semantic-learning-7"></script>
-  <script src="curriculum-service.js?v=curriculum-service-9"></script>
   <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-73">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-91">
+    <link rel="stylesheet" href="app.css?v=shell-76">
+  <link rel="stylesheet" href="chrome.css?v=chrome-style-92">
   </head>
   <body class="games-page">
     <div class="app-shell">
@@ -367,17 +366,39 @@
             </section>
 
             <div class="train-tab-panel verb-match-panel" id="trainPanelVerbLab" aria-label="Verb Nebula" hidden>
-              <aside class="verb-guided-status" id="verbGuidedStatus" role="status" aria-live="polite" aria-atomic="true" hidden>
-                <strong id="verbGuidedStatusTitle">Developer Guided · prototype-not-human-approved</strong>
-                <span id="verbGuidedStatusDetail">Verifying the exact bound content and evidence task…</span>
-              </aside>
               <section class="verb-match-board" id="verbMeaningBoard" aria-label="Match Czech verbs with English meanings">
                 <div class="verb-match-controls" aria-label="Verb Nebula controls">
                   <div class="verb-match-control-cluster">
-                    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
-                      <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
-                    </button>
-                    <details class="verb-pair-menu">
+                    <details class="verb-toolbar-menu verb-display-menu">
+                      <summary aria-label="Display settings" title="Display settings">
+                        <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      </summary>
+                      <div class="verb-display-popover" role="dialog" aria-label="Display settings">
+                        <span class="verb-popover-label">Display</span>
+                        <section class="verb-popover-setting" aria-labelledby="verbThemeLabel">
+                          <span class="verb-popover-setting-title" id="verbThemeLabel">Theme</span>
+                          <div class="verb-display-options" role="group" aria-label="Theme">
+                            <button type="button" data-theme-option="light" aria-pressed="true">
+                              <img src="/assets/icons/light_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                              <span>Light</span>
+                            </button>
+                            <button type="button" data-theme-option="dark" aria-pressed="false">
+                              <img src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                              <span>Dark</span>
+                            </button>
+                          </div>
+                        </section>
+                        <section class="verb-popover-setting" aria-labelledby="verbTextSizeLabel">
+                          <span class="verb-popover-setting-title" id="verbTextSizeLabel">Text size</span>
+                          <div class="verb-display-options verb-display-size-options" role="group" aria-label="Text size">
+                            <button type="button" data-font-size-option="largest" aria-pressed="true"><b aria-hidden="true">A</b><span>Standard</span></button>
+                            <button type="button" data-font-size-option="large" aria-pressed="false"><b aria-hidden="true">A</b><span>Small</span></button>
+                            <button type="button" data-font-size-option="standard" aria-pressed="false"><b aria-hidden="true">A</b><span>Smaller</span></button>
+                          </div>
+                        </section>
+                      </div>
+                    </details>
+                    <details class="verb-toolbar-menu verb-pair-menu">
                       <summary aria-label="Choose number of verb pairs" title="Choose number of verb pairs">
                         <span class="verb-pair-menu-icon" aria-hidden="true">
                           <i></i><i></i><i></i><i></i><i></i><i></i>
@@ -393,6 +414,43 @@
                           <button type="button" data-verb-pair-count="8" aria-pressed="false">8</button>
                         </div>
                       </fieldset>
+                    </details>
+
+                    <details class="verb-toolbar-menu verb-audio-menu">
+                      <summary aria-label="Czech audio settings" title="Czech audio settings">
+                        <svg class="verb-audio-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                          <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                          <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                        </svg>
+                      </summary>
+                      <div class="verb-audio-popover" role="dialog" aria-label="Czech audio settings">
+                        <span class="verb-popover-label">Audio</span>
+                        <button id="verbSpeakOnTap" type="button" role="switch" aria-checked="false">
+                          <span>Speak Czech on tap</span>
+                          <i aria-hidden="true"></i>
+                        </button>
+                        <div class="verb-audio-settings" id="verbAudioSettings" hidden>
+                          <section class="verb-popover-setting" aria-labelledby="verbAudioSpeedLabel">
+                            <span class="verb-popover-setting-title" id="verbAudioSpeedLabel">Speed</span>
+                            <input id="verbAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Czech speech speed" aria-valuetext="Slower, 0.65 times">
+                            <div class="verb-audio-speed-ticks" aria-hidden="true">
+                              <span>Slower <small>0.65×</small></span>
+                              <span>Slow <small>0.82×</small></span>
+                              <span>Normal <small>1×</small></span>
+                            </div>
+                          </section>
+                          <section class="verb-popover-setting verb-audio-voice-setting" aria-labelledby="verbAudioVoiceLabel">
+                            <label for="verbAudioVoice">
+                              <span class="verb-popover-setting-title" id="verbAudioVoiceLabel">Voice</span>
+                              <select id="verbAudioVoice">
+                                <option value="">Automatic (recommended)</option>
+                              </select>
+                            </label>
+                            <small id="verbAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</small>
+                          </section>
+                        </div>
+                      </div>
                     </details>
 
                     <button
@@ -466,7 +524,7 @@
                 <iframe
                   class="word-net-embedded-game"
                   id="wordNetEmbeddedGame"
-                  data-src="word-net.html?embed=1"
+                  data-src="word-net.html"
                   title="Word World"
                   allow="autoplay"
                   aria-hidden="true"
@@ -485,27 +543,13 @@
                 <div>
                   <p class="verb-kicker">Memory moon</p>
                   <h2>Memory Moon</h2>
-                  <p class="memory-moon-copy">One shared Godot world, running in the browser and the app.</p>
+                  <p class="memory-moon-copy">A smaller orbit for recall games will live here.</p>
                 </div>
                 <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
               </header>
-              <div class="memory-moon-stage" id="memoryMoonStage" aria-busy="true">
-                <iframe
-                  class="memory-moon-game"
-                  id="memoryMoonGame"
-                  data-src="/games/memory-moon/godot-v1/index.html"
-                  title="Memory Moon Godot game"
-                  allow="autoplay; fullscreen"
-                  allowfullscreen
-                  aria-hidden="true"
-                  loading="lazy"
-                  tabindex="-1"
-                ></iframe>
-                <div class="memory-moon-status" id="memoryMoonStatus" role="status" aria-live="polite" aria-atomic="true">
-                  <span class="memory-moon-loader" aria-hidden="true"></span>
-                  <strong>Preparing Memory Moon</strong>
-                  <small>The shared Godot world loads when you enter its orbit.</small>
-                </div>
+              <div class="memory-moon-stage">
+                <img src="/assets/planets/planet_C.png" alt="">
+                <span>Coming next</span>
               </div>
             </section>
           </div>
@@ -677,9 +721,9 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="chrome.js?v=chrome-92"></script>
-    <script src="maintenance-ui.js?v=maintenance-15"></script>
-    <script src="app.js?v=shell-85"></script>
-    <script src="dictionary-full.js?v=full-dictionary-4"></script>
+  <script src="chrome.js?v=chrome-96"></script>
+    <script src="maintenance-ui.js?v=maintenance-16"></script>
+    <script src="app.js?v=shell-91"></script>
+    <script src="dictionary-full.js?v=full-dictionary-5"></script>
   </body>
 </html>

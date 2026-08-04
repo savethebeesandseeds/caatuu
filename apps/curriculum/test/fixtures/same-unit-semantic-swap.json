@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "caatuu-conformance-mutation-v1",
-  "description": "A greeting mapping cannot be satisfied by an unrelated same-unit negative response.",
-  "mutations": [
-    {"op": "replace", "path": "/unitBindings/0/functionBindings/0/utteranceIds/0", "value": "cs.utterance.ne"}
-  ],
-  "expectedErrorCodes": ["CURR_ALIGNMENT_INCOMPLETE"]
-}

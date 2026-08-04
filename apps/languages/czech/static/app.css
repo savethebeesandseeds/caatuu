@@ -1717,14 +1717,14 @@ body.world-landing-active {
   border: 3px solid color-mix(in srgb, var(--green) 20%, transparent);
   border-top-color: var(--theme-amber, #c68b2c);
   border-radius: 50%;
-  animation: memory-moon-spin 900ms linear infinite;
+  animation: embedded-loader-spin 900ms linear infinite;
 }
 .word-net-embedded-status.is-error .word-net-embedded-loader {
   animation: none;
   border-color: var(--red);
 }
 .memory-moon-panel {
-  min-height: 520px;
+  min-height: 460px;
   display: grid;
   gap: 18px;
   padding: 18px;
@@ -1741,67 +1741,20 @@ body.world-landing-active {
   font-size: 0.9rem;
 }
 .memory-moon-stage {
-  position: relative;
-  width: min(100%, 960px);
-  min-height: 0;
-  aspect-ratio: 16 / 9;
-  margin-inline: auto;
-  overflow: hidden;
-  border: 1px solid rgba(139, 161, 218, 0.34);
-  border-radius: 12px;
-  background: #050719;
-  box-shadow: inset 0 0 48px rgba(11, 23, 62, 0.64);
-}
-.memory-moon-game {
-  display: block;
-  width: 100%;
-  min-height: 0;
-  height: 100%;
-  border: 0;
-  background: #050719;
-  opacity: 0;
-  transition: opacity 220ms ease;
-}
-.memory-moon-game.is-ready {
-  opacity: 1;
-}
-.memory-moon-status {
-  position: absolute;
-  inset: 0;
+  min-height: 320px;
   display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 9px;
-  padding: 24px;
-  background:
-    radial-gradient(circle at 50% 46%, rgba(73, 104, 187, 0.28), transparent 36%),
-    #050719;
-  color: #eaf1ff;
-  text-align: center;
+  place-items: center;
+  gap: 8px;
 }
-.memory-moon-status[hidden] {
-  display: none;
+.memory-moon-stage img {
+  width: min(38vw, 220px);
+  filter: drop-shadow(0 22px 24px rgba(0, 0, 0, 0.26));
 }
-.memory-moon-status strong {
-  font-size: 1rem;
+.memory-moon-stage span {
+  color: var(--muted);
+  font-weight: 900;
 }
-.memory-moon-status small {
-  color: #9caed3;
-  font-size: 0.78rem;
-}
-.memory-moon-status.is-error .memory-moon-loader {
-  animation: none;
-  border-color: #d36d7b;
-}
-.memory-moon-loader {
-  width: 32px;
-  height: 32px;
-  border: 3px solid rgba(174, 196, 245, 0.24);
-  border-top-color: #f4d26b;
-  border-radius: 50%;
-  animation: memory-moon-spin 900ms linear infinite;
-}
-@keyframes memory-moon-spin {
+@keyframes embedded-loader-spin {
   to {
     transform: rotate(360deg);
   }
@@ -1823,50 +1776,6 @@ body.world-landing-active {
   }
   .memory-moon-panel {
     padding: 10px;
-  }
-}
-@media (max-width: 680px) and (orientation: portrait) {
-  body.memory-moon-active .app-shell {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    min-height: 100dvh;
-    height: 100dvh;
-    padding-bottom: 0;
-  }
-  body.memory-moon-active .workspace {
-    display: flex;
-    min-height: 0;
-    padding-bottom: 8px;
-  }
-  body.memory-moon-active #view-verbs.is-active {
-    display: flex;
-    width: 100%;
-    min-height: 0;
-  }
-  body.memory-moon-active .memory-moon-panel {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    grid-template-rows: auto minmax(0, 1fr);
-    gap: 8px;
-    padding: 8px;
-  }
-  body.memory-moon-active .memory-moon-copy,
-  body.memory-moon-active .app-footer {
-    display: none;
-  }
-  body.memory-moon-active .bottom-app-nav {
-    display: none;
-  }
-  body.memory-moon-active .memory-moon-stage {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    aspect-ratio: auto;
-  }
-  body.memory-moon-active .memory-moon-game {
-    height: 100%;
-    min-height: 0;
   }
 }
 .verb-reference-panel {
@@ -3317,7 +3226,7 @@ body.print-preview-on .print-book {
     grid-template-rows: repeat(2, minmax(0, 1fr));
     gap: 8px 4px;
     margin: 0;
-    padding: 12px 6px calc(68px + env(safe-area-inset-bottom));
+    padding: 88px 6px calc(68px + env(safe-area-inset-bottom));
   }
 
   .train-world,
@@ -5403,11 +5312,11 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   gap: 6px;
 }
 
-.verb-pair-menu {
+.verb-toolbar-menu {
   position: relative;
 }
 
-.verb-pair-menu > summary {
+.verb-toolbar-menu > summary {
   position: relative;
   width: 36px;
   height: 36px;
@@ -5421,13 +5330,294 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   list-style: none;
 }
 
-.verb-pair-menu > summary::-webkit-details-marker {
+.verb-toolbar-menu > summary::-webkit-details-marker {
   display: none;
 }
 
-.verb-pair-menu[open] > summary,
-.verb-pair-menu > summary:hover {
+.verb-toolbar-menu[open] > summary,
+.verb-toolbar-menu > summary:hover {
   border-color: var(--blue);
+}
+
+.verb-audio-menu-icon {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.verb-display-menu > summary .theme-toggle-icon {
+  width: 21px;
+  height: 21px;
+  margin: 0;
+}
+
+.verb-audio-menu > summary.is-active {
+  border-color: var(--green-dark);
+  background: color-mix(in srgb, var(--green-dark) 14%, var(--theme-input, var(--panel)));
+  color: var(--green-dark);
+}
+
+.verb-audio-popover,
+.verb-display-popover {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 7px);
+  right: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 12px 30px rgba(17, 37, 31, 0.16);
+}
+
+.verb-audio-popover {
+  width: min(300px, calc(100vw - 42px));
+}
+
+.verb-display-popover {
+  width: min(290px, calc(100vw - 42px));
+}
+
+.verb-popover-label,
+.verb-popover-setting-title {
+  display: block;
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.verb-popover-label {
+  margin-bottom: 7px;
+}
+
+.verb-popover-setting {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.verb-display-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.verb-display-size-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.verb-display-options button {
+  min-width: 0;
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 9px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--gold) 48%, transparent);
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 850;
+}
+
+.verb-display-options button.is-active {
+  border-color: var(--green-dark);
+  background: var(--green-dark);
+  color: #fff;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--green-dark) 72%, #000);
+}
+
+.verb-display-options img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.verb-display-size-options button {
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.57rem;
+}
+
+.verb-display-size-options b {
+  font-size: 0.96rem;
+  line-height: 1;
+}
+
+.verb-display-size-options button:nth-child(2) b {
+  font-size: 0.82rem;
+}
+
+.verb-display-size-options button:nth-child(3) b {
+  font-size: 0.7rem;
+}
+
+.verb-audio-popover button {
+  width: 100%;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 10px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 850;
+  text-align: left;
+}
+
+.verb-audio-popover button i {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 28%, var(--panel));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.verb-audio-popover button i::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow: 0 1px 4px rgba(17, 37, 31, 0.24);
+  transition: transform 140ms ease;
+}
+
+.verb-audio-popover button[aria-checked="true"] i {
+  background: var(--green-dark);
+}
+
+.verb-audio-popover button[aria-checked="true"] i::after {
+  transform: translateX(14px);
+}
+
+.verb-audio-settings[hidden] {
+  display: none;
+}
+
+.verb-audio-settings label {
+  display: block;
+}
+
+.verb-audio-settings select {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 6px;
+  padding: 6px 28px 6px 8px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 9px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.64rem;
+  font-weight: 750;
+}
+
+#verbAudioVoiceStatus {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+#verbAudioSpeed {
+  width: 100%;
+  height: 26px;
+  margin: 2px 0 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+#verbAudioSpeed::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--green-dark) 0 var(--speech-pace-position, 0%),
+    color-mix(in srgb, var(--muted) 30%, var(--panel)) var(--speech-pace-position, 0%) 100%
+  );
+}
+
+#verbAudioSpeed::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+  appearance: none;
+  border: 2px solid var(--green-dark);
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow: 0 1px 4px rgba(17, 37, 31, 0.2);
+}
+
+#verbAudioSpeed::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 30%, var(--panel));
+}
+
+#verbAudioSpeed::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--green-dark);
+}
+
+#verbAudioSpeed::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--green-dark);
+  border-radius: 50%;
+  background: var(--panel);
+}
+
+.verb-audio-speed-ticks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: -2px;
+  color: var(--ink);
+  font-size: 0.58rem;
+  font-weight: 850;
+  text-align: center;
+}
+
+.verb-audio-speed-ticks span:first-child {
+  text-align: left;
+}
+
+.verb-audio-speed-ticks span:last-child {
+  text-align: right;
+}
+
+.verb-audio-speed-ticks small {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.5rem;
+  line-height: 1;
 }
 
 .verb-pair-menu-icon {
@@ -6249,11 +6439,7 @@ html[data-theme="dark"] .verb-match-board {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .memory-moon-game {
-    transition: none;
-  }
-
-  .memory-moon-loader {
+  .word-net-embedded-loader {
     animation: none;
   }
 

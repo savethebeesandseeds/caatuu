@@ -31,10 +31,7 @@ test("Android artifact finalization is serialized before immutable paths are che
 });
 
 test("public debug publication is pinned to the installed signing lineage", () => {
-  assert.match(
-    publicDebugPublisher,
-    /check-release-readiness\.mjs[\s\S]*--repo-root "\$repo_root"[\s\S]*--surface public-debug-apk[\s\S]*--require-game memory-moon/,
-  );
+  assert.doesNotMatch(publicDebugPublisher, /check-release-readiness|require-game/);
   assert.match(certificatePin.trim(), /^[a-f0-9]{64}$/);
   assert.match(publicDebugBuild, /public-debug-certificate\.sha256/);
   assert.match(publicDebugBuild, /CAATUU_REQUIRE_EXISTING_DEBUG_KEYSTORE=1/);

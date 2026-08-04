@@ -175,10 +175,11 @@ test("the backpack progression hub and both active games use the global learning
   assert.match(chromeSource, /coins: profile\.summary\.rounds/);
   assert.match(chromeSource, /settingsResetCourseProgress/);
   assert.ok(
-    chromeSource.indexOf("await window.CaatuuCurriculum?.resetProgress?.()")
+    chromeSource.indexOf("await learning.prepareProgressReset?.()")
       < chromeSource.indexOf("learning.resetProgress()"),
-    "curriculum evidence must clear before the global progress-reset event is announced"
+    "active game work must drain before the global progress-reset event is announced"
   );
+  assert.doesNotMatch(chromeSource, /CaatuuCurriculum/);
   assert.match(appSource, /registerProgressResetPreparation\?\.\(prepareVerbProgressReset\)/);
   assert.match(appSource, /async function prepareVerbProgressReset[\s\S]*?lifecycle\?\.abort\?\.\(\)/);
   assert.match(wordWorldSource, /registerProgressResetPreparation\?\.\(prepareGuidedWordProgressReset\)/);

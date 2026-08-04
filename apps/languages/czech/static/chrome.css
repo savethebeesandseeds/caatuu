@@ -2625,6 +2625,71 @@ body.settings-open #openSettings::before {
   background: color-mix(in srgb, var(--green) 3%, var(--panel));
 }
 
+.about-brand-note,
+.about-card > .version-note {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.about-brand-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.about-card > .version-note {
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.about-brand-note a {
+  color: var(--green-dark);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.about-brand-note a:hover {
+  text-decoration: underline;
+}
+
+.legal-notice {
+  padding: 8px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f5f8f6;
+}
+
+.legal-notice-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--green-dark);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.legal-notice strong {
+  display: block;
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+
+.legal-notice p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.38;
+}
+
 .about-update-head h4 {
   margin: 1px 0 0;
   font-size: 0.92rem;
@@ -3450,6 +3515,21 @@ html[data-theme="light"] .preset-control button.is-active {
 
 html[data-theme="dark"] .app-header {
   background: transparent;
+}
+
+html[data-theme="dark"] .about-brand-note,
+html[data-theme="dark"] .about-card > .version-note,
+html[data-theme="dark"] .legal-notice p {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .legal-notice {
+  border-color: var(--control-border);
+  background: color-mix(in srgb, var(--control-bg) 78%, transparent);
+}
+
+html[data-theme="dark"] .legal-notice strong {
+  color: var(--chip-ink);
 }
 
 html[data-theme="dark"] .settings-sheet-body {

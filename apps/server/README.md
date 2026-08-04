@@ -15,10 +15,12 @@ It owns the route split:
 The Chinese trainer source is preserved under `archive/caatuu-chinese`. The
 active Android app and active browser language target are Czech.
 
-Memory Moon is authored under `apps/games/memory-moon`, generated under
-`artifacts/games/memory-moon/web/godot-v1`, and served at
-`/games/memory-moon/godot-v1/`. `/cz/games/**` temporarily aliases the same
-physical artifact for compatibility; it is not another game copy.
+Caatuu Game is authored under `apps/games/caatuu-game`, generated under
+`artifacts/games/caatuu-game/web/godot-v1`, and served only when
+`ENABLE_CAATUU_GAME_PREVIEW=1`. Its stable standalone URL is
+`/games/caatuu-game/`; the versioned bundle remains at
+`/games/caatuu-game/godot-v1/`. Language routes and Android do not alias,
+embed, or package it.
 
 Build the locked release image from the workspace root with:
 

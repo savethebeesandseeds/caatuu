@@ -27,11 +27,11 @@ const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, .
 
 test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-13"');
+    const courseIndex = source.indexOf('src="course-profile.js?v=course-16"');
     const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
-    const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-36"');
+    const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-37"');
     const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-92"');
+    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-96"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -282,8 +282,8 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v405/);
-  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v404/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v415/);
+  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v405/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/audio-lab\.css\?v=audio-lab-2/);
   assert.match(serviceWorker, /\.\/audio-lab\.js\?v=audio-lab-1/);
@@ -293,17 +293,17 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.match(serviceWorker, /semantic-learning-core\.mjs\?v=semantic-learning-core-5/);
   assert.match(semantic, /import\("\.\/semantic-learning-core\.mjs\?v=semantic-learning-core-5"\)/);
   assert.match(serviceWorker, /vendor\/transformers\/transformers\.min\.js/);
-  assert.match(serviceWorker, /runtime\.js\?v=runtime-36/);
+  assert.match(serviceWorker, /runtime\.js\?v=runtime-37/);
   assert.doesNotMatch(serviceWorker, /runtime\.js\?v=runtime-34/);
   assert.match(serviceWorker, /dictionary-gap-report\.mjs\?v=dictionary-gap-report-1/);
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-85/);
-  assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-84/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-80/);
-  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-79/);
-  assert.match(serviceWorker, /word-net\.css\?v=word-net-74/);
+  assert.match(serviceWorker, /app\.js\?v=shell-91/);
+  assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-84/);
+  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);
+  assert.match(serviceWorker, /word-net\.css\?v=word-net-76/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);
   assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-18/);
   assert.doesNotMatch(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);

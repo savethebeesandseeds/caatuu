@@ -635,7 +635,7 @@ Shared-environment and delivery cleanup verification executed on 2026-08-03 thro
   approved macaw reference-package README changes its cryptographic manifest and approval chain.
   Rebinding those approval records requires an explicit product-owner decision; the obsolete
   commands were not restored and approval metadata was not silently rewritten.
-- The shared Memory Moon Web export produced a deterministic 15-file bundle manifest; independent
+- The shared Web export, subsequently renamed from Memory Moon to Caatuu Game, produced a deterministic 15-file bundle manifest; independent
   byte-size, SHA-256, exact-file-set, and required-notice verification passed. Android bundle
   verification and a local arm64 debug build passed. The resulting debug APK is 42,227,610 bytes
   with SHA-256 `1c01597d1ab5ae84a9cc927385d13f682540f3df5f52fa6223f386c8d9d737ce`.
@@ -645,7 +645,7 @@ Shared-environment and delivery cleanup verification executed on 2026-08-03 thro
 - Runtime, game-delivery, Czech-adapter, and Android packaging contracts reported 353 passed.
   Repository file policy accepted 2,012 tracked and candidate files, and all links in 120 Markdown
   files passed.
-- The canonical public-release checker correctly remains closed: Memory Moon, its scenery and
+- The canonical public-release checker correctly remains closed: the game now named Caatuu Game, its scenery and
   motion dependencies, and their authorities are still preview-only. This cleanup does not promote
   preview evidence or publish an Android/game release.
 

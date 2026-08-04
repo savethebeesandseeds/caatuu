@@ -53,7 +53,7 @@ http://127.0.0.1:8765/
 http://127.0.0.1:8765/cz/
 http://127.0.0.1:8765/cz/home.html
 http://127.0.0.1:8765/cz/chat.html
-http://127.0.0.1:8765/games/memory-moon/godot-v1/
+http://127.0.0.1:8765/games/caatuu-game/
 http://127.0.0.1:8765/archive/chinese/
 ```
 
@@ -78,10 +78,19 @@ Start the runtime and tunnel:
 docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
 ```
 
-The tunnel fails closed while its schema-valid catalog omits a delivered game
-or any game, dependency, or authority remains preview-only. Its watchdog
-rechecks the same policy after startup. Check the gate before public operation
-with `docker exec -w /workspace caatuu-dev node apps/games/tooling/check-release-readiness.mjs --surface public-tunnel --require-game memory-moon`.
+`caatuu-game` is a browser-only development preview and is enabled locally by
+default. Disable it for an application-only public release before recreating
+the runtime and tunnel:
+
+```powershell
+$env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW = "0"
+docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
+```
+
+When the preview is enabled, the tunnel fails closed because the game and some
+of its dependencies remain preview-only. Its watchdog rechecks that policy
+after startup. An eventual public game preview must first pass the explicit
+gate with `docker exec -w /workspace caatuu-dev node apps/games/tooling/check-release-readiness.mjs --surface public-tunnel --require-game caatuu-game`.
 
 Recreate only the connector after token or tunnel-command changes:
 
@@ -187,17 +196,8 @@ docker exec -w /workspace caatuu-dev bash -lc `
   "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs && node --test apps/server/tooling/tests/*.test.mjs"
 ```
 
-Validate the shared English-authored curriculum, each target-language
-realization pack, cross-game bindings, and generated browser assets separately:
-
-```powershell
-docker exec -w /workspace/apps/curriculum caatuu-dev bash -lc `
-  "node --test && npm run validate && npm run validate:bindings && npm run check:runtime"
-```
-
-Passing these development checks proves contract consistency. It does not
-replace the digest-bound native-teacher approval required for a target-language
-release.
+Reviewed game data is validated by the browser/runtime contract suite. New or
+changed language data still requires human language review before release.
 
 After route, browser shell, packaged asset, or Android changes, start the local
 runtime and run the boundary audit in the established dev container:

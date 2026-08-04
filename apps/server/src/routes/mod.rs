@@ -34,7 +34,6 @@ struct LanguageAppSpec {
     route_prefix: &'static str,
     static_dir: &'static str,
     entry_file: &'static str,
-    legacy_games_compatibility: bool,
     backend: LanguageBackend,
 }
 
@@ -50,13 +49,12 @@ const ACTIVE_LANGUAGE_APPS: &[LanguageAppSpec] = &[LanguageAppSpec {
     route_prefix: "/cz",
     static_dir: "apps/languages/czech/static",
     entry_file: "home.html",
-    legacy_games_compatibility: true,
     backend: LanguageBackend::CzechDictionary,
 }];
 const ACTIVE_WEB_GAMES: &[WebGameSpec] = &[WebGameSpec {
-    id: "memory-moon",
-    route_prefix: "/memory-moon/godot-v1",
-    artifact_dir: "artifacts/games/memory-moon/web/godot-v1",
+    id: "caatuu-game",
+    route_prefix: "/caatuu-game/godot-v1",
+    artifact_dir: "artifacts/games/caatuu-game/web/godot-v1",
 }];
 const ANDROID_IMMUTABLE_CACHE_CONTROL: &str = "public, max-age=31536000, immutable";
 const ANDROID_MUTABLE_CACHE_CONTROL: &str = "no-store, no-cache, must-revalidate, max-age=0";
@@ -158,7 +156,6 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         .route("/ws", get(retired_root_chinese_backend))
         .merge(bug_report_router(features.bug_reports))
         .nest("/api/v1", retired_root_api_router())
-        .nest("/games", build_web_games(&workspace))
         // These three URL names predate the repository naming cleanup. Keep
         // them stable for installed clients while the source folders use
         // descriptive, kebab-case names.
@@ -244,6 +241,12 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
             get(|| async { Redirect::permanent("/archive/chinese/writing") }),
         );
 
+    let router = if features.caatuu_game_preview {
+        router.nest("/games", build_web_games(&workspace))
+    } else {
+        router
+    };
+
     let router = ACTIVE_LANGUAGE_APPS.iter().fold(router, |router, spec| {
         let entry_route = format!("{}/", spec.route_prefix);
         let entry_file = workspace.join(spec.static_dir).join(spec.entry_file);
@@ -275,14 +278,6 @@ fn build_language_app(workspace: &std::path::Path, spec: LanguageAppSpec) -> Rou
     let static_dir = workspace.join(spec.static_dir);
     let static_service = ServeDir::new(static_dir.clone()).append_index_html_on_directories(true);
     let router = Router::new().route_service("/", ServeFile::new(static_dir.join(spec.entry_file)));
-    // Compatibility aliases are language policy, not a generic property of
-    // every language host. Czech keeps its installed-client alias while the
-    // canonical game route remains `/games/**`.
-    let router = if spec.legacy_games_compatibility {
-        router.nest("/games", build_web_games(workspace))
-    } else {
-        router
-    };
 
     let router = match spec.backend {
         LanguageBackend::CzechDictionary => router
@@ -337,19 +332,30 @@ fn build_language_app(workspace: &std::path::Path, spec: LanguageAppSpec) -> Rou
 fn build_web_games(workspace: &std::path::Path) -> Router<Arc<AppState>> {
     ACTIVE_WEB_GAMES
         .iter()
-        .fold(Router::new(), |router, spec| {
-            tracing::debug!(
-                game = spec.id,
-                route = spec.route_prefix,
-                artifact = spec.artifact_dir,
-                "mounted generated Web game",
-            );
-            router.nest_service(
-                spec.route_prefix,
-                ServeDir::new(workspace.join(spec.artifact_dir))
-                    .append_index_html_on_directories(true),
-            )
-        })
+        .fold(
+            Router::new()
+                .route(
+                    "/caatuu-game",
+                    get(|| async { Redirect::temporary("/games/caatuu-game/godot-v1/") }),
+                )
+                .route(
+                    "/caatuu-game/",
+                    get(|| async { Redirect::temporary("/games/caatuu-game/godot-v1/") }),
+                ),
+            |router, spec| {
+                tracing::debug!(
+                    game = spec.id,
+                    route = spec.route_prefix,
+                    artifact = spec.artifact_dir,
+                    "mounted generated Web game",
+                );
+                router.nest_service(
+                    spec.route_prefix,
+                    ServeDir::new(workspace.join(spec.artifact_dir))
+                        .append_index_html_on_directories(true),
+                )
+            },
+        )
         .layer(SetResponseHeaderLayer::overriding(
             HeaderName::from_static("cache-control"),
             HeaderValue::from_static("no-cache, max-age=0"),
@@ -482,9 +488,9 @@ fn workspace_root() -> PathBuf {
         .unwrap_or_else(|| {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
             manifest_dir
-            .parent()
-            .and_then(|apps| apps.parent())
-            .map(PathBuf::from)
+                .parent()
+                .and_then(|apps| apps.parent())
+                .map(PathBuf::from)
                 .unwrap_or(manifest_dir)
         })
 }
@@ -504,6 +510,15 @@ mod tests {
     fn reporting_router() -> Router {
         let features = RuntimeFeatures {
             bug_reports: true,
+            ..RuntimeFeatures::default()
+        };
+        let state = Arc::new(AppState::new(features).expect("test state should initialize"));
+        build_router(state, features)
+    }
+
+    fn game_preview_router() -> Router {
+        let features = RuntimeFeatures {
+            caatuu_game_preview: true,
             ..RuntimeFeatures::default()
         };
         let state = Arc::new(AppState::new(features).expect("test state should initialize"));
@@ -530,6 +545,39 @@ mod tests {
                 .unwrap();
             assert_eq!(response.status(), StatusCode::NOT_FOUND, "{path}");
         }
+    }
+
+    #[tokio::test]
+    async fn standalone_game_preview_is_fail_closed_by_default() {
+        for path in ["/games/caatuu-game/", "/games/caatuu-game/godot-v1/"] {
+            let response = disabled_router()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::NOT_FOUND, "{path}");
+        }
+    }
+
+    #[tokio::test]
+    async fn standalone_game_preview_has_one_stable_entrypoint_when_enabled() {
+        let response = game_preview_router()
+            .oneshot(
+                Request::builder()
+                    .uri("/games/caatuu-game/")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
+        assert_eq!(
+            response
+                .headers()
+                .get(axum::http::header::LOCATION)
+                .unwrap(),
+            "/games/caatuu-game/godot-v1/",
+        );
     }
 
     #[tokio::test]

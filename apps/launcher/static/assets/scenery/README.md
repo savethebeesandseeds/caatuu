@@ -129,7 +129,7 @@ The active pair uses schema version 2, catalog version 3, and the logical
 
 ## Logical versions, not version folders
 
-Logical IDs such as `memory-moon-style-v1` and `memory-grove-v6`, plus their
+Logical IDs such as `caatuu-game-style-v1` and `memory-grove-v6`, plus their
 schema and content revisions, remain inside JSON where validators can inspect
 them. They are not physical directory names. Content hashes and Git history
 provide rollback and auditability; superseded packages do not remain in the
@@ -150,7 +150,7 @@ collision or second walkability map.
 
 ## Consumer and build rules
 
-Memory Moon consumes this canonical tree; it does not own a persistent copy
+Caatuu Game consumes this canonical tree; it does not own a persistent copy
 inside its Godot project. The pinned Linux exporter verifies manifests and
 checksums, stages only `metadata/catalog.json`, `metadata/world.json`, and the
 referenced runtime files from `images/` into an ignored private workspace, and

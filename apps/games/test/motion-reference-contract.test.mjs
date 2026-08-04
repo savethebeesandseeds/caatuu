@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { validateJsonSchemaSubset } from "../../curriculum/src/json-schema-subset.mjs";
+import { validateJsonSchemaSubset } from "../tooling/json-schema-subset.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const referenceRoot = path.join(
@@ -22,11 +22,11 @@ const exporterPath = path.join(
   repoRoot,
   "apps",
   "games",
-  "memory-moon",
+  "caatuu-game",
   "tooling",
   "export-web.sh",
 );
-const gameManifestPath = path.join(repoRoot, "apps", "games", "memory-moon", "game.json");
+const gameManifestPath = path.join(repoRoot, "apps", "games", "caatuu-game", "game.json");
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -34,7 +34,7 @@ async function readJson(filePath) {
 
 function exporterConstant(script, name) {
   const match = script.match(new RegExp(`^readonly ${name}="([^"]+)"$`, "mu"));
-  assert.ok(match, `Memory Moon exporter is missing readonly ${name}`);
+  assert.ok(match, `Caatuu Game exporter is missing readonly ${name}`);
   return match[1];
 }
 
@@ -65,7 +65,7 @@ test("the preview motion manifest is strict and cannot imply release clearance",
   const dependency = gameManifest.dependencies.find((item) => (
     item.authority === "apps/launcher/static/assets/motion/quaternius-standard-v1/manifest.json"
   ));
-  assert.ok(dependency, "Memory Moon must declare its centralized motion dependency");
+  assert.ok(dependency, "Caatuu Game must declare its centralized motion dependency");
   assert.equal(gameManifest.release_status, "local-preview-only");
   assert.equal(dependency.status, "preview-only");
 });
@@ -92,7 +92,7 @@ test("the motion manifest hashes the exact tracked source bytes", async () => {
   }
 });
 
-test("Memory Moon exporter constants agree with the motion authority", async () => {
+test("Caatuu Game exporter constants agree with the motion authority", async () => {
   const [manifest, exporter] = await Promise.all([
     readJson(manifestPath),
     readFile(exporterPath, "utf8"),

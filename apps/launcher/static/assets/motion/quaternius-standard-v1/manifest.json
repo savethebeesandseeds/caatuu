@@ -19,7 +19,7 @@
   "provenance_status": "incomplete",
   "distribution_status": "not-distributed",
   "consumers": [
-    "apps/games/memory-moon"
+    "apps/games/caatuu-game"
   ],
   "promotion_requirements": [
     "exact upstream source identity",

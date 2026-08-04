@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "catalog_id": "memory-moon-style-v1",
+  "catalog_id": "caatuu-game-style-v1",
   "catalog_version": 3,
   "release_status": "local-preview-only",
   "projection": {
@@ -9,7 +9,7 @@
     "elevation_degrees": 30
   },
   "scale_reference": {
-    "id": "memory-moon-humanoid-v1",
+    "id": "caatuu-game-humanoid-v1",
     "visual_height_world": 1.4264,
     "capsule_height_world": 1.45,
     "capsule_radius_world": 0.28,
@@ -17,7 +17,7 @@
     "measurement_basis": "visible-silhouette-above-ground-anchor"
   },
   "style_family": {
-    "id": "memory-moon-clean-graphic-storybook-v1",
+    "id": "caatuu-game-clean-graphic-storybook-v1",
     "authority_path": "metadata/catalog.provenance.md",
     "palette": {
       "ink": "#17150f",

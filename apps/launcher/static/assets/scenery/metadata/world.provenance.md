@@ -7,7 +7,7 @@ layout ID remains `memory-grove-v6`, while its stable physical contract is
 `images/terrain-atlas.png`. Logical revisions are JSON metadata, not directory
 names. The active world uses schema version 2 and references catalog version 3.
 
-Memory Moon consumes the world from Caatuu's shared scenery tree; neither the
+Caatuu Game consumes the world from Caatuu's shared scenery tree; neither the
 game nor the launcher owns a second canonical copy. A pinned Linux Godot build
 may stage the active catalog, world, and runtime images in an ignored private
 project because imported resources must be project-local. That staging is
@@ -81,7 +81,7 @@ The two active source materials are retained flat under `sources/`:
 
 Both were created with OpenAI's built-in ImageGen workflow on 2026-08-01. The
 repository script
-`apps/games/memory-moon/tooling/generate-terrain-tile-atlas.py` performs the
+`apps/games/caatuu-game/tooling/generate-terrain-tile-atlas.py` performs the
 offline deterministic seam healing, restrained color grade, grass and accent
 variation, cardinal path masking, corner-mask moonstone regions, irregular
 full-court variation with locked boundary bands, eight-pixel edge extrusion,
@@ -111,7 +111,7 @@ sapling stays catalogued with `placement_count: 0` as a dormant rollback asset;
 the maple, birch, pine, and poplar are reusable catalog options rather than
 additional active placements in this slice.
 
-Memory Moon string-pulls grid routes only across capsule-clearance,
+Caatuu Game string-pulls grid routes only across capsule-clearance,
 supercover-validated line-of-sight segments, then applies acceleration,
 brake-first reversals, corner and arrival easing, route-distance stall
 detection, and movement-speed animation synchronization. Those runtime

@@ -16,34 +16,6 @@ const HTTP_REQUEST_TIMEOUT_MS = 10_000;
 const HTTP_MAX_BODY_BYTES = 1024 * 1024;
 const ANDROID_IMMUTABLE_CACHE_CONTROL = "public, max-age=31536000, immutable";
 const ANDROID_MUTABLE_CACHE_CONTROL = "no-store, no-cache, must-revalidate, max-age=0";
-const MEMORY_MOON_MANIFEST = JSON.parse(
-  readFileSync(join(workspaceRoot, "apps/games/memory-moon/game.json"), "utf8"),
-);
-const MEMORY_MOON_ENTRYPOINT = MEMORY_MOON_MANIFEST.delivery.public_entrypoint;
-const MEMORY_MOON_COMPATIBILITY_ENTRYPOINT =
-  MEMORY_MOON_MANIFEST.delivery.compatibility_entrypoints[0];
-if (MEMORY_MOON_MANIFEST.id !== "memory-moon"
-    || !MEMORY_MOON_ENTRYPOINT.endsWith("/index.html")
-    || !MEMORY_MOON_COMPATIBILITY_ENTRYPOINT.endsWith("/index.html")) {
-  throw new Error("Memory Moon delivery metadata is invalid.");
-}
-const MEMORY_MOON_ARTIFACT_ROOT = join(
-  workspaceRoot,
-  MEMORY_MOON_MANIFEST.delivery.artifact_directory,
-);
-const MEMORY_MOON_PUBLIC_ROOT = MEMORY_MOON_ENTRYPOINT.slice(0, -"/index.html".length);
-const MEMORY_MOON_LEGACY_PUBLIC_ROOT = MEMORY_MOON_COMPATIBILITY_ENTRYPOINT.slice(
-  0,
-  -"/index.html".length,
-);
-const MEMORY_MOON_APK_ROOT = `assets${MEMORY_MOON_PUBLIC_ROOT}`;
-const MEMORY_MOON_REQUIRED_DELIVERY = [
-  ["index.html", "text/html"],
-  ["index.js", "text/javascript"],
-  ["index.pck", "application/octet-stream"],
-  ["index.wasm", "application/wasm"]
-];
-
 const options = parseArgs(process.argv.slice(2));
 if (failures.length > 0) {
   finish();
@@ -441,23 +413,14 @@ async function auditHttpRoutes() {
     assert(asset.status === 200, `${label} should return 200, got ${asset.status}`);
   }
 
-  const memoryMoonHeads = new Map();
-  for (const [file, contentType] of MEMORY_MOON_REQUIRED_DELIVERY) {
-    const canonicalGame = await request(`${MEMORY_MOON_PUBLIC_ROOT}/${file}`, { method: "HEAD" });
-    assert(canonicalGame.status === 200, `canonical Memory Moon ${file} should return 200, got ${canonicalGame.status}`);
-    assertContentType(canonicalGame, contentType, `canonical Memory Moon ${file}`);
-    assertCacheControl(canonicalGame, "no-cache, max-age=0", `canonical Memory Moon ${file}`);
-    memoryMoonHeads.set(file, canonicalGame);
+  for (const gameUrl of [
+    "/games/caatuu-game/",
+    "/games/memory-moon/godot-v1/",
+    "/cz/games/caatuu-game/godot-v1/"
+  ]) {
+    const game = await request(gameUrl, { method: "HEAD" });
+    assert(game.status === 404, `application release should not expose ${gameUrl}; got ${game.status}`);
   }
-
-  const legacyGame = await request(`${MEMORY_MOON_LEGACY_PUBLIC_ROOT}/index.html`, { method: "HEAD" });
-  assert(legacyGame.status === 200, `legacy Czech Memory Moon alias should return 200, got ${legacyGame.status}`);
-  assertContentType(legacyGame, "text/html", "legacy Czech Memory Moon alias");
-  assertCacheControl(legacyGame, "no-cache, max-age=0", "legacy Czech Memory Moon alias");
-  assert(
-    legacyGame.headers["content-length"] === memoryMoonHeads.get("index.html")?.headers["content-length"],
-    "legacy Czech Memory Moon alias should serve the canonical index bytes"
-  );
 
   const oldCzechFile = await request("/cz/device-ai.html");
   assert(oldCzechFile.status === 404, `/cz/device-ai.html should be retired as 404, got ${oldCzechFile.status}`);
@@ -807,12 +770,9 @@ function auditApk() {
     "assets/app.js",
     "assets/chat.js",
     "assets/course-profile.js",
-    "assets/curriculum-service.js",
-    "assets/curriculum/curriculum-planner-core.mjs",
-    "assets/curriculum/curriculum-runtime-core.mjs",
-    "assets/curriculum/curriculum-service.mjs",
-    "assets/curriculum/guided-opportunity.mjs",
-    "assets/curriculum/morphology-round-core.mjs",
+    "assets/conjugation-comet.html",
+    "assets/conjugation-comet.css",
+    "assets/conjugation-comet.js",
     "assets/runtime.js",
     "assets/chrome.js",
     "assets/maintenance-ui.js",
@@ -823,12 +783,7 @@ function auditApk() {
     "assets/verb-exercise-family-core.mjs",
     "assets/word-net-core.mjs",
     "assets/setup-assets.json",
-    "assets/data/curriculum/canonical-curriculum.v1.en.json",
-    "assets/data/curriculum/cs-CZ.morphology-developer-pilot.v1.json",
-    "assets/data/curriculum/cs-CZ.cross-game-bindings.v1.json",
-    "assets/data/curriculum/cs-CZ.realization-pack.v1.json",
-    "assets/data/curriculum/pilot-content-sources.v1.json",
-    "assets/data/curriculum/shared-mechanic-capabilities.v1.en.json",
+    "assets/data/verbs.json",
     "assets/data/models/phone-bench/models.json",
     "assets/data/embeddings/models.json",
     "assets/data/embeddings/caatuu-local-hash-v0.1/manifest.json",
@@ -846,8 +801,7 @@ function auditApk() {
     "assets/assets/icons/stats_icon.png",
     "assets/vendor/sql.js/sql-wasm.js",
     "assets/vendor/sql.js/sql-wasm.wasm",
-    "assets/vendor/transformers/transformers.min.js",
-    ...MEMORY_MOON_REQUIRED_DELIVERY.map(([file]) => `${MEMORY_MOON_APK_ROOT}/${file}`)
+    "assets/vendor/transformers/transformers.min.js"
   ];
   for (const entry of requiredEntries) {
     assert(entrySet.has(entry), `APK is missing ${entry}`);
@@ -872,43 +826,8 @@ function auditApk() {
     }
   }
 
-  const hasMemoryMoonArtifact = existsSync(MEMORY_MOON_ARTIFACT_ROOT)
-    && statSync(MEMORY_MOON_ARTIFACT_ROOT).isDirectory();
-  assert(
-    hasMemoryMoonArtifact,
-    `Memory Moon artifact directory is missing: ${workspaceRel(MEMORY_MOON_ARTIFACT_ROOT)}`
-  );
-  if (hasMemoryMoonArtifact) {
-    const packagedGameFiles = listFiles(MEMORY_MOON_ARTIFACT_ROOT).map((file) => ({
-      file,
-      entry: `${MEMORY_MOON_APK_ROOT}/${staticRel(MEMORY_MOON_ARTIFACT_ROOT, file)}`
-    }));
-    const expectedGameEntries = new Set(packagedGameFiles.map(({ entry }) => entry));
-    for (const { file, entry } of packagedGameFiles) {
-      assert(entrySet.has(entry), `APK is missing generated game file ${entry}`);
-      if (entrySet.has(entry)) {
-        try {
-          assert(
-            readFileSync(file).equals(unzipBuffer(apkRel, entry)),
-            `APK contains a stale copy of generated game file ${entry}`
-          );
-        } catch (error) {
-          fail(`Unable to compare generated game file ${entry}: ${error.message}`);
-        }
-      }
-    }
-    for (const entry of entries) {
-      if (
-        entry.startsWith(`${MEMORY_MOON_APK_ROOT}/`)
-        && !entry.endsWith("/")
-        && !expectedGameEntries.has(entry)
-      ) {
-        fail(`APK contains unowned generated game file ${entry}`);
-      }
-    }
-  }
-
   const forbiddenEntryPatterns = [
+    /^assets\/games\//,
     /^assets\/.*device-ai/i,
     /^assets\/launcher\//,
     /^assets\/archive\//,
@@ -1320,7 +1239,7 @@ function auditAndroidSource() {
   assert(client.includes('path == LANGUAGE_ROUTE_PREFIX || path.startsWith("$LANGUAGE_ROUTE_PREFIX/")'), "Android asset client should serve its configured language route");
   assert(!client.includes('path == "/cz"'), "Android asset routing should not contain a literal Czech route");
   assert(client.includes('path.startsWith("/assets/")'), "Android asset client should serve shared asset paths");
-  assert(client.includes('path.startsWith("/games/")'), "Android asset client should serve language-independent game paths");
+  assert(!client.includes('path.startsWith("/games/")'), "Android asset client should not serve standalone game paths");
   assert(client.includes('"wasm" -> "application/wasm"'), "Android should serve WebAssembly with the required MIME type");
   assert(client.includes('assetPath.startsWith("data/embeddings/")'), "Android asset client should serve downloaded semantic runtime assets to the WebView");
   assert(!/archive\/chinese|\/zh\b/.test(client), "Android asset client should not serve archive or /zh paths");
@@ -1488,27 +1407,21 @@ function auditAndroidSource() {
   assert(runtimeRoutes.includes('HeaderName::from_static("x-content-type-options")'), "runtime should prevent MIME sniffing on every response");
   assert(runtimeRoutes.includes('HeaderName::from_static("referrer-policy")'), "runtime should set a global referrer policy");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-referrer")'), "runtime should suppress referrer disclosure");
-  assert(runtimeRoutes.includes('.nest("/games", build_web_games(&workspace))'), "runtime should mount language-independent games at /games");
-  assert(runtimeRoutes.includes("legacy_games_compatibility: true"), "Czech should explicitly declare its temporary game compatibility alias");
-  assert(runtimeRoutes.includes("if spec.legacy_games_compatibility"), "language routes should mount game compatibility only when their registry entry declares it");
-  assert(runtimeRoutes.includes('artifact_dir: "artifacts/games/memory-moon/web/godot-v1"'), "runtime should serve Memory Moon from the neutral generated artifact boundary");
+  assert(runtimeRoutes.includes("if features.caatuu_game_preview"), "runtime should feature-gate the standalone game preview");
+  assert(runtimeRoutes.includes('.nest("/games", build_web_games(&workspace))'), "runtime should mount standalone games only through the preview gate");
+  assert(!runtimeRoutes.includes("legacy_games_compatibility"), "language routes should not own game compatibility aliases");
+  assert(runtimeRoutes.includes('artifact_dir: "artifacts/games/caatuu-game/web/godot-v1"'), "runtime should serve Caatuu Game from the neutral generated artifact boundary");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-cache, max-age=0")'), "generated game files should revalidate instead of becoming immutable during active development");
-  assert(czechIndex.includes('data-src="/games/memory-moon/godot-v1/index.html"'), "Czech should embed Memory Moon through the neutral game route");
-  assert(!czechIndex.includes('data-src="games/memory-moon/'), "Czech should not own a relative game payload route");
-  assert(gradle.includes('workspaceRootDir.dir("artifacts/games/memory-moon/web/godot-v1")'), "Android should source Memory Moon from neutral artifacts");
+  assert(czechIndex.includes("A smaller orbit for recall games will live here."), "Czech should retain the static Memory Moon placeholder");
+  assert(!czechIndex.includes("/games/caatuu-game"), "Czech should not embed the standalone game");
   assert(gradle.includes('exclude("games/**")'), "Android language asset sync should exclude generated game bundles");
-  assert(gradle.includes("val verifyBundledGameArtifacts by tasks.registering"), "Android should fail closed when selected game artifacts are absent");
-  assert(gradle.includes("val syncGameAssets by tasks.registering(Sync::class)"), "Android should package selected game artifacts explicitly");
-  assert(gradle.includes('into("games/memory-moon/godot-v1")'), "Android should package Memory Moon under the neutral /games asset path");
-  assert(gradle.includes("assets.srcDir(generatedGameAssetsDir)"), "Android should add the explicit generated-game source directory");
-  assert(gradle.includes("dependsOn(syncLanguageAssets, syncGameAssets)"), "Android preBuild should require language and game asset sync");
-  for (const requiredGameFile of ["index.html", "index.js", "index.pck", "index.wasm"]) {
-    assert(gradle.includes(`"${requiredGameFile}"`), `Android should require Memory Moon ${requiredGameFile}`);
-  }
+  assert(!gradle.includes("generatedGameAssetsDir"), "Android should not define a generated-game asset source");
+  assert(!gradle.includes("syncGameAssets"), "Android should not package standalone game artifacts");
+  assert(!gradle.includes("artifacts/games"), "Android should build without the standalone game artifact tree");
   assert(compose.includes("./artifacts/games:/workspace/artifacts/games:ro"), "runtime should read generated games from the repository artifact boundary");
-  assert(compose.includes("./artifacts/games/memory-moon/web/godot-v1:/output"), "Memory Moon export should write to the neutral generated artifact boundary");
+  assert(compose.includes("./artifacts/games/caatuu-game/web/godot-v1:/output"), "Caatuu Game export should write to the neutral generated artifact boundary");
   assert(!compose.includes("./demos:/workspace/demos"), "runtime should not mount archived demos");
-  assert(compose.includes("./apps/launcher/static/assets/motion/quaternius-standard-v1/source:/reference:ro"), "Memory Moon export should read motion from the shared asset catalog");
+  assert(compose.includes("./apps/launcher/static/assets/motion/quaternius-standard-v1/source:/reference:ro"), "Caatuu Game export should read motion from the shared asset catalog");
   assert(runtimeMain.includes('unwrap_or_else(|_| "127.0.0.1".to_string())'), "direct runtime launches should bind to loopback by default");
   assert(compose.includes('"127.0.0.1:8765:9172"'), "normal Compose runtime should publish only on host loopback");
   assert(compose.includes('BIND_ADDR: "0.0.0.0"'), "Compose should explicitly bind the server inside its container network");

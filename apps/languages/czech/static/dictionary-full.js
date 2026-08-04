@@ -1,6 +1,5 @@
 (() => {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("advanced") !== "cz-dictionary") return;
+  if (document.documentElement.dataset.navigationRequest !== "dictionary") return;
 
   const $ = (selector) => document.querySelector(selector);
   const panel = $("#fullDictionaryPanel");

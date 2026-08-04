@@ -3,7 +3,6 @@ let countryDictionaryBytes = new Uint8Array();
 let countryScripts = [];
 let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
-let guidedOpportunityCore = null;
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
@@ -16,6 +15,7 @@ const themeOptions = {
   dark: { themeColor: "#151a18" }
 };
 const chatSettingsStorageKey = course.storage.chatSettings;
+const verbSpeakOnTapStorageKey = `${course.storage.namespace}.verbNebula.speakOnTap.v1`;
 const defaultModelKey = "cstinyllama-1.2b-czech-word-sentence-001";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const browserFallbackLabel = "Browser fallback";
@@ -200,6 +200,7 @@ const state = {
   verbSelectedCzechId: "",
   verbSelectedEnglishId: "",
   verbPairCount: 4,
+  verbSpeakOnTap: loadVerbSpeakOnTap(),
   verbRoundNumber: 0,
   verbStats: { attempts: 0, matches: 0, rounds: 0 },
   verbMemoryLoaded: false,
@@ -248,40 +249,13 @@ function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
-function loopbackLocation() {
-  return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(
-    String(window.location.hostname || "").toLowerCase()
-  );
-}
-
 function explicitLocalGuidedRequest() {
-  // Verb Nebula is the stable meaning-matching game. Curriculum-guided
-  // morphology practice belongs exclusively to the standalone Conjugation
-  // Comet page, so no URL flag may replace Verb Nebula's normal round.
+  // The retired developer mode cannot replace Verb Nebula's normal round.
   return false;
 }
 
-function redirectLegacyConjugationCometBookmark() {
-  const current = new URL(window.location.href);
-  const developerParameter =
-    course.curriculum?.guidedMode?.developerQueryParameter || "curriculum-guided";
-  if (!loopbackLocation()
-      || current.searchParams.get(developerParameter) !== "1"
-      || current.searchParams.get("verb-family") !== "morphology") {
-    return false;
-  }
-  const target = new URL(
-    course.routes?.conjugationComet || "conjugation-comet.html",
-    current
-  );
-  target.search = "";
-  target.searchParams.set(developerParameter, "1");
-  window.location.replace(target.href);
-  return true;
-}
-
 function verbMeaningExerciseFamilyConfiguration() {
-  return course.curriculum?.verbExerciseFamilies?.families?.meaning || null;
+  return null;
 }
 
 function confirmDestructiveAction(button, options = {}) {
@@ -1261,64 +1235,7 @@ function safeVerbStat(value) {
 }
 
 async function initializeVerbGuidedMode() {
-  if (!explicitLocalGuidedRequest()) return;
-  state.verbGuidedRequested = true;
-  state.verbGuidedStatus = "loading";
-  try {
-    const familyConfiguration = verbMeaningExerciseFamilyConfiguration();
-    if (!familyConfiguration) throw new Error("Verb Nebula meaning practice is not configured for this course.");
-    const curriculum = window.CaatuuCurriculum;
-    if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
-    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-5");
-    await curriculum.ready();
-    if (!curriculum.guidedModeEnabled()) {
-      throw new Error("Developer Guided mode is not enabled for this local course profile.");
-    }
-    const resolution = await curriculum.resolveBinding("verb-nebula", familyConfiguration.stableContentId);
-    if (resolution.binding.exerciseFamilyId !== familyConfiguration.exerciseFamilyId) {
-      throw new Error("The resolved meaning binding has the wrong exercise family.");
-    }
-    const reviewedReferences = [
-      resolution.source.snapshot,
-      ...Array.from(resolution.source.snapshot.guidedContrasts || [])
-    ];
-    const [targetPair, ...contrastPairs] = await verbNebulaCore.resolvePinnedStableVerbPairs(
-      countryDictionaryBytes,
-      resolution.source.catalogDigest,
-      reviewedReferences
-    );
-    const catalog = verbNebulaCore.extractCoreVerbPairs(countryDictionary);
-    const plan = verbNebulaCore.buildGuidedVerbRound(
-      catalog,
-      targetPair,
-      {
-        pairCount: 4,
-        contrastPairs,
-        taskFingerprint: `preview:${resolution.source.contentDigest}`
-      }
-    );
-    const targetSkillId = resolution.binding.targetSkillRefs[0]?.id;
-    const lifecycle = guidedOpportunityCore.createGuidedOpportunityLifecycle({
-      curriculum,
-      resolution,
-      capabilityId: familyConfiguration.assessedCapabilityId,
-      targetSkillId
-    });
-    state.verbGuidedMode = true;
-    state.verbGuidedStatus = "pending";
-    state.verbGuidedPlan = plan;
-    state.verbGuidedTargetId = plan.targetId;
-    state.verbGuidedResolution = resolution;
-    state.verbGuidedLifecycle = lifecycle;
-    state.verbGuidedCatalog = catalog;
-    state.verbGuidedTargetPair = targetPair;
-    state.verbGuidedContrastPairs = contrastPairs;
-  } catch (error) {
-    await abortVerbGuidedLifecycle();
-    state.verbGuidedStatus = "failed";
-    state.verbGuidedError = error?.message || String(error);
-    console.error("Verb Nebula Guided mode failed closed", error);
-  }
+  return;
 }
 
 function verbGuidedInteractionLocked() {
@@ -1340,12 +1257,12 @@ function renderVerbGuidedStatus() {
   const title = $("#verbGuidedStatusTitle");
   const detail = $("#verbGuidedStatusDetail");
   const pairMenu = document.querySelector(".verb-pair-menu");
-  if (pairMenu) pairMenu.hidden = state.verbGuidedRequested;
+  if (pairMenu) pairMenu.hidden = false;
   if (!banner || !detail) return;
-  banner.hidden = !state.verbGuidedRequested;
-  banner.setAttribute("role", "status");
-  banner.setAttribute("aria-live", "polite");
-  banner.setAttribute("aria-atomic", "true");
+  banner.hidden = true;
+  banner.removeAttribute("role");
+  banner.removeAttribute("aria-live");
+  banner.removeAttribute("aria-atomic");
   if (title) title.textContent = "Developer Guided · prototype-not-human-approved";
   banner.classList.toggle("is-error", state.verbGuidedStatus === "failed");
   const lifecycle = state.verbGuidedLifecycle?.state();
@@ -1757,6 +1674,111 @@ function renderVerbPairCountControls() {
   setText("#verbPairCurrent", String(state.verbPairCount));
 }
 
+function loadVerbSpeakOnTap() {
+  try {
+    return window.localStorage.getItem(verbSpeakOnTapStorageKey) === "true";
+  } catch (error) {
+    return false;
+  }
+}
+
+function saveVerbSpeakOnTap() {
+  try {
+    window.localStorage.setItem(verbSpeakOnTapStorageKey, String(state.verbSpeakOnTap));
+  } catch (error) {
+    // The preference remains active for this session when storage is unavailable.
+  }
+}
+
+function renderVerbAudioControls() {
+  const button = $("#verbSpeakOnTap");
+  const summary = document.querySelector(".verb-audio-menu > summary");
+  const settings = $("#verbAudioSettings");
+  if (button) {
+    button.setAttribute("aria-checked", String(state.verbSpeakOnTap));
+    button.classList.toggle("is-active", state.verbSpeakOnTap);
+  }
+  if (settings) settings.hidden = !state.verbSpeakOnTap;
+  if (summary) {
+    const stateLabel = state.verbSpeakOnTap ? "on" : "off";
+    summary.setAttribute("aria-label", `Czech audio settings. Speak on tap is ${stateLabel}.`);
+    summary.title = `Czech audio settings. Speak on tap is ${stateLabel}.`;
+    summary.classList.toggle("is-active", state.verbSpeakOnTap);
+  }
+  const slider = $("#verbAudioSpeed");
+  const paceOrder = ["slower", "slow", "normal"];
+  const pace = window.CaatuuChrome?.resolveSpeechPace?.();
+  if (slider && pace) {
+    const paceIndex = Math.max(0, paceOrder.indexOf(pace.key));
+    slider.value = String(paceIndex);
+    slider.style.setProperty("--speech-pace-position", `${(paceIndex / (paceOrder.length - 1)) * 100}%`);
+    slider.setAttribute("aria-valuetext", `${pace.label}, ${pace.rate} times`);
+  }
+}
+
+function renderVerbDisplayControls() {
+  const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  const fontSize = document.documentElement.dataset.fontSize || "largest";
+  document.querySelectorAll(".verb-display-menu [data-theme-option]").forEach((button) => {
+    const selected = button.dataset.themeOption === theme;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  document.querySelectorAll(".verb-display-menu [data-font-size-option]").forEach((button) => {
+    const selected = button.dataset.fontSizeOption === fontSize;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+async function refreshVerbAudioVoiceControls() {
+  const select = $("#verbAudioVoice");
+  const status = $("#verbAudioVoiceStatus");
+  if (!select || !status || !state.verbSpeakOnTap) return;
+  const chrome = window.CaatuuChrome;
+  if (typeof chrome?.getSpeechVoiceControlState !== "function") {
+    select.disabled = true;
+    status.textContent = "Czech voice settings are unavailable.";
+    return;
+  }
+  const request = Number(select.dataset.request || 0) + 1;
+  select.dataset.request = String(request);
+  select.disabled = true;
+  status.textContent = "Checking Czech voices...";
+  const result = await chrome.getSpeechVoiceControlState();
+  if (request !== Number(select.dataset.request)) return;
+  const automatic = document.createElement("option");
+  automatic.value = "";
+  automatic.textContent = "Automatic (recommended)";
+  select.replaceChildren(automatic);
+  result.voices.forEach((voice) => {
+    const option = document.createElement("option");
+    option.value = voice.value;
+    option.textContent = `${voice.name} (${voice.locale || "Czech"} · ${voice.service})`;
+    select.append(option);
+  });
+  const preferred = chrome.getSpeechVoicePreference?.() || "";
+  const selected = result.voices.find((voice) => voice.id === preferred);
+  select.value = selected ? selected.value : "";
+  select.disabled = !(result.available || result.voices.length);
+  status.textContent = chrome.describeSpeechVoiceState?.(result) || "Voice selection is ready.";
+}
+
+function closeVerbToolbarMenus(except = null) {
+  document.querySelectorAll("#verbMeaningBoard details.verb-toolbar-menu[open]").forEach((menu) => {
+    if (menu !== except) menu.open = false;
+  });
+}
+
+function speakVerbCzechOnTap(verbId) {
+  if (!state.verbSpeakOnTap) return;
+  const pair = state.verbRound.find((item) => item.id === verbId);
+  if (!pair?.cz || typeof window.CaatuuChrome?.speakCzechText !== "function") return;
+  void window.CaatuuChrome.speakCzechText(pair.cz).catch((error) => {
+    console.warn("Could not speak the selected Czech verb.", error);
+  });
+}
+
 function renderVerbMatchStats() {
   const matched = state.verbMatchedIds.size;
   setText("#verbRoundProgress", `${matched} / ${state.verbRound.length || state.verbPairCount}`);
@@ -2062,6 +2084,7 @@ function renderVerbNebula() {
     ...state.verbEnglishRound.map((pair) => createVerbMatchCard(pair, "en"))
   );
   renderVerbPairCountControls();
+  renderVerbAudioControls();
   renderVerbMatchStats();
   renderVerbHintButton();
   renderVerbGuidedStatus();
@@ -2427,6 +2450,7 @@ function chooseVerbMatchCard(event) {
   const id = card.dataset.verbId;
 
   if (card.dataset.verbSide === "cz") {
+    speakVerbCzechOnTap(id);
     state.verbSelectedCzechId = state.verbSelectedCzechId === id ? "" : id;
   } else {
     state.verbSelectedEnglishId = state.verbSelectedEnglishId === id ? "" : id;
@@ -2722,6 +2746,7 @@ async function prepareVerbProgressReset() {
 function resetGuidedVerbRuntimeState() {
   state.verbGuidedActivationEpoch += 1;
   state.verbGuidedActivationPromise = null;
+  state.verbGuidedStartPromise = null;
   state.verbGuidedLifecycle = null;
   state.verbGuidedMode = false;
   state.verbGuidedStatus = "loading";
@@ -2731,6 +2756,7 @@ function resetGuidedVerbRuntimeState() {
   state.verbGuidedResolution = null;
   state.verbGuidedEvidencePending = false;
   state.verbGuidedSupportAtFirstResponse = false;
+  state.verbGuidedFirstResponseQualified = null;
   state.verbGuidedCatalog = [];
   state.verbGuidedTargetPair = null;
   state.verbGuidedContrastPairs = [];
@@ -2805,8 +2831,47 @@ function clearVerbMemory({ confirmed = false } = {}) {
 
 function bindVerbNebulaControls() {
   $("#trainPanelVerbLab")?.addEventListener("click", (event) => {
-    if (event.target.closest("button[data-verb-side]")) chooseVerbMatchCard(event);
+    if (event.target.closest("#verbSpeakOnTap")) {
+      state.verbSpeakOnTap = !state.verbSpeakOnTap;
+      saveVerbSpeakOnTap();
+      renderVerbAudioControls();
+      if (state.verbSpeakOnTap) void refreshVerbAudioVoiceControls();
+    } else if (event.target.closest("button[data-verb-side]")) chooseVerbMatchCard(event);
     else if (event.target.closest("[data-verb-pair-count]")) changeVerbPairCount(event);
+  });
+  document.querySelectorAll("#verbMeaningBoard details.verb-toolbar-menu").forEach((menu) => {
+    menu.addEventListener("toggle", () => {
+      if (!menu.open) return;
+      closeVerbToolbarMenus(menu);
+      if (menu.classList.contains("verb-display-menu")) renderVerbDisplayControls();
+      if (menu.classList.contains("verb-audio-menu") && state.verbSpeakOnTap) {
+        void refreshVerbAudioVoiceControls();
+      }
+    });
+  });
+  document.querySelector(".verb-display-menu")?.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-theme-option], [data-font-size-option]")) return;
+    window.requestAnimationFrame(renderVerbDisplayControls);
+  });
+  $("#verbAudioSpeed")?.addEventListener("input", (event) => {
+    const paceOrder = ["slower", "slow", "normal"];
+    const paceIndex = Math.max(0, Math.min(paceOrder.length - 1, Math.round(Number(event.currentTarget.value) || 0)));
+    window.CaatuuChrome?.setSpeechPacePreference?.(paceOrder[paceIndex]);
+    renderVerbAudioControls();
+  });
+  $("#verbAudioVoice")?.addEventListener("change", async (event) => {
+    const select = event.currentTarget;
+    select.disabled = true;
+    await window.CaatuuChrome?.stopCzechSpeech?.();
+    window.CaatuuChrome?.setSpeechVoicePreference?.(select.value);
+    await refreshVerbAudioVoiceControls();
+  });
+  document.querySelector("#verbMeaningBoard .verb-match-control-cluster")?.addEventListener("click", (event) => {
+    if (event.target.closest("details.verb-toolbar-menu")) return;
+    closeVerbToolbarMenus();
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest("#verbMeaningBoard .verb-match-control-cluster")) closeVerbToolbarMenus();
   });
   $("#verbHintButton")?.addEventListener("click", toggleVerbHints);
   $("#verbRevealSolution")?.addEventListener("click", () => {
@@ -2818,6 +2883,12 @@ function bindVerbNebulaControls() {
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") deferVerbGuidedActivation();
     else if (state.trainTab === "verb-lab") renderVerbNebula();
+  });
+  window.addEventListener("caatuu:speech-pace-change", renderVerbAudioControls);
+  window.addEventListener("caatuu:speech-voice-change", () => {
+    if (state.verbSpeakOnTap && document.querySelector(".verb-audio-menu")?.open) {
+      void refreshVerbAudioVoiceControls();
+    }
   });
 }
 
@@ -3951,6 +4022,7 @@ function ensureWordNetLoaded() {
       if (title) title.textContent = "Word World could not start";
       if (copy) copy.textContent = "Return to the planets and try opening it again.";
     }
+
   };
   window.addEventListener("message", handleMessage);
   frame.src = source;
@@ -3965,45 +4037,6 @@ function ensureWordNetLoaded() {
   }, 20000);
 }
 
-function ensureMemoryMoonLoaded() {
-  const frame = document.getElementById("memoryMoonGame");
-  const stage = document.getElementById("memoryMoonStage");
-  const status = document.getElementById("memoryMoonStatus");
-  if (!frame || frame.dataset.loading === "true" || frame.dataset.ready === "true") return;
-
-  const source = frame.dataset.src;
-  if (!source) return;
-  frame.dataset.loading = "true";
-
-  const handleMessage = (event) => {
-    if (event.origin !== window.location.origin || event.source !== frame.contentWindow) return;
-    if (event.data?.source !== "caatuu-memory-moon") return;
-
-    if (event.data.type === "ready") {
-      frame.dataset.ready = "true";
-      frame.classList.add("is-ready");
-      frame.removeAttribute("aria-hidden");
-      frame.removeAttribute("tabindex");
-      stage?.setAttribute("aria-busy", "false");
-      if (status) status.hidden = true;
-    }
-    if (event.data.type === "complete") {
-      frame.dataset.lastCompletion = String(event.data.value || "");
-    }
-  };
-  window.addEventListener("message", handleMessage);
-  frame.src = source;
-
-  window.setTimeout(() => {
-    if (frame.dataset.ready === "true" || !status) return;
-    status.classList.add("is-error");
-    const title = status.querySelector("strong");
-    const copy = status.querySelector("small");
-    if (title) title.textContent = "Memory Moon could not start";
-    if (copy) copy.textContent = "Reload the page and try entering the orbit again.";
-  }, 20000);
-}
-
 function setTrainTab(tab) {
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
@@ -4015,7 +4048,6 @@ function setTrainTab(tab) {
   if (activeTab !== "verb-lab") deferVerbGuidedActivation();
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
-  document.body.classList.toggle("memory-moon-active", activeTab === "memory-moon");
   document.body.classList.toggle("word-net-active", activeTab === "word-net");
   const trainTitles = {
     galaxy: "",
@@ -4041,15 +4073,22 @@ function setTrainTab(tab) {
   });
   if (activeTab === "verb-lab") renderVerbNebula();
   if (activeTab === "word-net") ensureWordNetLoaded();
-  if (activeTab === "memory-moon") ensureMemoryMoonLoaded();
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
 }
 
 function setInitialViewFromLocation() {
   const url = new URL(window.location.href);
-  const legacyView = url.hash.replace("#", "");
-  const requestedView = url.searchParams.get("view") || legacyView;
-  const openSettings = url.searchParams.get("settings") === "1" || legacyView === "settings";
+  const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
+  let navigationRequest = String(document.documentElement.dataset.navigationRequest || "");
+  try {
+    navigationRequest ||= String(sessionStorage.getItem(navigationRequestStorageKey) || "");
+    sessionStorage.removeItem(navigationRequestStorageKey);
+  } catch (error) {
+    // The default Games view remains available when session storage is unavailable.
+  }
+  delete document.documentElement.dataset.navigationRequest;
+  const openSettings = navigationRequest === "backpack";
+  const requestedView = navigationRequest === "dictionary" ? "dictionary" : "";
 
   if (openSettings) {
     setView(state.activeView);
@@ -4058,12 +4097,8 @@ function setInitialViewFromLocation() {
     setView(requestedView);
   }
 
-  const hadTransientRoute = url.hash || url.searchParams.has("view") || url.searchParams.has("settings");
-  if (hadTransientRoute) {
-    url.hash = "";
-    url.searchParams.delete("view");
-    url.searchParams.delete("settings");
-    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+  if (url.search || url.hash) {
+    window.history.replaceState(window.history.state, "", url.pathname);
   }
 }
 
@@ -4088,7 +4123,6 @@ function bindUi() {
       restartGuidedVerbRuntimeAfterReset({ resetCompleted: false });
     }
   });
-
   document.addEventListener("click", async (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
@@ -4213,4 +4247,4 @@ function registerServiceWorker() {
   runtimeAdapter().registerServiceWorker().catch(() => {});
 }
 
-if (!redirectLegacyConjugationCometBookmark()) init();
+init();

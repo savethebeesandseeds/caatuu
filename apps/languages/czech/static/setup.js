@@ -34,8 +34,7 @@
   let setupVisualFrames = [];
   let setupVisualLoopStart = 0;
   let setupStageRequest = 0;
-  let appUpdateLocked = new URLSearchParams(window.location.search).get("app-update") === "1" ||
-    Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
+  let appUpdateLocked = Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
   let appUpdateUiState = appUpdateLocked ? "checking" : "idle";
 
   const stableSetupMessage = "Preparing local files for offline use.";
@@ -166,10 +165,6 @@
     appUpdateLocked = false;
     window.CaatuuMaintenanceUi?.clearPendingAppUpdate?.();
     document.body.classList.remove("app-update-lock");
-    const cleanUrl = new URL(window.location.href);
-    cleanUrl.searchParams.delete("app-update");
-    cleanUrl.searchParams.delete("version");
-    window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
   }
 
   function installedUpdateReached(status) {
@@ -1163,10 +1158,10 @@
         if (completed) {
           const currentVersion = status?.currentVersionName || status?.currentVersionCode || "";
           pushLog("ready", "Update installed", `Caatuu ${currentVersion} is installed locally.`);
-          setText("#setupTitle", "Caatuu is current");
+          setText("#setupTitle", "Caatuu is ready");
           setText("#setupPhase", "Update installed");
           setText("#setupMessage", `Caatuu ${currentVersion} is installed and ready.`);
-          setText("#setupCount", "Current");
+          setText("#setupCount", "Ready");
           setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "Installed", "Installed app update confirmed locally");
           $("#nativeSetup")?.classList.toggle("is-error", false);
           clearAppUpdateHandoff();
@@ -1183,11 +1178,11 @@
           appUpdateUiState = "retry";
         } else {
           const label = updateStatusLabel(status);
-          pushLog("ready", "App is current", `No newer APK is exposed by the server (${label}).`);
-          setText("#setupTitle", "Caatuu is current");
-          setText("#setupPhase", "App is current");
+          pushLog("ready", "App is ready", `No newer APK is exposed by the server (${label}).`);
+          setText("#setupTitle", "Caatuu is ready");
+          setText("#setupPhase", "App is ready");
           setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
-          setText("#setupCount", "Current");
+          setText("#setupCount", "Ready");
           setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "No update", "No app update is required");
           $("#nativeSetup")?.classList.toggle("is-error", false);
         }

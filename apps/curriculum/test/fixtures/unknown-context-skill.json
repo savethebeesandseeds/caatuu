@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "caatuu-conformance-mutation-v1",
-  "description": "Executable opportunities cannot cite an unknown assessment skill.",
-  "mutations": [
-    {"op": "replace", "path": "/contexts/0/opportunities/0/targetSkillIds/0", "value": "cs.skill.unknown"}
-  ],
-  "expectedErrorCodes": ["CURR_ASSESSMENT_MISSING"]
-}

@@ -12,6 +12,7 @@ pub struct RuntimeFeatures {
     pub archived_chinese_api: bool,
     pub android_debug_downloads: bool,
     pub bug_reports: bool,
+    pub caatuu_game_preview: bool,
 }
 
 impl RuntimeFeatures {
@@ -20,6 +21,7 @@ impl RuntimeFeatures {
             archived_chinese_api: env_flag("ENABLE_ARCHIVED_CHINESE_API"),
             android_debug_downloads: env_flag("ENABLE_ANDROID_DEBUG_DOWNLOADS"),
             bug_reports: env_flag("ENABLE_BUG_REPORTS"),
+            caatuu_game_preview: env_flag("ENABLE_CAATUU_GAME_PREVIEW"),
         }
     }
 }

@@ -13,8 +13,8 @@ const checkerPath = path.join(gamesRoot, "tooling", "check-release-readiness.mjs
 function manifest({ gameId, releaseStatus, dependencies }) {
   return {
     schema_name: "caatuu-game-manifest",
-    schema_version: 1,
-    manifest_version: "1.0.0",
+    schema_version: 2,
+    manifest_version: "2.0.0",
     id: gameId,
     version: "1.0.0",
     release_status: releaseStatus,
@@ -32,12 +32,8 @@ function manifest({ gameId, releaseStatus, dependencies }) {
       public_entrypoint: `/games/${gameId}/v1/index.html`,
       compatibility_entrypoints: [],
     },
-    platforms: { browser: true, android: true },
-    host_contract: {
-      message_source: gameId,
-      ready_event: "ready",
-      same_origin: true,
-    },
+    platforms: { browser: true, android: false },
+    browser_mode: "standalone",
     dependencies,
     notices: [`apps/games/${gameId}/THIRD_PARTY_NOTICES.md`],
     commands: { export: "fixture-export", validate: "fixture-validate" },
@@ -45,7 +41,7 @@ function manifest({ gameId, releaseStatus, dependencies }) {
 }
 
 async function fixture({
-  gameId = "memory-moon",
+  gameId = "caatuu-game",
   releaseStatus = "released",
   dependencyStatus = "active",
   emptyCatalog = false,
@@ -72,8 +68,8 @@ async function fixture({
       path.join(schemaRoot, "game-catalog.v1.schema.json"),
     ),
     copyFile(
-      path.join(gamesRoot, "schemas", "game-manifest.v1.schema.json"),
-      path.join(schemaRoot, "game-manifest.v1.schema.json"),
+      path.join(gamesRoot, "schemas", "game-manifest.v2.schema.json"),
+      path.join(schemaRoot, "game-manifest.v2.schema.json"),
     ),
   ]);
   await writeFile(
@@ -114,7 +110,7 @@ async function fixture({
   return repoRoot;
 }
 
-async function blockers(repoRoot, requiredGameIds = ["memory-moon"]) {
+async function blockers(repoRoot, requiredGameIds = ["caatuu-game"]) {
   return findReleaseBlockers({ repoRoot, requiredGameIds });
 }
 
@@ -126,7 +122,7 @@ async function runChecker(repoRoot, extraArguments = []) {
     "--surface",
     "test-release",
     "--require-game",
-    "memory-moon",
+    "caatuu-game",
     ...extraArguments,
   ];
   return new Promise((resolve, reject) => {
@@ -191,7 +187,7 @@ test("empty or malformed catalog and manifest structures fail schema validation"
 test("every delivered game must appear exactly once in the catalog", async () => {
   const result = await blockers(await fixture({ gameId: "other-game" }));
   assert.ok(result.some((blocker) => blocker.includes(
-    "memory-moon: delivered game must appear exactly once in the catalog; found 0",
+    "caatuu-game: delivered game must appear exactly once in the catalog; found 0",
   )));
 });
 
@@ -209,7 +205,11 @@ test("the CLI returns success only for ready metadata and rejects invalid option
   assert.match(invalidOption.stderr, /Unknown option: --unknown/);
 });
 
-test("the canonical catalog remains deliberately blocked while Memory Moon is preview-only", async () => {
-  const result = await findReleaseBlockers();
-  assert.ok(result.some((blocker) => blocker.startsWith("memory-moon:")));
+test("the checker requires an explicit delivery selection", async () => {
+  await assert.rejects(findReleaseBlockers(), /at least one delivered game ID/);
+});
+
+test("the canonical catalog remains deliberately blocked while Caatuu Game is preview-only", async () => {
+  const result = await findReleaseBlockers({ requiredGameIds: ["caatuu-game"] });
+  assert.ok(result.some((blocker) => blocker.startsWith("caatuu-game:")));
 });

@@ -56,6 +56,17 @@
 
 - Prefer the canonical publisher for a routine Android publication:
   `docker exec -w /workspace caatuu-dev bash apps/android/tooling/publish-public-debug.sh`.
+- Treat repeatable Android build and publication work as a maintained pipeline,
+  not session-specific knowledge. When a publish requires recurring manual
+  reasoning, command sequences, or recovery steps, improve the canonical
+  publisher, its focused contract tests, and the adjacent tooling README so the
+  next routine publish remains one documented command. Extend that entrypoint
+  instead of creating alternate build scripts or duplicating its safeguards.
+- Keep the routine path intentionally small: confirm the relevant source state,
+  increment the monotonic preview version, run focused tests for the changed
+  boundary, invoke the canonical publisher once, and report its manifest. Fold
+  any repeatedly useful verification into the publisher rather than making
+  every agent rediscover and rerun it.
 - The publisher already performs the public build, signing-lineage checks,
   immutable release checks, public download verification, and runtime-boundary
   audit. Avoid repeating that work unless the publisher reports a problem or

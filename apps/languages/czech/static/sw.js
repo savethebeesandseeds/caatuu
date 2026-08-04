@@ -1,46 +1,39 @@
-const CACHE_NAME = "caatuu-czech-pwa-v405";
+const CACHE_NAME = "caatuu-czech-pwa-v415";
 const CORE_ASSETS = [
   "./",
   "./home.html",
   "./home.css?v=home-28",
   "./index.html",
   "./theme.css?v=theme-5",
-  "./app.css?v=shell-73",
-  "./chrome.css?v=chrome-style-91",
-  "./course-profile.js?v=course-13",
+  "./app.css?v=shell-76",
+  "./chrome.css?v=chrome-style-92",
+  "./course-profile.js?v=course-16",
   "./learning-profile.js?v=learning-5",
-  "./runtime.js?v=runtime-36",
+  "./runtime.js?v=runtime-37",
   "./semantic-learning.js?v=semantic-learning-7",
   "./semantic-learning-core.mjs?v=semantic-learning-core-5",
-  "./curriculum-service.js?v=curriculum-service-9",
-  "./curriculum/curriculum-service.mjs?v=curriculum-service-9",
-  "./curriculum/curriculum-runtime-core.mjs",
-  "./curriculum/curriculum-planner-core.mjs",
-  "./curriculum/guided-opportunity.mjs?v=guided-opportunity-5",
-  "./curriculum/morphology-round-core.mjs",
-  "./curriculum/morphology-round-core.mjs?v=morphology-round-core-3",
   "./feedback-outbox.mjs?v=feedback-outbox-5",
   "./dictionary-gap-report.mjs?v=dictionary-gap-report-1",
   "./dictionary-patch-core.mjs?v=dictionary-patch-core-1",
   "./data/dictionaries/patches/reviewed-cs-en.v1.json?v=sha256-3d86c8c0ddddb0122023a1dd686aaa7c9be2c37bf6ae664c8a5bc72d384762d9",
-  "./chrome.js?v=chrome-92",
+  "./chrome.js?v=chrome-96",
   "./setup-progress.js?v=setup-progress-1",
-  "./setup.js?v=setup-33",
+  "./setup.js?v=setup-35",
   "./setup-assets.json",
-  "./maintenance-ui.js?v=maintenance-15",
-  "./app.js?v=shell-85",
+  "./maintenance-ui.js?v=maintenance-16",
+  "./app.js?v=shell-91",
   "./verb-nebula-core.mjs?v=verb-nebula-core-10",
   "./verb-exercise-family-core.mjs?v=verb-exercise-family-core-2",
-  "./dictionary-full.js?v=full-dictionary-4",
+  "./dictionary-full.js?v=full-dictionary-5",
   "./word-net.html",
-  "./word-net.css?v=word-net-74",
-  "./word-net.js?v=word-net-80",
+  "./word-net.css?v=word-net-76",
+  "./word-net.js?v=word-net-84",
   "./word-net-core.mjs?v=word-net-core-18",
   "./word-net-queue.mjs?v=word-net-queue-6",
   "./word-net-standard.mjs?v=word-net-standard-4",
   "./conjugation-comet.html",
   "./conjugation-comet.css?v=conjugation-comet-6",
-  "./conjugation-comet.js?v=conjugation-comet-7",
+  "./conjugation-comet.js?v=conjugation-comet-11",
   "./vector-db.js?v=vector-db-9",
   "./vendor/transformers/transformers.min.js",
   "./chat.html",
@@ -82,13 +75,8 @@ const CORE_ASSETS = [
   "/assets/icons/paper_plane_submit_ui.png?v=paper-plane-1",
   "/assets/loading_animation/animations_manifest.json",
   "./data/dictionary.json",
+  "./data/verbs.json",
   "./data/scripts.json",
-  "./data/curriculum/canonical-curriculum.v1.en.json",
-  "./data/curriculum/cs-CZ.realization-pack.v1.json",
-  "./data/curriculum/pilot-content-sources.v1.json",
-  "./data/curriculum/cs-CZ.cross-game-bindings.v1.json",
-  "./data/curriculum/shared-mechanic-capabilities.v1.en.json",
-  "./data/curriculum/cs-CZ.morphology-developer-pilot.v1.json",
   "./data/word-world/manifest.json",
   "./data/word-world/standard-v0.1/records.json?v=01b7901834527668"
 ];
@@ -123,10 +111,6 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin === location.origin) {
-    if (url.pathname.includes("/games/memory-moon/")) {
-      event.respondWith(networkThenCache(request));
-      return;
-    }
     if (request.cache === "no-store") {
       event.respondWith(fetch(request));
       return;

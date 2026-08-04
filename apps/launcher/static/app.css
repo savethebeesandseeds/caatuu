@@ -405,6 +405,34 @@ img {
   line-height: 1.15;
 }
 
+.advanced-entry {
+  width: max-content;
+  margin-left: auto;
+  color: var(--quiet);
+}
+
+.advanced-entry summary {
+  width: max-content;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.advanced-entry summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
+.advanced-entry-link {
+  display: block;
+  margin-top: 5px;
+  color: var(--quiet);
+  font-size: 0.72rem;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 2px;
+}
+
 .home-footnote {
   margin: -2px 0 0;
   color: var(--quiet);

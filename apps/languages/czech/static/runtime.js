@@ -2,6 +2,27 @@
   const course = window.CaatuuCourse;
   if (!course) throw new Error("Caatuu course profile must load before the runtime adapter.");
 
+  function sharedParentRuntime() {
+    if (window.parent === window) return null;
+    try {
+      if (window.parent.location.origin !== window.location.origin) return null;
+      return window.parent.CaatuuRuntime || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  const parentRuntime = sharedParentRuntime();
+  if (parentRuntime) {
+    // Embedded language games use the shell's one runtime instance. Native
+    // Android replies are delivered to the top document, so keeping one
+    // pending-request registry prevents iframe dictionary and speech calls
+    // from waiting on a second registry that can never receive those replies.
+    window.CaatuuNative = window.parent.CaatuuNative;
+    window.CaatuuRuntime = parentRuntime;
+    return;
+  }
+
   const nativeHost = "caatuu.local";
   const cachePrefix = course.cache.prefix;
   const setupManifestPath = "setup-assets.json";
@@ -48,6 +69,17 @@
 
   function isBrowserShell() {
     return !isNativeShell();
+  }
+
+  function isDeveloperPreviewShell() {
+    const hostname = String(window.location.hostname || "").toLowerCase();
+    if (["localhost", "127.0.0.1", "::1", "[::1]"].includes(hostname)) return true;
+    if (!hasNativeBridge()) return false;
+    try {
+      return window.CaatuuAndroid.isDeveloperPreview() === true;
+    } catch (error) {
+      return false;
+    }
   }
 
   function setNativeSystemTheme(theme) {
@@ -1372,6 +1404,7 @@
     capabilities,
     isNativeShell,
     isBrowserShell,
+    isDeveloperPreviewShell,
     clearNativeBrowserState,
     nativeCall,
     fetchJson,

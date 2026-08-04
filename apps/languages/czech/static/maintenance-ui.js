@@ -277,9 +277,9 @@
     try {
       window.localStorage.setItem(UPDATE_INTENT_KEY, JSON.stringify(intent));
     } catch (error) {
-      // The query parameter still preserves the handoff if session storage is unavailable.
+      // Setup remains reachable even when the update intent cannot be persisted.
     }
-    window.location.href = `home.html?app-update=1&version=${encodeURIComponent(intent.latestVersionName || intent.latestVersionCode || "latest")}`;
+    window.location.href = "home.html";
   }
 
   function pendingAppUpdate() {

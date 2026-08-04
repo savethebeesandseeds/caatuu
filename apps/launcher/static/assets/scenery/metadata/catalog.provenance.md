@@ -1,13 +1,13 @@
-# Memory Moon scenery catalog provenance
+# Caatuu Game scenery catalog provenance
 
 The canonical human-readable provenance for the reusable scenery catalog lives
 at `apps/launcher/static/assets/scenery/metadata/catalog.provenance.md`.
 Runtime images live together under `../images/`, reproducibility inputs under
 `../sources/`, and machine-readable contracts under the same `metadata/`
-directory. Memory Moon consumes this shared catalog; neither the game nor the
+directory. Caatuu Game consumes this shared catalog; neither the game nor the
 launcher owns a second canonical copy.
 
-The logical catalog ID remains `memory-moon-style-v1`. That ID describes the
+The logical catalog ID remains `caatuu-game-style-v1`. That ID describes the
 art and metadata contract and is intentionally independent of the flattened
 physical directory layout.
 
@@ -57,7 +57,7 @@ collision profile, occlusion policy, reuse limits, tags, and projection
 compatibility.
 
 Schema version 2 and catalog version 3 measure object heights against
-`memory-moon-humanoid-v1`: a 1.4264-world-unit visible silhouette at runtime
+`caatuu-game-humanoid-v1`: a 1.4264-world-unit visible silhouette at runtime
 model scale 0.78, backed by a 1.45-unit-high, 0.28-unit-radius movement capsule.
 This shared reference replaces ad hoc per-layout object shrinking.
 

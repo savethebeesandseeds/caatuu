@@ -11,12 +11,12 @@ const runtimeImage = await readFile(
   "utf8",
 );
 
-test("the shared tunnel uses the canonical fail-closed game release gate", () => {
+test("the shared tunnel isolates app release from the optional game preview", () => {
   assert.match(compose, /\.\/apps\/games:\/workspace\/apps\/games:ro/);
   assert.match(runtimeImage, /\n\s+nodejs \\/);
   assert.match(
     compose,
-    /release_gate\(\) \{[\s\S]*node \/workspace\/apps\/games\/tooling\/check-release-readiness\.mjs[\s\S]*--repo-root \/workspace[\s\S]*--surface public-tunnel[\s\S]*--require-game memory-moon[\s\S]*\}/,
+    /release_gate\(\) \{[\s\S]*CAATUU_ENABLE_CAATUU_GAME_PREVIEW[\s\S]*node \/workspace\/apps\/games\/tooling\/check-release-readiness\.mjs[\s\S]*--repo-root \/workspace[\s\S]*--surface public-tunnel[\s\S]*--require-game caatuu-game[\s\S]*http:\/\/caatuu:9172\/games\/caatuu-game\/[\s\S]*404[\s\S]*\}/,
   );
   assert.match(compose, /\n\s+\}\s+release_gate\s+socat TCP-LISTEN:9172/);
   assert.doesNotMatch(compose, /\.games\[\]\.manifest/);

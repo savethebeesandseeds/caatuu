@@ -11,11 +11,6 @@ trap 'rm -f "$temporary_apk"' EXIT
 
 cd "$repo_root"
 
-node apps/games/tooling/check-release-readiness.mjs \
-  --repo-root "$repo_root" \
-  --surface public-debug-apk \
-  --require-game memory-moon
-
 if ! grep -Eq '^[[:space:]]*CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS[[:space:]]*=[[:space:]]*1[[:space:]]*$' .env 2>/dev/null; then
   cat >&2 <<'EOF'
 The public debug route is not enabled in the ignored root .env file.

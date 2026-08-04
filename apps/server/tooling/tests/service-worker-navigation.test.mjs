@@ -60,9 +60,9 @@ async function runNetworkThenCache(context, request) {
   return vm.runInContext("networkThenCache(__testRequest)", context);
 }
 
-test("offline query navigation falls back to the precached base document", async () => {
+test("offline accidental query navigation falls back to the precached base document", async () => {
   const baseUrl = "https://caatuu.test/apps/languages/czech/static/index.html";
-  const queryUrl = `${baseUrl}?curriculum-guided=1&verb-family=morphology`;
+  const queryUrl = `${baseUrl}?codex=stale-link`;
   const baseResponse = { source: "precache" };
   const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
 
@@ -75,9 +75,9 @@ test("offline query navigation falls back to the precached base document", async
   assert.deepEqual(lookups, [queryUrl, baseUrl]);
 });
 
-test("offline Conjugation Comet developer navigation falls back to its own document", async () => {
+test("offline developer navigation ignores accidental URL variables", async () => {
   const baseUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.html";
-  const queryUrl = `${baseUrl}?curriculum-guided=1`;
+  const queryUrl = `${baseUrl}?codex=stale-link`;
   const baseResponse = { source: "conjugation-comet-precache" };
   const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
 
@@ -90,9 +90,9 @@ test("offline Conjugation Comet developer navigation falls back to its own docum
   assert.deepEqual(lookups, [queryUrl, baseUrl]);
 });
 
-test("offline embedded Word World navigation falls back to its precached base document", async () => {
+test("offline legacy Word World query navigation falls back to its precached base document", async () => {
   const baseUrl = "https://caatuu.test/apps/languages/czech/static/word-net.html";
-  const embedUrl = `${baseUrl}?embed=1`;
+  const embedUrl = `${baseUrl}?codex=stale-link`;
   const baseResponse = { source: "word-world-precache" };
   const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
 
@@ -106,7 +106,7 @@ test("offline embedded Word World navigation falls back to its precached base do
 });
 
 test("offline script requests preserve version query keys", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/app.js?v=shell-85";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/app.js?v=shell-91";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(
@@ -117,7 +117,7 @@ test("offline script requests preserve version query keys", async () => {
 });
 
 test("offline Conjugation Comet controller requests preserve their version key", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.js?v=conjugation-comet-7";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.js?v=conjugation-comet-11";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(

@@ -2,6 +2,8 @@
 
 Status: accepted
 
+Partially superseded by decision 0002 for the current standalone Caatuu Game.
+
 Date: 2026-08-03
 
 ## Context

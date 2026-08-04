@@ -7,6 +7,7 @@
   const speechVoiceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.voice.v1`;
   const speechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
+  const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
   const targetLanguage = course.targetLanguage;
   const lightModeIconSrc = "/assets/icons/light_mode_ui.png";
   const darkModeIconSrc = "/assets/icons/dark_mode_ui.png";
@@ -158,17 +159,16 @@
     }
   ];
   const gameNavigationStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.active-game.v1`;
-  const gameNavigationQueryKey = "game";
   const gamePresentations = {
     "verb-lab": {
       title: "Verb Nebula",
       iconSrc: "/assets/planets/nebula.png",
-      href: `index.html?${gameNavigationQueryKey}=verb-lab`
+      href: "index.html"
     },
     "word-net": {
       title: "Word World",
       iconSrc: "/assets/planets/planet_A.png",
-      href: `index.html?${gameNavigationQueryKey}=word-net`
+      href: "index.html"
     },
     "conjugation-comet": {
       title: "Conjugation Comet",
@@ -178,37 +178,17 @@
     "memory-moon": {
       title: "Memory Moon",
       iconSrc: "/assets/planets/planet_C.png",
-      href: `index.html?${gameNavigationQueryKey}=memory-moon`
+      href: "index.html"
     }
   };
   const gameIdsByTitle = new Map(
     Object.entries(gamePresentations).map(([id, presentation]) => [presentation.title, id])
   );
 
-  function localDeveloperGamePreview(configuration) {
-    if (!configuration || configuration.developerOnly !== true) return false;
-    const guided = course.curriculum?.guidedMode;
-    if (!guided?.enabled || !guided?.developerOnly) return false;
-    const hostname = String(window.location.hostname || "").toLowerCase();
-    return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(hostname);
-  }
-
   function conjugationCometAvailable() {
-    const configuration = course.curriculum?.conjugationComet;
-    if (course.capabilities?.conjugationComet !== true
-      || typeof course.routes?.conjugationComet !== "string"
-      || !course.routes.conjugationComet.trim()
-      || configuration?.enabled !== true
-      || configuration?.activityId !== "conjugation-comet"
-      || configuration?.exerciseFamilyId !== "conjugation-comet.contextual-target-realization") {
-      return false;
-    }
-    if (configuration.developerOnly === true) {
-      return localDeveloperGamePreview(configuration);
-    }
-    return configuration.developerOnly === false
-      && configuration.releaseEnabled === true
-      && configuration.reviewStatus === "human-approved";
+    return course.capabilities?.conjugationComet === true
+      && typeof course.routes?.conjugationComet === "string"
+      && Boolean(course.routes.conjugationComet.trim());
   }
 
   function gamePresentationAvailable(gameId, presentation) {
@@ -228,27 +208,11 @@
     const normalizedGameId = normalizeGameId(gameId);
     const presentation = gamePresentations[normalizedGameId];
     if (!presentation) return course.routes.games;
-    if (normalizedGameId !== "conjugation-comet"
-      || course.curriculum?.conjugationComet?.developerOnly !== true) {
-      return presentation.href;
-    }
-    const guided = course.curriculum?.guidedMode;
-    const parameter = String(guided?.developerQueryParameter || "curriculum-guided");
-    const url = new URL(presentation.href, window.location.href);
-    url.searchParams.set(parameter, "1");
-    return `${url.pathname}${url.search}${url.hash}`;
+    return presentation.href;
   }
 
   function gameLandingHref(gameId) {
-    if (gameId !== "conjugation-comet"
-      || course.curriculum?.conjugationComet?.developerOnly !== true) {
-      return course.routes.games;
-    }
-    const guided = course.curriculum?.guidedMode;
-    const parameter = String(guided?.developerQueryParameter || "curriculum-guided");
-    const url = new URL(course.routes.games, window.location.href);
-    url.searchParams.set(parameter, "1");
-    return `${url.pathname}${url.search}${url.hash}`;
+    return course.routes.games;
   }
 
   function syncCourseGameTriggers() {
@@ -283,8 +247,7 @@
   }
 
   function gameNavigationHref(gameId = readRememberedGame()) {
-    const normalizedGameId = normalizeGameId(gameId);
-    return normalizedGameId ? gamePresentationHref(normalizedGameId) : course.routes.games;
+    return course.routes.games;
   }
 
   function syncGameNavigationIndicators(gameId = readRememberedGame()) {
@@ -329,53 +292,39 @@
     return gameIdsByTitle.get(title) || "";
   }
 
-  function requestedGameId() {
+  function rememberNavigationRequest(view) {
     try {
-      return normalizeGameId(new URL(window.location.href).searchParams.get(gameNavigationQueryKey));
+      sessionStorage.setItem(navigationRequestStorageKey, String(view || ""));
+    } catch (error) {
+      // The destination remains reachable when session storage is unavailable.
+    }
+  }
+
+  function readNavigationRequest() {
+    try {
+      return String(sessionStorage.getItem(navigationRequestStorageKey) || "");
     } catch (error) {
       return "";
     }
   }
 
-  function clearRequestedGameId() {
+  function clearVisibleUrlState() {
+    if (!window.location.search && !window.location.hash) return;
     try {
-      const url = new URL(window.location.href);
-      if (!url.searchParams.has(gameNavigationQueryKey)) return;
-      url.searchParams.delete(gameNavigationQueryKey);
-      window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}`);
+      window.history.replaceState(window.history.state, "", window.location.pathname);
     } catch (error) {
-      // A retained restore parameter is harmless when History is unavailable.
+      // URL cleanup is cosmetic when History is unavailable.
     }
-  }
-
-  function restoreRequestedGame() {
-    const gameId = requestedGameId();
-    if (!gameId || gameId === "galaxy" || document.querySelector(".word-net-page")) return;
-    const panelIds = {
-      "verb-lab": "trainPanelVerbLab",
-      "word-net": "trainPanelWordNet",
-      "memory-moon": "trainPanelMemoryMoon"
-    };
-    const panel = document.getElementById(panelIds[gameId]);
-    const trigger = document.querySelector(`[data-train-tab="${gameId}"]`);
-    if (!panel || !trigger) return;
-
-    let attempts = 0;
-    const tryRestore = () => {
-      attempts += 1;
-      if (panel.hidden) trigger.click();
-      if (!panel.hidden) {
-        rememberActiveGame(gameId);
-        clearRequestedGameId();
-        return;
-      }
-      if (attempts < 200) window.setTimeout(tryRestore, 50);
-    };
-    window.setTimeout(tryRestore, 0);
   }
 
   function bindSharedGameNavigation() {
     document.addEventListener("click", (event) => {
+      const navigationRequest = event.target.closest?.("[data-navigation-request]");
+      if (navigationRequest) rememberNavigationRequest(navigationRequest.dataset.navigationRequest);
+
+      const backpackNav = event.target.closest?.('[data-caatuu-bottom-nav] [data-nav-key="backpack"]');
+      if (backpackNav?.tagName === "A") rememberNavigationRequest("backpack");
+
       const back = event.target.closest?.(".app-header-back");
       if (back && currentGameId() && currentGameId() !== "galaxy") {
         rememberActiveGame("galaxy");
@@ -1716,7 +1665,6 @@
       })) return;
       try {
         await learning.prepareProgressReset?.();
-        await window.CaatuuCurriculum?.resetProgress?.();
       } catch (error) {
         window.dispatchEvent(new CustomEvent("caatuu:progress-reset-cancelled"));
         const status = document.querySelector("#learningStatus");
@@ -1837,13 +1785,14 @@
       activeSection: nav.dataset.activeSection || "",
       viewButtons: nav.dataset.viewButtons === "true",
       settingsTarget: nav.dataset.settingsTarget || "",
-      settingsHref: nav.dataset.settingsHref || "index.html?settings=1"
+      settingsHref: nav.dataset.settingsHref || "index.html"
     };
     const availableItems = navItems.filter((item) => !item.capability || course.capabilities[item.capability]);
     nav.replaceChildren(...availableItems.map((item) => createNavItem(item, options)));
     syncBackpackViewIndicators(readRememberedBackpackView());
-    const activeGameId = currentGameId();
-    syncGameNavigationIndicators(activeGameId || readRememberedGame());
+    // A stored game is useful while that game is active, but it must not make
+    // Home or the galaxy look as if a planet is currently selected.
+    syncGameNavigationIndicators(currentGameId());
   }
 
   function syncBottomNavActive(nav, activeSection = "") {
@@ -2382,9 +2331,10 @@
               </summary>
               <div class="settings-details-body">
                 <nav class="advanced-link-list" aria-label="Developer tools">
-                  <a class="advanced-link" href="chat.html?advanced=debug-chat">debug-chat</a>
+                  <a class="advanced-link" href="chat.html">debug-chat</a>
                   <a class="advanced-link" href="audio-lab.html">audio-lab</a>
-                  <a class="advanced-link" href="index.html?advanced=${course.id}-dictionary&amp;view=dictionary">${course.id}-dictionary</a>
+                  <a class="advanced-link" href="index.html" data-navigation-request="guided-journey">guided-journey</a>
+                  <a class="advanced-link" href="index.html" data-navigation-request="dictionary">${course.id}-dictionary</a>
                   <a class="advanced-link" href="embedding-images.html">embedding-images</a>
                   <a class="advanced-link" href="verb-difficulty.html">verb-difficulty</a>
                 </nav>
@@ -3058,6 +3008,8 @@
 
   function initChrome() {
     document.documentElement.dataset.caatuuRuntime = window.CaatuuRuntime?.env || "browser";
+    const navigationRequest = readNavigationRequest();
+    if (navigationRequest) document.documentElement.dataset.navigationRequest = navigationRequest;
     applyTheme(readStoredTheme(), { persist: false });
     applyFontSize(readStoredFontSize(), { persist: false });
     document.querySelectorAll(".app-header").forEach(renderAppHeader);
@@ -3065,7 +3017,6 @@
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach(renderBottomNav);
     document.querySelectorAll("[data-caatuu-language-switch]").forEach(renderLanguageSwitch);
     syncCourseGameTriggers();
-    restoreRequestedGame();
     bindAppFreshness();
   }
 
@@ -3119,6 +3070,12 @@
   window.addEventListener("pagehide", () => {
     void stopCzechSpeech();
   });
+
+  if (document.readyState === "complete") {
+    window.setTimeout(clearVisibleUrlState, 0);
+  } else {
+    window.addEventListener("load", clearVisibleUrlState, { once: true });
+  }
 
   const chromeTargetsReady = () =>
     Boolean(document.querySelector(".app-header, #settingsPanel, [data-caatuu-settings-panel], [data-caatuu-bottom-nav], [data-caatuu-language-switch]"));

@@ -16,7 +16,7 @@ Caatuu server                  offline GGUF inference
    |
    +-- /                  unified launcher
    +-- /cz/               Czech browser app
-   +-- /games/            language-independent generated game exports
+   +-- /games/            optional standalone game previews
    +-- /archive/chinese/  preserved Chinese app
    +-- /android/          governed build artifacts and manifests
 ```
@@ -40,14 +40,6 @@ embeddings, service-worker behavior, and language-specific interaction logic.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
 
-### `apps/curriculum`
-
-Owns the English-specified canonical learning contract, target-language
-realization packs, cross-game bindings, conformance schemas, and dependency-free
-validation/evidence tooling. Language apps consume validated, revision-pinned
-runtime copies. A target language may vary its natural realization and
-scaffolding, but not the canonical learning sequence or mastery standard.
-
 ### `apps/android`
 
 Packages the Czech experience for Android and supplies native capabilities such
@@ -58,10 +50,14 @@ not silently fork browser behavior.
 ### `apps/games`
 
 Owns language-independent authored games, the game catalog, and per-game build
-and delivery manifests. Generated exports live under `artifacts/games`, while
-language applications retain only localized presentation and curriculum
-adapters. The detailed decision is recorded in
-[`docs/decisions/0001-game-source-delivery-and-language-ownership.md`](decisions/0001-game-source-delivery-and-language-ownership.md).
+and delivery manifests. Generated exports live under `artifacts/games`.
+Standalone previews are feature-gated and do not become browser-app or Android
+payloads merely because the server can expose them. Embedded games require a
+separate reviewed host contract and platform decision. The detailed boundaries
+are recorded in
+[`docs/decisions/0001-game-source-delivery-and-language-ownership.md`](decisions/0001-game-source-delivery-and-language-ownership.md)
+and
+[`docs/decisions/0002-standalone-caatuu-game-and-app-release-boundary.md`](decisions/0002-standalone-caatuu-game-and-app-release-boundary.md).
 
 ### `apps/server`
 

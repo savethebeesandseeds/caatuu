@@ -3,11 +3,11 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { validateJsonSchemaSubset } from "../../curriculum/src/json-schema-subset.mjs";
+import { validateJsonSchemaSubset } from "./json-schema-subset.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const defaultRepoRoot = path.resolve(path.dirname(modulePath), "..", "..", "..");
-const defaultRequiredGameIds = Object.freeze(["memory-moon"]);
+const defaultRequiredGameIds = Object.freeze([]);
 const gameIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 async function readJson(filePath) {
@@ -64,7 +64,7 @@ export async function findReleaseBlockers({
   const blockers = [];
   const [catalogSchema, manifestSchema] = await Promise.all([
     readJson(path.join(gamesRoot, "schemas", "game-catalog.v1.schema.json")),
-    readJson(path.join(gamesRoot, "schemas", "game-manifest.v1.schema.json")),
+    readJson(path.join(gamesRoot, "schemas", "game-manifest.v2.schema.json")),
   ]);
   const catalog = await readCheckedJson(
     path.join(gamesRoot, "catalog.json"),

@@ -75,6 +75,9 @@ class CaatuuBridge(
     }
 
     @JavascriptInterface
+    fun isDeveloperPreview(): Boolean = BuildConfig.DEBUG
+
+    @JavascriptInterface
     fun postMessage(rawMessage: String) {
         scope.launch {
             val request = try {

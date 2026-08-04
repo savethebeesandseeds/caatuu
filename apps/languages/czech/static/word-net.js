@@ -25,11 +25,8 @@ import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import {
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
-  requireGuidedStandardTurn,
   selectStandardTurn
 } from "./word-net-standard.mjs?v=word-net-standard-4";
-
-let guidedOpportunityCore = null;
 
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
@@ -284,16 +281,19 @@ const state = {
 
 const $ = (selector) => document.querySelector(selector);
 
-function loopbackLocation() {
-  return ["localhost", "127.0.0.1", "::1", "[::1]"].includes(
-    String(window.location.hostname || "").toLowerCase()
-  );
+function explicitLocalGuidedRequest() {
+  // The retired developer mode cannot replace normal Word World practice.
+  return false;
 }
 
-function explicitLocalGuidedRequest() {
-  const parameter = course.curriculum?.guidedMode?.developerQueryParameter || "curriculum-guided";
-  return loopbackLocation()
-    && new URLSearchParams(window.location.search).get(parameter) === "1";
+function guidedJourneyStep(activityId) {
+  return null;
+}
+
+function guidedJourneyHref(activityId) {
+  const step = guidedJourneyStep(activityId);
+  if (!step?.route) return "";
+  return new URL(step.route, window.location.href).href;
 }
 
 function waitForPaintedFrame() {
@@ -399,7 +399,10 @@ function renderWordGuidedStatus() {
   const banner = $("#wordNetGuidedStatus");
   const detail = $("#wordNetGuidedStatusDetail");
   if (!banner || !detail) return;
-  banner.hidden = !state.guidedRequested;
+  banner.hidden = true;
+  banner.removeAttribute("role");
+  banner.removeAttribute("aria-live");
+  banner.removeAttribute("aria-atomic");
   banner.classList.toggle("is-error", state.guidedStatus === "failed");
   const lifecycle = state.guidedLifecycle?.state();
   const supported = Boolean(lifecycle?.hintsUsed || lifecycle?.solutionRevealed);
@@ -430,30 +433,8 @@ function renderWordGuidedStatus() {
   }
 }
 
-async function initializeGuidedWordWorldMode() {
-  if (!explicitLocalGuidedRequest()) return;
-  state.guidedRequested = true;
-  state.guidedStatus = "loading";
-  state.contentMode = "standard";
-  state.generationMode = "random";
-  state.translationMode = "reconstruct";
-  state.wordCardPreferences.showCard = false;
-  try {
-    const curriculum = window.CaatuuCurriculum;
-    if (!curriculum) throw new Error("The curriculum runtime is unavailable.");
-    guidedOpportunityCore = await import("./curriculum/guided-opportunity.mjs?v=guided-opportunity-5");
-    await curriculum.ready();
-    if (!curriculum.guidedModeEnabled()) {
-      throw new Error("Developer Guided mode is not enabled for this local course profile.");
-    }
-    state.guidedResolution = await curriculum.resolveBinding("word-world", "ww-cp-000146");
-    state.guidedMode = true;
-    state.guidedStatus = "pending";
-  } catch (error) {
-    state.guidedError = error?.message || String(error);
-    state.guidedStatus = "failed";
-    console.error("Word World Guided mode failed closed", error);
-  }
+async function initializeGuidedWordWorldMode({ force = false } = {}) {
+  return;
 }
 
 async function prepareGuidedWordProgressReset() {
@@ -489,7 +470,7 @@ async function restartGuidedWordWorldAfterReset({ resetCompleted = true } = {}) 
       : "The restart was cancelled. Rechecking the existing Guided task.",
     { tone: "active" }
   );
-  await initializeGuidedWordWorldMode();
+  await initializeGuidedWordWorldMode({ force: true });
   if (!state.guidedMode) {
     setBusy(false);
     renderWordGuidedStatus();
@@ -1989,26 +1970,7 @@ function recentStandardEntryIds() {
 }
 
 async function generateGuidedStandardPhrase({ allowBusy = false } = {}) {
-  if (!state.guidedMode || (state.busy && !allowBusy)) return;
-  const requestId = state.phraseRequestId;
-  try {
-    const provider = state.standardProvider || await initializeStandardCorpus();
-    if (requestId !== state.phraseRequestId || !state.guidedMode) return;
-    if (!provider) throw new Error(state.standardCorpusError || "The curated sentence pack is unavailable.");
-    const selection = requireGuidedStandardTurn(provider, state.guidedResolution);
-    const lifecycle = guidedOpportunityCore.createGuidedOpportunityLifecycle({
-      curriculum: window.CaatuuCurriculum,
-      resolution: state.guidedResolution,
-      capabilityId: "independent-comprehension",
-      targetSkillId: state.guidedResolution.binding.targetSkillRefs[0]?.id
-    });
-    await showStandardPhrase(selection, {
-      difficulty: selection.record.difficulty,
-      guidedLifecycle: lifecycle
-    });
-  } catch (error) {
-    failGuidedWordWorld(error, "Guided Word World could not verify its exact bound sentence.");
-  }
+  return;
 }
 
 async function generateStandardFromConfiguredMode(mode = state.generationMode, { allowBusy = false } = {}) {
@@ -2491,15 +2453,17 @@ function syncNextSentenceControl(round = null) {
   if (!next) return;
   const challengeLocked = Boolean(round && !round.submitted);
   const challengeReady = Boolean(round?.submitted && !state.busy);
-  next.disabled = state.busy || challengeLocked || state.guidedRequested;
+  next.disabled = state.busy || challengeLocked || (state.guidedRequested && !round?.submitted);
   next.classList.toggle("is-challenge-locked", challengeLocked);
   next.classList.toggle("is-challenge-ready", challengeReady);
-  const label = state.guidedRequested && round?.submitted
-    ? "Developer pilot complete"
+  const label = state.guidedRequested && round?.submitted && round.guidedIndependentQualified
+    ? "Continue to Verb Nebula"
+    : state.guidedRequested && round?.submitted
+      ? "Try this lesson again"
     : challengeLocked
       ? "Submit the challenge to continue"
       : state.guidedRequested
-        ? "This developer pilot has one bound task"
+        ? "Complete this guided sentence"
         : "Next sentence";
   next.setAttribute("aria-label", label);
   next.title = label;
@@ -2633,10 +2597,11 @@ async function submitReconstructionChallenge() {
       state.guidedSupportAtFirstResponse = Boolean(
         supportState.hintsUsed || supportState.solutionRevealed
       );
-      await round.guidedLifecycle.recordFirstResponse({
+      const evidence = await round.guidedLifecycle.recordFirstResponse({
         score: correct ? 1 : 0,
         occurredAt: new Date().toISOString()
       });
+      round.guidedIndependentQualified = evidence?.result?.qualifiesForIndependentAssessment === true;
       if (state.guidedResetPending || round.guidedLifecycle !== state.guidedLifecycle) {
         round.evidencePending = false;
         state.guidedEvidencePending = false;
@@ -2660,7 +2625,9 @@ async function submitReconstructionChallenge() {
   round.submittedText = reconstructionSelectedText(round);
   round.announcement = round.correct
     ? guidedRound
-      ? "Correct. First response recorded."
+      ? round.guidedIndependentQualified
+        ? "Correct. Continue to Verb Nebula."
+        : "Correct with support. Try once more without help."
       : (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
     : "Almost there. Compare the highlighted words with the answer.";
   if (!guidedRound) {
@@ -2671,7 +2638,7 @@ async function submitReconstructionChallenge() {
       rounds: 1
     });
   } else {
-    state.guidedStatus = "complete";
+    state.guidedStatus = round.guidedIndependentQualified ? "complete" : "retry";
     renderWordGuidedStatus();
   }
   renderReconstruction();
@@ -2689,9 +2656,39 @@ function shouldBlockReconstructionAdvance() {
   return true;
 }
 
-function activateNextSentence() {
+async function activateNextSentence() {
   if (state.guidedRequested) {
-    setStatus("This developer pilot contains one exact bound task and will not repeat automatically.", { tone: "muted" });
+    const round = ensureReconstructionChallenge();
+    if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
+    if (round.guidedIndependentQualified) {
+      if (window.parent !== window) {
+        notifyEmbeddedShell("guided-journey-continue", {
+          completedActivityId: "word-world",
+          nextActivityId: "verb-nebula"
+        });
+        return;
+      }
+      const href = guidedJourneyHref("verb-nebula");
+      if (href) window.location.href = href;
+      return;
+    }
+
+    const lifecycle = state.guidedLifecycle;
+    if (lifecycle?.abort) await lifecycle.abort();
+    if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
+    state.guidedSupportAtFirstResponse = false;
+    state.guidedStatus = "pending";
+    state.reconstruction = null;
+    state.translationVisible = false;
+    state.guidedActivationEpoch += 1;
+    state.phraseRequestId += 1;
+    setBusy(true);
+    setStatus("Preparing another attempt with the same reviewed sentence.", { tone: "active" });
+    try {
+      await generateGuidedStandardPhrase({ allowBusy: true });
+    } finally {
+      if (state.busy) setBusy(false);
+    }
     return;
   }
   if (state.busy) return;

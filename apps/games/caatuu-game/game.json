@@ -1,0 +1,55 @@
+{
+  "schema_name": "caatuu-game-manifest",
+  "schema_version": 2,
+  "manifest_version": "2.0.0",
+  "id": "caatuu-game",
+  "version": "0.1.0",
+  "release_status": "local-preview-only",
+  "interface_locales": [
+    "en"
+  ],
+  "engine": {
+    "name": "godot",
+    "version": "4.7.1",
+    "renderer": "gl_compatibility",
+    "export_preset": "Web",
+    "threading": "single"
+  },
+  "source": {
+    "project": "apps/games/caatuu-game/project.godot"
+  },
+  "delivery": {
+    "artifact_directory": "artifacts/games/caatuu-game/web/godot-v1",
+    "public_entrypoint": "/games/caatuu-game/godot-v1/index.html",
+    "compatibility_entrypoints": []
+  },
+  "platforms": {
+    "browser": true,
+    "android": false
+  },
+  "browser_mode": "standalone",
+  "dependencies": [
+    {
+      "id": "caatuu-game-scenery",
+      "authority": "apps/launcher/static/assets/scenery/metadata/registry.json",
+      "status": "preview-only"
+    },
+    {
+      "id": "quaternius-universal-animation-library-standard-v1",
+      "authority": "apps/launcher/static/assets/motion/quaternius-standard-v1/manifest.json",
+      "status": "preview-only"
+    },
+    {
+      "id": "macaw-traveler-v1",
+      "authority": "apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/reference.json",
+      "status": "active"
+    }
+  ],
+  "notices": [
+    "apps/games/caatuu-game/THIRD_PARTY_NOTICES.md"
+  ],
+  "commands": {
+    "export": "docker compose --profile game-tools run --rm caatuu-game-godot-export",
+    "validate": "node apps/games/test/game-catalog-contract.test.mjs"
+  }
+}

@@ -27,10 +27,11 @@ test("shared app headers use the standard icon, kicker, and title pattern", () =
   assert.match(chrome, /brand\.append\(mark, pageCopy\)/);
 });
 
-test("game-local theme controls preserve centered artwork and Word World chrome", () => {
-  assert.match(appCss, /\.verb-match-control-cluster > \.theme-toggle \{[\s\S]*?padding: 0;[\s\S]*?place-items: center;/);
-  assert.match(appCss, /html\[data-theme\] \.verb-match-control-cluster > \.theme-toggle \{[\s\S]*?border:[\s\S]*?background:/);
-  assert.match(appCss, /html\[data-theme\] \.verb-match-control-cluster > \.theme-toggle\.is-selected \{[\s\S]*?border-color:[\s\S]*?background:/);
+test("game-local display controls preserve centered artwork and shared preferences", () => {
+  assert.match(indexHtml, /class="verb-toolbar-menu verb-display-menu"[\s\S]*?aria-label="Display settings"[\s\S]*?data-theme-option="light"[\s\S]*?data-theme-option="dark"[\s\S]*?data-font-size-option="largest"[\s\S]*?data-font-size-option="large"[\s\S]*?data-font-size-option="standard"/);
+  assert.match(appCss, /\.verb-display-popover \{[\s\S]*?width: min\(290px, calc\(100vw - 42px\)\)/);
+  assert.match(appCss, /\.verb-display-size-options \{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(app, /function renderVerbDisplayControls\(\)[\s\S]*?dataset\.theme[\s\S]*?dataset\.fontSize/);
   assert.match(wordNetCss, /\.word-net-panel-actions > \.theme-toggle \{[\s\S]*?border: 1px solid[\s\S]*?place-items: center;/);
   assert.match(wordNetCss, /html\[data-theme\] \.word-net-panel-actions > \.theme-toggle \{[\s\S]*?border-color:[\s\S]*?background:/);
   assert.match(wordNetHtml, /id="wordNetDisplayToggle"[^>]*aria-haspopup="dialog"[^>]*aria-controls="wordNetDisplayMenu"[^>]*aria-expanded="false"/);
@@ -88,6 +89,27 @@ test("Verb Nebula initial and subsequent rounds share the robot preparation scre
   assert.match(app, /const robotPromise = nextVerbInterstitialRobot\(\)/);
   assert.match(app, /waitForVerbTransition\(verbRoundInterstitialMillis\)/);
   assert.match(app, /const verbRoundInterstitialMillis = 1600/);
+});
+
+test("Verb Nebula offers persistent Czech speech on tap and keeps toolbar menus exclusive", () => {
+  assert.match(indexHtml, /class="verb-toolbar-menu verb-pair-menu"/);
+  assert.match(indexHtml, /class="verb-toolbar-menu verb-audio-menu"[\s\S]*?aria-label="Czech audio settings"[\s\S]*?id="verbSpeakOnTap"[^>]*role="switch"[^>]*aria-checked="false"[\s\S]*?Speak Czech on tap/);
+  assert.match(indexHtml, /id="verbAudioSettings"[^>]*hidden>[\s\S]*?id="verbAudioSpeed"[^>]*type="range"[\s\S]*?id="verbAudioVoice"/);
+  assert.match(app, /verbSpeakOnTapStorageKey = `\$\{course\.storage\.namespace\}\.verbNebula\.speakOnTap\.v1`/);
+  assert.match(app, /function closeVerbToolbarMenus\(except = null\)[\s\S]*?details\.verb-toolbar-menu\[open\][\s\S]*?menu !== except/);
+  assert.match(app, /menu\.addEventListener\("toggle", \(\) => \{[\s\S]*?if \(!menu\.open\) return;[\s\S]*?closeVerbToolbarMenus\(menu\)/);
+  assert.match(app, /function renderVerbAudioControls\(\)[\s\S]*?settings\.hidden = !state\.verbSpeakOnTap[\s\S]*?resolveSpeechPace/);
+  assert.match(app, /async function refreshVerbAudioVoiceControls\(\)[\s\S]*?getSpeechVoiceControlState[\s\S]*?getSpeechVoicePreference/);
+  assert.match(app, /#verbAudioSpeed[\s\S]*?setSpeechPacePreference/);
+  assert.match(app, /#verbAudioVoice[\s\S]*?setSpeechVoicePreference/);
+  assert.match(app, /function chooseVerbMatchCard\(event\)[\s\S]*?card\.dataset\.verbSide === "cz"[\s\S]*?speakVerbCzechOnTap\(id\)/);
+  assert.match(app, /function speakVerbCzechOnTap\(verbId\)[\s\S]*?CaatuuChrome\.speakCzechText\(pair\.cz\)/);
+  assert.match(appCss, /\.verb-audio-popover,[\s\S]*?\.verb-display-popover \{[\s\S]*?position: absolute;[\s\S]*?box-shadow:/);
+  assert.match(appCss, /\.verb-audio-popover button\[aria-checked="true"\] i::after \{[\s\S]*?translateX\(14px\)/);
+  assert.match(appCss, /\.verb-audio-settings\[hidden\] \{[\s\S]*?display: none/);
+  assert.match(wordNetJs, /function openDisplayMenu\(\)[\s\S]*?closeAudioMenu\(\)[\s\S]*?closeTranslationMenu\(\)[\s\S]*?closeGenerationMenu\(\)/);
+  assert.match(wordNetJs, /function openAudioMenu\(\)[\s\S]*?closeDisplayMenu\(\)[\s\S]*?closeTranslationMenu\(\)[\s\S]*?closeGenerationMenu\(\)/);
+  assert.match(wordNetJs, /function openTranslationMenu[\s\S]*?closeDisplayMenu\(\)[\s\S]*?closeAudioMenu\(\)[\s\S]*?closeGenerationMenu\(\)/);
 });
 
 test("Verb Nebula gives match words more presence and celebrates earned round XP", () => {
@@ -423,7 +445,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.match(nextPath, /shouldBlockReconstructionAdvance\(\)[\s\S]*?generateFromConfiguredMode\(state\.generationMode, \{ force: true \}\)/);
   assert.match(wordNetJs, /\$\("#wordNetNext"\)\?\.addEventListener\("click", activateNextSentence\)/);
   assert.match(wordNetJs, /action === "random"[\s\S]*?activateNextSentence\(\)/);
-  assert.match(wordNetJs, /function syncNextSentenceControl[\s\S]*?challengeLocked[\s\S]*?next\.disabled = state\.busy \|\| challengeLocked \|\| state\.guidedRequested[\s\S]*?is-challenge-ready[\s\S]*?"Next sentence"/);
+  assert.match(wordNetJs, /function syncNextSentenceControl[\s\S]*?challengeLocked[\s\S]*?next\.disabled = state\.busy \|\| challengeLocked \|\| \(state\.guidedRequested && !round\?\.submitted\)[\s\S]*?is-challenge-ready[\s\S]*?"Continue to Verb Nebula"[\s\S]*?"Try this lesson again"[\s\S]*?"Next sentence"/);
   assert.match(wordNetJs, /const reconstructionInstruction = "Build the English sentence\. Submit, then swipe to continue\.";[\s\S]*?function syncPlayInstruction\(\)[\s\S]*?currentPlayInstruction\(\)/);
   assert.match(wordNetJs, /const answerNodes = selected\.map\(\(option\) => reconstructionTokenButton\(option, "answer"\)\)/);
   assert.doesNotMatch(wordNetJs, /word-net-reconstruction-slot|data\.reconstructionPosition/);

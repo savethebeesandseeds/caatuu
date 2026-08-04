@@ -3,7 +3,7 @@
   "release_status": "local-preview-only",
   "history_policy": "superseded-assets-live-in-git",
   "catalog": {
-    "id": "memory-moon-style-v1",
+    "id": "caatuu-game-style-v1",
     "version": 3,
     "file": "metadata/catalog.json",
     "manifest": "metadata/catalog.manifest.json",
@@ -16,7 +16,7 @@
     "manifest": "metadata/world.manifest.json",
     "provenance": "metadata/world.provenance.md",
     "schema": "metadata/world.schema.json",
-    "catalog_id": "memory-moon-style-v1",
+    "catalog_id": "caatuu-game-style-v1",
     "catalog_version": 3
   },
   "runtime_images": [

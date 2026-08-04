@@ -21,7 +21,7 @@ and learning-game features throughout Caatuu and is not a model-training input.
 The dictionary developer tool remains available at:
 
 ```text
-/cz/index.html?advanced=cz-dictionary#dictionary
+/cz/index.html
 ```
 
 The browser runtime queries the local Rust SQLite endpoint. Android keeps the

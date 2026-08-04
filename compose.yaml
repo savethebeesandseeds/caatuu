@@ -42,6 +42,7 @@ services:
       ENABLE_ARCHIVED_CHINESE_API: ${CAATUU_ENABLE_ARCHIVED_CHINESE_API:-0}
       ENABLE_ANDROID_DEBUG_DOWNLOADS: ${CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS:-0}
       ENABLE_BUG_REPORTS: ${CAATUU_ENABLE_BUG_REPORTS:-0}
+      ENABLE_CAATUU_GAME_PREVIEW: ${CAATUU_ENABLE_CAATUU_GAME_PREVIEW:-1}
       DICTIONARY_GAP_STORE_PATH: /var/lib/caatuu/dictionary-gaps/czech-missing-words.v1.json
     ports:
       - "127.0.0.1:8765:9172"
@@ -72,13 +73,15 @@ services:
     container_name: caatuu-tunnel
     profiles:
       - tunnel
+    environment:
+      CAATUU_ENABLE_CAATUU_GAME_PREVIEW: ${CAATUU_ENABLE_CAATUU_GAME_PREVIEW:-1}
     depends_on:
       caatuu:
         condition: service_healthy
     volumes:
       - ./secrets/cloudflared-token:/run/secrets/cloudflared-token:ro
       - ./apps/games:/workspace/apps/games:ro
-      - ./apps/curriculum/src/json-schema-subset.mjs:/workspace/apps/curriculum/src/json-schema-subset.mjs:ro
+      - ./apps/games/tooling/json-schema-subset.mjs:/workspace/apps/games/tooling/json-schema-subset.mjs:ro
       - ./apps/launcher/static/assets/scenery/metadata/registry.json:/workspace/apps/launcher/static/assets/scenery/metadata/registry.json:ro
       - ./apps/launcher/static/assets/motion/quaternius-standard-v1/manifest.json:/workspace/apps/launcher/static/assets/motion/quaternius-standard-v1/manifest.json:ro
       - ./apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/reference.json:/workspace/apps/animated-fabric/assets/reference-packages/macaw-traveler-v1/reference.json:ro
@@ -101,10 +104,18 @@ services:
         }
         trap cleanup EXIT INT TERM
         release_gate() {
-          node /workspace/apps/games/tooling/check-release-readiness.mjs \
-            --repo-root /workspace \
-            --surface public-tunnel \
-            --require-game memory-moon
+          if [[ "$${CAATUU_ENABLE_CAATUU_GAME_PREVIEW}" == "1" ]]; then
+            node /workspace/apps/games/tooling/check-release-readiness.mjs \
+              --repo-root /workspace \
+              --surface public-tunnel \
+              --require-game caatuu-game
+            return
+          fi
+          status="$$(curl -sS -o /dev/null -w '%{http_code}' http://caatuu:9172/games/caatuu-game/)"
+          if [[ "$${status}" != "404" ]]; then
+            echo "Caatuu Game preview is disabled but its route returned HTTP $${status}." >&2
+            return 1
+          fi
         }
         release_gate
         socat TCP-LISTEN:9172,reuseaddr,fork TCP:caatuu:9172 &
@@ -188,15 +199,15 @@ services:
     tty: true
     command: ["bash"]
 
-  memory-moon-godot-provision:
+  caatuu-game-godot-provision:
     profiles:
       - game-tools-provision
     platform: linux/amd64
     build:
-      context: ./apps/games/memory-moon
+      context: ./apps/games/caatuu-game
       dockerfile: tooling/Dockerfile
       target: godot-provisioner
-    image: caatuu-memory-moon-godot-provision:4.7.1
+    image: caatuu-game-godot-provision:4.7.1
     read_only: true
     cap_drop:
       - ALL
@@ -205,24 +216,24 @@ services:
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev,size=256m,mode=1777
     volumes:
-      - caatuu-memory-moon-godot-toolchain:/toolchain
+      - caatuu-godot-web-toolchain-4-7-1:/toolchain
     cpus: 2.0
     mem_limit: 1g
     pids_limit: 128
     init: true
 
-  memory-moon-godot-export:
+  caatuu-game-godot-export:
     profiles:
       - game-tools
     platform: linux/amd64
     build:
-      context: ./apps/games/memory-moon
+      context: ./apps/games/caatuu-game
       dockerfile: tooling/Dockerfile
       target: godot-exporter
       args:
         APP_GID: ${LOCAL_GID:-1000}
         APP_UID: ${LOCAL_UID:-1000}
-    image: caatuu-memory-moon-godot-export:4.7.1
+    image: caatuu-game-godot-export:4.7.1
     working_dir: /work
     network_mode: none
     read_only: true
@@ -234,12 +245,12 @@ services:
       - /tmp:rw,noexec,nosuid,nodev,size=256m,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
       - /work:rw,noexec,nosuid,nodev,size=1g,uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=1777
     volumes:
-      - ./apps/games/memory-moon:/project:ro
+      - ./apps/games/caatuu-game:/project:ro
       - ./apps/launcher/static/assets/scenery:/scenery-source:ro
       - ./apps/launcher/static/assets/motion/quaternius-standard-v1/source:/reference:ro
       - ./apps/animated-fabric/assets/reference-packages/macaw-traveler-v1:/macaw-reference:ro
-      - ./artifacts/games/memory-moon/web/godot-v1:/output
-      - caatuu-memory-moon-godot-toolchain:/toolchain:ro
+      - ./artifacts/games/caatuu-game/web/godot-v1:/output
+      - caatuu-godot-web-toolchain-4-7-1:/toolchain:ro
     cpus: 2.0
     mem_limit: 2g
     pids_limit: 128
@@ -514,8 +525,8 @@ volumes:
     name: caatuu-gradle-dist
   caatuu-gradle-cache:
     name: caatuu-gradle-cache
-  caatuu-memory-moon-godot-toolchain:
-    name: caatuu-memory-moon-godot-toolchain
+  caatuu-godot-web-toolchain-4-7-1:
+    name: caatuu-godot-web-toolchain-4-7-1
   animated-fabric-cutout-models:
     name: caatuu-animated-fabric-cutout-models
   animated-fabric-reconstruction-models:
