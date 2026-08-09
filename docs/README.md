@@ -13,6 +13,7 @@ and implementation details stay beside the relevant app or tool.
 | [Deployment standard](DEPLOYMENT_STANDARD.md) | Provider-neutral release identity, immutable delivery, promotion, rollback, operations, and recovery |
 | [Component release validators](COMPONENT_RELEASE_VALIDATORS.md) | Contract ownership, executable release checks, and explicit payload-closure gaps |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |
+| [Language games and Czech planet plan](GAMES.md) | Content authority, shared game backbone, and detailed plans for the missing Czech planets |
 | [Game ownership decision](decisions/0001-game-source-delivery-and-language-ownership.md) | Separation of authored games, generated delivery, language adapters, and Android packaging |
 | [Product readiness](PRODUCT_READINESS.md) | Current release posture and the path to a governed beta |
 | [Release policy](RELEASING.md) | Channels, versioning, artifact integrity, and release gates |

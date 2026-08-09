@@ -14,7 +14,7 @@ import {
   searchDictionaryPatch,
   stableDictionaryPatchRecordId,
   tryCompileDictionaryPatch
-} from "../../../../apps/languages/czech/static/dictionary-patch-core.mjs";
+} from "../../../../apps/languages/czech/static/source/features/dictionary/dictionary-patch-core.mjs";
 
 const review = {
   status: "codex_reviewed",
@@ -313,13 +313,13 @@ test("merge and dedupe prefer overlay results and bound malformed input", () => 
 
 test("the shared runtime applies the reviewed overlay to browser and Android searches", async () => {
   const runtimeUrl = new URL(
-    "../../../../apps/languages/czech/static/runtime.js",
+    "../../../../apps/languages/czech/static/source/shared/runtime.js",
     import.meta.url
   );
   const runtime = await readFile(runtimeUrl, "utf8");
 
   assert.match(runtime, /const dictionaryPatchPath = "data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}"/);
-  assert.match(runtime, /import\("\.\/dictionary-patch-core\.mjs\?v=dictionary-patch-core-1"\)/);
+  assert.match(runtime, /import\("\.\.\/features\/dictionary\/dictionary-patch-core\.mjs\?v=dictionary-patch-core-1"\)/);
   assert.match(runtime, /patch: core\.compileDictionaryPatch\(rawPatch\)/);
   assert.match(runtime, /if \(env === "android"\) \{\s*return nativeCall\(\s*"dictionary_search"/);
   assert.match(runtime, /return browserDictionarySearch\(query, \{ \.\.\.options, limit \}\)/);

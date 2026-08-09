@@ -205,11 +205,14 @@
   position: relative;
   z-index: 1;
   min-width: 0;
-  display: grid;
-  gap: 3px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  padding-inline-end: 30px;
 }
 
 .conjugation-comet-cue-natural {
+  display: inline;
   color: var(--ink);
   font-size: clamp(0.92rem, 2.1vw, 1.08rem);
   font-weight: 600;
@@ -217,13 +220,59 @@
   overflow-wrap: anywhere;
 }
 
-.conjugation-comet-cue-label {
-  color: var(--muted);
-  font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+.conjugation-comet-cue-subject {
   font-weight: 750;
-  letter-spacing: 0.025em;
-  line-height: 1.28;
-  overflow-wrap: anywhere;
+}
+
+.conjugation-comet-cue-verb {
+  color: var(--muted);
+  opacity: 0.56;
+}
+
+.conjugation-comet-cue-label {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  min-width: 24px;
+  padding: 2px 4px;
+  border: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-input, var(--panel)) 86%, transparent);
+  color: var(--muted);
+  font-size: clamp(0.55rem, 1.1vw, 0.64rem);
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.conjugation-comet-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+
+.conjugation-comet-person-legend {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 10px;
+  padding: 6px 2px 4px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.conjugation-comet-person-legend strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.conjugation-comet-person-legend span {
+  white-space: nowrap;
 }
 
 .conjugation-comet-footer .verb-match-note {
@@ -366,7 +415,7 @@
   }
 
   .conjugation-comet-cue-label {
-    font-size: 0.6rem;
+    font-size: 0.56rem;
   }
 }
 
@@ -385,6 +434,17 @@
   }
 
   .conjugation-comet-cue-label {
+    right: 6px;
+    bottom: 6px;
+    font-size: 0.52rem;
+  }
+
+  .conjugation-comet-cue-copy {
+    padding-inline-end: 26px;
+  }
+
+  .conjugation-comet-person-legend {
+    gap: 4px 8px;
     font-size: 0.56rem;
   }
 }

@@ -33,13 +33,13 @@ const [
   read("apps/launcher/static/index.html"),
   read("apps/launcher/static/launcher.js"),
   read("apps/launcher/static/languages.json"),
-  read("apps/languages/czech/static/chrome.js"),
-  read("apps/languages/czech/static/app.js"),
-  read("apps/languages/czech/static/chat.js"),
+  read("apps/languages/czech/static/source/shared/chrome.js"),
+  read("apps/languages/czech/static/source/games/verb-nebula/app.js"),
+  read("apps/languages/czech/static/source/features/chat/chat.js"),
   read("apps/languages/czech/static/chat.html"),
   read("apps/server/src/routes/mod.rs"),
   read("tools/on-device-models/model-configs.json"),
-  read("apps/languages/czech/static/data/word-world/manifest.json")
+  read("apps/languages/czech/static/data/games/word-world/manifest.json")
 ]);
 
 const languages = JSON.parse(languagesSource);
@@ -78,7 +78,7 @@ test("Settings identifies the shipped Standard Word World corpus and its review 
   assert.match(app, /key: "caatuu-word-world-standard-v0\.1"/);
   assert.match(app, /label: "Word World Standard Corpus"/);
   assert.match(app, /Caatuu-authored and Codex-authored reviewed bilingual learning sentences/);
-  assert.match(app, /sourceUrl: "data\/word-world\/manifest\.json"/);
+  assert.match(app, /sourceUrl: "data\/games\/word-world\/manifest\.json"/);
   assert.match(app, /license: "MIT source license"/);
   assert.match(app, /Standard Word World guided offline sentences/);
   assert.match(app, new RegExp(`Corpus standard-v0\\.1 · ${wordWorldManifest.recordCount} rows`));

@@ -15,8 +15,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-  <script src="course-profile.js?v=course-16"></script>
-    <script src="learning-profile.js?v=learning-5"></script>
+  <script src="source/shared/course-profile.js?v=course-16"></script>
+    <script src="source/shared/learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -28,11 +28,11 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="runtime.js?v=runtime-37"></script>
-  <script src="semantic-learning.js?v=semantic-learning-7"></script>
-  <link rel="stylesheet" href="theme.css?v=theme-5">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-92">
-    <link rel="stylesheet" href="word-net.css?v=word-net-76">
+  <script src="source/shared/runtime.js?v=runtime-37"></script>
+  <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
+  <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-92">
+    <link rel="stylesheet" href="source/games/word-world/word-net.css?v=word-net-76">
   </head>
   <body>
     <div class="word-net-page">
@@ -342,7 +342,7 @@
     >
       <form class="word-net-generative-dialog-card" method="dialog">
         <div class="word-net-generative-dialog-art" aria-hidden="true">
-          <img src="/assets/robots/word-world-waiting.svg" alt="">
+          <img src="/assets/robots/robot%20(1).png" alt="">
         </div>
         <div class="word-net-generative-dialog-copy">
           <p class="word-net-generative-dialog-kicker">Optional local AI</p>
@@ -365,8 +365,8 @@
       data-settings-href="index.html"
     ></nav>
 
-  <script src="chrome.js?v=chrome-96"></script>
-    <script src="maintenance-ui.js?v=maintenance-16"></script>
-    <script type="module" src="word-net.js?v=word-net-84"></script>
+  <script src="source/shared/chrome.js?v=chrome-96"></script>
+    <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
+    <script type="module" src="source/games/word-world/word-net.js?v=word-net-85"></script>
   </body>
 </html>

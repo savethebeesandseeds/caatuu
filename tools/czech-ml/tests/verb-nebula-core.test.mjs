@@ -17,7 +17,7 @@ import {
   shuffleVerbMeanings,
   validatePinnedVerbPairLocator,
   verbPairMatches,
-} from "../../../apps/languages/czech/static/verb-nebula-core.mjs";
+} from "../../../apps/languages/czech/static/source/games/verb-nebula/verb-nebula-core.mjs";
 
 test("uses the exact English equivalent for Macaw retrieval", () => {
   assert.equal(verbHintSearchText({ cz: "letět", eng: "fly" }), "fly");
@@ -49,10 +49,10 @@ test("assigns every clue image once and gives contested art to the strongest mat
 });
 
 const dictionaryUrl = new URL(
-  "../../../apps/languages/czech/static/data/dictionary.json",
+  "../../../apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
   import.meta.url
 );
-const appUrl = new URL("../../../apps/languages/czech/static/app.js", import.meta.url);
+const appUrl = new URL("../../../apps/languages/czech/static/source/games/verb-nebula/app.js", import.meta.url);
 const indexUrl = new URL("../../../apps/languages/czech/static/index.html", import.meta.url);
 
 test("extracts unique learner verbs from the ordered Core dictionary", async () => {

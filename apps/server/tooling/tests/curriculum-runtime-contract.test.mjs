@@ -11,16 +11,22 @@ const removedFiles = [
   new URL("data/curriculum/", staticRoot),
   new URL("curriculum-service.js", staticRoot)
 ];
+const retiredRootDataPaths = [
+  new URL("data/dictionary.json", staticRoot),
+  new URL("data/verbs.json", staticRoot),
+  new URL("data/scripts.json", staticRoot),
+  new URL("data/word-world/", staticRoot)
+];
 
 const [profileSource, indexHtml, wordWorldHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest] = await Promise.all([
-  readFile(new URL("course-profile.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
-  readFile(new URL("conjugation-comet.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
-  readFile(new URL("data/verbs.json", staticRoot), "utf8").then(JSON.parse),
-  readFile(new URL("data/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
 const context = { window: {} };
@@ -41,12 +47,22 @@ test("learner pages no longer load the curriculum service", () => {
   assert.doesNotMatch(cometSource, /CaatuuCurriculum|data\/curriculum|guided-opportunity/);
 });
 
+test("authored data is grouped by game or shared language ownership", async () => {
+  for (const path of retiredRootDataPaths) {
+    await assert.rejects(stat(path), (error) => error?.code === "ENOENT");
+  }
+  await stat(new URL("data/games/verb-nebula/core-vocabulary.json", staticRoot));
+  await stat(new URL("data/games/conjugation-comet/verbs.json", staticRoot));
+  await stat(new URL("data/games/word-world/manifest.json", staticRoot));
+  await stat(new URL("data/language/scripts.json", staticRoot));
+});
+
 test("curated game JSON is the learner-facing content boundary", () => {
   assert.ok(Array.isArray(verbs) && verbs.length >= 4);
   assert.equal(typeof wordManifest.corpusVersion, "string");
-  assert.match(cometSource, /const VERBS_URL = "data\/verbs\.json"/);
-  assert.match(serviceWorker, /caatuu-czech-pwa-v415/);
-  assert.match(serviceWorker, /\.\/data\/verbs\.json/);
-  assert.match(serviceWorker, /\.\/data\/word-world\/manifest\.json/);
+  assert.match(cometSource, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v419/);
+  assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json/);
+  assert.match(serviceWorker, /\.\/data\/games\/word-world\/manifest\.json/);
   assert.doesNotMatch(serviceWorker, /data\/curriculum|curriculum-service/);
 });

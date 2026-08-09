@@ -26,13 +26,13 @@ import {
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
   selectStandardTurn
-} from "./word-net-standard.mjs?v=word-net-standard-4";
+} from "./word-net-standard.mjs?v=word-net-standard-5";
 
 const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
 const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
 const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
 const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
-const ROBOT_FALLBACK_URL = "/assets/robots/word-world-waiting.svg";
+const ROBOT_FALLBACK_URL = "/assets/robots/robot%20(1).png";
 const SCENE_ASSET_LIMIT = 5;
 const SCENE_ASSET_READY_TIMEOUT_MS = 8000;
 const SCENE_SEMANTIC_SEARCH_TIMEOUT_MS = 1600;

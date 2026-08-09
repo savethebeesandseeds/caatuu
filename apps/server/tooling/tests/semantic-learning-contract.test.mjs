@@ -14,24 +14,24 @@ const pageNames = [
   "audio-lab.html"
 ];
 const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, ...pages] = await Promise.all([
-  readFile(new URL("course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("runtime.js", staticRoot), "utf8"),
-  readFile(new URL("semantic-learning.js", staticRoot), "utf8"),
-  readFile(new URL("semantic-learning-core.mjs", staticRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
-  readFile(new URL("app.js", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/semantic-learning.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/semantic-learning-core.mjs", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
   ...pageNames.map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
 
 test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="course-profile.js?v=course-16"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
-    const runtimeIndex = source.indexOf('src="runtime.js?v=runtime-37"');
-    const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="chrome.js?v=chrome-96"');
+    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
+    const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
+    const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-37"');
+    const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
+    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-96"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -282,11 +282,11 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v415/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v419/);
   assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v405/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
-  assert.match(serviceWorker, /\.\/audio-lab\.css\?v=audio-lab-2/);
-  assert.match(serviceWorker, /\.\/audio-lab\.js\?v=audio-lab-1/);
+  assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.css\?v=audio-lab-2/);
+  assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.js\?v=audio-lab-1/);
   assert.match(serviceWorker, /\/assets\/icons\/items_icon\.png\?v=items-2/);
   assert.match(serviceWorker, /\/assets\/icons\/coin_icon_ui\.png/);
   assert.match(serviceWorker, /semantic-learning\.js\?v=semantic-learning-7/);
@@ -299,9 +299,9 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-91/);
+  assert.match(serviceWorker, /app\.js\?v=shell-92/);
   assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-84/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-85/);
   assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);
   assert.match(serviceWorker, /word-net\.css\?v=word-net-76/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);

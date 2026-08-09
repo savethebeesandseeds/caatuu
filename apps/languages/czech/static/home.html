@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-  <script src="course-profile.js?v=course-16"></script>
-    <script src="learning-profile.js?v=learning-5"></script>
+  <script src="source/shared/course-profile.js?v=course-16"></script>
+    <script src="source/shared/learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -21,12 +21,12 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="runtime.js?v=runtime-37"></script>
-  <script src="semantic-learning.js?v=semantic-learning-7"></script>
-  <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-76">
-    <link rel="stylesheet" href="home.css?v=home-28">
-  <link rel="stylesheet" href="chrome.css?v=chrome-style-92">
+  <script src="source/shared/runtime.js?v=runtime-37"></script>
+  <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
+  <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+    <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-76">
+    <link rel="stylesheet" href="source/features/home/home.css?v=home-28">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-92">
   </head>
   <body class="setup-blocked">
     <div class="app-shell home-shell">
@@ -91,10 +91,10 @@
 
     <nav class="bottom-app-nav" aria-label="Caatuu Czech sections" data-caatuu-bottom-nav data-active-section="home"></nav>
 
-  <script src="chrome.js?v=chrome-96"></script>
-    <script src="maintenance-ui.js?v=maintenance-16"></script>
-    <script src="setup-progress.js?v=setup-progress-1"></script>
-    <script src="setup.js?v=setup-35"></script>
+  <script src="source/shared/chrome.js?v=chrome-96"></script>
+    <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
+    <script src="source/features/setup/setup-progress.js?v=setup-progress-1"></script>
+    <script src="source/features/setup/setup.js?v=setup-35"></script>
     <script>
       window.CaatuuRuntime?.registerServiceWorker().catch(() => {});
     </script>

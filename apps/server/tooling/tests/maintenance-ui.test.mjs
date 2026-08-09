@@ -4,15 +4,15 @@ import { runInNewContext } from "node:vm";
 import test from "node:test";
 
 const source = await readFile(
-  new URL("../../../../apps/languages/czech/static/maintenance-ui.js", import.meta.url),
+  new URL("../../../../apps/languages/czech/static/source/shared/maintenance-ui.js", import.meta.url),
   "utf8"
 );
 const runtimeSource = await readFile(
-  new URL("../../../../apps/languages/czech/static/runtime.js", import.meta.url),
+  new URL("../../../../apps/languages/czech/static/source/shared/runtime.js", import.meta.url),
   "utf8"
 );
 const chromeSource = await readFile(
-  new URL("../../../../apps/languages/czech/static/chrome.js", import.meta.url),
+  new URL("../../../../apps/languages/czech/static/source/shared/chrome.js", import.meta.url),
   "utf8"
 );
 const serviceWorkerSource = await readFile(

@@ -4,7 +4,7 @@ import { runInNewContext } from "node:vm";
 import test from "node:test";
 
 const source = await readFile(
-  new URL("../../../../apps/languages/czech/static/setup-progress.js", import.meta.url),
+  new URL("../../../../apps/languages/czech/static/source/features/setup/setup-progress.js", import.meta.url),
   "utf8"
 );
 const context = { window: {} };

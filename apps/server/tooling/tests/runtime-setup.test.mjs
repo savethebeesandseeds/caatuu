@@ -5,8 +5,8 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [profileSource, source] = await Promise.all([
-  readFile(new URL("course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("runtime.js", staticRoot), "utf8")
+  readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/runtime.js", staticRoot), "utf8")
 ]);
 
 function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {}) {

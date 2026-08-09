@@ -128,8 +128,8 @@ docker compose --profile dev run --rm caatuu-dev `
 The compiler emits:
 
 ```text
-apps/languages/czech/static/data/word-world/manifest.json
-apps/languages/czech/static/data/word-world/standard-v0.1/records.json
+apps/languages/czech/static/data/games/word-world/manifest.json
+apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json
 ```
 
 The manifest's `runtimeFile` is relative to the manifest directory. The runtime

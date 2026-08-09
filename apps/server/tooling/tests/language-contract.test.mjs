@@ -19,13 +19,13 @@ const androidUiIconNames = [
 ];
 const [registrySource, profileSource, learningProfile, launcher, chrome, runtime, app, wordWorld, serviceWorker, routes, gradle, assetClient, ...pages] = await Promise.all([
   readFile(new URL("languages.json", launcherStatic), "utf8"),
-  readFile(new URL("course-profile.js", czechStatic), "utf8"),
-  readFile(new URL("learning-profile.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/course-profile.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/learning-profile.js", czechStatic), "utf8"),
   readFile(new URL("launcher.js", launcherStatic), "utf8"),
-  readFile(new URL("chrome.js", czechStatic), "utf8"),
-  readFile(new URL("runtime.js", czechStatic), "utf8"),
-  readFile(new URL("app.js", czechStatic), "utf8"),
-  readFile(new URL("word-net.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/chrome.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/runtime.js", czechStatic), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", czechStatic), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", czechStatic), "utf8"),
   readFile(new URL("sw.js", czechStatic), "utf8"),
   readFile(new URL("apps/server/src/routes/mod.rs", repoRoot), "utf8"),
   readFile(new URL("apps/android/app/build.gradle.kts", repoRoot), "utf8"),
@@ -88,11 +88,11 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-16"');
-    const learningIndex = source.indexOf('src="learning-profile.js?v=learning-5"');
-    const runtimeIndex = source.indexOf('src="runtime.js');
-    const semanticIndex = source.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="chrome.js');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
+    const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
+    const runtimeIndex = source.indexOf('src="source/shared/runtime.js');
+    const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
+    const chromeIndex = source.indexOf('src="source/shared/chrome.js');
     assert.ok(profileIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > profileIndex, `${name} must load learning state after the course profile`);
     assert.ok(runtimeIndex > profileIndex, `${name} must load the profile before runtime.js`);
@@ -101,9 +101,9 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
     assert.match(source, /window\.CaatuuCourse\.storage\.fontSize/);
   }
-  assert.match(serviceWorker, /\.\/course-profile\.js\?v=course-16/);
-  assert.match(serviceWorker, /\.\/learning-profile\.js\?v=learning-5/);
-  assert.match(serviceWorker, /\.\/semantic-learning\.js\?v=semantic-learning-7/);
+  assert.match(serviceWorker, /\.\/source\/shared\/course-profile\.js\?v=course-16/);
+  assert.match(serviceWorker, /\.\/source\/shared\/learning-profile\.js\?v=learning-5/);
+  assert.match(serviceWorker, /\.\/source\/shared\/semantic-learning\.js\?v=semantic-learning-7/);
 });
 
 test("launcher discovers active languages instead of embedding product behavior", () => {

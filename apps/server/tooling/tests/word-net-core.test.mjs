@@ -31,7 +31,7 @@ import {
   tokenizeCzechSentence,
   tokenizeEnglishReconstruction,
   wordMatchesTarget
-} from "../../../../apps/languages/czech/static/word-net-core.mjs";
+} from "../../../../apps/languages/czech/static/source/games/word-world/word-net-core.mjs";
 
 test("normalizes and capitalizes Czech words without losing diacritics", () => {
   assert.equal(normalizeWord("…příběh!"), "příběh");

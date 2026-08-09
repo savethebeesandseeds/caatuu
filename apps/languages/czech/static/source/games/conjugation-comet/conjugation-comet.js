@@ -3,7 +3,7 @@
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Conjugation Comet.");
 
-const VERBS_URL = "data/verbs.json";
+const VERBS_URL = "data/games/conjugation-comet/verbs.json";
 const FORM_KEYS = Object.freeze(["1s", "2s", "3s", "1p", "2p", "3p"]);
 const FORM_LABELS = Object.freeze({
   "1s": "first person singular",
@@ -13,8 +13,17 @@ const FORM_LABELS = Object.freeze({
   "2p": "second person plural",
   "3p": "third person plural"
 });
+const FORM_BADGES = Object.freeze({
+  "1s": "S1",
+  "2s": "S2",
+  "3s": "S3",
+  "1p": "P1",
+  "2p": "P2",
+  "3p": "P3"
+});
+const ENGLISH_SUBJECTS = Object.freeze(["you all", "he/she", "they", "you", "we", "it", "I"]);
 const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
-const ROBOT_FALLBACK = "/assets/robots/word-world-waiting.svg";
+const ROBOT_FALLBACK = "/assets/robots/robot%20(1).png";
 const $ = (selector) => document.querySelector(selector);
 
 const state = {
@@ -55,6 +64,29 @@ function shuffle(values) {
 
 function normalize(value) {
   return String(value || "").trim().toLocaleLowerCase("cs-CZ");
+}
+
+function formSurfaces(form) {
+  return new Set([form?.cs, ...(Array.isArray(form?.accepted) ? form.accepted : [])]
+    .map(normalize)
+    .filter(Boolean));
+}
+
+function formsAreEquivalent(left, right) {
+  const leftSurfaces = formSurfaces(left);
+  return [...formSurfaces(right)].some((surface) => leftSurfaces.has(surface));
+}
+
+function splitEnglishCue(value) {
+  const cue = String(value || "").trim();
+  const subject = ENGLISH_SUBJECTS.find((candidate) => (
+    cue.toLocaleLowerCase("en").startsWith(`${candidate.toLocaleLowerCase("en")} `)
+  ));
+  if (!subject) return { subject: cue, verb: "" };
+  return {
+    subject: cue.slice(0, subject.length),
+    verb: cue.slice(subject.length).trim()
+  };
 }
 
 function record(delta) {
@@ -235,6 +267,7 @@ function renderMeaning() {
 
 function createCueCard(key) {
   const form = state.current.forms[key];
+  const cueParts = splitEnglishCue(form.en);
   const card = createCard({
     text: "",
     language: "en",
@@ -252,10 +285,21 @@ function createCueCard(key) {
   cue.className = "conjugation-comet-cue-copy";
   const natural = document.createElement("span");
   natural.className = "conjugation-comet-cue-natural";
-  natural.textContent = form.en;
+  const subject = document.createElement("span");
+  subject.className = "conjugation-comet-cue-subject";
+  subject.textContent = cueParts.subject;
+  natural.append(subject);
+  if (cueParts.verb) {
+    const verb = document.createElement("span");
+    verb.className = "conjugation-comet-cue-verb";
+    verb.textContent = ` ${cueParts.verb}`;
+    natural.append(verb);
+  }
   const label = document.createElement("span");
   label.className = "conjugation-comet-cue-label";
-  label.textContent = `(${FORM_LABELS[key]})`;
+  label.textContent = FORM_BADGES[key];
+  label.title = FORM_LABELS[key];
+  label.setAttribute("aria-hidden", "true");
   cue.append(natural, label);
   card.copy.replaceWith(cue);
   card.button.dataset.cueKey = key;
@@ -382,8 +426,8 @@ function evaluatePair() {
   const formKey = state.selectedFormKey;
   const cueKey = state.selectedCueKey;
   // Some Czech paradigms use one visible form for multiple persons. Matching
-  // by the reviewed surface makes either identical card a fair answer.
-  const correct = normalize(state.current.forms[formKey].cs) === normalize(state.current.forms[cueKey].cs);
+  // by reviewed surface equivalence makes either identical card a fair answer.
+  const correct = formsAreEquivalent(state.current.forms[formKey], state.current.forms[cueKey]);
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
   if (correct) {
     state.matchedFormKeys.add(formKey);
@@ -426,7 +470,7 @@ function showHint() {
   const showing = hint.hidden;
   hint.hidden = !showing;
   button.setAttribute("aria-pressed", String(showing));
-  $("#verbMorphologyHintCopy").textContent = "The English cue names the subject; the label in parentheses names person and number.";
+  $("#verbMorphologyHintCopy").textContent = "Focus on the English subject. S means singular, P means plural, and the number marks the person.";
 }
 
 function revealAnswers() {

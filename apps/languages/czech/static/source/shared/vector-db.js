@@ -1,12 +1,12 @@
-const defaultDbUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=fc9b947a";
-const defaultSqlJsModuleUrl = "./vendor/sql.js/sql-wasm.js";
-const defaultSqlJsWasmUrl = "./vendor/sql.js/sql-wasm.wasm";
-const defaultTransformersModuleUrl = "./vendor/transformers/transformers.min.js";
+const defaultDbUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=83bd91a5";
+const defaultSqlJsModuleUrl = "../../vendor/sql.js/sql-wasm.js";
+const defaultSqlJsWasmUrl = "../../vendor/sql.js/sql-wasm.wasm";
+const defaultTransformersModuleUrl = "../../vendor/transformers/transformers.min.js";
 const defaultSemanticModelId = "all-minilm-l6-v2-qint8-v0.1/runtime";
-const defaultSemanticModelPath = "data/embeddings/";
+const defaultSemanticModelPath = "../../data/embeddings/";
 const defaultSemanticModelFileName = "model_qint8_arm64";
-const defaultOrtWasmModuleUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs";
-const defaultOrtWasmBinaryUrl = "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm";
+const defaultOrtWasmModuleUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs";
+const defaultOrtWasmBinaryUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm";
 
 export const caatuuVectorSchema = Object.freeze({
   name: "caatuu-cz-vector-db",

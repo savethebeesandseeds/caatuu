@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 
-import { compileDictionaryPatch } from "../../../../apps/languages/czech/static/dictionary-patch-core.mjs";
+import { compileDictionaryPatch } from "../../../../apps/languages/czech/static/source/features/dictionary/dictionary-patch-core.mjs";
 import {
   dictionaryPatchDigest,
   validatePatchAgainstDatabase

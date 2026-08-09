@@ -2,11 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { normalizeWord, sentenceFingerprint } from "../../../../apps/languages/czech/static/word-net-core.mjs";
-import { WordNetBranchQueue } from "../../../../apps/languages/czech/static/word-net-queue.mjs";
+import { normalizeWord, sentenceFingerprint } from "../../../../apps/languages/czech/static/source/games/word-world/word-net-core.mjs";
+import { WordNetBranchQueue } from "../../../../apps/languages/czech/static/source/games/word-world/word-net-queue.mjs";
 
 const wordNetSource = readFileSync(
-  new URL("../../../../apps/languages/czech/static/word-net.js", import.meta.url),
+  new URL("../../../../apps/languages/czech/static/source/games/word-world/word-net.js", import.meta.url),
   "utf8"
 );
 

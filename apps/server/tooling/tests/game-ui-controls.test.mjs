@@ -4,17 +4,17 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [app, appCss, indexHtml, chrome, chromeCss, wordNetCss, wordNetHtml, wordNetJs, audioLabHtml, audioLabCss, audioLabJs] = await Promise.all([
-  readFile(new URL("app.js", staticRoot), "utf8"),
-  readFile(new URL("app.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
-  readFile(new URL("chrome.css", staticRoot), "utf8"),
-  readFile(new URL("word-net.css", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.css", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
   readFile(new URL("audio-lab.html", staticRoot), "utf8"),
-  readFile(new URL("audio-lab.css", staticRoot), "utf8"),
-  readFile(new URL("audio-lab.js", staticRoot), "utf8")
+  readFile(new URL("source/features/audio-lab/audio-lab.css", staticRoot), "utf8"),
+  readFile(new URL("source/features/audio-lab/audio-lab.js", staticRoot), "utf8")
 ]);
 const actionKeymap = JSON.parse(await readFile(
   new URL("../../../launcher/static/assets/macaw/actions/keymaps.json", staticRoot),
@@ -142,7 +142,7 @@ test("Verb Nebula pins clear action clues for hearing and seeing", () => {
 
 test("Generative mode requires an explicit local-model download confirmation", () => {
   assert.match(wordNetHtml, /id="wordNetGenerativeDialog"[\s\S]*?about 1\.9 GB[\s\S]*?value="cancel"[\s\S]*?value="confirm"/);
-  assert.match(wordNetHtml, /word-net-generative-dialog-art[\s\S]*?\/assets\/robots\/word-world-waiting\.svg/);
+  assert.match(wordNetHtml, /word-net-generative-dialog-art[\s\S]*?\/assets\/robots\/robot%20\(1\)\.png/);
   assert.match(wordNetCss, /\.word-net-generative-dialog-card \{[\s\S]*?box-shadow:[\s\S]*?grid-template-columns:/);
   assert.match(wordNetJs, /function confirmGenerativeMode\(\)[\s\S]*?dialog\.showModal\(\)/);
   assert.match(wordNetJs, /mode === "generative" && !\(await confirmGenerativeMode\(\)\)/);

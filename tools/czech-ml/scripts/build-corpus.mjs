@@ -93,9 +93,9 @@ function addDoc(docs, row) {
 }
 
 async function addLocalDocs(docs) {
-  const dictionary = await readJson(path.join(appDataRoot, "dictionary.json"));
-  const scripts = await readJson(path.join(appDataRoot, "scripts.json"));
-  const verbs = await readJson(path.join(appDataRoot, "verbs.json"));
+  const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
+  const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
+  const verbs = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
 
   addDoc(docs, {
     source_id: "caatuu_dictionary",

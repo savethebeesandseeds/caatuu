@@ -5,7 +5,7 @@ import {
   buildDictionaryGapReport,
   collectLegacyDictionaryGapReports,
   DICTIONARY_GAP_REPORT_SCHEMA
-} from "../../../../apps/languages/czech/static/dictionary-gap-report.mjs";
+} from "../../../../apps/languages/czech/static/source/features/dictionary/dictionary-gap-report.mjs";
 
 function observation(overrides = {}) {
   return {

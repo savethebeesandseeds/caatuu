@@ -1,4 +1,4 @@
-const DEFAULT_MANIFEST_URL = "./data/word-world/manifest.json";
+const DEFAULT_MANIFEST_URL = "./data/games/word-world/manifest.json";
 const DEFAULT_USAGE_CAPACITY = 8192;
 const verifiedRuntimeSources = new WeakSet();
 

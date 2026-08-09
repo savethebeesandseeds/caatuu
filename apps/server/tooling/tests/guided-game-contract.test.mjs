@@ -4,13 +4,13 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../languages/czech/static/", import.meta.url);
 const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldHtml, verbs] = await Promise.all([
-  readFile(new URL("app.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("conjugation-comet.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("data/verbs.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
 function functionSource(source, name, nextName) {
@@ -29,7 +29,7 @@ test("the retired Guided URL mode cannot replace either stable game", () => {
 });
 
 test("Verb Nebula remains the ordinary meaning-match game", () => {
-  assert.match(app, /loadJsonBytes\("data\/dictionary\.json"\)/);
+  assert.match(app, /loadJsonBytes\("data\/games\/verb-nebula\/core-vocabulary\.json"\)/);
   assert.match(app, /verbNebulaCore\.dealVerbRound/);
   assert.match(app, /verbNebulaCore\.verbPairMatches/);
   assert.match(app, /CaatuuLearning\?\.record\("verb-nebula"/);
@@ -47,7 +47,7 @@ test("Word World keeps curated Standard content and honest semantic exposure", (
 });
 
 test("Conjugation Comet owns morphology and reads the complete verb dataset", () => {
-  assert.match(comet, /const VERBS_URL = "data\/verbs\.json"/);
+  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
   assert.match(comet, /state\.phase = "meaning"/);
   assert.match(comet, /state\.phase = "forms"/);
   assert.match(comet, /CaatuuLearning\?\.record\?\.\("conjugation-comet"/);

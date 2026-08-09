@@ -31,7 +31,7 @@ const wordWorldStandardArtifact = Object.freeze({
   key: "caatuu-word-world-standard-v0.1",
   label: "Word World Standard Corpus",
   sourceLabel: "Caatuu-authored and Codex-authored reviewed bilingual learning sentences",
-  sourceUrl: "data/word-world/manifest.json",
+  sourceUrl: "data/games/word-world/manifest.json",
   license: "MIT source license",
   intendedUse: "Standard Word World guided offline sentences. Corpus standard-v0.1 · 760 rows · L1 175 · L2 533 · L3 52 · codex_reviewed · humanApproved=false.",
   artifactKind: "guided-learning-corpus",
@@ -173,8 +173,8 @@ function assertArrayData(name, value) {
 
 async function loadContentData() {
   const [dictionarySource, scripts, verbModule, familyModule] = await Promise.all([
-    loadJsonBytes("data/dictionary.json"),
-    loadJson("data/scripts.json"),
+    loadJsonBytes("data/games/verb-nebula/core-vocabulary.json"),
+    loadJson("data/language/scripts.json"),
     import("./verb-nebula-core.mjs?v=verb-nebula-core-10"),
     import("./verb-exercise-family-core.mjs?v=verb-exercise-family-core-2")
   ]);
@@ -915,7 +915,7 @@ const verbHintExactAssets = new Map([
   }]
 ]);
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
-const verbRobotFallbackPath = "/assets/robots/word-world-waiting.svg";
+const verbRobotFallbackPath = "/assets/robots/robot%20(1).png";
 const verbSolutionRouteColors = [
   "#b84e45",
   "#23856f",

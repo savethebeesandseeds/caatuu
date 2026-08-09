@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-22T05:42:32.369Z",
+  "generated_at": "2026-08-08T23:16:30.703Z",
   "source_file": "tools/czech-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
   "vector_db": "apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
   "model_id": "all-minilm-l6-v2-qint8-v0.1",
   "caveat": "This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
   "rows": 5000,
-  "db_bytes": 20049920,
-  "db_sha256": "fc9b947aea369c2a540e0d669a6ea1a72008e8630df84b4f3220e0d10c8ce812",
+  "db_bytes": 20054016,
+  "db_sha256": "83bd91a5b7040ec0db39a50129f394c009ba99260c89c249f77cdcb18ef48c6b",
   "exact_duplicate_groups": [],
   "near_duplicate_thresholds": {
     "vector_score": 0.74,

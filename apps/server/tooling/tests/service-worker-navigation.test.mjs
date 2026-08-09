@@ -106,7 +106,7 @@ test("offline legacy Word World query navigation falls back to its precached bas
 });
 
 test("offline script requests preserve version query keys", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/app.js?v=shell-91";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/verb-nebula/app.js?v=shell-92";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(
@@ -117,7 +117,7 @@ test("offline script requests preserve version query keys", async () => {
 });
 
 test("offline Conjugation Comet controller requests preserve their version key", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.js?v=conjugation-comet-11";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(

@@ -53,9 +53,9 @@ function correctionExamples(sentences) {
 
 async function appDataExamples() {
   const rows = [];
-  const dictionary = await readJson(path.join(appDataRoot, "dictionary.json"));
-  const scripts = await readJson(path.join(appDataRoot, "scripts.json"));
-  const verbs = await readJson(path.join(appDataRoot, "verbs.json"));
+  const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
+  const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
+  const verbs = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
 
   for (const item of dictionary) {
     if (item.cs && item.en) {

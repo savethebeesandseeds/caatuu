@@ -13,7 +13,7 @@ import {
   semanticAttemptsEqual,
   semanticKernel,
   summarizeTemporalEvidence
-} from "../../../../apps/languages/czech/static/semantic-learning-core.mjs";
+} from "../../../../apps/languages/czech/static/source/shared/semantic-learning-core.mjs";
 
 function attempt(id, score, options = {}) {
   return normalizeSemanticAttempt({

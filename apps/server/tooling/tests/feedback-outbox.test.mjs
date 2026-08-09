@@ -4,7 +4,7 @@ import test from "node:test";
 import {
   FeedbackOutbox,
   feedbackDedupeKey
-} from "../../../../apps/languages/czech/static/feedback-outbox.mjs";
+} from "../../../../apps/languages/czech/static/source/shared/feedback-outbox.mjs";
 
 function memoryStorage() {
   const values = new Map();

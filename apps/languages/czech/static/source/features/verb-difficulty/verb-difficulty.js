@@ -1,4 +1,4 @@
-import { extractCoreVerbPairs } from "./verb-nebula-core.mjs?v=verb-nebula-core-10";
+import { extractCoreVerbPairs } from "../../games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-10";
 
 const levels = [
   { value: 1, name: "Explorer", note: "Essential everyday verbs" },
@@ -74,7 +74,7 @@ function renderGroup(level, verbs) {
 
 async function loadVerbDifficultyCatalog() {
   try {
-    const response = await fetch("data/dictionary.json?v=verb-difficulty-1", { cache: "no-store" });
+    const response = await fetch("data/games/verb-nebula/core-vocabulary.json?v=verb-difficulty-1", { cache: "no-store" });
     if (!response.ok) throw new Error(`Dictionary request failed (${response.status}).`);
     const dictionary = await response.json();
     if (!Array.isArray(dictionary)) throw new Error("Dictionary data is not a list.");

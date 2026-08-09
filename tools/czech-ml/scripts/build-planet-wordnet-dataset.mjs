@@ -310,8 +310,8 @@ async function fetchCached(source) {
 }
 
 async function collectAppSentences(addSentence) {
-  const dictionary = await readJson(path.join(appDataRoot, "dictionary.json"));
-  const scripts = await readJson(path.join(appDataRoot, "scripts.json"));
+  const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
+  const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
   for (const item of dictionary) {
     if (item.use) {
       addSentence(item.use, {

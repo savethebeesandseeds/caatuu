@@ -7,14 +7,14 @@ const staticRoot = new URL("../../../../apps/languages/czech/static/", import.me
 const launcherRoot = new URL("../../../../apps/launcher/static/", import.meta.url);
 const [page, styles, gamesPage, appStyles, controller, serviceWorker, setupManifest, logoBytes, verbs] = await Promise.all([
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
-  readFile(new URL("conjugation-comet.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/conjugation-comet/conjugation-comet.css", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("app.css", staticRoot), "utf8"),
-  readFile(new URL("conjugation-comet.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("assets/planets/conjugation-comet.png", launcherRoot)),
-  readFile(new URL("data/verbs.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
 test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () => {
@@ -33,12 +33,12 @@ test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () 
 });
 
 test("the standalone page loads direct game data without the curriculum service", () => {
-  const semantic = page.indexOf('src="semantic-learning.js?v=semantic-learning-7"');
-  const chrome = page.indexOf('src="chrome.js?v=chrome-96"');
-  const game = page.indexOf('src="conjugation-comet.js?v=conjugation-comet-11"');
+  const semantic = page.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
+  const chrome = page.indexOf('src="source/shared/chrome.js?v=chrome-96"');
+  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13"');
   assert.ok(semantic >= 0 && chrome > semantic && game > chrome);
   assert.doesNotMatch(page, /curriculum-service/);
-  assert.match(controller, /const VERBS_URL = "data\/verbs\.json"/);
+  assert.match(controller, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
   assert.doesNotMatch(controller, /CaatuuCurriculum|data\/curriculum|guided-opportunity/);
 });
 
@@ -55,7 +55,12 @@ test("verbs.json supplies complete six-form paradigms and fair English cues", ()
   }
   assert.match(controller, /FORM_KEYS = Object\.freeze\(\["1s", "2s", "3s", "1p", "2p", "3p"\]\)/);
   assert.match(controller, /FORM_LABELS/);
-  assert.match(controller, /normalize\(state\.current\.forms\[formKey\]\.cs\) === normalize\(state\.current\.forms\[cueKey\]\.cs\)/);
+  assert.match(controller, /formsAreEquivalent\(state\.current\.forms\[formKey\], state\.current\.forms\[cueKey\]\)/);
+  assert.match(controller, /form\?\.accepted/);
+  assert.match(controller, /const FORM_BADGES/);
+  assert.match(controller, /conjugation-comet-cue-verb/);
+  assert.match(page, /id="verbMorphologyLegend"/);
+  assert.match(page, /S = singular/);
 });
 
 test("each round has a four-choice meaning gate followed by all six forms", () => {
@@ -78,9 +83,9 @@ test("controls remain usable at touch, keyboard, mobile, and reduced-motion boun
 test("the offline shell pins the game, verb data, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./conjugation-comet.css?v=conjugation-comet-6",
-    "./conjugation-comet.js?v=conjugation-comet-11",
-    "./data/verbs.json",
+    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-7",
+    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13",
+    "./data/games/conjugation-comet/verbs.json",
     "/assets/planets/conjugation-comet.png"
   ]) assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);
 });

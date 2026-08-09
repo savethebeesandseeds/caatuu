@@ -103,7 +103,7 @@ const sqlJsWasmFile = path.resolve(
   argValue("--sqljs-wasm", path.join(caatuuRoot, "apps", "languages", "czech", "static", "vendor", "sql.js", "sql-wasm.wasm")),
 );
 const browserVectorDbFile = path.resolve(
-  argValue("--browser-vector-db-file", path.join(caatuuRoot, "apps", "languages", "czech", "static", "vector-db.js")),
+  argValue("--browser-vector-db-file", path.join(caatuuRoot, "apps", "languages", "czech", "static", "source", "shared", "vector-db.js")),
 );
 const assetKeymapFile = path.resolve(
   argValue(
@@ -952,9 +952,11 @@ async function updateBrowserVectorDbUrl(file, sqliteSha256) {
   const shortHash = String(sqliteSha256 || "").slice(0, 8);
   if (!shortHash) throw new Error("Cannot update browser vector DB URL without a SQLite SHA-256.");
   const text = await fs.readFile(file, "utf8");
-  const nextUrl = `data/embeddings/${MODEL_ID}/${DB_FILE_NAME}?v=${shortHash}`;
+  const current = text.match(/^const defaultDbUrl = "((?:\.\.\/)*data\/embeddings\/)[^"]+";/m);
+  if (!current) throw new Error(`Cannot find the browser vector DB URL in ${file}.`);
+  const nextUrl = `${current[1]}${MODEL_ID}/${DB_FILE_NAME}?v=${shortHash}`;
   const nextText = text.replace(
-    /^const defaultDbUrl = "data\/embeddings\/[^"]+";/m,
+    /^const defaultDbUrl = "(?:\.\.\/)*data\/embeddings\/[^"]+";/m,
     `const defaultDbUrl = "${nextUrl}";`,
   );
   if (nextText === text) return false;

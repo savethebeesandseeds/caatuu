@@ -361,17 +361,5 @@
       "document_id": "asset-robot-033",
       "chunk_id": "asset-robot-033:description"
     }
-  },
-  "/assets/robots/word-world-waiting.svg": {
-    "description": "A friendly reading robot quietly preparing the next Word World sentence",
-    "category": "word_world_loading",
-    "default": true,
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "robot_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-robot-034",
-      "chunk_id": "asset-robot-034:description"
-    }
   }
 }

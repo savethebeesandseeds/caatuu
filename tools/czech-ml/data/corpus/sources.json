@@ -9,21 +9,21 @@
   "local_sources": [
     {
       "id": "caatuu_dictionary",
-      "path": "../dictionary.json",
+      "path": "../../../../apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
       "kind": "caatuu_app_data",
       "license": "project-local",
       "description": "Existing Caatuu Czech dictionary entries and example uses."
     },
     {
       "id": "caatuu_scripts",
-      "path": "../scripts.json",
+      "path": "../../../../apps/languages/czech/static/data/language/scripts.json",
       "kind": "caatuu_app_data",
       "license": "project-local",
       "description": "Existing Caatuu Czech short scripts."
     },
     {
       "id": "caatuu_verbs",
-      "path": "../verbs.json",
+      "path": "../../../../apps/languages/czech/static/data/games/conjugation-comet/verbs.json",
       "kind": "caatuu_app_data",
       "license": "project-local",
       "description": "Existing Caatuu Czech verb forms."

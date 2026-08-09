@@ -38,7 +38,7 @@ without naming a particular language.
 - `apps/launcher/static/languages.json` is the public registry used by the
   launcher. Only active, reachable language apps belong there.
 - Each game currently reads its reviewed language data directly. In Czech,
-  Conjugation Comet reads `apps/languages/czech/static/data/verbs.json`.
+  game-owned data lives under `apps/languages/czech/static/data/games/<game-id>`.
 - A future shared curriculum contract must be designed and reviewed separately.
   The retired experimental `apps/curriculum` package is not part of the runtime.
 - Each language app provides `course-profile.js` before `runtime.js` and shared

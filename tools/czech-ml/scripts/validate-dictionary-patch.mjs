@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { tryCompileDictionaryPatch } from "../../../apps/languages/czech/static/dictionary-patch-core.mjs";
+import { tryCompileDictionaryPatch } from "../../../apps/languages/czech/static/source/features/dictionary/dictionary-patch-core.mjs";
 
 const defaultPatchUrl = new URL(
   "../../../apps/languages/czech/static/data/dictionaries/patches/reviewed-cs-en.v1.json",
@@ -13,7 +13,7 @@ const defaultCatalogUrl = new URL(
   "../../../apps/languages/czech/static/data/dictionaries/catalog.json",
   import.meta.url
 );
-const runtimeUrl = new URL("../../../apps/languages/czech/static/runtime.js", import.meta.url);
+const runtimeUrl = new URL("../../../apps/languages/czech/static/source/shared/runtime.js", import.meta.url);
 const serviceWorkerUrl = new URL("../../../apps/languages/czech/static/sw.js", import.meta.url);
 
 function patchPathFromArgs(args) {

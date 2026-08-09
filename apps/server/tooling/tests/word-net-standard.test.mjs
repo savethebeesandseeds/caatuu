@@ -8,7 +8,7 @@ import {
   loadStandardWordWorldCorpus,
   migrateWordWorldHistory,
   selectStandardTurn
-} from "../../../languages/czech/static/word-net-standard.mjs";
+} from "../../../languages/czech/static/source/games/word-world/word-net-standard.mjs";
 
 function row(id, difficulty, cs, en, targets = []) {
   return {
@@ -164,7 +164,7 @@ test("Standard selection has no model dependency or model-call path", () => {
 });
 
 test("the browser Standard render path cannot call models or contaminate the generated queue", async () => {
-  const runtimeSource = await readFile(new URL("../../../languages/czech/static/word-net.js", import.meta.url), "utf8");
+  const runtimeSource = await readFile(new URL("../../../languages/czech/static/source/games/word-world/word-net.js", import.meta.url), "utf8");
   const start = runtimeSource.indexOf("function showStandardPhrase");
   const end = runtimeSource.indexOf("function takeQueuedRandomCandidate", start);
   assert.ok(start >= 0 && end > start);
@@ -212,7 +212,7 @@ test("the browser Standard render path cannot call models or contaminate the gen
 });
 
 test("Standard feedback provenance survives the compact runtime report boundary", async () => {
-  const runtimeSource = await readFile(new URL("../../../languages/czech/static/runtime.js", import.meta.url), "utf8");
+  const runtimeSource = await readFile(new URL("../../../languages/czech/static/source/shared/runtime.js", import.meta.url), "utf8");
   for (const field of ["entryId", "contentMode", "corpusVersion", "difficulty"]) {
     assert.match(runtimeSource, new RegExp(`payload\\.feedback\\.${field}`));
   }
@@ -265,7 +265,7 @@ test("loads the versioned manifest and its relative compact runtime pack", async
     if (calls.length === 1) {
       return {
         ok: true,
-        url: "https://example.test/cz/data/word-world/manifest.json",
+        url: "https://example.test/cz/data/games/word-world/manifest.json",
         async json() {
           return { corpusVersion: "pilot-v1", runtimeFile: "standard-v0.1/records.json" };
         }
@@ -285,7 +285,7 @@ test("loads the versioned manifest and its relative compact runtime pack", async
   const corpus = await loadStandardWordWorldCorpus({ fetchImpl });
   assert.equal(corpus.size, 1);
   assert.equal(calls[0].options.cache, "reload");
-  assert.equal(calls[1].url, "https://example.test/cz/data/word-world/standard-v0.1/records.json");
+  assert.equal(calls[1].url, "https://example.test/cz/data/games/word-world/standard-v0.1/records.json");
 });
 
 test("stable-ID selection remains behind the runtime pack integrity check", async () => {
@@ -299,7 +299,7 @@ test("stable-ID selection remains behind the runtime pack integrity check", asyn
     if (call === 1) {
       return {
         ok: true,
-        url: "https://example.test/cz/data/word-world/manifest.json",
+        url: "https://example.test/cz/data/games/word-world/manifest.json",
         async json() {
           return {
             corpusVersion: "pilot-v1",
@@ -325,11 +325,11 @@ test("stable-ID selection remains behind the runtime pack integrity check", asyn
 
 test("runtime integrity rejects a BOM-prefixed byte mutation", async () => {
   const manifest = JSON.parse(await readFile(
-    new URL("../../../languages/czech/static/data/word-world/manifest.json", import.meta.url),
+    new URL("../../../languages/czech/static/data/games/word-world/manifest.json", import.meta.url),
     "utf8"
   ));
   const cleanBytes = await readFile(
-    new URL("../../../languages/czech/static/data/word-world/standard-v0.1/records.json", import.meta.url)
+    new URL("../../../languages/czech/static/data/games/word-world/standard-v0.1/records.json", import.meta.url)
   );
   const bomPrefixed = new Uint8Array(cleanBytes.length + 3);
   bomPrefixed.set([0xef, 0xbb, 0xbf]);
@@ -340,7 +340,7 @@ test("runtime integrity rejects a BOM-prefixed byte mutation", async () => {
     return call === 1
       ? {
           ok: true,
-          url: "https://example.test/cz/data/word-world/manifest.json",
+          url: "https://example.test/cz/data/games/word-world/manifest.json",
           async json() {
             return manifest;
           }
@@ -361,7 +361,7 @@ test("runtime integrity rejects a BOM-prefixed byte mutation", async () => {
 
 test("the shipped runtime pack URL is addressed by its content hash", async () => {
   const manifest = JSON.parse(await readFile(
-    new URL("../../../languages/czech/static/data/word-world/manifest.json", import.meta.url),
+    new URL("../../../languages/czech/static/data/games/word-world/manifest.json", import.meta.url),
     "utf8"
   ));
   assert.match(
@@ -374,6 +374,6 @@ test("the shipped runtime pack URL is addressed by its content hash", async () =
   );
   assert.match(
     serviceWorker,
-    new RegExp(`data/word-world/${manifest.runtimeFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
+    new RegExp(`data/games/word-world/${manifest.runtimeFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
   );
 });

@@ -7,11 +7,11 @@ const launcherStatic = new URL("../../../../apps/launcher/static/", import.meta.
 const androidBuild = new URL("../../../../apps/android/app/build.gradle.kts", import.meta.url);
 
 const [chromeCss, appCss, chatCss, chromeJs, courseProfile, serviceWorker, launcherCss, launcherHtml, launcherJs, languageRegistry, androidGradle] = await Promise.all([
-  readFile(new URL("chrome.css", czechStatic), "utf8"),
-  readFile(new URL("app.css", czechStatic), "utf8"),
-  readFile(new URL("chat.css", czechStatic), "utf8"),
-  readFile(new URL("chrome.js", czechStatic), "utf8"),
-  readFile(new URL("course-profile.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/chrome.css", czechStatic), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.css", czechStatic), "utf8"),
+  readFile(new URL("source/features/chat/chat.css", czechStatic), "utf8"),
+  readFile(new URL("source/shared/chrome.js", czechStatic), "utf8"),
+  readFile(new URL("source/shared/course-profile.js", czechStatic), "utf8"),
   readFile(new URL("sw.js", czechStatic), "utf8"),
   readFile(new URL("app.css", launcherStatic), "utf8"),
   readFile(new URL("index.html", launcherStatic), "utf8"),

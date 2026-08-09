@@ -767,23 +767,23 @@ function auditApk() {
     "assets/home.html",
     "assets/index.html",
     "assets/chat.html",
-    "assets/app.js",
-    "assets/chat.js",
-    "assets/course-profile.js",
+    "assets/source/games/verb-nebula/app.js",
+    "assets/source/features/chat/chat.js",
+    "assets/source/shared/course-profile.js",
     "assets/conjugation-comet.html",
-    "assets/conjugation-comet.css",
-    "assets/conjugation-comet.js",
-    "assets/runtime.js",
-    "assets/chrome.js",
-    "assets/maintenance-ui.js",
-    "assets/setup-progress.js",
-    "assets/setup.js",
+    "assets/source/games/conjugation-comet/conjugation-comet.css",
+    "assets/source/games/conjugation-comet/conjugation-comet.js",
+    "assets/source/shared/runtime.js",
+    "assets/source/shared/chrome.js",
+    "assets/source/shared/maintenance-ui.js",
+    "assets/source/features/setup/setup-progress.js",
+    "assets/source/features/setup/setup.js",
     "assets/sw.js",
-    "assets/vector-db.js",
-    "assets/verb-exercise-family-core.mjs",
-    "assets/word-net-core.mjs",
+    "assets/source/shared/vector-db.js",
+    "assets/source/games/verb-nebula/verb-exercise-family-core.mjs",
+    "assets/source/games/word-world/word-net-core.mjs",
     "assets/setup-assets.json",
-    "assets/data/verbs.json",
+    "assets/data/games/conjugation-comet/verbs.json",
     "assets/data/models/phone-bench/models.json",
     "assets/data/embeddings/models.json",
     "assets/data/embeddings/caatuu-local-hash-v0.1/manifest.json",
@@ -849,13 +849,13 @@ function auditApk() {
   const source = unzip([
     "-p",
     apkRel,
-    "assets/app.js",
-    "assets/chat.js",
-    "assets/maintenance-ui.js",
+    "assets/source/games/verb-nebula/app.js",
+    "assets/source/features/chat/chat.js",
+    "assets/source/shared/maintenance-ui.js",
     "assets/home.html",
     "assets/index.html",
-    "assets/chrome.js",
-    "assets/runtime.js"
+    "assets/source/shared/chrome.js",
+    "assets/source/shared/runtime.js"
   ]);
   const forbiddenSourcePatterns = [
     /device-ai|Device AI|device AI|device_ai|deviceAi/,
@@ -867,7 +867,7 @@ function auditApk() {
     assert(!pattern.test(source), `APK Czech shell source contains forbidden pattern ${pattern}`);
   }
 
-  const runtime = unzip(["-p", apkRel, "assets/runtime.js"]);
+  const runtime = unzip(["-p", apkRel, "assets/source/shared/runtime.js"]);
   assert(runtime.includes("caatuu.local"), "APK runtime.js should identify the native host");
   assert(runtime.includes("isNativeShell"), "APK runtime.js should expose native shell detection");
   assert(runtime.includes("isBrowserShell"), "APK runtime.js should expose browser shell detection");
@@ -937,11 +937,11 @@ function auditApk() {
 
 function auditRuntimeAdapterBoundary() {
   const staticRoot = join(workspaceRoot, "apps/languages/czech/static");
-  const runtimePath = join(staticRoot, "runtime.js");
+  const runtimePath = join(staticRoot, "source/shared/runtime.js");
   const runtime = readFileSync(runtimePath, "utf8");
   const appScripts = listFiles(staticRoot, new Set(["vendor"]))
     .filter((file) => /\.(?:m?js|html)$/.test(file))
-    .filter((file) => !["runtime.js", "sw.js"].includes(staticRel(staticRoot, file)));
+    .filter((file) => !["source/shared/runtime.js", "sw.js"].includes(staticRel(staticRoot, file)));
 
   for (const file of appScripts) {
     const source = readFileSync(file, "utf8");
@@ -967,16 +967,16 @@ function auditRuntimeAdapterBoundary() {
   assert(serviceWorker.includes('if (request.cache === "no-store")'), "the service worker should honor no-store setup downloads");
   assert(serviceWorker.includes("event.respondWith(fetch(request))"), "no-store setup downloads should go directly to the network");
   assert(serviceWorker.includes("A full quota must not hide a valid network response"), "opportunistic PWA cache failures should not fail successful network requests");
-  const chrome = readFileSync(join(staticRoot, "chrome.js"), "utf8");
-  const chromeCss = readFileSync(join(staticRoot, "chrome.css"), "utf8");
-  const maintenanceUi = readFileSync(join(staticRoot, "maintenance-ui.js"), "utf8");
-  const app = readFileSync(join(staticRoot, "app.js"), "utf8");
-  const chat = readFileSync(join(staticRoot, "chat.js"), "utf8");
-  const wordNet = readFileSync(join(staticRoot, "word-net.js"), "utf8");
-  const wordNetQueue = readFileSync(join(staticRoot, "word-net-queue.mjs"), "utf8");
+  const chrome = readFileSync(join(staticRoot, "source/shared/chrome.js"), "utf8");
+  const chromeCss = readFileSync(join(staticRoot, "source/shared/chrome.css"), "utf8");
+  const maintenanceUi = readFileSync(join(staticRoot, "source/shared/maintenance-ui.js"), "utf8");
+  const app = readFileSync(join(staticRoot, "source/games/verb-nebula/app.js"), "utf8");
+  const chat = readFileSync(join(staticRoot, "source/features/chat/chat.js"), "utf8");
+  const wordNet = readFileSync(join(staticRoot, "source/games/word-world/word-net.js"), "utf8");
+  const wordNetQueue = readFileSync(join(staticRoot, "source/games/word-world/word-net-queue.mjs"), "utf8");
   const wordNetHtml = readFileSync(join(staticRoot, "word-net.html"), "utf8");
-  const wordNetCss = readFileSync(join(staticRoot, "word-net.css"), "utf8");
-  const dictionaryFull = readFileSync(join(staticRoot, "dictionary-full.js"), "utf8");
+  const wordNetCss = readFileSync(join(staticRoot, "source/games/word-world/word-net.css"), "utf8");
+  const dictionaryFull = readFileSync(join(staticRoot, "source/features/dictionary/dictionary-full.js"), "utf8");
   assert(chrome.includes("renderAppHeader"), "chrome.js should own shared app header rendering");
   assert(chrome.includes("renderSettingsPanel"), "chrome.js should own shared settings rendering");
   assert(chrome.includes("renderBottomNav"), "chrome.js should own shared bottom nav rendering");
@@ -1106,7 +1106,7 @@ function auditRuntimeAdapterBoundary() {
   );
   assert(chat.includes("models.resetConversation"), "New chat and reload should reset the model's retained native context");
   assert(chat.includes("options.stateless"), "one-shot language models should request a fresh context");
-  const appUiSources = ["app.js", "chat.js", "index.html", "chat.html"]
+  const appUiSources = ["source/games/verb-nebula/app.js", "source/features/chat/chat.js", "index.html", "chat.html"]
     .map((name) => [name, readFileSync(join(staticRoot, name), "utf8")]);
   for (const [name, source] of appUiSources) {
     assert(!source.includes("appSettingsPanel"), `${name} should not use a page-specific settings panel id`);
@@ -1189,7 +1189,7 @@ function auditAndroidSource() {
   const gradlePath = join(workspaceRoot, "apps/android/app/build.gradle.kts");
   const playManifestPath = join(workspaceRoot, "apps/android/app/src/play/AndroidManifest.xml");
   const czechIndexPath = join(workspaceRoot, "apps/languages/czech/static/index.html");
-  const maintenanceUiPath = join(workspaceRoot, "apps/languages/czech/static/maintenance-ui.js");
+  const maintenanceUiPath = join(workspaceRoot, "apps/languages/czech/static/source/shared/maintenance-ui.js");
   const debugBuildPath = join(workspaceRoot, "apps/android/tooling/build-debug-apk.sh");
   const publicDebugPublisherPath = join(workspaceRoot, "apps/android/tooling/publish-public-debug.sh");
   const releaseBuildPath = join(workspaceRoot, "apps/android/tooling/build-release-apk.sh");

@@ -5,11 +5,11 @@ import vm from "node:vm";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [courseProfileSource, learningProfileSource, chromeSource, appSource, wordWorldSource] = await Promise.all([
-  readFile(new URL("course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("learning-profile.js", staticRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
-  readFile(new URL("app.js", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8")
+  readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/learning-profile.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8")
 ]);
 
 function createLearningContext(initial = {}) {

@@ -4,24 +4,24 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise.all([
-  readFile(new URL("theme.css", staticRoot), "utf8"),
-  readFile(new URL("app.css", staticRoot), "utf8"),
-  readFile(new URL("chat.css", staticRoot), "utf8"),
-  readFile(new URL("chrome.css", staticRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/theme.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
+  readFile(new URL("source/features/chat/chat.css", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
   ...["home.html", "index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
 const [homeCss, launcherCss] = await Promise.all([
-  readFile(new URL("home.css", staticRoot), "utf8"),
+  readFile(new URL("source/features/home/home.css", staticRoot), "utf8"),
   readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
 ]);
 
 test("the home page uses the same cached application shell stylesheet as the game", () => {
   const home = pages.find((page) => page.name === "home.html")?.source || "";
   const game = pages.find((page) => page.name === "index.html")?.source || "";
-  assert.match(home, /href="app\.css\?v=shell-76"/);
-  assert.match(game, /href="app\.css\?v=shell-76"/);
+  assert.match(home, /href="source\/games\/verb-nebula\/app\.css\?v=shell-76"/);
+  assert.match(game, /href="source\/games\/verb-nebula\/app\.css\?v=shell-76"/);
 });
 
 function cssRules(source) {
@@ -307,8 +307,8 @@ test("dark primary surfaces avoid hard-coded pure black and white backgrounds", 
 
 test("every settings surface receives shared theme tokens before shared Chrome", () => {
   for (const { name, source } of pages) {
-    const themeIndex = source.indexOf('href="theme.css');
-    const chromeIndex = source.indexOf('href="chrome.css');
+    const themeIndex = source.indexOf('href="source/shared/theme.css');
+    const chromeIndex = source.indexOf('href="source/shared/chrome.css');
     assert.ok(themeIndex >= 0, `${name} must load theme.css`);
     assert.ok(chromeIndex > themeIndex, `${name} must load theme.css before chrome.css`);
   }
@@ -395,9 +395,9 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="course-profile.js?v=course-16"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
-    const themeIndex = source.indexOf('href="theme.css?v=theme-5"');
+    const themeIndex = source.indexOf('href="source/shared/theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
     assert.ok(bootstrapIndex > profileIndex, `${name} must read its font size after the course profile`);
     assert.ok(themeIndex > bootstrapIndex, `${name} must apply font size before loading CSS`);
@@ -532,6 +532,21 @@ test("the skill compass uses shared theme tokens and keeps exact values beside t
   for (const axisId of ["people", "home-school", "food-shopping", "places-travel", "actions-abilities", "time-plans", "world-description"]) {
     assert.match(chromeCss, new RegExp(`data-axis-id="${axisId}"`));
   }
+});
+
+test("settings expose Appearance and About immediately while Advanced stays collapsed", () => {
+  const appearanceStart = chromeJs.indexOf('aria-label="Appearance"');
+  const advancedStart = chromeJs.indexOf('aria-label="Advanced app settings"');
+  const advancedBodyStart = chromeJs.indexOf('<div class="settings-section-body">', advancedStart);
+  assert.ok(appearanceStart >= 0 && advancedStart > appearanceStart);
+  assert.match(chromeJs, /<section class="settings-card side-card settings-section-card app-controls-card" aria-label="Advanced app settings">/);
+  assert.match(chromeJs, /<strong>Advanced<\/strong>[\s\S]*?<small>AI, developer, storage<\/small>/);
+  assert.match(chromeJs, /<details class="settings-section-details">/);
+  assert.doesNotMatch(chromeJs, /<details class="settings-section-details" open>/);
+  assert.match(chromeJs, /<section class="settings-card side-card about-card" aria-label="About">/);
+  assert.ok(advancedBodyStart > advancedStart);
+  assert.ok(chromeJs.indexOf('aria-label="Chat settings"', advancedBodyStart) > advancedBodyStart);
+  assert.ok(chromeJs.indexOf('aria-label="App settings"', advancedBodyStart) > advancedBodyStart);
 });
 
 test("browser freshness notices remain visible, themed, and dismiss only when current", () => {

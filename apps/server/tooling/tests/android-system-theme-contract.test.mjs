@@ -10,8 +10,8 @@ const [activity, manifest, bridge, chrome, runtime] = await Promise.all([
   readFile(new URL("java/com/caatuu/android/MainActivity.kt", androidRoot), "utf8"),
   readFile(new URL("AndroidManifest.xml", androidRoot), "utf8"),
   readFile(new URL("java/com/caatuu/android/CaatuuBridge.kt", androidRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
-  readFile(new URL("runtime.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
 ]);
 
 test("shared web theme changes reach the Android system-theme hook", () => {

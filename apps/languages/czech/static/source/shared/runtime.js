@@ -988,7 +988,7 @@
     if (!dictionaryGapOutboxPromise) {
       dictionaryGapOutboxPromise = Promise.all([
         import("./feedback-outbox.mjs?v=feedback-outbox-5"),
-        import("./dictionary-gap-report.mjs?v=dictionary-gap-report-1")
+        import("../features/dictionary/dictionary-gap-report.mjs?v=dictionary-gap-report-1")
       ])
         .then(async ([{ FeedbackOutbox }, { collectLegacyDictionaryGapReports }]) => {
           dictionaryGapOutbox = new FeedbackOutbox({
@@ -1026,7 +1026,7 @@
   }
 
   async function enqueueDictionaryGap(feedback = {}) {
-    const { buildDictionaryGapReport } = await import("./dictionary-gap-report.mjs?v=dictionary-gap-report-1");
+    const { buildDictionaryGapReport } = await import("../features/dictionary/dictionary-gap-report.mjs?v=dictionary-gap-report-1");
     const report = buildDictionaryGapReport(feedback);
     if (!report) return { queued: false, persisted: false, invalid: true, pending: 0 };
     const outbox = await getDictionaryGapOutbox();
@@ -1325,7 +1325,7 @@
     if (!dictionaryPatchRuntimePromise) {
       dictionaryPatchRuntimePromise = Promise.all([
         fetchJson(dictionaryPatchPath),
-        import("./dictionary-patch-core.mjs?v=dictionary-patch-core-1")
+        import("../features/dictionary/dictionary-patch-core.mjs?v=dictionary-patch-core-1")
       ]).then(([rawPatch, core]) => ({
         core,
         patch: core.compileDictionaryPatch(rawPatch)

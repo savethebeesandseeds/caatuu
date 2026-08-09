@@ -15,8 +15,8 @@ const [manager, bridge, filePaths, maintenanceUi, setup] = await Promise.all([
     "../../../../apps/android/app/src/main/res/xml/caatuu_file_paths.xml",
     import.meta.url
   ), "utf8"),
-  readFile(new URL("../../../../apps/languages/czech/static/maintenance-ui.js", import.meta.url), "utf8"),
-  readFile(new URL("../../../../apps/languages/czech/static/setup.js", import.meta.url), "utf8")
+  readFile(new URL("../../../../apps/languages/czech/static/source/shared/maintenance-ui.js", import.meta.url), "utf8"),
+  readFile(new URL("../../../../apps/languages/czech/static/source/features/setup/setup.js", import.meta.url), "utf8")
 ]);
 
 function kotlinFunction(source, signature, nextSignature = "\n    private ") {

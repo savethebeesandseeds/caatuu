@@ -11,11 +11,11 @@ const [manager, bridge, activity, manifest, runtime, wordNet, wordNetHtml, wordN
   readFile(new URL("java/com/caatuu/android/CaatuuBridge.kt", androidRoot), "utf8"),
   readFile(new URL("java/com/caatuu/android/MainActivity.kt", androidRoot), "utf8"),
   readFile(new URL("AndroidManifest.xml", androidRoot), "utf8"),
-  readFile(new URL("runtime.js", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("word-net-core.mjs", staticRoot), "utf8"),
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net-core.mjs", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
 ]);
 
 function rateForDifficulty(source, difficulty) {

@@ -4,12 +4,12 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [chrome, chromeCss, appController, appCss, wordWorldController, wordWorldCss, serviceWorker, ...pages] = await Promise.all([
-  readFile(new URL("chrome.js", staticRoot), "utf8"),
-  readFile(new URL("chrome.css", staticRoot), "utf8"),
-  readFile(new URL("app.js", staticRoot), "utf8"),
-  readFile(new URL("app.css", staticRoot), "utf8"),
-  readFile(new URL("word-net.js", staticRoot), "utf8"),
-  readFile(new URL("word-net.css", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/word-world/word-net.css", staticRoot), "utf8"),
   readFile(new URL("sw.js", staticRoot), "utf8"),
   ...["chat.html", "conjugation-comet.html", "embedding-images.html", "home.html", "index.html", "verb-difficulty.html", "word-net.html", "audio-lab.html"]
     .map((file) => readFile(new URL(file, staticRoot), "utf8"))

@@ -3,15 +3,15 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const runtime = readFileSync(
-  new URL("../../../languages/czech/static/runtime.js", import.meta.url),
+  new URL("../../../languages/czech/static/source/shared/runtime.js", import.meta.url),
   "utf8"
 );
 const chrome = readFileSync(
-  new URL("../../../languages/czech/static/chrome.js", import.meta.url),
+  new URL("../../../languages/czech/static/source/shared/chrome.js", import.meta.url),
   "utf8"
 );
 const comet = readFileSync(
-  new URL("../../../languages/czech/static/conjugation-comet.js", import.meta.url),
+  new URL("../../../languages/czech/static/source/games/conjugation-comet/conjugation-comet.js", import.meta.url),
   "utf8"
 );
 const bridge = readFileSync(
@@ -23,7 +23,7 @@ const home = readFileSync(
   "utf8"
 );
 const setup = readFileSync(
-  new URL("../../../languages/czech/static/setup.js", import.meta.url),
+  new URL("../../../languages/czech/static/source/features/setup/setup.js", import.meta.url),
   "utf8"
 );
 

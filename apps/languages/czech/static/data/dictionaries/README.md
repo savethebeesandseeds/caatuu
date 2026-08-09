@@ -1,8 +1,8 @@
 # Caatuu full dictionaries
 
-The curated learner dictionary remains at `../dictionary.json`. It is the
-ordered Core dictionary and must not be overwritten or reordered by a full
-dictionary build.
+The compact curated game vocabulary lives at
+`../games/verb-nebula/core-vocabulary.json`. It is ordered learner content and
+must not be overwritten or reordered by a full dictionary build.
 
 The full Czech-to-English dictionary is generated from the English
 Wiktionary Czech extract published by Kaikki. Build it inside the existing

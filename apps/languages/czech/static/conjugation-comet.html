@@ -8,8 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="course-profile.js?v=course-16"></script>
-    <script src="learning-profile.js?v=learning-5"></script>
+  <script src="source/shared/course-profile.js?v=course-16"></script>
+    <script src="source/shared/learning-profile.js?v=learning-5"></script>
     <script>
       try {
         const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
@@ -21,12 +21,12 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-    <script src="runtime.js?v=runtime-37"></script>
-    <script src="semantic-learning.js?v=semantic-learning-7"></script>
-    <link rel="stylesheet" href="theme.css?v=theme-5">
-    <link rel="stylesheet" href="app.css?v=shell-76">
-    <link rel="stylesheet" href="chrome.css?v=chrome-style-92">
-    <link rel="stylesheet" href="conjugation-comet.css?v=conjugation-comet-6">
+    <script src="source/shared/runtime.js?v=runtime-37"></script>
+    <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
+    <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+    <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-76">
+    <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-92">
+    <link rel="stylesheet" href="source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-7">
   </head>
   <body class="games-page conjugation-comet-page">
     <div class="app-shell">
@@ -61,7 +61,7 @@
             <img
               class="conjugation-comet-robot"
               id="conjugationCometRobot"
-              src="/assets/robots/word-world-waiting.svg"
+              src="/assets/robots/robot%20(1).png"
               alt="A friendly robot preparing the next Conjugation Comet challenge"
             >
             <p id="conjugationCometInterstitialCopy">Preparing the next challenge…</p>
@@ -114,7 +114,7 @@
             class="verb-match-board conjugation-comet-match-board conjugation-comet-forms-board"
             id="verbMorphologyBoard"
             aria-labelledby="verbMorphologyTitle"
-            aria-describedby="verbMorphologyInstructions verbMorphologyFeedback"
+            aria-describedby="verbMorphologyInstructions verbMorphologyLegend verbMorphologyFeedback"
             aria-busy="true"
           >
             <div class="verb-match-controls" aria-label="Conjugation Comet controls">
@@ -175,6 +175,14 @@
           </section>
 
           <footer class="verb-match-footer conjugation-comet-footer" id="verbMorphologyFooter">
+            <aside class="conjugation-comet-person-legend" id="verbMorphologyLegend" role="note" aria-label="Person and number key">
+              <strong>Form key</strong>
+              <span>S = singular</span>
+              <span>P = plural</span>
+              <span>1 = I / we</span>
+              <span>2 = you</span>
+              <span>3 = he / she / it / they</span>
+            </aside>
             <div class="verb-match-note">
               <p class="verb-match-feedback" id="verbMorphologyFeedback" role="status" aria-live="polite" aria-atomic="true">
                 Preparing the pinned exercise.
@@ -229,8 +237,8 @@
 
     <div data-caatuu-settings-panel hidden></div>
 
-    <script src="chrome.js?v=chrome-96"></script>
-    <script src="maintenance-ui.js?v=maintenance-16"></script>
-    <script type="module" src="conjugation-comet.js?v=conjugation-comet-11"></script>
+    <script src="source/shared/chrome.js?v=chrome-96"></script>
+    <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
+    <script type="module" src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13"></script>
   </body>
 </html>

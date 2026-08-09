@@ -1029,9 +1029,9 @@
       "key": "browser-vector-db-js",
       "label": "Browser vector search",
       "artifact_kind": "browser-runtime",
-      "url": "/cz/vector-db.js",
-      "bytes": 15992,
-      "sha256": "e2a090859c10a5c4cd876231c0cc8295d19417d9ede400c9413548014889d009",
+      "url": "/cz/source/shared/vector-db.js",
+      "bytes": 16028,
+      "sha256": "6ef64f077408607877f9d32f66aeaeacecde98da90727a8436ae402db589a8ec",
       "native_required": false,
       "browser_required": true
     },
@@ -1062,7 +1062,7 @@
       "url": "/cz/data/embeddings/models.json",
       "asset_path": "cz/data/embeddings/models.json",
       "bytes": 2400,
-      "sha256": "7bc98c1cc71362a62aec93e5b8b3f60fffecaee5828ceec8d30ba045c7f02b93",
+      "sha256": "e8dc1f52f31937aa06545b2ea6a2650a240f8bdb30209ca7c47fc000aa714b9b",
       "native_required": false,
       "browser_required": true
     },
@@ -1073,7 +1073,7 @@
       "url": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
       "asset_path": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
       "bytes": 4284,
-      "sha256": "2fb6db211131cd8458b40f5bf2af4b6275d3da5d88f50c6763c57ff9fbcbb0b8",
+      "sha256": "0a95f954034cac1c822cdf649be417b769c123b7a6142b06125cf81fec328faf",
       "native_required": false,
       "browser_required": true
     },
@@ -1083,8 +1083,8 @@
       "artifact_kind": "browser-data",
       "url": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
       "asset_path": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "bytes": 20049920,
-      "sha256": "fc9b947aea369c2a540e0d669a6ea1a72008e8630df84b4f3220e0d10c8ce812",
+      "bytes": 20054016,
+      "sha256": "83bd91a5b7040ec0db39a50129f394c009ba99260c89c249f77cdcb18ef48c6b",
       "native_required": false,
       "browser_required": true
     },
@@ -3217,8 +3217,8 @@
       "artifact_kind": "asset-keymap",
       "url": "/assets/macaw/actions/keymaps.json",
       "asset_path": "assets/macaw/actions/keymaps.json",
-      "bytes": 301508,
-      "sha256": "52ea7ee6254e980743568d6ec2572ec745d35698cbb3646063e5fe9448bcf746",
+      "bytes": 138736,
+      "sha256": "52e0e117178e5dd69e87a7dfd248d2da59fed9e2318364d3dfc0ba9dff33ae80",
       "native_required": true,
       "browser_required": true
     },
@@ -5593,8 +5593,8 @@
       "artifact_kind": "asset-keymap",
       "url": "/assets/robots/keymap.json",
       "asset_path": "assets/robots/keymap.json",
-      "bytes": 21014,
-      "sha256": "70207de24346c581aad0cfa841084901b718f476a9ebf8ede638d7b1c92089e3",
+      "bytes": 20513,
+      "sha256": "e882d33ea03f8df253171c410a2682e900492440a7f0274f6aef4b5edc6c98c3",
       "native_required": true,
       "browser_required": true
     },
@@ -5958,17 +5958,6 @@
       "asset_path": "assets/robots/robot (33).png",
       "bytes": 97821,
       "sha256": "d1ce6e07dee1a8a8c0bbde6bc70c9efa5ff940347f596abe13db9805b9f364de",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "robot-034",
-      "label": "Robot image 34",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/robots/word-world-waiting.svg",
-      "asset_path": "assets/robots/word-world-waiting.svg",
-      "bytes": 1011,
-      "sha256": "c9e9ec51d01dfe97751b2ce3941a51cfb0487f69d088a0d7488c4904a09817ad",
       "native_required": true,
       "browser_required": true
     },
@@ -7740,6 +7729,28 @@
       "asset_path": "assets/macaw/actions/179-astronaut_pilot_ship.png",
       "bytes": 1082985,
       "sha256": "24fa73a4376dbabba37800f09d19e4a04900d760538707191a0c173bbfd75f03",
+      "native_required": true,
+      "browser_required": true
+    },
+    {
+      "key": "macaw-action-255",
+      "label": "Macaw action image 255",
+      "artifact_kind": "visual-asset",
+      "url": "/assets/macaw/actions/180-hear_listen.png",
+      "asset_path": "assets/macaw/actions/180-hear_listen.png",
+      "bytes": 242576,
+      "sha256": "f1263dbddbab5d6b8e42fad5d9722120dd28b2f1f115eecd0f106e8fede3f268",
+      "native_required": true,
+      "browser_required": true
+    },
+    {
+      "key": "macaw-action-256",
+      "label": "Macaw action image 256",
+      "artifact_kind": "visual-asset",
+      "url": "/assets/macaw/actions/181-see_look.png",
+      "asset_path": "assets/macaw/actions/181-see_look.png",
+      "bytes": 263419,
+      "sha256": "d40cdfd79704b957c533a725c57a1714a09bec02fcb499a72f1c61c8a32543f6",
       "native_required": true,
       "browser_required": true
     }
