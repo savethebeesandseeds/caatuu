@@ -1000,15 +1000,19 @@ Planned challenge types are:
 1. Capture a consented baseline from the current Comet and freeze the test
    tasks used for comparison.
 2. Choose one productive pattern and audit only 6–8 verbs plus held-out items.
-3. Directly author and validate the pilot manifest and challenge pack.
-4. Prototype the two primary interaction candidates with the pilot JSON.
+3. Keep the current simple `verbs.json` as the pilot's authoring and runtime
+   source; do not add authored IDs, a manifest, or a compiled challenge pack.
+4. Prototype the two primary interaction candidates using the selected records
+   from that same JSON file.
 5. Run accessibility and facilitated usability tests before visual polish.
 6. Run the held-out learning and replay pilot if usability passes.
 7. Extract only the loader, lifecycle, and evidence pieces demonstrated by the
    winning slice.
-8. Decide proceed, revise, merge, or stop before auditing the other 51+ verbs.
-9. If proceeding, migrate legacy records in reviewed batches, then evaluate a
-   deterministic compiler and coverage report.
+8. Decide proceed, revise, merge, or stop before expanding the pilot to the
+   rest of the already migrated 59-verb collection.
+9. If proceeding, audit the remaining records in reviewed batches. Consider a
+   compiler or companion file only if a demonstrated mechanic makes one
+   necessary and the result remains easy to author and inspect.
 10. Add aspect/future, past/agreement, intent, and adaptive selection only
     through separately gated expansions.
 
