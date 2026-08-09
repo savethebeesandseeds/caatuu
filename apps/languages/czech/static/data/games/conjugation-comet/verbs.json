@@ -1,2127 +1,2248 @@
-[
-  {
-    "infinitive": "být",
-    "english": "be",
-    "family": "core",
-    "commonLevel": 1,
-    "note": "irregular",
-    "pattern": "jsem / jsi / je",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "jsem",
-        "en": "I am"
-      },
-      "2s": {
-        "cs": "jsi",
-        "en": "you are"
-      },
-      "3s": {
-        "cs": "je",
-        "en": "he/she is"
-      },
-      "1p": {
-        "cs": "jsme",
-        "en": "we are"
-      },
-      "2p": {
-        "cs": "jste",
-        "en": "you all are"
-      },
-      "3p": {
-        "cs": "jsou",
-        "en": "they are"
-      }
+{
+  "language": "cs",
+  "verbs": [
+    {
+      "verb": "být",
+      "meaning": "be",
+      "hint": "Imperfective. Irregular. Pattern: jsem / jsi / je.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "jsem",
+          "cue": "I am"
+        },
+        {
+          "label": "S2",
+          "form": "jsi",
+          "cue": "you are"
+        },
+        {
+          "label": "S3",
+          "form": "je",
+          "cue": "he/she is"
+        },
+        {
+          "label": "P1",
+          "form": "jsme",
+          "cue": "we are"
+        },
+        {
+          "label": "P2",
+          "form": "jste",
+          "cue": "you all are"
+        },
+        {
+          "label": "P3",
+          "form": "jsou",
+          "cue": "they are"
+        }
+      ]
+    },
+    {
+      "verb": "mít",
+      "meaning": "have",
+      "hint": "Imperfective. High-frequency. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "mám",
+          "cue": "I have"
+        },
+        {
+          "label": "S2",
+          "form": "máš",
+          "cue": "you have"
+        },
+        {
+          "label": "S3",
+          "form": "má",
+          "cue": "he/she has"
+        },
+        {
+          "label": "P1",
+          "form": "máme",
+          "cue": "we have"
+        },
+        {
+          "label": "P2",
+          "form": "máte",
+          "cue": "you all have"
+        },
+        {
+          "label": "P3",
+          "form": "mají",
+          "cue": "they have"
+        }
+      ]
+    },
+    {
+      "verb": "dělat",
+      "meaning": "do / make",
+      "hint": "Imperfective. Regular workhorse. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "dělám",
+          "cue": "I do"
+        },
+        {
+          "label": "S2",
+          "form": "děláš",
+          "cue": "you do"
+        },
+        {
+          "label": "S3",
+          "form": "dělá",
+          "cue": "he/she does"
+        },
+        {
+          "label": "P1",
+          "form": "děláme",
+          "cue": "we do"
+        },
+        {
+          "label": "P2",
+          "form": "děláte",
+          "cue": "you all do"
+        },
+        {
+          "label": "P3",
+          "form": "dělají",
+          "cue": "they do"
+        }
+      ]
+    },
+    {
+      "verb": "potřebovat",
+      "meaning": "need",
+      "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "potřebuji",
+          "cue": "I need",
+          "accepted": [
+            "potřebuju"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "potřebuješ",
+          "cue": "you need"
+        },
+        {
+          "label": "S3",
+          "form": "potřebuje",
+          "cue": "he/she needs"
+        },
+        {
+          "label": "P1",
+          "form": "potřebujeme",
+          "cue": "we need"
+        },
+        {
+          "label": "P2",
+          "form": "potřebujete",
+          "cue": "you all need"
+        },
+        {
+          "label": "P3",
+          "form": "potřebují",
+          "cue": "they need",
+          "accepted": [
+            "potřebujou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "hledat",
+      "meaning": "look for",
+      "hint": "Imperfective. Takes accusative. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "hledám",
+          "cue": "I look for"
+        },
+        {
+          "label": "S2",
+          "form": "hledáš",
+          "cue": "you look for"
+        },
+        {
+          "label": "S3",
+          "form": "hledá",
+          "cue": "he/she looks for"
+        },
+        {
+          "label": "P1",
+          "form": "hledáme",
+          "cue": "we look for"
+        },
+        {
+          "label": "P2",
+          "form": "hledáte",
+          "cue": "you all look for"
+        },
+        {
+          "label": "P3",
+          "form": "hledají",
+          "cue": "they look for"
+        }
+      ]
+    },
+    {
+      "verb": "čekat",
+      "meaning": "wait",
+      "hint": "Imperfective. Often na + accusative. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "čekám",
+          "cue": "I wait"
+        },
+        {
+          "label": "S2",
+          "form": "čekáš",
+          "cue": "you wait"
+        },
+        {
+          "label": "S3",
+          "form": "čeká",
+          "cue": "he/she waits"
+        },
+        {
+          "label": "P1",
+          "form": "čekáme",
+          "cue": "we wait"
+        },
+        {
+          "label": "P2",
+          "form": "čekáte",
+          "cue": "you all wait"
+        },
+        {
+          "label": "P3",
+          "form": "čekají",
+          "cue": "they wait"
+        }
+      ]
+    },
+    {
+      "verb": "dát",
+      "meaning": "give / put",
+      "hint": "Perfective. Short perfective helper. Pattern: dám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "dám",
+          "cue": "I will give"
+        },
+        {
+          "label": "S2",
+          "form": "dáš",
+          "cue": "you will give"
+        },
+        {
+          "label": "S3",
+          "form": "dá",
+          "cue": "he/she will give"
+        },
+        {
+          "label": "P1",
+          "form": "dáme",
+          "cue": "we will give"
+        },
+        {
+          "label": "P2",
+          "form": "dáte",
+          "cue": "you all will give"
+        },
+        {
+          "label": "P3",
+          "form": "dají",
+          "cue": "they will give"
+        }
+      ]
+    },
+    {
+      "verb": "vzít",
+      "meaning": "take",
+      "hint": "Perfective. Stem vezm-. Pattern: vezmu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "vezmu",
+          "cue": "I will take"
+        },
+        {
+          "label": "S2",
+          "form": "vezmeš",
+          "cue": "you will take"
+        },
+        {
+          "label": "S3",
+          "form": "vezme",
+          "cue": "he/she will take"
+        },
+        {
+          "label": "P1",
+          "form": "vezmeme",
+          "cue": "we will take"
+        },
+        {
+          "label": "P2",
+          "form": "vezmete",
+          "cue": "you all will take"
+        },
+        {
+          "label": "P3",
+          "form": "vezmou",
+          "cue": "they will take"
+        }
+      ]
+    },
+    {
+      "verb": "začít",
+      "meaning": "start",
+      "hint": "Perfective. Stem začn-. Pattern: začnu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "začnu",
+          "cue": "I will start"
+        },
+        {
+          "label": "S2",
+          "form": "začneš",
+          "cue": "you will start"
+        },
+        {
+          "label": "S3",
+          "form": "začne",
+          "cue": "he/she will start"
+        },
+        {
+          "label": "P1",
+          "form": "začneme",
+          "cue": "we will start"
+        },
+        {
+          "label": "P2",
+          "form": "začnete",
+          "cue": "you all will start"
+        },
+        {
+          "label": "P3",
+          "form": "začnou",
+          "cue": "they will start"
+        }
+      ]
+    },
+    {
+      "verb": "zůstat",
+      "meaning": "stay",
+      "hint": "Perfective. Future/result form. Pattern: zůstanu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "zůstanu",
+          "cue": "I will stay"
+        },
+        {
+          "label": "S2",
+          "form": "zůstaneš",
+          "cue": "you will stay"
+        },
+        {
+          "label": "S3",
+          "form": "zůstane",
+          "cue": "he/she will stay"
+        },
+        {
+          "label": "P1",
+          "form": "zůstaneme",
+          "cue": "we will stay"
+        },
+        {
+          "label": "P2",
+          "form": "zůstanete",
+          "cue": "you all will stay"
+        },
+        {
+          "label": "P3",
+          "form": "zůstanou",
+          "cue": "they will stay"
+        }
+      ]
+    },
+    {
+      "verb": "znamenat",
+      "meaning": "mean",
+      "hint": "Imperfective. 3rd person is common. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "znamenám",
+          "cue": "I mean"
+        },
+        {
+          "label": "S2",
+          "form": "znamenáš",
+          "cue": "you mean"
+        },
+        {
+          "label": "S3",
+          "form": "znamená",
+          "cue": "it means"
+        },
+        {
+          "label": "P1",
+          "form": "znamenáme",
+          "cue": "we mean"
+        },
+        {
+          "label": "P2",
+          "form": "znamenáte",
+          "cue": "you all mean"
+        },
+        {
+          "label": "P3",
+          "form": "znamenají",
+          "cue": "they mean"
+        }
+      ]
+    },
+    {
+      "verb": "chtít",
+      "meaning": "want",
+      "hint": "Imperfective. Common helper. Pattern: chci.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "chci",
+          "cue": "I want"
+        },
+        {
+          "label": "S2",
+          "form": "chceš",
+          "cue": "you want"
+        },
+        {
+          "label": "S3",
+          "form": "chce",
+          "cue": "he/she wants"
+        },
+        {
+          "label": "P1",
+          "form": "chceme",
+          "cue": "we want"
+        },
+        {
+          "label": "P2",
+          "form": "chcete",
+          "cue": "you all want"
+        },
+        {
+          "label": "P3",
+          "form": "chtějí",
+          "cue": "they want"
+        }
+      ]
+    },
+    {
+      "verb": "muset",
+      "meaning": "must / have to",
+      "hint": "Imperfective. + infinitive. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "musím",
+          "cue": "I must"
+        },
+        {
+          "label": "S2",
+          "form": "musíš",
+          "cue": "you must"
+        },
+        {
+          "label": "S3",
+          "form": "musí",
+          "cue": "he/she must"
+        },
+        {
+          "label": "P1",
+          "form": "musíme",
+          "cue": "we must"
+        },
+        {
+          "label": "P2",
+          "form": "musíte",
+          "cue": "you all must"
+        },
+        {
+          "label": "P3",
+          "form": "musí",
+          "cue": "they must"
+        }
+      ]
+    },
+    {
+      "verb": "moci",
+      "meaning": "can / be able",
+      "hint": "Imperfective. Spoken můžu forms. Pattern: můžu / mohu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "můžu",
+          "cue": "I can",
+          "accepted": [
+            "mohu"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "můžeš",
+          "cue": "you can"
+        },
+        {
+          "label": "S3",
+          "form": "může",
+          "cue": "he/she can"
+        },
+        {
+          "label": "P1",
+          "form": "můžeme",
+          "cue": "we can"
+        },
+        {
+          "label": "P2",
+          "form": "můžete",
+          "cue": "you all can"
+        },
+        {
+          "label": "P3",
+          "form": "můžou",
+          "cue": "they can",
+          "accepted": [
+            "mohou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "umět",
+      "meaning": "know how to",
+      "hint": "Imperfective. + infinitive. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "umím",
+          "cue": "I know how"
+        },
+        {
+          "label": "S2",
+          "form": "umíš",
+          "cue": "you know how"
+        },
+        {
+          "label": "S3",
+          "form": "umí",
+          "cue": "he/she knows how"
+        },
+        {
+          "label": "P1",
+          "form": "umíme",
+          "cue": "we know how"
+        },
+        {
+          "label": "P2",
+          "form": "umíte",
+          "cue": "you all know how"
+        },
+        {
+          "label": "P3",
+          "form": "umí",
+          "cue": "they know how"
+        }
+      ]
+    },
+    {
+      "verb": "jít",
+      "meaning": "go by foot",
+      "hint": "Imperfective motion. Now / one direction. Pattern: jdu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "jdu",
+          "cue": "I go by foot"
+        },
+        {
+          "label": "S2",
+          "form": "jdeš",
+          "cue": "you go by foot"
+        },
+        {
+          "label": "S3",
+          "form": "jde",
+          "cue": "he/she goes by foot"
+        },
+        {
+          "label": "P1",
+          "form": "jdeme",
+          "cue": "we go by foot"
+        },
+        {
+          "label": "P2",
+          "form": "jdete",
+          "cue": "you all go by foot"
+        },
+        {
+          "label": "P3",
+          "form": "jdou",
+          "cue": "they go by foot"
+        }
+      ]
+    },
+    {
+      "verb": "jet",
+      "meaning": "go by vehicle",
+      "hint": "Imperfective motion. Now / one direction. Pattern: jedu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "jedu",
+          "cue": "I go by vehicle"
+        },
+        {
+          "label": "S2",
+          "form": "jedeš",
+          "cue": "you go by vehicle"
+        },
+        {
+          "label": "S3",
+          "form": "jede",
+          "cue": "he/she goes by vehicle"
+        },
+        {
+          "label": "P1",
+          "form": "jedeme",
+          "cue": "we go by vehicle"
+        },
+        {
+          "label": "P2",
+          "form": "jedete",
+          "cue": "you all go by vehicle"
+        },
+        {
+          "label": "P3",
+          "form": "jedou",
+          "cue": "they go by vehicle"
+        }
+      ]
+    },
+    {
+      "verb": "chodit",
+      "meaning": "go regularly / walk",
+      "hint": "Imperfective motion. Habitual foot motion. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "chodím",
+          "cue": "I walk / go regularly"
+        },
+        {
+          "label": "S2",
+          "form": "chodíš",
+          "cue": "you walk / go regularly"
+        },
+        {
+          "label": "S3",
+          "form": "chodí",
+          "cue": "he/she walks / goes regularly"
+        },
+        {
+          "label": "P1",
+          "form": "chodíme",
+          "cue": "we walk / go regularly"
+        },
+        {
+          "label": "P2",
+          "form": "chodíte",
+          "cue": "you all walk / go regularly"
+        },
+        {
+          "label": "P3",
+          "form": "chodí",
+          "cue": "they walk / go regularly"
+        }
+      ]
+    },
+    {
+      "verb": "jezdit",
+      "meaning": "go by vehicle regularly",
+      "hint": "Imperfective motion. Habitual vehicle motion. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "jezdím",
+          "cue": "I go by vehicle regularly"
+        },
+        {
+          "label": "S2",
+          "form": "jezdíš",
+          "cue": "you go by vehicle regularly"
+        },
+        {
+          "label": "S3",
+          "form": "jezdí",
+          "cue": "he/she goes by vehicle regularly"
+        },
+        {
+          "label": "P1",
+          "form": "jezdíme",
+          "cue": "we go by vehicle regularly"
+        },
+        {
+          "label": "P2",
+          "form": "jezdíte",
+          "cue": "you all go by vehicle regularly"
+        },
+        {
+          "label": "P3",
+          "form": "jezdí",
+          "cue": "they go by vehicle regularly"
+        }
+      ]
+    },
+    {
+      "verb": "přijít",
+      "meaning": "come / arrive by foot",
+      "hint": "Perfective motion. Future/result form. Pattern: přijdu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "přijdu",
+          "cue": "I will come"
+        },
+        {
+          "label": "S2",
+          "form": "přijdeš",
+          "cue": "you will come"
+        },
+        {
+          "label": "S3",
+          "form": "přijde",
+          "cue": "he/she will come"
+        },
+        {
+          "label": "P1",
+          "form": "přijdeme",
+          "cue": "we will come"
+        },
+        {
+          "label": "P2",
+          "form": "přijdete",
+          "cue": "you all will come"
+        },
+        {
+          "label": "P3",
+          "form": "přijdou",
+          "cue": "they will come"
+        }
+      ]
+    },
+    {
+      "verb": "přijet",
+      "meaning": "arrive by vehicle",
+      "hint": "Perfective motion. Future/result form. Pattern: přijedu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "přijedu",
+          "cue": "I will arrive by vehicle"
+        },
+        {
+          "label": "S2",
+          "form": "přijedeš",
+          "cue": "you will arrive by vehicle"
+        },
+        {
+          "label": "S3",
+          "form": "přijede",
+          "cue": "he/she will arrive by vehicle"
+        },
+        {
+          "label": "P1",
+          "form": "přijedeme",
+          "cue": "we will arrive by vehicle"
+        },
+        {
+          "label": "P2",
+          "form": "přijedete",
+          "cue": "you all will arrive by vehicle"
+        },
+        {
+          "label": "P3",
+          "form": "přijedou",
+          "cue": "they will arrive by vehicle"
+        }
+      ]
+    },
+    {
+      "verb": "odejít",
+      "meaning": "leave by foot",
+      "hint": "Perfective motion. Future/result form. Pattern: odejdu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "odejdu",
+          "cue": "I will leave by foot"
+        },
+        {
+          "label": "S2",
+          "form": "odejdeš",
+          "cue": "you will leave by foot"
+        },
+        {
+          "label": "S3",
+          "form": "odejde",
+          "cue": "he/she will leave by foot"
+        },
+        {
+          "label": "P1",
+          "form": "odejdeme",
+          "cue": "we will leave by foot"
+        },
+        {
+          "label": "P2",
+          "form": "odejdete",
+          "cue": "you all will leave by foot"
+        },
+        {
+          "label": "P3",
+          "form": "odejdou",
+          "cue": "they will leave by foot"
+        }
+      ]
+    },
+    {
+      "verb": "odjet",
+      "meaning": "leave by vehicle",
+      "hint": "Perfective motion. Future/result form. Pattern: odjedu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "odjedu",
+          "cue": "I will leave by vehicle"
+        },
+        {
+          "label": "S2",
+          "form": "odjedeš",
+          "cue": "you will leave by vehicle"
+        },
+        {
+          "label": "S3",
+          "form": "odjede",
+          "cue": "he/she will leave by vehicle"
+        },
+        {
+          "label": "P1",
+          "form": "odjedeme",
+          "cue": "we will leave by vehicle"
+        },
+        {
+          "label": "P2",
+          "form": "odjedete",
+          "cue": "you all will leave by vehicle"
+        },
+        {
+          "label": "P3",
+          "form": "odjedou",
+          "cue": "they will leave by vehicle"
+        }
+      ]
+    },
+    {
+      "verb": "vrátit se",
+      "meaning": "return",
+      "hint": "Perfective motion. Reflexive. Pattern: -ím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "vrátím se",
+          "cue": "I will return"
+        },
+        {
+          "label": "S2",
+          "form": "vrátíš se",
+          "cue": "you will return"
+        },
+        {
+          "label": "S3",
+          "form": "vrátí se",
+          "cue": "he/she will return"
+        },
+        {
+          "label": "P1",
+          "form": "vrátíme se",
+          "cue": "we will return"
+        },
+        {
+          "label": "P2",
+          "form": "vrátíte se",
+          "cue": "you all will return"
+        },
+        {
+          "label": "P3",
+          "form": "vrátí se",
+          "cue": "they will return"
+        }
+      ]
+    },
+    {
+      "verb": "dostat se",
+      "meaning": "get somewhere",
+      "hint": "Perfective motion. Reflexive result. Pattern: dostanu se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "dostanu se",
+          "cue": "I will get there"
+        },
+        {
+          "label": "S2",
+          "form": "dostaneš se",
+          "cue": "you will get there"
+        },
+        {
+          "label": "S3",
+          "form": "dostane se",
+          "cue": "he/she will get there"
+        },
+        {
+          "label": "P1",
+          "form": "dostaneme se",
+          "cue": "we will get there"
+        },
+        {
+          "label": "P2",
+          "form": "dostanete se",
+          "cue": "you all will get there"
+        },
+        {
+          "label": "P3",
+          "form": "dostanou se",
+          "cue": "they will get there"
+        }
+      ]
+    },
+    {
+      "verb": "pracovat",
+      "meaning": "work",
+      "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "pracuji",
+          "cue": "I work",
+          "accepted": [
+            "pracuju"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "pracuješ",
+          "cue": "you work"
+        },
+        {
+          "label": "S3",
+          "form": "pracuje",
+          "cue": "he/she works"
+        },
+        {
+          "label": "P1",
+          "form": "pracujeme",
+          "cue": "we work"
+        },
+        {
+          "label": "P2",
+          "form": "pracujete",
+          "cue": "you all work"
+        },
+        {
+          "label": "P3",
+          "form": "pracují",
+          "cue": "they work",
+          "accepted": [
+            "pracujou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "studovat",
+      "meaning": "study",
+      "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "studuji",
+          "cue": "I study",
+          "accepted": [
+            "studuju"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "studuješ",
+          "cue": "you study"
+        },
+        {
+          "label": "S3",
+          "form": "studuje",
+          "cue": "he/she studies"
+        },
+        {
+          "label": "P1",
+          "form": "studujeme",
+          "cue": "we study"
+        },
+        {
+          "label": "P2",
+          "form": "studujete",
+          "cue": "you all study"
+        },
+        {
+          "label": "P3",
+          "form": "studují",
+          "cue": "they study",
+          "accepted": [
+            "studujou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "učit se",
+      "meaning": "learn",
+      "hint": "Imperfective. Reflexive. Pattern: -ím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "učím se",
+          "cue": "I learn"
+        },
+        {
+          "label": "S2",
+          "form": "učíš se",
+          "cue": "you learn"
+        },
+        {
+          "label": "S3",
+          "form": "učí se",
+          "cue": "he/she learns"
+        },
+        {
+          "label": "P1",
+          "form": "učíme se",
+          "cue": "we learn"
+        },
+        {
+          "label": "P2",
+          "form": "učíte se",
+          "cue": "you all learn"
+        },
+        {
+          "label": "P3",
+          "form": "učí se",
+          "cue": "they learn"
+        }
+      ]
+    },
+    {
+      "verb": "bydlet",
+      "meaning": "live / reside",
+      "hint": "Imperfective. Place verb. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "bydlím",
+          "cue": "I live"
+        },
+        {
+          "label": "S2",
+          "form": "bydlíš",
+          "cue": "you live"
+        },
+        {
+          "label": "S3",
+          "form": "bydlí",
+          "cue": "he/she lives"
+        },
+        {
+          "label": "P1",
+          "form": "bydlíme",
+          "cue": "we live"
+        },
+        {
+          "label": "P2",
+          "form": "bydlíte",
+          "cue": "you all live"
+        },
+        {
+          "label": "P3",
+          "form": "bydlí",
+          "cue": "they live"
+        }
+      ]
+    },
+    {
+      "verb": "jíst",
+      "meaning": "eat",
+      "hint": "Imperfective. Stem changes. Pattern: jím / jedí.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "jím",
+          "cue": "I eat"
+        },
+        {
+          "label": "S2",
+          "form": "jíš",
+          "cue": "you eat"
+        },
+        {
+          "label": "S3",
+          "form": "jí",
+          "cue": "he/she eats"
+        },
+        {
+          "label": "P1",
+          "form": "jíme",
+          "cue": "we eat"
+        },
+        {
+          "label": "P2",
+          "form": "jíte",
+          "cue": "you all eat"
+        },
+        {
+          "label": "P3",
+          "form": "jedí",
+          "cue": "they eat"
+        }
+      ]
+    },
+    {
+      "verb": "pít",
+      "meaning": "drink",
+      "hint": "Imperfective. Spoken and formal variants. Pattern: piju / piji.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "piju",
+          "cue": "I drink",
+          "accepted": [
+            "piji"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "piješ",
+          "cue": "you drink"
+        },
+        {
+          "label": "S3",
+          "form": "pije",
+          "cue": "he/she drinks"
+        },
+        {
+          "label": "P1",
+          "form": "pijeme",
+          "cue": "we drink"
+        },
+        {
+          "label": "P2",
+          "form": "pijete",
+          "cue": "you all drink"
+        },
+        {
+          "label": "P3",
+          "form": "pijou",
+          "cue": "they drink",
+          "accepted": [
+            "pijí"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "spát",
+      "meaning": "sleep",
+      "hint": "Imperfective. Short high-frequency verb. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "spím",
+          "cue": "I sleep"
+        },
+        {
+          "label": "S2",
+          "form": "spíš",
+          "cue": "you sleep"
+        },
+        {
+          "label": "S3",
+          "form": "spí",
+          "cue": "he/she sleeps"
+        },
+        {
+          "label": "P1",
+          "form": "spíme",
+          "cue": "we sleep"
+        },
+        {
+          "label": "P2",
+          "form": "spíte",
+          "cue": "you all sleep"
+        },
+        {
+          "label": "P3",
+          "form": "spí",
+          "cue": "they sleep"
+        }
+      ]
+    },
+    {
+      "verb": "vařit",
+      "meaning": "cook",
+      "hint": "Imperfective. Regular -ím. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "vařím",
+          "cue": "I cook"
+        },
+        {
+          "label": "S2",
+          "form": "vaříš",
+          "cue": "you cook"
+        },
+        {
+          "label": "S3",
+          "form": "vaří",
+          "cue": "he/she cooks"
+        },
+        {
+          "label": "P1",
+          "form": "vaříme",
+          "cue": "we cook"
+        },
+        {
+          "label": "P2",
+          "form": "vaříte",
+          "cue": "you all cook"
+        },
+        {
+          "label": "P3",
+          "form": "vaří",
+          "cue": "they cook"
+        }
+      ]
+    },
+    {
+      "verb": "platit",
+      "meaning": "pay",
+      "hint": "Imperfective. Regular -ím. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "platím",
+          "cue": "I pay"
+        },
+        {
+          "label": "S2",
+          "form": "platíš",
+          "cue": "you pay"
+        },
+        {
+          "label": "S3",
+          "form": "platí",
+          "cue": "he/she pays"
+        },
+        {
+          "label": "P1",
+          "form": "platíme",
+          "cue": "we pay"
+        },
+        {
+          "label": "P2",
+          "form": "platíte",
+          "cue": "you all pay"
+        },
+        {
+          "label": "P3",
+          "form": "platí",
+          "cue": "they pay"
+        }
+      ]
+    },
+    {
+      "verb": "koupit",
+      "meaning": "buy",
+      "hint": "Perfective. Result form. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "koupím",
+          "cue": "I will buy"
+        },
+        {
+          "label": "S2",
+          "form": "koupíš",
+          "cue": "you will buy"
+        },
+        {
+          "label": "S3",
+          "form": "koupí",
+          "cue": "he/she will buy"
+        },
+        {
+          "label": "P1",
+          "form": "koupíme",
+          "cue": "we will buy"
+        },
+        {
+          "label": "P2",
+          "form": "koupíte",
+          "cue": "you all will buy"
+        },
+        {
+          "label": "P3",
+          "form": "koupí",
+          "cue": "they will buy"
+        }
+      ]
+    },
+    {
+      "verb": "číst",
+      "meaning": "read",
+      "hint": "Imperfective. Stem čt-. Pattern: čtu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "čtu",
+          "cue": "I read"
+        },
+        {
+          "label": "S2",
+          "form": "čteš",
+          "cue": "you read"
+        },
+        {
+          "label": "S3",
+          "form": "čte",
+          "cue": "he/she reads"
+        },
+        {
+          "label": "P1",
+          "form": "čteme",
+          "cue": "we read"
+        },
+        {
+          "label": "P2",
+          "form": "čtete",
+          "cue": "you all read"
+        },
+        {
+          "label": "P3",
+          "form": "čtou",
+          "cue": "they read"
+        }
+      ]
+    },
+    {
+      "verb": "otevřít",
+      "meaning": "open",
+      "hint": "Perfective. Result form. Pattern: otevřu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "otevřu",
+          "cue": "I will open"
+        },
+        {
+          "label": "S2",
+          "form": "otevřeš",
+          "cue": "you will open"
+        },
+        {
+          "label": "S3",
+          "form": "otevře",
+          "cue": "he/she will open"
+        },
+        {
+          "label": "P1",
+          "form": "otevřeme",
+          "cue": "we will open"
+        },
+        {
+          "label": "P2",
+          "form": "otevřete",
+          "cue": "you all will open"
+        },
+        {
+          "label": "P3",
+          "form": "otevřou",
+          "cue": "they will open"
+        }
+      ]
+    },
+    {
+      "verb": "zavřít",
+      "meaning": "close",
+      "hint": "Perfective. Result form. Pattern: zavřu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "zavřu",
+          "cue": "I will close"
+        },
+        {
+          "label": "S2",
+          "form": "zavřeš",
+          "cue": "you will close"
+        },
+        {
+          "label": "S3",
+          "form": "zavře",
+          "cue": "he/she will close"
+        },
+        {
+          "label": "P1",
+          "form": "zavřeme",
+          "cue": "we will close"
+        },
+        {
+          "label": "P2",
+          "form": "zavřete",
+          "cue": "you all will close"
+        },
+        {
+          "label": "P3",
+          "form": "zavřou",
+          "cue": "they will close"
+        }
+      ]
+    },
+    {
+      "verb": "vidět",
+      "meaning": "see",
+      "hint": "Imperfective. Regular -ím. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "vidím",
+          "cue": "I see"
+        },
+        {
+          "label": "S2",
+          "form": "vidíš",
+          "cue": "you see"
+        },
+        {
+          "label": "S3",
+          "form": "vidí",
+          "cue": "he/she sees"
+        },
+        {
+          "label": "P1",
+          "form": "vidíme",
+          "cue": "we see"
+        },
+        {
+          "label": "P2",
+          "form": "vidíte",
+          "cue": "you all see"
+        },
+        {
+          "label": "P3",
+          "form": "vidí",
+          "cue": "they see"
+        }
+      ]
+    },
+    {
+      "verb": "slyšet",
+      "meaning": "hear",
+      "hint": "Imperfective. Regular -ím. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "slyším",
+          "cue": "I hear"
+        },
+        {
+          "label": "S2",
+          "form": "slyšíš",
+          "cue": "you hear"
+        },
+        {
+          "label": "S3",
+          "form": "slyší",
+          "cue": "he/she hears"
+        },
+        {
+          "label": "P1",
+          "form": "slyšíme",
+          "cue": "we hear"
+        },
+        {
+          "label": "P2",
+          "form": "slyšíte",
+          "cue": "you all hear"
+        },
+        {
+          "label": "P3",
+          "form": "slyší",
+          "cue": "they hear"
+        }
+      ]
+    },
+    {
+      "verb": "vědět",
+      "meaning": "know a fact",
+      "hint": "Imperfective. Irregular. Pattern: vím / vědí.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "vím",
+          "cue": "I know"
+        },
+        {
+          "label": "S2",
+          "form": "víš",
+          "cue": "you know"
+        },
+        {
+          "label": "S3",
+          "form": "ví",
+          "cue": "he/she knows"
+        },
+        {
+          "label": "P1",
+          "form": "víme",
+          "cue": "we know"
+        },
+        {
+          "label": "P2",
+          "form": "víte",
+          "cue": "you all know"
+        },
+        {
+          "label": "P3",
+          "form": "vědí",
+          "cue": "they know"
+        }
+      ]
+    },
+    {
+      "verb": "znát",
+      "meaning": "know / be familiar with",
+      "hint": "Imperfective. Takes accusative. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "znám",
+          "cue": "I know"
+        },
+        {
+          "label": "S2",
+          "form": "znáš",
+          "cue": "you know"
+        },
+        {
+          "label": "S3",
+          "form": "zná",
+          "cue": "he/she knows"
+        },
+        {
+          "label": "P1",
+          "form": "známe",
+          "cue": "we know"
+        },
+        {
+          "label": "P2",
+          "form": "znáte",
+          "cue": "you all know"
+        },
+        {
+          "label": "P3",
+          "form": "znají",
+          "cue": "they know"
+        }
+      ]
+    },
+    {
+      "verb": "rozumět",
+      "meaning": "understand",
+      "hint": "Imperfective. Takes dative. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "rozumím",
+          "cue": "I understand"
+        },
+        {
+          "label": "S2",
+          "form": "rozumíš",
+          "cue": "you understand"
+        },
+        {
+          "label": "S3",
+          "form": "rozumí",
+          "cue": "he/she understands"
+        },
+        {
+          "label": "P1",
+          "form": "rozumíme",
+          "cue": "we understand"
+        },
+        {
+          "label": "P2",
+          "form": "rozumíte",
+          "cue": "you all understand"
+        },
+        {
+          "label": "P3",
+          "form": "rozumí",
+          "cue": "they understand"
+        }
+      ]
+    },
+    {
+      "verb": "cítit se",
+      "meaning": "feel",
+      "hint": "Imperfective. Reflexive. Pattern: -ím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "cítím se",
+          "cue": "I feel"
+        },
+        {
+          "label": "S2",
+          "form": "cítíš se",
+          "cue": "you feel"
+        },
+        {
+          "label": "S3",
+          "form": "cítí se",
+          "cue": "he/she feels"
+        },
+        {
+          "label": "P1",
+          "form": "cítíme se",
+          "cue": "we feel"
+        },
+        {
+          "label": "P2",
+          "form": "cítíte se",
+          "cue": "you all feel"
+        },
+        {
+          "label": "P3",
+          "form": "cítí se",
+          "cue": "they feel"
+        }
+      ]
+    },
+    {
+      "verb": "mluvit",
+      "meaning": "speak",
+      "hint": "Imperfective. Regular -ím. Pattern: -ím.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "mluvím",
+          "cue": "I speak"
+        },
+        {
+          "label": "S2",
+          "form": "mluvíš",
+          "cue": "you speak"
+        },
+        {
+          "label": "S3",
+          "form": "mluví",
+          "cue": "he/she speaks"
+        },
+        {
+          "label": "P1",
+          "form": "mluvíme",
+          "cue": "we speak"
+        },
+        {
+          "label": "P2",
+          "form": "mluvíte",
+          "cue": "you all speak"
+        },
+        {
+          "label": "P3",
+          "form": "mluví",
+          "cue": "they speak"
+        }
+      ]
+    },
+    {
+      "verb": "říct",
+      "meaning": "say / tell",
+      "hint": "Perfective. Result form. Pattern: řeknu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "řeknu",
+          "cue": "I will say"
+        },
+        {
+          "label": "S2",
+          "form": "řekneš",
+          "cue": "you will say"
+        },
+        {
+          "label": "S3",
+          "form": "řekne",
+          "cue": "he/she will say"
+        },
+        {
+          "label": "P1",
+          "form": "řekneme",
+          "cue": "we will say"
+        },
+        {
+          "label": "P2",
+          "form": "řeknete",
+          "cue": "you all will say"
+        },
+        {
+          "label": "P3",
+          "form": "řeknou",
+          "cue": "they will say"
+        }
+      ]
+    },
+    {
+      "verb": "psát",
+      "meaning": "write",
+      "hint": "Imperfective. Stem píš-. Pattern: píšu / píši.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "píšu",
+          "cue": "I write",
+          "accepted": [
+            "píši"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "píšeš",
+          "cue": "you write"
+        },
+        {
+          "label": "S3",
+          "form": "píše",
+          "cue": "he/she writes"
+        },
+        {
+          "label": "P1",
+          "form": "píšeme",
+          "cue": "we write"
+        },
+        {
+          "label": "P2",
+          "form": "píšete",
+          "cue": "you all write"
+        },
+        {
+          "label": "P3",
+          "form": "píšou",
+          "cue": "they write",
+          "accepted": [
+            "píší"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "ptát se",
+      "meaning": "ask",
+      "hint": "Imperfective. Reflexive. Pattern: -ám se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "ptám se",
+          "cue": "I ask"
+        },
+        {
+          "label": "S2",
+          "form": "ptáš se",
+          "cue": "you ask"
+        },
+        {
+          "label": "S3",
+          "form": "ptá se",
+          "cue": "he/she asks"
+        },
+        {
+          "label": "P1",
+          "form": "ptáme se",
+          "cue": "we ask"
+        },
+        {
+          "label": "P2",
+          "form": "ptáte se",
+          "cue": "you all ask"
+        },
+        {
+          "label": "P3",
+          "form": "ptají se",
+          "cue": "they ask"
+        }
+      ]
+    },
+    {
+      "verb": "zeptat se",
+      "meaning": "ask once",
+      "hint": "Perfective. Result form. Pattern: zeptám se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "zeptám se",
+          "cue": "I will ask"
+        },
+        {
+          "label": "S2",
+          "form": "zeptáš se",
+          "cue": "you will ask"
+        },
+        {
+          "label": "S3",
+          "form": "zeptá se",
+          "cue": "he/she will ask"
+        },
+        {
+          "label": "P1",
+          "form": "zeptáme se",
+          "cue": "we will ask"
+        },
+        {
+          "label": "P2",
+          "form": "zeptáte se",
+          "cue": "you all will ask"
+        },
+        {
+          "label": "P3",
+          "form": "zeptají se",
+          "cue": "they will ask"
+        }
+      ]
+    },
+    {
+      "verb": "volat",
+      "meaning": "call",
+      "hint": "Imperfective. Regular -ám. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "volám",
+          "cue": "I call"
+        },
+        {
+          "label": "S2",
+          "form": "voláš",
+          "cue": "you call"
+        },
+        {
+          "label": "S3",
+          "form": "volá",
+          "cue": "he/she calls"
+        },
+        {
+          "label": "P1",
+          "form": "voláme",
+          "cue": "we call"
+        },
+        {
+          "label": "P2",
+          "form": "voláte",
+          "cue": "you all call"
+        },
+        {
+          "label": "P3",
+          "form": "volají",
+          "cue": "they call"
+        }
+      ]
+    },
+    {
+      "verb": "pomoci",
+      "meaning": "help",
+      "hint": "Perfective. Spoken pomoct also common. Pattern: pomůžu / pomohu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "pomůžu",
+          "cue": "I will help",
+          "accepted": [
+            "pomohu"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "pomůžeš",
+          "cue": "you will help"
+        },
+        {
+          "label": "S3",
+          "form": "pomůže",
+          "cue": "he/she will help"
+        },
+        {
+          "label": "P1",
+          "form": "pomůžeme",
+          "cue": "we will help"
+        },
+        {
+          "label": "P2",
+          "form": "pomůžete",
+          "cue": "you all will help"
+        },
+        {
+          "label": "P3",
+          "form": "pomůžou",
+          "cue": "they will help",
+          "accepted": [
+            "pomohou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "ukázat",
+      "meaning": "show",
+      "hint": "Perfective. Result form. Pattern: ukážu.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "ukážu",
+          "cue": "I will show",
+          "accepted": [
+            "ukáži"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "ukážeš",
+          "cue": "you will show"
+        },
+        {
+          "label": "S3",
+          "form": "ukáže",
+          "cue": "he/she will show"
+        },
+        {
+          "label": "P1",
+          "form": "ukážeme",
+          "cue": "we will show"
+        },
+        {
+          "label": "P2",
+          "form": "ukážete",
+          "cue": "you all will show"
+        },
+        {
+          "label": "P3",
+          "form": "ukážou",
+          "cue": "they will show",
+          "accepted": [
+            "ukáží"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "objednat",
+      "meaning": "order / book",
+      "hint": "Perfective. Result form. Pattern: -ám.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "objednám",
+          "cue": "I will order"
+        },
+        {
+          "label": "S2",
+          "form": "objednáš",
+          "cue": "you will order"
+        },
+        {
+          "label": "S3",
+          "form": "objedná",
+          "cue": "he/she will order"
+        },
+        {
+          "label": "P1",
+          "form": "objednáme",
+          "cue": "we will order"
+        },
+        {
+          "label": "P2",
+          "form": "objednáte",
+          "cue": "you all will order"
+        },
+        {
+          "label": "P3",
+          "form": "objednají",
+          "cue": "they will order"
+        }
+      ]
+    },
+    {
+      "verb": "děkovat",
+      "meaning": "thank",
+      "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "děkuji",
+          "cue": "I thank",
+          "accepted": [
+            "děkuju"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "děkuješ",
+          "cue": "you thank"
+        },
+        {
+          "label": "S3",
+          "form": "děkuje",
+          "cue": "he/she thanks"
+        },
+        {
+          "label": "P1",
+          "form": "děkujeme",
+          "cue": "we thank"
+        },
+        {
+          "label": "P2",
+          "form": "děkujete",
+          "cue": "you all thank"
+        },
+        {
+          "label": "P3",
+          "form": "děkují",
+          "cue": "they thank",
+          "accepted": [
+            "děkujou"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "omluvit se",
+      "meaning": "apologize",
+      "hint": "Perfective. Reflexive result. Pattern: -ím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "omluvím se",
+          "cue": "I will apologize"
+        },
+        {
+          "label": "S2",
+          "form": "omluvíš se",
+          "cue": "you will apologize"
+        },
+        {
+          "label": "S3",
+          "form": "omluví se",
+          "cue": "he/she will apologize"
+        },
+        {
+          "label": "P1",
+          "form": "omluvíme se",
+          "cue": "we will apologize"
+        },
+        {
+          "label": "P2",
+          "form": "omluvíte se",
+          "cue": "you all will apologize"
+        },
+        {
+          "label": "P3",
+          "form": "omluví se",
+          "cue": "they will apologize"
+        }
+      ]
+    },
+    {
+      "verb": "těšit se",
+      "meaning": "look forward",
+      "hint": "Imperfective. Reflexive. Pattern: -ím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "těším se",
+          "cue": "I look forward"
+        },
+        {
+          "label": "S2",
+          "form": "těšíš se",
+          "cue": "you look forward"
+        },
+        {
+          "label": "S3",
+          "form": "těší se",
+          "cue": "he/she looks forward"
+        },
+        {
+          "label": "P1",
+          "form": "těšíme se",
+          "cue": "we look forward"
+        },
+        {
+          "label": "P2",
+          "form": "těšíte se",
+          "cue": "you all look forward"
+        },
+        {
+          "label": "P3",
+          "form": "těší se",
+          "cue": "they look forward"
+        }
+      ]
+    },
+    {
+      "verb": "bát se",
+      "meaning": "be afraid",
+      "hint": "Imperfective. Irregular stem boj-. Pattern: bojím se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "bojím se",
+          "cue": "I am afraid"
+        },
+        {
+          "label": "S2",
+          "form": "bojíš se",
+          "cue": "you are afraid"
+        },
+        {
+          "label": "S3",
+          "form": "bojí se",
+          "cue": "he/she is afraid"
+        },
+        {
+          "label": "P1",
+          "form": "bojíme se",
+          "cue": "we are afraid"
+        },
+        {
+          "label": "P2",
+          "form": "bojíte se",
+          "cue": "you all are afraid"
+        },
+        {
+          "label": "P3",
+          "form": "bojí se",
+          "cue": "they are afraid"
+        }
+      ]
+    },
+    {
+      "verb": "smát se",
+      "meaning": "laugh / smile",
+      "hint": "Imperfective. Spoken and formal variants. Pattern: směju se.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "směju se",
+          "cue": "I laugh",
+          "accepted": [
+            "směji se"
+          ]
+        },
+        {
+          "label": "S2",
+          "form": "směješ se",
+          "cue": "you laugh"
+        },
+        {
+          "label": "S3",
+          "form": "směje se",
+          "cue": "he/she laughs"
+        },
+        {
+          "label": "P1",
+          "form": "smějeme se",
+          "cue": "we laugh"
+        },
+        {
+          "label": "P2",
+          "form": "smějete se",
+          "cue": "you all laugh"
+        },
+        {
+          "label": "P3",
+          "form": "smějou se",
+          "cue": "they laugh",
+          "accepted": [
+            "smějí se"
+          ]
+        }
+      ]
+    },
+    {
+      "verb": "plakat",
+      "meaning": "cry",
+      "hint": "Imperfective. Stem pláč-. Pattern: pláču.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "pláču",
+          "cue": "I cry"
+        },
+        {
+          "label": "S2",
+          "form": "pláčeš",
+          "cue": "you cry"
+        },
+        {
+          "label": "S3",
+          "form": "pláče",
+          "cue": "he/she cries"
+        },
+        {
+          "label": "P1",
+          "form": "pláčeme",
+          "cue": "we cry"
+        },
+        {
+          "label": "P2",
+          "form": "pláčete",
+          "cue": "you all cry"
+        },
+        {
+          "label": "P3",
+          "form": "pláčou",
+          "cue": "they cry"
+        }
+      ]
     }
-  },
-  {
-    "infinitive": "mít",
-    "english": "have",
-    "family": "core",
-    "commonLevel": 1,
-    "note": "high-frequency",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "mám",
-        "en": "I have"
-      },
-      "2s": {
-        "cs": "máš",
-        "en": "you have"
-      },
-      "3s": {
-        "cs": "má",
-        "en": "he/she has"
-      },
-      "1p": {
-        "cs": "máme",
-        "en": "we have"
-      },
-      "2p": {
-        "cs": "máte",
-        "en": "you all have"
-      },
-      "3p": {
-        "cs": "mají",
-        "en": "they have"
-      }
-    }
-  },
-  {
-    "infinitive": "dělat",
-    "english": "do / make",
-    "family": "core",
-    "commonLevel": 1,
-    "note": "regular workhorse",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "dělám",
-        "en": "I do"
-      },
-      "2s": {
-        "cs": "děláš",
-        "en": "you do"
-      },
-      "3s": {
-        "cs": "dělá",
-        "en": "he/she does"
-      },
-      "1p": {
-        "cs": "děláme",
-        "en": "we do"
-      },
-      "2p": {
-        "cs": "děláte",
-        "en": "you all do"
-      },
-      "3p": {
-        "cs": "dělají",
-        "en": "they do"
-      }
-    }
-  },
-  {
-    "infinitive": "potřebovat",
-    "english": "need",
-    "family": "core",
-    "commonLevel": 1,
-    "note": "formal and spoken variants",
-    "pattern": "-uji / -uju",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "potřebuji",
-        "en": "I need",
-        "accepted": [
-          "potřebuju"
-        ]
-      },
-      "2s": {
-        "cs": "potřebuješ",
-        "en": "you need"
-      },
-      "3s": {
-        "cs": "potřebuje",
-        "en": "he/she needs"
-      },
-      "1p": {
-        "cs": "potřebujeme",
-        "en": "we need"
-      },
-      "2p": {
-        "cs": "potřebujete",
-        "en": "you all need"
-      },
-      "3p": {
-        "cs": "potřebují",
-        "en": "they need",
-        "accepted": [
-          "potřebujou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "hledat",
-    "english": "look for",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "takes accusative",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "hledám",
-        "en": "I look for"
-      },
-      "2s": {
-        "cs": "hledáš",
-        "en": "you look for"
-      },
-      "3s": {
-        "cs": "hledá",
-        "en": "he/she looks for"
-      },
-      "1p": {
-        "cs": "hledáme",
-        "en": "we look for"
-      },
-      "2p": {
-        "cs": "hledáte",
-        "en": "you all look for"
-      },
-      "3p": {
-        "cs": "hledají",
-        "en": "they look for"
-      }
-    }
-  },
-  {
-    "infinitive": "čekat",
-    "english": "wait",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "often na + accusative",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "čekám",
-        "en": "I wait"
-      },
-      "2s": {
-        "cs": "čekáš",
-        "en": "you wait"
-      },
-      "3s": {
-        "cs": "čeká",
-        "en": "he/she waits"
-      },
-      "1p": {
-        "cs": "čekáme",
-        "en": "we wait"
-      },
-      "2p": {
-        "cs": "čekáte",
-        "en": "you all wait"
-      },
-      "3p": {
-        "cs": "čekají",
-        "en": "they wait"
-      }
-    }
-  },
-  {
-    "infinitive": "dát",
-    "english": "give / put",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "short perfective helper",
-    "pattern": "dám",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "dám",
-        "en": "I will give"
-      },
-      "2s": {
-        "cs": "dáš",
-        "en": "you will give"
-      },
-      "3s": {
-        "cs": "dá",
-        "en": "he/she will give"
-      },
-      "1p": {
-        "cs": "dáme",
-        "en": "we will give"
-      },
-      "2p": {
-        "cs": "dáte",
-        "en": "you all will give"
-      },
-      "3p": {
-        "cs": "dají",
-        "en": "they will give"
-      }
-    }
-  },
-  {
-    "infinitive": "vzít",
-    "english": "take",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "stem vezm-",
-    "pattern": "vezmu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "vezmu",
-        "en": "I will take"
-      },
-      "2s": {
-        "cs": "vezmeš",
-        "en": "you will take"
-      },
-      "3s": {
-        "cs": "vezme",
-        "en": "he/she will take"
-      },
-      "1p": {
-        "cs": "vezmeme",
-        "en": "we will take"
-      },
-      "2p": {
-        "cs": "vezmete",
-        "en": "you all will take"
-      },
-      "3p": {
-        "cs": "vezmou",
-        "en": "they will take"
-      }
-    }
-  },
-  {
-    "infinitive": "začít",
-    "english": "start",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "stem začn-",
-    "pattern": "začnu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "začnu",
-        "en": "I will start"
-      },
-      "2s": {
-        "cs": "začneš",
-        "en": "you will start"
-      },
-      "3s": {
-        "cs": "začne",
-        "en": "he/she will start"
-      },
-      "1p": {
-        "cs": "začneme",
-        "en": "we will start"
-      },
-      "2p": {
-        "cs": "začnete",
-        "en": "you all will start"
-      },
-      "3p": {
-        "cs": "začnou",
-        "en": "they will start"
-      }
-    }
-  },
-  {
-    "infinitive": "zůstat",
-    "english": "stay",
-    "family": "core",
-    "commonLevel": 2,
-    "note": "future/result form",
-    "pattern": "zůstanu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "zůstanu",
-        "en": "I will stay"
-      },
-      "2s": {
-        "cs": "zůstaneš",
-        "en": "you will stay"
-      },
-      "3s": {
-        "cs": "zůstane",
-        "en": "he/she will stay"
-      },
-      "1p": {
-        "cs": "zůstaneme",
-        "en": "we will stay"
-      },
-      "2p": {
-        "cs": "zůstanete",
-        "en": "you all will stay"
-      },
-      "3p": {
-        "cs": "zůstanou",
-        "en": "they will stay"
-      }
-    }
-  },
-  {
-    "infinitive": "znamenat",
-    "english": "mean",
-    "family": "core",
-    "commonLevel": 1,
-    "note": "3rd person is common",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "znamenám",
-        "en": "I mean"
-      },
-      "2s": {
-        "cs": "znamenáš",
-        "en": "you mean"
-      },
-      "3s": {
-        "cs": "znamená",
-        "en": "it means"
-      },
-      "1p": {
-        "cs": "znamenáme",
-        "en": "we mean"
-      },
-      "2p": {
-        "cs": "znamenáte",
-        "en": "you all mean"
-      },
-      "3p": {
-        "cs": "znamenají",
-        "en": "they mean"
-      }
-    }
-  },
-  {
-    "infinitive": "chtít",
-    "english": "want",
-    "family": "modal",
-    "commonLevel": 1,
-    "note": "common helper",
-    "pattern": "chci",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "chci",
-        "en": "I want"
-      },
-      "2s": {
-        "cs": "chceš",
-        "en": "you want"
-      },
-      "3s": {
-        "cs": "chce",
-        "en": "he/she wants"
-      },
-      "1p": {
-        "cs": "chceme",
-        "en": "we want"
-      },
-      "2p": {
-        "cs": "chcete",
-        "en": "you all want"
-      },
-      "3p": {
-        "cs": "chtějí",
-        "en": "they want"
-      }
-    }
-  },
-  {
-    "infinitive": "muset",
-    "english": "must / have to",
-    "family": "modal",
-    "commonLevel": 1,
-    "note": "+ infinitive",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "musím",
-        "en": "I must"
-      },
-      "2s": {
-        "cs": "musíš",
-        "en": "you must"
-      },
-      "3s": {
-        "cs": "musí",
-        "en": "he/she must"
-      },
-      "1p": {
-        "cs": "musíme",
-        "en": "we must"
-      },
-      "2p": {
-        "cs": "musíte",
-        "en": "you all must"
-      },
-      "3p": {
-        "cs": "musí",
-        "en": "they must"
-      }
-    }
-  },
-  {
-    "infinitive": "moci",
-    "english": "can / be able",
-    "family": "modal",
-    "commonLevel": 1,
-    "note": "spoken můžu forms",
-    "pattern": "můžu / mohu",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "můžu",
-        "en": "I can",
-        "accepted": [
-          "mohu"
-        ]
-      },
-      "2s": {
-        "cs": "můžeš",
-        "en": "you can"
-      },
-      "3s": {
-        "cs": "může",
-        "en": "he/she can"
-      },
-      "1p": {
-        "cs": "můžeme",
-        "en": "we can"
-      },
-      "2p": {
-        "cs": "můžete",
-        "en": "you all can"
-      },
-      "3p": {
-        "cs": "můžou",
-        "en": "they can",
-        "accepted": [
-          "mohou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "umět",
-    "english": "know how to",
-    "family": "modal",
-    "commonLevel": 2,
-    "note": "+ infinitive",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "umím",
-        "en": "I know how"
-      },
-      "2s": {
-        "cs": "umíš",
-        "en": "you know how"
-      },
-      "3s": {
-        "cs": "umí",
-        "en": "he/she knows how"
-      },
-      "1p": {
-        "cs": "umíme",
-        "en": "we know how"
-      },
-      "2p": {
-        "cs": "umíte",
-        "en": "you all know how"
-      },
-      "3p": {
-        "cs": "umí",
-        "en": "they know how"
-      }
-    }
-  },
-  {
-    "infinitive": "jít",
-    "english": "go by foot",
-    "family": "motion",
-    "commonLevel": 1,
-    "note": "now / one direction",
-    "pattern": "jdu",
-    "aspect": "imperfective motion",
-    "forms": {
-      "1s": {
-        "cs": "jdu",
-        "en": "I go by foot"
-      },
-      "2s": {
-        "cs": "jdeš",
-        "en": "you go by foot"
-      },
-      "3s": {
-        "cs": "jde",
-        "en": "he/she goes by foot"
-      },
-      "1p": {
-        "cs": "jdeme",
-        "en": "we go by foot"
-      },
-      "2p": {
-        "cs": "jdete",
-        "en": "you all go by foot"
-      },
-      "3p": {
-        "cs": "jdou",
-        "en": "they go by foot"
-      }
-    }
-  },
-  {
-    "infinitive": "jet",
-    "english": "go by vehicle",
-    "family": "motion",
-    "commonLevel": 1,
-    "note": "now / one direction",
-    "pattern": "jedu",
-    "aspect": "imperfective motion",
-    "forms": {
-      "1s": {
-        "cs": "jedu",
-        "en": "I go by vehicle"
-      },
-      "2s": {
-        "cs": "jedeš",
-        "en": "you go by vehicle"
-      },
-      "3s": {
-        "cs": "jede",
-        "en": "he/she goes by vehicle"
-      },
-      "1p": {
-        "cs": "jedeme",
-        "en": "we go by vehicle"
-      },
-      "2p": {
-        "cs": "jedete",
-        "en": "you all go by vehicle"
-      },
-      "3p": {
-        "cs": "jedou",
-        "en": "they go by vehicle"
-      }
-    }
-  },
-  {
-    "infinitive": "chodit",
-    "english": "go regularly / walk",
-    "family": "motion",
-    "commonLevel": 2,
-    "note": "habitual foot motion",
-    "pattern": "-ím",
-    "aspect": "imperfective motion",
-    "forms": {
-      "1s": {
-        "cs": "chodím",
-        "en": "I walk / go regularly"
-      },
-      "2s": {
-        "cs": "chodíš",
-        "en": "you walk / go regularly"
-      },
-      "3s": {
-        "cs": "chodí",
-        "en": "he/she walks / goes regularly"
-      },
-      "1p": {
-        "cs": "chodíme",
-        "en": "we walk / go regularly"
-      },
-      "2p": {
-        "cs": "chodíte",
-        "en": "you all walk / go regularly"
-      },
-      "3p": {
-        "cs": "chodí",
-        "en": "they walk / go regularly"
-      }
-    }
-  },
-  {
-    "infinitive": "jezdit",
-    "english": "go by vehicle regularly",
-    "family": "motion",
-    "commonLevel": 2,
-    "note": "habitual vehicle motion",
-    "pattern": "-ím",
-    "aspect": "imperfective motion",
-    "forms": {
-      "1s": {
-        "cs": "jezdím",
-        "en": "I go by vehicle regularly"
-      },
-      "2s": {
-        "cs": "jezdíš",
-        "en": "you go by vehicle regularly"
-      },
-      "3s": {
-        "cs": "jezdí",
-        "en": "he/she goes by vehicle regularly"
-      },
-      "1p": {
-        "cs": "jezdíme",
-        "en": "we go by vehicle regularly"
-      },
-      "2p": {
-        "cs": "jezdíte",
-        "en": "you all go by vehicle regularly"
-      },
-      "3p": {
-        "cs": "jezdí",
-        "en": "they go by vehicle regularly"
-      }
-    }
-  },
-  {
-    "infinitive": "přijít",
-    "english": "come / arrive by foot",
-    "family": "motion",
-    "commonLevel": 2,
-    "note": "future/result form",
-    "pattern": "přijdu",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "přijdu",
-        "en": "I will come"
-      },
-      "2s": {
-        "cs": "přijdeš",
-        "en": "you will come"
-      },
-      "3s": {
-        "cs": "přijde",
-        "en": "he/she will come"
-      },
-      "1p": {
-        "cs": "přijdeme",
-        "en": "we will come"
-      },
-      "2p": {
-        "cs": "přijdete",
-        "en": "you all will come"
-      },
-      "3p": {
-        "cs": "přijdou",
-        "en": "they will come"
-      }
-    }
-  },
-  {
-    "infinitive": "přijet",
-    "english": "arrive by vehicle",
-    "family": "motion",
-    "commonLevel": 2,
-    "note": "future/result form",
-    "pattern": "přijedu",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "přijedu",
-        "en": "I will arrive by vehicle"
-      },
-      "2s": {
-        "cs": "přijedeš",
-        "en": "you will arrive by vehicle"
-      },
-      "3s": {
-        "cs": "přijede",
-        "en": "he/she will arrive by vehicle"
-      },
-      "1p": {
-        "cs": "přijedeme",
-        "en": "we will arrive by vehicle"
-      },
-      "2p": {
-        "cs": "přijedete",
-        "en": "you all will arrive by vehicle"
-      },
-      "3p": {
-        "cs": "přijedou",
-        "en": "they will arrive by vehicle"
-      }
-    }
-  },
-  {
-    "infinitive": "odejít",
-    "english": "leave by foot",
-    "family": "motion",
-    "commonLevel": 3,
-    "note": "future/result form",
-    "pattern": "odejdu",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "odejdu",
-        "en": "I will leave by foot"
-      },
-      "2s": {
-        "cs": "odejdeš",
-        "en": "you will leave by foot"
-      },
-      "3s": {
-        "cs": "odejde",
-        "en": "he/she will leave by foot"
-      },
-      "1p": {
-        "cs": "odejdeme",
-        "en": "we will leave by foot"
-      },
-      "2p": {
-        "cs": "odejdete",
-        "en": "you all will leave by foot"
-      },
-      "3p": {
-        "cs": "odejdou",
-        "en": "they will leave by foot"
-      }
-    }
-  },
-  {
-    "infinitive": "odjet",
-    "english": "leave by vehicle",
-    "family": "motion",
-    "commonLevel": 3,
-    "note": "future/result form",
-    "pattern": "odjedu",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "odjedu",
-        "en": "I will leave by vehicle"
-      },
-      "2s": {
-        "cs": "odjedeš",
-        "en": "you will leave by vehicle"
-      },
-      "3s": {
-        "cs": "odjede",
-        "en": "he/she will leave by vehicle"
-      },
-      "1p": {
-        "cs": "odjedeme",
-        "en": "we will leave by vehicle"
-      },
-      "2p": {
-        "cs": "odjedete",
-        "en": "you all will leave by vehicle"
-      },
-      "3p": {
-        "cs": "odjedou",
-        "en": "they will leave by vehicle"
-      }
-    }
-  },
-  {
-    "infinitive": "vrátit se",
-    "english": "return",
-    "family": "motion",
-    "commonLevel": 3,
-    "note": "reflexive",
-    "pattern": "-ím se",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "vrátím se",
-        "en": "I will return"
-      },
-      "2s": {
-        "cs": "vrátíš se",
-        "en": "you will return"
-      },
-      "3s": {
-        "cs": "vrátí se",
-        "en": "he/she will return"
-      },
-      "1p": {
-        "cs": "vrátíme se",
-        "en": "we will return"
-      },
-      "2p": {
-        "cs": "vrátíte se",
-        "en": "you all will return"
-      },
-      "3p": {
-        "cs": "vrátí se",
-        "en": "they will return"
-      }
-    }
-  },
-  {
-    "infinitive": "dostat se",
-    "english": "get somewhere",
-    "family": "motion",
-    "commonLevel": 3,
-    "note": "reflexive result",
-    "pattern": "dostanu se",
-    "aspect": "perfective motion",
-    "forms": {
-      "1s": {
-        "cs": "dostanu se",
-        "en": "I will get there"
-      },
-      "2s": {
-        "cs": "dostaneš se",
-        "en": "you will get there"
-      },
-      "3s": {
-        "cs": "dostane se",
-        "en": "he/she will get there"
-      },
-      "1p": {
-        "cs": "dostaneme se",
-        "en": "we will get there"
-      },
-      "2p": {
-        "cs": "dostanete se",
-        "en": "you all will get there"
-      },
-      "3p": {
-        "cs": "dostanou se",
-        "en": "they will get there"
-      }
-    }
-  },
-  {
-    "infinitive": "pracovat",
-    "english": "work",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "formal and spoken variants",
-    "pattern": "-uji / -uju",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "pracuji",
-        "en": "I work",
-        "accepted": [
-          "pracuju"
-        ]
-      },
-      "2s": {
-        "cs": "pracuješ",
-        "en": "you work"
-      },
-      "3s": {
-        "cs": "pracuje",
-        "en": "he/she works"
-      },
-      "1p": {
-        "cs": "pracujeme",
-        "en": "we work"
-      },
-      "2p": {
-        "cs": "pracujete",
-        "en": "you all work"
-      },
-      "3p": {
-        "cs": "pracují",
-        "en": "they work",
-        "accepted": [
-          "pracujou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "studovat",
-    "english": "study",
-    "family": "daily",
-    "commonLevel": 2,
-    "note": "formal and spoken variants",
-    "pattern": "-uji / -uju",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "studuji",
-        "en": "I study",
-        "accepted": [
-          "studuju"
-        ]
-      },
-      "2s": {
-        "cs": "studuješ",
-        "en": "you study"
-      },
-      "3s": {
-        "cs": "studuje",
-        "en": "he/she studies"
-      },
-      "1p": {
-        "cs": "studujeme",
-        "en": "we study"
-      },
-      "2p": {
-        "cs": "studujete",
-        "en": "you all study"
-      },
-      "3p": {
-        "cs": "studují",
-        "en": "they study",
-        "accepted": [
-          "studujou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "učit se",
-    "english": "learn",
-    "family": "daily",
-    "commonLevel": 2,
-    "note": "reflexive",
-    "pattern": "-ím se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "učím se",
-        "en": "I learn"
-      },
-      "2s": {
-        "cs": "učíš se",
-        "en": "you learn"
-      },
-      "3s": {
-        "cs": "učí se",
-        "en": "he/she learns"
-      },
-      "1p": {
-        "cs": "učíme se",
-        "en": "we learn"
-      },
-      "2p": {
-        "cs": "učíte se",
-        "en": "you all learn"
-      },
-      "3p": {
-        "cs": "učí se",
-        "en": "they learn"
-      }
-    }
-  },
-  {
-    "infinitive": "bydlet",
-    "english": "live / reside",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "place verb",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "bydlím",
-        "en": "I live"
-      },
-      "2s": {
-        "cs": "bydlíš",
-        "en": "you live"
-      },
-      "3s": {
-        "cs": "bydlí",
-        "en": "he/she lives"
-      },
-      "1p": {
-        "cs": "bydlíme",
-        "en": "we live"
-      },
-      "2p": {
-        "cs": "bydlíte",
-        "en": "you all live"
-      },
-      "3p": {
-        "cs": "bydlí",
-        "en": "they live"
-      }
-    }
-  },
-  {
-    "infinitive": "jíst",
-    "english": "eat",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "stem changes",
-    "pattern": "jím / jedí",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "jím",
-        "en": "I eat"
-      },
-      "2s": {
-        "cs": "jíš",
-        "en": "you eat"
-      },
-      "3s": {
-        "cs": "jí",
-        "en": "he/she eats"
-      },
-      "1p": {
-        "cs": "jíme",
-        "en": "we eat"
-      },
-      "2p": {
-        "cs": "jíte",
-        "en": "you all eat"
-      },
-      "3p": {
-        "cs": "jedí",
-        "en": "they eat"
-      }
-    }
-  },
-  {
-    "infinitive": "pít",
-    "english": "drink",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "spoken and formal variants",
-    "pattern": "piju / piji",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "piju",
-        "en": "I drink",
-        "accepted": [
-          "piji"
-        ]
-      },
-      "2s": {
-        "cs": "piješ",
-        "en": "you drink"
-      },
-      "3s": {
-        "cs": "pije",
-        "en": "he/she drinks"
-      },
-      "1p": {
-        "cs": "pijeme",
-        "en": "we drink"
-      },
-      "2p": {
-        "cs": "pijete",
-        "en": "you all drink"
-      },
-      "3p": {
-        "cs": "pijou",
-        "en": "they drink",
-        "accepted": [
-          "pijí"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "spát",
-    "english": "sleep",
-    "family": "daily",
-    "commonLevel": 2,
-    "note": "short high-frequency verb",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "spím",
-        "en": "I sleep"
-      },
-      "2s": {
-        "cs": "spíš",
-        "en": "you sleep"
-      },
-      "3s": {
-        "cs": "spí",
-        "en": "he/she sleeps"
-      },
-      "1p": {
-        "cs": "spíme",
-        "en": "we sleep"
-      },
-      "2p": {
-        "cs": "spíte",
-        "en": "you all sleep"
-      },
-      "3p": {
-        "cs": "spí",
-        "en": "they sleep"
-      }
-    }
-  },
-  {
-    "infinitive": "vařit",
-    "english": "cook",
-    "family": "daily",
-    "commonLevel": 2,
-    "note": "regular -ím",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "vařím",
-        "en": "I cook"
-      },
-      "2s": {
-        "cs": "vaříš",
-        "en": "you cook"
-      },
-      "3s": {
-        "cs": "vaří",
-        "en": "he/she cooks"
-      },
-      "1p": {
-        "cs": "vaříme",
-        "en": "we cook"
-      },
-      "2p": {
-        "cs": "vaříte",
-        "en": "you all cook"
-      },
-      "3p": {
-        "cs": "vaří",
-        "en": "they cook"
-      }
-    }
-  },
-  {
-    "infinitive": "platit",
-    "english": "pay",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "regular -ím",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "platím",
-        "en": "I pay"
-      },
-      "2s": {
-        "cs": "platíš",
-        "en": "you pay"
-      },
-      "3s": {
-        "cs": "platí",
-        "en": "he/she pays"
-      },
-      "1p": {
-        "cs": "platíme",
-        "en": "we pay"
-      },
-      "2p": {
-        "cs": "platíte",
-        "en": "you all pay"
-      },
-      "3p": {
-        "cs": "platí",
-        "en": "they pay"
-      }
-    }
-  },
-  {
-    "infinitive": "koupit",
-    "english": "buy",
-    "family": "daily",
-    "commonLevel": 1,
-    "note": "result form",
-    "pattern": "-ím",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "koupím",
-        "en": "I will buy"
-      },
-      "2s": {
-        "cs": "koupíš",
-        "en": "you will buy"
-      },
-      "3s": {
-        "cs": "koupí",
-        "en": "he/she will buy"
-      },
-      "1p": {
-        "cs": "koupíme",
-        "en": "we will buy"
-      },
-      "2p": {
-        "cs": "koupíte",
-        "en": "you all will buy"
-      },
-      "3p": {
-        "cs": "koupí",
-        "en": "they will buy"
-      }
-    }
-  },
-  {
-    "infinitive": "číst",
-    "english": "read",
-    "family": "daily",
-    "commonLevel": 2,
-    "note": "stem čt-",
-    "pattern": "čtu",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "čtu",
-        "en": "I read"
-      },
-      "2s": {
-        "cs": "čteš",
-        "en": "you read"
-      },
-      "3s": {
-        "cs": "čte",
-        "en": "he/she reads"
-      },
-      "1p": {
-        "cs": "čteme",
-        "en": "we read"
-      },
-      "2p": {
-        "cs": "čtete",
-        "en": "you all read"
-      },
-      "3p": {
-        "cs": "čtou",
-        "en": "they read"
-      }
-    }
-  },
-  {
-    "infinitive": "otevřít",
-    "english": "open",
-    "family": "daily",
-    "commonLevel": 3,
-    "note": "result form",
-    "pattern": "otevřu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "otevřu",
-        "en": "I will open"
-      },
-      "2s": {
-        "cs": "otevřeš",
-        "en": "you will open"
-      },
-      "3s": {
-        "cs": "otevře",
-        "en": "he/she will open"
-      },
-      "1p": {
-        "cs": "otevřeme",
-        "en": "we will open"
-      },
-      "2p": {
-        "cs": "otevřete",
-        "en": "you all will open"
-      },
-      "3p": {
-        "cs": "otevřou",
-        "en": "they will open"
-      }
-    }
-  },
-  {
-    "infinitive": "zavřít",
-    "english": "close",
-    "family": "daily",
-    "commonLevel": 3,
-    "note": "result form",
-    "pattern": "zavřu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "zavřu",
-        "en": "I will close"
-      },
-      "2s": {
-        "cs": "zavřeš",
-        "en": "you will close"
-      },
-      "3s": {
-        "cs": "zavře",
-        "en": "he/she will close"
-      },
-      "1p": {
-        "cs": "zavřeme",
-        "en": "we will close"
-      },
-      "2p": {
-        "cs": "zavřete",
-        "en": "you all will close"
-      },
-      "3p": {
-        "cs": "zavřou",
-        "en": "they will close"
-      }
-    }
-  },
-  {
-    "infinitive": "vidět",
-    "english": "see",
-    "family": "senses",
-    "commonLevel": 1,
-    "note": "regular -ím",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "vidím",
-        "en": "I see"
-      },
-      "2s": {
-        "cs": "vidíš",
-        "en": "you see"
-      },
-      "3s": {
-        "cs": "vidí",
-        "en": "he/she sees"
-      },
-      "1p": {
-        "cs": "vidíme",
-        "en": "we see"
-      },
-      "2p": {
-        "cs": "vidíte",
-        "en": "you all see"
-      },
-      "3p": {
-        "cs": "vidí",
-        "en": "they see"
-      }
-    }
-  },
-  {
-    "infinitive": "slyšet",
-    "english": "hear",
-    "family": "senses",
-    "commonLevel": 2,
-    "note": "regular -ím",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "slyším",
-        "en": "I hear"
-      },
-      "2s": {
-        "cs": "slyšíš",
-        "en": "you hear"
-      },
-      "3s": {
-        "cs": "slyší",
-        "en": "he/she hears"
-      },
-      "1p": {
-        "cs": "slyšíme",
-        "en": "we hear"
-      },
-      "2p": {
-        "cs": "slyšíte",
-        "en": "you all hear"
-      },
-      "3p": {
-        "cs": "slyší",
-        "en": "they hear"
-      }
-    }
-  },
-  {
-    "infinitive": "vědět",
-    "english": "know a fact",
-    "family": "senses",
-    "commonLevel": 1,
-    "note": "irregular",
-    "pattern": "vím / vědí",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "vím",
-        "en": "I know"
-      },
-      "2s": {
-        "cs": "víš",
-        "en": "you know"
-      },
-      "3s": {
-        "cs": "ví",
-        "en": "he/she knows"
-      },
-      "1p": {
-        "cs": "víme",
-        "en": "we know"
-      },
-      "2p": {
-        "cs": "víte",
-        "en": "you all know"
-      },
-      "3p": {
-        "cs": "vědí",
-        "en": "they know"
-      }
-    }
-  },
-  {
-    "infinitive": "znát",
-    "english": "know / be familiar with",
-    "family": "senses",
-    "commonLevel": 2,
-    "note": "takes accusative",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "znám",
-        "en": "I know"
-      },
-      "2s": {
-        "cs": "znáš",
-        "en": "you know"
-      },
-      "3s": {
-        "cs": "zná",
-        "en": "he/she knows"
-      },
-      "1p": {
-        "cs": "známe",
-        "en": "we know"
-      },
-      "2p": {
-        "cs": "znáte",
-        "en": "you all know"
-      },
-      "3p": {
-        "cs": "znají",
-        "en": "they know"
-      }
-    }
-  },
-  {
-    "infinitive": "rozumět",
-    "english": "understand",
-    "family": "senses",
-    "commonLevel": 1,
-    "note": "takes dative",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "rozumím",
-        "en": "I understand"
-      },
-      "2s": {
-        "cs": "rozumíš",
-        "en": "you understand"
-      },
-      "3s": {
-        "cs": "rozumí",
-        "en": "he/she understands"
-      },
-      "1p": {
-        "cs": "rozumíme",
-        "en": "we understand"
-      },
-      "2p": {
-        "cs": "rozumíte",
-        "en": "you all understand"
-      },
-      "3p": {
-        "cs": "rozumí",
-        "en": "they understand"
-      }
-    }
-  },
-  {
-    "infinitive": "cítit se",
-    "english": "feel",
-    "family": "senses",
-    "commonLevel": 3,
-    "note": "reflexive",
-    "pattern": "-ím se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "cítím se",
-        "en": "I feel"
-      },
-      "2s": {
-        "cs": "cítíš se",
-        "en": "you feel"
-      },
-      "3s": {
-        "cs": "cítí se",
-        "en": "he/she feels"
-      },
-      "1p": {
-        "cs": "cítíme se",
-        "en": "we feel"
-      },
-      "2p": {
-        "cs": "cítíte se",
-        "en": "you all feel"
-      },
-      "3p": {
-        "cs": "cítí se",
-        "en": "they feel"
-      }
-    }
-  },
-  {
-    "infinitive": "mluvit",
-    "english": "speak",
-    "family": "talk",
-    "commonLevel": 1,
-    "note": "regular -ím",
-    "pattern": "-ím",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "mluvím",
-        "en": "I speak"
-      },
-      "2s": {
-        "cs": "mluvíš",
-        "en": "you speak"
-      },
-      "3s": {
-        "cs": "mluví",
-        "en": "he/she speaks"
-      },
-      "1p": {
-        "cs": "mluvíme",
-        "en": "we speak"
-      },
-      "2p": {
-        "cs": "mluvíte",
-        "en": "you all speak"
-      },
-      "3p": {
-        "cs": "mluví",
-        "en": "they speak"
-      }
-    }
-  },
-  {
-    "infinitive": "říct",
-    "english": "say / tell",
-    "family": "talk",
-    "commonLevel": 1,
-    "note": "result form",
-    "pattern": "řeknu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "řeknu",
-        "en": "I will say"
-      },
-      "2s": {
-        "cs": "řekneš",
-        "en": "you will say"
-      },
-      "3s": {
-        "cs": "řekne",
-        "en": "he/she will say"
-      },
-      "1p": {
-        "cs": "řekneme",
-        "en": "we will say"
-      },
-      "2p": {
-        "cs": "řeknete",
-        "en": "you all will say"
-      },
-      "3p": {
-        "cs": "řeknou",
-        "en": "they will say"
-      }
-    }
-  },
-  {
-    "infinitive": "psát",
-    "english": "write",
-    "family": "talk",
-    "commonLevel": 1,
-    "note": "stem píš-",
-    "pattern": "píšu / píši",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "píšu",
-        "en": "I write",
-        "accepted": [
-          "píši"
-        ]
-      },
-      "2s": {
-        "cs": "píšeš",
-        "en": "you write"
-      },
-      "3s": {
-        "cs": "píše",
-        "en": "he/she writes"
-      },
-      "1p": {
-        "cs": "píšeme",
-        "en": "we write"
-      },
-      "2p": {
-        "cs": "píšete",
-        "en": "you all write"
-      },
-      "3p": {
-        "cs": "píšou",
-        "en": "they write",
-        "accepted": [
-          "píší"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "ptát se",
-    "english": "ask",
-    "family": "talk",
-    "commonLevel": 2,
-    "note": "reflexive",
-    "pattern": "-ám se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "ptám se",
-        "en": "I ask"
-      },
-      "2s": {
-        "cs": "ptáš se",
-        "en": "you ask"
-      },
-      "3s": {
-        "cs": "ptá se",
-        "en": "he/she asks"
-      },
-      "1p": {
-        "cs": "ptáme se",
-        "en": "we ask"
-      },
-      "2p": {
-        "cs": "ptáte se",
-        "en": "you all ask"
-      },
-      "3p": {
-        "cs": "ptají se",
-        "en": "they ask"
-      }
-    }
-  },
-  {
-    "infinitive": "zeptat se",
-    "english": "ask once",
-    "family": "talk",
-    "commonLevel": 2,
-    "note": "result form",
-    "pattern": "zeptám se",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "zeptám se",
-        "en": "I will ask"
-      },
-      "2s": {
-        "cs": "zeptáš se",
-        "en": "you will ask"
-      },
-      "3s": {
-        "cs": "zeptá se",
-        "en": "he/she will ask"
-      },
-      "1p": {
-        "cs": "zeptáme se",
-        "en": "we will ask"
-      },
-      "2p": {
-        "cs": "zeptáte se",
-        "en": "you all will ask"
-      },
-      "3p": {
-        "cs": "zeptají se",
-        "en": "they will ask"
-      }
-    }
-  },
-  {
-    "infinitive": "volat",
-    "english": "call",
-    "family": "talk",
-    "commonLevel": 1,
-    "note": "regular -ám",
-    "pattern": "-ám",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "volám",
-        "en": "I call"
-      },
-      "2s": {
-        "cs": "voláš",
-        "en": "you call"
-      },
-      "3s": {
-        "cs": "volá",
-        "en": "he/she calls"
-      },
-      "1p": {
-        "cs": "voláme",
-        "en": "we call"
-      },
-      "2p": {
-        "cs": "voláte",
-        "en": "you all call"
-      },
-      "3p": {
-        "cs": "volají",
-        "en": "they call"
-      }
-    }
-  },
-  {
-    "infinitive": "pomoci",
-    "english": "help",
-    "family": "talk",
-    "commonLevel": 1,
-    "note": "spoken pomoct also common",
-    "pattern": "pomůžu / pomohu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "pomůžu",
-        "en": "I will help",
-        "accepted": [
-          "pomohu"
-        ]
-      },
-      "2s": {
-        "cs": "pomůžeš",
-        "en": "you will help"
-      },
-      "3s": {
-        "cs": "pomůže",
-        "en": "he/she will help"
-      },
-      "1p": {
-        "cs": "pomůžeme",
-        "en": "we will help"
-      },
-      "2p": {
-        "cs": "pomůžete",
-        "en": "you all will help"
-      },
-      "3p": {
-        "cs": "pomůžou",
-        "en": "they will help",
-        "accepted": [
-          "pomohou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "ukázat",
-    "english": "show",
-    "family": "talk",
-    "commonLevel": 2,
-    "note": "result form",
-    "pattern": "ukážu",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "ukážu",
-        "en": "I will show",
-        "accepted": [
-          "ukáži"
-        ]
-      },
-      "2s": {
-        "cs": "ukážeš",
-        "en": "you will show"
-      },
-      "3s": {
-        "cs": "ukáže",
-        "en": "he/she will show"
-      },
-      "1p": {
-        "cs": "ukážeme",
-        "en": "we will show"
-      },
-      "2p": {
-        "cs": "ukážete",
-        "en": "you all will show"
-      },
-      "3p": {
-        "cs": "ukážou",
-        "en": "they will show",
-        "accepted": [
-          "ukáží"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "objednat",
-    "english": "order / book",
-    "family": "talk",
-    "commonLevel": 2,
-    "note": "result form",
-    "pattern": "-ám",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "objednám",
-        "en": "I will order"
-      },
-      "2s": {
-        "cs": "objednáš",
-        "en": "you will order"
-      },
-      "3s": {
-        "cs": "objedná",
-        "en": "he/she will order"
-      },
-      "1p": {
-        "cs": "objednáme",
-        "en": "we will order"
-      },
-      "2p": {
-        "cs": "objednáte",
-        "en": "you all will order"
-      },
-      "3p": {
-        "cs": "objednají",
-        "en": "they will order"
-      }
-    }
-  },
-  {
-    "infinitive": "děkovat",
-    "english": "thank",
-    "family": "social",
-    "commonLevel": 2,
-    "note": "formal and spoken variants",
-    "pattern": "-uji / -uju",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "děkuji",
-        "en": "I thank",
-        "accepted": [
-          "děkuju"
-        ]
-      },
-      "2s": {
-        "cs": "děkuješ",
-        "en": "you thank"
-      },
-      "3s": {
-        "cs": "děkuje",
-        "en": "he/she thanks"
-      },
-      "1p": {
-        "cs": "děkujeme",
-        "en": "we thank"
-      },
-      "2p": {
-        "cs": "děkujete",
-        "en": "you all thank"
-      },
-      "3p": {
-        "cs": "děkují",
-        "en": "they thank",
-        "accepted": [
-          "děkujou"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "omluvit se",
-    "english": "apologize",
-    "family": "social",
-    "commonLevel": 3,
-    "note": "reflexive result",
-    "pattern": "-ím se",
-    "aspect": "perfective",
-    "forms": {
-      "1s": {
-        "cs": "omluvím se",
-        "en": "I will apologize"
-      },
-      "2s": {
-        "cs": "omluvíš se",
-        "en": "you will apologize"
-      },
-      "3s": {
-        "cs": "omluví se",
-        "en": "he/she will apologize"
-      },
-      "1p": {
-        "cs": "omluvíme se",
-        "en": "we will apologize"
-      },
-      "2p": {
-        "cs": "omluvíte se",
-        "en": "you all will apologize"
-      },
-      "3p": {
-        "cs": "omluví se",
-        "en": "they will apologize"
-      }
-    }
-  },
-  {
-    "infinitive": "těšit se",
-    "english": "look forward",
-    "family": "social",
-    "commonLevel": 3,
-    "note": "reflexive",
-    "pattern": "-ím se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "těším se",
-        "en": "I look forward"
-      },
-      "2s": {
-        "cs": "těšíš se",
-        "en": "you look forward"
-      },
-      "3s": {
-        "cs": "těší se",
-        "en": "he/she looks forward"
-      },
-      "1p": {
-        "cs": "těšíme se",
-        "en": "we look forward"
-      },
-      "2p": {
-        "cs": "těšíte se",
-        "en": "you all look forward"
-      },
-      "3p": {
-        "cs": "těší se",
-        "en": "they look forward"
-      }
-    }
-  },
-  {
-    "infinitive": "bát se",
-    "english": "be afraid",
-    "family": "social",
-    "commonLevel": 3,
-    "note": "irregular stem boj-",
-    "pattern": "bojím se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "bojím se",
-        "en": "I am afraid"
-      },
-      "2s": {
-        "cs": "bojíš se",
-        "en": "you are afraid"
-      },
-      "3s": {
-        "cs": "bojí se",
-        "en": "he/she is afraid"
-      },
-      "1p": {
-        "cs": "bojíme se",
-        "en": "we are afraid"
-      },
-      "2p": {
-        "cs": "bojíte se",
-        "en": "you all are afraid"
-      },
-      "3p": {
-        "cs": "bojí se",
-        "en": "they are afraid"
-      }
-    }
-  },
-  {
-    "infinitive": "smát se",
-    "english": "laugh / smile",
-    "family": "social",
-    "commonLevel": 3,
-    "note": "spoken and formal variants",
-    "pattern": "směju se",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "směju se",
-        "en": "I laugh",
-        "accepted": [
-          "směji se"
-        ]
-      },
-      "2s": {
-        "cs": "směješ se",
-        "en": "you laugh"
-      },
-      "3s": {
-        "cs": "směje se",
-        "en": "he/she laughs"
-      },
-      "1p": {
-        "cs": "smějeme se",
-        "en": "we laugh"
-      },
-      "2p": {
-        "cs": "smějete se",
-        "en": "you all laugh"
-      },
-      "3p": {
-        "cs": "smějou se",
-        "en": "they laugh",
-        "accepted": [
-          "smějí se"
-        ]
-      }
-    }
-  },
-  {
-    "infinitive": "plakat",
-    "english": "cry",
-    "family": "social",
-    "commonLevel": 3,
-    "note": "stem pláč-",
-    "pattern": "pláču",
-    "aspect": "imperfective",
-    "forms": {
-      "1s": {
-        "cs": "pláču",
-        "en": "I cry"
-      },
-      "2s": {
-        "cs": "pláčeš",
-        "en": "you cry"
-      },
-      "3s": {
-        "cs": "pláče",
-        "en": "he/she cries"
-      },
-      "1p": {
-        "cs": "pláčeme",
-        "en": "we cry"
-      },
-      "2p": {
-        "cs": "pláčete",
-        "en": "you all cry"
-      },
-      "3p": {
-        "cs": "pláčou",
-        "en": "they cry"
-      }
-    }
-  }
-]
+  ]
+}

@@ -117,7 +117,7 @@ test("offline script requests preserve version query keys", async () => {
 });
 
 test("offline Conjugation Comet controller requests preserve their version key", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13";
+  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-19";
   const { context, lookups } = offlineServiceWorker();
 
   await assert.rejects(

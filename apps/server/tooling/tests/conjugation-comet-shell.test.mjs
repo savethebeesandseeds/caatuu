@@ -35,40 +35,53 @@ test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () 
 test("the standalone page loads direct game data without the curriculum service", () => {
   const semantic = page.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
   const chrome = page.indexOf('src="source/shared/chrome.js?v=chrome-96"');
-  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13"');
+  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-19"');
   assert.ok(semantic >= 0 && chrome > semantic && game > chrome);
   assert.doesNotMatch(page, /curriculum-service/);
-  assert.match(controller, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
+  assert.match(controller, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-2"/);
   assert.doesNotMatch(controller, /CaatuuCurriculum|data\/curriculum|guided-opportunity/);
 });
 
-test("verbs.json supplies complete six-form paradigms and fair English cues", () => {
-  const keys = ["1s", "2s", "3s", "1p", "2p", "3p"];
-  assert.ok(verbs.length >= 4);
-  for (const verb of verbs) {
-    assert.ok(verb.infinitive?.trim());
-    assert.ok(verb.english?.trim());
-    for (const key of keys) {
-      assert.ok(verb.forms?.[key]?.cs?.trim(), `${verb.infinitive} ${key} needs Czech`);
-      assert.ok(verb.forms?.[key]?.en?.trim(), `${verb.infinitive} ${key} needs English`);
+test("verbs.json supplies simple, complete six-form paradigms and fair English cues", () => {
+  const labels = ["S1", "S2", "S3", "P1", "P2", "P3"];
+  assert.equal(verbs.language, "cs");
+  assert.ok(Array.isArray(verbs.verbs) && verbs.verbs.length >= 4);
+  for (const verb of verbs.verbs) {
+    assert.ok(verb.verb?.trim());
+    assert.ok(verb.meaning?.trim());
+    assert.equal(verb.forms?.length, 6, `${verb.verb} needs six forms`);
+    assert.deepEqual(verb.forms.map((form) => form.label), labels);
+    for (const form of verb.forms) {
+      assert.ok(form.form?.trim(), `${verb.verb} ${form.label} needs a Czech form`);
+      assert.ok(form.cue?.trim(), `${verb.verb} ${form.label} needs an English cue`);
+      if (form.accepted !== undefined) {
+        assert.ok(Array.isArray(form.accepted));
+        assert.ok(form.accepted.every((accepted) => accepted?.trim()));
+      }
     }
   }
-  assert.match(controller, /FORM_KEYS = Object\.freeze\(\["1s", "2s", "3s", "1p", "2p", "3p"\]\)/);
-  assert.match(controller, /FORM_LABELS/);
-  assert.match(controller, /formsAreEquivalent\(state\.current\.forms\[formKey\], state\.current\.forms\[cueKey\]\)/);
+  assert.doesNotMatch(controller, /FORM_KEYS|FORM_LABELS|FORM_BADGES|commonLevel/);
+  assert.match(controller, /state\.current\.forms\.map\(\(_, index\) => String\(index\)\)/);
+  assert.match(controller, /formsAreEquivalent\([\s\S]*?state\.current\.forms\[Number\(formKey\)\]/);
   assert.match(controller, /form\?\.accepted/);
-  assert.match(controller, /const FORM_BADGES/);
   assert.match(controller, /conjugation-comet-cue-verb/);
+  assert.match(controller, /label\.textContent = form\.label/);
+  assert.match(styles, /\.conjugation-comet-cue-copy \{[\s\S]*?flex-direction: column/);
+  assert.match(styles, /\.conjugation-comet-cue-label \{[\s\S]*?position: static;[\s\S]*?align-self: flex-end/);
   assert.match(page, /id="verbMorphologyLegend"/);
-  assert.match(page, /S = singular/);
+  assert.match(page, /id="conjugationCometUnavailable"[\s\S]*?<\/section>\s*<\/div>\s*<div\s+class="conjugation-comet-person-legend"/);
+  assert.match(page, /<strong>S1:<\/strong> singular first person/);
+  assert.match(page, /<strong>P3:<\/strong> plural third person/);
+  assert.match(controller, /\$\("#verbMorphologyLegend"\)\.hidden = !formsVisible/);
+  assert.match(styles, /\.conjugation-comet-person-legend\s*\{[\s\S]*?grid-template-columns/);
 });
 
-test("each round has a four-choice meaning gate followed by all six forms", () => {
+test("each round has a four-choice meaning gate followed by every authored form", () => {
   assert.match(controller, /state\.meaningOptions = shuffle\(\[state\.current, \.\.\.contrasts\]\)/);
   assert.match(controller, /contrasts\.length !== 3/);
   assert.match(controller, /state\.phase = "meaning"/);
   assert.match(controller, /state\.phase = "forms"/);
-  assert.match(controller, /All six forms matched\. Next verb!/);
+  assert.match(controller, /All forms matched\. Next verb!/);
   assert.match(controller, /window\.setTimeout\(startNextVerb, 1700\)/);
   assert.match(controller, /CaatuuLearning\?\.record\?\.\("conjugation-comet"/);
 });
@@ -83,9 +96,9 @@ test("controls remain usable at touch, keyboard, mobile, and reduced-motion boun
 test("the offline shell pins the game, verb data, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-7",
-    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13",
-    "./data/games/conjugation-comet/verbs.json",
+    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-14",
+    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-19",
+    "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-2",
     "/assets/planets/conjugation-comet.png"
   ]) assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);
 });

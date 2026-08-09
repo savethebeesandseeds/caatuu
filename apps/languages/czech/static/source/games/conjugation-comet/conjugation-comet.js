@@ -3,24 +3,7 @@
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Conjugation Comet.");
 
-const VERBS_URL = "data/games/conjugation-comet/verbs.json";
-const FORM_KEYS = Object.freeze(["1s", "2s", "3s", "1p", "2p", "3p"]);
-const FORM_LABELS = Object.freeze({
-  "1s": "first person singular",
-  "2s": "second person singular",
-  "3s": "third person singular",
-  "1p": "first person plural",
-  "2p": "second person plural",
-  "3p": "third person plural"
-});
-const FORM_BADGES = Object.freeze({
-  "1s": "S1",
-  "2s": "S2",
-  "3s": "S3",
-  "1p": "P1",
-  "2p": "P2",
-  "3p": "P3"
-});
+const VERBS_URL = "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-2";
 const ENGLISH_SUBJECTS = Object.freeze(["you all", "he/she", "they", "you", "we", "it", "I"]);
 const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
 const ROBOT_FALLBACK = "/assets/robots/robot%20(1).png";
@@ -67,7 +50,7 @@ function normalize(value) {
 }
 
 function formSurfaces(form) {
-  return new Set([form?.cs, ...(Array.isArray(form?.accepted) ? form.accepted : [])]
+  return new Set([form?.form, ...(Array.isArray(form?.accepted) ? form.accepted : [])]
     .map(normalize)
     .filter(Boolean));
 }
@@ -94,22 +77,46 @@ function record(delta) {
 }
 
 function validateVerbs(value) {
-  if (!Array.isArray(value)) throw new Error("verbs.json must contain an array.");
-  const valid = value.filter((verb) => (
-    verb
-    && typeof verb.infinitive === "string"
-    && verb.infinitive.trim()
-    && typeof verb.english === "string"
-    && verb.english.trim()
-    && FORM_KEYS.every((key) => (
-      typeof verb.forms?.[key]?.cs === "string"
-      && verb.forms[key].cs.trim()
-      && typeof verb.forms[key].en === "string"
-      && verb.forms[key].en.trim()
-    ))
-  ));
-  if (valid.length < 4) throw new Error("Conjugation Comet needs at least four complete verbs.");
-  return valid.map((verb, index) => ({ ...verb, id: `verb-${index}` }));
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("verbs.json must contain a language and a verbs array.");
+  }
+  if (typeof value.language !== "string" || !value.language.trim()) {
+    throw new Error("verbs.json needs a language.");
+  }
+  if (!Array.isArray(value.verbs) || value.verbs.length < 4) {
+    throw new Error("Conjugation Comet needs at least four complete verbs.");
+  }
+  value.verbs.forEach((verb, verbIndex) => {
+    if (!verb || typeof verb.verb !== "string" || !verb.verb.trim()) {
+      throw new Error(`Verb ${verbIndex + 1} needs a verb.`);
+    }
+    if (typeof verb.meaning !== "string" || !verb.meaning.trim()) {
+      throw new Error(`${verb.verb} needs a meaning.`);
+    }
+    if (!Array.isArray(verb.forms) || verb.forms.length < 2) {
+      throw new Error(`${verb.verb} needs at least two forms.`);
+    }
+    const labels = new Set();
+    verb.forms.forEach((form, formIndex) => {
+      const location = `${verb.verb}, form ${formIndex + 1}`;
+      if (!form || typeof form.label !== "string" || !form.label.trim()) {
+        throw new Error(`${location} needs a label.`);
+      }
+      if (labels.has(form.label)) throw new Error(`${verb.verb} repeats the label ${form.label}.`);
+      labels.add(form.label);
+      if (typeof form.form !== "string" || !form.form.trim()) {
+        throw new Error(`${location} needs a form.`);
+      }
+      if (typeof form.cue !== "string" || !form.cue.trim()) {
+        throw new Error(`${location} needs a cue.`);
+      }
+      if (form.accepted !== undefined && (
+        !Array.isArray(form.accepted)
+        || form.accepted.some((accepted) => typeof accepted !== "string" || !accepted.trim())
+      )) throw new Error(`${location} has an invalid accepted list.`);
+    });
+  });
+  return value.verbs;
 }
 
 async function loadVerbs() {
@@ -119,15 +126,13 @@ async function loadVerbs() {
 }
 
 function eligibleVerbs() {
-  const difficulty = Number(window.CaatuuLearning?.difficulty?.() || 1);
-  const eligible = state.verbs.filter((verb) => Number(verb.commonLevel || 1) <= difficulty);
-  return eligible.length >= 4 ? eligible : state.verbs;
+  return state.verbs;
 }
 
 function refillQueue() {
-  const previousId = state.current?.id || "";
+  const previous = state.current;
   state.queue = shuffle(eligibleVerbs());
-  if (state.queue.length > 1 && state.queue[0]?.id === previousId) {
+  if (state.queue.length > 1 && state.queue[0] === previous) {
     [state.queue[0], state.queue[1]] = [state.queue[1], state.queue[0]];
   }
 }
@@ -136,8 +141,8 @@ function prepareNextVerb() {
   if (!state.queue.length) refillQueue();
   state.current = state.queue.shift() || state.verbs[0];
   const contrasts = shuffle(eligibleVerbs().filter((verb) => (
-    verb.id !== state.current.id
-    && normalize(verb.english) !== normalize(state.current.english)
+    verb !== state.current
+    && normalize(verb.meaning) !== normalize(state.current.meaning)
   ))).slice(0, 3);
   if (contrasts.length !== 3) throw new Error("verbs.json needs four distinct English meanings.");
 
@@ -145,8 +150,9 @@ function prepareNextVerb() {
   state.meaningTargetSelected = false;
   state.meaningMatched = false;
   state.meaningWrongId = "";
-  state.formOrder = shuffle(FORM_KEYS);
-  state.cueOrder = shuffle(FORM_KEYS);
+  const formKeys = state.current.forms.map((_, index) => String(index));
+  state.formOrder = shuffle(formKeys);
+  state.cueOrder = shuffle(formKeys);
   state.selectedFormKey = "";
   state.selectedCueKey = "";
   state.matchedFormKeys = new Set();
@@ -230,44 +236,45 @@ function renderMeaning() {
   const englishColumn = $("#verbMeaningEnglishColumn");
   if (!targetColumn || !englishColumn || !state.current) return;
   const target = createCard({
-    text: state.current.infinitive,
+    text: state.current.verb,
     language: course.targetLanguage?.locale || "cs-CZ",
     className: [state.meaningTargetSelected ? "is-selected" : "", state.meaningMatched ? "is-matched" : ""].filter(Boolean).join(" "),
     disabled: state.meaningMatched,
-    ariaLabel: `${state.current.infinitive}, Czech verb${state.meaningTargetSelected ? ", selected" : ""}`
+    ariaLabel: `${state.current.verb}, Czech verb${state.meaningTargetSelected ? ", selected" : ""}`
   });
-  target.button.dataset.meaningTarget = state.current.id;
+  target.button.dataset.meaningTarget = "true";
   targetColumn.replaceChildren(target.row);
 
-  englishColumn.replaceChildren(...state.meaningOptions.map((verb) => {
-    const matched = state.meaningMatched && verb.id === state.current.id;
+  englishColumn.replaceChildren(...state.meaningOptions.map((verb, optionIndex) => {
+    const optionKey = String(optionIndex);
+    const matched = state.meaningMatched && verb === state.current;
     const card = createCard({
-      text: verb.english,
+      text: verb.meaning,
       language: "en",
       className: [
         "verb-match-card-en",
         matched ? "is-matched" : "",
-        state.meaningWrongId === verb.id ? "is-wrong" : ""
+        state.meaningWrongId === optionKey ? "is-wrong" : ""
       ].filter(Boolean).join(" "),
       disabled: state.meaningMatched,
-      ariaLabel: `${verb.english}, English meaning${matched ? ", matched" : ""}`
+      ariaLabel: `${verb.meaning}, English meaning${matched ? ", matched" : ""}`
     });
-    card.button.dataset.meaningOption = verb.id;
+    card.button.dataset.meaningOption = optionKey;
     return card.row;
   }));
 
   $("#verbMeaningGateBoard").style.setProperty("--verb-pair-count", "4");
   $("#verbMeaningGateBoard").setAttribute("aria-busy", "false");
   $("#verbMeaningGateProgress").textContent = state.meaningMatched ? "1 of 1 matched" : "0 of 1 matched";
-  if (state.meaningMatched) setFeedback("#verbMeaningGateFeedback", "Correct. Now match all six forms.", "correct");
+  if (state.meaningMatched) setFeedback("#verbMeaningGateFeedback", "Correct. Now match all the forms.", "correct");
   else if (state.meaningWrongId) setFeedback("#verbMeaningGateFeedback", "Not this meaning. Try again.", "wrong");
   else if (state.meaningTargetSelected) setFeedback("#verbMeaningGateFeedback", "Now choose the English meaning.");
   else setFeedback("#verbMeaningGateFeedback", "Select the Czech verb to begin.");
 }
 
 function createCueCard(key) {
-  const form = state.current.forms[key];
-  const cueParts = splitEnglishCue(form.en);
+  const form = state.current.forms[Number(key)];
+  const cueParts = splitEnglishCue(form.cue);
   const card = createCard({
     text: "",
     language: "en",
@@ -279,7 +286,7 @@ function createCueCard(key) {
       state.revealed && !state.matchedCueKeys.has(key) ? "is-solution" : ""
     ].filter(Boolean).join(" "),
     disabled: state.matchedCueKeys.has(key) || state.revealed,
-    ariaLabel: `${form.en}, ${FORM_LABELS[key]}`
+    ariaLabel: `${form.cue}, ${form.label}`
   });
   const cue = document.createElement("span");
   cue.className = "conjugation-comet-cue-copy";
@@ -297,8 +304,8 @@ function createCueCard(key) {
   }
   const label = document.createElement("span");
   label.className = "conjugation-comet-cue-label";
-  label.textContent = FORM_BADGES[key];
-  label.title = FORM_LABELS[key];
+  label.textContent = form.label;
+  label.title = form.label;
   label.setAttribute("aria-hidden", "true");
   cue.append(natural, label);
   card.copy.replaceWith(cue);
@@ -312,9 +319,9 @@ function renderForms() {
   if (!formsColumn || !cuesColumn || !state.current) return;
 
   formsColumn.replaceChildren(...state.formOrder.map((key) => {
-    const form = state.current.forms[key];
+    const form = state.current.forms[Number(key)];
     const card = createCard({
-      text: form.cs,
+      text: form.form,
       language: course.targetLanguage?.locale || "cs-CZ",
       className: [
         state.selectedFormKey === key ? "is-selected" : "",
@@ -323,20 +330,21 @@ function renderForms() {
         state.revealed && !state.matchedFormKeys.has(key) ? "is-solution" : ""
       ].filter(Boolean).join(" "),
       disabled: state.matchedFormKeys.has(key) || state.revealed,
-      ariaLabel: `${form.cs}, Czech verb form`
+      ariaLabel: `${form.form}, Czech verb form, ${form.label}`
     });
     card.button.dataset.formKey = key;
     return card.row;
   }));
   cuesColumn.replaceChildren(...state.cueOrder.map((key) => createCueCard(key).row));
 
-  $("#verbMorphologyBoard").style.setProperty("--verb-pair-count", "6");
+  const formCount = state.current.forms.length;
+  $("#verbMorphologyBoard").style.setProperty("--verb-pair-count", String(formCount));
   $("#verbMorphologyBoard").setAttribute("aria-busy", "false");
-  $("#verbMorphologyLemmaTarget").textContent = state.current.infinitive;
-  $("#verbMorphologyGloss").textContent = state.current.english;
+  $("#verbMorphologyLemmaTarget").textContent = state.current.verb;
+  $("#verbMorphologyGloss").textContent = state.current.meaning;
   const matches = state.matchedCueKeys.size;
-  $("#verbMorphologyProgress").textContent = `${matches} of 6 matched`;
-  const complete = matches === FORM_KEYS.length || state.revealed;
+  $("#verbMorphologyProgress").textContent = `${matches} of ${formCount} matched`;
+  const complete = matches === formCount || state.revealed;
   const next = $("#verbMorphologyNextButton");
   next.hidden = !complete;
   next.disabled = !complete;
@@ -348,7 +356,7 @@ function renderForms() {
   if (complete) {
     setFeedback("#verbMorphologyFeedback", state.revealed
       ? "Answers shown. Continue with another verb."
-      : "All six forms matched. Next verb!", state.revealed ? "" : "correct");
+      : "All forms matched. Next verb!", state.revealed ? "" : "correct");
   } else if (state.wrongFormKey || state.wrongCueKey) {
     setFeedback("#verbMorphologyFeedback", "Those do not match. Compare the person and number.", "wrong");
   } else if (state.selectedFormKey || state.selectedCueKey) {
@@ -368,6 +376,7 @@ function render() {
   $("#verbMeaningGateFooter").hidden = !meaningVisible;
   $("#verbMorphologyBoard").hidden = !formsVisible;
   $("#verbMorphologyFooter").hidden = !formsVisible;
+  $("#verbMorphologyLegend").hidden = !formsVisible;
   $("#conjugationCometUnavailable").hidden = !errorVisible;
   $("#conjugationCometRobot").src = state.robotPath;
   $("#conjugationCometInterstitialCopy").textContent = state.transitionMessage;
@@ -386,20 +395,20 @@ function handleMeaningTarget() {
   render();
 }
 
-function handleMeaningOption(id) {
+function handleMeaningOption(optionKey) {
   if (state.phase !== "meaning" || state.meaningMatched) return;
   if (!state.meaningTargetSelected) {
     setFeedback("#verbMeaningGateFeedback", "Select the Czech verb first.");
     $("[data-meaning-target]")?.focus();
     return;
   }
-  const correct = id === state.current.id;
+  const correct = state.meaningOptions[Number(optionKey)] === state.current;
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
   if (!correct) {
-    state.meaningWrongId = id;
+    state.meaningWrongId = optionKey;
     render();
     window.setTimeout(() => {
-      if (state.meaningWrongId === id) {
+      if (state.meaningWrongId === optionKey) {
         state.meaningWrongId = "";
         render();
       }
@@ -408,7 +417,7 @@ function handleMeaningOption(id) {
   }
   state.meaningMatched = true;
   render();
-  window.setTimeout(() => transition("Preparing all six forms…", () => {
+  window.setTimeout(() => transition("Preparing the forms…", () => {
     state.phase = "forms";
   }, 700).catch(showError), 550);
 }
@@ -427,7 +436,10 @@ function evaluatePair() {
   const cueKey = state.selectedCueKey;
   // Some Czech paradigms use one visible form for multiple persons. Matching
   // by reviewed surface equivalence makes either identical card a fair answer.
-  const correct = formsAreEquivalent(state.current.forms[formKey], state.current.forms[cueKey]);
+  const correct = formsAreEquivalent(
+    state.current.forms[Number(formKey)],
+    state.current.forms[Number(cueKey)]
+  );
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
   if (correct) {
     state.matchedFormKeys.add(formKey);
@@ -435,7 +447,7 @@ function evaluatePair() {
     state.selectedFormKey = "";
     state.selectedCueKey = "";
     render();
-    if (state.matchedCueKeys.size === FORM_KEYS.length) {
+    if (state.matchedCueKeys.size === state.current.forms.length) {
       record({ rounds: 1 });
       clearNextTimer();
       state.nextTimer = window.setTimeout(startNextVerb, 1700);
@@ -470,7 +482,8 @@ function showHint() {
   const showing = hint.hidden;
   hint.hidden = !showing;
   button.setAttribute("aria-pressed", String(showing));
-  $("#verbMorphologyHintCopy").textContent = "Focus on the English subject. S means singular, P means plural, and the number marks the person.";
+  $("#verbMorphologyHintCopy").textContent = state.current?.hint
+    || "Compare each form with its cue and label.";
 }
 
 function revealAnswers() {
@@ -499,9 +512,6 @@ function bindUi() {
   $("#verbMorphologyHintButton")?.addEventListener("click", showHint);
   $("#verbMorphologyRevealButton")?.addEventListener("click", revealAnswers);
   $("#verbMorphologyNextButton")?.addEventListener("click", startNextVerb);
-  window.addEventListener("caatuu:learning-change", (event) => {
-    if (event.detail?.reason === "difficulty" && state.verbs.length) refillQueue();
-  });
 }
 
 function showError(error) {

@@ -95,7 +95,8 @@ function addDoc(docs, row) {
 async function addLocalDocs(docs) {
   const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
   const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
-  const verbs = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
+  const verbData = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
+  const verbs = verbData.verbs || [];
 
   addDoc(docs, {
     source_id: "caatuu_dictionary",
@@ -117,8 +118,8 @@ async function addLocalDocs(docs) {
     title: "Caatuu Czech verbs",
     license: "project-local",
     text: verbs.map((verb) => {
-      const forms = Object.values(verb.forms || {}).map((form) => [form.cs, form.en].filter(Boolean).join(" - "));
-      return [verb.infinitive, verb.english, verb.pattern, ...forms].filter(Boolean).join(". ");
+      const forms = (verb.forms || []).map((form) => [form.form, form.cue].filter(Boolean).join(" - "));
+      return [verb.verb, verb.meaning, verb.hint, ...forms].filter(Boolean).join(". ");
     }).join("\n")
   });
 }

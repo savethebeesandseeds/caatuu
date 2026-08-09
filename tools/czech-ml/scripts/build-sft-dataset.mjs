@@ -55,7 +55,8 @@ async function appDataExamples() {
   const rows = [];
   const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
   const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
-  const verbs = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
+  const verbData = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
+  const verbs = verbData.verbs || [];
 
   for (const item of dictionary) {
     if (item.cs && item.en) {
@@ -84,13 +85,13 @@ async function appDataExamples() {
   }
 
   for (const verb of verbs) {
-    if (verb.infinitive && verb.english) rows.push(example(systemTranslate, `Přelož sloveso do češtiny: ${verb.english}`, verb.infinitive, "verb_translate"));
-    if (verb.infinitive && verb.pattern) rows.push(example(systemExplain, `Dej krátkou pomůcku pro české sloveso „${verb.infinitive}“.`, `${verb.infinitive}: ${verb.pattern}.`, "verb_pattern"));
-    for (const form of Object.values(verb.forms || {})) {
-      if (form.cs && form.en) {
-        rows.push(example(systemTranslate, `Přelož do češtiny: ${form.en}`, form.cs, "verb_form"));
-        rows.push(example(systemTranslate, `Vrať pouze český slovesný tvar: ${form.en}`, form.cs, "verb_form_variant"));
-        rows.push(example(systemTranslate, `Jaký je český tvar pro „${form.en}“?`, form.cs, "verb_form_variant"));
+    if (verb.verb && verb.meaning) rows.push(example(systemTranslate, `Přelož sloveso do češtiny: ${verb.meaning}`, verb.verb, "verb_translate"));
+    if (verb.verb && verb.hint) rows.push(example(systemExplain, `Dej krátkou pomůcku pro české sloveso „${verb.verb}“.`, `${verb.verb}: ${verb.hint}`, "verb_pattern"));
+    for (const form of verb.forms || []) {
+      if (form.form && form.cue) {
+        rows.push(example(systemTranslate, `Přelož do češtiny: ${form.cue}`, form.form, "verb_form"));
+        rows.push(example(systemTranslate, `Vrať pouze český slovesný tvar: ${form.cue}`, form.form, "verb_form_variant"));
+        rows.push(example(systemTranslate, `Jaký je český tvar pro „${form.cue}“?`, form.form, "verb_form_variant"));
       }
     }
   }

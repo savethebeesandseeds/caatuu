@@ -58,11 +58,12 @@ test("authored data is grouped by game or shared language ownership", async () =
 });
 
 test("curated game JSON is the learner-facing content boundary", () => {
-  assert.ok(Array.isArray(verbs) && verbs.length >= 4);
+  assert.equal(verbs.language, "cs");
+  assert.ok(Array.isArray(verbs.verbs) && verbs.verbs.length >= 4);
   assert.equal(typeof wordManifest.corpusVersion, "string");
-  assert.match(cometSource, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
-  assert.match(serviceWorker, /caatuu-czech-pwa-v419/);
-  assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json/);
+  assert.match(cometSource, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-2"/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v428/);
+  assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-2/);
   assert.match(serviceWorker, /\.\/data\/games\/word-world\/manifest\.json/);
   assert.doesNotMatch(serviceWorker, /data\/curriculum|curriculum-service/);
 });

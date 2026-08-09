@@ -47,12 +47,12 @@ test("Word World keeps curated Standard content and honest semantic exposure", (
 });
 
 test("Conjugation Comet owns morphology and reads the complete verb dataset", () => {
-  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json"/);
+  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-2"/);
   assert.match(comet, /state\.phase = "meaning"/);
   assert.match(comet, /state\.phase = "forms"/);
   assert.match(comet, /CaatuuLearning\?\.record\?\.\("conjugation-comet"/);
   assert.doesNotMatch(comet, /CaatuuCurriculum|curriculum\//);
-  assert.ok(verbs.length > 1, "Comet must not be pinned to a one-verb pilot");
+  assert.ok(verbs.verbs.length > 1, "Comet must not be pinned to a one-verb pilot");
 });
 
 test("progress reset still drains active game work before clearing totals", () => {

@@ -323,7 +323,7 @@ linguistic facts are shared:
 | --- | --- | --- |
 | Word World | Existing reviewed authoring and deterministic build pipeline; migration must add the common envelope and provenance contract | Migrated `word-world/manifest.json` and versioned `records.json` |
 | Verb Nebula | Existing `core-vocabulary.json` is migration input, not a sufficient runtime contract | Compile a finite stable-ID challenge pack and name it from `verb-nebula/manifest.json` |
-| Conjugation Comet | Directly authored 6–8-verb pilot pack first; only later derive from reviewed verb and lesson sources | `conjugation-comet/manifest.json` to a versioned `challenges.json` |
+| Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/verbs.json`, used directly by the game |
 | Case Cosmos | Directly authored bounded pilot first; later shared reviewed paradigms, government records, lesson plan, and contexts | `case-cosmos/manifest.json` to a versioned `challenges.json` |
 | Agreement Aurora | Directly authored bounded pilot first; later reviewed morphology plus allowed construction groups and contexts | `agreement-aurora/manifest.json` to a versioned `challenges.json` |
 | Clitic Orbit | Direct reviewed challenge pack initially; if `constructions.json` is later compiled into different records, the manifest mode becomes `derived` | `clitic-orbit/manifest.json` to a versioned `challenges.json` |
@@ -378,13 +378,22 @@ capabilities, offline assets, browser navigation, and Android packaging.
 This catalog is not the standalone game catalog at `apps/games/catalog.json`.
 The two have different owners and release boundaries.
 
-### 3.6 Stable record identity
+### 3.6 Identity only where a game needs it
 
-Every source entity, compiled challenge, and shared evidence concept needs an
-explicit stable ID and positive revision. Array position must never be
-identity.
+Do not require authored IDs, revisions, manifests, or concept references merely
+because a file may grow later. A small directly authored pack should remain
+readable and editable as ordinary language content. Conjugation Comet therefore
+uses its verb and form content directly; array position is only a temporary UI
+key during a round, not an authored identity.
 
-Required common challenge fields are:
+Stable identity becomes necessary only when a concrete feature must refer to a
+record across releases—for example durable per-item progress, cross-game
+references, or correction receipts. Introduce it with that feature and migrate
+the affected content deliberately. The following larger challenge envelope is
+therefore a possible contract for games that prove they need those capabilities,
+not a required wrapper for every planet:
+
+Possible stateful challenge fields are:
 
 ```json
 {
@@ -796,41 +805,63 @@ belong to Case Cosmos and Agreement Aurora.
 ### 5.2 What is missing now
 
 The current game has a useful two-stage round—meaning followed by six
-person/number matches—but it lacks the structures needed to teach a system:
+person/number matches—and now reads one intentionally small authored shape:
+`language`, then `verbs`, with `verb`, `meaning`, optional `hint`, and a `forms`
+array containing `label`, `form`, `cue`, and optional `accepted` alternatives.
+The file contains no authored IDs or speculative grammar taxonomy.
 
-- stable verb and form IDs are not explicit; runtime IDs currently depend on
-  array order;
-- there is no content manifest or content version in saved progress;
-- `pattern` mixes productive classes, endings, and individual irregular forms;
-- semantic family and conjugation family are not distinct concepts;
-- aspect, notes, motion class, government, and accepted variants are mostly
-  invisible to the learner;
-- difficulty only filters a random cumulative pool;
+```json
+{
+  "language": "cs",
+  "verbs": [
+    {
+      "verb": "mít",
+      "meaning": "have",
+      "hint": "Imperfective. High-frequency. Pattern: -ám.",
+      "forms": [
+        { "label": "S1", "form": "mám", "cue": "I have" },
+        { "label": "S2", "form": "máš", "cue": "you have" }
+      ]
+    }
+  ]
+}
+```
+
+The example is shortened; the current Czech records contain all six person and
+number forms. Other languages may use the labels and number of forms natural to
+their own conjugation system. A language without conjugation simply does not
+enable this planet.
+
+The remaining backbone is about teaching, not adding metadata for its own sake:
+
 - the same six-cell recognition task is used for every verb;
 - the meaning gate duplicates Verb Nebula even when meaning is already known;
-- hints do not explain the current rule or contrast;
-- progress is aggregated instead of stored per verb, feature, and skill;
+- hints are present but do not yet guide a deliberate sequence of rules and
+  contrasts;
+- the random full-pool order does not yet create a learning progression;
 - there is no production or transfer test;
-- contract tests check structural completeness but not the complete
-  linguistic relationship among aspect, tense, form, cue, and variant.
+- contract tests check structural completeness but not Czech naturalness or
+  the instructional quality of each hint and contrast.
 
 ### 5.3 Content authority
 
-The safe migration path is:
+The safe improvement path is:
 
-1. freeze the current Comet as the measured baseline;
-2. select and fully audit only 6–8 current verbs in one productive family;
-3. directly author a versioned pilot `challenges.json` with stable IDs,
-   revisions, response policies, concepts, explanations, and review receipts;
-4. add `manifest.json` declaring the pilot pack, schema paths and hashes,
-   counts, bytes, coverage, rights, and review state;
-5. run the pilot before normalizing all 59 legacy verbs or building a general
-   grammar catalog;
-6. if the mechanic passes, migrate the remaining data in reviewed batches and
-   decide whether a `verbs.json` + `lesson-plan.json` compiler reduces measured
-   cost;
-7. promote genuinely shared verb facts only when another proven consumer
-   needs the same authority.
+1. keep the current simple `verbs.json` as both authoring source and runtime
+   boundary;
+2. linguistically audit the 59 migrated verbs, cues, hints, and accepted
+   alternatives without changing the shape;
+3. select 6–8 verbs that expose one useful Czech pattern or contrast and use
+   them to design the first explicit teaching sequence;
+4. add prediction, explanation, controlled production, and held-out transfer
+   around that sequence while continuing to read the same verb records;
+5. measure whether learners understand the pattern rather than merely complete
+   matches;
+6. add a new field or companion file only when a demonstrated mechanic cannot
+   be authored clearly with the current content, and keep that addition as
+   small and human-readable as possible;
+7. promote facts into a shared language source only after another real consumer
+   needs them.
 
 An eventual normalized verb source should distinguish at least:
 

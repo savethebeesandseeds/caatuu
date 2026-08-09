@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v419";
+const CACHE_NAME = "caatuu-czech-pwa-v428";
 const CORE_ASSETS = [
   "./",
   "./home.html",
@@ -32,8 +32,8 @@ const CORE_ASSETS = [
   "./source/games/word-world/word-net-queue.mjs?v=word-net-queue-6",
   "./source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
   "./conjugation-comet.html",
-  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-7",
-  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-13",
+  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-14",
+  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-19",
   "./source/shared/vector-db.js?v=vector-db-9",
   "./vendor/transformers/transformers.min.js",
   "./chat.html",
@@ -75,7 +75,7 @@ const CORE_ASSETS = [
   "/assets/icons/paper_plane_submit_ui.png?v=paper-plane-1",
   "/assets/loading_animation/animations_manifest.json",
   "./data/games/verb-nebula/core-vocabulary.json",
-  "./data/games/conjugation-comet/verbs.json",
+  "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-2",
   "./data/language/scripts.json",
   "./data/games/word-world/manifest.json",
   "./data/games/word-world/standard-v0.1/records.json?v=01b7901834527668"
