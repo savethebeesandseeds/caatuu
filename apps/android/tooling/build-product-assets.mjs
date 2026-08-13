@@ -205,7 +205,7 @@ function topLevelFunctionRange(source, name, { exported = false, indent = "" } =
   const start = starts[0].index + 1;
   const escapedIndent = indent.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const nextPattern = exported
-    ? /\nexport (?:async )?function [A-Za-z_$][\w$]*\(/g
+    ? /\n(?:export )?(?:(?:async )?function [A-Za-z_$][\w$]*\(|(?:const|let|var|class) [A-Za-z_$][\w$]*)/g
     : new RegExp(`\\n${escapedIndent}(?:async )?function [A-Za-z_$][\\w$]*\\(`, "g");
   nextPattern.lastIndex = start + starts[0].anchor.length;
   const next = nextPattern.exec(source);
@@ -713,10 +713,10 @@ const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;
   );
   source = replaceBetween(
     source,
-    "const seedWords = [",
+    "const fallbackTemplates = [",
     "const seedEnglish = {",
     "",
-    "Word World fallback sentence templates"
+    "Word World generated-sentence fallback templates"
   );
   source = exactReplace(source, "  generativeTurnActive: false,\n", "", "Word World optional turn state");
   source = exactReplace(source, "  contentMode: loadContentMode(),", '  contentMode: "standard",', "Word World forced Standard mode");
