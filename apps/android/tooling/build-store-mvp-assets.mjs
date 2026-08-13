@@ -21,7 +21,6 @@ const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
 export const STORE_LANGUAGE_FILES = Object.freeze([
   "agreement-aurora.html",
   "case-cosmos.html",
-  "conjugation-comet.html",
   "icons/caatuu-czech-192.png",
   "icons/caatuu-czech-512.png",
   "index.html",
@@ -39,8 +38,6 @@ export const STORE_LANGUAGE_FILES = Object.freeze([
   "source/games/case-cosmos/case-cosmos.css",
   "source/games/case-cosmos/case-cosmos.js",
   "source/games/case-cosmos/launcher.css",
-  "source/games/conjugation-comet/conjugation-comet.css",
-  "source/games/conjugation-comet/conjugation-comet.js",
   "source/games/verb-nebula/app.css",
   "source/games/verb-nebula/app.js",
   "source/games/verb-nebula/verb-exercise-family-core.mjs",
@@ -78,7 +75,6 @@ export const STORE_LANGUAGE_FILES = Object.freeze([
   "data/embeddings/models.json",
   "data/games/agreement-aurora/challenges.json",
   "data/games/case-cosmos/challenges.json",
-  "data/games/conjugation-comet/verbs.json",
   "data/games/verb-nebula/core-vocabulary.json",
   "data/games/word-world/manifest.json",
   "data/games/word-world/standard-v0.1/records.json",
@@ -265,11 +261,23 @@ export function transformCourseProfile(input) {
   let source = normalizeText(input);
   source = exactReplace(
     source,
+    '      conjugationComet: "index.html",\n',
+    "",
+    "course Conjugation Comet route"
+  );
+  source = exactReplace(
+    source,
     '      chatSettings: "caatuu-czech.chat.settings.v1",\n',
     "",
     "course profile chat storage"
   );
   source = exactReplace(source, "      chat: true,", "      chat: false,", "course chat capability");
+  source = exactReplace(
+    source,
+    "      conjugationComet: true,\n",
+    "",
+    "course Conjugation Comet capability"
+  );
   source = exactReplace(
     source,
     "      offlineModels: true,",
@@ -287,6 +295,37 @@ export function transformManifest(input) {
   manifest.description = "Czech verbs, dictionary, scripts, games, and learning guide.";
   manifest.shortcuts = manifest.shortcuts.filter((shortcut) => shortcut.url !== "./chat.html");
   manifest.icons = manifest.icons.filter((icon) => icon.src !== "icons/caatuu-czech-1024.png");
+  return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+export function transformIndex(input) {
+  let source = normalizeText(input);
+  source = replaceBetween(
+    source,
+    '                <button\n                  class="train-world train-world-comet"',
+    '                <button class="train-world train-world-case"',
+    "",
+    "home Conjugation Comet launcher"
+  );
+  source = replaceBetween(
+    source,
+    '            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelConjugationComet"',
+    '            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelCaseCosmos"',
+    "",
+    "home Conjugation Comet panel"
+  );
+  return source;
+}
+
+export function transformSetupAssets(input) {
+  const manifest = JSON.parse(normalizeText(input));
+  assert.ok(Array.isArray(manifest.artifacts), "setup assets must declare an artifact array");
+  const excluded = manifest.artifacts.filter((artifact) => artifact?.key === "planet-conjugation");
+  assert.equal(excluded.length, 1, "setup assets must expose exactly one Conjugation Comet planet");
+  assert.equal(excluded[0].label, "Conjugation Comet", "setup Conjugation Comet label");
+  assert.equal(excluded[0].url, "/assets/planets/conjugation-comet.png", "setup Conjugation Comet URL");
+  assert.equal(excluded[0].asset_path, "assets/planets/conjugation-comet.png", "setup Conjugation Comet asset path");
+  manifest.artifacts = manifest.artifacts.filter((artifact) => artifact?.key !== "planet-conjugation");
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
@@ -418,6 +457,54 @@ export function transformRuntime(input) {
 
 export function transformChromeJs(input) {
   let source = normalizeText(input);
+  source = exactReplace(
+    source,
+    `    "conjugation-comet": {
+      title: "Conjugation Comet",
+      summary: "Choose the form",
+      iconSrc: "/assets/planets/conjugation-comet.png",
+      href: "index.html"
+    },
+`,
+    "",
+    "chrome Conjugation Comet presentation"
+  );
+  source = removeTopLevelFunction(source, "conjugationCometAvailable", { indent: "  " });
+  source = removeTopLevelFunction(source, "gameLandingHref", { indent: "  " });
+  source = exactReplace(
+    source,
+    '    if (gameId === "conjugation-comet") return conjugationCometAvailable();\n',
+    "",
+    "chrome Conjugation Comet availability"
+  );
+  source = exactReplace(
+    source,
+    `
+    if (currentGameId() !== "conjugation-comet" || !conjugationCometAvailable()) return;
+    const back = document.querySelector(".app-header-back");
+    if (back) back.href = gameLandingHref("conjugation-comet");
+`,
+    "\n",
+    "chrome Conjugation Comet navigation sync"
+  );
+  source = exactReplace(
+    source,
+    '["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"]',
+    '["verb-lab", "word-net", "case-cosmos", "agreement-aurora", "memory-moon"]',
+    "chrome Conjugation Comet navigation list"
+  );
+  source = exactReplace(
+    source,
+    '    if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";\n',
+    "",
+    "chrome Conjugation Comet page detection"
+  );
+  source = exactReplace(
+    source,
+    '    if (document.querySelector("#trainPanelConjugationComet:not([hidden])")) return "conjugation-comet";\n',
+    "",
+    "chrome Conjugation Comet panel detection"
+  );
   source = exactReplace(source, "<small>AI, developer, storage</small>", "<small>Storage and app controls</small>", "chrome advanced summary");
   source = replaceBetween(
     source,
@@ -464,6 +551,36 @@ export function transformChromeCss(input) {
 
 export function transformAppJs(input) {
   let source = normalizeText(input);
+  source = exactReplace(
+    source,
+    `  "conjugation-comet": {
+    frameId: "conjugationCometEmbeddedGame",
+    stageId: "conjugationCometEmbeddedStage",
+    statusId: "conjugationCometEmbeddedStatus",
+    title: "Conjugation Comet"
+  },
+`,
+    "",
+    "app Conjugation Comet embedded presentation"
+  );
+  source = exactReplace(
+    source,
+    '    "conjugation-comet": "trainPanelConjugationComet",\n',
+    "",
+    "app Conjugation Comet panel navigation"
+  );
+  source = exactReplace(
+    source,
+    '    "conjugation-comet": "Conjugation Comet",\n',
+    "",
+    "app Conjugation Comet title"
+  );
+  source = exactReplace(
+    source,
+    '["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"]',
+    '["verb-lab", "word-net", "case-cosmos", "agreement-aurora", "memory-moon"]',
+    "app Conjugation Comet navigation request"
+  );
   source = replaceBetween(
     source,
     "const chatSettingsStorageKey = course.storage.chatSettings;",
@@ -512,8 +629,40 @@ export function transformAppJs(input) {
 }
 
 export function transformAppCss(input) {
+  let source = normalizeText(input);
+  source = exactReplace(source, ".train-world-comet .train-orbit,\n", "", "app Conjugation Comet orbit selector");
+  source = exactReplace(
+    source,
+    `.train-world-comet {
+  top: clamp(18px, 7%, 46px);
+  left: clamp(12px, 8vw, 72px);
+}
+.train-world-comet img {
+  width: clamp(68px, 19vw, 94px);
+}
+`,
+    "",
+    "app Conjugation Comet desktop presentation"
+  );
+  source = exactReplace(source, "  .train-world-comet,\n", "", "app Conjugation Comet mobile layout selector");
+  source = exactReplace(source, "  .train-world-comet img,\n", "", "app Conjugation Comet mobile image selector");
+  source = exactReplace(
+    source,
+    `  .train-world-comet {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .train-world-comet img {
+    width: clamp(64px, 20vw, 92px);
+  }
+
+`,
+    "",
+    "app Conjugation Comet mobile presentation"
+  );
   return stripFlatCssRules(
-    normalizeText(input),
+    source,
     [/\.ai-settings-card/i, /\.preset-control/i, /\.capability-note/i],
     "app language model controls"
   );
@@ -961,7 +1110,9 @@ async function init() {
 }
 
 const TRANSFORMS = Object.freeze({
+  "index.html": transformIndex,
   "manifest.webmanifest": transformManifest,
+  "setup-assets.json": transformSetupAssets,
   "source/features/home/home.css": transformHomeCss,
   "source/features/setup/setup.js": transformSetupJs,
   "source/games/verb-nebula/app.css": transformAppCss,
@@ -1020,6 +1171,19 @@ function serviceWorkerSource(paths, developmentSource) {
   const source = normalizeText(developmentSource);
   assert.equal(countOccurrences(source, "function isModelRuntimeRequest(url) {"), 1, "service worker model runtime anchor");
   assert.ok(source.includes('"./source/features/chat/chat.js'), "service worker must still expose the development Chat anchor");
+  for (const anchor of [
+    '"./conjugation-comet.html"',
+    '"./source/games/conjugation-comet/conjugation-comet.css',
+    '"./source/games/conjugation-comet/conjugation-comet.js',
+    '"/assets/planets/conjugation-comet.png"',
+    '"./data/games/conjugation-comet/verbs.json'
+  ]) {
+    assert.equal(
+      countOccurrences(source, anchor),
+      1,
+      `service worker Conjugation Comet anchor ${anchor}`
+    );
+  }
   const coreAssets = ["./", ...paths
     .filter((path) => path !== "sw.js")
     .map((path) => `./${path}`)];
@@ -1161,6 +1325,7 @@ function assertNoForbiddenPaths(files) {
     /(^|\/)games\/(?:godot|runtime|exports?)(?:\/|$)/i,
     /godot/i,
     /word-net-queue/i,
+    /conjugation-comet/i,
     /data\/embeddings\/.*\/(?:runtime\/|.*\.(?:sqlite|db|onnx|bin|safetensors|wasm)$)/i
   ];
   for (const path of files) {
@@ -1172,9 +1337,22 @@ function assertFirstPartySurface(outputDir, files) {
   const executableUi = files.filter((path) =>
     !path.startsWith("vendor/") && [".css", ".html", ".js", ".mjs", ".webmanifest"].includes(extension(path))
   );
-  const forbidden = /generative|webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|word-net-queue|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot/i;
+  const forbidden = /generative|webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|word-net-queue|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot|conjugation(?:[- ]?comet)|train-world-comet/i;
   for (const path of executableUi) {
     assert.doesNotMatch(readSourceText(join(outputDir, path)), forbidden, `Forbidden store surface survived in ${path}`);
+  }
+}
+
+function assertNoConjugationCometSurface(outputDir, files) {
+  const forbidden = /conjugation(?:[- ]?comet)|train-world-comet/i;
+  for (const path of files) {
+    assert.doesNotMatch(path, forbidden, `Conjugation Comet path survived in storeMvp: ${path}`);
+    if (!TEXT_EXTENSIONS.has(extension(path))) continue;
+    assert.doesNotMatch(
+      readSourceText(join(outputDir, path)),
+      forbidden,
+      `Conjugation Comet reference survived in storeMvp: ${path}`
+    );
   }
 }
 
@@ -1201,7 +1379,12 @@ function assertRuntimeBoundary(outputDir) {
 
 function assertSetupBoundary(outputDir, languageStaticDir) {
   const outputPath = join(outputDir, "setup-assets.json");
-  assert.deepEqual(readFileSync(outputPath), readFileSync(join(languageStaticDir, "setup-assets.json")), "setup manifest must be copied byte-for-byte");
+  const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
+  assert.equal(
+    readSourceText(outputPath),
+    normalizeText(transformSetupAssets(developmentSource)),
+    "setup manifest must equal the reviewed store transform"
+  );
   const manifest = JSON.parse(readFileSync(outputPath, "utf8"));
   const artifacts = Array.isArray(manifest.artifacts) ? manifest.artifacts : [];
   assert.ok(artifacts.length > 0, "setup manifest must retain artifacts");
@@ -1219,7 +1402,7 @@ function assertSetupBoundary(outputDir, languageStaticDir) {
   assert.ok(String(activeDictionary.download_url || activeDictionary.url || "").trim(), "active dictionary must declare a download URL");
   for (const artifact of artifacts) {
     const surface = `${artifact.artifact_kind || artifact.kind || ""} ${artifact.url || ""} ${artifact.key || ""}`;
-    assert.doesNotMatch(surface, /gguf|data\/models|godot/i);
+    assert.doesNotMatch(surface, /gguf|data\/models|godot|conjugation(?:[- ]?comet)/i);
   }
   const setup = readSourceText(join(outputDir, "source/features/setup/setup.js"));
   assert.doesNotMatch(setup, /gguf|status\?\.models|modelKey/i);
@@ -1242,7 +1425,7 @@ function assertWordWorldBoundary(outputDir) {
 
 function assertServiceWorkerBoundary(outputDir) {
   const source = readSourceText(join(outputDir, "sw.js"));
-  assert.doesNotMatch(source, /isModelRuntimeRequest|huggingface|esm\.run|github\.com|chat/i);
+  assert.doesNotMatch(source, /isModelRuntimeRequest|huggingface|esm\.run|github\.com|chat|conjugation(?:[- ]?comet)/i);
   const match = /const CORE_ASSETS = (\[[\s\S]*?\]);/.exec(source);
   assert.ok(match, "store service worker must declare CORE_ASSETS");
   const assets = JSON.parse(match[1]);
@@ -1264,6 +1447,7 @@ export function validateStoreMvpAssets({
   assert.deepEqual(files, [...STORE_OUTPUT_FILES].sort(), "Store output must equal the exact reviewed allowlist");
   assertNoForbiddenPaths(files);
   assertFirstPartySurface(resolvedOutput, files);
+  assertNoConjugationCometSurface(resolvedOutput, files);
   assertVectorConfinement(resolvedOutput);
   assertRuntimeBoundary(resolvedOutput);
   assertSetupBoundary(resolvedOutput, resolve(languageStaticDir));

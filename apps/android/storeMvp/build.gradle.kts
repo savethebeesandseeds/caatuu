@@ -72,8 +72,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 143
-        versionName = "0.1.142"
+        versionCode = 144
+        versionName = "0.1.143-store-mvp-preview.1"
         buildConfigField("String", "CAATUU_DISTRIBUTION_PROFILE", buildConfigString("storeMvp"))
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))

@@ -8,6 +8,7 @@ bootstrap or recovery path. Both mount the checkout at `/workspace`.
 Android has two deliberate distributions. The full development/direct-download
 application includes the Czech WebView UI and native llama.cpp bridge for the
 target phone ABI, but it does not bundle GGUF weights or browser WebLLM exports.
+Generation models are optional, on-demand artifacts in that full application.
 The `storeMvp` Play application is a separate module and compiled asset
 allowlist with no LLM, Chat, generation, Godot, direct updater, or outbound
 reporting capability. Both retain verified shared assets, the Czech-to-English
@@ -386,6 +387,39 @@ The script rejects partial signing configuration. The `storeMvp` module omits
 native inference library, and does not include the full `:app` or `:llamaLib`
 modules in its Gradle graph. `build-release-apk.sh` remains the signed full
 direct-download channel and retains the verified APK updater and optional LLM.
+
+### Public Store MVP test APK
+
+To publish a non-debuggable Store MVP APK for maintainer testing, first commit
+and push the exact source branch, assign a `storeMvp` version code greater than
+the currently public same-package APK, and run:
+
+```bash
+docker exec -w /workspace caatuu-dev \
+  bash apps/android/tooling/publish-public-debug.sh --store-mvp
+```
+
+This mode does not replace `/android/caatuu-debug.*`, the full preview, or the
+stable release channel. It publishes only an immutable pair under:
+
+```text
+/android/debug-releases/store-mvp-preview/<versionCode>/caatuu-store-mvp.apk
+/android/debug-releases/store-mvp-preview/<versionCode>/caatuu-store-mvp.json
+```
+
+The publisher uses the existing pinned public-preview signing lineage so the
+test APK can update an installed full preview without erasing app-private data.
+Because both packages use `com.waajacu.caatuu`, they cannot coexist on one
+phone: installing Store MVP replaces the compatible-signed full preview. The
+next full preview must use a still higher version code.
+
+This signing identity is deliberately only for public sideload previews. It is
+not the future Play upload or app-signing key. The publisher builds the signed
+AAB, selects its bundletool-derived universal APK, reruns the Store package
+audit, refuses dirty consumed source or an unpushed source commit, serializes
+immutable publication, and verifies the public bytes, manifest, certificate,
+and cache headers. Device smoke status remains honestly `not-run` when that
+gate was skipped.
 
 Build a signed APK for direct testing with:
 

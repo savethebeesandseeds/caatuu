@@ -88,7 +88,7 @@ status report; update the dashboard after each release gate.
 | Rust server | 26 of 26 tests passed | Retain this baseline |
 | Android build | Full development source and the separate `storeMvp` release module compile; release Lint/R8 pass | Preserve both build paths |
 | Play artifact | An unsigned `storeMvp` engineering AAB has passed bundletool and package audits; no signed RC exists | Upload-key signing and RC evidence still block submission |
-| Version | `versionCode` 143 and `versionName` `0.1.142` do not express the same release identity | Reconcile before RC1 |
+| Version | The Store MVP public preview uses `versionCode` 144 and prerelease name `0.1.143-store-mvp-preview.1`; production `0.1.0` identity remains unset | Continue using strictly increasing preview codes and reconcile the signed RC identity before RC1 |
 | Mandatory setup | 671 artifacts totaling 343,347,068 bytes | Reduce and test the first-run burden |
 | LLM boundary | The full preview retains LLM work; the audited `storeMvp` AAB and derived APK exclude its dependency, libraries, metadata, Chat, URLs, bridge, and UI | Keep the production origin isolated before declaring models not distributed |
 | Embeddings | Active and required; approximately 56.8 MB of setup assets, including a roughly 20 MB vector DB | Preserve and release-audit independently from LLMs |

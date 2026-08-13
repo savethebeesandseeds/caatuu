@@ -2,6 +2,20 @@
 set -Eeuo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+
+if [[ "${1:-}" == "--store-mvp" ]]; then
+  shift
+  if [[ "$#" -ne 0 ]]; then
+    echo "Usage: bash apps/android/tooling/publish-public-debug.sh --store-mvp" >&2
+    exit 2
+  fi
+  exec bash "$repo_root/apps/android/tooling/publish-public-store-mvp-preview.sh"
+fi
+if [[ "$#" -ne 0 ]]; then
+  echo "Usage: bash apps/android/tooling/publish-public-debug.sh [--store-mvp]" >&2
+  exit 2
+fi
+
 public_base_url="https://caatuu.waajacu.com"
 public_manifest_url="$public_base_url/android/caatuu-debug.json"
 publication_contract_url="$public_base_url/android/debug-releases/status"

@@ -101,6 +101,12 @@ the separate `storeMvp` module and validates an AAB-derived universal APK; the
 directly distributed APK remains the full application with Caatuu's signed
 updater.
 
+A public Store MVP test APK uses its own immutable download path while reusing
+the pinned preview signing lineage. It is non-debuggable and contains the
+Store boundary, but it is not Play-signed. Since it shares package ID
+`com.waajacu.caatuu`, installing it replaces a compatible-signed full Caatuu
+preview on the same phone; the two cannot coexist.
+
 The debug build also creates `C:\Work\caatuu\artifacts\android\caatuu-debug.keystore`
 on first use and reuses it for later debug APKs. Keep that local file if you
 want Android to accept updates over an already installed debug build.
