@@ -33,14 +33,10 @@ required_tracked_files=(
   apps/android/tooling/direct-release-certificate.sha256
 )
 
-# These files belong to another active workstream. The product compiler removes
-# Conjugation Comet and generates its own service worker, so none can affect the
-# release bytes produced by this script.
+# These test files belong to another active workstream and cannot affect the
+# release bytes produced by this script. All Czech application files, including
+# Conjugation Comet and the source service worker, must be clean before release.
 allowed_unrelated_dirty_paths=(
-  apps/languages/czech/static/conjugation-comet.html
-  apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.css
-  apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.js
-  apps/languages/czech/static/sw.js
   apps/server/tooling/tests/conjugation-comet-shell.test.mjs
   apps/server/tooling/tests/semantic-learning-contract.test.mjs
 )

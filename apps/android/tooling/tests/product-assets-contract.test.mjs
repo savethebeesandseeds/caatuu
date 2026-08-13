@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 import {
@@ -9,15 +10,16 @@ import {
   PRODUCT_PROFILE,
   compileProductAssets,
   transformCourseProfile,
-  transformIndex,
+  transformWordNetJs,
   validateProductAssets
 } from "../build-product-assets.mjs";
 
 const workspaceRoot = new URL("../../../..", import.meta.url).pathname;
 const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
 const launcherStaticDir = join(workspaceRoot, "apps/launcher/static");
+const releasePublisher = readFileSync(join(workspaceRoot, "apps/android/tooling/publish-release.sh"), "utf8");
 
-test("product assets compile from an exact capability-safe allowlist", (t) => {
+test("product assets compile from an exact capability-safe allowlist", async (t) => {
   const parent = mkdtempSync(join(tmpdir(), "caatuu-product-test-"));
   const outputDir = join(parent, "product");
   t.after(() => rmSync(parent, { recursive: true, force: true }));
@@ -28,7 +30,7 @@ test("product assets compile from an exact capability-safe allowlist", (t) => {
     launcherStaticDir,
     outputDir
   });
-  assert.equal(result.fileCount, 81);
+  assert.equal(result.fileCount, 85);
   assert.ok(result.totalBytes > 1_000_000);
   assert.deepEqual(
     validateProductAssets({ outputDir, languageStaticDir }),
@@ -43,15 +45,15 @@ test("product assets compile from an exact capability-safe allowlist", (t) => {
   assert.equal(profile.capabilities.godot, false);
   assert.equal(profile.privacy.dictionaryGapReportsLocalOnly, true);
 
-  const excludedConjugationFiles = [
+  const includedConjugationFiles = [
     "conjugation-comet.html",
     "source/games/conjugation-comet/conjugation-comet.css",
     "source/games/conjugation-comet/conjugation-comet.js",
     "data/games/conjugation-comet/verbs.json"
   ];
-  for (const path of excludedConjugationFiles) {
-    assert.ok(!STORE_LANGUAGE_FILES.includes(path), `store allowlist must exclude ${path}`);
-    assert.ok(!result.files.includes(path), `compiled store surface must exclude ${path}`);
+  for (const path of includedConjugationFiles) {
+    assert.ok(STORE_LANGUAGE_FILES.includes(path), `product allowlist must include ${path}`);
+    assert.ok(result.files.includes(path), `compiled product surface must include ${path}`);
   }
   for (const path of [
     "index.html",
@@ -62,12 +64,29 @@ test("product assets compile from an exact capability-safe allowlist", (t) => {
     "source/shared/course-profile.js",
     "sw.js"
   ]) {
-    assert.doesNotMatch(
+    assert.match(
       readFileSync(join(outputDir, path), "utf8"),
       /conjugation(?:[- ]?comet)|train-world-comet/i,
-      `${path} must not retain Conjugation Comet presentation or navigation`
+      `${path} must retain Conjugation Comet presentation or navigation`
     );
   }
+
+  const standardRuntimeUrl = pathToFileURL(join(
+    outputDir,
+    "source/games/word-world/word-net-standard.mjs",
+  ));
+  standardRuntimeUrl.searchParams.set("contract", String(Date.now()));
+  const { loadStandardWordWorldCorpus } = await import(standardRuntimeUrl.href);
+  const provider = await loadStandardWordWorldCorpus({
+    manifestUrl: "https://caatuu.test/data/games/word-world/manifest.json",
+    fetchImpl: async (request) => {
+      const url = new URL(request);
+      const file = join(outputDir, decodeURIComponent(url.pathname).replace(/^\/+/, ""));
+      return new Response(readFileSync(file), { status: 200 });
+    },
+  });
+  assert.equal(provider.size, 792, "the generated Standard-only runtime must load all curated records");
+  assert.ok(provider.nextRandom({ difficulty: 1 })?.record, "the generated runtime must select a playable first turn");
 });
 
 test("product transforms fail closed when an expected development anchor drifts", () => {
@@ -77,10 +96,10 @@ test("product transforms fail closed when an expected development anchor drifts"
     /course chat capability: expected 1 exact source anchor/
   );
 
-  const index = readFileSync(join(languageStaticDir, "index.html"), "utf8");
+  const wordWorld = readFileSync(join(languageStaticDir, "source/games/word-world/word-net.js"), "utf8");
   assert.throws(
-    () => transformIndex(index.replace("train-world train-world-comet", "train-world train-world-drifted")),
-    /home Conjugation Comet launcher: expected one start anchor/
+    () => transformWordNetJs(wordWorld.replace("const PREPARED_QUEUE_CAPACITY = 512;", "const PREPARED_QUEUE_CAPACITY = 513;")),
+    /Word World prepared queue constants: expected 1 exact source anchor/
   );
 });
 
@@ -94,4 +113,9 @@ test("product compiler refuses an arbitrary in-workspace output directory", () =
     }),
     /In-workspace store output must be inside/
   );
+});
+
+test("publication treats every packaged Czech application file as release input", () => {
+  const unrelatedDirtyBlock = releasePublisher.match(/allowed_unrelated_dirty_paths=\(([\s\S]*?)\n\)/)?.[1] || "";
+  assert.doesNotMatch(unrelatedDirtyBlock, /apps\/languages\/czech\/static/);
 });
