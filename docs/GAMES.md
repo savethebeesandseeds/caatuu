@@ -11,10 +11,9 @@ The immediate product decisions are:
 
 - **Conjugation Comet remains an optional conjugation game.** A language
   enables it only when verb-form changes are an important learnable system.
-- Czech has four additional game hypotheses: **Case Cosmos**, **Agreement
-  Aurora**, **Clitic Orbit**, and a future **Sound and Spelling planet**. The
-  first three are working titles and candidate mechanics, not authorization to
-  build three complete products in parallel.
+- Czech has two implemented additional game hypotheses: **Case Cosmos** and
+  **Agreement Aurora**. A **Sound and Spelling planet** remains future work.
+  Clitic placement is useful content but is not a separate planet.
 - The Sound and Spelling planet is explicitly future work. It must not delay
   the morphology and sentence-structure games.
 - Every enabled game must resolve all assessed challenges from reviewed JSON.
@@ -123,10 +122,10 @@ Examples:
 | Verb Nebula | Active | Recognize Czech verb lemmas and their meanings |
 | Conjugation Comet | Active, backbone incomplete | Understand and produce Czech verb forms and the rules connecting them |
 | Memory Moon | Placeholder | Recall weak material selected from all active planets |
-| Case Cosmos | Candidate pilot; data feasibility first | Choose a licensed Czech construction from a situation and governor, then form its head noun |
-| Agreement Aurora | Candidate pilot | Realize a dependent or predicate form licensed by an agreement construction |
-| Clitic Orbit | Candidate pilot | Place Czech clitics in bounded, contextually licensed sentence structures |
+| Case Cosmos | Development slice handed off for interface refinement | Recognize why a Czech noun changes and compare its seven case forms |
+| Agreement Aurora | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
 | Sound and Spelling planet | Future backlog | Connect Czech sound, vowel length, diacritics, and spelling |
+| Battle of the Robots | Future main game | Use training and experience from the other planets to face the robot battles |
 
 Memory Moon is a review surface, not another grammar authority. It should draw
 stable challenge references and weak concept references from the other games;
@@ -137,6 +136,14 @@ enabled-game content-manifest gate. Before it becomes an active review game,
 it needs a reviewed policy/configuration JSON and a manifest for that config;
 its session queue may then be derived locally from progress and exact
 `gameId`, challenge ID, and revision references.
+
+### Future main-game note — Battle of the Robots
+
+Battle of the Robots is intended to become Caatuu's main game. The other
+planets train language skills and award the experience that prepares the
+learner to face it. This is a direction to remember, not a current design:
+combat, progression, content, JSON, and implementation are all deferred until
+the training planets and their learning evidence are ready.
 
 ## 3. Non-negotiable content authority
 
@@ -324,9 +331,8 @@ linguistic facts are shared:
 | Word World | Existing reviewed authoring and deterministic build pipeline; migration must add the common envelope and provenance contract | Migrated `word-world/manifest.json` and versioned `records.json` |
 | Verb Nebula | Existing `core-vocabulary.json` is migration input, not a sufficient runtime contract | Compile a finite stable-ID challenge pack and name it from `verb-nebula/manifest.json` |
 | Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/verbs.json`, used directly by the game |
-| Case Cosmos | Directly authored bounded pilot first; later shared reviewed paradigms, government records, lesson plan, and contexts | `case-cosmos/manifest.json` to a versioned `challenges.json` |
-| Agreement Aurora | Directly authored bounded pilot first; later reviewed morphology plus allowed construction groups and contexts | `agreement-aurora/manifest.json` to a versioned `challenges.json` |
-| Clitic Orbit | Direct reviewed challenge pack initially; if `constructions.json` is later compiled into different records, the manifest mode becomes `derived` | `clitic-orbit/manifest.json` to a versioned `challenges.json` |
+| Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/challenges.json`, used directly by the game |
+| Agreement Aurora | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `agreement-aurora/challenges.json`, used directly by the game |
 | Sound and Spelling | Future reviewed challenge records, rule data, and verified audio manifest | Future game manifest to a versioned `challenges.json` and pinned audio assets |
 | Memory Moon | A game-owned review policy plus runtime references to exact challenges from the other manifests | Its own configuration JSON and reference queue; never copied Czech answers |
 
@@ -712,8 +718,9 @@ should additionally consider:
 Random shuffling may vary a ready challenge. It must not be the curriculum.
 
 Prerequisites are concept-level, never whole-planet completion. A short
-Agreement or Clitic lesson may become ready while most of Case Cosmos remains
-unseen, provided the exact required forms are supplied or already evidenced.
+Agreement or embedded clitic-placement lesson may become ready while most of
+Case Cosmos remains unseen, provided the exact required forms are supplied or
+already evidenced.
 Use a hybrid sequence: briefly block examples to expose a pattern, then
 interleave confusable constructions to train discrimination and transfer.
 
@@ -791,11 +798,13 @@ Conjugation Comet's long-term territory is how Czech verb forms and verb
 complexes express person, number, tense, aspect, mood, agreement, polarity,
 variety, and communicative intent. That territory is a map, not v1 scope.
 
-The repaired pilot teaches one productive single-word nonpast pattern with
-6–8 reviewed verbs, person and number, one prediction mechanic, one controlled
-production mechanic, and one held-out transfer. Cap the initial scored bank at
-roughly 24–48 records instead of materializing every possible combination.
-Aspect, past, future,
+The repaired development pilot presents one productive single-word nonpast
+pattern through six provisionally audited verbs, person and number, and one
+consistent side-by-side matching mechanic. Five verbs build familiarity; a
+sixth unfamiliar verb provides a near-transfer recognition check without
+changing the rules of play. This does not demonstrate independent conjugation
+or productive recall. Cap the initial scored bank at roughly 24–48 records
+instead of materializing every possible combination. Aspect, past, future,
 conditional, imperative, register contrasts, and voice are later campaigns
 that require separate evidence.
 
@@ -832,16 +841,42 @@ number forms. Other languages may use the labels and number of forms natural to
 their own conjugation system. A language without conjugation simply does not
 enable this planet.
 
-The remaining backbone is about teaching, not adding metadata for its own sake:
+The first development pilot now derives five regular imperfective `-at` verbs
+from those records and places `znát` last as an unfamiliar recognition check.
+Every verb uses the same flow: meaning readiness when needed, then the existing
+six-form side-by-side matching board. Errors explain the relevant person,
+number, and form ending; P2 also names formal singular `vy`; and each completed
+round gives a short summary of the shared `-ám` surface family. The final verb
+changes the content, not the interaction, and its result remains recognition
+evidence rather than proof of productive rule transfer.
 
-- the same six-cell recognition task is used for every verb;
-- the meaning gate duplicates Verb Nebula even when meaning is already known;
-- hints are present but do not yet guide a deliberate sequence of rules and
-  contrasts;
-- the random full-pool order does not yet create a learning progression;
-- there is no production or transfer test;
-- contract tests check structural completeness but not Czech naturalness or
-  the instructional quality of each hint and contrast.
+The development slice now has a firm status boundary:
+
+- **Implemented:** the simple direct JSON boundary, meaning readiness, the
+  six-verb matching sequence, specific error feedback, the person/number key,
+  and the post-round family summary;
+- **Required before release or efficacy claims:** independent qualified Czech
+  review of the six selected records and every learner-facing grammatical
+  claim, followed by accessibility and facilitated usability testing;
+- **Deferred:** typed production, delayed transfer, durable reuse of Verb
+  Nebula evidence, other present-tense families, and later tense, aspect, mood,
+  reflexive, agreement, and register campaigns.
+
+These pending review and research gates block declaring Conjugation Comet
+complete or expanding it, but they do not block planning the next planet.
+
+The remaining backbone is evidence and expansion, not more speculative data:
+
+- the six pilot verbs still need independent qualified Czech review beyond the
+  development audit, and the other 53 records remain unaudited in depth;
+- meaning readiness is remembered only within the current page session rather
+  than reusing durable Verb Nebula evidence;
+- the mission needs a consented baseline plus facilitated comprehension,
+  accessibility, and replay testing;
+- the current matching evidence is local and does not yet establish productive
+  recall or delayed transfer;
+- other present-tense families and later aspect, future, past, mood, reflexive,
+  and register campaigns remain separately gated work.
 
 ### 5.3 Content authority
 
@@ -849,14 +884,14 @@ The safe improvement path is:
 
 1. keep the current simple `verbs.json` as both authoring source and runtime
    boundary;
-2. linguistically audit the 59 migrated verbs, cues, hints, and accepted
-   alternatives without changing the shape;
-3. select 6–8 verbs that expose one useful Czech pattern or contrast and use
-   them to design the first explicit teaching sequence;
-4. add prediction, explanation, controlled production, and held-out transfer
-   around that sequence while continuing to read the same verb records;
-5. measure whether learners understand the pattern rather than merely complete
-   matches;
+2. select and linguistically audit 6–8 verbs that expose one useful Czech
+   pattern or contrast without changing the shape;
+3. run that small reviewed set in a deliberate order through the same matching
+   board, with the unfamiliar verb last;
+4. teach inside the matching loop through specific error feedback, a concise
+   post-round pattern summary, and the person/number key;
+5. measure comprehension, confusion, completion, and replay before adding a
+   second mechanic;
 6. add a new field or companion file only when a demonstrated mechanic cannot
    be authored clearly with the current content, and keep that addition as
    small and human-readable as possible;
@@ -897,19 +932,18 @@ class must never be inferred as ordinary perfectivization.
 
 ### 5.4 Pilot play contract
 
-The pilot fantasy is to stabilize one comet by discovering its form pattern,
-predicting a missing form, and restoring a final communication signal. One
-mission lasts three to five minutes and ends with a held-out verb or context.
+The pilot fantasy is to stabilize a family of comets by matching each Czech
+form to the person-and-number cue it expresses. One run moves through five
+related verbs and finishes with an unfamiliar sixth verb, using the same board
+throughout.
 
-Prototype two cheap versions of the primary interaction before choosing one:
-
-- a compact orbit board that contrasts stem and ending; and
-- a keyboard/touch-accessible form assembly interaction.
-
-Both must show a worked example, ask one primary decision per turn, explain the
-specific contrast after an error, offer a recoverable retry, and end with
-controlled production. Choose on observed comprehension, transfer, access,
-and replay—not visual preference alone.
+The primary interaction is intentionally singular: select one Czech form and
+one English cue, receive immediate specific feedback, retry if needed, and
+continue until all six pairs are complete. Meaning readiness may precede the
+board for a new verb, but it is not a new conjugation mechanic. After each
+board, show the shared surface endings and continue to the next verb. Do not add
+prediction, assembly, or typing until observation shows that matching alone
+cannot meet the next learning objective.
 
 ### 5.5 Long-term learning orbits
 
@@ -965,8 +999,8 @@ and replay—not visual preference alone.
 #### Orbit 8 — Sentence transfer
 
 - Place a well-practiced form into a reviewed Czech utterance.
-- Supply or lock reflexive/clitic placement unless Clitic Orbit is explicitly
-  the primary concept in a later composite mission.
+- Supply or lock reflexive/clitic placement unless placement is explicitly the
+  primary concept in a later composite mission.
 - Finish with an unseen sentence using a known rule and a familiar lexeme.
 
 #### Deferred orbit — Voice and passive constructions
@@ -997,13 +1031,16 @@ Planned challenge types are:
 
 ### 5.7 Implementation steps
 
-1. Capture a consented baseline from the current Comet and freeze the test
-   tasks used for comparison.
-2. Choose one productive pattern and audit only 6–8 verbs plus held-out items.
-3. Keep the current simple `verbs.json` as the pilot's authoring and runtime
-   source; do not add authored IDs, a manifest, or a compiled challenge pack.
-4. Prototype the two primary interaction candidates using the selected records
-   from that same JSON file.
+1. **Pending research:** capture a consented baseline and freeze the comparison
+   tasks.
+2. **Implemented development slice:** derive the `-ám` family and use five
+   teaching verbs plus one unfamiliar final verb. Independent qualified review
+   remains required before learner research.
+3. **Implemented:** keep the current simple `verbs.json` as the pilot's authoring
+   and runtime source; do not add authored IDs, a manifest, or a compiled pack.
+4. **Implemented for evaluation:** use one keyboard- and touch-accessible
+   side-by-side matching board for every selected verb, with specific error
+   feedback and a compact post-round family explanation.
 5. Run accessibility and facilitated usability tests before visual polish.
 6. Run the held-out learning and replay pilot if usability passes.
 7. Extract only the loader, lifecycle, and evidence pieces demonstrated by the
@@ -1018,469 +1055,374 @@ Planned challenge types are:
 
 ## 6. Case Cosmos
 
-Status: candidate new-game pilot; not approved for full production
+Status: content and learning loop implemented; interface refinement is a
+separate workstream; qualified Czech review and learner testing remain pending
 
 ### 6.1 Learning contract
 
-Case Cosmos owns two related but separately evidenced capabilities: choosing a
-reviewed Czech construction from a situation plus governor, and realizing the
-head noun in the case licensed by that construction.
+Case Cosmos teaches one central idea: **a Czech noun changes to show the job it
+has in an utterance**. The complete planet must cover all seven Czech cases.
+The current beginner slice keeps one noun fixed for a whole board so the
+learner can see its seven forms together.
 
-It must teach why a case is used, not merely ask learners to memorize seven
-rows of endings.
+The case names are the permanent identities. Their English meanings and
+questions are reusable beginner guides, not complete grammatical definitions.
+Examples instantiate this system; they never redefine it.
+
+#### Permanent Case Cosmos base
+
+The shared beginner base expresses every case in the same three-part form:
+
+```text
+case name → general meaning → simple guiding question
+```
+
+| Permanent case | General beginner meaning | Simple guiding question |
+|---|---|---|
+| Nominative — 1st case | naming or subject | Who or what is the subject? |
+| Genitive — 2nd case | belonging, origin, or absence | Whose? From or without whom or what? |
+| Dative — 3rd case | receiver or beneficiary | Who or what receives or benefits? |
+| Accusative — 4th case | direct target | Who or what is the target? |
+| Vocative — 5th case | direct address | Who or what is addressed? |
+| Locative — 6th case | place or topic after a preposition | Where, or about whom or what? |
+| Instrumental — 7th case | companion or means | With whom, or using what? |
+
+The application declares this table once. The JSON does not repeat it. The
+same surface form may represent more than one case, so the complete Czech
+utterance remains part of every example. The grammatical reference for the
+inventory is [CzechEncy: PÁD](https://www.czechency.org/slovnik/P%C3%81D).
 
 ### 6.2 Core game loop
 
 ```text
 see a communicative situation
         ↓
-identify the exact governing expression or construction
+match it to a complete Czech utterance
         ↓
-choose the licensed construction
+receive immediate meaning-based feedback
         ↓
-in a separate turn, form the head noun
+after the board, compare the case base with the matched Czech sentences
         ↓
-after atomic evidence, complete a composite transfer mission
+optionally reveal the formal case name
 ```
 
 Example:
 
 ```text
-Situation: I am going into the hotel.
-Relationship: destination/interior
-Construction: do + genitive
-Lexeme: hotel
-Answer: Jdu do hotelu.
+Situation: I am giving Petr a book.
+Complete Czech sentence: Dávám Petrovi knihu.
+Plain observation: Petr receives the book, so Petr changes to Petrovi.
+Optional grammar name after the board: dative
 ```
 
-The pilot play hypothesis is a short navigation mission: route a traveler or
-object by choosing the Czech construction that fits the scene, then repair one
-target noun form to complete the route. The situation, governor, and familiar
-vocabulary stay visible. The mission must not make one wrong composite answer
-look like proof of both a case-choice and declension failure.
+The intended lesson unit is a consistent side-to-side board with ordinary
+situations and complete Czech utterances. Every board is dedicated to one noun
+and contains one example of each case. Eighteen noun boards reuse the same seven
+general questions, making the changing forms of one noun visible before the
+learner moves to another noun. The active Caatuu difficulty determines how
+many of those noun patterns are available. After each board, show the seven
+case names and beginner meanings beside that noun's seven forms. This teaches
+recognition of the noun's job and exposes a declension pattern; it does not yet
+prove that the learner can choose a construction or produce an inflected form
+independently.
+
+The general guiding question belongs to the case and stays reusable across its
+examples. It must not collapse into an action from one sentence, such as “Who
+is reading?”, or include the example noun. The noun, name, action, and answer
+belong only in the situation and Czech utterance. A prompt such as “Calling
+Petr” is invalid because it mixes the reusable case guide with the specific
+content that should instantiate it.
 
 ### 6.3 Content authority
 
-The first pilot is a directly authored pack covering only two or three
-high-value contrasts, 8–12 familiar nouns, singular forms, and held-out
-transfer. The repository does not yet contain a reviewed Czech paradigm and
-government authority, so that data feasibility is a gate, not an assumed
-dependency.
+The directly authored `challenges.json` is a top-level JSON list. Each item is
+one noun record containing `noun`, `difficulty`, and `cases`. `difficulty` is
+an integer from 1 to 3 using Caatuu's Explorer, Traveler, and Navigator levels.
+`cases` contains the seven case names in their standard order. Every case
+contains only the changing `form`, the `english` situation, and the complete
+`czech` sentence. The current development bank has eighteen noun records and
+126 case examples in total.
 
-If the pilot passes, a later derived pack may use:
+This is the complete current runtime shape:
 
-- a general Czech lexeme/paradigm JSON module;
-- a general reviewed government JSON module for prepositions and verbs;
-- a game-owned `lesson-plan.json` defining which uses and contrasts are
-  pedagogically ready;
-- game-owned reviewed context templates where naturalness cannot be inferred.
+```json
+[
+  {
+    "noun": "Petr",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Petr",
+        "english": "Petr is reading.",
+        "czech": "Petr čte."
+      }
+    }
+  }
+]
+```
 
-Its manifest-declared `challenges.json` remains the only runtime challenge
-source in either mode.
+The application owns the fixed Case Cosmos base—case meanings, guiding
+questions, lesson instructions, summaries, and interface feedback—once. The
+JSON owns the noun, its exact seven forms, and the English/Czech content that
+changes. It also owns the noun's game-specific difficulty because that value
+changes which noun boards the learner receives. It contains no authored IDs,
+prompt metadata, review fields, source links, lesson wrapper, rounds, or
+summaries. Additional noun details may be added beside `noun`, `difficulty`,
+and `cases` only when a demonstrated learning or selection need requires them.
+Grammatical sources, review status, and release gates
+remain in this plan and the review process rather than being mixed into the
+runtime content.
 
-Each compiled record needs:
+Difficulty is cumulative and describes this game's progression, not CEFR:
 
-- stable challenge, lexeme, paradigm, construction, and context references;
-- target case, number, gender, and masculine animacy when relevant;
-- semantic role plus the exact governing verb sense or preposition
-  construction; a semantic role alone may not select the preposition;
-- compatible lexeme and sense IDs for every generated phrase;
-- the reviewed preposition realization, including conditioned or accepted
-  allomorphs such as `v/ve`, `k/ke`, `s/se`, and `z/ze`;
-- canonical Czech phrase and accepted variants;
-- a complete reviewed sentence and aligned English meaning;
-- distractors plus the exact misconception each distractor represents;
-- explanation of both the case choice and the surface formation;
-- difficulty, prerequisites, assessed concepts, provenance, and review state.
+- **1 — Explorer:** twelve frequent, comparatively transparent noun patterns;
+- **2 — Traveler:** adds four noun patterns with more form overlap or stem
+  change, for sixteen available boards in total;
+- **3 — Navigator:** adds two less transparent patterns, making all eighteen
+  boards available.
+
+The runtime includes every record whose `difficulty` is less than or equal to
+the learner's active Caatuu difficulty. It keeps records ordered by difficulty
+and refreshes the noun sequence when the shared difficulty changes. These
+assignments organize the development bank; they do not claim that a learner
+has reached a CEFR level or mastered a case.
+
+The direct `challenges.json` remains the only runtime content source. Do not
+add a manifest, compiler, authored IDs, or shared paradigm infrastructure until
+a demonstrated learning feature requires it. The current records and examples
+still require independent qualified Czech review before production use.
 
 ### 6.4 Learning sequence
 
-#### Stage 1 — Roles before endings
+- **Current:** recognize the noun's job and compare all seven singular forms on
+  one-noun matching boards.
+- **Next:** deepen common dative, instrumental, locative, and contrasting
+  preposition uses with reviewed complete utterances.
+- **Later:** add hard and soft patterns across genders, masculine animacy,
+  plural forms, stem changes, and unfamiliar-noun transfer.
+- **Advanced:** add verb-specific case requirements, multiword noun phrases,
+  pronouns, and less transparent expressions.
 
-- pilot: accusative with familiar direct-object governors;
-- pilot: one or two reviewed location/destination construction contrasts;
-- singular head nouns only, with non-target agreement supplied or locked;
-- always present the governor or construction; never teach a shortcut such as
-  “motion means accusative.”
+Every expansion must retain all seven cases in the planet map even when one
+small campaign focuses on only one contrast.
 
-#### Stage 2 — High-value government
+### 6.5 Interaction roadmap
 
-- dative recipients and common dative verbs;
-- instrumental accompaniment with `s`;
-- locative after `v`, `na`, and `o`;
-- paired prepositions whose case changes meaning, such as location versus
-  direction;
-- reviewed selection among `v/na`, `do/na`, and their vocalized surface forms
-  instead of predicting them from an English relation label.
-
-#### Stage 3 — Paradigm transfer
-
-- hard and soft noun patterns across all three genders;
-- masculine animate accusative;
-- plural case forms;
-- common stem and spelling alternations;
-- syncretic forms that represent more than one case.
-
-#### Stage 4 — Richer frames
-
-- verb-specific government;
-- multiword noun phrases;
-- strong, clitic, and prepositional pronoun forms only after a shared reviewed
-  pronoun/clitic realization source exists; they are not interchangeable case
-  variants;
-- vocative address;
-- less transparent prepositional and idiomatic frames.
-
-### 6.5 Challenge types
-
-- situation-to-role selection;
-- situation-and-governor-to-construction selection;
-- reviewed preposition-and-case construction selection;
-- lemma-to-case-form completion;
-- correct phrase selection;
-- case error diagnosis and repair;
-- sentence completion;
-- new-lexeme transfer within a known paradigm.
+- current side-to-side situation and Czech-sentence matching;
+- later selection of the phrase that explains why the noun changes;
+- noun-form completion inside a complete utterance;
+- case-error repair and unfamiliar-noun transfer.
 
 ### 6.6 Learning evidence
 
-Record separate observations for:
+The implemented UI records recognition matches only, and the current shared
+learning profile stores aggregate game totals. It does not yet prove that a
+learner can explain a case choice, produce a noun form, or transfer a pattern.
+Future evidence must record the case, the exact learner decision, and success
+with a different reviewed noun.
 
-- choosing the correct construction from the situation and governor; and
-- producing the licensed head-noun form on more than one lexeme.
+### 6.7 Handoff
 
-A learner who memorizes `do hotelu` has evidence for that phrase, not yet for
-the genitive destination construction. Transfer evidence must use a different
-reviewed noun of a known pattern.
+The development slice now has:
 
-### 6.7 Implementation steps
+- one simple directly authored JSON list;
+- eighteen nouns and 126 case examples;
+- twelve Explorer, four additional Traveler, and two additional Navigator
+  noun records;
+- one side-to-side interaction for every noun; and
+- all seven cases on every board.
 
-1. Decide and document the paradigm/government source, rights, variety policy,
-   and qualified Czech review owner.
-2. Create a small reviewed data sample and measure review throughput before UI
-   work.
-3. Directly author the capped pilot manifest and challenge pack.
-4. Prototype the separate construction-choice and head-form interactions.
-5. Add misconception-aware distractors and explanations, with one primary
-   concept per ordinary challenge.
-6. Run accessibility, usability, held-out transfer, replay, and content-cost
-   gates.
-7. Decide proceed, revise, merge with Agreement, or stop.
-8. Only after a pass, define shared paradigm/government modules and evaluate a
-   deterministic compiler.
-9. Add dative and instrumental uses, then plural and stem alternations through
-   separately reviewed expansions.
+Interface refinement is now a separate workstream. It may improve presentation
+and accessibility without changing the permanent case base, the noun-centered
+loop, or the JSON contract unless this plan is updated first.
+
+Before expanding the learning design, complete qualified Czech review,
+accessibility and facilitated usability testing, case-level evidence design,
+and one held-out unfamiliar-noun transfer check. Only then decide whether to
+expand Case Cosmos or merge overlapping work with Agreement Aurora.
 
 ## 7. Agreement Aurora
 
-Status: candidate new-game pilot; requires only the exact case concepts it uses
+Status: singular-gender content and gameplay slice implemented; interface
+refinement, qualified Czech review, and learner testing pending
 
 ### 7.1 Learning contract
 
-Agreement Aurora teaches the learner to realize the dependent or predicate
-form licensed by a reviewed Czech agreement construction.
+Agreement Aurora teaches one central idea: **words connected to a Czech noun
+change so they match it**. The first slice keeps the noun in its ordinary
+naming form and changes one hard adjective across masculine, feminine, and
+neuter singular phrases.
 
-Case Cosmos owns construction/case choice and the head noun. Agreement Aurora
-receives the case or construction as given and owns dependent or predicate
-agreement. It must not re-assess case choice accidentally.
+Case Cosmos changes the noun because of its job in an utterance. Agreement
+Aurora changes another word to match the noun. The first slice does not ask the
+learner to choose a case, number, or animacy class.
 
 ### 7.2 Core game loop
 
 ```text
-receive a controller noun and context
+see one adjective with three English noun phrases
         ↓
-read its morphosyntactic and referential features
+match each English phrase to its complete Czech phrase
         ↓
-supply the licensed adjective, determiner, pronoun, or predicate form
+receive immediate meaning-based feedback
         ↓
-assemble or repair the complete Czech phrase
+compare the masculine, feminine, and neuter adjective forms
+        ↓
+continue with a new adjective on the same board
 ```
 
-Examples include:
+One possible first board demonstrates:
 
-- `nový dům`, `nová kniha`, `nové město`;
-- `vidím nového studenta`;
-- `mluvím s novou kolegyní`;
-- `muži byli unavení`, `ženy byly unavené`.
+- `nový dům` — new house;
+- `nová kniha` — new book; and
+- `nové město` — new city.
 
-The pilot play hypothesis is to stabilize an aurora by aligning one dependent
-word with a visible controller. A short mission demonstrates one contrast,
-then asks the learner to select or repair one ending before a held-out familiar
-noun. The pilot is limited to nominative adjective+noun gender across three
-genders; it does not include case transformation, plural, animacy, predicates,
-pronouns, or numerals.
+Every page holds one adjective fixed and uses one side-to-side matching
+interaction. The three noun phrases reveal the `-ý`, `-á`, and `-é` contrast
+without adding a separate gender quiz or ending-construction subgame.
 
 ### 7.3 Content authority
 
-The first pilot is a directly authored finite pack. If it passes, later packs
-may be derived from:
+The directly authored `challenges.json` is the only runtime content source. It
+is a top-level list. Each record contains one `adjective`, its game-specific
+`difficulty`, and exactly three `forms` in masculine, feminine, and neuter
+order. Every gender contains its adjective `form` and an `examples` list. Each
+example contains only `english` and `czech`.
 
-- reviewed noun, adjective, pronoun, determiner, numeral, and participle
-  paradigms in the general Czech grammar catalog;
-- stable case-use references from the Case Cosmos sources;
-- a game-owned `lesson-plan.json` defining allowed feature combinations;
-- reviewed phrase and sentence contexts.
+```json
+[
+  {
+    "adjective": "nový",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "nový",
+        "examples": [
+          { "english": "new house", "czech": "nový dům" },
+          { "english": "new phone", "czech": "nový telefon" },
+          { "english": "new student", "czech": "nový student" }
+        ]
+      },
+      "feminine": {
+        "form": "nová",
+        "examples": [
+          { "english": "new book", "czech": "nová kniha" },
+          { "english": "new school", "czech": "nová škola" },
+          { "english": "new question", "czech": "nová otázka" }
+        ]
+      },
+      "neuter": {
+        "form": "nové",
+        "examples": [
+          { "english": "new city", "czech": "nové město" },
+          { "english": "new car", "czech": "nové auto" },
+          { "english": "new window", "czech": "nové okno" }
+        ]
+      }
+    }
+  }
+]
+```
 
-The build must compile and validate finite challenge records. The browser must
-not generate arbitrary combinations from paradigm tables. Cardinal numeral
-constructions are a separate quantification/government subtype, not ordinary
-feature-copying agreement.
+The application owns the permanent gender order, lesson text, feedback, and
+matching behavior. The JSON owns every adjective, exact form, complete phrase,
+English meaning, and difficulty. For each board, the browser selects one
+authored example for each of the three forms. It validates and displays those
+records; it does not generate arbitrary noun–adjective combinations or keep
+challenge phrases in HTML or JavaScript.
 
-Each record needs:
+The development bank contains eighteen adjectives and 162 phrase pairs:
 
-- `controllerExpressionRefs[]` and separate morphosyntactic and referential
-  features;
-- dependent identities, `agreementRuleId`, governed features, and any
-  `resolutionRule`;
-- for numeral records, the numeral class, governed noun form, oblique-case
-  behavior, and predicate-agreement rule instead of a copied-feature fiction;
-- canonical phrase or predicate;
-- accepted variants and their register or discourse constraints;
-- controlled distractors that each violate one declared feature;
-- explanation identifying the agreement controller and mismatched feature;
-- source references, prerequisites, concepts, provenance, and review state.
+- **Explorer:** six adjectives;
+- **Traveler:** adds six, for twelve available boards; and
+- **Navigator:** adds six, for all eighteen boards.
+
+Do not add a manifest, compiler, authored IDs, or a general morphology catalog
+until a demonstrated learning feature or a second reviewed consumer requires
+one.
 
 ### 7.4 Learning sequence
 
-#### Stage 1 — Gender in simple noun phrases
+- **Current:** hard-adjective gender in familiar masculine, feminine, and
+  neuter singular naming phrases.
+- **Next:** held-out noun transfer, then reviewed soft-adjective and
+  demonstrative contrasts.
+- **Later:** case and number across complete noun phrases, followed by animacy
+  and predicate agreement.
+- **Advanced:** pronouns, possessive forms, participles, and numeral
+  constructions only through separately reviewed expansions.
 
-- pilot: one common hard-adjective pattern with highly familiar masculine,
-  feminine, and neuter singular nouns;
-- later in this stage: soft adjectives and demonstratives.
+Do not treat formal `vy`, quantified subjects, coordinated subjects, or
+cardinal numerals as simple feature-copying. They require their own reviewed
+records and rules.
 
-#### Stage 2 — Case and number
+### 7.5 Interaction roadmap
 
-- carry a known case across noun-phrase dependents;
-- singular versus plural;
-- adjective and possessive-pronoun agreement in reviewed phrases; possessive
-  adjectives such as `otcův` and `matčin` require a later model of possessor
-  features;
-- constrain the pilot to feature combinations whose answer is not changed by
-  an animacy distinction that has not yet been taught.
-
-#### Stage 3 — Animacy and predicate agreement
-
-- masculine animate contrasts;
-- plural agreement classes;
-- past participles and predicate adjectives;
-- formal singular `vy` where auxiliary number and participle agreement differ.
-
-Formal singular `Vy jste přišel/přišla` must keep the auxiliary's plural
-person/number separate from the participle's singular referential gender and
-number. It is not a simple copied controller bundle.
-
-#### Stage 4 — Pronouns and numerals
-
-- adjective-like pronouns;
-- ordinal numerals;
-- selected high-value cardinal-number constructions as their own subtype;
-- for five and above, teach genitive-plural government in nominative and
-  accusative counted phrases, its predicate consequences, and the different
-  behavior of oblique cases from reviewed records;
-- advanced or exceptional agreement only after the ordinary system is stable.
-
-This entire stage is expansion work, not part of the initial planet decision.
-Quantified and coordinated subjects use reviewed government or resolution
-rules; they must not be generated by copying noun features.
-
-### 7.5 Challenge types
-
-- synchronize one missing ending;
-- select the matching dependent;
-- find the word that breaks agreement;
-- repair a phrase;
-- transform a whole phrase to a new case or number;
-- complete predicate agreement from a reviewed subject;
-- transfer a known rule to a new noun.
+- current English-to-Czech phrase matching;
+- later selection of the adjective that matches a visible noun;
+- one-error phrase repair;
+- whole-phrase case or number transformation; and
+- unfamiliar-noun transfer.
 
 ### 7.6 Learning evidence
 
-Evidence should identify the feature actually tested. A correct feminine
-nominative adjective does not prove accusative agreement, and a memorized
-phrase does not prove gender transfer.
+The implemented UI records recognition matches and aggregate game totals. A
+correct match proves familiarity with that phrase, not independent gender
+selection, adjective production, or transfer. Later evidence must identify the
+tested gender and use a different reviewed noun before claiming transfer.
 
-Agreement Aurora and Conjugation Comet may both contribute evidence for Czech
-past-participle agreement, but their item familiarity and primary skill signals
-remain separate.
+### 7.7 Handoff
 
-### 7.7 Implementation steps
+The initial development slice now has:
 
-1. Reuse only stable feature identities already proven by the Comet or Case
-   pilots; do not wait for either whole planet.
-2. Directly author and review the capped three-gender nominative pack.
-3. Prototype selection and repair interactions with single-feature
-   distractors and an exactly-one-target-error invariant.
-4. Run the same accessibility, usability, held-out transfer, replay, and
-   content-cost gates.
-5. Decide whether the player decision feels distinct from Case Cosmos. Merge
-   the mechanics into one morphology planet if learners experience both as the
-   same ending exercise.
-6. If proceeding, introduce case/number, animacy, and predicate agreement by
-   concept prerequisite rather than planet completion.
-7. Add pronoun and numeral modules only with dedicated reviewed construction
-   coverage.
+- one standalone planet and launcher entry;
+- one directly authored JSON list with eighteen adjectives, three examples per
+  gender form, and 162 phrase pairs;
+- six Explorer, six additional Traveler, and six additional Navigator
+  records;
+- one side-to-side interaction for every adjective;
+- a completed-board comparison of the three adjective forms; and
+- offline, shared-navigation, keyboard, mobile, and reduced-motion contracts.
 
-## 8. Clitic Orbit
+Before expanding the learning design, complete qualified Czech review,
+facilitated usability and accessibility testing, and one unfamiliar-noun
+transfer experiment. Then decide whether the player decision is sufficiently
+different from Case Cosmos to remain its own planet.
 
-Status: candidate new-game pilot; requires only the exact forms it manipulates
+At the present development scope, Agreement Aurora is ready to hand off for
+interface refinement. No additional grammar planet is approved next. The
+existing planets should be reviewed and consolidated before another one is
+created.
 
-### 8.1 Learning contract
+## 8. Clitic placement inside existing learning
 
-Clitic Orbit's initial territory is bounded Czech clitic placement and cluster
-order. General topic/focus word order is a later or separate evidence family.
-The game teaches canonical post-initial placement plus explicitly reviewed
-contact or context-bound variants; it must not encode all Czech clitics as
-occupying one invariant mechanical slot.
+Status: **not a separate planet**
 
-Long-term coverage may include:
+Czech learners still need to encounter the placement of short unstressed words
+such as `se`, `si`, past auxiliaries, conditional forms, and short pronouns.
+That need does not justify a standalone Clitic Orbit game. The material should
+instead appear where it naturally belongs:
 
-- `se` and `si`;
-- past auxiliaries `jsem`, `jsi`, `jsme`, and `jste`;
-- conditional forms such as `bych` and `bys`;
-- short pronouns such as `mi`, `ti`, `mu`, `mě`, `tě`, and `ho`;
-- ordering inside a multi-clitic cluster;
-- omitted subject pronouns;
-- neutral versus contextually marked word order.
+- learn verbs such as `učit se` with their required `se` in Verb Nebula or
+  Conjugation Comet;
+- keep the placement fixed and visible in early complete sentences;
+- use reviewed contextual sentence practice in Word World or a later shared
+  mission when placement itself becomes the learning point; and
+- introduce larger clitic groups only when the surrounding tense, pronoun, or
+  sentence construction is already being taught.
 
-The pilot contains 12–20 directly authored sentences for one reviewed function
-of `se`, immutable grouped constituents, canonical post-initial placement, and
-held-out sentences. Every non-target form is already inflected and locked, so
-the pilot does not depend on completing another planet.
+Do not create a `clitic-orbit` route, planet asset, manifest, challenge pack, or
+separate progression track. If an existing game later assesses placement, its
+own JSON must contain complete reviewed Czech sentences and accepted contextual
+orders. It must not generate Czech word order by naively shuffling individual
+words or claim that every alternative order is ungrammatical.
 
-### 8.2 Core game loop
-
-```text
-receive a discourse context and reviewed Czech components
-        ↓
-choose the first constituent or intended emphasis
-        ↓
-apply the record's licensed placement and host strategy
-        ↓
-order the cluster internally
-        ↓
-compare the neutral answer with other context-bound possibilities
-```
-
-Example contrast:
-
-```text
-Můj bratr se tam setkal s Evou.
-S Evou se tam setkal můj bratr.
-Tam se můj bratr setkal s Evou.
-```
-
-The context must state which answer is neutral or intended. Czech word-order
-flexibility makes an unexplained single-answer scramble pedagogically unsafe.
-
-The pilot play hypothesis is to restore a disrupted communication orbit by
-placing one clitic-bearing group relative to a visible first constituent. It
-uses select/move controls rather than drag-only interaction, explains the
-licensed host after an error, and ends with a new reviewed sentence. It does
-not ask learners to discover all grammatical Czech permutations.
-
-### 8.3 Content authority
-
-Clitic Orbit should use a directly authored pilot `challenges.json` containing
-complete reviewed sentences, discourse context, constituent boundaries,
-clitic identity and function, placement strategy, neutral order, and accepted
-grouped arrangements. If a later `constructions.json` is compiled into
-different runtime records, the manifest authority mode is `derived`.
-
-It may later derive bounded challenges from reviewed Word World sentences or a
-general Czech constructions module only when the manifest pins exact source
-record IDs and revisions. Morphology alone cannot authorize Czech word order.
-
-Each record needs:
-
-- discourse context and communicative intention;
-- canonical Czech sentence and aligned English meaning;
-- constituent tokens or groups, not just whitespace-split words;
-- clitic members and their lexical, reflexive, reciprocal, argumental,
-  passive-like, auxiliary, or pronominal functions as applicable;
-- internal ordering, placement strategy, prosodic or syntactic host, and
-  whether canonical post-initial, contact-position, or another reviewed
-  context-bound realization is being taught;
-- neutral order plus accepted marked alternatives and their interpretations;
-- specifically rejected orders with explanations;
-- prerequisites, assessed concepts, difficulty, provenance, and review state.
-
-The data model must also support underlying clitic identities, surface
-segments, fusion rules, and zero realization. Czech combinations such as
-`jsi + se → ses` and third-person past with no expressed auxiliary cannot be
-represented reliably as whitespace-token permutations. A later shared
-pronoun/clitic source must distinguish strong, clitic, and prepositional forms
-and state focus, coordination, and preposition licensing.
-
-### 8.4 Learning sequence
-
-#### Stage 1 — One reflexive clitic
-
-- one reviewed function of `se` or `si` after a simple initial constituent;
-- canonical post-initial placement before introducing licensed variants;
-- sentence-initial verb or adverb contrasts;
-- only the subject realization fixed by the reviewed pilot context.
-
-#### Stage 2 — Auxiliary and pronoun clitics
-
-- present lexical verb versus past auxiliary;
-- one short object or recipient pronoun;
-- stable two-member clusters.
-
-#### Stage 3 — Conditional and larger clusters
-
-- conditional auxiliaries;
-- reflexive plus dative or accusative pronouns;
-- internal cluster order;
-- formal address and reviewed multi-clause boundaries.
-
-#### Stage 4 — Information structure
-
-Status: future expansion or separate mechanic
-
-- choose the first constituent from discourse;
-- compare neutral, topicalized, and contrastive orders;
-- compare canonical post-initial placement with reviewed contact or
-  context-bound variants only where the construction source licenses them;
-- repair sentences that are morphologically correct but pragmatically wrong
-  for the stated context.
-
-### 8.5 Challenge types
-
-- place one clitic;
-- order a clitic cluster;
-- assemble grouped constituents;
-- choose the neutral sentence for a context;
-- identify a contextually marked alternative;
-- choose null versus overt subject for one reviewed discourse intention;
-- diagnose and repair a word-order error.
-
-### 8.6 Learning evidence
-
-Transfer requires new sentences, not repeated permutations of one memorized
-sentence. Evidence should distinguish:
-
-- second-position placement;
-- internal cluster order;
-- reflexive identity;
-- auxiliary placement;
-- pronoun omission;
-- discourse-sensitive ordering.
-
-### 8.7 Implementation steps
-
-1. Choose one `se` function and define bounded grouped-response authoring rules.
-2. Directly author and qualified-review the 12–20-sentence pilot pack.
-3. Implement group-aware select/move assembly without naive whitespace
-   parsing or full-sentence free-text scoring.
-4. Add explanations for the intended placement without declaring every other
-   Czech order ungrammatical.
-5. Run accessibility, usability, held-out transfer, replay, ambiguity, and
-   review-cost gates independently of whole-planet prerequisites.
-6. Decide proceed, revise, or stop before modeling fusions, auxiliaries, and
-   short-pronoun clusters.
-7. Add conditional material only after the construction model is proven.
-8. Keep general information structure deferred until its much larger discourse
-   and review burden has a separate product case.
+Word World now implements the first embedded content step with 32 Level 2
+sentences: eight common verbs with `se`, four natural sentence openings per
+verb, and `se` itself available as an exploration target. Selecting `se` can
+therefore continue into another authored sentence from the same bounded content
+bank. The batch is Codex-reviewed development content, not independently or
+human approved; qualified Czech review remains a production gate.
 
 ## 9. Sound and Spelling planet
 
@@ -1624,17 +1566,11 @@ apps/languages/czech/static/data/
       manifest.json
       <content-version>/challenges.json
     conjugation-comet/
-      manifest.json
-      <content-version>/challenges.json
+      verbs.json
     case-cosmos/
-      manifest.json
-      <content-version>/challenges.json
+      challenges.json
     agreement-aurora/
-      manifest.json
-      <content-version>/challenges.json
-    clitic-orbit/
-      manifest.json
-      <content-version>/challenges.json
+      challenges.json
   language/
     concepts.json
     readiness-policy.json          # only after calibration
@@ -1696,21 +1632,21 @@ enabled:
    review throughput and disagreement, and compile or hand-check one disposable
    Case record set. This tests the largest missing data dependency before UI
    investment.
-6. Produce the Comet pilot's 6–8-verb direct JSON pack and two cheap mechanic
-   prototypes.
-7. Stop if the content cannot be reviewed affordably or neither mechanic has
-   a clear primary learner decision.
+6. Produce the Comet pilot's six-verb direct JSON set and the matching-only
+   sequence.
+7. Stop if the content cannot be reviewed affordably or the matching loop does
+   not give learners a clear primary decision.
 
 ### Milestone 0 — Minimum pilot spine and Comet vertical slice
 
-1. Define only the manifest, pack envelope, game-specific record schema,
-   stable ID/revision, response policy, source reference, and review receipt
-   needed by the selected Comet slice.
-2. Inventory `verb-exercise-family-core.mjs` and reuse its verified lifecycle
-   behavior rather than designing a parallel settlement system.
-3. Implement a developer-only, fail-closed loader and first-response event.
-4. Build the three-to-five-minute pattern-discovery, controlled-production,
-   and held-out-transfer mission.
+1. Keep the existing simple `verbs.json` as the authoring and runtime boundary;
+   add no manifest, pack envelope, or authored IDs for this pilot.
+2. Audit the six selected verbs, their cues, accepted forms, hints, and the
+   claims made by matching feedback.
+3. Keep the loader fail-closed and record matching attempts without inventing a
+   second exercise lifecycle.
+4. Build the short matching-only sequence: five related verbs followed by one
+   unfamiliar verb on the identical board.
 5. Run the accessibility and facilitated usability gate before art polish.
 6. If that passes, run the opt-in learning/replay pilot.
 7. Decide proceed, revise once, merge, replace, or stop.
@@ -1737,11 +1673,19 @@ Begin only after the Comet slice passes its precommitted gates.
 
 Prototype one at a time; do not wait for whole-planet completion elsewhere.
 
-1. Case Cosmos: two or three contrasts, 8–12 nouns, singular, separate
-   construction-choice and head-form decisions.
-2. Agreement Aurora: nominative adjective+noun gender across three genders.
-3. Clitic Orbit: 12–20 reviewed sentences for one `se` function and canonical
-   post-initial placement.
+1. **Case Cosmos development slice implemented:** one direct list of eighteen
+   difficulty-ranked noun records, seven case forms and sentence pairs per
+   noun, cumulative Explorer/Traveler/Navigator selection, and one
+   matching-only interaction;
+   qualified review, concept evidence, held-out transfer, and learner testing
+   remain gated.
+2. **Agreement Aurora development slice implemented:** one direct list of
+   eighteen difficulty-ranked adjectives, three examples for every gender
+   form, 162 masculine/feminine/neuter phrase pairs, cumulative
+   Explorer/Traveler/Navigator selection, and one matching-only interaction;
+   qualified review, transfer, and learner testing remain gated.
+3. Do not create Clitic Orbit as a separate planet. Keep required `se` with its
+   verb and teach contextual placement inside existing sentence or verb work.
 4. Apply the same accessibility, usability, transfer, replay, ambiguity, and
    content-cost gates to each.
 5. Promote only a mechanic with distinct learning ownership. Merge Case and

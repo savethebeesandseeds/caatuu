@@ -234,7 +234,7 @@ export class BrowserVectorDatabaseManager {
 
     let factory = null;
     if (typeof document !== "undefined") {
-      await loadClassicScript(this.sqlJsModuleUrl);
+      await loadClassicScript(resolveUrl(this.sqlJsModuleUrl));
       factory = globalThis[this.sqlJsGlobalName];
     } else {
       const module = await import(this.sqlJsModuleUrl);
@@ -246,14 +246,15 @@ export class BrowserVectorDatabaseManager {
     }
 
     this.SQL = await factory({
-      locateFile: (file) => file.endsWith(".wasm") ? this.sqlJsWasmUrl : file
+      locateFile: (file) => file.endsWith(".wasm") ? resolveUrl(this.sqlJsWasmUrl) : file
     });
     return this.SQL;
   }
 
   async fetchBytes(url) {
-    const response = await this.fetchImpl(url);
-    if (!response.ok) throw new Error(`Could not load vector database ${url}: HTTP ${response.status}`);
+    const resolvedUrl = resolveUrl(url);
+    const response = await this.fetchImpl(resolvedUrl);
+    if (!response.ok) throw new Error(`Could not load vector database ${resolvedUrl}: HTTP ${response.status}`);
     return new Uint8Array(await response.arrayBuffer());
   }
 

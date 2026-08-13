@@ -15,7 +15,7 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-  <script src="source/shared/course-profile.js?v=course-16"></script>
+    <script src="source/shared/course-profile.js?v=course-17"></script>
     <script src="source/shared/learning-profile.js?v=learning-5"></script>
     <script>
       try {
@@ -28,15 +28,15 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="source/shared/runtime.js?v=runtime-37"></script>
+  <script src="source/shared/runtime.js?v=runtime-39"></script>
   <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
   <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
-  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-92">
-    <link rel="stylesheet" href="source/games/word-world/word-net.css?v=word-net-76">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-118">
+    <link rel="stylesheet" href="source/games/word-world/word-net.css?v=word-net-79">
   </head>
   <body>
     <div class="word-net-page">
-      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Word World" data-caatuu-page-icon="/assets/planets/planet_A.png" data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html"></header>
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Word World" data-caatuu-page-icon="/assets/planets/word-world.png" data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html"></header>
 
       <main class="word-net-main" aria-label="Word World">
         <section class="word-net-game" aria-label="Word World game">
@@ -121,13 +121,13 @@
                   <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
                 </section>
               </div>
-              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="English answer and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
+              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Challenge type and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
                 <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
               </button>
-              <div class="word-net-translation-menu" id="wordNetTranslationMenu" role="menu" aria-label="English answer and dictionary settings" hidden>
+              <div class="word-net-translation-menu" id="wordNetTranslationMenu" role="menu" aria-label="Challenge type and dictionary settings" hidden>
                 <section class="word-net-translation-menu-section" role="group" aria-labelledby="wordNetAnswerSettingsLabel">
-                  <span class="word-net-translation-menu-label" id="wordNetAnswerSettingsLabel">English answer</span>
-                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-answer-mode="reconstruct"><span>Rebuild English</span><small>Order the words · 3 XP</small></button>
+                  <span class="word-net-translation-menu-label" id="wordNetAnswerSettingsLabel">Challenge type</span>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-answer-mode="reconstruct"><span>Organize pieces</span><small>Order the words · 3 XP</small></button>
                   <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-answer-mode="wait"><span>Wait &amp; reveal</span><small>Show the answer after a delay · 1 XP</small></button>
                   <div class="word-net-translation-timers" id="wordNetTranslationTimers" role="group" aria-labelledby="wordNetRevealDelayLabel" hidden>
                     <span class="word-net-translation-timer-label" id="wordNetRevealDelayLabel">Reveal after</span>
@@ -140,7 +140,7 @@
                 <section class="word-net-translation-menu-section" role="group" aria-labelledby="wordNetDictionarySettingsLabel">
                   <span class="word-net-translation-menu-label" id="wordNetDictionarySettingsLabel">Dictionary card</span>
                   <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="showCard" aria-checked="true">Show dictionary card</button>
-                  <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="autoPronounce" aria-checked="false">Speak selected words</button>
+                  <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="autoPronounce" aria-checked="true">Speak selected words</button>
                 </section>
               </div>
               <button class="word-net-icon-button word-net-generation-toggle" id="wordNetGenerationToggle" type="button" aria-label="Generation options" aria-haspopup="menu" aria-expanded="false">
@@ -365,8 +365,8 @@
       data-settings-href="index.html"
     ></nav>
 
-  <script src="source/shared/chrome.js?v=chrome-96"></script>
+  <script src="source/shared/chrome.js?v=chrome-108"></script>
     <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
-    <script type="module" src="source/games/word-world/word-net.js?v=word-net-85"></script>
+    <script type="module" src="source/games/word-world/word-net.js?v=word-net-88"></script>
   </body>
 </html>

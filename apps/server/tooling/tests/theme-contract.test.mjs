@@ -9,7 +9,7 @@ const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise
   readFile(new URL("source/features/chat/chat.css", staticRoot), "utf8"),
   readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
   readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  ...["home.html", "index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
+  ...["index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
 ]);
 const [homeCss, launcherCss] = await Promise.all([
@@ -17,11 +17,11 @@ const [homeCss, launcherCss] = await Promise.all([
   readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
 ]);
 
-test("the home page uses the same cached application shell stylesheet as the game", () => {
-  const home = pages.find((page) => page.name === "home.html")?.source || "";
-  const game = pages.find((page) => page.name === "index.html")?.source || "";
-  assert.match(home, /href="source\/games\/verb-nebula\/app\.css\?v=shell-76"/);
-  assert.match(game, /href="source\/games\/verb-nebula\/app\.css\?v=shell-76"/);
+test("Home and Games share one cached application shell", () => {
+  const shell = pages.find((page) => page.name === "index.html")?.source || "";
+  assert.match(shell, /id="view-home"/);
+  assert.match(shell, /href="source\/features\/home\/home\.css\?v=home-29"/);
+  assert.match(shell, /href="source\/games\/verb-nebula\/app\.css\?v=shell-82"/);
 });
 
 function cssRules(source) {
@@ -352,13 +352,15 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   const themeTray = ruleWithSelector(chromeCss, ".theme-control");
   const appearanceButton = ruleWithSelector(chromeCss, ".theme-control button");
   const activeAppearanceButton = ruleWithSelector(chromeCss, ".theme-control button.is-active");
-  const activeAppearanceSample = ruleWithSelector(chromeCss, ".font-size-control button.is-active .font-size-sample");
+  const activeAppearanceSample = ruleWithSelector(chromeCss, ".settings-sheet .font-size-control button.is-active .font-size-sample");
   const darkAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button');
   const darkActiveAppearanceButton = ruleWithSelector(chromeCss, 'html[data-theme="dark"] .theme-control button.is-active');
-  const fontSizeButton = ruleWithSelector(chromeCss, ".font-size-control button");
-  const speechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button");
-  const activeSpeechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button.is-active");
-  const badgeDefaultSpeechPaceButton = ruleWithSelector(chromeCss, ".speech-pace-control button.is-badge-default");
+  const fontSizeButton = ruleWithSelector(chromeCss, ".settings-sheet .font-size-control button");
+  const speechPaceControl = ruleWithSelector(chromeCss, ".speech-pace-control");
+  const speechPaceSlider = ruleWithSelector(chromeCss, '.speech-pace-control input[type="range"]');
+  const speechPaceTrack = ruleWithSelector(chromeCss, '.speech-pace-control input[type="range"]::-webkit-slider-runnable-track');
+  const speechPaceThumb = ruleWithSelector(chromeCss, '.speech-pace-control input[type="range"]::-webkit-slider-thumb');
+  const speechPaceTicks = ruleWithSelector(chromeCss, ".speech-pace-ticks");
   assert.equal(appearance.declarations.get("grid-template-columns"), "1fr");
   assert.equal(appearance.declarations.get("padding"), "0");
   assert.equal(appearance.declarations.get("gap"), "0");
@@ -386,16 +388,20 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.match(darkAppearanceButton.declarations.get("background") || "", /--theme-amber/);
   assert.equal(darkActiveAppearanceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #456f5d))");
   assert.equal(darkActiveAppearanceButton.declarations.get("color"), "#fffaf0");
-  assert.equal(fontSizeButton.declarations.get("flex-direction"), "row");
-  assert.equal(speechPaceButton.declarations.get("border-bottom-width"), "3px");
-  assert.equal(speechPaceButton.declarations.get("border-radius"), "8px");
-  assert.equal(activeSpeechPaceButton.declarations.get("background"), "var(--theme-green-filled, var(--green, #376a5a))");
-  assert.match(badgeDefaultSpeechPaceButton.declarations.get("background") || "", /color-mix/);
-  assert.match(badgeDefaultSpeechPaceButton.declarations.get("border-color") || "", /--theme-green-filled/);
+  assert.equal(fontSizeButton.declarations.get("flex-direction"), "column");
+  assert.equal(speechPaceControl.declarations.get("display"), "grid");
+  assert.equal(speechPaceControl.declarations.get("gap"), "2px");
+  assert.equal(speechPaceSlider.declarations.get("appearance"), "none");
+  assert.equal(speechPaceSlider.declarations.get("touch-action"), "pan-y");
+  assert.match(speechPaceTrack.declarations.get("background") || "", /--speech-pace-position/);
+  assert.equal(speechPaceThumb.declarations.get("width"), "22px");
+  assert.match(speechPaceThumb.declarations.get("border") || "", /--theme-green-filled/);
+  assert.equal(speechPaceTicks.declarations.get("display"), "flex");
+  assert.equal(speechPaceTicks.declarations.get("justify-content"), "space-between");
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-17"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
     const themeIndex = source.indexOf('href="source/shared/theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
@@ -463,27 +469,23 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   assert.match(sheet.declarations.get("grid-template-rows") || "", /auto minmax\(0, 1fr\) auto/);
   const sectionNav = ruleWithSelector(chromeCss, ".settings-section-switcher");
   assert.match(sectionNav.declarations.get("grid-template-columns") || "", /repeat\(3/);
-  assert.equal(sectionNav.declarations.get("border")?.includes("var(--theme-amber"), true);
-  assert.equal(sectionNav.declarations.get("margin"), "0 calc(var(--settings-section-edge) - 1px) 0 var(--settings-section-left)");
-  assert.equal(sectionNav.declarations.get("padding"), "4px 6px 5px");
+  assert.match(sectionNav.declarations.get("border") || "", /^1px solid /);
+  assert.match(sectionNav.declarations.get("margin") || "", /--settings-section-edge/);
+  assert.equal(sectionNav.declarations.get("padding"), "4px 0 5px");
   assert.equal(sectionNav.declarations.get("gap"), "6px");
-  assert.equal(sectionNav.declarations.get("border-radius"), "12px 12px 0 12px");
-  assert.match(sectionNav.declarations.get("box-shadow") || "", /0 3px 10px/);
+  assert.equal(sectionNav.declarations.get("border-radius"), "12px");
+  assert.match(sectionNav.declarations.get("box-shadow") || "", /inset 0 1px 0/);
+  assert.equal(sectionNav.declarations.get("--submenu-item-icon-size"), "34px");
   const sectionIcon = ruleWithSelector(chromeCss, ".settings-section-switcher button img");
-  assert.equal(sectionIcon.declarations.get("width"), "34px");
-  assert.equal(sectionIcon.declarations.get("height"), "34px");
+  assert.equal(sectionIcon.declarations.get("width"), "var(--submenu-item-icon-size, 42px)");
+  assert.equal(sectionIcon.declarations.get("height"), "var(--submenu-item-icon-size, 42px)");
   const sectionButton = ruleWithSelector(chromeCss, ".settings-section-switcher button");
   assert.equal(sectionButton.declarations.get("border-radius"), "8px");
   const activeSectionButton = ruleWithSelector(chromeCss, ".settings-section-switcher button.is-active");
-  assert.match(activeSectionButton.declarations.get("background") || "", /var\(--green\)/);
-  const backpackButton = ruleWithSelector(chromeCss, "body.settings-open #openSettings");
+  assert.equal(activeSectionButton.declarations.get("background"), "var(--games-menu-surface)");
+  assert.match(activeSectionButton.declarations.get("color") || "", /var\(--green/);
+  const backpackButton = ruleWithSelector(chromeCss, 'body.settings-open #openSettings[aria-expanded="true"]');
   assert.equal(backpackButton.declarations.get("border-radius"), "0 0 10px 10px");
-  const backpackConnector = ruleWithSelector(chromeCss, "body.settings-open #openSettings::before");
-  assert.equal(backpackConnector.declarations.get("top"), "-10px");
-  assert.equal(backpackConnector.declarations.get("left"), "-1px");
-  assert.equal(backpackConnector.declarations.get("right"), "0");
-  assert.equal(backpackConnector.declarations.has("border-top-left-radius"), false);
-  assert.equal(backpackConnector.declarations.get("pointer-events"), "none");
   const navIcon = ruleWithSelector(chromeCss, ".bottom-app-nav .app-nav-icon");
   assert.equal(navIcon.declarations.get("position"), "relative");
   const submenuIcon = ruleWithSelector(chromeCss, ".bottom-app-nav .app-nav-submenu-icon");
@@ -492,17 +494,16 @@ test("the backpack progression hub has a distinct reward-focused surface", () =>
   assert.equal(submenuIcon.declarations.get("bottom"), "-2px");
   assert.equal(submenuIcon.declarations.get("width"), "18px");
   assert.equal(submenuIcon.declarations.get("height"), "18px");
-  assert.doesNotMatch(chromeCss, /\.settings-section-switcher::before\s*\{/);
-  const sectionJoin = ruleWithSelector(chromeCss, ".settings-section-switcher::after");
-  assert.equal(sectionJoin.declarations.get("bottom"), "-1px");
-  assert.equal(sectionJoin.declarations.get("height"), "3px");
-  const openNav = ruleWithSelector(chromeCss, "body.settings-open .bottom-app-nav");
-  assert.equal(openNav.declarations.get("border-top-color"), "transparent");
-  const openSheet = ruleWithSelector(chromeCss, "body.settings-open .settings-sheet");
-  assert.equal(openSheet.declarations.get("border-bottom-color"), "transparent");
-  const openNavBorder = ruleWithSelector(chromeCss, "body.settings-open .bottom-app-nav::before");
-  assert.match(openNavBorder.declarations.get("right") || "", /var\(--app-nav-edge\)/);
-  assert.equal(openNavBorder.declarations.get("pointer-events"), "none");
+  assert.match(chromeCss, /\.settings-section-switcher::after\s*\{/);
+  assert.match(chromeCss, /body\.settings-open #openSettings\[aria-expanded="true"\]::before/);
+  assert.doesNotMatch(chromeCss, /body\.settings-open \.bottom-app-nav::before\s*\{/);
+  const dock = ruleWithSelector(chromeCss, ".app-bottom-dock");
+  assert.equal(dock.declarations.get("border-top"), "1px solid var(--line)");
+  const dockMenu = ruleWithSelector(chromeCss, ".app-bottom-dock-menu");
+  assert.match(dockMenu.declarations.get("max-height") || "", /44dvh/);
+  const dockNav = ruleWithSelector(chromeCss, ".app-bottom-dock > .bottom-app-nav");
+  assert.equal(dockNav.declarations.get("grid-template-columns"), "repeat(3, minmax(0, 1fr))");
+  assert.equal(dockNav.declarations.get("background"), "transparent");
   const settingsBody = ruleWithSelector(chromeCss, ".settings-sheet-body");
   assert.equal(settingsBody.declarations.get("display"), "flex");
   assert.equal(settingsBody.declarations.get("flex-direction"), "column");

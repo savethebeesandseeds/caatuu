@@ -1153,7 +1153,7 @@ function loadWordCardPreferences() {
   const stored = readStoredObject(WORD_CARD_PREFERENCES_STORAGE_KEY);
   return {
     showCard: stored.showCard !== false,
-    autoPronounce: stored.autoPronounce === true
+    autoPronounce: stored.autoPronounce !== false
   };
 }
 
@@ -2325,47 +2325,31 @@ function renderReconstructionAttempt(round, host) {
     selected.map((option) => option.text),
     round.challenge.answerTokens
   );
-  const nodes = operations.map((operation) => {
-    const position = document.createElement("span");
-    position.className = `word-net-reconstruction-result-position is-${operation.type}`;
-    position.classList.toggle("is-error", operation.type !== "match");
-    position.setAttribute("role", "listitem");
-
-    const entered = document.createElement("span");
-    entered.className = "word-net-reconstruction-result-entered";
-    entered.textContent = operation.type === "missing" ? `+ ${operation.expected}` : operation.entered;
-    position.append(entered);
-
-    let label = `Correct word ${operation.entered}.`;
-    if (operation.type === "replacement") {
-      const expectedNode = document.createElement("span");
-      expectedNode.className = "word-net-reconstruction-result-expected";
-      expectedNode.textContent = `\u2192 ${operation.expected}`;
-      position.append(expectedNode);
-      label = `Replace ${operation.entered} with ${operation.expected}.`;
-    } else if (operation.type === "missing") {
-      label = `Add missing word ${operation.expected}.`;
-    } else if (operation.type === "extra") {
-      const expectedNode = document.createElement("span");
-      expectedNode.className = "word-net-reconstruction-result-expected";
-      expectedNode.textContent = "remove";
-      position.append(expectedNode);
-      label = `Remove extra word ${operation.entered}.`;
-    }
-    position.setAttribute("aria-label", label);
-    return position;
+  const submittedSentence = reconstructionSelectedText(round);
+  const submitted = document.createElement("span");
+  submitted.className = "word-net-reconstruction-result-submitted";
+  const spokenFeedback = [];
+  operations.filter((operation) => operation.entered).forEach((operation) => {
+    const token = document.createElement("span");
+    const isCorrect = operation.type === "match";
+    token.className = `word-net-reconstruction-result-token ${isCorrect ? "is-correct" : "is-wrong"}`;
+    token.textContent = operation.entered;
+    submitted.append(token);
+    spokenFeedback.push(`${operation.entered}: ${isCorrect ? "correct" : "incorrect"}`);
   });
-
   if (round.challenge.punctuation) {
     const punctuation = document.createElement("span");
     punctuation.className = "word-net-reconstruction-result-punctuation";
     punctuation.textContent = round.challenge.punctuation;
-    punctuation.setAttribute("aria-hidden", "true");
-    nodes.push(punctuation);
+    submitted.append(punctuation);
   }
-  host.replaceChildren(...nodes);
-  host.setAttribute("role", "list");
-  host.setAttribute("aria-label", "Your answer feedback");
+
+  host.replaceChildren(submitted);
+  host.removeAttribute("role");
+  host.setAttribute(
+    "aria-label",
+    `Your answer: ${submittedSentence}. ${spokenFeedback.join(", ")}.`
+  );
 }
 
 function renderReconstructionResult(round, result) {
@@ -2384,7 +2368,7 @@ function renderReconstructionResult(round, result) {
     },
     incorrect: {
       mark: "\u21ba",
-      message: "Almost there — compare the highlighted words.",
+      message: "Almost there — the words in red need attention.",
       points: "+0 XP"
     }
   }[outcome];
@@ -2629,7 +2613,7 @@ async function submitReconstructionChallenge() {
         ? "Correct. Continue to Verb Nebula."
         : "Correct with support. Try once more without help."
       : (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
-    : "Almost there. Compare the highlighted words with the answer.";
+    : "Almost there. The words in red need attention.";
   if (!guidedRound) {
     window.CaatuuLearning?.record("word-world", {
       attempts: 1,
@@ -2821,7 +2805,7 @@ function syncTranslationToggle() {
   const label = translationModes[mode].label;
   button.classList.toggle("is-off", mode === "off");
   button.classList.toggle("is-waiting", mode.startsWith("timer-") && !state.translationVisible);
-  button.setAttribute("aria-label", `English answer and dictionary settings. Current answer mode: ${label}.`);
+  button.setAttribute("aria-label", `Challenge type and dictionary settings. Current answer mode: ${label}.`);
   button.setAttribute("title", `Answer mode: ${label}`);
   translation.hidden = reconstructing;
   translation.classList.toggle("is-hidden", !state.translationVisible && !reconstructing);
@@ -4683,8 +4667,18 @@ function bindEmbeddedShellBridge() {
       document.documentElement.dataset.fontSize = event.data.fontSize;
     }
     syncDisplaySettingsControl();
-    if (!event.data.active) cancelCzechSpeech();
+    if (!event.data.active) {
+      cancelCzechSpeech();
+      suspendStarterWordPresentation();
+    }
   });
+}
+
+function suspendStarterWordPresentation() {
+  clearTranslationTimer();
+  cancelBackgroundWork();
+  abortWordLookup();
+  state.swipeStart = null;
 }
 
 void init()

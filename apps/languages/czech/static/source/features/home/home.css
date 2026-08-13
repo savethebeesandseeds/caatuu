@@ -28,6 +28,28 @@ body {
   --setup-shadow: var(--theme-shadow, 0 18px 44px rgba(23, 32, 29, 0.11));
 }
 
+.home-view {
+  min-height: 100%;
+  --setup-bg: var(--theme-page-background, var(--theme-paper, #f5efe5));
+  --setup-panel: var(--theme-panel, #fffdf8);
+  --setup-panel-raised: var(--theme-panel-raised, #ffffff);
+  --setup-line: var(--theme-line, #cfd8d1);
+  --setup-line-strong: var(--theme-line-strong, #b8c5bd);
+  --setup-text: var(--theme-ink, #17201d);
+  --setup-muted: var(--theme-muted, #5d6b65);
+  --setup-quiet: var(--theme-quiet, #74817b);
+  --setup-accent: var(--theme-green, #22594d);
+  --setup-blue: var(--theme-blue, #315f8d);
+  --setup-good: var(--theme-green, #22594d);
+  --setup-warn: var(--theme-amber, #c7922b);
+  --setup-danger: var(--theme-red, #a34838);
+  --setup-shadow: var(--theme-shadow, 0 18px 44px rgba(23, 32, 29, 0.11));
+}
+
+.home-view .home-main {
+  min-height: calc(100dvh - var(--caatuu-bottom-dock-height, 84px) - 150px);
+}
+
 .language-switch .language-code {
   font-size: 0.76rem;
   font-weight: 850;

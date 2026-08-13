@@ -10,7 +10,7 @@ In the unified Caatuu container it is served at:
 
 ```text
 /cz/
-/cz/home.html
+/cz/index.html
 /cz/chat.html
 ```
 

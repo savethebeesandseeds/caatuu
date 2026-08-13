@@ -16,7 +16,7 @@ storage, and then works offline.
 - UI: existing Czech static app, loaded in a WebView from APK assets.
 - Games: no standalone game export is currently bundled. Memory Moon remains a
   static application placeholder.
-- Start URL: `https://caatuu.local/cz/home.html`.
+- Start URL: `https://caatuu.local/cz/index.html`.
 - The shared Czech source assets are packaged for browser/Android parity; heavy
   browser model payloads are excluded.
 - WebView HTTP cache is disabled and service-worker requests are blocked by the
@@ -38,7 +38,7 @@ The default build uses these Gradle properties:
 caatuuLanguageId=cz
 caatuuLanguageAppDir=languages/czech
 caatuuLanguageRoutePrefix=/cz
-caatuuLanguageEntryPath=/cz/home.html
+caatuuLanguageEntryPath=/cz/index.html
 ```
 
 Override all four together for a future language build. That language must also

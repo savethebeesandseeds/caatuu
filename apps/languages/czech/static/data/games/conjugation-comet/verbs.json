@@ -78,7 +78,7 @@
     {
       "verb": "dělat",
       "meaning": "do / make",
-      "hint": "Imperfective. Regular workhorse. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with děl- and follow the surface family -ám, -áš, -á, -áme, -áte, -ají.",
       "forms": [
         {
           "label": "S1",
@@ -158,7 +158,7 @@
     {
       "verb": "hledat",
       "meaning": "look for",
-      "hint": "Imperfective. Takes accusative. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with hled- and follow the -ám surface family; this verb commonly takes the accusative.",
       "forms": [
         {
           "label": "S1",
@@ -195,7 +195,7 @@
     {
       "verb": "čekat",
       "meaning": "wait",
-      "hint": "Imperfective. Often na + accusative. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with ček- and follow the -ám surface family; čekat na takes the accusative.",
       "forms": [
         {
           "label": "S1",
@@ -380,7 +380,7 @@
     {
       "verb": "znamenat",
       "meaning": "mean",
-      "hint": "Imperfective. 3rd person is common. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with znamen- and follow the -ám surface family; the third-person form znamená is especially common.",
       "forms": [
         {
           "label": "S1",
@@ -1551,7 +1551,7 @@
     {
       "verb": "znát",
       "meaning": "know / be familiar with",
-      "hint": "Imperfective. Takes accusative. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with zn- and follow the -ám surface family; this verb commonly takes the accusative.",
       "forms": [
         {
           "label": "S1",
@@ -1853,7 +1853,7 @@
     {
       "verb": "volat",
       "meaning": "call",
-      "hint": "Imperfective. Regular -ám. Pattern: -ám.",
+      "hint": "Imperfective. Forms begin with vol- and follow the surface family -ám, -áš, -á, -áme, -áte, -ají.",
       "forms": [
         {
           "label": "S1",

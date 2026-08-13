@@ -12,6 +12,8 @@
   const lightModeIconSrc = "/assets/icons/light_mode_ui.png";
   const darkModeIconSrc = "/assets/icons/dark_mode_ui.png";
   let sharedSettingsTrigger = null;
+  let sharedGameMenuTrigger = null;
+  let bottomDockResizeObserver = null;
   let appFreshnessBound = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
@@ -136,12 +138,16 @@
   });
   const semanticSkillCompassMinimumConfidence = 0.12;
   const semanticSkillCompassControllers = new WeakMap();
+  let semanticSkillCompassPrepared = null;
+  let semanticSkillCompassPreparation = null;
+  let semanticSkillCompassPreparationRevision = 0;
   const navItems = [
     {
       key: "home",
       label: "Home",
       iconSrc: "/assets/icons/home_icon.png",
-      href: course.routes.home
+      href: course.routes.home,
+      view: "home"
     },
     {
       key: "games",
@@ -162,22 +168,38 @@
   const gamePresentations = {
     "verb-lab": {
       title: "Verb Nebula",
-      iconSrc: "/assets/planets/nebula.png",
+      summary: "Match meanings",
+      iconSrc: "/assets/planets/verb-nebula.png",
       href: "index.html"
     },
     "word-net": {
       title: "Word World",
-      iconSrc: "/assets/planets/planet_A.png",
+      summary: "Meanings + links",
+      iconSrc: "/assets/planets/word-world.png",
       href: "index.html"
     },
     "conjugation-comet": {
       title: "Conjugation Comet",
+      summary: "Choose the form",
       iconSrc: "/assets/planets/conjugation-comet.png",
-      href: course.routes.conjugationComet
+      href: "index.html"
+    },
+    "case-cosmos": {
+      title: "Case Cosmos",
+      summary: "Choose the case route",
+      iconSrc: "/assets/planets/case-cosmos.png",
+      href: "index.html"
+    },
+    "agreement-aurora": {
+      title: "Agreement Aurora",
+      summary: "Make the words match",
+      iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1",
+      href: "index.html"
     },
     "memory-moon": {
       title: "Memory Moon",
-      iconSrc: "/assets/planets/planet_C.png",
+      summary: "Recall",
+      iconSrc: "/assets/planets/memory-moon.png",
       href: "index.html"
     }
   };
@@ -281,11 +303,192 @@
     });
   }
 
+  function availableGamePresentations() {
+    return Object.entries(gamePresentations)
+      .filter(([gameId, presentation]) => gamePresentationAvailable(gameId, presentation));
+  }
+
+  function updateBottomDockHeight(dock) {
+    if (!dock) return;
+    const height = Math.ceil(dock.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--caatuu-bottom-dock-height", `${height}px`);
+  }
+
+  function ensureBottomDock(nav = document.querySelector("[data-caatuu-bottom-nav]")) {
+    if (!nav) return null;
+    let dock = nav.closest("[data-caatuu-bottom-dock]");
+    if (!dock) {
+      dock = document.createElement("div");
+      dock.className = "app-bottom-dock";
+      dock.dataset.caatuuBottomDock = "";
+      const menuHost = document.createElement("div");
+      menuHost.className = "app-bottom-dock-menu";
+      menuHost.dataset.caatuuBottomDockMenu = "";
+      menuHost.hidden = true;
+      nav.before(dock);
+      dock.append(menuHost, nav);
+    }
+    if (!bottomDockResizeObserver && typeof ResizeObserver === "function") {
+      bottomDockResizeObserver = new ResizeObserver((entries) => {
+        const activeDock = entries.find((entry) => entry.target.matches?.("[data-caatuu-bottom-dock]"))?.target;
+        updateBottomDockHeight(activeDock || document.querySelector("[data-caatuu-bottom-dock]"));
+      });
+      bottomDockResizeObserver.observe(dock);
+    }
+    updateBottomDockHeight(dock);
+    return dock;
+  }
+
+  function mountBottomDockMenus(nav = document.querySelector("[data-caatuu-bottom-nav]")) {
+    const dock = ensureBottomDock(nav);
+    const host = dock?.querySelector("[data-caatuu-bottom-dock-menu]");
+    if (!host) return dock;
+    const settingsMenu = document.querySelector(".settings-section-switcher");
+    const gamesMenu = document.querySelector(".games-menu-sheet");
+    [settingsMenu, gamesMenu].forEach((menu) => {
+      if (!menu || menu.parentElement === host) return;
+      menu.hidden = true;
+      host.append(menu);
+    });
+    return dock;
+  }
+
+  function setBottomDockMenu(menu = "") {
+    const dock = mountBottomDockMenus();
+    const host = dock?.querySelector("[data-caatuu-bottom-dock-menu]");
+    if (!dock || !host) return;
+    const settingsMenu = host.querySelector(".settings-section-switcher");
+    const gamesMenu = host.querySelector(".games-menu-sheet");
+    const normalizedMenu = menu === "settings" || menu === "games" ? menu : "";
+    settingsMenu?.toggleAttribute("hidden", normalizedMenu !== "settings");
+    gamesMenu?.toggleAttribute("hidden", normalizedMenu !== "games");
+    host.hidden = !normalizedMenu;
+    if (normalizedMenu) dock.dataset.openMenu = normalizedMenu;
+    else delete dock.dataset.openMenu;
+    document.querySelectorAll("#openSettings")
+      .forEach((button) => button.setAttribute("aria-expanded", normalizedMenu === "settings" ? "true" : "false"));
+    updateBottomDockHeight(dock);
+    window.requestAnimationFrame(() => updateBottomDockHeight(dock));
+  }
+
+  function renderGameMenu() {
+    let panel = document.querySelector("#gamesMenuPanel");
+    if (!panel) {
+      panel = document.createElement("div");
+      panel.id = "gamesMenuPanel";
+      panel.className = "games-menu-backdrop";
+      panel.hidden = true;
+      panel.innerHTML = `
+        <section class="games-menu-sheet" role="dialog" aria-modal="true" aria-label="Choose a game">
+          <div class="games-menu-body">
+            <nav class="games-menu-grid" role="tablist" aria-label="Training games"></nav>
+          </div>
+        </section>
+      `;
+      document.body.append(panel);
+    }
+
+    // The games selector is transparent by design, so the current screen's
+    // real header must remain visible. Remove stale cloned headers created by
+    // older builds instead of replacing the active Home, game, or Backpack
+    // header whenever the selector opens.
+    panel.querySelectorAll(".games-menu-app-header").forEach((header) => header.remove());
+
+    const activeGameId = currentGameId();
+    const menu = document.querySelector(".games-menu-grid");
+    const availableGames = availableGamePresentations();
+    menu?.style.setProperty("--game-menu-count", String(availableGames.length));
+    const options = availableGames.map(([gameId, presentation]) => {
+      const button = document.createElement("button");
+      button.className = "games-menu-option";
+      button.type = "button";
+      button.setAttribute("role", "tab");
+      button.setAttribute("aria-selected", String(activeGameId === gameId));
+      button.setAttribute("aria-label", `${presentation.title}. ${presentation.summary}`);
+      button.dataset.gameMenuTarget = gameId;
+      button.classList.toggle("is-current", activeGameId === gameId);
+      if (activeGameId === gameId) button.setAttribute("aria-current", "page");
+
+      const image = document.createElement("img");
+      image.src = presentation.iconSrc;
+      image.alt = "";
+      image.setAttribute("aria-hidden", "true");
+      image.decoding = "async";
+
+      const copy = document.createElement("span");
+      const title = document.createElement("strong");
+      title.textContent = presentation.title;
+      copy.append(title);
+      button.append(image, copy);
+      return button;
+    });
+    menu?.replaceChildren(...options);
+    mountBottomDockMenus();
+    return panel;
+  }
+
+  function openGameMenu(trigger) {
+    const panel = renderGameMenu();
+    if (!panel) return;
+    sharedGameMenuTrigger = trigger || document.activeElement;
+    panel.hidden = false;
+    setBottomDockMenu("games");
+    document.body.classList.add("games-menu-open");
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]')
+      .forEach((button) => button.setAttribute("aria-expanded", "true"));
+    window.requestAnimationFrame(() => {
+      const current = document.querySelector(".games-menu-option.is-current");
+      (current || document.querySelector(".games-menu-option"))?.focus?.();
+    });
+  }
+
+  function closeGameMenu({ restoreFocus = true } = {}) {
+    const panel = document.querySelector("#gamesMenuPanel");
+    if (!panel || panel.hidden) return;
+    panel.hidden = true;
+    setBottomDockMenu();
+    document.body.classList.remove("games-menu-open");
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]')
+      .forEach((button) => button.setAttribute("aria-expanded", "false"));
+    if (restoreFocus && typeof sharedGameMenuTrigger?.focus === "function") sharedGameMenuTrigger.focus();
+  }
+
+  function selectGameFromMenu(gameId) {
+    const normalizedGameId = normalizeGameId(gameId);
+    if (!normalizedGameId) return;
+    const settingsPanel = document.querySelector("#settingsPanel");
+    if (currentGameId() === normalizedGameId) {
+      closeGameMenu({ restoreFocus: false });
+      if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
+      return;
+    }
+    rememberActiveGame(normalizedGameId);
+    closeGameMenu({ restoreFocus: false });
+    if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
+
+    const localTarget = document.querySelector(`[data-train-tab="${normalizedGameId}"]`);
+    if (localTarget) {
+      localTarget.click();
+      return;
+    }
+    if (["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(normalizedGameId)) {
+      rememberNavigationRequest(`game:${normalizedGameId}`);
+      window.location.href = course.routes.games;
+      return;
+    }
+    window.location.href = gamePresentationHref(normalizedGameId);
+  }
+
   function currentGameId() {
     if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";
+    if (document.querySelector(".case-cosmos-page")) return "case-cosmos";
+    if (document.querySelector(".agreement-aurora-page")) return "agreement-aurora";
     if (document.querySelector(".word-net-page")) return "word-net";
     if (document.querySelector("#trainPanelVerbLab:not([hidden])")) return "verb-lab";
     if (document.querySelector("#trainPanelWordNet:not([hidden])")) return "word-net";
+    if (document.querySelector("#trainPanelConjugationComet:not([hidden])")) return "conjugation-comet";
+    if (document.querySelector("#trainPanelCaseCosmos:not([hidden])")) return "case-cosmos";
+    if (document.querySelector("#trainPanelAgreementAurora:not([hidden])")) return "agreement-aurora";
     if (document.querySelector("#trainPanelMemoryMoon:not([hidden])")) return "memory-moon";
     if (document.querySelector("#trainPanelGalaxy:not([hidden])")) return "galaxy";
     const title = document.querySelector(".app-header-title")?.textContent?.trim() || "";
@@ -319,6 +522,30 @@
 
   function bindSharedGameNavigation() {
     document.addEventListener("click", (event) => {
+      const homeNavigation = event.target.closest?.('[data-navigation-request="home"], [data-caatuu-bottom-nav] [data-nav-key="home"]');
+      if (homeNavigation && document.querySelector("#view-home")) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        closeGameMenu({ restoreFocus: false });
+        const settingsPanel = document.querySelector("#settingsPanel");
+        if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
+        setBottomDockMenu();
+        document.dispatchEvent(new CustomEvent("caatuu:home-request"));
+        return;
+      }
+      const menuTarget = event.target.closest?.("[data-game-menu-target]");
+      if (menuTarget) {
+        event.preventDefault();
+        selectGameFromMenu(menuTarget.dataset.gameMenuTarget);
+        return;
+      }
+      const gameMenuPanel = document.querySelector("#gamesMenuPanel");
+      if (event.target === gameMenuPanel) {
+        event.preventDefault();
+        closeGameMenu();
+        return;
+      }
+
       const navigationRequest = event.target.closest?.("[data-navigation-request]");
       if (navigationRequest) rememberNavigationRequest(navigationRequest.dataset.navigationRequest);
 
@@ -331,37 +558,34 @@
       }
 
       const trainTarget = event.target.closest?.("[data-train-tab]");
-      if (trainTarget) {
-        const requestedGame = String(trainTarget.dataset.trainTab || "");
-        if (requestedGame === "conjugation-comet") {
-          const availableGame = normalizeGameId(requestedGame);
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          if (availableGame) {
-            rememberActiveGame(availableGame);
-            window.location.href = gamePresentationHref(availableGame);
-          }
-          return;
-        }
-        rememberActiveGame(requestedGame);
-      }
+      if (trainTarget) rememberActiveGame(String(trainTarget.dataset.trainTab || ""));
 
       const gameNav = event.target.closest?.('[data-caatuu-bottom-nav] [data-nav-key="games"]');
-      if (!gameNav) return;
-      const activeGameId = currentGameId();
-      if (activeGameId && activeGameId !== "galaxy") {
-        const settingsPanel = document.querySelector("#settingsPanel");
-        if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
-        rememberActiveGame("galaxy");
+      if (gameNav) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        const backToGalaxy = document.querySelector(".app-header-back:not([hidden])");
-        if (backToGalaxy) backToGalaxy.click();
-        else window.location.href = course.routes.games;
+        if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu();
+        else openGameMenu(gameNav);
         return;
       }
-      if (gameNav.tagName === "A") gameNav.href = gameNavigationHref();
+      const backpackButton = event.target.closest?.('[data-caatuu-bottom-nav] #openSettings');
+      if (backpackButton) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
+        const dock = mountBottomDockMenus();
+        setBottomDockMenu(dock?.dataset.openMenu === "settings" ? "" : "settings");
+        return;
+      }
+      const otherNavigation = event.target.closest?.("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button");
+      if (otherNavigation && gameMenuPanel && !gameMenuPanel.hidden) {
+        closeGameMenu({ restoreFocus: false });
+      }
     }, true);
+    document.addEventListener("keydown", (event) => {
+      const panel = document.querySelector("#gamesMenuPanel");
+      if (event.key === "Escape" && panel && !panel.hidden) closeGameMenu();
+    });
   }
 
   function isNativeShell() {
@@ -1253,6 +1477,61 @@
     return Boolean(details?.open && !panel.hidden && stats && !stats.hidden);
   }
 
+  function preparedSemanticSkillCompass() {
+    return semanticSkillCompassPrepared?.revision === semanticSkillCompassPreparationRevision
+      ? semanticSkillCompassPrepared
+      : null;
+  }
+
+  async function preloadBackpackStats() {
+    const prepared = preparedSemanticSkillCompass();
+    if (prepared) return prepared;
+    if (semanticSkillCompassPreparation) return semanticSkillCompassPreparation;
+
+    const revision = semanticSkillCompassPreparationRevision;
+    const semanticLearning = window.CaatuuSemanticLearning;
+    if (typeof semanticLearning?.readEvidence !== "function"
+      || typeof semanticLearning?.projectRadar !== "function") {
+      throw new Error("Semantic learning is unavailable.");
+    }
+
+    const preparation = (async () => {
+      const prepared = preparedSemanticSkillCompass();
+      if (prepared?.empty) {
+        renderSemanticSkillCompassEmpty(panel);
+        controller.rendered = true;
+        controller.renderedRevision = revision;
+        return;
+      }
+      if (prepared?.projection) {
+        renderSemanticSkillCompassProjection(panel, prepared.projection);
+        controller.rendered = true;
+        controller.renderedRevision = revision;
+        return;
+      }
+      const evidence = await semanticLearning.readEvidence();
+      const result = evidence.length
+        ? {
+            revision,
+            empty: false,
+            projection: await semanticLearning.projectRadar(semanticSkillCompassAxisPack)
+          }
+        : { revision, empty: true, projection: null };
+      if (revision === semanticSkillCompassPreparationRevision) {
+        semanticSkillCompassPrepared = result;
+      }
+      return result;
+    })();
+    semanticSkillCompassPreparation = preparation;
+    try {
+      return await preparation;
+    } finally {
+      if (semanticSkillCompassPreparation === preparation) {
+        semanticSkillCompassPreparation = null;
+      }
+    }
+  }
+
   function setSemanticSkillCompassStatus(panel, state, message, summary) {
     const details = panel.querySelector("#semanticSkillCompass");
     const body = panel.querySelector("#semanticSkillCompassBody");
@@ -1545,6 +1824,9 @@
         }
       });
       if (request !== controller.request || signal.aborted) return;
+      if (revision === semanticSkillCompassPreparationRevision) {
+        semanticSkillCompassPrepared = { revision, empty: false, projection };
+      }
       renderSemanticSkillCompassProjection(panel, projection);
       controller.rendered = true;
       controller.renderedRevision = revision;
@@ -1632,6 +1914,8 @@
       if (details.open) scheduleSemanticSkillCompassLoad(panel);
     });
     window.addEventListener("caatuu:semantic-learning-change", () => {
+      semanticSkillCompassPreparationRevision += 1;
+      semanticSkillCompassPrepared = null;
       const controller = semanticSkillCompassController(panel);
       controller.revision += 1;
       controller.abortController?.abort("Semantic evidence changed");
@@ -1774,6 +2058,7 @@
         : item.key === "games"
           ? gameNavigationHref()
           : item.href;
+      if (item.key === "home") element.dataset.navigationRequest = "home";
     }
 
     appendNavContent(element, item);
@@ -1793,6 +2078,7 @@
     // A stored game is useful while that game is active, but it must not make
     // Home or the galaxy look as if a planet is currently selected.
     syncGameNavigationIndicators(currentGameId());
+    renderGameMenu();
   }
 
   function syncBottomNavActive(nav, activeSection = "") {
@@ -1816,6 +2102,13 @@
     });
   }
 
+  function setBottomNavSection(section = "") {
+    document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
+      nav.dataset.activeSection = section;
+      syncBottomNavActive(nav, section);
+    });
+  }
+
   function renderLanguageSwitch(element) {
     const flag = document.createElement("img");
     flag.className = targetLanguage.flagClass;
@@ -1831,7 +2124,8 @@
 
     if (element.tagName === "A") {
       if (isNativeShell()) {
-        element.href = "home.html";
+        element.href = "index.html";
+        element.dataset.navigationRequest = "home";
         element.setAttribute("aria-label", "Czech");
       } else {
         element.href = element.dataset.href || element.getAttribute("href") || "/";
@@ -1850,6 +2144,7 @@
     const brand = document.createElement("a");
     brand.className = "brand-link";
     brand.href = course.routes.home;
+    brand.dataset.navigationRequest = "home";
     brand.setAttribute("aria-label", `Open ${course.workspaceLabel} home`);
 
     const mark = document.createElement("span");
@@ -1992,6 +2287,15 @@
       }
       center.hidden = !normalizedTitle;
       header.classList.toggle("has-screen-title", Boolean(normalizedTitle));
+    });
+  }
+
+  function setPagePresentation({ kicker = "Train", title = "Games", iconSrc = "/assets/icons/games_icon.png" } = {}) {
+    document.querySelectorAll(".app-header").forEach((header) => {
+      header.dataset.caatuuPageKicker = kicker;
+      header.dataset.caatuuPageTitle = title;
+      header.dataset.caatuuPageIcon = iconSrc;
+      renderAppHeader(header);
     });
   }
 
@@ -2333,7 +2637,6 @@
                 <nav class="advanced-link-list" aria-label="Developer tools">
                   <a class="advanced-link" href="chat.html">debug-chat</a>
                   <a class="advanced-link" href="audio-lab.html">audio-lab</a>
-                  <a class="advanced-link" href="index.html" data-navigation-request="guided-journey">guided-journey</a>
                   <a class="advanced-link" href="index.html" data-navigation-request="dictionary">${course.id}-dictionary</a>
                   <a class="advanced-link" href="embedding-images.html">embedding-images</a>
                   <a class="advanced-link" href="verb-difficulty.html">verb-difficulty</a>
@@ -2506,7 +2809,7 @@
   function setSettingsViewTransitionState(panel, requestedView, pending) {
     const view = ["items", "stats", "settings"].includes(requestedView) ? requestedView : "items";
     const label = { items: "Items", stats: "Stats", settings: "Settings" }[view];
-    panel.querySelectorAll("[data-settings-view]").forEach((button) => {
+    document.querySelectorAll(".settings-section-switcher [data-settings-view]").forEach((button) => {
       const isRequested = button.dataset.settingsView === view;
       const isPending = pending && isRequested;
       button.classList.toggle("is-pending", isPending);
@@ -2579,7 +2882,7 @@
     }
     if (view !== "stats") pauseSemanticSkillCompass(panel);
     if (sheet) sheet.dataset.settingsCurrentView = view;
-    panel.querySelectorAll("[data-settings-view]").forEach((button) => {
+    document.querySelectorAll(".settings-section-switcher [data-settings-view]").forEach((button) => {
       const active = button.dataset.settingsView === view;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-selected", String(active));
@@ -2710,12 +3013,14 @@
     });
   }
 
-  function openSharedSettings() {
+  function openSharedSettings({ view = readRememberedBackpackView() } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
+    closeGameMenu({ restoreFocus: false });
     sharedSettingsTrigger = document.activeElement;
-    setSettingsView(panel, readRememberedBackpackView());
+    setSettingsView(panel, view);
     panel.hidden = false;
+    setBottomDockMenu();
     document.body.classList.add("settings-open");
     setSettingsNavActive(true);
     document.dispatchEvent(new CustomEvent("caatuu:settings-open"));
@@ -2729,6 +3034,7 @@
     pauseSemanticSkillCompass(panel);
     void stopCzechSpeech();
     panel.hidden = true;
+    setBottomDockMenu();
     document.body.classList.remove("settings-open");
     setSettingsNavActive(false);
     if (restoreFocus && typeof sharedSettingsTrigger?.focus === "function") sharedSettingsTrigger.focus();
@@ -2738,17 +3044,22 @@
     document.addEventListener("click", (event) => {
       const settingsView = event.target.closest?.("[data-settings-view]");
       if (settingsView) {
-        const panel = settingsView.closest("#settingsPanel");
+        const panel = document.querySelector("#settingsPanel");
         if (panel) {
           event.preventDefault();
-          scheduleSettingsViewTransition(panel, settingsView.dataset.settingsView);
+          if (panel.hidden) openSharedSettings({ view: settingsView.dataset.settingsView });
+          else {
+            scheduleSettingsViewTransition(panel, settingsView.dataset.settingsView);
+            setBottomDockMenu();
+          }
           return;
         }
       }
       const open = event.target.closest?.("#openSettings");
       if (open && document.querySelector("#settingsPanel")) {
         event.preventDefault();
-        openSharedSettings();
+        const dock = mountBottomDockMenus();
+        setBottomDockMenu(dock?.dataset.openMenu === "settings" ? "" : "settings");
         return;
       }
       const panel = document.querySelector("#settingsPanel");
@@ -2777,7 +3088,7 @@
         if (nextIndex >= 0) {
           event.preventDefault();
           const nextView = tabs[nextIndex];
-          const viewPanel = nextView.closest("#settingsPanel");
+          const viewPanel = document.querySelector("#settingsPanel");
           scheduleSettingsViewTransition(viewPanel, nextView.dataset.settingsView);
           nextView.focus();
           return;
@@ -3038,12 +3349,15 @@
     speakCzechText,
     stopCzechSpeech,
     setHeaderTitle,
+    setPagePresentation,
+    setBottomNavSection,
     setSettingsNavActive,
     confirmButtonPress,
     resetConfirmButton,
     openSharedSettings,
     closeSharedSettings,
-    handleAndroidBack
+    handleAndroidBack,
+    preloadBackpackStats
   };
 
   let speechVoiceRefreshTimer = 0;

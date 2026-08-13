@@ -29,7 +29,7 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {})
     }
   };
   const window = {
-    location: { hostname: "127.0.0.1" },
+    location: { hostname: "127.0.0.1", href: "http://127.0.0.1:8765/cz/" },
     caches,
     WebAssembly,
     addEventListener() {},
@@ -132,4 +132,38 @@ test("a SHA-required download fails closed before entering the setup cache", asy
     /requires SHA-256 verification, but this browser cannot provide it/
   );
   assert.equal(cacheWrites(), 0);
+});
+
+test("a SHA-pinned setup download bypasses stale service-worker asset URLs", async () => {
+  const sha256 = "b".repeat(64);
+  let requestedUrl = "";
+  const { runtime } = runtimeWith({
+    manifest: {
+      cache_name: "test-cache",
+      artifacts: [{
+        key: "fixture",
+        label: "Fixture",
+        artifact_kind: "test",
+        browser_required: true,
+        url: "/cz/fixture.bin",
+        bytes: 3,
+        sha256
+      }]
+    },
+    fetchArtifact: async (path) => {
+      requestedUrl = String(path);
+      return new Response(new Uint8Array([1, 2, 3]), {
+        headers: { "content-length": "3" }
+      });
+    }
+  });
+
+  await assert.rejects(
+    runtime.setup.start(),
+    /requires SHA-256 verification, but this browser cannot provide it/
+  );
+  assert.equal(
+    requestedUrl,
+    `http://127.0.0.1:8765/cz/fixture.bin?caatuu_setup_sha256=${sha256}`
+  );
 });

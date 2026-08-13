@@ -745,50 +745,6 @@ button:focus-visible {
 .train-tab-panel[hidden] {
   display: none;
 }
-.world-landing-animation {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background:
-    radial-gradient(circle at 50% 58%, rgba(91, 214, 142, 0.16), transparent 34%),
-    rgba(3, 9, 14, 0.9);
-  opacity: 0;
-  transition: opacity 160ms ease;
-}
-.world-landing-animation[hidden] {
-  display: none;
-}
-.world-landing-animation.is-visible {
-  opacity: 1;
-}
-.world-landing-animation.is-finishing {
-  opacity: 0;
-}
-.world-landing-animation-stage {
-  display: grid;
-  place-items: center;
-  gap: 10px;
-}
-.world-landing-animation img {
-  display: block;
-  width: min(76vw, 520px);
-  height: min(68vh, 520px);
-  object-fit: contain;
-  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.42));
-}
-.world-landing-animation span {
-  color: #eaf8f1;
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-body.world-landing-active {
-  overflow: hidden;
-}
 .train-galaxy {
   --train-orbit-perspective: 920px;
   --train-orbit-pitch: 68deg;
@@ -1661,8 +1617,11 @@ body.world-landing-active {
   gap: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   background: transparent;
+}
+.embedded-game-panel {
+  min-height: 0;
 }
 .word-net-embedded-stage {
   position: relative;
@@ -1670,7 +1629,7 @@ body.world-landing-active {
   height: clamp(640px, calc(100dvh - 164px), 1040px);
   min-height: 0;
   overflow: hidden;
-  border-radius: inherit;
+  border-radius: 0;
   background: var(--panel);
 }
 .word-net-embedded-game {
@@ -1760,17 +1719,21 @@ body.world-landing-active {
   }
 }
 @media (max-width: 720px) {
-  body.word-net-active .app-footer {
+  body.word-net-active .app-footer,
+  body.embedded-game-active .app-footer {
     display: none;
   }
-  body.word-net-active .workspace {
+  body.word-net-active .workspace,
+  body.embedded-game-active .workspace {
     padding: 0;
   }
-  body.word-net-active .word-net-embedded-panel {
+  body.word-net-active .word-net-embedded-panel,
+  body.embedded-game-active .embedded-game-panel {
     border-right: 0;
     border-left: 0;
   }
-  body.word-net-active .word-net-embedded-stage {
+  body.word-net-active .word-net-embedded-stage,
+  body.embedded-game-active .embedded-game-stage {
     height: calc(100dvh - 144px);
     min-height: 560px;
   }
@@ -6436,6 +6399,47 @@ html[data-theme="dark"] .verb-match-board {
     font-size: 0.98rem;
   }
 
+}
+
+/* Embedded games own their vertical scrolling. Keep the shared shell fixed. */
+body.word-net-active,
+body.embedded-game-active {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body.word-net-active > .app-shell,
+body.embedded-game-active > .app-shell {
+  height: calc(100dvh - 70px - env(safe-area-inset-bottom));
+  min-height: 0;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+body.word-net-active .app-footer,
+body.embedded-game-active .app-footer {
+  display: none;
+}
+
+body.word-net-active .workspace,
+body.embedded-game-active .workspace {
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body.word-net-active #view-verbs.is-active,
+body.embedded-game-active #view-verbs.is-active,
+body.word-net-active #view-verbs.is-active > .verb-game-shell,
+body.embedded-game-active #view-verbs.is-active > .verb-game-shell,
+body.word-net-active .word-net-embedded-panel:not([hidden]),
+body.embedded-game-active .embedded-game-panel:not([hidden]),
+body.word-net-active .word-net-embedded-stage,
+body.embedded-game-active .embedded-game-stage {
+  height: 100%;
+  min-height: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

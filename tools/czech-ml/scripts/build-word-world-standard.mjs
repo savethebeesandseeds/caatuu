@@ -16,7 +16,7 @@ import { appDataRoot, caatuuRoot, fromRoot } from "./paths.mjs";
 
 const datasetDir = fromRoot("data", "word-world", "standard-v0.1");
 const rubricFile = path.resolve(argValue("--rubric", path.join(datasetDir, "rubric.json")));
-const runtimeRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "word-world")));
+const runtimeRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "games", "word-world")));
 const coverageFile = path.resolve(argValue("--coverage-report", path.join(datasetDir, "reports", "coverage.json")));
 const rubric = await readJson(rubricFile);
 const runtimeBaseRelativeFile = `${rubric.corpusVersion}/records.json`;

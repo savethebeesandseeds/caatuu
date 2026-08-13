@@ -4,7 +4,6 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const pageNames = [
-  "home.html",
   "index.html",
   "chat.html",
   "conjugation-comet.html",
@@ -27,11 +26,11 @@ const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, .
 
 test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
+    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-17"');
     const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
-    const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-37"');
+    const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-39"');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-96"');
+    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-108"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -268,6 +267,20 @@ test("cached projections scan the bounded vector working set once and support ca
   assert.match(core, /duplicate axis id/);
 });
 
+test("initial setup preloads the Backpack Stats projection without changing learner evidence", async () => {
+  const setup = await readFile(new URL("source/features/setup/setup.js", staticRoot), "utf8");
+  assert.match(chrome, /async function preloadBackpackStats\(\)/);
+  assert.match(chrome, /await semanticLearning\.readEvidence\(\)/);
+  assert.match(chrome, /semanticLearning\.projectRadar\(semanticSkillCompassAxisPack\)/);
+  assert.match(chrome, /preparedSemanticSkillCompass\(\)/);
+  assert.match(chrome, /preloadBackpackStats\s*\n\s*};/);
+  assert.doesNotMatch(chrome, /preloadBackpackStats[\s\S]{0,900}recordAttempt/);
+  assert.match(setup, /async function preloadBackpackStatsBeforeReady\(status\)/);
+  assert.match(setup, /window\.CaatuuChrome\?\.preloadBackpackStats/);
+  assert.match(setup, /await preloadBackpackStatsBeforeReady\(status\)/);
+  assert.match(setup, /99%, preparing Backpack Stats/);
+});
+
 test("current games record only evidence their interactions actually support", () => {
   assert.match(app, /function recordVerbSemanticAttempt/);
   assert.match(app, /score = solutionShown \? null : \(correct \? 1 : 0\)/);
@@ -282,8 +295,8 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v426/);
-  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v405/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v513/);
+  assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v460/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.css\?v=audio-lab-2/);
   assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.js\?v=audio-lab-1/);
@@ -293,17 +306,18 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.match(serviceWorker, /semantic-learning-core\.mjs\?v=semantic-learning-core-5/);
   assert.match(semantic, /import\("\.\/semantic-learning-core\.mjs\?v=semantic-learning-core-5"\)/);
   assert.match(serviceWorker, /vendor\/transformers\/transformers\.min\.js/);
-  assert.match(serviceWorker, /runtime\.js\?v=runtime-37/);
-  assert.doesNotMatch(serviceWorker, /runtime\.js\?v=runtime-34/);
+  assert.match(serviceWorker, /runtime\.js\?v=runtime-39/);
+  assert.match(serviceWorker, /vector-db\.js\?v=vector-db-10/);
+  assert.doesNotMatch(serviceWorker, /runtime\.js\?v=runtime-37/);
   assert.match(serviceWorker, /dictionary-gap-report\.mjs\?v=dictionary-gap-report-1/);
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-92/);
+  assert.match(serviceWorker, /app\.js\?v=shell-100/);
   assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-85/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-88/);
   assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);
-  assert.match(serviceWorker, /word-net\.css\?v=word-net-76/);
+  assert.match(serviceWorker, /word-net\.css\?v=word-net-79/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);
   assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-18/);
   assert.doesNotMatch(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);

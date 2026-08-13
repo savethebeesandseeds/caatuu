@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Agreement Aurora - Caatuu Czech</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="source/shared/course-profile.js?v=course-17"></script>
+    <script src="source/shared/learning-profile.js?v=learning-5"></script>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+        const storedFontSize = localStorage.getItem(window.CaatuuCourse.storage.fontSize) || "largest";
+        document.documentElement.dataset.fontSize = ["standard", "large", "largest"].includes(storedFontSize) ? storedFontSize : "largest";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.fontSize = "largest";
+      }
+    </script>
+    <script src="source/shared/runtime.js?v=runtime-39"></script>
+    <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
+    <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+    <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-77">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-118">
+    <link rel="stylesheet" href="source/games/agreement-aurora/agreement-aurora.css?v=agreement-aurora-1">
+  </head>
+  <body class="games-page agreement-aurora-page">
+    <div class="app-shell">
+      <header
+        class="app-header"
+        data-caatuu-app-header
+        data-caatuu-page-kicker="Train"
+        data-caatuu-page-title="Agreement Aurora"
+        data-caatuu-page-icon="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1"
+        data-caatuu-header-title="Agreement Aurora"
+        data-caatuu-header-back-label="Back to games"
+        data-caatuu-header-back-href="index.html"
+      ></header>
+
+      <main class="workspace">
+        <section class="view is-active" id="view-agreement-aurora" aria-label="Train">
+          <div class="agreement-aurora-shell">
+            <section class="agreement-aurora-panel" id="agreementAuroraPanel" aria-label="Agreement Aurora" aria-busy="true">
+              <div class="agreement-aurora-controls">
+                <span class="agreement-aurora-kicker">Make the words match</span>
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+                  <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                </button>
+              </div>
+
+              <div class="agreement-aurora-loading" id="agreementAuroraLoading" role="status" aria-live="polite">
+                <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1" alt="" aria-hidden="true">
+                <p>Preparing the first adjective…</p>
+              </div>
+
+              <article class="agreement-aurora-board" id="agreementAuroraBoard" aria-labelledby="agreementAuroraTitle" hidden>
+                <header class="agreement-aurora-scene">
+                  <div class="agreement-aurora-route-mark" aria-hidden="true">
+                    <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1" alt="">
+                    <span id="agreementAuroraRouteNumber">1</span>
+                  </div>
+                  <div>
+                    <p class="agreement-aurora-eyebrow" id="agreementAuroraRoundTitle"></p>
+                    <h1 id="agreementAuroraTitle">Make the adjective match</h1>
+                    <p class="agreement-aurora-instruction" id="agreementAuroraInstruction"></p>
+                    <p class="agreement-aurora-idea" id="agreementAuroraIdea"></p>
+                  </div>
+                </header>
+
+                <section class="agreement-aurora-matching" aria-labelledby="agreementAuroraMatchTitle">
+                  <h2 id="agreementAuroraMatchTitle">Pick one phrase from each side</h2>
+                  <div class="agreement-aurora-match-grid">
+                    <section class="agreement-aurora-match-column" aria-labelledby="agreementAuroraEnglishTitle">
+                      <h3 id="agreementAuroraEnglishTitle">English phrase</h3>
+                      <div class="agreement-aurora-options" id="agreementAuroraEnglishOptions"></div>
+                    </section>
+                    <section class="agreement-aurora-match-column" aria-labelledby="agreementAuroraCzechTitle">
+                      <h3 id="agreementAuroraCzechTitle">Czech phrase</h3>
+                      <div class="agreement-aurora-options" id="agreementAuroraCzechOptions" lang="cs-CZ"></div>
+                    </section>
+                  </div>
+                </section>
+
+                <section class="agreement-aurora-result" id="agreementAuroraResult" aria-labelledby="agreementAuroraResultTitle" hidden>
+                  <p class="agreement-aurora-result-kicker">All three matched</p>
+                  <h2 id="agreementAuroraResultTitle">Three forms of this adjective</h2>
+                  <div class="agreement-aurora-patterns" id="agreementAuroraPatterns"></div>
+                  <p id="agreementAuroraSummary"></p>
+                </section>
+              </article>
+
+              <footer class="agreement-aurora-footer" id="agreementAuroraFooter" hidden>
+                <p class="agreement-aurora-feedback" id="agreementAuroraFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
+                <div class="agreement-aurora-progress">
+                  <span id="agreementAuroraProgress">Round 1</span>
+                  <button type="button" id="agreementAuroraNext" hidden>Next adjective</button>
+                </div>
+              </footer>
+
+              <section class="agreement-aurora-error" id="agreementAuroraError" hidden>
+                <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1" alt="" aria-hidden="true">
+                <h1>Agreement Aurora could not load</h1>
+                <p id="agreementAuroraErrorCopy"></p>
+                <a href="index.html">Back to games</a>
+              </section>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+        </a>
+      </footer>
+    </div>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="games"
+      data-view-buttons="true"
+      data-settings-target="openSettings"
+    ></nav>
+
+    <div data-caatuu-settings-panel hidden></div>
+
+  <script src="source/shared/chrome.js?v=chrome-108"></script>
+    <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
+    <script type="module" src="source/games/agreement-aurora/agreement-aurora.js?v=agreement-aurora-2"></script>
+  </body>
+</html>

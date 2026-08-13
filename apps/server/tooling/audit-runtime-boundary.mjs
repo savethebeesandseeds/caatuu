@@ -320,7 +320,7 @@ async function auditHttpRoutes() {
   const root = await request("/");
   assert(root.status === 200, `/ should return 200, got ${root.status}`);
   assert(root.body.includes("<title>Caatuu</title>"), "launcher root should serve the Caatuu title");
-  assert(root.body.includes('href="/cz/home.html"'), "launcher fallback should link to the Czech entry page");
+  assert(root.body.includes('href="/cz/index.html"'), "launcher fallback should link to the Czech entry page");
   assert(root.body.includes('data-android-download'), "launcher root should expose a channel-aware Android download");
   assert(root.body.includes('/launcher.js?v=7'), "launcher root should load current language and Android channel discovery");
   assert(root.body.includes("Checking Android build"), "launcher root should announce Android channel discovery");
@@ -363,7 +363,7 @@ async function auditHttpRoutes() {
   const activeCzech = languageRegistry?.languages?.find((language) => language.id === "cz" && language.status === "active");
   assert(languageRegistry?.schemaVersion === 1, "language registry should use the supported schema");
   assert(languageRegistry?.defaultLanguage === "cz", "language registry should name its default app");
-  assert(activeCzech?.entryPath === "/cz/home.html", "active Czech registry entry should match the served route");
+  assert(activeCzech?.entryPath === "/cz/index.html", "active Czech registry entry should match the served route");
   assert(activeCzech?.platforms?.android?.channels?.length === 2, "public language registry should expose stable and explicit preview channels");
   assert(activeCzech?.platforms?.android?.channels?.[0]?.kind === "release", "public language registry should prefer the stable Android channel");
   assert(activeCzech?.platforms?.android?.channels?.[0]?.manifest === "/android/caatuu.json", "public language registry should expose the signed release manifest first");
@@ -378,8 +378,8 @@ async function auditHttpRoutes() {
   assert(unknownRoot.body.includes("HTTP 404 Not Found"), "not-found page should expose precise technical details");
   assert(unknownRoot.body.includes("/assets/macaw/actions/jedy_%20stop.png"), "not-found page should use the requested macaw art");
 
-  const czechHome = await request("/cz/home.html");
-  assert(czechHome.status === 200, `/cz/home.html should return 200, got ${czechHome.status}`);
+  const czechHome = await request("/cz/index.html");
+  assert(czechHome.status === 200, `/cz/index.html should return 200, got ${czechHome.status}`);
   assert(czechHome.body.includes("<title>Caatuu</title>"), "Czech home should serve the shared Caatuu title");
   assert(!czechHome.body.includes("archive/chinese"), "Czech home should not include archive links");
 
@@ -764,7 +764,6 @@ function auditApk() {
   const entries = unzip(["-Z1", apkRel]).split(/\r?\n/).filter(Boolean);
   const entrySet = new Set(entries);
   const requiredEntries = [
-    "assets/home.html",
     "assets/index.html",
     "assets/chat.html",
     "assets/source/games/verb-nebula/app.js",
@@ -852,7 +851,6 @@ function auditApk() {
     "assets/source/games/verb-nebula/app.js",
     "assets/source/features/chat/chat.js",
     "assets/source/shared/maintenance-ui.js",
-    "assets/home.html",
     "assets/index.html",
     "assets/source/shared/chrome.js",
     "assets/source/shared/runtime.js"

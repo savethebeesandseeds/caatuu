@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-authoring-report-v1",
+  "batchId": "codex-reflexive-0001",
+  "createdOn": "2026-08-10",
+  "disposition": "candidate_only_pending_review",
+  "selfReviewIsAcceptance": false,
+  "counts": {
+    "records": 32,
+    "families": {
+      "ucit-se": 4,
+      "divat-se": 4,
+      "ptat-se": 4,
+      "smat-se": 4,
+      "vracet-se": 4,
+      "tesit-se": 4,
+      "bat-se": 4,
+      "setkat-se": 4
+    },
+    "byDifficulty": {
+      "2": 32
+    }
+  },
+  "checks": {
+    "exactCzechDuplicatesInBatch": 0,
+    "exactCzechDuplicatesAgainstCanonical": 0,
+    "exactTargetPositions": true,
+    "everyRecordMakesSePlayable": true
+  },
+  "reviewRequired": [
+    "Czech naturalness",
+    "English naturalness and bilingual equivalence",
+    "intentional minimal-contrast family review",
+    "target and metadata review",
+    "child-safety review"
+  ]
+}

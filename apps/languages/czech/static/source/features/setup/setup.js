@@ -36,6 +36,7 @@
   let setupStageRequest = 0;
   let appUpdateLocked = Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
   let appUpdateUiState = appUpdateLocked ? "checking" : "idle";
+  let backpackStatsPreloadPromise = null;
 
   const stableSetupMessage = "Preparing local files for offline use.";
   const setupMessages = [stableSetupMessage];
@@ -526,7 +527,7 @@
       if (setupRunning || updateRunning) return;
       try {
         const status = await runtime.setup.status();
-        renderStatus(
+        await renderStatus(
           status,
           status?.setupActive && !status?.ready
             ? "Setup is still running. Caatuu will recheck the local files."
@@ -824,7 +825,32 @@
     setControls();
   }
 
-  function renderStatus(status, message = "") {
+  async function preloadBackpackStatsBeforeReady(status) {
+    syncArtifactState(status);
+    if (!Boolean(status?.ready) || !totalReady()) return;
+    if (!backpackStatsPreloadPromise) {
+      const preload = window.CaatuuChrome?.preloadBackpackStats;
+      backpackStatsPreloadPromise = typeof preload === "function"
+        ? Promise.resolve().then(() => preload())
+        : Promise.resolve();
+    }
+    setupComplete = false;
+    setNavigationLocked(true);
+    setText("#setupTitle", "Preparing Caatuu");
+    setText("#setupPhase", "Learning stats");
+    setText("#setupMessage", "Preparing your saved learning map.");
+    setText("#setupCount", "Final step");
+    setProgress(99, "Preparing stats", "99%, preparing Backpack Stats");
+    try {
+      await backpackStatsPreloadPromise;
+      pushLog("ready", "Learning stats prepared", "Backpack Stats is ready to open.");
+    } catch (error) {
+      pushLog("status", "Learning stats deferred", error?.message || "Backpack Stats will prepare when opened.");
+    }
+  }
+
+  async function renderStatus(status, message = "") {
+    await preloadBackpackStatsBeforeReady(status);
     syncArtifactState(status);
     const ready = Boolean(status?.ready) && totalReady();
     setupComplete = ready;
@@ -1094,11 +1120,11 @@
       setupRunning = false;
       setupAborted = false;
       if (result?.setupActive && !result?.ready) {
-        renderStatus(result, "Setup is already running. Caatuu will recheck the local files.");
+        await renderStatus(result, "Setup is already running. Caatuu will recheck the local files.");
         scheduleSetupStatusPoll();
         return;
       }
-      renderStatus(result, "Ready.");
+      await renderStatus(result, "Ready.");
     } catch (error) {
       if (updateRunning) return;
       const message = setupAborted || error?.name === "AbortError"
@@ -1315,14 +1341,14 @@
         setupMode = "browser";
         if (appUpdateLocked) clearAppUpdateHandoff();
         const status = await runtime.setup.status();
-        renderStatus(status);
+        await renderStatus(status);
         if (!status.ready) await startSetup();
         return;
       }
 
       setupMode = "native";
       const status = await runtime.setup.status();
-      renderStatus(status);
+      await renderStatus(status);
       if (appUpdateLocked) {
         setText("#setupTitle", "Updating Caatuu");
         setText("#setupPhase", "App update");

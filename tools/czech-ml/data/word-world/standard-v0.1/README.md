@@ -51,6 +51,14 @@ and `codex-level3-0001.promotion-receipt.json` preserve the evidence hashes,
 every promoted and held ID, the reviewer role, the MIT licensing decision, and
 the explicit `humanApproved: false` state.
 
+A focused development expansion adds 32 Level 2 sentences for eight common
+verbs with `se`. Each four-sentence family changes the natural sentence opening
+while keeping the verb recognizable, and every row makes `se` an explorable
+Word World target. The candidate, focused review, and promotion receipt use the
+`codex-reflexive-0001` prefix. This review was performed by Codex in the same
+authoring task; it is explicitly neither independent nor human approval, and
+qualified Czech review remains required before production linguistic approval.
+
 ## Authoring contract
 
 `schema/record.schema.json` documents the unified multilingual JSONL record.
@@ -77,8 +85,8 @@ volume and must represent at least 60% of the bank. Level 3 permits richer but
 still bounded learner language and must contain at least 50 independently
 accepted records. Falling below that real-content floor is a validation error.
 
-The combined corpus has 175 level-1 records, 533 level-2 records, and 52 level-3
-records. Level 2 remains 70.1% of the bank. This is an intentional
+The combined corpus has 175 level-1 records, 565 level-2 records, and 52 level-3
+records. Level 2 is 71.3% of the bank. This is an intentional
 guided-learning distribution, not an inference from sentence length alone:
 modal/reflexive forms, past tense, possessives and multi-part instructions were
 moved out of first contact even when they happened to be short.

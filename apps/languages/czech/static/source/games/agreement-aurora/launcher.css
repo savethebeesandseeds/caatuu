@@ -1,0 +1,29 @@
+.train-world-agreement {
+  top: 69%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+}
+
+.train-world-agreement .train-orbit {
+  display: none;
+}
+
+.train-world-agreement img {
+  width: clamp(58px, 17vw, 84px);
+}
+
+@media screen and (max-width: 760px) {
+  .train-worlds {
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+  }
+
+  .train-world-agreement {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 4;
+    transform: none;
+  }
+}

@@ -511,19 +511,17 @@ html {
   line-height: 1;
 }
 
-.bottom-app-nav {
+.app-bottom-dock {
   --app-nav-edge: clamp(8px, 2vw, 22px);
+  --games-menu-surface: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 30;
   width: auto;
-  min-height: calc(70px + env(safe-area-inset-bottom));
-  padding: 8px var(--app-nav-edge) calc(8px + env(safe-area-inset-bottom));
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-rows: auto auto;
   border-top: 1px solid var(--line);
   background:
     linear-gradient(
@@ -532,6 +530,71 @@ html {
       color-mix(in srgb, var(--panel) 82%, #82786f 18%)
     );
   backdrop-filter: blur(16px);
+}
+
+.app-bottom-dock[data-open-menu="games"],
+.app-bottom-dock[data-open-menu="settings"] {
+  grid-template-rows: auto;
+}
+
+.app-bottom-dock-menu {
+  min-height: 0;
+  max-height: min(44dvh, 320px);
+  padding: 5px 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.app-bottom-dock-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.app-bottom-dock-menu[hidden] {
+  display: none;
+}
+
+.app-bottom-dock-menu > [hidden] {
+  display: none !important;
+}
+
+.app-bottom-dock[data-open-menu="games"] > .app-bottom-dock-menu,
+.app-bottom-dock[data-open-menu="settings"] > .app-bottom-dock-menu {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.app-bottom-dock > .bottom-app-nav {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  width: 100%;
+  min-height: calc(70px + env(safe-area-inset-bottom));
+  padding: 8px var(--app-nav-edge) calc(8px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  backdrop-filter: none;
+}
+
+.app-bottom-dock:has(.app-bottom-dock-menu:not([hidden])) > .bottom-app-nav {
+  border-top: 1px solid var(--line);
+}
+
+.app-bottom-dock[data-open-menu="games"] > .bottom-app-nav {
+  border-top-color: color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
 }
 
 .bottom-app-nav .app-nav-item,
@@ -620,7 +683,7 @@ html {
   color: var(--green-dark, var(--green));
 }
 
-html[data-theme="light"] .bottom-app-nav {
+html[data-theme="light"] .app-bottom-dock {
   background:
     linear-gradient(
       180deg,
@@ -629,8 +692,8 @@ html[data-theme="light"] .bottom-app-nav {
     );
 }
 
-.settings-backdrop {
-  --settings-nav-offset: calc(78px + env(safe-area-inset-bottom));
+#settingsPanel.settings-backdrop {
+  --settings-nav-offset: var(--caatuu-bottom-dock-height, calc(78px + env(safe-area-inset-bottom)));
   position: fixed;
   inset: 0 0 var(--settings-nav-offset) 0;
   z-index: 28;
@@ -642,8 +705,173 @@ html[data-theme="light"] .bottom-app-nav {
   overflow: hidden;
 }
 
-.settings-backdrop[hidden] {
+#settingsPanel.settings-backdrop[hidden] {
   display: none;
+}
+
+.games-menu-backdrop {
+  --games-menu-nav-offset: var(--caatuu-bottom-dock-height, calc(78px + env(safe-area-inset-bottom)));
+  position: fixed;
+  inset: 0 0 var(--games-menu-nav-offset) 0;
+  z-index: 28;
+  padding: 0 var(--app-nav-edge, clamp(8px, 2vw, 22px));
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  justify-items: center;
+  align-items: stretch;
+  background: transparent;
+}
+
+.games-menu-backdrop[hidden] {
+  display: none;
+}
+
+.games-menu-sheet {
+  --games-menu-edge: clamp(8px, 2vw, 22px);
+  position: relative;
+  min-width: 0;
+  min-height: 76px;
+  margin: 0 calc(var(--games-menu-edge) - 1px);
+  padding: 4px 6px 5px;
+  border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
+  border-radius: 12px;
+  background: var(--games-menu-surface);
+  color: var(--ink);
+  box-shadow:
+    0 3px 10px color-mix(in srgb, var(--theme-ink, #17241f) 9%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--theme-paper, #fff) 38%, transparent);
+}
+
+.games-menu-sheet::after {
+  position: absolute;
+  z-index: 6;
+  left: calc((100% - 12px) / 3 + 6px);
+  bottom: -1px;
+  width: calc((100% - 12px) / 3);
+  height: 3px;
+  background: var(--games-menu-surface);
+  content: "";
+  pointer-events: none;
+}
+
+.games-menu-body {
+  min-height: 0;
+  max-height: min(44dvh, 320px);
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.games-menu-body::-webkit-scrollbar {
+  display: none;
+}
+
+.games-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.games-menu-option,
+.settings-section-switcher button {
+  position: relative;
+  width: calc(100% - 20px);
+  min-width: 0;
+  min-height: var(--submenu-item-min-height, 66px);
+  margin-inline: auto;
+  padding: var(--submenu-item-padding, 3px 5px 4px);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  background: transparent;
+  color: var(--muted);
+  text-align: center;
+  font: inherit;
+  font-size: var(--submenu-item-font-size, 0.61rem);
+  font-weight: 900;
+}
+
+.games-menu-option:hover,
+.games-menu-option:focus-visible,
+.settings-section-switcher button:hover,
+.settings-section-switcher button:focus-visible {
+  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 48%, var(--line));
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--green) 11%, var(--theme-control-bg, var(--panel))),
+      color-mix(in srgb, var(--theme-amber, #c19138) 8%, var(--theme-control-bg, var(--panel)))
+    );
+  color: var(--green-dark, var(--green));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-amber, #c19138) 9%, transparent);
+}
+
+.games-menu-option.is-current,
+.settings-section-switcher button.is-active {
+  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 48%, var(--line));
+  background: var(--games-menu-surface);
+  color: var(--green-dark, var(--green));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-amber, #c19138) 9%, transparent);
+}
+
+.games-menu-option:focus-visible,
+.settings-section-switcher button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--green) 34%, transparent);
+  outline-offset: 1px;
+}
+
+.games-menu-option img,
+.settings-section-switcher button img {
+  width: var(--submenu-item-icon-size, 42px);
+  height: var(--submenu-item-icon-size, 42px);
+  display: block;
+  object-fit: contain;
+  filter: saturate(0.76) brightness(0.88);
+}
+
+.games-menu-option > span {
+  min-width: 0;
+  display: block;
+}
+
+.games-menu-option strong {
+  display: block;
+  font-size: 0.61rem;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.games-menu-option.is-current img,
+.settings-section-switcher button.is-active img {
+  filter: none;
+}
+
+body.games-menu-open [data-caatuu-bottom-nav] [data-nav-key="games"] {
+  border-color: color-mix(in srgb, var(--green) 38%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--green) 13%, var(--theme-control-bg, var(--panel)));
+}
+
+body.games-menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+@media (min-width: 560px) {
+  .games-menu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .games-menu-grid {
+    grid-template-columns: repeat(var(--game-menu-count, 1), minmax(86px, 1fr));
+  }
 }
 
 .settings-sheet {
@@ -658,6 +886,10 @@ html[data-theme="light"] .bottom-app-nav {
   background: var(--panel);
   color: var(--ink);
   box-shadow: 0 24px 70px rgba(4, 9, 12, 0.34);
+}
+
+#settingsPanel > .settings-sheet {
+  max-height: calc(100dvh - var(--settings-nav-offset, 70px) - 28px);
 }
 
 .settings-sheet-head {
@@ -1371,22 +1603,20 @@ html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hov
 
 .settings-section-switcher {
   --settings-section-edge: clamp(8px, 2vw, 22px);
-  --settings-section-left: clamp(32px, 7vw, 64px);
+  --submenu-item-min-height: 54px;
+  --submenu-item-padding: 3px 8px 4px;
+  --submenu-item-font-size: 0.62rem;
+  --submenu-item-icon-size: 34px;
   position: relative;
   z-index: 4;
-  margin: 0 calc(var(--settings-section-edge) - 1px) 0 var(--settings-section-left);
-  padding: 4px 6px 5px;
+  margin: 0 calc(var(--settings-section-edge) - 1px);
+  padding: 4px 0 5px;
   border: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 34%, var(--line));
-  border-radius: 12px 12px 0 12px;
+  border-radius: 12px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--theme-amber, #c19138) 13%, var(--theme-panel-raised, var(--panel))),
-      color-mix(in srgb, var(--theme-amber, #c19138) 8%, var(--theme-control-bg, var(--panel)))
-    );
+  background: var(--games-menu-surface);
   box-shadow:
     0 3px 10px color-mix(in srgb, var(--theme-ink, #17241f) 9%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--theme-paper, #fff) 38%, transparent);
@@ -1396,32 +1626,16 @@ html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hov
   content: "";
   position: absolute;
   z-index: 6;
-  right: -2px;
+  right: 10px;
   bottom: -1px;
-  width: calc((100% + var(--settings-section-left) - var(--settings-section-edge) - 13px) / 3 + 4px);
+  width: calc((100% - 12px) / 3 - 20px);
   height: 3px;
-  background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
+  background: var(--games-menu-surface);
   pointer-events: none;
 }
 
 .settings-section-switcher button {
-  position: relative;
-  min-width: 0;
-  min-height: 54px;
   touch-action: manipulation;
-  padding: 3px 8px 4px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.62rem;
-  font-weight: 900;
 }
 
 .settings-section-switcher button.is-pending {
@@ -1459,72 +1673,47 @@ html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hov
 }
 
 .settings-section-switcher button img {
-  width: 34px;
-  height: 34px;
-  display: block;
-  object-fit: contain;
-  filter: saturate(0.76) brightness(0.88);
   transform: translateY(1px);
 }
 
-.settings-section-switcher button.is-active {
-  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 48%, var(--line));
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--green) 11%, var(--theme-control-bg, var(--panel))),
-      color-mix(in srgb, var(--theme-amber, #c19138) 8%, var(--theme-control-bg, var(--panel)))
-    );
-  color: var(--green-dark, var(--green));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-amber, #c19138) 9%, transparent);
-}
-
-.settings-section-switcher button.is-active img {
-  filter: none;
-}
-
-body.settings-open #openSettings {
+body.settings-open #openSettings[aria-expanded="true"],
+.app-bottom-dock[data-open-menu="settings"] #openSettings[aria-expanded="true"] {
+  width: calc(100% - 20px);
+  margin-inline: auto;
   border-color: color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
   border-top-color: transparent;
   border-radius: 0 0 10px 10px;
-  background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
+  background: var(--games-menu-surface);
   box-shadow: 0 4px 10px color-mix(in srgb, var(--theme-ink, #17241f) 8%, transparent);
 }
 
-body.settings-open .bottom-app-nav {
+body.games-menu-open .app-bottom-dock [data-caatuu-bottom-nav] .app-nav-item[data-nav-key="games"] {
+  border-color: color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
   border-top-color: transparent;
+  border-radius: 0 0 10px 10px;
+  background: var(--games-menu-surface);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--theme-ink, #17241f) 8%, transparent);
 }
 
-body.settings-open .settings-sheet {
-  border-bottom-color: transparent;
-}
-
-body.settings-open .bottom-app-nav::before {
+body.settings-open #openSettings[aria-expanded="true"]::before,
+.app-bottom-dock[data-open-menu="settings"] #openSettings[aria-expanded="true"]::before,
+body.games-menu-open [data-caatuu-bottom-nav] [data-nav-key="games"]::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: calc(
-    var(--app-nav-edge)
-    + (100% - var(--app-nav-edge) - var(--app-nav-edge) - 12px) / 3
-    + 1px
-  );
-  height: 1px;
-  background: var(--line);
-  pointer-events: none;
-}
-
-body.settings-open #openSettings::before {
-  content: "";
-  position: absolute;
+  z-index: 1;
   top: -10px;
   left: -1px;
-  right: 0;
+  right: -1px;
   height: 11px;
   border-right: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
   border-left: 1px solid color-mix(in srgb, var(--theme-amber, #c19138) 42%, var(--line));
-  background: color-mix(in srgb, var(--theme-amber, #c19138) 9%, var(--theme-control-bg, var(--panel)));
+  background: var(--games-menu-surface);
   pointer-events: none;
+}
+
+body.settings-open {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .settings-view-panel {
@@ -3571,13 +3760,19 @@ html[data-theme="dark"] .theme-toggle {
   color: var(--theme-green, #5bd68e);
 }
 
-html[data-theme="dark"] .bottom-app-nav {
+html[data-theme="dark"] .app-bottom-dock {
   background:
     linear-gradient(
       180deg,
       color-mix(in srgb, var(--theme-panel) 92%, var(--theme-green) 8%),
       color-mix(in srgb, var(--theme-panel) 96%, var(--theme-paper) 4%)
     );
+}
+
+html[data-theme] .app-bottom-dock > .bottom-app-nav {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 html[data-theme="dark"] .maintenance-card .settings-cache-action {
@@ -3632,14 +3827,15 @@ html[data-theme="dark"] .preset-control button.is-active {
 }
 
 @media screen and (max-width: 860px) {
-  .settings-backdrop {
+  #settingsPanel.settings-backdrop {
     padding: 0;
     background: var(--panel);
   }
 
-  .settings-sheet {
+  #settingsPanel > .settings-sheet {
     width: 100%;
     max-height: calc(100dvh - var(--settings-nav-offset, 70px));
+    border: 0;
     border-radius: 0;
     box-shadow: none;
   }
@@ -3649,7 +3845,7 @@ html[data-theme="dark"] .preset-control button.is-active {
   }
 }
 
-html[data-caatuu-runtime="android"] .bottom-app-nav {
+html[data-caatuu-runtime="android"] .app-bottom-dock {
   backdrop-filter: none;
 }
 

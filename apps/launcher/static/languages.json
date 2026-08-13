@@ -13,7 +13,7 @@
       "flagClass": "flag-icon",
       "flagSrc": "/assets/icons/czech_flag_ui.png",
       "routePrefix": "/cz",
-      "entryPath": "/cz/home.html",
+      "entryPath": "/cz/index.html",
       "sourceLanguage": {
         "id": "en",
         "label": "English",
@@ -32,7 +32,7 @@
       "platforms": {
         "browser": {
           "enabled": true,
-          "entryPath": "/cz/home.html"
+          "entryPath": "/cz/index.html"
         },
         "android": {
           "enabled": true,

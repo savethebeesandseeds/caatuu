@@ -8,7 +8,7 @@ plugins {
 val bundledLanguageId = providers.gradleProperty("caatuuLanguageId").orElse("cz")
 val bundledLanguageAppDir = providers.gradleProperty("caatuuLanguageAppDir").orElse("languages/czech")
 val bundledLanguageRoutePrefix = providers.gradleProperty("caatuuLanguageRoutePrefix").orElse("/cz")
-val bundledLanguageEntryPath = providers.gradleProperty("caatuuLanguageEntryPath").orElse("/cz/home.html")
+val bundledLanguageEntryPath = providers.gradleProperty("caatuuLanguageEntryPath").orElse("/cz/index.html")
 val languageStaticDir = layout.projectDirectory.dir("../../${bundledLanguageAppDir.get()}/static")
 val launcherStaticDir = layout.projectDirectory.dir("../../launcher/static")
 val generatedLanguageAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-${bundledLanguageId.get()}")
@@ -166,8 +166,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 139
-        versionName = "0.1.138"
+        versionCode = 143
+        versionName = "0.1.142"
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))

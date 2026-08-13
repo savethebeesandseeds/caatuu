@@ -1,0 +1,542 @@
+[
+  {
+    "adjective": "nový",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "nový",
+        "examples": [
+          { "english": "new house", "czech": "nový dům" },
+          { "english": "new phone", "czech": "nový telefon" },
+          { "english": "new student", "czech": "nový student" }
+        ]
+      },
+      "feminine": {
+        "form": "nová",
+        "examples": [
+          { "english": "new book", "czech": "nová kniha" },
+          { "english": "new school", "czech": "nová škola" },
+          { "english": "new question", "czech": "nová otázka" }
+        ]
+      },
+      "neuter": {
+        "form": "nové",
+        "examples": [
+          { "english": "new city", "czech": "nové město" },
+          { "english": "new car", "czech": "nové auto" },
+          { "english": "new window", "czech": "nové okno" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "malý",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "malý",
+        "examples": [
+          { "english": "small table", "czech": "malý stůl" },
+          { "english": "small dog", "czech": "malý pes" },
+          { "english": "small shop", "czech": "malý obchod" }
+        ]
+      },
+      "feminine": {
+        "form": "malá",
+        "examples": [
+          { "english": "small bag", "czech": "malá taška" },
+          { "english": "small garden", "czech": "malá zahrada" },
+          { "english": "small café", "czech": "malá kavárna" }
+        ]
+      },
+      "neuter": {
+        "form": "malé",
+        "examples": [
+          { "english": "small child", "czech": "malé dítě" },
+          { "english": "small square", "czech": "malé náměstí" },
+          { "english": "small bicycle", "czech": "malé kolo" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "dobrý",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "dobrý",
+        "examples": [
+          { "english": "good idea", "czech": "dobrý nápad" },
+          { "english": "good film", "czech": "dobrý film" },
+          { "english": "good friend", "czech": "dobrý přítel" }
+        ]
+      },
+      "feminine": {
+        "form": "dobrá",
+        "examples": [
+          { "english": "good news", "czech": "dobrá zpráva" },
+          { "english": "good coffee", "czech": "dobrá káva" },
+          { "english": "good answer", "czech": "dobrá odpověď" }
+        ]
+      },
+      "neuter": {
+        "form": "dobré",
+        "examples": [
+          { "english": "good food", "czech": "dobré jídlo" },
+          { "english": "good place", "czech": "dobré místo" },
+          { "english": "good weather", "czech": "dobré počasí" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "český",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "český",
+        "examples": [
+          { "english": "Czech film", "czech": "český film" },
+          { "english": "Czech language", "czech": "český jazyk" },
+          { "english": "Czech castle", "czech": "český hrad" }
+        ]
+      },
+      "feminine": {
+        "form": "česká",
+        "examples": [
+          { "english": "Czech music", "czech": "česká hudba" },
+          { "english": "Czech book", "czech": "česká kniha" },
+          { "english": "Czech village", "czech": "česká vesnice" }
+        ]
+      },
+      "neuter": {
+        "form": "české",
+        "examples": [
+          { "english": "Czech word", "czech": "české slovo" },
+          { "english": "Czech city", "czech": "české město" },
+          { "english": "Czech beer", "czech": "české pivo" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "velký",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "velký",
+        "examples": [
+          { "english": "large room", "czech": "velký pokoj" },
+          { "english": "large tree", "czech": "velký strom" },
+          { "english": "big problem", "czech": "velký problém" }
+        ]
+      },
+      "feminine": {
+        "form": "velká",
+        "examples": [
+          { "english": "large garden", "czech": "velká zahrada" },
+          { "english": "large family", "czech": "velká rodina" },
+          { "english": "large map", "czech": "velká mapa" }
+        ]
+      },
+      "neuter": {
+        "form": "velké",
+        "examples": [
+          { "english": "large window", "czech": "velké okno" },
+          { "english": "large airport", "czech": "velké letiště" },
+          { "english": "large lake", "czech": "velké jezero" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "starý",
+    "difficulty": 1,
+    "forms": {
+      "masculine": {
+        "form": "starý",
+        "examples": [
+          { "english": "old house", "czech": "starý dům" },
+          { "english": "old bridge", "czech": "starý most" },
+          { "english": "old phone", "czech": "starý telefon" }
+        ]
+      },
+      "feminine": {
+        "form": "stará",
+        "examples": [
+          { "english": "old book", "czech": "stará kniha" },
+          { "english": "old school", "czech": "stará škola" },
+          { "english": "old photograph", "czech": "stará fotografie" }
+        ]
+      },
+      "neuter": {
+        "form": "staré",
+        "examples": [
+          { "english": "old car", "czech": "staré auto" },
+          { "english": "old station", "czech": "staré nádraží" },
+          { "english": "old radio", "czech": "staré rádio" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "dlouhý",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "dlouhý",
+        "examples": [
+          { "english": "long bridge", "czech": "dlouhý most" },
+          { "english": "long film", "czech": "dlouhý film" },
+          { "english": "long day", "czech": "dlouhý den" }
+        ]
+      },
+      "feminine": {
+        "form": "dlouhá",
+        "examples": [
+          { "english": "long journey", "czech": "dlouhá cesta" },
+          { "english": "long street", "czech": "dlouhá ulice" },
+          { "english": "long river", "czech": "dlouhá řeka" }
+        ]
+      },
+      "neuter": {
+        "form": "dlouhé",
+        "examples": [
+          { "english": "long morning", "czech": "dlouhé ráno" },
+          { "english": "long word", "czech": "dlouhé slovo" },
+          { "english": "long wait", "czech": "dlouhé čekání" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "mladý",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "mladý",
+        "examples": [
+          { "english": "young male musician", "czech": "mladý hudebník" },
+          { "english": "young male teacher", "czech": "mladý učitel" },
+          { "english": "young male doctor", "czech": "mladý lékař" }
+        ]
+      },
+      "feminine": {
+        "form": "mladá",
+        "examples": [
+          { "english": "young female athlete", "czech": "mladá sportovkyně" },
+          { "english": "young female teacher", "czech": "mladá učitelka" },
+          { "english": "young female doctor", "czech": "mladá lékařka" }
+        ]
+      },
+      "neuter": {
+        "form": "mladé",
+        "examples": [
+          { "english": "young kitten", "czech": "mladé kotě" },
+          { "english": "young animal", "czech": "mladé zvíře" },
+          { "english": "young puppy", "czech": "mladé štěně" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "rychlý",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "rychlý",
+        "examples": [
+          { "english": "fast train", "czech": "rychlý vlak" },
+          { "english": "fast runner", "czech": "rychlý běžec" },
+          { "english": "fast computer", "czech": "rychlý počítač" }
+        ]
+      },
+      "feminine": {
+        "form": "rychlá",
+        "examples": [
+          { "english": "quick answer", "czech": "rychlá odpověď" },
+          { "english": "fast river", "czech": "rychlá řeka" },
+          { "english": "fast transport", "czech": "rychlá doprava" }
+        ]
+      },
+      "neuter": {
+        "form": "rychlé",
+        "examples": [
+          { "english": "fast car", "czech": "rychlé auto" },
+          { "english": "fast connection", "czech": "rychlé spojení" },
+          { "english": "quick solution", "czech": "rychlé řešení" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "pomalý",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "pomalý",
+        "examples": [
+          { "english": "slow bus", "czech": "pomalý autobus" },
+          { "english": "slow elevator", "czech": "pomalý výtah" },
+          { "english": "slow computer", "czech": "pomalý počítač" }
+        ]
+      },
+      "feminine": {
+        "form": "pomalá",
+        "examples": [
+          { "english": "slow music", "czech": "pomalá hudba" },
+          { "english": "slow change", "czech": "pomalá změna" },
+          { "english": "slow traffic", "czech": "pomalá doprava" }
+        ]
+      },
+      "neuter": {
+        "form": "pomalé",
+        "examples": [
+          { "english": "slow car", "czech": "pomalé auto" },
+          { "english": "slow connection", "czech": "pomalé připojení" },
+          { "english": "slow pace", "czech": "pomalé tempo" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "krásný",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "krásný",
+        "examples": [
+          { "english": "beautiful day", "czech": "krásný den" },
+          { "english": "beautiful park", "czech": "krásný park" },
+          { "english": "beautiful view", "czech": "krásný výhled" }
+        ]
+      },
+      "feminine": {
+        "form": "krásná",
+        "examples": [
+          { "english": "beautiful garden", "czech": "krásná zahrada" },
+          { "english": "beautiful song", "czech": "krásná píseň" },
+          { "english": "beautiful photograph", "czech": "krásná fotografie" }
+        ]
+      },
+      "neuter": {
+        "form": "krásné",
+        "examples": [
+          { "english": "beautiful city", "czech": "krásné město" },
+          { "english": "beautiful morning", "czech": "krásné ráno" },
+          { "english": "beautiful place", "czech": "krásné místo" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "teplý",
+    "difficulty": 2,
+    "forms": {
+      "masculine": {
+        "form": "teplý",
+        "examples": [
+          { "english": "warm tea", "czech": "teplý čaj" },
+          { "english": "warm sweater", "czech": "teplý svetr" },
+          { "english": "warm day", "czech": "teplý den" }
+        ]
+      },
+      "feminine": {
+        "form": "teplá",
+        "examples": [
+          { "english": "warm soup", "czech": "teplá polévka" },
+          { "english": "warm water", "czech": "teplá voda" },
+          { "english": "warm jacket", "czech": "teplá bunda" }
+        ]
+      },
+      "neuter": {
+        "form": "teplé",
+        "examples": [
+          { "english": "warm food", "czech": "teplé jídlo" },
+          { "english": "warm sea", "czech": "teplé moře" },
+          { "english": "warm weather", "czech": "teplé počasí" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "zajímavý",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "zajímavý",
+        "examples": [
+          { "english": "interesting story", "czech": "zajímavý příběh" },
+          { "english": "interesting film", "czech": "zajímavý film" },
+          { "english": "interesting conversation", "czech": "zajímavý rozhovor" }
+        ]
+      },
+      "feminine": {
+        "form": "zajímavá",
+        "examples": [
+          { "english": "interesting question", "czech": "zajímavá otázka" },
+          { "english": "interesting book", "czech": "zajímavá kniha" },
+          { "english": "interesting thought", "czech": "zajímavá myšlenka" }
+        ]
+      },
+      "neuter": {
+        "form": "zajímavé",
+        "examples": [
+          { "english": "interesting museum", "czech": "zajímavé muzeum" },
+          { "english": "interesting place", "czech": "zajímavé místo" },
+          { "english": "interesting name", "czech": "zajímavé jméno" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "důležitý",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "důležitý",
+        "examples": [
+          { "english": "important task", "czech": "důležitý úkol" },
+          { "english": "important document", "czech": "důležitý dokument" },
+          { "english": "important call", "czech": "důležitý hovor" }
+        ]
+      },
+      "feminine": {
+        "form": "důležitá",
+        "examples": [
+          { "english": "important meeting", "czech": "důležitá schůzka" },
+          { "english": "important question", "czech": "důležitá otázka" },
+          { "english": "important message", "czech": "důležitá zpráva" }
+        ]
+      },
+      "neuter": {
+        "form": "důležité",
+        "examples": [
+          { "english": "important decision", "czech": "důležité rozhodnutí" },
+          { "english": "important rule", "czech": "důležité pravidlo" },
+          { "english": "important warning", "czech": "důležité upozornění" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "chytrý",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "chytrý",
+        "examples": [
+          { "english": "smart male student", "czech": "chytrý student" },
+          { "english": "smart dog", "czech": "chytrý pes" },
+          { "english": "smart helper", "czech": "chytrý pomocník" }
+        ]
+      },
+      "feminine": {
+        "form": "chytrá",
+        "examples": [
+          { "english": "smart female student", "czech": "chytrá studentka" },
+          { "english": "smart answer", "czech": "chytrá odpověď" },
+          { "english": "smart idea", "czech": "chytrá myšlenka" }
+        ]
+      },
+      "neuter": {
+        "form": "chytré",
+        "examples": [
+          { "english": "smart device", "czech": "chytré zařízení" },
+          { "english": "smart solution", "czech": "chytré řešení" },
+          { "english": "smart city", "czech": "chytré město" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "studený",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "studený",
+        "examples": [
+          { "english": "cold wind", "czech": "studený vítr" },
+          { "english": "cold drink", "czech": "studený nápoj" },
+          { "english": "cold evening", "czech": "studený večer" }
+        ]
+      },
+      "feminine": {
+        "form": "studená",
+        "examples": [
+          { "english": "cold water", "czech": "studená voda" },
+          { "english": "cold soup", "czech": "studená polévka" },
+          { "english": "cold night", "czech": "studená noc" }
+        ]
+      },
+      "neuter": {
+        "form": "studené",
+        "examples": [
+          { "english": "cold milk", "czech": "studené mléko" },
+          { "english": "cold weather", "czech": "studené počasí" },
+          { "english": "cold sea", "czech": "studené moře" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "vysoký",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "vysoký",
+        "examples": [
+          { "english": "tall tree", "czech": "vysoký strom" },
+          { "english": "tall house", "czech": "vysoký dům" },
+          { "english": "high fence", "czech": "vysoký plot" }
+        ]
+      },
+      "feminine": {
+        "form": "vysoká",
+        "examples": [
+          { "english": "tall tower", "czech": "vysoká věž" },
+          { "english": "high mountain", "czech": "vysoká hora" },
+          { "english": "high price", "czech": "vysoká cena" }
+        ]
+      },
+      "neuter": {
+        "form": "vysoké",
+        "examples": [
+          { "english": "high number", "czech": "vysoké číslo" },
+          { "english": "high voltage", "czech": "vysoké napětí" },
+          { "english": "high mountain range", "czech": "vysoké pohoří" }
+        ]
+      }
+    }
+  },
+  {
+    "adjective": "krátký",
+    "difficulty": 3,
+    "forms": {
+      "masculine": {
+        "form": "krátký",
+        "examples": [
+          { "english": "short film", "czech": "krátký film" },
+          { "english": "short day", "czech": "krátký den" },
+          { "english": "short letter", "czech": "krátký dopis" }
+        ]
+      },
+      "feminine": {
+        "form": "krátká",
+        "examples": [
+          { "english": "short journey", "czech": "krátká cesta" },
+          { "english": "short break", "czech": "krátká přestávka" },
+          { "english": "short answer", "czech": "krátká odpověď" }
+        ]
+      },
+      "neuter": {
+        "form": "krátké",
+        "examples": [
+          { "english": "short word", "czech": "krátké slovo" },
+          { "english": "short message", "czech": "krátké sdělení" },
+          { "english": "short wait", "czech": "krátké čekání" }
+        ]
+      }
+    }
+  }
+]

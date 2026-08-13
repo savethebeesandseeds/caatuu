@@ -279,7 +279,7 @@
     } catch (error) {
       // Setup remains reachable even when the update intent cannot be persisted.
     }
-    window.location.href = "home.html";
+    window.location.href = "index.html";
   }
 
   function pendingAppUpdate() {

@@ -1,0 +1,496 @@
+.case-cosmos-page {
+  --case-blue: #367fa3;
+  --case-blue-deep: #23566f;
+  --case-gold: #d19a3e;
+  --case-correct: #2f7a63;
+  --case-wrong: #ad4a46;
+}
+
+.case-cosmos-board[hidden],
+.case-cosmos-footer[hidden],
+.case-cosmos-result[hidden],
+.case-cosmos-error[hidden],
+.case-cosmos-loading[hidden] {
+  display: none;
+}
+
+.case-cosmos-page .workspace {
+  padding: 18px 18px calc(92px + env(safe-area-inset-bottom));
+}
+
+.case-cosmos-shell {
+  width: min(100%, 980px);
+  margin: 0 auto;
+}
+
+.case-cosmos-panel {
+  display: grid;
+  gap: 16px;
+  min-height: min(720px, calc(100dvh - 170px));
+  padding: clamp(14px, 2.4vw, 24px);
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 8% 4%, color-mix(in srgb, var(--case-blue) 10%, transparent), transparent 30%),
+    var(--theme-panel, var(--panel));
+  box-shadow: 0 20px 48px color-mix(in srgb, #102a36 11%, transparent);
+}
+
+.case-cosmos-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.case-cosmos-kicker,
+.case-cosmos-eyebrow,
+.case-cosmos-result-kicker {
+  margin: 0;
+  color: var(--case-blue-deep);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .case-cosmos-kicker,
+[data-theme="dark"] .case-cosmos-eyebrow,
+[data-theme="dark"] .case-cosmos-result-kicker {
+  color: color-mix(in srgb, var(--case-blue) 72%, white);
+}
+
+.case-cosmos-loading,
+.case-cosmos-error {
+  place-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  max-width: 520px;
+  text-align: center;
+}
+
+.case-cosmos-loading img,
+.case-cosmos-error img {
+  width: 116px;
+  height: 116px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px color-mix(in srgb, var(--case-blue) 24%, transparent));
+  animation: case-cosmos-float 1.8s ease-in-out infinite alternate;
+}
+
+.case-cosmos-loading p,
+.case-cosmos-error h1,
+.case-cosmos-error p {
+  margin: 0;
+}
+
+.case-cosmos-error a {
+  color: var(--case-blue-deep);
+  font-weight: 850;
+}
+
+.case-cosmos-board {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 24px);
+  padding: clamp(15px, 2.6vw, 25px);
+  border: 1px solid var(--theme-line, var(--line));
+  border-radius: 17px;
+  background: color-mix(in srgb, var(--theme-card, var(--panel)) 96%, transparent);
+}
+
+.case-cosmos-scene {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.case-cosmos-route-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 82px;
+  aspect-ratio: 1;
+}
+
+.case-cosmos-route-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.case-cosmos-route-mark span {
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+  border: 3px solid var(--theme-card, var(--panel));
+  border-radius: 999px;
+  background: var(--case-blue-deep);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+.case-cosmos-scene h1,
+.case-cosmos-scene p {
+  margin: 0;
+}
+
+.case-cosmos-scene h1 {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: clamp(1.3rem, 3.2vw, 2rem);
+  line-height: 1.12;
+}
+
+.case-cosmos-instruction {
+  margin-top: 8px !important;
+  color: var(--ink);
+  font-size: clamp(0.8rem, 1.8vw, 0.94rem);
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.case-cosmos-idea {
+  margin-top: 5px !important;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.case-cosmos-matching {
+  display: grid;
+  gap: 11px;
+}
+
+.case-cosmos-matching > h2 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.case-cosmos-match-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 2vw, 18px);
+}
+
+.case-cosmos-match-column {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+  padding: clamp(10px, 1.8vw, 15px);
+  border: 1px solid var(--theme-line, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--theme-input, var(--panel)) 72%, transparent);
+}
+
+.case-cosmos-match-column h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(0.76rem, 1.7vw, 0.9rem);
+}
+
+.case-cosmos-options {
+  display: grid;
+  gap: 9px;
+}
+
+.case-cosmos-option {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 72px;
+  padding: 11px 13px;
+  border: 1px solid var(--theme-line-strong, var(--line));
+  border-radius: 11px;
+  background: var(--theme-input, var(--panel));
+  color: var(--ink);
+  font: inherit;
+  font-size: clamp(0.74rem, 1.7vw, 0.88rem);
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+#caseCosmosSentenceOptions .case-cosmos-option {
+  color: var(--ink);
+  font-size: clamp(0.9rem, 2.2vw, 1.08rem);
+}
+
+.case-cosmos-option strong {
+  color: var(--case-blue-deep);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .case-cosmos-option strong {
+  color: color-mix(in srgb, var(--case-blue) 72%, white);
+}
+
+.case-cosmos-option span {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.case-cosmos-option:hover:not(:disabled),
+.case-cosmos-option:focus-visible,
+.case-cosmos-option.is-selected {
+  border-color: var(--case-blue);
+  background: color-mix(in srgb, var(--case-blue) 9%, var(--theme-input, var(--panel)));
+  transform: translateY(-1px);
+}
+
+.case-cosmos-option.is-wrong {
+  border-color: var(--case-wrong);
+  background: color-mix(in srgb, var(--case-wrong) 9%, var(--theme-input, var(--panel)));
+  animation: case-cosmos-nudge 220ms ease-out;
+}
+
+.case-cosmos-option.is-matched {
+  padding-right: 38px;
+  border-color: var(--case-correct);
+  background: color-mix(in srgb, var(--case-correct) 10%, var(--theme-input, var(--panel)));
+  opacity: 0.8;
+}
+
+.case-cosmos-option.is-matched::after {
+  content: "✓";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--case-correct);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+
+.case-cosmos-option:disabled {
+  cursor: default;
+}
+
+.case-cosmos-result {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid color-mix(in srgb, var(--case-correct) 38%, var(--line));
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--case-correct) 8%, var(--theme-panel, var(--panel)));
+}
+
+.case-cosmos-result h2,
+.case-cosmos-result p {
+  margin: 0;
+}
+
+.case-cosmos-result h2 {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+}
+
+.case-cosmos-patterns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.case-cosmos-patterns p {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--theme-input, var(--panel)) 80%, transparent);
+}
+
+.case-cosmos-patterns span {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.case-cosmos-patterns strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+#caseCosmosPlainSummary,
+.case-cosmos-grammar p {
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.case-cosmos-grammar {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.case-cosmos-grammar summary {
+  width: fit-content;
+  color: var(--case-blue-deep);
+  font-weight: 850;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .case-cosmos-grammar summary {
+  color: color-mix(in srgb, var(--case-blue) 72%, white);
+}
+
+.case-cosmos-grammar p {
+  margin-top: 8px;
+}
+
+.case-cosmos-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding-top: 2px;
+}
+
+.case-cosmos-feedback {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.case-cosmos-feedback.is-correct {
+  color: var(--case-correct);
+}
+
+.case-cosmos-feedback.is-wrong {
+  color: var(--case-wrong);
+}
+
+.case-cosmos-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+#caseCosmosNext {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid var(--case-blue-deep);
+  border-radius: 999px;
+  background: var(--case-blue-deep);
+  color: #fff;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.case-cosmos-option:focus-visible,
+#caseCosmosNext:focus-visible,
+.case-cosmos-grammar summary:focus-visible,
+.case-cosmos-error a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--case-blue) 52%, transparent);
+  outline-offset: 3px;
+}
+
+@keyframes case-cosmos-nudge {
+  0%, 100% { transform: translateX(0); }
+  40% { transform: translateX(-4px); }
+  70% { transform: translateX(3px); }
+}
+
+@keyframes case-cosmos-float {
+  from { transform: translateY(3px) rotate(-1deg); }
+  to { transform: translateY(-4px) rotate(1deg); }
+}
+
+@media (max-width: 680px) {
+  .case-cosmos-page .workspace {
+    padding: 12px 12px calc(84px + env(safe-area-inset-bottom));
+  }
+
+  .case-cosmos-panel {
+    min-height: calc(100dvh - 175px);
+    padding: 11px;
+    border-radius: 14px;
+  }
+
+  .case-cosmos-board {
+    padding: 13px;
+  }
+
+  .case-cosmos-scene {
+    grid-template-columns: 62px minmax(0, 1fr);
+    align-items: start;
+    gap: 11px;
+  }
+
+  .case-cosmos-route-mark {
+    width: 60px;
+  }
+
+  .case-cosmos-match-column {
+    padding: 8px;
+  }
+
+  .case-cosmos-option {
+    min-height: 68px;
+    padding: 9px 10px;
+  }
+
+  .case-cosmos-footer {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .case-cosmos-progress {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 380px) {
+  .case-cosmos-match-grid,
+  .case-cosmos-patterns {
+    grid-template-columns: 1fr;
+  }
+
+  .case-cosmos-option {
+    min-height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-cosmos-loading img,
+  .case-cosmos-error img,
+  .case-cosmos-option {
+    animation: none;
+    transition: none;
+  }
+}

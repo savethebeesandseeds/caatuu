@@ -3,7 +3,7 @@
   "short_name": "Caatuu CZ",
   "description": "Czech chat, verbs, dictionary, scripts, and guide.",
   "id": "/cz/",
-  "start_url": "./home.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],

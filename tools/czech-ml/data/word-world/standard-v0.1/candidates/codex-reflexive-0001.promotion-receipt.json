@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "caatuu-word-world-promotion-receipt-v1",
+  "batchId": "codex-reflexive-0001",
+  "promotedOn": "2026-08-10",
+  "humanApproved": false,
+  "decision": "Promote all 32 rows to the development corpus as Codex-reviewed, human-unapproved content while retaining an explicit independent-review gate before production linguistic approval.",
+  "inputs": {
+    "candidateFile": "codex-reflexive-0001.candidates.jsonl",
+    "candidateSha256": "a1dcbe3bb5644bd89a498f70677c035116251e26244906f288050fff3ced7f02",
+    "candidateBytes": 56814,
+    "focusedReviewFile": "codex-reflexive-0001.focused-review.json",
+    "focusedReviewSha256": "ed9a2c091a4df1fac538df6a7675c6ceae7a670d32151f5a1f85a661175495f4",
+    "focusedReviewBytes": 4587,
+    "baselineRuntimeContentSha256": "01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809"
+  },
+  "review": {
+    "reviewer": "OpenAI Codex focused bilingual review in the authoring task",
+    "reviewDate": "2026-08-10",
+    "independent": false,
+    "humanApproved": false,
+    "checks": [
+      "Czech naturalness",
+      "English naturalness",
+      "bilingual meaning equivalence",
+      "intentional minimal-contrast family coherence",
+      "exact target surface, normalization, and token index",
+      "exact Czech duplicate scan against canonical source",
+      "grammar, topic, scene, and progression metadata",
+      "safety for ages 6 to 10"
+    ],
+    "productionGate": "Independent qualified Czech review remains required before production linguistic approval."
+  },
+  "licensingDecision": {
+    "sourceName": "Caatuu Word World se-family expansion",
+    "sourceType": "codex_authored",
+    "sourceLicense": "MIT",
+    "projectOwnedOriginalAuthoring": true,
+    "externalCorpusTextUsed": false
+  },
+  "selection": {
+    "candidateRecords": 32,
+    "promotedRecords": 32,
+    "heldRecords": 0,
+    "promotedByDifficulty": {
+      "2": 32
+    },
+    "promotedIds": [
+      "ww-codex-reflexive-0001-0001",
+      "ww-codex-reflexive-0001-0002",
+      "ww-codex-reflexive-0001-0003",
+      "ww-codex-reflexive-0001-0004",
+      "ww-codex-reflexive-0001-0005",
+      "ww-codex-reflexive-0001-0006",
+      "ww-codex-reflexive-0001-0007",
+      "ww-codex-reflexive-0001-0008",
+      "ww-codex-reflexive-0001-0009",
+      "ww-codex-reflexive-0001-0010",
+      "ww-codex-reflexive-0001-0011",
+      "ww-codex-reflexive-0001-0012",
+      "ww-codex-reflexive-0001-0013",
+      "ww-codex-reflexive-0001-0014",
+      "ww-codex-reflexive-0001-0015",
+      "ww-codex-reflexive-0001-0016",
+      "ww-codex-reflexive-0001-0017",
+      "ww-codex-reflexive-0001-0018",
+      "ww-codex-reflexive-0001-0019",
+      "ww-codex-reflexive-0001-0020",
+      "ww-codex-reflexive-0001-0021",
+      "ww-codex-reflexive-0001-0022",
+      "ww-codex-reflexive-0001-0023",
+      "ww-codex-reflexive-0001-0024",
+      "ww-codex-reflexive-0001-0025",
+      "ww-codex-reflexive-0001-0026",
+      "ww-codex-reflexive-0001-0027",
+      "ww-codex-reflexive-0001-0028",
+      "ww-codex-reflexive-0001-0029",
+      "ww-codex-reflexive-0001-0030",
+      "ww-codex-reflexive-0001-0031",
+      "ww-codex-reflexive-0001-0032"
+    ],
+    "heldIds": []
+  },
+  "output": {
+    "sourceFile": "../source/codex-reflexive-0001-reviewed.jsonl",
+    "sourceSha256": "a9dc3bd1319bf3f4d4155a719d469a49d0f1f8e3d9935e4e6e18e04a31f312e6",
+    "sourceBytes": 71854,
+    "recordCount": 32,
+    "reviewStatus": "codex_reviewed",
+    "humanApproved": false
+  },
+  "immutableInputPolicy": "The candidate JSONL and focused-review JSON are evidence inputs and must not be rewritten by promotion."
+}

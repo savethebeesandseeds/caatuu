@@ -29,24 +29,6 @@ a {
   grid-template-rows: auto 1fr auto;
 }
 
-.embedding-images-page .app-header {
-  position: relative;
-}
-
-.embedding-images-page .app-header::after {
-  content: attr(data-embedding-images-title);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--theme-ink, #17201d);
-  font-size: clamp(1rem, 3.6vw, 1.2rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 1;
-  pointer-events: none;
-}
-
 .embedding-images-main {
   width: min(1040px, 100%);
   margin: 0 auto;

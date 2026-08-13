@@ -465,7 +465,9 @@
     assertBrowserSetupActive(generation);
     const controller = new AbortController();
     activeBrowserSetupAbortController = controller;
-    const response = await fetch(artifact.url, {
+    const downloadUrl = new URL(artifact.url, window.location.href);
+    if (artifact.sha256) downloadUrl.searchParams.set("caatuu_setup_sha256", artifact.sha256);
+    const response = await fetch(downloadUrl.href, {
       cache: "no-store",
       signal: controller.signal
     });
@@ -1261,7 +1263,7 @@
 
   async function searchBrowserVectorDatabase(text, options = {}) {
     if (!String(text || "").trim()) throw new Error("Vector search text is empty.");
-    const module = await import("./vector-db.js?v=vector-db-9");
+    const module = await import("./vector-db.js?v=vector-db-10");
     const Manager = module.BrowserVectorDatabaseManager;
     if (!browserVectorDatabase) browserVectorDatabase = new Manager();
     await browserVectorDatabase.open();
@@ -1280,7 +1282,7 @@
   async function embedBrowserSemanticText(text, options = {}) {
     const value = String(text || "").trim();
     if (!value) throw new Error("Semantic embedding text is empty.");
-    const module = await import("./vector-db.js?v=vector-db-9");
+    const module = await import("./vector-db.js?v=vector-db-10");
     const modelId = String(options.modelId || module.caatuuVectorSchema.defaultModelId);
     if (modelId !== module.caatuuVectorSchema.defaultModelId) {
       throw new Error(`Unsupported semantic embedding model ${modelId}.`);

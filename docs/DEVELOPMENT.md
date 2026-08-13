@@ -51,7 +51,7 @@ The normal server binds only to Windows loopback at port `8765`. Open:
 ```text
 http://127.0.0.1:8765/
 http://127.0.0.1:8765/cz/
-http://127.0.0.1:8765/cz/home.html
+http://127.0.0.1:8765/cz/index.html
 http://127.0.0.1:8765/cz/chat.html
 http://127.0.0.1:8765/games/caatuu-game/
 http://127.0.0.1:8765/archive/chinese/

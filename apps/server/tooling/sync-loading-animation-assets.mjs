@@ -20,7 +20,8 @@ const pngPattern = /\.png$/i;
 const rootFramePattern = /^loading-animation_(\d+)\.png$/i;
 const publicPrefix = "/assets/loading_animation/";
 const legacyPublicPrefixes = ["/assets/macaw/loading_animation/"];
-const preferredSequenceOrder = ["backpack", "walking-arround", "walking-around", "landing", "leaving"];
+const runtimeSequenceIds = new Set(["backpack", "walking-arround"]);
+const preferredSequenceOrder = [...runtimeSequenceIds];
 
 function sha256File(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
@@ -65,6 +66,7 @@ function sequenceOrder(left, right) {
 export function listLoadingAnimationSequences(frameDirectory) {
   const sequences = readdirSync(frameDirectory, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && animationDirectoryPattern.test(entry.name))
+    .filter((entry) => runtimeSequenceIds.has(sequenceId(entry.name)))
     .map((entry) => {
       const directory = join(frameDirectory, entry.name);
       const sprites = readdirSync(directory, { withFileTypes: true })
@@ -236,8 +238,9 @@ function parseArgs(args) {
 function printHelp() {
   console.log(`Usage: node apps/server/tooling/sync-loading-animation-assets.mjs [options]
 
-Synchronize animations_manifest.json and setup-assets.json from numbered PNG files
-inside loading-animation/animation* folders. Numeric gaps are preserved.
+Synchronize animations_manifest.json and setup-assets.json from the numbered PNG
+files in the live backpack and walking folders. Retired artwork is ignored and
+numeric gaps are preserved.
 
 Options:
   --check                Report drift without writing files

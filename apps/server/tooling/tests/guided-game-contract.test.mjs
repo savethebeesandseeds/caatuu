@@ -47,9 +47,10 @@ test("Word World keeps curated Standard content and honest semantic exposure", (
 });
 
 test("Conjugation Comet owns morphology and reads the complete verb dataset", () => {
-  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-2"/);
-  assert.match(comet, /state\.phase = "meaning"/);
+  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4"/);
   assert.match(comet, /state\.phase = "forms"/);
+  assert.match(comet, /state\.meaningKnown\.has\(state\.current\.verb\) \? "forms" : "meaning"/);
+  assert.doesNotMatch(comet, /state\.phase = "(?:pattern|prediction|production|transfer|complete)"/);
   assert.match(comet, /CaatuuLearning\?\.record\?\.\("conjugation-comet"/);
   assert.doesNotMatch(comet, /CaatuuCurriculum|curriculum\//);
   assert.ok(verbs.verbs.length > 1, "Comet must not be pinned to a one-verb pilot");

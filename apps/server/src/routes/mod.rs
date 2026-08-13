@@ -48,7 +48,7 @@ const ACTIVE_LANGUAGE_APPS: &[LanguageAppSpec] = &[LanguageAppSpec {
     id: "cz",
     route_prefix: "/cz",
     static_dir: "apps/languages/czech/static",
-    entry_file: "home.html",
+    entry_file: "index.html",
     backend: LanguageBackend::CzechDictionary,
 }];
 const ACTIVE_WEB_GAMES: &[WebGameSpec] = &[WebGameSpec {

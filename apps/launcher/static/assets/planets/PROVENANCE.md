@@ -1,8 +1,23 @@
 # Planet emblem provenance
 
-This record covers only `conjugation-comet.png`. It does not establish or
-extend provenance, ownership, or release permission for the older planet and
-nebula assets in this directory.
+This record covers only `conjugation-comet.png` and `agreement-aurora.png`. It
+does not establish or extend provenance, ownership, or release permission for
+the older Word World, Case Cosmos, Memory Moon, and Verb Nebula assets in this
+directory.
+
+## Canonical runtime filenames
+
+Every enabled planet emblem uses the game ID as its filename. Generic lettered
+filenames are retired and must not be reintroduced.
+
+| Game ID | Runtime filename |
+| --- | --- |
+| `word-net` | `word-world.png` |
+| `verb-lab` | `verb-nebula.png` |
+| `conjugation-comet` | `conjugation-comet.png` |
+| `case-cosmos` | `case-cosmos.png` |
+| `agreement-aurora` | `agreement-aurora.png` |
+| `memory-moon` | `memory-moon.png` |
 
 ## Conjugation Comet emblem v1
 
@@ -28,9 +43,10 @@ nebula assets in this directory.
 The following repository assets were supplied to ImageGen as style references
 only. The prompt explicitly prohibited editing or copying them:
 
-- `apps/launcher/static/assets/planets/planet_B.png`
-- `apps/launcher/static/assets/planets/planet_D.png`
-- `apps/launcher/static/assets/planets/nebula.png`
+- `apps/launcher/static/assets/planets/case-cosmos.png`
+- retired predecessor `apps/launcher/static/assets/planets/planet_D.png`
+  (`23aab30a20c4e348ba9cda0fe4cd2224f65671ee9b4c135caae9b4bf19645a1`)
+- `apps/launcher/static/assets/planets/verb-nebula.png`
 
 This record does not infer a license or redistribution grant from those
 references.
@@ -68,3 +84,71 @@ intended developer-preview surfaces only until the owner records a release
 grant and attribution decision and reviews the emblem at its browser and native
 Android display sizes. Any regenerated, repainted, resized, or otherwise
 byte-different derivative requires a new identity, hash, and review record.
+
+## Agreement Aurora emblem v1
+
+| Field | Value |
+| --- | --- |
+| Stable evidence ID | `CAATUU-IMAGEGEN-AGREEMENT-AURORA-2026-08-11` |
+| Runtime path | `apps/launcher/static/assets/planets/agreement-aurora.png` |
+| Generator | OpenAI ImageGen, built-in `image_gen.imagegen` workflow |
+| Generation mode | `stylized-concept` |
+| Generated on | 2026-08-11 |
+| Source | Original task-local ImageGen result; no third-party source URL |
+| Chroma-source SHA-256 | `3a546b28c32ad3043dbe1e323fc297574ce88c0b514c378815841fc2a7649120` |
+| Final dimensions | 1254 x 1254 pixels |
+| Final format | RGBA PNG |
+| Final byte count | 886587 |
+| Final SHA-256 | `4427e6f9ea952084e3446c038c8fe9ebfa5d0faf1defdd5c3a887ba25d99a6bd` |
+| Visible alpha bounds | Half-open bounds `x=[161, 1093)`, `y=[131, 1087)`; all four corner alpha values are zero |
+| Release status | `local-developer-preview-only` |
+| Intended surfaces | Caatuu browser developer preview and Android developer preview |
+| Attribution decision | Pending explicit owner decision |
+
+### Style references
+
+The following repository assets were supplied to ImageGen as style references
+only. The prompt explicitly prohibited editing, tracing, or copying their
+subjects:
+
+- `apps/launcher/static/assets/planets/word-world.png`
+- `apps/launcher/static/assets/planets/memory-moon.png`
+- `apps/launcher/static/assets/planets/conjugation-comet.png`
+
+This record does not infer a license or redistribution grant from those
+references.
+
+### Final generation prompt
+
+```text
+Use case: stylized-concept
+Asset type: square game-world emblem for the Caatuu language-learning game "Agreement Aurora"
+Input images: Images 1–3 are style references only; do not edit, trace, or copy their subjects.
+Primary request: Create one original emblem that communicates Czech grammatical agreement: several distinct connected word-parts changing together in harmony. Depict a small welcoming celestial core embraced by three broad interlocking aurora ribbons. The ribbons should visibly belong together, align with one another, and flow as a coordinated system rather than as separate decoration.
+Scene/backdrop: perfectly flat solid #ff00ff chroma-key background for local background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, lighting variation, stars, or scenery.
+Subject: one compact aurora-world emblem. Use three opaque ribbon shapes—turquoise/teal, warm orange/golden yellow, and creamy off-white—woven or nested around a small rounded core. The resulting silhouette must be clearly different from a Saturn-like ringed planet and clearly different from a comet or spiral nebula.
+Style/medium: polished rounded 2D/3D hybrid game icon; vector-like organic forms; subtle internal dimensional shading; crisp clean edges; restrained material texture; match the friendly polish and color language of the supplied Caatuu references.
+Composition/framing: single centered emblem, approximately circular overall, fully contained with generous even padding. Strong readable silhouette at 64–128 px.
+Color palette: turquoise/teal, warm orange, golden yellow, creamy off-white, with restrained near-black separation channels. Do not use #ff00ff anywhere in the subject.
+Constraints: original design; opaque solid subject shapes suitable for clean chroma-key removal; no transparency inside the subject; no cast shadow; no contact shadow; no outer glow; no reflection; no text; no letters; no numbers; no watermark; no border; no mockup.
+Avoid: generic Saturn icon, rings around a plain sphere, realistic astronomy, flames, smoke, wispy translucent light, tiny decorative details, stars, faces, characters, logos, trademarks, and resemblance to any one reference subject.
+```
+
+### Post-processing
+
+The generated flat magenta background was converted to transparency with the
+installed ImageGen `remove_chroma_key.py` helper inside the established
+`caatuu-dev` container. The helper sampled `#f904f7` from the border and used a
+soft matte plus despill. The result contains 875616 fully transparent pixels
+and 3249 partially transparent antialiasing pixels out of 1572516 total
+pixels. No other image modification was applied.
+
+### Review and release limits
+
+The product owner requested this emblem, its canonical filename, and its
+integration. That request does not by itself establish a public redistribution
+license or attribution decision. The exact hashed file may be used on the
+intended developer-preview surfaces until the owner records a release grant
+and reviews it at browser and native Android display sizes. Any regenerated,
+repainted, resized, or otherwise byte-different derivative requires a new
+identity, hash, and review record.

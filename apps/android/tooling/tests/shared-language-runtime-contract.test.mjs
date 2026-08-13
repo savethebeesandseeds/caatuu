@@ -19,7 +19,7 @@ const bridge = readFileSync(
   "utf8"
 );
 const home = readFileSync(
-  new URL("../../../languages/czech/static/home.html", import.meta.url),
+  new URL("../../../languages/czech/static/index.html", import.meta.url),
   "utf8"
 );
 const setup = readFileSync(

@@ -62,7 +62,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
             path == LANGUAGE_ROUTE_PREFIX || path.startsWith("$LANGUAGE_ROUTE_PREFIX/") -> path
                 .removePrefix(LANGUAGE_ROUTE_PREFIX)
                 .trimStart('/')
-                .ifBlank { "home.html" }
+                .ifBlank { "index.html" }
                 .replace('\\', '/')
             path.startsWith("/assets/") -> path.trimStart('/').replace('\\', '/')
             else -> return notFound()

@@ -25,13 +25,16 @@ async function fixture() {
   const animationManifestPath = join(frameDirectory, "animations_manifest.json");
   const backpackDirectory = join(frameDirectory, "animation-backpack");
   const walkingDirectory = join(frameDirectory, "animation-walking-arround");
+  const retiredLandingDirectory = join(frameDirectory, "animation-landing");
   await mkdir(backpackDirectory, { recursive: true });
   await mkdir(walkingDirectory, { recursive: true });
+  await mkdir(retiredLandingDirectory, { recursive: true });
   await mkdir(dirname(setupManifestPath), { recursive: true });
   await writeFile(join(backpackDirectory, "load-animation_1.png"), "pack-one");
   await writeFile(join(backpackDirectory, "load-animation_4.png"), "pack-four");
   await writeFile(join(walkingDirectory, "loading-animation (2).png"), "walk-two");
   await writeFile(join(walkingDirectory, "loading-animation (10).png"), "walk-ten");
+  await writeFile(join(retiredLandingDirectory, "landing-animation-1.png"), "retired-landing");
   await writeFile(animationManifestPath, '{"schema_version":1,"animations":[]}\n');
   const before = { key: "before", url: "/cz/before.bin", bytes: 1, sha256: "a".repeat(64) };
   const after = { key: "after", url: "/cz/after.bin", bytes: 1, sha256: "b".repeat(64) };
@@ -58,7 +61,7 @@ async function fixture() {
   };
 }
 
-test("animation folders use numeric filename order while preserving gaps", async (t) => {
+test("runtime animation folders use numeric filename order and retired artwork stays uncataloged", async (t) => {
   const paths = await fixture();
   t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
 
@@ -140,6 +143,6 @@ test("repository loading-animation manifests match the animation folders", () =>
   const report = synchronizeLoadingAnimationManifests({ workspaceRoot: repositoryRoot, check: true });
   assert.equal(report.animationManifestChanged, false);
   assert.equal(report.setupManifestChanged, false);
-  assert.ok(report.sequences.length >= 3);
-  assert.ok(report.frameCount > 0);
+  assert.deepEqual(report.sequences.map((sequence) => sequence.id), ["backpack", "walking-arround"]);
+  assert.equal(report.frameCount, 38);
 });

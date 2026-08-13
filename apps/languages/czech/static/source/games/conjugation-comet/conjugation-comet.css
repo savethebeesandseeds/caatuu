@@ -10,7 +10,7 @@
 .conjugation-comet-person-legend[hidden],
 .conjugation-comet-interstitial[hidden],
 .verb-morphology-actions[hidden],
-.verb-morphology-hint[hidden],
+.conjugation-comet-pronoun-hint-slot[hidden],
 .conjugation-comet-unavailable[hidden] {
   display: none;
 }
@@ -41,12 +41,6 @@
   animation: conjugation-comet-robot-breathe 1.45s ease-in-out infinite alternate;
 }
 
-.conjugation-comet-interstitial p {
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 850;
-}
-
 @keyframes conjugation-comet-robot-breathe {
   from {
     opacity: 0.72;
@@ -67,6 +61,19 @@
 
 .conjugation-comet-meaning-board {
   --verb-pair-count: 4;
+}
+
+#verbMeaningGateBoard {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+#verbMeaningGateBoard .verb-match-control-cluster {
+  margin-left: auto;
+}
+
+#verbMeaningGateBoard #verbMeaningTargetColumn,
+#verbMeaningGateBoard #verbMeaningEnglishColumn {
+  grid-row: 2;
 }
 
 .conjugation-comet-match-board .verb-match-column-heading {
@@ -102,12 +109,18 @@
 }
 
 #verbMeaningTargetColumn {
-  grid-template-rows: minmax(104px, 140px);
-  align-content: center;
+  grid-template-rows: minmax(0, 1fr);
+  align-content: stretch;
 }
 
-#verbMeaningTargetColumn .verb-match-card {
-  min-height: 104px;
+#verbMeaningTargetColumn .conjugation-comet-meaning-target {
+  position: relative;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  place-items: center;
+  gap: 10px;
+  padding: clamp(14px, 3vw, 24px);
   text-align: center;
 }
 
@@ -116,7 +129,103 @@
   font-weight: 800;
 }
 
-.conjugation-comet-phase-label,
+.conjugation-comet-meaning-visual {
+  width: min(100%, clamp(120px, 25vw, 210px));
+  height: clamp(180px, 36vh, 330px);
+  display: grid;
+  place-items: center;
+  align-self: center;
+}
+
+.conjugation-comet-meaning-visual.is-loading {
+  visibility: hidden;
+}
+
+.conjugation-comet-meaning-macaw {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(11, 34, 29, 0.12));
+}
+
+.verb-layout-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.verb-match-control-cluster > .verb-layout-button {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+@media (max-width: 430px) {
+  .verb-match-control-cluster > .verb-layout-button {
+    width: 31px;
+    min-width: 31px;
+    height: 31px;
+    min-height: 31px;
+  }
+}
+
+#verbMeaningLayoutButton [hidden] {
+  display: none;
+}
+
+#verbMeaningLayoutButton[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--blue) 58%, var(--line));
+  background: color-mix(in srgb, var(--blue) 11%, var(--theme-input, var(--panel)));
+}
+
+#verbMeaningGateBoard.is-stacked-layout {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(120px, 0.72fr) minmax(140px, 1fr);
+  column-gap: 0;
+}
+
+#verbMeaningGateBoard.is-stacked-layout:has(.conjugation-comet-meaning-visual) {
+  grid-template-rows: auto minmax(210px, auto) minmax(140px, 1fr);
+}
+
+#verbMeaningGateBoard.is-stacked-layout .verb-match-controls {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#verbMeaningGateBoard.is-stacked-layout #verbMeaningTargetColumn {
+  grid-column: 1;
+  grid-row: 2;
+  min-height: 120px;
+}
+
+#verbMeaningGateBoard.is-stacked-layout #verbMeaningEnglishColumn {
+  grid-column: 1;
+  grid-row: 3;
+  margin-top: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(58px, auto));
+  align-content: start;
+  row-gap: 2px;
+  column-gap: 6px;
+}
+
+#verbMeaningGateBoard.is-stacked-layout #verbMeaningEnglishColumn .verb-match-card-row {
+  min-height: 58px;
+}
+
+#verbMeaningGateBoard.is-stacked-layout .conjugation-comet-meaning-visual {
+  width: min(100%, 150px);
+  height: 120px;
+}
+
 .verb-morphology-lemma {
   min-width: 0;
   color: var(--green-dark);
@@ -134,6 +243,114 @@
 
 .verb-morphology-actions {
   display: contents;
+}
+
+.conjugation-comet-word-pronounce {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-amber, #b77726);
+  cursor: pointer;
+}
+
+#verbMeaningGateBoard.is-stacked-layout .conjugation-comet-word-pronounce {
+  top: auto;
+  bottom: 10px;
+}
+
+.conjugation-comet-panel [data-conjugation-audio-voice-status] {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.52rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+#verbMeaningGateFeedback {
+  font-weight: 400;
+}
+
+.conjugation-comet-word-pronounce .verb-audio-menu-icon {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.conjugation-comet-word-pronounce:hover,
+.conjugation-comet-word-pronounce:focus-visible,
+.conjugation-comet-word-pronounce.is-speaking {
+  border-color: transparent;
+  background: transparent;
+  color: color-mix(in srgb, var(--theme-amber, #b77726) 82%, var(--ink));
+  box-shadow: none;
+}
+
+.conjugation-comet-word-pronounce [hidden] {
+  display: none;
+}
+
+#verbMorphologyBoard.is-solution-mode .verb-match-card.is-solution {
+  border-color: color-mix(in srgb, var(--verb-solution-color, var(--green-dark)) 54%, var(--line));
+  background: color-mix(in srgb, var(--verb-solution-color, var(--green-dark)) 7%, var(--theme-input, var(--panel)));
+  box-shadow: inset 3px 0 0 var(--verb-solution-color, var(--green-dark));
+  color: var(--ink);
+  opacity: 1;
+}
+
+#verbMorphologyBoard.is-solution-mode #verbMorphologyFormsColumn .verb-match-card.is-solution::after {
+  content: attr(data-solution-label);
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  padding: 1px 5px;
+  border: 1px solid color-mix(in srgb, var(--verb-solution-color, var(--green-dark)) 48%, var(--line));
+  background: color-mix(in srgb, var(--verb-solution-color, var(--green-dark)) 7%, var(--panel));
+  color: var(--verb-solution-color, var(--green-dark));
+  font-size: 0.54rem;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+#verbMorphologyBoard {
+  gap: 2px clamp(24px, 4vw, 46px);
+}
+
+#verbMorphologyBoard .verb-match-column-heading-en,
+#verbMorphologyCuesColumn {
+  grid-column: 2;
+}
+
+#verbMorphologyBoard .verb-match-column-heading-cz,
+#verbMorphologyFormsColumn {
+  grid-column: 1;
+}
+
+#verbMorphologyBoard .verb-match-column-heading-cz {
+  padding-inline-start: 5px;
+}
+
+#verbMorphologyBoard .verb-match-column-heading-en {
+  padding-inline-start: 5px;
+}
+
+#verbMorphologyBoard.is-solution-mode .conjugation-comet-cue-label {
+  border: 0;
+  background: transparent;
+  color: rgba(184, 78, 69, 0.68);
 }
 
 .verb-morphology-actions > button {
@@ -156,6 +373,12 @@
 
 .verb-morphology-actions > .verb-hint-button {
   color: var(--blue);
+}
+
+.verb-morphology-actions > .verb-czech-subject-button {
+  color: var(--green-dark);
+  font-size: 0.62rem;
+  letter-spacing: -0.04em;
 }
 
 .verb-morphology-actions > button:hover:not(:disabled) {
@@ -181,8 +404,8 @@
 }
 
 .conjugation-comet-match-board .verb-match-card:focus-visible,
+.conjugation-comet-word-pronounce:focus-visible,
 .verb-morphology-actions > button:focus-visible,
-.verb-morphology-next:focus-visible,
 .conjugation-comet-unavailable a:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--blue) 48%, transparent);
   outline-offset: 3px;
@@ -251,11 +474,11 @@
   min-width: 24px;
   display: inline-block;
   margin-top: 1px;
-  padding: 2px 5px;
-  border: 1px solid color-mix(in srgb, var(--blue) 22%, var(--line));
+  padding: 2px 1px;
+  border: 0;
   border-radius: 0;
-  background: color-mix(in srgb, var(--blue) 9%, var(--theme-input, var(--panel)));
-  color: color-mix(in srgb, var(--blue) 54%, var(--ink));
+  background: transparent;
+  color: rgba(184, 78, 69, 0.68);
   font-size: clamp(0.56rem, 1.05vw, 0.64rem);
   font-weight: 900;
   letter-spacing: 0.045em;
@@ -263,10 +486,71 @@
   text-align: center;
 }
 
+#verbMorphologyFormsColumn [data-form-key] {
+  will-change: transform;
+}
+
+#verbMorphologyFormsColumn .conjugation-comet-form-row:has(.conjugation-comet-pronoun-hint-slot:not([hidden])) {
+  grid-template-columns: minmax(0, 1fr) clamp(70px, 8vw, 88px);
+  gap: 2px;
+}
+
+#verbMorphologyFormsColumn .conjugation-comet-form-row:has(.conjugation-comet-pronoun-hint-slot:not([hidden])) > .verb-match-card {
+  grid-column: 1;
+}
+
+.conjugation-comet-pronoun-hint-slot {
+  position: relative;
+  z-index: 2;
+  grid-column: 2;
+  width: clamp(70px, 8vw, 88px);
+  height: clamp(70px, 8vw, 88px);
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.conjugation-comet-pronoun-hint-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  filter: drop-shadow(0 4px 5px rgba(11, 34, 29, 0.14));
+}
+
 .conjugation-comet-footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
+}
+
+#verbMorphologyFooter {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 58px minmax(22px, auto);
+  align-items: start;
+  gap: 0;
+  min-height: 80px;
+}
+
+#verbMorphologyFooter .verb-match-note {
+  width: 100%;
+  max-width: none;
+  height: 58px;
+  align-content: center;
+  overflow: hidden;
+}
+
+#verbMorphologyFooter .verb-match-feedback {
+  width: 100%;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+}
+
+#verbMorphologyFooter .verb-match-status {
+  width: 100%;
+  min-height: 22px;
+  justify-content: flex-end;
 }
 
 .conjugation-comet-person-legend {
@@ -303,7 +587,7 @@
   min-width: 0;
   color: var(--ink);
   font-size: 0.6rem;
-  font-weight: 700;
+  font-weight: 400;
   white-space: nowrap;
 }
 
@@ -322,38 +606,6 @@
 
 .conjugation-comet-footer .verb-match-status > span {
   white-space: normal;
-}
-
-.verb-morphology-hint {
-  display: grid;
-  gap: 1px;
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 0.62rem;
-  font-style: normal;
-  line-height: 1.3;
-}
-
-.verb-morphology-hint strong {
-  color: var(--ink);
-}
-
-.verb-morphology-next {
-  min-height: 34px;
-  padding: 0 11px;
-  border: 1px solid var(--green-dark);
-  border-radius: 999px;
-  background: var(--green-dark);
-  color: #fff;
-  font: inherit;
-  font-size: 0.68rem;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.verb-morphology-next:disabled {
-  cursor: default;
-  opacity: 0.46;
 }
 
 .conjugation-comet-unavailable {
@@ -463,8 +715,14 @@
     min-height: 56px;
   }
 
-  #verbMeaningTargetColumn .verb-match-card {
-    min-height: 96px;
+  #verbMeaningTargetColumn .conjugation-comet-meaning-target {
+    min-height: 100%;
+    padding: 10px;
+  }
+
+  .conjugation-comet-meaning-visual {
+    width: min(100%, 150px);
+    height: 220px;
   }
 
   .conjugation-comet-cue-natural {
@@ -493,6 +751,7 @@
 @media (prefers-reduced-motion: reduce) {
   .conjugation-comet-match-board .verb-match-card,
   .conjugation-comet-robot,
+  .conjugation-comet-word-pronounce,
   .verb-morphology-actions > button {
     animation: none;
     transition: none;

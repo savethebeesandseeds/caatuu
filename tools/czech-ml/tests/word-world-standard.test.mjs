@@ -21,9 +21,10 @@ const sourceDir = path.join(datasetDir, "source");
 const commonSourceFile = path.join(sourceDir, "common-phrases-pilot.jsonl");
 const reviewedExpansionFile = path.join(sourceDir, "codex-expansion-0001-reviewed.jsonl");
 const reviewedLevel3File = path.join(sourceDir, "codex-level3-0001-reviewed.jsonl");
+const reviewedReflexiveFile = path.join(sourceDir, "codex-reflexive-0001-reviewed.jsonl");
 const candidateDir = path.join(datasetDir, "candidates");
 const rubricFile = path.join(datasetDir, "rubric.json");
-const runtimeRoot = path.join(repoRoot, "apps", "languages", "czech", "static", "data", "word-world");
+const runtimeRoot = path.join(repoRoot, "apps", "languages", "czech", "static", "data", "games", "word-world");
 
 const sourceFiles = await findJsonlFiles(sourceDir);
 const records = (await Promise.all(sourceFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
@@ -41,15 +42,49 @@ test("normalizes Czech tokens without losing diacritics", () => {
 test("the checked-in corpus satisfies schema, difficulty, review, and duplicate gates", () => {
   const validation = validateRecords(records, rubric);
   assert.equal(validation.valid, true, validation.errors.join("\n"));
-  assert.equal(records.length, 760);
-  assert.equal(validation.level2Share, 0.701316);
+  assert.equal(records.length, 792);
+  assert.equal(validation.level2Share, 0.713384);
   assert.deepEqual(Object.fromEntries([1, 2, 3].map((level) => [level, records.filter((record) => record.difficulty === level).length])), {
     "1": 175,
-    "2": 533,
+    "2": 565,
     "3": 52,
   });
   assert.ok(records.every((record) => record.review.status === "codex_reviewed"));
   assert.ok(records.every((record) => record.review.humanApproved === false));
+});
+
+test("the focused se families are explorable and retain their honest review boundary", async () => {
+  const candidateFile = path.join(candidateDir, "codex-reflexive-0001.candidates.jsonl");
+  const reviewFile = path.join(candidateDir, "codex-reflexive-0001.focused-review.json");
+  const receiptFile = path.join(candidateDir, "codex-reflexive-0001.promotion-receipt.json");
+  const [candidateBytes, reviewBytes, reviewedBytes, candidates, review, receipt, reviewed] = await Promise.all([
+    fs.readFile(candidateFile),
+    fs.readFile(reviewFile),
+    fs.readFile(reviewedReflexiveFile),
+    readJsonl(candidateFile),
+    readJson(reviewFile),
+    readJson(receiptFile),
+    readJsonl(reviewedReflexiveFile),
+  ]);
+
+  assert.equal(sha256(candidateBytes), "a1dcbe3bb5644bd89a498f70677c035116251e26244906f288050fff3ced7f02");
+  assert.equal(sha256(reviewBytes), "ed9a2c091a4df1fac538df6a7675c6ceae7a670d32151f5a1f85a661175495f4");
+  assert.equal(sha256(reviewedBytes), "a9dc3bd1319bf3f4d4155a719d469a49d0f1f8e3d9935e4e6e18e04a31f312e6");
+  assert.equal(review.independent, false);
+  assert.equal(review.humanApproved, false);
+  assert.equal(receipt.review.independent, false);
+  assert.equal(receipt.output.sourceSha256, sha256(reviewedBytes));
+  assert.equal(candidates.length, 32);
+  assert.equal(reviewed.length, 32);
+  assert.deepEqual(reviewed.map((record) => record.languages), candidates.map((record) => record.languages));
+  assert.deepEqual(reviewed.map((record) => record.targets), candidates.map((record) => record.targets));
+  assert.ok(reviewed.every((record) => record.difficulty === 2));
+  assert.ok(reviewed.every((record) => record.targets.some((target) => target.normalized === "se" && target.playable)));
+  assert.ok(reviewed.every((record) => record.review.status === "codex_reviewed"));
+  assert.ok(reviewed.every((record) => record.review.humanApproved === false));
+  const families = reviewed.flatMap((record) => record.grammar.tags.filter((tag) => tag.startsWith("family_")));
+  assert.equal(new Set(families).size, 8);
+  assert.ok([...new Set(families)].every((family) => families.filter((value) => value === family).length === 4));
 });
 
 test("only the 219 independently passing expansion rows enter canonical source", async () => {

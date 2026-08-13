@@ -16,23 +16,6 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
-.verb-difficulty-page .app-header {
-  position: relative;
-}
-
-.verb-difficulty-page .app-header::after {
-  content: attr(data-verb-difficulty-title);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--theme-ink, #17201d);
-  font-size: clamp(0.92rem, 3vw, 1.16rem);
-  font-weight: 900;
-  line-height: 1;
-  pointer-events: none;
-}
-
 .verb-difficulty-main {
   width: min(960px, 100%);
   margin: 0 auto;

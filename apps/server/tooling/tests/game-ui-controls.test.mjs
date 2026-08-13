@@ -103,6 +103,10 @@ test("Verb Nebula offers persistent Czech speech on tap and keeps toolbar menus 
   assert.match(app, /#verbAudioSpeed[\s\S]*?setSpeechPacePreference/);
   assert.match(app, /#verbAudioVoice[\s\S]*?setSpeechVoicePreference/);
   assert.match(app, /function chooseVerbMatchCard\(event\)[\s\S]*?card\.dataset\.verbSide === "cz"[\s\S]*?speakVerbCzechOnTap\(id\)/);
+  assert.match(app, /function chooseVerbMatchCard\(event\)[\s\S]*?syncVerbSelectedCards\(\)[\s\S]*?state\.verbSelectedCzechId && state\.verbSelectedEnglishId/);
+  assert.match(app, /function syncVerbSelectedCards\(\)[\s\S]*?aria-pressed[\s\S]*?classList\.toggle\("is-selected", selected\)/);
+  assert.match(app, /function loadVerbSpeakOnTap\(\)[\s\S]*?stored === null \? true : stored === "true"/);
+  assert.match(app, /state\.verbHintsEnabled = memory \? Boolean\(memory\.hintsEnabled\) : true/);
   assert.match(app, /function speakVerbCzechOnTap\(verbId\)[\s\S]*?CaatuuChrome\.speakCzechText\(pair\.cz\)/);
   assert.match(appCss, /\.verb-audio-popover,[\s\S]*?\.verb-display-popover \{[\s\S]*?position: absolute;[\s\S]*?box-shadow:/);
   assert.match(appCss, /\.verb-audio-popover button\[aria-checked="true"\] i::after \{[\s\S]*?translateX\(14px\)/);
@@ -184,7 +188,7 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   );
   assert.match(chrome, /speechVoiceStorageKey = `\$\{course\.storage\.namespace[^;]+\.speech\.voice\.v1`/);
   assert.match(chrome, /id="settingsSpeechVoice"[\s\S]*?Automatic \(recommended\)[\s\S]*?id="settingsSpeechVoiceStatus"/);
-  assert.match(chrome, /class="speech-rate-row"[\s\S]*?data-speech-pace-option="slower"[\s\S]*?data-speech-pace-option="slow"[\s\S]*?data-speech-pace-option="normal"[\s\S]*?id="settingsSpeechPaceStatus"/);
+  assert.match(chrome, /class="speech-rate-row"[\s\S]*?<input[^>]*min="0"[^>]*max="2"[^>]*step="1"[^>]*data-speech-pace-slider[\s\S]*?class="speech-pace-ticks"[\s\S]*?<b>Slower<\/b>[\s\S]*?<b>Slow<\/b>[\s\S]*?<b>Normal<\/b>[\s\S]*?id="settingsSpeechPaceStatus"/);
   assert.doesNotMatch(chrome, /settingsSpeechPaceFollow|speech-pace-follow/);
   assert.match(chrome, /const lightModeIconSrc = "\/assets\/icons\/light_mode_ui\.png"/);
   assert.match(chrome, /data-theme-option="light"[\s\S]*?src="\$\{lightModeIconSrc\}"[\s\S]*?<b>Light<\/b>/);
@@ -280,8 +284,10 @@ test("Settings and Audio Lab share one selectable Czech speech service", () => {
   assert.match(chromeCss, /\.speech-voice-row,\s*\.speech-rate-row \{[\s\S]*?grid-template-columns:/);
   assert.match(chromeCss, /\.speech-voice-controls \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\) auto;/);
   assert.match(chromeCss, /\.speech-rate-row \{[\s\S]*?border-top:/);
-  assert.match(chromeCss, /\.font-size-control,\s*\.speech-pace-control \{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
-  assert.match(chromeCss, /\.speech-pace-control button\.is-badge-default,[\s\S]*?background: color-mix/);
+  assert.match(chromeCss, /\.font-size-control \{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(chromeCss, /\.speech-pace-control input\[type="range"\] \{[\s\S]*?appearance: none;[\s\S]*?touch-action: pan-y;/);
+  assert.match(chromeCss, /\.speech-pace-control input\[type="range"\]::-webkit-slider-runnable-track \{[\s\S]*?--speech-pace-position/);
+  assert.match(chromeCss, /\.speech-pace-ticks \{[\s\S]*?justify-content: space-between;/);
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
   assert.match(chromeCss, /\.settings-raised-action \{[\s\S]*?border-bottom-width: 3px;/);
 
@@ -306,14 +312,15 @@ test("Word World keeps sentence playback beside the phrase and audio settings in
   assert.equal([...wordNetHtml.matchAll(/class="word-net-sound-icon" data-speech-icon="stop"/g)].length, 2);
   assert.doesNotMatch(wordNetHtml, /word-net-word-sound-icon|data-word-speech-icon/);
   assert.match(wordNetHtml, /id="wordNetTranslationToggle"[^>]*aria-haspopup="menu"[^>]*aria-controls="wordNetTranslationMenu"[^>]*aria-expanded="false"/);
-  assert.match(wordNetHtml, /id="wordNetTranslationMenu"[^>]*role="menu"[^>]*aria-label="English answer and dictionary settings"[^>]*hidden>[\s\S]*?wordNetAnswerSettingsLabel[\s\S]*?wordNetDictionarySettingsLabel/);
+  assert.match(wordNetHtml, /id="wordNetTranslationMenu"[^>]*role="menu"[^>]*aria-label="Challenge type and dictionary settings"[^>]*hidden>[\s\S]*?wordNetAnswerSettingsLabel[\s\S]*?wordNetDictionarySettingsLabel/);
+  assert.match(wordNetHtml, /id="wordNetAnswerSettingsLabel">Challenge type<\/span>/);
   assert.match(wordNetHtml, /role="group" aria-labelledby="wordNetAnswerSettingsLabel">[\s\S]*?data-answer-mode="reconstruct"[\s\S]*?data-answer-mode="wait"[\s\S]*?id="wordNetTranslationTimers"[^>]*role="group"[^>]*hidden>[\s\S]*?data-translation-delay="timer-0"[\s\S]*?data-translation-delay="timer-5"[\s\S]*?data-translation-delay="timer-10"[\s\S]*?data-translation-delay="timer-30"[\s\S]*?<\/section>/);
   for (const mode of ["reconstruct", "wait"]) {
     assert.match(wordNetHtml, new RegExp(`role="menuitemradio"[^>]*tabindex="-1"[^>]*aria-checked="(?:true|false)"[^>]*data-answer-mode="${mode}"`));
   }
   assert.doesNotMatch(wordNetHtml, /data-translation-mode="(?:off|visible)"|wordNetRevealTimerToggle|data-translation-disclosure/);
   assert.match(wordNetHtml, /role="menuitemcheckbox"[^>]*tabindex="-1"[^>]*data-word-card-setting="showCard"[^>]*aria-checked="true"[^>]*>Show dictionary card<\/button>/);
-  assert.match(wordNetHtml, /role="menuitemcheckbox"[^>]*tabindex="-1"[^>]*data-word-card-setting="autoPronounce"[^>]*aria-checked="false"/);
+  assert.match(wordNetHtml, /role="menuitemcheckbox"[^>]*tabindex="-1"[^>]*data-word-card-setting="autoPronounce"[^>]*aria-checked="true"/);
   assert.doesNotMatch(wordNetHtml, /wordNetDictionaryGapExport|data-dictionary-gap-action|Copy missing-word batch/);
   assert.doesNotMatch(wordNetHtml, /wordNetWordCardSettings|wordNetWordCardSettingsMenu/);
   assert.match(wordNetHtml, /word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true"/);
@@ -330,7 +337,7 @@ test("Word World keeps sentence playback beside the phrase and audio settings in
   assert.doesNotMatch(wordNetCss, /word-net-translation-disclosure/);
   assert.doesNotMatch(wordNetCss, /word-net-word-settings-menu|word-net-word-card-button/);
   assert.match(wordNetJs, /WORD_CARD_PREFERENCES_STORAGE_KEY = `\$\{course\.storage\.namespace\}\.wordNet\.wordCardPreferences\.v1`/);
-  assert.match(wordNetJs, /function loadWordCardPreferences\(\)[\s\S]*?showCard: stored\.showCard !== false[\s\S]*?autoPronounce: stored\.autoPronounce === true/);
+  assert.match(wordNetJs, /function loadWordCardPreferences\(\)[\s\S]*?showCard: stored\.showCard !== false[\s\S]*?autoPronounce: stored\.autoPronounce !== false/);
   assert.match(wordNetJs, /function toggleWordCardPreference\(key\)[\s\S]*?saveWordCardPreferences\(\)[\s\S]*?syncTranslationMenu\(\)[\s\S]*?syncWordTranslation\(\)/);
   assert.match(wordNetJs, /function translationMenuItems\(\)[\s\S]*?\[role="menuitem"\][\s\S]*?filter\(\(item\) => !item\.closest\("\[hidden\]"\)\)/);
   assert.match(wordNetJs, /function syncTranslationMenu\(\)[\s\S]*?isTimedTranslationMode\(state\.translationMode\)[\s\S]*?timers\.hidden = !showTimers[\s\S]*?\[data-word-card-setting\][\s\S]*?state\.wordCardPreferences\[key\]/);
@@ -380,7 +387,7 @@ test("Word World automatically queues missing dictionary entries for the server 
 });
 
 test("Word World Rebuild uses an in-composer send control and keeps detailed results inside the game layout", () => {
-  assert.match(wordNetHtml, /data-answer-mode="reconstruct">[\s\S]*?Rebuild English[\s\S]*?<\/button>/);
+  assert.match(wordNetHtml, /data-answer-mode="reconstruct">[\s\S]*?Organize pieces[\s\S]*?<\/button>/);
   assert.match(wordNetHtml, /id="wordNetReconstruction"[\s\S]*?aria-label="Rebuild the English sentence"/);
   assert.match(wordNetHtml, /id="wordNetReconstructionAnswer"[\s\S]*?aria-label="Your English sentence"/);
   assert.match(wordNetHtml, /id="wordNetReconstructionAnswer"[^>]*aria-describedby="wordNetInstructions"/);
@@ -391,6 +398,12 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.doesNotMatch(resultMarkup, /wordNetReportToggle/);
   assert.match(wordNetHtml.slice(feedbackMarkupStart), /class="word-net-feedback">\s*<button class="word-net-report-toggle" id="wordNetReportToggle"[^>]*hidden>Report this sentence<\/button>/);
   assert.match(wordNetHtml, /class="word-net-reconstruction-composer">[\s\S]*?id="wordNetReconstructionAnswer"[\s\S]*?id="wordNetReconstructionActions"[^>]*hidden>[\s\S]*?id="wordNetReconstructionSubmit"[^>]*aria-label="Submit answer"[^>]*disabled>[\s\S]*?class="word-net-reconstruction-submit-icon"[^>]*src="\/assets\/icons\/paper_plane_submit_ui\.png\?v=paper-plane-1"[^>]*width="30"[^>]*height="30"[^>]*alt=""[^>]*aria-hidden="true"/);
+  assert.match(wordNetCss, /\.word-net-generation-menu button\[data-generation-mode\] \{[\s\S]*?justify-content: flex-start;[\s\S]*?text-align: left;/);
+  assert.match(wordNetJs, /submitted\.className = "word-net-reconstruction-result-submitted"/);
+  assert.match(wordNetJs, /word-net-reconstruction-result-token \$\{isCorrect \? "is-correct" : "is-wrong"\}/);
+  assert.match(wordNetJs, /operations\.filter\(\(operation\) => operation\.entered\)/);
+  assert.doesNotMatch(wordNetJs, /word-net-reconstruction-result-corrections|correctionLabels/);
+  assert.doesNotMatch(wordNetJs, /entered\.textContent = operation\.type === "missing" \? `\+ \$\{operation\.expected\}`/);
   assert.doesNotMatch(wordNetHtml, /class="word-net-feedback">[\s\S]*?id="wordNetReconstructionActions"/);
   assert.doesNotMatch(wordNetHtml, /id="wordNetReconstructionNext"/);
   assert.doesNotMatch(wordNetJs, /wordNetReconstructionNext/);
@@ -438,7 +451,7 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   const diffEnd = wordNetJs.indexOf("function renderReconstructionResult", diffStart);
   const diffPath = wordNetJs.slice(diffStart, diffEnd);
   assert.match(diffPath, /if \(round\.correct\)[\s\S]*?host\.textContent = sentence[\s\S]*?Your answer: \$\{sentence\} Correct\.[\s\S]*?return;/);
-  assert.match(diffPath, /alignWordReconstructionAttempt\([\s\S]*?operation\.type === "missing"[\s\S]*?Replace \$\{operation\.entered\} with \$\{operation\.expected\}[\s\S]*?Add missing word[\s\S]*?Remove extra word/);
+  assert.match(diffPath, /alignWordReconstructionAttempt\([\s\S]*?operations\.filter\(\(operation\) => operation\.entered\)[\s\S]*?operation\.type === "match"[\s\S]*?is-correct[\s\S]*?is-wrong/);
   const nextStart = wordNetJs.indexOf("function activateNextSentence");
   const nextEnd = wordNetJs.indexOf("function applyTranslationMode", nextStart);
   const nextPath = wordNetJs.slice(nextStart, nextEnd);
@@ -496,7 +509,9 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.doesNotMatch(resultCssPath, /position: fixed|100dvw|100dvh|::backdrop|\[open\]/);
   assert.match(resultCssPath, /\.word-net-reconstruction-result-answer\.is-correct-attempt[\s\S]*?background: transparent/);
   assert.match(resultCssPath, /\.word-net-reconstruction-result-diff\.is-complete-sentence[\s\S]*?display: block/);
-  assert.match(resultCssPath, /\.is-extra \.word-net-reconstruction-result-entered[\s\S]*?text-decoration: line-through/);
+  assert.match(resultCssPath, /\.word-net-reconstruction-result-submitted[\s\S]*?\.word-net-reconstruction-result-token\.is-wrong[\s\S]*?color: var\(--theme-red/);
+  assert.doesNotMatch(resultCssPath, /word-net-reconstruction-result-corrections|word-net-reconstruction-result-correction-label/);
+  assert.doesNotMatch(resultCssPath, /text-decoration: line-through/);
   assert.match(wordNetCss, /\.word-net-reconstruction-result\.is-correct[\s\S]*?\.word-net-reconstruction-result\.is-incorrect/);
   assert.match(wordNetCss, /\.word-net-reconstruction-result-points\.is-xp-awarded[\s\S]*?word-net-xp-awarded/);
   assert.match(wordNetCss, /\.word-net-side-next\.is-challenge-ready[\s\S]*?animation: word-net-next-ready/);

@@ -12,7 +12,7 @@
     brandLabel: "Caatuu",
     workspaceLabel: "Caatuu Czech",
     routePrefix: "/cz",
-    entryPath: "/cz/home.html",
+    entryPath: "/cz/index.html",
     sourceLanguage: {
       id: "en",
       label: "English",
@@ -30,9 +30,9 @@
     },
     routes: {
       languageSelection: "/",
-      home: "home.html",
+      home: "index.html",
       games: "index.html",
-      conjugationComet: "conjugation-comet.html",
+      conjugationComet: "index.html",
       settings: "index.html"
     },
     storage: {

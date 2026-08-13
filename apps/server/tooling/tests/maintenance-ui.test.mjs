@@ -293,7 +293,7 @@ test("confirmed updates persist a versioned Setup handoff across WebView recreat
     latestVersionName: "0.1.83"
   });
 
-  assert.equal(context.window.location.href, "home.html");
+  assert.equal(context.window.location.href, "index.html");
   assert.equal(ui.pendingAppUpdate().latestVersionCode, 83);
   assert.equal(ui.pendingAppUpdate().latestVersionName, "0.1.83");
   assert.equal(sessionStored.size, 0, "the handoff must not depend on session-scoped storage");

@@ -4,53 +4,57 @@
   "inputFiles": [
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-expansion-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
+    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl"
   ],
   "validation": {
     "valid": true,
     "errors": [],
     "warnings": [],
-    "recordCount": 760,
-    "level2Share": 0.701316,
+    "recordCount": 792,
+    "level2Share": 0.713384,
     "duplicateEnglishGroups": 0
   },
   "records": {
-    "total": 760,
+    "total": 792,
     "byDifficulty": {
       "1": 175,
-      "2": 533,
+      "2": 565,
       "3": 52
     },
     "difficultyShare": {
-      "1": 0.230263,
-      "2": 0.701316,
-      "3": 0.068421
+      "1": 0.22096,
+      "2": 0.713384,
+      "3": 0.065657
     },
     "byCefr": {
-      "A1": 533,
+      "A1": 565,
       "A1/A2": 34,
       "A2": 18,
       "Pre-A1/A1": 175
     },
     "byTopic": {
       "conversation": 144,
+      "daily-life": 4,
       "feelings": 5,
       "food": 48,
-      "home": 54,
-      "location": 50,
+      "home": 55,
+      "location": 51,
       "nature": 6,
-      "people": 77,
-      "play": 51,
+      "people": 81,
+      "plans": 4,
+      "play": 54,
       "routine": 49,
-      "school": 49,
+      "school": 60,
       "shopping": 26,
       "technology": 53,
       "time": 48,
-      "transport": 49,
-      "weather": 51
+      "transport": 51,
+      "travel": 1,
+      "weather": 52
     },
     "byReviewStatus": {
-      "codex_reviewed": 760
+      "codex_reviewed": 792
     }
   },
   "guidance": {
@@ -145,8 +149,10 @@
       "time expression": 6,
       "time present": 2,
       "time quantity": 3,
+      "verb with se": 32,
       "weather present": 2,
-      "word in meaningful context": 219
+      "word in meaningful context": 219,
+      "word order in context": 32
     },
     "grammarTags": {
       "adjective_agreement": 1,
@@ -171,7 +177,8 @@
       "category_time_calendar": 25,
       "category_travel_transport": 25,
       "category_weather_clothing": 25,
-      "codex_authored": 271,
+      "clitic_placement": 32,
+      "codex_authored": 303,
       "common_phrase": 489,
       "comparative_adverb": 1,
       "comparative_clause": 1,
@@ -186,6 +193,14 @@
       "dative_experiencer": 2,
       "dative_object": 1,
       "event": 1,
+      "family_bat-se": 4,
+      "family_divat-se": 4,
+      "family_ptat-se": 4,
+      "family_setkat-se": 4,
+      "family_smat-se": 4,
+      "family_tesit-se": 4,
+      "family_ucit-se": 4,
+      "family_vracet-se": 4,
       "function_ask_and_give_directions": 25,
       "function_ask_for_help": 25,
       "function_be_polite": 23,
@@ -233,6 +248,7 @@
       "imperative_time": 1,
       "impersonal_location": 1,
       "indirect_question": 1,
+      "lexical_se": 32,
       "location_copular": 8,
       "location_present": 12,
       "modal": 37,
@@ -299,24 +315,24 @@
       "weather_present": 2
     },
     "support": {
-      "translationAvailable": 760,
-      "imageSuitable": 687,
-      "audioSuitable": 760,
-      "dictionarySuitable": 756
+      "translationAvailable": 792,
+      "imageSuitable": 719,
+      "audioSuitable": 792,
+      "dictionarySuitable": 788
     }
   },
   "targets": {
-    "uniquePlayable": 570,
-    "singleton": 210,
+    "uniquePlayable": 589,
+    "singleton": 219,
     "branchable": {
       "minimumRecords": 2,
-      "targetCount": 360,
-      "share": 0.631579
+      "targetCount": 370,
+      "share": 0.628183
     },
     "strong": {
       "minimumRecords": 5,
-      "targetCount": 24,
-      "share": 0.042105
+      "targetCount": 25,
+      "share": 0.042445
     },
     "perTarget": [
       {
@@ -538,19 +554,42 @@
         ]
       },
       {
+        "normalized": "bojí",
+        "surfaces": [
+          "bojí"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0027",
+          "ww-codex-reflexive-0001-0028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "home",
+          "people"
+        ]
+      },
+      {
         "normalized": "bojím",
         "surfaces": [
+          "bojím",
           "Bojím"
         ],
-        "recordCount": 1,
+        "recordCount": 3,
         "recordIds": [
+          "ww-codex-reflexive-0001-0025",
+          "ww-codex-reflexive-0001-0026",
           "ww-cp-000108"
         ],
         "difficulties": [
-          1
+          1,
+          2
         ],
         "topics": [
-          "people"
+          "people",
+          "weather"
         ]
       },
       {
@@ -1295,19 +1334,41 @@
         ]
       },
       {
-        "normalized": "dívám",
+        "normalized": "dívají",
         "surfaces": [
-          "dívám"
+          "dívají"
         ],
         "recordCount": 1,
         "recordIds": [
+          "ww-codex-reflexive-0001-0008"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "dívám",
+        "surfaces": [
+          "dívám",
+          "Dívám"
+        ],
+        "recordCount": 4,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0005",
+          "ww-codex-reflexive-0001-0006",
+          "ww-codex-reflexive-0001-0007",
           "ww-cp-000258"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "shopping"
+          "daily-life",
+          "shopping",
+          "transport"
         ]
       },
       {
@@ -6670,6 +6731,57 @@
         ]
       },
       {
+        "normalized": "ptá",
+        "surfaces": [
+          "ptá"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0012"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "ptám",
+        "surfaces": [
+          "ptám",
+          "Ptám"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0009",
+          "ww-codex-reflexive-0001-0010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "location",
+          "school"
+        ]
+      },
+      {
+        "normalized": "ptáme",
+        "surfaces": [
+          "ptáme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0011"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "půjčit",
         "surfaces": [
           "půjčit"
@@ -7069,6 +7181,62 @@
         ]
       },
       {
+        "normalized": "se",
+        "surfaces": [
+          "se"
+        ],
+        "recordCount": 32,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0001",
+          "ww-codex-reflexive-0001-0002",
+          "ww-codex-reflexive-0001-0003",
+          "ww-codex-reflexive-0001-0004",
+          "ww-codex-reflexive-0001-0005",
+          "ww-codex-reflexive-0001-0006",
+          "ww-codex-reflexive-0001-0007",
+          "ww-codex-reflexive-0001-0008",
+          "ww-codex-reflexive-0001-0009",
+          "ww-codex-reflexive-0001-0010",
+          "ww-codex-reflexive-0001-0011",
+          "ww-codex-reflexive-0001-0012",
+          "ww-codex-reflexive-0001-0013",
+          "ww-codex-reflexive-0001-0014",
+          "ww-codex-reflexive-0001-0015",
+          "ww-codex-reflexive-0001-0016",
+          "ww-codex-reflexive-0001-0017",
+          "ww-codex-reflexive-0001-0018",
+          "ww-codex-reflexive-0001-0019",
+          "ww-codex-reflexive-0001-0020",
+          "ww-codex-reflexive-0001-0021",
+          "ww-codex-reflexive-0001-0022",
+          "ww-codex-reflexive-0001-0023",
+          "ww-codex-reflexive-0001-0024",
+          "ww-codex-reflexive-0001-0025",
+          "ww-codex-reflexive-0001-0026",
+          "ww-codex-reflexive-0001-0027",
+          "ww-codex-reflexive-0001-0028",
+          "ww-codex-reflexive-0001-0029",
+          "ww-codex-reflexive-0001-0030",
+          "ww-codex-reflexive-0001-0031",
+          "ww-codex-reflexive-0001-0032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "daily-life",
+          "home",
+          "location",
+          "people",
+          "plans",
+          "play",
+          "school",
+          "transport",
+          "travel",
+          "weather"
+        ]
+      },
+      {
         "normalized": "sedí",
         "surfaces": [
           "sedí"
@@ -7169,6 +7337,57 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "setkají",
+        "surfaces": [
+          "setkají"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "transport"
+        ]
+      },
+      {
+        "normalized": "setkám",
+        "surfaces": [
+          "setkám",
+          "Setkám"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0029",
+          "ww-codex-reflexive-0001-0030"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "people",
+          "plans"
+        ]
+      },
+      {
+        "normalized": "setkáme",
+        "surfaces": [
+          "setkáme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -7326,6 +7545,70 @@
         ],
         "topics": [
           "technology"
+        ]
+      },
+      {
+        "normalized": "směje",
+        "surfaces": [
+          "směje"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0016"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "people"
+        ]
+      },
+      {
+        "normalized": "smějeme",
+        "surfaces": [
+          "smějeme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0014"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "smějí",
+        "surfaces": [
+          "smějí"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0015"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "směju",
+        "surfaces": [
+          "Směju"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0013"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -8315,33 +8598,58 @@
       {
         "normalized": "těší",
         "surfaces": [
+          "těší",
           "Těší"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
+          "ww-codex-reflexive-0001-0024",
           "ww-cp-000009"
         ],
         "difficulties": [
-          1
+          1,
+          2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "plans"
         ]
       },
       {
         "normalized": "těším",
         "surfaces": [
+          "těším",
           "Těším"
         ],
-        "recordCount": 1,
+        "recordCount": 3,
         "recordIds": [
+          "ww-codex-reflexive-0001-0021",
+          "ww-codex-reflexive-0001-0023",
           "ww-cp-000109"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "people"
+          "people",
+          "plans",
+          "school"
+        ]
+      },
+      {
+        "normalized": "těšíme",
+        "surfaces": [
+          "těšíme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0022"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "plans"
         ]
       },
       {
@@ -8573,6 +8881,41 @@
         "topics": [
           "people",
           "play"
+        ]
+      },
+      {
+        "normalized": "učí",
+        "surfaces": [
+          "učí"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0004"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "učím",
+        "surfaces": [
+          "učím",
+          "Učím"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0001",
+          "ww-codex-reflexive-0001-0002",
+          "ww-codex-reflexive-0001-0003"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -9362,6 +9705,56 @@
         "topics": [
           "food",
           "routine"
+        ]
+      },
+      {
+        "normalized": "vrací",
+        "surfaces": [
+          "vrací"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "travel"
+        ]
+      },
+      {
+        "normalized": "vracím",
+        "surfaces": [
+          "vracím",
+          "Vracím"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0017",
+          "ww-codex-reflexive-0001-0018"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "daily-life"
+        ]
+      },
+      {
+        "normalized": "vracíme",
+        "surfaces": [
+          "vracíme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-codex-reflexive-0001-0019"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {

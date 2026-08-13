@@ -106,8 +106,11 @@ Use `--check` in CI or before packaging to detect a stale frame list without
 rewriting either manifest. The final numeric component of each filename defines
 playback order. Numbers may contain gaps; playback follows the sorted manifest
 entries rather than assuming a contiguous numeric range. The setup screen plays
-`animation-backpack` once and then loops `animation-walking-arround`; selecting
-a training world plays `animation-landing` once.
+`animation-backpack` once and then loops `animation-walking-arround`. Training
+worlds open directly; the retired `animation-landing` and
+`animation-leaving` folders remain beside the runtime sequences as preserved
+source artwork. The synchronizer explicitly excludes them from the runtime and
+setup catalogs.
 
 After changing runtime routes, Czech static files, Chinese archive paths, or the
 Android package, run the boundary audit from `C:\Work\caatuu`:

@@ -4,12 +4,13 @@
   "inputFiles": [
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-expansion-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
+    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl"
   ],
   "valid": true,
   "errors": [],
   "warnings": [],
-  "recordCount": 760,
-  "level2Share": 0.701316,
+  "recordCount": 792,
+  "level2Share": 0.713384,
   "duplicateEnglishGroups": 0
 }

@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f5efe5">
-    <title>Caatuu Czech</title>
+    <title>Caatuu</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-  <script src="source/shared/course-profile.js?v=course-16"></script>
+    <script src="source/shared/course-profile.js?v=course-17"></script>
     <script src="source/shared/learning-profile.js?v=learning-5"></script>
     <script>
       try {
@@ -21,17 +21,71 @@
         document.documentElement.dataset.fontSize = "largest";
       }
     </script>
-  <script src="source/shared/runtime.js?v=runtime-37"></script>
+  <script src="source/shared/runtime.js?v=runtime-39"></script>
   <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
-  <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
-    <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-76">
-  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-92">
+    <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+    <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-82">
+    <link rel="stylesheet" href="source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1">
+    <link rel="stylesheet" href="source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1">
+    <link rel="stylesheet" href="source/features/home/home.css?v=home-29">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-118">
   </head>
-  <body class="games-page">
+  <body class="games-page setup-blocked">
     <div class="app-shell">
-      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Games" data-caatuu-page-icon="/assets/icons/games_icon.png"></header>
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Caatuu" data-caatuu-page-title="Home" data-caatuu-page-icon="/assets/icons/home_icon.png"></header>
 
       <main class="workspace">
+        <section class="view home-view is-active" id="view-home" aria-labelledby="homeTitle">
+          <div class="home-main">
+            <section class="home-hero">
+              <p class="home-kicker">Start</p>
+              <h1 id="homeTitle">Caatuu</h1>
+              <div class="setup-visual" aria-hidden="true">
+                <span class="setup-orbit setup-orbit-one"></span>
+                <span class="setup-orbit setup-orbit-two"></span>
+                <img class="stage-art" src="icons/caatuu-czech-512.png" data-setup-art-fallback="icons/caatuu-czech-512.png" alt="">
+              </div>
+              <section class="native-setup-card" id="nativeSetup" aria-labelledby="setupTitle" hidden>
+                <div class="setup-head">
+                  <div>
+                    <p class="home-kicker">Local setup</p>
+                    <h2 id="setupTitle">Preparing Caatuu</h2>
+                  </div>
+                  <div class="setup-head-meta">
+                    <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails">Show details</button>
+                  </div>
+                </div>
+                <div class="setup-message-zone" aria-live="polite">
+                  <p class="setup-phase" id="setupPhase">Preparing Caatuu</p>
+                  <p class="setup-message" id="setupMessage">Preparing local files for offline use.</p>
+                  <button class="setup-report-link" id="setupReportBug" type="button" hidden>Report bug</button>
+                </div>
+                <div class="setup-progress-meta">
+                  <span class="setup-progress-metrics" id="setupProgressText">
+                    <span class="setup-progress-pill"><b id="setupPercent">0%</b></span>
+                    <span class="setup-count-pill" id="setupCount">Checking</span>
+                  </span>
+                  <span id="setupBytes">Reading manifest</span>
+                </div>
+                <div class="setup-progress" role="progressbar" aria-label="Local setup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Preparing Caatuu" id="setupProgress">
+                  <span id="setupProgressBar"></span>
+                </div>
+                <div class="setup-detail-grid" id="setupDetails">
+                  <div class="setup-artifacts" id="setupArtifacts" aria-label="Setup artifacts"></div>
+                  <section class="setup-log-panel" aria-labelledby="setupLogTitle">
+                    <h3 id="setupLogTitle">Recent activity</h3>
+                    <ol class="setup-log" id="setupLog"></ol>
+                  </section>
+                </div>
+                <div class="setup-actions">
+                  <button class="setup-action" id="setupAction" type="button">Prepare Caatuu</button>
+                  <button class="setup-small-action" id="setupAbort" type="button" disabled>Abort</button>
+                </div>
+              </section>
+            </section>
+          </div>
+        </section>
+
         <section class="view" id="view-dictionary" aria-labelledby="dictionaryWorkspaceTitle">
           <header class="dictionary-workspace-head">
             <p>Dictionary developer tools</p>
@@ -319,13 +373,13 @@
           </section>
         </section>
 
-        <section class="view is-active" id="view-verbs" aria-label="Train">
+        <section class="view" id="view-verbs" aria-label="Train">
           <div class="verb-game-shell">
             <section class="train-tab-panel train-galaxy is-active" id="trainPanelGalaxy" aria-label="Choose a world">
               <div class="train-worlds" aria-label="Training games">
                 <button class="train-world train-world-word" type="button" data-train-tab="word-net">
                   <span class="train-orbit" aria-hidden="true"></span>
-                  <img src="/assets/planets/planet_A.png" alt="">
+                  <img src="/assets/planets/word-world.png" alt="">
                   <span class="train-world-label">
                     <b>Word World</b>
                     <small>Meanings + links</small>
@@ -333,7 +387,7 @@
                 </button>
                 <button class="train-world train-world-verb" type="button" data-train-tab="verb-lab">
                   <span class="train-orbit" aria-hidden="true"></span>
-                  <img src="/assets/planets/nebula.png" alt="">
+                  <img src="/assets/planets/verb-nebula.png" alt="">
                   <span class="train-world-label">
                     <b>Verb Nebula</b>
                     <small id="verbWorldSubtitle">Match meanings</small>
@@ -354,9 +408,25 @@
                     <small>Choose the form</small>
                   </span>
                 </button>
+                <button class="train-world train-world-case" type="button" data-train-tab="case-cosmos" aria-label="Open Case Cosmos">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/case-cosmos.png" alt="">
+                  <span class="train-world-label">
+                    <b>Case Cosmos</b>
+                    <small>Choose the case route</small>
+                  </span>
+                </button>
+                <button class="train-world train-world-agreement" type="button" data-train-tab="agreement-aurora" aria-label="Open Agreement Aurora">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1" alt="">
+                  <span class="train-world-label">
+                    <b>Agreement Aurora</b>
+                    <small>Make the words match</small>
+                  </span>
+                </button>
                 <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
                   <span class="train-orbit" aria-hidden="true"></span>
-                  <img src="/assets/planets/planet_C.png" alt="">
+                  <img src="/assets/planets/memory-moon.png" alt="">
                   <span class="train-world-label">
                     <b>Memory Moon</b>
                     <small>Recall</small>
@@ -538,6 +608,39 @@
               </div>
             </section>
 
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelConjugationComet" aria-label="Conjugation Comet" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="conjugationCometEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="conjugationCometEmbeddedGame" data-src="conjugation-comet.html" data-embedded-game="conjugation-comet" title="Conjugation Comet" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status" id="conjugationCometEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="word-net-embedded-loader" aria-hidden="true"></span>
+                  <strong>Opening Conjugation Comet</strong>
+                  <small>Your current challenge will stay ready when you come back.</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelCaseCosmos" aria-label="Case Cosmos" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="caseCosmosEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="caseCosmosEmbeddedGame" data-src="case-cosmos.html" data-embedded-game="case-cosmos" title="Case Cosmos" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status" id="caseCosmosEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="word-net-embedded-loader" aria-hidden="true"></span>
+                  <strong>Opening Case Cosmos</strong>
+                  <small>Your current challenge will stay ready when you come back.</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelAgreementAurora" aria-label="Agreement Aurora" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="agreementAuroraEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="agreementAuroraEmbeddedGame" data-src="agreement-aurora.html" data-embedded-game="agreement-aurora" title="Agreement Aurora" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status" id="agreementAuroraEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="word-net-embedded-loader" aria-hidden="true"></span>
+                  <strong>Opening Agreement Aurora</strong>
+                  <small>Your current challenge will stay ready when you come back.</small>
+                </div>
+              </div>
+            </section>
+
             <section class="train-tab-panel memory-moon-panel" id="trainPanelMemoryMoon" aria-label="Memory Moon" hidden>
               <header class="word-net-head">
                 <div>
@@ -548,7 +651,7 @@
                 <button type="button" class="train-back-button" data-train-tab="galaxy">All games</button>
               </header>
               <div class="memory-moon-stage">
-                <img src="/assets/planets/planet_C.png" alt="">
+                <img src="/assets/planets/memory-moon.png" alt="">
                 <span>Coming next</span>
               </div>
             </section>
@@ -564,26 +667,11 @@
       </footer>
     </div>
 
-    <div
-      class="world-landing-animation"
-      id="worldLandingAnimation"
-      role="status"
-      aria-live="polite"
-      aria-label="Landing on the selected world"
-      aria-hidden="true"
-      hidden
-    >
-      <div class="world-landing-animation-stage">
-        <img id="worldLandingAnimationFrame" alt="">
-        <span>Landing…</span>
-      </div>
-    </div>
-
     <nav
       class="bottom-app-nav"
       aria-label="Caatuu Czech sections"
       data-caatuu-bottom-nav
-      data-active-section="games"
+      data-active-section="home"
       data-view-buttons="true"
       data-settings-target="openSettings"
     ></nav>
@@ -721,9 +809,11 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="source/shared/chrome.js?v=chrome-96"></script>
+  <script src="source/shared/chrome.js?v=chrome-108"></script>
     <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
-    <script src="source/games/verb-nebula/app.js?v=shell-92"></script>
+    <script src="source/features/setup/setup-progress.js?v=setup-progress-1"></script>
+    <script src="source/features/setup/setup.js?v=setup-36"></script>
+    <script src="source/games/verb-nebula/app.js?v=shell-100"></script>
     <script src="source/features/dictionary/dictionary-full.js?v=full-dictionary-5"></script>
   </body>
 </html>

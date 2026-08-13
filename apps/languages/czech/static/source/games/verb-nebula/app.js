@@ -33,11 +33,11 @@ const wordWorldStandardArtifact = Object.freeze({
   sourceLabel: "Caatuu-authored and Codex-authored reviewed bilingual learning sentences",
   sourceUrl: "data/games/word-world/manifest.json",
   license: "MIT source license",
-  intendedUse: "Standard Word World guided offline sentences. Corpus standard-v0.1 · 760 rows · L1 175 · L2 533 · L3 52 · codex_reviewed · humanApproved=false.",
+  intendedUse: "Standard Word World guided offline sentences. Corpus standard-v0.1 · 792 rows · L1 175 · L2 565 · L3 52 · codex_reviewed · humanApproved=false.",
   artifactKind: "guided-learning-corpus",
   runtime: "Compiled bilingual JSON data pack",
   status: "active",
-  entryCount: 760,
+  entryCount: 792,
   usageScope: "standard_word_world_offline"
 });
 
@@ -189,7 +189,7 @@ async function loadContentData() {
 }
 
 const state = {
-  activeView: "verbs",
+  activeView: "home",
   trainTab: "galaxy",
   verbDifficulty: 1,
   verbPairs: [],
@@ -1521,7 +1521,7 @@ function loadVerbMemory() {
   const memory = readVerbMemory();
   const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
   state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
-  state.verbHintsEnabled = Boolean(memory?.hintsEnabled);
+  state.verbHintsEnabled = memory ? Boolean(memory.hintsEnabled) : true;
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
   state.verbStats = {
     attempts: safeVerbStat(memory?.stats?.attempts),
@@ -1676,9 +1676,10 @@ function renderVerbPairCountControls() {
 
 function loadVerbSpeakOnTap() {
   try {
-    return window.localStorage.getItem(verbSpeakOnTapStorageKey) === "true";
+    const stored = window.localStorage.getItem(verbSpeakOnTapStorageKey);
+    return stored === null ? true : stored === "true";
   } catch (error) {
-    return false;
+    return true;
   }
 }
 
@@ -2456,8 +2457,20 @@ function chooseVerbMatchCard(event) {
     state.verbSelectedEnglishId = state.verbSelectedEnglishId === id ? "" : id;
   }
 
-  renderVerbNebula();
-  void trackVerbGuidedOperation(settleVerbMatch);
+  syncVerbSelectedCards();
+  if (state.verbSelectedCzechId && state.verbSelectedEnglishId) {
+    void trackVerbGuidedOperation(settleVerbMatch);
+  }
+}
+
+function syncVerbSelectedCards() {
+  document.querySelectorAll("button[data-verb-side][data-verb-id]").forEach((button) => {
+    const selected = button.dataset.verbSide === "cz"
+      ? state.verbSelectedCzechId === button.dataset.verbId
+      : state.verbSelectedEnglishId === button.dataset.verbId;
+    button.setAttribute("aria-pressed", String(selected));
+    button.classList.toggle("is-selected", selected);
+  });
 }
 
 function changeVerbPairCount(event) {
@@ -3835,6 +3848,7 @@ function printBookNow() {
 }
 
 function normalizeView(view) {
+  if (view === "home") return "home";
   if (view === "guide" || view === "dictionary") return "dictionary";
   if (view === "train" || view === "verbs") return "verbs";
   return "verbs";
@@ -3847,6 +3861,11 @@ function setView(view) {
   $(`#view-${view}`)?.classList.add("is-active");
   $(".nav-tab.is-active")?.classList.remove("is-active");
   $(`.nav-tab[data-view="${view}"]`)?.classList.add("is-active");
+  const homeView = view === "home";
+  window.CaatuuChrome?.setPagePresentation?.(homeView
+    ? { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" }
+    : { kicker: "Train", title: "Games", iconSrc: "/assets/icons/games_icon.png" });
+  window.CaatuuChrome?.setBottomNavSection?.(homeView ? "home" : view === "verbs" ? "games" : "");
   const viewTitle = view === "verbs" ? ({
     "verb-lab": "Verb Nebula",
     "word-net": "Word World",
@@ -3857,125 +3876,6 @@ function setView(view) {
     backHref: viewTitle ? "index.html" : "",
     trainTab: viewTitle ? "galaxy" : ""
   });
-}
-
-const sharedAnimationManifestPath = "/assets/loading_animation/animations_manifest.json";
-const worldLandingFrameDelayMs = 600;
-const worldLandingFramesPerSelection = 4;
-const worldLandingCursorStorageKey = "caatuu.czech.animation.landing.cursor.v1";
-let worldLandingFramesPromise = null;
-let worldLandingActive = false;
-let worldLandingCursorFallback = 0;
-
-function animationFrameNumber(value) {
-  const matches = [...String(value || "").matchAll(/(\d+)/g)];
-  return matches.length ? Number(matches.at(-1)[1]) : Number.MAX_SAFE_INTEGER;
-}
-
-function sharedAnimationFrameUrl(folder, file) {
-  if (!folder || !file) return "";
-  return `/assets/loading_animation/${[folder, file].map(encodeURIComponent).join("/")}`;
-}
-
-function preloadAnimationFrame(src) {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.onload = () => resolve(src);
-    image.onerror = () => resolve("");
-    image.src = src;
-  });
-}
-
-async function loadWorldLandingFrames() {
-  const response = await fetch(sharedAnimationManifestPath);
-  if (!response.ok) throw new Error(`Animation manifest returned ${response.status}`);
-  const manifest = await response.json();
-  const landing = (Array.isArray(manifest?.animations) ? manifest.animations : [])
-    .find((sequence) => sequence?.id === "landing");
-  if (!landing) return [];
-  const frames = (Array.isArray(landing.sprites) ? landing.sprites : [])
-    .map((frame) => sharedAnimationFrameUrl(landing.folder, frame?.file))
-    .filter(Boolean)
-    .sort((left, right) => animationFrameNumber(left) - animationFrameNumber(right) || left.localeCompare(right));
-  return (await Promise.all(frames.map(preloadAnimationFrame))).filter(Boolean);
-}
-
-function worldLandingFrames() {
-  if (!worldLandingFramesPromise) {
-    worldLandingFramesPromise = loadWorldLandingFrames().catch((error) => {
-      console.warn("Could not load the landing animation.", error);
-      return [];
-    });
-  }
-  return worldLandingFramesPromise;
-}
-
-function animationDelay(milliseconds) {
-  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
-}
-
-function nextWorldLandingFrames(frames) {
-  let cursor = worldLandingCursorFallback;
-  try {
-    const storedCursor = Number(window.sessionStorage.getItem(worldLandingCursorStorageKey));
-    if (Number.isInteger(storedCursor) && storedCursor >= 0) cursor = storedCursor;
-  } catch (error) {
-    // The in-memory cursor still advances when session storage is unavailable.
-  }
-  cursor %= frames.length;
-  const count = Math.min(worldLandingFramesPerSelection, frames.length);
-  const selectedFrames = Array.from(
-    { length: count },
-    (_, offset) => frames[(cursor + offset) % frames.length]
-  );
-  worldLandingCursorFallback = (cursor + count) % frames.length;
-  try {
-    window.sessionStorage.setItem(
-      worldLandingCursorStorageKey,
-      String(worldLandingCursorFallback)
-    );
-  } catch (error) {
-    // The in-memory cursor above remains authoritative for this page.
-  }
-  return selectedFrames;
-}
-
-async function playWorldLandingAnimation() {
-  if (worldLandingActive) return false;
-  worldLandingActive = true;
-  const overlay = $("#worldLandingAnimation");
-  const image = $("#worldLandingAnimationFrame");
-  try {
-    const frames = await worldLandingFrames();
-    if (!overlay || !image || !frames.length) return true;
-    const selectedFrames = nextWorldLandingFrames(frames);
-    document.body.classList.add("world-landing-active");
-    overlay.hidden = false;
-    overlay.setAttribute("aria-hidden", "false");
-    overlay.classList.remove("is-finishing");
-    window.requestAnimationFrame(() => overlay.classList.add("is-visible"));
-
-    for (const frame of selectedFrames) {
-      image.src = frame;
-      await animationDelay(worldLandingFrameDelayMs);
-    }
-
-    overlay.classList.add("is-finishing");
-    await animationDelay(180);
-    overlay.classList.remove("is-visible", "is-finishing");
-    overlay.hidden = true;
-    overlay.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("world-landing-active");
-    return true;
-  } finally {
-    overlay?.classList.remove("is-visible", "is-finishing");
-    if (overlay) {
-      overlay.hidden = true;
-      overlay.setAttribute("aria-hidden", "true");
-    }
-    document.body.classList.remove("world-landing-active");
-    worldLandingActive = false;
-  }
 }
 
 function syncEmbeddedWordNetVisibility(active) {
@@ -4037,11 +3937,124 @@ function ensureWordNetLoaded() {
   }, 20000);
 }
 
+const embeddedGameTabs = {
+  "conjugation-comet": {
+    frameId: "conjugationCometEmbeddedGame",
+    stageId: "conjugationCometEmbeddedStage",
+    statusId: "conjugationCometEmbeddedStatus",
+    title: "Conjugation Comet"
+  },
+  "case-cosmos": {
+    frameId: "caseCosmosEmbeddedGame",
+    stageId: "caseCosmosEmbeddedStage",
+    statusId: "caseCosmosEmbeddedStatus",
+    title: "Case Cosmos"
+  },
+  "agreement-aurora": {
+    frameId: "agreementAuroraEmbeddedGame",
+    stageId: "agreementAuroraEmbeddedStage",
+    statusId: "agreementAuroraEmbeddedStatus",
+    title: "Agreement Aurora"
+  }
+};
+
+function prepareEmbeddedGameDocument(frame) {
+  const embeddedDocument = frame.contentDocument;
+  if (!embeddedDocument) return;
+  embeddedDocument.documentElement.classList.add("caatuu-embedded-shell");
+  embeddedDocument.body?.classList.add("caatuu-embedded-shell");
+  if (embeddedDocument.getElementById("caatuuEmbeddedShellStyle")) return;
+  const style = embeddedDocument.createElement("style");
+  style.id = "caatuuEmbeddedShellStyle";
+  style.textContent = `
+    html.caatuu-embedded-shell,
+    body.caatuu-embedded-shell { min-height: 100%; }
+    body.caatuu-embedded-shell { padding: 0 !important; overflow-x: hidden; }
+    body.caatuu-embedded-shell > .app-header,
+    body.caatuu-embedded-shell > .app-shell > .app-header,
+    body.caatuu-embedded-shell > .app-bottom-dock,
+    body.caatuu-embedded-shell > [data-caatuu-bottom-dock],
+    body.caatuu-embedded-shell > #gamesMenuPanel,
+    body.caatuu-embedded-shell > #settingsPanel { display: none !important; }
+    body.caatuu-embedded-shell > .app-shell {
+      min-height: 100dvh;
+      padding-bottom: 0 !important;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+    }
+    body.caatuu-embedded-shell > .app-shell > .workspace {
+      min-height: 0;
+      padding-bottom: 14px !important;
+    }
+    body.caatuu-embedded-shell > .app-footer,
+    body.caatuu-embedded-shell > .app-shell > .app-footer {
+      min-height: 44px;
+      margin: 0 !important;
+      padding: 6px 12px !important;
+      display: flex !important;
+      align-items: center;
+    }
+  `;
+  embeddedDocument.head?.append(style);
+}
+
+function syncEmbeddedGameVisibility(activeTab) {
+  Object.entries(embeddedGameTabs).forEach(([gameId, config]) => {
+    const frame = document.getElementById(config.frameId);
+    if (!frame?.contentWindow || frame.dataset.ready !== "true") return;
+    frame.contentWindow.postMessage({
+      source: "caatuu-app-shell",
+      type: "visibility",
+      active: activeTab === gameId,
+      theme: document.documentElement.dataset.theme || "dark",
+      fontSize: document.documentElement.dataset.fontSize || "largest"
+    }, window.location.origin);
+  });
+}
+
+function ensureEmbeddedGameLoaded(gameId) {
+  const config = embeddedGameTabs[gameId];
+  const frame = config ? document.getElementById(config.frameId) : null;
+  const stage = config ? document.getElementById(config.stageId) : null;
+  const status = config ? document.getElementById(config.statusId) : null;
+  if (!config || !frame || frame.dataset.loading === "true" || frame.dataset.ready === "true") return;
+  const source = frame.dataset.src;
+  if (!source) return;
+  frame.dataset.loading = "true";
+
+  frame.addEventListener("load", () => {
+    try {
+      prepareEmbeddedGameDocument(frame);
+      frame.dataset.ready = "true";
+      frame.dataset.loading = "false";
+      frame.classList.add("is-ready");
+      frame.removeAttribute("aria-hidden");
+      frame.removeAttribute("tabindex");
+      stage?.setAttribute("aria-busy", "false");
+      if (status) status.hidden = true;
+      syncEmbeddedGameVisibility(state.trainTab);
+    } catch (error) {
+      console.error(`Could not prepare embedded ${config.title}.`, error);
+      if (status) {
+        status.classList.add("is-error");
+        const title = status.querySelector("strong");
+        const copy = status.querySelector("small");
+        if (title) title.textContent = `${config.title} could not start`;
+        if (copy) copy.textContent = "Return to the planets and try opening it again.";
+      }
+    }
+  }, { once: true });
+  frame.src = source;
+}
+
 function setTrainTab(tab) {
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
     "verb-lab": "trainPanelVerbLab",
     "word-net": "trainPanelWordNet",
+    "conjugation-comet": "trainPanelConjugationComet",
+    "case-cosmos": "trainPanelCaseCosmos",
+    "agreement-aurora": "trainPanelAgreementAurora",
     "memory-moon": "trainPanelMemoryMoon"
   };
   const activeTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
@@ -4049,10 +4062,14 @@ function setTrainTab(tab) {
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
   document.body.classList.toggle("word-net-active", activeTab === "word-net");
+  document.body.classList.toggle("embedded-game-active", activeTab === "word-net" || Object.hasOwn(embeddedGameTabs, activeTab));
   const trainTitles = {
     galaxy: "",
     "verb-lab": "Verb Nebula",
     "word-net": "Word World",
+    "conjugation-comet": "Conjugation Comet",
+    "case-cosmos": "Case Cosmos",
+    "agreement-aurora": "Agreement Aurora",
     "memory-moon": "Memory Moon"
   };
   const title = trainTitles[activeTab] || "";
@@ -4073,7 +4090,9 @@ function setTrainTab(tab) {
   });
   if (activeTab === "verb-lab") renderVerbNebula();
   if (activeTab === "word-net") ensureWordNetLoaded();
+  if (Object.hasOwn(embeddedGameTabs, activeTab)) ensureEmbeddedGameLoaded(activeTab);
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
+  syncEmbeddedGameVisibility(activeTab);
 }
 
 function setInitialViewFromLocation() {
@@ -4088,13 +4107,24 @@ function setInitialViewFromLocation() {
   }
   delete document.documentElement.dataset.navigationRequest;
   const openSettings = navigationRequest === "backpack";
+  const openHome = navigationRequest === "home";
   const requestedView = navigationRequest === "dictionary" ? "dictionary" : "";
+  const requestedGame = navigationRequest.startsWith("game:")
+    ? navigationRequest.slice("game:".length)
+    : "";
 
-  if (openSettings) {
+  if (openHome) {
+    setView("home");
+  } else if (openSettings) {
     setView(state.activeView);
     window.requestAnimationFrame(openSettingsPanel);
   } else if (requestedView) {
     setView(requestedView);
+  } else if (["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(requestedGame)) {
+    setView("verbs");
+    window.requestAnimationFrame(() => {
+      document.querySelector(`[data-train-tab="${requestedGame}"]`)?.click();
+    });
   }
 
   if (url.search || url.hash) {
@@ -4123,22 +4153,22 @@ function bindUi() {
       restartGuidedVerbRuntimeAfterReset({ resetCompleted: false });
     }
   });
-  document.addEventListener("click", async (event) => {
+  document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
     const trainTab = event.target.closest("[data-train-tab]");
     if (trainTab) {
       event.preventDefault();
+      if (state.activeView !== "verbs") setView("verbs");
       const selectedTab = trainTab.dataset.trainTab;
       if (trainTab.classList.contains("train-world") && selectedTab !== "galaxy") {
-        if (worldLandingActive) return;
         setTrainTab(selectedTab);
-        await playWorldLandingAnimation();
         return;
       }
       setTrainTab(selectedTab);
     }
   });
+  document.addEventListener("caatuu:home-request", () => setView("home"));
 
   $("#openSettings")?.addEventListener("click", openSettingsPanel);
   $("#settingsPanel")?.addEventListener("click", (event) => {
@@ -4229,7 +4259,6 @@ async function init() {
   try {
     await loadContentData();
     await initializeVerbGuidedMode();
-    void worldLandingFrames();
     await loadModelLicenseCatalog().catch(() => {});
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();

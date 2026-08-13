@@ -1,0 +1,740 @@
+[
+  {
+    "noun": "Petr",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Petr",
+        "english": "Petr is reading.",
+        "czech": "Petr čte."
+      },
+      "Genitive": {
+        "form": "Petra",
+        "english": "The letter is from Petr.",
+        "czech": "Dopis je od Petra."
+      },
+      "Dative": {
+        "form": "Petrovi",
+        "english": "I am giving Petr a book.",
+        "czech": "Dávám Petrovi knihu."
+      },
+      "Accusative": {
+        "form": "Petra",
+        "english": "I see Petr.",
+        "czech": "Vidím Petra."
+      },
+      "Vocative": {
+        "form": "Petře",
+        "english": "Petr, come here!",
+        "czech": "Petře, pojď sem!"
+      },
+      "Locative": {
+        "form": "Petrovi",
+        "english": "I am talking about Petr.",
+        "czech": "Mluvím o Petrovi."
+      },
+      "Instrumental": {
+        "form": "Petrem",
+        "english": "I am going with Petr.",
+        "czech": "Jdu s Petrem."
+      }
+    }
+  },
+  {
+    "noun": "Jana",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Jana",
+        "english": "Jana is working.",
+        "czech": "Jana pracuje."
+      },
+      "Genitive": {
+        "form": "Jany",
+        "english": "The gift is from Jana.",
+        "czech": "Dárek je od Jany."
+      },
+      "Dative": {
+        "form": "Janě",
+        "english": "I am writing to Jana.",
+        "czech": "Píšu Janě."
+      },
+      "Accusative": {
+        "form": "Janu",
+        "english": "I know Jana.",
+        "czech": "Znám Janu."
+      },
+      "Vocative": {
+        "form": "Jano",
+        "english": "Jana, listen!",
+        "czech": "Jano, poslouchej!"
+      },
+      "Locative": {
+        "form": "Janě",
+        "english": "I am talking about Jana.",
+        "czech": "Mluvím o Janě."
+      },
+      "Instrumental": {
+        "form": "Janou",
+        "english": "I am going with Jana.",
+        "czech": "Jdu s Janou."
+      }
+    }
+  },
+  {
+    "noun": "kamarád",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "kamarád",
+        "english": "My friend is waiting.",
+        "czech": "Kamarád čeká."
+      },
+      "Genitive": {
+        "form": "kamaráda",
+        "english": "The message is from my friend.",
+        "czech": "Zpráva je od kamaráda."
+      },
+      "Dative": {
+        "form": "kamarádovi",
+        "english": "I am helping my friend.",
+        "czech": "Pomáhám kamarádovi."
+      },
+      "Accusative": {
+        "form": "kamaráda",
+        "english": "I see my friend.",
+        "czech": "Vidím kamaráda."
+      },
+      "Vocative": {
+        "form": "kamaráde",
+        "english": "My friend, wait!",
+        "czech": "Kamaráde, počkej!"
+      },
+      "Locative": {
+        "form": "kamarádovi",
+        "english": "I am talking about my friend.",
+        "czech": "Mluvím o kamarádovi."
+      },
+      "Instrumental": {
+        "form": "kamarádem",
+        "english": "I am travelling with my friend.",
+        "czech": "Cestuji s kamarádem."
+      }
+    }
+  },
+  {
+    "noun": "učitelka",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "učitelka",
+        "english": "The teacher is speaking.",
+        "czech": "Učitelka mluví."
+      },
+      "Genitive": {
+        "form": "učitelky",
+        "english": "The message is from the teacher.",
+        "czech": "Zpráva je od učitelky."
+      },
+      "Dative": {
+        "form": "učitelce",
+        "english": "I am giving the teacher a ticket.",
+        "czech": "Dávám učitelce lístek."
+      },
+      "Accusative": {
+        "form": "učitelku",
+        "english": "I see the teacher.",
+        "czech": "Vidím učitelku."
+      },
+      "Vocative": {
+        "form": "učitelko",
+        "english": "Teacher, please look!",
+        "czech": "Paní učitelko, podívejte se!"
+      },
+      "Locative": {
+        "form": "učitelce",
+        "english": "I am talking about the teacher.",
+        "czech": "Mluvím o učitelce."
+      },
+      "Instrumental": {
+        "form": "učitelkou",
+        "english": "I am going with the teacher.",
+        "czech": "Jdu s učitelkou."
+      }
+    }
+  },
+  {
+    "noun": "kotě",
+    "difficulty": 3,
+    "cases": {
+      "Nominative": {
+        "form": "kotě",
+        "english": "The kitten is sleeping.",
+        "czech": "Kotě spí."
+      },
+      "Genitive": {
+        "form": "kotěte",
+        "english": "This is the kitten's bowl.",
+        "czech": "To je miska kotěte."
+      },
+      "Dative": {
+        "form": "kotěti",
+        "english": "I am giving the kitten water.",
+        "czech": "Dávám kotěti vodu."
+      },
+      "Accusative": {
+        "form": "kotě",
+        "english": "I see the kitten.",
+        "czech": "Vidím kotě."
+      },
+      "Vocative": {
+        "form": "kotě",
+        "english": "Kitten, come here!",
+        "czech": "Kotě, pojď sem!"
+      },
+      "Locative": {
+        "form": "kotěti",
+        "english": "I am talking about the kitten.",
+        "czech": "Mluvím o kotěti."
+      },
+      "Instrumental": {
+        "form": "kotětem",
+        "english": "I am going with the kitten.",
+        "czech": "Jdu s kotětem."
+      }
+    }
+  },
+  {
+    "noun": "Tomáš",
+    "difficulty": 2,
+    "cases": {
+      "Nominative": {
+        "form": "Tomáš",
+        "english": "Tomáš is calling.",
+        "czech": "Tomáš volá."
+      },
+      "Genitive": {
+        "form": "Tomáše",
+        "english": "The email is from Tomáš.",
+        "czech": "E-mail je od Tomáše."
+      },
+      "Dative": {
+        "form": "Tomášovi",
+        "english": "I am giving Tomáš the key.",
+        "czech": "Dávám Tomášovi klíč."
+      },
+      "Accusative": {
+        "form": "Tomáše",
+        "english": "I see Tomáš.",
+        "czech": "Vidím Tomáše."
+      },
+      "Vocative": {
+        "form": "Tomáši",
+        "english": "Tomáš, sit down!",
+        "czech": "Tomáši, posaď se!"
+      },
+      "Locative": {
+        "form": "Tomášovi",
+        "english": "I am talking about Tomáš.",
+        "czech": "Mluvím o Tomášovi."
+      },
+      "Instrumental": {
+        "form": "Tomášem",
+        "english": "I am going with Tomáš.",
+        "czech": "Jdu s Tomášem."
+      }
+    }
+  },
+  {
+    "noun": "doktor",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "doktor",
+        "english": "The doctor is waiting.",
+        "czech": "Doktor čeká."
+      },
+      "Genitive": {
+        "form": "doktora",
+        "english": "The message is from the doctor.",
+        "czech": "Zpráva je od doktora."
+      },
+      "Dative": {
+        "form": "doktorovi",
+        "english": "I am giving the doctor a document.",
+        "czech": "Dávám doktorovi dokument."
+      },
+      "Accusative": {
+        "form": "doktora",
+        "english": "I see the doctor.",
+        "czech": "Vidím doktora."
+      },
+      "Vocative": {
+        "form": "doktore",
+        "english": "Doctor, please come in!",
+        "czech": "Pane doktore, pojďte dál!"
+      },
+      "Locative": {
+        "form": "doktorovi",
+        "english": "I am talking about the doctor.",
+        "czech": "Mluvím o doktorovi."
+      },
+      "Instrumental": {
+        "form": "doktorem",
+        "english": "I am talking with the doctor.",
+        "czech": "Mluvím s doktorem."
+      }
+    }
+  },
+  {
+    "noun": "maminka",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "maminka",
+        "english": "My mother is reading.",
+        "czech": "Maminka čte."
+      },
+      "Genitive": {
+        "form": "maminky",
+        "english": "The gift is from my mother.",
+        "czech": "Dárek je od maminky."
+      },
+      "Dative": {
+        "form": "mamince",
+        "english": "I am writing to my mother.",
+        "czech": "Píšu mamince."
+      },
+      "Accusative": {
+        "form": "maminku",
+        "english": "I see my mother.",
+        "czech": "Vidím maminku."
+      },
+      "Vocative": {
+        "form": "maminko",
+        "english": "Mom, listen!",
+        "czech": "Maminko, poslouchej!"
+      },
+      "Locative": {
+        "form": "mamince",
+        "english": "I am talking about my mother.",
+        "czech": "Mluvím o mamince."
+      },
+      "Instrumental": {
+        "form": "maminkou",
+        "english": "I am going with my mother.",
+        "czech": "Jdu s maminkou."
+      }
+    }
+  },
+  {
+    "noun": "Marie",
+    "difficulty": 2,
+    "cases": {
+      "Nominative": {
+        "form": "Marie",
+        "english": "Marie is working.",
+        "czech": "Marie pracuje."
+      },
+      "Genitive": {
+        "form": "Marie",
+        "english": "The letter is from Marie.",
+        "czech": "Dopis je od Marie."
+      },
+      "Dative": {
+        "form": "Marii",
+        "english": "I am writing to Marie.",
+        "czech": "Píšu Marii."
+      },
+      "Accusative": {
+        "form": "Marii",
+        "english": "I know Marie.",
+        "czech": "Znám Marii."
+      },
+      "Vocative": {
+        "form": "Marie",
+        "english": "Marie, come here!",
+        "czech": "Marie, pojď sem!"
+      },
+      "Locative": {
+        "form": "Marii",
+        "english": "I am talking about Marie.",
+        "czech": "Mluvím o Marii."
+      },
+      "Instrumental": {
+        "form": "Marií",
+        "english": "I am going with Marie.",
+        "czech": "Jdu s Marií."
+      }
+    }
+  },
+  {
+    "noun": "Karel",
+    "difficulty": 2,
+    "cases": {
+      "Nominative": {
+        "form": "Karel",
+        "english": "Karel is waiting.",
+        "czech": "Karel čeká."
+      },
+      "Genitive": {
+        "form": "Karla",
+        "english": "The message is from Karel.",
+        "czech": "Zpráva je od Karla."
+      },
+      "Dative": {
+        "form": "Karlovi",
+        "english": "I am giving Karel the key.",
+        "czech": "Dávám Karlovi klíč."
+      },
+      "Accusative": {
+        "form": "Karla",
+        "english": "I see Karel.",
+        "czech": "Vidím Karla."
+      },
+      "Vocative": {
+        "form": "Karle",
+        "english": "Karel, call me!",
+        "czech": "Karle, zavolej mi!"
+      },
+      "Locative": {
+        "form": "Karlovi",
+        "english": "I am talking about Karel.",
+        "czech": "Mluvím o Karlovi."
+      },
+      "Instrumental": {
+        "form": "Karlem",
+        "english": "I am going with Karel.",
+        "czech": "Jdu s Karlem."
+      }
+    }
+  },
+  {
+    "noun": "tatínek",
+    "difficulty": 2,
+    "cases": {
+      "Nominative": {
+        "form": "tatínek",
+        "english": "My father is working.",
+        "czech": "Tatínek pracuje."
+      },
+      "Genitive": {
+        "form": "tatínka",
+        "english": "The gift is from my father.",
+        "czech": "Dárek je od tatínka."
+      },
+      "Dative": {
+        "form": "tatínkovi",
+        "english": "I am writing to my father.",
+        "czech": "Píšu tatínkovi."
+      },
+      "Accusative": {
+        "form": "tatínka",
+        "english": "I see my father.",
+        "czech": "Vidím tatínka."
+      },
+      "Vocative": {
+        "form": "tatínku",
+        "english": "Dad, wait!",
+        "czech": "Tatínku, počkej!"
+      },
+      "Locative": {
+        "form": "tatínkovi",
+        "english": "I am talking about my father.",
+        "czech": "Mluvím o tatínkovi."
+      },
+      "Instrumental": {
+        "form": "tatínkem",
+        "english": "I am going with my father.",
+        "czech": "Jdu s tatínkem."
+      }
+    }
+  },
+  {
+    "noun": "hrdina",
+    "difficulty": 3,
+    "cases": {
+      "Nominative": {
+        "form": "hrdina",
+        "english": "The hero is arriving.",
+        "czech": "Hrdina přichází."
+      },
+      "Genitive": {
+        "form": "hrdiny",
+        "english": "The letter is from the hero.",
+        "czech": "Dopis je od hrdiny."
+      },
+      "Dative": {
+        "form": "hrdinovi",
+        "english": "I am giving the hero a map.",
+        "czech": "Dávám hrdinovi mapu."
+      },
+      "Accusative": {
+        "form": "hrdinu",
+        "english": "I see the hero.",
+        "czech": "Vidím hrdinu."
+      },
+      "Vocative": {
+        "form": "hrdino",
+        "english": "Hero, come back!",
+        "czech": "Hrdino, vrať se!"
+      },
+      "Locative": {
+        "form": "hrdinovi",
+        "english": "I am talking about the hero.",
+        "czech": "Mluvím o hrdinovi."
+      },
+      "Instrumental": {
+        "form": "hrdinou",
+        "english": "I am going with the hero.",
+        "czech": "Jdu s hrdinou."
+      }
+    }
+  },
+  {
+    "noun": "Anna",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Anna",
+        "english": "Anna is drawing.",
+        "czech": "Anna kreslí."
+      },
+      "Genitive": {
+        "form": "Anny",
+        "english": "The postcard is from Anna.",
+        "czech": "Pohlednice je od Anny."
+      },
+      "Dative": {
+        "form": "Anně",
+        "english": "I am lending Anna a pencil.",
+        "czech": "Půjčuji Anně tužku."
+      },
+      "Accusative": {
+        "form": "Annu",
+        "english": "I see Anna.",
+        "czech": "Vidím Annu."
+      },
+      "Vocative": {
+        "form": "Anno",
+        "english": "Anna, wait!",
+        "czech": "Anno, počkej!"
+      },
+      "Locative": {
+        "form": "Anně",
+        "english": "I am talking about Anna.",
+        "czech": "Mluvím o Anně."
+      },
+      "Instrumental": {
+        "form": "Annou",
+        "english": "I am going with Anna.",
+        "czech": "Jdu s Annou."
+      }
+    }
+  },
+  {
+    "noun": "Eva",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Eva",
+        "english": "Eva is swimming.",
+        "czech": "Eva plave."
+      },
+      "Genitive": {
+        "form": "Evy",
+        "english": "The message is from Eva.",
+        "czech": "Zpráva je od Evy."
+      },
+      "Dative": {
+        "form": "Evě",
+        "english": "I am showing Eva the map.",
+        "czech": "Ukazuji Evě mapu."
+      },
+      "Accusative": {
+        "form": "Evu",
+        "english": "I see Eva.",
+        "czech": "Vidím Evu."
+      },
+      "Vocative": {
+        "form": "Evo",
+        "english": "Eva, come in!",
+        "czech": "Evo, pojď dál!"
+      },
+      "Locative": {
+        "form": "Evě",
+        "english": "I am talking about Eva.",
+        "czech": "Mluvím o Evě."
+      },
+      "Instrumental": {
+        "form": "Evou",
+        "english": "I am working with Eva.",
+        "czech": "Pracuji s Evou."
+      }
+    }
+  },
+  {
+    "noun": "Martin",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "Martin",
+        "english": "Martin is taking photographs.",
+        "czech": "Martin fotografuje."
+      },
+      "Genitive": {
+        "form": "Martina",
+        "english": "The letter is from Martin.",
+        "czech": "Dopis je od Martina."
+      },
+      "Dative": {
+        "form": "Martinovi",
+        "english": "I am giving Martin a map.",
+        "czech": "Dávám Martinovi mapu."
+      },
+      "Accusative": {
+        "form": "Martina",
+        "english": "I see Martin.",
+        "czech": "Vidím Martina."
+      },
+      "Vocative": {
+        "form": "Martine",
+        "english": "Martin, look!",
+        "czech": "Martine, podívej se!"
+      },
+      "Locative": {
+        "form": "Martinovi",
+        "english": "I am talking about Martin.",
+        "czech": "Mluvím o Martinovi."
+      },
+      "Instrumental": {
+        "form": "Martinem",
+        "english": "I am travelling with Martin.",
+        "czech": "Cestuji s Martinem."
+      }
+    }
+  },
+  {
+    "noun": "David",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "David",
+        "english": "David is running.",
+        "czech": "David běží."
+      },
+      "Genitive": {
+        "form": "Davida",
+        "english": "The package is from David.",
+        "czech": "Balíček je od Davida."
+      },
+      "Dative": {
+        "form": "Davidovi",
+        "english": "I am writing to David.",
+        "czech": "Píšu Davidovi."
+      },
+      "Accusative": {
+        "form": "Davida",
+        "english": "I know David.",
+        "czech": "Znám Davida."
+      },
+      "Vocative": {
+        "form": "Davide",
+        "english": "David, listen!",
+        "czech": "Davide, poslouchej!"
+      },
+      "Locative": {
+        "form": "Davidovi",
+        "english": "I am talking about David.",
+        "czech": "Mluvím o Davidovi."
+      },
+      "Instrumental": {
+        "form": "Davidem",
+        "english": "I am working with David.",
+        "czech": "Pracuji s Davidem."
+      }
+    }
+  },
+  {
+    "noun": "student",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "student",
+        "english": "The student is asking a question.",
+        "czech": "Student se ptá."
+      },
+      "Genitive": {
+        "form": "studenta",
+        "english": "This book is from the student.",
+        "czech": "Tato kniha je od studenta."
+      },
+      "Dative": {
+        "form": "studentovi",
+        "english": "I am helping the student.",
+        "czech": "Pomáhám studentovi."
+      },
+      "Accusative": {
+        "form": "studenta",
+        "english": "I see the student.",
+        "czech": "Vidím studenta."
+      },
+      "Vocative": {
+        "form": "studente",
+        "english": "Student, please come in!",
+        "czech": "Studente, pojďte dál!"
+      },
+      "Locative": {
+        "form": "studentovi",
+        "english": "I am talking about the student.",
+        "czech": "Mluvím o studentovi."
+      },
+      "Instrumental": {
+        "form": "studentem",
+        "english": "I am working with the student.",
+        "czech": "Pracuji se studentem."
+      }
+    }
+  },
+  {
+    "noun": "soused",
+    "difficulty": 1,
+    "cases": {
+      "Nominative": {
+        "form": "soused",
+        "english": "The neighbor is resting.",
+        "czech": "Soused odpočívá."
+      },
+      "Genitive": {
+        "form": "souseda",
+        "english": "The message is from the neighbor.",
+        "czech": "Zpráva je od souseda."
+      },
+      "Dative": {
+        "form": "sousedovi",
+        "english": "We are bringing the neighbor a package.",
+        "czech": "Neseme sousedovi balíček."
+      },
+      "Accusative": {
+        "form": "souseda",
+        "english": "I see the neighbor.",
+        "czech": "Vidím souseda."
+      },
+      "Vocative": {
+        "form": "sousede",
+        "english": "Neighbor, please wait!",
+        "czech": "Sousede, počkejte!"
+      },
+      "Locative": {
+        "form": "sousedovi",
+        "english": "We are talking about the neighbor.",
+        "czech": "Mluvíme o sousedovi."
+      },
+      "Instrumental": {
+        "form": "sousedem",
+        "english": "I am going with the neighbor.",
+        "czech": "Jdu se sousedem."
+      }
+    }
+  }
+]

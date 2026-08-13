@@ -7,7 +7,7 @@ const repoRoot = new URL("../../../../", import.meta.url);
 const czechStatic = new URL("apps/languages/czech/static/", repoRoot);
 const launcherStatic = new URL("apps/launcher/static/", repoRoot);
 
-const pageNames = ["home.html", "index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"];
+const pageNames = ["index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"];
 const androidUiIconNames = [
   "coin_icon_ui.png",
   "czech_flag_ui.png",
@@ -88,7 +88,7 @@ test("course profile is immutable and owns language-scoped persistence", () => {
 
 test("every Czech page loads its course profile before runtime and shared Chrome", () => {
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-16"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-17"');
     const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="source/shared/runtime.js');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
@@ -101,7 +101,7 @@ test("every Czech page loads its course profile before runtime and shared Chrome
     assert.match(source, /window\.CaatuuCourse\.storage\.theme/);
     assert.match(source, /window\.CaatuuCourse\.storage\.fontSize/);
   }
-  assert.match(serviceWorker, /\.\/source\/shared\/course-profile\.js\?v=course-16/);
+  assert.match(serviceWorker, /\.\/source\/shared\/course-profile\.js\?v=course-17/);
   assert.match(serviceWorker, /\.\/source\/shared\/learning-profile\.js\?v=learning-5/);
   assert.match(serviceWorker, /\.\/source\/shared\/semantic-learning\.js\?v=semantic-learning-7/);
 });
@@ -134,7 +134,7 @@ test("launcher recovers from stale normal-browser availability state", () => {
 
 test("runtime and Android mount the language declared by their build contracts", () => {
   assert.match(routes, /const ACTIVE_LANGUAGE_APPS: &\[LanguageAppSpec\]/);
-  assert.match(routes, /id: "cz",\s*route_prefix: "\/cz",\s*static_dir: "apps\/languages\/czech\/static",\s*entry_file: "home\.html"/);
+  assert.match(routes, /id: "cz",\s*route_prefix: "\/cz",\s*static_dir: "apps\/languages\/czech\/static",\s*entry_file: "index\.html"/);
   assert.match(routes, /ACTIVE_LANGUAGE_APPS\.iter\(\)\.fold/);
   assert.match(routes, /route_service\(&entry_route, ServeFile::new\(entry_file\)\)/);
   assert.match(routes, /\.nest\(spec\.route_prefix, build_language_app/);

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "caatuu-word-world-candidate-manifest-v1",
+  "batchId": "codex-reflexive-0001",
+  "createdOn": "2026-08-10",
+  "recordsFile": "codex-reflexive-0001.candidates.jsonl",
+  "recordsSha256": "a1dcbe3bb5644bd89a498f70677c035116251e26244906f288050fff3ced7f02",
+  "recordCount": 32,
+  "status": "candidate",
+  "acceptedIntoCanonicalSource": false,
+  "compiledIntoRuntimePack": false,
+  "externalCorpusTextUsed": false,
+  "intendedUse": "Create explorable families of common Czech verbs with se inside Word World."
+}

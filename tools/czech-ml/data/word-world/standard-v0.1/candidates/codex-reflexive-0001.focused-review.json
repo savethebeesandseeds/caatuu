@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "caatuu-word-world-focused-review-v1",
+  "batchId": "codex-reflexive-0001",
+  "reviewDate": "2026-08-10",
+  "reviewer": "OpenAI Codex focused bilingual review in the authoring task",
+  "independent": false,
+  "humanApproved": false,
+  "inputs": {
+    "candidateFile": "codex-reflexive-0001.candidates.jsonl",
+    "candidateSha256": "a1dcbe3bb5644bd89a498f70677c035116251e26244906f288050fff3ced7f02",
+    "baselineRuntimeContentSha256": "01b790183452766892964f362393ab201efa1b538088820d5612191b0790a809"
+  },
+  "methodology": {
+    "scope": "Every row was checked for Czech naturalness, English naturalness, bilingual equivalence, exact verb and se target positions, Level 2 suitability, age 6-10 safety, and exact duplication against the canonical Word World source.",
+    "familyPolicy": "Close meanings inside a four-row family are intentional minimal contrasts. They expose the same lexical se verb after a bare verb opening, a time or place opening, and an expressed subject without presenting a separate grammar quiz.",
+    "limitations": "This is a Codex review performed in the same task as authoring. It is not an independent or native-speaker review and does not satisfy a production linguistic-approval gate."
+  },
+  "aggregates": {
+    "records": 32,
+    "passedRows": 32,
+    "heldRows": 0,
+    "families": 8,
+    "difficulty": { "2": 32 },
+    "everyRowMakesSePlayable": true
+  },
+  "checks": [
+    "Czech naturalness",
+    "English naturalness",
+    "bilingual meaning equivalence",
+    "intentional minimal-contrast family coherence",
+    "exact target surface, normalization, and token index",
+    "exact Czech duplicate scan against canonical source",
+    "grammar, topic, scene, and progression metadata",
+    "safety for ages 6 to 10"
+  ],
+  "rows": [
+    { "id": "ww-codex-reflexive-0001-0001", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0002", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0003", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0004", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0005", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0006", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0007", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0008", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0009", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0010", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0011", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0012", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0013", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0014", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0015", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0016", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0017", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0018", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0019", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0020", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0021", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0022", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0023", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0024", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0025", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0026", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0027", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0028", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0029", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0030", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0031", "verdict": "pass", "findings": [] },
+    { "id": "ww-codex-reflexive-0001-0032", "verdict": "pass", "findings": [] }
+  ],
+  "decision": "Promote all 32 rows to the development corpus as Codex-reviewed, human-unapproved content while retaining an explicit independent-review gate before production linguistic approval."
+}

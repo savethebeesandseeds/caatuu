@@ -1,0 +1,29 @@
+.train-world-case {
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+}
+
+.train-world-case .train-orbit {
+  display: none;
+}
+
+.train-world-case img {
+  width: clamp(62px, 18vw, 90px);
+}
+
+@media screen and (max-width: 760px) {
+  .train-worlds {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .train-world-case {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    transform: none;
+  }
+}
