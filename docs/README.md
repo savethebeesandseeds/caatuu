@@ -16,6 +16,7 @@ and implementation details stay beside the relevant app or tool.
 | [Language games and Czech planet plan](GAMES.md) | Content authority, shared game backbone, and detailed plans for the missing Czech planets |
 | [Game ownership decision](decisions/0001-game-source-delivery-and-language-ownership.md) | Separation of authored games, generated delivery, language adapters, and Android packaging |
 | [Product readiness](PRODUCT_READINESS.md) | Current release posture and the path to a governed beta |
+| [First Android release map](RELEASE_MAP.md) | Ordered product, content, packaging, legal, business, testing, and Play gates for `v0.1.0` |
 | [Release policy](RELEASING.md) | Channels, versioning, artifact integrity, and release gates |
 | [First Android release](FIRST_ANDROID_RELEASE.md) | Planning decisions, signing posture, Play Protect notes, and candidate evidence |
 
