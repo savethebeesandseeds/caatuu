@@ -1,3 +1,5 @@
+import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-1";
+
 "use strict";
 
 const course = window.CaatuuCourse;
@@ -826,7 +828,9 @@ async function loadMacawKeymap() {
         assetPath: normalizeMacawPath(path),
         action: String(metadata?.action || "").replaceAll("_", " "),
         alt: String(metadata?.description || "Macaw picture clue")
-      })).filter((row) => row.assetPath))
+      })).filter((row) => (
+        row.assetPath && isChildFacingMacawActionAssetAllowed(row.assetPath, row.action)
+      )))
       .catch(() => []);
   }
   return macawKeymapPromise;
@@ -847,10 +851,13 @@ async function vectorMacawCandidates(englishMeaning) {
           || row.chunkMetadata?.asset_path
           || row.sourceId
       ),
+      action: row.documentMetadata?.action || row.chunkMetadata?.action || "",
       alt: row.text || "Macaw picture clue",
       score: 100 + (Number.isFinite(Number(row.score)) ? Number(row.score) : 0)
     }))
-    .filter((row) => row.assetPath);
+    .filter((row) => (
+      row.assetPath && isChildFacingMacawActionAssetAllowed(row.assetPath, row.action)
+    ));
 }
 
 function macawActionMatches(englishMeaning, row) {

@@ -2,9 +2,9 @@
   "schemaVersion": "caatuu-word-world-runtime-manifest-v1",
   "corpusVersion": "standard-v0.1",
   "mode": "standard",
-  "runtimeFile": "standard-v0.1/records.json?v=ff51a0728664b6d7",
+  "runtimeFile": "standard-v0.1/records.json?v=657e502666ae7aee",
   "recordCount": 792,
-  "contentSha256": "ff51a0728664b6d75bb6c73d5b84ee431ebd52432204212fb473db50b45d6800",
+  "contentSha256": "657e502666ae7aeeede2aa19a350ad48e4cca291ae6019e42bbd4da80b427961",
   "difficultyDistribution": {
     "1": 175,
     "2": 565,
@@ -17,16 +17,23 @@
   },
   "minimumLevel2Share": 0.6,
   "minimumLevel3Records": 50,
-  "playableTargets": 589,
+  "playableTargets": 593,
   "branchability": {
     "branchableMinimumRecords": 2,
-    "branchableTargets": 370,
+    "branchableTargets": 367,
     "strongMinimumRecords": 5,
-    "strongTargets": 25
+    "strongTargets": 26
   },
   "translationIncluded": true,
   "sceneQueriesIncluded": true,
   "reviewStatus": "codex_reviewed",
   "humanApproved": false,
+  "editorialOverrides": {
+    "file": "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
+    "sha256": "65110154ace561d5ba5ba08fe048f4b116f3a25303eb9f0102fe9e07c2a55b54",
+    "overrideCount": 27,
+    "reviewedOn": "2026-08-13",
+    "humanApproved": false
+  },
   "authoringSchema": "caatuu-word-world-record-v1"
 }

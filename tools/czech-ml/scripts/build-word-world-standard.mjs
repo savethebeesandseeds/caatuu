@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+import fs from "node:fs/promises";
 import path from "node:path";
 import {
   RUNTIME_MANIFEST_SCHEMA_VERSION,
   RUNTIME_SCHEMA_VERSION,
+  applyEditorialOverrides,
   buildCoverageReport,
   findJsonlFiles,
   readJson,
@@ -16,17 +18,30 @@ import { appDataRoot, caatuuRoot, fromRoot } from "./paths.mjs";
 
 const datasetDir = fromRoot("data", "word-world", "standard-v0.1");
 const rubricFile = path.resolve(argValue("--rubric", path.join(datasetDir, "rubric.json")));
+const editorialOverridesFile = path.resolve(argValue("--editorial-overrides", path.join(datasetDir, "editorial-overrides.json")));
 const runtimeRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "games", "word-world")));
 const coverageFile = path.resolve(argValue("--coverage-report", path.join(datasetDir, "reports", "coverage.json")));
 const rubric = await readJson(rubricFile);
+const editorialOverrides = await readJson(editorialOverridesFile);
+const editorialOverridesRelativeFile = path.relative(caatuuRoot, editorialOverridesFile).replaceAll("\\", "/");
+const editorialOverridesSha256 = sha256(await fs.readFile(editorialOverridesFile));
+const editorialOverrideEvidence = {
+  file: editorialOverridesRelativeFile,
+  sha256: editorialOverridesSha256,
+  overrideCount: editorialOverrides.overrides.length,
+  reviewedOn: editorialOverrides.editorialPass.reviewedOn,
+  humanApproved: editorialOverrides.editorialPass.humanApproved,
+};
 const runtimeBaseRelativeFile = `${rubric.corpusVersion}/records.json`;
 const runtimeFile = path.join(runtimeRoot, ...runtimeBaseRelativeFile.split("/"));
 const manifestFile = path.join(runtimeRoot, "manifest.json");
 const inputFiles = await resolveInputFiles();
-const records = (await Promise.all(inputFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
+const sourceRecords = (await Promise.all(inputFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
+const records = applyEditorialOverrides(sourceRecords, editorialOverrides);
 const validation = validateRecords(records, rubric);
 const relativeInputs = inputFiles.map((file) => path.relative(caatuuRoot, file));
-const coverage = buildCoverageReport(records, rubric, validation, relativeInputs);
+const reportedInputs = [...relativeInputs, editorialOverridesRelativeFile];
+const coverage = buildCoverageReport(records, rubric, validation, reportedInputs, editorialOverrideEvidence);
 await writeJson(coverageFile, coverage);
 
 if (!validation.valid) {
@@ -73,13 +88,14 @@ if (!validation.valid) {
     sceneQueriesIncluded: true,
     reviewStatus: "codex_reviewed",
     humanApproved: false,
+    editorialOverrides: editorialOverrideEvidence,
     authoringSchema: "caatuu-word-world-record-v1",
   };
 
   await writeJson(runtimeFile, pack, { compact: true });
   await writeJson(manifestFile, manifest);
   console.log(JSON.stringify({
-    inputFiles: relativeInputs,
+    inputFiles: reportedInputs,
     records: runtimeRecords.length,
     runtimeFile,
     manifestFile,

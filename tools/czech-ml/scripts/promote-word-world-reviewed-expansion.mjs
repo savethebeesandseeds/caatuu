@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
+import { inspectLearnerFields } from "./learner-content-safety-lib.mjs";
 import {
+  applyEditorialOverrides,
+  findJsonlFiles,
   readJson,
   readJsonl,
   sha256,
   writeJson,
   writeJsonl,
 } from "./word-world-standard-lib.mjs";
-import { fromRoot } from "./paths.mjs";
+import { caatuuRoot, fromRoot } from "./paths.mjs";
 
 const batchId = "codex-expansion-0001";
 const reviewedOn = "2026-07-22";
@@ -20,6 +23,7 @@ const reviewFile = path.join(candidateDir, `${batchId}.blind-review.json`);
 const canonicalFile = path.join(sourceDir, "common-phrases-pilot.jsonl");
 const outputFile = path.join(sourceDir, `${batchId}-reviewed.jsonl`);
 const receiptFile = path.join(candidateDir, `${batchId}.promotion-receipt.json`);
+const editorialOverridesFile = path.join(datasetDir, "editorial-overrides.json");
 
 const [candidateBytes, reviewBytes, canonicalBytes, audit, candidateRows] = await Promise.all([
   fs.readFile(candidateFile),
@@ -63,6 +67,8 @@ assertEqual(heldIds.length, 31, "held record count");
 assertJsonEqual(heldIds, audit.aggregates.failedRowIds, "held IDs and audited failed IDs");
 assertEqual(promotedRows.filter((record) => record.difficulty === 1).length, 49, "promoted Level 1 count");
 assertEqual(promotedRows.filter((record) => record.difficulty === 2).length, 170, "promoted Level 2 count");
+const effectivePromotedRows = await buildEffectivePromotedRows(promotedRows);
+assertPromotedLearnerContentSafe(effectivePromotedRows);
 
 await writeJsonl(outputFile, promotedRows);
 const outputBytes = await fs.readFile(outputFile);
@@ -177,6 +183,48 @@ function countByDifficulty(records) {
   const counts = {};
   for (const record of records) counts[String(record.difficulty)] = (counts[String(record.difficulty)] || 0) + 1;
   return Object.fromEntries(Object.entries(counts).sort(([left], [right]) => left.localeCompare(right)));
+}
+
+async function buildEffectivePromotedRows(batchRows) {
+  const sourceFiles = (await findJsonlFiles(sourceDir))
+    .filter((file) => path.resolve(file) !== path.resolve(outputFile));
+  const otherSourceRows = (await Promise.all(sourceFiles.map(readJsonl))).flat();
+  const editorialOverrides = await readJson(editorialOverridesFile);
+  const effectiveCorpus = applyEditorialOverrides(
+    [...otherSourceRows, ...batchRows].sort((left, right) => left.id.localeCompare(right.id)),
+    editorialOverrides,
+  );
+  const promotedIdSet = new Set(batchRows.map((record) => record.id));
+  const effectiveRows = effectiveCorpus.filter((record) => promotedIdSet.has(record.id));
+  assertEqual(effectiveRows.length, batchRows.length, "effective promoted record count");
+  return effectiveRows;
+}
+
+function assertPromotedLearnerContentSafe(records) {
+  const file = path.relative(caatuuRoot, candidateFile).replaceAll("\\", "/");
+  const fields = records.flatMap((record) => authoringSafetyFields(record, file));
+  const findings = inspectLearnerFields(fields);
+  if (!findings.length) return;
+  const details = findings.map((finding) => (
+    `${finding.severity} ${finding.ruleId} ${finding.contentId}${finding.field}: ${JSON.stringify(finding.text)} (${finding.message})`
+  ));
+  throw new Error(`Word World promotion stopped by learner-content safety gate (${findings.length} finding(s)):\n${details.join("\n")}`);
+}
+
+function authoringSafetyFields(record, file) {
+  const alternates = record.languages?.en?.alternates;
+  if (!Array.isArray(alternates)) throw new Error(`${record.id}/languages/en/alternates: expected an array`);
+  return [
+    safetyField(record, file, "/languages/en/text", "en", record.languages?.en?.text),
+    ...alternates.map((text, index) => safetyField(record, file, `/languages/en/alternates/${index}`, "en", text)),
+    safetyField(record, file, "/languages/cs/text", "cs", record.languages?.cs?.text),
+    safetyField(record, file, "/scene/query", "en", record.scene?.query),
+  ];
+}
+
+function safetyField(record, file, field, locale, text) {
+  if (typeof text !== "string") throw new Error(`${record.id}${field}: expected text`);
+  return { file, contentId: record.id, field, locale, text };
 }
 
 function assertEqual(actual, expected, label) {

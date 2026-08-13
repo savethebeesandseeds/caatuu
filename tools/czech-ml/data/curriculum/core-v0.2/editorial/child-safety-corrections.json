@@ -1,0 +1,537 @@
+{
+  "schema_version": "caatuu-curriculum-child-safety-corrections-v1",
+  "reviewed_on": "2026-08-13",
+  "review_status": "codex_assisted_editorial_review",
+  "human_approved": false,
+  "policy": "Replace contextually ambiguous child-facing examples while preserving stable row IDs and the intended beginner grammar wherever possible.",
+  "review_scope": {
+    "corpus_rows_screened": 5000,
+    "effective_clothing_topic_rows_contextually_reviewed": 575,
+    "effective_clothing_handling_rows_contextually_reviewed": 160,
+    "context_free_clothing_contact_rows_corrected": 40
+  },
+  "clothing_context_rule": {
+    "reject": "Do not use context-free touch with any garment, or context-free hold/show with a shirt, pants, dress, or skirt, because the item may be read as worn rather than detached.",
+    "accept": "Keep ordinary wardrobe and identification examples, including wear, wash, choose, find, carry, and take. Holding or showing detached outerwear, footwear, and accessories is also acceptable; torso and lower-body garments need an explicit folded, drawer, closet, or hanger context."
+  },
+  "corrections": [
+    {
+      "id": "cc-000009",
+      "expected_english_text": "A girl touches the scarf.",
+      "replacement": {
+        "english_text": "A girl folds the scarf on the table.",
+        "czech_text": "Dívka skládá šálu na stole.",
+        "target_words": ["girl", "folds", "scarf", "table"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000020",
+      "expected_english_text": "A grandpa touches the shirt.",
+      "replacement": {
+        "english_text": "A grandpa folds the shirt on the table.",
+        "czech_text": "Děda skládá košili na stole.",
+        "target_words": ["grandpa", "folds", "shirt", "table"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000025",
+      "expected_english_text": "Please show me the pants.",
+      "replacement": {
+        "english_text": "Please show me this map.",
+        "czech_text": "Prosím, ukaž mi tuto mapu.",
+        "topic": "school",
+        "target_words": ["show", "map"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "demonstrative"]
+      }
+    },
+    {
+      "id": "cc-000152",
+      "expected_english_text": "A friend sees a shoe.",
+      "replacement": { "czech_text": "Kamarád vidí botu." }
+    },
+    {
+      "id": "cc-000173",
+      "expected_english_text": "A baby carries the pants with both hands.",
+      "replacement": {
+        "english_text": "A baby carries a soft towel with both hands.",
+        "czech_text": "Miminko nese měkký ručník oběma rukama.",
+        "topic": "home",
+        "target_words": ["baby", "carries", "soft", "towel", "with", "both", "hands"],
+        "grammar_tags": ["present_simple", "direct_object", "indefinite_object", "adjective_modifier", "prepositional_phrase"]
+      }
+    },
+    {
+      "id": "cc-000222",
+      "expected_english_text": "A friend likes pants.",
+      "replacement": { "czech_text": "Kamarád má rád kalhoty." }
+    },
+    {
+      "id": "cc-000274",
+      "expected_english_text": "A friend eats a potato.",
+      "replacement": { "czech_text": "Kamarád jí bramboru." }
+    },
+    {
+      "id": "cc-000293",
+      "expected_english_text": "A parent holds the pants.",
+      "replacement": {
+        "english_text": "A parent folds the pants on the bed.",
+        "czech_text": "Rodič skládá kalhoty na posteli.",
+        "target_words": ["parent", "folds", "pants", "bed"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000309",
+      "expected_english_text": "A friend gives his father a block.",
+      "replacement": { "czech_text": "Kamarád dává otci blok." }
+    },
+    {
+      "id": "cc-000363",
+      "expected_english_text": "A friend sleeps in the bedroom.",
+      "replacement": { "czech_text": "Kamarád spí v ložnici." }
+    },
+    {
+      "id": "cc-000376",
+      "expected_english_text": "A friend puts the key on the bed.",
+      "replacement": { "czech_text": "Kamarád položí klíč na postel." }
+    },
+    {
+      "id": "cc-000377",
+      "expected_english_text": "A friend needs some cereal.",
+      "replacement": { "czech_text": "Kamarád potřebuje cereálie." }
+    },
+    {
+      "id": "cc-000397",
+      "expected_english_text": "Is the jacket hard when you touch it?",
+      "replacement": {
+        "english_text": "Is the jacket soft?",
+        "czech_text": "Je bunda měkká?",
+        "target_words": ["jacket", "soft"],
+        "grammar_tags": ["question", "be_present", "adjective_predicate"]
+      }
+    },
+    {
+      "id": "cc-000399",
+      "expected_english_text": "A friend gives the baby a small block.",
+      "replacement": { "czech_text": "Kamarád dává dítěti malý blok." }
+    },
+    {
+      "id": "cc-000400",
+      "expected_english_text": "A friend takes the ruler.",
+      "replacement": { "czech_text": "Kamarád si vezme pravítko." }
+    },
+    {
+      "id": "cc-000427",
+      "expected_english_text": "A friend wants some rice.",
+      "replacement": { "czech_text": "Kamarád chce rýži." }
+    },
+    {
+      "id": "cc-000435",
+      "expected_english_text": "The brother touches the sock.",
+      "replacement": {
+        "english_text": "The brother washes the sock.",
+        "czech_text": "Bratr pere ponožku.",
+        "target_words": ["brother", "washes", "sock"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-000466",
+      "expected_english_text": "Grandpa touches the skirt.",
+      "replacement": {
+        "english_text": "Grandpa touches the soft fabric.",
+        "czech_text": "Děda se dotýká měkké látky.",
+        "topic": "school",
+        "target_words": ["grandpa", "touches", "soft", "fabric"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-000467",
+      "expected_english_text": "A friend closes the window.",
+      "replacement": { "czech_text": "Kamarád zavře okno." }
+    },
+    {
+      "id": "cc-000475",
+      "expected_english_text": "A friend does not read books.",
+      "replacement": { "czech_text": "Kamarád nečte knihy." }
+    },
+    {
+      "id": "cc-000514",
+      "expected_english_text": "A student touches the dress.",
+      "replacement": {
+        "english_text": "A student touches the paper.",
+        "czech_text": "Žák se dotýká papíru.",
+        "topic": "school",
+        "target_words": ["student", "touches", "paper"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-000525",
+      "expected_english_text": "A boy touches the coat.",
+      "replacement": {
+        "english_text": "A boy hangs the coat by the door.",
+        "czech_text": "Chlapec věší kabát u dveří.",
+        "target_words": ["boy", "hangs", "coat", "door"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000568",
+      "expected_english_text": "The father holds the pants.",
+      "replacement": {
+        "english_text": "The father packs the pants in a bag.",
+        "czech_text": "Tatínek balí kalhoty do tašky.",
+        "target_words": ["father", "packs", "pants", "bag"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000662",
+      "expected_english_text": "Please hold the shirt.",
+      "replacement": {
+        "english_text": "Please fold the clean shirt.",
+        "czech_text": "Prosím, slož čistou košili.",
+        "target_words": ["fold", "clean", "shirt"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-000676",
+      "expected_english_text": "A parent touches the sock.",
+      "replacement": {
+        "english_text": "A parent puts the clean sock in a drawer.",
+        "czech_text": "Rodič dává čistou ponožku do zásuvky.",
+        "target_words": ["parent", "puts", "clean", "sock", "drawer"],
+        "grammar_tags": ["present_simple", "direct_object", "adjective_modifier", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-000748",
+      "expected_english_text": "A parent touches the dress.",
+      "replacement": {
+        "english_text": "A parent touches the folded towel.",
+        "czech_text": "Rodič se dotýká složeného ručníku.",
+        "topic": "home",
+        "target_words": ["parent", "touches", "folded", "towel"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-001039",
+      "expected_english_text": "Please show me the dress.",
+      "replacement": {
+        "english_text": "Please show me the clean towel.",
+        "czech_text": "Prosím, ukaž mi čistý ručník.",
+        "topic": "home",
+        "target_words": ["show", "clean", "towel"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-001230",
+      "expected_english_text": "A friend touches the coat.",
+      "replacement": {
+        "english_text": "A friend carries the coat to the closet.",
+        "czech_text": "Kamarád nese kabát ke skříni.",
+        "target_words": ["friend", "carries", "coat", "closet"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-001341",
+      "expected_english_text": "A sister touches the boot.",
+      "replacement": {
+        "english_text": "A sister cleans the boot by the door.",
+        "czech_text": "Sestra čistí holínku u dveří.",
+        "target_words": ["sister", "cleans", "boot", "door"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-001646",
+      "expected_english_text": "A girl holds the shirt.",
+      "replacement": {
+        "english_text": "A girl hangs the shirt in the closet.",
+        "czech_text": "Dívka věší košili do skříně.",
+        "target_words": ["girl", "hangs", "shirt", "closet"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-001941",
+      "expected_english_text": "A mother holds the pants.",
+      "replacement": {
+        "english_text": "A mother washes the pants.",
+        "czech_text": "Maminka pere kalhoty.",
+        "target_words": ["mother", "washes", "pants"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-002675",
+      "expected_english_text": "A teacher touches the pants.",
+      "replacement": {
+        "english_text": "A teacher touches the map on the board.",
+        "czech_text": "Učitel se dotýká mapy na tabuli.",
+        "topic": "school",
+        "target_words": ["teacher", "touches", "map", "board"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-002912",
+      "expected_english_text": "A grandma touches the pants.",
+      "replacement": {
+        "english_text": "A grandma touches the clean towel.",
+        "czech_text": "Babička se dotýká čistého ručníku.",
+        "topic": "home",
+        "target_words": ["grandma", "touches", "clean", "towel"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-002928",
+      "expected_english_text": "A father touches the shoe.",
+      "replacement": {
+        "english_text": "A father ties the shoe.",
+        "czech_text": "Tatínek zavazuje botu.",
+        "target_words": ["father", "ties", "shoe"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-003067",
+      "expected_english_text": "A brother holds the dress.",
+      "replacement": {
+        "english_text": "A brother hangs the dress on a hanger.",
+        "czech_text": "Bratr věší šaty na ramínko.",
+        "target_words": ["brother", "hangs", "dress", "hanger"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-003410",
+      "expected_english_text": "A teacher touches the sock.",
+      "replacement": {
+        "english_text": "A teacher points to the sock in the picture.",
+        "czech_text": "Učitel ukazuje na ponožku na obrázku.",
+        "target_words": ["teacher", "points", "sock", "picture"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-003537",
+      "expected_english_text": "A grandma touches the boot.",
+      "replacement": {
+        "english_text": "A grandma cleans the boot outside.",
+        "czech_text": "Babička čistí holínku venku.",
+        "target_words": ["grandma", "cleans", "boot", "outside"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-003566",
+      "expected_english_text": "Please hold the dress.",
+      "replacement": {
+        "english_text": "Please hold the soft fabric.",
+        "czech_text": "Prosím, podrž měkkou látku.",
+        "topic": "school",
+        "target_words": ["hold", "soft", "fabric"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-003626",
+      "expected_english_text": "A teacher touches the boot.",
+      "replacement": {
+        "english_text": "A teacher puts the boot on the shelf.",
+        "czech_text": "Učitel dává holínku na polici.",
+        "target_words": ["teacher", "puts", "boot", "shelf"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-003767",
+      "expected_english_text": "A grandpa touches the coat.",
+      "replacement": {
+        "english_text": "A grandpa hangs the coat by the door.",
+        "czech_text": "Děda věší kabát u dveří.",
+        "target_words": ["grandpa", "hangs", "coat", "door"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-003857",
+      "expected_english_text": "A father touches the pants.",
+      "replacement": {
+        "english_text": "A father touches the blue fabric.",
+        "czech_text": "Tatínek se dotýká modré látky.",
+        "topic": "school",
+        "target_words": ["father", "touches", "blue", "fabric"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-003915",
+      "expected_english_text": "A teacher touches the skirt.",
+      "replacement": {
+        "english_text": "A teacher touches the paper on the desk.",
+        "czech_text": "Učitel se dotýká papíru na lavici.",
+        "topic": "school",
+        "target_words": ["teacher", "touches", "paper", "desk"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004187",
+      "expected_english_text": "A girl touches the glove.",
+      "replacement": {
+        "english_text": "A girl puts on the glove.",
+        "czech_text": "Dívka si nasazuje rukavici.",
+        "target_words": ["girl", "puts", "glove"],
+        "grammar_tags": ["present_simple", "clothing", "direct_object"]
+      }
+    },
+    {
+      "id": "cc-004271",
+      "expected_english_text": "Please hold the skirt.",
+      "replacement": {
+        "english_text": "Please hold this paper.",
+        "czech_text": "Prosím, podrž tento papír.",
+        "topic": "school",
+        "target_words": ["hold", "paper"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "demonstrative"]
+      }
+    },
+    {
+      "id": "cc-004278",
+      "expected_english_text": "A boy touches the hat.",
+      "replacement": {
+        "english_text": "A boy puts on the hat.",
+        "czech_text": "Chlapec si nasazuje čepici.",
+        "target_words": ["boy", "puts", "hat"],
+        "grammar_tags": ["present_simple", "clothing", "direct_object"]
+      }
+    },
+    {
+      "id": "cc-004292",
+      "expected_english_text": "Please hold the pants.",
+      "replacement": {
+        "english_text": "Please hold the warm scarf.",
+        "czech_text": "Prosím, podrž teplou šálu.",
+        "topic": "clothing",
+        "target_words": ["hold", "warm", "scarf"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-004535",
+      "expected_english_text": "A girl touches the coat.",
+      "replacement": {
+        "english_text": "A girl hangs the coat in the closet.",
+        "czech_text": "Dívka věší kabát do skříně.",
+        "target_words": ["girl", "hangs", "coat", "closet"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004575",
+      "expected_english_text": "A teacher rests in the bedroom.",
+      "replacement": {
+        "english_text": "A teacher rests in the staff room.",
+        "czech_text": "Učitel odpočívá ve sborovně.",
+        "topic": "school",
+        "target_words": ["teacher", "rests", "staff", "room"],
+        "grammar_tags": ["present_simple", "singular_subject", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004625",
+      "expected_english_text": "A neighbor gives the child a small rope.",
+      "replacement": {
+        "english_text": "A parent gives the child a jump rope.",
+        "czech_text": "Rodič dává dítěti švihadlo.",
+        "topic": "play",
+        "target_words": ["parent", "gives", "child", "jump", "rope"],
+        "grammar_tags": ["present_simple", "ditransitive", "direct_object"]
+      }
+    },
+    {
+      "id": "cc-004631",
+      "expected_english_text": "A neighbor carries the hard rope to the room.",
+      "replacement": {
+        "english_text": "A child carries the red jump rope to the playground.",
+        "czech_text": "Dítě nese červené švihadlo na hřiště.",
+        "topic": "play",
+        "target_words": ["child", "carries", "red", "jump", "rope", "playground"],
+        "grammar_tags": ["present_simple", "direct_object", "adjective_modifier", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004862",
+      "expected_english_text": "A neighbor holds the dress.",
+      "replacement": {
+        "english_text": "A neighbor carries the dress on a hanger.",
+        "czech_text": "Soused nese šaty na ramínku.",
+        "target_words": ["neighbor", "carries", "dress", "hanger"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004930",
+      "expected_english_text": "A friend touches the shirt.",
+      "replacement": {
+        "english_text": "A friend irons the shirt.",
+        "czech_text": "Kamarád žehlí košili.",
+        "target_words": ["friend", "irons", "shirt"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object"]
+      }
+    },
+    {
+      "id": "cc-004931",
+      "expected_english_text": "A brother touches the skirt.",
+      "replacement": {
+        "english_text": "A brother touches the paper map.",
+        "czech_text": "Bratr se dotýká papírové mapy.",
+        "topic": "school",
+        "target_words": ["brother", "touches", "paper", "map"],
+        "grammar_tags": ["present_simple", "direct_object", "definite_object", "noun_modifier"]
+      }
+    },
+    {
+      "id": "cc-004951",
+      "expected_english_text": "Please show me the skirt.",
+      "replacement": {
+        "english_text": "Please show me the blue coat.",
+        "czech_text": "Prosím, ukaž mi modrý kabát.",
+        "topic": "clothing",
+        "target_words": ["show", "blue", "coat"],
+        "grammar_tags": ["polite_request", "imperative", "direct_object", "adjective_modifier"]
+      }
+    },
+    {
+      "id": "cc-004972",
+      "expected_english_text": "A friend holds the pants.",
+      "replacement": {
+        "english_text": "A friend puts the folded pants in a drawer.",
+        "czech_text": "Kamarád dává složené kalhoty do zásuvky.",
+        "target_words": ["friend", "puts", "folded", "pants", "drawer"],
+        "grammar_tags": ["present_simple", "direct_object", "adjective_modifier", "locative_phrase"]
+      }
+    },
+    {
+      "id": "cc-004973",
+      "expected_english_text": "A grandpa touches the hat.",
+      "replacement": {
+        "english_text": "A grandpa puts on the hat.",
+        "czech_text": "Děda si nasazuje klobouk.",
+        "target_words": ["grandpa", "puts", "hat"],
+        "grammar_tags": ["present_simple", "clothing", "direct_object"]
+      }
+    }
+  ]
+}

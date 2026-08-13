@@ -295,7 +295,7 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v521/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v523/);
   assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v460/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.css\?v=audio-lab-2/);
@@ -313,7 +313,7 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-100/);
+  assert.match(serviceWorker, /app\.js\?v=shell-101/);
   assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
   assert.match(serviceWorker, /word-net\.js\?v=word-net-88/);
   assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);

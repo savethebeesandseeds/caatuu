@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-08T23:16:30.703Z",
+  "generated_at": "2026-08-13T19:18:03.107Z",
   "source_file": "tools/czech-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
   "vector_db": "apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
   "model_id": "all-minilm-l6-v2-qint8-v0.1",
   "caveat": "This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
   "rows": 5000,
-  "db_bytes": 20054016,
-  "db_sha256": "83bd91a5b7040ec0db39a50129f394c009ba99260c89c249f77cdcb18ef48c6b",
+  "db_bytes": 20029440,
+  "db_sha256": "d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13",
   "exact_duplicate_groups": [],
   "near_duplicate_thresholds": {
     "vector_score": 0.74,
@@ -14,35 +14,6 @@
     "max_candidates": 200
   },
   "near_duplicate_candidates": [
-    {
-      "id_a": "cc-000751",
-      "text_a": "A child puts the toy in the box.",
-      "id_b": "cc-004608",
-      "text_b": "A child puts the toy in a box.",
-      "vector_score": 0.9862,
-      "token_jaccard": 1,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 3,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "child",
-        "puts",
-        "toy",
-        "box"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "locative_phrase"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object"
-      ],
-      "review_hint": "Very close wording; review for duplicate or low-value variation."
-    },
     {
       "id_a": "cc-002068",
       "text_a": "A teacher wears a shoe.",
@@ -72,11 +43,40 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-000751",
+      "text_a": "A child puts the toy in the box.",
+      "id_b": "cc-004608",
+      "text_b": "A child puts the toy in a box.",
+      "vector_score": 0.9848,
+      "token_jaccard": 1,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "child",
+        "puts",
+        "toy",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "locative_phrase"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object"
+      ],
+      "review_hint": "Very close wording; review for duplicate or low-value variation."
+    },
+    {
       "id_a": "cc-003702",
       "text_a": "A sister wears a shoe.",
       "id_b": "cc-003919",
       "text_b": "A sister has a shoe.",
-      "vector_score": 0.9836,
+      "vector_score": 0.9833,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -100,67 +100,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002800",
-      "text_a": "A girl has a hat.",
-      "id_b": "cc-003431",
-      "text_b": "A girl wears a hat.",
-      "vector_score": 0.9796,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "girl",
-        "hat"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "clothing",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002480",
-      "text_a": "A mother wears a skirt.",
-      "id_b": "cc-004227",
-      "text_b": "A mother has a skirt.",
-      "vector_score": 0.9788,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "mother",
-        "skirt"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "clothing",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001641",
       "text_a": "A mother has a shoe.",
       "id_b": "cc-004699",
       "text_b": "A mother wears a shoe.",
-      "vector_score": 0.9787,
+      "vector_score": 0.9806,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -184,39 +128,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001871",
-      "text_a": "A grandpa wears a glove.",
-      "id_b": "cc-004482",
-      "text_b": "A grandpa has a glove.",
-      "vector_score": 0.9784,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "grandpa",
-        "glove"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "clothing",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000040",
-      "text_a": "A boy has a coat.",
-      "id_b": "cc-003130",
-      "text_b": "A boy wears a coat.",
-      "vector_score": 0.9774,
+      "id_a": "cc-002800",
+      "text_a": "A girl has a hat.",
+      "id_b": "cc-003431",
+      "text_b": "A girl wears a hat.",
+      "vector_score": 0.9805,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -224,8 +140,8 @@
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "boy",
-        "coat"
+        "girl",
+        "hat"
       ],
       "grammar_a": [
         "present_simple",
@@ -235,6 +151,89 @@
       "grammar_b": [
         "present_simple",
         "clothing",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000659",
+      "text_a": "The pear is green.",
+      "id_b": "cc-004251",
+      "text_b": "The pear is very green.",
+      "vector_score": 0.9795,
+      "token_jaccard": 0.6667,
+      "same_topic": false,
+      "topic_a": "colors",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "pear",
+        "green"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000717",
+      "text_a": "A father has some soup.",
+      "id_b": "cc-001244",
+      "text_b": "A father likes some soup.",
+      "vector_score": 0.9782,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "father",
+        "some",
+        "soup"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002480",
+      "text_a": "A mother wears a skirt.",
+      "id_b": "cc-004227",
+      "text_b": "A mother has a skirt.",
+      "vector_score": 0.9782,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "mother",
+        "skirt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "clothing",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
         "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
@@ -268,40 +267,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000717",
-      "text_a": "A father has some soup.",
-      "id_b": "cc-001244",
-      "text_b": "A father likes some soup.",
-      "vector_score": 0.9762,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "some",
-        "soup"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000161",
-      "text_a": "A teacher wears a scarf.",
-      "id_b": "cc-004658",
-      "text_b": "A teacher has a scarf.",
-      "vector_score": 0.9756,
+      "id_a": "cc-001871",
+      "text_a": "A grandpa wears a glove.",
+      "id_b": "cc-004482",
+      "text_b": "A grandpa has a glove.",
+      "vector_score": 0.977,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -309,8 +279,8 @@
       "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "teacher",
-        "scarf"
+        "grandpa",
+        "glove"
       ],
       "grammar_a": [
         "present_simple",
@@ -320,6 +290,34 @@
       "grammar_b": [
         "present_simple",
         "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000040",
+      "text_a": "A boy has a coat.",
+      "id_b": "cc-003130",
+      "text_b": "A boy wears a coat.",
+      "vector_score": 0.9769,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "boy",
+        "coat"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "clothing",
         "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
@@ -381,28 +379,30 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000659",
-      "text_a": "The pear is green.",
-      "id_b": "cc-004251",
-      "text_b": "The pear is very green.",
-      "vector_score": 0.9744,
+      "id_a": "cc-000161",
+      "text_a": "A teacher wears a scarf.",
+      "id_b": "cc-004658",
+      "text_b": "A teacher has a scarf.",
+      "vector_score": 0.9747,
       "token_jaccard": 0.6667,
-      "same_topic": false,
-      "topic_a": "colors",
-      "topic_b": "food",
-      "difficulty_a": 1,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "pear",
-        "green"
+        "teacher",
+        "scarf"
       ],
       "grammar_a": [
-        "be_present",
-        "adjective_predicate"
+        "present_simple",
+        "clothing",
+        "direct_object"
       ],
       "grammar_b": [
-        "be_present",
-        "adjective_predicate"
+        "present_simple",
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -411,7 +411,7 @@
       "text_a": "A grandpa likes a paper.",
       "id_b": "cc-004344",
       "text_b": "A grandpa has a paper.",
-      "vector_score": 0.9741,
+      "vector_score": 0.974,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -439,7 +439,7 @@
       "text_a": "The egg is small.",
       "id_b": "cc-001160",
       "text_b": "The egg is very small.",
-      "vector_score": 0.9738,
+      "vector_score": 0.9739,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "food",
@@ -465,7 +465,7 @@
       "text_a": "A student has a rope.",
       "id_b": "cc-003284",
       "text_b": "A student needs a rope.",
-      "vector_score": 0.9724,
+      "vector_score": 0.9727,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "play",
@@ -489,20 +489,77 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001097",
-      "text_a": "The sand is dry.",
-      "id_b": "cc-004508",
-      "text_b": "The sand is very dry.",
-      "vector_score": 0.9704,
+      "id_a": "cc-001576",
+      "text_a": "A grandpa needs a glove.",
+      "id_b": "cc-004482",
+      "text_b": "A grandpa has a glove.",
+      "vector_score": 0.9714,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "nature",
-      "topic_b": "nature",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "grandpa",
+        "glove"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002409",
+      "text_a": "A brother needs some soup.",
+      "id_b": "cc-003543",
+      "text_b": "A brother wants some soup.",
+      "vector_score": 0.9714,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "brother",
+        "some",
+        "soup"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001308",
+      "text_a": "The potato is hot.",
+      "id_b": "cc-004895",
+      "text_b": "The potato is very hot.",
+      "vector_score": 0.97,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
       "difficulty_a": 1,
       "difficulty_b": 1,
       "shared_target_words": [
-        "sand",
-        "dry"
+        "potato",
+        "hot"
       ],
       "grammar_a": [
         "be_present",
@@ -543,39 +600,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001130",
-      "text_a": "A student likes a drum.",
-      "id_b": "cc-003437",
-      "text_b": "A student has a drum.",
-      "vector_score": 0.9699,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "student",
-        "drum"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-004272",
       "text_a": "A student has a notebook.",
       "id_b": "cc-004689",
       "text_b": "A student likes a notebook.",
-      "vector_score": 0.9694,
+      "vector_score": 0.9687,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -599,60 +628,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001576",
-      "text_a": "A grandpa needs a glove.",
-      "id_b": "cc-004482",
-      "text_b": "A grandpa has a glove.",
-      "vector_score": 0.9691,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "grandpa",
-        "glove"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001308",
-      "text_a": "The potato is hot.",
-      "id_b": "cc-004895",
-      "text_b": "The potato is very hot.",
-      "vector_score": 0.969,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "potato",
-        "hot"
-      ],
-      "grammar_a": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "grammar_b": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001722",
       "text_a": "A neighbor likes a coat.",
       "id_b": "cc-002538",
@@ -667,6 +642,60 @@
       "shared_target_words": [
         "neighbor",
         "coat"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001097",
+      "text_a": "The sand is dry.",
+      "id_b": "cc-004508",
+      "text_b": "The sand is very dry.",
+      "vector_score": 0.9685,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "nature",
+      "topic_b": "nature",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "sand",
+        "dry"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001130",
+      "text_a": "A student likes a drum.",
+      "id_b": "cc-003437",
+      "text_b": "A student has a drum.",
+      "vector_score": 0.9685,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "student",
+        "drum"
       ],
       "grammar_a": [
         "present_simple",
@@ -709,21 +738,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002409",
-      "text_a": "A brother needs some soup.",
-      "id_b": "cc-003543",
-      "text_b": "A brother wants some soup.",
-      "vector_score": 0.9683,
-      "token_jaccard": 0.6,
+      "id_a": "cc-002648",
+      "text_a": "A grandpa likes a book.",
+      "id_b": "cc-003094",
+      "text_b": "A grandpa has a book.",
+      "vector_score": 0.9681,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
+      "topic_a": "school",
+      "topic_b": "school",
       "difficulty_a": 2,
-      "difficulty_b": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "brother",
-        "some",
-        "soup"
+        "grandpa",
+        "book"
       ],
       "grammar_a": [
         "present_simple",
@@ -732,8 +760,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -766,20 +794,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002648",
-      "text_a": "A grandpa likes a book.",
-      "id_b": "cc-003094",
-      "text_b": "A grandpa has a book.",
-      "vector_score": 0.9677,
-      "token_jaccard": 0.6667,
+      "id_a": "cc-000380",
+      "text_a": "A child wants a rope.",
+      "id_b": "cc-004527",
+      "text_b": "A child needs a rope.",
+      "vector_score": 0.9679,
+      "token_jaccard": 0.5,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
+      "topic_a": "play",
+      "topic_b": "play",
       "difficulty_a": 2,
-      "difficulty_b": 1,
+      "difficulty_b": 2,
       "shared_target_words": [
-        "grandpa",
-        "book"
+        "child",
+        "rope"
       ],
       "grammar_a": [
         "present_simple",
@@ -788,8 +816,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -822,34 +850,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001030",
-      "text_a": "A grandpa has a puzzle.",
-      "id_b": "cc-002474",
-      "text_b": "A grandpa likes a puzzle.",
-      "vector_score": 0.9672,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandpa",
-        "puzzle"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001207",
       "text_a": "A friend tastes the sweet yogurt with a spoon.",
       "id_b": "cc-001896",
@@ -878,30 +878,30 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003893",
-      "text_a": "A student opens the new notebook in class.",
-      "id_b": "cc-004571",
-      "text_b": "A student opens the notebook in class.",
-      "vector_score": 0.9661,
-      "token_jaccard": 0.8,
+      "id_a": "cc-001030",
+      "text_a": "A grandpa has a puzzle.",
+      "id_b": "cc-002474",
+      "text_b": "A grandpa likes a puzzle.",
+      "vector_score": 0.9669,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "student",
-        "opens",
-        "notebook"
+        "grandpa",
+        "puzzle"
       ],
       "grammar_a": [
         "present_simple",
-        "direct_object",
-        "adjective_modifier"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -910,7 +910,7 @@
       "text_a": "A parent needs a notebook.",
       "id_b": "cc-001279",
       "text_b": "A parent has a notebook.",
-      "vector_score": 0.9657,
+      "vector_score": 0.9665,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -929,6 +929,34 @@
       "grammar_b": [
         "present_simple",
         "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003893",
+      "text_a": "A student opens the new notebook in class.",
+      "id_b": "cc-004571",
+      "text_b": "A student opens the notebook in class.",
+      "vector_score": 0.9658,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "student",
+        "opens",
+        "notebook"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
         "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
@@ -966,7 +994,7 @@
       "text_a": "A grandpa has a story.",
       "id_b": "cc-003477",
       "text_b": "A grandpa likes a story.",
-      "vector_score": 0.9654,
+      "vector_score": 0.9655,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -1018,6 +1046,34 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-003700",
+      "text_a": "A teacher wants an orange.",
+      "id_b": "cc-004248",
+      "text_b": "A teacher needs an orange.",
+      "vector_score": 0.9648,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "teacher",
+        "orange"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-001767",
       "text_a": "A student has a jacket.",
       "id_b": "cc-003294",
@@ -1037,34 +1093,6 @@
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000380",
-      "text_a": "A child wants a rope.",
-      "id_b": "cc-004527",
-      "text_b": "A child needs a rope.",
-      "vector_score": 0.9644,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "child",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -1102,39 +1130,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000715",
-      "text_a": "A grandma has a castle.",
-      "id_b": "cc-003847",
-      "text_b": "A grandma likes a castle.",
-      "vector_score": 0.9638,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandma",
-        "castle"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-003284",
       "text_a": "A student needs a rope.",
       "id_b": "cc-004639",
       "text_b": "A student wants a rope.",
-      "vector_score": 0.9636,
+      "vector_score": 0.964,
       "token_jaccard": 0.5,
       "same_topic": true,
       "topic_a": "play",
@@ -1158,11 +1158,40 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-000848",
+      "text_a": "A parent has some soup.",
+      "id_b": "cc-003615",
+      "text_b": "A parent likes some soup.",
+      "vector_score": 0.9639,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "parent",
+        "some",
+        "soup"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-000771",
       "text_a": "Grandpa has a shirt.",
       "id_b": "cc-004971",
       "text_b": "A grandpa wears a shirt.",
-      "vector_score": 0.9625,
+      "vector_score": 0.9627,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -1270,63 +1299,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003040",
-      "text_a": "A parent needs a drum.",
-      "id_b": "cc-004063",
-      "text_b": "A parent has a drum.",
-      "vector_score": 0.9616,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "parent",
-        "drum"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000717",
-      "text_a": "A father has some soup.",
-      "id_b": "cc-003426",
-      "text_b": "A father wants some soup.",
-      "vector_score": 0.9614,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "some",
-        "soup"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001689",
       "text_a": "A neighbor has a pencil.",
       "id_b": "cc-002592",
@@ -1355,31 +1327,31 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000848",
-      "text_a": "A parent has some soup.",
-      "id_b": "cc-003615",
-      "text_b": "A parent likes some soup.",
-      "vector_score": 0.9609,
+      "id_a": "cc-001402",
+      "text_a": "A brother likes some rice.",
+      "id_b": "cc-004567",
+      "text_b": "A brother has some rice.",
+      "vector_score": 0.961,
       "token_jaccard": 0.75,
       "same_topic": true,
       "topic_a": "food",
       "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
+      "difficulty_a": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "parent",
+        "brother",
         "some",
-        "soup"
+        "rice"
       ],
       "grammar_a": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -1412,25 +1384,53 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003700",
-      "text_a": "A teacher wants an orange.",
-      "id_b": "cc-004248",
-      "text_b": "A teacher needs an orange.",
-      "vector_score": 0.9606,
-      "token_jaccard": 0.5,
+      "id_a": "cc-003040",
+      "text_a": "A parent needs a drum.",
+      "id_b": "cc-004063",
+      "text_b": "A parent has a drum.",
+      "vector_score": 0.9603,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
+      "topic_a": "play",
+      "topic_b": "play",
       "difficulty_a": 2,
-      "difficulty_b": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "teacher",
-        "orange"
+        "parent",
+        "drum"
       ],
       "grammar_a": [
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002351",
+      "text_a": "A grandma has a glove.",
+      "id_b": "cc-003556",
+      "text_b": "A grandma likes a glove.",
+      "vector_score": 0.9597,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "glove"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
@@ -1444,7 +1444,7 @@
       "text_a": "A father likes some soup.",
       "id_b": "cc-003426",
       "text_b": "A father wants some soup.",
-      "vector_score": 0.9603,
+      "vector_score": 0.9596,
       "token_jaccard": 0.6,
       "same_topic": true,
       "topic_a": "food",
@@ -1465,34 +1465,6 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002987",
-      "text_a": "A teacher likes a scarf.",
-      "id_b": "cc-004658",
-      "text_b": "A teacher has a scarf.",
-      "vector_score": 0.9596,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "teacher",
-        "scarf"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -1525,6 +1497,34 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-002031",
+      "text_a": "A parent has a story.",
+      "id_b": "cc-004277",
+      "text_b": "A parent takes the story.",
+      "vector_score": 0.9594,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "parent",
+        "story"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-002964",
       "text_a": "A grandma has a scarf.",
       "id_b": "cc-004359",
@@ -1553,33 +1553,30 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000034",
-      "text_a": "A mother carries the small basket to the room.",
-      "id_b": "cc-003745",
-      "text_b": "A mother carries the basket to the room.",
+      "id_a": "cc-000715",
+      "text_a": "A grandma has a castle.",
+      "id_b": "cc-003847",
+      "text_b": "A grandma likes a castle.",
       "vector_score": 0.9591,
-      "token_jaccard": 0.8,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "home",
-      "topic_b": "home",
-      "difficulty_a": 2,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "mother",
-        "carries",
-        "basket",
-        "room"
+        "grandma",
+        "castle"
       ],
       "grammar_a": [
         "present_simple",
-        "locative_phrase",
-        "direct_object",
-        "adjective_modifier"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "locative_phrase",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -1640,88 +1637,58 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002923",
-      "text_a": "A baby wants some bread.",
-      "id_b": "cc-004801",
-      "text_b": "A baby has some bread.",
-      "vector_score": 0.959,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "baby",
-        "some",
-        "bread"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002351",
-      "text_a": "A grandma has a glove.",
-      "id_b": "cc-003556",
-      "text_b": "A grandma likes a glove.",
-      "vector_score": 0.959,
+      "id_a": "cc-000098",
+      "text_a": "A student likes a glove.",
+      "id_b": "cc-003425",
+      "text_b": "A student has a glove.",
+      "vector_score": 0.9588,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
       "topic_b": "clothing",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
+      "difficulty_a": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "grandma",
+        "student",
         "glove"
       ],
       "grammar_a": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001402",
-      "text_a": "A brother likes some rice.",
-      "id_b": "cc-004567",
-      "text_b": "A brother has some rice.",
-      "vector_score": 0.9589,
-      "token_jaccard": 0.75,
+      "id_a": "cc-001945",
+      "text_a": "A grandpa has a box.",
+      "id_b": "cc-004819",
+      "text_b": "A grandpa wants a box.",
+      "vector_score": 0.9584,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
       "shared_target_words": [
-        "brother",
-        "some",
-        "rice"
+        "grandpa",
+        "box"
       ],
       "grammar_a": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -1730,7 +1697,7 @@
       "text_a": "A brother likes an eraser.",
       "id_b": "cc-003917",
       "text_b": "A brother has an eraser.",
-      "vector_score": 0.9587,
+      "vector_score": 0.9584,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -1754,34 +1721,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003437",
-      "text_a": "A student has a drum.",
-      "id_b": "cc-003548",
-      "text_b": "A student needs a drum.",
-      "vector_score": 0.9586,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "student",
-        "drum"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001450",
       "text_a": "A baby has a castle.",
       "id_b": "cc-004914",
@@ -1796,62 +1735,6 @@
       "shared_target_words": [
         "baby",
         "castle"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000610",
-      "text_a": "A brother has a rope.",
-      "id_b": "cc-003646",
-      "text_b": "A brother needs a rope.",
-      "vector_score": 0.9582,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "brother",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-003215",
-      "text_a": "A father has a sock.",
-      "id_b": "cc-004536",
-      "text_b": "A father needs a sock.",
-      "vector_score": 0.9581,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "sock"
       ],
       "grammar_a": [
         "present_simple",
@@ -1895,6 +1778,66 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-002923",
+      "text_a": "A baby wants some bread.",
+      "id_b": "cc-004801",
+      "text_b": "A baby has some bread.",
+      "vector_score": 0.9579,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "baby",
+        "some",
+        "bread"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000034",
+      "text_a": "A mother carries the small basket to the room.",
+      "id_b": "cc-003745",
+      "text_b": "A mother carries the basket to the room.",
+      "vector_score": 0.9578,
+      "token_jaccard": 0.8,
+      "same_topic": true,
+      "topic_a": "home",
+      "topic_b": "home",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "carries",
+        "basket",
+        "room"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object",
+        "adjective_modifier"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "locative_phrase",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-003187",
       "text_a": "A neighbor wants a glove.",
       "id_b": "cc-003201",
@@ -1923,57 +1866,31 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000896",
-      "text_a": "Is the moon tiny?",
-      "id_b": "cc-003017",
-      "text_b": "Is the moon small?",
-      "vector_score": 0.9578,
-      "token_jaccard": 0.3333,
-      "same_topic": true,
-      "topic_a": "nature",
-      "topic_b": "nature",
-      "difficulty_a": 3,
-      "difficulty_b": 3,
-      "shared_target_words": [
-        "moon"
-      ],
-      "grammar_a": [
-        "question",
-        "be_present",
-        "adjective_predicate"
-      ],
-      "grammar_b": [
-        "question",
-        "be_present",
-        "adjective_predicate"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001061",
-      "text_a": "A student needs a sandwich.",
-      "id_b": "cc-001839",
-      "text_b": "A student has a sandwich.",
-      "vector_score": 0.9577,
-      "token_jaccard": 0.6667,
+      "id_a": "cc-000717",
+      "text_a": "A father has some soup.",
+      "id_b": "cc-003426",
+      "text_b": "A father wants some soup.",
+      "vector_score": 0.9575,
+      "token_jaccard": 0.75,
       "same_topic": true,
       "topic_a": "food",
       "topic_b": "food",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
+      "difficulty_a": 1,
+      "difficulty_b": 2,
       "shared_target_words": [
-        "student",
-        "sandwich"
+        "father",
+        "some",
+        "soup"
       ],
       "grammar_a": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -2006,6 +1923,61 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-000896",
+      "text_a": "Is the moon tiny?",
+      "id_b": "cc-003017",
+      "text_b": "Is the moon small?",
+      "vector_score": 0.9575,
+      "token_jaccard": 0.3333,
+      "same_topic": true,
+      "topic_a": "nature",
+      "topic_b": "nature",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
+      "shared_target_words": [
+        "moon"
+      ],
+      "grammar_a": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "question",
+        "be_present",
+        "adjective_predicate"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000610",
+      "text_a": "A brother has a rope.",
+      "id_b": "cc-003646",
+      "text_b": "A brother needs a rope.",
+      "vector_score": 0.9574,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "brother",
+        "rope"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-002255",
       "text_a": "A teacher wants some bread.",
       "id_b": "cc-004106",
@@ -2021,6 +1993,63 @@
         "teacher",
         "some",
         "bread"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002330",
+      "text_a": "A grandma has some soup.",
+      "id_b": "cc-003773",
+      "text_b": "A grandma needs some soup.",
+      "vector_score": 0.9573,
+      "token_jaccard": 0.75,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "some",
+        "soup"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001959",
+      "text_a": "A grandma likes a rope.",
+      "id_b": "cc-003667",
+      "text_b": "A grandma wants a rope.",
+      "vector_score": 0.957,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "rope"
       ],
       "grammar_a": [
         "present_simple",
@@ -2091,6 +2120,34 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-000434",
+      "text_a": "The brother needs a glove.",
+      "id_b": "cc-000744",
+      "text_b": "The brother wants a glove.",
+      "vector_score": 0.9568,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "brother",
+        "glove"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-002538",
       "text_a": "A neighbor has a coat.",
       "id_b": "cc-003103",
@@ -2115,6 +2172,34 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002987",
+      "text_a": "A teacher likes a scarf.",
+      "id_b": "cc-004658",
+      "text_b": "A teacher has a scarf.",
+      "vector_score": 0.9566,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "teacher",
+        "scarf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -2175,34 +2260,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000169",
-      "text_a": "A student has an egg.",
-      "id_b": "cc-002740",
-      "text_b": "A student likes an egg.",
-      "vector_score": 0.9562,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "student",
-        "egg"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-000355",
       "text_a": "A girl has a kite.",
       "id_b": "cc-004468",
@@ -2231,48 +2288,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000138",
-      "text_a": "A father wants a hat.",
-      "id_b": "cc-001807",
-      "text_b": "A father needs a hat.",
-      "vector_score": 0.956,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "hat"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000437",
-      "text_a": "A teacher has a story.",
-      "id_b": "cc-003741",
-      "text_b": "A teacher needs a story.",
-      "vector_score": 0.9559,
+      "id_a": "cc-001452",
+      "text_a": "A father has a drum.",
+      "id_b": "cc-002901",
+      "text_b": "A father needs a drum.",
+      "vector_score": 0.9557,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
+      "topic_a": "play",
+      "topic_b": "play",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "teacher",
-        "story"
+        "father",
+        "drum"
       ],
       "grammar_a": [
         "present_simple",
@@ -2315,48 +2344,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001673",
-      "text_a": "A student likes a book.",
-      "id_b": "cc-004562",
-      "text_b": "A student has a book.",
+      "id_a": "cc-003215",
+      "text_a": "A father has a sock.",
+      "id_b": "cc-004536",
+      "text_b": "A father needs a sock.",
       "vector_score": 0.9556,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "student",
-        "book"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001945",
-      "text_a": "A grandpa has a box.",
-      "id_b": "cc-004819",
-      "text_b": "A grandpa wants a box.",
-      "vector_score": 0.9555,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "grandpa",
-        "box"
+        "father",
+        "sock"
       ],
       "grammar_a": [
         "present_simple",
@@ -2483,30 +2484,55 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000098",
-      "text_a": "A student likes a glove.",
-      "id_b": "cc-003425",
-      "text_b": "A student has a glove.",
-      "vector_score": 0.9551,
+      "id_a": "cc-001227",
+      "text_a": "A student has a rope.",
+      "id_b": "cc-004115",
+      "text_b": "A student takes the rope.",
+      "vector_score": 0.9552,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
       "shared_target_words": [
         "student",
-        "glove"
+        "rope"
       ],
       "grammar_a": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "definite_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002314",
+      "text_a": "The plane is small.",
+      "id_b": "cc-003861",
+      "text_b": "The plane is tiny.",
+      "vector_score": 0.955,
+      "token_jaccard": 0.3333,
+      "same_topic": false,
+      "topic_a": "play",
+      "topic_b": "transport",
+      "difficulty_a": 1,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "plane"
+      ],
+      "grammar_a": [
+        "be_present",
+        "adjective_predicate"
+      ],
+      "grammar_b": [
+        "be_present",
+        "adjective_predicate"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -2539,11 +2565,39 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000434",
-      "text_a": "The brother needs a glove.",
-      "id_b": "cc-000744",
-      "text_b": "The brother wants a glove.",
-      "vector_score": 0.9549,
+      "id_a": "cc-001673",
+      "text_a": "A student likes a book.",
+      "id_b": "cc-004562",
+      "text_b": "A student has a book.",
+      "vector_score": 0.9547,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "student",
+        "book"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000138",
+      "text_a": "A father wants a hat.",
+      "id_b": "cc-001807",
+      "text_b": "A father needs a hat.",
+      "vector_score": 0.9547,
       "token_jaccard": 0.5,
       "same_topic": true,
       "topic_a": "clothing",
@@ -2551,13 +2605,13 @@
       "difficulty_a": 2,
       "difficulty_b": 2,
       "shared_target_words": [
-        "brother",
-        "glove"
+        "father",
+        "hat"
       ],
       "grammar_a": [
         "present_simple",
         "direct_object",
-        "need_verb"
+        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -2567,20 +2621,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003437",
-      "text_a": "A student has a drum.",
-      "id_b": "cc-003589",
-      "text_b": "A student finds the drum.",
-      "vector_score": 0.9548,
+      "id_a": "cc-000169",
+      "text_a": "A student has an egg.",
+      "id_b": "cc-002740",
+      "text_b": "A student likes an egg.",
+      "vector_score": 0.9545,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "food",
+      "topic_b": "food",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
         "student",
-        "drum"
+        "egg"
       ],
       "grammar_a": [
         "present_simple",
@@ -2590,88 +2644,7 @@
       "grammar_b": [
         "present_simple",
         "direct_object",
-        "definite_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001959",
-      "text_a": "A grandma likes a rope.",
-      "id_b": "cc-003667",
-      "text_b": "A grandma wants a rope.",
-      "vector_score": 0.9546,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandma",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
         "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002314",
-      "text_a": "The plane is small.",
-      "id_b": "cc-003861",
-      "text_b": "The plane is tiny.",
-      "vector_score": 0.9546,
-      "token_jaccard": 0.3333,
-      "same_topic": false,
-      "topic_a": "play",
-      "topic_b": "transport",
-      "difficulty_a": 1,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "plane"
-      ],
-      "grammar_a": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "grammar_b": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-004337",
-      "text_a": "Please close the basket now.",
-      "id_b": "cc-004433",
-      "text_b": "Please close the basket.",
-      "vector_score": 0.9545,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 3,
-      "difficulty_b": 3,
-      "shared_target_words": [
-        "close",
-        "basket"
-      ],
-      "grammar_a": [
-        "polite_request",
-        "imperative",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "polite_request",
-        "imperative",
-        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -2696,6 +2669,62 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000161",
+      "text_a": "A teacher wears a scarf.",
+      "id_b": "cc-002987",
+      "text_b": "A teacher likes a scarf.",
+      "vector_score": 0.9542,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "teacher",
+        "scarf"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "clothing",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000437",
+      "text_a": "A teacher has a story.",
+      "id_b": "cc-003741",
+      "text_b": "A teacher needs a story.",
+      "vector_score": 0.9541,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "teacher",
+        "story"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
@@ -2733,34 +2762,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001227",
-      "text_a": "A student has a rope.",
-      "id_b": "cc-004115",
-      "text_b": "A student takes the rope.",
-      "vector_score": 0.954,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "student",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-002297",
       "text_a": "A student wants a pen.",
       "id_b": "cc-003471",
@@ -2789,31 +2790,30 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002330",
-      "text_a": "A grandma has some soup.",
-      "id_b": "cc-003773",
-      "text_b": "A grandma needs some soup.",
-      "vector_score": 0.9538,
+      "id_a": "cc-004337",
+      "text_a": "Please close the basket now.",
+      "id_b": "cc-004433",
+      "text_b": "Please close the basket.",
+      "vector_score": 0.9539,
       "token_jaccard": 0.75,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 3,
+      "difficulty_b": 3,
       "shared_target_words": [
-        "grandma",
-        "some",
-        "soup"
+        "close",
+        "basket"
       ],
       "grammar_a": [
-        "present_simple",
-        "possession",
+        "polite_request",
+        "imperative",
         "direct_object"
       ],
       "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "polite_request",
+        "imperative",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -2874,34 +2874,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-004272",
-      "text_a": "A student has a notebook.",
-      "id_b": "cc-004792",
-      "text_b": "A student needs a notebook.",
-      "vector_score": 0.9535,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "student",
-        "notebook"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-000754",
       "text_a": "A father has a coat.",
       "id_b": "cc-001998",
@@ -2930,76 +2902,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002929",
-      "text_a": "A brother likes a page.",
-      "id_b": "cc-003438",
-      "text_b": "A brother has a page.",
-      "vector_score": 0.9534,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "brother",
-        "page"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000161",
-      "text_a": "A teacher wears a scarf.",
-      "id_b": "cc-002987",
-      "text_b": "A teacher likes a scarf.",
-      "vector_score": 0.9534,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "teacher",
-        "scarf"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "clothing",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002031",
-      "text_a": "A parent has a story.",
-      "id_b": "cc-004277",
-      "text_b": "A parent takes the story.",
+      "id_a": "cc-004172",
+      "text_a": "A father has a rope.",
+      "id_b": "cc-004526",
+      "text_b": "A father takes the rope.",
       "vector_score": 0.9533,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
+      "topic_a": "play",
+      "topic_b": "play",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "parent",
-        "story"
+        "father",
+        "rope"
       ],
       "grammar_a": [
         "present_simple",
@@ -3014,20 +2930,21 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000689",
-      "text_a": "A boy wants a box.",
-      "id_b": "cc-004377",
-      "text_b": "A boy needs a box.",
-      "vector_score": 0.9533,
-      "token_jaccard": 0.5,
+      "id_a": "cc-001292",
+      "text_a": "A baby needs some cheese.",
+      "id_b": "cc-003980",
+      "text_b": "A baby has some cheese.",
+      "vector_score": 0.9532,
+      "token_jaccard": 0.75,
       "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "food",
+      "topic_b": "food",
       "difficulty_a": 2,
-      "difficulty_b": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "boy",
-        "box"
+        "baby",
+        "some",
+        "cheese"
       ],
       "grammar_a": [
         "present_simple",
@@ -3036,8 +2953,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -3094,6 +3011,34 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004298",
+      "text_a": "A baby likes a puzzle.",
+      "id_b": "cc-004501",
+      "text_b": "A baby has a puzzle.",
+      "vector_score": 0.9529,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "baby",
+        "puzzle"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -3182,34 +3127,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001051",
-      "text_a": "A parent needs a block.",
-      "id_b": "cc-003312",
-      "text_b": "A parent has a block.",
-      "vector_score": 0.9526,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "parent",
-        "block"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-002127",
       "text_a": "A brother needs a cookie.",
       "id_b": "cc-003703",
@@ -3270,7 +3187,7 @@
       "text_a": "A father likes a rope.",
       "id_b": "cc-004172",
       "text_b": "A father has a rope.",
-      "vector_score": 0.9523,
+      "vector_score": 0.9524,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "play",
@@ -3280,6 +3197,174 @@
       "shared_target_words": [
         "father",
         "rope"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001950",
+      "text_a": "A brother wants a pen.",
+      "id_b": "cc-003763",
+      "text_b": "A brother needs a pen.",
+      "vector_score": 0.9524,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "brother",
+        "pen"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002929",
+      "text_a": "A brother likes a page.",
+      "id_b": "cc-003438",
+      "text_b": "A brother has a page.",
+      "vector_score": 0.9523,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "brother",
+        "page"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001265",
+      "text_a": "A father likes a kite.",
+      "id_b": "cc-001465",
+      "text_b": "A father wants a kite.",
+      "vector_score": 0.9523,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "father",
+        "kite"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004272",
+      "text_a": "A student has a notebook.",
+      "id_b": "cc-004792",
+      "text_b": "A student needs a notebook.",
+      "vector_score": 0.9521,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "student",
+        "notebook"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000880",
+      "text_a": "A mother has a ruler.",
+      "id_b": "cc-004668",
+      "text_b": "A mother likes a ruler.",
+      "vector_score": 0.952,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "ruler"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001061",
+      "text_a": "A student needs a sandwich.",
+      "id_b": "cc-001839",
+      "text_b": "A student has a sandwich.",
+      "vector_score": 0.952,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "student",
+        "sandwich"
       ],
       "grammar_a": [
         "present_simple",
@@ -3322,48 +3407,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001265",
-      "text_a": "A father likes a kite.",
-      "id_b": "cc-001465",
-      "text_b": "A father wants a kite.",
-      "vector_score": 0.952,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "kite"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000880",
-      "text_a": "A mother has a ruler.",
-      "id_b": "cc-004668",
-      "text_b": "A mother likes a ruler.",
-      "vector_score": 0.9518,
+      "id_a": "cc-000645",
+      "text_a": "Grandma has a jacket.",
+      "id_b": "cc-001990",
+      "text_b": "A grandma likes a jacket.",
+      "vector_score": 0.9519,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "mother",
-        "ruler"
+        "grandma",
+        "jacket"
       ],
       "grammar_a": [
         "present_simple",
@@ -3404,35 +3461,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001292",
-      "text_a": "A baby needs some cheese.",
-      "id_b": "cc-003980",
-      "text_b": "A baby has some cheese.",
-      "vector_score": 0.9517,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "baby",
-        "some",
-        "cheese"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001839",
       "text_a": "A student has a sandwich.",
       "id_b": "cc-003663",
@@ -3461,6 +3489,90 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-000138",
+      "text_a": "A father wants a hat.",
+      "id_b": "cc-000565",
+      "text_b": "A father likes a hat.",
+      "vector_score": 0.9517,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "father",
+        "hat"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000569",
+      "text_a": "A brother has a cake.",
+      "id_b": "cc-003892",
+      "text_b": "A brother wants a cake.",
+      "vector_score": 0.9516,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "brother",
+        "cake"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000141",
+      "text_a": "A neighbor likes a crayon.",
+      "id_b": "cc-003162",
+      "text_b": "A neighbor has a crayon.",
+      "vector_score": 0.9512,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "neighbor",
+        "crayon"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-000880",
       "text_a": "A mother has a ruler.",
       "id_b": "cc-002997",
@@ -3480,60 +3592,6 @@
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001267",
-      "text_a": "The plate is clean.",
-      "id_b": "cc-003486",
-      "text_b": "The plate is very clean.",
-      "vector_score": 0.9512,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "home",
-      "topic_b": "home",
-      "difficulty_a": 1,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "plate",
-        "clean"
-      ],
-      "grammar_a": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "grammar_b": [
-        "be_present",
-        "adjective_predicate"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-003608",
-      "text_a": "A father wants a skirt.",
-      "id_b": "cc-003968",
-      "text_b": "A father needs a skirt.",
-      "vector_score": 0.9512,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "skirt"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -3571,6 +3629,62 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-002645",
+      "text_a": "A grandpa wants a book.",
+      "id_b": "cc-003094",
+      "text_b": "A grandpa has a book.",
+      "vector_score": 0.9509,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "grandpa",
+        "book"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003633",
+      "text_a": "A grandma has a skirt.",
+      "id_b": "cc-003795",
+      "text_b": "A grandma needs a skirt.",
+      "vector_score": 0.9509,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "skirt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-001534",
       "text_a": "A grandpa likes a kite.",
       "id_b": "cc-002549",
@@ -3599,48 +3713,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002645",
-      "text_a": "A grandpa wants a book.",
-      "id_b": "cc-003094",
-      "text_b": "A grandpa has a book.",
-      "vector_score": 0.9507,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "grandpa",
-        "book"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000141",
-      "text_a": "A neighbor likes a crayon.",
-      "id_b": "cc-003162",
-      "text_b": "A neighbor has a crayon.",
+      "id_a": "cc-000565",
+      "text_a": "A father likes a hat.",
+      "id_b": "cc-002927",
+      "text_b": "A father has a hat.",
       "vector_score": 0.9506,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
       "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "neighbor",
-        "crayon"
+        "father",
+        "hat"
       ],
       "grammar_a": [
         "present_simple",
@@ -3655,30 +3741,30 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-004298",
-      "text_a": "A baby likes a puzzle.",
-      "id_b": "cc-004501",
-      "text_b": "A baby has a puzzle.",
-      "vector_score": 0.9505,
+      "id_a": "cc-003437",
+      "text_a": "A student has a drum.",
+      "id_b": "cc-003548",
+      "text_b": "A student needs a drum.",
+      "vector_score": 0.9503,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "play",
       "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
+      "difficulty_a": 1,
+      "difficulty_b": 2,
       "shared_target_words": [
-        "baby",
-        "puzzle"
+        "student",
+        "drum"
       ],
       "grammar_a": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -3739,11 +3825,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000138",
-      "text_a": "A father wants a hat.",
-      "id_b": "cc-000565",
-      "text_b": "A father likes a hat.",
-      "vector_score": 0.9501,
+      "id_a": "cc-003608",
+      "text_a": "A father wants a skirt.",
+      "id_b": "cc-003968",
+      "text_b": "A father needs a skirt.",
+      "vector_score": 0.9499,
       "token_jaccard": 0.5,
       "same_topic": true,
       "topic_a": "clothing",
@@ -3752,7 +3838,63 @@
       "difficulty_b": 2,
       "shared_target_words": [
         "father",
-        "hat"
+        "skirt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002011",
+      "text_a": "A teacher sees the picture.",
+      "id_b": "cc-003764",
+      "text_b": "A teacher has a picture.",
+      "vector_score": 0.9497,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "teacher",
+        "picture"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001414",
+      "text_a": "A grandpa needs a book.",
+      "id_b": "cc-002645",
+      "text_b": "A grandpa wants a book.",
+      "vector_score": 0.9497,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandpa",
+        "book"
       ],
       "grammar_a": [
         "present_simple",
@@ -3823,48 +3965,48 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000569",
-      "text_a": "A brother has a cake.",
-      "id_b": "cc-003892",
-      "text_b": "A brother wants a cake.",
-      "vector_score": 0.9495,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "brother",
-        "cake"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001807",
-      "text_a": "A father needs a hat.",
-      "id_b": "cc-002927",
-      "text_b": "A father has a hat.",
-      "vector_score": 0.9495,
-      "token_jaccard": 0.6667,
+      "id_a": "cc-001125",
+      "text_a": "A grandma wants a glove.",
+      "id_b": "cc-003556",
+      "text_b": "A grandma likes a glove.",
+      "vector_score": 0.9496,
+      "token_jaccard": 0.5,
       "same_topic": true,
       "topic_a": "clothing",
       "topic_b": "clothing",
       "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "glove"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001051",
+      "text_a": "A parent needs a block.",
+      "id_b": "cc-003312",
+      "text_b": "A parent has a block.",
+      "vector_score": 0.9495,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "father",
-        "hat"
+        "parent",
+        "block"
       ],
       "grammar_a": [
         "present_simple",
@@ -3875,34 +4017,6 @@
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001950",
-      "text_a": "A brother wants a pen.",
-      "id_b": "cc-003763",
-      "text_b": "A brother needs a pen.",
-      "vector_score": 0.9495,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "brother",
-        "pen"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -3935,6 +4049,62 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-001807",
+      "text_a": "A father needs a hat.",
+      "id_b": "cc-002927",
+      "text_b": "A father has a hat.",
+      "vector_score": 0.9494,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "father",
+        "hat"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000689",
+      "text_a": "A boy wants a box.",
+      "id_b": "cc-004377",
+      "text_b": "A boy needs a box.",
+      "vector_score": 0.9494,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "boy",
+        "box"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-000284",
       "text_a": "A teacher needs a crayon.",
       "id_b": "cc-002408",
@@ -3954,34 +4124,6 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002647",
-      "text_a": "A grandpa takes the bag.",
-      "id_b": "cc-004266",
-      "text_b": "A grandpa has a bag.",
-      "vector_score": 0.9492,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "grandpa",
-        "bag"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
       ],
       "grammar_b": [
         "present_simple",
@@ -4047,53 +4189,53 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003004",
-      "text_a": "A mother wants a ruler.",
-      "id_b": "cc-004668",
-      "text_b": "A mother likes a ruler.",
-      "vector_score": 0.9491,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "mother",
-        "ruler"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000645",
-      "text_a": "Grandma has a jacket.",
-      "id_b": "cc-001990",
-      "text_b": "A grandma likes a jacket.",
+      "id_a": "cc-003437",
+      "text_a": "A student has a drum.",
+      "id_b": "cc-003589",
+      "text_b": "A student finds the drum.",
       "vector_score": 0.949,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
+      "topic_a": "play",
+      "topic_b": "play",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "grandma",
-        "jacket"
+        "student",
+        "drum"
       ],
       "grammar_a": [
         "present_simple",
         "possession",
         "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001256",
+      "text_a": "A girl wants a robot.",
+      "id_b": "cc-004008",
+      "text_b": "A girl needs a robot.",
+      "vector_score": 0.949,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "girl",
+        "robot"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -4131,76 +4273,21 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003633",
-      "text_a": "A grandma has a skirt.",
-      "id_b": "cc-003795",
-      "text_b": "A grandma needs a skirt.",
-      "vector_score": 0.9487,
-      "token_jaccard": 0.6667,
+      "id_a": "cc-000701",
+      "text_a": "A teacher likes some yogurt.",
+      "id_b": "cc-001448",
+      "text_b": "A teacher needs some yogurt.",
+      "vector_score": 0.9488,
+      "token_jaccard": 0.6,
       "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandma",
-        "skirt"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001125",
-      "text_a": "A grandma wants a glove.",
-      "id_b": "cc-003556",
-      "text_b": "A grandma likes a glove.",
-      "vector_score": 0.9487,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
+      "topic_a": "food",
+      "topic_b": "food",
       "difficulty_a": 2,
       "difficulty_b": 2,
       "shared_target_words": [
-        "grandma",
-        "glove"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002645",
-      "text_a": "A grandpa wants a book.",
-      "id_b": "cc-002648",
-      "text_b": "A grandpa likes a book.",
-      "vector_score": 0.9487,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandpa",
-        "book"
+        "teacher",
+        "some",
+        "yogurt"
       ],
       "grammar_a": [
         "present_simple",
@@ -4243,20 +4330,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002933",
-      "text_a": "A student touches the drum.",
-      "id_b": "cc-003437",
-      "text_b": "A student has a drum.",
-      "vector_score": 0.9484,
+      "id_a": "cc-001365",
+      "text_a": "A friend holds the hat.",
+      "id_b": "cc-004229",
+      "text_b": "A friend has a hat.",
+      "vector_score": 0.9483,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
       "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "student",
-        "drum"
+        "friend",
+        "hat"
       ],
       "grammar_a": [
         "present_simple",
@@ -4271,10 +4358,10 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001414",
-      "text_a": "A grandpa needs a book.",
-      "id_b": "cc-002645",
-      "text_b": "A grandpa wants a book.",
+      "id_a": "cc-001630",
+      "text_a": "A friend needs a crayon.",
+      "id_b": "cc-004822",
+      "text_b": "A friend wants a crayon.",
       "vector_score": 0.9483,
       "token_jaccard": 0.5,
       "same_topic": true,
@@ -4283,8 +4370,8 @@
       "difficulty_a": 2,
       "difficulty_b": 2,
       "shared_target_words": [
-        "grandpa",
-        "book"
+        "friend",
+        "crayon"
       ],
       "grammar_a": [
         "present_simple",
@@ -4327,30 +4414,28 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-004227",
-      "text_a": "A mother has a skirt.",
-      "id_b": "cc-004888",
-      "text_b": "A mother likes a skirt.",
+      "id_a": "cc-001267",
+      "text_a": "The plate is clean.",
+      "id_b": "cc-003486",
+      "text_b": "The plate is very clean.",
       "vector_score": 0.9482,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
+      "topic_a": "home",
+      "topic_b": "home",
       "difficulty_a": 1,
-      "difficulty_b": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "mother",
-        "skirt"
+        "plate",
+        "clean"
       ],
       "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
+        "be_present",
+        "adjective_predicate"
       ],
       "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "be_present",
+        "adjective_predicate"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -4439,34 +4524,6 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001365",
-      "text_a": "A friend holds the hat.",
-      "id_b": "cc-004229",
-      "text_b": "A friend has a hat.",
-      "vector_score": 0.9479,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "friend",
-        "hat"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
       "id_a": "cc-001584",
       "text_a": "A parent has a blanket.",
       "id_b": "cc-002375",
@@ -4523,10 +4580,10 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001472",
-      "text_a": "A mother needs an eraser.",
-      "id_b": "cc-003729",
-      "text_b": "A mother wants an eraser.",
+      "id_a": "cc-003004",
+      "text_a": "A mother wants a ruler.",
+      "id_b": "cc-004668",
+      "text_b": "A mother likes a ruler.",
       "vector_score": 0.9479,
       "token_jaccard": 0.5,
       "same_topic": true,
@@ -4536,7 +4593,7 @@
       "difficulty_b": 2,
       "shared_target_words": [
         "mother",
-        "eraser"
+        "ruler"
       ],
       "grammar_a": [
         "present_simple",
@@ -4579,6 +4636,62 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-002645",
+      "text_a": "A grandpa wants a book.",
+      "id_b": "cc-002648",
+      "text_b": "A grandpa likes a book.",
+      "vector_score": 0.9477,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandpa",
+        "book"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002099",
+      "text_a": "A grandma likes a dress.",
+      "id_b": "cc-003026",
+      "text_b": "A grandma wears a dress.",
+      "vector_score": 0.9476,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "dress"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "clothing",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-002028",
       "text_a": "A grandma has a shirt.",
       "id_b": "cc-002287",
@@ -4607,38 +4720,10 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001279",
-      "text_a": "A parent has a notebook.",
-      "id_b": "cc-004813",
-      "text_b": "A parent likes a notebook.",
-      "vector_score": 0.9473,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "parent",
-        "notebook"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001452",
-      "text_a": "A father has a drum.",
-      "id_b": "cc-002901",
-      "text_b": "A father needs a drum.",
+      "id_a": "cc-001227",
+      "text_a": "A student has a rope.",
+      "id_b": "cc-004639",
+      "text_b": "A student wants a rope.",
       "vector_score": 0.9472,
       "token_jaccard": 0.6667,
       "same_topic": true,
@@ -4647,41 +4732,13 @@
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "father",
-        "drum"
+        "student",
+        "rope"
       ],
       "grammar_a": [
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001630",
-      "text_a": "A friend needs a crayon.",
-      "id_b": "cc-004822",
-      "text_b": "A friend wants a crayon.",
-      "vector_score": 0.9472,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "friend",
-        "crayon"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -4720,95 +4777,39 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-004172",
-      "text_a": "A father has a rope.",
-      "id_b": "cc-004526",
-      "text_b": "A father takes the rope.",
-      "vector_score": 0.947,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002099",
-      "text_a": "A grandma likes a dress.",
-      "id_b": "cc-003026",
-      "text_b": "A grandma wears a dress.",
-      "vector_score": 0.947,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandma",
-        "dress"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "clothing",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001222",
-      "text_a": "A teacher chooses a spoon.",
-      "id_b": "cc-002135",
-      "text_b": "A teacher has a spoon.",
+      "id_a": "cc-000761",
+      "text_a": "Please close the bag now.",
+      "id_b": "cc-002897",
+      "text_b": "Please close the bag.",
       "vector_score": 0.9469,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
+      "token_jaccard": 0.75,
+      "same_topic": false,
       "topic_a": "home",
-      "topic_b": "home",
+      "topic_b": "school",
       "difficulty_a": 2,
-      "difficulty_b": 1,
+      "difficulty_b": 3,
       "shared_target_words": [
-        "teacher",
-        "spoon"
+        "close",
+        "bag"
       ],
       "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
+        "polite_request",
+        "imperative",
+        "direct_object"
       ],
       "grammar_b": [
-        "present_simple",
-        "possession",
+        "polite_request",
+        "imperative",
         "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002011",
-      "text_a": "A teacher sees the picture.",
-      "id_b": "cc-003764",
-      "text_b": "A teacher has a picture.",
-      "vector_score": 0.9469,
+      "id_a": "cc-002647",
+      "text_a": "A grandpa takes the bag.",
+      "id_b": "cc-004266",
+      "text_b": "A grandpa has a bag.",
+      "vector_score": 0.9467,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
@@ -4816,8 +4817,8 @@
       "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "teacher",
-        "picture"
+        "grandpa",
+        "bag"
       ],
       "grammar_a": [
         "present_simple",
@@ -4828,35 +4829,6 @@
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001632",
-      "text_a": "A parent has some rice.",
-      "id_b": "cc-004593",
-      "text_b": "A parent needs some rice.",
-      "vector_score": 0.9468,
-      "token_jaccard": 0.75,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "parent",
-        "some",
-        "rice"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -4889,48 +4861,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-001018",
-      "text_a": "A mother has an egg.",
-      "id_b": "cc-004548",
-      "text_b": "A mother wants an egg.",
-      "vector_score": 0.9463,
-      "token_jaccard": 0.6667,
+      "id_a": "cc-001472",
+      "text_a": "A mother needs an eraser.",
+      "id_b": "cc-003729",
+      "text_b": "A mother wants an eraser.",
+      "vector_score": 0.9465,
+      "token_jaccard": 0.5,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 1,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
       "difficulty_b": 2,
       "shared_target_words": [
         "mother",
-        "egg"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-002346",
-      "text_a": "A teacher needs a shirt.",
-      "id_b": "cc-003564",
-      "text_b": "A teacher has a shirt.",
-      "vector_score": 0.9462,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "teacher",
-        "shirt"
+        "eraser"
       ],
       "grammar_a": [
         "present_simple",
@@ -4939,8 +4883,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -5029,6 +4973,34 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
+      "id_a": "cc-004309",
+      "text_a": "A student sees the letter.",
+      "id_b": "cc-004421",
+      "text_b": "A student has a letter.",
+      "vector_score": 0.9461,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "student",
+        "letter"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
       "id_a": "cc-002162",
       "text_a": "A student takes the paper.",
       "id_b": "cc-004889",
@@ -5053,118 +5025,6 @@
         "present_simple",
         "possession",
         "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-004038",
-      "text_a": "A sister needs a ruler.",
-      "id_b": "cc-004506",
-      "text_b": "A sister has a ruler.",
-      "vector_score": 0.946,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "sister",
-        "ruler"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-004309",
-      "text_a": "A student sees the letter.",
-      "id_b": "cc-004421",
-      "text_b": "A student has a letter.",
-      "vector_score": 0.9458,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "school",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 1,
-      "shared_target_words": [
-        "student",
-        "letter"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001130",
-      "text_a": "A student likes a drum.",
-      "id_b": "cc-003589",
-      "text_b": "A student finds the drum.",
-      "vector_score": 0.9458,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "student",
-        "drum"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-004432",
-      "text_a": "A father carries the rope.",
-      "id_b": "cc-004526",
-      "text_b": "A father takes the rope.",
-      "vector_score": 0.9458,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "father",
-        "rope"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -5225,21 +5085,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000494",
-      "text_a": "A boy likes some yogurt.",
-      "id_b": "cc-000852",
-      "text_b": "A boy wants some yogurt.",
+      "id_a": "cc-000101",
+      "text_a": "The boy likes a skirt.",
+      "id_b": "cc-003864",
+      "text_b": "A boy has a skirt.",
       "vector_score": 0.9456,
-      "token_jaccard": 0.6,
+      "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
+      "topic_a": "clothing",
+      "topic_b": "clothing",
       "difficulty_a": 2,
-      "difficulty_b": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
         "boy",
-        "some",
-        "yogurt"
+        "skirt"
       ],
       "grammar_a": [
         "present_simple",
@@ -5248,36 +5107,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-001554",
-      "text_a": "A boy wants a pear.",
-      "id_b": "cc-001935",
-      "text_b": "A boy needs a pear.",
-      "vector_score": 0.9456,
-      "token_jaccard": 0.5,
-      "same_topic": true,
-      "topic_a": "food",
-      "topic_b": "food",
-      "difficulty_a": 2,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "boy",
-        "pear"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "mental_or_need_verb"
+        "possession",
+        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -5310,25 +5141,82 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000552",
-      "text_a": "A mother has a notebook.",
-      "id_b": "cc-002223",
-      "text_b": "A mother likes a notebook.",
+      "id_a": "cc-004038",
+      "text_a": "A sister needs a ruler.",
+      "id_b": "cc-004506",
+      "text_b": "A sister has a ruler.",
       "vector_score": 0.9454,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "school",
       "topic_b": "school",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
+      "difficulty_a": 2,
+      "difficulty_b": 1,
       "shared_target_words": [
-        "mother",
-        "notebook"
+        "sister",
+        "ruler"
       ],
       "grammar_a": [
         "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
         "possession",
         "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-004432",
+      "text_a": "A father carries the rope.",
+      "id_b": "cc-004526",
+      "text_b": "A father takes the rope.",
+      "vector_score": 0.9454,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "father",
+        "rope"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000494",
+      "text_a": "A boy likes some yogurt.",
+      "id_b": "cc-000852",
+      "text_b": "A boy wants some yogurt.",
+      "vector_score": 0.9453,
+      "token_jaccard": 0.6,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "boy",
+        "some",
+        "yogurt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "grammar_b": [
         "present_simple",
@@ -5362,34 +5250,6 @@
         "present_simple",
         "direct_object",
         "mental_or_need_verb"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000761",
-      "text_a": "Please close the bag now.",
-      "id_b": "cc-002897",
-      "text_b": "Please close the bag.",
-      "vector_score": 0.9451,
-      "token_jaccard": 0.75,
-      "same_topic": false,
-      "topic_a": "home",
-      "topic_b": "school",
-      "difficulty_a": 2,
-      "difficulty_b": 3,
-      "shared_target_words": [
-        "close",
-        "bag"
-      ],
-      "grammar_a": [
-        "polite_request",
-        "imperative",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "polite_request",
-        "imperative",
-        "direct_object"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -5450,48 +5310,20 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-002755",
-      "text_a": "A grandpa has a coat.",
-      "id_b": "cc-003767",
-      "text_b": "A grandpa touches the coat.",
-      "vector_score": 0.9449,
-      "token_jaccard": 0.6667,
-      "same_topic": true,
-      "topic_a": "clothing",
-      "topic_b": "clothing",
-      "difficulty_a": 1,
-      "difficulty_b": 2,
-      "shared_target_words": [
-        "grandpa",
-        "coat"
-      ],
-      "grammar_a": [
-        "present_simple",
-        "possession",
-        "direct_object"
-      ],
-      "grammar_b": [
-        "present_simple",
-        "direct_object",
-        "definite_object"
-      ],
-      "review_hint": "Very close vector match; likely same learning example shape."
-    },
-    {
-      "id_a": "cc-000011",
-      "text_a": "A mother has a rope.",
-      "id_b": "cc-000681",
-      "text_b": "A mother carries the rope.",
+      "id_a": "cc-003383",
+      "text_a": "A teacher has a lamp.",
+      "id_b": "cc-003588",
+      "text_b": "A teacher holds the lamp.",
       "vector_score": 0.9447,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "home",
+      "topic_b": "home",
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "mother",
-        "rope"
+        "teacher",
+        "lamp"
       ],
       "grammar_a": [
         "present_simple",
@@ -5534,11 +5366,11 @@
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-000094",
-      "text_a": "A neighbor has a shoe.",
-      "id_b": "cc-000489",
-      "text_b": "A neighbor is holding the shoe.",
-      "vector_score": 0.9444,
+      "id_a": "cc-004229",
+      "text_a": "A friend has a hat.",
+      "id_b": "cc-004380",
+      "text_b": "A friend likes a hat.",
+      "vector_score": 0.9445,
       "token_jaccard": 0.6667,
       "same_topic": true,
       "topic_a": "clothing",
@@ -5546,8 +5378,8 @@
       "difficulty_a": 1,
       "difficulty_b": 2,
       "shared_target_words": [
-        "neighbor",
-        "shoe"
+        "friend",
+        "hat"
       ],
       "grammar_a": [
         "present_simple",
@@ -5556,27 +5388,54 @@
       ],
       "grammar_b": [
         "present_simple",
-        "present_continuous",
         "direct_object",
-        "definite_object"
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
     {
-      "id_a": "cc-003188",
-      "text_a": "A child likes a puzzle.",
-      "id_b": "cc-004602",
-      "text_b": "A child has a puzzle.",
-      "vector_score": 0.9442,
+      "id_a": "cc-003170",
+      "text_a": "A brother holds the page.",
+      "id_b": "cc-003438",
+      "text_b": "A brother has a page.",
+      "vector_score": 0.9443,
       "token_jaccard": 0.6667,
       "same_topic": true,
-      "topic_a": "play",
-      "topic_b": "play",
+      "topic_a": "school",
+      "topic_b": "school",
       "difficulty_a": 2,
       "difficulty_b": 1,
       "shared_target_words": [
-        "child",
-        "puzzle"
+        "brother",
+        "page"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "definite_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002099",
+      "text_a": "A grandma likes a dress.",
+      "id_b": "cc-003053",
+      "text_b": "A grandma wants a dress.",
+      "vector_score": 0.9443,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "grandma",
+        "dress"
       ],
       "grammar_a": [
         "present_simple",
@@ -5585,8 +5444,8 @@
       ],
       "grammar_b": [
         "present_simple",
-        "possession",
-        "direct_object"
+        "direct_object",
+        "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
     },
@@ -5617,20 +5476,160 @@
         "mental_or_need_verb"
       ],
       "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-001554",
+      "text_a": "A boy wants a pear.",
+      "id_b": "cc-001935",
+      "text_b": "A boy needs a pear.",
+      "vector_score": 0.9442,
+      "token_jaccard": 0.5,
+      "same_topic": true,
+      "topic_a": "food",
+      "topic_b": "food",
+      "difficulty_a": 2,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "boy",
+        "pear"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-003030",
+      "text_a": "A parent has a paper.",
+      "id_b": "cc-004342",
+      "text_b": "A parent needs a paper.",
+      "vector_score": 0.9441,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "parent",
+        "paper"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000552",
+      "text_a": "A mother has a notebook.",
+      "id_b": "cc-002223",
+      "text_b": "A mother likes a notebook.",
+      "vector_score": 0.944,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "school",
+      "topic_b": "school",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "mother",
+        "notebook"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-000590",
+      "text_a": "A friend has a ball.",
+      "id_b": "cc-002265",
+      "text_b": "A friend likes a ball.",
+      "vector_score": 0.944,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "play",
+      "topic_b": "play",
+      "difficulty_a": 1,
+      "difficulty_b": 2,
+      "shared_target_words": [
+        "friend",
+        "ball"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
+    },
+    {
+      "id_a": "cc-002346",
+      "text_a": "A teacher needs a shirt.",
+      "id_b": "cc-003564",
+      "text_b": "A teacher has a shirt.",
+      "vector_score": 0.9439,
+      "token_jaccard": 0.6667,
+      "same_topic": true,
+      "topic_a": "clothing",
+      "topic_b": "clothing",
+      "difficulty_a": 2,
+      "difficulty_b": 1,
+      "shared_target_words": [
+        "teacher",
+        "shirt"
+      ],
+      "grammar_a": [
+        "present_simple",
+        "direct_object",
+        "mental_or_need_verb"
+      ],
+      "grammar_b": [
+        "present_simple",
+        "possession",
+        "direct_object"
+      ],
+      "review_hint": "Very close vector match; likely same learning example shape."
     }
   ],
   "coverage": {
     "topic_counts": {
       "animals": 557,
-      "clothing": 588,
+      "clothing": 575,
       "colors": 182,
       "food": 822,
-      "home": 576,
+      "home": 579,
       "nature": 199,
-      "people": 377,
-      "play": 795,
+      "people": 376,
+      "play": 796,
       "routine": 16,
-      "school": 804,
+      "school": 814,
       "transport": 84
     },
     "difficulty_counts": {
@@ -5645,7 +5644,7 @@
       ],
       [
         "puts",
-        382
+        388
       ],
       [
         "eats",
@@ -5661,7 +5660,7 @@
       ],
       [
         "child",
-        247
+        248
       ],
       [
         "father",
@@ -5673,7 +5672,7 @@
       ],
       [
         "small",
-        228
+        227
       ],
       [
         "brother",
@@ -5712,12 +5711,12 @@
         200
       ],
       [
-        "neighbor",
-        190
-      ],
-      [
         "likes",
         189
+      ],
+      [
+        "neighbor",
+        188
       ],
       [
         "boy",
@@ -5725,10 +5724,6 @@
       ],
       [
         "grandma",
-        185
-      ],
-      [
-        "touches",
         185
       ],
       [
@@ -5740,8 +5735,12 @@
         175
       ],
       [
+        "touches",
+        168
+      ],
+      [
         "parent",
-        165
+        166
       ],
       [
         "gives",
@@ -5753,7 +5752,7 @@
       ],
       [
         "carries",
-        131
+        133
       ],
       [
         "basket",
@@ -5771,11 +5770,11 @@
       ],
       [
         "definite_object",
-        1056
+        1050
       ],
       [
         "locative_phrase",
-        946
+        964
       ],
       [
         "singular_subject",
@@ -5831,11 +5830,11 @@
       ],
       [
         "adjective_modifier",
-        75
+        87
       ],
       [
         "clothing",
-        32
+        35
       ],
       [
         "prepositional_phrase",
@@ -5850,11 +5849,15 @@
         5
       ],
       [
+        "indefinite_object",
+        4
+      ],
+      [
         "possessive_pronoun",
         4
       ],
       [
-        "indefinite_object",
+        "demonstrative",
         3
       ],
       [
@@ -5871,10 +5874,6 @@
       ],
       [
         "attributive_adjective",
-        1
-      ],
-      [
-        "demonstrative",
         1
       ],
       [
@@ -5905,7 +5904,7 @@
       ],
       [
         "please hold the",
-        44
+        42
       ],
       [
         "please find the",
@@ -5924,11 +5923,11 @@
         37
       ],
       [
-        "a child puts",
-        35
+        "a friend puts",
+        36
       ],
       [
-        "a friend puts",
+        "a child puts",
         35
       ],
       [
@@ -5953,7 +5952,7 @@
       ],
       [
         "a teacher puts",
-        29
+        30
       ],
       [
         "please put the",
@@ -5965,6 +5964,10 @@
       ],
       [
         "a brother has",
+        27
+      ],
+      [
+        "a girl puts",
         27
       ],
       [
@@ -5985,10 +5988,6 @@
       ],
       [
         "a brother puts",
-        26
-      ],
-      [
-        "a girl puts",
         26
       ],
       [

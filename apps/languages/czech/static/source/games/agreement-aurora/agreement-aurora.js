@@ -1,6 +1,6 @@
 "use strict";
 
-const DATA_URL = "data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-2";
+const DATA_URL = "data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3";
 const $ = (selector) => document.querySelector(selector);
 const GENDERS = Object.freeze([
   Object.freeze({ key: "masculine", label: "Masculine noun" }),

@@ -1,10 +1,16 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { inspectLearnerFields } from "./learner-content-safety-lib.mjs";
 
 export const AUTHORING_SCHEMA_VERSION = "caatuu-word-world-record-v1";
 export const RUNTIME_SCHEMA_VERSION = "caatuu-word-world-runtime-v1";
 export const RUNTIME_MANIFEST_SCHEMA_VERSION = "caatuu-word-world-runtime-manifest-v1";
+export const EDITORIAL_OVERRIDES_SCHEMA_VERSION = "caatuu-word-world-editorial-overrides-v1";
+
+const EDITORIAL_TRANSFORMATION_NOTE = "After promotion, this row received a versioned Codex-assisted child-safety editorial correction on 2026-08-13. The original candidate, review, and promoted-source evidence remains unchanged; no human approval is claimed.";
+const EDITORIAL_REVIEW_CHECK = "post-promotion child-safety editorial curation";
+const EDITORIAL_REVIEW_NOTE = "Applied from the versioned Word World editorial override ledger on 2026-08-13; the historical source row was not rewritten.";
 
 export async function readJson(file) {
   return JSON.parse(await fs.readFile(file, "utf8"));
@@ -76,6 +82,45 @@ export function sha256(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
+export function applyEditorialOverrides(records, document) {
+  validateEditorialOverridesDocument(document);
+  const recordsById = new Map();
+  for (const record of records) {
+    if (!record?.id) continue;
+    if (recordsById.has(record.id)) throw new Error(`Cannot apply editorial overrides: duplicate source record id ${record.id}`);
+    recordsById.set(record.id, record);
+  }
+
+  const effective = records.map((record) => structuredClone(record));
+  const effectiveById = new Map(effective.map((record) => [record.id, record]));
+  for (const override of document.overrides) {
+    const sourceRecord = recordsById.get(override.id);
+    const record = effectiveById.get(override.id);
+    if (!sourceRecord || !record) throw new Error(`Editorial override ${override.id}: source record is missing`);
+    for (const change of override.changes) {
+      const segments = parseJsonPointer(change.path, override.id);
+      const actual = getAtPath(sourceRecord, segments, override.id, change.path);
+      if (!deepEqual(actual, change.expected)) {
+        throw new Error(`Editorial override ${override.id}${change.path}: expected value drifted; expected ${JSON.stringify(change.expected)}, found ${JSON.stringify(actual)}`);
+      }
+      const replacement = change.path === "/targets"
+        ? preserveEditorialTargetCount(actual, change.replacement, override.id)
+        : change.replacement;
+      setAtPath(record, segments, structuredClone(replacement), override.id, change.path);
+    }
+    record.provenance.transformation = appendUniqueSentence(record.provenance.transformation, EDITORIAL_TRANSFORMATION_NOTE);
+    record.review = {
+      ...record.review,
+      reviewer: document.editorialPass.reviewer,
+      reviewedOn: document.editorialPass.reviewedOn,
+      humanApproved: false,
+      checks: appendUnique(record.review.checks, EDITORIAL_REVIEW_CHECK),
+      notes: appendUnique(record.review.notes, EDITORIAL_REVIEW_NOTE),
+    };
+  }
+  return effective;
+}
+
 export function toRuntimeRecord(record) {
   return {
     id: record.id,
@@ -145,6 +190,22 @@ export function validateRecords(records, rubric) {
     validateReview(record.review, label, allowedReviewStatuses, rubric.reviewPolicy, errors);
   });
 
+  const safetyFindings = inspectLearnerFields(records.flatMap((record) => [
+    { file: "word-world-authoring", contentId: record.id, field: "/languages/en/text", locale: "en", text: record.languages?.en?.text },
+    ...(record.languages?.en?.alternates || []).map((text, index) => ({
+      file: "word-world-authoring",
+      contentId: record.id,
+      field: `/languages/en/alternates/${index}`,
+      locale: "en",
+      text,
+    })),
+    { file: "word-world-authoring", contentId: record.id, field: "/languages/cs/text", locale: "cs", text: record.languages?.cs?.text },
+    { file: "word-world-authoring", contentId: record.id, field: "/scene/query", locale: "en", text: record.scene?.query },
+  ].filter((field) => typeof field.text === "string")));
+  for (const finding of safetyFindings) {
+    errors.push(`${finding.contentId}: learner-content safety ${finding.severity} ${finding.ruleId} at ${finding.field}: ${finding.message}`);
+  }
+
   if (records.length < rubric.distribution.minimumRecords) {
     errors.push(`bank has ${records.length} records; minimum is ${rubric.distribution.minimumRecords}`);
   }
@@ -173,7 +234,90 @@ export function validateRecords(records, rubric) {
   };
 }
 
-export function buildCoverageReport(records, rubric, validation, inputFiles = []) {
+function validateEditorialOverridesDocument(document) {
+  if (!document || typeof document !== "object" || Array.isArray(document)) throw new Error("Editorial overrides must be an object");
+  const documentKeys = Object.keys(document).sort();
+  const expectedDocumentKeys = ["corpusVersion", "editorialPass", "overrides", "schemaVersion"].sort();
+  if (!deepEqual(documentKeys, expectedDocumentKeys)) throw new Error("Editorial overrides document has unexpected or missing fields");
+  if (document.schemaVersion !== EDITORIAL_OVERRIDES_SCHEMA_VERSION) throw new Error(`Unsupported editorial override schema ${document.schemaVersion}`);
+  if (document.corpusVersion !== "standard-v0.1") throw new Error(`Unsupported editorial override corpus ${document.corpusVersion}`);
+  if (!document.editorialPass || typeof document.editorialPass !== "object" || Array.isArray(document.editorialPass)) throw new Error("Editorial overrides editorialPass must be an object");
+  const passKeys = Object.keys(document.editorialPass).sort();
+  const expectedPassKeys = ["humanApproved", "reason", "reviewedOn", "reviewer"].sort();
+  if (!deepEqual(passKeys, expectedPassKeys)) throw new Error("Editorial overrides editorialPass has unexpected or missing fields");
+  if (typeof document.editorialPass.reviewer !== "string" || !document.editorialPass.reviewer.trim()) throw new Error("Editorial overrides reviewer must be non-empty");
+  if (!/^\d{4}-\d{2}-\d{2}$/u.test(document.editorialPass.reviewedOn)) throw new Error("Editorial overrides reviewedOn must be YYYY-MM-DD");
+  if (document.editorialPass.humanApproved !== false) throw new Error("Editorial overrides cannot claim human approval");
+  if (typeof document.editorialPass.reason !== "string" || !document.editorialPass.reason.trim()) throw new Error("Editorial overrides reason must be non-empty");
+  if (!Array.isArray(document.overrides) || !document.overrides.length) throw new Error("Editorial overrides must contain at least one override");
+  const ids = new Set();
+  for (const override of document.overrides) {
+    if (!override || typeof override !== "object" || Array.isArray(override)) throw new Error("Each editorial override must be an object");
+    if (!deepEqual(Object.keys(override).sort(), ["changes", "id", "reason"].sort())) throw new Error("Editorial override has unexpected or missing fields");
+    if (typeof override.id !== "string" || !override.id.trim()) throw new Error("Editorial override id must be non-empty");
+    if (ids.has(override.id)) throw new Error(`Duplicate editorial override id ${override.id}`);
+    ids.add(override.id);
+    if (typeof override.reason !== "string" || !override.reason.trim()) throw new Error(`Editorial override ${override.id}: reason must be non-empty`);
+    if (!Array.isArray(override.changes) || !override.changes.length) throw new Error(`Editorial override ${override.id}: changes must be non-empty`);
+    const paths = new Set();
+    for (const change of override.changes) {
+      if (!change || typeof change !== "object" || Array.isArray(change)) throw new Error(`Editorial override ${override.id}: each change must be an object`);
+      if (!deepEqual(Object.keys(change).sort(), ["expected", "path", "replacement"].sort())) throw new Error(`Editorial override ${override.id}: change has unexpected or missing fields`);
+      if (typeof change.path !== "string" || !change.path.startsWith("/")) throw new Error(`Editorial override ${override.id}: change path must be a JSON Pointer`);
+      if (paths.has(change.path)) throw new Error(`Editorial override ${override.id}: duplicate change path ${change.path}`);
+      paths.add(change.path);
+      if (deepEqual(change.expected, change.replacement)) throw new Error(`Editorial override ${override.id}${change.path}: expected and replacement must differ`);
+    }
+  }
+}
+
+function parseJsonPointer(pointer, id) {
+  if (pointer === "/") throw new Error(`Editorial override ${id}: root replacement is not supported`);
+  return pointer.slice(1).split("/").map((segment) => segment.replaceAll("~1", "/").replaceAll("~0", "~"));
+}
+
+function getAtPath(value, segments, id, pointer) {
+  let current = value;
+  for (const segment of segments) {
+    if (!current || typeof current !== "object" || !Object.hasOwn(current, segment)) throw new Error(`Editorial override ${id}${pointer}: source path is missing`);
+    current = current[segment];
+  }
+  return current;
+}
+
+function setAtPath(value, segments, replacement, id, pointer) {
+  const parent = getAtPath(value, segments.slice(0, -1), id, pointer);
+  const key = segments.at(-1);
+  if (!parent || typeof parent !== "object" || !Object.hasOwn(parent, key)) throw new Error(`Editorial override ${id}${pointer}: target path is missing`);
+  parent[key] = replacement;
+}
+
+function deepEqual(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function appendUnique(values, value) {
+  return values.includes(value) ? [...values] : [...values, value];
+}
+
+function appendUniqueSentence(text, sentence) {
+  return text.includes(sentence) ? text : `${text.trim()} ${sentence}`;
+}
+
+function preserveEditorialTargetCount(originalTargets, replacementTargets, id) {
+  if (!Array.isArray(originalTargets) || !Array.isArray(replacementTargets)) return replacementTargets;
+  if (replacementTargets.length !== originalTargets.length) {
+    throw new Error(`Editorial override ${id}/targets: replacement must preserve all ${originalTargets.length} target annotations`);
+  }
+  const originalPlayable = originalTargets.filter((target) => target?.playable).length;
+  const replacementPlayable = replacementTargets.filter((target) => target?.playable).length;
+  if (replacementPlayable !== originalPlayable) {
+    throw new Error(`Editorial override ${id}/targets: replacement must preserve ${originalPlayable} playable targets`);
+  }
+  return replacementTargets;
+}
+
+export function buildCoverageReport(records, rubric, validation, inputFiles = [], editorialOverrides = null) {
   const targetMap = new Map();
   for (const record of records) {
     for (const target of record.targets.filter((entry) => entry.playable)) {
@@ -214,6 +358,7 @@ export function buildCoverageReport(records, rubric, validation, inputFiles = []
     schemaVersion: "caatuu-word-world-coverage-v1",
     corpusVersion: rubric.corpusVersion,
     inputFiles: inputFiles.map((file) => file.replaceAll("\\", "/")),
+    ...(editorialOverrides ? { editorialOverrides } : {}),
     validation,
     records: {
       total: records.length,

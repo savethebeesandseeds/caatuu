@@ -3,6 +3,7 @@ let countryDictionaryBytes = new Uint8Array();
 let countryScripts = [];
 let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
+let childFacingAssets = null;
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
@@ -172,11 +173,12 @@ function assertArrayData(name, value) {
 }
 
 async function loadContentData() {
-  const [dictionarySource, scripts, verbModule, familyModule] = await Promise.all([
+  const [dictionarySource, scripts, verbModule, familyModule, childFacingAssetModule] = await Promise.all([
     loadJsonBytes("data/games/verb-nebula/core-vocabulary.json"),
     loadJson("data/language/scripts.json"),
     import("./verb-nebula-core.mjs?v=verb-nebula-core-10"),
-    import("./verb-exercise-family-core.mjs?v=verb-exercise-family-core-2")
+    import("./verb-exercise-family-core.mjs?v=verb-exercise-family-core-2"),
+    import("../../shared/child-facing-assets.mjs?v=child-facing-assets-1")
   ]);
 
   assertArrayData("dictionary", dictionarySource.value);
@@ -186,6 +188,7 @@ async function loadContentData() {
   countryScripts = scripts;
   verbNebulaCore = verbModule;
   verbExerciseFamilyCore = familyModule;
+  childFacingAssets = childFacingAssetModule;
 }
 
 const state = {
@@ -2496,6 +2499,11 @@ function normalizeVerbHintPath(value) {
   return normalized.startsWith("/assets/macaw/actions/") ? normalized : "";
 }
 
+function isChildSafeVerbHintAsset(assetPath, action = "") {
+  const normalizedPath = normalizeVerbHintPath(assetPath);
+  return Boolean(childFacingAssets?.isChildFacingMacawActionAssetAllowed(normalizedPath, action));
+}
+
 function vectorVerbHintCandidates(pair) {
   const englishText = verbNebulaCore.verbHintSearchText(pair);
   return runtimeAdapter().vector.search(englishText, {
@@ -2512,7 +2520,7 @@ function vectorVerbHintCandidates(pair) {
       alt: row.text || "Picture clue",
       score: 100 + (Number.isFinite(Number(row.score)) ? Number(row.score) : 0)
     }))
-    .filter((row) => row.assetPath));
+    .filter((row) => isChildSafeVerbHintAsset(row.assetPath)));
 }
 
 async function loadVerbHintKeymap() {
@@ -2526,7 +2534,7 @@ async function loadVerbHintKeymap() {
         assetPath: normalizeVerbHintPath(path),
         action: String(metadata?.action || "").replaceAll("_", " "),
         description: String(metadata?.description || "")
-      })).filter((row) => row.assetPath))
+      })).filter((row) => isChildSafeVerbHintAsset(row.assetPath, row.action)))
       .catch(() => []);
   }
   return state.verbHintKeymapPromise;

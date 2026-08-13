@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "caatuu-word-world-editorial-overrides-v1",
+  "corpusVersion": "standard-v0.1",
+  "editorialPass": {
+    "reviewer": "OpenAI Codex child-safety editorial curation",
+    "reviewedOn": "2026-08-13",
+    "humanApproved": false,
+    "reason": "Remove avoidable ambiguity, personal-data prompts, unsafe stranger-context imperatives, and narrow family-role stereotypes while preserving immutable authoring and review evidence."
+  },
+  "overrides": [
+    {
+      "id": "ww-codex-exp-0001-0101",
+      "reason": "Make the sports meaning explicit and remove avoidable double meaning.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "I have two balls.", "replacement": "I have two soccer balls." },
+        { "path": "/languages/cs/text", "expected": "Mám dva míče.", "replacement": "Mám dva fotbalové míče." },
+        { "path": "/targets", "expected": [{ "surface": "míče", "normalized": "míče", "tokenIndex": 2, "playable": true }], "replacement": [{ "surface": "míče", "normalized": "míče", "tokenIndex": 3, "playable": true }] },
+        { "path": "/scene/query", "expected": "I have two balls", "replacement": "I have two soccer balls" }
+      ]
+    },
+    {
+      "id": "ww-codex-l3-0001-0025",
+      "reason": "Make the sports context explicit in both languages.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Two balls ended up behind the fence while the children practiced passing.", "replacement": "Two soccer balls ended up behind the fence while the children practiced passing." },
+        { "path": "/languages/cs/text", "expected": "Dva míče skončily za plotem, když děti trénovaly přihrávky.", "replacement": "Dva fotbalové míče skončily za plotem, když děti trénovaly přihrávky." },
+        { "path": "/targets", "expected": [{ "surface": "míče", "normalized": "míče", "tokenIndex": 1, "playable": true }], "replacement": [{ "surface": "míče", "normalized": "míče", "tokenIndex": 2, "playable": true }] },
+        { "path": "/scene/query", "expected": "Two balls ended up behind the fence while the children practiced passing", "replacement": "Two soccer balls ended up behind the fence while the children practiced passing" }
+      ]
+    },
+    {
+      "id": "ww-cp-000107",
+      "reason": "Use an unambiguously physical-feeling translation.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "I'm hot.", "replacement": "I feel hot." },
+        { "path": "/scene/query", "expected": "I'm hot.", "replacement": "I feel hot." }
+      ]
+    },
+    {
+      "id": "ww-cp-000413",
+      "reason": "Avoid an English adjective with an unrelated sexual slang sense.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "It is hard.", "replacement": "It is difficult." },
+        { "path": "/scene/query", "expected": "It is hard.", "replacement": "It is difficult." }
+      ]
+    },
+    {
+      "id": "ww-codex-exp-0001-0093",
+      "reason": "Practice spelling a visible word instead of requesting a child's surname.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Try to spell your surname.", "replacement": "Try to spell this word." },
+        { "path": "/languages/cs/text", "expected": "Zkus vyhláskovat své příjmení.", "replacement": "Zkus vyhláskovat toto slovo." },
+        { "path": "/scene/query", "expected": "Try to spell your surname", "replacement": "Try to spell this word" }
+      ]
+    },
+    {
+      "id": "ww-cp-000011",
+      "reason": "Teach the name question through a fictional character instead of soliciting the learner's name.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "What is your name?", "replacement": "What is this character's name?" },
+        { "path": "/languages/cs/text", "expected": "Jak se jmenuješ?", "replacement": "Jak se jmenuje tato postava?" },
+        { "path": "/targets", "expected": [{ "surface": "Jak", "normalized": "jak", "tokenIndex": 0, "playable": true }, { "surface": "se", "normalized": "se", "tokenIndex": 1, "playable": false }, { "surface": "jmenuješ", "normalized": "jmenuješ", "tokenIndex": 2, "playable": true }], "replacement": [{ "surface": "Jak", "normalized": "jak", "tokenIndex": 0, "playable": true }, { "surface": "se", "normalized": "se", "tokenIndex": 1, "playable": false }, { "surface": "jmenuje", "normalized": "jmenuje", "tokenIndex": 2, "playable": true }] },
+        { "path": "/learning/skillFocus", "expected": ["question", "be present", "possessive"], "replacement": ["question", "reflexive present", "possessive"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "question", "be_present", "possessive", "function_greet_and_introduce", "category_greetings_intro"], "replacement": ["common_phrase", "question", "reflexive_present", "possessive", "function_greet_and_introduce", "category_greetings_intro"] },
+        { "path": "/scene/query", "expected": "What is your name?", "replacement": "What is this character's name?" }
+      ]
+    },
+    {
+      "id": "ww-cp-000056",
+      "reason": "Move writing practice from the learner's name to a fictional character's name.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Write your name.", "replacement": "Write the character's name." },
+        { "path": "/languages/cs/text", "expected": "Napiš své jméno.", "replacement": "Napiš jméno postavy." },
+        { "path": "/targets", "expected": [{ "surface": "Napiš", "normalized": "napiš", "tokenIndex": 0, "playable": true }, { "surface": "své", "normalized": "své", "tokenIndex": 1, "playable": true }, { "surface": "jméno", "normalized": "jméno", "tokenIndex": 2, "playable": true }], "replacement": [{ "surface": "Napiš", "normalized": "napiš", "tokenIndex": 0, "playable": true }, { "surface": "jméno", "normalized": "jméno", "tokenIndex": 1, "playable": true }, { "surface": "postavy", "normalized": "postavy", "tokenIndex": 2, "playable": true }] },
+        { "path": "/scene/query", "expected": "Write your name.", "replacement": "Write the character's name." }
+      ]
+    },
+    {
+      "id": "ww-codex-exp-0001-0172",
+      "reason": "Replace a lost-child scenario with a neutral action on the way home.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "The boy got lost on his way home.", "replacement": "The boy stopped on his way home." },
+        { "path": "/languages/cs/text", "expected": "Chlapec se cestou domů ztratil.", "replacement": "Chlapec se cestou domů zastavil." },
+        { "path": "/scene/query", "expected": "The boy got lost on his way home", "replacement": "The boy stopped on his way home" }
+      ]
+    },
+    {
+      "id": "ww-codex-exp-0001-0169",
+      "reason": "Move a meeting from outside the school into a supervised classroom context.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "We can meet by the school.", "replacement": "We can meet in the classroom." },
+        { "path": "/languages/cs/text", "expected": "Můžeme se sejít u školy.", "replacement": "Můžeme se sejít ve třídě." },
+        { "path": "/scene/query", "expected": "We can meet by the school", "replacement": "We can meet in the classroom" }
+      ]
+    },
+    {
+      "id": "ww-cp-000201",
+      "reason": "Ask for a public place instead of another person's location.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Where are you?", "replacement": "Where is the library?" },
+        { "path": "/languages/cs/text", "expected": "Kde jsi?", "replacement": "Kde je knihovna?" },
+        { "path": "/targets", "expected": [{ "surface": "Kde", "normalized": "kde", "tokenIndex": 0, "playable": true }, { "surface": "jsi", "normalized": "jsi", "tokenIndex": 1, "playable": false }], "replacement": [{ "surface": "Kde", "normalized": "kde", "tokenIndex": 0, "playable": true }, { "surface": "knihovna", "normalized": "knihovna", "tokenIndex": 2, "playable": false }] },
+        { "path": "/scene/query", "expected": "Where are you?", "replacement": "Where is the library?" }
+      ]
+    },
+    {
+      "id": "ww-cp-000203",
+      "reason": "Anchor the direction in a trusted-teacher context.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Come here.", "replacement": "Come here to the teacher." },
+        { "path": "/languages/cs/text", "expected": "Pojď sem.", "replacement": "Pojď sem k učiteli." },
+        { "path": "/targets", "expected": [{ "surface": "Pojď", "normalized": "pojď", "tokenIndex": 0, "playable": true }, { "surface": "sem", "normalized": "sem", "tokenIndex": 1, "playable": true }], "replacement": [{ "surface": "Pojď", "normalized": "pojď", "tokenIndex": 0, "playable": true }, { "surface": "učiteli", "normalized": "učiteli", "tokenIndex": 3, "playable": true }] },
+        { "path": "/learning/skillFocus", "expected": ["imperative", "short formula"], "replacement": ["imperative", "prepositional phrase"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "imperative", "short_formula", "function_ask_and_give_directions", "category_location_directions"], "replacement": ["common_phrase", "imperative", "prepositional_phrase", "function_ask_and_give_directions", "category_location_directions"] },
+        { "path": "/scene/query", "expected": "Come here.", "replacement": "Come here to the teacher." }
+      ]
+    },
+    {
+      "id": "ww-cp-000224",
+      "reason": "Name a trusted teacher as the person to follow.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Follow me.", "replacement": "Follow the teacher." },
+        { "path": "/languages/cs/text", "expected": "Pojď za mnou.", "replacement": "Pojď za učitelem." },
+        { "path": "/targets", "expected": [{ "surface": "Pojď", "normalized": "pojď", "tokenIndex": 0, "playable": true }, { "surface": "za", "normalized": "za", "tokenIndex": 1, "playable": false }, { "surface": "mnou", "normalized": "mnou", "tokenIndex": 2, "playable": true }], "replacement": [{ "surface": "Pojď", "normalized": "pojď", "tokenIndex": 0, "playable": true }, { "surface": "za", "normalized": "za", "tokenIndex": 1, "playable": false }, { "surface": "učitelem", "normalized": "učitelem", "tokenIndex": 2, "playable": true }] },
+        { "path": "/scene/query", "expected": "Follow me.", "replacement": "Follow the teacher." }
+      ]
+    },
+    {
+      "id": "ww-cp-000333",
+      "reason": "Name a parent as the trusted adult in a safety instruction.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Stay with me.", "replacement": "Stay with your parent." },
+        { "path": "/languages/cs/text", "expected": "Zůstaň se mnou.", "replacement": "Zůstaň se svým rodičem." },
+        { "path": "/targets", "expected": [{ "surface": "Zůstaň", "normalized": "zůstaň", "tokenIndex": 0, "playable": true }, { "surface": "se", "normalized": "se", "tokenIndex": 1, "playable": false }, { "surface": "mnou", "normalized": "mnou", "tokenIndex": 2, "playable": true }], "replacement": [{ "surface": "Zůstaň", "normalized": "zůstaň", "tokenIndex": 0, "playable": true }, { "surface": "se", "normalized": "se", "tokenIndex": 1, "playable": false }, { "surface": "rodičem", "normalized": "rodičem", "tokenIndex": 3, "playable": true }] },
+        { "path": "/learning/skillFocus", "expected": ["imperative", "prepositional phrase", "short formula"], "replacement": ["imperative", "possessive", "prepositional phrase"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "imperative", "prepositional_phrase", "short_formula", "function_stay_safe", "category_health_safety"], "replacement": ["common_phrase", "imperative", "possessive", "prepositional_phrase", "function_stay_safe", "category_health_safety"] },
+        { "path": "/scene/query", "expected": "Stay with me.", "replacement": "Stay with your parent." }
+      ]
+    },
+    {
+      "id": "ww-cp-000334",
+      "reason": "Name a parent as the trusted adult in a safety instruction.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Hold my hand.", "replacement": "Hold your parent's hand." },
+        { "path": "/languages/cs/text", "expected": "Drž mě za ruku.", "replacement": "Drž svého rodiče za ruku." },
+        { "path": "/targets", "expected": [{ "surface": "Drž", "normalized": "drž", "tokenIndex": 0, "playable": true }, { "surface": "mě", "normalized": "mě", "tokenIndex": 1, "playable": false }, { "surface": "za", "normalized": "za", "tokenIndex": 2, "playable": false }, { "surface": "ruku", "normalized": "ruku", "tokenIndex": 3, "playable": true }], "replacement": [{ "surface": "Drž", "normalized": "drž", "tokenIndex": 0, "playable": true }, { "surface": "svého", "normalized": "svého", "tokenIndex": 1, "playable": false }, { "surface": "za", "normalized": "za", "tokenIndex": 3, "playable": false }, { "surface": "ruku", "normalized": "ruku", "tokenIndex": 4, "playable": true }] },
+        { "path": "/scene/query", "expected": "Hold my hand.", "replacement": "Hold your parent's hand." }
+      ]
+    },
+    {
+      "id": "ww-cp-000393",
+      "reason": "Teach crossing only at a crossing and with an adult.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Cross the street.", "replacement": "Cross the street at the crossing with an adult." },
+        { "path": "/languages/cs/text", "expected": "Přejdi ulici.", "replacement": "Přejdi ulici po přechodu s dospělým." },
+        { "path": "/learning/skillFocus", "expected": ["imperative", "short formula"], "replacement": ["imperative", "prepositional phrase"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "imperative", "short_formula", "function_use_transport", "category_travel_transport"], "replacement": ["common_phrase", "imperative", "prepositional_phrase", "function_use_transport", "category_travel_transport"] },
+        { "path": "/scene/query", "expected": "Cross the street.", "replacement": "Cross the street at the crossing with an adult." }
+      ]
+    },
+    {
+      "id": "ww-cp-000465",
+      "reason": "Move a meeting into a supervised classroom context.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "We can meet later.", "replacement": "We can meet later in the classroom." },
+        { "path": "/languages/cs/text", "expected": "Můžeme se sejít později.", "replacement": "Můžeme se sejít později ve třídě." },
+        { "path": "/learning/skillFocus", "expected": ["modal"], "replacement": ["modal", "prepositional phrase"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "modal", "function_make_plans", "category_plans_invitations"], "replacement": ["common_phrase", "modal", "prepositional_phrase", "function_make_plans", "category_plans_invitations"] },
+        { "path": "/scene/query", "expected": "We can meet later.", "replacement": "We can meet later in the classroom." }
+      ]
+    },
+    {
+      "id": "ww-cp-000474",
+      "reason": "Name a parent as the person to wait for.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Wait for me.", "replacement": "Wait for your parent." },
+        { "path": "/languages/cs/text", "expected": "Počkej na mě.", "replacement": "Počkej na rodiče." },
+        { "path": "/targets", "expected": [{ "surface": "Počkej", "normalized": "počkej", "tokenIndex": 0, "playable": true }, { "surface": "na", "normalized": "na", "tokenIndex": 1, "playable": false }, { "surface": "mě", "normalized": "mě", "tokenIndex": 2, "playable": false }], "replacement": [{ "surface": "Počkej", "normalized": "počkej", "tokenIndex": 0, "playable": true }, { "surface": "na", "normalized": "na", "tokenIndex": 1, "playable": false }, { "surface": "rodiče", "normalized": "rodiče", "tokenIndex": 2, "playable": false }] },
+        { "path": "/scene/query", "expected": "Wait for me.", "replacement": "Wait for your parent." }
+      ]
+    },
+    {
+      "id": "ww-cp-000476",
+      "reason": "Name a parent as the safe recipient of a call.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Call me.", "replacement": "Call your parent." },
+        { "path": "/languages/cs/text", "expected": "Zavolej mi.", "replacement": "Zavolej rodiči." },
+        { "path": "/targets", "expected": [{ "surface": "Zavolej", "normalized": "zavolej", "tokenIndex": 0, "playable": true }, { "surface": "mi", "normalized": "mi", "tokenIndex": 1, "playable": false }], "replacement": [{ "surface": "Zavolej", "normalized": "zavolej", "tokenIndex": 0, "playable": true }, { "surface": "rodiči", "normalized": "rodiči", "tokenIndex": 1, "playable": false }] },
+        { "path": "/scene/query", "expected": "Call me.", "replacement": "Call your parent." }
+      ]
+    },
+    {
+      "id": "ww-cp-000477",
+      "reason": "Name a parent as the safe recipient of a text.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Text me.", "replacement": "Text your parent." },
+        { "path": "/languages/cs/text", "expected": "Napiš mi.", "replacement": "Napiš rodiči." },
+        { "path": "/targets", "expected": [{ "surface": "Napiš", "normalized": "napiš", "tokenIndex": 0, "playable": true }, { "surface": "mi", "normalized": "mi", "tokenIndex": 1, "playable": false }], "replacement": [{ "surface": "Napiš", "normalized": "napiš", "tokenIndex": 0, "playable": true }, { "surface": "rodiči", "normalized": "rodiči", "tokenIndex": 1, "playable": false }] },
+        { "path": "/scene/query", "expected": "Text me.", "replacement": "Text your parent." }
+      ]
+    },
+    {
+      "id": "ww-cp-000478",
+      "reason": "Teach children to ask a trusted adult before answering a phone.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Answer the phone.", "replacement": "Ask an adult before answering the phone." },
+        { "path": "/languages/cs/text", "expected": "Zvedni telefon.", "replacement": "Než zvedneš telefon, zeptej se dospělého." },
+        { "path": "/targets", "expected": [{ "surface": "Zvedni", "normalized": "zvedni", "tokenIndex": 0, "playable": true }, { "surface": "telefon", "normalized": "telefon", "tokenIndex": 1, "playable": true }], "replacement": [{ "surface": "telefon", "normalized": "telefon", "tokenIndex": 2, "playable": true }, { "surface": "zeptej", "normalized": "zeptej", "tokenIndex": 3, "playable": true }] },
+        { "path": "/learning/objective", "expected": "use simple technology", "replacement": "use simple technology safely" },
+        { "path": "/learning/skillFocus", "expected": ["imperative", "short formula"], "replacement": ["imperative", "reflexive", "time clause"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "imperative", "short_formula", "function_use_simple_technology", "category_phone_technology"], "replacement": ["common_phrase", "imperative", "reflexive", "time_clause", "function_use_simple_technology", "category_phone_technology"] },
+        { "path": "/grammar/clauseCount", "expected": 1, "replacement": 2 },
+        { "path": "/scene/query", "expected": "Answer the phone.", "replacement": "Ask an adult before answering the phone." }
+      ]
+    },
+    {
+      "id": "ww-cp-000489",
+      "reason": "Give photography practice a harmless, concrete subject.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Take a photo of it.", "replacement": "Take a photo of the flower." },
+        { "path": "/languages/cs/text", "expected": "Vyfoť to.", "replacement": "Vyfoť květinu." },
+        { "path": "/targets", "expected": [{ "surface": "Vyfoť", "normalized": "vyfoť", "tokenIndex": 0, "playable": true }, { "surface": "to", "normalized": "to", "tokenIndex": 1, "playable": false }], "replacement": [{ "surface": "Vyfoť", "normalized": "vyfoť", "tokenIndex": 0, "playable": true }, { "surface": "květinu", "normalized": "květinu", "tokenIndex": 1, "playable": false }] },
+        { "path": "/scene/query", "expected": "Take a photo of it.", "replacement": "Take a photo of the flower." }
+      ]
+    },
+    {
+      "id": "ww-cp-000490",
+      "reason": "Name a parent as the safe recipient of a message.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Send the message.", "replacement": "Send the message to your parent." },
+        { "path": "/languages/cs/text", "expected": "Pošli zprávu.", "replacement": "Pošli zprávu rodiči." },
+        { "path": "/scene/query", "expected": "Send the message.", "replacement": "Send the message to your parent." }
+      ]
+    },
+    {
+      "id": "ww-cp-000364",
+      "reason": "Add adult help to a potentially hazardous household action.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Open the window.", "replacement": "Open the window with an adult's help." },
+        { "path": "/languages/cs/text", "expected": "Otevři okno.", "replacement": "Otevři okno s pomocí dospělého." },
+        { "path": "/learning/skillFocus", "expected": ["imperative", "short formula"], "replacement": ["imperative", "prepositional phrase"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "imperative", "short_formula", "function_talk_about_home", "category_home_chores"], "replacement": ["common_phrase", "imperative", "prepositional_phrase", "function_talk_about_home", "category_home_chores"] },
+        { "path": "/scene/query", "expected": "Open the window.", "replacement": "Open the window with an adult's help." }
+      ]
+    },
+    {
+      "id": "ww-cp-000143",
+      "reason": "Balance family roles by showing a father preparing dinner.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "My father is at work.", "replacement": "My father cooks dinner at home." },
+        { "path": "/languages/cs/text", "expected": "Můj tatínek je v práci.", "replacement": "Můj tatínek doma vaří večeři." },
+        { "path": "/targets", "expected": [{ "surface": "Můj", "normalized": "můj", "tokenIndex": 0, "playable": false }, { "surface": "tatínek", "normalized": "tatínek", "tokenIndex": 1, "playable": true }, { "surface": "je", "normalized": "je", "tokenIndex": 2, "playable": false }, { "surface": "v", "normalized": "v", "tokenIndex": 3, "playable": false }, { "surface": "práci", "normalized": "práci", "tokenIndex": 4, "playable": true }], "replacement": [{ "surface": "Můj", "normalized": "můj", "tokenIndex": 0, "playable": false }, { "surface": "tatínek", "normalized": "tatínek", "tokenIndex": 1, "playable": true }, { "surface": "doma", "normalized": "doma", "tokenIndex": 2, "playable": false }, { "surface": "vaří", "normalized": "vaří", "tokenIndex": 3, "playable": true }, { "surface": "večeři", "normalized": "večeři", "tokenIndex": 4, "playable": false }] },
+        { "path": "/learning/skillFocus", "expected": ["be present", "possessive", "prepositional phrase"], "replacement": ["event", "possessive"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "be_present", "possessive", "prepositional_phrase", "function_talk_about_people", "category_family_people"], "replacement": ["common_phrase", "event", "possessive", "function_talk_about_people", "category_family_people"] },
+        { "path": "/scene/query", "expected": "My father is at work.", "replacement": "My father cooks dinner at home." }
+      ]
+    },
+    {
+      "id": "ww-cp-000144",
+      "reason": "Balance family roles by showing a mother reading.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "My mother is at home.", "replacement": "My mother reads a book." },
+        { "path": "/languages/cs/text", "expected": "Moje maminka je doma.", "replacement": "Moje maminka čte knihu." },
+        { "path": "/targets", "expected": [{ "surface": "Moje", "normalized": "moje", "tokenIndex": 0, "playable": false }, { "surface": "maminka", "normalized": "maminka", "tokenIndex": 1, "playable": true }, { "surface": "je", "normalized": "je", "tokenIndex": 2, "playable": false }, { "surface": "doma", "normalized": "doma", "tokenIndex": 3, "playable": true }], "replacement": [{ "surface": "Moje", "normalized": "moje", "tokenIndex": 0, "playable": false }, { "surface": "maminka", "normalized": "maminka", "tokenIndex": 1, "playable": true }, { "surface": "čte", "normalized": "čte", "tokenIndex": 2, "playable": true }, { "surface": "knihu", "normalized": "knihu", "tokenIndex": 3, "playable": false }] },
+        { "path": "/learning/skillFocus", "expected": ["be present", "possessive", "prepositional phrase"], "replacement": ["event", "possessive"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "be_present", "possessive", "prepositional_phrase", "function_talk_about_people", "category_family_people"], "replacement": ["common_phrase", "event", "possessive", "function_talk_about_people", "category_family_people"] },
+        { "path": "/scene/query", "expected": "My mother is at home.", "replacement": "My mother reads a book." }
+      ]
+    },
+    {
+      "id": "ww-cp-000145",
+      "reason": "Balance family roles by showing a grandmother repairing a bicycle.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Grandma is cooking.", "replacement": "Grandma repairs a bicycle." },
+        { "path": "/languages/cs/text", "expected": "Babička vaří.", "replacement": "Babička opravuje kolo." },
+        { "path": "/targets", "expected": [{ "surface": "Babička", "normalized": "babička", "tokenIndex": 0, "playable": true }, { "surface": "vaří", "normalized": "vaří", "tokenIndex": 1, "playable": true }], "replacement": [{ "surface": "Babička", "normalized": "babička", "tokenIndex": 0, "playable": true }, { "surface": "kolo", "normalized": "kolo", "tokenIndex": 2, "playable": true }] },
+        { "path": "/learning/skillFocus", "expected": ["be present", "short formula"], "replacement": ["event", "short formula"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "be_present", "short_formula", "function_talk_about_people", "category_family_people"], "replacement": ["common_phrase", "event", "short_formula", "function_talk_about_people", "category_family_people"] },
+        { "path": "/grammar/sentenceType", "expected": "formula", "replacement": "statement" },
+        { "path": "/scene/query", "expected": "Grandma is cooking.", "replacement": "Grandma repairs a bicycle." }
+      ]
+    },
+    {
+      "id": "ww-cp-000146",
+      "reason": "Balance family roles by showing a grandfather washing dishes.",
+      "changes": [
+        { "path": "/languages/en/text", "expected": "Grandpa is reading.", "replacement": "Grandpa washes the dishes." },
+        { "path": "/languages/cs/text", "expected": "Dědeček čte.", "replacement": "Dědeček myje nádobí." },
+        { "path": "/targets", "expected": [{ "surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true }, { "surface": "čte", "normalized": "čte", "tokenIndex": 1, "playable": true }], "replacement": [{ "surface": "Dědeček", "normalized": "dědeček", "tokenIndex": 0, "playable": true }, { "surface": "nádobí", "normalized": "nádobí", "tokenIndex": 2, "playable": true }] },
+        { "path": "/learning/skillFocus", "expected": ["be present", "short formula"], "replacement": ["event", "short formula"] },
+        { "path": "/grammar/tags", "expected": ["common_phrase", "be_present", "short_formula", "function_talk_about_people", "category_family_people"], "replacement": ["common_phrase", "event", "short_formula", "function_talk_about_people", "category_family_people"] },
+        { "path": "/grammar/sentenceType", "expected": "formula", "replacement": "statement" },
+        { "path": "/scene/query", "expected": "Grandpa is reading.", "replacement": "Grandpa washes the dishes." }
+      ]
+    }
+  ]
+}

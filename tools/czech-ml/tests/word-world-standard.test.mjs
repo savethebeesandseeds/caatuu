@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  applyEditorialOverrides,
   findJsonlFiles,
   normalizeText,
   normalizeSentence,
@@ -24,11 +25,14 @@ const reviewedLevel3File = path.join(sourceDir, "codex-level3-0001-reviewed.json
 const reviewedReflexiveFile = path.join(sourceDir, "codex-reflexive-0001-reviewed.jsonl");
 const candidateDir = path.join(datasetDir, "candidates");
 const rubricFile = path.join(datasetDir, "rubric.json");
+const editorialOverridesFile = path.join(datasetDir, "editorial-overrides.json");
 const runtimeRoot = path.join(repoRoot, "apps", "languages", "czech", "static", "data", "games", "word-world");
 
 const sourceFiles = await findJsonlFiles(sourceDir);
-const records = (await Promise.all(sourceFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
+const historicalSourceRecords = (await Promise.all(sourceFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
 const rubric = await readJson(rubricFile);
+const editorialOverrides = await readJson(editorialOverridesFile);
+const records = applyEditorialOverrides(historicalSourceRecords, editorialOverrides);
 
 test("normalizes Czech tokens without losing diacritics", () => {
   assert.equal(normalizeText("  PŘÍŠTÍ týden! "), "příští týden");
@@ -51,6 +55,108 @@ test("the checked-in corpus satisfies schema, difficulty, review, and duplicate 
   });
   assert.ok(records.every((record) => record.review.status === "codex_reviewed"));
   assert.ok(records.every((record) => record.review.humanApproved === false));
+});
+
+test("the versioned child-safety ledger applies exact, honest editorial corrections", () => {
+  const expected = {
+    "ww-codex-exp-0001-0101": ["I have two soccer balls.", "Mám dva fotbalové míče."],
+    "ww-codex-l3-0001-0025": ["Two soccer balls ended up behind the fence while the children practiced passing.", "Dva fotbalové míče skončily za plotem, když děti trénovaly přihrávky."],
+    "ww-cp-000107": ["I feel hot.", "Je mi horko."],
+    "ww-cp-000413": ["It is difficult.", "Je to těžké."],
+    "ww-codex-exp-0001-0093": ["Try to spell this word.", "Zkus vyhláskovat toto slovo."],
+    "ww-cp-000011": ["What is this character's name?", "Jak se jmenuje tato postava?"],
+    "ww-cp-000056": ["Write the character's name.", "Napiš jméno postavy."],
+    "ww-codex-exp-0001-0172": ["The boy stopped on his way home.", "Chlapec se cestou domů zastavil."],
+    "ww-codex-exp-0001-0169": ["We can meet in the classroom.", "Můžeme se sejít ve třídě."],
+    "ww-cp-000201": ["Where is the library?", "Kde je knihovna?"],
+    "ww-cp-000203": ["Come here to the teacher.", "Pojď sem k učiteli."],
+    "ww-cp-000224": ["Follow the teacher.", "Pojď za učitelem."],
+    "ww-cp-000333": ["Stay with your parent.", "Zůstaň se svým rodičem."],
+    "ww-cp-000334": ["Hold your parent's hand.", "Drž svého rodiče za ruku."],
+    "ww-cp-000393": ["Cross the street at the crossing with an adult.", "Přejdi ulici po přechodu s dospělým."],
+    "ww-cp-000465": ["We can meet later in the classroom.", "Můžeme se sejít později ve třídě."],
+    "ww-cp-000474": ["Wait for your parent.", "Počkej na rodiče."],
+    "ww-cp-000476": ["Call your parent.", "Zavolej rodiči."],
+    "ww-cp-000477": ["Text your parent.", "Napiš rodiči."],
+    "ww-cp-000478": ["Ask an adult before answering the phone.", "Než zvedneš telefon, zeptej se dospělého."],
+    "ww-cp-000489": ["Take a photo of the flower.", "Vyfoť květinu."],
+    "ww-cp-000490": ["Send the message to your parent.", "Pošli zprávu rodiči."],
+    "ww-cp-000364": ["Open the window with an adult's help.", "Otevři okno s pomocí dospělého."],
+    "ww-cp-000143": ["My father cooks dinner at home.", "Můj tatínek doma vaří večeři."],
+    "ww-cp-000144": ["My mother reads a book.", "Moje maminka čte knihu."],
+    "ww-cp-000145": ["Grandma repairs a bicycle.", "Babička opravuje kolo."],
+    "ww-cp-000146": ["Grandpa washes the dishes.", "Dědeček myje nádobí."],
+  };
+  assert.equal(editorialOverrides.schemaVersion, "caatuu-word-world-editorial-overrides-v1");
+  assert.equal(editorialOverrides.editorialPass.humanApproved, false);
+  assert.deepEqual(editorialOverrides.overrides.map((override) => override.id), Object.keys(expected));
+  for (const [id, [en, cs]] of Object.entries(expected)) {
+    const record = records.find((entry) => entry.id === id);
+    assert.ok(record, id);
+    assert.equal(record.languages.en.text, en, `${id} English`);
+    assert.equal(record.languages.cs.text, cs, `${id} Czech`);
+    assert.equal(record.review.reviewer, "OpenAI Codex child-safety editorial curation", `${id} reviewer`);
+    assert.equal(record.review.reviewedOn, "2026-08-13", `${id} review date`);
+    assert.equal(record.review.humanApproved, false, `${id} human approval`);
+    assert.ok(record.review.checks.includes("post-promotion child-safety editorial curation"), `${id} check`);
+    assert.ok(record.provenance.transformation.includes("original candidate, review, and promoted-source evidence remains unchanged"), `${id} provenance`);
+  }
+  assert.equal(historicalSourceRecords.find((record) => record.id === "ww-codex-exp-0001-0101").languages.en.text, "I have two balls.");
+  assert.deepEqual(records.find((record) => record.id === "ww-codex-exp-0001-0093").targets, [
+    { surface: "vyhláskovat", normalized: "vyhláskovat", tokenIndex: 1, playable: true },
+  ]);
+  for (const override of editorialOverrides.overrides) {
+    const before = historicalSourceRecords.find((record) => record.id === override.id);
+    const after = records.find((record) => record.id === override.id);
+    assert.equal(after.targets.length, before.targets.length, `${override.id} target count changed`);
+    assert.equal(
+      after.targets.filter((target) => target.playable).length,
+      before.targets.filter((target) => target.playable).length,
+      `${override.id} playable target count changed`,
+    );
+  }
+});
+
+test("Word World compilation rejects unsafe source text before overrides and has zero safety errors after them", () => {
+  const historicalValidation = validateRecords(historicalSourceRecords, rubric);
+  assert.equal(historicalValidation.valid, false);
+  assert.ok(historicalValidation.errors.some((error) => (
+    error.includes("ww-codex-exp-0001-0101")
+    && error.includes("review.ambiguous-first-person-balls")
+  )));
+  const effectiveValidation = validateRecords(records, rubric);
+  assert.equal(effectiveValidation.valid, true, effectiveValidation.errors.join("\n"));
+  assert.deepEqual(effectiveValidation.errors.filter((error) => error.includes("learner-content safety")), []);
+});
+
+test("editorial overrides fail closed on duplicate IDs, drift, and missing source rows", () => {
+  const duplicate = structuredClone(editorialOverrides);
+  duplicate.overrides.push(structuredClone(duplicate.overrides[0]));
+  assert.throws(() => applyEditorialOverrides(historicalSourceRecords, duplicate), /Duplicate editorial override id/);
+
+  const drifted = structuredClone(editorialOverrides);
+  drifted.overrides[0].changes[0].expected = "Unexpected old sentence.";
+  assert.throws(() => applyEditorialOverrides(historicalSourceRecords, drifted), /expected value drifted/);
+
+  const missing = structuredClone(editorialOverrides);
+  missing.overrides[0].id = "ww-missing-editorial-source";
+  assert.throws(() => applyEditorialOverrides(historicalSourceRecords, missing), /source record is missing/);
+
+  const shortenedTargets = structuredClone(editorialOverrides);
+  const targetOverride = shortenedTargets.overrides.find((override) => (
+    override.changes.some((change) => change.path === "/targets" && change.expected.length > 1)
+  ));
+  assert.ok(targetOverride, "expected a multi-target editorial override");
+  targetOverride.changes.find((change) => change.path === "/targets").replacement.length = 1;
+  assert.throws(() => applyEditorialOverrides(historicalSourceRecords, shortenedTargets), /must preserve all .* target annotations/);
+
+  const changedPlayableCount = structuredClone(editorialOverrides);
+  const playableOverride = changedPlayableCount.overrides.find((override) => (
+    override.changes.some((change) => change.path === "/targets")
+  ));
+  const playableTargets = playableOverride.changes.find((change) => change.path === "/targets").replacement;
+  playableTargets[0].playable = !playableTargets[0].playable;
+  assert.throws(() => applyEditorialOverrides(historicalSourceRecords, changedPlayableCount), /must preserve .* playable targets/);
 });
 
 test("the focused se families are explorable and retain their honest review boundary", async () => {
@@ -228,7 +334,7 @@ test("independent audit bilingual and naturalness corrections are locked", () =>
     "cc-000489": ["Take a photo of it.", "Vyfoť to."],
   };
   for (const [sourceId, [en, cs]] of Object.entries(expected)) {
-    const record = records.find((entry) => entry.provenance.sourceIds.includes(sourceId));
+    const record = historicalSourceRecords.find((entry) => entry.provenance.sourceIds.includes(sourceId));
     assert.ok(record, `missing corrected ${sourceId}`);
     assert.equal(record.languages.en.text, en, `${sourceId} English`);
     assert.equal(record.languages.cs.text, cs, `${sourceId} Czech`);
@@ -365,6 +471,7 @@ test("the same English meaning may intentionally describe a different Czech reco
 
 test("runtime manifest points to a deterministic compact pack", async () => {
   const manifest = await readJson(path.join(runtimeRoot, "manifest.json"));
+  const editorialOverridesBytes = await fs.readFile(editorialOverridesFile);
   const runtimePath = manifest.runtimeFile.split("?", 1)[0];
   const runtimeFile = path.join(runtimeRoot, ...runtimePath.split("/"));
   const fileText = await fs.readFile(runtimeFile, "utf8");
@@ -372,6 +479,13 @@ test("runtime manifest points to a deterministic compact pack", async () => {
   assert.equal(manifest.contentSha256, sha256(fileText));
   assert.equal(manifest.recordCount, pack.records.length);
   assert.equal(manifest.minimumLevel3Records, 50);
+  assert.deepEqual(manifest.editorialOverrides, {
+    file: "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
+    sha256: sha256(editorialOverridesBytes),
+    overrideCount: 27,
+    reviewedOn: "2026-08-13",
+    humanApproved: false,
+  });
   assert.equal(pack.records.length, records.length);
   assert.deepEqual(pack.records.map((record) => record.id), [...pack.records.map((record) => record.id)].sort());
   assert.deepEqual(Object.keys(pack.records[0]), [
@@ -387,6 +501,14 @@ test("validation and coverage reports have distinct machine-readable contracts",
   assert.equal(validation.recordCount, records.length);
   assert.equal(coverage.schemaVersion, "caatuu-word-world-coverage-v1");
   assert.equal(coverage.records.total, records.length);
+  assert.ok(coverage.inputFiles.includes("tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json"));
+  assert.deepEqual(coverage.editorialOverrides, {
+    file: "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
+    sha256: sha256(await fs.readFile(editorialOverridesFile)),
+    overrideCount: 27,
+    reviewedOn: "2026-08-13",
+    humanApproved: false,
+  });
   assert.ok(Array.isArray(coverage.targets.perTarget));
 });
 

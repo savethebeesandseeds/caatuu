@@ -440,6 +440,29 @@ facilitator intervention, with no critical accessibility or false-rejection
 defect. A failed second attempt means defer, merge, replace, or stop that game;
 it does not mean delay the entire release indefinitely.
 
+### 8.4 Learner-content safety boundary
+
+Learner-facing text is a release input, not harmless test data. The checked-in
+game packs must pass `npm run validate:learner-content` from `tools/czech-ml`.
+The Android product compiler repeats the same deterministic scan against the
+exact packaged JSON and fails closed on unresolved block or review findings.
+
+- [ ] Keep every shipped game JSON registered with a field-aware extractor.
+- [ ] Reject alcohol, tobacco, illicit drugs, explicit sexual content,
+  profanity, self-harm, graphic harm, weapons, credential requests, direct
+  personal-data requests, and avoidable ambiguous phrasing.
+- [ ] Preserve useful age-appropriate language for feelings, ordinary health,
+  asking for help, trusted adults, sports, and online-safety instruction.
+- [ ] Bind editorial corrections to exact record IDs and expected old content,
+  and preserve historical candidate/review evidence rather than rewriting it.
+- [ ] Rebuild content-addressed runtime packs after correction and invalidate
+  browser caches for directly loaded JSON revisions.
+- [ ] Run an independent bilingual Czech and child-development review against
+  the exact final hashes. A deterministic pass means only that no encoded rule
+  fired; it is not a claim of human approval or complete safety.
+- [ ] Treat unrestricted dictionary definitions and semantic image retrieval
+  as separate child-safety surfaces; curate or filter them before production.
+
 ## 9. Phase 4 — legal, privacy, business, and operations closure
 
 ### 9.1 Exact release legal inventory

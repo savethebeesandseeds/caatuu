@@ -5,8 +5,16 @@
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-expansion-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl"
+    "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl",
+    "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json"
   ],
+  "editorialOverrides": {
+    "file": "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
+    "sha256": "65110154ace561d5ba5ba08fe048f4b116f3a25303eb9f0102fe9e07c2a55b54",
+    "overrideCount": 27,
+    "reviewedOn": "2026-08-13",
+    "humanApproved": false
+  },
   "validation": {
     "valid": true,
     "errors": [],
@@ -60,7 +68,7 @@
   "guidance": {
     "skillFocus": {
       "adjective agreement": 1,
-      "be present": 134,
+      "be present": 129,
       "comparative adverb": 1,
       "comparative clause": 1,
       "concession clause": 1,
@@ -74,7 +82,7 @@
       "copular genitive": 1,
       "dative experiencer": 2,
       "dative object": 1,
-      "event": 1,
+      "event": 5,
       "everyday expression": 40,
       "future copular": 1,
       "future dative": 1,
@@ -119,13 +127,13 @@
       "past feminine": 1,
       "past masculine": 4,
       "past neuter": 1,
-      "possessive": 64,
+      "possessive": 65,
       "possessive copular": 3,
       "possessive location": 1,
       "possessive present": 5,
       "possessive pronoun": 1,
       "possessive time": 1,
-      "prepositional phrase": 61,
+      "prepositional phrase": 63,
       "present": 2,
       "present clothing": 1,
       "present motion": 5,
@@ -138,14 +146,15 @@
       "question": 57,
       "reason clause": 7,
       "reciprocal present": 1,
+      "reflexive": 1,
       "reflexive imperative": 1,
-      "reflexive present": 2,
+      "reflexive present": 3,
       "relative clause": 3,
       "relative location clause": 1,
       "result clause": 3,
       "routine present": 3,
-      "short formula": 212,
-      "time clause": 16,
+      "short formula": 207,
+      "time clause": 17,
       "time expression": 6,
       "time present": 2,
       "time quantity": 3,
@@ -156,7 +165,7 @@
     },
     "grammarTags": {
       "adjective_agreement": 1,
-      "be_present": 134,
+      "be_present": 129,
       "category_choices_opinions": 25,
       "category_classroom_learning": 25,
       "category_courtesy": 23,
@@ -192,7 +201,7 @@
       "copular_genitive": 1,
       "dative_experiencer": 2,
       "dative_object": 1,
-      "event": 1,
+      "event": 5,
       "family_bat-se": 4,
       "family_divat-se": 4,
       "family_ptat-se": 4,
@@ -265,13 +274,13 @@
       "past_feminine": 1,
       "past_masculine": 4,
       "past_neuter": 1,
-      "possessive": 64,
+      "possessive": 65,
       "possessive_copular": 3,
       "possessive_location": 1,
       "possessive_present": 5,
       "possessive_pronoun": 1,
       "possessive_time": 1,
-      "prepositional_phrase": 61,
+      "prepositional_phrase": 63,
       "present": 2,
       "present_clothing": 1,
       "present_motion": 5,
@@ -284,14 +293,15 @@
       "question": 57,
       "reason_clause": 7,
       "reciprocal_present": 1,
+      "reflexive": 1,
       "reflexive_imperative": 1,
-      "reflexive_present": 2,
+      "reflexive_present": 3,
       "relative_clause": 3,
       "relative_location_clause": 1,
       "result_clause": 3,
       "routine_present": 3,
-      "short_formula": 212,
-      "time_clause": 16,
+      "short_formula": 207,
+      "time_clause": 17,
       "time_expression": 6,
       "time_present": 2,
       "time_quantity": 3,
@@ -322,17 +332,17 @@
     }
   },
   "targets": {
-    "uniquePlayable": 589,
-    "singleton": 219,
+    "uniquePlayable": 593,
+    "singleton": 226,
     "branchable": {
       "minimumRecords": 2,
-      "targetCount": 370,
-      "share": 0.628183
+      "targetCount": 367,
+      "share": 0.618887
     },
     "strong": {
       "minimumRecords": 5,
-      "targetCount": 25,
-      "share": 0.042445
+      "targetCount": 26,
+      "share": 0.043845
     },
     "perTarget": [
       {
@@ -1094,10 +1104,9 @@
         "recordCount": 2,
         "recordIds": [
           "ww-codex-exp-0001-0021",
-          "ww-cp-000146"
+          "ww-cp-000144"
         ],
         "difficulties": [
-          1,
           2
         ],
         "topics": [
@@ -1558,9 +1567,8 @@
         "surfaces": [
           "doma"
         ],
-        "recordCount": 4,
+        "recordCount": 3,
         "recordIds": [
-          "ww-cp-000144",
           "ww-cp-000351",
           "ww-cp-000352",
           "ww-cp-000397"
@@ -1570,7 +1578,6 @@
         ],
         "topics": [
           "home",
-          "people",
           "transport"
         ]
       },
@@ -2795,9 +2802,9 @@
         ]
       },
       {
-        "normalized": "jmenuješ",
+        "normalized": "jmenuje",
         "surfaces": [
-          "jmenuješ"
+          "jmenuje"
         ],
         "recordCount": 1,
         "recordIds": [
@@ -3094,13 +3101,15 @@
       {
         "normalized": "kolo",
         "surfaces": [
+          "kolo",
           "Kolo"
         ],
-        "recordCount": 4,
+        "recordCount": 5,
         "recordIds": [
           "ww-codex-exp-0001-0130",
           "ww-codex-exp-0001-0171",
           "ww-codex-l3-0001-0046",
+          "ww-cp-000145",
           "ww-cp-000390"
         ],
         "difficulties": [
@@ -3110,6 +3119,7 @@
         ],
         "topics": [
           "location",
+          "people",
           "transport"
         ]
       },
@@ -3872,19 +3882,15 @@
         "surfaces": [
           "mnou"
         ],
-        "recordCount": 3,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000224",
-          "ww-cp-000316",
-          "ww-cp-000333"
+          "ww-cp-000316"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "location",
-          "play",
-          "routine"
+          "play"
         ]
       },
       {
@@ -4207,18 +4213,21 @@
         "surfaces": [
           "nádobí"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-codex-exp-0001-0035",
           "ww-codex-l3-0001-0011",
+          "ww-cp-000146",
           "ww-cp-000359"
         ],
         "difficulties": [
+          1,
           2,
           3
         ],
         "topics": [
-          "home"
+          "home",
+          "people"
         ]
       },
       {
@@ -6209,6 +6218,22 @@
         ]
       },
       {
+        "normalized": "postavy",
+        "surfaces": [
+          "postavy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cp-000056"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "postel",
         "surfaces": [
           "postel",
@@ -6405,16 +6430,14 @@
         "surfaces": [
           "práci"
         ],
-        "recordCount": 2,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000143",
           "ww-cp-000498"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "people",
           "technology"
         ]
       },
@@ -6851,6 +6874,22 @@
         "topics": [
           "conversation",
           "time"
+        ]
+      },
+      {
+        "normalized": "rodičem",
+        "surfaces": [
+          "rodičem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cp-000333"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "routine"
         ]
       },
       {
@@ -7309,17 +7348,15 @@
         "surfaces": [
           "sem"
         ],
-        "recordCount": 2,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000036",
-          "ww-cp-000203"
+          "ww-cp-000036"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation",
-          "location"
+          "conversation"
         ]
       },
       {
@@ -8035,19 +8072,16 @@
         "surfaces": [
           "své"
         ],
-        "recordCount": 3,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000056",
           "ww-cp-000125",
           "ww-cp-000499"
         ],
         "difficulties": [
-          1,
           2
         ],
         "topics": [
           "people",
-          "school",
           "technology"
         ]
       },
@@ -8938,6 +8972,38 @@
         ]
       },
       {
+        "normalized": "učitelem",
+        "surfaces": [
+          "učitelem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cp-000224"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "location"
+        ]
+      },
+      {
+        "normalized": "učiteli",
+        "surfaces": [
+          "učiteli"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cp-000203"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "location"
+        ]
+      },
+      {
         "normalized": "učitelů",
         "surfaces": [
           "učitelů"
@@ -9269,10 +9335,9 @@
         "recordCount": 2,
         "recordIds": [
           "ww-codex-exp-0001-0024",
-          "ww-cp-000145"
+          "ww-cp-000143"
         ],
         "difficulties": [
-          1,
           2
         ],
         "topics": [
@@ -10508,8 +10573,9 @@
         "surfaces": [
           "zeptej"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
+          "ww-cp-000478",
           "ww-cp-000500"
         ],
         "difficulties": [
@@ -10797,18 +10863,15 @@
         "surfaces": [
           "Zvedni"
         ],
-        "recordCount": 2,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000057",
-          "ww-cp-000478"
+          "ww-cp-000057"
         ],
         "difficulties": [
-          1,
-          2
+          1
         ],
         "topics": [
-          "school",
-          "technology"
+          "school"
         ]
       },
       {

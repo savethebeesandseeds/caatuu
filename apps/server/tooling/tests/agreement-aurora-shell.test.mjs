@@ -65,6 +65,15 @@ test("the JSON is a direct list of eighteen adjective challenge records", () => 
   }
 });
 
+test("the Agreement Aurora examples remain suitable for children", () => {
+  const examples = pack.flatMap((entry) => Object.values(entry.forms).flatMap((form) => form.examples));
+  assert.deepEqual(
+    pack[3].forms.neuter.examples[2],
+    { english: "Czech glass", czech: "české sklo" }
+  );
+  assert.doesNotMatch(JSON.stringify(examples), /\b(?:beer|wine|alcohol)\b|\b(?:pivo|víno|alkohol)\b/iu);
+});
+
 test("the initial learning loop is one three-gender side-to-side match", () => {
   for (const id of [
     "agreementAuroraEnglishOptions",
@@ -112,7 +121,7 @@ test("offline and Android setup boundaries include Agreement Aurora", () => {
     "./source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1",
     "./source/games/agreement-aurora/agreement-aurora.css?v=agreement-aurora-1",
     "./source/games/agreement-aurora/agreement-aurora.js?v=agreement-aurora-2",
-    "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-2",
+    "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3",
     "/assets/planets/agreement-aurora.png"
   ]) assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);
 

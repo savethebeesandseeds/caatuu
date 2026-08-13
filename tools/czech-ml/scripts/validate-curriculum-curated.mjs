@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fromRoot } from "./paths.mjs";
+import { inspectLearnerFields } from "./learner-content-safety-lib.mjs";
+import { fromRoot, mlRoot } from "./paths.mjs";
 
 function argValue(name, fallback) {
   const idx = process.argv.indexOf(name);
@@ -113,6 +114,9 @@ rows.forEach((row, index) => {
       errors.push(`row ${index + 1}: ${flag} must be boolean`);
     }
   }
+  if (row.child_safe !== true) {
+    errors.push(`row ${index + 1}: child_safe must be explicitly true`);
+  }
 
   const normalized = normalizeText(row.english_text);
   if (!normalized) {
@@ -127,16 +131,38 @@ rows.forEach((row, index) => {
   difficultyCounts[row.difficulty] = (difficultyCounts[row.difficulty] ?? 0) + 1;
 });
 
+const safetyFindings = inspectLearnerFields(rows.flatMap((row) => [
+  {
+    file: path.relative(mlRoot, curatedFile).split(path.sep).join("/"),
+    contentId: row.id,
+    field: "/english_text",
+    locale: "en",
+    text: row.english_text,
+  },
+  {
+    file: path.relative(mlRoot, curatedFile).split(path.sep).join("/"),
+    contentId: row.id,
+    field: "/czech_text",
+    locale: "cs",
+    text: row.czech_text,
+  },
+]));
+for (const finding of safetyFindings) {
+  errors.push(
+    `${finding.contentId}${finding.field}: learner-content safety ${finding.severity} ${finding.ruleId}: ${finding.message}`,
+  );
+}
+
 const report = {
-  generated_at: new Date().toISOString(),
   schema_version: "caatuu-curriculum-flat-v0.2",
-  input_file: curatedFile,
+  input_file: path.relative(mlRoot, curatedFile).split(path.sep).join("/"),
   rows: rows.length,
   unique_ids: ids.size,
   duplicate_text_groups: rows.length - texts.size,
   notes_blank: rows.every((row) => row.notes === ""),
   czech_text_filled: rows.filter((row) => String(row.czech_text || "").trim()).length,
   czech_text_blank: rows.filter((row) => !String(row.czech_text || "").trim()).length,
+  learner_content_safety_findings: safetyFindings.length,
   id_format: "cc-000001",
   topic_counts: Object.fromEntries(Object.entries(topicCounts).sort(([a], [b]) => a.localeCompare(b))),
   difficulty_counts: Object.fromEntries(Object.entries(difficultyCounts).sort(([a], [b]) => String(a).localeCompare(String(b)))),

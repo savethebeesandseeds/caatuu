@@ -1,3 +1,5 @@
+import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-1";
+
 const sourceKinds = ["image_asset", "macaw_action_asset"];
 const promptSamples = [
   "a child reads a book at home",
@@ -65,12 +67,18 @@ function normalizeRows(payload) {
         sourceKind,
         sourceLabel: sourceLabel(sourceKind),
         path,
+        action: String(metadata.action || "").trim(),
         title: String(row?.title || metadata.title || "").trim(),
         description: String(row?.text || metadata.description || metadata.label || path).trim(),
         score: Number(row?.score || 0)
       };
     })
-    .filter((row) => sourceKinds.includes(row.sourceKind) && row.path);
+    .filter((row) => (
+      sourceKinds.includes(row.sourceKind)
+      && row.path
+      && (row.sourceKind !== "macaw_action_asset"
+        || isChildFacingMacawActionAssetAllowed(row.path, row.action))
+    ));
 }
 
 function scoreLabel(score) {

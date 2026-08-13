@@ -8,8 +8,8 @@
         "en": "Hello / good day."
       },
       {
-        "cs": "Kávu a vodu, prosím.",
-        "en": "Coffee and water, please."
+        "cs": "Džus a vodu, prosím.",
+        "en": "Juice and water, please."
       },
       {
         "cs": "Účet, prosím.",
@@ -74,8 +74,8 @@
         "en": "Hello, I have a reservation."
       },
       {
-        "cs": "Tady je pas.",
-        "en": "Here is my passport."
+        "cs": "Tady je potvrzení rezervace.",
+        "en": "Here is the booking confirmation."
       },
       {
         "cs": "Kde je pokoj?",
@@ -122,8 +122,8 @@
         "en": "I need a form."
       },
       {
-        "cs": "Tady je můj podpis.",
-        "en": "Here is my signature."
+        "cs": "Tady je vyplněný formulář.",
+        "en": "Here is the completed form."
       },
       {
         "cs": "Pošlu dokument e-mailem.",
@@ -140,8 +140,8 @@
         "en": "Do you have wifi?"
       },
       {
-        "cs": "Jaké je heslo?",
-        "en": "What is the password?"
+        "cs": "Jak se připojím?",
+        "en": "How do I connect?"
       },
       {
         "cs": "Potřebuji nabíječku.",

@@ -503,7 +503,7 @@
       "artifact_kind": "browser-runtime",
       "url": "/cz/source/shared/vector-db.js",
       "bytes": 16109,
-      "sha256": "ba52061fa09a1d8fb9c9a32ac16f6bf5b9381a351374cf2c20325892a12a2961",
+      "sha256": "7c770d524ca2ece59bc798657125dcc80a573ae11a03a47bfa9b183ba5ce8ba3",
       "native_required": false,
       "browser_required": true
     },
@@ -533,8 +533,8 @@
       "artifact_kind": "browser-data",
       "url": "/cz/data/embeddings/models.json",
       "asset_path": "cz/data/embeddings/models.json",
-      "bytes": 2400,
-      "sha256": "e8dc1f52f31937aa06545b2ea6a2650a240f8bdb30209ca7c47fc000aa714b9b",
+      "bytes": 2498,
+      "sha256": "8ed1f42c0458406ec1bbfd1f2774ec47b4124e45ab8acc79b54065ca931bc9b2",
       "native_required": false,
       "browser_required": true
     },
@@ -544,8 +544,8 @@
       "artifact_kind": "browser-data",
       "url": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
       "asset_path": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
-      "bytes": 4284,
-      "sha256": "0a95f954034cac1c822cdf649be417b769c123b7a6142b06125cf81fec328faf",
+      "bytes": 4946,
+      "sha256": "e2f5208d6df94fe8e4ff062bce4788d18572f09c3623f96e31a88ac0f09008a2",
       "native_required": false,
       "browser_required": true
     },
@@ -555,8 +555,8 @@
       "artifact_kind": "browser-data",
       "url": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
       "asset_path": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "bytes": 20054016,
-      "sha256": "83bd91a5b7040ec0db39a50129f394c009ba99260c89c249f77cdcb18ef48c6b",
+      "bytes": 20029440,
+      "sha256": "d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13",
       "native_required": false,
       "browser_required": true
     },
@@ -2689,8 +2689,8 @@
       "artifact_kind": "asset-keymap",
       "url": "/assets/macaw/actions/keymaps.json",
       "asset_path": "assets/macaw/actions/keymaps.json",
-      "bytes": 138736,
-      "sha256": "52e0e117178e5dd69e87a7dfd248d2da59fed9e2318364d3dfc0ba9dff33ae80",
+      "bytes": 136816,
+      "sha256": "50cb1c70202facfb2ccb98b2b99b939a7373c45523cab92541d624602cfafd1f",
       "native_required": true,
       "browser_required": true
     },
@@ -3072,17 +3072,6 @@
       "key": "macaw-action-035",
       "label": "Macaw action image 35",
       "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/macaw%20(35).png",
-      "asset_path": "assets/macaw/actions/macaw (35).png",
-      "bytes": 755536,
-      "sha256": "3a6c2244fc82a0ce8e21a7a819d190b22b66dd678063c5469babe3e03e30abe9",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-036",
-      "label": "Macaw action image 36",
-      "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(36).png",
       "asset_path": "assets/macaw/actions/macaw (36).png",
       "bytes": 1656596,
@@ -3091,8 +3080,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-037",
-      "label": "Macaw action image 37",
+      "key": "macaw-action-036",
+      "label": "Macaw action image 36",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(37).png",
       "asset_path": "assets/macaw/actions/macaw (37).png",
@@ -3102,8 +3091,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-038",
-      "label": "Macaw action image 38",
+      "key": "macaw-action-037",
+      "label": "Macaw action image 37",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(38).png",
       "asset_path": "assets/macaw/actions/macaw (38).png",
@@ -3113,8 +3102,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-039",
-      "label": "Macaw action image 39",
+      "key": "macaw-action-038",
+      "label": "Macaw action image 38",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(39).png",
       "asset_path": "assets/macaw/actions/macaw (39).png",
@@ -3124,8 +3113,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-040",
-      "label": "Macaw action image 40",
+      "key": "macaw-action-039",
+      "label": "Macaw action image 39",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(40).png",
       "asset_path": "assets/macaw/actions/macaw (40).png",
@@ -3135,8 +3124,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-041",
-      "label": "Macaw action image 41",
+      "key": "macaw-action-040",
+      "label": "Macaw action image 40",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(41).png",
       "asset_path": "assets/macaw/actions/macaw (41).png",
@@ -3146,8 +3135,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-042",
-      "label": "Macaw action image 42",
+      "key": "macaw-action-041",
+      "label": "Macaw action image 41",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(42).png",
       "asset_path": "assets/macaw/actions/macaw (42).png",
@@ -3157,8 +3146,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-043",
-      "label": "Macaw action image 43",
+      "key": "macaw-action-042",
+      "label": "Macaw action image 42",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(43).png",
       "asset_path": "assets/macaw/actions/macaw (43).png",
@@ -3168,8 +3157,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-044",
-      "label": "Macaw action image 44",
+      "key": "macaw-action-043",
+      "label": "Macaw action image 43",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(44).png",
       "asset_path": "assets/macaw/actions/macaw (44).png",
@@ -3179,8 +3168,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-045",
-      "label": "Macaw action image 45",
+      "key": "macaw-action-044",
+      "label": "Macaw action image 44",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(45).png",
       "asset_path": "assets/macaw/actions/macaw (45).png",
@@ -3190,8 +3179,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-046",
-      "label": "Macaw action image 46",
+      "key": "macaw-action-045",
+      "label": "Macaw action image 45",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(46).png",
       "asset_path": "assets/macaw/actions/macaw (46).png",
@@ -3201,8 +3190,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-047",
-      "label": "Macaw action image 47",
+      "key": "macaw-action-046",
+      "label": "Macaw action image 46",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(47).png",
       "asset_path": "assets/macaw/actions/macaw (47).png",
@@ -3212,8 +3201,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-048",
-      "label": "Macaw action image 48",
+      "key": "macaw-action-047",
+      "label": "Macaw action image 47",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(48).png",
       "asset_path": "assets/macaw/actions/macaw (48).png",
@@ -3223,8 +3212,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-049",
-      "label": "Macaw action image 49",
+      "key": "macaw-action-048",
+      "label": "Macaw action image 48",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(49).png",
       "asset_path": "assets/macaw/actions/macaw (49).png",
@@ -3234,8 +3223,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-050",
-      "label": "Macaw action image 50",
+      "key": "macaw-action-049",
+      "label": "Macaw action image 49",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(50).png",
       "asset_path": "assets/macaw/actions/macaw (50).png",
@@ -3245,8 +3234,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-051",
-      "label": "Macaw action image 51",
+      "key": "macaw-action-050",
+      "label": "Macaw action image 50",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(51).png",
       "asset_path": "assets/macaw/actions/macaw (51).png",
@@ -3256,8 +3245,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-052",
-      "label": "Macaw action image 52",
+      "key": "macaw-action-051",
+      "label": "Macaw action image 51",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(52).png",
       "asset_path": "assets/macaw/actions/macaw (52).png",
@@ -3267,8 +3256,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-053",
-      "label": "Macaw action image 53",
+      "key": "macaw-action-052",
+      "label": "Macaw action image 52",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(53).png",
       "asset_path": "assets/macaw/actions/macaw (53).png",
@@ -3278,8 +3267,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-054",
-      "label": "Macaw action image 54",
+      "key": "macaw-action-053",
+      "label": "Macaw action image 53",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(54).png",
       "asset_path": "assets/macaw/actions/macaw (54).png",
@@ -3289,8 +3278,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-055",
-      "label": "Macaw action image 55",
+      "key": "macaw-action-054",
+      "label": "Macaw action image 54",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(55).png",
       "asset_path": "assets/macaw/actions/macaw (55).png",
@@ -3300,8 +3289,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-056",
-      "label": "Macaw action image 56",
+      "key": "macaw-action-055",
+      "label": "Macaw action image 55",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(56).png",
       "asset_path": "assets/macaw/actions/macaw (56).png",
@@ -3311,8 +3300,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-057",
-      "label": "Macaw action image 57",
+      "key": "macaw-action-056",
+      "label": "Macaw action image 56",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(57).png",
       "asset_path": "assets/macaw/actions/macaw (57).png",
@@ -3322,8 +3311,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-058",
-      "label": "Macaw action image 58",
+      "key": "macaw-action-057",
+      "label": "Macaw action image 57",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(58).png",
       "asset_path": "assets/macaw/actions/macaw (58).png",
@@ -3333,8 +3322,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-059",
-      "label": "Macaw action image 59",
+      "key": "macaw-action-058",
+      "label": "Macaw action image 58",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(59).png",
       "asset_path": "assets/macaw/actions/macaw (59).png",
@@ -3344,8 +3333,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-060",
-      "label": "Macaw action image 60",
+      "key": "macaw-action-059",
+      "label": "Macaw action image 59",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(60).png",
       "asset_path": "assets/macaw/actions/macaw (60).png",
@@ -3355,8 +3344,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-061",
-      "label": "Macaw action image 61",
+      "key": "macaw-action-060",
+      "label": "Macaw action image 60",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(61).png",
       "asset_path": "assets/macaw/actions/macaw (61).png",
@@ -3366,8 +3355,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-062",
-      "label": "Macaw action image 62",
+      "key": "macaw-action-061",
+      "label": "Macaw action image 61",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(62).png",
       "asset_path": "assets/macaw/actions/macaw (62).png",
@@ -3377,8 +3366,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-063",
-      "label": "Macaw action image 63",
+      "key": "macaw-action-062",
+      "label": "Macaw action image 62",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(63).png",
       "asset_path": "assets/macaw/actions/macaw (63).png",
@@ -3388,8 +3377,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-064",
-      "label": "Macaw action image 64",
+      "key": "macaw-action-063",
+      "label": "Macaw action image 63",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(64).png",
       "asset_path": "assets/macaw/actions/macaw (64).png",
@@ -3399,8 +3388,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-065",
-      "label": "Macaw action image 65",
+      "key": "macaw-action-064",
+      "label": "Macaw action image 64",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(65).png",
       "asset_path": "assets/macaw/actions/macaw (65).png",
@@ -3410,8 +3399,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-066",
-      "label": "Macaw action image 66",
+      "key": "macaw-action-065",
+      "label": "Macaw action image 65",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(66).png",
       "asset_path": "assets/macaw/actions/macaw (66).png",
@@ -3421,8 +3410,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-067",
-      "label": "Macaw action image 67",
+      "key": "macaw-action-066",
+      "label": "Macaw action image 66",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(67).png",
       "asset_path": "assets/macaw/actions/macaw (67).png",
@@ -3432,8 +3421,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-068",
-      "label": "Macaw action image 68",
+      "key": "macaw-action-067",
+      "label": "Macaw action image 67",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(68).png",
       "asset_path": "assets/macaw/actions/macaw (68).png",
@@ -3443,8 +3432,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-069",
-      "label": "Macaw action image 69",
+      "key": "macaw-action-068",
+      "label": "Macaw action image 68",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(69).png",
       "asset_path": "assets/macaw/actions/macaw (69).png",
@@ -3454,8 +3443,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-070",
-      "label": "Macaw action image 70",
+      "key": "macaw-action-069",
+      "label": "Macaw action image 69",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(70).png",
       "asset_path": "assets/macaw/actions/macaw (70).png",
@@ -3465,8 +3454,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-071",
-      "label": "Macaw action image 71",
+      "key": "macaw-action-070",
+      "label": "Macaw action image 70",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(71).png",
       "asset_path": "assets/macaw/actions/macaw (71).png",
@@ -3476,8 +3465,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-072",
-      "label": "Macaw action image 72",
+      "key": "macaw-action-071",
+      "label": "Macaw action image 71",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(72).png",
       "asset_path": "assets/macaw/actions/macaw (72).png",
@@ -3487,8 +3476,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-073",
-      "label": "Macaw action image 73",
+      "key": "macaw-action-072",
+      "label": "Macaw action image 72",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(73).png",
       "asset_path": "assets/macaw/actions/macaw (73).png",
@@ -3498,8 +3487,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-074",
-      "label": "Macaw action image 74",
+      "key": "macaw-action-073",
+      "label": "Macaw action image 73",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(74).png",
       "asset_path": "assets/macaw/actions/macaw (74).png",
@@ -3509,8 +3498,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-075",
-      "label": "Macaw action image 75",
+      "key": "macaw-action-074",
+      "label": "Macaw action image 74",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(75).png",
       "asset_path": "assets/macaw/actions/macaw (75).png",
@@ -3520,8 +3509,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-076",
-      "label": "Macaw action image 76",
+      "key": "macaw-action-075",
+      "label": "Macaw action image 75",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(76).png",
       "asset_path": "assets/macaw/actions/macaw (76).png",
@@ -3531,8 +3520,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-077",
-      "label": "Macaw action image 77",
+      "key": "macaw-action-076",
+      "label": "Macaw action image 76",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(77).png",
       "asset_path": "assets/macaw/actions/macaw (77).png",
@@ -3542,8 +3531,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-078",
-      "label": "Macaw action image 78",
+      "key": "macaw-action-077",
+      "label": "Macaw action image 77",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(78).png",
       "asset_path": "assets/macaw/actions/macaw (78).png",
@@ -3553,8 +3542,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-079",
-      "label": "Macaw action image 79",
+      "key": "macaw-action-078",
+      "label": "Macaw action image 78",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(79).png",
       "asset_path": "assets/macaw/actions/macaw (79).png",
@@ -3564,8 +3553,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-080",
-      "label": "Macaw action image 80",
+      "key": "macaw-action-079",
+      "label": "Macaw action image 79",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(80).png",
       "asset_path": "assets/macaw/actions/macaw (80).png",
@@ -3575,8 +3564,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-081",
-      "label": "Macaw action image 81",
+      "key": "macaw-action-080",
+      "label": "Macaw action image 80",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(81).png",
       "asset_path": "assets/macaw/actions/macaw (81).png",
@@ -3586,8 +3575,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-082",
-      "label": "Macaw action image 82",
+      "key": "macaw-action-081",
+      "label": "Macaw action image 81",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(82).png",
       "asset_path": "assets/macaw/actions/macaw (82).png",
@@ -3597,8 +3586,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-083",
-      "label": "Macaw action image 83",
+      "key": "macaw-action-082",
+      "label": "Macaw action image 82",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(83).png",
       "asset_path": "assets/macaw/actions/macaw (83).png",
@@ -3608,8 +3597,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-084",
-      "label": "Macaw action image 84",
+      "key": "macaw-action-083",
+      "label": "Macaw action image 83",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(84).png",
       "asset_path": "assets/macaw/actions/macaw (84).png",
@@ -3619,8 +3608,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-085",
-      "label": "Macaw action image 85",
+      "key": "macaw-action-084",
+      "label": "Macaw action image 84",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(85).png",
       "asset_path": "assets/macaw/actions/macaw (85).png",
@@ -3630,8 +3619,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-086",
-      "label": "Macaw action image 86",
+      "key": "macaw-action-085",
+      "label": "Macaw action image 85",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(86).png",
       "asset_path": "assets/macaw/actions/macaw (86).png",
@@ -3641,8 +3630,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-087",
-      "label": "Macaw action image 87",
+      "key": "macaw-action-086",
+      "label": "Macaw action image 86",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(87).png",
       "asset_path": "assets/macaw/actions/macaw (87).png",
@@ -3652,8 +3641,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-088",
-      "label": "Macaw action image 88",
+      "key": "macaw-action-087",
+      "label": "Macaw action image 87",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(88).png",
       "asset_path": "assets/macaw/actions/macaw (88).png",
@@ -3663,8 +3652,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-089",
-      "label": "Macaw action image 89",
+      "key": "macaw-action-088",
+      "label": "Macaw action image 88",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(89).png",
       "asset_path": "assets/macaw/actions/macaw (89).png",
@@ -3674,8 +3663,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-090",
-      "label": "Macaw action image 90",
+      "key": "macaw-action-089",
+      "label": "Macaw action image 89",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(90).png",
       "asset_path": "assets/macaw/actions/macaw (90).png",
@@ -3685,8 +3674,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-091",
-      "label": "Macaw action image 91",
+      "key": "macaw-action-090",
+      "label": "Macaw action image 90",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(91).png",
       "asset_path": "assets/macaw/actions/macaw (91).png",
@@ -3696,8 +3685,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-092",
-      "label": "Macaw action image 92",
+      "key": "macaw-action-091",
+      "label": "Macaw action image 91",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(92).png",
       "asset_path": "assets/macaw/actions/macaw (92).png",
@@ -3707,13 +3696,24 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-093",
-      "label": "Macaw action image 93",
+      "key": "macaw-action-092",
+      "label": "Macaw action image 92",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/macaw%20(93).png",
       "asset_path": "assets/macaw/actions/macaw (93).png",
       "bytes": 261550,
       "sha256": "c9e512a5a99d37895e2b644b82a49a7580e43c732e308933dc75142448b6f8d8",
+      "native_required": true,
+      "browser_required": true
+    },
+    {
+      "key": "macaw-action-093",
+      "label": "Macaw action image 93",
+      "artifact_kind": "visual-asset",
+      "url": "/assets/macaw/actions/000-idle_neutral.png",
+      "asset_path": "assets/macaw/actions/000-idle_neutral.png",
+      "bytes": 726632,
+      "sha256": "19e5a7eff5e410c0256d15cf3e16f1974cd326c9b0f7f8d4b5ca02eda3be874c",
       "native_required": true,
       "browser_required": true
     },
@@ -5591,17 +5591,6 @@
       "key": "macaw-action-094",
       "label": "Macaw action image 94",
       "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/000-idle_neutral.png",
-      "asset_path": "assets/macaw/actions/000-idle_neutral.png",
-      "bytes": 726632,
-      "sha256": "19e5a7eff5e410c0256d15cf3e16f1974cd326c9b0f7f8d4b5ca02eda3be874c",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-095",
-      "label": "Macaw action image 95",
-      "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/001-walk.png",
       "asset_path": "assets/macaw/actions/001-walk.png",
       "bytes": 736710,
@@ -5610,8 +5599,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-096",
-      "label": "Macaw action image 96",
+      "key": "macaw-action-095",
+      "label": "Macaw action image 95",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/004-turn_around.png",
       "asset_path": "assets/macaw/actions/004-turn_around.png",
@@ -5621,8 +5610,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-097",
-      "label": "Macaw action image 97",
+      "key": "macaw-action-096",
+      "label": "Macaw action image 96",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/005-look_back.png",
       "asset_path": "assets/macaw/actions/005-look_back.png",
@@ -5632,8 +5621,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-098",
-      "label": "Macaw action image 98",
+      "key": "macaw-action-097",
+      "label": "Macaw action image 97",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/007-stand_up.png",
       "asset_path": "assets/macaw/actions/007-stand_up.png",
@@ -5643,8 +5632,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-099",
-      "label": "Macaw action image 99",
+      "key": "macaw-action-098",
+      "label": "Macaw action image 98",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/008-sit_on_chair.png",
       "asset_path": "assets/macaw/actions/008-sit_on_chair.png",
@@ -5654,8 +5643,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-100",
-      "label": "Macaw action image 100",
+      "key": "macaw-action-099",
+      "label": "Macaw action image 99",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/009-kneel.png",
       "asset_path": "assets/macaw/actions/009-kneel.png",
@@ -5665,8 +5654,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-101",
-      "label": "Macaw action image 101",
+      "key": "macaw-action-100",
+      "label": "Macaw action image 100",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/010-crouch.png",
       "asset_path": "assets/macaw/actions/010-crouch.png",
@@ -5676,8 +5665,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-102",
-      "label": "Macaw action image 102",
+      "key": "macaw-action-101",
+      "label": "Macaw action image 101",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/011-crawl.png",
       "asset_path": "assets/macaw/actions/011-crawl.png",
@@ -5687,8 +5676,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-103",
-      "label": "Macaw action image 103",
+      "key": "macaw-action-102",
+      "label": "Macaw action image 102",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/012-climb_down_ladder.png",
       "asset_path": "assets/macaw/actions/012-climb_down_ladder.png",
@@ -5698,8 +5687,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-104",
-      "label": "Macaw action image 104",
+      "key": "macaw-action-103",
+      "label": "Macaw action image 103",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/013-jump_forward.png",
       "asset_path": "assets/macaw/actions/013-jump_forward.png",
@@ -5709,8 +5698,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-105",
-      "label": "Macaw action image 105",
+      "key": "macaw-action-104",
+      "label": "Macaw action image 104",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/014-land_after_jump.png",
       "asset_path": "assets/macaw/actions/014-land_after_jump.png",
@@ -5720,8 +5709,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-106",
-      "label": "Macaw action image 106",
+      "key": "macaw-action-105",
+      "label": "Macaw action image 105",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/015-fall_down.png",
       "asset_path": "assets/macaw/actions/015-fall_down.png",
@@ -5731,8 +5720,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-107",
-      "label": "Macaw action image 107",
+      "key": "macaw-action-106",
+      "label": "Macaw action image 106",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/016-get_up.png",
       "asset_path": "assets/macaw/actions/016-get_up.png",
@@ -5742,8 +5731,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-108",
-      "label": "Macaw action image 108",
+      "key": "macaw-action-107",
+      "label": "Macaw action image 107",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/017-trip.png",
       "asset_path": "assets/macaw/actions/017-trip.png",
@@ -5753,8 +5742,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-109",
-      "label": "Macaw action image 109",
+      "key": "macaw-action-108",
+      "label": "Macaw action image 108",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/018-balance.png",
       "asset_path": "assets/macaw/actions/018-balance.png",
@@ -5764,8 +5753,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-110",
-      "label": "Macaw action image 110",
+      "key": "macaw-action-109",
+      "label": "Macaw action image 109",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/019-tiptoe.png",
       "asset_path": "assets/macaw/actions/019-tiptoe.png",
@@ -5775,8 +5764,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-111",
-      "label": "Macaw action image 111",
+      "key": "macaw-action-110",
+      "label": "Macaw action image 110",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/023-pick_up_object.png",
       "asset_path": "assets/macaw/actions/023-pick_up_object.png",
@@ -5786,8 +5775,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-112",
-      "label": "Macaw action image 112",
+      "key": "macaw-action-111",
+      "label": "Macaw action image 111",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/025-drop_object.png",
       "asset_path": "assets/macaw/actions/025-drop_object.png",
@@ -5797,8 +5786,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-113",
-      "label": "Macaw action image 113",
+      "key": "macaw-action-112",
+      "label": "Macaw action image 112",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/026-place_object.png",
       "asset_path": "assets/macaw/actions/026-place_object.png",
@@ -5808,8 +5797,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-114",
-      "label": "Macaw action image 114",
+      "key": "macaw-action-113",
+      "label": "Macaw action image 113",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/028-hold_object.png",
       "asset_path": "assets/macaw/actions/028-hold_object.png",
@@ -5819,8 +5808,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-115",
-      "label": "Macaw action image 115",
+      "key": "macaw-action-114",
+      "label": "Macaw action image 114",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/030-receive_object.png",
       "asset_path": "assets/macaw/actions/030-receive_object.png",
@@ -5830,8 +5819,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-116",
-      "label": "Macaw action image 116",
+      "key": "macaw-action-115",
+      "label": "Macaw action image 115",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/032-catch_ball.png",
       "asset_path": "assets/macaw/actions/032-catch_ball.png",
@@ -5841,8 +5830,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-117",
-      "label": "Macaw action image 117",
+      "key": "macaw-action-116",
+      "label": "Macaw action image 116",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/035-search_chest.png",
       "asset_path": "assets/macaw/actions/035-search_chest.png",
@@ -5852,8 +5841,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-118",
-      "label": "Macaw action image 118",
+      "key": "macaw-action-117",
+      "label": "Macaw action image 117",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/036-close_door.png",
       "asset_path": "assets/macaw/actions/036-close_door.png",
@@ -5863,8 +5852,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-119",
-      "label": "Macaw action image 119",
+      "key": "macaw-action-118",
+      "label": "Macaw action image 118",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/037-knock_on_door.png",
       "asset_path": "assets/macaw/actions/037-knock_on_door.png",
@@ -5874,8 +5863,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-120",
-      "label": "Macaw action image 120",
+      "key": "macaw-action-119",
+      "label": "Macaw action image 119",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/038-lock_door.png",
       "asset_path": "assets/macaw/actions/038-lock_door.png",
@@ -5885,8 +5874,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-121",
-      "label": "Macaw action image 121",
+      "key": "macaw-action-120",
+      "label": "Macaw action image 120",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/039-unlock_door.png",
       "asset_path": "assets/macaw/actions/039-unlock_door.png",
@@ -5896,8 +5885,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-122",
-      "label": "Macaw action image 122",
+      "key": "macaw-action-121",
+      "label": "Macaw action image 121",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/043-press_button.png",
       "asset_path": "assets/macaw/actions/043-press_button.png",
@@ -5907,8 +5896,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-123",
-      "label": "Macaw action image 123",
+      "key": "macaw-action-122",
+      "label": "Macaw action image 122",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/044-pull_lever.png",
       "asset_path": "assets/macaw/actions/044-pull_lever.png",
@@ -5918,8 +5907,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-124",
-      "label": "Macaw action image 124",
+      "key": "macaw-action-123",
+      "label": "Macaw action image 123",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/046-ring_bell.png",
       "asset_path": "assets/macaw/actions/046-ring_bell.png",
@@ -5929,8 +5918,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-125",
-      "label": "Macaw action image 125",
+      "key": "macaw-action-124",
+      "label": "Macaw action image 124",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/047-light_lantern.png",
       "asset_path": "assets/macaw/actions/047-light_lantern.png",
@@ -5940,8 +5929,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-126",
-      "label": "Macaw action image 126",
+      "key": "macaw-action-125",
+      "label": "Macaw action image 125",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/048-extinguish_lantern.png",
       "asset_path": "assets/macaw/actions/048-extinguish_lantern.png",
@@ -5951,8 +5940,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-127",
-      "label": "Macaw action image 127",
+      "key": "macaw-action-126",
+      "label": "Macaw action image 126",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/049-light_fire.png",
       "asset_path": "assets/macaw/actions/049-light_fire.png",
@@ -5962,8 +5951,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-128",
-      "label": "Macaw action image 128",
+      "key": "macaw-action-127",
+      "label": "Macaw action image 127",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/050-extinguish_fire.png",
       "asset_path": "assets/macaw/actions/050-extinguish_fire.png",
@@ -5973,8 +5962,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-129",
-      "label": "Macaw action image 129",
+      "key": "macaw-action-128",
+      "label": "Macaw action image 128",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/051-push_cart.png",
       "asset_path": "assets/macaw/actions/051-push_cart.png",
@@ -5984,8 +5973,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-130",
-      "label": "Macaw action image 130",
+      "key": "macaw-action-129",
+      "label": "Macaw action image 129",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/052-pull_cart.png",
       "asset_path": "assets/macaw/actions/052-pull_cart.png",
@@ -5995,8 +5984,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-131",
-      "label": "Macaw action image 131",
+      "key": "macaw-action-130",
+      "label": "Macaw action image 130",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/053-carry_bucket.png",
       "asset_path": "assets/macaw/actions/053-carry_bucket.png",
@@ -6006,8 +5995,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-132",
-      "label": "Macaw action image 132",
+      "key": "macaw-action-131",
+      "label": "Macaw action image 131",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/054-pour_bucket.png",
       "asset_path": "assets/macaw/actions/054-pour_bucket.png",
@@ -6017,8 +6006,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-133",
-      "label": "Macaw action image 133",
+      "key": "macaw-action-132",
+      "label": "Macaw action image 132",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/055-pack_bag.png",
       "asset_path": "assets/macaw/actions/055-pack_bag.png",
@@ -6028,8 +6017,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-134",
-      "label": "Macaw action image 134",
+      "key": "macaw-action-133",
+      "label": "Macaw action image 133",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/056-unpack_bag.png",
       "asset_path": "assets/macaw/actions/056-unpack_bag.png",
@@ -6039,8 +6028,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-135",
-      "label": "Macaw action image 135",
+      "key": "macaw-action-134",
+      "label": "Macaw action image 134",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/059-answer_question.png",
       "asset_path": "assets/macaw/actions/059-answer_question.png",
@@ -6050,8 +6039,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-136",
-      "label": "Macaw action image 136",
+      "key": "macaw-action-135",
+      "label": "Macaw action image 135",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/060-nod_yes.png",
       "asset_path": "assets/macaw/actions/060-nod_yes.png",
@@ -6061,8 +6050,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-137",
-      "label": "Macaw action image 137",
+      "key": "macaw-action-136",
+      "label": "Macaw action image 136",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/061-shake_head_no.png",
       "asset_path": "assets/macaw/actions/061-shake_head_no.png",
@@ -6072,8 +6061,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-138",
-      "label": "Macaw action image 138",
+      "key": "macaw-action-137",
+      "label": "Macaw action image 137",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/062-agree.png",
       "asset_path": "assets/macaw/actions/062-agree.png",
@@ -6083,8 +6072,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-139",
-      "label": "Macaw action image 139",
+      "key": "macaw-action-138",
+      "label": "Macaw action image 138",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/063-disagree.png",
       "asset_path": "assets/macaw/actions/063-disagree.png",
@@ -6094,8 +6083,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-140",
-      "label": "Macaw action image 140",
+      "key": "macaw-action-139",
+      "label": "Macaw action image 139",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/064-point_left.png",
       "asset_path": "assets/macaw/actions/064-point_left.png",
@@ -6105,8 +6094,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-141",
-      "label": "Macaw action image 141",
+      "key": "macaw-action-140",
+      "label": "Macaw action image 140",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/065-point_up.png",
       "asset_path": "assets/macaw/actions/065-point_up.png",
@@ -6116,8 +6105,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-142",
-      "label": "Macaw action image 142",
+      "key": "macaw-action-141",
+      "label": "Macaw action image 141",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/066-point_down.png",
       "asset_path": "assets/macaw/actions/066-point_down.png",
@@ -6127,8 +6116,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-143",
-      "label": "Macaw action image 143",
+      "key": "macaw-action-142",
+      "label": "Macaw action image 142",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/067-point_at_self.png",
       "asset_path": "assets/macaw/actions/067-point_at_self.png",
@@ -6138,8 +6127,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-144",
-      "label": "Macaw action image 144",
+      "key": "macaw-action-143",
+      "label": "Macaw action image 143",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/068-point_at_object.png",
       "asset_path": "assets/macaw/actions/068-point_at_object.png",
@@ -6149,8 +6138,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-145",
-      "label": "Macaw action image 145",
+      "key": "macaw-action-144",
+      "label": "Macaw action image 144",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/069-beckon_come_here.png",
       "asset_path": "assets/macaw/actions/069-beckon_come_here.png",
@@ -6160,8 +6149,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-146",
-      "label": "Macaw action image 146",
+      "key": "macaw-action-145",
+      "label": "Macaw action image 145",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/070-gesture_follow_me.png",
       "asset_path": "assets/macaw/actions/070-gesture_follow_me.png",
@@ -6171,8 +6160,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-147",
-      "label": "Macaw action image 147",
+      "key": "macaw-action-146",
+      "label": "Macaw action image 146",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/071-gesture_wait.png",
       "asset_path": "assets/macaw/actions/071-gesture_wait.png",
@@ -6182,8 +6171,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-148",
-      "label": "Macaw action image 148",
+      "key": "macaw-action-147",
+      "label": "Macaw action image 147",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/072-gesture_stop.png",
       "asset_path": "assets/macaw/actions/072-gesture_stop.png",
@@ -6193,8 +6182,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-149",
-      "label": "Macaw action image 149",
+      "key": "macaw-action-148",
+      "label": "Macaw action image 148",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/073-wave_goodbye.png",
       "asset_path": "assets/macaw/actions/073-wave_goodbye.png",
@@ -6204,8 +6193,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-150",
-      "label": "Macaw action image 150",
+      "key": "macaw-action-149",
+      "label": "Macaw action image 149",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/074-thank.png",
       "asset_path": "assets/macaw/actions/074-thank.png",
@@ -6215,8 +6204,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-151",
-      "label": "Macaw action image 151",
+      "key": "macaw-action-150",
+      "label": "Macaw action image 150",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/075-apologize.png",
       "asset_path": "assets/macaw/actions/075-apologize.png",
@@ -6226,8 +6215,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-152",
-      "label": "Macaw action image 152",
+      "key": "macaw-action-151",
+      "label": "Macaw action image 151",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/076-request_please.png",
       "asset_path": "assets/macaw/actions/076-request_please.png",
@@ -6237,8 +6226,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-153",
-      "label": "Macaw action image 153",
+      "key": "macaw-action-152",
+      "label": "Macaw action image 152",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/077-warn_danger.png",
       "asset_path": "assets/macaw/actions/077-warn_danger.png",
@@ -6248,8 +6237,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-154",
-      "label": "Macaw action image 154",
+      "key": "macaw-action-153",
+      "label": "Macaw action image 153",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/078-explain.png",
       "asset_path": "assets/macaw/actions/078-explain.png",
@@ -6259,8 +6248,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-155",
-      "label": "Macaw action image 155",
+      "key": "macaw-action-154",
+      "label": "Macaw action image 154",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/079-demonstrate.png",
       "asset_path": "assets/macaw/actions/079-demonstrate.png",
@@ -6270,8 +6259,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-156",
-      "label": "Macaw action image 156",
+      "key": "macaw-action-155",
+      "label": "Macaw action image 155",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/080-repeat_slowly.png",
       "asset_path": "assets/macaw/actions/080-repeat_slowly.png",
@@ -6281,8 +6270,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-157",
-      "label": "Macaw action image 157",
+      "key": "macaw-action-156",
+      "label": "Macaw action image 156",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/081-introduce_self.png",
       "asset_path": "assets/macaw/actions/081-introduce_self.png",
@@ -6292,8 +6281,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-158",
-      "label": "Macaw action image 158",
+      "key": "macaw-action-157",
+      "label": "Macaw action image 157",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/082-handshake.png",
       "asset_path": "assets/macaw/actions/082-handshake.png",
@@ -6303,8 +6292,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-159",
-      "label": "Macaw action image 159",
+      "key": "macaw-action-158",
+      "label": "Macaw action image 158",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/083-high_five.png",
       "asset_path": "assets/macaw/actions/083-high_five.png",
@@ -6314,8 +6303,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-160",
-      "label": "Macaw action image 160",
+      "key": "macaw-action-159",
+      "label": "Macaw action image 159",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/084-hug_friend.png",
       "asset_path": "assets/macaw/actions/084-hug_friend.png",
@@ -6325,8 +6314,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-161",
-      "label": "Macaw action image 161",
+      "key": "macaw-action-160",
+      "label": "Macaw action image 160",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/085-comfort_friend.png",
       "asset_path": "assets/macaw/actions/085-comfort_friend.png",
@@ -6336,8 +6325,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-162",
-      "label": "Macaw action image 162",
+      "key": "macaw-action-161",
+      "label": "Macaw action image 161",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/086-help_friend_up.png",
       "asset_path": "assets/macaw/actions/086-help_friend_up.png",
@@ -6347,8 +6336,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-163",
-      "label": "Macaw action image 163",
+      "key": "macaw-action-162",
+      "label": "Macaw action image 162",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/087-hold_hands.png",
       "asset_path": "assets/macaw/actions/087-hold_hands.png",
@@ -6358,8 +6347,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-164",
-      "label": "Macaw action image 164",
+      "key": "macaw-action-163",
+      "label": "Macaw action image 163",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/088-share_food.png",
       "asset_path": "assets/macaw/actions/088-share_food.png",
@@ -6369,8 +6358,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-165",
-      "label": "Macaw action image 165",
+      "key": "macaw-action-164",
+      "label": "Macaw action image 164",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/089-share_object.png",
       "asset_path": "assets/macaw/actions/089-share_object.png",
@@ -6380,8 +6369,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-166",
-      "label": "Macaw action image 166",
+      "key": "macaw-action-165",
+      "label": "Macaw action image 165",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/090-exchange_items.png",
       "asset_path": "assets/macaw/actions/090-exchange_items.png",
@@ -6391,8 +6380,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-167",
-      "label": "Macaw action image 167",
+      "key": "macaw-action-166",
+      "label": "Macaw action image 166",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/091-give_directions.png",
       "asset_path": "assets/macaw/actions/091-give_directions.png",
@@ -6402,8 +6391,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-168",
-      "label": "Macaw action image 168",
+      "key": "macaw-action-167",
+      "label": "Macaw action image 167",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/092-listen_to_friend.png",
       "asset_path": "assets/macaw/actions/092-listen_to_friend.png",
@@ -6413,8 +6402,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-169",
-      "label": "Macaw action image 169",
+      "key": "macaw-action-168",
+      "label": "Macaw action image 168",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/093-whisper_to_friend.png",
       "asset_path": "assets/macaw/actions/093-whisper_to_friend.png",
@@ -6424,8 +6413,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-170",
-      "label": "Macaw action image 170",
+      "key": "macaw-action-169",
+      "label": "Macaw action image 169",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/094-argue.png",
       "asset_path": "assets/macaw/actions/094-argue.png",
@@ -6435,8 +6424,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-171",
-      "label": "Macaw action image 171",
+      "key": "macaw-action-170",
+      "label": "Macaw action image 170",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/095-scold.png",
       "asset_path": "assets/macaw/actions/095-scold.png",
@@ -6446,8 +6435,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-172",
-      "label": "Macaw action image 172",
+      "key": "macaw-action-171",
+      "label": "Macaw action image 171",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/096-congratulate.png",
       "asset_path": "assets/macaw/actions/096-congratulate.png",
@@ -6457,8 +6446,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-173",
-      "label": "Macaw action image 173",
+      "key": "macaw-action-172",
+      "label": "Macaw action image 172",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/097-welcome_guest.png",
       "asset_path": "assets/macaw/actions/097-welcome_guest.png",
@@ -6468,8 +6457,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-174",
-      "label": "Macaw action image 174",
+      "key": "macaw-action-173",
+      "label": "Macaw action image 173",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/098-say_farewell.png",
       "asset_path": "assets/macaw/actions/098-say_farewell.png",
@@ -6479,8 +6468,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-175",
-      "label": "Macaw action image 175",
+      "key": "macaw-action-174",
+      "label": "Macaw action image 174",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/099-dance_with_partner.png",
       "asset_path": "assets/macaw/actions/099-dance_with_partner.png",
@@ -6490,8 +6479,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-176",
-      "label": "Macaw action image 176",
+      "key": "macaw-action-175",
+      "label": "Macaw action image 175",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/100-carry_injured_friend.png",
       "asset_path": "assets/macaw/actions/100-carry_injured_friend.png",
@@ -6501,8 +6490,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-177",
-      "label": "Macaw action image 177",
+      "key": "macaw-action-176",
+      "label": "Macaw action image 176",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/101-protect_friend.png",
       "asset_path": "assets/macaw/actions/101-protect_friend.png",
@@ -6512,8 +6501,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-178",
-      "label": "Macaw action image 178",
+      "key": "macaw-action-177",
+      "label": "Macaw action image 177",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/102-angry.png",
       "asset_path": "assets/macaw/actions/102-angry.png",
@@ -6523,8 +6512,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-179",
-      "label": "Macaw action image 179",
+      "key": "macaw-action-178",
+      "label": "Macaw action image 178",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/103-furious.png",
       "asset_path": "assets/macaw/actions/103-furious.png",
@@ -6534,8 +6523,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-180",
-      "label": "Macaw action image 180",
+      "key": "macaw-action-179",
+      "label": "Macaw action image 179",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/104-afraid.png",
       "asset_path": "assets/macaw/actions/104-afraid.png",
@@ -6545,8 +6534,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-181",
-      "label": "Macaw action image 181",
+      "key": "macaw-action-180",
+      "label": "Macaw action image 180",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/105-terrified.png",
       "asset_path": "assets/macaw/actions/105-terrified.png",
@@ -6556,8 +6545,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-182",
-      "label": "Macaw action image 182",
+      "key": "macaw-action-181",
+      "label": "Macaw action image 181",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/106-worried.png",
       "asset_path": "assets/macaw/actions/106-worried.png",
@@ -6567,8 +6556,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-183",
-      "label": "Macaw action image 183",
+      "key": "macaw-action-182",
+      "label": "Macaw action image 182",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/107-nervous.png",
       "asset_path": "assets/macaw/actions/107-nervous.png",
@@ -6578,8 +6567,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-184",
-      "label": "Macaw action image 184",
+      "key": "macaw-action-183",
+      "label": "Macaw action image 183",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/108-embarrassed.png",
       "asset_path": "assets/macaw/actions/108-embarrassed.png",
@@ -6589,8 +6578,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-185",
-      "label": "Macaw action image 185",
+      "key": "macaw-action-184",
+      "label": "Macaw action image 184",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/109-ashamed.png",
       "asset_path": "assets/macaw/actions/109-ashamed.png",
@@ -6600,8 +6589,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-186",
-      "label": "Macaw action image 186",
+      "key": "macaw-action-185",
+      "label": "Macaw action image 185",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/110-disgusted.png",
       "asset_path": "assets/macaw/actions/110-disgusted.png",
@@ -6611,8 +6600,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-187",
-      "label": "Macaw action image 187",
+      "key": "macaw-action-186",
+      "label": "Macaw action image 186",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/111-proud.png",
       "asset_path": "assets/macaw/actions/111-proud.png",
@@ -6622,8 +6611,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-188",
-      "label": "Macaw action image 188",
+      "key": "macaw-action-187",
+      "label": "Macaw action image 187",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/112-relieved.png",
       "asset_path": "assets/macaw/actions/112-relieved.png",
@@ -6633,8 +6622,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-189",
-      "label": "Macaw action image 189",
+      "key": "macaw-action-188",
+      "label": "Macaw action image 188",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/113-determined.png",
       "asset_path": "assets/macaw/actions/113-determined.png",
@@ -6644,8 +6633,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-190",
-      "label": "Macaw action image 190",
+      "key": "macaw-action-189",
+      "label": "Macaw action image 189",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/114-suspicious.png",
       "asset_path": "assets/macaw/actions/114-suspicious.png",
@@ -6655,8 +6644,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-191",
-      "label": "Macaw action image 191",
+      "key": "macaw-action-190",
+      "label": "Macaw action image 190",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/115-hungry.png",
       "asset_path": "assets/macaw/actions/115-hungry.png",
@@ -6666,8 +6655,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-192",
-      "label": "Macaw action image 192",
+      "key": "macaw-action-191",
+      "label": "Macaw action image 191",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/116-yawn.png",
       "asset_path": "assets/macaw/actions/116-yawn.png",
@@ -6677,8 +6666,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-193",
-      "label": "Macaw action image 193",
+      "key": "macaw-action-192",
+      "label": "Macaw action image 192",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/117-sick.png",
       "asset_path": "assets/macaw/actions/117-sick.png",
@@ -6688,8 +6677,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-194",
-      "label": "Macaw action image 194",
+      "key": "macaw-action-193",
+      "label": "Macaw action image 193",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/118-faint.png",
       "asset_path": "assets/macaw/actions/118-faint.png",
@@ -6699,8 +6688,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-195",
-      "label": "Macaw action image 195",
+      "key": "macaw-action-194",
+      "label": "Macaw action image 194",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/119-wash_hands.png",
       "asset_path": "assets/macaw/actions/119-wash_hands.png",
@@ -6710,8 +6699,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-196",
-      "label": "Macaw action image 196",
+      "key": "macaw-action-195",
+      "label": "Macaw action image 195",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/120-comb_feathers.png",
       "asset_path": "assets/macaw/actions/120-comb_feathers.png",
@@ -6721,8 +6710,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-197",
-      "label": "Macaw action image 197",
+      "key": "macaw-action-196",
+      "label": "Macaw action image 196",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/121-put_on_backpack.png",
       "asset_path": "assets/macaw/actions/121-put_on_backpack.png",
@@ -6732,8 +6721,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-198",
-      "label": "Macaw action image 198",
+      "key": "macaw-action-197",
+      "label": "Macaw action image 197",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/122-sleep_in_bed.png",
       "asset_path": "assets/macaw/actions/122-sleep_in_bed.png",
@@ -6743,8 +6732,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-199",
-      "label": "Macaw action image 199",
+      "key": "macaw-action-198",
+      "label": "Macaw action image 198",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/123-mop_floor.png",
       "asset_path": "assets/macaw/actions/123-mop_floor.png",
@@ -6754,8 +6743,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-200",
-      "label": "Macaw action image 200",
+      "key": "macaw-action-199",
+      "label": "Macaw action image 199",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/124-wash_dishes.png",
       "asset_path": "assets/macaw/actions/124-wash_dishes.png",
@@ -6765,8 +6754,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-201",
-      "label": "Macaw action image 201",
+      "key": "macaw-action-200",
+      "label": "Macaw action image 200",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/125-carry_tray.png",
       "asset_path": "assets/macaw/actions/125-carry_tray.png",
@@ -6776,8 +6765,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-202",
-      "label": "Macaw action image 202",
+      "key": "macaw-action-201",
+      "label": "Macaw action image 201",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/126-take_out_trash.png",
       "asset_path": "assets/macaw/actions/126-take_out_trash.png",
@@ -6787,8 +6776,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-203",
-      "label": "Macaw action image 203",
+      "key": "macaw-action-202",
+      "label": "Macaw action image 202",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/127-chop_vegetables.png",
       "asset_path": "assets/macaw/actions/127-chop_vegetables.png",
@@ -6798,8 +6787,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-204",
-      "label": "Macaw action image 204",
+      "key": "macaw-action-203",
+      "label": "Macaw action image 203",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/128-mix_ingredients.png",
       "asset_path": "assets/macaw/actions/128-mix_ingredients.png",
@@ -6809,8 +6798,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-205",
-      "label": "Macaw action image 205",
+      "key": "macaw-action-204",
+      "label": "Macaw action image 204",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/129-knead_dough.png",
       "asset_path": "assets/macaw/actions/129-knead_dough.png",
@@ -6820,8 +6809,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-206",
-      "label": "Macaw action image 206",
+      "key": "macaw-action-205",
+      "label": "Macaw action image 205",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/130-bake_bread.png",
       "asset_path": "assets/macaw/actions/130-bake_bread.png",
@@ -6831,8 +6820,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-207",
-      "label": "Macaw action image 207",
+      "key": "macaw-action-206",
+      "label": "Macaw action image 206",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/131-serve_food.png",
       "asset_path": "assets/macaw/actions/131-serve_food.png",
@@ -6842,8 +6831,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-208",
-      "label": "Macaw action image 208",
+      "key": "macaw-action-207",
+      "label": "Macaw action image 207",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/132-drink_water.png",
       "asset_path": "assets/macaw/actions/132-drink_water.png",
@@ -6853,8 +6842,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-209",
-      "label": "Macaw action image 209",
+      "key": "macaw-action-208",
+      "label": "Macaw action image 208",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/133-chop_wood.png",
       "asset_path": "assets/macaw/actions/133-chop_wood.png",
@@ -6864,8 +6853,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-210",
-      "label": "Macaw action image 210",
+      "key": "macaw-action-209",
+      "label": "Macaw action image 209",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/134-hammer_anvil.png",
       "asset_path": "assets/macaw/actions/134-hammer_anvil.png",
@@ -6875,8 +6864,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-211",
-      "label": "Macaw action image 211",
+      "key": "macaw-action-210",
+      "label": "Macaw action image 210",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/135-make_pottery.png",
       "asset_path": "assets/macaw/actions/135-make_pottery.png",
@@ -6886,8 +6875,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-212",
-      "label": "Macaw action image 212",
+      "key": "macaw-action-211",
+      "label": "Macaw action image 211",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/136-weave_cloth.png",
       "asset_path": "assets/macaw/actions/136-weave_cloth.png",
@@ -6897,8 +6886,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-213",
-      "label": "Macaw action image 213",
+      "key": "macaw-action-212",
+      "label": "Macaw action image 212",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/137-repair_machine.png",
       "asset_path": "assets/macaw/actions/137-repair_machine.png",
@@ -6908,8 +6897,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-214",
-      "label": "Macaw action image 214",
+      "key": "macaw-action-213",
+      "label": "Macaw action image 213",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/138-sow_seeds.png",
       "asset_path": "assets/macaw/actions/138-sow_seeds.png",
@@ -6919,8 +6908,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-215",
-      "label": "Macaw action image 215",
+      "key": "macaw-action-214",
+      "label": "Macaw action image 214",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/139-hoe_soil.png",
       "asset_path": "assets/macaw/actions/139-hoe_soil.png",
@@ -6930,8 +6919,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-216",
-      "label": "Macaw action image 216",
+      "key": "macaw-action-215",
+      "label": "Macaw action image 215",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/140-harvest_crop.png",
       "asset_path": "assets/macaw/actions/140-harvest_crop.png",
@@ -6941,8 +6930,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-217",
-      "label": "Macaw action image 217",
+      "key": "macaw-action-216",
+      "label": "Macaw action image 216",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/141-pick_fruit.png",
       "asset_path": "assets/macaw/actions/141-pick_fruit.png",
@@ -6952,8 +6941,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-218",
-      "label": "Macaw action image 218",
+      "key": "macaw-action-217",
+      "label": "Macaw action image 217",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/142-feed_animal.png",
       "asset_path": "assets/macaw/actions/142-feed_animal.png",
@@ -6963,8 +6952,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-219",
-      "label": "Macaw action image 219",
+      "key": "macaw-action-218",
+      "label": "Macaw action image 218",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/143-plant_tree.png",
       "asset_path": "assets/macaw/actions/143-plant_tree.png",
@@ -6974,8 +6963,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-220",
-      "label": "Macaw action image 220",
+      "key": "macaw-action-219",
+      "label": "Macaw action image 219",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/144-buy_item.png",
       "asset_path": "assets/macaw/actions/144-buy_item.png",
@@ -6985,8 +6974,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-221",
-      "label": "Macaw action image 221",
+      "key": "macaw-action-220",
+      "label": "Macaw action image 220",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/145-sell_item.png",
       "asset_path": "assets/macaw/actions/145-sell_item.png",
@@ -6996,8 +6985,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-222",
-      "label": "Macaw action image 222",
+      "key": "macaw-action-221",
+      "label": "Macaw action image 221",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/146-pay_coins.png",
       "asset_path": "assets/macaw/actions/146-pay_coins.png",
@@ -7007,8 +6996,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-223",
-      "label": "Macaw action image 223",
+      "key": "macaw-action-222",
+      "label": "Macaw action image 222",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/147-deliver_package.png",
       "asset_path": "assets/macaw/actions/147-deliver_package.png",
@@ -7018,8 +7007,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-224",
-      "label": "Macaw action image 224",
+      "key": "macaw-action-223",
+      "label": "Macaw action image 223",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/148-write_letter.png",
       "asset_path": "assets/macaw/actions/148-write_letter.png",
@@ -7029,8 +7018,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-225",
-      "label": "Macaw action image 225",
+      "key": "macaw-action-224",
+      "label": "Macaw action image 224",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/149-sweep_street.png",
       "asset_path": "assets/macaw/actions/149-sweep_street.png",
@@ -7040,8 +7029,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-226",
-      "label": "Macaw action image 226",
+      "key": "macaw-action-225",
+      "label": "Macaw action image 225",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/150-read_aloud.png",
       "asset_path": "assets/macaw/actions/150-read_aloud.png",
@@ -7051,8 +7040,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-227",
-      "label": "Macaw action image 227",
+      "key": "macaw-action-226",
+      "label": "Macaw action image 226",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/151-study_notes.png",
       "asset_path": "assets/macaw/actions/151-study_notes.png",
@@ -7062,8 +7051,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-228",
-      "label": "Macaw action image 228",
+      "key": "macaw-action-227",
+      "label": "Macaw action image 227",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/152-teach_at_board.png",
       "asset_path": "assets/macaw/actions/152-teach_at_board.png",
@@ -7073,8 +7062,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-229",
-      "label": "Macaw action image 229",
+      "key": "macaw-action-228",
+      "label": "Macaw action image 228",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/153-use_compass.png",
       "asset_path": "assets/macaw/actions/153-use_compass.png",
@@ -7084,8 +7073,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-230",
-      "label": "Macaw action image 230",
+      "key": "macaw-action-229",
+      "label": "Macaw action image 229",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/155-follow_map.png",
       "asset_path": "assets/macaw/actions/155-follow_map.png",
@@ -7095,8 +7084,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-231",
-      "label": "Macaw action image 231",
+      "key": "macaw-action-230",
+      "label": "Macaw action image 230",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/156-track_footprints.png",
       "asset_path": "assets/macaw/actions/156-track_footprints.png",
@@ -7106,8 +7095,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-232",
-      "label": "Macaw action image 232",
+      "key": "macaw-action-231",
+      "label": "Macaw action image 231",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/157-climb_rope.png",
       "asset_path": "assets/macaw/actions/157-climb_rope.png",
@@ -7117,8 +7106,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-233",
-      "label": "Macaw action image 233",
+      "key": "macaw-action-232",
+      "label": "Macaw action image 232",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/158-pitch_tent.png",
       "asset_path": "assets/macaw/actions/158-pitch_tent.png",
@@ -7128,8 +7117,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-234",
-      "label": "Macaw action image 234",
+      "key": "macaw-action-233",
+      "label": "Macaw action image 233",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/159-build_campfire.png",
       "asset_path": "assets/macaw/actions/159-build_campfire.png",
@@ -7139,8 +7128,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-235",
-      "label": "Macaw action image 235",
+      "key": "macaw-action-234",
+      "label": "Macaw action image 234",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/160-ride_animal.png",
       "asset_path": "assets/macaw/actions/160-ride_animal.png",
@@ -7150,8 +7139,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-236",
-      "label": "Macaw action image 236",
+      "key": "macaw-action-235",
+      "label": "Macaw action image 235",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/161-limp.png",
       "asset_path": "assets/macaw/actions/161-limp.png",
@@ -7161,8 +7150,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-237",
-      "label": "Macaw action image 237",
+      "key": "macaw-action-236",
+      "label": "Macaw action image 236",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/162-apply_bandage.png",
       "asset_path": "assets/macaw/actions/162-apply_bandage.png",
@@ -7172,8 +7161,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-238",
-      "label": "Macaw action image 238",
+      "key": "macaw-action-237",
+      "label": "Macaw action image 237",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/163-bandage_friend.png",
       "asset_path": "assets/macaw/actions/163-bandage_friend.png",
@@ -7183,8 +7172,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-239",
-      "label": "Macaw action image 239",
+      "key": "macaw-action-238",
+      "label": "Macaw action image 238",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/164-call_for_help.png",
       "asset_path": "assets/macaw/actions/164-call_for_help.png",
@@ -7194,8 +7183,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-240",
-      "label": "Macaw action image 240",
+      "key": "macaw-action-239",
+      "label": "Macaw action image 239",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/165-put_out_fire.png",
       "asset_path": "assets/macaw/actions/165-put_out_fire.png",
@@ -7205,63 +7194,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-241",
-      "label": "Macaw action image 241",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/166-draw_sword.png",
-      "asset_path": "assets/macaw/actions/166-draw_sword.png",
-      "bytes": 869374,
-      "sha256": "b38955e48a3ce263e7a37495128fb6e9e83cf1d0878ad1043bc9871124d3a272",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-242",
-      "label": "Macaw action image 242",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/167-sword_attack.png",
-      "asset_path": "assets/macaw/actions/167-sword_attack.png",
-      "bytes": 914456,
-      "sha256": "8d8e61264ab99fd729b2d3f2c370c58b2fa32e92fbdb16ba35ade9366f3794ad",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-243",
-      "label": "Macaw action image 243",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/168-sword_block.png",
-      "asset_path": "assets/macaw/actions/168-sword_block.png",
-      "bytes": 903200,
-      "sha256": "1cde0f173b5555741dc13578f9acaef3346a51f134b11f910e49475edd369689",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-244",
-      "label": "Macaw action image 244",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/169-bow_and_arrow.png",
-      "asset_path": "assets/macaw/actions/169-bow_and_arrow.png",
-      "bytes": 971275,
-      "sha256": "68c9e9fc3fc47974a6738af601c269762ab1f0b7d9490aee8f42a858ee794d39",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-245",
-      "label": "Macaw action image 245",
-      "artifact_kind": "visual-asset",
-      "url": "/assets/macaw/actions/170-guard_stance.png",
-      "asset_path": "assets/macaw/actions/170-guard_stance.png",
-      "bytes": 993457,
-      "sha256": "062c52feb1804eef3d952485072cf48ef80c692b5c593fdafe05361e6ad325e0",
-      "native_required": true,
-      "browser_required": true
-    },
-    {
-      "key": "macaw-action-246",
-      "label": "Macaw action image 246",
+      "key": "macaw-action-240",
+      "label": "Macaw action image 240",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/171-cast_spell.png",
       "asset_path": "assets/macaw/actions/171-cast_spell.png",
@@ -7271,8 +7205,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-247",
-      "label": "Macaw action image 247",
+      "key": "macaw-action-241",
+      "label": "Macaw action image 241",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/172-healing_magic.png",
       "asset_path": "assets/macaw/actions/172-healing_magic.png",
@@ -7282,8 +7216,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-248",
-      "label": "Macaw action image 248",
+      "key": "macaw-action-242",
+      "label": "Macaw action image 242",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/173-magic_shield.png",
       "asset_path": "assets/macaw/actions/173-magic_shield.png",
@@ -7293,8 +7227,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-249",
-      "label": "Macaw action image 249",
+      "key": "macaw-action-243",
+      "label": "Macaw action image 243",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/174-mix_potion.png",
       "asset_path": "assets/macaw/actions/174-mix_potion.png",
@@ -7304,8 +7238,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-250",
-      "label": "Macaw action image 250",
+      "key": "macaw-action-244",
+      "label": "Macaw action image 244",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/175-open_magic_portal.png",
       "asset_path": "assets/macaw/actions/175-open_magic_portal.png",
@@ -7315,8 +7249,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-251",
-      "label": "Macaw action image 251",
+      "key": "macaw-action-245",
+      "label": "Macaw action image 245",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/176-astronaut_float.png",
       "asset_path": "assets/macaw/actions/176-astronaut_float.png",
@@ -7326,8 +7260,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-252",
-      "label": "Macaw action image 252",
+      "key": "macaw-action-246",
+      "label": "Macaw action image 246",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/177-astronaut_collect_sample.png",
       "asset_path": "assets/macaw/actions/177-astronaut_collect_sample.png",
@@ -7337,8 +7271,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-253",
-      "label": "Macaw action image 253",
+      "key": "macaw-action-247",
+      "label": "Macaw action image 247",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/178-astronaut_operate_console.png",
       "asset_path": "assets/macaw/actions/178-astronaut_operate_console.png",
@@ -7348,8 +7282,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-254",
-      "label": "Macaw action image 254",
+      "key": "macaw-action-248",
+      "label": "Macaw action image 248",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/179-astronaut_pilot_ship.png",
       "asset_path": "assets/macaw/actions/179-astronaut_pilot_ship.png",
@@ -7359,8 +7293,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-255",
-      "label": "Macaw action image 255",
+      "key": "macaw-action-249",
+      "label": "Macaw action image 249",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/180-hear_listen.png",
       "asset_path": "assets/macaw/actions/180-hear_listen.png",
@@ -7370,8 +7304,8 @@
       "browser_required": true
     },
     {
-      "key": "macaw-action-256",
-      "label": "Macaw action image 256",
+      "key": "macaw-action-250",
+      "label": "Macaw action image 250",
       "artifact_kind": "visual-asset",
       "url": "/assets/macaw/actions/181-see_look.png",
       "asset_path": "assets/macaw/actions/181-see_look.png",

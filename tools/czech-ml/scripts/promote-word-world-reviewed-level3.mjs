@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
+import { inspectLearnerFields } from "./learner-content-safety-lib.mjs";
 import {
   readJson,
   readJsonl,
@@ -8,7 +9,7 @@ import {
   writeJson,
   writeJsonl,
 } from "./word-world-standard-lib.mjs";
-import { fromRoot } from "./paths.mjs";
+import { caatuuRoot, fromRoot } from "./paths.mjs";
 
 const batchId = "codex-level3-0001";
 const reviewedOn = "2026-07-22";
@@ -80,6 +81,7 @@ assertEqual(heldIds.length, 28, "held record count");
 assertJsonEqual(promotedIds, audit.aggregates.passRowIds, "promoted IDs and audited pass IDs");
 assertJsonEqual(heldIds, audit.aggregates.failedRowIds, "held IDs and audited failed IDs");
 assertEqual(promotedRows.filter((record) => record.difficulty === 3).length, 52, "promoted Level 3 count");
+assertPromotedLearnerContentSafe(promotedRows);
 
 await writeJsonl(outputFile, promotedRows);
 const outputBytes = await fs.readFile(outputFile);
@@ -196,6 +198,33 @@ function promoteRecord(record) {
       ],
     },
   };
+}
+
+function assertPromotedLearnerContentSafe(records) {
+  const file = path.relative(caatuuRoot, candidateFile).replaceAll("\\", "/");
+  const fields = records.flatMap((record) => authoringSafetyFields(record, file));
+  const findings = inspectLearnerFields(fields);
+  if (!findings.length) return;
+  const details = findings.map((finding) => (
+    `${finding.severity} ${finding.ruleId} ${finding.contentId}${finding.field}: ${JSON.stringify(finding.text)} (${finding.message})`
+  ));
+  throw new Error(`Word World promotion stopped by learner-content safety gate (${findings.length} finding(s)):\n${details.join("\n")}`);
+}
+
+function authoringSafetyFields(record, file) {
+  const alternates = record.languages?.en?.alternates;
+  if (!Array.isArray(alternates)) throw new Error(`${record.id}/languages/en/alternates: expected an array`);
+  return [
+    safetyField(record, file, "/languages/en/text", "en", record.languages?.en?.text),
+    ...alternates.map((text, index) => safetyField(record, file, `/languages/en/alternates/${index}`, "en", text)),
+    safetyField(record, file, "/languages/cs/text", "cs", record.languages?.cs?.text),
+    safetyField(record, file, "/scene/query", "en", record.scene?.query),
+  ];
+}
+
+function safetyField(record, file, field, locale, text) {
+  if (typeof text !== "string") throw new Error(`${record.id}${field}: expected text`);
+  return { file, contentId: record.id, field, locale, text };
 }
 
 function assertEqual(actual, expected, label) {

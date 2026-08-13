@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -30,7 +30,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     launcherStaticDir,
     outputDir
   });
-  assert.equal(result.fileCount, 85);
+  assert.equal(result.fileCount, 86);
   assert.ok(result.totalBytes > 1_000_000);
   assert.deepEqual(
     validateProductAssets({ outputDir, languageStaticDir }),
@@ -51,6 +51,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "source/games/conjugation-comet/conjugation-comet.js",
     "data/games/conjugation-comet/verbs.json"
   ];
+  assert.ok(STORE_LANGUAGE_FILES.includes("source/shared/child-facing-assets.mjs"));
+  assert.ok(result.files.includes("source/shared/child-facing-assets.mjs"));
   for (const path of includedConjugationFiles) {
     assert.ok(STORE_LANGUAGE_FILES.includes(path), `product allowlist must include ${path}`);
     assert.ok(result.files.includes(path), `compiled product surface must include ${path}`);
@@ -100,6 +102,24 @@ test("product transforms fail closed when an expected development anchor drifts"
   assert.throws(
     () => transformWordNetJs(wordWorld.replace("const PREPARED_QUEUE_CAPACITY = 512;", "const PREPARED_QUEUE_CAPACITY = 513;")),
     /Word World prepared queue constants: expected 1 exact source anchor/
+  );
+});
+
+test("product validation rejects unsafe learner text after compilation", (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-product-safety-test-"));
+  const outputDir = join(parent, "product");
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
+  compileProductAssets({ workspaceRoot, languageStaticDir, launcherStaticDir, outputDir });
+
+  const runtimeFile = join(outputDir, "data/games/word-world/standard-v0.1/records.json");
+  const runtime = JSON.parse(readFileSync(runtimeFile, "utf8"));
+  runtime.records[0].en = "I have two balls.";
+  runtime.records[0].sceneQuery = "I have two balls";
+  writeFileSync(runtimeFile, `${JSON.stringify(runtime)}\n`, "utf8");
+
+  assert.throws(
+    () => validateProductAssets({ outputDir, languageStaticDir }),
+    /unresolved deterministic safety findings[\s\S]*ambiguous-first-person-balls/i
   );
 });
 

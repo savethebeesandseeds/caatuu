@@ -409,13 +409,6 @@
   },
   "/assets/macaw/actions/macaw%20(35).png": {
     "description": "A space wizard macaw holds a glowing blue sword among small planets and stars.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-035",
-      "chunk_id": "asset-macaw-action-035:description"
-    },
     "category": "macaw_action",
     "action": "space_sword"
   },
@@ -2881,61 +2874,26 @@
   },
   "/assets/macaw/actions/166-draw_sword.png": {
     "description": "The macaw pulls a sword from its sheath and brings it into a ready position before combat.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-241",
-      "chunk_id": "asset-macaw-action-241:description"
-    },
     "category": "macaw_action",
     "action": "draw_sword"
   },
   "/assets/macaw/actions/167-sword_attack.png": {
     "description": "The macaw steps forward and swings a sword in a committed offensive strike.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-242",
-      "chunk_id": "asset-macaw-action-242:description"
-    },
     "category": "macaw_action",
     "action": "sword_attack"
   },
   "/assets/macaw/actions/168-sword_block.png": {
     "description": "The macaw raises a sword across the body to intercept and block an incoming attack.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-243",
-      "chunk_id": "asset-macaw-action-243:description"
-    },
     "category": "macaw_action",
     "action": "sword_block"
   },
   "/assets/macaw/actions/169-bow_and_arrow.png": {
     "description": "The macaw aims a drawn bow with an arrow nocked, focusing on a distant target.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-244",
-      "chunk_id": "asset-macaw-action-244:description"
-    },
     "category": "macaw_action",
     "action": "bow_and_arrow"
   },
   "/assets/macaw/actions/170-guard_stance.png": {
     "description": "The macaw holds a defensive combat stance with weapon ready, watching for danger while guarding an area.",
-    "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
-      "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-245",
-      "chunk_id": "asset-macaw-action-245:description"
-    },
     "category": "macaw_action",
     "action": "guard_stance"
   },

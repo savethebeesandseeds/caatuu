@@ -277,7 +277,7 @@
     "en": "from where",
     "kind": "question",
     "cue": "origin",
-    "use": "Odkud jste?"
+    "use": "Odkud jede vlak?"
   },
   {
     "cat": "Questions + glue",
@@ -669,7 +669,7 @@
     "en": "your formal",
     "kind": "possessive",
     "cue": "owner",
-    "use": "Je to váš pas?"
+    "use": "Je to váš batoh?"
   },
   {
     "cat": "People + family",
@@ -729,19 +729,19 @@
   },
   {
     "cat": "People + family",
-    "cs": "přítel",
-    "en": "boyfriend / friend",
+    "cs": "spolužák",
+    "en": "classmate",
     "kind": "N m.an",
-    "cue": "A:přítele",
-    "use": "To je můj přítel."
+    "cue": "A:spolužáka",
+    "use": "To je můj spolužák."
   },
   {
     "cat": "People + family",
-    "cs": "přítelkyně",
-    "en": "girlfriend / friend",
+    "cs": "spolužačka",
+    "en": "classmate",
     "kind": "N f>růže",
-    "cue": "A:přítelkyni",
-    "use": "To je moje přítelkyně."
+    "cue": "A:spolužačku",
+    "use": "To je moje spolužačka."
   },
   {
     "cat": "People + family",
@@ -994,7 +994,7 @@
     "kind": "V ipf→pf",
     "difficulty": 1,
     "cue": "dám; dal/a jsem + A",
-    "use": "Dám vám kartu."
+    "use": "Dám vám mapu."
   },
   {
     "cat": "Core verbs",
@@ -1111,7 +1111,7 @@
     "kind": "V ipf→pf",
     "difficulty": 2,
     "cue": "zapomenu + A",
-    "use": "Zapomněl jsem heslo."
+    "use": "Zapomněl jsem jízdenku."
   },
   {
     "cat": "Core verbs",
@@ -1543,7 +1543,7 @@
     "kind": "V ipf→pf",
     "difficulty": 2,
     "cue": "ukážu + A",
-    "use": "Ukážu vám pas."
+    "use": "Ukážu vám jízdenku."
   },
   {
     "cat": "Talk + messages",
@@ -1651,7 +1651,7 @@
     "kind": "V ipf→pf",
     "difficulty": 3,
     "cue": "nadiktuji + A",
-    "use": "Nadiktuji číslo."
+    "use": "Nadiktuji číslo stránky."
   },
   {
     "cat": "Talk + messages",
@@ -2277,19 +2277,19 @@
   },
   {
     "cat": "Food + drink",
-    "cs": "pivo",
-    "en": "beer",
-    "kind": "N n>město",
-    "cue": "A:pivo",
-    "use": "Jedno pivo, prosím."
+    "cs": "kakao",
+    "en": "cocoa",
+    "kind": "N indecl.",
+    "cue": "A:kakao",
+    "use": "Kakao, prosím."
   },
   {
     "cat": "Food + drink",
-    "cs": "víno",
-    "en": "wine",
-    "kind": "N n>město",
-    "cue": "A:víno",
-    "use": "Víno, prosím."
+    "cs": "čokoláda",
+    "en": "chocolate",
+    "kind": "N f>žena",
+    "cue": "A:čokoládu",
+    "use": "Horkou čokoládu, prosím."
   },
   {
     "cat": "Food + drink",
@@ -2993,7 +2993,7 @@
     "en": "one",
     "kind": "num",
     "cue": "gender changes",
-    "use": "Jedno pivo, prosím."
+    "use": "Jedno kakao, prosím."
   },
   {
     "cat": "Money + numbers",
@@ -3445,11 +3445,11 @@
   },
   {
     "cat": "Places + city",
-    "cs": "bar",
-    "en": "bar",
-    "kind": "N m.in>hrad",
-    "cue": "v+L:baru",
-    "use": "Jsem v baru."
+    "cs": "cukrárna",
+    "en": "sweet shop / ice cream shop",
+    "kind": "N f>žena",
+    "cue": "v+L:cukrárně",
+    "use": "Jsem v cukrárně."
   },
   {
     "cat": "Places + city",
@@ -4001,15 +4001,15 @@
     "en": "heart",
     "kind": "N n>moře",
     "cue": "A:srdce",
-    "use": "Bolí mě srdce."
+    "use": "Lékař poslouchá srdce."
   },
   {
     "cat": "Health + body",
-    "cs": "krev",
-    "en": "blood",
-    "kind": "N f>píseň",
-    "cue": "A:krev",
-    "use": "Vidím krev."
+    "cs": "lékárnička",
+    "en": "first-aid kit",
+    "kind": "N f>žena",
+    "cue": "A:lékárničku",
+    "use": "Lékárnička je ve třídě."
   },
   {
     "cat": "Health + body",
@@ -4093,11 +4093,11 @@
   },
   {
     "cat": "Health + body",
-    "cs": "zranění",
-    "en": "injury",
-    "kind": "N n>stavení",
-    "cue": "A:zranění",
-    "use": "Mám zranění."
+    "cs": "péče",
+    "en": "care",
+    "kind": "N f>růže",
+    "cue": "A:péči",
+    "use": "Dobrá péče pomáhá."
   },
   {
     "cat": "Health + body",
@@ -4133,19 +4133,19 @@
   },
   {
     "cat": "Health + body",
-    "cs": "průjem",
-    "en": "diarrhea",
-    "kind": "N m.in>hrad",
-    "cue": "mít průjem",
-    "use": "Mám průjem."
+    "cs": "kýchání",
+    "en": "sneezing",
+    "kind": "N n>stavení",
+    "cue": "při kýchání",
+    "use": "Při kýchání si zakryji ústa."
   },
   {
     "cat": "Health + body",
-    "cs": "zvracení",
-    "en": "vomiting",
-    "kind": "N n>stavení",
-    "cue": "zvracím",
-    "use": "Zvracím."
+    "cs": "únava",
+    "en": "tiredness",
+    "kind": "N f>žena",
+    "cue": "mít únavu",
+    "use": "Při únavě odpočívám."
   },
   {
     "cat": "Health + body",
@@ -4157,19 +4157,19 @@
   },
   {
     "cat": "Health + body",
-    "cs": "rána",
-    "en": "wound",
-    "kind": "N f>žena",
-    "cue": "A:ránu",
-    "use": "Mám ránu na ruce."
+    "cs": "náplast",
+    "en": "adhesive bandage",
+    "kind": "N f>kost",
+    "cue": "A:náplast",
+    "use": "Potřebuji náplast."
   },
   {
     "cat": "Health + body",
-    "cs": "zlomenina",
-    "en": "fracture",
-    "kind": "N f>žena",
-    "cue": "A:zlomeninu",
-    "use": "Mám zlomeninu."
+    "cs": "odpočinek",
+    "en": "rest",
+    "kind": "N m.in>hrad",
+    "cue": "A:odpočinek",
+    "use": "Potřebuji odpočinek."
   },
   {
     "cat": "Health + body",
@@ -4205,11 +4205,11 @@
   },
   {
     "cat": "Health + body",
-    "cs": "tlak",
-    "en": "blood pressure / pressure",
+    "cs": "teploměr",
+    "en": "thermometer",
     "kind": "N m.in>hrad",
-    "cue": "mít tlak",
-    "use": "Mám vysoký tlak."
+    "cue": "A:teploměr",
+    "use": "Teploměr ukazuje teplotu."
   },
   {
     "cat": "Health + body",
@@ -4265,7 +4265,7 @@
     "en": "address",
     "kind": "N f>žena",
     "cue": "A:adresu",
-    "use": "Mám adresu."
+    "use": "Adresu nesdílím online."
   },
   {
     "cat": "Admin + documents",
@@ -4273,7 +4273,7 @@
     "en": "first name / name",
     "kind": "N n>město",
     "cue": "A:jméno",
-    "use": "Jaké je vaše jméno?"
+    "use": "Znám jméno postavy."
   },
   {
     "cat": "Admin + documents",
@@ -4281,7 +4281,7 @@
     "en": "surname",
     "kind": "N n>stavení",
     "cue": "A:příjmení",
-    "use": "Jaké je příjmení?"
+    "use": "Čtu příjmení postavy."
   },
   {
     "cat": "Admin + documents",
@@ -4289,7 +4289,7 @@
     "en": "signature",
     "kind": "N m.in>hrad",
     "cue": "A:podpis",
-    "use": "Potřebuji podpis."
+    "use": "Nekopíruji cizí podpis."
   },
   {
     "cat": "Admin + documents",
@@ -4305,7 +4305,7 @@
     "en": "date of birth",
     "kind": "phrase",
     "cue": "official",
-    "use": "Datum narození."
+    "use": "Datum narození je soukromý údaj."
   },
   {
     "cat": "Admin + documents",
@@ -4313,7 +4313,7 @@
     "en": "nationality",
     "kind": "N f>kost",
     "cue": "A:národnost",
-    "use": "Jaká je národnost?"
+    "use": "Každá národnost si zaslouží respekt."
   },
   {
     "cat": "Admin + documents",
@@ -4353,7 +4353,7 @@
     "en": "birth number",
     "kind": "N n>město",
     "cue": "A:číslo",
-    "use": "Nemám rodné číslo."
+    "use": "Rodné číslo nesdílím online."
   },
   {
     "cat": "Admin + documents",
@@ -4361,7 +4361,7 @@
     "en": "phone number",
     "kind": "N n>město",
     "cue": "A:číslo",
-    "use": "Napište telefonní číslo."
+    "use": "Telefonní číslo nesdílím online."
   },
   {
     "cat": "Admin + documents",
@@ -4369,7 +4369,7 @@
     "en": "email address",
     "kind": "N f>žena",
     "cue": "A:adresu",
-    "use": "Potřebuji e-mailovou adresu."
+    "use": "E-mailovou adresu nesdílím online."
   },
   {
     "cat": "Admin + documents",
@@ -4377,7 +4377,7 @@
     "en": "driver's license",
     "kind": "N m.in>hrad",
     "cue": "A:průkaz",
-    "use": "Máte řidičský průkaz?"
+    "use": "Řidičský průkaz patří dospělému."
   },
   {
     "cat": "Admin + documents",
@@ -4513,7 +4513,7 @@
     "en": "password",
     "kind": "N n>město",
     "cue": "A:heslo",
-    "use": "Jaké je heslo?"
+    "use": "Heslo nikomu neříkám."
   },
   {
     "cat": "Phone + internet",
@@ -4537,7 +4537,7 @@
     "en": "photo",
     "kind": "N f>žena",
     "cue": "A:fotku",
-    "use": "Pošlu fotku."
+    "use": "Fotku neposílám cizím lidem."
   },
   {
     "cat": "Phone + internet",
@@ -5613,19 +5613,19 @@
   },
   {
     "cat": "Clothes + personal",
-    "cs": "spodní prádlo",
-    "en": "underwear",
-    "kind": "N n>město",
-    "cue": "A:spodní prádlo",
-    "use": "Potřebuji spodní prádlo."
+    "cs": "holínky",
+    "en": "rain boots",
+    "kind": "N pl",
+    "cue": "A:holínky",
+    "use": "Potřebuji holínky."
   },
   {
     "cat": "Clothes + personal",
-    "cs": "podprsenka",
-    "en": "bra",
-    "kind": "N f>žena",
-    "cue": "A:podprsenku",
-    "use": "Koupím podprsenku."
+    "cs": "tenisky",
+    "en": "sneakers",
+    "kind": "N pl",
+    "cue": "A:tenisky",
+    "use": "Koupím tenisky."
   },
   {
     "cat": "Clothes + personal",
@@ -5733,11 +5733,11 @@
   },
   {
     "cat": "Clothes + personal",
-    "cs": "holicí strojek",
-    "en": "razor / shaver",
+    "cs": "opalovací krém",
+    "en": "sunscreen",
     "kind": "N m.in>hrad",
-    "cue": "A:holicí strojek",
-    "use": "Potřebuji holicí strojek."
+    "cue": "A:opalovací krém",
+    "use": "Potřebuji opalovací krém."
   },
   {
     "cat": "Weather + nature",
@@ -6259,9 +6259,9 @@
   {
     "cat": "Basics",
     "cs": "na zdraví",
-    "en": "cheers / bless you",
+    "en": "bless you",
     "kind": "phrase",
-    "cue": "toast/reply",
+    "cue": "reply to a sneeze",
     "use": "Na zdraví."
   },
   {
@@ -6362,11 +6362,11 @@
   },
   {
     "cat": "People + family",
-    "cs": "partner / partnerka",
-    "en": "partner",
+    "cs": "spoluhráč / spoluhráčka",
+    "en": "teammate",
     "kind": "N person",
-    "cue": "s+I:partnerem",
-    "use": "Jsem tu s partnerkou."
+    "cue": "s+I:spoluhráčem",
+    "use": "Jsem tu se spoluhráčkou."
   },
   {
     "cat": "People + family",
@@ -6631,7 +6631,7 @@
     "en": "PIN code",
     "kind": "N m.in",
     "cue": "A:PIN",
-    "use": "Zadám PIN."
+    "use": "PIN nikomu neříkám."
   },
   {
     "cat": "Money + numbers",
@@ -6755,11 +6755,11 @@
   },
   {
     "cat": "Health + body",
-    "cs": "nehoda",
-    "en": "accident",
-    "kind": "N f>žena",
-    "cue": "byla nehoda",
-    "use": "Byla nehoda."
+    "cs": "bezpečnost",
+    "en": "safety",
+    "kind": "N f>kost",
+    "cue": "A:bezpečnost",
+    "use": "Bezpečnost je důležitá."
   },
   {
     "cat": "Health + body",
@@ -6799,7 +6799,7 @@
     "en": "place of residence",
     "kind": "N n>moře",
     "cue": "A:bydliště",
-    "use": "Jaké je vaše bydliště?"
+    "use": "Bydliště nesdílím online."
   },
   {
     "cat": "Admin + documents",
@@ -6807,7 +6807,7 @@
     "en": "permanent residence",
     "kind": "N m.in>hrad",
     "cue": "A:pobyt",
-    "use": "Mám trvalý pobyt."
+    "use": "Trvalý pobyt je soukromý údaj."
   },
   {
     "cat": "Admin + documents",
@@ -6864,7 +6864,7 @@
     "kind": "V ipf→pf",
     "difficulty": 3,
     "cue": "nasdílím + A",
-    "use": "Nasdílím polohu."
+    "use": "Nesdílím polohu s cizími lidmi."
   },
   {
     "cat": "Describing things",

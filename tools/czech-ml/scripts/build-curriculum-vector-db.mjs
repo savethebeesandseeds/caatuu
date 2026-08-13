@@ -4,6 +4,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { appDataRoot, caatuuRoot, fromRoot, mlRoot } from "./paths.mjs";
+import {
+  CHILD_FACING_EXCLUDED_MACAW_ACTIONS,
+  CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS,
+  isChildFacingMacawActionAssetAllowed,
+  normalizeMacawActionAssetPath,
+} from "../../../apps/languages/czech/static/source/shared/child-facing-assets.mjs";
 
 const MODEL_ID = "all-minilm-l6-v2-qint8-v0.1";
 const LEGACY_HASH_MODEL_ID = "caatuu-local-hash-v0.1";
@@ -85,7 +91,7 @@ function argValue(name, fallback) {
   return idx >= 0 && process.argv[idx + 1] ? process.argv[idx + 1] : fallback;
 }
 
-const datasetDir = path.resolve(argValue("--dataset-dir", fromRoot("data", "curriculum", "core-v0.1")));
+const datasetDir = path.resolve(argValue("--dataset-dir", fromRoot("data", "curriculum", "core-v0.2")));
 const inputFile = path.resolve(argValue("--input-file", path.join(datasetDir, "curated", "curriculum-core.en.jsonl")));
 const schemaFile = path.resolve(argValue("--schema-file", path.join(mlRoot, "vector-schema.sql")));
 const outDir = path.resolve(argValue("--out-dir", path.join(appDataRoot, "embeddings", MODEL_ID)));
@@ -122,6 +128,16 @@ const macawActionKeymapsFile = path.resolve(
     "--macaw-action-keymap-file",
     path.join(caatuuRoot, "apps", "launcher", "static", "assets", "macaw", "actions", "keymaps.json"),
   ),
+);
+const childFacingAssetPolicyFile = path.join(
+  caatuuRoot,
+  "apps",
+  "languages",
+  "czech",
+  "static",
+  "source",
+  "shared",
+  "child-facing-assets.mjs",
 );
 const setupAssetsFile = path.resolve(
   argValue("--setup-assets-file", path.join(caatuuRoot, "apps", "languages", "czech", "static", "setup-assets.json")),
@@ -191,7 +207,8 @@ const setupAssetGroups = {
 
 const rows = await readJsonl(inputFile);
 assertRows(rows);
-const assetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
+const allAssetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
+const { assetRows, excludedAssetRows } = partitionChildFacingAssetRows(allAssetRows);
 
 const runtimeArtifacts = await prepareSemanticRuntime();
 const embedder = await createSemanticEmbedder();
@@ -219,10 +236,17 @@ const embeddedAssetRows = assetRows.map((row, index) => ({
 
 await fs.mkdir(outDir, { recursive: true });
 await buildDatabase(SQL, schemaSql, embeddedRows, embeddedAssetRows, outFile);
-const manifest = await writeManifest(rows, embeddedAssetRows, outFile, manifestFile, runtimeArtifacts);
+const manifest = await writeManifest(
+  rows,
+  embeddedAssetRows,
+  excludedAssetRows,
+  outFile,
+  manifestFile,
+  runtimeArtifacts,
+);
 await writeEmbeddingCatalog(manifest, embeddingCatalogFile);
 await updateBrowserVectorDbUrl(browserVectorDbFile, manifest.sha256);
-await updateAssetKeymapReferences(assetRows);
+await updateAssetKeymapReferences(allAssetRows, excludedAssetRows);
 const setup_assets_file = await updateSetupAssetsManifest(setupAssetsFile, {
   "browser-vector-db-js": browserVectorDbFile,
   "embedding-catalog": embeddingCatalogFile,
@@ -237,6 +261,8 @@ console.log(JSON.stringify({
   rows: rows.length,
   asset_rows: embeddedAssetRows.length,
   asset_counts: countAssetGroups(embeddedAssetRows),
+  excluded_asset_rows: excludedAssetRows.length,
+  child_facing_asset_policy: path.relative(caatuuRoot, childFacingAssetPolicyFile).replaceAll("\\", "/"),
   model_id: MODEL_ID,
   model_source: MODEL_SOURCE_ID,
   model_revision: MODEL_REVISION,
@@ -555,7 +581,39 @@ async function readAssetKeymap(spec) {
   return rows;
 }
 
-async function updateAssetKeymapReferences(assetRows) {
+function partitionChildFacingAssetRows(rows) {
+  const excludedAssetRows = rows.filter((row) => (
+    row.sourceKind === "macaw_action_asset"
+      && !isChildFacingMacawActionAssetAllowed(row.assetPath, row.action)
+  ));
+  const excludedPaths = new Set(excludedAssetRows.map((row) => normalizeMacawActionAssetPath(row.assetPath)));
+  const excludedActions = new Set(excludedAssetRows.map((row) => row.action));
+
+  for (const assetPath of CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS) {
+    if (!excludedPaths.has(normalizeMacawActionAssetPath(assetPath))) {
+      throw new Error(`Child-facing asset policy path is missing from the Macaw keymap: ${assetPath}`);
+    }
+  }
+  for (const action of CHILD_FACING_EXCLUDED_MACAW_ACTIONS) {
+    if (!excludedActions.has(action)) {
+      throw new Error(`Child-facing asset policy action is missing from the Macaw keymap: ${action}`);
+    }
+  }
+  if (excludedAssetRows.length !== CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS.length) {
+    throw new Error(
+      `Child-facing asset policy expected ${CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS.length} excluded assets, found ${excludedAssetRows.length}`,
+    );
+  }
+
+  const excludedKeys = new Set(excludedAssetRows.map((row) => `${row.sourceKeymapFile}\u0000${row.assetPath}`));
+  return {
+    assetRows: rows.filter((row) => !excludedKeys.has(`${row.sourceKeymapFile}\u0000${row.assetPath}`)),
+    excludedAssetRows,
+  };
+}
+
+async function updateAssetKeymapReferences(assetRows, excludedAssetRows = []) {
+  const excludedKeys = new Set(excludedAssetRows.map((row) => `${row.sourceKeymapFile}\u0000${row.assetPath}`));
   const rowsByFile = new Map();
   for (const row of assetRows) {
     if (!rowsByFile.has(row.sourceKeymapFile)) rowsByFile.set(row.sourceKeymapFile, []);
@@ -568,6 +626,13 @@ async function updateAssetKeymapReferences(assetRows) {
     for (const row of rowsForFile) {
       const entry = keymap[row.assetPath];
       if (!entry) throw new Error(`${file}: missing asset entry ${row.assetPath}`);
+      if (excludedKeys.has(`${file}\u0000${row.assetPath}`)) {
+        if (Object.hasOwn(entry, "embedding")) {
+          delete entry.embedding;
+          changed = true;
+        }
+        continue;
+      }
       const previous = entry.embedding && typeof entry.embedding === "object" ? entry.embedding : {};
       const embedding = {
         ...previous,
@@ -827,7 +892,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   await fs.writeFile(file, Buffer.from(bytes));
 }
 
-async function writeManifest(rows, assetItems, dbFile, file, runtimeArtifacts) {
+async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, runtimeArtifacts) {
   const [stat, sha256] = await Promise.all([fs.stat(dbFile), sha256File(dbFile)]);
   const qualityCounts = countFields(rows);
   const totalRows = rows.length + assetItems.length;
@@ -874,6 +939,12 @@ async function writeManifest(rows, assetItems, dbFile, file, runtimeArtifacts) {
     curriculum_count: rows.length,
     asset_count: assetItems.length,
     asset_counts: assetCounts,
+    child_facing_asset_policy: {
+      file: path.relative(caatuuRoot, childFacingAssetPolicyFile).replaceAll("\\", "/"),
+      excluded_asset_count: excludedAssetRows.length,
+      excluded_macaw_actions: [...CHILD_FACING_EXCLUDED_MACAW_ACTIONS],
+      excluded_macaw_asset_paths: [...CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS],
+    },
     generated_at: new Date().toISOString(),
     generated_from: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
     generated_asset_keymap: assetCounts.miscellaneous
@@ -938,6 +1009,7 @@ async function writeEmbeddingCatalog(manifest, file) {
           "Semantic English retrieval uses the pinned quantized all-MiniLM-L6-v2 ONNX artifact.",
           "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
           "Image asset vectors are computed only from manually written English descriptions.",
+          "Macaw action assets excluded by the central child-facing asset policy are not indexed.",
           "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
           "The legacy local hash database remains versioned separately for rollback and comparison.",
         ],

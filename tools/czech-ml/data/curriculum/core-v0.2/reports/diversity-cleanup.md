@@ -1,7 +1,5 @@
 # Curriculum Diversity Cleanup
 
-Generated: 2026-07-05T18:31:05.436Z
-
 Changed rows: 200
 Exact duplicate texts after cleanup: 0
 
@@ -10,7 +8,17 @@ Exact duplicate texts after cleanup: 0
 - Keep row IDs stable.
 - Rewrite only one side of high-confidence near-duplicate pairs.
 - Prefer grammar/scene changes over tiny synonym changes.
+- Apply the reviewed child-safety correction manifest after deterministic diversity rewrites.
+- Preserve previously curated Czech text only when the stable ID and English source text both match.
 - Keep notes blank.
+
+## Child-safety Editorial Corrections
+
+Corrections applied: 56
+
+Correction IDs: cc-000009, cc-000020, cc-000025, cc-000152, cc-000173, cc-000222, cc-000274, cc-000293, cc-000309, cc-000363, cc-000376, cc-000377, cc-000397, cc-000399, cc-000400, cc-000427, cc-000435, cc-000466, cc-000467, cc-000475, cc-000514, cc-000525, cc-000568, cc-000662, cc-000676, cc-000748, cc-001039, cc-001230, cc-001341, cc-001646, cc-001941, cc-002675, cc-002912, cc-002928, cc-003067, cc-003410, cc-003537, cc-003566, cc-003626, cc-003767, cc-003857, cc-003915, cc-004187, cc-004271, cc-004278, cc-004292, cc-004535, cc-004575, cc-004625, cc-004631, cc-004862, cc-004930, cc-004931, cc-004951, cc-004972, cc-004973
+
+Full before/after values: data/curriculum/core-v0.2/editorial/child-safety-corrections.json
 
 ## Common Openings After Cleanup
 
@@ -19,19 +27,19 @@ Exact duplicate texts after cleanup: 0
 - please show me: 57
 - do you like: 55
 - do you want: 55
-- please hold the: 44
+- please hold the: 42
 - please find the: 41
 - please take the: 40
 - please close the: 39
 - please open the: 37
+- a friend puts: 36
 - a child puts: 35
-- a friend puts: 35
 - a friend has: 34
 - a girl has: 33
 - a student has: 33
 - a father has: 30
 - a mother has: 30
-- a teacher puts: 29
+- a teacher puts: 30
 - please put the: 29
 - a boy has: 27
 

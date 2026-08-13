@@ -12,6 +12,10 @@ import {
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import {
+  extractLearnerContent,
+  inspectLearnerFields
+} from "../../../tools/czech-ml/scripts/learner-content-safety-lib.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
@@ -50,6 +54,7 @@ export const STORE_LANGUAGE_FILES = Object.freeze([
   "source/games/word-world/word-net.css",
   "source/games/word-world/word-net.js",
   "source/shared/chrome.css",
+  "source/shared/child-facing-assets.mjs",
   "source/shared/chrome.js",
   "source/shared/course-profile.js",
   "source/shared/feedback-outbox.mjs",
@@ -1309,6 +1314,29 @@ function assertWordWorldBoundary(outputDir) {
   assert.match(readSourceText(join(outputDir, "source/games/word-world/word-net-standard.mjs")), /entry\.contentMode !== "standard"\) return null/);
 }
 
+function assertLearnerContentSafety(outputDir) {
+  const sources = [
+    ["agreement-aurora", "data/games/agreement-aurora/challenges.json"],
+    ["case-cosmos", "data/games/case-cosmos/challenges.json"],
+    ["conjugation-comet", "data/games/conjugation-comet/verbs.json"],
+    ["verb-nebula", "data/games/verb-nebula/core-vocabulary.json"],
+    ["word-world", "data/games/word-world/standard-v0.1/records.json"],
+    ["language-scripts", "data/language/scripts.json"]
+  ];
+  const fields = sources.flatMap(([sourceId, assetPath]) => {
+    const parsed = JSON.parse(readFileSync(join(outputDir, assetPath), "utf8"));
+    return extractLearnerContent(sourceId, parsed, assetPath).fields;
+  });
+  const findings = inspectLearnerFields(fields);
+  assert.equal(
+    findings.length,
+    0,
+    `Product learner content has unresolved deterministic safety findings:\n${findings
+      .map((finding) => `${finding.severity} ${finding.ruleId} ${finding.file}${finding.field}: ${finding.text}`)
+      .join("\n")}`
+  );
+}
+
 function assertServiceWorkerBoundary(outputDir) {
   const source = readSourceText(join(outputDir, "sw.js"));
   assert.doesNotMatch(source, /isModelRuntimeRequest|huggingface|esm\.run|github\.com|chat/i);
@@ -1337,6 +1365,7 @@ export function validateProductAssets({
   assertRuntimeBoundary(resolvedOutput);
   assertSetupBoundary(resolvedOutput, resolve(languageStaticDir));
   assertWordWorldBoundary(resolvedOutput);
+  assertLearnerContentSafety(resolvedOutput);
   assertServiceWorkerBoundary(resolvedOutput);
   assertImportReferences(resolvedOutput, files);
   assertHtmlReferences(resolvedOutput, files);

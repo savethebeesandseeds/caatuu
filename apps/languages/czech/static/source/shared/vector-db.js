@@ -1,4 +1,4 @@
-const defaultDbUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=83bd91a5";
+const defaultDbUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=d30277c5";
 const defaultSqlJsModuleUrl = "../../vendor/sql.js/sql-wasm.js";
 const defaultSqlJsWasmUrl = "../../vendor/sql.js/sql-wasm.wasm";
 const defaultTransformersModuleUrl = "../../vendor/transformers/transformers.min.js";

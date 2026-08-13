@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import path from "node:path";
+import { inspectLearnerFields } from "./learner-content-safety-lib.mjs";
 import {
   normalizeText,
   normalizeSentence,
@@ -33,6 +34,7 @@ const nonPlayable = new Set(policy.nonPlayableCzechTokens.map(normalizeText));
 const rejections = [];
 const accepted = [];
 const appliedOverrides = [];
+const safetyFindings = [];
 
 for (const sourceRow of sourceRows) {
   const exclusion = excluded.get(sourceRow.id);
@@ -47,8 +49,29 @@ for (const sourceRow of sourceRows) {
     rejections.push(rejection(row, "missing_bilingual_text", "Both English and Czech text are required."));
     continue;
   }
+  if (row.child_safe !== true) {
+    safetyFindings.push({
+      sourceId: row.id,
+      field: "/child_safe",
+      ruleId: "source-child-safe-approval-required",
+      severity: "block",
+      text: String(row.child_safe),
+      message: "Source row child_safe must be explicitly true.",
+    });
+    continue;
+  }
+  const rowSafetyFindings = inspectLearnerFields([
+    sourceSafetyField(row, "/english_text", "en", row.english_text),
+    sourceSafetyField(row, "/czech_text", "cs", row.czech_text),
+  ]);
+  if (rowSafetyFindings.length) {
+    safetyFindings.push(...rowSafetyFindings);
+    continue;
+  }
   accepted.push(row);
 }
+
+assertNoSafetyFindings(safetyFindings, "Word World common-phrase import");
 
 const missingOverrides = [...overrides.keys()].filter((id) => !appliedOverrides.some((entry) => entry.override.id === id));
 if (missingOverrides.length) throw new Error(`Blind-review override IDs were not found in source: ${missingOverrides.join(", ")}`);
@@ -290,6 +313,24 @@ function rejection(row, gate, reason) {
     reviewStatus: "rejected",
     humanApproved: false,
   };
+}
+
+function sourceSafetyField(row, field, locale, text) {
+  return {
+    file: path.relative(caatuuRoot, sourceFile).replaceAll("\\", "/"),
+    contentId: row.id,
+    field,
+    locale,
+    text,
+  };
+}
+
+function assertNoSafetyFindings(findings, operation) {
+  if (!findings.length) return;
+  const details = findings.map((finding) => (
+    `${finding.severity} ${finding.ruleId} ${finding.sourceId || finding.contentId}${finding.field}: ${JSON.stringify(finding.text)} (${finding.message})`
+  ));
+  throw new Error(`${operation} stopped by learner-content safety gate (${findings.length} finding(s)):\n${details.join("\n")}`);
 }
 
 function unique(values) {

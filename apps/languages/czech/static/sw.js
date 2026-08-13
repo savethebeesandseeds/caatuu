@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v521";
+const CACHE_NAME = "caatuu-czech-pwa-v523";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const CORE_ASSETS = [
   "./source/shared/runtime.js?v=runtime-39",
   "./source/shared/semantic-learning.js?v=semantic-learning-7",
   "./source/shared/semantic-learning-core.mjs?v=semantic-learning-core-5",
+  "./source/shared/child-facing-assets.mjs?v=child-facing-assets-1",
   "./source/shared/feedback-outbox.mjs?v=feedback-outbox-5",
   "./source/features/dictionary/dictionary-gap-report.mjs?v=dictionary-gap-report-1",
   "./source/features/dictionary/dictionary-patch-core.mjs?v=dictionary-patch-core-1",
@@ -22,7 +23,7 @@ const CORE_ASSETS = [
   "./source/features/setup/setup.js?v=setup-36",
   "./setup-assets.json",
   "./source/shared/maintenance-ui.js?v=maintenance-16",
-  "./source/games/verb-nebula/app.js?v=shell-100",
+  "./source/games/verb-nebula/app.js?v=shell-101",
   "./source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-10",
   "./source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-2",
   "./source/features/dictionary/dictionary-full.js?v=full-dictionary-5",
@@ -34,7 +35,7 @@ const CORE_ASSETS = [
   "./source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
   "./conjugation-comet.html",
   "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
-  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-57",
+  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-58",
   "./case-cosmos.html",
   "./source/games/case-cosmos/case-cosmos.css?v=case-cosmos-1",
   "./source/games/case-cosmos/case-cosmos.js?v=case-cosmos-5",
@@ -48,7 +49,7 @@ const CORE_ASSETS = [
   "./source/features/chat/chat.js?v=chat-29",
   "./embedding-images.html",
   "./source/features/embedding-images/embedding-images.css?v=embedding-images-8",
-  "./source/features/embedding-images/embedding-images.js?v=embedding-images-1",
+  "./source/features/embedding-images/embedding-images.js?v=embedding-images-2",
   "./audio-lab.html",
   "./source/features/audio-lab/audio-lab.css?v=audio-lab-2",
   "./source/features/audio-lab/audio-lab.js?v=audio-lab-1",
@@ -102,10 +103,10 @@ const CORE_ASSETS = [
   "./data/games/verb-nebula/core-vocabulary.json",
   "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4",
   "./data/games/case-cosmos/challenges.json?v=case-cosmos-data-5",
-  "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-2",
+  "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3",
   "./data/language/scripts.json",
   "./data/games/word-world/manifest.json",
-  "./data/games/word-world/standard-v0.1/records.json?v=ff51a0728664b6d7"
+  "./data/games/word-world/standard-v0.1/records.json?v=657e502666ae7aee"
 ];
 
 self.addEventListener("install", (event) => {

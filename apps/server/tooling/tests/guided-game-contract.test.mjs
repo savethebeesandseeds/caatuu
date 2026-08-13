@@ -3,14 +3,15 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../languages/czech/static/", import.meta.url);
-const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldHtml, verbs] = await Promise.all([
+const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldHtml, verbs, scripts] = await Promise.all([
   readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
   readFile(new URL("index.html", staticRoot), "utf8"),
   readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("data/language/scripts.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
 function functionSource(source, name, nextName) {
@@ -35,6 +36,22 @@ test("Verb Nebula remains the ordinary meaning-match game", () => {
   assert.match(app, /CaatuuLearning\?\.record\("verb-nebula"/);
   assert.match(app, /function recordVerbSemanticAttempt/);
   assert.doesNotMatch(indexHtml, /id="verbMorphologyBoard"/);
+});
+
+test("shared practice scripts model child-safe privacy behavior", () => {
+  assert.deepEqual(scripts[3].lines[1], {
+    cs: "Tady je potvrzení rezervace.",
+    en: "Here is the booking confirmation."
+  });
+  assert.deepEqual(scripts[5].lines[2], {
+    cs: "Tady je vyplněný formulář.",
+    en: "Here is the completed form."
+  });
+  assert.deepEqual(scripts[6].lines[1], {
+    cs: "Jak se připojím?",
+    en: "How do I connect?"
+  });
+  assert.doesNotMatch(JSON.stringify(scripts), /passport|signature|password|\bpas\b|podpis|heslo/iu);
 });
 
 test("Word World keeps curated Standard content and honest semantic exposure", () => {

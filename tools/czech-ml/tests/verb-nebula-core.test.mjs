@@ -67,6 +67,42 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
 });
 
+test("keeps the ordered Core dictionary child-safe without moving stable verb rows", async () => {
+  const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
+
+  assert.equal(dictionary.length, 865);
+  assert.deepEqual(
+    [269, 270, 686, 687, 701].map((index) => dictionary[index].cs),
+    ["kakao", "čokoláda", "holínky", "tenisky", "opalovací krém"]
+  );
+  assert.equal(dictionary[358].use, "Jedno kakao, prosím.");
+  assert.equal(dictionary[415].cs, "cukrárna");
+  assert.deepEqual(
+    [485, 510, 826].map((index) => dictionary[index].cs),
+    ["lékárnička", "teploměr", "bezpečnost"]
+  );
+  assert.deepEqual(
+    [496, 501, 502, 504, 505].map((index) => dictionary[index].cs),
+    ["péče", "kýchání", "únava", "náplast", "odpočinek"]
+  );
+  assert.equal(dictionary[548].use, "Heslo nikomu neříkám.");
+  assert.equal(dictionary[810].use, "PIN nikomu neříkám.");
+  assert.equal(dictionary[839].use, "Nesdílím polohu s cizími lidmi.");
+  assert.doesNotMatch(
+    JSON.stringify(dictionary),
+    /\b(?:beer|wine|underwear|bra|boyfriend|girlfriend|razor|shaver)\b/iu
+  );
+});
+
+test("filters combat Macaw assets from every child-facing Verb Nebula hint source", async () => {
+  const app = await readFile(appUrl, "utf8");
+  assert.match(app, /import\("\.\.\/\.\.\/shared\/child-facing-assets\.mjs\?v=child-facing-assets-1"\)/);
+  assert.match(app, /function isChildSafeVerbHintAsset\(assetPath, action = ""\)/);
+  assert.match(app, /childFacingAssets\?\.isChildFacingMacawActionAssetAllowed\(normalizedPath, action\)/);
+  assert.match(app, /vectorVerbHintCandidates\(pair\)[\s\S]*?filter\(\(row\) => isChildSafeVerbHintAsset\(row\.assetPath\)\)/);
+  assert.match(app, /loadVerbHintKeymap\(\)[\s\S]*?filter\(\(row\) => isChildSafeVerbHintAsset\(row\.assetPath, row\.action\)\)/);
+});
+
 const reviewedReadReference = Object.freeze({
   id: "cs.verb.cist.read",
   cz: "číst",
@@ -104,7 +140,7 @@ const reviewedContrastReferences = Object.freeze([
     legacyLocator: Object.freeze({ pairId: "core-verb-157", sourceIndex: 157 }),
   }),
 ]);
-const reviewedDictionaryDigest = "sha256:2acc46335f21dea340866206cdba656ebcf0644f3b8bb55ee2e9f1b0c44d2a1b";
+const reviewedDictionaryDigest = "sha256:92619e528bca13794dbb9d5964c3ee7678689c7a7a8d63e3f7bb25549552f771";
 
 test("resolves the reviewed read pair by stable curriculum identity", async () => {
   const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));

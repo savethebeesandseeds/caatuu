@@ -22,8 +22,8 @@
       "format": "sqlite",
       "model_file": "all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
       "manifest_file": "all-minilm-l6-v2-qint8-v0.1/manifest.json",
-      "bytes": 20054016,
-      "sha256": "83bd91a5b7040ec0db39a50129f394c009ba99260c89c249f77cdcb18ef48c6b",
+      "bytes": 20029440,
+      "sha256": "d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13",
       "embedding_dimension": 384,
       "vector_encoding": "float32le",
       "distance_metric": "cosine",
@@ -38,6 +38,7 @@
         "Semantic English retrieval uses the pinned quantized all-MiniLM-L6-v2 ONNX artifact.",
         "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
         "Image asset vectors are computed only from manually written English descriptions.",
+        "Macaw action assets excluded by the central child-facing asset policy are not indexed.",
         "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
         "The legacy local hash database remains versioned separately for rollback and comparison."
       ]

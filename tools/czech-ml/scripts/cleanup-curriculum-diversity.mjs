@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fromRoot } from "./paths.mjs";
+import { fromRoot, mlRoot } from "./paths.mjs";
 
 function argValue(name, fallback) {
   const idx = process.argv.indexOf(name);
@@ -19,6 +19,13 @@ const outReportFile = path.resolve(argValue("--report-file", path.join(outDatase
 const outReportMarkdownFile = path.resolve(
   argValue("--report-md-file", path.join(outDatasetDir, "reports", "diversity-cleanup.md")),
 );
+const childSafetyCorrectionsFile = path.resolve(
+  argValue(
+    "--child-safety-corrections-file",
+    fromRoot("data", "curriculum", "core-v0.2", "editorial", "child-safety-corrections.json"),
+  ),
+);
+const czechOverlayFile = path.resolve(argValue("--czech-overlay-file", outCuratedFile));
 const maxChanges = Number(argValue("--max-changes", "220"));
 const maxMirrorScanChanges = Number(argValue("--max-mirror-scan-changes", "120"));
 const maxSemanticChanges = Number(argValue("--max-semantic-changes", "80"));
@@ -162,6 +169,8 @@ const HOME_WORDS = new Set(["basket", "bed", "blanket", "box", "clock", "cup", "
 
 const rows = (await readJsonl(sourceCuratedFile)).map(withCzechTextField);
 const quality = JSON.parse(await fs.readFile(sourceQualityFile, "utf8"));
+const childSafetyCorrectionDocument = JSON.parse(await fs.readFile(childSafetyCorrectionsFile, "utf8"));
+const czechOverlayRows = await readJsonlIfExists(czechOverlayFile);
 const byId = new Map(rows.map((row) => [row.id, row]));
 const existingTexts = new Set(rows.map((row) => normalizeText(row.english_text)));
 const selected = selectRowsToRewrite(quality.near_duplicate_candidates || []);
@@ -266,9 +275,16 @@ for (const row of rows) {
   if (semanticChanges >= maxSemanticChanges) break;
 }
 
+const restoredCzechRows = restoreCzechTranslations(rows, czechOverlayRows);
+const childSafetyChanges = applyChildSafetyCorrections(
+  rows,
+  existingTexts,
+  childSafetyCorrectionDocument.corrections,
+);
+
 await copySmallCompanionFiles();
 await writeJsonl(outCuratedFile, rows);
-const report = buildReport(rows, changes, quality);
+const report = buildReport(rows, changes, quality, childSafetyChanges);
 await writeJson(outReportFile, report);
 await fs.writeFile(outReportMarkdownFile, reportMarkdown(report), "utf8");
 
@@ -276,10 +292,91 @@ console.log(JSON.stringify({
   ok: true,
   source_rows: rows.length,
   changed_rows: changes.length,
+  restored_czech_rows: restoredCzechRows,
+  child_safety_corrected_rows: childSafetyChanges.length,
   output_file: outCuratedFile,
   report_file: outReportFile,
   report_markdown_file: outReportMarkdownFile,
 }, null, 2));
+
+function restoreCzechTranslations(datasetRows, overlayRows) {
+  const overlaysById = new Map(overlayRows.map((row) => [row.id, row]));
+  let restored = 0;
+  for (const row of datasetRows) {
+    const overlay = overlaysById.get(row.id);
+    if (!overlay || overlay.english_text !== row.english_text || !String(overlay.czech_text || "").trim()) continue;
+    if (row.czech_text !== overlay.czech_text) {
+      row.czech_text = overlay.czech_text;
+      restored += 1;
+    }
+  }
+  return restored;
+}
+
+function applyChildSafetyCorrections(datasetRows, normalizedTexts, corrections) {
+  if (!Array.isArray(corrections) || corrections.length === 0) {
+    throw new Error(`${childSafetyCorrectionsFile}: corrections must be a non-empty array`);
+  }
+
+  const rowsById = new Map(datasetRows.map((row) => [row.id, row]));
+  const seenIds = new Set();
+  const applied = [];
+
+  for (const correction of corrections) {
+    const id = String(correction?.id || "").trim();
+    if (!id || seenIds.has(id)) {
+      throw new Error(`${childSafetyCorrectionsFile}: duplicate or blank correction id ${JSON.stringify(id)}`);
+    }
+    seenIds.add(id);
+
+    const row = rowsById.get(id);
+    if (!row) throw new Error(`${childSafetyCorrectionsFile}: unknown curriculum id ${id}`);
+    if (row.english_text !== correction.expected_english_text) {
+      throw new Error(
+        `${childSafetyCorrectionsFile}: ${id} expected ${JSON.stringify(correction.expected_english_text)}, ` +
+        `found ${JSON.stringify(row.english_text)}`,
+      );
+    }
+    if (!correction.replacement || typeof correction.replacement !== "object" || Array.isArray(correction.replacement)) {
+      throw new Error(`${childSafetyCorrectionsFile}: ${id} replacement must be an object`);
+    }
+
+    const replacement = { ...correction.replacement, notes: "" };
+    const nextEnglishText = replacement.english_text ?? row.english_text;
+    const oldNormalized = normalizeText(row.english_text);
+    const nextNormalized = normalizeText(nextEnglishText);
+    if (!nextNormalized) throw new Error(`${childSafetyCorrectionsFile}: ${id} replacement english_text is blank`);
+    if (nextNormalized !== oldNormalized && normalizedTexts.has(nextNormalized)) {
+      throw new Error(`${childSafetyCorrectionsFile}: ${id} replacement duplicates ${JSON.stringify(nextEnglishText)}`);
+    }
+
+    const before = { ...row };
+    if (nextNormalized !== oldNormalized) {
+      normalizedTexts.delete(oldNormalized);
+      normalizedTexts.add(nextNormalized);
+    }
+    Object.assign(row, replacement);
+    applied.push({
+      id,
+      reason: "child_safety_editorial",
+      pair_id: "",
+      old_text: before.english_text,
+      new_text: row.english_text,
+      old_czech_text: before.czech_text,
+      new_czech_text: row.czech_text,
+      old_topic: before.topic,
+      new_topic: row.topic,
+      old_difficulty: before.difficulty,
+      new_difficulty: row.difficulty,
+      old_target_words: before.target_words,
+      new_target_words: row.target_words,
+      old_grammar_tags: before.grammar_tags,
+      new_grammar_tags: row.grammar_tags,
+    });
+  }
+
+  return applied;
+}
 
 function selectRowsToRewrite(candidates) {
   const selectedById = new Map();
@@ -661,13 +758,15 @@ function grammarForActionText(text, extra = []) {
   return [...tags];
 }
 
-function buildReport(rows, changes, sourceQuality) {
+function buildReport(rows, changes, sourceQuality, childSafetyChanges) {
   const openings = countOpenings(rows);
   const targetCounts = countTargets(rows);
   return {
-    generated_at: new Date().toISOString(),
-    source_dataset_dir: sourceDatasetDir,
-    output_dataset_dir: outDatasetDir,
+    source_dataset_dir: relativeMlPath(sourceDatasetDir),
+    output_dataset_dir: relativeMlPath(outDatasetDir),
+    child_safety_corrections_file: relativeMlPath(childSafetyCorrectionsFile),
+    child_safety_correction_count: childSafetyChanges.length,
+    child_safety_correction_ids: childSafetyChanges.map((change) => change.id),
     source_near_duplicate_candidates: sourceQuality.near_duplicate_candidates?.length ?? 0,
     changed_rows: changes.length,
     exact_duplicate_texts: exactDuplicateTexts(rows),
@@ -677,11 +776,13 @@ function buildReport(rows, changes, sourceQuality) {
   };
 }
 
+function relativeMlPath(file) {
+  return path.relative(mlRoot, file).split(path.sep).join("/");
+}
+
 function reportMarkdown(report) {
   const lines = [
     "# Curriculum Diversity Cleanup",
-    "",
-    `Generated: ${report.generated_at}`,
     "",
     `Changed rows: ${report.changed_rows}`,
     `Exact duplicate texts after cleanup: ${report.exact_duplicate_texts.length}`,
@@ -691,7 +792,17 @@ function reportMarkdown(report) {
     "- Keep row IDs stable.",
     "- Rewrite only one side of high-confidence near-duplicate pairs.",
     "- Prefer grammar/scene changes over tiny synonym changes.",
+    "- Apply the reviewed child-safety correction manifest after deterministic diversity rewrites.",
+    "- Preserve previously curated Czech text only when the stable ID and English source text both match.",
     "- Keep notes blank.",
+    "",
+    "## Child-safety Editorial Corrections",
+    "",
+    `Corrections applied: ${report.child_safety_correction_count}`,
+    "",
+    `Correction IDs: ${report.child_safety_correction_ids.join(", ")}`,
+    "",
+    `Full before/after values: ${report.child_safety_corrections_file}`,
     "",
     "## Common Openings After Cleanup",
     "",
@@ -751,6 +862,15 @@ async function readJsonl(file) {
         throw error;
       }
     });
+}
+
+async function readJsonlIfExists(file) {
+  try {
+    return await readJsonl(file);
+  } catch (error) {
+    if (error.code === "ENOENT") return [];
+    throw error;
+  }
 }
 
 function withCzechTextField(row) {
