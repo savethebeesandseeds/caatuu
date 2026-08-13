@@ -5,28 +5,204 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 # shellcheck source=versions.env
 source "$repo_root/apps/android/tooling/versions.env"
 
-for key in \
-  CAATUU_ANDROID_KEYSTORE \
-  CAATUU_ANDROID_KEYSTORE_PASSWORD \
-  CAATUU_ANDROID_KEY_ALIAS \
+signing_keys=(
+  CAATUU_ANDROID_KEYSTORE
+  CAATUU_ANDROID_KEYSTORE_PASSWORD
+  CAATUU_ANDROID_KEY_ALIAS
   CAATUU_ANDROID_KEY_PASSWORD
-do
-  if [ -z "${!key:-}" ]; then
-    echo "Set $key before building a signed Play Store bundle." >&2
+)
+signing_values=0
+for key in "${signing_keys[@]}"; do
+  if [[ -n "${!key:-}" ]]; then
+    signing_values=$((signing_values + 1))
+  fi
+done
+if [[ "$signing_values" -ne 0 && "$signing_values" -ne "${#signing_keys[@]}" ]]; then
+  echo "Set all four Android release-signing values, or leave all four unset for an unsigned storeMvp milestone build." >&2
+  exit 1
+fi
+signed=false
+if [[ "$signing_values" -eq "${#signing_keys[@]}" ]]; then
+  signed=true
+fi
+
+for command in gradle java keytool node unzip apkanalyzer; do
+  if ! command -v "$command" >/dev/null 2>&1; then
+    echo "$command is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
     exit 1
   fi
 done
 
-if ! command -v gradle >/dev/null 2>&1; then
-  echo "Gradle is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
+aapt2_path="${CAATUU_AAPT2:-$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/aapt2}"
+if [[ ! -x "$aapt2_path" ]]; then
+  fallback_aapt2="$ANDROID_HOME/build-tools/$ANDROID_FALLBACK_BUILD_TOOLS_VERSION/aapt2"
+  if [[ -x "$fallback_aapt2" ]]; then
+    aapt2_path="$fallback_aapt2"
+  else
+    echo "aapt2 was not found in the pinned Android build-tools directories." >&2
+    exit 1
+  fi
+fi
+apksigner_path="${aapt2_path%/aapt2}/apksigner"
+if [[ ! -x "$apksigner_path" ]]; then
+  echo "apksigner was not found beside the selected aapt2 binary." >&2
   exit 1
 fi
 
-bash "$repo_root/apps/android/scripts/prepare-llama-vendor.sh"
+bundletool_root="${CAATUU_BUNDLETOOL_CACHE_ROOT:-$HOME/.gradle/caches/modules-2/files-2.1/com.android.tools.build/bundletool}"
+bundletool_jar="${CAATUU_BUNDLETOOL_JAR:-}"
+if [[ -z "$bundletool_jar" ]]; then
+  mapfile -t bundletool_candidates < <(
+    find "$bundletool_root" -type f -name 'bundletool-*.jar' -print 2>/dev/null | sort -V
+  )
+  if [[ "${#bundletool_candidates[@]}" -gt 0 ]]; then
+    bundletool_jar="${bundletool_candidates[${#bundletool_candidates[@]} - 1]}"
+  fi
+fi
+if [[ ! -f "$bundletool_jar" ]]; then
+  echo "bundletool is not cached. Run a prepared Android build or set CAATUU_BUNDLETOOL_JAR." >&2
+  exit 1
+fi
+
+# Gradle already resolved bundletool and its exact transitive dependencies for
+# the Android plugin. Reuse that offline cache rather than downloading a second
+# mutable copy during a release build.
+mapfile -t gradle_cache_jars < <(
+  find "$HOME/.gradle/caches/modules-2/files-2.1" -type f -name '*.jar' -print | sort
+)
+if [[ "${#gradle_cache_jars[@]}" -eq 0 ]]; then
+  echo "The Gradle dependency cache is empty; bundletool cannot be started offline." >&2
+  exit 1
+fi
+bundletool_classpath="$bundletool_jar"
+for jar in "${gradle_cache_jars[@]}"; do
+  if [[ "$jar" != "$bundletool_jar" ]]; then
+    bundletool_classpath+=":$jar"
+  fi
+done
+bundletool=(java -cp "$bundletool_classpath" com.android.tools.build.bundletool.BundleToolMain)
+bundletool_version="$("${bundletool[@]}" version)"
+echo "Using bundletool $bundletool_version from $bundletool_jar"
 
 cd "$repo_root/apps/android"
-gradle --no-daemon :app:bundlePlay
+gradle --no-daemon \
+  -PcaatuuDistributionProfile=storeMvp \
+  :storeMvp:generateStoreMvpAssets \
+  :storeMvp:lintRelease \
+  :storeMvp:assembleRelease \
+  :storeMvp:bundleRelease
 
-mkdir -p "$repo_root/artifacts/android"
-cp app/build/outputs/bundle/play/app-play.aab "$repo_root/artifacts/android/caatuu-release.aab"
-echo "Wrote $repo_root/artifacts/android/caatuu-release.aab"
+source_aab="$repo_root/apps/android/storeMvp/build/outputs/bundle/release/storeMvp-release.aab"
+if [[ ! -f "$source_aab" ]]; then
+  echo "Store MVP AAB was not produced at $source_aab" >&2
+  exit 1
+fi
+if [[ "$signed" == true ]]; then
+  source_direct_apk="$repo_root/apps/android/storeMvp/build/outputs/apk/release/storeMvp-release.apk"
+else
+  source_direct_apk="$repo_root/apps/android/storeMvp/build/outputs/apk/release/storeMvp-release-unsigned.apk"
+fi
+if [[ ! -f "$source_direct_apk" ]]; then
+  echo "Store MVP release APK was not produced at $source_direct_apk" >&2
+  exit 1
+fi
+
+artifact_dir="$repo_root/artifacts/android"
+mkdir -p "$artifact_dir"
+if [[ "$signed" == true ]]; then
+  artifact_stem="caatuu-store-mvp"
+  output_apks="$artifact_dir/$artifact_stem.apks"
+  output_universal_apk="$artifact_dir/$artifact_stem-universal.apk"
+else
+  artifact_stem="caatuu-store-mvp-unsigned"
+  output_apks="$artifact_dir/caatuu-store-mvp-inspection-debug-signed.apks"
+  output_universal_apk="$artifact_dir/caatuu-store-mvp-inspection-debug-signed-universal.apk"
+fi
+output_aab="$artifact_dir/$artifact_stem.aab"
+output_direct_apk="$artifact_dir/$artifact_stem-direct.apk"
+
+cp "$source_aab" "$output_aab"
+cp "$source_direct_apk" "$output_direct_apk"
+
+"${bundletool[@]}" validate --bundle="$output_aab"
+
+temporary_dir="$(mktemp -d "${TMPDIR:-/tmp}/caatuu-store-mvp.XXXXXX")"
+trap 'rm -rf "$temporary_dir"' EXIT
+bundletool_build_args=(
+  build-apks
+  "--bundle=$output_aab"
+  "--output=$output_apks"
+  --mode=universal
+  "--aapt2=$aapt2_path"
+  --overwrite
+)
+if [[ "$signed" == true ]]; then
+  keystore_password_file="$temporary_dir/keystore-password"
+  key_password_file="$temporary_dir/key-password"
+  printf '%s\n' "$CAATUU_ANDROID_KEYSTORE_PASSWORD" > "$keystore_password_file"
+  printf '%s\n' "$CAATUU_ANDROID_KEY_PASSWORD" > "$key_password_file"
+  chmod 600 "$keystore_password_file" "$key_password_file"
+  bundletool_build_args+=(
+    "--ks=$CAATUU_ANDROID_KEYSTORE"
+    "--ks-key-alias=$CAATUU_ANDROID_KEY_ALIAS"
+    "--ks-pass=file:$keystore_password_file"
+    "--key-pass=file:$key_password_file"
+  )
+  "${bundletool[@]}" "${bundletool_build_args[@]}"
+else
+  # The release AAB and direct APK remain unsigned. bundletool must sign an APK
+  # set, so create a one-use inspection identity and destroy it on exit. The
+  # resulting universal APK is package-audit material, never a publishable APK.
+  inspection_keystore="$temporary_dir/inspection.p12"
+  inspection_password="caatuu-inspection-$RANDOM-$RANDOM-$$"
+  inspection_password_file="$temporary_dir/inspection-password"
+  printf '%s\n' "$inspection_password" > "$inspection_password_file"
+  chmod 600 "$inspection_password_file"
+  CAATUU_INSPECTION_PASSWORD="$inspection_password" keytool -genkeypair \
+    -keystore "$inspection_keystore" \
+    -storetype PKCS12 \
+    -storepass:env CAATUU_INSPECTION_PASSWORD \
+    -keypass:env CAATUU_INSPECTION_PASSWORD \
+    -alias caatuu-store-mvp-inspection \
+    -dname "CN=Caatuu Store MVP package inspection, OU=Non-publishable, O=Waajacu, C=CZ" \
+    -keyalg RSA \
+    -keysize 2048 \
+    -validity 1 \
+    -noprompt >/dev/null
+  bundletool_build_args+=(
+    "--ks=$inspection_keystore"
+    --ks-key-alias=caatuu-store-mvp-inspection
+    "--ks-pass=file:$inspection_password_file"
+    "--key-pass=file:$inspection_password_file"
+  )
+  "${bundletool[@]}" "${bundletool_build_args[@]}"
+fi
+
+unzip -q -o "$output_apks" universal.apk -d "$temporary_dir/universal"
+if [[ ! -f "$temporary_dir/universal/universal.apk" ]]; then
+  echo "bundletool did not produce universal.apk inside $output_apks" >&2
+  exit 1
+fi
+cp "$temporary_dir/universal/universal.apk" "$output_universal_apk"
+if [[ "$signed" == false ]]; then
+  inspection_certificate="$($apksigner_path verify --print-certs "$output_universal_apk")"
+  if [[ "$inspection_certificate" != *"CN=Caatuu Store MVP package inspection"* ]]; then
+    echo "The package-audit APK was not signed by the ephemeral inspection identity." >&2
+    exit 1
+  fi
+fi
+
+node "$repo_root/apps/android/tooling/validate-store-mvp-package.mjs" \
+  --aab "$output_aab" \
+  --apk "$output_universal_apk" \
+  --apkanalyzer "$(command -v apkanalyzer)" \
+  --unzip "$(command -v unzip)"
+
+echo "Wrote $output_aab"
+echo "Wrote $output_direct_apk (direct build; diagnostic only)"
+echo "Wrote $output_apks"
+if [[ "$signed" == true ]]; then
+  echo "Wrote $output_universal_apk (authoritative package audit input)"
+else
+  echo "Wrote $output_universal_apk (ephemerally debug-signed package audit input; do not publish)"
+fi

@@ -5,12 +5,13 @@ publishes use the reusable `caatuu-dev` container and shared Docker volumes for
 downloaded tools. A temporary Debian container remains available only as a
 bootstrap or recovery path. Both mount the checkout at `/workspace`.
 
-The app package stays light: it includes the Czech WebView UI and native
-llama.cpp bridge for the target phone ABI, but it does not bundle GGUF weights
-or browser WebLLM exports. Initial setup installs the shared assets, Czech to
-English dictionary, and embedding pack. Generation models are optional,
-on-demand artifacts: choosing a generative activity starts its model download,
-stores it in app-private storage, and checks it against the catalog SHA-256.
+Android has two deliberate distributions. The full development/direct-download
+application includes the Czech WebView UI and native llama.cpp bridge for the
+target phone ABI, but it does not bundle GGUF weights or browser WebLLM exports.
+The `storeMvp` Play application is a separate module and compiled asset
+allowlist with no LLM, Chat, generation, Godot, direct updater, or outbound
+reporting capability. Both retain verified shared assets, the Czech-to-English
+dictionary, and the MiniLM embedding pack.
 
 ## Plan
 
@@ -18,8 +19,9 @@ stores it in app-private storage, and checks it against the catalog SHA-256.
 2. Keep the native Android app only for phones that need offline CPU inference.
 3. Build with command-line SDK tools, JDK 17, Gradle, NDK, and CMake inside
    Docker, not on the Windows host.
-4. Publish a Play Store AAB when we are ready. Until then, keep the explicit
-   public debug-signed sideload channel separate from the stable release path.
+4. Build and audit Play candidates only through the `storeMvp` AAB entrypoint.
+   Keep the explicit public debug-signed sideload channel separate from that
+   store path.
 5. Keep model weights, SDK caches, build outputs, signing keys, and upload
    certificates out of Git.
 
@@ -275,15 +277,17 @@ phones and keeps debug APKs smaller. To build a package that also runs on an
 x86_64 emulator, pass `-e CAATUU_ANDROID_ABIS=arm64-v8a,x86_64`.
 
 `CAATUU_ANDROID_REPORT_URL` is separate from the update base and defaults to
-`https://caatuu.waajacu.com/api/bug-report`, including for the Play variant.
-Override it only for a trusted development diagnostics endpoint.
+`https://caatuu.waajacu.com/api/bug-report` for the full application. Override
+it only for a trusted development diagnostics endpoint. The `storeMvp` bridge
+has no report operation; its compiled browser surface keeps bug reports local.
 
-`CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defaults to
+For the full application, `CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defaults to
 `https://caatuu.waajacu.com/cz/api/dictionary/gaps`. It is used only by the
 strict `report_dictionary_gap` bridge request: the native shell forwards the
 validated dictionary-gap payload without a device, app, or diagnostics
 envelope. Release variants require HTTPS; debug builds may override it with a
-trusted HTTP LAN endpoint.
+trusted HTTP LAN endpoint. The `storeMvp` surface keeps this outbox local and
+does not package that bridge request or endpoint.
 
 ## Device Smoke Check
 
@@ -329,10 +333,31 @@ bash apps/android/tooling/setup-sdk.sh
 bash apps/android/tooling/build-debug-apk.sh
 ```
 
-## Signed Release
+## Store MVP AAB
 
-Store the upload key outside the repository. Mount it read-only into the build
-container and pass signing values as environment variables:
+The canonical builder selects only the separate `:storeMvp` module, compiles its
+fail-closed asset allowlist, runs release Lint/R8, validates the AAB with
+bundletool, derives a universal APK, and audits both archives. Run it in the
+established container:
+
+```powershell
+docker exec -w /workspace caatuu-dev bash apps/android/tooling/build-release-aab.sh
+```
+
+With no signing variables, that command creates an explicitly unsigned
+engineering milestone. It also creates a non-publishable universal inspection
+APK using a one-use temporary identity, verifies it, and deletes the identity.
+These artifacts prove package behavior but cannot be uploaded as a release:
+
+```text
+C:\Work\caatuu\artifacts\android\caatuu-store-mvp-unsigned.aab
+C:\Work\caatuu\artifacts\android\caatuu-store-mvp-unsigned-direct.apk
+C:\Work\caatuu\artifacts\android\caatuu-store-mvp-inspection-debug-signed.apks
+C:\Work\caatuu\artifacts\android\caatuu-store-mvp-inspection-debug-signed-universal.apk
+```
+
+For a publishable candidate, store the upload key outside the repository,
+expose it read-only to `caatuu-dev`, and pass all four signing values together:
 
 ```powershell
 docker run --rm -it `
@@ -350,16 +375,17 @@ docker run --rm -it `
   bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-release-aab.sh"
 ```
 
-The Play Store bundle is written to:
+The signed Play Store bundle is written to:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu-release.aab
+C:\Work\caatuu\artifacts\android\caatuu-store-mvp.aab
 ```
 
-`build-release-aab.sh` builds the dedicated `play` variant. That variant omits
-`REQUEST_INSTALL_PACKAGES` and disables Caatuu's direct APK updater; updates are
-managed by the app store. `build-release-apk.sh` remains the signed direct-download
-channel and retains the verified APK updater.
+The script rejects partial signing configuration. The `storeMvp` module omits
+`REQUEST_INSTALL_PACKAGES`, exposes a store-managed update status, packages no
+native inference library, and does not include the full `:app` or `:llamaLib`
+modules in its Gradle graph. `build-release-apk.sh` remains the signed full
+direct-download channel and retains the verified APK updater and optional LLM.
 
 Build a signed APK for direct testing with:
 
@@ -409,8 +435,9 @@ latest manual-download alias.
   access.
 - Signing keys must not be committed. The repo ignores common Android key file
   extensions.
-- The GGUF model remains an external app-managed download, so app updates stay
-  small.
+- The full direct-download app keeps the GGUF as an external app-managed
+  download. The `storeMvp` AAB contains no GGUF catalog, URL, operation, or
+  inference library.
 - Native runtime libraries should stay signed inside the APK/AAB, or later be
   delivered through official dynamic delivery. Downloading executable `.so`
   files from our own server during app startup is intentionally avoided.

@@ -84,15 +84,15 @@ status report; update the dashboard after each release gate.
 | Area | Snapshot | Consequence |
 | --- | --- | --- |
 | Source identity | `main` is ahead of `origin/main` and contains a large shared integration set | No immutable release source yet |
-| Browser/Android contracts | Initial audit passed 350 of 360 tests | Resolve every failure or deliberately replace its obsolete contract |
+| Browser/Android contracts | Current full Node suite passes 375 of 375 tests | Retain this baseline and keep the store boundary contracts mandatory |
 | Rust server | 26 of 26 tests passed | Retain this baseline |
-| Android build | Current debug source builds and Android Lint has no errors | Useful baseline, not production evidence |
-| Play artifact | No signed release AAB has been produced and audited | Store submission blocked |
+| Android build | Full development source and the separate `storeMvp` release module compile; release Lint/R8 pass | Preserve both build paths |
+| Play artifact | An unsigned `storeMvp` engineering AAB has passed bundletool and package audits; no signed RC exists | Upload-key signing and RC evidence still block submission |
 | Version | `versionCode` 143 and `versionName` `0.1.142` do not express the same release identity | Reconcile before RC1 |
 | Mandatory setup | 671 artifacts totaling 343,347,068 bytes | Reduce and test the first-run burden |
-| LLM boundary | Weights are external, but the APK still carries llama/ggml libraries, model metadata, Chat, and generation controls | A real stripped store profile is required |
+| LLM boundary | The full preview retains LLM work; the audited `storeMvp` AAB and derived APK exclude its dependency, libraries, metadata, Chat, URLs, bridge, and UI | Keep the production origin isolated before declaring models not distributed |
 | Embeddings | Active and required; approximately 56.8 MB of setup assets, including a roughly 20 MB vector DB | Preserve and release-audit independently from LLMs |
-| Godot | Android isolation largely exists, but preview source/routes remain elsewhere in the product | Preserve the source and prove release absence |
+| Godot | Source remains in the repository; the audited `storeMvp` AAB and derived APK contain no Godot export, library, route, or launcher surface | Keep production routes disabled and retain the package assertion |
 | Content review | Current Word World has 792 Codex-reviewed records and no human-approved records | Freeze a smaller exact release subset and obtain qualified review |
 | Progression | Aggregate counters and a stronger semantic evidence ledger coexist; most games do not share stable item identities | Define progression v1 before claiming durable learning progress |
 | Legal/privacy | Existing inventories explicitly contain stop-ship and preview-only entries | Close them for the exact release bytes |
@@ -175,24 +175,25 @@ operator remembering environment flags.
 
 ### 6.2 Remove LLMs from the release, not from the repository
 
-- [ ] Make the store variant build without the llama.cpp vendor checkout.
-- [ ] Remove `:llamaLib` and every llama/ggml `.so` from the store variant.
-- [ ] Split native artifact/setup operations from optional generation
+- [x] Make the store variant configure independently from the llama.cpp vendor
+  checkout by selecting only the separate `:storeMvp` module.
+- [x] Remove `:llamaLib` and every llama/ggml `.so` from the store variant.
+- [x] Split native artifact/setup operations from optional generation
   operations so the store bridge exposes no model download, load, prompt, or
   delete method.
-- [ ] Exclude `data/models/**`, generation manifests, benchmarks, GGUF files,
+- [x] Exclude `data/models/**`, generation manifests, benchmarks, GGUF files,
   model URLs, and LLM metadata from store assets.
-- [ ] Exclude `chat.html` and `source/features/chat/**` from store assets.
-- [ ] Remove Chat, debug-chat, model selection, generation notices, and model
+- [x] Exclude `chat.html` and `source/features/chat/**` from store assets.
+- [x] Remove Chat, debug-chat, model selection, generation notices, and model
   management from the store UI and accessibility tree.
-- [ ] Force Word World to Standard content in the store profile. Migrate an
+- [x] Force Word World to Standard content in the store profile. Migrate an
   old saved Generative preference safely to Standard so it cannot reactivate
   hidden behavior.
-- [ ] Separate any generation catalog loading from embedding catalog loading;
+- [x] Separate any generation catalog loading from embedding catalog loading;
   Verb Nebula, Settings, licenses, and statistics must work without an LLM
   catalog.
-- [ ] Remove generation files from service-worker and offline-cache inputs.
-- [ ] Keep the full development profile building and tested; no LLM source is
+- [x] Remove generation files from service-worker and offline-cache inputs.
+- [x] Keep the full development profile building and tested; no LLM source is
   deleted.
 - [ ] If model downloads remain on a development server, isolate them from the
   production release origin. Unresolved models must not remain a hidden public
@@ -211,8 +212,8 @@ Do not apply broad exclusions such as “remove every model,” “remove every
 ONNX file,” or “remove every WASM file.” MiniLM, Transformers.js, ONNX Runtime
 Web, and sql.js support retained embedding and vector-search behavior.
 
-- [ ] Keep the active embedding catalog and pinned all-MiniLM-L6-v2 revision.
-- [ ] Keep the vector database manager, browser vector runtime, semantic
+- [x] Keep the active embedding catalog and pinned all-MiniLM-L6-v2 revision.
+- [x] Keep the vector database manager, browser vector runtime, semantic
   evidence code, Transformers.js, sql.js, embedding-specific ONNX Runtime
   files, tokenizer/configuration, and setup-manifest entries.
 - [ ] Rebuild the release vector database from the release content and asset
@@ -240,18 +241,27 @@ Embedding-positive assertions:
 The accepted standalone-game boundary remains in
 [`decisions/0002-standalone-caatuu-game-and-app-release-boundary.md`](decisions/0002-standalone-caatuu-game-and-app-release-boundary.md).
 
-- [ ] Keep `apps/games/caatuu-game` and its tooling in the repository.
+- [x] Keep `apps/games/caatuu-game` and its tooling in the repository.
 - [ ] Make the store AAB build successfully when `artifacts/games/` is absent.
 - [ ] Set `CAATUU_ENABLE_CAATUU_GAME_PREVIEW=0` in production configuration.
-- [ ] Hide the launcher's Caatuu Game preview link on the production surface.
+- [x] Hide the launcher's Caatuu Game preview link on the compiled store
+  surface.
 - [ ] Verify `/games/caatuu-game/` and versioned Godot routes return 404 in
   production.
-- [ ] Assert that the AAB and generated device APKs contain no `.pck`, Godot
+- [x] Assert that the AAB and generated device APKs contain no `.pck`, Godot
   WASM, `assets/games/**`, export, or Godot route string.
 
 Phase 1 exit: a profile-aware package validator proves the negative LLM/Godot
 boundary and the positive embedding boundary. Existing full-preview checks
 must remain strict; do not weaken them to make the stripped profile pass.
+
+Phase 1 implementation evidence (13 August 2026): the canonical unsigned
+engineering build completed release Lint/R8, `bundletool validate`, universal
+APK generation, and the profile-aware AAB/APK validator. Its AAB is 10,480,086
+bytes with SHA-256
+`5f6ab1926af723b65c4e7244491aacf208a57db6a4b97759e5289c22df94b5c8`.
+This records a technical boundary milestone, not a signed or rights-cleared RC;
+the generated inspection APK uses a one-use non-publishable certificate.
 
 ## 7. Phase 2 — release content, JSON, and asset authority
 
@@ -558,15 +568,16 @@ settled first.
 [`DEPLOYMENT_STANDARD.md`](DEPLOYMENT_STANDARD.md) currently records that the
 direct-download Android contract does not cover a store AAB. Before RC1:
 
-- [ ] Define and register a Play AAB component manifest and validator.
-- [ ] Run `bundletool validate` and inspect universal/device APKs generated
+- [x] Define a profile-aware Play AAB/APK package validator. Register the final
+  signed component and immutable evidence record before RC1.
+- [x] Run `bundletool validate` and inspect a universal APK generated
   from the AAB; auditing only the bundle ZIP is insufficient.
 - [ ] Record package ID, version, target/min SDK, ABI, permissions, components,
   debuggable state, cleartext state, direct-updater state, upload certificate,
   AAB hash/bytes, and generated APK results.
-- [ ] Add profile-aware LLM-negative, Godot-negative, and embedding-positive
+- [x] Add profile-aware LLM-negative, Godot-negative, and embedding-positive
   package checks.
-- [ ] Keep the existing full-preview validator strict and separate.
+- [x] Keep the existing full-preview validator strict and separate.
 
 The generated Play APKs must prove:
 

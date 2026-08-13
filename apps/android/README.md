@@ -1,19 +1,23 @@
 # Caatuu Android
 
-This is the native Android shell. Its current default course and native model
-adapter are Czech, but the packaged static app and WebView entry route are build
-configuration rather than literals in the shell.
+This directory contains two native Android shells. The default `app` module is
+the full development and direct-download application, including its optional
+native `llama.cpp` bridge. The `storeMvp` module is the Google Play boundary: it
+packages a compiled allowlist of the Czech experience with embeddings,
+dictionary, speech, local learning data, and standard games, but no LLM, Chat,
+generation, Godot, direct updater, or outbound-reporting capability.
 
-The app packages the Czech browser UI from `apps/languages/czech/static` and a
-native `llama.cpp` bridge. Standalone game artifacts under `artifacts/games`
-are excluded. The GGUF model is not put in
-Git and is not bundled into the APK. On first use, the app downloads the model
-from `caatuu.waajacu.com`, verifies its SHA-256, stores it in app-private
-storage, and then works offline.
+Both shells load a Czech WebView application whose source lives under
+`apps/languages/czech/static`. The store compiler does not delete or modify
+that development source; it creates a fail-closed release surface under the
+`storeMvp` build directory. Standalone game artifacts under `artifacts/games`
+are excluded from both Android distributions.
 
 ## Runtime Shape
 
-- UI: existing Czech static app, loaded in a WebView from APK assets.
+- UI: existing Czech static app, loaded in a WebView from APK assets. The full
+  module copies the development surface; `storeMvp` compiles an explicit
+  release allowlist.
 - Games: no standalone game export is currently bundled. Memory Moon remains a
   static application placeholder.
 - Start URL: `https://caatuu.local/cz/index.html`.
@@ -21,11 +25,13 @@ storage, and then works offline.
   browser model payloads are excluded.
 - WebView HTTP cache is disabled and service-worker requests are blocked by the
   native shell even though the shared `sw.js` source remains in the APK.
-- First-run setup downloads verified visual assets before GGUF models,
-  embeddings, and the dictionary. This lets the setup animation begin while
-  the larger language artifacts are still being prepared.
-- Model runtime: llama.cpp Android binding from `tools/on-device-models/vendor`.
-- Model file: `caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf`.
+- First-run setup downloads verified visual assets, embeddings, and the
+  dictionary. The full module may additionally download an optional GGUF;
+  `storeMvp` has no model catalog or model operation.
+- Full-module model runtime: llama.cpp Android binding from
+  `tools/on-device-models/vendor`.
+- Full-module model file:
+  `caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf`.
 - Android minimum: Android 11 / API 30 by default.
 - Android target SDK: API 36 by default for both debug and release builds.
 - No Termux is needed for this app path.
@@ -88,10 +94,12 @@ docker run --rm -it `
   bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-debug-apk.sh"
 ```
 
-The debug APK lands at
+The full debug APK lands at
 `C:\Work\caatuu\artifacts\android\caatuu-debug.apk`. Release AAB/APK builds
-are documented in `apps/android/tooling/README.md`; the AAB uses a store-managed
-update variant, while the directly distributed APK retains Caatuu's signed updater.
+are documented in `apps/android/tooling/README.md`. The AAB builder selects only
+the separate `storeMvp` module and validates an AAB-derived universal APK; the
+directly distributed APK remains the full application with Caatuu's signed
+updater.
 
 The debug build also creates `C:\Work\caatuu\artifacts\android\caatuu-debug.keystore`
 on first use and reuses it for later debug APKs. Keep that local file if you
@@ -107,9 +115,11 @@ sideload-only and cannot accidentally request debug artifacts from the public
 stable channel. Set the LAN update base below before building when testing the
 in-app updater.
 
-Remote diagnostics use `https://caatuu.waajacu.com/api/bug-report` independently
-of the APK update channel. Set `CAATUU_ANDROID_REPORT_URL` only when a trusted
-development server should receive debug reports instead.
+The full development/direct-download application can deliver remote diagnostics
+to `https://caatuu.waajacu.com/api/bug-report` independently of the APK update
+channel. Set `CAATUU_ANDROID_REPORT_URL` only when a trusted development server
+should receive debug reports instead. `storeMvp` keeps bug reports and
+dictionary-gap reports local and exposes no delivery bridge operation.
 
 Missing Czech dictionary lookups use a separate, narrow native delivery route.
 The bridge accepts only the dictionary-gap schema and its six data fields, adds
@@ -157,11 +167,13 @@ Android update channels are intentionally separate:
 Never copy or rename a debug APK into the stable channel. The stable manifest
 may be absent until release signing credentials are available.
 
-The build copies Czech static assets into generated APK assets while excluding
-heavy model payloads such as `.gguf`, `.bin`, `.params`, `.safetensors`, and
-the browser-only WebLLM export. The default APK includes only `arm64-v8a`
-native libraries for phones; set `CAATUU_ANDROID_ABIS=arm64-v8a,x86_64` when
-you need an emulator build.
+The full build copies Czech static assets into generated APK assets while
+excluding heavy model payloads such as `.gguf`, `.bin`, `.params`,
+`.safetensors`, and the browser-only WebLLM export. `storeMvp` instead emits an
+exact allowlist and rejects Chat, generation/model catalogs and URLs, inference
+native libraries, Godot exports/routes, and outbound-reporting code. The full
+APK includes only `arm64-v8a` native libraries by default; set
+`CAATUU_ANDROID_ABIS=arm64-v8a,x86_64` when an emulator build needs both.
 
 Android packaging is intentionally independent from the standalone Caatuu Game.
 `syncLanguageAssets` excludes `games/**`, no generated game asset source is
@@ -169,10 +181,12 @@ registered, and the WebView asset client rejects `/games/**`. Application builds
 must therefore succeed when `artifacts/games/` is absent and APK audits reject
 any accidental `assets/games/` entry.
 
-The same rule applies to the Czech semantic-search artifacts. The APK excludes
+The same rule applies to the Czech semantic-search artifacts. Each Android
+package excludes
 the SQLite database, ONNX weights, ONNX Runtime WASM, and model configuration
 under `data/embeddings/`. The setup flow downloads and verifies those artifacts
-into app-private storage after install, matching the GGUF model strategy.
+into app-private storage after install. In `storeMvp`, this embedding path is
+retained independently of the excluded LLM path.
 
 The WebView bridge exposes native artifact-management requests:
 
@@ -186,7 +200,7 @@ back to browser-side code under `/cz/data/embeddings/...`. Both the browser PWA
 and Android WebView run the same local MiniLM query embedder and sql.js search,
 so they cannot silently drift to different vector spaces.
 
-## First Phone Test
+## Full Development App Phone Test
 
 1. Install the debug APK.
 2. Confirm that the app opens the Caatuu Czech home menu.
@@ -199,3 +213,10 @@ After the model is verified once, the app should keep working without network.
 The downloaded GGUF lives under Android app-private storage and is removed by
 the OS when the app is uninstalled. The Chat settings screen also includes
 `Delete model` for manual cleanup during development.
+
+For a `storeMvp` candidate, generate the universal APK from the AAB with the
+canonical AAB builder, install that derived APK, and test Home, setup,
+dictionary, speech, image retrieval, statistics, Standard Word World, restart,
+and offline behavior. Chat, model controls, generative content, Godot routes,
+direct updates, and report delivery must remain absent. An unsigned milestone
+or its ephemeral inspection APK is never a publishable release.
