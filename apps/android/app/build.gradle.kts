@@ -174,6 +174,7 @@ android {
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         buildConfigField("String", "CAATUU_REPORT_URL", buildConfigString(androidReportUrl.get()))
         buildConfigField("String", "CAATUU_DICTIONARY_GAP_URL", buildConfigString(androidDictionaryGapUrl.get()))
+        buildConfigField("boolean", "CAATUU_ACCEPT_RELEASE_MIGRATION", "false")
         manifestPlaceholders["caatuuUsesCleartextTraffic"] = "false"
 
         ndk {

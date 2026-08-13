@@ -414,10 +414,12 @@ reruns the product audit, refuses dirty consumed source or an unpushed commit,
 serializes immutable publication, and verifies the public bytes, manifest,
 certificate, and cache headers.
 
-Older installs still request `/android/caatuu-debug.json`. The publisher turns
-that legacy manifest into a narrow compatibility bridge pointing to the stable
-release. It is not a second product channel and must not be overwritten by a
-new public development build.
+Older installs still request `/android/caatuu-debug.json` and refuse a direct
+debug-to-release archive change. The publisher therefore provides one stripped,
+debuggable transition package that accepts only the next same-origin,
+same-signing-lineage release. After installing it, Backpack discovers the
+non-debuggable stable product. This transition is not a second product channel
+and must not be overwritten by a public development build.
 
 Build a signed APK for direct testing with:
 
@@ -441,7 +443,8 @@ Only `publish-release.sh` writes the stable manifest and public aliases.
 - `caatuu.apk` and `caatuu.json` come only from `publish-release.sh` and are the
   stable update channel used by normal installs.
 - `caatuu-debug.json` is a temporary compatibility manifest for installations
-  made before 0.1.0; it points to the stable immutable product APK.
+  made before 0.1.0; it points to the stripped transition APK, which then points
+  to the stable immutable product manifest.
 - Do not rename or copy a debug build over the stable filenames. It breaks
   signing continuity and makes an unsafe artifact look like a release.
 - Never reuse a `versionCode` for changed bytes. Both build scripts refuse to

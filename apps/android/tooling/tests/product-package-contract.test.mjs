@@ -144,6 +144,8 @@ test("the profile marker and Android package identity are fail-closed", () => {
   assert.match(validator, /manifest", "debuggable"/);
   assert.match(validator, /REQUEST_INSTALL_PACKAGES/);
   assert.match(validator, /usesCleartextTraffic="false"/);
+  assert.match(validator, /--allow-transition-debug/);
+  assert.match(validator, /allowTransitionDebug \? "true" : "false"/);
 });
 
 test("the DEX contract requires safe native classes and excludes retired bridges", () => {

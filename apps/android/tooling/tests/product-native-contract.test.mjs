@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [settings, build, manifest, bridge, activity, proguard] = await Promise.all([
+const [settings, build, manifest, bridge, activity, updateManager, proguard] = await Promise.all([
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/src/main/AndroidManifest.xml", repoRoot), "utf8"),
@@ -19,6 +19,10 @@ const [settings, build, manifest, bridge, activity, proguard] = await Promise.al
       "apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt",
       repoRoot,
     ),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/AppUpdateManager.kt", repoRoot),
     "utf8",
   ),
   readFile(new URL("apps/android/product/proguard-rules.pro", repoRoot), "utf8"),
@@ -47,8 +51,20 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_EMBEDDINGS_ENABLED", "true"/);
   assert.match(build, /CAATUU_GODOT_ENABLED", "false"/);
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
+  assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
+  assert.match(build, /debug \{[\s\S]*?CAATUU_ACCEPT_RELEASE_MIGRATION", "true"/);
+  assert.match(build, /caatuuVersionCode.*orElse\(147\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
+});
+
+test("the one-time transition accepts only a signed release-shaped migration", () => {
+  assert.match(updateManager, /BuildConfig\.CAATUU_ACCEPT_RELEASE_MIGRATION/);
+  assert.match(updateManager, /BuildConfig\.DEBUG/);
+  assert.match(updateManager, /buildType == "release"/);
+  assert.match(updateManager, /!debuggable/);
+  assert.match(updateManager, /archiveDebuggable == BuildConfig\.DEBUG \|\| \(releaseMigration && !archiveDebuggable\)/);
+  assert.match(updateManager, /archiveLineage\.containsAll\(installedSigners\)/);
 });
 
 test("the product manifest exposes the Caatuu launcher and verified self-update support", () => {
@@ -99,6 +115,7 @@ test("the product bridge exposes the safe native operation allowlist", () => {
   assert.match(bridge, /appUpdateManager\.statusJson\(\)/);
   assert.match(bridge, /appUpdateManager\.downloadLatest/);
   assert.match(bridge, /appUpdateManager\.openInstaller\(\)/);
+  assert.match(bridge, /fun isDeveloperPreview\(\): Boolean = false/);
 
   for (const forbidden of [
     "start_download",

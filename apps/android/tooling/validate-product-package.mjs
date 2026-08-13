@@ -87,15 +87,19 @@ function usage() {
   console.log(
     "Usage: node apps/android/tooling/validate-product-package.mjs " +
       "--aab <caatuu.aab> --apk <aab-derived-universal.apk> " +
-      "[--apkanalyzer <path>] [--unzip <path>]",
+      "[--apkanalyzer <path>] [--unzip <path>] [--allow-transition-debug]",
   );
 }
 
 function parseArguments(argv) {
-  const options = { apkanalyzer: "apkanalyzer", unzip: "unzip" };
+  const options = { apkanalyzer: "apkanalyzer", unzip: "unzip", allowTransitionDebug: false };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
     if (argument === "--help" || argument === "-h") return { help: true };
+    if (argument === "--allow-transition-debug") {
+      options.allowTransitionDebug = true;
+      continue;
+    }
     if (!["--aab", "--apk", "--apkanalyzer", "--unzip"].includes(argument)) {
       throw new Error(`unknown option: ${argument}`);
     }
@@ -398,12 +402,17 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label);
 }
 
-function assertApkManifest(apkanalyzerPath, apk) {
+function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
   const command = (subject, verb) => run(apkanalyzerPath, [subject, verb, apk]).trim();
   assert(command("manifest", "application-id") === EXPECTED_APPLICATION_ID, "Caatuu APK application ID is incorrect");
   assert(Number(command("manifest", "min-sdk")) === EXPECTED_MIN_SDK, "Caatuu APK min SDK must be 30");
   assert(Number(command("manifest", "target-sdk")) >= MINIMUM_TARGET_SDK, "Caatuu APK target SDK must be at least 36");
-  assert(command("manifest", "debuggable") === "false", "Caatuu APK must be non-debuggable");
+  assert(
+    command("manifest", "debuggable") === (allowTransitionDebug ? "true" : "false"),
+    allowTransitionDebug
+      ? "Caatuu transition APK must be debuggable for compatibility with the old updater"
+      : "Caatuu APK must be non-debuggable",
+  );
 
   const permissions = new Set(
     command("manifest", "permissions")
@@ -468,7 +477,7 @@ function assertDexBoundary(apkanalyzerPath, apk) {
   }
 }
 
-function verifyAabDerivedApkAssets(unzip, aab, aabEntries, apk, apkEntries) {
+function verifyAabDerivedApkAssets(unzip, aab, aabEntries, apk, apkEntries, allowTransitionDebug = false) {
   const aabAssets = new Map(
     aabEntries
       .map((entry) => [normalizeAssetPath(entry, "aab"), entry])
@@ -488,7 +497,9 @@ function verifyAabDerivedApkAssets(unzip, aab, aabEntries, apk, apkEntries) {
     );
   }
   const derivedApkAssets = [...apkAssets.keys()].filter((assetPath) => !aabAssets.has(assetPath));
-  const expectedDerivedAssets = ["dexopt/baseline.prof", "dexopt/baseline.profm"];
+  const expectedDerivedAssets = allowTransitionDebug
+    ? []
+    : ["dexopt/baseline.prof", "dexopt/baseline.profm"];
   assert(
     JSON.stringify(derivedApkAssets.sort()) === JSON.stringify(expectedDerivedAssets),
     `universal APK contains unexpected bundletool-derived assets: ${derivedApkAssets.join(", ")}`,
@@ -517,8 +528,15 @@ function main() {
     const apkEntries = archiveEntries(options.unzip, apk);
     assertAssetBoundary(options.unzip, aab, aabEntries, "aab", "Caatuu AAB");
     assertAssetBoundary(options.unzip, apk, apkEntries, "apk", "AAB-derived universal APK");
-    verifyAabDerivedApkAssets(options.unzip, aab, aabEntries, apk, apkEntries);
-    assertApkManifest(options.apkanalyzer, apk);
+    verifyAabDerivedApkAssets(
+      options.unzip,
+      aab,
+      aabEntries,
+      apk,
+      apkEntries,
+      options.allowTransitionDebug,
+    );
+    assertApkManifest(options.apkanalyzer, apk, options.allowTransitionDebug);
     assertDexBoundary(options.apkanalyzer, apk);
 
     console.log(`Caatuu package boundary passed for ${basename(aab)} and ${basename(apk)}.`);

@@ -48,7 +48,7 @@ class ProductBridge(
     }
 
     @JavascriptInterface
-    fun isDeveloperPreview(): Boolean = BuildConfig.DEBUG
+    fun isDeveloperPreview(): Boolean = false
 
     @JavascriptInterface
     fun postMessage(rawMessage: String) {

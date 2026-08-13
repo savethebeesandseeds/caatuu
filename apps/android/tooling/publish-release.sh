@@ -4,6 +4,7 @@ set -Eeuo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 public_base_url="${CAATUU_ANDROID_PUBLIC_BASE_URL:-https://caatuu.waajacu.com}"
 publication_contract_url="$public_base_url/android/releases/status"
+transition_contract_url="$public_base_url/android/debug-releases/status"
 public_manifest_url="$public_base_url/android/caatuu.json"
 legacy_manifest_url="$public_base_url/android/caatuu-debug.json"
 profile="product"
@@ -13,6 +14,7 @@ compatibility_keystore="$repo_root/artifacts/android/caatuu-debug.keystore"
 certificate_pin_path="$repo_root/apps/android/tooling/direct-release-certificate.sha256"
 source_aab="$repo_root/artifacts/android/caatuu.aab"
 source_apk="$repo_root/artifacts/android/caatuu-universal.apk"
+transition_apk="$repo_root/apps/android/product/build/outputs/apk/debug/product-debug.apk"
 
 required_tracked_files=(
   apps/android/settings.gradle.kts
@@ -22,6 +24,7 @@ required_tracked_files=(
   apps/android/product/src/main/java/com/caatuu/android/ArtifactProgress.kt
   apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt
   apps/android/product/src/main/java/com/caatuu/android/ProductBridge.kt
+  apps/android/app/src/main/java/com/caatuu/android/AppUpdateManager.kt
   apps/android/product/src/main/res/xml/caatuu_file_paths.xml
   apps/android/tooling/build-release-aab.sh
   apps/android/tooling/build-product-assets.mjs
@@ -161,11 +164,13 @@ for command in git curl jq node sed sha256sum wc flock cmp; do
   }
 done
 
-contract_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$publication_contract_url" || true)"
-if [[ "$contract_status" != "204" ]]; then
-  echo "Expected HTTP 204 from $publication_contract_url, got ${contract_status:-no response}." >&2
-  exit 1
-fi
+for contract_url in "$publication_contract_url" "$transition_contract_url"; do
+  contract_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$contract_url" || true)"
+  if [[ "$contract_status" != "204" ]]; then
+    echo "Expected HTTP 204 from $contract_url, got ${contract_status:-no response}." >&2
+    exit 1
+  fi
+done
 
 check_source_state
 source_revision="$(git rev-parse --verify HEAD)"
@@ -189,7 +194,7 @@ remote_source_revision="$(git ls-remote --exit-code origin "refs/heads/$source_b
 }
 source_url="https://github.com/savethebeesandseeds/caatuu/tree/$source_revision"
 
-candidate_version_code="$(sed -nE 's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' apps/android/product/build.gradle.kts | head -1)"
+candidate_version_code="$(sed -nE 's/.*caatuuVersionCode.*orElse\(([0-9]+)\).*/\1/p' apps/android/product/build.gradle.kts | head -1)"
 [[ "$candidate_version_code" =~ ^[1-9][0-9]*$ ]] || {
   echo "Could not read the Caatuu versionCode." >&2
   exit 1
@@ -198,7 +203,9 @@ preflight_dir="$(mktemp -d "$repo_root/artifacts/android/.release-preflight.XXXX
 trap 'rm -rf "$preflight_dir"' EXIT
 stable_version_code="$(manifest_version_code "$public_manifest_url" "$preflight_dir/stable.json")"
 legacy_version_code="$(manifest_version_code "$legacy_manifest_url" "$preflight_dir/legacy.json")"
-if (( candidate_version_code <= stable_version_code || candidate_version_code <= legacy_version_code )); then
+transition_version_code=$((candidate_version_code - 1))
+transition_version_name="0.1.0-transition.1"
+if (( transition_version_code <= legacy_version_code || candidate_version_code <= stable_version_code || candidate_version_code <= transition_version_code )); then
   echo "Caatuu versionCode $candidate_version_code must exceed stable $stable_version_code and installed-lineage $legacy_version_code." >&2
   exit 1
 fi
@@ -236,15 +243,42 @@ bash apps/android/tooling/build-release-aab.sh
   echo "The signed Caatuu AAB-derived APK was not produced." >&2
   exit 1
 }
+
+# Old versions require one final debuggable archive before they can move to a
+# release archive. Build that bridge from the same stripped product module;
+# its only extra capability is accepting the next same-origin, signed release.
+(
+  cd apps/android
+  gradle --no-daemon --console=plain \
+    -PcaatuuDistributionProfile=product \
+    -PcaatuuVersionCode="$transition_version_code" \
+    -PcaatuuVersionName="$transition_version_name" \
+    :product:assembleDebug
+)
+[[ -f "$transition_apk" ]] || {
+  echo "The stripped Caatuu transition APK was not produced." >&2
+  exit 1
+}
 node apps/android/tooling/validate-product-package.mjs \
   --aab "$source_aab" \
   --apk "$source_apk" \
   --apkanalyzer "$(command -v apkanalyzer)" \
   --unzip "$(command -v unzip)"
+node apps/android/tooling/validate-product-package.mjs \
+  --aab "$source_aab" \
+  --apk "$transition_apk" \
+  --apkanalyzer "$(command -v apkanalyzer)" \
+  --unzip "$(command -v unzip)" \
+  --allow-transition-debug
 
 local_signer_sha="$(read_signer_sha "$source_apk")"
 [[ "$local_signer_sha" == "$expected_signer_sha" ]] || {
   echo "Caatuu signer does not match the installed direct-release lineage." >&2
+  exit 1
+}
+transition_signer_sha="$(read_signer_sha "$transition_apk")"
+[[ "$transition_signer_sha" == "$expected_signer_sha" ]] || {
+  echo "Caatuu transition signer does not match the installed lineage." >&2
   exit 1
 }
 package_name="$(apkanalyzer manifest application-id "$source_apk" | tr -d '\r\n')"
@@ -253,6 +287,17 @@ version_name="$(apkanalyzer manifest version-name "$source_apk" | tr -d '\r\n')"
 debuggable="$(apkanalyzer manifest debuggable "$source_apk" | tr -d '\r\n')"
 [[ "$package_name" == "com.waajacu.caatuu" && "$version_code" == "$candidate_version_code" && "$version_name" == "0.1.0" && "$debuggable" == "false" ]] || {
   echo "The Caatuu APK identity is not the expected non-debuggable 0.1.0 release." >&2
+  exit 1
+}
+transition_package_name="$(apkanalyzer manifest application-id "$transition_apk" | tr -d '\r\n')"
+actual_transition_version_code="$(apkanalyzer manifest version-code "$transition_apk" | tr -d '\r\n')"
+actual_transition_version_name="$(apkanalyzer manifest version-name "$transition_apk" | tr -d '\r\n')"
+transition_debuggable="$(apkanalyzer manifest debuggable "$transition_apk" | tr -d '\r\n')"
+[[ "$transition_package_name" == "$package_name" \
+  && "$actual_transition_version_code" == "$transition_version_code" \
+  && "$actual_transition_version_name" == "$transition_version_name" \
+  && "$transition_debuggable" == "true" ]] || {
+  echo "The stripped Caatuu transition APK identity is invalid." >&2
   exit 1
 }
 
@@ -264,6 +309,8 @@ check_source_state
 
 apk_sha="$(sha256sum "$source_apk" | awk '{print $1}')"
 apk_bytes="$(wc -c < "$source_apk" | tr -d '[:space:]')"
+transition_sha="$(sha256sum "$transition_apk" | awk '{print $1}')"
+transition_bytes="$(wc -c < "$transition_apk" | tr -d '[:space:]')"
 versioned_relative_dir="releases/$version_code"
 versioned_relative_apk="$versioned_relative_dir/caatuu.apk"
 versioned_relative_manifest="$versioned_relative_dir/caatuu.json"
@@ -272,14 +319,25 @@ public_versioned_manifest_url="$public_base_url/android/$versioned_relative_mani
 versioned_dir="$repo_root/artifacts/android/$versioned_relative_dir"
 versioned_apk_path="$repo_root/artifacts/android/$versioned_relative_apk"
 versioned_manifest_path="$repo_root/artifacts/android/$versioned_relative_manifest"
+transition_relative_dir="debug-releases/product-transition/$transition_version_code"
+transition_relative_apk="$transition_relative_dir/caatuu-transition.apk"
+transition_relative_manifest="$transition_relative_dir/caatuu-transition.json"
+public_transition_apk_url="$public_base_url/android/$transition_relative_apk"
+public_transition_manifest_url="$public_base_url/android/$transition_relative_manifest"
+transition_dir="$repo_root/artifacts/android/$transition_relative_dir"
+transition_apk_path="$repo_root/artifacts/android/$transition_relative_apk"
+transition_manifest_path="$repo_root/artifacts/android/$transition_relative_manifest"
 
 publish_dir="$(mktemp -d "$repo_root/artifacts/android/.publish-release.XXXXXX")"
 rm -rf "$preflight_dir"
 trap 'rm -rf "$publish_dir"' EXIT
 staged_apk="$publish_dir/caatuu.apk"
 staged_manifest="$publish_dir/caatuu.json"
+staged_transition_apk="$publish_dir/caatuu-transition.apk"
+staged_transition_manifest="$publish_dir/caatuu-transition.json"
 staged_legacy_manifest="$publish_dir/caatuu-debug.json"
 cp "$source_apk" "$staged_apk"
+cp "$transition_apk" "$staged_transition_apk"
 jq -n \
   --arg profile "$profile" --arg channel "$channel" --arg signing_lineage "$signing_lineage" \
   --arg package_name "$package_name" --arg version_name "$version_name" --arg apk_url "$public_apk_url" \
@@ -293,16 +351,22 @@ jq -n \
     capabilities: {llm: false, godot: false, embeddings: true},
     audit: {bundletool: "passed", product_package: "passed"}, device_smoke: "not-run"}' > "$staged_manifest"
 
-# Versions <=144 validate this legacy document as a debug channel before they
-# inspect the signed APK. These two legacy fields preserve that old protocol;
-# the artifact_* fields state the real properties of the 0.1.0 APK.
-jq '.channel = "legacy-update-bridge"
-    | .build_type = "debug"
-    | .debuggable = true
-    | .artifact_build_type = "release"
-    | .artifact_debuggable = false
-    | .compatibility_for_version_codes_through = 144' \
-  "$staged_manifest" > "$staged_legacy_manifest"
+jq -n \
+  --arg package_name "$transition_package_name" --arg version_name "$transition_version_name" \
+  --arg apk_url "$public_transition_apk_url" --arg stable_manifest_url "$public_manifest_url" \
+  --arg sha256 "$transition_sha" --arg signer_sha256 "$transition_signer_sha" \
+  --arg source_revision "$source_revision" --arg source_url "$source_url" \
+  --argjson version_code "$transition_version_code" --argjson bytes "$transition_bytes" \
+  '{schema_version: 1, profile: "product-transition", channel: "legacy-update-bridge",
+    signing_lineage: "direct-release-v1", package_name: $package_name,
+    version_code: $version_code, version_name: $version_name,
+    build_type: "debug", debuggable: true, apk_url: $apk_url, sha256: $sha256, bytes: $bytes,
+    signer_certificate_sha256: $signer_sha256, source_revision: $source_revision, source_url: $source_url,
+    stable_manifest_url: $stable_manifest_url, compatibility_for_version_codes_through: 144,
+    native_abis: [], universal: true,
+    capabilities: {llm: false, godot: false, embeddings: true, releaseMigration: true},
+    audit: {product_transition_package: "passed"}, device_smoke: "not-run"}' > "$staged_transition_manifest"
+cp "$staged_transition_manifest" "$staged_legacy_manifest"
 
 publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"
 exec {publication_lock_fd}>"$publication_lock"
@@ -310,7 +374,7 @@ flock -w "${CAATUU_ANDROID_PUBLICATION_LOCK_TIMEOUT_SECONDS:-120}" "$publication
   echo "Timed out waiting for the Android publication lock." >&2
   exit 1
 }
-mkdir -p "$versioned_dir"
+mkdir -p "$versioned_dir" "$transition_dir"
 if [[ -f "$versioned_apk_path" ]] && [[ "$(sha256sum "$versioned_apk_path" | awk '{print $1}')" != "$apk_sha" ]]; then
   echo "Refusing to replace immutable Caatuu APK bytes for versionCode $version_code." >&2
   exit 1
@@ -319,19 +383,34 @@ if [[ -f "$versioned_manifest_path" ]] && ! cmp -s "$versioned_manifest_path" "$
   echo "Refusing to replace the immutable Caatuu manifest for versionCode $version_code." >&2
   exit 1
 fi
+if [[ -f "$transition_apk_path" ]] && [[ "$(sha256sum "$transition_apk_path" | awk '{print $1}')" != "$transition_sha" ]]; then
+  echo "Refusing to replace immutable transition bytes for versionCode $transition_version_code." >&2
+  exit 1
+fi
+if [[ -f "$transition_manifest_path" ]] && ! cmp -s "$transition_manifest_path" "$staged_transition_manifest"; then
+  echo "Refusing to replace the immutable transition manifest for versionCode $transition_version_code." >&2
+  exit 1
+fi
 [[ -f "$versioned_apk_path" ]] || cp "$staged_apk" "$versioned_apk_path"
 [[ -f "$versioned_manifest_path" ]] || cp "$staged_manifest" "$versioned_manifest_path"
+[[ -f "$transition_apk_path" ]] || cp "$staged_transition_apk" "$transition_apk_path"
+[[ -f "$transition_manifest_path" ]] || cp "$staged_transition_manifest" "$transition_manifest_path"
 cp "$versioned_apk_path" "$repo_root/artifacts/android/caatuu.apk"
 cp "$versioned_manifest_path" "$repo_root/artifacts/android/caatuu.json"
+cp "$transition_apk_path" "$repo_root/artifacts/android/caatuu-debug.apk"
 cp "$staged_legacy_manifest" "$repo_root/artifacts/android/caatuu-debug.json"
 flock -u "$publication_lock_fd"
 
 downloaded_apk="$publish_dir/downloaded-caatuu.apk"
 downloaded_manifest="$publish_dir/downloaded-caatuu.json"
+downloaded_transition_apk="$publish_dir/downloaded-transition.apk"
+downloaded_transition_manifest="$publish_dir/downloaded-transition.json"
 downloaded_legacy_manifest="$publish_dir/downloaded-legacy.json"
 response_headers="$publish_dir/public-apk.headers"
 curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 -D "$response_headers" -o "$downloaded_apk" "$public_apk_url"
 curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_manifest" "$public_versioned_manifest_url"
+curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 -o "$downloaded_transition_apk" "$public_transition_apk_url"
+curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_transition_manifest" "$public_transition_manifest_url"
 curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_legacy_manifest" "$legacy_manifest_url"
 [[ "$(sha256sum "$downloaded_apk" | awk '{print $1}')" == "$apk_sha" && "$(wc -c < "$downloaded_apk" | tr -d '[:space:]')" == "$apk_bytes" ]] || {
   echo "The public Caatuu APK does not match the release manifest." >&2
@@ -339,6 +418,15 @@ curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downlo
 }
 cmp -s "$versioned_manifest_path" "$downloaded_manifest" || {
   echo "The public immutable manifest differs from the local release manifest." >&2
+  exit 1
+}
+[[ "$(sha256sum "$downloaded_transition_apk" | awk '{print $1}')" == "$transition_sha" \
+  && "$(wc -c < "$downloaded_transition_apk" | tr -d '[:space:]')" == "$transition_bytes" ]] || {
+  echo "The public Caatuu transition APK does not match its manifest." >&2
+  exit 1
+}
+cmp -s "$transition_manifest_path" "$downloaded_transition_manifest" || {
+  echo "The public immutable transition manifest differs from its local record." >&2
   exit 1
 }
 cmp -s "$repo_root/artifacts/android/caatuu-debug.json" "$downloaded_legacy_manifest" || {
@@ -354,13 +442,21 @@ cache_control="$(tr -d '\r' < "$response_headers" | awk -F': *' 'tolower($1) == 
   echo "The downloaded Caatuu APK signer is incorrect." >&2
   exit 1
 }
+[[ "$(read_signer_sha "$downloaded_transition_apk")" == "$expected_signer_sha" ]] || {
+  echo "The downloaded Caatuu transition signer is incorrect." >&2
+  exit 1
+}
 node apps/android/tooling/validate-product-package.mjs \
   --aab "$source_aab" --apk "$downloaded_apk" \
   --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)"
+node apps/android/tooling/validate-product-package.mjs \
+  --aab "$source_aab" --apk "$downloaded_transition_apk" \
+  --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" \
+  --allow-transition-debug
 
 echo "Published Caatuu $version_name (code $version_code)."
 echo "Manifest: $public_manifest_url"
 echo "APK: $public_apk_url"
 echo "APK SHA-256: $apk_sha"
-echo "Existing installations can discover this release through the legacy update bridge."
+echo "Existing version-143 installations can migrate through transition code $transition_version_code, then install the stable release."
 echo "Physical device smoke test: not-run"

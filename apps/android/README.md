@@ -163,7 +163,8 @@ Android release identities are intentionally separate:
 - `caatuu.apk` and `caatuu.json` are the canonical non-debuggable product and
   stable in-app update channel.
 - `caatuu-debug.json` is retained temporarily as an update bridge for installs
-  made before version 0.1.0; it points those installations to the stable APK.
+  made before version 0.1.0. Those clients first receive a stripped transition
+  APK, then the transition moves them to the non-debuggable stable product.
 
 Never copy or rename a debug APK into the stable channel. The stable manifest
 may be absent until release signing credentials are available.

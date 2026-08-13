@@ -42,7 +42,7 @@ test("stable publication fails closed on source, version, signing, and immutable
   assert.match(releasePublisher, /check_source_state/);
   assert.match(releasePublisher, /git ls-remote --exit-code origin/);
   assert.match(releasePublisher, /candidate_version_code <= stable_version_code/);
-  assert.match(releasePublisher, /candidate_version_code <= legacy_version_code/);
+  assert.match(releasePublisher, /transition_version_code <= legacy_version_code/);
   assert.match(releasePublisher, /direct-release-certificate\.sha256/);
   assert.match(releasePublisher, /local_signer_sha.*expected_signer_sha/s);
   assert.match(releasePublisher, /\.artifact-publication\.lock/);
@@ -67,12 +67,17 @@ test("the stable manifest records a real non-debuggable product", () => {
 
 test("existing installations receive a narrow, explicit update bridge", () => {
   assert.match(releasePublisher, /legacy_manifest_url=.*\/android\/caatuu-debug\.json/);
-  assert.match(releasePublisher, /channel = "legacy-update-bridge"/);
-  assert.match(releasePublisher, /artifact_build_type = "release"/);
-  assert.match(releasePublisher, /artifact_debuggable = false/);
-  assert.match(releasePublisher, /compatibility_for_version_codes_through = 144/);
+  assert.match(releasePublisher, /transition_relative_dir="debug-releases\/product-transition\/\$transition_version_code"/);
+  assert.match(releasePublisher, /channel: "legacy-update-bridge"/);
+  assert.match(releasePublisher, /build_type: "debug", debuggable: true/);
+  assert.match(releasePublisher, /releaseMigration: true/);
+  assert.match(releasePublisher, /compatibility_for_version_codes_through: 144/);
+  assert.match(releasePublisher, /-PcaatuuVersionCode="\$transition_version_code"/);
+  assert.match(releasePublisher, /:product:assembleDebug/);
+  assert.match(releasePublisher, /--allow-transition-debug/);
+  assert.match(releasePublisher, /cp "\$transition_apk_path" "\$repo_root\/artifacts\/android\/caatuu-debug\.apk"/);
   assert.match(releasePublisher, /cp "\$staged_legacy_manifest" "\$repo_root\/artifacts\/android\/caatuu-debug\.json"/);
-  assert.match(releasePublisher, /Existing installations can discover this release/);
+  assert.match(releasePublisher, /can migrate through transition code/);
 });
 
 test("publication verifies the exact public artifact and immutable cache policy", () => {
@@ -82,4 +87,6 @@ test("publication verifies the exact public artifact and immutable cache policy"
   assert.match(releasePublisher, /max-age=31536000/);
   assert.match(releasePublisher, /immutable/);
   assert.match(releasePublisher, /read_signer_sha "\$downloaded_apk"/);
+  assert.match(releasePublisher, /sha256sum "\$downloaded_transition_apk"/);
+  assert.match(releasePublisher, /read_signer_sha "\$downloaded_transition_apk"/);
 });

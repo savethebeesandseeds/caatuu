@@ -490,12 +490,12 @@ async function auditHttpRoutes() {
       assert(/^[a-f0-9]{64}$/.test(manifest.sha256), "debug Android manifest should expose a SHA-256 digest");
       const legacyBridge = manifest.channel === "legacy-update-bridge";
       const expectedPath = legacyBridge
-        ? `/android/releases/${manifest.version_code}/caatuu.apk`
+        ? `/android/debug-releases/product-transition/${manifest.version_code}/caatuu-transition.apk`
         : `/android/debug-releases/${manifest.version_code}/caatuu-debug.apk`;
       assert(new URL(manifest.apk_url).pathname === expectedPath, `installed-lineage manifest should point to immutable ${expectedPath}`);
       if (legacyBridge) {
-        assert(manifest.artifact_build_type === "release", "legacy update bridge should identify the real release artifact");
-        assert(manifest.artifact_debuggable === false, "legacy update bridge should identify the real non-debuggable artifact");
+        assert(manifest.profile === "product-transition", "legacy update bridge should identify the stripped transition profile");
+        assert(manifest.capabilities?.releaseMigration === true, "legacy transition should expose only its release-migration capability");
       }
       const immutableApk = await request(expectedPath, { method: "HEAD" });
       assert(immutableApk.status === 200, `debug immutable APK should return 200, got ${immutableApk.status}`);
@@ -1354,6 +1354,9 @@ function auditAndroidSource() {
   assert(releaseAabBuild.includes("validate-product-package.mjs"), "release bundle build should run the product package boundary audit");
   assert(appUpdateManager.includes('validateChannelUrl(URL(updateManifestUrl), "Update manifest")'), "Android updater should validate its configured manifest URL before use");
   assert(appUpdateManager.includes('require(BuildConfig.DEBUG || candidate.protocol == "https")'), "Android release updater should require HTTPS");
+  assert(appUpdateManager.includes("BuildConfig.CAATUU_ACCEPT_RELEASE_MIGRATION"), "Android updater should explicitly gate the one-time debug-to-release migration");
+  assert(appUpdateManager.includes('buildType == "release"'), "Android transition should accept only a release-shaped target");
+  assert(appUpdateManager.includes("archiveLineage.containsAll(installedSigners)"), "Android transition should retain signing-lineage verification");
   assert(appUpdateManager.includes("instanceFollowRedirects = false"), "Android updater should refuse unchecked HTTP redirects");
   assert(appUpdateManager.includes("useCaches = false"), "Android updater should bypass cached update manifests");
   assert(appUpdateManager.includes('.addRequestHeader("Cache-Control", "no-cache")'), "Android updater should bypass cached APK responses");

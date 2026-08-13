@@ -25,6 +25,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(147)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.0")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -74,8 +76,8 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 145
-        versionName = "0.1.0"
+        versionCode = caatuuVersionCode.get()
+        versionName = caatuuVersionName.get()
         buildConfigField("String", "CAATUU_DISTRIBUTION_PROFILE", buildConfigString("product"))
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
@@ -84,6 +86,7 @@ android {
         buildConfigField("boolean", "CAATUU_EMBEDDINGS_ENABLED", "true")
         buildConfigField("boolean", "CAATUU_GODOT_ENABLED", "false")
         buildConfigField("boolean", "CAATUU_SELF_UPDATE_ENABLED", "true")
+        buildConfigField("boolean", "CAATUU_ACCEPT_RELEASE_MIGRATION", "false")
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         buildConfigField("String", "CAATUU_UPDATE_APK_NAME", buildConfigString("caatuu.apk"))
         buildConfigField("String", "CAATUU_UPDATE_MANIFEST_NAME", buildConfigString("caatuu.json"))
@@ -113,6 +116,10 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
+            buildConfigField("boolean", "CAATUU_ACCEPT_RELEASE_MIGRATION", "true")
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
         release {
             isMinifyEnabled = true

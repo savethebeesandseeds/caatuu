@@ -432,11 +432,13 @@ class AppUpdateManager(context: Context) {
         require(manifest.optString("package_name") == appContext.packageName) {
             "Update manifest package does not match Caatuu."
         }
-        val expectedBuildType = if (BuildConfig.DEBUG) "debug" else "release"
-        require(manifest.optString("build_type") == expectedBuildType) {
+        val declaredDebuggable = manifest.optBoolean("debuggable", !BuildConfig.DEBUG)
+        val declaredBuildType = manifest.optString("build_type")
+        val releaseMigration = acceptsReleaseMigration(declaredBuildType, declaredDebuggable)
+        require(declaredBuildType == installedBuildType() || releaseMigration) {
             "Update manifest build type does not match the installed channel."
         }
-        require(manifest.optBoolean("debuggable", !BuildConfig.DEBUG) == BuildConfig.DEBUG) {
+        require(declaredDebuggable == BuildConfig.DEBUG || releaseMigration) {
             "Update manifest debuggable flag does not match the installed channel."
         }
         val apkUrl = validateUpdateUrl(
@@ -932,15 +934,17 @@ class AppUpdateManager(context: Context) {
         val archiveDebuggable = archive.applicationInfo
             ?.let { info -> info.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0 }
             ?: false
-        require(archiveDebuggable == BuildConfig.DEBUG) {
+        val declaredDebuggable = manifest.optBoolean("debuggable", !archiveDebuggable)
+        val declaredBuildType = manifest.optString("build_type")
+        val releaseMigration = acceptsReleaseMigration(declaredBuildType, declaredDebuggable)
+        require(archiveDebuggable == BuildConfig.DEBUG || (releaseMigration && !archiveDebuggable)) {
             "Downloaded APK build type does not match the installed update channel."
         }
-        require(manifest.optBoolean("debuggable", !archiveDebuggable) == archiveDebuggable) {
+        require(declaredDebuggable == archiveDebuggable) {
             "Update manifest debuggable flag does not match the APK."
         }
-        val expectedBuildType = if (BuildConfig.DEBUG) "debug" else "release"
-        require(manifest.optString("build_type") == expectedBuildType) {
-            "Update manifest build type does not match the installed channel."
+        require(declaredBuildType == if (archiveDebuggable) "debug" else "release") {
+            "Update manifest build type does not match the APK."
         }
 
         val installedSigners = currentSignerFingerprints(installed)
@@ -977,6 +981,14 @@ class AppUpdateManager(context: Context) {
                 PackageManager.GET_SIGNING_CERTIFICATES,
             )
         }
+
+    private fun installedBuildType(): String = if (BuildConfig.DEBUG) "debug" else "release"
+
+    private fun acceptsReleaseMigration(buildType: String, debuggable: Boolean): Boolean =
+        BuildConfig.CAATUU_ACCEPT_RELEASE_MIGRATION &&
+            BuildConfig.DEBUG &&
+            buildType == "release" &&
+            !debuggable
 
     private fun currentSignerFingerprints(packageInfo: PackageInfo): Set<String> =
         packageInfo.signingInfo
