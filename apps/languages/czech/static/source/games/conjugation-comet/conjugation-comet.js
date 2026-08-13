@@ -57,7 +57,6 @@ const LEGACY_SPEAK_ON_TAP_STORAGE_KEY = `${course.storage.namespace}.conjugation
 const MEANING_LAYOUT_STORAGE_KEY = `${course.storage.namespace}.conjugationComet.meaningLayout.v1`;
 const MEANING_HINT_STORAGE_KEY = `${course.storage.namespace}.conjugationComet.meaningHintVisible.v1`;
 const MORPHOLOGY_HINT_STORAGE_KEY = `${course.storage.namespace}.conjugationComet.morphologyHintsVisible.v1`;
-const CZECH_SUBJECT_STORAGE_KEY = `${course.storage.namespace}.conjugationComet.czechSubjectPhrasesVisible.v1`;
 const $ = (selector) => document.querySelector(selector);
 const meaningImageCache = new Map();
 const pronounSpriteCropCache = new Map();
@@ -85,12 +84,10 @@ const state = {
   selectedCueKey: "",
   matchedFormKeys: new Set(),
   matchedCueKeys: new Set(),
-  genderSwapInProgress: false,
   wrongFormKey: "",
   wrongCueKey: "",
   pronounSpriteSheet: PRONOUN_SPRITE_SHEETS[0],
   morphologyHintsVisible: loadMorphologyHintsVisible(),
-  czechSubjectPhrasesVisible: loadCzechSubjectPhrasesVisible(),
   revealed: false,
   solutionArrowsReady: false,
   roundRecorded: false,
@@ -199,11 +196,12 @@ function genderCueKind(form) {
   return "";
 }
 
-function shouldAlignGenderHint(formKey, cueKey) {
-  if ((!state.morphologyHintsVisible && !state.czechSubjectPhrasesVisible) || formKey === cueKey) return false;
-  const formGender = genderCueKind(exerciseFormForKey(formKey));
-  const cueGender = genderCueKind(exerciseFormForKey(cueKey));
-  return Boolean(formGender && cueGender && formGender !== cueGender);
+function formsCanMatch(formKey, cueKey) {
+  if (formKey === cueKey) return true;
+  const form = exerciseFormForKey(formKey);
+  const cue = exerciseFormForKey(cueKey);
+  if (genderCueKind(form) || genderCueKind(cue)) return false;
+  return formsAreEquivalent(form, cue);
 }
 
 function czechSubjectForForm(form) {
@@ -218,8 +216,16 @@ function czechSubjectForForm(form) {
 
 function czechFormDisplay(form) {
   const surface = String(form?.form || "").trim();
-  if (!state.czechSubjectPhrasesVisible) return surface;
   return [czechSubjectForForm(form), surface].filter(Boolean).join(" ");
+}
+
+function createCzechFormCopy(form) {
+  const copy = element("span", "conjugation-comet-form-copy");
+  copy.append(
+    element("span", "conjugation-comet-form-subject", czechSubjectForForm(form)),
+    element("span", "conjugation-comet-form-verb", String(form?.form || "").trim())
+  );
+  return copy;
 }
 
 function buildExerciseForms(verb) {
@@ -339,7 +345,6 @@ function prepareNextVerb() {
   state.selectedCueKey = "";
   state.matchedFormKeys = new Set();
   state.matchedCueKeys = new Set();
-  state.genderSwapInProgress = false;
   state.wrongFormKey = "";
   state.wrongCueKey = "";
   state.pronounSpriteSheet = choosePronounSpriteSheet();
@@ -507,22 +512,6 @@ function loadMorphologyHintsVisible() {
 function saveMorphologyHintsVisible() {
   try {
     window.localStorage.setItem(MORPHOLOGY_HINT_STORAGE_KEY, String(state.morphologyHintsVisible));
-  } catch (error) {
-    // The preference remains active for this session when storage is unavailable.
-  }
-}
-
-function loadCzechSubjectPhrasesVisible() {
-  try {
-    return window.localStorage.getItem(CZECH_SUBJECT_STORAGE_KEY) === "true";
-  } catch (error) {
-    return false;
-  }
-}
-
-function saveCzechSubjectPhrasesVisible() {
-  try {
-    window.localStorage.setItem(CZECH_SUBJECT_STORAGE_KEY, String(state.czechSubjectPhrasesVisible));
   } catch (error) {
     // The preference remains active for this session when storage is unavailable.
   }
@@ -1296,8 +1285,9 @@ function renderForms() {
         state.revealed && !state.matchedFormKeys.has(key) ? "is-solution" : ""
       ].filter(Boolean).join(" "),
       disabled: state.matchedFormKeys.has(key) || state.revealed,
-      ariaLabel: `${display}, Czech ${state.czechSubjectPhrasesVisible ? "subject phrase" : "verb form"}, ${form.label}`
+      ariaLabel: `${display}, Czech subject phrase, ${form.label}`
     });
+    card.copy.replaceWith(createCzechFormCopy(form));
     card.button.dataset.formKey = key;
     if (state.revealed && !state.matchedFormKeys.has(key)) {
       card.button.dataset.solutionLabel = form.label;
@@ -1324,12 +1314,6 @@ function renderForms() {
   hintButton.setAttribute("aria-label", state.morphologyHintsVisible ? "Hide pronoun picture clues" : "Show pronoun picture clues");
   hintButton.title = state.morphologyHintsVisible ? "Hide pronoun picture clues" : "Show pronoun picture clues";
   hintButton.classList.toggle("is-active", state.morphologyHintsVisible);
-  const subjectButton = $("#verbMorphologySubjectButton");
-  subjectButton.disabled = complete;
-  subjectButton.setAttribute("aria-pressed", String(state.czechSubjectPhrasesVisible));
-  subjectButton.setAttribute("aria-label", state.czechSubjectPhrasesVisible ? "Show Czech verb forms only" : "Show Czech subject phrases");
-  subjectButton.title = state.czechSubjectPhrasesVisible ? "Show Czech verb forms only" : "Show Czech subject phrases";
-  subjectButton.classList.toggle("is-active", state.czechSubjectPhrasesVisible);
   $("#verbMorphologyRevealButton").disabled = complete;
 
   if (complete) {
@@ -1431,16 +1415,9 @@ function evaluatePair() {
   const cueKey = state.selectedCueKey;
   // Some Czech paradigms use one visible form for multiple persons. Matching
   // by reviewed surface equivalence makes either identical card a fair answer.
-  const correct = formsAreEquivalent(
-    exerciseFormForKey(formKey),
-    exerciseFormForKey(cueKey)
-  );
+  const correct = formsCanMatch(formKey, cueKey);
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
   if (correct) {
-    if (shouldAlignGenderHint(formKey, cueKey)) {
-      alignGenderHintPair(formKey, cueKey);
-      return;
-    }
     acceptCorrectPair(formKey, cueKey);
     return;
   }
@@ -1464,47 +1441,8 @@ function acceptCorrectPair(formKey, cueKey) {
   render();
 }
 
-function animateGenderHintSwap(previousPositions, keys) {
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) return 0;
-  keys.forEach((key) => {
-    const card = morphologyCardForKey($("#verbMorphologyFormsColumn"), "data-form-key", key)?.closest(".conjugation-comet-form-row");
-    const previousTop = previousPositions.get(key);
-    if (!card || !Number.isFinite(previousTop)) return;
-    const offset = previousTop - card.getBoundingClientRect().top;
-    card.style.zIndex = "2";
-    card.animate([
-      { transform: `translateY(${offset}px) rotateY(0deg)` },
-      { transform: `translateY(${offset / 2}px) rotateY(90deg)` },
-      { transform: "translateY(0) rotateY(0deg)" }
-    ], {
-      duration: 520,
-      easing: "cubic-bezier(0.22, 0.78, 0.24, 1)"
-    });
-  });
-  return 520;
-}
-
-function alignGenderHintPair(formKey, cueKey) {
-  const formIndex = state.formOrder.indexOf(formKey);
-  const cueIndex = state.formOrder.indexOf(cueKey);
-  if (formIndex < 0 || cueIndex < 0) {
-    acceptCorrectPair(formKey, cueKey);
-    return;
-  }
-  const previousPositions = captureFormPositions();
-  state.genderSwapInProgress = true;
-  [state.formOrder[formIndex], state.formOrder[cueIndex]] = [state.formOrder[cueIndex], state.formOrder[formIndex]];
-  render();
-  const duration = animateGenderHintSwap(previousPositions, [formKey, cueKey]);
-  setFeedback("#verbMorphologyFeedback", "Correct. The matching portrait is moving into place.", "correct");
-  window.setTimeout(() => {
-    state.genderSwapInProgress = false;
-    acceptCorrectPair(cueKey, cueKey);
-  }, duration);
-}
-
 function selectForm(key) {
-  if (state.phase !== "forms" || state.revealed || state.genderSwapInProgress || state.matchedFormKeys.has(key)) return;
+  if (state.phase !== "forms" || state.revealed || state.matchedFormKeys.has(key)) return;
   if (state.speakOnSelect) void speakCzech(czechFormDisplay(exerciseFormForKey(key)));
   state.selectedFormKey = state.selectedFormKey === key ? "" : key;
   render();
@@ -1512,7 +1450,7 @@ function selectForm(key) {
 }
 
 function selectCue(key) {
-  if (state.phase !== "forms" || state.revealed || state.genderSwapInProgress || state.matchedCueKeys.has(key)) return;
+  if (state.phase !== "forms" || state.revealed || state.matchedCueKeys.has(key)) return;
   state.selectedCueKey = state.selectedCueKey === key ? "" : key;
   render();
   evaluatePair();
@@ -1522,13 +1460,6 @@ function toggleMorphologyHints() {
   if (state.phase !== "forms" || state.revealed) return;
   state.morphologyHintsVisible = !state.morphologyHintsVisible;
   saveMorphologyHintsVisible();
-  renderForms();
-}
-
-function toggleCzechSubjectPhrases() {
-  if (state.phase !== "forms" || state.revealed) return;
-  state.czechSubjectPhrasesVisible = !state.czechSubjectPhrasesVisible;
-  saveCzechSubjectPhrasesVisible();
   renderForms();
 }
 
@@ -1585,7 +1516,14 @@ function revealAnswers() {
 function startNextVerb() {
   if (!state.verbs.length) return;
   void window.CaatuuChrome?.stopCzechSpeech?.();
-  transition("Choosing the next -ám verb…", prepareNextVerb, 1000).catch(showError);
+  transition("Choosing the next -ám verb…", prepareNextVerb, 1000)
+    .then(speakCurrentChallenge)
+    .catch(showError);
+}
+
+function speakCurrentChallenge() {
+  if (!state.speakOnSelect || !state.current?.verb) return;
+  void speakCzech(state.current.verb);
 }
 
 async function speakCzech(text, button = null) {
@@ -1662,7 +1600,6 @@ function bindUi() {
     });
   });
   $("#verbMorphologyHintButton")?.addEventListener("click", toggleMorphologyHints);
-  $("#verbMorphologySubjectButton")?.addEventListener("click", toggleCzechSubjectPhrases);
   $("#verbMeaningHintButton")?.addEventListener("click", toggleMeaningHint);
   $("#verbMeaningLayoutButton")?.addEventListener("click", toggleMeaningLayout);
   $("#verbMorphologyRevealButton")?.addEventListener("click", revealAnswers);
@@ -1703,6 +1640,7 @@ async function init() {
     refillQueue();
     await waitForWindowLoad();
     await transition("Preparing the first challenge…", prepareNextVerb, 1100);
+    speakCurrentChallenge();
     window.CaatuuRuntime?.registerServiceWorker?.().catch(() => {});
   } catch (error) {
     showError(error);

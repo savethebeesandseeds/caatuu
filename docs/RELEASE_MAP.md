@@ -87,8 +87,8 @@ status report; update the dashboard after each release gate.
 | Browser/Android contracts | Current full Node suite passes 375 of 375 tests | Retain this baseline and keep the store boundary contracts mandatory |
 | Rust server | 26 of 26 tests passed | Retain this baseline |
 | Android build | Full development source remains separate; the stripped `product` release module owns canonical Caatuu artifacts | Keep the development build out of product publication |
-| Public artifact | Caatuu 0.1.1 uses stable `versionCode` 149; immutable codes 145 and 147 remain prior releases, while code 148 is the old-client transition | Publish 149 and record the physical-device result |
-| Version | Current `versionName` is `0.1.1`; prerelease names are retired | Increase `versionCode` for every later artifact without changing released bytes |
+| Public artifact | Caatuu 0.1.2 uses stable `versionCode` 151; immutable codes 145, 147, and 149 remain prior releases, while code 150 is the old-client transition | Publish 151 and record the physical-device result |
+| Version | Current `versionName` is `0.1.2`; prerelease names are retired | Increase `versionCode` for every later artifact without changing released bytes |
 | Mandatory setup | 671 artifacts totaling 343,347,068 bytes | Reduce and test the first-run burden |
 | LLM boundary | The development build retains LLM work; the audited `product` AAB and derived APK exclude its dependency, libraries, metadata, Chat, URLs, bridge, and UI | Keep the production origin isolated before declaring models not distributed |
 | Embeddings | Active and required; approximately 56.8 MB of setup assets, including a roughly 20 MB vector DB | Preserve and release-audit independently from LLMs |

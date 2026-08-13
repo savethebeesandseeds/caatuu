@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v513";
+const CACHE_NAME = "caatuu-czech-pwa-v521";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -33,8 +33,8 @@ const CORE_ASSETS = [
   "./source/games/word-world/word-net-queue.mjs?v=word-net-queue-6",
   "./source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
   "./conjugation-comet.html",
-  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-39",
-  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-53",
+  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
+  "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-57",
   "./case-cosmos.html",
   "./source/games/case-cosmos/case-cosmos.css?v=case-cosmos-1",
   "./source/games/case-cosmos/case-cosmos.js?v=case-cosmos-5",

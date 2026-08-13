@@ -39,7 +39,7 @@ test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () 
 test("the standalone page loads direct game data without the curriculum service", () => {
   const semantic = page.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
   const chrome = page.indexOf('src="source/shared/chrome.js?v=chrome-108"');
-  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-53"');
+  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-57"');
   assert.ok(semantic >= 0 && chrome > semantic && game > chrome);
   assert.doesNotMatch(page, /curriculum-service/);
   assert.match(controller, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4"/);
@@ -134,24 +134,29 @@ test("fresh form challenges never place a cue directly opposite its answer", () 
   assert.match(controller, /state\.cueOrder = shuffleAwayFrom\(state\.formOrder\)/);
 });
 
-test("Czech forms lead the matching board and can show remembered subject phrases", () => {
+test("Czech forms lead the matching board and always show two-tone subject phrases", () => {
   const czechHeading = page.indexOf('<div class="verb-match-column-heading verb-match-column-heading-cz">');
   const englishHeading = page.indexOf('<div class="verb-match-column-heading verb-match-column-heading-en">');
   const czechColumn = page.indexOf('id="verbMorphologyFormsColumn"');
   const englishColumn = page.indexOf('id="verbMorphologyCuesColumn"');
   assert.ok(czechHeading >= 0 && czechHeading < englishHeading);
   assert.ok(czechColumn >= 0 && czechColumn < englishColumn);
-  assert.match(page, /id="verbMorphologySubjectButton"[\s\S]*?aria-label="Show Czech subject phrases"[\s\S]*?>[\s\S]*?já/);
-  assert.match(controller, /conjugationComet\.czechSubjectPhrasesVisible\.v1/);
+  assert.doesNotMatch(page, /verbMorphologySubjectButton|Show Czech subject phrases/);
+  assert.doesNotMatch(controller, /CZECH_SUBJECT_STORAGE_KEY|czechSubjectPhrasesVisible|toggleCzechSubjectPhrases/);
   assert.match(controller, /function czechSubjectForForm\(form\)/);
   for (const subject of ["já", "ty", "on", "ona", "my", "vy", "oni"]) {
     assert.ok(controller.includes(`"${subject}"`), `the Czech subject map needs ${subject}`);
   }
   assert.match(controller, /function czechFormDisplay\(form\)/);
-  assert.match(controller, /text: display/);
+  assert.match(controller, /function createCzechFormCopy\(form\)/);
+  assert.match(controller, /conjugation-comet-form-subject/);
+  assert.match(controller, /conjugation-comet-form-verb/);
+  assert.match(controller, /card\.copy\.replaceWith\(createCzechFormCopy\(form\)\)/);
   assert.match(controller, /speakCzech\(czechFormDisplay\(exerciseFormForKey\(key\)\)\)/);
-  assert.match(controller, /localStorage\.setItem\(CZECH_SUBJECT_STORAGE_KEY, String\(state\.czechSubjectPhrasesVisible\)\)/);
-  assert.match(controller, /#verbMorphologySubjectButton/);
+  assert.match(styles, /\.conjugation-comet-form-subject \{[\s\S]*?color: var\(--muted\);[\s\S]*?font-weight: 800/);
+  assert.match(styles, /\.conjugation-comet-form-verb \{[\s\S]*?color: var\(--ink\);[\s\S]*?font-weight: 850/);
+  assert.match(styles, /\.conjugation-comet-cue-subject \{[\s\S]*?color: var\(--muted\);[\s\S]*?font-weight: 800/);
+  assert.match(styles, /\.conjugation-comet-cue-verb \{[\s\S]*?color: var\(--ink\);[\s\S]*?font-weight: 850/);
   assert.match(styles, /#verbMorphologyBoard \.verb-match-column-heading-cz,[\s\S]*?#verbMorphologyFormsColumn \{[\s\S]*?grid-column: 1/);
   assert.match(styles, /#verbMorphologyBoard \.verb-match-column-heading-en,[\s\S]*?#verbMorphologyCuesColumn \{[\s\S]*?grid-column: 2/);
 });
@@ -232,6 +237,9 @@ test("both stages use the established audio menu and the meaning card offers bor
   assert.match(controller, /window\.CaatuuChrome\?\.speakCzechText/);
   assert.match(controller, /createPronounceButton\(state\.current\.verb\)/);
   assert.match(controller, /function selectForm\(key\) \{[\s\S]*?if \(state\.speakOnSelect\) void speakCzech\(czechFormDisplay\(exerciseFormForKey\(key\)\)\)/);
+  assert.match(controller, /function speakCurrentChallenge\(\) \{[\s\S]*?if \(!state\.speakOnSelect \|\| !state\.current\?\.verb\) return;[\s\S]*?void speakCzech\(state\.current\.verb\)/);
+  assert.match(controller, /transition\("Choosing the next -ám verb…", prepareNextVerb, 1000\)[\s\S]*?\.then\(speakCurrentChallenge\)/);
+  assert.match(controller, /await transition\("Preparing the first challenge…", prepareNextVerb, 1100\);[\s\S]*?speakCurrentChallenge\(\)/);
   assert.doesNotMatch(controller, /pendingSpeakAtStart|Speak when challenge starts/);
   assert.match(controller, /window\.CaatuuChrome\?\.stopCzechSpeech/);
   assert.match(controller, /window\.addEventListener\("pagehide"/);
@@ -287,18 +295,16 @@ test("the morphology feather toggles reviewed pronoun pictures beside Czech form
   assert.match(controller, /image\.setAttribute\("viewBox", fallbackPronounViewBox\(sprite\)\)/);
   assert.match(controller, /image\.setAttribute\("viewBox", viewBox\)/);
   assert.match(controller, /sheet\.setAttribute\("href", `\$\{PRONOUN_IMAGE_BASE\}\/\$\{spriteSheet\}`\)/);
-  assert.match(styles, /\.conjugation-comet-pronoun-hint-slot \{[\s\S]*?height: clamp\(70px, 8vw, 88px\)/);
+  assert.match(styles, /\.conjugation-comet-pronoun-hint-slot \{[\s\S]*?grid-column: 1;[\s\S]*?height: clamp\(56px, 8vw, 72px\)/);
   assert.match(styles, /\.conjugation-comet-pronoun-hint-image \{[\s\S]*?overflow: hidden/);
   assert.match(controller, /function buildExerciseForms\(verb\)/);
   assert.match(controller, /key: `\$\{key\}:he`, cue: `he \$\{predicate\}`/);
   assert.match(controller, /key: `\$\{key\}:she`, cue: `she \$\{predicate\}`/);
   assert.match(controller, /cue\.startsWith\("he "\)/);
-  assert.match(controller, /function shouldAlignGenderHint\(formKey, cueKey\)/);
-  assert.match(controller, /\(!state\.morphologyHintsVisible && !state\.czechSubjectPhrasesVisible\) \|\| formKey === cueKey/);
-  assert.match(controller, /function alignGenderHintPair\(formKey, cueKey\)/);
-  assert.match(controller, /\[state\.formOrder\[formIndex\], state\.formOrder\[cueIndex\]\] = \[state\.formOrder\[cueIndex\], state\.formOrder\[formIndex\]\]/);
-  assert.match(controller, /rotateY\(90deg\)/);
-  assert.match(controller, /acceptCorrectPair\(cueKey, cueKey\)/);
+  assert.match(controller, /function formsCanMatch\(formKey, cueKey\)/);
+  assert.match(controller, /if \(formKey === cueKey\) return true/);
+  assert.match(controller, /if \(genderCueKind\(form\) \|\| genderCueKind\(cue\)\) return false/);
+  assert.doesNotMatch(controller, /shouldAlignGenderHint|alignGenderHintPair|animateGenderHintSwap|genderSwapInProgress|rotateY\(90deg\)/);
   assert.match(controller, /button\?\.hasAttribute\("data-meaning-option"\)/);
   assert.match(controller, /cue\.startsWith\("she "\)/);
   assert.match(controller, /state\.morphologyHintsVisible = !state\.morphologyHintsVisible/);
@@ -311,7 +317,7 @@ test("the morphology feather toggles reviewed pronoun pictures beside Czech form
   assert.doesNotMatch(cueCardBody, /createPronounHintSlot/);
   assert.match(styles, /#verbMorphologyFormsColumn \.conjugation-comet-form-row:has\(\.conjugation-comet-pronoun-hint-slot:not\(\[hidden\]\)\)/);
   assert.doesNotMatch(styles, /#verbMorphologyCuesColumn \.conjugation-comet-cue-row:has\(\.conjugation-comet-pronoun-hint-slot/);
-  assert.match(styles, /width: clamp\(70px, 8vw, 88px\)/);
+  assert.match(styles, /width: clamp\(56px, 8vw, 72px\)/);
   assert.match(styles, /\.conjugation-comet-cue-label \{[\s\S]*?border: 0;[\s\S]*?background: transparent;[\s\S]*?rgba\(184, 78, 69, 0\.68\)/);
   assert.match(styles, /#verbMorphologyCuesColumn \{[\s\S]*?grid-column: 1/);
   assert.match(styles, /#verbMorphologyFormsColumn \{[\s\S]*?grid-column: 2/);
@@ -341,8 +347,8 @@ test("revealed solutions animate Czech forms into aligned rows, draw short arrow
 test("the offline shell pins the game, verb data, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-39",
-    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-53",
+    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
+    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-57",
     "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4",
     "/assets/macaw/actions/keymaps.json",
     "/assets/macaw/actions/macaw%20(1).png",
