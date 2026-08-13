@@ -18,7 +18,7 @@ rootProject.name = "CaatuuAndroid"
 
 val distributionProfile = providers.gradleProperty("caatuuDistributionProfile").orElse("full").get()
 when (distributionProfile) {
-    "storeMvp" -> include(":storeMvp")
+    "product" -> include(":product")
     "full" -> {
         val llamaLibDir = file("../../tools/on-device-models/vendor/llama.cpp/examples/llama.android/lib")
         if (!llamaLibDir.isDirectory) {
@@ -33,6 +33,6 @@ when (distributionProfile) {
         project(":llamaLib").projectDir = llamaLibDir
     }
     else -> throw GradleException(
-        "Unsupported caatuuDistributionProfile '$distributionProfile'. Use 'full' or 'storeMvp'."
+        "Unsupported caatuuDistributionProfile '$distributionProfile'. Use 'full' or 'product'."
     )
 }

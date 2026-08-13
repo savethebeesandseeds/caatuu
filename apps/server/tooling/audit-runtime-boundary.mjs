@@ -488,8 +488,15 @@ async function auditHttpRoutes() {
       assert(manifest.build_type === "debug", "debug Android manifest should identify its channel");
       assert(manifest.debuggable === true, "debug Android manifest should identify a debuggable build");
       assert(/^[a-f0-9]{64}$/.test(manifest.sha256), "debug Android manifest should expose a SHA-256 digest");
-      const expectedPath = `/android/debug-releases/${manifest.version_code}/caatuu-debug.apk`;
-      assert(new URL(manifest.apk_url).pathname === expectedPath, `debug manifest should point to immutable ${expectedPath}`);
+      const legacyBridge = manifest.channel === "legacy-update-bridge";
+      const expectedPath = legacyBridge
+        ? `/android/releases/${manifest.version_code}/caatuu.apk`
+        : `/android/debug-releases/${manifest.version_code}/caatuu-debug.apk`;
+      assert(new URL(manifest.apk_url).pathname === expectedPath, `installed-lineage manifest should point to immutable ${expectedPath}`);
+      if (legacyBridge) {
+        assert(manifest.artifact_build_type === "release", "legacy update bridge should identify the real release artifact");
+        assert(manifest.artifact_debuggable === false, "legacy update bridge should identify the real non-debuggable artifact");
+      }
       const immutableApk = await request(expectedPath, { method: "HEAD" });
       assert(immutableApk.status === 200, `debug immutable APK should return 200, got ${immutableApk.status}`);
       assertCacheControl(immutableApk, ANDROID_IMMUTABLE_CACHE_CONTROL, "debug versioned APK");
@@ -1333,22 +1340,18 @@ function auditAndroidSource() {
   assert(debugBuild.includes('Refusing to replace immutable APK'), "debug build should reject same-version byte replacement");
   assert(debugBuild.includes('CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS'), "generic debug builds should detect an enabled public debug route");
   assert(debugBuild.includes('overwrite the live manifest with an invalid update origin'), "generic debug builds should refuse to poison the public update manifest");
-  assert(publicDebugPublisher.includes("java -version 2>&1 | grep -q 'version \"17'"), "public debug publisher should verify Java 17 before building");
+  assert(publicDebugPublisher.includes("The public debug channel is retired."), "public debug publisher should direct releases to the canonical product channel");
   assert(debugBuild.includes('"build_type": "debug"'), "debug build manifest should identify the debug channel");
   assert(debugBuild.includes('"debuggable": true'), "debug build manifest should identify the APK as debuggable");
   assert(debugBuild.includes("verify --verbose --print-certs"), "debug build should cryptographically verify the APK before publishing");
-  assert(releaseBuild.includes(":app:assembleRelease"), "release build script should assemble the release variant");
-  assert(releaseBuild.includes('artifacts/android/caatuu.apk'), "release build script should publish the stable APK filename");
-  assert(releaseBuild.includes('artifacts/android/caatuu.json'), "release build script should publish the stable manifest filename");
-  assert(releaseBuild.includes('releases/$version_code/caatuu.apk'), "release build should publish immutable versioned APKs");
-  assert(releaseBuild.includes('Refusing to replace immutable APK'), "release build should reject same-version byte replacement");
+  assert(releaseBuild.includes("build-release-aab.sh"), "release APK build should use the audited product AAB boundary");
+  assert(releaseBuild.includes('artifacts/android/caatuu-universal.apk'), "release build should expose the AAB-derived Caatuu APK");
+  assert(releaseBuild.includes('artifacts/android/caatuu.aab'), "release build should expose the Caatuu AAB");
   assert(releaseBuild.includes('CAATUU_ANDROID_KEYSTORE'), "release build script should require an explicit signing keystore");
-  assert(releaseBuild.includes('"build_type": "release"'), "release build manifest should identify the release channel");
-  assert(releaseBuild.includes('"debuggable": false'), "release build manifest should reject debuggable APKs");
-  assert(releaseBuild.includes("verify --verbose --print-certs"), "release build should cryptographically verify the APK before publishing");
-  assert(releaseAabBuild.includes(":app:bundlePlay"), "Play bundle build should invoke the Play variant");
-  assert(releaseAabBuild.includes("app/build/outputs/bundle/play/app-play.aab"), "Play bundle build should read the Play variant output");
-  assert(releaseAabBuild.includes("artifacts/android/caatuu-release.aab"), "Play bundle build should publish the release AAB artifact");
+  assert(releaseAabBuild.includes(":product:bundleRelease"), "release bundle build should invoke the stripped product variant");
+  assert(releaseAabBuild.includes("product/build/outputs/bundle/release/product-release.aab"), "release bundle build should read the product output");
+  assert(releaseAabBuild.includes('artifact_stem="caatuu"'), "signed product builds should publish the canonical Caatuu artifact name");
+  assert(releaseAabBuild.includes("validate-product-package.mjs"), "release bundle build should run the product package boundary audit");
   assert(appUpdateManager.includes('validateChannelUrl(URL(updateManifestUrl), "Update manifest")'), "Android updater should validate its configured manifest URL before use");
   assert(appUpdateManager.includes('require(BuildConfig.DEBUG || candidate.protocol == "https")'), "Android release updater should require HTTPS");
   assert(appUpdateManager.includes("instanceFollowRedirects = false"), "Android updater should refuse unchecked HTTP redirects");

@@ -6,23 +6,23 @@ import test from "node:test";
 
 import {
   STORE_LANGUAGE_FILES,
-  STORE_MVP_PROFILE,
-  compileStoreMvpAssets,
+  PRODUCT_PROFILE,
+  compileProductAssets,
   transformCourseProfile,
   transformIndex,
-  validateStoreMvpAssets
-} from "../build-store-mvp-assets.mjs";
+  validateProductAssets
+} from "../build-product-assets.mjs";
 
 const workspaceRoot = new URL("../../../..", import.meta.url).pathname;
 const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
 const launcherStaticDir = join(workspaceRoot, "apps/launcher/static");
 
-test("storeMvp assets compile from an exact capability-safe allowlist", (t) => {
-  const parent = mkdtempSync(join(tmpdir(), "caatuu-store-mvp-test-"));
-  const outputDir = join(parent, "store-mvp");
+test("product assets compile from an exact capability-safe allowlist", (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-product-test-"));
+  const outputDir = join(parent, "product");
   t.after(() => rmSync(parent, { recursive: true, force: true }));
 
-  const result = compileStoreMvpAssets({
+  const result = compileProductAssets({
     workspaceRoot,
     languageStaticDir,
     launcherStaticDir,
@@ -31,12 +31,12 @@ test("storeMvp assets compile from an exact capability-safe allowlist", (t) => {
   assert.equal(result.fileCount, 81);
   assert.ok(result.totalBytes > 1_000_000);
   assert.deepEqual(
-    validateStoreMvpAssets({ outputDir, languageStaticDir }),
+    validateProductAssets({ outputDir, languageStaticDir }),
     result
   );
 
-  const profile = JSON.parse(readFileSync(join(outputDir, "store-mvp-profile.json"), "utf8"));
-  assert.deepEqual(profile, STORE_MVP_PROFILE);
+  const profile = JSON.parse(readFileSync(join(outputDir, "caatuu-profile.json"), "utf8"));
+  assert.deepEqual(profile, PRODUCT_PROFILE);
   assert.equal(profile.capabilities.embeddings, true);
   assert.equal(profile.capabilities.wordWorldStandardOnly, true);
   assert.equal(profile.capabilities.llm, false);
@@ -70,7 +70,7 @@ test("storeMvp assets compile from an exact capability-safe allowlist", (t) => {
   }
 });
 
-test("storeMvp transforms fail closed when an expected development anchor drifts", () => {
+test("product transforms fail closed when an expected development anchor drifts", () => {
   const source = readFileSync(join(languageStaticDir, "source/shared/course-profile.js"), "utf8");
   assert.throws(
     () => transformCourseProfile(source.replace("      chat: true,", "      chat: maybe,")),
@@ -84,13 +84,13 @@ test("storeMvp transforms fail closed when an expected development anchor drifts
   );
 });
 
-test("storeMvp compiler refuses an arbitrary in-workspace output directory", () => {
+test("product compiler refuses an arbitrary in-workspace output directory", () => {
   assert.throws(
-    () => compileStoreMvpAssets({
+    () => compileProductAssets({
       workspaceRoot,
       languageStaticDir,
       launcherStaticDir,
-      outputDir: join(workspaceRoot, "artifacts/store-mvp")
+      outputDir: join(workspaceRoot, "artifacts/product")
     }),
     /In-workspace store output must be inside/
   );

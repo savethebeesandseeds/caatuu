@@ -5,36 +5,35 @@ import test from "node:test";
 const repoRoot = new URL("../../../../", import.meta.url);
 const [settings, build, manifest, bridge, activity, proguard] = await Promise.all([
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
-  readFile(new URL("apps/android/storeMvp/build.gradle.kts", repoRoot), "utf8"),
-  readFile(new URL("apps/android/storeMvp/src/main/AndroidManifest.xml", repoRoot), "utf8"),
+  readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
+  readFile(new URL("apps/android/product/src/main/AndroidManifest.xml", repoRoot), "utf8"),
   readFile(
     new URL(
-      "apps/android/storeMvp/src/main/java/com/caatuu/android/StoreMvpBridge.kt",
+      "apps/android/product/src/main/java/com/caatuu/android/ProductBridge.kt",
       repoRoot,
     ),
     "utf8",
   ),
   readFile(
     new URL(
-      "apps/android/storeMvp/src/main/java/com/caatuu/android/StoreMvpActivity.kt",
+      "apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt",
       repoRoot,
     ),
     "utf8",
   ),
-  readFile(new URL("apps/android/storeMvp/proguard-rules.pro", repoRoot), "utf8"),
+  readFile(new URL("apps/android/product/proguard-rules.pro", repoRoot), "utf8"),
 ]);
 
-test("settings make the full and store modules mutually exclusive", () => {
-  assert.match(settings, /"storeMvp" -> include\(":storeMvp"\)/);
+test("settings make the development and product modules mutually exclusive", () => {
+  assert.match(settings, /"product" -> include\(":product"\)/);
   assert.match(settings, /"full" -> \{/);
   assert.match(settings, /include\(":app"\)/);
   assert.match(settings, /include\(":llamaLib"\)/);
   assert.match(settings, /Unsupported caatuuDistributionProfile/);
 });
 
-test("the store module reuses only safe application sources", () => {
+test("the product module reuses only safe application sources", () => {
   for (const source of [
-    "AppUpdateManager.kt",
     "CaatuuBridge.kt",
     "MainActivity.kt",
     "ModelManager.kt",
@@ -47,19 +46,22 @@ test("the store module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_GENERATIVE_ENABLED", "false"/);
   assert.match(build, /CAATUU_EMBEDDINGS_ENABLED", "true"/);
   assert.match(build, /CAATUU_GODOT_ENABLED", "false"/);
-  assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "false"/);
+  assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
+  assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
 });
 
-test("the store manifest exposes only the Store MVP launcher with safe permissions", () => {
+test("the product manifest exposes the Caatuu launcher and verified self-update support", () => {
   assert.match(manifest, /android\.permission\.INTERNET/);
-  assert.doesNotMatch(manifest, /REQUEST_INSTALL_PACKAGES/);
-  assert.match(manifest, /android:name="\.StoreMvpActivity"/);
+  assert.match(manifest, /REQUEST_INSTALL_PACKAGES/);
+  assert.match(manifest, /android:name="\.CaatuuActivity"/);
+  assert.match(manifest, /androidx\.core\.content\.FileProvider/);
   assert.match(manifest, /android:exported="true"/);
   assert.match(manifest, /android:usesCleartextTraffic="false"/);
   assert.match(activity, /webView\.addJavascriptInterface\(bridge, "CaatuuAndroid"\)/);
   for (const className of [
-    "StoreMvpBridge",
+    "ProductBridge",
+    "AppUpdateManager",
     "CaatuuAssetClient",
     "VectorDatabaseManager",
     "DictionaryManager",
@@ -69,7 +71,7 @@ test("the store manifest exposes only the Store MVP launcher with safe permissio
   }
 });
 
-test("the Store MVP bridge exposes the safe native operation allowlist", () => {
+test("the product bridge exposes the safe native operation allowlist", () => {
   const allowedOperations = [
     "cancel_request",
     "setup_status",
@@ -94,9 +96,9 @@ test("the Store MVP bridge exposes the safe native operation allowlist", () => {
   for (const operation of allowedOperations) {
     assert.match(bridge, new RegExp(`"${operation}"`));
   }
-  assert.match(bridge, /\.put\("storeManaged", true\)/);
-  assert.match(bridge, /\.put\("selfUpdateEnabled", false\)/);
-  assert.match(bridge, /\.put\("updateAvailable", false\)/);
+  assert.match(bridge, /appUpdateManager\.statusJson\(\)/);
+  assert.match(bridge, /appUpdateManager\.downloadLatest/);
+  assert.match(bridge, /appUpdateManager\.openInstaller\(\)/);
 
   for (const forbidden of [
     "start_download",
@@ -109,5 +111,5 @@ test("the Store MVP bridge exposes the safe native operation allowlist", () => {
   ]) {
     assert.doesNotMatch(bridge, new RegExp(`"${forbidden}"`));
   }
-  assert.doesNotMatch(bridge, /ModelManager|NativeCzechModel|AppUpdateManager|com\.arm\.aichat/);
+  assert.doesNotMatch(bridge, /ModelManager|NativeCzechModel|com\.arm\.aichat/);
 });

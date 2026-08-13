@@ -3,30 +3,30 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [builder, validator, compiler, storeBuild, settings] = await Promise.all([
+const [builder, validator, compiler, productBuild, settings] = await Promise.all([
   readFile(new URL("apps/android/tooling/build-release-aab.sh", repoRoot), "utf8"),
-  readFile(new URL("apps/android/tooling/validate-store-mvp-package.mjs", repoRoot), "utf8"),
-  readFile(new URL("apps/android/tooling/build-store-mvp-assets.mjs", repoRoot), "utf8"),
-  readFile(new URL("apps/android/storeMvp/build.gradle.kts", repoRoot), "utf8"),
+  readFile(new URL("apps/android/tooling/validate-product-package.mjs", repoRoot), "utf8"),
+  readFile(new URL("apps/android/tooling/build-product-assets.mjs", repoRoot), "utf8"),
+  readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
 ]);
 
-test("the canonical Play builder constructs only the storeMvp release profile", () => {
+test("the canonical builder constructs only the product release profile", () => {
   for (const contract of [
-    "-PcaatuuDistributionProfile=storeMvp",
-    ":storeMvp:generateStoreMvpAssets",
-    ":storeMvp:lintRelease",
-    ":storeMvp:assembleRelease",
-    ":storeMvp:bundleRelease",
+    "-PcaatuuDistributionProfile=product",
+    ":product:generateProductAssets",
+    ":product:lintRelease",
+    ":product:assembleRelease",
+    ":product:bundleRelease",
   ]) {
     assert.ok(builder.includes(contract), `missing canonical builder contract: ${contract}`);
   }
   assert.doesNotMatch(builder, /prepare-llama-vendor|:app:|:llamaLib:/);
-  assert.match(settings, /"storeMvp" -> include\(":storeMvp"\)/);
-  assert.match(storeBuild, /commandLine\(\s*"node",\s*assetCompiler\.asFile\.absolutePath,/s);
-  assert.match(storeBuild, /assets\.srcDir\(generatedAssetsDir\)/);
+  assert.match(settings, /"product" -> include\(":product"\)/);
+  assert.match(productBuild, /commandLine\(\s*"node",\s*assetCompiler\.asFile\.absolutePath,/s);
+  assert.match(productBuild, /assets\.srcDir\(generatedAssetsDir\)/);
 
-  const dependencies = /dependencies\s*\{([\s\S]*?)\}/u.exec(storeBuild)?.[1] ?? "";
+  const dependencies = /dependencies\s*\{([\s\S]*?)\}/u.exec(productBuild)?.[1] ?? "";
   assert.doesNotMatch(dependencies, /llama|ggml|godot|com\.arm\.aichat/i);
 });
 
@@ -40,8 +40,8 @@ test("the builder handles signing atomically and labels milestone artifacts hone
     assert.ok(builder.includes(variable), `missing signing input: ${variable}`);
   }
   assert.match(builder, /signing_values" -ne 0 && "\$signing_values" -ne/);
-  assert.match(builder, /artifact_stem="caatuu-store-mvp-unsigned"/);
-  assert.match(builder, /storeMvp-release-unsigned\.apk/);
+  assert.match(builder, /artifact_stem="caatuu-unsigned"/);
+  assert.match(builder, /product-release-unsigned\.apk/);
   assert.match(builder, /inspection-debug-signed-universal\.apk/);
   assert.match(builder, /keytool -genkeypair/);
   assert.match(builder, /apksigner_path verify --print-certs/);
@@ -56,14 +56,14 @@ test("the AAB-derived universal APK is the authoritative delivery-boundary audit
     "--mode=universal",
     "--aapt2=",
     "universal.apk",
-    "validate-store-mvp-package.mjs",
+    "validate-product-package.mjs",
     "--apkanalyzer",
     "--unzip",
   ]) {
     assert.ok(builder.includes(contract), `missing package audit step: ${contract}`);
   }
   assert.match(builder, /output_universal_apk.*authoritative package audit input/s);
-  assert.match(validator, /assertAssetBoundary\([^;]+"aab", "storeMvp AAB"\)/s);
+  assert.match(validator, /assertAssetBoundary\([^;]+"aab", "Caatuu AAB"\)/s);
   assert.match(validator, /assertAssetBoundary\([^;]+"apk", "AAB-derived universal APK"\)/s);
   assert.match(validator, /verifyAabDerivedApkAssets/);
   assert.match(validator, /archiveBuffer\([^;]+\)\.equals\(archiveBuffer\(/s);
@@ -123,7 +123,7 @@ test("the validator distinguishes embedding vendor code from first-party capabil
 });
 
 test("the profile marker and Android package identity are fail-closed", () => {
-  assert.match(compiler, /writeText\(join\(resolvedOutput, "store-mvp-profile\.json"\)/);
+  assert.match(compiler, /writeText\(join\(resolvedOutput, "caatuu-profile\.json"\)/);
   for (const capability of ["chat", "llm", "generation", "godot"]) {
     assert.match(validator, new RegExp(`"${capability}"`));
   }
@@ -148,8 +148,9 @@ test("the profile marker and Android package identity are fail-closed", () => {
 
 test("the DEX contract requires safe native classes and excludes retired bridges", () => {
   for (const className of [
-    "StoreMvpActivity",
-    "StoreMvpBridge",
+    "CaatuuActivity",
+    "ProductBridge",
+    "AppUpdateManager",
     "CaatuuAssetClient",
     "VectorDatabaseManager",
     "DictionaryManager",
@@ -160,7 +161,6 @@ test("the DEX contract requires safe native classes and excludes retired bridges
   for (const className of [
     "ModelManager",
     "NativeCzechModel",
-    "AppUpdateManager",
     "com\\.arm\\.aichat",
     "org\\.godotengine",
   ]) {

@@ -24,17 +24,19 @@ import java.io.File
 import kotlin.coroutines.coroutineContext
 import kotlin.math.max
 
-class StoreMvpBridge(
+class ProductBridge(
     private val activity: Activity,
     private val webView: WebView,
     private val vectorDatabaseManager: VectorDatabaseManager,
     private val dictionaryManager: DictionaryManager,
     private val staticAssetManager: StaticAssetManager,
     private val speechManager: AndroidSpeechManager,
+    private val appUpdateManager: AppUpdateManager,
     private val onThemeChanged: (String) -> Unit,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val artifactMutex = Mutex()
+    private val updateMutex = Mutex()
     private val requestStateLock = Any()
     private val activeRequests = mutableMapOf<String, Job>()
     private var activeSetupJob: Job? = null
@@ -87,7 +89,8 @@ class StoreMvpBridge(
                     "speech_install_data" -> installSpeechData(id)
                     "delete_local_pack" -> deleteLocalPack(id)
                     "clear_cache" -> clearCache(id)
-                    "update_app_status", "update_app" -> emitDone(id, storeUpdateStatusJson())
+                    "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
+                    "update_app" -> updateApp(id)
                     else -> throw IllegalArgumentException("Unknown native request type.")
                 }
             } catch (error: Exception) {
@@ -524,20 +527,26 @@ class StoreMvpBridge(
         )
     }
 
-    private fun storeUpdateStatusJson(): JSONObject =
-        JSONObject()
-            .put("selfUpdateEnabled", false)
-            .put("storeManaged", true)
-            .put("updateAvailable", false)
-            .put("serverReachable", true)
-            .put("currentVersionCode", BuildConfig.VERSION_CODE)
-            .put("currentVersionName", BuildConfig.VERSION_NAME)
-            .put("downloadReady", false)
-            .put("readyToInstall", false)
-            .put("downloadActive", false)
-            .put("resumable", false)
-            .put("downloadState", "store-managed")
-            .put("message", "Updates are managed by the app store.")
+    private suspend fun updateApp(id: String) {
+        check(updateMutex.tryLock()) { "An app update or cache operation is already running." }
+        try {
+            emit(id, "status", JSONObject().put("message", "Checking for a Caatuu update."))
+            val result = appUpdateManager.downloadLatest { progress ->
+                emit(
+                    id,
+                    "progress",
+                    JSONObject()
+                        .put("phase", "download")
+                        .put("bytes", progress.bytesRead)
+                        .put("totalBytes", progress.totalBytes),
+                )
+            }
+            val action = appUpdateManager.openInstaller()
+            emitDone(id, result.put("action", action))
+        } finally {
+            updateMutex.unlock()
+        }
+    }
 
     private suspend fun cancelActiveSetup(reason: String): Boolean {
         val job = activeSetupJob?.takeIf { it.isActive } ?: return false

@@ -10,7 +10,7 @@ const MINIMUM_TARGET_SDK = 36;
 const EXPECTED_MINILM_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41";
 
 const REQUIRED_ASSET_PATHS = [
-  "store-mvp-profile.json",
+  "caatuu-profile.json",
   "index.html",
   "setup-assets.json",
   "data/embeddings/models.json",
@@ -29,8 +29,9 @@ const REQUIRED_ASSET_PATHS = [
 ];
 
 const REQUIRED_NATIVE_CLASSES = [
-  "com.caatuu.android.StoreMvpActivity",
-  "com.caatuu.android.StoreMvpBridge",
+  "com.caatuu.android.CaatuuActivity",
+  "com.caatuu.android.ProductBridge",
+  "com.caatuu.android.AppUpdateManager",
   "com.caatuu.android.CaatuuAssetClient",
   "com.caatuu.android.VectorDatabaseManager",
   "com.caatuu.android.DictionaryManager",
@@ -38,7 +39,7 @@ const REQUIRED_NATIVE_CLASSES = [
 ];
 
 const FORBIDDEN_NATIVE_CLASS_PATTERNS = [
-  /\bcom\.caatuu\.android\.(?:ModelManager|NativeCzechModel|AppUpdateManager)(?:\$|\b)/,
+  /\bcom\.caatuu\.android\.(?:ModelManager|NativeCzechModel)(?:\$|\b)/,
   /\bcom\.arm\.aichat(?:\.|\b)/,
   /\borg\.godotengine(?:\.|\b)/,
 ];
@@ -84,8 +85,8 @@ const FORBIDDEN_FIRST_PARTY_SOURCE_PATTERNS = [
 
 function usage() {
   console.log(
-    "Usage: node apps/android/tooling/validate-store-mvp-package.mjs " +
-      "--aab <store.aab> --apk <aab-derived-universal.apk> " +
+    "Usage: node apps/android/tooling/validate-product-package.mjs " +
+      "--aab <caatuu.aab> --apk <aab-derived-universal.apk> " +
       "[--apkanalyzer <path>] [--unzip <path>]",
   );
 }
@@ -165,7 +166,7 @@ function archiveEntryForAsset(assetPath, kind) {
 function assertNoForbiddenPaths(entries, label) {
   for (const entry of entries) {
     for (const pattern of FORBIDDEN_ARCHIVE_PATH_PATTERNS) {
-      assert(!pattern.test(entry), `${label} contains forbidden storeMvp path ${entry}`);
+      assert(!pattern.test(entry), `${label} contains forbidden product path ${entry}`);
     }
   }
 }
@@ -174,7 +175,7 @@ function assertRequiredAssets(entries, kind, label) {
   const entrySet = new Set(entries);
   for (const assetPath of REQUIRED_ASSET_PATHS) {
     const expected = archiveEntryForAsset(assetPath, kind);
-    assert(entrySet.has(expected), `${label} is missing required storeMvp asset ${expected}`);
+    assert(entrySet.has(expected), `${label} is missing required product asset ${expected}`);
   }
 }
 
@@ -215,7 +216,7 @@ function assertStoreProfile(profile, label) {
     `${label} store profile must contain the exact reviewed privacy flags`,
   );
   assert(profile?.schemaVersion === 1, `${label} store profile must use schemaVersion 1`);
-  assert(profile?.profile === "storeMvp", `${label} store profile must identify storeMvp`);
+  assert(profile?.profile === "product", `${label} profile must identify the Caatuu product`);
   for (const capability of ["chat", "llm", "generation", "godot"]) {
     assert(
       profile?.capabilities?.[capability] === false,
@@ -353,7 +354,7 @@ function assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label)
     if (!FIRST_PARTY_EXECUTABLE_EXTENSIONS.has(extension)) continue;
     const source = archiveText(unzip, archive, entry);
     for (const pattern of FORBIDDEN_FIRST_PARTY_SOURCE_PATTERNS) {
-      assert(!pattern.test(source), `${label} first-party asset ${entry} contains forbidden storeMvp pattern ${pattern}`);
+      assert(!pattern.test(source), `${label} first-party asset ${entry} contains forbidden product pattern ${pattern}`);
     }
   }
 }
@@ -362,7 +363,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertNoForbiddenPaths(entries, label);
   assertRequiredAssets(entries, kind, label);
 
-  const profile = parseJsonAsset(unzip, archive, "store-mvp-profile.json", kind, label);
+  const profile = parseJsonAsset(unzip, archive, "caatuu-profile.json", kind, label);
   assertStoreProfile(profile, label);
   const catalog = parseJsonAsset(unzip, archive, "data/embeddings/models.json", kind, label);
   const manifest = parseJsonAsset(
@@ -399,10 +400,10 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
 
 function assertApkManifest(apkanalyzerPath, apk) {
   const command = (subject, verb) => run(apkanalyzerPath, [subject, verb, apk]).trim();
-  assert(command("manifest", "application-id") === EXPECTED_APPLICATION_ID, "storeMvp APK application ID is incorrect");
-  assert(Number(command("manifest", "min-sdk")) === EXPECTED_MIN_SDK, "storeMvp APK min SDK must be 30");
-  assert(Number(command("manifest", "target-sdk")) >= MINIMUM_TARGET_SDK, "storeMvp APK target SDK must be at least 36");
-  assert(command("manifest", "debuggable") === "false", "storeMvp APK must be non-debuggable");
+  assert(command("manifest", "application-id") === EXPECTED_APPLICATION_ID, "Caatuu APK application ID is incorrect");
+  assert(Number(command("manifest", "min-sdk")) === EXPECTED_MIN_SDK, "Caatuu APK min SDK must be 30");
+  assert(Number(command("manifest", "target-sdk")) >= MINIMUM_TARGET_SDK, "Caatuu APK target SDK must be at least 36");
+  assert(command("manifest", "debuggable") === "false", "Caatuu APK must be non-debuggable");
 
   const permissions = new Set(
     command("manifest", "permissions")
@@ -410,16 +411,17 @@ function assertApkManifest(apkanalyzerPath, apk) {
       .map((permission) => permission.trim())
       .filter(Boolean),
   );
-  assert(permissions.has("android.permission.INTERNET"), "storeMvp APK must retain INTERNET permission");
+  assert(permissions.has("android.permission.INTERNET"), "Caatuu APK must retain INTERNET permission");
   assert(
-    !permissions.has("android.permission.REQUEST_INSTALL_PACKAGES"),
-    "storeMvp APK must not request REQUEST_INSTALL_PACKAGES",
+    permissions.has("android.permission.REQUEST_INSTALL_PACKAGES"),
+    "direct Caatuu APK must retain REQUEST_INSTALL_PACKAGES for verified self-updates",
   );
 
   const manifest = command("manifest", "print");
-  assert(/android:usesCleartextTraffic="false"/u.test(manifest), "storeMvp APK must disable cleartext traffic");
-  assert(/android:name="com\.caatuu\.android\.StoreMvpActivity"/u.test(manifest), "storeMvp APK must launch StoreMvpActivity");
-  assert(!/android:name="com\.caatuu\.android\.MainActivity"/u.test(manifest), "storeMvp APK must not retain the full MainActivity");
+  assert(/android:usesCleartextTraffic="false"/u.test(manifest), "Caatuu APK must disable cleartext traffic");
+  assert(/android:name="com\.caatuu\.android\.CaatuuActivity"/u.test(manifest), "Caatuu APK must launch CaatuuActivity");
+  assert(/androidx\.core\.content\.FileProvider/u.test(manifest), "Caatuu APK must expose its private verified-update FileProvider");
+  assert(!/android:name="com\.caatuu\.android\.MainActivity"/u.test(manifest), "Caatuu APK must not retain the development MainActivity");
 }
 
 function assertDexBoundary(apkanalyzerPath, apk) {
@@ -427,11 +429,11 @@ function assertDexBoundary(apkanalyzerPath, apk) {
   for (const className of REQUIRED_NATIVE_CLASSES) {
     assert(
       new RegExp(`\\b${escapeRegExp(className)}(?:\\$|\\s|$)`, "u").test(dex),
-      `storeMvp APK is missing native class ${className}`,
+      `Caatuu APK is missing native class ${className}`,
     );
   }
   for (const pattern of FORBIDDEN_NATIVE_CLASS_PATTERNS) {
-    assert(!pattern.test(dex), `storeMvp APK contains forbidden native class pattern ${pattern}`);
+    assert(!pattern.test(dex), `Caatuu APK contains forbidden native class pattern ${pattern}`);
   }
   for (const method of [
     "runPrompt",
@@ -441,14 +443,14 @@ function assertDexBoundary(apkanalyzerPath, apk) {
     "resetConversation",
     "runBenchmark",
   ]) {
-    assert(!new RegExp(`\\b${method}\\b`, "u").test(dex), `storeMvp APK contains forbidden bridge method ${method}`);
+    assert(!new RegExp(`\\b${method}\\b`, "u").test(dex), `Caatuu APK contains forbidden bridge method ${method}`);
   }
 
   const bridgeCode = run(apkanalyzerPath, [
     "dex",
     "code",
     "--class",
-    "com.caatuu.android.StoreMvpBridge",
+    "com.caatuu.android.ProductBridge",
     apk,
   ]);
   for (const operation of [
@@ -461,7 +463,7 @@ function assertDexBoundary(apkanalyzerPath, apk) {
   ]) {
     assert(
       !new RegExp(`const-string[^\\n]+"${operation}"`, "u").test(bridgeCode),
-      `storeMvp bridge exposes forbidden native operation ${operation}`,
+      `Caatuu bridge exposes forbidden native operation ${operation}`,
     );
   }
 }
@@ -498,7 +500,7 @@ function main() {
   try {
     options = parseArguments(process.argv.slice(2));
   } catch (error) {
-    console.error(`storeMvp package validator usage error: ${error.message}`);
+    console.error(`Caatuu package validator usage error: ${error.message}`);
     usage();
     process.exitCode = 2;
     return;
@@ -508,20 +510,20 @@ function main() {
   const aab = resolve(options.aab);
   const apk = resolve(options.apk);
   try {
-    assert(existsSync(aab), `storeMvp AAB does not exist at ${aab}`);
+    assert(existsSync(aab), `Caatuu AAB does not exist at ${aab}`);
     assert(existsSync(apk), `AAB-derived universal APK does not exist at ${apk}`);
 
     const aabEntries = archiveEntries(options.unzip, aab);
     const apkEntries = archiveEntries(options.unzip, apk);
-    assertAssetBoundary(options.unzip, aab, aabEntries, "aab", "storeMvp AAB");
+    assertAssetBoundary(options.unzip, aab, aabEntries, "aab", "Caatuu AAB");
     assertAssetBoundary(options.unzip, apk, apkEntries, "apk", "AAB-derived universal APK");
     verifyAabDerivedApkAssets(options.unzip, aab, aabEntries, apk, apkEntries);
     assertApkManifest(options.apkanalyzer, apk);
     assertDexBoundary(options.apkanalyzer, apk);
 
-    console.log(`storeMvp package boundary passed for ${basename(aab)} and ${basename(apk)}.`);
+    console.log(`Caatuu package boundary passed for ${basename(aab)} and ${basename(apk)}.`);
   } catch (error) {
-    console.error(`storeMvp package boundary failed: ${error.message}`);
+    console.error(`Caatuu package boundary failed: ${error.message}`);
     process.exitCode = 1;
   }
 }

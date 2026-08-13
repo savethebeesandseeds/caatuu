@@ -7,5 +7,5 @@ data class ArtifactProgress(
 
 // The existing safe artifact managers use this source-level name. A type alias
 // keeps those shared sources unchanged without creating a generation class in
-// the Store MVP DEX.
+// the product DEX.
 typealias ModelProgress = ArtifactProgress

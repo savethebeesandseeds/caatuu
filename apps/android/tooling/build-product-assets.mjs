@@ -103,9 +103,9 @@ export const STORE_LAUNCHER_ICON_FILES = Object.freeze([
   "stats_icon.png"
 ]);
 
-export const STORE_MVP_PROFILE = Object.freeze({
+export const PRODUCT_PROFILE = Object.freeze({
   schemaVersion: 1,
-  profile: "storeMvp",
+  profile: "product",
   capabilities: Object.freeze({
     chat: false,
     llm: false,
@@ -134,7 +134,7 @@ const STORE_LAUNCHER_FILES = Object.freeze([
   }
 ]);
 
-const GENERATED_FILES = Object.freeze(["store-mvp-profile.json"]);
+const GENERATED_FILES = Object.freeze(["caatuu-profile.json"]);
 const STORE_OUTPUT_FILES = new Set([
   ...STORE_LANGUAGE_FILES,
   ...STORE_LAUNCHER_FILES.map(({ output }) => output),
@@ -375,7 +375,7 @@ export function transformRuntime(input) {
   );
   source = replaceTopLevelFunction(source, "sendDictionaryGapReport", `
   async function sendDictionaryGapReport() {
-    throw new Error("Remote dictionary-gap reporting is disabled for storeMvp.");
+    throw new Error("Remote dictionary-gap reporting is disabled for the Caatuu product.");
   }`, { indent: "  " });
   source = exactReplace(
     source,
@@ -942,7 +942,7 @@ function generateFromConfiguredMode(mode = state.generationMode, { force = false
 }`);
   source = replaceTopLevelFunction(source, "cancelBackgroundWork", `
 function cancelBackgroundWork() {
-  // storeMvp has no optional background sentence jobs to cancel.
+  // The product has no optional background sentence jobs to cancel.
 }`);
   source = replaceTopLevelFunction(source, "setTranslationMode", `
 function setTranslationMode(mode, { closeMenu = true } = {}) {
@@ -1130,7 +1130,7 @@ const TRANSFORMS = Object.freeze({
 
 function assertSafeOutputDirectory(outputDir, workspaceRoot, languageStaticDir, launcherStaticDir) {
   const output = resolve(outputDir);
-  assert.ok(output.toLowerCase().includes("store-mvp"), "Output path must contain 'store-mvp'");
+  assert.ok(output.toLowerCase().includes("product"), "Output path must contain 'product'");
   for (const protectedPath of [workspaceRoot, languageStaticDir, launcherStaticDir]) {
     assert.notEqual(output.toLowerCase(), resolve(protectedPath).toLowerCase(), `Refusing to replace protected path: ${output}`);
   }
@@ -1141,7 +1141,7 @@ function assertSafeOutputDirectory(outputDir, workspaceRoot, languageStaticDir, 
     && workspaceRelative !== ".."
     && !isAbsolute(workspaceRelative);
   if (insideWorkspace) {
-    const allowedRoot = resolve(workspaceRoot, "apps/android/storeMvp/build");
+    const allowedRoot = resolve(workspaceRoot, "apps/android/product/build");
     const allowedRelative = relative(allowedRoot, output);
     assert.ok(
       allowedRelative !== ""
@@ -1187,7 +1187,7 @@ function serviceWorkerSource(paths, developmentSource) {
   const coreAssets = ["./", ...paths
     .filter((path) => path !== "sw.js")
     .map((path) => `./${path}`)];
-  return `const CACHE_NAME = "caatuu-czech-pwa-store-mvp-v1";
+  return `const CACHE_NAME = "caatuu-czech-product-v1";
 const CORE_ASSETS = ${JSON.stringify(coreAssets, null, 2)};
 
 self.addEventListener("install", (event) => {
@@ -1346,12 +1346,12 @@ function assertFirstPartySurface(outputDir, files) {
 function assertNoConjugationCometSurface(outputDir, files) {
   const forbidden = /conjugation(?:[- ]?comet)|train-world-comet/i;
   for (const path of files) {
-    assert.doesNotMatch(path, forbidden, `Conjugation Comet path survived in storeMvp: ${path}`);
+    assert.doesNotMatch(path, forbidden, `Conjugation Comet path survived in the product: ${path}`);
     if (!TEXT_EXTENSIONS.has(extension(path))) continue;
     assert.doesNotMatch(
       readSourceText(join(outputDir, path)),
       forbidden,
-      `Conjugation Comet reference survived in storeMvp: ${path}`
+      `Conjugation Comet reference survived in the product: ${path}`
     );
   }
 }
@@ -1437,7 +1437,7 @@ function assertServiceWorkerBoundary(outputDir) {
   }
 }
 
-export function validateStoreMvpAssets({
+export function validateProductAssets({
   outputDir,
   languageStaticDir = join(defaultWorkspaceRoot, "apps/languages/czech/static")
 }) {
@@ -1456,8 +1456,8 @@ export function validateStoreMvpAssets({
   assertImportReferences(resolvedOutput, files);
   assertHtmlReferences(resolvedOutput, files);
 
-  const profile = JSON.parse(readFileSync(join(resolvedOutput, "store-mvp-profile.json"), "utf8"));
-  assert.deepEqual(profile, STORE_MVP_PROFILE, "storeMvp profile marker must use the exact release schema");
+  const profile = JSON.parse(readFileSync(join(resolvedOutput, "caatuu-profile.json"), "utf8"));
+  assert.deepEqual(profile, PRODUCT_PROFILE, "Caatuu profile marker must use the exact release schema");
   const course = readSourceText(join(resolvedOutput, "source/shared/course-profile.js"));
   assert.match(course, /chat: false/);
   assert.match(course, /offlineModels: false/);
@@ -1469,11 +1469,11 @@ export function validateStoreMvpAssets({
   return { outputDir: resolvedOutput, fileCount: files.length, totalBytes, files };
 }
 
-export function compileStoreMvpAssets({
+export function compileProductAssets({
   workspaceRoot = defaultWorkspaceRoot,
   languageStaticDir = join(workspaceRoot, "apps/languages/czech/static"),
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
-  outputDir = join(workspaceRoot, "apps/android/storeMvp/build/generated/assets/store-mvp")
+  outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product")
 } = {}) {
   const resolvedWorkspace = resolve(workspaceRoot);
   const resolvedLanguage = resolve(languageStaticDir);
@@ -1500,13 +1500,13 @@ export function compileStoreMvpAssets({
   for (const { source, output } of STORE_LAUNCHER_FILES) {
     copyExactFile(join(resolvedLauncher, source), join(resolvedOutput, output));
   }
-  writeText(join(resolvedOutput, "store-mvp-profile.json"), `${JSON.stringify(STORE_MVP_PROFILE, null, 2)}\n`);
+  writeText(join(resolvedOutput, "caatuu-profile.json"), `${JSON.stringify(PRODUCT_PROFILE, null, 2)}\n`);
   const preWorkerFiles = [...STORE_OUTPUT_FILES].filter((path) => path !== "sw.js").sort();
   writeText(
     join(resolvedOutput, "sw.js"),
     serviceWorkerSource(preWorkerFiles, readSourceText(join(resolvedLanguage, "sw.js")))
   );
-  return validateStoreMvpAssets({ outputDir: resolvedOutput, languageStaticDir: resolvedLanguage });
+  return validateProductAssets({ outputDir: resolvedOutput, languageStaticDir: resolvedLanguage });
 }
 
 function parseArguments(argv) {
@@ -1529,11 +1529,11 @@ function parseArguments(argv) {
 if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
   const options = parseArguments(process.argv.slice(2));
   if (options.help) {
-    process.stdout.write("Usage: node apps/android/tooling/build-store-mvp-assets.mjs [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
+    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
   } else {
-    const result = compileStoreMvpAssets(options);
+    const result = compileProductAssets(options);
     process.stdout.write(`${JSON.stringify({
-      profile: STORE_MVP_PROFILE.profile,
+      profile: PRODUCT_PROFILE.profile,
       outputDir: result.outputDir,
       fileCount: result.fileCount,
       totalBytes: result.totalBytes

@@ -11,8 +11,8 @@ val bundledLanguageEntryPath = providers.gradleProperty("caatuuLanguageEntryPath
 val workspaceRootDir = layout.projectDirectory.dir("../../..")
 val languageStaticDir = workspaceRootDir.dir("apps/${bundledLanguageAppDir.get()}/static")
 val launcherStaticDir = workspaceRootDir.dir("apps/launcher/static")
-val assetCompiler = workspaceRootDir.file("apps/android/tooling/build-store-mvp-assets.mjs")
-val generatedAssetsDir = layout.buildDirectory.dir("generated/assets/store-mvp")
+val assetCompiler = workspaceRootDir.file("apps/android/tooling/build-product-assets.mjs")
+val generatedAssetsDir = layout.buildDirectory.dir("generated/assets/product")
 val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
 val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
@@ -23,6 +23,8 @@ val androidMinSdk = providers.environmentVariable("CAATUU_ANDROID_MIN_SDK")
 val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK")
     .map(String::toInt)
     .orElse(36)
+val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
+    .orElse("https://caatuu.waajacu.com/android")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -32,11 +34,11 @@ val releaseSigningValues = listOf(
 val hasReleaseSigning = releaseSigningValues.all { it }
 val hasPartialReleaseSigning = releaseSigningValues.any { it } && !hasReleaseSigning
 
-check(distributionProfile.get() == "storeMvp") {
-    "The :storeMvp module must be configured with -PcaatuuDistributionProfile=storeMvp."
+check(distributionProfile.get() == "product") {
+    "The :product module must be configured with -PcaatuuDistributionProfile=product."
 }
 check(!hasPartialReleaseSigning) {
-    "Store MVP signing requires all four CAATUU_ANDROID_KEYSTORE, " +
+    "Caatuu product signing requires all four CAATUU_ANDROID_KEYSTORE, " +
         "CAATUU_ANDROID_KEYSTORE_PASSWORD, CAATUU_ANDROID_KEY_ALIAS, and " +
         "CAATUU_ANDROID_KEY_PASSWORD values, or none for an explicitly unsigned milestone build."
 }
@@ -44,9 +46,9 @@ check(!hasPartialReleaseSigning) {
 fun buildConfigString(value: String): String =
     "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
 
-val generateStoreMvpAssets by tasks.registering(Exec::class) {
+val generateProductAssets by tasks.registering(Exec::class) {
     group = "build setup"
-    description = "Compile the allowlisted, non-generative Store MVP WebView assets."
+    description = "Compile the allowlisted, non-generative Caatuu product assets."
     workingDir(workspaceRootDir)
     commandLine(
         "node",
@@ -72,16 +74,19 @@ android {
         applicationId = "com.waajacu.caatuu"
         minSdk = androidMinSdk.get()
         targetSdk = androidTargetSdk.get()
-        versionCode = 144
-        versionName = "0.1.143-store-mvp-preview.1"
-        buildConfigField("String", "CAATUU_DISTRIBUTION_PROFILE", buildConfigString("storeMvp"))
+        versionCode = 145
+        versionName = "0.1.0"
+        buildConfigField("String", "CAATUU_DISTRIBUTION_PROFILE", buildConfigString("product"))
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))
         buildConfigField("boolean", "CAATUU_GENERATIVE_ENABLED", "false")
         buildConfigField("boolean", "CAATUU_EMBEDDINGS_ENABLED", "true")
         buildConfigField("boolean", "CAATUU_GODOT_ENABLED", "false")
-        buildConfigField("boolean", "CAATUU_SELF_UPDATE_ENABLED", "false")
+        buildConfigField("boolean", "CAATUU_SELF_UPDATE_ENABLED", "true")
+        buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
+        buildConfigField("String", "CAATUU_UPDATE_APK_NAME", buildConfigString("caatuu.apk"))
+        buildConfigField("String", "CAATUU_UPDATE_MANIFEST_NAME", buildConfigString("caatuu.json"))
     }
 
     buildFeatures {
@@ -131,7 +136,6 @@ android {
         sourceSets.getByName("main").kotlin.apply {
             srcDir("../app/src/main/java")
             exclude(
-                "com/caatuu/android/AppUpdateManager.kt",
                 "com/caatuu/android/CaatuuBridge.kt",
                 "com/caatuu/android/MainActivity.kt",
                 "com/caatuu/android/ModelManager.kt",
@@ -142,7 +146,7 @@ android {
 }
 
 tasks.named("preBuild").configure {
-    dependsOn(generateStoreMvpAssets)
+    dependsOn(generateProductAssets)
 }
 
 dependencies {

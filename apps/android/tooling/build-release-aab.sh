@@ -18,7 +18,7 @@ for key in "${signing_keys[@]}"; do
   fi
 done
 if [[ "$signing_values" -ne 0 && "$signing_values" -ne "${#signing_keys[@]}" ]]; then
-  echo "Set all four Android release-signing values, or leave all four unset for an unsigned storeMvp milestone build." >&2
+  echo "Set all four Android release-signing values, or leave all four unset for an unsigned Caatuu milestone build." >&2
   exit 1
 fi
 signed=false
@@ -86,37 +86,37 @@ echo "Using bundletool $bundletool_version from $bundletool_jar"
 
 cd "$repo_root/apps/android"
 gradle --no-daemon \
-  -PcaatuuDistributionProfile=storeMvp \
-  :storeMvp:generateStoreMvpAssets \
-  :storeMvp:lintRelease \
-  :storeMvp:assembleRelease \
-  :storeMvp:bundleRelease
+  -PcaatuuDistributionProfile=product \
+  :product:generateProductAssets \
+  :product:lintRelease \
+  :product:assembleRelease \
+  :product:bundleRelease
 
-source_aab="$repo_root/apps/android/storeMvp/build/outputs/bundle/release/storeMvp-release.aab"
+source_aab="$repo_root/apps/android/product/build/outputs/bundle/release/product-release.aab"
 if [[ ! -f "$source_aab" ]]; then
-  echo "Store MVP AAB was not produced at $source_aab" >&2
+  echo "Caatuu AAB was not produced at $source_aab" >&2
   exit 1
 fi
 if [[ "$signed" == true ]]; then
-  source_direct_apk="$repo_root/apps/android/storeMvp/build/outputs/apk/release/storeMvp-release.apk"
+  source_direct_apk="$repo_root/apps/android/product/build/outputs/apk/release/product-release.apk"
 else
-  source_direct_apk="$repo_root/apps/android/storeMvp/build/outputs/apk/release/storeMvp-release-unsigned.apk"
+  source_direct_apk="$repo_root/apps/android/product/build/outputs/apk/release/product-release-unsigned.apk"
 fi
 if [[ ! -f "$source_direct_apk" ]]; then
-  echo "Store MVP release APK was not produced at $source_direct_apk" >&2
+  echo "Caatuu release APK was not produced at $source_direct_apk" >&2
   exit 1
 fi
 
 artifact_dir="$repo_root/artifacts/android"
 mkdir -p "$artifact_dir"
 if [[ "$signed" == true ]]; then
-  artifact_stem="caatuu-store-mvp"
+  artifact_stem="caatuu"
   output_apks="$artifact_dir/$artifact_stem.apks"
   output_universal_apk="$artifact_dir/$artifact_stem-universal.apk"
 else
-  artifact_stem="caatuu-store-mvp-unsigned"
-  output_apks="$artifact_dir/caatuu-store-mvp-inspection-debug-signed.apks"
-  output_universal_apk="$artifact_dir/caatuu-store-mvp-inspection-debug-signed-universal.apk"
+  artifact_stem="caatuu-unsigned"
+  output_apks="$artifact_dir/caatuu-inspection-debug-signed.apks"
+  output_universal_apk="$artifact_dir/caatuu-inspection-debug-signed-universal.apk"
 fi
 output_aab="$artifact_dir/$artifact_stem.aab"
 output_direct_apk="$artifact_dir/$artifact_stem-direct.apk"
@@ -126,7 +126,7 @@ cp "$source_direct_apk" "$output_direct_apk"
 
 "${bundletool[@]}" validate --bundle="$output_aab"
 
-temporary_dir="$(mktemp -d "${TMPDIR:-/tmp}/caatuu-store-mvp.XXXXXX")"
+temporary_dir="$(mktemp -d "${TMPDIR:-/tmp}/caatuu-product.XXXXXX")"
 trap 'rm -rf "$temporary_dir"' EXIT
 bundletool_build_args=(
   build-apks
@@ -163,15 +163,15 @@ else
     -storetype PKCS12 \
     -storepass:env CAATUU_INSPECTION_PASSWORD \
     -keypass:env CAATUU_INSPECTION_PASSWORD \
-    -alias caatuu-store-mvp-inspection \
-    -dname "CN=Caatuu Store MVP package inspection, OU=Non-publishable, O=Waajacu, C=CZ" \
+    -alias caatuu-product-inspection \
+    -dname "CN=Caatuu package inspection, OU=Non-publishable, O=Waajacu, C=CZ" \
     -keyalg RSA \
     -keysize 2048 \
     -validity 1 \
     -noprompt >/dev/null
   bundletool_build_args+=(
     "--ks=$inspection_keystore"
-    --ks-key-alias=caatuu-store-mvp-inspection
+    --ks-key-alias=caatuu-product-inspection
     "--ks-pass=file:$inspection_password_file"
     "--key-pass=file:$inspection_password_file"
   )
@@ -186,13 +186,13 @@ fi
 cp "$temporary_dir/universal/universal.apk" "$output_universal_apk"
 if [[ "$signed" == false ]]; then
   inspection_certificate="$($apksigner_path verify --print-certs "$output_universal_apk")"
-  if [[ "$inspection_certificate" != *"CN=Caatuu Store MVP package inspection"* ]]; then
+  if [[ "$inspection_certificate" != *"CN=Caatuu package inspection"* ]]; then
     echo "The package-audit APK was not signed by the ephemeral inspection identity." >&2
     exit 1
   fi
 fi
 
-node "$repo_root/apps/android/tooling/validate-store-mvp-package.mjs" \
+node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
   --aab "$output_aab" \
   --apk "$output_universal_apk" \
   --apkanalyzer "$(command -v apkanalyzer)" \

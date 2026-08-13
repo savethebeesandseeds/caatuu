@@ -49,7 +49,7 @@ service. Waajacu's brand, trusted distribution, reviewed content, hosted
 services, support, and separately licensed custom objects can remain the
 product differentiation.
 
-## 2. Store-MVP product boundary
+## 2. Caatuu product boundary
 
 The repository may keep research and future product work. The Play artifact
 must contain only an explicit release allowlist.
@@ -86,13 +86,13 @@ status report; update the dashboard after each release gate.
 | Source identity | `main` is ahead of `origin/main` and contains a large shared integration set | No immutable release source yet |
 | Browser/Android contracts | Current full Node suite passes 375 of 375 tests | Retain this baseline and keep the store boundary contracts mandatory |
 | Rust server | 26 of 26 tests passed | Retain this baseline |
-| Android build | Full development source and the separate `storeMvp` release module compile; release Lint/R8 pass | Preserve both build paths |
-| Play artifact | An unsigned `storeMvp` engineering AAB has passed bundletool and package audits; no signed RC exists | Upload-key signing and RC evidence still block submission |
-| Version | The Store MVP public preview uses `versionCode` 144 and prerelease name `0.1.143-store-mvp-preview.1`; production `0.1.0` identity remains unset | Continue using strictly increasing preview codes and reconcile the signed RC identity before RC1 |
+| Android build | Full development source remains separate; the stripped `product` release module owns canonical Caatuu artifacts | Keep the development build out of product publication |
+| Public artifact | Caatuu 0.1.0 is assigned `versionCode` 145 and the stable `/android/releases/` channel | Build, publish, and record the physical-device result |
+| Version | `versionName` is `0.1.0`; prerelease names are retired | Increase `versionCode` for every later artifact without changing released bytes |
 | Mandatory setup | 671 artifacts totaling 343,347,068 bytes | Reduce and test the first-run burden |
-| LLM boundary | The full preview retains LLM work; the audited `storeMvp` AAB and derived APK exclude its dependency, libraries, metadata, Chat, URLs, bridge, and UI | Keep the production origin isolated before declaring models not distributed |
+| LLM boundary | The development build retains LLM work; the audited `product` AAB and derived APK exclude its dependency, libraries, metadata, Chat, URLs, bridge, and UI | Keep the production origin isolated before declaring models not distributed |
 | Embeddings | Active and required; approximately 56.8 MB of setup assets, including a roughly 20 MB vector DB | Preserve and release-audit independently from LLMs |
-| Godot | Source remains in the repository; the audited `storeMvp` AAB and derived APK contain no Godot export, library, route, or launcher surface | Keep production routes disabled and retain the package assertion |
+| Godot | Source remains in the repository; the audited `product` AAB and derived APK contain no Godot export, library, route, or launcher surface | Keep production routes disabled and retain the package assertion |
 | Content review | Current Word World has 792 Codex-reviewed records and no human-approved records | Freeze a smaller exact release subset and obtain qualified review |
 | Progression | Aggregate counters and a stronger semantic evidence ledger coexist; most games do not share stable item identities | Define progression v1 before claiming durable learning progress |
 | Legal/privacy | Existing inventories explicitly contain stop-ship and preview-only entries | Close them for the exact release bytes |
@@ -158,14 +158,14 @@ development application.
 
 ### 6.1 Distribution profiles
 
-Create a named Android distribution profile, provisionally `storeMvp`, with
+Use the named Android `product` distribution profile with
 these capabilities:
 
 ```text
 generative = false
 embeddings = true
 godot = false
-selfUpdate = false
+selfUpdate = true for direct releases; false for a future Play-specific build
 ```
 
 Keep a full development profile with generative and experimental source so the
@@ -176,7 +176,7 @@ operator remembering environment flags.
 ### 6.2 Remove LLMs from the release, not from the repository
 
 - [x] Make the store variant configure independently from the llama.cpp vendor
-  checkout by selecting only the separate `:storeMvp` module.
+  checkout by selecting only the separate `:product` module.
 - [x] Remove `:llamaLib` and every llama/ggml `.so` from the store variant.
 - [x] Split native artifact/setup operations from optional generation
   operations so the store bridge exposes no model download, load, prompt, or

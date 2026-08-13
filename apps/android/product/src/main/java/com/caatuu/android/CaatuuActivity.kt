@@ -21,10 +21,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import java.io.ByteArrayInputStream
 
-class StoreMvpActivity : ComponentActivity() {
+class CaatuuActivity : ComponentActivity() {
     private lateinit var appRoot: FrameLayout
     private lateinit var webView: WebView
-    private lateinit var bridge: StoreMvpBridge
+    private lateinit var bridge: ProductBridge
     private var systemTheme = DARK_THEME
     private var backRequestInFlight = false
 
@@ -78,13 +78,14 @@ class StoreMvpActivity : ComponentActivity() {
             safeBrowsingEnabled = true
         }
 
-        bridge = StoreMvpBridge(
+        bridge = ProductBridge(
             activity = this,
             webView = webView,
             vectorDatabaseManager = VectorDatabaseManager(applicationContext),
             dictionaryManager = DictionaryManager(applicationContext),
             staticAssetManager = StaticAssetManager(applicationContext),
             speechManager = AndroidSpeechManager(applicationContext),
+            appUpdateManager = AppUpdateManager(applicationContext),
             onThemeChanged = { theme -> applySystemTheme(theme) },
         )
 

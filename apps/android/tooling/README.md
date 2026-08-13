@@ -5,14 +5,14 @@ publishes use the reusable `caatuu-dev` container and shared Docker volumes for
 downloaded tools. A temporary Debian container remains available only as a
 bootstrap or recovery path. Both mount the checkout at `/workspace`.
 
-Android has two deliberate distributions. The full development/direct-download
+Android has two deliberate distributions. The full development
 application includes the Czech WebView UI and native llama.cpp bridge for the
 target phone ABI, but it does not bundle GGUF weights or browser WebLLM exports.
 Generation models are optional, on-demand artifacts in that full application.
-The `storeMvp` Play application is a separate module and compiled asset
-allowlist with no LLM, Chat, generation, Godot, direct updater, or outbound
-reporting capability. Both retain verified shared assets, the Czech-to-English
-dictionary, and the MiniLM embedding pack.
+The `product` application is a separate module and compiled asset allowlist
+with no LLM, Chat, generation, Godot, or outbound reporting capability. It is
+the canonical direct release and retains verified self-updates, shared assets,
+the Czech-to-English dictionary, and the MiniLM embedding pack.
 
 ## Plan
 
@@ -20,9 +20,8 @@ dictionary, and the MiniLM embedding pack.
 2. Keep the native Android app only for phones that need offline CPU inference.
 3. Build with command-line SDK tools, JDK 17, Gradle, NDK, and CMake inside
    Docker, not on the Windows host.
-4. Build and audit Play candidates only through the `storeMvp` AAB entrypoint.
-   Keep the explicit public debug-signed sideload channel separate from that
-   store path.
+4. Build and audit Caatuu releases only through the `product` AAB entrypoint.
+   Keep the full development application outside the public product channel.
 5. Keep model weights, SDK caches, build outputs, signing keys, and upload
    certificates out of Git.
 
@@ -279,7 +278,7 @@ x86_64 emulator, pass `-e CAATUU_ANDROID_ABIS=arm64-v8a,x86_64`.
 
 `CAATUU_ANDROID_REPORT_URL` is separate from the update base and defaults to
 `https://caatuu.waajacu.com/api/bug-report` for the full application. Override
-it only for a trusted development diagnostics endpoint. The `storeMvp` bridge
+it only for a trusted development diagnostics endpoint. The `product` bridge
 has no report operation; its compiled browser surface keeps bug reports local.
 
 For the full application, `CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defaults to
@@ -287,7 +286,7 @@ For the full application, `CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defa
 strict `report_dictionary_gap` bridge request: the native shell forwards the
 validated dictionary-gap payload without a device, app, or diagnostics
 envelope. Release variants require HTTPS; debug builds may override it with a
-trusted HTTP LAN endpoint. The `storeMvp` surface keeps this outbox local and
+trusted HTTP LAN endpoint. The `product` surface keeps this outbox local and
 does not package that bridge request or endpoint.
 
 ## Device Smoke Check
@@ -334,9 +333,9 @@ bash apps/android/tooling/setup-sdk.sh
 bash apps/android/tooling/build-debug-apk.sh
 ```
 
-## Store MVP AAB
+## Caatuu product build
 
-The canonical builder selects only the separate `:storeMvp` module, compiles its
+The canonical builder selects only the separate `:product` module, compiles its
 fail-closed asset allowlist, runs release Lint/R8, validates the AAB with
 bundletool, derives a universal APK, and audits both archives. Run it in the
 established container:
@@ -351,10 +350,10 @@ APK using a one-use temporary identity, verifies it, and deletes the identity.
 These artifacts prove package behavior but cannot be uploaded as a release:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu-store-mvp-unsigned.aab
-C:\Work\caatuu\artifacts\android\caatuu-store-mvp-unsigned-direct.apk
-C:\Work\caatuu\artifacts\android\caatuu-store-mvp-inspection-debug-signed.apks
-C:\Work\caatuu\artifacts\android\caatuu-store-mvp-inspection-debug-signed-universal.apk
+C:\Work\caatuu\artifacts\android\caatuu-unsigned.aab
+C:\Work\caatuu\artifacts\android\caatuu-unsigned-direct.apk
+C:\Work\caatuu\artifacts\android\caatuu-inspection-debug-signed.apks
+C:\Work\caatuu\artifacts\android\caatuu-inspection-debug-signed-universal.apk
 ```
 
 For a publishable candidate, store the upload key outside the repository,
@@ -376,50 +375,49 @@ docker run --rm -it `
   bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-release-aab.sh"
 ```
 
-The signed Play Store bundle is written to:
+The signed bundle is written to:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu-store-mvp.aab
+C:\Work\caatuu\artifacts\android\caatuu.aab
 ```
 
-The script rejects partial signing configuration. The `storeMvp` module omits
-`REQUEST_INSTALL_PACKAGES`, exposes a store-managed update status, packages no
-native inference library, and does not include the full `:app` or `:llamaLib`
-modules in its Gradle graph. `build-release-apk.sh` remains the signed full
-direct-download channel and retains the verified APK updater and optional LLM.
+The script rejects partial signing configuration. The `product` module packages
+no native inference library and does not include the full `:app` or `:llamaLib`
+modules in its Gradle graph. Its direct-release APK retains only the verified
+Caatuu updater.
 
-### Public Store MVP test APK
+### Publish Caatuu
 
-To publish a non-debuggable Store MVP APK for maintainer testing, first commit
-and push the exact source branch, assign a `storeMvp` version code greater than
-the currently public same-package APK, and run:
+To publish the non-debuggable Caatuu product, first commit and push the exact
+source branch, assign a version code greater than every previously distributed
+same-package APK, and run:
 
 ```bash
 docker exec -w /workspace caatuu-dev \
-  bash apps/android/tooling/publish-public-debug.sh --store-mvp
+  bash apps/android/tooling/publish-release.sh
 ```
 
-This mode does not replace `/android/caatuu-debug.*`, the full preview, or the
-stable release channel. It publishes only an immutable pair under:
+The publisher writes the immutable release and then the stable aliases:
 
 ```text
-/android/debug-releases/store-mvp-preview/<versionCode>/caatuu-store-mvp.apk
-/android/debug-releases/store-mvp-preview/<versionCode>/caatuu-store-mvp.json
+/android/releases/<versionCode>/caatuu.apk
+/android/releases/<versionCode>/caatuu.json
+/android/caatuu.apk
+/android/caatuu.json
 ```
 
-The publisher uses the existing pinned public-preview signing lineage so the
-test APK can update an installed full preview without erasing app-private data.
-Because both packages use `com.waajacu.caatuu`, they cannot coexist on one
-phone: installing Store MVP replaces the compatible-signed full preview. The
-next full preview must use a still higher version code.
+Version 0.1.0 deliberately uses the already-installed tester signing lineage,
+so it can replace older development installs without erasing app-private data.
+This direct-release identity is not the future Google Play app-signing or upload
+key. The publisher builds the signed AAB, selects its bundletool-derived APK,
+reruns the product audit, refuses dirty consumed source or an unpushed commit,
+serializes immutable publication, and verifies the public bytes, manifest,
+certificate, and cache headers.
 
-This signing identity is deliberately only for public sideload previews. It is
-not the future Play upload or app-signing key. The publisher builds the signed
-AAB, selects its bundletool-derived universal APK, reruns the Store package
-audit, refuses dirty consumed source or an unpushed source commit, serializes
-immutable publication, and verifies the public bytes, manifest, certificate,
-and cache headers. Device smoke status remains honestly `not-run` when that
-gate was skipped.
+Older installs still request `/android/caatuu-debug.json`. The publisher turns
+that legacy manifest into a narrow compatibility bridge pointing to the stable
+release. It is not a second product channel and must not be overwritten by a
+new public development build.
 
 Build a signed APK for direct testing with:
 
@@ -427,39 +425,36 @@ Build a signed APK for direct testing with:
 bash apps/android/tooling/build-release-apk.sh
 ```
 
-That command requires the same release-signing environment variables and
-writes the stable update pair:
+That command requires the same signing environment variables and writes the
+audited local artifacts:
 
 ```text
-C:\Work\caatuu\artifacts\android\caatuu.apk
-C:\Work\caatuu\artifacts\android\caatuu.json
+C:\Work\caatuu\artifacts\android\caatuu-universal.apk
+C:\Work\caatuu\artifacts\android\caatuu.aab
 ```
 
-The stable manifest likewise points at
-`/android/releases/<versionCode>/caatuu.apk`; `caatuu.apk` remains only the
-latest manual-download alias.
+Only `publish-release.sh` writes the stable manifest and public aliases.
 
 ## Update channel contract
 
-- `caatuu-debug.apk` and `caatuu-debug.json` come only from
-  `build-debug-apk.sh`. They are debug-signed and debuggable.
-- `caatuu.apk` and `caatuu.json` come only from
-  `build-release-apk.sh`. They must be signed with the release key and are the
+- `caatuu-debug.apk` is a development artifact and is not a product release.
+- `caatuu.apk` and `caatuu.json` come only from `publish-release.sh` and are the
   stable update channel used by normal installs.
+- `caatuu-debug.json` is a temporary compatibility manifest for installations
+  made before 0.1.0; it points to the stable immutable product APK.
 - Do not rename or copy a debug build over the stable filenames. It breaks
   signing continuity and makes an unsafe artifact look like a release.
 - Never reuse a `versionCode` for changed bytes. Both build scripts refuse to
   replace an existing immutable APK whose SHA-256 differs.
-- Both build scripts serialize the immutable check and final artifact moves
+- The release publisher serializes the immutable check and final artifact moves
   through `artifacts/android/.artifact-publication.lock`; do not bypass that
   lock with manual copies.
-- The public debug wrapper pins the installed certificate lineage. Treat a
+- The release publisher pins the installed certificate lineage. Treat a
   missing keystore or fingerprint mismatch as a recovery task, never as
   permission to mint a new public update key.
 - Publish the immutable APK first and the mutable manifest last. The canonical
   publisher enforces and verifies this ordering.
-- It is valid for the stable pair to be absent until release signing material
-  is available.
+- The retired public debug command cannot overwrite the stable product.
 
 ## Distribution Notes
 
@@ -469,8 +464,8 @@ latest manual-download alias.
   access.
 - Signing keys must not be committed. The repo ignores common Android key file
   extensions.
-- The full direct-download app keeps the GGUF as an external app-managed
-  download. The `storeMvp` AAB contains no GGUF catalog, URL, operation, or
+- The development app may keep the GGUF as an external app-managed download.
+  The `product` AAB contains no GGUF catalog, URL, operation, or
   inference library.
 - Native runtime libraries should stay signed inside the APK/AAB, or later be
   delivered through official dynamic delivery. Downloading executable `.so`

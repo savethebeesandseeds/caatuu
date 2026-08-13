@@ -1,22 +1,22 @@
 # Caatuu Android
 
 This directory contains two native Android shells. The default `app` module is
-the full development and direct-download application, including its optional
-native `llama.cpp` bridge. The `storeMvp` module is the Google Play boundary: it
+the full development application, including its optional native `llama.cpp`
+bridge. The `product` module is the canonical Caatuu application: it
 packages a compiled allowlist of the Czech experience with embeddings,
 dictionary, speech, local learning data, and standard games, but no LLM, Chat,
-generation, Godot, direct updater, or outbound-reporting capability.
+generation, Godot, or outbound-reporting capability.
 
 Both shells load a Czech WebView application whose source lives under
 `apps/languages/czech/static`. The store compiler does not delete or modify
 that development source; it creates a fail-closed release surface under the
-`storeMvp` build directory. Standalone game artifacts under `artifacts/games`
+`product` build directory. Standalone game artifacts under `artifacts/games`
 are excluded from both Android distributions.
 
 ## Runtime Shape
 
 - UI: existing Czech static app, loaded in a WebView from APK assets. The full
-  module copies the development surface; `storeMvp` compiles an explicit
+  module copies the development surface; `product` compiles an explicit
   release allowlist.
 - Games: no standalone game export is currently bundled. Memory Moon remains a
   static application placeholder.
@@ -27,7 +27,7 @@ are excluded from both Android distributions.
   native shell even though the shared `sw.js` source remains in the APK.
 - First-run setup downloads verified visual assets, embeddings, and the
   dictionary. The full module may additionally download an optional GGUF;
-  `storeMvp` has no model catalog or model operation.
+  `product` has no model catalog or model operation.
 - Full-module model runtime: llama.cpp Android binding from
   `tools/on-device-models/vendor`.
 - Full-module model file:
@@ -94,18 +94,12 @@ docker run --rm -it `
   bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-debug-apk.sh"
 ```
 
-The full debug APK lands at
+The full development APK lands at
 `C:\Work\caatuu\artifacts\android\caatuu-debug.apk`. Release AAB/APK builds
 are documented in `apps/android/tooling/README.md`. The AAB builder selects only
-the separate `storeMvp` module and validates an AAB-derived universal APK; the
-directly distributed APK remains the full application with Caatuu's signed
-updater.
-
-A public Store MVP test APK uses its own immutable download path while reusing
-the pinned preview signing lineage. It is non-debuggable and contains the
-Store boundary, but it is not Play-signed. Since it shares package ID
-`com.waajacu.caatuu`, installing it replaces a compatible-signed full Caatuu
-preview on the same phone; the two cannot coexist.
+the separate `product` module and validates an AAB-derived universal APK. That
+same stripped, non-debuggable artifact is Caatuu's direct public release and
+keeps the verified updater while distribution remains outside Google Play.
 
 The debug build also creates `C:\Work\caatuu\artifacts\android\caatuu-debug.keystore`
 on first use and reuses it for later debug APKs. Keep that local file if you
@@ -124,7 +118,7 @@ in-app updater.
 The full development/direct-download application can deliver remote diagnostics
 to `https://caatuu.waajacu.com/api/bug-report` independently of the APK update
 channel. Set `CAATUU_ANDROID_REPORT_URL` only when a trusted development server
-should receive debug reports instead. `storeMvp` keeps bug reports and
+should receive debug reports instead. `product` keeps bug reports and
 dictionary-gap reports local and exposes no delivery bridge operation.
 
 Missing Czech dictionary lookups use a separate, narrow native delivery route.
@@ -163,19 +157,20 @@ docker compose up -d --force-recreate caatuu
 Debug builds allow cleartext HTTP for local update testing. Release builds keep
 cleartext disabled and should use an HTTPS update host.
 
-Android update channels are intentionally separate:
+Android release identities are intentionally separate:
 
-- `caatuu-debug.apk` and `caatuu-debug.json` are debug-signed, debuggable
-  developer artifacts.
-- `caatuu.apk` and `caatuu.json` are created only by the signed release APK
-  build and are the stable in-app update channel.
+- `caatuu-debug.apk` remains a debuggable developer artifact only.
+- `caatuu.apk` and `caatuu.json` are the canonical non-debuggable product and
+  stable in-app update channel.
+- `caatuu-debug.json` is retained temporarily as an update bridge for installs
+  made before version 0.1.0; it points those installations to the stable APK.
 
 Never copy or rename a debug APK into the stable channel. The stable manifest
 may be absent until release signing credentials are available.
 
 The full build copies Czech static assets into generated APK assets while
 excluding heavy model payloads such as `.gguf`, `.bin`, `.params`,
-`.safetensors`, and the browser-only WebLLM export. `storeMvp` instead emits an
+`.safetensors`, and the browser-only WebLLM export. `product` instead emits an
 exact allowlist and rejects Chat, generation/model catalogs and URLs, inference
 native libraries, Godot exports/routes, and outbound-reporting code. The full
 APK includes only `arm64-v8a` native libraries by default; set
@@ -191,7 +186,7 @@ The same rule applies to the Czech semantic-search artifacts. Each Android
 package excludes
 the SQLite database, ONNX weights, ONNX Runtime WASM, and model configuration
 under `data/embeddings/`. The setup flow downloads and verifies those artifacts
-into app-private storage after install. In `storeMvp`, this embedding path is
+into app-private storage after install. In `product`, this embedding path is
 retained independently of the excluded LLM path.
 
 The WebView bridge exposes native artifact-management requests:
@@ -220,9 +215,9 @@ The downloaded GGUF lives under Android app-private storage and is removed by
 the OS when the app is uninstalled. The Chat settings screen also includes
 `Delete model` for manual cleanup during development.
 
-For a `storeMvp` candidate, generate the universal APK from the AAB with the
+For a `product` candidate, generate the universal APK from the AAB with the
 canonical AAB builder, install that derived APK, and test Home, setup,
 dictionary, speech, image retrieval, statistics, Standard Word World, restart,
 and offline behavior. Chat, model controls, generative content, Godot routes,
-direct updates, and report delivery must remain absent. An unsigned milestone
+and report delivery must remain absent. An unsigned milestone
 or its ephemeral inspection APK is never a publishable release.
