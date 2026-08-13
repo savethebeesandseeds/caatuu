@@ -13,6 +13,8 @@ val languageStaticDir = workspaceRootDir.dir("apps/${bundledLanguageAppDir.get()
 val launcherStaticDir = workspaceRootDir.dir("apps/launcher/static")
 val assetCompiler = workspaceRootDir.file("apps/android/tooling/build-product-assets.mjs")
 val generatedAssetsDir = layout.buildDirectory.dir("generated/assets/product")
+val productIconSource = languageStaticDir.file("icons/caatuu-czech-512.png")
+val generatedProductIconResDir = layout.buildDirectory.dir("generated/res/product-icon")
 val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
 val releaseKeyAlias = providers.environmentVariable("CAATUU_ANDROID_KEY_ALIAS")
@@ -25,8 +27,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(147)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.0")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(149)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.1")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -66,6 +68,18 @@ val generateProductAssets by tasks.registering(Exec::class) {
     inputs.dir(languageStaticDir)
     inputs.dir(launcherStaticDir)
     outputs.dir(generatedAssetsDir)
+}
+
+val generateProductIconResources by tasks.registering(Sync::class) {
+    group = "build setup"
+    description = "Package the canonical Caatuu bird as the Android application icon."
+    from(productIconSource) {
+        into("drawable-nodpi")
+        rename { "caatuu_app_icon.png" }
+    }
+    into(generatedProductIconResDir)
+    inputs.file(productIconSource)
+    outputs.dir(generatedProductIconResDir)
 }
 
 android {
@@ -110,6 +124,7 @@ android {
     sourceSets {
         getByName("main") {
             assets.srcDir(generatedAssetsDir)
+            res.srcDir(generatedProductIconResDir)
         }
     }
 
@@ -153,7 +168,7 @@ android {
 }
 
 tasks.named("preBuild").configure {
-    dependsOn(generateProductAssets)
+    dependsOn(generateProductAssets, generateProductIconResources)
 }
 
 dependencies {

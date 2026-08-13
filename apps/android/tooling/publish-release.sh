@@ -199,12 +199,17 @@ candidate_version_code="$(sed -nE 's/.*caatuuVersionCode.*orElse\(([0-9]+)\).*/\
   echo "Could not read the Caatuu versionCode." >&2
   exit 1
 }
+candidate_version_name="$(sed -nE 's/.*caatuuVersionName.*orElse\("([^"]+)"\).*/\1/p' apps/android/product/build.gradle.kts | head -1)"
+[[ -n "$candidate_version_name" ]] || {
+  echo "Could not read the Caatuu versionName." >&2
+  exit 1
+}
 preflight_dir="$(mktemp -d "$repo_root/artifacts/android/.release-preflight.XXXXXX")"
 trap 'rm -rf "$preflight_dir"' EXIT
 stable_version_code="$(manifest_version_code "$public_manifest_url" "$preflight_dir/stable.json")"
 legacy_version_code="$(manifest_version_code "$legacy_manifest_url" "$preflight_dir/legacy.json")"
 transition_version_code=$((candidate_version_code - 1))
-transition_version_name="0.1.0-transition.1"
+transition_version_name="$candidate_version_name-transition.1"
 if (( transition_version_code <= legacy_version_code || candidate_version_code <= stable_version_code || candidate_version_code <= transition_version_code )); then
   echo "Caatuu versionCode $candidate_version_code must exceed stable $stable_version_code and installed-lineage $legacy_version_code." >&2
   exit 1
@@ -220,7 +225,7 @@ expected_signer_sha="$(tr -d ':[:space:]' < "$certificate_pin_path" | tr '[:uppe
   exit 1
 }
 
-# Caatuu 0.1.0 intentionally keeps the signer already installed on tester
+# Direct Caatuu releases intentionally keep the signer already installed on tester
 # devices. This permits an in-place migration to the real product. This key is
 # not the future Google Play app-signing or upload key.
 export CAATUU_ANDROID_KEYSTORE="$compatibility_keystore"
@@ -285,8 +290,8 @@ package_name="$(apkanalyzer manifest application-id "$source_apk" | tr -d '\r\n'
 version_code="$(apkanalyzer manifest version-code "$source_apk" | tr -d '\r\n')"
 version_name="$(apkanalyzer manifest version-name "$source_apk" | tr -d '\r\n')"
 debuggable="$(apkanalyzer manifest debuggable "$source_apk" | tr -d '\r\n')"
-[[ "$package_name" == "com.waajacu.caatuu" && "$version_code" == "$candidate_version_code" && "$version_name" == "0.1.0" && "$debuggable" == "false" ]] || {
-  echo "The Caatuu APK identity is not the expected non-debuggable 0.1.0 release." >&2
+[[ "$package_name" == "com.waajacu.caatuu" && "$version_code" == "$candidate_version_code" && "$version_name" == "$candidate_version_name" && "$debuggable" == "false" ]] || {
+  echo "The Caatuu APK identity is not the expected non-debuggable $candidate_version_name release." >&2
   exit 1
 }
 transition_package_name="$(apkanalyzer manifest application-id "$transition_apk" | tr -d '\r\n')"

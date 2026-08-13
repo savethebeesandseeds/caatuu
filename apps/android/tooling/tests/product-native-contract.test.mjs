@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [settings, build, manifest, bridge, activity, updateManager, proguard] = await Promise.all([
+const [settings, build, manifest, bridge, activity, updateManager, proguard, productIcon] = await Promise.all([
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/src/main/AndroidManifest.xml", repoRoot), "utf8"),
@@ -26,6 +27,7 @@ const [settings, build, manifest, bridge, activity, updateManager, proguard] = a
     "utf8",
   ),
   readFile(new URL("apps/android/product/proguard-rules.pro", repoRoot), "utf8"),
+  readFile(new URL("apps/languages/czech/static/icons/caatuu-czech-512.png", repoRoot)),
 ]);
 
 test("settings make the development and product modules mutually exclusive", () => {
@@ -53,7 +55,8 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
   assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
   assert.match(build, /debug \{[\s\S]*?CAATUU_ACCEPT_RELEASE_MIGRATION", "true"/);
-  assert.match(build, /caatuuVersionCode.*orElse\(147\)/);
+  assert.match(build, /caatuuVersionCode.*orElse\(149\)/);
+  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.1"\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
 });
@@ -74,6 +77,16 @@ test("the product manifest exposes the Caatuu launcher and verified self-update 
   assert.match(manifest, /androidx\.core\.content\.FileProvider/);
   assert.match(manifest, /android:exported="true"/);
   assert.match(manifest, /android:usesCleartextTraffic="false"/);
+  assert.match(manifest, /android:icon="@drawable\/caatuu_app_icon"/);
+  assert.match(manifest, /android:roundIcon="@drawable\/caatuu_app_icon"/);
+  assert.doesNotMatch(manifest, /ic_launcher/);
+  assert.match(build, /icons\/caatuu-czech-512\.png/);
+  assert.match(build, /rename \{ "caatuu_app_icon\.png" \}/);
+  assert.match(build, /dependsOn\(generateProductAssets, generateProductIconResources\)/);
+  assert.equal(
+    createHash("sha256").update(productIcon).digest("hex"),
+    "89e2f6ef381cfb1c934ce0da8b02d1c46030cc2bab308af0cf909b8164329a1d",
+  );
   assert.match(activity, /webView\.addJavascriptInterface\(bridge, "CaatuuAndroid"\)/);
   for (const className of [
     "ProductBridge",

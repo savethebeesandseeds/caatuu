@@ -12,9 +12,9 @@
     <application
         android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/caatuu_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/caatuu_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CaatuuAndroid"
         android:usesCleartextTraffic="false">
