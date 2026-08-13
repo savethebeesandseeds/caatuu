@@ -71,7 +71,7 @@ function listRepositoryCandidates() {
 
 function isForbiddenPath(path) {
   return (
-    /^(?:artifacts|secrets)\//u.test(path) ||
+    /^(?:artifacts|secrets|tmp)\//u.test(path) ||
     /^tools\/images-generation\//u.test(path) ||
     /^demos\/[^/]+\/research\/[^/]+\//u.test(path) ||
     /(?:^|\/)(?:node_modules|target|target-linux|build|dist|\.venv|venv)(?:\/|$)/u.test(path) ||

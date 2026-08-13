@@ -42,6 +42,7 @@ Desktop.ini
 **/build/
 **/.godot/
 artifacts/
+tmp/
 
 # Heavy model, training, and generated workspaces
 apps/languages/czech/dumps/
