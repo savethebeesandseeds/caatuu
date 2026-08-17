@@ -194,6 +194,12 @@ async function loadContentData() {
 const state = {
   activeView: "home",
   trainTab: "galaxy",
+  campaignActive: false,
+  campaignQueue: [],
+  campaignTransitioning: false,
+  campaignTransitionId: 0,
+  campaignRobotCursor: -1,
+  campaignRobotPathsPromise: null,
   verbDifficulty: 1,
   verbPairs: [],
   verbQueueIds: [],
@@ -919,6 +925,22 @@ const verbHintExactAssets = new Map([
 ]);
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
 const verbRobotFallbackPath = "/assets/robots/robot%20(1).png";
+const campaignPlayableTabs = Object.freeze([
+  "verb-lab",
+  "word-net",
+  "conjugation-comet",
+  "case-cosmos",
+  "agreement-aurora"
+]);
+const campaignGameTitles = Object.freeze({
+  "verb-lab": "Verb Nebula",
+  "word-net": "Word World",
+  "conjugation-comet": "Conjugation Comet",
+  "case-cosmos": "Case Cosmos",
+  "agreement-aurora": "Agreement Aurora"
+});
+const campaignTransitionMillis = 1600;
+const campaignGameReadyTimeoutMillis = 8000;
 const verbSolutionRouteColors = [
   "#b84e45",
   "#23856f",
@@ -2419,7 +2441,8 @@ async function settleVerbMatch() {
     }
     renderVerbNebula();
     if (roundComplete && !state.verbGuidedMode) {
-      void transitionToNextVerbRound();
+      if (state.campaignActive) void completeCampaignRound("verb-lab", window);
+      else void transitionToNextVerbRound();
     }
     return;
   }
@@ -3874,11 +3897,18 @@ function setView(view) {
     ? { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" }
     : { kicker: "Train", title: "Games", iconSrc: "/assets/icons/games_icon.png" });
   window.CaatuuChrome?.setBottomNavSection?.(homeView ? "home" : view === "verbs" ? "games" : "");
-  const viewTitle = view === "verbs" ? ({
-    "verb-lab": "Verb Nebula",
-    "word-net": "Word World",
-    "memory-moon": "Memory Moon"
-  }[state.trainTab] || "") : "";
+  const viewTitle = view === "verbs"
+    ? state.campaignActive
+      ? "Campaign Mode"
+      : ({
+          "verb-lab": "Verb Nebula",
+          "word-net": "Word World",
+          "conjugation-comet": "Conjugation Comet",
+          "case-cosmos": "Case Cosmos",
+          "agreement-aurora": "Agreement Aurora",
+          "memory-moon": "Memory Moon"
+        }[state.trainTab] || "")
+    : "";
   window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
     backLabel: "← Menu",
     backHref: viewTitle ? "index.html" : "",
@@ -4055,6 +4085,171 @@ function ensureEmbeddedGameLoaded(gameId) {
   frame.src = source;
 }
 
+function campaignAvailableTabs() {
+  return campaignPlayableTabs.filter((gameId) => {
+    if (gameId === "conjugation-comet" && course.capabilities?.conjugationComet !== true) return false;
+    return Boolean(document.querySelector(`[data-train-tab="${gameId}"]`));
+  });
+}
+
+function shuffledCampaignTabs(tabs) {
+  const shuffled = [...tabs];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function nextCampaignTab(previousTab = state.trainTab) {
+  const available = campaignAvailableTabs();
+  if (!available.length) return "";
+  state.campaignQueue = state.campaignQueue.filter((gameId) => available.includes(gameId));
+  if (!state.campaignQueue.length) {
+    state.campaignQueue = shuffledCampaignTabs(available);
+  }
+  if (available.length > 1 && state.campaignQueue[0] === previousTab) {
+    const alternativeIndex = state.campaignQueue.findIndex((gameId) => gameId !== previousTab);
+    if (alternativeIndex > 0) {
+      [state.campaignQueue[0], state.campaignQueue[alternativeIndex]] = [
+        state.campaignQueue[alternativeIndex],
+        state.campaignQueue[0]
+      ];
+    }
+  }
+  return state.campaignQueue.shift() || available[0];
+}
+
+function campaignFrame(gameId) {
+  if (gameId === "word-net") return document.getElementById("wordNetEmbeddedGame");
+  const config = embeddedGameTabs[gameId];
+  return config ? document.getElementById(config.frameId) : null;
+}
+
+function ensureCampaignGameLoaded(gameId) {
+  if (gameId === "word-net") ensureWordNetLoaded();
+  else if (Object.hasOwn(embeddedGameTabs, gameId)) ensureEmbeddedGameLoaded(gameId);
+}
+
+async function waitForCampaignGameReady(gameId, transitionId) {
+  const frame = campaignFrame(gameId);
+  if (!frame) return;
+  ensureCampaignGameLoaded(gameId);
+  const startedAt = performance.now();
+  while (frame.dataset.ready !== "true") {
+    if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+    if (performance.now() - startedAt >= campaignGameReadyTimeoutMillis) return;
+    await waitForVerbTransition(80);
+  }
+}
+
+async function loadCampaignRobotPaths() {
+  if (!state.campaignRobotPathsPromise) {
+    state.campaignRobotPathsPromise = fetch(verbRobotKeymapUrl, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
+        return response.json();
+      })
+      .then((raw) => Object.keys(raw || {}).filter((path) => path.startsWith("/assets/robots/")))
+      .catch(() => []);
+  }
+  return state.campaignRobotPathsPromise;
+}
+
+async function nextCampaignRobot() {
+  const paths = await loadCampaignRobotPaths();
+  if (!paths.length) return verbRobotFallbackPath;
+  let index = Math.floor(Math.random() * paths.length);
+  if (paths.length > 1 && index === state.campaignRobotCursor) index = (index + 1) % paths.length;
+  state.campaignRobotCursor = index;
+  return paths[index];
+}
+
+function showCampaignTransition(nextGameId, transitionId) {
+  const transition = document.getElementById("campaignTransition");
+  const image = document.getElementById("campaignTransitionRobot");
+  const title = document.getElementById("campaignTransitionTitle");
+  if (image) image.src = verbRobotFallbackPath;
+  if (title) title.textContent = `Traveling to ${campaignGameTitles[nextGameId] || "another planet"}…`;
+  if (transition) transition.hidden = false;
+  void nextCampaignRobot().then((path) => {
+    if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+    if (image) image.src = path;
+  });
+}
+
+function hideCampaignTransition() {
+  const transition = document.getElementById("campaignTransition");
+  if (transition) transition.hidden = true;
+}
+
+function advanceCompletedCampaignGame(gameId, sourceWindow) {
+  if (sourceWindow === window || !sourceWindow?.postMessage) return;
+  if (!["word-net", "case-cosmos", "agreement-aurora"].includes(gameId)) return;
+  sourceWindow.postMessage({
+    source: "caatuu-app-shell",
+    type: "campaign-advance"
+  }, window.location.origin);
+}
+
+async function completeCampaignRound(gameId, sourceWindow) {
+  if (!state.campaignActive || state.campaignTransitioning || gameId !== state.trainTab) return;
+  const nextGameId = nextCampaignTab(gameId);
+  if (!nextGameId) return;
+
+  state.campaignTransitioning = true;
+  const transitionId = state.campaignTransitionId + 1;
+  state.campaignTransitionId = transitionId;
+  showCampaignTransition(nextGameId, transitionId);
+  advanceCompletedCampaignGame(gameId, sourceWindow);
+  ensureCampaignGameLoaded(nextGameId);
+
+  await Promise.all([
+    waitForVerbTransition(campaignTransitionMillis),
+    waitForCampaignGameReady(nextGameId, transitionId)
+  ]);
+  if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+
+  setTrainTab(nextGameId);
+  state.campaignTransitioning = false;
+  hideCampaignTransition();
+}
+
+function startCampaign() {
+  state.campaignTransitionId += 1;
+  state.campaignTransitioning = false;
+  state.campaignQueue = [];
+  state.campaignActive = true;
+  document.body.dataset.campaignActive = "true";
+  hideCampaignTransition();
+  const firstGameId = nextCampaignTab(state.trainTab);
+  if (!firstGameId) {
+    stopCampaign();
+    setTrainTab("galaxy");
+    return;
+  }
+  setTrainTab(firstGameId);
+}
+
+function stopCampaign() {
+  state.campaignTransitionId += 1;
+  state.campaignActive = false;
+  state.campaignTransitioning = false;
+  state.campaignQueue = [];
+  delete document.body.dataset.campaignActive;
+  hideCampaignTransition();
+}
+
+function handleCampaignGameMessage(event) {
+  if (event.origin !== window.location.origin) return;
+  const message = event.data;
+  if (message?.source !== "caatuu-game" || message.type !== "round-success") return;
+  const gameId = String(message.gameId || "");
+  const frame = campaignFrame(gameId);
+  if (!frame?.contentWindow || event.source !== frame.contentWindow) return;
+  void completeCampaignRound(gameId, event.source);
+}
+
 function setTrainTab(tab) {
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
@@ -4080,14 +4275,16 @@ function setTrainTab(tab) {
     "agreement-aurora": "Agreement Aurora",
     "memory-moon": "Memory Moon"
   };
-  const title = trainTitles[activeTab] || "";
+  const title = state.campaignActive ? "Campaign Mode" : (trainTitles[activeTab] || "");
   window.CaatuuChrome?.setHeaderTitle?.(title, {
     backLabel: "← Menu",
     backHref: title ? "index.html" : "",
     trainTab: title ? "galaxy" : ""
   });
   document.querySelectorAll(".train-world").forEach((button) => {
-    const selected = button.dataset.trainTab === activeTab;
+    const selected = state.campaignActive
+      ? button.dataset.trainTab === "campaign"
+      : button.dataset.trainTab === activeTab;
     button.classList.toggle("is-active", selected);
     button.setAttribute("aria-pressed", String(selected));
   });
@@ -4128,7 +4325,7 @@ function setInitialViewFromLocation() {
     window.requestAnimationFrame(openSettingsPanel);
   } else if (requestedView) {
     setView(requestedView);
-  } else if (["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(requestedGame)) {
+  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(requestedGame)) {
     setView("verbs");
     window.requestAnimationFrame(() => {
       document.querySelector(`[data-train-tab="${requestedGame}"]`)?.click();
@@ -4161,6 +4358,7 @@ function bindUi() {
       restartGuidedVerbRuntimeAfterReset({ resetCompleted: false });
     }
   });
+  window.addEventListener("message", handleCampaignGameMessage);
   document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
@@ -4169,6 +4367,11 @@ function bindUi() {
       event.preventDefault();
       if (state.activeView !== "verbs") setView("verbs");
       const selectedTab = trainTab.dataset.trainTab;
+      if (selectedTab === "campaign") {
+        startCampaign();
+        return;
+      }
+      stopCampaign();
       if (trainTab.classList.contains("train-world") && selectedTab !== "galaxy") {
         setTrainTab(selectedTab);
         return;
@@ -4176,7 +4379,10 @@ function bindUi() {
       setTrainTab(selectedTab);
     }
   });
-  document.addEventListener("caatuu:home-request", () => setView("home"));
+  document.addEventListener("caatuu:home-request", () => {
+    stopCampaign();
+    setView("home");
+  });
 
   $("#openSettings")?.addEventListener("click", openSettingsPanel);
   $("#settingsPanel")?.addEventListener("click", (event) => {

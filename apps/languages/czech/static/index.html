@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="source/games/verb-nebula/app.css?v=shell-82">
     <link rel="stylesheet" href="source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1">
     <link rel="stylesheet" href="source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1">
+    <link rel="stylesheet" href="source/features/campaign/campaign.css?v=campaign-1">
     <link rel="stylesheet" href="source/features/home/home.css?v=home-29">
-  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-118">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-119">
   </head>
   <body class="games-page setup-blocked">
     <div class="app-shell">
@@ -377,6 +378,14 @@
           <div class="verb-game-shell">
             <section class="train-tab-panel train-galaxy is-active" id="trainPanelGalaxy" aria-label="Choose a world">
               <div class="train-worlds" aria-label="Training games">
+                <button class="train-world train-world-campaign" type="button" data-train-tab="campaign" aria-label="Start Campaign Mode">
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img src="/assets/planets/campaign-mode.png" alt="">
+                  <span class="train-world-label">
+                    <b>Campaign Mode</b>
+                    <small>Travel between games</small>
+                  </span>
+                </button>
                 <button class="train-world train-world-word" type="button" data-train-tab="word-net">
                   <span class="train-orbit" aria-hidden="true"></span>
                   <img src="/assets/planets/word-world.png" alt="">
@@ -418,7 +427,7 @@
                 </button>
                 <button class="train-world train-world-agreement" type="button" data-train-tab="agreement-aurora" aria-label="Open Agreement Aurora">
                   <span class="train-orbit" aria-hidden="true"></span>
-                  <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1" alt="">
+                  <img src="/assets/planets/agreement-aurora.png?v=agreement-aurora-art-2" alt="">
                   <span class="train-world-label">
                     <b>Agreement Aurora</b>
                     <small>Make the words match</small>
@@ -655,6 +664,15 @@
                 <span>Coming next</span>
               </div>
             </section>
+
+            <section class="campaign-transition" id="campaignTransition" role="status" aria-live="polite" aria-atomic="true" hidden>
+              <div class="campaign-transition-card">
+                <img id="campaignTransitionRobot" src="/assets/robots/robot%20(1).png" alt="A friendly robot preparing the next Campaign Mode game">
+                <span>Campaign Mode</span>
+                <strong id="campaignTransitionTitle">Traveling to another planet…</strong>
+                <small>One successful round opens the next game.</small>
+              </div>
+            </section>
           </div>
         </section>
       </main>
@@ -809,11 +827,11 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-  <script src="source/shared/chrome.js?v=chrome-108"></script>
+  <script src="source/shared/chrome.js?v=chrome-109"></script>
     <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
     <script src="source/features/setup/setup-progress.js?v=setup-progress-1"></script>
     <script src="source/features/setup/setup.js?v=setup-36"></script>
-    <script src="source/games/verb-nebula/app.js?v=shell-101"></script>
+    <script src="source/games/verb-nebula/app.js?v=shell-102"></script>
     <script src="source/features/dictionary/dictionary-full.js?v=full-dictionary-5"></script>
   </body>
 </html>

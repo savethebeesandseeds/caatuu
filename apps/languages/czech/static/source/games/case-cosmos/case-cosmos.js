@@ -40,6 +40,24 @@ function record(delta) {
   window.CaatuuLearning?.record?.("case-cosmos", delta);
 }
 
+function announceRoundSuccess() {
+  if (window.parent === window) return;
+  window.parent.postMessage({
+    source: "caatuu-game",
+    type: "round-success",
+    gameId: "case-cosmos"
+  }, window.location.origin);
+}
+
+function bindCampaignBridge() {
+  if (window.parent === window) return;
+  window.addEventListener("message", (event) => {
+    if (event.origin !== window.location.origin || event.source !== window.parent) return;
+    if (event.data?.source !== "caatuu-app-shell" || event.data.type !== "campaign-advance") return;
+    nextRound();
+  });
+}
+
 function requiredText(value, location, field) {
   if (typeof value !== "string" || !value.trim()) {
     throw new Error(`${location} needs ${field}.`);
@@ -326,6 +344,7 @@ function settleMatch() {
     state.phase = "complete";
     setFeedback(`All ${matchCountLabel(round.matches.length)} meanings matched. Now compare the seven forms of ${round.noun}.`, "correct");
     record({ rounds: 1, xp: 1 });
+    announceRoundSuccess();
   }
   render();
   if (state.phase === "complete") $("#caseCosmosNext")?.focus();
@@ -365,6 +384,7 @@ function nextRound() {
 }
 
 function bindUi() {
+  bindCampaignBridge();
   $("#caseCosmosPanel").addEventListener("click", (event) => {
     const situation = event.target.closest("button[data-situation-index]");
     if (situation) {

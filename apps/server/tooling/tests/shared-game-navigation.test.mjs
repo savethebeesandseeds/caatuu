@@ -35,7 +35,7 @@ test("Games opens a shared planet selector from every screen", () => {
   assert.match(chrome, /function selectGameFromMenu\(gameId\)[\s\S]*?localTarget\.click\(\)[\s\S]*?rememberNavigationRequest\(`game:\$\{normalizedGameId\}`\)/);
   assert.match(chrome, /function openSharedSettings\(\{ view = readRememberedBackpackView\(\) \} = \{\}\)[\s\S]*?setSettingsView\(panel, view\)[\s\S]*?setBottomDockMenu\(\)/);
   assert.match(chrome, /if \(panel\.hidden\) openSharedSettings\(\{ view: settingsView\.dataset\.settingsView \}\)/);
-  assert.match(appController, /navigationRequest\.startsWith\("game:"\)[\s\S]*?\["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"\]\.includes\(requestedGame\)[\s\S]*?data-train-tab/);
+  assert.match(appController, /navigationRequest\.startsWith\("game:"\)[\s\S]*?\["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"\]\.includes\(requestedGame\)[\s\S]*?data-train-tab/);
   assert.match(chrome, /function ensureBottomDock\(nav = document\.querySelector\("\[data-caatuu-bottom-nav\]"\)\)/);
   assert.match(chrome, /dock\.append\(menuHost, nav\)/);
   assert.match(chrome, /function setBottomDockMenu\(menu = ""\)/);
@@ -76,7 +76,7 @@ test("Home is an in-page view of the canonical index shell", () => {
   assert.match(chrome, /if \(homeNavigation && document\.querySelector\("#view-home"\)\)[\s\S]*?setBottomDockMenu\(\);[\s\S]*?caatuu:home-request/);
   assert.match(chrome, /caatuu:home-request/);
   assert.match(appController, /function normalizeView\(view\)[\s\S]*?view === "home"/);
-  assert.match(appController, /document\.addEventListener\("caatuu:home-request", \(\) => setView\("home"\)\)/);
+  assert.match(appController, /document\.addEventListener\("caatuu:home-request", \(\) => \{[\s\S]*?stopCampaign\(\);[\s\S]*?setView\("home"\);[\s\S]*?\}\)/);
   assert.doesNotMatch(serviceWorker, /\.\/home\.html/);
 });
 
@@ -288,12 +288,12 @@ test("Games shows the current child badge and clears it on the planet selector",
 
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-118/);
-    assert.match(page, /chrome\.js\?v=chrome-108/);
+    assert.match(page, /chrome\.css\?v=chrome-style-119/);
+    assert.match(page, /chrome\.js\?v=chrome-109/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-118/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-108/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-119/);
+  assert.match(serviceWorker, /chrome\.js\?v=chrome-109/);
 });
 
 test("retired Guided Journey is absent while the live dictionary request remains", () => {

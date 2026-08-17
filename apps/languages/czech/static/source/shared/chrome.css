@@ -773,6 +773,12 @@ html[data-theme="light"] .app-bottom-dock {
   gap: 6px;
 }
 
+.games-menu-option[data-game-menu-target="campaign"] {
+  width: min(calc(50% - 10px), 180px);
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .games-menu-option,
 .settings-section-switcher button {
   position: relative;

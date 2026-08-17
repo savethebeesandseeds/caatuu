@@ -14,6 +14,7 @@ const canonicalAssets = Object.freeze({
   "planet-conjugation": "conjugation-comet.png",
   "planet-case-cosmos": "case-cosmos.png",
   "planet-agreement-aurora": "agreement-aurora.png",
+  "planet-campaign": "campaign-mode.png",
   "planet-memory": "memory-moon.png"
 });
 
@@ -28,7 +29,9 @@ const [
   casePage,
   agreementPage,
   agreementBytes,
-  cometBytes
+  cometBytes,
+  campaignBytes,
+  campaignSourceBytes
 ] = await Promise.all([
   readdir(planetRoot),
   readFile(new URL("index.html", staticRoot), "utf8"),
@@ -40,7 +43,9 @@ const [
   readFile(new URL("case-cosmos.html", staticRoot), "utf8"),
   readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
   readFile(new URL("assets/planets/agreement-aurora.png", launcherRoot)),
-  readFile(new URL("assets/planets/conjugation-comet.png", launcherRoot))
+  readFile(new URL("assets/planets/conjugation-comet.png", launcherRoot)),
+  readFile(new URL("assets/planets/campaign-mode.png", launcherRoot)),
+  readFile(new URL("assets/visual-vocabulary/miscellaneous (7).png", launcherRoot))
 ]);
 
 test("planet files use canonical game-based names without generic letter aliases", () => {
@@ -57,7 +62,7 @@ test("navigation, offline caching, pages, and setup delivery share those names",
   for (const [key, filename] of Object.entries(canonicalAssets)) {
     const publicUrl = `/assets/planets/${filename}`;
     assert.match(gamesPage + chrome, new RegExp(publicUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-    assert.ok(serviceWorker.includes(`"${publicUrl}"`), `service worker must precache ${publicUrl}`);
+    assert.ok(serviceWorker.includes(publicUrl), `service worker must precache ${publicUrl}`);
     const artifact = setupManifest.artifacts.find((entry) => entry.key === key);
     assert.equal(artifact?.url, publicUrl);
     assert.equal(artifact?.asset_path, `assets/planets/${filename}`);
@@ -73,7 +78,15 @@ test("the generated Agreement Aurora runtime image is the reviewed RGBA artifact
   assert.equal(agreementBytes[25], 6);
   assert.equal(
     createHash("sha256").update(agreementBytes).digest("hex"),
-    "4427e6f9ea952084e3446c038c8fe9ebfa5d0faf1defdd5c3a887ba25d99a6bd"
+    "abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6"
+  );
+});
+
+test("Campaign Mode uses the requested miscellaneous spacecraft as a byte-identical alias", () => {
+  assert.deepEqual(campaignBytes, campaignSourceBytes);
+  assert.equal(
+    createHash("sha256").update(campaignBytes).digest("hex"),
+    "7a520ce44254c280ab463fcf0f5eb273ccdcbd29f7a3771e0d2843f8b825f4aa"
   );
 });
 

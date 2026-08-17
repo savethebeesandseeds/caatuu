@@ -30,7 +30,7 @@ test("every Czech page installs the synchronous semantic facade before shared Ch
     const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-39"');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-108"');
+    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-109"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -295,7 +295,7 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v523/);
+  assert.match(serviceWorker, /caatuu-czech-pwa-v524/);
   assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v460/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.css\?v=audio-lab-2/);
@@ -313,9 +313,9 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-101/);
+  assert.match(serviceWorker, /app\.js\?v=shell-102/);
   assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-88/);
+  assert.match(serviceWorker, /word-net\.js\?v=word-net-89/);
   assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);
   assert.match(serviceWorker, /word-net\.css\?v=word-net-79/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);

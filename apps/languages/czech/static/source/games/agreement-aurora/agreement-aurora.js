@@ -35,6 +35,24 @@ function record(delta) {
   window.CaatuuLearning?.record?.("agreement-aurora", delta);
 }
 
+function announceRoundSuccess() {
+  if (window.parent === window) return;
+  window.parent.postMessage({
+    source: "caatuu-game",
+    type: "round-success",
+    gameId: "agreement-aurora"
+  }, window.location.origin);
+}
+
+function bindCampaignBridge() {
+  if (window.parent === window) return;
+  window.addEventListener("message", (event) => {
+    if (event.origin !== window.location.origin || event.source !== window.parent) return;
+    if (event.data?.source !== "caatuu-app-shell" || event.data.type !== "campaign-advance") return;
+    nextRound();
+  });
+}
+
 function requiredText(value, location, field) {
   if (typeof value !== "string" || !value.trim()) {
     throw new Error(`${location} needs ${field}.`);
@@ -359,6 +377,7 @@ function settleMatch() {
     state.phase = "complete";
     setFeedback(`All three phrases matched. Compare the three forms of ${round.adjective}.`, "correct");
     record({ rounds: 1, xp: 1 });
+    announceRoundSuccess();
   }
   render();
   if (state.phase === "complete") $("#agreementAuroraNext")?.focus();
@@ -396,6 +415,7 @@ function nextRound() {
 }
 
 function bindUi() {
+  bindCampaignBridge();
   $("#agreementAuroraPanel").addEventListener("click", (event) => {
     const english = event.target.closest("button[data-english-index]");
     if (english) {

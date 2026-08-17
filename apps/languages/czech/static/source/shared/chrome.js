@@ -166,6 +166,12 @@
   ];
   const gameNavigationStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.active-game.v1`;
   const gamePresentations = {
+    campaign: {
+      title: "Campaign Mode",
+      summary: "Travel between games",
+      iconSrc: "/assets/planets/campaign-mode.png",
+      href: "index.html"
+    },
     "verb-lab": {
       title: "Verb Nebula",
       summary: "Match meanings",
@@ -193,7 +199,7 @@
     "agreement-aurora": {
       title: "Agreement Aurora",
       summary: "Make the words match",
-      iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-1",
+      iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-2",
       href: "index.html"
     },
     "memory-moon": {
@@ -471,7 +477,7 @@
       localTarget.click();
       return;
     }
-    if (["verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(normalizedGameId)) {
+    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(normalizedGameId)) {
       rememberNavigationRequest(`game:${normalizedGameId}`);
       window.location.href = course.routes.games;
       return;
@@ -480,6 +486,7 @@
   }
 
   function currentGameId() {
+    if (document.body?.dataset.campaignActive === "true") return "campaign";
     if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";
     if (document.querySelector(".case-cosmos-page")) return "case-cosmos";
     if (document.querySelector(".agreement-aurora-page")) return "agreement-aurora";

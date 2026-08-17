@@ -470,8 +470,19 @@
       "artifact_kind": "visual-asset",
       "url": "/assets/planets/agreement-aurora.png",
       "asset_path": "assets/planets/agreement-aurora.png",
-      "bytes": 886587,
-      "sha256": "4427e6f9ea952084e3446c038c8fe9ebfa5d0faf1defdd5c3a887ba25d99a6bd",
+      "bytes": 1511588,
+      "sha256": "abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6",
+      "native_required": true,
+      "browser_required": true
+    },
+    {
+      "key": "planet-campaign",
+      "label": "Campaign Mode",
+      "artifact_kind": "visual-asset",
+      "url": "/assets/planets/campaign-mode.png",
+      "asset_path": "assets/planets/campaign-mode.png",
+      "bytes": 75480,
+      "sha256": "7a520ce44254c280ab463fcf0f5eb273ccdcbd29f7a3771e0d2843f8b825f4aa",
       "native_required": true,
       "browser_required": true
     },

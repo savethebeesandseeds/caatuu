@@ -1,0 +1,181 @@
+.verb-game-shell {
+  position: relative;
+}
+
+.train-world-campaign {
+  top: clamp(12px, 3%, 24px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.train-world-campaign .train-orbit {
+  display: none;
+}
+
+.train-world-campaign img {
+  width: clamp(72px, 19vw, 98px);
+}
+
+.train-world-campaign .train-world-label {
+  border-color: rgba(244, 202, 88, 0.52);
+  background:
+    linear-gradient(135deg, rgba(27, 52, 60, 0.94), rgba(29, 36, 44, 0.94));
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(244, 202, 88, 0.1);
+}
+
+.campaign-transition[hidden] {
+  display: none !important;
+}
+
+.campaign-transition {
+  position: absolute;
+  z-index: 40;
+  inset: 0;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 5vw, 42px);
+  border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--line));
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--blue) 15%, transparent), transparent 38%),
+    color-mix(in srgb, var(--theme-panel, var(--panel)) 96%, var(--green-dark));
+  text-align: center;
+  isolation: isolate;
+}
+
+.campaign-transition-card {
+  width: min(100%, 420px);
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.campaign-transition-card img {
+  width: min(64vw, 260px);
+  max-height: min(46vh, 290px);
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px color-mix(in srgb, var(--ink) 18%, transparent));
+  animation: campaign-robot-breathe 1.35s ease-in-out infinite alternate;
+}
+
+.campaign-transition-card span {
+  color: var(--blue);
+  font-size: 0.66rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.campaign-transition-card strong {
+  color: var(--ink);
+  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.campaign-transition-card small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+@keyframes campaign-robot-breathe {
+  from { opacity: 0.7; transform: translateY(2px) scale(0.985); }
+  to { opacity: 0.96; transform: translateY(-3px) scale(1.015); }
+}
+
+@media screen and (max-width: 760px) {
+  .train-galaxy {
+    min-height: clamp(720px, calc(100dvh - 120px), 900px);
+  }
+
+  .train-worlds {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 8px 4px;
+    margin: 0;
+    padding: 14px 6px calc(58px + env(safe-area-inset-bottom));
+  }
+
+  .train-world,
+  .train-world-campaign,
+  .train-world-comet,
+  .train-world-word,
+  .train-world-verb,
+  .train-world-memory,
+  .train-world-case,
+  .train-world-agreement {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    transform: none;
+    grid-template-columns: none;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .train-world-campaign {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .train-world-campaign img {
+    width: clamp(74px, 22vw, 104px);
+  }
+
+  .train-world-campaign .train-world-label {
+    width: min(58vw, 220px);
+  }
+
+  .train-world-comet {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .train-world-word {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .train-world-verb {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .train-world-memory {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .train-world-case {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .train-world-agreement {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
+  .train-world-word .train-world-label {
+    order: initial;
+  }
+
+  .train-world-verb .train-world-label {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-transition-card img {
+    animation: none;
+  }
+}

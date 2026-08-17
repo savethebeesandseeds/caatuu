@@ -1,9 +1,10 @@
 # Planet emblem provenance
 
-This record covers only `conjugation-comet.png` and `agreement-aurora.png`. It
-does not establish or extend provenance, ownership, or release permission for
-the older Word World, Case Cosmos, Memory Moon, and Verb Nebula assets in this
-directory.
+This record covers `conjugation-comet.png`, the two reviewed
+`agreement-aurora.png` revisions, and the exact Campaign Mode alias described
+below. It does not establish or extend provenance, ownership, or release
+permission for the older Word World, Case Cosmos, Memory Moon, and Verb Nebula
+assets in this directory.
 
 ## Canonical runtime filenames
 
@@ -18,6 +19,7 @@ filenames are retired and must not be reintroduced.
 | `case-cosmos` | `case-cosmos.png` |
 | `agreement-aurora` | `agreement-aurora.png` |
 | `memory-moon` | `memory-moon.png` |
+| `campaign` | `campaign-mode.png` |
 
 ## Conjugation Comet emblem v1
 
@@ -85,7 +87,7 @@ grant and attribution decision and reviews the emblem at its browser and native
 Android display sizes. Any regenerated, repainted, resized, or otherwise
 byte-different derivative requires a new identity, hash, and review record.
 
-## Agreement Aurora emblem v1
+## Agreement Aurora emblem v1 (superseded)
 
 | Field | Value |
 | --- | --- |
@@ -152,3 +154,43 @@ intended developer-preview surfaces until the owner records a release grant
 and reviews it at browser and native Android display sizes. Any regenerated,
 repainted, resized, or otherwise byte-different derivative requires a new
 identity, hash, and review record.
+
+## Agreement Aurora emblem v2
+
+This revision restores the later reviewed rendezvous emblem that was preserved
+in release-baseline recovery storage while the canonical runtime path still
+contained v1. It replaces v1 at the same stable runtime path so the setup
+manifest can deliver the corrected artwork to Android by its new byte hash.
+
+| Field | Value |
+| --- | --- |
+| Recovered source | `artifacts/research/release-baseline-replaced-assets-2026-08-13/agreement-aurora-art-2.png` |
+| Runtime path | `apps/launcher/static/assets/planets/agreement-aurora.png` |
+| Final dimensions | 1254 x 1254 pixels |
+| Final format | 8-bit RGBA PNG |
+| Final byte count | 1511588 |
+| Final SHA-256 | `abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6` |
+| Release status | `local-developer-preview-only` |
+| Intended surfaces | Caatuu browser developer preview and Android developer preview |
+| Attribution decision | Pending explicit owner decision |
+
+The recovered file is preserved byte-for-byte; this integration does not claim
+new generation provenance or broader redistribution permission.
+
+## Campaign Mode emblem alias v1
+
+Campaign Mode intentionally reuses the existing spacecraft illustration as a
+byte-identical logical alias. It owns no new artwork and does not alter the
+source asset.
+
+| Field | Value |
+| --- | --- |
+| Source path | `apps/launcher/static/assets/visual-vocabulary/miscellaneous (7).png` |
+| Runtime path | `apps/launcher/static/assets/planets/campaign-mode.png` |
+| Final dimensions | 115 x 224 pixels |
+| Final format | RGBA PNG |
+| Final byte count | 75480 |
+| Source and runtime SHA-256 | `7a520ce44254c280ab463fcf0f5eb273ccdcbd29f7a3771e0d2843f8b825f4aa` |
+
+This alias inherits the source asset's provenance and release limits; copying
+it into the planet catalog does not establish additional rights.

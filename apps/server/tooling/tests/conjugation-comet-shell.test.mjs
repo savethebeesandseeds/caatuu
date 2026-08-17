@@ -38,8 +38,8 @@ test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () 
 
 test("the standalone page loads direct game data without the curriculum service", () => {
   const semantic = page.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-  const chrome = page.indexOf('src="source/shared/chrome.js?v=chrome-108"');
-  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-58"');
+  const chrome = page.indexOf('src="source/shared/chrome.js?v=chrome-109"');
+  const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-59"');
   assert.ok(semantic >= 0 && chrome > semantic && game > chrome);
   assert.doesNotMatch(page, /curriculum-service/);
   assert.match(controller, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4"/);
@@ -348,7 +348,7 @@ test("the offline shell pins the game, verb data, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
     "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
-    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-58",
+    "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-59",
     "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4",
     "/assets/macaw/actions/keymaps.json",
     "/assets/macaw/actions/macaw%20(1).png",

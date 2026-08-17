@@ -30,7 +30,7 @@ test("Case Cosmos lazy-mounts from the shared Games selector while its standalon
   assert.match(page, /data-caatuu-page-title="Case Cosmos"/);
   assert.match(page, /data-caatuu-header-back-href="index\.html"/);
   assert.match(page, /source\/games\/case-cosmos\/case-cosmos\.css\?v=case-cosmos-1/);
-  assert.match(page, /source\/games\/case-cosmos\/case-cosmos\.js\?v=case-cosmos-5/);
+  assert.match(page, /source\/games\/case-cosmos\/case-cosmos\.js\?v=case-cosmos-6/);
   assert.doesNotMatch(controller, /conjugation-comet|verb-nebula|word-net/);
 });
 
@@ -154,7 +154,7 @@ test("the offline and Android setup boundaries include the Case Cosmos slice", (
     "./case-cosmos.html",
     "./source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1",
     "./source/games/case-cosmos/case-cosmos.css?v=case-cosmos-1",
-    "./source/games/case-cosmos/case-cosmos.js?v=case-cosmos-5",
+    "./source/games/case-cosmos/case-cosmos.js?v=case-cosmos-6",
     "./data/games/case-cosmos/challenges.json?v=case-cosmos-data-5",
     "/assets/planets/case-cosmos.png"
   ]) assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);

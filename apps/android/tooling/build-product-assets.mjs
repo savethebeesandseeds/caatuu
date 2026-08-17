@@ -34,6 +34,7 @@ export const STORE_LANGUAGE_FILES = Object.freeze([
   "source/features/dictionary/dictionary-full.js",
   "source/features/dictionary/dictionary-gap-report.mjs",
   "source/features/dictionary/dictionary-patch-core.mjs",
+  "source/features/campaign/campaign.css",
   "source/features/home/home.css",
   "source/features/setup/setup-progress.js",
   "source/features/setup/setup.js",
@@ -307,6 +308,10 @@ export function transformSetupAssets(input) {
   assert.equal(conjugation[0].label, "Conjugation Comet", "setup Conjugation Comet label");
   assert.equal(conjugation[0].url, "/assets/planets/conjugation-comet.png", "setup Conjugation Comet URL");
   assert.equal(conjugation[0].asset_path, "assets/planets/conjugation-comet.png", "setup Conjugation Comet asset path");
+  const campaign = manifest.artifacts.filter((artifact) => artifact?.key === "planet-campaign");
+  assert.equal(campaign.length, 1, "setup assets must expose exactly one Campaign Mode emblem");
+  assert.equal(campaign[0].url, "/assets/planets/campaign-mode.png", "setup Campaign Mode URL");
+  assert.equal(campaign[0].asset_path, "assets/planets/campaign-mode.png", "setup Campaign Mode asset path");
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 

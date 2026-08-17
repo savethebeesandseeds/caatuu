@@ -19,6 +19,9 @@ The immediate product decisions are:
 - Every enabled game must resolve all assessed challenges from reviewed JSON.
   A game may own that JSON directly or deterministically derive a frozen game
   JSON file from explicitly named general-language JSON sources.
+- **Campaign Mode is a play route, not another content planet.** It may move a
+  learner among enabled games, but every challenge and answer remains owned by
+  the selected planet and its reviewed JSON.
 - Runtime code, HTML, an unrecorded model response, and undocumented arrays are
   not challenge-content authorities.
 
@@ -121,6 +124,7 @@ Examples:
 | Word World | Active | Understand vocabulary and Czech sentences in meaningful visual context |
 | Verb Nebula | Active | Recognize Czech verb lemmas and their meanings |
 | Conjugation Comet | Active, backbone incomplete | Understand and produce Czech verb forms and the rules connecting them |
+| Campaign Mode (route) | Initial mixed-play implementation | Complete one successful round, travel with the robots, and continue on another enabled planet |
 | Memory Moon | Placeholder | Recall weak material selected from all active planets |
 | Case Cosmos | Development slice handed off for interface refinement | Recognize why a Czech noun changes and compare its seven case forms |
 | Agreement Aurora | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
@@ -136,6 +140,34 @@ enabled-game content-manifest gate. Before it becomes an active review game,
 it needs a reviewed policy/configuration JSON and a manifest for that config;
 its session queue may then be derived locally from progress and exact
 `gameId`, challenge ID, and revision references.
+
+### Campaign Mode — mixed travel between planets
+
+Campaign Mode is shell-owned orchestration, not a new language-content planet.
+It has no challenge JSON, answer key, copied Czech content, content manifest,
+or independent evidence authority. The active source game continues to own the
+challenge, answer, revision, feedback, and learning record through its existing
+reviewed JSON.
+
+The initial route includes Word World, Verb Nebula, Conjugation Comet when the
+language enables it, Case Cosmos, and Agreement Aurora. It excludes Memory Moon
+while that surface remains a non-assessing placeholder. Entering Campaign Mode
+selects a ready implemented planet from a shuffled route. After a genuinely
+successful round—not a reveal, incomplete attempt, or incorrect submission—the
+shell shows an existing robot loading image and opens another planet. The next
+planet must not immediately repeat the one just completed. Campaign Mode's own
+icon and title remain the visible route identity while the underlying planet
+changes.
+
+This random first version is variety, not curriculum guidance. It must not
+claim that a learner is ready, that a concept is mastered, or that a particular
+route is pedagogically optimal. Later, replace the shuffled route with a
+reviewed progression policy that selects both the next owning planet **and the
+exact challenge within it** using prerequisites, difficulty, recent first-
+response evidence, hint and reveal history, transfer needs, and delayed review.
+The route should record why it made each selection. That future policy belongs
+with the progression scheduler in section 4.5; it must consume stable challenge
+references instead of creating another copy of game content.
 
 ### Future main-game note — Battle of the Robots
 
@@ -1697,6 +1729,10 @@ If at least two slices pass, compile a 6–10-scene shared mission source into
 separate game-local packs. Interleave only ready beginner concepts; do not
 serialize full planets. Validate that context reuse lowers review cost without
 confounding which capability an answer tests.
+
+The initial random Campaign Mode route is not this milestone. Campaign Mode may
+later host the guided mission, but only after the reviewed scheduler can choose
+the next planet and exact ready challenge from evidence.
 
 ### Milestone 4 — Scale content and derivation selectively
 

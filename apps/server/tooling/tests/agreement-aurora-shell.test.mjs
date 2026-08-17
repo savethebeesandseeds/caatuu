@@ -29,7 +29,7 @@ test("Agreement Aurora lazy-mounts from the shared Games selector while its stan
   assert.match(page, /data-caatuu-page-title="Agreement Aurora"/);
   assert.match(page, /data-caatuu-header-back-href="index\.html"/);
   assert.match(page, /agreement-aurora\.css\?v=agreement-aurora-1/);
-  assert.match(page, /agreement-aurora\.js\?v=agreement-aurora-2/);
+  assert.match(page, /agreement-aurora\.js\?v=agreement-aurora-3/);
   assert.match(chrome, /"agreement-aurora"[\s\S]*?href: "index\.html"/);
   assert.match(chrome, /\.agreement-aurora-page/);
 });
@@ -120,10 +120,10 @@ test("offline and Android setup boundaries include Agreement Aurora", () => {
     "./agreement-aurora.html",
     "./source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1",
     "./source/games/agreement-aurora/agreement-aurora.css?v=agreement-aurora-1",
-    "./source/games/agreement-aurora/agreement-aurora.js?v=agreement-aurora-2",
+    "./source/games/agreement-aurora/agreement-aurora.js?v=agreement-aurora-3",
     "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3",
     "/assets/planets/agreement-aurora.png"
-  ]) assert.ok(serviceWorker.includes(`"${asset}"`), `service worker must precache ${asset}`);
+  ]) assert.ok(serviceWorker.includes(asset), `service worker must precache ${asset}`);
 
   const artifact = setupManifest.artifacts.find((entry) => entry.key === "planet-agreement-aurora");
   assert.equal(artifact.url, "/assets/planets/agreement-aurora.png");

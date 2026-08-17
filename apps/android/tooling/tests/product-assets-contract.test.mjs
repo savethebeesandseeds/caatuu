@@ -30,7 +30,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     launcherStaticDir,
     outputDir
   });
-  assert.equal(result.fileCount, 86);
+  assert.equal(result.fileCount, 87);
   assert.ok(result.totalBytes > 1_000_000);
   assert.deepEqual(
     validateProductAssets({ outputDir, languageStaticDir }),
@@ -53,6 +53,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   ];
   assert.ok(STORE_LANGUAGE_FILES.includes("source/shared/child-facing-assets.mjs"));
   assert.ok(result.files.includes("source/shared/child-facing-assets.mjs"));
+  assert.ok(STORE_LANGUAGE_FILES.includes("source/features/campaign/campaign.css"));
+  assert.ok(result.files.includes("source/features/campaign/campaign.css"));
   for (const path of includedConjugationFiles) {
     assert.ok(STORE_LANGUAGE_FILES.includes(path), `product allowlist must include ${path}`);
     assert.ok(result.files.includes(path), `compiled product surface must include ${path}`);

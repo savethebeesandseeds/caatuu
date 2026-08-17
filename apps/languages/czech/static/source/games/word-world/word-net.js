@@ -2621,6 +2621,7 @@ async function submitReconstructionChallenge() {
       xp: round.awardedXp,
       rounds: 1
     });
+    if (round.correct) announceCampaignRoundSuccess();
   } else {
     state.guidedStatus = round.guidedIndependentQualified ? "complete" : "retry";
     renderWordGuidedStatus();
@@ -4654,11 +4655,25 @@ function notifyEmbeddedShell(type, detail = {}) {
   }, window.location.origin);
 }
 
+function announceCampaignRoundSuccess() {
+  if (window.parent === window) return;
+  window.parent.postMessage({
+    source: "caatuu-game",
+    type: "round-success",
+    gameId: "word-net"
+  }, window.location.origin);
+}
+
 function bindEmbeddedShellBridge() {
   if (window.parent === window) return;
   window.addEventListener("message", (event) => {
     if (event.origin !== window.location.origin || event.source !== window.parent) return;
-    if (event.data?.source !== "caatuu-app-shell" || event.data.type !== "visibility") return;
+    if (event.data?.source !== "caatuu-app-shell") return;
+    if (event.data.type === "campaign-advance") {
+      void activateNextSentence();
+      return;
+    }
+    if (event.data.type !== "visibility") return;
 
     if (["light", "dark"].includes(event.data.theme)) {
       document.documentElement.dataset.theme = event.data.theme;

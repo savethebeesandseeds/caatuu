@@ -263,6 +263,15 @@ function record(delta) {
   window.CaatuuLearning?.record?.("conjugation-comet", delta);
 }
 
+function announceRoundSuccess() {
+  if (window.parent === window) return;
+  window.parent.postMessage({
+    source: "caatuu-game",
+    type: "round-success",
+    gameId: "conjugation-comet"
+  }, window.location.origin);
+}
+
 function validateVerbs(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new Error("verbs.json must contain a language and a verbs array.");
@@ -1444,6 +1453,7 @@ function acceptCorrectPair(formKey, cueKey) {
   if (state.matchedCueKeys.size === state.exerciseForms.length && !state.roundRecorded) {
     state.roundRecorded = true;
     record({ rounds: 1, xp: isHeldOutVerb() ? 2 : 1 });
+    announceRoundSuccess();
   }
   render();
 }
