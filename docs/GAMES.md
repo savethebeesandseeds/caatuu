@@ -154,7 +154,8 @@ language enables it, Case Cosmos, and Agreement Aurora. It excludes Memory Moon
 while that surface remains a non-assessing placeholder. Entering Campaign Mode
 selects a ready implemented planet from a shuffled route. After a genuinely
 successful round—not a reveal, incomplete attempt, or incorrect submission—the
-shell shows an existing robot loading image and opens another planet. The next
+shell shows only an existing robot loading image and opens another planet. The
+same robot-only transition appears before the first Campaign planet. The next
 planet must not immediately repeat the one just completed. Campaign Mode's own
 icon and title remain the visible route identity while the underlying planet
 changes.

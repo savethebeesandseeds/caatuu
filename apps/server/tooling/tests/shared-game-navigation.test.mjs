@@ -288,11 +288,11 @@ test("Games shows the current child badge and clears it on the planet selector",
 
 test("every shared page and the service worker use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-119/);
+    assert.match(page, /chrome\.css\?v=chrome-style-120/);
     assert.match(page, /chrome\.js\?v=chrome-109/);
   }
   assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-119/);
+  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-120/);
   assert.match(serviceWorker, /chrome\.js\?v=chrome-109/);
 });
 

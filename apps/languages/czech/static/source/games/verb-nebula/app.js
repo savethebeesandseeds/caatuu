@@ -932,13 +932,6 @@ const campaignPlayableTabs = Object.freeze([
   "case-cosmos",
   "agreement-aurora"
 ]);
-const campaignGameTitles = Object.freeze({
-  "verb-lab": "Verb Nebula",
-  "word-net": "Word World",
-  "conjugation-comet": "Conjugation Comet",
-  "case-cosmos": "Case Cosmos",
-  "agreement-aurora": "Agreement Aurora"
-});
 const campaignTransitionMillis = 1600;
 const campaignGameReadyTimeoutMillis = 8000;
 const verbSolutionRouteColors = [
@@ -4165,12 +4158,10 @@ async function nextCampaignRobot() {
   return paths[index];
 }
 
-function showCampaignTransition(nextGameId, transitionId) {
+function showCampaignTransition(transitionId) {
   const transition = document.getElementById("campaignTransition");
   const image = document.getElementById("campaignTransitionRobot");
-  const title = document.getElementById("campaignTransitionTitle");
   if (image) image.src = verbRobotFallbackPath;
-  if (title) title.textContent = `Traveling to ${campaignGameTitles[nextGameId] || "another planet"}…`;
   if (transition) transition.hidden = false;
   void nextCampaignRobot().then((path) => {
     if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
@@ -4200,7 +4191,7 @@ async function completeCampaignRound(gameId, sourceWindow) {
   state.campaignTransitioning = true;
   const transitionId = state.campaignTransitionId + 1;
   state.campaignTransitionId = transitionId;
-  showCampaignTransition(nextGameId, transitionId);
+  showCampaignTransition(transitionId);
   advanceCompletedCampaignGame(gameId, sourceWindow);
   ensureCampaignGameLoaded(nextGameId);
 
@@ -4215,20 +4206,32 @@ async function completeCampaignRound(gameId, sourceWindow) {
   hideCampaignTransition();
 }
 
-function startCampaign() {
-  state.campaignTransitionId += 1;
-  state.campaignTransitioning = false;
+async function startCampaign() {
   state.campaignQueue = [];
   state.campaignActive = true;
   document.body.dataset.campaignActive = "true";
-  hideCampaignTransition();
   const firstGameId = nextCampaignTab(state.trainTab);
   if (!firstGameId) {
     stopCampaign();
     setTrainTab("galaxy");
     return;
   }
+
+  state.campaignTransitioning = true;
+  const transitionId = state.campaignTransitionId + 1;
+  state.campaignTransitionId = transitionId;
   setTrainTab(firstGameId);
+  showCampaignTransition(transitionId);
+  ensureCampaignGameLoaded(firstGameId);
+
+  await Promise.all([
+    waitForVerbTransition(campaignTransitionMillis),
+    waitForCampaignGameReady(firstGameId, transitionId)
+  ]);
+  if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+
+  state.campaignTransitioning = false;
+  hideCampaignTransition();
 }
 
 function stopCampaign() {
@@ -4368,7 +4371,7 @@ function bindUi() {
       if (state.activeView !== "verbs") setView("verbs");
       const selectedTab = trainTab.dataset.trainTab;
       if (selectedTab === "campaign") {
-        startCampaign();
+        void startCampaign();
         return;
       }
       stopCampaign();

@@ -173,6 +173,8 @@ test("the single Czech meaning target is already selected and uses the Verb Nebu
   assert.match(controller, /groundedVectorCandidates = vectorCandidates\.filter/);
   assert.match(controller, /conjugation-comet-meaning-target is-selected/);
   assert.match(styles, /\.conjugation-comet-meaning-macaw \{[\s\S]*?object-fit: contain/);
+  assert.match(styles, /#verbMeaningTargetColumn \.conjugation-comet-meaning-target \{[\s\S]*?grid-template-rows: auto auto;[\s\S]*?row-gap: clamp\(18px, 2\.5vh, 26px\)/);
+  assert.match(styles, /\.conjugation-comet-meaning-macaw \{[\s\S]*?min-height: 0;[\s\S]*?max-height: 100%/);
   assert.match(page, /id="verbMeaningHintButton"[\s\S]*?🪶/);
   assert.doesNotMatch(page, /conjugation-comet-phase-label">Meaning/);
   assert.match(controller, /meaningHintVisible: loadMeaningHintVisible\(\)/);
@@ -347,7 +349,7 @@ test("revealed solutions animate Czech forms into aligned rows, draw short arrow
 test("the offline shell pins the game, verb data, and logo together", () => {
   for (const asset of [
     "./conjugation-comet.html",
-    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
+    "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-46",
     "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-59",
     "./data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4",
     "/assets/macaw/actions/keymaps.json",

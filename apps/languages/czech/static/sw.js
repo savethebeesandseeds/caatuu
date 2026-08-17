@@ -1,4 +1,4 @@
-const CACHE_NAME = "caatuu-czech-pwa-v524";
+const CACHE_NAME = "caatuu-czech-pwa-v527";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -7,8 +7,8 @@ const CORE_ASSETS = [
   "./source/games/verb-nebula/app.css?v=shell-82",
   "./source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1",
   "./source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1",
-  "./source/features/campaign/campaign.css?v=campaign-1",
-  "./source/shared/chrome.css?v=chrome-style-119",
+  "./source/features/campaign/campaign.css?v=campaign-2",
+  "./source/shared/chrome.css?v=chrome-style-120",
   "./source/shared/course-profile.js?v=course-17",
   "./source/shared/learning-profile.js?v=learning-5",
   "./source/shared/runtime.js?v=runtime-39",
@@ -24,7 +24,7 @@ const CORE_ASSETS = [
   "./source/features/setup/setup.js?v=setup-36",
   "./setup-assets.json",
   "./source/shared/maintenance-ui.js?v=maintenance-16",
-  "./source/games/verb-nebula/app.js?v=shell-102",
+  "./source/games/verb-nebula/app.js?v=shell-103",
   "./source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-10",
   "./source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-2",
   "./source/features/dictionary/dictionary-full.js?v=full-dictionary-5",
@@ -35,7 +35,7 @@ const CORE_ASSETS = [
   "./source/games/word-world/word-net-queue.mjs?v=word-net-queue-6",
   "./source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
   "./conjugation-comet.html",
-  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-45",
+  "./source/games/conjugation-comet/conjugation-comet.css?v=conjugation-comet-46",
   "./source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-59",
   "./case-cosmos.html",
   "./source/games/case-cosmos/case-cosmos.css?v=case-cosmos-1",
