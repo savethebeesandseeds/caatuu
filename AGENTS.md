@@ -1,5 +1,16 @@
 # Codex repository instructions
 
+## Main-only Git policy (highest priority; explicit user safety requirement)
+
+- `main` is the only permitted branch for this repository, both locally and on every remote. This explicit user safety requirement overrides any general Codex convention to create `codex/*`, `agent/*`, task, feature, release, recovery, temporary, pull-request, or integration branches.
+- Never create a new branch by any method. This prohibition includes `git branch`, `git switch -c`, `git checkout -b`, `git worktree add -b`, Git hosting or pull-request tools that create branches, and any equivalent command, API, automation, helper, or subagent action.
+- Never ask or allow another agent, session, tool, script, IDE, or hosting service to create a branch on Codex's behalf. Do not create a branch for isolation, experimentation, parallel work, releases, recovery, publication, or temporary storage.
+- Perform all authorized repository work directly in the canonical `C:\Work\caatuu` checkout on `main`. Before any file write, commit, publication, or other mutation, verify all of the following: `git branch --show-current` returns exactly `main`; `refs/heads` contains only `refs/heads/main`; no non-`main` remote-tracking branch exists (a remote's symbolic `HEAD` is not a branch); and no other worktree is being used. If any check fails, stop before modifying the project, report the exact mismatch and branch names to the user, and wait for explicit consolidation direction.
+- Never finish a task with commits or changes that exist only on a non-`main` branch. Before handing off completed work, verify and report any non-`main` local or remote branches discovered; do not silently leave branch cleanup for the user.
+- If non-`main` branches already exist, treat them as a safety incident and recovery material. Do not automatically merge, rebase, cherry-pick, rewrite, switch branches, or delete refs. One explicitly assigned integration owner must inspect them, consolidate all wanted work into `main`, validate `main`, obtain the user's confirmation, and only then delete the exact branches the user explicitly authorizes.
+- A workflow that requires a branch is blocked for this repository. Stop and report that requirement instead of bypassing this policy or selecting an alternate workflow.
+- Branch creation remains forbidden unless the user first gives a new, explicit instruction that specifically changes this main-only policy. A request to implement a feature, fix a bug, publish, commit, open a pull request, or "handle everything" is not permission to create a branch.
+
 ## Canonical workspace and shared-session safety
 
 - `C:\Work\caatuu` is the sole canonical local checkout and source of truth for Caatuu implementation, integration, serving, and validation.

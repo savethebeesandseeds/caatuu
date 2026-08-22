@@ -478,7 +478,10 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
     app,
     /#verbRevealSolution"\)\?\.addEventListener\("click", \(\) => \{\s*void trackVerbGuidedOperation\(toggleVerbSolution\);\s*\}\)/
   );
-  assert.match(app, /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete && !state\.verbGuidedMode\) \{\s*void transitionToNextVerbRound\(\);/);
+  assert.match(
+    app,
+    /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete && !state\.verbGuidedMode\) \{\s*if \(state\.campaignActive\) void completeCampaignRound\("verb-lab", window\);\s*else void transitionToNextVerbRound\(\);\s*\}/
+  );
   assert.match(index, /id="verbSolutionArrows"/);
   assert.match(app, /renderVerbSolutionArrows\(\)/);
   assert.match(app, /svg\.classList\.toggle\("is-visible", Boolean\(visible\)\)/);
