@@ -2,6 +2,12 @@ name: Deploy static Caatuu to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      allow_http_certificate_bootstrap:
+        description: Allow one deployment while GitHub provisions custom-domain HTTPS
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -54,11 +60,18 @@ jobs:
           PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
           PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          ALLOW_HTTP_CERTIFICATE_BOOTSTRAP: ${{ inputs.allow_http_certificate_bootstrap }}
         run: |
           set -euo pipefail
           expected='https://caatuu.waajacu.com'
-          [[ "$PAGES_ORIGIN" == "$expected" ]]
-          [[ "$PAGES_BASE_URL" == "$expected" ]]
+          if [[ "$ALLOW_HTTP_CERTIFICATE_BOOTSTRAP" == "true" ]]; then
+            bootstrap_expected='http://caatuu.waajacu.com'
+            [[ "$PAGES_ORIGIN" == "$expected" || "$PAGES_ORIGIN" == "$bootstrap_expected" ]]
+            [[ "$PAGES_BASE_URL" == "$PAGES_ORIGIN" ]]
+          else
+            [[ "$PAGES_ORIGIN" == "$expected" ]]
+            [[ "$PAGES_BASE_URL" == "$expected" ]]
+          fi
           [[ -z "$PAGES_BASE_PATH" ]]
 
       - name: Build and validate the static bundle

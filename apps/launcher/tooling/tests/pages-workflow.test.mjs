@@ -15,6 +15,9 @@ test("Pages publication is manual, main-only, and branchless", () => {
   assert.match(workflow, /git ls-remote --heads/u);
   assert.match(workflow, /Expected only remote main/u);
   assert.match(workflow, /git worktree list --porcelain/u);
+  assert.match(workflow, /allow_http_certificate_bootstrap/u);
+  assert.match(workflow, /default: false/u);
+  assert.match(workflow, /ALLOW_HTTP_CERTIFICATE_BOOTSTRAP/u);
   assert.doesNotMatch(workflow, /gh-pages/iu);
 });
 

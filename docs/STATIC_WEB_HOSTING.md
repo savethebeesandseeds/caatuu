@@ -1,6 +1,6 @@
 # Static web hosting
 
-Last reviewed: 27 August 2026
+Last reviewed: 28 August 2026
 
 Caatuu has a deterministic static profile for GitHub Pages. This removes the
 workstation and Docker containers from the public website's availability path
@@ -59,6 +59,13 @@ done by the workflow:
 4. Leave HTTPS enforcement enabled once GitHub reports the certificate and DNS
    as ready.
 
+The first artifact may need to be deployed before GitHub can provision the
+custom-domain certificate. For that deployment only, manually enable the
+workflow's `allow_http_certificate_bootstrap` input. It accepts the exact HTTP
+custom origin while keeping the hostname and root-path checks intact. Leave the
+input off after DNS points to Pages; the default path requires the exact HTTPS
+origin.
+
 GitHub's current instructions for these controls are [configuring a publishing
 source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 and [managing a custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
@@ -68,7 +75,8 @@ The manual `Deploy static Caatuu to GitHub Pages` workflow fails closed unless:
 - it is dispatched from `main`;
 - `main` is the only local and remote branch;
 - GitHub Pages reports the exact origin `https://caatuu.waajacu.com` with an
-  empty base path; and
+  empty base path, except for the explicit default-off certificate-bootstrap
+  input described above; and
 - the static builder and complete payload validator pass.
 
 It uploads a Pages artifact and uses GitHub's Pages deployment API. There is no
