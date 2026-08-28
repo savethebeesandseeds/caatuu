@@ -1,6 +1,6 @@
 # Caatuu component release-validator registry
 
-Last reviewed: 1 August 2026
+Last reviewed: 27 August 2026
 
 This registry maps each component contract accepted by the version 1 release
 manifest to its owner and current executable validation. It is deliberately
@@ -14,7 +14,7 @@ inputs recorded by release automation.
 
 | Kind | Contract | Owner | Current executable validation | Payload-closure status |
 | --- | --- | --- | --- | --- |
-| `web` | `caatuu-web-bundle` v1 | `apps/launcher` and the selected language app | `node apps/server/tooling/audit-runtime-boundary.mjs --base-url <candidate-url>` | Integrated route and asset checks exist; a standalone web-bundle manifest validator is still missing and blocks a complete-integrity claim. |
+| `web` | `caatuu-web-bundle` v1 | `apps/launcher` and the selected language app | `node apps/launcher/tooling/build-static-site.mjs --output <bundle-dir>`; use `--validate-only` to recheck existing bytes | Exact file-set, SHA-256, size, setup-asset, keymap, route/import, service-worker, capability, Standard Word World, and server/model-boundary closure is enforced for `web-static-core`. Public origin behavior still requires post-deployment verification. |
 | `runtime` | `caatuu-runtime-image` v1 | `apps/server` | Locked Rust tests, Compose validation, then `node apps/server/tooling/audit-runtime-boundary.mjs --base-url <candidate-url>` | Runtime behavior is tested; a standalone image manifest and layer-closure validator is still missing. |
 | `android` | `caatuu-android-update` v1 | `apps/android` | `node apps/server/tooling/audit-runtime-boundary.mjs --base-url <candidate-url> --apk <apk>` plus the signed-package audit required by [`FIRST_ANDROID_RELEASE.md`](FIRST_ANDROID_RELEASE.md) | Direct-download APK/update validation exists. Store AAB delivery is outside v1 and needs a new registered contract. |
 | `model-catalog` | `caatuu-model-catalog` v1 | `tools/on-device-models` and the language app | `node apps/server/tooling/check-static-model-catalog.mjs --catalog <catalog>` | Catalog/config consistency is checked; release automation must additionally verify every referenced model and model-card byte/hash. |

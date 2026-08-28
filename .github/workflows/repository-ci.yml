@@ -26,7 +26,7 @@ jobs:
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
-            "node --test apps/server/tooling/tests/*.test.mjs apps/games/test/*.test.mjs apps/android/tooling/tests/*.test.mjs"
+            "node --test apps/server/tooling/tests/*.test.mjs apps/games/test/*.test.mjs apps/android/tooling/tests/*.test.mjs apps/launcher/tooling/tests/*.test.mjs"
 
       - name: Validate reviewed game data and the retired curriculum boundary
         run: |

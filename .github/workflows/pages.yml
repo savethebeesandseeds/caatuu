@@ -1,0 +1,92 @@
+name: Deploy static Caatuu to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build reviewed static site
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out main without retained credentials
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+
+      - name: Enforce the main-only repository policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]
+          [[ "${GITHUB_REF}" == "refs/heads/main" ]]
+          [[ "$(git branch --show-current)" == "main" ]]
+          mapfile -t local_heads < <(git for-each-ref --format='%(refname:strip=2)' refs/heads)
+          mapfile -t remote_heads < <(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}.git" | sed 's#.*refs/heads/##')
+          if (( ${#local_heads[@]} != 1 )) || [[ "${local_heads[0]-}" != "main" ]]; then
+            printf 'Expected only local main; found: %s\n' "${local_heads[*]-<none>}" >&2
+            exit 1
+          fi
+          if (( ${#remote_heads[@]} != 1 )) || [[ "${remote_heads[0]-}" != "main" ]]; then
+            printf 'Expected only remote main; found: %s\n' "${remote_heads[*]-<none>}" >&2
+            exit 1
+          fi
+          [[ "$(git worktree list --porcelain | grep -c '^worktree ')" == "1" ]]
+
+      - name: Read configured Pages metadata without enabling Pages
+        id: pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+        with:
+          enablement: false
+
+      - name: Require the production custom domain at the origin root
+        shell: bash
+        env:
+          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          set -euo pipefail
+          expected='https://caatuu.waajacu.com'
+          [[ "$PAGES_ORIGIN" == "$expected" ]]
+          [[ "$PAGES_BASE_URL" == "$expected" ]]
+          [[ -z "$PAGES_BASE_PATH" ]]
+
+      - name: Build and validate the static bundle
+        shell: bash
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/launcher/tooling/build-static-site.mjs \
+              --output artifacts/web/github-pages
+
+      - name: Upload the exact static site
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: artifacts/web/github-pages
+          retention-days: 1
+
+  deploy:
+    name: Deploy reviewed static site
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy without a publication branch
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
