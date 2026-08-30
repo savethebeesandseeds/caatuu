@@ -165,6 +165,7 @@ test("the package validator binds every Android artifact to the canonical app do
   assert.match(validator, /index\.html must equal the reviewed product transform/);
   assert.match(validator, /CAPABILITY_GATED_SHARED_APP_PATHS/);
   assert.match(validator, /capability-gated shared asset/);
+  assert.match(validator, /BUNDLETOOL_DERIVED_APK_ASSET_PATHS/);
   assert.match(validator, /SHARED_APP_REQUIRED_ASSET_PATHS/);
 });
 
@@ -228,6 +229,7 @@ test("the DEX contract requires safe native classes and excludes retired bridges
     "CaatuuAssetClient",
     "VectorDatabaseManager",
     "DictionaryManager",
+    "AndroidSpeechManager",
     "StaticAssetManager",
   ]) {
     assert.ok(validator.includes(className), `missing required native class: ${className}`);

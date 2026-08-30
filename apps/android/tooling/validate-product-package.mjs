@@ -22,6 +22,10 @@ const CAPABILITY_GATED_SHARED_APP_PATHS = new Set([
   "language-runtime/static/source/word-net-core.mjs",
   "language-runtime/static/source/word-net-queue.mjs",
 ]);
+const BUNDLETOOL_DERIVED_APK_ASSET_PATHS = new Set([
+  "dexopt/baseline.prof",
+  "dexopt/baseline.profm",
+]);
 
 const EXPECTED_APPLICATION_ID = "com.waajacu.caatuu";
 const EXPECTED_MIN_SDK = 30;
@@ -258,6 +262,7 @@ function assertDeclaredAssetBoundary(entries, kind, label, profile) {
   const actual = entries
     .map((entry) => normalizeAssetPath(entry, kind))
     .filter((assetPath) => assetPath && !assetPath.endsWith("/") && assetPath !== "caatuu-profile.json")
+    .filter((assetPath) => kind !== "apk" || !BUNDLETOOL_DERIVED_APK_ASSET_PATHS.has(assetPath))
     .sort();
   const declared = [...profile.assets].sort();
   assert(
@@ -749,7 +754,7 @@ function verifyAabDerivedApkAssets(unzip, aab, aabEntries, apk, apkEntries, allo
   const derivedApkAssets = [...apkAssets.keys()].filter((assetPath) => !aabAssets.has(assetPath));
   const expectedDerivedAssets = allowTransitionDebug
     ? []
-    : ["dexopt/baseline.prof", "dexopt/baseline.profm"];
+    : [...BUNDLETOOL_DERIVED_APK_ASSET_PATHS];
   assert(
     JSON.stringify(derivedApkAssets.sort()) === JSON.stringify(expectedDerivedAssets),
     `universal APK contains unexpected bundletool-derived assets: ${derivedApkAssets.join(", ")}`,

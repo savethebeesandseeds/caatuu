@@ -144,6 +144,7 @@ test("the product manifest exposes the Caatuu launcher and verified self-update 
     "CaatuuAssetClient",
     "VectorDatabaseManager",
     "DictionaryManager",
+    "AndroidSpeechManager",
     "StaticAssetManager",
   ]) {
     assert.match(proguard, new RegExp(`-keep class com\\.caatuu\\.android\\.${className}`));

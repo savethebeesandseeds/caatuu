@@ -3,4 +3,5 @@
 -keep class com.caatuu.android.CaatuuAssetClient { *; }
 -keep class com.caatuu.android.VectorDatabaseManager { *; }
 -keep class com.caatuu.android.DictionaryManager { *; }
+-keep class com.caatuu.android.AndroidSpeechManager { *; }
 -keep class com.caatuu.android.StaticAssetManager { *; }
