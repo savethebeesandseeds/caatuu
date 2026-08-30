@@ -2,10 +2,18 @@
   "$schema": "https://caatuu.org/schemas/android-assets.v1.schema.json",
   "schemaVersion": 1,
   "courseId": "zh",
-  "enabled": false,
   "nativeProviders": {
     "schemaVersion": 1,
-    "providers": {}
+    "providers": {
+      "embeddings": {
+        "implementation": "webview-english-minilm-v1",
+        "resource": "embeddingCatalog"
+      },
+      "speech": {
+        "implementation": "android-text-to-speech-v1",
+        "localeSource": "targetLanguage.speechLocale"
+      }
+    }
   },
   "files": [
     "manifest.webmanifest",

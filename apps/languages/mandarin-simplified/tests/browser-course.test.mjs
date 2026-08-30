@@ -331,7 +331,17 @@ test("Android allowlists remain narrow and point only to present course/shared f
     json("android-assets.json"),
     readFile(path.join(repoRoot, "apps/language-runtime/app-assets.json"), "utf8").then(JSON.parse)
   ]);
-  assert.equal(catalog.enabled, false);
+  assert.equal(catalog.enabled, undefined);
+  assert.deepEqual(catalog.nativeProviders.providers, {
+    embeddings: {
+      implementation: "webview-english-minilm-v1",
+      resource: "embeddingCatalog"
+    },
+    speech: {
+      implementation: "android-text-to-speech-v1",
+      localeSource: "targetLanguage.speechLocale"
+    }
+  });
   assert.equal(catalog.policy.llmAssetsAllowed, false);
   assert.equal(catalog.policy.targetPronunciationMetadataAllowed, false);
   for (const file of catalog.files) await access(path.join(staticRoot, file));

@@ -143,7 +143,9 @@ test("Mandarin is an unlisted development no-LLM English-embedding pack", () => 
   assert.equal(chinese.targetLanguage.speechLocale, "zh-CN");
   assert.equal(chinese.platforms.browser.enabled, true);
   assert.equal(chinese.platforms.browser.backend, "static");
-  assert.equal(chinese.platforms.android.enabled, false);
+  assert.equal(chinese.platforms.android.enabled, true);
+  assert.equal(chinese.platforms.android.channels.length, 2);
+  assert.ok(chinese.platforms.android.channels.every(({ minimumVersionCode }) => minimumVersionCode === 161));
   assert.deepEqual(
     {
       llm: chinese.capabilities.llm,

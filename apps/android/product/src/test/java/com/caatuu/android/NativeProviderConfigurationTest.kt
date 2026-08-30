@@ -19,11 +19,39 @@ class NativeProviderConfigurationTest {
         )
 
         assertEquals("native/semantic/catalog.json", configuration.embeddings?.catalogAsset)
+        assertNull(configuration.webViewEmbeddings)
         assertNull(configuration.dictionary)
         assertNull(configuration.speech)
         configuration.requireMatches(
             CourseCapabilities.fromJson("""{"embeddings":true,"dictionary":false,"speech":false}"""),
             "xx-Test",
+        )
+    }
+
+    @Test
+    fun keepsWebViewEmbeddingProviderOutOfTheNativeVectorManagerBoundary() {
+        val configuration = NativeProviderConfiguration.fromBundled(
+            BundledNativeProviders(
+                schemaVersion = 1,
+                embeddings = BundledCatalogProvider(
+                    implementation = "webview-english-minilm-v1",
+                    catalogAsset = "courses/zh/data/embeddings/catalog.json",
+                ),
+                speech = BundledSpeechProvider(
+                    implementation = "android-text-to-speech-v1",
+                    locale = "zh-CN",
+                ),
+            ),
+        )
+
+        assertNull(configuration.embeddings)
+        assertEquals(
+            "courses/zh/data/embeddings/catalog.json",
+            configuration.webViewEmbeddings?.catalogAsset,
+        )
+        configuration.requireMatches(
+            CourseCapabilities.fromJson("""{"embeddings":true,"dictionary":false,"speech":true}"""),
+            "zh-CN",
         )
     }
 

@@ -568,7 +568,21 @@
   }
 
   function isNativeShell() {
-    return window.CaatuuRuntime?.env === "android";
+    return window.CaatuuRuntime?.env === "android"
+      || typeof window.CaatuuAndroid?.postMessage === "function";
+  }
+
+  function isCourseBundledInNativeShell(courseId) {
+    if (!isNativeShell()) return true;
+    try {
+      if (typeof window.CaatuuAndroid?.isCourseBundled === "function") {
+        return window.CaatuuAndroid.isCourseBundled(String(courseId || "")) === true;
+      }
+    } catch (error) {
+      // A legacy native shell may expose only postMessage. Keep its current
+      // course available while failing closed for every other course.
+    }
+    return String(courseId || "") === String(course.id || "");
   }
 
   function normalizeTheme(theme) {
@@ -2308,12 +2322,13 @@
     const current = record.id === course.sourceLanguage.id;
     option.setAttribute("aria-checked", String(current));
 
-    const unavailableInNativeShell = isNativeShell() && !current;
+    const unavailableInNativeShell = isNativeShell()
+      && !isCourseBundledInNativeShell(record.courseId || course.id);
     if (unavailableInNativeShell) {
       option.setAttribute("aria-disabled", "true");
       option.tabIndex = -1;
     } else {
-      option.href = isNativeShell() ? course.routes.home : record.entryPath;
+      option.href = current ? course.routes.home : record.entryPath;
     }
 
     populateLanguageSelectorOption(
@@ -2343,12 +2358,13 @@
     option.setAttribute("aria-checked", String(current));
     if (current) option.setAttribute("aria-current", "page");
 
-    const unavailableInNativeShell = isNativeShell() && !current;
+    const unavailableInNativeShell = isNativeShell()
+      && !isCourseBundledInNativeShell(record.id);
     if (unavailableInNativeShell) {
       option.setAttribute("aria-disabled", "true");
       option.tabIndex = -1;
     } else {
-      option.href = isNativeShell() ? course.routes.home : record.entryPath;
+      option.href = current ? course.routes.home : record.entryPath;
     }
     if (record.status === "development") option.rel = "nofollow";
 

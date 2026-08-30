@@ -27,15 +27,9 @@ import kotlin.math.max
 class ProductBridge(
     private val activity: Activity,
     private val webView: WebView,
-    private val courseCapabilities: CourseCapabilities,
-    private val vectorDatabaseManager: VectorDatabaseManager?,
-    private val dictionaryManager: DictionaryManager?,
-    private val staticAssetManager: StaticAssetManager,
-    private val speechManager: AndroidSpeechManager?,
+    private val courseRegistry: BundledCourseRegistry,
+    private val courseRuntimes: Map<String, ProductCourseRuntime>,
     private val appUpdateManager: AppUpdateManager,
-    private val sourceLanguageLabel: String,
-    private val targetLanguageLabel: String,
-    private val speechLocaleTag: String,
     private val onThemeChanged: (String) -> Unit,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -46,18 +40,12 @@ class ProductBridge(
     private var activeSetupJob: Job? = null
 
     init {
-        check(courseCapabilities.isEnabled("embeddings") == (vectorDatabaseManager != null)) {
-            "Embedding manager does not match the course capability boundary."
+        check(courseRuntimes.keys == courseRegistry.courses.map(BundledCourse::id).toSet()) {
+            "Product course runtimes must exactly match the bundled course registry."
         }
-        check(courseCapabilities.isEnabled("dictionary") == (dictionaryManager != null)) {
-            "Dictionary manager does not match the course capability boundary."
+        courseRuntimes.forEach { (courseId, runtime) ->
+            check(runtime.course.id == courseId) { "Product course runtime ID mismatch." }
         }
-        check(courseCapabilities.isEnabled("speech") == (speechManager != null)) {
-            "Speech manager does not match the course capability boundary."
-        }
-        require(sourceLanguageLabel.isNotBlank()) { "Source language label is missing." }
-        require(targetLanguageLabel.isNotBlank()) { "Target language label is missing." }
-        require(speechLocaleTag.isNotBlank()) { "Speech locale is missing." }
     }
 
     @JavascriptInterface
@@ -68,6 +56,9 @@ class ProductBridge(
 
     @JavascriptInterface
     fun isDeveloperPreview(): Boolean = false
+
+    @JavascriptInterface
+    fun isCourseBundled(id: String): Boolean = courseRegistry.isBundled(id)
 
     @JavascriptInterface
     fun postMessage(rawMessage: String) {
@@ -90,24 +81,25 @@ class ProductBridge(
             }
 
             try {
+                val runtime = currentCourseRuntime()
                 when (request.optString("type")) {
                     "cancel_request" -> cancelNativeRequest(id, request)
-                    "setup_status" -> emitDone(id, setupStatusJson())
-                    "storage_preflight" -> emitDone(id, storagePreflightJson())
-                    "setup_download" -> runSetupDownload(id)
-                    "setup_abort" -> abortSetup(id)
-                    "vector_status" -> emitDone(id, requireVectorDatabaseManager().statusJson())
-                    "vector_download" -> downloadVectorDatabase(id)
-                    "vector_search" -> searchVectorDatabase(id, request)
-                    "dictionary_status" -> emitDone(id, requireDictionaryManager().statusJson())
-                    "dictionary_download" -> downloadDictionary(id)
-                    "dictionary_search" -> searchDictionary(id, request)
-                    "speech_status" -> speechStatus(id, request)
-                    "speech_speak" -> speakSpeech(id, request)
-                    "speech_stop" -> stopSpeech(id)
-                    "speech_install_data" -> installSpeechData(id)
-                    "delete_local_pack" -> deleteLocalPack(id)
-                    "clear_cache" -> clearCache(id)
+                    "setup_status" -> emitDone(id, setupStatusJson(runtime))
+                    "storage_preflight" -> emitDone(id, storagePreflightJson(runtime))
+                    "setup_download" -> runSetupDownload(id, runtime)
+                    "setup_abort" -> abortSetup(id, runtime)
+                    "vector_status" -> emitDone(id, requireVectorDatabaseManager(runtime).statusJson())
+                    "vector_download" -> downloadVectorDatabase(id, runtime)
+                    "vector_search" -> searchVectorDatabase(id, request, runtime)
+                    "dictionary_status" -> emitDone(id, requireDictionaryManager(runtime).statusJson())
+                    "dictionary_download" -> downloadDictionary(id, runtime)
+                    "dictionary_search" -> searchDictionary(id, request, runtime)
+                    "speech_status" -> speechStatus(id, request, runtime)
+                    "speech_speak" -> speakSpeech(id, request, runtime)
+                    "speech_stop" -> stopSpeech(id, runtime)
+                    "speech_install_data" -> installSpeechData(id, runtime)
+                    "delete_local_pack" -> deleteLocalPack(id, runtime)
+                    "clear_cache" -> clearCache(id, runtime)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
                     "update_app" -> updateApp(id)
                     else -> throw IllegalArgumentException("Unknown native request type.")
@@ -123,27 +115,36 @@ class ProductBridge(
     }
 
     fun onPause() {
-        speechManager?.onPause()
+        courseRuntimes.values.forEach { it.speechManager?.onPause() }
     }
 
     fun onResume() {
-        speechManager?.onResume()
+        courseRuntimes.values.forEach { it.speechManager?.onResume() }
     }
 
     fun destroy() {
-        speechManager?.destroy()
-        vectorDatabaseManager?.close()
+        courseRuntimes.values.forEach { runtime ->
+            runtime.speechManager?.destroy()
+            runtime.vectorDatabaseManager?.close()
+        }
         scope.cancel()
     }
 
-    private fun requireVectorDatabaseManager(): VectorDatabaseManager =
-        vectorDatabaseManager ?: throw IllegalArgumentException("Unknown native request type.")
+    private fun currentCourseRuntime(): ProductCourseRuntime {
+        val course = courseRegistry.courseForTrustedUrl(webView.url)
+            ?: throw IllegalArgumentException("Unknown native request type.")
+        return courseRuntimes[course.id]
+            ?: throw IllegalArgumentException("Unknown native request type.")
+    }
 
-    private fun requireDictionaryManager(): DictionaryManager =
-        dictionaryManager ?: throw IllegalArgumentException("Unknown native request type.")
+    private fun requireVectorDatabaseManager(runtime: ProductCourseRuntime): VectorDatabaseManager =
+        runtime.vectorDatabaseManager ?: throw IllegalArgumentException("Unknown native request type.")
 
-    private fun requireSpeechManager(): AndroidSpeechManager =
-        speechManager ?: throw IllegalArgumentException("Unknown native request type.")
+    private fun requireDictionaryManager(runtime: ProductCourseRuntime): DictionaryManager =
+        runtime.dictionaryManager ?: throw IllegalArgumentException("Unknown native request type.")
+
+    private fun requireSpeechManager(runtime: ProductCourseRuntime): AndroidSpeechManager =
+        runtime.speechManager ?: throw IllegalArgumentException("Unknown native request type.")
 
     private suspend fun cancelNativeRequest(id: String, request: JSONObject) {
         val requestId = request.optString("requestId").trim()
@@ -163,8 +164,8 @@ class ProductBridge(
         )
     }
 
-    private suspend fun downloadVectorDatabase(id: String) {
-        val manager = requireVectorDatabaseManager()
+    private suspend fun downloadVectorDatabase(id: String, runtime: ProductCourseRuntime) {
+        val manager = requireVectorDatabaseManager(runtime)
         val spec = manager.defaultSpec()
         val file = artifactMutex.withLock {
             manager.ensureDatabase(spec) { progress ->
@@ -174,8 +175,8 @@ class ProductBridge(
         emitDone(id, manager.statusJson(spec).put("path", file.absolutePath))
     }
 
-    private suspend fun searchVectorDatabase(id: String, request: JSONObject) {
-        val manager = requireVectorDatabaseManager()
+    private suspend fun searchVectorDatabase(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
+        val manager = requireVectorDatabaseManager(runtime)
         val input = request.optJSONArray("vector")
             ?: throw IllegalArgumentException("The WebView semantic runtime must provide a query vector.")
         val spec = manager.defaultSpec()
@@ -201,8 +202,8 @@ class ProductBridge(
         )
     }
 
-    private suspend fun downloadDictionary(id: String) {
-        val manager = requireDictionaryManager()
+    private suspend fun downloadDictionary(id: String, runtime: ProductCourseRuntime) {
+        val manager = requireDictionaryManager(runtime)
         val file = artifactMutex.withLock {
             manager.ensureDatabase { progress ->
                 emitProgress(id, "dictionary_download", progress)
@@ -211,8 +212,8 @@ class ProductBridge(
         emitDone(id, manager.statusJson().put("path", file.absolutePath))
     }
 
-    private suspend fun searchDictionary(id: String, request: JSONObject) {
-        val manager = requireDictionaryManager()
+    private suspend fun searchDictionary(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
+        val manager = requireDictionaryManager(runtime)
         val query = request.optString("query").trim()
         require(query.isNotBlank()) { "Dictionary search text is empty." }
         val limit = request.optInt("limit", 12).coerceIn(1, 60)
@@ -220,11 +221,11 @@ class ProductBridge(
         emitDone(id, result)
     }
 
-    private suspend fun runSetupDownload(id: String) {
+    private suspend fun runSetupDownload(id: String, runtime: ProductCourseRuntime) {
         activeSetupJob?.takeIf { it.isActive }?.let {
             emitDone(
                 id,
-                setupStatusJson()
+                setupStatusJson(runtime)
                     .put("setupActive", true)
                     .put("message", "Setup is already running."),
             )
@@ -234,11 +235,11 @@ class ProductBridge(
         val currentJob = coroutineContext[Job]
         activeSetupJob = currentJob
         try {
-            val preflight = storagePreflightJson()
+            val preflight = storagePreflightJson(runtime)
             check(preflight.optBoolean("ok")) {
                 preflight.optString("message", "Not enough storage for Caatuu setup.")
             }
-            artifactMutex.withLock { prepareRequiredArtifacts(id) }
+            artifactMutex.withLock { prepareRequiredArtifacts(id, runtime) }
         } catch (error: CancellationException) {
             emitError(id, Exception("Setup aborted."))
         } finally {
@@ -246,15 +247,15 @@ class ProductBridge(
         }
     }
 
-    private suspend fun prepareRequiredArtifacts(id: String) {
-        val requiredAssets = staticAssetManager.requiredAssetSpecs()
+    private suspend fun prepareRequiredArtifacts(id: String, runtime: ProductCourseRuntime) {
+        val requiredAssets = runtime.staticAssetManager.requiredAssetSpecs()
         val (setupAnimationAssets, remainingAssets) = requiredAssets.partition {
             it.assetPath.startsWith("assets/loading_animation/")
         }
         val prioritizedAssets = setupAnimationAssets + remainingAssets
         val artifactCount = requiredAssets.size +
-            (if (vectorDatabaseManager != null) 1 else 0) +
-            (if (dictionaryManager != null) 1 else 0)
+            (if (runtime.vectorDatabaseManager != null) 1 else 0) +
+            (if (runtime.dictionaryManager != null) 1 else 0)
 
         prioritizedAssets.forEachIndexed { index, spec ->
             val artifactIndex = index + 1
@@ -266,7 +267,7 @@ class ProductBridge(
                 artifactCount = artifactCount,
                 message = "Preparing ${spec.label}.",
             )
-            val file = staticAssetManager.ensureAsset(spec) { progress ->
+            val file = runtime.staticAssetManager.ensureAsset(spec) { progress ->
                 emitArtifactProgress(id, "asset_download", spec, artifactIndex, artifactCount, progress)
             }
             emitArtifactStatus(
@@ -281,7 +282,7 @@ class ProductBridge(
         }
 
         var nextArtifactIndex = requiredAssets.size + 1
-        vectorDatabaseManager?.let { manager ->
+        runtime.vectorDatabaseManager?.let { manager ->
             val vectorSpec = manager.defaultSpec()
             val vectorIndex = nextArtifactIndex++
             emit(
@@ -323,12 +324,12 @@ class ProductBridge(
             )
         }
 
-        dictionaryManager?.let { manager ->
+        runtime.dictionaryManager?.let { manager ->
             val dictionaryStatus = manager.statusJson()
             val dictionaryKey = dictionaryStatus.getString("key")
             val dictionaryLabel = dictionaryStatus.optString(
                 "label",
-                "$targetLanguageLabel to $sourceLanguageLabel Dictionary",
+                "${runtime.course.targetLanguage.label} to ${runtime.course.sourceLanguage.label} Dictionary",
             )
             val dictionaryIndex = nextArtifactIndex
             emit(
@@ -369,15 +370,15 @@ class ProductBridge(
                     .put("message", "$dictionaryLabel is ready."),
             )
         }
-        emitDone(id, setupStatusJson().put("setupActive", false))
+        emitDone(id, setupStatusJson(runtime).put("setupActive", false))
     }
 
-    private fun setupStatusJson(): JSONObject {
-        val assetStatus = staticAssetManager.statusJson()
-        val vectorStatus = vectorDatabaseManager?.statusJson()?.put("required", true)?.also { status ->
+    private fun setupStatusJson(runtime: ProductCourseRuntime): JSONObject {
+        val assetStatus = runtime.staticAssetManager.statusJson()
+        val vectorStatus = runtime.vectorDatabaseManager?.statusJson()?.put("required", true)?.also { status ->
             status.put("ready", status.optBoolean("verified"))
         }
-        val dictionaryStatus = dictionaryManager?.statusJson()
+        val dictionaryStatus = runtime.dictionaryManager?.statusJson()
             ?.put("artifactKind", "dictionary-database")
             ?.put("required", true)
             ?.also { status ->
@@ -407,8 +408,8 @@ class ProductBridge(
             }
     }
 
-    private fun storagePreflightJson(): JSONObject {
-        val status = setupStatusJson()
+    private fun storagePreflightJson(runtime: ProductCourseRuntime): JSONObject {
+        val status = setupStatusJson(runtime)
         val expectedBytes = status.optLong("expectedBytes")
         val bytes = status.optLong("bytes")
         val remainingBytes = (expectedBytes - bytes).coerceAtLeast(0L)
@@ -436,22 +437,22 @@ class ProductBridge(
             )
     }
 
-    private suspend fun abortSetup(id: String) {
+    private suspend fun abortSetup(id: String, runtime: ProductCourseRuntime) {
         val wasActive = cancelActiveSetup("Setup aborted by user.")
         emitDone(
             id,
-            setupStatusJson()
+            setupStatusJson(runtime)
                 .put("aborted", true)
                 .put("setupWasActive", wasActive),
         )
     }
 
-    private suspend fun deleteLocalPack(id: String) {
+    private suspend fun deleteLocalPack(id: String, runtime: ProductCourseRuntime) {
         val setupWasActive = cancelActiveSetup("Setup stopped before deleting local files.")
         artifactMutex.withLock {
-            val vectorResult = vectorDatabaseManager?.deleteLocalDatabases()
-            val dictionaryResult = dictionaryManager?.deleteLocalDatabase()
-            val assetResult = staticAssetManager.deleteLocalAssets()
+            val vectorResult = runtime.vectorDatabaseManager?.deleteLocalDatabases()
+            val dictionaryResult = runtime.dictionaryManager?.deleteLocalDatabase()
+            val assetResult = runtime.staticAssetManager.deleteLocalAssets()
             val optionalResults = listOfNotNull(vectorResult, dictionaryResult)
             emitDone(
                 id,
@@ -473,7 +474,7 @@ class ProductBridge(
         }
     }
 
-    private suspend fun clearCache(id: String) {
+    private suspend fun clearCache(id: String, runtime: ProductCourseRuntime) {
         val appCacheResult = clearDirectoryContents(activity.applicationContext.cacheDir)
         val webViewCacheCleared = withContext(Dispatchers.Main.immediate) {
             webView.clearCache(true)
@@ -487,23 +488,23 @@ class ProductBridge(
             .put("bytesDeleted", appCacheResult.optLong("bytesDeleted"))
             .put("appCache", appCacheResult)
             .put("webViewCacheCleared", webViewCacheCleared)
-        if (vectorDatabaseManager != null) result.put("vectorDatabasePreserved", true)
-        if (dictionaryManager != null) result.put("dictionaryPreserved", true)
+        if (runtime.vectorDatabaseManager != null) result.put("vectorDatabasePreserved", true)
+        if (runtime.dictionaryManager != null) result.put("dictionaryPreserved", true)
         emitDone(id, result)
     }
 
-    private suspend fun speechStatus(id: String, request: JSONObject) {
-        val manager = requireSpeechManager()
-        val locale = request.optString("locale").trim().ifBlank { speechLocaleTag }
+    private suspend fun speechStatus(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
+        val manager = requireSpeechManager(runtime)
+        val locale = request.optString("locale").trim().ifBlank { runtime.course.targetLanguage.speechLocale }
         val voice = request.optString("voice").trim()
         require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
         emitDone(id, manager.status(locale, voice))
     }
 
-    private suspend fun speakSpeech(id: String, request: JSONObject) {
-        val manager = requireSpeechManager()
+    private suspend fun speakSpeech(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
+        val manager = requireSpeechManager(runtime)
         val text = request.optString("text").trim()
-        val locale = request.optString("locale").trim().ifBlank { speechLocaleTag }
+        val locale = request.optString("locale").trim().ifBlank { runtime.course.targetLanguage.speechLocale }
         val rate = request.optDouble("rate", 0.9).toFloat()
         val pitch = request.optDouble("pitch", 1.0).toFloat()
         val voice = request.optString("voice").trim()
@@ -523,8 +524,8 @@ class ProductBridge(
         emitDone(id, result)
     }
 
-    private fun stopSpeech(id: String) {
-        val manager = requireSpeechManager()
+    private fun stopSpeech(id: String, runtime: ProductCourseRuntime) {
+        val manager = requireSpeechManager(runtime)
         emitDone(
             id,
             JSONObject()
@@ -533,8 +534,8 @@ class ProductBridge(
         )
     }
 
-    private fun installSpeechData(id: String) {
-        val manager = requireSpeechManager()
+    private fun installSpeechData(id: String, runtime: ProductCourseRuntime) {
+        val manager = requireSpeechManager(runtime)
         val candidates = mutableListOf<Intent>()
         manager.defaultEnginePackageName()
             .takeIf { it.isNotBlank() }

@@ -3,29 +3,31 @@
 This directory contains two native Android shells. The default `app` module is
 the full development application, including its optional native `llama.cpp`
 bridge. The `product` module is the canonical Caatuu application: it
-packages the selected course's reviewed Android allowlist. Product builds always
+packages every course in `apps/android/course-bundle.json` behind one shared
+document, component tree, and runtime. Product builds always
 remove LLM, Chat, generation, Godot, and outbound-reporting capability; retained
-embeddings, dictionary, learning, and Word World features follow the selected
-course manifest.
+embeddings, dictionary, speech, learning, and games follow each course manifest.
 
-Both shells load the course selected by `caatuuCourseManifest`; Czech remains
-the default at `apps/languages/czech/course.json`. The store compiler does not
+The full development shell still loads the course selected by
+`caatuuCourseManifest`. The product shell loads the bundle selected by
+`caatuuCourseBundle`; Czech is the default course and Mandarin is another
+content pack in the same application. The store compiler does not
 delete or modify course source. It resolves the static root and Android asset
-catalog through that manifest, then creates a fail-closed release surface under
+catalog through each allowlisted manifest, then creates a fail-closed release surface under
 the `product` build directory. Standalone game artifacts under `artifacts/games`
 are excluded from both Android distributions.
 
 ## Runtime Shape
 
-- UI: selected course static app, loaded in a WebView from APK assets. The full
-  module copies the development surface; `product` compiles an explicit
-  release allowlist.
+- UI: one canonical shared app document loaded in a WebView from APK assets.
+  The full module copies its selected development surface; `product` compiles
+  shared runtime assets once and course data below `courses/<id>/`.
 - Games: no standalone game export is currently bundled. Memory Moon remains a
   static application placeholder.
-- Default Czech start URL: `https://caatuu.local/cz/index.html`; other courses
-  derive it from their manifest.
-- The selected course source assets are packaged for browser/Android parity; heavy
-  browser model payloads are excluded.
+- Default Czech start URL: `https://caatuu.local/cz/index.html`; bundled course
+  routes such as `/zh/index.html` resolve to the same shared document.
+- Course source assets are packaged for browser/Android parity. The shared
+  English MiniLM WebView runtime is packaged once when a course declares it.
 - Shared language-adapter code is exposed only below
   `https://caatuu.local/language-runtime/`. Packaging includes the reviewed
   runtime ABI and any explicitly cataloged shared shell files, never runtime
@@ -46,30 +48,21 @@ are excluded from both Android distributions.
 - No system prompt is added by the Android bridge.
 - Thinking toggle: passed into the Qwen chat template as `enable_thinking`.
 
-The default build uses one Gradle property:
+The product build uses one Gradle property:
 
 ```text
-caatuuCourseManifest=apps/languages/czech/course.json
+caatuuCourseBundle=apps/android/course-bundle.json
 ```
 
-The repository-relative manifest path is confined to the workspace. Its Android
-platform must be enabled, its static root and `resources.androidAssetCatalog`
-must be present, and the catalog `courseId` must match. Course identity, route,
-entry path, capabilities, static root, product icon, course file allowlist, and
-shared runtime inputs then move together as one configuration. Native managers
-in `product` are created only when the parsed runtime capability is enabled and
-the Android asset catalog declares its matching schema-versioned native
-provider. Embedding and dictionary declarations reference the authoritative
-course resources, which are resolved to confined packaged asset paths; no Czech
-catalog path is a generic fallback. Speech declares Android TTS and binds to the
-manifest speech locale. Malformed capabilities or a missing, extra, partial, or
-unsupported provider stop optional manager construction. Embedding, dictionary,
-and speech requests cross the bridge only when their manager exists, while
-learner-facing language labels and speech defaults come from the selected
-manifest. The full `app` shell remains deliberately Czech-specific and refuses
-a manifest that disables its LLM/offline-model, embeddings, dictionary, or
-speech stack. Mandarin Android remains disabled pending its separate
-review and asset decision.
+The repository-relative bundle and manifest paths are confined to the workspace.
+Every bundled course must enable Android and provide a present static root and
+`resources.androidAssetCatalog`. The compiler emits one
+`caatuu-course-bundle.json`, one `index.html`, shared runtime/assets once, and
+course-owned files below `courses/<id>/`. Provider catalog paths are resolved
+inside those namespaces. Native vector and dictionary managers are created only
+for courses that declare their matching native implementation; Mandarin instead
+declares the packaged WebView English-MiniLM provider and Android TTS. The full
+`app` shell remains deliberately Czech-specific.
 
 ## Prepare Vendor Code
 

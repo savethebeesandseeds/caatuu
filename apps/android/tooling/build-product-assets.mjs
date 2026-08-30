@@ -12,6 +12,7 @@ import {
 } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import {
   extractLearnerContent,
@@ -21,8 +22,11 @@ import {
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
 export const DEFAULT_COURSE_MANIFEST_PATH = "apps/languages/czech/course.json";
+export const DEFAULT_COURSE_BUNDLE_PATH = "apps/android/course-bundle.json";
 export const CANONICAL_APP_ENTRY_PATH = "apps/language-runtime/static/app/index.html";
 export const SHARED_APP_ASSET_CATALOG_PATH = "apps/language-runtime/app-assets.json";
+export const EMBEDDING_RUNTIME_CATALOG_PATH = "apps/language-runtime/embedding-runtimes.json";
+export const PRODUCT_COURSE_BUNDLE_ASSET = "caatuu-course-bundle.json";
 
 function isInside(root, candidate) {
   const relativePath = relative(resolve(root), resolve(candidate));
@@ -84,17 +88,20 @@ function resourcePath(course, name, workspaceRoot) {
 const ANDROID_NATIVE_PROVIDER_SPECS = Object.freeze({
   embeddings: Object.freeze({
     capability: "embeddings",
-    implementation: "vector-database-catalog-v1",
+    implementations: Object.freeze([
+      "vector-database-catalog-v1",
+      "webview-english-minilm-v1",
+    ]),
     resource: "embeddingCatalog",
   }),
   dictionary: Object.freeze({
     capability: "dictionary",
-    implementation: "sqlite-dictionary-catalog-v1",
+    implementations: Object.freeze(["sqlite-dictionary-catalog-v1"]),
     resource: "dictionaryCatalog",
   }),
   speech: Object.freeze({
     capability: "speech",
-    implementation: "android-text-to-speech-v1",
+    implementations: Object.freeze(["android-text-to-speech-v1"]),
     localeSource: "targetLanguage.speechLocale",
   }),
 });
@@ -124,18 +131,24 @@ function resolveAndroidNativeProviders({ course, assetCatalog, resourceAssetPath
     requireObject(declaration, `Android native provider ${name}`);
     if (spec.resource) {
       exactObjectKeys(declaration, ["implementation", "resource"], `Android native provider ${name}`);
-      assert.equal(declaration.implementation, spec.implementation, `Android native provider ${name} implementation is unsupported`);
+      assert.ok(
+        spec.implementations.includes(declaration.implementation),
+        `Android native provider ${name} implementation is unsupported`,
+      );
       assert.equal(declaration.resource, spec.resource, `Android native provider ${name} must reference resources.${spec.resource}`);
       resolved[name] = Object.freeze({
-        implementation: spec.implementation,
+        implementation: declaration.implementation,
         catalogAsset: resourceAssetPath(spec.resource),
       });
     } else {
       exactObjectKeys(declaration, ["implementation", "localeSource"], `Android native provider ${name}`);
-      assert.equal(declaration.implementation, spec.implementation, `Android native provider ${name} implementation is unsupported`);
+      assert.ok(
+        spec.implementations.includes(declaration.implementation),
+        `Android native provider ${name} implementation is unsupported`,
+      );
       assert.equal(declaration.localeSource, spec.localeSource, `Android native provider ${name} locale source is unsupported`);
       resolved[name] = Object.freeze({
-        implementation: spec.implementation,
+        implementation: declaration.implementation,
         locale: course.targetLanguage?.speechLocale,
       });
     }
@@ -147,9 +160,33 @@ function resolveAndroidNativeProviders({ course, assetCatalog, resourceAssetPath
   });
 }
 
-export function productProfileForCourse(course, { assetPaths = [], nativeProviders } = {}) {
+function assertWebViewEmbeddingCatalog(catalog, course) {
+  assert.equal(catalog.schemaVersion, 1, "WebView embedding catalog must use schemaVersion 1");
+  assert.equal(catalog.courseId, course.id, "WebView embedding catalog courseId must match the course");
+  assert.equal(catalog.embeddingPolicy?.inputLanguage, "en", "WebView MiniLM input must be English");
+  assert.equal(catalog.embeddingPolicy?.inputField, "embeddingText", "WebView MiniLM must use authored embeddingText");
+  assert.equal(catalog.embeddingPolicy?.targetTextAllowed, false, "WebView MiniLM must reject target-language text");
+  assert.equal(catalog.embeddingPolicy?.targetPronunciationAllowed, false, "WebView MiniLM must reject pronunciation text");
+  assert.equal(catalog.runtime?.modelRequired, true, "WebView MiniLM must require the model");
+  assert.equal(
+    catalog.runtime?.sharedCatalog,
+    "/language-runtime/embedding-runtimes.json",
+    "WebView MiniLM must use the canonical shared runtime catalog",
+  );
+  assert.equal(
+    catalog.runtime?.rankerModule,
+    "/language-runtime/static/source/english-minilm-ranker.mjs",
+    "WebView MiniLM must use the shared English ranker",
+  );
+  assert.match(
+    String(catalog.runtime?.defaultModelId || ""),
+    /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/,
+    "WebView MiniLM must select a stable shared runtime ID",
+  );
+}
+
+export function productCapabilitiesForCourse(course) {
   const capabilities = requireObject(course.capabilities, "course capabilities");
-  requireObject(nativeProviders, "resolved Android native provider contract");
   for (const name of [
     "llm",
     "generation",
@@ -170,6 +207,30 @@ export function productProfileForCourse(course, { assetPaths = [], nativeProvide
   assert.ok(!capabilities.semanticSearch || capabilities.embeddings, "semanticSearch requires embeddings");
   assert.ok(!capabilities.generation || capabilities.llm, "generation requires llm");
   assert.ok(!capabilities.chat || capabilities.llm, "chat requires llm");
+  return Object.freeze({
+    // Public Android products intentionally do not expose generative execution.
+    chat: false,
+    llm: false,
+    generation: false,
+    godot: false,
+    embeddings: capabilities.embeddings,
+    semanticSearch: capabilities.semanticSearch,
+    imageLookup: capabilities.wordWorld,
+    stats: capabilities.memory,
+    dictionary: capabilities.dictionary,
+    memory: capabilities.memory,
+    verbs: capabilities.verbs,
+    wordWorld: capabilities.wordWorld,
+    conjugationComet: capabilities.conjugationComet,
+    offlineModels: false,
+    speech: capabilities.speech,
+    pronunciationGuides: capabilities.pronunciationGuides,
+    wordWorldStandardOnly: capabilities.wordWorld,
+  });
+}
+
+export function productProfileForCourse(course, { assetPaths = [], nativeProviders } = {}) {
+  requireObject(nativeProviders, "resolved Android native provider contract");
   const packagedAssets = assetPaths
     .map((value, index) => normalizedCatalogPath(value, `product asset ${index}`))
     .sort();
@@ -193,19 +254,7 @@ export function productProfileForCourse(course, { assetPaths = [], nativeProvide
     }),
     assets: Object.freeze(packagedAssets),
     nativeProviders,
-    capabilities: Object.freeze({
-      // Product packages are deterministic even when the browser course supports these.
-      chat: false,
-      llm: false,
-      generation: false,
-      godot: false,
-      embeddings: capabilities.embeddings,
-      imageLookup: capabilities.wordWorld,
-      stats: capabilities.memory,
-      dictionary: capabilities.dictionary,
-      speech: capabilities.speech,
-      wordWorldStandardOnly: capabilities.wordWorld,
-    }),
+    capabilities: productCapabilitiesForCourse(course),
     privacy: Object.freeze({
       bugReportsLocalOnly: true,
       dictionaryGapReportsLocalOnly: true,
@@ -346,6 +395,14 @@ export function loadAndroidCourseConfiguration({
     assetCatalog,
     resourceAssetPath,
   });
+  const embeddingProvider = nativeProviders.providers.embeddings;
+  if (embeddingProvider?.implementation === "webview-english-minilm-v1") {
+    assert.equal(course.sourceLanguage?.id, "en", "WebView MiniLM requires English source-language mediation");
+    assertWebViewEmbeddingCatalog(
+      readJson(join(staticRoot.path, embeddingProvider.catalogAsset), "WebView embedding catalog"),
+      course,
+    );
+  }
 
   const launcherFiles = Object.freeze([
     ...launcherIconFiles.map((name) => Object.freeze({
@@ -417,6 +474,278 @@ const DEFAULT_COURSE_CONFIGURATION = loadAndroidCourseConfiguration();
 export const STORE_LANGUAGE_FILES = DEFAULT_COURSE_CONFIGURATION.languageFiles;
 export const STORE_LAUNCHER_ICON_FILES = DEFAULT_COURSE_CONFIGURATION.launcherIconFiles;
 export const PRODUCT_PROFILE = DEFAULT_COURSE_CONFIGURATION.productProfile;
+
+function prefixedNativeProviders(nativeProviders, assetPrefix) {
+  const providers = {};
+  for (const [name, provider] of Object.entries(nativeProviders.providers)) {
+    providers[name] = Object.freeze({
+      ...provider,
+      ...(provider.catalogAsset
+        ? { catalogAsset: `${assetPrefix}/${provider.catalogAsset}` }
+        : {}),
+    });
+  }
+  return Object.freeze({
+    schemaVersion: 1,
+    providers: Object.freeze(providers),
+  });
+}
+
+function courseBundleRecord(configuration) {
+  const { course } = configuration;
+  const assetPrefix = `courses/${course.id}`;
+  return Object.freeze({
+    id: course.id,
+    routePrefix: course.routePrefix,
+    entryPath: course.entryPath,
+    assetPrefix,
+    sourceLanguage: Object.freeze({
+      id: course.sourceLanguage.id,
+      label: course.sourceLanguage.label,
+      locale: course.sourceLanguage.locale,
+    }),
+    targetLanguage: Object.freeze({
+      id: course.targetLanguage.id,
+      label: course.targetLanguage.label,
+      nativeLabel: course.targetLanguage.nativeLabel,
+      locale: course.targetLanguage.locale,
+      script: course.targetLanguage.script,
+      speechLocale: course.targetLanguage.speechLocale,
+    }),
+    capabilities: productCapabilitiesForCourse(course),
+    nativeProviders: prefixedNativeProviders(configuration.nativeProviders, assetPrefix),
+  });
+}
+
+function sha256File(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
+
+function loadEmbeddingRuntimeAssets(workspaceRoot) {
+  const catalogPath = confinedWorkspacePath(
+    workspaceRoot,
+    EMBEDDING_RUNTIME_CATALOG_PATH,
+    "embedding runtime catalog",
+  );
+  const catalog = readJson(catalogPath, "embedding runtime catalog");
+  assert.equal(catalog.schemaVersion, 1, "embedding runtime catalog must use schemaVersion 1");
+  assert.ok(Array.isArray(catalog.runtimes) && catalog.runtimes.length > 0, "embedding runtime catalog must list runtimes");
+  const runtimeIds = new Set();
+  const assets = [];
+  const outputs = new Set();
+  for (const [runtimeIndex, runtime] of catalog.runtimes.entries()) {
+    requireObject(runtime, `embedding runtime ${runtimeIndex}`);
+    assert.match(String(runtime.id || ""), /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/, `embedding runtime ${runtimeIndex} id is invalid`);
+    assert.equal(runtime.status, "active", `embedding runtime ${runtime.id} must be active`);
+    assert.equal(runtime.inputLanguage, "en", `embedding runtime ${runtime.id} must accept English only`);
+    assert.ok(!runtimeIds.has(runtime.id), `duplicate embedding runtime ${runtime.id}`);
+    runtimeIds.add(runtime.id);
+    assert.ok(Array.isArray(runtime.artifacts) && runtime.artifacts.length > 0, `embedding runtime ${runtime.id} must list artifacts`);
+    for (const [artifactIndex, artifact] of runtime.artifacts.entries()) {
+      requireObject(artifact, `embedding runtime ${runtime.id} artifact ${artifactIndex}`);
+      const artifactPath = normalizedCatalogPath(
+        artifact.path,
+        `embedding runtime ${runtime.id} artifact ${artifactIndex} path`,
+      );
+      assert.equal(
+        artifact.url,
+        `/language-runtime/${artifactPath}`,
+        `embedding runtime ${runtime.id} artifact ${artifactPath} URL must match its path`,
+      );
+      assert.doesNotMatch(
+        artifactPath,
+        /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i,
+        `embedding runtime artifact is not packageable: ${artifactPath}`,
+      );
+      const source = confinedWorkspacePath(
+        workspaceRoot,
+        `apps/language-runtime/${artifactPath}`,
+        `embedding runtime artifact ${artifactPath}`,
+      );
+      assert.ok(statSync(source).isFile(), `embedding runtime artifact is not a file: ${source}`);
+      assert.equal(statSync(source).size, artifact.bytes, `embedding runtime artifact byte count drifted: ${artifactPath}`);
+      assert.match(String(artifact.sha256 || ""), /^[a-f\d]{64}$/, `embedding runtime artifact hash is invalid: ${artifactPath}`);
+      assert.equal(sha256File(source), artifact.sha256, `embedding runtime artifact hash drifted: ${artifactPath}`);
+      const output = `language-runtime/${artifactPath}`;
+      assert.ok(!outputs.has(output), `duplicate embedding runtime artifact output: ${output}`);
+      outputs.add(output);
+      assets.push(Object.freeze({ source, output }));
+    }
+  }
+  return Object.freeze({
+    catalogPath,
+    catalog,
+    runtimeIds: Object.freeze(runtimeIds),
+    assets: Object.freeze(assets),
+  });
+}
+
+const BUNDLE_EXCLUDED_COURSE_DOCUMENTATION = Object.freeze(new Set([
+  "vendor/transformers/README.md",
+]));
+
+function bundleCourseLanguageFiles(configuration, embeddingRuntime) {
+  if (!embeddingRuntime.assets.length) return configuration.languageFiles;
+  const sharedTransformersByCoursePath = new Map(
+    embeddingRuntime.assets
+      .filter(({ output }) => output.startsWith("language-runtime/vendor/transformers/"))
+      .map((asset) => [asset.output.slice("language-runtime/".length), asset]),
+  );
+  const files = [];
+  for (const path of configuration.languageFiles) {
+    if (BUNDLE_EXCLUDED_COURSE_DOCUMENTATION.has(path)) continue;
+    if (!path.startsWith("vendor/transformers/")) {
+      files.push(path);
+      continue;
+    }
+    const sharedAsset = sharedTransformersByCoursePath.get(path);
+    assert.ok(sharedAsset, `Course ${configuration.course.id} duplicates an unlisted shared Transformers.js artifact: ${path}`);
+    const courseSource = join(configuration.languageStaticDir, path);
+    assert.equal(
+      statSync(courseSource).size,
+      statSync(sharedAsset.source).size,
+      `Course ${configuration.course.id} Transformers.js byte count conflicts with the shared runtime: ${path}`,
+    );
+    assert.equal(
+      sha256File(courseSource),
+      sha256File(sharedAsset.source),
+      `Course ${configuration.course.id} Transformers.js hash conflicts with the shared runtime: ${path}`,
+    );
+  }
+  return Object.freeze(files);
+}
+
+function sharedAssetUnion(configurations, launcherStaticDir, embeddingRuntimeAssets) {
+  const byOutput = new Map();
+  const add = ({ source, output }, label) => {
+    const normalizedOutput = normalizedCatalogPath(output, `${label} output`);
+    const resolvedSource = realpathSync(resolve(source));
+    const existing = byOutput.get(normalizedOutput);
+    if (existing) {
+      assert.equal(existing.source, resolvedSource, `${label} conflicts at ${normalizedOutput}`);
+      return;
+    }
+    byOutput.set(normalizedOutput, Object.freeze({ source: resolvedSource, output: normalizedOutput }));
+  };
+  for (const configuration of configurations) {
+    for (const asset of configuration.appAssets) add(asset, "shared app asset");
+    for (const asset of configuration.sharedRuntimeAssets) add(asset, "shared language runtime asset");
+    for (const asset of configuration.launcherFiles) {
+      add({ source: join(launcherStaticDir, asset.source), output: asset.output }, "shared launcher asset");
+    }
+  }
+  for (const asset of embeddingRuntimeAssets) add(asset, "shared embedding runtime asset");
+  return Object.freeze([...byOutput.values()].sort((left, right) => left.output.localeCompare(right.output)));
+}
+
+export function loadAndroidCourseBundleConfiguration({
+  workspaceRoot = defaultWorkspaceRoot,
+  courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+} = {}) {
+  const resolvedWorkspace = realpathSync(resolve(workspaceRoot));
+  const resolvedBundlePath = confinedWorkspacePath(
+    resolvedWorkspace,
+    courseBundlePath,
+    "Android course bundle",
+    { allowAbsolute: true },
+  );
+  const declaration = readJson(resolvedBundlePath, "Android course bundle");
+  exactObjectKeys(
+    declaration,
+    ["$schema", "schemaVersion", "defaultCourseId", "courses"],
+    "Android course bundle",
+  );
+  assert.equal(declaration.schemaVersion, 1, "Android course bundle must use schemaVersion 1");
+  assert.match(String(declaration.defaultCourseId || ""), /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Android default course id is invalid");
+  assert.ok(Array.isArray(declaration.courses) && declaration.courses.length > 0, "Android course bundle must list courses");
+  const configurations = declaration.courses.map((entry, index) => {
+    exactObjectKeys(entry, ["manifest"], `Android course bundle course ${index}`);
+    return loadAndroidCourseConfiguration({
+      workspaceRoot: resolvedWorkspace,
+      courseManifestPath: entry.manifest,
+    });
+  });
+  const ids = configurations.map(({ course }) => course.id);
+  const routePrefixes = configurations.map(({ course }) => course.routePrefix);
+  assert.equal(new Set(ids).size, ids.length, "Android course bundle course ids must be unique");
+  assert.equal(new Set(routePrefixes).size, routePrefixes.length, "Android course bundle route prefixes must be unique");
+  assert.ok(ids.includes(declaration.defaultCourseId), "Android course bundle defaultCourseId must select a bundled course");
+  const defaultCourse = configurations.find(({ course }) => course.id === declaration.defaultCourseId);
+  for (const configuration of configurations) {
+    assert.equal(configuration.appEntryPath, defaultCourse.appEntryPath, "Bundled courses must share one canonical app entry");
+    assert.deepEqual(
+      configuration.appAssets.map(({ source, output }) => ({ source, output })),
+      defaultCourse.appAssets.map(({ source, output }) => ({ source, output })),
+      "Bundled courses must share one canonical app asset catalog",
+    );
+  }
+
+  const needsWebViewMiniLm = configurations.some(({ nativeProviders }) =>
+    nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1"
+  );
+  const embeddingRuntime = needsWebViewMiniLm
+    ? loadEmbeddingRuntimeAssets(resolvedWorkspace)
+    : Object.freeze({ catalogPath: null, catalog: null, runtimeIds: Object.freeze(new Set()), assets: Object.freeze([]) });
+  for (const configuration of configurations) {
+    const provider = configuration.nativeProviders.providers.embeddings;
+    if (provider?.implementation !== "webview-english-minilm-v1") continue;
+    const catalog = readJson(join(configuration.languageStaticDir, provider.catalogAsset), "WebView embedding catalog");
+    assert.ok(
+      embeddingRuntime.runtimeIds.has(catalog.runtime.defaultModelId),
+      `Course ${configuration.course.id} selects an unbundled embedding runtime`,
+    );
+  }
+
+  const resolvedLauncher = realpathSync(resolve(launcherStaticDir));
+  const sharedAssets = sharedAssetUnion(configurations, resolvedLauncher, embeddingRuntime.assets);
+  const courseFilesById = Object.freeze(Object.fromEntries(
+    configurations.map((configuration) => [
+      configuration.course.id,
+      bundleCourseLanguageFiles(configuration, embeddingRuntime),
+    ]),
+  ));
+  const courseRecords = Object.freeze(configurations.map(courseBundleRecord));
+  const courseCatalog = Object.freeze({
+    $schema: "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json",
+    schemaVersion: 1,
+    defaultCourseId: declaration.defaultCourseId,
+    courses: courseRecords,
+  });
+  const outputFiles = new Set([
+    "index.html",
+    PRODUCT_COURSE_BUNDLE_ASSET,
+    "caatuu-profile.json",
+    ...sharedAssets.map(({ output }) => output),
+    ...configurations.flatMap(({ course }) =>
+      courseFilesById[course.id].map((path) => `courses/${course.id}/${path}`)
+    ),
+  ]);
+  const expectedFileCount = 3
+    + sharedAssets.length
+    + configurations.reduce((sum, { course }) => sum + courseFilesById[course.id].length, 0);
+  assert.equal(outputFiles.size, expectedFileCount, "Android course bundle asset outputs must be unique");
+  const defaultRecord = courseRecords.find(({ id }) => id === declaration.defaultCourseId);
+  const productProfile = productProfileForCourse(defaultCourse.course, {
+    assetPaths: [...outputFiles].filter((path) => path !== "caatuu-profile.json"),
+    nativeProviders: defaultRecord.nativeProviders,
+  });
+
+  return Object.freeze({
+    workspaceRoot: resolvedWorkspace,
+    courseBundlePath: resolvedBundlePath,
+    declaration,
+    defaultCourse,
+    configurations: Object.freeze(configurations),
+    launcherStaticDir: resolvedLauncher,
+    sharedAssets,
+    embeddingRuntime,
+    courseFilesById,
+    courseCatalog,
+    outputFiles,
+    productProfile,
+  });
+}
 
 const TEXT_EXTENSIONS = new Set([
   ".css", ".html", ".js", ".json", ".md", ".mjs", ".webmanifest"
@@ -642,6 +971,139 @@ export function transformSetupAssets(input) {
   );
   assert.equal(offlineCount - manifest.offline.assets.length, 3, "setup assets must remove the three disabled Chat files");
   return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+function embeddingRuntimeById(catalog, runtimeId) {
+  requireObject(catalog, "embedding runtime catalog");
+  assert.ok(Array.isArray(catalog.runtimes), "embedding runtime catalog must list runtimes");
+  const matches = catalog.runtimes.filter((runtime) => runtime?.id === runtimeId);
+  assert.equal(matches.length, 1, `embedding runtime catalog must contain exactly one ${runtimeId} runtime`);
+  return matches[0];
+}
+
+export function transformBundleSetupAssets(input, embeddingRuntimeCatalog) {
+  const manifest = JSON.parse(transformSetupAssets(input));
+  const runtimeArtifacts = manifest.artifacts.filter(
+    (artifact) => artifact?.artifact_kind === "embedding-runtime",
+  );
+  assert.ok(runtimeArtifacts.length > 0, "Czech bundle setup must list embedding runtime artifacts");
+  const runtimeIds = new Set(runtimeArtifacts.map((artifact) => {
+    const match = /^data\/embeddings\/([^/]+)\/runtime\/(.+)$/u.exec(String(artifact.asset_path || ""));
+    assert.ok(match, `Czech embedding runtime artifact has an unsupported asset_path: ${artifact.asset_path}`);
+    return match[1];
+  }));
+  assert.equal(runtimeIds.size, 1, "Czech bundle setup must select exactly one shared embedding runtime");
+  const [runtimeId] = runtimeIds;
+  const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, runtimeId);
+  const sharedModelArtifacts = runtime.artifacts.filter(
+    (artifact) => String(artifact.path || "").startsWith(`models/${runtimeId}/runtime/`),
+  );
+  const sharedByPath = new Map(sharedModelArtifacts.map((artifact) => [artifact.path, artifact]));
+  assert.equal(
+    sharedByPath.size,
+    sharedModelArtifacts.length,
+    `Shared embedding runtime ${runtimeId} must not contain duplicate artifact paths`,
+  );
+  const remappedPaths = new Set();
+  manifest.artifacts = manifest.artifacts.map((artifact) => {
+    if (artifact?.artifact_kind !== "embedding-runtime") return artifact;
+    const prefix = `data/embeddings/${runtimeId}/runtime/`;
+    assert.ok(
+      String(artifact.asset_path || "").startsWith(prefix),
+      `Czech embedding runtime artifact must stay under ${prefix}`,
+    );
+    const sharedPath = `models/${runtimeId}/runtime/${artifact.asset_path.slice(prefix.length)}`;
+    const shared = sharedByPath.get(sharedPath);
+    assert.ok(shared, `Czech embedding runtime artifact is absent from the shared catalog: ${sharedPath}`);
+    remappedPaths.add(sharedPath);
+    return {
+      ...artifact,
+      url: shared.url,
+      asset_path: `language-runtime/${shared.path}`,
+      bytes: shared.bytes,
+      sha256: shared.sha256,
+    };
+  });
+  assert.deepEqual(
+    [...remappedPaths].sort(),
+    [...sharedByPath.keys()].sort(),
+    `Czech setup must cover every model artifact for shared runtime ${runtimeId}`,
+  );
+
+  const localTransformersUrl = "./vendor/transformers/transformers.min.js";
+  const sharedTransformersUrl = runtime.runtime?.transformersModuleUrl;
+  assert.equal(
+    sharedTransformersUrl,
+    "/language-runtime/vendor/transformers/transformers.min.js",
+    "Shared embedding runtime Transformers.js URL is unsupported",
+  );
+  const localTransformersCount = manifest.offline.assets.filter(
+    (asset) => asset === localTransformersUrl,
+  ).length;
+  assert.equal(localTransformersCount, 1, "Czech setup must precache exactly one local Transformers.js alias");
+  manifest.offline.assets = manifest.offline.assets.map(
+    (asset) => asset === localTransformersUrl ? sharedTransformersUrl : asset,
+  );
+  return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+export function transformBundleVectorDb(input, embeddingRuntimeCatalog) {
+  let source = normalizeText(input);
+  const modelMatch = /const defaultSemanticModelId = "([^"/]+(?:[.-][^"/]+)*)\/runtime";/u.exec(source);
+  assert.ok(modelMatch, "Czech vector database must declare one semantic runtime model id");
+  const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, modelMatch[1]);
+  const contract = requireObject(runtime.runtime, `embedding runtime ${runtime.id} contract`);
+  const replacements = [
+    [
+      'const defaultTransformersModuleUrl = "../../vendor/transformers/transformers.min.js";',
+      `const defaultTransformersModuleUrl = ${JSON.stringify(contract.transformersModuleUrl)};`,
+      "Czech vector database Transformers.js URL",
+    ],
+    [
+      `const defaultSemanticModelId = "${runtime.id}/runtime";`,
+      `const defaultSemanticModelId = ${JSON.stringify(contract.modelId)};`,
+      "Czech vector database semantic model id",
+    ],
+    [
+      'const defaultSemanticModelPath = "../../data/embeddings/";',
+      `const defaultSemanticModelPath = ${JSON.stringify(contract.localModelPath)};`,
+      "Czech vector database semantic model path",
+    ],
+    [
+      'const defaultSemanticModelFileName = "model_qint8_arm64";',
+      `const defaultSemanticModelFileName = ${JSON.stringify(contract.modelFileName)};`,
+      "Czech vector database semantic model filename",
+    ],
+    [
+      `const defaultOrtWasmModuleUrl = "../../data/embeddings/${runtime.id}/runtime/ort/ort-wasm-simd-threaded.mjs";`,
+      `const defaultOrtWasmModuleUrl = ${JSON.stringify(contract.ortWasmModuleUrl)};`,
+      "Czech vector database ORT module URL",
+    ],
+    [
+      `const defaultOrtWasmBinaryUrl = "../../data/embeddings/${runtime.id}/runtime/ort/ort-wasm-simd-threaded.wasm";`,
+      `const defaultOrtWasmBinaryUrl = ${JSON.stringify(contract.ortWasmBinaryUrl)};`,
+      "Czech vector database ORT binary URL",
+    ],
+  ];
+  for (const [before, after, label] of replacements) {
+    source = exactReplace(source, before, after, label);
+  }
+  return source;
+}
+
+export function transformWebViewEmbeddingCatalog(input) {
+  const catalog = JSON.parse(normalizeText(input));
+  assertWebViewEmbeddingCatalog(catalog, { id: catalog.courseId });
+  assert.equal(catalog.runtime.modelDelivery, "browser-on-demand", "Browser embedding catalog delivery anchor drifted");
+  assert.equal(catalog.runtime.modelPrecached, false, "Browser embedding catalog precache anchor drifted");
+  assert.equal(catalog.runtime.androidPackaged, false, "Browser embedding catalog Android marker drifted");
+  catalog.runtime = {
+    ...catalog.runtime,
+    modelDelivery: "android-bundled",
+    modelPrecached: true,
+    androidPackaged: true,
+  };
+  return `${JSON.stringify(catalog, null, 2)}\n`;
 }
 
 export function transformRuntime(input) {
@@ -1023,6 +1485,8 @@ const CAPABILITY_GATED_SHARED_APP_FILES = new Set([
 function assertFirstPartySurface(outputDir, files) {
   const executableUi = files.filter((path) =>
     !path.startsWith("vendor/")
+      && !path.startsWith("language-runtime/vendor/")
+      && !path.startsWith("language-runtime/models/")
       && !CAPABILITY_GATED_SHARED_APP_FILES.has(path)
       && [".css", ".html", ".js", ".mjs", ".webmanifest"].includes(extension(path))
   );
@@ -1145,14 +1609,19 @@ function assertDictionaryProviderBoundary(outputDir, profile) {
   normalizedCatalogPath(active.database_file, "dictionary provider database_file");
 }
 
-function assertSetupBoundary(outputDir, languageStaticDir, profile, { strictCzech = false } = {}) {
+function assertSetupBoundary(
+  outputDir,
+  languageStaticDir,
+  profile,
+  { strictCzech = false, expectedTransform = transformSetupAssets } = {},
+) {
   const outputPath = join(outputDir, "setup-assets.json");
   assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
   if (strictCzech) {
     const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
     assert.equal(
       readSourceText(outputPath),
-      normalizeText(transformSetupAssets(developmentSource)),
+      normalizeText(expectedTransform(developmentSource)),
       "setup manifest must equal the reviewed store transform"
     );
   }
@@ -1241,13 +1710,17 @@ function assertSharedAppBoundary(files) {
   }
 }
 
-function assertWordWorldBoundary(outputDir, files) {
+function assertWordWorldBoundary(outputDir, files, {
+  sharedOutputDir = outputDir,
+  sharedFiles = files,
+} = {}) {
   const providerModuleUrl = "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5";
   const meaningAdapterUrl = "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19";
   const providerModule = providerModuleUrl.split("?", 1)[0];
   const meaningAdapter = meaningAdapterUrl.slice(1).split("?", 1)[0];
   assert.ok(files.includes(providerModule), `Czech Word World must package its course provider ${providerModule}`);
-  assert.ok(files.includes(meaningAdapter), `Czech Word World must package the shared meaning adapter ${meaningAdapter}`);
+  assert.ok(sharedFiles.includes(meaningAdapter), `Czech Word World must package the shared meaning adapter ${meaningAdapter}`);
+  assert.ok(existsSync(join(sharedOutputDir, meaningAdapter)), `Czech Word World shared meaning adapter is missing: ${meaningAdapter}`);
 
   const manifest = JSON.parse(readFileSync(join(outputDir, "data/games/word-world/manifest.json"), "utf8"));
   assert.equal(manifest.sessionProvider?.module, providerModuleUrl, "Czech Word World manifest must declare its versioned course provider URL");
@@ -1301,6 +1774,218 @@ function assertServiceWorkerBoundary(outputDir) {
   const workerEngine = join(outputDir, "language-runtime/static/source/course-service-worker.js");
   assert.ok(existsSync(workerEngine) && statSync(workerEngine).isFile(), "shared course service-worker engine must be packaged");
   assert.match(readSourceText(workerEngine), /Retired runtime assets cannot be cached/);
+}
+
+function courseAssetTransform(configuration, path, embeddingRuntime) {
+  const embeddingProvider = configuration.nativeProviders.providers.embeddings;
+  if (
+    embeddingProvider?.implementation === "webview-english-minilm-v1"
+    && path === embeddingProvider.catalogAsset
+  ) {
+    return transformWebViewEmbeddingCatalog;
+  }
+  if (configuration.course.id !== "cz") return undefined;
+  if (path === "setup-assets.json") {
+    assert.ok(embeddingRuntime?.catalog, "Czech bundle setup requires the shared embedding runtime catalog");
+    return (input) => transformBundleSetupAssets(input, embeddingRuntime.catalog);
+  }
+  if (path === "source/shared/vector-db.js") {
+    assert.ok(embeddingRuntime?.catalog, "Czech bundle vector database requires the shared embedding runtime catalog");
+    return (input) => transformBundleVectorDb(input, embeddingRuntime.catalog);
+  }
+  return TRANSFORMS[path];
+}
+
+function bundleReferenceAssetPath(reference, containingAsset, courseRecord) {
+  if (!reference || reference.startsWith("#") || reference.startsWith("//") || /^[a-z][a-z\d+.-]*:/i.test(reference)) {
+    return null;
+  }
+  let webPath;
+  if (containingAsset === "index.html") {
+    webPath = courseRecord.entryPath;
+  } else if (containingAsset.startsWith(`${courseRecord.assetPrefix}/`)) {
+    const relativeAsset = containingAsset.slice(courseRecord.assetPrefix.length + 1);
+    webPath = `${courseRecord.routePrefix}/${relativeAsset}`;
+  } else {
+    webPath = `/${containingAsset}`;
+  }
+  const pathname = decodeURIComponent(new URL(reference, `https://caatuu.test${webPath}`).pathname);
+  if (pathname.startsWith("/language-runtime/") || pathname.startsWith("/assets/")) {
+    return pathname.slice(1);
+  }
+  for (const record of courseRecord.bundleCourses) {
+    if (pathname === record.entryPath) return "index.html";
+    const coursePrefix = `${record.routePrefix}/`;
+    if (pathname.startsWith(coursePrefix)) {
+      return `${record.assetPrefix}/${pathname.slice(coursePrefix.length)}`;
+    }
+  }
+  return null;
+}
+
+function assertBundleReferences(outputDir, files, courseCatalog) {
+  const records = courseCatalog.courses.map((record) => Object.freeze({
+    ...record,
+    bundleCourses: courseCatalog.courses,
+  }));
+  const recordByPrefix = new Map(records.map((record) => [record.assetPrefix, record]));
+  const executable = files.filter((path) => [".js", ".mjs"].includes(extension(path)));
+  for (const path of executable) {
+    if (path.startsWith("language-runtime/vendor/") || path.startsWith("language-runtime/models/")) continue;
+    const coursePrefix = records.find(({ assetPrefix }) => path.startsWith(`${assetPrefix}/`))?.assetPrefix;
+    const record = coursePrefix ? recordByPrefix.get(coursePrefix) : records[0];
+    const source = readSourceText(join(outputDir, path));
+    checkJavaScriptSyntax(path, source);
+    for (const reference of staticModuleReferences(source)) {
+      const assetPath = bundleReferenceAssetPath(reference.split(/[?#]/, 1)[0], path, record);
+      if (!assetPath) continue;
+      const target = resolve(outputDir, assetPath);
+      assert.ok(isInside(outputDir, target), `${path}: module import escapes packaged assets: ${reference}`);
+      assert.ok(existsSync(target) && statSync(target).isFile(), `${path}: missing module import ${reference}`);
+    }
+  }
+
+  const htmlFiles = files.filter((path) => extension(path) === ".html");
+  const htmlReferencePattern = /[\s<](?:src|href)\s*=\s*["']([^"']+)["']/g;
+  for (const path of htmlFiles) {
+    const matchingRecord = records.find(({ assetPrefix }) => path.startsWith(`${assetPrefix}/`));
+    const recordsToCheck = path === "index.html" ? records : [matchingRecord || records[0]];
+    const source = readSourceText(join(outputDir, path));
+    for (const record of recordsToCheck) {
+      for (const match of source.matchAll(htmlReferencePattern)) {
+        const reference = match[1];
+        const cleanReference = reference.split(/[?#]/, 1)[0];
+        if (!cleanReference) continue;
+        const assetPath = bundleReferenceAssetPath(cleanReference, path, record);
+        if (!assetPath) continue;
+        const target = resolve(outputDir, assetPath);
+        assert.ok(isInside(outputDir, target), `${path}: HTML reference escapes packaged assets: ${reference}`);
+        assert.ok(existsSync(target) && statSync(target).isFile(), `${path}: missing HTML reference ${reference}`);
+      }
+    }
+  }
+}
+
+export function validateProductAssetBundle({
+  outputDir,
+  workspaceRoot = defaultWorkspaceRoot,
+  courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+  configuration,
+}) {
+  const bundle = configuration || loadAndroidCourseBundleConfiguration({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+  });
+  const resolvedOutput = resolve(outputDir);
+  assert.ok(existsSync(resolvedOutput), `Product bundle output does not exist: ${resolvedOutput}`);
+  const files = allFiles(resolvedOutput);
+  assert.deepEqual(files, [...bundle.outputFiles].sort(), "Product output must equal the Android course bundle allowlist");
+  assert.deepEqual(
+    readFileSync(join(resolvedOutput, "index.html"), "utf8"),
+    transformIndex(readSourceText(bundle.defaultCourse.appEntryPath)),
+    "Product bundle must package one reviewed transform of the canonical shared app entry",
+  );
+  assert.deepEqual(
+    files.filter((path) => /(?:^|\/)index\.html$/i.test(path)),
+    ["index.html"],
+    "Product bundle must contain exactly one shared index.html",
+  );
+  const runtimeCatalog = JSON.parse(readFileSync(join(resolvedOutput, PRODUCT_COURSE_BUNDLE_ASSET), "utf8"));
+  assert.deepEqual(runtimeCatalog, bundle.courseCatalog, "Packaged course bundle catalog must match the reviewed declaration");
+  assert.equal(runtimeCatalog.courses.length, bundle.configurations.length, "Every allowlisted course must be in the runtime catalog");
+  const profile = JSON.parse(readFileSync(join(resolvedOutput, "caatuu-profile.json"), "utf8"));
+  assert.deepEqual(profile, bundle.productProfile, "Default product profile must match the complete course bundle");
+
+  for (const { source, output } of bundle.sharedAssets) {
+    const transform = SHARED_APP_TRANSFORMS[output];
+    const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
+    const actual = transform ? readFileSync(join(resolvedOutput, output), "utf8") : readFileSync(join(resolvedOutput, output));
+    assert.deepEqual(actual, expected, `Shared product asset drifted: ${output}`);
+  }
+  for (const courseConfiguration of bundle.configurations) {
+    const courseRoot = join(resolvedOutput, `courses/${courseConfiguration.course.id}`);
+    const courseFiles = bundle.courseFilesById[courseConfiguration.course.id];
+    assert.ok(courseFiles, `Missing bundle file allowlist for course ${courseConfiguration.course.id}`);
+    for (const path of courseFiles) {
+      const source = join(courseConfiguration.languageStaticDir, path);
+      const output = join(courseRoot, path);
+      const transform = courseAssetTransform(courseConfiguration, path, bundle.embeddingRuntime);
+      const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
+      const actual = transform ? readFileSync(output, "utf8") : readFileSync(output);
+      assert.deepEqual(actual, expected, `Course ${courseConfiguration.course.id} asset drifted: ${path}`);
+    }
+    const courseProfile = productProfileForCourse(courseConfiguration.course, {
+      assetPaths: courseFiles,
+      nativeProviders: courseConfiguration.nativeProviders,
+    });
+    if (courseProfile.capabilities.embeddings) {
+      const provider = nativeProvider(courseProfile, "embeddings");
+      if (provider.implementation === "vector-database-catalog-v1") {
+        assertEmbeddingProviderBoundary(courseRoot, courseProfile);
+        if (courseFiles.includes("source/shared/vector-db.js")) {
+          assertVectorConfinement(courseRoot);
+        }
+      } else {
+        assert.equal(provider.implementation, "webview-english-minilm-v1", "WebView embedding provider is unsupported");
+        const catalog = JSON.parse(readFileSync(join(courseRoot, provider.catalogAsset), "utf8"));
+        assertWebViewEmbeddingCatalog(catalog, courseConfiguration.course);
+        assert.equal(catalog.runtime.modelDelivery, "android-bundled", "Android WebView MiniLM must be bundled");
+        assert.equal(catalog.runtime.modelPrecached, true, "Android WebView MiniLM must be immediately available");
+        assert.equal(catalog.runtime.androidPackaged, true, "Android WebView MiniLM catalog must describe packaged bytes truthfully");
+      }
+    }
+    if (courseProfile.capabilities.dictionary) assertDictionaryProviderBoundary(courseRoot, courseProfile);
+    if (courseConfiguration.course.id === "cz") {
+      assertRuntimeBoundary(courseRoot);
+      if (courseProfile.capabilities.wordWorldStandardOnly) {
+        assertWordWorldBoundary(courseRoot, courseFiles, {
+          sharedOutputDir: resolvedOutput,
+          sharedFiles: files,
+        });
+      }
+    }
+    if (courseFiles.includes("setup-assets.json")) {
+      assertSetupBoundary(courseRoot, courseConfiguration.languageStaticDir, courseProfile, {
+        strictCzech: courseConfiguration.course.id === "cz",
+        expectedTransform: courseAssetTransform(courseConfiguration, "setup-assets.json", bundle.embeddingRuntime),
+      });
+    }
+    assertLearnerContentSafety(courseRoot);
+    if (courseFiles.includes("source/shared/course-profile.js")) {
+      const courseProfileSource = readSourceText(join(courseRoot, "source/shared/course-profile.js"));
+      assert.doesNotMatch(courseProfileSource, /llm: true|generation: true|chat: true|offlineModels: true/);
+    }
+    if (courseFiles.includes("sw.js")) {
+      const worker = readSourceText(join(courseRoot, "sw.js"));
+      assert.match(worker, /importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\)/);
+    }
+  }
+
+  for (const asset of bundle.embeddingRuntime.assets) {
+    const output = join(resolvedOutput, asset.output);
+    assert.equal(statSync(output).size, statSync(asset.source).size, `Embedding runtime bytes drifted: ${asset.output}`);
+    assert.equal(sha256File(output), sha256File(asset.source), `Embedding runtime hash drifted: ${asset.output}`);
+  }
+  const sharedFiles = [
+    "index.html",
+    ...bundle.sharedAssets.map(({ output }) => output),
+  ].sort();
+  assertSharedAppBoundary(sharedFiles);
+  assertCapabilityGatedSharedApp(resolvedOutput, bundle.defaultCourse, profile);
+  assertNoForbiddenPaths(files);
+  assertFirstPartySurface(resolvedOutput, sharedFiles);
+  for (const courseConfiguration of bundle.configurations) {
+    assertFirstPartySurface(
+      join(resolvedOutput, `courses/${courseConfiguration.course.id}`),
+      bundle.courseFilesById[courseConfiguration.course.id],
+    );
+  }
+  assertBundleReferences(resolvedOutput, files, runtimeCatalog);
+
+  const totalBytes = files.reduce((sum, path) => sum + statSync(join(resolvedOutput, path)).size, 0);
+  return { outputDir: resolvedOutput, fileCount: files.length, totalBytes, files };
 }
 
 export function validateProductAssets({
@@ -1374,6 +2059,71 @@ export function validateProductAssets({
 
   const totalBytes = files.reduce((sum, path) => sum + statSync(join(resolvedOutput, path)).size, 0);
   return { outputDir: resolvedOutput, fileCount: files.length, totalBytes, files };
+}
+
+export function compileProductAssetBundle({
+  workspaceRoot = defaultWorkspaceRoot,
+  courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+  outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product"),
+} = {}) {
+  const bundle = loadAndroidCourseBundleConfiguration({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+  });
+  const resolvedOutput = resolve(outputDir);
+  for (const configuration of bundle.configurations) {
+    assertSafeOutputDirectory(
+      resolvedOutput,
+      bundle.workspaceRoot,
+      configuration.languageStaticDir,
+      bundle.launcherStaticDir,
+    );
+  }
+  rmSync(resolvedOutput, { recursive: true, force: true });
+  mkdirSync(resolvedOutput, { recursive: true });
+  writeText(
+    join(resolvedOutput, "index.html"),
+    transformIndex(readSourceText(bundle.defaultCourse.appEntryPath)),
+  );
+  for (const configuration of bundle.configurations) {
+    const courseOutput = join(resolvedOutput, `courses/${configuration.course.id}`);
+    const courseFiles = bundle.courseFilesById[configuration.course.id];
+    assert.ok(courseFiles, `Missing bundle file allowlist for course ${configuration.course.id}`);
+    for (const path of courseFiles) {
+      const source = join(configuration.languageStaticDir, path);
+      const output = join(courseOutput, path);
+      const transform = courseAssetTransform(configuration, path, bundle.embeddingRuntime);
+      if (transform) {
+        assert.ok(TEXT_EXTENSIONS.has(extension(path)), `Transform target must be text: ${path}`);
+        writeText(output, transform(readSourceText(source)));
+      } else {
+        copyExactFile(source, output);
+      }
+    }
+  }
+  for (const { source, output } of bundle.sharedAssets) {
+    const transform = SHARED_APP_TRANSFORMS[output];
+    if (transform) {
+      assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
+      writeText(join(resolvedOutput, output), transform(readSourceText(source)));
+    } else {
+      copyExactFile(source, join(resolvedOutput, output));
+    }
+  }
+  writeText(
+    join(resolvedOutput, PRODUCT_COURSE_BUNDLE_ASSET),
+    `${JSON.stringify(bundle.courseCatalog, null, 2)}\n`,
+  );
+  writeText(
+    join(resolvedOutput, "caatuu-profile.json"),
+    `${JSON.stringify(bundle.productProfile, null, 2)}\n`,
+  );
+  return validateProductAssetBundle({
+    outputDir: resolvedOutput,
+    configuration: bundle,
+  });
 }
 
 export function compileProductAssets({
@@ -1453,6 +2203,7 @@ function parseArguments(argv) {
     index += 1;
     if (key === "--workspace-root") options.workspaceRoot = resolve(value);
     else if (key === "--course-manifest") options.courseManifestPath = resolve(value);
+    else if (key === "--course-bundle") options.courseBundlePath = resolve(value);
     else if (key === "--language-static" || key === "--source") options.languageStaticDir = resolve(value);
     else if (key === "--launcher-static" || key === "--launcher") options.launcherStaticDir = resolve(value);
     else if (key === "--output") options.outputDir = resolve(value);
@@ -1464,9 +2215,15 @@ function parseArguments(argv) {
 if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
   const options = parseArguments(process.argv.slice(2));
   if (options.help) {
-    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--course-manifest FILE] [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
+    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--course-bundle FILE|--course-manifest FILE] [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
   } else {
-    const result = compileProductAssets(options);
+    assert.ok(
+      !(options.courseBundlePath && options.courseManifestPath),
+      "Choose either --course-bundle or --course-manifest, not both",
+    );
+    const result = options.courseManifestPath || options.languageStaticDir
+      ? compileProductAssets(options)
+      : compileProductAssetBundle(options);
     process.stdout.write(`${JSON.stringify({
       profile: "product",
       outputDir: result.outputDir,

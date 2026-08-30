@@ -26,8 +26,19 @@ data class StaticAssetSpec(
     val sha256: String,
 )
 
-class StaticAssetManager(context: Context) {
+class StaticAssetManager(
+    context: Context,
+    manifestAssetPath: String = DEFAULT_SETUP_ASSET_MANIFEST,
+    courseAssetPrefix: String = "",
+    private val requireNativeAssets: Boolean = true,
+) {
     private val appContext = context.applicationContext
+    private val manifestAssetPath = manifestAssetPath.also { path ->
+        require(isSafeAssetPath(path)) { "Setup asset manifest path is unsafe." }
+    }
+    private val courseAssetPrefix = courseAssetPrefix.also { path ->
+        require(path.isEmpty() || isSafeAssetPath(path)) { "Course asset prefix is unsafe." }
+    }.trimEnd('/')
     private val requiredAssets = loadRequiredAssetSpecs()
 
     fun requiredAssetSpecs(): List<StaticAssetSpec> = requiredAssets
@@ -184,8 +195,18 @@ class StaticAssetManager(context: Context) {
     suspend fun deleteLocalAssets(): JSONObject =
         withContext(Dispatchers.IO) {
             val root = rootDir(appContext)
-            val bytesDeleted = directorySize(root)
-            val deleted = !root.exists() || root.deleteRecursively()
+            var bytesDeleted = 0L
+            var deleted = true
+            requiredAssets.forEach { spec ->
+                val file = localAssetFile(appContext, spec.assetPath)
+                val download = File(file.parentFile, "${file.name}.download")
+                val marker = markerFile(appContext, spec)
+                for (candidate in listOf(file, download, marker)) {
+                    bytesDeleted += directorySize(candidate)
+                    if (candidate.exists()) deleted = candidate.deleteRecursively() && deleted
+                }
+                removeEmptyParents(file.parentFile, root)
+            }
             JSONObject()
                 .put("storageScope", "app-private filesDir/setup-assets")
                 .put("deletedOnUninstall", true)
@@ -194,6 +215,15 @@ class StaticAssetManager(context: Context) {
                 .put("deleted", deleted)
                 .put("status", statusJson())
         }
+
+    private fun removeEmptyParents(start: File?, root: File) {
+        var directory = start
+        while (directory != null && directory != root && directory.startsWith(root)) {
+            if (directory.listFiles()?.isNotEmpty() == true) return
+            if (!directory.delete()) return
+            directory = directory.parentFile
+        }
+    }
 
     private fun sha256(file: File): String {
         val digest = MessageDigest.getInstance("SHA-256")
@@ -217,7 +247,7 @@ class StaticAssetManager(context: Context) {
     }
 
     private fun loadRequiredAssetSpecs(): List<StaticAssetSpec> {
-        val manifest = appContext.assets.open(SETUP_ASSET_MANIFEST).bufferedReader().use { reader ->
+        val manifest = appContext.assets.open(manifestAssetPath).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
         val artifacts = manifest.getJSONArray("artifacts")
@@ -227,26 +257,29 @@ class StaticAssetManager(context: Context) {
             if (!item.optBoolean("native_required", false)) continue
 
             val key = item.optString("key").takeIf { it.isNotBlank() }
-                ?: throw IllegalStateException("$SETUP_ASSET_MANIFEST artifact $index is missing key.")
+                ?: throw IllegalStateException("$manifestAssetPath artifact $index is missing key.")
             val url = item.optString("url", "")
-            val assetPath = item.optString("asset_path").takeIf { it.isNotBlank() }
+            val authoredAssetPath = item.optString("asset_path").takeIf { it.isNotBlank() }
                 ?: url.trimStart('/')
-            require(assetPath.isNotBlank() && !assetPath.contains("..")) {
-                "$SETUP_ASSET_MANIFEST artifact $key has an invalid asset path."
+            require(authoredAssetPath.isNotBlank() && isSafeAssetPath(authoredAssetPath)) {
+                "$manifestAssetPath artifact $key has an invalid asset path."
             }
+            val assetPath = packagedAssetPath(authoredAssetPath)
 
             specs += StaticAssetSpec(
                 key = key,
                 label = item.optString("label", key),
                 artifactKind = item.optString("artifact_kind", "visual-asset"),
                 assetPath = assetPath,
-                url = resolveArtifactUrl(url, assetPath),
+                url = resolveArtifactUrl(url, authoredAssetPath),
                 bytes = item.getLong("bytes"),
                 sha256 = item.getString("sha256"),
             )
         }
 
-        if (specs.isEmpty()) throw IllegalStateException("$SETUP_ASSET_MANIFEST does not define native setup assets.")
+        if (requireNativeAssets && specs.isEmpty()) {
+            throw IllegalStateException("$manifestAssetPath does not define native setup assets.")
+        }
         return specs
     }
 
@@ -258,6 +291,13 @@ class StaticAssetManager(context: Context) {
             else -> "$ASSET_BASE_URL/$assetPath"
         }
 
+    private fun packagedAssetPath(authoredAssetPath: String): String =
+        when {
+            courseAssetPrefix.isEmpty() -> authoredAssetPath
+            authoredAssetPath.startsWith("assets/") -> authoredAssetPath
+            else -> "$courseAssetPrefix/$authoredAssetPath"
+        }
+
     companion object {
         private const val ASSET_DOWNLOAD_ATTEMPTS = 4
         private const val ASSET_CONNECT_TIMEOUT_MS = 30_000
@@ -265,12 +305,18 @@ class StaticAssetManager(context: Context) {
         private const val ASSET_RETRY_DELAY_MS = 1_000L
         private const val ASSET_ROOT = "setup-assets"
         private const val ASSET_BASE_URL = "https://caatuu.waajacu.com"
-        private const val SETUP_ASSET_MANIFEST = "setup-assets.json"
+        private const val DEFAULT_SETUP_ASSET_MANIFEST = "setup-assets.json"
 
         fun rootDir(context: Context): File = File(context.filesDir, ASSET_ROOT)
 
         fun localAssetFile(context: Context, assetPath: String): File =
             File(rootDir(context), assetPath)
+
+        private fun isSafeAssetPath(value: String): Boolean =
+            value.isNotEmpty() &&
+                !value.startsWith('/') &&
+                !value.contains('\\') &&
+                value.split('/').all { it.isNotEmpty() && it != "." && it != ".." }
 
         private fun markerFile(context: Context, spec: StaticAssetSpec): File =
             File(rootDir(context), "${spec.assetPath}.sha256")

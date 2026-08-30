@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
+  assertCourseBundleContract,
   requiredAssetPaths,
   requiredNativeClassNames,
 } from "../validate-product-package.mjs";
@@ -16,6 +17,131 @@ const [builder, validator, compiler, productBuild, settings, appAssetCatalog] = 
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/language-runtime/app-assets.json", repoRoot), "utf8").then(JSON.parse),
 ]);
+
+function productCapabilities(overrides = {}) {
+  return {
+    chat: false,
+    conjugationComet: false,
+    dictionary: false,
+    embeddings: true,
+    generation: false,
+    godot: false,
+    imageLookup: true,
+    llm: false,
+    memory: true,
+    offlineModels: false,
+    pronunciationGuides: false,
+    semanticSearch: true,
+    speech: true,
+    stats: true,
+    verbs: false,
+    wordWorld: true,
+    wordWorldStandardOnly: true,
+    ...overrides,
+  };
+}
+
+function productBundleFixture() {
+  const czechCapabilities = productCapabilities({
+    conjugationComet: true,
+    dictionary: true,
+    verbs: true,
+  });
+  const czechProviders = {
+    schemaVersion: 1,
+    providers: {
+      embeddings: {
+        implementation: "vector-database-catalog-v1",
+        catalogAsset: "courses/cz/data/embeddings/models.json",
+      },
+      dictionary: {
+        implementation: "sqlite-dictionary-catalog-v1",
+        catalogAsset: "courses/cz/data/dictionaries/catalog.json",
+      },
+      speech: {
+        implementation: "android-text-to-speech-v1",
+        locale: "cs-CZ",
+      },
+    },
+  };
+  const mandarinCapabilities = productCapabilities();
+  const bundle = {
+    $schema: "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json",
+    schemaVersion: 1,
+    defaultCourseId: "cz",
+    courses: [
+      {
+        id: "cz",
+        routePrefix: "/cz",
+        entryPath: "/cz/index.html",
+        assetPrefix: "courses/cz",
+        sourceLanguage: { id: "en", label: "English", locale: "en" },
+        targetLanguage: {
+          id: "cs",
+          label: "Czech",
+          nativeLabel: "Čeština",
+          locale: "cs-CZ",
+          script: "Latn",
+          speechLocale: "cs-CZ",
+        },
+        capabilities: czechCapabilities,
+        nativeProviders: czechProviders,
+      },
+      {
+        id: "zh",
+        routePrefix: "/zh",
+        entryPath: "/zh/index.html",
+        assetPrefix: "courses/zh",
+        sourceLanguage: { id: "en", label: "English", locale: "en" },
+        targetLanguage: {
+          id: "zh",
+          label: "Mandarin",
+          nativeLabel: "中文",
+          locale: "zh-Hans",
+          script: "Hans",
+          speechLocale: "zh-CN",
+        },
+        capabilities: mandarinCapabilities,
+        nativeProviders: {
+          schemaVersion: 1,
+          providers: {
+            embeddings: {
+              implementation: "webview-english-minilm-v1",
+              catalogAsset: "courses/zh/data/embeddings/catalog.json",
+            },
+            speech: {
+              implementation: "android-text-to-speech-v1",
+              locale: "zh-CN",
+            },
+          },
+        },
+      },
+    ],
+  };
+  const profile = {
+    schemaVersion: 2,
+    profile: "product",
+    course: {
+      id: "cz",
+      routePrefix: "/cz",
+      sourceLanguage: { id: "en", locale: "en" },
+      targetLanguage: { id: "cs", locale: "cs-CZ", script: "Latn", speechLocale: "cs-CZ" },
+    },
+    capabilities: czechCapabilities,
+    nativeProviders: czechProviders,
+    privacy: { bugReportsLocalOnly: true, dictionaryGapReportsLocalOnly: true },
+    assets: [
+      "caatuu-course-bundle.json",
+      "index.html",
+      "courses/cz/setup-assets.json",
+      "courses/cz/data/embeddings/models.json",
+      "courses/cz/data/dictionaries/catalog.json",
+      "courses/zh/setup-assets.json",
+      "courses/zh/data/embeddings/catalog.json",
+    ],
+  };
+  return { bundle, profile };
+}
 
 test("the canonical builder constructs only the product release profile", () => {
   for (const contract of [
@@ -77,9 +203,13 @@ test("the AAB-derived universal APK is the authoritative delivery-boundary audit
 
 test("the package validator requires the retained local embedding stack", () => {
   for (const asset of [
+    "caatuu-course-bundle.json",
     "setup-assets.json",
     "data/embeddings/models.json",
     "all-minilm-l6-v2-qint8-v0.1/manifest.json",
+    "language-runtime/embedding-runtimes.json",
+    "language-runtime/models/",
+    "language-runtime/vendor/",
     "source/shared/vector-db.js",
     "source/shared/semantic-learning.js",
     "source/shared/semantic-learning-core.mjs",
@@ -91,6 +221,7 @@ test("the package validator requires the retained local embedding stack", () => 
   ]) {
     assert.ok(validator.includes(asset), `missing retained package asset contract: ${asset}`);
   }
+  assert.match(validator, /courseAssetPath\(course, "setup-assets\.json"\)/);
   for (const confinement of [
     "env\\.allowRemoteModels\\s*=\\s*false",
     "env\\.allowLocalModels\\s*=\\s*true",
@@ -100,6 +231,11 @@ test("the package validator requires the retained local embedding stack", () => 
     assert.ok(validator.includes(confinement), `missing embedding confinement: ${confinement}`);
   }
   assert.match(validator, /EXPECTED_MINILM_REVISION/);
+  assert.match(validator, /webview-english-minilm-v1/);
+  assert.match(validator, /runtime\.artifacts\.length === 12/);
+  assert.match(validator, /createHash\("sha256"\)/);
+  assert.match(validator, /byte count does not match the catalog/);
+  assert.match(validator, /SHA-256 does not match the catalog/);
   assert.match(validator, /embeddingArtifacts\.length === 10/);
   assert.match(validator, /default_dictionary === "kaikki-cs-en-2026-07-09"/);
   assert.match(validator, /active\?\.status === "active"/);
@@ -109,55 +245,41 @@ test("the package validator requires the retained local embedding stack", () => 
 });
 
 test("package requirements follow declared embeddings and dictionary capabilities", () => {
-  const embeddingOnly = {
-    course: { id: "fixture-no-llm" },
-    capabilities: {
-      embeddings: true,
-      dictionary: false,
-    },
-    nativeProviders: {
-      schemaVersion: 1,
-      providers: {
-        embeddings: {
-          implementation: "vector-database-catalog-v1",
-          catalogAsset: "native/semantic/catalog.json",
-        },
-      },
-    },
-  };
-  const embeddingAssets = requiredAssetPaths(embeddingOnly);
-  assert.ok(embeddingAssets.includes("native/semantic/catalog.json"));
+  const { bundle, profile } = productBundleFixture();
+  assert.equal(assertCourseBundleContract(bundle, profile), bundle);
+  const embeddingAssets = requiredAssetPaths(bundle);
+  assert.ok(embeddingAssets.includes("caatuu-course-bundle.json"));
+  assert.ok(embeddingAssets.includes("courses/cz/data/embeddings/models.json"));
+  assert.ok(embeddingAssets.includes("courses/zh/data/embeddings/catalog.json"));
+  assert.ok(embeddingAssets.includes("language-runtime/embedding-runtimes.json"));
+  assert.ok(embeddingAssets.includes("courses/cz/data/dictionaries/catalog.json"));
+  assert.ok(embeddingAssets.includes("courses/cz/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"));
+  assert.ok(!embeddingAssets.includes("setup-assets.json"));
   assert.ok(!embeddingAssets.includes("data/embeddings/models.json"));
   assert.ok(embeddingAssets.includes("language-runtime/contract.mjs"));
-  assert.ok(!embeddingAssets.some((path) => path.startsWith("data/dictionaries/")));
   assert.ok(!embeddingAssets.some((path) => path.startsWith("data/models/")));
   for (const { output } of appAssetCatalog.assets) {
     assert.ok(embeddingAssets.includes(output), `package requirements must include shared app asset ${output}`);
   }
 
-  const embeddingClasses = requiredNativeClassNames(embeddingOnly);
+  const embeddingClasses = requiredNativeClassNames(bundle);
   assert.ok(embeddingClasses.includes("com.caatuu.android.VectorDatabaseManager"));
-  assert.ok(!embeddingClasses.includes("com.caatuu.android.DictionaryManager"));
+  assert.ok(embeddingClasses.includes("com.caatuu.android.DictionaryManager"));
+  assert.ok(embeddingClasses.includes("com.caatuu.android.AndroidSpeechManager"));
 
-  const czechCapabilities = {
-    course: { id: "cz" },
-    capabilities: { embeddings: true, dictionary: true },
-    nativeProviders: {
-      schemaVersion: 1,
-      providers: {
-        embeddings: {
-          implementation: "vector-database-catalog-v1",
-          catalogAsset: "data/embeddings/models.json",
-        },
-        dictionary: {
-          implementation: "sqlite-dictionary-catalog-v1",
-          catalogAsset: "data/dictionaries/catalog.json",
-        },
-      },
-    },
-  };
-  assert.ok(requiredAssetPaths(czechCapabilities).includes("data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"));
-  assert.ok(requiredNativeClassNames(czechCapabilities).includes("com.caatuu.android.DictionaryManager"));
+  const unsafeBundle = structuredClone(bundle);
+  unsafeBundle.courses[1].nativeProviders.providers.embeddings.catalogAsset = "data/embeddings/catalog.json";
+  assert.throws(
+    () => assertCourseBundleContract(unsafeBundle, profile),
+    /provider catalog asset must be namespaced under courses\/zh/,
+  );
+
+  const duplicateVendorProfile = structuredClone(profile);
+  duplicateVendorProfile.assets.push("courses/cz/vendor/transformers/transformers.min.js");
+  assert.throws(
+    () => assertCourseBundleContract(bundle, duplicateVendorProfile),
+    /must not duplicate shared Transformers\.js artifacts/,
+  );
 });
 
 test("the package validator binds every Android artifact to the canonical app document", () => {
@@ -167,10 +289,12 @@ test("the package validator binds every Android artifact to the canonical app do
   assert.match(validator, /capability-gated shared asset/);
   assert.match(validator, /BUNDLETOOL_DERIVED_APK_ASSET_PATHS/);
   assert.match(validator, /SHARED_APP_REQUIRED_ASSET_PATHS/);
+  assert.match(validator, /must use the single canonical root index\.html/);
 });
 
 test("the validator distinguishes embedding vendor code from first-party capability code", () => {
-  assert.match(validator, /assetPath\.startsWith\("vendor\/"\)/);
+  assert.match(validator, /assetPath\.startsWith\("language-runtime\/vendor\/"\)/);
+  assert.match(validator, /assetPath\.startsWith\("language-runtime\/models\/"\)/);
   assert.doesNotMatch(validator, /\/\\bgenerative\\b\/i/);
   assert.doesNotMatch(validator, /\/\(\?:\^\|\\\/\)games\(\?:\\\/\|\$\)\/i/);
   for (const boundary of [
@@ -191,7 +315,7 @@ test("the validator distinguishes embedding vendor code from first-party capabil
 
 test("the profile marker and Android package identity are fail-closed", () => {
   assert.match(compiler, /writeText\([\s\S]*?join\(resolvedOutput, "caatuu-profile\.json"\)/);
-  for (const capability of ["chat", "llm", "generation", "godot"]) {
+  for (const capability of ["chat", "llm", "generation", "godot", "offlineModels"]) {
     assert.match(validator, new RegExp(`"${capability}"`));
   }
   for (const capability of [
@@ -199,6 +323,8 @@ test("the profile marker and Android package identity are fail-closed", () => {
     "imageLookup",
     "stats",
     "dictionary",
+    "memory",
+    "semanticSearch",
     "speech",
     "wordWorldStandardOnly",
   ]) {
@@ -208,9 +334,13 @@ test("the profile marker and Android package identity are fail-closed", () => {
   assert.match(validator, /dictionaryGapReportsLocalOnly/);
   assert.match(validator, /native providers must exactly match enabled capabilities/);
   assert.match(validator, /vector-database-catalog-v1/);
+  assert.match(validator, /webview-english-minilm-v1/);
   assert.match(validator, /sqlite-dictionary-catalog-v1/);
   assert.match(validator, /packaged assets must exactly match the manifest-derived product profile/);
-  assert.match(validator, /profile\.course\.id === "cz"/);
+  assert.match(validator, /bundle\.defaultCourseId === "cz"/);
+  assert.match(validator, /must contain exactly the ordered cz and zh courses/);
+  assert.match(validator, /compatibility profile capabilities must match the bundle default/);
+  assert.match(validator, /provider catalog asset must be namespaced/);
   assert.match(validator, /com\.waajacu\.caatuu/);
   assert.match(validator, /EXPECTED_MIN_SDK = 30/);
   assert.match(validator, /MINIMUM_TARGET_SDK = 36/);

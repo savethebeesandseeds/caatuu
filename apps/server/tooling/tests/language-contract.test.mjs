@@ -32,6 +32,10 @@ const assetClient = await readFile(
   new URL("apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt", repoRoot),
   "utf8"
 );
+const bundledCourseRegistry = await readFile(
+  new URL("apps/android/app/src/main/java/com/caatuu/android/BundledCourseRegistry.kt", repoRoot),
+  "utf8"
+);
 const canonicalHome = await readFile(new URL("app/index.html", languageRuntimeStatic), "utf8");
 const pages = await Promise.all(
   pageNames.map((name) => readFile(new URL(name, czechStatic), "utf8").then((source) => ({ name, source })))
@@ -141,8 +145,8 @@ test("shared course chrome gates Android publication and developer tools through
 
   assert.equal(course.platforms.android.enabled, true);
   assert.equal(course.platforms.android.channels.length, 2);
-  assert.equal(mandarinCourse.platforms.android.enabled, false);
-  assert.equal(mandarinCourse.platforms.android.channels.length, 0);
+  assert.equal(mandarinCourse.platforms.android.enabled, true);
+  assert.equal(mandarinCourse.platforms.android.channels.length, 2);
 
   const channelValidationStart = chrome.indexOf("function validAndroidChannelManifest(channel, manifest)");
   const channelValidationEnd = chrome.indexOf("function disableAndroidInstallDiscovery(action, status)", channelValidationStart);
@@ -180,7 +184,17 @@ test("shared course chrome gates Android publication and developer tools through
   const developerStart = chrome.indexOf("function renderDeveloperToolLinks()");
   const developerEnd = chrome.indexOf("function renderSettingsPanel(panel)", developerStart);
   assert.ok(developerStart >= 0 && developerEnd > developerStart);
-  const developerContext = { course };
+  const createdDeveloperNotes = [];
+  const developerContext = {
+    course,
+    document: {
+      createElement(tagName) {
+        const element = { tagName };
+        createdDeveloperNotes.push(element);
+        return element;
+      }
+    }
+  };
   vm.runInNewContext(
     `${chrome.slice(developerStart, developerEnd)}\nthis.renderLinks = renderDeveloperToolLinks; this.reconcile = reconcileDeveloperToolVisibility;`,
     developerContext,
@@ -193,14 +207,29 @@ test("shared course chrome gates Android publication and developer tools through
 
   developerContext.course = mandarinCourse;
   assert.equal(developerContext.renderLinks(), "", "Mandarin must not inherit conventional Czech developer-page names");
-  let removed = 0;
+  let replacement = null;
+  const details = {
+    dataset: {},
+    querySelector(selector) {
+      assert.equal(selector, ".advanced-link-list");
+      return {
+        replaceChildren(...children) {
+          replacement = children;
+        }
+      };
+    }
+  };
   developerContext.reconcile({
     querySelector(selector) {
       assert.equal(selector, ".developer-tools-details");
-      return { remove() { removed += 1; } };
+      return details;
     }
   }, "");
-  assert.equal(removed, 1, "an empty Developer section must be removed from the shared settings DOM");
+  assert.equal(details.dataset.capabilityState, "disabled");
+  assert.equal(createdDeveloperNotes.length, 1);
+  assert.equal(createdDeveloperNotes[0].className, "settings-unavailable-note");
+  assert.equal(createdDeveloperNotes[0].textContent, "No developer tools are available for this course.");
+  assert.deepEqual(replacement, createdDeveloperNotes, "unsupported tools stay visible as a precise disabled state");
   assert.match(chrome, /const routes = course\.routes \|\| \{\}/);
   assert.doesNotMatch(
     chrome.slice(developerStart, developerEnd),
@@ -324,7 +353,10 @@ test("runtime and Android mount the language declared by their build contracts",
   assert.doesNotMatch(gradle, /caatuuLanguageId|caatuuLanguageAppDir/);
   assert.match(gradle, /buildConfigField\("String", "CAATUU_LANGUAGE_ROUTE_PREFIX"/);
   assert.match(gradle, /buildConfigField\("String", "CAATUU_LANGUAGE_ENTRY_PATH"/);
-  assert.match(assetClient, /path == LANGUAGE_ROUTE_PREFIX \|\| path\.startsWith\("\$LANGUAGE_ROUTE_PREFIX\/"\)/);
+  assert.match(assetClient, /courseRegistry\.resolveAsset\(uri\.path\.orEmpty\(\)\)/);
+  assert.match(bundledCourseRegistry, /fun resolveAsset\(path: String\): BundledAssetResolution\?/);
+  assert.match(bundledCourseRegistry, /normalizedPath == course\.entryPath \|\| relativePath == "index\.html"/);
+  assert.match(bundledCourseRegistry, /"\$\{course\.assetPrefix\}\/\$relativePath"/);
   assert.match(assetClient, /val START_URL = "https:\/\/\$HOST\$LANGUAGE_ENTRY_PATH"/);
   assert.doesNotMatch(assetClient, /path == "\/cz"/);
   assert.doesNotMatch(assetClient, /location\.replace\("\/cz/);

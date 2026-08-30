@@ -3,10 +3,14 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [build, client, publisher, canonicalIndex] = await Promise.all([
+const [build, client, registry, publisher, canonicalIndex] = await Promise.all([
   readFile(new URL("apps/android/app/build.gradle.kts", repoRoot), "utf8"),
   readFile(
     new URL("apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt", repoRoot),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/BundledCourseRegistry.kt", repoRoot),
     "utf8",
   ),
   readFile(new URL("apps/android/tooling/publish-public-debug.sh", repoRoot), "utf8"),
@@ -35,14 +39,17 @@ test("the full Android shell derives its course boundary from one manifest prope
 
 test("the Android WebView cannot resolve standalone game routes", () => {
   assert.doesNotMatch(client, /path\.startsWith\("\/games\/"\)/);
-  assert.match(client, /else -> return notFound\(\)/);
+  assert.doesNotMatch(registry, /startsWith\("\/games\/"\)/);
+  assert.match(client, /courseRegistry\.resolveAsset\(uri\.path\.orEmpty\(\)\) \?: return notFound\(\)/);
+  assert.match(registry, /val course = courseForPath\(normalizedPath\) \?: return null/);
 });
 
 test("the Android WebView exposes only the packaged shared language runtime prefix", () => {
-  assert.match(client, /SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX = "\/language-runtime\/"/);
-  assert.match(client, /path\.startsWith\(SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX\)[\s\S]*?trimStart\('\/'\)/);
-  assert.match(client, /if \(assetPath\.contains\("\.\."\)\) return notFound\(\)/);
-  assert.doesNotMatch(client, /apps\/language-runtime|language-runtime\/README|language-runtime\/tests/);
+  assert.match(registry, /SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX = "\/language-runtime\/"/);
+  assert.match(registry, /normalizedPath\.startsWith\(SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX\)[\s\S]*?trimStart\('\/'\)/);
+  assert.match(registry, /normalizedRequestPath\(path\) \?: return null/);
+  assert.match(registry, /if \(!isSafeRelativePath\(relativePath\)\) return null/);
+  assert.doesNotMatch(`${client}\n${registry}`, /apps\/language-runtime|language-runtime\/README|language-runtime\/tests/);
 });
 
 test("the shared app document retains a route-specific Android start URL", () => {

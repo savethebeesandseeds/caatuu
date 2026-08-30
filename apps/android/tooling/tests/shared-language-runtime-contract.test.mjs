@@ -39,6 +39,16 @@ test("Android developer previews use an explicit build signal instead of hostnam
   assert.match(runtime, /window\.CaatuuAndroid\.isDeveloperPreview\(\) === true/);
 });
 
+test("the language selector recognizes Android before module bootstrap and checks bundled courses", () => {
+  assert.match(
+    chrome,
+    /typeof window\.CaatuuAndroid\?\.postMessage === "function"/,
+    "the synchronous Android bridge must close the startup race before CaatuuRuntime is initialized",
+  );
+  assert.match(chrome, /window\.CaatuuAndroid\.isCourseBundled\(String\(courseId \|\| ""\)\)/);
+  assert.match(chrome, /option\.href = current \? course\.routes\.home : record\.entryPath/);
+});
+
 test("Home uses shared ready wording without implying a selected game", () => {
   assert.match(home, /data-caatuu-page-kicker="Caatuu"/);
   assert.doesNotMatch(home, /data-caatuu-page-kicker="Caatuu Czech"/);

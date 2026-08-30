@@ -7,8 +7,10 @@ const [
   appBuild,
   productBuild,
   capabilities,
+  registry,
   activity,
   bridge,
+  courseRuntime,
   assetClient,
   speechManager,
 ] = await Promise.all([
@@ -19,11 +21,19 @@ const [
     "utf8",
   ),
   readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/BundledCourseRegistry.kt", repoRoot),
+    "utf8",
+  ),
+  readFile(
     new URL("apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt", repoRoot),
     "utf8",
   ),
   readFile(
     new URL("apps/android/product/src/main/java/com/caatuu/android/ProductBridge.kt", repoRoot),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/product/src/main/java/com/caatuu/android/ProductCourseRuntime.kt", repoRoot),
     "utf8",
   ),
   readFile(
@@ -56,36 +66,39 @@ test("runtime capability parsing and optional manager construction fail closed",
   assert.match(capabilities, /values\[name\] == true/);
   assert.match(capabilities, /if \(isEnabled\(name\)\) factory\(\) else null/);
 
-  assert.match(activity, /CourseCapabilities\.fromJson\(BuildConfig\.CAATUU_COURSE_CAPABILITIES_JSON\)/);
-  for (const capability of ["embeddings", "dictionary", "speech"]) {
-    assert.match(activity, new RegExp(`createIfEnabled\\(\"${capability}\"\\)`));
-  }
+  assert.match(activity, /BundledCourseRegistry\.load\(/);
+  assert.match(activity, /BuildConfig\.CAATUU_COURSE_BUNDLE_ASSET/);
+  assert.match(activity, /NativeProviderConfiguration\.fromBundled\(course\.nativeProviders\)/);
+  assert.match(activity, /courseRegistry\.courses\.associate/);
   assert.doesNotMatch(activity, /= VectorDatabaseManager\(applicationContext\),/);
   assert.doesNotMatch(activity, /= DictionaryManager\(applicationContext\),/);
   assert.doesNotMatch(activity, /= AndroidSpeechManager\(applicationContext\),/);
 });
 
 test("disabled embeddings, dictionary, and speech cannot cross the product bridge", () => {
-  assert.match(bridge, /private val vectorDatabaseManager: VectorDatabaseManager\?/);
-  assert.match(bridge, /private val dictionaryManager: DictionaryManager\?/);
-  assert.match(bridge, /private val speechManager: AndroidSpeechManager\?/);
-  assert.match(bridge, /requireVectorDatabaseManager\(\)/);
-  assert.match(bridge, /requireDictionaryManager\(\)/);
-  assert.match(bridge, /requireSpeechManager\(\)/);
-  assert.match(bridge, /courseCapabilities\.isEnabled\("embeddings"\) == \(vectorDatabaseManager != null\)/);
-  assert.match(bridge, /courseCapabilities\.isEnabled\("dictionary"\) == \(dictionaryManager != null\)/);
-  assert.match(bridge, /courseCapabilities\.isEnabled\("speech"\) == \(speechManager != null\)/);
+  assert.match(courseRuntime, /val vectorDatabaseManager: VectorDatabaseManager\?/);
+  assert.match(courseRuntime, /val dictionaryManager: DictionaryManager\?/);
+  assert.match(courseRuntime, /val speechManager: AndroidSpeechManager\?/);
+  assert.match(courseRuntime, /providers\.embeddings != null.*vectorDatabaseManager != null/s);
+  assert.match(courseRuntime, /providers\.dictionary != null.*dictionaryManager != null/s);
+  assert.match(courseRuntime, /providers\.speech != null.*speechManager != null/s);
+  assert.match(bridge, /currentCourseRuntime\(\)/);
+  assert.match(bridge, /requireVectorDatabaseManager\(runtime: ProductCourseRuntime\)/);
+  assert.match(bridge, /requireDictionaryManager\(runtime: ProductCourseRuntime\)/);
+  assert.match(bridge, /requireSpeechManager\(runtime: ProductCourseRuntime\)/);
 
-  assert.match(assetClient, /private val vectorDatabaseManager: VectorDatabaseManager\?/);
-  assert.match(assetClient, /if \(!courseCapabilities\.isEnabled\("embeddings"\)\) return null/);
-  assert.match(assetClient, /val manager = vectorDatabaseManager \?: return null/);
-  assert.match(assetClient, /data\/dictionaries\/.*!courseCapabilities\.isEnabled\("dictionary"\)/s);
+  assert.match(assetClient, /private val vectorDatabaseManagers: Map<String, VectorDatabaseManager>/);
+  assert.match(assetClient, /resolution\.course\?\.id\?\.let\(vectorDatabaseManagers::get\)/);
+  assert.match(assetClient, /data\/embeddings\/.*capabilities\?\.isEnabled\("embeddings"\)/s);
+  assert.match(assetClient, /data\/dictionaries\/.*capabilities\?\.isEnabled\("dictionary"\)/s);
+  assert.match(registry, /courseForTrustedUrl/);
+  assert.match(registry, /coursesById\.containsKey/);
 });
 
 test("the generic product speech surface uses manifest language metadata", () => {
-  assert.match(activity, /configuredLocaleTag = BuildConfig\.CAATUU_SPEECH_LOCALE/);
-  assert.match(activity, /targetLanguageLabel = BuildConfig\.CAATUU_TARGET_LANGUAGE_LABEL/);
-  assert.match(bridge, /ifBlank \{ speechLocaleTag \}/);
+  assert.match(activity, /configuredLocaleTag = provider\.locale/);
+  assert.match(activity, /targetLanguageLabel = course\.targetLanguage\.label/);
+  assert.match(bridge, /ifBlank \{ runtime\.course\.targetLanguage\.speechLocale \}/);
   assert.match(speechManager, /BuildConfig\.CAATUU_SPEECH_LOCALE/);
   assert.match(speechManager, /BuildConfig\.CAATUU_TARGET_LANGUAGE_LABEL/);
   assert.doesNotMatch(bridge, /Czech|cs-CZ/);

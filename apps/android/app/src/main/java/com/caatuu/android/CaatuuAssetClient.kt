@@ -18,11 +18,26 @@ class CaatuuAssetClient(
         BuildConfig.CAATUU_COURSE_CAPABILITIES_JSON,
     ),
     private val vectorDatabaseManager: VectorDatabaseManager? = null,
+    private val courseRegistry: BundledCourseRegistry = legacyCourseRegistry(courseCapabilities),
+    private val vectorDatabaseManagers: Map<String, VectorDatabaseManager> = vectorDatabaseManager
+        ?.let { mapOf(courseRegistry.defaultCourseId to it) }
+        ?: emptyMap(),
+    private val staticAssetManagers: Map<String, StaticAssetManager> = emptyMap(),
 ) : WebViewClient() {
 
+    val startUrl: String = courseRegistry.startUrl
+
     init {
-        check(!courseCapabilities.isEnabled("embeddings") || vectorDatabaseManager != null) {
-            "Embedding provider must supply the vector database manager."
+        vectorDatabaseManagers.forEach { (courseId, _) ->
+            val course = checkNotNull(courseRegistry.course(courseId)) {
+                "Embedding manager course is not bundled."
+            }
+            check(course.capabilities.isEnabled("embeddings")) {
+                "Embedding manager does not match the course capability boundary."
+            }
+        }
+        check(staticAssetManagers.keys.all(courseRegistry::isBundled)) {
+            "Static asset manager course is not bundled."
         }
     }
 
@@ -32,7 +47,7 @@ class CaatuuAssetClient(
     ): Boolean {
         val uri = request.url
         if (isAppRoot(uri)) {
-            view.loadUrl(START_URL)
+            view.loadUrl(startUrl)
             return true
         }
         if (isAppHost(uri)) return false
@@ -52,44 +67,35 @@ class CaatuuAssetClient(
         val uri = url?.let(Uri::parse) ?: return
         if (!isAppHost(uri)) {
             view.stopLoading()
-            view.loadUrl(START_URL)
+            view.loadUrl(startUrl)
             return
         }
 
         if (isAppRoot(uri)) {
-            view.loadUrl(START_URL)
+            view.loadUrl(startUrl)
             return
         }
 
-        view.evaluateJavascript(NATIVE_BOUNDARY_SCRIPT, null)
+        view.evaluateJavascript(nativeBoundaryScript(), null)
     }
 
     private fun intercept(uri: Uri): WebResourceResponse? {
         if (!isAppHost(uri)) return forbidden()
         if (isAppRoot(uri)) return redirectToLanguageHome()
 
-        val path = uri.path.orEmpty()
-        val assetPath = when {
-            path == LANGUAGE_ROUTE_PREFIX || path.startsWith("$LANGUAGE_ROUTE_PREFIX/") -> path
-                .removePrefix(LANGUAGE_ROUTE_PREFIX)
-                .trimStart('/')
-                .ifBlank { "index.html" }
-                .replace('\\', '/')
-            path.startsWith(SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX) -> path
-                .trimStart('/')
-                .replace('\\', '/')
-            path.startsWith("/assets/") -> path.trimStart('/').replace('\\', '/')
-            else -> return notFound()
-        }
-
-        if (assetPath.contains("..")) return notFound()
-        if (assetPath.startsWith("data/embeddings/") && !courseCapabilities.isEnabled("embeddings")) {
+        val resolution = courseRegistry.resolveAsset(uri.path.orEmpty()) ?: return notFound()
+        val assetPath = resolution.assetPath
+        val relativePath = resolution.courseRelativePath
+        val capabilities = resolution.course?.capabilities
+        if (relativePath?.startsWith("data/embeddings/") == true && capabilities?.isEnabled("embeddings") != true) {
             return notFound()
         }
-        if (assetPath.startsWith("data/dictionaries/") && !courseCapabilities.isEnabled("dictionary")) {
+        if (relativePath?.startsWith("data/dictionaries/") == true && capabilities?.isEnabled("dictionary") != true) {
             return notFound()
         }
-        val localVectorDatabase = localVectorDatabase(assetPath)
+        val vectorManager = resolution.course?.id?.let(vectorDatabaseManagers::get)
+        val staticAssetManager = resolution.course?.id?.let(staticAssetManagers::get)
+        val localVectorDatabase = localVectorDatabase(assetPath, vectorManager)
         if (localVectorDatabase != null) {
             return WebResourceResponse(
                 "application/vnd.sqlite3",
@@ -103,7 +109,7 @@ class CaatuuAssetClient(
             }
         }
 
-        val localSetupAsset = localSetupAsset(assetPath)
+        val localSetupAsset = localSetupAsset(assetPath, vectorManager, staticAssetManager)
         if (localSetupAsset != null) {
             return WebResourceResponse(
                 mimeType(assetPath),
@@ -165,14 +171,13 @@ class CaatuuAssetClient(
             "OK",
             mapOf("Cache-Control" to "no-store"),
             ByteArrayInputStream(
-                """<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=$START_URL"><title>Caatuu</title>"""
+                """<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=$startUrl"><title>Caatuu</title>"""
                     .toByteArray(),
             ),
         )
 
-    private fun localVectorDatabase(assetPath: String): File? {
-        if (!courseCapabilities.isEnabled("embeddings")) return null
-        val manager = vectorDatabaseManager ?: return null
+    private fun localVectorDatabase(assetPath: String, manager: VectorDatabaseManager?): File? {
+        manager ?: return null
         val spec = manager.defaultSpec()
         val expectedPath = manager.modelAssetPath(spec)
         if (assetPath != expectedPath) return null
@@ -181,9 +186,14 @@ class CaatuuAssetClient(
         return file.takeIf { it.isFile }
     }
 
-    private fun localSetupAsset(assetPath: String): File? {
+    private fun localSetupAsset(
+        assetPath: String,
+        vectorManager: VectorDatabaseManager?,
+        staticAssetManager: StaticAssetManager?,
+    ): File? {
         val setupManagedPath = assetPath.startsWith("assets/") ||
-            vectorDatabaseManager?.ownsAssetPath(assetPath) == true
+            vectorManager?.ownsAssetPath(assetPath) == true ||
+            staticAssetManager?.localAsset(assetPath) != null
         if (!setupManagedPath || assetPath.contains("..")) return null
         return StaticAssetManager.localAssetFile(context, assetPath).takeIf { it.isFile }
     }
@@ -219,18 +229,22 @@ class CaatuuAssetClient(
             else -> null
         }
 
+    private fun nativeBoundaryScript(): String =
+        NATIVE_BOUNDARY_SCRIPT_TEMPLATE.replace(
+            ENTRY_PATH_PLACEHOLDER,
+            JSONObject.quote(courseRegistry.defaultCourse.entryPath),
+        )
+
     companion object {
-        private const val HOST = "caatuu.local"
-        private const val SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX = "/language-runtime/"
+        private const val HOST = BundledCourseRegistry.APP_HOST
+        private const val ENTRY_PATH_PLACEHOLDER = "__CAATUU_ENTRY_PATH__"
         private val BUNDLED_ASSET_HEADERS = mapOf(
             "Access-Control-Allow-Origin" to "*",
             "Cache-Control" to "private, max-age=31536000, immutable",
         )
-        private val LANGUAGE_ROUTE_PREFIX = normalizePath(BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX)
-            .trimEnd('/')
         private val LANGUAGE_ENTRY_PATH = normalizePath(BuildConfig.CAATUU_LANGUAGE_ENTRY_PATH)
         val START_URL = "https://$HOST$LANGUAGE_ENTRY_PATH"
-        private val NATIVE_BOUNDARY_SCRIPT = """
+        private val NATIVE_BOUNDARY_SCRIPT_TEMPLATE = """
             (() => {
               try {
                 if ("serviceWorker" in navigator) {
@@ -245,7 +259,7 @@ class CaatuuAssetClient(
                       .map((key) => caches.delete(key))))
                     .catch(() => {});
                 }
-                const entryPath = ${JSONObject.quote(LANGUAGE_ENTRY_PATH)};
+                const entryPath = __CAATUU_ENTRY_PATH__;
                 if (location.origin === "https://caatuu.local" && (location.pathname === "/" || location.pathname === "/index.html")) {
                   location.replace(entryPath);
                 }
@@ -258,5 +272,17 @@ class CaatuuAssetClient(
             require(trimmed.isNotEmpty() && !trimmed.contains("..")) { "Language path must be absolute and safe." }
             return if (trimmed.startsWith('/')) trimmed else "/$trimmed"
         }
+
+        private fun legacyCourseRegistry(capabilities: CourseCapabilities): BundledCourseRegistry =
+            BundledCourseRegistry.singleLegacy(
+                id = BuildConfig.CAATUU_LANGUAGE_ID,
+                routePrefix = BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX,
+                entryPath = BuildConfig.CAATUU_LANGUAGE_ENTRY_PATH,
+                sourceLanguageLabel = BuildConfig.CAATUU_SOURCE_LANGUAGE_LABEL,
+                targetLanguageLabel = BuildConfig.CAATUU_TARGET_LANGUAGE_LABEL,
+                targetLanguageLocale = BuildConfig.CAATUU_TARGET_LANGUAGE_LOCALE,
+                speechLocale = BuildConfig.CAATUU_SPEECH_LOCALE,
+                capabilities = capabilities,
+            )
     }
 }

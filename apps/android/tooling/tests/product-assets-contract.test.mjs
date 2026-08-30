@@ -9,10 +9,14 @@ import {
   CANONICAL_APP_ENTRY_PATH,
   STORE_LANGUAGE_FILES,
   PRODUCT_PROFILE,
+  PRODUCT_COURSE_BUNDLE_ASSET,
+  compileProductAssetBundle,
   compileProductAssets,
+  loadAndroidCourseBundleConfiguration,
   loadAndroidCourseConfiguration,
   transformCourseProfile,
   transformIndex,
+  validateProductAssetBundle,
   validateProductAssets
 } from "../build-product-assets.mjs";
 
@@ -21,6 +25,7 @@ const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
 const launcherStaticDir = join(workspaceRoot, "apps/launcher/static");
 const czechAssetCatalog = join(workspaceRoot, "apps/languages/czech/android-assets.json");
 const mandarinAssetCatalog = join(workspaceRoot, "apps/languages/mandarin-simplified/android-assets.json");
+const courseBundlePath = join(workspaceRoot, "apps/android/course-bundle.json");
 const fixtureCourseManifest = join(
   workspaceRoot,
   "apps/android/tooling/tests/fixtures/no-llm-course/course.json",
@@ -105,6 +110,118 @@ test("courses share one Android app document and bundle while retaining course-o
   assert.ok(!czechFiles.includes("source/games/word-world/word-net-core.mjs"));
   assert.ok(czechFiles.includes("data/games/word-world/standard-v0.1/records.json"));
   assert.ok(mandarinFiles.includes("data/games/word-world/starter-v1.realizations.json"));
+});
+
+test("the Android product bundles Czech and Mandarin behind one shared app document", (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-multicourse-product-test-"));
+  const outputDir = join(parent, "product");
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
+
+  const configuration = loadAndroidCourseBundleConfiguration({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+  });
+  assert.equal(configuration.declaration.defaultCourseId, "cz");
+  assert.deepEqual(configuration.configurations.map(({ course }) => course.id), ["cz", "zh"]);
+  assert.equal(
+    configuration.configurations[0].appEntryPath,
+    configuration.configurations[1].appEntryPath,
+    "both courses must instantiate the same canonical app entry",
+  );
+
+  const result = compileProductAssetBundle({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+    outputDir,
+  });
+  assert.ok(result.totalBytes > 60_000_000, "the package must contain the reviewed local MiniLM runtime bytes");
+  assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
+  assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
+  assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));
+  assert.ok(result.files.includes("courses/cz/data/games/word-world/standard-v0.1/records.json"));
+  assert.ok(result.files.includes("courses/zh/data/games/word-world/starter-v1.realizations.json"));
+  assert.ok(!result.files.includes("source/shared/course-profile.js"));
+  assert.ok(result.files.includes("language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
+  assert.ok(result.files.includes("language-runtime/vendor/transformers/transformers.min.js"));
+  assert.ok(
+    !result.files.some((path) => /^courses\/[^/]+\/vendor\/transformers\//u.test(path)),
+    "course trees must reuse the single shared Transformers.js runtime",
+  );
+
+  const embeddingRuntimeCatalog = JSON.parse(readFileSync(
+    join(outputDir, "language-runtime/embedding-runtimes.json"),
+    "utf8",
+  ));
+  const sharedRuntime = embeddingRuntimeCatalog.runtimes[0];
+  for (const artifact of sharedRuntime.artifacts) {
+    assert.ok(result.files.includes(`language-runtime/${artifact.path}`));
+  }
+  const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
+  const czechRuntimeArtifacts = czechSetup.artifacts.filter(
+    (artifact) => artifact.artifact_kind === "embedding-runtime",
+  );
+  assert.ok(czechRuntimeArtifacts.length > 0);
+  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.url.startsWith("/language-runtime/models/")));
+  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.asset_path.startsWith("language-runtime/models/")));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/vendor/transformers/transformers.min.js"));
+  assert.ok(!czechSetup.offline.assets.includes("./vendor/transformers/transformers.min.js"));
+  const czechVectorDb = readFileSync(join(outputDir, "courses/cz/source/shared/vector-db.js"), "utf8");
+  assert.match(czechVectorDb, /defaultTransformersModuleUrl = "\/language-runtime\/vendor\/transformers\/transformers\.min\.js"/u);
+  assert.match(czechVectorDb, /defaultSemanticModelPath = "\/language-runtime\/models\/"/u);
+  assert.match(czechVectorDb, /defaultOrtWasmModuleUrl = "\/language-runtime\/models\//u);
+
+  const catalog = JSON.parse(readFileSync(join(outputDir, PRODUCT_COURSE_BUNDLE_ASSET), "utf8"));
+  assert.deepEqual(catalog, configuration.courseCatalog);
+  assert.equal(catalog.defaultCourseId, "cz");
+  const czech = catalog.courses.find(({ id }) => id === "cz");
+  const mandarin = catalog.courses.find(({ id }) => id === "zh");
+  assert.equal(czech.entryPath, "/cz/index.html");
+  assert.equal(czech.assetPrefix, "courses/cz");
+  assert.equal(czech.nativeProviders.providers.embeddings.catalogAsset, "courses/cz/data/embeddings/models.json");
+  assert.equal(mandarin.entryPath, "/zh/index.html");
+  assert.equal(mandarin.assetPrefix, "courses/zh");
+  assert.equal(mandarin.targetLanguage.speechLocale, "zh-CN");
+  assert.deepEqual(mandarin.nativeProviders.providers, {
+    embeddings: {
+      implementation: "webview-english-minilm-v1",
+      catalogAsset: "courses/zh/data/embeddings/catalog.json",
+    },
+    speech: {
+      implementation: "android-text-to-speech-v1",
+      locale: "zh-CN",
+    },
+  });
+  assert.equal(mandarin.capabilities.dictionary, false);
+  assert.equal(mandarin.capabilities.speech, true);
+
+  const browserEmbeddingCatalog = JSON.parse(readFileSync(
+    join(workspaceRoot, "apps/languages/mandarin-simplified/static/data/embeddings/catalog.json"),
+    "utf8",
+  ));
+  const packagedEmbeddingCatalog = JSON.parse(readFileSync(
+    join(outputDir, "courses/zh/data/embeddings/catalog.json"),
+    "utf8",
+  ));
+  assert.equal(browserEmbeddingCatalog.runtime.modelDelivery, "browser-on-demand");
+  assert.equal(browserEmbeddingCatalog.runtime.androidPackaged, false);
+  assert.equal(packagedEmbeddingCatalog.runtime.modelDelivery, "android-bundled");
+  assert.equal(packagedEmbeddingCatalog.runtime.modelPrecached, true);
+  assert.equal(packagedEmbeddingCatalog.runtime.androidPackaged, true);
+
+  const profile = JSON.parse(readFileSync(join(outputDir, "caatuu-profile.json"), "utf8"));
+  assert.equal(profile.course.id, "cz");
+  assert.deepEqual(profile.assets, result.files.filter((path) => path !== "caatuu-profile.json").sort());
+  assert.deepEqual(
+    validateProductAssetBundle({
+      outputDir,
+      workspaceRoot,
+      courseBundlePath,
+      launcherStaticDir,
+    }),
+    result,
+  );
 });
 
 test("product assets compile from an exact capability-safe allowlist", async (t) => {

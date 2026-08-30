@@ -40,6 +40,9 @@ class CourseCapabilities private constructor(
 
         fun fromJson(rawJson: String): CourseCapabilities =
             CourseCapabilities(FlatBooleanJsonParser(rawJson).parse() ?: emptyMap())
+
+        internal fun fromMap(values: Map<String, Boolean>): CourseCapabilities =
+            CourseCapabilities(values.filterKeys(KNOWN_CAPABILITIES::contains))
     }
 }
 

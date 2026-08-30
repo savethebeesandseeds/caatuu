@@ -1,0 +1,13 @@
+{
+  "$schema": "https://caatuu.org/schemas/android-course-bundle.v1.schema.json",
+  "schemaVersion": 1,
+  "defaultCourseId": "cz",
+  "courses": [
+    {
+      "manifest": "apps/languages/czech/course.json"
+    },
+    {
+      "manifest": "apps/languages/mandarin-simplified/course.json"
+    }
+  ]
+}

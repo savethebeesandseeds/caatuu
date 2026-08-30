@@ -57,6 +57,97 @@ val courseManifest = requiredObject(
 )
 check(courseManifest["schemaVersion"] == 1) { "Course manifest schemaVersion must be 1." }
 val bundledLanguageId = requiredString(courseManifest["id"], "course id")
+val courseBundleRelativePath = confinedWorkspaceRelativePath(
+    providers.gradleProperty("caatuuCourseBundle")
+        .orElse("apps/android/course-bundle.json")
+        .get(),
+    "caatuuCourseBundle",
+)
+val courseBundleFile = workspaceRootDir.file(courseBundleRelativePath)
+val courseBundle = requiredObject(
+    groovy.json.JsonSlurper().parse(courseBundleFile.asFile),
+    "Android course bundle",
+)
+check(courseBundle.keys.map { it.toString() }.toSet() == setOf("\$schema", "schemaVersion", "defaultCourseId", "courses")) {
+    "Android course bundle must contain exactly \$schema, schemaVersion, defaultCourseId, and courses."
+}
+check(courseBundle["schemaVersion"] == 1) { "Android course bundle schemaVersion must be 1." }
+val defaultCourseId = requiredString(courseBundle["defaultCourseId"], "Android default course id")
+check(defaultCourseId == bundledLanguageId) {
+    "Android course bundle defaultCourseId must match the default course manifest."
+}
+data class BundledCourseInput(
+    val id: String,
+    val manifestFile: File,
+    val staticDir: File,
+    val androidAssetCatalogFile: File,
+)
+val bundledCourseInputs = (courseBundle["courses"] as? List<*>)?.mapIndexed { index, value ->
+    val entry = requiredObject(value, "Android course bundle course $index")
+    check(entry.keys.map { it.toString() }.toSet() == setOf("manifest")) {
+        "Android course bundle course $index must contain exactly manifest."
+    }
+    val manifestRelativePath = confinedWorkspaceRelativePath(
+        entry["manifest"],
+        "Android course bundle course $index manifest",
+    )
+    val manifestFile = workspaceRootDir.file(manifestRelativePath).asFile
+    val manifest = requiredObject(
+        groovy.json.JsonSlurper().parse(manifestFile),
+        "Android course bundle course $index manifest",
+    )
+    check(manifest["schemaVersion"] == 1) { "Bundled course manifest schemaVersion must be 1." }
+    val id = requiredString(manifest["id"], "bundled course id")
+    val platforms = requiredObject(manifest["platforms"], "bundled course $id platforms")
+    val androidPlatform = requiredObject(platforms["android"], "bundled course $id Android platform")
+    check(androidPlatform["enabled"] == true) { "Bundled course $id must be enabled for Android." }
+    val resources = requiredObject(manifest["resources"], "bundled course $id resources")
+    fun bundledResourceFile(name: String, kind: String): File {
+        val resource = requiredObject(resources[name], "bundled course $id resource $name")
+        check(resource["kind"] == kind && resource["state"] == "present") {
+            "Bundled course $id resource $name must be a present $kind."
+        }
+        return workspaceRootDir.file(
+            confinedWorkspaceRelativePath(resource["path"], "bundled course $id resource $name"),
+        ).asFile
+    }
+    BundledCourseInput(
+        id = id,
+        manifestFile = manifestFile,
+        staticDir = bundledResourceFile("staticRoot", "directory"),
+        androidAssetCatalogFile = bundledResourceFile("androidAssetCatalog", "file"),
+    )
+} ?: error("Android course bundle courses must be an array.")
+check(bundledCourseInputs.isNotEmpty()) { "Android course bundle must contain courses." }
+check(bundledCourseInputs.map { it.id }.toSet().size == bundledCourseInputs.size) {
+    "Android course bundle course ids must be unique."
+}
+check(bundledCourseInputs.any { it.id == defaultCourseId }) {
+    "Android course bundle defaultCourseId must select a bundled course."
+}
+val embeddingRuntimeCatalogRelativePath = confinedWorkspaceRelativePath(
+    "apps/language-runtime/embedding-runtimes.json",
+    "embedding runtime catalog",
+)
+val embeddingRuntimeCatalogFile = workspaceRootDir.file(embeddingRuntimeCatalogRelativePath)
+val embeddingRuntimeCatalog = requiredObject(
+    groovy.json.JsonSlurper().parse(embeddingRuntimeCatalogFile.asFile),
+    "embedding runtime catalog",
+)
+check(embeddingRuntimeCatalog["schemaVersion"] == 1) { "Embedding runtime catalog schemaVersion must be 1." }
+val embeddingRuntimeArtifactFiles = (embeddingRuntimeCatalog["runtimes"] as? List<*>)
+    ?.flatMapIndexed { runtimeIndex, runtimeValue ->
+        val runtime = requiredObject(runtimeValue, "embedding runtime $runtimeIndex")
+        (runtime["artifacts"] as? List<*>)?.mapIndexed { artifactIndex, artifactValue ->
+            val artifact = requiredObject(artifactValue, "embedding runtime $runtimeIndex artifact $artifactIndex")
+            workspaceRootDir.file(
+                confinedWorkspaceRelativePath(
+                    "apps/language-runtime/${requiredString(artifact["path"], "embedding runtime artifact path")}",
+                    "embedding runtime artifact",
+                ),
+            )
+        } ?: error("Embedding runtime $runtimeIndex artifacts must be an array.")
+    } ?: error("Embedding runtime catalog runtimes must be an array.")
 val bundledLanguageRoutePrefix = requiredString(courseManifest["routePrefix"], "course routePrefix")
 val bundledLanguageEntryPath = requiredString(courseManifest["entryPath"], "course entryPath")
 check(Regex("^/[a-z0-9]+(?:-[a-z0-9]+)*$").matches(bundledLanguageRoutePrefix)) {
@@ -297,8 +388,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(160)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.8")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(161)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.9")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -342,19 +433,20 @@ val packagedCourseCapabilities = linkedMapOf(
 
 val generateProductAssets by tasks.registering(Exec::class) {
     group = "build setup"
-    description = "Compile the allowlisted, non-generative Caatuu product assets."
+    description = "Compile the allowlisted multilingual, non-generative Caatuu product assets."
     workingDir(workspaceRootDir)
     commandLine(
         "node",
         assetCompiler.asFile.absolutePath,
-        "--course-manifest",
-        courseManifestFile.asFile.absolutePath,
+        "--course-bundle",
+        courseBundleFile.asFile.absolutePath,
         "--launcher",
         launcherStaticDir.asFile.absolutePath,
         "--output",
         generatedAssetsDir.get().asFile.absolutePath,
     )
     inputs.file(assetCompiler)
+    inputs.file(courseBundleFile)
     inputs.file(courseManifestFile)
     inputs.file(appEntryFile)
     inputs.file(appAssetCatalogFile)
@@ -368,6 +460,12 @@ val generateProductAssets by tasks.registering(Exec::class) {
     inputs.property("embeddingNativeProvider", embeddingNativeProvider)
     inputs.property("dictionaryNativeProvider", dictionaryNativeProvider)
     inputs.property("speechNativeProvider", speechNativeProvider)
+    inputs.files(bundledCourseInputs.map { it.manifestFile })
+    inputs.files(bundledCourseInputs.map { it.androidAssetCatalogFile })
+    inputs.files(bundledCourseInputs.map { it.staticDir })
+    inputs.property("bundledCourseIds", bundledCourseInputs.map { it.id })
+    inputs.file(embeddingRuntimeCatalogFile)
+    inputs.files(embeddingRuntimeArtifactFiles)
     inputs.dir(languageStaticDir)
     inputs.dir(launcherStaticDir)
     outputs.dir(generatedAssetsDir)
@@ -396,6 +494,8 @@ android {
         versionCode = caatuuVersionCode.get()
         versionName = caatuuVersionName.get()
         buildConfigField("String", "CAATUU_DISTRIBUTION_PROFILE", buildConfigString("product"))
+        buildConfigField("String", "CAATUU_COURSE_BUNDLE_ASSET", buildConfigString("caatuu-course-bundle.json"))
+        buildConfigField("String", "CAATUU_DEFAULT_COURSE_ID", buildConfigString(defaultCourseId))
         buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId))
         buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix))
         buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath))

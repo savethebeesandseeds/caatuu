@@ -764,6 +764,105 @@ export function unzipBuffer(archive, entry, execute = execFileSync) {
 }
 
 export function productApkAuditPlan(profile) {
+  const bundledCourses = Array.isArray(profile?.courses) ? profile.courses : null;
+  if (bundledCourses) {
+    const requiredEntries = [
+      "assets/caatuu-profile.json",
+      "assets/caatuu-course-bundle.json",
+      "assets/index.html",
+      "assets/language-runtime/contract.mjs",
+    ];
+    const hasEmbeddings = bundledCourses.some((course) => course?.capabilities?.embeddings === true);
+    const hasWordWorld = bundledCourses.some((course) => course?.capabilities?.wordWorld === true);
+    if (hasEmbeddings) {
+      requiredEntries.push(
+        "assets/language-runtime/embedding-runtimes.json",
+        "assets/language-runtime/vendor/transformers/transformers.min.js",
+        "assets/language-runtime/vendor/transformers/LICENSE",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/config.json",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/special_tokens_map.json",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/tokenizer.json",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/tokenizer_config.json",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/vocab.txt",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/LICENSE-APACHE-2.0.txt",
+        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json",
+      );
+    }
+    if (hasWordWorld) {
+      requiredEntries.push(
+        "assets/language-runtime/static/source/word-world-provider.mjs",
+        "assets/language-runtime/static/source/word-net-core.mjs",
+      );
+    }
+    for (const course of bundledCourses) {
+      const prefix = typeof course?.assetPrefix === "string" ? course.assetPrefix : "";
+      if (!prefix) continue;
+      requiredEntries.push(`assets/${prefix}/setup-assets.json`);
+      const embeddingProvider = course?.nativeProviders?.providers?.embeddings;
+      const dictionaryProvider = course?.nativeProviders?.providers?.dictionary;
+      if (course?.capabilities?.embeddings === true && embeddingProvider?.catalogAsset) {
+        requiredEntries.push(`assets/${embeddingProvider.catalogAsset}`);
+        if (embeddingProvider.implementation === "vector-database-catalog-v1") {
+          requiredEntries.push(
+            `assets/${prefix}/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json`,
+            `assets/${prefix}/source/shared/runtime.js`,
+            `assets/${prefix}/source/shared/vector-db.js`,
+            `assets/${prefix}/source/shared/semantic-learning.js`,
+            `assets/${prefix}/source/shared/semantic-learning-core.mjs`,
+          );
+        } else if (embeddingProvider.implementation === "webview-english-minilm-v1") {
+          requiredEntries.push("assets/language-runtime/static/source/english-minilm-ranker.mjs");
+        }
+      }
+      if (course?.capabilities?.dictionary === true && dictionaryProvider?.catalogAsset) {
+        requiredEntries.push(`assets/${dictionaryProvider.catalogAsset}`);
+        if (course.id === "cz") {
+          requiredEntries.push(`assets/${prefix}/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json`);
+        }
+      }
+      if (course?.capabilities?.wordWorldStandardOnly === true) {
+        requiredEntries.push(
+          `assets/${prefix}/source/games/word-world/word-net-standard.mjs`,
+          `assets/${prefix}/data/games/word-world/manifest.json`,
+        );
+        if (course.id === "cz") {
+          requiredEntries.push(`assets/${prefix}/data/games/word-world/standard-v0.1/records.json`);
+        }
+        if (course.id === "zh") {
+          requiredEntries.push(`assets/${prefix}/data/games/word-world/starter-v1.realizations.json`);
+        }
+      }
+    }
+    return Object.freeze({
+      requiredEntries: Object.freeze([...new Set(requiredEntries)]),
+      forbiddenEntryPatterns: Object.freeze([
+        /(?:^|\/)chat\.html$/i,
+        /(?:^|\/)source\/features\/chat\//i,
+        /(?:^|\/)data\/models(?:\/|$)/i,
+        /(?:^|\/)assets\/games(?:\/|$)/i,
+        /(?:^|\/)artifacts\/games(?:\/|$)/i,
+        /(?:^|\/)caatuu-game(?:\/|$)/i,
+        /(?:^|\/)godot(?:[-_/]|$)/i,
+        /(?:^|\/)source\/features\/home\/home\.css$/i,
+        /(?:^|\/)source\/games\/verb-nebula\/app\.(?:css|js)$/i,
+        /(?:^|\/)source\/games\/word-world\/word-net\.(?:css|js)$/i,
+        /(?:^|\/)source\/games\/word-world\/word-net-(?:core|queue)\.mjs$/i,
+        /(?:^|\/)source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)$/i,
+        /(?:^|\/)language-runtime\/static\/(?:source\/product-shell\.mjs|styles\/course-shell\.css)$/i,
+        /(?:^|\/)courses\/[^/]+\/index\.html$/i,
+        /(?:^|\/)courses\/[^/]+\/.+\/runtime\//i,
+        /(?:^|\/)courses\/[^/]+\/vendor\/transformers\//i,
+        /^assets\/setup-assets\.json$/i,
+        /\.pck$/i,
+        /\.gguf(?:\.|$)/i,
+        /(?:^|\/)lib\/(?:[^/]+\/)?lib(?:ai-chat|llama|ggml|kleidiai|godot)[^/]*\.so$/i,
+      ]),
+    });
+  }
+
   const capabilities = profile?.capabilities && typeof profile.capabilities === "object"
     ? profile.capabilities
     : {};
@@ -1047,7 +1146,9 @@ function auditApk() {
   const entries = unzip(["-Z1", apkRel]).split(/\r?\n/).filter(Boolean);
   const entrySet = new Set(entries);
   const profileEntry = "assets/caatuu-profile.json";
+  const bundleEntry = "assets/caatuu-course-bundle.json";
   let packagedProfile = null;
+  let packagedBundle = null;
   if (entrySet.has(profileEntry)) {
     try {
       packagedProfile = JSON.parse(unzipBuffer(apkRel, profileEntry).toString("utf8"));
@@ -1056,6 +1157,16 @@ function auditApk() {
     }
   }
   const productProfile = packagedProfile?.profile === "product";
+  if (productProfile) {
+    assert(entrySet.has(bundleEntry), `APK product package is missing ${bundleEntry}`);
+    if (entrySet.has(bundleEntry)) {
+      try {
+        packagedBundle = JSON.parse(unzipBuffer(apkRel, bundleEntry).toString("utf8"));
+      } catch (error) {
+        fail(`APK contains an invalid ${bundleEntry}: ${error.message}`);
+      }
+    }
+  }
   const legacyRequiredEntries = [
     "assets/index.html",
     "assets/chat.html",
@@ -1095,7 +1206,7 @@ function auditApk() {
     "assets/vendor/sql.js/sql-wasm.wasm",
     "assets/vendor/transformers/transformers.min.js"
   ];
-  const productPlan = productProfile ? productApkAuditPlan(packagedProfile) : null;
+  const productPlan = productProfile ? productApkAuditPlan(packagedBundle ?? packagedProfile) : null;
   const requiredEntries = productPlan?.requiredEntries ?? legacyRequiredEntries;
   for (const entry of requiredEntries) {
     assert(entrySet.has(entry), `APK is missing ${entry}`);
@@ -1103,6 +1214,14 @@ function auditApk() {
 
   if (productProfile) {
     assert([1, 2].includes(Number(packagedProfile.schemaVersion)), `APK product profile schema should be 1 or 2, got ${packagedProfile.schemaVersion}`);
+    if (packagedBundle) {
+      assert(packagedBundle.schemaVersion === 1, `APK product course bundle schema should be 1, got ${packagedBundle.schemaVersion}`);
+      assert(packagedBundle.defaultCourseId === "cz", "APK product course bundle default should be cz");
+      assert(
+        JSON.stringify(packagedBundle.courses?.map((course) => course?.id)) === JSON.stringify(["cz", "zh"]),
+        "APK product course bundle should contain exactly cz and zh",
+      );
+    }
     if (Number(packagedProfile.schemaVersion) >= 2 && entrySet.has("assets/index.html")) {
       assert(
         productApkCanonicalEntryMatches(
@@ -1115,8 +1234,16 @@ function auditApk() {
         "APK schema-v2 product assets/index.html must equal the reviewed product transform of the canonical shared app entry",
       );
     }
-    for (const capability of ["chat", "llm", "generation", "godot"]) {
-      assert(packagedProfile.capabilities?.[capability] === false, `APK product capability ${capability} must be false`);
+    const auditedCourses = Array.isArray(packagedBundle?.courses)
+      ? packagedBundle.courses
+      : [{ id: packagedProfile.course?.id ?? "default", capabilities: packagedProfile.capabilities }];
+    for (const course of auditedCourses) {
+      for (const capability of ["chat", "llm", "generation", "godot", "offlineModels"]) {
+        assert(
+          course.capabilities?.[capability] === false,
+          `APK product ${course.id} capability ${capability} must be false`,
+        );
+      }
     }
     for (const entry of entries) {
       for (const pattern of productPlan.forbiddenEntryPatterns) {
@@ -1125,7 +1252,10 @@ function auditApk() {
     }
     if (Array.isArray(packagedProfile.assets)) {
       const actualAssets = entries
-        .filter((entry) => entry.startsWith("assets/") && !entry.endsWith("/") && entry !== profileEntry)
+        .filter(
+          (entry) => entry.startsWith("assets/") && !entry.endsWith("/") && entry !== profileEntry &&
+            !/^assets\/dexopt\/baseline\.profm?$/u.test(entry),
+        )
         .map((entry) => entry.slice("assets/".length))
         .sort();
       const declaredAssets = [...packagedProfile.assets].sort();
@@ -1166,6 +1296,8 @@ function auditApk() {
     /^assets\/data\/models\/.*\/ndarray-cache\.json$/i,
     /^assets\/data\/embeddings\/.*\.(?:sqlite|db|wasm|onnx|bin|safetensors)$/i,
     /^assets\/data\/dictionaries\/.*\.sqlite$/i,
+    /^assets\/courses\/[^/]+\/data\/embeddings\/.*\.(?:sqlite|db|wasm|onnx|bin|safetensors)$/i,
+    /^assets\/courses\/[^/]+\/data\/dictionaries\/.*\.sqlite$/i,
     /^assets\/assets\/aliens\/(?:Chinese|English_American|Chinese_Macaw|Czech\.png)/,
     /^assets\/assets\/icons\/(?:france_flag|germany_flag|japan_flag|spain_flag)\.png$/,
   ];
@@ -1178,7 +1310,7 @@ function auditApk() {
   }
 
   const sourceEntries = productProfile
-    ? entries.filter((entry) => /^assets\/(?!vendor\/|data\/).+\.(?:html|css|m?js|webmanifest)$/i.test(entry))
+    ? entries.filter((entry) => /^assets\/(?!vendor\/|data\/|language-runtime\/(?:vendor|models)\/).+\.(?:html|css|m?js|webmanifest)$/i.test(entry))
     : [
         "assets/source/games/verb-nebula/app.js",
         "assets/source/features/chat/chat.js",
@@ -1198,10 +1330,12 @@ function auditApk() {
     /Chinese_Macaw|English_American|Chinese\.png/
   ];
   for (const pattern of forbiddenSourcePatterns) {
-    assert(!pattern.test(source), `APK Czech shell source contains forbidden pattern ${pattern}`);
+    assert(!pattern.test(source), `APK product shell source contains forbidden pattern ${pattern}`);
   }
 
-  const runtimeEntry = "assets/source/shared/runtime.js";
+  const runtimeEntry = productProfile
+    ? "assets/courses/cz/source/shared/runtime.js"
+    : "assets/source/shared/runtime.js";
   if (entrySet.has(runtimeEntry)) {
     const runtime = unzipBuffer(apkRel, runtimeEntry).toString("utf8");
     assert(runtime.includes("caatuu.local"), "APK runtime.js should identify the native host");
@@ -1556,6 +1690,7 @@ function sourceAssetPathForPublic(publicPath) {
 
 function auditAndroidSource() {
   const clientPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt");
+  const bundledCourseRegistryPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/BundledCourseRegistry.kt");
   const mainPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/MainActivity.kt");
   const modelManagerPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/ModelManager.kt");
   const nativeModelPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/NativeCzechModel.kt");
@@ -1591,6 +1726,7 @@ function auditAndroidSource() {
   const prepareLlamaPowerShellPath = join(workspaceRoot, "apps/android/scripts/prepare-llama-vendor.ps1");
   const llamaPatchPath = join(workspaceRoot, "apps/android/patches/llama-android-thinking.patch");
   const client = readFileSync(clientPath, "utf8");
+  const bundledCourseRegistry = readFileSync(bundledCourseRegistryPath, "utf8");
   const main = readFileSync(mainPath, "utf8");
   const modelManager = readFileSync(modelManagerPath, "utf8");
   const nativeModel = readFileSync(nativeModelPath, "utf8");
@@ -1626,22 +1762,25 @@ function auditAndroidSource() {
   const llamaPatch = readFileSync(llamaPatchPath, "utf8");
 
   assert(client.includes('val START_URL = "https://$HOST$LANGUAGE_ENTRY_PATH"'), "Android start URL should come from the bundled language contract");
-  assert(client.includes('path == LANGUAGE_ROUTE_PREFIX || path.startsWith("$LANGUAGE_ROUTE_PREFIX/")'), "Android asset client should serve its configured language route");
+  assert(client.includes("courseRegistry.resolveAsset(uri.path.orEmpty())"), "Android asset client should resolve only registry-bundled course routes");
+  assert(bundledCourseRegistry.includes("fun resolveAsset(path: String): BundledAssetResolution?"), "Android should expose one pure bundled-course asset resolver");
+  assert(bundledCourseRegistry.includes('normalizedPath == course.entryPath || relativePath == "index.html"'), "Every bundled course entry should resolve to the single shared app document");
+  assert(bundledCourseRegistry.includes('"${course.assetPrefix}/$relativePath"'), "Course-local assets should resolve inside their namespaced package prefix");
   assert(!client.includes('path == "/cz"'), "Android asset routing should not contain a literal Czech route");
-  assert(client.includes('path.startsWith("/assets/")'), "Android asset client should serve shared asset paths");
+  assert(bundledCourseRegistry.includes('SHARED_ASSET_ROUTE_PREFIX = "/assets/"'), "Android asset client should serve shared asset paths");
   assert(!client.includes('path.startsWith("/games/")'), "Android asset client should not serve standalone game paths");
   assert(client.includes('"wasm" -> "application/wasm"'), "Android should serve WebAssembly with the required MIME type");
-  assert(client.includes('assetPath.startsWith("data/embeddings/")'), "Android asset client should serve downloaded semantic runtime assets to the WebView");
+  assert(client.includes('relativePath?.startsWith("data/embeddings/")'), "Android asset client should gate course semantic runtime assets by course capability");
   assert(!/archive\/chinese|\/zh\/(?:challenge|secuence|writing)(?=\/|["'`?#\s)]|$)/.test(client), "Android asset client should not serve archived Chinese paths");
   assert(client.includes('uri.scheme == "https" && uri.host == HOST && (uri.port == -1 || uri.port == 443)'), "Android app origin should require HTTPS, the exact app host, and the default HTTPS port");
-  assert(client.includes('if (assetPath.contains("..")) return notFound()'), "Android asset client should reject path traversal attempts");
+  assert(bundledCourseRegistry.includes('it == "." || it == ".."'), "Android asset client should reject path traversal attempts");
   assert(main.includes("blockNetworkLoads = true"), "Android service worker settings should block network loads");
   assert(main.includes("setServiceWorkerClient"), "Android should install a service worker blocker");
   assert(client.includes("openExternalUrl(uri)"), "Android should open non-app links outside the privileged WebView");
   assert(client.includes("if (!isAppHost(uri)) return forbidden()"), "Android should block external WebView subresources");
   assert(client.includes('"js", "mjs" -> "text/javascript"'), "Android should serve ES modules with a JavaScript MIME type");
   assert(client.includes('"css", "html", "js", "mjs", "json", "svg", "txt", "webmanifest" -> "UTF-8"'), "Android should give ES modules an explicit UTF-8 charset");
-  assert(client.includes("else -> return notFound()"), "Android should fail closed for unknown same-host paths");
+  assert(client.includes("courseRegistry.resolveAsset(uri.path.orEmpty()) ?: return notFound()"), "Android should fail closed for unknown same-host paths");
   assert(!client.includes("            302,"), "Android WebResourceResponse should not use an unsupported redirect status");
   assert(bridge.includes("inferenceMutex.withLock"), "Android should serialize native model load/generate operations");
   assert(bridge.includes("activeModelPreparationJobs"), "Android should track cancellable model preparation jobs");

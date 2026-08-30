@@ -12,13 +12,14 @@ Generation models are optional, on-demand artifacts in that full application.
 The `product` application is a separate module and compiled asset allowlist
 with no LLM, Chat, generation, Godot, or outbound reporting capability. It is
 the canonical direct release and retains verified self-updates, shared assets,
-and the course capabilities declared by its manifest. The default Czech course
-retains the Czech-to-English dictionary and the English MiniLM embedding pack.
+and the per-course capabilities declared by the manifests in
+`apps/android/course-bundle.json`. Czech and Mandarin use the same packaged app
+document and shared runtime; their files live below `courses/<id>/`.
 
-Both Gradle modules select their course with the single repository-relative
-`caatuuCourseManifest` property (default:
-`apps/languages/czech/course.json`). The manifest owns course identity, route,
-entry path, static root, Android enablement, and capabilities. Its
+The full Gradle module selects one course with `caatuuCourseManifest`. The
+product module selects a repository-relative bundle with `caatuuCourseBundle`
+(default: `apps/android/course-bundle.json`). Each manifest owns course identity,
+route, entry path, static root, Android enablement, and capabilities. Its
 `resources.androidAssetCatalog` owns the exact course file allowlist and may
 name reviewed shared runtime shell files; `language-runtime/contract.mjs` is the
 required adapter ABI. The build rejects path escapes, catalog/course ID drift,
@@ -30,8 +31,9 @@ resolves the resource inside `staticRoot`, requires it in the exact allowlist,
 and writes the resolved path into both BuildConfig and the package profile.
 Speech explicitly binds Android TTS to `targetLanguage.speechLocale`. Missing,
 extra, partial, or unsupported provider declarations stop the build.
-`build-product-assets.mjs --course-manifest <file>` is the direct
-compiler equivalent. Product profiles always force `llm`, `generation`, and
+`build-product-assets.mjs --course-bundle <file>` is the canonical product
+compiler equivalent; `--course-manifest` remains a focused single-course test
+surface. Product profiles always force `llm`, `generation`, and
 `chat` off while retaining embeddings, dictionary, learning, and Standard Word
 World only when the course declares those capabilities.
 

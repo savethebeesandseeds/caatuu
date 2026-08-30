@@ -14,6 +14,8 @@ const [
   proguard,
   productIcon,
   providerConfiguration,
+  registry,
+  courseRuntime,
   vectorManager,
   dictionaryManager,
 ] = await Promise.all([
@@ -45,6 +47,14 @@ const [
       "apps/android/product/src/main/java/com/caatuu/android/NativeProviderConfiguration.kt",
       repoRoot,
     ),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/BundledCourseRegistry.kt", repoRoot),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/product/src/main/java/com/caatuu/android/ProductCourseRuntime.kt", repoRoot),
     "utf8",
   ),
   readFile(
@@ -84,29 +94,37 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_DICTIONARY_CATALOG_ASSET/);
   assert.match(build, /CAATUU_SPEECH_PROVIDER_LOCALE/);
   assert.match(build, /caatuuCourseManifest/);
+  assert.match(build, /caatuuCourseBundle/);
+  assert.match(build, /CAATUU_COURSE_BUNDLE_ASSET/);
+  assert.match(build, /CAATUU_DEFAULT_COURSE_ID/);
   assert.doesNotMatch(build, /caatuuLanguage(?:Id|AppDir|RoutePrefix|EntryPath)/);
   assert.match(build, /CAATUU_GODOT_ENABLED", "false"/);
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
   assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
   assert.match(build, /debug \{[\s\S]*?CAATUU_ACCEPT_RELEASE_MIGRATION", "true"/);
-  assert.match(build, /caatuuVersionCode.*orElse\(160\)/);
-  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.8"\)/);
+  assert.match(build, /caatuuVersionCode.*orElse\(161\)/);
+  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.9"\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
 });
 
 test("native manager construction follows the versioned provider declaration", () => {
-  assert.match(activity, /NativeProviderConfiguration\.fromGenerated/);
+  assert.match(activity, /NativeProviderConfiguration\.fromBundled\(course\.nativeProviders\)/);
   assert.match(activity, /catalogAssetPath = provider\.catalogAsset/);
-  assert.match(activity, /check\(provider\.locale == BuildConfig\.CAATUU_SPEECH_LOCALE\)/);
-  assert.match(activity, /configuredLocaleTag = BuildConfig\.CAATUU_SPEECH_LOCALE/);
+  assert.match(activity, /configuredLocaleTag = provider\.locale/);
+  assert.match(activity, /BundledCourseRegistry\.load/);
+  assert.match(activity, /BuildConfig\.CAATUU_COURSE_BUNDLE_ASSET/);
   assert.match(providerConfiguration, /SCHEMA_VERSION = 1/);
   assert.match(providerConfiguration, /vector-database-catalog-v1/);
+  assert.match(providerConfiguration, /webview-english-minilm-v1/);
   assert.match(providerConfiguration, /sqlite-dictionary-catalog-v1/);
   assert.match(providerConfiguration, /android-text-to-speech-v1/);
   assert.match(providerConfiguration, /native provider schemaVersion/);
   assert.match(vectorManager, /catalogAssetPath: String/);
   assert.match(dictionaryManager, /catalogAssetPath: String/);
+  assert.match(registry, /fun resolveAsset\(path: String\)/);
+  assert.match(registry, /course\.assetPrefix/);
+  assert.match(courseRuntime, /Native embedding manager does not match the bundled course provider/);
   assert.doesNotMatch(vectorManager, /EMBEDDING_CATALOG_ASSET/);
   assert.doesNotMatch(dictionaryManager, /CATALOG_ASSET/);
 });
@@ -180,6 +198,8 @@ test("the product bridge exposes the safe native operation allowlist", () => {
   assert.match(bridge, /appUpdateManager\.downloadLatest/);
   assert.match(bridge, /appUpdateManager\.openInstaller\(\)/);
   assert.match(bridge, /fun isDeveloperPreview\(\): Boolean = false/);
+  assert.match(bridge, /fun isCourseBundled\(id: String\): Boolean = courseRegistry\.isBundled\(id\)/);
+  assert.match(bridge, /courseRegistry\.courseForTrustedUrl\(webView\.url\)/);
 
   for (const forbidden of [
     "start_download",
