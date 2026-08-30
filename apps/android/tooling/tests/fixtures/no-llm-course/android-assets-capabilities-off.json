@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "courseId": "fixture-no-llm",
+  "nativeProviders": {
+    "schemaVersion": 1,
+    "providers": {}
+  },
+  "files": [
+    "icons/fixture-no-llm-512.png",
+    "manifest.webmanifest",
+    "source/shared/course-profile.js"
+  ],
+  "launcherIconFiles": []
+}

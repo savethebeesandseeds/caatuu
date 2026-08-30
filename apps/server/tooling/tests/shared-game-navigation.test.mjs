@@ -3,17 +3,30 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
-const [chrome, chromeCss, appController, appCss, wordWorldController, wordWorldCss, serviceWorker, ...pages] = await Promise.all([
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.css", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
-  ...["chat.html", "conjugation-comet.html", "case-cosmos.html", "agreement-aurora.html", "embedding-images.html", "index.html", "verb-difficulty.html", "word-net.html", "audio-lab.html"]
-    .map((file) => readFile(new URL(file, staticRoot), "utf8"))
-]);
+const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
+const pageNames = [
+  "chat.html",
+  "conjugation-comet.html",
+  "case-cosmos.html",
+  "agreement-aurora.html",
+  "embedding-images.html",
+  "verb-difficulty.html",
+  "audio-lab.html"
+];
+const chrome = await readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8");
+const chromeCss = await readFile(new URL("styles/caatuu-chrome.css", languageRuntimeStatic), "utf8");
+const appController = await readFile(new URL("source/caatuu-workspace.js", languageRuntimeStatic), "utf8");
+const appCss = await readFile(new URL("styles/caatuu-workspace.css", languageRuntimeStatic), "utf8");
+const wordWorldController = await readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8");
+const wordWorldCss = await readFile(new URL("styles/caatuu-word-world.css", languageRuntimeStatic), "utf8");
+const sharedAppBootstrap = await readFile(new URL("source/app-bootstrap.mjs", languageRuntimeStatic), "utf8");
+const wordWorldHost = await readFile(new URL("source/word-world-host.mjs", languageRuntimeStatic), "utf8");
+const setupCatalogSource = await readFile(new URL("setup-assets.json", staticRoot), "utf8");
+const canonicalPage = await readFile(new URL("app/index.html", languageRuntimeStatic), "utf8");
+const secondaryPages = await Promise.all(
+  pageNames.map((file) => readFile(new URL(file, staticRoot), "utf8"))
+);
+const pages = [canonicalPage, ...secondaryPages];
 
 test("Games opens a shared planet selector from every screen", () => {
   assert.match(chrome, /navigation\.active-game\.v1/);
@@ -77,50 +90,44 @@ test("Home is an in-page view of the canonical index shell", () => {
   assert.match(chrome, /caatuu:home-request/);
   assert.match(appController, /function normalizeView\(view\)[\s\S]*?view === "home"/);
   assert.match(appController, /document\.addEventListener\("caatuu:home-request", \(\) => \{[\s\S]*?stopCampaign\(\);[\s\S]*?setView\("home"\);[\s\S]*?\}\)/);
-  assert.doesNotMatch(serviceWorker, /\.\/home\.html/);
+  assert.doesNotMatch(setupCatalogSource, /\.\/home\.html/);
 });
 
 test("Word World lazy-mounts inside the shared Games URL and retains its challenge", () => {
   const gamesPage = pages.find((page) => page.includes("trainPanelGalaxy"));
-  const wordWorldPage = pages.find((page) => page.includes("word-net-page"));
 
-  assert.match(
-    gamesPage,
-    /id="wordNetEmbeddedGame"[\s\S]*?data-src="word-net\.html"[\s\S]*?aria-hidden="true"[\s\S]*?tabindex="-1"/
-  );
+  assert.match(gamesPage, /id="wordWorldRoot"[^>]*data-word-world-root/);
+  assert.match(gamesPage, /id="wordWorldRoot"[\s\S]*?class="word-net-game"/);
+  assert.doesNotMatch(gamesPage, /id="wordNetEmbeddedGame"|data-src="word-net\.html"/);
   assert.match(gamesPage, /id="wordNetEmbeddedStage"[^>]*aria-busy="true"/);
   assert.match(gamesPage, /id="wordNetEmbeddedStatus"[^>]*role="status"[^>]*aria-live="polite"/);
-  assert.match(gamesPage, /Opening Word World/);
+  assert.match(gamesPage, /id="wordNetEmbeddedStatus"[\s\S]*?class="word-net-embedded-loader"[^>]*\/assets\/robots\/robot%20\(1\)\.png/);
+  assert.doesNotMatch(gamesPage, /Opening (?:Word World|Conjugation Comet|Case Cosmos|Agreement Aurora)/);
+
+  assert.match(sharedAppBootstrap, /import\("\.\/word-world-host\.mjs\?v=word-world-host-/);
+  assert.match(sharedAppBootstrap, /caatuu-workspace\.js\?v=workspace-/);
+  assert.doesNotMatch(sharedAppBootstrap, /product-shell|wordNetEmbeddedGame/);
 
   assert.match(appController, /function ensureWordNetLoaded\(\)/);
-  assert.match(appController, /frame\.dataset\.loading === "true" \|\| frame\.dataset\.ready === "true"/);
-  assert.match(appController, /const source = frame\.dataset\.src;[\s\S]*?frame\.src = source/);
-  assert.match(appController, /event\.origin !== window\.location\.origin \|\| event\.source !== frame\.contentWindow/);
-  assert.match(appController, /event\.data\?\.source !== "caatuu-word-world"/);
-  assert.match(appController, /event\.data\.type === "ready"[\s\S]*?frame\.dataset\.ready = "true"[\s\S]*?status\.hidden = true/);
+  assert.match(appController, /host\.ensureLoaded\(\)/);
   assert.match(appController, /if \(activeTab === "word-net"\) ensureWordNetLoaded\(\)/);
   assert.match(appController, /syncEmbeddedWordNetVisibility\(activeTab === "word-net"\)/);
-  assert.match(appController, /if \(trainTab\.classList\.contains\("train-world"\)[\s\S]*?setTrainTab\(selectedTab\);[\s\S]*?return;/);
+  assert.match(appController, /CaatuuWordWorldHost\?\.setActive\?\./);
+  assert.doesNotMatch(appController, /CaatuuProductShell|wordNetEmbeddedGame/);
   assert.doesNotMatch(appController, /playWorldLandingAnimation|worldLandingAnimation|animation-landing|animation-leaving/);
   assert.doesNotMatch(appController, /window\.location\.href\s*=\s*["']word-net\.html/);
-  assert.doesNotMatch(appController, /wordNetEmbeddedGame[\s\S]*?src\s*=\s*["']about:blank/);
 
-  assert.match(appController, /source: "caatuu-app-shell"[\s\S]*?type: "visibility"/);
-  assert.match(wordWorldPage, /window\.parent !== window/);
-  assert.match(wordWorldPage, /document\.documentElement\.classList\.add\("caatuu-embedded"\)/);
-  assert.match(wordWorldPage, /window\.location\.replace\("index\.html"\)/);
-  assert.doesNotMatch(wordWorldPage, /URLSearchParams|[?&]embed=/);
-  assert.match(wordWorldController, /source: "caatuu-word-world"/);
-  assert.match(wordWorldController, /event\.data\?\.source !== "caatuu-app-shell"/);
-  assert.match(wordWorldController, /event\.data\.type !== "visibility"/);
-  assert.match(wordWorldController, /if \(!event\.data\.active\) \{[\s\S]*cancelCzechSpeech\(\);[\s\S]*suspendStarterWordPresentation\(\);[\s\S]*\}/);
-  assert.match(wordWorldController, /\.then\(\(\) => notifyEmbeddedShell\("ready"\)\)/);
-  assert.match(wordWorldController, /notifyEmbeddedShell\("error"/);
+  assert.match(wordWorldHost, /mountWordWorld\(root, course, manifest\)/);
+  assert.match(wordWorldHost, /setStatus\(\s*"loading",\s*"",\s*""\s*\)/);
+  assert.match(wordWorldHost, /root\.classList\.add\("is-ready"\)/);
+  assert.match(wordWorldHost, /status\.hidden = true/);
+  assert.match(wordWorldController, /export async function mountProductWordWorld\(root, preparedContext/);
+  assert.doesNotMatch(wordWorldController, /void init\(\)|notifyEmbeddedShell|bindEmbeddedShellBridge/);
 
   assert.match(appCss, /\.word-net-embedded-stage \{[\s\S]*?height: clamp\(/);
-  assert.match(appCss, /\.word-net-embedded-game \{[\s\S]*?opacity: 0;/);
-  assert.match(appCss, /\.word-net-embedded-game\.is-ready \{[\s\S]*?opacity: 1;/);
-  assert.match(wordWorldCss, /html\.caatuu-embedded \.word-net-page > \.app-header,[\s\S]*?html\.caatuu-embedded body > \.app-bottom-dock \{[\s\S]*?display: none !important;/);
+  assert.match(appCss, /\.word-net-embedded-game,[\s\S]*?\.word-net-shared-game \{[\s\S]*?opacity: 0;/);
+  assert.match(appCss, /\.word-net-shared-game\.is-ready \{[\s\S]*?opacity: 1;/);
+  assert.match(wordWorldCss, /^#wordWorldRoot \{[\s\S]*?\.word-net-game \{/);
 });
 
 test("the game back control alone returns navigation memory to the planets", () => {
@@ -153,7 +160,7 @@ test("active game headers center the matching planet and use Games artwork as th
   assert.match(chromeCss, /\.app-header\[data-caatuu-active-game\] \.app-header-title-copy \{[\s\S]*?position: absolute;[\s\S]*?clip-path: inset\(50%\);/);
 });
 
-test("every Czech screen uses the shared icon, kicker, title, and bare-flag header", () => {
+test("every Czech screen uses the shared icon, kicker, title, and course selector header", () => {
   for (const page of pages) {
     assert.match(page, /data-caatuu-page-kicker="[^"]+"/);
     assert.match(page, /data-caatuu-page-title="[^"]+"/);
@@ -162,13 +169,14 @@ test("every Czech screen uses the shared icon, kicker, title, and bare-flag head
   assert.match(chrome, /pageCopy\.className = "app-header-page-copy"/);
   assert.match(chrome, /language\.className = "language-pill app-header-language-pill language-switch"/);
   assert.match(chromeCss, /\.app-header-page-copy \{[\s\S]*?display: grid;/);
-  assert.match(chromeCss, /\.app-header-language-pill \{[\s\S]*?background: transparent;/);
-  assert.match(chromeCss, /\.app-header-language-pill \.language-code \{[\s\S]*?display: none;/);
+  assert.match(chromeCss, /\.language-pill\.app-header-language-pill,[\s\S]*?\.language-pill\.settings-language-pill \{[\s\S]*?width: 30px;[\s\S]*?min-width: 30px;[\s\S]*?cursor: pointer;/);
+  assert.doesNotMatch(chrome, /language-base-code|language-route-arrow|language-selector-disclosure/);
 });
 
 test("the Games landing screen relies on the shared header and fits above the fixed navigation", () => {
   const gamesPage = pages.find((page) => page.includes("trainPanelGalaxy"));
   assert.match(gamesPage, /<body class="games-page setup-blocked">/);
+  assert.match(sharedAppBootstrap, /course\.capabilities\?\.offlineModels === true[\s\S]*?document\.body\.classList\.add\("setup-blocked"\)/);
   assert.doesNotMatch(gamesPage, /class="train-galaxy-copy"/);
   assert.match(chromeCss, /\.games-page \.app-shell \{[\s\S]*?padding-bottom: 0;/);
   assert.match(chromeCss, /\.games-page \.brand-icon \{[\s\S]*?width: auto;[\s\S]*?max-width: none;[\s\S]*?height: 36px;[\s\S]*?max-height: 36px;/);
@@ -183,7 +191,7 @@ test("newer games lazy-mount inside the shared Games URL while standalone routes
   assert.match(cometPage, /data-caatuu-header-back-href="index\.html"/);
   assert.match(cometPage, /id="conjugationCometPanel"/);
   assert.match(chrome, /document\.querySelector\("\.conjugation-comet-page"\)[\s\S]*?return "conjugation-comet"/);
-  assert.match(chrome, /function conjugationCometAvailable\(\)[\s\S]*?course\.capabilities\?\.conjugationComet === true[\s\S]*?course\.routes\?\.conjugationComet/);
+  assert.match(chrome, /function gamePresentationAvailable\(gameId, presentation\)[\s\S]*?shellPolicy\.gameAvailable\(course, gameId\)[\s\S]*?gameId === "conjugation-comet"[\s\S]*?course\.capabilities\?\.conjugationComet === true/);
   assert.doesNotMatch(chrome, /localDeveloperGamePreview|conjugationCometConfiguration/);
   assert.match(gamesPage, /data-course-game="conjugation-comet"/);
   assert.match(gamesPage, /id="conjugationCometEmbeddedGame"[\s\S]*?data-src="conjugation-comet\.html"[\s\S]*?data-embedded-game="conjugation-comet"/);
@@ -199,7 +207,7 @@ test("newer games lazy-mount inside the shared Games URL while standalone routes
   assert.match(appCss, /\.word-net-embedded-panel \{[\s\S]*?border-radius:\s*0;/);
   assert.match(appCss, /\.word-net-embedded-stage \{[\s\S]*?border-radius:\s*0;/);
   assert.match(appController, /body\.caatuu-embedded-shell > \.app-shell > \.app-footer \{[\s\S]*?margin: 0 !important;[\s\S]*?display: flex !important;/);
-  assert.match(wordWorldCss, /html\.caatuu-embedded \.word-net-page > \.app-footer \{[\s\S]*?margin:\s*0;[\s\S]*?display:\s*flex !important;/);
+  assert.match(wordWorldCss, /^#wordWorldRoot \{/);
   assert.match(appController, /"conjugation-comet": "trainPanelConjugationComet"[\s\S]*?"case-cosmos": "trainPanelCaseCosmos"[\s\S]*?"agreement-aurora": "trainPanelAgreementAurora"/);
   assert.doesNotMatch(chrome, /requestedGame === "conjugation-comet"[\s\S]*?window\.location\.href/);
   assert.match(chrome, /document\.querySelectorAll\("\[data-course-game\]"\)[\s\S]*?trigger\.hidden = !available/);
@@ -209,10 +217,11 @@ test("newer games lazy-mount inside the shared Games URL while standalone routes
 });
 
 test("developer tools keep path-only pages and never expose view state in the URL", () => {
-  for (const href of ["chat.html", "audio-lab.html", "embedding-images.html", "verb-difficulty.html"]) {
-    assert.match(chrome, new RegExp(`href="${href.replace(".", "\\.")}"`));
+  for (const route of ["chat", "audioLab", "embeddingImages", "verbDifficulty"]) {
+    assert.match(chrome, new RegExp(`href: routes\\.${route}`));
   }
-  assert.match(chrome, /href="index\.html" data-navigation-request="dictionary"/);
+  assert.match(chrome, /href: routes\.dictionary,[\s\S]*?navigationRequest: "dictionary"/);
+  assert.match(chrome, /href="\$\{tool\.href\}"\$\{navigationRequest\}/);
   assert.match(chrome, /sessionStorage\.setItem\(navigationRequestStorageKey/);
   assert.doesNotMatch(chrome, /href="[^"]*[?#][^"]*"/);
   assert.doesNotMatch(appController, /searchParams\.get|URLSearchParams/);
@@ -247,11 +256,11 @@ test("phone navigation yields a frame before semantic work and avoids expensive 
   assert.match(chromeCss, /html\[data-caatuu-runtime="android"\] \.app-bottom-dock \{[\s\S]*?backdrop-filter: none;/);
   assert.match(chromeCss, /html\[data-caatuu-runtime="android"\] \.settings-sheet \{[\s\S]*?box-shadow: none;/);
   assert.match(chromeCss, /\.settings-view-panel \{[\s\S]*?contain: layout style;/);
-  assert.match(serviceWorker, /\/assets\/icons\/coin_icon_ui\.png/);
-  assert.match(serviceWorker, /\/assets\/icons\/dark_mode_ui\.png/);
-  assert.match(serviceWorker, /\/assets\/icons\/light_mode_ui\.png/);
-  assert.match(serviceWorker, /\/assets\/icons\/czech_flag_ui\.png/);
-  assert.doesNotMatch(serviceWorker, /\/assets\/icons\/(?:coin_icon|dark_mode|czech_flag)\.png/);
+  assert.match(setupCatalogSource, /\/assets\/icons\/coin_icon_ui\.png/);
+  assert.match(setupCatalogSource, /\/assets\/icons\/dark_mode_ui\.png/);
+  assert.match(setupCatalogSource, /\/assets\/icons\/light_mode_ui\.png/);
+  assert.match(setupCatalogSource, /\/assets\/icons\/czech_flag_ui\.png/);
+  assert.doesNotMatch(setupCatalogSource, /\/assets\/icons\/(?:coin_icon|dark_mode|czech_flag)\.png/);
 });
 
 test("Backpack remembers its submenu and mirrors it on the bottom-nav badge", () => {
@@ -278,27 +287,28 @@ test("Games shows the current child badge and clears it on the planet selector",
   assert.match(chrome, /rememberActiveGame\(gameId\)[\s\S]*?syncGameNavigationIndicators\(normalizedGameId\)/);
   assert.match(chrome, /syncGameNavigationIndicators\(currentGameId\(\)\)/);
   assert.match(chrome, /if \(!presentation\) \{[\s\S]*?badge\?\.remove\(\)[\s\S]*?delete button\.dataset\.activeGame[\s\S]*?button\.setAttribute\("aria-label", "Games"\)/);
-  assert.match(serviceWorker, /\/assets\/planets\/verb-nebula\.png/);
-  assert.match(serviceWorker, /\/assets\/planets\/conjugation-comet\.png/);
-  assert.match(serviceWorker, /\/assets\/planets\/word-world\.png/);
-  assert.match(serviceWorker, /\/assets\/planets\/case-cosmos\.png/);
-  assert.match(serviceWorker, /\/assets\/planets\/memory-moon\.png/);
-  assert.match(serviceWorker, /\/assets\/planets\/agreement-aurora\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/verb-nebula\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/conjugation-comet\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/word-world\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/case-cosmos\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/memory-moon\.png/);
+  assert.match(setupCatalogSource, /\/assets\/planets\/agreement-aurora\.png/);
 });
 
-test("every shared page and the service worker use the new Chrome cache keys", () => {
+test("every shared page and the setup catalog use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /chrome\.css\?v=chrome-style-120/);
-    assert.match(page, /chrome\.js\?v=chrome-109/);
+    assert.match(page, /caatuu-chrome\.css\?v=chrome-style-125/);
+    assert.match(page, /caatuu-chrome\.js\?v=chrome-122/);
   }
-  assert.match(serviceWorker, /caatuu-czech-pwa-v\d+/);
-  assert.match(serviceWorker, /chrome\.css\?v=chrome-style-120/);
-  assert.match(serviceWorker, /chrome\.js\?v=chrome-109/);
+  assert.match(setupCatalogSource, /caatuu-czech-pwa-v\d+/);
+  assert.match(setupCatalogSource, /caatuu-chrome\.css\?v=chrome-style-125/);
+  assert.match(setupCatalogSource, /caatuu-chrome\.js\?v=chrome-122/);
 });
 
 test("retired Guided Journey is absent while the live dictionary request remains", () => {
   assert.doesNotMatch(chrome, /guided-journey/);
-  assert.match(chrome, /data-navigation-request="dictionary"/);
+  assert.match(chrome, /navigationRequest: "dictionary"/);
+  assert.match(chrome, /data-navigation-request="\$\{tool\.navigationRequest\}"/);
 });
 
 test("shared settings own their About and legal presentation on every page", () => {
@@ -312,5 +322,5 @@ test("shared settings own their About and legal presentation on every page", () 
 test("shared headers stay focused while each game owns its theme control", () => {
   assert.doesNotMatch(chrome, /actions\.append\(theme, language\)/);
   assert.match(pages.find((page) => page.includes("trainPanelGalaxy")), /data-theme-toggle/);
-  assert.match(pages.find((page) => page.includes("word-net-page")), /id="wordNetDisplayToggle"/);
+  assert.match(canonicalPage, /id="wordNetDisplayToggle"/);
 });

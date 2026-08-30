@@ -5,6 +5,7 @@ import test from "node:test";
 const repoRoot = new URL("../../../../", import.meta.url);
 const androidRoot = new URL("apps/android/app/src/main/", repoRoot);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
+const languageRuntimeStatic = new URL("apps/language-runtime/static/", repoRoot);
 
 const [manager, bridge, activity, manifest, runtime, wordNet, wordNetHtml, wordNetCore, chrome] = await Promise.all([
   readFile(new URL("java/com/caatuu/android/AndroidSpeechManager.kt", androidRoot), "utf8"),
@@ -12,10 +13,10 @@ const [manager, bridge, activity, manifest, runtime, wordNet, wordNetHtml, wordN
   readFile(new URL("java/com/caatuu/android/MainActivity.kt", androidRoot), "utf8"),
   readFile(new URL("AndroidManifest.xml", androidRoot), "utf8"),
   readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
-  readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net-core.mjs", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8"),
+  readFile(new URL("app/index.html", languageRuntimeStatic), "utf8"),
+  readFile(new URL("source/word-net-core.mjs", languageRuntimeStatic), "utf8"),
+  readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8"),
 ]);
 
 function rateForDifficulty(source, difficulty) {
@@ -34,8 +35,9 @@ function rateForPreference(source, preference) {
   return Number(match[1]);
 }
 
-test("Android text-to-speech initializes asynchronously and reports Czech availability", () => {
-  assert.match(manager, /class AndroidSpeechManager\(context: Context\)/);
+test("Android text-to-speech initializes asynchronously for the configured target language", () => {
+  assert.match(manager, /class AndroidSpeechManager\([\s\S]*?configuredLocaleTag: String = BuildConfig\.CAATUU_SPEECH_LOCALE/);
+  assert.match(manager, /targetLanguageLabel: String = BuildConfig\.CAATUU_TARGET_LANGUAGE_LABEL/);
   assert.match(manager, /TextToSpeech\(applicationContext\)/);
   assert.match(manager, /CompletableDeferred<Int>\(\)/);
   assert.match(manager, /withTimeoutOrNull\(INITIALIZATION_TIMEOUT_MILLIS\)/);
@@ -50,7 +52,9 @@ test("Android text-to-speech initializes asynchronously and reports Czech availa
   assert.match(manager, /\.put\("localVoiceAvailable", voices\.any \{ !it\.isNetworkConnectionRequired \}\)/);
   assert.match(manager, /\.put\("voices", voiceOptions\(voices\)\)/);
   assert.match(manager, /\.put\("id", voice\.name\)[\s\S]*?\.put\("localService", !voice\.isNetworkConnectionRequired\)/);
-  assert.match(manager, /private const val CZECH_LANGUAGE = "cs"/);
+  assert.match(manager, /private val supportedLanguage = configuredLocale\.language/);
+  assert.match(manager, /locale\.language != supportedLanguage/);
+  assert.doesNotMatch(manager, /CZECH_LANGUAGE/);
 });
 
 test("speech pace choices remain audibly distinct and reach both playback backends", () => {
@@ -60,9 +64,15 @@ test("speech pace choices remain audibly distinct and reach both playback backen
 
   assert.deepEqual(chromeRates, coreRates, "shared controls and Word World use the same rates");
   assert.ok(coreRates[0] <= 0.7, "the slowest pace is clearly slower than normal speech");
-  assert.ok(coreRates[1] - coreRates[0] >= 0.15, "slower and slow remain distinguishable");
-  assert.ok(coreRates[2] - coreRates[1] >= 0.15, "slow and normal remain distinguishable");
+  assert.ok(coreRates[1] > coreRates[0], "slower and slow remain ordered");
+  assert.ok(coreRates[2] > coreRates[1], "slow and normal remain ordered");
   assert.equal(coreRates[2], 1, "normal keeps the platform's natural rate");
+  const windowsSapiBuckets = coreRates.map((rate) => Math.trunc(10 * Math.log10(rate)));
+  assert.equal(
+    new Set(windowsSapiBuckets).size,
+    coreRates.length,
+    "each choice must remain distinct after Chromium converts rates to integer Windows SAPI buckets"
+  );
 
   assert.match(wordNet, /utterance\.rate = pace\.rate/);
   assert.match(wordNet, /speech\.speak\([\s\S]*?rate: pace\.rate/);
@@ -157,7 +167,7 @@ test("the shared runtime exposes bounded native speech calls", () => {
   assert.match(runtime, /nativeCall\(\s*"speech_status"/);
   assert.match(runtime, /nativeCall\(\s*"speech_speak"/);
   assert.match(runtime, /nativeCall\(\s*"speech_stop"/);
-  assert.match(runtime, /status\(locale = course\.targetLanguage\.locale, options = \{\}\)/);
+  assert.match(runtime, /status\(locale = course\.targetLanguage\.speechLocale \|\| course\.targetLanguage\.locale, options = \{\}\)/);
   assert.match(runtime, /voice: String\(options\.voice \|\| ""\)\.trim\(\)\.slice\(0, 256\)/);
   assert.match(runtime, /const voice = String\(options\.voice \|\| ""\)\.trim\(\)\.slice\(0, 256\)/);
   assert.match(runtime, /timeoutMs: 10_000/);
@@ -198,13 +208,13 @@ test("Word World offers voice installation only for native missing-voice states"
     wordNet,
     /installButton\.hidden = result\?\.backend !== "android" \|\| result\?\.canInstallVoice !== true/,
   );
-  assert.match(installPaths, /const install = window\.CaatuuChrome\?\.installCzechSpeechData/);
+  assert.match(installPaths, /const install = sharedCzechSpeechApi\(\)\?\.install/);
   assert.match(installPaths, /!androidSpeechRuntime\(\)/);
   assert.match(installPaths, /const result = await install\(\)/);
   assert.match(installPaths, /refreshAndroidSpeechStatus\(\{ force: true \}\)/);
   assert.match(
     chrome,
-    /async function installCzechSpeechData\(\)[\s\S]*?if \(!isNativeShell\(\)\)[\s\S]*?window\.CaatuuRuntime\?\.speech\?\.installData/,
+    /async function installSpeechData\(\)[\s\S]*?if \(!isNativeShell\(\)\)[\s\S]*?const install = window\.CaatuuRuntime\?\.speech\?\.installData[\s\S]*?if \(!install\) throw new Error\("Android voice installation is unavailable\."\)[\s\S]*?return install\(\)/,
   );
 });
 
@@ -220,9 +230,9 @@ test("Word World prefers Android TTS and retains browser Web Speech fallback", (
   assert.match(wordNet, /function androidSpeechRuntime\(\)/);
   assert.match(wordNet, /runtime\?\.env !== "android"/);
   assert.match(wordNet, /async function refreshAndroidSpeechStatus\(\{ force = false \} = \{\}\)/);
-  assert.match(wordNet, /await speech\.status\(targetLocale, \{ voice: preferredSpeechVoice\(\) \}\)/);
+  assert.match(wordNet, /await speech\.status\(targetSpeechLocale, \{ voice: preferredSpeechVoice\(\) \}\)/);
   assert.match(wordNet, /function speakCzechWithAndroid\(text, source, pace\)/);
-  assert.match(wordNet, /speech\.speak\([\s\S]*?locale: targetLocale, rate: pace\.rate[\s\S]*?voice: preferredSpeechVoice\(\)/);
+  assert.match(wordNet, /speech\.speak\([\s\S]*?locale: targetSpeechLocale, rate: pace\.rate[\s\S]*?voice: preferredSpeechVoice\(\)/);
   assert.match(wordNet, /function speakCzechWithBrowser\(text, source, pace\)/);
   assert.match(wordNet, /new window\.SpeechSynthesisUtterance\(text\)/);
   assert.match(wordNet, /const savedVoice = voices\.find[\s\S]*?savedVoice \|\| selectSpeechSynthesisVoice/);

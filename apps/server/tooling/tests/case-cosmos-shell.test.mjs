@@ -4,14 +4,16 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const appEntry = new URL("../../../../apps/language-runtime/static/app/index.html", import.meta.url);
 const launcherRoot = new URL("../../../../apps/launcher/static/", import.meta.url);
-const [page, styles, launcherStyles, controller, gamesPage, serviceWorker, setupManifest, planetBytes, pack] = await Promise.all([
+const [page, styles, launcherStyles, controller, gamesPage, appBootstrap, serviceWorker, setupManifest, planetBytes, pack] = await Promise.all([
   readFile(new URL("case-cosmos.html", staticRoot), "utf8"),
   readFile(new URL("source/games/case-cosmos/case-cosmos.css", staticRoot), "utf8"),
   readFile(new URL("source/games/case-cosmos/launcher.css", staticRoot), "utf8"),
   readFile(new URL("source/games/case-cosmos/case-cosmos.js", staticRoot), "utf8"),
-  readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
+  readFile(appEntry, "utf8"),
+  readFile(new URL("../../../../apps/language-runtime/static/source/app-bootstrap.mjs", import.meta.url), "utf8"),
+  readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("assets/planets/case-cosmos.png", launcherRoot)),
   readFile(new URL("data/games/case-cosmos/challenges.json", staticRoot), "utf8").then(JSON.parse)
@@ -19,7 +21,7 @@ const [page, styles, launcherStyles, controller, gamesPage, serviceWorker, setup
 
 test("Case Cosmos lazy-mounts from the shared Games selector while its standalone route remains compatible", () => {
   assert.match(gamesPage, /<button class="train-world train-world-case"[^>]*data-train-tab="case-cosmos"[^>]*aria-label="Open Case Cosmos"/);
-  assert.match(gamesPage, /source\/games\/case-cosmos\/launcher\.css\?v=case-cosmos-launcher-1/);
+  assert.match(appBootstrap, /source\/games\/case-cosmos\/launcher\.css\?v=case-cosmos-launcher-1/);
   assert.match(gamesPage, /\/assets\/planets\/case-cosmos\.png[\s\S]*?<b>Case Cosmos<\/b>/);
   assert.match(gamesPage, /id="caseCosmosEmbeddedGame"[^>]*data-src="case-cosmos\.html"[^>]*data-embedded-game="case-cosmos"/);
   assert.match(launcherStyles, /\.train-world-case \{/);

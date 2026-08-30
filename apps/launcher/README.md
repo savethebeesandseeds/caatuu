@@ -7,7 +7,9 @@ The launcher discovers active courses from `static/languages.json`; Czech is the
 current default and only active entry. Browser and Android entry points belong
 to each registry item, so future languages can expose the platforms they
 actually support. Chinese is preserved under `archive/caatuu-chinese` for later
-work, but it is not shown in the active launcher.
+historical reference. The fresh `zh` course is a separate, unlisted
+development preview and is intentionally absent from this public active-only
+registry until native review and licensing gates clear.
 
 The files live under:
 

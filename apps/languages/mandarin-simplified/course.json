@@ -1,0 +1,174 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "zh",
+  "directoryName": "mandarin-simplified",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Mandarin",
+  "routePrefix": "/zh",
+  "entryPath": "/zh/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "zh",
+    "label": "Mandarin",
+    "nativeLabel": "中文",
+    "shortCode": "ZH",
+    "locale": "zh-Hans",
+    "script": "Hans",
+    "speechLocale": "zh-CN",
+    "direction": "ltr",
+    "flagClass": "zh-hans-flag",
+    "flagSrc": "/assets/icons/china_flag.png"
+  },
+  "linguisticFeatures": [],
+  "games": [
+    "verb-lab",
+    "word-net"
+  ],
+  "upcomingGames": [
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-zh-hans",
+    "theme": "caatuu-zh-hans.theme",
+    "fontSize": "caatuu-zh-hans.font-size",
+    "learningPreferences": "caatuu-zh-hans.learning.preferences.v1",
+    "learningPerformance": "caatuu-zh-hans.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-zh-hans.semantic-learning",
+    "verbMemory": "caatuu-zh-hans.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-zh-hans.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-zh-hans.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-zh-hans-pwa-",
+    "setupFallback": "caatuu-zh-hans-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "realizations": "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json"
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": true,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": false,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "entryPath": "/zh/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/mandarin-simplified/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/china_flag.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

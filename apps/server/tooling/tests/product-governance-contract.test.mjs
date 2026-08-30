@@ -28,7 +28,7 @@ const [
   read(".github/SECURITY.md"),
   read(".github/SUPPORT.md"),
   read("docs/PRODUCT_READINESS.md"),
-  read("apps/languages/czech/static/source/shared/chrome.js"),
+  read("apps/language-runtime/static/source/caatuu-chrome.js"),
   read("apps/languages/czech/static/source/shared/runtime.js"),
   read("apps/languages/czech/static/source/features/setup/setup.js"),
   read("apps/server/src/config.rs"),
@@ -98,7 +98,7 @@ test("general feedback stays local while dictionary gaps use a separate narrow s
   assert.match(compose, /DICTIONARY_GAP_STORE_PATH: \/var\/lib\/caatuu\/dictionary-gaps\/czech-missing-words\.v1\.json/);
   assert.match(compose, /\.\/artifacts\/dictionary-gaps:\/var\/lib\/caatuu\/dictionary-gaps/);
   assert.match(androidGradle, /CAATUU_ANDROID_DICTIONARY_GAP_URL/);
-  assert.match(androidGradle, /https:\/\/caatuu\.waajacu\.com\/cz\/api\/dictionary\/gaps/);
+  assert.match(androidGradle, /https:\/\/caatuu\.waajacu\.com\$bundledLanguageRoutePrefix\/api\/dictionary\/gaps/);
   assert.match(androidBridge, /"report_dictionary_gap" -> reportDictionaryGap\(id, request\)/);
   assert.match(androidBridge, /keys == DICTIONARY_GAP_REPORT_FIELDS/);
   assert.match(androidBridge, /MAX_DICTIONARY_GAP_REPORT_BYTES = 2 \* 1024/);

@@ -54,8 +54,11 @@ dictionaries, models, stories, and natural language without silently creating
 a different course.
 
 Czech is the first active reference course and the experience shown in these
-screenshots. Earlier Chinese work is preserved as part of the project's
-history. More languages can join as complete worlds of their own.
+screenshots. A fresh Mandarin course is now available as an unlisted
+development preview, built from shared English concepts and independent
+Mandarin realizations. Earlier Chinese work remains preserved as history and is
+not a dependency of the new course. More languages can join through the same
+manifest, adapter, content, and capability contracts.
 
 ## Built openly
 

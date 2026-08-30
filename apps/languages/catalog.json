@@ -1,0 +1,28 @@
+{
+  "$schema": "../../tools/language-packs/schemas/catalog.v1.schema.json",
+  "schemaVersion": 1,
+  "defaultCourseId": "cz",
+  "reservedRoutePrefixes": [
+    "/android",
+    "/api",
+    "/archive",
+    "/assets",
+    "/challenge",
+    "/games",
+    "/language-runtime",
+    "/secuence",
+    "/writing",
+    "/ws",
+    "/zh-hans"
+  ],
+  "courses": [
+    {
+      "id": "cz",
+      "manifest": "apps/languages/czech/course.json"
+    },
+    {
+      "id": "zh",
+      "manifest": "apps/languages/mandarin-simplified/course.json"
+    }
+  ]
+}

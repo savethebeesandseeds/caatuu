@@ -21,6 +21,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import {
   compileProductAssets,
+  loadAndroidCourseConfiguration,
   STORE_LANGUAGE_FILES,
   STORE_LAUNCHER_ICON_FILES
 } from "../../android/tooling/build-product-assets.mjs";
@@ -321,7 +322,34 @@ function keptProductFiles() {
 
 function transformCourseProfile(input) {
   let source = normalizeText(input);
+  source = exactReplace(source, "      embeddings: true", "      embeddings: false", "static embeddings capability");
   source = exactReplace(source, "      semanticSearch: true", "      semanticSearch: false", "static semantic-search capability");
+  source = exactReplace(source, "      skillCompass: true", "      skillCompass: false", "static skill-compass capability");
+  source = replaceBetween(
+    source,
+    "    skillCompass: {",
+    "    platforms: {",
+    "    skillCompass: null,\n",
+    "static skill-compass configuration"
+  );
+  source = replaceBetween(
+    source,
+    "    platforms: {",
+    "  });",
+    `    platforms: {
+      browser: {
+        enabled: true,
+        entryPath: "/cz/index.html",
+        backend: "static-dictionary"
+      },
+      android: {
+        enabled: false,
+        channels: []
+      }
+    }
+`,
+    "static browser-only platform configuration"
+  );
   return source;
 }
 
@@ -458,72 +486,27 @@ function transformRuntime(input) {
   return source;
 }
 
-function transformChrome(input) {
-  let source = normalizeText(input);
-  source = replaceBetween(
-    source,
-    "  const semanticSkillCompassAxisPack = Object.freeze({",
-    "  const navItems = [",
+function transformSharedWorkspace(input) {
+  return replacePattern(
+    normalizeText(input),
+    /^\s*repoLink\.href = `https:\/\/huggingface\.co\/\$\{model\.repoId\}`;\n/mu,
     "",
-    "Skill Compass model constants"
+    "static model-source link"
   );
-  source = replaceBetween(
-    source,
-    "  function clampSemanticCompassValue(value) {",
-    "  function bindLearningControls() {",
-    `  async function preloadBackpackStats() {
-    return { revision: 0, empty: true, projection: null, profile: "web-static-core" };
-  }
+}
 
-  function scheduleSemanticSkillCompassLoad() {}
-
-  function bindSemanticSkillCompass(panel) {
-    const details = panel.querySelector("#semanticSkillCompass");
-    if (!details) return;
-    details.open = false;
-    details.hidden = true;
-  }
+function transformSharedCourseServiceWorker(input) {
+  return replaceBetween(
+    normalizeText(input),
+    "function isModelRuntimeRequest(url) {",
+    "async function cacheFirst(request, config) {",
+    `function isModelRuntimeRequest() {
+  return false;
+}
 
 `,
-    "Skill Compass implementation"
+    "static model-runtime request policy"
   );
-  source = replaceBetween(
-    source,
-    "  function validAndroidChannelManifest(channel, manifest) {",
-    "  function bindBrowserRefresh(panel) {",
-    `  function bindAndroidInstallDiscovery(panel) {
-    const action = panel.querySelector("#installAndroidAction");
-    const status = panel.querySelector("#pwaInstallStatus");
-    if (!action) return;
-    action.removeAttribute("href");
-    action.removeAttribute("download");
-    action.setAttribute("aria-disabled", "true");
-    action.setAttribute("tabindex", "-1");
-    action.dataset.state = "separate";
-    action.textContent = "Separate";
-    if (status) status.textContent = "Browser · Android app published separately";
-  }
-
-`,
-    "Android install discovery"
-  );
-  source = exactReplace(source, 'id="embeddingLicenseList"', 'id="staticDataLicenseList"', "static license-list id");
-  source = exactReplace(source, "<dt>Caatuu Curriculum and Asset Embeddings</dt>", "<dt>Static web data</dt>", "static license-list heading");
-  source = exactReplace(
-    source,
-    "<dd>all-MiniLM-L6-v2 embedding base, Apache-2.0. Curriculum and asset provenance review pending; embeds English text only.</dd>",
-    "<dd>Curated dictionary, game, and visual data are bundled for same-origin static use. The Word World form supplement derives from English Wiktionary via Kaikki.org under CC BY-SA 4.0; its attribution is included with the site.</dd>",
-    "static license-list copy"
-  );
-  source = exactReplace(source, 'reportButton.textContent = "Sending";', 'reportButton.textContent = "Saving";', "local report progress copy");
-  source = exactReplace(
-    source,
-    "reportStatus.textContent = `Report sent: ${reportId}`;",
-    "reportStatus.textContent = `Saved on this device: ${reportId}`;",
-    "local report completion copy"
-  );
-  assert.doesNotMatch(source, /\/android\//u);
-  return source;
 }
 
 function transformLanguageIndex(input) {
@@ -600,7 +583,7 @@ function transformLanguageRegistry(input) {
   assert.equal(registry.schemaVersion, 1);
   for (const language of registry.languages || []) {
     language.capabilities = (language.capabilities || []).filter((capability) =>
-      !["chat", "offlineModels", "semanticSearch"].includes(capability)
+      !["chat", "embeddings", "offlineModels", "semanticSearch", "skillCompass"].includes(capability)
     );
     if (language.platforms?.android) {
       language.platforms.android = { enabled: false, channels: [] };
@@ -630,15 +613,23 @@ function transformKeymap(input, publishedVisualPaths, artifactKey) {
 
 function transformProductOutput(workspaceRoot, stagingDir) {
   const czDir = join(stagingDir, "cz");
+  const sharedSourceDir = join(stagingDir, "language-runtime/static/source");
   writeText(join(czDir, "source/shared/course-profile.js"), transformCourseProfile(readText(join(czDir, "source/shared/course-profile.js"))));
   writeText(join(czDir, "source/shared/runtime.js"), transformRuntime(readText(join(czDir, "source/shared/runtime.js"))));
-  writeText(join(czDir, "source/shared/chrome.js"), transformChrome(readText(join(czDir, "source/shared/chrome.js"))));
   writeText(join(czDir, "index.html"), transformLanguageIndex(readText(join(czDir, "index.html"))));
   writeText(
     join(czDir, "source/features/dictionary/dictionary-full.js"),
     transformDictionaryUi(readText(join(czDir, "source/features/dictionary/dictionary-full.js")))
   );
-  const wordWorldPath = join(czDir, "source/games/word-world/word-net.js");
+  writeText(
+    join(sharedSourceDir, "caatuu-workspace.js"),
+    transformSharedWorkspace(readText(join(sharedSourceDir, "caatuu-workspace.js")))
+  );
+  writeText(
+    join(sharedSourceDir, "course-service-worker.js"),
+    transformSharedCourseServiceWorker(readText(join(sharedSourceDir, "course-service-worker.js")))
+  );
+  const wordWorldPath = join(stagingDir, "language-runtime/static/source/product-word-world.mjs");
   writeText(
     wordWorldPath,
     exactReplace(
@@ -677,9 +668,16 @@ function transformProductOutput(workspaceRoot, stagingDir) {
   );
 }
 
-function copyProductOutput(productDir, stagingDir) {
+function copyProductOutput(productDir, stagingDir, courseConfiguration) {
   for (const path of keptProductFiles()) {
     copyFile(join(productDir, path), join(stagingDir, "cz", path), productDir);
+  }
+  copyFile(join(productDir, "index.html"), join(stagingDir, "cz/index.html"), productDir);
+  for (const { output } of courseConfiguration.appAssets.filter(({ output }) => output.startsWith("language-runtime/"))) {
+    copyFile(join(productDir, output), join(stagingDir, output), productDir);
+  }
+  for (const { output } of courseConfiguration.sharedRuntimeAssets) {
+    copyFile(join(productDir, output), join(stagingDir, output), productDir);
   }
 }
 
@@ -840,6 +838,7 @@ function coreAssetPaths(stagingDir, setupManifest) {
   const paths = new Set(["/", "/index.html", "/cz/", "/cz/index.html"]);
   for (const path of files) {
     if (path.startsWith("cz/")) paths.add(`/${path}`);
+    if (path.startsWith("language-runtime/")) paths.add(`/${path}`);
     if (["app.css", "launcher.js", "languages.json", "404.html"].includes(path)) paths.add(`/${path}`);
     if (path.startsWith("assets/icons/")) paths.add(`/${path}`);
     if (path === "assets/loading_animation/animations_manifest.json") paths.add(`/${path}`);
@@ -1002,6 +1001,7 @@ function generateBundleManifest(stagingDir, setupManifest, cacheDigest) {
 }
 
 function expectedFiles(workspaceRoot, setupManifest) {
+  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot });
   const expected = new Set([
     "index.html",
     "app.css",
@@ -1013,9 +1013,14 @@ function expectedFiles(workspaceRoot, setupManifest) {
     "assets/loading_animation/animations_manifest.json",
     "cz/source/features/dictionary/dictionary-static-core.mjs",
     "cz/data/games/word-world/static-dictionary.v1.json",
-    "cz/data/dictionaries/ATTRIBUTION.md"
+    "cz/data/dictionaries/ATTRIBUTION.md",
+    "cz/index.html"
   ]);
   for (const path of keptProductFiles()) expected.add(`cz/${path}`);
+  for (const { output } of courseConfiguration.appAssets.filter(({ output }) => output.startsWith("language-runtime/"))) {
+    expected.add(output);
+  }
+  for (const { output } of courseConfiguration.sharedRuntimeAssets) expected.add(output);
   for (const icon of STORE_LAUNCHER_ICON_FILES) expected.add(`assets/icons/${icon}`);
   for (const artifact of setupManifest.artifacts) {
     expected.add(publicPathFromUrl(artifact.url, artifact.key));
@@ -1191,6 +1196,7 @@ function assertStaticNetworkSinks(outputDir, files) {
     }
     for (const pattern of literalResourcePatterns) {
       for (const match of source.matchAll(pattern)) {
+        if (match[1] === "`" && match[2].includes("${")) continue;
         const disposition = referenceDisposition(path, match[2], "runtime resource");
         if (disposition === "local") {
           assertPublishedReference(outputDir, path, match[2], "runtime resource");
@@ -1216,7 +1222,11 @@ function assertNoServerOrModelBoundary(outputDir, files) {
     /(^|\/)data\/models(?:\/|$)/iu,
     /(^|\/)vendor(?:\/|$)/iu,
     /vector-db\.js$/iu,
-    /\.(?:aab|apk|db|gguf|onnx|safetensors|sqlite)$/iu
+    /\.(?:aab|apk|db|gguf|onnx|safetensors|sqlite)$/iu,
+    /(^|\/)source\/features\/home\/home\.css$/iu,
+    /(^|\/)source\/games\/verb-nebula\/app\.(?:css|js)$/iu,
+    /(^|\/)source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)$/iu,
+    /(^|\/)language-runtime\/static\/styles\/course-shell\.css$/iu
   ];
   for (const path of files) {
     for (const pattern of forbiddenPaths) assert.doesNotMatch(path, pattern, `Forbidden static path: ${path}`);
@@ -1397,10 +1407,16 @@ function assertGameBoundary(outputDir, workspaceRoot) {
     && entry.senses?.some((sense) => /feel/u.test(sense.gloss))
   )));
   assert.ok(existsSync(join(outputDir, "cz/data/dictionaries/ATTRIBUTION.md")));
-  const wordWorld = readText(join(outputDir, "cz/source/games/word-world/word-net.js"));
+  const wordWorld = readText(join(outputDir, "language-runtime/static/source/product-word-world.mjs"));
   assert.match(wordWorld, /contentMode: "standard"/u);
   assert.match(wordWorld, /Missing word saved on this device\./u);
   assert.doesNotMatch(wordWorld, /Missing word queued for server review/u);
+  const courseProfile = readText(join(outputDir, "cz/source/shared/course-profile.js"));
+  assert.match(courseProfile, /embeddings:\s*false/u);
+  assert.match(courseProfile, /semanticSearch:\s*false/u);
+  assert.match(courseProfile, /skillCompass:\s*false/u);
+  assert.match(courseProfile, /skillCompass:\s*null/u);
+  assert.doesNotMatch(courseProfile, /\/android\//u);
   const runtime = readText(join(outputDir, "cz/source/shared/runtime.js"));
   assert.match(runtime, /runtime: "static-keymap-only"/u);
   assert.match(runtime, /results: \[\]/u);
@@ -1447,13 +1463,19 @@ export function validateStaticSite({
   assert.deepEqual(profile, webProfile);
   const course = readText(join(resolvedOutput, "cz/source/shared/course-profile.js"));
   assert.match(course, /chat: false/u);
+  assert.match(course, /embeddings: false/u);
   assert.match(course, /offlineModels: false/u);
   assert.match(course, /semanticSearch: false/u);
+  assert.match(course, /skillCompass: false/u);
+  assert.match(course, /skillCompass: null/u);
   const registry = JSON.parse(readText(join(resolvedOutput, "languages.json")));
   const czech = registry.languages.find((language) => language.id === "cz");
   assert.ok(czech?.platforms?.browser?.enabled);
   assert.equal(czech?.platforms?.android?.enabled, false);
   assert.deepEqual(czech?.platforms?.android?.channels, []);
+  for (const unavailableCapability of ["embeddings", "semanticSearch", "skillCompass"]) {
+    assert.ok(!czech.capabilities.includes(unavailableCapability), `static languages.json must omit ${unavailableCapability}`);
+  }
   for (const [label, reference] of [
     ["flagSrc", czech.flagSrc],
     ["entryPath", czech.entryPath],
@@ -1493,6 +1515,7 @@ export function compileStaticSite({
   assert.ok(existsSync(languageStaticDir), `Czech source is missing: ${languageStaticDir}`);
   assert.ok(existsSync(launcherStaticDir), `Launcher source is missing: ${launcherStaticDir}`);
   assertStaticCompilerSources(languageStaticDir, launcherStaticDir);
+  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot: resolvedWorkspace });
 
   const productTempRoot = mkdtempSync(join(tmpdir(), "caatuu-web-product-"));
   const productDir = join(productTempRoot, "product");
@@ -1507,7 +1530,7 @@ export function compileStaticSite({
       launcherStaticDir,
       outputDir: productDir
     });
-    copyProductOutput(productDir, stagingDir);
+    copyProductOutput(productDir, stagingDir, courseConfiguration);
     transformProductOutput(resolvedWorkspace, stagingDir);
     copyLauncherSurface(resolvedWorkspace, stagingDir);
     const setupManifest = copyPublishedAssets(resolvedWorkspace, stagingDir);

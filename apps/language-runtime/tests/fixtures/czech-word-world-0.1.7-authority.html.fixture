@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Word World - Caatuu Czech</title>
+    <script>
+      if (window.parent !== window) {
+        document.documentElement.classList.add("caatuu-embedded");
+      } else {
+        window.location.replace("index.html");
+      }
+    </script>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/caatuu-czech-512.png">
+    <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
+    <script src="source/shared/course-profile.js?v=course-17"></script>
+    <script src="source/shared/learning-profile.js?v=learning-5"></script>
+    <script>
+      try {
+        const storedTheme = localStorage.getItem(window.CaatuuCourse.storage.theme) || "dark";
+        document.documentElement.dataset.theme = ["light", "dark"].includes(storedTheme) ? storedTheme : "dark";
+        const storedFontSize = localStorage.getItem(window.CaatuuCourse.storage.fontSize) || "largest";
+        document.documentElement.dataset.fontSize = ["standard", "large", "largest"].includes(storedFontSize) ? storedFontSize : "largest";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.fontSize = "largest";
+      }
+    </script>
+  <script src="source/shared/runtime.js?v=runtime-39"></script>
+  <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
+  <link rel="stylesheet" href="source/shared/theme.css?v=theme-5">
+  <link rel="stylesheet" href="source/shared/chrome.css?v=chrome-style-120">
+    <link rel="stylesheet" href="source/games/word-world/word-net.css?v=word-net-79">
+  </head>
+  <body>
+    <div class="word-net-page">
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Word World" data-caatuu-page-icon="/assets/planets/word-world.png" data-caatuu-header-title="Word World" data-caatuu-header-back-href="index.html"></header>
+
+      <main class="word-net-main" aria-label="Word World">
+        <section class="word-net-game" aria-label="Word World game">
+          <section class="word-net-sentence-panel" aria-label="Generated Czech sentence" aria-describedby="wordNetStatus">
+            <aside class="word-net-word-translation" id="wordNetWordTranslation" aria-label="Selected word meaning" hidden>
+              <div class="word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true">
+                <div class="word-net-word-heading">
+                  <strong id="wordNetSelectedWord"></strong>
+                  <span class="word-net-word-pos" id="wordNetSelectedPos"></span>
+                </div>
+                <span class="word-net-word-meaning" id="wordNetSelectedMeaning"></span>
+                <span class="word-net-word-meta" id="wordNetSelectedMeta"></span>
+              </div>
+              <button class="word-net-sound-toggle word-net-word-pronounce" id="wordNetSelectedWordSound" type="button" aria-label="Play selected Czech word aloud" aria-pressed="false" title="Play selected Czech word aloud" disabled>
+                <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                  <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                  <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                </svg>
+                <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                  <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                </svg>
+              </button>
+            </aside>
+            <div class="word-net-panel-actions" aria-label="Phrase controls">
+              <button class="word-net-icon-button theme-toggle" id="wordNetDisplayToggle" type="button" aria-label="Display settings" aria-haspopup="dialog" aria-controls="wordNetDisplayMenu" aria-expanded="false" title="Display settings">
+                <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+              </button>
+              <div class="word-net-display-menu" id="wordNetDisplayMenu" role="dialog" aria-label="Display settings" hidden>
+                <span class="word-net-display-menu-label">Display</span>
+                <section class="word-net-display-menu-section" aria-labelledby="wordNetThemeLabel">
+                  <span id="wordNetThemeLabel">Theme</span>
+                  <div class="word-net-display-options" role="group" aria-label="Theme">
+                    <button type="button" data-theme-option="light" aria-pressed="true">
+                      <img src="/assets/icons/light_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      <span>Light</span>
+                    </button>
+                    <button type="button" data-theme-option="dark" aria-pressed="false">
+                      <img src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      <span>Dark</span>
+                    </button>
+                  </div>
+                </section>
+                <section class="word-net-display-menu-section" aria-labelledby="wordNetTextSizeLabel">
+                  <span id="wordNetTextSizeLabel">Text size</span>
+                  <div class="word-net-display-options word-net-display-size-options" role="group" aria-label="Text size">
+                    <button type="button" data-font-size-option="largest" aria-pressed="true"><span class="word-net-display-size-sample is-standard" aria-hidden="true">A</span><span>Standard</span></button>
+                    <button type="button" data-font-size-option="large" aria-pressed="false"><span class="word-net-display-size-sample is-small" aria-hidden="true">A</span><span>Small</span></button>
+                    <button type="button" data-font-size-option="standard" aria-pressed="false"><span class="word-net-display-size-sample is-smaller" aria-hidden="true">A</span><span>Smaller</span></button>
+                  </div>
+                </section>
+              </div>
+              <button class="word-net-icon-button word-net-audio-toggle" id="wordNetSound" type="button" aria-label="Czech audio settings" aria-haspopup="dialog" aria-controls="wordNetAudioMenu" aria-expanded="false" title="Czech audio settings">
+                <svg class="word-net-sound-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                  <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                  <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                </svg>
+              </button>
+              <div class="word-net-audio-menu" id="wordNetAudioMenu" role="dialog" aria-label="Audio settings" hidden>
+                <span class="word-net-audio-menu-label">Audio</span>
+                <button class="word-net-audio-autoplay" id="wordNetAudioAutoplay" type="button" role="switch" aria-checked="true">
+                  <span>Autoplay sentences</span>
+                </button>
+                <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="wordNetAudioSpeedLabel">
+                  <span class="word-net-audio-setting-title" id="wordNetAudioSpeedLabel">Speed</span>
+                  <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.65 times">
+                  <div class="word-net-audio-speed-ticks" id="wordNetAudioSpeedTicks" aria-hidden="true">
+                    <span>Slower <small>0.65×</small></span>
+                    <span>Slow <small>0.82×</small></span>
+                    <span>Normal <small>1×</small></span>
+                  </div>
+                </section>
+                <section class="word-net-audio-setting word-net-audio-voice-setting" aria-labelledby="wordNetAudioVoiceLabel">
+                  <label class="word-net-audio-voice" for="wordNetAudioVoice">
+                    <span class="word-net-audio-setting-title" id="wordNetAudioVoiceLabel">Voice</span>
+                    <select id="wordNetAudioVoice">
+                      <option value="">Automatic (recommended)</option>
+                    </select>
+                  </label>
+                  <p class="word-net-audio-status" id="wordNetAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Czech voices...</p>
+                  <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
+                </section>
+              </div>
+              <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Challenge type and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
+                <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
+              </button>
+              <div class="word-net-translation-menu" id="wordNetTranslationMenu" role="menu" aria-label="Challenge type and dictionary settings" hidden>
+                <section class="word-net-translation-menu-section" role="group" aria-labelledby="wordNetAnswerSettingsLabel">
+                  <span class="word-net-translation-menu-label" id="wordNetAnswerSettingsLabel">Challenge type</span>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-answer-mode="reconstruct"><span>Organize pieces</span><small>Order the words · 3 XP</small></button>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-answer-mode="wait"><span>Wait &amp; reveal</span><small>Show the answer after a delay · 1 XP</small></button>
+                  <div class="word-net-translation-timers" id="wordNetTranslationTimers" role="group" aria-labelledby="wordNetRevealDelayLabel" hidden>
+                    <span class="word-net-translation-timer-label" id="wordNetRevealDelayLabel">Reveal after</span>
+                    <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-0">0s</button>
+                    <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-5">5s</button>
+                    <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-10">10s</button>
+                    <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-30">30s</button>
+                  </div>
+                </section>
+                <section class="word-net-translation-menu-section" role="group" aria-labelledby="wordNetDictionarySettingsLabel">
+                  <span class="word-net-translation-menu-label" id="wordNetDictionarySettingsLabel">Dictionary card</span>
+                  <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="showCard" aria-checked="true">Show dictionary card</button>
+                  <button type="button" role="menuitemcheckbox" tabindex="-1" data-word-card-setting="autoPronounce" aria-checked="true">Speak selected words</button>
+                </section>
+              </div>
+              <button class="word-net-icon-button word-net-generation-toggle" id="wordNetGenerationToggle" type="button" aria-label="Generation options" aria-haspopup="menu" aria-expanded="false">
+                <span class="word-net-generation-icon" id="wordNetGenerationIcon" aria-hidden="true">
+                  <svg class="word-net-shuffle-icon" data-generation-icon="random" viewBox="0 0 24 24" focusable="false">
+                    <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                    <path d="m17 14 3 3-3 3"></path>
+                    <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                    <path d="m17 4 3 3-3 3"></path>
+                  </svg>
+                  <span data-generation-icon="selected" hidden>&#8635;</span>
+                </span>
+              </button>
+              <div class="word-net-generation-menu" id="wordNetGenerationMenu" role="menu" aria-label="Sentence generation" hidden>
+                <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetGenerationModeLabel">
+                  <span class="word-net-generation-menu-label" id="wordNetGenerationModeLabel">Next sentence</span>
+                  <button type="button" role="menuitemradio" data-generation-mode="random">
+                    <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                      <path d="m17 14 3 3-3 3"></path>
+                      <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                      <path d="m17 4 3 3-3 3"></path>
+                    </svg>
+                    <span data-generation-label>New word</span>
+                  </button>
+                  <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>Selected word</span></button>
+                </section>
+                <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">
+                  <span class="word-net-generation-menu-label" id="wordNetContentSourceLabel">Sentence source</span>
+                  <div class="word-net-content-source" id="wordNetContentSource" role="group" aria-label="Sentence source">
+                    <div class="word-net-content-source-options">
+                      <button type="button" data-content-mode="standard" aria-pressed="true">
+                        <strong>Standard</strong>
+                        <small>offline</small>
+                      </button>
+                      <button type="button" data-content-mode="generative" aria-pressed="false">
+                        <strong>Generative</strong>
+                        <small>local AI</small>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="word-net-generative-note" id="wordNetGenerativeNote" hidden>Optional local AI requires an initial download.</p>
+                </section>
+              </div>
+            </div>
+            <button class="word-net-side-nav word-net-side-previous" id="wordNetPrevious" type="button" aria-label="Previous sentence" title="Previous sentence">
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+            <button class="word-net-side-nav word-net-side-next" id="wordNetNext" type="button" aria-label="Next sentence" title="Next sentence">
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
+            <div class="word-net-loading" id="wordNetLoading" hidden>
+              <img class="word-net-loading-art" id="wordNetLoadingArt" alt="" aria-hidden="true" fetchpriority="low" hidden>
+              <div class="word-net-loading-copy">
+                <span class="word-net-loading-spinner" aria-hidden="true"></span>
+              </div>
+            </div>
+            <figure class="word-net-scene" id="wordNetScene" hidden>
+              <img id="wordNetSceneImage" alt="">
+            </figure>
+            <div class="word-net-phrase-stack">
+              <div class="word-net-sentence-row">
+                <div class="cz-sentence-renderer" id="wordNetSentence" aria-live="polite"></div>
+                <button class="word-net-sound-toggle word-net-word-pronounce word-net-phrase-pronounce" id="wordNetPhraseSound" type="button" aria-label="Play Czech sentence aloud" aria-pressed="false" title="Play Czech sentence aloud" disabled>
+                  <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                    <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                    <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                  </svg>
+                  <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                    <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                  </svg>
+                </button>
+              </div>
+              <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
+              <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the English sentence" hidden>
+                <div class="word-net-reconstruction-play" id="wordNetReconstructionPlay">
+                  <div class="word-net-reconstruction-composer">
+                    <span class="word-net-reconstruction-language" aria-hidden="true">EN</span>
+                    <div class="word-net-reconstruction-answer" id="wordNetReconstructionAnswer" role="group" aria-label="Your English sentence" aria-describedby="wordNetInstructions"></div>
+                    <div class="word-net-reconstruction-actions" id="wordNetReconstructionActions" hidden>
+                      <button class="word-net-reconstruction-submit" id="wordNetReconstructionSubmit" type="button" aria-label="Submit answer" aria-describedby="wordNetInstructions" title="Submit answer" disabled>
+                        <img class="word-net-reconstruction-submit-icon" src="/assets/icons/paper_plane_submit_ui.png?v=paper-plane-1" width="30" height="30" alt="" aria-hidden="true">
+                        <span class="word-net-visually-hidden">Submit answer</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="word-net-reconstruction-bank" id="wordNetReconstructionBank" role="group" aria-label="English word choices"></div>
+                </div>
+                <section class="word-net-reconstruction-result" id="wordNetReconstructionResult" aria-labelledby="wordNetReconstructionResultTitle" hidden>
+                  <header class="word-net-reconstruction-result-head">
+                    <span class="word-net-reconstruction-result-mark" id="wordNetReconstructionResultMark" aria-hidden="true"></span>
+                    <span class="word-net-reconstruction-result-heading">
+                      <span class="word-net-reconstruction-result-kicker">Challenge result</span>
+                      <h2 id="wordNetReconstructionResultTitle" tabindex="-1"></h2>
+                    </span>
+                    <strong class="word-net-reconstruction-result-points" id="wordNetReconstructionResultPoints"></strong>
+                  </header>
+                  <p class="word-net-reconstruction-result-message" id="wordNetReconstructionResultMessage" hidden></p>
+                  <div class="word-net-reconstruction-result-answers">
+                    <div class="word-net-reconstruction-result-answer is-attempt" id="wordNetReconstructionResultAttempt" hidden>
+                      <span>Your answer</span>
+                      <div class="word-net-reconstruction-result-diff" id="wordNetReconstructionResultAttemptText"></div>
+                    </div>
+                    <div class="word-net-reconstruction-result-answer is-correct-answer" id="wordNetReconstructionResultCorrect" hidden>
+                      <span>Correct answer</span>
+                      <strong id="wordNetReconstructionResultCorrectText"></strong>
+                    </div>
+                  </div>
+                </section>
+                <p class="word-net-visually-hidden" id="wordNetReconstructionStatus" aria-live="polite" aria-atomic="true"></p>
+              </section>
+            </div>
+            <div class="word-net-feedback">
+              <button class="word-net-report-toggle" id="wordNetReportToggle" type="button" hidden>Report this sentence</button>
+              <dialog class="word-net-feedback-dialog" id="wordNetFeedbackDialog" aria-label="Report this sentence">
+                <form class="word-net-feedback-form" id="wordNetFeedbackForm">
+                  <label for="wordNetFeedbackReason">What seems wrong?</label>
+                  <select id="wordNetFeedbackReason" name="reason">
+                    <option value="nonsense_or_incorrect">Nonsense or incorrect</option>
+                    <option value="unnatural_czech">Unnatural Czech</option>
+                    <option value="wrong_translation">Wrong English translation</option>
+                    <option value="repeated_too_soon">Repeated too soon</option>
+                    <option value="other">Something else</option>
+                  </select>
+                  <textarea id="wordNetFeedbackComment" name="comment" rows="2" maxlength="400" placeholder="Optional note"></textarea>
+                  <div class="word-net-feedback-actions">
+                    <button id="wordNetFeedbackSubmit" type="submit">Send</button>
+                    <button id="wordNetFeedbackCancel" type="button">Cancel</button>
+                  </div>
+                </form>
+              </dialog>
+              <p class="word-net-feedback-status" id="wordNetFeedbackStatus" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <section class="word-net-status-panel" aria-label="Word World status">
+            <p class="word-net-instructions" id="wordNetInstructions">Use the side arrows or swipe to move between sentences. Tap any word for its meaning.</p>
+            <p class="word-net-live-status" id="wordNetStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+            <details class="word-net-diagnostics" id="wordNetDiagnostics">
+              <summary>
+                <span>Runtime</span>
+                <span class="word-net-diagnostics-summary" id="wordNetDiagnosticsSummary">starting · browser · queue 0/0 · cap 512</span>
+              </summary>
+              <dl class="word-net-diagnostics-grid">
+                <div>
+                  <dt>state</dt>
+                  <dd id="wordNetMetaPhase">starting</dd>
+                </div>
+                <div>
+                  <dt>model</dt>
+                  <dd id="wordNetMetaModel">browser fallback</dd>
+                </div>
+                <div>
+                  <dt id="wordNetMetaPoolLabel">corpus</dt>
+                  <dd id="wordNetMetaQueue">0 fresh · 0 saved</dd>
+                </div>
+                <div>
+                  <dt>next</dt>
+                  <dd id="wordNetMetaMode">Random</dd>
+                </div>
+                <div>
+                  <dt>source</dt>
+                  <dd id="wordNetMetaSource">—</dd>
+                </div>
+                <div>
+                  <dt>history</dt>
+                  <dd id="wordNetMetaHistory">0</dd>
+                </div>
+              </dl>
+            </details>
+            <div class="word-net-progress" id="wordNetProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+              <span id="wordNetProgressBar"></span>
+            </div>
+          </section>
+
+          <section class="word-net-trail" aria-label="Phrase log">
+            <div class="word-net-trail-head">
+              <h2>Log</h2>
+            </div>
+            <ol id="wordNetTrail"></ol>
+          </section>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="icons/caatuu-czech-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+        </a>
+      </footer>
+    </div>
+
+    <dialog
+      class="word-net-generative-dialog"
+      id="wordNetGenerativeDialog"
+      aria-labelledby="wordNetGenerativeDialogTitle"
+      aria-describedby="wordNetGenerativeDialogDescription"
+    >
+      <form class="word-net-generative-dialog-card" method="dialog">
+        <div class="word-net-generative-dialog-art" aria-hidden="true">
+          <img src="/assets/robots/robot%20(1).png" alt="">
+        </div>
+        <div class="word-net-generative-dialog-copy">
+          <p class="word-net-generative-dialog-kicker">Optional local AI</p>
+          <h2 id="wordNetGenerativeDialogTitle">Prepare Generative mode?</h2>
+          <p id="wordNetGenerativeDialogDescription">The first use downloads about 1.9 GB of models to this device and may take several minutes. Wi-Fi is recommended.</p>
+          <p class="word-net-generative-dialog-note">Nothing downloads yet. The download starts only when you ask for a new Generative sentence; Standard remains available offline.</p>
+          <div class="word-net-generative-dialog-actions">
+            <button type="submit" value="cancel">Not now</button>
+            <button class="is-primary" type="submit" value="confirm">Continue</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <nav
+      class="bottom-app-nav"
+      aria-label="Caatuu Czech sections"
+      data-caatuu-bottom-nav
+      data-active-section="verbs"
+      data-settings-href="index.html"
+    ></nav>
+
+  <script src="source/shared/chrome.js?v=chrome-109"></script>
+    <script src="source/shared/maintenance-ui.js?v=maintenance-16"></script>
+    <script type="module" src="source/games/word-world/word-net.js?v=word-net-89"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "default_model": "english-minilm",
+  "models": [
+    {
+      "key": "english-minilm",
+      "status": "active",
+      "input_language": "en"
+    }
+  ]
+}

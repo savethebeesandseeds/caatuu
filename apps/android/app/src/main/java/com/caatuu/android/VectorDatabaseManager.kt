@@ -73,9 +73,12 @@ data class VectorSearchResult(
 
 class VectorDatabaseManager(
     context: Context,
+    catalogAssetPath: String,
     private val embeddingRuntime: CaatuuEmbeddingRuntime? = null,
 ) {
     private val appContext = context.applicationContext
+    private val embeddingCatalogAsset = normalizedAssetPath(catalogAssetPath, "Embedding catalog")
+    private val embeddingCatalogDirectory = embeddingCatalogAsset.substringBeforeLast('/', "")
     private val databasesDir = File(appContext.filesDir, "vector-dbs")
     private val vectorCatalog = loadVectorDatabaseCatalog()
     private val defaultSpec = vectorCatalog.models.first { it.key == vectorCatalog.defaultModelKey }
@@ -83,6 +86,16 @@ class VectorDatabaseManager(
     private var openPath: String? = null
 
     fun defaultSpec(): VectorDatabaseSpec = defaultSpec
+
+    fun modelAssetPath(spec: VectorDatabaseSpec = defaultSpec): String =
+        resolveEmbeddingAssetPath(spec.modelFile)
+
+    fun ownsAssetPath(assetPath: String): Boolean {
+        val normalized = runCatching { normalizedAssetPath(assetPath, "Embedding asset") }.getOrNull()
+            ?: return false
+        return normalized == embeddingCatalogAsset ||
+            (embeddingCatalogDirectory.isNotEmpty() && normalized.startsWith("$embeddingCatalogDirectory/"))
+    }
 
     suspend fun ensureDatabase(spec: VectorDatabaseSpec, onProgress: (ModelProgress) -> Unit): File =
         withContext(Dispatchers.IO) {
@@ -435,21 +448,27 @@ class VectorDatabaseManager(
     private fun ByteArray.toHex(): String = joinToString("") { "%02x".format(it) }
 
     private fun loadVectorDatabaseCatalog(): VectorDatabaseCatalog {
-        val catalog = appContext.assets.open(EMBEDDING_CATALOG_ASSET).bufferedReader().use { reader ->
+        val catalog = appContext.assets.open(embeddingCatalogAsset).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
         val baseUrl = catalog.getString("base_url").trimEnd('/')
+        require(baseUrl.startsWith("https://")) { "Embedding catalog base_url must use HTTPS." }
         val modelsJson = catalog.getJSONArray("models")
         val specs = mutableListOf<VectorDatabaseSpec>()
         for (index in 0 until modelsJson.length()) {
-            specs += parseVectorDatabaseSpec(modelsJson.getJSONObject(index), baseUrl)
+            val item = modelsJson.getJSONObject(index)
+            if (item.optString("status") == "active") {
+                specs += parseVectorDatabaseSpec(item, baseUrl)
+            }
         }
-        if (specs.isEmpty()) throw IllegalStateException("$EMBEDDING_CATALOG_ASSET does not define any embedding models.")
+        if (specs.isEmpty()) throw IllegalStateException("$embeddingCatalogAsset does not define any embedding models.")
 
-        val requestedDefault = catalog.optString("default_model", specs.first().key)
-        val resolvedDefault = requestedDefault.takeIf { key -> specs.any { it.key == key } } ?: specs.first().key
+        val requestedDefault = catalog.getString("default_model")
+        require(specs.any { it.key == requestedDefault }) {
+            "Embedding catalog default_model must select an active model."
+        }
         return VectorDatabaseCatalog(
-            defaultModelKey = resolvedDefault,
+            defaultModelKey = requestedDefault,
             baseUrl = baseUrl,
             models = specs,
         )
@@ -463,8 +482,29 @@ class VectorDatabaseManager(
         val manifest = appContext.assets.open(resolveEmbeddingAssetPath(manifestFile)).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
-        val fileName = manifest.optString("file", modelFile.substringAfterLast('/'))
-        val url = resolveDownloadUrl(baseUrl, manifest.optString("url", modelFile))
+        val fileName = manifest.getString("file")
+        val url = resolveDownloadUrl(baseUrl, manifest.getString("url"))
+        val embeddingDimension = manifest.getInt("embedding_dimension")
+        val embeddingTextField = manifest.getString("embedding_text_field")
+        val embeddingInputPolicy = manifest.getString("embedding_input_policy")
+        require(manifest.getString("model_id") == key) {
+            "Embedding manifest model_id must match catalog key $key."
+        }
+        require(manifest.getLong("bytes") == item.getLong("bytes")) {
+            "Embedding manifest bytes must match catalog model $key."
+        }
+        require(manifest.getString("sha256") == item.getString("sha256")) {
+            "Embedding manifest SHA-256 must match catalog model $key."
+        }
+        require(embeddingDimension == EMBEDDING_DIMENSION) {
+            "Unsupported embedding dimension $embeddingDimension."
+        }
+        require(embeddingTextField == EMBEDDING_TEXT_FIELD) {
+            "Unsupported embedding text field $embeddingTextField."
+        }
+        require(embeddingInputPolicy == EMBEDDING_INPUT_POLICY) {
+            "Unsupported embedding input policy $embeddingInputPolicy."
+        }
         return VectorDatabaseSpec(
             key = key,
             label = label,
@@ -477,33 +517,33 @@ class VectorDatabaseManager(
             manifestFile = manifestFile,
             fileName = fileName,
             url = url,
-            bytes = manifest.optLong("bytes", item.getLong("bytes")),
-            sha256 = manifest.optString("sha256", item.getString("sha256")),
-            schemaName = manifest.optString("schema_name", SCHEMA_NAME),
-            schemaVersion = manifest.optInt("schema_version", SCHEMA_VERSION),
-            embeddingDimension = manifest.optInt("embedding_dimension", item.optInt("embedding_dimension", EMBEDDING_DIMENSION)),
-            embeddingTextField = manifest.optString(
-                "embedding_text_field",
-                item.optString("embedding_text_field", EMBEDDING_TEXT_FIELD),
-            ),
-            embeddingInputPolicy = manifest.optString(
-                "embedding_input_policy",
-                item.optString("embedding_input_policy", EMBEDDING_INPUT_POLICY),
-            ),
+            bytes = manifest.getLong("bytes"),
+            sha256 = manifest.getString("sha256"),
+            schemaName = manifest.getString("schema_name"),
+            schemaVersion = manifest.getInt("schema_version"),
+            embeddingDimension = embeddingDimension,
+            embeddingTextField = embeddingTextField,
+            embeddingInputPolicy = embeddingInputPolicy,
             trainable = item.optBoolean("trainable", false),
         )
     }
 
     private fun resolveEmbeddingAssetPath(path: String): String {
-        val normalized = path.replace('\\', '/').trimStart('/')
-        return if (normalized.startsWith("data/embeddings/")) normalized else "data/embeddings/$normalized"
+        val normalized = normalizedAssetPath(path, "Embedding catalog reference")
+        return if (embeddingCatalogDirectory.isEmpty() || normalized.startsWith("$embeddingCatalogDirectory/")) {
+            normalized
+        } else {
+            "$embeddingCatalogDirectory/$normalized"
+        }
     }
 
     private fun resolveDownloadUrl(baseUrl: String, urlOrPath: String): String {
         val value = urlOrPath.trim()
         if (value.startsWith("http://") || value.startsWith("https://")) return value
         if (value.startsWith("/")) return "https://caatuu.waajacu.com$value"
-        val relative = value.removePrefix("data/embeddings/").trimStart('/')
+        val relative = value
+            .removePrefix(embeddingCatalogDirectory.takeIf { it.isNotEmpty() }?.plus('/') ?: "")
+            .trimStart('/')
         return "$baseUrl/$relative"
     }
 
@@ -514,18 +554,29 @@ class VectorDatabaseManager(
     }
 
     companion object {
-        const val SCHEMA_NAME = "caatuu-cz-vector-db"
-        const val SCHEMA_VERSION = 1
         const val EMBEDDING_DIMENSION = 384
         const val EMBEDDING_TEXT_FIELD = "english_text"
         const val EMBEDDING_INPUT_POLICY = "english_text_only"
-        private const val EMBEDDING_CATALOG_ASSET = "data/embeddings/models.json"
         private const val DATABASE_CONNECT_TIMEOUT_MS = 30_000
         private const val DATABASE_READ_TIMEOUT_MS = 120_000
         private const val DATABASE_DOWNLOAD_ATTEMPTS = 4
         private const val DATABASE_RETRY_DELAY_MS = 1_500L
         private const val FNV_OFFSET_BASIS = -3750763034362895579L
         private const val FNV_PRIME = 1099511628211L
+
+        private fun normalizedAssetPath(value: String, label: String): String {
+            val normalized = value.trim()
+            require(
+                normalized.isNotEmpty() &&
+                    normalized == value &&
+                    !normalized.startsWith('/') &&
+                    !normalized.contains('\\') &&
+                    normalized.split('/').all { segment ->
+                        segment.isNotEmpty() && segment != "." && segment != ".."
+                    },
+            ) { "$label path is unsafe." }
+            return normalized
+        }
 
         fun localHashEmbedding(text: String): FloatArray {
             val tokens = tokenize(text)

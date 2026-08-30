@@ -10,7 +10,7 @@ const [activity, manifest, bridge, chrome, runtime] = await Promise.all([
   readFile(new URL("java/com/caatuu/android/MainActivity.kt", androidRoot), "utf8"),
   readFile(new URL("AndroidManifest.xml", androidRoot), "utf8"),
   readFile(new URL("java/com/caatuu/android/CaatuuBridge.kt", androidRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
+  readFile(new URL("apps/language-runtime/static/source/caatuu-chrome.js", repoRoot), "utf8"),
   readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
 ]);
 

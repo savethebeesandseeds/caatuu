@@ -2,13 +2,19 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
+import {
+  requiredAssetPaths,
+  requiredNativeClassNames,
+} from "../validate-product-package.mjs";
+
 const repoRoot = new URL("../../../../", import.meta.url);
-const [builder, validator, compiler, productBuild, settings] = await Promise.all([
+const [builder, validator, compiler, productBuild, settings, appAssetCatalog] = await Promise.all([
   readFile(new URL("apps/android/tooling/build-release-aab.sh", repoRoot), "utf8"),
   readFile(new URL("apps/android/tooling/validate-product-package.mjs", repoRoot), "utf8"),
   readFile(new URL("apps/android/tooling/build-product-assets.mjs", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
+  readFile(new URL("apps/language-runtime/app-assets.json", repoRoot), "utf8").then(JSON.parse),
 ]);
 
 test("the canonical builder constructs only the product release profile", () => {
@@ -102,6 +108,64 @@ test("the package validator requires the retained local embedding stack", () => 
   assert.match(validator, /active\?\.download_url/);
 });
 
+test("package requirements follow declared embeddings and dictionary capabilities", () => {
+  const embeddingOnly = {
+    course: { id: "fixture-no-llm" },
+    capabilities: {
+      embeddings: true,
+      dictionary: false,
+    },
+    nativeProviders: {
+      schemaVersion: 1,
+      providers: {
+        embeddings: {
+          implementation: "vector-database-catalog-v1",
+          catalogAsset: "native/semantic/catalog.json",
+        },
+      },
+    },
+  };
+  const embeddingAssets = requiredAssetPaths(embeddingOnly);
+  assert.ok(embeddingAssets.includes("native/semantic/catalog.json"));
+  assert.ok(!embeddingAssets.includes("data/embeddings/models.json"));
+  assert.ok(embeddingAssets.includes("language-runtime/contract.mjs"));
+  assert.ok(!embeddingAssets.some((path) => path.startsWith("data/dictionaries/")));
+  assert.ok(!embeddingAssets.some((path) => path.startsWith("data/models/")));
+  for (const { output } of appAssetCatalog.assets) {
+    assert.ok(embeddingAssets.includes(output), `package requirements must include shared app asset ${output}`);
+  }
+
+  const embeddingClasses = requiredNativeClassNames(embeddingOnly);
+  assert.ok(embeddingClasses.includes("com.caatuu.android.VectorDatabaseManager"));
+  assert.ok(!embeddingClasses.includes("com.caatuu.android.DictionaryManager"));
+
+  const czechCapabilities = {
+    course: { id: "cz" },
+    capabilities: { embeddings: true, dictionary: true },
+    nativeProviders: {
+      schemaVersion: 1,
+      providers: {
+        embeddings: {
+          implementation: "vector-database-catalog-v1",
+          catalogAsset: "data/embeddings/models.json",
+        },
+        dictionary: {
+          implementation: "sqlite-dictionary-catalog-v1",
+          catalogAsset: "data/dictionaries/catalog.json",
+        },
+      },
+    },
+  };
+  assert.ok(requiredAssetPaths(czechCapabilities).includes("data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"));
+  assert.ok(requiredNativeClassNames(czechCapabilities).includes("com.caatuu.android.DictionaryManager"));
+});
+
+test("the package validator binds every Android artifact to the canonical app document", () => {
+  assert.match(validator, /apps\/language-runtime\/static\/app\/index\.html/);
+  assert.match(validator, /index\.html must be byte-for-byte identical/);
+  assert.match(validator, /SHARED_APP_REQUIRED_ASSET_PATHS/);
+});
+
 test("the validator distinguishes embedding vendor code from first-party capability code", () => {
   assert.match(validator, /assetPath\.startsWith\("vendor\/"\)/);
   assert.doesNotMatch(validator, /\/\\bgenerative\\b\/i/);
@@ -123,7 +187,7 @@ test("the validator distinguishes embedding vendor code from first-party capabil
 });
 
 test("the profile marker and Android package identity are fail-closed", () => {
-  assert.match(compiler, /writeText\(join\(resolvedOutput, "caatuu-profile\.json"\)/);
+  assert.match(compiler, /writeText\([\s\S]*?join\(resolvedOutput, "caatuu-profile\.json"\)/);
   for (const capability of ["chat", "llm", "generation", "godot"]) {
     assert.match(validator, new RegExp(`"${capability}"`));
   }
@@ -132,12 +196,18 @@ test("the profile marker and Android package identity are fail-closed", () => {
     "imageLookup",
     "stats",
     "dictionary",
+    "speech",
     "wordWorldStandardOnly",
   ]) {
     assert.match(validator, new RegExp(capability));
   }
   assert.match(validator, /bugReportsLocalOnly/);
   assert.match(validator, /dictionaryGapReportsLocalOnly/);
+  assert.match(validator, /native providers must exactly match enabled capabilities/);
+  assert.match(validator, /vector-database-catalog-v1/);
+  assert.match(validator, /sqlite-dictionary-catalog-v1/);
+  assert.match(validator, /packaged assets must exactly match the manifest-derived product profile/);
+  assert.match(validator, /profile\.course\.id === "cz"/);
   assert.match(validator, /com\.waajacu\.caatuu/);
   assert.match(validator, /EXPECTED_MIN_SDK = 30/);
   assert.match(validator, /MINIMUM_TARGET_SDK = 36/);

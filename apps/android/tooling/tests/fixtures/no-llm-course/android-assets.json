@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "courseId": "fixture-no-llm",
+  "nativeProviders": {
+    "schemaVersion": 1,
+    "providers": {
+      "embeddings": {
+        "implementation": "vector-database-catalog-v1",
+        "resource": "embeddingCatalog"
+      }
+    }
+  },
+  "files": [
+    "icons/fixture-no-llm-512.png",
+    "manifest.webmanifest",
+    "native/semantic/catalog.json",
+    "native/semantic/english-minilm/manifest.json",
+    "setup-assets.json",
+    "source/shared/course-profile.js",
+    "source/shared/vector-db.js"
+  ],
+  "launcherIconFiles": []
+}

@@ -17,7 +17,7 @@ import {
   shuffleVerbMeanings,
   validatePinnedVerbPairLocator,
   verbPairMatches,
-} from "../../../apps/languages/czech/static/source/games/verb-nebula/verb-nebula-core.mjs";
+} from "../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs";
 
 test("uses the exact English equivalent for Macaw retrieval", () => {
   assert.equal(verbHintSearchText({ cz: "letět", eng: "fly" }), "fly");
@@ -52,8 +52,12 @@ const dictionaryUrl = new URL(
   "../../../apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
   import.meta.url
 );
-const appUrl = new URL("../../../apps/languages/czech/static/source/games/verb-nebula/app.js", import.meta.url);
-const indexUrl = new URL("../../../apps/languages/czech/static/index.html", import.meta.url);
+const mandarinDictionaryUrl = new URL(
+  "../../../apps/languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json",
+  import.meta.url
+);
+const appUrl = new URL("../../../apps/language-runtime/static/source/caatuu-workspace.js", import.meta.url);
+const indexUrl = new URL("../../../apps/language-runtime/static/app/index.html", import.meta.url);
 
 test("extracts unique learner verbs from the ordered Core dictionary", async () => {
   const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
@@ -65,6 +69,22 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.equal(new Set(pairs.map((pair) => pair.cz.toLowerCase())).size, pairs.length);
   assert.equal(new Set(pairs.map((pair) => pair.eng.toLowerCase())).size, pairs.length);
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
+});
+
+test("extracts the canonical Mandarin pack through the same shared engine", async () => {
+  const dictionary = JSON.parse(await readFile(mandarinDictionaryUrl, "utf8"));
+  const pairs = extractCoreVerbPairs(dictionary);
+
+  assert.equal(pairs.length, 10);
+  assert.ok(pairs.every((pair) => pair.id.startsWith("zh.verb.")));
+  assert.deepEqual(
+    pairs.slice(0, 3).map(({ target, source }) => ({ target, source })),
+    [
+      { target: "是", source: "be" },
+      { target: "有", source: "have" },
+      { target: "叫", source: "be called" }
+    ]
+  );
 });
 
 test("keeps the ordered Core dictionary child-safe without moving stable verb rows", async () => {
@@ -96,7 +116,10 @@ test("keeps the ordered Core dictionary child-safe without moving stable verb ro
 
 test("filters combat Macaw assets from every child-facing Verb Nebula hint source", async () => {
   const app = await readFile(appUrl, "utf8");
-  assert.match(app, /import\("\.\.\/\.\.\/shared\/child-facing-assets\.mjs\?v=child-facing-assets-1"\)/);
+  assert.match(
+    app,
+    /import\("\/language-runtime\/static\/source\/child-facing-assets\.mjs\?v=child-facing-assets-2"\)/
+  );
   assert.match(app, /function isChildSafeVerbHintAsset\(assetPath, action = ""\)/);
   assert.match(app, /childFacingAssets\?\.isChildFacingMacawActionAssetAllowed\(normalizedPath, action\)/);
   assert.match(app, /vectorVerbHintCandidates\(pair\)[\s\S]*?filter\(\(row\) => isChildSafeVerbHintAsset\(row\.assetPath\)\)/);

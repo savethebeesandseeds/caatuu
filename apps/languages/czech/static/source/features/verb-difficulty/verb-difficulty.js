@@ -1,4 +1,4 @@
-import { extractCoreVerbPairs } from "../../games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-10";
+import { extractCoreVerbPairs } from "../../games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11";
 
 const levels = [
   { value: 1, name: "Explorer", note: "Essential everyday verbs" },

@@ -3,25 +3,46 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
-const [themeCss, appCss, chatCss, chromeCss, chromeJs, ...pages] = await Promise.all([
-  readFile(new URL("source/shared/theme.css", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
-  readFile(new URL("source/features/chat/chat.css", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  ...["index.html", "chat.html", "conjugation-comet.html", "word-net.html", "embedding-images.html", "verb-difficulty.html", "audio-lab.html"]
+const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
+const pageNames = [
+  "chat.html",
+  "conjugation-comet.html",
+  "embedding-images.html",
+  "verb-difficulty.html",
+  "audio-lab.html"
+];
+const themeCss = await readFile(new URL("styles/caatuu-theme.css", languageRuntimeStatic), "utf8");
+const appCss = await readFile(new URL("styles/caatuu-workspace.css", languageRuntimeStatic), "utf8");
+const chatCss = await readFile(new URL("source/features/chat/chat.css", staticRoot), "utf8");
+const chromeCss = await readFile(new URL("styles/caatuu-chrome.css", languageRuntimeStatic), "utf8");
+const chromeJs = await readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8");
+const initialThemeJs = await readFile(new URL("source/initial-theme.js", languageRuntimeStatic), "utf8");
+const canonicalShell = await readFile(new URL("app/index.html", languageRuntimeStatic), "utf8");
+const pages = await Promise.all(
+  pageNames.map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
+);
+const allPages = [{ name: "canonical app", source: canonicalShell }, ...pages];
+const embeddedWorkspacePages = await Promise.all(
+  ["conjugation-comet.html", "case-cosmos.html", "agreement-aurora.html"]
     .map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
-]);
-const [homeCss, launcherCss] = await Promise.all([
-  readFile(new URL("source/features/home/home.css", staticRoot), "utf8"),
-  readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8")
-]);
+);
+const homeCss = await readFile(new URL("styles/caatuu-home.css", languageRuntimeStatic), "utf8");
+const launcherCss = await readFile(new URL("../../../launcher/static/app.css", staticRoot), "utf8");
 
 test("Home and Games share one cached application shell", () => {
-  const shell = pages.find((page) => page.name === "index.html")?.source || "";
-  assert.match(shell, /id="view-home"/);
-  assert.match(shell, /href="source\/features\/home\/home\.css\?v=home-29"/);
-  assert.match(shell, /href="source\/games\/verb-nebula\/app\.css\?v=shell-82"/);
+  assert.match(canonicalShell, /id="view-home"/);
+  assert.match(canonicalShell, /href="\/language-runtime\/static\/styles\/caatuu-home\.css\?v=home-32"/);
+  assert.match(canonicalShell, /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-88"/);
+});
+
+test("embedded Czech games request the exact cached shared workspace stylesheet", () => {
+  for (const { name, source } of embeddedWorkspacePages) {
+    assert.match(
+      source,
+      /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-88"/u,
+      `${name} must use the owned workspace stylesheet query`
+    );
+  }
 });
 
 function cssRules(source) {
@@ -306,9 +327,9 @@ test("dark primary surfaces avoid hard-coded pure black and white backgrounds", 
 });
 
 test("every settings surface receives shared theme tokens before shared Chrome", () => {
-  for (const { name, source } of pages) {
-    const themeIndex = source.indexOf('href="source/shared/theme.css');
-    const chromeIndex = source.indexOf('href="source/shared/chrome.css');
+  for (const { name, source } of allPages) {
+    const themeIndex = source.indexOf('href="/language-runtime/static/styles/caatuu-theme.css');
+    const chromeIndex = source.indexOf('href="/language-runtime/static/styles/caatuu-chrome.css');
     assert.ok(themeIndex >= 0, `${name} must load theme.css`);
     assert.ok(chromeIndex > themeIndex, `${name} must load theme.css before chrome.css`);
   }
@@ -342,8 +363,18 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.match(chromeJs, /data-theme-option="light"[\s\S]*?src="\$\{lightModeIconSrc\}"[\s\S]*?<b>Light<\/b>/);
   assert.doesNotMatch(chromeJs, /<h3>Pronunciation<\/h3>/);
   assert.doesNotMatch(chromeJs, /Choose the installed voice that reads Czech sentences aloud\./);
-  assert.match(chromeJs, /Automatic will use the best available Czech voice\./);
+  assert.match(chromeJs, /Automatic will use the best available \$\{targetLanguage\.label\} voice\./);
   assert.match(chromeJs, /updateFontSizeControls\(readStoredFontSize\(\)\);[\s\S]*?setSettingsView\(panel, readRememberedBackpackView\(\), \{ persist: false \}\)/);
+
+  const canonicalProfileIndex = canonicalShell.indexOf('src="source/shared/course-profile.js?v=course-25"');
+  const canonicalInitialThemeIndex = canonicalShell.indexOf('src="/language-runtime/static/source/initial-theme.js?v=theme-1"');
+  const canonicalThemeCssIndex = canonicalShell.indexOf('href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5"');
+  assert.ok(canonicalProfileIndex >= 0, "the canonical app must load its route-local course profile");
+  assert.ok(canonicalInitialThemeIndex > canonicalProfileIndex, "the canonical app must initialize appearance after its course profile");
+  assert.ok(canonicalThemeCssIndex > canonicalInitialThemeIndex, "the canonical app must initialize appearance before loading theme CSS");
+  assert.match(initialThemeJs, /root\.localStorage\.getItem\(course\.storage\.fontSize\) \|\| "largest"/);
+  assert.match(initialThemeJs, /\["standard", "large", "largest"\]\.includes\(storedFontSize\)/);
+  assert.match(initialThemeJs, /html\.dataset\.fontSize = "largest"/);
 
   const appearance = ruleWithSelector(chromeCss, ".appearance-card");
   const appearanceControls = ruleWithSelector(chromeCss, ".appearance-controls");
@@ -401,9 +432,9 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-17"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-25"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
-    const themeIndex = source.indexOf('href="source/shared/theme.css?v=theme-5"');
+    const themeIndex = source.indexOf('href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
     assert.ok(bootstrapIndex > profileIndex, `${name} must read its font size after the course profile`);
     assert.ok(themeIndex > bootstrapIndex, `${name} must apply font size before loading CSS`);

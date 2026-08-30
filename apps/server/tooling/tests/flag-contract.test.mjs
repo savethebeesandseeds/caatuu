@@ -3,21 +3,23 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const czechStatic = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const czechAndroidAssets = new URL("../../../../apps/languages/czech/android-assets.json", import.meta.url);
 const launcherStatic = new URL("../../../../apps/launcher/static/", import.meta.url);
 const androidBuild = new URL("../../../../apps/android/app/build.gradle.kts", import.meta.url);
 
-const [chromeCss, appCss, chatCss, chromeJs, courseProfile, serviceWorker, launcherCss, launcherHtml, launcherJs, languageRegistry, androidGradle] = await Promise.all([
-  readFile(new URL("source/shared/chrome.css", czechStatic), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.css", czechStatic), "utf8"),
+const [chromeCss, appCss, chatCss, chromeJs, courseProfile, serviceWorker, launcherCss, launcherHtml, launcherJs, languageRegistry, androidGradle, androidAssets] = await Promise.all([
+  readFile(new URL("../../../language-runtime/static/styles/caatuu-chrome.css", czechStatic), "utf8"),
+  readFile(new URL("../../../language-runtime/static/styles/caatuu-workspace.css", czechStatic), "utf8"),
   readFile(new URL("source/features/chat/chat.css", czechStatic), "utf8"),
-  readFile(new URL("source/shared/chrome.js", czechStatic), "utf8"),
+  readFile(new URL("../../../language-runtime/static/source/caatuu-chrome.js", czechStatic), "utf8"),
   readFile(new URL("source/shared/course-profile.js", czechStatic), "utf8"),
-  readFile(new URL("sw.js", czechStatic), "utf8"),
+  readFile(new URL("setup-assets.json", czechStatic), "utf8"),
   readFile(new URL("app.css", launcherStatic), "utf8"),
   readFile(new URL("index.html", launcherStatic), "utf8"),
   readFile(new URL("launcher.js", launcherStatic), "utf8"),
   readFile(new URL("languages.json", launcherStatic), "utf8"),
-  readFile(androidBuild, "utf8")
+  readFile(androidBuild, "utf8"),
+  readFile(czechAndroidAssets, "utf8").then(JSON.parse)
 ]);
 
 function ruleBody(source, selector) {
@@ -49,12 +51,13 @@ test("the shared Czech header uses the configured PNG without a CSS frame", () =
 
   assert.match(
     chromeJs,
-    /function renderLanguageSwitch[\s\S]*?createElement\("img"\)[\s\S]*?className = targetLanguage\.flagClass[\s\S]*?src = targetLanguage\.flagSrc[\s\S]*?alt = ""/,
+    /function renderLanguageSwitch[\s\S]*?createElement\("img"\)[\s\S]*?className = \["caatuu-language-flag", targetLanguage\.flagClass\]\.filter\(Boolean\)\.join\(" "\)[\s\S]*?src = targetLanguage\.flagSrc[\s\S]*?alt = ""/,
     "shared Chrome should render the image declared by the language profile"
   );
   assert.match(courseProfile, /flagClass: "cz-flag",\s*flagSrc: "\/assets\/icons\/czech_flag_ui\.png"/, "the Czech profile should select the shared UI PNG flag");
   assert.match(serviceWorker, /"\/assets\/icons\/czech_flag_ui\.png"/, "the Czech UI flag must remain available offline");
-  assert.match(androidGradle, /"\*_ui\.png"/, "the Android package must include shared UI image variants");
+  assert.ok(androidAssets.launcherIconFiles.includes("czech_flag_ui.png"), "the Android allowlist must include the configured Czech UI flag");
+  assert.match(androidGradle, /androidLauncherIconFiles/, "the Android package must consume the course-owned icon allowlist");
 });
 
 test("the language landing page uses the registered Czech PNG without a frame", () => {

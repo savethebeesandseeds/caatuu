@@ -27,11 +27,15 @@ import kotlin.math.max
 class ProductBridge(
     private val activity: Activity,
     private val webView: WebView,
-    private val vectorDatabaseManager: VectorDatabaseManager,
-    private val dictionaryManager: DictionaryManager,
+    private val courseCapabilities: CourseCapabilities,
+    private val vectorDatabaseManager: VectorDatabaseManager?,
+    private val dictionaryManager: DictionaryManager?,
     private val staticAssetManager: StaticAssetManager,
-    private val speechManager: AndroidSpeechManager,
+    private val speechManager: AndroidSpeechManager?,
     private val appUpdateManager: AppUpdateManager,
+    private val sourceLanguageLabel: String,
+    private val targetLanguageLabel: String,
+    private val speechLocaleTag: String,
     private val onThemeChanged: (String) -> Unit,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -40,6 +44,21 @@ class ProductBridge(
     private val requestStateLock = Any()
     private val activeRequests = mutableMapOf<String, Job>()
     private var activeSetupJob: Job? = null
+
+    init {
+        check(courseCapabilities.isEnabled("embeddings") == (vectorDatabaseManager != null)) {
+            "Embedding manager does not match the course capability boundary."
+        }
+        check(courseCapabilities.isEnabled("dictionary") == (dictionaryManager != null)) {
+            "Dictionary manager does not match the course capability boundary."
+        }
+        check(courseCapabilities.isEnabled("speech") == (speechManager != null)) {
+            "Speech manager does not match the course capability boundary."
+        }
+        require(sourceLanguageLabel.isNotBlank()) { "Source language label is missing." }
+        require(targetLanguageLabel.isNotBlank()) { "Target language label is missing." }
+        require(speechLocaleTag.isNotBlank()) { "Speech locale is missing." }
+    }
 
     @JavascriptInterface
     fun setTheme(theme: String) {
@@ -77,10 +96,10 @@ class ProductBridge(
                     "storage_preflight" -> emitDone(id, storagePreflightJson())
                     "setup_download" -> runSetupDownload(id)
                     "setup_abort" -> abortSetup(id)
-                    "vector_status" -> emitDone(id, vectorDatabaseManager.statusJson())
+                    "vector_status" -> emitDone(id, requireVectorDatabaseManager().statusJson())
                     "vector_download" -> downloadVectorDatabase(id)
                     "vector_search" -> searchVectorDatabase(id, request)
-                    "dictionary_status" -> emitDone(id, dictionaryManager.statusJson())
+                    "dictionary_status" -> emitDone(id, requireDictionaryManager().statusJson())
                     "dictionary_download" -> downloadDictionary(id)
                     "dictionary_search" -> searchDictionary(id, request)
                     "speech_status" -> speechStatus(id, request)
@@ -104,18 +123,27 @@ class ProductBridge(
     }
 
     fun onPause() {
-        speechManager.onPause()
+        speechManager?.onPause()
     }
 
     fun onResume() {
-        speechManager.onResume()
+        speechManager?.onResume()
     }
 
     fun destroy() {
-        speechManager.destroy()
-        vectorDatabaseManager.close()
+        speechManager?.destroy()
+        vectorDatabaseManager?.close()
         scope.cancel()
     }
+
+    private fun requireVectorDatabaseManager(): VectorDatabaseManager =
+        vectorDatabaseManager ?: throw IllegalArgumentException("Unknown native request type.")
+
+    private fun requireDictionaryManager(): DictionaryManager =
+        dictionaryManager ?: throw IllegalArgumentException("Unknown native request type.")
+
+    private fun requireSpeechManager(): AndroidSpeechManager =
+        speechManager ?: throw IllegalArgumentException("Unknown native request type.")
 
     private suspend fun cancelNativeRequest(id: String, request: JSONObject) {
         val requestId = request.optString("requestId").trim()
@@ -136,19 +164,21 @@ class ProductBridge(
     }
 
     private suspend fun downloadVectorDatabase(id: String) {
-        val spec = vectorDatabaseManager.defaultSpec()
+        val manager = requireVectorDatabaseManager()
+        val spec = manager.defaultSpec()
         val file = artifactMutex.withLock {
-            vectorDatabaseManager.ensureDatabase(spec) { progress ->
+            manager.ensureDatabase(spec) { progress ->
                 emitProgress(id, "vector_download", progress)
             }
         }
-        emitDone(id, vectorDatabaseManager.statusJson(spec).put("path", file.absolutePath))
+        emitDone(id, manager.statusJson(spec).put("path", file.absolutePath))
     }
 
     private suspend fun searchVectorDatabase(id: String, request: JSONObject) {
+        val manager = requireVectorDatabaseManager()
         val input = request.optJSONArray("vector")
             ?: throw IllegalArgumentException("The WebView semantic runtime must provide a query vector.")
-        val spec = vectorDatabaseManager.defaultSpec()
+        val spec = manager.defaultSpec()
         require(input.length() == spec.embeddingDimension) {
             "Expected ${spec.embeddingDimension} query dimensions, received ${input.length()}."
         }
@@ -156,15 +186,15 @@ class ProductBridge(
         val limit = request.optInt("limit", 10).coerceIn(1, 100)
         val sourceKinds = requestStringSet(request, "sourceKinds", "source_kinds")
         val results = artifactMutex.withLock {
-            vectorDatabaseManager.ensureDatabase(spec) { progress ->
+            manager.ensureDatabase(spec) { progress ->
                 emitProgress(id, "vector_download", progress)
             }
-            vectorDatabaseManager.searchVector(vector, limit, spec, sourceKinds)
+            manager.searchVector(vector, limit, spec, sourceKinds)
         }
         emitDone(
             id,
             JSONObject()
-                .put("status", vectorDatabaseManager.statusJson(spec))
+                .put("status", manager.statusJson(spec))
                 .put("results", JSONArray().also { array ->
                     results.forEach { result -> array.put(vectorResultJson(result)) }
                 }),
@@ -172,19 +202,21 @@ class ProductBridge(
     }
 
     private suspend fun downloadDictionary(id: String) {
+        val manager = requireDictionaryManager()
         val file = artifactMutex.withLock {
-            dictionaryManager.ensureDatabase { progress ->
+            manager.ensureDatabase { progress ->
                 emitProgress(id, "dictionary_download", progress)
             }
         }
-        emitDone(id, dictionaryManager.statusJson().put("path", file.absolutePath))
+        emitDone(id, manager.statusJson().put("path", file.absolutePath))
     }
 
     private suspend fun searchDictionary(id: String, request: JSONObject) {
+        val manager = requireDictionaryManager()
         val query = request.optString("query").trim()
         require(query.isNotBlank()) { "Dictionary search text is empty." }
         val limit = request.optInt("limit", 12).coerceIn(1, 60)
-        val result = artifactMutex.withLock { dictionaryManager.search(query, limit) }
+        val result = artifactMutex.withLock { manager.search(query, limit) }
         emitDone(id, result)
     }
 
@@ -220,7 +252,9 @@ class ProductBridge(
             it.assetPath.startsWith("assets/loading_animation/")
         }
         val prioritizedAssets = setupAnimationAssets + remainingAssets
-        val artifactCount = requiredAssets.size + 2
+        val artifactCount = requiredAssets.size +
+            (if (vectorDatabaseManager != null) 1 else 0) +
+            (if (dictionaryManager != null) 1 else 0)
 
         prioritizedAssets.forEachIndexed { index, spec ->
             val artifactIndex = index + 1
@@ -246,113 +280,118 @@ class ProductBridge(
             )
         }
 
-        val vectorSpec = vectorDatabaseManager.defaultSpec()
-        val vectorIndex = requiredAssets.size + 1
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "vector")
-                .put("artifactKind", "embedding-vector-db")
-                .put("artifactKey", vectorSpec.key)
-                .put("label", "Embeddings")
-                .put("artifactIndex", vectorIndex)
-                .put("artifactCount", artifactCount)
-                .put("message", "Preparing embeddings."),
-        )
-        val vectorFile = vectorDatabaseManager.ensureDatabase(vectorSpec) { progress ->
-            emitSetupProgress(
+        var nextArtifactIndex = requiredAssets.size + 1
+        vectorDatabaseManager?.let { manager ->
+            val vectorSpec = manager.defaultSpec()
+            val vectorIndex = nextArtifactIndex++
+            emit(
                 id,
-                "vector_download",
-                "embedding-vector-db",
-                vectorSpec.key,
-                "Embeddings",
-                vectorIndex,
-                artifactCount,
-                progress,
+                "status",
+                JSONObject()
+                    .put("phase", "vector")
+                    .put("artifactKind", "embedding-vector-db")
+                    .put("artifactKey", vectorSpec.key)
+                    .put("label", "Embeddings")
+                    .put("artifactIndex", vectorIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("message", "Preparing embeddings."),
+            )
+            val vectorFile = manager.ensureDatabase(vectorSpec) { progress ->
+                emitSetupProgress(
+                    id,
+                    "vector_download",
+                    "embedding-vector-db",
+                    vectorSpec.key,
+                    "Embeddings",
+                    vectorIndex,
+                    artifactCount,
+                    progress,
+                )
+            }
+            emit(
+                id,
+                "status",
+                JSONObject()
+                    .put("phase", "vector_ready")
+                    .put("artifactKind", "embedding-vector-db")
+                    .put("artifactKey", vectorSpec.key)
+                    .put("label", "Embeddings")
+                    .put("artifactIndex", vectorIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("path", vectorFile.absolutePath)
+                    .put("message", "Embeddings are ready."),
             )
         }
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "vector_ready")
-                .put("artifactKind", "embedding-vector-db")
-                .put("artifactKey", vectorSpec.key)
-                .put("label", "Embeddings")
-                .put("artifactIndex", vectorIndex)
-                .put("artifactCount", artifactCount)
-                .put("path", vectorFile.absolutePath)
-                .put("message", "Embeddings are ready."),
-        )
 
-        val dictionaryStatus = dictionaryManager.statusJson()
-        val dictionaryKey = dictionaryStatus.getString("key")
-        val dictionaryLabel = dictionaryStatus.optString("label", "Czech to English Dictionary")
-        val dictionaryIndex = requiredAssets.size + 2
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "dictionary")
-                .put("artifactKind", "dictionary-database")
-                .put("artifactKey", dictionaryKey)
-                .put("label", dictionaryLabel)
-                .put("artifactIndex", dictionaryIndex)
-                .put("artifactCount", artifactCount)
-                .put("message", "Preparing the Czech to English dictionary."),
-        )
-        val dictionaryFile = dictionaryManager.ensureDatabase { progress ->
-            emitSetupProgress(
+        dictionaryManager?.let { manager ->
+            val dictionaryStatus = manager.statusJson()
+            val dictionaryKey = dictionaryStatus.getString("key")
+            val dictionaryLabel = dictionaryStatus.optString(
+                "label",
+                "$targetLanguageLabel to $sourceLanguageLabel Dictionary",
+            )
+            val dictionaryIndex = nextArtifactIndex
+            emit(
                 id,
-                "dictionary_download",
-                "dictionary-database",
-                dictionaryKey,
-                dictionaryLabel,
-                dictionaryIndex,
-                artifactCount,
-                progress,
+                "status",
+                JSONObject()
+                    .put("phase", "dictionary")
+                    .put("artifactKind", "dictionary-database")
+                    .put("artifactKey", dictionaryKey)
+                    .put("label", dictionaryLabel)
+                    .put("artifactIndex", dictionaryIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("message", "Preparing $dictionaryLabel."),
+            )
+            val dictionaryFile = manager.ensureDatabase { progress ->
+                emitSetupProgress(
+                    id,
+                    "dictionary_download",
+                    "dictionary-database",
+                    dictionaryKey,
+                    dictionaryLabel,
+                    dictionaryIndex,
+                    artifactCount,
+                    progress,
+                )
+            }
+            emit(
+                id,
+                "status",
+                JSONObject()
+                    .put("phase", "dictionary_ready")
+                    .put("artifactKind", "dictionary-database")
+                    .put("artifactKey", dictionaryKey)
+                    .put("label", dictionaryLabel)
+                    .put("artifactIndex", dictionaryIndex)
+                    .put("artifactCount", artifactCount)
+                    .put("path", dictionaryFile.absolutePath)
+                    .put("message", "$dictionaryLabel is ready."),
             )
         }
-        emit(
-            id,
-            "status",
-            JSONObject()
-                .put("phase", "dictionary_ready")
-                .put("artifactKind", "dictionary-database")
-                .put("artifactKey", dictionaryKey)
-                .put("label", dictionaryLabel)
-                .put("artifactIndex", dictionaryIndex)
-                .put("artifactCount", artifactCount)
-                .put("path", dictionaryFile.absolutePath)
-                .put("message", "The Czech to English dictionary is ready."),
-        )
         emitDone(id, setupStatusJson().put("setupActive", false))
     }
 
     private fun setupStatusJson(): JSONObject {
         val assetStatus = staticAssetManager.statusJson()
-        val vectorStatus = vectorDatabaseManager.statusJson().put("required", true)
-        val vectorReady = vectorStatus.optBoolean("verified")
-        vectorStatus.put("ready", vectorReady)
-        val dictionaryStatus = dictionaryManager.statusJson()
-            .put("artifactKind", "dictionary-database")
-            .put("required", true)
-        val dictionaryReady = dictionaryStatus.optBoolean("available")
-        dictionaryStatus
-            .put("verified", dictionaryReady)
-            .put("ready", dictionaryReady)
+        val vectorStatus = vectorDatabaseManager?.statusJson()?.put("required", true)?.also { status ->
+            status.put("ready", status.optBoolean("verified"))
+        }
+        val dictionaryStatus = dictionaryManager?.statusJson()
+            ?.put("artifactKind", "dictionary-database")
+            ?.put("required", true)
+            ?.also { status ->
+                val ready = status.optBoolean("available")
+                status.put("verified", ready).put("ready", ready)
+            }
 
+        val optionalStatuses = listOfNotNull(vectorStatus, dictionaryStatus)
         val readyArtifacts = assetStatus.optInt("readyArtifacts") +
-            (if (vectorReady) 1 else 0) +
-            (if (dictionaryReady) 1 else 0)
-        val artifactCount = assetStatus.optInt("artifactCount") + 2
-        val bytes = assetStatus.optLong("bytes") +
-            vectorStatus.optLong("bytes") +
-            dictionaryStatus.optLong("bytes")
+            optionalStatuses.count { it.optBoolean("ready") }
+        val artifactCount = assetStatus.optInt("artifactCount") + optionalStatuses.size
+        val bytes = assetStatus.optLong("bytes") + optionalStatuses.sumOf { it.optLong("bytes") }
         val expectedBytes = assetStatus.optLong("expectedBytes") +
-            vectorStatus.optLong("expectedBytes") +
-            dictionaryStatus.optLong("expectedBytes")
+            optionalStatuses.sumOf { it.optLong("expectedBytes") }
 
         return JSONObject()
             .put("ready", readyArtifacts == artifactCount)
@@ -361,9 +400,11 @@ class ProductBridge(
             .put("artifactCount", artifactCount)
             .put("bytes", bytes)
             .put("expectedBytes", expectedBytes)
-            .put("vectorDatabase", vectorStatus)
-            .put("dictionary", dictionaryStatus)
             .put("staticAssets", assetStatus)
+            .also { status ->
+                if (vectorStatus != null) status.put("vectorDatabase", vectorStatus)
+                if (dictionaryStatus != null) status.put("dictionary", dictionaryStatus)
+            }
     }
 
     private fun storagePreflightJson(): JSONObject {
@@ -408,9 +449,10 @@ class ProductBridge(
     private suspend fun deleteLocalPack(id: String) {
         val setupWasActive = cancelActiveSetup("Setup stopped before deleting local files.")
         artifactMutex.withLock {
-            val vectorResult = vectorDatabaseManager.deleteLocalDatabases()
-            val dictionaryResult = dictionaryManager.deleteLocalDatabase()
+            val vectorResult = vectorDatabaseManager?.deleteLocalDatabases()
+            val dictionaryResult = dictionaryManager?.deleteLocalDatabase()
             val assetResult = staticAssetManager.deleteLocalAssets()
+            val optionalResults = listOfNotNull(vectorResult, dictionaryResult)
             emitDone(
                 id,
                 JSONObject()
@@ -419,13 +461,14 @@ class ProductBridge(
                     .put("setupWasActive", setupWasActive)
                     .put(
                         "bytesDeleted",
-                        vectorResult.optLong("bytesDeleted") +
-                            dictionaryResult.optLong("bytesDeleted") +
+                        optionalResults.sumOf { it.optLong("bytesDeleted") } +
                             assetResult.optLong("bytesDeleted"),
                     )
-                    .put("vectorDatabase", vectorResult)
-                    .put("dictionary", dictionaryResult)
-                    .put("staticAssets", assetResult),
+                    .put("staticAssets", assetResult)
+                    .also { result ->
+                        if (vectorResult != null) result.put("vectorDatabase", vectorResult)
+                        if (dictionaryResult != null) result.put("dictionary", dictionaryResult)
+                    },
             )
         }
     }
@@ -436,38 +479,38 @@ class ProductBridge(
             webView.clearCache(true)
             true
         }
-        emitDone(
-            id,
-            JSONObject()
-                .put("storageScope", "app-private cacheDir")
-                .put("localPackPreserved", true)
-                .put("vectorDatabasePreserved", true)
-                .put("dictionaryPreserved", true)
-                .put("staticAssetsPreserved", true)
-                .put("deletedOnUninstall", true)
-                .put("bytesDeleted", appCacheResult.optLong("bytesDeleted"))
-                .put("appCache", appCacheResult)
-                .put("webViewCacheCleared", webViewCacheCleared),
-        )
+        val result = JSONObject()
+            .put("storageScope", "app-private cacheDir")
+            .put("localPackPreserved", true)
+            .put("staticAssetsPreserved", true)
+            .put("deletedOnUninstall", true)
+            .put("bytesDeleted", appCacheResult.optLong("bytesDeleted"))
+            .put("appCache", appCacheResult)
+            .put("webViewCacheCleared", webViewCacheCleared)
+        if (vectorDatabaseManager != null) result.put("vectorDatabasePreserved", true)
+        if (dictionaryManager != null) result.put("dictionaryPreserved", true)
+        emitDone(id, result)
     }
 
     private suspend fun speechStatus(id: String, request: JSONObject) {
-        val locale = request.optString("locale", "cs-CZ")
+        val manager = requireSpeechManager()
+        val locale = request.optString("locale").trim().ifBlank { speechLocaleTag }
         val voice = request.optString("voice").trim()
         require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
-        emitDone(id, speechManager.status(locale, voice))
+        emitDone(id, manager.status(locale, voice))
     }
 
     private suspend fun speakSpeech(id: String, request: JSONObject) {
+        val manager = requireSpeechManager()
         val text = request.optString("text").trim()
-        val locale = request.optString("locale", "cs-CZ")
+        val locale = request.optString("locale").trim().ifBlank { speechLocaleTag }
         val rate = request.optDouble("rate", 0.9).toFloat()
         val pitch = request.optDouble("pitch", 1.0).toFloat()
         val voice = request.optString("voice").trim()
         require(rate.isFinite()) { "Speech rate is invalid." }
         require(pitch.isFinite()) { "Speech pitch is invalid." }
         require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
-        val result = speechManager.speak(text, locale, rate, pitch, voice) { utteranceId ->
+        val result = manager.speak(text, locale, rate, pitch, voice) { utteranceId ->
             emit(
                 id,
                 "speech",
@@ -481,17 +524,19 @@ class ProductBridge(
     }
 
     private fun stopSpeech(id: String) {
+        val manager = requireSpeechManager()
         emitDone(
             id,
             JSONObject()
                 .put("runtime", "android-text-to-speech")
-                .put("stopped", speechManager.stop()),
+                .put("stopped", manager.stop()),
         )
     }
 
     private fun installSpeechData(id: String) {
+        val manager = requireSpeechManager()
         val candidates = mutableListOf<Intent>()
-        speechManager.defaultEnginePackageName()
+        manager.defaultEnginePackageName()
             .takeIf { it.isNotBlank() }
             ?.let { enginePackage ->
                 candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
@@ -505,7 +550,7 @@ class ProductBridge(
         for (intent in candidates) {
             try {
                 activity.startActivity(intent)
-                speechManager.refreshVoiceDataAfterInstallerReturns()
+                manager.refreshVoiceDataAfterInstallerReturns()
                 launchedAction = intent.action.orEmpty()
                 break
             } catch (_: ActivityNotFoundException) {

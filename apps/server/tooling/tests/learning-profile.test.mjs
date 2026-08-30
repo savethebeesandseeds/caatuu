@@ -4,12 +4,13 @@ import test from "node:test";
 import vm from "node:vm";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
 const [courseProfileSource, learningProfileSource, chromeSource, appSource, wordWorldSource] = await Promise.all([
   readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/learning-profile.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8")
+  readFile(new URL("source/learning-profile.js", languageRuntimeStatic), "utf8"),
+  readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8"),
+  readFile(new URL("source/caatuu-workspace.js", languageRuntimeStatic), "utf8"),
+  readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8")
 ]);
 
 function createLearningContext(initial = {}) {

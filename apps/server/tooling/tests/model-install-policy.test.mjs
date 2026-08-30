@@ -60,7 +60,8 @@ test("the release build validates a tracked static catalog against model policy"
   assert.match(catalogChecker, /Static catalog model keys are stale/);
   assert.match(catalogChecker, /entry\.install_policy === model\.install_policy/);
   assert.match(androidBuild, /val verifyStaticModelCatalog by tasks\.registering\(Exec::class\)/);
-  assert.match(androidBuild, /dependsOn\(refreshSetupAssetManifest, verifyStaticModelCatalog\)/);
+  assert.match(androidBuild, /dependsOn\(refreshSetupAssetManifest\)/);
+  assert.match(androidBuild, /if \(courseOfflineModelsEnabled\) dependsOn\(verifyStaticModelCatalog\)/);
   assert.match(rootGitignore, /!apps\/languages\/czech\/static\/data\/models\/phone-bench\/models\.json/);
 });
 

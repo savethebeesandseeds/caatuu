@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "fixture-no-llm",
+  "directoryName": "fixture-no-llm",
+  "routePrefix": "/fixture-no-llm",
+  "entryPath": "/fixture-no-llm/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "locale": "en"
+  },
+  "targetLanguage": {
+    "id": "xx",
+    "label": "Fixture Language",
+    "nativeLabel": "Fixture Language",
+    "shortCode": "FX",
+    "locale": "xx-Test",
+    "script": "Latn",
+    "speechLocale": "xx-Test",
+    "direction": "ltr",
+    "flagClass": "fixture-flag",
+    "flagSrc": "/assets/icons/fixture.png"
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": true,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": false,
+    "offlineModels": false,
+    "speech": false,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "android": {
+      "enabled": true,
+      "channels": []
+    }
+  },
+  "resources": {
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "state": "present"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/android/tooling/tests/fixtures/no-llm-course/static",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/android/tooling/tests/fixtures/no-llm-course/static/native/semantic/catalog.json",
+      "state": "present"
+    },
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/android/tooling/tests/fixtures/no-llm-course/android-assets.json",
+      "state": "present"
+    }
+  }
+}

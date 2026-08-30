@@ -1,3 +1,4 @@
+import java.io.File
 import java.net.URLDecoder
 
 plugins {
@@ -5,14 +6,236 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-val bundledLanguageId = providers.gradleProperty("caatuuLanguageId").orElse("cz")
-val bundledLanguageAppDir = providers.gradleProperty("caatuuLanguageAppDir").orElse("languages/czech")
-val bundledLanguageRoutePrefix = providers.gradleProperty("caatuuLanguageRoutePrefix").orElse("/cz")
-val bundledLanguageEntryPath = providers.gradleProperty("caatuuLanguageEntryPath").orElse("/cz/index.html")
-val languageStaticDir = layout.projectDirectory.dir("../../${bundledLanguageAppDir.get()}/static")
-val launcherStaticDir = layout.projectDirectory.dir("../../launcher/static")
-val generatedLanguageAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-${bundledLanguageId.get()}")
 val workspaceRootDir = layout.projectDirectory.dir("../../..")
+val workspaceRootPath = workspaceRootDir.asFile.toPath().toRealPath()
+
+fun confinedWorkspaceRelativePath(value: Any?, label: String): String {
+    val relativePath = value?.toString()?.trim().orEmpty()
+    check(relativePath.isNotEmpty()) { "$label must be a nonblank repository-relative path." }
+    check(!File(relativePath).isAbsolute) { "$label must be repository-relative." }
+    val candidate = workspaceRootPath.resolve(relativePath).normalize()
+    check(candidate != workspaceRootPath && candidate.startsWith(workspaceRootPath)) {
+        "$label must stay inside the Caatuu workspace."
+    }
+    check(candidate.toFile().exists()) { "$label does not exist: $candidate" }
+    val realCandidate = candidate.toRealPath()
+    check(realCandidate != workspaceRootPath && realCandidate.startsWith(workspaceRootPath)) {
+        "$label must not escape the Caatuu workspace through a link."
+    }
+    return workspaceRootPath.relativize(realCandidate).toString().replace(File.separatorChar, '/')
+}
+
+fun requiredObject(value: Any?, label: String): Map<*, *> {
+    check(value is Map<*, *>) { "$label must be a JSON object." }
+    return value
+}
+
+fun requiredString(value: Any?, label: String): String {
+    val result = value?.toString()?.trim().orEmpty()
+    check(result.isNotEmpty()) { "$label must be a nonblank string." }
+    return result
+}
+
+fun normalizedAssetPath(value: Any?, label: String): String {
+    val path = requiredString(value, label)
+    check(!File(path).isAbsolute && !path.contains('\\') && path.split('/').all { it.isNotEmpty() && it != "." && it != ".." }) {
+        "$label must be a normalized relative path."
+    }
+    return path
+}
+
+val courseManifestRelativePath = confinedWorkspaceRelativePath(
+    providers.gradleProperty("caatuuCourseManifest")
+        .orElse("apps/languages/czech/course.json")
+        .get(),
+    "caatuuCourseManifest",
+)
+val courseManifestFile = workspaceRootDir.file(courseManifestRelativePath)
+val courseManifest = requiredObject(
+    groovy.json.JsonSlurper().parse(courseManifestFile.asFile),
+    "course manifest",
+)
+check(courseManifest["schemaVersion"] == 1) { "Course manifest schemaVersion must be 1." }
+val bundledLanguageId = requiredString(courseManifest["id"], "course id")
+val bundledLanguageRoutePrefix = requiredString(courseManifest["routePrefix"], "course routePrefix")
+val bundledLanguageEntryPath = requiredString(courseManifest["entryPath"], "course entryPath")
+check(Regex("^/[a-z0-9]+(?:-[a-z0-9]+)*$").matches(bundledLanguageRoutePrefix)) {
+    "Course routePrefix is invalid: $bundledLanguageRoutePrefix"
+}
+check(bundledLanguageEntryPath.startsWith("$bundledLanguageRoutePrefix/")) {
+    "Course entryPath must stay inside routePrefix."
+}
+val courseSourceLanguage = requiredObject(courseManifest["sourceLanguage"], "sourceLanguage")
+check(courseSourceLanguage["id"] == "en") {
+    "Android semantic mediation currently requires English as sourceLanguage.id."
+}
+val courseSourceLanguageLabel = requiredString(courseSourceLanguage["label"], "sourceLanguage.label")
+val courseTargetLanguage = requiredObject(courseManifest["targetLanguage"], "targetLanguage")
+val courseTargetLanguageLabel = requiredString(courseTargetLanguage["label"], "targetLanguage.label")
+val courseTargetLanguageLocale = requiredString(courseTargetLanguage["locale"], "targetLanguage.locale")
+val courseSpeechLocale = requiredString(courseTargetLanguage["speechLocale"], "targetLanguage.speechLocale")
+for ((label, locale) in listOf(
+    "targetLanguage.locale" to courseTargetLanguageLocale,
+    "targetLanguage.speechLocale" to courseSpeechLocale,
+)) {
+    check(Regex("^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$").matches(locale)) {
+        "$label must be a normalized BCP 47 language tag."
+    }
+}
+check(
+    bundledLanguageId == "cz" &&
+        bundledLanguageRoutePrefix == "/cz" &&
+        courseTargetLanguage["id"] == "cs" &&
+        courseTargetLanguageLocale == "cs-CZ"
+) {
+    "The :app full native shell supports only the canonical Czech course identity; " +
+        "use the capability-gated :product distribution for every other course."
+}
+val coursePlatforms = requiredObject(courseManifest["platforms"], "course platforms")
+val courseAndroidPlatform = requiredObject(coursePlatforms["android"], "course Android platform")
+check(courseAndroidPlatform["enabled"] == true) { "Course $bundledLanguageId is not enabled for Android." }
+val courseCapabilities = requiredObject(courseManifest["capabilities"], "course capabilities")
+fun courseCapability(name: String): Boolean {
+    val value = courseCapabilities[name]
+    check(value is Boolean) { "Course capability $name must be boolean." }
+    return value
+}
+val courseLlmEnabled = courseCapability("llm")
+val courseGenerationEnabled = courseCapability("generation")
+val courseChatEnabled = courseCapability("chat")
+val courseEmbeddingsEnabled = courseCapability("embeddings")
+val courseSemanticSearchEnabled = courseCapability("semanticSearch")
+val courseDictionaryEnabled = courseCapability("dictionary")
+val courseMemoryEnabled = courseCapability("memory")
+val courseVerbsEnabled = courseCapability("verbs")
+val courseWordWorldEnabled = courseCapability("wordWorld")
+val courseConjugationCometEnabled = courseCapability("conjugationComet")
+val courseOfflineModelsEnabled = courseCapability("offlineModels")
+val courseSpeechEnabled = courseCapability("speech")
+val coursePronunciationGuidesEnabled = courseCapability("pronunciationGuides")
+check(!courseGenerationEnabled || courseLlmEnabled) { "generation requires llm." }
+check(!courseChatEnabled || courseLlmEnabled) { "chat requires llm." }
+check(!courseOfflineModelsEnabled || courseLlmEnabled) { "offlineModels requires llm." }
+check(!courseSemanticSearchEnabled || courseEmbeddingsEnabled) { "semanticSearch requires embeddings." }
+val disabledFullNativeCapabilities = linkedMapOf(
+    "llm" to courseLlmEnabled,
+    "generation" to courseGenerationEnabled,
+    "chat" to courseChatEnabled,
+    "embeddings" to courseEmbeddingsEnabled,
+    "semanticSearch" to courseSemanticSearchEnabled,
+    "dictionary" to courseDictionaryEnabled,
+    "offlineModels" to courseOfflineModelsEnabled,
+    "speech" to courseSpeechEnabled,
+).filterValues { enabled -> !enabled }.keys
+check(disabledFullNativeCapabilities.isEmpty()) {
+    "The :app full Czech native shell requires ${disabledFullNativeCapabilities.joinToString()}; " +
+        "use the capability-gated :product distribution for courses without these native features."
+}
+val courseResources = requiredObject(courseManifest["resources"], "course resources")
+fun courseResourcePath(name: String, expectedKind: String): String {
+    val resource = requiredObject(courseResources[name], "course resource $name")
+    check(resource["kind"] == expectedKind) { "Course resource $name must be a $expectedKind." }
+    check(resource["state"] == "present") { "Course resource $name must be present for Android." }
+    return confinedWorkspaceRelativePath(resource["path"], "course resource $name")
+}
+val canonicalAppEntryRelativePath = "apps/language-runtime/static/app/index.html"
+val appEntryRelativePath = courseResourcePath("appEntry", "file")
+check(appEntryRelativePath == canonicalAppEntryRelativePath) {
+    "Course appEntry must be $canonicalAppEntryRelativePath."
+}
+val appEntryFile = workspaceRootDir.file(appEntryRelativePath)
+val appAssetCatalogRelativePath = confinedWorkspaceRelativePath(
+    "apps/language-runtime/app-assets.json",
+    "shared app asset catalog",
+)
+val appAssetCatalogFile = workspaceRootDir.file(appAssetCatalogRelativePath)
+val appAssetCatalog = requiredObject(
+    groovy.json.JsonSlurper().parse(appAssetCatalogFile.asFile),
+    "shared app asset catalog",
+)
+check(appAssetCatalog.keys.map { it.toString() }.toSet() == setOf("schemaVersion", "appEntry", "assets")) {
+    "Shared app asset catalog must contain exactly schemaVersion, appEntry, and assets."
+}
+check(appAssetCatalog["schemaVersion"] == 1) { "Shared app asset catalog schemaVersion must be 1." }
+check(appAssetCatalog["appEntry"] == canonicalAppEntryRelativePath) {
+    "Shared app asset catalog appEntry must be $canonicalAppEntryRelativePath."
+}
+val sharedAppAssets = (appAssetCatalog["assets"] as? List<*>)?.mapIndexed { index, value ->
+    val mapping = requiredObject(value, "shared app asset $index")
+    check(mapping.keys.map { it.toString() }.toSet() == setOf("source", "output")) {
+        "Shared app asset $index must contain exactly source and output."
+    }
+    val source = confinedWorkspaceRelativePath(mapping["source"], "shared app asset $index source")
+    val output = normalizedAssetPath(mapping["output"], "shared app asset $index output")
+    check(output != "index.html" && output != "caatuu-profile.json") {
+        "Shared app asset $index cannot replace a reserved Android asset."
+    }
+    source to output
+} ?: error("Shared app asset catalog assets must be an array.")
+check(sharedAppAssets.isNotEmpty() && sharedAppAssets.map { it.second }.toSet().size == sharedAppAssets.size) {
+    "Shared app asset outputs must be nonempty and unique."
+}
+val sharedAppAssetOutputs = sharedAppAssets.map { it.second }.toSet()
+val languageStaticRelativePath = courseResourcePath("staticRoot", "directory")
+val languageStaticDir = workspaceRootDir.dir(languageStaticRelativePath)
+val androidAssetCatalogRelativePath = courseResourcePath("androidAssetCatalog", "file")
+val androidAssetCatalogFile = workspaceRootDir.file(androidAssetCatalogRelativePath)
+val androidAssetCatalog = requiredObject(
+    groovy.json.JsonSlurper().parse(androidAssetCatalogFile.asFile),
+    "Android asset catalog",
+)
+check(androidAssetCatalog["schemaVersion"] == 1) { "Android asset catalog schemaVersion must be 1." }
+check(androidAssetCatalog["courseId"] == bundledLanguageId) {
+    "Android asset catalog courseId must match the course manifest."
+}
+val androidAssetFiles = (androidAssetCatalog["files"] as? List<*>)?.mapIndexed { index, value ->
+    normalizedAssetPath(value, "Android asset file $index")
+} ?: error("Android asset catalog files must be an array.")
+check(androidAssetFiles.isNotEmpty() && androidAssetFiles.toSet().size == androidAssetFiles.size) {
+    "Android asset catalog files must be nonempty and unique."
+}
+check("index.html" !in androidAssetFiles) {
+    "Android course assets must not declare a course-local index.html."
+}
+val androidLauncherIconFiles = (androidAssetCatalog["launcherIconFiles"] as? List<*>)?.mapIndexed { index, value ->
+    normalizedAssetPath(value, "Android launcher icon file $index")
+} ?: error("Android asset catalog launcherIconFiles must be an array.")
+check(androidLauncherIconFiles.toSet().size == androidLauncherIconFiles.size) {
+    "Android launcher icon files must be unique."
+}
+val declaredSharedRuntimeFiles = when (val value = androidAssetCatalog["sharedRuntimeFiles"]) {
+    null -> emptyList()
+    is List<*> -> value.mapIndexed { index, item -> requiredString(item, "Android shared runtime file $index") }
+    else -> error("Android asset catalog sharedRuntimeFiles must be an array when present.")
+}
+val sharedRuntimeFiles = (listOf("contract.mjs") + declaredSharedRuntimeFiles).distinct()
+for (path in sharedRuntimeFiles) {
+    check(!File(path).isAbsolute && !path.contains('\\') && path.split('/').all { it.isNotEmpty() && it != "." && it != ".." }) {
+        "Android shared runtime file must be a normalized relative path: $path"
+    }
+    check(!Regex("(?:^|/)(?:README(?:\\.[^/]*)?|tests?)(?:/|$)", RegexOption.IGNORE_CASE).containsMatchIn(path)) {
+        "Android shared runtime file is not packageable: $path"
+    }
+    confinedWorkspaceRelativePath("apps/language-runtime/$path", "Android shared runtime file $path")
+}
+val supplementalSharedRuntimeFiles = sharedRuntimeFiles.filter { path ->
+    val output = "language-runtime/$path"
+    if (output !in sharedAppAssetOutputs) {
+        true
+    } else {
+        val expectedSource = confinedWorkspaceRelativePath(
+            "apps/language-runtime/$path",
+            "Android shared runtime file $path",
+        )
+        val declaredSource = sharedAppAssets.single { it.second == output }.first
+        check(declaredSource == expectedSource) {
+            "Android shared runtime output conflicts with shared app asset $output."
+        }
+        false
+    }
+}
+val launcherStaticDir = workspaceRootDir.dir("apps/launcher/static")
+val generatedLanguageAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-$bundledLanguageId")
 val setupAssetManifest = languageStaticDir.file("setup-assets.json")
 val setupAssetRefreshScript = workspaceRootDir.file("apps/server/tooling/refresh-setup-assets.mjs")
 val staticModelCatalog = languageStaticDir.file("data/models/phone-bench/models.json")
@@ -43,7 +266,7 @@ val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_
 val androidReportUrl = providers.environmentVariable("CAATUU_ANDROID_REPORT_URL")
     .orElse("https://caatuu.waajacu.com/api/bug-report")
 val androidDictionaryGapUrl = providers.environmentVariable("CAATUU_ANDROID_DICTIONARY_GAP_URL")
-    .orElse("https://caatuu.waajacu.com/cz/api/dictionary/gaps")
+    .orElse("https://caatuu.waajacu.com$bundledLanguageRoutePrefix/api/dictionary/gaps")
 val hasReleaseSigning = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -68,13 +291,13 @@ val refreshSetupAssetManifest by tasks.registering(Exec::class) {
         "--language-static",
         languageStaticDir.asFile.absolutePath,
         "--language-route-prefix",
-        bundledLanguageRoutePrefix.get(),
+        bundledLanguageRoutePrefix,
     )
     inputs.file(setupAssetRefreshScript)
     inputs.files(providers.provider {
         val manifest = groovy.json.JsonSlurper().parse(setupAssetManifest.asFile) as Map<*, *>
         val artifacts = manifest["artifacts"] as? List<*> ?: emptyList<Any>()
-        val languagePrefix = "/${bundledLanguageRoutePrefix.get().trim('/')}"
+        val languagePrefix = "/${bundledLanguageRoutePrefix.trim('/')}"
         artifacts.mapNotNull { value ->
             val artifact = value as? Map<*, *> ?: return@mapNotNull null
             val url = URLDecoder.decode(artifact["url"]?.toString().orEmpty(), Charsets.UTF_8)
@@ -115,8 +338,19 @@ val verifyStaticModelCatalog by tasks.registering(Exec::class) {
 }
 
 val syncLanguageAssets by tasks.registering(Sync::class) {
-    dependsOn(refreshSetupAssetManifest, verifyStaticModelCatalog)
+    dependsOn(refreshSetupAssetManifest)
+    if (courseOfflineModelsEnabled) dependsOn(verifyStaticModelCatalog)
+    inputs.file(courseManifestFile)
+    inputs.file(appEntryFile)
+    inputs.file(appAssetCatalogFile)
+    inputs.file(androidAssetCatalogFile)
+    inputs.property("androidAssetFiles", androidAssetFiles)
+    inputs.property("androidLauncherIconFiles", androidLauncherIconFiles)
+    inputs.files(sharedAppAssets.map { (source, _) -> workspaceRootDir.file(source) })
+    inputs.property("sharedAppAssets", sharedAppAssets.map { (source, output) -> "$source=>$output" })
+    inputs.property("sharedRuntimeFiles", supplementalSharedRuntimeFiles)
     from(languageStaticDir) {
+        exclude("index.html")
         exclude("games/**")
         exclude("data/models/**/*.gguf")
         exclude("data/models/**/*.bin")
@@ -132,28 +366,31 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
         exclude("data/embeddings/**/*.bin")
         exclude("data/embeddings/**/*.safetensors")
         exclude("data/dictionaries/**/*.sqlite")
-        exclude("icons/caatuu-czech-1024.png")
+        exclude("icons/*-1024.png")
     }
     from(launcherStaticDir.dir("assets/icons")) {
-        include(
-            "*_ui.png",
-            "czech_flag.png",
-            "dark_mode.png",
-            "games_icon.png",
-            "gear_icon.png",
-            "hello.png",
-            "home_icon.png",
-            "backpack_icon.png",
-            "coin_icon.png",
-            "icon_gem.png",
-            "items_icon.png",
-            "stats_icon.png",
-        )
+        include(*androidLauncherIconFiles.filterNot { "assets/icons/$it" in sharedAppAssetOutputs }.toTypedArray())
         into("assets/icons")
     }
     from(launcherStaticDir.dir("assets/loading-animation")) {
         include("animations_manifest.json")
         into("assets/loading_animation")
+    }
+    from(appEntryFile) {
+        rename { "index.html" }
+    }
+    for ((source, outputPath) in sharedAppAssets) {
+        from(workspaceRootDir.file(source)) {
+            into(outputPath.substringBeforeLast('/', ""))
+            rename { outputPath.substringAfterLast('/') }
+        }
+    }
+    for (path in supplementalSharedRuntimeFiles) {
+        val outputPath = "language-runtime/$path"
+        from(workspaceRootDir.file("apps/language-runtime/$path")) {
+            into(outputPath.substringBeforeLast('/', ""))
+            rename { outputPath.substringAfterLast('/') }
+        }
     }
     into(generatedLanguageAssetsDir)
 }
@@ -168,9 +405,17 @@ android {
         targetSdk = androidTargetSdk.get()
         versionCode = 143
         versionName = "0.1.142"
-        buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId.get()))
-        buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix.get()))
-        buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath.get()))
+        buildConfigField("String", "CAATUU_LANGUAGE_ID", buildConfigString(bundledLanguageId))
+        buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX", buildConfigString(bundledLanguageRoutePrefix))
+        buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH", buildConfigString(bundledLanguageEntryPath))
+        buildConfigField("String", "CAATUU_SOURCE_LANGUAGE_LABEL", buildConfigString(courseSourceLanguageLabel))
+        buildConfigField("String", "CAATUU_TARGET_LANGUAGE_LABEL", buildConfigString(courseTargetLanguageLabel))
+        buildConfigField("String", "CAATUU_TARGET_LANGUAGE_LOCALE", buildConfigString(courseTargetLanguageLocale))
+        buildConfigField("String", "CAATUU_SPEECH_LOCALE", buildConfigString(courseSpeechLocale))
+        buildConfigField("String", "CAATUU_COURSE_CAPABILITIES_JSON", buildConfigString(groovy.json.JsonOutput.toJson(courseCapabilities)))
+        buildConfigField("boolean", "CAATUU_GENERATIVE_ENABLED", (courseLlmEnabled && courseGenerationEnabled).toString())
+        buildConfigField("boolean", "CAATUU_EMBEDDINGS_ENABLED", courseEmbeddingsEnabled.toString())
+        buildConfigField("boolean", "CAATUU_DICTIONARY_ENABLED", courseDictionaryEnabled.toString())
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         buildConfigField("String", "CAATUU_REPORT_URL", buildConfigString(androidReportUrl.get()))
         buildConfigField("String", "CAATUU_DICTIONARY_GAP_URL", buildConfigString(androidDictionaryGapUrl.get()))

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "key": "embedding-runtime-fixture",
+      "artifact_kind": "embedding-runtime",
+      "url": "/fixture-no-llm/native/semantic/english-minilm/runtime.onnx",
+      "asset_path": "native/semantic/english-minilm/runtime.onnx",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 1,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

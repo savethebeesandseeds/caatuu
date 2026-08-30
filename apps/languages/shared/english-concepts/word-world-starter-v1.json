@@ -1,0 +1,149 @@
+{
+  "$schema": "https://caatuu.org/schemas/english-concepts.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "word-world-starter-v1",
+  "language": "en",
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false
+  },
+  "license": {
+    "origin": "caatuu-first-party-draft",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "sourceReference": null,
+    "reviewedBy": null,
+    "reviewedAt": null
+  },
+  "concepts": [
+    {
+      "id": "ww.greeting.hello",
+      "englishText": "Hello!",
+      "embeddingText": "A friendly greeting: hello.",
+      "sceneQuery": "two friends greeting each other",
+      "topic": "greetings",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.thanks",
+      "englishText": "Thank you.",
+      "embeddingText": "Expressing thanks to another person.",
+      "sceneQuery": "one person thanking a friend",
+      "topic": "greetings",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.goodbye",
+      "englishText": "Goodbye!",
+      "embeddingText": "Saying goodbye when people part.",
+      "sceneQuery": "friends waving goodbye",
+      "topic": "greetings",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.identity.name",
+      "englishText": "My name is Lin.",
+      "embeddingText": "A person introduces themself and says their name is Lin.",
+      "sceneQuery": "a learner introducing themself",
+      "topic": "identity",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.identity.student",
+      "englishText": "I am a student.",
+      "embeddingText": "A person says that they are a student.",
+      "sceneQuery": "a student with a school bag",
+      "topic": "identity",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.object.book",
+      "englishText": "This is a book.",
+      "embeddingText": "Identifying a nearby object as a book.",
+      "sceneQuery": "a book on a desk",
+      "topic": "objects",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.animal.cat",
+      "englishText": "That is a cat.",
+      "embeddingText": "Identifying an animal as a cat.",
+      "sceneQuery": "a cat sitting nearby",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.location.cat-under-table",
+      "englishText": "The cat is under the table.",
+      "embeddingText": "A cat located underneath a table.",
+      "sceneQuery": "a cat under a table",
+      "topic": "locations",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.preference.tea",
+      "englishText": "I like drinking tea.",
+      "embeddingText": "A person says they enjoy drinking tea.",
+      "sceneQuery": "a person enjoying a cup of tea",
+      "topic": "food-and-drink",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.action.drink-water",
+      "englishText": "She drinks water every day.",
+      "embeddingText": "A woman drinks water as a daily habit.",
+      "sceneQuery": "a woman drinking a glass of water",
+      "topic": "daily-life",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.action.read-book",
+      "englishText": "He is reading a book.",
+      "embeddingText": "A man is currently reading a book.",
+      "sceneQuery": "a man reading a book",
+      "topic": "daily-life",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.cold-today",
+      "englishText": "It is cold today.",
+      "embeddingText": "Today's weather feels cold.",
+      "sceneQuery": "a cold day outdoors",
+      "topic": "weather",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.possession.two-friends",
+      "englishText": "I have two friends.",
+      "embeddingText": "A person says that they have two friends.",
+      "sceneQuery": "three friends together",
+      "topic": "people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.go-to-park",
+      "englishText": "Do you want to go to the park?",
+      "embeddingText": "Inviting someone to go to a park.",
+      "sceneQuery": "friends planning to visit a park",
+      "topic": "plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.request.speak-slower",
+      "englishText": "Please speak a little more slowly.",
+      "embeddingText": "Politely asking someone to slow down their speech.",
+      "sceneQuery": "two people talking carefully",
+      "topic": "communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.comprehension.not-understand",
+      "englishText": "I do not understand.",
+      "embeddingText": "A learner says that they do not understand something.",
+      "sceneQuery": "a learner asking for clarification",
+      "topic": "communication",
+      "difficulty": 1
+    }
+  ]
+}

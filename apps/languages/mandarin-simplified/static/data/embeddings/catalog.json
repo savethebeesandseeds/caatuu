@@ -1,0 +1,40 @@
+{
+  "$schema": "https://caatuu.org/schemas/embedding-catalog.v1.schema.json",
+  "schemaVersion": 1,
+  "courseId": "zh",
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false,
+    "targetPronunciationAllowed": false
+  },
+  "conceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+  "runtime": {
+    "rankerModule": "/language-runtime/static/source/english-minilm-ranker.mjs",
+    "sharedCatalog": "/language-runtime/embedding-runtimes.json",
+    "modelRequired": true,
+    "defaultModelId": "all-minilm-l6-v2-qint8-v0.1",
+    "modelDelivery": "browser-on-demand",
+    "modelPrecached": false,
+    "androidPackaged": false,
+    "fallback": "deterministic-lexical"
+  },
+  "thirdPartyNotices": [
+    {
+      "component": "sentence-transformers/all-MiniLM-L6-v2",
+      "license": "Apache-2.0",
+      "noticeUrl": "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/LICENSE-APACHE-2.0.txt"
+    },
+    {
+      "component": "Transformers.js 4.2.0",
+      "license": "Apache-2.0",
+      "noticeUrl": "/language-runtime/vendor/transformers/LICENSE"
+    },
+    {
+      "component": "ONNX Runtime Web 1.26.0-dev.20260416-b7804b056c",
+      "license": "MIT",
+      "noticeUrl": "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json"
+    }
+  ],
+  "notes": "MiniLM operates only on authored English embeddingText. The model is loaded on demand; deterministic lexical ranking remains available if local inference cannot start."
+}

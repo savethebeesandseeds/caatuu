@@ -9,7 +9,7 @@ import {
   searchStaticDictionary,
   searchStaticDictionaryWithSupplement
 } from "../templates/dictionary-static-core.mjs";
-import { selectDictionaryMeaning } from "../../../languages/czech/static/source/games/word-world/word-net-core.mjs";
+import { selectDictionaryMeaning } from "../../../language-runtime/static/source/word-net-core.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");

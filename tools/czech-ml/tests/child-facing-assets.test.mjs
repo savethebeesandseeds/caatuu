@@ -9,7 +9,7 @@ import {
   CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS,
   isChildFacingMacawActionAssetAllowed,
   normalizeMacawActionAssetPath,
-} from "../../../apps/languages/czech/static/source/shared/child-facing-assets.mjs";
+} from "../../../apps/language-runtime/static/source/child-facing-assets.mjs";
 
 const mlRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = path.resolve(mlRoot, "..", "..");
@@ -54,12 +54,12 @@ test("every child-facing Macaw consumer imports and enforces the central policy"
   ];
   for (const file of consumers) {
     const source = await fs.readFile(file, "utf8");
-    assert.match(source, /child-facing-assets\.mjs\?v=child-facing-assets-1/u, file);
+    assert.match(source, /child-facing-assets\.mjs\?v=child-facing-assets-2/u, file);
     assert.match(source, /isChildFacingMacawActionAssetAllowed/u, file);
   }
 
   const builder = await fs.readFile(path.join(mlRoot, "scripts", "build-curriculum-vector-db.mjs"), "utf8");
-  assert.match(builder, /from "\.\.\/\.\.\/\.\.\/apps\/languages\/czech\/static\/source\/shared\/child-facing-assets\.mjs"/u);
+  assert.match(builder, /from "\.\.\/\.\.\/\.\.\/apps\/language-runtime\/static\/source\/child-facing-assets\.mjs"/u);
   assert.ok(builder.indexOf("partitionChildFacingAssetRows(allAssetRows)") < builder.indexOf("embedder.embedTexts("));
 
   const productBuilder = await fs.readFile(path.join(repoRoot, "apps", "android", "tooling", "build-product-assets.mjs"), "utf8");

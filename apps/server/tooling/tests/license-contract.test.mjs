@@ -33,8 +33,8 @@ const [
   read("apps/launcher/static/index.html"),
   read("apps/launcher/static/launcher.js"),
   read("apps/launcher/static/languages.json"),
-  read("apps/languages/czech/static/source/shared/chrome.js"),
-  read("apps/languages/czech/static/source/games/verb-nebula/app.js"),
+  read("apps/language-runtime/static/source/caatuu-chrome.js"),
+  read("apps/language-runtime/static/source/caatuu-workspace.js"),
   read("apps/languages/czech/static/source/features/chat/chat.js"),
   read("apps/languages/czech/static/chat.html"),
   read("apps/server/src/routes/mod.rs"),
@@ -94,17 +94,20 @@ test("public Android discovery distinguishes stable and gated preview channels",
   const czech = languages.languages.find((language) => language.id === "cz");
   assert.ok(czech);
   assert.deepEqual(czech.platforms.android.channels, [
-    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" },
-    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk" }
+    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk", minimumVersionCode: 160 },
+    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk", minimumVersionCode: 160 }
   ]);
   assert.doesNotMatch(index, /caatuu-debug\.apk/);
   assert.match(index, /Checking Android build/);
   assert.match(launcher, /channel\.kind === "preview"/);
   assert.match(launcher, /manifest\.build_type === "debug" && manifest\.debuggable === true/);
   assert.match(launcher, /manifest\.build_type === "release" && manifest\.debuggable === false/);
+  assert.match(launcher, /Number\.isSafeInteger\(manifest\?\.version_code\)/);
+  assert.match(launcher, /manifest\.version_code < channel\.minimumVersionCode/);
   assert.match(launcher, /versionedArtifactUrl/);
   assert.match(launcher, /caatuu_release/);
   assert.doesNotMatch(launcher, /caatuu-debug/);
+  assert.doesNotMatch(launcher, /\/android\/caatuu/u);
 });
 
 test("models under rights review are absent from selectors and blocked at the server", () => {

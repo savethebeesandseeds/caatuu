@@ -1,0 +1,11 @@
+{
+  "name": "@caatuu/semantic-index",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/contract.mjs && node --check configs/czech-compat.mjs",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

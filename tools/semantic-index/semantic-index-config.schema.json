@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.waajacu.com/schemas/caatuu-semantic-index/v1/config.schema.json",
+  "title": "caatuu-semantic-index",
+  "description": "Language-neutral configuration for an English-backed Caatuu semantic index.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "indexId",
+    "courseId",
+    "embedding",
+    "target",
+    "record",
+    "storage",
+    "compatibility"
+  ],
+  "properties": {
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "caatuu-semantic-index" },
+        "version": { "const": 1 }
+      }
+    },
+    "indexId": { "$ref": "#/$defs/id" },
+    "courseId": { "$ref": "#/$defs/id" },
+    "embedding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceLocale", "textField", "inputPolicy"],
+      "properties": {
+        "sourceLocale": { "const": "en" },
+        "textField": { "const": "english_text" },
+        "inputPolicy": { "const": "english_text_only" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locale", "textField", "pronunciationField"],
+      "properties": {
+        "locale": { "type": "string", "minLength": 2 },
+        "textField": { "$ref": "#/$defs/field" },
+        "pronunciationField": {
+          "oneOf": [
+            { "$ref": "#/$defs/field" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "idField",
+        "semanticMetadataFields",
+        "linguisticMetadataFields",
+        "reviewMetadataFields"
+      ],
+      "properties": {
+        "idField": { "$ref": "#/$defs/field" },
+        "semanticMetadataFields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/field" }
+        },
+        "linguisticMetadataFields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/field" }
+        },
+        "reviewMetadataFields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/field" }
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repositoryRoot", "routeRoot", "manifestUrlRoot", "databaseFile"],
+      "properties": {
+        "repositoryRoot": { "type": "string", "minLength": 1 },
+        "routeRoot": { "type": "string", "pattern": "^/" },
+        "manifestUrlRoot": { "type": "string", "minLength": 1 },
+        "databaseFile": { "type": "string", "pattern": "^[^/\\\\]+\\.sqlite$" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publishedSchema"],
+      "properties": {
+        "publishedSchema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "version": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "field": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    }
+  }
+}

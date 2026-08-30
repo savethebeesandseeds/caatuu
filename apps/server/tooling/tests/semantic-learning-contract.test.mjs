@@ -3,34 +3,51 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
 const pageNames = [
-  "index.html",
   "chat.html",
   "conjugation-comet.html",
-  "word-net.html",
   "embedding-images.html",
   "verb-difficulty.html",
   "audio-lab.html"
 ];
-const [course, runtime, semantic, core, chrome, app, wordWorld, serviceWorker, ...pages] = await Promise.all([
-  readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/runtime.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/semantic-learning.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/semantic-learning-core.mjs", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
-  ...pageNames.map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
-]);
+const course = await readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8");
+const runtime = await readFile(new URL("source/shared/runtime.js", staticRoot), "utf8");
+const semantic = await readFile(new URL("source/shared/semantic-learning.js", staticRoot), "utf8");
+const core = await readFile(new URL("source/shared/semantic-learning-core.mjs", staticRoot), "utf8");
+const chrome = await readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8");
+const appBootstrap = await readFile(new URL("source/app-bootstrap.mjs", languageRuntimeStatic), "utf8");
+const app = await readFile(new URL("source/caatuu-workspace.js", languageRuntimeStatic), "utf8");
+const wordWorld = await readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8");
+const setupCatalog = JSON.parse(await readFile(new URL("setup-assets.json", staticRoot), "utf8"));
+const canonicalHome = await readFile(new URL("app/index.html", languageRuntimeStatic), "utf8");
+const pages = await Promise.all(
+  pageNames.map((name) => readFile(new URL(name, staticRoot), "utf8").then((source) => ({ name, source })))
+);
 
-test("every Czech page installs the synchronous semantic facade before shared Chrome and game code", () => {
+test("the canonical app bootstraps Czech semantic state in order while secondary pages retain their direct loading contract", () => {
+  const canonicalCourseIndex = canonicalHome.indexOf('src="source/shared/course-profile.js?v=course-25"');
+  const canonicalLearningIndex = canonicalHome.indexOf('src="/language-runtime/static/source/learning-profile.js?v=learning-5"');
+  const canonicalChromeIndex = canonicalHome.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"');
+  const canonicalBootstrapIndex = canonicalHome.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-10"');
+  assert.ok(canonicalCourseIndex >= 0, "the canonical app must load its route-local course profile");
+  assert.ok(canonicalLearningIndex > canonicalCourseIndex, "the canonical app must load learning state after its course profile");
+  assert.ok(canonicalChromeIndex > canonicalLearningIndex, "the canonical app must load shared Chrome after course state");
+  assert.ok(canonicalBootstrapIndex > canonicalChromeIndex, "the canonical app must start its dynamic bootstrap after shared Chrome");
+
+  const runtimeLoadIndex = appBootstrap.indexOf('await loadScript("source/shared/runtime.js?v=runtime-41")');
+  const semanticLoadIndex = appBootstrap.indexOf('await loadScript("source/shared/semantic-learning.js?v=semantic-learning-7")');
+  const workspaceLoadIndex = appBootstrap.indexOf('await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-4")');
+  assert.ok(runtimeLoadIndex >= 0, "the dynamic bootstrap must load the course runtime");
+  assert.ok(semanticLoadIndex > runtimeLoadIndex, "the dynamic bootstrap must load semantic state after runtime.js");
+  assert.ok(workspaceLoadIndex > semanticLoadIndex, "the dynamic bootstrap must expose semantic state before the shared Czech-authority workspace controller");
+
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-17"');
-    const learningIndex = source.indexOf('src="source/shared/learning-profile.js?v=learning-5"');
-    const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-39"');
+    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const learningIndex = source.indexOf('src="/language-runtime/static/source/learning-profile.js?v=learning-5"');
+    const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-41"');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="source/shared/chrome.js?v=chrome-109"');
+    const chromeIndex = source.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -167,17 +184,18 @@ test("projection reuses the runtime singleton embedder without opening the curri
 });
 
 test("the Backpack skill compass is versioned, visible, accessible, and honest about uncertainty", () => {
-  assert.match(chrome, /const semanticSkillCompassAxisPack = Object\.freeze\(\{/);
-  assert.match(chrome, /id: "cz-everyday-compass"/);
-  assert.match(chrome, /version: "1\.1\.0"/);
-  assert.match(chrome, /modelId: "all-minilm-l6-v2-qint8-v0\.1"/);
-  assert.equal((chrome.match(/probe: \{/g) || []).length >= 7, true);
-  assert.equal((chrome.match(/emblem: "/g) || []).length, 7);
-  assert.match(chrome, /id: "actions-abilities"/);
-  assert.match(chrome, /chartLabel: "Actions"/);
-  assert.equal((chrome.match(/chartLabelBelow: true/g) || []).length, 2);
-  assert.match(chrome, /id: "food-shopping"[\s\S]*?chartLabelBelow: true/);
-  assert.match(chrome, /id: "time-plans"[\s\S]*?chartLabelBelow: true/);
+  assert.match(chrome, /course\.capabilities\?\.skillCompass === true/);
+  assert.match(course, /skillCompass: true/);
+  assert.match(course, /id: "cz-everyday-compass"/);
+  assert.match(course, /version: "1\.1\.0"/);
+  assert.match(course, /modelId: "all-minilm-l6-v2-qint8-v0\.1"/);
+  assert.equal((course.match(/probe: \{/g) || []).length, 7);
+  assert.equal((course.match(/emblem: "/g) || []).length, 7);
+  assert.match(course, /id: "actions-abilities"/);
+  assert.match(course, /chartLabel: "Actions"/);
+  assert.equal((course.match(/chartLabelBelow: true/g) || []).length, 2);
+  assert.match(course, /id: "food-shopping"[\s\S]*?chartLabelBelow: true/);
+  assert.match(course, /id: "time-plans"[\s\S]*?chartLabelBelow: true/);
   assert.match(chrome, /axis\.chartLabelBelow[\s\S]*?emblemPoint\.y \+ 23/);
   assert.match(chrome, /<details class="skill-compass" id="semanticSkillCompass" data-state="idle" open>/);
   assert.match(chrome, /viewBox="0 0 340 290" role="img" aria-labelledby=/);
@@ -211,8 +229,9 @@ test("the Backpack skill compass is versioned, visible, accessible, and honest a
   assert.match(chrome, /skill-compass-axis-practice-meter/);
   assert.doesNotMatch(chrome, /probe\.textContent = axis\.probe\.text/);
   assert.match(chrome, /semanticSkillCompassLayout\.emblemRadius/);
-  assert.match(chrome, /semanticSkillCompassMinimumConfidence = 0\.12/);
-  assert.match(chrome, /Topic axes can overlap and do not add to 100%/i);
+  assert.match(chrome, /semanticSkillCompassMinimumConfidence = semanticSkillCompassAxisPack\?\.minimumConfidence/);
+  assert.match(course, /minimumConfidence: 0\.12/);
+  assert.match(course, /Topic axes can overlap and do not add to 100%/i);
 
   const loadStart = chrome.indexOf("async function loadSemanticSkillCompass");
   const loadEnd = chrome.indexOf("function pauseSemanticSkillCompass", loadStart);
@@ -230,7 +249,8 @@ test("the Backpack skill compass is versioned, visible, accessible, and honest a
   const pausePath = chrome.slice(pauseStart, pauseEnd);
   assert.match(pausePath, /const wasLoading = controller\.loading/);
   assert.match(pausePath, /progress\.hidden = true/);
-  assert.match(pausePath, /controller\.rendered \? "Update ready" : "Open to map"/);
+  assert.match(pausePath, /semanticSkillCompassText\("updateReadySummary"\)/);
+  assert.match(pausePath, /semanticSkillCompassText\("closedSummary"\)/);
   const settingsViewStart = chrome.indexOf("function setSettingsView");
   const settingsViewEnd = chrome.indexOf("function validAndroidChannelManifest", settingsViewStart);
   assert.match(
@@ -286,7 +306,7 @@ test("current games record only evidence their interactions actually support", (
   assert.match(app, /score = solutionShown \? null : \(correct \? 1 : 0\)/);
   assert.match(app, /meaning-match/);
   assert.match(app, /hintShown \? 0\.65 : 1/);
-  assert.match(app, /chosenEnglish: chosenPair\?\.eng/);
+  assert.match(app, /chosenSource: chosenPair\?\.source \?\? chosenPair\?\.eng/);
   assert.match(wordWorld, /function recordStandardSemanticExposure/);
   assert.match(wordWorld, /outcome: "exposure"/);
   assert.match(wordWorld, /score: null/);
@@ -295,7 +315,8 @@ test("current games record only evidence their interactions actually support", (
 });
 
 test("the offline shell precaches the semantic source and local embedding runtime", () => {
-  assert.match(serviceWorker, /caatuu-czech-pwa-v527/);
+  const serviceWorker = JSON.stringify(setupCatalog.offline);
+  assert.match(setupCatalog.offline.cacheName, /^caatuu-czech-pwa-v\d+$/u);
   assert.doesNotMatch(serviceWorker, /caatuu-czech-pwa-v460/);
   assert.match(serviceWorker, /\.\/audio-lab\.html/);
   assert.match(serviceWorker, /\.\/source\/features\/audio-lab\/audio-lab\.css\?v=audio-lab-2/);
@@ -306,19 +327,20 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.match(serviceWorker, /semantic-learning-core\.mjs\?v=semantic-learning-core-5/);
   assert.match(semantic, /import\("\.\/semantic-learning-core\.mjs\?v=semantic-learning-core-5"\)/);
   assert.match(serviceWorker, /vendor\/transformers\/transformers\.min\.js/);
-  assert.match(serviceWorker, /runtime\.js\?v=runtime-39/);
+  assert.match(serviceWorker, /runtime\.js\?v=runtime-41/);
   assert.match(serviceWorker, /vector-db\.js\?v=vector-db-10/);
   assert.doesNotMatch(serviceWorker, /runtime\.js\?v=runtime-37/);
   assert.match(serviceWorker, /dictionary-gap-report\.mjs\?v=dictionary-gap-report-1/);
   assert.doesNotMatch(serviceWorker, /dictionary-gap-export/);
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
-  assert.match(serviceWorker, /app\.js\?v=shell-103/);
-  assert.doesNotMatch(serviceWorker, /app\.js\?v=shell-85/);
-  assert.match(serviceWorker, /word-net\.js\?v=word-net-89/);
-  assert.doesNotMatch(serviceWorker, /word-net\.js\?v=word-net-80/);
-  assert.match(serviceWorker, /word-net\.css\?v=word-net-79/);
+  assert.doesNotMatch(serviceWorker, /source\/games\/verb-nebula\/app\.js/);
+  assert.match(serviceWorker, /word-world-provider\.mjs\?v=word-world-provider-9/);
+  assert.match(serviceWorker, /word-net-standard\.mjs\?v=word-net-standard-5/);
+  assert.doesNotMatch(serviceWorker, /(?:^|\/)(?:word-net\.html|source\/games\/word-world\/(?:word-net\.js|word-net-queue\.mjs))(?:[?#]|$)/);
+  assert.match(serviceWorker, /\/language-runtime\/static\/source\/word-net-queue\.mjs\?v=word-net-queue-6/);
+  assert.match(serviceWorker, /\/language-runtime\/static\/styles\/caatuu-word-world\.css\?v=word-net-85/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);
-  assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-18/);
+  assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-19/);
   assert.doesNotMatch(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);
 });

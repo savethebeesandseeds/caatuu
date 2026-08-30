@@ -1,0 +1,12 @@
+[
+  { "id": "zh.verb.shi", "kind": "verb", "target": "是", "source": "be", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.you", "kind": "verb", "target": "有", "source": "have", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.jiao", "kind": "verb", "target": "叫", "source": "be called", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.xihuan", "kind": "verb", "target": "喜欢", "source": "like", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.he", "kind": "verb", "target": "喝", "source": "drink", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.kan", "kind": "verb", "target": "看", "source": "read", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.xiang", "kind": "verb", "target": "想", "source": "want", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.qu", "kind": "verb", "target": "去", "source": "go", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.shuo", "kind": "verb", "target": "说", "source": "speak", "difficulty": 1, "reviewStatus": "native-review-required" },
+  { "id": "zh.verb.mingbai", "kind": "verb", "target": "明白", "source": "understand", "difficulty": 1, "reviewStatus": "native-review-required" }
+]

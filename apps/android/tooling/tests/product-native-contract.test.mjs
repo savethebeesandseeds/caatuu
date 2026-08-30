@@ -4,7 +4,19 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [settings, build, manifest, bridge, activity, updateManager, proguard, productIcon] = await Promise.all([
+const [
+  settings,
+  build,
+  manifest,
+  bridge,
+  activity,
+  updateManager,
+  proguard,
+  productIcon,
+  providerConfiguration,
+  vectorManager,
+  dictionaryManager,
+] = await Promise.all([
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/src/main/AndroidManifest.xml", repoRoot), "utf8"),
@@ -28,6 +40,21 @@ const [settings, build, manifest, bridge, activity, updateManager, proguard, pro
   ),
   readFile(new URL("apps/android/product/proguard-rules.pro", repoRoot), "utf8"),
   readFile(new URL("apps/languages/czech/static/icons/caatuu-czech-512.png", repoRoot)),
+  readFile(
+    new URL(
+      "apps/android/product/src/main/java/com/caatuu/android/NativeProviderConfiguration.kt",
+      repoRoot,
+    ),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/VectorDatabaseManager.kt", repoRoot),
+    "utf8",
+  ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/DictionaryManager.kt", repoRoot),
+    "utf8",
+  ),
 ]);
 
 test("settings make the development and product modules mutually exclusive", () => {
@@ -50,7 +77,14 @@ test("the product module reuses only safe application sources", () => {
   assert.doesNotMatch(build, /project\(":llamaLib"\)/);
   assert.match(build, /CAATUU_DISTRIBUTION_PROFILE/);
   assert.match(build, /CAATUU_GENERATIVE_ENABLED", "false"/);
-  assert.match(build, /CAATUU_EMBEDDINGS_ENABLED", "true"/);
+  assert.match(build, /CAATUU_EMBEDDINGS_ENABLED", courseEmbeddingsEnabled\.toString\(\)/);
+  assert.match(build, /CAATUU_DICTIONARY_ENABLED", courseDictionaryEnabled\.toString\(\)/);
+  assert.match(build, /Android native provider contract schemaVersion must be 1/);
+  assert.match(build, /CAATUU_EMBEDDING_CATALOG_ASSET/);
+  assert.match(build, /CAATUU_DICTIONARY_CATALOG_ASSET/);
+  assert.match(build, /CAATUU_SPEECH_PROVIDER_LOCALE/);
+  assert.match(build, /caatuuCourseManifest/);
+  assert.doesNotMatch(build, /caatuuLanguage(?:Id|AppDir|RoutePrefix|EntryPath)/);
   assert.match(build, /CAATUU_GODOT_ENABLED", "false"/);
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
   assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
@@ -59,6 +93,22 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /caatuuVersionName.*orElse\("0\.1\.7"\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
+});
+
+test("native manager construction follows the versioned provider declaration", () => {
+  assert.match(activity, /NativeProviderConfiguration\.fromGenerated/);
+  assert.match(activity, /catalogAssetPath = provider\.catalogAsset/);
+  assert.match(activity, /check\(provider\.locale == BuildConfig\.CAATUU_SPEECH_LOCALE\)/);
+  assert.match(activity, /configuredLocaleTag = BuildConfig\.CAATUU_SPEECH_LOCALE/);
+  assert.match(providerConfiguration, /SCHEMA_VERSION = 1/);
+  assert.match(providerConfiguration, /vector-database-catalog-v1/);
+  assert.match(providerConfiguration, /sqlite-dictionary-catalog-v1/);
+  assert.match(providerConfiguration, /android-text-to-speech-v1/);
+  assert.match(providerConfiguration, /native provider schemaVersion/);
+  assert.match(vectorManager, /catalogAssetPath: String/);
+  assert.match(dictionaryManager, /catalogAssetPath: String/);
+  assert.doesNotMatch(vectorManager, /EMBEDDING_CATALOG_ASSET/);
+  assert.doesNotMatch(dictionaryManager, /CATALOG_ASSET/);
 });
 
 test("the one-time transition accepts only a signed release-shaped migration", () => {
@@ -80,7 +130,7 @@ test("the product manifest exposes the Caatuu launcher and verified self-update 
   assert.match(manifest, /android:icon="@drawable\/caatuu_app_icon"/);
   assert.match(manifest, /android:roundIcon="@drawable\/caatuu_app_icon"/);
   assert.doesNotMatch(manifest, /ic_launcher/);
-  assert.match(build, /icons\/caatuu-czech-512\.png/);
+  assert.match(build, /Android asset catalog must contain exactly one icons\/\*-512\.png product icon/);
   assert.match(build, /rename \{ "caatuu_app_icon\.png" \}/);
   assert.match(build, /dependsOn\(generateProductAssets, generateProductIconResources\)/);
   assert.equal(

@@ -45,6 +45,7 @@
   let browserEngineModelKey = "";
   let browserModelLoad = null;
   let browserVectorDatabase = null;
+  let languageAdapterPromise = null;
   let dictionaryPatchRuntimePromise = null;
   let feedbackOutbox = null;
   let feedbackOutboxPromise = null;
@@ -58,6 +59,35 @@
   let serviceWorkerReloadStarted = false;
   let serviceWorkerLastCheckedAtMs = 0;
   const observedServiceWorkerRegistrations = new WeakSet();
+
+  function loadLanguageAdapter() {
+    if (languageAdapterPromise) return languageAdapterPromise;
+    const modulePath = String(course.languageAdapter?.module || "").trim();
+    if (!modulePath || modulePath.startsWith("/") || modulePath.split("/").includes("..")) {
+      return Promise.reject(new Error("The course profile has no confined language-adapter module."));
+    }
+    const routeBase = new URL(`${course.routePrefix.replace(/\/$/u, "")}/`, window.location.origin);
+    const moduleUrl = new URL(modulePath, routeBase);
+    if (moduleUrl.origin !== window.location.origin || !moduleUrl.pathname.startsWith(`${routeBase.pathname}source/language/`)) {
+      return Promise.reject(new Error("The language-adapter module resolves outside the course route."));
+    }
+    languageAdapterPromise = import(moduleUrl.href)
+      .then((module) => module.default)
+      .then((adapter) => {
+        if (!adapter || adapter.schemaVersion !== course.languageAdapter.schemaVersion) {
+          throw new Error("The language adapter does not match the course-profile contract.");
+        }
+        if (adapter.languageTags?.locale !== course.targetLanguage.locale) {
+          throw new Error("The language adapter locale does not match the course profile.");
+        }
+        return adapter;
+      })
+      .catch((error) => {
+        languageAdapterPromise = null;
+        throw error;
+      });
+    return languageAdapterPromise;
+  }
 
   function hasNativeBridge() {
     return Boolean(window.CaatuuAndroid && typeof window.CaatuuAndroid.postMessage === "function");
@@ -1411,6 +1441,9 @@
     nativeCall,
     fetchJson,
     registerServiceWorker,
+    language: {
+      adapter: loadLanguageAdapter
+    },
     appearance: {
       setSystemTheme(theme) {
         return setNativeSystemTheme(theme);
@@ -1462,7 +1495,7 @@
       }
     },
     speech: {
-      status(locale = course.targetLanguage.locale, options = {}) {
+      status(locale = course.targetLanguage.speechLocale || course.targetLanguage.locale, options = {}) {
         if (env !== "android") {
           return Promise.resolve({
             runtime: "browser-web-speech",
@@ -1496,8 +1529,8 @@
           "speech_speak",
           {
             text: String(text || ""),
-            locale: options.locale || course.targetLanguage.locale,
-            rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.82,
+            locale: options.locale || course.targetLanguage.speechLocale || course.targetLanguage.locale,
+            rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.6,
             pitch: Number.isFinite(pitch) ? Math.max(0.5, Math.min(1.5, pitch)) : 1,
             voice
           },

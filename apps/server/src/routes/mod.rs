@@ -3,7 +3,7 @@
 use std::{path::PathBuf, sync::Arc};
 
 use axum::{
-    extract::DefaultBodyLimit,
+    extract::{DefaultBodyLimit, OriginalUri},
     http::{header::HeaderName, HeaderValue, StatusCode},
     response::{Html, IntoResponse, Redirect},
     routing::{get, post},
@@ -16,26 +16,16 @@ use tower_http::{
 };
 use tracing::Level;
 
-use crate::{config::RuntimeFeatures, state::AppState};
+use crate::{
+    config::RuntimeFeatures,
+    language_catalog::{load_mounted_language_apps, LanguageAppSpec, LanguageBackend},
+    state::AppState,
+};
 
 pub mod dictionary;
 pub mod dictionary_gaps;
 pub mod http;
 pub mod ws;
-
-#[derive(Clone, Copy)]
-enum LanguageBackend {
-    CzechDictionary,
-}
-
-#[derive(Clone, Copy)]
-struct LanguageAppSpec {
-    id: &'static str,
-    route_prefix: &'static str,
-    static_dir: &'static str,
-    entry_file: &'static str,
-    backend: LanguageBackend,
-}
 
 #[derive(Clone, Copy)]
 struct WebGameSpec {
@@ -44,13 +34,6 @@ struct WebGameSpec {
     artifact_dir: &'static str,
 }
 
-const ACTIVE_LANGUAGE_APPS: &[LanguageAppSpec] = &[LanguageAppSpec {
-    id: "cz",
-    route_prefix: "/cz",
-    static_dir: "apps/languages/czech/static",
-    entry_file: "index.html",
-    backend: LanguageBackend::CzechDictionary,
-}];
 const ACTIVE_WEB_GAMES: &[WebGameSpec] = &[WebGameSpec {
     id: "caatuu-game",
     route_prefix: "/caatuu-game/godot-v1",
@@ -62,55 +45,22 @@ const ANDROID_MUTABLE_CACHE_CONTROL: &str = "no-store, no-cache, must-revalidate
 /// Build the Caatuu runtime:
 /// - `/` serves the Caatuu landing page.
 /// - `/games/` serves language-independent generated game artifacts.
-/// - `/archive/chinese/` preserves the older Chinese trainer outside active apps.
-/// - active language apps are mounted from `ACTIVE_LANGUAGE_APPS`.
+/// - `/zh` serves the canonical Mandarin course from the shared application.
+/// - `/zh-hans` remains a redirect-only compatibility alias.
+/// - archived application sources remain repository-only and are never routed.
+/// - browser-enabled language apps are mounted from the authoritative course catalog.
 pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
     let workspace = workspace_root();
+    let mounted_language_apps = load_mounted_language_apps(&workspace)
+        .unwrap_or_else(|error| panic!("invalid language catalog: {error}"));
     let launcher_static = workspace.join("apps/launcher/static");
+    let language_runtime_root = workspace.join("apps/language-runtime");
+    let shared_transformers_runtime = language_runtime_root.join("vendor/transformers");
+    let shared_minilm_runtime =
+        language_runtime_root.join("models/all-minilm-l6-v2-qint8-v0.1/runtime");
     let shared_assets = launcher_static.join("assets");
-    let chinese_static = workspace.join("archive/caatuu-chinese/static");
     let android_apk = workspace.join("artifacts/android/caatuu.apk");
     let android_manifest = workspace.join("artifacts/android/caatuu.json");
-
-    let chinese_static_service = ServeDir::new(chinese_static.clone())
-        .append_index_html_on_directories(true)
-        .not_found_service(ServeFile::new(chinese_static.join("index.html")));
-    let chinese_app = Router::new()
-        .route_service("/", ServeFile::new(chinese_static.join("index.html")))
-        .route_service(
-            "/challenge",
-            ServeFile::new(chinese_static.join("challenge.html")),
-        )
-        .route_service(
-            "/challenge/",
-            ServeFile::new(chinese_static.join("challenge.html")),
-        )
-        .route_service(
-            "/secuence",
-            ServeFile::new(chinese_static.join("secuence.html")),
-        )
-        .route_service(
-            "/secuence/",
-            ServeFile::new(chinese_static.join("secuence.html")),
-        )
-        .route_service(
-            "/writing",
-            ServeFile::new(chinese_static.join("writing.html")),
-        )
-        .route_service(
-            "/writing/",
-            ServeFile::new(chinese_static.join("writing.html")),
-        );
-    let chinese_app = if features.archived_chinese_api {
-        chinese_app
-            .route("/ws", get(ws::ws_upgrade))
-            .nest("/api/v1", api_router())
-    } else {
-        chinese_app
-            .route("/ws", get(archived_chinese_api_unavailable))
-            .nest("/api/v1", disabled_archive_api_router())
-    }
-    .fallback_service(chinese_static_service);
 
     let launcher = Router::new()
         .route_service("/", ServeFile::new(launcher_static.join("index.html")))
@@ -126,6 +76,35 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         .layer(SetResponseHeaderLayer::overriding(
             HeaderName::from_static("cache-control"),
             HeaderValue::from_static("no-store, max-age=0"),
+        ));
+    let shared_language_runtime = Router::new()
+        .route_service(
+            "/contract.mjs",
+            ServeFile::new(language_runtime_root.join("contract.mjs")),
+        )
+        .route_service(
+            "/embedding-runtimes.json",
+            ServeFile::new(language_runtime_root.join("embedding-runtimes.json")),
+        )
+        .nest_service(
+            "/static",
+            ServeDir::new(language_runtime_root.join("static")),
+        )
+        .route_service(
+            "/vendor/transformers/transformers.min.js",
+            ServeFile::new(shared_transformers_runtime.join("transformers.min.js")),
+        )
+        .route_service(
+            "/vendor/transformers/LICENSE",
+            ServeFile::new(shared_transformers_runtime.join("LICENSE")),
+        )
+        .nest_service(
+            "/models/all-minilm-l6-v2-qint8-v0.1/runtime",
+            ServeDir::new(shared_minilm_runtime),
+        )
+        .layer(SetResponseHeaderLayer::overriding(
+            HeaderName::from_static("cache-control"),
+            HeaderValue::from_static("no-cache, max-age=0"),
         ));
     let stable_android_releases = Router::new()
         .nest_service(
@@ -153,6 +132,7 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
 
     let router = Router::new()
         .merge(launcher)
+        .nest("/language-runtime", shared_language_runtime)
         .route("/ws", get(retired_root_chinese_backend))
         .merge(bug_report_router(features.bug_reports))
         .nest("/api/v1", retired_root_api_router())
@@ -178,68 +158,9 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
             &workspace,
             features.android_debug_downloads,
         ))
-        .route(
-            "/zh",
-            get(|| async { Redirect::permanent("/archive/chinese/") }),
-        )
-        .route(
-            "/zh/",
-            get(|| async { Redirect::permanent("/archive/chinese/") }),
-        )
-        .route(
-            "/zh/challenge",
-            get(|| async { Redirect::permanent("/archive/chinese/challenge") }),
-        )
-        .route(
-            "/zh/challenge/",
-            get(|| async { Redirect::permanent("/archive/chinese/challenge") }),
-        )
-        .route(
-            "/zh/secuence",
-            get(|| async { Redirect::permanent("/archive/chinese/secuence") }),
-        )
-        .route(
-            "/zh/secuence/",
-            get(|| async { Redirect::permanent("/archive/chinese/secuence") }),
-        )
-        .route(
-            "/zh/writing",
-            get(|| async { Redirect::permanent("/archive/chinese/writing") }),
-        )
-        .route(
-            "/zh/writing/",
-            get(|| async { Redirect::permanent("/archive/chinese/writing") }),
-        )
-        .route_service(
-            "/archive/chinese/",
-            ServeFile::new(chinese_static.join("index.html")),
-        )
-        .nest("/archive/chinese", chinese_app)
-        // Compatibility for old Chinese URLs.
-        .route(
-            "/challenge",
-            get(|| async { Redirect::permanent("/archive/chinese/challenge") }),
-        )
-        .route(
-            "/challenge/",
-            get(|| async { Redirect::permanent("/archive/chinese/challenge") }),
-        )
-        .route(
-            "/secuence",
-            get(|| async { Redirect::permanent("/archive/chinese/secuence") }),
-        )
-        .route(
-            "/secuence/",
-            get(|| async { Redirect::permanent("/archive/chinese/secuence") }),
-        )
-        .route(
-            "/writing",
-            get(|| async { Redirect::permanent("/archive/chinese/writing") }),
-        )
-        .route(
-            "/writing/",
-            get(|| async { Redirect::permanent("/archive/chinese/writing") }),
-        );
+        .route("/zh-hans", get(redirect_legacy_mandarin_route))
+        .route("/zh-hans/", get(redirect_legacy_mandarin_route))
+        .route("/zh-hans/*path", get(redirect_legacy_mandarin_route));
 
     let router = if features.caatuu_game_preview {
         router.nest("/games", build_web_games(&workspace))
@@ -247,12 +168,22 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         router
     };
 
-    let router = ACTIVE_LANGUAGE_APPS.iter().fold(router, |router, spec| {
+    let router = mounted_language_apps.iter().fold(router, |router, spec| {
         let entry_route = format!("{}/", spec.route_prefix);
-        let entry_file = workspace.join(spec.static_dir).join(spec.entry_file);
-        router
-            .route_service(&entry_route, ServeFile::new(entry_file))
-            .nest(spec.route_prefix, build_language_app(&workspace, *spec))
+        let index_route = format!("{}/index.html", spec.route_prefix);
+        let language_router = Router::new()
+            .route_service(&entry_route, ServeFile::new(spec.app_entry.clone()))
+            .route_service(&index_route, ServeFile::new(spec.app_entry.clone()))
+            .nest(&spec.route_prefix, build_language_app(spec));
+        let language_router = if spec.status == "development" {
+            language_router.layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("x-robots-tag"),
+                HeaderValue::from_static("noindex, nofollow"),
+            ))
+        } else {
+            language_router
+        };
+        router.merge(language_router)
     });
 
     router
@@ -274,12 +205,27 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         ))
 }
 
-fn build_language_app(workspace: &std::path::Path, spec: LanguageAppSpec) -> Router<Arc<AppState>> {
-    let static_dir = workspace.join(spec.static_dir);
+async fn redirect_legacy_mandarin_route(OriginalUri(uri): OriginalUri) -> Redirect {
+    let suffix = uri.path().strip_prefix("/zh-hans").unwrap_or_default();
+    let mut target = if suffix.is_empty() || suffix == "/" {
+        "/zh/".to_string()
+    } else {
+        format!("/zh{suffix}")
+    };
+    if let Some(query) = uri.query() {
+        target.push('?');
+        target.push_str(query);
+    }
+    Redirect::permanent(&target)
+}
+
+fn build_language_app(spec: &LanguageAppSpec) -> Router<Arc<AppState>> {
+    let static_dir = spec.static_dir.clone();
     let static_service = ServeDir::new(static_dir.clone()).append_index_html_on_directories(true);
-    let router = Router::new().route_service("/", ServeFile::new(static_dir.join(spec.entry_file)));
+    let router = Router::new();
 
     let router = match spec.backend {
+        LanguageBackend::Static => router,
         LanguageBackend::CzechDictionary => router
             .route("/api/dictionary/status", get(dictionary::status))
             .route("/api/dictionary/search", get(dictionary::search))
@@ -449,37 +395,8 @@ fn retired_root_api_router() -> Router<Arc<AppState>> {
 async fn retired_root_chinese_backend() -> (StatusCode, &'static str) {
     (
         StatusCode::GONE,
-        "Chinese trainer backend moved to /archive/chinese/.",
+        "The retired Chinese trainer backend is unavailable.",
     )
-}
-
-fn disabled_archive_api_router() -> Router<Arc<AppState>> {
-    Router::new().fallback(archived_chinese_api_unavailable)
-}
-
-async fn archived_chinese_api_unavailable() -> (StatusCode, &'static str) {
-    (
-        StatusCode::NOT_FOUND,
-        "Archived Chinese API is disabled on this server.",
-    )
-}
-
-fn api_router() -> Router<Arc<AppState>> {
-    Router::new()
-        .route("/health", get(http::http_health))
-        .route("/challenge", get(http::http_get_challenge))
-        .route("/answer", post(http::http_post_answer))
-        .route("/hint", get(http::http_get_hint))
-        .route("/translate", post(http::http_post_translate))
-        .route("/pinyin", post(http::http_post_pinyin))
-        .route("/grammar", post(http::http_post_grammar))
-        .route("/next_char", post(http::http_post_next_char))
-        .route("/agent/message", post(http::http_post_agent_message))
-        .route("/secuence/words", post(http::http_post_secuence_words))
-        .route(
-            "/secuence/evaluate",
-            post(http::http_post_secuence_evaluate),
-        )
 }
 
 fn workspace_root() -> PathBuf {
@@ -498,12 +415,16 @@ fn workspace_root() -> PathBuf {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use axum::{body::Body, http::Request};
+    use crate::language_catalog::CANONICAL_BROWSER_APP_ENTRY_PATH;
+    use axum::{
+        body::{to_bytes, Body},
+        http::Request,
+    };
     use tower::ServiceExt;
 
     fn disabled_router() -> Router {
         let features = RuntimeFeatures::default();
-        let state = Arc::new(AppState::new(features).expect("test state should initialize"));
+        let state = Arc::new(AppState::new().expect("test state should initialize"));
         build_router(state, features)
     }
 
@@ -512,7 +433,7 @@ mod tests {
             bug_reports: true,
             ..RuntimeFeatures::default()
         };
-        let state = Arc::new(AppState::new(features).expect("test state should initialize"));
+        let state = Arc::new(AppState::new().expect("test state should initialize"));
         build_router(state, features)
     }
 
@@ -521,16 +442,34 @@ mod tests {
             caatuu_game_preview: true,
             ..RuntimeFeatures::default()
         };
-        let state = Arc::new(AppState::new(features).expect("test state should initialize"));
+        let state = Arc::new(AppState::new().expect("test state should initialize"));
         build_router(state, features)
     }
 
     #[tokio::test]
-    async fn archived_and_debug_endpoints_are_fail_closed_by_default() {
+    async fn deprecated_chinese_ui_and_debug_endpoints_are_fail_closed_by_default() {
         let app = disabled_router();
         for path in [
+            "/archive/chinese",
+            "/archive/chinese/",
+            "/archive/chinese/index.html",
+            "/archive/chinese/app.css",
+            "/archive/chinese/assets/nested/dead.js",
+            "/archive/chinese/challenge",
             "/archive/chinese/api/v1/health",
             "/archive/chinese/ws",
+            "/zh/challenge",
+            "/zh/challenge/",
+            "/zh/secuence",
+            "/zh/secuence/",
+            "/zh/writing",
+            "/zh/writing/",
+            "/challenge",
+            "/challenge/",
+            "/secuence",
+            "/secuence/",
+            "/writing",
+            "/writing/",
             "/android/caatuu-debug.json",
             "/android/caatuu-debug.apk",
             "/android/caatuu-preview.json",
@@ -544,6 +483,48 @@ mod tests {
                 .await
                 .unwrap();
             assert_eq!(response.status(), StatusCode::NOT_FOUND, "{path}");
+        }
+    }
+
+    #[tokio::test]
+    async fn legacy_zh_hans_aliases_redirect_only_to_the_canonical_mandarin_course() {
+        let app = disabled_router();
+        for (path, location) in [
+            ("/zh-hans", "/zh/"),
+            ("/zh-hans/", "/zh/"),
+            (
+                "/zh-hans/index.html?game=word-net",
+                "/zh/index.html?game=word-net",
+            ),
+        ] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+
+            assert_eq!(response.status(), StatusCode::PERMANENT_REDIRECT, "{path}");
+            assert_eq!(
+                response
+                    .headers()
+                    .get(axum::http::header::LOCATION)
+                    .unwrap(),
+                location,
+                "{path}",
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn canonical_mandarin_route_serves_the_shared_application() {
+        let app = disabled_router();
+        for path in ["/zh/", "/zh/index.html"] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::OK, "{path}");
         }
     }
 
@@ -642,16 +623,90 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn active_language_registry_mounts_its_entry_page() {
+    async fn every_language_route_mounts_the_same_canonical_application_entry() {
         let app = disabled_router();
-        for spec in ACTIVE_LANGUAGE_APPS {
-            let path = format!("{}/", spec.route_prefix);
+        let canonical = tokio::fs::read(workspace_root().join(CANONICAL_BROWSER_APP_ENTRY_PATH))
+            .await
+            .expect("canonical browser app entry should be readable");
+        for spec in load_mounted_language_apps(&workspace_root())
+            .expect("language catalog should load in tests")
+        {
+            for path in [
+                format!("{}/", spec.route_prefix),
+                format!("{}/index.html", spec.route_prefix),
+            ] {
+                let response = app
+                    .clone()
+                    .oneshot(Request::builder().uri(&path).body(Body::empty()).unwrap())
+                    .await
+                    .unwrap();
+                assert_eq!(response.status(), StatusCode::OK, "{} at {path}", spec.id);
+                if spec.status == "development" {
+                    assert_eq!(
+                        response.headers().get("x-robots-tag").unwrap(),
+                        "noindex, nofollow",
+                        "{} at {path}",
+                        spec.id,
+                    );
+                } else {
+                    assert!(
+                        response.headers().get("x-robots-tag").is_none(),
+                        "{} at {path}",
+                        spec.id,
+                    );
+                }
+                let body = to_bytes(response.into_body(), canonical.len() + 1)
+                    .await
+                    .expect("language application response should be readable");
+                assert_eq!(body.as_ref(), canonical.as_slice(), "{} at {path}", spec.id);
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn shared_language_runtime_exposes_contract_but_not_repository_docs_or_tests() {
+        let app = disabled_router();
+        let contract = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .uri("/language-runtime/contract.mjs")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+        assert_eq!(contract.status(), StatusCode::OK);
+
+        for path in [
+            "/language-runtime/embedding-runtimes.json",
+            "/language-runtime/vendor/transformers/transformers.min.js",
+            "/language-runtime/vendor/transformers/LICENSE",
+            "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/config.json",
+            "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/LICENSE-APACHE-2.0.txt",
+            "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json",
+        ] {
             let response = app
                 .clone()
-                .oneshot(Request::builder().uri(&path).body(Body::empty()).unwrap())
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
                 .await
                 .unwrap();
-            assert_eq!(response.status(), StatusCode::OK, "{} at {path}", spec.id);
+            assert_eq!(response.status(), StatusCode::OK, "{path}");
+        }
+
+        for path in [
+            "/language-runtime/README.md",
+            "/language-runtime/tests/adapter.test.mjs",
+            "/language-runtime/vendor/transformers/README.md",
+            "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+            "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/manifest.json",
+        ] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::NOT_FOUND, "{path}");
         }
     }
 

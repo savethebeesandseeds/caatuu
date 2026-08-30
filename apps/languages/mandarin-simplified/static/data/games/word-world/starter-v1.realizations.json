@@ -1,0 +1,186 @@
+{
+  "$schema": "https://caatuu.org/schemas/runtime/target-realizations.runtime.v1.schema.json",
+  "schemaVersion": 1,
+  "courseId": "zh",
+  "derivedFrom": "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
+  "projectionPolicy": {
+    "tokenization": "authored",
+    "pronunciationIncluded": false,
+    "reason": "Pronunciation guidance is disabled until native review is complete."
+  },
+  "targetLanguage": {
+    "languageTag": "zh-Hans",
+    "speechLocale": "zh-CN",
+    "script": "Hans"
+  },
+  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+  "contentPolicy": "mandarin-simplified-v1",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-draft",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "sourceReference": null,
+    "reviewedBy": null,
+    "reviewedAt": null
+  },
+  "realizations": [
+    {
+      "conceptId": "ww.greeting.hello",
+      "text": "你好！",
+      "tokens": [
+        { "surface": "你好", "gloss": "hello", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.thanks",
+      "text": "谢谢你。",
+      "tokens": [
+        { "surface": "谢谢", "gloss": "thank", "playable": true },
+        { "surface": "你", "gloss": "you", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.goodbye",
+      "text": "再见！",
+      "tokens": [
+        { "surface": "再见", "gloss": "goodbye", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.name",
+      "text": "我叫林。",
+      "tokens": [
+        { "surface": "我", "gloss": "I; me", "playable": true },
+        { "surface": "叫", "gloss": "be called", "playable": true },
+        { "surface": "林", "gloss": "Lin (name)", "playable": false }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.student",
+      "text": "我是学生。",
+      "tokens": [
+        { "surface": "我", "gloss": "I; me", "playable": true },
+        { "surface": "是", "gloss": "to be", "playable": true },
+        { "surface": "学生", "gloss": "student", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.object.book",
+      "text": "这是一本书。",
+      "tokens": [
+        { "surface": "这", "gloss": "this", "playable": true },
+        { "surface": "是", "gloss": "to be", "playable": true },
+        { "surface": "一", "gloss": "one", "playable": true },
+        { "surface": "本", "gloss": "measure word for books", "playable": true },
+        { "surface": "书", "gloss": "book", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.animal.cat",
+      "text": "那是一只猫。",
+      "tokens": [
+        { "surface": "那", "gloss": "that", "playable": true },
+        { "surface": "是", "gloss": "to be", "playable": true },
+        { "surface": "一", "gloss": "one", "playable": true },
+        { "surface": "只", "gloss": "measure word for animals", "playable": true },
+        { "surface": "猫", "gloss": "cat", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cat-under-table",
+      "text": "猫在桌子下面。",
+      "tokens": [
+        { "surface": "猫", "gloss": "cat", "playable": true },
+        { "surface": "在", "gloss": "be at", "playable": true },
+        { "surface": "桌子", "gloss": "table", "playable": true },
+        { "surface": "下面", "gloss": "under; below", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.preference.tea",
+      "text": "我喜欢喝茶。",
+      "tokens": [
+        { "surface": "我", "gloss": "I; me", "playable": true },
+        { "surface": "喜欢", "gloss": "like", "playable": true },
+        { "surface": "喝", "gloss": "drink", "playable": true },
+        { "surface": "茶", "gloss": "tea", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.action.drink-water",
+      "text": "她每天喝水。",
+      "tokens": [
+        { "surface": "她", "gloss": "she; her", "playable": true },
+        { "surface": "每天", "gloss": "every day", "playable": true },
+        { "surface": "喝", "gloss": "drink", "playable": true },
+        { "surface": "水", "gloss": "water", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.action.read-book",
+      "text": "他在看书。",
+      "tokens": [
+        { "surface": "他", "gloss": "he; him", "playable": true },
+        { "surface": "在", "gloss": "in the process of", "playable": true },
+        { "surface": "看", "gloss": "read; look at", "playable": true },
+        { "surface": "书", "gloss": "book", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.cold-today",
+      "text": "今天很冷。",
+      "tokens": [
+        { "surface": "今天", "gloss": "today", "playable": true },
+        { "surface": "很", "gloss": "very; linking adverb", "playable": true },
+        { "surface": "冷", "gloss": "cold", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.possession.two-friends",
+      "text": "我有两个朋友。",
+      "tokens": [
+        { "surface": "我", "gloss": "I; me", "playable": true },
+        { "surface": "有", "gloss": "have", "playable": true },
+        { "surface": "两", "gloss": "two", "playable": true },
+        { "surface": "个", "gloss": "general measure word", "playable": true },
+        { "surface": "朋友", "gloss": "friend", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.question.go-to-park",
+      "text": "你想去公园吗？",
+      "tokens": [
+        { "surface": "你", "gloss": "you", "playable": true },
+        { "surface": "想", "gloss": "want; would like", "playable": true },
+        { "surface": "去", "gloss": "go", "playable": true },
+        { "surface": "公园", "gloss": "park", "playable": true },
+        { "surface": "吗", "gloss": "yes-no question particle", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.request.speak-slower",
+      "text": "请慢一点说。",
+      "tokens": [
+        { "surface": "请", "gloss": "please", "playable": true },
+        { "surface": "慢", "gloss": "slow", "playable": true },
+        { "surface": "一点", "gloss": "a little", "playable": true },
+        { "surface": "说", "gloss": "speak; say", "playable": true }
+      ]
+    },
+    {
+      "conceptId": "ww.comprehension.not-understand",
+      "text": "我不明白。",
+      "tokens": [
+        { "surface": "我", "gloss": "I; me", "playable": true },
+        { "surface": "不", "gloss": "not", "playable": true },
+        { "surface": "明白", "gloss": "understand", "playable": true }
+      ]
+    }
+  ]
+}

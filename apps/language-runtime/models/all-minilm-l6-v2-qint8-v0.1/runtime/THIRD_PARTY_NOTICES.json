@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "name": "sentence-transformers/all-MiniLM-L6-v2",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "license": "Apache-2.0",
+      "source_url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "license_file": "LICENSE-APACHE-2.0.txt"
+    },
+    {
+      "name": "@huggingface/transformers",
+      "version": "4.2.0",
+      "license": "Apache-2.0",
+      "source_url": "git+https://github.com/huggingface/transformers.js.git",
+      "packaged_license_file": "/language-runtime/vendor/transformers/LICENSE"
+    },
+    {
+      "name": "onnxruntime-web",
+      "version": "1.26.0-dev.20260416-b7804b056c",
+      "revision": "b7804b056c30aa35c1748f8e4e239d0e2ff25d6d",
+      "license": "MIT",
+      "source_url": "https://github.com/microsoft/onnxruntime/tree/b7804b056c30aa35c1748f8e4e239d0e2ff25d6d",
+      "license_url": "https://github.com/microsoft/onnxruntime/blob/b7804b056c30aa35c1748f8e4e239d0e2ff25d6d/LICENSE"
+    }
+  ]
+}

@@ -4,15 +4,17 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const appEntry = new URL("../../../../apps/language-runtime/static/app/index.html", import.meta.url);
 const launcherRoot = new URL("../../../../apps/launcher/static/", import.meta.url);
-const [page, styles, launcherStyles, controller, gamesPage, chrome, serviceWorker, setupManifest, planetBytes, pack] = await Promise.all([
+const [page, styles, launcherStyles, controller, gamesPage, appBootstrap, chrome, serviceWorker, setupManifest, planetBytes, pack] = await Promise.all([
   readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
   readFile(new URL("source/games/agreement-aurora/agreement-aurora.css", staticRoot), "utf8"),
   readFile(new URL("source/games/agreement-aurora/launcher.css", staticRoot), "utf8"),
   readFile(new URL("source/games/agreement-aurora/agreement-aurora.js", staticRoot), "utf8"),
-  readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
+  readFile(appEntry, "utf8"),
+  readFile(new URL("../../../../apps/language-runtime/static/source/app-bootstrap.mjs", import.meta.url), "utf8"),
+  readFile(new URL("../../../../apps/language-runtime/static/source/caatuu-chrome.js", import.meta.url), "utf8"),
+  readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("assets/planets/agreement-aurora.png", launcherRoot)),
   readFile(new URL("data/games/agreement-aurora/challenges.json", staticRoot), "utf8").then(JSON.parse)
@@ -20,7 +22,7 @@ const [page, styles, launcherStyles, controller, gamesPage, chrome, serviceWorke
 
 test("Agreement Aurora lazy-mounts from the shared Games selector while its standalone route remains compatible", () => {
   assert.match(gamesPage, /<button class="train-world train-world-agreement"[^>]*data-train-tab="agreement-aurora"[^>]*aria-label="Open Agreement Aurora"/);
-  assert.match(gamesPage, /source\/games\/agreement-aurora\/launcher\.css\?v=agreement-aurora-launcher-1/);
+  assert.match(appBootstrap, /source\/games\/agreement-aurora\/launcher\.css\?v=agreement-aurora-launcher-1/);
   assert.match(gamesPage, /\/assets\/planets\/agreement-aurora\.png[\s\S]*?<b>Agreement Aurora<\/b>/);
   assert.match(gamesPage, /id="agreementAuroraEmbeddedGame"[^>]*data-src="agreement-aurora\.html"[^>]*data-embedded-game="agreement-aurora"/);
   assert.match(launcherStyles, /\.train-world-agreement \{/);

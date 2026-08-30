@@ -3,15 +3,17 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const appEntry = new URL("../../../../apps/language-runtime/static/app/index.html", import.meta.url);
+const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
 const [app, appCss, indexHtml, chrome, chromeCss, wordNetCss, wordNetHtml, wordNetJs, audioLabHtml, audioLabCss, audioLabJs] = await Promise.all([
-  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
-  readFile(new URL("source/games/verb-nebula/app.css", staticRoot), "utf8"),
-  readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.css", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.css", staticRoot), "utf8"),
-  readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
+  readFile(new URL("source/caatuu-workspace.js", languageRuntimeStatic), "utf8"),
+  readFile(new URL("styles/caatuu-workspace.css", languageRuntimeStatic), "utf8"),
+  readFile(appEntry, "utf8"),
+  readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8"),
+  readFile(new URL("styles/caatuu-chrome.css", languageRuntimeStatic), "utf8"),
+  readFile(new URL("styles/caatuu-word-world.css", languageRuntimeStatic), "utf8"),
+  readFile(appEntry, "utf8"),
+  readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8"),
   readFile(new URL("audio-lab.html", staticRoot), "utf8"),
   readFile(new URL("source/features/audio-lab/audio-lab.css", staticRoot), "utf8"),
   readFile(new URL("source/features/audio-lab/audio-lab.js", staticRoot), "utf8")
@@ -25,6 +27,17 @@ test("shared app headers use the standard icon, kicker, and title pattern", () =
   assert.match(chrome, /pageCopy\.className = "app-header-page-copy"/);
   assert.match(chrome, /pageCopy\.append\(pageKickerLabel, pageTitleLabel\)/);
   assert.match(chrome, /brand\.append\(mark, pageCopy\)/);
+});
+
+test("unsupported local AI keeps the shared settings structure and disables only its controls", () => {
+  assert.match(chrome, /function configureAiSettingsAvailability\(panel, supported\)/);
+  assert.match(chrome, /controls\.dataset\.capabilityState = "disabled"/);
+  assert.match(chrome, /controls\.querySelectorAll\("button, input, select"\)[\s\S]*?control\.disabled = true/);
+  assert.match(chrome, /configureAiSettingsAvailability\(panel, supportsAi\)/);
+  assert.doesNotMatch(chrome, /querySelector\("\.ai-settings-card"\)\?\.remove/);
+  assert.doesNotMatch(chrome, /querySelector\("\.legal-notice"\)\?\.remove/);
+  assert.doesNotMatch(chrome, /querySelector\("\.model-details"\)\?\.remove/);
+  assert.match(chromeCss, /\.settings-details\[data-capability-state="disabled"\][\s\S]*?cursor: not-allowed/);
 });
 
 test("game-local display controls preserve centered artwork and shared preferences", () => {
@@ -91,9 +104,10 @@ test("Verb Nebula initial and subsequent rounds share the robot preparation scre
   assert.match(app, /const verbRoundInterstitialMillis = 1600/);
 });
 
-test("Verb Nebula offers persistent Czech speech on tap and keeps toolbar menus exclusive", () => {
+test("Verb Nebula offers persistent target-language speech on tap and keeps toolbar menus exclusive", () => {
   assert.match(indexHtml, /class="verb-toolbar-menu verb-pair-menu"/);
-  assert.match(indexHtml, /class="verb-toolbar-menu verb-audio-menu"[\s\S]*?aria-label="Czech audio settings"[\s\S]*?id="verbSpeakOnTap"[^>]*role="switch"[^>]*aria-checked="false"[\s\S]*?Speak Czech on tap/);
+  assert.match(indexHtml, /class="verb-toolbar-menu verb-audio-menu"[\s\S]*?aria-label="Target-language audio settings"[\s\S]*?id="verbSpeakOnTap"[^>]*role="switch"[^>]*aria-checked="false"[\s\S]*?id="verbSpeakOnTapLabel"/);
+  assert.match(app, /speakLabel\.textContent = `Speak \$\{verbTargetLabel\} on tap`/);
   assert.match(indexHtml, /id="verbAudioSettings"[^>]*hidden>[\s\S]*?id="verbAudioSpeed"[^>]*type="range"[\s\S]*?id="verbAudioVoice"/);
   assert.match(app, /verbSpeakOnTapStorageKey = `\$\{course\.storage\.namespace\}\.verbNebula\.speakOnTap\.v1`/);
   assert.match(app, /function closeVerbToolbarMenus\(except = null\)[\s\S]*?details\.verb-toolbar-menu\[open\][\s\S]*?menu !== except/);
@@ -107,7 +121,7 @@ test("Verb Nebula offers persistent Czech speech on tap and keeps toolbar menus 
   assert.match(app, /function syncVerbSelectedCards\(\)[\s\S]*?aria-pressed[\s\S]*?classList\.toggle\("is-selected", selected\)/);
   assert.match(app, /function loadVerbSpeakOnTap\(\)[\s\S]*?stored === null \? true : stored === "true"/);
   assert.match(app, /state\.verbHintsEnabled = memory \? Boolean\(memory\.hintsEnabled\) : true/);
-  assert.match(app, /function speakVerbCzechOnTap\(verbId\)[\s\S]*?CaatuuChrome\.speakCzechText\(pair\.cz\)/);
+  assert.match(app, /function speakVerbCzechOnTap\(verbId\)[\s\S]*?CaatuuChrome\.speakText\(target\)/);
   assert.match(appCss, /\.verb-audio-popover,[\s\S]*?\.verb-display-popover \{[\s\S]*?position: absolute;[\s\S]*?box-shadow:/);
   assert.match(appCss, /\.verb-audio-popover button\[aria-checked="true"\] i::after \{[\s\S]*?translateX\(14px\)/);
   assert.match(appCss, /\.verb-audio-settings\[hidden\] \{[\s\S]*?display: none/);
@@ -156,13 +170,13 @@ test("Word World translations reuse the quiet dictionary accent", () => {
   assert.match(wordNetCss, /\.word-net-translation \{[\s\S]*?color: var\(--theme-entry-accent, #8f4b40\)/);
 });
 
-test("Word World reads Czech sentences with the device speech engine", () => {
+test("Word World reads target-language sentences with the device speech engine", () => {
   assert.match(
     wordNetHtml,
     /id="wordNetSound"[^>]*aria-label="Czech audio settings"[^>]*aria-haspopup="dialog"[^>]*aria-controls="wordNetAudioMenu"[^>]*aria-expanded="false"/
   );
   assert.match(wordNetHtml, /id="wordNetPhraseSound"[^>]*aria-label="Play Czech sentence aloud"[^>]*aria-pressed="false"[^>]*disabled/);
-  assert.match(wordNetHtml, /id="wordNetAudioMenu"[^>]*role="dialog"[^>]*aria-label="Audio settings"[^>]*hidden>[\s\S]*?<span class="word-net-audio-menu-label">Audio<\/span>[\s\S]*?id="wordNetAudioAutoplay"[\s\S]*?class="word-net-audio-setting word-net-audio-speed"[\s\S]*?wordNetAudioSpeedLabel">Speed<\/span>[\s\S]*?id="wordNetAudioSpeed"[^>]*type="range"[^>]*min="0"[^>]*max="2"[^>]*step="1"[\s\S]*?0\.65×[\s\S]*?0\.82×[\s\S]*?1×[\s\S]*?class="word-net-audio-setting word-net-audio-voice-setting"[\s\S]*?wordNetAudioVoiceLabel">Voice<\/span>[\s\S]*?id="wordNetAudioVoice"/);
+  assert.match(wordNetHtml, /id="wordNetAudioMenu"[^>]*role="dialog"[^>]*aria-label="Audio settings"[^>]*hidden>[\s\S]*?<span class="word-net-audio-menu-label">Audio<\/span>[\s\S]*?id="wordNetAudioAutoplay"[\s\S]*?class="word-net-audio-setting word-net-audio-speed"[\s\S]*?wordNetAudioSpeedLabel">Speed<\/span>[\s\S]*?id="wordNetAudioSpeed"[^>]*type="range"[^>]*min="0"[^>]*max="2"[^>]*step="1"[\s\S]*?0\.5×[\s\S]*?0\.6×[\s\S]*?1×[\s\S]*?class="word-net-audio-setting word-net-audio-voice-setting"[\s\S]*?wordNetAudioVoiceLabel">Voice<\/span>[\s\S]*?id="wordNetAudioVoice"/);
   assert.match(wordNetJs, /const audioSpeedOptions = Object\.freeze\(\[[\s\S]*?key: "slower"[\s\S]*?key: "slow"[\s\S]*?key: "normal"[\s\S]*?wordNetAudioSpeed[\s\S]*?setSpeechPacePreference/);
   assert.doesNotMatch(wordNetHtml, /Sound unavailable|Sound is not available yet/);
   assert.match(wordNetCss, /\.word-net-audio-setting \{[\s\S]*?border-top: 1px solid[\s\S]*?\.word-net-audio-setting-title \{[\s\S]*?font-size: 0\.7rem;[\s\S]*?font-weight: 850;[\s\S]*?letter-spacing: 0;[\s\S]*?text-transform: none;/);
@@ -175,13 +189,13 @@ test("Word World reads Czech sentences with the device speech engine", () => {
 
   assert.match(wordNetJs, /function browserSpeechSynthesisSupported\(\)[\s\S]*?isSpeechSynthesisSupported\([\s\S]*?window\.speechSynthesis[\s\S]*?window\.SpeechSynthesisUtterance/);
   assert.match(wordNetJs, /function androidSpeechRuntime\(\)[\s\S]*?runtime\?\.env !== "android"/);
-  assert.match(wordNetJs, /function czechSpeechPace\(\)[\s\S]*?getSpeechPacePreference\?\.\(\)[\s\S]*?resolveSpeechPace\(difficulty, preference\)[\s\S]*?difficultyOption\?\.\(difficulty\)/);
+  assert.match(wordNetJs, /function czechSpeechPace\(\)[\s\S]*?getSpeechPacePreference\?\.\(\)[\s\S]*?resolveWordWorldSpeechPace\([\s\S]*?state\.speechPacePreference[\s\S]*?difficultyOption\?\.\(difficulty\)/);
   assert.match(wordNetJs, /function syncSpeechControl\(\)[\s\S]*?const sentenceButton = \$\("#wordNetPhraseSound"\)[\s\S]*?const wordButton = \$\("#wordNetSelectedWordSound"\)[\s\S]*?sentenceButton\.disabled = checking \|\| state\.busy \|\| !supported \|\| !hasSentence[\s\S]*?wordButton\.disabled = checking \|\| state\.busy \|\| !supported \|\| !wordAvailable/);
   assert.match(wordNetJs, /const paceDescription = `\$\{speechPace\.label\} speed`/);
-  assert.match(wordNetJs, /let sentenceLabel = `Play Czech sentence aloud — \$\{paceDescription\}`/);
+  assert.match(wordNetJs, /let sentenceLabel = `Play \$\{targetLanguageLabel\} sentence aloud — \$\{paceDescription\}`/);
   assert.match(wordNetJs, /`Play “\$\{selectedWord\}” aloud — \$\{paceDescription\}`/);
   assert.match(wordNetJs, /sentenceButton\.dataset\.speechPace = speechPace\.label[\s\S]*?sentenceButton\.dataset\.speechPaceSource = speechPace\.source[\s\S]*?wordButton\.dataset\.speechPace = speechPace\.label[\s\S]*?wordButton\.dataset\.speechPaceSource = speechPace\.source/);
-  assert.match(wordNetJs, /function unavailableSpeechLabel\(\)[\s\S]*?install or enable a Czech voice/);
+  assert.match(wordNetJs, /function unavailableSpeechLabel\(\)[\s\S]*?install or enable a \$\{targetLanguageLabel\} voice/);
   assert.match(
     wordNetJs,
     /synthesis\.addEventListener\("voiceschanged", \(\) => \{[\s\S]*?syncSpeechControl\(\);[\s\S]*?refreshAudioVoiceOptions\(\)/,
@@ -194,7 +208,7 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   assert.match(chrome, /data-theme-option="light"[\s\S]*?src="\$\{lightModeIconSrc\}"[\s\S]*?<b>Light<\/b>/);
   assert.doesNotMatch(chrome, /<h3>Pronunciation<\/h3>/);
   assert.doesNotMatch(chrome, /Choose the installed voice that reads Czech sentences aloud\./);
-  assert.match(chrome, /Automatic will use the best available Czech voice\./);
+  assert.match(chrome, /Automatic will use the best available \$\{targetLanguage\.label\} voice\./);
   assert.match(chrome, /function getSpeechVoicePreference\(\)/);
   assert.match(chrome, /synthesis\.addEventListener\("voiceschanged", \(\) =>/);
   assert.match(chrome, /window\.dispatchEvent\(new CustomEvent\("caatuu:speech-voice-change"/);
@@ -204,18 +218,19 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   assert.match(chrome, /function updateSpeechPaceControls\(root = document\)[\s\S]*?const preference = getSpeechPacePreference\(\)[\s\S]*?is-badge-default[\s\S]*?aria-pressed/);
   assert.match(chrome, /function bindSpeechPaceControl\(panel\)[\s\S]*?getSpeechPacePreference\(\) === selectedPace \? "" : selectedPace/);
   assert.match(chrome, /const rate = clampSpeechControl\(options\.rate, 0\.5, 1\.5, resolveSpeechPace\(\)\.rate\)/);
-  assert.match(chrome, /const pace = resolveSpeechPace\(\);[\s\S]*?speakCzechText\(speechTestText, \{ rate: pace\.rate \}\)/);
+  assert.match(chrome, /const pace = resolveSpeechPace\(\);[\s\S]*?speakText\(speechTestText, \{ rate: pace\.rate \}\)/);
 
   const browserStart = wordNetJs.indexOf("function speakCzechWithBrowser");
   const browserEnd = wordNetJs.indexOf("function toggleCzechSpeech", browserStart);
   const browserPath = wordNetJs.slice(browserStart, browserEnd);
   assert.ok(browserStart >= 0 && browserEnd > browserStart, "the browser speech path must remain inspectable");
   assert.match(browserPath, /let utterance = null;[\s\S]*?try \{[\s\S]*?utterance = new window\.SpeechSynthesisUtterance\(text\)/);
-  assert.match(browserPath, /utterance\.lang = targetLocale/);
+  assert.match(browserPath, /utterance\.lang = targetSpeechLocale/);
   assert.match(browserPath, /function speakCzechWithBrowser\(text, source, pace\)[\s\S]*?utterance\.rate = pace\.rate/);
-  assert.match(wordNetJs, /function speakCzechWithSharedService\(text, source, pace\)[\s\S]*?api\.speakCzechText\(text, \{[\s\S]*?rate: pace\.rate/);
+  assert.match(wordNetJs, /function sharedCzechSpeechApi\(\)[\s\S]*?const speak = api\?\.speakText \|\| api\?\.speakCzechText[\s\S]*?speak: \(\.\.\.args\) => speak\.call\(api, \.\.\.args\)/);
+  assert.match(wordNetJs, /function speakCzechWithSharedService\(text, source, pace\)[\s\S]*?void api\.speak\(text, \{[\s\S]*?rate: pace\.rate/);
   assert.match(browserPath, /const voices = typeof synthesis\.getVoices === "function" \? synthesis\.getVoices\(\) : \[\]/);
-  assert.match(browserPath, /const savedVoice = voices\.find[\s\S]*?savedVoice \|\| selectSpeechSynthesisVoice\(voices, targetLocale\)/);
+  assert.match(browserPath, /const savedVoice = voices\.find[\s\S]*?savedVoice \|\| selectSpeechSynthesisVoice\(voices, targetSpeechLocale\)/);
   assert.match(browserPath, /const requestedVoice = preferredSpeechVoice\(\)/);
   assert.match(browserPath, /utterance\.onstart =/);
   assert.match(browserPath, /utterance\.onend =/);
@@ -229,7 +244,7 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   const nativeEnd = wordNetJs.indexOf("function speakCzechWithBrowser", nativeStart);
   const nativePath = wordNetJs.slice(nativeStart, nativeEnd);
   assert.ok(nativeStart >= 0 && nativeEnd > nativeStart, "the Android speech path must remain inspectable");
-  assert.match(nativePath, /function speakCzechWithAndroid\(text, source, pace\)[\s\S]*?speech\.speak\([\s\S]*?text,[\s\S]*?locale: targetLocale, rate: pace\.rate[\s\S]*?voice: preferredSpeechVoice\(\)/);
+  assert.match(nativePath, /function speakCzechWithAndroid\(text, source, pace\)[\s\S]*?speech\.speak\([\s\S]*?text,[\s\S]*?locale: targetSpeechLocale, rate: pace\.rate[\s\S]*?voice: preferredSpeechVoice\(\)/);
   assert.match(nativePath, /event\?\.kind !== "speech"[\s\S]*?event\?\.phase !== "started"/);
   assert.match(nativePath, /finishCzechSpeech\(session, requestId/);
 
@@ -250,10 +265,10 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   assert.match(finishPath, /state\.speechSession !== session \|\| state\.speechRequestId !== requestId/);
   assert.match(finishPath, /clearCzechSpeechTimeout\(\)/);
 
-  assert.match(wordNetJs, /async function refreshAndroidSpeechStatus\(\{ force = false \} = \{\}\)[\s\S]*?await speech\.status\(targetLocale, \{ voice: preferredSpeechVoice\(\) \}\)/);
+  assert.match(wordNetJs, /async function refreshAndroidSpeechStatus\(\{ force = false \} = \{\}\)[\s\S]*?await speech\.status\(targetSpeechLocale, \{ voice: preferredSpeechVoice\(\) \}\)/);
   assert.match(wordNetJs, /window\.addEventListener\("caatuu:speech-voice-change"[\s\S]*?cancelCzechSpeech\(\)[\s\S]*?refreshAndroidSpeechStatus\(\{ force: true \}\)/);
   assert.match(wordNetJs, /window\.addEventListener\("caatuu:speech-pace-change"[\s\S]*?cancelCzechSpeech\(\)[\s\S]*?pace\.source === "override"[\s\S]*?manual \$\{pace\.label\} speed/);
-  assert.match(wordNetJs, /event\.detail\?\.reason !== "difficulty"[\s\S]*?const pace = czechSpeechPace\(\);[\s\S]*?cancelCzechSpeech\(\);[\s\S]*?pace\.source === "override"[\s\S]*?Czech audio remains at manual \$\{pace\.label\} speed[\s\S]*?Czech audio now uses \$\{pace\.label\} speed/);
+  assert.match(wordNetJs, /event\.detail\?\.reason !== "difficulty"[\s\S]*?const pace = czechSpeechPace\(\);[\s\S]*?cancelCzechSpeech\(\);[\s\S]*?pace\.source === "override"[\s\S]*?\$\{targetLanguageLabel\} audio remains at manual \$\{pace\.label\} speed[\s\S]*?\$\{targetLanguageLabel\} audio now uses \$\{pace\.label\} speed/);
   assert.match(wordNetJs, /backend === "android"[\s\S]*?session\?\.controller\?\.abort/);
   assert.match(wordNetJs, /signal: session\.controller\.signal/);
 
@@ -268,19 +283,20 @@ test("Word World reads Czech sentences with the device speech engine", () => {
   assert.match(wordNetJs, /\$\("#wordNetSelectedWordSound"\)\?\.addEventListener\("click", speakSelectedCzechWord\)/);
 });
 
-test("Settings and Audio Lab share one selectable Czech speech service", () => {
+test("Settings exposes one selectable target-language speech service with Czech compatibility", () => {
   assert.match(chrome, /class="settings-card side-card settings-section-card appearance-card"[\s\S]*?<details class="settings-section-details" id="settingsAppearanceDetails" open>[\s\S]*?<summary class="settings-section-summary">[\s\S]*?Theme, text size[\s\S]*?class="settings-section-body appearance-settings-body"/);
   assert.match(chrome, /class="settings-card side-card settings-section-card speech-settings-card"[\s\S]*?<details class="settings-section-details" id="settingsSpeechDetails">[\s\S]*?<summary class="settings-section-summary">[\s\S]*?Voice, speed[\s\S]*?class="settings-section-body speech-settings-body"/);
   assert.doesNotMatch(chrome, /<details[^>]*id="settingsSpeechDetails"[^>]*\bopen\b/);
   assert.match(chrome, /Development preview\. A governed public beta has not been declared\./);
   assert.match(chrome, /class="speech-voice-row"[\s\S]*?id="settingsSpeechVoice"[\s\S]*?id="settingsSpeechVoiceTest"[\s\S]*?id="settingsSpeechVoiceStatus"[\s\S]*?class="speech-rate-row"/);
   assert.match(chrome, /async function listSpeechVoiceOptions\(\)/);
-  assert.match(chrome, /async function speakCzechText\(text, options = \{\}\)/);
+  assert.match(chrome, /async function speakText\(text, options = \{\}\)/);
   assert.match(chrome, /normalizedText\.length > 1_000/);
   assert.match(chrome, /speech\.speak\([\s\S]*?onEvent\(event\)[\s\S]*?event\?\.phase === "started"/);
   assert.match(chrome, /new Utterance\(normalizedText\)/);
   assert.match(chrome, /activeBrowserSpeechSession\.stop\(\)/);
-  assert.match(chrome, /href="audio-lab\.html">audio-lab<\/a>/);
+  assert.match(chrome, /href: routes\.audioLab,[\s\S]*?label: "audio-lab",[\s\S]*?available: capabilities\.speech === true && capabilities\.offlineModels === true/);
+  assert.match(chrome, /return `<a class="advanced-link" href="\$\{tool\.href\}"\$\{navigationRequest\}>\$\{tool\.label\}<\/a>`/);
   assert.match(chromeCss, /\.speech-voice-row,\s*\.speech-rate-row \{[\s\S]*?grid-template-columns:/);
   assert.match(chromeCss, /\.speech-voice-controls \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\) auto;/);
   assert.match(chromeCss, /\.speech-rate-row \{[\s\S]*?border-top:/);
@@ -439,10 +455,13 @@ test("Word World Rebuild uses an in-composer send control and keeps detailed res
   assert.doesNotMatch(resultPath, /title:\s*"(?:Correct!|Not quite|Answer revealed)"/);
   assert.match(resultPath, /points: `\+\$\{round\.awardedXp \|\| 0\} XP`[\s\S]*?points: "\+0 XP"/);
   assert.match(resultPath, /result\.dataset\.outcome = outcome/);
+  assert.match(resultPath, /That answer is incorrect — check the words in red, then try again\./);
+  assert.doesNotMatch(resultPath, /Almost there/);
   assert.doesNotMatch(wordNetJs, /placeSentenceReportToggle|insideResult/);
   assert.doesNotMatch(resultPath, /You rebuilt the English sentence correctly/);
   assert.match(resultPath, /points\.classList\.add\("is-xp-awarded"\)/);
   assert.match(wordNetJs, /async function submitReconstructionChallenge\(\)[\s\S]*?guidedRound \? false : claimSentenceReward\(round\.key\)[\s\S]*?round\.awardedXp = round\.correct && rewardAvailable \? 3 : 0[\s\S]*?Correct\. 3 XP gained\.[\s\S]*?if \(!guidedRound\) \{[\s\S]*?successes: round\.correct \? 1 : 0,[\s\S]*?xp: round\.awardedXp/);
+  assert.match(wordNetJs, /That answer is incorrect\. Check the words in red, then try again\./);
   assert.match(wordNetJs, /function awardTimedRevealXp\(\)[\s\S]*?claimSentenceReward\(\)[\s\S]*?CaatuuLearning\?\.record\("word-world", \{ xp: 1 \}\)[\s\S]*?English revealed\. \+1 XP\./);
   assert.match(wordNetJs, /function applyTranslationMode\([\s\S]*?isTimedTranslationMode\(mode\)[\s\S]*?Number\.isFinite\(delayMs\)[\s\S]*?window\.setTimeout\([\s\S]*?awardTimedRevealXp\(\)[\s\S]*?, delayMs\)/);
   assert.match(wordNetJs, /state\.translationVisible = true;[\s\S]*?syncTranslationToggle\(\);[\s\S]*?awardTimedRevealXp\(\)/);
@@ -581,10 +600,11 @@ test("Word World keeps the loading cover until the central scene image is ready"
     const transitionPath = wordNetJs.slice(start, end);
     assert.ok(start >= 0 && end > start, `${startMarker} must remain inspectable`);
     assert.match(transitionPath, /updateSceneAsset\(/);
-    assert.ok(
-      transitionPath.indexOf("hideSceneAsset({ cancel: true })") < transitionPath.indexOf("setBusy(true)"),
-      `${startMarker} must clear the previous scene before showing the loading cover`
-    );
+    const hideIndex = transitionPath.indexOf("hideSceneAsset({ cancel: true })");
+    const busyIndex = transitionPath.indexOf("setBusy(true)");
+    const firstAwaitIndex = transitionPath.indexOf("await ");
+    assert.ok(hideIndex >= 0 && busyIndex >= 0 && hideIndex < firstAwaitIndex && busyIndex < firstAwaitIndex,
+      `${startMarker} must synchronously clear the previous scene and show the loading cover before waiting`);
     assert.match(transitionPath, /await Promise\.all\(\[holdSentenceTransition\(transitionStartedAt\), (?:sceneReady|updateSceneAsset\(sceneText\))\]\)/);
     assert.ok(
       transitionPath.indexOf("await Promise.all") < transitionPath.lastIndexOf("setBusy(false)"),

@@ -21,7 +21,11 @@ import java.util.UUID
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class AndroidSpeechManager(context: Context) {
+class AndroidSpeechManager(
+    context: Context,
+    configuredLocaleTag: String = BuildConfig.CAATUU_SPEECH_LOCALE,
+    targetLanguageLabel: String = BuildConfig.CAATUU_TARGET_LANGUAGE_LABEL,
+) {
     private data class ActiveUtterance(
         val id: String,
         val localeTag: String,
@@ -32,6 +36,14 @@ class AndroidSpeechManager(context: Context) {
     )
 
     private val applicationContext = context.applicationContext
+    private val learnerLanguageLabel = targetLanguageLabel.trim().also {
+        require(it.isNotEmpty()) { "Target language label is missing." }
+    }
+    private val configuredLocale = Locale.forLanguageTag(configuredLocaleTag.trim().replace('_', '-')).also {
+        require(it.language.isNotBlank()) { "Configured speech locale is invalid." }
+    }
+    private val defaultLocaleTag = configuredLocale.toLanguageTag()
+    private val supportedLanguage = configuredLocale.language
     private val mainHandler = Handler(Looper.getMainLooper())
     @Volatile private var initialization = CompletableDeferred<Int>()
     private val stateLock = Any()
@@ -75,7 +87,7 @@ class AndroidSpeechManager(context: Context) {
 
     suspend fun status(localeTag: String, requestedVoiceName: String = ""): JSONObject {
         val locale = parseLocale(localeTag)
-        if (locale.language != CZECH_LANGUAGE) {
+        if (locale.language != supportedLanguage) {
             return unavailableStatus(locale, "unsupported-locale")
         }
 
@@ -143,7 +155,7 @@ class AndroidSpeechManager(context: Context) {
     ): JSONObject {
         val requestGeneration = synchronized(stateLock) {
             check(acceptingSpeech && !destroyed) {
-                "Czech pronunciation is available only while the app is in the foreground."
+                "$learnerLanguageLabel pronunciation is available only while the app is in the foreground."
             }
             lifecycleGeneration
         }
@@ -155,7 +167,9 @@ class AndroidSpeechManager(context: Context) {
         }
 
         val locale = parseLocale(localeTag)
-        require(locale.language == CZECH_LANGUAGE) { "Only Czech pronunciation is supported." }
+        require(locale.language == supportedLanguage) {
+            "Only $learnerLanguageLabel pronunciation is supported."
+        }
         val initializationStatus = withTimeoutOrNull(INITIALIZATION_TIMEOUT_MILLIS) {
             initialization.await()
         } ?: throw IllegalStateException("Android text-to-speech initialization timed out.")
@@ -169,31 +183,31 @@ class AndroidSpeechManager(context: Context) {
             check(!destroyed) { "Android text-to-speech is unavailable." }
             val availability = currentEngine.isLanguageAvailable(locale)
             check(availability != TextToSpeech.LANG_MISSING_DATA) {
-                "The Czech text-to-speech language data is missing."
+                "The $learnerLanguageLabel text-to-speech language data is missing."
             }
             check(availability != TextToSpeech.LANG_NOT_SUPPORTED) {
-                "This text-to-speech engine does not support Czech."
+                "This text-to-speech engine does not support $learnerLanguageLabel."
             }
             val configured = currentEngine.setLanguage(locale)
             check(configured != TextToSpeech.LANG_MISSING_DATA) {
-                "The Czech text-to-speech language data is missing."
+                "The $learnerLanguageLabel text-to-speech language data is missing."
             }
             check(configured != TextToSpeech.LANG_NOT_SUPPORTED) {
-                "This text-to-speech engine does not support Czech."
+                "This text-to-speech engine does not support $learnerLanguageLabel."
             }
 
             val voices = eligibleVoices(currentEngine, locale)
             check(voices.isNotEmpty()) {
                 if (hasUninstalledVoiceData(currentEngine, locale)) {
-                    "The Czech text-to-speech voice data is not installed."
+                    "The $learnerLanguageLabel text-to-speech voice data is not installed."
                 } else {
-                    "This text-to-speech engine has no available Czech voice."
+                    "This text-to-speech engine has no available $learnerLanguageLabel voice."
                 }
             }
             val requested = requestedVoiceName.trim()
             val preferredVoice = selectVoice(voices, requested)
             check(preferredVoice != null) {
-                "The selected Czech voice is not installed or is no longer available."
+                "The selected $learnerLanguageLabel voice is not installed or is no longer available."
             }
             val selectedVoice = activateVoice(currentEngine, preferredVoice, requested)
             check(currentEngine.setSpeechRate(rate.coerceIn(MIN_RATE, MAX_RATE)) == TextToSpeech.SUCCESS) {
@@ -328,7 +342,7 @@ class AndroidSpeechManager(context: Context) {
             onStarted = onStarted,
         )
         synchronized(stateLock) {
-            check(activeUtterance == null) { "A Czech utterance is already active." }
+            check(activeUtterance == null) { "A $learnerLanguageLabel utterance is already active." }
             activeUtterance = active
         }
         continuation.invokeOnCancellation { cancelUtterance(utteranceId) }
@@ -394,17 +408,17 @@ class AndroidSpeechManager(context: Context) {
     ): Voice {
         check(currentEngine.setVoice(selectedVoice) == TextToSpeech.SUCCESS) {
             if (requestedVoiceName.isNotBlank()) {
-                "The text-to-speech engine rejected the selected Czech voice."
+                "The text-to-speech engine rejected the selected $learnerLanguageLabel voice."
             } else {
-                "The text-to-speech engine rejected its preferred Czech voice."
+                "The text-to-speech engine rejected its preferred $learnerLanguageLabel voice."
             }
         }
         val activeVoice = currentEngine.voice
         check(activeVoice != null && activeVoice.name == selectedVoice.name) {
             if (requestedVoiceName.isNotBlank()) {
-                "The text-to-speech engine did not activate the selected Czech voice."
+                "The text-to-speech engine did not activate the selected $learnerLanguageLabel voice."
             } else {
-                "The text-to-speech engine did not activate its preferred Czech voice."
+                "The text-to-speech engine did not activate its preferred $learnerLanguageLabel voice."
             }
         }
         return activeVoice
@@ -450,7 +464,7 @@ class AndroidSpeechManager(context: Context) {
     private fun requireSpeechRequestIsCurrent(requestGeneration: Long) {
         synchronized(stateLock) {
             check(acceptingSpeech && !destroyed && lifecycleGeneration == requestGeneration) {
-                "Czech pronunciation was cancelled because the app left the foreground."
+                "$learnerLanguageLabel pronunciation was cancelled because the app left the foreground."
             }
         }
     }
@@ -532,7 +546,7 @@ class AndroidSpeechManager(context: Context) {
             .put("reason", reason)
 
     private fun parseLocale(localeTag: String): Locale {
-        val normalized = localeTag.trim().replace('_', '-').ifBlank { DEFAULT_LOCALE_TAG }
+        val normalized = localeTag.trim().replace('_', '-').ifBlank { defaultLocaleTag }
         val locale = Locale.forLanguageTag(normalized)
         require(locale.language.isNotBlank()) { "Speech locale is invalid." }
         return locale
@@ -544,8 +558,6 @@ class AndroidSpeechManager(context: Context) {
 
     companion object {
         private const val RUNTIME_NAME = "android-text-to-speech"
-        private const val CZECH_LANGUAGE = "cs"
-        private const val DEFAULT_LOCALE_TAG = "cs-CZ"
         private const val MAX_SENTENCE_CHARACTERS = 1_000
         private const val MAX_VOICE_NAME_CHARACTERS = 256
         private const val MAX_REPORTED_VOICES = 64

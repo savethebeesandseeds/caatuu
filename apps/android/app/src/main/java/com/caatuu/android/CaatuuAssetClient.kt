@@ -12,8 +12,19 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileNotFoundException
 
-class CaatuuAssetClient(private val context: Context) : WebViewClient() {
-    private val vectorDatabaseManager by lazy { VectorDatabaseManager(context) }
+class CaatuuAssetClient(
+    private val context: Context,
+    private val courseCapabilities: CourseCapabilities = CourseCapabilities.fromJson(
+        BuildConfig.CAATUU_COURSE_CAPABILITIES_JSON,
+    ),
+    private val vectorDatabaseManager: VectorDatabaseManager? = null,
+) : WebViewClient() {
+
+    init {
+        check(!courseCapabilities.isEnabled("embeddings") || vectorDatabaseManager != null) {
+            "Embedding provider must supply the vector database manager."
+        }
+    }
 
     override fun shouldOverrideUrlLoading(
         view: WebView,
@@ -64,12 +75,20 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
                 .trimStart('/')
                 .ifBlank { "index.html" }
                 .replace('\\', '/')
+            path.startsWith(SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX) -> path
+                .trimStart('/')
+                .replace('\\', '/')
             path.startsWith("/assets/") -> path.trimStart('/').replace('\\', '/')
             else -> return notFound()
         }
 
         if (assetPath.contains("..")) return notFound()
-
+        if (assetPath.startsWith("data/embeddings/") && !courseCapabilities.isEnabled("embeddings")) {
+            return notFound()
+        }
+        if (assetPath.startsWith("data/dictionaries/") && !courseCapabilities.isEnabled("dictionary")) {
+            return notFound()
+        }
         val localVectorDatabase = localVectorDatabase(assetPath)
         if (localVectorDatabase != null) {
             return WebResourceResponse(
@@ -152,8 +171,10 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
         )
 
     private fun localVectorDatabase(assetPath: String): File? {
-        val spec = vectorDatabaseManager.defaultSpec()
-        val expectedPath = "data/embeddings/${spec.modelFile}"
+        if (!courseCapabilities.isEnabled("embeddings")) return null
+        val manager = vectorDatabaseManager ?: return null
+        val spec = manager.defaultSpec()
+        val expectedPath = manager.modelAssetPath(spec)
         if (assetPath != expectedPath) return null
 
         val file = File(context.filesDir, "vector-dbs/${spec.fileName}")
@@ -162,7 +183,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
 
     private fun localSetupAsset(assetPath: String): File? {
         val setupManagedPath = assetPath.startsWith("assets/") ||
-            assetPath.startsWith("data/embeddings/")
+            vectorDatabaseManager?.ownsAssetPath(assetPath) == true
         if (!setupManagedPath || assetPath.contains("..")) return null
         return StaticAssetManager.localAssetFile(context, assetPath).takeIf { it.isFile }
     }
@@ -200,6 +221,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
 
     companion object {
         private const val HOST = "caatuu.local"
+        private const val SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX = "/language-runtime/"
         private val BUNDLED_ASSET_HEADERS = mapOf(
             "Access-Control-Allow-Origin" to "*",
             "Cache-Control" to "private, max-age=31536000, immutable",
@@ -219,7 +241,7 @@ class CaatuuAssetClient(private val context: Context) : WebViewClient() {
                 if ("caches" in window) {
                   caches.keys()
                     .then((keys) => Promise.all(keys
-                      .filter((key) => key.startsWith("caatuu-czech-pwa-") || key.includes("caatuu"))
+                      .filter((key) => key.includes("caatuu"))
                       .map((key) => caches.delete(key))))
                     .catch(() => {});
                 }

@@ -32,7 +32,10 @@ data class DictionarySpec(
     val formCount: Int,
 )
 
-class DictionaryManager(context: Context) {
+class DictionaryManager(
+    context: Context,
+    catalogAssetPath: String,
+) {
     private data class Candidate(
         val id: Long,
         val lemma: String,
@@ -48,6 +51,8 @@ class DictionaryManager(context: Context) {
     )
 
     private val appContext = context.applicationContext
+    private val dictionaryCatalogAsset = normalizedAssetPath(catalogAssetPath, "Dictionary catalog")
+    private val dictionaryCatalogDirectory = dictionaryCatalogAsset.substringBeforeLast('/', "")
     private val spec = loadSpec()
 
     fun statusJson(): JSONObject {
@@ -165,8 +170,8 @@ class DictionaryManager(context: Context) {
     suspend fun search(rawQuery: String, requestedLimit: Int): JSONObject =
         withContext(Dispatchers.IO) {
             val query = rawQuery.trim()
-            val normalized = normalizeCzech(query)
-            require(normalized.isNotBlank()) { "A Czech search term is required." }
+            val normalized = normalizeLookup(query)
+            require(normalized.isNotBlank()) { "A dictionary search term is required." }
             require(normalized.length <= 80) { "The search term is too long." }
             val limit = requestedLimit.coerceIn(1, MAX_LIMIT)
             val file = databaseFile()
@@ -343,31 +348,46 @@ class DictionaryManager(context: Context) {
     }
 
     private fun loadSpec(): DictionarySpec {
-        val catalog = appContext.assets.open(CATALOG_ASSET).bufferedReader().use { reader ->
+        val catalog = appContext.assets.open(dictionaryCatalogAsset).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
-        val defaultKey = catalog.getString("default_dictionary")
+        val defaultKey = catalog.optString("default_dictionary").ifBlank {
+            catalog.getString("default_dictionary_key")
+        }
         val dictionaries = catalog.getJSONArray("dictionaries")
         val item = (0 until dictionaries.length())
             .map { index -> dictionaries.getJSONObject(index) }
             .firstOrNull { entry -> entry.optString("key") == defaultKey }
             ?: throw IllegalStateException("Dictionary catalog has no item for $defaultKey.")
-        val databaseFile = item.getString("database_file")
-        val catalogBase = catalog.optString("base_url", "data/dictionaries").trim('/')
+        require(item.optString("status") == "active") {
+            "Dictionary catalog default must be active."
+        }
+        require(item.optString("artifact_kind") == "dictionary-database") {
+            "Dictionary catalog default has an unsupported artifact kind."
+        }
+        val databaseFile = normalizedAssetPath(item.getString("database_file"), "Dictionary database")
+        val catalogBase = catalog.optString("base_url", dictionaryCatalogDirectory).trim('/')
         val downloadUrl = item.optString("download_url").ifBlank {
             "$LANGUAGE_BASE_URL/$catalogBase/$databaseFile"
         }.let { value ->
             if (value.startsWith("http://") || value.startsWith("https://")) value
             else "$PUBLIC_BASE_URL/${value.trimStart('/')}"
         }
+        require(downloadUrl.startsWith("https://")) {
+            "Dictionary download URL must use HTTPS."
+        }
+        val bytes = item.getLong("bytes")
+        val sha256 = item.getString("sha256")
+        require(bytes > 0L) { "Dictionary byte count must be positive." }
+        require(SHA256_PATTERN.matches(sha256)) { "Dictionary SHA-256 is invalid." }
         return DictionarySpec(
             key = item.getString("key"),
-            label = item.optString("label", "Full Czech to English Dictionary"),
-            direction = item.optString("direction", "cs-en"),
+            label = item.getString("label"),
+            direction = item.getString("direction"),
             databaseFile = databaseFile,
             downloadUrl = downloadUrl,
-            bytes = item.getLong("bytes"),
-            sha256 = item.getString("sha256"),
+            bytes = bytes,
+            sha256 = sha256,
             entryCount = item.optInt("entry_count"),
             senseCount = item.optInt("sense_count"),
             formCount = item.optInt("form_count"),
@@ -408,13 +428,12 @@ class DictionaryManager(context: Context) {
     private fun jsonArray(value: String?): JSONArray =
         runCatching { JSONArray(value.orEmpty()) }.getOrElse { JSONArray() }
 
-    private fun normalizeCzech(value: String): String =
+    private fun normalizeLookup(value: String): String =
         Normalizer.normalize(value.trim().lowercase(Locale.ROOT), Normalizer.Form.NFD)
             .filterNot { character -> Character.getType(character) == Character.NON_SPACING_MARK.toInt() }
             .replace(Regex("\\s+"), " ")
 
     companion object {
-        private const val CATALOG_ASSET = "data/dictionaries/catalog.json"
         private const val PUBLIC_BASE_URL = "https://caatuu.waajacu.com"
         private val LANGUAGE_BASE_URL =
             "$PUBLIC_BASE_URL/${BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX.trim('/')}"
@@ -423,5 +442,20 @@ class DictionaryManager(context: Context) {
         private const val READ_TIMEOUT_MS = 120_000
         private const val RETRY_DELAY_MS = 1_000L
         private const val MAX_LIMIT = 60
+        private val SHA256_PATTERN = Regex("^[a-fA-F0-9]{64}$")
+
+        private fun normalizedAssetPath(value: String, label: String): String {
+            val normalized = value.trim()
+            require(
+                normalized.isNotEmpty() &&
+                    normalized == value &&
+                    !normalized.startsWith('/') &&
+                    !normalized.contains('\\') &&
+                    normalized.split('/').all { segment ->
+                        segment.isNotEmpty() && segment != "." && segment != ".."
+                    },
+            ) { "$label path is unsafe." }
+            return normalized
+        }
     }
 }

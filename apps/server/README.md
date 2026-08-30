@@ -6,14 +6,25 @@ It owns the route split:
 
 ```text
 /                 apps/launcher/static
-/cz/              apps/languages/czech/static
+/cz/              active Czech course from apps/languages/catalog.json
+/zh/              Mandarin development course from the same catalog
+/language-runtime narrowly shared course runtime and English embedding assets
 /games/           ignored language-independent artifacts/games Web exports
-/archive/chinese/ archive/caatuu-chinese/static; API/WebSocket disabled by default
 /android/         signed stable and explicit debug Android artifacts
 ```
 
-The Chinese trainer source is preserved under `archive/caatuu-chinese`. The
-active Android app and active browser language target are Czech.
+Browser language mounts are loaded from `apps/languages/catalog.json` and each
+course manifest; the server does not maintain a parallel hard-coded language
+list. The public launcher still lists only active courses, so the
+`development` Mandarin preview remains directly addressable but unlisted and
+`noindex`. The deprecated Chinese trainer source remains repository-only under
+`archive/caatuu-chinese`; it is not mounted or routed. `/zh-hans/*` redirects
+to the canonical `/zh/*` course. Czech remains the Android default.
+
+The `/language-runtime/` surface is deliberately narrow: it exposes the shared
+contract/static browser modules and the pinned English MiniLM runtime needed by
+semantic search. Repository documentation and tests remain private. Target
+text, pinyin, and target-language metadata are never model inputs.
 
 Caatuu Game is authored under `apps/games/caatuu-game`, generated under
 `artifacts/games/caatuu-game/web/godot-v1`, and served only when
@@ -81,18 +92,10 @@ This endpoint is not a general diagnostic channel. Word World sentence reports
 remain device-local, and the generic `/api/bug-report` route remains disabled
 for the development preview.
 
-The archived Chinese API and WebSocket are opt-in. Keep them disabled for the
-normal runtime; enabling them exposes an unauthenticated, potentially billable
-backend anywhere the runtime is reachable:
-
-```powershell
-docker compose -f compose.yaml -f compose/archived-chinese.yaml up -d --build caatuu
-```
-
-If that backend needs OpenAI, put the key in the ignored
-`secrets/openai-api-key` file and also include `-f compose/archived-chinese-openai.yaml`.
-That override mounts only the secret file at `/run/secrets/openai-api-key`.
-`env.local.sh` is intentionally not sourced and must not be used for secrets.
+The deprecated Chinese trainer remains under `archive/caatuu-chinese` only as
+source history. No Compose override, static mount, API, WebSocket, or OpenAI
+secret path can activate it. Preserve the archive files when historical
+reference is useful, but do not add them to the runtime route tree.
 
 Under `/android/`, `caatuu.apk` and `caatuu.json` always mean a signed,
 non-debuggable release. Debug builds are served as `caatuu-debug.apk` and

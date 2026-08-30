@@ -3,13 +3,24 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
-import { appDataRoot, caatuuRoot, fromRoot, mlRoot } from "./paths.mjs";
+import { caatuuRoot, fromRoot, mlRoot } from "./paths.mjs";
+import { czechSemanticIndexConfig } from "../../semantic-index/configs/czech-compat.mjs";
+import {
+  MANUAL_ENGLISH_DESCRIPTION_FIELD,
+  MANUAL_ENGLISH_DESCRIPTION_INPUT_POLICY,
+  SEMANTIC_INDEX_CONTRACT_NAME,
+  SEMANTIC_INDEX_CONTRACT_VERSION,
+  TARGET_REALIZATIONS_TABLE,
+  manualEnglishDescriptionEmbeddingInput,
+  prepareSemanticCurriculumRows,
+  resolveSemanticIndexArtifactPaths,
+} from "../../semantic-index/src/contract.mjs";
 import {
   CHILD_FACING_EXCLUDED_MACAW_ACTIONS,
   CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS,
   isChildFacingMacawActionAssetAllowed,
   normalizeMacawActionAssetPath,
-} from "../../../apps/languages/czech/static/source/shared/child-facing-assets.mjs";
+} from "../../../apps/language-runtime/static/source/child-facing-assets.mjs";
 
 const MODEL_ID = "all-minilm-l6-v2-qint8-v0.1";
 const LEGACY_HASH_MODEL_ID = "caatuu-local-hash-v0.1";
@@ -21,17 +32,17 @@ const MODEL_LICENSE = "Apache-2.0";
 const TRANSFORMERS_JS_VERSION = "4.2.0";
 const ONNX_RUNTIME_WEB_VERSION = "1.26.0-dev.20260416-b7804b056c";
 const ONNX_RUNTIME_WEB_COMMIT = "b7804b056c30aa35c1748f8e4e239d0e2ff25d6d";
-const SCHEMA_NAME = "caatuu-cz-vector-db";
-const SCHEMA_VERSION = 1;
+const SCHEMA_NAME = czechSemanticIndexConfig.compatibility.publishedSchema.name;
+const SCHEMA_VERSION = czechSemanticIndexConfig.compatibility.publishedSchema.version;
 const EMBEDDING_DIMENSION = 384;
-const DB_FILE_NAME = "caatuu-cz-curriculum.sqlite";
-const EMBEDDING_TEXT_FIELD = "english_text";
-const EMBEDDING_INPUT_POLICY = "english_text_only";
+const DB_FILE_NAME = czechSemanticIndexConfig.storage.databaseFile;
+const EMBEDDING_TEXT_FIELD = czechSemanticIndexConfig.embedding.textField;
+const EMBEDDING_INPUT_POLICY = czechSemanticIndexConfig.embedding.inputPolicy;
 const MISC_ASSET_EMBEDDING_TABLE = "asset_embedding_refs";
 const ROBOT_ASSET_EMBEDDING_TABLE = "robot_embedding_refs";
 const MACAW_ACTION_EMBEDDING_TABLE = "macaw_action_embedding_refs";
-const ASSET_EMBEDDING_TEXT_FIELD = "manual_english_description";
-const ASSET_EMBEDDING_INPUT_POLICY = "manual_english_description_only";
+const ASSET_EMBEDDING_TEXT_FIELD = MANUAL_ENGLISH_DESCRIPTION_FIELD;
+const ASSET_EMBEDDING_INPUT_POLICY = MANUAL_ENGLISH_DESCRIPTION_INPUT_POLICY;
 const VECTOR_ENCODING = "float32le";
 const DISTANCE_METRIC = "cosine";
 const MAX_REVIEW_CANDIDATES = 200;
@@ -91,13 +102,18 @@ function argValue(name, fallback) {
   return idx >= 0 && process.argv[idx + 1] ? process.argv[idx + 1] : fallback;
 }
 
+const semanticArtifactPaths = resolveSemanticIndexArtifactPaths(
+  czechSemanticIndexConfig,
+  MODEL_ID,
+  caatuuRoot,
+);
 const datasetDir = path.resolve(argValue("--dataset-dir", fromRoot("data", "curriculum", "core-v0.2")));
 const inputFile = path.resolve(argValue("--input-file", path.join(datasetDir, "curated", "curriculum-core.en.jsonl")));
 const schemaFile = path.resolve(argValue("--schema-file", path.join(mlRoot, "vector-schema.sql")));
-const outDir = path.resolve(argValue("--out-dir", path.join(appDataRoot, "embeddings", MODEL_ID)));
+const outDir = path.resolve(argValue("--out-dir", semanticArtifactPaths.repository.modelRoot));
 const outFile = path.resolve(argValue("--out-file", path.join(outDir, DB_FILE_NAME)));
 const manifestFile = path.resolve(argValue("--manifest-file", path.join(outDir, "manifest.json")));
-const embeddingCatalogFile = path.resolve(argValue("--catalog-file", path.join(appDataRoot, "embeddings", "models.json")));
+const embeddingCatalogFile = path.resolve(argValue("--catalog-file", semanticArtifactPaths.repository.catalog));
 const qualityFile = path.resolve(argValue("--quality-file", path.join(datasetDir, "validation", "vector-quality.json")));
 const qualityMarkdownFile = path.resolve(
   argValue("--quality-md-file", path.join(datasetDir, "reports", "vector-quality.md")),
@@ -154,11 +170,24 @@ const defaultModelSourceDir = path.join(
   MODEL_REVISION,
 );
 const modelSourceDir = path.resolve(argValue("--model-source-dir", defaultModelSourceDir));
-const modelRuntimeDir = path.resolve(argValue("--model-runtime-dir", path.join(outDir, "runtime")));
+const czechCompatibilityRuntimeDir = path.join(outDir, "runtime");
+const modelRuntimeDir = path.resolve(argValue(
+  "--model-runtime-dir",
+  path.join(caatuuRoot, "apps", "language-runtime", "models", MODEL_ID, "runtime"),
+));
+const czechCompatibilityTransformersVendorDir = path.join(
+  caatuuRoot,
+  "apps",
+  "languages",
+  "czech",
+  "static",
+  "vendor",
+  "transformers",
+);
 const transformersVendorDir = path.resolve(
   argValue(
     "--transformers-vendor-dir",
-    path.join(caatuuRoot, "apps", "languages", "czech", "static", "vendor", "transformers"),
+    path.join(caatuuRoot, "apps", "language-runtime", "vendor", "transformers"),
   ),
 );
 const assetKeymapSpecs = [
@@ -207,6 +236,7 @@ const setupAssetGroups = {
 
 const rows = await readJsonl(inputFile);
 assertRows(rows);
+const preparedRows = prepareSemanticCurriculumRows(rows, czechSemanticIndexConfig);
 const allAssetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
 const { assetRows, excludedAssetRows } = partitionChildFacingAssetRows(allAssetRows);
 
@@ -214,23 +244,26 @@ const runtimeArtifacts = await prepareSemanticRuntime();
 const embedder = await createSemanticEmbedder();
 const SQL = await loadSqlJs();
 const schemaSql = await fs.readFile(schemaFile, "utf8");
-const curriculumTexts = rows.map((row) => indexedTextFor(row));
-const assetTexts = assetRows.map((row) => row.description);
+const curriculumTexts = preparedRows.map((prepared) => prepared.embeddingInput.text);
+const preparedAssetInputs = assetRows.map((row) => manualEnglishDescriptionEmbeddingInput(row));
+const assetTexts = preparedAssetInputs.map((input) => input.text);
 const vectors = await embedder.embedTexts([...curriculumTexts, ...assetTexts]);
 await embedder.dispose();
 const embeddedRows = rows.map((row, index) => {
-  const indexedText = indexedTextFor(row);
+  const prepared = preparedRows[index];
+  const indexedText = prepared.embeddingInput.text;
   return {
     row,
+    prepared,
     indexedText,
     vector: vectors[index],
-    tokens: contentTokens(row.english_text),
-    normalizedText: normalizeText(row.english_text),
+    tokens: contentTokens(indexedText),
+    normalizedText: normalizeText(indexedText),
   };
 });
 const embeddedAssetRows = assetRows.map((row, index) => ({
   row,
-  indexedText: row.description,
+  indexedText: preparedAssetInputs[index].text,
   vector: vectors[rows.length + index],
 }));
 
@@ -356,7 +389,7 @@ async function prepareSemanticRuntime() {
           version: TRANSFORMERS_JS_VERSION,
           license: transformersPackage.license,
           source_url: transformersPackage.repository?.url || "https://github.com/huggingface/transformers.js",
-          packaged_license_file: "/cz/vendor/transformers/LICENSE",
+          packaged_license_file: "/language-runtime/vendor/transformers/LICENSE",
         },
         {
           name: "onnxruntime-web",
@@ -377,7 +410,10 @@ async function prepareSemanticRuntime() {
       "",
       `Vendored from \`@huggingface/transformers@${TRANSFORMERS_JS_VERSION}\` (Apache-2.0).`,
       "",
-      "Only the browser ESM bundle is tracked here. The larger ONNX Runtime WASM and model files are generated under the ignored embedding runtime directory and downloaded after app installation.",
+      "This shared copy is the canonical browser dependency for every language course that selects the English MiniLM runtime.",
+      "Its exact bytes and license are pinned in `../../embedding-runtimes.json`; the server exposes only the reviewed bundle and license, not this repository note.",
+      "",
+      "Large ONNX and WASM files live under `../../models/`, remain ignored by Git, and must pass the shared size and SHA-256 readiness check before the server starts.",
       "",
     ].join("\n"),
     "utf8",
@@ -391,6 +427,22 @@ async function prepareSemanticRuntime() {
     "LICENSE-APACHE-2.0.txt",
     "THIRD_PARTY_NOTICES.json",
   ];
+  if (path.resolve(czechCompatibilityRuntimeDir) !== path.resolve(modelRuntimeDir)) {
+    for (const relativeFile of runtimeFiles) {
+      await copyRequiredFile(
+        path.join(modelRuntimeDir, ...relativeFile.split("/")),
+        path.join(czechCompatibilityRuntimeDir, ...relativeFile.split("/")),
+      );
+    }
+  }
+  if (path.resolve(czechCompatibilityTransformersVendorDir) !== path.resolve(transformersVendorDir)) {
+    for (const relativeFile of ["transformers.min.js", "LICENSE", "README.md"]) {
+      await copyRequiredFile(
+        path.join(transformersVendorDir, relativeFile),
+        path.join(czechCompatibilityTransformersVendorDir, relativeFile),
+      );
+    }
+  }
   return Promise.all(runtimeFiles.map(async (relativeFile) => {
     const file = path.join(modelRuntimeDir, ...relativeFile.split("/"));
     const [stat, sha256] = await Promise.all([fs.stat(file), sha256File(file)]);
@@ -398,7 +450,7 @@ async function prepareSemanticRuntime() {
       key: `embedding-runtime-${relativeFile.replaceAll("/", "-").replaceAll(".", "-")}`,
       label: `Semantic embedding runtime: ${relativeFile}`,
       artifact_kind: "embedding-runtime",
-      url: `/cz/data/embeddings/${MODEL_ID}/runtime/${relativeFile}`,
+      url: `${semanticArtifactPaths.route.modelRoot}/runtime/${relativeFile}`,
       asset_path: `data/embeddings/${MODEL_ID}/runtime/${relativeFile}`,
       native_required: true,
       browser_required: true,
@@ -636,7 +688,7 @@ async function updateAssetKeymapReferences(assetRows, excludedAssetRows = []) {
       const previous = entry.embedding && typeof entry.embedding === "object" ? entry.embedding : {};
       const embedding = {
         ...previous,
-        database: `/cz/data/embeddings/${MODEL_ID}/${DB_FILE_NAME}`,
+        database: semanticArtifactPaths.route.database,
         table: row.table,
         model_id: MODEL_ID,
         document_id: row.documentId,
@@ -658,9 +710,13 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   db.run("DELETE FROM asset_embedding_refs");
   db.run("DELETE FROM embeddings");
   db.run("DELETE FROM chunks");
+  db.run(`DELETE FROM ${TARGET_REALIZATIONS_TABLE}`);
   db.run("DELETE FROM documents");
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["schema_name", SCHEMA_NAME]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["schema_version", String(SCHEMA_VERSION)]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["semantic_contract_name", SEMANTIC_INDEX_CONTRACT_NAME]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["semantic_contract_version", String(SEMANTIC_INDEX_CONTRACT_VERSION)]);
+  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["target_realizations_table", TARGET_REALIZATIONS_TABLE]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["default_embedding_model", MODEL_ID]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_text_field", EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_input_policy", EMBEDDING_INPUT_POLICY]);
@@ -715,6 +771,12 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
       chunk_id, model_id, dimension, vector, norm
     ) VALUES (?, ?, ?, ?, ?)
   `);
+  const targetRealizationStmt = db.prepare(`
+    INSERT INTO target_realizations(
+      id, concept_id, semantic_document_id, course_id, locale, target_text,
+      pronunciation_json, linguistic_metadata_json, review_metadata_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
   const assetRefStmt = db.prepare(`
     INSERT INTO asset_embedding_refs(
       asset_path, category, description, document_id, chunk_id, model_id, metadata_json
@@ -734,24 +796,11 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   db.run("BEGIN");
   try {
     for (const item of items) {
-      const { row, indexedText, vector } = item;
-      const documentId = `curriculum-en-${row.id}`;
+      const { row, prepared, indexedText, vector } = item;
+      const { embeddingDocument, targetRealization } = prepared;
+      const documentId = embeddingDocument.id;
       const chunkId = `${documentId}:0`;
-      const documentMetadata = JSON.stringify({
-        difficulty: row.difficulty,
-        czech_text: row.czech_text,
-        cefr: row.cefr,
-        age_band: row.age_band,
-        topic: row.topic,
-        target_words: row.target_words,
-        grammar_tags: row.grammar_tags,
-        child_safe: row.child_safe,
-        modern_english: row.modern_english,
-        concrete: row.concrete,
-        context_independent: row.context_independent,
-        naturalness_score: row.naturalness_score,
-        simplicity_score: row.simplicity_score,
-      });
+      const documentMetadata = JSON.stringify(embeddingDocument.metadata);
       const chunkMetadata = JSON.stringify({
         embedding_text_field: EMBEDDING_TEXT_FIELD,
         embedding_input_policy: EMBEDDING_INPUT_POLICY,
@@ -760,21 +809,21 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
       });
       documentStmt.run([
         documentId,
-        "curriculum",
-        row.id,
-        "en",
+        embeddingDocument.sourceKind,
+        embeddingDocument.sourceId,
+        embeddingDocument.locale,
         row.topic,
-        row.english_text,
-        sha256Text(`${row.english_text}\n${documentMetadata}`),
+        embeddingDocument.body,
+        sha256Text(`${embeddingDocument.body}\n${documentMetadata}`),
         documentMetadata,
       ]);
       chunkStmt.run([
         chunkId,
         documentId,
         0,
-        row.english_text,
+        embeddingDocument.body,
         tokenize(indexedText).length,
-        sha256Text(row.english_text),
+        sha256Text(embeddingDocument.body),
         chunkMetadata,
       ]);
       embeddingStmt.run([
@@ -783,6 +832,17 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
         EMBEDDING_DIMENSION,
         encodeFloat32le(vector),
         1,
+      ]);
+      targetRealizationStmt.run([
+        targetRealization.id,
+        targetRealization.conceptId,
+        targetRealization.semanticDocumentId,
+        targetRealization.courseId,
+        targetRealization.locale,
+        targetRealization.targetText,
+        JSON.stringify(targetRealization.pronunciation),
+        JSON.stringify(targetRealization.linguisticMetadata),
+        JSON.stringify(targetRealization.reviewMetadata),
       ]);
     }
     for (const item of assetItems) {
@@ -882,6 +942,7 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
     documentStmt.free();
     chunkStmt.free();
     embeddingStmt.free();
+    targetRealizationStmt.free();
     assetRefStmt.free();
     robotRefStmt.free();
     macawActionRefStmt.free();
@@ -901,6 +962,10 @@ async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, 
   const manifest = {
     schema_name: SCHEMA_NAME,
     schema_version: SCHEMA_VERSION,
+    semantic_index_contract: {
+      name: SEMANTIC_INDEX_CONTRACT_NAME,
+      version: SEMANTIC_INDEX_CONTRACT_VERSION,
+    },
     model_id: MODEL_ID,
     model_source: MODEL_SOURCE_ID,
     model_revision: MODEL_REVISION,
@@ -915,8 +980,8 @@ async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, 
     embedding_text_field: EMBEDDING_TEXT_FIELD,
     embedding_input_policy: EMBEDDING_INPUT_POLICY,
     file: DB_FILE_NAME,
-    url: `data/embeddings/${MODEL_ID}/${DB_FILE_NAME}`,
-    catalog_file: "data/embeddings/models.json",
+    url: semanticArtifactPaths.manifest.database,
+    catalog_file: semanticArtifactPaths.manifest.catalog,
     bytes: stat.size,
     sha256,
     runtime: {
@@ -937,6 +1002,12 @@ async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, 
     chunk_count: totalRows,
     embedding_count: totalRows,
     curriculum_count: rows.length,
+    target_realization_count: rows.length,
+    target_realizations: {
+      table: TARGET_REALIZATIONS_TABLE,
+      course_id: czechSemanticIndexConfig.courseId,
+      locale: czechSemanticIndexConfig.target.locale,
+    },
     asset_count: assetItems.length,
     asset_counts: assetCounts,
     child_facing_asset_policy: {
@@ -972,7 +1043,7 @@ async function writeEmbeddingCatalog(manifest, file) {
   const catalog = {
     version: 1,
     default_model: MODEL_ID,
-    base_url: "https://caatuu.waajacu.com/cz/data/embeddings",
+    base_url: `https://caatuu.waajacu.com${czechSemanticIndexConfig.storage.routeRoot}`,
     models: [
       {
         key: MODEL_ID,
@@ -1045,7 +1116,7 @@ async function writeQualityReports(items, manifest) {
     source_file: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
     vector_db: path.relative(caatuuRoot, outFile).replaceAll("\\", "/"),
     model_id: MODEL_ID,
-    caveat: "This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
+    caveat: "This semantic vector index is computed only from english_text (or manual English image descriptions), never from target-language realizations or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
     rows: items.length,
     db_bytes: manifest.bytes,
     db_sha256: manifest.sha256,
@@ -1076,12 +1147,6 @@ async function writeQualityReports(items, manifest) {
   await fs.mkdir(path.dirname(qualityMarkdownFile), { recursive: true });
   await fs.writeFile(qualityMarkdownFile, qualityMarkdown(quality), "utf8");
   return quality;
-}
-
-function indexedTextFor(row) {
-  const text = String(row[EMBEDDING_TEXT_FIELD] || "").trim();
-  if (!text) throw new Error(`row ${row.id}: ${EMBEDDING_TEXT_FIELD} is blank`);
-  return text;
 }
 
 function normalizeVector(vector) {
@@ -1397,7 +1462,7 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
       key: "embedding-catalog",
       label: "Embedding catalog",
       artifactKind: "browser-data",
-      url: "/cz/data/embeddings/models.json",
+      url: semanticArtifactPaths.route.catalog,
       file: artifactFilesByKey["embedding-catalog"],
       nativeRequired: false,
       browserRequired: true,
@@ -1406,7 +1471,7 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
       key: "embedding-manifest",
       label: "Embedding manifest",
       artifactKind: "browser-data",
-      url: `/cz/data/embeddings/${MODEL_ID}/manifest.json`,
+      url: semanticArtifactPaths.route.manifest,
       file: artifactFilesByKey["embedding-manifest"],
       nativeRequired: false,
       browserRequired: true,
@@ -1415,7 +1480,7 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
       key: "embedding-sqlite",
       label: "Browser embeddings",
       artifactKind: "browser-data",
-      url: `/cz/data/embeddings/${MODEL_ID}/${DB_FILE_NAME}`,
+      url: semanticArtifactPaths.route.database,
       file: artifactFilesByKey["embedding-sqlite"],
       nativeRequired: false,
       browserRequired: true,

@@ -3,12 +3,16 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../languages/czech/static/", import.meta.url);
-const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldHtml, verbs, scripts] = await Promise.all([
-  readFile(new URL("source/games/verb-nebula/app.js", staticRoot), "utf8"),
-  readFile(new URL("index.html", staticRoot), "utf8"),
+const appEntry = new URL("../../../language-runtime/static/app/index.html", import.meta.url);
+const productWordWorld = new URL("../../../language-runtime/static/source/product-word-world.mjs", import.meta.url);
+const wordWorldProviderUrl = new URL("../../../language-runtime/static/source/word-world-provider.mjs", import.meta.url);
+const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldProvider, wordWorldHtml, verbs, scripts] = await Promise.all([
+  readFile(new URL("../../../language-runtime/static/source/caatuu-workspace.js", import.meta.url), "utf8"),
+  readFile(appEntry, "utf8"),
   readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
-  readFile(new URL("source/games/word-world/word-net.js", staticRoot), "utf8"),
+  readFile(productWordWorld, "utf8"),
+  readFile(wordWorldProviderUrl, "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
   readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("data/language/scripts.json", staticRoot), "utf8").then(JSON.parse)
@@ -55,7 +59,8 @@ test("shared practice scripts model child-safe privacy behavior", () => {
 });
 
 test("Word World keeps curated Standard content and honest semantic exposure", () => {
-  assert.match(wordWorld, /loadStandardWordWorldCorpus/);
+  assert.match(wordWorldProvider, /loadStandardWordWorldCorpus/);
+  assert.match(wordWorld, /const provider = state\.standardProvider/);
   assert.match(wordWorld, /function recordStandardSemanticExposure/);
   assert.match(wordWorld, /outcome: "exposure"/);
   assert.match(wordWorld, /score: null/);

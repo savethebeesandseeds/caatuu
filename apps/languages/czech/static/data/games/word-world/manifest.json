@@ -2,6 +2,21 @@
   "schemaVersion": "caatuu-word-world-runtime-manifest-v1",
   "corpusVersion": "standard-v0.1",
   "mode": "standard",
+  "sessionProvider": {
+    "kind": "standard-corpus",
+    "module": "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+    "meaningSelectorModule": "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19"
+  },
+  "features": {
+    "wordMeanings": true
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false,
+    "modelId": "all-minilm-l6-v2-qint8-v0.1",
+    "fallback": "deterministic-lexical"
+  },
   "runtimeFile": "standard-v0.1/records.json?v=657e502666ae7aee",
   "recordCount": 792,
   "contentSha256": "657e502666ae7aeeede2aa19a350ad48e4cca291ae6019e42bbd4da80b427961",

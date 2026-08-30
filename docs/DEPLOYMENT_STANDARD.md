@@ -197,9 +197,8 @@ stronger property without pretending it exists today.
 Each release should contain the smallest approved content set:
 
 - a web bundle produced from an explicit, channel-specific route allowlist;
-  routes currently described in [`ARCHITECTURE.md`](ARCHITECTURE.md), including
-  `/archive/chinese/`, are not included automatically and require
-  a deliberate release decision; secrets, raw sources, and unapproved assets
+  only routes currently described in [`ARCHITECTURE.md`](ARCHITECTURE.md) are
+  eligible; archived applications, secrets, raw sources, and unapproved assets
   are always excluded;
 - an immutable runtime image or package when a dynamic runtime is required;
 - signed, versioned Android packages and their client-facing updater manifests;

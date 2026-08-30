@@ -49,6 +49,8 @@
   }
 
   function validChannelManifest(channel, manifest) {
+    if (!Number.isSafeInteger(channel?.minimumVersionCode) || channel.minimumVersionCode < 1) return false;
+    if (!Number.isSafeInteger(manifest?.version_code) || manifest.version_code < channel.minimumVersionCode) return false;
     if (manifest?.package_name !== "com.waajacu.caatuu") return false;
     if (channel.kind === "preview") {
       return manifest.build_type === "debug" && manifest.debuggable === true;
@@ -151,18 +153,7 @@
       renderLanguages(registry);
     } catch (error) {
       // The static Czech links remain a usable no-JavaScript/network fallback.
-      selectAvailableChannel({
-        label: "Czech",
-        platforms: {
-          android: {
-            enabled: true,
-            channels: [
-              { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk" },
-              { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk" }
-            ]
-          }
-        }
-      });
+      setDownloadUnavailable("Android availability could not be loaded");
     }
   }
 

@@ -8,6 +8,8 @@ import https from "node:https";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { verifyEmbeddingRuntimeAssets } from "../../language-runtime/tooling/verify-embedding-runtime.mjs";
+
 const scriptPath = fileURLToPath(import.meta.url);
 const scriptDir = dirname(scriptPath);
 const workspaceRoot = resolve(scriptDir, "..", "..", "..");
@@ -224,13 +226,14 @@ function auditRepoOwnership() {
   const compose = existsSync(baseCompose) ? readFileSync(baseCompose, "utf8") : "";
   assert(compose.includes("/workspace/apps/server"), "base Compose tooling should point at apps/server");
   assert(!compose.includes("/workspace/apps/caatuu-chinese"), "base Compose should not point at apps/caatuu-chinese");
+  assert(!compose.includes("archive/caatuu-chinese"), "base Compose should not mount repository-only Chinese archive sources");
 
   const routes = existsSync(runtimeRoutes) ? readFileSync(runtimeRoutes, "utf8") : "";
-  assert(routes.includes('workspace.join("archive/caatuu-chinese/static")'), "runtime routes should serve the Chinese archive from archive/caatuu-chinese");
+  assert(!routes.includes('workspace.join("archive/caatuu-chinese/static")'), "runtime routes should not serve repository-only Chinese archive sources");
   assert(!routes.includes('workspace.join("demos")'), "runtime routes should not serve archived experiments from a live demos directory");
   assert(!routes.includes('workspace.join("apps/caatuu-chinese/static")'), "runtime routes should not serve Chinese from apps/caatuu-chinese");
 
-  note("repo ownership keeps the Rust server separate from archived Chinese");
+  note("repo ownership keeps deprecated Chinese source history outside the runtime");
 }
 
 function request(pathname, { method = "GET" } = {}) {
@@ -322,7 +325,7 @@ async function auditHttpRoutes() {
   assert(root.body.includes("<title>Caatuu</title>"), "launcher root should serve the Caatuu title");
   assert(root.body.includes('href="/cz/index.html"'), "launcher fallback should link to the Czech entry page");
   assert(root.body.includes('data-android-download'), "launcher root should expose a channel-aware Android download");
-  assert(root.body.includes('/launcher.js?v=7'), "launcher root should load current language and Android channel discovery");
+  assert(root.body.includes('/launcher.js?v=8'), "launcher root should load current language and Android channel discovery");
   assert(root.body.includes("Checking Android build"), "launcher root should announce Android channel discovery");
   assert(!root.body.includes('href="/android/caatuu-debug.apk"'), "launcher root must not offer a debug APK as a normal download");
   assert(root.body.includes("Continue in Browser"), "launcher root should offer browser continuation");
@@ -369,6 +372,7 @@ async function auditHttpRoutes() {
   assert(activeCzech?.platforms?.android?.channels?.[0]?.manifest === "/android/caatuu.json", "public language registry should expose the signed release manifest first");
   assert(activeCzech?.platforms?.android?.channels?.[1]?.kind === "preview", "public language registry should label the gated preview channel");
   assert(activeCzech?.platforms?.android?.channels?.[1]?.manifest === "/android/caatuu-preview.json", "public language registry should use the user-facing preview alias");
+  assert(!languageRegistry?.languages?.some((language) => language.id === "zh"), "development Mandarin must remain absent from the public launcher registry");
 
   const unknownRoot = await request("/definitely-missing-caatuu-page");
   assert(unknownRoot.status === 404, `/definitely-missing-caatuu-page should return 404, got ${unknownRoot.status}`);
@@ -378,14 +382,189 @@ async function auditHttpRoutes() {
   assert(unknownRoot.body.includes("HTTP 404 Not Found"), "not-found page should expose precise technical details");
   assert(unknownRoot.body.includes("/assets/macaw/actions/jedy_%20stop.png"), "not-found page should use the requested macaw art");
 
-  const czechHome = await request("/cz/index.html");
-  assert(czechHome.status === 200, `/cz/index.html should return 200, got ${czechHome.status}`);
-  assert(czechHome.body.includes("<title>Caatuu</title>"), "Czech home should serve the shared Caatuu title");
-  assert(!czechHome.body.includes("archive/chinese"), "Czech home should not include archive links");
+  const czechHome = await request("/cz/");
+  const czechIndex = await request("/cz/index.html");
+  const mandarinHome = await request("/zh/");
+  const mandarinIndex = await request("/zh/index.html");
+  for (const [path, page] of [
+    ["/cz/", czechHome],
+    ["/cz/index.html", czechIndex],
+    ["/zh/", mandarinHome],
+    ["/zh/index.html", mandarinIndex]
+  ]) {
+    assert(page.status === 200, `${path} should return 200, got ${page.status}`);
+    assert(page.body === czechHome.body, `${path} should serve byte-identical canonical app HTML`);
+  }
+  assert(czechHome.body.includes("<title>Caatuu</title>"), "the canonical app should serve the shared Caatuu title");
+  assert(!czechHome.body.includes("archive/chinese"), "the canonical app should not include archive links");
+  assert(mandarinHome.headers["x-robots-tag"] === "noindex, nofollow", "Mandarin development routes must remain noindex");
+  assert(mandarinIndex.headers["x-robots-tag"] === "noindex, nofollow", "Mandarin development index must remain noindex");
+  const czechWordWorldCompatibility = await request("/cz/word-net.html");
+  assert(czechWordWorldCompatibility.status === 200, "the retired Czech Word World URL should remain a compatibility document");
+  assert(czechWordWorldCompatibility.body.includes('url=index.html?game=word-net'), "the retired Czech Word World URL should enter the canonical game route");
+  assert(!czechWordWorldCompatibility.body.includes("source/games/word-world/word-net.js"), "the retired Czech Word World URL must not serve a second implementation");
+  for (const retiredPath of [
+    "/cz/source/games/word-world/word-net.js",
+    "/cz/source/games/word-world/word-net.css",
+    "/cz/source/games/word-world/word-net-core.mjs",
+    "/cz/source/games/word-world/word-net-queue.mjs",
+    "/cz/source/features/home/home.css",
+    "/cz/source/games/verb-nebula/app.css",
+    "/cz/source/games/verb-nebula/app.js",
+    "/cz/source/shared/chrome.css",
+    "/cz/source/shared/chrome.js",
+    "/cz/source/shared/learning-profile.js",
+    "/cz/source/shared/theme.css",
+    "/language-runtime/static/source/product-shell.mjs",
+    "/language-runtime/static/styles/course-shell.css"
+  ]) {
+    const retiredResponse = await request(retiredPath);
+    assert(retiredResponse.status === 404, `${retiredPath} should remain unavailable, got ${retiredResponse.status}`);
+  }
+
+  const sharedShellReferences = [
+    "/language-runtime/static/styles/caatuu-theme.css",
+    "/language-runtime/static/styles/caatuu-workspace.css",
+    "/language-runtime/static/styles/caatuu-home.css",
+    "/language-runtime/static/styles/caatuu-chrome.css",
+    "/language-runtime/static/source/shell-policy.js",
+    "/language-runtime/static/source/caatuu-chrome.js"
+  ];
+  const sharedShellHosts = [
+    'class="app-shell"',
+    'class="app-header"',
+    'class="workspace"',
+    'class="app-footer"',
+    "data-caatuu-bottom-nav",
+    "data-caatuu-settings-panel"
+  ];
+  for (const [label, page] of [["Czech", czechHome], ["Mandarin", mandarinHome]]) {
+    for (const reference of sharedShellReferences) {
+      assert(
+        page.body.split(reference).length === 2,
+        `${label} home should reference the authoritative shared-shell asset ${reference} exactly once`
+      );
+    }
+    let previousHostIndex = -1;
+    for (const host of sharedShellHosts) {
+      const hostIndex = page.body.indexOf(host);
+      assert(hostIndex > previousHostIndex, `${label} home should expose shared-shell host ${host} in product order`);
+      previousHostIndex = hostIndex;
+    }
+    assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
+    assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
+    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-7"');
+    assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
+    assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
+  }
+  assert(!/(?:site-header|course-main|preview-card-grid|course-shell\.css)/u.test(mandarinHome.body), "Mandarin home should not retain mini-app interface markers");
+  assert(mandarinHome.body.includes('id="wordWorldRoot"'), "Mandarin should host the shared Word World renderer inside the canonical Caatuu shell");
+  assert(!mandarinHome.body.includes('id="wordNetEmbeddedGame"'), "the canonical Word World host must not retain an iframe renderer path");
+
+  const appBootstrap = await request("/language-runtime/static/source/app-bootstrap.mjs");
+  const wordWorldHost = await request("/language-runtime/static/source/word-world-host.mjs");
+  const wordWorldProvider = await request("/language-runtime/static/source/word-world-provider.mjs");
+  const mandarinProfile = await request("/zh/source/shared/course-profile.js");
+  const mandarinWordWorldManifestResponse = await request("/zh/data/games/word-world/manifest.json");
+  const mandarinSetupResponse = await request("/zh/setup-assets.json");
+  for (const [label, response] of [
+    ["shared app bootstrap", appBootstrap],
+    ["shared Word World host", wordWorldHost],
+    ["shared Word World provider", wordWorldProvider],
+    ["Mandarin course profile", mandarinProfile],
+    ["Mandarin Word World manifest", mandarinWordWorldManifestResponse],
+    ["Mandarin setup catalog", mandarinSetupResponse]
+  ]) {
+    assert(response.status === 200, `${label} should return 200, got ${response.status}`);
+  }
+  assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
+  assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
+  assert(
+    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-4")'),
+    "the shared app bootstrap should mount every course through the unified Word World host"
+  );
+  assert(
+    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-6")'),
+    "the shared Word World host should load the unified provider"
+  );
+  assert(
+    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-5'),
+    "the shared Word World provider should load the one shared renderer"
+  );
+  assert(mandarinProfile.body.includes('status: "development"'), "the Mandarin profile should declare its development status");
+  assert(mandarinProfile.body.includes('wordWorld: "index.html?game=word-net"'), "the Mandarin profile should route Word World through the canonical app");
+  const mandarinWordWorldManifest = parseHttpJson(mandarinWordWorldManifestResponse, "Mandarin Word World manifest");
+  assert(mandarinWordWorldManifest?.mode === "authored", "Mandarin Word World should use authored target content");
+  assert(mandarinWordWorldManifest?.embeddingPolicy?.inputLanguage === "en", "Mandarin Word World embeddings should remain English-backed");
+  const mandarinSetup = parseHttpJson(mandarinSetupResponse, "Mandarin setup catalog");
+  assert(mandarinSetup?.application?.appEntry === "apps/language-runtime/static/app/index.html", "Mandarin setup should name the canonical app entry");
+  assert(mandarinSetup?.application?.entryPath === "/zh/index.html", "Mandarin setup should mount the canonical app at its course route");
+  assert(!mandarinSetup?.offline?.assets?.some((asset) => asset.includes("product-shell.mjs")), "Mandarin offline assets must not retain the superseded product shell");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-4"), "Mandarin offline assets should include the shared Word World host");
+  assert(
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-6"),
+    "Mandarin offline assets should include the unified Word World provider"
+  );
+  assert(
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-5"),
+    "Mandarin offline assets should include the one shared Word World renderer"
+  );
+
+  const embeddingRuntimeCatalogResponse = await request("/language-runtime/embedding-runtimes.json");
+  assert(embeddingRuntimeCatalogResponse.status === 200, `shared embedding runtime catalog should return 200, got ${embeddingRuntimeCatalogResponse.status}`);
+  const embeddingRuntimeCatalog = parseHttpJson(embeddingRuntimeCatalogResponse, "shared embedding runtime catalog");
+  const sharedMiniLm = embeddingRuntimeCatalog?.runtimes?.find(({ id }) => id === "all-minilm-l6-v2-qint8-v0.1");
+  assert(sharedMiniLm?.inputLanguage === "en", "shared MiniLM must declare English-only input");
+  assert(sharedMiniLm?.source?.revision === "1110a243fdf4706b3f48f1d95db1a4f5529b4d41", "shared MiniLM must retain its pinned source revision");
+  assert(sharedMiniLm?.artifacts?.length === 12, "shared MiniLM must publish its complete reviewed artifact inventory");
+  for (const artifact of sharedMiniLm?.artifacts ?? []) {
+    const response = await request(artifact.url, { method: "HEAD" });
+    assert(response.status === 200, `shared embedding artifact ${artifact.url} should return 200, got ${response.status}`);
+    assert(Number(response.headers["content-length"]) === artifact.bytes, `shared embedding artifact ${artifact.url} should match its declared byte count`);
+  }
+
+  for (const [url, label] of [
+    ["/language-runtime/contract.mjs", "shared language adapter contract"],
+    ["/language-runtime/static/app/index.html", "canonical shared app entry"],
+    ["/language-runtime/static/source/initial-theme.js", "shared initial appearance controller"],
+    ["/language-runtime/static/source/app-bootstrap.mjs", "shared app bootstrap"],
+    ["/language-runtime/static/source/shell-policy.js", "shared shell policy"],
+    ["/language-runtime/static/source/word-world-host.mjs", "shared Word World host"],
+    ["/language-runtime/static/source/word-world-provider.mjs", "shared Word World provider"],
+    ["/language-runtime/static/source/course-service-worker.js", "shared course service worker"],
+    ["/language-runtime/static/source/caatuu-chrome.js", "shared Caatuu Chrome"],
+    ["/language-runtime/static/source/embedded-game-bootstrap.js", "shared embedded-game bootstrap"],
+    ["/language-runtime/static/source/product-word-world.mjs", "shared product Word World renderer"],
+    ["/language-runtime/static/source/english-minilm-ranker.mjs", "shared English MiniLM ranker"],
+    ["/language-runtime/static/styles/caatuu-theme.css", "shared Caatuu theme"],
+    ["/language-runtime/static/styles/caatuu-workspace.css", "shared Caatuu workspace"],
+    ["/language-runtime/static/styles/caatuu-home.css", "shared Caatuu home"],
+    ["/language-runtime/static/styles/caatuu-chrome.css", "shared Caatuu Chrome style"],
+    ["/language-runtime/static/styles/caatuu-word-world.css", "shared product Word World style"],
+    ["/language-runtime/vendor/transformers/LICENSE", "Transformers.js license"],
+    ["/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/config.json", "shared MiniLM configuration"]
+  ]) {
+    const response = await request(url, { method: "HEAD" });
+    assert(response.status === 200, `${label} should return 200, got ${response.status}`);
+  }
+  for (const url of [
+    "/language-runtime/README.md",
+    "/language-runtime/tests/adapter.test.mjs",
+    "/language-runtime/static/source/product-shell.mjs",
+    "/language-runtime/vendor/transformers/README.md",
+    "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+    "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/manifest.json"
+  ]) {
+    const response = await request(url, { method: "HEAD" });
+    assert(response.status === 404, `private or Czech-specific runtime path ${url} should return 404, got ${response.status}`);
+  }
 
   const setupAssets = await request("/cz/setup-assets.json");
   assert(setupAssets.status === 200, `/cz/setup-assets.json should return 200, got ${setupAssets.status}`);
   assert(setupAssets.body.includes("/assets/aliens/Czech_Macaw.png"), "Czech setup assets should use moved Czech_Macaw art");
+  const czechSetup = parseHttpJson(setupAssets, "Czech setup catalog");
+  assert(!czechSetup?.offline?.assets?.some((asset) => /(?:^|\/)(?:word-net\.html|source\/games\/word-world\/(?:word-net\.js|word-net-queue\.mjs))(?:[?#]|$)/u.test(asset)), "Czech offline assets must not retain the legacy Word World page or controller");
 
   const loadingAnimationManifestResponse = await request("/assets/loading_animation/animations_manifest.json");
   assert(
@@ -431,13 +610,31 @@ async function auditHttpRoutes() {
   const rootWs = await request("/ws");
   assert(rootWs.status === 410, `/ws should be retired as 410, got ${rootWs.status}`);
 
-  const archive = await request("/archive/chinese/");
-  assert(archive.status === 200, `/archive/chinese/ should return 200, got ${archive.status}`);
-  assert(archive.body.includes("<title>Caatuu Chinese</title>"), "archive should serve the Chinese title");
-  assert(archive.body.includes("Chinese_Macaw.png"), "archive should keep Chinese art");
-
-  const archiveApi = await request("/archive/chinese/api/v1/health");
-  assert(archiveApi.status === 404, `/archive/chinese/api/v1/health should be disabled by default, got ${archiveApi.status}`);
+  for (const retiredChinesePath of [
+    "/archive/chinese",
+    "/archive/chinese/",
+    "/archive/chinese/index.html",
+    "/archive/chinese/app.css",
+    "/archive/chinese/assets/nested/dead.js",
+    "/archive/chinese/challenge",
+    "/archive/chinese/api/v1/health",
+    "/archive/chinese/ws",
+    "/zh/challenge",
+    "/zh/challenge/",
+    "/zh/secuence",
+    "/zh/secuence/",
+    "/zh/writing",
+    "/zh/writing/",
+    "/challenge",
+    "/challenge/",
+    "/secuence",
+    "/secuence/",
+    "/writing",
+    "/writing/"
+  ]) {
+    const retired = await request(retiredChinesePath);
+    assert(retired.status === 404, `${retiredChinesePath} should fail closed as 404, got ${retired.status}`);
+  }
 
   const androidManifest = await request("/android/caatuu.json");
   const androidApk = await request("/android/caatuu.apk", { method: "HEAD" });
@@ -513,14 +710,20 @@ async function auditHttpRoutes() {
     assert(termuxInstall.status === 404, `/android/termux-install-debug.sh should be private by default, got ${termuxInstall.status}`);
   }
 
-  const oldZh = await request("/zh/");
-  assert(oldZh.status === 308, `/zh/ should redirect with 308, got ${oldZh.status}`);
-  assert(oldZh.headers.location === "/archive/chinese/", `/zh/ should redirect to /archive/chinese/, got ${oldZh.headers.location}`);
+  for (const [oldZhPath, canonicalPath] of [
+    ["/zh-hans", "/zh/"],
+    ["/zh-hans/", "/zh/"],
+    ["/zh-hans/index.html?game=word-net", "/zh/index.html?game=word-net"]
+  ]) {
+    const oldZh = await request(oldZhPath);
+    assert(oldZh.status === 308, `${oldZhPath} should redirect with 308, got ${oldZh.status}`);
+    assert(oldZh.headers.location === canonicalPath, `${oldZhPath} should redirect only to ${canonicalPath}, got ${oldZh.headers.location}`);
+  }
 
   note(`HTTP route boundary matches ${baseUrl}`);
 }
 
-function unzip(args) {
+export function unzip(args, execute = execFileSync) {
   const execOptions = {
     cwd: workspaceRoot,
     encoding: "utf8",
@@ -528,33 +731,105 @@ function unzip(args) {
     stdio: ["ignore", "pipe", "pipe"]
   };
   try {
-    return execFileSync("unzip", args, execOptions);
+    return execute("unzip", args, execOptions);
   } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
     if (args[0] === "-Z1") {
-      return execFileSync("tar", ["-tf", args[1]], execOptions);
+      return execute("tar", ["-tf", args[1]], execOptions);
     }
     if (args[0] === "-p") {
       const archive = args[1];
       return args
         .slice(2)
-        .map((entry) => execFileSync("tar", ["-xOf", archive, entry], execOptions))
+        .map((entry) => execute("tar", ["-xOf", archive, entry], execOptions))
         .join("");
     }
     throw error;
   }
 }
 
-function unzipBuffer(archive, entry) {
+export function unzipBuffer(archive, entry, execute = execFileSync) {
   const execOptions = {
     cwd: workspaceRoot,
     maxBuffer: 128 * 1024 * 1024,
     stdio: ["ignore", "pipe", "pipe"]
   };
   try {
-    return execFileSync("unzip", ["-p", archive, entry], execOptions);
-  } catch {
-    return execFileSync("tar", ["-xOf", archive, entry], execOptions);
+    return execute("unzip", ["-p", archive, entry], execOptions);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+    return execute("tar", ["-xOf", archive, entry], execOptions);
   }
+}
+
+export function productApkAuditPlan(profile) {
+  const capabilities = profile?.capabilities && typeof profile.capabilities === "object"
+    ? profile.capabilities
+    : {};
+  const requiredEntries = [
+    "assets/caatuu-profile.json",
+    "assets/index.html",
+    "assets/setup-assets.json"
+  ];
+
+  if (Number(profile?.schemaVersion) >= 2) {
+    requiredEntries.push("assets/language-runtime/contract.mjs");
+  }
+  if (capabilities.embeddings === true) {
+    requiredEntries.push(
+      "assets/data/embeddings/models.json",
+      "assets/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
+      "assets/source/shared/runtime.js",
+      "assets/source/shared/vector-db.js",
+      "assets/source/shared/semantic-learning.js",
+      "assets/source/shared/semantic-learning-core.mjs",
+      "assets/vendor/transformers/transformers.min.js",
+      "assets/vendor/sql.js/sql-wasm.js",
+      "assets/vendor/sql.js/sql-wasm.wasm"
+    );
+  }
+  if (capabilities.dictionary === true) {
+    requiredEntries.push(
+      "assets/data/dictionaries/catalog.json",
+      "assets/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"
+    );
+  }
+  if (capabilities.wordWorldStandardOnly === true) {
+    requiredEntries.push(
+      "assets/language-runtime/static/source/word-world-provider.mjs",
+      "assets/source/games/word-world/word-net-standard.mjs",
+      "assets/language-runtime/static/source/word-net-core.mjs",
+      "assets/data/games/word-world/manifest.json",
+      "assets/data/games/word-world/standard-v0.1/records.json"
+    );
+  }
+
+  return Object.freeze({
+    requiredEntries: Object.freeze([...new Set(requiredEntries)]),
+    forbiddenEntryPatterns: Object.freeze([
+      /(?:^|\/)chat\.html$/i,
+      /(?:^|\/)source\/features\/chat\//i,
+      /(?:^|\/)data\/models(?:\/|$)/i,
+      /(?:^|\/)assets\/games(?:\/|$)/i,
+      /(?:^|\/)artifacts\/games(?:\/|$)/i,
+      /(?:^|\/)caatuu-game(?:\/|$)/i,
+      /(?:^|\/)godot(?:[-_/]|$)/i,
+      /(?:^|\/)source\/features\/home\/home\.css$/i,
+      /(?:^|\/)source\/games\/verb-nebula\/app\.(?:css|js)$/i,
+      /(?:^|\/)source\/games\/word-world\/word-net\.(?:css|js)$/i,
+      /(?:^|\/)source\/games\/word-world\/word-net-(?:core|queue)\.mjs$/i,
+      /(?:^|\/)source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)$/i,
+      /(?:^|\/)language-runtime\/static\/(?:source\/product-shell\.mjs|styles\/course-shell\.css)$/i,
+      /\.pck$/i,
+      /\.gguf(?:\.|$)/i,
+      /(?:^|\/)lib\/(?:[^/]+\/)?lib(?:ai-chat|llama|ggml|kleidiai|godot)[^/]*\.so$/i
+    ])
+  });
+}
+
+export function productApkCanonicalEntryMatches(profile, packagedEntry, canonicalEntry) {
+  if (profile?.profile !== "product" || Number(profile?.schemaVersion) < 2) return true;
+  return Buffer.from(packagedEntry).equals(Buffer.from(canonicalEntry));
 }
 
 function readUtf8Length(buffer, offset) {
@@ -770,7 +1045,17 @@ function auditApk() {
   const apkBuffer = readFileSync(apkPath);
   const entries = unzip(["-Z1", apkRel]).split(/\r?\n/).filter(Boolean);
   const entrySet = new Set(entries);
-  const requiredEntries = [
+  const profileEntry = "assets/caatuu-profile.json";
+  let packagedProfile = null;
+  if (entrySet.has(profileEntry)) {
+    try {
+      packagedProfile = JSON.parse(unzipBuffer(apkRel, profileEntry).toString("utf8"));
+    } catch (error) {
+      fail(`APK contains an invalid ${profileEntry}: ${error.message}`);
+    }
+  }
+  const productProfile = packagedProfile?.profile === "product";
+  const legacyRequiredEntries = [
     "assets/index.html",
     "assets/chat.html",
     "assets/source/games/verb-nebula/app.js",
@@ -809,25 +1094,62 @@ function auditApk() {
     "assets/vendor/sql.js/sql-wasm.wasm",
     "assets/vendor/transformers/transformers.min.js"
   ];
+  const productPlan = productProfile ? productApkAuditPlan(packagedProfile) : null;
+  const requiredEntries = productPlan?.requiredEntries ?? legacyRequiredEntries;
   for (const entry of requiredEntries) {
     assert(entrySet.has(entry), `APK is missing ${entry}`);
   }
 
+  if (productProfile) {
+    assert([1, 2].includes(Number(packagedProfile.schemaVersion)), `APK product profile schema should be 1 or 2, got ${packagedProfile.schemaVersion}`);
+    if (Number(packagedProfile.schemaVersion) >= 2 && entrySet.has("assets/index.html")) {
+      assert(
+        productApkCanonicalEntryMatches(
+          packagedProfile,
+          unzipBuffer(apkRel, "assets/index.html"),
+          readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html")),
+        ),
+        "APK schema-v2 product assets/index.html must be byte-for-byte identical to the canonical shared app entry",
+      );
+    }
+    for (const capability of ["chat", "llm", "generation", "godot"]) {
+      assert(packagedProfile.capabilities?.[capability] === false, `APK product capability ${capability} must be false`);
+    }
+    for (const entry of entries) {
+      for (const pattern of productPlan.forbiddenEntryPatterns) {
+        assert(!pattern.test(entry), `APK product profile contains forbidden capability asset ${entry}`);
+      }
+    }
+    if (Array.isArray(packagedProfile.assets)) {
+      const actualAssets = entries
+        .filter((entry) => entry.startsWith("assets/") && !entry.endsWith("/") && entry !== profileEntry)
+        .map((entry) => entry.slice("assets/".length))
+        .sort();
+      const declaredAssets = [...packagedProfile.assets].sort();
+      assert(
+        JSON.stringify(actualAssets) === JSON.stringify(declaredAssets),
+        "APK product assets must exactly match the schema-v2 profile declaration"
+      );
+    }
+  }
+
   const staticRoot = join(workspaceRoot, "apps/languages/czech/static");
-  const packagedSourceFiles = listFiles(staticRoot, new Set(["games"]))
-    .map((file) => ({ file, rel: staticRel(staticRoot, file) }))
-    .filter(({ rel }) => isPackagedSourceFile(rel))
-    .map(({ file, rel }) => ({ file, entry: `assets/${rel}` }));
-  for (const { file, entry } of packagedSourceFiles) {
-    assert(entrySet.has(entry), `APK is missing shared source file ${entry}`);
-    if (entrySet.has(entry)) {
-      try {
-        assert(
-          readFileSync(file).equals(unzipBuffer(apkRel, entry)),
-          `APK contains a stale copy of shared source file ${entry}`
-        );
-      } catch (error) {
-        fail(`Unable to compare packaged source file ${entry}: ${error.message}`);
+  if (!productProfile) {
+    const packagedSourceFiles = listFiles(staticRoot, new Set(["games"]))
+      .map((file) => ({ file, rel: staticRel(staticRoot, file) }))
+      .filter(({ rel }) => isPackagedSourceFile(rel))
+      .map(({ file, rel }) => ({ file, entry: `assets/${rel}` }));
+    for (const { file, entry } of packagedSourceFiles) {
+      assert(entrySet.has(entry), `APK is missing shared source file ${entry}`);
+      if (entrySet.has(entry)) {
+        try {
+          assert(
+            readFileSync(file).equals(unzipBuffer(apkRel, entry)),
+            `APK contains a stale copy of shared source file ${entry}`
+          );
+        } catch (error) {
+          fail(`Unable to compare packaged source file ${entry}: ${error.message}`);
+        }
       }
     }
   }
@@ -842,7 +1164,7 @@ function auditApk() {
     /^assets\/data\/embeddings\/.*\.(?:sqlite|db|wasm|onnx|bin|safetensors)$/i,
     /^assets\/data\/dictionaries\/.*\.sqlite$/i,
     /^assets\/assets\/aliens\/(?:Chinese|English_American|Chinese_Macaw|Czech\.png)/,
-    /^assets\/assets\/icons\/(?:china_flag|english_flag|france_flag|germany_flag|japan_flag|spain_flag)\.png$/,
+    /^assets\/assets\/icons\/(?:france_flag|germany_flag|japan_flag|spain_flag)\.png$/,
   ];
   for (const entry of entries) {
     for (const pattern of forbiddenEntryPatterns) {
@@ -852,30 +1174,37 @@ function auditApk() {
     }
   }
 
-  const source = unzip([
-    "-p",
-    apkRel,
-    "assets/source/games/verb-nebula/app.js",
-    "assets/source/features/chat/chat.js",
-    "assets/source/shared/maintenance-ui.js",
-    "assets/index.html",
-    "assets/source/shared/chrome.js",
-    "assets/source/shared/runtime.js"
-  ]);
+  const sourceEntries = productProfile
+    ? entries.filter((entry) => /^assets\/(?!vendor\/|data\/).+\.(?:html|css|m?js|webmanifest)$/i.test(entry))
+    : [
+        "assets/source/games/verb-nebula/app.js",
+        "assets/source/features/chat/chat.js",
+        "assets/source/shared/maintenance-ui.js",
+        "assets/index.html",
+        "assets/source/shared/chrome.js",
+        "assets/source/shared/runtime.js"
+      ];
+  const source = sourceEntries
+    .filter((entry) => entrySet.has(entry))
+    .map((entry) => unzipBuffer(apkRel, entry).toString("utf8"))
+    .join("\n");
   const forbiddenSourcePatterns = [
     /device-ai|Device AI|device AI|device_ai|deviceAi/,
     /archive\/chinese/,
-    /\/zh\b/,
+    /\/zh\/(?:challenge|secuence|writing)(?=\/|["'`?#\s)]|$)/,
     /Chinese_Macaw|English_American|Chinese\.png/
   ];
   for (const pattern of forbiddenSourcePatterns) {
     assert(!pattern.test(source), `APK Czech shell source contains forbidden pattern ${pattern}`);
   }
 
-  const runtime = unzip(["-p", apkRel, "assets/source/shared/runtime.js"]);
-  assert(runtime.includes("caatuu.local"), "APK runtime.js should identify the native host");
-  assert(runtime.includes("isNativeShell"), "APK runtime.js should expose native shell detection");
-  assert(runtime.includes("isBrowserShell"), "APK runtime.js should expose browser shell detection");
+  const runtimeEntry = "assets/source/shared/runtime.js";
+  if (entrySet.has(runtimeEntry)) {
+    const runtime = unzipBuffer(apkRel, runtimeEntry).toString("utf8");
+    assert(runtime.includes("caatuu.local"), "APK runtime.js should identify the native host");
+    assert(runtime.includes("isNativeShell"), "APK runtime.js should expose native shell detection");
+    assert(runtime.includes("isBrowserShell"), "APK runtime.js should expose browser shell detection");
+  }
 
   const apkName = basename(apkPath);
   const debugBuild = apkName === "caatuu-debug.apk";
@@ -926,8 +1255,13 @@ function auditApk() {
         const match = /^lib\/([^/]+)\//.exec(entry);
         return match ? [match[1]] : [];
       }));
-      const declaredAbis = new Set(String(manifest.abis ?? "").split(",").map((abi) => abi.trim()).filter(Boolean));
-      assert(packagedAbis.size > 0, "Android APK should contain at least one native ABI");
+      const declaredAbiValues = Array.isArray(manifest.native_abis)
+        ? manifest.native_abis
+        : String(manifest.abis ?? "").split(",");
+      const declaredAbis = new Set(declaredAbiValues.map((abi) => String(abi).trim()).filter(Boolean));
+      if (!productProfile) {
+        assert(packagedAbis.size > 0, "legacy full-shell Android APK should contain at least one native ABI");
+      }
       assert(
         packagedAbis.size === declaredAbis.size && [...packagedAbis].every((abi) => declaredAbis.has(abi)),
         `Android update manifest ABIs (${[...declaredAbis].join(", ")}) should match packaged ABIs (${[...packagedAbis].join(", ")})`
@@ -937,7 +1271,9 @@ function auditApk() {
     fail(`Unable to inspect Android APK binary manifest: ${error.message}. Ensure unzip or tar can extract AndroidManifest.xml.`);
   }
 
-  note("Android APK contains only the expected native Czech shell assets");
+  note(productProfile
+    ? "Android APK matches its capability-scoped product profile"
+    : "Android APK contains only the expected native Czech shell assets");
 }
 
 function auditRuntimeAdapterBoundary() {
@@ -968,19 +1304,49 @@ function auditRuntimeAdapterBoundary() {
   assert(runtime.includes("if (browserModelLoad)"), "concurrent browser model loads should wait for the active initialization");
   assert(runtime.includes("await disposeBrowserEngine(engine)"), "a browser engine that finishes after cancellation should be disposed");
   assert(runtime.includes('nativeCall("reset_conversation", { modelKey })'), "the shared model adapter should expose conversation reset");
-  const serviceWorker = readFileSync(join(staticRoot, "sw.js"), "utf8");
+  const courseServiceWorker = readFileSync(join(staticRoot, "sw.js"), "utf8");
+  assert(
+    courseServiceWorker.includes(
+      'importScripts("/language-runtime/static/source/course-service-worker.js")'
+    ),
+    "the course service worker should load the shared implementation"
+  );
+  const serviceWorker = readFileSync(
+    join(workspaceRoot, "apps/language-runtime/static/source/course-service-worker.js"),
+    "utf8"
+  );
   assert(serviceWorker.includes('if (request.cache === "no-store")'), "the service worker should honor no-store setup downloads");
-  assert(serviceWorker.includes("event.respondWith(fetch(request))"), "no-store setup downloads should go directly to the network");
+  assert(serviceWorker.includes("return fetch(request)"), "no-store setup downloads should go directly to the network");
   assert(serviceWorker.includes("A full quota must not hide a valid network response"), "opportunistic PWA cache failures should not fail successful network requests");
-  const chrome = readFileSync(join(staticRoot, "source/shared/chrome.js"), "utf8");
-  const chromeCss = readFileSync(join(staticRoot, "source/shared/chrome.css"), "utf8");
+  const sharedRuntimeRoot = join(workspaceRoot, "apps/language-runtime/static");
+  const chrome = readFileSync(join(sharedRuntimeRoot, "source/caatuu-chrome.js"), "utf8");
+  const chromeCss = readFileSync(join(sharedRuntimeRoot, "styles/caatuu-chrome.css"), "utf8");
   const maintenanceUi = readFileSync(join(staticRoot, "source/shared/maintenance-ui.js"), "utf8");
-  const app = readFileSync(join(staticRoot, "source/games/verb-nebula/app.js"), "utf8");
+  const app = readFileSync(join(sharedRuntimeRoot, "source/caatuu-workspace.js"), "utf8");
   const chat = readFileSync(join(staticRoot, "source/features/chat/chat.js"), "utf8");
-  const wordNet = readFileSync(join(staticRoot, "source/games/word-world/word-net.js"), "utf8");
-  const wordNetQueue = readFileSync(join(staticRoot, "source/games/word-world/word-net-queue.mjs"), "utf8");
+  const retiredCourseUiPaths = [
+    "source/games/word-world/word-net.js",
+    "source/games/word-world/word-net.css",
+    "source/games/word-world/word-net-core.mjs",
+    "source/games/word-world/word-net-queue.mjs",
+    "source/features/home/home.css",
+    "source/games/verb-nebula/app.css",
+    "source/games/verb-nebula/app.js",
+    "source/shared/chrome.css",
+    "source/shared/chrome.js",
+    "source/shared/learning-profile.js",
+    "source/shared/theme.css"
+  ];
+  for (const retiredPath of retiredCourseUiPaths) {
+    assert(!existsSync(join(staticRoot, retiredPath)), `${retiredPath} must not survive in the served Czech course tree`);
+  }
+  for (const retiredPath of ["source/product-shell.mjs", "styles/course-shell.css"]) {
+    assert(!existsSync(join(sharedRuntimeRoot, retiredPath)), `${retiredPath} must not survive in the served shared runtime tree`);
+  }
+  const wordNet = readFileSync(join(sharedRuntimeRoot, "source/product-word-world.mjs"), "utf8");
+  const wordNetQueue = readFileSync(join(sharedRuntimeRoot, "source/word-net-queue.mjs"), "utf8");
   const wordNetHtml = readFileSync(join(staticRoot, "word-net.html"), "utf8");
-  const wordNetCss = readFileSync(join(staticRoot, "source/games/word-world/word-net.css"), "utf8");
+  const wordNetCss = readFileSync(join(sharedRuntimeRoot, "styles/caatuu-word-world.css"), "utf8");
   const dictionaryFull = readFileSync(join(staticRoot, "source/features/dictionary/dictionary-full.js"), "utf8");
   assert(chrome.includes("renderAppHeader"), "chrome.js should own shared app header rendering");
   assert(chrome.includes("renderSettingsPanel"), "chrome.js should own shared settings rendering");
@@ -997,21 +1363,22 @@ function auditRuntimeAdapterBoundary() {
   assert(app.includes('button.textContent = "Browser"'), "the browser install control should use the concise Browser label");
   assert(chat.includes("CaatuuMaintenanceUi"), "chat.js should use the shared maintenance UI helper");
   assert(wordNet.includes("runtimeAdapter()?.dictionary"), "Word World should use the shared Czech-to-English dictionary runtime");
-  assert(wordNetHtml.includes('id="wordNetGenerationToggle"') && wordNetHtml.includes('data-generation-mode="random"') && wordNetHtml.includes('data-generation-mode="selected"'), "Word World should configure random and selected-word generation from the upper control");
-  assert(wordNetHtml.includes('class="word-net-shuffle-icon"') && wordNetHtml.includes('data-generation-icon="random"'), "Word World's random generation control should use the crossed shuffle icon");
+  assert(wordNetHtml.includes('http-equiv="refresh" content="0; url=index.html?game=word-net"'), "the retired Word World document should redirect to the canonical app route");
+  assert(wordNetHtml.includes('rel="canonical" href="index.html?game=word-net"'), "the retired Word World document should identify its canonical route");
+  assert(!wordNetHtml.includes('id="wordNetGenerationToggle"') && !wordNetHtml.includes('source/games/word-world/word-net.js'), "the compatibility document must not retain a second Word World implementation");
   assert(wordNet.includes('generationIcon.toggleAttribute("hidden"') && wordNetCss.includes('[data-generation-icon][hidden]'), "Word World should render exactly one generation-mode icon for HTML and SVG symbols");
   assert(wordNet.includes("generateFromConfiguredMode") && wordNet.includes("setGenerationMode(mode)"), "Word World's generation menu should save its mode and generate through one control");
-  assert(wordNetHtml.includes('id="wordNetPrevious"') && wordNetHtml.includes('id="wordNetNext"') && wordNet.includes('$("#wordNetPrevious")') && wordNet.includes('$("#wordNetNext")'), "Word World should provide clickable previous and next controls at the panel edges");
+  assert(wordNet.includes('$("#wordNetPrevious")') && wordNet.includes('$("#wordNetNext")'), "the shared renderer should preserve previous and next behavior");
   assert(!wordNet.includes("word-net-next-word") && !wordNetHtml.includes('id="wordNetNextWord"'), "Word World should not render a generation action above the selected token");
   assert(wordNet.includes("interpretHorizontalSwipe") && wordNet.includes("showPreviousSentence()"), "Word World should support next-on-swipe-left and previous-on-swipe-right navigation");
   assert(wordNet.includes('selectWord(button.dataset.word, { userInitiated: true })'), "word clicks should select and translate instead of generating immediately");
   assert(!wordNet.includes('generateSentenceForWord(button.dataset.word, { source: "choice" })'), "word clicks should not generate the next sentence directly");
-  assert(wordNetHtml.includes('id="wordNetDiagnostics"') && wordNet.includes("syncDiagnostics"), "Word World should expose compact live runtime details");
+  assert(wordNet.includes("syncDiagnostics"), "the shared renderer should preserve compact runtime details");
   assert(wordNet.includes("state.branchQueue.size") && wordNet.includes("diagnosticsModel"), "Word World runtime details should report the real branch queue and active model lane");
   assert(/Boolean\(state\.selectedWord\)\s*&&\s*translationEnabled/.test(wordNet) && !wordNet.includes('Translation hidden.'), "Word World should remove the selected-word card when translation is off");
   const wordNetInit = wordNet.slice(
     wordNet.indexOf("async function init"),
-    wordNet.indexOf("\ninit();"),
+    wordNet.indexOf("export async function mountProductWordWorld"),
   );
   assert(
     wordNet.includes('const PREPARED_QUEUE_STORAGE_KEY = `${course.storage.namespace}.wordNet.preparedQueue.v2`')
@@ -1111,8 +1478,12 @@ function auditRuntimeAdapterBoundary() {
   );
   assert(chat.includes("models.resetConversation"), "New chat and reload should reset the model's retained native context");
   assert(chat.includes("options.stateless"), "one-shot language models should request a fresh context");
-  const appUiSources = ["source/games/verb-nebula/app.js", "source/features/chat/chat.js", "index.html", "chat.html"]
-    .map((name) => [name, readFileSync(join(staticRoot, name), "utf8")]);
+  const appUiSources = [
+    ["shared Caatuu workspace", join(sharedRuntimeRoot, "source/caatuu-workspace.js")],
+    ["source/features/chat/chat.js", join(staticRoot, "source/features/chat/chat.js")],
+    ["canonical app", join(workspaceRoot, "apps/language-runtime/static/app/index.html")],
+    ["chat.html", join(staticRoot, "chat.html")]
+  ].map(([name, path]) => [name, readFileSync(path, "utf8")]);
   for (const [name, source] of appUiSources) {
     assert(!source.includes("appSettingsPanel"), `${name} should not use a page-specific settings panel id`);
     assert(!source.includes("openAppSettings"), `${name} should not use a page-specific settings open button id`);
@@ -1187,13 +1558,14 @@ function auditAndroidSource() {
   const nativeModelPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/NativeCzechModel.kt");
   const vectorDatabaseManagerPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/VectorDatabaseManager.kt");
   const dictionaryManagerPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/DictionaryManager.kt");
+  const productActivityPath = join(workspaceRoot, "apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt");
   const staticAssetManagerPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/StaticAssetManager.kt");
   const bridgePath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/CaatuuBridge.kt");
   const appUpdateManagerPath = join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/AppUpdateManager.kt");
   const filePathsPath = join(workspaceRoot, "apps/android/app/src/main/res/xml/caatuu_file_paths.xml");
   const gradlePath = join(workspaceRoot, "apps/android/app/build.gradle.kts");
   const playManifestPath = join(workspaceRoot, "apps/android/app/src/play/AndroidManifest.xml");
-  const czechIndexPath = join(workspaceRoot, "apps/languages/czech/static/index.html");
+  const canonicalAppPath = join(workspaceRoot, "apps/language-runtime/static/app/index.html");
   const maintenanceUiPath = join(workspaceRoot, "apps/languages/czech/static/source/shared/maintenance-ui.js");
   const debugBuildPath = join(workspaceRoot, "apps/android/tooling/build-debug-apk.sh");
   const publicDebugPublisherPath = join(workspaceRoot, "apps/android/tooling/publish-public-debug.sh");
@@ -1202,7 +1574,12 @@ function auditAndroidSource() {
   const runtimeConfigPath = join(workspaceRoot, "apps/server/src/config.rs");
   const runtimeMainPath = join(workspaceRoot, "apps/server/src/main.rs");
   const runtimeRoutesPath = join(workspaceRoot, "apps/server/src/routes/mod.rs");
+  const runtimeStatePath = join(workspaceRoot, "apps/server/src/state.rs");
+  const serverEnvPath = join(workspaceRoot, "apps/server/env.sh");
+  const serverRunPath = join(workspaceRoot, "apps/server/run.sh");
   const composePath = join(workspaceRoot, "compose.yaml");
+  const archivedChineseComposePath = join(workspaceRoot, "compose/archived-chinese.yaml");
+  const archivedChineseOpenAiComposePath = join(workspaceRoot, "compose/archived-chinese-openai.yaml");
   const phoneDebugComposePath = join(workspaceRoot, "compose/phone-debug.yaml");
   const termuxInstallPath = join(workspaceRoot, "apps/android/tooling/termux-install-debug.sh");
   const androidVersionsPath = join(workspaceRoot, "apps/android/tooling/versions.env");
@@ -1216,13 +1593,14 @@ function auditAndroidSource() {
   const nativeModel = readFileSync(nativeModelPath, "utf8");
   const vectorDatabaseManager = readFileSync(vectorDatabaseManagerPath, "utf8");
   const dictionaryManager = readFileSync(dictionaryManagerPath, "utf8");
+  const productActivity = readFileSync(productActivityPath, "utf8");
   const staticAssetManager = readFileSync(staticAssetManagerPath, "utf8");
   const bridge = readFileSync(bridgePath, "utf8");
   const appUpdateManager = readFileSync(appUpdateManagerPath, "utf8");
   const filePaths = readFileSync(filePathsPath, "utf8");
   const gradle = readFileSync(gradlePath, "utf8");
   const playManifest = readFileSync(playManifestPath, "utf8");
-  const czechIndex = readFileSync(czechIndexPath, "utf8");
+  const canonicalApp = readFileSync(canonicalAppPath, "utf8");
   const maintenanceUi = readFileSync(maintenanceUiPath, "utf8");
   const debugBuild = readFileSync(debugBuildPath, "utf8");
   const publicDebugPublisher = readFileSync(publicDebugPublisherPath, "utf8");
@@ -1231,6 +1609,10 @@ function auditAndroidSource() {
   const runtimeConfig = readFileSync(runtimeConfigPath, "utf8");
   const runtimeMain = readFileSync(runtimeMainPath, "utf8");
   const runtimeRoutes = readFileSync(runtimeRoutesPath, "utf8");
+  const runtimeState = readFileSync(runtimeStatePath, "utf8");
+  const serverEnv = readFileSync(serverEnvPath, "utf8");
+  const serverRun = readFileSync(serverRunPath, "utf8");
+  const productionRuntimeRoutes = runtimeRoutes.split("#[cfg(test)]", 1)[0];
   const compose = readFileSync(composePath, "utf8");
   const phoneDebugCompose = readFileSync(phoneDebugComposePath, "utf8");
   const termuxInstall = readFileSync(termuxInstallPath, "utf8");
@@ -1247,7 +1629,7 @@ function auditAndroidSource() {
   assert(!client.includes('path.startsWith("/games/")'), "Android asset client should not serve standalone game paths");
   assert(client.includes('"wasm" -> "application/wasm"'), "Android should serve WebAssembly with the required MIME type");
   assert(client.includes('assetPath.startsWith("data/embeddings/")'), "Android asset client should serve downloaded semantic runtime assets to the WebView");
-  assert(!/archive\/chinese|\/zh\b/.test(client), "Android asset client should not serve archive or /zh paths");
+  assert(!/archive\/chinese|\/zh\/(?:challenge|secuence|writing)(?=\/|["'`?#\s)]|$)/.test(client), "Android asset client should not serve archived Chinese paths");
   assert(client.includes('uri.scheme == "https" && uri.host == HOST && (uri.port == -1 || uri.port == 443)'), "Android app origin should require HTTPS, the exact app host, and the default HTTPS port");
   assert(client.includes('if (assetPath.contains("..")) return notFound()'), "Android asset client should reject path traversal attempts");
   assert(main.includes("blockNetworkLoads = true"), "Android service worker settings should block network loads");
@@ -1271,11 +1653,15 @@ function auditAndroidSource() {
   assert(bridge.includes("modelManager.cancelModelDownload(spec.key)"), "Android should cancel only the selected model outside setup cleanup");
   assert(modelManager.includes("suspend fun cancelModelDownload(modelKey: String?)"), "Android ModelManager should expose targeted model cancellation");
   assert(modelManager.includes('MODEL_CATALOG_ASSET = "data/models/phone-bench/models.json"'), "Android ModelManager should read the shared model catalog");
-  assert(vectorDatabaseManager.includes('EMBEDDING_CATALOG_ASSET = "data/embeddings/models.json"'), "Android VectorDatabaseManager should read the shared embedding catalog");
+  assert(vectorDatabaseManager.includes("catalogAssetPath: String"), "Android VectorDatabaseManager should require an explicit embedding catalog path");
+  assert(vectorDatabaseManager.includes('normalizedAssetPath(catalogAssetPath, "Embedding catalog")'), "Android VectorDatabaseManager should confine the configured embedding catalog path");
+  assert(vectorDatabaseManager.includes("appContext.assets.open(embeddingCatalogAsset)"), "Android VectorDatabaseManager should read its configured embedding catalog");
   assert(vectorDatabaseManager.includes("parseVectorDatabaseSpec"), "Android VectorDatabaseManager should parse embedding manifests instead of duplicating a hard-coded catalog");
   assert(!vectorDatabaseManager.includes("DEFAULT_DATABASE_URL"), "Android VectorDatabaseManager should not hard-code the embedding database URL");
   assert(!vectorDatabaseManager.includes("DEFAULT_DATABASE_SHA256"), "Android VectorDatabaseManager should not hard-code the embedding database hash");
-  assert(dictionaryManager.includes('CATALOG_ASSET = "data/dictionaries/catalog.json"'), "Android DictionaryManager should read the shared dictionary catalog");
+  assert(dictionaryManager.includes("catalogAssetPath: String"), "Android DictionaryManager should require an explicit dictionary catalog path");
+  assert(dictionaryManager.includes('normalizedAssetPath(catalogAssetPath, "Dictionary catalog")'), "Android DictionaryManager should confine the configured dictionary catalog path");
+  assert(dictionaryManager.includes("appContext.assets.open(dictionaryCatalogAsset)"), "Android DictionaryManager should read its configured dictionary catalog");
   assert(dictionaryManager.includes("SQLiteDatabase.OPEN_READONLY"), "Android full-dictionary lookup should use a read-only local SQLite database");
   assert(dictionaryManager.includes("Dictionary checksum did not match the catalog"), "Android should verify the dictionary download before publishing it");
   assert(bridge.includes('"dictionary_status" -> emitDone(id, dictionaryManager.statusJson())'), "Android should expose dictionary availability to the shared UI");
@@ -1284,7 +1670,11 @@ function auditAndroidSource() {
   assert(bridge.includes("val dictionaryFile = dictionaryManager.ensureDatabase"), "Android initial setup should download and verify the full dictionary");
   assert(bridge.includes('.put("dictionary", dictionaryStatus)'), "Android setup status should include the required dictionary artifact");
   assert(bridge.includes('.put("artifactKind", "dictionary-database")'), "Android setup events should identify the dictionary artifact");
-  assert(main.includes("dictionaryManager = DictionaryManager(applicationContext)"), "Android should wire the native dictionary manager into the bridge");
+  assert(productActivity.includes("NativeProviderConfiguration.fromGenerated"), "Android product wiring should load generated native-provider declarations");
+  assert(productActivity.includes("BuildConfig.CAATUU_EMBEDDING_CATALOG_ASSET"), "Android product wiring should consume the generated embedding catalog path");
+  assert(productActivity.includes("BuildConfig.CAATUU_DICTIONARY_CATALOG_ASSET"), "Android product wiring should consume the generated dictionary catalog path");
+  assert(productActivity.includes("catalogAssetPath = provider.catalogAsset"), "Android product wiring should pass declared provider catalogs to native managers");
+  assert(productActivity.includes("dictionaryManager = dictionaryManager"), "Android should wire the configured native dictionary manager into the bridge");
   assert(staticAssetManager.includes('SETUP_ASSET_MANIFEST = "setup-assets.json"'), "Android StaticAssetManager should read the shared setup manifest");
   assert(staticAssetManager.includes("native_required"), "Android StaticAssetManager should filter setup-assets.json by native_required");
   assert(!staticAssetManager.includes("private val REQUIRED_ASSETS = listOf"), "Android setup assets should not be duplicated as a hard-coded Kotlin list");
@@ -1310,7 +1700,13 @@ function auditAndroidSource() {
   assert(gradle.includes('buildConfigString("caatuu.json")'), "Android release builds should check the stable manifest channel");
   assert(gradle.includes('environmentVariable("CAATUU_ANDROID_REPORT_URL")'), "Android bug reporting should have an independently configurable endpoint");
   assert(gradle.includes('buildConfigField("String", "CAATUU_REPORT_URL"'), "Android builds should expose the dedicated bug-report endpoint");
-  assert(gradle.includes('gradleProperty("caatuuLanguageId")'), "Android builds should select the bundled language explicitly");
+  assert(gradle.includes('gradleProperty("caatuuCourseManifest")'), "Android builds should select one authoritative course manifest");
+  assert(gradle.includes('val bundledLanguageId = requiredString(courseManifest["id"], "course id")'), "Android builds should derive course identity from the selected manifest");
+  assert(gradle.includes('val languageStaticRelativePath = courseResourcePath("staticRoot", "directory")'), "Android builds should derive the static root from the selected manifest");
+  assert(gradle.includes('val courseCapabilities = requiredObject(courseManifest["capabilities"], "course capabilities")'), "Android builds should derive capability gates from the selected manifest");
+  assert(!gradle.includes('caatuuLanguageId') && !gradle.includes('caatuuLanguageAppDir'), "Android builds should not accept parallel language selectors outside the course manifest");
+  assert(gradle.includes('bundledLanguageId == "cz"'), "The legacy full Android shell should reject non-Czech course identities");
+  assert(gradle.includes('supports only the canonical Czech course identity'), "The legacy full Android shell should direct other languages to the generic product distribution");
   assert(gradle.includes('buildConfigField("String", "CAATUU_LANGUAGE_ROUTE_PREFIX"'), "Android builds should expose the selected language route");
   assert(gradle.includes('buildConfigField("String", "CAATUU_LANGUAGE_ENTRY_PATH"'), "Android builds should expose the selected language entry page");
   assert(gradle.includes("provider.orNull?.isNotBlank() == true"), "Android release signing should reject missing and blank credentials");
@@ -1411,13 +1807,36 @@ function auditAndroidSource() {
   assert(runtimeRoutes.includes('HeaderName::from_static("x-content-type-options")'), "runtime should prevent MIME sniffing on every response");
   assert(runtimeRoutes.includes('HeaderName::from_static("referrer-policy")'), "runtime should set a global referrer policy");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-referrer")'), "runtime should suppress referrer disclosure");
+  assert(existsSync(join(workspaceRoot, "archive/caatuu-chinese/static/index.html")), "deprecated Chinese source history should remain in the repository");
+  assert(!productionRuntimeRoutes.includes("archive/caatuu-chinese"), "runtime routes must not read the deprecated Chinese static tree");
+  assert(!productionRuntimeRoutes.includes('"/archive/chinese'), "runtime routes must not mount the deprecated Chinese application or backend");
+  assert(!productionRuntimeRoutes.includes('"/zh/challenge'), "runtime routes must not preserve deprecated Mandarin mini-app aliases");
+  assert(productionRuntimeRoutes.includes('.route("/zh-hans", get(redirect_legacy_mandarin_route))'), "runtime should retain the legacy Mandarin root alias");
+  assert(productionRuntimeRoutes.includes('.route("/zh-hans/", get(redirect_legacy_mandarin_route))'), "runtime should retain the legacy Mandarin slash alias");
+  assert(productionRuntimeRoutes.includes('.route("/zh-hans/*path", get(redirect_legacy_mandarin_route))'), "runtime should preserve suffixes on legacy Mandarin links");
+  assert(productionRuntimeRoutes.includes('strip_prefix("/zh-hans")'), "runtime should translate only the old Mandarin prefix");
+  assert(!compose.includes("archive/caatuu-chinese"), "normal Compose runtime must not mount deprecated Chinese application sources");
+  assert(!compose.includes("ENABLE_ARCHIVED_CHINESE_API"), "normal Compose runtime must not advertise an activatable deprecated Chinese backend");
+  assert(!compose.includes("AGENT_CONFIG_PATH"), "normal Compose runtime must not load deprecated Chinese agent configuration");
+  assert(!compose.includes("apps/server/profiles"), "normal Compose runtime must not mount deprecated Chinese agent profiles");
+  assert(!existsSync(archivedChineseComposePath), "deprecated Chinese activation override must remain retired");
+  assert(!existsSync(archivedChineseOpenAiComposePath), "deprecated Chinese OpenAI override must remain retired");
+  assert(!runtimeConfig.includes("archived_chinese_api"), "runtime feature configuration must not expose a deprecated Chinese backend switch");
+  assert(!runtimeConfig.includes("ENABLE_ARCHIVED_CHINESE_API"), "runtime feature configuration must not read a deprecated Chinese backend switch");
+  assert(!runtimeState.includes("OpenAI::from_env()"), "active application state must not initialize the archived OpenAI client");
+  assert(!runtimeState.includes("load_agent_config_from_env()"), "active application state must not initialize archived agent configuration");
+  assert(runtimeMain.includes("AppState::new()?"), "runtime startup must build state without an archived feature switch");
+  assert(!serverEnv.includes("ENABLE_ARCHIVED_CHINESE_API"), "local launch environment must not expose a deprecated Chinese backend switch");
+  assert(!serverEnv.includes("OPENAI_API_KEY_FILE"), "local launch environment must not expose an archived OpenAI secret path");
+  assert(!serverRun.includes("AGENT_CONFIG_PATH"), "local launcher must not load deprecated Chinese agent configuration");
+  assert(!serverRun.includes("--config"), "local launcher must not offer deprecated Chinese archive configuration");
   assert(runtimeRoutes.includes("if features.caatuu_game_preview"), "runtime should feature-gate the standalone game preview");
   assert(runtimeRoutes.includes('.nest("/games", build_web_games(&workspace))'), "runtime should mount standalone games only through the preview gate");
   assert(!runtimeRoutes.includes("legacy_games_compatibility"), "language routes should not own game compatibility aliases");
   assert(runtimeRoutes.includes('artifact_dir: "artifacts/games/caatuu-game/web/godot-v1"'), "runtime should serve Caatuu Game from the neutral generated artifact boundary");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-cache, max-age=0")'), "generated game files should revalidate instead of becoming immutable during active development");
-  assert(czechIndex.includes("A smaller orbit for recall games will live here."), "Czech should retain the static Memory Moon placeholder");
-  assert(!czechIndex.includes("/games/caatuu-game"), "Czech should not embed the standalone game");
+  assert(canonicalApp.includes("A smaller orbit for recall games will live here."), "the canonical app should retain the static Memory Moon placeholder");
+  assert(!canonicalApp.includes("/games/caatuu-game"), "the canonical app should not embed the standalone game");
   assert(gradle.includes('exclude("games/**")'), "Android language asset sync should exclude generated game bundles");
   assert(!gradle.includes("generatedGameAssetsDir"), "Android should not define a generated-game asset source");
   assert(!gradle.includes("syncGameAssets"), "Android should not package standalone game artifacts");
@@ -1429,6 +1848,8 @@ function auditAndroidSource() {
   assert(runtimeMain.includes('unwrap_or_else(|_| "127.0.0.1".to_string())'), "direct runtime launches should bind to loopback by default");
   assert(compose.includes('"127.0.0.1:8765:9172"'), "normal Compose runtime should publish only on host loopback");
   assert(compose.includes('BIND_ADDR: "0.0.0.0"'), "Compose should explicitly bind the server inside its container network");
+  assert(compose.includes("verify-embedding-runtime.mjs"), "Compose should verify shared embedding hashes before starting the runtime");
+  assert(compose.includes("exec /usr/local/bin/caatuu-runtime"), "Compose should start the runtime only after shared embedding verification succeeds");
   assert(compose.includes("TCP-LISTEN:7979,reuseaddr,fork TCP:host.docker.internal:7979"), "shared tunnel should preserve its existing Minerals origin forward");
   assert(compose.includes('wait -n "$${forward_pid}" "$${shared_forward_pid}" "$${tunnel_pid}"'), "tunnel service should exit when any forwarding process stops");
   assert(phoneDebugCompose.includes('ENABLE_ANDROID_DEBUG_DOWNLOADS: "1"'), "phone-debug Compose override should explicitly enable debug routes");
@@ -1439,6 +1860,9 @@ function auditAndroidSource() {
 }
 
 async function main() {
+  const embeddingSummary = await verifyEmbeddingRuntimeAssets();
+  assert(embeddingSummary.artifactCount > 0, "shared embedding runtime should pass its local size and SHA-256 readiness contract");
+  note(`shared embedding runtime verified (${embeddingSummary.artifactCount} artifacts)`);
   auditLegacyNames();
   auditRepoOwnership();
   auditRuntimeAdapterBoundary();
@@ -1449,7 +1873,9 @@ async function main() {
   finish();
 }
 
-main().catch((error) => {
-  console.error(error.stack || String(error));
-  process.exit(1);
-});
+if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
+  main().catch((error) => {
+    console.error(error.stack || String(error));
+    process.exit(1);
+  });
+}

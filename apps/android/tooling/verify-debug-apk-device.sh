@@ -68,7 +68,7 @@ echo "pid: $pid" | tee -a "$report"
 "$adb_bin" -s "$device" pull /sdcard/caatuu-screen.png "$screenshot_file" >> "$report" 2>&1 || true
 "$adb_bin" -s "$device" logcat -d > "$logcat_file" || true
 
-if grep -Eiq "device-ai|archive/chinese|/zh" "$logcat_file"; then
+if grep -Eiq "device-ai|archive/chinese|/zh/(challenge|secuence|writing)(/|[?[:space:]]|$)" "$logcat_file"; then
   echo "Found retired browser/archive route text in device logcat. See $logcat_file" >&2
   exit 1
 fi

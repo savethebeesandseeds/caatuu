@@ -78,18 +78,60 @@ class CaatuuActivity : ComponentActivity() {
             safeBrowsingEnabled = true
         }
 
+        val courseCapabilities = CourseCapabilities.fromJson(BuildConfig.CAATUU_COURSE_CAPABILITIES_JSON)
+        val nativeProviders = NativeProviderConfiguration.fromGenerated(
+            schemaVersion = BuildConfig.CAATUU_NATIVE_PROVIDER_SCHEMA_VERSION,
+            embeddingImplementation = BuildConfig.CAATUU_EMBEDDING_PROVIDER,
+            embeddingCatalogAsset = BuildConfig.CAATUU_EMBEDDING_CATALOG_ASSET,
+            dictionaryImplementation = BuildConfig.CAATUU_DICTIONARY_PROVIDER,
+            dictionaryCatalogAsset = BuildConfig.CAATUU_DICTIONARY_CATALOG_ASSET,
+            speechImplementation = BuildConfig.CAATUU_SPEECH_PROVIDER,
+            speechLocale = BuildConfig.CAATUU_SPEECH_PROVIDER_LOCALE,
+        )
+        nativeProviders.requireMatches(courseCapabilities, BuildConfig.CAATUU_SPEECH_LOCALE)
+        val vectorDatabaseManager = courseCapabilities.createIfEnabled("embeddings") {
+            val provider = checkNotNull(nativeProviders.embeddings)
+            VectorDatabaseManager(
+                applicationContext,
+                catalogAssetPath = provider.catalogAsset,
+            )
+        }
+        val dictionaryManager = courseCapabilities.createIfEnabled("dictionary") {
+            val provider = checkNotNull(nativeProviders.dictionary)
+            DictionaryManager(
+                applicationContext,
+                catalogAssetPath = provider.catalogAsset,
+            )
+        }
+        val speechManager = courseCapabilities.createIfEnabled("speech") {
+            val provider = checkNotNull(nativeProviders.speech)
+            check(provider.locale == BuildConfig.CAATUU_SPEECH_LOCALE)
+            AndroidSpeechManager(
+                applicationContext,
+                configuredLocaleTag = BuildConfig.CAATUU_SPEECH_LOCALE,
+                targetLanguageLabel = BuildConfig.CAATUU_TARGET_LANGUAGE_LABEL,
+            )
+        }
         bridge = ProductBridge(
             activity = this,
             webView = webView,
-            vectorDatabaseManager = VectorDatabaseManager(applicationContext),
-            dictionaryManager = DictionaryManager(applicationContext),
+            courseCapabilities = courseCapabilities,
+            vectorDatabaseManager = vectorDatabaseManager,
+            dictionaryManager = dictionaryManager,
             staticAssetManager = StaticAssetManager(applicationContext),
-            speechManager = AndroidSpeechManager(applicationContext),
+            speechManager = speechManager,
             appUpdateManager = AppUpdateManager(applicationContext),
+            sourceLanguageLabel = BuildConfig.CAATUU_SOURCE_LANGUAGE_LABEL,
+            targetLanguageLabel = BuildConfig.CAATUU_TARGET_LANGUAGE_LABEL,
+            speechLocaleTag = BuildConfig.CAATUU_SPEECH_LOCALE,
             onThemeChanged = { theme -> applySystemTheme(theme) },
         )
 
-        webView.webViewClient = CaatuuAssetClient(this)
+        webView.webViewClient = CaatuuAssetClient(
+            context = this,
+            courseCapabilities = courseCapabilities,
+            vectorDatabaseManager = vectorDatabaseManager,
+        )
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
 

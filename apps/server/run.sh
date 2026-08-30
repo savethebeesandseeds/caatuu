@@ -16,17 +16,9 @@ Runs the local Rust server only. Use the workspace Compose tunnel profile for
 remote access; this script never reads or launches with a tunnel token.
 
 Options:
-  -c, --config <path>  Archived Chinese agent TOML (archive mode only)
   -r, --release        Build and run Cargo's release profile
   -h, --help           Show this help
 EOF
-}
-
-is_enabled() {
-  case "${1,,}" in
-    1|true|yes|on) return 0 ;;
-    *) return 1 ;;
-  esac
 }
 
 process_start_ticks() {
@@ -103,17 +95,11 @@ else
   command_name="start"
 fi
 
-config_path="${AGENT_CONFIG_PATH:-}"
 cargo_mode=()
 cargo_profile="debug"
 server_args=()
 while (( $# )); do
   case "$1" in
-    -c|--config)
-      [[ $# -ge 2 ]] || { echo "Missing value for $1" >&2; exit 2; }
-      config_path="$2"
-      shift 2
-      ;;
     -r|--release)
       cargo_mode=(--release)
       cargo_profile="release"
@@ -194,20 +180,6 @@ if read -r pid start_ticks < <(read_process_state); then
   remove_state_if_owned "$pid" "$start_ticks"
 else
   rm -f "$pid_file"
-fi
-
-if is_enabled "$ENABLE_ARCHIVED_CHINESE_API"; then
-  if [[ -z "$config_path" && -f "$script_dir/profiles/word_challenge.toml" ]]; then
-    config_path="$script_dir/profiles/word_challenge.toml"
-  elif [[ -n "$config_path" && "$config_path" != /* ]]; then
-    config_path="$script_dir/$config_path"
-  fi
-  if [[ -n "$config_path" ]]; then
-    [[ -f "$config_path" ]] || { echo "Agent config not found: $config_path" >&2; exit 1; }
-    export AGENT_CONFIG_PATH="$config_path"
-  fi
-else
-  unset AGENT_CONFIG_PATH
 fi
 
 cd "$script_dir"

@@ -78,12 +78,20 @@ class MainActivity : ComponentActivity() {
             safeBrowsingEnabled = true
         }
 
+        val vectorDatabaseManager = VectorDatabaseManager(
+            applicationContext,
+            catalogAssetPath = "data/embeddings/models.json",
+        )
+        val dictionaryManager = DictionaryManager(
+            applicationContext,
+            catalogAssetPath = "data/dictionaries/catalog.json",
+        )
         bridge = CaatuuBridge(
             activity = this,
             webView = webView,
             modelManager = ModelManager(applicationContext),
-            vectorDatabaseManager = VectorDatabaseManager(applicationContext),
-            dictionaryManager = DictionaryManager(applicationContext),
+            vectorDatabaseManager = vectorDatabaseManager,
+            dictionaryManager = dictionaryManager,
             staticAssetManager = StaticAssetManager(applicationContext),
             appUpdateManager = AppUpdateManager(applicationContext),
             speechManager = AndroidSpeechManager(applicationContext),
@@ -91,7 +99,10 @@ class MainActivity : ComponentActivity() {
             onThemeChanged = { theme -> applySystemTheme(theme) },
         )
 
-        webView.webViewClient = CaatuuAssetClient(this)
+        webView.webViewClient = CaatuuAssetClient(
+            context = this,
+            vectorDatabaseManager = vectorDatabaseManager,
+        )
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
 

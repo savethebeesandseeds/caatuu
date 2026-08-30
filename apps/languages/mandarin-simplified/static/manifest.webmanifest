@@ -1,0 +1,28 @@
+{
+  "name": "Caatuu Mandarin",
+  "short_name": "Caatuu ZH",
+  "description": "An authored, deterministic Mandarin course preview.",
+  "id": "/zh/",
+  "start_url": "/zh/index.html",
+  "scope": "/zh/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "en",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "/assets/icons/china_flag.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/zh/index.html?game=word-net"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-1";
+import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-2";
 
 "use strict";
 
@@ -597,10 +597,10 @@ function createAudioMenu(index) {
   speed.value = "0";
   speed.dataset.conjugationAudioSpeed = "";
   speed.setAttribute("aria-label", "Czech speech speed");
-  speed.setAttribute("aria-valuetext", "Slower, 0.65 times");
+  speed.setAttribute("aria-valuetext", "Slower, 0.5 times");
   const ticks = element("div", "verb-audio-speed-ticks");
   ticks.setAttribute("aria-hidden", "true");
-  [["Slower", "0.65×"], ["Slow", "0.82×"], ["Normal", "1×"]].forEach(([label, rate]) => {
+  [["Slower", "0.5×"], ["Slow", "0.6×"], ["Normal", "1×"]].forEach(([label, rate]) => {
     const tick = element("span", "", `${label} `);
     tick.append(element("small", "", rate));
     ticks.append(tick);

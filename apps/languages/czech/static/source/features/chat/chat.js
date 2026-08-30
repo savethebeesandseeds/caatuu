@@ -256,10 +256,33 @@ const modelLoadHints = [
   { max: Infinity, text: "Download complete. Preparing the local model." }
 ];
 const nativeLoadInactivityTimeoutMs = 8 * 60 * 1000;
+const localAiDisabledFallbackMessage = "Local AI is currently disabled in this app. No model will be downloaded or loaded.";
 
 function runtimeAdapter() {
   if (!window.CaatuuRuntime) throw new Error("Caatuu runtime adapter is not available.");
   return window.CaatuuRuntime;
+}
+
+function chatAvailability() {
+  const availability = window.CaatuuShellPolicy?.localAiAvailability?.(
+    window.CaatuuCourse,
+    runtimeAdapter(),
+    "chat"
+  );
+  if (availability && typeof availability.enabled === "boolean") return availability;
+  const supported = window.CaatuuCourse?.capabilities?.llm === true
+    && window.CaatuuCourse?.capabilities?.chat === true;
+  return {
+    feature: "chat",
+    supported,
+    enabled: false,
+    reason: supported ? "runtime-disabled" : "course-unsupported",
+    message: supported ? localAiDisabledFallbackMessage : ""
+  };
+}
+
+function chatRuntimeEnabled() {
+  return chatAvailability().enabled === true;
 }
 
 function hasNativeRuntime() {
@@ -372,10 +395,22 @@ function setEmbeddingModelCatalog(catalog) {
 }
 
 function syncModelSelectOptions() {
+  const availability = chatAvailability();
   const nativeRuntime = hasNativeRuntime();
   ["composerModel", "settingsModel"].forEach((id) => {
     const select = $(`#${id}`);
     if (!select) return;
+
+    if (!availability.enabled) {
+      const option = document.createElement("option");
+      option.value = "disabled";
+      option.textContent = "Local AI disabled";
+      select.replaceChildren(option);
+      select.value = "disabled";
+      select.disabled = true;
+      select.title = availability.message;
+      return;
+    }
 
     if (!nativeRuntime) {
       const option = document.createElement("option");
@@ -626,13 +661,14 @@ function bindThemeControls() {
 
 function setBusy(isBusy) {
   generating = isBusy;
+  const runtimeEnabled = chatRuntimeEnabled();
   const promptInput = $("#promptInput");
   const runPrompt = $("#runPrompt");
   const loadButton = $("#loadModel");
   const contextStatus = $("#contextStatus");
   if (promptInput) {
-    promptInput.disabled = isBusy;
-    promptInput.placeholder = isBusy ? "Loading..." : "Ask";
+    promptInput.disabled = isBusy || !runtimeEnabled;
+    promptInput.placeholder = !runtimeEnabled ? "Local AI is disabled" : isBusy ? "Loading..." : "Ask";
   }
   if (runPrompt) {
     const runPromptLabel = runPrompt.querySelector(".send-label");
@@ -647,13 +683,18 @@ function setBusy(isBusy) {
   }
   contextStatus?.classList.toggle("is-generating", isBusy);
   updateSendButton();
-  if (loadButton) loadButton.disabled = isBusy;
+  if (loadButton) loadButton.disabled = isBusy || !runtimeEnabled;
 }
 
 function updateSendButton() {
   const runPrompt = $("#runPrompt");
   const promptInput = $("#promptInput");
   if (!runPrompt) return;
+  if (!chatRuntimeEnabled()) {
+    runPrompt.disabled = true;
+    runPrompt.setAttribute("aria-disabled", "true");
+    return;
+  }
   const hasPrompt = Boolean(promptInput?.value.trim());
   const canLoadThenSend = hasNativeRuntime() && hasPrompt;
   runPrompt.disabled = generating || !hasPrompt || (!modelLoaded && !canLoadThenSend);
@@ -871,6 +912,7 @@ function readSettingsControls() {
 }
 
 function syncSettingsUi() {
+  const availability = chatAvailability();
   syncModelSelectOptions();
   $("#thinkingEnabled").checked = generationSettings.thinking;
   $("#maxTokens").value = String(generationSettings.maxTokens);
@@ -880,7 +922,11 @@ function syncSettingsUi() {
   $("#contextSize").value = String(generationSettings.contextSize);
   $("#reasoningDisplay").value = generationSettings.reasoningDisplay;
   $("#composerEffort").value = generationSettings.preset;
-  if (hasNativeRuntime()) {
+  if (!availability.enabled) {
+    $("#composerModel").value = "disabled";
+    $("#settingsModel").value = "disabled";
+    renderDisabledModelMeta();
+  } else if (hasNativeRuntime()) {
     $("#composerModel").value = selectedModelKey();
     $("#settingsModel").value = selectedModelKey();
     const model = selectedModel();
@@ -907,6 +953,15 @@ function renderSelectedModelMeta(status = {}) {
   setText("#modelFileMeta", status.modelName || status.modelFile || model.model_file || "Caatuu Czech GGUF");
 }
 
+function renderDisabledModelMeta() {
+  setText("#modelStatus", "Disabled");
+  setText("#baseModelMeta", "Disabled");
+  setText("#adapterMeta", "None");
+  setText("#modelFileMeta", "No model");
+  setText("#modelMetaSummary", "No model will be downloaded or loaded.");
+  setText("#modelChoiceSummary", "Local AI is disabled in this app.");
+}
+
 function renderBrowserFallbackMeta() {
   setText("#modelStatus", browserFallbackModel);
   setText("#baseModelMeta", "Qwen3 0.6B WebLLM");
@@ -931,6 +986,16 @@ function formatContextShort(tokens) {
 }
 
 function updateSettingsSupport() {
+  const availability = chatAvailability();
+  if (!availability.enabled) {
+    setText("#thinkingSupport", "Disabled");
+    setText("#temperatureSupport", "Disabled");
+    setText("#contextSupport", "Disabled");
+    setText("#capabilityNote", availability.message);
+    setText("#controlMeta", "No model controls are active.");
+    setText("#frontierModelStatus", "Local AI disabled");
+    return;
+  }
   const model = selectedModel();
   const hasBrowserWebGpu = Boolean(runtimeAdapter().capabilities.webGpu);
   if (!hasNativeRuntime() && (loadedRuntimeKind === "browser-webgpu" || hasBrowserWebGpu)) {
@@ -1118,7 +1183,64 @@ async function refreshNativeUpdateStatus() {
   }
 }
 
+function renderChatDisabledState() {
+  const availability = chatAvailability();
+  const message = availability.message || localAiDisabledFallbackMessage;
+  modelLoaded = false;
+  modelLoadStarted = false;
+  nativeAutoDownloadStarted = false;
+  generating = false;
+  scheduleNativeDownloadPoll(false);
+  document.body.dataset.localAiState = "disabled";
+  resetChat(message);
+  const chatLog = $("#chatLog");
+  chatLog?.setAttribute("aria-label", "Local AI disabled");
+  const promptForm = $("#promptForm");
+  promptForm?.setAttribute("aria-disabled", "true");
+  const promptInput = $("#promptInput");
+  if (promptInput) promptInput.setAttribute("aria-describedby", "chatEventLine");
+  for (const id of [
+    "promptInput",
+    "runPrompt",
+    "newChat",
+    "composerModel",
+    "composerEffort",
+    "loadModel",
+    "settingsModel",
+    "thinkingEnabled",
+    "maxTokens",
+    "temperature",
+    "contextSize",
+    "reasoningDisplay"
+  ]) {
+    const control = $(`#${id}`);
+    if (!control) continue;
+    control.disabled = true;
+    control.setAttribute("aria-disabled", "true");
+  }
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.disabled = true;
+    button.setAttribute("aria-disabled", "true");
+  });
+  if (promptInput) promptInput.placeholder = "Local AI is disabled";
+  setText("#runtimeBadge", "Local AI disabled");
+  setText("#runtimeStatus", "Disabled in this app");
+  setText("#runtimeSummary", message);
+  setText("#storageStatus", "No model download");
+  renderDisabledModelMeta();
+  setText("#progressBox", message);
+  setText("#diagnosticOutput", message);
+  updateLoadButton("Disabled");
+  setChatEvent(message, { tone: "muted" });
+  updateSettingsSupport();
+  updateSendButton();
+}
+
 function renderInitialRuntime() {
+  if (!chatRuntimeEnabled()) {
+    renderChatDisabledState();
+    return;
+  }
   const hasWebGpu = runtimeAdapter().capabilities.webGpu;
   setText("#gpuStatus", hasWebGpu ? "Available" : "Missing");
   setText("#cacheStatus", runtimeAdapter().capabilities.serviceWorker ? "Checking" : "Unavailable");
@@ -1183,7 +1305,7 @@ function isNativeModelReady(status) {
 }
 
 async function refreshNativeStatus() {
-  if (!hasNativeRuntime()) return;
+  if (!chatRuntimeEnabled() || !hasNativeRuntime()) return;
 
   try {
     const status = await runtimeAdapter().models.status(selectedModelKey());
@@ -1264,7 +1386,7 @@ function scheduleNativeDownloadPoll(active) {
 }
 
 async function refreshNativeStatusAfterResume() {
-  if (!hasNativeRuntime() || nativeStatusRefreshPending) return;
+  if (!chatRuntimeEnabled() || !hasNativeRuntime() || nativeStatusRefreshPending) return;
   nativeStatusRefreshPending = true;
   try {
     const status = await refreshNativeStatus();
@@ -1276,7 +1398,7 @@ async function refreshNativeStatusAfterResume() {
 }
 
 async function startNativeDownloadIfNeeded({ silent = true, knownStatus = null } = {}) {
-  if (!hasNativeRuntime() || modelLoaded || nativeAutoDownloadStarted) return;
+  if (!chatRuntimeEnabled() || !hasNativeRuntime() || modelLoaded || nativeAutoDownloadStarted) return;
 
   const status = knownStatus || await refreshNativeStatus();
   if (!status || isNativeModelReady(status) || isNativeDownloadActive(status)) {
@@ -1358,6 +1480,10 @@ function renderNativeStatus(status) {
 }
 
 async function loadModel({ silent = false } = {}) {
+  if (!chatRuntimeEnabled()) {
+    renderChatDisabledState();
+    return;
+  }
   if (hasNativeRuntime()) {
     await loadNativeModel({ silent });
     return;
@@ -1435,6 +1561,10 @@ function renderNativeEvent(message) {
 }
 
 async function loadBrowserFallback({ silent = false } = {}) {
+  if (!chatRuntimeEnabled()) {
+    renderChatDisabledState();
+    return;
+  }
   const wasLoaded = modelLoaded;
   const loadToken = ++modelLoadToken;
   chatDownloadAbortRequested = false;
@@ -1494,6 +1624,7 @@ async function loadBrowserFallback({ silent = false } = {}) {
 }
 
 async function autoLoadModel() {
+  if (!chatRuntimeEnabled()) return;
   if (modelLoadStarted || modelLoaded) return;
   if (hasNativeRuntime()) {
     await startNativeDownloadIfNeeded({ silent: true });
@@ -1506,6 +1637,10 @@ async function autoLoadModel() {
 
 async function submitPrompt(event) {
   event.preventDefault();
+  if (!chatRuntimeEnabled()) {
+    renderChatDisabledState();
+    return;
+  }
   if (generating) return;
 
   const prompt = $("#promptInput").value.trim();
@@ -1927,6 +2062,7 @@ async function init() {
   renderStoredChat();
   renderInitialRuntime();
   await registerServiceWorker();
+  if (!chatRuntimeEnabled()) return;
   await loadLocalModelManifest();
   await refreshNativeStatus();
   await autoLoadModel();

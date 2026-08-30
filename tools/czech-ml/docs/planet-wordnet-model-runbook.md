@@ -204,9 +204,9 @@ For a new model key, update:
 ```text
 apps/android/app/src/main/java/com/caatuu/android/ModelManager.kt
 apps/languages/czech/static/source/features/chat/chat.js
-apps/languages/czech/static/source/games/verb-nebula/app.js
+apps/language-runtime/static/source/caatuu-workspace.js
 apps/languages/czech/static/chat.html
-apps/languages/czech/static/index.html
+apps/language-runtime/static/app/index.html
 apps/languages/czech/static/sw.js
 ```
 

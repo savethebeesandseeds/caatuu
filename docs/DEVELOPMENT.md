@@ -53,12 +53,20 @@ http://127.0.0.1:8765/
 http://127.0.0.1:8765/cz/
 http://127.0.0.1:8765/cz/index.html
 http://127.0.0.1:8765/cz/chat.html
+http://127.0.0.1:8765/zh/
+http://127.0.0.1:8765/zh/index.html?game=word-net
 http://127.0.0.1:8765/games/caatuu-game/
-http://127.0.0.1:8765/archive/chinese/
 ```
 
 Backend or dependency changes require a rebuild. Static browser files are
 mounted read-only and normally need only a reload.
+
+The Mandarin routes are an unlisted, `noindex` development preview;
+the public launcher remains Czech-only. Runtime startup verifies every shared
+Transformers/MiniLM artifact against
+`apps/language-runtime/embedding-runtimes.json` before serving either course.
+Missing or mismatched model-only assets are a deployment failure, not a silent
+semantic-search downgrade.
 
 ## Public tunnel
 
@@ -77,6 +85,20 @@ Start the runtime and tunnel:
 ```powershell
 docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
 ```
+
+The canonical connector pins its Cloudflare edge transport to HTTP/2 over TCP
+port `7844`. On the Windows/Docker path, QUIC could pass its startup checks and
+then lose every edge connection; automatic selection repeatedly chose QUIC
+again after the 60-second watchdog restarted the connector. Treat this
+transport choice as part of the public-availability contract. Any change must
+update the focused tunnel-resilience test and pass a sustained connectivity
+check beyond the watchdog window.
+
+Edge discovery also uses Cloudflare's `1.1.1.1:53` and `1.0.0.1:53`
+resolvers directly. This bypasses Docker's embedded `127.0.0.11` resolver,
+which repeatedly returned false `no such host` and `server misbehaving`
+responses for Cloudflare's edge-discovery record. Keep both explicit resolvers
+unless a replacement is validated from inside the tunnel container.
 
 `caatuu-game` is a browser-only development preview and is enabled locally by
 default. Disable it for an application-only public release before recreating
@@ -102,28 +124,12 @@ The named tunnel expects `http://localhost:9172` as the Caatuu origin. The
 tunnel service also preserves the existing Minerals forward to host port
 `7979`; that service remains owned by `C:\Work\Science\Minerals`.
 
-## Archived Chinese backend
+## Repository-only Chinese archive
 
-Archived pages are visible for reference, but their API and WebSocket routes
-are disabled by default. Enable the seed-only archived backend explicitly:
-
-```powershell
-docker compose -f compose.yaml -f compose/archived-chinese.yaml up -d --build caatuu
-```
-
-OpenAI-backed archive features additionally require an ignored key file:
-
-```powershell
-New-Item -ItemType Directory -Force secrets
-$key = Read-Host "OpenAI API key"
-Set-Content -NoNewline -Path secrets\openai-api-key -Value $key
-Remove-Variable key
-docker compose -f compose.yaml -f compose/archived-chinese.yaml -f compose/archived-chinese-openai.yaml up -d --build caatuu
-```
-
-The archived API has no public authentication boundary and may make billable
-requests. Never combine it with the public tunnel without adding an explicit
-authentication layer.
+The deprecated Chinese trainer remains under `archive/caatuu-chinese` for
+historical reference only. It has no runtime mount, route, backend override, or
+secret configuration. Use `/zh/` for the current Mandarin course; `/zh-hans/*`
+is a compatibility redirect only.
 
 ## Tooling container
 
@@ -185,7 +191,6 @@ docker compose config --quiet
 docker compose --profile tools --profile dev config --quiet
 docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
 docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
-docker compose -f compose.yaml -f compose/archived-chinese.yaml config --quiet
 docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 ```
 

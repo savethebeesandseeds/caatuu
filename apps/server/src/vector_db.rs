@@ -18,6 +18,8 @@ pub const FUTURE_BGE_EMBEDDING_MODEL_ID: &str = "bge-small-en-v1.5";
 pub const EMBEDDING_DIMENSION: usize = 384;
 pub const VECTOR_SCHEMA_SQL: &str = include_str!("../../../tools/czech-ml/vector-schema.sql");
 pub const VECTOR_DB_FILE_NAME: &str = "caatuu-cz-curriculum.sqlite";
+pub const ENGLISH_EMBEDDING_TEXT_FIELD: &str = "english_text";
+pub const ENGLISH_EMBEDDING_INPUT_POLICY: &str = "english_text_only";
 
 pub trait TextEmbedder {
     fn model_id(&self) -> &str;
@@ -137,6 +139,18 @@ impl VectorDb {
     ) -> Result<VectorRebuildSummary, String> {
         let corpus_path = corpus_path.as_ref();
         let rows = read_curriculum_rows(corpus_path)?;
+        self.rebuild_curriculum_rows(&rows, embedder)
+    }
+
+    fn rebuild_curriculum_rows<E: TextEmbedder>(
+        &mut self,
+        rows: &[CurriculumRow],
+        embedder: &E,
+    ) -> Result<VectorRebuildSummary, String> {
+        for row in rows {
+            row.validate_embedding_boundary()?;
+        }
+
         let tx = self.conn.transaction().map_err(|error| error.to_string())?;
         tx.execute(
             "DELETE FROM documents WHERE source_kind = ?1 AND locale = ?2",
@@ -149,12 +163,11 @@ impl VectorDb {
         )
         .map_err(|error| error.to_string())?;
 
-        for row in &rows {
+        for row in rows {
             let document_id = format!("curriculum-en-{}", row.id);
             let chunk_id = format!("{document_id}:0");
             let metadata = serde_json::to_string(&json!({
                 "difficulty": row.difficulty,
-                "czech_text": row.czech_text.as_deref().unwrap_or(""),
                 "cefr": row.cefr,
                 "age_band": row.age_band,
                 "topic": row.topic,
@@ -168,8 +181,7 @@ impl VectorDb {
                 "simplicity_score": row.simplicity_score
             }))
             .map_err(|error| error.to_string())?;
-            let indexed_text = row.indexed_text();
-            let vector = normalize_vector(&embedder.embed_text(&indexed_text)?)?;
+            let vector = normalize_vector(&embedder.embed_text(&row.english_text)?)?;
             let vector_blob = encode_float32le_vector(&vector);
             let content_hash = stable_hex_hash(&format!("{}|{}", row.english_text, metadata));
 
@@ -194,6 +206,27 @@ impl VectorDb {
 
             tx.execute(
                 r#"
+                INSERT INTO target_realizations(
+                  id, concept_id, semantic_document_id, course_id, locale, target_text,
+                  pronunciation_json, linguistic_metadata_json, review_metadata_json
+                ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
+                "#,
+                params![
+                    format!("czech:cs:{}", row.id),
+                    row.id,
+                    document_id,
+                    "czech",
+                    "cs",
+                    row.czech_text,
+                    "null",
+                    "{}",
+                    "{}"
+                ],
+            )
+            .map_err(|error| error.to_string())?;
+
+            tx.execute(
+                r#"
                 INSERT INTO chunks(
                   id, document_id, ordinal, text, token_count, content_hash, metadata_json
                 ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)
@@ -203,7 +236,7 @@ impl VectorDb {
                     document_id,
                     0_i64,
                     row.english_text,
-                    token_count(&indexed_text) as i64,
+                    token_count(&row.english_text) as i64,
                     stable_hex_hash(&row.english_text),
                     "{}"
                 ],
@@ -299,9 +332,13 @@ impl VectorDb {
             .meta_value("schema_version")?
             .and_then(|value| value.parse::<i64>().ok());
         let default_model = self.meta_value("default_embedding_model")?;
+        let embedding_text_field = self.meta_value("embedding_text_field")?;
+        let embedding_input_policy = self.meta_value("embedding_input_policy")?;
         if schema_name.as_deref() != Some(SCHEMA_NAME)
             || schema_version != Some(SCHEMA_VERSION)
             || default_model.as_deref() != Some(DEFAULT_EMBEDDING_MODEL_ID)
+            || embedding_text_field.as_deref() != Some(ENGLISH_EMBEDDING_TEXT_FIELD)
+            || embedding_input_policy.as_deref() != Some(ENGLISH_EMBEDDING_INPUT_POLICY)
         {
             return Err(rusqlite::Error::InvalidQuery);
         }
@@ -335,7 +372,7 @@ pub struct VectorRebuildSummary {
 struct CurriculumRow {
     id: String,
     english_text: String,
-    czech_text: Option<String>,
+    czech_text: String,
     difficulty: i64,
     cefr: String,
     age_band: String,
@@ -351,14 +388,20 @@ struct CurriculumRow {
 }
 
 impl CurriculumRow {
-    fn indexed_text(&self) -> String {
-        format!(
-            "{} topic: {} target words: {} grammar: {}",
-            self.english_text,
-            self.topic,
-            self.target_words.join(" "),
-            self.grammar_tags.join(" ")
-        )
+    fn validate_embedding_boundary(&self) -> Result<(), String> {
+        validate_authored_english_embedding_text(&self.english_text, "english_text")?;
+        if self.czech_text.trim().is_empty() {
+            return Err(format!("czech_text must not be blank for {}.", self.id));
+        }
+        if normalized_text_identity(&self.english_text)
+            == normalized_text_identity(&self.czech_text)
+        {
+            return Err(format!(
+                "Refusing to embed english_text for {}; it matches czech_text.",
+                self.id
+            ));
+        }
+        Ok(())
     }
 }
 
@@ -366,9 +409,8 @@ pub fn default_curriculum_corpus_path() -> PathBuf {
     std::env::var("CAATUU_CURRICULUM_EN_PATH")
         .map(PathBuf::from)
         .unwrap_or_else(|_| {
-            workspace_root().join(
-                "tools/czech-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl",
-            )
+            workspace_root()
+                .join("tools/czech-ml/data/curriculum/core-v0.2/curated/curriculum-core.en.jsonl")
         })
 }
 
@@ -389,9 +431,9 @@ fn workspace_root() -> PathBuf {
         .unwrap_or_else(|| {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
             manifest_dir
-            .parent()
-            .and_then(|apps| apps.parent())
-            .map(PathBuf::from)
+                .parent()
+                .and_then(|apps| apps.parent())
+                .map(PathBuf::from)
                 .unwrap_or(manifest_dir)
         })
 }
@@ -406,6 +448,65 @@ fn read_curriculum_rows(path: &Path) -> Result<Vec<CurriculumRow>, String> {
                 .map_err(|error| format!("{}:{}: {error}", path.display(), index + 1))
         })
         .collect()
+}
+
+fn validate_authored_english_embedding_text(text: &str, label: &str) -> Result<(), String> {
+    let text = text.trim();
+    if text.is_empty() {
+        return Err(format!("{label} must be a non-empty string."));
+    }
+
+    let mut has_ascii_latin_letter = false;
+    for character in text.chars() {
+        if character.is_control() {
+            return Err(format!("{label} must not contain control characters."));
+        }
+        if is_unicode_combining_mark(character) {
+            return Err(format!(
+                "{label} contains diacritics or combining marks and cannot be embedded as English."
+            ));
+        }
+        if character.is_alphabetic() {
+            if !character.is_ascii_alphabetic() {
+                return Err(format!(
+                    "{label} contains non-ASCII/non-Latin script and cannot be embedded as English."
+                ));
+            }
+            has_ascii_latin_letter = true;
+        } else if character.is_numeric() && !character.is_ascii_digit() {
+            return Err(format!(
+                "{label} contains non-ASCII numerals and cannot be embedded as English."
+            ));
+        }
+        if !character.is_ascii() {
+            return Err(format!(
+                "{label} contains non-ASCII characters and cannot be embedded as English."
+            ));
+        }
+    }
+
+    if !has_ascii_latin_letter {
+        return Err(format!("{label} must contain authored English Latin text."));
+    }
+    Ok(())
+}
+
+fn is_unicode_combining_mark(character: char) -> bool {
+    matches!(
+        character as u32,
+        0x0300..=0x036f
+            | 0x1ab0..=0x1aff
+            | 0x1dc0..=0x1dff
+            | 0x20d0..=0x20ff
+            | 0xfe20..=0xfe2f
+    )
+}
+
+fn normalized_text_identity(text: &str) -> String {
+    text.split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .to_lowercase()
 }
 
 fn local_hash_embedding(text: &str) -> Result<Vec<f32>, String> {
@@ -522,4 +623,159 @@ fn dot_product(left: &[f32], right: &[f32]) -> rusqlite::Result<f32> {
         return Err(rusqlite::Error::InvalidQuery);
     }
     Ok(left.iter().zip(right).map(|(l, r)| l * r).sum())
+}
+
+#[cfg(test)]
+mod tests {
+    use std::cell::RefCell;
+
+    use super::*;
+
+    struct RecordingEmbedder {
+        inputs: RefCell<Vec<String>>,
+    }
+
+    impl RecordingEmbedder {
+        fn new() -> Self {
+            Self {
+                inputs: RefCell::new(Vec::new()),
+            }
+        }
+    }
+
+    impl TextEmbedder for RecordingEmbedder {
+        fn model_id(&self) -> &str {
+            LEGACY_HASH_EMBEDDING_MODEL_ID
+        }
+
+        fn embed_text(&self, text: &str) -> Result<Vec<f32>, String> {
+            self.inputs.borrow_mut().push(text.to_string());
+            let mut vector = vec![0.0_f32; EMBEDDING_DIMENSION];
+            vector[0] = 1.0;
+            Ok(vector)
+        }
+    }
+
+    #[test]
+    fn english_embedding_boundary_rejects_mislabeled_non_english_script() {
+        for text in [
+            "一个孩子读一本书。",
+            "Příliš žluťoučký kůň.",
+            "Ребенок читает книгу.",
+            "Cafe\u{0301} is nearby.",
+            "１２３ apples.",
+            "Hello 👋",
+            "hello\u{064e}",
+        ] {
+            assert!(
+                validate_authored_english_embedding_text(text, "english_text").is_err(),
+                "unexpectedly accepted {text:?}"
+            );
+        }
+        assert!(validate_authored_english_embedding_text("1234?!", "english_text").is_err());
+        assert!(
+            validate_authored_english_embedding_text("A child reads a book.", "english_text")
+                .is_ok()
+        );
+    }
+
+    #[test]
+    fn curriculum_rebuild_embeds_only_english_and_separates_czech_realization() {
+        let mut db = in_memory_vector_db();
+        let embedder = RecordingEmbedder::new();
+        let row = fixture_row();
+
+        let summary = db
+            .rebuild_curriculum_rows(&[row], &embedder)
+            .expect("fixture rebuild should succeed");
+        assert_eq!(summary.imported_rows, 1);
+        assert_eq!(
+            embedder.inputs.into_inner(),
+            vec!["A child reads a book.".to_string()]
+        );
+
+        let (body, metadata): (String, String) = db
+            .conn
+            .query_row(
+                "SELECT body, metadata_json FROM documents WHERE id = 'curriculum-en-cc-test-0001'",
+                [],
+                |row| Ok((row.get(0)?, row.get(1)?)),
+            )
+            .expect("English semantic document should exist");
+        assert_eq!(body, "A child reads a book.");
+        let metadata: serde_json::Value =
+            serde_json::from_str(&metadata).expect("metadata should be JSON");
+        assert_eq!(metadata.get("czech_text"), None);
+
+        let (concept_id, course_id, locale, target_text): (String, String, String, String) = db
+            .conn
+            .query_row(
+                "SELECT concept_id, course_id, locale, target_text FROM target_realizations",
+                [],
+                |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?)),
+            )
+            .expect("Czech target realization should exist");
+        assert_eq!(concept_id, "cc-test-0001");
+        assert_eq!(course_id, "czech");
+        assert_eq!(locale, "cs");
+        assert_eq!(target_text, "Dítě čte knihu.");
+    }
+
+    #[test]
+    fn curriculum_rebuild_rejects_target_text_mislabeled_as_english() {
+        let mut db = in_memory_vector_db();
+        let embedder = RecordingEmbedder::new();
+        let mut row = fixture_row();
+        row.english_text = "Pes je tady.".to_string();
+        row.czech_text = "  PES   JE TADY. ".to_string();
+
+        let error = db
+            .rebuild_curriculum_rows(&[row], &embedder)
+            .expect_err("identical target text must be rejected");
+        assert!(error.contains("matches czech_text"), "{error}");
+        assert!(embedder.inputs.borrow().is_empty());
+        assert_eq!(db.count("documents").expect("count should work"), 0);
+    }
+
+    #[test]
+    fn vector_schema_must_declare_the_english_only_embedding_policy() {
+        let db = in_memory_vector_db();
+        db.conn
+            .execute(
+                "UPDATE schema_meta SET value = 'target_text' WHERE key = 'embedding_input_policy'",
+                [],
+            )
+            .expect("fixture policy should update");
+        assert!(db.assert_compatible_schema().is_err());
+    }
+
+    fn in_memory_vector_db() -> VectorDb {
+        let conn = Connection::open_in_memory().expect("in-memory SQLite should open");
+        conn.execute_batch(VECTOR_SCHEMA_SQL)
+            .expect("vector schema should load");
+        let db = VectorDb { conn };
+        db.assert_compatible_schema()
+            .expect("fixture schema should be compatible");
+        db
+    }
+
+    fn fixture_row() -> CurriculumRow {
+        CurriculumRow {
+            id: "cc-test-0001".to_string(),
+            english_text: "A child reads a book.".to_string(),
+            czech_text: "Dítě čte knihu.".to_string(),
+            difficulty: 1,
+            cefr: "Pre-A1/A1".to_string(),
+            age_band: "6-8".to_string(),
+            topic: "school".to_string(),
+            target_words: vec!["child".to_string(), "book".to_string()],
+            grammar_tags: vec!["present_simple".to_string()],
+            child_safe: true,
+            modern_english: true,
+            concrete: true,
+            context_independent: true,
+            naturalness_score: 5,
+            simplicity_score: 5,
+        }
+    }
 }

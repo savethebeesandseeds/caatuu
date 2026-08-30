@@ -7,7 +7,7 @@ const runtime = readFileSync(
   "utf8"
 );
 const chrome = readFileSync(
-  new URL("../../../languages/czech/static/source/shared/chrome.js", import.meta.url),
+  new URL("../../../language-runtime/static/source/caatuu-chrome.js", import.meta.url),
   "utf8"
 );
 const comet = readFileSync(
@@ -19,7 +19,7 @@ const bridge = readFileSync(
   "utf8"
 );
 const home = readFileSync(
-  new URL("../../../languages/czech/static/index.html", import.meta.url),
+  new URL("../../../language-runtime/static/app/index.html", import.meta.url),
   "utf8"
 );
 const setup = readFileSync(

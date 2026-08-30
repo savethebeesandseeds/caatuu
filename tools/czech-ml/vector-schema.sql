@@ -46,6 +46,21 @@ CREATE TABLE IF NOT EXISTS chunks (
   UNIQUE (document_id, ordinal)
 );
 
+CREATE TABLE IF NOT EXISTS target_realizations (
+  id TEXT PRIMARY KEY,
+  concept_id TEXT NOT NULL CHECK (length(trim(concept_id)) > 0),
+  semantic_document_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+  course_id TEXT NOT NULL CHECK (length(trim(course_id)) > 0),
+  locale TEXT NOT NULL CHECK (length(trim(locale)) > 0),
+  target_text TEXT NOT NULL CHECK (length(trim(target_text)) > 0),
+  pronunciation_json TEXT NOT NULL DEFAULT 'null',
+  linguistic_metadata_json TEXT NOT NULL DEFAULT '{}',
+  review_metadata_json TEXT NOT NULL DEFAULT '{}',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (concept_id, course_id, locale)
+);
+
 CREATE TABLE IF NOT EXISTS embeddings (
   chunk_id TEXT NOT NULL REFERENCES chunks(id) ON DELETE CASCADE,
   model_id TEXT NOT NULL REFERENCES embedding_models(id) ON DELETE CASCADE,
@@ -98,6 +113,8 @@ CREATE TABLE IF NOT EXISTS macaw_action_embedding_refs (
 
 CREATE INDEX IF NOT EXISTS idx_documents_source ON documents(source_kind, source_id);
 CREATE INDEX IF NOT EXISTS idx_chunks_document ON chunks(document_id, ordinal);
+CREATE INDEX IF NOT EXISTS idx_target_realizations_concept ON target_realizations(concept_id, course_id, locale);
+CREATE INDEX IF NOT EXISTS idx_target_realizations_document ON target_realizations(semantic_document_id);
 CREATE INDEX IF NOT EXISTS idx_embeddings_model ON embeddings(model_id);
 CREATE INDEX IF NOT EXISTS idx_asset_embedding_refs_category ON asset_embedding_refs(category);
 CREATE INDEX IF NOT EXISTS idx_robot_embedding_refs_category ON robot_embedding_refs(category);
@@ -106,6 +123,9 @@ CREATE INDEX IF NOT EXISTS idx_macaw_action_embedding_refs_action ON macaw_actio
 INSERT OR IGNORE INTO schema_meta(key, value) VALUES
   ('schema_name', 'caatuu-cz-vector-db'),
   ('schema_version', '1'),
+  ('semantic_contract_name', 'caatuu-semantic-index'),
+  ('semantic_contract_version', '1'),
+  ('target_realizations_table', 'target_realizations'),
   ('default_embedding_model', 'all-minilm-l6-v2-qint8-v0.1'),
   ('embedding_text_field', 'english_text'),
   ('embedding_input_policy', 'english_text_only'),

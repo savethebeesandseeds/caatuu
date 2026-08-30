@@ -1,26 +1,19 @@
 //! Caatuu server
 //!
-//! - Axum HTTP + WebSocket API
-//! - Root browser launcher, Czech app routes, archived Chinese routes
-//! - Optional OpenAI integration for the archived Chinese trainer
+//! - Axum HTTP runtime
+//! - Root browser launcher and catalog-driven language course routes
+//! - Repository-only archives are not mounted or activatable
 //!
 //! Important env variables:
 //!   BIND_ADDR    : listener IP (default 127.0.0.1; Compose sets 0.0.0.0 inside the container)
 //!   PORT          : u16 (default 9172)
-//!   OPENAI_API_KEY    : enables OpenAI integration if present
-//!   OPENAI_BASE_URL    : default "https://api.openai.com/v1"
-//!   OPENAI_FAST_MODEL  : default "gpt-4o-mini"
-//!   OPENAI_WRITING_MODEL : default "gpt-4o-mini" (writing-mode translation/hints/agent/grammar)
-//!   OPENAI_STRONG_MODEL   : default "gpt-4o"
-//!   OPENAI_SEQUENCE_MODEL : default "gpt-4o-mini"
-//!   OPENAI_TRANSCRIBE_MODEL : default "gpt-4o-transcribe"
-//!   AGENT_CONFIG_PATH  : path to TOML config (prompts + optional challenge bank)
 //!   RUST_LOG     : tracing filter, e.g. "debug" or full directives
 //!   LOG_FORMAT      : "pretty" (default) or "json"
 
 mod config;
 mod coreplus;
 mod domain;
+mod language_catalog;
 mod logic;
 mod openai;
 mod pinyin;
@@ -73,11 +66,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
     let addr = SocketAddr::new(bind_ip, port);
 
-    // Build shared application state (in-memory stores, OpenAI client, prompts).
+    // Build shared application state. Archived backend integrations are not initialized.
     let features = RuntimeFeatures::from_env();
-    let state = Arc::new(AppState::new(features)?);
+    let state = Arc::new(AppState::new()?);
 
-    // Build the HTTP router with static routes, optional archived APIs, and tracing.
+    // Build the HTTP router with active static routes and tracing.
     let app = build_router(state.clone(), features);
 
     let listener = TcpListener::bind(addr).await?;

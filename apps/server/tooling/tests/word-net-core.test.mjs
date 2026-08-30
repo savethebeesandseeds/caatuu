@@ -31,7 +31,7 @@ import {
   tokenizeCzechSentence,
   tokenizeEnglishReconstruction,
   wordMatchesTarget
-} from "../../../../apps/languages/czech/static/source/games/word-world/word-net-core.mjs";
+} from "../../../../apps/language-runtime/static/source/word-net-core.mjs";
 
 test("normalizes and capitalizes Czech words without losing diacritics", () => {
   assert.equal(normalizeWord("…příběh!"), "příběh");
@@ -72,15 +72,24 @@ test("detects native speech support without requiring voices to be loaded", () =
 });
 
 test("maps course difficulty badges to distinct Word World speech paces", () => {
-  assert.deepEqual(speechPaceForDifficulty(1), { rate: 0.65, label: "slower" });
-  assert.deepEqual(speechPaceForDifficulty(2), { rate: 0.82, label: "slow" });
+  assert.deepEqual(speechPaceForDifficulty(1), { rate: 0.5, label: "slower" });
+  assert.deepEqual(speechPaceForDifficulty(2), { rate: 0.6, label: "slow" });
   assert.deepEqual(speechPaceForDifficulty(3), { rate: 1, label: "normal" });
-  assert.deepEqual(speechPaceForDifficulty("unknown"), { rate: 0.65, label: "slower" });
+  assert.deepEqual(speechPaceForDifficulty("unknown"), { rate: 0.5, label: "slower" });
+
+  const windowsSapiBuckets = [1, 2, 3]
+    .map((difficulty) => speechPaceForDifficulty(difficulty).rate)
+    .map((rate) => Math.trunc(10 * Math.log10(rate)));
+  assert.equal(
+    new Set(windowsSapiBuckets).size,
+    3,
+    "every shared pace must survive Chromium's integer Windows SAPI conversion"
+  );
 });
 
 test("lets an explicit speech pace override the badge and safely return to it", () => {
-  assert.deepEqual(speechPaceForPreference("slower"), { rate: 0.65, label: "slower" });
-  assert.deepEqual(speechPaceForPreference("SLOW"), { rate: 0.82, label: "slow" });
+  assert.deepEqual(speechPaceForPreference("slower"), { rate: 0.5, label: "slower" });
+  assert.deepEqual(speechPaceForPreference("SLOW"), { rate: 0.6, label: "slow" });
   assert.deepEqual(speechPaceForPreference("normal"), { rate: 1, label: "normal" });
   assert.equal(speechPaceForPreference("fast"), null);
 
@@ -91,13 +100,13 @@ test("lets an explicit speech pace override the badge and safely return to it", 
     source: "override"
   });
   assert.deepEqual(resolveSpeechPace(3, "slower"), {
-    rate: 0.65,
+    rate: 0.5,
     label: "slower",
     key: "slower",
     source: "override"
   });
   assert.deepEqual(resolveSpeechPace(2, ""), {
-    rate: 0.82,
+    rate: 0.6,
     label: "slow",
     key: "slow",
     source: "badge"

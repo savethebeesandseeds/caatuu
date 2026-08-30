@@ -4,7 +4,17 @@ import test from "node:test";
 import vm from "node:vm";
 
 const serviceWorkerSource = await readFile(
-  new URL("../../../languages/czech/static/sw.js", import.meta.url),
+  new URL("../../../language-runtime/static/source/course-service-worker.js", import.meta.url),
+  "utf8"
+);
+const [czechLoader, mandarinLoader, czechSetup, mandarinSetup] = await Promise.all([
+  readFile(new URL("../../../languages/czech/static/sw.js", import.meta.url), "utf8"),
+  readFile(new URL("../../../languages/mandarin-simplified/static/sw.js", import.meta.url), "utf8"),
+  readFile(new URL("../../../languages/czech/static/setup-assets.json", import.meta.url), "utf8").then(JSON.parse),
+  readFile(new URL("../../../languages/mandarin-simplified/static/setup-assets.json", import.meta.url), "utf8").then(JSON.parse)
+]);
+const czechWordWorldCompatibility = await readFile(
+  new URL("../../../languages/czech/static/word-net.html", import.meta.url),
   "utf8"
 );
 
@@ -12,29 +22,43 @@ class FakeRequest {
   constructor(input, options = {}) {
     const source = typeof input === "string" ? {} : input;
     this.url = typeof input === "string" ? input : source.url;
+    this.method = options.method ?? source.method ?? "GET";
     this.mode = options.mode ?? source.mode ?? "cors";
     this.cache = options.cache ?? source.cache ?? "default";
+    this.destination = options.destination ?? source.destination ?? "";
+    this.headers = options.headers ?? source.headers ?? { has() { return false; } };
   }
 }
 
-function offlineServiceWorker(cachedResponses = new Map()) {
+function serviceWorkerContext({
+  scope = "https://caatuu.test/zh/",
+  cachedResponses = new Map(),
+  fetchImplementation = async () => { throw new Error("offline"); }
+} = {}) {
   const lookups = [];
+  const puts = [];
   const cache = {
+    async addAll() {},
     async match(request) {
       const key = typeof request === "string" ? request : request.url;
       lookups.push(key);
       return cachedResponses.get(key);
     },
-    async put() {}
+    async put(request) {
+      puts.push(typeof request === "string" ? request : request.url);
+    }
   };
   const context = vm.createContext({
     URL,
     Request: FakeRequest,
-    location: { origin: "https://caatuu.test" },
-    fetch: async () => {
-      throw new Error("offline");
-    },
+    Response,
+    fetch: fetchImplementation,
     caches: {
+      async match(request) {
+        const key = typeof request === "string" ? request : request.url;
+        lookups.push(key);
+        return cachedResponses.get(key);
+      },
       async open() {
         return cache;
       },
@@ -46,82 +70,282 @@ function offlineServiceWorker(cachedResponses = new Map()) {
       }
     },
     self: {
+      location: { origin: "https://caatuu.test" },
+      registration: { scope },
       addEventListener() {},
       async skipWaiting() {},
       clients: { async claim() {} }
     }
   });
-  vm.runInContext(serviceWorkerSource, context, { filename: "sw.js" });
-  return { context, lookups };
+  vm.runInContext(serviceWorkerSource, context, { filename: "course-service-worker.js" });
+  return { context, lookups, puts };
 }
 
-async function runNetworkThenCache(context, request) {
-  context.__testRequest = request;
-  return vm.runInContext("networkThenCache(__testRequest)", context);
+function validatedConfig(context, overrides = {}) {
+  context.__testCatalog = {
+    application: overrides.application || {
+      entryPath: "/zh/index.html",
+      appEntry: "apps/language-runtime/static/app/index.html"
+    },
+    offline: {
+      cacheName: "caatuu-zh-hans-pwa-v17",
+      cachePrefix: "caatuu-zh-hans-pwa-",
+      assets: ["manifest.webmanifest"],
+      ...overrides.offline
+    }
+  };
+  return vm.runInContext("validateSetupCatalog(__testCatalog)", context);
 }
 
-test("offline accidental query navigation falls back to the precached base document", async () => {
-  const baseUrl = "https://caatuu.test/apps/languages/czech/static/index.html";
-  const queryUrl = `${baseUrl}?codex=stale-link`;
-  const baseResponse = { source: "precache" };
-  const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
+async function call(context, expression, bindings) {
+  Object.assign(context, bindings);
+  return vm.runInContext(expression, context);
+}
 
-  const response = await runNetworkThenCache(
-    context,
-    new FakeRequest(queryUrl, { mode: "navigate" })
+test("course workers pin their catalog revision while loading one shared implementation", () => {
+  const expectedExecutable =
+    '"use strict";\n\nimportScripts("/language-runtime/static/source/course-service-worker.js");\n';
+  for (const [label, loader, setup] of [
+    ["Czech", czechLoader, czechSetup],
+    ["Mandarin", mandarinLoader, mandarinSetup]
+  ]) {
+    assert.match(
+      loader,
+      new RegExp(`^// Offline catalog revision: ${setup.offline.cacheName}$`, "mu"),
+      `${label} worker revision must match its setup catalog`
+    );
+    assert.equal(
+      loader.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, ""),
+      expectedExecutable,
+      `${label} must load only the shared worker implementation`
+    );
+  }
+});
+
+test("shared bootstrap bypasses HTTP caches when updating the course worker", async () => {
+  const bootstrap = await readFile(
+    new URL("../../../language-runtime/static/source/app-bootstrap.mjs", import.meta.url),
+    "utf8"
   );
+  assert.match(
+    bootstrap,
+    /navigator\.serviceWorker\.register\(courseUrl\("sw\.js"\), \{\s*scope: routeBase,\s*updateViaCache: "none"\s*\}\)/u
+  );
+});
+
+test("the retired Czech Word World URL is only a canonical-app compatibility document", () => {
+  assert.match(
+    czechWordWorldCompatibility,
+    /http-equiv="refresh" content="0; url=index\.html\?game=word-net"/u
+  );
+  assert.match(
+    czechWordWorldCompatibility,
+    /rel="canonical" href="index\.html\?game=word-net"/u
+  );
+  assert.doesNotMatch(
+    czechWordWorldCompatibility,
+    /(?:source\/games\/word-world|wordNetContentSource|data-content-mode|<script)/u
+  );
+});
+
+test("setup application entry resolves the course URL to the canonical shared document", () => {
+  const { context } = serviceWorkerContext();
+  const config = validatedConfig(context);
+
+  assert.equal(config.entryUrl.href, "https://caatuu.test/zh/index.html");
+  assert.ok(config.precacheUrls.includes("https://caatuu.test/zh/index.html"));
+  assert.ok(config.precacheUrls.includes(
+    "https://caatuu.test/language-runtime/static/source/course-service-worker.js"
+  ));
+});
+
+test("a course cannot redirect setup back to a course-owned application document", () => {
+  const { context } = serviceWorkerContext();
+  assert.throws(
+    () => validatedConfig(context, {
+      application: {
+        entryPath: "/zh/index.html",
+        appEntry: "apps/languages/mandarin-simplified/static/index.html"
+      }
+    }),
+    /application\.appEntry must be apps\/language-runtime\/static\/app\/index\.html/
+  );
+});
+
+test("offline query navigation falls back to the precached canonical course entry", async () => {
+  const entryUrl = "https://caatuu.test/zh/index.html";
+  const queryUrl = `${entryUrl}?codex=stale-link`;
+  const entryResponse = { source: "canonical-entry" };
+  const { context, lookups } = serviceWorkerContext({
+    cachedResponses: new Map([[entryUrl, entryResponse]])
+  });
+  const config = validatedConfig(context);
+
+  const response = await call(context, "networkThenCache(__request, __config)", {
+    __request: new FakeRequest(queryUrl, { mode: "navigate" }),
+    __config: config
+  });
+
+  assert.equal(response, entryResponse);
+  assert.deepEqual(lookups, [queryUrl, entryUrl]);
+});
+
+test("offline game navigation may use its own precached query-free document", async () => {
+  const baseUrl = "https://caatuu.test/zh/case-cosmos.html";
+  const queryUrl = `${baseUrl}?codex=stale-link`;
+  const baseResponse = { source: "game-document" };
+  const { context, lookups } = serviceWorkerContext({
+    cachedResponses: new Map([[baseUrl, baseResponse]])
+  });
+  const config = validatedConfig(context);
+
+  const response = await call(context, "networkThenCache(__request, __config)", {
+    __request: new FakeRequest(queryUrl, { mode: "navigate" }),
+    __config: config
+  });
 
   assert.equal(response, baseResponse);
   assert.deepEqual(lookups, [queryUrl, baseUrl]);
 });
 
-test("offline developer navigation ignores accidental URL variables", async () => {
-  const baseUrl = "https://caatuu.test/apps/languages/czech/static/conjugation-comet.html";
-  const queryUrl = `${baseUrl}?codex=stale-link`;
-  const baseResponse = { source: "conjugation-comet-precache" };
-  const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
+test("deprecated Mandarin mini-app HTML is never cached and redirects to shared Word World", async () => {
+  const legacyUrl = "https://caatuu.test/zh/word-world.html?stale=1";
+  const { context, lookups, puts } = serviceWorkerContext({
+    cachedResponses: new Map()
+  });
+  const config = validatedConfig(context);
 
-  const response = await runNetworkThenCache(
-    context,
-    new FakeRequest(queryUrl, { mode: "navigate" })
+  const response = await call(context, "legacyMiniAppResponse(__request, __config)", {
+    __request: new FakeRequest(legacyUrl, { mode: "navigate" }),
+    __config: config
+  });
+  await call(context, "cacheResponse(__request, __response, __config)", {
+    __request: new FakeRequest(legacyUrl),
+    __response: { status: 200, type: "basic", clone() { return this; } },
+    __config: config
+  });
+
+  assert.equal(response.status, 302);
+  assert.equal(response.headers.get("location"), "https://caatuu.test/zh/index.html?game=word-net");
+  assert.deepEqual(lookups, []);
+  assert.deepEqual(puts, []);
+  assert.throws(
+    () => validatedConfig(context, { offline: { assets: ["word-world.html"] } }),
+    /Deprecated mini-app documents cannot be cached/
   );
-
-  assert.equal(response, baseResponse);
-  assert.deepEqual(lookups, [queryUrl, baseUrl]);
 });
 
-test("offline legacy Word World query navigation falls back to its precached base document", async () => {
-  const baseUrl = "https://caatuu.test/apps/languages/czech/static/word-net.html";
-  const embedUrl = `${baseUrl}?codex=stale-link`;
-  const baseResponse = { source: "word-world-precache" };
-  const { context, lookups } = offlineServiceWorker(new Map([[baseUrl, baseResponse]]));
+test("the retired Czech Word World document is never cached and redirects to shared Word World", async () => {
+  const legacyUrl = "https://caatuu.test/cz/word-net.html?legacy=1";
+  const { context, lookups, puts } = serviceWorkerContext({
+    scope: "https://caatuu.test/cz/",
+    cachedResponses: new Map()
+  });
+  const config = validatedConfig(context, {
+    application: {
+      entryPath: "/cz/index.html",
+      appEntry: "apps/language-runtime/static/app/index.html"
+    },
+    offline: {
+      cacheName: "caatuu-czech-pwa-v537",
+      cachePrefix: "caatuu-czech-pwa-"
+    }
+  });
 
-  const response = await runNetworkThenCache(
-    context,
-    new FakeRequest(embedUrl, { mode: "navigate" })
+  const response = await call(context, "legacyMiniAppResponse(__request, __config)", {
+    __request: new FakeRequest(legacyUrl, { mode: "navigate" }),
+    __config: config
+  });
+  await call(context, "cacheResponse(__request, __response, __config)", {
+    __request: new FakeRequest(legacyUrl),
+    __response: { status: 200, type: "basic", clone() { return this; } },
+    __config: config
+  });
+
+  assert.equal(response.status, 302);
+  assert.equal(response.headers.get("location"), "https://caatuu.test/cz/index.html?game=word-net");
+  assert.deepEqual(lookups, []);
+  assert.deepEqual(puts, []);
+  assert.throws(
+    () => validatedConfig(context, {
+      application: {
+        entryPath: "/cz/index.html",
+        appEntry: "apps/language-runtime/static/app/index.html"
+      },
+      offline: {
+        cacheName: "caatuu-czech-pwa-v537",
+        cachePrefix: "caatuu-czech-pwa-",
+        assets: ["word-net.html"]
+      }
+    }),
+    /Deprecated mini-app documents cannot be cached/
   );
+});
 
-  assert.equal(response, baseResponse);
-  assert.deepEqual(lookups, [embedUrl, baseUrl]);
+test("retired parallel runtimes are rejected from precache and never enter runtime cache", async () => {
+  const retiredUrls = [
+    "/cz/source/features/home/home.css",
+    "/cz/source/games/verb-nebula/app.css",
+    "/cz/source/games/verb-nebula/app.js",
+    "/cz/source/games/word-world/word-net.css",
+    "/cz/source/games/word-world/word-net-core.mjs",
+    "/cz/source/games/word-world/word-net.js",
+    "/cz/source/games/word-world/word-net-queue.mjs",
+    "/cz/source/shared/chrome.css",
+    "/cz/source/shared/chrome.js",
+    "/cz/source/shared/learning-profile.js",
+    "/cz/source/shared/theme.css",
+    "/language-runtime/static/source/product-shell.mjs",
+    "/language-runtime/static/styles/course-shell.css"
+  ];
+  const { context, puts } = serviceWorkerContext({ scope: "https://caatuu.test/cz/" });
+  const config = validatedConfig(context, {
+    application: {
+      entryPath: "/cz/index.html",
+      appEntry: "apps/language-runtime/static/app/index.html"
+    },
+    offline: {
+      cacheName: "caatuu-czech-pwa-v542",
+      cachePrefix: "caatuu-czech-pwa-"
+    }
+  });
+
+  for (const retiredUrl of retiredUrls) {
+    assert.throws(
+      () => validatedConfig(context, {
+        application: {
+          entryPath: "/cz/index.html",
+          appEntry: "apps/language-runtime/static/app/index.html"
+        },
+        offline: {
+          cacheName: "caatuu-czech-pwa-v542",
+          cachePrefix: "caatuu-czech-pwa-",
+          assets: [retiredUrl]
+        }
+      }),
+      /Retired runtime assets cannot be cached/
+    );
+    await call(context, "cacheResponse(__request, __response, __config)", {
+      __request: new FakeRequest(`https://caatuu.test${retiredUrl}`),
+      __response: { status: 200, type: "basic", clone() { return this; } },
+      __config: config
+    });
+  }
+
+  assert.deepEqual(puts, []);
+  assert.match(serviceWorkerSource, /isRetiredRuntimeUrl\(url\)\) return fetch\(request, \{ cache: "no-store" \}\)/u);
 });
 
 test("offline script requests preserve version query keys", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/verb-nebula/app.js?v=shell-93";
-  const { context, lookups } = offlineServiceWorker();
+  const scriptUrl = "https://caatuu.test/zh/source/language/adapter.mjs?v=reviewed";
+  const { context, lookups } = serviceWorkerContext();
+  const config = validatedConfig(context);
 
   await assert.rejects(
-    runNetworkThenCache(context, new FakeRequest(scriptUrl, { mode: "cors" })),
-    /offline/
-  );
-  assert.deepEqual(lookups, [scriptUrl]);
-});
-
-test("offline Conjugation Comet controller requests preserve their version key", async () => {
-  const scriptUrl = "https://caatuu.test/apps/languages/czech/static/source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-21";
-  const { context, lookups } = offlineServiceWorker();
-
-  await assert.rejects(
-    runNetworkThenCache(context, new FakeRequest(scriptUrl, { mode: "cors" })),
+    call(context, "networkThenCache(__request, __config)", {
+      __request: new FakeRequest(scriptUrl, { destination: "script" }),
+      __config: config
+    }),
     /offline/
   );
   assert.deepEqual(lookups, [scriptUrl]);

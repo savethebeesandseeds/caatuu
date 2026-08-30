@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/embedding-catalog.v1.schema.json",
+  "title": "Caatuu course embedding selection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "courseId",
+    "embeddingPolicy",
+    "conceptCatalog",
+    "runtime",
+    "thirdPartyNotices",
+    "notes"
+  ],
+  "properties": {
+    "$schema": { "const": "https://caatuu.org/schemas/embedding-catalog.v1.schema.json" },
+    "schemaVersion": { "const": 1 },
+    "courseId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "embeddingPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputLanguage", "inputField", "targetTextAllowed", "targetPronunciationAllowed"],
+      "properties": {
+        "inputLanguage": { "const": "en" },
+        "inputField": { "const": "embeddingText" },
+        "targetTextAllowed": { "const": false },
+        "targetPronunciationAllowed": { "const": false }
+      }
+    },
+    "conceptCatalog": {
+      "type": "string",
+      "pattern": "^/language-runtime/static/data/english-concepts/[A-Za-z0-9._/-]+\\.json$"
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rankerModule",
+        "sharedCatalog",
+        "modelRequired",
+        "defaultModelId",
+        "modelDelivery",
+        "modelPrecached",
+        "androidPackaged",
+        "fallback"
+      ],
+      "properties": {
+        "rankerModule": { "const": "/language-runtime/static/source/english-minilm-ranker.mjs" },
+        "sharedCatalog": { "const": "/language-runtime/embedding-runtimes.json" },
+        "modelRequired": { "const": true },
+        "defaultModelId": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$" },
+        "modelDelivery": { "enum": ["browser-on-demand"] },
+        "modelPrecached": { "type": "boolean" },
+        "androidPackaged": { "type": "boolean" },
+        "fallback": { "const": "deterministic-lexical" }
+      }
+    },
+    "thirdPartyNotices": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["component", "license", "noticeUrl"],
+        "properties": {
+          "component": { "type": "string", "minLength": 1 },
+          "license": { "type": "string", "minLength": 1 },
+          "noticeUrl": { "type": "string", "pattern": "^/language-runtime/" }
+        }
+      }
+    },
+    "notes": { "type": "string", "minLength": 1 }
+  }
+}

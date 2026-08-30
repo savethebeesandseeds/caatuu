@@ -12,11 +12,11 @@ const runtimeSource = await readFile(
   "utf8"
 );
 const chromeSource = await readFile(
-  new URL("../../../../apps/languages/czech/static/source/shared/chrome.js", import.meta.url),
+  new URL("../../../../apps/language-runtime/static/source/caatuu-chrome.js", import.meta.url),
   "utf8"
 );
 const serviceWorkerSource = await readFile(
-  new URL("../../../../apps/languages/czech/static/sw.js", import.meta.url),
+  new URL("../../../../apps/language-runtime/static/source/course-service-worker.js", import.meta.url),
   "utf8"
 );
 const stored = new Map();

@@ -23,11 +23,18 @@ test("the shared tunnel isolates app release from the optional game preview", ()
   assert.doesNotMatch(compose, /\.dependencies\[\] \| select/);
 });
 
-test("the shared tunnel can switch transports and reports real edge readiness", () => {
-  assert.match(compose, /cloudflared tunnel --protocol auto\b/);
+test("the shared tunnel pins stable edge transport and DNS resolution", () => {
+  assert.match(compose, /cloudflared tunnel --protocol http2\b/);
+  assert.match(
+    compose,
+    /run --dns-resolver-addrs 1\.1\.1\.1:53 --dns-resolver-addrs 1\.0\.0\.1:53 --token-file/,
+  );
   assert.match(compose, /--metrics 127\.0\.0\.1:20241\b/);
   assert.match(compose, /healthcheck:[\s\S]*127\.0\.0\.1:20241\/ready/);
-  assert.doesNotMatch(compose, /cloudflared tunnel --protocol http2\b/);
+  assert.doesNotMatch(
+    compose,
+    /cloudflared tunnel --protocol (?:auto|quic)\b/,
+  );
 });
 
 test("the shared tunnel restarts after a sustained loss of every edge connection", () => {

@@ -3,7 +3,7 @@ import test from "node:test";
 import {
   cleanGeneratedSentence,
   sentenceIncludesWord,
-} from "../../../apps/languages/czech/static/source/games/word-world/word-net-core.mjs";
+} from "../../../apps/language-runtime/static/source/word-net-core.mjs";
 
 const fallback = (word) => `Vidím ${word} doma.`;
 

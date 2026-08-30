@@ -1,4 +1,4 @@
-import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-1";
+import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-2";
 
 const sourceKinds = ["image_asset", "macaw_action_asset"];
 const promptSamples = [

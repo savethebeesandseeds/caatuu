@@ -8,17 +8,16 @@ The server container serves:
 ```text
 /       apps/launcher/static
 /cz/    apps/languages/czech/static
-/archive/chinese/
-        archive/caatuu-chinese static app; API and WebSocket disabled by default
+/zh/
+        shared application with the Mandarin development course pack
 /android/
         signed caatuu.apk/json and explicit caatuu-debug.apk/json artifacts
 ```
 
-The old `/zh/` pages redirect to `/archive/chinese/`. Top-level `/api/v1/*`
-and `/ws` return `410 Gone` so the archived Chinese backend cannot be confused
-with the active app runtime. The archived `/archive/chinese/api/v1/*` and
-`/archive/chinese/ws` routes return `404` unless
-`CAATUU_ENABLE_ARCHIVED_CHINESE_API=1` is set explicitly.
+`/zh-hans` and `/zh-hans/**` redirect to the canonical `/zh/` course. The deprecated
+Chinese trainer remains repository-only: `/archive/chinese/**` and its old
+challenge, sequence, and writing aliases return `404`. Top-level `/api/v1/*`
+and `/ws` remain retired as `410 Gone`.
 
 The image uses a pinned Rust builder stage and a `debian:bookworm-slim` runtime
 stage. `cargo build --release --locked` runs during the image build; Rust and
@@ -66,29 +65,13 @@ dictionary overlay. The ledger is not a replacement for the disabled general
 diagnostic channel; sentence reports remain device-local and
 `/api/bug-report` remains disabled.
 
-## Secrets and archived backend opt-in
+## Repository-only Chinese archive
 
-The normal Czech runtime does not require an OpenAI key. The archived Chinese
-backend can also run from seed data without one. If you explicitly want its
-OpenAI-backed features, store the key in the ignored `secrets/openai-api-key`
-file; `compose/archived-chinese-openai.yaml` mounts only that file as
-`OPENAI_API_KEY_FILE=/run/secrets/openai-api-key`.
-
-The launch environment no longer sources `apps/server/env.local.sh`.
-This prevents an executable local configuration file from silently injecting
-secrets. Use a dedicated secret file or an explicit process environment value.
-
-For trusted local development only:
-
-```powershell
-docker compose -f compose.yaml -f compose/archived-chinese.yaml up -d --build caatuu
-```
-
-Add `-f compose/archived-chinese-openai.yaml` only when the secret file exists and those
-model-backed archive features are intended.
-
-Do not combine this opt-in with the public tunnel: the archived API has no
-authentication boundary and model requests can incur charges.
+The deprecated Chinese trainer remains under `archive/caatuu-chinese` for
+historical reference only. Normal and exceptional Compose configurations do
+not mount it, and no API, WebSocket, secret override, or legacy URL can
+activate it. The launch environment also does not source executable local
+configuration files.
 
 ## Boundary Audit
 
@@ -112,8 +95,9 @@ worlds open directly; the retired `animation-landing` and
 source artwork. The synchronizer explicitly excludes them from the runtime and
 setup catalogs.
 
-After changing runtime routes, Czech static files, Chinese archive paths, or the
-Android package, run the boundary audit from `C:\Work\caatuu`:
+After changing runtime routes, course static files, repository archive
+inventory, or the Android package, run the boundary audit from
+`C:\Work\caatuu`:
 
 ```powershell
 docker exec caatuu-dev bash -lc `
@@ -129,10 +113,10 @@ boundary audit:
 node apps\server\tooling\audit-runtime-boundary.mjs
 ```
 
-The audit checks that the root browser launcher, `/cz/` Czech app,
-`/archive/chinese/` archive, retired `/zh/` redirects, retired top-level
-Chinese backend paths, and rebuilt Android APK package contents still match the
-intended split.
+The audit checks that the root browser launcher, `/cz/` Czech app, `/zh/`
+Mandarin app, compatibility `/zh-hans` redirects, unreachable deprecated Chinese UI,
+retired top-level backend paths, and rebuilt Android APK package contents still
+match the intended split.
 
 ## Cloudflare Tunnel
 
@@ -166,6 +150,24 @@ Store the tunnel token outside Git at `secrets/cloudflared-token`, then start:
 ```powershell
 docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
 ```
+
+The canonical connector pins its Cloudflare edge transport to HTTP/2 over TCP
+port `7844`. QUIC proved unstable on the Windows/Docker path: it could pass the
+startup precheck, lose every edge connection, and be selected again after the
+60-second watchdog restarted the connector. Do not restore `auto` or `quic`
+without updating the tunnel-resilience contract and completing a sustained
+connectivity test.
+
+Edge discovery uses Cloudflare's `1.1.1.1:53` and `1.0.0.1:53` resolvers
+directly because Docker's embedded `127.0.0.11` resolver repeatedly returned
+false `no such host` and `server misbehaving` responses for Cloudflare's
+edge-discovery record. Keep both explicit resolvers unless a replacement is
+validated from inside the tunnel container.
+
+After recreating the connector, its startup log must report both explicit
+resolvers in `Settings` and `Initial protocol http2`. Keep it running beyond
+the watchdog window, confirm that `/ready` remains healthy, and verify that the
+container restart count does not increase during the observation period.
 
 The connector runs the canonical schema-aware game release checker before
 opening the public tunnel and again from its watchdog. It refuses missing or

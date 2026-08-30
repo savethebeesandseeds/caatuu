@@ -17,7 +17,7 @@ use std::{
 use tokio::sync::RwLock;
 use tracing::{error, info, instrument, warn};
 
-use crate::config::{load_agent_config_from_env, Prompts, RuntimeFeatures};
+use crate::config::Prompts;
 use crate::domain::{Challenge, ChallengeKind, ChallengeSource};
 use crate::openai::OpenAI;
 use crate::seeds::{hard_fallback_challenge, seed_challenges, seed_pinyin_map};
@@ -215,64 +215,13 @@ pub struct AppState {
 }
 
 impl AppState {
-    /// Build state from env: load config, seed challenges, build indices, init OpenAI.
+    /// Build state for active routes without initializing archived backend integrations.
     #[instrument(level = "info", skip_all)]
-    pub fn new(features: RuntimeFeatures) -> Result<Self, String> {
-        // Load TOML config if provided (prompts + optional local bank).
-        let cfg_opt = if features.archived_chinese_api {
-            load_agent_config_from_env()?
-        } else {
-            None
-        };
-        let prompts = cfg_opt
-            .as_ref()
-            .map(|c| c.prompts.clone())
-            .unwrap_or_default();
+    pub fn new() -> Result<Self, String> {
+        let prompts = Prompts::default();
 
         let mut id_map = HashMap::<String, Challenge>::new();
         let mut diff_map = HashMap::<String, Vec<String>>::new();
-
-        // Insert config-based challenges (if any) – freeform, instructions-driven.
-        if let Some(cfg) = &cfg_opt {
-            for cc in &cfg.challenges {
-                let id = cc.id.clone().unwrap_or_else(|| Uuid::new_v4().to_string());
-                let diff = normalize_difficulty(&cc.difficulty);
-
-                if id_map.contains_key(&id) {
-                    warn!(target: "challenge", %id, "Skipping duplicate challenge id in agent config");
-                    continue;
-                }
-
-                let instructions = match &cc.instructions {
-                    Some(s) if !s.is_empty() => s.clone(),
-                    _ => {
-                        // Instructions are optional overall (runtime generation may supply seed+challenge),
-                        // but for config-bank entries we require them to be non-empty.
-                        error!(target: "challenge", %id, %diff, "Skipping bank item: missing instructions.");
-                        continue;
-                    }
-                };
-                let ch = Challenge {
-                    id: id.clone(),
-                    difficulty: diff.clone(),
-                    kind: ChallengeKind::FreeformZh,
-                    source: ChallengeSource::LocalBank,
-
-                    seed_zh: String::new(),
-                    seed_en: String::new(),
-                    challenge_zh: String::new(),
-                    challenge_en: String::new(),
-                    summary_en: String::new(),
-                    reference_answer_zh: String::new(),
-                    core_plus_spec: None,
-
-                    instructions,
-                    rubric: cc.rubric.clone(),
-                };
-                diff_map.entry(diff.clone()).or_default().push(id.clone());
-                id_map.insert(id, ch);
-            }
-        }
 
         // Always insert built-in seeds, but don't overwrite existing ids.
         for c in seed_challenges() {
@@ -304,19 +253,8 @@ impl AppState {
             info!(target: "challenge", %diff, local_bank = bank, generated = gen, seed = seed, "Startup challenge inventory");
         }
 
-        // Build optional OpenAI client (if API key present).
-        let openai = if features.archived_chinese_api {
-            OpenAI::from_env()?
-        } else {
-            None
-        };
-        if let Some(oa) = &openai {
-            info!(target: "caatuu_runtime", base_url = %oa.base_url, fast_model = %oa.fast_model, writing_model = %oa.writing_model, strong_model = %oa.strong_model, sequence_model = %oa.sequence_model, transcribe_model = %oa.transcribe_model, "OpenAI enabled.");
-        } else if features.archived_chinese_api {
-            info!(target: "caatuu_runtime", "Archived Chinese API enabled without an OpenAI key; using local/seed logic.");
-        } else {
-            info!(target: "caatuu_runtime", "Archived Chinese API and OpenAI integration are disabled.");
-        }
+        let openai = None;
+        info!(target: "caatuu_runtime", "Archived Chinese backend integrations are not initialized.");
 
         Ok(Self {
             by_id: Arc::new(RwLock::new(id_map)),
@@ -539,7 +477,7 @@ mod tests {
 
     #[tokio::test]
     async fn generated_challenge_pools_are_bounded_and_deduplicated() {
-        let state = AppState::new(RuntimeFeatures::default()).unwrap();
+        let state = AppState::new().unwrap();
 
         for index in 0..(MAX_CHALLENGES_PER_DIFFICULTY + 20) {
             let mut challenge = hard_fallback_challenge("hsk2".into());
@@ -582,7 +520,7 @@ mod tests {
 
     #[tokio::test]
     async fn writing_guides_and_difficulty_keys_are_bounded() {
-        let state = AppState::new(RuntimeFeatures::default()).unwrap();
+        let state = AppState::new().unwrap();
         for index in 0..(MAX_WRITING_GUIDES + 12) {
             state
                 .choose_writing_guide("unexpected-user-key", &format!("context {index}"))

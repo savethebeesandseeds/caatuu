@@ -5,6 +5,7 @@ import vm from "node:vm";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
+const appEntry = new URL("apps/language-runtime/static/app/index.html", repoRoot);
 const removedFiles = [
   new URL("apps/curriculum/", repoRoot),
   new URL("curriculum/", staticRoot),
@@ -18,13 +19,12 @@ const retiredRootDataPaths = [
   new URL("data/word-world/", staticRoot)
 ];
 
-const [profileSource, indexHtml, wordWorldHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest] = await Promise.all([
+const [profileSource, indexHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest] = await Promise.all([
   readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
-  readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("word-net.html", staticRoot), "utf8"),
+  readFile(appEntry, "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
+  readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
 ]);
@@ -41,7 +41,7 @@ test("the experimental curriculum package and runtime copies are absent", async 
 });
 
 test("learner pages no longer load the curriculum service", () => {
-  for (const page of [indexHtml, wordWorldHtml, cometHtml]) {
+  for (const page of [indexHtml, cometHtml]) {
     assert.doesNotMatch(page, /curriculum-service/);
   }
   assert.doesNotMatch(cometSource, /CaatuuCurriculum|data\/curriculum|guided-opportunity/);

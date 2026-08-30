@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/course-pack.v1.schema.json",
+  "title": "Caatuu course pack v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "id",
+    "directoryName",
+    "status",
+    "brandLabel",
+    "workspaceLabel",
+    "routePrefix",
+    "entryPath",
+    "sourceLanguage",
+    "targetLanguage",
+    "launcher",
+    "routes",
+    "storage",
+    "cache",
+    "publication",
+    "capabilities",
+    "skillCompass",
+    "platforms",
+    "resources"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "pattern": "course-pack\\.v1\\.schema\\.json$"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/courseId"
+    },
+    "directoryName": {
+      "$ref": "#/$defs/courseId"
+    },
+    "status": {
+      "enum": ["development", "active", "retired"]
+    },
+    "brandLabel": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "workspaceLabel": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "routePrefix": {
+      "$ref": "#/$defs/routePrefix"
+    },
+    "entryPath": {
+      "type": "string",
+      "pattern": "^/[a-z0-9]+(?:-[a-z0-9]+)*/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+    },
+    "sourceLanguage": {
+      "$ref": "#/$defs/sourceLanguage"
+    },
+    "targetLanguage": {
+      "$ref": "#/$defs/targetLanguage"
+    },
+    "launcher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flagClass"],
+      "properties": {
+        "flagClass": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "routes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "required": ["languageSelection", "home", "games", "settings"]
+    },
+    "storage": {
+      "type": "object",
+      "minProperties": 2,
+      "required": ["namespace", "theme", "fontSize", "learningPreferences", "learningPerformance"],
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "pattern": "^caatuu-[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "cache": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prefix", "setupFallback"],
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "minLength": 1
+        },
+        "setupFallback": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "publication": {
+      "$ref": "#/$defs/publication"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/capabilities"
+    },
+    "skillCompass": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/skillCompass" }
+      ]
+    },
+    "linguisticFeatures": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["verb-conjugation", "grammatical-case", "grammatical-agreement"]
+      }
+    },
+    "games": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "campaign",
+          "verb-lab",
+          "word-net",
+          "conjugation-comet",
+          "case-cosmos",
+          "agreement-aurora",
+          "memory-moon"
+        ]
+      }
+    },
+    "upcomingGames": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "verb-lab",
+          "word-net",
+          "conjugation-comet",
+          "case-cosmos",
+          "agreement-aurora",
+          "memory-moon"
+        ]
+      }
+    },
+    "platforms": {
+      "$ref": "#/$defs/platforms"
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/resource"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "capabilities": {
+            "properties": {
+              "skillCompass": { "const": true }
+            },
+            "required": ["skillCompass"]
+          }
+        },
+        "required": ["capabilities"]
+      },
+      "then": {
+        "properties": {
+          "skillCompass": { "$ref": "#/$defs/skillCompass" }
+        }
+      },
+      "else": {
+        "properties": {
+          "skillCompass": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "active" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "platforms": {
+            "properties": {
+              "browser": {
+                "properties": {
+                  "enabled": { "const": true }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "retired" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "platforms": {
+            "properties": {
+              "browser": {
+                "properties": {
+                  "enabled": { "const": false }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "platforms": {
+            "properties": {
+              "browser": {
+                "properties": {
+                  "enabled": { "const": true }
+                },
+                "required": ["enabled"]
+              }
+            },
+            "required": ["browser"]
+          }
+        },
+        "required": ["platforms"]
+      },
+      "then": {
+        "required": ["linguisticFeatures", "games"],
+        "properties": {
+          "resources": {
+            "required": ["staticRoot", "appEntry"],
+            "properties": {
+              "staticRoot": {
+                "properties": {
+                  "kind": { "const": "directory" },
+                  "scope": { "const": "course" },
+                  "state": { "const": "present" }
+                }
+              },
+              "appEntry": {
+                "properties": {
+                  "kind": { "const": "file" },
+                  "path": { "const": "apps/language-runtime/static/app/index.html" },
+                  "scope": { "const": "shared" },
+                  "state": { "const": "present" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "courseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "routePrefix": {
+      "type": "string",
+      "pattern": "^/[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "concepts", "realizations"],
+      "properties": {
+        "contract": {
+          "enum": ["legacy-active-v1", "language-content-v1"]
+        },
+        "concepts": {
+          "type": ["string", "null"]
+        },
+        "realizations": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "languageTag": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+    },
+    "sourceLanguage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "nativeLabel",
+        "shortCode",
+        "locale",
+        "direction",
+        "flagClass",
+        "flagSrc"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}$"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "nativeLabel": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "shortCode": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2,8}$"
+        },
+        "locale": {
+          "$ref": "#/$defs/languageTag"
+        },
+        "direction": {
+          "enum": ["ltr", "rtl"]
+        },
+        "flagClass": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "flagSrc": {
+          "type": "string",
+          "pattern": "^/assets/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        }
+      }
+    },
+    "targetLanguage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "nativeLabel",
+        "shortCode",
+        "locale",
+        "script",
+        "speechLocale",
+        "direction",
+        "flagClass",
+        "flagSrc"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}$"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "nativeLabel": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "shortCode": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2,8}$"
+        },
+        "locale": {
+          "$ref": "#/$defs/languageTag"
+        },
+        "script": {
+          "type": "string",
+          "pattern": "^[A-Z][a-z]{3}$"
+        },
+        "speechLocale": {
+          "$ref": "#/$defs/languageTag"
+        },
+        "direction": {
+          "enum": ["ltr", "rtl"]
+        },
+        "flagClass": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "flagSrc": {
+          "type": "string",
+          "pattern": "^/assets/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "llm",
+        "generation",
+        "chat",
+        "embeddings",
+        "semanticSearch",
+        "skillCompass",
+        "dictionary",
+        "memory",
+        "verbs",
+        "wordWorld",
+        "conjugationComet",
+        "offlineModels",
+        "speech",
+        "pronunciationGuides"
+      ],
+      "properties": {
+        "llm": { "type": "boolean" },
+        "generation": { "type": "boolean" },
+        "chat": { "type": "boolean" },
+        "embeddings": { "type": "boolean" },
+        "semanticSearch": { "type": "boolean" },
+        "skillCompass": { "type": "boolean" },
+        "dictionary": { "type": "boolean" },
+        "memory": { "type": "boolean" },
+        "verbs": { "type": "boolean" },
+        "wordWorld": { "type": "boolean" },
+        "conjugationComet": { "type": "boolean" },
+        "offlineModels": { "type": "boolean" },
+        "speech": { "type": "boolean" },
+        "pronunciationGuides": { "type": "boolean" }
+      }
+    },
+    "skillCompass": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "id", "version", "modelId", "minimumConfidence", "copy", "axes"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "$ref": "#/$defs/nonEmptyString" },
+        "modelId": { "$ref": "#/$defs/nonEmptyString" },
+        "minimumConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "copy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "summary",
+            "chartTitle",
+            "chartDescription",
+            "legendLabel",
+            "practiceLabel",
+            "strengthLabel",
+            "confidenceLabel",
+            "progressLabel",
+            "notMapped",
+            "building",
+            "notAssessed",
+            "idleMessage",
+            "emptyChartDescription",
+            "emptyMessage",
+            "emptySummary",
+            "projectionDescription",
+            "unmappedMessage",
+            "practiceOnlyMessage",
+            "partialStrengthMessage",
+            "completeMessage",
+            "loadingMessage",
+            "loadingSummary",
+            "errorMessage",
+            "errorSummary",
+            "changedMessage",
+            "closedMessage",
+            "updateReadySummary",
+            "closedSummary"
+          ],
+          "properties": {
+            "eyebrow": { "$ref": "#/$defs/nonEmptyString" },
+            "title": { "$ref": "#/$defs/nonEmptyString" },
+            "summary": { "$ref": "#/$defs/nonEmptyString" },
+            "chartTitle": { "$ref": "#/$defs/nonEmptyString" },
+            "chartDescription": { "$ref": "#/$defs/nonEmptyString" },
+            "legendLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "practiceLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "strengthLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "confidenceLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "progressLabel": { "$ref": "#/$defs/nonEmptyString" },
+            "notMapped": { "$ref": "#/$defs/nonEmptyString" },
+            "building": { "$ref": "#/$defs/nonEmptyString" },
+            "notAssessed": { "$ref": "#/$defs/nonEmptyString" },
+            "idleMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "emptyChartDescription": { "$ref": "#/$defs/nonEmptyString" },
+            "emptyMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "emptySummary": { "$ref": "#/$defs/nonEmptyString" },
+            "projectionDescription": { "$ref": "#/$defs/nonEmptyString" },
+            "unmappedMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "practiceOnlyMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "partialStrengthMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "completeMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "loadingMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "loadingSummary": { "$ref": "#/$defs/nonEmptyString" },
+            "errorMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "errorSummary": { "$ref": "#/$defs/nonEmptyString" },
+            "changedMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "closedMessage": { "$ref": "#/$defs/nonEmptyString" },
+            "updateReadySummary": { "$ref": "#/$defs/nonEmptyString" },
+            "closedSummary": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "axes": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "label", "chartLabel", "emblem", "probe"],
+            "properties": {
+              "id": { "$ref": "#/$defs/courseId" },
+              "label": { "$ref": "#/$defs/nonEmptyString" },
+              "chartLabel": { "$ref": "#/$defs/nonEmptyString" },
+              "chartLabelBelow": { "type": "boolean" },
+              "emblem": {
+                "enum": ["people", "home", "food", "journey", "actions", "time", "world"]
+              },
+              "probe": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["locale", "revision", "text"],
+                "properties": {
+                  "locale": { "$ref": "#/$defs/languageTag" },
+                  "revision": { "$ref": "#/$defs/nonEmptyString" },
+                  "text": { "$ref": "#/$defs/nonEmptyString" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "platforms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["browser", "android"],
+      "properties": {
+        "browser": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enabled", "entryPath", "backend"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "entryPath": {
+              "type": "string",
+              "pattern": "^/[a-z0-9]+(?:-[a-z0-9]+)*/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+            },
+            "backend": {
+              "enum": ["static", "czech-dictionary"]
+            }
+          }
+        },
+        "android": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enabled", "channels"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "channels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "manifest", "artifact", "minimumVersionCode"],
+                "properties": {
+                  "kind": {
+                    "enum": ["release", "preview", "debug"]
+                  },
+                  "manifest": {
+                    "type": "string",
+                    "pattern": "^/android/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+                  },
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^/android/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+                  },
+                  "minimumVersionCode": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path", "scope", "state"],
+      "properties": {
+        "kind": {
+          "enum": ["file", "directory"]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._ ()/-]*$"
+        },
+        "scope": {
+          "enum": ["course", "shared"]
+        },
+        "state": {
+          "enum": ["present", "planned"]
+        }
+      }
+    }
+  }
+}

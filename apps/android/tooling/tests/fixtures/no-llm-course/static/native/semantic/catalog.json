@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "default_model": "english-minilm",
+  "base_url": "https://example.invalid/fixture-no-llm/native/semantic",
+  "models": [
+    {
+      "key": "english-minilm",
+      "status": "active",
+      "artifact_kind": "embedding-vector-db",
+      "input_language": "en",
+      "model_file": "english-minilm/fixture.sqlite",
+      "manifest_file": "english-minilm/manifest.json",
+      "bytes": 1,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "embedding_dimension": 384,
+      "embedding_text_field": "english_text",
+      "embedding_input_policy": "english_text_only"
+    }
+  ]
+}

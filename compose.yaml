@@ -37,9 +37,7 @@ services:
       CAATUU_WORKSPACE_ROOT: /workspace
       BIND_ADDR: "0.0.0.0"
       PORT: "9172"
-      AGENT_CONFIG_PATH: ./profiles/word_challenge.toml
       RUST_LOG: ${CAATUU_RUST_LOG:-info}
-      ENABLE_ARCHIVED_CHINESE_API: ${CAATUU_ENABLE_ARCHIVED_CHINESE_API:-0}
       ENABLE_ANDROID_DEBUG_DOWNLOADS: ${CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS:-0}
       ENABLE_BUG_REPORTS: ${CAATUU_ENABLE_BUG_REPORTS:-0}
       ENABLE_CAATUU_GAME_PREVIEW: ${CAATUU_ENABLE_CAATUU_GAME_PREVIEW:-1}
@@ -47,14 +45,20 @@ services:
     ports:
       - "127.0.0.1:8765:9172"
     volumes:
-      - ./apps/languages/czech/static:/workspace/apps/languages/czech/static:ro
+      - ./apps/language-runtime:/workspace/apps/language-runtime:ro
+      - ./apps/languages:/workspace/apps/languages:ro
       - ./apps/launcher/static:/workspace/apps/launcher/static:ro
-      - ./archive/caatuu-chinese/static:/workspace/archive/caatuu-chinese/static:ro
-      - ./apps/server/profiles:/workspace/apps/server/profiles:ro
       - ./artifacts/android:/workspace/artifacts/android:ro
       - ./artifacts/games:/workspace/artifacts/games:ro
       - ./artifacts/dictionary-gaps:/var/lib/caatuu/dictionary-gaps
       - ./apps/android/tooling/termux-install-debug.sh:/workspace/apps/android/tooling/termux-install-debug.sh:ro
+    command:
+      - bash
+      - -lc
+      - |
+        set -Eeuo pipefail
+        node /workspace/apps/language-runtime/tooling/verify-embedding-runtime.mjs
+        exec /usr/local/bin/caatuu-runtime
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$${PORT:-9172}/ >/dev/null || exit 1"]
       interval: 30s
@@ -122,7 +126,7 @@ services:
         forward_pid=$$!
         socat TCP-LISTEN:7979,reuseaddr,fork TCP:host.docker.internal:7979 &
         shared_forward_pid=$$!
-        cloudflared tunnel --protocol auto --metrics 127.0.0.1:20241 --no-autoupdate --loglevel info run --token-file /run/secrets/cloudflared-token &
+        cloudflared tunnel --protocol http2 --metrics 127.0.0.1:20241 --no-autoupdate --loglevel info run --dns-resolver-addrs 1.1.1.1:53 --dns-resolver-addrs 1.0.0.1:53 --token-file /run/secrets/cloudflared-token &
         tunnel_pid=$$!
         (
           failure_count=0

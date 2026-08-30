@@ -16,8 +16,8 @@ const [catalog, manifest, routes, compose, gradle, androidClient, czechIndex, cz
     readText("compose.yaml"),
     readText("apps/android/app/build.gradle.kts"),
     readText("apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt"),
-    readText("apps/languages/czech/static/index.html"),
-    readText("apps/languages/czech/static/source/games/verb-nebula/app.js"),
+    readText("apps/language-runtime/static/app/index.html"),
+    readText("apps/language-runtime/static/source/caatuu-workspace.js"),
     readText("apps/launcher/static/index.html"),
   ]);
 

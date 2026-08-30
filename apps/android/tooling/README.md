@@ -12,7 +12,37 @@ Generation models are optional, on-demand artifacts in that full application.
 The `product` application is a separate module and compiled asset allowlist
 with no LLM, Chat, generation, Godot, or outbound reporting capability. It is
 the canonical direct release and retains verified self-updates, shared assets,
-the Czech-to-English dictionary, and the MiniLM embedding pack.
+and the course capabilities declared by its manifest. The default Czech course
+retains the Czech-to-English dictionary and the English MiniLM embedding pack.
+
+Both Gradle modules select their course with the single repository-relative
+`caatuuCourseManifest` property (default:
+`apps/languages/czech/course.json`). The manifest owns course identity, route,
+entry path, static root, Android enablement, and capabilities. Its
+`resources.androidAssetCatalog` owns the exact course file allowlist and may
+name reviewed shared runtime shell files; `language-runtime/contract.mjs` is the
+required adapter ABI. The build rejects path escapes, catalog/course ID drift,
+disabled Android courses, README/test runtime entries, and inconsistent
+capabilities. That Android asset catalog also owns `nativeProviders`, a
+schema-versioned registry. Enabled embeddings and dictionary providers name a
+course-manifest resource rather than a fixed Czech asset path; the build
+resolves the resource inside `staticRoot`, requires it in the exact allowlist,
+and writes the resolved path into both BuildConfig and the package profile.
+Speech explicitly binds Android TTS to `targetLanguage.speechLocale`. Missing,
+extra, partial, or unsupported provider declarations stop the build.
+`build-product-assets.mjs --course-manifest <file>` is the direct
+compiler equivalent. Product profiles always force `llm`, `generation`, and
+`chat` off while retaining embeddings, dictionary, learning, and Standard Word
+World only when the course declares those capabilities.
+
+At runtime, `product` parses the generated capability object strictly and also
+requires the resolved provider registry to match it exactly. It does not
+construct the vector database, dictionary, or Android speech manager when the
+corresponding capability is false, and it never selects a default catalog path
+when a capability is true. Disabled operation names receive the same response
+as an unknown native operation. Speech locale and learner language labels are
+generated from `targetLanguage` in the selected course manifest; there is no
+generic-shell `cs-CZ` fallback.
 
 ## Plan
 

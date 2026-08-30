@@ -4,6 +4,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  realpathSync,
   readdirSync,
   rmSync,
   statSync,
@@ -19,137 +20,403 @@ import {
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
+export const DEFAULT_COURSE_MANIFEST_PATH = "apps/languages/czech/course.json";
+export const CANONICAL_APP_ENTRY_PATH = "apps/language-runtime/static/app/index.html";
+export const SHARED_APP_ASSET_CATALOG_PATH = "apps/language-runtime/app-assets.json";
 
-// This list is intentionally exhaustive. Adding a Czech static file does not put it
-// in the Play bundle until it is reviewed and added here.
-export const STORE_LANGUAGE_FILES = Object.freeze([
-  "agreement-aurora.html",
-  "case-cosmos.html",
-  "conjugation-comet.html",
-  "icons/caatuu-czech-192.png",
-  "icons/caatuu-czech-512.png",
-  "index.html",
-  "manifest.webmanifest",
-  "setup-assets.json",
-  "source/features/dictionary/dictionary-full.js",
-  "source/features/dictionary/dictionary-gap-report.mjs",
-  "source/features/dictionary/dictionary-patch-core.mjs",
-  "source/features/campaign/campaign.css",
-  "source/features/home/home.css",
-  "source/features/setup/setup-progress.js",
-  "source/features/setup/setup.js",
-  "source/games/agreement-aurora/agreement-aurora.css",
-  "source/games/agreement-aurora/agreement-aurora.js",
-  "source/games/agreement-aurora/launcher.css",
-  "source/games/case-cosmos/case-cosmos.css",
-  "source/games/case-cosmos/case-cosmos.js",
-  "source/games/case-cosmos/launcher.css",
-  "source/games/conjugation-comet/conjugation-comet.css",
-  "source/games/conjugation-comet/conjugation-comet.js",
-  "source/games/verb-nebula/app.css",
-  "source/games/verb-nebula/app.js",
-  "source/games/verb-nebula/verb-exercise-family-core.mjs",
-  "source/games/verb-nebula/verb-nebula-core.mjs",
-  "source/games/word-world/word-net-core.mjs",
-  "source/games/word-world/word-net-standard.mjs",
-  "source/games/word-world/word-net.css",
-  "source/games/word-world/word-net.js",
-  "source/shared/chrome.css",
-  "source/shared/child-facing-assets.mjs",
-  "source/shared/chrome.js",
-  "source/shared/course-profile.js",
-  "source/shared/feedback-outbox.mjs",
-  "source/shared/learning-profile.js",
-  "source/shared/maintenance-ui.js",
-  "source/shared/runtime.js",
-  "source/shared/semantic-learning-core.mjs",
-  "source/shared/semantic-learning.js",
-  "source/shared/theme.css",
-  "source/shared/vector-db.js",
-  "sw.js",
-  "vendor/sql.js/LICENSE",
-  "vendor/sql.js/README.md",
-  "vendor/sql.js/sql-wasm.js",
-  "vendor/sql.js/sql-wasm.wasm",
-  "vendor/transformers/LICENSE",
-  "vendor/transformers/README.md",
-  "vendor/transformers/transformers.min.js",
-  "word-net.html",
-  "data/dictionaries/ATTRIBUTION.md",
-  "data/dictionaries/README.md",
-  "data/dictionaries/catalog.json",
-  "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
-  "data/dictionaries/patches/reviewed-cs-en.v1.json",
-  "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
-  "data/embeddings/models.json",
-  "data/games/agreement-aurora/challenges.json",
-  "data/games/case-cosmos/challenges.json",
-  "data/games/conjugation-comet/verbs.json",
-  "data/games/verb-nebula/core-vocabulary.json",
-  "data/games/word-world/manifest.json",
-  "data/games/word-world/standard-v0.1/records.json",
-  "data/language/scripts.json"
-]);
+function isInside(root, candidate) {
+  const relativePath = relative(resolve(root), resolve(candidate));
+  return relativePath !== ""
+    && relativePath !== ".."
+    && !relativePath.startsWith(`..${sep}`)
+    && !isAbsolute(relativePath);
+}
 
-export const STORE_LAUNCHER_ICON_FILES = Object.freeze([
-  "backpack_icon.png",
-  "coin_icon.png",
-  "coin_icon_ui.png",
-  "czech_flag.png",
-  "czech_flag_ui.png",
-  "dark_mode.png",
-  "dark_mode_ui.png",
-  "difficulty_medal_1_ui.png",
-  "difficulty_medal_2_ui.png",
-  "difficulty_medal_3_ui.png",
-  "games_icon.png",
-  "gear_icon.png",
-  "hello.png",
-  "home_icon.png",
-  "icon_gem.png",
-  "items_icon.png",
-  "light_mode_ui.png",
-  "paper_plane_submit_ui.png",
-  "stats_icon.png"
-]);
+function confinedWorkspacePath(workspaceRoot, value, label, { allowAbsolute = false } = {}) {
+  assert.equal(typeof value, "string", `${label} must be a string path`);
+  assert.ok(value.trim(), `${label} must not be empty`);
+  if (!allowAbsolute) assert.ok(!isAbsolute(value), `${label} must be repository-relative`);
+  const candidate = resolve(workspaceRoot, value);
+  assert.ok(isInside(workspaceRoot, candidate), `${label} must stay inside the workspace`);
+  if (existsSync(candidate)) {
+    const realWorkspace = realpathSync(workspaceRoot);
+    const realCandidate = realpathSync(candidate);
+    assert.ok(isInside(realWorkspace, realCandidate), `${label} must not escape the workspace through a link`);
+  }
+  return candidate;
+}
 
-export const PRODUCT_PROFILE = Object.freeze({
-  schemaVersion: 1,
-  profile: "product",
-  capabilities: Object.freeze({
-    chat: false,
-    llm: false,
-    generation: false,
-    godot: false,
-    embeddings: true,
-    imageLookup: true,
-    stats: true,
-    dictionary: true,
-    wordWorldStandardOnly: true
+function requireObject(value, label) {
+  assert.ok(value && typeof value === "object" && !Array.isArray(value), `${label} must be an object`);
+  return value;
+}
+
+function readJson(path, label) {
+  assert.ok(existsSync(path), `${label} is missing: ${path}`);
+  assert.ok(statSync(path).isFile(), `${label} is not a file: ${path}`);
+  try {
+    return requireObject(JSON.parse(readFileSync(path, "utf8")), label);
+  } catch (error) {
+    throw new Error(`${label} is invalid JSON: ${error.message}`);
+  }
+}
+
+function normalizedCatalogPath(value, label) {
+  assert.equal(typeof value, "string", `${label} must be a string`);
+  assert.ok(value && value === value.trim(), `${label} must be a nonblank trimmed path`);
+  assert.ok(!isAbsolute(value), `${label} must be relative`);
+  assert.doesNotMatch(value, /\\/, `${label} must use forward slashes`);
+  const segments = value.split("/");
+  assert.ok(segments.every((segment) => segment && segment !== "." && segment !== ".."), `${label} must be normalized and confined`);
+  return value;
+}
+
+function resourcePath(course, name, workspaceRoot) {
+  const resource = requireObject(course.resources?.[name], `course resource ${name}`);
+  assert.equal(resource.state, "present", `course resource ${name} must be present for Android packaging`);
+  assert.ok(["file", "directory"].includes(resource.kind), `course resource ${name} has an unsupported kind`);
+  return {
+    resource,
+    path: confinedWorkspacePath(workspaceRoot, resource.path, `course resource ${name}`),
+  };
+}
+
+const ANDROID_NATIVE_PROVIDER_SPECS = Object.freeze({
+  embeddings: Object.freeze({
+    capability: "embeddings",
+    implementation: "vector-database-catalog-v1",
+    resource: "embeddingCatalog",
   }),
-  privacy: Object.freeze({
-    bugReportsLocalOnly: true,
-    dictionaryGapReportsLocalOnly: true
-  })
+  dictionary: Object.freeze({
+    capability: "dictionary",
+    implementation: "sqlite-dictionary-catalog-v1",
+    resource: "dictionaryCatalog",
+  }),
+  speech: Object.freeze({
+    capability: "speech",
+    implementation: "android-text-to-speech-v1",
+    localeSource: "targetLanguage.speechLocale",
+  }),
 });
 
-const STORE_LAUNCHER_FILES = Object.freeze([
-  ...STORE_LAUNCHER_ICON_FILES.map((name) => ({
-    source: `assets/icons/${name}`,
-    output: `assets/icons/${name}`
-  })),
-  {
-    source: "assets/loading-animation/animations_manifest.json",
-    output: "assets/loading_animation/animations_manifest.json"
-  }
-]);
+function exactObjectKeys(value, expected, label) {
+  const actual = Object.keys(requireObject(value, label)).sort();
+  assert.deepEqual(actual, [...expected].sort(), `${label} must contain exactly ${expected.join(", ")}`);
+}
 
-const GENERATED_FILES = Object.freeze(["caatuu-profile.json"]);
-const STORE_OUTPUT_FILES = new Set([
-  ...STORE_LANGUAGE_FILES,
-  ...STORE_LAUNCHER_FILES.map(({ output }) => output),
-  ...GENERATED_FILES
-]);
+function resolveAndroidNativeProviders({ course, assetCatalog, resourceAssetPath }) {
+  const contract = requireObject(assetCatalog.nativeProviders, "Android native provider contract");
+  exactObjectKeys(contract, ["schemaVersion", "providers"], "Android native provider contract");
+  assert.equal(contract.schemaVersion, 1, "Android native provider contract must use schemaVersion 1");
+  const declarations = requireObject(contract.providers, "Android native provider declarations");
+  for (const name of Object.keys(declarations)) {
+    assert.ok(name in ANDROID_NATIVE_PROVIDER_SPECS, `Android native provider ${name} is unsupported`);
+  }
+
+  const resolved = {};
+  for (const [name, spec] of Object.entries(ANDROID_NATIVE_PROVIDER_SPECS)) {
+    const enabled = course.capabilities?.[spec.capability] === true;
+    const declaration = declarations[name];
+    if (!enabled) {
+      assert.equal(declaration, undefined, `Android native provider ${name} must be absent when ${spec.capability} is disabled`);
+      continue;
+    }
+    requireObject(declaration, `Android native provider ${name}`);
+    if (spec.resource) {
+      exactObjectKeys(declaration, ["implementation", "resource"], `Android native provider ${name}`);
+      assert.equal(declaration.implementation, spec.implementation, `Android native provider ${name} implementation is unsupported`);
+      assert.equal(declaration.resource, spec.resource, `Android native provider ${name} must reference resources.${spec.resource}`);
+      resolved[name] = Object.freeze({
+        implementation: spec.implementation,
+        catalogAsset: resourceAssetPath(spec.resource),
+      });
+    } else {
+      exactObjectKeys(declaration, ["implementation", "localeSource"], `Android native provider ${name}`);
+      assert.equal(declaration.implementation, spec.implementation, `Android native provider ${name} implementation is unsupported`);
+      assert.equal(declaration.localeSource, spec.localeSource, `Android native provider ${name} locale source is unsupported`);
+      resolved[name] = Object.freeze({
+        implementation: spec.implementation,
+        locale: course.targetLanguage?.speechLocale,
+      });
+    }
+  }
+
+  return Object.freeze({
+    schemaVersion: 1,
+    providers: Object.freeze(resolved),
+  });
+}
+
+export function productProfileForCourse(course, { assetPaths = [], nativeProviders } = {}) {
+  const capabilities = requireObject(course.capabilities, "course capabilities");
+  requireObject(nativeProviders, "resolved Android native provider contract");
+  for (const name of [
+    "llm",
+    "generation",
+    "chat",
+    "embeddings",
+    "semanticSearch",
+    "dictionary",
+    "memory",
+    "verbs",
+    "wordWorld",
+    "conjugationComet",
+    "offlineModels",
+    "speech",
+    "pronunciationGuides",
+  ]) {
+    assert.equal(typeof capabilities[name], "boolean", `course capability ${name} must be boolean`);
+  }
+  assert.ok(!capabilities.semanticSearch || capabilities.embeddings, "semanticSearch requires embeddings");
+  assert.ok(!capabilities.generation || capabilities.llm, "generation requires llm");
+  assert.ok(!capabilities.chat || capabilities.llm, "chat requires llm");
+  const packagedAssets = assetPaths
+    .map((value, index) => normalizedCatalogPath(value, `product asset ${index}`))
+    .sort();
+  assert.equal(new Set(packagedAssets).size, packagedAssets.length, "product assets must be unique");
+  return Object.freeze({
+    schemaVersion: 2,
+    profile: "product",
+    course: Object.freeze({
+      id: course.id,
+      routePrefix: course.routePrefix,
+      sourceLanguage: Object.freeze({
+        id: course.sourceLanguage?.id,
+        locale: course.sourceLanguage?.locale,
+      }),
+      targetLanguage: Object.freeze({
+        id: course.targetLanguage?.id,
+        locale: course.targetLanguage?.locale,
+        script: course.targetLanguage?.script,
+        speechLocale: course.targetLanguage?.speechLocale,
+      }),
+    }),
+    assets: Object.freeze(packagedAssets),
+    nativeProviders,
+    capabilities: Object.freeze({
+      // Product packages are deterministic even when the browser course supports these.
+      chat: false,
+      llm: false,
+      generation: false,
+      godot: false,
+      embeddings: capabilities.embeddings,
+      imageLookup: capabilities.wordWorld,
+      stats: capabilities.memory,
+      dictionary: capabilities.dictionary,
+      speech: capabilities.speech,
+      wordWorldStandardOnly: capabilities.wordWorld,
+    }),
+    privacy: Object.freeze({
+      bugReportsLocalOnly: true,
+      dictionaryGapReportsLocalOnly: true,
+    }),
+  });
+}
+
+export function loadAndroidCourseConfiguration({
+  workspaceRoot = defaultWorkspaceRoot,
+  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+} = {}) {
+  const resolvedWorkspace = realpathSync(resolve(workspaceRoot));
+  const resolvedManifest = confinedWorkspacePath(
+    resolvedWorkspace,
+    courseManifestPath,
+    "course manifest",
+    { allowAbsolute: true },
+  );
+  const course = readJson(resolvedManifest, "course manifest");
+  assert.equal(course.schemaVersion, 1, "course manifest must use schemaVersion 1");
+  assert.match(String(course.id || ""), /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "course id is invalid");
+  assert.match(String(course.directoryName || ""), /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "course directoryName is invalid");
+  assert.match(String(course.routePrefix || ""), /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/, "course routePrefix is invalid");
+  assert.ok(
+    String(course.entryPath || "").startsWith(`${course.routePrefix}/`),
+    "course entryPath must be inside routePrefix",
+  );
+  assert.equal(course.sourceLanguage?.id, "en", "Android semantic mediation currently requires English as the source language");
+  assert.equal(course.platforms?.android?.enabled, true, `course ${course.id} is not enabled for Android`);
+
+  const staticRoot = resourcePath(course, "staticRoot", resolvedWorkspace);
+  assert.equal(staticRoot.resource.kind, "directory", "course staticRoot must be a directory");
+  const manifestWorkspacePath = slashPath(relative(resolvedWorkspace, resolvedManifest));
+  if (!manifestWorkspacePath.startsWith("apps/android/tooling/tests/fixtures/")) {
+    assert.equal(
+      slashPath(relative(resolvedWorkspace, staticRoot.path)),
+      `apps/languages/${course.directoryName}/static`,
+      "course staticRoot must match directoryName",
+    );
+  }
+  assert.ok(statSync(staticRoot.path).isDirectory(), `course staticRoot is not a directory: ${staticRoot.path}`);
+
+  const appEntryResource = resourcePath(course, "appEntry", resolvedWorkspace);
+  assert.equal(appEntryResource.resource.kind, "file", "course appEntry must be a file");
+  assert.equal(
+    slashPath(relative(resolvedWorkspace, appEntryResource.path)),
+    CANONICAL_APP_ENTRY_PATH,
+    `course appEntry must be ${CANONICAL_APP_ENTRY_PATH}`,
+  );
+  assert.ok(statSync(appEntryResource.path).isFile(), `course appEntry is not a file: ${appEntryResource.path}`);
+
+  const appAssetCatalogPath = confinedWorkspacePath(
+    resolvedWorkspace,
+    SHARED_APP_ASSET_CATALOG_PATH,
+    "shared app asset catalog",
+  );
+  const appAssetCatalog = readJson(appAssetCatalogPath, "shared app asset catalog");
+  assert.deepEqual(
+    Object.keys(appAssetCatalog).sort(),
+    ["appEntry", "assets", "schemaVersion"],
+    "shared app asset catalog must contain exactly appEntry, assets, and schemaVersion",
+  );
+  assert.equal(appAssetCatalog.schemaVersion, 1, "shared app asset catalog must use schemaVersion 1");
+  assert.equal(appAssetCatalog.appEntry, CANONICAL_APP_ENTRY_PATH, "shared app asset catalog appEntry is not canonical");
+  assert.ok(Array.isArray(appAssetCatalog.assets) && appAssetCatalog.assets.length > 0, "shared app asset catalog must list assets");
+  const appAssets = Object.freeze(appAssetCatalog.assets.map((value, index) => {
+    const mapping = requireObject(value, `shared app asset ${index}`);
+    assert.deepEqual(
+      Object.keys(mapping).sort(),
+      ["output", "source"],
+      `shared app asset ${index} must contain exactly output and source`,
+    );
+    const sourcePath = normalizedCatalogPath(mapping.source, `shared app asset ${index} source`);
+    const output = normalizedCatalogPath(mapping.output, `shared app asset ${index} output`);
+    assert.notEqual(output, "index.html", "shared app assets must not replace the canonical root entry");
+    assert.notEqual(output, "caatuu-profile.json", "shared app assets must not replace the product profile");
+    assert.doesNotMatch(sourcePath, /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i, `Shared app asset is not packageable: ${sourcePath}`);
+    const source = confinedWorkspacePath(resolvedWorkspace, sourcePath, `shared app asset ${index} source`);
+    assert.ok(statSync(source).isFile(), `Shared app asset source is not a file: ${source}`);
+    return Object.freeze({ source, sourcePath, output });
+  }));
+  assert.equal(
+    new Set(appAssets.map(({ output }) => output)).size,
+    appAssets.length,
+    "shared app asset outputs must be unique",
+  );
+  const appAssetByOutput = new Map(appAssets.map((asset) => [asset.output, asset]));
+
+  const assetCatalogResource = resourcePath(course, "androidAssetCatalog", resolvedWorkspace);
+  assert.equal(assetCatalogResource.resource.kind, "file", "androidAssetCatalog must be a file");
+  const assetCatalog = readJson(assetCatalogResource.path, "Android asset catalog");
+  assert.equal(assetCatalog.schemaVersion, 1, "Android asset catalog must use schemaVersion 1");
+  assert.equal(assetCatalog.courseId, course.id, "Android asset catalog courseId must match the course manifest");
+  assert.ok(Array.isArray(assetCatalog.files) && assetCatalog.files.length > 0, "Android asset catalog must list files");
+  assert.ok(Array.isArray(assetCatalog.launcherIconFiles), "Android asset catalog must list launcherIconFiles");
+
+  const languageFiles = assetCatalog.files.map((value, index) => normalizedCatalogPath(value, `Android asset file ${index}`));
+  assert.ok(!languageFiles.includes("index.html"), "Android course assets must not declare a course-local index.html");
+  const launcherIconFiles = assetCatalog.launcherIconFiles.map((value, index) => normalizedCatalogPath(value, `Android launcher icon ${index}`));
+  assert.ok(
+    assetCatalog.sharedRuntimeFiles === undefined || Array.isArray(assetCatalog.sharedRuntimeFiles),
+    "Android asset catalog sharedRuntimeFiles must be an array when present",
+  );
+  const declaredSharedRuntimeFiles = (assetCatalog.sharedRuntimeFiles || [])
+    .map((value, index) => normalizedCatalogPath(value, `Android shared runtime file ${index}`));
+  assert.equal(new Set(languageFiles).size, languageFiles.length, "Android asset catalog files must be unique");
+  assert.equal(new Set(launcherIconFiles).size, launcherIconFiles.length, "Android launcher icon files must be unique");
+  const declaredSharedRuntimeAssets = declaredSharedRuntimeFiles.map((path) => {
+    assert.doesNotMatch(path, /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i, `Shared runtime file is not packageable: ${path}`);
+    const source = confinedWorkspacePath(
+      resolvedWorkspace,
+      `apps/language-runtime/${path}`,
+      `shared language runtime file ${path}`,
+    );
+    assert.ok(statSync(source).isFile(), `Shared language runtime entry is not a file: ${source}`);
+    return Object.freeze({ source, sourcePath: `apps/language-runtime/${path}`, output: `language-runtime/${path}` });
+  });
+  const sharedRuntimeAssets = Object.freeze(declaredSharedRuntimeAssets.filter((asset) => {
+    const appAsset = appAssetByOutput.get(asset.output);
+    if (!appAsset) return true;
+    assert.equal(appAsset.source, asset.source, `Shared runtime output ${asset.output} conflicts with the shared app catalog`);
+    return false;
+  }));
+
+  const resourceAssetPath = (resourceName) => {
+    const resolvedResource = resourcePath(course, resourceName, resolvedWorkspace);
+    assert.equal(resolvedResource.resource.kind, "file", `course resource ${resourceName} must be a file`);
+    const relativeAssetPath = slashPath(relative(staticRoot.path, resolvedResource.path));
+    const assetPath = normalizedCatalogPath(relativeAssetPath, `course resource ${resourceName} asset path`);
+    assert.ok(
+      languageFiles.includes(assetPath),
+      `Android asset catalog must package resources.${resourceName} as ${assetPath}`,
+    );
+    return assetPath;
+  };
+  const nativeProviders = resolveAndroidNativeProviders({
+    course,
+    assetCatalog,
+    resourceAssetPath,
+  });
+
+  const launcherFiles = Object.freeze([
+    ...launcherIconFiles.map((name) => Object.freeze({
+      source: `assets/icons/${name}`,
+      output: `assets/icons/${name}`,
+    })),
+    ...(launcherIconFiles.length > 0 ? [Object.freeze({
+      source: "assets/loading-animation/animations_manifest.json",
+      output: "assets/loading_animation/animations_manifest.json",
+    })] : []),
+  ].filter((asset) => {
+    const appAsset = appAssetByOutput.get(asset.output);
+    if (!appAsset) return true;
+    const expectedSource = confinedWorkspacePath(
+      resolvedWorkspace,
+      `apps/launcher/static/${asset.source}`,
+      `shared launcher asset ${asset.output}`,
+    );
+    assert.equal(appAsset.source, expectedSource, `Launcher output ${asset.output} conflicts with the shared app catalog`);
+    return false;
+  }));
+  for (const path of languageFiles) {
+    assert.ok(!appAssetByOutput.has(path), `Course asset ${path} conflicts with the shared app catalog`);
+  }
+  const outputFiles = new Set([
+    ...languageFiles,
+    ...launcherFiles.map(({ output }) => output),
+    ...appAssets.map(({ output }) => output),
+    ...sharedRuntimeAssets.map(({ output }) => output),
+    "index.html",
+    "caatuu-profile.json",
+  ]);
+  assert.equal(
+    outputFiles.size,
+    languageFiles.length + launcherFiles.length + appAssets.length + sharedRuntimeAssets.length + 2,
+    "Android asset outputs must be unique",
+  );
+  const productProfile = productProfileForCourse(course, {
+    assetPaths: [...outputFiles].filter((path) => path !== "caatuu-profile.json"),
+    nativeProviders,
+  });
+
+  return Object.freeze({
+    workspaceRoot: resolvedWorkspace,
+    courseManifestPath: resolvedManifest,
+    course,
+    languageStaticDir: staticRoot.path,
+    appEntryPath: appEntryResource.path,
+    appAssetCatalogPath,
+    appAssetCatalog,
+    appAssets,
+    androidAssetCatalogPath: assetCatalogResource.path,
+    assetCatalog,
+    languageFiles: Object.freeze(languageFiles),
+    launcherIconFiles: Object.freeze(launcherIconFiles),
+    launcherFiles,
+    sharedRuntimeFiles: Object.freeze(declaredSharedRuntimeFiles),
+    sharedRuntimeAssets,
+    nativeProviders,
+    outputFiles,
+    productProfile,
+  });
+}
+
+const DEFAULT_COURSE_CONFIGURATION = loadAndroidCourseConfiguration();
+
+// Compatibility exports remain the default Czech course views. The canonical
+// source is apps/languages/czech/android-assets.json through course.json.
+export const STORE_LANGUAGE_FILES = DEFAULT_COURSE_CONFIGURATION.languageFiles;
+export const STORE_LAUNCHER_ICON_FILES = DEFAULT_COURSE_CONFIGURATION.launcherIconFiles;
+export const PRODUCT_PROFILE = DEFAULT_COURSE_CONFIGURATION.productProfile;
 
 const TEXT_EXTENSIONS = new Set([
   ".css", ".html", ".js", ".json", ".md", ".mjs", ".webmanifest"
@@ -275,12 +542,34 @@ export function transformCourseProfile(input) {
     "",
     "course profile chat storage"
   );
+  for (const route of [
+    '      chat: "chat.html",\n',
+    '      audioLab: "audio-lab.html",\n',
+    '      dictionary: "index.html",\n',
+    '      embeddingImages: "embedding-images.html",\n',
+    '      verbDifficulty: "verb-difficulty.html",\n'
+  ]) {
+    source = exactReplace(source, route, "", `course developer route ${route.trim()}`);
+  }
+  source = exactReplace(source, "      llm: true,", "      llm: false,", "course LLM capability");
+  source = exactReplace(source, "      generation: true,", "      generation: false,", "course generation capability");
   source = exactReplace(source, "      chat: true,", "      chat: false,", "course chat capability");
   source = exactReplace(
     source,
     "      offlineModels: true,",
     "      offlineModels: false,",
     "course offline model capability"
+  );
+  source = replaceBetween(
+    source,
+    "      android: {",
+    "    }\n  });",
+    `      android: {
+        enabled: true,
+        channels: []
+      }
+`,
+    "product Android publication channels"
   );
   assert.match(source, /semanticSearch: true/);
   return source;
@@ -487,63 +776,6 @@ export function transformChromeCss(input) {
   );
 }
 
-export function transformAppJs(input) {
-  let source = normalizeText(input);
-  source = replaceBetween(
-    source,
-    "const chatSettingsStorageKey = course.storage.chatSettings;",
-    "async function loadJson(path) {",
-    `const verbSpeakOnTapStorageKey = \`${'${course.storage.namespace}'}.verbNebula.speakOnTap.v1\`;
-
-`,
-    "app language model settings"
-  );
-  source = replaceBetween(
-    source,
-    "function renderModelLicenseList() {",
-    "function readStoredTheme() {",
-    "",
-    "app language model settings functions"
-  );
-  source = exactReplace(
-    source,
-    "  syncThemeControls();\n  syncGenerationSettingsUi();\n  syncAppRuntimeControls();",
-    "  syncThemeControls();\n  syncAppRuntimeControls();",
-    "app settings open generation sync"
-  );
-  source = exactReplace(
-    source,
-    `  document.querySelectorAll("[data-preset]").forEach((button) => {
-    button.addEventListener("click", () => applyGenerationPreset(button.dataset.preset));
-  });
-  ["settingsModel", "thinkingEnabled", "maxTokens", "temperature", "contextSize", "reasoningDisplay"].forEach((id) => {
-    const control = $(\`#\${id}\`);
-    if (!control) return;
-    control.addEventListener("input", readGenerationSettingsControls);
-    control.addEventListener("change", readGenerationSettingsControls);
-  });
-`,
-    "",
-    "app generation control bindings"
-  );
-  source = exactReplace(source, "    await loadModelLicenseCatalog().catch(() => {});\n", "", "app model catalog init");
-  source = exactReplace(
-    source,
-    "    renderModelLicenseList();\n    syncGenerationSettingsUi();\n",
-    "",
-    "app model settings init"
-  );
-  return source;
-}
-
-export function transformAppCss(input) {
-  return stripFlatCssRules(
-    normalizeText(input),
-    [/\.ai-settings-card/i, /\.preset-control/i, /\.capability-note/i],
-    "app language model controls"
-  );
-}
-
 export function transformSetupJs(input) {
   let source = normalizeText(input);
   source = exactReplace(
@@ -579,36 +811,6 @@ export function transformHomeCss(input) {
   return stripFlatCssRules(normalizeText(input), [/gguf-model/i], "home model artifact styling");
 }
 
-export function transformWordNetHtml(input) {
-  let source = normalizeText(input);
-  source = exactReplace(source, 'aria-label="Sentence generation"', 'aria-label="Next sentence options"', "Word World options label");
-  source = replaceBetween(
-    source,
-    '                <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">',
-    "              </div>\n            </div>",
-    "",
-    "Word World content source selector"
-  );
-  source = exactReplace(
-    source,
-    "                  <dt>model</dt>\n                  <dd id=\"wordNetMetaModel\">browser fallback</dd>",
-    "                  <dt>content</dt>\n                  <dd id=\"wordNetMetaModel\">curated corpus</dd>",
-    "Word World diagnostics content"
-  );
-  source = replaceBetween(
-    source,
-    "    <dialog\n      class=\"word-net-generative-dialog\"",
-    "    <nav\n      class=\"bottom-app-nav\"",
-    "",
-    "Word World optional content dialog"
-  );
-  return source;
-}
-
-export function transformWordNetCss(input) {
-  return stripFlatCssRules(normalizeText(input), [/generative/i], "Word World optional content styling");
-}
-
 export function transformWordNetStandard(input) {
   let source = normalizeText(input);
   source = exactReplace(
@@ -626,406 +828,20 @@ export function transformWordNetStandard(input) {
   return source;
 }
 
-export function transformWordNetCore(input) {
-  let source = normalizeText(input);
-  for (const name of [
-    "stripModelEcho",
-    "sentenceIncludesWord",
-    "cleanGeneratedSentence",
-    "cleanTranslation",
-    "isRecentSentence",
-    "isPlausibleSentence",
-    "sentenceTargets"
-  ]) {
-    source = removeTopLevelFunction(source, name, { exported: true });
-  }
-  return source;
-}
-
-export function transformWordNetJs(input) {
-  let source = normalizeText(input);
-  source = replaceBetween(
-    source,
-    "import {\n  alignWordReconstructionAttempt,",
-    "const WORD_NET_MODEL_KEY =",
-    `import {
-  alignWordReconstructionAttempt,
-  buildWordReconstructionChallenge,
-  interpretHorizontalSwipe,
-  isMiscellaneousAssetPath,
-  isReservedEdgeGesture,
-  isWordReconstructionCorrect,
-  isSpeechSynthesisSupported,
-  normalizeWord,
-  parseSceneKeymap,
-  selectDictionaryMeaning,
-  selectSpeechSynthesisVoice,
-  sentenceFingerprint,
-  resolveSpeechPace,
-  tokenizeCzechSentence,
-  wordMatchesTarget
-} from "./word-net-core.mjs?v=word-net-core-18";
-import {
-  loadStandardWordWorldCorpus,
-  migrateWordWorldHistory,
-  selectStandardTurn
-} from "./word-net-standard.mjs?v=word-net-standard-5";
-
-`,
-    "Word World imports"
-  );
-  source = replaceBetween(
-    source,
-    "const WORD_NET_MODEL_KEY =",
-    "const SCENE_KEYMAP_URL =",
-    "",
-    "Word World model constants"
-  );
-  source = exactReplace(source, "const CONTENT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.contentMode.v1`;\n", "", "Word World content mode storage");
-  source = exactReplace(source, "const PREPARED_QUEUE_STORAGE_KEY = `${course.storage.namespace}.wordNet.preparedQueue.v2`;\n", "", "Word World prepared queue storage");
-  source = exactReplace(
-    source,
-    "const PREPARED_QUEUE_CAPACITY = 512;\nconst QUEUE_RECENT_AVOID_LIMIT = 6;\n",
-    "",
-    "Word World prepared queue constants"
-  );
-  source = exactReplace(
-    source,
-    `const PREFETCH_IDLE_DELAY_MS = 500;
-const PREFETCH_NATIVE_IDLE_DELAY_MS = 1200;
-const PREFETCH_BETWEEN_DELAY_MS = 900;
-const PREFETCH_PER_TURN = 12;
-const PREFETCH_FRESH_TARGET = 24;
-const PREFETCH_BATTERY_TARGET = 12;
-const PREFETCH_PER_WORD = 3;
-const PREFETCH_TRANSLATION_BATCH_SIZE = 5;
-const PREFETCH_TRANSLATED_LOW_WATER = 4;
-const PREFETCH_PAUSED = -1;
-const PRESERVABLE_BACKGROUND_ACTIVITIES = new Set(["prefetch", "translation-batch"]);
-const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;
-`,
-    "",
-    "Word World background generation constants"
-  );
-  source = replaceBetween(
-    source,
-    "const PREFETCH_STOPWORDS = new Set([",
-    "const translationModes = {",
-    "",
-    "Word World background generation stopwords"
-  );
-  source = replaceBetween(
-    source,
-    "const contentModes = {",
-    "const audioSpeedOptions = Object.freeze([",
-    "",
-    "Word World content modes"
-  );
-  source = replaceBetween(
-    source,
-    "const fallbackTemplates = [",
-    "const seedEnglish = {",
-    "",
-    "Word World generated-sentence fallback templates"
-  );
-  source = exactReplace(source, "  generativeTurnActive: false,\n", "", "Word World optional turn state");
-  source = exactReplace(source, "  contentMode: loadContentMode(),", '  contentMode: "standard",', "Word World forced Standard mode");
-  source = exactReplace(source, "  translationCache: loadTranslationCache(),\n", "", "Word World retired translation cache state");
-  source = replaceBetween(
-    source,
-    "  branchQueue: new WordNetBranchQueue({",
-    "  phraseRequestId: 0,",
-    "",
-    "Word World prepared queue state"
-  );
-  source = replaceBetween(
-    source,
-    "  backgroundController: null,",
-    "  robotRowsPromise: null,",
-    "",
-    "Word World background generation state"
-  );
-  source = replaceTopLevelFunction(source, "loadHistory", `
-function loadHistory() {
-  const current = readStoredArray(HISTORY_STORAGE_KEY);
-  const legacy = current.length ? [] : readStoredArray(LEGACY_HISTORY_STORAGE_KEY);
-  return migrateWordWorldHistory(current.length ? current : legacy, { limit: HISTORY_LIMIT })
-    .filter((entry) => entry?.contentMode === "standard");
-}`);
-  for (const name of [
-    "loadPreparedQueue",
-    "savePreparedQueue",
-    "loadTranslationCache",
-    "saveTranslationCache",
-    "generationAvoidList",
-    "queueAvoidFingerprints",
-    "queueWordsForSentence",
-    "rememberPreparedCandidate",
-    "hydrateQueueFromHistory",
-    "restoreSavedGenerativePhraseAtInit",
-    "wordNetPrompt",
-    "translationPrompt",
-    "nativeWordNetRuntimeAvailable",
-    "nativeTranslationRuntimeAvailable",
-    "localSentence",
-    "diagnosticsPhase",
-    "diagnosticsModel",
-    "diagnosticsSource",
-    "loadContentMode",
-    "hasContentMode",
-    "saveContentMode",
-    "syncContentControl",
-    "abortOptionalGenerationDownloads",
-    "setContentMode",
-    "confirmGenerativeMode",
-    "requestContentMode",
-    "takeQueuedRandomCandidate",
-    "generateRandomPhrase",
-    "isAbortError",
-    "cacheTranslation",
-    "requestEnglishTranslation",
-    "prepareCandidateForDisplay",
-    "presentPreparedCandidate",
-    "translateCurrentSentence",
-    "enrichCurrentPhrase",
-    "clearPrefetchTimer",
-    "prefetchAllowance",
-    "schedulePrefetch",
-    "prefetchPriorityWords",
-    "nextPrefetchTarget",
-    "untranslatedPreparedCandidates",
-    "freshTranslatedPreparedCount",
-    "translatePreparedBatch",
-    "runPrefetch",
-    "requestSentenceCandidate",
-    "updateHistoryTranslation",
-    "generateSentenceForWord",
-    "showPreparedPhrase",
-    "freshSeedWord"
-  ]) {
-    source = removeTopLevelFunction(source, name);
-  }
-  source = replaceTopLevelFunction(source, "syncDiagnostics", `
-function syncDiagnostics() {
-  const phase = state.standardCorpusLoading ? "loading corpus" : state.busy ? "loading" : state.currentSentence ? "ready" : "starting";
-  const difficulty = learningDifficulty();
-  const standardCounts = state.standardProvider?.difficultyCounts?.() || { 1: 0, 2: 0, 3: 0 };
-  const eligibleStandard = standardCounts[1]
-    + (difficulty >= 2 ? standardCounts[2] : 0)
-    + (difficulty >= 3 ? standardCounts[3] : 0);
-  const history = state.historyCursor
-    ? \`${'${state.history.length}'} · back ${'${state.historyCursor}'}\`
-    : String(state.history.length);
-  const mode = generationModes[state.generationMode]?.label || generationModes.random.label;
-  const values = {
-    wordNetMetaPhase: phase,
-    wordNetMetaModel: "curated corpus",
-    wordNetMetaQueue: \`${'${eligibleStandard}'} eligible · ${'${state.standardProvider?.usage?.entries?.size || 0}'} seen\`,
-    wordNetMetaMode: \`Standard · ${'${mode}'} · L${'${difficulty}'}\`,
-    wordNetMetaSource: state.currentGenerationSource || "standard-corpus",
-    wordNetMetaHistory: history
-  };
-  for (const [id, value] of Object.entries(values)) {
-    const node = document.getElementById(id);
-    if (node) node.textContent = value;
-  }
-  const poolLabel = $("#wordNetMetaPoolLabel");
-  if (poolLabel) poolLabel.textContent = "corpus";
-  const summary = $("#wordNetDiagnosticsSummary");
-  if (summary) summary.textContent = \`${'${phase}'} · Standard · L${'${difficulty}'} · ${'${eligibleStandard}'} eligible\`;
-}`);
-  source = replaceTopLevelFunction(source, "generateFromConfiguredMode", `
-function generateFromConfiguredMode(mode = state.generationMode, { force = false } = {}) {
-  if (state.guidedRequested || state.busy) return;
-  if (!force && shouldBlockReconstructionAdvance()) return;
-  void generateStandardFromConfiguredMode(mode);
-}`);
-  source = replaceTopLevelFunction(source, "cancelBackgroundWork", `
-function cancelBackgroundWork() {
-  // The product has no optional background sentence jobs to cancel.
-}`);
-  source = replaceTopLevelFunction(source, "setTranslationMode", `
-function setTranslationMode(mode, { closeMenu = true } = {}) {
-  if (guidedWordInteractionLocked() || !hasTranslationMode(mode)) return;
-  state.translationMode = mode;
-  saveTranslationMode();
-  applyTranslationMode({ restartTimer: true });
-  setStatus(currentPlayInstruction());
-  if (closeMenu) closeTranslationMenu({ restoreFocus: true });
-  if (mode === "off") {
-    if (state.speechSource === "word") cancelCzechSpeech();
-    abortWordLookup();
-  } else if (state.selectedWord && !state.selectedWordMeaning) {
-    void lookupSelectedWord(state.selectedWord);
-  }
-  if (state.currentSentence) {
-    setTranslation(state.currentTranslation);
-    if (state.guidedMode) hideSceneAsset({ cancel: true });
-    else void updateSceneAsset(state.currentSceneQuery || state.currentTranslation || localTranslation(state.currentSentence, state.currentWord));
-  }
-}`);
-  source = replaceTopLevelFunction(source, "rememberStep", `
-function rememberStep(word, sentence, metadata = {}) {
-  const fingerprint = sentenceFingerprint(sentence);
-  const alreadyRemembered = state.history.some((entry) => sentenceFingerprint(entry.sentence) === fingerprint);
-  state.history = state.history.filter((entry) => sentenceFingerprint(entry.sentence) !== fingerprint);
-  state.history.unshift({
-    id: String(metadata.id || ""),
-    word,
-    sentence,
-    en: String(metadata.en || ""),
-    contentMode: "standard",
-    source: String(metadata.source || state.currentGenerationSource || "standard-corpus"),
-    corpusVersion: String(metadata.corpusVersion || ""),
-    difficulty: Number(metadata.difficulty) >= 1 && Number(metadata.difficulty) <= 3
-      ? Math.floor(Number(metadata.difficulty))
-      : null,
-    sceneQuery: String(metadata.sceneQuery || metadata.en || "")
-  });
-  state.history = state.history.slice(0, HISTORY_LIMIT);
-  state.historyCursor = 0;
-  saveHistory();
-  if (!alreadyRemembered) window.CaatuuLearning?.record("word-world", { activities: 1 });
-  renderTrail();
-  syncDiagnostics();
-}`);
-  source = replaceTopLevelFunction(source, "showPreviousSentence", `
-async function showPreviousSentence() {
-  if (state.guidedRequested) {
-    setStatus("History is disabled while the exact Guided task is active.", { tone: "muted" });
-    return;
-  }
-  if (state.busy || shouldBlockReconstructionAdvance()) return;
-  const previousIndex = state.historyCursor + 1;
-  const previous = state.history[previousIndex];
-  if (!previous) {
-    setStatus("There is no earlier sentence yet.", { tone: "muted" });
-    return;
-  }
-  const transitionStartedAt = performance.now();
-  const requestId = state.phraseRequestId + 1;
-  state.phraseRequestId = requestId;
-  hideSceneAsset({ cancel: true });
-  setBusy(true);
-  setStatus("Restoring the previous sentence.", { tone: "active" });
-  try {
-    state.historyCursor = previousIndex;
-    state.currentWord = previous.word;
-    state.currentSentence = previous.sentence;
-    state.currentTranslation = previous.en || "";
-    state.currentSceneQuery = previous.sceneQuery || previous.en || "";
-    state.currentEntryId = previous.id || "";
-    state.currentCorpusVersion = previous.corpusVersion || "";
-    state.currentDifficulty = previous.difficulty || null;
-    state.currentStandardRecord = state.standardProvider?.records?.find((record) => record.id === previous.id) || null;
-    state.currentContentMode = "standard";
-    state.currentGenerationSource = previous.source || "standard-corpus";
-    selectWord(previous.word, { lookup: state.translationMode !== "off", render: false });
-    setTranslation(previous.en || "");
-    renderCzechSentence(previous.sentence, previous.word);
-    resetSentenceFeedback();
-    setProgress(null);
-    const sceneText = previous.sceneQuery || previous.en || localTranslation(previous.sentence, previous.word);
-    await Promise.all([holdSentenceTransition(transitionStartedAt), updateSceneAsset(sceneText)]);
-    if (requestId === state.phraseRequestId) setStatus("Previous Standard sentence restored.", { tone: "muted" });
-  } finally {
-    if (requestId === state.phraseRequestId) setBusy(false);
-  }
-}`);
-  source = exactReplace(source, "    generationSource: state.currentGenerationSource,\n", "", "Word World feedback source");
-  source = exactReplace(
-    source,
-    `    ...snapshot,
-    ...(snapshot.contentMode === "generative" ? {
-      sentenceModelKey: WORD_NET_MODEL_KEY,
-      translationModelKey: TRANSLATION_MODEL_KEY
-    } : {})
-`,
-    "    ...snapshot\n",
-    "Word World feedback model metadata"
-  );
-  source = exactReplace(
-    source,
-    `  $("#wordNetContentSource")?.addEventListener("click", async (event) => {
-    const button = event.target.closest("[data-content-mode]");
-    if (!button || button.disabled) return;
-    closeGenerationMenu();
-    await requestContentMode(button.dataset.contentMode);
-  });
-`,
-    "",
-    "Word World content source binding"
-  );
-  source = exactReplace(source, "  syncContentControl();\n", "", "Word World retired content control calls", 3);
-  source = exactReplace(
-    source,
-    ': `Selected "${button.dataset.word}". Choose ↻ in Generation to continue with it.`,',
-    ': `Selected "${button.dataset.word}". Choose ↻ to continue with it.`,',
-    "Word World selected-word status"
-  );
-  source = exactReplace(
-    source,
-    `      if (!state.busy && state.currentSentence) {
-        if (state.translationMode !== "off" && !state.currentTranslation) void enrichCurrentPhrase();
-        else schedulePrefetch(state.currentSentence, 180);
-      }
-`,
-    "",
-    "Word World background work resume"
-  );
-  source = replaceTopLevelFunction(source, "init", `
-async function init() {
-  bindEmbeddedShellBridge();
-  bindUi();
-  syncDisplaySettingsControl();
-  initializeSpeechControl();
-  runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
-  await initializeGuidedWordWorldMode();
-  const diagnostics = $("#wordNetDiagnostics");
-  if (diagnostics) diagnostics.open = false;
-  applyTranslationMode();
-  renderCzechSentence("");
-  syncGenerationControl();
-  syncWordTranslation();
-  syncDiagnostics();
-  renderWordGuidedStatus();
-  setStatus(playInstruction);
-  setBusy(true);
-  if (state.guidedRequested && !state.guidedMode) {
-    setStatus("Guided Word World is locked because its curriculum contract could not be verified.", { tone: "error" });
-    renderWordGuidedStatus();
-    setBusy(false);
-    return;
-  }
-  setStatus(state.guidedRequested ? "Preparing the exact Guided developer task." : "Preparing the guided sentence pack.", { tone: "active" });
-  try {
-    await initializeStandardCorpus();
-    if (state.guidedRequested) await generateGuidedStandardPhrase({ allowBusy: true });
-    else await generateStandardFromConfiguredMode("random", { allowBusy: true });
-  } finally {
-    if (state.busy) setBusy(false);
-  }
-}`);
-  return source;
-}
-
 const TRANSFORMS = Object.freeze({
   "index.html": transformIndex,
   "manifest.webmanifest": transformManifest,
   "setup-assets.json": transformSetupAssets,
-  "source/features/home/home.css": transformHomeCss,
   "source/features/setup/setup.js": transformSetupJs,
-  "source/games/verb-nebula/app.css": transformAppCss,
-  "source/games/verb-nebula/app.js": transformAppJs,
-  "source/games/word-world/word-net-core.mjs": transformWordNetCore,
   "source/games/word-world/word-net-standard.mjs": transformWordNetStandard,
-  "source/games/word-world/word-net.css": transformWordNetCss,
-  "source/games/word-world/word-net.js": transformWordNetJs,
-  "source/shared/chrome.css": transformChromeCss,
-  "source/shared/chrome.js": transformChromeJs,
   "source/shared/course-profile.js": transformCourseProfile,
-  "source/shared/runtime.js": transformRuntime,
-  "word-net.html": transformWordNetHtml
+  "source/shared/runtime.js": transformRuntime
+});
+
+const SHARED_APP_TRANSFORMS = Object.freeze({
+  "language-runtime/static/source/caatuu-chrome.js": transformChromeJs,
+  "language-runtime/static/styles/caatuu-chrome.css": transformChromeCss,
+  "language-runtime/static/styles/caatuu-home.css": transformHomeCss,
 });
 
 function assertSafeOutputDirectory(outputDir, workspaceRoot, languageStaticDir, launcherStaticDir) {
@@ -1067,106 +883,6 @@ function allFiles(root) {
   return result.sort();
 }
 
-function serviceWorkerSource(paths, developmentSource) {
-  const source = normalizeText(developmentSource);
-  assert.equal(countOccurrences(source, "function isModelRuntimeRequest(url) {"), 1, "service worker model runtime anchor");
-  assert.ok(source.includes('"./source/features/chat/chat.js'), "service worker must still expose the development Chat anchor");
-  for (const anchor of [
-    '"./conjugation-comet.html"',
-    '"./source/games/conjugation-comet/conjugation-comet.css',
-    '"./source/games/conjugation-comet/conjugation-comet.js',
-    '"/assets/planets/conjugation-comet.png"',
-    '"./data/games/conjugation-comet/verbs.json'
-  ]) {
-    assert.equal(
-      countOccurrences(source, anchor),
-      1,
-      `service worker Conjugation Comet anchor ${anchor}`
-    );
-  }
-  const coreAssets = ["./", ...paths
-    .filter((path) => path !== "sw.js")
-    .map((path) => `./${path}`)];
-  return `const CACHE_NAME = "caatuu-czech-product-v1";
-const CORE_ASSETS = ${JSON.stringify(coreAssets, null, 2)};
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME)
-    .then((cache) => cache.addAll(CORE_ASSETS))
-    .then(() => self.skipWaiting()));
-});
-
-self.addEventListener("activate", (event) => {
-  event.waitUntil(caches.keys()
-    .then((keys) => Promise.all(keys
-      .filter((key) => key.startsWith("caatuu-czech-pwa-") && key !== CACHE_NAME)
-      .map((key) => caches.delete(key))))
-    .then(() => self.clients.claim()));
-});
-
-self.addEventListener("message", (event) => {
-  if (event.data?.type === "SKIP_WAITING") void self.skipWaiting();
-});
-
-self.addEventListener("fetch", (event) => {
-  const request = event.request;
-  if (request.method !== "GET" || request.headers.has("range")) return;
-  const url = new URL(request.url);
-  if (url.origin !== location.origin) return;
-  if (request.cache === "no-store") {
-    event.respondWith(fetch(request));
-  } else if (request.cache === "reload" || request.mode === "navigate" || ["document", "script", "style"].includes(request.destination)) {
-    event.respondWith(networkThenCache(request));
-  } else {
-    event.respondWith(cacheFirst(request));
-  }
-});
-
-async function cacheFirst(request) {
-  const cached = await currentCacheMatch(request);
-  if (cached) return cached;
-  const response = await fetch(request);
-  await cacheResponse(request, response);
-  return response;
-}
-
-async function networkThenCache(request) {
-  try {
-    const response = await fetch(new Request(request, { cache: "reload" }));
-    await cacheResponse(request, response);
-    return response;
-  } catch (error) {
-    let cached = await currentCacheMatch(request);
-    if (cached) return cached;
-    if (request.mode === "navigate") {
-      const fallbackUrl = new URL(request.url);
-      if (fallbackUrl.origin === location.origin && fallbackUrl.search) {
-        fallbackUrl.search = "";
-        cached = await currentCacheMatch(fallbackUrl.href);
-        if (cached) return cached;
-      }
-    }
-    throw error;
-  }
-}
-
-async function currentCacheMatch(request) {
-  const cache = await caches.open(CACHE_NAME);
-  return cache.match(request);
-}
-
-async function cacheResponse(request, response) {
-  if (!response || response.status !== 200) return;
-  try {
-    const cache = await caches.open(CACHE_NAME);
-    await cache.put(request, response.clone());
-  } catch (error) {
-    // The offline cache is opportunistic; quota pressure must not hide a valid response.
-  }
-}
-`;
-}
-
 function checkJavaScriptSyntax(path, source) {
   const moduleSyntax = /(^|\n)\s*(?:import\s+(?!\()|export\s+)|\bimport\.meta\b/m.test(source);
   const result = spawnSync(
@@ -1177,7 +893,7 @@ function checkJavaScriptSyntax(path, source) {
   assert.equal(result.status, 0, `${path}: node --check failed\n${result.stderr || result.stdout}`);
 }
 
-function localModuleReferences(source) {
+function staticModuleReferences(source) {
   const references = new Set();
   const patterns = [
     /\bfrom\s*["']([^"']+)["']/g,
@@ -1187,32 +903,52 @@ function localModuleReferences(source) {
   for (const pattern of patterns) {
     for (const match of source.matchAll(pattern)) references.add(match[1]);
   }
-  return [...references].filter((value) => value.startsWith("."));
+  return [...references].filter((value) => value.startsWith(".") || value.startsWith("/"));
 }
 
-function assertImportReferences(outputDir, files) {
+function packagedReferencePath(reference, containingAsset, routePrefix) {
+  if (!reference || reference.startsWith("#") || reference.startsWith("//") || /^[a-z][a-z\d+.-]*:/i.test(reference)) {
+    return null;
+  }
+  const webPath = containingAsset.startsWith("language-runtime/")
+    ? `/${containingAsset}`
+    : `${routePrefix}/${containingAsset}`.replace(/\/{2,}/g, "/");
+  const pathname = decodeURIComponent(new URL(reference, `https://caatuu.test${webPath}`).pathname);
+  if (pathname.startsWith("/language-runtime/")) return pathname.slice(1);
+  if (pathname.startsWith("/assets/")) return pathname.slice(1);
+  const coursePrefix = `${routePrefix}/`;
+  if (pathname.startsWith(coursePrefix)) return pathname.slice(coursePrefix.length);
+  return null;
+}
+
+function assertImportReferences(outputDir, files, routePrefix) {
   for (const path of files.filter((item) => [".js", ".mjs"].includes(extension(item)))) {
     if (path.startsWith("vendor/")) continue;
     const source = readSourceText(join(outputDir, path));
     checkJavaScriptSyntax(path, source);
-    for (const reference of localModuleReferences(source)) {
+    for (const reference of staticModuleReferences(source)) {
       const cleanReference = reference.split(/[?#]/, 1)[0];
-      const target = resolve(outputDir, dirname(path), cleanReference);
+      const assetPath = packagedReferencePath(cleanReference, path, routePrefix);
+      if (!assetPath) continue;
+      const target = resolve(outputDir, assetPath);
+      assert.ok(isInside(outputDir, target), `${path}: module import escapes packaged assets: ${reference}`);
       assert.ok(existsSync(target) && statSync(target).isFile(), `${path}: missing module import ${reference}`);
     }
   }
 }
 
-function assertHtmlReferences(outputDir, files) {
-  const pattern = /\b(?:src|href|data-src)\s*=\s*["']([^"']+)["']/g;
+function assertHtmlReferences(outputDir, files, routePrefix) {
+  const pattern = /[\s<](?:src|href)\s*=\s*["']([^"']+)["']/g;
   for (const path of files.filter((item) => extension(item) === ".html")) {
     const source = readSourceText(join(outputDir, path));
     for (const match of source.matchAll(pattern)) {
       const reference = match[1];
-      if (!reference || reference.startsWith("#") || reference.startsWith("/") || /^[a-z][a-z\d+.-]*:/i.test(reference)) continue;
       const cleanReference = reference.split(/[?#]/, 1)[0];
       if (!cleanReference) continue;
-      const target = resolve(outputDir, dirname(path), decodeURIComponent(cleanReference));
+      const assetPath = packagedReferencePath(cleanReference, path, routePrefix);
+      if (!assetPath) continue;
+      const target = resolve(outputDir, assetPath);
+      assert.ok(isInside(outputDir, target), `${path}: HTML reference escapes packaged assets: ${reference}`);
       assert.ok(existsSync(target) && statSync(target).isFile(), `${path}: missing HTML reference ${reference}`);
     }
   }
@@ -1224,7 +960,6 @@ function assertNoForbiddenPaths(files) {
     /(^|\/)data\/models(?:\/|$)/i,
     /(^|\/)games\/(?:godot|runtime|exports?)(?:\/|$)/i,
     /godot/i,
-    /word-net-queue/i,
     /data\/embeddings\/.*\/(?:runtime\/|.*\.(?:sqlite|db|onnx|bin|safetensors|wasm)$)/i
   ];
   for (const path of files) {
@@ -1232,13 +967,38 @@ function assertNoForbiddenPaths(files) {
   }
 }
 
+const CAPABILITY_GATED_SHARED_APP_FILES = new Set([
+  "language-runtime/static/source/caatuu-workspace.js",
+  "language-runtime/static/source/product-word-world.mjs",
+  "language-runtime/static/source/word-net-core.mjs",
+  "language-runtime/static/source/word-net-queue.mjs",
+]);
+
 function assertFirstPartySurface(outputDir, files) {
   const executableUi = files.filter((path) =>
-    !path.startsWith("vendor/") && [".css", ".html", ".js", ".mjs", ".webmanifest"].includes(extension(path))
+    !path.startsWith("vendor/")
+      && !CAPABILITY_GATED_SHARED_APP_FILES.has(path)
+      && [".css", ".html", ".js", ".mjs", ".webmanifest"].includes(extension(path))
   );
-  const forbidden = /generative|webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|word-net-queue|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot/i;
+  const forbidden = /webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot/i;
   for (const path of executableUi) {
     assert.doesNotMatch(readSourceText(join(outputDir, path)), forbidden, `Forbidden store surface survived in ${path}`);
+  }
+}
+
+function assertCapabilityGatedSharedApp(outputDir, courseConfiguration, profile) {
+  assert.equal(profile.capabilities.llm, false, "Android product must disable the LLM capability");
+  assert.equal(profile.capabilities.generation, false, "Android product must disable generation");
+  assert.equal(profile.capabilities.chat, false, "Android product must disable chat");
+  for (const path of CAPABILITY_GATED_SHARED_APP_FILES) {
+    const asset = courseConfiguration.appAssets.find(({ output }) => output === path);
+    assert.ok(asset, `Android product must source the canonical capability-gated shared asset ${path}`);
+    assert.equal(SHARED_APP_TRANSFORMS[path], undefined, `${path} must not have an Android-specific transform`);
+    assert.deepEqual(
+      readFileSync(join(outputDir, path)),
+      readFileSync(asset.source),
+      `Android product must retain the canonical shared app asset byte-for-byte: ${path}`,
+    );
   }
 }
 
@@ -1246,7 +1006,7 @@ function assertVectorConfinement(outputDir) {
   const vector = readSourceText(join(outputDir, "source/shared/vector-db.js"));
   assert.match(vector, /env\.allowRemoteModels = false;/);
   assert.match(vector, /env\.allowLocalModels = true;/);
-  assert.match(vector, /pipeline\("feature-extraction", this\.modelId, \{/);
+  assert.match(vector, /pipeline\("feature-extraction",\s*[^,]+,\s*\{/);
   assert.match(vector, /local_files_only: true/);
   assert.doesNotMatch(vector, /allowRemoteModels = true/);
 }
@@ -1263,60 +1023,193 @@ function assertRuntimeBoundary(outputDir) {
   assert.doesNotMatch(runtime, /scheduleDictionaryGapFlush\(/);
 }
 
-function assertSetupBoundary(outputDir, languageStaticDir) {
-  const outputPath = join(outputDir, "setup-assets.json");
-  const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
-  assert.equal(
-    readSourceText(outputPath),
-    normalizeText(transformSetupAssets(developmentSource)),
-    "setup manifest must equal the reviewed store transform"
+function nativeProvider(profile, name) {
+  const provider = profile.nativeProviders?.providers?.[name];
+  assert.ok(provider && typeof provider === "object" && !Array.isArray(provider), `Missing Android native provider ${name}`);
+  return provider;
+}
+
+function providerReferenceAsset(catalogAsset, reference, label) {
+  const normalizedReference = normalizedCatalogPath(reference, label);
+  const catalogDirectory = catalogAsset.includes("/")
+    ? catalogAsset.slice(0, catalogAsset.lastIndexOf("/"))
+    : "";
+  return normalizedCatalogPath(
+    catalogDirectory && !normalizedReference.startsWith(`${catalogDirectory}/`)
+      ? `${catalogDirectory}/${normalizedReference}`
+      : normalizedReference,
+    label,
   );
+}
+
+function assertEmbeddingProviderBoundary(outputDir, profile) {
+  const provider = nativeProvider(profile, "embeddings");
+  assert.equal(provider.implementation, "vector-database-catalog-v1", "Embedding provider implementation is unsupported");
+  const catalogPath = join(outputDir, provider.catalogAsset);
+  assert.ok(existsSync(catalogPath), "embedding provider catalog must be packaged");
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  assert.match(String(catalog.base_url || ""), /^https:\/\//i, "embedding provider catalog must declare an HTTPS base_url");
+  const models = Array.isArray(catalog.models) ? catalog.models : [];
+  const active = models.find((model) => model.key === catalog.default_model && model.status === "active");
+  assert.ok(active, "embedding provider catalog must select an active default model");
+  assert.equal(
+    active.input_language ?? active.embedding_input_language ?? "en",
+    "en",
+    "Android embeddings must consume English input",
+  );
+  assert.match(String(active.sha256 || ""), /^[a-f\d]{64}$/i, "embedding provider model must be hash-pinned");
+  assert.ok(Number(active.bytes) > 0, "embedding provider model must declare positive bytes");
+  normalizedCatalogPath(active.model_file, "embedding provider model_file");
+  const manifestAsset = providerReferenceAsset(
+    provider.catalogAsset,
+    active.manifest_file,
+    "embedding provider manifest_file",
+  );
+  assert.ok(profile.assets.includes(manifestAsset), `embedding provider manifest must be packaged as ${manifestAsset}`);
+  const manifest = JSON.parse(readFileSync(join(outputDir, manifestAsset), "utf8"));
+  assert.equal(manifest.model_id, active.key, "embedding provider manifest model_id must match the catalog");
+  assert.equal(Number(manifest.bytes), Number(active.bytes), "embedding provider manifest bytes must match the catalog");
+  assert.equal(manifest.sha256, active.sha256, "embedding provider manifest SHA-256 must match the catalog");
+  assert.equal(manifest.embedding_dimension, 384, "vector-database-catalog-v1 requires 384-dimensional embeddings");
+  assert.equal(manifest.embedding_text_field, "english_text", "Android embedding manifests must identify english_text");
+  assert.equal(manifest.embedding_input_policy, "english_text_only", "Android embedding manifests must enforce english_text_only");
+  assert.equal(typeof manifest.schema_name, "string", "embedding provider manifest schema_name is required");
+  assert.ok(manifest.schema_name, "embedding provider manifest schema_name is required");
+  assert.ok(Number.isInteger(manifest.schema_version) && manifest.schema_version > 0, "embedding provider manifest schema_version is invalid");
+}
+
+function assertDictionaryProviderBoundary(outputDir, profile) {
+  const provider = nativeProvider(profile, "dictionary");
+  assert.equal(provider.implementation, "sqlite-dictionary-catalog-v1", "Dictionary provider implementation is unsupported");
+  const catalogPath = join(outputDir, provider.catalogAsset);
+  assert.ok(existsSync(catalogPath), "dictionary provider catalog must be packaged");
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  const defaultKey = catalog.default_dictionary ?? catalog.default_dictionary_key;
+  const dictionaries = Array.isArray(catalog.dictionaries) ? catalog.dictionaries : [];
+  const active = dictionaries.find((dictionary) => dictionary.key === defaultKey && dictionary.status === "active");
+  assert.ok(active, "dictionary provider catalog must select an active default dictionary");
+  assert.equal(active.artifact_kind, "dictionary-database", "dictionary provider artifact kind is unsupported");
+  assert.equal(typeof active.label, "string", "dictionary provider label is required");
+  assert.ok(active.label, "dictionary provider label is required");
+  assert.equal(typeof active.direction, "string", "dictionary provider direction is required");
+  assert.ok(active.direction, "dictionary provider direction is required");
+  assert.ok(Number(active.bytes ?? active.expected_bytes) > 0, "dictionary provider must declare positive bytes");
+  assert.match(String(active.sha256 || ""), /^[a-f\d]{64}$/i, "dictionary provider must be hash-pinned");
+  assert.match(String(active.download_url || ""), /^https:\/\//i, "dictionary provider must use an HTTPS download URL");
+  normalizedCatalogPath(active.database_file, "dictionary provider database_file");
+}
+
+function assertSetupBoundary(outputDir, languageStaticDir, profile, { strictCzech = false } = {}) {
+  const outputPath = join(outputDir, "setup-assets.json");
+  assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
+  if (strictCzech) {
+    const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
+    assert.equal(
+      readSourceText(outputPath),
+      normalizeText(transformSetupAssets(developmentSource)),
+      "setup manifest must equal the reviewed store transform"
+    );
+  }
   const manifest = JSON.parse(readFileSync(outputPath, "utf8"));
   const artifacts = Array.isArray(manifest.artifacts) ? manifest.artifacts : [];
   assert.ok(artifacts.length > 0, "setup manifest must retain artifacts");
-  assert.ok(artifacts.some((artifact) => String(artifact.artifact_kind || artifact.kind || "").includes("embedding") || String(artifact.key || "").includes("embedding")), "setup must retain embedding artifacts");
-  const dictionaryCatalogPath = join(outputDir, "data/dictionaries/catalog.json");
-  assert.ok(existsSync(dictionaryCatalogPath), "store output must retain the dictionary catalog");
-  const dictionaryCatalog = JSON.parse(readFileSync(dictionaryCatalogPath, "utf8"));
-  const dictionaries = Array.isArray(dictionaryCatalog.dictionaries) ? dictionaryCatalog.dictionaries : [];
-  const activeDictionary = dictionaries.find((dictionary) => dictionary.status === "active" && (
-    dictionary.default === true || dictionary.key === dictionaryCatalog.default_dictionary_key
-  )) || dictionaries.find((dictionary) => dictionary.status === "active");
-  assert.ok(activeDictionary, "dictionary catalog must retain an active dictionary");
-  assert.ok(Number(activeDictionary.bytes || activeDictionary.expected_bytes) > 0, "active dictionary must declare bytes");
-  assert.match(String(activeDictionary.sha256 || ""), /^[a-f\d]{64}$/i, "active dictionary must be hash-pinned");
-  assert.ok(String(activeDictionary.download_url || activeDictionary.url || "").trim(), "active dictionary must declare a download URL");
+  if (profile.capabilities.embeddings) {
+    assert.ok(
+      artifacts.some((artifact) => String(artifact.artifact_kind || artifact.kind || "").includes("embedding") || String(artifact.key || "").includes("embedding")),
+      "setup must retain embedding artifacts"
+    );
+  }
+  if (profile.capabilities.dictionary) {
+    const dictionaryCatalogPath = join(outputDir, nativeProvider(profile, "dictionary").catalogAsset);
+    assert.ok(existsSync(dictionaryCatalogPath), "dictionary-enabled output must retain the dictionary catalog");
+    const dictionaryCatalog = JSON.parse(readFileSync(dictionaryCatalogPath, "utf8"));
+    const dictionaries = Array.isArray(dictionaryCatalog.dictionaries) ? dictionaryCatalog.dictionaries : [];
+    const activeDictionary = dictionaries.find((dictionary) => dictionary.status === "active" && (
+      dictionary.default === true || dictionary.key === dictionaryCatalog.default_dictionary_key
+    )) || dictionaries.find((dictionary) => dictionary.status === "active");
+    assert.ok(activeDictionary, "dictionary catalog must retain an active dictionary");
+    assert.ok(Number(activeDictionary.bytes || activeDictionary.expected_bytes) > 0, "active dictionary must declare bytes");
+    assert.match(String(activeDictionary.sha256 || ""), /^[a-f\d]{64}$/i, "active dictionary must be hash-pinned");
+    assert.ok(String(activeDictionary.download_url || activeDictionary.url || "").trim(), "active dictionary must declare a download URL");
+  }
   for (const artifact of artifacts) {
     const surface = `${artifact.artifact_kind || artifact.kind || ""} ${artifact.url || ""} ${artifact.key || ""}`;
     assert.doesNotMatch(surface, /gguf|data\/models|godot/i);
   }
-  const setup = readSourceText(join(outputDir, "source/features/setup/setup.js"));
-  assert.doesNotMatch(setup, /gguf|status\?\.models|modelKey/i);
-  assert.match(setup, /status\?\.vectorDatabase/);
+  const setupPath = join(outputDir, "source/features/setup/setup.js");
+  if (existsSync(setupPath)) {
+    const setup = readSourceText(setupPath);
+    assert.doesNotMatch(setup, /gguf|status\?\.models|modelKey/i);
+    if (profile.capabilities.embeddings) assert.match(setup, /status\?\.vectorDatabase/);
+  }
 }
 
-function assertWordWorldBoundary(outputDir) {
-  const paths = [
-    "word-net.html",
-    "source/games/word-world/word-net.css",
-    "source/games/word-world/word-net.js",
-    "source/games/word-world/word-net-core.mjs",
-    "source/games/word-world/word-net-standard.mjs"
-  ];
-  const surface = paths.map((path) => readSourceText(join(outputDir, path))).join("\n");
-  assert.doesNotMatch(surface, /generative|WordNetBranchQueue|runtimeAdapter\(\)\.models|WORD_NET_MODEL_KEY|TRANSLATION_MODEL_KEY|requestSentenceCandidate|requestEnglishTranslation|loadTranslationCache|syncContentControl/i);
-  const runtime = readSourceText(join(outputDir, "source/games/word-world/word-net.js"));
-  assert.match(runtime, /contentMode: "standard"/);
-  for (const constant of [
-    "WORD_MEANING_CACHE_LIMIT",
-    "MIN_SENTENCE_TRANSITION_MS",
-    "LOADING_FADE_MS",
-    "LOADING_ROBOT_KEYMAP_WAIT_MS",
-    "LOADING_ROBOT_IMAGE_WAIT_MS"
-  ]) {
-    assert.match(runtime, new RegExp(`const ${constant} =`), `Word World must retain ${constant}`);
+const REQUIRED_SHARED_APP_FILES = Object.freeze([
+  "index.html",
+  "language-runtime/static/source/app-bootstrap.mjs",
+  "language-runtime/static/source/browser-shell.mjs",
+  "language-runtime/static/source/caatuu-chrome.js",
+  "language-runtime/static/source/caatuu-workspace.js",
+  "language-runtime/static/source/learning-profile.js",
+  "language-runtime/static/source/product-word-world.mjs",
+  "language-runtime/static/source/word-net-core.mjs",
+  "language-runtime/static/source/word-net-queue.mjs",
+  "language-runtime/static/source/word-world-host.mjs",
+  "language-runtime/static/source/word-world-provider.mjs",
+  "language-runtime/static/styles/caatuu-chrome.css",
+  "language-runtime/static/styles/caatuu-home.css",
+  "language-runtime/static/styles/caatuu-theme.css",
+  "language-runtime/static/styles/caatuu-word-world.css",
+  "language-runtime/static/styles/caatuu-workspace.css",
+]);
+
+const LEGACY_WORD_WORLD_FILES = Object.freeze([
+  "word-net.html",
+  "source/games/word-world/word-net.css",
+  "source/games/word-world/word-net-core.mjs",
+  "source/games/word-world/word-net.js",
+  "source/games/word-world/word-net-queue.mjs",
+  "language-runtime/static/source/product-shell.mjs",
+]);
+
+const RETIRED_PARALLEL_UI_FILES = Object.freeze([
+  "source/features/home/home.css",
+  "source/games/verb-nebula/app.css",
+  "source/games/verb-nebula/app.js",
+  "source/shared/chrome.css",
+  "source/shared/chrome.js",
+  "source/shared/learning-profile.js",
+  "source/shared/theme.css",
+  "language-runtime/static/styles/course-shell.css",
+]);
+
+function assertSharedAppBoundary(files) {
+  for (const path of REQUIRED_SHARED_APP_FILES) {
+    assert.ok(files.includes(path), `Android product must package the canonical shared app asset ${path}`);
   }
-  assert.match(readSourceText(join(outputDir, "source/games/word-world/word-net-standard.mjs")), /entry\.contentMode !== "standard"\) return null/);
+  for (const path of LEGACY_WORD_WORLD_FILES) {
+    assert.ok(!files.includes(path), `Android product must not package legacy Word World asset ${path}`);
+  }
+  for (const path of RETIRED_PARALLEL_UI_FILES) {
+    assert.ok(!files.includes(path), `Android product must not package retired parallel UI asset ${path}`);
+  }
+}
+
+function assertWordWorldBoundary(outputDir, files) {
+  const providerModuleUrl = "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5";
+  const meaningAdapterUrl = "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-18";
+  const providerModule = providerModuleUrl.split("?", 1)[0];
+  const meaningAdapter = meaningAdapterUrl.slice(1).split("?", 1)[0];
+  assert.ok(files.includes(providerModule), `Czech Word World must package its course provider ${providerModule}`);
+  assert.ok(files.includes(meaningAdapter), `Czech Word World must package the shared meaning adapter ${meaningAdapter}`);
+
+  const manifest = JSON.parse(readFileSync(join(outputDir, "data/games/word-world/manifest.json"), "utf8"));
+  assert.equal(manifest.sessionProvider?.module, providerModuleUrl, "Czech Word World manifest must declare its versioned course provider URL");
+  assert.equal(manifest.sessionProvider?.meaningSelectorModule, meaningAdapterUrl, "Czech Word World manifest must declare the shared meaning adapter");
+
+  const surface = readSourceText(join(outputDir, providerModule));
+  assert.doesNotMatch(surface, /generative|WordNetBranchQueue|runtimeAdapter\(\)\.models|WORD_NET_MODEL_KEY|TRANSLATION_MODEL_KEY|requestSentenceCandidate|requestEnglishTranslation|loadTranslationCache|syncContentControl/i);
+  assert.match(readSourceText(join(outputDir, providerModule)), /entry\.contentMode !== "standard"\) return null/);
 }
 
 function assertLearnerContentSafety(outputDir) {
@@ -1328,7 +1221,7 @@ function assertLearnerContentSafety(outputDir) {
     ["word-world", "data/games/word-world/standard-v0.1/records.json"],
     ["language-scripts", "data/language/scripts.json"]
   ];
-  const fields = sources.flatMap(([sourceId, assetPath]) => {
+  const fields = sources.filter(([, assetPath]) => existsSync(join(outputDir, assetPath))).flatMap(([sourceId, assetPath]) => {
     const parsed = JSON.parse(readFileSync(join(outputDir, assetPath), "utf8"));
     return extractLearnerContent(sourceId, parsed, assetPath).fields;
   });
@@ -1345,44 +1238,93 @@ function assertLearnerContentSafety(outputDir) {
 function assertServiceWorkerBoundary(outputDir) {
   const source = readSourceText(join(outputDir, "sw.js"));
   assert.doesNotMatch(source, /isModelRuntimeRequest|huggingface|esm\.run|github\.com|chat/i);
-  const match = /const CORE_ASSETS = (\[[\s\S]*?\]);/.exec(source);
-  assert.ok(match, "store service worker must declare CORE_ASSETS");
-  const assets = JSON.parse(match[1]);
-  for (const asset of assets) {
-    if (asset === "./") continue;
-    assert.ok(asset.startsWith("./"), `Service worker core asset must be same-origin relative: ${asset}`);
-    const target = join(outputDir, asset.slice(2));
-    assert.ok(existsSync(target) && statSync(target).isFile(), `Service worker references missing core asset: ${asset}`);
+  const loader = /^"use strict";\s+\/\/ Offline catalog revision: ([^\r\n]+)\s+importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\);\s*$/u.exec(source);
+  assert.ok(
+    loader,
+    "course service worker must be the canonical shared-worker loader",
+  );
+  const setupPath = join(outputDir, "setup-assets.json");
+  if (existsSync(setupPath)) {
+    const setup = JSON.parse(readSourceText(setupPath));
+    assert.equal(
+      loader[1].trim(),
+      setup?.offline?.cacheName,
+      "course worker revision must match the packaged offline catalog",
+    );
   }
+  const workerEngine = join(outputDir, "language-runtime/static/source/course-service-worker.js");
+  assert.ok(existsSync(workerEngine) && statSync(workerEngine).isFile(), "shared course service-worker engine must be packaged");
+  assert.match(readSourceText(workerEngine), /Retired runtime assets cannot be cached/);
 }
 
 export function validateProductAssets({
   outputDir,
-  languageStaticDir = join(defaultWorkspaceRoot, "apps/languages/czech/static")
+  workspaceRoot = defaultWorkspaceRoot,
+  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+  languageStaticDir,
+  configuration,
 }) {
+  const courseConfiguration = configuration || loadAndroidCourseConfiguration({
+    workspaceRoot,
+    courseManifestPath,
+  });
   const resolvedOutput = resolve(outputDir);
+  const resolvedLanguage = languageStaticDir
+    ? realpathSync(resolve(languageStaticDir))
+    : courseConfiguration.languageStaticDir;
+  assert.equal(
+    resolvedLanguage,
+    courseConfiguration.languageStaticDir,
+    "languageStaticDir must match the course manifest staticRoot",
+  );
   assert.ok(existsSync(resolvedOutput), `Store output does not exist: ${resolvedOutput}`);
   const files = allFiles(resolvedOutput);
-  assert.deepEqual(files, [...STORE_OUTPUT_FILES].sort(), "Store output must equal the exact reviewed allowlist");
+  assert.deepEqual(files, [...courseConfiguration.outputFiles].sort(), "Store output must equal the course Android asset allowlist");
+  assert.deepEqual(
+    readFileSync(join(resolvedOutput, "index.html")),
+    readFileSync(courseConfiguration.appEntryPath),
+    "Packaged index.html must be byte-for-byte identical to the canonical shared app entry",
+  );
   assertNoForbiddenPaths(files);
+  assertSharedAppBoundary(files);
   assertFirstPartySurface(resolvedOutput, files);
-  assertVectorConfinement(resolvedOutput);
-  assertRuntimeBoundary(resolvedOutput);
-  assertSetupBoundary(resolvedOutput, resolve(languageStaticDir));
-  assertWordWorldBoundary(resolvedOutput);
-  assertLearnerContentSafety(resolvedOutput);
-  assertServiceWorkerBoundary(resolvedOutput);
-  assertImportReferences(resolvedOutput, files);
-  assertHtmlReferences(resolvedOutput, files);
-
   const profile = JSON.parse(readFileSync(join(resolvedOutput, "caatuu-profile.json"), "utf8"));
-  assert.deepEqual(profile, PRODUCT_PROFILE, "Caatuu profile marker must use the exact release schema");
-  const course = readSourceText(join(resolvedOutput, "source/shared/course-profile.js"));
-  assert.match(course, /chat: false/);
-  assert.match(course, /offlineModels: false/);
-  assert.match(course, /semanticSearch: true/);
-  const manifest = JSON.parse(readFileSync(join(resolvedOutput, "manifest.webmanifest"), "utf8"));
-  assert.ok(manifest.shortcuts.every((shortcut) => shortcut.url !== "./chat.html"));
+  assert.deepEqual(profile, courseConfiguration.productProfile, "Caatuu profile marker must match the course release capabilities");
+  assertCapabilityGatedSharedApp(resolvedOutput, courseConfiguration, profile);
+  const strictCzech = courseConfiguration.course.id === "cz";
+  if (profile.capabilities.embeddings) {
+    const embeddingCatalogPath = nativeProvider(profile, "embeddings").catalogAsset;
+    assert.ok(files.includes(embeddingCatalogPath), `embedding-enabled output must retain ${embeddingCatalogPath}`);
+    if (files.includes("source/shared/vector-db.js")) assertVectorConfinement(resolvedOutput);
+    assertEmbeddingProviderBoundary(resolvedOutput, profile);
+  }
+  if (profile.capabilities.dictionary) assertDictionaryProviderBoundary(resolvedOutput, profile);
+  if (strictCzech) assertRuntimeBoundary(resolvedOutput);
+  if (files.includes("setup-assets.json")) {
+    assertSetupBoundary(resolvedOutput, resolvedLanguage, profile, { strictCzech });
+  }
+  if (strictCzech && profile.capabilities.wordWorldStandardOnly) assertWordWorldBoundary(resolvedOutput, files);
+  assertLearnerContentSafety(resolvedOutput);
+  if (files.includes("sw.js")) assertServiceWorkerBoundary(resolvedOutput);
+  assertImportReferences(resolvedOutput, files, courseConfiguration.course.routePrefix);
+  assertHtmlReferences(resolvedOutput, files, courseConfiguration.course.routePrefix);
+
+  if (files.includes("source/shared/course-profile.js")) {
+    const course = readSourceText(join(resolvedOutput, "source/shared/course-profile.js"));
+    assert.doesNotMatch(course, /llm: true/);
+    assert.doesNotMatch(course, /generation: true/);
+    if (strictCzech) {
+      assert.match(course, /llm: false/);
+      assert.match(course, /generation: false/);
+    }
+    assert.match(course, /chat: false/);
+    assert.match(course, /offlineModels: false/);
+    if (profile.capabilities.embeddings) assert.match(course, /semanticSearch: true/);
+  }
+  if (files.includes("manifest.webmanifest")) {
+    const manifest = JSON.parse(readFileSync(join(resolvedOutput, "manifest.webmanifest"), "utf8"));
+    assert.ok((manifest.shortcuts || []).every((shortcut) => shortcut.url !== "./chat.html"));
+  }
 
   const totalBytes = files.reduce((sum, path) => sum + statSync(join(resolvedOutput, path)).size, 0);
   return { outputDir: resolvedOutput, fileCount: files.length, totalBytes, files };
@@ -1390,25 +1332,35 @@ export function validateProductAssets({
 
 export function compileProductAssets({
   workspaceRoot = defaultWorkspaceRoot,
-  languageStaticDir = join(workspaceRoot, "apps/languages/czech/static"),
+  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+  languageStaticDir,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product")
 } = {}) {
-  const resolvedWorkspace = resolve(workspaceRoot);
-  const resolvedLanguage = resolve(languageStaticDir);
+  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath });
+  const resolvedWorkspace = courseConfiguration.workspaceRoot;
+  const resolvedLanguage = languageStaticDir
+    ? realpathSync(resolve(languageStaticDir))
+    : courseConfiguration.languageStaticDir;
+  assert.equal(
+    resolvedLanguage,
+    courseConfiguration.languageStaticDir,
+    "languageStaticDir must match the course manifest staticRoot",
+  );
   const resolvedLauncher = resolve(launcherStaticDir);
   const resolvedOutput = resolve(outputDir);
   assertSafeOutputDirectory(resolvedOutput, resolvedWorkspace, resolvedLanguage, resolvedLauncher);
-  assert.ok(existsSync(resolvedLanguage), `Czech static source is missing: ${resolvedLanguage}`);
+  assert.ok(existsSync(resolvedLanguage), `Course static source is missing: ${resolvedLanguage}`);
   assert.ok(existsSync(resolvedLauncher), `Launcher static source is missing: ${resolvedLauncher}`);
 
   rmSync(resolvedOutput, { recursive: true, force: true });
   mkdirSync(resolvedOutput, { recursive: true });
-  for (const path of STORE_LANGUAGE_FILES) {
-    if (path === "sw.js") continue;
+  const strictCzech = courseConfiguration.course.id === "cz";
+  copyExactFile(courseConfiguration.appEntryPath, join(resolvedOutput, "index.html"));
+  for (const path of courseConfiguration.languageFiles) {
     const sourcePath = join(resolvedLanguage, path);
     const outputPath = join(resolvedOutput, path);
-    const transform = TRANSFORMS[path];
+    const transform = strictCzech ? TRANSFORMS[path] : undefined;
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(path)), `Transform target must be text: ${path}`);
       writeText(outputPath, transform(readSourceText(sourcePath)));
@@ -1416,16 +1368,30 @@ export function compileProductAssets({
       copyExactFile(sourcePath, outputPath);
     }
   }
-  for (const { source, output } of STORE_LAUNCHER_FILES) {
+  for (const { source, output } of courseConfiguration.launcherFiles) {
     copyExactFile(join(resolvedLauncher, source), join(resolvedOutput, output));
   }
-  writeText(join(resolvedOutput, "caatuu-profile.json"), `${JSON.stringify(PRODUCT_PROFILE, null, 2)}\n`);
-  const preWorkerFiles = [...STORE_OUTPUT_FILES].filter((path) => path !== "sw.js").sort();
+  for (const { source, output } of courseConfiguration.appAssets) {
+    const transform = SHARED_APP_TRANSFORMS[output];
+    if (transform) {
+      assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
+      writeText(join(resolvedOutput, output), transform(readSourceText(source)));
+    } else {
+      copyExactFile(source, join(resolvedOutput, output));
+    }
+  }
+  for (const { source, output } of courseConfiguration.sharedRuntimeAssets) {
+    copyExactFile(source, join(resolvedOutput, output));
+  }
   writeText(
-    join(resolvedOutput, "sw.js"),
-    serviceWorkerSource(preWorkerFiles, readSourceText(join(resolvedLanguage, "sw.js")))
+    join(resolvedOutput, "caatuu-profile.json"),
+    `${JSON.stringify(courseConfiguration.productProfile, null, 2)}\n`,
   );
-  return validateProductAssets({ outputDir: resolvedOutput, languageStaticDir: resolvedLanguage });
+  return validateProductAssets({
+    outputDir: resolvedOutput,
+    languageStaticDir: resolvedLanguage,
+    configuration: courseConfiguration,
+  });
 }
 
 function parseArguments(argv) {
@@ -1437,6 +1403,7 @@ function parseArguments(argv) {
     assert.ok(value && !value.startsWith("--"), `Missing value for ${key}`);
     index += 1;
     if (key === "--workspace-root") options.workspaceRoot = resolve(value);
+    else if (key === "--course-manifest") options.courseManifestPath = resolve(value);
     else if (key === "--language-static" || key === "--source") options.languageStaticDir = resolve(value);
     else if (key === "--launcher-static" || key === "--launcher") options.launcherStaticDir = resolve(value);
     else if (key === "--output") options.outputDir = resolve(value);
@@ -1448,11 +1415,11 @@ function parseArguments(argv) {
 if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
   const options = parseArguments(process.argv.slice(2));
   if (options.help) {
-    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
+    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--course-manifest FILE] [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
   } else {
     const result = compileProductAssets(options);
     process.stdout.write(`${JSON.stringify({
-      profile: PRODUCT_PROFILE.profile,
+      profile: "product",
       outputDir: result.outputDir,
       fileCount: result.fileCount,
       totalBytes: result.totalBytes

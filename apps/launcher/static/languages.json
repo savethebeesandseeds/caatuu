@@ -40,12 +40,14 @@
             {
               "kind": "release",
               "manifest": "/android/caatuu.json",
-              "artifact": "/android/caatuu.apk"
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 160
             },
             {
               "kind": "preview",
               "manifest": "/android/caatuu-preview.json",
-              "artifact": "/android/caatuu-preview.apk"
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 160
             }
           ]
         }

@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/runtime/target-realizations.runtime.v1.schema.json",
+  "title": "Caatuu browser target-realization projection v1",
+  "description": "A learner-safe runtime projection whose review policy can omit authored pronunciation metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "courseId",
+    "derivedFrom",
+    "projectionPolicy",
+    "targetLanguage",
+    "sourceCatalog",
+    "contentPolicy",
+    "review",
+    "license",
+    "realizations"
+  ],
+  "properties": {
+    "$schema": { "const": "https://caatuu.org/schemas/runtime/target-realizations.runtime.v1.schema.json" },
+    "schemaVersion": { "const": 1 },
+    "courseId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "derivedFrom": {
+      "type": "string",
+      "pattern": "^apps/languages/[a-z0-9-]+/content/[a-z0-9./-]+\\.json$"
+    },
+    "projectionPolicy": { "$ref": "#/$defs/projectionPolicy" },
+    "targetLanguage": { "$ref": "#/$defs/targetLanguage" },
+    "sourceCatalog": {
+      "type": "string",
+      "pattern": "^apps/languages/shared/english-concepts/[a-z0-9][a-z0-9.-]*\\.json$"
+    },
+    "contentPolicy": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*-v[1-9][0-9]*$"
+    },
+    "review": { "$ref": "#/$defs/reviewGate" },
+    "license": { "$ref": "#/$defs/licenseGate" },
+    "realizations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/realization" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "projectionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokenization", "pronunciationIncluded", "reason"],
+      "properties": {
+        "tokenization": { "const": "authored" },
+        "pronunciationIncluded": { "type": "boolean" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "targetLanguage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["languageTag", "speechLocale", "script"],
+      "properties": {
+        "languageTag": { "type": "string", "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" },
+        "speechLocale": { "type": "string", "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" },
+        "script": { "type": "string", "pattern": "^[A-Z][a-z]{3}$" }
+      }
+    },
+    "pronunciation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "notation", "languageTag", "reviewed"],
+      "properties": {
+        "system": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$" },
+        "notation": { "$ref": "#/$defs/nonEmptyString" },
+        "languageTag": { "type": "string", "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" },
+        "reviewed": { "type": "boolean" }
+      }
+    },
+    "realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conceptId", "text", "tokens"],
+      "properties": {
+        "conceptId": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$" },
+        "text": { "$ref": "#/$defs/nonEmptyString" },
+        "pronunciation": { "$ref": "#/$defs/pronunciation" },
+        "tokens": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/token" }
+        }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "gloss", "playable"],
+      "properties": {
+        "surface": { "$ref": "#/$defs/nonEmptyString" },
+        "pronunciation": { "$ref": "#/$defs/pronunciation" },
+        "gloss": { "$ref": "#/$defs/nonEmptyString" },
+        "playable": { "type": "boolean" }
+      }
+    },
+    "reviewGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedAt", "notes"],
+      "properties": {
+        "status": { "enum": ["native-review-required", "native-reviewed"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" },
+        "notes": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "licenseGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "status", "spdxExpression", "sourceReference", "reviewedBy", "reviewedAt"],
+      "properties": {
+        "origin": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "enum": ["release-review-required", "release-cleared"] },
+        "spdxExpression": { "type": ["string", "null"] },
+        "sourceReference": { "type": ["string", "null"] },
+        "reviewedBy": { "type": ["string", "null"] },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    }
+  }
+}

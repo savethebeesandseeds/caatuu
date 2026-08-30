@@ -1,0 +1,12 @@
+{
+  "schema_name": "caatuu-fixture-vector-db",
+  "schema_version": 1,
+  "model_id": "english-minilm",
+  "file": "fixture.sqlite",
+  "url": "english-minilm/fixture.sqlite",
+  "bytes": 1,
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "embedding_dimension": 384,
+  "embedding_text_field": "english_text",
+  "embedding_input_policy": "english_text_only"
+}

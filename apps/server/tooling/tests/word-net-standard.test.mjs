@@ -164,7 +164,7 @@ test("Standard selection has no model dependency or model-call path", () => {
 });
 
 test("the browser Standard render path cannot call models or contaminate the generated queue", async () => {
-  const runtimeSource = await readFile(new URL("../../../languages/czech/static/source/games/word-world/word-net.js", import.meta.url), "utf8");
+  const runtimeSource = await readFile(new URL("../../../language-runtime/static/source/product-word-world.mjs", import.meta.url), "utf8");
   const start = runtimeSource.indexOf("function showStandardPhrase");
   const end = runtimeSource.indexOf("function takeQueuedRandomCandidate", start);
   assert.ok(start >= 0 && end > start);
@@ -218,13 +218,12 @@ test("Standard feedback provenance survives the compact runtime report boundary"
   }
 });
 
-test("the Word World UI exposes Standard and Generative as independent sentence sources", async () => {
+test("the retired Word World document deep-links into the canonical shared app", async () => {
   const html = await readFile(new URL("../../../languages/czech/static/word-net.html", import.meta.url), "utf8");
-  assert.match(html, /id="wordNetContentSource"/);
-  assert.match(html, /data-content-mode="standard" aria-pressed="true"/);
-  assert.match(html, /data-content-mode="generative" aria-pressed="false"/);
-  assert.match(html, />offline</);
-  assert.match(html, />local AI</);
+  assert.match(html, /http-equiv="refresh" content="0; url=index\.html\?game=word-net"/u);
+  assert.match(html, /rel="canonical" href="index\.html\?game=word-net"/u);
+  assert.match(html, /<a href="index\.html\?game=word-net">Continue in Caatuu<\/a>/u);
+  assert.doesNotMatch(html, /(?:wordNetContentSource|source\/games\/word-world\/word-net\.js|data-content-mode)/u);
 });
 
 test("migrates legacy history and retains complete Standard history metadata", () => {
@@ -368,12 +367,12 @@ test("the shipped runtime pack URL is addressed by its content hash", async () =
     manifest.runtimeFile,
     new RegExp(`\\?v=${manifest.contentSha256.slice(0, 16)}$`)
   );
-  const serviceWorker = await readFile(
-    new URL("../../../languages/czech/static/sw.js", import.meta.url),
+  const offlineCatalog = await readFile(
+    new URL("../../../languages/czech/static/setup-assets.json", import.meta.url),
     "utf8"
   );
   assert.match(
-    serviceWorker,
+    offlineCatalog,
     new RegExp(`data/games/word-world/${manifest.runtimeFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
   );
 });

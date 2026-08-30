@@ -23,7 +23,7 @@ const [
   read("README.md"),
   read("apps/server/Cargo.toml"),
   read("tools/czech-ml/package.json"),
-  read("apps/languages/czech/static/source/shared/chrome.js")
+  read("apps/language-runtime/static/source/caatuu-chrome.js")
 ]);
 
 test("first-party software is consistently AGPL-3.0-only", () => {

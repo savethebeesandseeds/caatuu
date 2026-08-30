@@ -1,26 +1,37 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { existsSync } from "node:fs";
-import { basename, resolve } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { basename, dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const scriptPath = fileURLToPath(import.meta.url);
+const workspaceRoot = resolve(dirname(scriptPath), "../../..");
+const appAssetCatalog = JSON.parse(readFileSync(resolve(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
+const canonicalAppEntry = readFileSync(resolve(workspaceRoot, "apps/language-runtime/static/app/index.html"));
+const SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(
+  appAssetCatalog.assets.map(({ output }) => output),
+);
 
 const EXPECTED_APPLICATION_ID = "com.waajacu.caatuu";
 const EXPECTED_MIN_SDK = 30;
 const MINIMUM_TARGET_SDK = 36;
 const EXPECTED_MINILM_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41";
 
-const REQUIRED_ASSET_PATHS = [
+const BASE_REQUIRED_ASSET_PATHS = [
   "caatuu-profile.json",
   "index.html",
+  ...SHARED_APP_REQUIRED_ASSET_PATHS,
   "setup-assets.json",
+];
+
+const CZECH_EMBEDDING_REQUIRED_ASSET_PATHS = [
   "data/embeddings/models.json",
   "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
   "source/shared/runtime.js",
   "source/shared/vector-db.js",
   "source/shared/semantic-learning.js",
   "source/shared/semantic-learning-core.mjs",
-  "data/dictionaries/catalog.json",
-  "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
   "vendor/transformers/transformers.min.js",
   "vendor/transformers/LICENSE",
   "vendor/sql.js/sql-wasm.js",
@@ -28,13 +39,19 @@ const REQUIRED_ASSET_PATHS = [
   "vendor/sql.js/LICENSE",
 ];
 
-const REQUIRED_NATIVE_CLASSES = [
+const CZECH_DICTIONARY_REQUIRED_ASSET_PATHS = [
+  "data/dictionaries/catalog.json",
+  "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
+  "vendor/sql.js/sql-wasm.js",
+  "vendor/sql.js/sql-wasm.wasm",
+  "vendor/sql.js/LICENSE",
+];
+
+const BASE_REQUIRED_NATIVE_CLASSES = [
   "com.caatuu.android.CaatuuActivity",
   "com.caatuu.android.ProductBridge",
   "com.caatuu.android.AppUpdateManager",
   "com.caatuu.android.CaatuuAssetClient",
-  "com.caatuu.android.VectorDatabaseManager",
-  "com.caatuu.android.DictionaryManager",
   "com.caatuu.android.StaticAssetManager",
 ];
 
@@ -175,12 +192,55 @@ function assertNoForbiddenPaths(entries, label) {
   }
 }
 
-function assertRequiredAssets(entries, kind, label) {
+export function requiredAssetPaths(profile) {
+  const strictCzech = profile?.course?.id === "cz";
+  const embeddingCatalog = profile?.nativeProviders?.providers?.embeddings?.catalogAsset;
+  const dictionaryCatalog = profile?.nativeProviders?.providers?.dictionary?.catalogAsset;
+  return [...new Set([
+    ...BASE_REQUIRED_ASSET_PATHS,
+    ...(profile.capabilities.embeddings && embeddingCatalog ? [embeddingCatalog] : []),
+    ...(profile.capabilities.embeddings && strictCzech ? CZECH_EMBEDDING_REQUIRED_ASSET_PATHS : []),
+    ...(profile.capabilities.dictionary && dictionaryCatalog ? [dictionaryCatalog] : []),
+    ...(profile.capabilities.dictionary && strictCzech ? CZECH_DICTIONARY_REQUIRED_ASSET_PATHS : []),
+  ])];
+}
+
+export function requiredNativeClassNames(profile) {
+  const providers = profile?.nativeProviders?.providers ?? {};
+  return [
+    ...BASE_REQUIRED_NATIVE_CLASSES,
+    ...(providers.embeddings ? ["com.caatuu.android.VectorDatabaseManager"] : []),
+    ...(providers.dictionary ? ["com.caatuu.android.DictionaryManager"] : []),
+    ...(providers.speech ? ["com.caatuu.android.AndroidSpeechManager"] : []),
+  ];
+}
+
+function assertRequiredAssets(entries, kind, label, profile) {
   const entrySet = new Set(entries);
-  for (const assetPath of REQUIRED_ASSET_PATHS) {
+  for (const assetPath of requiredAssetPaths(profile)) {
     const expected = archiveEntryForAsset(assetPath, kind);
     assert(entrySet.has(expected), `${label} is missing required product asset ${expected}`);
   }
+}
+
+function assertCanonicalAppEntry(unzip, archive, kind, label) {
+  const entry = archiveEntryForAsset("index.html", kind);
+  assert(
+    archiveBuffer(unzip, archive, entry).equals(canonicalAppEntry),
+    `${label} index.html must be byte-for-byte identical to apps/language-runtime/static/app/index.html`,
+  );
+}
+
+function assertDeclaredAssetBoundary(entries, kind, label, profile) {
+  const actual = entries
+    .map((entry) => normalizeAssetPath(entry, kind))
+    .filter((assetPath) => assetPath && !assetPath.endsWith("/") && assetPath !== "caatuu-profile.json")
+    .sort();
+  const declared = [...profile.assets].sort();
+  assert(
+    JSON.stringify(actual) === JSON.stringify(declared),
+    `${label} packaged assets must exactly match the manifest-derived product profile`,
+  );
 }
 
 function parseJsonAsset(unzip, archive, assetPath, kind, label) {
@@ -192,8 +252,59 @@ function parseJsonAsset(unzip, archive, assetPath, kind, label) {
   }
 }
 
+function hasExactKeys(value, expected) {
+  return value && typeof value === "object" && !Array.isArray(value) &&
+    JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
+}
+
+function isSafeAssetPath(value) {
+  return typeof value === "string" && value.length > 0 && !value.startsWith("/") && !value.includes("\\") &&
+    value.split("/").every((segment) => segment && segment !== "." && segment !== "..");
+}
+
+function assertNativeProviderContract(profile, label) {
+  const contract = profile?.nativeProviders;
+  assert(hasExactKeys(contract, ["schemaVersion", "providers"]), `${label} native provider contract has unsupported fields`);
+  assert(contract.schemaVersion === 1, `${label} native provider contract must use schemaVersion 1`);
+  const providers = contract.providers;
+  assert(providers && typeof providers === "object" && !Array.isArray(providers), `${label} native providers must be an object`);
+  const expectedProviderNames = [
+    ...(profile.capabilities.embeddings ? ["embeddings"] : []),
+    ...(profile.capabilities.dictionary ? ["dictionary"] : []),
+    ...(profile.capabilities.speech ? ["speech"] : []),
+  ].sort();
+  assert(
+    JSON.stringify(Object.keys(providers).sort()) === JSON.stringify(expectedProviderNames),
+    `${label} native providers must exactly match enabled capabilities`,
+  );
+
+  for (const [name, implementation] of [
+    ["embeddings", "vector-database-catalog-v1"],
+    ["dictionary", "sqlite-dictionary-catalog-v1"],
+  ]) {
+    const provider = providers[name];
+    if (!provider) continue;
+    assert(hasExactKeys(provider, ["catalogAsset", "implementation"]), `${label} ${name} provider has unsupported fields`);
+    assert(provider.implementation === implementation, `${label} ${name} provider implementation is unsupported`);
+    assert(isSafeAssetPath(provider.catalogAsset), `${label} ${name} provider catalog asset is unsafe`);
+    assert(profile.assets.includes(provider.catalogAsset), `${label} ${name} provider catalog asset is not packaged`);
+  }
+
+  if (providers.speech) {
+    assert(hasExactKeys(providers.speech, ["implementation", "locale"]), `${label} speech provider has unsupported fields`);
+    assert(providers.speech.implementation === "android-text-to-speech-v1", `${label} speech provider implementation is unsupported`);
+    assert(
+      providers.speech.locale === profile.course.targetLanguage.speechLocale,
+      `${label} speech provider locale must match the course manifest`,
+    );
+  }
+}
+
 function assertStoreProfile(profile, label) {
-  const expectedTopLevelKeys = ["capabilities", "privacy", "profile", "schemaVersion"];
+  const expectedTopLevelKeys = ["assets", "capabilities", "course", "nativeProviders", "privacy", "profile", "schemaVersion"];
+  const expectedCourseKeys = ["id", "routePrefix", "sourceLanguage", "targetLanguage"];
+  const expectedSourceLanguageKeys = ["id", "locale"];
+  const expectedTargetLanguageKeys = ["id", "locale", "script", "speechLocale"];
   const expectedCapabilityKeys = [
     "chat",
     "dictionary",
@@ -202,6 +313,7 @@ function assertStoreProfile(profile, label) {
     "godot",
     "imageLookup",
     "llm",
+    "speech",
     "stats",
     "wordWorldStandardOnly",
   ];
@@ -209,6 +321,20 @@ function assertStoreProfile(profile, label) {
   assert(
     JSON.stringify(Object.keys(profile ?? {}).sort()) === JSON.stringify(expectedTopLevelKeys),
     `${label} store profile must contain only the reviewed top-level keys`,
+  );
+  assert(
+    JSON.stringify(Object.keys(profile?.course ?? {}).sort()) === JSON.stringify(expectedCourseKeys),
+    `${label} store profile must contain the exact course identity keys`,
+  );
+  assert(
+    JSON.stringify(Object.keys(profile?.course?.sourceLanguage ?? {}).sort()) ===
+      JSON.stringify(expectedSourceLanguageKeys),
+    `${label} store profile must contain the exact source-language keys`,
+  );
+  assert(
+    JSON.stringify(Object.keys(profile?.course?.targetLanguage ?? {}).sort()) ===
+      JSON.stringify(expectedTargetLanguageKeys),
+    `${label} store profile must contain the exact target-language keys`,
   );
   assert(
     JSON.stringify(Object.keys(profile?.capabilities ?? {}).sort()) ===
@@ -219,23 +345,44 @@ function assertStoreProfile(profile, label) {
     JSON.stringify(Object.keys(profile?.privacy ?? {}).sort()) === JSON.stringify(expectedPrivacyKeys),
     `${label} store profile must contain the exact reviewed privacy flags`,
   );
-  assert(profile?.schemaVersion === 1, `${label} store profile must use schemaVersion 1`);
+  assert(profile?.schemaVersion === 2, `${label} store profile must use schemaVersion 2`);
   assert(profile?.profile === "product", `${label} profile must identify the Caatuu product`);
+  assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(profile?.course?.id), `${label} course id is invalid`);
+  assert(/^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(profile?.course?.routePrefix), `${label} course route is invalid`);
+  assert(profile?.course?.sourceLanguage?.id === "en", `${label} source language must remain English`);
+  for (const [name, value] of Object.entries({
+    "source locale": profile?.course?.sourceLanguage?.locale,
+    "target id": profile?.course?.targetLanguage?.id,
+    "target locale": profile?.course?.targetLanguage?.locale,
+    "target script": profile?.course?.targetLanguage?.script,
+    "speech locale": profile?.course?.targetLanguage?.speechLocale,
+  })) {
+    assert(typeof value === "string" && value.trim(), `${label} ${name} must be non-empty`);
+  }
+  assert(Array.isArray(profile?.assets), `${label} store profile assets must be an array`);
+  assert(new Set(profile.assets).size === profile.assets.length, `${label} store profile assets must be unique`);
+  for (const asset of profile.assets) {
+    assert(
+      typeof asset === "string" && asset.length > 0 && !asset.startsWith("/") && !asset.includes("\\")
+        && asset.split("/").every((segment) => segment && segment !== "." && segment !== ".."),
+      `${label} store profile contains an unsafe asset path`,
+    );
+  }
   for (const capability of ["chat", "llm", "generation", "godot"]) {
     assert(
       profile?.capabilities?.[capability] === false,
       `${label} store profile capability ${capability} must be false`,
     );
   }
-  for (const capability of ["embeddings", "imageLookup", "stats", "dictionary"]) {
+  for (const capability of ["embeddings", "imageLookup", "stats", "dictionary", "speech", "wordWorldStandardOnly"]) {
     assert(
-      profile?.capabilities?.[capability] === true,
-      `${label} store profile capability ${capability} must be true`,
+      typeof profile?.capabilities?.[capability] === "boolean",
+      `${label} store profile capability ${capability} must be boolean`,
     );
   }
   assert(
-    profile?.capabilities?.wordWorldStandardOnly === true,
-    `${label} store profile must force Word World Standard-only mode`,
+    profile.capabilities.imageLookup === profile.capabilities.wordWorldStandardOnly,
+    `${label} imageLookup and Word World Standard-only capabilities must agree`,
   );
   assert(
     profile?.privacy?.bugReportsLocalOnly === true,
@@ -245,6 +392,7 @@ function assertStoreProfile(profile, label) {
     profile?.privacy?.dictionaryGapReportsLocalOnly === true,
     `${label} store profile must keep dictionary-gap reports local-only`,
   );
+  assertNativeProviderContract(profile, label);
 }
 
 function assertEmbeddingCatalog(catalog, manifest, label) {
@@ -274,6 +422,44 @@ function assertEmbeddingCatalog(catalog, manifest, label) {
       `${label} embedding manifest is missing runtime artifact ${suffix}`,
     );
   }
+}
+
+function assertGenericEmbeddingCatalog(catalog, label) {
+  assert(/^https:\/\//iu.test(catalog?.base_url ?? ""), `${label} embedding catalog must declare an HTTPS base_url`);
+  assert(typeof catalog?.default_model === "string" && catalog.default_model, `${label} must select an embedding model`);
+  const active = catalog?.models?.find((model) => model?.key === catalog.default_model);
+  assert(active?.status === "active", `${label} default embedding model must be active`);
+  assert(
+    (active?.input_language ?? active?.embedding_input_language ?? "en") === "en",
+    `${label} Android embeddings must consume English input`,
+  );
+  assert(isSafeAssetPath(active?.model_file), `${label} embedding model_file is unsafe`);
+  assert(isSafeAssetPath(active?.manifest_file), `${label} embedding manifest_file is unsafe`);
+  assert(Number(active?.bytes) > 0, `${label} embedding model must declare positive bytes`);
+  assert(/^[a-f0-9]{64}$/u.test(String(active?.sha256 ?? "")), `${label} embedding model must be hash-pinned`);
+  return active;
+}
+
+function providerReferenceAsset(catalogAsset, reference) {
+  const catalogDirectory = catalogAsset.includes("/")
+    ? catalogAsset.slice(0, catalogAsset.lastIndexOf("/"))
+    : "";
+  const resolved = catalogDirectory && !reference.startsWith(`${catalogDirectory}/`)
+    ? `${catalogDirectory}/${reference}`
+    : reference;
+  assert(isSafeAssetPath(resolved), "provider manifest reference is unsafe");
+  return resolved;
+}
+
+function assertGenericEmbeddingManifest(active, manifest, label) {
+  assert(manifest?.model_id === active.key, `${label} embedding manifest model_id must match the catalog`);
+  assert(Number(manifest?.bytes) === Number(active.bytes), `${label} embedding manifest bytes must match the catalog`);
+  assert(manifest?.sha256 === active.sha256, `${label} embedding manifest SHA-256 must match the catalog`);
+  assert(manifest?.embedding_dimension === 384, `${label} vector provider requires 384-dimensional embeddings`);
+  assert(manifest?.embedding_text_field === "english_text", `${label} embedding manifest must identify english_text`);
+  assert(manifest?.embedding_input_policy === "english_text_only", `${label} embedding manifest must enforce english_text_only`);
+  assert(typeof manifest?.schema_name === "string" && manifest.schema_name, `${label} embedding manifest schema_name is required`);
+  assert(Number.isSafeInteger(manifest?.schema_version) && manifest.schema_version > 0, `${label} embedding manifest schema_version is invalid`);
 }
 
 function assertDictionaryCatalog(catalog, manifest, label) {
@@ -311,11 +497,22 @@ function assertDictionaryCatalog(catalog, manifest, label) {
   }
 }
 
-function assertSetupEmbeddingBoundary(setup, label) {
+function assertGenericDictionaryCatalog(catalog, label) {
+  const defaultKey = catalog?.default_dictionary ?? catalog?.default_dictionary_key;
+  assert(typeof defaultKey === "string" && defaultKey, `${label} must select a dictionary`);
+  const active = catalog?.dictionaries?.find((dictionary) => dictionary?.key === defaultKey);
+  assert(active?.status === "active", `${label} default dictionary must be active`);
+  assert(active?.artifact_kind === "dictionary-database", `${label} dictionary artifact kind is incorrect`);
+  assert(Number(active?.bytes ?? active?.expected_bytes) > 0, `${label} dictionary must declare positive bytes`);
+  assert(/^[a-f0-9]{64}$/u.test(String(active?.sha256 ?? "")), `${label} dictionary must be hash-pinned`);
+  assert(typeof active?.download_url === "string" && active.download_url, `${label} dictionary must declare a download URL`);
+}
+
+function assertSetupEmbeddingBoundary(setup, label, { strictCzech = false } = {}) {
   const embeddingArtifacts = (setup?.artifacts ?? []).filter(
     (artifact) => artifact?.artifact_kind === "embedding-runtime",
   );
-  assert(embeddingArtifacts.length === 10, `${label} setup manifest must retain all 10 embedding runtime artifacts`);
+  assert(embeddingArtifacts.length > 0, `${label} setup manifest must retain embedding runtime artifacts`);
   assert(
     embeddingArtifacts.every(
       (artifact) =>
@@ -330,12 +527,15 @@ function assertSetupEmbeddingBoundary(setup, label) {
   const targets = embeddingArtifacts.map(
     (artifact) => `${decodeURIComponent(String(artifact.url || ""))} ${artifact.asset_path || ""}`,
   );
-  for (const suffix of [
-    "/onnx/model_qint8_arm64.onnx",
-    "/ort/ort-wasm-simd-threaded.mjs",
-    "/ort/ort-wasm-simd-threaded.wasm",
-  ]) {
-    assert(targets.some((target) => target.includes(suffix)), `${label} setup manifest is missing ${suffix}`);
+  if (strictCzech) {
+    assert(embeddingArtifacts.length === 10, `${label} Czech setup manifest must retain all 10 embedding runtime artifacts`);
+    for (const suffix of [
+      "/onnx/model_qint8_arm64.onnx",
+      "/ort/ort-wasm-simd-threaded.mjs",
+      "/ort/ort-wasm-simd-threaded.wasm",
+    ]) {
+      assert(targets.some((target) => target.includes(suffix)), `${label} setup manifest is missing ${suffix}`);
+    }
   }
 }
 
@@ -365,41 +565,66 @@ function assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label)
 
 function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertNoForbiddenPaths(entries, label);
-  assertRequiredAssets(entries, kind, label);
-
+  const profileEntry = archiveEntryForAsset("caatuu-profile.json", kind);
+  assert(entries.includes(profileEntry), `${label} is missing required product asset ${profileEntry}`);
   const profile = parseJsonAsset(unzip, archive, "caatuu-profile.json", kind, label);
   assertStoreProfile(profile, label);
-  const catalog = parseJsonAsset(unzip, archive, "data/embeddings/models.json", kind, label);
-  const manifest = parseJsonAsset(
-    unzip,
-    archive,
-    "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
-    kind,
-    label,
-  );
-  assertEmbeddingCatalog(catalog, manifest, label);
-  const dictionaryCatalog = parseJsonAsset(
-    unzip,
-    archive,
-    "data/dictionaries/catalog.json",
-    kind,
-    label,
-  );
-  const dictionaryManifest = parseJsonAsset(
-    unzip,
-    archive,
-    "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
-    kind,
-    label,
-  );
-  assertDictionaryCatalog(dictionaryCatalog, dictionaryManifest, label);
-  const setup = parseJsonAsset(unzip, archive, "setup-assets.json", kind, label);
-  assertSetupEmbeddingBoundary(setup, label);
-  assertEmbeddingConfinement(
-    archiveText(unzip, archive, archiveEntryForAsset("source/shared/vector-db.js", kind)),
-    label,
-  );
+  assertDeclaredAssetBoundary(entries, kind, label, profile);
+  assertRequiredAssets(entries, kind, label, profile);
+  assertCanonicalAppEntry(unzip, archive, kind, label);
+  const strictCzech = profile.course.id === "cz";
+  if (profile.capabilities.embeddings) {
+    const embeddingCatalogAsset = profile.nativeProviders.providers.embeddings.catalogAsset;
+    const catalog = parseJsonAsset(unzip, archive, embeddingCatalogAsset, kind, label);
+    const activeEmbedding = assertGenericEmbeddingCatalog(catalog, label);
+    const embeddingManifestAsset = providerReferenceAsset(
+      embeddingCatalogAsset,
+      activeEmbedding.manifest_file,
+    );
+    assert(profile.assets.includes(embeddingManifestAsset), `${label} embedding provider manifest is not packaged`);
+    const embeddingManifest = parseJsonAsset(
+      unzip,
+      archive,
+      embeddingManifestAsset,
+      kind,
+      label,
+    );
+    assertGenericEmbeddingManifest(activeEmbedding, embeddingManifest, label);
+    if (strictCzech) {
+      assertEmbeddingCatalog(catalog, embeddingManifest, label);
+    }
+    const setup = parseJsonAsset(unzip, archive, "setup-assets.json", kind, label);
+    assertSetupEmbeddingBoundary(setup, label, { strictCzech });
+    if (profile.assets.includes("source/shared/vector-db.js")) {
+      assertEmbeddingConfinement(
+        archiveText(unzip, archive, archiveEntryForAsset("source/shared/vector-db.js", kind)),
+        label,
+      );
+    }
+  }
+  if (profile.capabilities.dictionary) {
+    const dictionaryCatalogAsset = profile.nativeProviders.providers.dictionary.catalogAsset;
+    const dictionaryCatalog = parseJsonAsset(
+      unzip,
+      archive,
+      dictionaryCatalogAsset,
+      kind,
+      label,
+    );
+    assertGenericDictionaryCatalog(dictionaryCatalog, label);
+    if (strictCzech) {
+      const dictionaryManifest = parseJsonAsset(
+        unzip,
+        archive,
+        "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
+        kind,
+        label,
+      );
+      assertDictionaryCatalog(dictionaryCatalog, dictionaryManifest, label);
+    }
+  }
   assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label);
+  return profile;
 }
 
 function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
@@ -433,9 +658,9 @@ function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
   assert(!/android:name="com\.caatuu\.android\.MainActivity"/u.test(manifest), "Caatuu APK must not retain the development MainActivity");
 }
 
-function assertDexBoundary(apkanalyzerPath, apk) {
+function assertDexBoundary(apkanalyzerPath, apk, profile) {
   const dex = run(apkanalyzerPath, ["dex", "packages", "--defined-only", apk]);
-  for (const className of REQUIRED_NATIVE_CLASSES) {
+  for (const className of requiredNativeClassNames(profile)) {
     assert(
       new RegExp(`\\b${escapeRegExp(className)}(?:\\$|\\s|$)`, "u").test(dex),
       `Caatuu APK is missing native class ${className}`,
@@ -526,8 +751,12 @@ function main() {
 
     const aabEntries = archiveEntries(options.unzip, aab);
     const apkEntries = archiveEntries(options.unzip, apk);
-    assertAssetBoundary(options.unzip, aab, aabEntries, "aab", "Caatuu AAB");
-    assertAssetBoundary(options.unzip, apk, apkEntries, "apk", "AAB-derived universal APK");
+    const aabProfile = assertAssetBoundary(options.unzip, aab, aabEntries, "aab", "Caatuu AAB");
+    const apkProfile = assertAssetBoundary(options.unzip, apk, apkEntries, "apk", "AAB-derived universal APK");
+    assert(
+      JSON.stringify(aabProfile) === JSON.stringify(apkProfile),
+      "Caatuu AAB and AAB-derived APK must declare identical product capabilities",
+    );
     verifyAabDerivedApkAssets(
       options.unzip,
       aab,
@@ -537,7 +766,7 @@ function main() {
       options.allowTransitionDebug,
     );
     assertApkManifest(options.apkanalyzer, apk, options.allowTransitionDebug);
-    assertDexBoundary(options.apkanalyzer, apk);
+    assertDexBoundary(options.apkanalyzer, apk, apkProfile);
 
     console.log(`Caatuu package boundary passed for ${basename(aab)} and ${basename(apk)}.`);
   } catch (error) {
@@ -546,4 +775,4 @@ function main() {
   }
 }
 
-main();
+if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) main();

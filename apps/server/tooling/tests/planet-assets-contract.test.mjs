@@ -6,6 +6,7 @@ import test from "node:test";
 const repoRoot = new URL("../../../../", import.meta.url);
 const launcherRoot = new URL("apps/launcher/static/", repoRoot);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
+const appEntry = new URL("apps/language-runtime/static/app/index.html", repoRoot);
 const planetRoot = new URL("assets/planets/", launcherRoot);
 
 const canonicalAssets = Object.freeze({
@@ -24,7 +25,6 @@ const [
   chrome,
   serviceWorker,
   setupManifest,
-  wordWorldPage,
   cometPage,
   casePage,
   agreementPage,
@@ -34,11 +34,10 @@ const [
   campaignSourceBytes
 ] = await Promise.all([
   readdir(planetRoot),
-  readFile(new URL("index.html", staticRoot), "utf8"),
-  readFile(new URL("source/shared/chrome.js", staticRoot), "utf8"),
-  readFile(new URL("sw.js", staticRoot), "utf8"),
+  readFile(appEntry, "utf8"),
+  readFile(new URL("apps/language-runtime/static/source/caatuu-chrome.js", repoRoot), "utf8"),
+  readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8").then(JSON.parse),
-  readFile(new URL("word-net.html", staticRoot), "utf8"),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("case-cosmos.html", staticRoot), "utf8"),
   readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
@@ -56,7 +55,7 @@ test("planet files use canonical game-based names without generic letter aliases
 });
 
 test("navigation, offline caching, pages, and setup delivery share those names", () => {
-  const runtimeSources = [gamesPage, chrome, serviceWorker, wordWorldPage, cometPage, casePage, agreementPage].join("\n");
+  const runtimeSources = [gamesPage, chrome, serviceWorker, cometPage, casePage, agreementPage].join("\n");
   assert.doesNotMatch(runtimeSources, /assets\/planets\/(?:planet_[A-D]|nebula)\.png/);
 
   for (const [key, filename] of Object.entries(canonicalAssets)) {

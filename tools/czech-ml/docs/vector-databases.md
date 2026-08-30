@@ -140,16 +140,25 @@ The same database can be:
 - opened by the browser with `sql.js`
 - opened by the shared browser/Android WebView runtime with sql.js
 
-The sql.js and Transformers.js browser bundles are vendored under
-`apps/languages/czech/static/vendor/` and are part of the static app shell. The
-generated ONNX/config/WASM runtime belongs under the active model's
-`data/embeddings/.../runtime/` directory and remains ignored by Git. Track the
-curated SQLite DB and manifest, but deliver those heavy runtime files through
-the setup manifest.
+The Czech sql.js bundle remains course-owned because it opens the Czech vector
+database. Transformers.js and the model-only MiniLM runtime are shared language
+infrastructure under `apps/language-runtime/`: the pinned browser bundle lives
+under `vendor/transformers/`, and model files live under
+`models/all-minilm-l6-v2-qint8-v0.1/runtime/`. The shared
+`embedding-runtimes.json` records every byte count and SHA-256. Large ONNX/WASM
+files remain ignored by Git and must be provisioned before deployment; the
+canonical server refuses to start when the readiness verifier finds a missing
+or mismatched artifact.
 
-The Rust server should only expose this file as a static asset through the
-existing `/cz/...` static app path. Vector search and cleanup workflows belong
-in the browser/WebView or local maintenance scripts so the Czech app keeps its
+The Czech builder stages the canonical shared runtime first and keeps a Czech
+compatibility projection under `data/embeddings/.../runtime/` for the existing
+browser/Android setup flow. Track the Czech SQLite DB and manifest, but do not
+treat that compatibility projection as the source of shared runtime URLs.
+
+The Rust server exposes the Czech SQLite file only through the existing
+`/cz/...` app path and exposes shared model-only artifacts through the narrow
+`/language-runtime/...` routes. Vector search and cleanup workflows belong in
+the browser/WebView or local maintenance scripts so the Czech app keeps its
 offline-first behavior after setup completes.
 
 Android does not bundle the generated SQLite DB or semantic runtime in the APK.
@@ -164,8 +173,10 @@ Do not put semantic vector DB generation in the small server container. Build
 MiniLM/ONNX refreshes from `caatuu-dev`; app runtime code consumes the generated
 SQLite file and post-install runtime artifacts.
 
-Do not wire this into the Chinese app. The current scope is `apps/languages/czech`
-only.
+Other language courses may select the same English MiniLM runtime, but they must
+provide their own English concept catalog and separate target realizations.
+Never reuse the Czech vector database, Czech metadata, or Czech setup catalog as
+a shared-language dependency.
 
 Do not bundle heavy embedding or vector artifacts into the Android APK unless
 there is a specific product reason. Android should download verified artifacts

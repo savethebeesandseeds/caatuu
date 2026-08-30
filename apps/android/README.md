@@ -3,30 +3,38 @@
 This directory contains two native Android shells. The default `app` module is
 the full development application, including its optional native `llama.cpp`
 bridge. The `product` module is the canonical Caatuu application: it
-packages a compiled allowlist of the Czech experience with embeddings,
-dictionary, speech, local learning data, and standard games, but no LLM, Chat,
-generation, Godot, or outbound-reporting capability.
+packages the selected course's reviewed Android allowlist. Product builds always
+remove LLM, Chat, generation, Godot, and outbound-reporting capability; retained
+embeddings, dictionary, learning, and Word World features follow the selected
+course manifest.
 
-Both shells load a Czech WebView application whose source lives under
-`apps/languages/czech/static`. The store compiler does not delete or modify
-that development source; it creates a fail-closed release surface under the
-`product` build directory. Standalone game artifacts under `artifacts/games`
+Both shells load the course selected by `caatuuCourseManifest`; Czech remains
+the default at `apps/languages/czech/course.json`. The store compiler does not
+delete or modify course source. It resolves the static root and Android asset
+catalog through that manifest, then creates a fail-closed release surface under
+the `product` build directory. Standalone game artifacts under `artifacts/games`
 are excluded from both Android distributions.
 
 ## Runtime Shape
 
-- UI: existing Czech static app, loaded in a WebView from APK assets. The full
+- UI: selected course static app, loaded in a WebView from APK assets. The full
   module copies the development surface; `product` compiles an explicit
   release allowlist.
 - Games: no standalone game export is currently bundled. Memory Moon remains a
   static application placeholder.
-- Start URL: `https://caatuu.local/cz/index.html`.
-- The shared Czech source assets are packaged for browser/Android parity; heavy
+- Default Czech start URL: `https://caatuu.local/cz/index.html`; other courses
+  derive it from their manifest.
+- The selected course source assets are packaged for browser/Android parity; heavy
   browser model payloads are excluded.
+- Shared language-adapter code is exposed only below
+  `https://caatuu.local/language-runtime/`. Packaging includes the reviewed
+  runtime ABI and any explicitly cataloged shared shell files, never runtime
+  READMEs or tests.
 - WebView HTTP cache is disabled and service-worker requests are blocked by the
   native shell even though the shared `sw.js` source remains in the APK.
-- First-run setup downloads verified visual assets, embeddings, and the
-  dictionary. The full module may additionally download an optional GGUF;
+- First-run setup downloads the course's verified visual, embedding, and
+  dictionary assets when their capabilities are enabled. The full module may
+  additionally download an optional GGUF;
   `product` has no model catalog or model operation.
 - Full-module model runtime: llama.cpp Android binding from
   `tools/on-device-models/vendor`.
@@ -38,19 +46,30 @@ are excluded from both Android distributions.
 - No system prompt is added by the Android bridge.
 - Thinking toggle: passed into the Qwen chat template as `enable_thinking`.
 
-The default build uses these Gradle properties:
+The default build uses one Gradle property:
 
 ```text
-caatuuLanguageId=cz
-caatuuLanguageAppDir=languages/czech
-caatuuLanguageRoutePrefix=/cz
-caatuuLanguageEntryPath=/cz/index.html
+caatuuCourseManifest=apps/languages/czech/course.json
 ```
 
-Override all four together for a future language build. That language must also
-provide compatible model, dictionary, embedding, and setup catalogs; changing
-only the route does not turn the current Czech native adapters into another
-language.
+The repository-relative manifest path is confined to the workspace. Its Android
+platform must be enabled, its static root and `resources.androidAssetCatalog`
+must be present, and the catalog `courseId` must match. Course identity, route,
+entry path, capabilities, static root, product icon, course file allowlist, and
+shared runtime inputs then move together as one configuration. Native managers
+in `product` are created only when the parsed runtime capability is enabled and
+the Android asset catalog declares its matching schema-versioned native
+provider. Embedding and dictionary declarations reference the authoritative
+course resources, which are resolved to confined packaged asset paths; no Czech
+catalog path is a generic fallback. Speech declares Android TTS and binds to the
+manifest speech locale. Malformed capabilities or a missing, extra, partial, or
+unsupported provider stop optional manager construction. Embedding, dictionary,
+and speech requests cross the bridge only when their manager exists, while
+learner-facing language labels and speech defaults come from the selected
+manifest. The full `app` shell remains deliberately Czech-specific and refuses
+a manifest that disables its LLM/offline-model, embeddings, dictionary, or
+speech stack. Mandarin Android remains disabled pending its separate
+review and asset decision.
 
 ## Prepare Vendor Code
 
@@ -183,8 +202,9 @@ registered, and the WebView asset client rejects `/games/**`. Application builds
 must therefore succeed when `artifacts/games/` is absent and APK audits reject
 any accidental `assets/games/` entry.
 
-The same rule applies to the Czech semantic-search artifacts. Each Android
-package excludes
+The same rule applies to semantic-search artifacts. Each Android package
+resolves its versioned embedding provider from the selected course manifest and
+excludes
 the SQLite database, ONNX weights, ONNX Runtime WASM, and model configuration
 under `data/embeddings/`. The setup flow downloads and verifies those artifacts
 into app-private storage after install. In `product`, this embedding path is
@@ -197,10 +217,12 @@ The WebView bridge exposes native artifact-management requests:
 - `vector_search`: remains a compatibility entry point, but native text search
   rejects model mismatches instead of hashing a semantic query.
 
-After setup, the asset client serves the verified DB, model, and WASM artifacts
-back to browser-side code under `/cz/data/embeddings/...`. Both the browser PWA
-and Android WebView run the same local MiniLM query embedder and sql.js search,
-so they cannot silently drift to different vector spaces.
+After setup, the asset client serves verified DB and semantic runtime artifacts
+back to browser-side code below that provider's declared catalog directory. For
+the default Czech course this remains `/cz/data/embeddings/...`; another course
+may use a different confined asset path. Both the browser PWA and Android
+WebView run the same local MiniLM query embedder and sql.js search, so they
+cannot silently drift to different vector spaces.
 
 ## Full Development App Phone Test
 

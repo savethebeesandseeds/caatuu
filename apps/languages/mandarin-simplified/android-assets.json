@@ -1,0 +1,29 @@
+{
+  "$schema": "https://caatuu.org/schemas/android-assets.v1.schema.json",
+  "schemaVersion": 1,
+  "courseId": "zh",
+  "enabled": false,
+  "nativeProviders": {
+    "schemaVersion": 1,
+    "providers": {}
+  },
+  "files": [
+    "manifest.webmanifest",
+    "setup-assets.json",
+    "source/language/adapter.mjs",
+    "source/shared/course-profile.js",
+    "sw.js",
+    "data/embeddings/catalog.json",
+    "data/games/verb-nebula/core-vocabulary.json",
+    "data/games/word-world/manifest.json",
+    "data/games/word-world/starter-v1.realizations.json"
+  ],
+  "launcherIconFiles": [
+    "china_flag.png"
+  ],
+  "policy": {
+    "includeOnlyAllowlistedFiles": true,
+    "llmAssetsAllowed": false,
+    "targetPronunciationMetadataAllowed": false
+  }
+}
