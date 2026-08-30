@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -101,6 +100,8 @@ const FORBIDDEN_ARCHIVE_PATH_PATTERNS = [
   /(?:^|\/)chat\.html$/i,
   /(?:^|\/)source\/features\/chat\//i,
   /(?:^|\/)data\/models(?:\/|$)/i,
+  /(?:^|\/)language-runtime\/models(?:\/|$)/i,
+  /(?:^|\/)language-runtime\/vendor\/transformers(?:\/|$)/i,
   /(?:^|\/)assets\/games(?:\/|$)/i,
   /(?:^|\/)artifacts\/games(?:\/|$)/i,
   /(?:^|\/)caatuu-game(?:\/|$)/i,
@@ -688,9 +689,9 @@ function assertWebViewEmbeddingCatalog(catalog, course, label) {
     catalog?.runtime?.defaultModelId === EXPECTED_MINILM_RUNTIME_ID,
     `${label} WebView MiniLM must select the reviewed shared runtime`,
   );
-  assert(catalog?.runtime?.modelDelivery === "android-bundled", `${label} WebView MiniLM must use bundled delivery`);
-  assert(catalog?.runtime?.modelPrecached === true, `${label} WebView MiniLM model must be precached`);
-  assert(catalog?.runtime?.androidPackaged === true, `${label} WebView MiniLM model must be packaged`);
+  assert(catalog?.runtime?.modelDelivery === "android-setup-download", `${label} WebView MiniLM must use setup delivery`);
+  assert(catalog?.runtime?.modelPrecached === false, `${label} WebView MiniLM must not claim APK precaching`);
+  assert(catalog?.runtime?.androidPackaged === false, `${label} WebView MiniLM model must not be packaged`);
 }
 
 function assertSharedEmbeddingRuntimeCatalog(unzip, archive, entries, kind, label, profile) {
@@ -747,18 +748,16 @@ function assertSharedEmbeddingRuntimeCatalog(unzip, archive, entries, kind, labe
     artifactPaths.add(artifact.path);
     const assetPath = `language-runtime/${artifact.path}`;
     assert(artifact.url === `/${assetPath}`, `${label} shared MiniLM artifact URL must match its asset path`);
-    assert(profile.assets.includes(assetPath), `${label} shared MiniLM artifact ${assetPath} is not declared`);
+    assert(!profile.assets.includes(assetPath), `${label} shared MiniLM artifact ${assetPath} must not be APK payload`);
     const entry = archiveEntryForAsset(assetPath, kind);
-    assert(entrySet.has(entry), `${label} is missing shared MiniLM artifact ${entry}`);
-    const bytes = archiveBuffer(unzip, archive, entry);
+    assert(!entrySet.has(entry), `${label} must not package shared MiniLM artifact ${entry}`);
     assert(
-      Number.isSafeInteger(artifact.bytes) && artifact.bytes > 0 && artifact.bytes === bytes.length,
-      `${label} shared MiniLM artifact ${assetPath} byte count does not match the catalog`,
+      Number.isSafeInteger(artifact.bytes) && artifact.bytes > 0,
+      `${label} shared MiniLM artifact ${assetPath} must declare a positive byte count`,
     );
     assert(
-      /^[a-f0-9]{64}$/u.test(artifact.sha256) &&
-        createHash("sha256").update(bytes).digest("hex") === artifact.sha256,
-      `${label} shared MiniLM artifact ${assetPath} SHA-256 does not match the catalog`,
+      /^[a-f0-9]{64}$/u.test(artifact.sha256),
+      `${label} shared MiniLM artifact ${assetPath} must remain hash-pinned`,
     );
   }
   for (const suffix of [
@@ -854,12 +853,15 @@ function assertGenericDictionaryCatalog(catalog, label) {
 function assertSetupEmbeddingBoundary(
   setup,
   label,
-  { strictCzech = false, sharedRuntimeArtifacts = [] } = {},
+  { sharedRuntimeArtifacts = [] } = {},
 ) {
   const embeddingArtifacts = (setup?.artifacts ?? []).filter(
     (artifact) => artifact?.artifact_kind === "embedding-runtime",
   );
-  assert(embeddingArtifacts.length > 0, `${label} setup manifest must retain embedding runtime artifacts`);
+  assert(
+    embeddingArtifacts.length === sharedRuntimeArtifacts.length && embeddingArtifacts.length > 0,
+    `${label} setup manifest must download every shared embedding runtime artifact`,
+  );
   assert(
     embeddingArtifacts.every(
       (artifact) =>
@@ -874,43 +876,40 @@ function assertSetupEmbeddingBoundary(
   const targets = embeddingArtifacts.map(
     (artifact) => `${decodeURIComponent(String(artifact.url || ""))} ${artifact.asset_path || ""}`,
   );
-  if (strictCzech) {
-    assert(embeddingArtifacts.length === 10, `${label} Czech setup manifest must retain all 10 embedding runtime artifacts`);
-    for (const suffix of [
-      "/onnx/model_qint8_arm64.onnx",
-      "/ort/ort-wasm-simd-threaded.mjs",
-      "/ort/ort-wasm-simd-threaded.wasm",
-    ]) {
-      assert(targets.some((target) => target.includes(suffix)), `${label} setup manifest is missing ${suffix}`);
-    }
-    const sharedByAssetPath = new Map(
-      sharedRuntimeArtifacts.map((artifact) => [`language-runtime/${artifact.path}`, artifact]),
-    );
-    for (const artifact of embeddingArtifacts) {
-      const urlAssetPath = decodeURIComponent(String(artifact.url || ""))
-        .split("?", 1)[0]
-        .replace(/^\/+/, "");
-      assert(
-        artifact.asset_path === urlAssetPath && urlAssetPath.startsWith(`language-runtime/models/${EXPECTED_MINILM_RUNTIME_ID}/runtime/`),
-        `${label} Czech setup embedding artifact must reference the shared packaged MiniLM runtime`,
-      );
-      const sharedArtifact = sharedByAssetPath.get(urlAssetPath);
-      assert(sharedArtifact, `${label} Czech setup embedding artifact is absent from the shared runtime catalog`);
-      assert(
-        artifact.bytes === sharedArtifact.bytes && artifact.sha256 === sharedArtifact.sha256,
-        `${label} Czech setup embedding artifact bytes and hash must match the shared runtime catalog`,
-      );
-    }
-    const offlineAssets = (setup?.offline?.assets ?? []).map((value) => decodeURIComponent(String(value)).split("?", 1)[0]);
+  for (const suffix of [
+    "/onnx/model_qint8_arm64.onnx",
+    "/ort/ort-wasm-simd-threaded.mjs",
+    "/ort/ort-wasm-simd-threaded.wasm",
+  ]) {
+    assert(targets.some((target) => target.includes(suffix)), `${label} setup manifest is missing ${suffix}`);
+  }
+  const sharedByAssetPath = new Map(
+    sharedRuntimeArtifacts.map((artifact) => [`language-runtime/${artifact.path}`, artifact]),
+  );
+  for (const artifact of embeddingArtifacts) {
+    const urlAssetPath = decodeURIComponent(String(artifact.url || ""))
+      .split("?", 1)[0]
+      .replace(/^\/+/, "");
     assert(
-      offlineAssets.includes("/language-runtime/vendor/transformers/transformers.min.js"),
-      `${label} Czech setup must precache the shared Transformers.js module`,
+      artifact.asset_path === urlAssetPath && urlAssetPath.startsWith("language-runtime/"),
+      `${label} setup embedding artifact must use the shared runtime cache path`,
     );
+    const sharedArtifact = sharedByAssetPath.get(urlAssetPath);
+    assert(sharedArtifact, `${label} setup embedding artifact is absent from the shared runtime catalog`);
     assert(
-      !offlineAssets.some((value) => /^\/(?!language-runtime\/)[a-z0-9-]+\/(?:data\/embeddings\/.+\/runtime|vendor\/transformers)\//u.test(value)),
-      `${label} Czech setup must not precache a course-local MiniLM runtime`,
+      artifact.bytes === sharedArtifact.bytes && artifact.sha256 === sharedArtifact.sha256,
+      `${label} setup embedding artifact bytes and hash must match the shared runtime catalog`,
     );
   }
+  const offlineAssets = (setup?.offline?.assets ?? []).map((value) => decodeURIComponent(String(value)).split("?", 1)[0]);
+  assert(
+    offlineAssets.includes("/language-runtime/vendor/transformers/transformers.min.js"),
+    `${label} setup must use the shared Transformers.js module`,
+  );
+  assert(
+    !offlineAssets.some((value) => /^\/(?!language-runtime\/)[a-z0-9-]+\/(?:data\/embeddings\/.+\/runtime|vendor\/transformers)\//u.test(value)),
+    `${label} setup must not use a course-local MiniLM runtime`,
+  );
 }
 
 function assertEmbeddingConfinement(vectorSource, label) {
@@ -991,9 +990,6 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
         );
         assertGenericEmbeddingManifest(activeEmbedding, embeddingManifest, courseLabel);
         if (strictCzech) assertEmbeddingCatalog(catalog, embeddingManifest, courseLabel);
-        const setupAsset = courseAssetPath(course, "setup-assets.json");
-        const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
-        assertSetupEmbeddingBoundary(setup, courseLabel, { strictCzech, sharedRuntimeArtifacts });
         const vectorSourceAsset = courseAssetPath(course, "source/shared/vector-db.js");
         if (profile.assets.includes(vectorSourceAsset)) {
           assertEmbeddingConfinement(
@@ -1002,6 +998,9 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
           );
         }
       }
+      const setupAsset = courseAssetPath(course, "setup-assets.json");
+      const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
+      assertSetupEmbeddingBoundary(setup, courseLabel, { sharedRuntimeArtifacts });
     }
     if (course.capabilities.dictionary) {
       const dictionaryCatalogAsset = course.nativeProviders.providers.dictionary.catalogAsset;

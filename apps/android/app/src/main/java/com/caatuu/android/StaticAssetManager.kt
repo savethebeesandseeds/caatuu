@@ -43,6 +43,9 @@ class StaticAssetManager(
 
     fun requiredAssetSpecs(): List<StaticAssetSpec> = requiredAssets
 
+    fun ownsAssetPath(assetPath: String): Boolean =
+        requiredAssets.any { spec -> spec.assetPath == assetPath }
+
     fun localAsset(assetPath: String): File? {
         if (assetPath.contains("..")) return null
         return localAssetFile(appContext, assetPath).takeIf { it.isFile }
@@ -295,6 +298,7 @@ class StaticAssetManager(
         when {
             courseAssetPrefix.isEmpty() -> authoredAssetPath
             authoredAssetPath.startsWith("assets/") -> authoredAssetPath
+            authoredAssetPath.startsWith("language-runtime/") -> authoredAssetPath
             else -> "$courseAssetPrefix/$authoredAssetPath"
         }
 

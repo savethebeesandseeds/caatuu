@@ -27,7 +27,8 @@ are excluded from both Android distributions.
 - Default Czech start URL: `https://caatuu.local/cz/index.html`; bundled course
   routes such as `/zh/index.html` resolve to the same shared document.
 - Course source assets are packaged for browser/Android parity. The shared
-  English MiniLM WebView runtime is packaged once when a course declares it.
+  English MiniLM runtime is downloaded once during setup and reused from the
+  app-private cache by every course that declares it.
 - Shared language-adapter code is exposed only below
   `https://caatuu.local/language-runtime/`. Packaging includes the reviewed
   runtime ABI and any explicitly cataloged shared shell files, never runtime
@@ -61,7 +62,7 @@ Every bundled course must enable Android and provide a present static root and
 course-owned files below `courses/<id>/`. Provider catalog paths are resolved
 inside those namespaces. Native vector and dictionary managers are created only
 for courses that declare their matching native implementation; Mandarin instead
-declares the packaged WebView English-MiniLM provider and Android TTS. The full
+declares the setup-delivered WebView English-MiniLM provider and Android TTS. The full
 `app` shell remains deliberately Czech-specific.
 
 ## Prepare Vendor Code

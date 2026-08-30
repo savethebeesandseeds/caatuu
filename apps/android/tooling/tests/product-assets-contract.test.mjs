@@ -136,15 +136,15 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     launcherStaticDir,
     outputDir,
   });
-  assert.ok(result.totalBytes > 60_000_000, "the package must contain the reviewed local MiniLM runtime bytes");
+  assert.ok(result.totalBytes < 30_000_000, "the package must keep MiniLM in setup delivery rather than APK payload");
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/cz/data/games/word-world/standard-v0.1/records.json"));
   assert.ok(result.files.includes("courses/zh/data/games/word-world/starter-v1.realizations.json"));
   assert.ok(!result.files.includes("source/shared/course-profile.js"));
-  assert.ok(result.files.includes("language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
-  assert.ok(result.files.includes("language-runtime/vendor/transformers/transformers.min.js"));
+  assert.ok(!result.files.includes("language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
+  assert.ok(!result.files.includes("language-runtime/vendor/transformers/transformers.min.js"));
   assert.ok(
     !result.files.some((path) => /^courses\/[^/]+\/vendor\/transformers\//u.test(path)),
     "course trees must reuse the single shared Transformers.js runtime",
@@ -156,15 +156,25 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   ));
   const sharedRuntime = embeddingRuntimeCatalog.runtimes[0];
   for (const artifact of sharedRuntime.artifacts) {
-    assert.ok(result.files.includes(`language-runtime/${artifact.path}`));
+    assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
     (artifact) => artifact.artifact_kind === "embedding-runtime",
   );
-  assert.ok(czechRuntimeArtifacts.length > 0);
-  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.url.startsWith("/language-runtime/models/")));
-  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.asset_path.startsWith("language-runtime/models/")));
+  const mandarinSetup = JSON.parse(readFileSync(join(outputDir, "courses/zh/setup-assets.json"), "utf8"));
+  const mandarinRuntimeArtifacts = mandarinSetup.artifacts.filter(
+    (artifact) => artifact.artifact_kind === "embedding-runtime",
+  );
+  assert.equal(czechRuntimeArtifacts.length, sharedRuntime.artifacts.length);
+  assert.equal(mandarinRuntimeArtifacts.length, sharedRuntime.artifacts.length);
+  assert.deepEqual(
+    czechRuntimeArtifacts.map(({ asset_path }) => asset_path),
+    mandarinRuntimeArtifacts.map(({ asset_path }) => asset_path),
+  );
+  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.url.startsWith("/language-runtime/")));
+  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.asset_path.startsWith("language-runtime/")));
+  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.native_required === true));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/vendor/transformers/transformers.min.js"));
   assert.ok(!czechSetup.offline.assets.includes("./vendor/transformers/transformers.min.js"));
   const czechVectorDb = readFileSync(join(outputDir, "courses/cz/source/shared/vector-db.js"), "utf8");
@@ -206,9 +216,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   ));
   assert.equal(browserEmbeddingCatalog.runtime.modelDelivery, "browser-on-demand");
   assert.equal(browserEmbeddingCatalog.runtime.androidPackaged, false);
-  assert.equal(packagedEmbeddingCatalog.runtime.modelDelivery, "android-bundled");
-  assert.equal(packagedEmbeddingCatalog.runtime.modelPrecached, true);
-  assert.equal(packagedEmbeddingCatalog.runtime.androidPackaged, true);
+  assert.equal(packagedEmbeddingCatalog.runtime.modelDelivery, "android-setup-download");
+  assert.equal(packagedEmbeddingCatalog.runtime.modelPrecached, false);
+  assert.equal(packagedEmbeddingCatalog.runtime.androidPackaged, false);
 
   const profile = JSON.parse(readFileSync(join(outputDir, "caatuu-profile.json"), "utf8"));
   assert.equal(profile.course.id, "cz");

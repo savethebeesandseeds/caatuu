@@ -201,15 +201,13 @@ test("the AAB-derived universal APK is the authoritative delivery-boundary audit
   assert.match(validator, /archiveBuffer\([^;]+\)\.equals\(archiveBuffer\(/s);
 });
 
-test("the package validator requires the retained local embedding stack", () => {
+test("the package validator requires setup-delivered shared embeddings", () => {
   for (const asset of [
     "caatuu-course-bundle.json",
     "setup-assets.json",
     "data/embeddings/models.json",
     "all-minilm-l6-v2-qint8-v0.1/manifest.json",
     "language-runtime/embedding-runtimes.json",
-    "language-runtime/models/",
-    "language-runtime/vendor/",
     "source/shared/vector-db.js",
     "source/shared/semantic-learning.js",
     "source/shared/semantic-learning-core.mjs",
@@ -233,10 +231,10 @@ test("the package validator requires the retained local embedding stack", () => 
   assert.match(validator, /EXPECTED_MINILM_REVISION/);
   assert.match(validator, /webview-english-minilm-v1/);
   assert.match(validator, /runtime\.artifacts\.length === 12/);
-  assert.match(validator, /createHash\("sha256"\)/);
-  assert.match(validator, /byte count does not match the catalog/);
-  assert.match(validator, /SHA-256 does not match the catalog/);
-  assert.match(validator, /embeddingArtifacts\.length === 10/);
+  assert.match(validator, /must not package shared MiniLM artifact/);
+  assert.match(validator, /must declare a positive byte count/);
+  assert.match(validator, /must remain hash-pinned/);
+  assert.match(validator, /embeddingArtifacts\.length === sharedRuntimeArtifacts\.length/);
   assert.match(validator, /default_dictionary === "kaikki-cs-en-2026-07-09"/);
   assert.match(validator, /active\?\.status === "active"/);
   assert.match(validator, /active\?\.bytes.*active\.bytes > 0/s);

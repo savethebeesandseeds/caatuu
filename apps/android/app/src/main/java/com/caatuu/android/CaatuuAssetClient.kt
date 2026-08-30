@@ -94,7 +94,6 @@ class CaatuuAssetClient(
             return notFound()
         }
         val vectorManager = resolution.course?.id?.let(vectorDatabaseManagers::get)
-        val staticAssetManager = resolution.course?.id?.let(staticAssetManagers::get)
         val localVectorDatabase = localVectorDatabase(assetPath, vectorManager)
         if (localVectorDatabase != null) {
             return WebResourceResponse(
@@ -109,7 +108,7 @@ class CaatuuAssetClient(
             }
         }
 
-        val localSetupAsset = localSetupAsset(assetPath, vectorManager, staticAssetManager)
+        val localSetupAsset = localSetupAsset(assetPath, vectorManager)
         if (localSetupAsset != null) {
             return WebResourceResponse(
                 mimeType(assetPath),
@@ -189,11 +188,10 @@ class CaatuuAssetClient(
     private fun localSetupAsset(
         assetPath: String,
         vectorManager: VectorDatabaseManager?,
-        staticAssetManager: StaticAssetManager?,
     ): File? {
         val setupManagedPath = assetPath.startsWith("assets/") ||
             vectorManager?.ownsAssetPath(assetPath) == true ||
-            staticAssetManager?.localAsset(assetPath) != null
+            staticAssetManagers.values.any { manager -> manager.ownsAssetPath(assetPath) }
         if (!setupManagedPath || assetPath.contains("..")) return null
         return StaticAssetManager.localAssetFile(context, assetPath).takeIf { it.isFile }
     }

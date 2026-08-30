@@ -66,8 +66,8 @@ test("the runtime audit plans the bundled product APK from every course", () => 
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json"));
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/dictionaries/catalog.json"));
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/embedding-runtimes.json"));
-  assert.ok(plan.requiredEntries.includes("assets/language-runtime/vendor/transformers/transformers.min.js"));
-  assert.ok(plan.requiredEntries.includes("assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
+  assert.ok(!plan.requiredEntries.includes("assets/language-runtime/vendor/transformers/transformers.min.js"));
+  assert.ok(!plan.requiredEntries.includes("assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/static/source/english-minilm-ranker.mjs"));
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/static/source/word-world-provider.mjs"));
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/source/games/word-world/word-net-standard.mjs"));
@@ -86,6 +86,8 @@ test("the runtime audit plans the bundled product APK from every course", () => 
   assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/courses/cz/index.html")));
   assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/courses/cz/data/embeddings/model/runtime/config.json")));
   assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/courses/cz/vendor/transformers/transformers.min.js")));
+  assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/config.json")));
+  assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/language-runtime/vendor/transformers/transformers.min.js")));
   assert.ok(plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/setup-assets.json")));
   assert.ok(!plan.forbiddenEntryPatterns.some((pattern) => pattern.test("assets/courses/cz/setup-assets.json")));
   for (const retiredWordWorldEntry of [

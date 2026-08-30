@@ -615,7 +615,7 @@ function bundleCourseLanguageFiles(configuration, embeddingRuntime) {
   return Object.freeze(files);
 }
 
-function sharedAssetUnion(configurations, launcherStaticDir, embeddingRuntimeAssets) {
+function sharedAssetUnion(configurations, launcherStaticDir) {
   const byOutput = new Map();
   const add = ({ source, output }, label) => {
     const normalizedOutput = normalizedCatalogPath(output, `${label} output`);
@@ -634,7 +634,6 @@ function sharedAssetUnion(configurations, launcherStaticDir, embeddingRuntimeAss
       add({ source: join(launcherStaticDir, asset.source), output: asset.output }, "shared launcher asset");
     }
   }
-  for (const asset of embeddingRuntimeAssets) add(asset, "shared embedding runtime asset");
   return Object.freeze([...byOutput.values()].sort((left, right) => left.output.localeCompare(right.output)));
 }
 
@@ -698,7 +697,7 @@ export function loadAndroidCourseBundleConfiguration({
   }
 
   const resolvedLauncher = realpathSync(resolve(launcherStaticDir));
-  const sharedAssets = sharedAssetUnion(configurations, resolvedLauncher, embeddingRuntime.assets);
+  const sharedAssets = sharedAssetUnion(configurations, resolvedLauncher);
   const courseFilesById = Object.freeze(Object.fromEntries(
     configurations.map((configuration) => [
       configuration.course.id,
@@ -981,69 +980,52 @@ function embeddingRuntimeById(catalog, runtimeId) {
   return matches[0];
 }
 
-export function transformBundleSetupAssets(input, embeddingRuntimeCatalog) {
-  const manifest = JSON.parse(transformSetupAssets(input));
-  const runtimeArtifacts = manifest.artifacts.filter(
+export function transformBundleSetupAssets(
+  input,
+  embeddingRuntimeCatalog,
+  runtimeId,
+  { strictCzech = false } = {},
+) {
+  const manifest = JSON.parse(strictCzech ? transformSetupAssets(input) : normalizeText(input));
+  assert.ok(Array.isArray(manifest.artifacts), "Bundle setup assets must declare an artifact array");
+  assert.ok(Array.isArray(manifest.offline?.assets), "Bundle setup assets must declare offline assets");
+  const existingRuntimeArtifacts = manifest.artifacts.filter(
     (artifact) => artifact?.artifact_kind === "embedding-runtime",
   );
-  assert.ok(runtimeArtifacts.length > 0, "Czech bundle setup must list embedding runtime artifacts");
-  const runtimeIds = new Set(runtimeArtifacts.map((artifact) => {
-    const match = /^data\/embeddings\/([^/]+)\/runtime\/(.+)$/u.exec(String(artifact.asset_path || ""));
-    assert.ok(match, `Czech embedding runtime artifact has an unsupported asset_path: ${artifact.asset_path}`);
-    return match[1];
-  }));
-  assert.equal(runtimeIds.size, 1, "Czech bundle setup must select exactly one shared embedding runtime");
-  const [runtimeId] = runtimeIds;
-  const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, runtimeId);
-  const sharedModelArtifacts = runtime.artifacts.filter(
-    (artifact) => String(artifact.path || "").startsWith(`models/${runtimeId}/runtime/`),
-  );
-  const sharedByPath = new Map(sharedModelArtifacts.map((artifact) => [artifact.path, artifact]));
-  assert.equal(
-    sharedByPath.size,
-    sharedModelArtifacts.length,
-    `Shared embedding runtime ${runtimeId} must not contain duplicate artifact paths`,
-  );
-  const remappedPaths = new Set();
-  manifest.artifacts = manifest.artifacts.map((artifact) => {
-    if (artifact?.artifact_kind !== "embedding-runtime") return artifact;
-    const prefix = `data/embeddings/${runtimeId}/runtime/`;
-    assert.ok(
-      String(artifact.asset_path || "").startsWith(prefix),
-      `Czech embedding runtime artifact must stay under ${prefix}`,
-    );
-    const sharedPath = `models/${runtimeId}/runtime/${artifact.asset_path.slice(prefix.length)}`;
-    const shared = sharedByPath.get(sharedPath);
-    assert.ok(shared, `Czech embedding runtime artifact is absent from the shared catalog: ${sharedPath}`);
-    remappedPaths.add(sharedPath);
-    return {
-      ...artifact,
-      url: shared.url,
-      asset_path: `language-runtime/${shared.path}`,
-      bytes: shared.bytes,
-      sha256: shared.sha256,
-    };
-  });
-  assert.deepEqual(
-    [...remappedPaths].sort(),
-    [...sharedByPath.keys()].sort(),
-    `Czech setup must cover every model artifact for shared runtime ${runtimeId}`,
-  );
+  if (strictCzech) {
+    assert.ok(existingRuntimeArtifacts.length > 0, "Czech setup must retain its authored embedding runtime anchors");
+  }
 
-  const localTransformersUrl = "./vendor/transformers/transformers.min.js";
+  const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, runtimeId);
+  assert.ok(Array.isArray(runtime.artifacts) && runtime.artifacts.length > 0, "Shared embedding runtime must list artifacts");
+  const runtimeArtifacts = runtime.artifacts.map((artifact, index) => ({
+    key: `shared-embedding-runtime-${index + 1}`,
+    label: `Shared embedding runtime: ${artifact.path.split("/").at(-1)}`,
+    artifact_kind: "embedding-runtime",
+    url: artifact.url,
+    asset_path: `language-runtime/${artifact.path}`,
+    native_required: true,
+    browser_required: true,
+    bytes: artifact.bytes,
+    sha256: artifact.sha256,
+  }));
+  manifest.artifacts = [
+    ...manifest.artifacts.filter((artifact) => artifact?.artifact_kind !== "embedding-runtime"),
+    ...runtimeArtifacts,
+  ];
+
   const sharedTransformersUrl = runtime.runtime?.transformersModuleUrl;
   assert.equal(
     sharedTransformersUrl,
     "/language-runtime/vendor/transformers/transformers.min.js",
     "Shared embedding runtime Transformers.js URL is unsupported",
   );
-  const localTransformersCount = manifest.offline.assets.filter(
-    (asset) => asset === localTransformersUrl,
-  ).length;
-  assert.equal(localTransformersCount, 1, "Czech setup must precache exactly one local Transformers.js alias");
-  manifest.offline.assets = manifest.offline.assets.map(
-    (asset) => asset === localTransformersUrl ? sharedTransformersUrl : asset,
+  manifest.offline.assets = manifest.offline.assets.filter(
+    (asset) => asset !== "./vendor/transformers/transformers.min.js",
   );
+  if (!manifest.offline.assets.includes(sharedTransformersUrl)) {
+    manifest.offline.assets.push(sharedTransformersUrl);
+  }
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
@@ -1099,9 +1081,9 @@ export function transformWebViewEmbeddingCatalog(input) {
   assert.equal(catalog.runtime.androidPackaged, false, "Browser embedding catalog Android marker drifted");
   catalog.runtime = {
     ...catalog.runtime,
-    modelDelivery: "android-bundled",
-    modelPrecached: true,
-    androidPackaged: true,
+    modelDelivery: "android-setup-download",
+    modelPrecached: false,
+    androidPackaged: false,
   };
   return `${JSON.stringify(catalog, null, 2)}\n`;
 }
@@ -1784,16 +1766,53 @@ function courseAssetTransform(configuration, path, embeddingRuntime) {
   ) {
     return transformWebViewEmbeddingCatalog;
   }
-  if (configuration.course.id !== "cz") return undefined;
-  if (path === "setup-assets.json") {
-    assert.ok(embeddingRuntime?.catalog, "Czech bundle setup requires the shared embedding runtime catalog");
-    return (input) => transformBundleSetupAssets(input, embeddingRuntime.catalog);
+  if (embeddingProvider && path === "setup-assets.json") {
+    assert.ok(embeddingRuntime?.catalog, "Embedding setup requires the shared runtime catalog");
+    const providerCatalog = readJson(
+      join(configuration.languageStaticDir, embeddingProvider.catalogAsset),
+      `Course ${configuration.course.id} embedding catalog`,
+    );
+    const runtimeId = embeddingProvider.implementation === "webview-english-minilm-v1"
+      ? providerCatalog.runtime?.defaultModelId
+      : providerCatalog.default_model;
+    assert.equal(typeof runtimeId, "string", `Course ${configuration.course.id} embedding runtime ID is missing`);
+    return (input) => transformBundleSetupAssets(
+      input,
+      embeddingRuntime.catalog,
+      runtimeId,
+      { strictCzech: configuration.course.id === "cz" },
+    );
   }
+  if (configuration.course.id !== "cz") return undefined;
   if (path === "source/shared/vector-db.js") {
     assert.ok(embeddingRuntime?.catalog, "Czech bundle vector database requires the shared embedding runtime catalog");
     return (input) => transformBundleVectorDb(input, embeddingRuntime.catalog);
   }
   return TRANSFORMS[path];
+}
+
+function assertSetupDownloadsSharedEmbeddingRuntime(manifest, embeddingRuntime, courseId) {
+  const artifacts = (manifest.artifacts || []).filter(
+    (artifact) => artifact?.artifact_kind === "embedding-runtime",
+  );
+  assert.equal(
+    artifacts.length,
+    embeddingRuntime.assets.length,
+    `Course ${courseId} setup must download every shared embedding runtime artifact`,
+  );
+  const byPath = new Map(artifacts.map((artifact) => [artifact.asset_path, artifact]));
+  for (const asset of embeddingRuntime.assets) {
+    const assetPath = asset.output;
+    const catalogArtifact = embeddingRuntime.catalog.runtimes
+      .flatMap((runtime) => runtime.artifacts)
+      .find((artifact) => `language-runtime/${artifact.path}` === assetPath);
+    const setupArtifact = byPath.get(assetPath);
+    assert.ok(setupArtifact, `Course ${courseId} setup is missing ${assetPath}`);
+    assert.equal(setupArtifact.url, catalogArtifact.url, `Course ${courseId} setup URL drifted for ${assetPath}`);
+    assert.equal(setupArtifact.bytes, catalogArtifact.bytes, `Course ${courseId} setup bytes drifted for ${assetPath}`);
+    assert.equal(setupArtifact.sha256, catalogArtifact.sha256, `Course ${courseId} setup hash drifted for ${assetPath}`);
+    assert.equal(setupArtifact.native_required, true, `Course ${courseId} setup must require ${assetPath}`);
+  }
 }
 
 function bundleReferenceAssetPath(reference, containingAsset, courseRecord) {
@@ -1931,10 +1950,12 @@ export function validateProductAssetBundle({
         assert.equal(provider.implementation, "webview-english-minilm-v1", "WebView embedding provider is unsupported");
         const catalog = JSON.parse(readFileSync(join(courseRoot, provider.catalogAsset), "utf8"));
         assertWebViewEmbeddingCatalog(catalog, courseConfiguration.course);
-        assert.equal(catalog.runtime.modelDelivery, "android-bundled", "Android WebView MiniLM must be bundled");
-        assert.equal(catalog.runtime.modelPrecached, true, "Android WebView MiniLM must be immediately available");
-        assert.equal(catalog.runtime.androidPackaged, true, "Android WebView MiniLM catalog must describe packaged bytes truthfully");
+        assert.equal(catalog.runtime.modelDelivery, "android-setup-download", "Android WebView MiniLM must use setup delivery");
+        assert.equal(catalog.runtime.modelPrecached, false, "Android WebView MiniLM must not claim APK precaching");
+        assert.equal(catalog.runtime.androidPackaged, false, "Android WebView MiniLM must not claim packaged model bytes");
       }
+      const setup = JSON.parse(readFileSync(join(courseRoot, "setup-assets.json"), "utf8"));
+      assertSetupDownloadsSharedEmbeddingRuntime(setup, bundle.embeddingRuntime, courseConfiguration.course.id);
     }
     if (courseProfile.capabilities.dictionary) assertDictionaryProviderBoundary(courseRoot, courseProfile);
     if (courseConfiguration.course.id === "cz") {
@@ -1964,9 +1985,7 @@ export function validateProductAssetBundle({
   }
 
   for (const asset of bundle.embeddingRuntime.assets) {
-    const output = join(resolvedOutput, asset.output);
-    assert.equal(statSync(output).size, statSync(asset.source).size, `Embedding runtime bytes drifted: ${asset.output}`);
-    assert.equal(sha256File(output), sha256File(asset.source), `Embedding runtime hash drifted: ${asset.output}`);
+    assert.ok(!files.includes(asset.output), `Embedding runtime must remain setup-delivered: ${asset.output}`);
   }
   const sharedFiles = [
     "index.html",

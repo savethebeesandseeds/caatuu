@@ -777,18 +777,6 @@ export function productApkAuditPlan(profile) {
     if (hasEmbeddings) {
       requiredEntries.push(
         "assets/language-runtime/embedding-runtimes.json",
-        "assets/language-runtime/vendor/transformers/transformers.min.js",
-        "assets/language-runtime/vendor/transformers/LICENSE",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/config.json",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/special_tokens_map.json",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/tokenizer.json",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/tokenizer_config.json",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/vocab.txt",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.mjs",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/LICENSE-APACHE-2.0.txt",
-        "assets/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json",
       );
     }
     if (hasWordWorld) {
@@ -842,6 +830,8 @@ export function productApkAuditPlan(profile) {
         /(?:^|\/)chat\.html$/i,
         /(?:^|\/)source\/features\/chat\//i,
         /(?:^|\/)data\/models(?:\/|$)/i,
+        /(?:^|\/)language-runtime\/models(?:\/|$)/i,
+        /(?:^|\/)language-runtime\/vendor\/transformers(?:\/|$)/i,
         /(?:^|\/)assets\/games(?:\/|$)/i,
         /(?:^|\/)artifacts\/games(?:\/|$)/i,
         /(?:^|\/)caatuu-game(?:\/|$)/i,

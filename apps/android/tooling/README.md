@@ -15,6 +15,8 @@ the canonical direct release and retains verified self-updates, shared assets,
 and the per-course capabilities declared by the manifests in
 `apps/android/course-bundle.json`. Czech and Mandarin use the same packaged app
 document and shared runtime; their files live below `courses/<id>/`.
+The English MiniLM weights are not APK payload: setup downloads the hash-pinned
+shared runtime once into app-private storage, where every course reuses it.
 
 The full Gradle module selects one course with `caatuuCourseManifest`. The
 product module selects a repository-relative bundle with `caatuuCourseBundle`
