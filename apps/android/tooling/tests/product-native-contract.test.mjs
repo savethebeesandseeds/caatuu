@@ -102,8 +102,8 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
   assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
   assert.match(build, /debug \{[\s\S]*?CAATUU_ACCEPT_RELEASE_MIGRATION", "true"/);
-  assert.match(build, /caatuuVersionCode.*orElse\(161\)/);
-  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.9"\)/);
+  assert.match(build, /caatuuVersionCode.*orElse\(162\)/);
+  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.10"\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
 });
