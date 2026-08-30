@@ -5,13 +5,23 @@ import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { transformIndex } from "./build-product-assets.mjs";
+
 const scriptPath = fileURLToPath(import.meta.url);
 const workspaceRoot = resolve(dirname(scriptPath), "../../..");
 const appAssetCatalog = JSON.parse(readFileSync(resolve(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
-const canonicalAppEntry = readFileSync(resolve(workspaceRoot, "apps/language-runtime/static/app/index.html"));
+const canonicalAppEntry = Buffer.from(transformIndex(
+  readFileSync(resolve(workspaceRoot, "apps/language-runtime/static/app/index.html"), "utf8"),
+));
 const SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(
   appAssetCatalog.assets.map(({ output }) => output),
 );
+const CAPABILITY_GATED_SHARED_APP_PATHS = new Set([
+  "language-runtime/static/source/caatuu-workspace.js",
+  "language-runtime/static/source/product-word-world.mjs",
+  "language-runtime/static/source/word-net-core.mjs",
+  "language-runtime/static/source/word-net-queue.mjs",
+]);
 
 const EXPECTED_APPLICATION_ID = "com.waajacu.caatuu";
 const EXPECTED_MIN_SDK = 30;
@@ -227,8 +237,21 @@ function assertCanonicalAppEntry(unzip, archive, kind, label) {
   const entry = archiveEntryForAsset("index.html", kind);
   assert(
     archiveBuffer(unzip, archive, entry).equals(canonicalAppEntry),
-    `${label} index.html must be byte-for-byte identical to apps/language-runtime/static/app/index.html`,
+    `${label} index.html must equal the reviewed product transform of apps/language-runtime/static/app/index.html`,
   );
+}
+
+function assertCanonicalCapabilityGatedSharedAssets(unzip, archive, kind, label) {
+  for (const assetPath of CAPABILITY_GATED_SHARED_APP_PATHS) {
+    const mapping = appAssetCatalog.assets.find(({ output }) => output === assetPath);
+    assert(mapping, `${label} is missing the canonical mapping for ${assetPath}`);
+    const expected = readFileSync(resolve(workspaceRoot, mapping.source));
+    const entry = archiveEntryForAsset(assetPath, kind);
+    assert(
+      archiveBuffer(unzip, archive, entry).equals(expected),
+      `${label} capability-gated shared asset ${assetPath} must match its canonical source`,
+    );
+  }
 }
 
 function assertDeclaredAssetBoundary(entries, kind, label, profile) {
@@ -554,6 +577,7 @@ function assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label)
   for (const entry of entries) {
     const assetPath = normalizeAssetPath(entry, kind);
     if (!assetPath || assetPath.startsWith("vendor/")) continue;
+    if (CAPABILITY_GATED_SHARED_APP_PATHS.has(assetPath)) continue;
     const extension = assetPath.slice(assetPath.lastIndexOf("."));
     if (!FIRST_PARTY_EXECUTABLE_EXTENSIONS.has(extension)) continue;
     const source = archiveText(unzip, archive, entry);
@@ -572,6 +596,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertDeclaredAssetBoundary(entries, kind, label, profile);
   assertRequiredAssets(entries, kind, label, profile);
   assertCanonicalAppEntry(unzip, archive, kind, label);
+  assertCanonicalCapabilityGatedSharedAssets(unzip, archive, kind, label);
   const strictCzech = profile.course.id === "cz";
   if (profile.capabilities.embeddings) {
     const embeddingCatalogAsset = profile.nativeProviders.providers.embeddings.catalogAsset;

@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 
-import { compileProductAssets } from "../build-product-assets.mjs";
+import { compileProductAssets, transformIndex } from "../build-product-assets.mjs";
 
 const workspaceRoot = new URL("../../../..", import.meta.url).pathname;
 const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
@@ -211,11 +211,12 @@ test("the generated Standard-only Word World completes its startup contract", as
   t.after(() => rmSync(parent, { recursive: true, force: true }));
   const result = compileProductAssets({ workspaceRoot, languageStaticDir, launcherStaticDir, outputDir });
   const sharedAppHtml = readFileSync(join(outputDir, "index.html"), "utf8");
-  assert.deepEqual(
-    readFileSync(join(outputDir, "index.html")),
-    readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html")),
-    "the generated product must use the byte-exact canonical shared app entry",
+  assert.equal(
+    sharedAppHtml,
+    transformIndex(readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html"), "utf8")),
+    "the generated product must use the reviewed transform of the canonical shared app entry",
   );
+  assert.doesNotMatch(sharedAppHtml, /wordNetGenerativeDialog|data-content-mode=["']generative["']|Generative mode/iu);
   for (const id of ["wordWorldRoot", "wordNetSentence", "wordNetPrevious", "wordNetNext", "wordNetStatus"]) {
     assert.match(sharedAppHtml, new RegExp(`id=["']${id}["']`, "u"), `shared app entry is missing #${id}`);
   }

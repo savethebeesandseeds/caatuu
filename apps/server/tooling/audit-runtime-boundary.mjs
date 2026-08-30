@@ -9,6 +9,7 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { verifyEmbeddingRuntimeAssets } from "../../language-runtime/tooling/verify-embedding-runtime.mjs";
+import { transformIndex } from "../../android/tooling/build-product-assets.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const scriptDir = dirname(scriptPath);
@@ -1107,9 +1108,11 @@ function auditApk() {
         productApkCanonicalEntryMatches(
           packagedProfile,
           unzipBuffer(apkRel, "assets/index.html"),
-          readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html")),
+          Buffer.from(transformIndex(
+            readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html"), "utf8"),
+          )),
         ),
-        "APK schema-v2 product assets/index.html must be byte-for-byte identical to the canonical shared app entry",
+        "APK schema-v2 product assets/index.html must equal the reviewed product transform of the canonical shared app entry",
       );
     }
     for (const capability of ["chat", "llm", "generation", "godot"]) {

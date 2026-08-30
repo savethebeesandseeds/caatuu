@@ -162,7 +162,9 @@ test("package requirements follow declared embeddings and dictionary capabilitie
 
 test("the package validator binds every Android artifact to the canonical app document", () => {
   assert.match(validator, /apps\/language-runtime\/static\/app\/index\.html/);
-  assert.match(validator, /index\.html must be byte-for-byte identical/);
+  assert.match(validator, /index\.html must equal the reviewed product transform/);
+  assert.match(validator, /CAPABILITY_GATED_SHARED_APP_PATHS/);
+  assert.match(validator, /capability-gated shared asset/);
   assert.match(validator, /SHARED_APP_REQUIRED_ASSET_PATHS/);
 });
 

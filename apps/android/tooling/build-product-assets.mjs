@@ -586,7 +586,41 @@ export function transformManifest(input) {
 }
 
 export function transformIndex(input) {
-  return normalizeText(input);
+  let source = normalizeText(input);
+  source = exactReplace(
+    source,
+    'aria-label="Sentence generation"',
+    'aria-label="Next sentence options"',
+    "shared app Word World options label",
+  );
+  source = replaceBetween(
+    source,
+    '                          <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">',
+    "                        </div>\n                      </div>",
+    "",
+    "shared app Word World content source selector",
+  );
+  source = exactReplace(
+    source,
+    '                            <dt>model</dt>\n                            <dd id="wordNetMetaModel">browser fallback</dd>',
+    '                            <dt>content</dt>\n                            <dd id="wordNetMetaModel">curated corpus</dd>',
+    "shared app Word World diagnostics content",
+  );
+  source = replaceBetween(
+    source,
+    '                  <dialog\n                    class="word-net-generative-dialog"',
+    '                <div class="word-net-embedded-status"',
+    "",
+    "shared app Word World optional content dialog",
+  );
+  assert.doesNotMatch(
+    source,
+    /wordNetGenerativeDialog|data-content-mode=["']generative["']|Generative mode/iu,
+    "Android product app entry must exclude disabled generative controls",
+  );
+  assert.match(source, /data-generation-mode="random"/u);
+  assert.match(source, /data-generation-mode="selected"/u);
+  return source;
 }
 
 export function transformSetupAssets(input) {
@@ -601,6 +635,12 @@ export function transformSetupAssets(input) {
   assert.equal(campaign.length, 1, "setup assets must expose exactly one Campaign Mode emblem");
   assert.equal(campaign[0].url, "/assets/planets/campaign-mode.png", "setup Campaign Mode URL");
   assert.equal(campaign[0].asset_path, "assets/planets/campaign-mode.png", "setup Campaign Mode asset path");
+  assert.ok(Array.isArray(manifest.offline?.assets), "setup assets must declare offline assets");
+  const offlineCount = manifest.offline.assets.length;
+  manifest.offline.assets = manifest.offline.assets.filter(
+    (asset) => !/^\.\/(?:chat\.html|source\/features\/chat\/)/u.test(String(asset)),
+  );
+  assert.equal(offlineCount - manifest.offline.assets.length, 3, "setup assets must remove the three disabled Chat files");
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
@@ -732,6 +772,12 @@ export function transformRuntime(input) {
 
 export function transformChromeJs(input) {
   let source = normalizeText(input);
+  source = exactReplace(
+    source,
+    '      { href: routes.chat, label: "debug-chat", available: capabilities.chat === true },\n',
+    "",
+    "chrome disabled Chat route",
+  );
   source = exactReplace(source, "<small>AI, developer, storage</small>", "<small>Storage and app controls</small>", "chrome advanced summary");
   source = replaceBetween(
     source,
@@ -1281,9 +1327,9 @@ export function validateProductAssets({
   const files = allFiles(resolvedOutput);
   assert.deepEqual(files, [...courseConfiguration.outputFiles].sort(), "Store output must equal the course Android asset allowlist");
   assert.deepEqual(
-    readFileSync(join(resolvedOutput, "index.html")),
-    readFileSync(courseConfiguration.appEntryPath),
-    "Packaged index.html must be byte-for-byte identical to the canonical shared app entry",
+    readFileSync(join(resolvedOutput, "index.html"), "utf8"),
+    transformIndex(readSourceText(courseConfiguration.appEntryPath)),
+    "Packaged index.html must equal the reviewed product transform of the canonical shared app entry",
   );
   assertNoForbiddenPaths(files);
   assertSharedAppBoundary(files);
@@ -1356,7 +1402,10 @@ export function compileProductAssets({
   rmSync(resolvedOutput, { recursive: true, force: true });
   mkdirSync(resolvedOutput, { recursive: true });
   const strictCzech = courseConfiguration.course.id === "cz";
-  copyExactFile(courseConfiguration.appEntryPath, join(resolvedOutput, "index.html"));
+  writeText(
+    join(resolvedOutput, "index.html"),
+    transformIndex(readSourceText(courseConfiguration.appEntryPath)),
+  );
   for (const path of courseConfiguration.languageFiles) {
     const sourcePath = join(resolvedLanguage, path);
     const outputPath = join(resolvedOutput, path);

@@ -12,6 +12,7 @@ import {
   compileProductAssets,
   loadAndroidCourseConfiguration,
   transformCourseProfile,
+  transformIndex,
   validateProductAssets
 } from "../build-product-assets.mjs";
 
@@ -159,11 +160,15 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   assert.deepEqual(profile.assets, result.files.filter((path) => path !== "caatuu-profile.json").sort());
   assert.equal(profile.privacy.dictionaryGapReportsLocalOnly, true);
   assert.ok(!STORE_LANGUAGE_FILES.includes("index.html"));
-  assert.deepEqual(
-    readFileSync(join(outputDir, "index.html")),
-    readFileSync(join(workspaceRoot, CANONICAL_APP_ENTRY_PATH)),
-    "the product package must retain the canonical app document byte-for-byte",
+  const canonicalAppEntry = readFileSync(join(workspaceRoot, CANONICAL_APP_ENTRY_PATH), "utf8");
+  const productAppEntry = readFileSync(join(outputDir, "index.html"), "utf8");
+  assert.equal(
+    productAppEntry,
+    transformIndex(canonicalAppEntry),
+    "the product package must use the reviewed transform of the canonical app document",
   );
+  assert.match(canonicalAppEntry, /wordNetGenerativeDialog/u);
+  assert.doesNotMatch(productAppEntry, /wordNetGenerativeDialog|data-content-mode=["']generative["']|Generative mode/iu);
   assert.ok(result.files.includes("language-runtime/contract.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/app-bootstrap.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/browser-shell.mjs"));
@@ -309,9 +314,9 @@ test("a no-LLM embedding course compiles from its manifest without Czech diction
   assert.ok(!result.files.includes("data/embeddings/models.json"));
   assert.ok(result.files.includes("language-runtime/contract.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/catalog-runtime.mjs"));
-  assert.deepEqual(
-    readFileSync(join(outputDir, "index.html")),
-    readFileSync(join(workspaceRoot, CANONICAL_APP_ENTRY_PATH)),
+  assert.equal(
+    readFileSync(join(outputDir, "index.html"), "utf8"),
+    transformIndex(readFileSync(join(workspaceRoot, CANONICAL_APP_ENTRY_PATH), "utf8")),
   );
   compileProductAssets({
     workspaceRoot,
