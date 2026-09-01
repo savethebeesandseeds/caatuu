@@ -10,7 +10,7 @@ private financial information.
 
 | Area | Status | Release consequence |
 | --- | --- | --- |
-| First-party software license | `CLOSED` | `AGPL-3.0-only` is on the default branch; separate model, data, art, dependency, and brand terms remain in force |
+| First-party software and curriculum license | `CLOSED` | `AGPL-3.0-only` covers first-party software plus Caatuu-authored English/Mandarin curriculum; third-party and separately licensed model, data, art, dependency, and brand terms remain in force |
 | Exact deployed source | `BLOCKED` | The live development checkout contains unpublished changes; do not call it a governed beta until one clean commit exactly represents the deployed first-party source |
 | Feedback collection | `NARROW PREVIEW CHANNEL` | General sentence and diagnostic reports remain device-local and `/api/bug-report` remains disabled. A separate bounded outbox automatically sends only six dictionary-gap observation fields to a private server ledger for periodic dictionary maintenance; the ledger has no public read route |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |

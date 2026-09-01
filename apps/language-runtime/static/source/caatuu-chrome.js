@@ -3261,7 +3261,7 @@
               </summary>
               <div class="settings-details-body">
                 <div class="license-copy">
-                  <p>Caatuu's first-party software is licensed AGPL-3.0-only and is provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. Models, dictionaries, datasets, artwork, branding, and third-party components keep their separate terms.</p>
+                  <p>Caatuu's first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3.0-only and are provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.</p>
                   <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">Privacy</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">Security</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">Support</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">Product status</a></p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">

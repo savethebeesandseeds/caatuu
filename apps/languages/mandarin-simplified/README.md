@@ -29,9 +29,10 @@ authored token glosses remain available inside Word World. LLM, chat,
 generated sentences, the separate full Dictionary workspace, pronunciation
 guides, offline model packaging, and Android distribution are disabled. The
 shared shell hides only those precise unsupported controls; it does not choose
-another renderer or layout. The course remains `development`, `noindex`,
-and blocked from activation until native Mandarin and license review gates
-pass.
+another renderer or layout. The course remains `development`, `noindex`, and
+blocked from activation until native Mandarin review passes. Its first-party
+English and Mandarin curriculum licensing is release-cleared under
+`AGPL-3.0-only`.
 
 ## Validation
 

@@ -1,6 +1,6 @@
 # Caatuu legal and provenance inventory
 
-Last reviewed: 22 July 2026
+Last reviewed: 1 September 2026
 Baseline commit: `0714ab3fe036c36b4061c419464a8332218b6075`
 
 This is a working release-control inventory, not legal advice and not a license.
@@ -27,6 +27,7 @@ unlawful.
 | FP-003 | Caatuu and Waajacu names, logos, domains, and Android package identity | No published brand policy | `REVIEW` | Publish a separate, owner-approved brand policy; do not imply that the code license grants brand rights |
 | FP-004 | External contributions | No inbound contribution policy | `STOP-SHIP` | Do not merge outside code, data, models, or art until contribution terms are published |
 | FP-005 | Animated Fabric first-party source and developer documentation under [`apps/animated-fabric`](../apps/animated-fabric/) | Root [`AGPL-3.0-only`](../LICENSE); scoped upstream notices remain under [`tools/cutout`](../apps/animated-fabric/tools/cutout/) | `CLEAR` for first-party code | Keep third-party notices and model terms scoped separately in every distribution |
+| FP-006 | Caatuu-authored English concept records and Mandarin Word World, Verb Nebula, and Naturalization Nucleus curriculum | Owner-confirmed first-party scope under root [`AGPL-3.0-only`](../LICENSE), documented in [`LICENSING.md`](LICENSING.md#first-party-curriculum), with release-cleared catalog metadata where formal gates exist | `CLEAR` for the identified first-party curriculum | Keep third-party dictionaries, models, embeddings, artwork, audio, fonts, and other referenced material scoped separately |
 
 Real names, addresses, agreements, tax information, and ownership evidence
 belong in a private ownership register outside this public repository.
@@ -50,7 +51,7 @@ belong in a private ownership register outside this public repository.
 | --- | --- | --- | --- | --- |
 | DATA-001 | Czech–English Wiktionary/Kaikki dictionary | Exact source, dates, hashes, changes, and `CC-BY-SA-4.0 OR GFDL-1.3-or-later` are recorded in [`manifest.json`](../apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json) and [`ATTRIBUTION.md`](../apps/languages/czech/static/data/dictionaries/ATTRIBUTION.md) | `CLEAR-WITH-NOTICE` after files are tracked and packaged | Preserve attribution, applicable license terms, source links, and share-alike obligations in every distribution |
 | DATA-002 | all-MiniLM-L6-v2 embedding runtime | Exact revision, artifact bytes, SHA-256 values, and Apache-2.0 model terms are recorded in the shared [`embedding-runtimes.json`](../apps/language-runtime/embedding-runtimes.json) | `CLEAR-WITH-NOTICE` for the upstream model runtime; embedded content has separate status | Package its Apache text plus Transformers.js and ONNX notices; keep deployment verification fail-closed |
-| DATA-003 | Caatuu curriculum and asset vector database | Manifest identifies the source corpus and 431 image-asset records; “project-local” is not a license | `REVIEW` | Attest ownership and license the curriculum; clear every referenced asset before release |
+| DATA-003 | Caatuu curriculum and asset vector database | First-party English and Mandarin curriculum is cleared in FP-006; the database manifest also identifies 431 image-asset records whose separate provenance is not established by a “project-local” label | `REVIEW` for the asset-vector portion | Preserve the FP-006 curriculum terms and clear every referenced asset before releasing the asset-vector database |
 | MODEL-001 | Active Word Sentence and Czech-to-English adapters | Base models are recorded as Apache-2.0; current training manifests point to curated Caatuu lanes | `REVIEW` | Add explicit licenses, owner attestation, pinned base revisions, and complete training-lineage cards for the derived artifacts |
 | MODEL-002 | `qwen3-lora-003-hard` browser candidate | Base Qwen model is Apache-2.0; recorded training input includes a broad Czech seed corpus with Wikipedia and Gutenberg material | `STOP-SHIP` | Perform dataset-rights review or retrain from the cleared authored curriculum lane; do not describe the derived artifact as cleared merely from the base license |
 | MODEL-003 | Legacy Planet Word Net models and training lanes | Training summaries include Gutenberg and Wikipedia rows; five raw František Omelka ebooks explicitly state that they are copyrighted and were posted with permission | `STOP-SHIP` | Review the specific permission scope with qualified counsel or retrain without the disputed sources; replace the current base-license-only artifact label |

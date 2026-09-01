@@ -33,10 +33,11 @@ browser-only pinyin preview from the explicit reading units. The guide remains
 `machine-assisted-preview`; it does not satisfy the native-review or release
 pronunciation gates.
 
-The current starter catalog is a development draft. Development validation
-accepts its explicit `native-review-required` and `release-review-required`
-states. Release validation rejects either unresolved gate and must continue to
-do so until real reviewer and licensing records replace those states.
+The current starter catalog is a development draft because its Mandarin review
+remains `native-review-required`. Its first-party English and Mandarin content
+licenses are `release-cleared` under `AGPL-3.0-only`. Release validation must
+continue to reject the unresolved native-review gate until a qualified
+Mandarin reviewer records approval.
 
 Run the checks in the established development container:
 
@@ -52,7 +53,8 @@ projector without `--check`, inspect the generated diff, then rerun the commands
 above. The projector repairs derived output only; it does not rewrite either
 authoring catalog.
 
-The release gate is intentionally expected to fail for the current draft:
+The release gate is intentionally expected to fail only on native review for
+the current draft:
 
 ```sh
 docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --release

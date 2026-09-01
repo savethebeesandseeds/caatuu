@@ -1,6 +1,6 @@
 # Caatuu licensing
 
-Last reviewed: 16 July 2026
+Last reviewed: 1 September 2026
 
 ## First-party software
 
@@ -20,13 +20,27 @@ The software is provided without warranty, as stated in the license. The
 corresponding source for the version operated by Caatuu is available at
 <https://github.com/savethebeesandseeds/caatuu>.
 
+## First-party curriculum
+
+Caatuu-authored English concept records and Mandarin curriculum created for
+Caatuu are also licensed under [`AGPL-3.0-only`](../LICENSE). This clearance
+applies to the shared English Word World concepts and the Mandarin Word World,
+Verb Nebula, and Naturalization Nucleus curriculum catalogs. Their tracked
+catalog metadata records the same release decision where the content contract
+defines a formal licensing gate.
+
+This curriculum clearance does not extend to third-party dictionaries,
+corpora, models, embeddings, artwork, audio, fonts, or other separately sourced
+material that a lesson or game may reference.
+
 ## Material with separate terms
 
 The root AGPL does not replace or override separate terms for:
 
 - third-party software and vendored dependencies;
 - base-model weights, adapters, merged weights, and quantizations;
-- dictionaries, datasets, corpora, and generated databases;
+- third-party or separately licensed dictionaries, datasets, corpora, and
+  generated databases;
 - images, animation, audio, fonts, and other artwork; or
 - the Caatuu and Waajacu names, logos, domains, and package identity.
 

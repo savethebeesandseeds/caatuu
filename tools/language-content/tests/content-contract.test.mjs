@@ -125,8 +125,8 @@ test("target text, pronunciation, tokens, review, and licensing remain on the re
   assert.deepEqual(row.pronunciation, pinyin("Zhè shì yì běn shū."));
   assert.deepEqual(row.tokens.map(({ surface }) => surface), ["这", "是", "一", "本", "书"]);
   assert.equal(row.content_review.status, "native-review-required");
-  assert.equal(row.content_license.status, "release-review-required");
-  assert.equal(row.source_license.status, "release-review-required");
+  assert.equal(row.content_license.status, "release-cleared");
+  assert.equal(row.source_license.status, "release-cleared");
 });
 
 test("stable IDs are unique and target coverage is exactly one-to-one", () => {
@@ -418,19 +418,18 @@ test("public catalogs use narrow runtime projection schemas and omit unreviewed 
   );
 });
 
-test("the current draft passes development validation and is blocked by both release gates", () => {
+test("the current draft passes development validation and release is blocked only by native review", () => {
   validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
   assert.throws(
     () => validateLanguageContent(structuredClone(concepts), structuredClone(realizations), { release: true }),
     (error) => (
       hasIssue(error, "release.native-review")
-      && hasIssue(error, "release.license", /concept catalog/u)
-      && hasIssue(error, "release.license", /target catalog/u)
+      && !hasIssue(error, "release.license")
     )
   );
 });
 
-test("only a synthetic fully evidenced fixture can pass the release gate", () => {
+test("a synthetic native-reviewed copy of the licensed catalogs can pass the release gate", () => {
   const candidate = cloneCatalogs();
   candidate.realizations.review = {
     status: "native-reviewed",
@@ -447,15 +446,27 @@ test("only a synthetic fully evidenced fixture can pass the release gate", () =>
       }
     }
   }
-  for (const gate of [candidate.concepts.license, candidate.realizations.license]) {
-    gate.status = "release-cleared";
-    gate.spdxExpression = "LicenseRef-Synthetic-Test-Only";
-    gate.sourceReference = "test-fixture://not-release-evidence";
-    gate.reviewedBy = "Synthetic Test Reviewer";
-    gate.reviewedAt = "2026-08-29T00:00:00Z";
-  }
   validateLanguageContent(candidate.concepts, candidate.realizations, { release: true });
   assert.equal(realizations.review.status, "native-review-required");
-  assert.equal(realizations.license.status, "release-review-required");
-  assert.equal(concepts.license.status, "release-review-required");
+  assert.equal(realizations.license.status, "release-cleared");
+  assert.equal(concepts.license.status, "release-cleared");
+});
+
+test("a regressed licensing record still fails closed", () => {
+  const candidate = cloneCatalogs();
+  for (const gate of [candidate.concepts.license, candidate.realizations.license]) {
+    gate.origin = "caatuu-first-party-draft";
+    gate.status = "release-review-required";
+    gate.spdxExpression = null;
+    gate.sourceReference = null;
+    gate.reviewedBy = null;
+    gate.reviewedAt = null;
+  }
+  assert.throws(
+    () => validateLanguageContent(candidate.concepts, candidate.realizations, { release: true }),
+    (error) => (
+      hasIssue(error, "release.license", /concept catalog/u)
+      && hasIssue(error, "release.license", /target catalog/u)
+    )
+  );
 });

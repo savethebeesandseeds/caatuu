@@ -72,7 +72,8 @@ process settle; the contribution guide records the current policy.
 - [Set up a development environment](docs/DEVELOPMENT.md)
 - [Read the contribution policy](.github/CONTRIBUTING.md)
 
-First-party software and developer documentation are licensed
-[`AGPL-3.0-only`](LICENSE). Models, dictionaries, datasets, artwork, branding,
-and third-party components may have separate terms; see
+First-party software, developer documentation, and Caatuu-authored English and
+Mandarin curriculum content are licensed [`AGPL-3.0-only`](LICENSE).
+Third-party or separately licensed models, dictionaries, datasets, artwork,
+branding, and components may have separate terms; see
 [licensing and attribution](docs/LICENSING.md).

@@ -66,10 +66,10 @@ test("product UI presents AGPL code terms without relicensing models or branding
   assert.doesNotMatch(productText, /Caatuu app code is provided under the MIT license/);
   assert.doesNotMatch(productText, /curriculum corpus, MIT/i);
   assert.doesNotMatch(productText, /Waajacu<\/a> TM|Waajacu<sup[^>]*>TM/);
-  assert.match(chrome, /first-party software is licensed AGPL-3\.0-only/);
+  assert.match(chrome, /first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3\.0-only/);
   assert.match(chrome, /provided without warranty/);
   assert.match(chrome, /github\.com\/savethebeesandseeds\/caatuu/);
-  assert.match(chrome, /Models, dictionaries, datasets, artwork, branding, and third-party components keep their separate terms/);
+  assert.match(chrome, /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/);
   assert.match(app, /derived artifact review pending/);
   assert.match(chat, /derived artifact review pending/);
 });

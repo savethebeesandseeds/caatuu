@@ -5,11 +5,24 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Mandarin learning preview
+
+- Expanded the child-safe Mandarin course to 250 Word World entries, 180 Verb
+  Nebula entries, and 120 Naturalization Nucleus entries across three
+  difficulty levels.
+- Added pinyin guides, tone coloring, bidirectional Word World challenges, and
+  the Naturalization Nucleus Hanzi-to-pinyin matching game.
+- Retired the 12 legacy language-mascot images and their obsolete server route
+  and Android cache directories.
+- Prepared Android version `0.1.11` (`versionCode 163`) with the shared Czech
+  and Mandarin browser experience.
+
 ### Governance and release integrity
 
-- Licensed first-party Caatuu software and developer documentation under
-  `AGPL-3.0-only`, with explicit exclusions for separately licensed models,
-  data, artwork, branding, and third-party components.
+- Licensed first-party Caatuu software, developer documentation, and
+  Caatuu-authored English and Mandarin curriculum under `AGPL-3.0-only`, with
+  explicit exclusions for third-party or separately licensed models, data,
+  artwork, branding, and components.
 - Preserved the historical MIT runtime text without withdrawing permissions
   already granted for earlier versions.
 - Added a legal and provenance inventory with conservative release gates.

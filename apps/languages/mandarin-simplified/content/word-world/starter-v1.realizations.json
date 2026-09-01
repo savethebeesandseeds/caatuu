@@ -21,12 +21,12 @@
     "notes": "Machine-assisted development draft; qualified native Mandarin review is still required."
   },
   "license": {
-    "origin": "caatuu-first-party-draft",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "sourceReference": null,
-    "reviewedBy": null,
-    "reviewedAt": null
+    "origin": "caatuu-first-party-authored",
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+    "reviewedBy": "Caatuu project owner",
+    "reviewedAt": "2026-09-01T08:25:35Z"
   },
   "realizations": [
     {

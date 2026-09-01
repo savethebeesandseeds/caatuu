@@ -42,7 +42,7 @@ explicit update to this document and a re-audit of the affected gates.
 | Outbound feedback | Disabled for the simplest release privacy boundary unless a separate approved data-flow gate is completed |
 | Audience | Treat as including children; the current content targets ages 6–10 |
 | Android support | Android 11/API 30 or newer, initially `arm64-v8a` |
-| License | First-party software remains `AGPL-3.0-only`; data, art, models, brands, and dependencies keep their separate terms |
+| License | First-party software and Caatuu-authored English/Mandarin curriculum remain `AGPL-3.0-only`; third-party or separately licensed data, art, models, brands, and dependencies keep their separate terms |
 
 The AGPL permits commercial use. It does not prevent a later paid product or
 service. Waajacu's brand, trusted distribution, reviewed content, hosted

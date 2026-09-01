@@ -688,16 +688,15 @@ test("browser delivery fails closed for development, active, and retired courses
   );
 });
 
-test("active promotion fails closed while publication evidence is not release-cleared", async () => {
+test("active promotion fails closed while native-language review is incomplete", async () => {
   const promoted = cloneLoaded(loaded);
   promoted.courses[1].course.status = "active";
 
   await assert.rejects(
     validateCourseCatalog(promoted, { checkExistence: false }),
     (error) => (
-      hasIssue(error, "release.license", /concept catalog licensing is not release-cleared/)
-      && hasIssue(error, "release.native-review", /status native-reviewed/)
-      && hasIssue(error, "release.license", /target catalog licensing is not release-cleared/)
+      hasIssue(error, "release.native-review", /status native-reviewed/)
+      && !hasIssue(error, "release.license")
     )
   );
   await assert.rejects(

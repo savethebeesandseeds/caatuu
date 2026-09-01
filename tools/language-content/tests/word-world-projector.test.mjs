@@ -82,7 +82,7 @@ test("the Word World projector rejects manifest tampering and premature review c
   for (const mutate of [
     (candidate) => { candidate.realizationFile = "different.realizations.json"; },
     (candidate) => { candidate.schemaVersion = "tampered-manifest-v9"; },
-    (candidate) => { candidate.license.status = "release-cleared"; },
+    (candidate) => { candidate.license.status = "release-review-required"; },
     (candidate) => { candidate.unexpectedReleaseClaim = true; }
   ]) {
     const wrongManifest = clone(manifest);

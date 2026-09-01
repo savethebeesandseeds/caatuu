@@ -188,8 +188,8 @@ test("setup and service-worker catalogs cover every required offline URL", async
     entryPath: "/zh/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v51");
-  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v51/u);
+  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v52");
+  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v52/u);
   assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v571/u);
   const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));

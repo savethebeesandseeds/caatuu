@@ -177,10 +177,17 @@ function assertDraftReview(review, label) {
   assert.equal(review?.reviewedAt, null, `${label} must not claim a review date before review`);
 }
 
-function assertLicenseGate(license, label) {
-  assert.equal(license?.status, "release-review-required", `${label} must retain the release-review gate`);
-  assert.equal(license?.reviewedBy, null, `${label} must not claim a license reviewer`);
-  assert.equal(license?.reviewedAt, null, `${label} must not claim a license review date`);
+function assertReleaseClearedLicense(license, label) {
+  assert.equal(license?.origin, "caatuu-first-party-authored", `${label} must retain first-party provenance`);
+  assert.equal(license?.status, "release-cleared", `${label} must remain release-cleared`);
+  assert.equal(license?.spdxExpression, "AGPL-3.0-only", `${label} must retain the owner-approved SPDX expression`);
+  assert.equal(
+    license?.sourceReference,
+    "docs/LICENSING.md#first-party-curriculum",
+    `${label} must point to the scoped licensing authority`
+  );
+  assert.equal(license?.reviewedBy, "Caatuu project owner", `${label} must retain the owner authority`);
+  assert.equal(license?.reviewedAt, "2026-09-01T08:25:35Z", `${label} must retain the clearance timestamp`);
 }
 
 function assertPinyinPronunciation(pronunciation, label) {
@@ -283,7 +290,7 @@ test("Word World retrieval and visual fields are purpose-written rather than sen
   }
 });
 
-test("all three Mandarin curricula remain child-safe and retain their authoring review gates", () => {
+test("all three Mandarin curricula remain child-safe with native review pending and licensing cleared", () => {
   const englishSamples = [
     ...verbs.flatMap((row) => [row.id, row.source, row.category]),
     ...concepts.concepts.flatMap((row) => [
@@ -315,14 +322,14 @@ test("all three Mandarin curricula remain child-safe and retain their authoring 
 
   assert.equal(verbs.every((row) => row.reviewStatus === "native-review-required"), true);
   assertDraftReview(realizations.review, "Word World authoring review");
-  assertLicenseGate(concepts.license, "Word World concept license");
-  assertLicenseGate(realizations.license, "Word World realization license");
+  assertReleaseClearedLicense(concepts.license, "Word World concept license");
+  assertReleaseClearedLicense(realizations.license, "Word World realization license");
   assert.equal(nucleus.status, "machine-assisted-preview");
   assertDraftReview(nucleus.review, "Naturalization Nucleus review");
   assert.doesNotMatch(
     JSON.stringify({ verbs, concepts, realizations, nucleus }),
-    /native-reviewed|release-cleared/u,
-    "draft authoring data must not leak a completed-review claim"
+    /native-reviewed/u,
+    "draft authoring data must not leak a completed native-review claim"
   );
 });
 

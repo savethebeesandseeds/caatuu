@@ -1239,8 +1239,8 @@ export function transformChromeJs(input) {
   );
   source = exactReplace(
     source,
-    "Models, dictionaries, datasets, artwork, branding, and third-party components keep their separate terms.",
-    "Dictionaries, datasets, artwork, branding, and third-party components keep their separate terms.",
+    "Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.",
+    "Third-party or separately licensed dictionaries, datasets, artwork, branding, and components keep their separate terms.",
     "chrome legal scope"
   );
   source = replaceBetween(
