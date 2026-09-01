@@ -68,10 +68,14 @@ Transformers/MiniLM artifact against
 Missing or mismatched model-only assets are a deployment failure, not a silent
 semantic-search downgrade.
 
-## Public tunnel
+## Transitional public tunnel
 
-The public app and Android update routes use a named Cloudflare Tunnel. Store
-its token in the ignored `secrets/` directory:
+Until the GitHub Pages cutover passes HTTPS, Android/setup-route validation, and
+its rollback window, the former public app and Android routes can use the named
+Cloudflare Tunnel. Keep this only as the documented rollback path. After the
+cutover gate in `STATIC_WEB_HOSTING.md` passes, do not start it; remove the
+service and revoke its token. Store the transitional token in the ignored
+`secrets/` directory:
 
 ```powershell
 New-Item -ItemType Directory -Force secrets
@@ -120,9 +124,14 @@ Recreate only the connector after token or tunnel-command changes:
 docker compose --profile tunnel up -d --force-recreate caatuu-tunnel
 ```
 
-The named tunnel expects `http://localhost:9172` as the Caatuu origin. The
-tunnel service also preserves the existing Minerals forward to host port
-`7979`; that service remains owned by `C:\Work\Science\Minerals`.
+The named tunnel expects `http://localhost:9172` as the Caatuu origin. Its
+local forwarding scope is Caatuu only. The Minerals public catalog now resolves
+directly to GitHub Pages, while its optional administrator remains a private,
+loopback-only service in `C:\Work\Minerals`; never forward that port through
+the Caatuu connector. Remove the stale `minerals.waajacu.com` ingress from the
+named tunnel's remote Cloudflare configuration independently; retain only the
+Caatuu `localhost:9172` ingress while its Android/API compatibility routes are
+still public.
 
 ## Repository-only Chinese archive
 

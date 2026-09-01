@@ -1,0 +1,167 @@
+{
+  "schemaName": "caatuu-pages-baseline",
+  "schemaVersion": 1,
+  "channel": "existing-release-baseline",
+  "canonicalOrigin": "https://caatuu.waajacu.com",
+  "repository": "savethebeesandseeds/caatuu",
+  "releaseArchive": {
+    "tag": "caatuu-pages-v162",
+    "assetName": "caatuu-pages-v162.tar",
+    "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-pages-v162/caatuu-pages-v162.tar",
+    "bytes": 535674368,
+    "sha256": "9564bf5dc318ab642468787dd6ef23e4e70923887ca622620d045255734cc6c5"
+  },
+  "stable": {
+    "versionCode": 162,
+    "versionName": "0.1.10",
+    "sourceRevision": "33a1298e903c58970de40f09de57cf5754f1fe5e",
+    "manifest": {
+      "sourcePath": "artifacts/android/releases/162/caatuu.json",
+      "archivePath": "site/android/releases/162/caatuu.json",
+      "publicPaths": [
+        "android/releases/162/caatuu.json",
+        "android/caatuu.json"
+      ],
+      "bytes": 942,
+      "sha256": "0885fd80a64c2708ccde702478e95a04d64f07d570cf3fa6f94480ce3784923f"
+    },
+    "apk": {
+      "sourcePath": "artifacts/android/releases/162/caatuu.apk",
+      "archivePath": "site/android/releases/162/caatuu.apk",
+      "publicPaths": [
+        "android/releases/162/caatuu.apk",
+        "android/caatuu.apk"
+      ],
+      "bytes": 23294790,
+      "sha256": "21389c646480624c1998f16504f3606aeb93cb28e2bbaf42328f28cf12ee442d"
+    }
+  },
+  "compatibility": {
+    "versionCode": 161,
+    "versionName": "0.1.10-transition.1",
+    "sourceRevision": "33a1298e903c58970de40f09de57cf5754f1fe5e",
+    "manifest": {
+      "sourcePath": "artifacts/android/debug-releases/product-transition/161/caatuu-transition.json",
+      "archivePath": "site/android/debug-releases/product-transition/161/caatuu-transition.json",
+      "publicPaths": [
+        "android/debug-releases/product-transition/161/caatuu-transition.json",
+        "android/caatuu-debug.json"
+      ],
+      "bytes": 1151,
+      "sha256": "d281357a2e478c007c7a4ff79fe27a165bbd46dad5edc01c1460612560ab9663"
+    },
+    "apk": {
+      "sourcePath": "artifacts/android/debug-releases/product-transition/161/caatuu-transition.apk",
+      "archivePath": "site/android/debug-releases/product-transition/161/caatuu-transition.apk",
+      "publicPaths": [
+        "android/debug-releases/product-transition/161/caatuu-transition.apk",
+        "android/caatuu-debug.apk"
+      ],
+      "bytes": 30571799,
+      "sha256": "b89b7e904380eb06dc98d79177c5b5d5b5c47fd28c5cc9d5d8881e7d51de2981"
+    }
+  },
+  "nativeSetup": {
+    "apkEntry": "assets/courses/cz/setup-assets.json",
+    "archivePath": "baseline/cz/setup-assets.json",
+    "bytes": 291434,
+    "sha256": "3539dda1951171e399915f939b784efe4fc8d5c891d3d8236e8b6fe2b0b28b09",
+    "nativeArtifactCount": 662,
+    "nativeArtifactBytes": 317718038,
+    "completeDownloadBytes": 480853526
+  },
+  "sourceOverrides": [
+    {
+      "key": "dictionary-sqlite",
+      "sourcePath": "apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite",
+      "publicPath": "cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite",
+      "bytes": 143106048,
+      "sha256": "80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71"
+    },
+    {
+      "key": "release-onnx",
+      "sourcePath": "apps/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx",
+      "publicPath": "language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx",
+      "bytes": 23026053,
+      "sha256": "4278337fd0ff3c68bfb6291042cad8ab363e1d9fbc43dcb499fe91c871902474"
+    },
+    {
+      "key": "release-wasm",
+      "sourcePath": "apps/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm",
+      "publicPath": "language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm",
+      "bytes": 12942611,
+      "sha256": "f4f290847a4df02d0b93cdbf39b4b0e71acefbe80573e7e6b9342a7abd7b290a"
+    },
+    {
+      "key": "legacy-czech-macaw",
+      "sourcePath": "artifacts/web/github-pages/assets/aliens/Czech_Macaw.png",
+      "publicPath": "assets/aliens/Czech_Macaw.png",
+      "bytes": 1936629,
+      "sha256": "b557320fd7b26ff2ae8d613a22b2ac6ebdc9d81b322642dbd7f57daf28a72e40"
+    },
+    {
+      "key": "legacy-agreement-aurora",
+      "sourcePath": "artifacts/research/release-baseline-replaced-assets-2026-08-13/agreement-aurora-art-2.png",
+      "publicPath": "assets/planets/agreement-aurora.png",
+      "bytes": 1511588,
+      "sha256": "abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6"
+    }
+  ],
+  "retainedFiles": [
+    {
+      "key": "dictionary-catalog",
+      "sourcePath": "apps/languages/czech/static/data/dictionaries/catalog.json",
+      "publicPath": "cz/data/dictionaries/catalog.json",
+      "bytes": 2318,
+      "sha256": "2c70f897994f14e59231d011defa76bf149b657de9465311291a052e35cf6c86"
+    },
+    {
+      "key": "dictionary-manifest",
+      "sourcePath": "apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
+      "publicPath": "cz/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
+      "bytes": 1940,
+      "sha256": "954d95637b0b9c870c83c9cad35756ff21b1f5c880fdfeedb85a6e327f0b7cd8"
+    },
+    {
+      "key": "dictionary-sqlite",
+      "sourcePath": "apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite",
+      "publicPath": "cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite",
+      "bytes": 143106048,
+      "sha256": "80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71"
+    },
+    {
+      "key": "embedding-catalog",
+      "sourcePath": "apps/languages/czech/static/data/embeddings/models.json",
+      "publicPath": "cz/data/embeddings/models.json",
+      "bytes": 2498,
+      "sha256": "8ed1f42c0458406ec1bbfd1f2774ec47b4124e45ab8acc79b54065ca931bc9b2"
+    },
+    {
+      "key": "embedding-manifest",
+      "sourcePath": "apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
+      "publicPath": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
+      "bytes": 4946,
+      "sha256": "e2f5208d6df94fe8e4ff062bce4788d18572f09c3623f96e31a88ac0f09008a2"
+    },
+    {
+      "key": "embedding-sqlite",
+      "sourcePath": "apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "publicPath": "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+      "bytes": 20029440,
+      "sha256": "d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13"
+    }
+  ],
+  "retiredPublicRoutes": [
+    "/android/caatuu-preview.json",
+    "/android/caatuu-preview.apk",
+    "/android/releases/status",
+    "/android/debug-releases/status",
+    "/android/termux-install-debug.sh",
+    "/cz/api/dictionary/status",
+    "/cz/api/dictionary/search",
+    "/cz/api/dictionary/gaps",
+    "/api/bug-report",
+    "/api/v1",
+    "/ws"
+  ]
+}

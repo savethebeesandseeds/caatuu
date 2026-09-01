@@ -128,19 +128,22 @@ sideload-only and cannot accidentally request debug artifacts from the public
 stable channel. Set the LAN update base below before building when testing the
 in-app updater.
 
-The full development/direct-download application can deliver remote diagnostics
-to `https://caatuu.waajacu.com/api/bug-report` independently of the APK update
-channel. Set `CAATUU_ANDROID_REPORT_URL` only when a trusted development server
-should receive debug reports instead. `product` keeps bug reports and
+The full development/direct-download application still has a legacy default
+report URL under `https://caatuu.waajacu.com`. After the Pages cutover,
+`/api/bug-report` has no dynamic handler: attempts receive an unsuccessful
+static response and nothing is accepted or stored. Override
+`CAATUU_ANDROID_REPORT_URL` only for a bounded test against a trusted local
+development server. The fixed `product` release 162 keeps bug reports and
 dictionary-gap reports local and exposes no delivery bridge operation.
 
-Missing Czech dictionary lookups use a separate, narrow native delivery route.
-The bridge accepts only the dictionary-gap schema and its six data fields, adds
-no device or app metadata, and posts it directly to
-`https://caatuu.waajacu.com/cz/api/dictionary/gaps`. The shared UI keeps failed
-deliveries in its device-local outbox and retries them later. Set
-`CAATUU_ANDROID_DICTIONARY_GAP_URL` only for a trusted development server;
-release builds require HTTPS while debug builds may use HTTP for LAN testing.
+Missing Czech dictionary lookups in the full development application use a
+separate legacy default URL under the same public hostname. The bridge accepts
+only the dictionary-gap schema and its six data fields and adds no device or
+app metadata. After the Pages cutover, `/cz/api/dictionary/gaps` has no dynamic
+handler: attempts fail without being accepted or stored, and pending
+observations remain on the device. Override
+`CAATUU_ANDROID_DICTIONARY_GAP_URL` only for a trusted local development
+server. Debug builds may use HTTP for bounded LAN testing.
 
 For local phone testing, point the debug updater at the dev server that serves
 `/android/caatuu-debug.json` and `/android/caatuu-debug.apk`:

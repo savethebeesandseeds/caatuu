@@ -22,7 +22,7 @@ jobs:
   build:
     name: Build reviewed static site
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Check out main without retained credentials
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -74,7 +74,20 @@ jobs:
           fi
           [[ -z "$PAGES_BASE_PATH" ]]
 
-      - name: Build and validate the static bundle
+      - name: Download the fixed existing-release preservation archive
+        shell: bash
+        env:
+          BASELINE_URL: https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-pages-v162/caatuu-pages-v162.tar
+          BASELINE_ARCHIVE: artifacts/android/pages-input/caatuu-pages-v162.tar
+        run: |
+          set -euo pipefail
+          mkdir -p "$(dirname "$BASELINE_ARCHIVE")"
+          curl --fail --location --proto '=https' --tlsv1.2 \
+            --retry 3 --retry-all-errors \
+            --output "$BASELINE_ARCHIVE" \
+            "$BASELINE_URL"
+
+      - name: Build and validate the static bundle with Android 162 and 161
         shell: bash
         run: |
           docker run --rm \
@@ -82,7 +95,8 @@ jobs:
             --volume "$GITHUB_WORKSPACE:/workspace" \
             --workdir /workspace \
             node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
-            node apps/launcher/tooling/build-static-site.mjs \
+            node apps/launcher/tooling/build-pages-site.mjs \
+              --baseline-archive artifacts/android/pages-input/caatuu-pages-v162.tar \
               --output artifacts/web/github-pages
 
       - name: Upload the exact static site

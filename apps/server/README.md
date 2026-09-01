@@ -55,14 +55,16 @@ and controls host exposure through its port mapping.
 
 ## Czech dictionary-gap ledger
 
-The active Czech runtime accepts the narrow, write-only dictionary maintenance
-request:
+For deliberate local development/API testing, the Czech runtime accepts the
+narrow, write-only dictionary maintenance request:
 
 ```text
 POST /cz/api/dictionary/gaps
 ```
 
-The `caatuu.dictionary-gap-report.v1` body contains a schema discriminator and
+The planned GitHub Pages public origin will retire this route; stable Android
+162 and the static web product keep dictionary gaps local. The
+`caatuu.dictionary-gap-report.v1` body contains a schema discriminator and
 only six observation fields: `targetWord`, `normalizedWord`, `dictionaryKey`,
 `dictionaryDirection`, `lookupOutcome`, and `lookupReturned`. The route rejects
 unknown fields, unsupported dictionary identities, and oversized or malformed
@@ -87,6 +89,11 @@ inside the ignored host artifact directory, mounted at
 the path with `DICTIONARY_GAP_STORE_PATH`. There is deliberately no GET or
 listing route for the ledger. Records currently remain until a maintainer
 reviews, archives, or deletes them; there is no automatic retention expiry.
+
+Do not commit this ledger or publish it in the Pages preservation archive.
+Before changing public DNS to Pages, copy its exact bytes to a
+maintainer-controlled private backup and verify the integrity receipt recorded
+in `docs/STATIC_WEB_HOSTING.md`.
 
 This endpoint is not a general diagnostic channel. Word World sentence reports
 remain device-local, and the generic `/api/bug-report` route remains disabled

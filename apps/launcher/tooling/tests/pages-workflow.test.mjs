@@ -33,5 +33,17 @@ test("Pages publication uses pinned artifact actions and the canonical root orig
     workflow,
     /node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2/u
   );
-  assert.match(workflow, /build-static-site\.mjs/u);
+  assert.match(workflow, /build-pages-site\.mjs/u);
+  assert.match(workflow, /--baseline-archive artifacts\/android\/pages-input\/caatuu-pages-v162\.tar/u);
+  assert.doesNotMatch(workflow, /build-static-site\.mjs/u);
+});
+
+test("Pages publication downloads one exact existing-release baseline", () => {
+  assert.match(
+    workflow,
+    /releases\/download\/caatuu-pages-v162\/caatuu-pages-v162\.tar/u
+  );
+  assert.match(workflow, /curl --fail --location --proto '=https' --tlsv1\.2/u);
+  assert.doesNotMatch(workflow, /releases\/(?:latest|download\/latest)/iu);
+  assert.doesNotMatch(workflow, /publish-public-debug|gradlew|assemble(?:Debug|Release)|bundle(?:Debug|Release)/iu);
 });

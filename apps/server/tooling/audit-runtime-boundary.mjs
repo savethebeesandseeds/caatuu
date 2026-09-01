@@ -83,6 +83,32 @@ function assert(condition, message) {
   if (!condition) fail(message);
 }
 
+function composeServiceBlock(source, serviceName) {
+  const lines = source.replaceAll("\r\n", "\n").split("\n");
+  const servicesStart = lines.indexOf("services:");
+  assert(servicesStart >= 0, "Compose must define services");
+  if (servicesStart < 0) return "";
+  const servicesEnd = lines.findIndex(
+    (line, index) => index > servicesStart && line.length > 0 && !line.startsWith(" "),
+  );
+  const serviceStart = lines.indexOf(`  ${serviceName}:`, servicesStart + 1);
+  assert(
+    serviceStart > servicesStart && (servicesEnd === -1 || serviceStart < servicesEnd),
+    `${serviceName} service must exist under Compose services`,
+  );
+  if (serviceStart <= servicesStart || (servicesEnd !== -1 && serviceStart >= servicesEnd)) {
+    return "";
+  }
+  let serviceEnd = serviceStart + 1;
+  while (
+    serviceEnd < lines.length
+    && (lines[serviceEnd].length === 0 || lines[serviceEnd].startsWith("    "))
+  ) {
+    serviceEnd += 1;
+  }
+  return lines.slice(serviceStart, serviceEnd).join("\n");
+}
+
 function note(message) {
   console.log(`ok - ${message}`);
 }
@@ -1746,6 +1772,7 @@ function auditAndroidSource() {
   const serverRun = readFileSync(serverRunPath, "utf8");
   const productionRuntimeRoutes = runtimeRoutes.split("#[cfg(test)]", 1)[0];
   const compose = readFileSync(composePath, "utf8");
+  const tunnelService = composeServiceBlock(compose, "caatuu-tunnel");
   const phoneDebugCompose = readFileSync(phoneDebugComposePath, "utf8");
   const termuxInstall = readFileSync(termuxInstallPath, "utf8");
   const androidVersions = readFileSync(androidVersionsPath, "utf8");
@@ -1805,9 +1832,10 @@ function auditAndroidSource() {
   assert(bridge.includes("val dictionaryFile = dictionaryManager.ensureDatabase"), "Android initial setup should download and verify the full dictionary");
   assert(bridge.includes('.put("dictionary", dictionaryStatus)'), "Android setup status should include the required dictionary artifact");
   assert(bridge.includes('.put("artifactKind", "dictionary-database")'), "Android setup events should identify the dictionary artifact");
-  assert(productActivity.includes("NativeProviderConfiguration.fromGenerated"), "Android product wiring should load generated native-provider declarations");
-  assert(productActivity.includes("BuildConfig.CAATUU_EMBEDDING_CATALOG_ASSET"), "Android product wiring should consume the generated embedding catalog path");
-  assert(productActivity.includes("BuildConfig.CAATUU_DICTIONARY_CATALOG_ASSET"), "Android product wiring should consume the generated dictionary catalog path");
+  assert(productActivity.includes("BundledCourseRegistry.load"), "Android product wiring should load the generated course bundle");
+  assert(productActivity.includes("BuildConfig.CAATUU_COURSE_BUNDLE_ASSET"), "Android product wiring should consume the generated course-bundle path");
+  assert(productActivity.includes("NativeProviderConfiguration.fromBundled(course.nativeProviders)"), "Android product wiring should load each course's bundled native-provider declarations");
+  assert(productActivity.includes("providers.requireMatches(course.capabilities, course.targetLanguage.speechLocale)"), "Android product wiring should validate provider declarations against each course boundary");
   assert(productActivity.includes("catalogAssetPath = provider.catalogAsset"), "Android product wiring should pass declared provider catalogs to native managers");
   assert(productActivity.includes("dictionaryManager = dictionaryManager"), "Android should wire the configured native dictionary manager into the bridge");
   assert(staticAssetManager.includes('SETUP_ASSET_MANIFEST = "setup-assets.json"'), "Android StaticAssetManager should read the shared setup manifest");
@@ -1985,8 +2013,10 @@ function auditAndroidSource() {
   assert(compose.includes('BIND_ADDR: "0.0.0.0"'), "Compose should explicitly bind the server inside its container network");
   assert(compose.includes("verify-embedding-runtime.mjs"), "Compose should verify shared embedding hashes before starting the runtime");
   assert(compose.includes("exec /usr/local/bin/caatuu-runtime"), "Compose should start the runtime only after shared embedding verification succeeds");
-  assert(compose.includes("TCP-LISTEN:7979,reuseaddr,fork TCP:host.docker.internal:7979"), "shared tunnel should preserve its existing Minerals origin forward");
-  assert(compose.includes('wait -n "$${forward_pid}" "$${shared_forward_pid}" "$${tunnel_pid}"'), "tunnel service should exit when any forwarding process stops");
+  assert(!tunnelService.includes("TCP-LISTEN:7979"), "Caatuu tunnel must not expose the retired Minerals origin forward");
+  assert(!tunnelService.includes("shared_forward_pid"), "Caatuu tunnel must not retain retired shared-forward process state");
+  assert(!tunnelService.includes("host.docker.internal:host-gateway"), "Caatuu tunnel must not retain the retired Minerals host gateway");
+  assert(tunnelService.includes('wait -n "$${forward_pid}" "$${tunnel_pid}" "$${watchdog_pid}"'), "tunnel service should exit when its Caatuu forward, connector, or watchdog stops");
   assert(phoneDebugCompose.includes('ENABLE_ANDROID_DEBUG_DOWNLOADS: "1"'), "phone-debug Compose override should explicitly enable debug routes");
   assert(phoneDebugCompose.includes("CAATUU_PHONE_DEBUG_BIND:?"), "phone-debug Compose override should require an explicit LAN bind address");
   assert(!termuxInstall.includes("caatuu.waajacu.com/android/caatuu-debug"), "Termux helper should not assume debug artifacts are available on the public stable host");

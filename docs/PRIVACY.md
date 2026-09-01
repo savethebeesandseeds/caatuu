@@ -1,6 +1,6 @@
 # Caatuu development-preview privacy notice
 
-Last updated: 1 August 2026
+Last updated: 1 September 2026
 
 Caatuu is currently a development preview, not a governed public beta. It is
 operated by the individual maintainer publishing the project under the Waajacu
@@ -21,15 +21,15 @@ maintainer. Enabling general diagnostic delivery still requires a separate
 implementation and privacy review; retaining a report on the device does not
 authorize its later transmission.
 
-Dictionary-gap observations use a separate, narrowly scoped maintenance
-channel. When Word World cannot find a usable English meaning for a selected
-Czech word, it stores a report in a dedicated device outbox and automatically
-tries `POST /cz/api/dictionary/gaps` when the server is available. The outbox is
-kept in browser storage, including the Android app's private WebView storage,
-and accepts at most 128 pending observations. It removes an item only after the
-server positively acknowledges that it was stored. Failed, interrupted, or
-offline attempts remain on the device for a later retry. Clearing site data or
-uninstalling the Android app removes pending local observations.
+Dictionary-gap observations are local-only in the Pages-hosted web product.
+The fixed Android release 162 has no dictionary-gap delivery bridge and keeps
+its observations in a dedicated device outbox. Older full-development builds
+use a legacy default URL under `https://caatuu.waajacu.com` and may continue to
+attempt delivery. After the Pages cutover, GitHub Pages has no handler for
+`POST /cz/api/dictionary/gaps`: such attempts fail, nothing is accepted or
+stored, and pending observations remain on the device. Deliberate local API
+tests require an explicit trusted-development-server override. Clearing site
+data or uninstalling the Android app removes pending local observations.
 
 The report protocol is `caatuu.dictionary-gap-report.v1`. In addition to that
 schema discriminator, it carries exactly these six observation fields:
@@ -46,14 +46,14 @@ identifier, client timestamp, URL, device information, or retry metadata. As
 with every web request, the hosting infrastructure can still receive ordinary
 connection data described below.
 
-The server validates and deduplicates accepted observations and stores them in
-a private, server-side ledger. It adds server-generated first-seen and
-last-seen timestamps, plus the ledger's update timestamp. There is no public
-GET or in-app export for this ledger. In the current development preview,
-server records are retained until the maintainer periodically reviews,
-archives, or deletes them; an automatic deletion schedule has not yet been
-implemented. The ledger exists only to identify dictionary coverage work for a
-later reviewed patch and must not be repurposed for user tracking or general
+The current server validates and deduplicates accepted observations in a
+private ledger and adds server receipt timestamps. There is no public GET or
+in-app export. Before DNS is changed to Pages, the exact frozen ledger must be
+copied to a maintainer-controlled private backup and its integrity receipt must
+be verified. It must not be included in Git, the public preservation release,
+or Pages. After the Pages cutover no public route accepts new records. The
+private copy exists only to identify dictionary coverage work for a later
+reviewed patch and must not be repurposed for user tracking or general
 diagnostics.
 
 ## Network and infrastructure data

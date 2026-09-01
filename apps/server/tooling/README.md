@@ -51,11 +51,13 @@ optional tunnel is the deliberate remote-access path.
 
 Compose sets `DICTIONARY_GAP_STORE_PATH` to
 `/var/lib/caatuu/dictionary-gaps/czech-missing-words.v1.json` and mounts the
-ignored host directory `artifacts/dictionary-gaps/` there read-write. The
-client automatically submits its dedicated pending observations to
+ignored host directory `artifacts/dictionary-gaps/` there read-write. A full
+development client can submit its dedicated pending observations to
 `POST /cz/api/dictionary/gaps`; it removes one only after the server confirms
 `{"ok":true,"stored":true}`. The server ledger adds receipt timestamps and
-deduplicates repeat observations before an atomic publish.
+deduplicates repeat observations before an atomic publish. The stable 162
+product and static web profile keep these observations local and do not require
+the route.
 
 The endpoint accepts only the documented six-field dictionary-gap report and
 has no public GET counterpart. Periodic Codex maintenance reads the server file
@@ -64,6 +66,13 @@ observation independently, and authors reviewed changes in the tracked Czech
 dictionary overlay. The ledger is not a replacement for the disabled general
 diagnostic channel; sentence reports remain device-local and
 `/api/bug-report` remains disabled.
+
+The GitHub Pages cutover retires the public POST route. Preserve the ignored
+ledger privately before DNS changes; do not add its contents to Git, Pages, or
+a public GitHub Release. The cutover receipt is 3,309 bytes, 10 records, SHA-256
+`3d5657bfb739f5cdd3db1e7bf0d2161c93efbbfd2cdcca2d05156048a8e9ee3f`.
+After cutover the local runtime may still expose the route for deliberate local
+development/API testing, but no public DNS path reaches it.
 
 ## Repository-only Chinese archive
 
@@ -120,8 +129,12 @@ match the intended split.
 
 ## Cloudflare Tunnel
 
-The public Caatuu URLs and Android in-app update flow depend on Cloudflare
-Tunnel. Local browser testing works without it, but phone updates expect:
+Until public DNS switches to a validated GitHub Pages deployment, the Caatuu
+URLs and Android in-app update flow can use Cloudflare Tunnel. After DNS
+cutover, these exact paths live in Pages; retain the connector configuration
+and token through the minimum 48-hour rollback window, then retire the
+connector only after the remaining gate below passes. Local browser testing
+works without it; installed phone updates expect:
 
 ```text
 https://caatuu.waajacu.com/android/caatuu.json
@@ -180,10 +193,32 @@ remote-configured `http://localhost:9172` origin to the `caatuu:9172` service,
 so recreating the server does not strand the connector in an old network
 namespace.
 
-The current named tunnel also carries `minerals.waajacu.com` with a remote
-`localhost:7979` origin. Compose forwards that listener to host port `7979` so
-the existing Minerals service can still work when it is running. Prefer a
-dedicated Caatuu tunnel token when the Cloudflare configuration is split.
+The Caatuu connector is not a Minerals origin. `minerals.waajacu.com` now
+resolves directly to its GitHub Pages deployment, and the optional Minerals
+administrator remains private on Windows loopback. Compose deliberately has no
+`7979` listener; do not reintroduce one through this connector. Remove the
+obsolete `minerals.waajacu.com -> http://localhost:7979` entry from the named
+tunnel's remote configuration as a separate immediate control-plane action,
+while retaining `caatuu.waajacu.com -> http://localhost:9172` until the Caatuu
+retirement gate below passes. The missing local listener makes the stale route
+fail closed but does not remove that remote configuration.
+
+Do not retire this connector merely because a Pages artifact was generated.
+The final `web-static-pages-cutover` bundle includes the exact stable 162 and
+compatibility 161 Android trees, aliases, and setup closure, but every dynamic
+API is retired publicly. Before removing the connector, publish and verify the
+pinned `caatuu-pages-v162.tar` preservation asset, deploy the complete Pages
+bundle, preserve the dictionary-gap ledger privately, cut the base origin to
+Pages, obtain GitHub's HTTPS certificate, and validate the public site plus all
+retained Android/setup routes with Docker Desktop stopped. Only then remove the
+Compose service and revoke its credential after the minimum 48-hour rollback
+window.
+
+Until that gate passes, `restart: unless-stopped` remains intentional for both
+`caatuu` and `caatuu-tunnel`, because they still own public compatibility
+routes. After the gate passes, remove `caatuu-tunnel` from Compose entirely and
+make `caatuu` an opt-in local-development/APK-test service without an automatic
+restart policy. Merely stopping a retired container is not sufficient.
 
 The runtime serves unknown app routes through
 `apps/launcher/static/not-found.html` with HTTP `404`. This covers bad
