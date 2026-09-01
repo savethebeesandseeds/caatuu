@@ -54,7 +54,7 @@ test("remote diagnostics stay fail-closed while feedback remains device-local", 
   assert.doesNotMatch(runtime, /window\.addEventListener\("online", \(\) => scheduleFeedbackFlush/);
 });
 
-test("general feedback stays local while dictionary gaps use a separate narrow server ledger", () => {
+test("general feedback stays local while the dictionary-gap Pages cutover remains explicit", () => {
   assert.match(runtime, /send: rejectRemoteFeedbackDelivery/);
   assert.match(runtime, /online: \(\) => false/);
   assert.match(runtime, /maxItems: 128/);
@@ -104,11 +104,15 @@ test("general feedback stays local while dictionary gaps use a separate narrow s
   assert.match(androidBridge, /MAX_DICTIONARY_GAP_REPORT_BYTES = 2 \* 1024/);
   assert.match(androidBridge, /responseJson\.optBoolean\("ok", false\) && responseJson\.optBoolean\("stored", false\)/);
   assert.doesNotMatch(androidBridge, /reportDictionaryGap[\s\S]{0,1800}deviceSnapshot|reportDictionaryGap[\s\S]{0,1800}appSnapshot/);
-  assert.match(privacy, /dictionary-gap observations use a separate,\s+narrowly scoped maintenance\s+channel/i);
+  assert.match(privacy, /Dictionary-gap observations are local-only in the Pages-hosted web product/i);
+  assert.match(privacy, /Older full-development builds[\s\S]*may continue to\s+attempt delivery/i);
+  assert.match(privacy, /GitHub Pages has no handler[\s\S]*nothing is accepted or\s+stored/i);
   assert.match(privacy, /exactly these six observation fields/i);
-  assert.match(privacy, /There is no public\s+GET or in-app export/i);
-  assert.match(readiness, /General sentence and diagnostic reports remain device-local/);
-  assert.match(readiness, /private server ledger/);
+  assert.match(privacy, /There is no public\s+GET or\s+in-app export/i);
+  assert.match(privacy, /Before DNS is changed to Pages[\s\S]*maintainer-controlled private backup/i);
+  assert.match(readiness, /PLANNED LOCAL-ONLY CUTOVER/);
+  assert.match(readiness, /Legacy full-development clients may still attempt their compiled public URLs/);
+  assert.match(readiness, /bounded dictionary-gap ledger must be frozen and backed up privately/);
 });
 
 test("development-preview disclosures are linked and avoid a false beta claim", () => {
