@@ -255,11 +255,13 @@ function readyArtifactRow(label, kind) {
 
 function bindReadyHomeDetails(card) {
   const toggle = document.getElementById("setupDetailsToggle");
+  const details = document.getElementById("setupDetails");
   if (!toggle || toggle.dataset.readyHomeBound === "true") return;
   toggle.dataset.readyHomeBound = "true";
   toggle.addEventListener("click", () => {
     const open = !card.classList.contains("details-open");
     card.classList.toggle("details-open", open);
+    if (details) details.hidden = !open;
     toggle.setAttribute("aria-expanded", String(open));
     toggle.textContent = open ? "Hide details" : "Show details";
   });
@@ -281,6 +283,8 @@ function renderReadyCourseHome() {
   card.hidden = false;
   card.classList.add("is-ready");
   card.classList.remove("is-error", "is-updating", "is-app-update-lock", "details-open");
+  const details = document.getElementById("setupDetails");
+  if (details) details.hidden = true;
   setHomeText("#setupTitle", "Caatuu is ready");
   setHomeText("#setupPhase", "Ready");
   setHomeText("#setupMessage", `${courseLabel} is ready.`);
@@ -366,6 +370,11 @@ function applyCapabilityBoundaries() {
   }
 
   const available = new Set(globalThis.CaatuuShellPolicy?.availableGames?.(course) || []);
+  document.querySelectorAll("[data-course-asset]").forEach((image) => {
+    const gameId = String(image.closest("[data-course-game]")?.dataset.courseGame || "");
+    if (gameId && available.has(gameId)) image.setAttribute("src", image.dataset.courseAsset);
+    else image.removeAttribute("src");
+  });
   document.querySelectorAll("[data-train-tab]").forEach((control) => {
     const gameId = String(control.dataset.trainTab || "");
     if (!gameId || gameId === "galaxy") return;
@@ -391,6 +400,13 @@ function applyCapabilityBoundaries() {
 
 async function loadCourseFeatureProviders() {
   const verbs = course.capabilities?.verbs === true;
+  const naturalizationNucleus = globalThis.CaatuuShellPolicy?.gameAvailable?.(course, "naturalization-nucleus") === true;
+  if (naturalizationNucleus) {
+    await Promise.all([
+      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-11"),
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-11")
+    ]);
+  }
   if (verbs) {
     await Promise.all([
       loadStyle("source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1"),
@@ -399,12 +415,12 @@ async function loadCourseFeatureProviders() {
   }
   if (requiresCourseRuntime()) await loadScript("source/shared/runtime.js?v=runtime-41");
   installSharedSpeechRuntime();
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-17");
   if (!verbs) return;
   await loadScript("source/shared/semantic-learning.js?v=semantic-learning-7");
-  await loadScript("source/shared/maintenance-ui.js?v=maintenance-16");
   await loadScript("source/features/setup/setup-progress.js?v=setup-progress-1");
-  await loadScript("source/features/setup/setup.js?v=setup-36");
-  await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-4");
+  await loadScript("source/features/setup/setup.js?v=setup-37");
+  await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-6");
   if (course.capabilities?.dictionary === true) {
     await loadScript("source/features/dictionary/dictionary-full.js?v=full-dictionary-5");
   }
@@ -427,10 +443,10 @@ async function start() {
   setCourseIdentity();
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-7");
+  await import("./word-world-host.mjs?v=word-world-host-9");
   await loadCourseFeatureProviders();
   if (course.capabilities?.verbs !== true) {
-    await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-4");
+    await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-6");
   }
   document.documentElement.dataset.caatuuShellReady = "true";
   await registerCourseServiceWorker();

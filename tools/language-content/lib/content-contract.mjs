@@ -68,7 +68,9 @@ const TARGET_CATALOG_KEYS = [
   "realizations"
 ];
 const REALIZATION_KEYS = ["conceptId", "text", "pronunciation", "tokens"];
-const TOKEN_KEYS = ["surface", "pronunciation", "gloss", "playable"];
+const TOKEN_KEYS = ["surface", "pronunciation", "gloss", "playable", "readingUnits"];
+const TOKEN_REQUIRED_KEYS = ["surface", "pronunciation", "gloss", "playable"];
+const READING_UNIT_KEYS = ["surface", "pronunciation"];
 const PRONUNCIATION_KEYS = ["system", "notation", "languageTag", "reviewed"];
 
 export class LanguageContentError extends Error {
@@ -365,7 +367,14 @@ function validateTokens(realization, label, issues) {
       addIssue(issues, "tokenization.shape", `${tokenLabel} must be an object.`);
       continue;
     }
-    addUnknownAndMissingKeys(issues, token, TOKEN_KEYS, TOKEN_KEYS, tokenLabel, "tokenization.shape");
+    addUnknownAndMissingKeys(
+      issues,
+      token,
+      TOKEN_KEYS,
+      TOKEN_REQUIRED_KEYS,
+      tokenLabel,
+      "tokenization.shape"
+    );
     if (!isNonEmptyString(token.surface)) {
       addIssue(issues, "tokenization.shape", `${tokenLabel}.surface must be non-empty.`);
     }
@@ -381,6 +390,7 @@ function validateTokens(realization, label, issues) {
         addIssue(issues, "playable.invalid", `${tokenLabel} requires surface and gloss to be playable.`);
       }
     }
+    validateReadingUnits(token, tokenLabel, issues);
   }
   if (playableCount === 0) {
     addIssue(issues, "playable.empty", `${label} must expose at least one playable token candidate.`);
@@ -398,6 +408,44 @@ function validateTokens(realization, label, issues) {
       issues,
       "tokenization.coverage",
       `${label} authored token surfaces must concatenate to the target sentence after punctuation and space normalization.`
+    );
+  }
+}
+
+function validateReadingUnits(token, tokenLabel, issues) {
+  if (!Object.hasOwn(token, "readingUnits")) return;
+  if (!Array.isArray(token.readingUnits) || token.readingUnits.length === 0) {
+    addIssue(issues, "reading-units.shape", `${tokenLabel}.readingUnits must be a non-empty array when present.`);
+    return;
+  }
+  for (const [unitIndex, unit] of token.readingUnits.entries()) {
+    const unitLabel = `${tokenLabel}.readingUnits[${unitIndex}]`;
+    if (!isObject(unit)) {
+      addIssue(issues, "reading-units.shape", `${unitLabel} must be an object.`);
+      continue;
+    }
+    addUnknownAndMissingKeys(
+      issues,
+      unit,
+      READING_UNIT_KEYS,
+      READING_UNIT_KEYS,
+      unitLabel,
+      "reading-units.shape"
+    );
+    if (!isNonEmptyString(unit.surface)) {
+      addIssue(issues, "reading-units.shape", `${unitLabel}.surface must be non-empty.`);
+    }
+    validatePronunciation(unit.pronunciation, `${unitLabel}.pronunciation`, issues);
+  }
+  const readingSurface = token.readingUnits
+    .filter(isObject)
+    .map((unit) => typeof unit.surface === "string" ? unit.surface : "")
+    .join("");
+  if (readingSurface !== token.surface) {
+    addIssue(
+      issues,
+      "reading-units.coverage",
+      `${tokenLabel}.readingUnits surfaces must reproduce the authored token surface exactly.`
     );
   }
 }
@@ -440,9 +488,17 @@ function validatePronunciationReviewConsistency(catalog, issues) {
     const entries = [
       [`realizations[${index}].pronunciation`, realization?.pronunciation],
       ...(Array.isArray(realization?.tokens)
-        ? realization.tokens.map((token, tokenIndex) => [
-            `realizations[${index}].tokens[${tokenIndex}].pronunciation`,
-            token?.pronunciation
+        ? realization.tokens.flatMap((token, tokenIndex) => [
+            [
+              `realizations[${index}].tokens[${tokenIndex}].pronunciation`,
+              token?.pronunciation
+            ],
+            ...(Array.isArray(token?.readingUnits)
+              ? token.readingUnits.map((unit, unitIndex) => [
+                  `realizations[${index}].tokens[${tokenIndex}].readingUnits[${unitIndex}].pronunciation`,
+                  unit?.pronunciation
+                ])
+              : [])
           ])
         : [])
     ];

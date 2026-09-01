@@ -3185,6 +3185,16 @@ html[data-theme="light"] .about-update-region .maintenance-row-control:disabled 
   opacity: 1;
 }
 
+.caatuu-toolbar-popover-fixed {
+  position: fixed !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 250 !important;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .maintenance-row-control.is-busy::before {
   width: 12px;
   height: 12px;

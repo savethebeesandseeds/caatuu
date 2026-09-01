@@ -75,8 +75,8 @@ test("Mandarin keeps the shared settings structure while precise unsupported con
   const policy = deriveShellPolicy(mandarin);
 
   assert.deepEqual(policy.primaryNavigation.map(({ id }) => id), ["home", "games", "backpack"]);
-  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net"]);
-  assert.deepEqual(policy.presentedGames, ["campaign", "verb-lab", "word-net", "memory-moon"]);
+  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net", "naturalization-nucleus"]);
+  assert.deepEqual(policy.presentedGames, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "memory-moon"]);
   assert.deepEqual(policy.settingsSections, ["items", "progress", "appearance", "course-storage", "speech", "ai-model"]);
   assert.equal(policy.gameAvailability["verb-lab"], true);
   assert.equal(mandarin.capabilities.verbs, false, "game availability must not load the legacy Czech provider bundle");
@@ -84,6 +84,7 @@ test("Mandarin keeps the shared settings structure while precise unsupported con
   assert.deepEqual(presentedGameIds(mandarin), policy.presentedGames);
   assert.equal(policy.gameAvailability["case-cosmos"], false);
   assert.equal(policy.gameAvailability["agreement-aurora"], false);
+  assert.equal(policy.gameAvailability["naturalization-nucleus"], true);
 });
 
 test("Games remains visible when Word World is the only playable game and verbs are disabled", () => {
@@ -128,6 +129,12 @@ test("game lookup is fail-closed for unknown IDs, undeclared games, and missing 
     games: ["case-cosmos"],
     routes: { caseCosmos: "case-cosmos.html" }
   }), true);
+  assert.equal(isGameAvailable("naturalization-nucleus", {
+    capabilities: {},
+    linguisticFeatures: [],
+    games: ["naturalization-nucleus"],
+    routes: {}
+  }), false);
 });
 
 test("course game routes are explicit while capability-only fixtures stay usable", () => {

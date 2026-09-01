@@ -1,5 +1,5 @@
 (() => {
-  const UPDATE_INTENT_KEY = "caatuu-czech.pendingAppUpdate.v1";
+  const UPDATE_INTENT_KEY = "caatuu.pendingAppUpdate.v1";
   const UPDATE_STATUS_FRESH_MS = 3 * 60 * 1000;
   let sharedUpdateController = null;
 
@@ -124,9 +124,6 @@
       });
       if (runtime.env === "android") {
         setVersionNote(versionNode(), status);
-      } else {
-        const node = versionNode();
-        if (node) node.textContent = "Update to the latest version.";
       }
       const browserInstall = document.querySelector("#browserInstallActions");
       if (browserInstall) browserInstall.hidden = runtime.env === "android";

@@ -1322,8 +1322,6 @@
   async function initSetup() {
     const card = $("#nativeSetup");
     if (!card) return;
-    await loadSetupVisualFrames();
-    startStageAnimation();
     card.hidden = false;
     bindNavigationLock();
     setNavigationLocked(true);
@@ -1341,6 +1339,7 @@
         setupMode = "browser";
         if (appUpdateLocked) clearAppUpdateHandoff();
         const status = await runtime.setup.status();
+        if (!status.ready) await loadSetupVisualFrames();
         await renderStatus(status);
         if (!status.ready) await startSetup();
         return;
@@ -1348,6 +1347,7 @@
 
       setupMode = "native";
       const status = await runtime.setup.status();
+      if (!status.ready) await loadSetupVisualFrames();
       await renderStatus(status);
       if (appUpdateLocked) {
         setText("#setupTitle", "Updating Caatuu");

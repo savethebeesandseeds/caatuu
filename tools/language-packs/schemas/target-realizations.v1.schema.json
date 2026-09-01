@@ -148,7 +148,21 @@
         "surface": { "$ref": "#/$defs/nonEmptyString" },
         "pronunciation": { "$ref": "#/$defs/pronunciation" },
         "gloss": { "$ref": "#/$defs/nonEmptyString" },
-        "playable": { "type": "boolean" }
+        "playable": { "type": "boolean" },
+        "readingUnits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/readingUnit" }
+        }
+      }
+    },
+    "readingUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "pronunciation"],
+      "properties": {
+        "surface": { "$ref": "#/$defs/nonEmptyString" },
+        "pronunciation": { "$ref": "#/$defs/pronunciation" }
       }
     },
     "pronunciation": {

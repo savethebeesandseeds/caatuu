@@ -33,8 +33,7 @@ const SHELL = [
   BASE + "/manifest.webmanifest",
   BASE + "/assets/icon-192.png",
   BASE + "/assets/icon-512.png",
-  BASE + "/assets/icon-1024.png",
-  "/assets/aliens/Chinese_Macaw.png"
+  BASE + "/assets/icon-1024.png"
 ];
 
 // --- INSTALL: best-effort precache ---

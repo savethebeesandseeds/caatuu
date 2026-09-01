@@ -15,7 +15,7 @@ const [manager, bridge, filePaths, maintenanceUi, setup] = await Promise.all([
     "../../../../apps/android/app/src/main/res/xml/caatuu_file_paths.xml",
     import.meta.url
   ), "utf8"),
-  readFile(new URL("../../../../apps/languages/czech/static/source/shared/maintenance-ui.js", import.meta.url), "utf8"),
+  readFile(new URL("../../../../apps/language-runtime/static/source/maintenance-ui.js", import.meta.url), "utf8"),
   readFile(new URL("../../../../apps/languages/czech/static/source/features/setup/setup.js", import.meta.url), "utf8")
 ]);
 

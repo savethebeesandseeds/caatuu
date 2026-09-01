@@ -6476,6 +6476,28 @@ html[data-theme="dark"] .verb-match-board {
 
 }
 
+/* Hanzi and pinyin remain legible at the learner-facing Standard size without
+   enlarging English copy or the surrounding controls. */
+html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-glyph {
+  font-size: 1.38em;
+}
+
+html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-notation {
+  font-size: max(0.56em, 0.7rem);
+}
+
+html[data-font-size="largest"] body[data-course-id="zh"] #wordNetTrail .word-net-trail-target {
+  font-size: 1.13rem;
+}
+
+html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-column-heading-cz #verbTargetColumnHeading {
+  font-size: clamp(1.08rem, 1.66vw, 1.21rem);
+}
+
+html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-card-cz .verb-match-card-copy {
+  font-size: clamp(1.38rem, 3.24vw, 1.62rem);
+}
+
 /* Embedded games own their vertical scrolling. Keep the shared shell fixed. */
 body.word-net-active,
 body.embedded-game-active {
@@ -6489,6 +6511,7 @@ body.embedded-game-active > .app-shell {
   min-height: 0;
   padding-bottom: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
 }

@@ -136,13 +136,9 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         .route("/ws", get(retired_root_chinese_backend))
         .merge(bug_report_router(features.bug_reports))
         .nest("/api/v1", retired_root_api_router())
-        // These three URL names predate the repository naming cleanup. Keep
+        // These two URL names predate the repository naming cleanup. Keep
         // them stable for installed clients while the source folders use
         // descriptive, kebab-case names.
-        .nest_service(
-            "/assets/aliens",
-            ServeDir::new(shared_assets.join("language-mascots")),
-        )
         .nest_service(
             "/assets/loading_animation",
             ServeDir::new(shared_assets.join("loading-animation")),

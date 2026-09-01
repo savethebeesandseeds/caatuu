@@ -1600,9 +1600,6 @@ function launcherStaticFileForUrl(url) {
 }
 
 function publicAssetPathForSource(sourcePath) {
-  if (sourcePath.startsWith("assets/language-mascots/")) {
-    return `assets/aliens/${sourcePath.slice("assets/language-mascots/".length)}`;
-  }
   if (sourcePath.startsWith("assets/loading-animation/")) {
     return `assets/loading_animation/${sourcePath.slice("assets/loading-animation/".length)}`;
   }
@@ -1613,9 +1610,6 @@ function publicAssetPathForSource(sourcePath) {
 }
 
 function sourceAssetPathForPublic(publicPath) {
-  if (publicPath.startsWith("assets/aliens/")) {
-    return `assets/language-mascots/${publicPath.slice("assets/aliens/".length)}`;
-  }
   if (publicPath.startsWith("assets/loading_animation/")) {
     return `assets/loading-animation/${publicPath.slice("assets/loading_animation/".length)}`;
   }

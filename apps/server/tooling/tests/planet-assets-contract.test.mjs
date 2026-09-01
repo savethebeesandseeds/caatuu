@@ -6,6 +6,7 @@ import test from "node:test";
 const repoRoot = new URL("../../../../", import.meta.url);
 const launcherRoot = new URL("apps/launcher/static/", repoRoot);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
+const mandarinStaticRoot = new URL("apps/languages/mandarin-simplified/static/", repoRoot);
 const appEntry = new URL("apps/language-runtime/static/app/index.html", repoRoot);
 const planetRoot = new URL("assets/planets/", launcherRoot);
 
@@ -19,39 +20,63 @@ const canonicalAssets = Object.freeze({
   "planet-memory": "memory-moon.png"
 });
 
+const mandarinOnlyAssets = Object.freeze({
+  "planet-naturalization-nucleus": "naturalization-nucleus.png"
+});
+
 const [
   filenames,
   gamesPage,
   chrome,
   serviceWorker,
   setupManifest,
+  mandarinSetupManifest,
   cometPage,
   casePage,
   agreementPage,
   agreementBytes,
   cometBytes,
   campaignBytes,
-  campaignSourceBytes
+  campaignSourceBytes,
+  naturalizationBytes
 ] = await Promise.all([
   readdir(planetRoot),
   readFile(appEntry, "utf8"),
   readFile(new URL("apps/language-runtime/static/source/caatuu-chrome.js", repoRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("setup-assets.json", mandarinStaticRoot), "utf8").then(JSON.parse),
   readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
   readFile(new URL("case-cosmos.html", staticRoot), "utf8"),
   readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
   readFile(new URL("assets/planets/agreement-aurora.png", launcherRoot)),
   readFile(new URL("assets/planets/conjugation-comet.png", launcherRoot)),
   readFile(new URL("assets/planets/campaign-mode.png", launcherRoot)),
-  readFile(new URL("assets/visual-vocabulary/miscellaneous (7).png", launcherRoot))
+  readFile(new URL("assets/visual-vocabulary/miscellaneous (7).png", launcherRoot)),
+  readFile(new URL("assets/planets/naturalization-nucleus.png", launcherRoot))
 ]);
 
 test("planet files use canonical game-based names without generic letter aliases", () => {
   const actualPngs = filenames.filter((name) => name.endsWith(".png")).sort();
-  assert.deepEqual(actualPngs, Object.values(canonicalAssets).sort());
+  assert.deepEqual(actualPngs, [...Object.values(canonicalAssets), ...Object.values(mandarinOnlyAssets)].sort());
   assert.ok(actualPngs.every((name) => !/^planet_[A-D]\.png$/.test(name)));
   assert.ok(!actualPngs.includes("nebula.png"));
+});
+
+test("Naturalization Nucleus art is delivered only by the Mandarin course", () => {
+  const filename = mandarinOnlyAssets["planet-naturalization-nucleus"];
+  const publicUrl = `/assets/planets/${filename}`;
+  assert.match(gamesPage + chrome, new RegExp(publicUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.ok(mandarinSetupManifest.offline.assets.includes(publicUrl));
+  assert.ok(!setupManifest.offline.assets.includes(publicUrl));
+  assert.equal(
+    mandarinSetupManifest.artifacts.find(({ key }) => key === "planet-naturalization-nucleus")?.url,
+    publicUrl
+  );
+  assert.equal(
+    createHash("sha256").update(naturalizationBytes).digest("hex"),
+    "ac7954074fc337d42d3f1610f55c7f5e60dff722a6d9d0794972a13737d105cd"
+  );
 });
 
 test("navigation, offline caching, pages, and setup delivery share those names", () => {
@@ -77,7 +102,7 @@ test("the generated Agreement Aurora runtime image is the reviewed RGBA artifact
   assert.equal(agreementBytes[25], 6);
   assert.equal(
     createHash("sha256").update(agreementBytes).digest("hex"),
-    "abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6"
+    "5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966"
   );
 });
 

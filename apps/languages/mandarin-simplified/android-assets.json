@@ -22,9 +22,13 @@
     "source/shared/course-profile.js",
     "sw.js",
     "data/embeddings/catalog.json",
+    "data/games/naturalization-nucleus/challenges.json",
     "data/games/verb-nebula/core-vocabulary.json",
     "data/games/word-world/manifest.json",
-    "data/games/word-world/starter-v1.realizations.json"
+    "data/games/word-world/starter-v1.realizations.json",
+    "data/games/word-world/starter-v1.reading-guides.json",
+    "source/games/naturalization-nucleus/naturalization-nucleus.css",
+    "source/games/naturalization-nucleus/naturalization-nucleus.js"
   ],
   "launcherIconFiles": [
     "china_flag.png"
@@ -32,6 +36,6 @@
   "policy": {
     "includeOnlyAllowlistedFiles": true,
     "llmAssetsAllowed": false,
-    "targetPronunciationMetadataAllowed": false
+    "targetPronunciationMetadataAllowed": true
   }
 }

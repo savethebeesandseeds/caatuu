@@ -34,152 +34,7155 @@
       "conceptId": "ww.greeting.hello",
       "text": "你好！",
       "tokens": [
-        { "surface": "你好", "gloss": "hello", "playable": true }
+        {
+          "surface": "你好",
+          "gloss": "hello",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.greeting.thanks",
       "text": "谢谢你。",
       "tokens": [
-        { "surface": "谢谢", "gloss": "thank", "playable": true },
-        { "surface": "你", "gloss": "you", "playable": true }
+        {
+          "surface": "谢谢",
+          "gloss": "thank",
+          "playable": true
+        },
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.greeting.goodbye",
       "text": "再见！",
       "tokens": [
-        { "surface": "再见", "gloss": "goodbye", "playable": true }
+        {
+          "surface": "再见",
+          "gloss": "goodbye",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.identity.name",
       "text": "我叫林。",
       "tokens": [
-        { "surface": "我", "gloss": "I; me", "playable": true },
-        { "surface": "叫", "gloss": "be called", "playable": true },
-        { "surface": "林", "gloss": "Lin (name)", "playable": false }
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "叫",
+          "gloss": "be called",
+          "playable": true
+        },
+        {
+          "surface": "林",
+          "gloss": "Lin (name)",
+          "playable": false
+        }
       ]
     },
     {
       "conceptId": "ww.identity.student",
       "text": "我是学生。",
       "tokens": [
-        { "surface": "我", "gloss": "I; me", "playable": true },
-        { "surface": "是", "gloss": "to be", "playable": true },
-        { "surface": "学生", "gloss": "student", "playable": true }
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "学生",
+          "gloss": "student",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.object.book",
       "text": "这是一本书。",
       "tokens": [
-        { "surface": "这", "gloss": "this", "playable": true },
-        { "surface": "是", "gloss": "to be", "playable": true },
-        { "surface": "一", "gloss": "one", "playable": true },
-        { "surface": "本", "gloss": "measure word for books", "playable": true },
-        { "surface": "书", "gloss": "book", "playable": true }
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.animal.cat",
       "text": "那是一只猫。",
       "tokens": [
-        { "surface": "那", "gloss": "that", "playable": true },
-        { "surface": "是", "gloss": "to be", "playable": true },
-        { "surface": "一", "gloss": "one", "playable": true },
-        { "surface": "只", "gloss": "measure word for animals", "playable": true },
-        { "surface": "猫", "gloss": "cat", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.location.cat-under-table",
-      "text": "猫在桌子下面。",
-      "tokens": [
-        { "surface": "猫", "gloss": "cat", "playable": true },
-        { "surface": "在", "gloss": "be at", "playable": true },
-        { "surface": "桌子", "gloss": "table", "playable": true },
-        { "surface": "下面", "gloss": "under; below", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.preference.tea",
-      "text": "我喜欢喝茶。",
-      "tokens": [
-        { "surface": "我", "gloss": "I; me", "playable": true },
-        { "surface": "喜欢", "gloss": "like", "playable": true },
-        { "surface": "喝", "gloss": "drink", "playable": true },
-        { "surface": "茶", "gloss": "tea", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.action.drink-water",
-      "text": "她每天喝水。",
-      "tokens": [
-        { "surface": "她", "gloss": "she; her", "playable": true },
-        { "surface": "每天", "gloss": "every day", "playable": true },
-        { "surface": "喝", "gloss": "drink", "playable": true },
-        { "surface": "水", "gloss": "water", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.action.read-book",
-      "text": "他在看书。",
-      "tokens": [
-        { "surface": "他", "gloss": "he; him", "playable": true },
-        { "surface": "在", "gloss": "in the process of", "playable": true },
-        { "surface": "看", "gloss": "read; look at", "playable": true },
-        { "surface": "书", "gloss": "book", "playable": true }
+        {
+          "surface": "那",
+          "gloss": "that",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "只",
+          "gloss": "measure word for animals",
+          "playable": true
+        },
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.weather.cold-today",
       "text": "今天很冷。",
       "tokens": [
-        { "surface": "今天", "gloss": "today", "playable": true },
-        { "surface": "很", "gloss": "very; linking adverb", "playable": true },
-        { "surface": "冷", "gloss": "cold", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.possession.two-friends",
-      "text": "我有两个朋友。",
-      "tokens": [
-        { "surface": "我", "gloss": "I; me", "playable": true },
-        { "surface": "有", "gloss": "have", "playable": true },
-        { "surface": "两", "gloss": "two", "playable": true },
-        { "surface": "个", "gloss": "general measure word", "playable": true },
-        { "surface": "朋友", "gloss": "friend", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.question.go-to-park",
-      "text": "你想去公园吗？",
-      "tokens": [
-        { "surface": "你", "gloss": "you", "playable": true },
-        { "surface": "想", "gloss": "want; would like", "playable": true },
-        { "surface": "去", "gloss": "go", "playable": true },
-        { "surface": "公园", "gloss": "park", "playable": true },
-        { "surface": "吗", "gloss": "yes-no question particle", "playable": true }
-      ]
-    },
-    {
-      "conceptId": "ww.request.speak-slower",
-      "text": "请慢一点说。",
-      "tokens": [
-        { "surface": "请", "gloss": "please", "playable": true },
-        { "surface": "慢", "gloss": "slow", "playable": true },
-        { "surface": "一点", "gloss": "a little", "playable": true },
-        { "surface": "说", "gloss": "speak; say", "playable": true }
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "冷",
+          "gloss": "cold",
+          "playable": true
+        }
       ]
     },
     {
       "conceptId": "ww.comprehension.not-understand",
       "text": "我不明白。",
       "tokens": [
-        { "surface": "我", "gloss": "I; me", "playable": true },
-        { "surface": "不", "gloss": "not", "playable": true },
-        { "surface": "明白", "gloss": "understand", "playable": true }
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "不",
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "明白",
+          "gloss": "understand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.good-morning",
+      "text": "早上好！",
+      "tokens": [
+        {
+          "surface": "早上",
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.good-evening",
+      "text": "晚上好！",
+      "tokens": [
+        {
+          "surface": "晚上",
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.seven-to-ten",
+      "text": "七，八，九，十。",
+      "tokens": [
+        {
+          "surface": "七",
+          "gloss": "seven",
+          "playable": true
+        },
+        {
+          "surface": "八",
+          "gloss": "eight",
+          "playable": true
+        },
+        {
+          "surface": "九",
+          "gloss": "nine",
+          "playable": true
+        },
+        {
+          "surface": "十",
+          "gloss": "ten",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.welcome",
+      "text": "不客气。",
+      "tokens": [
+        {
+          "surface": "不",
+          "gloss": "not (before fourth tone)",
+          "playable": true
+        },
+        {
+          "surface": "客气",
+          "gloss": "polite",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.how-are-you",
+      "text": "你好吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.i-am-well",
+      "text": "我很好。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.your-name",
+      "text": "你叫什么名字？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "叫",
+          "gloss": "be called",
+          "playable": true
+        },
+        {
+          "surface": "什么",
+          "gloss": "what",
+          "playable": true
+        },
+        {
+          "surface": "名字",
+          "gloss": "name",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.my-friend",
+      "text": "他是我的朋友。",
+      "tokens": [
+        {
+          "surface": "他",
+          "gloss": "he; him",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "朋友",
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.my-teacher",
+      "text": "她是我的老师。",
+      "tokens": [
+        {
+          "surface": "她",
+          "gloss": "she; her",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "老师",
+          "gloss": "teacher",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.together",
+      "text": "我们是一家人。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "一家人",
+          "gloss": "a family",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.mother",
+      "text": "这是我妈妈。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "妈妈",
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.father",
+      "text": "那是我爸爸。",
+      "tokens": [
+        {
+          "surface": "那",
+          "gloss": "that",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "爸爸",
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.speak-chinese",
+      "text": "我会说中文。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "说",
+          "gloss": "speak",
+          "playable": true
+        },
+        {
+          "surface": "中文",
+          "gloss": "Chinese language",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.listen",
+      "text": "请听。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "听",
+          "gloss": "listen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.look",
+      "text": "请看。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.read",
+      "text": "请读。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "读",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.write",
+      "text": "请写。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "写",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.learn-pinyin",
+      "text": "我在学拼音。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "ongoing action marker",
+          "playable": true
+        },
+        {
+          "surface": "学",
+          "gloss": "learn; study",
+          "playable": true
+        },
+        {
+          "surface": "拼音",
+          "gloss": "pinyin",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.easy-word",
+      "text": "这个词很简单。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "词",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "简单",
+          "gloss": "simple; easy",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.one-to-six",
+      "text": "一，二，三，四，五，六。",
+      "tokens": [
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "二",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "三",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "四",
+          "gloss": "four",
+          "playable": true
+        },
+        {
+          "surface": "五",
+          "gloss": "five",
+          "playable": true
+        },
+        {
+          "surface": "六",
+          "gloss": "six",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.two-books",
+      "text": "我有两本书。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "两",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.three-apples",
+      "text": "这里有三个苹果。",
+      "tokens": [
+        {
+          "surface": "这里",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "there are",
+          "playable": true
+        },
+        {
+          "surface": "三",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "个",
+          "gloss": "general measure word",
+          "playable": true
+        },
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.what-time",
+      "text": "现在几点？",
+      "tokens": [
+        {
+          "surface": "现在",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "几点",
+          "gloss": "what time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.monday",
+      "text": "今天是星期一。",
+      "tokens": [
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "星期一",
+          "gloss": "Monday",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.tuesday",
+      "text": "明天是星期二。",
+      "tokens": [
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "星期二",
+          "gloss": "Tuesday",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.rice",
+      "text": "我喜欢吃米饭。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        },
+        {
+          "surface": "米饭",
+          "gloss": "cooked rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.drink.water",
+      "text": "请喝水。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.want-school",
+      "text": "我想去学校。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "想",
+          "gloss": "want to",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go to",
+          "playable": true
+        },
+        {
+          "surface": "学校",
+          "gloss": "school",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.big-apple",
+      "text": "苹果很大。",
+      "tokens": [
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "大",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.animal.small-cat",
+      "text": "猫很小。",
+      "tokens": [
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "小",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.my-home",
+      "text": "这是我的家。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "家",
+          "gloss": "home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.book-on-table",
+      "text": "书在桌子上。",
+      "tokens": [
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be located",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cat-under-chair",
+      "text": "猫在椅子下面。",
+      "tokens": [
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be located",
+          "playable": true
+        },
+        {
+          "surface": "椅子",
+          "gloss": "chair",
+          "playable": true
+        },
+        {
+          "surface": "下面",
+          "gloss": "under",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.open-door",
+      "text": "门开着。",
+      "tokens": [
+        {
+          "surface": "门",
+          "gloss": "door",
+          "playable": true
+        },
+        {
+          "surface": "开着",
+          "gloss": "be open",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.closed-window",
+      "text": "窗户关着。",
+      "tokens": [
+        {
+          "surface": "窗户",
+          "gloss": "window",
+          "playable": true
+        },
+        {
+          "surface": "关着",
+          "gloss": "be closed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.rain-today",
+      "text": "今天下雨。",
+      "tokens": [
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "下雨",
+          "gloss": "rain",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.teacher-arrived",
+      "text": "老师来了。",
+      "tokens": [
+        {
+          "surface": "老师",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "arrive",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.get-up",
+      "text": "我早上起床。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "早上",
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "起床",
+          "gloss": "get up",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.go-home",
+      "text": "我晚上回家。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "晚上",
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "回家",
+          "gloss": "go home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.sit-down",
+      "text": "请坐。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.see-you-tomorrow",
+      "text": "再见，明天见！",
+      "tokens": [
+        {
+          "surface": "再见",
+          "gloss": "goodbye",
+          "playable": true
+        },
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "见",
+          "gloss": "see; meet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.what-is-this",
+      "text": "这是什么？",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "什么",
+          "gloss": "what",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.who-is-that",
+      "text": "那个人是谁？",
+      "tokens": [
+        {
+          "surface": "那",
+          "gloss": "that",
+          "playable": true
+        },
+        {
+          "surface": "个",
+          "gloss": "general measure word",
+          "playable": true
+        },
+        {
+          "surface": "人",
+          "gloss": "person",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "谁",
+          "gloss": "who",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.where-are-you",
+      "text": "你现在在哪里？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "现在",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "哪里",
+          "gloss": "where",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.when-come",
+      "text": "你什么时候来？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "什么时候",
+          "gloss": "when",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.why-chinese",
+      "text": "你为什么学中文？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "为什么",
+          "gloss": "why",
+          "playable": true
+        },
+        {
+          "surface": "学",
+          "gloss": "learn; study",
+          "playable": true
+        },
+        {
+          "surface": "中文",
+          "gloss": "Chinese language",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.how-say-word",
+      "text": "这个词怎么说？",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "词",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "怎么",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "说",
+          "gloss": "speak; say",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.communication.say-again",
+      "text": "你可以再说一次吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "再说",
+          "gloss": "say again",
+          "playable": true
+        },
+        {
+          "surface": "一次",
+          "gloss": "one time",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.request.speak-slower",
+      "text": "请慢点说。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "慢",
+          "gloss": "slow",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "说",
+          "gloss": "speak; say",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.comprehension.understand-now",
+      "text": "我现在明白了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "现在",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "明白",
+          "gloss": "understand",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.one-more",
+      "text": "我还有一个问题。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "还",
+          "gloss": "still; also",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "一个",
+          "gloss": "one; a",
+          "playable": true
+        },
+        {
+          "surface": "问题",
+          "gloss": "question; problem",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.seven-wake",
+      "text": "我七点起床。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "七",
+          "gloss": "seven",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "起床",
+          "gloss": "get up",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.brush-teeth",
+      "text": "我早上刷牙。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "早上",
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "刷牙",
+          "gloss": "brush teeth",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.home-breakfast",
+      "text": "我在家吃早饭。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "家",
+          "gloss": "home; family",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        },
+        {
+          "surface": "早饭",
+          "gloss": "breakfast",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.school-eight",
+      "text": "我八点去学校。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "八",
+          "gloss": "eight",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "学校",
+          "gloss": "school",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.afternoon-home",
+      "text": "我下午回家。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "下午",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "回家",
+          "gloss": "go home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.homework-after-dinner",
+      "text": "我晚饭后做作业。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "晚饭",
+          "gloss": "dinner",
+          "playable": true
+        },
+        {
+          "surface": "后",
+          "gloss": "after; behind",
+          "playable": true
+        },
+        {
+          "surface": "做",
+          "gloss": "do; make",
+          "playable": true
+        },
+        {
+          "surface": "作业",
+          "gloss": "homework",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.read-before-sleep",
+      "text": "我睡觉前看书。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "睡觉",
+          "gloss": "sleep",
+          "playable": true
+        },
+        {
+          "surface": "前",
+          "gloss": "before; front",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look; read",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.room-is-clean",
+      "text": "我的房间很干净。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "房间",
+          "gloss": "room",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "干净",
+          "gloss": "clean",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.clothes-in-wardrobe",
+      "text": "衣服在衣柜里。",
+      "tokens": [
+        {
+          "surface": "衣服",
+          "gloss": "clothes",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "衣柜",
+          "gloss": "wardrobe",
+          "playable": true
+        },
+        {
+          "surface": "里",
+          "gloss": "inside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.keys-by-door",
+      "text": "钥匙在门旁边。",
+      "tokens": [
+        {
+          "surface": "钥匙",
+          "gloss": "key",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "门",
+          "gloss": "door",
+          "playable": true
+        },
+        {
+          "surface": "旁边",
+          "gloss": "beside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.textbook-on-desk",
+      "text": "课本在桌子上。",
+      "tokens": [
+        {
+          "surface": "课本",
+          "gloss": "textbook",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on; above",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.open-page-ten",
+      "text": "请翻到第十页。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "翻到",
+          "gloss": "turn to",
+          "playable": true
+        },
+        {
+          "surface": "第十页",
+          "gloss": "page ten",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.read-book",
+      "text": "他在看书。",
+      "tokens": [
+        {
+          "surface": "他",
+          "gloss": "he; him",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "ongoing action marker",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look; read",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.board-writing",
+      "text": "老师在黑板上写字。",
+      "tokens": [
+        {
+          "surface": "老师",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "黑板",
+          "gloss": "blackboard",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on; above",
+          "playable": true
+        },
+        {
+          "surface": "写字",
+          "gloss": "write characters",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.listen-carefully",
+      "text": "学生们认真听。",
+      "tokens": [
+        {
+          "surface": "学生们",
+          "gloss": "students",
+          "playable": true
+        },
+        {
+          "surface": "认真",
+          "gloss": "attentively",
+          "playable": true
+        },
+        {
+          "surface": "听",
+          "gloss": "listen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.practice-characters",
+      "text": "我每天练习汉字。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "每天",
+          "gloss": "every day",
+          "playable": true
+        },
+        {
+          "surface": "练习",
+          "gloss": "practice",
+          "playable": true
+        },
+        {
+          "surface": "汉字",
+          "gloss": "Chinese character",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.hard-question",
+      "text": "这个问题有一点难。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "问题",
+          "gloss": "question; problem",
+          "playable": true
+        },
+        {
+          "surface": "有一点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "难",
+          "gloss": "difficult",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.know-answer",
+      "text": "我知道答案。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "知道",
+          "gloss": "know",
+          "playable": true
+        },
+        {
+          "surface": "答案",
+          "gloss": "answer",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.explain-again",
+      "text": "请再解释一次。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "再",
+          "gloss": "again; another",
+          "playable": true
+        },
+        {
+          "surface": "解释",
+          "gloss": "explain",
+          "playable": true
+        },
+        {
+          "surface": "一次",
+          "gloss": "one time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.study-together",
+      "text": "我们一起学习吧。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "一起",
+          "gloss": "together",
+          "playable": true
+        },
+        {
+          "surface": "学习",
+          "gloss": "study; learn",
+          "playable": true
+        },
+        {
+          "surface": "吧",
+          "gloss": "suggestion particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.office",
+      "text": "我在办公室工作。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "办公室",
+          "gloss": "office",
+          "playable": true
+        },
+        {
+          "surface": "工作",
+          "gloss": "work",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.start-nine",
+      "text": "我九点开始工作。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "九",
+          "gloss": "nine",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "开始",
+          "gloss": "begin",
+          "playable": true
+        },
+        {
+          "surface": "工作",
+          "gloss": "work",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.send-file",
+      "text": "请今天把文件发给我。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "把",
+          "gloss": "disposal marker",
+          "playable": true
+        },
+        {
+          "surface": "文件",
+          "gloss": "file; document",
+          "playable": true
+        },
+        {
+          "surface": "发",
+          "gloss": "send",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.meeting-ten",
+      "text": "会议十点开始。",
+      "tokens": [
+        {
+          "surface": "会议",
+          "gloss": "meeting",
+          "playable": true
+        },
+        {
+          "surface": "十",
+          "gloss": "ten",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "开始",
+          "gloss": "begin",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.task-nearly-done",
+      "text": "这个任务快做完了。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "任务",
+          "gloss": "task",
+          "playable": true
+        },
+        {
+          "surface": "快",
+          "gloss": "soon; fast",
+          "playable": true
+        },
+        {
+          "surface": "做完",
+          "gloss": "finish doing",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.more-time",
+      "text": "我需要更多时间。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "更多",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "时间",
+          "gloss": "time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.check-schedule",
+      "text": "请查看日程。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "查看",
+          "gloss": "look over",
+          "playable": true
+        },
+        {
+          "surface": "日程",
+          "gloss": "schedule",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.coworker-help",
+      "text": "同事帮助我。",
+      "tokens": [
+        {
+          "surface": "同事",
+          "gloss": "coworker",
+          "playable": true
+        },
+        {
+          "surface": "帮助",
+          "gloss": "help",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.short-break",
+      "text": "我们休息一下。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "休息",
+          "gloss": "rest",
+          "playable": true
+        },
+        {
+          "surface": "一下",
+          "gloss": "a little while",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.finish-before-home",
+      "text": "我回家前完成工作。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "回家",
+          "gloss": "go home",
+          "playable": true
+        },
+        {
+          "surface": "前",
+          "gloss": "before; front",
+          "playable": true
+        },
+        {
+          "surface": "完成",
+          "gloss": "complete",
+          "playable": true
+        },
+        {
+          "surface": "工作",
+          "gloss": "work",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.apple-price",
+      "text": "苹果多少钱一斤？",
+      "tokens": [
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        },
+        {
+          "surface": "多少钱",
+          "gloss": "how much money",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "斤",
+          "gloss": "half-kilogram unit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.blue-shirt",
+      "text": "我想买一件蓝色衬衫。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "想",
+          "gloss": "want; think",
+          "playable": true
+        },
+        {
+          "surface": "买",
+          "gloss": "buy",
+          "playable": true
+        },
+        {
+          "surface": "一件",
+          "gloss": "one item of clothing",
+          "playable": true
+        },
+        {
+          "surface": "蓝色",
+          "gloss": "blue",
+          "playable": true
+        },
+        {
+          "surface": "衬衫",
+          "gloss": "shirt",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.right-size",
+      "text": "这个尺码合适。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "尺码",
+          "gloss": "clothing size",
+          "playable": true
+        },
+        {
+          "surface": "合适",
+          "gloss": "suitable; fit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.try-on",
+      "text": "我可以试穿吗？",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "试穿",
+          "gloss": "try on",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.receipt",
+      "text": "请给我小票。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "小票",
+          "gloss": "receipt",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.closes-eight",
+      "text": "商店晚上八点关门。",
+      "tokens": [
+        {
+          "surface": "商店",
+          "gloss": "shop",
+          "playable": true
+        },
+        {
+          "surface": "晚上",
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "八",
+          "gloss": "eight",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "关门",
+          "gloss": "close",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.checkout",
+      "text": "收银台在哪里？",
+      "tokens": [
+        {
+          "surface": "收银台",
+          "gloss": "checkout counter",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "哪里",
+          "gloss": "where",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.pay-card",
+      "text": "我用卡付款。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "卡",
+          "gloss": "card",
+          "playable": true
+        },
+        {
+          "surface": "付款",
+          "gloss": "pay",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.cheaper-book",
+      "text": "这本书更便宜。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "更",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "便宜",
+          "gloss": "inexpensive",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.thanks-help",
+      "text": "谢谢你的帮助。",
+      "tokens": [
+        {
+          "surface": "谢谢",
+          "gloss": "thank",
+          "playable": true
+        },
+        {
+          "surface": "你的",
+          "gloss": "your",
+          "playable": true
+        },
+        {
+          "surface": "帮助",
+          "gloss": "help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.bus-stop-ahead",
+      "text": "公共汽车站在前面。",
+      "tokens": [
+        {
+          "surface": "公共汽车站",
+          "gloss": "bus stop",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "前面",
+          "gloss": "ahead; in front",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.subway-left",
+      "text": "地铁入口在左边。",
+      "tokens": [
+        {
+          "surface": "地铁",
+          "gloss": "subway",
+          "playable": true
+        },
+        {
+          "surface": "入口",
+          "gloss": "entrance",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "左边",
+          "gloss": "left side",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.turn-right",
+      "text": "请在路口右转。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "路口",
+          "gloss": "intersection",
+          "playable": true
+        },
+        {
+          "surface": "右转",
+          "gloss": "turn right",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.walk-five",
+      "text": "一直走五分钟。",
+      "tokens": [
+        {
+          "surface": "一直",
+          "gloss": "straight; continuously",
+          "playable": true
+        },
+        {
+          "surface": "走",
+          "gloss": "walk; go",
+          "playable": true
+        },
+        {
+          "surface": "五",
+          "gloss": "five",
+          "playable": true
+        },
+        {
+          "surface": "分钟",
+          "gloss": "minute",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.which-bus",
+      "text": "去市中心坐哪路车？",
+      "tokens": [
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "市中心",
+          "gloss": "city center",
+          "playable": true
+        },
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        },
+        {
+          "surface": "哪",
+          "gloss": "which",
+          "playable": true
+        },
+        {
+          "surface": "路",
+          "gloss": "route; road",
+          "playable": true
+        },
+        {
+          "surface": "车",
+          "gloss": "vehicle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.train-three",
+      "text": "火车下午三点出发。",
+      "tokens": [
+        {
+          "surface": "火车",
+          "gloss": "train",
+          "playable": true
+        },
+        {
+          "surface": "下午",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "三",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "出发",
+          "gloss": "depart",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.ticket-table",
+      "text": "车票在桌子上。",
+      "tokens": [
+        {
+          "surface": "车票",
+          "gloss": "ticket",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on; above",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.wait-station",
+      "text": "我们在车站等。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "车站",
+          "gloss": "station",
+          "playable": true
+        },
+        {
+          "surface": "等",
+          "gloss": "wait",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.park-near-hotel",
+      "text": "公园离酒店很近。",
+      "tokens": [
+        {
+          "surface": "公园",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "离",
+          "gloss": "be away from",
+          "playable": true
+        },
+        {
+          "surface": "酒店",
+          "gloss": "hotel",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "近",
+          "gloss": "near",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.map-road",
+      "text": "地图上有这条路。",
+      "tokens": [
+        {
+          "surface": "地图",
+          "gloss": "map",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on; above",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "条",
+          "gloss": "measure word for roads",
+          "playable": true
+        },
+        {
+          "surface": "路",
+          "gloss": "route; road",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.tired",
+      "text": "我觉得有一点累。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "觉得",
+          "gloss": "feel; think",
+          "playable": true
+        },
+        {
+          "surface": "有一点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "累",
+          "gloss": "tired",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.rest",
+      "text": "请休息一下。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "休息",
+          "gloss": "rest",
+          "playable": true
+        },
+        {
+          "surface": "一下",
+          "gloss": "a little while",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.drink-water",
+      "text": "她每天喝水。",
+      "tokens": [
+        {
+          "surface": "她",
+          "gloss": "she; her",
+          "playable": true
+        },
+        {
+          "surface": "每天",
+          "gloss": "every day",
+          "playable": true
+        },
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.slept-well",
+      "text": "我昨晚睡得很好。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "昨晚",
+          "gloss": "last night",
+          "playable": true
+        },
+        {
+          "surface": "睡得",
+          "gloss": "sleep (with complement)",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.headache",
+      "text": "我的头有点疼。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "头",
+          "gloss": "head",
+          "playable": true
+        },
+        {
+          "surface": "有点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "疼",
+          "gloss": "hurt; ache",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.see-doctor",
+      "text": "我需要看医生。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look; read",
+          "playable": true
+        },
+        {
+          "surface": "医生",
+          "gloss": "doctor",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.clinic-nearby",
+      "text": "诊所在附近。",
+      "tokens": [
+        {
+          "surface": "诊所",
+          "gloss": "clinic",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "附近",
+          "gloss": "nearby",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.ask-about-medicine",
+      "text": "请问医生这个药怎么吃。",
+      "tokens": [
+        {
+          "surface": "请问",
+          "gloss": "excuse me; may I ask",
+          "playable": true
+        },
+        {
+          "surface": "医生",
+          "gloss": "doctor",
+          "playable": true
+        },
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "药",
+          "gloss": "medicine",
+          "playable": true
+        },
+        {
+          "surface": "怎么",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.walk-health",
+      "text": "散步对身体很好。",
+      "tokens": [
+        {
+          "surface": "散步",
+          "gloss": "take a walk",
+          "playable": true
+        },
+        {
+          "surface": "对",
+          "gloss": "for; toward",
+          "playable": true
+        },
+        {
+          "surface": "身体",
+          "gloss": "body; health",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.better-now",
+      "text": "我现在好多了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "现在",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "好多了",
+          "gloss": "much better",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.music",
+      "text": "我喜欢听音乐。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "听",
+          "gloss": "listen",
+          "playable": true
+        },
+        {
+          "surface": "音乐",
+          "gloss": "music",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.piano",
+      "text": "她会弹钢琴。",
+      "tokens": [
+        {
+          "surface": "她",
+          "gloss": "she; her",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "弹",
+          "gloss": "play a stringed instrument",
+          "playable": true
+        },
+        {
+          "surface": "钢琴",
+          "gloss": "piano",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.drawing",
+      "text": "我周末喜欢画画。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "周末",
+          "gloss": "weekend",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "画画",
+          "gloss": "draw pictures",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.football",
+      "text": "我弟弟喜欢踢足球。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "弟弟",
+          "gloss": "younger brother",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "踢",
+          "gloss": "kick; play",
+          "playable": true
+        },
+        {
+          "surface": "足球",
+          "gloss": "football",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.quiet-library",
+      "text": "图书馆很安静。",
+      "tokens": [
+        {
+          "surface": "图书馆",
+          "gloss": "library",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "安静",
+          "gloss": "quiet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.museum-open",
+      "text": "博物馆今天开放。",
+      "tokens": [
+        {
+          "surface": "博物馆",
+          "gloss": "museum",
+          "playable": true
+        },
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "开放",
+          "gloss": "open to visitors",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.tall-trees",
+      "text": "山上的树很高。",
+      "tokens": [
+        {
+          "surface": "山上",
+          "gloss": "on the mountain",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "树",
+          "gloss": "tree",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "高",
+          "gloss": "tall; high",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.park-flowers",
+      "text": "公园里的花开了。",
+      "tokens": [
+        {
+          "surface": "公园",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "里的",
+          "gloss": "inside; in",
+          "playable": true
+        },
+        {
+          "surface": "花",
+          "gloss": "flower",
+          "playable": true
+        },
+        {
+          "surface": "开了",
+          "gloss": "have bloomed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.flying-bird",
+      "text": "鸟在天上飞。",
+      "tokens": [
+        {
+          "surface": "鸟",
+          "gloss": "bird",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "天上",
+          "gloss": "in the sky",
+          "playable": true
+        },
+        {
+          "surface": "飞",
+          "gloss": "fly",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.blue-sea",
+      "text": "今天的大海很蓝。",
+      "tokens": [
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "大海",
+          "gloss": "sea",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "蓝",
+          "gloss": "blue",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.phone-table",
+      "text": "我的手机在桌子上。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "手机",
+          "gloss": "mobile phone",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        },
+        {
+          "surface": "上",
+          "gloss": "on; above",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.charge-phone",
+      "text": "请给手机充电。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "手机",
+          "gloss": "mobile phone",
+          "playable": true
+        },
+        {
+          "surface": "充电",
+          "gloss": "charge a device",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.slow-computer",
+      "text": "电脑启动得很慢。",
+      "tokens": [
+        {
+          "surface": "电脑",
+          "gloss": "computer",
+          "playable": true
+        },
+        {
+          "surface": "启动",
+          "gloss": "start up",
+          "playable": true
+        },
+        {
+          "surface": "得",
+          "gloss": "complement particle",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "慢",
+          "gloss": "slow",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.send-message",
+      "text": "请给我发消息。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "发",
+          "gloss": "send",
+          "playable": true
+        },
+        {
+          "surface": "消息",
+          "gloss": "message",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.received-email",
+      "text": "我收到邮件了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "收到",
+          "gloss": "receive",
+          "playable": true
+        },
+        {
+          "surface": "邮件",
+          "gloss": "email",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.network-works",
+      "text": "网络现在可以用了。",
+      "tokens": [
+        {
+          "surface": "网络",
+          "gloss": "network",
+          "playable": true
+        },
+        {
+          "surface": "现在",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.open-camera",
+      "text": "请打开相机。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "打开",
+          "gloss": "open",
+          "playable": true
+        },
+        {
+          "surface": "相机",
+          "gloss": "camera",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.volume-high",
+      "text": "声音太大了。",
+      "tokens": [
+        {
+          "surface": "声音",
+          "gloss": "sound; volume",
+          "playable": true
+        },
+        {
+          "surface": "太",
+          "gloss": "too; very",
+          "playable": true
+        },
+        {
+          "surface": "大",
+          "gloss": "big",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.save-file",
+      "text": "请保存这个文件。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "保存",
+          "gloss": "save",
+          "playable": true
+        },
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "文件",
+          "gloss": "file; document",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.call-grandmother",
+      "text": "我们给奶奶打电话吧。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "奶奶",
+          "gloss": "grandmother",
+          "playable": true
+        },
+        {
+          "surface": "打电话",
+          "gloss": "make a phone call",
+          "playable": true
+        },
+        {
+          "surface": "吧",
+          "gloss": "suggestion particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.free-tomorrow",
+      "text": "你明天有空吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "有空",
+          "gloss": "be free",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.go-to-park",
+      "text": "你想去公园吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "想",
+          "gloss": "want; think",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "公园",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.rain-stay-home",
+      "text": "如果下雨，我就在家。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "下雨",
+          "gloss": "rain",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "就",
+          "gloss": "then; precisely",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "家",
+          "gloss": "home; family",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.bus-walking",
+      "text": "坐公共汽车比走路快。",
+      "tokens": [
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        },
+        {
+          "surface": "公共汽车",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "比",
+          "gloss": "compared with",
+          "playable": true
+        },
+        {
+          "surface": "走路",
+          "gloss": "walk",
+          "playable": true
+        },
+        {
+          "surface": "快",
+          "gloss": "soon; fast",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.tea-water",
+      "text": "这杯茶比那杯水热。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "杯",
+          "gloss": "cup; measure word",
+          "playable": true
+        },
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        },
+        {
+          "surface": "比",
+          "gloss": "compared with",
+          "playable": true
+        },
+        {
+          "surface": "那",
+          "gloss": "that",
+          "playable": true
+        },
+        {
+          "surface": "杯",
+          "gloss": "cup; measure word",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "热",
+          "gloss": "hot",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.light-bag",
+      "text": "这个包比较轻。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "包",
+          "gloss": "bag",
+          "playable": true
+        },
+        {
+          "surface": "比较",
+          "gloss": "comparatively",
+          "playable": true
+        },
+        {
+          "surface": "轻",
+          "gloss": "light in weight",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.choice.red-one",
+      "text": "我选择红色的。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "选择",
+          "gloss": "choose",
+          "playable": true
+        },
+        {
+          "surface": "红色",
+          "gloss": "red",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.arrive-early",
+      "text": "我明天会早点到。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "早点",
+          "gloss": "a little earlier",
+          "playable": true
+        },
+        {
+          "surface": "到",
+          "gloss": "arrive",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.library-after-class",
+      "text": "下课后我们去图书馆。",
+      "tokens": [
+        {
+          "surface": "下课",
+          "gloss": "class ends",
+          "playable": true
+        },
+        {
+          "surface": "后",
+          "gloss": "after; behind",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "图书馆",
+          "gloss": "library",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.meet-friends",
+      "text": "周末我想见朋友。",
+      "tokens": [
+        {
+          "surface": "周末",
+          "gloss": "weekend",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "想",
+          "gloss": "want; think",
+          "playable": true
+        },
+        {
+          "surface": "见",
+          "gloss": "see; meet",
+          "playable": true
+        },
+        {
+          "surface": "朋友",
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.ask-post-office",
+      "text": "请问，邮局在哪里？",
+      "tokens": [
+        {
+          "surface": "请问",
+          "gloss": "excuse me; may I ask",
+          "playable": true
+        },
+        {
+          "surface": "邮局",
+          "gloss": "post office",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "哪里",
+          "gloss": "where",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.sorry-late",
+      "text": "对不起，我来晚了。",
+      "tokens": [
+        {
+          "surface": "对不起",
+          "gloss": "sorry",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "来晚了",
+          "gloss": "arrived late",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.no-problem",
+      "text": "没关系。",
+      "tokens": [
+        {
+          "surface": "没关系",
+          "gloss": "no problem",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.line-up",
+      "text": "请排队。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "排队",
+          "gloss": "line up",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.library-quiet",
+      "text": "请在图书馆保持安静。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "图书馆",
+          "gloss": "library",
+          "playable": true
+        },
+        {
+          "surface": "保持",
+          "gloss": "keep; maintain",
+          "playable": true
+        },
+        {
+          "surface": "安静",
+          "gloss": "quiet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.offer-help",
+      "text": "让我来帮助你。",
+      "tokens": [
+        {
+          "surface": "让",
+          "gloss": "let; allow",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        },
+        {
+          "surface": "帮助",
+          "gloss": "help",
+          "playable": true
+        },
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.thanks-wait",
+      "text": "谢谢你等我。",
+      "tokens": [
+        {
+          "surface": "谢谢",
+          "gloss": "thank",
+          "playable": true
+        },
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "等",
+          "gloss": "wait",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.after-you",
+      "text": "您先请。",
+      "tokens": [
+        {
+          "surface": "您",
+          "gloss": "you (polite)",
+          "playable": true
+        },
+        {
+          "surface": "先",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.your-seat",
+      "text": "这个座位是你的。",
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "座位",
+          "gloss": "seat",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
+          "playable": true
+        },
+        {
+          "surface": "你的",
+          "gloss": "your",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.welcome",
+      "text": "欢迎来到我们的社区。",
+      "tokens": [
+        {
+          "surface": "欢迎",
+          "gloss": "welcome",
+          "playable": true
+        },
+        {
+          "surface": "来到",
+          "gloss": "come to",
+          "playable": true
+        },
+        {
+          "surface": "我们的",
+          "gloss": "our",
+          "playable": true
+        },
+        {
+          "surface": "社区",
+          "gloss": "community",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.breakfast-ready",
+      "text": "早饭准备好了。",
+      "tokens": [
+        {
+          "surface": "早饭",
+          "gloss": "breakfast",
+          "playable": true
+        },
+        {
+          "surface": "准备好了",
+          "gloss": "is ready",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.fresh-vegetables",
+      "text": "今天的蔬菜很新鲜。",
+      "tokens": [
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "蔬菜",
+          "gloss": "vegetables",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "新鲜",
+          "gloss": "fresh",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.preference.tea",
+      "text": "我喜欢喝茶。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.not-spicy",
+      "text": "我不吃辣的。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "不",
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        },
+        {
+          "surface": "辣的",
+          "gloss": "spicy food",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.more-rice",
+      "text": "请再给我一碗米饭。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "再",
+          "gloss": "again; another",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "一碗",
+          "gloss": "one bowl",
+          "playable": true
+        },
+        {
+          "surface": "米饭",
+          "gloss": "cooked rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.sunny-afternoon",
+      "text": "今天下午天气晴朗。",
+      "tokens": [
+        {
+          "surface": "今天",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "下午",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "天气",
+          "gloss": "weather",
+          "playable": true
+        },
+        {
+          "surface": "晴朗",
+          "gloss": "sunny; clear",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.strong-wind",
+      "text": "风有一点大。",
+      "tokens": [
+        {
+          "surface": "风",
+          "gloss": "wind",
+          "playable": true
+        },
+        {
+          "surface": "有一点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "大",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.take-umbrella",
+      "text": "出门请带雨伞。",
+      "tokens": [
+        {
+          "surface": "出门",
+          "gloss": "go out",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "带",
+          "gloss": "bring; carry",
+          "playable": true
+        },
+        {
+          "surface": "雨伞",
+          "gloss": "umbrella",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.cold-winter",
+      "text": "这里冬天很冷。",
+      "tokens": [
+        {
+          "surface": "这里",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "冬天",
+          "gloss": "winter",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "冷",
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.spring-flowers",
+      "text": "春天有很多花。",
+      "tokens": [
+        {
+          "surface": "春天",
+          "gloss": "spring",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "很多",
+          "gloss": "many",
+          "playable": true
+        },
+        {
+          "surface": "花",
+          "gloss": "flower",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.sister-university",
+      "text": "我姐姐在大学学习。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "姐姐",
+          "gloss": "older sister",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "大学",
+          "gloss": "university",
+          "playable": true
+        },
+        {
+          "surface": "学习",
+          "gloss": "study; learn",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.brother-ten",
+      "text": "我弟弟今年十岁。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "弟弟",
+          "gloss": "younger brother",
+          "playable": true
+        },
+        {
+          "surface": "今年",
+          "gloss": "this year",
+          "playable": true
+        },
+        {
+          "surface": "十岁",
+          "gloss": "ten years old",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.grandmother-cooks",
+      "text": "奶奶在厨房做饭。",
+      "tokens": [
+        {
+          "surface": "奶奶",
+          "gloss": "grandmother",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "厨房",
+          "gloss": "kitchen",
+          "playable": true
+        },
+        {
+          "surface": "做饭",
+          "gloss": "cook",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.grandfather-paper",
+      "text": "爷爷在看报纸。",
+      "tokens": [
+        {
+          "surface": "爷爷",
+          "gloss": "grandfather",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look; read",
+          "playable": true
+        },
+        {
+          "surface": "报纸",
+          "gloss": "newspaper",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.dinner-together",
+      "text": "我们一家人一起吃晚饭。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "一家人",
+          "gloss": "one family",
+          "playable": true
+        },
+        {
+          "surface": "一起",
+          "gloss": "together",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        },
+        {
+          "surface": "晚饭",
+          "gloss": "dinner",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.friend-name",
+      "text": "我的朋友叫李明。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "朋友",
+          "gloss": "friend",
+          "playable": true
+        },
+        {
+          "surface": "叫",
+          "gloss": "be called",
+          "playable": true
+        },
+        {
+          "surface": "李明",
+          "gloss": "Li Ming (name)",
+          "playable": false
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.kind-teacher",
+      "text": "我们的老师很亲切。",
+      "tokens": [
+        {
+          "surface": "我们的",
+          "gloss": "our",
+          "playable": true
+        },
+        {
+          "surface": "老师",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "亲切",
+          "gloss": "kind; warm",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.possession.two-friends",
+      "text": "我有两个朋友。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "两",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "个",
+          "gloss": "general measure word",
+          "playable": true
+        },
+        {
+          "surface": "朋友",
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.neighbor-dog",
+      "text": "邻居家有一只狗。",
+      "tokens": [
+        {
+          "surface": "邻居家",
+          "gloss": "neighbor's home",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "只",
+          "gloss": "measure word for animals",
+          "playable": true
+        },
+        {
+          "surface": "狗",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.visit-aunt",
+      "text": "周末我们去看阿姨。",
+      "tokens": [
+        {
+          "surface": "周末",
+          "gloss": "weekend",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "看",
+          "gloss": "look; read",
+          "playable": true
+        },
+        {
+          "surface": "阿姨",
+          "gloss": "aunt",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.pen-in-bag",
+      "text": "笔在书包里。",
+      "tokens": [
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "书包",
+          "gloss": "school bag",
+          "playable": true
+        },
+        {
+          "surface": "里",
+          "gloss": "inside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cup-by-computer",
+      "text": "杯子在电脑旁边。",
+      "tokens": [
+        {
+          "surface": "杯子",
+          "gloss": "cup",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "电脑",
+          "gloss": "computer",
+          "playable": true
+        },
+        {
+          "surface": "旁边",
+          "gloss": "beside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cat-under-table",
+      "text": "猫在桌子下面。",
+      "tokens": [
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be located",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        },
+        {
+          "surface": "下面",
+          "gloss": "under",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.restroom-right",
+      "text": "洗手间在厨房右边。",
+      "tokens": [
+        {
+          "surface": "洗手间",
+          "gloss": "restroom",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "厨房",
+          "gloss": "kitchen",
+          "playable": true
+        },
+        {
+          "surface": "右边",
+          "gloss": "right side",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.elevator-hall",
+      "text": "电梯在走廊尽头。",
+      "tokens": [
+        {
+          "surface": "电梯",
+          "gloss": "elevator",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "走廊",
+          "gloss": "hallway",
+          "playable": true
+        },
+        {
+          "surface": "尽头",
+          "gloss": "end",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.light-switch",
+      "text": "灯的开关在门边。",
+      "tokens": [
+        {
+          "surface": "灯",
+          "gloss": "light",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "开关",
+          "gloss": "switch",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "门边",
+          "gloss": "beside the door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.service.package-desk",
+      "text": "包裹在前台。",
+      "tokens": [
+        {
+          "surface": "包裹",
+          "gloss": "package",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "前台",
+          "gloss": "front desk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.bank-across",
+      "text": "银行在路对面。",
+      "tokens": [
+        {
+          "surface": "银行",
+          "gloss": "bank",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "路对面",
+          "gloss": "across the road",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.pharmacy-clinic",
+      "text": "药店在诊所旁边。",
+      "tokens": [
+        {
+          "surface": "药店",
+          "gloss": "pharmacy",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "诊所",
+          "gloss": "clinic",
+          "playable": true
+        },
+        {
+          "surface": "旁边",
+          "gloss": "beside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.market-station",
+      "text": "市场在车站后面。",
+      "tokens": [
+        {
+          "surface": "市场",
+          "gloss": "market",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "车站",
+          "gloss": "station",
+          "playable": true
+        },
+        {
+          "surface": "后面",
+          "gloss": "behind",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.forgot-umbrella",
+      "text": "我忘了带雨伞。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "忘了",
+          "gloss": "forgot",
+          "playable": true
+        },
+        {
+          "surface": "带",
+          "gloss": "bring; carry",
+          "playable": true
+        },
+        {
+          "surface": "雨伞",
+          "gloss": "umbrella",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.bus-late",
+      "text": "公共汽车还没来。",
+      "tokens": [
+        {
+          "surface": "公共汽车",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "还没",
+          "gloss": "not yet",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.missing-key",
+      "text": "我找不到钥匙。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "找不到",
+          "gloss": "cannot find",
+          "playable": true
+        },
+        {
+          "surface": "钥匙",
+          "gloss": "key",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.help-find",
+      "text": "你可以帮我找吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "帮",
+          "gloss": "help",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "找",
+          "gloss": "look for",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.road-closed",
+      "text": "这条路暂时关闭。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "条",
+          "gloss": "measure word for roads",
+          "playable": true
+        },
+        {
+          "surface": "路",
+          "gloss": "route; road",
+          "playable": true
+        },
+        {
+          "surface": "暂时",
+          "gloss": "temporarily",
+          "playable": true
+        },
+        {
+          "surface": "关闭",
+          "gloss": "closed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.other-road",
+      "text": "我们走另一条路吧。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "走",
+          "gloss": "walk; go",
+          "playable": true
+        },
+        {
+          "surface": "另一条",
+          "gloss": "another one",
+          "playable": true
+        },
+        {
+          "surface": "路",
+          "gloss": "route; road",
+          "playable": true
+        },
+        {
+          "surface": "吧",
+          "gloss": "suggestion particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.rain-slow",
+      "text": "因为下雨，车开得很慢。",
+      "tokens": [
+        {
+          "surface": "因为",
+          "gloss": "because",
+          "playable": true
+        },
+        {
+          "surface": "下雨",
+          "gloss": "rain",
+          "playable": true
+        },
+        {
+          "surface": "车",
+          "gloss": "vehicle",
+          "playable": true
+        },
+        {
+          "surface": "开得",
+          "gloss": "move; drive (with complement)",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "慢",
+          "gloss": "slow",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.sunny-picnic",
+      "text": "如果天气好，我们就去野餐。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "天气",
+          "gloss": "weather",
+          "playable": true
+        },
+        {
+          "surface": "好",
+          "gloss": "good; well",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "就",
+          "gloss": "then; precisely",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "野餐",
+          "gloss": "picnic",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.rest-after-task",
+      "text": "做完任务以后，我们会休息。",
+      "tokens": [
+        {
+          "surface": "做完",
+          "gloss": "finish doing",
+          "playable": true
+        },
+        {
+          "surface": "任务",
+          "gloss": "task",
+          "playable": true
+        },
+        {
+          "surface": "以后",
+          "gloss": "afterward",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "休息",
+          "gloss": "rest",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.request.tell-result",
+      "text": "请告诉我结果。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "告诉",
+          "gloss": "tell",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "结果",
+          "gloss": "result",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.two-bedrooms",
+      "text": "这套公寓有两间卧室。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "套",
+          "gloss": "set; measure word",
+          "playable": true
+        },
+        {
+          "surface": "公寓",
+          "gloss": "apartment",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "两间",
+          "gloss": "two rooms",
+          "playable": true
+        },
+        {
+          "surface": "卧室",
+          "gloss": "bedroom",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.rent-utilities",
+      "text": "房租包括水费，但是不包括电费。",
+      "tokens": [
+        {
+          "surface": "房租",
+          "gloss": "rent",
+          "playable": true
+        },
+        {
+          "surface": "包括",
+          "gloss": "include",
+          "playable": true
+        },
+        {
+          "surface": "水费",
+          "gloss": "water charge",
+          "playable": true
+        },
+        {
+          "surface": "但是",
+          "gloss": "but",
+          "playable": true
+        },
+        {
+          "surface": "不包括",
+          "gloss": "not include",
+          "playable": true
+        },
+        {
+          "surface": "电费",
+          "gloss": "electricity charge",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.repair-appointment",
+      "text": "我已经约好了维修时间。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "已经",
+          "gloss": "already",
+          "playable": true
+        },
+        {
+          "surface": "约好了",
+          "gloss": "have arranged",
+          "playable": true
+        },
+        {
+          "surface": "维修",
+          "gloss": "repair; maintenance",
+          "playable": true
+        },
+        {
+          "surface": "时间",
+          "gloss": "time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.heating-contact",
+      "text": "如果暖气不能用，请联系管理员。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "暖气",
+          "gloss": "heating",
+          "playable": true
+        },
+        {
+          "surface": "不能",
+          "gloss": "cannot",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "联系",
+          "gloss": "contact",
+          "playable": true
+        },
+        {
+          "surface": "管理员",
+          "gloss": "manager",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.move-next-month",
+      "text": "我们计划下个月搬家。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "计划",
+          "gloss": "plan",
+          "playable": true
+        },
+        {
+          "surface": "下个月",
+          "gloss": "next month",
+          "playable": true
+        },
+        {
+          "surface": "搬家",
+          "gloss": "move home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.appointment.friday-three",
+      "text": "我的预约在星期五下午三点。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "预约",
+          "gloss": "appointment",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "星期五",
+          "gloss": "Friday",
+          "playable": true
+        },
+        {
+          "surface": "下午",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "三",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.service.identity-document",
+      "text": "请带身份证件到服务窗口。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "带",
+          "gloss": "bring; carry",
+          "playable": true
+        },
+        {
+          "surface": "身份证件",
+          "gloss": "identity document",
+          "playable": true
+        },
+        {
+          "surface": "到",
+          "gloss": "to",
+          "playable": true
+        },
+        {
+          "surface": "服务窗口",
+          "gloss": "service window",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.budget.month-tight",
+      "text": "这个月的预算有一点紧。",
+      "tokens": [
+        {
+          "surface": "这个月",
+          "gloss": "this month",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "预算",
+          "gloss": "budget",
+          "playable": true
+        },
+        {
+          "surface": "有一点",
+          "gloss": "a little",
+          "playable": true
+        },
+        {
+          "surface": "紧",
+          "gloss": "tight",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.budget.compare-prices",
+      "text": "买东西以前，我会先比较价格。",
+      "tokens": [
+        {
+          "surface": "买",
+          "gloss": "buy",
+          "playable": true
+        },
+        {
+          "surface": "东西",
+          "gloss": "things",
+          "playable": true
+        },
+        {
+          "surface": "以前",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "先",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "比较",
+          "gloss": "comparatively",
+          "playable": true
+        },
+        {
+          "surface": "价格",
+          "gloss": "price",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.banking.transfer-complete",
+      "text": "银行转账已经完成了。",
+      "tokens": [
+        {
+          "surface": "银行",
+          "gloss": "bank",
+          "playable": true
+        },
+        {
+          "surface": "转账",
+          "gloss": "bank transfer",
+          "playable": true
+        },
+        {
+          "surface": "已经",
+          "gloss": "already",
+          "playable": true
+        },
+        {
+          "surface": "完成了",
+          "gloss": "has been completed; is complete",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.send-agenda",
+      "text": "开会以前，请把议程发给大家。",
+      "tokens": [
+        {
+          "surface": "开会",
+          "gloss": "hold a meeting",
+          "playable": true
+        },
+        {
+          "surface": "以前",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "把",
+          "gloss": "disposal marker",
+          "playable": true
+        },
+        {
+          "surface": "议程",
+          "gloss": "agenda",
+          "playable": true
+        },
+        {
+          "surface": "发",
+          "gloss": "send",
+          "playable": true
+        },
+        {
+          "surface": "给",
+          "gloss": "give; for",
+          "playable": true
+        },
+        {
+          "surface": "大家",
+          "gloss": "everyone",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.confirm-data",
+      "text": "我需要同事确认这些数据。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "同事",
+          "gloss": "coworker",
+          "playable": true
+        },
+        {
+          "surface": "确认",
+          "gloss": "confirm",
+          "playable": true
+        },
+        {
+          "surface": "这些",
+          "gloss": "these",
+          "playable": true
+        },
+        {
+          "surface": "数据",
+          "gloss": "data",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.notify-change",
+      "text": "如果计划有变化，请通知团队。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "计划",
+          "gloss": "plan",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; there is",
+          "playable": true
+        },
+        {
+          "surface": "变化",
+          "gloss": "change",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "通知",
+          "gloss": "notify",
+          "playable": true
+        },
+        {
+          "surface": "团队",
+          "gloss": "team",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.find-solution",
+      "text": "我们一起找到了问题的解决办法。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "一起",
+          "gloss": "together",
+          "playable": true
+        },
+        {
+          "surface": "找到了",
+          "gloss": "found",
+          "playable": true
+        },
+        {
+          "surface": "问题",
+          "gloss": "question; problem",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "解决办法",
+          "gloss": "solution",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.clearer-chart",
+      "text": "这份报告需要一个更清晰的图表。",
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "份",
+          "gloss": "copy; measure word",
+          "playable": true
+        },
+        {
+          "surface": "报告",
+          "gloss": "report",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "一个",
+          "gloss": "one; a",
+          "playable": true
+        },
+        {
+          "surface": "更",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "清晰",
+          "gloss": "clear",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "图表",
+          "gloss": "chart",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.passport-bag",
+      "text": "我的护照在旅行包里。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "护照",
+          "gloss": "passport",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "旅行包",
+          "gloss": "travel bag",
+          "playable": true
+        },
+        {
+          "surface": "里",
+          "gloss": "inside",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.flight-delay",
+      "text": "航班晚点四十六分钟。",
+      "tokens": [
+        {
+          "surface": "航班",
+          "gloss": "flight",
+          "playable": true
+        },
+        {
+          "surface": "晚点",
+          "gloss": "be delayed",
+          "playable": true
+        },
+        {
+          "surface": "四十六",
+          "gloss": "forty-six",
+          "playable": true
+        },
+        {
+          "surface": "分钟",
+          "gloss": "minute",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.reserve-window",
+      "text": "我在网上预订了靠窗的座位。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "网上",
+          "gloss": "online",
+          "playable": true
+        },
+        {
+          "surface": "预订了",
+          "gloss": "reserved",
+          "playable": true
+        },
+        {
+          "surface": "靠窗",
+          "gloss": "by the window",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "座位",
+          "gloss": "seat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.next-transfer",
+      "text": "我们需要在下一站换车。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "下一站",
+          "gloss": "next station",
+          "playable": true
+        },
+        {
+          "surface": "换车",
+          "gloss": "transfer vehicles",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.missing-luggage",
+      "text": "如果行李没到，请去服务台询问。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "行李",
+          "gloss": "luggage",
+          "playable": true
+        },
+        {
+          "surface": "没到",
+          "gloss": "did not arrive",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "服务台",
+          "gloss": "service desk",
+          "playable": true
+        },
+        {
+          "surface": "询问",
+          "gloss": "ask; inquire",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.strong-password",
+      "text": "请设置一个安全性高的新密码。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "设置",
+          "gloss": "set up",
+          "playable": true
+        },
+        {
+          "surface": "一个",
+          "gloss": "one; a",
+          "playable": true
+        },
+        {
+          "surface": "安全性",
+          "gloss": "security level",
+          "playable": true
+        },
+        {
+          "surface": "高",
+          "gloss": "high",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "新密码",
+          "gloss": "new password",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.no-code-sharing",
+      "text": "不要把验证码告诉别人。",
+      "tokens": [
+        {
+          "surface": "不要",
+          "gloss": "do not",
+          "playable": true
+        },
+        {
+          "surface": "把",
+          "gloss": "disposal marker",
+          "playable": true
+        },
+        {
+          "surface": "验证码",
+          "gloss": "verification code",
+          "playable": true
+        },
+        {
+          "surface": "告诉",
+          "gloss": "tell",
+          "playable": true
+        },
+        {
+          "surface": "别人",
+          "gloss": "other people",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.check-recipient",
+      "text": "发消息以前，请检查收件人。",
+      "tokens": [
+        {
+          "surface": "发",
+          "gloss": "send",
+          "playable": true
+        },
+        {
+          "surface": "消息",
+          "gloss": "message",
+          "playable": true
+        },
+        {
+          "surface": "以前",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "检查",
+          "gloss": "check",
+          "playable": true
+        },
+        {
+          "surface": "收件人",
+          "gloss": "recipient",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.backup-files",
+      "text": "定期备份重要文件。",
+      "tokens": [
+        {
+          "surface": "定期",
+          "gloss": "regularly",
+          "playable": true
+        },
+        {
+          "surface": "备份",
+          "gloss": "back up",
+          "playable": true
+        },
+        {
+          "surface": "重要",
+          "gloss": "important",
+          "playable": true
+        },
+        {
+          "surface": "文件",
+          "gloss": "file; document",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.location-sharing",
+      "text": "不需要时，请关闭位置共享。",
+      "tokens": [
+        {
+          "surface": "不需要",
+          "gloss": "not need",
+          "playable": true
+        },
+        {
+          "surface": "时",
+          "gloss": "when",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "关闭",
+          "gloss": "turn off",
+          "playable": true
+        },
+        {
+          "surface": "位置",
+          "gloss": "location",
+          "playable": true
+        },
+        {
+          "surface": "共享",
+          "gloss": "share",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.sort-materials",
+      "text": "请把纸和塑料分开放。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "把",
+          "gloss": "disposal marker",
+          "playable": true
+        },
+        {
+          "surface": "纸",
+          "gloss": "paper",
+          "playable": true
+        },
+        {
+          "surface": "和",
+          "gloss": "and",
+          "playable": true
+        },
+        {
+          "surface": "塑料",
+          "gloss": "plastic",
+          "playable": true
+        },
+        {
+          "surface": "分开",
+          "gloss": "separate",
+          "playable": true
+        },
+        {
+          "surface": "放",
+          "gloss": "put",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.reusable-bag",
+      "text": "买菜时带上可以重复使用的袋子。",
+      "tokens": [
+        {
+          "surface": "买菜",
+          "gloss": "buy groceries",
+          "playable": true
+        },
+        {
+          "surface": "时",
+          "gloss": "when",
+          "playable": true
+        },
+        {
+          "surface": "带上",
+          "gloss": "bring along",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "重复",
+          "gloss": "repeat",
+          "playable": true
+        },
+        {
+          "surface": "使用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "袋子",
+          "gloss": "bag",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.save-water",
+      "text": "用完水以后，请关好水龙头。",
+      "tokens": [
+        {
+          "surface": "用完",
+          "gloss": "finish using",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "以后",
+          "gloss": "afterward",
+          "playable": true
+        },
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "关好",
+          "gloss": "close securely",
+          "playable": true
+        },
+        {
+          "surface": "水龙头",
+          "gloss": "faucet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.plant-trees",
+      "text": "社区这个周末要种树。",
+      "tokens": [
+        {
+          "surface": "社区",
+          "gloss": "community",
+          "playable": true
+        },
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "周末",
+          "gloss": "weekend",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "will; need",
+          "playable": true
+        },
+        {
+          "surface": "种树",
+          "gloss": "plant trees",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.save-energy",
+      "text": "坐公共汽车可以节约能源。",
+      "tokens": [
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        },
+        {
+          "surface": "公共汽车",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "节约",
+          "gloss": "save; conserve",
+          "playable": true
+        },
+        {
+          "surface": "能源",
+          "gloss": "energy",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.road-work",
+      "text": "因为前面在修路，所以我们早点出发。",
+      "tokens": [
+        {
+          "surface": "因为",
+          "gloss": "because",
+          "playable": true
+        },
+        {
+          "surface": "前面",
+          "gloss": "ahead; in front",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be at; in progress",
+          "playable": true
+        },
+        {
+          "surface": "修路",
+          "gloss": "repair a road",
+          "playable": true
+        },
+        {
+          "surface": "所以",
+          "gloss": "therefore",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "早点",
+          "gloss": "a little earlier",
+          "playable": true
+        },
+        {
+          "surface": "出发",
+          "gloss": "depart",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.finish-help",
+      "text": "如果我先做完，就会帮助同学。",
+      "tokens": [
+        {
+          "surface": "如果",
+          "gloss": "if",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "先",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "做完",
+          "gloss": "finish doing",
+          "playable": true
+        },
+        {
+          "surface": "就",
+          "gloss": "then; precisely",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "帮助",
+          "gloss": "help",
+          "playable": true
+        },
+        {
+          "surface": "同学",
+          "gloss": "classmate",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.rain-museum",
+      "text": "虽然下雨，但是博物馆照常开放。",
+      "tokens": [
+        {
+          "surface": "虽然",
+          "gloss": "although",
+          "playable": true
+        },
+        {
+          "surface": "下雨",
+          "gloss": "rain",
+          "playable": true
+        },
+        {
+          "surface": "但是",
+          "gloss": "but",
+          "playable": true
+        },
+        {
+          "surface": "博物馆",
+          "gloss": "museum",
+          "playable": true
+        },
+        {
+          "surface": "照常",
+          "gloss": "as usual",
+          "playable": true
+        },
+        {
+          "surface": "开放",
+          "gloss": "open to visitors",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.time-route",
+      "text": "我们先确认时间，再决定走哪条路。",
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "先",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "确认",
+          "gloss": "confirm",
+          "playable": true
+        },
+        {
+          "surface": "时间",
+          "gloss": "time",
+          "playable": true
+        },
+        {
+          "surface": "再",
+          "gloss": "again; another",
+          "playable": true
+        },
+        {
+          "surface": "决定",
+          "gloss": "decide",
+          "playable": true
+        },
+        {
+          "surface": "走",
+          "gloss": "walk; go",
+          "playable": true
+        },
+        {
+          "surface": "哪条",
+          "gloss": "which route",
+          "playable": true
+        },
+        {
+          "surface": "路",
+          "gloss": "route; road",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.quiet-room",
+      "text": "我选择这个房间，因为这里比较安静。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "选择",
+          "gloss": "choose",
+          "playable": true
+        },
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "房间",
+          "gloss": "room",
+          "playable": true
+        },
+        {
+          "surface": "因为",
+          "gloss": "because",
+          "playable": true
+        },
+        {
+          "surface": "这里",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "比较",
+          "gloss": "comparatively",
+          "playable": true
+        },
+        {
+          "surface": "安静",
+          "gloss": "quiet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.experience.chinese-year",
+      "text": "我学中文一年了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "学",
+          "gloss": "learn; study",
+          "playable": true
+        },
+        {
+          "surface": "中文",
+          "gloss": "Chinese language",
+          "playable": true
+        },
+        {
+          "surface": "一年",
+          "gloss": "one year",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.experience.high-speed-train",
+      "text": "我还没有坐过高铁。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "还没有",
+          "gloss": "have not yet",
+          "playable": true
+        },
+        {
+          "surface": "坐过",
+          "gloss": "have ridden",
+          "playable": true
+        },
+        {
+          "surface": "高铁",
+          "gloss": "high-speed train",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.useful-book",
+      "text": "我觉得这本书很有用。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "觉得",
+          "gloss": "feel; think",
+          "playable": true
+        },
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "有用",
+          "gloss": "useful",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.more-seats",
+      "text": "我认为公园需要更多座位。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "认为",
+          "gloss": "believe; consider",
+          "playable": true
+        },
+        {
+          "surface": "公园",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "更多",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "座位",
+          "gloss": "seat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.convenient-city",
+      "text": "我喜欢这个城市，因为交通很方便。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        },
+        {
+          "surface": "这个",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "城市",
+          "gloss": "city",
+          "playable": true
+        },
+        {
+          "surface": "因为",
+          "gloss": "because",
+          "playable": true
+        },
+        {
+          "surface": "交通",
+          "gloss": "transportation",
+          "playable": true
+        },
+        {
+          "surface": "很",
+          "gloss": "very; linking adverb",
+          "playable": true
+        },
+        {
+          "surface": "方便",
+          "gloss": "convenient",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.card-machine",
+      "text": "我的卡可以用，但是取款机暂停使用。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "卡",
+          "gloss": "card",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "但是",
+          "gloss": "but",
+          "playable": true
+        },
+        {
+          "surface": "取款机",
+          "gloss": "cash machine",
+          "playable": true
+        },
+        {
+          "surface": "暂停使用",
+          "gloss": "temporarily unavailable",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.appointment.reschedule",
+      "text": "我把预约改到明天下午了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "把",
+          "gloss": "disposal marker",
+          "playable": true
+        },
+        {
+          "surface": "预约",
+          "gloss": "appointment",
+          "playable": true
+        },
+        {
+          "surface": "改到",
+          "gloss": "reschedule to",
+          "playable": true
+        },
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "下午",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.repair-arrival",
+      "text": "维修人员明天九点来。",
+      "tokens": [
+        {
+          "surface": "维修人员",
+          "gloss": "repair worker",
+          "playable": true
+        },
+        {
+          "surface": "明天",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "九",
+          "gloss": "nine",
+          "playable": true
+        },
+        {
+          "surface": "点",
+          "gloss": "o'clock",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.delivery.wrong-address",
+      "text": "包裹送到了错误的地址，我已经联系前台。",
+      "tokens": [
+        {
+          "surface": "包裹",
+          "gloss": "package",
+          "playable": true
+        },
+        {
+          "surface": "送到了",
+          "gloss": "was delivered",
+          "playable": true
+        },
+        {
+          "surface": "错误",
+          "gloss": "wrong; mistaken",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "地址",
+          "gloss": "address",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "已经",
+          "gloss": "already",
+          "playable": true
+        },
+        {
+          "surface": "联系",
+          "gloss": "contact",
+          "playable": true
+        },
+        {
+          "surface": "前台",
+          "gloss": "front desk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.borrow-charger",
+      "text": "我忘了带充电器，同事借给我一个。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "忘了",
+          "gloss": "forgot",
+          "playable": true
+        },
+        {
+          "surface": "带",
+          "gloss": "bring; carry",
+          "playable": true
+        },
+        {
+          "surface": "充电器",
+          "gloss": "charger",
+          "playable": true
+        },
+        {
+          "surface": "同事",
+          "gloss": "coworker",
+          "playable": true
+        },
+        {
+          "surface": "借给",
+          "gloss": "lend to",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "一个",
+          "gloss": "one; a",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.ask-meaning",
+      "text": "遇到不认识的词时，我会问它是什么意思。",
+      "tokens": [
+        {
+          "surface": "遇到",
+          "gloss": "encounter",
+          "playable": true
+        },
+        {
+          "surface": "不认识",
+          "gloss": "not recognize",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "词",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "时",
+          "gloss": "when",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "will",
+          "playable": true
+        },
+        {
+          "surface": "问",
+          "gloss": "ask",
+          "playable": true
+        },
+        {
+          "surface": "它",
+          "gloss": "it",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "be; mean",
+          "playable": true
+        },
+        {
+          "surface": "什么意思",
+          "gloss": "what it means",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.word-difference",
+      "text": "你可以解释这两个词的区别吗？",
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "can; may",
+          "playable": true
+        },
+        {
+          "surface": "解释",
+          "gloss": "explain",
+          "playable": true
+        },
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "两个",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "词",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "区别",
+          "gloss": "difference",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.summarize",
+      "text": "我听完以后，会用自己的话总结。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "听完",
+          "gloss": "finish listening",
+          "playable": true
+        },
+        {
+          "surface": "以后",
+          "gloss": "afterward",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "can; know how to",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "自己",
+          "gloss": "oneself",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "话",
+          "gloss": "words; speech",
+          "playable": true
+        },
+        {
+          "surface": "总结",
+          "gloss": "summarize",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.respect-habits",
+      "text": "我尊重不同的生活方式。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "尊重",
+          "gloss": "respect",
+          "playable": true
+        },
+        {
+          "surface": "不同",
+          "gloss": "different",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
+          "playable": true
+        },
+        {
+          "surface": "生活方式",
+          "gloss": "way of life",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.social.listen-before-discussion",
+      "text": "在小组讨论中，我们先听别人的想法。",
+      "tokens": [
+        {
+          "surface": "在",
+          "gloss": "in",
+          "playable": true
+        },
+        {
+          "surface": "小组",
+          "gloss": "group",
+          "playable": true
+        },
+        {
+          "surface": "讨论",
+          "gloss": "discuss",
+          "playable": true
+        },
+        {
+          "surface": "中",
+          "gloss": "during",
+          "playable": true
+        },
+        {
+          "surface": "我们",
+          "gloss": "we; us",
+          "playable": true
+        },
+        {
+          "surface": "先",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "听",
+          "gloss": "listen",
+          "playable": true
+        },
+        {
+          "surface": "别人的",
+          "gloss": "other people's",
+          "playable": true
+        },
+        {
+          "surface": "想法",
+          "gloss": "idea; opinion",
+          "playable": true
+        }
       ]
     }
   ]

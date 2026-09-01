@@ -48,7 +48,6 @@
     "source/shared/child-facing-assets.mjs",
     "source/shared/course-profile.js",
     "source/shared/feedback-outbox.mjs",
-    "source/shared/maintenance-ui.js",
     "source/shared/runtime.js",
     "source/shared/semantic-learning-core.mjs",
     "source/shared/semantic-learning.js",

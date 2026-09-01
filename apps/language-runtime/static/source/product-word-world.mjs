@@ -1,5 +1,6 @@
 import {
   alignWordReconstructionAttempt,
+  buildTokenReconstructionChallenge,
   buildWordReconstructionChallenge,
   cleanTranslation,
   interpretHorizontalSwipe,
@@ -20,7 +21,7 @@ import {
   stripModelEcho,
   tokenizeCzechSentence as tokenizeLegacySentence,
   wordMatchesTarget as legacyWordMatchesTarget
-} from "./word-net-core.mjs?v=word-net-core-19";
+} from "./word-net-core.mjs?v=word-net-core-21";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 
@@ -54,6 +55,8 @@ const LEGACY_HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.
 const RECENT_SENTENCES_STORAGE_KEY = course.storage.wordWorldRecentSentences;
 const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache;
 const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.wordCardPreferences.v1`;
+const TARGET_TEXT_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.targetTextPreferences.v1`;
+const CHALLENGE_PROMPT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.challengePromptMode.v1`;
 const AUDIO_AUTOPLAY_STORAGE_KEY = `${course.storage.namespace}.wordNet.speechAutoplay.v2`;
 const DICTIONARY_GAP_STORAGE_KEY = `${course.storage.namespace}.dictionary.missing.kaikki-cs-en-2026-07-09.v1`;
 const DICTIONARY_GAP_SOURCE_KEY = "kaikki-cs-en-2026-07-09";
@@ -100,6 +103,11 @@ const generationModes = {
   random: { label: "New word" },
   selected: { label: "Selected word" }
 };
+const challengePromptModes = Object.freeze({
+  random: Object.freeze({ label: "Random" }),
+  source: Object.freeze({ label: "Base language" }),
+  target: Object.freeze({ label: "Target language" })
+});
 const contentModes = {
   standard: { label: "Standard", summary: "Curated, guided, and fully offline." },
   generative: { label: "Generative", summary: "Optional local AI for open-ended sentences." }
@@ -131,7 +139,6 @@ export function resolveWordWorldSpeechPace(
 }
 
 const playInstruction = "Use the side arrows or swipe to move between sentences. Tap any word for its meaning.";
-const reconstructionInstruction = "Build the English sentence. Submit, then swipe to continue.";
 const reconstructionFallbackTexts = [
   "I am here.",
   "You are ready.",
@@ -364,6 +371,7 @@ const state = {
   wordLookupController: null,
   wordLookupRequestId: 0,
   wordCardPreferences: loadWordCardPreferences(),
+  targetTextPreferences: loadTargetTextPreferences(),
   audioAutoplay: loadAudioAutoplay(),
   lastAutoplayFingerprint: "",
   currentSentence: "",
@@ -378,6 +386,7 @@ const state = {
   generativeTurnActive: false,
   translationMode: loadTranslationMode(),
   generationMode: loadGenerationMode(),
+  challengePromptMode: loadChallengePromptMode(),
   contentMode: loadContentMode(),
   translationVisible: true,
   translationTimerId: 0,
@@ -953,6 +962,7 @@ function syncDisplaySettingsControl() {
 function closeDisplayMenu({ restoreFocus = false } = {}) {
   const menu = $("#wordNetDisplayMenu");
   const button = $("#wordNetDisplayToggle");
+  window.CaatuuChrome?.releaseToolbarPopover?.(menu);
   if (menu) menu.hidden = true;
   if (button) button.setAttribute("aria-expanded", "false");
   if (restoreFocus) button?.focus({ preventScroll: true });
@@ -968,6 +978,7 @@ function openDisplayMenu() {
   syncDisplaySettingsControl();
   menu.hidden = false;
   button.setAttribute("aria-expanded", "true");
+  window.CaatuuChrome?.constrainToolbarPopover?.(menu);
 }
 
 function toggleDisplayMenu() {
@@ -980,6 +991,7 @@ function toggleDisplayMenu() {
 function closeAudioMenu({ restoreFocus = false } = {}) {
   const menu = $("#wordNetAudioMenu");
   const button = $("#wordNetSound");
+  window.CaatuuChrome?.releaseToolbarPopover?.(menu);
   if (menu) menu.hidden = true;
   if (button) button.setAttribute("aria-expanded", "false");
   if (restoreFocus) button?.focus({ preventScroll: true });
@@ -995,6 +1007,7 @@ function openAudioMenu() {
   syncAudioSettingsControl();
   menu.hidden = false;
   button.setAttribute("aria-expanded", "true");
+  window.CaatuuChrome?.constrainToolbarPopover?.(menu);
   void refreshAudioVoiceOptions();
 }
 
@@ -1354,6 +1367,29 @@ function saveWordCardPreferences() {
   }
 }
 
+function loadTargetTextPreferences(defaults = {}) {
+  const stored = readStoredObject(TARGET_TEXT_PREFERENCES_STORAGE_KEY);
+  return {
+    showGuide: Object.hasOwn(stored, "showGuide")
+      ? stored.showGuide !== false
+      : defaults.showGuide !== false,
+    colorTones: Object.hasOwn(stored, "colorTones")
+      ? stored.colorTones !== false
+      : defaults.colorTones !== false
+  };
+}
+
+function saveTargetTextPreferences() {
+  try {
+    window.localStorage.setItem(
+      TARGET_TEXT_PREFERENCES_STORAGE_KEY,
+      JSON.stringify(state.targetTextPreferences)
+    );
+  } catch (error) {
+    // Target-text preferences remain active for the current session.
+  }
+}
+
 function loadDictionaryGapKeys() {
   const seen = new Set();
   return readStoredArray(DICTIONARY_GAP_STORAGE_KEY)
@@ -1645,8 +1681,18 @@ function localTranslation(sentence, word) {
   return `A sentence with ${english}.`;
 }
 
+function currentReconstructionInstruction(round = state.reconstruction) {
+  const answerSide = round?.answerSide;
+  const answerLabel = answerSide === "target"
+    ? targetLanguageLabel
+    : answerSide === "source"
+      ? String(course.sourceLanguage?.label || "base-language").trim()
+      : "other-language";
+  return `Build the ${answerLabel} sentence. Submit, then swipe to continue.`;
+}
+
 function currentPlayInstruction() {
-  return state.translationMode === "reconstruct" ? reconstructionInstruction : playInstruction;
+  return state.translationMode === "reconstruct" ? currentReconstructionInstruction() : playInstruction;
 }
 
 function syncPlayInstruction() {
@@ -1657,7 +1703,7 @@ function syncPlayInstruction() {
 function setStatus(message, { tone = "muted" } = {}) {
   const status = $("#wordNetStatus");
   const panel = $(".word-net-status-panel");
-  const isRestingInstruction = message === playInstruction || message === reconstructionInstruction;
+  const isRestingInstruction = message === playInstruction || message === currentReconstructionInstruction();
   syncPlayInstruction();
   if (status) {
     status.textContent = isRestingInstruction ? "" : targetLanguageCopy(message);
@@ -1774,6 +1820,16 @@ function loadGenerationMode() {
   return "random";
 }
 
+function loadChallengePromptMode() {
+  try {
+    const value = localStorage.getItem(CHALLENGE_PROMPT_MODE_STORAGE_KEY);
+    if (hasChallengePromptMode(value)) return value;
+  } catch (error) {
+    // Challenge direction remains available for the current session.
+  }
+  return "random";
+}
+
 function loadContentMode() {
   try {
     const value = localStorage.getItem(CONTENT_MODE_STORAGE_KEY);
@@ -1794,6 +1850,10 @@ function isTimedTranslationMode(mode) {
 
 function hasGenerationMode(mode) {
   return Object.prototype.hasOwnProperty.call(generationModes, mode);
+}
+
+function hasChallengePromptMode(mode) {
+  return Object.prototype.hasOwnProperty.call(challengePromptModes, mode);
 }
 
 function generationAvailability() {
@@ -1827,6 +1887,15 @@ function saveGenerationMode() {
     localStorage.setItem(GENERATION_MODE_STORAGE_KEY, state.generationMode);
   } catch (error) {
     // Generation mode remains available for the current session.
+  }
+}
+
+function saveChallengePromptMode() {
+  if (state.guidedRequested) return;
+  try {
+    localStorage.setItem(CHALLENGE_PROMPT_MODE_STORAGE_KEY, state.challengePromptMode);
+  } catch (error) {
+    // Challenge direction remains available for the current session.
   }
 }
 
@@ -1876,6 +1945,17 @@ function toggleWordCardPreference(key) {
   }
 }
 
+function toggleTargetTextPreference(key) {
+  if (!providerContext?.targetTextGuide) return;
+  if (!Object.hasOwn(state.targetTextPreferences, key)) return;
+  state.targetTextPreferences[key] = !state.targetTextPreferences[key];
+  saveTargetTextPreferences();
+  syncTranslationMenu();
+  if (state.currentSentence) renderCzechSentence(state.currentSentence, state.selectedWord);
+  syncWordTranslation();
+  renderReconstruction();
+}
+
 function translationMenuItems() {
   const menu = $("#wordNetTranslationMenu");
   return menu
@@ -1887,6 +1967,7 @@ function translationMenuItems() {
 function closeTranslationMenu({ restoreFocus = false } = {}) {
   const menu = $("#wordNetTranslationMenu");
   const button = $("#wordNetTranslationToggle");
+  window.CaatuuChrome?.releaseToolbarPopover?.(menu);
   if (menu) menu.hidden = true;
   if (button) button.setAttribute("aria-expanded", "false");
   if (restoreFocus) button?.focus({ preventScroll: true });
@@ -1902,6 +1983,7 @@ function openTranslationMenu({ focus = "selected" } = {}) {
   syncTranslationMenu();
   menu.hidden = false;
   button.setAttribute("aria-expanded", "true");
+  window.CaatuuChrome?.constrainToolbarPopover?.(menu);
   const items = translationMenuItems();
   const target = focus === "last"
     ? items.at(-1)
@@ -1953,6 +2035,7 @@ function handleTranslationMenuKeydown(event) {
 function closeGenerationMenu() {
   const menu = $("#wordNetGenerationMenu");
   const button = $("#wordNetGenerationToggle");
+  window.CaatuuChrome?.releaseToolbarPopover?.(menu);
   if (menu) menu.hidden = true;
   if (button) button.setAttribute("aria-expanded", "false");
 }
@@ -1966,6 +2049,7 @@ function toggleGenerationMenu() {
   const nextHidden = !menu.hidden;
   menu.hidden = nextHidden;
   button.setAttribute("aria-expanded", nextHidden ? "false" : "true");
+  if (!nextHidden) window.CaatuuChrome?.constrainToolbarPopover?.(menu);
 }
 
 function syncTranslationMenu() {
@@ -1990,6 +2074,18 @@ function syncTranslationMenu() {
     const key = button.dataset.wordCardSetting;
     button.setAttribute("aria-checked", String(Boolean(state.wordCardPreferences[key])));
     button.disabled = state.busy || guidedWordInteractionLocked();
+  });
+  const guide = providerContext?.targetTextGuide || null;
+  const targetTextSection = $("#wordNetTargetTextSettings");
+  if (targetTextSection) targetTextSection.hidden = !guide;
+  const targetTextLabel = $("#wordNetTargetTextSettingsLabel");
+  if (targetTextLabel && guide) targetTextLabel.textContent = guide.labels.section;
+  document.querySelectorAll("[data-target-text-setting]").forEach((button) => {
+    const key = button.dataset.targetTextSetting;
+    const label = guide?.labels?.[key];
+    if (label) button.textContent = label;
+    button.setAttribute("aria-checked", String(Boolean(state.targetTextPreferences[key])));
+    button.disabled = !guide || state.busy || guidedWordInteractionLocked();
   });
 }
 
@@ -2019,6 +2115,34 @@ function syncGenerationControl() {
       || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
     if (label) label.textContent = generationModes[optionMode]?.label || generationModes.selected.label;
+  });
+  const promptMode = hasChallengePromptMode(state.challengePromptMode)
+    ? state.challengePromptMode
+    : "random";
+  if (promptMode !== state.challengePromptMode) state.challengePromptMode = promptMode;
+  const sourceLabel = String(course.sourceLanguage?.label || "Base language").trim();
+  document.querySelectorAll("[data-challenge-prompt-mode]").forEach((option) => {
+    const optionMode = option.dataset.challengePromptMode;
+    const selected = optionMode === promptMode;
+    option.classList.toggle("is-selected", selected);
+    option.setAttribute("aria-checked", selected ? "true" : "false");
+    option.disabled = state.busy || state.guidedRequested;
+    const label = option.querySelector("[data-challenge-prompt-label]");
+    if (label) {
+      label.textContent = optionMode === "source"
+        ? `${sourceLabel} prompt`
+        : optionMode === "target"
+          ? `${targetLanguageLabel} prompt`
+          : "Random";
+    }
+    const summary = option.querySelector("small");
+    if (summary) {
+      summary.textContent = optionMode === "source"
+        ? `Arrange ${targetLanguageLabel}`
+        : optionMode === "target"
+          ? `Arrange ${sourceLabel}`
+          : `${sourceLabel} or ${targetLanguageLabel}`;
+    }
   });
   syncDiagnostics();
 }
@@ -2277,6 +2401,14 @@ function setGenerationMode(mode) {
   closeGenerationMenu();
 }
 
+function setChallengePromptMode(mode) {
+  if (state.guidedRequested || !hasChallengePromptMode(mode)) return;
+  state.challengePromptMode = mode;
+  saveChallengePromptMode();
+  syncGenerationControl();
+  closeGenerationMenu();
+}
+
 function generateFromConfiguredMode(mode = state.generationMode, { force = false } = {}) {
   if (state.guidedRequested) return;
   if (state.busy) return;
@@ -2452,7 +2584,7 @@ async function showStandardPhrase(selection, {
       void lookupSelectedWord(target);
     }
     if (guidedLifecycle) {
-      setStatus(reconstructionInstruction, { tone: "muted" });
+      setStatus(currentReconstructionInstruction(), { tone: "muted" });
     } else if (selection.fallback) {
       setStatus(`No unused Level ${difficulty} Standard sentence remains for “${selection.requestedWord}”. Showing another guided sentence.`, { tone: "active" });
     } else {
@@ -2553,6 +2685,118 @@ function reconstructionCandidateTexts() {
   });
 }
 
+function preparedTargetRecord(entryId = state.currentEntryId) {
+  return typeof providerContext?.sessionRecord === "function"
+    ? providerContext.sessionRecord(entryId)
+    : null;
+}
+
+function targetReconstructionParts(text, record = preparedTargetRecord()) {
+  const surface = String(text || "").normalize("NFC").trim();
+  if (!surface || typeof providerContext?.segment !== "function") return [];
+  const target = record?.target?.text === surface ? record.target : surface;
+  let segments;
+  try {
+    segments = providerContext.segment(target, { record });
+  } catch (error) {
+    return [];
+  }
+  const preparedTokens = Array.isArray(record?.target?.tokens) ? record.target.tokens : [];
+  let tokenIndex = 0;
+  return (Array.isArray(segments) ? segments : []).flatMap((segment) => {
+    if (segment?.type !== "word") return [];
+    const index = tokenIndex;
+    tokenIndex += 1;
+    const token = preparedTokens[index] || segment;
+    return [{
+      text: String(segment.text || token?.surface || token?.text || "").normalize("NFC").trim(),
+      prepared: { record, token, tokenIndex: index }
+    }];
+  }).filter((part) => part.text);
+}
+
+function reconstructionLayout(text, parts, { defaultSeparator = " " } = {}) {
+  const surface = String(text || "").normalize("NFC").trim();
+  const separators = [];
+  let cursor = 0;
+  for (const part of Array.isArray(parts) ? parts : []) {
+    const token = String(part?.text || "");
+    const index = surface.indexOf(token, cursor);
+    if (!token || index < cursor) {
+      return {
+        separators: (Array.isArray(parts) ? parts : []).map((unused, partIndex) => partIndex ? defaultSeparator : ""),
+        trailing: "",
+        defaultSeparator
+      };
+    }
+    separators.push(surface.slice(cursor, index));
+    cursor = index + token.length;
+  }
+  return { separators, trailing: surface.slice(cursor), defaultSeparator };
+}
+
+function targetReconstructionCandidateParts() {
+  const currentId = String(state.currentEntryId || "");
+  const parts = [];
+  for (const candidate of state.standardProvider?.records || []) {
+    if (String(candidate?.id || "") === currentId) continue;
+    const record = preparedTargetRecord(candidate?.id);
+    parts.push(...targetReconstructionParts(record?.target?.text || candidate?.cs, record));
+    if (parts.length >= 240) break;
+  }
+  if (!parts.length) {
+    for (const entry of state.history.slice(0, 48)) {
+      parts.push(...targetReconstructionParts(entry.sentence, null));
+    }
+  }
+  return parts;
+}
+
+function buildTargetReconstructionChallenge() {
+  const record = preparedTargetRecord();
+  const answerParts = targetReconstructionParts(state.currentSentence, record);
+  if (!answerParts.length) return null;
+  const normalize = (value) => {
+    try {
+      return providerContext?.normalization?.answerKey?.(value, { purpose: "word-world-reconstruction" })
+        || String(value || "").normalize("NFC").trim().toLocaleLowerCase(targetLocale);
+    } catch (error) {
+      return String(value || "").normalize("NFC").trim().toLocaleLowerCase(targetLocale);
+    }
+  };
+  const challenge = buildTokenReconstructionChallenge(
+    answerParts,
+    targetReconstructionCandidateParts(),
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT, normalize }
+  );
+  const defaultSeparator = String(course.targetLanguage?.script || "") === "Hans" ? "" : " ";
+  return {
+    ...challenge,
+    text: state.currentSentence,
+    layout: reconstructionLayout(state.currentSentence, answerParts, { defaultSeparator })
+  };
+}
+
+function buildSourceReconstructionChallenge() {
+  const challenge = buildWordReconstructionChallenge(
+    state.currentTranslation,
+    reconstructionCandidateTexts(),
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT }
+  );
+  return {
+    ...challenge,
+    layout: reconstructionLayout(challenge.text, challenge.answerParts, { defaultSeparator: " " })
+  };
+}
+
+function resolvedChallengePromptSide() {
+  if (state.guidedMode) return "target";
+  if (state.challengePromptMode === "source" || state.challengePromptMode === "target") {
+    return state.challengePromptMode;
+  }
+  return Math.random() < 0.5 ? "source" : "target";
+}
+
 function currentReconstructionKey() {
   const translation = String(state.currentTranslation || "").normalize("NFC").trim();
   if (!translation || !state.currentSentence) return "";
@@ -2579,17 +2823,24 @@ function ensureReconstructionChallenge() {
     return null;
   }
   if (state.reconstruction?.key === key) return state.reconstruction;
-  const challenge = buildWordReconstructionChallenge(
-    state.currentTranslation,
-    reconstructionCandidateTexts(),
-    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT }
-  );
+  let promptSide = resolvedChallengePromptSide();
+  let challenge = promptSide === "source"
+    ? buildTargetReconstructionChallenge()
+    : buildSourceReconstructionChallenge();
+  if (!challenge && promptSide === "source") {
+    promptSide = "target";
+    challenge = buildSourceReconstructionChallenge();
+  }
   if (!challenge.answerTokens.length) {
     state.reconstruction = null;
     return null;
   }
   state.reconstruction = {
     key,
+    promptSide,
+    answerSide: promptSide === "source" ? "target" : "source",
+    promptText: promptSide === "source" ? state.currentTranslation : state.currentSentence,
+    answerText: promptSide === "source" ? state.currentSentence : state.currentTranslation,
     challenge,
     selectedIds: [],
     submitted: false,
@@ -2611,8 +2862,16 @@ function reconstructionSelectedOptions(round) {
 }
 
 function reconstructionSelectedText(round) {
-  const words = reconstructionSelectedOptions(round).map((option) => option.text).join(" ");
-  return `${words}${round.challenge.punctuation || ""}`.trim();
+  const selected = reconstructionSelectedOptions(round);
+  const layout = round.challenge.layout || { separators: [], trailing: "", defaultSeparator: " " };
+  let text = "";
+  selected.forEach((option, index) => {
+    const separator = layout.separators?.[index]
+      ?? (index ? layout.defaultSeparator || " " : "");
+    text += `${separator}${option.text}`;
+  });
+  if (selected.length) text += layout.trailing || "";
+  return text.trim();
 }
 
 function reconstructionTokenButton(option, location, { inAnswer = false } = {}) {
@@ -2621,7 +2880,11 @@ function reconstructionTokenButton(option, location, { inAnswer = false } = {}) 
   button.className = "word-net-reconstruction-token";
   button.dataset.reconstructionOptionId = option.id;
   button.dataset.reconstructionLocation = location;
-  button.textContent = option.text;
+  if (state.reconstruction?.answerSide === "target") {
+    replaceTargetText(button, option.text, option.part?.prepared || null);
+  } else {
+    button.textContent = option.text;
+  }
   button.classList.toggle("is-in-answer", location === "bank" && inAnswer);
   button.disabled = state.busy || guidedWordInteractionLocked() || state.reconstruction?.evidencePending || inAnswer;
   if (location === "answer") {
@@ -2678,12 +2941,52 @@ function animateReconstructionTransfer(id, fromRect, toLocation, { restoreFocus 
     });
 }
 
+function replaceTargetSentence(host, text, record = preparedTargetRecord(), {
+  prefix = "",
+  suffix = ""
+} = {}) {
+  if (!host) return false;
+  const surface = String(text || "").normalize("NFC").trim();
+  const parts = providerContext?.targetTextGuide
+    ? targetReconstructionParts(surface, record)
+    : [];
+  if (!parts.length) {
+    host.classList.remove("has-target-text-guide", "has-target-text-colors");
+    host.textContent = `${prefix}${surface}${suffix}`;
+    return false;
+  }
+  const defaultSeparator = String(course.targetLanguage?.script || "") === "Hans" ? "" : " ";
+  const layout = reconstructionLayout(surface, parts, { defaultSeparator });
+  const fragment = document.createDocumentFragment();
+  if (prefix) fragment.append(document.createTextNode(prefix));
+  let guided = false;
+  parts.forEach((part, index) => {
+    const separator = layout.separators?.[index]
+      ?? (index ? layout.defaultSeparator : "");
+    if (separator) fragment.append(document.createTextNode(separator));
+    const token = document.createElement("span");
+    token.className = "word-net-target-sentence-token";
+    guided = replaceTargetText(token, part.text, part.prepared) || guided;
+    fragment.append(token);
+  });
+  if (layout.trailing) fragment.append(document.createTextNode(layout.trailing));
+  if (suffix) fragment.append(document.createTextNode(suffix));
+  host.classList.toggle("has-target-text-guide", guided && state.targetTextPreferences.showGuide);
+  host.classList.toggle("has-target-text-colors", guided && state.targetTextPreferences.colorTones);
+  host.replaceChildren(fragment);
+  return guided;
+}
+
 function renderReconstructionAttempt(round, host) {
   const selected = reconstructionSelectedOptions(round);
   host.classList.toggle("is-complete-sentence", round.correct);
   if (round.correct) {
     const sentence = round.submittedText || reconstructionSelectedText(round);
-    host.textContent = sentence;
+    if (round.answerSide === "target") replaceTargetSentence(host, sentence);
+    else {
+      host.classList.remove("has-target-text-guide", "has-target-text-colors");
+      host.textContent = sentence;
+    }
     host.removeAttribute("role");
     host.setAttribute("aria-label", `Your answer: ${sentence} Correct.`);
     return;
@@ -2697,18 +3000,25 @@ function renderReconstructionAttempt(round, host) {
   const submitted = document.createElement("span");
   submitted.className = "word-net-reconstruction-result-submitted";
   const spokenFeedback = [];
+  let enteredIndex = 0;
   operations.filter((operation) => operation.entered).forEach((operation) => {
     const token = document.createElement("span");
     const isCorrect = operation.type === "match";
     token.className = `word-net-reconstruction-result-token ${isCorrect ? "is-correct" : "is-wrong"}`;
-    token.textContent = operation.entered;
+    const option = selected[enteredIndex];
+    enteredIndex += 1;
+    if (round.answerSide === "target") {
+      replaceTargetText(token, operation.entered, option?.part?.prepared || null);
+    } else {
+      token.textContent = operation.entered;
+    }
     submitted.append(token);
     spokenFeedback.push(`${operation.entered}: ${isCorrect ? "correct" : "incorrect"}`);
   });
-  if (round.challenge.punctuation) {
+  if (round.challenge.layout?.trailing) {
     const punctuation = document.createElement("span");
     punctuation.className = "word-net-reconstruction-result-punctuation";
-    punctuation.textContent = round.challenge.punctuation;
+    punctuation.textContent = round.challenge.layout.trailing;
     submitted.append(punctuation);
   }
 
@@ -2756,7 +3066,17 @@ function renderReconstructionResult(round, result) {
   const correctText = $("#wordNetReconstructionResultCorrectText");
 
   if (mark) mark.textContent = outcomeContent.mark;
-  if (title) title.textContent = state.currentSentence;
+  const targetRecord = preparedTargetRecord();
+  if (title) {
+    if (round.promptSide === "target") replaceTargetSentence(title, round.promptText, targetRecord);
+    else {
+      title.classList.remove("has-target-text-guide", "has-target-text-colors");
+      title.textContent = round.promptText;
+    }
+    const promptLanguage = round.promptSide === "target" ? course.targetLanguage : course.sourceLanguage;
+    title.lang = String(promptLanguage?.locale || promptLanguage?.id || "");
+    title.dir = promptLanguage?.direction === "rtl" ? "rtl" : "ltr";
+  }
   if (points) {
     points.textContent = outcomeContent.points;
     points.classList.remove("is-xp-awarded");
@@ -2777,7 +3097,18 @@ function renderReconstructionResult(round, result) {
   }
   if (correct && correctText) {
     correct.hidden = outcome === "correct";
-    correctText.textContent = `\u201c${round.challenge.text}\u201d`;
+    if (round.answerSide === "target") {
+      replaceTargetSentence(correctText, round.answerText, targetRecord, {
+        prefix: "\u201c",
+        suffix: "\u201d"
+      });
+    } else {
+      correctText.classList.remove("has-target-text-guide", "has-target-text-colors");
+      correctText.textContent = `\u201c${round.answerText}\u201d`;
+    }
+    const answerLanguage = round.answerSide === "target" ? course.targetLanguage : course.sourceLanguage;
+    correctText.lang = String(answerLanguage?.locale || answerLanguage?.id || "");
+    correctText.dir = answerLanguage?.direction === "rtl" ? "rtl" : "ltr";
   }
 }
 
@@ -2822,6 +3153,51 @@ function syncNextSentenceControl(round = null) {
   syncPreviousSentenceControl(round);
 }
 
+function syncReconstructionPresentation(round = null) {
+  const promptSide = round?.promptSide === "source" ? "source" : "target";
+  const promptLanguage = promptSide === "source" ? course.sourceLanguage : course.targetLanguage;
+  const answerSide = round?.answerSide === "target" ? "target" : "source";
+  const answerLanguage = answerSide === "target" ? course.targetLanguage : course.sourceLanguage;
+  const sentence = $("#wordNetSentence");
+  const phraseSound = $("#wordNetPhraseSound");
+  const root = $("#wordNetReconstruction");
+  const answer = $("#wordNetReconstructionAnswer");
+  const bank = $("#wordNetReconstructionBank");
+  const badge = $("#wordNetReconstructionLanguage");
+  const promptLocale = String(promptLanguage?.locale || promptLanguage?.id || "").trim();
+  const promptDirection = promptLanguage?.direction === "rtl" ? "rtl" : "ltr";
+  const answerLocale = String(answerLanguage?.locale || answerLanguage?.id || "").trim();
+  const answerDirection = answerLanguage?.direction === "rtl" ? "rtl" : "ltr";
+  const answerLabel = String(answerLanguage?.label || "other language").trim();
+
+  if (sentence) {
+    if (promptSide === "source") {
+      sentence.classList.add("is-source-language-prompt");
+      sentence.textContent = round?.promptText || state.currentTranslation;
+    } else if (sentence.classList.contains("is-source-language-prompt")) {
+      sentence.classList.remove("is-source-language-prompt");
+      renderCzechSentence(state.currentSentence, state.selectedWord);
+    }
+    if (promptLocale) sentence.lang = promptLocale;
+    sentence.dir = promptDirection;
+  }
+  if (phraseSound) {
+    phraseSound.hidden = promptSide === "source" || course.capabilities?.speech !== true;
+  }
+  if (root) root.setAttribute("aria-label", `Rebuild the ${answerLabel} sentence`);
+  if (answer) {
+    answer.setAttribute("aria-label", `Your ${answerLabel} sentence`);
+    if (answerLocale) answer.lang = answerLocale;
+    answer.dir = answerDirection;
+  }
+  if (bank) {
+    bank.setAttribute("aria-label", `${answerLabel} word choices`);
+    if (answerLocale) bank.lang = answerLocale;
+    bank.dir = answerDirection;
+  }
+  if (badge) badge.textContent = String(answerLanguage?.shortCode || answerLanguage?.id || "").toUpperCase();
+}
+
 function renderReconstruction() {
   const host = $("#wordNetReconstruction");
   const play = $("#wordNetReconstructionPlay");
@@ -2838,6 +3214,8 @@ function renderReconstruction() {
   syncTranslationMenu();
 
   const round = state.translationMode === "reconstruct" ? ensureReconstructionChallenge() : null;
+  syncReconstructionPresentation(round);
+  syncPlayInstruction();
   const panel = host.closest(".word-net-sentence-panel");
   panel?.classList.toggle("has-reconstruction-actions", Boolean(round && !round.submitted));
   panel?.classList.toggle("has-reconstruction-result", Boolean(round?.submitted));
@@ -2851,11 +3229,20 @@ function renderReconstruction() {
   }
   const selected = reconstructionSelectedOptions(round);
   const selectedIds = new Set(round.selectedIds);
-  const answerNodes = selected.map((option) => reconstructionTokenButton(option, "answer"));
-  if (selected.length && round.challenge.punctuation) {
+  const answerNodes = [];
+  const leading = round.challenge.layout?.separators?.[0] || "";
+  if (selected.length && leading.trim()) {
     const punctuation = document.createElement("span");
     punctuation.className = "word-net-reconstruction-punctuation";
-    punctuation.textContent = round.challenge.punctuation;
+    punctuation.textContent = leading;
+    punctuation.setAttribute("aria-hidden", "true");
+    answerNodes.push(punctuation);
+  }
+  answerNodes.push(...selected.map((option) => reconstructionTokenButton(option, "answer")));
+  if (selected.length && round.challenge.layout?.trailing?.trim()) {
+    const punctuation = document.createElement("span");
+    punctuation.className = "word-net-reconstruction-punctuation";
+    punctuation.textContent = round.challenge.layout.trailing;
     punctuation.setAttribute("aria-hidden", "true");
     answerNodes.push(punctuation);
   }
@@ -3216,7 +3603,11 @@ function syncWordTranslation() {
   panel.hidden = !visible;
   panel.setAttribute("aria-hidden", visible ? "false" : "true");
   panel.classList.toggle("is-loading", visible && state.wordMeaningLoading);
-  wordNode.textContent = visible ? state.selectedWord : "";
+  replaceTargetText(
+    wordNode,
+    visible ? state.selectedWord : "",
+    visible ? preparedTokenForWord(state.selectedWord) : null
+  );
   posNode.textContent = visible && details?.pos && details.pos !== "word" ? details.pos : "";
   meaningNode.textContent = !visible
     ? ""
@@ -3228,6 +3619,54 @@ function syncWordTranslation() {
   metaNode.title = metaNode.textContent;
   syncTranslationMenu();
   syncSpeechControl();
+}
+
+function targetTextUnits(prepared) {
+  if (!prepared || typeof providerContext?.targetTextUnits !== "function") return null;
+  try {
+    return providerContext.targetTextUnits(prepared);
+  } catch (error) {
+    return null;
+  }
+}
+
+function replaceTargetText(host, text, prepared) {
+  if (!host) return false;
+  const surface = String(text || "").normalize("NFC");
+  const units = targetTextUnits(prepared);
+  const validUnits = Array.isArray(units)
+    && units.length > 0
+    && units.every((unit) => String(unit?.surface || "") && String(unit?.notation || ""))
+    && units.map((unit) => String(unit.surface)).join("") === surface;
+  host.classList.toggle("has-target-text-guide", validUnits && state.targetTextPreferences.showGuide);
+  host.classList.toggle("has-target-text-colors", validUnits && state.targetTextPreferences.colorTones);
+  if (!validUnits) {
+    host.textContent = surface;
+    return false;
+  }
+
+  const run = document.createElement("span");
+  run.className = "word-net-target-text";
+  for (const unit of units) {
+    const wrapper = document.createElement(state.targetTextPreferences.showGuide ? "ruby" : "span");
+    wrapper.className = "word-net-target-text-unit";
+    if (state.targetTextPreferences.colorTones) wrapper.dataset.tone = String(unit.tone || 5);
+    const glyph = document.createElement("span");
+    glyph.className = "word-net-target-text-glyph";
+    glyph.textContent = unit.surface;
+    wrapper.append(glyph);
+    if (state.targetTextPreferences.showGuide) {
+      const guide = document.createElement("rt");
+      guide.className = "word-net-target-text-notation";
+      guide.lang = providerContext.targetTextGuide?.languageTag || "";
+      guide.setAttribute("aria-hidden", "true");
+      guide.textContent = unit.notation;
+      wrapper.append(guide);
+    }
+    run.append(wrapper);
+  }
+  host.replaceChildren(run);
+  return true;
 }
 
 function abortWordLookup() {
@@ -3647,13 +4086,26 @@ function renderTrail() {
   const trail = $("#wordNetTrail");
   if (!trail) return;
 
+  const sourceLanguage = providerContext.session.course?.sourceLanguage || {};
+  const targetLanguage = providerContext.session.course?.targetLanguage || {};
+  const sourceLang = String(sourceLanguage.locale || sourceLanguage.id || "").trim();
+  const targetLang = String(targetLanguage.locale || targetLanguage.id || "").trim();
+  const sourceDirection = sourceLanguage.direction === "rtl" ? "rtl" : "ltr";
+  const targetDirection = targetLanguage.direction === "rtl" ? "rtl" : "ltr";
+
   trail.replaceChildren(...state.history.slice(0, 6).map((item) => {
     const li = document.createElement("li");
-    const word = document.createElement("b");
-    const sentence = document.createElement("span");
-    word.textContent = item.word;
-    sentence.textContent = item.sentence;
-    li.append(word, sentence);
+    const base = document.createElement("b");
+    const target = document.createElement("span");
+    base.className = "word-net-trail-base";
+    target.className = "word-net-trail-target";
+    base.textContent = item.en || localTranslation(item.sentence, item.word);
+    target.textContent = item.sentence;
+    if (sourceLang) base.setAttribute("lang", sourceLang);
+    if (targetLang) target.setAttribute("lang", targetLang);
+    base.setAttribute("dir", sourceDirection);
+    target.setAttribute("dir", targetDirection);
+    li.append(base, target);
     return li;
   }));
 }
@@ -4361,6 +4813,10 @@ function renderCzechSentence(
   if (!host) return;
 
   const tokens = segmentedSentence(sentence);
+  const currentRecord = typeof providerContext?.sessionRecord === "function"
+    ? providerContext.sessionRecord(state.currentEntryId)
+    : null;
+  const preparedTokens = Array.isArray(currentRecord?.target?.tokens) ? currentRecord.target.tokens : [];
   if (!tokens.length) {
     const empty = document.createElement("p");
     empty.className = "word-net-empty";
@@ -4399,7 +4855,11 @@ function renderCzechSentence(
     const button = document.createElement("button");
     button.type = "button";
     button.className = "cz-word-token";
-    button.textContent = token.text;
+    replaceTargetText(button, token.text, {
+      record: currentRecord,
+      token: preparedTokens[wordIndex] || token,
+      tokenIndex: wordIndex
+    });
     button.dataset.word = normalizeWord(token.text);
     const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
       && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
@@ -4500,6 +4960,7 @@ function updateHistoryTranslation(sentence, translation) {
   entry.en = String(translation);
   if (!entry.sceneQuery) entry.sceneQuery = String(translation);
   saveHistory();
+  renderTrail();
 }
 
 async function showPreviousSentence() {
@@ -4894,6 +5355,10 @@ function bindUi() {
       toggleWordCardPreference(wordCardOption.dataset.wordCardSetting);
       return;
     }
+    const targetTextOption = event.target.closest("button[data-target-text-setting]");
+    if (targetTextOption) {
+      toggleTargetTextPreference(targetTextOption.dataset.targetTextSetting);
+    }
   });
   $("#wordNetTranslationMenu")?.addEventListener("keydown", handleTranslationMenuKeydown);
   $("#wordNetGenerationToggle")?.addEventListener("click", () => {
@@ -4903,6 +5368,11 @@ function bindUi() {
     toggleGenerationMenu();
   });
   $("#wordNetGenerationMenu")?.addEventListener("click", (event) => {
+    const promptButton = event.target.closest("[data-challenge-prompt-mode]");
+    if (promptButton && !promptButton.disabled) {
+      setChallengePromptMode(promptButton.dataset.challengePromptMode);
+      return;
+    }
     const button = event.target.closest("[data-generation-mode]");
     if (!button || button.disabled) return;
     if (shouldBlockReconstructionAdvance()) return;
@@ -5186,7 +5656,7 @@ function applyTargetContentLanguage(root) {
   const lang = String(target.locale || target.id || "").trim();
   const requestedDirection = String(target.direction || providerContext.adapter?.direction || "ltr").trim();
   const direction = requestedDirection === "rtl" ? "rtl" : "ltr";
-  for (const selector of ["#wordNetSentence", "#wordNetSelectedWord", "#wordNetTrail"]) {
+  for (const selector of ["#wordNetSentence", "#wordNetSelectedWord"]) {
     const node = root.querySelector(selector);
     if (!node) continue;
     if (lang) node.setAttribute("lang", lang);
@@ -5242,11 +5712,13 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
 
   mountRoot = root;
   providerContext = context;
+  state.targetTextPreferences = loadTargetTextPreferences(context.targetTextGuide?.defaults);
   lifecycleOptions = Object.freeze({ ...options });
   mounted = true;
   state.contentMode = loadContentMode();
   if (!hasContentMode(state.contentMode)) state.contentMode = "standard";
   state.generationMode = loadGenerationMode();
+  state.challengePromptMode = loadChallengePromptMode();
   applyTargetLanguageLabels(root);
   applyTargetContentLanguage(root);
   applyWordWorldCapabilities(root);

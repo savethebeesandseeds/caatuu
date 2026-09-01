@@ -333,11 +333,6 @@ body[data-theme="light"]::before{
   line-height:1.04;
   letter-spacing:0;
 }
-.mode-home-art{
-  width:280px;
-  height:280px;
-  object-fit:contain;
-}
 .mode-home-card .mode-index-actions{
   width:100%;
   margin-top:0;
@@ -358,10 +353,6 @@ body[data-theme="light"]::before{
   }
   .mode-home-card h1{
     font-size:2.05rem;
-  }
-  .mode-home-art{
-    width:220px;
-    height:220px;
   }
   .mode-home-card .mode-index-actions{
     gap:5px;

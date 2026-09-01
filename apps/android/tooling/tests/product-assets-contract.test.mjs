@@ -136,7 +136,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     launcherStaticDir,
     outputDir,
   });
-  assert.ok(result.totalBytes < 30_000_000, "the package must keep MiniLM in setup delivery rather than APK payload");
+  assert.ok(result.totalBytes < 32_000_000, "the media-rich package must remain bounded while MiniLM stays in setup delivery");
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));

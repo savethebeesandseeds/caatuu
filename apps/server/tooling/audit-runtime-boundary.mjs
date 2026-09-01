@@ -454,7 +454,7 @@ async function auditHttpRoutes() {
     }
     assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
     assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
-    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-26"');
     const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-7"');
     assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
     assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
@@ -563,7 +563,7 @@ async function auditHttpRoutes() {
 
   const setupAssets = await request("/cz/setup-assets.json");
   assert(setupAssets.status === 200, `/cz/setup-assets.json should return 200, got ${setupAssets.status}`);
-  assert(setupAssets.body.includes("/assets/aliens/Czech_Macaw.png"), "Czech setup assets should use moved Czech_Macaw art");
+  assert(!setupAssets.body.includes("/assets/aliens/"), "Czech setup assets should not retain retired language mascots");
   const czechSetup = parseHttpJson(setupAssets, "Czech setup catalog");
   assert(!czechSetup?.offline?.assets?.some((asset) => /(?:^|\/)(?:word-net\.html|source\/games\/word-world\/(?:word-net\.js|word-net-queue\.mjs))(?:[?#]|$)/u.test(asset)), "Czech offline assets must not retain the legacy Word World page or controller");
 
@@ -585,12 +585,18 @@ async function auditHttpRoutes() {
   ].map(encodeURIComponent).join("/")}`;
 
   for (const [url, label] of [
-    ["/assets/aliens/Czech_Macaw.png", "language mascot alias"],
     [loadingAnimationUrl, "loading animation alias"],
     ["/assets/miscellaneous/burrow-review_062.png", "visual vocabulary alias"]
   ]) {
     const asset = await request(url, { method: "HEAD" });
     assert(asset.status === 200, `${label} should return 200, got ${asset.status}`);
+  }
+  for (const url of [
+    "/assets/aliens/Czech_Macaw.png",
+    "/assets/language-mascots/Czech_Macaw.png"
+  ]) {
+    const retiredMascot = await request(url, { method: "HEAD" });
+    assert(retiredMascot.status === 404, `retired language mascot ${url} should return 404, got ${retiredMascot.status}`);
   }
 
   for (const gameUrl of [
@@ -1168,7 +1174,7 @@ function auditApk() {
     "assets/source/games/conjugation-comet/conjugation-comet.js",
     "assets/source/shared/runtime.js",
     "assets/source/shared/chrome.js",
-    "assets/source/shared/maintenance-ui.js",
+    "assets/language-runtime/static/source/maintenance-ui.js",
     "assets/source/features/setup/setup-progress.js",
     "assets/source/features/setup/setup.js",
     "assets/sw.js",
@@ -1288,7 +1294,8 @@ function auditApk() {
     /^assets\/data\/dictionaries\/.*\.sqlite$/i,
     /^assets\/courses\/[^/]+\/data\/embeddings\/.*\.(?:sqlite|db|wasm|onnx|bin|safetensors)$/i,
     /^assets\/courses\/[^/]+\/data\/dictionaries\/.*\.sqlite$/i,
-    /^assets\/assets\/aliens\/(?:Chinese|English_American|Chinese_Macaw|Czech\.png)/,
+    /^assets\/assets\/aliens\//,
+    /^assets\/assets\/language-mascots\//,
     /^assets\/assets\/icons\/(?:france_flag|germany_flag|japan_flag|spain_flag)\.png$/,
   ];
   for (const entry of entries) {
@@ -1304,7 +1311,7 @@ function auditApk() {
     : [
         "assets/source/games/verb-nebula/app.js",
         "assets/source/features/chat/chat.js",
-        "assets/source/shared/maintenance-ui.js",
+        "assets/language-runtime/static/source/maintenance-ui.js",
         "assets/index.html",
         "assets/source/shared/chrome.js",
         "assets/source/shared/runtime.js"
@@ -1317,7 +1324,7 @@ function auditApk() {
     /device-ai|Device AI|device AI|device_ai|deviceAi/,
     /archive\/chinese/,
     /\/zh\/(?:challenge|secuence|writing)(?=\/|["'`?#\s)]|$)/,
-    /Chinese_Macaw|English_American|Chinese\.png/
+    /\/assets\/aliens\/|\/assets\/language-mascots\/|Chinese_Macaw|English_American|Chinese\.png/
   ];
   for (const pattern of forbiddenSourcePatterns) {
     assert(!pattern.test(source), `APK product shell source contains forbidden pattern ${pattern}`);
@@ -1448,7 +1455,7 @@ function auditRuntimeAdapterBoundary() {
   const sharedRuntimeRoot = join(workspaceRoot, "apps/language-runtime/static");
   const chrome = readFileSync(join(sharedRuntimeRoot, "source/caatuu-chrome.js"), "utf8");
   const chromeCss = readFileSync(join(sharedRuntimeRoot, "styles/caatuu-chrome.css"), "utf8");
-  const maintenanceUi = readFileSync(join(staticRoot, "source/shared/maintenance-ui.js"), "utf8");
+  const maintenanceUi = readFileSync(join(sharedRuntimeRoot, "source/maintenance-ui.js"), "utf8");
   const app = readFileSync(join(sharedRuntimeRoot, "source/caatuu-workspace.js"), "utf8");
   const chat = readFileSync(join(staticRoot, "source/features/chat/chat.js"), "utf8");
   const retiredCourseUiPaths = [
@@ -1480,10 +1487,9 @@ function auditRuntimeAdapterBoundary() {
   assert(chrome.includes("renderBottomNav"), "chrome.js should own shared bottom nav rendering");
   assert(!chrome.includes('id="closeSettings"'), "shared Settings should not require a dedicated close button");
   assert(chrome.includes("advancedLink && panel && !panel.hidden"), "developer links should dismiss Settings even when their URL is already active");
-  assert(chrome.includes('id="refreshBrowserAction">Update</button>'), "browser Settings should expose an explicit Update action");
+  assert(!chrome.includes('id="refreshBrowserAction"'), "Settings should not duplicate the browser freshness action");
   assert(chrome.includes('navigationAction.id !== "openSettings"'), "bottom navigation should dismiss Settings before continuing to another section");
-  assert(chrome.includes("navigator.serviceWorker?.getRegistration"), "browser Update should ask the service worker for current assets before reloading");
-  assert(maintenanceUi.includes("Update to the latest version."), "browser version guidance should match the Update action");
+  assert(chrome.includes("action.dataset.freshnessAction"), "the browser freshness notice should own the browser update action");
   assert(chromeCss.includes("max-height: none"), "the local-artifact license list should show every row without an inner scroller");
   assert(!dictionaryFull.includes('source.textContent = "Wiktionary"'), "dictionary results should not repeat a Wiktionary link on every entry");
   assert(app.includes("CaatuuMaintenanceUi"), "app.js should use the shared maintenance UI helper");
@@ -1666,9 +1672,6 @@ function auditSetupManifest() {
 }
 
 function sourceAssetPathForPublic(publicPath) {
-  if (publicPath.startsWith("assets/aliens/")) {
-    return `assets/language-mascots/${publicPath.slice("assets/aliens/".length)}`;
-  }
   if (publicPath.startsWith("assets/loading_animation/")) {
     return `assets/loading-animation/${publicPath.slice("assets/loading_animation/".length)}`;
   }
@@ -1694,7 +1697,7 @@ function auditAndroidSource() {
   const gradlePath = join(workspaceRoot, "apps/android/app/build.gradle.kts");
   const playManifestPath = join(workspaceRoot, "apps/android/app/src/play/AndroidManifest.xml");
   const canonicalAppPath = join(workspaceRoot, "apps/language-runtime/static/app/index.html");
-  const maintenanceUiPath = join(workspaceRoot, "apps/languages/czech/static/source/shared/maintenance-ui.js");
+  const maintenanceUiPath = join(workspaceRoot, "apps/language-runtime/static/source/maintenance-ui.js");
   const debugBuildPath = join(workspaceRoot, "apps/android/tooling/build-debug-apk.sh");
   const publicDebugPublisherPath = join(workspaceRoot, "apps/android/tooling/publish-public-debug.sh");
   const releaseBuildPath = join(workspaceRoot, "apps/android/tooling/build-release-apk.sh");

@@ -111,7 +111,7 @@ test("the one shared menu exposes active and development courses accessibly", ()
   assert.match(selectorSource, /data-language-selector-option/);
   assert.match(selectorSource, /record\.status === "development"[\s\S]*?option\.rel = "nofollow"/);
   assert.match(selectorSource, /statusLabels\.push\("Preview"\)/);
-  assert.match(selectorSource, /unavailableInNativeShell = isNativeShell\(\) && !current[\s\S]*?aria-disabled/);
+  assert.match(selectorSource, /unavailableInNativeShell = isNativeShell\(\)[\s\S]*?&& !isCourseBundledInNativeShell\(record\.id\)[\s\S]*?aria-disabled/);
   assert.match(selectorSource, /event\.key === "ArrowDown"[\s\S]*?event\.key === "ArrowUp"[\s\S]*?event\.key === "Home"[\s\S]*?event\.key === "End"/);
   assert.match(selectorSource, /event\.key !== "Escape" \|\| !activeLanguageSelectorHost/);
   assert.match(selectorSource, /activeLanguageSelectorHost\.contains\(event\.target\)/);

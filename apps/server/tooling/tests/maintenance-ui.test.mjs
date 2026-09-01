@@ -4,7 +4,7 @@ import { runInNewContext } from "node:vm";
 import test from "node:test";
 
 const source = await readFile(
-  new URL("../../../../apps/languages/czech/static/source/shared/maintenance-ui.js", import.meta.url),
+  new URL("../../../../apps/language-runtime/static/source/maintenance-ui.js", import.meta.url),
   "utf8"
 );
 const runtimeSource = await readFile(
@@ -346,7 +346,7 @@ test("the shared controller announces a single in-flight update check immediatel
   button.dataset = {};
   button.addEventListener = () => {};
   const statusNode = { textContent: "" };
-  const versionNode = { textContent: "Version check pending", dataset: { fallbackVersion: "Version check pending" } };
+  const versionNode = { textContent: "", dataset: {} };
   const browserInstall = { hidden: false };
   context.document = {
     querySelector(selector) {

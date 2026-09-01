@@ -40,6 +40,10 @@ function pinyin(notation) {
   return { system: "pinyin", notation, languageTag: "zh-Latn-pinyin", reviewed: false };
 }
 
+function ipa(notation) {
+  return { system: "ipa", notation, languageTag: "es-Latn", reviewed: false };
+}
+
 function cloneCatalogs() {
   return {
     concepts: structuredClone(concepts),
@@ -62,7 +66,7 @@ function assertFixtureFails(mutate, code, messagePattern) {
   );
 }
 
-test("the two versioned schemas and actual 16-record catalogs validate as a development draft", async () => {
+test("the two versioned schemas and actual 250-record catalogs validate as a development draft", async () => {
   const [conceptSchema, realizationSchema] = await Promise.all([
     readFile(new URL("tools/language-packs/schemas/english-concepts.v1.schema.json", repositoryRoot), "utf8").then(JSON.parse),
     readFile(new URL("tools/language-packs/schemas/target-realizations.v1.schema.json", repositoryRoot), "utf8").then(JSON.parse)
@@ -74,10 +78,17 @@ test("the two versioned schemas and actual 16-record catalogs validate as a deve
   assert.doesNotMatch(JSON.stringify(realizationSchema), /pinyin|Hans|zh-Hans|zh-CN/u);
 
   const prepared = validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
-  assert.equal(prepared.concepts.concepts.length, 16);
-  assert.equal(prepared.realizations.realizations.length, 16);
-  assert.equal(prepared.embeddingInputs.length, 16);
-  assert.equal(prepared.embeddingDocuments.length, 16);
+  assert.equal(prepared.concepts.concepts.length, 250);
+  assert.equal(prepared.realizations.realizations.length, 250);
+  assert.equal(prepared.embeddingInputs.length, 250);
+  assert.equal(prepared.embeddingDocuments.length, 250);
+  assert.deepEqual(
+    prepared.concepts.concepts.reduce((counts, concept) => {
+      counts[concept.difficulty] = (counts[concept.difficulty] ?? 0) + 1;
+      return counts;
+    }, {}),
+    { 1: 50, 2: 150, 3: 50 }
+  );
 
   const loaded = await loadAndValidateLanguageContent({ repoRoot: repositoryRoot });
   assert.equal(loaded.paths.concepts, "apps/languages/shared/english-concepts/word-world-starter-v1.json");
@@ -87,7 +98,7 @@ test("the two versioned schemas and actual 16-record catalogs validate as a deve
 test("embedding preparation consumes embeddingText only and emits English-only isolated documents", () => {
   const inputs = prepareEnglishEmbeddingInputs(structuredClone(concepts));
   const documents = prepareEnglishEmbeddingDocuments(structuredClone(concepts));
-  assert.equal(inputs.length, 16);
+  assert.equal(inputs.length, 250);
   assert.deepEqual(Object.keys(inputs[0]), ["conceptId", "locale", "textField", "inputPolicy", "text"]);
   for (const [index, input] of inputs.entries()) {
     assert.equal(input.locale, ENGLISH_EMBEDDING_LANGUAGE);
@@ -125,7 +136,7 @@ test("stable IDs are unique and target coverage is exactly one-to-one", () => {
 
   assertFixtureFails(({ realizations: candidate }) => {
     candidate.realizations.pop();
-  }, "coverage.missing", /ww\.comprehension\.not-understand/u);
+  }, "coverage.missing", /ww\.social\.listen-before-discussion/u);
 
   assertFixtureFails(({ realizations: candidate }) => {
     candidate.realizations.push({
@@ -196,6 +207,47 @@ test("Mandarin identifiers, authored token coverage, pronunciation, and playable
   }, "mandarin.pronunciation-missing");
 
   assertFixtureFails(({ realizations: candidate }) => {
+    delete candidate.realizations[0].tokens[0].readingUnits;
+  }, "mandarin.reading-units-missing");
+
+  assertFixtureFails(({ realizations: candidate }) => {
+    const token = candidate.realizations[0].tokens[0];
+    token.readingUnits[0].pronunciation.notation = "nǐ2";
+    token.pronunciation.notation = "nǐ2 hǎo";
+    candidate.realizations[0].pronunciation.notation = "Nǐ2 hǎo!";
+  }, "mandarin.reading-units-notation");
+
+  for (const invalidNotation of ["\u0301", "abc", "fi", "jü", "hùo", "nǐà"]) {
+    assertFixtureFails(({ realizations: candidate }) => {
+      const token = candidate.realizations[0].tokens[0];
+      token.readingUnits[0].pronunciation.notation = invalidNotation;
+      token.pronunciation.notation = `${invalidNotation} hǎo`;
+      candidate.realizations[0].pronunciation.notation = `${invalidNotation} hǎo!`;
+    }, "mandarin.reading-units-notation");
+  }
+
+  assertFixtureFails(({ realizations: candidate }) => {
+    candidate.realizations[0].tokens[0].pronunciation.notation = "nǐ hào";
+  }, "reading-units.pronunciation");
+
+  assertFixtureFails(({ realizations: candidate }) => {
+    candidate.realizations[0].pronunciation.notation = "Tā hǎo!";
+  }, "mandarin.pronunciation-composition");
+
+  assertFixtureFails(({ realizations: candidate }) => {
+    candidate.realizations[0].tokens[0].surface = "你好A";
+    candidate.realizations[0].text = "你好A！";
+  }, "mandarin.token-script");
+
+  assertFixtureFails(({ realizations: candidate }) => {
+    const book = candidate.realizations.find(({ conceptId }) => conceptId === "ww.object.book");
+    const token = book.tokens.find(({ surface }) => surface === "书");
+    token.surface = "書";
+    token.readingUnits[0].surface = "書";
+    book.text = book.text.replace("书", "書");
+  }, "mandarin.script-variant");
+
+  assertFixtureFails(({ realizations: candidate }) => {
     candidate.realizations[5].pronunciation.system = "ipa";
   }, "mandarin.pronunciation-system");
 
@@ -218,9 +270,30 @@ test("authored word tokens preserve contextual polyphone pronunciation without c
     text: "他去银行。",
     pronunciation: pinyin("Tā qù yínháng."),
     tokens: [
-      { surface: "他", pronunciation: pinyin("tā"), gloss: "he", playable: true },
-      { surface: "去", pronunciation: pinyin("qù"), gloss: "go", playable: true },
-      { surface: "银行", pronunciation: pinyin("yínháng"), gloss: "bank", playable: true }
+      {
+        surface: "他",
+        pronunciation: pinyin("tā"),
+        gloss: "he",
+        playable: true,
+        readingUnits: [{ surface: "他", pronunciation: pinyin("tā") }]
+      },
+      {
+        surface: "去",
+        pronunciation: pinyin("qù"),
+        gloss: "go",
+        playable: true,
+        readingUnits: [{ surface: "去", pronunciation: pinyin("qù") }]
+      },
+      {
+        surface: "银行",
+        pronunciation: pinyin("yínháng"),
+        gloss: "bank",
+        playable: true,
+        readingUnits: [
+          { surface: "银", pronunciation: pinyin("yín") },
+          { surface: "行", pronunciation: pinyin("háng") }
+        ]
+      }
     ]
   };
   validateLanguageContent(candidate.concepts, candidate.realizations);
@@ -228,6 +301,10 @@ test("authored word tokens preserve contextual polyphone pronunciation without c
   const polyphone = rows.find(({ id }) => id === "ww.action.read-book");
   assert.deepEqual(polyphone.tokens.map(({ surface }) => surface), ["他", "去", "银行"]);
   assert.equal(polyphone.tokens[2].pronunciation.notation, "yínháng");
+  assert.deepEqual(
+    polyphone.tokens[2].readingUnits.map((unit) => unit.pronunciation.notation),
+    ["yín", "háng"]
+  );
   assert.equal(polyphone.tokens.some(({ surface }) => surface === "行"), false);
 
   const implicit = cloneCatalogs();
@@ -238,7 +315,7 @@ test("authored word tokens preserve contextual polyphone pronunciation without c
   );
 });
 
-test("a synthetic non-Mandarin policy proves the shared schema permits language-specific null pronunciation", () => {
+test("a synthetic non-Mandarin policy keeps IPA composition language-neutral", () => {
   const syntheticPolicy = defineTargetContentPolicy({
     id: "synthetic-latin-v1",
     validate: () => []
@@ -267,15 +344,29 @@ test("a synthetic non-Mandarin policy proves the shared schema permits language-
     realizations: [{
       conceptId: syntheticConcepts.concepts[0].id,
       text: "¡Hola!",
-      pronunciation: null,
-      tokens: [{ surface: "Hola", pronunciation: null, gloss: "hello", playable: true }]
+      pronunciation: ipa("ˈo.la"),
+      tokens: [{
+        surface: "Hola",
+        pronunciation: ipa("ˈo.la"),
+        gloss: "hello",
+        playable: true,
+        readingUnits: [
+          { surface: "Ho", pronunciation: ipa("ˈo") },
+          { surface: "la", pronunciation: ipa("la") }
+        ]
+      }]
     }]
   };
   const prepared = validateLanguageContent(syntheticConcepts, syntheticRealizations, {
     contentPolicy: syntheticPolicy
   });
   assert.equal(prepared.realizations.targetLanguage.languageTag, "es");
-  assert.equal(prepared.realizations.realizations[0].pronunciation, null);
+  assert.equal(prepared.realizations.realizations[0].pronunciation.notation, "ˈo.la");
+  assert.deepEqual(
+    prepared.realizations.realizations[0].tokens[0].readingUnits
+      .map((unit) => unit.pronunciation.notation),
+    ["ˈo", "la"]
+  );
 });
 
 test("public catalogs use narrow runtime projection schemas and omit unreviewed pronunciation", async () => {
@@ -315,6 +406,7 @@ test("public catalogs use narrow runtime projection schemas and omit unreviewed 
   });
   assert.equal(targetProjection.projectionPolicy.pronunciationIncluded, false);
   assert.doesNotMatch(JSON.stringify(targetProjection), /"pronunciation"/u);
+  assert.doesNotMatch(JSON.stringify(targetProjection), /"readingUnits"/u);
   assert.throws(
     () => validateTargetRealizationRuntimeProjection({
       ...structuredClone(targetProjection),
@@ -350,6 +442,9 @@ test("only a synthetic fully evidenced fixture can pass the release gate", () =>
     if (realization.pronunciation) realization.pronunciation.reviewed = true;
     for (const token of realization.tokens) {
       if (token.pronunciation) token.pronunciation.reviewed = true;
+      for (const unit of token.readingUnits ?? []) {
+        if (unit.pronunciation) unit.pronunciation.reviewed = true;
+      }
     }
   }
   for (const gate of [candidate.concepts.license, candidate.realizations.license]) {

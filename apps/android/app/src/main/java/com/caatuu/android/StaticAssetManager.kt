@@ -39,6 +39,9 @@ class StaticAssetManager(
     private val courseAssetPrefix = courseAssetPrefix.also { path ->
         require(path.isEmpty() || isSafeAssetPath(path)) { "Course asset prefix is unsafe." }
     }.trimEnd('/')
+    init {
+        deleteRetiredMascotAssets(rootDir(appContext))
+    }
     private val requiredAssets = loadRequiredAssetSpecs()
 
     fun requiredAssetSpecs(): List<StaticAssetSpec> = requiredAssets
@@ -310,11 +313,21 @@ class StaticAssetManager(
         private const val ASSET_ROOT = "setup-assets"
         private const val ASSET_BASE_URL = "https://caatuu.waajacu.com"
         private const val DEFAULT_SETUP_ASSET_MANIFEST = "setup-assets.json"
+        private val RETIRED_MASCOT_ASSET_DIRECTORIES = listOf(
+            "assets/aliens",
+            "assets/language-mascots",
+        )
 
         fun rootDir(context: Context): File = File(context.filesDir, ASSET_ROOT)
 
         fun localAssetFile(context: Context, assetPath: String): File =
             File(rootDir(context), assetPath)
+
+        internal fun deleteRetiredMascotAssets(root: File): Boolean =
+            RETIRED_MASCOT_ASSET_DIRECTORIES
+                .map { path -> File(root, path) }
+                .map { directory -> !directory.exists() || directory.deleteRecursively() }
+                .all { deleted -> deleted }
 
         private fun isSafeAssetPath(value: String): Boolean =
             value.isNotEmpty() &&

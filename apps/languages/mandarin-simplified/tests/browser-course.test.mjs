@@ -117,10 +117,11 @@ test("the compatibility course profile is generated exactly from course.json", a
   );
   assert.equal(context.window.CaatuuCourse.status, "development");
   assert.equal(context.window.CaatuuCourse.routePrefix, "/zh");
-  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net"]);
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net", "naturalization-nucleus"]);
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), ["memory-moon"]);
   assert.equal(context.window.CaatuuCourse.capabilities.verbs, false);
   assert.equal(context.window.CaatuuCourse.routes.verbNebula, "index.html?game=verb-lab");
+  assert.equal(context.window.CaatuuCourse.routes.naturalizationNucleus, "index.html?game=naturalization-nucleus");
 });
 
 test("the learner projection uses its runtime schema and withholds unreviewed pronunciation", async () => {
@@ -146,7 +147,9 @@ test("the learner projection uses its runtime schema and withholds unreviewed pr
       source.tokens.map(({ surface, gloss, playable }) => ({ surface, gloss, playable }))
     );
   }
-  assert.doesNotMatch(JSON.stringify(projection), /"pronunciation"|pinyin/iu);
+  const serializedProjection = JSON.stringify(projection);
+  assert.doesNotMatch(serializedProjection, /"pronunciation"\s*:/u);
+  assert.doesNotMatch(serializedProjection, /"readingUnits"\s*:/u);
 });
 
 test("the shared browser English catalog is a faithful reusable projection", async () => {
@@ -185,9 +188,9 @@ test("setup and service-worker catalogs cover every required offline URL", async
     entryPath: "/zh/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v31");
-  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v31/u);
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v553/u);
+  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v51");
+  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v51/u);
+  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v571/u);
   const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));
   assert.match(
@@ -201,16 +204,24 @@ test("setup and service-worker catalogs cover every required offline URL", async
   assert.doesNotMatch(JSON.stringify(setup), /word-world\.html/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
   for (const asset of [
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-4",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-6",
+    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-17",
     "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
     "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11",
     "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
-    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-7",
-    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-9",
-    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-8",
-    "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19",
+    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-9",
+    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-13",
+    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-13",
+    "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
     "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
   ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
+  for (const asset of [
+    "data/games/naturalization-nucleus/challenges.json",
+    "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-11",
+    "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-11",
+    "/assets/planets/naturalization-nucleus.png"
+  ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
+  assert.ok(setup.offline.assets.includes("data/games/word-world/starter-v1.reading-guides.json"));
   assert.ok(!setup.offline.assets.some((asset) => asset.includes("product-shell.mjs")));
   assert.match(sharedWorker, /application\?\.appEntry !== CAATUU_CANONICAL_APP_ENTRY/u);
   assert.match(sharedWorker, /Deprecated mini-app documents cannot be cached/u);
@@ -224,7 +235,7 @@ test("Word World and embedding manifests declare the English-only shared MiniLM 
     path.join(repoRoot, "apps/language-runtime/embedding-runtimes.json"),
     "utf8"
   ));
-  assert.equal(wordWorld.recordCount, 16);
+  assert.equal(wordWorld.recordCount, 250);
   assert.equal(wordWorld.capabilities.llm, false);
   assert.equal(wordWorld.capabilities.generation, false);
   assert.equal(wordWorld.capabilities.chat, false);
@@ -318,7 +329,7 @@ test("Mandarin removes the mini-app and mounts Word World through the authoritat
 
   assert.match(home, /class="app-shell"/u);
   assert.match(workspaceSource, /CaatuuWordWorldHost/u);
-  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-9"\)/u);
+  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-13"\)/u);
   assert.match(providerSource, /prepareWordWorldContext\(/u);
   assert.match(providerSource, /return mountRenderer\(root, context, \{/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
@@ -343,7 +354,8 @@ test("Android allowlists remain narrow and point only to present course/shared f
     }
   });
   assert.equal(catalog.policy.llmAssetsAllowed, false);
-  assert.equal(catalog.policy.targetPronunciationMetadataAllowed, false);
+  assert.equal(catalog.policy.targetPronunciationMetadataAllowed, true);
+  assert.ok(catalog.files.includes("data/games/word-world/starter-v1.reading-guides.json"));
   for (const file of catalog.files) await access(path.join(staticRoot, file));
   assert.equal(appAssets.schemaVersion, 1);
   assert.equal(appAssets.appEntry, "apps/language-runtime/static/app/index.html");

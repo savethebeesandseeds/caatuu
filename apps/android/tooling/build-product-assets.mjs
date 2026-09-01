@@ -1697,7 +1697,7 @@ function assertWordWorldBoundary(outputDir, files, {
   sharedFiles = files,
 } = {}) {
   const providerModuleUrl = "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5";
-  const meaningAdapterUrl = "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19";
+  const meaningAdapterUrl = "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21";
   const providerModule = providerModuleUrl.split("?", 1)[0];
   const meaningAdapter = meaningAdapterUrl.slice(1).split("?", 1)[0];
   assert.ok(files.includes(providerModule), `Czech Word World must package its course provider ${providerModule}`);

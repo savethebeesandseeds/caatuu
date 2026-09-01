@@ -46,6 +46,7 @@ function courseGameAvailable(gameId) {
     "conjugation-comet": "conjugationComet",
     "case-cosmos": "caseCosmos",
     "agreement-aurora": "agreementAurora",
+    "naturalization-nucleus": "naturalizationNucleus",
     "memory-moon": "memoryMoon"
   };
   if (gameId === "campaign") return Array.isArray(course.games) && course.games.length > 0;
@@ -1864,6 +1865,10 @@ function closeVerbToolbarMenus(except = null) {
   });
 }
 
+function verbToolbarPopover(menu) {
+  return menu?.querySelector(".verb-display-popover, .verb-audio-popover, .verb-pair-count") || null;
+}
+
 function speakVerbCzechOnTap(verbId) {
   if (!state.verbSpeakOnTap) return;
   const pair = state.verbRound.find((item) => item.id === verbId);
@@ -2966,12 +2971,17 @@ function bindVerbNebulaControls() {
   });
   document.querySelectorAll("#verbMeaningBoard details.verb-toolbar-menu").forEach((menu) => {
     menu.addEventListener("toggle", () => {
-      if (!menu.open) return;
+      const popover = verbToolbarPopover(menu);
+      if (!menu.open) {
+        window.CaatuuChrome?.releaseToolbarPopover?.(popover);
+        return;
+      }
       closeVerbToolbarMenus(menu);
       if (menu.classList.contains("verb-display-menu")) renderVerbDisplayControls();
       if (menu.classList.contains("verb-audio-menu") && state.verbSpeakOnTap) {
         void refreshVerbAudioVoiceControls();
       }
+      window.CaatuuChrome?.constrainToolbarPopover?.(popover);
     });
   });
   document.querySelector(".verb-display-menu")?.addEventListener("click", (event) => {
@@ -3987,6 +3997,7 @@ function setView(view) {
           "conjugation-comet": "Conjugation Comet",
           "case-cosmos": "Case Cosmos",
           "agreement-aurora": "Agreement Aurora",
+          "naturalization-nucleus": "Naturalization Nucleus",
           "memory-moon": "Memory Moon"
         }[state.trainTab] || "")
     : "";
@@ -4333,6 +4344,7 @@ function setTrainTab(tab) {
     "conjugation-comet": "trainPanelConjugationComet",
     "case-cosmos": "trainPanelCaseCosmos",
     "agreement-aurora": "trainPanelAgreementAurora",
+    "naturalization-nucleus": "trainPanelNaturalizationNucleus",
     "memory-moon": "trainPanelMemoryMoon"
   };
   const declaredTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
@@ -4349,6 +4361,7 @@ function setTrainTab(tab) {
     "conjugation-comet": "Conjugation Comet",
     "case-cosmos": "Case Cosmos",
     "agreement-aurora": "Agreement Aurora",
+    "naturalization-nucleus": "Naturalization Nucleus",
     "memory-moon": "Memory Moon"
   };
   const title = state.campaignActive ? "Campaign Mode" : (trainTitles[activeTab] || "");
@@ -4371,6 +4384,11 @@ function setTrainTab(tab) {
   });
   if (activeTab === "verb-lab" && courseGameAvailable("verb-lab")) renderVerbNebula();
   if (activeTab === "word-net") ensureWordNetLoaded();
+  if (activeTab === "naturalization-nucleus" && courseGameAvailable("naturalization-nucleus")) {
+    void Promise.resolve(window.CaatuuNaturalizationNucleus?.mount?.()).catch((error) => {
+      console.error("Naturalization Nucleus could not initialize.", error);
+    });
+  }
   if (Object.hasOwn(embeddedGameTabs, activeTab)) ensureEmbeddedGameLoaded(activeTab);
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
   syncEmbeddedGameVisibility(activeTab);
@@ -4401,7 +4419,7 @@ function setInitialViewFromLocation() {
     window.requestAnimationFrame(openSettingsPanel);
   } else if (requestedView) {
     setView(requestedView);
-  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(requestedGame)
+  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon"].includes(requestedGame)
       && courseGameAvailable(requestedGame)) {
     setView("verbs");
     window.requestAnimationFrame(() => {

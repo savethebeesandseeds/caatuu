@@ -99,6 +99,7 @@ test("versioned schemas and both authoritative manifests are valid JSON", async 
   assert.match(androidAssetsSchema.$id, /android-assets\.v1/);
   assert.match(embeddingSchema.$id, /embedding-catalog\.v1/);
   assert.match(embeddingRuntimeSchema.$id, /embedding-runtime-catalog\.v1/);
+  assert.ok(courseSchema.properties.linguisticFeatures.items.enum.includes("hanzi-pinyin"));
   await validateCourseCatalog(loaded, { checkExistence: false });
 });
 
@@ -111,6 +112,9 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
   assert.equal(czech.capabilities.embeddings, true);
   assert.equal(czech.capabilities.speech, true);
   assert.equal(czech.routes.conjugationComet, "conjugation-comet.html");
+  assert.equal(czech.games.includes("naturalization-nucleus"), false);
+  assert.equal(czech.routes.naturalizationNucleus, undefined);
+  assert.equal(czech.resources.naturalizationNucleusCatalog, undefined);
   assert.deepEqual(
     czech.platforms.android.channels.map(({ kind, minimumVersionCode }) => ({ kind, minimumVersionCode })),
     [
@@ -160,6 +164,14 @@ test("Mandarin is an unlisted development no-LLM English-embedding pack", () => 
   assert.equal(chinese.resources.languageAdapter.state, "present");
   assert.equal(chinese.resources.dictionaryCatalog, undefined);
   assert.equal(chinese.resources.modelCatalog, undefined);
+  assert.ok(chinese.linguisticFeatures.includes("hanzi-pinyin"));
+  assert.ok(chinese.games.includes("naturalization-nucleus"));
+  assert.deepEqual(chinese.resources.naturalizationNucleusCatalog, {
+    kind: "file",
+    path: "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json",
+    scope: "course",
+    state: "present"
+  });
   assert.equal(chinese.resources.appEntry.path, "apps/language-runtime/static/app/index.html");
   assert.deepEqual(chinese.resources.appEntry, loaded.courses[0].course.resources.appEntry);
 });
@@ -514,6 +526,80 @@ test("browser courses declare only known, unique linguistic features and games",
     }
   ];
   for (const fixture of fixtures) await assertFixtureFails(loaded, fixture);
+});
+
+test("Naturalization Nucleus requires Chinese pinyin support and a present course catalog", async () => {
+  const czechWithOnlyRoute = cloneLoaded(loaded);
+  const czech = czechWithOnlyRoute.courses.find(({ course }) => course.id === "cz").course;
+  czech.games.push("naturalization-nucleus");
+  czech.routes.naturalizationNucleus = "index.html?game=naturalization-nucleus";
+  await assert.rejects(
+    validateCourseCatalog(czechWithOnlyRoute, { checkExistence: false }),
+    (error) => (
+      hasIssue(error, "game.linguistic-feature", /naturalization-nucleus.*hanzi-pinyin/u)
+      && hasIssue(error, "resource.required", /naturalizationNucleusCatalog/u)
+    )
+  );
+
+  const syntheticThirdLanguage = cloneLoaded(loaded);
+  const synthetic = syntheticThirdLanguage.courses.find(({ course }) => course.id === "zh").course;
+  synthetic.targetLanguage = {
+    ...synthetic.targetLanguage,
+    id: "ja",
+    label: "Japanese",
+    nativeLabel: "Japanese",
+    shortCode: "JA",
+    locale: "ja-JP",
+    script: "Jpan",
+    speechLocale: "ja-JP"
+  };
+  await assert.rejects(
+    validateCourseCatalog(syntheticThirdLanguage, { checkExistence: false }),
+    (error) => hasIssue(error, "linguistic-feature.language", /hanzi-pinyin.*targetLanguage\.id is not zh/u)
+  );
+
+  const missingCatalog = cloneLoaded(loaded);
+  delete missingCatalog.courses.find(({ course }) => course.id === "zh")
+    .course.resources.naturalizationNucleusCatalog;
+  await assert.rejects(
+    validateCourseCatalog(missingCatalog, { checkExistence: false }),
+    (error) => hasIssue(error, "resource.required", /naturalizationNucleusCatalog/u)
+  );
+
+  const misScopedCatalog = cloneLoaded(loaded);
+  misScopedCatalog.courses.find(({ course }) => course.id === "zh")
+    .course.resources.naturalizationNucleusCatalog.scope = "shared";
+  await assert.rejects(
+    validateCourseCatalog(misScopedCatalog, { checkExistence: false }),
+    (error) => hasIssue(error, "path.scope", /naturalizationNucleusCatalog.*course scope/u)
+  );
+
+  const plannedCatalog = cloneLoaded(loaded);
+  plannedCatalog.courses.find(({ course }) => course.id === "zh")
+    .course.resources.naturalizationNucleusCatalog.state = "planned";
+  await assert.rejects(
+    validateCourseCatalog(plannedCatalog, { checkExistence: false }),
+    (error) => hasIssue(error, "game.resource", /naturalizationNucleusCatalog\.state must be present/u)
+  );
+
+  const directoryCatalog = cloneLoaded(loaded);
+  directoryCatalog.courses.find(({ course }) => course.id === "zh")
+    .course.resources.naturalizationNucleusCatalog.kind = "directory";
+  await assert.rejects(
+    validateCourseCatalog(directoryCatalog, { checkExistence: false }),
+    (error) => hasIssue(error, "game.resource", /naturalizationNucleusCatalog\.kind must be file/u)
+  );
+
+  const orphanCatalog = cloneLoaded(loaded);
+  const orphanedMandarin = orphanCatalog.courses.find(({ course }) => course.id === "zh").course;
+  orphanedMandarin.games = orphanedMandarin.games.filter((gameId) => gameId !== "naturalization-nucleus");
+  orphanedMandarin.linguisticFeatures = orphanedMandarin.linguisticFeatures
+    .filter((feature) => feature !== "hanzi-pinyin");
+  delete orphanedMandarin.routes.naturalizationNucleus;
+  await assert.rejects(
+    validateCourseCatalog(orphanCatalog, { checkExistence: false }),
+    (error) => hasIssue(error, "game.resource", /naturalizationNucleusCatalog.*neither enabled nor upcoming/u)
+  );
 });
 
 test("browser delivery fails closed for development, active, and retired courses", async () => {

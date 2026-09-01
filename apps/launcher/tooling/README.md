@@ -24,7 +24,7 @@ docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-static-sit
 
 The bundle preserves the launcher, Czech interface, ordinary local progress,
 the 865-record curated dictionary, the four browser learning games, and all
-647 reviewed visual assets. A 2.5 MB static supplement preserves exact
+646 reviewed visual assets. A 2.5 MB static supplement preserves exact
 dictionary matches for every Standard Word World surface resolved by the
 existing pinned full dictionary (1,195 of 1,277 surfaces); its 82 source
 dictionary misses retain the existing local gap behavior. Only the three

@@ -8,14 +8,14 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
-    <script src="source/shared/course-profile.js?v=course-25"></script>
+    <script src="source/shared/course-profile.js?v=course-26"></script>
     <script src="/language-runtime/static/source/learning-profile.js?v=learning-5"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-1"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-88">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-93">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-32">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-125">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-85">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-126">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-89">
   </head>
   <body class="games-page setup-blocked">
     <div class="app-shell">
@@ -57,7 +57,7 @@
                 <div class="setup-progress" role="progressbar" aria-label="Local setup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Preparing Caatuu" id="setupProgress">
                   <span id="setupProgressBar"></span>
                 </div>
-                <div class="setup-detail-grid" id="setupDetails">
+                <div class="setup-detail-grid" id="setupDetails" hidden>
                   <div class="setup-artifacts" id="setupArtifacts" aria-label="Setup artifacts"></div>
                   <section class="setup-log-panel" aria-labelledby="setupLogTitle">
                     <h3 id="setupLogTitle">Recent activity</h3>
@@ -419,6 +419,21 @@
                     <small>Make the words match</small>
                   </span>
                 </button>
+                <button
+                  class="train-world train-world-naturalization"
+                  type="button"
+                  data-train-tab="naturalization-nucleus"
+                  data-course-game="naturalization-nucleus"
+                  aria-label="Open Naturalization Nucleus"
+                  hidden
+                >
+                  <span class="train-orbit" aria-hidden="true"></span>
+                  <img data-course-asset="/assets/planets/naturalization-nucleus.png" alt="">
+                  <span class="train-world-label">
+                    <b>Naturalization Nucleus</b>
+                    <small>Match Hanzi + pinyin</small>
+                  </span>
+                </button>
                 <button class="train-world train-world-memory" type="button" data-train-tab="memory-moon">
                   <span class="train-orbit" aria-hidden="true"></span>
                   <img src="/assets/planets/memory-moon.png" alt="">
@@ -651,7 +666,7 @@
                           </button>
                           <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="wordNetAudioSpeedLabel">
                             <span class="word-net-audio-setting-title" id="wordNetAudioSpeedLabel">Speed</span>
-                            <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.65 times">
+                            <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.5 times">
                             <div class="word-net-audio-speed-ticks" id="wordNetAudioSpeedTicks" aria-hidden="true">
                               <span>Slower <small>0.5×</small></span>
                               <span>Slow <small>0.6×</small></span>
@@ -669,7 +684,7 @@
                             <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" hidden>Install Czech voice</button>
                           </section>
                         </div>
-                        <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Challenge type and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
+                        <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Challenge type, target text, and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false">
                           <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
                         </button>
                         <div class="word-net-translation-menu" id="wordNetTranslationMenu" role="menu" aria-label="Challenge type and dictionary settings" hidden>
@@ -684,6 +699,11 @@
                               <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-10">10s</button>
                               <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-translation-delay="timer-30">30s</button>
                             </div>
+                          </section>
+                          <section class="word-net-translation-menu-section" id="wordNetTargetTextSettings" role="group" aria-labelledby="wordNetTargetTextSettingsLabel" hidden>
+                            <span class="word-net-translation-menu-label" id="wordNetTargetTextSettingsLabel">Target-language text</span>
+                            <button type="button" role="menuitemcheckbox" tabindex="-1" data-target-text-setting="showGuide" aria-checked="true">Show reading guide</button>
+                            <button type="button" role="menuitemcheckbox" tabindex="-1" data-target-text-setting="colorTones" aria-checked="true">Color pronunciation</button>
                           </section>
                           <section class="word-net-translation-menu-section" role="group" aria-labelledby="wordNetDictionarySettingsLabel">
                             <span class="word-net-translation-menu-label" id="wordNetDictionarySettingsLabel">Dictionary card</span>
@@ -715,6 +735,21 @@
                               <span data-generation-label>New word</span>
                             </button>
                             <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label>Selected word</span></button>
+                          </section>
+                          <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetChallengePromptModeLabel">
+                            <span class="word-net-generation-menu-label" id="wordNetChallengePromptModeLabel">Challenge prompt</span>
+                            <button type="button" role="menuitemradio" data-challenge-prompt-mode="random" aria-checked="true">
+                              <span data-challenge-prompt-label>Random</span>
+                              <small>Base or target language</small>
+                            </button>
+                            <button type="button" role="menuitemradio" data-challenge-prompt-mode="source" aria-checked="false">
+                              <span data-challenge-prompt-label>Base-language prompt</span>
+                              <small>Arrange the target language</small>
+                            </button>
+                            <button type="button" role="menuitemradio" data-challenge-prompt-mode="target" aria-checked="false">
+                              <span data-challenge-prompt-label>Target-language prompt</span>
+                              <small>Arrange the base language</small>
+                            </button>
                           </section>
                           <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">
                             <span class="word-net-generation-menu-label" id="wordNetContentSourceLabel">Sentence source</span>
@@ -764,11 +799,11 @@
                           </button>
                         </div>
                         <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
-                        <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the English sentence" hidden>
+                        <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the sentence" hidden>
                           <div class="word-net-reconstruction-play" id="wordNetReconstructionPlay">
                             <div class="word-net-reconstruction-composer">
-                              <span class="word-net-reconstruction-language" aria-hidden="true">EN</span>
-                              <div class="word-net-reconstruction-answer" id="wordNetReconstructionAnswer" role="group" aria-label="Your English sentence" aria-describedby="wordNetInstructions"></div>
+                              <span class="word-net-reconstruction-language" id="wordNetReconstructionLanguage" aria-hidden="true">EN</span>
+                              <div class="word-net-reconstruction-answer" id="wordNetReconstructionAnswer" role="group" aria-label="Your sentence" aria-describedby="wordNetInstructions"></div>
                               <div class="word-net-reconstruction-actions" id="wordNetReconstructionActions" hidden>
                                 <button class="word-net-reconstruction-submit" id="wordNetReconstructionSubmit" type="button" aria-label="Submit answer" aria-describedby="wordNetInstructions" title="Submit answer" disabled>
                                   <img class="word-net-reconstruction-submit-icon" src="/assets/icons/paper_plane_submit_ui.png?v=paper-plane-1" width="30" height="30" alt="" aria-hidden="true">
@@ -776,7 +811,7 @@
                                 </button>
                               </div>
                             </div>
-                            <div class="word-net-reconstruction-bank" id="wordNetReconstructionBank" role="group" aria-label="English word choices"></div>
+                            <div class="word-net-reconstruction-bank" id="wordNetReconstructionBank" role="group" aria-label="Word choices"></div>
                           </div>
                           <section class="word-net-reconstruction-result" id="wordNetReconstructionResult" aria-labelledby="wordNetReconstructionResultTitle" hidden>
                             <header class="word-net-reconstruction-result-head">
@@ -934,6 +969,136 @@
                   <strong></strong>
                   <small></small>
                 </div>
+              </div>
+            </section>
+
+            <section class="train-tab-panel naturalization-nucleus-panel" id="trainPanelNaturalizationNucleus" data-train-panel="naturalization-nucleus" aria-label="Naturalization Nucleus" hidden>
+              <div class="naturalization-nucleus-stage" aria-busy="true">
+                <div class="naturalization-nucleus-interstitial" id="naturalizationNucleusInterstitial" role="status" aria-live="polite" aria-atomic="true" aria-label="Preparing a Naturalization Nucleus round">
+                  <img class="word-net-embedded-loader" id="naturalizationNucleusInterstitialRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                </div>
+                <section class="naturalization-nucleus-game" id="naturalizationNucleusGame" aria-label="Circular Hanzi and pinyin matching puzzle" aria-describedby="naturalizationNucleusStatus" aria-hidden="true" inert>
+                  <div class="naturalization-nucleus-playfield">
+                    <div class="word-net-panel-actions naturalization-nucleus-toolbar" aria-label="Naturalization Nucleus controls">
+                      <button class="word-net-icon-button theme-toggle" id="naturalizationNucleusDisplayToggle" type="button" aria-label="Display settings" aria-haspopup="dialog" aria-controls="naturalizationNucleusDisplayMenu" aria-expanded="false" title="Display settings">
+                        <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                      </button>
+                      <div class="word-net-display-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusDisplayMenu" role="dialog" aria-label="Display settings" hidden>
+                        <span class="word-net-display-menu-label">Display</span>
+                        <section class="word-net-display-menu-section" aria-labelledby="naturalizationNucleusThemeLabel">
+                          <span id="naturalizationNucleusThemeLabel">Theme</span>
+                          <div class="word-net-display-options" role="group" aria-label="Theme">
+                            <button type="button" data-theme-option="light" aria-pressed="true">
+                              <img src="/assets/icons/light_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                              <span>Light</span>
+                            </button>
+                            <button type="button" data-theme-option="dark" aria-pressed="false">
+                              <img src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                              <span>Dark</span>
+                            </button>
+                          </div>
+                        </section>
+                        <section class="word-net-display-menu-section" aria-labelledby="naturalizationNucleusTextSizeLabel">
+                          <span id="naturalizationNucleusTextSizeLabel">Text size</span>
+                          <div class="word-net-display-options word-net-display-size-options" role="group" aria-label="Text size">
+                            <button type="button" data-font-size-option="largest" aria-pressed="true"><span class="word-net-display-size-sample is-standard" aria-hidden="true">A</span><span>Standard</span></button>
+                            <button type="button" data-font-size-option="large" aria-pressed="false"><span class="word-net-display-size-sample is-small" aria-hidden="true">A</span><span>Small</span></button>
+                            <button type="button" data-font-size-option="standard" aria-pressed="false"><span class="word-net-display-size-sample is-smaller" aria-hidden="true">A</span><span>Smaller</span></button>
+                          </div>
+                        </section>
+                      </div>
+                      <button class="word-net-icon-button word-net-audio-toggle" id="naturalizationNucleusSound" type="button" aria-label="Mandarin audio settings" aria-haspopup="dialog" aria-controls="naturalizationNucleusAudioMenu" aria-expanded="false" title="Mandarin audio settings">
+                        <svg class="word-net-sound-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                          <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                          <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                        </svg>
+                      </button>
+                      <div class="word-net-audio-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusAudioMenu" role="dialog" aria-label="Mandarin audio settings" hidden>
+                        <span class="word-net-audio-menu-label">Audio</span>
+                        <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="naturalizationNucleusAudioSpeedLabel">
+                          <span class="word-net-audio-setting-title" id="naturalizationNucleusAudioSpeedLabel">Speed</span>
+                          <input id="naturalizationNucleusAudioSpeed" type="range" min="0" max="2" step="1" value="0" data-pace-index="0" aria-label="Mandarin speech speed" aria-valuetext="Slower, 0.5 times">
+                          <div class="word-net-audio-speed-ticks" aria-hidden="true">
+                            <span>Slower <small>0.5×</small></span>
+                            <span>Slow <small>0.6×</small></span>
+                            <span>Normal <small>1×</small></span>
+                          </div>
+                        </section>
+                        <section class="word-net-audio-setting word-net-audio-voice-setting" aria-labelledby="naturalizationNucleusAudioVoiceLabel">
+                          <label class="word-net-audio-voice" for="naturalizationNucleusAudioVoice">
+                            <span class="word-net-audio-setting-title" id="naturalizationNucleusAudioVoiceLabel">Voice</span>
+                            <select id="naturalizationNucleusAudioVoice">
+                              <option value="">Automatic (recommended)</option>
+                            </select>
+                          </label>
+                          <p class="word-net-audio-status" id="naturalizationNucleusAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Mandarin voices...</p>
+                        </section>
+                      </div>
+                      <button class="word-net-icon-button word-net-translation-toggle naturalization-nucleus-options-toggle" id="naturalizationNucleusOptionsToggle" type="button" aria-label="Hanzi tile settings. Current: 5 tiles." aria-haspopup="menu" aria-controls="naturalizationNucleusOptionsMenu" aria-expanded="false" title="Hanzi tile settings">
+                        <span class="verb-pair-menu-icon" aria-hidden="true">
+                          <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </span>
+                        <span class="verb-pair-current" id="naturalizationNucleusPieceCount" aria-hidden="true">5</span>
+                      </button>
+                      <div class="word-net-translation-menu naturalization-nucleus-options-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusOptionsMenu" role="menu" aria-label="Hanzi tile settings" hidden>
+                        <section class="word-net-translation-menu-section" role="group" aria-label="Hanzi tile count">
+                          <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-naturalization-piece-count="5"><span>5 tiles</span><small>Short orbit</small></button>
+                          <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-naturalization-piece-count="9"><span>9 tiles</span><small>Full orbit</small></button>
+                        </section>
+                      </div>
+                      <button class="word-net-icon-button word-net-generation-toggle naturalization-nucleus-new-round" id="naturalizationNucleusNewRound" type="button" aria-label="New round" title="New round">
+                        <span class="word-net-generation-icon" aria-hidden="true">
+                          <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" focusable="false">
+                            <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
+                            <path d="m17 14 3 3-3 3"></path>
+                            <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
+                            <path d="m17 4 3 3-3 3"></path>
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <aside class="word-net-word-translation naturalization-nucleus-feedback" id="naturalizationNucleusFeedback" aria-label="Matched Mandarin word" hidden>
+                      <div class="word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true">
+                        <div class="word-net-word-heading">
+                          <strong class="has-target-text-guide has-target-text-colors" id="naturalizationNucleusFeedbackHanzi" lang="zh-Hans">
+                            <span class="word-net-target-text">
+                              <ruby class="word-net-target-text-unit" id="naturalizationNucleusFeedbackReading" data-tone="5">
+                                <span class="word-net-target-text-glyph"></span>
+                                <rt class="word-net-target-text-notation" id="naturalizationNucleusFeedbackPinyin" lang="zh-Latn-pinyin" aria-hidden="true"></rt>
+                              </ruby>
+                            </span>
+                          </strong>
+                        </div>
+                        <span class="word-net-word-meaning" id="naturalizationNucleusFeedbackMeaning" lang="en"></span>
+                      </div>
+                      <button type="button" class="word-net-sound-toggle word-net-word-pronounce" id="naturalizationNucleusFeedbackSound" aria-label="Play matched Mandarin word" aria-pressed="false" title="Play matched Mandarin word">
+                        <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                          <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                          <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                        </svg>
+                        <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                          <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                        </svg>
+                      </button>
+                    </aside>
+                    <div class="naturalization-nucleus-board" id="naturalizationNucleusBoard" data-piece-count="5" data-solved="false" data-chain-started="false" data-tile-selected="false">
+                      <div class="naturalization-nucleus-orbit" aria-hidden="true"></div>
+                      <div class="naturalization-nucleus-core" aria-hidden="true">
+                        <span class="naturalization-nucleus-core-glow"></span>
+                        <img id="naturalizationNucleusArtwork" alt="">
+                      </div>
+                      <ol class="naturalization-nucleus-ring" id="naturalizationNucleusRing" aria-label="Pinyin matching positions"></ol>
+                    </div>
+                  </div>
+                  <section class="naturalization-nucleus-deck-panel" aria-label="Hanzi tiles waiting to be placed">
+                    <div class="naturalization-nucleus-deck" id="naturalizationNucleusDeck" role="list" aria-label="Hanzi tiles waiting to be placed"></div>
+                  </section>
+                  <footer class="naturalization-nucleus-game-footer">
+                    <p class="word-net-instructions" id="naturalizationNucleusStatus" role="status" aria-live="polite">Preparing the dominoes.</p>
+                  </footer>
+                </section>
               </div>
             </section>
 
@@ -1111,8 +1276,8 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
-    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-5"></script>
-    <script src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-10"></script>
+    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-6"></script>
+    <script src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-24"></script>
   </body>
 </html>

@@ -45,7 +45,7 @@ test("Campaign Mode is a prominent mixed-play route with its requested artwork",
   assert.match(campaignStyles, /@media screen and \(max-width: 760px\)[\s\S]*?\.train-world-campaign[\s\S]*?grid-column:\s*1 \/ -1/);
   assert.match(chromeStyles, /data-game-menu-target="campaign"[\s\S]*?width:\s*min\(calc\(100% - 24px\), 360px\)[\s\S]*?min-height:\s*104px/);
   assert.match(chromeStyles, /data-game-menu-target="campaign"\] img[\s\S]*?width:\s*88px[\s\S]*?height:\s*58px/);
-  assert.match(serviceWorker, /caatuu-workspace\.css\?v=shell-88/);
+  assert.match(serviceWorker, /caatuu-workspace\.css\?v=shell-93/);
   assert.match(serviceWorker, /\/assets\/planets\/campaign-mode\.png/);
 });
 
@@ -55,6 +55,7 @@ test("Campaign Mode keeps route identity while a shuffled no-repeat planet plays
     assert.match(playableBlock, new RegExp(`"${gameId}"`));
   }
   assert.doesNotMatch(playableBlock, /memory-moon/);
+  assert.doesNotMatch(playableBlock, /naturalization-nucleus/);
   assert.match(app, /function nextCampaignTab\(previousTab = state\.trainTab\)[\s\S]*?state\.campaignQueue\[0\] === previousTab[\s\S]*?gameId !== previousTab/);
   assert.match(app, /document\.body\.dataset\.campaignActive = "true"/);
   assert.match(app, /const title = state\.campaignActive \? "Campaign Mode"/);

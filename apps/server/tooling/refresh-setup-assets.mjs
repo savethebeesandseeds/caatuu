@@ -19,7 +19,6 @@ const LEGACY_MINI_APP_DOCUMENT = /(?:^|\/)(?:word-world|word-net)\.html$/u;
 const RETIRED_PARALLEL_UI_ASSET = /(?:^|\/)(?:source\/features\/home\/home\.css|source\/games\/verb-nebula\/app\.(?:css|js)|source\/games\/word-world\/word-net(?:-core|-queue)?\.(?:css|js|mjs)|source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)|language-runtime\/static\/(?:source\/product-shell\.mjs|styles\/course-shell\.css))$/u;
 
 const LEGACY_ASSET_SOURCE_PREFIXES = [
-  ["aliens/", "language-mascots/"],
   ["loading_animation/", "loading-animation/"],
   ["miscellaneous/", "visual-vocabulary/"]
 ];

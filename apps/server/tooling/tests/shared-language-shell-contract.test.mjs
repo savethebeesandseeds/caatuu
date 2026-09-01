@@ -143,8 +143,8 @@ test("capabilities hide only precise controls and never select another UI", asyn
   assert.equal(mandarin.capabilities.generation, false);
   assert.equal(mandarin.capabilities.dictionary, false);
   assert.equal(mandarin.capabilities.speech, true);
-  assert.deepEqual(mandarin.games, ["verb-lab", "word-net"]);
-  assert.deepEqual(mandarin.linguisticFeatures, []);
+  assert.deepEqual(mandarin.games, ["verb-lab", "word-net", "naturalization-nucleus"]);
+  assert.deepEqual(mandarin.linguisticFeatures, ["hanzi-pinyin"]);
 });
 
 test("Mandarin contributes content and policy, not a mini-app", async () => {

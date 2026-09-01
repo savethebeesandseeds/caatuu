@@ -32,14 +32,14 @@ const launcherCss = await readFile(new URL("../../../launcher/static/app.css", s
 test("Home and Games share one cached application shell", () => {
   assert.match(canonicalShell, /id="view-home"/);
   assert.match(canonicalShell, /href="\/language-runtime\/static\/styles\/caatuu-home\.css\?v=home-32"/);
-  assert.match(canonicalShell, /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-88"/);
+  assert.match(canonicalShell, /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-93"/);
 });
 
 test("embedded Czech games request the exact cached shared workspace stylesheet", () => {
   for (const { name, source } of embeddedWorkspacePages) {
     assert.match(
       source,
-      /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-88"/u,
+      /href="\/language-runtime\/static\/styles\/caatuu-workspace\.css\?v=shell-93"/u,
       `${name} must use the owned workspace stylesheet query`
     );
   }
@@ -366,7 +366,7 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.match(chromeJs, /Automatic will use the best available \$\{targetLanguage\.label\} voice\./);
   assert.match(chromeJs, /updateFontSizeControls\(readStoredFontSize\(\)\);[\s\S]*?setSettingsView\(panel, readRememberedBackpackView\(\), \{ persist: false \}\)/);
 
-  const canonicalProfileIndex = canonicalShell.indexOf('src="source/shared/course-profile.js?v=course-25"');
+  const canonicalProfileIndex = canonicalShell.indexOf('src="source/shared/course-profile.js?v=course-26"');
   const canonicalInitialThemeIndex = canonicalShell.indexOf('src="/language-runtime/static/source/initial-theme.js?v=theme-1"');
   const canonicalThemeCssIndex = canonicalShell.indexOf('href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5"');
   assert.ok(canonicalProfileIndex >= 0, "the canonical app must load its route-local course profile");
@@ -432,7 +432,7 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
   assert.doesNotMatch(chromeCss, /\.speech-pace-follow/);
 
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-26"');
     const bootstrapIndex = source.indexOf("document.documentElement.dataset.fontSize");
     const themeIndex = source.indexOf('href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5"');
     assert.ok(profileIndex >= 0, `${name} must load course-scoped font-size storage`);
@@ -442,6 +442,36 @@ test("text-size preferences are persistent, immediate, and shared by every HTML 
     assert.match(source, /includes\(storedFontSize\) \? storedFontSize : "largest"/, `${name} must reject invalid sizes safely`);
     assert.match(source, /dataset\.fontSize = "largest"/, `${name} must keep first paint stable when storage is blocked`);
   }
+});
+
+test("Standard size gives dense Mandarin glyphs and pinyin extra legibility without scaling English", () => {
+  const wordWorldGlyph = ruleWithSelector(
+    appCss,
+    'html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-glyph'
+  );
+  const wordWorldPinyin = ruleWithSelector(
+    appCss,
+    'html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-notation'
+  );
+  const trailGlyph = ruleWithSelector(
+    appCss,
+    'html[data-font-size="largest"] body[data-course-id="zh"] #wordNetTrail .word-net-trail-target'
+  );
+  const verbHeadingGlyph = ruleWithSelector(
+    appCss,
+    'html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-column-heading-cz #verbTargetColumnHeading'
+  );
+  const verbGlyph = ruleWithSelector(
+    appCss,
+    'html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-card-cz .verb-match-card-copy'
+  );
+
+  assert.equal(wordWorldGlyph.declarations.get("font-size"), "1.38em");
+  assert.equal(wordWorldPinyin.declarations.get("font-size"), "max(0.56em, 0.7rem)");
+  assert.equal(trailGlyph.declarations.get("font-size"), "1.13rem");
+  assert.equal(verbHeadingGlyph.declarations.get("font-size"), "clamp(1.08rem, 1.66vw, 1.21rem)");
+  assert.equal(verbGlyph.declarations.get("font-size"), "clamp(1.38rem, 3.24vw, 1.62rem)");
+  assert.doesNotMatch(appCss, /data-font-size="large"[^{}]*data-course-id="zh"/u);
 });
 
 test("the update action has resolvable shared colors and readable dark tokens on every page", () => {

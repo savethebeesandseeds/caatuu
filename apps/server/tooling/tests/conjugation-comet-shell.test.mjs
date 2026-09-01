@@ -39,7 +39,7 @@ test("Conjugation Comet preserves the Verb Nebula-derived two-column shell", () 
 
 test("the standalone page loads direct game data without the curriculum service", () => {
   const semantic = page.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-  const chrome = page.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"');
+  const chrome = page.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"');
   const game = page.indexOf('src="source/games/conjugation-comet/conjugation-comet.js?v=conjugation-comet-60"');
   assert.ok(semantic >= 0 && chrome > semantic && game > chrome);
   assert.doesNotMatch(page, /curriculum-service/);

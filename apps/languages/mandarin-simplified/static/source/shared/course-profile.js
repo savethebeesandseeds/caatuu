@@ -35,10 +35,13 @@
       flagClass: "zh-hans-flag",
       flagSrc: "/assets/icons/china_flag.png"
     },
-    linguisticFeatures: [],
+    linguisticFeatures: [
+      "hanzi-pinyin"
+    ],
     games: [
       "verb-lab",
-      "word-net"
+      "word-net",
+      "naturalization-nucleus"
     ],
     upcomingGames: [
       "memory-moon"
@@ -110,6 +113,7 @@
       games: "index.html",
       verbNebula: "index.html?game=verb-lab",
       wordWorld: "index.html?game=word-net",
+      naturalizationNucleus: "index.html?game=naturalization-nucleus",
       settings: "index.html"
     },
     storage: {

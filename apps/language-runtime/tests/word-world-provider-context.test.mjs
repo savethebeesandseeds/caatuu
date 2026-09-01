@@ -22,12 +22,14 @@ const [
   authoredManifest,
   englishCatalog,
   realizationCatalog,
+  readingGuideCatalog,
   czechWordWorldManifest
 ] = await Promise.all([
   json("../../languages/mandarin-simplified/course.json"),
   json("../../languages/mandarin-simplified/static/data/games/word-world/manifest.json"),
   json("../static/data/english-concepts/word-world-starter-v1.json"),
   json("../../languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json"),
+  json("../../languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"),
   json("../../languages/czech/static/data/games/word-world/manifest.json")
 ]);
 
@@ -47,6 +49,9 @@ function authoredJsonLoader(url) {
   }
   if (pathname === "/zh/data/games/word-world/starter-v1.realizations.json") {
     return structuredClone(realizationCatalog);
+  }
+  if (pathname === "/zh/data/games/word-world/starter-v1.reading-guides.json") {
+    return structuredClone(readingGuideCatalog);
   }
   throw new Error(`Unexpected authored fixture URL: ${url}`);
 }
@@ -91,8 +96,8 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   const context = await prepareWordWorldContext(mandarinCourse, authoredManifest, options);
 
   assert.equal(context.providerKind, "authored-realizations");
-  assert.equal(context.session.records.length, 16);
-  assert.equal(context.selectionProvider.records.length, 16);
+  assert.equal(context.session.records.length, 250);
+  assert.equal(context.selectionProvider.records.length, 250);
   assert.equal(context.selectionProvider.corpusVersion, "starter-v1");
   for (const method of [
     "difficultyCounts",
@@ -102,7 +107,7 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
     "markUsed",
     "getRecordById"
   ]) assert.equal(typeof context.selectionProvider[method], "function", method);
-  assert.deepEqual(context.selectionProvider.difficultyCounts(), { 1: 9, 2: 7, 3: 0 });
+  assert.deepEqual(context.selectionProvider.difficultyCounts(), { 1: 50, 2: 150, 3: 50 });
 
   const book = context.sessionRecord("ww.object.book");
   assert.equal(book.target.text, "这是一本书。");
@@ -118,6 +123,26 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   });
   assert.equal(authoredMeaning.meaning, "book");
   assert.equal(context.fullDictionaryLookup, null);
+  assert.deepEqual(context.targetTextGuide, {
+    system: "pinyin",
+    status: "machine-assisted-preview",
+    languageTag: "zh-Latn-pinyin",
+    labels: {
+      section: "Mandarin text",
+      showGuide: "Show pinyin",
+      colorTones: "Color tones"
+    },
+    defaults: { showGuide: true, colorTones: true }
+  });
+  const thanks = context.sessionRecord("ww.greeting.thanks");
+  assert.deepEqual(context.targetTextUnits({
+    record: thanks,
+    token: thanks.target.tokens[0],
+    tokenIndex: 0
+  }), [
+    { surface: "谢", notation: "xiè", tone: 4 },
+    { surface: "谢", notation: "xie", tone: 5 }
+  ]);
 
   const selected = context.selectionProvider.nextForWord("书", {
     difficulty: 3,
@@ -293,11 +318,11 @@ test("the Czech standard provider resolves dictionary selection from the shared 
   });
 
   assert.deepEqual(imported, [
-    "https://caatuu.test/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19"
+    "https://caatuu.test/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
   ]);
   assert.equal(
     czechWordWorldManifest.sessionProvider.meaningSelectorModule,
-    "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19"
+    "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
   );
 });
 
@@ -397,7 +422,7 @@ test("mountWordWorld lazily delegates one prepared context to a replaceable rend
     }
   }));
 
-  assert.deepEqual(result, { mounted: true, conceptCount: 16 });
+  assert.deepEqual(result, { mounted: true, conceptCount: 250 });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].receivedRoot, root);
   assert.equal(calls[0].rendererOptions.providerContext, calls[0].context);

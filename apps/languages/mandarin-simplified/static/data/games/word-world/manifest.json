@@ -11,7 +11,22 @@
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
   "realizationFile": "starter-v1.realizations.json",
-  "recordCount": 16,
+  "targetTextGuide": {
+    "file": "starter-v1.reading-guides.json",
+    "system": "pinyin",
+    "languageTag": "zh-Latn-pinyin",
+    "status": "machine-assisted-preview",
+    "labels": {
+      "section": "Mandarin text",
+      "showGuide": "Show pinyin",
+      "colorTones": "Color tones"
+    },
+    "defaults": {
+      "showGuide": true,
+      "colorTones": true
+    }
+  },
+  "recordCount": 250,
   "targetLanguage": "zh-Hans",
   "mediationLanguage": "en",
   "tokenization": "authored",

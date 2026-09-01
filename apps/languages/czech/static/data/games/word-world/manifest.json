@@ -5,7 +5,7 @@
   "sessionProvider": {
     "kind": "standard-corpus",
     "module": "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
-    "meaningSelectorModule": "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-19"
+    "meaningSelectorModule": "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
   },
   "features": {
     "wordMeanings": true

@@ -48,7 +48,7 @@ test("one central policy identifies the exact combat Macaw source assets", async
 
 test("every child-facing Macaw consumer imports and enforces the central policy", async () => {
   const consumers = [
-    path.join(staticRoot, "source", "games", "verb-nebula", "app.js"),
+    path.join(repoRoot, "apps", "language-runtime", "static", "source", "caatuu-workspace.js"),
     path.join(staticRoot, "source", "games", "conjugation-comet", "conjugation-comet.js"),
     path.join(staticRoot, "source", "features", "embedding-images", "embedding-images.js"),
   ];
@@ -62,8 +62,13 @@ test("every child-facing Macaw consumer imports and enforces the central policy"
   assert.match(builder, /from "\.\.\/\.\.\/\.\.\/apps\/language-runtime\/static\/source\/child-facing-assets\.mjs"/u);
   assert.ok(builder.indexOf("partitionChildFacingAssetRows(allAssetRows)") < builder.indexOf("embedder.embedTexts("));
 
-  const productBuilder = await fs.readFile(path.join(repoRoot, "apps", "android", "tooling", "build-product-assets.mjs"), "utf8");
-  assert.match(productBuilder, /"source\/shared\/child-facing-assets\.mjs"/u);
+  const sharedAppAssets = JSON.parse(await fs.readFile(
+    path.join(repoRoot, "apps", "language-runtime", "app-assets.json"),
+    "utf8",
+  ));
+  assert.ok(sharedAppAssets.assets.some((asset) => (
+    asset.output === "language-runtime/static/source/child-facing-assets.mjs"
+  )));
 });
 
 test("the generated release vector index and setup catalog omit central-policy assets", async () => {

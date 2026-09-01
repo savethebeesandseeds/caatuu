@@ -35,6 +35,7 @@ test("Games opens a shared planet selector from every screen", () => {
   assert.match(chrome, /"conjugation-comet"[\s\S]*?href: "index\.html"/);
   assert.match(chrome, /"case-cosmos"[\s\S]*?href: "index\.html"/);
   assert.match(chrome, /"agreement-aurora"[\s\S]*?href: "index\.html"/);
+  assert.match(chrome, /"naturalization-nucleus"[\s\S]*?href: "index\.html"/);
   assert.match(chrome, /item\.key === "games"[\s\S]*?gameNavigationHref\(\)/);
   assert.match(chrome, /function renderGameMenu\(\)[\s\S]*?id = "gamesMenuPanel"[\s\S]*?className = "games-menu-backdrop"/);
   assert.doesNotMatch(chrome, /games-menu-head|gamesMenuTitle|data-games-menu-close/);
@@ -48,7 +49,7 @@ test("Games opens a shared planet selector from every screen", () => {
   assert.match(chrome, /function selectGameFromMenu\(gameId\)[\s\S]*?localTarget\.click\(\)[\s\S]*?rememberNavigationRequest\(`game:\$\{normalizedGameId\}`\)/);
   assert.match(chrome, /function openSharedSettings\(\{ view = readRememberedBackpackView\(\) \} = \{\}\)[\s\S]*?setSettingsView\(panel, view\)[\s\S]*?setBottomDockMenu\(\)/);
   assert.match(chrome, /if \(panel\.hidden\) openSharedSettings\(\{ view: settingsView\.dataset\.settingsView \}\)/);
-  assert.match(appController, /navigationRequest\.startsWith\("game:"\)[\s\S]*?\["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"\]\.includes\(requestedGame\)[\s\S]*?data-train-tab/);
+  assert.match(appController, /navigationRequest\.startsWith\("game:"\)[\s\S]*?\["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon"\]\.includes\(requestedGame\)[\s\S]*?data-train-tab/);
   assert.match(chrome, /function ensureBottomDock\(nav = document\.querySelector\("\[data-caatuu-bottom-nav\]"\)\)/);
   assert.match(chrome, /dock\.append\(menuHost, nav\)/);
   assert.match(chrome, /function setBottomDockMenu\(menu = ""\)/);
@@ -201,7 +202,7 @@ test("newer games lazy-mount inside the shared Games URL while standalone routes
   assert.match(appController, /function ensureEmbeddedGameLoaded\(gameId\)[\s\S]*?frame\.src = source/);
   assert.doesNotMatch(appController, /syncEmbeddedGameHeight|observeEmbeddedGameHeight/);
   assert.match(appCss, /body\.word-net-active,[\s\S]*?body\.embedded-game-active[\s\S]*?height:\s*100dvh;[\s\S]*?overflow:\s*hidden;/);
-  assert.match(appCss, /body\.word-net-active > \.app-shell,[\s\S]*?grid-template-rows:\s*auto minmax\(0, 1fr\);[\s\S]*?overflow:\s*hidden;/);
+  assert.match(appCss, /body\.word-net-active > \.app-shell,[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\);[\s\S]*?grid-template-rows:\s*auto minmax\(0, 1fr\);[\s\S]*?overflow:\s*hidden;/);
   assert.match(appCss, /body\.word-net-active \.workspace,[\s\S]*?body\.embedded-game-active \.workspace \{[\s\S]*?padding:\s*0;[\s\S]*?overflow:\s*hidden;/);
   assert.match(appCss, /body\.word-net-active \.word-net-embedded-stage,[\s\S]*?body\.embedded-game-active \.embedded-game-stage[\s\S]*?height:\s*100%;[\s\S]*?min-height:\s*0;/);
   assert.match(appCss, /\.word-net-embedded-panel \{[\s\S]*?border-radius:\s*0;/);
@@ -297,12 +298,12 @@ test("Games shows the current child badge and clears it on the planet selector",
 
 test("every shared page and the setup catalog use the new Chrome cache keys", () => {
   for (const page of pages) {
-    assert.match(page, /caatuu-chrome\.css\?v=chrome-style-125/);
-    assert.match(page, /caatuu-chrome\.js\?v=chrome-122/);
+    assert.match(page, /caatuu-chrome\.css\?v=chrome-style-126/);
+    assert.match(page, /caatuu-chrome\.js\?v=chrome-124/);
   }
   assert.match(setupCatalogSource, /caatuu-czech-pwa-v\d+/);
-  assert.match(setupCatalogSource, /caatuu-chrome\.css\?v=chrome-style-125/);
-  assert.match(setupCatalogSource, /caatuu-chrome\.js\?v=chrome-122/);
+  assert.match(setupCatalogSource, /caatuu-chrome\.css\?v=chrome-style-126/);
+  assert.match(setupCatalogSource, /caatuu-chrome\.js\?v=chrome-124/);
 });
 
 test("retired Guided Journey is absent while the live dictionary request remains", () => {

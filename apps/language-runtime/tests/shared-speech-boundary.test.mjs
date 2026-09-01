@@ -177,12 +177,12 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
   });
   assert.equal((await statusPromise).locale, "zh-CN");
 
-  const speakPromise = nativeContext.CaatuuRuntime.speech.speak("你好", { locale: "cs-CZ", rate: 0.6 });
+  const speakPromise = nativeContext.CaatuuRuntime.speech.speak("你好", { locale: "cs-CZ", rate: 0.75 });
   const speakRequest = nativeRequests.shift();
   assert.equal(speakRequest.type, "speech_speak");
   assert.equal(speakRequest.locale, "zh-CN");
   assert.equal(speakRequest.text, "你好");
-  assert.equal(speakRequest.rate, 0.6, "the Android bridge request must preserve the selected rate");
+  assert.equal(speakRequest.rate, 0.75, "the Android bridge request must preserve the selected rate");
   nativeContext.CaatuuNative.receive({
     id: speakRequest.id,
     kind: "done",

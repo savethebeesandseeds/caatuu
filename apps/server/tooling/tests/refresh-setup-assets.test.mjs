@@ -200,12 +200,11 @@ test("course gameplay routes cannot point at retired mini-app documents", async 
   }
 });
 
-test("legacy public asset URLs resolve to descriptive source folders", async (t) => {
+test("remaining legacy public asset URLs resolve to descriptive source folders", async (t) => {
   const paths = await fixture();
   t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
 
   const aliases = [
-    ["mascot", "/assets/aliens/czech.png", "assets/language-mascots/czech.png"],
     ["loading", "/assets/loading_animation/frame.png", "assets/loading-animation/frame.png"],
     ["vocabulary", "/assets/miscellaneous/house.png", "assets/visual-vocabulary/house.png"]
   ];

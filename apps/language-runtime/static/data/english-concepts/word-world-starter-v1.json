@@ -3,7 +3,6 @@
   "schemaVersion": 1,
   "id": "word-world-starter-v1",
   "language": "en",
-  "derivedFrom": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
   "embeddingPolicy": {
     "inputLanguage": "en",
     "inputField": "embeddingText",
@@ -75,38 +74,6 @@
       "difficulty": 1
     },
     {
-      "id": "ww.location.cat-under-table",
-      "englishText": "The cat is under the table.",
-      "embeddingText": "A cat located underneath a table.",
-      "sceneQuery": "a cat under a table",
-      "topic": "locations",
-      "difficulty": 2
-    },
-    {
-      "id": "ww.preference.tea",
-      "englishText": "I like drinking tea.",
-      "embeddingText": "A person says they enjoy drinking tea.",
-      "sceneQuery": "a person enjoying a cup of tea",
-      "topic": "food-and-drink",
-      "difficulty": 2
-    },
-    {
-      "id": "ww.action.drink-water",
-      "englishText": "She drinks water every day.",
-      "embeddingText": "A woman drinks water as a daily habit.",
-      "sceneQuery": "a woman drinking a glass of water",
-      "topic": "daily-life",
-      "difficulty": 2
-    },
-    {
-      "id": "ww.action.read-book",
-      "englishText": "He is reading a book.",
-      "embeddingText": "A man is currently reading a book.",
-      "sceneQuery": "a man reading a book",
-      "topic": "daily-life",
-      "difficulty": 2
-    },
-    {
       "id": "ww.weather.cold-today",
       "englishText": "It is cold today.",
       "embeddingText": "Today's weather feels cold.",
@@ -115,19 +82,395 @@
       "difficulty": 1
     },
     {
-      "id": "ww.possession.two-friends",
-      "englishText": "I have two friends.",
-      "embeddingText": "A person says that they have two friends.",
-      "sceneQuery": "three friends together",
-      "topic": "people",
+      "id": "ww.comprehension.not-understand",
+      "englishText": "I do not understand.",
+      "embeddingText": "A learner says that they do not understand something.",
+      "sceneQuery": "a learner asking for clarification",
+      "topic": "communication",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.good-morning",
+      "englishText": "Good morning!",
+      "embeddingText": "Greeting someone warmly at the start of the day.",
+      "sceneQuery": "two children greeting at sunrise",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.good-evening",
+      "englishText": "Good evening!",
+      "embeddingText": "Offering a polite greeting after the daytime has ended.",
+      "sceneQuery": "neighbors greeting under an evening sky",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.number.seven-to-ten",
+      "englishText": "Seven, eight, nine, ten.",
+      "embeddingText": "Reciting the next four whole numbers after six.",
+      "sceneQuery": "rows of seven eight nine and ten toy blocks",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.politeness.welcome",
+      "englishText": "You are welcome.",
+      "embeddingText": "Responding politely when another person expresses gratitude.",
+      "sceneQuery": "two friends smiling after one says thanks",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.how-are-you",
+      "englishText": "How are you?",
+      "embeddingText": "Asking about another person's wellbeing in casual conversation.",
+      "sceneQuery": "two friends checking on each other",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.i-am-well",
+      "englishText": "I am very well.",
+      "embeddingText": "Reassuring someone that one's wellbeing is very good.",
+      "sceneQuery": "a cheerful person giving a thumbs up",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.identity.your-name",
+      "englishText": "What is your name?",
+      "embeddingText": "Politely asking how another person is called.",
+      "sceneQuery": "two new classmates introducing themselves",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.people.my-friend",
+      "englishText": "He is my friend.",
+      "embeddingText": "Identifying a male companion as one's friend.",
+      "sceneQuery": "two boys standing together as friends",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.people.my-teacher",
+      "englishText": "She is my teacher.",
+      "embeddingText": "Identifying a woman as one's teacher.",
+      "sceneQuery": "a student standing beside her teacher",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.family.together",
+      "englishText": "We are a family.",
+      "embeddingText": "Describing a group of loved ones as one family.",
+      "sceneQuery": "a family gathered together at home",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.family.mother",
+      "englishText": "This is my mother.",
+      "embeddingText": "Introducing a nearby woman as one's mother.",
+      "sceneQuery": "a child standing beside their mother",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.family.father",
+      "englishText": "That is my father.",
+      "embeddingText": "Pointing out a nearby man as one's father.",
+      "sceneQuery": "a child pointing toward their father",
+      "topic": "identity-people-family",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.language.speak-chinese",
+      "englishText": "I can speak Chinese.",
+      "embeddingText": "Stating an ability to communicate in the Chinese language.",
+      "sceneQuery": "a learner chatting with a Chinese teacher",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.classroom.listen",
+      "englishText": "Please listen.",
+      "embeddingText": "A polite classroom instruction to pay attention by ear.",
+      "sceneQuery": "a teacher speaking while students listen",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.classroom.look",
+      "englishText": "Please look.",
+      "embeddingText": "A polite request to direct one's eyes toward something.",
+      "sceneQuery": "a teacher pointing at a classroom picture",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.classroom.read",
+      "englishText": "Please read.",
+      "embeddingText": "A courteous instruction to read the presented material.",
+      "sceneQuery": "a student reading an open book",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.classroom.write",
+      "englishText": "Please write.",
+      "embeddingText": "A courteous instruction to put words or characters on paper.",
+      "sceneQuery": "a student writing in a notebook",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.language.learn-pinyin",
+      "englishText": "I am learning pinyin.",
+      "embeddingText": "Describing ongoing study of Mandarin pronunciation spelling.",
+      "sceneQuery": "a learner practicing pinyin sound cards",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.language.easy-word",
+      "englishText": "This word is easy.",
+      "embeddingText": "Judging a vocabulary item as simple to learn.",
+      "sceneQuery": "a smiling student holding one vocabulary card",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.number.one-to-six",
+      "englishText": "One, two, three, four, five, six.",
+      "embeddingText": "Counting the first six whole numbers in order.",
+      "sceneQuery": "six colorful blocks arranged for counting",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.number.two-books",
+      "englishText": "I have two books.",
+      "embeddingText": "Expressing possession of a pair of books.",
+      "sceneQuery": "a student holding two books",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.number.three-apples",
+      "englishText": "There are three apples here.",
+      "embeddingText": "Noticing that a group of three apples is present nearby.",
+      "sceneQuery": "three apples together on a table",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.time.what-time",
+      "englishText": "What time is it now?",
+      "embeddingText": "Asking for the current hour and minute.",
+      "sceneQuery": "a person checking an analog wall clock",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.time.monday",
+      "englishText": "Today is Monday.",
+      "embeddingText": "Identifying the present day of the week as Monday.",
+      "sceneQuery": "a student beginning the school week",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.time.tuesday",
+      "englishText": "Tomorrow is Tuesday.",
+      "embeddingText": "Saying that the following day of the week is Tuesday.",
+      "sceneQuery": "a child moving a calendar marker forward one day",
+      "topic": "numbers-time",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.food.rice",
+      "englishText": "I like eating rice.",
+      "embeddingText": "Sharing a preference for eating cooked rice.",
+      "sceneQuery": "a child enjoying a bowl of rice",
+      "topic": "food-drink",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.drink.water",
+      "englishText": "Please drink water.",
+      "embeddingText": "Politely encouraging someone to have some water.",
+      "sceneQuery": "a person offering a glass of water",
+      "topic": "food-drink",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.plan.want-school",
+      "englishText": "I want to go to school.",
+      "embeddingText": "Expressing a wish to travel to school.",
+      "sceneQuery": "a student walking toward a school building",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.food.big-apple",
+      "englishText": "The apple is big.",
+      "embeddingText": "Describing an apple as large in size.",
+      "sceneQuery": "one large apple beside a small cup",
+      "topic": "food-drink",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.animal.small-cat",
+      "englishText": "The cat is small.",
+      "embeddingText": "Describing a cat as little in size.",
+      "sceneQuery": "a small kitten beside a chair",
+      "topic": "nature-animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.home.my-home",
+      "englishText": "This is my home.",
+      "embeddingText": "Identifying a nearby dwelling as one's own home.",
+      "sceneQuery": "a child standing proudly outside their home",
+      "topic": "home-objects-location",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.location.book-on-table",
+      "englishText": "The book is on the table.",
+      "embeddingText": "Locating a book on top of a table.",
+      "sceneQuery": "a book resting on a wooden table",
+      "topic": "home-objects-location",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.location.cat-under-chair",
+      "englishText": "The cat is under the chair.",
+      "embeddingText": "Locating a cat beneath a chair.",
+      "sceneQuery": "a cat curled up under a chair",
+      "topic": "home-objects-location",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.home.open-door",
+      "englishText": "The door is open.",
+      "embeddingText": "Describing the current open state of a door.",
+      "sceneQuery": "an open doorway in a bright room",
+      "topic": "home-objects-location",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.home.closed-window",
+      "englishText": "The window is closed.",
+      "embeddingText": "Describing the current shut state of a window.",
+      "sceneQuery": "a closed window in a cozy room",
+      "topic": "home-objects-location",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.weather.rain-today",
+      "englishText": "It is raining today.",
+      "embeddingText": "Reporting that rain is falling on the present day.",
+      "sceneQuery": "children under umbrellas in daytime rain",
+      "topic": "weather-routine",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.action.teacher-arrived",
+      "englishText": "The teacher has arrived.",
+      "embeddingText": "Announcing that the teacher has reached the classroom.",
+      "sceneQuery": "a teacher entering a classroom doorway",
+      "topic": "classroom-language",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.routine.get-up",
+      "englishText": "I get up in the morning.",
+      "embeddingText": "Describing the daily habit of leaving bed in the morning.",
+      "sceneQuery": "a child getting out of bed at sunrise",
+      "topic": "weather-routine",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.routine.go-home",
+      "englishText": "I go home in the evening.",
+      "embeddingText": "Describing a routine return home during the evening.",
+      "sceneQuery": "a student arriving home at sunset",
+      "topic": "weather-routine",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.politeness.sit-down",
+      "englishText": "Please sit down.",
+      "embeddingText": "Politely inviting another person to take a seat.",
+      "sceneQuery": "a host offering a chair to a guest",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.greeting.see-you-tomorrow",
+      "englishText": "Goodbye, see you tomorrow!",
+      "embeddingText": "Parting warmly with the expectation of meeting the next day.",
+      "sceneQuery": "two classmates waving goodbye after school",
+      "topic": "greetings-social",
+      "difficulty": 1
+    },
+    {
+      "id": "ww.question.what-is-this",
+      "englishText": "What is this?",
+      "embeddingText": "Asking someone to identify a nearby object.",
+      "sceneQuery": "a curious child pointing at an unfamiliar object",
+      "topic": "conversation-questions",
       "difficulty": 2
     },
     {
-      "id": "ww.question.go-to-park",
-      "englishText": "Do you want to go to the park?",
-      "embeddingText": "Inviting someone to go to a park.",
-      "sceneQuery": "friends planning to visit a park",
-      "topic": "plans",
+      "id": "ww.question.who-is-that",
+      "englishText": "Who is that person?",
+      "embeddingText": "Asking for the identity of a person farther away.",
+      "sceneQuery": "two friends noticing a person in the distance",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.where-are-you",
+      "englishText": "Where are you now?",
+      "embeddingText": "Requesting another person's present location during a conversation.",
+      "sceneQuery": "a friend calling from a park entrance",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.when-come",
+      "englishText": "When will you come?",
+      "embeddingText": "Asking at what time someone expects to arrive.",
+      "sceneQuery": "a person checking a clock while on the phone",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.why-chinese",
+      "englishText": "Why are you learning Chinese?",
+      "embeddingText": "Asking about someone's reason for studying the Chinese language.",
+      "sceneQuery": "a student practicing Chinese character cards",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.how-say-word",
+      "englishText": "How do I say this word?",
+      "embeddingText": "Requesting help with how to express a vocabulary item.",
+      "sceneQuery": "a learner showing a picture card to a teacher",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.communication.say-again",
+      "englishText": "Can you say it again?",
+      "embeddingText": "Politely requesting that another person repeat an utterance.",
+      "sceneQuery": "a listener cupping an ear as a friend repeats",
+      "topic": "conversation-questions",
       "difficulty": 2
     },
     {
@@ -139,12 +482,1541 @@
       "difficulty": 2
     },
     {
-      "id": "ww.comprehension.not-understand",
-      "englishText": "I do not understand.",
-      "embeddingText": "A learner says that they do not understand something.",
-      "sceneQuery": "a learner asking for clarification",
-      "topic": "communication",
-      "difficulty": 1
+      "id": "ww.comprehension.understand-now",
+      "englishText": "I understand now.",
+      "embeddingText": "Confirming that an explanation has become clear.",
+      "sceneQuery": "a student smiling after a teacher explains",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.one-more",
+      "englishText": "I still have a question.",
+      "embeddingText": "Indicating that another question remains to be asked.",
+      "sceneQuery": "a student raising a hand in class",
+      "topic": "conversation-questions",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.seven-wake",
+      "englishText": "I get up at seven.",
+      "embeddingText": "Giving seven o'clock as one's usual rising time.",
+      "sceneQuery": "a child waking beside an analog clock at seven",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.brush-teeth",
+      "englishText": "I brush my teeth in the morning.",
+      "embeddingText": "Describing morning toothbrushing as a daily habit.",
+      "sceneQuery": "a child brushing teeth at a bathroom sink",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.home-breakfast",
+      "englishText": "I eat breakfast at home.",
+      "embeddingText": "Saying that the morning meal is eaten at home.",
+      "sceneQuery": "a family eating breakfast in their kitchen",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.school-eight",
+      "englishText": "I go to school at eight.",
+      "embeddingText": "Giving eight o'clock as the time one goes to school.",
+      "sceneQuery": "a student leaving home while an analog clock shows eight",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.afternoon-home",
+      "englishText": "I go home in the afternoon.",
+      "embeddingText": "Describing a return home during the afternoon.",
+      "sceneQuery": "a student walking home in afternoon sunlight",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.homework-after-dinner",
+      "englishText": "I do homework after dinner.",
+      "embeddingText": "Placing homework time after the evening meal.",
+      "sceneQuery": "a child doing homework after a family dinner",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.routine.read-before-sleep",
+      "englishText": "I read before going to sleep.",
+      "embeddingText": "Describing reading as an activity before bedtime.",
+      "sceneQuery": "a child reading a book beside a bed",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.home.room-is-clean",
+      "englishText": "My room is clean.",
+      "embeddingText": "Describing one's bedroom as tidy and free of dirt.",
+      "sceneQuery": "a child standing in a neat clean bedroom",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.home.clothes-in-wardrobe",
+      "englishText": "The clothes are in the wardrobe.",
+      "embeddingText": "Locating clothing inside a wardrobe.",
+      "sceneQuery": "folded clothes inside an open wardrobe",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.home.keys-by-door",
+      "englishText": "The keys are beside the door.",
+      "embeddingText": "Locating a set of keys next to a doorway.",
+      "sceneQuery": "house keys hanging beside a door",
+      "topic": "routines-home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.textbook-on-desk",
+      "englishText": "The textbook is on the desk.",
+      "embeddingText": "Locating a school textbook on top of a desk.",
+      "sceneQuery": "a textbook resting on a classroom desk",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.open-page-ten",
+      "englishText": "Please turn to page ten.",
+      "embeddingText": "Politely directing a learner to the tenth page of a book.",
+      "sceneQuery": "a student turning to page ten in a textbook",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.action.read-book",
+      "englishText": "He is reading a book.",
+      "embeddingText": "A man is currently reading a book.",
+      "sceneQuery": "a man reading a book",
+      "topic": "daily-life",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.board-writing",
+      "englishText": "The teacher is writing on the board.",
+      "embeddingText": "Describing a teacher putting written material on the classroom board.",
+      "sceneQuery": "a teacher writing simple symbols on a blackboard",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.listen-carefully",
+      "englishText": "The students listen carefully.",
+      "embeddingText": "Describing students paying close attention to spoken instruction.",
+      "sceneQuery": "attentive students listening to a teacher",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.practice-characters",
+      "englishText": "I practice Chinese characters every day.",
+      "embeddingText": "Describing daily practice of the Chinese writing system.",
+      "sceneQuery": "a learner practicing Chinese characters in a workbook",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.hard-question",
+      "englishText": "This question is a little difficult.",
+      "embeddingText": "Judging a particular question as somewhat challenging.",
+      "sceneQuery": "a student thinking over one difficult exercise",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.know-answer",
+      "englishText": "I know the answer.",
+      "embeddingText": "Expressing certainty about the solution to a question.",
+      "sceneQuery": "a confident student raising a hand",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.explain-again",
+      "englishText": "Please explain it again.",
+      "embeddingText": "Politely requesting another explanation of the material.",
+      "sceneQuery": "a teacher explaining a diagram to a student again",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.school.study-together",
+      "englishText": "Let us study together.",
+      "embeddingText": "Inviting others to join in a shared study session.",
+      "sceneQuery": "three students studying together at a table",
+      "topic": "school-learning",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.office",
+      "englishText": "I work in an office.",
+      "embeddingText": "Describing an office as one's regular workplace.",
+      "sceneQuery": "an adult working at an organized office desk",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.start-nine",
+      "englishText": "I start work at nine.",
+      "embeddingText": "Giving nine o'clock as the beginning of one's workday.",
+      "sceneQuery": "an office worker arriving as an analog clock shows nine",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.send-file",
+      "englishText": "Please send me the file today.",
+      "embeddingText": "Politely requesting delivery of a work document before today ends.",
+      "sceneQuery": "two coworkers handing over a document folder",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.meeting-ten",
+      "englishText": "The meeting starts at ten.",
+      "embeddingText": "Giving ten o'clock as the scheduled start of a meeting.",
+      "sceneQuery": "coworkers gathering at a meeting table as a clock shows ten",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.task-nearly-done",
+      "englishText": "This task is nearly finished.",
+      "embeddingText": "Reporting that only a small amount of a task remains.",
+      "sceneQuery": "a worker placing the final piece in a project",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.more-time",
+      "englishText": "I need more time.",
+      "embeddingText": "Expressing that the available time is insufficient.",
+      "sceneQuery": "a worker comparing an unfinished project with a clock",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.check-schedule",
+      "englishText": "Please check the schedule.",
+      "embeddingText": "Politely asking someone to review the planned timetable.",
+      "sceneQuery": "a coworker checking a simple wall calendar",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.coworker-help",
+      "englishText": "My coworker helps me.",
+      "embeddingText": "Describing assistance received from a colleague.",
+      "sceneQuery": "one coworker helping another organize papers",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.short-break",
+      "englishText": "We take a short break.",
+      "embeddingText": "Describing a brief pause shared during work.",
+      "sceneQuery": "coworkers relaxing with water during a short break",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.work.finish-before-home",
+      "englishText": "I finish my work before going home.",
+      "embeddingText": "Placing completion of one's work before the return home.",
+      "sceneQuery": "an office worker finishing a task before leaving",
+      "topic": "work-tasks",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.apple-price",
+      "englishText": "How much are the apples per jin?",
+      "embeddingText": "Asking the price of apples sold by the jin measure.",
+      "sceneQuery": "apples on a market scale beside a shopkeeper",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.blue-shirt",
+      "englishText": "I want to buy a blue shirt.",
+      "embeddingText": "Expressing an intention to purchase a blue shirt.",
+      "sceneQuery": "a shopper choosing a blue shirt from a rack",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.right-size",
+      "englishText": "This size fits.",
+      "embeddingText": "Confirming that a garment size is suitable.",
+      "sceneQuery": "a shopper checking the fit of a jacket",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.try-on",
+      "englishText": "May I try it on?",
+      "embeddingText": "Politely asking permission to test how a garment fits.",
+      "sceneQuery": "a shopper holding a shirt near a fitting room",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.receipt",
+      "englishText": "Please give me the receipt.",
+      "embeddingText": "Politely requesting proof of a completed purchase.",
+      "sceneQuery": "a cashier handing a blank receipt to a customer",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.closes-eight",
+      "englishText": "The shop closes at eight in the evening.",
+      "embeddingText": "Giving eight in the evening as a shop's closing time.",
+      "sceneQuery": "a shopkeeper closing a storefront at eight o'clock",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.checkout",
+      "englishText": "Where is the checkout counter?",
+      "embeddingText": "Asking where customers complete payment in a store.",
+      "sceneQuery": "a shopper looking toward a checkout counter",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.pay-card",
+      "englishText": "I pay by card.",
+      "embeddingText": "Describing a purchase completed with a payment card.",
+      "sceneQuery": "a customer tapping a blank bank card on a terminal",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.cheaper-book",
+      "englishText": "This book is cheaper.",
+      "embeddingText": "Comparing a book as lower in price than another option.",
+      "sceneQuery": "two books with one marked by a lower generic price tag",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.shopping.thanks-help",
+      "englishText": "Thank you for your help.",
+      "embeddingText": "Showing gratitude for assistance received from someone.",
+      "sceneQuery": "a grateful shopper thanking a helpful clerk",
+      "topic": "shopping-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.transit.bus-stop-ahead",
+      "englishText": "The bus stop is ahead.",
+      "embeddingText": "Locating a bus stop farther forward along the route.",
+      "sceneQuery": "a bus stop visible ahead on a sidewalk",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.transit.subway-left",
+      "englishText": "The subway entrance is on the left.",
+      "embeddingText": "Locating the entrance to an underground train on the left side.",
+      "sceneQuery": "a subway entrance on the left side of a plaza",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.direction.turn-right",
+      "englishText": "Please turn right at the intersection.",
+      "embeddingText": "Giving a polite direction to take the right turn at a junction.",
+      "sceneQuery": "a pedestrian turning right at a safe intersection",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.direction.walk-five",
+      "englishText": "Walk straight for five minutes.",
+      "embeddingText": "Instructing someone to continue straight for five minutes.",
+      "sceneQuery": "a pedestrian walking straight along a clear path",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.transit.which-bus",
+      "englishText": "Which bus should I take to the city center?",
+      "embeddingText": "Asking which bus route provides travel to the city center.",
+      "sceneQuery": "a traveler asking a driver beside a city bus",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.travel.train-three",
+      "englishText": "The train leaves at three in the afternoon.",
+      "embeddingText": "Giving three in the afternoon as a train's departure time.",
+      "sceneQuery": "a train leaving a station at three o'clock",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.travel.ticket-table",
+      "englishText": "The ticket is on the table.",
+      "embeddingText": "Locating a travel ticket on top of a table.",
+      "sceneQuery": "a generic train ticket lying on a table",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.travel.wait-station",
+      "englishText": "We wait at the station.",
+      "embeddingText": "Describing a group waiting together at a transit station.",
+      "sceneQuery": "friends waiting on a bright train platform",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.travel.park-near-hotel",
+      "englishText": "The park is near the hotel.",
+      "embeddingText": "Describing a park as a short distance from a hotel.",
+      "sceneQuery": "a public park beside a hotel building",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.direction.map-road",
+      "englishText": "This road is on the map.",
+      "embeddingText": "Confirming that a particular road appears on a map.",
+      "sceneQuery": "a traveler pointing to a road line on a simple map",
+      "topic": "transit-travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.tired",
+      "englishText": "I feel a little tired.",
+      "embeddingText": "Reporting a mild feeling of fatigue.",
+      "sceneQuery": "a tired person resting after a long walk",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.rest",
+      "englishText": "Please rest for a while.",
+      "embeddingText": "Gently suggesting that someone pause and recover briefly.",
+      "sceneQuery": "a person relaxing safely on a park bench",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.action.drink-water",
+      "englishText": "She drinks water every day.",
+      "embeddingText": "A woman drinks water as a daily habit.",
+      "sceneQuery": "a woman drinking a glass of water",
+      "topic": "daily-life",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.slept-well",
+      "englishText": "I slept well last night.",
+      "embeddingText": "Reporting restful sleep during the previous night.",
+      "sceneQuery": "a refreshed person waking in morning light",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.headache",
+      "englishText": "My head hurts a little.",
+      "embeddingText": "Describing mild pain located in one's head.",
+      "sceneQuery": "a person resting with one hand on their forehead",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.see-doctor",
+      "englishText": "I need to see a doctor.",
+      "embeddingText": "Expressing the need to consult a medical professional.",
+      "sceneQuery": "a patient speaking with a friendly doctor in a clinic",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.clinic-nearby",
+      "englishText": "The clinic is nearby.",
+      "embeddingText": "Locating a medical clinic a short distance away.",
+      "sceneQuery": "a small neighborhood clinic across the street",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.ask-about-medicine",
+      "englishText": "Please ask the doctor how to take this medicine.",
+      "embeddingText": "Politely asking a doctor for instructions on using a medicine.",
+      "sceneQuery": "a parent and child asking a friendly doctor about a medicine bottle",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.walk-health",
+      "englishText": "Walking is good for health.",
+      "embeddingText": "Connecting regular walking with physical wellbeing.",
+      "sceneQuery": "a family taking a relaxed walk in a park",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.wellbeing.better-now",
+      "englishText": "I feel much better now.",
+      "embeddingText": "Reporting clear improvement in how one currently feels.",
+      "sceneQuery": "a recovering person smiling beside a cup of water",
+      "topic": "wellbeing",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.hobby.music",
+      "englishText": "I like listening to music.",
+      "embeddingText": "Sharing enjoyment of hearing music.",
+      "sceneQuery": "a child happily listening to music with headphones",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.hobby.piano",
+      "englishText": "She can play the piano.",
+      "embeddingText": "Describing a girl's ability to perform on the piano.",
+      "sceneQuery": "a girl playing piano in a music room",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.hobby.drawing",
+      "englishText": "I like drawing on weekends.",
+      "embeddingText": "Sharing a weekend preference for making pictures.",
+      "sceneQuery": "a child drawing a landscape on the weekend",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.hobby.football",
+      "englishText": "My younger brother likes playing football.",
+      "embeddingText": "Describing a younger brother's enjoyment of playing football.",
+      "sceneQuery": "a younger boy playing football on a field",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.culture.quiet-library",
+      "englishText": "The library is quiet.",
+      "embeddingText": "Describing a library as calm and low in noise.",
+      "sceneQuery": "students reading quietly inside a library",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.culture.museum-open",
+      "englishText": "The museum is open today.",
+      "embeddingText": "A visitor learns that the museum is welcoming guests today.",
+      "sceneQuery": "visitors entering a museum through open doors in daylight",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.nature.tall-trees",
+      "englishText": "The trees on the mountain are tall.",
+      "embeddingText": "A description of unusually tall trees growing along a mountainside.",
+      "sceneQuery": "towering green trees rising along a mountain slope",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.nature.park-flowers",
+      "englishText": "The flowers in the park have bloomed.",
+      "embeddingText": "Noticing that spring blossoms have opened throughout a public park.",
+      "sceneQuery": "colorful blossoms covering flower beds in a sunny park",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.nature.flying-bird",
+      "englishText": "A bird is flying in the sky.",
+      "embeddingText": "Describing one bird moving high through the open sky.",
+      "sceneQuery": "a single bird gliding above soft clouds in a blue sky",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.nature.blue-sea",
+      "englishText": "The sea is blue today.",
+      "embeddingText": "Observing the sea's clear blue color on this particular day.",
+      "sceneQuery": "bright blue sea meeting a pale horizon on a clear day",
+      "topic": "hobbies-culture-nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.phone-table",
+      "englishText": "My phone is on the table.",
+      "embeddingText": "Stating where a personal phone has been placed.",
+      "sceneQuery": "a generic smartphone resting on a wooden table with a blank screen",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.charge-phone",
+      "englishText": "Please charge the phone.",
+      "embeddingText": "A polite request to connect a phone to electrical power.",
+      "sceneQuery": "a charging cable being connected to a phone beside a wall outlet",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.slow-computer",
+      "englishText": "The computer starts slowly.",
+      "embeddingText": "Reporting that a computer takes a long time to start.",
+      "sceneQuery": "a person waiting beside a computer showing a simple loading circle",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.send-message",
+      "englishText": "Please send me a message.",
+      "embeddingText": "A polite request for someone to communicate by message.",
+      "sceneQuery": "a person tapping a blank chat bubble icon on a generic phone",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.received-email",
+      "englishText": "I received the email.",
+      "embeddingText": "Confirming that an expected email has arrived.",
+      "sceneQuery": "a person noticing a new envelope icon on a laptop with a blank screen",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.network-works",
+      "englishText": "The network works now.",
+      "embeddingText": "Reporting that an internet connection is functioning again.",
+      "sceneQuery": "a laptop and router connected by bright wireless signal waves",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.open-camera",
+      "englishText": "Please turn on the camera.",
+      "embeddingText": "A polite request to activate a device camera.",
+      "sceneQuery": "a person enabling a camera icon during a generic video call with blank tiles",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.volume-high",
+      "englishText": "The volume is too high.",
+      "embeddingText": "Complaining that a device's sound level is excessive.",
+      "sceneQuery": "a person covering their ears beside a speaker with high volume bars",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.save-file",
+      "englishText": "Please save this file.",
+      "embeddingText": "A polite instruction to preserve a digital document.",
+      "sceneQuery": "a hand clicking a save icon beside a blank document on a laptop",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.tech.call-grandmother",
+      "englishText": "Let us call Grandmother.",
+      "embeddingText": "Suggesting a shared phone conversation with a grandmother.",
+      "sceneQuery": "family members smiling during a video call with their grandmother and no names shown",
+      "topic": "technology-communication",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.free-tomorrow",
+      "englishText": "Are you free tomorrow?",
+      "embeddingText": "Asking whether another person has available time the following day.",
+      "sceneQuery": "two friends comparing blank calendar pages for tomorrow",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.question.go-to-park",
+      "englishText": "Do you want to go to the park?",
+      "embeddingText": "Inviting someone to go to a park.",
+      "sceneQuery": "friends planning to visit a park",
+      "topic": "plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.rain-stay-home",
+      "englishText": "If it rains, I will stay home.",
+      "embeddingText": "A plan to remain indoors if rainy weather occurs.",
+      "sceneQuery": "a person reading by a window while rain falls outside",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.compare.bus-walking",
+      "englishText": "Taking the bus is faster than walking.",
+      "embeddingText": "Comparing bus travel with walking by their relative speed.",
+      "sceneQuery": "a city bus passing a pedestrian along the same route",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.compare.tea-water",
+      "englishText": "This cup of tea is hotter than that glass of water.",
+      "embeddingText": "Comparing the temperatures of tea and plain water.",
+      "sceneQuery": "a steaming teacup beside a cool glass of water",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.compare.light-bag",
+      "englishText": "This bag is relatively light.",
+      "embeddingText": "Judging a bag to be light compared with alternatives.",
+      "sceneQuery": "a traveler easily lifting a small bag beside a heavier suitcase",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.choice.red-one",
+      "englishText": "I choose the red one.",
+      "embeddingText": "Selecting the red option from several available objects.",
+      "sceneQuery": "a hand pointing to a red cup among several colored cups",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.arrive-early",
+      "englishText": "I will arrive earlier tomorrow.",
+      "embeddingText": "A promise to reach a destination sooner on the next day.",
+      "sceneQuery": "a person approaching a school entrance early in the morning before others",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.library-after-class",
+      "englishText": "We will go to the library after class.",
+      "embeddingText": "A group plan to visit the library when lessons end.",
+      "sceneQuery": "students leaving a classroom and walking toward a library with books",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.meet-friends",
+      "englishText": "I want to meet friends this weekend.",
+      "embeddingText": "Expressing a weekend wish to spend time with friends.",
+      "sceneQuery": "friends meeting in a park on a sunny weekend",
+      "topic": "plans-comparison",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.ask-post-office",
+      "englishText": "Excuse me, where is the post office?",
+      "embeddingText": "Politely asking for directions to the local post office.",
+      "sceneQuery": "a traveler asking a passerby beside a map and a post office icon with no addresses",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.politeness.sorry-late",
+      "englishText": "Sorry, I am late.",
+      "embeddingText": "Apologizing for arriving after the expected time.",
+      "sceneQuery": "a latecomer apologizing to a friend beside a wall clock",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.politeness.no-problem",
+      "englishText": "No problem.",
+      "embeddingText": "Reassuring someone that a small difficulty is acceptable.",
+      "sceneQuery": "two people smiling after easily gathering a dropped stack of papers",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.line-up",
+      "englishText": "Please line up.",
+      "embeddingText": "Politely directing people to wait in an orderly queue.",
+      "sceneQuery": "people standing in a neat line at a service counter",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.library-quiet",
+      "englishText": "Please keep quiet in the library.",
+      "embeddingText": "Reminding library visitors to keep their voices low.",
+      "sceneQuery": "a librarian making a gentle quiet gesture while students read",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.offer-help",
+      "englishText": "Let me help you.",
+      "embeddingText": "Volunteering to assist another person with a task.",
+      "sceneQuery": "a person helping a neighbor carry a box",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.politeness.thanks-wait",
+      "englishText": "Thank you for waiting for me.",
+      "embeddingText": "Expressing gratitude to someone who waited.",
+      "sceneQuery": "two friends meeting at a bus stop as one warmly greets the waiting friend",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.politeness.after-you",
+      "englishText": "After you.",
+      "embeddingText": "Politely inviting another person to proceed ahead.",
+      "sceneQuery": "a person holding open a door and gesturing for a visitor to enter",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.your-seat",
+      "englishText": "This seat is yours.",
+      "embeddingText": "Identifying a particular seat as belonging to the listener.",
+      "sceneQuery": "a person pointing out an empty chair prepared for a companion",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.community.welcome",
+      "englishText": "Welcome to our community.",
+      "embeddingText": "Giving a warm greeting to someone newly joining a neighborhood.",
+      "sceneQuery": "neighbors welcoming a newcomer at a shared garden entrance",
+      "topic": "community-politeness",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.food.breakfast-ready",
+      "englishText": "Breakfast is ready.",
+      "embeddingText": "Announcing that the morning meal is prepared.",
+      "sceneQuery": "a complete family breakfast arranged on a kitchen table",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.food.fresh-vegetables",
+      "englishText": "The vegetables are fresh today.",
+      "embeddingText": "Observing that today's vegetables are newly harvested and crisp.",
+      "sceneQuery": "colorful fresh vegetables displayed at a market stall",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.preference.tea",
+      "englishText": "I like drinking tea.",
+      "embeddingText": "A person says they enjoy drinking tea.",
+      "sceneQuery": "a person enjoying a cup of tea",
+      "topic": "food-and-drink",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.food.not-spicy",
+      "englishText": "I do not eat spicy food.",
+      "embeddingText": "Stating a preference to avoid food with strong chili heat.",
+      "sceneQuery": "a diner choosing a mild dish while a red chili dish remains aside",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.food.more-rice",
+      "englishText": "Please give me another bowl of rice.",
+      "embeddingText": "Politely asking for one additional bowl of cooked rice.",
+      "sceneQuery": "a diner holding an empty bowl while a server brings a full rice bowl",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.sunny-afternoon",
+      "englishText": "It will be sunny this afternoon.",
+      "embeddingText": "Predicting clear and bright weather later in the day.",
+      "sceneQuery": "an afternoon park beneath bright sunshine and a clear sky",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.strong-wind",
+      "englishText": "The wind is a little strong.",
+      "embeddingText": "Noticing that today's wind is somewhat powerful.",
+      "sceneQuery": "trees and a scarf bending in gusty wind",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.take-umbrella",
+      "englishText": "Please take an umbrella when you go out.",
+      "embeddingText": "Reminding someone to carry rain protection before leaving.",
+      "sceneQuery": "a person taking an umbrella from a stand beside the front door",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.cold-winter",
+      "englishText": "Winter is cold here.",
+      "embeddingText": "Describing the local winter season as cold.",
+      "sceneQuery": "bundled people walking through a frosty town in winter",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.weather.spring-flowers",
+      "englishText": "There are many flowers in spring.",
+      "embeddingText": "Describing the abundance of blossoms during spring.",
+      "sceneQuery": "a broad spring meadow filled with colorful flowers",
+      "topic": "food-weather-time",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.sister-university",
+      "englishText": "My older sister studies at university.",
+      "embeddingText": "Explaining that an older sister is enrolled at a university.",
+      "sceneQuery": "a young woman studying with books on a university campus",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.brother-ten",
+      "englishText": "My younger brother is ten this year.",
+      "embeddingText": "Giving a younger brother's current age as ten.",
+      "sceneQuery": "a younger brother beside a birthday cake with ten candles",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.grandmother-cooks",
+      "englishText": "Grandmother is cooking in the kitchen.",
+      "embeddingText": "Describing a grandmother preparing food in the kitchen.",
+      "sceneQuery": "a grandmother stirring a pot in a bright home kitchen",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.grandfather-paper",
+      "englishText": "Grandfather is reading the newspaper.",
+      "embeddingText": "Describing a grandfather reading the daily newspaper.",
+      "sceneQuery": "a grandfather reading a newspaper with indistinct print in an armchair",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.dinner-together",
+      "englishText": "Our family eats dinner together.",
+      "embeddingText": "Describing relatives sharing their evening meal at one table.",
+      "sceneQuery": "a multigenerational family eating dinner together around a table",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.people.friend-name",
+      "englishText": "My friend's name is Li Ming.",
+      "embeddingText": "Introducing a friend by stating that person's name.",
+      "sceneQuery": "one friend introducing another to a small group with blank name badges",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.people.kind-teacher",
+      "englishText": "Our teacher is kind.",
+      "embeddingText": "Describing a teacher's caring and considerate manner.",
+      "sceneQuery": "a teacher gently helping a student with schoolwork",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.possession.two-friends",
+      "englishText": "I have two friends.",
+      "embeddingText": "A person says that they have two friends.",
+      "sceneQuery": "three friends together",
+      "topic": "people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.people.neighbor-dog",
+      "englishText": "Our neighbor has a dog.",
+      "embeddingText": "Stating that a nearby neighbor owns a dog.",
+      "sceneQuery": "a neighbor walking a friendly dog outside adjacent homes",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.family.visit-aunt",
+      "englishText": "We visit our aunt on the weekend.",
+      "embeddingText": "Describing a regular weekend visit with an aunt.",
+      "sceneQuery": "a family arriving at their aunt's home with a fruit basket",
+      "topic": "family-people",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.pen-in-bag",
+      "englishText": "The pen is in the school bag.",
+      "embeddingText": "Locating a pen inside a student's school bag.",
+      "sceneQuery": "an open school bag with a pen visible in its front pocket",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.cup-by-computer",
+      "englishText": "The cup is beside the computer.",
+      "embeddingText": "Locating a drinking cup next to a computer.",
+      "sceneQuery": "a cup placed safely beside a desktop computer",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.cat-under-table",
+      "englishText": "The cat is under the table.",
+      "embeddingText": "A cat located underneath a table.",
+      "sceneQuery": "a cat under a table",
+      "topic": "locations",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.restroom-right",
+      "englishText": "The restroom is to the right of the kitchen.",
+      "embeddingText": "Giving the restroom's position relative to the kitchen.",
+      "sceneQuery": "an indoor hallway with a kitchen doorway on the left and a restroom symbol on the right",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.elevator-hall",
+      "englishText": "The elevator is at the end of the hallway.",
+      "embeddingText": "Explaining that the elevator stands at the far end of a hallway.",
+      "sceneQuery": "a long indoor hallway leading to closed elevator doors",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.light-switch",
+      "englishText": "The light switch is beside the door.",
+      "embeddingText": "Locating the room's light switch next to its doorway.",
+      "sceneQuery": "a wall light switch mounted beside an open door",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.service.package-desk",
+      "englishText": "The package is at the front desk.",
+      "embeddingText": "Reporting that a delivered parcel is being held at reception.",
+      "sceneQuery": "a sealed parcel on a front desk with a blank label",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.bank-across",
+      "englishText": "The bank is across the road.",
+      "embeddingText": "Giving the bank's location on the opposite side of the street.",
+      "sceneQuery": "a street view with a generic bank building on the opposite side and no business names",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.pharmacy-clinic",
+      "englishText": "The pharmacy is beside the clinic.",
+      "embeddingText": "Describing the pharmacy's position next to a medical clinic.",
+      "sceneQuery": "a pharmacy cross icon beside a small clinic building with no readable signs",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.location.market-station",
+      "englishText": "The market is behind the station.",
+      "embeddingText": "Giving the market's location behind the transit station.",
+      "sceneQuery": "a train station in the foreground with an outdoor market visible behind it",
+      "topic": "objects-location-services",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.problem.forgot-umbrella",
+      "englishText": "I forgot to bring an umbrella.",
+      "embeddingText": "Admitting that an umbrella was accidentally left behind.",
+      "sceneQuery": "a person noticing rain outdoors while an umbrella remains by the door at home",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.problem.bus-late",
+      "englishText": "The bus has not arrived yet.",
+      "embeddingText": "Reporting that an expected bus is still late.",
+      "sceneQuery": "people waiting at a bus stop and looking down an empty road",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.problem.missing-key",
+      "englishText": "I cannot find the key.",
+      "embeddingText": "Reporting that a needed key is missing.",
+      "sceneQuery": "a person checking their pockets beside a table while searching for a key",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.problem.help-find",
+      "englishText": "Can you help me look for it?",
+      "embeddingText": "Asking another person for help finding a missing item.",
+      "sceneQuery": "two people searching together under a table and sofa",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.problem.road-closed",
+      "englishText": "This road is temporarily closed.",
+      "embeddingText": "Warning that a road cannot be used for a short period.",
+      "sceneQuery": "a quiet street blocked by repair barriers and a generic detour arrow",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.other-road",
+      "englishText": "Let us take another road.",
+      "embeddingText": "Suggesting an alternative route around an obstruction.",
+      "sceneQuery": "two travelers pointing toward another path on a simple map with no addresses",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.reason.rain-slow",
+      "englishText": "The vehicle is moving slowly because of the rain.",
+      "embeddingText": "Explaining that rainy conditions are slowing a vehicle.",
+      "sceneQuery": "a bus moving carefully along a wet road in heavy rain",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.sunny-picnic",
+      "englishText": "If the weather is nice, we will have a picnic.",
+      "embeddingText": "Planning an outdoor picnic if fair weather continues.",
+      "sceneQuery": "friends preparing a picnic basket beneath a sunny forecast icon",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.plan.rest-after-task",
+      "englishText": "We will rest after finishing the task.",
+      "embeddingText": "A plan to relax once the current work is complete.",
+      "sceneQuery": "two coworkers finishing packed boxes and then sitting down with tea",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.request.tell-result",
+      "englishText": "Please tell me the result.",
+      "embeddingText": "Politely requesting that someone share an outcome.",
+      "sceneQuery": "a teammate handing a completed result card with no readable text to a colleague",
+      "topic": "problems-plans",
+      "difficulty": 2
+    },
+    {
+      "id": "ww.housing.two-bedrooms",
+      "englishText": "This apartment has two bedrooms.",
+      "embeddingText": "Describing an apartment layout that contains two sleeping rooms.",
+      "sceneQuery": "an overhead apartment floor plan with two furnished bedrooms and no labels",
+      "topic": "adult-housing",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.housing.rent-utilities",
+      "englishText": "The rent includes water, but it does not include electricity.",
+      "embeddingText": "Clarifying that rent covers water service but excludes electricity.",
+      "sceneQuery": "an apartment key beside a checked water droplet icon and a separate lightning icon with no amounts",
+      "topic": "adult-housing",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.housing.repair-appointment",
+      "englishText": "I have arranged a maintenance appointment.",
+      "embeddingText": "Confirming that a repair visit has already been scheduled.",
+      "sceneQuery": "a tenant and technician reviewing a blank calendar beside a toolbox",
+      "topic": "adult-housing",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.housing.heating-contact",
+      "englishText": "If the heating does not work, please contact the manager.",
+      "embeddingText": "Advising contact with the building manager when heating fails.",
+      "sceneQuery": "a tenant in a cold room phoning a manager beside an inactive radiator",
+      "topic": "adult-housing",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.housing.move-next-month",
+      "englishText": "We plan to move next month.",
+      "embeddingText": "Describing a household plan to relocate during the coming month.",
+      "sceneQuery": "a family packing moving boxes beside a blank calendar turned to the next month",
+      "topic": "adult-housing",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.appointment.friday-three",
+      "englishText": "My appointment is at three on Friday afternoon.",
+      "embeddingText": "Giving the scheduled day and afternoon time for an appointment.",
+      "sceneQuery": "a generic calendar with a Friday afternoon slot highlighted beside a clock at three and no name",
+      "topic": "adult-services",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.service.identity-document",
+      "englishText": "Please bring an identity document to the service window.",
+      "embeddingText": "A service visitor is reminded to carry official identification.",
+      "sceneQuery": "a person at a public service counter holding a generic blank document, with no readable personal details",
+      "topic": "adult-services",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.budget.month-tight",
+      "englishText": "This month's budget is a little tight.",
+      "embeddingText": "Reporting limited room in the household budget this month.",
+      "sceneQuery": "an open wallet with a few coins beside a blank monthly budget notebook",
+      "topic": "adult-services",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.budget.compare-prices",
+      "englishText": "Before buying something, I compare prices.",
+      "embeddingText": "Describing a habit of checking costs before making a purchase.",
+      "sceneQuery": "a shopper comparing two similar items with symbolic price tags and no numbers",
+      "topic": "adult-services",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.banking.transfer-complete",
+      "englishText": "The bank transfer has been completed.",
+      "embeddingText": "Confirming that a requested transfer of money has finished successfully.",
+      "sceneQuery": "a generic bank transfer completion symbol, with no account details or readable data",
+      "topic": "adult-services",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.work.send-agenda",
+      "englishText": "Before the meeting, please send the agenda to everyone.",
+      "embeddingText": "Requesting that meeting topics be distributed to the whole group beforehand.",
+      "sceneQuery": "a coworker handing blank agenda sheets to colleagues around a conference table",
+      "topic": "work-collaboration",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.work.confirm-data",
+      "englishText": "I need a coworker to confirm this data.",
+      "embeddingText": "Needing a colleague to verify information before it is used.",
+      "sceneQuery": "two coworkers comparing a generic chart together with no readable figures",
+      "topic": "work-collaboration",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.work.notify-change",
+      "englishText": "If the plan changes, please notify the team.",
+      "embeddingText": "Requesting a team update whenever the shared plan is revised.",
+      "sceneQuery": "a coordinator alerting coworkers around a schedule board with moved colored cards and no text",
+      "topic": "work-collaboration",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.work.find-solution",
+      "englishText": "Together we found a solution to the problem.",
+      "embeddingText": "Reporting that collaboration resolved a shared difficulty.",
+      "sceneQuery": "coworkers assembling matching puzzle pieces around a worktable",
+      "topic": "work-collaboration",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.work.clearer-chart",
+      "englishText": "This report needs a clearer chart.",
+      "embeddingText": "Identifying that a report would benefit from a more readable chart.",
+      "sceneQuery": "coworkers replacing a cluttered graph with a clean colorful chart without labels",
+      "topic": "work-collaboration",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.travel.passport-bag",
+      "englishText": "My passport is in the travel bag.",
+      "embeddingText": "Locating a passport safely inside luggage for a trip.",
+      "sceneQuery": "an open travel bag with a closed generic passport cover and no personal details",
+      "topic": "travel-logistics",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.travel.flight-delay",
+      "englishText": "The flight is delayed by forty-six minutes.",
+      "embeddingText": "Reporting a forty-six-minute delay to a scheduled flight.",
+      "sceneQuery": "a traveler waiting beneath an airplane delay icon and clock with no flight number",
+      "topic": "travel-logistics",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.travel.reserve-window",
+      "englishText": "I reserved a window seat online.",
+      "embeddingText": "Confirming an online reservation for a seat beside the window.",
+      "sceneQuery": "a generic airplane seating diagram with a window seat highlighted and no booking data",
+      "topic": "travel-logistics",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.travel.next-transfer",
+      "englishText": "We need to transfer at the next station.",
+      "embeddingText": "Explaining that the journey requires changing vehicles at the following station.",
+      "sceneQuery": "travelers following arrows between two train platforms with no station names",
+      "topic": "travel-logistics",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.travel.missing-luggage",
+      "englishText": "If the luggage does not arrive, please ask at the service desk.",
+      "embeddingText": "Advising a traveler to ask staff if checked luggage fails to appear.",
+      "sceneQuery": "a traveler speaking to a luggage service agent beside an empty carousel and blank bag tags",
+      "topic": "travel-logistics",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.digital.strong-password",
+      "englishText": "Please use a strong new password.",
+      "embeddingText": "Advising someone to protect an account with a newly chosen strong password.",
+      "sceneQuery": "a digital shield and key icon, with no readable password or credentials",
+      "topic": "digital-organization",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.digital.no-code-sharing",
+      "englishText": "Do not share the verification code with other people.",
+      "embeddingText": "Warning that a private verification code must never be given to others.",
+      "sceneQuery": "a protected phone with a shield and hidden dots, with no readable verification code",
+      "topic": "digital-organization",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.digital.check-recipient",
+      "englishText": "Before sending a message, please check the recipient.",
+      "embeddingText": "Reminding a sender to verify the intended contact before messaging.",
+      "sceneQuery": "a generic message icon and checked contact silhouette, with no readable names or addresses",
+      "topic": "digital-organization",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.digital.backup-files",
+      "englishText": "Back up important files regularly.",
+      "embeddingText": "Recommending regular duplicate copies of valuable digital files.",
+      "sceneQuery": "a person copying file icons from a laptop to an external drive with no filenames",
+      "topic": "digital-organization",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.digital.location-sharing",
+      "englishText": "When it is not needed, please turn off location sharing.",
+      "embeddingText": "Advising that unnecessary location sharing should be disabled.",
+      "sceneQuery": "a location icon switched off on a generic phone, with no map or personal location",
+      "topic": "digital-organization",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.environment.sort-materials",
+      "englishText": "Please separate paper and plastic.",
+      "embeddingText": "Requesting that paper and plastic waste be sorted separately.",
+      "sceneQuery": "hands placing paper into one recycling bin and plastic into another",
+      "topic": "environment-community",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.environment.reusable-bag",
+      "englishText": "Bring a reusable bag when buying groceries.",
+      "embeddingText": "Encouraging a shopper to carry a reusable grocery bag.",
+      "sceneQuery": "a shopper placing vegetables into a cloth tote at a market",
+      "topic": "environment-community",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.environment.save-water",
+      "englishText": "When you finish using water, please turn off the faucet.",
+      "embeddingText": "Reminding someone to close the faucet after using water.",
+      "sceneQuery": "a hand turning off a faucet above an empty sink",
+      "topic": "environment-community",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.community.plant-trees",
+      "englishText": "The community will plant trees this weekend.",
+      "embeddingText": "Announcing a neighborhood tree-planting activity for the weekend.",
+      "sceneQuery": "neighbors planting young trees together in a community park",
+      "topic": "environment-community",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.environment.save-energy",
+      "englishText": "Taking the bus can save energy.",
+      "embeddingText": "Explaining that bus travel can reduce energy use.",
+      "sceneQuery": "a full city bus passing several parked cars beside a green leaf symbol",
+      "topic": "environment-community",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.reason.road-work",
+      "englishText": "Because the road ahead is being repaired, we will leave earlier.",
+      "embeddingText": "Explaining an earlier departure planned around road repairs.",
+      "sceneQuery": "travelers leaving home early while a repair crew works on the road ahead",
+      "topic": "connected-reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.reason.finish-help",
+      "englishText": "If I finish first, I will help my classmate.",
+      "embeddingText": "Promising to assist a classmate after completing one's own work.",
+      "sceneQuery": "a student with a finished blank worksheet helping a classmate at the next desk",
+      "topic": "connected-reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.reason.rain-museum",
+      "englishText": "Although it is raining, the museum is open as usual.",
+      "embeddingText": "Contrasting rainy weather with the museum's normal availability.",
+      "sceneQuery": "umbrella-carrying visitors entering a brightly lit museum in the rain",
+      "topic": "connected-reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.reason.time-route",
+      "englishText": "First we confirm the time, then we decide which route to take.",
+      "embeddingText": "Describing a sequence of checking the schedule before choosing a route.",
+      "sceneQuery": "two travelers checking a wall clock and then comparing colored map routes with no addresses",
+      "topic": "connected-reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.reason.quiet-room",
+      "englishText": "I chose this room because it is quieter here.",
+      "embeddingText": "Giving lower noise as the reason for selecting a room.",
+      "sceneQuery": "a person choosing a peaceful study room while a busy room is visible next door",
+      "topic": "connected-reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.experience.chinese-year",
+      "englishText": "I have studied Chinese for one year.",
+      "embeddingText": "Describing one year of experience learning Mandarin Chinese.",
+      "sceneQuery": "a language learner with a Chinese workbook beside a twelve-month calendar and no personal notes",
+      "topic": "experience-opinion",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.experience.high-speed-train",
+      "englishText": "I have not taken a high-speed train yet.",
+      "embeddingText": "Stating that a high-speed train journey has not yet been experienced.",
+      "sceneQuery": "a traveler watching a high-speed train from a platform while holding an unused blank ticket",
+      "topic": "experience-opinion",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.opinion.useful-book",
+      "englishText": "I think this book is useful.",
+      "embeddingText": "Expressing the opinion that a particular book is practically helpful.",
+      "sceneQuery": "a reader consulting a handbook while completing a simple project",
+      "topic": "experience-opinion",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.opinion.more-seats",
+      "englishText": "I think the park needs more seats.",
+      "embeddingText": "Suggesting that additional seating would improve the park.",
+      "sceneQuery": "a crowded park path with people seeking benches and several open spaces",
+      "topic": "experience-opinion",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.opinion.convenient-city",
+      "englishText": "I like this city because transportation is convenient.",
+      "embeddingText": "Explaining appreciation for a city with easy transportation.",
+      "sceneQuery": "a connected city bus, train, and bicycle at a clean transit hub",
+      "topic": "experience-opinion",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.problem.card-machine",
+      "englishText": "My card works, but the cash machine is unavailable.",
+      "embeddingText": "Contrasting a functioning bank card with an unavailable cash machine.",
+      "sceneQuery": "a person at an ATM showing an out-of-service symbol with a blank card and screen",
+      "topic": "daily-problem-solving",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.appointment.reschedule",
+      "englishText": "I rescheduled the appointment for tomorrow afternoon.",
+      "embeddingText": "Confirming that an appointment was moved to the following afternoon.",
+      "sceneQuery": "a blank calendar appointment card being shifted to the next afternoon",
+      "topic": "daily-problem-solving",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.housing.repair-arrival",
+      "englishText": "The repair worker will come at nine tomorrow.",
+      "embeddingText": "Reporting when a maintenance worker is expected to arrive.",
+      "sceneQuery": "a technician with a tool bag approaching an apartment beside a clock at nine and no address",
+      "topic": "daily-problem-solving",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.delivery.wrong-address",
+      "englishText": "The package went to the wrong address, and I contacted the front desk.",
+      "embeddingText": "Reporting a misdirected parcel and a request for reception staff's help.",
+      "sceneQuery": "a sealed package beside a generic front desk, with no readable address or personal data",
+      "topic": "daily-problem-solving",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.tech.borrow-charger",
+      "englishText": "I forgot my charger, so a coworker lent me one.",
+      "embeddingText": "Explaining that a coworker lent a charger after one was forgotten.",
+      "sceneQuery": "a coworker handing a charging cable across a shared desk",
+      "topic": "daily-problem-solving",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.language.ask-meaning",
+      "englishText": "When I do not know a word, I ask what it means.",
+      "embeddingText": "Describing a strategy of asking for help with unfamiliar vocabulary.",
+      "sceneQuery": "a student asking a teacher while pointing to a highlighted word in an open book with indistinct text",
+      "topic": "language-culture-social",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.language.word-difference",
+      "englishText": "Can you explain the difference between these two words?",
+      "embeddingText": "Requesting a comparison between two similar vocabulary items.",
+      "sceneQuery": "a teacher and learner comparing two blank vocabulary cards on a whiteboard",
+      "topic": "language-culture-social",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.language.summarize",
+      "englishText": "After listening, I summarize it in my own words.",
+      "embeddingText": "Describing how a listener restates information independently afterward.",
+      "sceneQuery": "a learner removing headphones and writing short notes in a blank notebook",
+      "topic": "language-culture-social",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.culture.respect-habits",
+      "englishText": "I respect different ways of life.",
+      "embeddingText": "Expressing respect for varied everyday customs and routines.",
+      "sceneQuery": "diverse neighbors sharing everyday activities in a welcoming community courtyard",
+      "topic": "language-culture-social",
+      "difficulty": 3
+    },
+    {
+      "id": "ww.social.listen-before-discussion",
+      "englishText": "In a group discussion, we first listen to other people's ideas.",
+      "embeddingText": "Describing attentive listening before contributing to a group discussion.",
+      "sceneQuery": "one person speaking in a seated discussion circle while everyone else listens",
+      "topic": "language-culture-social",
+      "difficulty": 3
     }
-  ]
+  ],
+  "derivedFrom": "apps/languages/shared/english-concepts/word-world-starter-v1.json"
 }

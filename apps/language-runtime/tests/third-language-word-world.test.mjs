@@ -654,6 +654,7 @@ async function runScenario(name) {
   ]);
   const realizations = thirdLanguageRealizations(englishCatalog);
   const environment = installBrowserEnvironment(course, authorityHtml);
+  globalThis.localStorage.setItem(`${course.storage.namespace}.wordNet.challengePromptMode.v1`, "target");
   const rankerCalls = [];
   let preparedContext = null;
   let rendererSpecifier = "";

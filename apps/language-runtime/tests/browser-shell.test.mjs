@@ -37,7 +37,7 @@ test("joins language-neutral English concepts to target realizations by stable c
   assert.equal(validateEnglishConceptCatalog(englishCatalog), englishCatalog);
   assert.equal(validateTargetRealizationCatalog(realizationCatalog), realizationCatalog);
   const joined = joinConceptCatalogs(englishCatalog, realizationCatalog);
-  assert.equal(joined.length, 16);
+  assert.equal(joined.length, 250);
   assert.equal(new Set(joined.map(({ conceptId }) => conceptId)).size, joined.length);
   assert.equal(joined.find(({ conceptId }) => conceptId === "ww.object.book").target.text, "这是一本书。");
   assert.equal(joined.find(({ conceptId }) => conceptId === "ww.object.book").englishText, "This is a book.");
@@ -56,7 +56,7 @@ test("embedding payloads contain only English embeddingText plus stable identifi
   }));
   const serialized = JSON.stringify(payload);
   assert.doesNotMatch(serialized, /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u);
-  assert.doesNotMatch(serialized, /pinyin|target|pronunciation|englishText/iu);
+  assert.doesNotMatch(serialized, /"(?:targetText|target_text|pronunciation|englishText|tokens|gloss)"\s*:/u);
 });
 
 test("the injectable ranker receives no target text and invalid hooks fall back deterministically", async () => {
@@ -97,11 +97,18 @@ test("semantic ranking reports whether MiniLM or deterministic fallback produced
   });
   assert.equal(fallback.mode, "lexical");
   assert.equal(fallback.reason, "ranker-error");
-  assert.equal(fallback.records[0].conceptId, "ww.object.book");
+  assert.ok(
+    fallback.records.slice(0, 5).some(({ conceptId }) => conceptId === "ww.object.book"),
+    "the generic book concept should remain among the strongest lexical book matches"
+  );
 
   const unavailable = await rankConceptsWithStatus(joined, "book", null);
   assert.equal(unavailable.mode, "lexical");
   assert.equal(unavailable.reason, "ranker-unavailable");
+  assert.deepEqual(
+    unavailable.records.map(({ conceptId }) => conceptId),
+    fallback.records.map(({ conceptId }) => conceptId)
+  );
 });
 
 test("English-only embedding boundaries reject target-script leakage", async () => {

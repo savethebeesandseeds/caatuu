@@ -34,6 +34,12 @@ jobs:
             bash -lc \
             "node --test apps/server/tooling/tests/conjugation-comet-shell.test.mjs apps/server/tooling/tests/curriculum-runtime-contract.test.mjs apps/server/tooling/tests/guided-game-contract.test.mjs apps/server/tooling/tests/word-net-standard.test.mjs"
 
+      - name: Validate language content and deterministic Word World projections
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+            bash -lc \
+            "node tools/language-content/validate.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --check --manifest apps/languages/mandarin-simplified/static/setup-assets.json --launcher-static apps/launcher/static --language-static apps/languages/mandarin-simplified/static --shared-runtime apps/language-runtime --course-manifest apps/languages/mandarin-simplified/course.json --language-route-prefix /zh && node --test tools/language-content/tests/content-contract.test.mjs tools/language-content/tests/word-world-projector.test.mjs tools/language-content/tests/mandarin-curriculum-quality.test.mjs"
+
       - name: Validate Compose boundaries
         env:
           CAATUU_PHONE_DEBUG_BIND: 192.0.2.10

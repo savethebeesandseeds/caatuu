@@ -302,9 +302,6 @@ val refreshSetupAssetManifest by tasks.registering(Exec::class) {
             val artifact = value as? Map<*, *> ?: return@mapNotNull null
             val url = URLDecoder.decode(artifact["url"]?.toString().orEmpty(), Charsets.UTF_8)
             when {
-                url.startsWith("/assets/aliens/") -> launcherStaticDir.file(
-                    "assets/language-mascots/${url.removePrefix("/assets/aliens/")}"
-                ).asFile
                 url.startsWith("/assets/loading_animation/") -> launcherStaticDir.file(
                     "assets/loading-animation/${url.removePrefix("/assets/loading_animation/")}"
                 ).asFile

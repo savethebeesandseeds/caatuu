@@ -24,9 +24,16 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-8";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-13";
 const SCENE_NUMBERS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 33]);
 const STANDARD_USAGE_CAPACITY = 8192;
+const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
+const TARGET_TEXT_TONE_MARKS = Object.freeze({
+  1: /[āēīōūǖĀĒĪŌŪǕ]/u,
+  2: /[áéíóúǘÁÉÍÓÚǗńŃḿḾ]/u,
+  3: /[ǎěǐǒǔǚǍĚǏǑǓǙňŇ]/u,
+  4: /[àèìòùǜÀÈÌÒÙǛǹǸ]/u
+});
 
 async function loadJson(url, options = {}) {
   const response = await fetch(url, {
@@ -66,6 +73,142 @@ function assertEnglishEmbeddingBoundary(policy = {}) {
       || policy.inputField !== "embeddingText"
       || policy.targetTextAllowed !== false) {
     throw new Error("Word World embeddings must use authored English embeddingText only.");
+  }
+}
+
+export function targetTextToneNumber(notation) {
+  const value = String(notation || "").normalize("NFC").trim();
+  const numbered = value.match(/[1-5](?!.*[1-5])/u);
+  if (numbered) return Number(numbered[0]);
+  for (const [tone, pattern] of Object.entries(TARGET_TEXT_TONE_MARKS)) {
+    if (pattern.test(value)) return Number(tone);
+  }
+  return 5;
+}
+
+function targetTextGuideKey(conceptId, tokenIndex) {
+  return `${String(conceptId || "").trim()}\u0000${Number(tokenIndex)}`;
+}
+
+function nonEmptyText(value, location) {
+  const text = String(value || "").normalize("NFC").trim();
+  if (!text) throw new TypeError(`${location} must be non-empty text.`);
+  return text;
+}
+
+export function normalizeTargetTextGuideCatalog(catalog, {
+  courseId,
+  records,
+  configuration = {}
+} = {}) {
+  if (!catalog || typeof catalog !== "object" || Array.isArray(catalog)) {
+    throw new TypeError("Target-text guide catalog must be an object.");
+  }
+  if (Number(catalog.schemaVersion) !== 1) {
+    throw new TypeError("Target-text guide catalog schemaVersion must be 1.");
+  }
+  if (nonEmptyText(catalog.courseId, "Target-text guide courseId") !== String(courseId || "").trim()) {
+    throw new Error("Target-text guide catalog does not match the active course.");
+  }
+  const status = nonEmptyText(catalog.status, "Target-text guide status");
+  if (!TARGET_TEXT_GUIDE_STATUSES.has(status)) {
+    throw new TypeError(`Unsupported target-text guide status: ${status}.`);
+  }
+  const system = nonEmptyText(catalog.system, "Target-text guide system");
+  const configuredSystem = String(configuration.system || "").trim();
+  if (configuredSystem && configuredSystem !== system) {
+    throw new Error("Target-text guide system does not match its manifest declaration.");
+  }
+  const configuredStatus = String(configuration.status || "").trim();
+  if (configuredStatus && configuredStatus !== status) {
+    throw new Error("Target-text guide status does not match its manifest declaration.");
+  }
+  if (!Array.isArray(records) || !records.length || !Array.isArray(catalog.entries)) {
+    throw new TypeError("Target-text guide catalog requires entries for a prepared record set.");
+  }
+
+  const recordsById = new Map(records.map((record) => [String(record?.conceptId || ""), record]));
+  const unitsByToken = new Map();
+  const coveredConcepts = new Set();
+  for (const [entryIndex, entry] of catalog.entries.entries()) {
+    const conceptId = nonEmptyText(entry?.conceptId, `Target-text guide entry ${entryIndex} conceptId`);
+    if (coveredConcepts.has(conceptId)) throw new Error(`Duplicate target-text guide entry: ${conceptId}.`);
+    coveredConcepts.add(conceptId);
+    const record = recordsById.get(conceptId);
+    if (!record) throw new Error(`Target-text guide references unknown concept ${conceptId}.`);
+    const recordTokens = Array.isArray(record.target?.tokens) ? record.target.tokens : [];
+    if (!Array.isArray(entry.tokens) || entry.tokens.length !== recordTokens.length) {
+      throw new Error(`Target-text guide token count does not match ${conceptId}.`);
+    }
+    entry.tokens.forEach((guidedToken, tokenIndex) => {
+      const surface = nonEmptyText(guidedToken?.surface, `${conceptId} token ${tokenIndex} surface`);
+      const recordSurface = nonEmptyText(
+        recordTokens[tokenIndex]?.surface ?? recordTokens[tokenIndex]?.text,
+        `${conceptId} prepared token ${tokenIndex}`
+      );
+      if (surface !== recordSurface) {
+        throw new Error(`Target-text guide surface does not match ${conceptId} token ${tokenIndex}.`);
+      }
+      if (!Array.isArray(guidedToken.units) || !guidedToken.units.length) {
+        throw new TypeError(`${conceptId} token ${tokenIndex} requires target-text units.`);
+      }
+      const units = guidedToken.units.map((unit, unitIndex) => Object.freeze({
+        surface: nonEmptyText(unit?.surface, `${conceptId} token ${tokenIndex} unit ${unitIndex} surface`),
+        notation: nonEmptyText(unit?.notation, `${conceptId} token ${tokenIndex} unit ${unitIndex} notation`),
+        tone: Number.isInteger(unit?.tone) && unit.tone >= 1 && unit.tone <= 5
+          ? unit.tone
+          : targetTextToneNumber(unit?.notation)
+      }));
+      if (units.map((unit) => unit.surface).join("") !== surface) {
+        throw new Error(`Target-text guide units do not reproduce ${conceptId} token ${tokenIndex}.`);
+      }
+      unitsByToken.set(targetTextGuideKey(conceptId, tokenIndex), Object.freeze(units));
+    });
+  }
+  if (coveredConcepts.size !== recordsById.size) {
+    throw new Error("Target-text guide catalog must cover every prepared record.");
+  }
+
+  const labels = configuration.labels || {};
+  const defaults = configuration.defaults || {};
+  const metadata = Object.freeze({
+    system,
+    status,
+    languageTag: String(configuration.languageTag || "").trim() || undefined,
+    labels: Object.freeze({
+      section: String(labels.section || "Target-language text").trim(),
+      showGuide: String(labels.showGuide || "Show reading guide").trim(),
+      colorTones: String(labels.colorTones || "Color pronunciation").trim()
+    }),
+    defaults: Object.freeze({
+      showGuide: defaults.showGuide !== false,
+      colorTones: defaults.colorTones !== false
+    })
+  });
+  return Object.freeze({
+    metadata,
+    unitsFor({ record, token, tokenIndex } = {}) {
+      const units = unitsByToken.get(targetTextGuideKey(record?.conceptId, tokenIndex)) || null;
+      const surface = String(token?.surface ?? token?.text ?? "").normalize("NFC").trim();
+      return units && units.map((unit) => unit.surface).join("") === surface ? units : null;
+    }
+  });
+}
+
+async function loadTargetTextGuide(course, manifest, records, manifestUrl, options) {
+  const configuration = manifest.targetTextGuide;
+  if (!configuration?.file) return null;
+  try {
+    const catalogUrl = new URL(configuration.file, manifestUrl).href;
+    const catalog = await (options.loadJson || loadJson)(catalogUrl);
+    return normalizeTargetTextGuideCatalog(catalog, {
+      courseId: course.id,
+      records,
+      configuration
+    });
+  } catch (error) {
+    console.warn("Word World target-text guide is unavailable; using plain target text.", error);
+    return null;
   }
 }
 
@@ -424,6 +567,13 @@ async function createAuthoredContext(course, manifest, adapter, options) {
       contentProvider: "authored-realizations"
     }
   });
+  const targetTextGuide = await loadTargetTextGuide(
+    course,
+    manifest,
+    session.records,
+    manifestUrl,
+    options
+  );
   const selectionProvider = createAuthoredSelectionProvider(session, manifest, adapter, options);
   const byId = new Map(session.records.map((record) => [record.conceptId, record]));
   const fullDictionaryLookup = typeof options.fullDictionaryLookup === "function"
@@ -435,6 +585,8 @@ async function createAuthoredContext(course, manifest, adapter, options) {
     selectionProvider,
     sessionRecord: (id) => byId.get(recordId(id)) || null,
     fullDictionaryLookup,
+    targetTextGuide: targetTextGuide?.metadata || null,
+    targetTextUnits: targetTextGuide ? (request) => targetTextGuide.unitsFor(request) : null,
     generate: null
   };
 }
@@ -498,6 +650,8 @@ async function createStandardContext(course, manifest, adapter, options) {
     selectionProvider,
     sessionRecord: (id) => adaptedById.get(recordId(id)) || null,
     fullDictionaryLookup,
+    targetTextGuide: null,
+    targetTextUnits: null,
     generate({ mode, token }) {
       const turn = mode === "selected"
         ? provider.nextForWord(token?.surface || "", { difficulty: 3 })
@@ -562,6 +716,8 @@ export async function prepareWordWorldContext(course, manifest, options = {}) {
     adapter,
     segment: tools.segment,
     normalization: tools.normalization,
+    targetTextGuide: prepared.targetTextGuide,
+    targetTextUnits: prepared.targetTextUnits,
     lookupMeaning,
     fullDictionaryLookup: prepared.fullDictionaryLookup,
     report: (payload) => saveReport(payload, runtime),

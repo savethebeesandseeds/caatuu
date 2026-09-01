@@ -9,7 +9,6 @@ apps, manifests, and persisted data continue to work.
 
 | Physical source | Stable public URL |
 | --- | --- |
-| `language-mascots/` | `/assets/aliens/` |
 | `loading-animation/` | `/assets/loading_animation/` |
 | `motion/` | `/assets/motion/` |
 | `scenery/` | `/assets/scenery/` |
@@ -24,6 +23,10 @@ The Rust router, setup-manifest generator, Android packaging, and Czech vector
 database builder all implement this compatibility map. Change a public prefix
 only as an explicit migration across those consumers; renaming a physical
 directory alone must not invalidate a downloaded asset URL.
+
+The unused language-mascot catalog and its `/assets/aliens/` compatibility
+route were retired together on 2026-09-01. Active character art lives in the
+reviewed macaw and robot catalogs instead.
 
 Directories named `originals/` contain archival source art. They are
 intentionally tracked even when processed frames or split assets exist, and

@@ -38,6 +38,12 @@
       capabilities: Object.freeze([]),
       linguisticFeatures: Object.freeze(["grammatical-agreement"])
     }),
+    "naturalization-nucleus": Object.freeze({
+      id: "naturalization-nucleus",
+      route: "naturalizationNucleus",
+      capabilities: Object.freeze([]),
+      linguisticFeatures: Object.freeze([])
+    }),
     "memory-moon": Object.freeze({
       id: "memory-moon",
       route: "memoryMoon",
@@ -52,6 +58,7 @@
     "conjugation-comet",
     "case-cosmos",
     "agreement-aurora",
+    "naturalization-nucleus",
     "memory-moon"
   ]);
   const GAME_IDS = Object.freeze(["campaign", ...NON_CAMPAIGN_GAME_IDS]);
@@ -109,6 +116,7 @@
       // declarations. Keep their legacy Verb Nebula gate without imposing it
       // on modern language packs.
       if (gameId === "verb-lab") return courseOrCapabilities?.verbs === true;
+      if (gameId === "naturalization-nucleus") return false;
       return true;
     }
     return declaredValues(courseOrCapabilities, "games").has(gameId);

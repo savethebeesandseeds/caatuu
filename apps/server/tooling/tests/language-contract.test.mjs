@@ -238,12 +238,12 @@ test("shared course chrome gates Android publication and developer tools through
 });
 
 test("the canonical home and Czech secondary pages load course data before shared runtime", () => {
-  const profileIndex = canonicalHome.indexOf('src="source/shared/course-profile.js?v=course-25"');
-  const bootstrapIndex = canonicalHome.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-10"');
+  const profileIndex = canonicalHome.indexOf('src="source/shared/course-profile.js?v=course-26"');
+  const bootstrapIndex = canonicalHome.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-24"');
   assert.ok(profileIndex >= 0, "the canonical app must load its route-local course profile");
   assert.ok(bootstrapIndex > profileIndex, "the canonical app must load its course profile before the shared bootstrap");
   for (const { name, source } of pages) {
-    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const profileIndex = source.indexOf('src="source/shared/course-profile.js?v=course-26"');
     const learningIndex = source.indexOf('src="/language-runtime/static/source/learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="source/shared/runtime.js');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
@@ -268,12 +268,12 @@ test("the canonical home and Czech secondary pages load course data before share
   assert.match(sharedServiceWorker, /Array\.isArray\(offline\?\.assets\)/);
   const offlineAssets = new Set(czechSetupAssets.offline.assets.map((asset) => asset.replace(/^\.\//u, "")));
   for (const asset of [
-    "source/shared/course-profile.js?v=course-25",
+    "source/shared/course-profile.js?v=course-26",
     "source/language/adapter.mjs",
     "/language-runtime/contract.mjs",
     "/language-runtime/static/source/learning-profile.js?v=learning-5",
     "source/shared/semantic-learning.js?v=semantic-learning-7",
-    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"
+    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"
   ]) {
     assert.ok(offlineAssets.has(asset), `setup-assets.json must own ${asset}`);
   }

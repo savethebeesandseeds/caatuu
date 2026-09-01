@@ -544,7 +544,6 @@ h1 {
   outline-offset: 2px;
 }
 
-.alien-frame,
 .download-icon {
   display: grid;
   place-items: center;
@@ -552,28 +551,6 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 8px;
   font-weight: 900;
-}
-
-.alien-frame {
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  background: #eef6f1;
-}
-
-.language-panel .alien-frame {
-  width: 48px;
-  height: 48px;
-}
-
-.language-option:not(.language-primary) .alien-frame {
-  background: #edf4fb;
-}
-
-.alien-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 .language-label,
@@ -862,16 +839,6 @@ h1 {
 
   .language-panel .language-option {
     min-height: 68px;
-  }
-
-  .alien-frame {
-    width: 112px;
-    height: 112px;
-  }
-
-  .language-panel .alien-frame {
-    width: 48px;
-    height: 48px;
   }
 
   h1 {

@@ -127,7 +127,7 @@
       "type": "array",
       "uniqueItems": true,
       "items": {
-        "enum": ["verb-conjugation", "grammatical-case", "grammatical-agreement"]
+        "enum": ["verb-conjugation", "grammatical-case", "grammatical-agreement", "hanzi-pinyin"]
       }
     },
     "games": {
@@ -141,6 +141,7 @@
           "conjugation-comet",
           "case-cosmos",
           "agreement-aurora",
+          "naturalization-nucleus",
           "memory-moon"
         ]
       }
@@ -155,6 +156,7 @@
           "conjugation-comet",
           "case-cosmos",
           "agreement-aurora",
+          "naturalization-nucleus",
           "memory-moon"
         ]
       }
@@ -170,6 +172,56 @@
     }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "linguisticFeatures": {
+            "contains": { "const": "hanzi-pinyin" }
+          }
+        },
+        "required": ["linguisticFeatures"]
+      },
+      "then": {
+        "properties": {
+          "targetLanguage": {
+            "properties": {
+              "id": { "const": "zh" }
+            },
+            "required": ["id"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "naturalization-nucleus" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "required": ["linguisticFeatures", "resources"],
+        "properties": {
+          "linguisticFeatures": {
+            "contains": { "const": "hanzi-pinyin" }
+          },
+          "resources": {
+            "required": ["naturalizationNucleusCatalog"],
+            "properties": {
+              "naturalizationNucleusCatalog": {
+                "properties": {
+                  "kind": { "const": "file" },
+                  "scope": { "const": "course" },
+                  "state": { "const": "present" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     {
       "if": {
         "properties": {

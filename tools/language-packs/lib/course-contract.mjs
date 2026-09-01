@@ -60,7 +60,8 @@ const CAPABILITY_KEYS = [
 const LINGUISTIC_FEATURE_IDS = [
   "verb-conjugation",
   "grammatical-case",
-  "grammatical-agreement"
+  "grammatical-agreement",
+  "hanzi-pinyin"
 ];
 const GAME_IDS = [
   "campaign",
@@ -69,6 +70,7 @@ const GAME_IDS = [
   "conjugation-comet",
   "case-cosmos",
   "agreement-aurora",
+  "naturalization-nucleus",
   "memory-moon"
 ];
 const UPCOMING_GAME_IDS = GAME_IDS.filter((gameId) => gameId !== "campaign");
@@ -78,6 +80,19 @@ const GAME_REQUIREMENTS = Object.freeze({
   "conjugation-comet": Object.freeze({ route: "conjugationComet", capabilities: ["conjugationComet"], linguisticFeatures: ["verb-conjugation"] }),
   "case-cosmos": Object.freeze({ route: "caseCosmos", capabilities: [], linguisticFeatures: ["grammatical-case"] }),
   "agreement-aurora": Object.freeze({ route: "agreementAurora", capabilities: [], linguisticFeatures: ["grammatical-agreement"] }),
+  "naturalization-nucleus": Object.freeze({
+    route: "naturalizationNucleus",
+    capabilities: [],
+    linguisticFeatures: ["hanzi-pinyin"],
+    resources: Object.freeze([
+      Object.freeze({
+        name: "naturalizationNucleusCatalog",
+        kind: "file",
+        scope: "course",
+        state: "present"
+      })
+    ])
+  }),
   "memory-moon": Object.freeze({ route: "memoryMoon", capabilities: ["memory"], linguisticFeatures: [] })
 });
 const COURSE_KEYS = [
@@ -632,6 +647,12 @@ function validateCapabilityResources(course, issues) {
     }
   }
   const declaredFeatures = new Set(Array.isArray(course.linguisticFeatures) ? course.linguisticFeatures : []);
+  if (declaredFeatures.has("hanzi-pinyin") && course.targetLanguage?.id !== "zh") {
+    issues.push({
+      code: "linguistic-feature.language",
+      message: `${course.id}.linguisticFeatures declares hanzi-pinyin but targetLanguage.id is not zh.`
+    });
+  }
   for (const gameId of declaredGames) {
     if (gameId === "campaign" || !GAME_REQUIREMENTS[gameId]) continue;
     const requirement = GAME_REQUIREMENTS[gameId];
@@ -651,11 +672,50 @@ function validateCapabilityResources(course, issues) {
         });
       }
     }
+    for (const resourceRequirement of requirement.resources ?? []) {
+      const resource = resources[resourceRequirement.name];
+      if (!isObject(resource)) {
+        issues.push({
+          code: "resource.required",
+          message: `${course.id}.games enables ${gameId} but resources.${resourceRequirement.name} is missing.`
+        });
+        continue;
+      }
+      if (resource.kind !== resourceRequirement.kind) {
+        issues.push({
+          code: "game.resource",
+          message: `${course.id}.games enables ${gameId} but resources.${resourceRequirement.name}.kind must be ${resourceRequirement.kind}.`
+        });
+      }
+      if (resource.scope !== resourceRequirement.scope) {
+        issues.push({
+          code: "path.scope",
+          message: `${course.id}.games enables ${gameId} but resources.${resourceRequirement.name} must use ${resourceRequirement.scope} scope.`
+        });
+      }
+      if (resource.state !== resourceRequirement.state) {
+        issues.push({
+          code: "game.resource",
+          message: `${course.id}.games enables ${gameId} but resources.${resourceRequirement.name}.state must be ${resourceRequirement.state}.`
+        });
+      }
+    }
     if (typeof course.routes?.[requirement.route] !== "string" || !course.routes[requirement.route].trim()) {
       issues.push({
         code: "game.route",
         message: `${course.id}.games enables ${gameId} but routes.${requirement.route} is missing.`
       });
+    }
+  }
+  for (const [gameId, requirement] of Object.entries(GAME_REQUIREMENTS)) {
+    if (declaredGames.has(gameId) || upcomingGames.has(gameId)) continue;
+    for (const resourceRequirement of requirement.resources ?? []) {
+      if (resources[resourceRequirement.name]) {
+        issues.push({
+          code: "game.resource",
+          message: `${course.id} declares resources.${resourceRequirement.name} but ${gameId} is neither enabled nor upcoming.`
+        });
+      }
     }
   }
   if (declaredGames.has("campaign")) {

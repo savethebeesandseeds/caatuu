@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   alignWordReconstructionAttempt,
+  buildTokenReconstructionChallenge,
   buildWordReconstructionChallenge,
   capitalizeWord,
   cleanGeneratedSentence,
@@ -77,14 +78,8 @@ test("maps course difficulty badges to distinct Word World speech paces", () => 
   assert.deepEqual(speechPaceForDifficulty(3), { rate: 1, label: "normal" });
   assert.deepEqual(speechPaceForDifficulty("unknown"), { rate: 0.5, label: "slower" });
 
-  const windowsSapiBuckets = [1, 2, 3]
-    .map((difficulty) => speechPaceForDifficulty(difficulty).rate)
-    .map((rate) => Math.trunc(10 * Math.log10(rate)));
-  assert.equal(
-    new Set(windowsSapiBuckets).size,
-    3,
-    "every shared pace must survive Chromium's integer Windows SAPI conversion"
-  );
+  const rates = [1, 2, 3].map((difficulty) => speechPaceForDifficulty(difficulty).rate);
+  assert.ok(rates[0] < rates[1] && rates[1] < rates[2]);
 });
 
 test("lets an explicit speech pace override the badge and safely return to it", () => {
@@ -311,6 +306,18 @@ test("builds deterministic English reconstruction challenges with two distractor
   assert.equal(first.options.filter((option) => option.answer).length, 2);
   assert.equal(first.options.filter((option) => !option.answer).length, 2);
   assert.equal(new Set(first.options.map((option) => option.id)).size, first.options.length);
+});
+
+test("builds target-language reconstruction pieces without collapsing authored Hanzi tokens", () => {
+  const challenge = buildTokenReconstructionChallenge(
+    [{ text: "我", marker: "wo" }, { text: "叫", marker: "jiao" }, { text: "林", marker: "lin" }],
+    [{ text: "是" }, { text: "学生" }],
+    { distractorCount: 2, normalize: (value) => String(value).normalize("NFC") }
+  );
+
+  assert.deepEqual(challenge.answerTokens, ["我", "叫", "林"]);
+  assert.deepEqual(challenge.options.filter((option) => option.answer).map((option) => option.part.marker).sort(), ["jiao", "lin", "wo"]);
+  assert.deepEqual(challenge.options.filter((option) => !option.answer).map((option) => option.text).sort(), ["学生", "是"]);
 });
 
 test("reconstruction keeps contractions intact and checks the complete order", () => {

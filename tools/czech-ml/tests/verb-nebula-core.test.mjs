@@ -71,20 +71,123 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
 });
 
-test("extracts the canonical Mandarin pack through the same shared engine", async () => {
+test("the Mandarin Verb Nebula catalog is a complete, stable, runtime-playable curriculum", async () => {
   const dictionary = JSON.parse(await readFile(mandarinDictionaryUrl, "utf8"));
   const pairs = extractCoreVerbPairs(dictionary);
+  const expectedFields = [
+    "category",
+    "difficulty",
+    "id",
+    "kind",
+    "reviewStatus",
+    "source",
+    "target",
+  ];
 
-  assert.equal(pairs.length, 10);
-  assert.ok(pairs.every((pair) => pair.id.startsWith("zh.verb.")));
+  assert.equal(dictionary.length, 180);
+  assert.equal(pairs.length, dictionary.length, "the runtime must not silently discard any authored row");
   assert.deepEqual(
-    pairs.slice(0, 3).map(({ target, source }) => ({ target, source })),
-    [
-      { target: "是", source: "be" },
-      { target: "有", source: "have" },
-      { target: "叫", source: "be called" }
-    ]
+    Object.fromEntries([1, 2, 3].map((level) => [
+      level,
+      dictionary.filter((row) => row.difficulty === level).length,
+    ])),
+    { 1: 60, 2: 70, 3: 50 }
   );
+
+  for (const [index, row] of dictionary.entries()) {
+    assert.deepEqual(Object.keys(row).sort(), expectedFields, `Mandarin verb row ${index + 1} has contract drift`);
+    assert.match(row.id, /^zh\.verb\.[a-z0-9]+(?:-[a-z0-9]+)*$/u);
+    assert.equal(row.kind, "verb");
+    assert.match(row.target, /^\p{Script=Han}+$/u, `${row.id} must contain only authored Hanzi`);
+    assert.equal(row.source, row.source.toLocaleLowerCase("en"), `${row.id} must use a calm lowercase English cue`);
+    assert.doesNotMatch(row.source, /[/;]/u, `${row.id} must teach one precise meaning rather than a cue list`);
+    assert.ok(row.source.length <= 32, `${row.id} English cue must remain readable on a matching card`);
+    assert.ok(Number.isInteger(row.difficulty) && row.difficulty >= 1 && row.difficulty <= 3);
+    assert.equal(row.reviewStatus, "native-review-required");
+    for (const field of ["id", "kind", "target", "source", "category", "reviewStatus"]) {
+      assert.equal(row[field], row[field].normalize("NFC"), `${row.id}.${field} must be NFC-normalized`);
+      assert.equal(row[field], row[field].trim(), `${row.id}.${field} must not have surrounding whitespace`);
+    }
+  }
+
+  for (const [field, values] of [
+    ["id", dictionary.map((row) => row.id)],
+    ["target", dictionary.map((row) => row.target)],
+    ["source", dictionary.map((row) => row.source.toLocaleLowerCase("en"))],
+  ]) {
+    assert.equal(new Set(values).size, dictionary.length, `Mandarin ${field} values must be unique`);
+  }
+
+  const byId = new Map(dictionary.map((row) => [row.id, row]));
+  assert.deepEqual(
+    ["shi", "you", "jiao", "xihuan", "he", "kan", "xiang", "qu", "shuo", "mingbai"]
+      .map((slug) => byId.has(`zh.verb.${slug}`)),
+    new Array(10).fill(true),
+    "the original stable learner-progress IDs must remain addressable"
+  );
+  assert.deepEqual(
+    [byId.get("zh.verb.shi"), byId.get("zh.verb.kan"), byId.get("zh.verb.du"), byId.get("zh.verb.shuo")]
+      .map(({ target, source }) => ({ target, source })),
+    [
+      { target: "是", source: "be (identity)" },
+      { target: "看", source: "look at" },
+      { target: "读", source: "read" },
+      { target: "说", source: "say" },
+    ],
+    "highly polysemous beginner cues must stay deliberately bounded"
+  );
+});
+
+test("Mandarin verb tiers preserve the reviewed coverage matrix and cumulative progression", async () => {
+  const dictionary = JSON.parse(await readFile(mandarinDictionaryUrl, "utf8"));
+  const pairs = extractCoreVerbPairs(dictionary);
+  const matrix = {};
+  for (const row of dictionary) {
+    matrix[row.category] ||= { 1: 0, 2: 0, 3: 0 };
+    matrix[row.category][row.difficulty] += 1;
+  }
+
+  assert.deepEqual(matrix, {
+    "identity-modality": { 1: 7, 2: 4, 3: 2 },
+    "communication-social": { 1: 8, 2: 10, 3: 7 },
+    "perception-cognition": { 1: 6, 2: 9, 3: 9 },
+    "movement-travel": { 1: 8, 2: 9, 3: 4 },
+    "home-routines": { 1: 10, 2: 9, 3: 4 },
+    "food-shopping-services": { 1: 7, 2: 8, 3: 5 },
+    "school-work-creation": { 1: 7, 2: 10, 3: 10 },
+    "community-help-safety": { 1: 4, 2: 5, 3: 4 },
+    "digital-admin-adult-life": { 1: 3, 2: 6, 3: 5 },
+  });
+  assert.deepEqual(
+    [1, 2, 3].map((level) => filterVerbPairsForDifficulty(pairs, level).length),
+    [60, 130, 180]
+  );
+  assert.ok(filterVerbPairsForDifficulty(pairs, 1).every((pair) => pair.difficulty === 1));
+  assert.ok(filterVerbPairsForDifficulty(pairs, 2).every((pair) => pair.difficulty <= 2));
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3), pairs);
+});
+
+test("Mandarin Verb Nebula content remains child-safe while covering honest adult life", async () => {
+  const dictionary = JSON.parse(await readFile(mandarinDictionaryUrl, "utf8"));
+  const unsafeEnglish = /\b(?:alcohol|beer|wine|liquor|tobacco|cigarette|vape|drugs?|weapon|gun|rifle|pistol|bomb|grenade|knife|sword|fight|attack|assault|kill|murder|death|die|dead|blood|injur(?:y|e)|hurt|harm|abuse|bully|bullying|kidnap|torture|suicide|sex|sexual|nude|porn|gambl(?:e|ing)|steal|theft|rob|deceive|password|passcode)\b/iu;
+  const unsafeMandarin = /(?:暴力|武器|枪|炮|炸弹|手榴弹|刀|剑|打架|打人|攻击|袭击|杀|谋杀|死亡|死|血|受伤|伤害|虐待|欺凌|霸凌|绑架|折磨|自杀|酒|啤酒|葡萄酒|烈酒|烟|香烟|电子烟|毒品|赌博|色情|性行为|裸体|偷|抢劫|欺骗|密码|口令)/u;
+
+  for (const row of dictionary) {
+    assert.doesNotMatch(row.source, unsafeEnglish, `${row.id} has child-inappropriate English content`);
+    assert.doesNotMatch(row.target, unsafeMandarin, `${row.id} has child-inappropriate Mandarin content`);
+  }
+
+  const byTarget = new Map(dictionary.map((row) => [row.target, row]));
+  for (const [target, source] of [
+    ["预约", "make an appointment"],
+    ["做预算", "make a budget"],
+    ["申请", "apply for something"],
+    ["做志愿者", "volunteer"],
+    ["续订", "renew a subscription"],
+    ["转账", "transfer money"],
+  ]) {
+    assert.equal(byTarget.get(target)?.source, source, `${target} must retain its safe practical adult-life cue`);
+  }
 });
 
 test("keeps the ordered Core dictionary child-safe without moving stable verb rows", async () => {

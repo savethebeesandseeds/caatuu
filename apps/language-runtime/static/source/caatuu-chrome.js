@@ -38,13 +38,14 @@
     largest: { label: "Standard" }
   });
   const speechPaceOptions = Object.freeze({
-    // Keep each choice in a distinct Chromium/Windows SAPI rate bucket.
     slower: Object.freeze({ label: "Slower", rate: 0.5 }),
     slow: Object.freeze({ label: "Slow", rate: 0.6 }),
     normal: Object.freeze({ label: "Normal", rate: 1 })
   });
   const speechPaceOrder = Object.freeze(["slower", "slow", "normal"]);
   const speechPaceByDifficulty = Object.freeze({ 1: "slower", 2: "slow", 3: "normal" });
+  const activeToolbarPopovers = new Set();
+  const toolbarPopoverFrames = new WeakMap();
   const backpackViewOptions = Object.freeze({
     items: { label: "Items", iconSrc: "/assets/icons/items_icon.png?v=items-2" },
     stats: { label: "Stats", iconSrc: "/assets/icons/stats_icon.png" },
@@ -97,6 +98,67 @@
       href: course.routes.settings
     }
   ];
+
+  function toolbarPopoverBounds() {
+    const viewport = window.visualViewport;
+    const margin = 12;
+    const left = (viewport?.offsetLeft || 0) + margin;
+    const top = (viewport?.offsetTop || 0) + margin;
+    const right = (viewport?.offsetLeft || 0) + (viewport?.width || window.innerWidth) - margin;
+    let bottom = (viewport?.offsetTop || 0) + (viewport?.height || window.innerHeight) - margin;
+    const dock = document.querySelector("[data-caatuu-bottom-nav]");
+    const dockRect = dock?.getBoundingClientRect?.();
+    if (dockRect && dockRect.height > 0) bottom = Math.min(bottom, dockRect.top - 8);
+    return { left, top, right, bottom };
+  }
+
+  function positionToolbarPopover(popover) {
+    if (!popover || popover.hidden || !popover.isConnected) return;
+    popover.classList.remove("caatuu-toolbar-popover-fixed");
+    for (const property of ["left", "top", "right", "bottom", "width", "maxHeight"]) {
+      popover.style[property] = "";
+    }
+    const natural = popover.getBoundingClientRect();
+    const bounds = toolbarPopoverBounds();
+    const availableWidth = Math.max(1, bounds.right - bounds.left);
+    const availableHeight = Math.max(1, bounds.bottom - bounds.top);
+    const width = Math.min(natural.width, availableWidth);
+    const height = Math.min(natural.height, availableHeight);
+    const left = Math.min(Math.max(natural.left, bounds.left), bounds.right - width);
+    const top = Math.min(Math.max(natural.top, bounds.top), bounds.bottom - height);
+    popover.classList.add("caatuu-toolbar-popover-fixed");
+    popover.style.left = `${Math.round(left)}px`;
+    popover.style.top = `${Math.round(top)}px`;
+    popover.style.width = `${Math.round(width)}px`;
+    popover.style.maxHeight = `${Math.round(availableHeight)}px`;
+  }
+
+  function constrainToolbarPopover(popover) {
+    if (!popover) return;
+    activeToolbarPopovers.add(popover);
+    const pending = toolbarPopoverFrames.get(popover);
+    if (pending) window.cancelAnimationFrame(pending);
+    toolbarPopoverFrames.set(popover, window.requestAnimationFrame(() => {
+      toolbarPopoverFrames.delete(popover);
+      if (activeToolbarPopovers.has(popover)) positionToolbarPopover(popover);
+    }));
+  }
+
+  function releaseToolbarPopover(popover) {
+    if (!popover) return;
+    activeToolbarPopovers.delete(popover);
+    const pending = toolbarPopoverFrames.get(popover);
+    if (pending) window.cancelAnimationFrame(pending);
+    toolbarPopoverFrames.delete(popover);
+    popover.classList.remove("caatuu-toolbar-popover-fixed");
+    for (const property of ["left", "top", "right", "bottom", "width", "maxHeight"]) {
+      popover.style[property] = "";
+    }
+  }
+
+  function refreshToolbarPopovers() {
+    activeToolbarPopovers.forEach((popover) => constrainToolbarPopover(popover));
+  }
   const gameNavigationStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.active-game.v1`;
   const gamePresentations = {
     campaign: {
@@ -135,6 +197,12 @@
       iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-2",
       href: "index.html"
     },
+    "naturalization-nucleus": {
+      title: "Naturalization Nucleus",
+      summary: "Match Hanzi + pinyin",
+      iconSrc: "/assets/planets/naturalization-nucleus.png",
+      href: "index.html"
+    },
     "memory-moon": {
       title: "Memory Moon",
       summary: "Coming later",
@@ -156,6 +224,9 @@
     if (gameId === "conjugation-comet") return course.capabilities?.conjugationComet === true;
     if (gameId === "case-cosmos") return course.capabilities?.verbs === true && course.capabilities?.dictionary === true;
     if (gameId === "agreement-aurora") return course.capabilities?.verbs === true;
+    if (gameId === "naturalization-nucleus") {
+      return course.games?.includes?.("naturalization-nucleus") && Boolean(course.routes?.naturalizationNucleus);
+    }
     if (gameId === "memory-moon") return course.capabilities?.memory === true;
     if (gameId === "campaign") {
       return Object.keys(gamePresentations)
@@ -449,7 +520,7 @@
       localTarget.click();
       return;
     }
-    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "memory-moon"].includes(normalizedGameId)) {
+    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon"].includes(normalizedGameId)) {
       rememberNavigationRequest(`game:${normalizedGameId}`);
       window.location.href = course.routes.games;
       return;
@@ -468,6 +539,7 @@
     if (document.querySelector("#trainPanelConjugationComet:not([hidden])")) return "conjugation-comet";
     if (document.querySelector("#trainPanelCaseCosmos:not([hidden])")) return "case-cosmos";
     if (document.querySelector("#trainPanelAgreementAurora:not([hidden])")) return "agreement-aurora";
+    if (document.querySelector("#trainPanelNaturalizationNucleus:not([hidden])")) return "naturalization-nucleus";
     if (document.querySelector("#trainPanelMemoryMoon:not([hidden])")) return "memory-moon";
     if (document.querySelector("#trainPanelGalaxy:not([hidden])")) return "galaxy";
     const title = document.querySelector(".app-header-title")?.textContent?.trim() || "";
@@ -3114,6 +3186,13 @@
               </div>
             </dl>
             <div class="maintenance-action-list">
+              <div class="maintenance-action-row" data-maintenance-action-row hidden>
+                <span class="maintenance-action-copy">
+                  <strong>Update app</strong>
+                  <small data-update-app-copy>Install a newer Android package when one is available.</small>
+                </span>
+                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>Update</button>
+              </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
                   <strong>Cache</strong>
@@ -3129,6 +3208,7 @@
                 <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">Restart</button>
               </div>
             </div>
+            <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="maintenance-install-row" id="browserInstallActions">
               <span class="maintenance-action-copy">
                 <strong>Install</strong>
@@ -3150,24 +3230,6 @@
               <p class="settings-kicker kicker">About</p>
               <h3>Details</h3>
             </div>
-            <section class="about-update-region" aria-label="Version and updates">
-              <div class="about-update-head">
-                <p class="settings-kicker kicker">Caatuu app</p>
-                <h4>Version and updates</h4>
-              </div>
-              <div class="version-refresh-row">
-                <p class="version-note" id="settingsVersion" data-fallback-version="Version check pending">Version check pending</p>
-                <button class="maintenance-row-control browser-refresh-action" type="button" id="refreshBrowserAction">Update</button>
-              </div>
-              <div class="maintenance-action-row maintenance-update-row" data-maintenance-action-row hidden>
-                <span class="maintenance-action-copy">
-                  <strong>Android update</strong>
-                  <small data-update-app-copy>Check the installed version against the Android update channel.</small>
-                </span>
-                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>Check for updates</button>
-              </div>
-              <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
-            </section>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
                 <p class="settings-kicker kicker">App update</p>
@@ -3254,7 +3316,6 @@
     }
 
     bindSettingsReport(panel);
-    bindBrowserRefresh(panel);
     bindAndroidInstallDiscovery(panel);
     bindSemanticSkillCompass(panel);
     bindSpeechVoiceControl(panel);
@@ -3480,32 +3541,6 @@
       bindAndroidInstallDiscovery(panel);
     };
     if (status) status.textContent = "Browser · Android temporarily unavailable";
-  }
-
-  function bindBrowserRefresh(panel) {
-    const button = panel.querySelector("#refreshBrowserAction");
-    if (!button) return;
-    button.hidden = window.CaatuuRuntime?.env === "android";
-    button.addEventListener("click", async () => {
-      button.disabled = true;
-      button.textContent = "Updating";
-      try {
-        const updateBrowserApp = window.CaatuuRuntime?.maintenance?.updateApp;
-        if (typeof updateBrowserApp === "function") {
-          const result = await updateBrowserApp();
-          if (!result?.reloaded) {
-            button.disabled = false;
-            button.textContent = result?.offline ? "Retry" : "Update";
-          }
-          return;
-        }
-        const registration = await navigator.serviceWorker?.getRegistration?.();
-        await registration?.update?.();
-      } catch (error) {
-        // The compatibility fallback below still reloads same-origin files.
-      }
-      window.location.reload();
-    });
   }
 
   function openSharedSettings({ view = readRememberedBackpackView() } = {}) {
@@ -3845,6 +3880,8 @@
     installSpeechData,
     speakText,
     stopSpeech,
+    constrainToolbarPopover,
+    releaseToolbarPopover,
     // Retain the legacy Czech names until course-local games migrate to the
     // language-neutral speech API. Both names share one implementation.
     previewCzechSpeech: previewSpeech,
@@ -3880,6 +3917,9 @@
 
   window.addEventListener("focus", scheduleSpeechVoiceRefresh);
   window.addEventListener("pageshow", scheduleSpeechVoiceRefresh);
+  window.addEventListener("resize", refreshToolbarPopovers);
+  window.visualViewport?.addEventListener?.("resize", refreshToolbarPopovers);
+  window.visualViewport?.addEventListener?.("scroll", refreshToolbarPopovers);
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") scheduleSpeechVoiceRefresh();
   });

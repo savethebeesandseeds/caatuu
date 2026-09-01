@@ -28,12 +28,26 @@ function functionDeclarations(source) {
   );
 }
 
-test("shared Word World core and queue are byte-exact authority copies", async () => {
+test("shared Word World queue remains byte-exact while the core preserves authority plus multilingual reconstruction", async () => {
   const [core, queue] = await Promise.all([
     readFile(coreUrl, "utf8"),
     readFile(queueUrl, "utf8")
   ]);
-  assert.equal(core, authority("word-net-core.mjs"));
+  const authorityCore = authority("word-net-core.mjs");
+  const authorityFunctions = functionDeclarations(authorityCore);
+  const sharedFunctions = functionDeclarations(core);
+  assert.deepEqual(
+    [...authorityFunctions].filter((name) => !sharedFunctions.has(name)),
+    [],
+    "the shared core must preserve every historical authority function"
+  );
+  assert.deepEqual(
+    [...sharedFunctions].filter((name) => !authorityFunctions.has(name)),
+    ["buildTokenReconstructionChallenge"],
+    "multilingual token reconstruction is the only approved core function extension"
+  );
+  assert.match(core, /export function buildTokenReconstructionChallenge\(/u);
+  assert.match(core, /buildWordReconstructionChallenge\([\s\S]*?buildTokenReconstructionChallenge\(answerParts, candidateParts/u);
   assert.equal(queue, authority("word-net-queue.mjs"));
 });
 
@@ -76,8 +90,21 @@ test("one controller consumes narrow language and provider seams", async () => {
   assert.match(renderer, /api\?\.stopSpeech \|\| api\?\.stopCzechSpeech/u);
   assert.match(renderer, /return text\.replaceAll\("Czech", targetLanguageLabel\)/u);
   assert.doesNotMatch(renderer, /targetLanguageLabel === "Czech"/u);
-  assert.match(renderer, /\["#wordNetSentence", "#wordNetSelectedWord", "#wordNetTrail"\]/u);
+  assert.match(renderer, /\["#wordNetSentence", "#wordNetSelectedWord"\]/u);
   assert.match(renderer, /node\.setAttribute\("lang", lang\)/u);
   assert.match(renderer, /node\.setAttribute\("dir", direction\)/u);
   assert.match(renderer, /\["#wordNetSentence", "#wordNetNext", "#wordNetPrevious", "#wordNetStatus"\]/u);
+});
+
+test("the shared history renders complete base and target sentences with their own language metadata", async () => {
+  const renderer = await readFile(rendererUrl, "utf8");
+
+  assert.match(renderer, /base\.className = "word-net-trail-base"/u);
+  assert.match(renderer, /target\.className = "word-net-trail-target"/u);
+  assert.match(renderer, /base\.textContent = item\.en \|\| localTranslation\(item\.sentence, item\.word\)/u);
+  assert.match(renderer, /target\.textContent = item\.sentence/u);
+  assert.doesNotMatch(renderer, /word\.textContent = item\.word/u);
+  assert.match(renderer, /if \(sourceLang\) base\.setAttribute\("lang", sourceLang\)/u);
+  assert.match(renderer, /if \(targetLang\) target\.setAttribute\("lang", targetLang\)/u);
+  assert.match(renderer, /saveHistory\(\);\s+renderTrail\(\);/u);
 });

@@ -18,6 +18,7 @@ const [
   courseRuntime,
   vectorManager,
   dictionaryManager,
+  staticAssetManager,
 ] = await Promise.all([
   readFile(new URL("apps/android/settings.gradle.kts", repoRoot), "utf8"),
   readFile(new URL("apps/android/product/build.gradle.kts", repoRoot), "utf8"),
@@ -65,6 +66,10 @@ const [
     new URL("apps/android/app/src/main/java/com/caatuu/android/DictionaryManager.kt", repoRoot),
     "utf8",
   ),
+  readFile(
+    new URL("apps/android/app/src/main/java/com/caatuu/android/StaticAssetManager.kt", repoRoot),
+    "utf8",
+  ),
 ]);
 
 test("settings make the development and product modules mutually exclusive", () => {
@@ -102,8 +107,8 @@ test("the product module reuses only safe application sources", () => {
   assert.match(build, /CAATUU_SELF_UPDATE_ENABLED", "true"/);
   assert.match(build, /CAATUU_ACCEPT_RELEASE_MIGRATION", "false"/);
   assert.match(build, /debug \{[\s\S]*?CAATUU_ACCEPT_RELEASE_MIGRATION", "true"/);
-  assert.match(build, /caatuuVersionCode.*orElse\(162\)/);
-  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.10"\)/);
+  assert.match(build, /caatuuVersionCode.*orElse\(163\)/);
+  assert.match(build, /caatuuVersionName.*orElse\("0\.1\.11"\)/);
   assert.match(build, /CAATUU_UPDATE_MANIFEST_NAME/);
   assert.match(build, /hasPartialReleaseSigning/);
 });
@@ -127,6 +132,14 @@ test("native manager construction follows the versioned provider declaration", (
   assert.match(courseRuntime, /Native embedding manager does not match the bundled course provider/);
   assert.doesNotMatch(vectorManager, /EMBEDDING_CATALOG_ASSET/);
   assert.doesNotMatch(dictionaryManager, /CATALOG_ASSET/);
+});
+
+test("Android retires legacy mascot caches without pruning active setup assets", () => {
+  assert.match(staticAssetManager, /init \{\s*deleteRetiredMascotAssets\(rootDir\(appContext\)\)\s*\}/);
+  assert.match(staticAssetManager, /"assets\/aliens"/);
+  assert.match(staticAssetManager, /"assets\/language-mascots"/);
+  assert.match(staticAssetManager, /!directory\.exists\(\) \|\| directory\.deleteRecursively\(\)/);
+  assert.doesNotMatch(staticAssetManager, /rootDir\(appContext\)\.deleteRecursively/);
 });
 
 test("the one-time transition accepts only a signed release-shaped migration", () => {

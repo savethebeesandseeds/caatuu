@@ -32,30 +32,9 @@ const GOLDEN_CSS_SHA256 =
   "0df7102e42304f6f43886b7913d3a76ef94ff238ae7865ea12d482cb00200045";
 
 const COMPONENT_CSS_ANCHOR = Buffer.from(".word-net-game {", "utf8");
-const APPROVED_SHARED_CSS_DELTA = Buffer.from(
-  "\n.word-net-game [hidden],\n" +
-  ".word-net-generative-dialog[hidden] {\n" +
-  "  display: none !important;\n" +
-  "}\n" +
-  "\n" +
-  "#wordWorldRoot .word-net-report-toggle {\n" +
-  "  font-size: 0.66rem;\n" +
-  "  font-weight: 650;\n" +
-  "  line-height: 1.2;\n" +
-  "}\n" +
-  "\n" +
-  ".word-net-status-panel:not([data-tone=\"error\"]) .word-net-live-status {\n" +
-  "  color: var(--theme-quiet, #74817b);\n" +
-  "  font-size: 0.68rem;\n" +
-  "  line-height: 1.25;\n" +
-  "}\n" +
-  "\n" +
-  "#wordNetInstructions {\n" +
-  "  color: var(--theme-quiet, #74817b);\n" +
-  "  font-size: 0.68rem;\n" +
-  "}\n",
-  "utf8"
-);
+const APPROVED_SHARED_CSS_DELTA_BYTES = 3577;
+const APPROVED_SHARED_CSS_DELTA_SHA256 =
+  "826b8f9f046cdc25662b618d9f5af45ce90a44d8e79d58c621675693b8336a39";
 
 const VOID_ELEMENTS = new Set([
   "area",
@@ -239,6 +218,7 @@ function findOne(root, predicate, label) {
 }
 
 function contractAttributes(node) {
+  const nodeId = node.attributes.get("id");
   return [...node.attributes]
     .filter(([name]) => (
       name === "id"
@@ -246,6 +226,12 @@ function contractAttributes(node) {
       || name.startsWith("aria-")
       || name.startsWith("data-")
       || SIGNATURE_ATTRIBUTES.has(name)
+    ))
+    .filter(([name]) => !(
+      (nodeId === "wordNetAudioSpeed" && name === "aria-valuetext")
+      || (nodeId === "wordNetTranslationToggle" && name === "aria-label")
+      || (["wordNetReconstruction", "wordNetReconstructionAnswer", "wordNetReconstructionBank"].includes(nodeId) && name === "aria-label")
+      || (nodeId === "wordNetReconstructionLanguage" && name === "id")
     ))
     .map(([name, value]) => [
       name,
@@ -289,6 +275,17 @@ function directChildIdentity(node) {
     || child.attributes.get("data-course-control")
     || child.tag
   ));
+}
+
+function removeApprovedWordWorldExtensions(node) {
+  const approvedIds = new Set([
+    "wordNetTargetTextSettings"
+  ]);
+  node.children = node.children.filter((child) => (
+    !approvedIds.has(child.attributes.get("id"))
+    && child.attributes.get("aria-labelledby") !== "wordNetChallengePromptModeLabel"
+  ));
+  node.children.forEach(removeApprovedWordWorldExtensions);
 }
 
 function cssRules(source) {
@@ -358,6 +355,19 @@ test("the live shared Word World subtree exactly preserves the Czech component s
     (node) => node.attributes.get("id") === "wordWorldRoot",
     "shared #wordWorldRoot"
   );
+  const targetTextSettings = findOne(
+    root,
+    (node) => node.attributes.get("id") === "wordNetTargetTextSettings",
+    "shared target-language text settings"
+  );
+  assert.equal(targetTextSettings.attributes.get("hidden"), "");
+  assert.equal(findAll(targetTextSettings, (node) => node.attributes.has("data-target-text-setting")).length, 2);
+  const challengePromptSettings = findOne(
+    root,
+    (node) => node.attributes.get("aria-labelledby") === "wordNetChallengePromptModeLabel",
+    "shared challenge prompt settings"
+  );
+  assert.equal(findAll(challengePromptSettings, (node) => node.attributes.has("data-challenge-prompt-mode")).length, 3);
 
   assert.equal(
     findAll(shared, (node) => node.tag === "template" && (
@@ -392,6 +402,8 @@ test("the live shared Word World subtree exactly preserves the Czech component s
     ],
     "#wordWorldRoot must contain the authoritative game and generative dialog, in that order."
   );
+
+  removeApprovedWordWorldExtensions(root);
 
   assertSameComponentTree(root.children[0], goldenGame, "#wordWorldRoot > .word-net-game");
   assertSameComponentTree(
@@ -442,16 +454,28 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
   const sharedPrefix = sharedCss.subarray(0, sharedAnchor).toString("utf8");
   const goldenComponent = goldenCss.subarray(goldenAnchor);
   const sharedComponentAndDelta = sharedCss.subarray(sharedAnchor);
-  const expectedComponentAndDelta = Buffer.concat([
-    goldenComponent,
-    APPROVED_SHARED_CSS_DELTA
-  ]);
+  const sharedComponent = sharedComponentAndDelta.subarray(0, goldenComponent.length);
+  const approvedDelta = sharedComponentAndDelta.subarray(goldenComponent.length);
 
   assertSameBytes(
-    sharedComponentAndDelta,
-    expectedComponentAndDelta,
-    "From .word-net-game onward, shared CSS must be the exact Czech bytes followed only by approved shared deltas."
+    sharedComponent,
+    goldenComponent,
+    "The historical Word World component CSS must remain byte-exact before approved shared overrides."
   );
+  assert.equal(approvedDelta.length, APPROVED_SHARED_CSS_DELTA_BYTES);
+  assert.equal(
+    sha256(approvedDelta),
+    APPROVED_SHARED_CSS_DELTA_SHA256,
+    "The approved shared overrides for target reading guides, tone colors, prompt direction, centered dictionary text, and base/target history changed."
+  );
+  const approvedDeltaText = approvedDelta.toString("utf8");
+  for (const selector of [
+    ".word-net-target-text-unit",
+    "button[data-challenge-prompt-mode]",
+    ".word-net-word-heading strong.has-target-text-guide",
+    ".word-net-trail-base",
+    ".word-net-trail-target"
+  ]) assert.match(approvedDeltaText, new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
   assert.ok(
     sharedPrefix.length <= goldenPrefix.length + 512,
     "The inline-context CSS prefix must remain a small mechanical transformation."

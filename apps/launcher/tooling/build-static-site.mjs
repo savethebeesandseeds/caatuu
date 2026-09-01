@@ -718,7 +718,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   const selected = (sourceManifest.artifacts || []).filter((artifact) =>
     ["visual-asset", "asset-keymap"].includes(artifact?.artifact_kind)
   );
-  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length, 647);
+  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length, 646);
   assert.equal(selected.filter((artifact) => artifact.artifact_kind === "asset-keymap").length, 3);
   const artifactKeys = selected.map((artifact) => String(artifact.key || ""));
   assert.ok(artifactKeys.every(Boolean), "Every published artifact must have a key");
@@ -735,7 +735,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   const publishedVisualPaths = new Set(selected
     .filter((artifact) => artifact.artifact_kind === "visual-asset")
     .map((artifact) => publicPathFromUrl(artifact.url, artifact.key)));
-  assert.equal(publishedVisualPaths.size, 647, "Published visual destinations must be unique");
+  assert.equal(publishedVisualPaths.size, 646, "Published visual destinations must be unique");
   return { launcherStaticDir, languageStaticDir, sourceManifest, selected, publishedVisualPaths };
 }
 
@@ -1241,10 +1241,10 @@ function assertNoServerOrModelBoundary(outputDir, files) {
 function assertSetupManifest(outputDir, manifest) {
   assert.equal(manifest.version, 1);
   assert.equal(manifest.cache_name, "caatuu-czech-setup-v1");
-  assert.equal(manifest.artifacts.length, 650);
+  assert.equal(manifest.artifacts.length, 649);
   const visual = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset");
   const keymaps = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "asset-keymap");
-  assert.equal(visual.length, 647);
+  assert.equal(visual.length, 646);
   assert.equal(keymaps.length, 3);
   assert.ok(visual.every((artifact) => artifact.browser_required === false && artifact.native_required === false));
   assert.ok(keymaps.every((artifact) => artifact.browser_required === true && artifact.native_required === false));
@@ -1300,7 +1300,7 @@ function assertBundleManifest(outputDir) {
   assert.equal(manifest.canonicalOrigin, "https://caatuu.waajacu.com");
   assert.deepEqual(manifest.entrypoints, ["/", "/cz/", "/cz/index.html"]);
   assert.equal(manifest.requiredSetupArtifacts, 3);
-  assert.equal(manifest.publishedVisualAssets, 647);
+  assert.equal(manifest.publishedVisualAssets, 646);
   const inventory = inventoryFor(outputDir);
   assert.deepEqual(manifest.files, inventory, "Static bundle inventory changed");
   assert.equal(manifest.payloadFileCount, inventory.length);

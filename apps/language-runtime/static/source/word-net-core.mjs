@@ -248,19 +248,47 @@ export function buildWordReconstructionChallenge(
   { distractorCount = 2 } = {}
 ) {
   const text = String(translation || "").normalize("NFC").replace(/\s+/g, " ").trim();
-  const answerTokens = tokenizeEnglishReconstruction(text);
-  const answerKeys = new Set(answerTokens.map(normalizeEnglishReconstructionToken));
+  const answerParts = tokenizeEnglishReconstruction(text).map((token) => ({ text: token }));
+  const candidateParts = (Array.isArray(candidateTexts) ? candidateTexts : [])
+    .flatMap((candidateText) => tokenizeEnglishReconstruction(candidateText).map((token) => ({ text: token })));
+  const challenge = buildTokenReconstructionChallenge(answerParts, candidateParts, {
+    distractorCount,
+    normalize: normalizeEnglishReconstructionToken
+  });
+
+  return {
+    ...challenge,
+    text,
+    punctuation: text.match(/([.!?…]+)["'’”)]*$/u)?.[1] || ""
+  };
+}
+
+export function buildTokenReconstructionChallenge(
+  answerParts,
+  candidateParts = [],
+  { distractorCount = 2, normalize = normalizeEnglishReconstructionToken } = {}
+) {
+  const canonicalParts = (Array.isArray(answerParts) ? answerParts : [])
+    .map((part) => ({
+      ...(part && typeof part === "object" ? part : {}),
+      text: String(part?.text ?? part ?? "").normalize("NFC").trim()
+    }))
+    .filter((part) => part.text);
+  const answerTokens = canonicalParts.map((part) => part.text);
+  const answerKeys = new Set(answerTokens.map((token) => String(normalize(token) || "")));
   const frequency = new Map();
   let candidatePosition = 0;
-  for (const candidateText of Array.isArray(candidateTexts) ? candidateTexts : []) {
-    for (const token of tokenizeEnglishReconstruction(candidateText)) {
-      const key = normalizeEnglishReconstructionToken(token);
-      if (!key || answerKeys.has(key)) continue;
-      const current = frequency.get(key) || { key, text: token, count: 0, firstSeen: candidatePosition };
-      current.count += 1;
-      frequency.set(key, current);
-      candidatePosition += 1;
-    }
+  for (const rawPart of Array.isArray(candidateParts) ? candidateParts : []) {
+    const part = {
+      ...(rawPart && typeof rawPart === "object" ? rawPart : {}),
+      text: String(rawPart?.text ?? rawPart ?? "").normalize("NFC").trim()
+    };
+    const key = String(normalize(part.text) || "");
+    if (!key || answerKeys.has(key)) continue;
+    const current = frequency.get(key) || { key, part, count: 0, firstSeen: candidatePosition };
+    current.count += 1;
+    frequency.set(key, current);
+    candidatePosition += 1;
   }
 
   const requestedDistractors = Math.max(0, Math.floor(Number(distractorCount) || 0));
@@ -271,15 +299,17 @@ export function buildWordReconstructionChallenge(
     .slice(0, requestedDistractors)
     .map((candidate, index) => ({
       id: `distractor-${index}-${stableReconstructionHash(candidate.key).toString(16)}`,
-      text: candidate.text,
+      text: candidate.part.text,
+      part: candidate.part,
       answer: false
     }));
 
-  const seed = answerTokens.map(normalizeEnglishReconstructionToken).join("|");
+  const seed = answerTokens.map((token) => String(normalize(token) || "")).join("|");
   const options = [
-    ...answerTokens.map((token, index) => ({
+    ...canonicalParts.map((part, index) => ({
       id: `answer-${index}`,
-      text: token,
+      text: part.text,
+      part,
       answer: true
     })),
     ...distractors
@@ -290,9 +320,8 @@ export function buildWordReconstructionChallenge(
   ));
 
   return {
-    text,
+    answerParts: canonicalParts,
     answerTokens,
-    punctuation: text.match(/([.!?…]+)["'’”)]*$/u)?.[1] || "",
     options
   };
 }

@@ -26,10 +26,10 @@ const pages = await Promise.all(
 );
 
 test("the canonical app bootstraps Czech semantic state in order while secondary pages retain their direct loading contract", () => {
-  const canonicalCourseIndex = canonicalHome.indexOf('src="source/shared/course-profile.js?v=course-25"');
+  const canonicalCourseIndex = canonicalHome.indexOf('src="source/shared/course-profile.js?v=course-26"');
   const canonicalLearningIndex = canonicalHome.indexOf('src="/language-runtime/static/source/learning-profile.js?v=learning-5"');
-  const canonicalChromeIndex = canonicalHome.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"');
-  const canonicalBootstrapIndex = canonicalHome.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-10"');
+  const canonicalChromeIndex = canonicalHome.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"');
+  const canonicalBootstrapIndex = canonicalHome.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-24"');
   assert.ok(canonicalCourseIndex >= 0, "the canonical app must load its route-local course profile");
   assert.ok(canonicalLearningIndex > canonicalCourseIndex, "the canonical app must load learning state after its course profile");
   assert.ok(canonicalChromeIndex > canonicalLearningIndex, "the canonical app must load shared Chrome after course state");
@@ -37,17 +37,17 @@ test("the canonical app bootstraps Czech semantic state in order while secondary
 
   const runtimeLoadIndex = appBootstrap.indexOf('await loadScript("source/shared/runtime.js?v=runtime-41")');
   const semanticLoadIndex = appBootstrap.indexOf('await loadScript("source/shared/semantic-learning.js?v=semantic-learning-7")');
-  const workspaceLoadIndex = appBootstrap.indexOf('await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-4")');
+  const workspaceLoadIndex = appBootstrap.indexOf('await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-6")');
   assert.ok(runtimeLoadIndex >= 0, "the dynamic bootstrap must load the course runtime");
   assert.ok(semanticLoadIndex > runtimeLoadIndex, "the dynamic bootstrap must load semantic state after runtime.js");
   assert.ok(workspaceLoadIndex > semanticLoadIndex, "the dynamic bootstrap must expose semantic state before the shared Czech-authority workspace controller");
 
   for (const { name, source } of pages) {
-    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-25"');
+    const courseIndex = source.indexOf('src="source/shared/course-profile.js?v=course-26"');
     const learningIndex = source.indexOf('src="/language-runtime/static/source/learning-profile.js?v=learning-5"');
     const runtimeIndex = source.indexOf('src="source/shared/runtime.js?v=runtime-41"');
     const semanticIndex = source.indexOf('src="source/shared/semantic-learning.js?v=semantic-learning-7"');
-    const chromeIndex = source.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-122"');
+    const chromeIndex = source.indexOf('src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"');
     assert.ok(courseIndex >= 0, `${name} must load the course profile`);
     assert.ok(learningIndex > courseIndex, `${name} must load lightweight learning state after the course profile`);
     assert.ok(runtimeIndex > learningIndex, `${name} must load the runtime after learning state`);
@@ -335,12 +335,12 @@ test("the offline shell precaches the semantic source and local embedding runtim
   assert.match(serviceWorker, /dictionary-patch-core\.mjs\?v=dictionary-patch-core-1/);
   assert.match(serviceWorker, /data\/dictionaries\/patches\/reviewed-cs-en\.v1\.json\?v=sha256-[0-9a-f]{64}/);
   assert.doesNotMatch(serviceWorker, /source\/games\/verb-nebula\/app\.js/);
-  assert.match(serviceWorker, /word-world-provider\.mjs\?v=word-world-provider-9/);
+  assert.match(serviceWorker, /word-world-provider\.mjs\?v=word-world-provider-13/);
   assert.match(serviceWorker, /word-net-standard\.mjs\?v=word-net-standard-5/);
   assert.doesNotMatch(serviceWorker, /(?:^|\/)(?:word-net\.html|source\/games\/word-world\/(?:word-net\.js|word-net-queue\.mjs))(?:[?#]|$)/);
   assert.match(serviceWorker, /\/language-runtime\/static\/source\/word-net-queue\.mjs\?v=word-net-queue-6/);
-  assert.match(serviceWorker, /\/language-runtime\/static\/styles\/caatuu-word-world\.css\?v=word-net-85/);
+  assert.match(serviceWorker, /\/language-runtime\/static\/styles\/caatuu-word-world\.css\?v=word-net-89/);
   assert.doesNotMatch(serviceWorker, /word-net\.css\?v=word-net-73/);
-  assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-19/);
+  assert.match(serviceWorker, /word-net-core\.mjs\?v=word-net-core-21/);
   assert.doesNotMatch(serviceWorker, /word-net-core\.mjs\?v=word-net-core-15/);
 });

@@ -143,7 +143,7 @@ function synchronizedSetupManifest(manifest, sequences, frameDirectory) {
 
   const retained = artifacts.filter((artifact) => !loadingFramePath(artifact));
   const insertionPosition = firstLoadingPosition < 0
-    ? Math.max(0, retained.findIndex((artifact) => artifact?.key === "czech-macaw") + 1)
+    ? 0
     : artifacts.slice(0, firstLoadingPosition).filter((artifact) => !loadingFramePath(artifact)).length;
   const loadingArtifacts = sequences.flatMap((sequence) =>
     sequence.sprites.map((frame) => {

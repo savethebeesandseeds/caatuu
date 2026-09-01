@@ -47,11 +47,11 @@ test("Mandarin instantiates the generic English-only semantic-index contract", (
   );
 });
 
-test("all 16 prepared embedding documents are English while target realizations remain separate", () => {
+test("all 250 prepared embedding documents are English while target realizations remain separate", () => {
   validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
   const semanticRows = prepareSemanticRows(structuredClone(concepts), structuredClone(realizations));
   const prepared = prepareSemanticCurriculumRows(semanticRows, mandarinSimplifiedSemanticIndexConfig);
-  assert.equal(prepared.length, 16);
+  assert.equal(prepared.length, 250);
   assert.equal(prepared.every(({ embeddingInput }) => embeddingInput.locale === "en"), true);
   assert.equal(prepared.every(({ targetRealization }) => targetRealization.locale === "zh-Hans"), true);
 
