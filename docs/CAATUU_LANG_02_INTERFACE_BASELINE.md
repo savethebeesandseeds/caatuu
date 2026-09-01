@@ -167,7 +167,9 @@ declared capabilities.
 
 Mandarin speech output is distinct from pronunciation guidance. The course
 declares `speech: true`, uses `zh-CN` for output, and speaks authored Hanzi.
-It does not require the Czech LLM/verb runtime and it does not expose pinyin.
+It does not require the Czech LLM/verb runtime. Pinyin may be exposed only as
+the clearly labeled `machine-assisted-preview`; that preview is not approved
+authored pronunciation guidance.
 The adapter and shared browser/native speech boundaries have focused automated
 coverage in:
 
@@ -309,8 +311,9 @@ For both `/cz/` and `/zh/`:
 - [ ] Sentence and selected-word playback produce the target language using
       `cs-CZ` for Czech and `zh-CN` for Mandarin; stop, replay, rate, voice, and
       unavailable-voice behavior are checked.
-- [ ] Mandarin exposes no pinyin or pronunciation guide while its native-review
-      gate is unresolved.
+- [ ] Mandarin labels machine-assisted pinyin as a preview and exposes no
+      approved authored pronunciation guide while its native-review gate is
+      unresolved.
 - [ ] English reconstruction can be completed, reports the correct state,
       awards XP once, and enables next/history navigation.
 - [ ] Previous/next buttons and horizontal touch swipe obey the same gating and

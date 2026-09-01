@@ -60,6 +60,69 @@ Mandarin realizations. Earlier Chinese work remains preserved as history and is
 not a dependency of the new course. More languages can join through the same
 manifest, adapter, content, and capability contracts.
 
+## Replicate the development environment
+
+Run these commands from the repository root in PowerShell. They create the one
+durable local development container directly from a fresh `debian:latest`,
+mount this checkout at `/workspace`, and reserve the loopback-only development
+address `http://127.0.0.1:8765/`:
+
+```powershell
+$caatuuRoot = (Resolve-Path .).Path
+
+docker run --detach --interactive --tty `
+  --pull always `
+  --name caatuu-dev `
+  --hostname caatuu-dev `
+  --init `
+  --restart no `
+  --workdir /workspace `
+  --publish 127.0.0.1:8765:9172 `
+  --mount "type=bind,source=$caatuuRoot,target=/workspace" `
+  --env CAATUU_WORKSPACE_ROOT=/workspace `
+  --env BIND_ADDR=0.0.0.0 `
+  --env PORT=9172 `
+  --env RUST_LOG=info `
+  --env ENABLE_ANDROID_DEBUG_DOWNLOADS=0 `
+  --env ENABLE_BUG_REPORTS=0 `
+  --env ENABLE_CAATUU_GAME_PREVIEW=1 `
+  --env DICTIONARY_GAP_STORE_PATH=/workspace/artifacts/dictionary-gaps/czech-missing-words.v1.json `
+  --env VIRTUAL_ENV=/opt/caatuu-ml `
+  --env JAVA_HOME=/opt/jdk-17 `
+  --env ANDROID_SDK_ROOT=/opt/android-sdk `
+  --env ANDROID_HOME=/opt/android-sdk `
+  --env GRADLE_HOME=/opt/gradle/gradle-8.14.3 `
+  --env CARGO_HOME=/root/.cargo `
+  --env RUSTUP_HOME=/root/.rustup `
+  --env "PATH=/opt/caatuu-ml/bin:/opt/jdk-17/bin:/opt/android-sdk/cmdline-tools/latest/bin:/opt/android-sdk/platform-tools:/opt/gradle/gradle-8.14.3/bin:/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" `
+  --env HF_HOME=/workspace/tools/czech-ml/data/models/english-base/hf-cache `
+  --env HF_HUB_ENABLE_HF_TRANSFER=1 `
+  --env HF_XET_HIGH_PERFORMANCE=1 `
+  --env PYTHONUNBUFFERED=1 `
+  --env QT_QPA_PLATFORM=offscreen `
+  --env CAATUU_REQUIRE_NVIDIA=0 `
+  debian:latest `
+  sleep infinity
+
+docker exec --workdir /workspace caatuu-dev bash ./setup.sh
+```
+
+`setup.sh` is idempotent, so rerun it whenever its tracked inputs change. The
+initial setup installs the development toolchains, including the pinned Android
+SDK and Gradle distribution, into the durable container's writable layer. It
+intentionally does not build, test, or start Caatuu. The published port remains
+idle until the local server is started in a later development step.
+
+For normal use after the container has been created:
+
+```powershell
+docker start caatuu-dev
+docker exec --interactive --tty --workdir /workspace caatuu-dev bash --login
+```
+
+If `docker run` reports that `caatuu-dev` already exists, use `docker start`;
+do not replace the existing environment merely to enter it.
+
 ## Built openly
 
 Caatuu is an active development preview growing in public. You are welcome to

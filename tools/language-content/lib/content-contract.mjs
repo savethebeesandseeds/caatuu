@@ -85,11 +85,17 @@ export class LanguageContentError extends Error {
 export function validateLanguageContent(
   concepts,
   realizations,
-  { release = false, contentPolicy = null } = {}
+  { release = false, requireNativeReview = false, contentPolicy = null } = {}
 ) {
+  // Distribution licensing and native-language approval are deliberately
+  // independent: disclosed draft courses may ship before they are activated.
   const issues = [];
   validateEnglishConceptCatalog(concepts, issues, { release });
-  validateTargetRealizationCatalog(realizations, issues, { release, contentPolicy });
+  validateTargetRealizationCatalog(realizations, issues, {
+    release,
+    requireNativeReview,
+    contentPolicy
+  });
   validateCatalogPair(concepts, realizations, issues);
 
   if (issues.length > 0) throw new LanguageContentError(issues);
@@ -153,6 +159,7 @@ export async function loadAndValidateLanguageContent({
   conceptsPath = DEFAULT_CONCEPTS_PATH,
   realizationsPath = DEFAULT_REALIZATIONS_PATH,
   release = false,
+  requireNativeReview = false,
   contentPolicy = null
 } = {}) {
   const absoluteRoot = path.resolve(repoRoot instanceof URL ? fileURLToPath(repoRoot) : repoRoot);
@@ -170,7 +177,11 @@ export async function loadAndValidateLanguageContent({
       message: `realizations.sourceCatalog must be ${normalizedConceptsPath}.`
     }]);
   }
-  const prepared = validateLanguageContent(concepts, realizations, { release, contentPolicy });
+  const prepared = validateLanguageContent(concepts, realizations, {
+    release,
+    requireNativeReview,
+    contentPolicy
+  });
   return deepFreeze({
     ...prepared,
     paths: {
@@ -260,7 +271,11 @@ function validateEmbeddingPolicy(policy, issues) {
   }
 }
 
-function validateTargetRealizationCatalog(catalog, issues, { release, contentPolicy }) {
+function validateTargetRealizationCatalog(
+  catalog,
+  issues,
+  { release, requireNativeReview, contentPolicy }
+) {
   if (!isObject(catalog)) {
     addIssue(issues, "realizations.shape", "Target realization catalog must be an object.");
     return;
@@ -283,7 +298,7 @@ function validateTargetRealizationCatalog(catalog, issues, { release, contentPol
     addIssue(issues, "policy.invalid", "contentPolicy must name a stable versioned target-content policy.");
   }
   validateTokenization(catalog.tokenization, issues);
-  validateReviewGate(catalog.review, issues, { release });
+  validateReviewGate(catalog.review, issues, { requireNativeReview });
   validateLicenseGate(catalog.license, issues, "target catalog", { release });
 
   if (!Array.isArray(catalog.realizations) || catalog.realizations.length === 0) {
@@ -541,7 +556,7 @@ function validateSelectedContentPolicy(catalog, explicitPolicy, issues) {
   }
 }
 
-function validateReviewGate(review, issues, { release }) {
+function validateReviewGate(review, issues, { requireNativeReview }) {
   const keys = ["status", "reviewer", "reviewedAt", "notes"];
   if (!isObject(review)) {
     addIssue(issues, "review.gate", "review must be an object.");
@@ -558,7 +573,13 @@ function validateReviewGate(review, issues, { release }) {
     if (review.reviewer !== null || review.reviewedAt !== null) {
       addIssue(issues, "review.gate", "A native-review-required draft must not claim a reviewer or review date.");
     }
-    if (release) addIssue(issues, "release.native-review", "Release requires status native-reviewed.");
+    if (requireNativeReview) {
+      addIssue(
+        issues,
+        "activation.native-review",
+        "Learner-course activation and approved authored pronunciation guidance require status native-reviewed."
+      );
+    }
   } else if (review.status === "native-reviewed") {
     if (!isNonEmptyString(review.reviewer) || !isIsoDateTime(review.reviewedAt)) {
       addIssue(issues, "review.gate", "A native-reviewed catalog requires a named reviewer and ISO review date.");

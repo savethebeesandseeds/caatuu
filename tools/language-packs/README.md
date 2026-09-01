@@ -21,6 +21,9 @@ Every manifest also names a publication contract. New courses use
 concepts and target realizations. Development validation accepts explicitly
 marked drafts, but changing a course to `active` makes both catalog validation
 and launcher generation enforce native review and release-cleared licensing.
+That native-review requirement belongs to course activation and approved
+pronunciation, not to packaging or publishing an APK that includes a disclosed
+development course. Distribution still requires release-cleared licensing.
 The existing Czech app alone uses the confined `legacy-active-v1` migration
 marker; future courses cannot use that compatibility exception.
 

@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=../../apps/android/tooling/versions.env
+source /workspace/apps/android/tooling/versions.env
+
 echo "== System tools =="
-for cmd in python pip node npm git git-lfs cmake ninja gcc g++ make cargo rustc java; do
+system_commands=(python pip node npm git git-lfs cmake ninja gcc g++ make cargo rustc java)
+if [[ -f /opt/caatuu-dev/state/setup.sha256 ]]; then
+  system_commands+=(gradle sdkmanager)
+fi
+for cmd in "${system_commands[@]}"; do
   if command -v "$cmd" >/dev/null 2>&1; then
     printf "%-12s %s\n" "$cmd" "$(command -v "$cmd")"
   else
@@ -29,6 +36,13 @@ printf "%s\n" "$java_version"
   echo "The shared Android toolchain requires the pinned JDK 17." >&2
   exit 1
 }
+if [[ -f /opt/caatuu-dev/state/setup.sha256 ]]; then
+  [[ -x "$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/aapt2" ]] || {
+    echo "The pinned Android build tools are missing." >&2
+    exit 1
+  }
+  gradle --version | sed -n '1,4p'
+fi
 
 echo
 echo "== Python ML imports =="
@@ -78,9 +92,17 @@ python scripts/resolve-model-config.py >/tmp/caatuu-phone-model-config.env
 
 echo
 echo "== Animated Fabric environment =="
-cmp /tmp/animated-fabric-linux-py312.txt \
+lock_snapshot="/opt/caatuu-dev/state/animated-fabric-linux-py312.txt"
+if [[ ! -f "$lock_snapshot" ]] && [[ -f /tmp/animated-fabric-linux-py312.txt ]]; then
+  lock_snapshot="/tmp/animated-fabric-linux-py312.txt"
+fi
+if [[ ! -f "$lock_snapshot" ]]; then
+  echo "The provisioned Animated Fabric dependency lock is missing." >&2
+  exit 1
+fi
+cmp "$lock_snapshot" \
   /workspace/apps/animated-fabric/constraints/linux-py312.txt || {
-  echo "The baked Animated Fabric dependency lock differs from the canonical application lock." >&2
+  echo "The provisioned Animated Fabric dependency lock differs from the canonical application lock." >&2
   exit 1
 }
 af_python_version="$(caatuu-animated-fabric python --version 2>&1)"

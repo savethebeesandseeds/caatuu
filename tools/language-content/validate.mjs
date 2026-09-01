@@ -14,11 +14,13 @@ Options:
   --concepts <path>       English concept catalog (default: ${DEFAULT_CONCEPTS_PATH})
   --realizations <path>   Target realization catalog (default: ${DEFAULT_REALIZATIONS_PATH})
   --repo-root <path>      Repository root (defaults to this checkout)
-  --release               Enforce native-review and license release gates
+  --release               Enforce licensing gates for distributable packages
+  --require-native-review Enforce native review for course activation/pronunciation
   --help                  Show this help
 
-Without --release, a catalog explicitly marked native-review-required or
-release-review-required is a valid development draft. No action writes files.`;
+Pending native review remains recorded and withholds approved pronunciation,
+but it does not block APK publication. Licensing marked release-review-required
+is accepted only without --release. No action writes files.`;
 }
 
 function parseArguments(argv) {
@@ -29,6 +31,8 @@ function parseArguments(argv) {
       options.help = true;
     } else if (argument === "--release") {
       options.release = true;
+    } else if (argument === "--require-native-review") {
+      options.requireNativeReview = true;
     } else if (argument === "--concepts") {
       options.conceptsPath = argv[++index];
       if (!options.conceptsPath) throw new Error("--concepts requires a path.");
@@ -59,9 +63,16 @@ async function main() {
     console.log(usage());
     return;
   }
+  if (options.requireNativeReview && !options.release) {
+    throw new Error("--require-native-review must be combined with --release for activation readiness.");
+  }
 
   const loaded = await loadAndValidateLanguageContent(options);
-  const mode = options.release ? "release" : "development";
+  const mode = options.requireNativeReview
+    ? "native-review-required activation"
+    : options.release
+      ? "distributable package"
+      : "development";
   console.log(
     `Validated ${loaded.concepts.concepts.length} English concepts and `
     + `${loaded.realizations.realizations.length} target realizations for ${mode}.`

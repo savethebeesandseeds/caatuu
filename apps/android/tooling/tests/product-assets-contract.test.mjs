@@ -159,6 +159,20 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
+  const agreementAurora = czechSetup.artifacts.filter(
+    (artifact) => artifact.key === "planet-agreement-aurora",
+  );
+  assert.equal(agreementAurora.length, 1);
+  assert.equal(
+    agreementAurora[0].url,
+    "/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png",
+    "the Android setup contract must not reuse release 162's immutable public artwork URL",
+  );
+  assert.equal(
+    agreementAurora[0].asset_path,
+    "assets/planets/agreement-aurora.png",
+    "the Android package must retain its canonical local artwork path",
+  );
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
     (artifact) => artifact.artifact_kind === "embedding-runtime",
   );
@@ -515,4 +529,32 @@ test("product compiler refuses an arbitrary in-workspace output directory", () =
 test("publication treats every packaged Czech application file as release input", () => {
   const unrelatedDirtyBlock = releasePublisher.match(/allowed_unrelated_dirty_paths=\(([\s\S]*?)\n\)/)?.[1] || "";
   assert.doesNotMatch(unrelatedDirtyBlock, /apps\/languages\/czech\/static/);
+});
+
+test("pending native review remains advisory for Android publication", () => {
+  const configuration = loadAndroidCourseBundleConfiguration({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+  });
+  const mandarin = configuration.configurations.find(({ course }) => course.id === "zh");
+  const realizations = JSON.parse(readFileSync(join(
+    workspaceRoot,
+    "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
+  ), "utf8"));
+
+  assert.equal(mandarin.course.status, "development");
+  assert.equal(mandarin.course.platforms.android.enabled, true);
+  assert.ok(mandarin.course.platforms.android.channels.some(({ kind }) => kind === "release"));
+  assert.equal(realizations.review.status, "native-review-required");
+  assert.match(
+    releasePublisher,
+    /^node tools\/language-content\/validate\.mjs --release$/mu,
+    "the APK publisher must enforce the licensing-only language-content release gate",
+  );
+  assert.doesNotMatch(
+    releasePublisher,
+    /(?:--require-native-review|activation\.native-review|release\.native-review)/u,
+    "the APK publisher must not invoke the active-course native-review gate",
+  );
 });

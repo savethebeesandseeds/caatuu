@@ -14,12 +14,14 @@ the Hans, pinyin, and contextual polyphone checks.
 
 The starter realization pack is a machine-assisted draft. Its language review
 gate is intentionally `native-review-required`; it must not make the course
-active or authorize release pronunciation guidance until a qualified Mandarin
-reviewer records approval. The first-party English concepts and Mandarin
-realizations are release-cleared under `AGPL-3.0-only`. The development course
-may expose a separate catalog explicitly marked
-`machine-assisted-preview` for browser and preview-APK evaluation. That catalog
-does not alter the approved learner projection or satisfy the release gate.
+active or authorize approved authored pronunciation guidance until a qualified
+Mandarin reviewer records approval. The first-party English concepts and Mandarin
+realizations are release-cleared under `AGPL-3.0-only`. The disclosed
+development course may be packaged and published in browser and APK builds;
+pending native review is advisory for that distribution, not a publication
+block. It may expose a separate catalog explicitly marked
+`machine-assisted-preview`. That catalog does not alter the learner projection
+or satisfy the activation and approved-pronunciation gate.
 
 The pack declares `authored-word-tokens` with contextual token pronunciation.
 Consumers must preserve those boundaries; deriving pronunciation from one Han

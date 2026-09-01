@@ -27,10 +27,13 @@ inference is unavailable.
 Mandarin speech output is enabled with the course-owned `zh-CN` locale, and
 authored token glosses remain available inside Word World. LLM, chat,
 generated sentences, the separate full Dictionary workspace, pronunciation
-guides, offline model packaging, and Android distribution are disabled. The
-shared shell hides only those precise unsupported controls; it does not choose
-another renderer or layout. The course remains `development`, `noindex`, and
-blocked from activation until native Mandarin review passes. Its first-party
+guides, and offline model packaging are disabled. Browser and Android
+distribution are enabled, including bundling this disclosed development course
+in the shared APK. Pending native Mandarin review is a visible quality note and
+does not block APK publication. The shared shell hides only the unsupported
+controls; it does not choose another renderer or layout. The course remains
+`development`, `noindex`, and blocked from active-course promotion and approved
+pronunciation guidance until native Mandarin review passes. Its first-party
 English and Mandarin curriculum licensing is release-cleared under
 `AGPL-3.0-only`.
 

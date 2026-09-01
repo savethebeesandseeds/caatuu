@@ -16,6 +16,9 @@ governed beta or stable release.
   and Android cache directories.
 - Prepared Android version `0.1.11` (`versionCode 163`) with the shared Czech
   and Mandarin browser experience.
+- Kept pending native Mandarin review as a visible quality disclosure while
+  separating it from APK publication; active-course promotion and approved
+  pronunciation guidance remain independently gated.
 
 ### Governance and release integrity
 

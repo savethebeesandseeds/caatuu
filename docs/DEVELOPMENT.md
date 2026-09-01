@@ -211,7 +211,10 @@ docker exec -w /workspace caatuu-dev bash -lc `
 ```
 
 Reviewed game data is validated by the browser/runtime contract suite. New or
-changed language data still requires human language review before release.
+changed language data requires human language review before active-course
+promotion or approved pronunciation guidance. A disclosed development course
+may be packaged before that review when its distribution licensing and all
+other applicable release gates are clear.
 
 After route, browser shell, packaged asset, or Android changes, start the local
 runtime and run the boundary audit in the established dev container:

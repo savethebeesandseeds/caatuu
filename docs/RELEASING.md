@@ -62,6 +62,13 @@ A beta or stable release requires all of the following:
 - physical-device smoke test of installation, setup, offline use, update, and
   data preservation.
 
+Native-speaker curriculum review is an activation and approved-pronunciation
+quality gate, not an APK publication gate. A course whose review is still
+pending may be packaged and published when it remains explicitly marked as a
+development or unlisted course, the pending review is disclosed, unreviewed
+authored pronunciation is withheld, and its licensing and every other
+applicable distribution gate are clear.
+
 Any failed or unknown gate blocks publication. The maintainer may still make a
 development build for personal testing, but must not relabel it as beta or
 stable.

@@ -238,6 +238,7 @@ if ! command -v java >/dev/null 2>&1 || ! command -v gradle >/dev/null 2>&1 || !
 fi
 apksigner_bin="$(find_apksigner)"
 
+node tools/language-content/validate.mjs --release
 node --test apps/android/tooling/tests/product-*.test.mjs
 bash apps/android/tooling/build-release-aab.sh
 [[ -f "$source_aab" && -f "$source_apk" ]] || {

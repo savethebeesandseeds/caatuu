@@ -1,7 +1,11 @@
 # Caatuu Dev And ML Container
 
-This image is the heavy Debian workspace for model work and local build tasks.
-It is separate from the lightweight `caatuu` server container.
+The canonical durable `caatuu-dev` recreation path is the direct
+`debian:latest` command and idempotent `setup.sh` documented in the root
+[README](../../README.md#replicate-the-development-environment). The legacy
+Compose definitions remain available to current CI and specialist services
+during their separate retirement work; they are not required to recreate the
+durable development container.
 
 It includes:
 
@@ -14,22 +18,23 @@ Node.js and npm
 Rust stable through rustup
 git, git-lfs, CMake, Ninja, GCC/G++, Make
 Pinned Temurin JDK 17 for Android builds, unzip, zip, rsync, jq
-Persistent Android SDK, Gradle distribution, and Gradle cache volumes for
-repeat Android publishes
+Pinned Android SDK and Gradle distribution in the durable container writable
+layer for repeat Android builds
 Animated Fabric Python 3.12 tool environment at `/opt/animated-fabric`
 PySide6, OpenCV, Ruff, mypy, pytest, and the locked Animated Fabric dependencies
 ```
 
-Start an interactive shell from `C:\Work\caatuu`:
+For ordinary local use after following the root recreation steps, start the
+durable container and enter it from `C:\Work\caatuu`:
 
 ```powershell
-docker compose --profile dev up -d --build caatuu-dev
-docker compose exec caatuu-dev bash
+docker start caatuu-dev
+docker exec --interactive --tty --workdir /workspace caatuu-dev bash --login
 ```
 
-This CPU-compatible definition is the default and is also used by CI. On a
-host with working NVIDIA Container Toolkit support, request the GPU on the same
-service and in the same `caatuu` Compose project:
+The existing CPU-compatible Compose definition remains used by current CI. Its
+optional GPU overlay also remains available to specialist work while that
+legacy path is retired separately:
 
 ```powershell
 docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev `
@@ -53,15 +58,16 @@ docker exec -w /workspace/apps/animated-fabric caatuu-dev \
   caatuu-animated-fabric python -m animated_fabric doctor
 ```
 
-`caatuu-animated-fabric` selects the baked Python 3.12 environment and the
+`caatuu-animated-fabric` selects the provisioned Python 3.12 environment and the
 canonical source mounted at `/workspace/apps/animated-fabric`. Do not create a
 second source mount, virtual environment, development container, or Compose
 project for this application.
 
-Docker receives only this small tool directory as its primary build context.
-`animated-fabric-linux-py312.txt` is a byte-identical build-context mirror of
-`apps/animated-fabric/constraints/linux-py312.txt`; `check-caatuu-dev` rejects
-any drift between them.
+The direct setup records the canonical Animated Fabric lock beneath
+`/opt/caatuu-dev/state`. The legacy image keeps its byte-identical build-context
+mirror beneath `/tmp`; the helper and `check-caatuu-dev` accept either
+provisioned location and reject any drift from
+`apps/animated-fabric/constraints/linux-py312.txt`.
 
 Run Czech ML tasks:
 
@@ -87,14 +93,17 @@ cd /workspace/tools/on-device-models
 bash scripts/prepare-model.sh qwen3-lora-003-hard
 ```
 
-Publish the current debug-signing Android lineage inside this Linux container:
+Publish the stable, non-debuggable Android product inside this Linux container:
 
 ```bash
-docker exec caatuu-dev bash -lc 'cd /workspace && bash apps/android/tooling/publish-public-debug.sh'
+docker exec -w /workspace caatuu-dev \
+  bash apps/android/tooling/publish-release.sh
 ```
 
-The Bash publisher uses the existing container and its persistent Android tool
-volumes. Do not launch a new container for routine publishes.
+The release publisher uses the Android toolchain already provisioned in the
+durable container. Do not launch a new container for routine publishes. The
+retired `publish-public-debug.sh` command is not a public publisher; its
+explicit `--local-build` mode is only for a development artifact.
 
 The default service is CPU-compatible. The GPU override requests all available
 GPUs, and training still depends on the host Docker NVIDIA integration being

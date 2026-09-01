@@ -51,6 +51,8 @@ without naming a particular language.
   active-course validation and launcher generation require native review and
   release-cleared licenses. The Czech-only `legacy-active-v1` marker is a
   confined migration exception and cannot be selected by another course.
+  Native review is not a packaging or APK-publication gate for an explicitly
+  disclosed development course; licensing remains a distribution gate.
 - `apps/launcher/static/languages.json` is a checked public-launcher
   projection. It contains active courses only and is not a second source of
   configuration.
@@ -127,8 +129,10 @@ schema contains no Mandarin-specific rules. Pronunciation uses
 `{ system, notation, languageTag, reviewed }`, and every `reviewed` value must
 agree with the catalog-wide native-review gate. Draft learner projections use
 their own narrow runtime schemas and omit unreviewed pronunciation entirely.
-Only the schema-defined `native-reviewed` state may enable pronunciation or
-speech; aliases such as `approved` are not accepted.
+Only the schema-defined `native-reviewed` state may enable authored
+pronunciation guides; aliases such as `approved` are not accepted. Course-owned
+text-to-speech may remain available independently when its locale and platform
+contracts are satisfied.
 
 ## Adding a language
 

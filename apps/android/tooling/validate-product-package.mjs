@@ -32,6 +32,10 @@ const EXPECTED_MIN_SDK = 30;
 const MINIMUM_TARGET_SDK = 36;
 const EXPECTED_MINILM_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41";
 const EXPECTED_MINILM_RUNTIME_ID = "all-minilm-l6-v2-qint8-v0.1";
+const EXPECTED_AGREEMENT_ARTWORK_URL = "/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png";
+const EXPECTED_AGREEMENT_ARTWORK_ASSET_PATH = "assets/planets/agreement-aurora.png";
+const EXPECTED_AGREEMENT_ARTWORK_BYTES = 1_258_690;
+const EXPECTED_AGREEMENT_ARTWORK_SHA256 = "5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966";
 const PRODUCT_COURSE_BUNDLE_ASSET = "caatuu-course-bundle.json";
 const SHARED_EMBEDDING_RUNTIME_CATALOG_ASSET = "language-runtime/embedding-runtimes.json";
 const EXPECTED_PRODUCT_COURSE_IDS = Object.freeze(["cz", "zh"]);
@@ -912,6 +916,21 @@ function assertSetupEmbeddingBoundary(
   );
 }
 
+function assertAgreementArtworkBoundary(setup, label) {
+  const artifacts = (setup?.artifacts ?? []).filter(
+    (artifact) => artifact?.key === "planet-agreement-aurora",
+  );
+  assert(artifacts.length === 1, `${label} setup must contain exactly one Agreement Aurora artwork`);
+  const artwork = artifacts[0];
+  assert(artwork.url === EXPECTED_AGREEMENT_ARTWORK_URL, `${label} Agreement Aurora public URL is not immutable`);
+  assert(
+    artwork.asset_path === EXPECTED_AGREEMENT_ARTWORK_ASSET_PATH,
+    `${label} Agreement Aurora local asset path changed`,
+  );
+  assert(artwork.bytes === EXPECTED_AGREEMENT_ARTWORK_BYTES, `${label} Agreement Aurora byte count changed`);
+  assert(artwork.sha256 === EXPECTED_AGREEMENT_ARTWORK_SHA256, `${label} Agreement Aurora SHA-256 changed`);
+}
+
 function assertEmbeddingConfinement(vectorSource, label) {
   for (const pattern of [
     /env\.allowRemoteModels\s*=\s*false/,
@@ -1001,6 +1020,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
       const setupAsset = courseAssetPath(course, "setup-assets.json");
       const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
       assertSetupEmbeddingBoundary(setup, courseLabel, { sharedRuntimeArtifacts });
+      if (strictCzech) assertAgreementArtworkBoundary(setup, courseLabel);
     }
     if (course.capabilities.dictionary) {
       const dictionaryCatalogAsset = course.nativeProviders.providers.dictionary.catalogAsset;

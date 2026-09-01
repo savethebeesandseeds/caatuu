@@ -695,13 +695,13 @@ test("active promotion fails closed while native-language review is incomplete",
   await assert.rejects(
     validateCourseCatalog(promoted, { checkExistence: false }),
     (error) => (
-      hasIssue(error, "release.native-review", /status native-reviewed/)
+      hasIssue(error, "activation.native-review", /status native-reviewed/)
       && !hasIssue(error, "release.license")
     )
   );
   await assert.rejects(
     generateLauncherRegistry(promoted),
-    (error) => hasIssue(error, "release.native-review", /status native-reviewed/)
+    (error) => hasIssue(error, "activation.native-review", /status native-reviewed/)
   );
 
   const legacyBypass = cloneLoaded(promoted);

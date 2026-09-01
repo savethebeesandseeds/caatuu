@@ -907,7 +907,15 @@ async function validateResourcePaths(record, repoRoot, issues, checkExistence) {
   validateFlagResourceUrl("launcherFlag", "targetLanguage");
 }
 
-async function validatePublicationEvidence(record, repoRoot, issues, { release = record.course.status === "active" } = {}) {
+async function validatePublicationEvidence(
+  record,
+  repoRoot,
+  issues,
+  {
+    release = record.course.status === "active",
+    requireNativeReview = record.course.status === "active"
+  } = {}
+) {
   const { course } = record;
   const publication = course.publication;
   if (!isObject(publication)) {
@@ -940,7 +948,8 @@ async function validatePublicationEvidence(record, repoRoot, issues, { release =
       repoRoot,
       conceptsPath: publication.concepts,
       realizationsPath: publication.realizations,
-      release
+      release,
+      requireNativeReview
     });
     if (content.concepts.language !== course.sourceLanguage?.id) {
       issues.push({
@@ -1093,7 +1102,10 @@ export async function generateLauncherRegistry(loaded) {
   }
   const publicationIssues = [];
   for (const record of activeRecords) {
-    await validatePublicationEvidence(record, loaded.repoRoot, publicationIssues, { release: true });
+    await validatePublicationEvidence(record, loaded.repoRoot, publicationIssues, {
+      release: true,
+      requireNativeReview: true
+    });
   }
   if (publicationIssues.length > 0) throw new CourseContractError(publicationIssues);
   const languages = activeCourses

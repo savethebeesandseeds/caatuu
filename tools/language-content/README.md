@@ -30,14 +30,16 @@ not claim the stricter authoring schema when fields were deliberately removed.
 For Mandarin Word World, the deterministic projector writes the public English
 catalog, the pronunciation-stripped learner realization, and a separate
 browser-only pinyin preview from the explicit reading units. The guide remains
-`machine-assisted-preview`; it does not satisfy the native-review or release
-pronunciation gates.
+`machine-assisted-preview`; it does not satisfy the native-review gate for
+approved learner pronunciation.
 
 The current starter catalog is a development draft because its Mandarin review
 remains `native-review-required`. Its first-party English and Mandarin content
-licenses are `release-cleared` under `AGPL-3.0-only`. Release validation must
-continue to reject the unresolved native-review gate until a qualified
-Mandarin reviewer records approval.
+licenses are `release-cleared` under `AGPL-3.0-only`. Pending native review is
+an explicit quality disclosure, not an APK publication veto. Distribution
+validation accepts the disclosed draft while active-course promotion and
+approved pronunciation remain unavailable until a qualified Mandarin reviewer
+records approval.
 
 Run the checks in the established development container:
 
@@ -53,11 +55,18 @@ projector without `--check`, inspect the generated diff, then rerun the commands
 above. The projector repairs derived output only; it does not rewrite either
 authoring catalog.
 
-The release gate is intentionally expected to fail only on native review for
-the current draft:
+Distribution validation checks release-cleared licensing and passes for the
+current disclosed draft:
 
 ```sh
 docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --release
+```
+
+Activation and approved-pronunciation readiness are a separate, intentionally
+stricter check that continues to fail while native review is pending:
+
+```sh
+docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --release --require-native-review
 ```
 
 This validator is read-only and never builds an embedding database.

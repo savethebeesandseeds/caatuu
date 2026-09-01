@@ -963,6 +963,26 @@ export function transformSetupAssets(input) {
   assert.equal(campaign.length, 1, "setup assets must expose exactly one Campaign Mode emblem");
   assert.equal(campaign[0].url, "/assets/planets/campaign-mode.png", "setup Campaign Mode URL");
   assert.equal(campaign[0].asset_path, "assets/planets/campaign-mode.png", "setup Campaign Mode asset path");
+  const agreementAurora = manifest.artifacts.filter(
+    (artifact) => artifact?.key === "planet-agreement-aurora",
+  );
+  assert.equal(agreementAurora.length, 1, "setup assets must expose exactly one Agreement Aurora planet");
+  assert.equal(
+    agreementAurora[0].url,
+    "/assets/planets/agreement-aurora.png",
+    "development setup Agreement Aurora URL",
+  );
+  assert.equal(
+    agreementAurora[0].asset_path,
+    "assets/planets/agreement-aurora.png",
+    "setup Agreement Aurora local asset path",
+  );
+  assert.match(
+    String(agreementAurora[0].sha256 || ""),
+    /^[a-f\d]{64}$/iu,
+    "setup Agreement Aurora SHA-256",
+  );
+  agreementAurora[0].url = `/assets/planets/releases/${agreementAurora[0].sha256.slice(0, 16)}/agreement-aurora.png`;
   assert.ok(Array.isArray(manifest.offline?.assets), "setup assets must declare offline assets");
   const offlineCount = manifest.offline.assets.length;
   manifest.offline.assets = manifest.offline.assets.filter(

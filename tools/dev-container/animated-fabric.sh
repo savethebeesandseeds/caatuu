@@ -2,15 +2,24 @@
 set -euo pipefail
 
 app_root="/workspace/apps/animated-fabric"
+lock_snapshot="/opt/caatuu-dev/state/animated-fabric-linux-py312.txt"
+if [[ ! -f "$lock_snapshot" ]] && [[ -f /tmp/animated-fabric-linux-py312.txt ]]; then
+  lock_snapshot="/tmp/animated-fabric-linux-py312.txt"
+fi
 if [[ ! -f "$app_root/pyproject.toml" ]]; then
   echo "Animated Fabric is not mounted from the canonical Caatuu workspace." >&2
   exit 2
 fi
+if [[ ! -f "$lock_snapshot" ]]; then
+  echo "The provisioned Animated Fabric dependency lock is missing." >&2
+  echo "Rerun /workspace/setup.sh inside caatuu-dev before continuing." >&2
+  exit 2
+fi
 if ! cmp --silent \
-  /tmp/animated-fabric-linux-py312.txt \
+  "$lock_snapshot" \
   "$app_root/constraints/linux-py312.txt"; then
   echo "The shared image dependency lock differs from Animated Fabric's canonical lock." >&2
-  echo "Rebuild caatuu-dev from the root Caatuu Compose project before continuing." >&2
+  echo "Rerun /workspace/setup.sh inside caatuu-dev before continuing." >&2
   exit 2
 fi
 

@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
@@ -25,6 +27,7 @@ import { defineTargetContentPolicy } from "../policies/contract.mjs";
 import { MANDARIN_SIMPLIFIED_CONTENT_POLICY_ID } from "../policies/mandarin-simplified.mjs";
 
 const repositoryRoot = new URL("../../../", import.meta.url);
+const validatorPath = fileURLToPath(new URL("../validate.mjs", import.meta.url));
 const conceptsUrl = new URL(
   "apps/languages/shared/english-concepts/word-world-starter-v1.json",
   repositoryRoot
@@ -418,18 +421,48 @@ test("public catalogs use narrow runtime projection schemas and omit unreviewed 
   );
 });
 
-test("the current draft passes development validation and release is blocked only by native review", () => {
+test("pending native review is advisory for publication and remains mandatory for activation", () => {
   validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
+  validateLanguageContent(
+    structuredClone(concepts),
+    structuredClone(realizations),
+    { release: true }
+  );
   assert.throws(
-    () => validateLanguageContent(structuredClone(concepts), structuredClone(realizations), { release: true }),
+    () => validateLanguageContent(
+      structuredClone(concepts),
+      structuredClone(realizations),
+      { release: true, requireNativeReview: true }
+    ),
     (error) => (
-      hasIssue(error, "release.native-review")
+      hasIssue(error, "activation.native-review")
       && !hasIssue(error, "release.license")
     )
   );
 });
 
-test("a synthetic native-reviewed copy of the licensed catalogs can pass the release gate", () => {
+test("the CLI keeps APK publication separate from native-review activation", () => {
+  const repoRoot = fileURLToPath(repositoryRoot);
+  const release = spawnSync(
+    process.execPath,
+    [validatorPath, "--repo-root", repoRoot, "--release"],
+    { encoding: "utf8", windowsHide: true }
+  );
+  assert.equal(release.error, undefined);
+  assert.equal(release.status, 0, release.stderr);
+  assert.match(release.stdout, /distributable package/u);
+
+  const activation = spawnSync(
+    process.execPath,
+    [validatorPath, "--repo-root", repoRoot, "--release", "--require-native-review"],
+    { encoding: "utf8", windowsHide: true }
+  );
+  assert.equal(activation.error, undefined);
+  assert.notEqual(activation.status, 0);
+  assert.match(activation.stderr, /activation\.native-review/u);
+});
+
+test("a synthetic native-reviewed copy can pass licensing and activation gates", () => {
   const candidate = cloneCatalogs();
   candidate.realizations.review = {
     status: "native-reviewed",
@@ -446,7 +479,10 @@ test("a synthetic native-reviewed copy of the licensed catalogs can pass the rel
       }
     }
   }
-  validateLanguageContent(candidate.concepts, candidate.realizations, { release: true });
+  validateLanguageContent(candidate.concepts, candidate.realizations, {
+    release: true,
+    requireNativeReview: true
+  });
   assert.equal(realizations.review.status, "native-review-required");
   assert.equal(realizations.license.status, "release-cleared");
   assert.equal(concepts.license.status, "release-cleared");

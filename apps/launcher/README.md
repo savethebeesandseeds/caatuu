@@ -9,7 +9,9 @@ to each registry item, so future languages can expose the platforms they
 actually support. Chinese is preserved under `archive/caatuu-chinese` for later
 historical reference. The fresh `zh` course is a separate, unlisted
 development preview and is intentionally absent from this public active-only
-registry until native Mandarin review clears.
+registry until native Mandarin review clears. That activation rule does not
+prevent the disclosed development course from being bundled in a published
+APK.
 
 The files live under:
 

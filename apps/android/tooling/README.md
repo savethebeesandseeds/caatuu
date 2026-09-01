@@ -80,35 +80,35 @@ node apps/server/tooling/refresh-setup-assets.mjs --check
 The build task intentionally updates the tracked manifest when an asset was
 edited, so include that generated metadata with the corresponding asset change.
 
-## Canonical repeat public publish
+## Canonical routine public release
 
-For the installed debug-signing lineage, run the Bash publisher inside the
-existing Linux development container:
+Publish the stable, non-debuggable Caatuu product from the existing Linux
+development container:
 
 ```bash
-docker exec caatuu-dev bash -lc 'cd /workspace && bash apps/android/tooling/publish-public-debug.sh'
+docker exec -w /workspace caatuu-dev \
+  bash apps/android/tooling/publish-release.sh
 ```
 
 ### Efficient publication practices
 
-The command above is the complete publication workflow. It builds the
-public-channel APK, verifies the signing lineage, publishes the immutable
-version and latest manifest, downloads the public artifact and compatibility
-alias, checks their hashes and byte counts, and runs the runtime-boundary
-audit.
+The command above is the complete publication workflow. It builds and audits
+the product AAB and universal APK, verifies the signing lineage, publishes the
+immutable stable release and latest manifest, maintains the legacy transition
+package for older installs, and verifies the public artifacts.
 
 For a routine **publish the app** request, a good default is:
 
 1. Run relevant focused source tests.
-2. Run `publish-public-debug.sh` and wait for its result.
+2. Run `publish-release.sh` and wait for its result.
 3. If it exits successfully, optionally read the public manifest once to report
-   the published version and URL.
+   the published version and URL from `/android/caatuu.json`.
 
-Avoid automatically preceding it with `assembleDebug` or
-`build-public-debug-apk.sh`, and avoid automatically repeating its APK download
-or full audit afterward. Those duplicate passes often add minutes without
-increasing assurance. A separate local build remains useful when a local APK,
-device test, or pre-publication package inspection is part of the task.
+Avoid automatically preceding it with `build-release-aab.sh` or
+`build-release-apk.sh`, and avoid automatically repeating its downloads or full
+audit afterward. Those duplicate passes often add minutes without increasing
+assurance. A separate local build remains useful when a local APK, device test,
+or pre-publication package inspection is part of the task.
 
 If the terminal or client stops waiting while publication continues, inspect
 the existing process and its output before deciding whether a retry is needed.
@@ -127,43 +127,40 @@ docker compose --profile dev up -d caatuu-dev
 ```
 
 Before running it, increment `versionCode` and `versionName` in
-`apps/android/app/build.gradle.kts`. The helper refuses to overwrite an
-equal or newer public version. For an intentional same-version repair, pass
-`ALLOW_SAME_VERSION=1` to the Linux process.
+`apps/android/product/build.gradle.kts`. The publisher refuses to reuse a
+version code or publish a version that does not exceed both the stable and
+installed-lineage versions.
 
-The public-preview publisher is intentionally fail-closed about signing. It
-requires the existing ignored
+The release publisher is intentionally fail-closed about signing. It requires
+the existing ignored
 `artifacts/android/caatuu-debug.keystore` and verifies the built APK against
 the tracked, non-secret certificate fingerprint in
-`apps/android/tooling/public-debug-certificate.sha256`. If the keystore is
+`apps/android/tooling/direct-release-certificate.sha256`. If the keystore is
 missing or the fingerprint differs, restore the original keystore; do not
 generate a replacement for an update. A replacement key starts a new install
 lineage and existing phones cannot accept it as an update.
 
-```bash
-docker exec -e ALLOW_SAME_VERSION=1 caatuu-dev bash -lc \
-  'cd /workspace && bash apps/android/tooling/publish-public-debug.sh'
-```
-
-The helper performs the complete publication contract:
+The publisher performs the complete publication contract:
 
 1. Runs entirely in the existing `caatuu-dev` Linux container and reuses its
    persistent Android SDK, Gradle distribution, and Gradle cache volumes.
-2. Runs `build-public-debug-apk.sh` inside that container.
+2. Runs `build-release-aab.sh`, validates the product bundle, and derives the
+   audited universal APK inside that container.
 3. Requires the public runtime's immutable-publication capability before it
    changes any artifacts.
-4. Requires the established debug keystore and verifies its public certificate
-   fingerprint before any artifact is finalized.
+4. Requires the established installed-app signing lineage and verifies the
+   direct-release certificate fingerprint before any artifact is finalized.
 5. Serializes artifact finalization with a Linux publication lock so concurrent
    builds cannot race the immutable-version check.
 6. Publishes the APK at a version-owned URL such as
-   `/android/debug-releases/112/caatuu-debug.apk`; a version code can never be
+   `/android/releases/<versionCode>/caatuu.apk`; a version code can never be
    overwritten with different bytes.
-7. Publishes the small latest-version manifest last, then downloads both the
-   immutable APK and the manual-download alias and verifies SHA-256 and byte
-   count before running the public runtime-boundary audit.
+7. Publishes the small latest-version manifest last, maintains the legacy
+   transition aliases, then downloads and verifies the public bytes, manifests,
+   certificate, and cache headers.
 
-The gated runtime exposes the same published pair through two names:
+For legacy debug-lineage installs, the gated runtime exposes the transition
+pair through two names:
 
 - `/android/caatuu-debug.json` and `/android/caatuu-debug.apk` remain the
   compatibility contract used by installed debug-signing-lineage apps.
@@ -263,25 +260,25 @@ The generated `caatuu-debug.json` uses the same base URL plus the immutable
 `debug-releases/<versionCode>/caatuu-debug.apk` path. The debug APK uses the
 same base URL for its `Update app` button.
 
-For Caatuu's explicit public sideload channel, use the hosted wrapper:
+For a development-only artifact configured with the public host, use the
+retired command's explicit local-build mode:
 
 ```bash
-bash apps/android/tooling/build-public-debug-apk.sh
+bash apps/android/tooling/publish-public-debug.sh --local-build
 ```
 
-For routine publication, use the Bash publisher above. Calling the hosted
-wrapper directly is appropriate only from an already prepared Linux container;
-it creates the artifact pair but does not verify the public download.
-
-This keeps generic debug builds fail-closed while publishing the installed
-debug-signing lineage at `https://caatuu.waajacu.com/android/caatuu-debug.json`.
-The current debug-signed app can update only from this matching channel.
+This mode delegates to `build-public-debug-apk.sh` and creates local debug
+artifacts, but it does not publish or verify a public download. Older installed
+debug-lineage apps move to the stable channel through the transition package
+created by `publish-release.sh`; do not revive the retired debug channel.
 
 When `CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS=1` is present in the ignored root
 `.env`, the generic sideload builder refuses to run with its invalid default
 update host. This prevents a local build from silently replacing the live
-public manifest. Use `publish-public-debug.sh` for the hosted channel, or
-disable the public route before making a sideload-only build.
+public manifest. The public debug channel is retired: use `publish-release.sh`
+for the hosted stable channel, or disable the public route before making a
+sideload-only build. `publish-public-debug.sh --local-build` remains only as a
+development-artifact convenience and does not publish.
 
 The default runtime binds only to Windows loopback and keeps all debug download
 routes disabled. For a trusted LAN phone test, temporarily opt in from
