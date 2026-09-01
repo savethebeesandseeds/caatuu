@@ -2,122 +2,162 @@
 set -Eeuo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-public_base_url="${CAATUU_ANDROID_PUBLIC_BASE_URL:-https://caatuu.waajacu.com}"
-publication_contract_url="$public_base_url/android/releases/status"
-transition_contract_url="$public_base_url/android/debug-releases/status"
-public_manifest_url="$public_base_url/android/caatuu.json"
-legacy_manifest_url="$public_base_url/android/caatuu-debug.json"
-profile="product"
-channel="stable"
-signing_lineage="direct-release-v1"
-compatibility_keystore="$repo_root/artifacts/android/caatuu-debug.keystore"
-certificate_pin_path="$repo_root/apps/android/tooling/direct-release-certificate.sha256"
-source_aab="$repo_root/artifacts/android/caatuu.aab"
+canonical_public_base_url="https://caatuu.waajacu.com"
+public_base_url="${CAATUU_ANDROID_PUBLIC_BASE_URL:-$canonical_public_base_url}"
 source_apk="$repo_root/artifacts/android/caatuu-universal.apk"
-transition_apk="$repo_root/apps/android/product/build/outputs/apk/debug/product-debug.apk"
+source_aab="$repo_root/artifacts/android/caatuu.aab"
+certificate_pin_path="$repo_root/apps/android/tooling/direct-release-certificate.sha256"
+compatibility_keystore="$repo_root/artifacts/android/caatuu-debug.keystore"
+mode=""
+candidate_receipt=""
+expected_apk_sha256=""
+expected_source_revision=""
 
-required_tracked_files=(
-  apps/android/settings.gradle.kts
-  apps/android/product/build.gradle.kts
-  apps/android/product/proguard-rules.pro
-  apps/android/product/src/main/AndroidManifest.xml
-  apps/android/product/src/main/java/com/caatuu/android/ArtifactProgress.kt
-  apps/android/product/src/main/java/com/caatuu/android/CaatuuActivity.kt
-  apps/android/product/src/main/java/com/caatuu/android/ProductBridge.kt
-  apps/android/app/src/main/java/com/caatuu/android/AppUpdateManager.kt
-  apps/android/product/src/main/res/xml/caatuu_file_paths.xml
-  apps/android/tooling/build-release-aab.sh
-  apps/android/tooling/build-product-assets.mjs
-  apps/android/tooling/validate-product-package.mjs
-  apps/android/tooling/publish-release.sh
-  apps/android/tooling/direct-release-certificate.sha256
-)
+usage() {
+  cat >&2 <<'USAGE'
+Usage:
+  publish-release.sh --build-once
+  publish-release.sh --candidate-receipt <receipt> [--expected-apk-sha256 <sha>] [--source-revision <commit>]
+  publish-release.sh --adopt-existing --expected-apk-sha256 <sha> --source-revision <commit>
 
-# These test files belong to another active workstream and cannot affect the
-# release bytes produced by this script. All Czech application files, including
-# Conjugation Comet and the source service worker, must be clean before release.
-allowed_unrelated_dirty_paths=(
-  apps/server/tooling/tests/conjugation-comet-shell.test.mjs
-  apps/server/tooling/tests/semantic-learning-contract.test.mjs
-)
-
-is_allowed_unrelated_dirty_path() {
-  local candidate="$1" allowed
-  for allowed in "${allowed_unrelated_dirty_paths[@]}"; do
-    [[ "$candidate" == "$allowed" ]] && return 0
-  done
-  return 1
+With no mode, the publisher reuses the sealed receipt for the version declared
+in build.gradle.kts. It never starts an implicit Android build.
+USAGE
 }
 
-is_product_source_path() {
+set_mode() {
+  [[ -z "$mode" ]] || {
+    echo "Choose exactly one release mode." >&2
+    usage
+    exit 2
+  }
+  mode="$1"
+}
+
+while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    apps/android/settings.gradle.kts \
-      | apps/android/build.gradle.kts \
-      | apps/android/gradle.properties \
-      | apps/android/gradle/libs.versions.toml \
-      | apps/android/product/* \
-      | apps/android/tooling/build-release-aab.sh \
-      | apps/android/tooling/build-product-assets.mjs \
-      | apps/android/tooling/validate-product-package.mjs \
-      | apps/android/tooling/publish-release.sh \
-      | apps/android/tooling/direct-release-certificate.sha256 \
-      | apps/android/app/src/main/java/com/caatuu/android/AndroidSpeechManager.kt \
-      | apps/android/app/src/main/java/com/caatuu/android/AppUpdateManager.kt \
-      | apps/android/app/src/main/java/com/caatuu/android/CaatuuAssetClient.kt \
-      | apps/android/app/src/main/java/com/caatuu/android/DictionaryManager.kt \
-      | apps/android/app/src/main/java/com/caatuu/android/StaticAssetManager.kt \
-      | apps/android/app/src/main/java/com/caatuu/android/VectorDatabaseManager.kt \
-      | apps/languages/czech/static/* \
-      | apps/launcher/static/*)
-      return 0
+    --build-once)
+      set_mode build-once
+      shift
+      ;;
+    --candidate-receipt)
+      set_mode receipt
+      [[ "$#" -ge 2 ]] || { usage; exit 2; }
+      candidate_receipt="$2"
+      shift 2
+      ;;
+    --adopt-existing)
+      set_mode adopt-existing
+      shift
+      ;;
+    --expected-apk-sha256)
+      [[ "$#" -ge 2 ]] || { usage; exit 2; }
+      expected_apk_sha256="$(tr '[:upper:]' '[:lower:]' <<<"$2" | tr -d '[:space:]')"
+      shift 2
+      ;;
+    --source-revision)
+      [[ "$#" -ge 2 ]] || { usage; exit 2; }
+      expected_source_revision="$(tr '[:upper:]' '[:lower:]' <<<"$2" | tr -d '[:space:]')"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage
+      exit 2
       ;;
   esac
-  return 1
+done
+
+[[ "$public_base_url" == "$canonical_public_base_url" ]] || {
+  echo "Stable Android releases must use exactly $canonical_public_base_url." >&2
+  echo "Refusing CAATUU_ANDROID_PUBLIC_BASE_URL=$public_base_url." >&2
+  exit 2
 }
 
-check_source_state() {
-  local required dirty_record status dirty_path renamed_path
-  local -a product_dirty=() unexpected_dirty=()
+for command in git jq node sha256sum wc flock cmp cp mv mkdir mktemp realpath rm rmdir sed awk tr head; do
+  command -v "$command" >/dev/null 2>&1 || {
+    echo "$command is required for Caatuu release finalization." >&2
+    exit 1
+  }
+done
 
-  for required in "${required_tracked_files[@]}"; do
-    if ! git -C "$repo_root" ls-files --error-unmatch -- "$required" >/dev/null 2>&1; then
-      echo "Required Caatuu release source is not tracked: $required" >&2
-      return 1
-    fi
-  done
+candidate_version_code="$(sed -nE 's/.*caatuuVersionCode.*orElse\(([0-9]+)\).*/\1/p' "$repo_root/apps/android/product/build.gradle.kts" | head -1)"
+candidate_version_name="$(sed -nE 's/.*caatuuVersionName.*orElse\("([^"]+)"\).*/\1/p' "$repo_root/apps/android/product/build.gradle.kts" | head -1)"
+[[ "$candidate_version_code" =~ ^[1-9][0-9]*$ && -n "$candidate_version_name" ]] || {
+  echo "Could not read the Caatuu release version." >&2
+  exit 1
+}
+default_candidate_receipt="$repo_root/artifacts/android/release-candidates/$candidate_version_code.json"
 
-  while IFS= read -r -d '' dirty_record; do
-    status="${dirty_record:0:2}"
-    dirty_path="${dirty_record:3}"
-    if is_allowed_unrelated_dirty_path "$dirty_path"; then
-      :
-    elif is_product_source_path "$dirty_path"; then
-      product_dirty+=("$dirty_path")
-    else
-      unexpected_dirty+=("$dirty_path")
-    fi
-    if [[ "$status" == *R* || "$status" == *C* ]]; then
-      IFS= read -r -d '' renamed_path || return 1
-      if is_allowed_unrelated_dirty_path "$renamed_path"; then
-        :
-      elif is_product_source_path "$renamed_path"; then
-        product_dirty+=("$renamed_path")
-      else
-        unexpected_dirty+=("$renamed_path")
-      fi
-    fi
-  done < <(git -C "$repo_root" status --porcelain=v1 -z --untracked-files=all)
-
-  if [[ "${#product_dirty[@]}" -gt 0 ]]; then
-    printf 'Caatuu publication requires every consumed source to be committed. Dirty source:\n' >&2
-    printf '  %s\n' "${product_dirty[@]}" >&2
-    return 1
+if [[ -z "$mode" ]]; then
+  if [[ -f "$default_candidate_receipt" ]]; then
+    mode=receipt
+    candidate_receipt="$default_candidate_receipt"
+  else
+    echo "No sealed candidate exists for Caatuu $candidate_version_name (code $candidate_version_code)." >&2
+    echo "Use --build-once for one new build, or --adopt-existing with an approved hash and source commit." >&2
+    exit 2
   fi
-  if [[ "${#unexpected_dirty[@]}" -gt 0 ]]; then
-    printf 'Caatuu publication found unrelated unreviewed worktree changes:\n' >&2
-    printf '  %s\n' "${unexpected_dirty[@]}" >&2
+fi
+
+assert_main_only() {
+  local -a local_heads=() remote_heads=() worktrees=()
+  [[ "$(git -C "$repo_root" branch --show-current)" == "main" ]] || {
+    echo "Caatuu release work must run on main." >&2
     return 1
-  fi
+  }
+  mapfile -t local_heads < <(git -C "$repo_root" for-each-ref --format='%(refname)' refs/heads)
+  mapfile -t remote_heads < <(
+    git -C "$repo_root" for-each-ref --format='%(refname) %(symref)' refs/remotes \
+      | awk '$2 == "" { print $1 }'
+  )
+  mapfile -t worktrees < <(git -C "$repo_root" worktree list --porcelain | awk '/^worktree / { print $2 }')
+  [[ "${#local_heads[@]}" -eq 1 && "${local_heads[0]}" == "refs/heads/main" ]] || {
+    printf 'Expected only refs/heads/main; found: %s\n' "${local_heads[*]-<none>}" >&2
+    return 1
+  }
+  [[ "${#remote_heads[@]}" -eq 1 && "${remote_heads[0]}" == "refs/remotes/origin/main" ]] || {
+    printf 'Expected only refs/remotes/origin/main; found: %s\n' "${remote_heads[*]-<none>}" >&2
+    return 1
+  }
+  [[ "${#worktrees[@]}" -eq 1 ]] || {
+    printf 'Expected one worktree; found: %s\n' "${worktrees[*]-<none>}" >&2
+    return 1
+  }
+}
+
+assert_source_on_origin_main() {
+  local revision="$1"
+  [[ "$revision" =~ ^[a-f0-9]{40}$ ]] || {
+    echo "Invalid Caatuu source revision: $revision" >&2
+    return 1
+  }
+  git -C "$repo_root" cat-file -e "$revision^{commit}" 2>/dev/null || {
+    echo "Caatuu source commit is missing locally: $revision" >&2
+    return 1
+  }
+  git -C "$repo_root" merge-base --is-ancestor "$revision" refs/remotes/origin/main || {
+    echo "Caatuu source commit is not present on origin/main: $revision" >&2
+    return 1
+  }
+}
+
+assert_clean_build_source() {
+  [[ "$(git -C "$repo_root" rev-parse HEAD)" == "$(git -C "$repo_root" rev-parse refs/remotes/origin/main)" ]] || {
+    echo "Push main before building a release candidate." >&2
+    return 1
+  }
+  local dirty
+  dirty="$(git -C "$repo_root" status --porcelain=v1 --untracked-files=all)"
+  [[ -z "$dirty" ]] || {
+    echo "A new release build requires a clean canonical worktree:" >&2
+    printf '%s\n' "$dirty" >&2
+    return 1
+  }
 }
 
 find_apksigner() {
@@ -126,339 +166,335 @@ find_apksigner() {
     candidate="$ANDROID_SDK_ROOT/build-tools/$version/apksigner"
     [[ -x "$candidate" ]] && { printf '%s\n' "$candidate"; return 0; }
   done
-  echo "apksigner is unavailable. Run: bash apps/android/tooling/setup-sdk.sh" >&2
+  echo "apksigner is unavailable. Run the documented SDK setup once; publication will not install it implicitly." >&2
   return 1
 }
 
+load_android_tools() {
+  # shellcheck source=versions.env
+  source "$repo_root/apps/android/tooling/versions.env"
+  for command in java apkanalyzer unzip; do
+    command -v "$command" >/dev/null 2>&1 || {
+      echo "$command is unavailable. Run the documented SDK setup once; publication will not install it implicitly." >&2
+      return 1
+    }
+  done
+  apksigner_bin="$(find_apksigner)"
+}
+
 read_signer_sha() {
-  local apk="$1" verification_output signer_sha
-  verification_output="$("$apksigner_bin" verify --verbose --print-certs "$apk")"
-  printf '%s\n' "$verification_output" >&2
-  signer_sha="$(awk -F': ' '/Signer #1 certificate SHA-256 digest:/ { print tolower($2); exit }' <<<"$verification_output")"
-  [[ "$signer_sha" =~ ^[a-f0-9]{64}$ ]] || {
-    echo "Could not read the APK signing certificate for $apk." >&2
+  local apk="$1" output signer
+  output="$("$apksigner_bin" verify --verbose --print-certs "$apk")"
+  signer="$(awk -F': ' '/Signer #1 certificate SHA-256 digest:/ { print tolower($2); exit }' <<<"$output")"
+  [[ "$signer" =~ ^[a-f0-9]{64}$ ]] || {
+    echo "Could not read the APK signing certificate: $apk" >&2
     return 1
   }
-  printf '%s\n' "$signer_sha"
+  printf '%s\n' "$signer"
 }
 
-manifest_version_code() {
-  local url="$1" response_file="$2" status
-  status="$(curl -sS -o "$response_file" -w '%{http_code}' --max-time 20 "$url?release-preflight=$source_revision" || true)"
-  case "$status" in
-    200) jq -er '.version_code | tonumber' "$response_file" ;;
-    404) printf '0\n' ;;
-    *) echo "Unexpected HTTP $status from $url" >&2; return 1 ;;
-  esac
+validate_and_read_existing_candidate() {
+  local apk="$1" aab="$2"
+  node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
+    --aab "$aab" \
+    --apk "$apk" \
+    --apkanalyzer "$(command -v apkanalyzer)" \
+    --unzip "$(command -v unzip)"
+  package_name="$(apkanalyzer manifest application-id "$apk" | tr -d '\r\n')"
+  version_code="$(apkanalyzer manifest version-code "$apk" | tr -d '\r\n')"
+  version_name="$(apkanalyzer manifest version-name "$apk" | tr -d '\r\n')"
+  debuggable="$(apkanalyzer manifest debuggable "$apk" | tr -d '\r\n')"
+  signer_sha256="$(read_signer_sha "$apk")"
+  expected_signer_sha256="$(tr -d ':[:space:]' < "$certificate_pin_path" | tr '[:upper:]' '[:lower:]')"
+  [[ "$package_name" == "com.waajacu.caatuu" \
+    && "$version_code" =~ ^[1-9][0-9]*$ \
+    && -n "$version_name" \
+    && "$debuggable" == "false" \
+    && "$signer_sha256" == "$expected_signer_sha256" ]] || {
+    echo "Existing Caatuu candidate has the wrong package, version, debug state, or signing lineage." >&2
+    return 1
+  }
 }
 
-cd "$repo_root"
-for command in git curl jq node sed sha256sum wc flock cmp; do
-  command -v "$command" >/dev/null 2>&1 || {
-    echo "$command is required for Caatuu publication." >&2
+assert_main_only
+
+if [[ "$mode" == "build-once" ]]; then
+  candidate_receipt="$default_candidate_receipt"
+  if [[ -f "$candidate_receipt" ]]; then
+    echo "A sealed candidate already exists; reusing it instead of rebuilding."
+    mode=receipt
+  else
+    assert_clean_build_source
+    [[ -f "$compatibility_keystore" ]] || {
+      echo "The installed-lineage keystore is missing: $compatibility_keystore" >&2
+      exit 1
+    }
+    export CAATUU_ANDROID_KEYSTORE="$compatibility_keystore"
+    export CAATUU_ANDROID_KEYSTORE_PASSWORD="${CAATUU_ANDROID_DEBUG_KEYSTORE_PASSWORD:-android}"
+    export CAATUU_ANDROID_KEY_ALIAS="${CAATUU_ANDROID_DEBUG_KEY_ALIAS:-androiddebugkey}"
+    export CAATUU_ANDROID_KEY_PASSWORD="${CAATUU_ANDROID_DEBUG_KEY_PASSWORD:-android}"
+    export CAATUU_ANDROID_UPDATE_BASE_URL="$public_base_url/android"
+    export CAATUU_RELEASE_CANDIDATE_RECEIPT="$candidate_receipt"
+    export CAATUU_RELEASE_SOURCE_REVISION="$(git -C "$repo_root" rev-parse HEAD)"
+    node "$repo_root/tools/language-content/validate.mjs" --release
+    node --test "$repo_root"/apps/android/tooling/tests/product-*.test.mjs
+    bash "$repo_root/apps/android/tooling/build-release-aab.sh"
+    [[ -f "$candidate_receipt" ]] || {
+      echo "The one Android build completed without an immutable candidate receipt." >&2
+      exit 1
+    }
+    mode=receipt
+  fi
+fi
+
+load_android_tools
+
+if [[ "$mode" == "adopt-existing" ]]; then
+  [[ "$expected_apk_sha256" =~ ^[a-f0-9]{64}$ ]] || {
+    echo "--adopt-existing requires --expected-apk-sha256." >&2
+    exit 2
+  }
+  [[ "$expected_source_revision" =~ ^[a-f0-9]{40}$ ]] || {
+    echo "--adopt-existing requires --source-revision." >&2
+    exit 2
+  }
+  assert_source_on_origin_main "$expected_source_revision"
+  [[ -f "$source_apk" && -f "$source_aab" ]] || {
+    echo "The existing Caatuu APK or AAB is missing." >&2
     exit 1
   }
-done
-
-for contract_url in "$publication_contract_url" "$transition_contract_url"; do
-  contract_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$contract_url" || true)"
-  if [[ "$contract_status" != "204" ]]; then
-    echo "Expected HTTP 204 from $contract_url, got ${contract_status:-no response}." >&2
+  [[ "$(sha256sum "$source_apk" | awk '{print $1}')" == "$expected_apk_sha256" ]] || {
+    echo "The existing APK does not match the explicitly approved SHA-256." >&2
     exit 1
-  fi
-done
+  }
+  validate_and_read_existing_candidate "$source_apk" "$source_aab"
+  candidate_receipt="$repo_root/artifacts/android/release-candidates/$version_code.json"
+  node "$repo_root/apps/android/tooling/release-candidate.mjs" seal-existing \
+    --repo-root "$repo_root" \
+    --apk "artifacts/android/caatuu-universal.apk" \
+    --aab "artifacts/android/caatuu.aab" \
+    --source-revision "$expected_source_revision" \
+    --package-name "$package_name" \
+    --version-code "$version_code" \
+    --version-name "$version_name" \
+    --debuggable "$debuggable" \
+    --signer-sha256 "$signer_sha256" \
+    --mode adopted-existing \
+    --expected-apk-sha256 "$expected_apk_sha256" \
+    --output "$candidate_receipt" >/dev/null
+  mode=receipt
+fi
 
-check_source_state
-source_revision="$(git rev-parse --verify HEAD)"
-source_branch="$(git symbolic-ref --quiet --short HEAD || true)"
-[[ "$source_revision" =~ ^[a-f0-9]{40}$ && -n "$source_branch" ]] || {
-  echo "Caatuu publication requires a named branch and a valid source revision." >&2
+[[ "$mode" == "receipt" && -n "$candidate_receipt" ]] || {
+  echo "No Caatuu candidate receipt was selected." >&2
   exit 1
 }
-origin_url="$(git remote get-url origin 2>/dev/null || true)"
-case "$origin_url" in
-  https://github.com/savethebeesandseeds/caatuu|https://github.com/savethebeesandseeds/caatuu.git|git@github.com:savethebeesandseeds/caatuu|git@github.com:savethebeesandseeds/caatuu.git|ssh://git@github.com/savethebeesandseeds/caatuu|ssh://git@github.com/savethebeesandseeds/caatuu.git) ;;
-  *) echo "origin must be the canonical savethebeesandseeds/caatuu repository." >&2; exit 1 ;;
+
+if [[ "$candidate_receipt" != /* ]]; then
+  candidate_receipt="$repo_root/${candidate_receipt#./}"
+fi
+[[ ! -L "$candidate_receipt" ]] || {
+  echo "Candidate receipt must not be a symbolic link: $candidate_receipt" >&2
+  exit 1
+}
+candidate_receipt="$(realpath -e "$candidate_receipt")"
+case "$candidate_receipt" in
+  "$repo_root"/*) ;;
+  *)
+    echo "Candidate receipt must be inside the canonical Caatuu repository." >&2
+    exit 1
+    ;;
 esac
-remote_source_revision="$(git ls-remote --exit-code origin "refs/heads/$source_branch" 2>/dev/null | awk 'NR == 1 { print $1 }')" || {
-  echo "Push $source_branch before publishing." >&2
-  exit 1
-}
-[[ "$remote_source_revision" == "$source_revision" ]] || {
-  echo "HEAD is not the commit currently pushed to origin/$source_branch." >&2
-  exit 1
-}
-source_url="https://github.com/savethebeesandseeds/caatuu/tree/$source_revision"
 
-candidate_version_code="$(sed -nE 's/.*caatuuVersionCode.*orElse\(([0-9]+)\).*/\1/p' apps/android/product/build.gradle.kts | head -1)"
-[[ "$candidate_version_code" =~ ^[1-9][0-9]*$ ]] || {
-  echo "Could not read the Caatuu versionCode." >&2
-  exit 1
+mkdir -p "$repo_root/artifacts/android"
+staging_dir="$(mktemp -d "$repo_root/artifacts/android/.publish-candidate.XXXXXX")"
+staged_receipt="$staging_dir/caatuu-release-candidate.json"
+verified_receipt="$staging_dir/verified-release-candidate.json"
+staged_candidate_apk="$staging_dir/caatuu.apk"
+staged_candidate_aab="$staging_dir/caatuu.aab"
+staged_manifest="$staging_dir/caatuu.json"
+alias_apk_next=""
+alias_manifest_next=""
+install_apk_tmp=""
+install_manifest_tmp=""
+install_receipt_tmp=""
+cleanup() {
+  local path
+  for path in \
+    "$alias_apk_next" "$alias_manifest_next" \
+    "$install_apk_tmp" "$install_manifest_tmp" "$install_receipt_tmp" \
+    "$verified_receipt" "$staged_manifest" "$staged_candidate_apk" "$staged_candidate_aab" "$staged_receipt"; do
+    [[ -z "$path" ]] || rm -f -- "$path"
+  done
+  rmdir "$staging_dir" 2>/dev/null || true
 }
-candidate_version_name="$(sed -nE 's/.*caatuuVersionName.*orElse\("([^"]+)"\).*/\1/p' apps/android/product/build.gradle.kts | head -1)"
-[[ -n "$candidate_version_name" ]] || {
-  echo "Could not read the Caatuu versionName." >&2
-  exit 1
-}
-preflight_dir="$(mktemp -d "$repo_root/artifacts/android/.release-preflight.XXXXXX")"
-trap 'rm -rf "$preflight_dir"' EXIT
-stable_version_code="$(manifest_version_code "$public_manifest_url" "$preflight_dir/stable.json")"
-legacy_version_code="$(manifest_version_code "$legacy_manifest_url" "$preflight_dir/legacy.json")"
-transition_version_code=$((candidate_version_code - 1))
-transition_version_name="$candidate_version_name-transition.1"
-if (( transition_version_code <= legacy_version_code || candidate_version_code <= stable_version_code || candidate_version_code <= transition_version_code )); then
-  echo "Caatuu versionCode $candidate_version_code must exceed stable $stable_version_code and installed-lineage $legacy_version_code." >&2
-  exit 1
-fi
+trap cleanup EXIT
 
-[[ -f "$compatibility_keystore" ]] || {
-  echo "The existing installed-lineage keystore is missing: $compatibility_keystore" >&2
-  exit 1
-}
-expected_signer_sha="$(tr -d ':[:space:]' < "$certificate_pin_path" | tr '[:upper:]' '[:lower:]')"
-[[ "$expected_signer_sha" =~ ^[a-f0-9]{64}$ ]] || {
-  echo "The direct-release certificate pin is invalid." >&2
-  exit 1
-}
+# Snapshot the receipt first, then verify and copy only the bytes named by that
+# snapshot. Any concurrent artifact change makes the copied hash/size check
+# fail; publication never returns to the mutable source paths after this point.
+cp "$candidate_receipt" "$staged_receipt"
+verify_arguments=(verify --repo-root "$repo_root" --receipt "$staged_receipt")
+[[ -z "$expected_apk_sha256" ]] || verify_arguments+=(--expected-apk-sha256 "$expected_apk_sha256")
+[[ -z "$expected_source_revision" ]] || verify_arguments+=(--expected-source-revision "$expected_source_revision")
+node "$repo_root/apps/android/tooling/release-candidate.mjs" "${verify_arguments[@]}" > "$verified_receipt"
 
-# Direct Caatuu releases intentionally keep the signer already installed on tester
-# devices. This permits an in-place migration to the real product. This key is
-# not the future Google Play app-signing or upload key.
-export CAATUU_ANDROID_KEYSTORE="$compatibility_keystore"
-export CAATUU_ANDROID_KEYSTORE_PASSWORD="${CAATUU_ANDROID_DEBUG_KEYSTORE_PASSWORD:-android}"
-export CAATUU_ANDROID_KEY_ALIAS="${CAATUU_ANDROID_DEBUG_KEY_ALIAS:-androiddebugkey}"
-export CAATUU_ANDROID_KEY_PASSWORD="${CAATUU_ANDROID_DEBUG_KEY_PASSWORD:-android}"
-export CAATUU_ANDROID_UPDATE_BASE_URL="$public_base_url/android"
+receipt_apk_relative="$(jq -er '.artifacts.apk.path' "$verified_receipt")"
+receipt_aab_relative="$(jq -er '.artifacts.aab.path' "$verified_receipt")"
+receipt_apk="$repo_root/$receipt_apk_relative"
+receipt_aab="$repo_root/$receipt_aab_relative"
+receipt_source_revision="$(jq -er '.source_revision' "$verified_receipt")"
+apk_sha256="$(jq -er '.artifacts.apk.sha256' "$verified_receipt")"
+apk_bytes="$(jq -er '.artifacts.apk.bytes' "$verified_receipt")"
+aab_sha256="$(jq -er '.artifacts.aab.sha256' "$verified_receipt")"
+aab_bytes="$(jq -er '.artifacts.aab.bytes' "$verified_receipt")"
 
-# shellcheck source=versions.env
-source apps/android/tooling/versions.env
-if ! command -v java >/dev/null 2>&1 || ! command -v gradle >/dev/null 2>&1 || ! command -v apkanalyzer >/dev/null 2>&1; then
-  bash apps/android/tooling/setup-sdk.sh
-  source apps/android/tooling/versions.env
-fi
-apksigner_bin="$(find_apksigner)"
-
-node tools/language-content/validate.mjs --release
-node --test apps/android/tooling/tests/product-*.test.mjs
-bash apps/android/tooling/build-release-aab.sh
-[[ -f "$source_aab" && -f "$source_apk" ]] || {
-  echo "The signed Caatuu AAB-derived APK was not produced." >&2
-  exit 1
+assert_file_identity() {
+  local path="$1" expected_sha256="$2" expected_bytes="$3" label="$4"
+  local actual_sha256 actual_bytes
+  [[ -f "$path" && ! -L "$path" ]] || {
+    echo "$label is not a regular file: $path" >&2
+    return 1
+  }
+  actual_sha256="$(sha256sum "$path" | awk '{print $1}')"
+  actual_bytes="$(wc -c < "$path" | tr -d '[:space:]')"
+  [[ "$actual_sha256" == "$expected_sha256" && "$actual_bytes" == "$expected_bytes" ]] || {
+    echo "$label changed while it was being snapshotted." >&2
+    echo "Expected $expected_bytes bytes / $expected_sha256; found $actual_bytes bytes / $actual_sha256." >&2
+    return 1
+  }
 }
 
-# Old versions require one final debuggable archive before they can move to a
-# release archive. Build that bridge from the same stripped product module;
-# its only extra capability is accepting the next same-origin, signed release.
-(
-  cd apps/android
-  gradle --no-daemon --console=plain \
-    -PcaatuuDistributionProfile=product \
-    -PcaatuuVersionCode="$transition_version_code" \
-    -PcaatuuVersionName="$transition_version_name" \
-    :product:assembleDebug
-)
-[[ -f "$transition_apk" ]] || {
-  echo "The stripped Caatuu transition APK was not produced." >&2
-  exit 1
-}
-node apps/android/tooling/validate-product-package.mjs \
-  --aab "$source_aab" \
-  --apk "$source_apk" \
-  --apkanalyzer "$(command -v apkanalyzer)" \
-  --unzip "$(command -v unzip)"
-node apps/android/tooling/validate-product-package.mjs \
-  --aab "$source_aab" \
-  --apk "$transition_apk" \
-  --apkanalyzer "$(command -v apkanalyzer)" \
-  --unzip "$(command -v unzip)" \
-  --allow-transition-debug
+cp "$receipt_apk" "$staged_candidate_apk"
+cp "$receipt_aab" "$staged_candidate_aab"
+assert_file_identity "$staged_candidate_apk" "$apk_sha256" "$apk_bytes" "Sealed candidate APK"
+assert_file_identity "$staged_candidate_aab" "$aab_sha256" "$aab_bytes" "Sealed candidate AAB"
+receipt_sha256="$(sha256sum "$staged_receipt" | awk '{print $1}')"
+assert_source_on_origin_main "$receipt_source_revision"
+validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_aab"
 
-local_signer_sha="$(read_signer_sha "$source_apk")"
-[[ "$local_signer_sha" == "$expected_signer_sha" ]] || {
-  echo "Caatuu signer does not match the installed direct-release lineage." >&2
-  exit 1
-}
-transition_signer_sha="$(read_signer_sha "$transition_apk")"
-[[ "$transition_signer_sha" == "$expected_signer_sha" ]] || {
-  echo "Caatuu transition signer does not match the installed lineage." >&2
-  exit 1
-}
-package_name="$(apkanalyzer manifest application-id "$source_apk" | tr -d '\r\n')"
-version_code="$(apkanalyzer manifest version-code "$source_apk" | tr -d '\r\n')"
-version_name="$(apkanalyzer manifest version-name "$source_apk" | tr -d '\r\n')"
-debuggable="$(apkanalyzer manifest debuggable "$source_apk" | tr -d '\r\n')"
-[[ "$package_name" == "com.waajacu.caatuu" && "$version_code" == "$candidate_version_code" && "$version_name" == "$candidate_version_name" && "$debuggable" == "false" ]] || {
-  echo "The Caatuu APK identity is not the expected non-debuggable $candidate_version_name release." >&2
-  exit 1
-}
-transition_package_name="$(apkanalyzer manifest application-id "$transition_apk" | tr -d '\r\n')"
-actual_transition_version_code="$(apkanalyzer manifest version-code "$transition_apk" | tr -d '\r\n')"
-actual_transition_version_name="$(apkanalyzer manifest version-name "$transition_apk" | tr -d '\r\n')"
-transition_debuggable="$(apkanalyzer manifest debuggable "$transition_apk" | tr -d '\r\n')"
-[[ "$transition_package_name" == "$package_name" \
-  && "$actual_transition_version_code" == "$transition_version_code" \
-  && "$actual_transition_version_name" == "$transition_version_name" \
-  && "$transition_debuggable" == "true" ]] || {
-  echo "The stripped Caatuu transition APK identity is invalid." >&2
+[[ "$version_code" == "$(jq -er '.identity.version_code' "$verified_receipt")" \
+  && "$version_name" == "$(jq -er '.identity.version_name' "$verified_receipt")" \
+  && "$package_name" == "$(jq -er '.identity.package_name' "$verified_receipt")" \
+  && "$debuggable" == "$(jq -er '.identity.debuggable' "$verified_receipt")" \
+  && "$signer_sha256" == "$(jq -er '.identity.signer_certificate_sha256' "$verified_receipt")" ]] || {
+  echo "APK identity differs from its sealed candidate receipt." >&2
   exit 1
 }
 
-check_source_state
-[[ "$(git rev-parse --verify HEAD)" == "$source_revision" ]] || {
-  echo "HEAD changed during the Caatuu build." >&2
-  exit 1
-}
-
-apk_sha="$(sha256sum "$source_apk" | awk '{print $1}')"
-apk_bytes="$(wc -c < "$source_apk" | tr -d '[:space:]')"
-transition_sha="$(sha256sum "$transition_apk" | awk '{print $1}')"
-transition_bytes="$(wc -c < "$transition_apk" | tr -d '[:space:]')"
 versioned_relative_dir="releases/$version_code"
 versioned_relative_apk="$versioned_relative_dir/caatuu.apk"
 versioned_relative_manifest="$versioned_relative_dir/caatuu.json"
+versioned_relative_receipt="$versioned_relative_dir/caatuu-release-candidate.json"
 public_apk_url="$public_base_url/android/$versioned_relative_apk"
-public_versioned_manifest_url="$public_base_url/android/$versioned_relative_manifest"
-versioned_dir="$repo_root/artifacts/android/$versioned_relative_dir"
-versioned_apk_path="$repo_root/artifacts/android/$versioned_relative_apk"
-versioned_manifest_path="$repo_root/artifacts/android/$versioned_relative_manifest"
-transition_relative_dir="debug-releases/product-transition/$transition_version_code"
-transition_relative_apk="$transition_relative_dir/caatuu-transition.apk"
-transition_relative_manifest="$transition_relative_dir/caatuu-transition.json"
-public_transition_apk_url="$public_base_url/android/$transition_relative_apk"
-public_transition_manifest_url="$public_base_url/android/$transition_relative_manifest"
-transition_dir="$repo_root/artifacts/android/$transition_relative_dir"
-transition_apk_path="$repo_root/artifacts/android/$transition_relative_apk"
-transition_manifest_path="$repo_root/artifacts/android/$transition_relative_manifest"
+source_url="https://github.com/savethebeesandseeds/caatuu/tree/$receipt_source_revision"
 
-publish_dir="$(mktemp -d "$repo_root/artifacts/android/.publish-release.XXXXXX")"
-rm -rf "$preflight_dir"
-trap 'rm -rf "$publish_dir"' EXIT
-staged_apk="$publish_dir/caatuu.apk"
-staged_manifest="$publish_dir/caatuu.json"
-staged_transition_apk="$publish_dir/caatuu-transition.apk"
-staged_transition_manifest="$publish_dir/caatuu-transition.json"
-staged_legacy_manifest="$publish_dir/caatuu-debug.json"
-cp "$source_apk" "$staged_apk"
-cp "$transition_apk" "$staged_transition_apk"
 jq -n \
-  --arg profile "$profile" --arg channel "$channel" --arg signing_lineage "$signing_lineage" \
-  --arg package_name "$package_name" --arg version_name "$version_name" --arg apk_url "$public_apk_url" \
-  --arg sha256 "$apk_sha" --arg signer_sha256 "$local_signer_sha" --arg source_revision "$source_revision" \
-  --arg source_url "$source_url" --argjson version_code "$version_code" --argjson bytes "$apk_bytes" \
-  '{schema_version: 1, profile: $profile, channel: $channel, signing_lineage: $signing_lineage,
+  --arg package_name "$package_name" \
+  --arg version_name "$version_name" \
+  --arg apk_url "$public_apk_url" \
+  --arg sha256 "$apk_sha256" \
+  --arg signer_sha256 "$signer_sha256" \
+  --arg source_revision "$receipt_source_revision" \
+  --arg source_url "$source_url" \
+  --arg candidate_receipt_sha256 "$receipt_sha256" \
+  --argjson version_code "$version_code" \
+  --argjson bytes "$apk_bytes" \
+  '{schema_version: 1, profile: "product", channel: "stable", signing_lineage: "direct-release-v1",
     package_name: $package_name, version_code: $version_code, version_name: $version_name,
     build_type: "release", debuggable: false, apk_url: $apk_url, sha256: $sha256, bytes: $bytes,
     signer_certificate_sha256: $signer_sha256, source_revision: $source_revision, source_url: $source_url,
     native_abis: [], universal: true,
     capabilities: {llm: false, godot: false, embeddings: true},
-    audit: {bundletool: "passed", product_package: "passed"}, device_smoke: "not-run"}' > "$staged_manifest"
-
-jq -n \
-  --arg package_name "$transition_package_name" --arg version_name "$transition_version_name" \
-  --arg apk_url "$public_transition_apk_url" --arg stable_manifest_url "$public_manifest_url" \
-  --arg sha256 "$transition_sha" --arg signer_sha256 "$transition_signer_sha" \
-  --arg source_revision "$source_revision" --arg source_url "$source_url" \
-  --argjson version_code "$transition_version_code" --argjson bytes "$transition_bytes" \
-  '{schema_version: 1, profile: "product-transition", channel: "legacy-update-bridge",
-    signing_lineage: "direct-release-v1", package_name: $package_name,
-    version_code: $version_code, version_name: $version_name,
-    build_type: "debug", debuggable: true, apk_url: $apk_url, sha256: $sha256, bytes: $bytes,
-    signer_certificate_sha256: $signer_sha256, source_revision: $source_revision, source_url: $source_url,
-    stable_manifest_url: $stable_manifest_url, compatibility_for_version_codes_through: 144,
-    native_abis: [], universal: true,
-    capabilities: {llm: false, godot: false, embeddings: true, releaseMigration: true},
-    audit: {product_transition_package: "passed"}, device_smoke: "not-run"}' > "$staged_transition_manifest"
-cp "$staged_transition_manifest" "$staged_legacy_manifest"
+    audit: {bundletool: "passed", product_package: "passed", candidate_receipt_sha256: $candidate_receipt_sha256},
+    device_smoke: "not-run"}' > "$staged_manifest"
 
 publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"
 exec {publication_lock_fd}>"$publication_lock"
-flock -w "${CAATUU_ANDROID_PUBLICATION_LOCK_TIMEOUT_SECONDS:-120}" "$publication_lock_fd" || {
-  echo "Timed out waiting for the Android publication lock." >&2
+flock -n "$publication_lock_fd" || {
+  echo "Another Android finalizer owns the publication lock; inspect that process and reuse its result." >&2
   exit 1
 }
-mkdir -p "$versioned_dir" "$transition_dir"
-if [[ -f "$versioned_apk_path" ]] && [[ "$(sha256sum "$versioned_apk_path" | awk '{print $1}')" != "$apk_sha" ]]; then
-  echo "Refusing to replace immutable Caatuu APK bytes for versionCode $version_code." >&2
+
+versioned_dir="$repo_root/artifacts/android/$versioned_relative_dir"
+versioned_apk="$repo_root/artifacts/android/$versioned_relative_apk"
+versioned_manifest="$repo_root/artifacts/android/$versioned_relative_manifest"
+versioned_receipt="$repo_root/artifacts/android/$versioned_relative_receipt"
+mkdir -p "$versioned_dir"
+if [[ -f "$versioned_apk" ]]; then
+  assert_file_identity "$versioned_apk" "$apk_sha256" "$apk_bytes" "Immutable APK for versionCode $version_code" || {
+    echo "Refusing to replace immutable APK bytes for versionCode $version_code." >&2
+    exit 1
+  }
+fi
+if [[ -f "$versioned_manifest" ]] && ! cmp -s "$versioned_manifest" "$staged_manifest"; then
+  echo "Refusing to replace the immutable manifest for versionCode $version_code." >&2
   exit 1
 fi
-if [[ -f "$versioned_manifest_path" ]] && ! cmp -s "$versioned_manifest_path" "$staged_manifest"; then
-  echo "Refusing to replace the immutable Caatuu manifest for versionCode $version_code." >&2
+if [[ -f "$versioned_receipt" ]] && ! cmp -s "$versioned_receipt" "$staged_receipt"; then
+  echo "Refusing to replace the immutable receipt for versionCode $version_code." >&2
   exit 1
 fi
-if [[ -f "$transition_apk_path" ]] && [[ "$(sha256sum "$transition_apk_path" | awk '{print $1}')" != "$transition_sha" ]]; then
-  echo "Refusing to replace immutable transition bytes for versionCode $transition_version_code." >&2
-  exit 1
+
+# Each first-time immutable file is copied to a unique file in its destination
+# directory, checked, and renamed atomically. An interruption can leave only a
+# disposable temporary file, never a partial immutable release.
+if [[ ! -f "$versioned_apk" ]]; then
+  install_apk_tmp="$(mktemp "$versioned_dir/.caatuu.apk.XXXXXX")"
+  cp "$staged_candidate_apk" "$install_apk_tmp"
+  assert_file_identity "$install_apk_tmp" "$apk_sha256" "$apk_bytes" "Staged immutable APK"
+  mv "$install_apk_tmp" "$versioned_apk"
+  install_apk_tmp=""
 fi
-if [[ -f "$transition_manifest_path" ]] && ! cmp -s "$transition_manifest_path" "$staged_transition_manifest"; then
-  echo "Refusing to replace the immutable transition manifest for versionCode $transition_version_code." >&2
-  exit 1
+if [[ ! -f "$versioned_receipt" ]]; then
+  install_receipt_tmp="$(mktemp "$versioned_dir/.caatuu-release-candidate.json.XXXXXX")"
+  cp "$staged_receipt" "$install_receipt_tmp"
+  cmp -s "$install_receipt_tmp" "$staged_receipt" || {
+    echo "Staged immutable receipt changed while it was copied." >&2
+    exit 1
+  }
+  mv "$install_receipt_tmp" "$versioned_receipt"
+  install_receipt_tmp=""
 fi
-[[ -f "$versioned_apk_path" ]] || cp "$staged_apk" "$versioned_apk_path"
-[[ -f "$versioned_manifest_path" ]] || cp "$staged_manifest" "$versioned_manifest_path"
-[[ -f "$transition_apk_path" ]] || cp "$staged_transition_apk" "$transition_apk_path"
-[[ -f "$transition_manifest_path" ]] || cp "$staged_transition_manifest" "$transition_manifest_path"
-cp "$versioned_apk_path" "$repo_root/artifacts/android/caatuu.apk"
-cp "$versioned_manifest_path" "$repo_root/artifacts/android/caatuu.json"
-cp "$transition_apk_path" "$repo_root/artifacts/android/caatuu-debug.apk"
-cp "$staged_legacy_manifest" "$repo_root/artifacts/android/caatuu-debug.json"
+if [[ ! -f "$versioned_manifest" ]]; then
+  install_manifest_tmp="$(mktemp "$versioned_dir/.caatuu.json.XXXXXX")"
+  cp "$staged_manifest" "$install_manifest_tmp"
+  cmp -s "$install_manifest_tmp" "$staged_manifest" || {
+    echo "Staged immutable manifest changed while it was copied." >&2
+    exit 1
+  }
+  mv "$install_manifest_tmp" "$versioned_manifest"
+  install_manifest_tmp=""
+fi
+
+stable_apk="$repo_root/artifacts/android/caatuu.apk"
+stable_manifest="$repo_root/artifacts/android/caatuu.json"
+node "$repo_root/apps/android/tooling/release-publication-state.mjs" assert-alias-update \
+  --stable-manifest "$stable_manifest" \
+  --stable-apk "$stable_apk" \
+  --candidate-manifest "$staged_manifest" \
+  --candidate-apk "$versioned_apk" \
+  --candidate-receipt "$staged_receipt" \
+  --versioned-receipt "$versioned_receipt" \
+  --durable-floor "$repo_root/apps/android/tooling/pages-current-release.json" >/dev/null
+
+alias_apk_next="$(mktemp "$repo_root/artifacts/android/.caatuu.apk.next.XXXXXX")"
+alias_manifest_next="$(mktemp "$repo_root/artifacts/android/.caatuu.json.next.XXXXXX")"
+cp "$versioned_apk" "$alias_apk_next"
+assert_file_identity "$alias_apk_next" "$apk_sha256" "$apk_bytes" "Stable APK alias candidate"
+cp "$versioned_manifest" "$alias_manifest_next"
+cmp -s "$alias_manifest_next" "$versioned_manifest" || {
+  echo "Stable manifest alias changed while it was copied." >&2
+  exit 1
+}
+mv -f "$alias_apk_next" "$stable_apk"
+alias_apk_next=""
+mv -f "$alias_manifest_next" "$stable_manifest"
+alias_manifest_next=""
 flock -u "$publication_lock_fd"
 
-downloaded_apk="$publish_dir/downloaded-caatuu.apk"
-downloaded_manifest="$publish_dir/downloaded-caatuu.json"
-downloaded_transition_apk="$publish_dir/downloaded-transition.apk"
-downloaded_transition_manifest="$publish_dir/downloaded-transition.json"
-downloaded_legacy_manifest="$publish_dir/downloaded-legacy.json"
-response_headers="$publish_dir/public-apk.headers"
-curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 -D "$response_headers" -o "$downloaded_apk" "$public_apk_url"
-curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_manifest" "$public_versioned_manifest_url"
-curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 180 -o "$downloaded_transition_apk" "$public_transition_apk_url"
-curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_transition_manifest" "$public_transition_manifest_url"
-curl -fsS --retry 5 --retry-all-errors --retry-delay 2 --max-time 30 -o "$downloaded_legacy_manifest" "$legacy_manifest_url"
-[[ "$(sha256sum "$downloaded_apk" | awk '{print $1}')" == "$apk_sha" && "$(wc -c < "$downloaded_apk" | tr -d '[:space:]')" == "$apk_bytes" ]] || {
-  echo "The public Caatuu APK does not match the release manifest." >&2
-  exit 1
-}
-cmp -s "$versioned_manifest_path" "$downloaded_manifest" || {
-  echo "The public immutable manifest differs from the local release manifest." >&2
-  exit 1
-}
-[[ "$(sha256sum "$downloaded_transition_apk" | awk '{print $1}')" == "$transition_sha" \
-  && "$(wc -c < "$downloaded_transition_apk" | tr -d '[:space:]')" == "$transition_bytes" ]] || {
-  echo "The public Caatuu transition APK does not match its manifest." >&2
-  exit 1
-}
-cmp -s "$transition_manifest_path" "$downloaded_transition_manifest" || {
-  echo "The public immutable transition manifest differs from its local record." >&2
-  exit 1
-}
-cmp -s "$repo_root/artifacts/android/caatuu-debug.json" "$downloaded_legacy_manifest" || {
-  echo "The installed-lineage compatibility manifest was not published." >&2
-  exit 1
-}
-cache_control="$(tr -d '\r' < "$response_headers" | awk -F': *' 'tolower($1) == "cache-control" { print tolower($2); exit }')"
-[[ "$cache_control" == *public* && "$cache_control" == *max-age=31536000* && "$cache_control" == *immutable* ]] || {
-  echo "The public Caatuu APK is missing immutable cache headers." >&2
-  exit 1
-}
-[[ "$(read_signer_sha "$downloaded_apk")" == "$expected_signer_sha" ]] || {
-  echo "The downloaded Caatuu APK signer is incorrect." >&2
-  exit 1
-}
-[[ "$(read_signer_sha "$downloaded_transition_apk")" == "$expected_signer_sha" ]] || {
-  echo "The downloaded Caatuu transition signer is incorrect." >&2
-  exit 1
-}
-node apps/android/tooling/validate-product-package.mjs \
-  --aab "$source_aab" --apk "$downloaded_apk" \
-  --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)"
-node apps/android/tooling/validate-product-package.mjs \
-  --aab "$source_aab" --apk "$downloaded_transition_apk" \
-  --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" \
-  --allow-transition-debug
-
-echo "Published Caatuu $version_name (code $version_code)."
-echo "Manifest: $public_manifest_url"
-echo "APK: $public_apk_url"
-echo "APK SHA-256: $apk_sha"
-echo "Existing version-143 installations can migrate through transition code $transition_version_code, then install the stable release."
-echo "Physical device smoke test: not-run"
+echo "Finalized existing Caatuu $version_name (code $version_code) without rebuilding it."
+echo "APK: $versioned_apk"
+echo "APK SHA-256: $apk_sha256"
+echo "Candidate receipt: $versioned_receipt"
+echo "No GitHub Release, Pages deployment, DNS, or tunnel change was performed."

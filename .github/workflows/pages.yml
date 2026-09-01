@@ -87,7 +87,33 @@ jobs:
             --output "$BASELINE_ARCHIVE" \
             "$BASELINE_URL"
 
-      - name: Build and validate the static bundle with Android 162 and 161
+      - name: Download the exact Android 163 overlay without rebuilding it
+        shell: bash
+        env:
+          RELEASE_BASE_URL: https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163
+          RELEASE_DIR: artifacts/android/releases/163
+        run: |
+          set -euo pipefail
+          mkdir -p "$RELEASE_DIR"
+          curl --fail --location --proto '=https' --tlsv1.2 \
+            --retry 3 --retry-all-errors \
+            --output "$RELEASE_DIR/caatuu.apk" \
+            "$RELEASE_BASE_URL/caatuu-163.apk"
+          curl --fail --location --proto '=https' --tlsv1.2 \
+            --retry 3 --retry-all-errors \
+            --output "$RELEASE_DIR/caatuu.json" \
+            "$RELEASE_BASE_URL/caatuu-163.json"
+          curl --fail --location --proto '=https' --tlsv1.2 \
+            --retry 3 --retry-all-errors \
+            --output "$RELEASE_DIR/caatuu-release-candidate.json" \
+            "$RELEASE_BASE_URL/caatuu-163-release-candidate.json"
+          printf '%s  %s\n' \
+            'fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545' "$RELEASE_DIR/caatuu.apk" \
+            'f77a9f5640cd2f60abb7ef820a4f8e10f8111d0e625cb0fbe011b92dc89b3197' "$RELEASE_DIR/caatuu.json" \
+            '2e7f3a25961184fa516e1704ec538802c24f2e4db205336abb29def87757d71f' "$RELEASE_DIR/caatuu-release-candidate.json" \
+            | sha256sum --check --strict
+
+      - name: Build and validate the static bundle with Android 163, 162, and 161
         shell: bash
         run: |
           docker run --rm \

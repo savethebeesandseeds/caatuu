@@ -80,118 +80,61 @@ node apps/server/tooling/refresh-setup-assets.mjs --check
 The build task intentionally updates the tracked manifest when an asset was
 edited, so include that generated metadata with the corresponding asset change.
 
-## Canonical routine public release
+## Canonical release workflow
 
-Publish the stable, non-debuggable Caatuu product from the existing Linux
+A release has two separate operations: build one signed candidate, then promote
+those exact bytes. Promotion never rebuilds the app.
+
+For a new version, commit and push the exact source on `main`, increment
+`versionCode` and `versionName`, then run one command in the existing durable
 development container:
 
 ```bash
 docker exec -w /workspace caatuu-dev \
-  bash apps/android/tooling/publish-release.sh
+  bash apps/android/tooling/publish-release.sh --build-once
 ```
 
-### Efficient publication practices
+That command performs at most one Android build. The builder writes a
+version-owned receipt under `artifacts/android/release-candidates/` that binds
+the APK and AAB hashes, sizes, package, version, signer, and source commit. It
+then finalizes the same APK at `artifacts/android/releases/<versionCode>/`.
 
-The command above is the complete publication workflow. It builds and audits
-the product AAB and universal APK, verifies the signing lineage, publishes the
-immutable stable release and latest manifest, maintains the legacy transition
-package for older installs, and verifies the public artifacts.
+If a valid receipt already exists, `--build-once` reuses it. A bare
+`publish-release.sh` also promotes the current sealed receipt without building.
+Changed bytes, a different source commit, or a reused version code fail closed.
+All signed release builds share one fail-fast lock because Gradle and the output
+artifact paths are shared. If another session already owns that lock, a second
+session exits immediately with instructions to inspect the running build and
+reuse its receipt; it never starts another Gradle build or waits silently.
+The tracked Pages current-release descriptor is the durable version floor. If
+mutable aliases or a local receipt disappear, the tools still refuse to rebuild
+that released version or move the stable channel backward.
 
-For a routine **publish the app** request, a good default is:
-
-1. Run relevant focused source tests.
-2. Run `publish-release.sh` and wait for its result.
-3. If it exits successfully, optionally read the public manifest once to report
-   the published version and URL from `/android/caatuu.json`.
-
-Avoid automatically preceding it with `build-release-aab.sh` or
-`build-release-apk.sh`, and avoid automatically repeating its downloads or full
-audit afterward. Those duplicate passes often add minutes without increasing
-assurance. A separate local build remains useful when a local APK, device test,
-or pre-publication package inspection is part of the task.
-
-If the terminal or client stops waiting while publication continues, inspect
-the existing process and its output before deciding whether a retry is needed.
-Additional verification is reasonable when output is incomplete, the publisher
-fails, an artifact does not match, signing is in doubt, publication tooling
-changed, or the user requests an independent release audit.
-
-These are efficiency practices rather than hard restrictions. Keep the
-certificate, immutable-version, and public verification safeguards inside the
-canonical script.
-
-If the development container is not already running, start it once:
+When a signed candidate was built before receipt support, adopt it explicitly:
 
 ```bash
-docker compose --profile dev up -d caatuu-dev
+docker exec -w /workspace caatuu-dev \
+  bash apps/android/tooling/publish-release.sh \
+    --adopt-existing \
+    --expected-apk-sha256 <approved-apk-sha256> \
+    --source-revision <pushed-main-commit>
 ```
 
-Before running it, increment `versionCode` and `versionName` in
-`apps/android/product/build.gradle.kts`. The publisher refuses to reuse a
-version code or publish a version that does not exceed both the stable and
-installed-lineage versions.
+Adoption validates the package boundary, version, non-debuggable state, signing
+certificate, exact hash, and source commit, then seals and promotes the existing
+files. It does not invoke Gradle.
 
-The release publisher is intentionally fail-closed about signing. It requires
-the existing ignored
-`artifacts/android/caatuu-debug.keystore` and verifies the built APK against
-the tracked, non-secret certificate fingerprint in
-`apps/android/tooling/direct-release-certificate.sha256`. If the keystore is
-missing or the fingerprint differs, restore the original keystore; do not
-generate a replacement for an update. A replacement key starts a new install
-lineage and existing phones cannot accept it as an update.
+The publisher finalizes local immutable inputs for the Pages pipeline. It does
+not itself create a GitHub Release, deploy Pages, change DNS, or verify the
+public site. Those are separate, reviewable deployment steps. The compatibility
+transition remains the frozen version 161 artifact; never build a new transition
+for each stable release.
 
-The publisher performs the complete publication contract:
-
-1. Runs entirely in the existing `caatuu-dev` Linux container and reuses its
-   persistent Android SDK, Gradle distribution, and Gradle cache volumes.
-2. Runs `build-release-aab.sh`, validates the product bundle, and derives the
-   audited universal APK inside that container.
-3. Requires the public runtime's immutable-publication capability before it
-   changes any artifacts.
-4. Requires the established installed-app signing lineage and verifies the
-   direct-release certificate fingerprint before any artifact is finalized.
-5. Serializes artifact finalization with a Linux publication lock so concurrent
-   builds cannot race the immutable-version check.
-6. Publishes the APK at a version-owned URL such as
-   `/android/releases/<versionCode>/caatuu.apk`; a version code can never be
-   overwritten with different bytes.
-7. Publishes the small latest-version manifest last, maintains the legacy
-   transition aliases, then downloads and verifies the public bytes, manifests,
-   certificate, and cache headers.
-
-For legacy debug-lineage installs, the gated runtime exposes the transition
-pair through two names:
-
-- `/android/caatuu-debug.json` and `/android/caatuu-debug.apk` remain the
-  compatibility contract used by installed debug-signing-lineage apps.
-- `/android/caatuu-preview.json` and `/android/caatuu-preview.apk` are the
-  user-facing aliases used by the website. They are labeled **preview**, never
-  release or beta, and disappear when the debug-download gate is disabled.
-
-This split is deliberate: the manifest is mutable and answers "what is
-latest?", while every APK URL is immutable and answers "what exact bytes did
-this manifest describe?" Android can safely pause or resume an old download
-without a newer publication changing the file beneath it.
-
-Public route exposure is deployment configuration, not build logic. Configure
-it once in the ignored root `.env`:
-
-```dotenv
-CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS=1
-```
-
-Then recreate the lightweight runtime once:
-
-```bash
-docker compose up -d --force-recreate caatuu
-```
-
-The publication job checks this configuration before building, but it does not
-mount the Docker socket or modify running infrastructure.
-
-Do not start a bare `debian:12` container for a routine publish. The command in
-the next section is only for bootstrapping or recovering when `caatuu-dev` and
-its persistent tool volumes are unavailable.
+The release key remains the existing ignored
+`artifacts/android/caatuu-debug.keystore`, pinned by
+`apps/android/tooling/direct-release-certificate.sha256`. If either is missing
+or mismatched, stop and recover the original key. Generating a replacement
+would break updates for existing installations.
 
 ## Bootstrap/fallback debug build
 
@@ -419,16 +362,8 @@ Caatuu updater.
 
 ### Publish Caatuu
 
-To publish the non-debuggable Caatuu product, first commit and push the exact
-source branch, assign a version code greater than every previously distributed
-same-package APK, and run:
-
-```bash
-docker exec -w /workspace caatuu-dev \
-  bash apps/android/tooling/publish-release.sh
-```
-
-The publisher writes the immutable release and then the stable aliases:
+Use the build-once or receipt-promotion command documented in
+"Canonical release workflow" above. The local finalizer writes:
 
 ```text
 /android/releases/<versionCode>/caatuu.apk
@@ -437,20 +372,10 @@ The publisher writes the immutable release and then the stable aliases:
 /android/caatuu.json
 ```
 
-Version 0.1.0 deliberately uses the already-installed tester signing lineage,
-so it can replace older development installs without erasing app-private data.
-This direct-release identity is not the future Google Play app-signing or upload
-key. The publisher builds the signed AAB, selects its bundletool-derived APK,
-reruns the product audit, refuses dirty consumed source or an unpushed commit,
-serializes immutable publication, and verifies the public bytes, manifest,
-certificate, and cache headers.
-
-Older installs still request `/android/caatuu-debug.json` and refuse a direct
-debug-to-release archive change. The publisher therefore provides one stripped,
-debuggable transition package that accepts only the next same-origin,
-same-signing-lineage release. After installing it, Backpack discovers the
-non-debuggable stable product. This transition is not a second product channel
-and must not be overwritten by a public development build.
+The immutable directory also contains the release-candidate receipt. The Pages
+packager later publishes the version-owned APK and manifest and updates the
+stable aliases. Compatibility version 161 is retained separately and is never
+regenerated by the publisher.
 
 Build a signed APK for direct testing with:
 
@@ -466,28 +391,30 @@ C:\Work\caatuu\artifacts\android\caatuu-universal.apk
 C:\Work\caatuu\artifacts\android\caatuu.aab
 ```
 
-Only `publish-release.sh` writes the stable manifest and public aliases.
+Signed direct builds also emit a receipt. Running the builder again for the same
+sealed source/version verifies and reuses the receipt instead of starting
+Gradle.
 
 ## Update channel contract
 
-- `caatuu-debug.apk` is a development artifact and is not a product release.
+- `caatuu-debug.apk` is the frozen version 161 compatibility artifact, not a
+  current development channel.
 - `caatuu.apk` and `caatuu.json` come only from `publish-release.sh` and are the
   stable update channel used by normal installs.
-- `caatuu-debug.json` is a temporary compatibility manifest for installations
-  made before 0.1.0; it points to the stripped transition APK, which then points
-  to the stable immutable product manifest.
+- `caatuu-debug.json` points to the frozen transition 161 APK for installations
+  made before the direct-release migration.
 - Do not rename or copy a debug build over the stable filenames. It breaks
   signing continuity and makes an unsafe artifact look like a release.
-- Never reuse a `versionCode` for changed bytes. Both build scripts refuse to
-  replace an existing immutable APK whose SHA-256 differs.
+- Never reuse a `versionCode` for changed bytes. Candidate receipts and the
+  finalizer reject a different APK, AAB, manifest, or source commit.
 - The release publisher serializes the immutable check and final artifact moves
   through `artifacts/android/.artifact-publication.lock`; do not bypass that
   lock with manual copies.
 - The release publisher pins the installed certificate lineage. Treat a
   missing keystore or fingerprint mismatch as a recovery task, never as
   permission to mint a new public update key.
-- Publish the immutable APK first and the mutable manifest last. The canonical
-  publisher enforces and verifies this ordering.
+- The Pages deployment publishes the immutable APK and manifest before serving
+  the stable aliases and verifies the resulting public bytes.
 - The retired public debug command cannot overwrite the stable product.
 
 ## Distribution Notes

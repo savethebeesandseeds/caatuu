@@ -26,6 +26,82 @@ if [[ "$signing_values" -eq "${#signing_keys[@]}" ]]; then
   signed=true
 fi
 
+candidate_version_code="$(sed -nE 's/.*caatuuVersionCode.*orElse\(([0-9]+)\).*/\1/p' "$repo_root/apps/android/product/build.gradle.kts" | head -1)"
+candidate_version_name="$(sed -nE 's/.*caatuuVersionName.*orElse\("([^"]+)"\).*/\1/p' "$repo_root/apps/android/product/build.gradle.kts" | head -1)"
+[[ "$candidate_version_code" =~ ^[1-9][0-9]*$ && -n "$candidate_version_name" ]] || {
+  echo "Could not read the Caatuu release version." >&2
+  exit 1
+}
+candidate_receipt="${CAATUU_RELEASE_CANDIDATE_RECEIPT:-$repo_root/artifacts/android/release-candidates/$candidate_version_code.json}"
+
+# One global signed-release lock makes the receipt check and the build one
+# atomic decision. Every version shares the same Gradle tree and mutable output
+# paths, so different versions must not build concurrently either.
+if [[ "$signed" == true ]]; then
+  for command in git node flock mkdir; do
+    command -v "$command" >/dev/null 2>&1 || {
+      echo "$command is required to coordinate a signed Caatuu build." >&2
+      exit 1
+    }
+  done
+  mkdir -p "$repo_root/artifacts/android"
+  build_lock="$repo_root/artifacts/android/.signed-release-build.lock"
+  exec {build_lock_fd}>"$build_lock"
+  flock -n "$build_lock_fd" || {
+    echo "Another signed Android release build owns the lock; inspect that process and reuse its receipt when it finishes." >&2
+    exit 1
+  }
+fi
+
+# A sealed signed candidate is immutable. Re-running the builder for the same
+# source and version verifies and reuses it instead of launching Gradle again.
+if [[ "$signed" == true && -f "$candidate_receipt" ]]; then
+  for command in git node; do
+    command -v "$command" >/dev/null 2>&1 || {
+      echo "$command is required to verify the existing Caatuu candidate." >&2
+      exit 1
+    }
+  done
+  source_revision="$(git -C "$repo_root" rev-parse --verify HEAD)"
+  node "$repo_root/apps/android/tooling/release-candidate.mjs" verify \
+    --repo-root "$repo_root" \
+    --receipt "$candidate_receipt" \
+    --expected-source-revision "$source_revision" >/dev/null
+  node -e '
+    const receipt = JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8"));
+    if (receipt.identity.version_code !== Number(process.argv[2]) || receipt.identity.version_name !== process.argv[3]) {
+      throw new Error("Existing candidate receipt does not match the requested Android version");
+    }
+  ' "$candidate_receipt" "$candidate_version_code" "$candidate_version_name"
+  echo "Reused sealed Caatuu $candidate_version_name (code $candidate_version_code); no Android build was started."
+  echo "Candidate receipt: $candidate_receipt"
+  exit 0
+fi
+
+if [[ "$signed" == true ]]; then
+  node "$repo_root/apps/android/tooling/release-publication-state.mjs" assert-new-build-version \
+    --durable-floor "$repo_root/apps/android/tooling/pages-current-release.json" \
+    --candidate-version-code "$candidate_version_code" >/dev/null
+  command -v git >/dev/null 2>&1 || {
+    echo "git is required to bind a signed candidate to its source." >&2
+    exit 1
+  }
+  source_revision="$(git -C "$repo_root" rev-parse --verify HEAD)"
+  requested_source_revision="${CAATUU_RELEASE_SOURCE_REVISION:-$source_revision}"
+  [[ "$requested_source_revision" == "$source_revision" ]] || {
+    echo "The requested candidate source revision is not the checked-out commit." >&2
+    exit 1
+  }
+  [[ "$source_revision" == "$(git -C "$repo_root" rev-parse --verify refs/remotes/origin/main)" ]] || {
+    echo "Push main before building a signed release candidate." >&2
+    exit 1
+  }
+  [[ -z "$(git -C "$repo_root" status --porcelain=v1 --untracked-files=all)" ]] || {
+    echo "A signed release candidate requires a clean canonical worktree." >&2
+    exit 1
+  }
+fi
+
 for command in gradle java keytool node unzip apkanalyzer; do
   if ! command -v "$command" >/dev/null 2>&1; then
     echo "$command is not on PATH. Run: bash apps/android/tooling/setup-sdk.sh" >&2
@@ -198,11 +274,49 @@ node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
   --apkanalyzer "$(command -v apkanalyzer)" \
   --unzip "$(command -v unzip)"
 
+if [[ "$signed" == true ]]; then
+  current_source_revision="$(git -C "$repo_root" rev-parse --verify HEAD)"
+  current_origin_revision="$(git -C "$repo_root" rev-parse --verify refs/remotes/origin/main)"
+  [[ "$current_source_revision" == "$source_revision" && "$current_origin_revision" == "$source_revision" ]] || {
+    echo "Caatuu source or origin/main changed while the signed candidate was building; refusing to seal it." >&2
+    exit 1
+  }
+  [[ -z "$(git -C "$repo_root" status --porcelain=v1 --untracked-files=all)" ]] || {
+    echo "The canonical worktree changed while the signed candidate was building; refusing to seal it." >&2
+    exit 1
+  }
+  package_name="$(apkanalyzer manifest application-id "$output_universal_apk" | tr -d '\r\n')"
+  version_code="$(apkanalyzer manifest version-code "$output_universal_apk" | tr -d '\r\n')"
+  version_name="$(apkanalyzer manifest version-name "$output_universal_apk" | tr -d '\r\n')"
+  debuggable="$(apkanalyzer manifest debuggable "$output_universal_apk" | tr -d '\r\n')"
+  signer_sha256="$(
+    "$apksigner_path" verify --verbose --print-certs "$output_universal_apk" \
+      | awk -F': ' '/Signer #1 certificate SHA-256 digest:/ { print tolower($2); exit }'
+  )"
+  [[ "$version_code" == "$candidate_version_code" && "$version_name" == "$candidate_version_name" ]] || {
+    echo "Built APK identity does not match the requested Caatuu version." >&2
+    exit 1
+  }
+  node "$repo_root/apps/android/tooling/release-candidate.mjs" seal-existing \
+    --repo-root "$repo_root" \
+    --apk "artifacts/android/caatuu-universal.apk" \
+    --aab "artifacts/android/caatuu.aab" \
+    --source-revision "$source_revision" \
+    --package-name "$package_name" \
+    --version-code "$version_code" \
+    --version-name "$version_name" \
+    --debuggable "$debuggable" \
+    --signer-sha256 "$signer_sha256" \
+    --mode builder-emitted \
+    --output "$candidate_receipt" >/dev/null
+fi
+
 echo "Wrote $output_aab"
 echo "Wrote $output_direct_apk (direct build; diagnostic only)"
 echo "Wrote $output_apks"
 if [[ "$signed" == true ]]; then
   echo "Wrote $output_universal_apk (authoritative package audit input)"
+  echo "Wrote $candidate_receipt (immutable release-candidate receipt)"
 else
   echo "Wrote $output_universal_apk (ephemerally debug-signed package audit input; do not publish)"
 fi

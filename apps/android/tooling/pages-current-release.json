@@ -1,0 +1,50 @@
+{
+  "schemaName": "caatuu-pages-current-release",
+  "schemaVersion": 1,
+  "channel": "stable-pages-overlay",
+  "canonicalOrigin": "https://caatuu.waajacu.com",
+  "repository": "savethebeesandseeds/caatuu",
+  "githubRelease": {
+    "tag": "caatuu-android-v163"
+  },
+  "stable": {
+    "versionCode": 163,
+    "versionName": "0.1.11",
+    "sourceRevision": "91ba021979275160ca30cacabe8a954aa1bf2341",
+    "manifest": {
+      "sourcePath": "artifacts/android/releases/163/caatuu.json",
+      "releaseAssetName": "caatuu-163.json",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/caatuu-163.json",
+      "publicPaths": [
+        "android/releases/163/caatuu.json",
+        "android/caatuu.json"
+      ],
+      "bytes": 1042,
+      "sha256": "f77a9f5640cd2f60abb7ef820a4f8e10f8111d0e625cb0fbe011b92dc89b3197"
+    },
+    "apk": {
+      "sourcePath": "artifacts/android/releases/163/caatuu.apk",
+      "releaseAssetName": "caatuu-163.apk",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/caatuu-163.apk",
+      "publicPaths": [
+        "android/releases/163/caatuu.apk",
+        "android/caatuu.apk"
+      ],
+      "bytes": 26553893,
+      "sha256": "fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545"
+    },
+    "receipt": {
+      "sourcePath": "artifacts/android/releases/163/caatuu-release-candidate.json",
+      "releaseAssetName": "caatuu-163-release-candidate.json",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/caatuu-163-release-candidate.json",
+      "bytes": 1104,
+      "sha256": "2e7f3a25961184fa516e1704ec538802c24f2e4db205336abb29def87757d71f"
+    }
+  },
+  "previousStableVersionCode": 162,
+  "compatibilityVersionCode": 161,
+  "setupEntries": [
+    "assets/courses/cz/setup-assets.json",
+    "assets/courses/zh/setup-assets.json"
+  ]
+}

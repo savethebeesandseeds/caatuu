@@ -26,6 +26,10 @@ import {
   sha256File,
   validateExtractedPagesBaseline
 } from "../../android/tooling/pages-baseline.mjs";
+import {
+  defaultPagesCurrentReleaseDescriptor,
+  loadPagesCurrentRelease
+} from "../../android/tooling/pages-current-release.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
@@ -34,6 +38,8 @@ const maximumPagesBytes = 1_000_000_000;
 const maximumPagesFileBytes = 200_000_000;
 const pagesWorkerPolicyVersion = 3;
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".mjs", ".txt", ".webmanifest"]);
+const agreementArtworkKey = "planet-agreement-aurora";
+const agreementArtworkAssetPath = "assets/planets/agreement-aurora.png";
 const durableReleasePrefixes = [
   "/android/",
   "/cz/data/dictionaries/",
@@ -42,8 +48,15 @@ const durableReleasePrefixes = [
   "/language-runtime/vendor/transformers/"
 ];
 
-function androidPublicPaths(descriptor) {
-  return [descriptor.stable, descriptor.compatibility]
+function retainedAndroidChannels(baselineDescriptor, currentDescriptor) {
+  const previousStable = structuredClone(baselineDescriptor.stable);
+  previousStable.manifest.publicPaths = previousStable.manifest.publicPaths.slice(0, 1);
+  previousStable.apk.publicPaths = previousStable.apk.publicPaths.slice(0, 1);
+  return [currentDescriptor.stable, previousStable, baselineDescriptor.compatibility];
+}
+
+function androidPublicPaths(baselineDescriptor, currentDescriptor) {
+  return retainedAndroidChannels(baselineDescriptor, currentDescriptor)
     .flatMap((channel) => [channel.manifest, channel.apk])
     .flatMap((artifact) => artifact.publicPaths);
 }
@@ -216,35 +229,85 @@ function copyVerified(source, destination, expected, label) {
   assert.equal(sha256File(destination), sha256File(source), `${label} copy hash changed`);
 }
 
-function preserveCurrentAgreementArtwork({ workspaceRoot, siteDir }) {
+function currentAgreementArtworkContract({ workspaceRoot }) {
   const currentManifest = JSON.parse(readText(resolve(workspaceRoot, "apps/languages/czech/static/setup-assets.json")));
-  const artifact = currentManifest.artifacts.find((item) => item.key === "planet-agreement-aurora");
-  assert.ok(artifact, "Current Agreement Aurora setup artifact is missing");
-  const source = resolve(workspaceRoot, "apps/launcher/static/assets/planets/agreement-aurora.png");
+  const artifacts = currentManifest.artifacts.filter((item) => item.key === agreementArtworkKey);
+  assert.equal(artifacts.length, 1, "Current Agreement Aurora setup artifact is missing or repeated");
+  const artifact = artifacts[0];
+  assert.equal(artifact.url, `/${agreementArtworkAssetPath}`, "Current Agreement Aurora source URL changed");
+  assert.equal(artifact.asset_path, agreementArtworkAssetPath, "Current Agreement Aurora local asset path changed");
+  assert.match(String(artifact.sha256 || ""), /^[a-f0-9]{64}$/u, "Current Agreement Aurora SHA-256 is invalid");
+  const source = resolve(workspaceRoot, "apps/launcher/static", agreementArtworkAssetPath);
   assert.equal(statSync(source).size, Number(artifact.bytes));
   assert.equal(sha256File(source), String(artifact.sha256).toLowerCase());
   const versionedPath = `assets/planets/releases/${artifact.sha256.slice(0, 16)}/agreement-aurora.png`;
-  copyVerified(source, outputPath(siteDir, versionedPath), {
+  return {
+    artifact,
+    assetPath: agreementArtworkAssetPath,
     bytes: Number(artifact.bytes),
-    sha256: String(artifact.sha256).toLowerCase()
+    sha256: String(artifact.sha256).toLowerCase(),
+    source,
+    versionedPath
+  };
+}
+
+function rewriteAgreementArtworkSetup({ path, oldAbsolute, newAbsolute, assetPath }) {
+  const manifest = JSON.parse(readText(path));
+  const artifacts = (manifest.artifacts || []).filter((item) => item.key === agreementArtworkKey);
+  assert.ok(artifacts.length <= 1, `Agreement Aurora setup artifact is repeated in ${path}`);
+  if (artifacts.length === 1) {
+    const artifact = artifacts[0];
+    assert.equal(artifact.url, oldAbsolute, `Agreement Aurora setup URL changed in ${path}`);
+    assert.equal(artifact.asset_path, assetPath, `Agreement Aurora setup local path changed in ${path}`);
+    artifact.url = newAbsolute;
+  }
+  let offlineReplacements = 0;
+  if (Array.isArray(manifest.offline?.assets)) {
+    manifest.offline.assets = manifest.offline.assets.map((value) => {
+      const source = String(value);
+      if (source !== oldAbsolute && !source.startsWith(`${oldAbsolute}?`)) return value;
+      offlineReplacements += 1;
+      return newAbsolute;
+    });
+  }
+  if (artifacts.length === 0 && offlineReplacements === 0) return false;
+  if (artifacts.length === 1 && Array.isArray(manifest.offline?.assets)) {
+    assert.ok(offlineReplacements > 0, `Agreement Aurora offline URL is missing in ${path}`);
+  }
+  writeJson(path, manifest);
+  return true;
+}
+
+function preserveCurrentAgreementArtwork({ workspaceRoot, siteDir }) {
+  const current = currentAgreementArtworkContract({ workspaceRoot });
+  const { assetPath, bytes, sha256, source, versionedPath } = current;
+  copyVerified(source, outputPath(siteDir, versionedPath), {
+    bytes,
+    sha256
   }, "Current Agreement Aurora artwork");
-  const oldAbsolute = "/assets/planets/agreement-aurora.png";
+  const oldAbsolute = `/${assetPath}`;
   const newAbsolute = `/${versionedPath}`;
   let replacements = 0;
   for (const path of allFiles(siteDir)) {
     if (!textExtensions.has(extname(path))) continue;
     const absolute = outputPath(siteDir, path);
+    if (path === "setup-assets.json" || path.endsWith("/setup-assets.json")) {
+      if (rewriteAgreementArtworkSetup({ path: absolute, oldAbsolute, newAbsolute, assetPath })) {
+        replacements += 1;
+      }
+      continue;
+    }
     let sourceText = readText(absolute);
     const before = sourceText;
     sourceText = sourceText.replaceAll(oldAbsolute, newAbsolute);
-    sourceText = sourceText.replaceAll("assets/planets/agreement-aurora.png", versionedPath);
+    sourceText = sourceText.replaceAll(assetPath, versionedPath);
     if (sourceText !== before) {
       replacements += 1;
       writeText(absolute, sourceText);
     }
   }
   assert.ok(replacements >= 4, "Current web Agreement Aurora references were not rewritten");
-  return { versionedPath, bytes: Number(artifact.bytes), sha256: String(artifact.sha256).toLowerCase() };
+  return current;
 }
 
 function overlayDurableBaseline({ baseline, siteDir }) {
@@ -252,6 +315,22 @@ function overlayDurableBaseline({ baseline, siteDir }) {
   const files = allFiles(sourceRoot);
   for (const path of files) copyVerified(outputPath(sourceRoot, path), outputPath(siteDir, path), null, `Baseline ${path}`);
   return files;
+}
+
+function overlayCurrentAndroidRelease({ currentRelease, siteDir }) {
+  const { stable } = currentRelease.descriptor;
+  copyVerified(
+    currentRelease.manifestPath,
+    outputPath(siteDir, stable.manifest.publicPaths[0]),
+    stable.manifest,
+    "Stable 163 manifest",
+  );
+  copyVerified(
+    currentRelease.apkPath,
+    outputPath(siteDir, stable.apk.publicPaths[0]),
+    stable.apk,
+    "Stable 163 APK",
+  );
 }
 
 function restoreWebSetupCompatibility({ siteDir, releaseSetup }) {
@@ -275,8 +354,8 @@ function restoreWebSetupCompatibility({ siteDir, releaseSetup }) {
   return manifest;
 }
 
-function validateFinalWebSetup({ siteDir, canonicalOrigin }) {
-  const manifest = JSON.parse(readText(join(siteDir, "cz/setup-assets.json")));
+function validateFinalWebSetup({ siteDir, canonicalOrigin, courseId }) {
+  const manifest = JSON.parse(readText(join(siteDir, `${courseId}/setup-assets.json`)));
   const paths = [];
   for (const artifact of manifest.artifacts.filter((item) => item.browser_required === true)) {
     const url = new URL(artifact.url, canonicalOrigin);
@@ -297,8 +376,8 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin }) {
   return { manifest, paths };
 }
 
-function createAndroidAliases({ descriptor, siteDir }) {
-  for (const channel of [descriptor.stable, descriptor.compatibility]) {
+function createAndroidAliases({ baselineDescriptor, currentDescriptor, siteDir }) {
+  for (const channel of [currentDescriptor.stable, baselineDescriptor.compatibility]) {
     for (const artifact of [channel.manifest, channel.apk]) {
       const canonical = outputPath(siteDir, artifact.publicPaths[0]);
       assert.equal(statSync(canonical).size, artifact.bytes);
@@ -377,13 +456,13 @@ function publicPathForCoreAsset(asset) {
   return decodeURIComponent(new URL(asset, "https://caatuu.invalid").pathname.slice(1));
 }
 
-function rewriteServiceWorker({ siteDir, baselinePublicPaths, descriptor }) {
+function rewriteServiceWorker({ siteDir, baselinePublicPaths, baselineDescriptor, currentDescriptor }) {
   const path = join(siteDir, "sw.js");
   let source = readText(path);
   const coreMatch = /const CORE_ASSETS = (\[[\s\S]*?\]);/u.exec(source);
   assert.ok(coreMatch, "Pages service worker does not declare CORE_ASSETS");
   const originalCore = JSON.parse(coreMatch[1]);
-  const androidPaths = new Set(androidPublicPaths(descriptor));
+  const androidPaths = new Set(androidPublicPaths(baselineDescriptor, currentDescriptor));
   const coreAssets = originalCore.filter((asset) => {
     const publishedPath = publicPathForCoreAsset(asset);
     return !baselinePublicPaths.has(publishedPath)
@@ -427,10 +506,11 @@ function inventoryDigest(files) {
   return sha256Bytes(files.map((file) => `${file.path}\0${file.bytes}\0${file.sha256}`).join("\n"));
 }
 
-function generateBundleManifest({ siteDir, baseline, worker }) {
+function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
   const files = inventoryFor(siteDir);
   const payloadBytes = files.reduce((sum, file) => sum + file.bytes, 0);
   const descriptor = baseline.descriptor;
+  const current = currentRelease.descriptor;
   const manifest = {
     schema_name: "caatuu-web-bundle",
     schema_version: 1,
@@ -440,9 +520,12 @@ function generateBundleManifest({ siteDir, baseline, worker }) {
     entrypoints: ["/", "/cz/", "/cz/index.html"],
     serviceWorkerCache: worker.cacheName,
     releaseArchive: descriptor.releaseArchive,
+    currentAndroidRelease: current.githubRelease,
     android: {
-      stableVersionCode: descriptor.stable.versionCode,
-      stableVersionName: descriptor.stable.versionName,
+      stableVersionCode: current.stable.versionCode,
+      stableVersionName: current.stable.versionName,
+      previousStableVersionCode: descriptor.stable.versionCode,
+      previousStableVersionName: descriptor.stable.versionName,
       compatibilityVersionCode: descriptor.compatibility.versionCode,
       compatibilityVersionName: descriptor.compatibility.versionName
     },
@@ -463,7 +546,7 @@ function generateBundleManifest({ siteDir, baseline, worker }) {
   return manifest;
 }
 
-function validateAndroidManifest({ path, channel, descriptor }) {
+function validateAndroidManifest({ path, channel, canonicalOrigin, compatibility = false }) {
   const manifest = JSON.parse(readText(path));
   assert.equal(manifest.version_code, channel.versionCode);
   assert.equal(manifest.version_name, channel.versionName);
@@ -471,14 +554,36 @@ function validateAndroidManifest({ path, channel, descriptor }) {
   assert.equal(manifest.package_name, "com.waajacu.caatuu");
   assert.equal(manifest.bytes, channel.apk.bytes);
   assert.equal(manifest.sha256, channel.apk.sha256);
-  assert.equal(manifest.apk_url, `${descriptor.canonicalOrigin}/${channel.apk.publicPaths[0]}`);
-  if (channel === descriptor.compatibility) {
-    assert.equal(manifest.stable_manifest_url, `${descriptor.canonicalOrigin}/android/caatuu.json`);
+  assert.equal(manifest.apk_url, `${canonicalOrigin}/${channel.apk.publicPaths[0]}`);
+  if (compatibility) {
+    assert.equal(manifest.stable_manifest_url, `${canonicalOrigin}/android/caatuu.json`);
   }
   return manifest;
 }
 
-function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
+function validateCurrentAndroidSetupClosure({ siteDir, currentRelease }) {
+  const canonicalOrigin = currentRelease.descriptor.canonicalOrigin;
+  const seen = new Map();
+  let nativeArtifactCount = 0;
+  for (const [entry, setup] of currentRelease.setupManifests) {
+    for (const artifact of setup.artifacts.filter((item) => item.native_required === true)) {
+      const url = new URL(artifact.url, canonicalOrigin);
+      assert.equal(url.origin, canonicalOrigin, `${entry}:${artifact.key} changed setup origin`);
+      const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${entry}:${artifact.key} path`);
+      const file = outputPath(siteDir, path);
+      assert.ok(existsSync(file), `Pages output is missing Android 163 setup artifact ${entry}:${path}`);
+      assert.equal(statSync(file).size, Number(artifact.bytes), `${entry}:${artifact.key} byte count changed`);
+      assert.equal(sha256File(file), String(artifact.sha256).toLowerCase(), `${entry}:${artifact.key} hash changed`);
+      const identity = `${artifact.bytes}:${String(artifact.sha256).toLowerCase()}`;
+      if (seen.has(path)) assert.equal(seen.get(path), identity, `Android 163 setup path has conflicting bytes: ${path}`);
+      else seen.set(path, identity);
+      nativeArtifactCount += 1;
+    }
+  }
+  return { nativeArtifactCount, uniqueNativePaths: seen.size };
+}
+
+function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, currentRelease }) {
   const workspace = resolve(workspaceRoot);
   const siteDir = resolve(outputDir);
   assertSafeOutputDirectory(siteDir, workspace);
@@ -502,9 +607,32 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
     assert.equal(sha256File(published), sha256File(source), `${path} hash changed`);
   }
 
+  const currentAgreement = currentAgreementArtworkContract({ workspaceRoot });
+  const currentAgreementPublic = outputPath(siteDir, currentAgreement.versionedPath);
+  assert.ok(existsSync(currentAgreementPublic), "Pages output is missing current Agreement Aurora artwork");
+  assert.equal(statSync(currentAgreementPublic).size, currentAgreement.bytes);
+  assert.equal(sha256File(currentAgreementPublic), currentAgreement.sha256);
+  const legacyAgreement = baseline.descriptor.sourceOverrides.find(
+    (item) => item.key === "legacy-agreement-aurora",
+  );
+  assert.ok(legacyAgreement, "Pages baseline is missing legacy Agreement Aurora artwork");
+  assert.equal(legacyAgreement.publicPath, currentAgreement.assetPath);
+  const legacyAgreementPublic = outputPath(siteDir, legacyAgreement.publicPath);
+  assert.equal(statSync(legacyAgreementPublic).size, Number(legacyAgreement.bytes));
+  assert.equal(sha256File(legacyAgreementPublic), String(legacyAgreement.sha256).toLowerCase());
+  assert.notEqual(sha256File(currentAgreementPublic), sha256File(legacyAgreementPublic));
+
   const descriptor = baseline.descriptor;
-  for (const channel of [descriptor.stable, descriptor.compatibility]) {
-    validateAndroidManifest({ path: outputPath(siteDir, channel.manifest.publicPaths[0]), channel, descriptor });
+  const currentDescriptor = currentRelease.descriptor;
+  assert.equal(currentDescriptor.previousStableVersionCode, descriptor.stable.versionCode);
+  assert.equal(currentDescriptor.compatibilityVersionCode, descriptor.compatibility.versionCode);
+  for (const channel of retainedAndroidChannels(descriptor, currentDescriptor)) {
+    validateAndroidManifest({
+      path: outputPath(siteDir, channel.manifest.publicPaths[0]),
+      channel,
+      canonicalOrigin: descriptor.canonicalOrigin,
+      compatibility: channel.versionCode === descriptor.compatibility.versionCode,
+    });
     for (const artifact of [channel.manifest, channel.apk]) {
       for (const path of artifact.publicPaths) {
         const published = outputPath(siteDir, path);
@@ -522,9 +650,33 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
   assert.match(launcher, /serviceWorker\.register\("\/sw\.js"/u);
   assert.doesNotMatch(launcher, /Published separately/u);
 
-  validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin });
+  const finalCzechSetup = validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin, courseId: "cz" });
+  const finalMandarinSetup = existsSync(join(siteDir, "zh/setup-assets.json"))
+    ? validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin, courseId: "zh" })
+    : null;
+  const finalAgreement = finalCzechSetup.manifest.artifacts.filter(
+    (item) => item.key === agreementArtworkKey,
+  );
+  assert.equal(finalAgreement.length, 1);
+  assert.equal(finalAgreement[0].url, `/${currentAgreement.versionedPath}`);
+  assert.equal(finalAgreement[0].asset_path, currentAgreement.assetPath);
+  if (finalMandarinSetup) {
+    assert.equal(
+      finalMandarinSetup.manifest.offline.assets.filter((value) => value === `/${currentAgreement.versionedPath}`).length,
+      1,
+    );
+    assert.ok(finalMandarinSetup.manifest.offline.assets.every(
+      (value) => !String(value).startsWith(`/${currentAgreement.assetPath}`),
+    ));
+  }
 
-  const releaseSetupPaths = new Set(baseline.setupManifest.artifacts
+  const currentAndroidSetup = validateCurrentAndroidSetupClosure({ siteDir, currentRelease });
+  assert.ok(currentAndroidSetup.nativeArtifactCount > 0);
+
+  const releaseSetupPaths = new Set([
+    ...baseline.setupManifest.artifacts,
+    ...[...currentRelease.setupManifests.values()].flatMap((setup) => setup.artifacts),
+  ]
     .filter((artifact) => artifact.native_required === true)
     .map((artifact) => decodeURIComponent(new URL(artifact.url, descriptor.canonicalOrigin).pathname.slice(1))));
   const worker = readText(join(siteDir, "sw.js"));
@@ -532,7 +684,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
   assert.ok(Array.isArray(coreAssets));
   const corePublicPaths = coreAssets.map((asset) => publicPathForCoreAsset(asset));
   const baselinePublicPaths = new Set(allFiles(baselineSite));
-  const retainedAndroidPaths = new Set(androidPublicPaths(descriptor));
+  const retainedAndroidPaths = new Set(androidPublicPaths(descriptor, currentDescriptor));
   assert.equal(corePublicPaths.filter((path) => releaseSetupPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => baselinePublicPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => retainedAndroidPaths.has(path)).length, 0);
@@ -553,6 +705,10 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
   assert.equal(manifest.schema_version, 1);
   assert.equal(manifest.profile, "web-static-pages-cutover");
   assert.deepEqual(manifest.releaseArchive, descriptor.releaseArchive);
+  assert.deepEqual(manifest.currentAndroidRelease, currentDescriptor.githubRelease);
+  assert.equal(manifest.android.stableVersionCode, currentDescriptor.stable.versionCode);
+  assert.equal(manifest.android.previousStableVersionCode, descriptor.stable.versionCode);
+  assert.equal(manifest.android.compatibilityVersionCode, descriptor.compatibility.versionCode);
   assert.deepEqual(manifest.retiredPublicRoutes, descriptor.retiredPublicRoutes);
   assert.equal(
     /const CACHE_NAME = "([^"]+)";/u.exec(worker)?.[1],
@@ -569,7 +725,8 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline }) {
     profile: manifest.profile,
     fileCount: files.length,
     totalBytes,
-    stableVersionCode: descriptor.stable.versionCode,
+    stableVersionCode: currentDescriptor.stable.versionCode,
+    previousStableVersionCode: descriptor.stable.versionCode,
     compatibilityVersionCode: descriptor.compatibility.versionCode,
     releaseArchiveSha256: descriptor.releaseArchive.sha256
   };
@@ -580,9 +737,14 @@ export function validatePagesSite({
   outputDir = defaultOutputDir,
   baselineDir,
   baselineArchive,
-  descriptorPath = defaultPagesBaselineDescriptor
+  descriptorPath = defaultPagesBaselineDescriptor,
+  currentReleaseDescriptorPath = defaultPagesCurrentReleaseDescriptor
 } = {}) {
   const workspace = resolve(workspaceRoot);
+  const currentRelease = loadPagesCurrentRelease({
+    workspaceRoot: workspace,
+    descriptorPath: currentReleaseDescriptorPath,
+  });
   const prepared = prepareBaseline({
     workspaceRoot: workspace,
     descriptorPath,
@@ -590,7 +752,12 @@ export function validatePagesSite({
     baselineArchive
   });
   try {
-    return validatePreparedPagesSite({ workspaceRoot: workspace, outputDir, baseline: prepared.baseline });
+    return validatePreparedPagesSite({
+      workspaceRoot: workspace,
+      outputDir,
+      baseline: prepared.baseline,
+      currentRelease,
+    });
   } finally {
     prepared.cleanup();
   }
@@ -601,11 +768,16 @@ export function compilePagesSite({
   outputDir = defaultOutputDir,
   baselineDir,
   baselineArchive,
-  descriptorPath = defaultPagesBaselineDescriptor
+  descriptorPath = defaultPagesBaselineDescriptor,
+  currentReleaseDescriptorPath = defaultPagesCurrentReleaseDescriptor
 } = {}) {
   const workspace = resolve(workspaceRoot);
   const output = resolve(outputDir);
   assertSafeOutputDirectory(output, workspace);
+  const currentRelease = loadPagesCurrentRelease({
+    workspaceRoot: workspace,
+    descriptorPath: currentReleaseDescriptorPath,
+  });
   const prepared = prepareBaseline({
     workspaceRoot: workspace,
     descriptorPath,
@@ -625,20 +797,27 @@ export function compilePagesSite({
     compileStaticSite({ workspaceRoot: workspace, outputDir: stagingDir });
     preserveCurrentAgreementArtwork({ workspaceRoot: workspace, siteDir: stagingDir });
     const baselineFiles = overlayDurableBaseline({ baseline, siteDir: stagingDir });
+    overlayCurrentAndroidRelease({ currentRelease, siteDir: stagingDir });
     restoreWebSetupCompatibility({ siteDir: stagingDir, releaseSetup: baseline.setupManifest });
-    createAndroidAliases({ descriptor: baseline.descriptor, siteDir: stagingDir });
+    createAndroidAliases({
+      baselineDescriptor: baseline.descriptor,
+      currentDescriptor: currentRelease.descriptor,
+      siteDir: stagingDir,
+    });
     enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir });
     const baselinePublicPaths = new Set(baselineFiles);
     const worker = rewriteServiceWorker({
       siteDir: stagingDir,
       baselinePublicPaths,
-      descriptor: baseline.descriptor
+      baselineDescriptor: baseline.descriptor,
+      currentDescriptor: currentRelease.descriptor,
     });
-    generateBundleManifest({ siteDir: stagingDir, baseline, worker });
+    generateBundleManifest({ siteDir: stagingDir, baseline, currentRelease, worker });
     const staged = validatePreparedPagesSite({
       workspaceRoot: workspace,
       outputDir: stagingDir,
-      baseline
+      baseline,
+      currentRelease,
     });
     replaceGeneratedOutput(stagingDir, output, workspace);
     return { ...staged, outputDir: output };
@@ -665,6 +844,7 @@ function parseArguments(argv) {
     else if (argument === "--baseline-dir") options.baselineDir = resolve(value);
     else if (argument === "--baseline-archive") options.baselineArchive = resolve(value);
     else if (argument === "--descriptor") options.descriptorPath = resolve(value);
+    else if (argument === "--current-release-descriptor") options.currentReleaseDescriptorPath = resolve(value);
     else throw new Error(`Unknown argument: ${argument}`);
   }
   assert.notEqual(
@@ -682,7 +862,8 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
       process.stdout.write(
         "Usage: node apps/launcher/tooling/build-pages-site.mjs "
           + "(--baseline-dir DIR | --baseline-archive FILE) "
-          + "[--output DIR] [--workspace-root DIR] [--descriptor FILE] [--validate-only]\n"
+          + "[--output DIR] [--workspace-root DIR] [--descriptor FILE] "
+          + "[--current-release-descriptor FILE] [--validate-only]\n"
       );
     } else {
       const result = options.validateOnly ? validatePagesSite(options) : compilePagesSite(options);
