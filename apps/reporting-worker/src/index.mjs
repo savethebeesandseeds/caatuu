@@ -108,7 +108,7 @@ async function readJson(request, maximumBytes) {
     offset += chunk.byteLength;
   }
   try {
-    return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    return JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes));
   } catch (error) {
     throw new RequestError(400, "invalid_json", "The report body is not valid JSON.");
   }
