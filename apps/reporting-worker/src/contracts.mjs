@@ -44,7 +44,7 @@ function hasExactFields(value, fields) {
     && fields.every((field, index) => keys[index] === [...fields].sort()[index]);
 }
 
-function compactText(value, { max, required = true } = {}) {
+function compactText(value, { max, required = true }) {
   if (typeof value !== "string") return null;
   const normalized = value.normalize("NFC");
   if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\u0300-\u036f]/u.test(normalized)) return null;
