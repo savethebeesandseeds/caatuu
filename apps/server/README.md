@@ -33,10 +33,11 @@ Caatuu Game is authored under `apps/games/caatuu-game`, generated under
 `/games/caatuu-game/godot-v1/`. Language routes and Android do not alias,
 embed, or package it.
 
-Build the locked release image from the workspace root with:
+Build the locked release image from the workspace root only after server or
+image-definition changes:
 
 ```powershell
-docker compose up -d --build caatuu
+docker compose build caatuu
 ```
 
 Start the local runtime with:
@@ -45,8 +46,12 @@ Start the local runtime with:
 docker compose up -d caatuu
 ```
 
-The host port is bound to `http://127.0.0.1:8765/`. Remote access is provided
-intentionally by the optional Cloudflare Tunnel profile.
+The service is opt-in through its `local` profile (or the rollback-only
+`tunnel` profile), and explicitly naming it starts it without requiring
+`--profile`. Its restart policy is `no`, so Docker Desktop cannot resurrect it
+after a reboot. The host port is bound to `http://127.0.0.1:8765/`. Public
+traffic is served by GitHub Pages and the reporting Worker; the optional
+Cloudflare Tunnel profile exists only during the documented rollback window.
 
 Direct `run.sh` or Cargo launches also bind to loopback by default on port
 `9172`. Set `BIND_ADDR` explicitly only when a deliberate network boundary is
@@ -65,7 +70,8 @@ POST /cz/api/dictionary/gaps
 The local server retains this route only for deliberate development and API
 testing. The public route with the same path is now owned by the separate
 Cloudflare reporting Worker in `apps/reporting-worker`; it is not served by
-this Rust application. Stable Android 162/163 remain local-only. The public web
+this Rust application. Dictionary-gap observations from stable Android 162/163
+remain local-only; their APK downloads are public on Pages. The public web
 sender is default-off, future-only, and requires the Worker policy marker. The
 `caatuu.dictionary-gap-report.v1` body contains a schema discriminator and
 only six observation fields: `targetWord`, `normalizedWord`, `dictionaryKey`,

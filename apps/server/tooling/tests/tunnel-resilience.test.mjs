@@ -33,7 +33,15 @@ function composeServiceBlock(source, serviceName) {
   return lines.slice(serviceStart, serviceEnd).join("\n");
 }
 
+const runtimeService = composeServiceBlock(compose, "caatuu");
 const tunnelService = composeServiceBlock(compose, "caatuu-tunnel");
+
+test("the local runtime and dormant tunnel are opt-in without automatic restarts", () => {
+  assert.match(runtimeService, /profiles:\n\s+- local\n\s+- tunnel/);
+  assert.match(runtimeService, /restart: "no"/);
+  assert.match(tunnelService, /profiles:\n\s+- tunnel/);
+  assert.match(tunnelService, /restart: "no"/);
+});
 
 test("the shared tunnel isolates app release from the optional game preview", () => {
   assert.match(tunnelService, /\.\/apps\/games:\/workspace\/apps\/games:ro/);
@@ -67,12 +75,12 @@ test("the Caatuu tunnel does not expose the retired Minerals admin origin", () =
   assert.doesNotMatch(tunnelService, /host\.docker\.internal:host-gateway/);
 });
 
-test("the shared tunnel restarts after a sustained loss of every edge connection", () => {
+test("the shared tunnel stops after a sustained loss of every edge connection", () => {
   assert.match(tunnelService, /while kill -0[^\n]+tunnel_pid[\s\S]*if ! release_gate >\/dev\/null/);
   assert.match(tunnelService, /release readiness changed; stopping the connector/);
   assert.match(tunnelService, /failure_count=\$\$\(\(failure_count \+ 1\)\)/);
   assert.match(tunnelService, /failure_count\}" -ge 6/);
   assert.match(tunnelService, /no ready edge connection for 60 seconds/);
   assert.match(tunnelService, /wait -n[^\n]*watchdog_pid/);
-  assert.match(tunnelService, /restart: unless-stopped/);
+  assert.match(tunnelService, /restart: "no"/);
 });

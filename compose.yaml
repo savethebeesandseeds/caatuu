@@ -27,6 +27,9 @@ x-animated-fabric-cutout-runtime: &animated-fabric-cutout-runtime
 
 services:
   caatuu:
+    profiles:
+      - local
+      - tunnel
     build:
       context: .
       dockerfile: apps/server/tooling/Dockerfile
@@ -70,7 +73,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    restart: unless-stopped
+    restart: "no"
 
   caatuu-tunnel:
     image: caatuu-runtime:debian-latest
@@ -134,7 +137,7 @@ services:
             else
               failure_count=$$((failure_count + 1))
               if [[ "$${failure_count}" -ge 6 ]]; then
-                echo "cloudflared has had no ready edge connection for 60 seconds; restarting the connector." >&2
+                echo "cloudflared has had no ready edge connection for 60 seconds; stopping the connector." >&2
                 exit 1
               fi
             fi
@@ -155,7 +158,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    restart: unless-stopped
+    restart: "no"
 
   caatuu-build:
     image: rust:1.96-bookworm

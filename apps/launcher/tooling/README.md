@@ -2,8 +2,9 @@
 
 `build-static-site.mjs` creates the reviewed browser-only `web-static-core`
 intermediate. `build-pages-site.mjs` turns that intermediate into the final
-`web-static-pages-cutover` bundle by overlaying the fixed Android 162/161
-preservation archive. Both builders change only generated output; they do not
+`web-static-pages-cutover` bundle by adding the unlisted Mandarin browser
+preview, stable Android 163, and the fixed Android 162/161 preservation
+archive. Both builders change only generated output; they do not
 edit the live server sources, Android product, models, or canonical language
 source trees.
 
@@ -31,8 +32,9 @@ final Pages publication command.
 
 ## Static profile
 
-The browser core preserves the launcher, Czech interface, ordinary local progress,
-the 865-record curated dictionary, the four browser learning games, and all
+The Czech-only browser core preserves the launcher, Czech interface, ordinary
+local progress, the 865-record curated dictionary, the six embedded browser
+learning games, and all
 646 reviewed visual assets. A 2.5 MB static supplement preserves exact
 dictionary matches for every Standard Word World surface resolved by the
 existing pinned full dictionary (1,195 of 1,277 surfaces); its 82 source
@@ -42,7 +44,8 @@ is downloaded and cached as it is used.
 
 The browser core deliberately excludes Chat, language-model inference,
 embedding models and databases, SQL/WASM model runtimes, the full server-backed
-dictionary, Android packages, Godot previews, archives, and every dynamic API.
+dictionary, Android packages, the standalone Godot preview, archives, and every
+dynamic API.
 Picture selection continues through the existing lexical keymap fallback. The
 full-dictionary panel is relabeled as the static 865-record web dictionary.
 Model-backed Skill Compass mapping is hidden, while ordinary progress and stats
@@ -66,21 +69,25 @@ local imports, resolves HTML and service-worker references, confirms the
 792-record Standard Word World corpus, and rejects server/model paths or calls.
 Its deterministic manifest is `caatuu-web-bundle.json`.
 
-The final Pages builder then adds the exact stable 162 and compatibility 161
-manifests/APKs, their required aliases, all 662 native setup artifacts, original
-keymaps, SQLite dictionary and vector database, ONNX/WASM runtime, catalogs,
-and version-specific legacy assets. It verifies the preservation archive's
-outer digest and safe extraction, every final byte/hash, the full browser setup
-closure, same-origin Android URLs, alias equality, service-worker exclusions,
-range bypass, case collisions, and the Pages size ceiling before replacing a
-generated output. The launcher offers only signed stable 162; transition 161 is
-retained at its version path and technical `caatuu-debug.*` aliases for
-already-installed compatibility clients, never as an automatic preview
-fallback. Dynamic APIs are not added.
+The final Pages builder adds the unlisted, `noindex` Mandarin development
+course at `/zh/`, then overlays exact stable 163 and the stable 162 /
+compatibility 161 preservation archive. It includes their retained aliases,
+all 662 release-162 native setup artifacts, original keymaps, SQLite dictionary
+and vector database, ONNX/WASM runtime, catalogs, and version-specific legacy
+assets. It regenerates both published browser setup receipts against the final
+Pages bytes and verifies the archive, every final byte/hash, same-origin
+Android URLs, alias equality, service-worker exclusions, range bypass, case
+collisions, and size ceiling before replacing generated output. The launcher
+offers only signed stable 163; 162 remains at its immutable version path, and
+transition 161 remains at its compatibility path and technical
+`caatuu-debug.*` aliases for already-installed clients. The standalone
+`/games/caatuu-game/` preview is not published until its separate game and
+asset release gates pass. Dynamic application APIs are not added; only the
+three reporting routes are owned by the Cloudflare Worker.
 
 ## Hosting boundary
 
-The UI uses origin-root `/assets/` and `/cz/` paths. Publication therefore
+The UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths. Publication therefore
 requires `https://caatuu.waajacu.com` at the root; a GitHub project subpath is
 not compatible. The manual Pages workflow checks that configuration before it
 uploads anything and deploys through the Pages artifact API. It never creates a

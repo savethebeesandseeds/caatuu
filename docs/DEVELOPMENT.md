@@ -16,19 +16,26 @@ Run commands from the repository root:
 cd C:\Work\caatuu
 ```
 
-## Daily runtime
+## Daily local runtime
 
-Build the locked Rust release and start the runtime:
+Build the locked Rust release only after server or image-definition changes:
 
 ```powershell
-docker compose up -d --build caatuu
+docker compose build caatuu
 ```
 
-After the image exists, start without rebuilding:
+Start the existing image without rebuilding:
 
 ```powershell
 docker compose up -d caatuu
 ```
+
+`caatuu` is opt-in through the `local` and rollback-only `tunnel` profiles.
+Explicitly naming it, as above, activates it. Its restart policy is `no`, so it
+does not return after Docker Desktop or the computer restarts. Existing
+containers created from an older Compose definition must first receive the
+one-time stop/update reconciliation documented in `STATIC_WEB_HOSTING.md`;
+editing Compose alone does not change their stored restart policy.
 
 Useful operations:
 
@@ -36,8 +43,13 @@ Useful operations:
 docker compose logs -f caatuu
 docker compose restart caatuu
 docker compose ps
-docker compose down
+docker compose stop caatuu
 ```
+
+`docker compose restart` restarts an existing container with its existing
+configuration; it does not apply changes from `compose.yaml`. After an
+intentional service-configuration change, use the explicit `docker compose up
+-d caatuu` command above and let Compose recreate the service if required.
 
 Set noisier Rust logs before recreating the service:
 
@@ -68,14 +80,15 @@ Transformers/MiniLM artifact against
 Missing or mismatched model-only assets are a deployment failure, not a silent
 semantic-search downgrade.
 
-## Transitional public tunnel
+## Dormant rollback tunnel
 
-Until the GitHub Pages cutover passes HTTPS, Android/setup-route validation, and
-its rollback window, the former public app and Android routes can use the named
-Cloudflare Tunnel. Keep this only as the documented rollback path. After the
-cutover gate in `STATIC_WEB_HOSTING.md` passes, do not start it; remove the
-service and revoke its token. Store the transitional token in the ignored
-`secrets/` directory:
+Public traffic now uses GitHub Pages plus the reporting Worker. The former named
+Cloudflare Tunnel remains only as a dormant rollback definition through the
+minimum 48-hour observation window in `STATIC_WEB_HOSTING.md`. Its profile is
+off by default and its restart policy is `no`; do not start it for ordinary
+development or publication. After the gate passes, remove the service and
+revoke its token. If an explicitly approved rollback needs the connector, its
+token belongs only in the ignored `secrets/` directory:
 
 ```powershell
 New-Item -ItemType Directory -Force secrets
@@ -84,11 +97,22 @@ Set-Content -NoNewline -Path secrets\cloudflared-token -Value $token
 Remove-Variable token
 ```
 
-Start the runtime and tunnel:
+Start the existing runtime image and tunnel only for that approved,
+application-only rollback. The standalone game is not release-ready, so both
+services must receive the disabled preview setting:
 
 ```powershell
-docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
+$env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW = "0"
+try {
+  docker compose --profile tunnel up -d caatuu caatuu-tunnel
+} finally {
+  Remove-Item Env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW
+}
 ```
+
+Build `caatuu` separately first only if the established image is missing or
+the server/image definition deliberately changed. Do not turn rollback into a
+routine Android or Pages rebuild.
 
 The canonical connector pins its Cloudflare edge transport to HTTP/2 over TCP
 port `7844`. On the Windows/Docker path, QUIC could pass its startup checks and
@@ -105,33 +129,32 @@ responses for Cloudflare's edge-discovery record. Keep both explicit resolvers
 unless a replacement is validated from inside the tunnel container.
 
 `caatuu-game` is a browser-only development preview and is enabled locally by
-default. Disable it for an application-only public release before recreating
-the runtime and tunnel:
-
-```powershell
-$env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW = "0"
-docker compose --profile tunnel up -d --build caatuu caatuu-tunnel
-```
-
-When the preview is enabled, the tunnel fails closed because the game and some
-of its dependencies remain preview-only. Its watchdog rechecks that policy
+default. When the preview is enabled, the tunnel fails closed because the game
+and some of its dependencies remain preview-only. Its watchdog rechecks that policy
 after startup. An eventual public game preview must first pass the explicit
 gate with `docker exec -w /workspace caatuu-dev node apps/games/tooling/check-release-readiness.mjs --surface public-tunnel --require-game caatuu-game`.
 
-Recreate only the connector after token or tunnel-command changes:
+Recreate only the connector after token or tunnel-command changes during an
+approved rollback, while keeping `CAATUU_ENABLE_CAATUU_GAME_PREVIEW=0` as in
+the rollback block above. It still will not acquire an automatic restart
+policy:
 
 ```powershell
-docker compose --profile tunnel up -d --force-recreate caatuu-tunnel
+$env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW = "0"
+try {
+  docker compose --profile tunnel up -d --force-recreate caatuu-tunnel
+} finally {
+  Remove-Item Env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW
+}
 ```
 
-The named tunnel expects `http://localhost:9172` as the Caatuu origin. Its
-local forwarding scope is Caatuu only. The Minerals public catalog now resolves
-directly to GitHub Pages, while its optional administrator remains a private,
-loopback-only service in `C:\Work\Minerals`; never forward that port through
-the Caatuu connector. Remove the stale `minerals.waajacu.com` ingress from the
-named tunnel's remote Cloudflare configuration independently; retain only the
-Caatuu `localhost:9172` ingress while its Android/API compatibility routes are
-still public.
+The dormant tunnel expects `http://localhost:9172` as the Caatuu origin during
+an approved rollback. Live Caatuu DNS no longer targets it. The Minerals public
+catalog independently resolves to GitHub Pages, while its optional
+administrator remains a private, loopback-only service in `C:\Work\Minerals`;
+never forward port `7979` through the Caatuu connector. Any old provider-side
+hostname rules retained inside the dormant tunnel are not live dependencies and
+are removed with the tunnel after the observation window.
 
 ## Repository-only Chinese archive
 
