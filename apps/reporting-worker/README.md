@@ -11,10 +11,11 @@ GET  /api/reporting/health
 ```
 
 The Worker is named `caatuu-reporting`. Its D1 database is
-`caatuu-reporting-production` (`577f1f9b-2c60-41ed-9025-a51a6da2b470`) and is
-restricted to the European Union. The public hostname must remain proxied by
-Cloudflare for these path-specific Worker routes; every other request goes to
-the GitHub Pages CNAME origin without invoking this Worker.
+`caatuu-reporting-production` and is restricted to the European Union. The
+required opaque database identifier stays in `wrangler.jsonc`; it is not a
+credential and should not be duplicated in prose. The public hostname must
+remain proxied by Cloudflare for these path-specific Worker routes; every other
+request goes to the GitHub Pages CNAME origin without invoking this Worker.
 
 ## Privacy boundary
 
