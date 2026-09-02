@@ -62,8 +62,11 @@ narrow, write-only dictionary maintenance request:
 POST /cz/api/dictionary/gaps
 ```
 
-The planned GitHub Pages public origin will retire this route; stable Android
-162 and the static web product keep dictionary gaps local. The
+The local server retains this route only for deliberate development and API
+testing. The public route with the same path is now owned by the separate
+Cloudflare reporting Worker in `apps/reporting-worker`; it is not served by
+this Rust application. Stable Android 162/163 remain local-only. The public web
+sender is default-off, future-only, and requires the Worker policy marker. The
 `caatuu.dictionary-gap-report.v1` body contains a schema discriminator and
 only six observation fields: `targetWord`, `normalizedWord`, `dictionaryKey`,
 `dictionaryDirection`, `lookupOutcome`, and `lookupReturned`. The route rejects
@@ -90,14 +93,14 @@ the path with `DICTIONARY_GAP_STORE_PATH`. There is deliberately no GET or
 listing route for the ledger. Records currently remain until a maintainer
 reviews, archives, or deletes them; there is no automatic retention expiry.
 
-Do not commit this ledger or publish it in the Pages preservation archive.
-Before changing public DNS to Pages, copy its exact bytes to a
-maintainer-controlled private backup and verify the integrity receipt recorded
-in `docs/STATIC_WEB_HOSTING.md`.
+Do not commit this ledger or publish it in the Pages preservation archive. Its
+verified 10-record receipt was imported into the EU D1 reporting database as
+recorded in `docs/STATIC_WEB_HOSTING.md`. The ignored source remains the
+reproducible import authority; no independent hosted backup has been configured.
 
-This endpoint is not a general diagnostic channel. Word World sentence reports
-remain device-local, and the generic `/api/bug-report` route remains disabled
-for the development preview.
+This endpoint is not a general diagnostic channel. The generic
+`/api/bug-report` route remains disabled. The Pages-only sentence-report route
+is a separate narrow Worker endpoint and is never mounted by this server.
 
 The deprecated Chinese trainer remains under `archive/caatuu-chinese` only as
 source history. No Compose override, static mount, API, WebSocket, or OpenAI

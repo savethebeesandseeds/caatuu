@@ -32,7 +32,8 @@ import {
 } from "../../android/tooling/pages-current-release.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
-const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
+const toolingDir = dirname(scriptPath);
+const defaultWorkspaceRoot = resolve(toolingDir, "../../..");
 const defaultOutputDir = resolve(defaultWorkspaceRoot, "artifacts/web/github-pages");
 const maximumPagesBytes = 1_000_000_000;
 const maximumPagesFileBytes = 200_000_000;
@@ -47,6 +48,18 @@ const durableReleasePrefixes = [
   "/language-runtime/models/",
   "/language-runtime/vendor/transformers/"
 ];
+const edgeDynamicRoutes = Object.freeze([
+  "/cz/api/dictionary/gaps",
+  "/api/sentence-reports",
+  "/api/reporting/health"
+]);
+const reportingModulePublicPath = "cz/source/shared/pages-reporting.mjs";
+
+function exactReplace(source, before, after, label) {
+  const count = source.split(before).length - 1;
+  assert.equal(count, 1, `${label} anchor count changed: ${count}`);
+  return source.replace(before, after);
+}
 
 function retainedAndroidChannels(baselineDescriptor, currentDescriptor) {
   const previousStable = structuredClone(baselineDescriptor.stable);
@@ -443,6 +456,43 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir }) {
   writeText(join(siteDir, "launcher.js"), launcher);
 }
 
+function enableReportingSurfaces({ siteDir }) {
+  const reportingSource = join(toolingDir, "templates/pages-reporting.mjs");
+  const reportingDestination = outputPath(siteDir, reportingModulePublicPath);
+  copyVerified(reportingSource, reportingDestination, null, "Pages reporting client");
+
+  const bootstrapPath = join(siteDir, "language-runtime/static/source/app-bootstrap.mjs");
+  const bootstrap = exactReplace(
+    readText(bootstrapPath),
+    '  if (requiresCourseRuntime()) await loadScript("source/shared/runtime.js?v=runtime-41");',
+    `  if (requiresCourseRuntime()) {
+    await loadScript("source/shared/runtime.js?v=runtime-41");
+    const { installPagesReporting } = await import("/cz/source/shared/pages-reporting.mjs?v=pages-reporting-1");
+    await installPagesReporting();
+  }`,
+    "Pages reporting bootstrap"
+  );
+  writeText(bootstrapPath, bootstrap);
+
+  const wordWorldPath = join(siteDir, "language-runtime/static/source/product-word-world.mjs");
+  const wordWorld = exactReplace(
+    readText(wordWorldPath),
+    "Saved on this device. Sending remains off until a reviewed feedback channel is enabled.",
+    "Saved on this device. If sending is interrupted, the public site will retry later.",
+    "Pages sentence-report retry copy"
+  );
+  writeText(wordWorldPath, wordWorld);
+
+  const profilePath = join(siteDir, "cz/caatuu-profile.json");
+  const profile = JSON.parse(readText(profilePath));
+  profile.capabilities.reportingApi = true;
+  profile.privacy.dictionaryGapReportsLocalOnly = false;
+  profile.privacy.sentenceFeedbackRemoteConsent = true;
+  profile.privacy.dictionaryGapReportsFutureOptIn = true;
+  profile.privacy.legacyReportingQueuesLocalOnly = true;
+  writeJson(profilePath, profile);
+}
+
 function pathForCoreAsset(siteDir, asset) {
   if (asset === "/") return join(siteDir, "index.html");
   if (asset === "/cz/") return join(siteDir, "cz/index.html");
@@ -469,6 +519,9 @@ function rewriteServiceWorker({ siteDir, baselinePublicPaths, baselineDescriptor
       && !androidPaths.has(publishedPath)
       && !isDurableReleasePublicPath(publishedPath);
   });
+  const reportingAsset = `/${reportingModulePublicPath}`;
+  assert.ok(existsSync(pathForCoreAsset(siteDir, reportingAsset)), "Pages reporting client is missing");
+  if (!coreAssets.includes(reportingAsset)) coreAssets.push(reportingAsset);
   assert.ok(coreAssets.length < originalCore.length, "Release setup assets were not removed from service-worker precache");
   source = source.replace(coreMatch[0], `const CORE_ASSETS = ${JSON.stringify(coreAssets, null, 2)};`);
   const policyDeclaration = "const WORKER_POLICY_VERSION = 2;";
@@ -536,7 +589,8 @@ function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
       nativeArtifactBytes: descriptor.nativeSetup.nativeArtifactBytes,
       completeDownloadBytes: descriptor.nativeSetup.completeDownloadBytes
     },
-    retiredPublicRoutes: descriptor.retiredPublicRoutes,
+    edgeDynamicRoutes,
+    retiredPublicRoutes: descriptor.retiredPublicRoutes.filter((route) => route !== "/cz/api/dictionary/gaps"),
     payloadFileCount: files.length,
     payloadBytes,
     payloadSha256: inventoryDigest(files),
@@ -690,14 +744,35 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(corePublicPaths.filter((path) => retainedAndroidPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => isDurableReleasePublicPath(path)).length, 0);
   assert.match(worker, /request\.headers\.has\("range"\)/u);
+  assert.match(worker, /request\.method !== "GET"/u);
   assert.match(worker, /isDurableReleasePath\(url\.pathname\)/u);
   assert.match(worker, /"\/android\/"/u);
   assert.match(worker, new RegExp(`WORKER_POLICY_VERSION = ${pagesWorkerPolicyVersion}`, "u"));
 
-  for (const route of descriptor.retiredPublicRoutes) {
+  const finalRetiredRoutes = descriptor.retiredPublicRoutes.filter((route) => route !== "/cz/api/dictionary/gaps");
+  for (const route of finalRetiredRoutes) {
     const candidate = outputPath(siteDir, route.slice(1));
     assert.ok(!existsSync(candidate), `Retired dynamic route was published as a file: ${route}`);
   }
+  for (const route of edgeDynamicRoutes) {
+    const candidate = outputPath(siteDir, route.slice(1));
+    assert.ok(!existsSync(candidate), `Edge dynamic route collided with a Pages file: ${route}`);
+  }
+
+  const reportingClient = readText(outputPath(siteDir, reportingModulePublicPath));
+  assert.match(reportingClient, /X-Caatuu-Reporting-Policy/u);
+  assert.match(reportingClient, /2026-09-02\.v1/u);
+  assert.match(reportingClient, /caatuu\.sentenceFeedbackAuthorizedOutbox\.v2/u);
+  assert.match(reportingClient, /caatuu\.dictionaryGapAuthorizedOutbox\.v2/u);
+  assert.match(reportingClient, /credentials:\s*"omit"/u);
+  assert.match(reportingClient, /referrerPolicy:\s*"no-referrer"/u);
+  assert.doesNotMatch(reportingClient, /caatuu\.(?:feedbackOutbox|dictionaryGapOutbox)\.v1/u);
+  const bootstrap = readText(join(siteDir, "language-runtime/static/source/app-bootstrap.mjs"));
+  assert.match(bootstrap, /await loadScript\("source\/shared\/runtime\.js\?v=runtime-41"\);[\s\S]*await import\("\/cz\/source\/shared\/pages-reporting\.mjs/u);
+  const profile = JSON.parse(readText(join(siteDir, "cz/caatuu-profile.json")));
+  assert.equal(profile.capabilities.reportingApi, true);
+  assert.equal(profile.privacy.dictionaryGapReportsFutureOptIn, true);
+  assert.equal(profile.privacy.legacyReportingQueuesLocalOnly, true);
 
   const manifest = JSON.parse(readText(join(siteDir, "caatuu-web-bundle.json")));
   const inventory = inventoryFor(siteDir);
@@ -709,7 +784,8 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(manifest.android.stableVersionCode, currentDescriptor.stable.versionCode);
   assert.equal(manifest.android.previousStableVersionCode, descriptor.stable.versionCode);
   assert.equal(manifest.android.compatibilityVersionCode, descriptor.compatibility.versionCode);
-  assert.deepEqual(manifest.retiredPublicRoutes, descriptor.retiredPublicRoutes);
+  assert.deepEqual(manifest.edgeDynamicRoutes, edgeDynamicRoutes);
+  assert.deepEqual(manifest.retiredPublicRoutes, finalRetiredRoutes);
   assert.equal(
     /const CACHE_NAME = "([^"]+)";/u.exec(worker)?.[1],
     manifest.serviceWorkerCache,
@@ -805,6 +881,7 @@ export function compilePagesSite({
       siteDir: stagingDir,
     });
     enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir });
+    enableReportingSurfaces({ siteDir: stagingDir });
     const baselinePublicPaths = new Set(baselineFiles);
     const worker = rewriteServiceWorker({
       siteDir: stagingDir,

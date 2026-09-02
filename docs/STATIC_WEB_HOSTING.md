@@ -1,6 +1,6 @@
 # Static web hosting
 
-Last reviewed: 1 September 2026
+Last reviewed: 2 September 2026
 
 Caatuu has a deterministic GitHub Pages cutover profile. It moves the website,
 already-built stable 163 (`0.1.11`), previous stable 162 (`0.1.10`),
@@ -57,25 +57,52 @@ dictionary/embedding/model/vendor paths and all range requests. Ordinary web
 assets, including setup visuals under `/assets`, keep the normal service-worker
 behavior and may be cached on demand.
 
-Pages has no dynamic application server. The cutover explicitly retires:
+Pages has no dynamic application server. Three narrow paths are routed through
+the separate `caatuu-reporting` Cloudflare Worker while every app and download
+path continues to GitHub Pages:
+
+- `POST /cz/api/dictionary/gaps` for default-off, future-only missing-word
+  sharing;
+- `POST /api/sentence-reports` for individually consented Word World sentence
+  reports; and
+- `GET /api/reporting/health`, which returns only readiness and the Worker
+  deployment version.
+
+Both POST routes require `X-Caatuu-Reporting-Policy: 2026-09-02.v1`. This is a
+public rollout marker, not a secret. Clients without it are rejected before the
+body is read, so older local queues cannot begin uploading merely because the
+hostname now has an endpoint.
+
+The cutover explicitly retires:
 
 - `/android/caatuu-preview.json` and `/android/caatuu-preview.apk`;
 - `/android/releases/status` and `/android/debug-releases/status`;
 - `/android/termux-install-debug.sh`;
-- `/cz/api/dictionary/status`, `/cz/api/dictionary/search`, and
-  `/cz/api/dictionary/gaps`;
+- `/cz/api/dictionary/status` and `/cz/api/dictionary/search`;
 - `/api/bug-report`, `/api/v1`, and `/ws`.
 
-Releases 162/163 and the static web product keep dictionary-gap observations
-local, so retiring the POST route does not remove a required release feature.
-Older development clients may retain pending observations on-device. The
-private ledger is not published: its cutover receipt is schema
+Releases 162/163 keep dictionary-gap observations local. The Pages web product
+uses new authorized v2 outboxes only after the relevant consent. Existing v1
+sentence and gap queues remain permanently local and are never migrated.
+
+The reporting Worker stores accepted data in the EU-jurisdiction D1 database
+`caatuu-reporting-production`. Sentence reports become eligible for deletion
+after 90 days and dictionary gaps 365 days after their latest observation.
+Cleanup is requested after an accepted write when the recorded successful run
+is at least a day old; eligible rows can remain longer when no later report
+arrives. There is no cron job, watchdog, health poller, or persistent
+connection. There is no public data-listing route and Worker observability is
+disabled.
+
+The private ledger is not published: its cutover receipt is schema
 `caatuu.dictionary-gap-store.v1`, 10 records, 3,309 bytes, SHA-256
 `3d5657bfb739f5cdd3db1e7bf0d2161c93efbbfd2cdcca2d05156048a8e9ee3f`,
-at `artifacts/dictionary-gaps/czech-missing-words.v1.json`. Before DNS changes,
-copy those exact bytes to a maintainer-controlled private backup and verify the
-same digest. Record that private backup location in the operator's cutover log,
-not in the public repository.
+at `artifacts/dictionary-gaps/czech-missing-words.v1.json`. The exact records
+were imported to D1 after verifying that receipt; the private import SQL,
+receipt, and Time Travel bookmark are under the ignored
+`artifacts/reporting-worker/private/` directory. No R2 bucket or other hidden
+backup component exists. A longer-lived independent backup destination remains
+unconfigured and must not be claimed otherwise.
 
 ## Build and inspect locally
 
@@ -114,8 +141,8 @@ docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site
 
 The successful command prints the profile, exact file count, total bytes,
 stable 163, previous stable 162, compatibility 161, and the
-preservation-archive digest. The validated local bundle currently contains 779
-files totaling 635,452,639 bytes. It also writes
+preservation-archive digest. The validated local bundle currently contains 780
+files totaling 635,468,883 bytes. It also writes
 `artifacts/web/github-pages/caatuu-web-bundle.json`, whose sorted inventory
 binds every other file by byte count and SHA-256.
 
@@ -136,10 +163,12 @@ done by the workflow:
    `caatuu-pages-v162` and attach only `caatuu-pages-v162.tar`. Verify its exact
    byte count and digest above. This is durable relocation of existing release
    bytes, not a new Android release. Never resolve `latest`.
-3. Create tag `caatuu-android-v163` from source commit
-   `91ba021979275160ca30cacabe8a954aa1bf2341` and attach only
-   `caatuu-163.apk`, `caatuu-163.json`, and
-   `caatuu-163-release-candidate.json`. Verify every byte count and SHA-256 in
+3. The published tag `caatuu-android-v163` points to Pages handoff commit
+   `0a23fc17c1af6285bd969ae057f13bf2f6f19759`. Its attached receipt—not the tag
+   target—binds the immutable APK bytes to Android source commit
+   `91ba021979275160ca30cacabe8a954aa1bf2341`. Do not force-move the published
+   tag. Verify `caatuu-163.apk`, `caatuu-163.json`, and
+   `caatuu-163-release-candidate.json` against every byte count and SHA-256 in
    `pages-current-release.json`. This promotes the already-built APK; it does
    not run an Android build.
 4. In repository **Settings → Pages**, select **GitHub Actions** as the source.
@@ -180,14 +209,27 @@ It uploads a Pages artifact and uses GitHub's Pages deployment API. There is no
 ## DNS cutover
 
 DNS is the final availability switch, not a build step. Change it only after the
-generated site has passed local visual and interaction review and the Pages
-deployment is ready. For this subdomain, follow GitHub's displayed DNS target
-and verification values; do not copy an unverified value from old notes.
+generated site has passed local visual and interaction review, the Pages
+deployment is ready, and the reporting Worker is deployed. The pre-cutover
+record is a proxied Cloudflare Tunnel route named `caatuu`, backed by tunnel ID
+`85245271-e294-4ab1-a649-4a34492f7be3`; it currently returns Cloudflare 1033
+because no connector is healthy, so it is not a demonstrated rollback target.
+
+Replace that hostname record with a DNS-only CNAME from
+`caatuu.waajacu.com` to `savethebeesandseeds.github.io` while GitHub provisions
+the custom-domain certificate. After strict public HTTPS succeeds, enable the
+Cloudflare proxy so the three narrow Worker routes can intercept reports while
+all other requests continue to Pages. During the DNS-only certificate phase,
+authorized reports remain queued in the browser rather than falling back to a
+workstation service. Do not change `minerals.waajacu.com` or forward its private
+port `7979` through the Caatuu tunnel.
 
 After DNS resolves, check the public origin in a fresh browser profile and on a
 phone. Verify `/`, `/cz/`, all four games, setup, refresh/navigation behavior,
-the web app manifest, and HTTPS. Keep the former tunnel configuration and token
-recoverable for a minimum 48-hour observation window.
+the web app manifest, HTTPS, the reporting health route, an authorized report,
+and rejection of a request without the policy marker. Keep the former tunnel
+configuration and token recoverable for a minimum 48-hour observation window,
+but do not describe that stopped and unhealthy connector as a working fallback.
 
 Do not declare the cutover complete until all of the following are true:
 
@@ -203,9 +245,12 @@ Do not declare the cutover complete until all of the following are true:
 - the dictionary and vector SQLite files, ONNX model, and WASM runtime return
   the pinned lengths and hashes, with `206 Partial Content` for representative
   byte ranges;
-- the dictionary-gap ledger's private backup receipt matches the digest above,
-  and the retired dynamic routes return static `404` responses rather than
-  reaching a workstation;
+- the dictionary-gap ledger's D1 import receipt matches the digest above, a
+  durable Worker acknowledgement occurs only after a D1 write, and a request
+  without the current policy marker is rejected without changing the database;
+- the retained reporting routes reach only the Worker, while the retired
+  dynamic routes return static `404` responses rather than reaching a
+  workstation;
 - the public site and all retained routes remain healthy with Docker Desktop
   and the local Caatuu connector stopped; and
 - the observation-window owner, duration, rollback target, and tunnel-secret
@@ -224,11 +269,13 @@ not forward the Minerals private administrator on port `7979`.
 
 ## Rollback
 
-If public validation fails during the observation window, restore the previous
-DNS record and recreate only the established Caatuu runtime/tunnel services.
-The static build does not delete or rewrite their configuration, Android
-artifacts, model files, browser progress, or tunnel token. Pause further Pages
-deployments until the generated bundle is corrected and reviewed again. After
-the window succeeds, remove `caatuu-tunnel`, revoke its token, and make
-`caatuu` opt-in for loopback development and APK/API tests; do not leave either
-obsolete service on an automatic restart policy.
+If public validation fails during the observation window, first disable the new
+sender or return the CNAME to DNS-only operation while the Pages or Worker fault
+is corrected. Re-enabling the former Tunnel record is a rollback only after its
+connector has been deliberately restored and tested; the pre-cutover 1033 state
+is not usable. Recreate only the established Caatuu runtime/tunnel services if
+that recovery is explicitly chosen. The static build does not delete or rewrite
+Android artifacts, model files, or browser progress. After the window succeeds,
+delete the remote `caatuu` tunnel, revoke its connector token, remove
+`caatuu-tunnel` from Compose, and keep `caatuu` opt-in for loopback development
+and APK/API tests with restart policy `no`.

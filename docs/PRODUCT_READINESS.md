@@ -1,6 +1,6 @@
 # Caatuu product-readiness road map
 
-Last reviewed: 1 September 2026
+Last reviewed: 2 September 2026
 
 Caatuu is a public development preview. This document is the public release
 gate; it contains no personal runway, address, tax, identity-document, or
@@ -12,7 +12,7 @@ private financial information.
 | --- | --- | --- |
 | First-party software and curriculum license | `CLOSED` | `AGPL-3.0-only` covers first-party software plus Caatuu-authored English/Mandarin curriculum; third-party and separately licensed model, data, art, dependency, and brand terms remain in force |
 | Exact deployed source | `BLOCKED` | The live development checkout contains unpublished changes; do not call it a governed beta until one clean commit exactly represents the deployed first-party source |
-| Feedback collection | `PLANNED LOCAL-ONLY CUTOVER` | The planned Pages origin accepts and stores no general sentence, diagnostic, or dictionary-gap reports. Legacy full-development clients may still attempt their compiled public URLs and receive a failed static response. Before DNS cutover, the bounded dictionary-gap ledger must be frozen and backed up privately, never in the Pages or GitHub Release payload. |
+| Feedback collection | `BOUNDED EDGE CHANNEL READY` | The Pages app remains static. A separate Cloudflare Worker accepts only consented sentence reports and future-only opted-in dictionary gaps into EU D1. Old local queues are never migrated, general diagnostics remain disabled, and the private ledger stays outside Pages and GitHub Releases. |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |
 | Models and training lineage | `IN PROGRESS` | Ship only artifacts whose base revision, adapter owner, training inputs, license, hashes, and model card are complete |
 | Dictionaries and datasets | `IN PROGRESS` | Preserve source, attribution, share-alike terms, modifications, and hashes in every distribution |
@@ -56,14 +56,14 @@ private financial information.
   settled.
 - No account, analytics, sync, hosted community, or general diagnostic
   collection is added without an explicit privacy and support review.
-- Device-local feedback and dictionary-gap outboxes do not authorize remote
-  delivery. The planned Pages origin accepts and stores nothing on those
-  routes; legacy full-development clients may still attempt their compiled
-  public URLs and receive a failed static response.
-- Any deliberate local-development dictionary-gap test must remain bounded,
-  require a positive durable server acknowledgement before removing a local
-  item, expose no ledger read route, and stay separate from sentence reports
-  and device or user identifiers.
+- Device-local v1 feedback and dictionary-gap outboxes do not authorize remote
+  delivery and are never migrated. New sentence reports require per-report
+  consent; new dictionary gaps require a default-off, future-only opt-in. The
+  Worker rejects clients without the current reporting-policy marker before it
+  reads their bodies.
+- Every dictionary-gap channel must remain bounded, require a positive durable
+  acknowledgement before removing a local item, expose no ledger read route,
+  and stay separate from sentence reports and device or user identifiers.
 - External contributions do not reopen until inbound rights preserve the
   project's chosen operating and licensing options.
 

@@ -1,6 +1,6 @@
 # Caatuu development-preview privacy notice
 
-Last updated: 1 September 2026
+Last updated: 2 September 2026
 
 Caatuu is currently a development preview, not a governed public beta. It is
 operated by the individual maintainer publishing the project under the Waajacu
@@ -14,22 +14,28 @@ or product analytics. Language progress, settings, downloaded models,
 dictionaries, and similar learning data are intended to remain on the user's
 device.
 
-Caatuu keeps explicit Word World sentence reports in a device-local outbox. The
-general feedback sender remains forced offline, the server rejects
-`/api/bug-report`, and those reports are not transmitted to or collected by the
-maintainer. Enabling general diagnostic delivery still requires a separate
-implementation and privacy review; retaining a report on the device does not
-authorize its later transmission.
+Caatuu does not remotely collect general diagnostics. `/api/bug-report`
+remains retired. Existing reports in `caatuu.feedbackOutbox.v1` remain on the
+device and are never migrated to the public reporting service.
 
-Dictionary-gap observations are local-only in the Pages-hosted web product.
-The fixed Android release 162 has no dictionary-gap delivery bridge and keeps
-its observations in a dedicated device outbox. Older full-development builds
-use a legacy default URL under `https://caatuu.waajacu.com` and may continue to
-attempt delivery. After the Pages cutover, GitHub Pages has no handler for
-`POST /cz/api/dictionary/gaps`: such attempts fail, nothing is accepted or
-stored, and pending observations remain on the device. Deliberate local API
-tests require an explicit trusted-development-server override. Clearing site
-data or uninstalling the Android app removes pending local observations.
+On the public Pages website, a Word World sentence report can be sent to
+`POST /api/sentence-reports` only after the user opens the report dialog,
+reviews the field disclosure, and checks the consent box for that report. The
+accepted `caatuu.sentence-feedback-report.v1` body contains only the sentence,
+English translation, selected reason, optional comment, entry ID, content
+mode, corpus version, schema, and random report ID. It excludes the URL,
+account, device details, nearby sentences, client timestamp, model details,
+runtime state, storage state, and general diagnostic envelope. Sentence
+reports become eligible for deletion after 90 days. Because cleanup runs only
+after a later accepted report, an eligible row can remain longer during a
+period with no reporting traffic.
+
+Public web dictionary-gap sharing is off by default. A learner can turn on
+"Share future missing words" in Word World. That choice applies only to new
+observations made afterward. Previously saved records remain on the device and
+are not uploaded. Turning sharing off deletes only unsent reports in the new
+authorized queue. The fixed Android releases 162 and 163 remain local-only;
+Android reporting can change only in a future release.
 
 The report protocol is `caatuu.dictionary-gap-report.v1`. In addition to that
 schema discriminator, it carries exactly these six observation fields:
@@ -46,15 +52,24 @@ identifier, client timestamp, URL, device information, or retry metadata. As
 with every web request, the hosting infrastructure can still receive ordinary
 connection data described below.
 
-The current server validates and deduplicates accepted observations in a
-private ledger and adds server receipt timestamps. There is no public GET or
-in-app export. Before DNS is changed to Pages, the exact frozen ledger must be
-copied to a maintainer-controlled private backup and its integrity receipt must
-be verified. It must not be included in Git, the public preservation release,
-or Pages. After the Pages cutover no public route accepts new records. The
-private copy exists only to identify dictionary coverage work for a later
-reviewed patch and must not be repurposed for user tracking or general
-diagnostics.
+The narrow Cloudflare Worker validates and deduplicates accepted observations
+in an EU-jurisdiction D1 database and adds server receipt timestamps. It stores
+no account, IP address, device identifier, user agent, or referrer. Dictionary
+gaps become eligible for deletion 365 days after their latest observation and
+are removed by the same traffic-triggered cleanup. There is no public GET or
+in-app export of reports; the public health route exposes only readiness and a
+deployment version.
+
+Both reporting routes require the public policy marker
+`X-Caatuu-Reporting-Policy: 2026-09-02.v1`. Old clients do not send it and are
+rejected before their bodies are read. This prevents the appearance of the new
+route from silently uploading old local queues.
+
+The exact pre-cutover ledger remains an ignored private local artifact and was
+imported using its verified 10-record, 3,309-byte receipt. It is not in Git,
+GitHub Releases, or Pages. D1 Time Travel supplies Cloudflare's short recovery
+window. No R2 bucket or other independent hosted backup destination has been
+configured; the project must not claim that one exists.
 
 ## Network and infrastructure data
 

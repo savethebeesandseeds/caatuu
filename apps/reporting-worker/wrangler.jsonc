@@ -1,0 +1,55 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "caatuu-reporting",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-09-02",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "caatuu.waajacu.com/cz/api/dictionary/gaps*",
+      "zone_name": "waajacu.com"
+    },
+    {
+      "pattern": "caatuu.waajacu.com/api/sentence-reports*",
+      "zone_name": "waajacu.com"
+    },
+    {
+      "pattern": "caatuu.waajacu.com/api/reporting/health*",
+      "zone_name": "waajacu.com"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "caatuu-reporting-production",
+      "database_id": "577f1f9b-2c60-41ed-9025-a51a6da2b470",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "DICTIONARY_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 60,
+        "period": 60
+      }
+    },
+    {
+      "name": "SENTENCE_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 12,
+        "period": 60
+      }
+    }
+  ],
+  "vars": {
+    "SENTENCE_RETENTION_DAYS": "90",
+    "DICTIONARY_RETENTION_DAYS": "365"
+  },
+  "observability": {
+    "enabled": false
+  },
+  "send_metrics": false
+}
