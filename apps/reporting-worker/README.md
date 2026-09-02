@@ -1,14 +1,28 @@
 # Caatuu reporting Worker
 
 This is the small dynamic companion to the otherwise static GitHub Pages site.
-It does not serve the app, Android files, models, or dictionaries. It accepts
-only two write-only report protocols and exposes one data-free health route:
+It accepts only two write-only report protocols, exposes one data-free health
+route, and protects raw byte-range delivery for four immutable setup files:
 
 ```text
 POST /cz/api/dictionary/gaps
 POST /api/sentence-reports
 GET  /api/reporting/health
+GET  /cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite
+GET  /cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite
+GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx
+GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm
 ```
+
+The setup files still live in GitHub Pages. Their exact Worker routes pass the
+request to that existing origin with `Accept-Encoding: identity` and a cache
+bypass, preserve the client's `Range` and `If-Range` headers, reject a compressed
+or size-mismatched origin response, and return `no-transform`. The
+`global_fetch_private_origin` compatibility flag pins this Route-to-origin
+behavior so a future runtime default cannot loop the subrequest back through the
+public Worker route. This keeps APK 163's raw resume offsets correct without a
+second artifact store, an application server, or a background process. Every
+other static request bypasses the Worker.
 
 The Worker is named `caatuu-reporting`. Its D1 database is
 `caatuu-reporting-production` and is restricted to the European Union. The

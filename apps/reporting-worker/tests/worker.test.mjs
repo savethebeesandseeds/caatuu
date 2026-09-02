@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import { REPORTING_POLICY, SENTENCE_REPORT_SCHEMA } from "../src/contracts.mjs";
-import { handleRequest } from "../src/index.mjs";
+import { DURABLE_ASSETS, handleRequest } from "../src/index.mjs";
 
 class FakeStatement {
   constructor(database, sql, parameters = []) {
@@ -119,6 +120,27 @@ async function body(response) {
   return response.json();
 }
 
+const durableAssetPath = Object.keys(DURABLE_ASSETS)[0];
+const durableAsset = DURABLE_ASSETS[durableAssetPath];
+
+function assetRequest(headers = {}, method = "GET") {
+  return new Request(`https://caatuu.waajacu.com${durableAssetPath}`, { method, headers });
+}
+
+function partialAssetResponse(first = 1000, last = 1999, extraHeaders = {}) {
+  return new Response(new Uint8Array(last - first + 1), {
+    status: 206,
+    headers: {
+      "accept-ranges": "bytes",
+      "content-length": String(last - first + 1),
+      "content-range": `bytes ${first}-${last}/${durableAsset.bytes}`,
+      "content-type": "application/octet-stream",
+      etag: '"fixture-etag"',
+      ...extraHeaders
+    }
+  });
+}
+
 test("legacy requests are rejected before D1 or body validation", async () => {
   const env = environment();
   const request = post("/cz/api/dictionary/gaps", { expansive: true });
@@ -196,4 +218,161 @@ test("health exposes readiness and version but no report data", async () => {
   assert.equal(result.ready, true);
   assert.equal(typeof result.version, "string");
   assert.deepEqual(Object.keys(result).sort(), ["ok", "ready", "version"]);
+});
+
+test("durable assets force raw origin bytes and preserve resume headers", async () => {
+  const calls = [];
+  const first = durableAsset.bytes - 1000;
+  const last = durableAsset.bytes - 1;
+  const response = await handleRequest(
+    assetRequest({
+      "accept-encoding": "gzip, br",
+      authorization: "must-not-reach-the-public-origin",
+      cookie: "must-not-reach-the-public-origin",
+      range: `bytes=${first}-`,
+      "if-range": '"fixture-etag"'
+    }),
+    environment(),
+    {},
+    async (request) => {
+      calls.push(request);
+      return partialAssetResponse(first, last);
+    }
+  );
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].headers.get("accept-encoding"), "identity");
+  assert.equal(calls[0].headers.get("range"), `bytes=${first}-`);
+  assert.equal(calls[0].headers.get("if-range"), '"fixture-etag"');
+  assert.equal(calls[0].headers.get("authorization"), null);
+  assert.equal(calls[0].headers.get("cookie"), null);
+  assert.equal(calls[0].cache, "no-store");
+  assert.equal(response.status, 206);
+  assert.equal(response.headers.get("content-encoding"), null);
+  assert.equal(response.headers.get("content-range"), `bytes ${first}-${last}/${durableAsset.bytes}`);
+  assert.equal(response.headers.get("content-type"), durableAsset.contentType);
+  assert.match(response.headers.get("cache-control"), /no-transform/u);
+  assert.equal((await response.arrayBuffer()).byteLength, 1000);
+});
+
+test("durable assets fail closed on compressed or size-mismatched origin data", async () => {
+  const compressed = await handleRequest(
+    assetRequest({ range: "bytes=1000-1999" }),
+    environment(),
+    {},
+    async () => partialAssetResponse(1000, 1999, { "content-encoding": "gzip" })
+  );
+  assert.equal(compressed.status, 502);
+  assert.equal((await body(compressed)).error, "asset_unavailable");
+
+  const wrongTotal = await handleRequest(
+    assetRequest({ range: "bytes=1000-1999" }),
+    environment(),
+    {},
+    async () => new Response(new Uint8Array(1000), {
+      status: 206,
+      headers: {
+        "content-length": "1000",
+        "content-range": "bytes 1000-1999/39720004"
+      }
+    })
+  );
+  assert.equal(wrongTotal.status, 502);
+  assert.equal((await body(wrongTotal)).error, "asset_unavailable");
+
+  const wrongOffset = await handleRequest(
+    assetRequest({ range: "bytes=1000-1999" }),
+    environment(),
+    {},
+    async () => partialAssetResponse(2000, 2999)
+  );
+  assert.equal(wrongOffset.status, 502);
+  assert.equal((await body(wrongOffset)).error, "asset_unavailable");
+});
+
+test("durable assets validate full, head, and unsatisfied-range responses", async () => {
+  const complete = await handleRequest(
+    assetRequest({}, "HEAD"),
+    environment(),
+    {},
+    async () => new Response(null, {
+      status: 200,
+      headers: { "content-length": String(durableAsset.bytes) }
+    })
+  );
+  assert.equal(complete.status, 200);
+  assert.equal(complete.headers.get("content-length"), String(durableAsset.bytes));
+  assert.equal(complete.body, null);
+
+  const unsatisfied = await handleRequest(
+    assetRequest({ range: `bytes=${durableAsset.bytes}-` }),
+    environment(),
+    {},
+    async () => new Response(null, {
+      status: 416,
+      headers: { "content-range": `bytes */${durableAsset.bytes}` }
+    })
+  );
+  assert.equal(unsatisfied.status, 416);
+  assert.equal(unsatisfied.headers.get("content-range"), `bytes */${durableAsset.bytes}`);
+
+  const staleIfRange = await handleRequest(
+    assetRequest({ range: "bytes=1000-", "if-range": '"stale-etag"' }),
+    environment(),
+    {},
+    async () => new Response(null, {
+      status: 200,
+      headers: { "content-length": String(durableAsset.bytes) }
+    })
+  );
+  assert.equal(staleIfRange.status, 200);
+  assert.equal(staleIfRange.headers.get("content-length"), String(durableAsset.bytes));
+});
+
+test("durable asset routes reject writes without invoking the origin", async () => {
+  let called = false;
+  const response = await handleRequest(
+    assetRequest({}, "POST"),
+    environment(),
+    {},
+    async () => {
+      called = true;
+      return new Response();
+    }
+  );
+  assert.equal(response.status, 405);
+  assert.equal(called, false);
+});
+
+test("durable asset query URLs stay inside the exact Worker boundary", async () => {
+  const path = "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite";
+  const asset = DURABLE_ASSETS[path];
+  let upstreamUrl = "";
+  const response = await handleRequest(
+    new Request(`https://caatuu.waajacu.com${path}?v=d30277c5`, {
+      headers: { range: "bytes=0-0" }
+    }),
+    environment(),
+    {},
+    async (request) => {
+      upstreamUrl = request.url;
+      return new Response(new Uint8Array(1), {
+        status: 206,
+        headers: {
+          "content-length": "1",
+          "content-range": `bytes 0-0/${asset.bytes}`
+        }
+      });
+    }
+  );
+  assert.equal(response.status, 206);
+  assert.equal(upstreamUrl, `https://caatuu.waajacu.com${path}?v=d30277c5`);
+
+  const config = JSON.parse(readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
+  const configuredPatterns = new Set(config.routes.map(({ pattern }) => pattern));
+  for (const assetPath of Object.keys(DURABLE_ASSETS)) {
+    assert.ok(
+      configuredPatterns.has(`caatuu.waajacu.com${assetPath}*`),
+      `missing query-safe Worker route for ${assetPath}`
+    );
+  }
 });

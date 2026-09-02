@@ -7,12 +7,31 @@ import {
   validateSentenceReport
 } from "./contracts.mjs";
 
-export const DEPLOYMENT_VERSION = "2026-09-02.v1";
+export const DEPLOYMENT_VERSION = "2026-09-03.v2";
 
 const routes = Object.freeze({
   dictionary: "/cz/api/dictionary/gaps",
   sentence: "/api/sentence-reports",
   health: "/api/reporting/health"
+});
+
+export const DURABLE_ASSETS = Object.freeze({
+  "/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite": Object.freeze({
+    bytes: 143106048,
+    contentType: "application/vnd.sqlite3"
+  }),
+  "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite": Object.freeze({
+    bytes: 20029440,
+    contentType: "application/vnd.sqlite3"
+  }),
+  "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx": Object.freeze({
+    bytes: 23026053,
+    contentType: "application/octet-stream"
+  }),
+  "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm": Object.freeze({
+    bytes: 12942611,
+    contentType: "application/wasm"
+  })
 });
 
 const responseHeaders = Object.freeze({
@@ -32,6 +51,8 @@ class RequestError extends Error {
   }
 }
 
+class AssetDeliveryError extends Error {}
+
 function json(status, body, extraHeaders = {}) {
   return new Response(`${JSON.stringify(body)}\n`, {
     status,
@@ -40,6 +61,13 @@ function json(status, body, extraHeaders = {}) {
 }
 
 function fail(error) {
+  if (error instanceof AssetDeliveryError) {
+    return json(502, {
+      ok: false,
+      error: "asset_unavailable",
+      message: "The setup file could not be delivered safely."
+    });
+  }
   if (error instanceof RequestError) {
     return json(error.status, {
       ok: false,
@@ -54,6 +82,125 @@ function fail(error) {
     stored: false,
     error: "storage_unavailable",
     message: "The report could not be stored."
+  });
+}
+
+function rawAssetHeaders(headers, asset) {
+  const result = new Headers(headers);
+  result.delete("content-encoding");
+  result.set("accept-ranges", "bytes");
+  result.set("cache-control", "public, max-age=31536000, immutable, no-transform");
+  result.set("content-type", asset.contentType);
+  result.set("x-content-type-options", "nosniff");
+  return result;
+}
+
+function requestedRawRange(value, bytes) {
+  if (!value) return null;
+  const match = /^bytes=(\d*)-(\d*)$/iu.exec(value.trim());
+  if (!match || (!match[1] && !match[2])) return { valid: false, satisfiable: false };
+  if (match[1]) {
+    const first = Number(match[1]);
+    const requestedLast = match[2] ? Number(match[2]) : bytes - 1;
+    if (!Number.isSafeInteger(first) || !Number.isSafeInteger(requestedLast)) {
+      return { valid: false, satisfiable: false };
+    }
+    if (first >= bytes || requestedLast < first) {
+      return { valid: true, satisfiable: false };
+    }
+    return { valid: true, satisfiable: true, first, last: Math.min(requestedLast, bytes - 1) };
+  }
+  const suffixBytes = Number(match[2]);
+  if (!Number.isSafeInteger(suffixBytes) || suffixBytes <= 0) {
+    return { valid: true, satisfiable: false };
+  }
+  return {
+    valid: true,
+    satisfiable: true,
+    first: Math.max(bytes - suffixBytes, 0),
+    last: bytes - 1
+  };
+}
+
+function assertRawAssetResponse(request, response, asset) {
+  const encoding = response.headers.get("content-encoding");
+  if (encoding && encoding.toLowerCase() !== "identity") {
+    throw new AssetDeliveryError("The origin returned an encoded representation.");
+  }
+
+  const requestedRange = requestedRawRange(request.headers.get("range"), asset.bytes);
+
+  if (response.status === 304) return;
+
+  if (response.status === 416) {
+    if (!requestedRange || requestedRange.satisfiable) {
+      throw new AssetDeliveryError("The origin rejected a satisfiable representation.");
+    }
+    if (response.headers.get("content-range") !== `bytes */${asset.bytes}`) {
+      throw new AssetDeliveryError("The origin returned the wrong unsatisfied range size.");
+    }
+    return;
+  }
+
+  if (response.status === 206) {
+    if (!requestedRange?.valid || !requestedRange.satisfiable) {
+      throw new AssetDeliveryError("The origin returned an unsolicited partial response.");
+    }
+    const match = /^bytes (\d+)-(\d+)\/(\d+)$/u.exec(response.headers.get("content-range") || "");
+    if (!match || Number(match[3]) !== asset.bytes) {
+      throw new AssetDeliveryError("The origin returned the wrong partial-file size.");
+    }
+    const first = Number(match[1]);
+    const last = Number(match[2]);
+    const contentLength = Number(response.headers.get("content-length"));
+    if (
+      first !== requestedRange.first ||
+      last !== requestedRange.last ||
+      contentLength !== last - first + 1
+    ) {
+      throw new AssetDeliveryError("The origin returned an inconsistent partial response.");
+    }
+    return;
+  }
+
+  if (response.status !== 200 || (requestedRange && !request.headers.has("if-range"))) {
+    throw new AssetDeliveryError("The origin did not honor the requested representation.");
+  }
+  if (Number(response.headers.get("content-length")) !== asset.bytes) {
+    throw new AssetDeliveryError("The origin returned the wrong complete-file size.");
+  }
+}
+
+async function handleDurableAsset(request, asset, fetchImpl) {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    throw new RequestError(405, "method_not_allowed", "Use GET or HEAD for this route.");
+  }
+  const headers = new Headers({ "accept-encoding": "identity" });
+  for (const name of ["range", "if-range", "if-match", "if-none-match", "if-modified-since", "if-unmodified-since"]) {
+    const value = request.headers.get(name);
+    if (value) headers.set(name, value);
+  }
+  const upstreamRequest = new Request(request.url, {
+    method: request.method,
+    headers,
+    cache: "no-store"
+  });
+  let upstreamResponse;
+  try {
+    upstreamResponse = await fetchImpl(upstreamRequest);
+  } catch (error) {
+    throw new AssetDeliveryError("The origin request failed.", { cause: error });
+  }
+  try {
+    assertRawAssetResponse(request, upstreamResponse, asset);
+  } catch (error) {
+    await upstreamResponse.body?.cancel().catch(() => {});
+    throw error;
+  }
+  return new Response(request.method === "HEAD" ? null : upstreamResponse.body, {
+    status: upstreamResponse.status,
+    statusText: upstreamResponse.statusText,
+    headers: rawAssetHeaders(upstreamResponse.headers, asset)
   });
 }
 
@@ -266,9 +413,11 @@ async function handlePost(request, env, context, url, kind) {
   return json(200, { ok: true, stored: true, deduplicated: stored.deduplicated });
 }
 
-export async function handleRequest(request, env, context = {}) {
+export async function handleRequest(request, env, context = {}, fetchImpl = fetch) {
   try {
     const url = new URL(request.url);
+    const asset = DURABLE_ASSETS[url.pathname];
+    if (asset) return await handleDurableAsset(request, asset, fetchImpl);
     if (url.pathname === routes.health) return await handleHealth(request, env, url);
     if (url.pathname === routes.dictionary) return await handlePost(request, env, context, url, "dictionary");
     if (url.pathname === routes.sentence) return await handlePost(request, env, context, url, "sentence");
