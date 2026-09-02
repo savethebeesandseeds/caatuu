@@ -85,6 +85,12 @@ transition 161 remains at its compatibility path and technical
 asset release gates pass. Dynamic application APIs are not added; only the
 three reporting routes are owned by the Cloudflare Worker.
 
+The Pages-only product overlay may defer local source copies of setup-delivered
+embedding binaries that Git intentionally excludes. It still requires their
+catalog receipts, and the frozen archive plus final Pages validation must supply
+and match every declared byte and SHA-256. Normal Android product builds keep
+the stricter default and fail when those local runtime files are absent.
+
 ## Hosting boundary
 
 The UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths. Publication therefore

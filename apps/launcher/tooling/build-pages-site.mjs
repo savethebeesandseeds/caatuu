@@ -499,7 +499,11 @@ function overlayMandarinWebProduct({ workspaceRoot, siteDir, canonicalOrigin }) 
   const temporaryRoot = mkdtempSync(join(tmpdir(), "caatuu-pages-product-"));
   const productDir = join(temporaryRoot, "product-bundle");
   try {
-    compileProductAssetBundle({ workspaceRoot, outputDir: productDir });
+    compileProductAssetBundle({
+      workspaceRoot,
+      outputDir: productDir,
+      allowMissingSetupDeliveredRuntimeFiles: true,
+    });
     const courseDir = join(productDir, `courses/${mandarinCourseId}`);
     assert.ok(existsSync(courseDir), "Product bundle is missing the Mandarin course");
     for (const path of allFiles(courseDir)) {

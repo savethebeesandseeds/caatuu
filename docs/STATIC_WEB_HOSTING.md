@@ -130,6 +130,11 @@ Czech and Mandarin setup manifests embedded in APK 163 against the final static
 site. The current Agreement artwork is retained at a content-addressed path so
 the old Android URL can keep its release-162 bytes.
 
+The Pages workflow does not require Git-ignored local copies of the large ONNX
+and WASM setup-delivered files. It reads their tracked catalog receipts, then
+requires the frozen archive to provide the exact declared bytes and SHA-256.
+The ordinary Android product builder retains the stricter local-file check.
+
 | Consumer | Public URL | Bytes | SHA-256 |
 | --- | --- | ---: | --- |
 | Android release 162 | `/assets/planets/agreement-aurora.png` | 1,511,588 | `abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6` |

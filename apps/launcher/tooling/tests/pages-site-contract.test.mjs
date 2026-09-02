@@ -5,6 +5,7 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { verifyEmbeddingRuntimeArtifactSource } from "../../../android/tooling/build-product-assets.mjs";
 import {
   compilePagesSite,
   deriveMandarinPagesCacheName,
@@ -32,7 +33,43 @@ test("the Pages builder accepts one frozen baseline plus one pinned current rele
   assert.match(source, /currentReleaseDescriptorPath/u);
   assert.match(source, /compileProductAssetBundle/u);
   assert.match(source, /overlayMandarinWebProduct/u);
+  assert.match(source, /allowMissingSetupDeliveredRuntimeFiles: true/u);
   assert.match(source, /prepared\?\.cleanup\(\)/u);
+});
+
+test("only the Pages product overlay may defer an absent setup-delivered runtime file", () => {
+  const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-runtime-source-test-"));
+  const runtimePath = join(temporaryDirectory, "runtime.bin");
+  const artifact = {
+    bytes: 0,
+    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  };
+  const options = { source: runtimePath, artifact, artifactPath: "models/fixture/runtime.bin" };
+  try {
+    assert.throws(
+      () => verifyEmbeddingRuntimeArtifactSource(options),
+      /embedding runtime artifact is missing/u,
+    );
+    assert.equal(
+      verifyEmbeddingRuntimeArtifactSource({
+        ...options,
+        allowMissingSetupDeliveredRuntimeFiles: true,
+      }),
+      false,
+    );
+    writeFileSync(runtimePath, "not empty");
+    assert.throws(
+      () => verifyEmbeddingRuntimeArtifactSource({
+        ...options,
+        allowMissingSetupDeliveredRuntimeFiles: true,
+      }),
+      /byte count drifted/u,
+    );
+    writeFileSync(runtimePath, "");
+    assert.equal(verifyEmbeddingRuntimeArtifactSource(options), true);
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
 });
 
 test("the Pages builder keeps every Android release exact and outside service-worker handling", () => {

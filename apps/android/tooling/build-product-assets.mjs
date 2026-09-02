@@ -521,7 +521,30 @@ function sha256File(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
-function loadEmbeddingRuntimeAssets(workspaceRoot) {
+export function verifyEmbeddingRuntimeArtifactSource({
+  source,
+  artifact,
+  artifactPath,
+  allowMissingSetupDeliveredRuntimeFiles = false,
+}) {
+  assert.match(String(artifact.sha256 || ""), /^[a-f\d]{64}$/, `embedding runtime artifact hash is invalid: ${artifactPath}`);
+  if (!existsSync(source)) {
+    assert.ok(
+      allowMissingSetupDeliveredRuntimeFiles,
+      `embedding runtime artifact is missing: ${source}`,
+    );
+    return false;
+  }
+  assert.ok(statSync(source).isFile(), `embedding runtime artifact is not a file: ${source}`);
+  assert.equal(statSync(source).size, artifact.bytes, `embedding runtime artifact byte count drifted: ${artifactPath}`);
+  assert.equal(sha256File(source), artifact.sha256, `embedding runtime artifact hash drifted: ${artifactPath}`);
+  return true;
+}
+
+function loadEmbeddingRuntimeAssets(
+  workspaceRoot,
+  { allowMissingSetupDeliveredRuntimeFiles = false } = {},
+) {
   const catalogPath = confinedWorkspacePath(
     workspaceRoot,
     EMBEDDING_RUNTIME_CATALOG_PATH,
@@ -562,10 +585,12 @@ function loadEmbeddingRuntimeAssets(workspaceRoot) {
         `apps/language-runtime/${artifactPath}`,
         `embedding runtime artifact ${artifactPath}`,
       );
-      assert.ok(statSync(source).isFile(), `embedding runtime artifact is not a file: ${source}`);
-      assert.equal(statSync(source).size, artifact.bytes, `embedding runtime artifact byte count drifted: ${artifactPath}`);
-      assert.match(String(artifact.sha256 || ""), /^[a-f\d]{64}$/, `embedding runtime artifact hash is invalid: ${artifactPath}`);
-      assert.equal(sha256File(source), artifact.sha256, `embedding runtime artifact hash drifted: ${artifactPath}`);
+      verifyEmbeddingRuntimeArtifactSource({
+        source,
+        artifact,
+        artifactPath,
+        allowMissingSetupDeliveredRuntimeFiles,
+      });
       const output = `language-runtime/${artifactPath}`;
       assert.ok(!outputs.has(output), `duplicate embedding runtime artifact output: ${output}`);
       outputs.add(output);
@@ -641,6 +666,7 @@ export function loadAndroidCourseBundleConfiguration({
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+  allowMissingSetupDeliveredRuntimeFiles = false,
 } = {}) {
   const resolvedWorkspace = realpathSync(resolve(workspaceRoot));
   const resolvedBundlePath = confinedWorkspacePath(
@@ -684,7 +710,7 @@ export function loadAndroidCourseBundleConfiguration({
     nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1"
   );
   const embeddingRuntime = needsWebViewMiniLm
-    ? loadEmbeddingRuntimeAssets(resolvedWorkspace)
+    ? loadEmbeddingRuntimeAssets(resolvedWorkspace, { allowMissingSetupDeliveredRuntimeFiles })
     : Object.freeze({ catalogPath: null, catalog: null, runtimeIds: Object.freeze(new Set()), assets: Object.freeze([]) });
   for (const configuration of configurations) {
     const provider = configuration.nativeProviders.providers.embeddings;
@@ -1910,12 +1936,14 @@ export function validateProductAssetBundle({
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+  allowMissingSetupDeliveredRuntimeFiles = false,
   configuration,
 }) {
   const bundle = configuration || loadAndroidCourseBundleConfiguration({
     workspaceRoot,
     courseBundlePath,
     launcherStaticDir,
+    allowMissingSetupDeliveredRuntimeFiles,
   });
   const resolvedOutput = resolve(outputDir);
   assert.ok(existsSync(resolvedOutput), `Product bundle output does not exist: ${resolvedOutput}`);
@@ -2105,11 +2133,13 @@ export function compileProductAssetBundle({
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product"),
+  allowMissingSetupDeliveredRuntimeFiles = false,
 } = {}) {
   const bundle = loadAndroidCourseBundleConfiguration({
     workspaceRoot,
     courseBundlePath,
     launcherStaticDir,
+    allowMissingSetupDeliveredRuntimeFiles,
   });
   const resolvedOutput = resolve(outputDir);
   for (const configuration of bundle.configurations) {
