@@ -7,7 +7,7 @@ import {
   validateSentenceReport
 } from "./contracts.mjs";
 
-export const DEPLOYMENT_VERSION = "2026-09-03.v4";
+export const DEPLOYMENT_VERSION = "2026-09-03.v5";
 
 const DURABLE_ASSET_RELEASE_BASE_URL =
   "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1";
@@ -102,29 +102,37 @@ function rawAssetHeaders(headers, asset) {
   return result;
 }
 
+function normalizedDecimal(value) {
+  return value.replace(/^0+/u, "") || "0";
+}
+
+function decimalAtLeast(value, limit) {
+  const limitValue = String(limit);
+  return value.length > limitValue.length || (value.length === limitValue.length && value >= limitValue);
+}
+
 function requestedRawRange(value, bytes) {
   if (!value) return null;
   const match = /^bytes=(\d*)-(\d*)$/iu.exec(value.trim());
   if (!match || (!match[1] && !match[2])) return { valid: false, satisfiable: false };
   if (match[1]) {
-    const first = Number(match[1]);
-    const requestedLast = match[2] ? Number(match[2]) : bytes - 1;
-    if (!Number.isSafeInteger(first) || !Number.isSafeInteger(requestedLast)) {
-      return { valid: false, satisfiable: false };
-    }
-    if (first >= bytes || requestedLast < first) {
+    const firstValue = normalizedDecimal(match[1]);
+    if (decimalAtLeast(firstValue, bytes)) {
       return { valid: true, satisfiable: false };
     }
-    return { valid: true, satisfiable: true, first, last: Math.min(requestedLast, bytes - 1) };
+    const first = Number(firstValue);
+    const last = !match[2] || decimalAtLeast(normalizedDecimal(match[2]), bytes)
+      ? bytes - 1
+      : Number(normalizedDecimal(match[2]));
+    if (last < first) return { valid: true, satisfiable: false };
+    return { valid: true, satisfiable: true, first, last };
   }
-  const suffixBytes = Number(match[2]);
-  if (!Number.isSafeInteger(suffixBytes) || suffixBytes <= 0) {
-    return { valid: true, satisfiable: false };
-  }
+  const suffixValue = normalizedDecimal(match[2]);
+  if (suffixValue === "0") return { valid: true, satisfiable: false };
   return {
     valid: true,
     satisfiable: true,
-    first: Math.max(bytes - suffixBytes, 0),
+    first: decimalAtLeast(suffixValue, bytes) ? 0 : bytes - Number(suffixValue),
     last: bytes - 1,
     suffix: true
   };

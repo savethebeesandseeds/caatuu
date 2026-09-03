@@ -293,11 +293,11 @@ test("durable asset suffix ranges use an equivalent explicit upstream interval",
   assert.equal((await response.arrayBuffer()).byteLength, 1000);
 });
 
-test("a suffix at least as large as the asset translates to the full explicit interval", async () => {
+test("an arbitrarily large suffix translates to the full explicit interval", async () => {
   const last = durableAsset.bytes - 1;
   let upstreamRange = "";
   const response = await handleRequest(
-    assetRequest({ range: `bytes=-${durableAsset.bytes + 1}` }),
+    assetRequest({ range: "bytes=-9007199254740992" }),
     environment(),
     {},
     async (request) => {
