@@ -144,7 +144,7 @@ function Assert-MainOnlyInvariant {
     if ((Get-GitOutput @("symbolic-ref", "--short", "HEAD") "branch check").Trim() -ne "main") {
         throw "Android publication must run on main."
     }
-    $localHeads = Get-NonEmptyLines (Get-GitOutput @("for-each-ref", "--format=%(refname)", "refs/heads") "local branch inventory")
+    $localHeads = @(Get-NonEmptyLines (Get-GitOutput @("for-each-ref", "--format=%(refname)", "refs/heads") "local branch inventory"))
     Assert-OnePath $localHeads "refs/heads/main" "Local branches"
     $remoteRefs = @(Get-NonEmptyLines (Get-GitOutput @("for-each-ref", "--format=%(refname)", "refs/remotes") "remote-tracking inventory") |
         Where-Object { $_ -notmatch '/HEAD$' })
@@ -159,7 +159,7 @@ function Assert-MainOnlyInvariant {
         throw "origin must be exactly $ExpectedOrigin"
     }
     if ($CheckRemote) {
-        $remoteHeads = Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--heads", "origin") "remote branch inventory")
+        $remoteHeads = @(Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--heads", "origin") "remote branch inventory"))
         if ($remoteHeads.Count -ne 1 -or $remoteHeads[0] -notmatch '\srefs/heads/main$') {
             throw "The GitHub repository must expose only refs/heads/main."
         }
@@ -167,7 +167,7 @@ function Assert-MainOnlyInvariant {
 }
 
 function Get-WorktreeState {
-    $statusLines = Get-NonEmptyLines (Get-GitOutput @("status", "--porcelain=v1", "--untracked-files=all") "git status")
+    $statusLines = @(Get-NonEmptyLines (Get-GitOutput @("status", "--porcelain=v1", "--untracked-files=all") "git status"))
     $counts = (Get-GitOutput @("rev-list", "--left-right", "--count", "refs/remotes/origin/main...HEAD") "git divergence check").Trim() -split "\s+"
     if ($counts.Count -ne 2) { throw "Could not read main's remote divergence." }
     $behind = [int]$counts[0]
@@ -183,7 +183,7 @@ function Get-WorktreeState {
         return [pscustomobject]@{ Kind = "pending-descriptor"; Ahead = 0; Behind = 0 }
     }
     if ($statusLines.Count -eq 0 -and $behind -eq 0 -and $ahead -eq 1) {
-        $changed = Get-NonEmptyLines (Get-GitOutput @("diff", "--name-only", "refs/remotes/origin/main..HEAD") "pending commit inspection")
+        $changed = @(Get-NonEmptyLines (Get-GitOutput @("diff", "--name-only", "refs/remotes/origin/main..HEAD") "pending commit inspection"))
         Assert-OnePath $changed $DescriptorRelativePath "The one pending deployment commit"
         return [pscustomobject]@{ Kind = "pending-commit"; Ahead = 1; Behind = 0 }
     }
@@ -256,9 +256,18 @@ function Assert-ExactCandidateSource {
 
 function Get-GitHubRelease {
     param([string]$Tag, [switch]$AllowMissing)
-    $result = Invoke-NativeResult -File "gh" -Arguments @("api", "repos/$Repository/releases/tags/$Tag")
+    $result = Invoke-NativeResult -File "gh" -Arguments @(
+        "release", "view", $Tag, "--repo", $Repository,
+        "--json", "tagName,isDraft,isPrerelease,assets"
+    )
     if ($result.Code -eq 0) {
-        return ConvertFrom-CheckedJson $result.Output "GitHub Release lookup"
+        $view = ConvertFrom-CheckedJson $result.Output "GitHub Release lookup"
+        return [pscustomobject]@{
+            tag_name   = [string]$view.tagName
+            draft      = [bool]$view.isDraft
+            prerelease = [bool]$view.isPrerelease
+            assets     = @($view.assets)
+        }
     }
     if ($AllowMissing -and $result.Output -match '(?i)(HTTP\s+404|not found)') { return $null }
     throw "GitHub Release lookup failed with exit code $($result.Code).`n$($result.Output)"
@@ -500,7 +509,7 @@ try {
                 throw "The repository changed before staging the Pages descriptor."
             }
             [void](Get-GitOutput @("add", "--", $DescriptorRelativePath) "stage Pages descriptor")
-            $staged = Get-NonEmptyLines (Get-GitOutput @("diff", "--cached", "--name-only") "staged path inspection")
+            $staged = @(Get-NonEmptyLines (Get-GitOutput @("diff", "--cached", "--name-only") "staged path inspection"))
             Assert-OnePath $staged $DescriptorRelativePath "Staged deployment paths"
             Assert-MainOnlyInvariant -CheckRemote
             if ((Get-WorktreeState).Kind -ne "pending-descriptor") {
@@ -535,7 +544,7 @@ try {
         $githubMain = (Invoke-Checked -File "gh" -Arguments @("api", "repos/$Repository/commits/main", "--jq", ".sha") -Label "GitHub main before release").Trim()
         if ($githubMain -ne $script:head) { throw "GitHub main changed before GitHub Release publication." }
         $tag = [string]$script:candidate.tag
-        $remoteTagLines = Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--tags", "origin", "refs/tags/$tag", "refs/tags/$tag^{}") "release tag lookup")
+        $remoteTagLines = @(Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--tags", "origin", "refs/tags/$tag", "refs/tags/$tag^{}") "release tag lookup"))
         if ($remoteTagLines.Count -eq 0) {
             Assert-MainOnlyInvariant -CheckRemote
             if ((Get-WorktreeState).Kind -ne "clean") { throw "The repository changed before release tag publication." }
@@ -545,7 +554,7 @@ try {
             if ($githubMain -ne $script:head) { throw "GitHub main changed before release tag publication." }
             $pushTag = Invoke-NativeResult -File "git" -Arguments @("-C", $ExpectedRepositoryRoot, "push", "origin", "$($script:head):refs/tags/$tag")
             if ($pushTag.Code -ne 0) {
-                $remoteTagLines = Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--tags", "origin", "refs/tags/$tag", "refs/tags/$tag^{}") "release tag race check")
+                $remoteTagLines = @(Get-NonEmptyLines (Get-GitOutput @("ls-remote", "--tags", "origin", "refs/tags/$tag", "refs/tags/$tag^{}") "release tag race check"))
                 if ($remoteTagLines.Count -eq 0) { throw "Release tag creation failed.`n$($pushTag.Output)" }
             }
         }

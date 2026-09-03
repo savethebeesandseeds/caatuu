@@ -27,6 +27,10 @@ test("deployer fails closed on concurrency, repository identity, and shared-tree
   assert.match(source, /pending-descriptor/u);
   assert.match(source, /pending-commit/u);
   assert.match(source, /Assert-ExactDescriptorAdvance/u);
+  assert.doesNotMatch(source, /\$[A-Za-z][A-Za-z0-9]*\s*=\s*Get-NonEmptyLines\s/u);
+  assert.match(source, /\$remoteHeads\s*=\s*@\(Get-NonEmptyLines/u);
+  assert.match(source, /\$statusLines\s*=\s*@\(Get-NonEmptyLines/u);
+  assert.match(source, /\$remoteTagLines\s*=\s*@\(Get-NonEmptyLines/u);
   assert.ok((source.match(/Assert-MainOnlyInvariant\s+-CheckRemote/gu) || []).length >= 6);
   assert.ok((source.match(/Get-WorktreeState/gu) || []).length >= 8);
 });
@@ -64,6 +68,12 @@ test("deployer scopes the only source commit and uses ordinary main pushes", () 
 test("GitHub publication is draft-first, immutable, digest-checked, and resumable", () => {
   assert.match(source, /"gh"[\s\S]*"auth",\s*"status",\s*"--hostname",\s*"github\.com"/u);
   assert.doesNotMatch(source, /"auth",\s*"login"/u);
+  assert.match(source, /"release",\s*"view",\s*\$Tag[\s\S]*"--json",\s*"tagName,isDraft,isPrerelease,assets"/u);
+  assert.match(source, /tag_name\s*=\s*\[string\]\$view\.tagName/u);
+  assert.match(source, /draft\s*=\s*\[bool\]\$view\.isDraft/u);
+  assert.match(source, /prerelease\s*=\s*\[bool\]\$view\.isPrerelease/u);
+  assert.match(source, /assets\s*=\s*@\(\$view\.assets\)/u);
+  assert.doesNotMatch(source, /repos\/\$Repository\/releases\/tags/u);
   assert.match(source, /"release",\s*"create"[\s\S]*"--verify-tag"[\s\S]*"--draft"/u);
   assert.match(source, /"release",\s*"upload"/u);
   assert.match(source, /ContainsKey\(\$name\)/u);

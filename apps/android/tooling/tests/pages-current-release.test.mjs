@@ -16,6 +16,14 @@ import {
 
 const descriptor = JSON.parse(await readFile(new URL("../pages-current-release.json", import.meta.url), "utf8"));
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
+const descriptorVersionCodes = descriptor.releases.map((release) => release.versionCode);
+const currentRelease = descriptor.releases[descriptor.releases.length - 1];
+const currentVersionCode = currentRelease.versionCode;
+const previousStableVersionCode = descriptor.releases.length > 1
+  ? descriptor.releases[descriptor.releases.length - 2].versionCode
+  : descriptor.baselineStableVersionCode;
+const nextVersionCode = currentVersionCode + 1;
+const followingVersionCode = nextVersionCode + 1;
 
 function futureRelease(versionCode, digestOffset = 0) {
   const digest = (offset) => ((digestOffset + offset) % 10).toString().repeat(64);
@@ -29,7 +37,7 @@ function futureRelease(versionCode, digestOffset = 0) {
   };
 }
 
-async function candidateFixture(versionCode = 164) {
+async function candidateFixture(versionCode = nextVersionCode) {
   const workspaceRoot = await mkdtemp(join(tmpdir(), "caatuu-pages-release-"));
   const releaseDir = join(workspaceRoot, "artifacts", "android", "releases", String(versionCode));
   await mkdir(releaseDir, { recursive: true });
@@ -100,50 +108,53 @@ async function candidateFixture(versionCode = 164) {
 test("Pages stores an ordered overlay list and derives all release locations", () => {
   const value = validatePagesCurrentReleaseDescriptor(descriptor);
   assert.equal(value.schemaVersion, 2);
-  assert.equal(value.releases.length, 1);
-  assert.equal(value.stable.versionCode, 163);
-  assert.equal(value.previousStableVersionCode, 162);
-  assert.equal(value.compatibilityVersionCode, 161);
-  assert.equal(value.githubRelease.tag, "caatuu-android-v163");
+  assert.equal(value.releases.length, descriptor.releases.length);
+  assert.equal(value.stable.versionCode, currentVersionCode);
+  assert.equal(value.previousStableVersionCode, previousStableVersionCode);
+  assert.equal(value.compatibilityVersionCode, descriptor.compatibilityVersionCode);
+  assert.equal(value.githubRelease.tag, `caatuu-android-v${currentVersionCode}`);
   assert.deepEqual(value.stable.apk.publicPaths, [
-    "android/releases/163/caatuu.apk",
+    `android/releases/${currentVersionCode}/caatuu.apk`,
     "android/caatuu.apk",
   ]);
-  assert.equal(value.releases[0].apk.sourcePath, "artifacts/android/releases/163/caatuu.apk");
-  assert.equal(value.releases[0].apk.releaseAssetName, "caatuu-163.apk");
+  assert.equal(value.stable.apk.sourcePath, `artifacts/android/releases/${currentVersionCode}/caatuu.apk`);
+  assert.equal(value.stable.apk.releaseAssetName, `caatuu-${currentVersionCode}.apk`);
   assert.equal(
-    value.releases[0].apk.downloadUrl,
-    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/caatuu-163.apk",
+    value.stable.apk.downloadUrl,
+    `https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v${currentVersionCode}/caatuu-${currentVersionCode}.apk`,
   );
 });
 
 test("the validated download plan contains every derived immutable release asset", () => {
   const plan = pagesCurrentReleaseDownloadPlan(descriptor);
-  assert.equal(plan.currentVersionCode, 163);
-  assert.equal(plan.assets.length, 3);
-  assert.deepEqual(plan.assets.map((asset) => asset.kind), ["apk", "manifest", "receipt"]);
-  assert.ok(plan.assets.every((asset) => asset.versionCode === 163));
+  assert.equal(plan.currentVersionCode, currentVersionCode);
+  assert.equal(plan.assets.length, descriptor.releases.length * 3);
+  assert.deepEqual(
+    plan.assets.map((asset) => asset.kind),
+    descriptor.releases.flatMap(() => ["apk", "manifest", "receipt"]),
+  );
+  assert.ok(plan.assets.every((asset) => descriptorVersionCodes.includes(asset.versionCode)));
   assert.ok(plan.assets.every((asset) => asset.downloadUrl.startsWith(
-    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/",
+    `https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v${asset.versionCode}/`,
   )));
 });
 
 test("multiple releases retain every immutable path while only the newest receives stable aliases", () => {
-  const stored = { ...structuredClone(descriptor), releases: [...descriptor.releases, futureRelease(164)] };
+  const stored = { ...structuredClone(descriptor), releases: [...descriptor.releases, futureRelease(nextVersionCode)] };
   const value = validatePagesCurrentReleaseDescriptor(stored);
-  assert.equal(value.previousStableVersionCode, 163);
-  assert.deepEqual(value.releases.map((release) => release.apk.publicPaths), [
-    ["android/releases/163/caatuu.apk"],
-    ["android/releases/164/caatuu.apk"],
-  ]);
+  assert.equal(value.previousStableVersionCode, currentVersionCode);
+  assert.deepEqual(
+    value.releases.map((release) => release.apk.publicPaths),
+    [...descriptorVersionCodes, nextVersionCode].map((versionCode) => [`android/releases/${versionCode}/caatuu.apk`]),
+  );
   assert.deepEqual(value.stable.apk.publicPaths, [
-    "android/releases/164/caatuu.apk",
+    `android/releases/${nextVersionCode}/caatuu.apk`,
     "android/caatuu.apk",
   ]);
-  assert.equal(value.stable.versionCode, 164);
+  assert.equal(value.stable.versionCode, nextVersionCode);
   assert.deepEqual(
     pagesCurrentReleaseDownloadPlan(stored).releases.map((release) => release.versionCode),
-    [163, 164],
+    [...descriptorVersionCodes, nextVersionCode],
   );
 });
 
@@ -173,29 +184,32 @@ test("the initial immutable release cannot be removed, replaced, or hash-drifted
 });
 
 test("release-history comparison accepts only an exact prefix plus appended releases", () => {
-  const with164 = { ...structuredClone(descriptor), releases: [...descriptor.releases, futureRelease(164)] };
-  const with165 = { ...structuredClone(with164), releases: [...with164.releases, futureRelease(165, 4)] };
+  const withNext = { ...structuredClone(descriptor), releases: [...descriptor.releases, futureRelease(nextVersionCode)] };
+  const withFollowing = {
+    ...structuredClone(withNext),
+    releases: [...withNext.releases, futureRelease(followingVersionCode, 4)],
+  };
   assert.deepEqual(assertPagesReleaseHistoryPrefix(descriptor, descriptor), {
-    previousReleaseCount: 1,
-    nextReleaseCount: 1,
+    previousReleaseCount: descriptor.releases.length,
+    nextReleaseCount: descriptor.releases.length,
     addedVersionCodes: [],
-    currentVersionCode: 163,
+    currentVersionCode,
   });
-  assert.deepEqual(assertPagesReleaseHistoryPrefix(descriptor, with165), {
-    previousReleaseCount: 1,
-    nextReleaseCount: 3,
-    addedVersionCodes: [164, 165],
-    currentVersionCode: 165,
+  assert.deepEqual(assertPagesReleaseHistoryPrefix(descriptor, withFollowing), {
+    previousReleaseCount: descriptor.releases.length,
+    nextReleaseCount: descriptor.releases.length + 2,
+    addedVersionCodes: [nextVersionCode, followingVersionCode],
+    currentVersionCode: followingVersionCode,
   });
   assert.throws(
-    () => assertPagesReleaseHistoryPrefix(with164, descriptor),
+    () => assertPagesReleaseHistoryPrefix(withNext, descriptor),
     /dropped 1 immutable release/u,
   );
-  const changed164 = structuredClone(with165);
-  changed164.releases[1].apk.sha256 = "f".repeat(64);
+  const changedNext = structuredClone(withFollowing);
+  changedNext.releases[descriptor.releases.length].apk.sha256 = "f".repeat(64);
   assert.throws(
-    () => assertPagesReleaseHistoryPrefix(with164, changed164),
-    /changed immutable Android 164/u,
+    () => assertPagesReleaseHistoryPrefix(withNext, changedNext),
+    new RegExp(`changed immutable Android ${nextVersionCode}`, "u"),
   );
 });
 
@@ -204,9 +218,12 @@ test("a finalized newer release appends once and then reuses exact facts", async
   context.after(() => rm(files.workspaceRoot, { recursive: true, force: true }));
   const first = advancePagesCurrentReleaseDescriptor({ descriptor, ...files });
   assert.equal(first.action, "append");
-  assert.equal(first.versionCode, 164);
-  assert.equal(first.tag, "caatuu-android-v164");
-  assert.deepEqual(first.descriptor.releases.map((release) => release.versionCode), [163, 164]);
+  assert.equal(first.versionCode, nextVersionCode);
+  assert.equal(first.tag, `caatuu-android-v${nextVersionCode}`);
+  assert.deepEqual(first.descriptor.releases.map((release) => release.versionCode), [
+    ...descriptorVersionCodes,
+    nextVersionCode,
+  ]);
   const second = advancePagesCurrentReleaseDescriptor({ descriptor: first.descriptor, ...files });
   assert.equal(second.action, "reuse");
   assert.deepEqual(second.descriptor, first.descriptor);
@@ -216,7 +233,7 @@ test("the shared file validator rejects release schema, source, signing, and aud
   const files = await candidateFixture();
   context.after(() => rm(files.workspaceRoot, { recursive: true, force: true }));
   const valid = validatePagesReleaseFiles({ descriptor, ...files });
-  assert.equal(valid.record.versionCode, 164);
+  assert.equal(valid.record.versionCode, nextVersionCode);
 
   const manifest = JSON.parse(await readFile(files.manifestPath, "utf8"));
   manifest.audit.bundletool = "failed";
@@ -243,7 +260,7 @@ test("the shared file validator rejects release schema, source, signing, and aud
 
 test("same-version drift and backward releases fail closed", async (context) => {
   const newer = await candidateFixture();
-  const older = await candidateFixture(162);
+  const older = await candidateFixture(descriptor.baselineStableVersionCode);
   context.after(() => Promise.all([
     rm(newer.workspaceRoot, { recursive: true, force: true }),
     rm(older.workspaceRoot, { recursive: true, force: true }),
