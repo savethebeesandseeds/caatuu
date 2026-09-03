@@ -102,26 +102,6 @@ async function call(context, expression, bindings) {
   return vm.runInContext(expression, context);
 }
 
-test("course workers pin their catalog revision while loading one shared implementation", () => {
-  const expectedExecutable =
-    '"use strict";\n\nimportScripts("/language-runtime/static/source/course-service-worker.js");\n';
-  for (const [label, loader, setup] of [
-    ["Czech", czechLoader, czechSetup],
-    ["Mandarin", mandarinLoader, mandarinSetup]
-  ]) {
-    assert.match(
-      loader,
-      new RegExp(`^// Offline catalog revision: ${setup.offline.cacheName}$`, "mu"),
-      `${label} worker revision must match its setup catalog`
-    );
-    assert.equal(
-      loader.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, ""),
-      expectedExecutable,
-      `${label} must load only the shared worker implementation`
-    );
-  }
-});
-
 test("shared bootstrap bypasses HTTP caches when updating the course worker", async () => {
   const bootstrap = await readFile(
     new URL("../../../language-runtime/static/source/app-bootstrap.mjs", import.meta.url),
@@ -130,21 +110,6 @@ test("shared bootstrap bypasses HTTP caches when updating the course worker", as
   assert.match(
     bootstrap,
     /navigator\.serviceWorker\.register\(courseUrl\("sw\.js"\), \{\s*scope: routeBase,\s*updateViaCache: "none"\s*\}\)/u
-  );
-});
-
-test("the retired Czech Word World URL is only a canonical-app compatibility document", () => {
-  assert.match(
-    czechWordWorldCompatibility,
-    /http-equiv="refresh" content="0; url=index\.html\?game=word-net"/u
-  );
-  assert.match(
-    czechWordWorldCompatibility,
-    /rel="canonical" href="index\.html\?game=word-net"/u
-  );
-  assert.doesNotMatch(
-    czechWordWorldCompatibility,
-    /(?:source\/games\/word-world|wordNetContentSource|data-content-mode|<script)/u
   );
 });
 

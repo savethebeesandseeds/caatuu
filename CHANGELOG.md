@@ -16,6 +16,9 @@ governed beta or stable release.
   and Android cache directories.
 - Prepared Android version `0.1.11` (`versionCode 163`) with the shared Czech
   and Mandarin browser experience.
+- Prepared Android version `0.1.12` (`versionCode 164`) with first-run source
+  and target language selection, a light default theme, and the Mandarin
+  development preview available from the shared browser setup.
 - Kept pending native Mandarin review as a visible quality disclosure while
   separating it from APK publication; active-course promotion and approved
   pronunciation guidance remain independently gated.
@@ -35,6 +38,8 @@ governed beta or stable release.
 - Removed unsupported blanket MIT statements from the product UI.
 - Reserved the public Android launcher for signed, non-debuggable builds rather
   than silently falling back to a debug APK.
+- Made stable Android publication build-once and receipt-driven, with an
+  append-only Pages release history and exact-commit deployment checks.
 - Disabled remote diagnostic collection by default, removed its public controls,
   and clear the retired browser feedback queue when the updated runtime loads.
 - Added explicit AI-interaction disclosure plus development-preview privacy,

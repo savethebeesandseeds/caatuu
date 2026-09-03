@@ -3,10 +3,10 @@
 `build-static-site.mjs` creates the reviewed browser-only `web-static-core`
 intermediate. `build-pages-site.mjs` turns that intermediate into the final
 `web-static-pages-cutover` bundle by adding the unlisted Mandarin browser
-preview, stable Android 163, and the fixed Android 162/161 preservation
-archive. Both builders change only generated output; they do not
-edit the live server sources, Android product, models, or canonical language
-source trees.
+preview, every Android overlay in the append-only release descriptor, and the
+fixed Android 162/161 preservation archive. Both builders change only generated
+output; they do not edit the live server sources, Android product, models, or
+canonical language source trees.
 
 Run it in the established development container from the repository root:
 
@@ -70,16 +70,17 @@ local imports, resolves HTML and service-worker references, confirms the
 Its deterministic manifest is `caatuu-web-bundle.json`.
 
 The final Pages builder adds the unlisted, `noindex` Mandarin development
-course at `/zh/`, then overlays exact stable 163 and the stable 162 /
-compatibility 161 preservation archive. It includes their retained aliases,
-all 662 release-162 native setup artifacts, original keymaps, SQLite dictionary
-and vector database, ONNX/WASM runtime, catalogs, and version-specific legacy
-assets. It regenerates both published browser setup receipts against the final
-Pages bytes and verifies the archive, every final byte/hash, same-origin
-Android URLs, alias equality, service-worker exclusions, range bypass, case
-collisions, and size ceiling before replacing generated output. The launcher
-offers only signed stable 163; 162 remains at its immutable version path, and
-transition 161 remains at its compatibility path and technical
+course at `/zh/`, restores the stable 162 / compatibility 161 preservation
+archive, and overlays every exact Android release in the append-only descriptor.
+It includes all retained aliases, all 662 release-162 native setup artifacts,
+original keymaps, SQLite dictionary and vector database, ONNX/WASM runtime,
+catalogs, and version-specific legacy assets. It regenerates both published
+browser setup receipts against the final Pages bytes and verifies the archive,
+every final byte/hash, same-origin Android URLs, alias equality, service-worker
+exclusions, range bypass, case collisions, and size ceiling before replacing
+generated output. The launcher offers only the newest signed stable release;
+older releases remain at their immutable version paths, and transition 161
+remains at its compatibility path and technical
 `caatuu-debug.*` aliases for already-installed clients. The standalone
 `/games/caatuu-game/` preview is not published until its separate game and
 asset release gates pass. Dynamic application APIs are not added. The

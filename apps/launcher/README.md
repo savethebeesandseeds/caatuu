@@ -3,15 +3,16 @@
 This app is the static browser landing page for the workspace. It is served at
 `/` by the Rust server in `apps/server`.
 
-The launcher discovers active courses from `static/languages.json`; Czech is the
-current default and only active entry. Browser and Android entry points belong
-to each registry item, so future languages can expose the platforms they
-actually support. Chinese is preserved under `archive/caatuu-chinese` for later
-historical reference. The fresh `zh` course is a separate, unlisted
-development preview and is intentionally absent from this public active-only
-registry until native Mandarin review clears. That activation rule does not
-prevent the disclosed development course from being bundled in a published
-APK.
+The launcher discovers courses from `static/languages.json`; Czech is the
+current default and only release-active entry. The registry's separate browser
+setup projection also advertises the browser-enabled Mandarin development
+preview without promoting it to active status. Browser and Android entry points
+remain distinct, so the generic browser action opens the language form while
+the Android action continues to follow the active Czech release channels.
+Chinese is preserved under `archive/caatuu-chinese` for later historical
+reference. Native Mandarin review is still required before the fresh `zh`
+course can become active; that activation rule does not prevent the disclosed
+development course from being bundled in a published APK.
 
 The files live under:
 

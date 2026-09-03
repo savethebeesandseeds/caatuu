@@ -6,6 +6,8 @@ import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
+
 const modulePath = fileURLToPath(import.meta.url);
 const sha256Pattern = /^[a-f0-9]{64}$/u;
 
@@ -43,16 +45,9 @@ function assertManifestMatchesApk(manifest, apk, label) {
 function readDurableFloor(path) {
   const file = regularFile(path, "Durable Pages release floor");
   const value = JSON.parse(readFileSync(file.absolute, "utf8"));
-  assert.equal(value.schemaName, "caatuu-pages-current-release");
-  assert.equal(value.schemaVersion, 1);
-  assert.equal(value.canonicalOrigin, "https://caatuu.waajacu.com");
-  const stable = value.stable;
-  assert.ok(Number.isSafeInteger(stable?.versionCode) && stable.versionCode > 0, "Durable release floor is invalid");
-  for (const key of ["manifest", "apk", "receipt"]) {
-    assert.ok(Number.isSafeInteger(stable[key]?.bytes) && stable[key].bytes > 0, `Durable ${key} byte count is invalid`);
-    assert.match(String(stable[key]?.sha256 || ""), sha256Pattern, `Durable ${key} hash is invalid`);
-  }
-  return stable;
+  const descriptor = validatePagesCurrentReleaseDescriptor(value);
+  assert.equal(descriptor.schemaVersion, 2, "Durable release floor schema is unsupported");
+  return descriptor.stable;
 }
 
 export function assertNewBuildVersion({ durableFloor, candidateVersionCode }) {

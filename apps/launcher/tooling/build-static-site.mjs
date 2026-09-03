@@ -286,6 +286,22 @@ function publicPathFromUrl(value, label = "public URL") {
   return segments.join("/");
 }
 
+function launcherIconPaths(launcherStaticDir) {
+  const registry = JSON.parse(readSafeText(join(launcherStaticDir, "languages.json"), launcherStaticDir));
+  assert.equal(registry?.browserSetup?.schemaVersion, 1, "Launcher browser setup must use schema version 1");
+  assert.ok(Array.isArray(registry.browserSetup.courses), "Launcher browser setup must declare its courses");
+  const paths = new Set(STORE_LAUNCHER_ICON_FILES.map((icon) => `assets/icons/${icon}`));
+  for (const courseRecord of registry.browserSetup.courses) {
+    const path = publicPathFromUrl(
+      courseRecord?.targetLanguage?.flagSrc,
+      `browser setup flag for ${courseRecord?.id || "unknown course"}`
+    );
+    assert.match(path, /^assets\/icons\/[^/]+\.png$/u, `Browser setup flag must be a launcher PNG: /${path}`);
+    paths.add(path);
+  }
+  return [...paths].sort();
+}
+
 function outputPath(root, webPath) {
   const target = resolve(root, webPath);
   assert.ok(inside(root, target), `Static path escapes its output root: ${webPath}`);
@@ -685,8 +701,8 @@ function assertStaticCompilerSources(languageStaticDir, launcherStaticDir) {
   for (const path of STORE_LANGUAGE_FILES) {
     assertSafeSourceFile(join(languageStaticDir, path), languageStaticDir);
   }
-  for (const icon of STORE_LAUNCHER_ICON_FILES) {
-    assertSafeSourceFile(join(launcherStaticDir, "assets/icons", icon), launcherStaticDir);
+  for (const path of launcherIconPaths(launcherStaticDir)) {
+    assertSafeSourceFile(join(launcherStaticDir, path), launcherStaticDir);
   }
   assertSafeSourceFile(
     join(launcherStaticDir, "assets/loading-animation/animations_manifest.json"),
@@ -701,8 +717,8 @@ function copyLauncherSurface(workspaceRoot, stagingDir) {
   copyFile(join(templateDir, "launcher-static.js"), join(stagingDir, "launcher.js"), templateDir);
   writeText(join(stagingDir, "languages.json"), transformLanguageRegistry(readSafeText(join(launcherDir, "languages.json"), launcherDir)));
   writeText(join(stagingDir, "404.html"), transformNotFound(readSafeText(join(launcherDir, "not-found.html"), launcherDir)));
-  for (const icon of STORE_LAUNCHER_ICON_FILES) {
-    copyFile(join(launcherDir, "assets/icons", icon), join(stagingDir, "assets/icons", icon), launcherDir);
+  for (const path of launcherIconPaths(launcherDir)) {
+    copyFile(join(launcherDir, path), join(stagingDir, path), launcherDir);
   }
   for (const { source, output } of rootExtraFiles) {
     copyFile(join(launcherDir, source), join(stagingDir, output), launcherDir);
@@ -1021,7 +1037,7 @@ function expectedFiles(workspaceRoot, setupManifest) {
     expected.add(output);
   }
   for (const { output } of courseConfiguration.sharedRuntimeAssets) expected.add(output);
-  for (const icon of STORE_LAUNCHER_ICON_FILES) expected.add(`assets/icons/${icon}`);
+  for (const path of launcherIconPaths(join(workspaceRoot, "apps/launcher/static"))) expected.add(path);
   for (const artifact of setupManifest.artifacts) {
     expected.add(publicPathFromUrl(artifact.url, artifact.key));
   }

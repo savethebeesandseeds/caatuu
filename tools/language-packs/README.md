@@ -3,7 +3,9 @@
 This directory owns the versioned, language-neutral contract for Caatuu course
 packs. The internal catalog at `apps/languages/catalog.json` lists active and
 development packs. Only courses whose manifest status is `active` appear in the
-generated public launcher registry.
+release-capable `languages` collection of the generated public launcher
+registry. Its separate `browserSetup` projection advertises browser-enabled
+active and development courses without promoting previews to active status.
 
 Each course manifest is authoritative for identity, routes, source and target
 language tags, storage/cache namespaces, capabilities, platform support, the

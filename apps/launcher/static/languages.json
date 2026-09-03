@@ -1,6 +1,64 @@
 {
   "schemaVersion": 1,
   "defaultLanguage": "cz",
+  "browserSetup": {
+    "schemaVersion": 1,
+    "entryPath": "/cz/index.html",
+    "courses": [
+      {
+        "id": "cz",
+        "status": "active",
+        "routePrefix": "/cz",
+        "entryPath": "/cz/index.html",
+        "sourceLanguage": {
+          "id": "en",
+          "label": "English",
+          "nativeLabel": "English",
+          "shortCode": "EN",
+          "locale": "en",
+          "direction": "ltr",
+          "flagClass": "en-flag",
+          "flagSrc": "/assets/icons/english_flag.png"
+        },
+        "targetLanguage": {
+          "id": "cs",
+          "label": "Czech",
+          "nativeLabel": "Čeština",
+          "shortCode": "CZ",
+          "locale": "cs-CZ",
+          "direction": "ltr",
+          "flagClass": "cz-flag",
+          "flagSrc": "/assets/icons/czech_flag_ui.png"
+        }
+      },
+      {
+        "id": "zh",
+        "status": "development",
+        "routePrefix": "/zh",
+        "entryPath": "/zh/index.html",
+        "sourceLanguage": {
+          "id": "en",
+          "label": "English",
+          "nativeLabel": "English",
+          "shortCode": "EN",
+          "locale": "en",
+          "direction": "ltr",
+          "flagClass": "en-flag",
+          "flagSrc": "/assets/icons/english_flag.png"
+        },
+        "targetLanguage": {
+          "id": "zh",
+          "label": "Mandarin",
+          "nativeLabel": "中文",
+          "shortCode": "ZH",
+          "locale": "zh-Hans",
+          "direction": "ltr",
+          "flagClass": "zh-hans-flag",
+          "flagSrc": "/assets/icons/china_flag.png"
+        }
+      }
+    ]
+  },
   "languages": [
     {
       "id": "cz",

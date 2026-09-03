@@ -1138,9 +1138,16 @@ export async function generateLauncherRegistry(loaded) {
         }
       }
     }));
+  const defaultCourse = activeCourses.find((course) => course.id === loaded.catalog.defaultCourseId);
+  const browserSetup = generateCourseSelectorCatalog(loaded.courses);
   return {
     schemaVersion: COURSE_SCHEMA_VERSION,
     defaultLanguage: loaded.catalog.defaultCourseId,
+    browserSetup: {
+      schemaVersion: browserSetup.schemaVersion,
+      entryPath: defaultCourse.platforms.browser.entryPath,
+      courses: browserSetup.courses
+    },
     languages
   };
 }

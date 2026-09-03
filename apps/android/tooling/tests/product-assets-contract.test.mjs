@@ -549,7 +549,7 @@ test("pending native review remains advisory for Android publication", () => {
   assert.equal(realizations.review.status, "native-review-required");
   assert.match(
     releasePublisher,
-    /^node tools\/language-content\/validate\.mjs --release$/mu,
+    /node\s+"?\$repo_root\/tools\/language-content\/validate\.mjs"?\s+--release/u,
     "the APK publisher must enforce the licensing-only language-content release gate",
   );
   assert.doesNotMatch(

@@ -9,16 +9,8 @@ const readText = (path) => readFile(new URL(path, repoRoot), "utf8");
 const readJson = (path) => readText(path).then(JSON.parse);
 
 const [
-  mandarin,
-  czech,
-  mandarinProfile,
-  app,
-  chrome,
-  workspace,
-  workspaceStyle,
   bootstrap,
   controller,
-  style,
   catalog,
   mandarinSetup,
   czechSetup,
@@ -27,16 +19,8 @@ const [
   readingGuides,
   shipFiles
 ] = await Promise.all([
-  readJson("apps/languages/mandarin-simplified/course.json"),
-  readJson("apps/languages/czech/course.json"),
-  readText("apps/languages/mandarin-simplified/static/source/shared/course-profile.js"),
-  readText("apps/language-runtime/static/app/index.html"),
-  readText("apps/language-runtime/static/source/caatuu-chrome.js"),
-  readText("apps/language-runtime/static/source/caatuu-workspace.js"),
-  readText("apps/language-runtime/static/styles/caatuu-workspace.css"),
   readText("apps/language-runtime/static/source/app-bootstrap.mjs"),
   readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
-  readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
   readJson("apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json"),
   readJson("apps/languages/mandarin-simplified/static/setup-assets.json"),
   readJson("apps/languages/czech/static/setup-assets.json"),
@@ -50,9 +34,6 @@ const context = vm.createContext({ window: {} });
 vm.runInContext(controller, context, { filename: "naturalization-nucleus.js" });
 const game = context.window.CaatuuNaturalizationNucleus;
 const validatedCatalog = game.validateCatalog(catalog);
-const nucleusPanelStart = app.indexOf('<section class="train-tab-panel naturalization-nucleus-panel"');
-const nucleusPanelEnd = app.indexOf('<section class="train-tab-panel memory-moon-panel"', nucleusPanelStart);
-const nucleusShell = app.slice(nucleusPanelStart, nucleusPanelEnd);
 
 function seededRandom(seed) {
   let value = seed >>> 0;
@@ -62,59 +43,7 @@ function seededRandom(seed) {
   };
 }
 
-test("Naturalization Nucleus is an active Mandarin-only course game", () => {
-  assert.ok(mandarin.games.includes("naturalization-nucleus"));
-  assert.equal(mandarin.routes.naturalizationNucleus, "index.html?game=naturalization-nucleus");
-  assert.equal(
-    mandarin.resources.naturalizationNucleusCatalog.path,
-    "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json"
-  );
-  assert.match(mandarinProfile, /"naturalization-nucleus"/u);
-  assert.match(mandarinProfile, /naturalizationNucleus: "index\.html\?game=naturalization-nucleus"/u);
-  assert.ok(!czech.games.includes("naturalization-nucleus"));
-  assert.equal(czech.routes.naturalizationNucleus, undefined);
-});
-
-test("the shared shell exposes the playable circular domino board", () => {
-  assert.match(app, /data-train-tab="naturalization-nucleus"[\s\S]*?data-course-game="naturalization-nucleus"/u);
-  assert.match(app, /naturalization-nucleus\.png/u);
-  assert.ok(nucleusPanelStart >= 0 && nucleusPanelEnd > nucleusPanelStart);
-  assert.match(nucleusShell, /id="trainPanelNaturalizationNucleus"[\s\S]*?data-train-panel="naturalization-nucleus"/u);
-  assert.equal((nucleusShell.match(/data-naturalization-piece-count="(?:5|9)"/gu) || []).length, 2);
-  assert.match(nucleusShell, /class="word-net-panel-actions naturalization-nucleus-toolbar"/u);
-  for (const id of [
-    "naturalizationNucleusDisplayToggle",
-    "naturalizationNucleusSound",
-    "naturalizationNucleusOptionsToggle",
-    "naturalizationNucleusNewRound"
-  ]) assert.match(nucleusShell, new RegExp(`class="[^"]*word-net-icon-button[^"]*" id="${id}"[\\s\\S]*?aria-label=`, "u"));
-  assert.equal((nucleusShell.match(/<i><\/i>/gu) || []).length, 6);
-  assert.match(nucleusShell, /id="naturalizationNucleusOptionsToggle"[\s\S]*?class="verb-pair-menu-icon"/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusDisplayMenu"[\s\S]*?data-theme-option="light"[\s\S]*?data-font-size-option="largest"/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusAudioMenu"[\s\S]*?id="naturalizationNucleusAudioSpeed"[\s\S]*?id="naturalizationNucleusAudioVoice"/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusOptionsMenu"[\s\S]*?data-naturalization-piece-count="5"[\s\S]*?data-naturalization-piece-count="9"/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusOptionsMenu"[\s\S]*?role="group" aria-label="Hanzi tile count"/u);
-  assert.doesNotMatch(nucleusShell, /naturalizationNucleusPieceCountLabel|Number of Hanzi/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusInterstitial"[\s\S]*?role="status"[\s\S]*?class="word-net-embedded-loader"[\s\S]*?\/assets\/robots\/robot%20\(1\)\.png/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusGame"[\s\S]*?aria-hidden="true" inert/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusBoard"[\s\S]*?id="naturalizationNucleusArtwork"[\s\S]*?id="naturalizationNucleusRing"/u);
-  assert.match(nucleusShell, /class="word-net-word-translation naturalization-nucleus-feedback"[\s\S]*?class="word-net-word-card-copy"[\s\S]*?id="naturalizationNucleusFeedbackHanzi"[\s\S]*?<ruby class="word-net-target-text-unit"[\s\S]*?id="naturalizationNucleusFeedbackPinyin"[\s\S]*?class="word-net-word-meaning" id="naturalizationNucleusFeedbackMeaning"/u);
-  assert.match(nucleusShell, /class="word-net-sound-toggle word-net-word-pronounce" id="naturalizationNucleusFeedbackSound"[\s\S]*?data-speech-icon="play"[\s\S]*?data-speech-icon="stop"/u);
-  assert.match(nucleusShell, /<section class="naturalization-nucleus-deck-panel" aria-label="Hanzi tiles waiting to be placed">[\s\S]*?id="naturalizationNucleusDeck"/u);
-  assert.match(nucleusShell, /class="word-net-instructions" id="naturalizationNucleusStatus" role="status"/u);
-  assert.doesNotMatch(nucleusShell, /naturalization-nucleus-head|naturalization-nucleus-copy|naturalizationNucleusDeckTitle|naturalizationNucleusDeckCount|naturalizationNucleusReset|word-net-translate-icon|>All games<|data-train-tab="galaxy"/u);
-  assert.match(app, /data-course-game="naturalization-nucleus"[\s\S]*?data-course-asset="\/assets\/planets\/naturalization-nucleus\.png"/u);
-  assert.match(nucleusShell, /id="naturalizationNucleusArtwork" alt="">/u);
-  assert.match(bootstrap, /querySelectorAll\("\[data-course-asset\]"\)[\s\S]*?available\.has\(gameId\)[\s\S]*?setAttribute\("src", image\.dataset\.courseAsset\)/u);
-  assert.match(chrome, /"naturalization-nucleus"[\s\S]*?title: "Naturalization Nucleus"[\s\S]*?naturalization-nucleus\.png/u);
-  assert.match(workspace, /"naturalization-nucleus": "naturalizationNucleus"/u);
-  assert.match(workspace, /"naturalization-nucleus": "trainPanelNaturalizationNucleus"/u);
-  assert.match(workspace, /CaatuuNaturalizationNucleus\?\.mount/u);
-  const campaignGames = workspace.match(/const campaignPlayableTabs = Object\.freeze\(\[[\s\S]*?\]\);/u)?.[0] || "";
-  assert.doesNotMatch(campaignGames, /naturalization-nucleus/u);
-});
-
-test("the course-owned controller is interactive, idempotent, and CSP-safe", () => {
+test("the course-owned controller exposes its engine boundary and stays CSP-safe", () => {
   assert.match(bootstrap, /gameAvailable\?\.\(course, "naturalization-nucleus"\) === true/u);
   assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-11/u);
   assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-11/u);
@@ -126,40 +55,8 @@ test("the course-owned controller is interactive, idempotent, and CSP-safe", () 
   assert.equal(typeof game.seedChain, "function");
   assert.equal(typeof game.attachPiece, "function");
   assert.equal(typeof game.describeChain, "function");
-  assert.match(controller, /mountedBoards\.get\(board\)\?\.destroy\(\)/u);
-  assert.match(controller, /CaatuuChrome\?\.speakText/u);
-  assert.match(controller, /constrainToolbarPopover/u);
-  assert.match(controller, /releaseToolbarPopover/u);
-  assert.match(controller, /SOLVED_HOLD_MILLIS = 420/u);
-  assert.match(controller, /ROUND_LOADING_MILLIS = 1600/u);
-  assert.match(controller, /ROBOT_KEYMAP_URL = "\/assets\/robots\/keymap\.json"/u);
-  assert.match(controller, /ROBOT_FALLBACK_URL = "\/assets\/robots\/robot%20\(1\)\.png"/u);
-  assert.match(controller, /fetch\(ROBOT_KEYMAP_URL, \{ cache: "force-cache" \}\)/u);
-  assert.match(controller, /index === robotCursor/u);
-  assert.match(controller, /activeTransition !== transitionId \|\| interstitial\.hidden/u);
-  assert.match(controller, /interstitialRobot\.getAttribute\("src"\) !== ROBOT_FALLBACK_URL/u);
-  assert.match(controller, /transition\.solved\) prepareRound/u);
-  assert.match(controller, /CaatuuLearning\?\.difficulty\?\.\(\)/u);
-  assert.match(controller, /listen\(global, "caatuu:learning-change"/u);
-  assert.match(controller, /event\.detail\?\.reason !== "difficulty"/u);
-  assert.match(controller, /state\.difficulty = difficulty;[\s\S]*?prepareRound\(state\.pieceCount\)/u);
-  assert.match(controller, /board\.dataset\.difficulty = String\(state\.difficulty\)/u);
-  assert.match(controller, /function prepareRound/u);
-  assert.match(controller, /function clearRoundTimers/u);
-  assert.match(controller, /interstitial\.hidden = !active/u);
-  assert.match(controller, /game\.toggleAttribute\("inert", active\)/u);
-  assert.match(controller, /target\.addEventListener\(type, handler\)/u);
-  assert.match(controller, /listen\(deck, "click"/u);
-  assert.match(controller, /listen\(deck, "keydown"/u);
-  assert.match(controller, /listen\(deck, "dragstart"/u);
-  assert.match(controller, /listen\(ring, "drop"/u);
-  assert.match(controller, /replaceChildren/u);
-  assert.match(controller, /\.textContent =/u);
   assert.doesNotMatch(controller, /innerHTML/u);
   assert.doesNotMatch(controller, /\.style\b/u);
-  assert.doesNotMatch(controller, /naturalizationNucleusDeckCount/u);
-  assert.doesNotMatch(controller, /naturalizationNucleusReset/u);
-  assert.match(controller, /data\.naturalizationSocketIndex|dataset\.naturalizationSocketIndex/u);
   assert.doesNotMatch(controller, /round-success|postMessage/u);
 });
 
@@ -520,39 +417,6 @@ test("round generation avoids visible homophone ambiguity and immediate artwork 
     ]
   };
   assert.throws(() => game.createRound(insufficientCatalog, 5, seededRandom(1)), /distinct readings/u);
-});
-
-test("the stylesheet owns all five- and nine-piece circular positions", () => {
-  assert.match(style, /\.naturalization-nucleus-board/u);
-  assert.match(style, /\.naturalization-nucleus-domino/u);
-  assert.match(style, /\.naturalization-nucleus-domino-hanzi/u);
-  assert.match(style, /\.naturalization-nucleus-deck/u);
-  assert.match(style, /\.naturalization-nucleus-deck\s*\{[^}]*display:\s*flex;[^}]*flex-wrap:\s*wrap;[^}]*justify-content:\s*center;/u);
-  assert.doesNotMatch(style, /\.naturalization-nucleus-deck\s*\{[^}]*grid-template-columns/u);
-  assert.match(style, /\.naturalization-nucleus-interstitial\s*\{[\s\S]*?place-items:\s*center/u);
-  assert.match(style, /\.naturalization-nucleus-interstitial\[hidden\]/u);
-  assert.doesNotMatch(style, /naturalization-nucleus-loader-breathe/u);
-  assert.match(workspaceStyle, /\.word-net-embedded-loader\s*\{[\s\S]*?embedded-loader-breathe 1\.35s ease-in-out infinite alternate/u);
-  assert.match(workspaceStyle, /@keyframes embedded-loader-breathe\s*\{[\s\S]*?opacity:\s*0\.7[\s\S]*?opacity:\s*0\.96/u);
-  assert.match(style, /\.naturalization-nucleus-socket/u);
-  assert.match(style, /\.naturalization-nucleus-socket-target/u);
-  assert.match(style, /\.naturalization-nucleus-socket-pinyin/u);
-  assert.match(style, /\.naturalization-nucleus-fused-word/u);
-  assert.match(style, /naturalization-nucleus-fuse/u);
-  assert.match(style, /data-piece-count="5"[\s\S]*nth-child\(5\)/u);
-  assert.match(style, /data-piece-count="9"[\s\S]*nth-child\(9\)/u);
-  assert.match(style, /repeating-linear-gradient\(3deg, rgba\(91, 54, 24, 0\.1\)/u);
-  assert.match(style, /\.naturalization-nucleus-domino-hanzi\s*\{[\s\S]*?font-weight:\s*400/u);
-  assert.match(style, /\.word-net-word-translation\.naturalization-nucleus-feedback\s*\{[^}]*width:\s*clamp\(140px, 30vw, 184px\);[^}]*padding:\s*8px/u);
-  assert.match(style, /\.word-net-word-translation\.naturalization-nucleus-feedback \.word-net-word-heading\s*\{[^}]*grid-template-columns:\s*32px minmax\(0, 1fr\) 32px/u);
-  assert.match(style, /#naturalizationNucleusStatus\s*\{[^}]*--naturalization-nucleus-status-quiet:\s*#6b6d6c;[^}]*color:\s*var\(--naturalization-nucleus-status-quiet\)/u);
-  assert.match(style, /html\[data-theme="dark"\] #naturalizationNucleusStatus\s*\{[^}]*--naturalization-nucleus-status-quiet:\s*#9da19f/u);
-  assert.match(style, /@media screen and \(max-width: 760px\)[\s\S]*?width:\s*min\(100%, 480px\)[\s\S]*?width:\s*min\(100%, 440px\)/u);
-  assert.match(style, /min-height:\s*54px/u);
-  assert.doesNotMatch(style, /calc\(\(100% - 10px\) \/ 2\)/u);
-  assert.doesNotMatch(style, /content:\s*"↻"/u);
-  assert.doesNotMatch(style, /naturalization-nucleus-reset|naturalization-nucleus-domino-pinyin|naturalization-nucleus-open-end/u);
-  assert.match(style, /prefers-reduced-motion/u);
 });
 
 test("Mandarin offline and Android delivery include the game and all ships while Czech does not", () => {

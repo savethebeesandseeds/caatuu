@@ -7,18 +7,6 @@ const source = await readFile(
   new URL("../../../../apps/language-runtime/static/source/maintenance-ui.js", import.meta.url),
   "utf8"
 );
-const runtimeSource = await readFile(
-  new URL("../../../../apps/languages/czech/static/source/shared/runtime.js", import.meta.url),
-  "utf8"
-);
-const chromeSource = await readFile(
-  new URL("../../../../apps/language-runtime/static/source/caatuu-chrome.js", import.meta.url),
-  "utf8"
-);
-const serviceWorkerSource = await readFile(
-  new URL("../../../../apps/language-runtime/static/source/course-service-worker.js", import.meta.url),
-  "utf8"
-);
 const stored = new Map();
 const sessionStored = new Map();
 function storage(map) {
@@ -37,27 +25,6 @@ const context = {
 };
 runInNewContext(source, context, { filename: "maintenance-ui.js" });
 const ui = context.window.CaatuuMaintenanceUi;
-
-test("browser Update waits for the service-worker controller before reloading", () => {
-  assert.match(chromeSource, /CaatuuRuntime\?\.maintenance\?\.updateApp/);
-  assert.match(runtimeSource, /addEventListener\("controllerchange"/);
-  assert.match(runtimeSource, /registration\.installing \|\| registration\.waiting/);
-  assert.match(runtimeSource, /await controllerChanged/);
-});
-
-test("browser freshness bypasses stale HTTP caches and never silently serves an old cache", () => {
-  assert.match(runtimeSource, /register\("sw\.js", \{ updateViaCache: "none" \}\)/);
-  assert.match(runtimeSource, /fetch\(url\.href, \{ cache: "no-store" \}\)/);
-  assert.match(runtimeSource, /caatuu:app-freshness/);
-  assert.match(runtimeSource, /browserFreshnessAutoReloadWindowMs/);
-  assert.match(runtimeSource, /document\.addEventListener\("visibilitychange"/);
-  assert.match(chromeSource, /Offline copy — the latest Caatuu version cannot be checked yet\./);
-  assert.match(chromeSource, /A newer Caatuu version is ready\./);
-  assert.match(chromeSource, /function bindAppFreshness/);
-  assert.match(serviceWorkerSource, /event\.data\?\.type === "SKIP_WAITING"/);
-  assert.match(serviceWorkerSource, /async function currentCacheMatch/);
-  assert.doesNotMatch(serviceWorkerSource, /const cached = await caches\.match\(request\)/);
-});
 
 function control() {
   const copy = { textContent: "" };

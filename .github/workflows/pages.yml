@@ -3,6 +3,10 @@ name: Deploy static Caatuu to GitHub Pages
 on:
   workflow_dispatch:
     inputs:
+      expected_revision:
+        description: Exact pushed main commit that is authorized for this deployment
+        required: true
+        type: string
       allow_http_certificate_bootstrap:
         description: Allow one deployment while GitHub provisions custom-domain HTTPS
         required: true
@@ -28,13 +32,18 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Enforce the main-only repository policy
         shell: bash
+        env:
+          EXPECTED_REVISION: ${{ inputs.expected_revision }}
         run: |
           set -euo pipefail
           [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]
           [[ "${GITHUB_REF}" == "refs/heads/main" ]]
+          [[ "$EXPECTED_REVISION" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$GITHUB_SHA" == "$EXPECTED_REVISION" ]]
           [[ "$(git branch --show-current)" == "main" ]]
           mapfile -t local_heads < <(git for-each-ref --format='%(refname:strip=2)' refs/heads)
           mapfile -t remote_heads < <(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}.git" | sed 's#.*refs/heads/##')
@@ -47,6 +56,54 @@ jobs:
             exit 1
           fi
           [[ "$(git worktree list --porcelain | grep -c '^worktree ')" == "1" ]]
+
+      - name: Enforce the complete append-only Android release history
+        shell: bash
+        env:
+          RELEASE_DESCRIPTOR: apps/android/tooling/pages-current-release.json
+          HISTORY_DIR: artifacts/android/pages-input/release-history
+        run: |
+          set -euo pipefail
+          [[ ! -e "$HISTORY_DIR" && ! -L "$HISTORY_DIR" ]]
+          ancestor="$(dirname -- "$HISTORY_DIR")"
+          while [[ "$ancestor" != "." ]]; do
+            [[ ! -L "$ancestor" ]]
+            ancestor="$(dirname -- "$ancestor")"
+          done
+          mkdir -p -- "$HISTORY_DIR"
+          [[ -d "$HISTORY_DIR" && ! -L "$HISTORY_DIR" ]]
+          mapfile -t descriptor_commits < <(git rev-list --first-parent --reverse HEAD -- "$RELEASE_DESCRIPTOR")
+          (( ${#descriptor_commits[@]} > 0 ))
+          v2_snapshots=()
+          for commit in "${descriptor_commits[@]}"; do
+            [[ "$commit" =~ ^[a-f0-9]{40}$ ]]
+            snapshot="$HISTORY_DIR/${commit}.json"
+            git show "${commit}:${RELEASE_DESCRIPTOR}" > "$snapshot"
+            [[ -f "$snapshot" && ! -L "$snapshot" ]]
+            schema_version="$(jq -er '.schemaVersion' "$snapshot")"
+            if [[ "$schema_version" == "2" ]]; then
+              v2_snapshots+=("$snapshot")
+            fi
+          done
+          (( ${#v2_snapshots[@]} > 0 ))
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace:ro" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/android/tooling/pages-current-release.mjs download-plan \
+              --descriptor "${v2_snapshots[0]}" >/dev/null
+          for (( index = 1; index < ${#v2_snapshots[@]}; index += 1 )); do
+            docker run --rm \
+              --user "$(id -u):$(id -g)" \
+              --volume "$GITHUB_WORKSPACE:/workspace:ro" \
+              --workdir /workspace \
+              node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+              node apps/android/tooling/pages-current-release.mjs assert-prefix \
+                --previous-descriptor "${v2_snapshots[index - 1]}" \
+                --next-descriptor "${v2_snapshots[index]}"
+          done
+          cmp -- "${v2_snapshots[-1]}" "$RELEASE_DESCRIPTOR"
 
       - name: Read configured Pages metadata without enabling Pages
         id: pages
@@ -87,33 +144,66 @@ jobs:
             --output "$BASELINE_ARCHIVE" \
             "$BASELINE_URL"
 
-      - name: Download the exact Android 163 overlay without rebuilding it
+      - name: Create the validated Android release download plan
         shell: bash
         env:
-          RELEASE_BASE_URL: https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163
-          RELEASE_DIR: artifacts/android/releases/163
+          RELEASE_DESCRIPTOR: apps/android/tooling/pages-current-release.json
+          RELEASE_PLAN: ${{ runner.temp }}/caatuu-pages-release-download-plan.json
         run: |
           set -euo pipefail
-          mkdir -p "$RELEASE_DIR"
-          curl --fail --location --proto '=https' --tlsv1.2 \
-            --retry 3 --retry-all-errors \
-            --output "$RELEASE_DIR/caatuu.apk" \
-            "$RELEASE_BASE_URL/caatuu-163.apk"
-          curl --fail --location --proto '=https' --tlsv1.2 \
-            --retry 3 --retry-all-errors \
-            --output "$RELEASE_DIR/caatuu.json" \
-            "$RELEASE_BASE_URL/caatuu-163.json"
-          curl --fail --location --proto '=https' --tlsv1.2 \
-            --retry 3 --retry-all-errors \
-            --output "$RELEASE_DIR/caatuu-release-candidate.json" \
-            "$RELEASE_BASE_URL/caatuu-163-release-candidate.json"
-          printf '%s  %s\n' \
-            'fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545' "$RELEASE_DIR/caatuu.apk" \
-            'f77a9f5640cd2f60abb7ef820a4f8e10f8111d0e625cb0fbe011b92dc89b3197' "$RELEASE_DIR/caatuu.json" \
-            '2e7f3a25961184fa516e1704ec538802c24f2e4db205336abb29def87757d71f' "$RELEASE_DIR/caatuu-release-candidate.json" \
-            | sha256sum --check --strict
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace:ro" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/android/tooling/pages-current-release.mjs download-plan \
+              --descriptor "$RELEASE_DESCRIPTOR" > "$RELEASE_PLAN"
+          jq -e '.schemaName == "caatuu-pages-release-download-plan" and (.assets | length > 0)' \
+            "$RELEASE_PLAN" >/dev/null
 
-      - name: Build and validate the static bundle with Android 163, 162, and 161
+      - name: Download and verify every retained Android release input
+        shell: bash
+        env:
+          RELEASE_DESCRIPTOR: apps/android/tooling/pages-current-release.json
+          RELEASE_PLAN: ${{ runner.temp }}/caatuu-pages-release-download-plan.json
+        run: |
+          set -euo pipefail
+          while IFS= read -r record; do
+            download_url="$(jq -er '.downloadUrl' <<<"$record")"
+            source_path="$(jq -er '.sourcePath' <<<"$record")"
+            expected_bytes="$(jq -er '.bytes' <<<"$record")"
+            expected_sha256="$(jq -er '.sha256' <<<"$record")"
+            [[ "$source_path" == artifacts/android/releases/* ]]
+            [[ ! -e "$source_path" && ! -L "$source_path" ]]
+            parent_path="$(dirname -- "$source_path")"
+            ancestor="$parent_path"
+            while [[ "$ancestor" != "." ]]; do
+              [[ ! -L "$ancestor" ]]
+              ancestor="$(dirname -- "$ancestor")"
+            done
+            mkdir -p -- "$parent_path"
+            [[ -d "$parent_path" && ! -L "$parent_path" ]]
+            temporary_path="${source_path}.download"
+            [[ ! -e "$temporary_path" && ! -L "$temporary_path" ]]
+            curl --fail --location --proto '=https' --tlsv1.2 \
+              --retry 3 --retry-all-errors \
+              --output "$temporary_path" \
+              "$download_url"
+            [[ -f "$temporary_path" && ! -L "$temporary_path" ]]
+            [[ "$(stat -c '%s' -- "$temporary_path")" == "$expected_bytes" ]]
+            read -r actual_sha256 _ < <(sha256sum -- "$temporary_path")
+            [[ "$actual_sha256" == "$expected_sha256" ]]
+            mv -- "$temporary_path" "$source_path"
+          done < <(jq -c '.assets[]' "$RELEASE_PLAN")
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace:ro" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/android/tooling/pages-current-release.mjs verify \
+              --descriptor "$RELEASE_DESCRIPTOR"
+
+      - name: Build and validate the static bundle with every retained Android release
         shell: bash
         run: |
           docker run --rm \
@@ -123,6 +213,7 @@ jobs:
             node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
             node apps/launcher/tooling/build-pages-site.mjs \
               --baseline-archive artifacts/android/pages-input/caatuu-pages-v162.tar \
+              --current-release-descriptor apps/android/tooling/pages-current-release.json \
               --output artifacts/web/github-pages
 
       - name: Upload the exact static site
@@ -140,6 +231,24 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Refuse a stale queued Pages deployment
+        shell: bash
+        env:
+          EXPECTED_REVISION: ${{ inputs.expected_revision }}
+        run: |
+          set -euo pipefail
+          mapfile -t remote_heads < <(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}.git")
+          if (( ${#remote_heads[@]} != 1 )); then
+            printf 'Expected exactly one remote branch before Pages deployment; found %s.\n' "${#remote_heads[@]}" >&2
+            exit 1
+          fi
+          read -r remote_sha remote_ref <<<"${remote_heads[0]}"
+          [[ "$remote_ref" == "refs/heads/main" ]]
+          if [[ "$remote_sha" != "$EXPECTED_REVISION" ]]; then
+            printf 'Refusing stale Pages deployment: main is %s, expected %s.\n' "$remote_sha" "$EXPECTED_REVISION" >&2
+            exit 1
+          fi
+
       - name: Deploy without a publication branch
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

@@ -63,31 +63,41 @@
   `tools/repository/check-markdown-links.mjs` in a Node container before
   committing structural or documentation changes.
 
-## Android public preview publication practices
+## Android release publication practices
 
-- Prefer the canonical publisher for a routine Android publication:
-  `docker exec -w /workspace caatuu-dev bash apps/android/tooling/publish-public-debug.sh`.
+- Prefer the one-command routine release entrypoint:
+  `pwsh -NoProfile -File apps/android/tooling/release-android.ps1`.
+  It invokes the guarded build stage only when the version has no finalized
+  receipt, then deploys only the bytes named by that receipt. A retry after
+  finalization skips the build stage.
+- The lower-level build/finalize command is:
+  `docker exec -w /workspace caatuu-dev bash apps/android/tooling/publish-release.sh --build-once`.
+- The lower-level receipt-only deploy command is:
+  `pwsh -NoProfile -File apps/android/tooling/deploy-pages-release.ps1 -CandidateReceipt artifacts/android/releases/<versionCode>/caatuu-release-candidate.json`.
+  This deployment command must never invoke Gradle or rebuild the app.
 - Treat repeatable Android build and publication work as a maintained pipeline,
   not session-specific knowledge. When a publish requires recurring manual
   reasoning, command sequences, or recovery steps, improve the canonical
-  publisher, its focused contract tests, and the adjacent tooling README so the
-  next routine publish remains one documented command. Extend that entrypoint
-  instead of creating alternate build scripts or duplicating its safeguards.
+  release entrypoints, their focused contract tests, and the adjacent tooling
+  README so the next routine release remains one command.
+  Extend those entrypoints instead of creating alternate scripts or duplicating
+  their safeguards.
 - Keep the routine path intentionally small: confirm the relevant source state,
-  increment the monotonic preview version, run focused tests for the changed
-  boundary, invoke the canonical publisher once, and report its manifest. Fold
-  any repeatedly useful verification into the publisher rather than making
-  every agent rediscover and rerun it.
-- The publisher already performs the public build, signing-lineage checks,
-  immutable release checks, public download verification, and runtime-boundary
-  audit. Avoid repeating that work unless the publisher reports a problem or
-  the task specifically calls for independent verification.
+  increment the monotonic release version, run focused tests for the changed
+  boundary, invoke the routine release command once, and report the public
+  manifest. Fold repeatedly useful verification into the maintained entrypoints
+  rather than making every agent rediscover and rerun it.
+- The local publisher performs the build, signing-lineage checks, immutable
+  local release checks, and package-boundary audit. The receipt-only deployer
+  uploads those exact bytes, deploys Pages, and verifies the public routes.
+  Avoid repeating either command unless it reports a problem; rerun the
+  deployer, not the builder, after an interrupted public deployment.
 - Run focused source tests before publication. A separate local APK build is
   usually unnecessary when the publisher will immediately build the same
   source, but it can still be useful for local delivery or device testing.
 - After a successful routine publication, a lightweight read of
-  `/android/caatuu-debug.json` is normally enough to report the public version
-  and URL.
+  `/android/caatuu.json` is normally enough to report the public version and
+  URL because the deployer has already checked the immutable public bytes.
 - If the terminal stops waiting while publication continues, first inspect the
   existing process and output. Reuse its result when possible instead of
   immediately starting another build or verification pass.

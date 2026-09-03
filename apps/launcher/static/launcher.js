@@ -3,9 +3,16 @@
   const languageList = document.querySelector("[data-language-list]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const download = document.querySelector("[data-android-download]");
+  const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
   let channelRequest = 0;
   let registryRequest = 0;
   let refreshTimer = 0;
+
+  function versionedLauncherAsset(path) {
+    const url = new URL(path, window.location.origin);
+    url.searchParams.set("caatuu_asset", assetRevision);
+    return `${url.pathname}${url.search}`;
+  }
 
   function freshRequestUrl(path, purpose = "availability") {
     const url = new URL(path, window.location.origin);
@@ -97,47 +104,66 @@
     if (request === channelRequest) setDownloadUnavailable();
   }
 
-  function activateLanguage(language, languages) {
-    if (!language) return;
-    if (browserEntry) {
-      const browser = language.platforms?.browser;
-      browserEntry.href = browser?.enabled ? browser.entryPath : language.entryPath;
-      browserEntry.toggleAttribute("aria-disabled", browser?.enabled === false);
-      const label = browserEntry.querySelector("b");
-      if (label) label.textContent = `Continue with ${language.label}`;
+  function browserSetupCourses(registry) {
+    if (registry?.browserSetup?.schemaVersion !== 1 || !Array.isArray(registry.browserSetup.courses)) {
+      return [];
     }
-    languageList?.querySelectorAll("[data-language-choice]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.languageChoice === language.id));
-    });
-    selectAvailableChannel(language);
+    return registry.browserSetup.courses.filter((courseRecord) => (
+      ["active", "development"].includes(courseRecord?.status)
+      && courseRecord?.targetLanguage
+    ));
   }
 
-  function renderLanguages(registry) {
-    const languages = registry.languages.filter((language) => language.status === "active");
-    if (!languageList || languages.length === 0) return;
-    languageList.replaceChildren(...languages.map((language) => {
+  function renderBrowserSetup(registry) {
+    if (browserEntry) {
+      const entryPath = String(registry?.browserSetup?.entryPath || "");
+      if (entryPath.startsWith("/") && !entryPath.startsWith("//")) browserEntry.href = entryPath;
+      browserEntry.removeAttribute("aria-disabled");
+      browserEntry.setAttribute("aria-label", "Continue online in the browser");
+      const label = browserEntry.querySelector("b");
+      if (label) label.textContent = "Continue online";
+    }
+
+    const courses = browserSetupCourses(registry);
+    if (!languageList || courses.length === 0) return;
+    languageList.replaceChildren(...courses.map((courseRecord) => {
+      const language = courseRecord.targetLanguage;
       const item = document.createElement("li");
-      item.dataset.languageId = language.id;
-      const button = document.createElement("button");
-      button.className = "language-choice";
-      button.type = "button";
-      button.dataset.languageChoice = language.id;
-      button.setAttribute("aria-label", `${language.label} (${language.nativeLabel})`);
+      item.dataset.languageId = courseRecord.id;
+      item.dataset.courseStatus = courseRecord.status;
+      const preview = courseRecord.status === "development";
+      item.setAttribute(
+        "aria-label",
+        `${language.label} (${language.nativeLabel})${preview ? ", Preview" : ""}`
+      );
+      const choice = document.createElement("span");
+      choice.className = "language-choice language-choice-static";
       const flag = document.createElement("img");
-      flag.className = language.flagClass;
-      flag.src = language.flagSrc;
+      flag.className = "flag-icon";
+      flag.src = versionedLauncherAsset(language.flagSrc);
       flag.alt = "";
+      flag.decoding = "async";
       const code = document.createElement("span");
       code.className = "language-choice-code";
       code.textContent = language.shortCode;
-      button.append(flag, code);
-      button.addEventListener("click", () => activateLanguage(language, languages));
-      item.append(button);
+      choice.append(flag, code);
+      if (preview) {
+        const status = document.createElement("span");
+        status.className = "language-choice-status";
+        status.textContent = "Preview";
+        choice.append(status);
+      }
+      item.append(choice);
       return item;
     }));
+  }
 
+  function renderLanguages(registry) {
+    renderBrowserSetup(registry);
+    const languages = registry.languages.filter((language) => language.status === "active");
     const selected = languages.find((language) => language.id === registry.defaultLanguage) || languages[0];
-    activateLanguage(selected, languages);
+    if (selected) selectAvailableChannel(selected);
+    else setDownloadUnavailable("Android not available");
   }
 
   async function loadRegistry() {

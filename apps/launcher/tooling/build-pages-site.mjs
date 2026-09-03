@@ -71,7 +71,12 @@ function retainedAndroidChannels(baselineDescriptor, currentDescriptor) {
   const previousStable = structuredClone(baselineDescriptor.stable);
   previousStable.manifest.publicPaths = previousStable.manifest.publicPaths.slice(0, 1);
   previousStable.apk.publicPaths = previousStable.apk.publicPaths.slice(0, 1);
-  return [currentDescriptor.stable, previousStable, baselineDescriptor.compatibility];
+  return [
+    currentDescriptor.stable,
+    ...currentDescriptor.releases.slice(0, -1),
+    previousStable,
+    baselineDescriptor.compatibility,
+  ];
 }
 
 function androidPublicPaths(baselineDescriptor, currentDescriptor) {
@@ -336,20 +341,22 @@ function overlayDurableBaseline({ baseline, siteDir }) {
   return files;
 }
 
-function overlayCurrentAndroidRelease({ currentRelease, siteDir }) {
-  const { stable } = currentRelease.descriptor;
-  copyVerified(
-    currentRelease.manifestPath,
-    outputPath(siteDir, stable.manifest.publicPaths[0]),
-    stable.manifest,
-    "Stable 163 manifest",
-  );
-  copyVerified(
-    currentRelease.apkPath,
-    outputPath(siteDir, stable.apk.publicPaths[0]),
-    stable.apk,
-    "Stable 163 APK",
-  );
+function overlayAndroidReleases({ currentRelease, siteDir }) {
+  for (const loaded of currentRelease.releases) {
+    const { release } = loaded;
+    copyVerified(
+      loaded.manifestPath,
+      outputPath(siteDir, release.manifest.publicPaths[0]),
+      release.manifest,
+      `Android ${release.versionCode} manifest`,
+    );
+    copyVerified(
+      loaded.apkPath,
+      outputPath(siteDir, release.apk.publicPaths[0]),
+      release.apk,
+      `Android ${release.versionCode} APK`,
+    );
+  }
 }
 
 function browserRequiredArtifact(artifact) {
@@ -919,6 +926,9 @@ function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
   const payloadBytes = files.reduce((sum, file) => sum + file.bytes, 0);
   const descriptor = baseline.descriptor;
   const current = currentRelease.descriptor;
+  const previousStable = current.releases.length > 1
+    ? current.releases.at(-2)
+    : descriptor.stable;
   const manifest = {
     schema_name: "caatuu-web-bundle",
     schema_version: 1,
@@ -932,8 +942,8 @@ function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
     android: {
       stableVersionCode: current.stable.versionCode,
       stableVersionName: current.stable.versionName,
-      previousStableVersionCode: descriptor.stable.versionCode,
-      previousStableVersionName: descriptor.stable.versionName,
+      previousStableVersionCode: previousStable.versionCode,
+      previousStableVersionName: previousStable.versionName,
       compatibilityVersionCode: descriptor.compatibility.versionCode,
       compatibilityVersionName: descriptor.compatibility.versionName
     },
@@ -980,12 +990,20 @@ function validateCurrentAndroidSetupClosure({ siteDir, currentRelease }) {
       assert.equal(url.origin, canonicalOrigin, `${entry}:${artifact.key} changed setup origin`);
       const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${entry}:${artifact.key} path`);
       const file = outputPath(siteDir, path);
-      assert.ok(existsSync(file), `Pages output is missing Android 163 setup artifact ${entry}:${path}`);
+      assert.ok(
+        existsSync(file),
+        `Pages output is missing Android ${currentRelease.current.release.versionCode} setup artifact ${entry}:${path}`,
+      );
       assert.equal(statSync(file).size, Number(artifact.bytes), `${entry}:${artifact.key} byte count changed`);
       assert.equal(sha256File(file), String(artifact.sha256).toLowerCase(), `${entry}:${artifact.key} hash changed`);
       const identity = `${artifact.bytes}:${String(artifact.sha256).toLowerCase()}`;
-      if (seen.has(path)) assert.equal(seen.get(path), identity, `Android 163 setup path has conflicting bytes: ${path}`);
-      else seen.set(path, identity);
+      if (seen.has(path)) {
+        assert.equal(
+          seen.get(path),
+          identity,
+          `Android ${currentRelease.current.release.versionCode} setup path has conflicting bytes: ${path}`,
+        );
+      } else seen.set(path, identity);
       nativeArtifactCount += 1;
     }
   }
@@ -1037,7 +1055,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
 
   const descriptor = baseline.descriptor;
   const currentDescriptor = currentRelease.descriptor;
-  assert.equal(currentDescriptor.previousStableVersionCode, descriptor.stable.versionCode);
+  assert.equal(currentDescriptor.baselineStableVersionCode, descriptor.stable.versionCode);
   assert.equal(currentDescriptor.compatibilityVersionCode, descriptor.compatibility.versionCode);
   for (const channel of retainedAndroidChannels(descriptor, currentDescriptor)) {
     validateAndroidManifest({
@@ -1174,6 +1192,9 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(profile.privacy.legacyReportingQueuesLocalOnly, true);
 
   const manifest = JSON.parse(readText(join(siteDir, "caatuu-web-bundle.json")));
+  const previousStable = currentDescriptor.releases.length > 1
+    ? currentDescriptor.releases.at(-2)
+    : descriptor.stable;
   const inventory = inventoryFor(siteDir);
   assert.equal(manifest.schema_name, "caatuu-web-bundle");
   assert.equal(manifest.schema_version, 1);
@@ -1182,7 +1203,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.deepEqual(manifest.releaseArchive, descriptor.releaseArchive);
   assert.deepEqual(manifest.currentAndroidRelease, currentDescriptor.githubRelease);
   assert.equal(manifest.android.stableVersionCode, currentDescriptor.stable.versionCode);
-  assert.equal(manifest.android.previousStableVersionCode, descriptor.stable.versionCode);
+  assert.equal(manifest.android.previousStableVersionCode, previousStable.versionCode);
   assert.equal(manifest.android.compatibilityVersionCode, descriptor.compatibility.versionCode);
   assert.deepEqual(manifest.edgeDynamicRoutes, edgeDynamicRoutes);
   assert.deepEqual(manifest.retiredPublicRoutes, finalRetiredRoutes);
@@ -1202,7 +1223,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
     fileCount: files.length,
     totalBytes,
     stableVersionCode: currentDescriptor.stable.versionCode,
-    previousStableVersionCode: descriptor.stable.versionCode,
+    previousStableVersionCode: previousStable.versionCode,
     compatibilityVersionCode: descriptor.compatibility.versionCode,
     releaseArchiveSha256: descriptor.releaseArchive.sha256
   };
@@ -1284,7 +1305,7 @@ export function compilePagesSite({
       "Pages baseline and current release origins differ",
     );
     const baselineFiles = overlayDurableBaseline({ baseline, siteDir: stagingDir });
-    overlayCurrentAndroidRelease({ currentRelease, siteDir: stagingDir });
+    overlayAndroidReleases({ currentRelease, siteDir: stagingDir });
     restoreWebSetupCompatibility({ siteDir: stagingDir, releaseSetup: baseline.setupManifest });
     createAndroidAliases({
       baselineDescriptor: baseline.descriptor,

@@ -35,8 +35,9 @@ The receipt binds those APK bytes to source commit
 `com.waajacu.caatuu`, signer
 `c663bdec81ef8876f261ebbc3ab95d96789972eb8bc1b22e8e17acf44469af55`,
 and version 163. [`pages-current-release.json`](pages-current-release.json)
-pins the overlay. A future release changes that small descriptor and release;
-it does not repack the 535 MB baseline.
+pins it as the first entry in an append-only overlay list. A future release is
+appended to that small descriptor, retaining 163's immutable paths; it does not
+repack the 535 MB baseline.
 
 Release 162 permanently owns
 `/assets/planets/agreement-aurora.png` with 1,511,588 bytes and SHA-256
@@ -60,9 +61,10 @@ The final Pages builder verifies and safely extracts the archive:
 docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site.mjs --baseline-archive artifacts/android/caatuu-pages-v162.tar --output artifacts/web/github-pages
 ```
 
-The manual workflow downloads the exact GitHub Release tag. Neither the
-workflow nor either tool resolves `latest`. Publishing the preservation and
-Android release tags, deploying Pages, publishing the separate
+The manual workflow derives and downloads every exact Android tag and asset in
+the validated release list. Neither the workflow nor either tool resolves
+`latest`. Publishing the preservation and Android release tags, deploying
+Pages, publishing the separate
 `caatuu-setup-assets-v1` files, deploying the Worker, and changing DNS are
 separate verified actions governed by
 [`docs/STATIC_WEB_HOSTING.md`](../../../docs/STATIC_WEB_HOSTING.md).
@@ -78,12 +80,15 @@ runtime can remain opt-in for deliberate development and APK/API tests.
 Transition 161 remains available only at its immutable version path and the
 technical `caatuu-debug.*` compatibility aliases needed by already-installed
 preview clients. Pages does not publish `caatuu-preview.*`, and the public
-launcher advertises only signed, non-debuggable stable 163. This prevents the
-debuggable transition package from becoming an ungated automatic fallback.
+launcher currently advertises signed, non-debuggable stable 163; future
+descriptor appends advertise only the newest signed stable release. This
+prevents the debuggable transition package from becoming an ungated automatic
+fallback.
 
-`publish-release.sh` now separates building from promotion. `--build-once`
-creates at most one signed candidate and receipt; receipt promotion and
+`publish-release.sh` separates building from local finalization. `--build-once`
+creates at most one signed candidate and receipt; receipt reuse and
 `--adopt-existing` never invoke Gradle. It finalizes local immutable inputs for
-this Pages pipeline but does not deploy, change DNS, or contact the retired
-self-hosted status routes. Public verification belongs to the Pages deployment
-step.
+this Pages pipeline but does not deploy. The separate
+`deploy-pages-release.ps1` command consumes one version-owned receipt, appends
+or reuses its descriptor entry, uploads the exact three assets, dispatches
+Pages, and performs public verification without rebuilding.

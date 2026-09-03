@@ -10,15 +10,20 @@ const SUPPORTED_KEYWORDS = new Set([
   "properties",
   "required",
   "additionalProperties",
+  "patternProperties",
   "propertyNames",
+  "prefixItems",
   "items",
   "minItems",
+  "maxItems",
   "uniqueItems",
   "minProperties",
   "minLength",
   "pattern",
   "minimum",
   "maximum",
+  "exclusiveMinimum",
+  "exclusiveMaximum",
   "allOf",
   "oneOf",
   "if",
@@ -212,7 +217,7 @@ export function assertSupportedJsonSchemaSubset(schema) {
       }
     }
 
-    for (const keyword of ["minItems", "minProperties", "minLength"]) {
+    for (const keyword of ["minItems", "maxItems", "minProperties", "minLength"]) {
       if (node[keyword] !== undefined) {
         assertNonNegativeInteger(node[keyword], keyword, schemaPath);
       }
@@ -226,7 +231,12 @@ export function assertSupportedJsonSchemaSubset(schema) {
       );
     }
 
-    for (const keyword of ["minimum", "maximum"]) {
+    for (const keyword of [
+      "minimum",
+      "maximum",
+      "exclusiveMinimum",
+      "exclusiveMaximum"
+    ]) {
       if (node[keyword] !== undefined
           && (typeof node[keyword] !== "number" || !Number.isFinite(node[keyword]))) {
         throw new JsonSchemaSubsetError(
@@ -256,7 +266,7 @@ export function assertSupportedJsonSchemaSubset(schema) {
       }
     }
 
-    for (const keyword of ["properties", "$defs"]) {
+    for (const keyword of ["properties", "patternProperties", "$defs"]) {
       if (node[keyword] === undefined) continue;
       if (!isObject(node[keyword])) {
         throw new JsonSchemaSubsetError(
@@ -266,8 +276,36 @@ export function assertSupportedJsonSchemaSubset(schema) {
         );
       }
       for (const [name, child] of Object.entries(node[keyword])) {
+        if (keyword === "patternProperties") {
+          try {
+            new RegExp(name, "u");
+          } catch (caught) {
+            throw new JsonSchemaSubsetError(
+              "JSON_SCHEMA_INVALID_KEYWORD_VALUE",
+              appendPointer(appendPointer(schemaPath, keyword), name),
+              `patternProperties key is not a valid regular expression: ${caught.message}`
+            );
+          }
+        }
         visit(child, appendPointer(appendPointer(schemaPath, keyword), name), rootSchema);
       }
+    }
+
+    if (node.prefixItems !== undefined) {
+      if (!Array.isArray(node.prefixItems)) {
+        throw new JsonSchemaSubsetError(
+          "JSON_SCHEMA_INVALID_KEYWORD_VALUE",
+          appendPointer(schemaPath, "prefixItems"),
+          "prefixItems must be an array of schemas."
+        );
+      }
+      node.prefixItems.forEach((child, index) => {
+        visit(
+          child,
+          appendPointer(appendPointer(schemaPath, "prefixItems"), index),
+          rootSchema
+        );
+      });
     }
 
     if (node.additionalProperties !== undefined) {
@@ -447,6 +485,8 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
 
     if (isObject(value)) {
       const propertySchemas = node.properties || {};
+      const patternPropertySchemas = Object.entries(node.patternProperties || {})
+        .map(([pattern, child]) => [new RegExp(pattern, "u"), pattern, child]);
       for (const requiredProperty of node.required || []) {
         if (!Object.hasOwn(value, requiredProperty)) {
           addError(
@@ -469,6 +509,20 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
         ));
       }
 
+      for (const property of Object.keys(value)) {
+        for (const [pattern, patternText, child] of patternPropertySchemas) {
+          if (!pattern.test(property)) continue;
+          errors.push(...validateNode(
+            child,
+            value[property],
+            appendPointer(instancePath, property),
+            appendPointer(appendPointer(schemaPath, "patternProperties"), patternText),
+            rootSchema,
+            activeReferences
+          ));
+        }
+      }
+
       if (node.propertyNames !== undefined) {
         for (const property of Object.keys(value)) {
           errors.push(...validateNode(
@@ -483,7 +537,10 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
       }
 
       const additionalProperties = Object.keys(value)
-        .filter((property) => !Object.hasOwn(propertySchemas, property));
+        .filter((property) => (
+          !Object.hasOwn(propertySchemas, property)
+          && !patternPropertySchemas.some(([pattern]) => pattern.test(property))
+        ));
       if (node.additionalProperties === false) {
         for (const property of additionalProperties) {
           addError(
@@ -518,6 +575,9 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
       if (node.minItems !== undefined && value.length < node.minItems) {
         addError("minItems", instancePath, `Expected at least ${node.minItems} items.`);
       }
+      if (node.maxItems !== undefined && value.length > node.maxItems) {
+        addError("maxItems", instancePath, `Expected at most ${node.maxItems} items.`);
+      }
       if (node.uniqueItems === true) {
         for (let index = 0; index < value.length; index += 1) {
           const duplicateIndex = value.slice(0, index)
@@ -531,8 +591,20 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
           }
         }
       }
+      const prefixLength = node.prefixItems?.length ?? 0;
+      for (let index = 0; index < Math.min(prefixLength, value.length); index += 1) {
+        errors.push(...validateNode(
+          node.prefixItems[index],
+          value[index],
+          appendPointer(instancePath, index),
+          appendPointer(appendPointer(schemaPath, "prefixItems"), index),
+          rootSchema,
+          activeReferences
+        ));
+      }
       if (node.items !== undefined) {
-        value.forEach((item, index) => {
+        value.slice(prefixLength).forEach((item, relativeIndex) => {
+          const index = prefixLength + relativeIndex;
           errors.push(...validateNode(
             node.items,
             item,
@@ -560,6 +632,20 @@ export function validateJsonSchemaSubset(schema, instance, options = {}) {
       }
       if (node.maximum !== undefined && value > node.maximum) {
         addError("maximum", instancePath, `Expected a value less than or equal to ${node.maximum}.`);
+      }
+      if (node.exclusiveMinimum !== undefined && value <= node.exclusiveMinimum) {
+        addError(
+          "exclusiveMinimum",
+          instancePath,
+          `Expected a value greater than ${node.exclusiveMinimum}.`
+        );
+      }
+      if (node.exclusiveMaximum !== undefined && value >= node.exclusiveMaximum) {
+        addError(
+          "exclusiveMaximum",
+          instancePath,
+          `Expected a value less than ${node.exclusiveMaximum}.`
+        );
       }
     }
 

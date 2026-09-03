@@ -22,6 +22,19 @@ const [chromeCss, appCss, chatCss, chromeJs, courseProfile, serviceWorker, launc
   readFile(czechAndroidAssets, "utf8").then(JSON.parse)
 ]);
 
+const [czechFlag, chinaFlag] = await Promise.all([
+  readFile(new URL("assets/icons/czech_flag_ui.png", launcherStatic)),
+  readFile(new URL("assets/icons/china_flag.png", launcherStatic))
+]);
+
+function pngDimensions(source) {
+  assert.equal(source.subarray(1, 4).toString("ascii"), "PNG", "asset must be a PNG");
+  return {
+    width: source.readUInt32BE(16),
+    height: source.readUInt32BE(20)
+  };
+}
+
 function ruleBody(source, selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const match = source.match(new RegExp(`(?:^|})\\s*${escaped}\\s*\\{([^}]*)\\}`, "m"));
@@ -65,13 +78,23 @@ test("the language landing page uses the registered Czech PNG without a frame", 
   const holder = ruleBody(launcherCss, ".language-list li");
   assert.match(holder, /\bborder\s*:\s*0\s*;/, "the flag holder must not add a surrounding border");
   assert.match(holder, /\bbackground\s*:\s*transparent\s*;/, "the flag holder must not add a framed tile");
-  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag_ui\.png" alt=""[^>]*>/);
+  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag_ui\.png\?caatuu_asset=11" alt=""[^>]*>/);
   assert.match(launcherHtml, /<span class="language-choice-code">CZ<\/span>/, "the fallback language row should name Czech explicitly");
+  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/china_flag\.png\?caatuu_asset=11" alt=""[^>]*>/);
+  assert.match(launcherHtml, /<span class="language-choice-code">ZH<\/span>/, "the fallback language row should name Mandarin explicitly");
+  assert.match(launcherHtml, /<span class="language-choice-status">Preview<\/span>/, "the fallback language row should disclose Mandarin's preview status");
   assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/czech_flag_ui\.png"/);
+  assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/china_flag\.png"/);
   assert.match(
     launcherJs,
-    /createElement\("img"\)[\s\S]*?className = language\.flagClass[\s\S]*?src = language\.flagSrc[\s\S]*?alt = ""/,
-    "the launcher should render the registered flag image"
+    /createElement\("img"\)[\s\S]*?className = "flag-icon"[\s\S]*?src = versionedLauncherAsset\(language\.flagSrc\)[\s\S]*?alt = ""/,
+    "the launcher should render browser-course flags as decorative images"
   );
   assert.match(launcherJs, /code\.textContent = language\.shortCode/, "dynamic language rows should include their short code");
+});
+
+test("the Czech and Mandarin source flags share the same normalized canvas", () => {
+  assert.deepEqual(pngDimensions(czechFlag), { width: 192, height: 128 });
+  assert.deepEqual(pngDimensions(chinaFlag), { width: 192, height: 128 });
+  assert.ok(chinaFlag.byteLength < 100_000, "the normalized Mandarin flag should not retain the oversized source raster");
 });

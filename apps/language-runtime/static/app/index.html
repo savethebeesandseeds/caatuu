@@ -10,10 +10,10 @@
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <script src="source/shared/course-profile.js?v=course-26"></script>
     <script src="/language-runtime/static/source/learning-profile.js?v=learning-5"></script>
-    <script src="/language-runtime/static/source/initial-theme.js?v=theme-1"></script>
+    <script src="/language-runtime/static/source/initial-theme.js?v=theme-2"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-5">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-93">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-32">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-35">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-126">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-89">
   </head>
@@ -22,6 +22,36 @@
       <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Caatuu" data-caatuu-page-title="Home" data-caatuu-page-icon="/assets/icons/home_icon.png"></header>
 
       <main class="workspace">
+        <details class="verb-toolbar-menu verb-display-menu workspace-display-menu" id="setupDisplayMenu">
+          <summary aria-label="Display settings" title="Display settings">
+            <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+          </summary>
+          <div class="verb-display-popover" role="dialog" aria-label="Display settings">
+            <span class="verb-popover-label">Display</span>
+            <section class="verb-popover-setting" aria-labelledby="setupThemeLabel">
+              <span class="verb-popover-setting-title" id="setupThemeLabel">Theme</span>
+              <div class="verb-display-options" role="group" aria-label="Theme">
+                <button type="button" data-theme-option="light" aria-pressed="true">
+                  <img src="/assets/icons/light_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                  <span>Light</span>
+                </button>
+                <button type="button" data-theme-option="dark" aria-pressed="false">
+                  <img src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
+                  <span>Dark</span>
+                </button>
+              </div>
+            </section>
+            <section class="verb-popover-setting" aria-labelledby="setupTextSizeLabel">
+              <span class="verb-popover-setting-title" id="setupTextSizeLabel">Text size</span>
+              <div class="verb-display-options verb-display-size-options" role="group" aria-label="Text size">
+                <button type="button" data-font-size-option="largest" aria-pressed="true"><b aria-hidden="true">A</b><span>Standard</span></button>
+                <button type="button" data-font-size-option="large" aria-pressed="false"><b aria-hidden="true">A</b><span>Small</span></button>
+                <button type="button" data-font-size-option="standard" aria-pressed="false"><b aria-hidden="true">A</b><span>Smaller</span></button>
+              </div>
+            </section>
+          </div>
+        </details>
+
         <section class="view home-view is-active" id="view-home" aria-labelledby="homeTitle">
           <div class="home-main">
             <section class="home-hero">
@@ -47,6 +77,22 @@
                   <p class="setup-message" id="setupMessage">Preparing local files for offline use.</p>
                   <button class="setup-report-link" id="setupReportBug" type="button" hidden>Report bug</button>
                 </div>
+                <section class="setup-language-selection" id="setupLanguageSelection" aria-labelledby="setupTitle" hidden>
+                  <form class="setup-language-form" id="setupLanguageForm" aria-describedby="setupLanguageHint">
+                    <fieldset class="setup-language-question" id="setupSourceLanguageQuestion">
+                      <legend><span aria-hidden="true">1</span> What language do you speak?</legend>
+                      <div class="setup-language-options" id="setupSourceLanguageOptions"></div>
+                    </fieldset>
+                    <fieldset class="setup-language-question" id="setupTargetLanguageQuestion" disabled>
+                      <legend><span aria-hidden="true">2</span> What language do you want to learn?</legend>
+                      <div class="setup-language-options" id="setupTargetLanguageOptions"></div>
+                    </fieldset>
+                    <div class="setup-language-form-actions">
+                      <p class="setup-language-hint" id="setupLanguageHint" aria-live="polite">Choose the language you speak first.</p>
+                      <button class="setup-action setup-language-continue" id="setupLanguageContinue" type="submit" disabled>Continue</button>
+                    </div>
+                  </form>
+                </section>
                 <div class="setup-progress-meta">
                   <span class="setup-progress-metrics" id="setupProgressText">
                     <span class="setup-progress-pill"><b id="setupPercent">0%</b></span>
@@ -1277,7 +1323,7 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-6"></script>
-    <script src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-124"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-24"></script>
+    <script src="/language-runtime/static/source/caatuu-chrome.js?v=chrome-125"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-26"></script>
   </body>
 </html>

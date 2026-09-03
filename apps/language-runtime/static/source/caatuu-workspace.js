@@ -687,12 +687,12 @@ function readStoredTheme() {
   try {
     return normalizeTheme(localStorage.getItem(themeStorageKey));
   } catch (error) {
-    return "dark";
+    return "light";
   }
 }
 
 function normalizeTheme(theme) {
-  return Object.prototype.hasOwnProperty.call(themeOptions, theme) ? theme : "dark";
+  return Object.prototype.hasOwnProperty.call(themeOptions, theme) ? theme : "light";
 }
 
 function syncThemeControls() {
@@ -4010,7 +4010,7 @@ function setView(view) {
 
 function syncEmbeddedWordNetVisibility(active) {
   window.CaatuuWordWorldHost?.setActive?.(Boolean(active), {
-    theme: document.documentElement.dataset.theme || "dark",
+    theme: document.documentElement.dataset.theme || "light",
     fontSize: document.documentElement.dataset.fontSize || "largest"
   });
 }
@@ -4110,7 +4110,7 @@ function syncEmbeddedGameVisibility(activeTab) {
       source: "caatuu-app-shell",
       type: "visibility",
       active: activeTab === gameId,
-      theme: document.documentElement.dataset.theme || "dark",
+      theme: document.documentElement.dataset.theme || "light",
       fontSize: document.documentElement.dataset.fontSize || "largest"
     }, window.location.origin);
   });

@@ -3,8 +3,19 @@ name: Animated Fabric CI
 on:
   push:
     paths:
-      - "apps/animated-fabric/**"
+      - "apps/animated-fabric/src/**"
+      - "apps/animated-fabric/tests/**"
+      - "apps/animated-fabric/scripts/**"
+      - "apps/animated-fabric/tools/**"
+      - "apps/animated-fabric/assets/reference-packages/**"
+      - "apps/animated-fabric/containers/worker-contract.json"
+      - "apps/animated-fabric/constraints/**"
+      - "apps/animated-fabric/pyproject.toml"
+      - "apps/animated-fabric/Dockerfile.cutout"
+      - "apps/animated-fabric/requirements-cutout-*.txt"
+      - "apps/animated-fabric/.dockerignore"
       - "tools/dev-container/**"
+      - "setup.sh"
       - "compose.yaml"
       - "compose/dev-gpu.yaml"
       - "compose/dev-gui.yaml"
@@ -12,8 +23,19 @@ on:
       - ".github/workflows/animated-fabric-ci.yml"
   pull_request:
     paths:
-      - "apps/animated-fabric/**"
+      - "apps/animated-fabric/src/**"
+      - "apps/animated-fabric/tests/**"
+      - "apps/animated-fabric/scripts/**"
+      - "apps/animated-fabric/tools/**"
+      - "apps/animated-fabric/assets/reference-packages/**"
+      - "apps/animated-fabric/containers/worker-contract.json"
+      - "apps/animated-fabric/constraints/**"
+      - "apps/animated-fabric/pyproject.toml"
+      - "apps/animated-fabric/Dockerfile.cutout"
+      - "apps/animated-fabric/requirements-cutout-*.txt"
+      - "apps/animated-fabric/.dockerignore"
       - "tools/dev-container/**"
+      - "setup.sh"
       - "compose.yaml"
       - "compose/dev-gpu.yaml"
       - "compose/dev-gui.yaml"
@@ -25,8 +47,74 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Classify Animated Fabric gates
+    runs-on: ubuntu-24.04
+    outputs:
+      packaging: ${{ steps.filter.outputs.packaging }}
+      rendering: ${{ steps.filter.outputs.rendering }}
+      cutout: ${{ steps.filter.outputs.cutout }}
+      workers: ${{ steps.filter.outputs.workers }}
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed paths
+        id: filter
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          all=false
+          case "$EVENT_NAME" in
+            workflow_dispatch)
+              all=true
+              ;;
+            pull_request)
+              base="$PR_BASE_SHA"
+              head="$PR_HEAD_SHA"
+              ;;
+            *)
+              base="$BEFORE_SHA"
+              head="$CURRENT_SHA"
+              ;;
+          esac
+
+          if [[ "$all" == false ]]; then
+            if [[ -z "${base:-}" || "$base" =~ ^0+$ ]] \
+              || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+              all=true
+            else
+              git diff --name-only --no-renames "$base" "$head" > changed-files.txt
+            fi
+          fi
+
+          emit() {
+            local name="$1"
+            local pattern="$2"
+            local value=false
+            if [[ "$all" == true ]] || grep -Eq "$pattern" changed-files.txt; then
+              value=true
+            fi
+            printf '%s=%s\n' "$name" "$value" >> "$GITHUB_OUTPUT"
+          }
+
+          common='^(\.github/workflows/animated-fabric-ci\.yml|setup\.sh|tools/dev-container/|compose\.yaml|compose/dev-(gpu|gui)\.yaml)'
+          emit packaging "$common|^apps/animated-fabric/(pyproject\.toml|constraints/|src/)"
+          emit rendering "$common|^apps/animated-fabric/(src/|scripts/(generate_fixture_assets|run_demo_pipeline)\.py|tests/golden/)"
+          emit cutout "$common|^apps/animated-fabric/(Dockerfile\.cutout|requirements-cutout-[^/]+\.txt|tools/cutout/|tests/cutout/)"
+          emit workers "$common|^apps/animated-fabric/(containers/worker-contract\.json|scripts/validate_worker_contract\.py|tests/unit/test_worker_contract\.py)"
+
   quality:
-    name: Shared Caatuu Linux quality gate
+    name: Core Python quality gate
+    needs: changes
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -38,6 +126,7 @@ jobs:
           echo "LOCAL_GID=$(id -g)" >> "$GITHUB_ENV"
 
       - name: Validate the root Caatuu Compose project
+        if: needs.changes.outputs.workers == 'true'
         run: |
           docker compose --profile dev config --quiet
           docker compose --profile cutout-classic --profile cutout \
@@ -60,13 +149,14 @@ jobs:
         run: docker exec caatuu-dev check-caatuu-dev
 
       - name: Validate specialist workers against the resolved root project
+        if: needs.changes.outputs.workers == 'true'
         run: |
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             caatuu-animated-fabric python scripts/validate_worker_contract.py \
               --compose-config .tmp/resolved-worker-compose.json \
               --host-repository-root "$GITHUB_WORKSPACE"
 
-      - name: Run the complete quality gate
+      - name: Run the core quality gate
         run: |
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             caatuu-animated-fabric ruff format --check .
@@ -80,6 +170,7 @@ jobs:
             caatuu-animated-fabric python -m pip check
 
       - name: Build and smoke-test the installable wheel
+        if: needs.changes.outputs.packaging == 'true'
         run: |
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             caatuu-animated-fabric python -m pip wheel --no-deps \
@@ -87,7 +178,7 @@ jobs:
           docker exec -w /tmp caatuu-dev /opt/animated-fabric/bin/python -c \
             "from pathlib import Path; import sys; wheel = next(Path('/workspace/apps/animated-fabric/.tmp/wheels').glob('animated_fabric-*.whl')).resolve(); sys.path.insert(0, str(wheel)); import animated_fabric; from animated_fabric.templates import JsonRigTemplateRegistry; assert str(wheel) in animated_fabric.__file__; assert JsonRigTemplateRegistry().get('humanoid_v1').template_id == 'humanoid_v1'"
 
-      - name: Smoke-test the CLI and deterministic fixtures
+      - name: Smoke-test the public CLI
         run: |
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             animated-fabric --help
@@ -103,6 +194,10 @@ jobs:
             caatuu-animated-fabric python -m animated_fabric version
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             caatuu-animated-fabric python -m animated_fabric doctor
+
+      - name: Exercise deterministic rendering and export
+        if: needs.changes.outputs.rendering == 'true'
+        run: |
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \
             caatuu-animated-fabric python scripts/generate_fixture_assets.py \
               --out .tmp/fixtures
@@ -114,6 +209,7 @@ jobs:
             caatuu-animated-fabric python scripts/run_demo_pipeline.py --out .tmp/demo
 
       - name: Build and smoke-test the lightweight cutout worker
+        if: needs.changes.outputs.cutout == 'true'
         run: |
           docker compose --profile cutout-classic build animated-fabric-cutout-classic
           docker exec -w /workspace/apps/animated-fabric caatuu-dev \

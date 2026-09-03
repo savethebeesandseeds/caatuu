@@ -50,6 +50,6 @@
   ],
   "commands": {
     "export": "docker compose --profile game-tools run --rm caatuu-game-godot-export",
-    "validate": "node apps/games/test/game-catalog-contract.test.mjs"
+    "validate": "node apps/games/tooling/validate-godot-project.mjs"
   }
 }

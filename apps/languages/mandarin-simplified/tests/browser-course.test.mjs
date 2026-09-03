@@ -188,9 +188,9 @@ test("setup and service-worker catalogs cover every required offline URL", async
     entryPath: "/zh/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v52");
-  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v52/u);
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v571/u);
+  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v56");
+  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v56/u);
+  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v575/u);
   const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));
   assert.match(
@@ -204,7 +204,7 @@ test("setup and service-worker catalogs cover every required offline URL", async
   assert.doesNotMatch(JSON.stringify(setup), /word-world\.html/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
   for (const asset of [
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-6",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-7",
     "/language-runtime/static/source/maintenance-ui.js?v=maintenance-17",
     "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
     "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11",

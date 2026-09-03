@@ -658,14 +658,14 @@
   }
 
   function normalizeTheme(theme) {
-    return theme === "light" || theme === "dark" ? theme : "dark";
+    return theme === "light" || theme === "dark" ? theme : "light";
   }
 
   function readStoredTheme() {
     try {
       return normalizeTheme(localStorage.getItem(themeStorageKey));
     } catch (error) {
-      return "dark";
+      return "light";
     }
   }
 
@@ -1355,7 +1355,7 @@
 
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
       const darkActive = theme === "dark";
-      const option = themeOptions[theme] || themeOptions.dark;
+      const option = themeOptions[theme] || themeOptions.light;
       button.dataset.themeToggle = darkActive ? "light" : "dark";
       button.classList.toggle("is-selected", darkActive);
       button.classList.remove("is-disabled");
@@ -1378,7 +1378,7 @@
     document.documentElement.dataset.theme = normalizedTheme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute(
       "content",
-      themeOptions[normalizedTheme]?.themeColor || themeOptions.dark.themeColor
+      themeOptions[normalizedTheme]?.themeColor || themeOptions.light.themeColor
     );
     if (persist) {
       try {

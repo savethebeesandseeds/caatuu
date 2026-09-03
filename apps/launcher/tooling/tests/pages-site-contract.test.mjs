@@ -24,12 +24,14 @@ test("the Pages builder exposes compilation and validation without running on im
   assert.match(source, /process\.argv\[1\].*resolve\(scriptPath\)/u);
 });
 
-test("the Pages builder accepts one frozen baseline plus one pinned current release", () => {
+test("the Pages builder accepts one frozen baseline plus every validated release overlay", () => {
   assert.match(source, /Exactly one of baselineDir or baselineArchive is required/u);
   assert.match(source, /extractPagesBaselineArchive/u);
   assert.match(source, /--baseline-archive/u);
   assert.match(source, /loadPagesCurrentRelease/u);
-  assert.match(source, /overlayCurrentAndroidRelease/u);
+  assert.match(source, /overlayAndroidReleases/u);
+  assert.match(source, /for \(const loaded of currentRelease\.releases\)/u);
+  assert.match(source, /currentDescriptor\.releases\.slice\(0, -1\)/u);
   assert.match(source, /currentReleaseDescriptorPath/u);
   assert.match(source, /compileProductAssetBundle/u);
   assert.match(source, /overlayMandarinWebProduct/u);

@@ -3,6 +3,13 @@
   const languageList = document.querySelector("[data-language-list]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const androidEntry = document.querySelector("[data-android-download]");
+  const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
+
+  function versionedLauncherAsset(path) {
+    const url = new URL(path, window.location.origin);
+    url.searchParams.set("caatuu_asset", assetRevision);
+    return `${url.pathname}${url.search}`;
+  }
 
   function setAndroidSeparate() {
     if (!androidEntry) return;
@@ -17,49 +24,54 @@
     if (label) label.textContent = "Published separately";
   }
 
-  function activateLanguage(language) {
-    if (!language) return;
+  function renderBrowserSetup(registry) {
     if (browserEntry) {
-      const browser = language.platforms?.browser;
-      browserEntry.href = browser?.enabled ? browser.entryPath : language.entryPath;
-      browserEntry.toggleAttribute("aria-disabled", browser?.enabled === false);
+      const entryPath = String(registry?.browserSetup?.entryPath || "");
+      if (entryPath.startsWith("/") && !entryPath.startsWith("//")) browserEntry.href = entryPath;
+      browserEntry.removeAttribute("aria-disabled");
+      browserEntry.setAttribute("aria-label", "Continue online in the browser");
       const label = browserEntry.querySelector("b");
-      if (label) label.textContent = `Continue with ${language.label}`;
+      if (label) label.textContent = "Continue online";
     }
-    languageList?.querySelectorAll("[data-language-choice]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.languageChoice === language.id));
-    });
-  }
 
-  function renderLanguages(registry) {
-    const languages = Array.isArray(registry?.languages)
-      ? registry.languages.filter((language) => language.status === "active")
+    const courses = registry?.browserSetup?.schemaVersion === 1
+      && Array.isArray(registry.browserSetup.courses)
+      ? registry.browserSetup.courses.filter((courseRecord) => (
+        ["active", "development"].includes(courseRecord?.status)
+        && courseRecord?.targetLanguage
+      ))
       : [];
-    if (!languageList || languages.length === 0) return;
-    languageList.replaceChildren(...languages.map((language) => {
+    if (!languageList || courses.length === 0) return;
+    languageList.replaceChildren(...courses.map((courseRecord) => {
+      const language = courseRecord.targetLanguage;
       const item = document.createElement("li");
-      item.dataset.languageId = language.id;
-      const button = document.createElement("button");
-      button.className = "language-choice";
-      button.type = "button";
-      button.dataset.languageChoice = language.id;
-      button.setAttribute("aria-label", `${language.label} (${language.nativeLabel})`);
+      item.dataset.languageId = courseRecord.id;
+      item.dataset.courseStatus = courseRecord.status;
+      const preview = courseRecord.status === "development";
+      item.setAttribute(
+        "aria-label",
+        `${language.label} (${language.nativeLabel})${preview ? ", Preview" : ""}`
+      );
+      const choice = document.createElement("span");
+      choice.className = "language-choice language-choice-static";
       const flag = document.createElement("img");
-      flag.className = language.flagClass;
-      flag.src = language.flagSrc;
+      flag.className = "flag-icon";
+      flag.src = versionedLauncherAsset(language.flagSrc);
       flag.alt = "";
+      flag.decoding = "async";
       const code = document.createElement("span");
       code.className = "language-choice-code";
       code.textContent = language.shortCode;
-      button.append(flag, code);
-      button.addEventListener("click", () => activateLanguage(language));
-      item.append(button);
+      choice.append(flag, code);
+      if (preview) {
+        const status = document.createElement("span");
+        status.className = "language-choice-status";
+        status.textContent = "Preview";
+        choice.append(status);
+      }
+      item.append(choice);
       return item;
     }));
-
-    activateLanguage(
-      languages.find((language) => language.id === registry.defaultLanguage) || languages[0]
-    );
   }
 
   async function loadRegistry() {
@@ -68,9 +80,9 @@
       if (!response.ok) throw new Error(`Language registry returned ${response.status}.`);
       const registry = await response.json();
       if (registry?.schemaVersion !== 1) throw new Error("Unsupported language registry.");
-      renderLanguages(registry);
+      renderBrowserSetup(registry);
     } catch (error) {
-      // The checked-in Czech links remain the no-JavaScript and offline fallback.
+      // The checked-in browser setup remains the no-JavaScript and offline fallback.
     }
   }
 

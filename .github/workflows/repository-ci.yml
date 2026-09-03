@@ -9,8 +9,77 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Classify affected components
+    runs-on: ubuntu-24.04
+    outputs:
+      browser: ${{ steps.filter.outputs.browser }}
+      language: ${{ steps.filter.outputs.language }}
+      compose: ${{ steps.filter.outputs.compose }}
+      rust: ${{ steps.filter.outputs.rust }}
+      scenery_evidence: ${{ steps.filter.outputs.scenery_evidence }}
+      static_site_evidence: ${{ steps.filter.outputs.static_site_evidence }}
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed paths
+        id: filter
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          all=false
+          case "$EVENT_NAME" in
+            workflow_dispatch)
+              all=true
+              ;;
+            pull_request)
+              base="$PR_BASE_SHA"
+              head="$PR_HEAD_SHA"
+              ;;
+            *)
+              base="$BEFORE_SHA"
+              head="$CURRENT_SHA"
+              ;;
+          esac
+
+          if [[ "$all" == false ]]; then
+            if [[ -z "${base:-}" || "$base" =~ ^0+$ ]] \
+              || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+              all=true
+            else
+              git diff --name-only --no-renames "$base" "$head" > changed-files.txt
+            fi
+          fi
+
+          emit() {
+            local name="$1"
+            local pattern="$2"
+            local value=false
+            if [[ "$all" == true ]] || grep -Eq "$pattern" changed-files.txt; then
+              value=true
+            fi
+            printf '%s=%s\n' "$name" "$value" >> "$GITHUB_OUTPUT"
+          }
+
+          emit browser '^(\.github/workflows/(repository-ci|pages)\.yml|LICENSE$|CHANGELOG\.md$|\.dockerignore$|compose\.yaml$|compose/|archive/|apps/(android|games|language-runtime|languages|launcher)/|apps/server/(profiles|tooling)/|apps/animated-fabric/assets/reference-packages/|tools/(czech-ml|language-content|language-packs|on-device-models|semantic-index)/|docs/(COMPONENT_RELEASE_VALIDATORS|DEPLOYMENT_STANDARD|FIRST_ANDROID_RELEASE|LEGAL_INVENTORY|RELEASING|schemas/))'
+          emit language '^(\.github/workflows/repository-ci\.yml|apps/(language-runtime|languages)/|apps/launcher/static/|apps/server/tooling/refresh-setup-assets\.mjs|tools/(language-content|language-packs|semantic-index)/|tools/czech-ml/data/(curriculum|word-world)/)'
+          emit compose '^(\.github/workflows/repository-ci\.yml|compose\.yaml|compose/.*\.yaml)$'
+          emit rust '^(\.github/workflows/repository-ci\.yml|\.dockerignore$|compose\.yaml|apps/server/(Cargo\.(toml|lock)|src/|tooling/Dockerfile|\.caatuu-runtime\.lock)|tools/czech-ml/vector-schema\.sql)$'
+          emit scenery_evidence '^(\.github/workflows/repository-ci\.yml|apps/launcher/static/assets/scenery/|apps/games/(evidence/scenery-package-evidence\.test\.mjs|tooling/(json-schema-subset|validate-scenery-package)\.mjs|test/(json-schema-subset|scenery-package-validator)\.test\.mjs))'
+          emit static_site_evidence '^(\.github/workflows/repository-ci\.yml|apps/(android/|language-runtime/|languages/|launcher/(static/|tooling/(build-static-site\.mjs|data/|templates/|tests/static-site-contract\.test\.mjs))))'
+
   contracts:
     name: Structure and browser contracts
+    needs: changes
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -23,24 +92,29 @@ jobs:
             "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
 
       - name: Run browser and server contract tests
+        if: needs.changes.outputs.browser == 'true'
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
-            bash -lc \
-            "node --test apps/server/tooling/tests/*.test.mjs apps/games/test/*.test.mjs apps/android/tooling/tests/*.test.mjs apps/launcher/tooling/tests/*.test.mjs"
-
-      - name: Validate reviewed game data and the retired curriculum boundary
-        run: |
-          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
-            bash -lc \
-            "node --test apps/server/tooling/tests/conjugation-comet-shell.test.mjs apps/server/tooling/tests/curriculum-runtime-contract.test.mjs apps/server/tooling/tests/guided-game-contract.test.mjs apps/server/tooling/tests/word-net-standard.test.mjs"
+            bash -lc '
+              set -euo pipefail
+              mapfile -t tests < <(
+                find apps/server/tooling/tests apps/games/test apps/android/tooling/tests apps/launcher/tooling/tests \
+                  -type f -name "*.test.mjs" \
+                  ! -path "apps/launcher/tooling/tests/static-site-contract.test.mjs" \
+                  | sort
+              )
+              node --test "${tests[@]}"
+            '
 
       - name: Validate language content and deterministic Word World projections
+        if: needs.changes.outputs.language == 'true'
         run: |
           docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
-            "node tools/language-content/validate.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --check --manifest apps/languages/mandarin-simplified/static/setup-assets.json --launcher-static apps/launcher/static --language-static apps/languages/mandarin-simplified/static --shared-runtime apps/language-runtime --course-manifest apps/languages/mandarin-simplified/course.json --language-route-prefix /zh && node --test tools/language-content/tests/content-contract.test.mjs tools/language-content/tests/word-world-projector.test.mjs tools/language-content/tests/mandarin-curriculum-quality.test.mjs"
+            "node tools/language-content/validate.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --check --manifest apps/languages/mandarin-simplified/static/setup-assets.json --launcher-static apps/launcher/static --language-static apps/languages/mandarin-simplified/static --shared-runtime apps/language-runtime --course-manifest apps/languages/mandarin-simplified/course.json --language-route-prefix /zh && node --test apps/language-runtime/tests/*.test.mjs apps/languages/mandarin-simplified/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-packs/tests/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
 
       - name: Validate Compose boundaries
+        if: needs.changes.outputs.compose == 'true'
         env:
           CAATUU_PHONE_DEBUG_BIND: 192.0.2.10
         run: |
@@ -52,6 +126,8 @@ jobs:
 
   rust:
     name: Rust server
+    needs: changes
+    if: needs.changes.outputs.rust == 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -61,3 +137,31 @@ jobs:
         run: |
           docker compose --profile tools run --rm \
             caatuu-build cargo test --locked
+
+  scenery-evidence:
+    name: Scenery package evidence
+    needs: changes
+    if: needs.changes.outputs.scenery_evidence == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Verify hashes, byte lengths, and PNG dimensions
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+            node --test apps/games/evidence/scenery-package-evidence.test.mjs
+
+  static-site-evidence:
+    name: Static Pages build evidence
+    needs: changes
+    if: needs.changes.outputs.static_site_evidence == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Compile twice and validate the closed Pages payload
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+            node --test apps/launcher/tooling/tests/static-site-contract.test.mjs

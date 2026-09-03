@@ -419,8 +419,8 @@ async function loadCourseFeatureProviders() {
   if (!verbs) return;
   await loadScript("source/shared/semantic-learning.js?v=semantic-learning-7");
   await loadScript("source/features/setup/setup-progress.js?v=setup-progress-1");
-  await loadScript("source/features/setup/setup.js?v=setup-37");
-  await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-6");
+  await loadScript("source/features/setup/setup.js?v=setup-39");
+  await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-7");
   if (course.capabilities?.dictionary === true) {
     await loadScript("source/features/dictionary/dictionary-full.js?v=full-dictionary-5");
   }
@@ -446,7 +446,7 @@ async function start() {
   await import("./word-world-host.mjs?v=word-world-host-9");
   await loadCourseFeatureProviders();
   if (course.capabilities?.verbs !== true) {
-    await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-6");
+    await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-7");
   }
   document.documentElement.dataset.caatuuShellReady = "true";
   await registerCourseServiceWorker();

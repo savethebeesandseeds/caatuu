@@ -67,7 +67,15 @@ rendering, background removal, and packaging through Caatuu's established Linux 
 
 ## 5. Implementation quality
 
-- Add tests with every non-trivial behavior.
+- Add the smallest test that proves each materially distinct behavior at the
+  lowest meaningful boundary.
+- Test observable behavior through a public API, rendered output, or real DOM
+  before asserting source text, selector spelling, or implementation shape.
+- For an invariant that crosses layers, normally keep one focused low-level
+  test and one real cross-boundary smoke. Add more only for a distinct failure
+  mode that those two tests cannot expose.
+- Replace weaker or duplicate coverage when a stronger test makes it redundant.
+  Test count and assertion count are not quality targets.
 - Use type hints on public APIs.
 - Avoid `Any`; justify every unavoidable occurrence.
 - Catch broad exceptions only at CLI, GUI, or worker process boundaries.

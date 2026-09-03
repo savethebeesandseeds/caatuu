@@ -352,18 +352,23 @@ async function auditHttpRoutes() {
   assert(root.body.includes("<title>Caatuu</title>"), "launcher root should serve the Caatuu title");
   assert(root.body.includes('href="/cz/index.html"'), "launcher fallback should link to the Czech entry page");
   assert(root.body.includes('data-android-download'), "launcher root should expose a channel-aware Android download");
-  assert(root.body.includes('/launcher.js?v=8'), "launcher root should load current language and Android channel discovery");
+  assert(root.body.includes('/launcher.js?v=11'), "launcher root should load current browser setup and Android channel discovery");
   assert(root.body.includes("Checking Android build"), "launcher root should announce Android channel discovery");
   assert(!root.body.includes('href="/android/caatuu-debug.apk"'), "launcher root must not offer a debug APK as a normal download");
-  assert(root.body.includes("Continue in Browser"), "launcher root should offer browser continuation");
+  assert(root.body.includes("Continue online"), "launcher root should offer the online browser experience");
+  assert(root.body.includes('aria-label="Continue online in the browser"'), "launcher browser entry should identify the online destination");
   assert(root.body.includes("Welcome space language traveler"), "launcher root should use the welcome eyebrow");
   assert(root.body.includes("Language App"), "launcher root should explain what Caatuu is");
   assert(root.body.includes("free, robust, agentic language-learning app"), "launcher root should describe Caatuu as free, robust, and agentic");
   assert(root.body.includes("Don't lose time, let's get started learning."), "launcher root should include the getting-started footnote");
   assert(root.body.includes("Available languages"), "launcher root should list available languages");
-  assert(root.body.includes('aria-label="Czech"'), "launcher root should list Czech as an available language");
-  assert(root.body.includes('<img class="flag-icon" src="/assets/icons/czech_flag_ui.png" alt=""'), "launcher root should render the optimized Czech flag PNG");
+  assert(root.body.includes('aria-label="Czech (Čeština)"'), "launcher root should list Czech as an available browser language");
+  assert(root.body.includes('<img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=11" alt=""'), "launcher root should render the cache-revised Czech flag PNG");
   assert(root.body.includes('<span class="language-choice-code">CZ</span>'), "launcher root should label the Czech language row");
+  assert(root.body.includes('aria-label="Mandarin (中文), Preview"'), "launcher root should disclose the Mandarin browser preview");
+  assert(root.body.includes('<img class="flag-icon" src="/assets/icons/china_flag.png?caatuu_asset=11" alt=""'), "launcher root should render the cache-revised Mandarin flag PNG");
+  assert(root.body.includes('<span class="language-choice-code">ZH</span>'), "launcher root should label the Mandarin language row");
+  assert(root.body.includes('<span class="language-choice-status">Preview</span>'), "launcher root should visibly identify development courses");
   assert(root.body.includes("/assets/miscellaneous/burrow-review_062.png"), "launcher root should use the storybook schoolhouse showcase art");
   assert(root.body.includes("/assets/macaw/actions/macaw%20(23).png"), "launcher root should include the reading macaw");
   assert(root.body.includes("/assets/macaw/actions/macaw%20(62).png"), "launcher root should include the exploring macaw");
@@ -399,7 +404,9 @@ async function auditHttpRoutes() {
   assert(activeCzech?.platforms?.android?.channels?.[0]?.manifest === "/android/caatuu.json", "public language registry should expose the signed release manifest first");
   assert(activeCzech?.platforms?.android?.channels?.[1]?.kind === "preview", "public language registry should label the gated preview channel");
   assert(activeCzech?.platforms?.android?.channels?.[1]?.manifest === "/android/caatuu-preview.json", "public language registry should use the user-facing preview alias");
-  assert(!languageRegistry?.languages?.some((language) => language.id === "zh"), "development Mandarin must remain absent from the public launcher registry");
+  assert(!languageRegistry?.languages?.some((language) => language.id === "zh"), "development Mandarin must remain absent from the release-active language collection");
+  assert(languageRegistry?.browserSetup?.entryPath === "/cz/index.html", "browser setup should enter through the shared first-run form");
+  assert(languageRegistry?.browserSetup?.courses?.map((course) => `${course.id}:${course.status}`).join(",") === "cz:active,zh:development", "browser setup should advertise Czech and the Mandarin preview without promoting Mandarin");
 
   const unknownRoot = await request("/definitely-missing-caatuu-page");
   assert(unknownRoot.status === 404, `/definitely-missing-caatuu-page should return 404, got ${unknownRoot.status}`);

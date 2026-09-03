@@ -263,7 +263,7 @@
       "properties": {
         "texture": {
           "type": "string",
-          "pattern": "^images/[A-Za-z0-9._-]+\\.png$"
+          "pattern": "^images/[a-z0-9][a-z0-9._-]*\\.png$"
         },
         "image_size_px": {
           "$ref": "#/$defs/positiveInteger2"
@@ -413,10 +413,10 @@
       "properties": {
         "texture": {
           "type": "string",
-          "pattern": "^images/[A-Za-z0-9._-]+\\.png$"
+          "pattern": "^images/[a-z0-9][a-z0-9._-]*\\.png$"
         },
         "image_size_px": {
-          "$ref": "#/$defs/positiveNumber2"
+          "$ref": "#/$defs/positiveInteger2"
         },
         "world_size": {
           "$ref": "#/$defs/positiveNumber2"

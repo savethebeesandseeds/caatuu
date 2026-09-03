@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+pipeline_started_at=$SECONDS
+phase_name=""
+phase_started_at=0
+
+start_phase() {
+  phase_name="$1"
+  phase_started_at=$SECONDS
+  printf '==> %s\n' "$phase_name"
+}
+
+finish_phase() {
+  printf '<== %s completed in %ss\n' "$phase_name" "$((SECONDS - phase_started_at))"
+}
+
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 # shellcheck source=versions.env
 source "$repo_root/apps/android/tooling/versions.env"
@@ -34,24 +48,24 @@ candidate_version_name="$(sed -nE 's/.*caatuuVersionName.*orElse\("([^"]+)"\).*/
 }
 candidate_receipt="${CAATUU_RELEASE_CANDIDATE_RECEIPT:-$repo_root/artifacts/android/release-candidates/$candidate_version_code.json}"
 
-# One global signed-release lock makes the receipt check and the build one
-# atomic decision. Every version shares the same Gradle tree and mutable output
-# paths, so different versions must not build concurrently either.
-if [[ "$signed" == true ]]; then
-  for command in git node flock mkdir; do
-    command -v "$command" >/dev/null 2>&1 || {
-      echo "$command is required to coordinate a signed Caatuu build." >&2
-      exit 1
-    }
-  done
-  mkdir -p "$repo_root/artifacts/android"
-  build_lock="$repo_root/artifacts/android/.signed-release-build.lock"
-  exec {build_lock_fd}>"$build_lock"
-  flock -n "$build_lock_fd" || {
-    echo "Another signed Android release build owns the lock; inspect that process and reuse its receipt when it finishes." >&2
+# One global release-build lock makes the receipt check and the build one
+# atomic decision. Signed and unsigned invocations share the same Gradle tree
+# and mutable output paths, so neither kind may build concurrently. Keep the
+# established lock filename so an invocation started by older tooling still
+# excludes this one.
+for command in git node flock mkdir; do
+  command -v "$command" >/dev/null 2>&1 || {
+    echo "$command is required to coordinate a Caatuu release build." >&2
     exit 1
   }
-fi
+done
+mkdir -p "$repo_root/artifacts/android"
+build_lock="$repo_root/artifacts/android/.signed-release-build.lock"
+exec {build_lock_fd}>"$build_lock"
+flock -n "$build_lock_fd" || {
+  echo "Another Android release build owns the lock; inspect that process and reuse its receipt when it finishes." >&2
+  exit 1
+}
 
 # A sealed signed candidate is immutable. Re-running the builder for the same
 # source and version verifies and reuses it instead of launching Gradle again.
@@ -160,12 +174,12 @@ bundletool=(java -cp "$bundletool_classpath" com.android.tools.build.bundletool.
 bundletool_version="$("${bundletool[@]}" version)"
 echo "Using bundletool $bundletool_version from $bundletool_jar"
 
+start_phase "Gradle release bundle"
 cd "$repo_root/apps/android"
 gradle --no-daemon \
   -PcaatuuDistributionProfile=product \
   :product:generateProductAssets \
   :product:lintRelease \
-  :product:assembleRelease \
   :product:bundleRelease
 
 source_aab="$repo_root/apps/android/product/build/outputs/bundle/release/product-release.aab"
@@ -173,15 +187,7 @@ if [[ ! -f "$source_aab" ]]; then
   echo "Caatuu AAB was not produced at $source_aab" >&2
   exit 1
 fi
-if [[ "$signed" == true ]]; then
-  source_direct_apk="$repo_root/apps/android/product/build/outputs/apk/release/product-release.apk"
-else
-  source_direct_apk="$repo_root/apps/android/product/build/outputs/apk/release/product-release-unsigned.apk"
-fi
-if [[ ! -f "$source_direct_apk" ]]; then
-  echo "Caatuu release APK was not produced at $source_direct_apk" >&2
-  exit 1
-fi
+finish_phase
 
 artifact_dir="$repo_root/artifacts/android"
 mkdir -p "$artifact_dir"
@@ -195,12 +201,12 @@ else
   output_universal_apk="$artifact_dir/caatuu-inspection-debug-signed-universal.apk"
 fi
 output_aab="$artifact_dir/$artifact_stem.aab"
-output_direct_apk="$artifact_dir/$artifact_stem-direct.apk"
 
 cp "$source_aab" "$output_aab"
-cp "$source_direct_apk" "$output_direct_apk"
 
+start_phase "Validate release bundle"
 "${bundletool[@]}" validate --bundle="$output_aab"
+finish_phase
 
 temporary_dir="$(mktemp -d "${TMPDIR:-/tmp}/caatuu-product.XXXXXX")"
 trap 'rm -rf "$temporary_dir"' EXIT
@@ -212,6 +218,7 @@ bundletool_build_args=(
   "--aapt2=$aapt2_path"
   --overwrite
 )
+start_phase "Create universal APK"
 if [[ "$signed" == true ]]; then
   keystore_password_file="$temporary_dir/keystore-password"
   key_password_file="$temporary_dir/key-password"
@@ -226,8 +233,8 @@ if [[ "$signed" == true ]]; then
   )
   "${bundletool[@]}" "${bundletool_build_args[@]}"
 else
-  # The release AAB and direct APK remain unsigned. bundletool must sign an APK
-  # set, so create a one-use inspection identity and destroy it on exit. The
+  # The release AAB remains unsigned. bundletool must sign an APK set, so
+  # create a one-use inspection identity and destroy it on exit. The
   # resulting universal APK is package-audit material, never a publishable APK.
   inspection_keystore="$temporary_dir/inspection.p12"
   inspection_password="caatuu-inspection-$RANDOM-$RANDOM-$$"
@@ -267,14 +274,18 @@ if [[ "$signed" == false ]]; then
     exit 1
   fi
 fi
+finish_phase
 
+start_phase "Validate package boundary"
 node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
   --aab "$output_aab" \
   --apk "$output_universal_apk" \
   --apkanalyzer "$(command -v apkanalyzer)" \
   --unzip "$(command -v unzip)"
+finish_phase
 
 if [[ "$signed" == true ]]; then
+  start_phase "Seal release candidate"
   current_source_revision="$(git -C "$repo_root" rev-parse --verify HEAD)"
   current_origin_revision="$(git -C "$repo_root" rev-parse --verify refs/remotes/origin/main)"
   [[ "$current_source_revision" == "$source_revision" && "$current_origin_revision" == "$source_revision" ]] || {
@@ -309,14 +320,15 @@ if [[ "$signed" == true ]]; then
     --signer-sha256 "$signer_sha256" \
     --mode builder-emitted \
     --output "$candidate_receipt" >/dev/null
+  finish_phase
 fi
 
 echo "Wrote $output_aab"
-echo "Wrote $output_direct_apk (direct build; diagnostic only)"
 echo "Wrote $output_apks"
 if [[ "$signed" == true ]]; then
-  echo "Wrote $output_universal_apk (authoritative package audit input)"
+  echo "Wrote $output_universal_apk (authoritative signed universal release APK)"
   echo "Wrote $candidate_receipt (immutable release-candidate receipt)"
 else
   echo "Wrote $output_universal_apk (ephemerally debug-signed package audit input; do not publish)"
 fi
+printf 'Release build pipeline completed in %ss\n' "$((SECONDS - pipeline_started_at))"

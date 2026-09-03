@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=33">
-    <script src="/launcher.js?v=8" defer></script>
+    <link rel="stylesheet" href="/app.css?v=34">
+    <script src="/launcher.js?v=11" defer></script>
   </head>
   <body class="home-page">
     <main class="menu-shell">
@@ -23,10 +23,17 @@
             <span class="available-languages" aria-label="Available languages">
               <span class="available-languages-label">Available languages</span>
               <ul class="language-list" data-language-list>
-                <li aria-label="Czech" data-language-id="cz">
+                <li aria-label="Czech (Čeština)" data-language-id="cz">
                   <span class="language-choice language-choice-static">
-                    <img class="flag-icon" src="/assets/icons/czech_flag_ui.png" alt="" decoding="async">
+                    <img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=11" alt="" decoding="async">
                     <span class="language-choice-code">CZ</span>
+                  </span>
+                </li>
+                <li aria-label="Mandarin (中文), Preview" data-language-id="zh" data-course-status="development">
+                  <span class="language-choice language-choice-static">
+                    <img class="flag-icon" src="/assets/icons/china_flag.png?caatuu_asset=11" alt="" decoding="async">
+                    <span class="language-choice-code">ZH</span>
+                    <span class="language-choice-status">Preview</span>
                   </span>
                 </li>
               </ul>
@@ -53,11 +60,11 @@
                 <b>Checking Android build</b>
               </span>
             </a>
-            <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry>
+            <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser">
               <span class="entry-icon" aria-hidden="true">WEB</span>
               <span class="entry-copy">
                 <small>Browser</small>
-                <b>Continue in Browser</b>
+                <b>Continue online</b>
               </span>
             </a>
           </nav>

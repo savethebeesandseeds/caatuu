@@ -216,6 +216,14 @@ test("launcher and course-profile compatibility views match the current consumer
   const actualLauncher = JSON.parse(await readFile(new URL("../../../apps/launcher/static/languages.json", import.meta.url), "utf8"));
   assert.deepEqual(expectedLauncher, actualLauncher);
   assert.deepEqual(expectedLauncher.languages.map(({ id }) => id), ["cz"]);
+  assert.equal(expectedLauncher.browserSetup.entryPath, "/cz/index.html");
+  assert.deepEqual(
+    expectedLauncher.browserSetup.courses.map(({ id, status, entryPath }) => ({ id, status, entryPath })),
+    [
+      { id: "cz", status: "active", entryPath: "/cz/index.html" },
+      { id: "zh", status: "development", entryPath: "/zh/index.html" }
+    ]
+  );
 
   const czech = loaded.courses.find(({ course }) => course.id === "cz").course;
   const generatedProfileSource = generateCourseProfileSource(czech, loaded.courses);

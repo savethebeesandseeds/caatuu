@@ -16,9 +16,31 @@ test("Pages publication is manual, main-only, and branchless", () => {
   assert.match(workflow, /Expected only remote main/u);
   assert.match(workflow, /git worktree list --porcelain/u);
   assert.match(workflow, /allow_http_certificate_bootstrap/u);
+  assert.match(workflow, /expected_revision/u);
+  assert.match(workflow, /EXPECTED_REVISION/u);
+  assert.match(workflow, /GITHUB_SHA.*EXPECTED_REVISION/u);
   assert.match(workflow, /default: false/u);
   assert.match(workflow, /ALLOW_HTTP_CERTIFICATE_BOOTSTRAP/u);
   assert.doesNotMatch(workflow, /gh-pages/iu);
+  const deployJob = workflow.slice(workflow.indexOf("\n  deploy:\n"));
+  const staleGuard = deployJob.indexOf("Refuse a stale queued Pages deployment");
+  const deployment = deployJob.indexOf("actions/deploy-pages@");
+  assert.ok(staleGuard >= 0 && staleGuard < deployment);
+  assert.match(deployJob, /git ls-remote --heads/u);
+  assert.match(deployJob, /remote_sha.*EXPECTED_REVISION/u);
+});
+
+test("Pages publication checks every v2 descriptor snapshot as one append-only history", () => {
+  assert.match(workflow, /fetch-depth: 0/u);
+  assert.match(workflow, /git rev-list --first-parent --reverse HEAD -- "\$RELEASE_DESCRIPTOR"/u);
+  assert.match(workflow, /for commit in "\$\{descriptor_commits\[@\]\}"/u);
+  assert.match(workflow, /schema_version.*jq -er '\.schemaVersion'/u);
+  assert.match(workflow, /v2_snapshots\+=/u);
+  assert.match(workflow, /pages-current-release\.mjs assert-prefix/u);
+  assert.match(workflow, /--previous-descriptor/u);
+  assert.match(workflow, /--next-descriptor/u);
+  assert.match(workflow, /cmp -- "\$\{v2_snapshots\[-1\]\}" "\$RELEASE_DESCRIPTOR"/u);
+  assert.doesNotMatch(workflow, /HEAD[~^]/u);
 });
 
 test("Pages publication uses pinned artifact actions and the canonical root origin", () => {
@@ -42,15 +64,20 @@ test("Pages publication uses pinned artifact actions and the canonical root orig
   assert.doesNotMatch(workflow, /build-static-site\.mjs/u);
 });
 
-test("Pages publication downloads the fixed baseline plus exact Android 163 overlay", () => {
+test("Pages publication downloads the fixed baseline plus every descriptor release", () => {
   assert.match(workflow, /releases\/download\/caatuu-pages-v162\/caatuu-pages-v162\.tar/u);
-  assert.match(workflow, /releases\/download\/caatuu-android-v163/u);
-  assert.match(workflow, /caatuu-163\.apk/u);
-  assert.match(workflow, /caatuu-163\.json/u);
-  assert.match(workflow, /caatuu-163-release-candidate\.json/u);
-  assert.match(workflow, /fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545/u);
-  assert.match(workflow, /sha256sum --check --strict/u);
+  assert.match(workflow, /pages-current-release\.mjs download-plan/u);
+  assert.match(workflow, /pages-current-release\.mjs verify/u);
+  assert.match(workflow, /jq -c '\.assets\[\]'/u);
+  assert.match(workflow, /expected_bytes/u);
+  assert.match(workflow, /expected_sha256/u);
+  assert.match(workflow, /sha256sum -- "\$temporary_path"/u);
+  assert.match(workflow, /while \[\[ "\$ancestor" != "\." \]\]/u);
+  assert.match(workflow, /! -L "\$temporary_path"/u);
   assert.match(workflow, /curl --fail --location --proto '=https' --tlsv1\.2/u);
+  assert.match(workflow, /--current-release-descriptor apps\/android\/tooling\/pages-current-release\.json/u);
+  assert.doesNotMatch(workflow, /caatuu-android-v163|caatuu-163|fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545/u);
+  assert.doesNotMatch(workflow, /\beval\b/u);
   assert.doesNotMatch(workflow, /releases\/(?:latest|download\/latest)/iu);
   assert.doesNotMatch(workflow, /publish-public-debug|gradlew|assemble(?:Debug|Release)|bundle(?:Debug|Release)/iu);
 });

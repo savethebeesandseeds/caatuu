@@ -12,6 +12,20 @@ mode=""
 candidate_receipt=""
 expected_apk_sha256=""
 expected_source_revision=""
+build_outcome="not-requested"
+pipeline_started_at=$SECONDS
+phase_name=""
+phase_started_at=0
+
+start_phase() {
+  phase_name="$1"
+  phase_started_at=$SECONDS
+  printf '==> %s\n' "$phase_name"
+}
+
+finish_phase() {
+  printf '<== %s completed in %ss\n' "$phase_name" "$((SECONDS - phase_started_at))"
+}
 
 usage() {
   cat >&2 <<'USAGE'
@@ -220,11 +234,19 @@ assert_main_only
 
 if [[ "$mode" == "build-once" ]]; then
   candidate_receipt="$default_candidate_receipt"
+  assert_clean_build_source
+  expected_source_revision="$(git -C "$repo_root" rev-parse HEAD)"
   if [[ -f "$candidate_receipt" ]]; then
-    echo "A sealed candidate already exists; reusing it instead of rebuilding."
+    receipt_version_code="$(jq -er '.identity.version_code' "$candidate_receipt")"
+    receipt_version_name="$(jq -er '.identity.version_name' "$candidate_receipt")"
+    [[ "$receipt_version_code" == "$candidate_version_code" && "$receipt_version_name" == "$candidate_version_name" ]] || {
+      echo "The existing candidate receipt does not match the Android version declared by current main." >&2
+      exit 1
+    }
+    echo "A sealed candidate exists; verifying that it belongs to exact current main before reuse."
+    build_outcome="reused"
     mode=receipt
   else
-    assert_clean_build_source
     [[ -f "$compatibility_keystore" ]] || {
       echo "The installed-lineage keystore is missing: $compatibility_keystore" >&2
       exit 1
@@ -236,13 +258,18 @@ if [[ "$mode" == "build-once" ]]; then
     export CAATUU_ANDROID_UPDATE_BASE_URL="$public_base_url/android"
     export CAATUU_RELEASE_CANDIDATE_RECEIPT="$candidate_receipt"
     export CAATUU_RELEASE_SOURCE_REVISION="$(git -C "$repo_root" rev-parse HEAD)"
+    start_phase "Validate release source"
     node "$repo_root/tools/language-content/validate.mjs" --release
     node --test "$repo_root"/apps/android/tooling/tests/product-*.test.mjs
+    finish_phase
+    start_phase "Build one signed release candidate"
     bash "$repo_root/apps/android/tooling/build-release-aab.sh"
+    finish_phase
     [[ -f "$candidate_receipt" ]] || {
       echo "The one Android build completed without an immutable candidate receipt." >&2
       exit 1
     }
+    build_outcome="built"
     mode=receipt
   fi
 fi
@@ -250,6 +277,7 @@ fi
 load_android_tools
 
 if [[ "$mode" == "adopt-existing" ]]; then
+  start_phase "Adopt existing signed candidate"
   [[ "$expected_apk_sha256" =~ ^[a-f0-9]{64}$ ]] || {
     echo "--adopt-existing requires --expected-apk-sha256." >&2
     exit 2
@@ -282,6 +310,7 @@ if [[ "$mode" == "adopt-existing" ]]; then
     --mode adopted-existing \
     --expected-apk-sha256 "$expected_apk_sha256" \
     --output "$candidate_receipt" >/dev/null
+  finish_phase
   mode=receipt
 fi
 
@@ -333,6 +362,7 @@ trap cleanup EXIT
 # Snapshot the receipt first, then verify and copy only the bytes named by that
 # snapshot. Any concurrent artifact change makes the copied hash/size check
 # fail; publication never returns to the mutable source paths after this point.
+start_phase "Verify sealed release candidate"
 cp "$candidate_receipt" "$staged_receipt"
 verify_arguments=(verify --repo-root "$repo_root" --receipt "$staged_receipt")
 [[ -z "$expected_apk_sha256" ]] || verify_arguments+=(--expected-apk-sha256 "$expected_apk_sha256")
@@ -381,6 +411,7 @@ validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_
   echo "APK identity differs from its sealed candidate receipt." >&2
   exit 1
 }
+finish_phase
 
 versioned_relative_dir="releases/$version_code"
 versioned_relative_apk="$versioned_relative_dir/caatuu.apk"
@@ -409,12 +440,20 @@ jq -n \
     audit: {bundletool: "passed", product_package: "passed", candidate_receipt_sha256: $candidate_receipt_sha256},
     device_smoke: "not-run"}' > "$staged_manifest"
 
+start_phase "Finalize local immutable release"
 publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"
 exec {publication_lock_fd}>"$publication_lock"
 flock -n "$publication_lock_fd" || {
   echo "Another Android finalizer owns the publication lock; inspect that process and reuse its result." >&2
   exit 1
 }
+if [[ "$build_outcome" != "not-requested" ]]; then
+  [[ "$(git -C "$repo_root" rev-parse HEAD)" == "$expected_source_revision" ]] || {
+    echo "Current main changed after the build-once source was selected; refusing to finalize the candidate." >&2
+    exit 1
+  }
+  assert_clean_build_source
+fi
 
 versioned_dir="$repo_root/artifacts/android/$versioned_relative_dir"
 versioned_apk="$repo_root/artifacts/android/$versioned_relative_apk"
@@ -446,16 +485,6 @@ if [[ ! -f "$versioned_apk" ]]; then
   mv "$install_apk_tmp" "$versioned_apk"
   install_apk_tmp=""
 fi
-if [[ ! -f "$versioned_receipt" ]]; then
-  install_receipt_tmp="$(mktemp "$versioned_dir/.caatuu-release-candidate.json.XXXXXX")"
-  cp "$staged_receipt" "$install_receipt_tmp"
-  cmp -s "$install_receipt_tmp" "$staged_receipt" || {
-    echo "Staged immutable receipt changed while it was copied." >&2
-    exit 1
-  }
-  mv "$install_receipt_tmp" "$versioned_receipt"
-  install_receipt_tmp=""
-fi
 if [[ ! -f "$versioned_manifest" ]]; then
   install_manifest_tmp="$(mktemp "$versioned_dir/.caatuu.json.XXXXXX")"
   cp "$staged_manifest" "$install_manifest_tmp"
@@ -465,6 +494,19 @@ if [[ ! -f "$versioned_manifest" ]]; then
   }
   mv "$install_manifest_tmp" "$versioned_manifest"
   install_manifest_tmp=""
+fi
+if [[ ! -f "$versioned_receipt" ]]; then
+  install_receipt_tmp="$(mktemp "$versioned_dir/.caatuu-release-candidate.json.XXXXXX")"
+  cp "$staged_receipt" "$install_receipt_tmp"
+  cmp -s "$install_receipt_tmp" "$staged_receipt" || {
+    echo "Staged immutable receipt changed while it was copied." >&2
+    exit 1
+  }
+  # Install the receipt only after the APK and manifest. The routine wrapper
+  # treats it as the finalization signal, so a crash cannot advertise an
+  # incomplete version-owned release.
+  mv "$install_receipt_tmp" "$versioned_receipt"
+  install_receipt_tmp=""
 fi
 
 stable_apk="$repo_root/artifacts/android/caatuu.apk"
@@ -477,6 +519,14 @@ node "$repo_root/apps/android/tooling/release-publication-state.mjs" assert-alia
   --candidate-receipt "$staged_receipt" \
   --versioned-receipt "$versioned_receipt" \
   --durable-floor "$repo_root/apps/android/tooling/pages-current-release.json" >/dev/null
+
+if [[ "$build_outcome" != "not-requested" ]]; then
+  [[ "$(git -C "$repo_root" rev-parse HEAD)" == "$expected_source_revision" ]] || {
+    echo "Current main changed during candidate finalization; refusing to update the stable aliases." >&2
+    exit 1
+  }
+  assert_clean_build_source
+fi
 
 alias_apk_next="$(mktemp "$repo_root/artifacts/android/.caatuu.apk.next.XXXXXX")"
 alias_manifest_next="$(mktemp "$repo_root/artifacts/android/.caatuu.json.next.XXXXXX")"
@@ -492,9 +542,21 @@ alias_apk_next=""
 mv -f "$alias_manifest_next" "$stable_manifest"
 alias_manifest_next=""
 flock -u "$publication_lock_fd"
+finish_phase
 
-echo "Finalized existing Caatuu $version_name (code $version_code) without rebuilding it."
+case "$build_outcome" in
+  built)
+    echo "Built once and finalized Caatuu $version_name (code $version_code)."
+    ;;
+  reused)
+    echo "Reused the exact current-source candidate and finalized Caatuu $version_name (code $version_code); no Gradle build ran."
+    ;;
+  *)
+    echo "Finalized Caatuu $version_name (code $version_code) from a sealed candidate; no Gradle build ran."
+    ;;
+esac
 echo "APK: $versioned_apk"
 echo "APK SHA-256: $apk_sha256"
 echo "Candidate receipt: $versioned_receipt"
 echo "No GitHub Release, Pages deployment, DNS, or tunnel change was performed."
+printf 'Local release pipeline completed in %ss\n' "$((SECONDS - pipeline_started_at))"

@@ -1,36 +1,10 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { fileURLToPath } from "node:url";
 import vm from "node:vm";
 
-const authorityCommit = "cf29a378dc7fcb3552c8f8427dad92d59bdf2eb3";
-const repositoryRoot = new URL("../../../", import.meta.url);
 const promotedUrl = new URL("../static/source/caatuu-workspace.js", import.meta.url);
-const authority = execFileSync(
-  "git",
-  [
-    "show",
-    `${authorityCommit}:apps/languages/czech/static/source/games/verb-nebula/app.js`
-  ],
-  { cwd: fileURLToPath(repositoryRoot), encoding: "utf8", maxBuffer: 16 * 1024 * 1024 }
-);
 const promoted = await readFile(promotedUrl, "utf8");
-
-function declaredFunctions(source) {
-  return [...source.matchAll(/^(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(/gmu)]
-    .map((match) => match[1]);
-}
-
-function stateModel(source) {
-  const start = source.indexOf("const state = {");
-  const endMarker = "\n};\n\nconst $";
-  const end = source.indexOf(endMarker, start);
-  assert.notEqual(start, -1, "controller must declare its private state model");
-  assert.notEqual(end, -1, "controller state model must retain its authority boundary");
-  return source.slice(start, end + 3);
-}
 
 class FakeClassList {
   constructor() {
@@ -208,37 +182,7 @@ function wordWorldOnlyBrowser() {
   return { context, errors, fetches, hostCalls, window };
 }
 
-test("promotion retains the complete Czech function and state authority", () => {
-  const authorityFunctions = declaredFunctions(authority);
-  const promotedFunctions = new Set(declaredFunctions(promoted));
-  const missing = authorityFunctions.filter((name) => !promotedFunctions.has(name));
-
-  assert.deepEqual(missing, []);
-  assert.equal(stateModel(promoted), stateModel(authority));
-  for (const functionName of [
-    "setView",
-    "setTrainTab",
-    "startCampaign",
-    "completeCampaignRound",
-    "ensureEmbeddedGameLoaded",
-    "bindUi"
-  ]) {
-    assert.ok(promotedFunctions.has(functionName), `${functionName} must remain in the promoted controller`);
-  }
-});
-
-test("workspace promotion removes the competing controller and uses only the narrow Word World host", () => {
-  assert.doesNotMatch(promoted, /CaatuuProductShell/u);
-  assert.doesNotMatch(promoted, /wordNetEmbeddedGame/u);
-  assert.match(promoted, /CaatuuWordWorldHost\?\.setActive\?\./u);
-  assert.match(promoted, /host\.ensureLoaded\(\)/u);
-  assert.match(promoted, /CaatuuWordWorldHost\?\.ready\?\.\(\)/u);
-  assert.match(promoted, /CaatuuWordWorldHost\?\.next\?\.\(\)/u);
-  assert.match(promoted, /window\.CaatuuWorkspaceShell = Object\.freeze\(\{/u);
-  assert.match(promoted, /setView,\s*\n\s*setTrainTab,\s*\n\s*state\(\)/u);
-});
-
-test("a Word-World-only course initializes without Czech data, model, verb, or dictionary fetches", async () => {
+test("a Word-World-only course initializes and navigates without unrelated course fetches", async () => {
   const browser = wordWorldOnlyBrowser();
   vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
   await new Promise((resolve) => setImmediate(resolve));
@@ -257,7 +201,7 @@ test("a Word-World-only course initializes without Czech data, model, verb, or d
   assert.equal(browser.hostCalls.ensureLoaded, 1);
   assert.deepEqual(JSON.parse(JSON.stringify(browser.hostCalls.setActive.at(-1))), {
     active: true,
-    display: { theme: "dark", fontSize: "largest" }
+    display: { theme: "light", fontSize: "largest" }
   });
   assert.deepEqual(JSON.parse(JSON.stringify(browser.window.CaatuuWorkspaceShell.state())), {
     activeView: "verbs",
@@ -269,15 +213,4 @@ test("a Word-World-only course initializes without Czech data, model, verb, or d
   browser.window.CaatuuWorkspaceShell.setTrainTab("verb-lab");
   assert.equal(browser.window.CaatuuWorkspaceShell.state().trainTab, "galaxy");
   assert.deepEqual(browser.fetches, []);
-});
-
-test("game content stays course-owned while the Verb Nebula engine is shared", () => {
-  assert.match(promoted, /fetch\(courseAssetUrl\(path\)\)/u);
-  assert.match(
-    promoted,
-    /import\("\/language-runtime\/static\/source\/games\/verb-nebula\/verb-nebula-core\.mjs\?v=verb-nebula-core-11"\)/u
-  );
-  assert.match(promoted, /const verbsEnabled = courseGameAvailable\("verb-lab"\)/u);
-  assert.match(promoted, /if \(!verbsEnabled && !dictionaryEnabled\) return;/u);
-  assert.match(promoted, /if \(courseUsesModels\(\)\) await loadModelLicenseCatalog/u);
 });

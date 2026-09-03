@@ -90,21 +90,26 @@ control explicitly resets the retained native context.
 
 ## Build
 
-Use the Docker build path from the repository root. It installs command-line
-Android tools inside a Debian container and writes the APK back into the shared
-workspace:
+For a routine signed stable release, use the maintained one-command path from
+the repository root:
 
 ```powershell
-cd C:\Work\caatuu
+pwsh -NoProfile -File apps/android/tooling/release-android.ps1
+```
 
-docker run --rm -it `
-  -v C:\Work\caatuu:/workspace `
-  -v caatuu-android-sdk:/opt/android-sdk `
-  -v caatuu-gradle-dist:/opt/gradle `
-  -v caatuu-gradle-cache:/root/.gradle `
-  -w /workspace `
-  debian:12 `
-  bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-debug-apk.sh"
+It builds at most once, finalizes immutable release inputs, publishes those
+exact files, deploys Pages, and verifies the public routes. If upload or Pages
+deployment is interrupted after finalization, rerun the same command: it sees
+the finalized receipt and skips the build stage. Conflicting bytes fail closed.
+Use the lower-level commands below for deliberate development, recovery, or
+diagnostic builds, not for routine stable publication.
+
+Use the existing durable `caatuu-dev` container from the repository root. Its
+Android tools and caches are already installed, and it writes the APK back into
+the shared workspace:
+
+```powershell
+docker exec -w /workspace caatuu-dev bash apps/android/tooling/build-debug-apk.sh
 ```
 
 The full development APK lands at
@@ -176,12 +181,15 @@ cleartext disabled and should use an HTTPS update host.
 
 Android release identities are intentionally separate:
 
-- `caatuu-debug.apk` remains a debuggable developer artifact only.
+- Local `artifacts/android/caatuu-debug.apk` remains a debuggable developer
+  artifact only. The public `/android/caatuu-debug.{apk,json}` routes are
+  different: they remain frozen compatibility aliases for transition 161.
 - `caatuu.apk` and `caatuu.json` are the canonical non-debuggable product and
   stable in-app update channel.
-- `caatuu-debug.json` is retained temporarily as an update bridge for installs
-  made before version 0.1.0. Those clients first receive a stripped transition
-  APK, then the transition moves them to the non-debuggable stable product.
+- The public `/android/caatuu-debug.json` alias is retained temporarily as an
+  update bridge for installs made before version 0.1.0. Those clients first
+  receive a stripped transition APK, then the transition moves them to the
+  non-debuggable stable product.
 
 Never copy or rename a debug APK into the stable channel. The stable manifest
 may be absent until release signing credentials are available.

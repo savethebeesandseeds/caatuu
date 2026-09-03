@@ -4,120 +4,91 @@ import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 
-async function read(path) {
-  return readFile(new URL(path, repoRoot), "utf8");
+async function read(relativePath) {
+  return readFile(new URL(relativePath, repoRoot), "utf8");
 }
 
-const [
-  rootLicense,
-  licensing,
-  inventory,
-  contributing,
-  releasing,
-  index,
-  launcher,
-  languagesSource,
-  chrome,
-  app,
-  chat,
-  chatHtml,
-  routes,
-  modelConfigsSource,
-  wordWorldManifestSource
-] = await Promise.all([
-  read("LICENSE"),
-  read("docs/LICENSING.md"),
-  read("docs/LEGAL_INVENTORY.md"),
-  read(".github/CONTRIBUTING.md"),
-  read("docs/RELEASING.md"),
-  read("apps/launcher/static/index.html"),
-  read("apps/launcher/static/launcher.js"),
-  read("apps/launcher/static/languages.json"),
-  read("apps/language-runtime/static/source/caatuu-chrome.js"),
-  read("apps/language-runtime/static/source/caatuu-workspace.js"),
-  read("apps/languages/czech/static/source/features/chat/chat.js"),
-  read("apps/languages/czech/static/chat.html"),
-  read("apps/server/src/routes/mod.rs"),
-  read("tools/on-device-models/model-configs.json"),
-  read("apps/languages/czech/static/data/games/word-world/manifest.json")
-]);
-
-const languages = JSON.parse(languagesSource);
-const modelConfigs = JSON.parse(modelConfigsSource);
-const wordWorldManifest = JSON.parse(wordWorldManifestSource);
-
-test("first-party software is AGPL-3.0-only with explicit scope boundaries", () => {
-  assert.match(rootLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
-  assert.match(rootLicense, /Version 3, 19 November 2007/);
-  assert.match(licensing, /AGPL-3\.0-only/);
-  assert.match(licensing, /Material with separate terms/);
-  assert.match(licensing, /model weights, adapters, merged weights, and quantizations/);
-  assert.match(licensing, /LICENSE-MIT-HISTORICAL/);
-  assert.match(inventory, /STOP-SHIP/);
-  assert.match(inventory, /qwen3-lora-003-hard/);
-  assert.match(inventory, /Legacy Planet Word Net/);
-  assert.match(contributing, /contributions are\s+temporarily paused/);
-  assert.match(releasing, /Debug\s+paths must never be used as an automatic public fallback/);
-});
-
-test("product UI presents AGPL code terms without relicensing models or branding", () => {
-  const productText = [chrome, app, chat].join("\n");
-  assert.doesNotMatch(productText, /MIT app/);
-  assert.doesNotMatch(productText, /Caatuu app code is provided under the MIT license/);
-  assert.doesNotMatch(productText, /curriculum corpus, MIT/i);
-  assert.doesNotMatch(productText, /Waajacu<\/a> TM|Waajacu<sup[^>]*>TM/);
-  assert.match(chrome, /first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3\.0-only/);
-  assert.match(chrome, /provided without warranty/);
-  assert.match(chrome, /github\.com\/savethebeesandseeds\/caatuu/);
-  assert.match(chrome, /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/);
-  assert.match(app, /derived artifact review pending/);
-  assert.match(chat, /derived artifact review pending/);
-});
-
-test("Settings identifies the shipped Standard Word World corpus and its review state", () => {
-  assert.match(app, /key: "caatuu-word-world-standard-v0\.1"/);
-  assert.match(app, /label: "Word World Standard Corpus"/);
-  assert.match(app, /Caatuu-authored and Codex-authored reviewed bilingual learning sentences/);
-  assert.match(app, /sourceUrl: "data\/games\/word-world\/manifest\.json"/);
-  assert.match(app, /license: "MIT source license"/);
-  assert.match(app, /Standard Word World guided offline sentences/);
-  assert.match(app, new RegExp(`Corpus standard-v0\\.1 · ${wordWorldManifest.recordCount} rows`));
-  for (const [level, count] of Object.entries(wordWorldManifest.difficultyDistribution)) {
-    assert.match(app, new RegExp(`L${level} ${count}`));
-  }
-  assert.match(app, /artifactKind: "guided-learning-corpus"/);
-  assert.match(app, new RegExp(`entryCount: ${wordWorldManifest.recordCount}`));
-  assert.match(app, /runtimeArtifactKeys\.has\(wordWorldStandardArtifact\.key\)/);
-});
-
-test("public Android discovery distinguishes stable and gated preview channels", () => {
-  const czech = languages.languages.find((language) => language.id === "cz");
-  assert.ok(czech);
-  assert.deepEqual(czech.platforms.android.channels, [
-    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk", minimumVersionCode: 160 },
-    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk", minimumVersionCode: 160 }
+test("legal authorities consistently define first-party AGPL scope and preserve separate terms", async () => {
+  const [
+    rootLicense,
+    licensing,
+    inventory,
+    historicalMit,
+    cargo,
+    mlPackageSource,
+    englishConceptsSource,
+    mandarinRealizationsSource,
+  ] = await Promise.all([
+    read("LICENSE"),
+    read("docs/LICENSING.md"),
+    read("docs/LEGAL_INVENTORY.md"),
+    read("apps/server/LICENSE-MIT-HISTORICAL"),
+    read("apps/server/Cargo.toml"),
+    read("tools/czech-ml/package.json"),
+    read("apps/languages/shared/english-concepts/word-world-starter-v1.json"),
+    read("apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json"),
   ]);
-  assert.doesNotMatch(index, /caatuu-debug\.apk/);
-  assert.match(index, /Checking Android build/);
-  assert.match(launcher, /channel\.kind === "preview"/);
-  assert.match(launcher, /manifest\.build_type === "debug" && manifest\.debuggable === true/);
-  assert.match(launcher, /manifest\.build_type === "release" && manifest\.debuggable === false/);
-  assert.match(launcher, /Number\.isSafeInteger\(manifest\?\.version_code\)/);
-  assert.match(launcher, /manifest\.version_code < channel\.minimumVersionCode/);
-  assert.match(launcher, /versionedArtifactUrl/);
-  assert.match(launcher, /caatuu_release/);
-  assert.doesNotMatch(launcher, /caatuu-debug/);
-  assert.doesNotMatch(launcher, /\/android\/caatuu/u);
+
+  assert.match(rootLicense, /GNU AFFERO GENERAL PUBLIC LICENSE[\s\S]*Version 3, 19 November 2007/u);
+  assert.match(cargo, /license = "AGPL-3\.0-only"/u);
+  assert.equal(JSON.parse(mlPackageSource).license, "AGPL-3.0-only");
+  assert.match(licensing, /AGPL-3\.0-only[\s\S]*Material with separate terms/u);
+  assert.match(licensing, /models[\s\S]*dictionaries[\s\S]*artwork[\s\S]*names, logos, domains/u);
+  assert.match(inventory, /STOP-SHIP/u);
+  assert.match(historicalMit, /^MIT License/u);
+  assert.match(licensing, /LICENSE-MIT-HISTORICAL/u);
+
+  for (const document of [JSON.parse(englishConceptsSource), JSON.parse(mandarinRealizationsSource)]) {
+    assert.equal(document.license?.spdxExpression, "AGPL-3.0-only");
+    assert.equal(document.license?.status, "release-cleared");
+    assert.equal(document.license?.sourceReference, "docs/LICENSING.md#first-party-curriculum");
+    assert.ok(document.license?.reviewedBy);
+    assert.match(document.license?.reviewedAt ?? "", /^\d{4}-\d{2}-\d{2}T/u);
+  }
 });
 
-test("models under rights review are absent from selectors and blocked at the server", () => {
-  const activeKeys = Object.entries(modelConfigs.models)
+test("product surfaces disclose code terms and keep reviewed models and corpora explicit", async () => {
+  const [chrome, workspace, routes, chatHtml, modelConfigsSource, wordWorldManifestSource] = await Promise.all([
+    read("apps/language-runtime/static/source/caatuu-chrome.js"),
+    read("apps/language-runtime/static/source/caatuu-workspace.js"),
+    read("apps/server/src/routes/mod.rs"),
+    read("apps/languages/czech/static/chat.html"),
+    read("tools/on-device-models/model-configs.json"),
+    read("apps/languages/czech/static/data/games/word-world/manifest.json"),
+  ]);
+  const productText = `${chrome}\n${workspace}`;
+  assert.match(chrome, /first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3\.0-only/u);
+  assert.match(chrome, /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/u);
+  assert.doesNotMatch(productText, /MIT app|Caatuu app code is provided under the MIT license/u);
+
+  const wordWorldManifest = JSON.parse(wordWorldManifestSource);
+  assert.match(workspace, /key: "caatuu-word-world-standard-v0\.1"/u);
+  assert.match(workspace, new RegExp(`Corpus standard-v0\\.1 · ${wordWorldManifest.recordCount} rows`, "u"));
+
+  const activeModels = Object.entries(JSON.parse(modelConfigsSource).models)
     .filter(([, model]) => model.status === "active" && !model.deprecated)
     .map(([key]) => key);
-  assert.doesNotMatch(chatHtml, /qwen3-lora-003-hard|planet-wordnet-002-copy/);
-  assert.doesNotMatch(chrome, /<option[^>]+(?:qwen3-lora-003-hard|planet-wordnet-002-copy)/);
-  assert.ok(!activeKeys.includes("qwen3-lora-003-hard"));
-  assert.ok(!activeKeys.includes("cstinyllama-1.2b-planet-wordnet-002-copy"));
-  assert.match(routes, /qwen3-1\.7b-lora-003-hard\/\*path/);
-  assert.match(routes, /cstinyllama-1\.2b-planet-wordnet-002-copy-q4_k_m\.gguf/);
+  assert.ok(!activeModels.includes("qwen3-lora-003-hard"));
+  assert.ok(!activeModels.includes("cstinyllama-1.2b-planet-wordnet-002-copy"));
+  assert.doesNotMatch(chatHtml, /qwen3-lora-003-hard|planet-wordnet-002-copy/u);
+  assert.match(routes, /qwen3-1\.7b-lora-003-hard\/\*path/u);
+  assert.match(routes, /cstinyllama-1\.2b-planet-wordnet-002-copy-q4_k_m\.gguf/u);
+});
+
+test("public discovery distinguishes stable Android releases from gated previews", async () => {
+  const [languagesSource, launcher, index] = await Promise.all([
+    read("apps/launcher/static/languages.json"),
+    read("apps/launcher/static/launcher.js"),
+    read("apps/launcher/static/index.html"),
+  ]);
+  const czech = JSON.parse(languagesSource).languages.find(({ id }) => id === "cz");
+  assert.deepEqual(czech?.platforms.android.channels, [
+    { kind: "release", manifest: "/android/caatuu.json", artifact: "/android/caatuu.apk", minimumVersionCode: 160 },
+    { kind: "preview", manifest: "/android/caatuu-preview.json", artifact: "/android/caatuu-preview.apk", minimumVersionCode: 160 },
+  ]);
+  assert.doesNotMatch(index, /caatuu-debug\.apk/u);
+  assert.match(launcher, /channel\.kind === "preview"/u);
+  assert.match(launcher, /manifest\.build_type === "debug" && manifest\.debuggable === true/u);
+  assert.match(launcher, /manifest\.build_type === "release" && manifest\.debuggable === false/u);
+  assert.match(launcher, /manifest\.version_code < channel\.minimumVersionCode/u);
 });

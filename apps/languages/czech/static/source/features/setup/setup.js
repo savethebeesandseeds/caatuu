@@ -1,5 +1,6 @@
 (() => {
   const $ = (selector) => document.querySelector(selector);
+  const course = window.CaatuuCourse;
   const runtime = window.CaatuuRuntime;
   const maxLogEntries = 36;
   let setupRunning = false;
@@ -37,6 +38,10 @@
   let appUpdateLocked = Boolean(window.CaatuuMaintenanceUi?.pendingAppUpdate?.());
   let appUpdateUiState = appUpdateLocked ? "checking" : "idle";
   let backpackStatsPreloadPromise = null;
+  let setupCourseChoicePending = false;
+  let setupCourseChoices = [];
+  let selectedSetupSourceId = "";
+  let selectedSetupCourseId = "";
 
   const stableSetupMessage = "Preparing local files for offline use.";
   const setupMessages = [stableSetupMessage];
@@ -48,6 +53,281 @@
   function setText(selector, value) {
     const node = $(selector);
     if (node && node.textContent !== value) node.textContent = value;
+  }
+
+  function setupCourseRecords() {
+    const configured = course?.courseSelector?.schemaVersion === 1
+      && Array.isArray(course.courseSelector.courses)
+      ? course.courseSelector.courses
+      : [];
+    const records = configured.filter((record) => {
+      const entryPath = String(record?.entryPath || "");
+      return ["active", "development"].includes(record?.status)
+        && String(record?.id || "").trim()
+        && String(record?.sourceLanguage?.id || "").trim()
+        && String(record?.targetLanguage?.id || "").trim()
+        && entryPath.startsWith("/")
+        && !entryPath.startsWith("//");
+    });
+    if (records.length) return records;
+    return [{
+      id: course.id,
+      status: course.status,
+      entryPath: course.entryPath,
+      sourceLanguage: course.sourceLanguage,
+      targetLanguage: course.targetLanguage
+    }];
+  }
+
+  function setupSourceLanguages(records = setupCourseRecords()) {
+    const byId = new Map();
+    records.forEach((record) => {
+      const source = record.sourceLanguage || {};
+      const sourceId = String(source.id || "").trim();
+      if (sourceId && !byId.has(sourceId)) byId.set(sourceId, source);
+    });
+    return [...byId.values()];
+  }
+
+  function setupLanguageShortCode(language) {
+    return String(language?.shortCode || language?.id || "")
+      .trim()
+      .toLocaleUpperCase("en-US")
+      .slice(0, 8);
+  }
+
+  function selectedSetupCourse() {
+    return setupCourseChoices.find((record) => (
+      String(record.id || "") === selectedSetupCourseId
+      && String(record.sourceLanguage?.id || "") === selectedSetupSourceId
+    )) || null;
+  }
+
+  function createSetupLanguageRadio({ language, name, value, description, status = "" }) {
+    const label = String(language?.label || language?.nativeLabel || value || "Language").trim();
+    const nativeLabelText = String(language?.nativeLabel || label).trim();
+    const choice = document.createElement("label");
+    choice.className = "language-selector-option setup-language-choice";
+    if (status) choice.dataset.courseStatus = status;
+
+    const input = document.createElement("input");
+    input.className = "setup-language-radio";
+    input.type = "radio";
+    input.name = name;
+    input.value = value;
+
+    const flag = document.createElement("img");
+    flag.className = ["language-selector-option-flag", "caatuu-language-flag", language?.flagClass]
+      .filter(Boolean)
+      .join(" ");
+    flag.src = language?.flagSrc || "";
+    flag.alt = "";
+    flag.width = 30;
+    flag.height = 20;
+    flag.decoding = "async";
+
+    const copy = document.createElement("span");
+    copy.className = "language-selector-option-copy";
+    const nativeLabel = document.createElement("strong");
+    nativeLabel.lang = language?.locale || "";
+    nativeLabel.dir = language?.direction || "auto";
+    nativeLabel.textContent = nativeLabelText;
+    const routeLabel = document.createElement("small");
+    routeLabel.textContent = description;
+    copy.append(nativeLabel, routeLabel);
+
+    const meta = document.createElement("span");
+    meta.className = "language-selector-option-meta";
+    const code = document.createElement("span");
+    code.className = "language-selector-option-code";
+    code.textContent = setupLanguageShortCode(language);
+    meta.append(code);
+    if (status === "development") {
+      const statusLabel = document.createElement("span");
+      statusLabel.className = "language-selector-status";
+      statusLabel.textContent = "Preview";
+      meta.append(statusLabel);
+    }
+
+    choice.append(input, flag, copy, meta);
+    return { choice, input };
+  }
+
+  function syncSetupLanguageForm() {
+    document.querySelectorAll(".setup-language-choice").forEach((choice) => {
+      choice.classList.toggle("is-selected", Boolean(choice.querySelector("input:checked")));
+    });
+    const selectedCourse = selectedSetupCourse();
+    const sourceFieldset = $("#setupSourceLanguageQuestion");
+    const targetFieldset = $("#setupTargetLanguageQuestion");
+    if (sourceFieldset) sourceFieldset.disabled = setupCourseChoicePending;
+    if (targetFieldset) targetFieldset.disabled = setupCourseChoicePending || !selectedSetupSourceId;
+    const submit = $("#setupLanguageContinue");
+    if (submit) submit.disabled = setupCourseChoicePending || !selectedCourse;
+    const form = $("#setupLanguageForm");
+    form?.setAttribute("aria-busy", String(setupCourseChoicePending));
+
+    const hint = $("#setupLanguageHint");
+    if (!hint) return;
+    if (!selectedSetupSourceId) {
+      hint.textContent = "Choose the language you speak first.";
+    } else if (!selectedCourse) {
+      hint.textContent = "Now choose the language you want to learn.";
+    } else {
+      const sourceLabel = String(selectedCourse.sourceLanguage?.label || "your language");
+      const targetLabel = String(selectedCourse.targetLanguage?.label || "this language");
+      hint.textContent = `${sourceLabel} \u2192 ${targetLabel}. Nothing is downloaded until you continue.`;
+    }
+  }
+
+  function createSetupSourceChoice(language) {
+    const sourceId = String(language?.id || "").trim();
+    const { choice, input } = createSetupLanguageRadio({
+      language,
+      name: "setup-source-language",
+      value: sourceId,
+      description: "Language for instructions"
+    });
+    choice.dataset.setupSourceChoice = sourceId;
+    input.dataset.setupSourceChoice = sourceId;
+    input.checked = sourceId === selectedSetupSourceId;
+    input.addEventListener("change", () => {
+      if (!input.checked || setupCourseChoicePending) return;
+      selectedSetupSourceId = sourceId;
+      selectedSetupCourseId = "";
+      renderSetupTargetChoices();
+      syncSetupLanguageForm();
+    });
+    return choice;
+  }
+
+  function createSetupCourseChoice(record) {
+    const source = record.sourceLanguage || {};
+    const target = record.targetLanguage || {};
+    const sourceLabel = String(source.label || source.nativeLabel || "your language").trim();
+    const targetLabel = String(target.label || target.nativeLabel || record.id || "Language").trim();
+    const { choice, input } = createSetupLanguageRadio({
+      language: target,
+      name: "setup-target-language",
+      value: record.id,
+      description: `${sourceLabel} \u2192 ${targetLabel}`,
+      status: record.status
+    });
+    choice.dataset.setupCourseChoice = record.id;
+    input.dataset.setupCourseChoice = record.id;
+    input.checked = record.id === selectedSetupCourseId;
+    input.addEventListener("change", () => {
+      if (!input.checked || setupCourseChoicePending) return;
+      selectedSetupCourseId = String(record.id || "");
+      syncSetupLanguageForm();
+    });
+    return choice;
+  }
+
+  function renderSetupTargetChoices() {
+    const options = $("#setupTargetLanguageOptions");
+    if (!options) return;
+    const matching = setupCourseChoices.filter((record) => (
+      String(record.sourceLanguage?.id || "") === selectedSetupSourceId
+    ));
+    if (!selectedSetupSourceId) {
+      const prompt = document.createElement("p");
+      prompt.className = "setup-language-awaiting";
+      prompt.textContent = "Choose your base language to see available courses.";
+      options.replaceChildren(prompt);
+      return;
+    }
+    options.replaceChildren(...matching.map(createSetupCourseChoice));
+  }
+
+  function setSetupCourseChoicesDisabled(disabled) {
+    document.querySelectorAll("[data-setup-source-choice], [data-setup-course-choice]").forEach((choice) => {
+      if (choice instanceof HTMLInputElement) choice.disabled = disabled;
+    });
+    syncSetupLanguageForm();
+  }
+
+  function bindSetupLanguageForm() {
+    const form = $("#setupLanguageForm");
+    if (!form || form.dataset.setupLanguageBound === "true") return;
+    form.dataset.setupLanguageBound = "true";
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const record = selectedSetupCourse();
+      if (!record || setupCourseChoicePending) {
+        syncSetupLanguageForm();
+        return;
+      }
+      void chooseSetupCourse(record);
+    });
+  }
+
+  function renderBrowserLanguageSelection() {
+    const card = $("#nativeSetup");
+    const selection = $("#setupLanguageSelection");
+    const sourceOptions = $("#setupSourceLanguageOptions");
+    if (!card || !selection || !sourceOptions) return;
+    setupRunning = false;
+    nativeSetupActive = false;
+    setupComplete = false;
+    setupAborted = false;
+    setupCourseChoicePending = false;
+    setupCourseChoices = setupCourseRecords();
+    const sourceLanguages = setupSourceLanguages(setupCourseChoices);
+    selectedSetupSourceId = sourceLanguages.length === 1 ? String(sourceLanguages[0].id || "") : "";
+    selectedSetupCourseId = "";
+    stopSetupMessageCycle();
+    stopStageAnimation();
+    document.body.classList.add("choosing-setup-language");
+    card.classList.remove("is-ready", "is-error", "is-updating", "details-open");
+    card.classList.add("is-choosing-language");
+    selection.hidden = false;
+    bindSetupLanguageForm();
+    sourceOptions.replaceChildren(...sourceLanguages.map(createSetupSourceChoice));
+    renderSetupTargetChoices();
+    syncSetupLanguageForm();
+    const details = $("#setupDetails");
+    if (details) details.hidden = true;
+    const detailsToggle = $("#setupDetailsToggle");
+    if (detailsToggle) detailsToggle.hidden = true;
+    for (const id of ["setupAction", "setupAbort", "setupReportBug"]) {
+      const control = document.getElementById(id);
+      if (control) control.hidden = true;
+    }
+    setText("#setupTitle", "Choose your languages");
+    setText("#setupPhase", "Local setup");
+    setText("#setupMessage", "Answer two quick questions. Caatuu waits for Continue before preparing a course.");
+    const art = $(".stage-art");
+    if (art) {
+      art.classList.remove("is-looping");
+      setStageImage(art, stageFallback(art));
+    }
+    setNavigationLocked(true);
+  }
+
+  async function chooseSetupCourse(record) {
+    if (setupCourseChoicePending) return;
+    setupCourseChoicePending = true;
+    setSetupCourseChoicesDisabled(true);
+    if (record.id !== course.id) {
+      window.location.assign(record.entryPath);
+      return;
+    }
+
+    const card = $("#nativeSetup");
+    const selection = $("#setupLanguageSelection");
+    document.body.classList.remove("choosing-setup-language");
+    card?.classList.remove("is-choosing-language");
+    if (selection) selection.hidden = true;
+    setText("#setupTitle", "Preparing Caatuu");
+    setText("#setupPhase", "Preparing Caatuu");
+    setText("#setupMessage", "Preparing local files for offline use.");
+    setText("#setupCount", "Starting");
+    setProgress(0, "Reading manifest", "Preparing Caatuu");
+    await loadSetupVisualFrames();
+    applyStageArt();
+    setupCourseChoicePending = false;
+    await startSetup();
   }
 
   function formatBytes(bytes) {
@@ -850,6 +1130,7 @@
   }
 
   async function renderStatus(status, message = "") {
+    document.body.classList.remove("choosing-setup-language");
     await preloadBackpackStatsBeforeReady(status);
     syncArtifactState(status);
     const ready = Boolean(status?.ready) && totalReady();
@@ -1339,9 +1620,11 @@
         setupMode = "browser";
         if (appUpdateLocked) clearAppUpdateHandoff();
         const status = await runtime.setup.status();
-        if (!status.ready) await loadSetupVisualFrames();
+        if (!status.ready) {
+          renderBrowserLanguageSelection();
+          return;
+        }
         await renderStatus(status);
-        if (!status.ready) await startSetup();
         return;
       }
 

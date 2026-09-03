@@ -147,6 +147,20 @@
       "minItems": 2,
       "maxItems": 2
     },
+    "nonNegativeNumber2": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        {
+          "$ref": "#/$defs/nonNegativeNumber"
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
     "number3": {
       "type": "array",
       "prefixItems": [
@@ -546,7 +560,7 @@
           "$ref": "#/$defs/size2"
         },
         "anchor_px": {
-          "$ref": "#/$defs/number2"
+          "$ref": "#/$defs/nonNegativeNumber2"
         },
         "kind": {
           "$ref": "#/$defs/slug"

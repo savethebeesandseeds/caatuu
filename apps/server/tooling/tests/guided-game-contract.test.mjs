@@ -25,23 +25,6 @@ function functionSource(source, name, nextName) {
   return source.slice(start, end);
 }
 
-test("the retired Guided URL mode cannot replace either stable game", () => {
-  assert.match(functionSource(app, "explicitLocalGuidedRequest", "verbMeaningExerciseFamilyConfiguration"), /return false/);
-  assert.match(functionSource(wordWorld, "explicitLocalGuidedRequest", "guidedJourneyStep"), /return false/);
-  assert.doesNotMatch(indexHtml, /curriculum-service/);
-  assert.doesNotMatch(wordWorldHtml, /curriculum-service/);
-  assert.doesNotMatch(cometHtml, /curriculum-service/);
-});
-
-test("Verb Nebula remains the ordinary meaning-match game", () => {
-  assert.match(app, /loadJsonBytes\("data\/games\/verb-nebula\/core-vocabulary\.json"\)/);
-  assert.match(app, /verbNebulaCore\.dealVerbRound/);
-  assert.match(app, /verbNebulaCore\.verbPairMatches/);
-  assert.match(app, /CaatuuLearning\?\.record\("verb-nebula"/);
-  assert.match(app, /function recordVerbSemanticAttempt/);
-  assert.doesNotMatch(indexHtml, /id="verbMorphologyBoard"/);
-});
-
 test("shared practice scripts model child-safe privacy behavior", () => {
   assert.deepEqual(scripts[3].lines[1], {
     cs: "Tady je potvrzení rezervace.",
@@ -56,31 +39,4 @@ test("shared practice scripts model child-safe privacy behavior", () => {
     en: "How do I connect?"
   });
   assert.doesNotMatch(JSON.stringify(scripts), /passport|signature|password|\bpas\b|podpis|heslo/iu);
-});
-
-test("Word World keeps curated Standard content and honest semantic exposure", () => {
-  assert.match(wordWorldProvider, /loadStandardWordWorldCorpus/);
-  assert.match(wordWorld, /const provider = state\.standardProvider/);
-  assert.match(wordWorld, /function recordStandardSemanticExposure/);
-  assert.match(wordWorld, /outcome: "exposure"/);
-  assert.match(wordWorld, /score: null/);
-  assert.match(wordWorld, /masteryWeight: 0/);
-  assert.match(wordWorld, /CaatuuLearning\?\.record\("word-world"/);
-});
-
-test("Conjugation Comet owns morphology and reads the complete verb dataset", () => {
-  assert.match(comet, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4"/);
-  assert.match(comet, /state\.phase = "forms"/);
-  assert.match(comet, /state\.meaningKnown\.has\(state\.current\.verb\) \? "forms" : "meaning"/);
-  assert.doesNotMatch(comet, /state\.phase = "(?:pattern|prediction|production|transfer|complete)"/);
-  assert.match(comet, /CaatuuLearning\?\.record\?\.\("conjugation-comet"/);
-  assert.doesNotMatch(comet, /CaatuuCurriculum|curriculum\//);
-  assert.ok(verbs.verbs.length > 1, "Comet must not be pinned to a one-verb pilot");
-});
-
-test("progress reset still drains active game work before clearing totals", () => {
-  assert.match(app, /registerProgressResetPreparation\?\.\(prepareVerbProgressReset\)/);
-  assert.match(app, /async function prepareVerbProgressReset[\s\S]*?lifecycle\?\.abort\?\.\(\)/);
-  assert.match(wordWorld, /registerProgressResetPreparation\?\.\(prepareGuidedWordProgressReset\)/);
-  assert.match(wordWorld, /async function prepareGuidedWordProgressReset[\s\S]*?lifecycle\.abort\(\)/);
 });

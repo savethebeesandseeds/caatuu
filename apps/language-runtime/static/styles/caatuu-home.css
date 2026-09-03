@@ -193,6 +193,190 @@ body {
   border-color: color-mix(in srgb, var(--setup-blue) 58%, var(--setup-line));
 }
 
+.native-setup-card.is-choosing-language .setup-progress-meta,
+.native-setup-card.is-choosing-language .setup-progress,
+.native-setup-card.is-choosing-language .setup-detail-grid,
+.native-setup-card.is-choosing-language .setup-actions,
+.native-setup-card.is-choosing-language .setup-detail-link {
+  display: none;
+}
+
+.workspace-display-menu {
+  display: none;
+}
+
+body.choosing-setup-language .workspace {
+  position: relative;
+}
+
+body.choosing-setup-language .workspace-display-menu {
+  position: absolute;
+  z-index: 20;
+  top: 12px;
+  right: clamp(12px, 2.5vw, 28px);
+  display: block;
+}
+
+.setup-language-selection {
+  display: grid;
+}
+
+.setup-language-selection[hidden] {
+  display: none;
+}
+
+.setup-language-form {
+  display: grid;
+  gap: 11px;
+}
+
+.setup-language-question {
+  min-width: 0;
+  margin: 0;
+  padding: 11px;
+  border: 1px solid var(--setup-line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--setup-panel-raised) 78%, var(--setup-bg));
+}
+
+.setup-language-question legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 9px;
+  padding: 0;
+  color: var(--setup-text);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.setup-language-question legend span {
+  width: 24px;
+  height: 24px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--setup-accent);
+  color: var(--setup-panel-raised);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.setup-language-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 9px;
+}
+
+.setup-language-selection .setup-language-choice {
+  position: relative;
+  width: 100%;
+  min-height: 62px;
+  padding: 9px 11px;
+  border-color: var(--setup-line);
+  background: var(--setup-panel-raised);
+  color: var(--setup-text);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.setup-language-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.setup-language-selection .setup-language-choice.is-selected {
+  border-color: color-mix(in srgb, var(--setup-accent) 62%, var(--setup-line));
+  background: color-mix(in srgb, var(--setup-accent) 12%, var(--setup-panel-raised));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--setup-accent) 18%, transparent);
+}
+
+.setup-language-selection .setup-language-choice:focus-within {
+  outline: 3px solid var(--theme-focus-ring, #5b8fc3);
+  outline-offset: 2px;
+}
+
+.setup-language-question:disabled .setup-language-choice {
+  cursor: default;
+  opacity: 0.58;
+}
+
+.setup-language-awaiting {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px;
+  border: 1px dashed var(--setup-line-strong);
+  border-radius: 8px;
+  color: var(--setup-quiet);
+  font-size: 0.78rem;
+  font-weight: 760;
+  text-align: center;
+}
+
+.setup-language-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.setup-language-hint {
+  margin: 0;
+  color: var(--setup-muted);
+  font-size: 0.76rem;
+  font-weight: 760;
+  line-height: 1.3;
+}
+
+.setup-language-form-actions > .setup-language-continue {
+  box-sizing: border-box;
+  flex: 0 0 196px;
+  width: 196px;
+  min-width: 196px;
+  padding-inline: 18px;
+}
+
+.setup-language-continue:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+body.choosing-setup-language .home-hero {
+  gap: 8px;
+}
+
+body.choosing-setup-language .setup-visual {
+  width: min(300px, 58vw);
+  height: clamp(132px, 22vh, 180px);
+}
+
+body.choosing-setup-language .stage-art {
+  width: min(190px, 42vw);
+  height: min(190px, 42vw);
+}
+
+body.choosing-setup-language .native-setup-card {
+  gap: 9px;
+  padding: clamp(12px, 2vw, 16px);
+}
+
+body.choosing-setup-language .setup-message-zone {
+  min-height: 0;
+  padding: 9px 11px;
+}
+
+body.choosing-setup-language .setup-message {
+  min-height: 0;
+  padding-right: 0;
+}
+
 body.app-update-lock .bottom-app-nav {
   pointer-events: none;
   opacity: 0.46;
@@ -793,8 +977,8 @@ body.setup-blocked .bottom-app-nav,
     justify-content: stretch;
   }
 
-  .setup-action,
-  .setup-small-action {
+  .setup-actions > .setup-action,
+  .setup-actions > .setup-small-action {
     flex: 1 1 96px;
   }
 
@@ -820,6 +1004,17 @@ body.setup-blocked .bottom-app-nav,
 
   .setup-detail-link {
     justify-self: start;
+  }
+
+  .setup-language-form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .setup-language-form-actions > .setup-language-continue {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
   }
 
   .setup-progress-meta > span,

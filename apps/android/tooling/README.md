@@ -82,12 +82,22 @@ edited, so include that generated metadata with the corresponding asset change.
 
 ## Canonical release workflow
 
-A release has two separate operations: build one signed candidate, then promote
-those exact bytes. Promotion never rebuilds the app.
+A release has two separate operations: build and locally finalize one signed
+candidate, then deploy those exact bytes. Deployment never rebuilds the app.
 
-For a new version, commit and push the exact source on `main`, increment
-`versionCode` and `versionName`, then run one command in the existing durable
-development container:
+The routine entrypoint orchestrates both operations with one command:
+
+```powershell
+pwsh -NoProfile -File apps/android/tooling/release-android.ps1
+```
+
+When a finalized receipt already exists for the declared version, the wrapper
+skips the build operation and resumes receipt-only deployment. The two
+lower-level commands below remain available for inspection and recovery.
+
+For a new version, increment `versionCode` and `versionName`, then commit and
+push that exact source on `main`. The wrapper invokes this guarded lower-level
+command in the existing durable development container:
 
 ```bash
 docker exec -w /workspace caatuu-dev \
@@ -126,9 +136,21 @@ files. It does not invoke Gradle.
 
 The publisher finalizes local immutable inputs for the Pages pipeline. It does
 not itself create a GitHub Release, deploy Pages, change DNS, or verify the
-public site. Those are separate, reviewable deployment steps. The compatibility
-transition remains the frozen version 161 artifact; never build a new transition
-for each stable release.
+public site. After inspecting its receipt, run the receipt-only deployer from
+the Windows host, where `gh` is authenticated:
+
+```powershell
+pwsh -NoProfile -File apps/android/tooling/deploy-pages-release.ps1 `
+  -CandidateReceipt artifacts/android/releases/<versionCode>/caatuu-release-candidate.json
+```
+
+The deployer updates only the append-only Pages release descriptor, commits and
+pushes that handoff on `main`, uploads only missing exact release assets,
+dispatches the Pages workflow, and verifies the public site, Android routes,
+and reporting health. It never invokes the builder or Gradle. Rerun this command
+after an interrupted upload or deployment; do not rerun `--build-once`.
+The compatibility transition remains the frozen version 161 artifact; never
+build a new transition for each stable release.
 
 The release key remains the existing ignored
 `artifacts/android/caatuu-debug.keystore`, pinned by
@@ -287,24 +309,16 @@ running, or retired browser/archive route names appear in logcat.
 
 ## Interactive Container
 
-For repeated work, open a shell first:
+For repeated work, open a shell in the existing durable container:
 
 ```powershell
-docker run --rm -it `
-  -v C:\Work\caatuu:/workspace `
-  -v caatuu-android-sdk:/opt/android-sdk `
-  -v caatuu-gradle-dist:/opt/gradle `
-  -v caatuu-gradle-cache:/root/.gradle `
-  -w /workspace `
-  debian:12 `
-  bash
+docker exec -it -w /workspace caatuu-dev bash
 ```
 
-Inside the container:
+The durable setup is idempotent and is maintained separately. For ordinary
+work, run only the operation you need inside the container, for example:
 
 ```bash
-bash apps/android/tooling/setup-container.sh
-bash apps/android/tooling/setup-sdk.sh
 bash apps/android/tooling/build-debug-apk.sh
 ```
 
@@ -326,29 +340,16 @@ These artifacts prove package behavior but cannot be uploaded as a release:
 
 ```text
 C:\Work\caatuu\artifacts\android\caatuu-unsigned.aab
-C:\Work\caatuu\artifacts\android\caatuu-unsigned-direct.apk
 C:\Work\caatuu\artifacts\android\caatuu-inspection-debug-signed.apks
 C:\Work\caatuu\artifacts\android\caatuu-inspection-debug-signed-universal.apk
 ```
 
-For a publishable candidate, store the upload key outside the repository,
-expose it read-only to `caatuu-dev`, and pass all four signing values together:
-
-```powershell
-docker run --rm -it `
-  -v C:\Work\caatuu:/workspace `
-  -v C:\Work\caatuu-keys:/keys:ro `
-  -v caatuu-android-sdk:/opt/android-sdk `
-  -v caatuu-gradle-dist:/opt/gradle `
-  -v caatuu-gradle-cache:/root/.gradle `
-  -e CAATUU_ANDROID_KEYSTORE=/keys/upload.jks `
-  -e CAATUU_ANDROID_KEYSTORE_PASSWORD=change-me `
-  -e CAATUU_ANDROID_KEY_ALIAS=upload `
-  -e CAATUU_ANDROID_KEY_PASSWORD=change-me `
-  -w /workspace `
-  debian:12 `
-  bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-release-aab.sh"
-```
+For a publishable candidate, keep the upload key outside the repository and
+make all four signing values available through the managed `caatuu-dev`
+configuration. Use the canonical build/finalize command in "Canonical release
+workflow"; do not launch a second disposable build container. If the managed
+container cannot see the signing configuration, stop and repair that documented
+container setup before publishing.
 
 The signed bundle is written to:
 
@@ -400,8 +401,10 @@ Gradle.
 
 - `caatuu-debug.apk` is the frozen version 161 compatibility artifact, not a
   current development channel.
-- `caatuu.apk` and `caatuu.json` come only from `publish-release.sh` and are the
-  stable update channel used by normal installs.
+- `publish-release.sh` creates the local `caatuu.apk` and `caatuu.json` aliases.
+  The Pages builder creates the public `/android/caatuu.{apk,json}` aliases from
+  the newest release in the append-only descriptor; those public aliases are
+  the stable update channel used by normal installs.
 - `caatuu-debug.json` points to the frozen transition 161 APK for installations
   made before the direct-release migration.
 - Do not rename or copy a debug build over the stable filenames. It breaks

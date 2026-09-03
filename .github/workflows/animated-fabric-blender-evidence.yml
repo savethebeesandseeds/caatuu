@@ -82,6 +82,17 @@ on:
       - "docs/LEGAL_INVENTORY.md"
       - ".github/workflows/animated-fabric-blender-evidence.yml"
   workflow_dispatch:
+    inputs:
+      lane:
+        description: Evidence lane to run
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - af053
+          - af055
+          - af056
 
 permissions:
   contents: read
@@ -90,8 +101,86 @@ env:
   COMPOSE_FILE: ../../compose.yaml
 
 jobs:
+  changes:
+    name: Select evidence lanes
+    runs-on: ubuntu-24.04
+    outputs:
+      af053: ${{ steps.filter.outputs.af053 }}
+      af055: ${{ steps.filter.outputs.af055 }}
+      af056: ${{ steps.filter.outputs.af056 }}
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Classify changed evidence paths
+        id: filter
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_LANE: ${{ inputs.lane }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          all=false
+          selected_af053=false
+          selected_af055=false
+          selected_af056=false
+          : > changed-files.txt
+          case "$EVENT_NAME" in
+            workflow_dispatch)
+              case "$MANUAL_LANE" in
+                all) all=true ;;
+                af053) selected_af053=true ;;
+                af055) selected_af055=true ;;
+                af056) selected_af056=true ;;
+              esac
+              ;;
+            pull_request)
+              base="$PR_BASE_SHA"
+              head="$PR_HEAD_SHA"
+              ;;
+            *)
+              base="$BEFORE_SHA"
+              head="$CURRENT_SHA"
+              ;;
+          esac
+
+          if [[ "$EVENT_NAME" != workflow_dispatch ]]; then
+            if [[ -z "${base:-}" || "$base" =~ ^0+$ ]] \
+              || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+              all=true
+            else
+              git diff --name-only --no-renames "$base" "$head" > changed-files.txt
+            fi
+          fi
+
+          emit() {
+            local name="$1"
+            local selected="$2"
+            local pattern="$3"
+            local value=false
+            if [[ "$all" == true || "$selected" == true ]] \
+              || grep -Eq "$pattern" changed-files.txt; then
+              value=true
+            fi
+            printf '%s=%s\n' "$name" "$value" >> "$GITHUB_OUTPUT"
+          }
+
+          common='^(\.github/workflows/animated-fabric-blender-evidence\.yml|\.gitattributes|\.dockerignore|setup\.sh|tools/dev-container/|compose\.yaml|apps/animated-fabric/(\.dockerignore|pyproject\.toml|constraints/linux-py312\.txt|containers/(worker-contract\.json|blender/Dockerfile)))'
+          emit af053 "$selected_af053" "$common|^apps/animated-fabric/(tools/blender/(evidence|motion|output_paths|png_canonical|render_walk)\.py|scripts/(generate_af052_directional_goldens|package_blender_directional_export|package_blender_walk_demo|verify_blender_directional_goldens)\.py|scripts/run_blender_directional_demo\.sh|tests/golden/(LICENSE-AF052-CC0\.md|af052_blender_walk)|tests/unit/test_blender_(motion|output_paths|png_canonical|walk_review)\.py|tests/integration/test_blender_directional_demo_script\.py|src/animated_fabric/(domain/|infrastructure/exporters/)|docs/AF053-DEMO-CC0\.md)"
+          emit af055 "$selected_af055" "$common|^apps/animated-fabric/(tools/blender/(actor_package|png_canonical|render_actor_package)\.py|scripts/(generate_actor_package_fixture|verify_blender_actor_neutral)\.py|tests/golden/(LICENSE-AF055-CC0\.md|af055_actor_fixture_neutral)|tests/unit/test_(actor_package|blender_actor_neutral)\.py)"
+          emit af056 "$selected_af056" "$common|^apps/animated-fabric/(tools/blender/(actor_package|avian_contract|png_canonical|render_macaw_actor_review)\.py|tools/reference_package\.py|scripts/(generate_macaw_actor_package|generate_macaw_rig_mapping|verify_macaw_actor_review)\.py|assets/(actor-packages|actor-reviews|reference-packages)/macaw-traveler|tests/golden/af056_macaw_deformation/|tests/unit/test_(actor_package|avian_contract|blender_macaw_review|reference_package)\.py)"
+
   evidence:
     name: Native Linux end-to-end directional demo
+    needs: changes
+    if: needs.changes.outputs.af053 == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -210,31 +299,14 @@ jobs:
           cat workspaces/blender/af053-demo/provenance.json
           cat workspaces/blender/af053-product/walk.spritesheet.json
 
-      - name: Run focused pure-Python and host-orchestration contracts
+      - name: Type-check evidence-only orchestration
         run: |
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff format --check tools/blender scripts tests/unit/test_blender_motion.py \
-            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
-            tests/unit/test_blender_walk_review.py \
-            tests/integration/test_blender_directional_demo_script.py
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff check tools/blender scripts tests/unit/test_blender_motion.py \
-            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
-            tests/unit/test_blender_walk_review.py \
-            tests/integration/test_blender_directional_demo_script.py
           docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=src mypy --strict \
             scripts/package_blender_directional_export.py \
             scripts/package_blender_walk_demo.py \
             scripts/generate_af052_directional_goldens.py \
             scripts/verify_blender_directional_goldens.py'
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            pytest -q --no-cov tests/unit/test_blender_motion.py \
-            tests/unit/test_animation_export_models.py \
-            tests/unit/test_blender_output_paths.py tests/unit/test_blender_png_canonical.py \
-            tests/unit/test_blender_walk_review.py \
-            tests/integration/test_blender_directional_demo_script.py \
-            tests/integration/test_grid_spritesheet_exporter.py
 
       - name: Publish cleared AF-053 demo media and reports
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -255,6 +327,8 @@ jobs:
 
   actor-package-evidence:
     name: Native Linux AF-055 actor-package validation
+    needs: changes
+    if: needs.changes.outputs.af055 == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -363,28 +437,17 @@ jobs:
           cat .tmp/af055-manifests/neutral-second.sha256
           cat workspaces/blender/af055-neutral/validation.json
 
-      - name: Run focused actor-package lint and tests
+      - name: Type-check actor-package evidence orchestration
         run: |
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff format --check tools/blender/actor_package.py \
-            tools/blender/render_actor_package.py scripts/generate_actor_package_fixture.py \
-            scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
-            tests/unit/test_blender_actor_neutral.py
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff check tools/blender/actor_package.py tools/blender/render_actor_package.py \
-            scripts/generate_actor_package_fixture.py \
-            scripts/verify_blender_actor_neutral.py tests/unit/test_actor_package.py \
-            tests/unit/test_blender_actor_neutral.py
           docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=src mypy --strict --explicit-package-bases \
             tools/blender/actor_package.py scripts/generate_actor_package_fixture.py \
             scripts/verify_blender_actor_neutral.py'
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            pytest -q --no-cov tests/unit/test_actor_package.py \
-            tests/unit/test_blender_actor_neutral.py
 
   macaw-actor-evidence:
     name: Native Linux AF-056 macaw rig validation
+    needs: changes
+    if: needs.changes.outputs.af056 == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -503,22 +566,8 @@ jobs:
           cat .tmp/af056-manifests/review-second.sha256
           cat workspaces/blender/af056-review/validation.json
 
-      - name: Run focused avian contract lint, typing, and tests
+      - name: Type-check macaw evidence orchestration
         run: |
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff format --check tools/blender/avian_contract.py \
-            tools/blender/render_macaw_actor_review.py \
-            scripts/generate_macaw_actor_package.py \
-            scripts/generate_macaw_rig_mapping.py \
-            scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
-            tests/unit/test_blender_macaw_review.py
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            ruff check tools/blender/avian_contract.py \
-            tools/blender/render_macaw_actor_review.py \
-            scripts/generate_macaw_actor_package.py \
-            scripts/generate_macaw_rig_mapping.py \
-            scripts/verify_macaw_actor_review.py tests/unit/test_avian_contract.py \
-            tests/unit/test_blender_macaw_review.py
           docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             mypy --strict scripts/generate_macaw_actor_package.py
           docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
@@ -527,6 +576,3 @@ jobs:
           docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
             sh -c 'MYPYPATH=tools/blender mypy --strict --explicit-package-bases \
             --follow-imports=skip scripts/verify_macaw_actor_review.py'
-          docker exec -w /workspace/apps/animated-fabric caatuu-dev caatuu-animated-fabric \
-            pytest -q --no-cov tests/unit/test_avian_contract.py \
-            tests/unit/test_blender_macaw_review.py

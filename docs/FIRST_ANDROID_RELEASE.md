@@ -1,6 +1,6 @@
 # First Android release planning notes
 
-Last reviewed: 25 July 2026
+Last reviewed: 3 September 2026
 
 This document is the working brief to inspect before planning Caatuu's first
 real Android release. It records current preview risks, decisions that still
@@ -84,10 +84,18 @@ For Google Play, use the `play` application variant produced by
 `apps/android/tooling/build-release-aab.sh`. It disables Caatuu's direct updater
 and omits `REQUEST_INSTALL_PACKAGES`.
 
-For a signed direct-download release, use
-`apps/android/tooling/build-release-apk.sh`. It creates the stable
-`caatuu.apk`/`caatuu.json` pair and requires the protected release-signing
-environment. Never substitute `caatuu-debug.apk`.
+For a routine signed direct-download release, use the maintained release
+entrypoint:
+
+```powershell
+pwsh -NoProfile -File apps/android/tooling/release-android.ps1
+```
+
+It runs the guarded build at most once, creates the stable
+`caatuu.apk`/`caatuu.json` pair and sealed receipt using the protected
+release-signing environment, then deploys those exact bytes as documented in
+[`STATIC_WEB_HOSTING.md`](STATIC_WEB_HOSTING.md). Never substitute
+`caatuu-debug.apk`. A retry after finalization skips the build stage.
 
 ## Pre-publication evidence
 
@@ -156,4 +164,3 @@ external validation path.
 - [Google Play Protect](https://support.google.com/googleplay/answer/2812853)
 - [App verification appeal](https://support.google.com/googleplay/android-developer/answer/2992033)
 - [Potentially harmful application classifications](https://support.google.com/googleplay/android-developer/answer/17190352)
-
