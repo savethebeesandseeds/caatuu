@@ -7,7 +7,10 @@ import {
   validateSentenceReport
 } from "./contracts.mjs";
 
-export const DEPLOYMENT_VERSION = "2026-09-03.v2";
+export const DEPLOYMENT_VERSION = "2026-09-03.v3";
+
+const DURABLE_ASSET_RELEASE_BASE_URL =
+  "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1";
 
 const routes = Object.freeze({
   dictionary: "/cz/api/dictionary/gaps",
@@ -18,19 +21,23 @@ const routes = Object.freeze({
 export const DURABLE_ASSETS = Object.freeze({
   "/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite": Object.freeze({
     bytes: 143106048,
-    contentType: "application/vnd.sqlite3"
+    contentType: "application/vnd.sqlite3",
+    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/caatuu-cs-en.sqlite`
   }),
   "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite": Object.freeze({
     bytes: 20029440,
-    contentType: "application/vnd.sqlite3"
+    contentType: "application/vnd.sqlite3",
+    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/caatuu-cz-curriculum.sqlite`
   }),
   "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx": Object.freeze({
     bytes: 23026053,
-    contentType: "application/octet-stream"
+    contentType: "application/octet-stream",
+    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/model_qint8_arm64.onnx`
   }),
   "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm": Object.freeze({
     bytes: 12942611,
-    contentType: "application/wasm"
+    contentType: "application/wasm",
+    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/ort-wasm-simd-threaded.wasm`
   })
 });
 
@@ -180,10 +187,11 @@ async function handleDurableAsset(request, asset, fetchImpl) {
     const value = request.headers.get(name);
     if (value) headers.set(name, value);
   }
-  const upstreamRequest = new Request(request.url, {
+  const upstreamRequest = new Request(asset.releaseUrl, {
     method: request.method,
     headers,
-    cache: "no-store"
+    cache: "no-store",
+    redirect: "follow"
   });
   let upstreamResponse;
   try {

@@ -14,14 +14,15 @@ GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qin
 GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm
 ```
 
-The setup files still live in GitHub Pages. Their exact Worker routes pass the
-request to that existing origin with `Accept-Encoding: identity` and a cache
-bypass, preserve the client's `Range` and `If-Range` headers, reject a compressed
-or size-mismatched origin response, and return `no-transform`. The
-`global_fetch_private_origin` compatibility flag pins this Route-to-origin
-behavior so a future runtime default cannot loop the subrequest back through the
-public Worker route. This keeps APK 163's raw resume offsets correct without a
-second artifact store, an application server, or a background process. Every
+The setup files live as version-pinned assets in the GitHub Release
+`caatuu-setup-assets-v1`. Their exact Worker routes fetch fixed release URLs
+with `Accept-Encoding: identity` and a cache bypass, follow GitHub's asset
+redirect, preserve the client's `Range`, `If-Range`, and HTTP conditional
+headers, reject a compressed or size-mismatched final response, and return
+`no-transform`. Client query strings are accepted by the public compatibility
+routes but are deliberately not copied to GitHub: the release tag and unique
+asset name already identify the exact bytes. This keeps APK 163's raw resume
+offsets correct without an application server or a background process. Every
 other static request bypasses the Worker.
 
 The Worker is named `caatuu-reporting`. Its D1 database is

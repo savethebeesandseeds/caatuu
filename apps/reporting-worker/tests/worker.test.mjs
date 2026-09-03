@@ -122,6 +122,16 @@ async function body(response) {
 
 const durableAssetPath = Object.keys(DURABLE_ASSETS)[0];
 const durableAsset = DURABLE_ASSETS[durableAssetPath];
+const expectedReleaseUrls = Object.freeze({
+  "/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite":
+    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/caatuu-cs-en.sqlite",
+  "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite":
+    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/caatuu-cz-curriculum.sqlite",
+  "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx":
+    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/model_qint8_arm64.onnx",
+  "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm":
+    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/ort-wasm-simd-threaded.wasm"
+});
 
 function assetRequest(headers = {}, method = "GET") {
   return new Request(`https://caatuu.waajacu.com${durableAssetPath}`, { method, headers });
@@ -220,7 +230,7 @@ test("health exposes readiness and version but no report data", async () => {
   assert.deepEqual(Object.keys(result).sort(), ["ok", "ready", "version"]);
 });
 
-test("durable assets force raw origin bytes and preserve resume headers", async () => {
+test("durable assets fetch pinned release bytes and preserve resume headers", async () => {
   const calls = [];
   const first = durableAsset.bytes - 1000;
   const last = durableAsset.bytes - 1;
@@ -230,7 +240,11 @@ test("durable assets force raw origin bytes and preserve resume headers", async 
       authorization: "must-not-reach-the-public-origin",
       cookie: "must-not-reach-the-public-origin",
       range: `bytes=${first}-`,
-      "if-range": '"fixture-etag"'
+      "if-range": '"fixture-etag"',
+      "if-match": '"fixture-etag"',
+      "if-none-match": '"other-etag"',
+      "if-modified-since": "Wed, 03 Sep 2025 00:00:00 GMT",
+      "if-unmodified-since": "Wed, 03 Sep 2027 00:00:00 GMT"
     }),
     environment(),
     {},
@@ -240,9 +254,15 @@ test("durable assets force raw origin bytes and preserve resume headers", async 
     }
   );
   assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, expectedReleaseUrls[durableAssetPath]);
+  assert.equal(calls[0].redirect, "follow");
   assert.equal(calls[0].headers.get("accept-encoding"), "identity");
   assert.equal(calls[0].headers.get("range"), `bytes=${first}-`);
   assert.equal(calls[0].headers.get("if-range"), '"fixture-etag"');
+  assert.equal(calls[0].headers.get("if-match"), '"fixture-etag"');
+  assert.equal(calls[0].headers.get("if-none-match"), '"other-etag"');
+  assert.equal(calls[0].headers.get("if-modified-since"), "Wed, 03 Sep 2025 00:00:00 GMT");
+  assert.equal(calls[0].headers.get("if-unmodified-since"), "Wed, 03 Sep 2027 00:00:00 GMT");
   assert.equal(calls[0].headers.get("authorization"), null);
   assert.equal(calls[0].headers.get("cookie"), null);
   assert.equal(calls[0].cache, "no-store");
@@ -252,6 +272,29 @@ test("durable assets force raw origin bytes and preserve resume headers", async 
   assert.equal(response.headers.get("content-type"), durableAsset.contentType);
   assert.match(response.headers.get("cache-control"), /no-transform/u);
   assert.equal((await response.arrayBuffer()).byteLength, 1000);
+});
+
+test("every durable public path maps to one exact pinned release asset", async () => {
+  assert.deepEqual(Object.keys(DURABLE_ASSETS).sort(), Object.keys(expectedReleaseUrls).sort());
+  for (const [path, asset] of Object.entries(DURABLE_ASSETS)) {
+    let upstreamRequest;
+    const response = await handleRequest(
+      new Request(`https://caatuu.waajacu.com${path}`, { method: "HEAD" }),
+      environment(),
+      {},
+      async (request) => {
+        upstreamRequest = request;
+        return new Response(null, {
+          status: 200,
+          headers: { "content-length": String(asset.bytes) }
+        });
+      }
+    );
+    assert.equal(response.status, 200);
+    assert.equal(asset.releaseUrl, expectedReleaseUrls[path]);
+    assert.equal(upstreamRequest.url, expectedReleaseUrls[path]);
+    assert.equal(upstreamRequest.redirect, "follow");
+  }
 });
 
 test("durable assets fail closed on compressed or size-mismatched origin data", async () => {
@@ -287,6 +330,18 @@ test("durable assets fail closed on compressed or size-mismatched origin data", 
   );
   assert.equal(wrongOffset.status, 502);
   assert.equal((await body(wrongOffset)).error, "asset_unavailable");
+
+  const exposedRedirect = await handleRequest(
+    assetRequest(),
+    environment(),
+    {},
+    async (request) => new Response(null, {
+      status: 302,
+      headers: { location: `${request.url}?unexpected-unfollowed-redirect=1` }
+    })
+  );
+  assert.equal(exposedRedirect.status, 502);
+  assert.equal((await body(exposedRedirect)).error, "asset_unavailable");
 });
 
 test("durable assets validate full, head, and unsatisfied-range responses", async () => {
@@ -343,7 +398,7 @@ test("durable asset routes reject writes without invoking the origin", async () 
   assert.equal(called, false);
 });
 
-test("durable asset query URLs stay inside the exact Worker boundary", async () => {
+test("durable asset queries stay inside the Worker boundary but not the pinned release URL", async () => {
   const path = "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite";
   const asset = DURABLE_ASSETS[path];
   let upstreamUrl = "";
@@ -365,14 +420,16 @@ test("durable asset query URLs stay inside the exact Worker boundary", async () 
     }
   );
   assert.equal(response.status, 206);
-  assert.equal(upstreamUrl, `https://caatuu.waajacu.com${path}?v=d30277c5`);
+  assert.equal(upstreamUrl, expectedReleaseUrls[path]);
 
   const config = JSON.parse(readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
   const configuredPatterns = new Set(config.routes.map(({ pattern }) => pattern));
-  for (const assetPath of Object.keys(DURABLE_ASSETS)) {
-    assert.ok(
-      configuredPatterns.has(`caatuu.waajacu.com${assetPath}*`),
-      `missing query-safe Worker route for ${assetPath}`
-    );
-  }
+  const expectedPatterns = new Set([
+    "caatuu.waajacu.com/cz/api/dictionary/gaps*",
+    "caatuu.waajacu.com/api/sentence-reports*",
+    "caatuu.waajacu.com/api/reporting/health*",
+    ...Object.keys(DURABLE_ASSETS).map((assetPath) => `caatuu.waajacu.com${assetPath}*`)
+  ]);
+  assert.deepEqual([...configuredPatterns].sort(), [...expectedPatterns].sort());
+  assert.equal(config.compatibility_flags, undefined);
 });

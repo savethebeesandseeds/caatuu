@@ -3,7 +3,6 @@
   "name": "caatuu-reporting",
   "main": "src/index.mjs",
   "compatibility_date": "2026-09-02",
-  "compatibility_flags": ["global_fetch_private_origin"],
   "workers_dev": false,
   "routes": [
     {
