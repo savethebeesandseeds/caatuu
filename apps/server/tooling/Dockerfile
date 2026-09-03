@@ -19,17 +19,10 @@ RUN apt-get update \
       bash \
       ca-certificates \
       curl \
-      gpg \
       jq \
       nodejs \
       procps \
-      socat \
       tini \
-    && mkdir -p /usr/share/keyrings \
-    && curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg -o /usr/share/keyrings/cloudflare-main.gpg \
-    && echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' > /etc/apt/sources.list.d/cloudflared.list \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends cloudflared \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

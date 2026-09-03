@@ -1,36 +1,38 @@
 # Caatuu architecture
 
 Caatuu is a workspace of deliberately separated platform components. The
-learner-facing browser product is one application; the Rust server serves its
-canonical document at each course route while Android, ML, animation, and
-archived code retain distinct ownership boundaries.
+learner-facing browser product is one application published through GitHub
+Pages; the Rust server provides the same route surface only for local
+development. Android, reporting, ML, animation, and archived code retain
+distinct ownership boundaries.
 
 ## System map
 
 ```text
-Browser                         Android app
-   |                                |
-   | HTTP                           | packaged web assets + native bridge
-   v                                v
-Caatuu server                  offline GGUF inference
-(binary: caatuu-runtime)
-   |
-   +-- /                  unified launcher
-   +-- /cz/               shared app + Czech course pack
-   +-- /zh/               shared app + Mandarin development pack
-   +-- /language-runtime/ shared adapter, shell, and English embedding runtime
-   +-- /games/            optional standalone game previews
-   +-- /android/          governed build artifacts and manifests
+Browser or installed Android app
+               |
+               v
+   caatuu.waajacu.com at Cloudflare
+               |
+               +-- ordinary site and APK paths ------> GitHub Pages
+               +-- four large setup paths -> Worker -> pinned GitHub Release
+               +-- two report paths --------> Worker -> EU D1
+               +-- data-free health --------> Worker
+
+Local only
+   caatuu (caatuu-runtime)  loopback browser/APK/API testing on port 8765
+   caatuu-dev               builds, tests, ML, Android, and release tooling
 ```
 
 The deprecated Chinese trainer remains under `archive/caatuu-chinese` as
 repository history only. The runtime does not mount it; `/zh-hans/*` redirects
 to the canonical `/zh/*` course and deprecated trainer routes fail closed.
 
-The normal browser/server container does not contain the training stack. Model
+The local browser/server container does not contain the training stack. Model
 training, export, Android builds, image work, and animation tooling use the
-shared `caatuu-dev` environment plus narrowly bounded worker profiles so daily
-runtime startup remains small and reproducible.
+shared `caatuu-dev` environment plus narrowly bounded Compose profiles so daily
+runtime startup remains small and reproducible. Public hosting has no
+long-running workstation container or Cloudflare Tunnel.
 
 ## Application ownership
 
@@ -84,11 +86,22 @@ and
 
 ### `apps/server`
 
-Owns HTTP routing, manifest-driven language mounts, the narrowly exposed shared
-language runtime, static surface assembly, operational configuration, and
-fail-closed boundaries for deprecated routes. Top-level legacy Chinese API and
-WebSocket paths are retired. `/zh-hans` and `/zh-hans/**` redirect only to the
-canonical `/zh/` course; archived sources are never mounted.
+Owns the local HTTP routing, manifest-driven language mounts, narrowly exposed
+shared language runtime, static surface assembly, operational configuration,
+and fail-closed boundaries for deprecated routes. It is not a public origin.
+Top-level legacy Chinese API and WebSocket paths are retired. `/zh-hans` and
+`/zh-hans/**` redirect only to the canonical `/zh/` course; archived sources
+are never mounted.
+
+### `apps/reporting-worker`
+
+Owns the only public dynamic boundary: two consent-gated, write-only reporting
+routes, one data-free health route, and four exact resumable-download proxies.
+Reports go to D1 with no public read API. Live requests for the four large setup
+files come from fixed assets in the pinned GitHub Release; the Pages
+preservation bundle also validates copies of those bytes. The Worker validates
+their lengths and range responses and does not buffer or store them. Every
+other public path bypasses the Worker and goes to GitHub Pages.
 
 ### `apps/animated-fabric`
 
@@ -115,7 +128,7 @@ profiles. Files under `compose/` are narrow overrides for exceptional modes.
 
 | File | Responsibility |
 | --- | --- |
-| `compose.yaml` | Runtime plus opt-in `tunnel`, `tools`, and `dev` profiles |
+| `compose.yaml` | Local runtime plus opt-in `tools`, `dev`, and specialist profiles; no public tunnel |
 | `compose/dev-gpu.yaml` | Adds GPU access to the same `caatuu-dev` service and project |
 | `compose/dev-gui.yaml` | Adds native-X11 forwarding to the same `caatuu-dev` service and project |
 | `compose/phone-debug.yaml` | Explicit trusted-LAN exposure for phone debugging |

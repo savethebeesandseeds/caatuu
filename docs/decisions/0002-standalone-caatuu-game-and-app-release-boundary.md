@@ -4,6 +4,8 @@ Status: accepted
 
 Date: 2026-08-03
 
+Amended: 2026-09-03 after the static-hosting cutover
+
 ## Context
 
 The Godot world previously used the `memory-moon` identity and was embedded in
@@ -25,9 +27,10 @@ to its static placeholder.
   `/games/caatuu-game/godot-v1/` export.
 - The existing Caatuu runtime and port serve the preview. No repository,
   Compose project, runtime container, or port is added.
-- `ENABLE_CAATUU_GAME_PREVIEW` controls the route. Application publication may
-  proceed with it disabled. A public tunnel may expose it only after the
-  explicit `caatuu-game` release-readiness gate passes.
+- `ENABLE_CAATUU_GAME_PREVIEW` controls the local route. Application publication
+  may proceed with it disabled. The former public-tunnel path is retired; any
+  future public game preview needs its own reviewed static-hosting decision and
+  must pass the explicit `caatuu-game` release-readiness gate.
 - Memory Moon remains a static “Coming next” screen in the browser and Android
   application and contains no executable game integration.
 

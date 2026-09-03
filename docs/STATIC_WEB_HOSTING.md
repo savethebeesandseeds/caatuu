@@ -4,10 +4,10 @@ Last reviewed: 3 September 2026
 
 Caatuu has a deterministic GitHub Pages deployment profile. It serves the
 website, already-built stable 163 (`0.1.11`), previous stable 162 (`0.1.10`),
-compatibility transition 161, and their exact setup dependencies without a
-workstation origin. It does not build or relabel an Android release. Pages,
-the reporting Worker, and DNS have separate validation gates; final tunnel
-deletion remains a maintainer-confirmed action after the observation window.
+compatibility transition 161, and most setup dependencies without a workstation
+origin. Four large setup files live in a pinned GitHub Release and retain their
+original Caatuu URLs through the reporting Worker. This deployment does not
+build or relabel an Android release.
 
 ## Canonical deployment architecture
 
@@ -23,58 +23,45 @@ Browser or installed Android app
               |
               +-- ordinary pages, assets and APKs ----------> GitHub Pages
               |
-              +-- four large setup files --> caatuu-reporting Worker --> GitHub Pages
-              |                              (raw byte-range safeguard)
+              +-- four large setup files --> caatuu-reporting Worker --> GitHub Release
+              |                              (exact bytes and resumable ranges)
               |
-              +-- three reporting paths ---> caatuu-reporting Worker --> EU D1
+              +-- two report POST paths ---> caatuu-reporting Worker --> EU D1
+              +-- data-free health path ---> caatuu-reporting Worker
 
 Local Docker: development and release tooling only; never a public dependency
 ```
 
 | Component | Responsibility | Repository authority |
 | --- | --- | --- |
-| GitHub Pages | Serves the launcher, active Czech product, unlisted/noindex Mandarin preview, embedded course games, setup artifacts, models, dictionaries, and retained Android downloads; it does not publish the standalone Godot preview | `.github/workflows/pages.yml` and `apps/launcher/tooling/build-pages-site.mjs` |
-| GitHub Releases | Holds the immutable preservation archive and already-built Android 163 release inputs consumed by the Pages workflow | `apps/android/tooling/pages-baseline.json` and `apps/android/tooling/pages-current-release.json` |
+| GitHub Pages | Serves the launcher, active Czech product, unlisted/noindex Mandarin preview, embedded course games, ordinary setup assets, and retained Android downloads; it does not publish the standalone Godot preview | `.github/workflows/pages.yml` and `apps/launcher/tooling/build-pages-site.mjs` |
+| GitHub Releases | Holds the preservation archive and Android 163 inputs consumed by the Pages workflow, plus the four large setup files in `caatuu-setup-assets-v1` | `apps/android/tooling/pages-baseline.json`, `apps/android/tooling/pages-current-release.json`, and the fixed map in `apps/reporting-worker/src/index.mjs` |
 | Cloudflare DNS/proxy | Gives the Pages site its public custom hostname and sends only the declared reporting and raw-range paths through the Worker | The live DNS record plus the cutover procedure below |
-| `caatuu-reporting` Worker | Validates and stores the two narrow, consent-gated report types and streams four immutable setup files from Pages without buffering so resumable downloads use raw offsets; it does not store those files or serve the application shell | `apps/reporting-worker/` |
+| `caatuu-reporting` Worker | Validates and stores the two narrow, consent-gated report types and streams four fixed GitHub Release assets without buffering so resumable downloads use raw offsets; it does not store those files or serve the application shell | `apps/reporting-worker/` |
 | EU D1 | Stores accepted dictionary-gap and sentence reports; it has no public read route | `apps/reporting-worker/migrations/` and the D1 binding in `wrangler.jsonc` |
 | `caatuu-dev` | Canonical local dependency, test, and release-tool environment | Root `README.md` and the existing named container |
 | `caatuu` | Profile-gated, restart-disabled loopback runtime for deliberate local development or APK/API testing | `compose.yaml` and `apps/server/README.md` |
-| `caatuu-tunnel` | Profile-gated, restart-disabled rollback definition; remove it after the validated observation window | The retirement and rollback sections below |
+| `caatuu-tunnel` | Retired. It is absent from Compose and must not be recreated | The retirement record below |
 
-Changing `compose.yaml` does not alter a container that was already created
-with `restart: unless-stopped`. At the 2 September 2026 cutover audit, neither
-`caatuu` nor `caatuu-tunnel` existed on the canonical host, so no legacy
-restart policy remained to reconcile; `caatuu-dev` was the only running Caatuu
-container and was left untouched. On another host where either exact legacy
-name still exists, first inspect it, then stop that exact container and apply
-the non-restarting policy without deleting or rebuilding it:
-
-```powershell
-docker inspect --format '{{.Name}} restart={{.HostConfig.RestartPolicy.Name}} running={{.State.Running}}' caatuu caatuu-tunnel
-docker stop caatuu-tunnel caatuu
-docker update --restart=no caatuu-tunnel caatuu
-docker inspect --format '{{.Name}} restart={{.HostConfig.RestartPolicy.Name}} running={{.State.Running}}' caatuu caatuu-tunnel
-```
-
-Run those stop/update commands only for names that the first inspection proves
-exist. This reconciliation is unnecessary for absent containers. Compose
-profiles control future explicit startup; they do not retrofit old container
-metadata.
+At the final audit, neither `caatuu` nor `caatuu-tunnel` existed on the
+canonical host. `caatuu-dev` was the only running Caatuu container and remained
+untouched. `caatuu` is available only through the explicit `local` profile and
+has `restart: "no"`; it is not part of public hosting.
 
 The deployment order is intentional:
 
 1. Commit and push the exact reviewed source to the sole `main` branch.
-2. Deploy `apps/reporting-worker` and verify its data-free health route and D1
+2. Publish and digest-verify the version-pinned setup Release assets.
+3. Deploy `apps/reporting-worker` and verify its data-free health route and D1
    binding.
-3. Manually dispatch the Pages workflow. It packages the pinned release files;
+4. Manually dispatch the Pages workflow. It packages the pinned release files;
    it does not build an APK.
-4. Point the custom hostname at GitHub Pages in DNS-only mode until strict
+5. Point the custom hostname at GitHub Pages in DNS-only mode until strict
    GitHub HTTPS works.
-5. Enable Cloudflare proxying so only the declared Worker route patterns
+6. Enable Cloudflare proxying so only the declared Worker route patterns
    intercept reporting requests and the four raw-range setup files.
-6. Validate the public site, Android downloads, reporting protections, and
-   independence from local Docker before retiring the tunnel.
+7. Validate the public site, Android downloads, reporting protections, and
+   independence from local Docker before deleting the obsolete tunnel.
 
 Never commit or paste into documentation, issues, logs, or chat output:
 
@@ -174,22 +161,28 @@ hostname now has an endpoint.
 Four additional exact Worker routes protect the large setup files used by APK
 163 and the web runtime:
 
-- `/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite`;
-- `/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite`;
-- `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx`; and
-- `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm`.
+| Public Caatuu path | Release asset | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite` | `caatuu-cs-en.sqlite` | 143,106,048 | `80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71` |
+| `/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite` | `caatuu-cz-curriculum.sqlite` | 20,029,440 | `d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13` |
+| `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx` | `model_qint8_arm64.onnx` | 23,026,053 | `4278337fd0ff3c68bfb6291042cad8ab363e1d9fbc43dcb499fe91c871902474` |
+| `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm` | `ort-wasm-simd-threaded.wasm` | 12,942,611 | `f4f290847a4df02d0b93cdbf39b4b0e71acefbe80573e7e6b9342a7abd7b290a` |
 
-These are not a second hosting system. The Worker forwards each request to the
-existing GitHub Pages origin with `Accept-Encoding: identity`, preserves only
-the range and HTTP conditional headers needed for safe resume, streams the body
-without buffering it, and returns `no-transform`. It fails closed if Pages
-returns a compressed representation, the wrong full length, the wrong range
-offsets, or the wrong total size. Query-bearing URLs are covered by the Worker
-patterns but dispatch remains restricted to those exact pathnames. The
-`global_fetch_private_origin` compatibility flag pins the Route-to-origin
-behavior and prevents a future runtime default from looping a subrequest back
-through the public Worker route. No R2 bucket, duplicate release asset, new
-secret, scheduled task, or persistent process is involved.
+The assets live in the public GitHub Release `caatuu-setup-assets-v1`. Treat
+that release as write-once: never replace an asset in place or use upload
+`--clobber`. Changed bytes require a new tag such as
+`caatuu-setup-assets-v2`, updated fixed mappings, and full validation.
+
+The Worker fetches only those fixed release URLs with
+`Accept-Encoding: identity`, follows GitHub's asset redirect, preserves the
+range and HTTP conditional headers needed for safe resume, streams the body
+without buffering it, and returns `no-transform`. GitHub's CDN does not accept
+suffix-range syntax, so the Worker translates a valid suffix into the
+equivalent explicit byte interval. It fails closed on compressed data, a wrong
+full length, a wrong interval, or a wrong total size. Query strings remain
+inside the public compatibility route but are never forwarded to GitHub. No R2
+bucket, secret, scheduled task, watchdog, health poller, or persistent
+connection is involved.
 
 The cutover explicitly retires:
 
@@ -204,7 +197,8 @@ uses new authorized v2 outboxes only after the relevant consent. Existing v1
 sentence and gap queues remain permanently local and are never migrated.
 
 The reporting Worker stores accepted data in the EU-jurisdiction D1 database
-`caatuu-reporting-production`. Sentence reports become eligible for deletion
+whose configured resource name is `caatuu-reporting-production`; that historical
+name does not represent a second deployment tier. Sentence reports become eligible for deletion
 after 90 days and dictionary gaps 365 days after their latest observation.
 Cleanup is requested after an accepted write when the recorded successful run
 is at least a day old; eligible rows can remain longer when no later report
@@ -243,9 +237,10 @@ The preservation archive is also below GitHub's
 and the Pages workflow remains below the
 [10 GB uncompressed artifact limit](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 Size alone does not prove operational fit: Pages has a 10-minute deployment
-limit and a soft 100 GB monthly bandwidth limit. A complete native setup closure
-is 480,853,526 bytes, so verify the real workflow duration and monitor download
-traffic during the observation window.
+limit and a soft 100 GB monthly bandwidth limit. The four largest files use
+GitHub Releases at runtime, but the preservation bundle still validates their
+exact bytes. Recheck these limits before expanding beyond the current personal
+use case.
 
 ```powershell
 docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site.mjs --baseline-archive artifacts/android/caatuu-pages-v162.tar --output artifacts/web/github-pages
@@ -259,8 +254,8 @@ docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site
 
 The successful command prints the profile, exact file count, total bytes,
 stable 163, previous stable 162, compatibility 161, and the
-preservation-archive digest. The validated local bundle currently contains 825
-files totaling 644,554,418 bytes. It also writes
+preservation-archive digest. The currently published bundle manifest records
+824 payload files totaling 644,405,653 bytes. The builder also writes
 `artifacts/web/github-pages/caatuu-web-bundle.json`, whose sorted inventory
 binds every other file by byte count and SHA-256.
 
@@ -291,11 +286,14 @@ done by the workflow:
    `caatuu-163-release-candidate.json` against every byte count and SHA-256 in
    `pages-current-release.json`. This promotes the already-built APK; it does
    not run an Android build.
-4. In repository **Settings → Pages**, select **GitHub Actions** as the source.
-5. Add the custom domain `caatuu.waajacu.com` and complete GitHub's domain
+4. Publish the four setup files in the table above under the fixed
+   `caatuu-setup-assets-v1` tag. Verify GitHub's server-side SHA-256 for every
+   asset before deploying the Worker. Never replace an existing asset.
+5. In repository **Settings → Pages**, select **GitHub Actions** as the source.
+6. Add the custom domain `caatuu.waajacu.com` and complete GitHub's domain
    verification. Keep the current DNS route in place while local validation is
    still underway.
-6. Leave HTTPS enforcement enabled once GitHub reports the certificate and DNS
+7. Leave HTTPS enforcement enabled once GitHub reports the certificate and DNS
    as ready.
 
 The first artifact may need to be deployed before GitHub can provision the
@@ -326,65 +324,38 @@ The manual `Deploy static Caatuu to GitHub Pages` workflow fails closed unless:
 It uploads a Pages artifact and uses GitHub's Pages deployment API. There is no
 `gh-pages` branch and no push trigger.
 
-## DNS cutover
+## DNS and deployed cutover record
 
-DNS is the final availability switch, not a build step. Change it only after the
-generated site has passed local visual and interaction review, the Pages
-deployment is ready, and the reporting Worker is deployed. Before the cutover,
-the record was a proxied Cloudflare Tunnel route named `caatuu`; with no healthy
-connector it returned Cloudflare 1033 and was not a demonstrated rollback
-target. The exact provider identifier belongs in the private operator record,
-not this public architecture document.
+`caatuu.waajacu.com` is a proxied CNAME to
+`savethebeesandseeds.github.io`. Proxying remains enabled because Cloudflare
+must intercept exactly the seven Worker route patterns; every other path
+continues to GitHub Pages. GitHub Pages reports the custom domain verified,
+HTTPS enforced, and its certificate approved.
 
-Replace that hostname record with a DNS-only CNAME from
-`caatuu.waajacu.com` to `savethebeesandseeds.github.io` while GitHub provisions
-the custom-domain certificate. After strict public HTTPS succeeds, enable the
-Cloudflare proxy so only the declared reporting and range-safety Worker
-patterns intercept requests while all other requests continue to Pages. During
-the DNS-only certificate phase,
-authorized reports remain queued in the browser rather than falling back to a
-workstation service. Do not change `minerals.waajacu.com` or forward its private
-port `7979` through the Caatuu tunnel.
+`minerals.waajacu.com` is a separate DNS-only CNAME to GitHub Pages. Its former
+`localhost:7979` entry inside the old Caatuu tunnel was stale configuration,
+not a live dependency. Port `7979` belongs to the independent Minerals project
+and must never appear in Caatuu Compose or Worker routes.
 
-After DNS resolves, check the public origin in a fresh browser profile and on a
-phone. Verify `/`, `/cz/`, `/zh/`, the embedded course games, setup,
-refresh/navigation behavior, the web app manifest, HTTPS, the reporting health
-route, an authorized report, and rejection of a request without the policy
-marker. Verify the standalone `/games/caatuu-game/` remains `404`. Keep the
-former tunnel configuration and token recoverable for a minimum 48-hour
-observation window, but do not describe that stopped and unhealthy connector as
-a working fallback.
-
-### Production cutover record (deployed; observation not started)
+### Deployment receipt
 
 The reviewed Pages payload was deployed from `main` commit
 `12d23086ef695fd7555a166a52a2eb098f3525a1` by
 [Pages workflow run 33687857013](https://github.com/savethebeesandseeds/caatuu/actions/runs/33687857013).
 The run completed successfully at 2026-09-02 21:59 UTC without rebuilding an
-APK or creating a publication branch. It is the active deployment candidate,
-but its minimum 48-hour retirement observation has not started: public
-validation found that Cloudflare/Pages serves complete setup files correctly
-while range responses address compressed representations and do not satisfy the
-raw-byte resume contract. Record a new start time only after that edge behavior
-is corrected and every public check below passes. The repository maintainer owns
-the observation and rollback decision. The connector-token revocation remains a
-private operator action; no credential or provider identifier belongs in this
-record.
+APK or creating a publication branch. The final Release-backed range proxy is
+Worker version `2026-09-03.v5`, sourced from `main` commit
+`4f267fb0d02570c5af63b298272faf78ca687f6d`; its focused suite passes 20/20.
+The four fixed setup assets were published in GitHub Release
+`caatuu-setup-assets-v1` on 2026-09-03. Their server-side digests match the
+table above.
 
-The raw-range remediation is committed on `main` as
-`6031761d478005ce7ccd540caa7d818a6c315c91`. Its focused Worker suite passes
-17/17 and Wrangler accepts the deployment bundle. At this review point the
-bundle and four exact route additions were prepared in the authenticated
-Cloudflare dashboard but had not been submitted; this commit is not evidence of
-a live fix. After deployment, record the live Worker version and validation
-time here before starting the observation clock.
-
-The cutover state and initial production validation were:
+The final public validation on 2026-09-03 established:
 
 - `caatuu.waajacu.com` is a proxied CNAME to
   `savethebeesandseeds.github.io`; normal responses show GitHub Pages/Fastly as
-  the origin behind Cloudflare, while only the three declared reporting paths
-  return Worker responses;
+  the origin behind Cloudflare, while only the seven declared Worker paths are
+  intercepted;
 - `/caatuu-web-bundle.json` identifies the
   `web-static-pages-cutover` profile with 824 payload files, 644,405,653 payload
   bytes, and payload SHA-256
@@ -398,23 +369,24 @@ The cutover state and initial production validation were:
   SHA-256
   `fd1d4bd283c558174eacd68e08c01a93235fae0b28970e6993e1e84a2d142545`;
 - complete dictionary, vector-database, ONNX, and WASM downloads matched their
-  pinned byte counts and SHA-256 values, but their public partial responses did
-  not preserve raw-file offsets. Fresh downloads work; interrupted setup-file
-  resume remains a cutover blocker until corrected and revalidated;
+  pinned byte counts and SHA-256 values. HEAD, bounded, open-ended, suffix, and
+  unsatisfied ranges returned correct raw-file lengths and offsets. A real WASM
+  test downloaded the first 1 MiB, resumed the same file at byte 1,048,576, and
+  produced the exact 12,942,611-byte file and pinned SHA-256;
 - the reporting health route returned ready, and deliberately invalid requests
   to both write routes returned `422`, `stored: false` before either D1 storage
   function. Retired dynamic routes returned GitHub Pages `404` responses;
-- no synthetic successful report was submitted because every valid Worker POST
-  persists or updates real data. The verified legacy import proves production
-  D1 writes, but the public Worker success path remains pending one genuine,
-  consented report and private row verification during the observation window;
+- no synthetic successful report was submitted because every valid POST would
+  store real data. The focused Worker tests cover successful D1 acknowledgement,
+  idempotency, conflicts, retention cleanup, and fail-closed storage errors;
 - neither `caatuu` nor `caatuu-tunnel` existed on the canonical host during
   validation. `caatuu-dev` remains a restart-disabled local development/build
   environment and is not a public dependency; and
-- `minerals.waajacu.com` and its private administrator on port `7979` remain
-  independent and are not forwarded by the Caatuu connector.
+- the old remote tunnel was down with no connected machines while all Caatuu
+  routes and the independent Minerals Pages site passed, proving there was no
+  remaining tunnel dependency.
 
-Do not declare the cutover complete until all of the following are true:
+The maintained validation contract is:
 
 - `/caatuu-web-bundle.json` is served by the public origin and matches the
   deployed Pages payload;
@@ -442,8 +414,8 @@ Do not declare the cutover complete until all of the following are true:
   workstation;
 - the public site and all retained routes remain healthy with Docker Desktop
   and the local Caatuu connector stopped; and
-- the observation-window owner, duration, rollback target, and tunnel-secret
-  revocation step are recorded.
+- Compose contains no tunnel service or credential mount, while the local
+  `caatuu` runtime and `caatuu-dev` remain available for deliberate development.
 
 GitHub Pages controls response caching. Its normal `Cache-Control: max-age=600`
 replaces the runtime's prior one-year `immutable` versioned-file header and
@@ -452,19 +424,19 @@ integrity authority; allow up to ten minutes for a changed mutable alias in any
 future Pages-based publisher. Accept this cache-contract change explicitly when
 confirming the external cutover.
 
-`minerals.waajacu.com` is independent of this gate. Its public catalog now
-resolves directly to its own GitHub Pages deployment, so the Caatuu tunnel must
-not forward the Minerals private administrator on port `7979`.
-
 ## Rollback
 
-If public validation fails during the observation window, first disable the new
-sender or return the CNAME to DNS-only operation while the Pages or Worker fault
-is corrected. Re-enabling the former Tunnel record is a rollback only after its
-connector has been deliberately restored and tested; the pre-cutover 1033 state
-is not usable. Recreate only the established Caatuu runtime/tunnel services if
-that recovery is explicitly chosen. The static build does not delete or rewrite
-Android artifacts, model files, or browser progress. After the window succeeds,
-delete the remote `caatuu` tunnel, revoke its connector token, remove
-`caatuu-tunnel` from Compose, and keep `caatuu` opt-in for loopback development
-and APK/API tests with restart policy `no`.
+Rollback no longer means starting a home-server tunnel. For a Pages failure,
+redeploy the last known-good Pages artifact or correct the workflow and dispatch
+it again from `main`. For a Worker failure, restore the known-good Worker files
+as a new commit on `main`, then deploy that commit. Switching the CNAME
+temporarily to DNS-only can isolate Pages: reporting becomes unavailable and
+the four setup URLs fall through to Pages copies whose resumable raw-range
+behavior is unsafe and unvalidated. Never silently fall back to a workstation.
+
+The pinned release tags and hashes are the recovery authority. Do not overwrite
+release assets or reuse a version for changed bytes. The static deployment and
+its rollback do not rebuild, delete, or relabel Android artifacts and do not
+touch browser progress. If a public application server is ever needed again,
+design and review it as a new deployment rather than restoring the retired
+tunnel token or Compose service.

@@ -1772,7 +1772,11 @@ function auditAndroidSource() {
   const serverRun = readFileSync(serverRunPath, "utf8");
   const productionRuntimeRoutes = runtimeRoutes.split("#[cfg(test)]", 1)[0];
   const compose = readFileSync(composePath, "utf8");
-  const tunnelService = composeServiceBlock(compose, "caatuu-tunnel");
+  const localRuntimeService = composeServiceBlock(compose, "caatuu");
+  const runtimeImage = readFileSync(
+    join(workspaceRoot, "apps/server/tooling/Dockerfile"),
+    "utf8",
+  );
   const phoneDebugCompose = readFileSync(phoneDebugComposePath, "utf8");
   const termuxInstall = readFileSync(termuxInstallPath, "utf8");
   const androidVersions = readFileSync(androidVersionsPath, "utf8");
@@ -2013,10 +2017,15 @@ function auditAndroidSource() {
   assert(compose.includes('BIND_ADDR: "0.0.0.0"'), "Compose should explicitly bind the server inside its container network");
   assert(compose.includes("verify-embedding-runtime.mjs"), "Compose should verify shared embedding hashes before starting the runtime");
   assert(compose.includes("exec /usr/local/bin/caatuu-runtime"), "Compose should start the runtime only after shared embedding verification succeeds");
-  assert(!tunnelService.includes("TCP-LISTEN:7979"), "Caatuu tunnel must not expose the retired Minerals origin forward");
-  assert(!tunnelService.includes("shared_forward_pid"), "Caatuu tunnel must not retain retired shared-forward process state");
-  assert(!tunnelService.includes("host.docker.internal:host-gateway"), "Caatuu tunnel must not retain the retired Minerals host gateway");
-  assert(tunnelService.includes('wait -n "$${forward_pid}" "$${tunnel_pid}" "$${watchdog_pid}"'), "tunnel service should exit when its Caatuu forward, connector, or watchdog stops");
+  assert(localRuntimeService.includes("      - local"), "Caatuu runtime should remain available through the opt-in local profile");
+  assert(!localRuntimeService.includes("      - tunnel"), "Caatuu runtime must not retain the retired tunnel profile");
+  assert(localRuntimeService.includes('restart: "no"'), "local Caatuu runtime must stay restart-disabled");
+  assert(!compose.includes("\n  caatuu-tunnel:"), "retired Caatuu tunnel service must not return to Compose");
+  assert(!compose.includes("cloudflared-token"), "Compose must not retain the retired tunnel credential mount");
+  assert(!compose.includes("cloudflared tunnel"), "Compose must not retain a background Cloudflare connector");
+  assert(!runtimeImage.includes("pkg.cloudflare.com"), "runtime image must not configure the retired Cloudflare package source");
+  assert(!runtimeImage.includes("cloudflared"), "runtime image must not install the retired Cloudflare connector");
+  assert(!/^\s+(?:gpg|socat) \\$/mu.test(runtimeImage), "runtime image must not install tunnel-only gpg or socat packages");
   assert(phoneDebugCompose.includes('ENABLE_ANDROID_DEBUG_DOWNLOADS: "1"'), "phone-debug Compose override should explicitly enable debug routes");
   assert(phoneDebugCompose.includes("CAATUU_PHONE_DEBUG_BIND:?"), "phone-debug Compose override should require an explicit LAN bind address");
   assert(!termuxInstall.includes("caatuu.waajacu.com/android/caatuu-debug"), "Termux helper should not assume debug artifacts are available on the public stable host");

@@ -133,15 +133,17 @@ report URL under `https://caatuu.waajacu.com`. After the Pages cutover,
 `/api/bug-report` has no dynamic handler: attempts receive an unsuccessful
 static response and nothing is accepted or stored. Override
 `CAATUU_ANDROID_REPORT_URL` only for a bounded test against a trusted local
-development server. The fixed `product` release 162 keeps bug reports and
-dictionary-gap reports local and exposes no delivery bridge operation.
+development server. The fixed `product` releases 162/163 keep bug reports and
+dictionary-gap reports local and expose no delivery bridge operation.
 
 Missing Czech dictionary lookups in the full development application use a
 separate legacy default URL under the same public hostname. The bridge accepts
 only the dictionary-gap schema and its six data fields and adds no device or
-app metadata. After the Pages cutover, `/cz/api/dictionary/gaps` has no dynamic
-handler: attempts fail without being accepted or stored, and pending
-observations remain on the device. Override
+app metadata. The public `/cz/api/dictionary/gaps` path now belongs to the
+consent-gated Pages reporting Worker, but this legacy Android client does not
+carry the required Pages policy marker. Its attempts are rejected without
+storage and pending observations remain on the device. Stable Android releases
+162/163 expose no outbound reporting bridge at all. Override
 `CAATUU_ANDROID_DICTIONARY_GAP_URL` only for a trusted local development
 server. Debug builds may use HTTP for bounded LAN testing.
 
@@ -162,8 +164,7 @@ $env:CAATUU_PHONE_DEBUG_BIND = "<your-pc-lan-ip>"
 docker compose -f compose.yaml -f compose/phone-debug.yaml up -d --force-recreate caatuu
 ```
 
-Do not start the public tunnel with this override. After the phone test,
-restore the fail-closed server:
+After the phone test, restore the fail-closed local server:
 
 ```powershell
 Remove-Item Env:\CAATUU_PHONE_DEBUG_BIND

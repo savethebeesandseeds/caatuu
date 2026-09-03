@@ -61,16 +61,19 @@ docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site
 ```
 
 The manual workflow downloads the exact GitHub Release tag. Neither the
-workflow nor either tool resolves `latest`. Publishing the two release tags,
-deploying Pages, accepting Pages' cache behavior, changing DNS, and retiring
-the tunnel are separate maintainer-confirmed actions governed by
+workflow nor either tool resolves `latest`. Publishing the preservation and
+Android release tags, deploying Pages, publishing the separate
+`caatuu-setup-assets-v1` files, deploying the Worker, and changing DNS are
+separate verified actions governed by
 [`docs/STATIC_WEB_HOSTING.md`](../../../docs/STATIC_WEB_HOSTING.md).
 
 The private dictionary-gap ledger is deliberately excluded from the public
-archive. Preserve it through the private-backup gate in the hosting document.
-The former public dictionary-gap, status, debug helper, diagnostics, API, and
-WebSocket routes are retired; the local runtime can remain opt-in for deliberate
-development and APK/API tests.
+archive. The public dictionary-gap POST is now a narrow, consent-gated Worker
+route; dictionary status/search, debug helper, general diagnostics, legacy API,
+and WebSocket routes remain retired. The four large setup files remain in this
+preservation archive for byte-for-byte validation, while live requests for
+their original paths use the pinned setup Release through the Worker. The local
+runtime can remain opt-in for deliberate development and APK/API tests.
 
 Transition 161 remains available only at its immutable version path and the
 technical `caatuu-debug.*` compatibility aliases needed by already-installed

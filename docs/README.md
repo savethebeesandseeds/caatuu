@@ -9,9 +9,9 @@ and implementation details stay beside the relevant app or tool.
 | --- | --- |
 | [Workspace map](WORKSPACE.md) | What belongs in apps, artifacts, tools, archive, and Git |
 | [Architecture](ARCHITECTURE.md) | Product surfaces, runtime boundaries, routes, and repository ownership |
-| [Development](DEVELOPMENT.md) | Docker startup, tunnel operation, tools, Android work, and validation |
+| [Development](DEVELOPMENT.md) | Local Docker/tooling operations, Android work, and validation |
 | [Deployment standard](DEPLOYMENT_STANDARD.md) | Provider-neutral release identity, immutable delivery, promotion, rollback, operations, and recovery |
-| [Static web hosting](STATIC_WEB_HOSTING.md) | Deterministic GitHub Pages bundle, manual publication, DNS cutover, and rollback |
+| [Static web hosting](STATIC_WEB_HOSTING.md) | Pages, Release assets, reporting Worker, DNS, validation, and rollback |
 | [Component release validators](COMPONENT_RELEASE_VALIDATORS.md) | Contract ownership, executable release checks, and explicit payload-closure gaps |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |
 | [Language games and Czech planet plan](GAMES.md) | Content authority, shared game backbone, and detailed plans for the missing Czech planets |

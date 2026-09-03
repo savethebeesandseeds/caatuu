@@ -47,7 +47,8 @@ The server listens on port `9172` inside the container and is published on
 `http://127.0.0.1:8765/` on Windows. The host binding is loopback-only. The
 service is profile-gated and has restart policy `no`; explicitly naming it is
 the deliberate local-development or APK/API-test action. Public traffic uses
-GitHub Pages plus the reporting Worker. The optional tunnel is rollback-only.
+GitHub Pages, the reporting Worker, and pinned GitHub Release assets. There is
+no public tunnel service.
 
 ## Dictionary-gap persistence
 
@@ -130,14 +131,12 @@ Mandarin app, compatibility `/zh-hans` redirects, unreachable deprecated Chinese
 retired top-level backend paths, and rebuilt Android APK package contents still
 match the intended split.
 
-## Dormant Cloudflare Tunnel rollback
+## Public hosting and local phone tests
 
-Public DNS now sends the application and Android update flow to GitHub Pages,
-with only the reporting routes intercepted by the Worker. Retain the dormant
-connector definition and token through the minimum 48-hour rollback window,
-then retire them only after the remaining gate below passes. Both `caatuu` and
-`caatuu-tunnel` have restart policy `no`, and the tunnel profile is off by
-default. Local browser testing works without it; installed phone updates expect:
+Public DNS sends the application and Android update flow to GitHub Pages. The
+Worker intercepts three reporting routes and four exact, Release-backed setup
+file routes. Local browser testing works without either public component;
+installed phone updates expect:
 
 ```text
 https://caatuu.waajacu.com/android/caatuu.json
@@ -158,79 +157,22 @@ $env:CAATUU_PHONE_DEBUG_BIND = "<your-pc-lan-ip>"
 docker compose -f compose.yaml -f compose/phone-debug.yaml up -d --force-recreate caatuu
 ```
 
-Do not combine this mode with the tunnel. Remove the environment value and
-recreate `caatuu` from the base Compose file after testing.
+Remove the environment value and recreate `caatuu` from the base Compose file
+after testing.
 
-For an explicitly approved, application-only rollback, store the tunnel token
-outside Git at `secrets/cloudflared-token`, then start the existing image
-without rebuilding. Both services must receive `0` because the standalone game
-is not release-ready:
+The former `caatuu-tunnel` connector is retired. Compose contains no tunnel
+profile, connector, token mount, watchdog, or forwarding process, and the
+runtime image does not install `cloudflared` or `socat`. Do not restore those
+pieces as a publication shortcut. `caatuu` remains only as the opt-in loopback
+development/APK-test service with restart policy `no`; `caatuu-dev` remains the
+canonical tooling container.
 
-```powershell
-$env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW = "0"
-try {
-  docker compose --profile tunnel up -d caatuu caatuu-tunnel
-} finally {
-  Remove-Item Env:CAATUU_ENABLE_CAATUU_GAME_PREVIEW
-}
-```
-
-The canonical connector pins its Cloudflare edge transport to HTTP/2 over TCP
-port `7844`. QUIC proved unstable on the Windows/Docker path: it could pass the
-startup precheck, lose every edge connection, and be selected again after the
-60-second watchdog restarted the connector. Do not restore `auto` or `quic`
-without updating the tunnel-resilience contract and completing a sustained
-connectivity test.
-
-Edge discovery uses Cloudflare's `1.1.1.1:53` and `1.0.0.1:53` resolvers
-directly because Docker's embedded `127.0.0.11` resolver repeatedly returned
-false `no such host` and `server misbehaving` responses for Cloudflare's
-edge-discovery record. Keep both explicit resolvers unless a replacement is
-validated from inside the tunnel container.
-
-After recreating the connector, its startup log must report both explicit
-resolvers in `Settings` and `Initial protocol http2`. Keep it running beyond
-the watchdog window, confirm that `/ready` remains healthy, and verify that the
-container restart count does not increase during the observation period.
-
-The connector runs the canonical schema-aware game release checker before
-opening the public tunnel and again from its watchdog. It refuses missing or
-preview-only delivered games, dependencies, and authority metadata, including
-changes made after startup. This does not affect the loopback-only local
-runtime.
-
-The tunnel has its own network namespace. A narrow local forward maps its
-remote-configured `http://localhost:9172` origin to the `caatuu:9172` service,
-so recreating the server does not strand the connector in an old network
-namespace.
-
-The Caatuu connector is not a Minerals origin. `minerals.waajacu.com` resolves
-independently to its GitHub Pages deployment, and the optional Minerals
-administrator remains private on Windows loopback. Compose deliberately has no
-`7979` listener; do not reintroduce one through this connector. Live Caatuu DNS
-also no longer targets the tunnel. Any old provider-side hostname rules kept
-inside the dormant tunnel are not live dependencies and are removed with the
-tunnel after the observation window.
-
-Do not retire this connector merely because a Pages artifact was generated.
-The final `web-static-pages-cutover` bundle includes the exact stable 162 and
-compatibility 161 Android trees, aliases, and setup closure, but every dynamic
-API is retired publicly. Before removing the connector, publish and verify the
-pinned `caatuu-pages-v162.tar` preservation asset, deploy the complete Pages
-bundle, preserve the dictionary-gap ledger privately, cut the base origin to
-Pages, obtain GitHub's HTTPS certificate, and validate the public site plus all
-retained Android/setup routes with Docker Desktop stopped. Only then remove the
-Compose service and revoke its credential after the minimum 48-hour rollback
-window.
-
-During the gate, the definitions remain recoverable but inert: neither service
-starts in the default Compose profile and neither has an automatic restart
-policy. After the gate passes, remove `caatuu-tunnel` from Compose entirely and
-retain `caatuu` only as the opt-in loopback development/APK-test service.
+The Minerals project is independent. Its public catalog resolves to its own
+GitHub Pages deployment, and its private port `7979` must not appear in Caatuu
+Compose or Worker routes.
 
 The runtime serves unknown app routes through
 `apps/launcher/static/not-found.html` with HTTP `404`. This covers bad
-URLs once traffic reaches the Rust server. Cloudflare or GitHub origin failures
-happen before a request reaches the static app and must be corrected in the
-Pages/Worker deployment. The dormant tunnel is not a healthy fallback unless
-an explicit rollback restores and validates it.
+URLs during local testing. Cloudflare or GitHub origin failures happen before a
+public request reaches the static app and must be corrected in the
+Pages/Worker/Release deployment; the retired tunnel is not a rollback path.

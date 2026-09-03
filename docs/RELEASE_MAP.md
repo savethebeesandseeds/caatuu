@@ -243,11 +243,12 @@ The accepted standalone-game boundary remains in
 
 - [x] Keep `apps/games/caatuu-game` and its tooling in the repository.
 - [ ] Make the store AAB build successfully when `artifacts/games/` is absent.
-- [ ] Set `CAATUU_ENABLE_CAATUU_GAME_PREVIEW=0` in production configuration.
+- [x] Exclude the standalone game from the static Pages export; Pages has no
+  runtime `CAATUU_ENABLE_CAATUU_GAME_PREVIEW` configuration.
 - [x] Hide the launcher's Caatuu Game preview link on the compiled store
   surface.
 - [ ] Verify `/games/caatuu-game/` and versioned Godot routes return 404 in
-  production.
+  each public Pages deployment.
 - [x] Assert that the AAB and generated device APKs contain no `.pck`, Godot
   WASM, `assets/games/**`, export, or Godot route string.
 

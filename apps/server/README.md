@@ -1,6 +1,7 @@
 # Caatuu Server
 
-This is the Rust/Axum server for the unified Caatuu runtime.
+This is the Rust/Axum server for deliberate local Caatuu development and
+APK/API testing. Public traffic does not depend on this process.
 
 It owns the route split:
 
@@ -46,12 +47,12 @@ Start the local runtime with:
 docker compose up -d caatuu
 ```
 
-The service is opt-in through its `local` profile (or the rollback-only
-`tunnel` profile), and explicitly naming it starts it without requiring
-`--profile`. Its restart policy is `no`, so Docker Desktop cannot resurrect it
-after a reboot. The host port is bound to `http://127.0.0.1:8765/`. Public
-traffic is served by GitHub Pages and the reporting Worker; the optional
-Cloudflare Tunnel profile exists only during the documented rollback window.
+The service is opt-in through only its `local` profile, and explicitly naming
+it starts it without requiring `--profile`. Its restart policy is `no`, so
+Docker Desktop cannot resurrect it after a reboot. The host port is bound to
+`http://127.0.0.1:8765/`. Public traffic is served by GitHub Pages, the
+reporting Worker, and pinned GitHub Release assets. The former Cloudflare
+Tunnel is retired and absent from Compose.
 
 Direct `run.sh` or Cargo launches also bind to loopback by default on port
 `9172`. Set `BIND_ADDR` explicitly only when a deliberate network boundary is

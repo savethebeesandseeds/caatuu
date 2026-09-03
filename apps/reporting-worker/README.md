@@ -2,7 +2,8 @@
 
 This is the small dynamic companion to the otherwise static GitHub Pages site.
 It accepts only two write-only report protocols, exposes one data-free health
-route, and protects raw byte-range delivery for four immutable setup files:
+route, and protects raw byte-range delivery for four version-pinned setup files
+that are treated as write-once:
 
 ```text
 POST /cz/api/dictionary/gaps
@@ -27,9 +28,15 @@ asset name already identify the exact bytes. This keeps APK 163's raw resume
 offsets correct without an application server or a background process. Every
 other static request bypasses the Worker.
 
-The Worker is named `caatuu-reporting`. Its D1 database is
-`caatuu-reporting-production` and is restricted to the European Union. The
-required opaque database identifier stays in `wrangler.jsonc`; it is not a
+Treat `caatuu-setup-assets-v1` as write-once. Never replace an uploaded asset or
+use `gh release upload --clobber`; changed bytes require a new release tag such
+as `caatuu-setup-assets-v2`, updated fixed mappings, and full range/hash
+validation before deployment.
+
+The Worker is named `caatuu-reporting`. Its D1 database is configured under the
+historical resource name `caatuu-reporting-production`; that name does not imply
+a separate deployment tier. The database is restricted to the European Union.
+The required opaque database identifier stays in `wrangler.jsonc`; it is not a
 credential and should not be duplicated in prose. The public hostname must
 remain proxied by Cloudflare for these path-specific Worker routes; every other
 request goes to the GitHub Pages CNAME origin without invoking this Worker.

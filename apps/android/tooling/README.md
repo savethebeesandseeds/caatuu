@@ -232,8 +232,7 @@ $env:CAATUU_PHONE_DEBUG_BIND = "<your-pc-lan-ip>"
 docker compose -f compose.yaml -f compose/phone-debug.yaml up -d --force-recreate caatuu
 ```
 
-Do not combine the phone-debug override with the public tunnel. You can audit
-the deliberately exposed debug channel with:
+You can audit the deliberately exposed debug channel with:
 
 ```powershell
 node apps\server\tooling\audit-runtime-boundary.mjs --base-url http://<your-pc-lan-ip>:8765 --apk artifacts\android\caatuu-debug.apk --allow-debug-artifacts
@@ -259,9 +258,11 @@ For the full application, `CAATUU_ANDROID_DICTIONARY_GAP_URL` independently defa
 `https://caatuu.waajacu.com/cz/api/dictionary/gaps`. It is used only by the
 strict `report_dictionary_gap` bridge request: the native shell forwards the
 validated dictionary-gap payload without a device, app, or diagnostics
-envelope. Release variants require HTTPS; debug builds may override it with a
-trusted HTTP LAN endpoint. The `product` surface keeps this outbox local and
-does not package that bridge request or endpoint.
+envelope. The public path is now owned by the consent-gated Pages Worker, which
+requires a policy marker this legacy bridge does not send, so public attempts
+fail without storage. Release variants require HTTPS; debug builds may override
+the URL with a trusted HTTP LAN endpoint. Stable product releases 162/163 keep
+this outbox local and do not package that bridge request or endpoint.
 
 ## Device Smoke Check
 

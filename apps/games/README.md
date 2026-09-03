@@ -24,9 +24,9 @@ runtime-loaded configuration. Standalone games have no host adapter or parent
 window protocol.
 
 `local-preview-only` games are available only when their server preview feature
-is explicitly enabled. Application and Android releases omit them. A public
-tunnel that enables a game fails closed until the schema-valid catalog contains
-the selected game exactly once and each dependency and machine-readable
+is explicitly enabled. Application and Android releases omit them. Any future
+public static host for a game must fail closed until the schema-valid catalog
+contains the selected game exactly once and each dependency and machine-readable
 authority is release-cleared. Check an intended game publication with
 `node apps/games/tooling/check-release-readiness.mjs --surface <name> --require-game caatuu-game`.
 

@@ -82,8 +82,12 @@ offers only signed stable 163; 162 remains at its immutable version path, and
 transition 161 remains at its compatibility path and technical
 `caatuu-debug.*` aliases for already-installed clients. The standalone
 `/games/caatuu-game/` preview is not published until its separate game and
-asset release gates pass. Dynamic application APIs are not added; only the
-three reporting routes are owned by the Cloudflare Worker.
+asset release gates pass. Dynamic application APIs are not added. The
+Cloudflare Worker owns three reporting routes plus four exact large-asset
+routes. The Pages bundle retains and validates preservation copies of those
+four files, but live requests use the same Caatuu paths and stream the pinned
+`caatuu-setup-assets-v1` Release bytes through the Worker for raw resume
+semantics.
 
 The Pages-only product overlay may defer local source copies of setup-delivered
 embedding binaries that Git intentionally excludes. It still requires their
