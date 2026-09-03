@@ -386,6 +386,13 @@ The final public validation on 2026-09-03 established:
   routes and the independent Minerals Pages site passed, proving there was no
   remaining tunnel dependency.
 
+After that dependency proof, the remote `caatuu` Cloudflare Tunnel object was
+permanently deleted on 2026-09-03 and its obsolete ignored connector credential
+file was removed from the canonical host. The existing GitHub Pages CNAME
+records for `caatuu.waajacu.com` and `minerals.waajacu.com` were preserved. No
+container, image, volume, APK, Pages deployment, Worker binding, or D1 data was
+changed during retirement; `caatuu-dev` remained available for local work.
+
 The maintained validation contract is:
 
 - `/caatuu-web-bundle.json` is served by the public origin and matches the

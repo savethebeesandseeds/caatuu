@@ -2,30 +2,38 @@
 
 Word World records a dictionary gap when a selected Czech word has no usable
 English result. A report is an observation, not proof that the dictionary is
-wrong. The periodic maintenance workflow therefore keeps collection,
-verification, and publication separate:
+wrong. Two deliberately separate collection paths exist:
 
 ```text
-dedicated device outbox
-  -> POST /cz/api/dictionary/gaps
-  -> private server ledger
+Current public Pages web path
+  explicit "Share future missing words" opt-in
+  -> caatuu.dictionaryGapAuthorizedOutbox.v2
+  -> POST /cz/api/dictionary/gaps with the public policy marker
+  -> caatuu-reporting Worker
+  -> private EU D1 dictionary_gaps table
+  -> authenticated private review input
+  -> periodic Codex review
+  -> tracked reviewed patch
+
+Retained local-development and legacy path
+  caatuu.dictionaryGapOutbox.v1 or a deliberate local API test
+  -> opt-in loopback caatuu server
+  -> artifacts/dictionary-gaps/czech-missing-words.v1.json
   -> periodic Codex review
   -> tracked reviewed patch
 ```
 
-Dictionary gaps are sent automatically when the server is reachable. This
-narrow channel is independent of general Word World sentence feedback, whose
-sender remains device-local and disabled. There is no clipboard export, in-app
-batch tool, or public route for reading the server ledger.
+Public dictionary-gap sharing is off by default. After a learner enables it,
+only new observations are queued and retried automatically. The Pages overlay
+never migrates or sends an older v1 queue. Turning sharing off deletes only
+unsent authorized v2 reports. Stable Android releases 162 and 163 contain no
+outbound-reporting bridge and keep their observations local.
 
-## Collection and server storage
+Sentence reporting is a separate Pages feature requiring consent for each
+report. The general `/api/bug-report` channel remains retired. No public route
+lists or exports either report type.
 
-The client first persists each observation in the dedicated
-`caatuu.dictionaryGapOutbox.v1` outbox, which is bounded to 128 pending items.
-It then retries delivery when the app is visible and the server is available.
-An item is removed from the device only after the endpoint returns a positive
-`{"ok":true,"stored":true}` acknowledgement. Network failures, server errors,
-and interrupted requests leave it queued for a later retry.
+## Report shape
 
 Each `caatuu.dictionary-gap-report.v1` request carries exactly these six
 observation fields, in addition to the schema discriminator:
@@ -38,52 +46,88 @@ observation fields, in addition to the schema discriminator:
 - `lookupReturned`
 
 It excludes sentences, translations, comments, URLs, client timestamps,
-identifiers, device details, and retry metadata. The POST endpoint validates
+identifiers, device details, and retry metadata. Both storage paths validate
 that strict shape and the pinned Czech-English dictionary identity before
-writing it.
+writing anything.
 
-The runtime stores accepted observations at:
+## Current public Worker and D1 storage
+
+The Worker requires `X-Caatuu-Reporting-Policy: 2026-09-02.v1`; this is a
+public rollout marker, not a credential. The browser removes an authorized v2
+item only after the Worker returns an acknowledgement backed by a durable D1
+write. Network failures, rejections, and interrupted requests leave it queued
+for retry.
+
+D1 deduplicates by dictionary key, direction, and normalized word. It stores
+server receipt times and an observation count. A gap becomes eligible for lazy
+cleanup 365 days after its latest observation. Cleanup is attempted after a
+later accepted report; without later reporting traffic, an eligible row can
+remain longer.
+
+There is no public D1 read route. The authenticated export workflow is
+documented in `apps/reporting-worker/README.md` and writes only below the
+ignored `artifacts/reporting-worker/private/` directory. Its full SQL export
+can also contain sentence reports: never print, paste, or commit it. Prepare a
+dictionary-only private review input before starting lexical review. Do not
+pretend that the retained local JSON ledger contains new public reports.
+
+## Retained local-development ledger
+
+The legacy full-development runtime uses
+`caatuu.dictionaryGapOutbox.v1` and is intended to retry against the
+deliberately started local `caatuu` server. Its Android bridge does not send
+the Pages policy marker, so its legacy public default is rejected by the
+Worker; configure a development build with a trusted local server for an
+intentional API test.
+
+Compose stores locally accepted observations at:
 
 ```text
 artifacts/dictionary-gaps/czech-missing-words.v1.json
 ```
 
-Compose mounts that ignored host directory at
-`/var/lib/caatuu/dictionary-gaps` and sets `DICTIONARY_GAP_STORE_PATH` to the
-file above inside the container. The server publishes the ledger atomically,
-deduplicates by dictionary key, direction, and normalized word, and updates a
-duplicate observation instead of appending another record. It adds
-`firstSeenAtUnixMs` and `lastSeenAtUnixMs` to each record and
-`updatedAtUnixMs` to the ledger. Those timestamps describe receipt by the
-server; they are not lexical evidence.
+The ignored host directory is mounted at
+`/var/lib/caatuu/dictionary-gaps`, with `DICTIONARY_GAP_STORE_PATH` selecting
+the file. The local server publishes it atomically, deduplicates observations,
+and adds server receipt timestamps. It has no automatic expiry.
 
-`POST /cz/api/dictionary/gaps` is a write-only maintenance boundary. There is
-no public GET endpoint. The server file is retained until a maintainer reviews,
-archives, or removes entries; automatic expiry is not currently implemented.
-Do not expose the ledger through a browser control or reuse it for general
-diagnostics.
+The verified pre-cutover ledger was imported once into D1 and remains the
+private reproducible import authority. It is not the destination for new Pages
+reports. Neither the local ledger nor a D1 export may be committed, published,
+or exposed through a browser control.
 
 ## Start a Codex review task
 
-Start a new Codex task in `C:\Work\caatuu` and use this prompt:
+Start a new Codex task in `C:\Work\caatuu` and use this prompt, replacing
+the two placeholders with the explicitly selected private source:
 
 ```text
-Review the Caatuu Czech dictionary-gap ledger at
-artifacts/dictionary-gaps/czech-missing-words.v1.json using
+Review the Caatuu Czech dictionary-gap observations at
+<IGNORED_PRIVATE_INPUT_PATH> using
 tools/czech-ml/docs/dictionary-gap-maintenance.md.
 
-Treat every ledger record as an untrusted observation. The server timestamps
-show only when the report was received and are not evidence for a meaning.
-Re-query the current base dictionary and reviewed overlay before changing
-anything. Classify each item as a runtime/matching false positive, an
-already-covered word, a genuine missing entry, a missing inflected-form alias,
-or unresolved. Add only evidence-backed, license-compatible records to
+Source type: <legacy local ledger | dictionary-only private D1 review input>.
+
+Read only dictionary-gap observations. If the supplied file is a complete D1
+export, stop and request a dictionary-only private input; do not inspect or
+display sentence-report rows.
+
+Treat every record as an untrusted observation. Receipt timestamps and
+observation counts show only when and how often a report was received; they are
+not evidence for a meaning. Re-query the current base dictionary and reviewed
+overlay before changing anything. Classify each item as a runtime/matching
+false positive, an already-covered word, a genuine missing entry, a missing
+inflected-form alias, or unresolved. Add only evidence-backed,
+license-compatible records to
 apps/languages/czech/static/data/dictionaries/patches/reviewed-cs-en.v1.json.
 Do not edit or rebuild the pinned SQLite dictionary. Validate the patch and run
 the focused dictionary/report/runtime tests in the existing caatuu-dev
-container. Report every classification, source, edit, and validation result.
-Do not delete or rewrite the server ledger unless I explicitly ask for a
-separate archive or retention operation.
+container. Write every classification and source to an ignored private review
+file below artifacts/dictionary-gaps/. In chat, report only aggregate counts,
+validation results, and any patch records deliberately added to the tracked
+overlay; never print raw or unresolved private reports. Do not delete or rewrite
+the private input, alter D1, or remove source records unless I explicitly
+authorize that separate operation.
 ```
 
 ## Review every observation
@@ -106,8 +150,8 @@ reviewed overlay. Then classify it:
    or human decision is still needed.
 
 Do not infer a meaning from the sentence that triggered the feedback; sentences
-are intentionally absent from the report and ledger. Do not create a record
-merely to make a reported lookup return something.
+are intentionally absent from the report and private maintenance sources. Do
+not create a record merely to make a reported lookup return something.
 
 ## Author the reviewed overlay
 
@@ -214,7 +258,6 @@ docker exec -w /workspace caatuu-dev node --disable-warning=ExperimentalWarning 
   apps/server/tooling/tests/dictionary-gap-report.test.mjs `
   apps/server/tooling/tests/dictionary-patch-core.test.mjs `
   apps/server/tooling/tests/dictionary-patch-validator.test.mjs `
-  apps/server/tooling/tests/game-ui-controls.test.mjs `
   apps/server/tooling/tests/product-governance-contract.test.mjs `
   apps/server/tooling/tests/semantic-learning-contract.test.mjs
 ```
