@@ -274,6 +274,48 @@ test("durable assets fetch pinned release bytes and preserve resume headers", as
   assert.equal((await response.arrayBuffer()).byteLength, 1000);
 });
 
+test("durable asset suffix ranges use an equivalent explicit upstream interval", async () => {
+  const first = durableAsset.bytes - 1000;
+  const last = durableAsset.bytes - 1;
+  let upstreamRange = "";
+  const response = await handleRequest(
+    assetRequest({ range: "bytes=-1000" }),
+    environment(),
+    {},
+    async (request) => {
+      upstreamRange = request.headers.get("range");
+      return partialAssetResponse(first, last);
+    }
+  );
+  assert.equal(upstreamRange, `bytes=${first}-${last}`);
+  assert.equal(response.status, 206);
+  assert.equal(response.headers.get("content-range"), `bytes ${first}-${last}/${durableAsset.bytes}`);
+  assert.equal((await response.arrayBuffer()).byteLength, 1000);
+});
+
+test("a suffix at least as large as the asset translates to the full explicit interval", async () => {
+  const last = durableAsset.bytes - 1;
+  let upstreamRange = "";
+  const response = await handleRequest(
+    assetRequest({ range: `bytes=-${durableAsset.bytes + 1}` }),
+    environment(),
+    {},
+    async (request) => {
+      upstreamRange = request.headers.get("range");
+      return new Response(null, {
+        status: 206,
+        headers: {
+          "content-length": String(durableAsset.bytes),
+          "content-range": `bytes 0-${last}/${durableAsset.bytes}`
+        }
+      });
+    }
+  );
+  assert.equal(upstreamRange, `bytes=0-${last}`);
+  assert.equal(response.status, 206);
+  assert.equal(response.headers.get("content-range"), `bytes 0-${last}/${durableAsset.bytes}`);
+});
+
 test("every durable public path maps to one exact pinned release asset", async () => {
   assert.deepEqual(Object.keys(DURABLE_ASSETS).sort(), Object.keys(expectedReleaseUrls).sort());
   for (const [path, asset] of Object.entries(DURABLE_ASSETS)) {

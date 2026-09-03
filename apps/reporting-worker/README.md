@@ -17,9 +17,11 @@ GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-s
 The setup files live as version-pinned assets in the GitHub Release
 `caatuu-setup-assets-v1`. Their exact Worker routes fetch fixed release URLs
 with `Accept-Encoding: identity` and a cache bypass, follow GitHub's asset
-redirect, preserve the client's `Range`, `If-Range`, and HTTP conditional
-headers, reject a compressed or size-mismatched final response, and return
-`no-transform`. Client query strings are accepted by the public compatibility
+redirect, preserve the client's range semantics, `If-Range`, and HTTP
+conditional headers, reject a compressed or size-mismatched final response, and
+return `no-transform`. Suffix ranges are translated to the equivalent explicit
+byte interval because GitHub's Release CDN does not accept suffix syntax. Client
+query strings are accepted by the public compatibility
 routes but are deliberately not copied to GitHub: the release tag and unique
 asset name already identify the exact bytes. This keeps APK 163's raw resume
 offsets correct without an application server or a background process. Every

@@ -7,7 +7,7 @@ import {
   validateSentenceReport
 } from "./contracts.mjs";
 
-export const DEPLOYMENT_VERSION = "2026-09-03.v3";
+export const DEPLOYMENT_VERSION = "2026-09-03.v4";
 
 const DURABLE_ASSET_RELEASE_BASE_URL =
   "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1";
@@ -125,7 +125,8 @@ function requestedRawRange(value, bytes) {
     valid: true,
     satisfiable: true,
     first: Math.max(bytes - suffixBytes, 0),
-    last: bytes - 1
+    last: bytes - 1,
+    suffix: true
   };
 }
 
@@ -183,7 +184,17 @@ async function handleDurableAsset(request, asset, fetchImpl) {
     throw new RequestError(405, "method_not_allowed", "Use GET or HEAD for this route.");
   }
   const headers = new Headers({ "accept-encoding": "identity" });
-  for (const name of ["range", "if-range", "if-match", "if-none-match", "if-modified-since", "if-unmodified-since"]) {
+  const clientRange = request.headers.get("range");
+  const requestedRange = requestedRawRange(clientRange, asset.bytes);
+  if (clientRange) {
+    headers.set(
+      "range",
+      requestedRange?.suffix && requestedRange.satisfiable
+        ? `bytes=${requestedRange.first}-${requestedRange.last}`
+        : clientRange
+    );
+  }
+  for (const name of ["if-range", "if-match", "if-none-match", "if-modified-since", "if-unmodified-since"]) {
     const value = request.headers.get(name);
     if (value) headers.set(name, value);
   }
