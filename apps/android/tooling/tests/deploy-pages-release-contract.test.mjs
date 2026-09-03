@@ -74,6 +74,13 @@ test("GitHub publication is draft-first, immutable, digest-checked, and resumabl
   assert.match(source, /prerelease\s*=\s*\[bool\]\$view\.isPrerelease/u);
   assert.match(source, /assets\s*=\s*@\(\$view\.assets\)/u);
   assert.doesNotMatch(source, /repos\/\$Repository\/releases\/tags/u);
+  assert.match(source, /function Assert-ReleaseTagTarget/u);
+  assert.match(source, /"merge-base",\s*"--is-ancestor",\s*\$TagCommit,\s*"refs\/remotes\/origin\/main"/u);
+  assert.match(source, /Write-GitBlob\s+\$TagCommit\s+\$DescriptorRelativePath\s+\$tagDescriptor/u);
+  assert.match(source, /\$tagCandidate\s*=\s*Invoke-PagesAdvance\s+-DescriptorPath\s+\$tagDescriptor/u);
+  assert.match(source, /\$tagCandidate\.action\s*-ne\s*"reuse"/u);
+  assert.match(source, /Assert-ReleaseTagTarget\s+\$tagCommit\s+\$tag/u);
+  assert.doesNotMatch(source, /\$tagCommit\s*-ne\s*\$script:head/u);
   assert.match(source, /"release",\s*"create"[\s\S]*"--verify-tag"[\s\S]*"--draft"/u);
   assert.match(source, /"release",\s*"upload"/u);
   assert.match(source, /ContainsKey\(\$name\)/u);

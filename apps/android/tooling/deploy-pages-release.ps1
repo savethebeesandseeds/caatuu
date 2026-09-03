@@ -238,6 +238,30 @@ function Assert-ExactDescriptorAdvance {
     return $result
 }
 
+function Assert-ReleaseTagTarget {
+    param([string]$TagCommit, [string]$Tag)
+    $tagKnown = Invoke-NativeResult -File "git" -Arguments @(
+        "-C", $ExpectedRepositoryRoot, "cat-file", "-e", "$TagCommit^{commit}"
+    )
+    $tagOnMain = Invoke-NativeResult -File "git" -Arguments @(
+        "-C", $ExpectedRepositoryRoot, "merge-base", "--is-ancestor", $TagCommit, "refs/remotes/origin/main"
+    )
+    if ($tagKnown.Code -ne 0 -or $tagOnMain.Code -ne 0) {
+        throw "Release tag $Tag is not an immutable ancestor of origin/main."
+    }
+
+    $tagDirectory = Join-Path (Get-DeploymentTemporaryDirectory) ("tag-" + [Guid]::NewGuid().ToString("N"))
+    [void](New-Item -ItemType Directory -Path $tagDirectory)
+    $tagDescriptor = Join-Path $tagDirectory "pages-current-release.json"
+    Write-GitBlob $TagCommit $DescriptorRelativePath $tagDescriptor
+    $tagCandidate = Invoke-PagesAdvance -DescriptorPath $tagDescriptor
+    if ($tagCandidate.action -ne "reuse" -or
+        [int]$tagCandidate.versionCode -ne [int]$script:candidate.versionCode -or
+        [string]$tagCandidate.tag -ne $Tag) {
+        throw "Release tag $Tag does not contain the exact sealed Android candidate."
+    }
+}
+
 function Assert-SourceOnOriginMain {
     param([string]$Revision)
     if ($Revision -notmatch '^[a-f0-9]{40}$') { throw "The candidate source revision is invalid." }
@@ -561,9 +585,9 @@ try {
 
         $tagCommit = (Invoke-Checked -File "gh" -Arguments @("api", "repos/$Repository/commits/$tag", "--jq", ".sha") -Label "release tag target").Trim()
         if ($tagCommit -notmatch '^[a-f0-9]{40}$') { throw "GitHub returned an invalid release tag target." }
+        Assert-ReleaseTagTarget $tagCommit $tag
         $script:release = Get-GitHubRelease -Tag $tag -AllowMissing
         if ($null -eq $script:release) {
-            if ($tagCommit -ne $script:head) { throw "Existing release tag $tag does not target this deployment commit." }
             Assert-MainOnlyInvariant -CheckRemote
             if ((Get-WorktreeState).Kind -ne "clean") { throw "The repository changed before draft release creation." }
             $currentHead = (Get-GitOutput @("rev-parse", "HEAD") "HEAD before draft release creation").Trim()
@@ -583,16 +607,6 @@ try {
             }
         }
         Assert-ReleaseIdentity $script:release $tag
-        if ([bool]$script:release.draft -and $tagCommit -ne $script:head) {
-            throw "The existing draft release belongs to a different deployment commit."
-        }
-        if (-not [bool]$script:release.draft -and $tagCommit -ne $script:head) {
-            $tagKnown = Invoke-NativeResult -File "git" -Arguments @("-C", $ExpectedRepositoryRoot, "cat-file", "-e", "$tagCommit^{commit}")
-            $tagOnMain = Invoke-NativeResult -File "git" -Arguments @("-C", $ExpectedRepositoryRoot, "merge-base", "--is-ancestor", $tagCommit, "refs/remotes/origin/main")
-            if ($tagKnown.Code -ne 0 -or $tagOnMain.Code -ne 0) {
-                throw "Published release tag $tag is not an immutable ancestor of origin/main."
-            }
-        }
 
         $expectedAssets = @($script:candidate.assets)
         $assetDirectory = Get-DeploymentTemporaryDirectory
