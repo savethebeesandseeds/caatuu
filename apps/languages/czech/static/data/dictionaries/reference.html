@@ -1,0 +1,195 @@
+            <section class="dictionary-section-intro">
+              <div>
+                <h2>Rules</h2>
+                <p>Small scripts, compact codes, cases, and word-form tables.</p>
+              </div>
+              <button class="print-open-action dictionary-print-action" type="button" id="openPrintMenu">Print reference</button>
+            </section>
+
+          <section class="script-panel">
+            <div class="section-head">
+              <h3>Small scripts</h3>
+              <span class="count-pill" id="scriptCount"></span>
+            </div>
+            <div class="script-list" id="scriptList"></div>
+          </section>
+
+          <div class="guide-grid">
+            <section class="guide-card guide-reader">
+              <h3 id="guideTitle">Read a dictionary item</h3>
+              <article class="dictionary-entry sample-entry">
+                <div class="dict-line dict-word">
+                  <b>město</b>
+                  <span>town, city</span>
+                  <small>N n&gt;město</small>
+                </div>
+                <div class="dict-line dict-example">
+                  <em>Jdu do města.</em>
+                  <code>do+G: města</code>
+                </div>
+              </article>
+              <ol class="plain-steps">
+                <li><b>Top left:</b> Czech word to recognize or say.</li>
+                <li><b>Top middle:</b> red translation, so you can scan fast.</li>
+                <li><b>Top right:</b> type code. For nouns, <code>&gt;</code> points to the ending model.</li>
+                <li><b>Bottom left:</b> copyable sentence.</li>
+                <li><b>Bottom right:</b> grammar cue that explains the sentence.</li>
+              </ol>
+            </section>
+
+            <section class="guide-card">
+              <h3>Compact codes</h3>
+              <div class="code-ledger">
+                <span><code>N</code> noun / base case</span>
+                <span><code>V</code> verb</span>
+                <span><code>P</code> preposition</span>
+                <span><code>adj</code> adjective</span>
+                <span><code>m.an</code> masculine animate noun</span>
+                <span><code>m.in</code> masculine inanimate noun</span>
+                <span><code>f</code> feminine grammatical gender</span>
+                <span><code>n</code> neuter grammatical gender</span>
+                <span><code>&gt;model</code> declines like that noun</span>
+                <span><code>G</code> genitive</span>
+                <span><code>D</code> dative</span>
+                <span><code>A</code> accusative</span>
+                <span><code>L</code> locative</span>
+                <span><code>I</code> instrumental</span>
+                <span><code>P+G</code> preposition asks genitive</span>
+                <span><code>inf</code> infinitive verb</span>
+                <span><code>+</code> used with</span>
+                <span><code>ipf→pf</code> doing → done</span>
+                <span><code>/</code> paired choice</span>
+              </div>
+            </section>
+          </div>
+
+          <section class="guide-card">
+            <div class="section-head">
+              <h3>Cases are operations</h3>
+              <span class="count-pill">N G D A L I</span>
+            </div>
+            <p class="guide-note">A cue such as <code>do+G: města</code> says which case the sentence needs and gives the real form to copy. The dictionary uses six working cases; vocative is for calling someone and is not part of the row system.</p>
+            <div class="matrix-wrap">
+              <table class="system-table case-table">
+                <thead>
+                  <tr><th>Code</th><th>Case</th><th>Use in the dictionary</th><th>Example cue</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>N</code></td><td>nominative</td><td>base naming form</td><td><b>město</b> = town</td></tr>
+                  <tr><td><code>G</code></td><td>genitive</td><td>from, to, without, quantity</td><td><code>do+G: města</code></td></tr>
+                  <tr><td><code>D</code></td><td>dative</td><td>to/for someone, target of help or understanding</td><td><code>pomůžu + D</code></td></tr>
+                  <tr><td><code>A</code></td><td>accusative</td><td>direct object or motion target</td><td><code>Chci vodu.</code></td></tr>
+                  <tr><td><code>L</code></td><td>locative</td><td>fixed place after v, na, o</td><td><code>v+L: městě</code></td></tr>
+                  <tr><td><code>I</code></td><td>instrumental</td><td>with, by, using, transport/method</td><td><code>I: kartou</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-card">
+            <div class="section-head">
+              <h3>Noun model tables</h3>
+              <span class="count-pill">14 models</span>
+            </div>
+            <p class="guide-note">Read <code>N f&gt;žena</code> as: noun, feminine grammatical gender, declines like <b>žena</b>. The red endings are the part to copy when a cue asks for <code>G</code>, <code>D</code>, <code>A</code>, <code>L</code>, or <code>I</code>.</p>
+            <div class="matrix-wrap">
+              <table class="system-table model-matrix">
+                <thead>
+                  <tr><th>Code</th><th>Use for</th><th>Endings to copy</th><th>Full model forms</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>m.an&gt;pán</code></td><td>men, animate roles</td><td><span class="model-endings"><code>N</code> same · <code>G/A</code> <b>-a</b> · <code>D/L</code> <b>-ovi</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> pán</span> · <span class="case-pair"><code>G</code> pán<span class="model-ending">a</span></span> · <span class="case-pair"><code>D</code> pán<span class="model-ending">ovi</span></span> · <span class="case-pair"><code>A</code> pán<span class="model-ending">a</span></span> · <span class="case-pair"><code>L</code> pán<span class="model-ending">ovi</span></span> · <span class="case-pair"><code>I</code> pán<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>m.an&gt;muž</code></td><td>animate soft consonant</td><td><span class="model-endings"><code>N</code> same · <code>G/A</code> <b>-e</b> · <code>D/L</code> <b>-i</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> muž</span> · <span class="case-pair"><code>G</code> muž<span class="model-ending">e</span></span> · <span class="case-pair"><code>D</code> muž<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> muž<span class="model-ending">e</span></span> · <span class="case-pair"><code>L</code> muž<span class="model-ending">i</span></span> · <span class="case-pair"><code>I</code> muž<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>m.an&gt;předseda</code></td><td>animate words in -a</td><td><span class="model-endings"><code>N</code> <b>-a</b> · <code>G</code> <b>-y</b> · <code>D/L</code> <b>-ovi</b> · <code>A</code> <b>-u</b> · <code>I</code> <b>-ou</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> předsed<span class="model-ending">a</span></span> · <span class="case-pair"><code>G</code> předsed<span class="model-ending">y</span></span> · <span class="case-pair"><code>D</code> předsed<span class="model-ending">ovi</span></span> · <span class="case-pair"><code>A</code> předsed<span class="model-ending">u</span></span> · <span class="case-pair"><code>I</code> předsed<span class="model-ending">ou</span></span></span></td></tr>
+                  <tr><td><code>m.an&gt;soudce</code></td><td>animate words in -ce/-e</td><td><span class="model-endings"><code>N/G/A</code> <b>-e</b> · <code>D/L</code> <b>-i</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> soudc<span class="model-ending">e</span></span> · <span class="case-pair"><code>G</code> soudc<span class="model-ending">e</span></span> · <span class="case-pair"><code>D</code> soudc<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> soudc<span class="model-ending">e</span></span> · <span class="case-pair"><code>I</code> soudc<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>m.in&gt;hrad</code></td><td>things, hard consonant</td><td><span class="model-endings"><code>N/A</code> same · <code>G/D</code> <b>-u</b> · <code>L</code> <b>-ě</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> hrad</span> · <span class="case-pair"><code>G</code> hrad<span class="model-ending">u</span></span> · <span class="case-pair"><code>D</code> hrad<span class="model-ending">u</span></span> · <span class="case-pair"><code>A</code> hrad</span> · <span class="case-pair"><code>L</code> hrad<span class="model-ending">ě</span></span> · <span class="case-pair"><code>I</code> hrad<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>m.in&gt;stroj</code></td><td>things, soft consonant</td><td><span class="model-endings"><code>N/A</code> same · <code>G</code> <b>-e</b> · <code>D/L</code> <b>-i</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> stroj</span> · <span class="case-pair"><code>G</code> stroj<span class="model-ending">e</span></span> · <span class="case-pair"><code>D</code> stroj<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> stroj</span> · <span class="case-pair"><code>L</code> stroj<span class="model-ending">i</span></span> · <span class="case-pair"><code>I</code> stroj<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>f&gt;žena</code></td><td>feminine words in -a</td><td><span class="model-endings"><code>N</code> <b>-a</b> · <code>G</code> <b>-y</b> · <code>D/L</code> <b>-ě</b> · <code>A</code> <b>-u</b> · <code>I</code> <b>-ou</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> žen<span class="model-ending">a</span></span> · <span class="case-pair"><code>G</code> žen<span class="model-ending">y</span></span> · <span class="case-pair"><code>D</code> žen<span class="model-ending">ě</span></span> · <span class="case-pair"><code>A</code> žen<span class="model-ending">u</span></span> · <span class="case-pair"><code>I</code> žen<span class="model-ending">ou</span></span></span></td></tr>
+                  <tr><td><code>f&gt;růže</code></td><td>feminine words in -e/-ě</td><td><span class="model-endings"><code>N/G</code> <b>-e</b> · <code>D/A/L</code> <b>-i</b> · <code>I</code> <b>-í</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> růž<span class="model-ending">e</span></span> · <span class="case-pair"><code>G</code> růž<span class="model-ending">e</span></span> · <span class="case-pair"><code>D</code> růž<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> růž<span class="model-ending">i</span></span> · <span class="case-pair"><code>I</code> růž<span class="model-ending">í</span></span></span></td></tr>
+                  <tr><td><code>f&gt;píseň</code></td><td>feminine soft consonant</td><td><span class="model-endings"><code>N/A</code> same · <code>G</code> <b>-ě</b> · <code>D/L</code> <b>-i</b> · <code>I</code> <b>-í</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> píseň</span> · <span class="case-pair"><code>G</code> písn<span class="model-ending">ě</span></span> · <span class="case-pair"><code>D</code> písn<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> píseň</span> · <span class="case-pair"><code>I</code> písn<span class="model-ending">í</span></span></span></td></tr>
+                  <tr><td><code>f&gt;kost</code></td><td>feminine consonant</td><td><span class="model-endings"><code>N/A</code> same · <code>G/D/L</code> <b>-i</b> · <code>I</code> <b>-í</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> kost</span> · <span class="case-pair"><code>G</code> kost<span class="model-ending">i</span></span> · <span class="case-pair"><code>D</code> kost<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> kost</span> · <span class="case-pair"><code>I</code> kost<span class="model-ending">í</span></span></span></td></tr>
+                  <tr><td><code>n&gt;město</code></td><td>neuter words in -o</td><td><span class="model-endings"><code>N/A</code> <b>-o</b> · <code>G</code> <b>-a</b> · <code>D</code> <b>-u</b> · <code>L</code> <b>-ě</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> měst<span class="model-ending">o</span></span> · <span class="case-pair"><code>G</code> měst<span class="model-ending">a</span></span> · <span class="case-pair"><code>D</code> měst<span class="model-ending">u</span></span> · <span class="case-pair"><code>L</code> měst<span class="model-ending">ě</span></span> · <span class="case-pair"><code>I</code> měst<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>n&gt;moře</code></td><td>neuter words in -e/-ě</td><td><span class="model-endings"><code>N/G/A</code> <b>-e</b> · <code>D/L</code> <b>-i</b> · <code>I</code> <b>-em</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> moř<span class="model-ending">e</span></span> · <span class="case-pair"><code>G</code> moř<span class="model-ending">e</span></span> · <span class="case-pair"><code>D</code> moř<span class="model-ending">i</span></span> · <span class="case-pair"><code>A</code> moř<span class="model-ending">e</span></span> · <span class="case-pair"><code>I</code> moř<span class="model-ending">em</span></span></span></td></tr>
+                  <tr><td><code>n&gt;kuře</code></td><td>neuter words with stem growth</td><td><span class="model-endings"><code>N/A</code> <b>-e</b> · <code>G</code> <b>-ete</b> · <code>D/L</code> <b>-eti</b> · <code>I</code> <b>-etem</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> kuř<span class="model-ending">e</span></span> · <span class="case-pair"><code>G</code> kuř<span class="model-ending">ete</span></span> · <span class="case-pair"><code>D</code> kuř<span class="model-ending">eti</span></span> · <span class="case-pair"><code>I</code> kuř<span class="model-ending">etem</span></span></span></td></tr>
+                  <tr><td><code>n&gt;stavení</code></td><td>neuter words in -í</td><td><span class="model-endings"><code>N/G/D/A/L</code> <b>-í</b> · <code>I</code> <b>-ím</b></span></td><td><span class="case-forms"><span class="case-pair"><code>N</code> staven<span class="model-ending">í</span></span> · <span class="case-pair"><code>G</code> staven<span class="model-ending">í</span></span> · <span class="case-pair"><code>A</code> staven<span class="model-ending">í</span></span> · <span class="case-pair"><code>I</code> staven<span class="model-ending">ím</span></span></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-card">
+            <div class="section-head">
+              <h3>Preposition matrix</h3>
+              <span class="count-pill">cue → case</span>
+            </div>
+            <div class="matrix-wrap">
+              <table class="system-table prep-table">
+                <thead>
+                  <tr><th>Cue</th><th>Use</th><th>Example</th><th>Pattern</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>do+G</code></td><td>to/into</td><td>do města</td><td>Jdu do [G].</td></tr>
+                  <tr><td><code>z+G</code></td><td>from/out of</td><td>z Prahy</td><td>Jedu z [G].</td></tr>
+                  <tr><td><code>bez+G</code></td><td>without</td><td>bez cukru</td><td>Chci to bez [G].</td></tr>
+                  <tr><td><code>u+G</code></td><td>at/by/someone's place</td><td>u lékaře</td><td>Jsem u [G].</td></tr>
+                  <tr><td><code>od+G</code></td><td>from someone/somewhere</td><td>od hotelu</td><td>Je to od [G].</td></tr>
+                  <tr><td><code>k+D</code></td><td>toward/to</td><td>k doktorovi</td><td>Jdu k [D].</td></tr>
+                  <tr><td><code>v+L</code></td><td>in, fixed place</td><td>v obchodě</td><td>Jsem v [L].</td></tr>
+                  <tr><td><code>na+A/L</code></td><td>to/on vs at/on</td><td>na nádraží</td><td>Jdu na [A], jsem na [L].</td></tr>
+                  <tr><td><code>s+I</code></td><td>with</td><td>s kamarádem</td><td>Jsem s [I].</td></tr>
+                  <tr><td><code>pro+A</code></td><td>for</td><td>pro děti</td><td>Je to pro [A].</td></tr>
+                  <tr><td><code>přes+A</code></td><td>across/through</td><td>přes most</td><td>Jdu přes [A].</td></tr>
+                  <tr><td><code>vedle+G</code></td><td>next to</td><td>vedle hotelu</td><td>Je to vedle [G].</td></tr>
+                  <tr><td><code>naproti+D</code></td><td>opposite</td><td>naproti hotelu</td><td>Je to naproti [D].</td></tr>
+                  <tr><td><code>kolem+G</code></td><td>around/past</td><td>kolem parku</td><td>Jdu kolem [G].</td></tr>
+                  <tr><td><code>před/za/mezi+I</code></td><td>place</td><td>před hotelem</td><td>Je to před/za/mezi [I].</td></tr>
+                  <tr><td><code>před/za/mezi+A</code></td><td>motion target</td><td>za hotel</td><td>Jdu před/za/mezi [A].</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-card">
+            <div class="section-head">
+              <h3>Verb system</h3>
+              <span class="count-pill">aspect + motion</span>
+            </div>
+            <div class="matrix-wrap">
+              <table class="system-table verb-table">
+                <thead>
+                  <tr><th>Mark</th><th>Meaning</th><th>How to read the row</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>V ipf</code></td><td>process, habit, ongoing</td><td>use for doing, needing, living, speaking</td><td><code>potřebuji + A</code></td></tr>
+                  <tr><td><code>V pf</code></td><td>finished/single result</td><td>use for one completed action</td><td><code>přijdu</code>, <code>zaplatím</code></td></tr>
+                  <tr><td><code>ipf→pf</code></td><td>doing → done</td><td>left form is process, right form is result</td><td><code>platím/zaplatím</code></td></tr>
+                  <tr><td><code>modal</code></td><td>helper verb</td><td>usually takes an infinitive</td><td><code>musím + inf</code>, <code>můžu + inf</code></td></tr>
+                  <tr><td><code>motion</code></td><td>movement family</td><td>foot vs vehicle, now vs regular</td><td><code>jdu/chodím</code>, <code>jedu/jezdím</code></td></tr>
+                  <tr><td><code>+ A/D/L/I</code></td><td>verb asks for a case</td><td>the object after the verb must take that form</td><td><code>rozumím + D</code>, <code>vidím + A</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-card">
+            <div class="section-head">
+              <h3>Exception marks</h3>
+              <span class="count-pill">when no model applies</span>
+            </div>
+            <div class="matrix-wrap">
+              <table class="system-table exception-table">
+                <thead>
+                  <tr><th>Mark</th><th>Meaning</th><th>What to do</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>N pl</code></td><td>plural-only or mostly plural noun</td><td>copy the row form first: <b>dveře</b>, <b>peníze</b>, <b>kalhoty</b>.</td></tr>
+                  <tr><td><code>N indecl.</code></td><td>does not visibly decline in normal use</td><td>keep the same form: <b>menu</b>, <b>wifi</b>, <b>taxi</b>.</td></tr>
+                  <tr><td><code>irregular</code></td><td>does not follow the ordinary table cleanly</td><td>trust the cue form before trying to generalize.</td></tr>
+                  <tr><td><code>N m.in</code> / <code>N m.an</code></td><td>gender known, model not yet assigned</td><td>treat as a data-quality warning to refine later.</td></tr>
+                  <tr><td><code>adj</code></td><td>adjective</td><td>dictionary often stores the masculine base; it must agree with the noun later.</td></tr>
+                  <tr><td><code>phrase</code> / <code>sentence</code></td><td>fixed usable Czech</td><td>copy as a whole before breaking it apart.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+

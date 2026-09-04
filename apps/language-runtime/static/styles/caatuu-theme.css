@@ -51,6 +51,7 @@ html[data-theme="light"] {
   --theme-panel-head-bg: #eee8de;
   --theme-panel-head-ink: #496d84;
   --theme-amber: #8a692c;
+  --theme-amber-ink: #604100;
   --theme-page-background:
     radial-gradient(circle at 50% -18%, #fbf9f3 0%, #f1ece2 54%, #eee9df 100%);
 }
@@ -93,6 +94,7 @@ html[data-theme="dark"] {
   --theme-panel-head-bg: #202925;
   --theme-panel-head-ink: #a9bfcc;
   --theme-amber: #c9ad78;
+  --theme-amber-ink: #f6e5c2;
   --theme-page-background:
     radial-gradient(circle at 50% -18%, #202925 0%, #151a18 44%, #121614 100%);
 }

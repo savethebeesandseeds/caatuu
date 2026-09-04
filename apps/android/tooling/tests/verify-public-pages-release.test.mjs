@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
+  browserEntrypointsFromLanguageRegistry,
   validatePublicBaselineDescriptor,
   verifyPublicPagesRelease,
   verifyPublicPagesReleaseOnce,
@@ -13,6 +14,29 @@ const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value)}\n`);
 const prettyJsonBytes = (value) => Buffer.from(`${JSON.stringify(value, null, 2)}\n`);
 const anchoredDescriptor = JSON.parse(await readFile(new URL("../pages-current-release.json", import.meta.url), "utf8"));
+
+function browserCourse(id, status = "development") {
+  return {
+    id,
+    status,
+    routePrefix: `/${id}`,
+    entryPath: `/${id}/index.html`,
+    storage: { learningPerformance: `caatuu-${id}.learning.performance.v1` },
+    sourceLanguage: { id: "en" },
+    targetLanguage: { id },
+  };
+}
+
+function refreshLanguageProjection(data) {
+  const raw = jsonBytes(data.languageRegistry);
+  const entrypoints = browserEntrypointsFromLanguageRegistry(data.languageRegistry);
+  data.bundle.entrypoints = [...entrypoints];
+  const record = { path: "languages.json", bytes: raw.length, sha256: sha256(raw) };
+  const index = data.bundle.files.findIndex(({ path }) => path === record.path);
+  if (index >= 0) data.bundle.files[index] = record;
+  else data.bundle.files.push(record);
+  return entrypoints;
+}
 
 function fixture() {
   const currentApk = Buffer.from("current-signed-apk\n");
@@ -144,7 +168,10 @@ function fixture() {
     retainedFiles: [],
     retiredPublicRoutes: [],
   };
-  const descriptor = structuredClone(anchoredDescriptor);
+  const descriptor = {
+    ...structuredClone(anchoredDescriptor),
+    releases: [structuredClone(anchoredDescriptor.releases[0])],
+  };
   descriptor.releases.push({
       versionCode: 164,
       versionName: "0.1.12",
@@ -167,11 +194,22 @@ function fixture() {
     ["android/caatuu.json", descriptor.releases[1].manifest],
     ["android/caatuu.apk", descriptor.releases[1].apk],
   ];
+  const languageRegistry = {
+    schemaVersion: 1,
+    defaultLanguage: "cz",
+    browserSetup: {
+      schemaVersion: 1,
+      entryPath: "/cz/index.html",
+      courses: [browserCourse("cz", "active"), browserCourse("zh")],
+    },
+    languages: [{ id: "cz" }],
+  };
   const bundle = {
     schema_name: "caatuu-web-bundle",
     schema_version: 1,
     canonicalOrigin: descriptor.canonicalOrigin,
     currentAndroidRelease: { tag: "caatuu-android-v164" },
+    entrypoints: ["/", "/cz/", "/cz/index.html", "/zh/", "/zh/index.html"],
     android: {
       stableVersionCode: 164,
       stableVersionName: "0.1.12",
@@ -180,6 +218,8 @@ function fixture() {
     },
     files: records.map(([path, record]) => ({ path, bytes: record.bytes, sha256: record.sha256 })),
   };
+  const languageRegistryBytes = jsonBytes(languageRegistry);
+  bundle.files.push({ path: "languages.json", bytes: languageRegistryBytes.length, sha256: sha256(languageRegistryBytes) });
   const bodies = new Map([
     ["/android/releases/162/caatuu.json", baselineManifestBytes],
     ["/android/debug-releases/product-transition/161/caatuu-transition.json", compatibilityManifestBytes],
@@ -196,7 +236,7 @@ function fixture() {
     ["/android/caatuu-debug.apk", compatibilityApk.length],
     ["/android/releases/163/caatuu.apk", descriptor.releases[0].apk.bytes],
   ]);
-  return { descriptor, baselineDescriptor, bundle, bodies, rangedSizes };
+  return { descriptor, baselineDescriptor, bundle, languageRegistry, bodies, rangedSizes };
 }
 
 function mockPublicFetch(data, { staleBundleOnce = false, corruptAlias = false } = {}) {
@@ -206,10 +246,16 @@ function mockPublicFetch(data, { staleBundleOnce = false, corruptAlias = false }
     const url = new URL(input);
     const path = url.pathname;
     calls.push({ path, options });
-    if (["/", "/cz/", "/zh/"].includes(path)) {
+    if (data.bundle.entrypoints.includes(path)) {
       return new Response("<!doctype html><html><title>Caatuu</title></html>", {
         status: 200,
         headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
+    if (path === "/languages.json") {
+      return new Response(jsonBytes(data.languageRegistry), {
+        status: 200,
+        headers: { "content-type": "application/json" },
       });
     }
     if (path === "/caatuu-web-bundle.json") {
@@ -258,6 +304,7 @@ test("public verifier checks Pages, all retained Android routes, aliases, and da
   });
   assert.equal(result.ok, true);
   assert.equal(result.versionCode, 164);
+  assert.deepEqual(result.browserEntrypoints, ["/", "/cz/", "/cz/index.html", "/zh/", "/zh/index.html"]);
   assert.deepEqual(result.retainedAndroidVersions, [162, 161, 163, 164]);
   assert.equal(result.reportingVersion, "2026-09-03.v5");
   assert.ok(mock.calls.some((call) => call.path === "/android/caatuu.apk"));
@@ -265,6 +312,43 @@ test("public verifier checks Pages, all retained Android routes, aliases, and da
   assert.ok(mock.calls.some((call) => call.path === "/android/releases/162/caatuu.apk" && call.options.headers.range));
   assert.ok(mock.calls.every((call) => call.options.method === "GET" && call.options.body === undefined));
   assert.ok(!mock.calls.some((call) => ["/cz/api/dictionary/gaps", "/api/sentence-reports"].includes(call.path)));
+});
+
+test("public verifier discovers every entrypoint for a synthetic third browser course", async () => {
+  const data = fixture();
+  data.languageRegistry.browserSetup.courses.push(browserCourse("es"));
+  const entrypoints = refreshLanguageProjection(data);
+  const mock = mockPublicFetch(data);
+  const result = await verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl,
+  });
+  assert.deepEqual(result.browserEntrypoints, entrypoints);
+  assert.ok(mock.calls.some(({ path }) => path === "/es/"));
+  assert.ok(mock.calls.some(({ path }) => path === "/es/index.html"));
+});
+
+test("browser entrypoint discovery rejects duplicates, escaping paths, and bundle order drift", async () => {
+  const duplicate = fixture().languageRegistry;
+  duplicate.browserSetup.courses.push(browserCourse("zh"));
+  assert.throws(() => browserEntrypointsFromLanguageRegistry(duplicate), /course IDs must not contain duplicates/u);
+
+  const escaping = fixture().languageRegistry;
+  escaping.browserSetup.courses.push({ ...browserCourse("es"), entryPath: "/es/../index.html" });
+  assert.throws(() => browserEntrypointsFromLanguageRegistry(escaping), /confined file/u);
+
+  const data = fixture();
+  data.bundle.entrypoints = ["/", "/zh/", "/zh/index.html", "/cz/", "/cz/index.html"];
+  const mock = mockPublicFetch(data);
+  await assert.rejects(
+    verifyPublicPagesReleaseOnce({
+      descriptor: data.descriptor,
+      baselineDescriptor: data.baselineDescriptor,
+      fetchImpl: mock.fetchImpl,
+    }),
+    /entrypoint order differs/u,
+  );
 });
 
 test("public verifier retries a stale Pages bundle before downloading the current APK", async () => {

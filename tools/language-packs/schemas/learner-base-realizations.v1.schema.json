@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/learner-base-realizations.v1.schema.json",
+  "title": "Caatuu learner-base realizations v1",
+  "description": "A reviewed non-English learner-prompt overlay over stable English concept IDs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "id",
+    "baseLanguage",
+    "sourceCatalog",
+    "review",
+    "license",
+    "realizations"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caatuu.org/schemas/learner-base-realizations.v1.schema.json"
+    },
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/catalogId" },
+    "baseLanguage": { "$ref": "#/$defs/baseLanguage" },
+    "sourceCatalog": {
+      "type": "string",
+      "pattern": "^apps/languages/shared/english-concepts/[a-z0-9][a-z0-9.-]*\\.json$"
+    },
+    "review": { "$ref": "#/$defs/reviewGate" },
+    "license": { "$ref": "#/$defs/licenseGate" },
+    "realizations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/realization" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "catalogId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*-v[1-9][0-9]*$"
+    },
+    "conceptId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"
+    },
+    "baseLanguage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["languageTag", "script"],
+      "properties": {
+        "languageTag": {
+          "type": "string",
+          "pattern": "^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$",
+          "not": { "pattern": "^(?:en|en-)" }
+        },
+        "script": {
+          "type": "string",
+          "pattern": "^[A-Z][a-z]{3}$"
+        }
+      }
+    },
+    "reviewGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedAt", "notes"],
+      "properties": {
+        "status": {
+          "enum": ["native-review-required", "native-reviewed"]
+        },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "notes": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "licenseGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "status",
+        "spdxExpression",
+        "sourceReference",
+        "reviewedBy",
+        "reviewedAt"
+      ],
+      "properties": {
+        "origin": { "$ref": "#/$defs/nonEmptyString" },
+        "status": {
+          "enum": ["release-review-required", "release-cleared"]
+        },
+        "spdxExpression": { "type": ["string", "null"] },
+        "sourceReference": { "type": ["string", "null"] },
+        "reviewedBy": { "type": ["string", "null"] },
+        "reviewedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        }
+      }
+    },
+    "realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conceptId", "text"],
+      "properties": {
+        "conceptId": { "$ref": "#/$defs/conceptId" },
+        "text": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  }
+}

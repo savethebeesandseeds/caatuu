@@ -25,7 +25,8 @@ returning to places and characters you remember.
 - Explore vocabulary through illustrated scenes and generated sentences.
 - Turn meaning, recall, and grammar into interactive games.
 - Use dictionaries, retrieval, and offline-friendly intelligence together.
-- Learn on the web or continue through the native Android experience.
+- Learn on the web and, when a course manifest enables it, continue through the
+  native Android experience.
 
 ## Inside the experience
 
@@ -47,18 +48,23 @@ returning to places and characters you remember.
 ## Any language, one universe
 
 Caatuu is not a Czech-only or Chinese-only application. One canonical
-curriculum, specified in English, owns the learning sequence, outcomes,
-prerequisites, evidence demands, and mastery standard. Each target-language
-pack realizes that shared journey through its own writing system, grammar,
-dictionaries, models, stories, and natural language without silently creating
-a different course.
+application, layout, and game engine serves every course. Each language pack
+owns its reviewed learning content and may expose a different declared set of
+games and linguistic features, but it supplies them through the same manifest,
+adapter, content, and capability contracts instead of forking the app. English
+remains the immutable per-item audit and retrieval authority even when neither
+the learner base nor the target language is English.
 
 Czech is the first active reference course and the experience shown in these
-screenshots. A fresh Mandarin course is now available as an unlisted
-development preview, built from shared English concepts and independent
-Mandarin realizations. Earlier Chinese work remains preserved as history and is
-not a dependency of the new course. More languages can join through the same
-manifest, adapter, content, and capability contracts.
+screenshots. Mandarin is the currently deployed unlisted, `noindex` development
+preview at `/zh/`. English-to-Spanish (`es-ES`) is browser-enabled in the local
+catalog at `/es/`, using the same shared Verb Nebula and Word World experiences,
+but is withheld from Pages and Android while its native-language and
+release-license reviews remain pending. Both modern courses use the shared
+English concept authority and their own target-language realizations. Earlier
+Chinese work remains preserved as history and is not a dependency of the
+current Mandarin course. More languages can join through the same manifest,
+adapter, content, and capability contracts.
 
 ## Replicate the development environment
 
@@ -137,6 +143,8 @@ process settle; the contribution guide records the current policy.
 
 First-party software, developer documentation, and Caatuu-authored English and
 Mandarin curriculum content are licensed [`AGPL-3.0-only`](LICENSE).
+The Spanish development curriculum is outside that cleared curriculum statement
+while its manifest remains `release-review-required`.
 Third-party or separately licensed models, dictionaries, datasets, artwork,
 branding, and components may have separate terms; see
 [licensing and attribution](docs/LICENSING.md).

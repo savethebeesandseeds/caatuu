@@ -46,8 +46,10 @@ surface. It does not own language-specific learning logic.
 Owns the authoritative course catalog and one manifest-backed directory per
 target language. Each course owns its target realizations, language adapter,
 linguistic features, enabled games, platform enablement, capabilities, and narrow package asset
-catalog. Czech is the active reference course; Mandarin is a fresh development
-course at `/zh/`. The repository-only Chinese archive is not a course source.
+catalog. Czech is the active reference course; Mandarin (`/zh/`) and Spanish
+(`/es/`) are development browser courses. Spanish is locally browser-enabled
+but withheld from Pages and Android while its release review is pending. The
+repository-only Chinese archive is not a course source.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
 
@@ -63,14 +65,15 @@ inside the target pack and never enter the English embedding payload.
 
 ### `apps/android`
 
-Packages a manifest-selected course for Android and supplies native
-capabilities such as offline llama.cpp inference, model lifecycle management,
-vector database installation, and application updates. Czech remains the
-enabled default; disabled courses cannot be packaged. BuildConfig and asset
-selection are derived from the same course manifest and capability flags used
-by the browser/server contracts. The native bridge is an adapter; it must not
-silently fork browser behavior or expose a capability the selected course does
-not declare.
+Packages the catalog-selected set of Android-enabled courses behind the same
+shared document and supplies native capabilities such as offline llama.cpp
+inference, model lifecycle management, vector database installation, and
+application updates. The current bundle contains Czech, its default, and
+Mandarin. Spanish has Android disabled and is not packaged. BuildConfig and
+asset selection are derived from the same course manifests and capability flags
+used by the browser/server contracts. The native bridge is an adapter; it must
+not silently fork browser behavior or expose a capability the selected course
+does not declare.
 
 ### `apps/games`
 

@@ -1,0 +1,22 @@
+{
+  "name": "Caatuu Fixture Target",
+  "short_name": "Caatuu XY",
+  "description": "A synthetic language course used to verify Android projection.",
+  "id": "/fixture-gen/",
+  "start_url": "/fixture-gen/index.html",
+  "scope": "/fixture-gen/",
+  "display": "standalone",
+  "icons": [],
+  "shortcuts": [
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/fixture-gen/index.html?game=word-net"
+    },
+    {
+      "name": "Chat",
+      "short_name": "Chat",
+      "url": "/fixture-gen/chat.html"
+    }
+  ]
+}

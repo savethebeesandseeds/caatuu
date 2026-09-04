@@ -1,0 +1,200 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "es",
+  "directoryName": "spanish",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Spanish",
+  "routePrefix": "/es",
+  "entryPath": "/es/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "es",
+    "label": "Spanish",
+    "nativeLabel": "Español",
+    "shortCode": "ES",
+    "locale": "es-ES",
+    "script": "Latn",
+    "speechLocale": "es-ES",
+    "direction": "ltr",
+    "flagClass": "spain-flag",
+    "flagSrc": "/assets/icons/spain_flag.png"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "agreement-aurora"
+  ],
+  "upcomingGames": [
+    "memory-moon",
+    "sound-quasar"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "agreementAurora": "/language-runtime/static/games/agreement-aurora.html",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-es",
+    "theme": "caatuu-es.theme",
+    "fontSize": "caatuu-es.font-size",
+    "learningPreferences": "caatuu-es.learning.preferences.v1",
+    "learningPerformance": "caatuu-es.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-es.semantic-learning",
+    "verbMemory": "caatuu-es.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-es.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-es.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-es-pwa-",
+    "setupFallback": "caatuu-es-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "realizations": "apps/languages/spanish/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "spanish-spain-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "targetRealizationsRuntime": "apps/languages/spanish/static/data/games/word-world/starter-v1.realizations.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/spanish/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/es/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/spanish/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/verb-nebula/core-vocabulary.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/conjugation-comet/verbs.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "agreementAuroraCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/agreement-aurora/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "agreement-aurora-content-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/spain_flag.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

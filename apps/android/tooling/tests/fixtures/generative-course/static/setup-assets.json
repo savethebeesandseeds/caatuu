@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "caatuu-course-setup-assets-v1",
+  "courseId": "fixture-gen",
+  "artifacts": [
+    {
+      "key": "fixture-standard-content",
+      "label": "Fixture Standard content",
+      "artifact_kind": "course-content",
+      "url": "/fixture-gen/data/games/word-world/standard-v1/records.json",
+      "asset_path": "data/games/word-world/standard-v1/records.json",
+      "native_required": false,
+      "browser_required": true
+    },
+    {
+      "key": "fixture-language-model",
+      "label": "Fixture browser language model",
+      "artifact_kind": "language-model",
+      "url": "/fixture-gen/data/models/fixture.gguf",
+      "asset_path": "data/models/fixture.gguf",
+      "native_required": false,
+      "browser_required": true
+    }
+  ],
+  "offline": {
+    "cacheName": "caatuu-fixture-gen-pwa-v1",
+    "cachePrefix": "caatuu-fixture-gen-pwa-",
+    "assets": [
+      "manifest.webmanifest",
+      "source/shared/course-profile.js",
+      "data/games/word-world/manifest.json",
+      "data/games/word-world/standard-v1/records.json",
+      "source/games/word-world/standard-provider.mjs",
+      "chat.html",
+      "source/features/chat/chat.js",
+      "data/models/fixture.gguf"
+    ]
+  }
+}

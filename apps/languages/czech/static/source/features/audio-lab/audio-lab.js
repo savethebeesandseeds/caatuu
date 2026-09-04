@@ -86,14 +86,19 @@ async function playText(text) {
   setBusy(true);
   status.textContent = "Starting the selected Czech voice...";
   try {
-    await api.speakCzechText(normalizedText, {
+    const result = await api.speakCzechText(normalizedText, {
       rate: Number(rateControl.value),
       pitch: Number(pitchControl.value),
       onStart() {
         if (speechRequest === request) status.textContent = "Playing Czech audio...";
       }
     });
-    if (speechRequest === request) status.textContent = "Audio test finished.";
+    if (speechRequest === request) {
+      const muted = result?.outcome === "muted" || result?.reason === "muted" || result?.muted === true;
+      status.textContent = muted
+        ? "Audio is muted across Caatuu. Turn sound on to hear this sample."
+        : "Audio test finished.";
+    }
   } catch (error) {
     if (speechRequest === request) {
       const reason = String(error?.message || error || "Unknown speech error").slice(0, 160);

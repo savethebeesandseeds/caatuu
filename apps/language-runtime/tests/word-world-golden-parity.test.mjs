@@ -32,9 +32,9 @@ const GOLDEN_CSS_SHA256 =
   "0df7102e42304f6f43886b7913d3a76ef94ff238ae7865ea12d482cb00200045";
 
 const COMPONENT_CSS_ANCHOR = Buffer.from(".word-net-game {", "utf8");
-const APPROVED_SHARED_CSS_DELTA_BYTES = 3577;
+const APPROVED_SHARED_CSS_DELTA_BYTES = 3847;
 const APPROVED_SHARED_CSS_DELTA_SHA256 =
-  "826b8f9f046cdc25662b618d9f5af45ce90a44d8e79d58c621675693b8336a39";
+  "7de71b586876e413490d9b90e707d62887a9f4d161ab456206fa730d62260baf";
 
 const VOID_ELEMENTS = new Set([
   "area",
@@ -279,7 +279,8 @@ function directChildIdentity(node) {
 
 function removeApprovedWordWorldExtensions(node) {
   const approvedIds = new Set([
-    "wordNetTargetTextSettings"
+    "wordNetTargetTextSettings",
+    "wordNetAudioMute"
   ]);
   node.children = node.children.filter((child) => (
     !approvedIds.has(child.attributes.get("id"))
@@ -368,6 +369,15 @@ test("the live shared Word World subtree exactly preserves the Czech component s
     "shared challenge prompt settings"
   );
   assert.equal(findAll(challengePromptSettings, (node) => node.attributes.has("data-challenge-prompt-mode")).length, 3);
+  const audioMute = findOne(
+    root,
+    (node) => node.attributes.get("id") === "wordNetAudioMute",
+    "shared Word World global mute control"
+  );
+  assert.equal(audioMute.attributes.get("role"), "switch");
+  assert.equal(audioMute.attributes.get("aria-checked"), "false");
+  assert.equal(audioMute.attributes.get("data-speech-mute-toggle"), "");
+  assert.equal(findAll(audioMute, (node) => node.attributes.has("data-speech-mute-label")).length, 1);
 
   assert.equal(
     findAll(shared, (node) => node.tag === "template" && (
@@ -466,16 +476,38 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
   assert.equal(
     sha256(approvedDelta),
     APPROVED_SHARED_CSS_DELTA_SHA256,
-    "The approved shared overrides for target reading guides, tone colors, prompt direction, centered dictionary text, and base/target history changed."
+    "The approved shared overrides for target reading guides, tone colors, prompt direction, compact centered dictionary cards, and base/target history changed."
   );
   const approvedDeltaText = approvedDelta.toString("utf8");
   for (const selector of [
     ".word-net-target-text-unit",
     "button[data-challenge-prompt-mode]",
+    ".word-net-word-translation",
+    ".word-net-word-meaning",
     ".word-net-word-heading strong.has-target-text-guide",
     ".word-net-trail-base",
     ".word-net-trail-target"
   ]) assert.match(approvedDeltaText, new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
+  assert.match(
+    approvedDeltaText,
+    /\.word-net-word-meaning\s*\{\s*text-align:\s*center;\s*\}/u,
+    "The selected meaning must remain centered under its target-language word."
+  );
+  assert.match(
+    approvedDeltaText,
+    /\.word-net-word-translation\s*\{\s*width:\s*fit-content;\s*max-width:\s*244px;\s*\}/u,
+    "Shared dictionary cards must shrink to short content without exceeding their desktop width."
+  );
+  assert.match(
+    approvedDeltaText,
+    /@media \(max-width:\s*560px\)\s*\{\s*\.word-net-word-translation\s*\{\s*max-width:\s*176px;\s*\}\s*\}/u,
+    "Shared dictionary cards must retain their narrow-screen width ceiling."
+  );
+  assert.match(
+    approvedDeltaText,
+    /@media \(max-width:\s*380px\)[\s\S]*?\.word-net-word-translation\s*\{\s*max-width:\s*140px;\s*\}/u,
+    "Shared dictionary cards must retain their phone width ceiling."
+  );
   assert.ok(
     sharedPrefix.length <= goldenPrefix.length + 512,
     "The inline-context CSS prefix must remain a small mechanical transformation."

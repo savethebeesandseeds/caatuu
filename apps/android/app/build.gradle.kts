@@ -10,8 +10,10 @@ val workspaceRootDir = layout.projectDirectory.dir("../../..")
 val workspaceRootPath = workspaceRootDir.asFile.toPath().toRealPath()
 
 fun confinedWorkspaceRelativePath(value: Any?, label: String): String {
-    val relativePath = value?.toString()?.trim().orEmpty()
+    val authoredPath = value?.toString().orEmpty()
+    val relativePath = authoredPath.trim()
     check(relativePath.isNotEmpty()) { "$label must be a nonblank repository-relative path." }
+    check(authoredPath == relativePath) { "$label must be a trimmed repository-relative path." }
     check(!File(relativePath).isAbsolute) { "$label must be repository-relative." }
     val candidate = workspaceRootPath.resolve(relativePath).normalize()
     check(candidate != workspaceRootPath && candidate.startsWith(workspaceRootPath)) {
@@ -22,7 +24,10 @@ fun confinedWorkspaceRelativePath(value: Any?, label: String): String {
     check(realCandidate != workspaceRootPath && realCandidate.startsWith(workspaceRootPath)) {
         "$label must not escape the Caatuu workspace through a link."
     }
-    return workspaceRootPath.relativize(realCandidate).toString().replace(File.separatorChar, '/')
+    check(realCandidate == candidate) {
+        "$label must resolve to its exact declared physical source."
+    }
+    return workspaceRootPath.relativize(candidate).toString().replace(File.separatorChar, '/')
 }
 
 fun requiredObject(value: Any?, label: String): Map<*, *> {
@@ -66,9 +71,6 @@ check(bundledLanguageEntryPath.startsWith("$bundledLanguageRoutePrefix/")) {
     "Course entryPath must stay inside routePrefix."
 }
 val courseSourceLanguage = requiredObject(courseManifest["sourceLanguage"], "sourceLanguage")
-check(courseSourceLanguage["id"] == "en") {
-    "Android semantic mediation currently requires English as sourceLanguage.id."
-}
 val courseSourceLanguageLabel = requiredString(courseSourceLanguage["label"], "sourceLanguage.label")
 val courseTargetLanguage = requiredObject(courseManifest["targetLanguage"], "targetLanguage")
 val courseTargetLanguageLabel = requiredString(courseTargetLanguage["label"], "targetLanguage.label")
@@ -194,6 +196,12 @@ val androidAssetFiles = (androidAssetCatalog["files"] as? List<*>)?.mapIndexed {
 check(androidAssetFiles.isNotEmpty() && androidAssetFiles.toSet().size == androidAssetFiles.size) {
     "Android asset catalog files must be nonempty and unique."
 }
+for (path in androidAssetFiles) {
+    confinedWorkspaceRelativePath(
+        "$languageStaticRelativePath/$path",
+        "Android course asset $path",
+    )
+}
 check("index.html" !in androidAssetFiles) {
     "Android course assets must not declare a course-local index.html."
 }
@@ -234,7 +242,21 @@ val supplementalSharedRuntimeFiles = sharedRuntimeFiles.filter { path ->
         false
     }
 }
-val launcherStaticDir = workspaceRootDir.dir("apps/launcher/static")
+val launcherStaticRelativePath = confinedWorkspaceRelativePath(
+    "apps/launcher/static",
+    "launcher static root",
+)
+val launcherStaticDir = workspaceRootDir.dir(launcherStaticRelativePath)
+for (path in androidLauncherIconFiles) {
+    confinedWorkspaceRelativePath(
+        "$launcherStaticRelativePath/assets/icons/$path",
+        "Android launcher icon $path",
+    )
+}
+confinedWorkspaceRelativePath(
+    "$launcherStaticRelativePath/assets/loading-animation/animations_manifest.json",
+    "Android loading animation manifest",
+)
 val generatedLanguageAssetsDir = layout.buildDirectory.dir("generated/assets/caatuu-$bundledLanguageId")
 val setupAssetManifest = languageStaticDir.file("setup-assets.json")
 val setupAssetRefreshScript = workspaceRootDir.file("apps/server/tooling/refresh-setup-assets.mjs")

@@ -214,7 +214,7 @@ test("generic path derivation is course-scoped while Czech compatibility paths s
   );
   assert.equal(
     czechPaths.manifest.database,
-    "data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+    "all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
   );
 
   const chinesePaths = semanticIndexArtifactPaths(chineseFixtureConfig(), modelId);
@@ -236,7 +236,7 @@ test("manifest validation accepts the current Czech schema alias but enforces En
     embedding_text_field: "english_text",
     embedding_input_policy: "english_text_only",
     file: "caatuu-cz-curriculum.sqlite",
-    url: `data/embeddings/${modelId}/caatuu-cz-curriculum.sqlite`,
+    url: `${modelId}/caatuu-cz-curriculum.sqlite`,
   };
   assert.equal(validateSemanticIndexManifest(manifest, czechSemanticIndexConfig, { modelId }), true);
   assert.throws(

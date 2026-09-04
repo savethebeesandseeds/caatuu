@@ -63,7 +63,7 @@ must contain only an explicit release allowlist.
 | Agreement Aurora | Stretch candidate; include only if its exact content and interface pass |
 | Case Cosmos | Defer by default; promote only if its exact content and interface pass |
 | Memory Moon placeholder | Hide and exclude |
-| Sound and Spelling / Battle of the Robots | Defer and exclude |
+| Sounds Quasar placeholder / Battle of the Robots | Defer and exclude |
 | Dictionary and Android Czech speech | Include |
 | MiniLM embeddings, vector database, image lookup, semantic evidence and statistics | Include |
 | Chat, text generation, model download/delete controls and generative settings | Exclude |

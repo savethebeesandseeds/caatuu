@@ -1,10 +1,11 @@
 # Planet emblem provenance
 
 This record covers `conjugation-comet.png`, the selected catalog-only
-`naturalization-nucleus.png`, the four reviewed `agreement-aurora.png`
-revisions, and the exact Campaign Mode alias described below. It does not
-establish or extend provenance, ownership, or release permission for the older
-Word World, Case Cosmos, Memory Moon, and Verb Nebula assets in this directory.
+`naturalization-nucleus.png`, the user-designated `sounds-quasar.png`
+placeholder, the four reviewed `agreement-aurora.png` revisions, and the exact
+Campaign Mode alias described below. It does not establish or extend
+provenance, ownership, or release permission for the older Word World, Case
+Cosmos, Memory Moon, and Verb Nebula assets in this directory.
 
 ## Canonical runtime filenames
 
@@ -19,11 +20,30 @@ filenames are retired and must not be reintroduced.
 | `case-cosmos` | `case-cosmos.png` |
 | `agreement-aurora` | `agreement-aurora.png` |
 | `memory-moon` | `memory-moon.png` |
+| `sound-quasar` | `sounds-quasar.png` |
 | `campaign` | `campaign-mode.png` |
 
 `naturalization-nucleus.png` is the canonical Mandarin development-runtime art
 for Naturalization Nucleus. It is wired into the shared launcher and the
 Mandarin offline/setup catalogs, while remaining absent from the Czech course.
+
+## Sounds Quasar placeholder emblem
+
+| Field | Value |
+| --- | --- |
+| Runtime path | `apps/launcher/static/assets/planets/sounds-quasar.png` |
+| Source | Existing user-designated local asset supplied for integration on 2026-09-04; earlier creation history is not recorded here |
+| Final dimensions | 1254 x 1254 pixels |
+| Final byte count | 790655 |
+| Final SHA-256 | `aca07dcd615c021c00896ecd8698f14cf2f47522a64dc9e2a2cb539dc9a88e64` |
+| Runtime status | Shared coming-later placeholder for every browser course |
+| Release status | Follow each course's release allowlist; the placeholder is not gameplay authority |
+| Attribution decision | Pending explicit owner decision |
+
+The product owner explicitly selected this existing file for the shared
+Sounds Quasar placeholder. That selection authorizes its repository and local
+course integration, but this record does not infer an origin, third-party
+license, public redistribution grant, or assessed audio/content authority.
 
 ## Naturalization Nucleus catalog emblem v1
 

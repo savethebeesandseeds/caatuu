@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../../../../tools/language-packs/schemas/catalog.v1.schema.json",
+  "schemaVersion": 1,
+  "defaultCourseId": "fixture-gen",
+  "reservedRoutePrefixes": [],
+  "courses": [
+    {
+      "id": "fixture-gen",
+      "manifest": "apps/android/tooling/tests/fixtures/generative-course/course.json"
+    }
+  ]
+}

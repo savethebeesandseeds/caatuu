@@ -178,7 +178,7 @@
       }
       renderLanguages(registry);
     } catch (error) {
-      // The static Czech links remain a usable no-JavaScript/network fallback.
+      // The static course links remain a usable no-JavaScript/network fallback.
       setDownloadUnavailable("Android availability could not be loaded");
     }
   }

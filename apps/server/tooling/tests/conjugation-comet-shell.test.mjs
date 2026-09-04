@@ -3,6 +3,15 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
+const controller = await readFile(
+  new URL("../../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs", import.meta.url),
+  "utf8"
+);
+const shell = await readFile(
+  new URL("../../../../apps/language-runtime/static/games/conjugation-comet.html", import.meta.url),
+  "utf8"
+);
+const legacyRedirect = await readFile(new URL("conjugation-comet.html", staticRoot), "utf8");
 const verbs = JSON.parse(await readFile(
   new URL("data/games/conjugation-comet/verbs.json", staticRoot),
   "utf8"
@@ -49,4 +58,13 @@ test("the first pilot derives a reviewed -ám family without adding JSON taxonom
   assert.equal(transfer?.verb, "znát");
   for (const verb of [...training, transfer]) assert.match(verb.hint, /surface family/);
   assert.doesNotMatch(JSON.stringify(verbs), /"family"|"pilot"|"challengeId"/);
+});
+
+test("the shared host owns Conjugation Comet and the Czech legacy URL only redirects", () => {
+  assert.match(controller, /course-game-content\.mjs\?v=course-game-content-1/u);
+  assert.match(controller, /conjugation-comet-core\.mjs\?v=conjugation-comet-core-2/u);
+  assert.match(controller, /buildConjugationVerbQueue\(state\.catalog\.verbs/u);
+  assert.match(shell, /conjugation-comet-host\.mjs\?v=conjugation-comet-shared-2/u);
+  assert.match(legacyRedirect, /url=\/cz\/index\.html\?game=conjugation-comet/u);
+  assert.doesNotMatch(legacyRedirect, /source\/games\/conjugation-comet/u);
 });

@@ -15,10 +15,11 @@ function assertOrdered(source, markers) {
   }
 }
 
-test("the application initializes semantic state before the shared workspace", async () => {
-  const [document, bootstrap] = await Promise.all([
+test("the application initializes declared semantic state before the shared workspace", async () => {
+  const [document, bootstrap, profile] = await Promise.all([
     readFile(new URL("app/index.html", runtimeStatic), "utf8"),
-    readFile(new URL("source/app-bootstrap.mjs", runtimeStatic), "utf8")
+    readFile(new URL("source/app-bootstrap.mjs", runtimeStatic), "utf8"),
+    readFile(new URL("source/shared/course-profile.js", czechStatic), "utf8")
   ]);
 
   assertOrdered(document, [
@@ -27,9 +28,13 @@ test("the application initializes semantic state before the shared workspace", a
     "/language-runtime/static/source/caatuu-chrome.js",
     "/language-runtime/static/source/app-bootstrap.mjs"
   ]);
-  assertOrdered(bootstrap, [
+  assertOrdered(profile, [
     "source/shared/runtime.js",
-    "source/shared/semantic-learning.js",
+    "source/shared/semantic-learning.js"
+  ]);
+  assertOrdered(bootstrap, [
+    'declaredBrowserProvider("courseRuntime")',
+    '"semanticLearningProvider"',
     "/language-runtime/static/source/caatuu-workspace.js"
   ]);
 });

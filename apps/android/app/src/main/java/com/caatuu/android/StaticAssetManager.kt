@@ -46,12 +46,39 @@ class StaticAssetManager(
 
     fun requiredAssetSpecs(): List<StaticAssetSpec> = requiredAssets
 
+    internal fun storageArtifacts(courseId: String): List<NativeStorageArtifact> =
+        requiredAssets.map { spec ->
+            NativeArtifactContract.storageArtifact(
+                courseId,
+                "setup-assets/${spec.assetPath}",
+                spec.url,
+                spec.assetPath,
+                spec.bytes,
+                spec.sha256,
+                spec.artifactKind,
+            )
+        }
+
     fun ownsAssetPath(assetPath: String): Boolean =
         requiredAssets.any { spec -> spec.assetPath == assetPath }
 
     fun localAsset(assetPath: String): File? {
-        if (assetPath.contains("..")) return null
-        return localAssetFile(appContext, assetPath).takeIf { it.isFile }
+        val spec = requiredAssets.firstOrNull { candidate -> candidate.assetPath == assetPath } ?: return null
+        return verifiedLocalAsset(spec)
+    }
+
+    internal fun verifiedLocalAsset(assetPath: String): File? =
+        requiredAssets.firstOrNull { spec -> spec.assetPath == assetPath }?.let(::verifiedLocalAsset)
+
+    private fun verifiedLocalAsset(spec: StaticAssetSpec): File? {
+        val file = localAssetFile(appContext, spec.assetPath)
+        val marker = markerFile(appContext, spec)
+        return file.takeIf {
+            it.isFile &&
+                it.length() == spec.bytes &&
+                marker.isFile &&
+                marker.readText().trim() == identityMarker(spec)
+        }
     }
 
     fun statusJson(): JSONObject {
@@ -66,7 +93,7 @@ class StaticAssetManager(
             val fileBytes = file.takeIf { it.isFile }?.length() ?: 0L
             val ready = file.isFile &&
                 marker.isFile &&
-                marker.readText().trim() == spec.sha256 &&
+                marker.readText().trim() == identityMarker(spec) &&
                 fileBytes == spec.bytes
             if (ready) readyArtifacts += 1
             bytes += fileBytes
@@ -104,12 +131,12 @@ class StaticAssetManager(
             val marker = markerFile(appContext, spec)
             file.parentFile?.mkdirs()
 
-            if (file.isFile && marker.isFile && marker.readText().trim() == spec.sha256 && file.length() == spec.bytes) {
+            if (verifiedLocalAsset(spec) != null) {
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
                 return@withContext file
             }
             if (file.isFile && file.length() == spec.bytes && sha256(file) == spec.sha256) {
-                marker.writeText(spec.sha256)
+                marker.writeText(identityMarker(spec))
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
                 return@withContext file
             }
@@ -117,7 +144,11 @@ class StaticAssetManager(
             file.delete()
             marker.delete()
 
-            val tmpFile = File(file.parentFile, "${file.name}.download")
+            val tmpFile = NativeArtifactContract.canonicalChild(
+                requireNotNull(file.parentFile),
+                "${file.name}.download",
+                "Setup asset temporary download",
+            )
             if (tmpFile.isFile && tmpFile.length() > spec.bytes) tmpFile.delete()
             var downloaded = false
             var lastError: Exception? = null
@@ -193,7 +224,7 @@ class StaticAssetManager(
 
             tmpFile.copyTo(file, overwrite = true)
             tmpFile.delete()
-            marker.writeText(spec.sha256)
+            marker.writeText(identityMarker(spec))
             onProgress(ModelProgress(spec.bytes, spec.bytes))
             file
         }
@@ -262,8 +293,10 @@ class StaticAssetManager(
             val item = artifacts.getJSONObject(index)
             if (!item.optBoolean("native_required", false)) continue
 
-            val key = item.optString("key").takeIf { it.isNotBlank() }
-                ?: throw IllegalStateException("$manifestAssetPath artifact $index is missing key.")
+            val key = NativeArtifactContract.trimmedText(
+                item.getString("key"),
+                "$manifestAssetPath artifact $index key",
+            )
             val url = item.optString("url", "")
             val authoredAssetPath = item.optString("asset_path").takeIf { it.isNotBlank() }
                 ?: url.trimStart('/')
@@ -272,14 +305,22 @@ class StaticAssetManager(
             }
             val assetPath = packagedAssetPath(authoredAssetPath)
 
+            val artifactKind = NativeArtifactContract.artifactKind(
+                item.getString("artifact_kind"),
+                "$manifestAssetPath artifact $key kind",
+            )
+            val resolvedUrl = NativeArtifactContract.httpsUrl(
+                resolveArtifactUrl(url, authoredAssetPath),
+                "$manifestAssetPath artifact $key URL",
+            )
             specs += StaticAssetSpec(
                 key = key,
-                label = item.optString("label", key),
-                artifactKind = item.optString("artifact_kind", "visual-asset"),
+                label = NativeArtifactContract.trimmedText(item.optString("label", key), "Setup asset label"),
+                artifactKind = artifactKind,
                 assetPath = assetPath,
-                url = resolveArtifactUrl(url, authoredAssetPath),
-                bytes = item.getLong("bytes"),
-                sha256 = item.getString("sha256"),
+                url = resolvedUrl,
+                bytes = NativeArtifactContract.positiveSafeByteCount(item.opt("bytes"), "Setup asset bytes"),
+                sha256 = NativeArtifactContract.sha256(item.getString("sha256"), "Setup asset SHA-256"),
             )
         }
 
@@ -318,10 +359,18 @@ class StaticAssetManager(
             "assets/language-mascots",
         )
 
-        fun rootDir(context: Context): File = File(context.filesDir, ASSET_ROOT)
+        fun rootDir(context: Context): File = NativeArtifactContract.canonicalChild(
+            context.filesDir,
+            ASSET_ROOT,
+            "Setup asset storage root",
+        )
 
         fun localAssetFile(context: Context, assetPath: String): File =
-            File(rootDir(context), assetPath)
+            NativeArtifactContract.canonicalDescendant(
+                rootDir(context),
+                assetPath,
+                "Setup asset storage path",
+            )
 
         internal fun deleteRetiredMascotAssets(root: File): Boolean =
             RETIRED_MASCOT_ASSET_DIRECTORIES
@@ -336,6 +385,19 @@ class StaticAssetManager(
                 value.split('/').all { it.isNotEmpty() && it != "." && it != ".." }
 
         private fun markerFile(context: Context, spec: StaticAssetSpec): File =
-            File(rootDir(context), "${spec.assetPath}.sha256")
+            NativeArtifactContract.canonicalDescendant(
+                rootDir(context),
+                "${spec.assetPath}.sha256",
+                "Setup asset identity marker",
+            )
+
+        private fun identityMarker(spec: StaticAssetSpec): String =
+            NativeArtifactContract.artifactIdentityMarker(
+                spec.artifactKind,
+                spec.url,
+                spec.assetPath,
+                spec.bytes,
+                spec.sha256,
+            )
     }
 }

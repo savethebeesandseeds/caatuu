@@ -2530,6 +2530,17 @@ html[data-theme="dark"] .word-net-trail-head {
   font-size: 0.68rem;
 }
 
+.word-net-word-translation {
+  width: fit-content;
+  max-width: 244px;
+}
+
+@media (max-width: 560px) {
+  .word-net-word-translation {
+    max-width: 176px;
+  }
+}
+
 .word-net-word-heading {
   padding-left: 0;
   display: grid;
@@ -2539,6 +2550,10 @@ html[data-theme="dark"] .word-net-trail-head {
 
 .word-net-word-heading strong {
   grid-column: 2;
+  text-align: center;
+}
+
+.word-net-word-meaning {
   text-align: center;
 }
 
@@ -2667,6 +2682,10 @@ html[data-theme="dark"] .word-net-target-text-unit[data-tone="4"] .word-net-targ
 }
 
 @media (max-width: 380px) {
+  .word-net-word-translation {
+    max-width: 140px;
+  }
+
   .word-net-word-heading {
     grid-template-columns: 36px minmax(0, 1fr) 36px;
   }

@@ -503,12 +503,27 @@ function transformRuntime(input) {
 }
 
 function transformSharedWorkspace(input) {
-  return replacePattern(
+  let source = replacePattern(
     normalizeText(input),
     /^\s*repoLink\.href = `https:\/\/huggingface\.co\/\$\{model\.repoId\}`;\n/mu,
     "",
     "static model-source link"
   );
+  const replacements = [
+    ["`${targetLabel} → English Dictionary`", "`${targetLabel} → English Web Dictionary`"],
+    [
+      "`${targetLabel} words, English meanings, and inflected forms.`",
+      "`The curated ${targetLabel} learning words and their English meanings.`"
+    ],
+    [
+      "`Search the full ${targetLabel} to English dictionary`",
+      "`Search the curated ${targetLabel} to English web dictionary`"
+    ]
+  ];
+  for (const [before, after] of replacements) {
+    source = exactReplace(source, before, after, `static workspace ${before}`);
+  }
+  return source;
 }
 
 function transformSharedCourseServiceWorker(input) {
@@ -529,10 +544,17 @@ function transformLanguageIndex(input) {
   let source = normalizeText(input);
   const replacements = [
     ["<small>full dictionary</small>", "<small>static web dictionary</small>"],
-    ["<h2>Czech → English Dictionary</h2>", "<h2>Czech → English Web Dictionary</h2>"],
-    ["<p>Czech words, English meanings, and inflected forms.</p>", "<p>The curated Czech learning words and their English meanings.</p>"],
+    [
+      '<h2 id="dictionaryFullTitle">Target → English Dictionary</h2>',
+      '<h2 id="dictionaryFullTitle">Czech → English Web Dictionary</h2>'
+    ],
+    [
+      '<p id="dictionaryFullDescription">Target-language words, English meanings, and inflected forms.</p>',
+      '<p id="dictionaryFullDescription">The curated Czech learning words and their English meanings.</p>'
+    ],
     ['aria-label="Full dictionary controls"', 'aria-label="Web dictionary controls"'],
-    ['aria-label="Search the full Czech to English dictionary"', 'aria-label="Search the curated Czech to English web dictionary"'],
+    ['aria-label="Target language to English dictionary"', 'aria-label="Czech to English web dictionary"'],
+    ['aria-label="Search the full target-language to English dictionary"', 'aria-label="Search the curated Czech to English web dictionary"'],
     ["Results may include several meanings and example sentences.", "Results come from the 865-record curated learning dictionary, with a compact Standard-game form supplement."],
     [">Download full dictionary</button>", ">Static dictionary</button>"]
   ];
@@ -550,7 +572,6 @@ function transformDictionaryUi(input) {
     "dictionary UI must retain the shared runtime API"
   );
   const replacements = [
-    ["Search the full Czech to English dictionary", "Search the curated Czech to English web dictionary"],
     ["No full-dictionary match.", "No web-dictionary match."],
     ["Full-dictionary lookup is not available right now.", "Web-dictionary lookup is not available right now."],
     ["Full-dictionary search failed. Please try again.", "Web-dictionary search failed. Please try again."],
@@ -734,7 +755,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   const selected = (sourceManifest.artifacts || []).filter((artifact) =>
     ["visual-asset", "asset-keymap"].includes(artifact?.artifact_kind)
   );
-  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length, 646);
+  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length, 690);
   assert.equal(selected.filter((artifact) => artifact.artifact_kind === "asset-keymap").length, 3);
   const artifactKeys = selected.map((artifact) => String(artifact.key || ""));
   assert.ok(artifactKeys.every(Boolean), "Every published artifact must have a key");
@@ -751,7 +772,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   const publishedVisualPaths = new Set(selected
     .filter((artifact) => artifact.artifact_kind === "visual-asset")
     .map((artifact) => publicPathFromUrl(artifact.url, artifact.key)));
-  assert.equal(publishedVisualPaths.size, 646, "Published visual destinations must be unique");
+  assert.equal(publishedVisualPaths.size, 690, "Published visual destinations must be unique");
   return { launcherStaticDir, languageStaticDir, sourceManifest, selected, publishedVisualPaths };
 }
 
@@ -1257,10 +1278,10 @@ function assertNoServerOrModelBoundary(outputDir, files) {
 function assertSetupManifest(outputDir, manifest) {
   assert.equal(manifest.version, 1);
   assert.equal(manifest.cache_name, "caatuu-czech-setup-v1");
-  assert.equal(manifest.artifacts.length, 649);
+  assert.equal(manifest.artifacts.length, 693);
   const visual = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset");
   const keymaps = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "asset-keymap");
-  assert.equal(visual.length, 646);
+  assert.equal(visual.length, 690);
   assert.equal(keymaps.length, 3);
   assert.ok(visual.every((artifact) => artifact.browser_required === false && artifact.native_required === false));
   assert.ok(keymaps.every((artifact) => artifact.browser_required === true && artifact.native_required === false));
@@ -1316,7 +1337,7 @@ function assertBundleManifest(outputDir) {
   assert.equal(manifest.canonicalOrigin, "https://caatuu.waajacu.com");
   assert.deepEqual(manifest.entrypoints, ["/", "/cz/", "/cz/index.html"]);
   assert.equal(manifest.requiredSetupArtifacts, 3);
-  assert.equal(manifest.publishedVisualAssets, 646);
+  assert.equal(manifest.publishedVisualAssets, 690);
   const inventory = inventoryFor(outputDir);
   assert.deepEqual(manifest.files, inventory, "Static bundle inventory changed");
   assert.equal(manifest.payloadFileCount, inventory.length);

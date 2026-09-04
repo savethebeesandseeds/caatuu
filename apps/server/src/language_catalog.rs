@@ -12,8 +12,26 @@ pub(crate) const CANONICAL_BROWSER_APP_ENTRY_PATH: &str =
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum LanguageBackend {
     Static,
-    CzechDictionary,
+    DictionaryApiV1,
 }
+
+#[derive(Clone, Copy)]
+struct DictionaryBackendRegistration {
+    course_id: &'static str,
+    provider_id: &'static str,
+    backend: LanguageBackend,
+}
+
+// This registry binds a browser provider declaration to the server handler
+// that actually serves it. Add a new exact course/provider tuple only when a
+// matching server implementation exists; sharing a protocol name alone must
+// never mount another language's dictionary.
+const DICTIONARY_BACKEND_REGISTRY: &[DictionaryBackendRegistration] =
+    &[DictionaryBackendRegistration {
+        course_id: "cz",
+        provider_id: "czech-full-dictionary-v1",
+        backend: LanguageBackend::DictionaryApiV1,
+    }];
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct LanguageAppSpec {
@@ -72,16 +90,36 @@ struct BrowserPlatform {
     backend: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct CourseResource {
     kind: String,
     path: String,
     scope: String,
     state: String,
+    provider_id: Option<String>,
+    revision: Option<String>,
 }
 
 pub(crate) fn load_mounted_language_apps(workspace: &Path) -> Result<Vec<LanguageAppSpec>, String> {
-    let catalog_path = workspace.join("apps/languages/catalog.json");
+    let workspace_root = workspace.canonicalize().map_err(|error| {
+        format!(
+            "could not resolve workspace {}: {error}",
+            workspace.display()
+        )
+    })?;
+    let expected_catalog_path = workspace_root.join("apps/languages/catalog.json");
+    let catalog_path = expected_catalog_path.canonicalize().map_err(|error| {
+        format!(
+            "could not resolve language catalog {}: {error}",
+            expected_catalog_path.display()
+        )
+    })?;
+    if catalog_path != expected_catalog_path {
+        return Err(
+            "language catalog resolves outside its canonical workspace location".to_string(),
+        );
+    }
     let catalog: CourseCatalog = read_json(&catalog_path, "language catalog")?;
     if catalog.schema_version != 1 {
         return Err(format!(
@@ -113,12 +151,6 @@ pub(crate) fn load_mounted_language_apps(workspace: &Path) -> Result<Vec<Languag
         validate_route_prefix(reserved, "reserved route")?;
     }
 
-    let workspace_root = workspace.canonicalize().map_err(|error| {
-        format!(
-            "could not resolve workspace {}: {error}",
-            workspace.display()
-        )
-    })?;
     let mut route_prefixes = HashSet::new();
     let mut mounted = Vec::new();
 
@@ -153,18 +185,18 @@ pub(crate) fn load_mounted_language_apps(workspace: &Path) -> Result<Vec<Languag
                 manifest.id, entry.manifest, expected_manifest
             ));
         }
-        let course_root = workspace_root
+        let expected_course_root = workspace_root
             .join("apps/languages")
-            .join(&manifest.directory_name)
-            .canonicalize()
-            .map_err(|error| {
-                format!(
-                    "could not resolve course {} directory: {error}",
-                    manifest.id
-                )
-            })?;
-        if !course_root.starts_with(workspace_root.join("apps/languages"))
-            || manifest_path != course_root.join("course.json")
+            .join(&manifest.directory_name);
+        let course_root = expected_course_root.canonicalize().map_err(|error| {
+            format!(
+                "could not resolve course {} directory: {error}",
+                manifest.id
+            )
+        })?;
+        if course_root != expected_course_root
+            || !course_root.starts_with(workspace_root.join("apps/languages"))
+            || manifest_path != expected_course_root.join("course.json")
         {
             return Err(format!(
                 "course {} manifest is outside its declaring course directory",
@@ -236,9 +268,35 @@ pub(crate) fn load_mounted_language_apps(workspace: &Path) -> Result<Vec<Languag
                 manifest.id
             ));
         }
+        if app_entry != workspace_root.join(CANONICAL_BROWSER_APP_ENTRY_PATH) {
+            return Err(format!(
+                "course {} appEntry resolves outside its canonical shared application path",
+                manifest.id
+            ));
+        }
+        let dictionary_provider = manifest.resources.get("dictionaryProvider");
+        if manifest.platforms.browser.backend == "dictionary-api-v1" {
+            let provider = required_present_resource(&manifest, "dictionaryProvider", "file")?;
+            validate_dictionary_provider_declaration(&manifest, provider)?;
+            let provider_path = resolve_present_path(
+                &workspace_root,
+                &provider.path,
+                "course dictionaryProvider",
+                ExpectedKind::File,
+            )?;
+            if provider_path != workspace_root.join(&provider.path)
+                || !provider_path.starts_with(&static_dir)
+            {
+                return Err(format!(
+                    "course {} dictionaryProvider resolves outside its canonical course static path",
+                    manifest.id
+                ));
+            }
+        }
         let backend = parse_backend(
             &manifest.platforms.browser.backend,
             manifest.capabilities.dictionary,
+            dictionary_provider,
             &manifest.id,
         )?;
         mounted.push(LanguageAppSpec {
@@ -283,18 +341,47 @@ fn required_present_resource<'a>(
 fn parse_backend(
     value: &str,
     dictionary_enabled: bool,
+    dictionary_provider: Option<&CourseResource>,
     course_id: &str,
 ) -> Result<LanguageBackend, String> {
     match value {
-        "static" => Ok(LanguageBackend::Static),
-        "czech-dictionary" if dictionary_enabled => Ok(LanguageBackend::CzechDictionary),
-        "czech-dictionary" => Err(format!(
-            "course {course_id} selects czech-dictionary but disables dictionary capability"
+        "static" if dictionary_enabled => Err(format!(
+            "course {course_id} enables dictionary capability but selects the static backend"
         )),
+        "static" if dictionary_provider.is_some() => Err(format!(
+            "course {course_id} selects the static backend but declares a dictionaryProvider resource"
+        )),
+        "static" => Ok(LanguageBackend::Static),
+        "dictionary-api-v1" if !dictionary_enabled => Err(format!(
+            "course {course_id} selects dictionary-api-v1 but disables dictionary capability"
+        )),
+        "dictionary-api-v1" => {
+            let provider_id = dictionary_provider
+                .and_then(|provider| provider.provider_id.as_deref())
+                .ok_or_else(|| {
+                    format!(
+                        "course {course_id} selects dictionary-api-v1 without a dictionary provider ID"
+                    )
+                })?;
+            registered_dictionary_backend(course_id, provider_id).ok_or_else(|| {
+                format!(
+                    "course {course_id} selects dictionary-api-v1 with unsupported provider {provider_id:?}"
+                )
+            })
+        }
         other => Err(format!(
             "course {course_id} selects unsupported browser backend {other:?}"
         )),
     }
+}
+
+fn registered_dictionary_backend(course_id: &str, provider_id: &str) -> Option<LanguageBackend> {
+    DICTIONARY_BACKEND_REGISTRY
+        .iter()
+        .find(|registration| {
+            registration.course_id == course_id && registration.provider_id == provider_id
+        })
+        .map(|registration| registration.backend)
 }
 
 fn validate_course_id(value: &str, label: &str) -> Result<(), String> {
@@ -340,6 +427,41 @@ fn validate_course_resource_declarations(
         return Err(format!(
             "course {} appEntry must be the shared canonical path {:?}",
             manifest.id, CANONICAL_BROWSER_APP_ENTRY_PATH
+        ));
+    }
+    Ok(())
+}
+
+fn validate_dictionary_provider_declaration(
+    manifest: &CourseManifest,
+    provider: &CourseResource,
+) -> Result<(), String> {
+    let expected_prefix = format!("apps/languages/{}/static/source/", manifest.directory_name);
+    if provider.kind != "file"
+        || provider.state != "present"
+        || provider.scope != "course"
+        || !provider.path.starts_with(&expected_prefix)
+        || !provider.path.ends_with(".js")
+        || provider
+            .path
+            .split('/')
+            .any(|segment| segment.is_empty() || segment == "." || segment == "..")
+    {
+        return Err(format!(
+            "course {} dictionaryProvider must be a present course-scoped JavaScript file beneath {:?}",
+            manifest.id, expected_prefix
+        ));
+    }
+    if provider.revision.as_deref().map_or(true, str::is_empty) {
+        return Err(format!(
+            "course {} dictionaryProvider requires a cache revision",
+            manifest.id
+        ));
+    }
+    if provider.provider_id.as_deref().map_or(true, str::is_empty) {
+        return Err(format!(
+            "course {} dictionaryProvider requires a provider ID",
+            manifest.id
         ));
     }
     Ok(())
@@ -486,6 +608,20 @@ mod tests {
             path: path.to_string(),
             scope: scope.to_string(),
             state: "present".to_string(),
+            provider_id: None,
+            revision: None,
+        }
+    }
+
+    fn fixture_dictionary_provider(provider_id: Option<&str>) -> CourseResource {
+        CourseResource {
+            kind: "file".to_string(),
+            path: "apps/languages/czech/static/source/features/dictionary/dictionary-full.js"
+                .to_string(),
+            scope: "course".to_string(),
+            state: "present".to_string(),
+            provider_id: provider_id.map(str::to_string),
+            revision: Some("provider-1".to_string()),
         }
     }
 
@@ -535,15 +671,63 @@ mod tests {
     #[test]
     fn backend_capability_contract_is_explicit() {
         assert_eq!(
-            parse_backend("static", false, "fixture").unwrap(),
+            parse_backend("static", false, None, "fixture").unwrap(),
             LanguageBackend::Static
         );
+        let czech_provider = fixture_dictionary_provider(Some("czech-full-dictionary-v1"));
         assert_eq!(
-            parse_backend("czech-dictionary", true, "fixture").unwrap(),
-            LanguageBackend::CzechDictionary
+            parse_backend("dictionary-api-v1", true, Some(&czech_provider), "cz").unwrap(),
+            LanguageBackend::DictionaryApiV1
         );
-        assert!(parse_backend("czech-dictionary", false, "fixture").is_err());
-        assert!(parse_backend("inferred", true, "fixture").is_err());
+        assert!(parse_backend("dictionary-api-v1", false, None, "fixture").is_err());
+        assert!(parse_backend("dictionary-api-v1", true, None, "fixture").is_err());
+        assert!(
+            parse_backend("dictionary-api-v1", true, Some(&czech_provider), "fixture").is_err()
+        );
+        let other_provider = fixture_dictionary_provider(Some("other-provider-v1"));
+        assert!(parse_backend("dictionary-api-v1", true, Some(&other_provider), "cz").is_err());
+        assert!(parse_backend("static", false, Some(&czech_provider), "fixture").is_err());
+        assert!(parse_backend("static", true, Some(&czech_provider), "fixture").is_err());
+        assert!(parse_backend("inferred", true, None, "fixture").is_err());
+    }
+
+    #[test]
+    fn dictionary_backend_requires_an_exact_present_course_provider_declaration() {
+        let manifest = fixture_manifest();
+        let valid = CourseResource {
+            kind: "file".to_string(),
+            path: "apps/languages/mandarin-simplified/static/source/dictionary/provider.js"
+                .to_string(),
+            scope: "course".to_string(),
+            state: "present".to_string(),
+            provider_id: Some("fixture-provider-v1".to_string()),
+            revision: Some("provider-1".to_string()),
+        };
+        validate_dictionary_provider_declaration(&manifest, &valid).unwrap();
+
+        let mut invalid = Vec::new();
+        let mut planned = valid.clone();
+        planned.state = "planned".to_string();
+        invalid.push(planned);
+        let mut directory = valid.clone();
+        directory.kind = "directory".to_string();
+        invalid.push(directory);
+        let mut shared = valid.clone();
+        shared.scope = "shared".to_string();
+        invalid.push(shared);
+        let mut crossing = valid.clone();
+        crossing.path = "apps/languages/czech/static/source/provider.js".to_string();
+        invalid.push(crossing);
+        let mut missing_revision = valid.clone();
+        missing_revision.revision = None;
+        invalid.push(missing_revision);
+        let mut missing_id = valid;
+        missing_id.provider_id = None;
+        invalid.push(missing_id);
+
+        for provider in invalid {
+            assert!(validate_dictionary_provider_declaration(&manifest, &provider).is_err());
+        }
     }
 
     #[test]

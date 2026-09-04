@@ -56,7 +56,6 @@ export function semanticIndexArtifactPaths(config, modelId) {
   const safeModelId = requireMatch(modelId, "modelId", ARTIFACT_ID_PATTERN);
   const repositoryModelRoot = posixJoin(config.storage.repositoryRoot, safeModelId);
   const routeModelRoot = posixJoin(config.storage.routeRoot, safeModelId);
-  const manifestModelRoot = posixJoin(config.storage.manifestUrlRoot, safeModelId);
   return deepFreeze({
     repository: {
       catalog: posixJoin(config.storage.repositoryRoot, "models.json"),
@@ -72,7 +71,7 @@ export function semanticIndexArtifactPaths(config, modelId) {
     },
     manifest: {
       catalog: posixJoin(config.storage.manifestUrlRoot, "models.json"),
-      database: posixJoin(manifestModelRoot, config.storage.databaseFile),
+      database: posixJoin(safeModelId, config.storage.databaseFile),
     },
   });
 }

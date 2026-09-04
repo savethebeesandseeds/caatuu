@@ -6,6 +6,8 @@ import vm from "node:vm";
 const repoRoot = new URL("../../../../", import.meta.url);
 const staticRoot = new URL("apps/languages/czech/static/", repoRoot);
 const appEntry = new URL("apps/language-runtime/static/app/index.html", repoRoot);
+const sharedGameRoot = new URL("apps/language-runtime/static/games/", repoRoot);
+const sharedGameSourceRoot = new URL("apps/language-runtime/static/source/games/", repoRoot);
 const removedFiles = [
   new URL("apps/curriculum/", repoRoot),
   new URL("curriculum/", staticRoot),
@@ -22,8 +24,8 @@ const retiredRootDataPaths = [
 const [profileSource, indexHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest] = await Promise.all([
   readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
   readFile(appEntry, "utf8"),
-  readFile(new URL("conjugation-comet.html", staticRoot), "utf8"),
-  readFile(new URL("source/games/conjugation-comet/conjugation-comet.js", staticRoot), "utf8"),
+  readFile(new URL("conjugation-comet.html", sharedGameRoot), "utf8"),
+  readFile(new URL("conjugation-comet/conjugation-comet-host.mjs", sharedGameSourceRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
@@ -61,7 +63,11 @@ test("curated game JSON is the learner-facing content boundary", () => {
   assert.equal(verbs.language, "cs");
   assert.ok(Array.isArray(verbs.verbs) && verbs.verbs.length >= 4);
   assert.equal(typeof wordManifest.corpusVersion, "string");
-  assert.match(cometSource, /const VERBS_URL = "data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4"/);
+  assert.equal(
+    course.gameContent["conjugation-comet"].conjugationCometCatalog,
+    "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
+  );
+  assert.match(cometSource, /fetchDeclaredCourseGameJson/u);
   assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4/);
   assert.match(serviceWorker, /\.\/data\/games\/word-world\/manifest\.json/);
   assert.doesNotMatch(serviceWorker, /data\/curriculum|curriculum-service/);

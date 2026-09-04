@@ -44,7 +44,8 @@
     "agreement-aurora"
   ],
   "upcomingGames": [
-    "memory-moon"
+    "memory-moon",
+    "sound-quasar"
   ],
   "launcher": {
     "flagClass": "flag-icon"
@@ -61,9 +62,9 @@
     "campaign": "index.html",
     "verbNebula": "index.html",
     "wordWorld": "index.html?game=word-net",
-    "conjugationComet": "conjugation-comet.html",
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
     "caseCosmos": "case-cosmos.html",
-    "agreementAurora": "agreement-aurora.html",
+    "agreementAurora": "/language-runtime/static/games/agreement-aurora.html",
     "settings": "index.html"
   },
   "storage": {
@@ -87,7 +88,9 @@
   "publication": {
     "contract": "legacy-active-v1",
     "concepts": null,
-    "realizations": null
+    "realizations": null,
+    "learnerBaseRealizations": null,
+    "runtimeProjection": null
   },
   "capabilities": {
     "llm": true,
@@ -228,8 +231,9 @@
   "platforms": {
     "browser": {
       "enabled": true,
+      "pagesEnabled": true,
       "entryPath": "/cz/index.html",
-      "backend": "czech-dictionary"
+      "backend": "dictionary-api-v1"
     },
     "android": {
       "enabled": true,
@@ -304,6 +308,64 @@
       "scope": "course",
       "state": "present"
     },
+    "dictionaryProvider": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/source/features/dictionary/dictionary-full.js",
+      "scope": "course",
+      "state": "present",
+      "providerId": "czech-full-dictionary-v1",
+      "gapReporting": {
+        "dictionaryKey": "kaikki-cs-en-2026-07-09",
+        "dictionaryDirection": "cs-en"
+      },
+      "revision": "full-dictionary-7"
+    },
+    "dictionaryReferenceDocument": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/dictionaries/reference.html",
+      "scope": "course",
+      "state": "present"
+    },
+    "dictionaryCoreEntries": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "dictionaryScriptLines": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/language/scripts.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "courseRuntime": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/source/shared/runtime.js",
+      "scope": "course",
+      "state": "present",
+      "revision": "runtime-41"
+    },
+    "semanticLearningProvider": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/source/shared/semantic-learning.js",
+      "scope": "course",
+      "state": "present",
+      "revision": "semantic-learning-7"
+    },
+    "setupProgressProvider": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/source/features/setup/setup-progress.js",
+      "scope": "course",
+      "state": "present",
+      "revision": "setup-progress-1"
+    },
+    "setupProvider": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/source/features/setup/setup.js",
+      "scope": "course",
+      "state": "present",
+      "revision": "setup-39"
+    },
     "modelCatalog": {
       "kind": "file",
       "path": "apps/languages/czech/static/data/models/models.json",
@@ -321,6 +383,27 @@
       "path": "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
       "scope": "course",
       "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/conjugation-comet/verbs.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-verbs-4"
+    },
+    "caseCosmosCatalog": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/case-cosmos/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "case-cosmos-data-5"
+    },
+    "agreementAuroraCatalog": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/agreement-aurora/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "agreement-aurora-data-3"
     },
     "androidAssetCatalog": {
       "kind": "file",

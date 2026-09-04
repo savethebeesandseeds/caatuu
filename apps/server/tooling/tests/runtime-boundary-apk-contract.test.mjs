@@ -2,11 +2,49 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  androidCourseBundleCoverage,
+  browserSetupCourseCoverage,
   productApkCanonicalEntryMatches,
   productApkAuditPlan,
   unzip,
   unzipBuffer
 } from "../audit-runtime-boundary.mjs";
+
+test("runtime audits retain a synthetic third course in browser and Android catalog order", () => {
+  const catalogCourses = [
+    { course: { id: "cz", status: "active", platforms: { browser: { enabled: true } } } },
+    { course: { id: "zh", status: "development", platforms: { browser: { enabled: true } } } },
+    { course: { id: "es", status: "development", platforms: { browser: { enabled: true } } } },
+    { course: { id: "retired", status: "retired", platforms: { browser: { enabled: false } } } },
+  ];
+  const browserCourses = [
+    { id: "cz", status: "active" },
+    { id: "zh", status: "development" },
+    { id: "es", status: "development" },
+  ];
+  const browserCoverage = browserSetupCourseCoverage(browserCourses, catalogCourses);
+  assert.equal(browserCoverage.matches, true);
+  assert.deepEqual(browserCoverage.expected, browserCourses);
+  assert.equal(browserSetupCourseCoverage(browserCourses.slice(0, 2), catalogCourses).matches, false);
+  assert.equal(browserSetupCourseCoverage([...browserCourses].reverse(), catalogCourses).matches, false);
+  assert.equal(browserSetupCourseCoverage(
+    browserCourses.map((course) => course.id === "es" ? { ...course, status: "active" } : course),
+    catalogCourses,
+  ).matches, false);
+  assert.equal(browserSetupCourseCoverage(null, null).matches, false);
+
+  const publicationPlan = {
+    defaultCourseId: "cz",
+    courses: [{ id: "cz" }, { id: "zh" }, { id: "es" }],
+  };
+  const packagedBundle = structuredClone(publicationPlan);
+  const androidCoverage = androidCourseBundleCoverage(packagedBundle, publicationPlan);
+  assert.equal(androidCoverage.matches, true);
+  assert.deepEqual(androidCoverage.expected.courseIds, ["cz", "zh", "es"]);
+  assert.equal(androidCourseBundleCoverage({ ...packagedBundle, courses: packagedBundle.courses.slice(0, 2) }, publicationPlan).matches, false);
+  assert.equal(androidCourseBundleCoverage({ ...packagedBundle, defaultCourseId: "zh" }, publicationPlan).matches, false);
+  assert.equal(androidCourseBundleCoverage(null, null).matches, false);
+});
 
 test("the runtime audit plans the bundled product APK from every course", () => {
   const plan = productApkAuditPlan({

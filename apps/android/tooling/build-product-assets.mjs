@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   copyFileSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
   realpathSync,
@@ -18,11 +19,26 @@ import {
   extractLearnerContent,
   inspectLearnerFields
 } from "../../../tools/czech-ml/scripts/learner-content-safety-lib.mjs";
+import {
+  assertAndroidDictionaryLanguageContract,
+  createAndroidCourseBundlePlan,
+  createAndroidCoursePublicationPlan,
+} from "./android-course-bundle-plan.mjs";
+import {
+  assertCompatibleSharedStorage,
+  assertCanonicalPositiveBytes,
+  dictionaryStorageRecord,
+  embeddingStorageRecord,
+  assertEmbeddingArtifactContract,
+  assertHttpsUrl,
+  setupStorageRecord,
+} from "./android-artifact-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
 export const DEFAULT_COURSE_MANIFEST_PATH = "apps/languages/czech/course.json";
 export const DEFAULT_COURSE_BUNDLE_PATH = "apps/android/course-bundle.json";
+export const DEFAULT_LANGUAGE_CATALOG_PATH = "apps/languages/catalog.json";
 export const CANONICAL_APP_ENTRY_PATH = "apps/language-runtime/static/app/index.html";
 export const SHARED_APP_ASSET_CATALOG_PATH = "apps/language-runtime/app-assets.json";
 export const EMBEDDING_RUNTIME_CATALOG_PATH = "apps/language-runtime/embedding-runtimes.json";
@@ -36,18 +52,46 @@ function isInside(root, candidate) {
     && !isAbsolute(relativePath);
 }
 
-function confinedWorkspacePath(workspaceRoot, value, label, { allowAbsolute = false } = {}) {
+function samePhysicalPath(left, right) {
+  const normalizedLeft = resolve(left);
+  const normalizedRight = resolve(right);
+  return process.platform === "win32"
+    ? normalizedLeft.toLocaleLowerCase("en-US") === normalizedRight.toLocaleLowerCase("en-US")
+    : normalizedLeft === normalizedRight;
+}
+
+export function exactWorkspaceSource(
+  workspaceRoot,
+  value,
+  label,
+  { allowAbsolute = false, kind = null } = {},
+) {
   assert.equal(typeof value, "string", `${label} must be a string path`);
-  assert.ok(value.trim(), `${label} must not be empty`);
+  assert.ok(value && value === value.trim(), `${label} must be a nonblank trimmed path`);
   if (!allowAbsolute) assert.ok(!isAbsolute(value), `${label} must be repository-relative`);
-  const candidate = resolve(workspaceRoot, value);
-  assert.ok(isInside(workspaceRoot, candidate), `${label} must stay inside the workspace`);
-  if (existsSync(candidate)) {
-    const realWorkspace = realpathSync(workspaceRoot);
-    const realCandidate = realpathSync(candidate);
-    assert.ok(isInside(realWorkspace, realCandidate), `${label} must not escape the workspace through a link`);
+  const realWorkspace = realpathSync(resolve(workspaceRoot));
+  const candidate = resolve(realWorkspace, value);
+  assert.ok(isInside(realWorkspace, candidate), `${label} must stay inside the workspace`);
+  assert.ok(existsSync(candidate), `${label} is missing: ${candidate}`);
+  const leafStats = lstatSync(candidate);
+  assert.ok(!leafStats.isSymbolicLink(), `${label} must not be a symbolic-link alias: ${candidate}`);
+  const realCandidate = realpathSync(candidate);
+  assert.ok(isInside(realWorkspace, realCandidate), `${label} must not escape the workspace through a link`);
+  assert.ok(
+    samePhysicalPath(realCandidate, candidate),
+    `${label} must resolve to its exact declared physical source: ${candidate}`,
+  );
+  if (kind) {
+    assert.ok(
+      kind === "file" ? leafStats.isFile() : leafStats.isDirectory(),
+      `${label} must be a ${kind}: ${candidate}`,
+    );
   }
   return candidate;
+}
+
+function confinedWorkspacePath(workspaceRoot, value, label, options = {}) {
+  return exactWorkspaceSource(workspaceRoot, value, label, options);
 }
 
 function requireObject(value, label) {
@@ -81,7 +125,12 @@ function resourcePath(course, name, workspaceRoot) {
   assert.ok(["file", "directory"].includes(resource.kind), `course resource ${name} has an unsupported kind`);
   return {
     resource,
-    path: confinedWorkspacePath(workspaceRoot, resource.path, `course resource ${name}`),
+    path: confinedWorkspacePath(
+      workspaceRoot,
+      resource.path,
+      `course resource ${name}`,
+      { kind: resource.kind },
+    ),
   };
 }
 
@@ -271,7 +320,7 @@ export function loadAndroidCourseConfiguration({
     resolvedWorkspace,
     courseManifestPath,
     "course manifest",
-    { allowAbsolute: true },
+    { allowAbsolute: true, kind: "file" },
   );
   const course = readJson(resolvedManifest, "course manifest");
   assert.equal(course.schemaVersion, 1, "course manifest must use schemaVersion 1");
@@ -282,7 +331,6 @@ export function loadAndroidCourseConfiguration({
     String(course.entryPath || "").startsWith(`${course.routePrefix}/`),
     "course entryPath must be inside routePrefix",
   );
-  assert.equal(course.sourceLanguage?.id, "en", "Android semantic mediation currently requires English as the source language");
   assert.equal(course.platforms?.android?.enabled, true, `course ${course.id} is not enabled for Android`);
 
   const staticRoot = resourcePath(course, "staticRoot", resolvedWorkspace);
@@ -310,6 +358,7 @@ export function loadAndroidCourseConfiguration({
     resolvedWorkspace,
     SHARED_APP_ASSET_CATALOG_PATH,
     "shared app asset catalog",
+    { kind: "file" },
   );
   const appAssetCatalog = readJson(appAssetCatalogPath, "shared app asset catalog");
   assert.deepEqual(
@@ -332,7 +381,12 @@ export function loadAndroidCourseConfiguration({
     assert.notEqual(output, "index.html", "shared app assets must not replace the canonical root entry");
     assert.notEqual(output, "caatuu-profile.json", "shared app assets must not replace the product profile");
     assert.doesNotMatch(sourcePath, /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i, `Shared app asset is not packageable: ${sourcePath}`);
-    const source = confinedWorkspacePath(resolvedWorkspace, sourcePath, `shared app asset ${index} source`);
+    const source = confinedWorkspacePath(
+      resolvedWorkspace,
+      sourcePath,
+      `shared app asset ${index} source`,
+      { kind: "file" },
+    );
     assert.ok(statSync(source).isFile(), `Shared app asset source is not a file: ${source}`);
     return Object.freeze({ source, sourcePath, output });
   }));
@@ -362,12 +416,22 @@ export function loadAndroidCourseConfiguration({
     .map((value, index) => normalizedCatalogPath(value, `Android shared runtime file ${index}`));
   assert.equal(new Set(languageFiles).size, languageFiles.length, "Android asset catalog files must be unique");
   assert.equal(new Set(launcherIconFiles).size, launcherIconFiles.length, "Android launcher icon files must be unique");
+  const languageFileSources = Object.freeze(Object.fromEntries(languageFiles.map((path) => [
+    path,
+    confinedWorkspacePath(
+      resolvedWorkspace,
+      join(staticRoot.path, path),
+      `Course ${course.id} Android asset file ${path}`,
+      { allowAbsolute: true, kind: "file" },
+    ),
+  ])));
   const declaredSharedRuntimeAssets = declaredSharedRuntimeFiles.map((path) => {
     assert.doesNotMatch(path, /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i, `Shared runtime file is not packageable: ${path}`);
     const source = confinedWorkspacePath(
       resolvedWorkspace,
       `apps/language-runtime/${path}`,
       `shared language runtime file ${path}`,
+      { kind: "file" },
     );
     assert.ok(statSync(source).isFile(), `Shared language runtime entry is not a file: ${source}`);
     return Object.freeze({ source, sourcePath: `apps/language-runtime/${path}`, output: `language-runtime/${path}` });
@@ -395,9 +459,16 @@ export function loadAndroidCourseConfiguration({
     assetCatalog,
     resourceAssetPath,
   });
+  const dictionaryProvider = nativeProviders.providers.dictionary;
+  if (dictionaryProvider) {
+    assertAndroidDictionaryLanguageContract(
+      readJson(join(staticRoot.path, dictionaryProvider.catalogAsset), "Android dictionary catalog"),
+      course,
+      `Course ${course.id} Android dictionary catalog`,
+    );
+  }
   const embeddingProvider = nativeProviders.providers.embeddings;
   if (embeddingProvider?.implementation === "webview-english-minilm-v1") {
-    assert.equal(course.sourceLanguage?.id, "en", "WebView MiniLM requires English source-language mediation");
     assertWebViewEmbeddingCatalog(
       readJson(join(staticRoot.path, embeddingProvider.catalogAsset), "WebView embedding catalog"),
       course,
@@ -420,6 +491,7 @@ export function loadAndroidCourseConfiguration({
       resolvedWorkspace,
       `apps/launcher/static/${asset.source}`,
       `shared launcher asset ${asset.output}`,
+      { kind: "file" },
     );
     assert.equal(appAsset.source, expectedSource, `Launcher output ${asset.output} conflicts with the shared app catalog`);
     return false;
@@ -457,6 +529,7 @@ export function loadAndroidCourseConfiguration({
     androidAssetCatalogPath: assetCatalogResource.path,
     assetCatalog,
     languageFiles: Object.freeze(languageFiles),
+    languageFileSources,
     launcherIconFiles: Object.freeze(launcherIconFiles),
     launcherFiles,
     sharedRuntimeFiles: Object.freeze(declaredSharedRuntimeFiles),
@@ -549,6 +622,7 @@ function loadEmbeddingRuntimeAssets(
     workspaceRoot,
     EMBEDDING_RUNTIME_CATALOG_PATH,
     "embedding runtime catalog",
+    { kind: "file" },
   );
   const catalog = readJson(catalogPath, "embedding runtime catalog");
   assert.equal(catalog.schemaVersion, 1, "embedding runtime catalog must use schemaVersion 1");
@@ -584,6 +658,7 @@ function loadEmbeddingRuntimeAssets(
         workspaceRoot,
         `apps/language-runtime/${artifactPath}`,
         `embedding runtime artifact ${artifactPath}`,
+        { kind: "file" },
       );
       verifyEmbeddingRuntimeArtifactSource({
         source,
@@ -625,7 +700,7 @@ function bundleCourseLanguageFiles(configuration, embeddingRuntime) {
     }
     const sharedAsset = sharedTransformersByCoursePath.get(path);
     assert.ok(sharedAsset, `Course ${configuration.course.id} duplicates an unlisted shared Transformers.js artifact: ${path}`);
-    const courseSource = join(configuration.languageStaticDir, path);
+    const courseSource = configuration.languageFileSources[path];
     assert.equal(
       statSync(courseSource).size,
       statSync(sharedAsset.source).size,
@@ -640,11 +715,16 @@ function bundleCourseLanguageFiles(configuration, embeddingRuntime) {
   return Object.freeze(files);
 }
 
-function sharedAssetUnion(configurations, launcherStaticDir) {
+function sharedAssetUnion(configurations, launcherStaticDir, workspaceRoot) {
   const byOutput = new Map();
   const add = ({ source, output }, label) => {
     const normalizedOutput = normalizedCatalogPath(output, `${label} output`);
-    const resolvedSource = realpathSync(resolve(source));
+    const resolvedSource = confinedWorkspacePath(
+      workspaceRoot,
+      resolve(source),
+      `${label} ${normalizedOutput}`,
+      { allowAbsolute: true, kind: "file" },
+    );
     const existing = byOutput.get(normalizedOutput);
     if (existing) {
       assert.equal(existing.source, resolvedSource, `${label} conflicts at ${normalizedOutput}`);
@@ -662,18 +742,92 @@ function sharedAssetUnion(configurations, launcherStaticDir) {
   return Object.freeze([...byOutput.values()].sort((left, right) => left.output.localeCompare(right.output)));
 }
 
-export function loadAndroidCourseBundleConfiguration({
+function providerManifestAsset(catalogAsset, reference) {
+  const catalogDirectory = catalogAsset.includes("/")
+    ? catalogAsset.slice(0, catalogAsset.lastIndexOf("/"))
+    : "";
+  return normalizedCatalogPath(
+    catalogDirectory && !reference.startsWith(`${catalogDirectory}/`)
+      ? `${catalogDirectory}/${reference}`
+      : reference,
+    "Android provider manifest reference",
+  );
+}
+
+export function androidBundleStorageRecords(configurations, embeddingRuntime = null) {
+  assert.ok(Array.isArray(configurations), "Android course configurations must be an array");
+  return configurations.flatMap((configuration) => {
+    const { course } = configuration;
+    const records = [];
+    const dictionaryProvider = configuration.nativeProviders.providers.dictionary;
+    if (dictionaryProvider) {
+      const label = `Course ${course.id} Android dictionary catalog`;
+      const catalog = readJson(configuration.languageFileSources[dictionaryProvider.catalogAsset], label);
+      assertAndroidDictionaryLanguageContract(catalog, course, label);
+      for (const [index, active] of catalog.dictionaries.filter((entry) => entry?.status === "active").entries()) {
+        records.push(dictionaryStorageRecord(active, course, course.id, `${label} active dictionary ${index}`));
+      }
+    }
+
+    const embeddingProvider = configuration.nativeProviders.providers.embeddings;
+    if (embeddingProvider?.implementation === "vector-database-catalog-v1") {
+      const catalogLabel = `Course ${course.id} Android embedding catalog`;
+      const catalog = readJson(configuration.languageFileSources[embeddingProvider.catalogAsset], catalogLabel);
+      assertHttpsUrl(catalog.base_url, `${catalogLabel} base_url`);
+      assert.ok(Array.isArray(catalog.models), `${catalogLabel} must list models`);
+      for (const [index, active] of catalog.models.filter((entry) => entry?.status === "active").entries()) {
+        const manifestAsset = providerManifestAsset(embeddingProvider.catalogAsset, active.manifest_file);
+        const manifest = readJson(
+          configuration.languageFileSources[manifestAsset],
+          `${catalogLabel} active model ${index} manifest`,
+        );
+        records.push(embeddingStorageRecord(
+          active,
+          manifest,
+          catalog.base_url,
+          course.id,
+          `${catalogLabel} active model ${index}`,
+        ));
+      }
+    }
+
+    const setupSource = configuration.languageFileSources["setup-assets.json"];
+    assert.ok(setupSource, `Course ${course.id} Android assets must include setup-assets.json`);
+    const transform = courseAssetTransform(configuration, "setup-assets.json", embeddingRuntime);
+    const setup = requireObject(
+      JSON.parse(transform ? transform(readSourceText(setupSource)) : readSourceText(setupSource)),
+      `Course ${course.id} Android setup catalog`,
+    );
+    assert.ok(Array.isArray(setup.artifacts), `Course ${course.id} Android setup catalog must list artifacts`);
+    for (const [index, artifact] of setup.artifacts.entries()) {
+      if (artifact?.native_required !== true) continue;
+      records.push(setupStorageRecord(
+        artifact,
+        course.id,
+        `Course ${course.id} Android setup artifact ${index}`,
+      ));
+    }
+    return records;
+  });
+}
+
+export function assertAndroidBundleSharedStorage(configurations, embeddingRuntime = null) {
+  const records = androidBundleStorageRecords(configurations, embeddingRuntime);
+  assertCompatibleSharedStorage(records);
+  return records;
+}
+
+export function loadAndroidCourseBundleCatalogPlan({
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
-  launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
-  allowMissingSetupDeliveredRuntimeFiles = false,
+  languageCatalogPath = DEFAULT_LANGUAGE_CATALOG_PATH,
 } = {}) {
   const resolvedWorkspace = realpathSync(resolve(workspaceRoot));
   const resolvedBundlePath = confinedWorkspacePath(
     resolvedWorkspace,
     courseBundlePath,
     "Android course bundle",
-    { allowAbsolute: true },
+    { allowAbsolute: true, kind: "file" },
   );
   const declaration = readJson(resolvedBundlePath, "Android course bundle");
   exactObjectKeys(
@@ -684,13 +838,76 @@ export function loadAndroidCourseBundleConfiguration({
   assert.equal(declaration.schemaVersion, 1, "Android course bundle must use schemaVersion 1");
   assert.match(String(declaration.defaultCourseId || ""), /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Android default course id is invalid");
   assert.ok(Array.isArray(declaration.courses) && declaration.courses.length > 0, "Android course bundle must list courses");
-  const configurations = declaration.courses.map((entry, index) => {
-    exactObjectKeys(entry, ["manifest"], `Android course bundle course ${index}`);
-    return loadAndroidCourseConfiguration({
-      workspaceRoot: resolvedWorkspace,
-      courseManifestPath: entry.manifest,
+  const resolvedLanguageCatalogPath = confinedWorkspacePath(
+    resolvedWorkspace,
+    languageCatalogPath,
+    "language catalog",
+    { allowAbsolute: true, kind: "file" },
+  );
+  const languageCatalog = readJson(resolvedLanguageCatalogPath, "language catalog");
+  assert.ok(Array.isArray(languageCatalog.courses), "language catalog must list courses");
+  const catalogCourses = languageCatalog.courses.map((entry, index) => {
+    const catalogEntry = requireObject(entry, `language catalog course ${index}`);
+    const manifestPath = normalizedCatalogPath(catalogEntry.manifest, `language catalog course ${index} manifest`);
+    const manifestAbsolutePath = confinedWorkspacePath(
+      resolvedWorkspace,
+      manifestPath,
+      `language catalog course ${index} manifest`,
+      { kind: "file" },
+    );
+    return Object.freeze({
+      id: catalogEntry.id,
+      manifestPath,
+      course: readJson(manifestAbsolutePath, `language catalog course ${catalogEntry.id || index} manifest`),
     });
   });
+  const plan = createAndroidCourseBundlePlan({
+    catalog: languageCatalog,
+    courses: catalogCourses,
+    bundleDeclaration: declaration,
+  });
+  const configurations = Object.freeze(plan.courses.map(({ manifestPath }) =>
+    loadAndroidCourseConfiguration({
+      workspaceRoot: resolvedWorkspace,
+      courseManifestPath: manifestPath,
+    })
+  ));
+  const publicationPlan = createAndroidCoursePublicationPlan(
+    {
+      catalog: languageCatalog,
+      courses: catalogCourses,
+      bundleDeclaration: declaration,
+    },
+    configurations.map(courseBundleRecord),
+  );
+  return Object.freeze({
+    workspaceRoot: resolvedWorkspace,
+    courseBundlePath: resolvedBundlePath,
+    languageCatalogPath: resolvedLanguageCatalogPath,
+    declaration,
+    languageCatalog,
+    plan,
+    publicationPlan,
+    configurations,
+  });
+}
+
+export function loadAndroidCourseBundleConfiguration({
+  workspaceRoot = defaultWorkspaceRoot,
+  courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  languageCatalogPath = DEFAULT_LANGUAGE_CATALOG_PATH,
+  launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
+  allowMissingSetupDeliveredRuntimeFiles = false,
+} = {}) {
+  const catalogPlan = loadAndroidCourseBundleCatalogPlan({
+    workspaceRoot,
+    courseBundlePath,
+    languageCatalogPath,
+  });
+  const resolvedWorkspace = catalogPlan.workspaceRoot;
+  const resolvedBundlePath = catalogPlan.courseBundlePath;
+  const declaration = catalogPlan.declaration;
+  const configurations = catalogPlan.configurations;
   const ids = configurations.map(({ course }) => course.id);
   const routePrefixes = configurations.map(({ course }) => course.routePrefix);
   assert.equal(new Set(ids).size, ids.length, "Android course bundle course ids must be unique");
@@ -706,10 +923,10 @@ export function loadAndroidCourseBundleConfiguration({
     );
   }
 
-  const needsWebViewMiniLm = configurations.some(({ nativeProviders }) =>
-    nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1"
+  const needsSharedEmbeddingRuntime = configurations.some(
+    ({ nativeProviders }) => Boolean(nativeProviders.providers.embeddings),
   );
-  const embeddingRuntime = needsWebViewMiniLm
+  const embeddingRuntime = needsSharedEmbeddingRuntime
     ? loadEmbeddingRuntimeAssets(resolvedWorkspace, { allowMissingSetupDeliveredRuntimeFiles })
     : Object.freeze({ catalogPath: null, catalog: null, runtimeIds: Object.freeze(new Set()), assets: Object.freeze([]) });
   for (const configuration of configurations) {
@@ -721,9 +938,15 @@ export function loadAndroidCourseBundleConfiguration({
       `Course ${configuration.course.id} selects an unbundled embedding runtime`,
     );
   }
+  const sharedStorageRecords = assertAndroidBundleSharedStorage(configurations, embeddingRuntime);
 
-  const resolvedLauncher = realpathSync(resolve(launcherStaticDir));
-  const sharedAssets = sharedAssetUnion(configurations, resolvedLauncher);
+  const resolvedLauncher = confinedWorkspacePath(
+    resolvedWorkspace,
+    resolve(launcherStaticDir),
+    "launcher static root",
+    { allowAbsolute: true, kind: "directory" },
+  );
+  const sharedAssets = sharedAssetUnion(configurations, resolvedLauncher, resolvedWorkspace);
   const courseFilesById = Object.freeze(Object.fromEntries(
     configurations.map((configuration) => [
       configuration.course.id,
@@ -759,12 +982,17 @@ export function loadAndroidCourseBundleConfiguration({
   return Object.freeze({
     workspaceRoot: resolvedWorkspace,
     courseBundlePath: resolvedBundlePath,
+    languageCatalogPath: catalogPlan.languageCatalogPath,
+    languageCatalog: catalogPlan.languageCatalog,
+    catalogPlan: catalogPlan.plan,
+    publicationPlan: catalogPlan.publicationPlan,
     declaration,
     defaultCourse,
     configurations: Object.freeze(configurations),
     launcherStaticDir: resolvedLauncher,
     sharedAssets,
     embeddingRuntime,
+    sharedStorageRecords: Object.freeze(sharedStorageRecords),
     courseFilesById,
     courseCatalog,
     outputFiles,
@@ -789,6 +1017,146 @@ function extension(path) {
 
 function normalizeText(value) {
   return String(value).replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
+}
+
+const STANDARD_ONLY_CAPABILITY_NAMES = Object.freeze([
+  "llm",
+  "generation",
+  "chat",
+  "offlineModels",
+]);
+
+const PRODUCT_ROUTE_CAPABILITIES = Object.freeze({
+  chat: "chat",
+  dictionary: "dictionary",
+  wordWorld: "wordWorld",
+  conjugationComet: "conjugationComet",
+  verbNebula: "verbs",
+  llm: "llm",
+  generation: "generation",
+  offlineModels: "offlineModels",
+});
+
+const PRODUCT_DEVELOPER_ROUTE_KEYS = Object.freeze(new Set([
+  "audioLab",
+  "embeddingImages",
+  "verbDifficulty",
+]));
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function matchingBraceIndex(source, openingIndex, label) {
+  let depth = 0;
+  let quote = "";
+  let escaped = false;
+  let lineComment = false;
+  let blockComment = false;
+  for (let index = openingIndex; index < source.length; index += 1) {
+    const character = source[index];
+    const next = source[index + 1];
+    if (lineComment) {
+      if (character === "\n") lineComment = false;
+      continue;
+    }
+    if (blockComment) {
+      if (character === "*" && next === "/") {
+        blockComment = false;
+        index += 1;
+      }
+      continue;
+    }
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (character === "\\") escaped = true;
+      else if (character === quote) quote = "";
+      continue;
+    }
+    if (character === "/" && next === "/") {
+      lineComment = true;
+      index += 1;
+      continue;
+    }
+    if (character === "/" && next === "*") {
+      blockComment = true;
+      index += 1;
+      continue;
+    }
+    if (["\"", "'", "`"].includes(character)) {
+      quote = character;
+      continue;
+    }
+    if (character === "{") depth += 1;
+    else if (character === "}") {
+      depth -= 1;
+      if (depth === 0) return index;
+    }
+  }
+  assert.fail(`${label}: object literal is not closed`);
+}
+
+function profileObjectRange(source, propertyName, label, { required = true } = {}) {
+  const pattern = new RegExp(
+    `(^|\\n)([ \\t]*)${escapeRegExp(propertyName)}[ \\t]*:[ \\t]*(?:Object\\.freeze\\([ \\t]*)?\\{`,
+    "gu",
+  );
+  const allMatches = [...source.matchAll(pattern)];
+  const minimumIndent = allMatches.length > 0
+    ? Math.min(...allMatches.map((match) => match[2].length))
+    : 0;
+  const matches = allMatches.filter((match) => match[2].length === minimumIndent);
+  if (required) assert.equal(matches.length, 1, `${label}: expected 1 object literal, found ${matches.length}`);
+  else assert.ok(matches.length <= 1, `${label}: expected at most 1 object literal, found ${matches.length}`);
+  if (matches.length === 0) return null;
+  const openingIndex = matches[0].index + matches[0][0].lastIndexOf("{");
+  return {
+    openingIndex,
+    closingIndex: matchingBraceIndex(source, openingIndex, label),
+    indent: matches[0][2],
+  };
+}
+
+function transformProfileCapability(source, name, expectedSourceValue = null) {
+  const range = profileObjectRange(source, "capabilities", "course capabilities");
+  const body = source.slice(range.openingIndex + 1, range.closingIndex);
+  const pattern = new RegExp(
+    `(^|\\n)([ \\t]*${escapeRegExp(name)}[ \\t]*:[ \\t]*)(true|false)(?=[ \\t]*(?:,|\\n|$))`,
+    "gu",
+  );
+  const matches = [...body.matchAll(pattern)];
+  assert.equal(matches.length, 1, `course ${name} capability: expected 1 exact source anchor, found ${matches.length}`);
+  if (expectedSourceValue !== null) {
+    assert.equal(
+      matches[0][3] === "true",
+      expectedSourceValue,
+      `course ${name} capability must match the course manifest`,
+    );
+  }
+  const transformedBody = body.replace(pattern, "$1$2false");
+  return `${source.slice(0, range.openingIndex + 1)}${transformedBody}${source.slice(range.closingIndex)}`;
+}
+
+function removeProfileObjectProperties(source, propertyName, shouldRemove) {
+  const range = profileObjectRange(source, propertyName, `course ${propertyName}`, { required: false });
+  if (!range) return source;
+  const body = source.slice(range.openingIndex + 1, range.closingIndex);
+  const transformedBody = body
+    .split("\n")
+    .filter((line) => {
+      const match = /^[ \t]*([A-Za-z_$][\w$]*)[ \t]*:[ \t]*(.*?)[ \t]*,?[ \t]*$/u.exec(line);
+      return !match || !shouldRemove(match[1], match[2]);
+    })
+    .join("\n");
+  return `${source.slice(0, range.openingIndex + 1)}${transformedBody}${source.slice(range.closingIndex)}`;
+}
+
+function transformProfileAndroidPublication(source) {
+  const range = profileObjectRange(source, "android", "course Android platform", { required: false });
+  if (!range) return source;
+  const childIndent = `${range.indent}  `;
+  const body = `\n${childIndent}enabled: true,\n${childIndent}channels: []\n${range.indent}`;
+  return `${source.slice(0, range.openingIndex + 1)}${body}${source.slice(range.closingIndex)}`;
 }
 
 function countOccurrences(source, needle) {
@@ -888,54 +1256,118 @@ function copyExactFile(source, output) {
   copyFileSync(source, output);
 }
 
-export function transformCourseProfile(input) {
+export function transformCourseProfile(input, course = null) {
   let source = normalizeText(input);
-  source = exactReplace(
-    source,
-    '      chatSettings: "caatuu-czech.chat.settings.v1",\n',
-    "",
-    "course profile chat storage"
-  );
-  for (const route of [
-    '      chat: "chat.html",\n',
-    '      audioLab: "audio-lab.html",\n',
-    '      dictionary: "index.html",\n',
-    '      embeddingImages: "embedding-images.html",\n',
-    '      verbDifficulty: "verb-difficulty.html",\n'
-  ]) {
-    source = exactReplace(source, route, "", `course developer route ${route.trim()}`);
+  const sourceCapabilities = course
+    ? requireObject(course.capabilities, "course capabilities")
+    : null;
+  const productCapabilities = course
+    ? productCapabilitiesForCourse(course)
+    : Object.freeze({
+      chat: false,
+      llm: false,
+      generation: false,
+      offlineModels: false,
+    });
+  for (const name of STANDARD_ONLY_CAPABILITY_NAMES) {
+    source = transformProfileCapability(
+      source,
+      name,
+      sourceCapabilities ? sourceCapabilities[name] : null,
+    );
   }
-  source = exactReplace(source, "      llm: true,", "      llm: false,", "course LLM capability");
-  source = exactReplace(source, "      generation: true,", "      generation: false,", "course generation capability");
-  source = exactReplace(source, "      chat: true,", "      chat: false,", "course chat capability");
-  source = exactReplace(
+  source = removeProfileObjectProperties(source, "routes", (key, value) => {
+    if (PRODUCT_DEVELOPER_ROUTE_KEYS.has(key)) return true;
+    const capability = PRODUCT_ROUTE_CAPABILITIES[key];
+    if (capability && productCapabilities[capability] === false) return true;
+    return productCapabilities.chat === false && /(?:^|[\\/._-])chat(?:[\\/._-]|$)/iu.test(value);
+  });
+  source = removeProfileObjectProperties(
     source,
-    "      offlineModels: true,",
-    "      offlineModels: false,",
-    "course offline model capability"
+    "storage",
+    (key) => productCapabilities.chat === false && key === "chatSettings",
   );
-  source = replaceBetween(
-    source,
-    "      android: {",
-    "    }\n  });",
-    `      android: {
-        enabled: true,
-        channels: []
-      }
-`,
-    "product Android publication channels"
-  );
-  assert.match(source, /semanticSearch: true/);
-  return source;
+  return transformProfileAndroidPublication(source);
 }
 
-export function transformManifest(input) {
+export function transformManifest(input, { packagedFiles = null } = {}) {
   const manifest = JSON.parse(normalizeText(input));
-  assert.equal(manifest.description, "Czech chat, verbs, dictionary, scripts, and guide.");
-  assert.ok(manifest.shortcuts?.some((shortcut) => shortcut.url === "./chat.html"));
-  manifest.description = "Czech verbs, dictionary, scripts, games, and learning guide.";
-  manifest.shortcuts = manifest.shortcuts.filter((shortcut) => shortcut.url !== "./chat.html");
-  manifest.icons = manifest.icons.filter((icon) => icon.src !== "icons/caatuu-czech-1024.png");
+  if (typeof manifest.description === "string") {
+    manifest.description = manifest.description
+      .replace(/\b(?:AI[ \t]+)?chat,[ \t]*/giu, "")
+      .replace(/,[ \t]*(?:AI[ \t]+)?chat\b/giu, "")
+      .replace(/\b(?:AI[ \t]+)?chat\b/giu, "practice")
+      .replace(/[ \t]{2,}/gu, " ")
+      .trim();
+  }
+  const isDisabledShortcut = (shortcut) => {
+    const surface = [shortcut?.name, shortcut?.short_name, shortcut?.description, shortcut?.url]
+      .filter((value) => typeof value === "string")
+      .join(" ");
+    return /(?:^|[\\/._ -])chat(?:[\\/._ -]|$)|\b(?:llm|generative|generation)\b/iu.test(surface);
+  };
+  if (Array.isArray(manifest.shortcuts)) {
+    manifest.shortcuts = manifest.shortcuts.filter((shortcut) => !isDisabledShortcut(shortcut));
+  }
+  if (packagedFiles && Array.isArray(manifest.icons)) {
+    const available = new Set(packagedFiles);
+    manifest.icons = manifest.icons.filter((icon) => {
+      const source = String(icon?.src || "");
+      if (!source || source.startsWith("/")) return true;
+      return available.has(source.replace(/^\.\//u, "").split(/[?#]/u, 1)[0]);
+    });
+  }
+  return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+export function transformWordWorldManifest(input) {
+  const manifest = JSON.parse(normalizeText(input));
+  delete manifest.generationStrategy;
+  if (manifest.capabilities && typeof manifest.capabilities === "object" && !Array.isArray(manifest.capabilities)) {
+    for (const name of STANDARD_ONLY_CAPABILITY_NAMES) {
+      if (name in manifest.capabilities) manifest.capabilities[name] = false;
+    }
+  }
+  assert.notEqual(manifest.mode, "generative", "Android Word World content must provide a non-generative mode");
+  assert.doesNotMatch(
+    String(manifest.sessionProvider?.kind || ""),
+    /generat/iu,
+    "Android Word World content must provide a non-generative session provider",
+  );
+  return `${JSON.stringify(manifest, null, 2)}\n`;
+}
+
+function isDisabledProductSetupSurface(value, productCapabilities) {
+  const surface = String(value || "");
+  if (productCapabilities.chat === false && /(?:^|\/)chat(?:[./]|$)|(?:^|\/)source\/features\/chat(?:\/|$)/iu.test(surface)) return true;
+  if (
+    (productCapabilities.llm === false || productCapabilities.offlineModels === false)
+    && /(?:^|\/)data\/models(?:\/|$)|\.gguf(?:[?#]|$)|web-?llm|(?:^|[._-])(?:llm-model|language-model)(?:[._-]|$)/iu.test(surface)
+  ) return true;
+  return productCapabilities.generation === false
+    && /(?:^|\/)(?:source\/features\/)?generat(?:ion|ive)(?:[/.]|$)/iu.test(surface);
+}
+
+function transformProductSetupAssets(input, course) {
+  const manifest = JSON.parse(normalizeText(input));
+  const capabilities = productCapabilitiesForCourse(course);
+  assert.ok(Array.isArray(manifest.artifacts), "setup assets must declare an artifact array");
+  manifest.artifacts = manifest.artifacts.filter((artifact) => !isDisabledProductSetupSurface(
+    [
+      artifact?.artifact_kind,
+      artifact?.kind,
+      artifact?.key,
+      artifact?.url,
+      artifact?.asset_path,
+      artifact?.modelKey,
+    ].filter(Boolean).join(" "),
+    capabilities,
+  ));
+  if (Array.isArray(manifest.offline?.assets)) {
+    manifest.offline.assets = manifest.offline.assets.filter(
+      (asset) => !isDisabledProductSetupSurface(asset, capabilities),
+    );
+  }
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
@@ -1018,6 +1450,17 @@ export function transformSetupAssets(input) {
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
+function hasReviewedPlanetSetupProjection(input) {
+  const manifest = JSON.parse(normalizeText(input));
+  const keys = new Set((manifest.artifacts || []).map((artifact) => artifact?.key));
+  const disabledChatAssets = (manifest.offline?.assets || []).filter(
+    (asset) => /^\.\/(?:chat\.html|source\/features\/chat\/)/u.test(String(asset)),
+  );
+  return ["planet-conjugation", "planet-campaign", "planet-agreement-aurora"]
+    .every((key) => keys.has(key))
+    && disabledChatAssets.length === 3;
+}
+
 function embeddingRuntimeById(catalog, runtimeId) {
   requireObject(catalog, "embedding runtime catalog");
   assert.ok(Array.isArray(catalog.runtimes), "embedding runtime catalog must list runtimes");
@@ -1030,16 +1473,21 @@ export function transformBundleSetupAssets(
   input,
   embeddingRuntimeCatalog,
   runtimeId,
-  { strictCzech = false } = {},
+  { course = null } = {},
 ) {
-  const manifest = JSON.parse(strictCzech ? transformSetupAssets(input) : normalizeText(input));
+  const reviewedProjection = hasReviewedPlanetSetupProjection(input);
+  const authoredProductSource = reviewedProjection ? transformSetupAssets(input) : normalizeText(input);
+  const productSource = course
+    ? transformProductSetupAssets(authoredProductSource, course)
+    : authoredProductSource;
+  const manifest = JSON.parse(productSource);
   assert.ok(Array.isArray(manifest.artifacts), "Bundle setup assets must declare an artifact array");
   assert.ok(Array.isArray(manifest.offline?.assets), "Bundle setup assets must declare offline assets");
   const existingRuntimeArtifacts = manifest.artifacts.filter(
     (artifact) => artifact?.artifact_kind === "embedding-runtime",
   );
-  if (strictCzech) {
-    assert.ok(existingRuntimeArtifacts.length > 0, "Czech setup must retain its authored embedding runtime anchors");
+  if (reviewedProjection) {
+    assert.ok(existingRuntimeArtifacts.length > 0, "reviewed setup projection must retain its authored embedding runtime anchors");
   }
 
   const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, runtimeId);
@@ -1364,16 +1812,6 @@ export function transformWordNetStandard(input) {
   return source;
 }
 
-const TRANSFORMS = Object.freeze({
-  "index.html": transformIndex,
-  "manifest.webmanifest": transformManifest,
-  "setup-assets.json": transformSetupAssets,
-  "source/features/setup/setup.js": transformSetupJs,
-  "source/games/word-world/word-net-standard.mjs": transformWordNetStandard,
-  "source/shared/course-profile.js": transformCourseProfile,
-  "source/shared/runtime.js": transformRuntime
-});
-
 const SHARED_APP_TRANSFORMS = Object.freeze({
   "language-runtime/static/source/caatuu-chrome.js": transformChromeJs,
   "language-runtime/static/styles/caatuu-chrome.css": transformChromeCss,
@@ -1506,6 +1944,7 @@ function assertNoForbiddenPaths(files) {
 const CAPABILITY_GATED_SHARED_APP_FILES = new Set([
   "language-runtime/static/source/caatuu-workspace.js",
   "language-runtime/static/source/product-word-world.mjs",
+  "language-runtime/static/source/word-world-provider.mjs",
   "language-runtime/static/source/word-net-core.mjs",
   "language-runtime/static/source/word-net-queue.mjs",
 ]);
@@ -1586,7 +2025,7 @@ function assertEmbeddingProviderBoundary(outputDir, profile) {
   const catalogPath = join(outputDir, provider.catalogAsset);
   assert.ok(existsSync(catalogPath), "embedding provider catalog must be packaged");
   const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
-  assert.match(String(catalog.base_url || ""), /^https:\/\//i, "embedding provider catalog must declare an HTTPS base_url");
+  assertHttpsUrl(catalog.base_url, "embedding provider catalog base_url");
   const models = Array.isArray(catalog.models) ? catalog.models : [];
   const active = models.find((model) => model.key === catalog.default_model && model.status === "active");
   assert.ok(active, "embedding provider catalog must select an active default model");
@@ -1596,7 +2035,7 @@ function assertEmbeddingProviderBoundary(outputDir, profile) {
     "Android embeddings must consume English input",
   );
   assert.match(String(active.sha256 || ""), /^[a-f\d]{64}$/i, "embedding provider model must be hash-pinned");
-  assert.ok(Number(active.bytes) > 0, "embedding provider model must declare positive bytes");
+  assertCanonicalPositiveBytes(active.bytes, "embedding provider catalog bytes");
   normalizedCatalogPath(active.model_file, "embedding provider model_file");
   const manifestAsset = providerReferenceAsset(
     provider.catalogAsset,
@@ -1605,9 +2044,8 @@ function assertEmbeddingProviderBoundary(outputDir, profile) {
   );
   assert.ok(profile.assets.includes(manifestAsset), `embedding provider manifest must be packaged as ${manifestAsset}`);
   const manifest = JSON.parse(readFileSync(join(outputDir, manifestAsset), "utf8"));
+  assertEmbeddingArtifactContract(active, manifest, catalog.base_url, "embedding provider");
   assert.equal(manifest.model_id, active.key, "embedding provider manifest model_id must match the catalog");
-  assert.equal(Number(manifest.bytes), Number(active.bytes), "embedding provider manifest bytes must match the catalog");
-  assert.equal(manifest.sha256, active.sha256, "embedding provider manifest SHA-256 must match the catalog");
   assert.equal(manifest.embedding_dimension, 384, "vector-database-catalog-v1 requires 384-dimensional embeddings");
   assert.equal(manifest.embedding_text_field, "english_text", "Android embedding manifests must identify english_text");
   assert.equal(manifest.embedding_input_policy, "english_text_only", "Android embedding manifests must enforce english_text_only");
@@ -1622,30 +2060,18 @@ function assertDictionaryProviderBoundary(outputDir, profile) {
   const catalogPath = join(outputDir, provider.catalogAsset);
   assert.ok(existsSync(catalogPath), "dictionary provider catalog must be packaged");
   const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
-  const defaultKey = catalog.default_dictionary ?? catalog.default_dictionary_key;
-  const dictionaries = Array.isArray(catalog.dictionaries) ? catalog.dictionaries : [];
-  const active = dictionaries.find((dictionary) => dictionary.key === defaultKey && dictionary.status === "active");
-  assert.ok(active, "dictionary provider catalog must select an active default dictionary");
-  assert.equal(active.artifact_kind, "dictionary-database", "dictionary provider artifact kind is unsupported");
-  assert.equal(typeof active.label, "string", "dictionary provider label is required");
-  assert.ok(active.label, "dictionary provider label is required");
-  assert.equal(typeof active.direction, "string", "dictionary provider direction is required");
-  assert.ok(active.direction, "dictionary provider direction is required");
-  assert.ok(Number(active.bytes ?? active.expected_bytes) > 0, "dictionary provider must declare positive bytes");
-  assert.match(String(active.sha256 || ""), /^[a-f\d]{64}$/i, "dictionary provider must be hash-pinned");
-  assert.match(String(active.download_url || ""), /^https:\/\//i, "dictionary provider must use an HTTPS download URL");
-  normalizedCatalogPath(active.database_file, "dictionary provider database_file");
+  return assertAndroidDictionaryLanguageContract(catalog, profile.course, "dictionary provider catalog");
 }
 
 function assertSetupBoundary(
   outputDir,
   languageStaticDir,
   profile,
-  { strictCzech = false, expectedTransform = transformSetupAssets } = {},
+  { expectedTransform = null } = {},
 ) {
   const outputPath = join(outputDir, "setup-assets.json");
   assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
-  if (strictCzech) {
+  if (expectedTransform) {
     const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
     assert.equal(
       readSourceText(outputPath),
@@ -1666,18 +2092,21 @@ function assertSetupBoundary(
     const dictionaryCatalogPath = join(outputDir, nativeProvider(profile, "dictionary").catalogAsset);
     assert.ok(existsSync(dictionaryCatalogPath), "dictionary-enabled output must retain the dictionary catalog");
     const dictionaryCatalog = JSON.parse(readFileSync(dictionaryCatalogPath, "utf8"));
-    const dictionaries = Array.isArray(dictionaryCatalog.dictionaries) ? dictionaryCatalog.dictionaries : [];
-    const activeDictionary = dictionaries.find((dictionary) => dictionary.status === "active" && (
-      dictionary.default === true || dictionary.key === dictionaryCatalog.default_dictionary_key
-    )) || dictionaries.find((dictionary) => dictionary.status === "active");
-    assert.ok(activeDictionary, "dictionary catalog must retain an active dictionary");
-    assert.ok(Number(activeDictionary.bytes || activeDictionary.expected_bytes) > 0, "active dictionary must declare bytes");
-    assert.match(String(activeDictionary.sha256 || ""), /^[a-f\d]{64}$/i, "active dictionary must be hash-pinned");
-    assert.ok(String(activeDictionary.download_url || activeDictionary.url || "").trim(), "active dictionary must declare a download URL");
+    assertAndroidDictionaryLanguageContract(dictionaryCatalog, profile.course, "setup dictionary catalog");
   }
   for (const artifact of artifacts) {
     const surface = `${artifact.artifact_kind || artifact.kind || ""} ${artifact.url || ""} ${artifact.key || ""}`;
     assert.doesNotMatch(surface, /gguf|data\/models|godot/i);
+    assert.ok(
+      !isDisabledProductSetupSurface(surface, profile.capabilities),
+      `setup retains an artifact for a disabled Android capability: ${surface}`,
+    );
+  }
+  for (const asset of manifest.offline?.assets || []) {
+    assert.ok(
+      !isDisabledProductSetupSurface(asset, profile.capabilities),
+      `setup retains an offline asset for a disabled Android capability: ${asset}`,
+    );
   }
   const setupPath = join(outputDir, "source/features/setup/setup.js");
   if (existsSync(setupPath)) {
@@ -1699,6 +2128,15 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/source/word-net-queue.mjs",
   "language-runtime/static/source/word-world-host.mjs",
   "language-runtime/static/source/word-world-provider.mjs",
+  "language-runtime/static/games/agreement-aurora.html",
+  "language-runtime/static/games/conjugation-comet.html",
+  "language-runtime/static/source/games/course-game-content.mjs",
+  "language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs",
+  "language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs",
+  "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs",
+  "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs",
+  "language-runtime/static/styles/games/agreement-aurora.css",
+  "language-runtime/static/styles/games/conjugation-comet.css",
   "language-runtime/static/styles/caatuu-chrome.css",
   "language-runtime/static/styles/caatuu-home.css",
   "language-runtime/static/styles/caatuu-theme.css",
@@ -1724,6 +2162,14 @@ const RETIRED_PARALLEL_UI_FILES = Object.freeze([
   "source/shared/learning-profile.js",
   "source/shared/theme.css",
   "language-runtime/static/styles/course-shell.css",
+  "conjugation-comet.html",
+  "agreement-aurora.html",
+  "source/games/conjugation-comet/conjugation-comet.css",
+  "source/games/conjugation-comet/conjugation-comet.js",
+  "source/games/agreement-aurora/agreement-aurora.css",
+  "source/games/agreement-aurora/agreement-aurora.js",
+  "source/games/agreement-aurora/launcher.css",
+  "source/games/case-cosmos/launcher.css",
 ]);
 
 function assertSharedAppBoundary(files) {
@@ -1742,21 +2188,51 @@ function assertWordWorldBoundary(outputDir, files, {
   sharedOutputDir = outputDir,
   sharedFiles = files,
 } = {}) {
-  const providerModuleUrl = "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5";
-  const meaningAdapterUrl = "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21";
-  const providerModule = providerModuleUrl.split("?", 1)[0];
-  const meaningAdapter = meaningAdapterUrl.slice(1).split("?", 1)[0];
-  assert.ok(files.includes(providerModule), `Czech Word World must package its course provider ${providerModule}`);
-  assert.ok(sharedFiles.includes(meaningAdapter), `Czech Word World must package the shared meaning adapter ${meaningAdapter}`);
-  assert.ok(existsSync(join(sharedOutputDir, meaningAdapter)), `Czech Word World shared meaning adapter is missing: ${meaningAdapter}`);
+  const manifestPath = "data/games/word-world/manifest.json";
+  assert.ok(files.includes(manifestPath), "Word World-enabled Android courses must package their content manifest");
+  const manifest = JSON.parse(readFileSync(join(outputDir, manifestPath), "utf8"));
+  assert.equal(manifest.generationStrategy, undefined, "Android Word World manifest must not declare a generation strategy");
+  assert.notEqual(manifest.mode, "generative", "Android Word World manifest must select non-generative content");
+  assert.doesNotMatch(
+    String(manifest.sessionProvider?.kind || ""),
+    /generat/iu,
+    "Android Word World manifest must select a non-generative provider",
+  );
+  for (const name of STANDARD_ONLY_CAPABILITY_NAMES) {
+    if (manifest.capabilities && name in manifest.capabilities) {
+      assert.equal(manifest.capabilities[name], false, `Android Word World must disable ${name}`);
+    }
+  }
 
-  const manifest = JSON.parse(readFileSync(join(outputDir, "data/games/word-world/manifest.json"), "utf8"));
-  assert.equal(manifest.sessionProvider?.module, providerModuleUrl, "Czech Word World manifest must declare its versioned course provider URL");
-  assert.equal(manifest.sessionProvider?.meaningSelectorModule, meaningAdapterUrl, "Czech Word World manifest must declare the shared meaning adapter");
-
-  const surface = readSourceText(join(outputDir, providerModule));
-  assert.doesNotMatch(surface, /generative|WordNetBranchQueue|runtimeAdapter\(\)\.models|WORD_NET_MODEL_KEY|TRANSLATION_MODEL_KEY|requestSentenceCandidate|requestEnglishTranslation|loadTranslationCache|syncContentControl/i);
-  assert.match(readSourceText(join(outputDir, providerModule)), /entry\.contentMode !== "standard"\) return null/);
+  const assertReference = (reference, { courseRelative = false, executable = false } = {}) => {
+    if (!reference) return null;
+    const clean = String(reference).split(/[?#]/u, 1)[0];
+    const shared = clean.startsWith("/");
+    const normalized = normalizedCatalogPath(
+      (shared ? clean.slice(1) : clean).replace(/^\.\//u, ""),
+      "Word World manifest reference",
+    );
+    const assetPath = courseRelative ? `data/games/word-world/${normalized}` : normalized;
+    const availableFiles = shared ? sharedFiles : files;
+    const assetRoot = shared ? sharedOutputDir : outputDir;
+    assert.ok(availableFiles.includes(assetPath), `Word World manifest reference must be packaged: ${reference}`);
+    assert.ok(existsSync(join(assetRoot, assetPath)), `Word World manifest reference is missing: ${reference}`);
+    if (executable) {
+      const surface = readSourceText(join(assetRoot, assetPath));
+      assert.doesNotMatch(
+        surface,
+        /web-?llm|WordNetBranchQueue|runtimeAdapter\(\)\.models|WORD_NET_MODEL_KEY|TRANSLATION_MODEL_KEY|requestSentenceCandidate|requestEnglishTranslation|loadTranslationCache|syncContentControl/iu,
+        `Standard-only Word World provider retains generative execution: ${reference}`,
+      );
+    }
+    return assetPath;
+  };
+  assertReference(manifest.sessionProvider?.module, { executable: true });
+  assertReference(manifest.sessionProvider?.meaningSelectorModule, { executable: true });
+  assertReference(manifest.runtimeFile, { courseRelative: true });
+  assertReference(manifest.realizationFile, { courseRelative: true });
+  assertReference(manifest.targetTextGuide?.file, { courseRelative: true });
+  assertReference(manifest.sourceConceptCatalog);
 }
 
 function assertLearnerContentSafety(outputDir) {
@@ -1804,7 +2280,48 @@ function assertServiceWorkerBoundary(outputDir) {
   assert.match(readSourceText(workerEngine), /Retired runtime assets cannot be cached/);
 }
 
+function reviewedCourseAssetTransform(configuration, path, embeddingRuntime) {
+  const sourcePath = configuration.languageFileSources[path];
+  if (!sourcePath) return undefined;
+  const source = readSourceText(sourcePath);
+  if (
+    path === "source/shared/vector-db.js"
+    && source.includes('const defaultTransformersModuleUrl = "../../vendor/transformers/transformers.min.js";')
+  ) {
+    return embeddingRuntime?.catalog
+      ? (input) => transformBundleVectorDb(input, embeddingRuntime.catalog)
+      : undefined;
+  }
+  if (path === "source/shared/runtime.js" && source.includes('const modelCatalogPath = "data/models/phone-bench/models.json";')) {
+    return transformRuntime;
+  }
+  if (path === "source/features/setup/setup.js" && source.includes('if (kind === "gguf-model") {')) {
+    return transformSetupJs;
+  }
+  if (
+    path === "source/games/word-world/word-net-standard.mjs"
+    && source.includes('const contentMode = entry.contentMode === "standard" ? "standard" : "generative";')
+  ) {
+    return transformWordNetStandard;
+  }
+  return undefined;
+}
+
+function requiresReviewedRuntimeBoundary(configuration) {
+  const sourcePath = configuration.languageFileSources["source/shared/runtime.js"];
+  return Boolean(
+    sourcePath
+    && readSourceText(sourcePath).includes('const modelCatalogPath = "data/models/phone-bench/models.json";'),
+  );
+}
+
 function courseAssetTransform(configuration, path, embeddingRuntime) {
+  if (path === "source/shared/course-profile.js") {
+    return (input) => transformCourseProfile(input, configuration.course);
+  }
+  if (path === "manifest.webmanifest") {
+    return (input) => transformManifest(input, { packagedFiles: configuration.languageFiles });
+  }
   const embeddingProvider = configuration.nativeProviders.providers.embeddings;
   if (
     embeddingProvider?.implementation === "webview-english-minilm-v1"
@@ -1826,15 +2343,36 @@ function courseAssetTransform(configuration, path, embeddingRuntime) {
       input,
       embeddingRuntime.catalog,
       runtimeId,
-      { strictCzech: configuration.course.id === "cz" },
+      { course: configuration.course },
     );
   }
-  if (configuration.course.id !== "cz") return undefined;
-  if (path === "source/shared/vector-db.js") {
-    assert.ok(embeddingRuntime?.catalog, "Czech bundle vector database requires the shared embedding runtime catalog");
-    return (input) => transformBundleVectorDb(input, embeddingRuntime.catalog);
+  if (path === "setup-assets.json") {
+    return (input) => transformProductSetupAssets(
+      hasReviewedPlanetSetupProjection(input) ? transformSetupAssets(input) : input,
+      configuration.course,
+    );
   }
-  return TRANSFORMS[path];
+  if (path === "data/games/word-world/manifest.json") {
+    return transformWordWorldManifest;
+  }
+  return reviewedCourseAssetTransform(configuration, path, embeddingRuntime);
+}
+
+function singleCourseAssetTransform(configuration, path) {
+  if (path === "source/shared/course-profile.js") {
+    return (input) => transformCourseProfile(input, configuration.course);
+  }
+  if (path === "manifest.webmanifest") {
+    return (input) => transformManifest(input, { packagedFiles: configuration.languageFiles });
+  }
+  if (path === "setup-assets.json") {
+    return (input) => transformProductSetupAssets(
+      hasReviewedPlanetSetupProjection(input) ? transformSetupAssets(input) : input,
+      configuration.course,
+    );
+  }
+  if (path === "data/games/word-world/manifest.json") return transformWordWorldManifest;
+  return reviewedCourseAssetTransform(configuration, path, null);
 }
 
 function assertSetupDownloadsSharedEmbeddingRuntime(manifest, embeddingRuntime, courseId) {
@@ -1935,6 +2473,7 @@ export function validateProductAssetBundle({
   outputDir,
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  languageCatalogPath = DEFAULT_LANGUAGE_CATALOG_PATH,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   allowMissingSetupDeliveredRuntimeFiles = false,
   configuration,
@@ -1942,6 +2481,7 @@ export function validateProductAssetBundle({
   const bundle = configuration || loadAndroidCourseBundleConfiguration({
     workspaceRoot,
     courseBundlePath,
+    languageCatalogPath,
     launcherStaticDir,
     allowMissingSetupDeliveredRuntimeFiles,
   });
@@ -1976,7 +2516,7 @@ export function validateProductAssetBundle({
     const courseFiles = bundle.courseFilesById[courseConfiguration.course.id];
     assert.ok(courseFiles, `Missing bundle file allowlist for course ${courseConfiguration.course.id}`);
     for (const path of courseFiles) {
-      const source = join(courseConfiguration.languageStaticDir, path);
+      const source = courseConfiguration.languageFileSources[path];
       const output = join(courseRoot, path);
       const transform = courseAssetTransform(courseConfiguration, path, bundle.embeddingRuntime);
       const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
@@ -2006,18 +2546,15 @@ export function validateProductAssetBundle({
       assertSetupDownloadsSharedEmbeddingRuntime(setup, bundle.embeddingRuntime, courseConfiguration.course.id);
     }
     if (courseProfile.capabilities.dictionary) assertDictionaryProviderBoundary(courseRoot, courseProfile);
-    if (courseConfiguration.course.id === "cz") {
-      assertRuntimeBoundary(courseRoot);
-      if (courseProfile.capabilities.wordWorldStandardOnly) {
-        assertWordWorldBoundary(courseRoot, courseFiles, {
-          sharedOutputDir: resolvedOutput,
-          sharedFiles: files,
-        });
-      }
+    if (requiresReviewedRuntimeBoundary(courseConfiguration)) assertRuntimeBoundary(courseRoot);
+    if (courseProfile.capabilities.wordWorldStandardOnly) {
+      assertWordWorldBoundary(courseRoot, courseFiles, {
+        sharedOutputDir: resolvedOutput,
+        sharedFiles: files,
+      });
     }
     if (courseFiles.includes("setup-assets.json")) {
       assertSetupBoundary(courseRoot, courseConfiguration.languageStaticDir, courseProfile, {
-        strictCzech: courseConfiguration.course.id === "cz",
         expectedTransform: courseAssetTransform(courseConfiguration, "setup-assets.json", bundle.embeddingRuntime),
       });
     }
@@ -2068,7 +2605,12 @@ export function validateProductAssets({
   });
   const resolvedOutput = resolve(outputDir);
   const resolvedLanguage = languageStaticDir
-    ? realpathSync(resolve(languageStaticDir))
+    ? confinedWorkspacePath(
+      courseConfiguration.workspaceRoot,
+      resolve(languageStaticDir),
+      "language static root",
+      { allowAbsolute: true, kind: "directory" },
+    )
     : courseConfiguration.languageStaticDir;
   assert.equal(
     resolvedLanguage,
@@ -2089,7 +2631,6 @@ export function validateProductAssets({
   const profile = JSON.parse(readFileSync(join(resolvedOutput, "caatuu-profile.json"), "utf8"));
   assert.deepEqual(profile, courseConfiguration.productProfile, "Caatuu profile marker must match the course release capabilities");
   assertCapabilityGatedSharedApp(resolvedOutput, courseConfiguration, profile);
-  const strictCzech = courseConfiguration.course.id === "cz";
   if (profile.capabilities.embeddings) {
     const embeddingCatalogPath = nativeProvider(profile, "embeddings").catalogAsset;
     assert.ok(files.includes(embeddingCatalogPath), `embedding-enabled output must retain ${embeddingCatalogPath}`);
@@ -2097,11 +2638,13 @@ export function validateProductAssets({
     assertEmbeddingProviderBoundary(resolvedOutput, profile);
   }
   if (profile.capabilities.dictionary) assertDictionaryProviderBoundary(resolvedOutput, profile);
-  if (strictCzech) assertRuntimeBoundary(resolvedOutput);
+  if (requiresReviewedRuntimeBoundary(courseConfiguration)) assertRuntimeBoundary(resolvedOutput);
   if (files.includes("setup-assets.json")) {
-    assertSetupBoundary(resolvedOutput, resolvedLanguage, profile, { strictCzech });
+    assertSetupBoundary(resolvedOutput, resolvedLanguage, profile, {
+      expectedTransform: singleCourseAssetTransform(courseConfiguration, "setup-assets.json"),
+    });
   }
-  if (strictCzech && profile.capabilities.wordWorldStandardOnly) assertWordWorldBoundary(resolvedOutput, files);
+  if (profile.capabilities.wordWorldStandardOnly) assertWordWorldBoundary(resolvedOutput, files);
   assertLearnerContentSafety(resolvedOutput);
   if (files.includes("sw.js")) assertServiceWorkerBoundary(resolvedOutput);
   assertImportReferences(resolvedOutput, files, courseConfiguration.course.routePrefix);
@@ -2111,10 +2654,8 @@ export function validateProductAssets({
     const course = readSourceText(join(resolvedOutput, "source/shared/course-profile.js"));
     assert.doesNotMatch(course, /llm: true/);
     assert.doesNotMatch(course, /generation: true/);
-    if (strictCzech) {
-      assert.match(course, /llm: false/);
-      assert.match(course, /generation: false/);
-    }
+    assert.match(course, /llm: false/);
+    assert.match(course, /generation: false/);
     assert.match(course, /chat: false/);
     assert.match(course, /offlineModels: false/);
     if (profile.capabilities.embeddings) assert.match(course, /semanticSearch: true/);
@@ -2131,6 +2672,7 @@ export function validateProductAssets({
 export function compileProductAssetBundle({
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  languageCatalogPath = DEFAULT_LANGUAGE_CATALOG_PATH,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product"),
   allowMissingSetupDeliveredRuntimeFiles = false,
@@ -2138,6 +2680,7 @@ export function compileProductAssetBundle({
   const bundle = loadAndroidCourseBundleConfiguration({
     workspaceRoot,
     courseBundlePath,
+    languageCatalogPath,
     launcherStaticDir,
     allowMissingSetupDeliveredRuntimeFiles,
   });
@@ -2161,7 +2704,7 @@ export function compileProductAssetBundle({
     const courseFiles = bundle.courseFilesById[configuration.course.id];
     assert.ok(courseFiles, `Missing bundle file allowlist for course ${configuration.course.id}`);
     for (const path of courseFiles) {
-      const source = join(configuration.languageStaticDir, path);
+      const source = configuration.languageFileSources[path];
       const output = join(courseOutput, path);
       const transform = courseAssetTransform(configuration, path, bundle.embeddingRuntime);
       if (transform) {
@@ -2205,14 +2748,24 @@ export function compileProductAssets({
   const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath });
   const resolvedWorkspace = courseConfiguration.workspaceRoot;
   const resolvedLanguage = languageStaticDir
-    ? realpathSync(resolve(languageStaticDir))
+    ? confinedWorkspacePath(
+      resolvedWorkspace,
+      resolve(languageStaticDir),
+      "language static root",
+      { allowAbsolute: true, kind: "directory" },
+    )
     : courseConfiguration.languageStaticDir;
   assert.equal(
     resolvedLanguage,
     courseConfiguration.languageStaticDir,
     "languageStaticDir must match the course manifest staticRoot",
   );
-  const resolvedLauncher = resolve(launcherStaticDir);
+  const resolvedLauncher = confinedWorkspacePath(
+    resolvedWorkspace,
+    resolve(launcherStaticDir),
+    "launcher static root",
+    { allowAbsolute: true, kind: "directory" },
+  );
   const resolvedOutput = resolve(outputDir);
   assertSafeOutputDirectory(resolvedOutput, resolvedWorkspace, resolvedLanguage, resolvedLauncher);
   assert.ok(existsSync(resolvedLanguage), `Course static source is missing: ${resolvedLanguage}`);
@@ -2220,15 +2773,14 @@ export function compileProductAssets({
 
   rmSync(resolvedOutput, { recursive: true, force: true });
   mkdirSync(resolvedOutput, { recursive: true });
-  const strictCzech = courseConfiguration.course.id === "cz";
   writeText(
     join(resolvedOutput, "index.html"),
     transformIndex(readSourceText(courseConfiguration.appEntryPath)),
   );
   for (const path of courseConfiguration.languageFiles) {
-    const sourcePath = join(resolvedLanguage, path);
+    const sourcePath = courseConfiguration.languageFileSources[path];
     const outputPath = join(resolvedOutput, path);
-    const transform = strictCzech ? TRANSFORMS[path] : undefined;
+    const transform = singleCourseAssetTransform(courseConfiguration, path);
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(path)), `Transform target must be text: ${path}`);
       writeText(outputPath, transform(readSourceText(sourcePath)));
@@ -2237,7 +2789,13 @@ export function compileProductAssets({
     }
   }
   for (const { source, output } of courseConfiguration.launcherFiles) {
-    copyExactFile(join(resolvedLauncher, source), join(resolvedOutput, output));
+    const sourcePath = confinedWorkspacePath(
+      resolvedWorkspace,
+      join(resolvedLauncher, source),
+      `shared launcher asset ${output}`,
+      { allowAbsolute: true, kind: "file" },
+    );
+    copyExactFile(sourcePath, join(resolvedOutput, output));
   }
   for (const { source, output } of courseConfiguration.appAssets) {
     const transform = SHARED_APP_TRANSFORMS[output];
@@ -2273,6 +2831,7 @@ function parseArguments(argv) {
     if (key === "--workspace-root") options.workspaceRoot = resolve(value);
     else if (key === "--course-manifest") options.courseManifestPath = resolve(value);
     else if (key === "--course-bundle") options.courseBundlePath = resolve(value);
+    else if (key === "--language-catalog") options.languageCatalogPath = resolve(value);
     else if (key === "--language-static" || key === "--source") options.languageStaticDir = resolve(value);
     else if (key === "--launcher-static" || key === "--launcher") options.launcherStaticDir = resolve(value);
     else if (key === "--output") options.outputDir = resolve(value);
@@ -2284,7 +2843,7 @@ function parseArguments(argv) {
 if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
   const options = parseArguments(process.argv.slice(2));
   if (options.help) {
-    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--course-bundle FILE|--course-manifest FILE] [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
+    process.stdout.write("Usage: node apps/android/tooling/build-product-assets.mjs [--course-bundle FILE|--course-manifest FILE] [--language-catalog FILE] [--output DIR] [--workspace-root DIR] [--source DIR|--language-static DIR] [--launcher DIR|--launcher-static DIR]\n");
   } else {
     assert.ok(
       !(options.courseBundlePath && options.courseManifestPath),

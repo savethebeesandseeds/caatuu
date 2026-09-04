@@ -470,7 +470,8 @@
 .naturalization-nucleus-tone-5 { color: #66736f; }
 
 .word-net-word-translation.naturalization-nucleus-feedback {
-  width: clamp(140px, 30vw, 184px);
+  width: fit-content;
+  max-width: clamp(140px, 30vw, 184px);
   padding: 8px;
 }
 
@@ -588,6 +589,10 @@ html[data-theme="dark"] #naturalizationNucleusStatus {
     padding: 6px;
   }
 
+  .naturalization-nucleus-playfield {
+    padding-top: 48px;
+  }
+
   .naturalization-nucleus-board {
     width: min(100%, 480px);
   }
@@ -604,10 +609,6 @@ html[data-theme="dark"] #naturalizationNucleusStatus {
 @media screen and (max-width: 480px) {
   .naturalization-nucleus-panel {
     gap: 8px;
-  }
-
-  .naturalization-nucleus-playfield {
-    padding-top: 48px;
   }
 
   .naturalization-nucleus-game-footer {

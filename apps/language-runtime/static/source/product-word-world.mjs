@@ -19,14 +19,13 @@ import {
   sentenceTargets,
   resolveSpeechPace,
   stripModelEcho,
-  tokenizeCzechSentence as tokenizeLegacySentence,
-  wordMatchesTarget as legacyWordMatchesTarget
+  tokenizeCzechSentence as tokenizeLegacySentence
 } from "./word-net-core.mjs?v=word-net-core-21";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 
-const WORD_NET_MODEL_KEY = "cstinyllama-1.2b-czech-word-sentence-001";
-const TRANSLATION_MODEL_KEY = "qwen3-1.7b-translation-cs-en-001";
+let WORD_NET_MODEL_KEY = "";
+let TRANSLATION_MODEL_KEY = "";
 const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
 const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
 const ROBOT_FALLBACK_URL = "/assets/robots/robot%20(1).png";
@@ -39,8 +38,16 @@ const SCENE_CANDIDATE_LOAD_TIMEOUT_MS = 1200;
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Word World.");
 const targetLocale = course.targetLanguage.locale;
+const sourceLocale = course.sourceLanguage?.locale || course.sourceLanguage?.id || "und";
+let sourcePrimaryLanguage = "";
+try {
+  sourcePrimaryLanguage = new Intl.Locale(sourceLocale).language;
+} catch {
+  sourcePrimaryLanguage = "";
+}
 const targetSpeechLocale = course.targetLanguage.speechLocale || targetLocale;
 const targetLanguageLabel = String(course.targetLanguage.label || "target language").trim();
+const sourceLanguageLabel = String(course.sourceLanguage?.label || "base language").trim();
 let mountRoot = null;
 let providerContext = null;
 let lifecycleOptions = Object.freeze({});
@@ -58,11 +65,59 @@ const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.w
 const TARGET_TEXT_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.targetTextPreferences.v1`;
 const CHALLENGE_PROMPT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.challengePromptMode.v1`;
 const AUDIO_AUTOPLAY_STORAGE_KEY = `${course.storage.namespace}.wordNet.speechAutoplay.v2`;
-const DICTIONARY_GAP_STORAGE_KEY = `${course.storage.namespace}.dictionary.missing.kaikki-cs-en-2026-07-09.v1`;
-const DICTIONARY_GAP_SOURCE_KEY = "kaikki-cs-en-2026-07-09";
+const DICTIONARY_GAP_REPORTING_KEYS = Object.freeze([
+  "dictionaryDirection",
+  "dictionaryKey",
+  "providerId"
+]);
+
+export function resolveDictionaryGapReportingContract(courseProfile = {}) {
+  if (courseProfile.capabilities?.dictionary !== true) return null;
+  const dictionaryContent = courseProfile.dictionaryContent;
+  const reporting = dictionaryContent?.gapReporting;
+  if (!reporting || typeof reporting !== "object" || Array.isArray(reporting)) return null;
+  if (JSON.stringify(Object.keys(reporting).sort()) !== JSON.stringify([...DICTIONARY_GAP_REPORTING_KEYS].sort())) {
+    return null;
+  }
+  const providerId = String(reporting.providerId || "").trim();
+  const dictionaryKey = String(reporting.dictionaryKey || "").trim();
+  const dictionaryDirection = String(reporting.dictionaryDirection || "").trim();
+  if (
+    providerId !== String(dictionaryContent.providerId || "").trim()
+    || !/^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$/u.test(providerId)
+    || !/^[a-z0-9]+(?:-[a-z0-9]+)+$/u.test(dictionaryKey)
+    || !/^[a-z]{2,3}(?:-[a-z0-9]+)*-[a-z]{2,3}(?:-[a-z0-9]+)*$/u.test(dictionaryDirection)
+  ) return null;
+  return Object.freeze({ providerId, dictionaryKey, dictionaryDirection });
+}
+
+export function buildDictionaryGapFeedback(courseProfile, {
+  targetWord,
+  normalizedWord,
+  lookupReturned = 0
+} = {}) {
+  const reporting = resolveDictionaryGapReportingContract(courseProfile);
+  const word = String(targetWord || "").normalize("NFC").trim();
+  const normalized = String(normalizedWord || "").normalize("NFC").trim();
+  if (!reporting || !word || !normalized) return null;
+  const returned = Math.max(0, Math.floor(Number(lookupReturned) || 0));
+  return Object.freeze({
+    targetWord: word,
+    normalizedWord: normalized,
+    dictionaryKey: reporting.dictionaryKey,
+    dictionaryDirection: reporting.dictionaryDirection,
+    lookupOutcome: returned > 0 ? "no_exact_usable_entry" : "no_results",
+    lookupReturned: returned
+  });
+}
+
+const dictionaryGapReporting = resolveDictionaryGapReportingContract(course);
+const DICTIONARY_GAP_STORAGE_KEY = dictionaryGapReporting
+  ? `${course.storage.namespace}.dictionary.missing.${dictionaryGapReporting.dictionaryKey}.v1`
+  : "";
 const DICTIONARY_GAP_NOTICE = "Missing word queued for server review.";
 const DICTIONARY_GAP_LIMIT = 80;
-const RECONSTRUCTION_DISTRACTOR_COUNT = 2;
+const RECONSTRUCTION_DISTRACTOR_COUNT = 4;
 const SENTENCE_REWARD_LIMIT = 128;
 const CZECH_SPEECH_TIMEOUT_MS = 30_000;
 const EXPECTED_SPEECH_CANCELLATIONS = new Set(["canceled", "cancelled", "interrupted"]);
@@ -152,14 +207,21 @@ const reconstructionFallbackTexts = [
   "This is very good."
 ];
 
-function wordMatchesTarget(candidate, target) {
-  const searchKey = providerContext?.normalization?.searchKey;
+export function wordWorldWordsMatch(candidate, target, {
+  searchKey
+} = {}) {
   if (typeof searchKey === "function") {
     const candidateKey = searchKey(candidate, { purpose: "word-world-token-match" });
     const targetKey = searchKey(target, { purpose: "word-world-token-match" });
-    if (candidateKey && candidateKey === targetKey) return true;
+    return Boolean(candidateKey && targetKey && candidateKey === targetKey);
   }
-  return legacyWordMatchesTarget(candidate, target);
+  return false;
+}
+
+function wordMatchesTarget(candidate, target) {
+  return wordWorldWordsMatch(candidate, target, {
+    searchKey: providerContext?.normalization?.searchKey
+  });
 }
 
 function normalizeWordWorldHistoryEntry(entry = {}) {
@@ -903,7 +965,16 @@ async function refreshAudioVoiceOptions() {
   }
 }
 
+function targetSentenceSpeechAllowed() {
+  return state.translationMode !== "reconstruct"
+    || state.reconstruction?.promptSide === "target";
+}
+
 function previewCurrentCzechSentenceFromAudioMenu() {
+  if (!targetSentenceSpeechAllowed()) {
+    syncSpeechControl();
+    return;
+  }
   const sentence = String(state.currentSentence || "").normalize("NFC").trim();
   if (!sentence) return;
   cancelCzechSpeech({ force: true });
@@ -1210,6 +1281,10 @@ function speakCzechWithBrowser(text, source, pace) {
 
 function toggleCzechSpeech(text, source) {
   const normalizedText = String(text || "").normalize("NFC").trim();
+  if (source === "sentence" && !targetSentenceSpeechAllowed()) {
+    syncSpeechControl();
+    return;
+  }
   const sameSpeech = Boolean(
     state.speechSession
     && state.speechSource === source
@@ -1244,6 +1319,7 @@ function maybeAutoplayCurrentSentence({ force = false } = {}) {
   if (
     !state.audioAutoplay
     || state.busy
+    || !targetSentenceSpeechAllowed()
     || !fingerprint
     || !speechControlSupported()
     || (!force && fingerprint === state.lastAutoplayFingerprint)
@@ -1391,6 +1467,7 @@ function saveTargetTextPreferences() {
 }
 
 function loadDictionaryGapKeys() {
+  if (!DICTIONARY_GAP_STORAGE_KEY) return [];
   const seen = new Set();
   return readStoredArray(DICTIONARY_GAP_STORAGE_KEY)
     .map((value) => normalizeWord(value).toLocaleLowerCase(targetLocale))
@@ -1403,6 +1480,7 @@ function loadDictionaryGapKeys() {
 }
 
 function rememberDictionaryGap(key) {
+  if (!DICTIONARY_GAP_STORAGE_KEY) return false;
   const normalized = normalizeWord(key).toLocaleLowerCase(targetLocale);
   if (!normalized || state.dictionaryGapKeys.includes(normalized)) return true;
   const previousKeys = [...state.dictionaryGapKeys];
@@ -1420,6 +1498,7 @@ function rememberDictionaryGap(key) {
 }
 
 function forgetDictionaryGap(key) {
+  if (!DICTIONARY_GAP_STORAGE_KEY) return false;
   const normalized = normalizeWord(key).toLocaleLowerCase(targetLocale);
   if (!normalized || !state.dictionaryGapKeys.includes(normalized)) return true;
   const previousKeys = [...state.dictionaryGapKeys];
@@ -2116,9 +2195,10 @@ function syncGenerationControl() {
     const label = option.querySelector("[data-generation-label]");
     if (label) label.textContent = generationModes[optionMode]?.label || generationModes.selected.label;
   });
-  const promptMode = hasChallengePromptMode(state.challengePromptMode)
+  const configuredPromptMode = hasChallengePromptMode(state.challengePromptMode)
     ? state.challengePromptMode
     : "random";
+  const promptMode = sourcePrimaryLanguage === "en" ? configuredPromptMode : "source";
   if (promptMode !== state.challengePromptMode) state.challengePromptMode = promptMode;
   const sourceLabel = String(course.sourceLanguage?.label || "Base language").trim();
   document.querySelectorAll("[data-challenge-prompt-mode]").forEach((option) => {
@@ -2126,7 +2206,10 @@ function syncGenerationControl() {
     const selected = optionMode === promptMode;
     option.classList.toggle("is-selected", selected);
     option.setAttribute("aria-checked", selected ? "true" : "false");
-    option.disabled = state.busy || state.guidedRequested;
+    option.disabled = state.busy
+      || state.guidedRequested
+      || (sourcePrimaryLanguage !== "en" && optionMode !== "source");
+    option.setAttribute("aria-disabled", String(option.disabled));
     const label = option.querySelector("[data-challenge-prompt-label]");
     if (label) {
       label.textContent = optionMode === "source"
@@ -2189,6 +2272,26 @@ function recordIdentifier(record) {
   return String(record?.id ?? record?.conceptId ?? "").trim();
 }
 
+export function resolveWordWorldRecordLanguageRoles(prepared = {}, record = {}) {
+  const englishAuditText = String(
+    prepared?.audit?.text
+    ?? record.englishAuditText
+    ?? prepared?.englishText
+    ?? record.en
+    ?? record.sourceText
+    ?? ""
+  ).normalize("NFC").trim();
+  return Object.freeze({
+    englishAuditText,
+    learnerPromptText: String(
+      prepared?.learnerPrompt?.text
+      ?? record.learnerPromptText
+      ?? record.sourceText
+      ?? englishAuditText
+    ).normalize("NFC").trim()
+  });
+}
+
 function controllerRecord(record) {
   if (!record || typeof record !== "object") return null;
   const id = recordIdentifier(record);
@@ -2199,11 +2302,16 @@ function controllerRecord(record) {
     ? prepared.target
     : null;
   const tokens = Array.isArray(target?.tokens) ? target.tokens : [];
+  const { englishAuditText, learnerPromptText } = resolveWordWorldRecordLanguageRoles(
+    prepared,
+    record
+  );
   const converted = {
     ...record,
     id,
     cs: String(target?.text ?? record.cs ?? record.targetText ?? "").normalize("NFC").trim(),
-    en: String(prepared?.englishText ?? record.en ?? record.sourceText ?? "").normalize("NFC").trim(),
+    en: learnerPromptText,
+    englishAuditText,
     sceneQuery: String(
       prepared?.sceneQuery
       ?? record.sceneQuery
@@ -2402,7 +2510,11 @@ function setGenerationMode(mode) {
 }
 
 function setChallengePromptMode(mode) {
-  if (state.guidedRequested || !hasChallengePromptMode(mode)) return;
+  if (
+    state.guidedRequested
+    || !hasChallengePromptMode(mode)
+    || (sourcePrimaryLanguage !== "en" && mode !== "source")
+  ) return;
   state.challengePromptMode = mode;
   saveChallengePromptMode();
   syncGenerationControl();
@@ -2460,7 +2572,7 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
     return;
   }
   const difficulty = learningDifficulty();
-  const englishQuery = mode === "selected" ? selectedEnglishSemanticQuery(state.selectedWord) : "";
+  const englishQuery = mode === "selected" ? selectedEnglishSemanticQuery() : "";
   const ownsSemanticBusy = Boolean(
     mode === "selected" && englishQuery && typeof providerContext?.searchEnglish === "function" && !state.busy
   );
@@ -2676,7 +2788,8 @@ function reconstructionCandidateTexts() {
     .flatMap(({ record }) => [record.en, ...(record.enAlternates || [])]);
   const historyTexts = state.history.map((entry) => entry.en).filter(Boolean);
   const seen = new Set();
-  return [...scoredRecords, ...historyTexts, ...reconstructionFallbackTexts].filter((text) => {
+  const fallbacks = sourcePrimaryLanguage === "en" ? reconstructionFallbackTexts : [];
+  return [...scoredRecords, ...historyTexts, ...fallbacks].filter((text) => {
     const value = String(text || "").trim();
     const key = value.toLocaleLowerCase("en-US");
     if (!value || value === state.currentTranslation || seen.has(key)) return false;
@@ -2735,6 +2848,16 @@ function reconstructionLayout(text, parts, { defaultSeparator = " " } = {}) {
   return { separators, trailing: surface.slice(cursor), defaultSeparator };
 }
 
+export function inferReconstructionSeparator(text) {
+  const surface = String(text || "").normalize("NFC").trim();
+  return surface.match(/\s+/u)?.[0] || "";
+}
+
+export function sourceTranslationFeedbackLabel(sourceLanguage = {}) {
+  const label = String(sourceLanguage?.label || "base language").normalize("NFC").trim();
+  return `Wrong ${label || "base language"} translation`;
+}
+
 function targetReconstructionCandidateParts() {
   const currentId = String(state.currentEntryId || "");
   const parts = [];
@@ -2769,7 +2892,7 @@ function buildTargetReconstructionChallenge() {
     targetReconstructionCandidateParts(),
     { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT, normalize }
   );
-  const defaultSeparator = String(course.targetLanguage?.script || "") === "Hans" ? "" : " ";
+  const defaultSeparator = inferReconstructionSeparator(state.currentSentence);
   return {
     ...challenge,
     text: state.currentSentence,
@@ -2778,6 +2901,7 @@ function buildTargetReconstructionChallenge() {
 }
 
 function buildSourceReconstructionChallenge() {
+  if (sourcePrimaryLanguage !== "en") return null;
   const challenge = buildWordReconstructionChallenge(
     state.currentTranslation,
     reconstructionCandidateTexts(),
@@ -2790,6 +2914,7 @@ function buildSourceReconstructionChallenge() {
 }
 
 function resolvedChallengePromptSide() {
+  if (sourcePrimaryLanguage !== "en") return "source";
   if (state.guidedMode) return "target";
   if (state.challengePromptMode === "source" || state.challengePromptMode === "target") {
     return state.challengePromptMode;
@@ -2827,11 +2952,11 @@ function ensureReconstructionChallenge() {
   let challenge = promptSide === "source"
     ? buildTargetReconstructionChallenge()
     : buildSourceReconstructionChallenge();
-  if (!challenge && promptSide === "source") {
+  if (!challenge && promptSide === "source" && sourcePrimaryLanguage === "en") {
     promptSide = "target";
     challenge = buildSourceReconstructionChallenge();
   }
-  if (!challenge.answerTokens.length) {
+  if (!challenge?.answerTokens?.length) {
     state.reconstruction = null;
     return null;
   }
@@ -2955,7 +3080,7 @@ function replaceTargetSentence(host, text, record = preparedTargetRecord(), {
     host.textContent = `${prefix}${surface}${suffix}`;
     return false;
   }
-  const defaultSeparator = String(course.targetLanguage?.script || "") === "Hans" ? "" : " ";
+  const defaultSeparator = inferReconstructionSeparator(surface);
   const layout = reconstructionLayout(surface, parts, { defaultSeparator });
   const fragment = document.createDocumentFragment();
   if (prefix) fragment.append(document.createTextNode(prefix));
@@ -3183,6 +3308,9 @@ function syncReconstructionPresentation(round = null) {
   }
   if (phraseSound) {
     phraseSound.hidden = promptSide === "source" || course.capabilities?.speech !== true;
+  }
+  if (promptSide === "source" && state.speechSource === "sentence") {
+    cancelCzechSpeech();
   }
   if (root) root.setAttribute("aria-label", `Rebuild the ${answerLabel} sentence`);
   if (answer) {
@@ -3448,7 +3576,7 @@ function claimSentenceReward(rewardKey = currentReconstructionKey()) {
 function awardTimedRevealXp() {
   if (!claimSentenceReward()) return false;
   window.CaatuuLearning?.record("word-world", { xp: 1 });
-  setStatus("English revealed. +1 XP.", { tone: "success" });
+  setStatus(`${sourceLanguageLabel} revealed. +1 XP.`, { tone: "success" });
   return true;
 }
 
@@ -3467,7 +3595,10 @@ async function revealGuidedEnglish(lifecycle, phraseToken) {
     }
     await lifecycle.recordSolutionReveal({ occurredAt: new Date().toISOString() });
   } catch (error) {
-    failGuidedWordWorld(error, "The English answer stayed hidden because its evidence could not be saved.");
+    failGuidedWordWorld(
+      error,
+      `The ${sourceLanguageLabel} answer stayed hidden because its evidence could not be saved.`
+    );
     return;
   } finally {
     state.guidedEvidencePending = false;
@@ -3542,6 +3673,11 @@ function setTranslation(text, { loading = false } = {}) {
   state.currentTranslation = String(text || "");
   const node = $("#wordNetTranslation");
   if (!node) return;
+  if (providerContext?.learnerBase) {
+    const sourceLanguage = course.sourceLanguage || {};
+    node.lang = String(sourceLanguage.locale || sourceLanguage.id || "").trim();
+    node.dir = sourceLanguage.direction === "rtl" ? "rtl" : "ltr";
+  }
   node.textContent = loading ? "Translating..." : state.currentTranslation;
   if (loading) {
     clearTranslationTimer();
@@ -3686,7 +3822,7 @@ function cacheWordMeaning(key, meaning) {
 }
 
 async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0 } = {}) {
-  if (providerContext?.session?.course?.capabilities?.dictionary !== true) return;
+  if (!dictionaryGapReporting || providerContext?.session?.course?.capabilities?.dictionary !== true) return;
   const normalizedWord = normalizeWord(selectedWord).toLocaleLowerCase(targetLocale);
   if (!normalizedWord) return;
   if (state.dictionaryGapKeys.includes(normalizedWord)) {
@@ -3696,15 +3832,12 @@ async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0
     }
     return;
   }
-  const lookupOutcome = Number(lookupReturned) > 0 ? "no_exact_usable_entry" : "no_results";
-  const feedback = {
+  const feedback = buildDictionaryGapFeedback(course, {
     targetWord: selectedWord,
     normalizedWord,
-    dictionaryKey: DICTIONARY_GAP_SOURCE_KEY,
-    dictionaryDirection: "cs-en",
-    lookupOutcome,
-    lookupReturned: Math.max(0, Math.floor(Number(lookupReturned) || 0))
-  };
+    lookupReturned
+  });
+  if (!feedback) return;
   try {
     const queued = await runtimeAdapter()?.maintenance?.enqueueDictionaryGap?.(feedback);
     if (!queued?.queued || queued.persisted === false || !rememberDictionaryGap(normalizedWord)) return;
@@ -3736,29 +3869,26 @@ function preparedTokenForWord(selectedWord) {
   return tokenIndex >= 0 ? { record, token: tokens[tokenIndex], tokenIndex } : null;
 }
 
-function selectedEnglishSemanticQuery(selectedWord) {
-  const prepared = preparedTokenForWord(selectedWord);
-  const record = prepared?.record || (typeof providerContext?.sessionRecord === "function"
-    ? providerContext.sessionRecord(state.currentEntryId)
-    : null);
+export function englishAuditSemanticQuery(record = {}) {
   const candidates = [
-    state.selectedWordDetails?.meaning,
-    state.selectedWordMeaning,
-    prepared?.token?.gloss,
-    record?.englishText,
-    state.currentTranslation
+    String(record?.audit?.languageTag || "").toLocaleLowerCase("en-US").split("-")[0] === "en"
+      ? record.audit.text
+      : "",
+    record?.englishAuditText,
+    record?.englishText
   ];
-  const placeholders = new Set([
-    "meaning available",
-    "look up meaning",
-    "no english meaning found.",
-    "meaning unavailable."
-  ]);
   for (const candidate of candidates) {
     const query = String(candidate || "").normalize("NFC").replace(/\s+/gu, " ").trim();
-    if (query && !placeholders.has(query.toLocaleLowerCase("en-US"))) return query;
+    if (query) return query;
   }
   return "";
+}
+
+function selectedEnglishSemanticQuery() {
+  const record = typeof providerContext?.sessionRecord === "function"
+    ? providerContext.sessionRecord(state.currentEntryId)
+    : null;
+  return englishAuditSemanticQuery(record);
 }
 
 async function lookupSelectedWord(word) {
@@ -4915,17 +5045,21 @@ function rememberStep(word, sentence, metadata = {}) {
 
 function recordStandardSemanticExposure(record, provider, targetWord) {
   const semanticLearning = window.CaatuuSemanticLearning;
-  const english = String(record?.en || "").trim();
-  if (!semanticLearning || !record?.id || !english) return;
+  const conceptId = String(record?.conceptId || record?.id || "").trim();
+  const englishAuditText = String(record?.englishAuditText || "").normalize("NFC").trim();
+  const targetText = String(record?.cs || record?.targetText || "").normalize("NFC").trim();
+  if (!semanticLearning || !conceptId || !englishAuditText || !targetText) return;
   const corpusVersion = String(provider?.corpusVersion || "1");
   void semanticLearning.recordAttempt({
     activityId: "word-world",
-    itemId: `word-world:${corpusVersion}:${record.id}`,
+    itemId: `word-world:${course.id}:${corpusVersion}:${conceptId}`,
     item: {
-      sourceId: record.id,
+      courseId: course.id,
+      conceptId,
       corpusVersion,
-      czech: record.cs,
-      english,
+      targetText,
+      targetLanguageTag: targetLocale,
+      englishAuditText,
       difficulty: record.difficulty,
       cefr: record.cefr,
       topic: record.topic,
@@ -4933,11 +5067,11 @@ function recordStandardSemanticExposure(record, provider, targetWord) {
       learning: record.learning
     },
     signals: [{
-      conceptId: `cz.word-world.${record.id}.sentence-meaning`,
+      conceptId,
       statementRevision: corpusVersion,
       kind: "meaning",
       locale: "en",
-      text: `Builds familiarity with the meaning of an everyday Czech sentence: “${english}”`,
+      text: `Builds familiarity with a target expression whose English meaning is: “${englishAuditText}”`,
       score: null,
       coverageWeight: 0.25,
       masteryWeight: 0
@@ -4946,6 +5080,8 @@ function recordStandardSemanticExposure(record, provider, targetWord) {
       outcome: "exposure",
       contentMode: "standard",
       targetWord,
+      courseId: course.id,
+      targetLanguageTag: targetLocale,
       courseDifficulty: learningDifficulty(),
       itemDifficulty: record.difficulty,
       corpusVersion
@@ -5649,6 +5785,13 @@ function applyTargetLanguageLabels(root) {
       }
     }
   }
+  const feedbackReason = root.querySelector("#wordNetFeedbackReason");
+  const wrongTranslation = [...(feedbackReason?.children || [])].find((option) => (
+    option.getAttribute?.("value") === "wrong_translation"
+  ));
+  if (wrongTranslation) {
+    wrongTranslation.textContent = sourceTranslationFeedbackLabel(course.sourceLanguage);
+  }
 }
 
 function applyTargetContentLanguage(root) {
@@ -5666,7 +5809,9 @@ function applyTargetContentLanguage(root) {
 
 function applyWordWorldCapabilities(root) {
   const capabilities = providerContext.session.course?.capabilities || {};
-  const generationSupported = capabilities.llm === true && capabilities.generation === true;
+  const generationSupported = capabilities.llm === true
+    && capabilities.generation === true
+    && Boolean(providerContext.generationStrategy);
   for (const node of root.querySelectorAll('[data-content-mode="generative"]')) {
     node.hidden = !generationSupported;
     node.disabled = !generationSupported;
@@ -5692,6 +5837,14 @@ function requirePreparedContext(value) {
   if (value.session.course?.id !== course.id) {
     throw new Error("The prepared Word World context does not match the active course.");
   }
+  const generationEnabled = value.session.course?.capabilities?.generation === true;
+  if (generationEnabled !== Boolean(value.generationStrategy)) {
+    throw new Error(
+      generationEnabled
+        ? "Word World generation is unavailable without an explicit course-owned versioned strategy."
+        : "A Word World generation strategy cannot be mounted while generation is disabled."
+    );
+  }
   return value;
 }
 
@@ -5710,6 +5863,8 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
     if (!root.querySelector(id)) throw new Error(`Word World authority markup is missing ${id}.`);
   }
 
+  WORD_NET_MODEL_KEY = context.generationStrategy?.sentenceModelKey || "";
+  TRANSLATION_MODEL_KEY = context.generationStrategy?.translationModelKey || "";
   mountRoot = root;
   providerContext = context;
   state.targetTextPreferences = loadTargetTextPreferences(context.targetTextGuide?.defaults);

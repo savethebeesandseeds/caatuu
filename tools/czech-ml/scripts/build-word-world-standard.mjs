@@ -70,6 +70,28 @@ if (!validation.valid) {
     schemaVersion: RUNTIME_MANIFEST_SCHEMA_VERSION,
     corpusVersion: rubric.corpusVersion,
     mode: "standard",
+    sessionProvider: {
+      kind: "standard-corpus",
+      module: "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+      meaningSelectorModule: "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
+    },
+    features: {
+      wordMeanings: true,
+    },
+    generationStrategy: {
+      id: "czech-local-word-world-v1",
+      targetLanguageTag: "cs-CZ",
+      auditLanguageTag: "en",
+      sentenceModelKey: "cstinyllama-1.2b-czech-word-sentence-001",
+      translationModelKey: "qwen3-1.7b-translation-cs-en-001",
+    },
+    embeddingPolicy: {
+      inputLanguage: "en",
+      inputField: "embeddingText",
+      targetTextAllowed: false,
+      modelId: "all-minilm-l6-v2-qint8-v0.1",
+      fallback: "deterministic-lexical",
+    },
     runtimeFile: runtimeRelativeFile,
     recordCount: runtimeRecords.length,
     contentSha256,

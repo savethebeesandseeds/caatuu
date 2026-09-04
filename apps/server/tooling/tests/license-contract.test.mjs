@@ -57,7 +57,9 @@ test("product surfaces disclose code terms and keep reviewed models and corpora 
     read("apps/languages/czech/static/data/games/word-world/manifest.json"),
   ]);
   const productText = `${chrome}\n${workspace}`;
-  assert.match(chrome, /first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3\.0-only/u);
+  assert.match(chrome, /first-party software and developer documentation are licensed AGPL-3\.0-only/u);
+  assert.match(chrome, /First-party curriculum is licensed as stated in its tracked course metadata/u);
+  assert.doesNotMatch(chrome, /first-party (?:English|Mandarin|Czech|Chinese) curriculum/iu);
   assert.match(chrome, /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/u);
   assert.doesNotMatch(productText, /MIT app|Caatuu app code is provided under the MIT license/u);
 

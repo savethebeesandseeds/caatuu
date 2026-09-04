@@ -15,6 +15,7 @@ export const LANGUAGE_CAPABILITIES = Object.freeze({
   SPEECH_OUTPUT_CONFIG: "speech.output.config",
   SPEECH_OUTPUT_RUNTIME: "speech.output.runtime",
   DICTIONARY_KEYS: "dictionary.lookup-key",
+  DICTIONARY_PRESENTATION: "dictionary.presentation",
   DICTIONARY_LOOKUP: "dictionary.lookup",
   DICTIONARY_SEARCH: "dictionary.search"
 });
@@ -87,6 +88,9 @@ function expectedCapabilities(adapter) {
   }
   if (typeof adapter?.dictionary?.search === "function") {
     capabilities.push(LANGUAGE_CAPABILITIES.DICTIONARY_SEARCH);
+  }
+  if (typeof adapter?.dictionary?.presentEntry === "function") {
+    capabilities.push(LANGUAGE_CAPABILITIES.DICTIONARY_PRESENTATION);
   }
   return capabilities.sort();
 }
@@ -188,6 +192,9 @@ export function validateLanguageAdapter(adapter) {
     errors.push("dictionary must be an object.");
   } else {
     validateFunction(errors, adapter.dictionary.lookupKey, "dictionary.lookupKey");
+    if (adapter.dictionary.presentEntry !== undefined) {
+      validateNullableFunction(errors, adapter.dictionary.presentEntry, "dictionary.presentEntry");
+    }
     validateNullableFunction(errors, adapter.dictionary.lookup, "dictionary.lookup");
     validateNullableFunction(errors, adapter.dictionary.search, "dictionary.search");
   }
@@ -211,6 +218,99 @@ export function assertValidLanguageAdapter(adapter) {
   const result = validateLanguageAdapter(adapter);
   if (!result.valid) {
     throw new TypeError(`Invalid language adapter:\n- ${result.errors.join("\n- ")}`);
+  }
+  return adapter;
+}
+
+function languageIdentity(value, label) {
+  let locale;
+  try {
+    locale = new Intl.Locale(canonicalizeLanguageTag(value));
+  } catch (error) {
+    throw new TypeError(`${label} must be a valid language tag.`, { cause: error });
+  }
+  return Object.freeze({
+    tag: locale.toString(),
+    language: locale.language,
+    script: locale.script || locale.maximize().script || ""
+  });
+}
+
+/**
+ * Binds a structurally valid target-language adapter to the exact course
+ * language identity that selected it. This is deliberately separate from
+ * adapter shape validation: two individually valid adapters are not
+ * interchangeable when their locale, script, direction, or speech contract
+ * differs.
+ */
+export function assertLanguageAdapterMatchesTarget(adapter, targetLanguage) {
+  assertValidLanguageAdapter(adapter);
+  if (!isRecord(targetLanguage)) {
+    throw new TypeError("Course targetLanguage must be an object.");
+  }
+
+  const target = languageIdentity(targetLanguage.locale, "Course targetLanguage.locale");
+  const speech = languageIdentity(
+    targetLanguage.speechLocale,
+    "Course targetLanguage.speechLocale"
+  );
+  const targetId = String(targetLanguage.id || "").trim();
+  const targetScript = String(targetLanguage.script || "").trim();
+  if (targetId !== target.language) {
+    throw new TypeError(
+      `Course targetLanguage.id ${targetId || "<missing>"} does not match locale ${target.tag}.`
+    );
+  }
+  if (!/^[A-Z][a-z]{3}$/u.test(targetScript) || targetScript !== target.script) {
+    throw new TypeError(
+      `Course targetLanguage.script ${targetScript || "<missing>"} does not match locale ${target.tag}.`
+    );
+  }
+  if (speech.language !== target.language || speech.script !== targetScript) {
+    throw new TypeError(
+      `Course targetLanguage.speechLocale ${speech.tag} does not match target ${target.language}-${targetScript}.`
+    );
+  }
+  if (adapter.direction !== targetLanguage.direction) {
+    throw new TypeError(
+      `Language adapter direction ${adapter.direction} does not match course target direction ${targetLanguage.direction}.`
+    );
+  }
+
+  const adapterLocale = languageIdentity(
+    adapter.languageTags.locale,
+    "Language adapter languageTags.locale"
+  );
+  if (adapterLocale.tag !== target.tag) {
+    throw new TypeError(
+      `Language adapter locale ${adapterLocale.tag} does not match course target locale ${target.tag}.`
+    );
+  }
+  for (const [label, value] of [
+    ["languageTags.primary", adapter.languageTags.primary],
+    ["languageTags.html", adapter.languageTags.html],
+    ...adapter.languageTags.fallbacks.map((value, index) => [
+      `languageTags.fallbacks[${index}]`,
+      value
+    ])
+  ]) {
+    const identity = languageIdentity(value, `Language adapter ${label}`);
+    if (identity.language !== target.language || identity.script !== targetScript) {
+      throw new TypeError(
+        `Language adapter ${label} ${identity.tag} does not match target ${target.language}-${targetScript}.`
+      );
+    }
+  }
+  for (const side of ["input", "output"]) {
+    const adapterSpeech = languageIdentity(
+      adapter.speech[side].languageTag,
+      `Language adapter speech.${side}.languageTag`
+    );
+    if (adapterSpeech.tag !== speech.tag) {
+      throw new TypeError(
+        `Language adapter speech.${side}.languageTag ${adapterSpeech.tag} does not match course speech locale ${speech.tag}.`
+      );
+    }
   }
   return adapter;
 }
@@ -478,6 +578,54 @@ export function callSpeechOutputHook(adapter, value, options = {}, context = {})
 export function dictionaryLookupKey(adapter, value, context = {}) {
   assertValidLanguageAdapter(adapter);
   return requireStringResult(adapter.dictionary.lookupKey(value, context), "dictionary.lookupKey");
+}
+
+function requiredPresentationText(value, path) {
+  if (typeof value !== "string" || !value.trim()) {
+    throw new TypeError(`${path} must be a non-empty string.`);
+  }
+  return value.normalize("NFC").trim();
+}
+
+function optionalPresentationText(value, path) {
+  if (value === undefined || value === null) return "";
+  if (typeof value !== "string") throw new TypeError(`${path} must be a string when present.`);
+  return value.normalize("NFC").trim();
+}
+
+export function presentDictionaryEntry(adapter, record, context = {}) {
+  assertLanguageCapabilities(adapter, LANGUAGE_CAPABILITIES.DICTIONARY_PRESENTATION);
+  if (!isRecord(record)) throw new TypeError("Dictionary record must be an object.");
+  const presentation = adapter.dictionary.presentEntry(record, context);
+  if (!isRecord(presentation)) {
+    throw new TypeError("dictionary.presentEntry must return an object.");
+  }
+  return Object.freeze({
+    targetText: requiredPresentationText(
+      presentation.targetText,
+      "dictionary.presentEntry.targetText"
+    ),
+    englishAuditText: requiredPresentationText(
+      presentation.englishAuditText,
+      "dictionary.presentEntry.englishAuditText"
+    ),
+    category: optionalPresentationText(
+      presentation.category,
+      "dictionary.presentEntry.category"
+    ) || "Core",
+    partOfSpeech: optionalPresentationText(
+      presentation.partOfSpeech,
+      "dictionary.presentEntry.partOfSpeech"
+    ),
+    exampleTargetText: optionalPresentationText(
+      presentation.exampleTargetText,
+      "dictionary.presentEntry.exampleTargetText"
+    ),
+    usageNote: optionalPresentationText(
+      presentation.usageNote,
+      "dictionary.presentEntry.usageNote"
+    )
+  });
 }
 
 export function callDictionaryHook(adapter, hookName, query, options = {}) {

@@ -1,7 +1,9 @@
 import { mandarinSimplifiedContentPolicy } from "./mandarin-simplified.mjs";
+import { spanishSpainContentPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
-  [mandarinSimplifiedContentPolicy.id, mandarinSimplifiedContentPolicy]
+  [mandarinSimplifiedContentPolicy.id, mandarinSimplifiedContentPolicy],
+  [spanishSpainContentPolicy.id, spanishSpainContentPolicy]
 ]);
 
 export function resolveTargetContentPolicy(policyId) {

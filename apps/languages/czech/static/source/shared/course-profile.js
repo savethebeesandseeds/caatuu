@@ -49,11 +49,51 @@
       "agreement-aurora"
     ],
     upcomingGames: [
-      "memory-moon"
+      "memory-moon",
+      "sound-quasar"
     ],
     languageAdapter: {
       schemaVersion: 1,
       module: "source/language/adapter.mjs"
+    },
+    browserProviders: {
+      courseRuntime: "source/shared/runtime.js?v=runtime-41",
+      semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
+      setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
+      setupProvider: "source/features/setup/setup.js?v=setup-39"
+    },
+    gameContent: {
+      "verb-lab": {
+        verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+      },
+      "word-net": {
+        wordWorldManifest: "data/games/word-world/manifest.json"
+      },
+      "conjugation-comet": {
+        conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
+      },
+      "case-cosmos": {
+        caseCosmosCatalog: "data/games/case-cosmos/challenges.json?v=case-cosmos-data-5"
+      },
+      "agreement-aurora": {
+        agreementAuroraCatalog: "data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3"
+      }
+    },
+    dictionaryContent: {
+      catalog: "data/dictionaries/catalog.json",
+      coreEntries: "data/games/verb-nebula/core-vocabulary.json",
+      scriptLines: "data/language/scripts.json",
+      referenceDocument: "data/dictionaries/reference.html",
+      providerId: "czech-full-dictionary-v1",
+      providerModule: "source/features/dictionary/dictionary-full.js?v=full-dictionary-7",
+      gapReporting: {
+        providerId: "czech-full-dictionary-v1",
+        dictionaryKey: "kaikki-cs-en-2026-07-09",
+        dictionaryDirection: "cs-en"
+      }
+    },
+    embeddingContent: {
+      catalog: "data/embeddings/models.json"
     },
     courseSelector: {
       schemaVersion: 1,
@@ -63,6 +103,9 @@
           status: "active",
           routePrefix: "/cz",
           entryPath: "/cz/index.html",
+          storage: {
+            learningPerformance: "caatuu-czech.learning.performance.v1"
+          },
           sourceLanguage: {
             id: "en",
             label: "English",
@@ -89,6 +132,9 @@
           status: "development",
           routePrefix: "/zh",
           entryPath: "/zh/index.html",
+          storage: {
+            learningPerformance: "caatuu-zh-hans.learning.performance.v1"
+          },
           sourceLanguage: {
             id: "en",
             label: "English",
@@ -109,6 +155,35 @@
             flagClass: "zh-hans-flag",
             flagSrc: "/assets/icons/china_flag.png"
           }
+        },
+        {
+          id: "es",
+          status: "development",
+          routePrefix: "/es",
+          entryPath: "/es/index.html",
+          storage: {
+            learningPerformance: "caatuu-es.learning.performance.v1"
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          targetLanguage: {
+            id: "es",
+            label: "Spanish",
+            nativeLabel: "Español",
+            shortCode: "ES",
+            locale: "es-ES",
+            direction: "ltr",
+            flagClass: "spain-flag",
+            flagSrc: "/assets/icons/spain_flag.png"
+          }
         }
       ]
     },
@@ -124,9 +199,9 @@
       campaign: "index.html",
       verbNebula: "index.html",
       wordWorld: "index.html?game=word-net",
-      conjugationComet: "conjugation-comet.html",
+      conjugationComet: "/language-runtime/static/games/conjugation-comet.html",
       caseCosmos: "case-cosmos.html",
-      agreementAurora: "agreement-aurora.html",
+      agreementAurora: "/language-runtime/static/games/agreement-aurora.html",
       settings: "index.html"
     },
     storage: {
@@ -287,7 +362,7 @@
       browser: {
         enabled: true,
         entryPath: "/cz/index.html",
-        backend: "czech-dictionary"
+        backend: "dictionary-api-v1"
       },
       android: {
         enabled: true,

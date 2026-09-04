@@ -1,3 +1,5 @@
+import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
+
 const course = globalThis.CaatuuCourse;
 
 if (!course || typeof course !== "object") {
@@ -54,17 +56,16 @@ function loadSharedScript(path) {
   return loadScriptUrl(new URL(path, globalThis.location.origin).href, path);
 }
 
-const COURSE_RUNTIME_CAPABILITIES = Object.freeze([
-  "llm",
-  "offlineModels",
-  "dictionary",
-  "verbs"
-]);
 const nativeSpeechPending = new Map();
 let nativeSpeechRequestSequence = 0;
 
-function requiresCourseRuntime() {
-  return COURSE_RUNTIME_CAPABILITIES.some((capability) => course.capabilities?.[capability] === true);
+function declaredBrowserProvider(name) {
+  const module = String(course.browserProviders?.[name] || "").trim();
+  if (!module) return "";
+  if (!/^source\/[A-Za-z0-9._/-]+\.js\?v=[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(module)) {
+    throw new Error(`Course browser provider ${name} is not a confined revisioned JavaScript module.`);
+  }
+  return module;
 }
 
 function hasNativeBridge() {
@@ -215,6 +216,7 @@ function setCourseIdentity() {
   document.documentElement.lang = course.sourceLanguage?.locale || course.sourceLanguage?.id || "en";
   document.documentElement.dir = course.sourceLanguage?.direction || "ltr";
   document.body.dataset.courseId = course.id;
+  document.body.dataset.targetScript = globalThis.CaatuuShellPolicy?.targetScriptToken?.(course) || "Zyyy";
   document.title = course.workspaceLabel || course.brandLabel || "Caatuu";
   const manifest = document.querySelector('link[rel="manifest"]');
   if (manifest) manifest.href = courseUrl("manifest.webmanifest");
@@ -399,32 +401,41 @@ function applyCapabilityBoundaries() {
 }
 
 async function loadCourseFeatureProviders() {
-  const verbs = course.capabilities?.verbs === true;
-  const naturalizationNucleus = globalThis.CaatuuShellPolicy?.gameAvailable?.(course, "naturalization-nucleus") === true;
+  const gameAvailable = (gameId) => (
+    globalThis.CaatuuShellPolicy?.gameAvailable?.(course, gameId) === true
+  );
+  const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-11"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-11")
+      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-12"),
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-12")
     ]);
   }
-  if (verbs) {
-    await Promise.all([
-      loadStyle("source/games/case-cosmos/launcher.css?v=case-cosmos-launcher-1"),
-      loadStyle("source/games/agreement-aurora/launcher.css?v=agreement-aurora-launcher-1")
-    ]);
-  }
-  if (requiresCourseRuntime()) await loadScript("source/shared/runtime.js?v=runtime-41");
+  const courseRuntime = declaredBrowserProvider("courseRuntime");
+  if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
   await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-17");
-  if (!verbs) return;
-  await loadScript("source/shared/semantic-learning.js?v=semantic-learning-7");
-  await loadScript("source/features/setup/setup-progress.js?v=setup-progress-1");
-  await loadScript("source/features/setup/setup.js?v=setup-39");
-  await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-7");
-  if (course.capabilities?.dictionary === true) {
-    await loadScript("source/features/dictionary/dictionary-full.js?v=full-dictionary-5");
+  for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
+    const providerModule = declaredBrowserProvider(providerName);
+    if (providerModule) await loadScript(providerModule);
   }
-  return;
+  return initializeWorkspaceAfterDictionaryProvider({
+    course,
+    globalScope: globalThis,
+    loadScript,
+    origin: location.origin,
+    routeBase,
+    async initializeWorkspace() {
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-13");
+      const workspace = await globalThis.CaatuuWorkspaceReady;
+      if (workspace?.ready !== true) {
+        throw workspace?.error instanceof Error
+          ? workspace.error
+          : new Error("The shared workspace did not confirm successful initialization.");
+      }
+      return workspace;
+    }
+  });
 }
 
 async function registerCourseServiceWorker() {
@@ -443,11 +454,8 @@ async function start() {
   setCourseIdentity();
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-9");
+  await import("./word-world-host.mjs?v=word-world-host-15");
   await loadCourseFeatureProviders();
-  if (course.capabilities?.verbs !== true) {
-    await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-7");
-  }
   document.documentElement.dataset.caatuuShellReady = "true";
   await registerCourseServiceWorker();
   document.documentElement.dataset.caatuuAppReady = "true";

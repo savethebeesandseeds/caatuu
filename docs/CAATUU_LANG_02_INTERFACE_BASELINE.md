@@ -40,7 +40,7 @@ The Czech shell consists of:
    - Games and its chooser above the dock;
    - Backpack, with Items, Stats, and Settings in the same shell.
 3. Games workspace
-   - the galaxy/planet chooser;
+   - a random spacecraft launchpad behind the docked planet chooser;
    - one active game stage without a product-level layout change;
    - preserved theme, font size, progress, visibility, and lifecycle state when
      moving between shell views.
@@ -72,7 +72,7 @@ The Czech Word World reference comprises:
 - previous/next controls and horizontal swipe behavior;
 - the central illustrated scene;
 - selectable target-language word tokens with authored boundaries;
-- the English sentence reconstruction challenge, answer modes, submit/result
+- the learner-base/target sentence reconstruction challenge, answer modes, submit/result
   state, and XP award;
 - sentence playback, reporting, progress/runtime status, and phrase history;
 - keyboard, focus, live-region, reduced-motion, and touch behavior;
@@ -144,8 +144,8 @@ Providers may differ only in how they prepare data and optional services. They
 must yield the same frozen renderer-facing context contract:
 
 - course identity, source/target labels, adapter, policy, and capabilities;
-- stable records with `conceptId`, English display/search text, scene intent,
-  and target text;
+- stable records with `conceptId`, immutable English audit/search text,
+  separately declared learner-base prompt text, scene intent, and target text;
 - authored target tokens with `surface`, learner-facing `gloss`, and
   `playable`, plus reviewed pronunciation metadata only when allowed;
 - deterministic selection and English semantic-search methods;
@@ -314,8 +314,9 @@ For both `/cz/` and `/zh/`:
 - [ ] Mandarin labels machine-assisted pinyin as a preview and exposes no
       approved authored pronunciation guide while its native-review gate is
       unresolved.
-- [ ] English reconstruction can be completed, reports the correct state,
-      awards XP once, and enables next/history navigation.
+- [ ] Reconstruction uses the declared learner-base prompt and target tokens;
+      English-base courses may reconstruct English. It reports the correct
+      state, awards XP once, and enables next/history navigation.
 - [ ] Previous/next buttons and horizontal touch swipe obey the same gating and
       do not conflict with browser edge gestures.
 - [ ] English semantic search selects an appropriate record and reports whether

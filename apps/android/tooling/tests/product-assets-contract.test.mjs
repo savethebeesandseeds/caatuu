@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -10,12 +10,15 @@ import {
   STORE_LANGUAGE_FILES,
   PRODUCT_PROFILE,
   PRODUCT_COURSE_BUNDLE_ASSET,
+  assertAndroidBundleSharedStorage,
   compileProductAssetBundle,
   compileProductAssets,
+  exactWorkspaceSource,
   loadAndroidCourseBundleConfiguration,
   loadAndroidCourseConfiguration,
   transformCourseProfile,
   transformIndex,
+  transformWordWorldManifest,
   validateProductAssetBundle,
   validateProductAssets
 } from "../build-product-assets.mjs";
@@ -29,6 +32,10 @@ const courseBundlePath = join(workspaceRoot, "apps/android/course-bundle.json");
 const fixtureCourseManifest = join(
   workspaceRoot,
   "apps/android/tooling/tests/fixtures/no-llm-course/course.json",
+);
+const generativeFixtureRoot = join(
+  workspaceRoot,
+  "apps/android/tooling/tests/fixtures/generative-course",
 );
 const releasePublisher = readFileSync(join(workspaceRoot, "apps/android/tooling/publish-release.sh"), "utf8");
 
@@ -61,6 +68,10 @@ test("courses share one Android app document and bundle while retaining course-o
     "assets/icons/china_flag.png",
     "assets/icons/czech_flag_ui.png",
     "assets/icons/english_flag.png",
+    "assets/icons/homebase_icon.png",
+    "assets/icons/social_icon.png",
+    "assets/icons/store_icon.png",
+    ...Array.from({ length: 16 }, (_value, index) => `assets/stores/stores (${index + 1}).png`),
   ]) {
     assert.ok(sharedOutputs.has(path), `shared Android app catalog must include ${path}`);
   }
@@ -84,7 +95,7 @@ test("courses share one Android app document and bundle while retaining course-o
   ]) {
     const setup = JSON.parse(readFileSync(setupPath, "utf8"));
     const offlineAssets = new Set(setup.offline.assets.map(String));
-    const offlinePaths = new Set([...offlineAssets].map((value) => value.split("?", 1)[0]));
+    const offlinePaths = new Set([...offlineAssets].map((value) => value.split(/[?#]/u, 1)[0]));
     for (const path of requiredSharedOfflinePaths) {
       assert.ok(offlinePaths.has(path), `${course} offline export must include ${path}`);
     }
@@ -93,8 +104,8 @@ test("courses share one Android app document and bundle while retaining course-o
       `${course} offline export must exclude the retired parallel product shell`,
     );
     assert.ok(
-      offlineAssets.has("/language-runtime/static/source/shell-policy.js"),
-      `${course} offline export must include the exact module dependency shell-policy.js`,
+      offlinePaths.has("/language-runtime/static/source/shell-policy.js"),
+      `${course} offline export must include the module dependency shell-policy.js by pathname`,
     );
   }
 
@@ -110,6 +121,54 @@ test("courses share one Android app document and bundle while retaining course-o
   assert.ok(!czechFiles.includes("source/games/word-world/word-net-core.mjs"));
   assert.ok(czechFiles.includes("data/games/word-world/standard-v0.1/records.json"));
   assert.ok(mandarinFiles.includes("data/games/word-world/starter-v1.realizations.json"));
+});
+
+test("Android course bundles allow one shared storage owner only for an identical artifact", () => {
+  const bundle = loadAndroidCourseBundleConfiguration({
+    workspaceRoot,
+    courseBundlePath,
+    launcherStaticDir,
+  });
+  const mandarin = bundle.configurations.find(({ course }) => course.id === "zh");
+  assert.ok(mandarin, "the fixture must include the Mandarin course");
+  const secondCourse = {
+    ...mandarin,
+    course: {
+      ...mandarin.course,
+      id: "zh-second-course",
+    },
+  };
+  assert.doesNotThrow(() => assertAndroidBundleSharedStorage(
+    [mandarin, secondCourse],
+    bundle.embeddingRuntime,
+  ));
+});
+
+test("Android packaging rejects leaf and intermediate physical-source aliases", (t) => {
+  const root = mkdtempSync(join(tmpdir(), "caatuu-android-source-pin-"));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const canonical = join(root, "canonical");
+  const alternate = join(root, "alternate");
+  mkdirSync(join(canonical, "nested"), { recursive: true });
+  mkdirSync(alternate, { recursive: true });
+  writeFileSync(join(canonical, "asset.js"), "canonical\n");
+  writeFileSync(join(alternate, "asset.js"), "alternate\n");
+  assert.equal(
+    exactWorkspaceSource(root, "canonical/asset.js", "course file", { kind: "file" }),
+    join(canonical, "asset.js"),
+  );
+
+  symlinkSync(join(alternate, "asset.js"), join(canonical, "alias.js"));
+  assert.throws(
+    () => exactWorkspaceSource(root, "canonical/alias.js", "shared app file", { kind: "file" }),
+    /must not be a symbolic-link alias|exact declared physical source/u,
+  );
+
+  symlinkSync(alternate, join(canonical, "nested", "alias-root"), "dir");
+  assert.throws(
+    () => exactWorkspaceSource(root, "canonical/nested/alias-root/asset.js", "course file", { kind: "file" }),
+    /exact declared physical source/u,
+  );
 });
 
 test("the Android product bundles Czech and Mandarin behind one shared app document", (t) => {
@@ -136,7 +195,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     launcherStaticDir,
     outputDir,
   });
-  assert.ok(result.totalBytes < 32_000_000, "the media-rich package must remain bounded while MiniLM stays in setup delivery");
+  // Guardrail with roughly 5% headroom after the intentional shared store/home,
+  // Sounds Quasar, and shared grammar-game assets.
+  assert.ok(result.totalBytes < 36_500_000, "the media-rich package must remain bounded while MiniLM stays in setup delivery");
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));
@@ -342,6 +403,14 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "source/shared/learning-profile.js",
     "source/shared/theme.css",
     "language-runtime/static/styles/course-shell.css",
+    "conjugation-comet.html",
+    "agreement-aurora.html",
+    "source/games/conjugation-comet/conjugation-comet.css",
+    "source/games/conjugation-comet/conjugation-comet.js",
+    "source/games/agreement-aurora/agreement-aurora.css",
+    "source/games/agreement-aurora/agreement-aurora.js",
+    "source/games/agreement-aurora/launcher.css",
+    "source/games/case-cosmos/launcher.css",
   ]) {
     assert.ok(!result.files.includes(path), `product package must exclude ${path}`);
   }
@@ -356,6 +425,15 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "language-runtime/static/source/word-net-queue.mjs",
     "language-runtime/static/source/word-world-host.mjs",
     "language-runtime/static/source/word-world-provider.mjs",
+    "language-runtime/static/games/agreement-aurora.html",
+    "language-runtime/static/games/conjugation-comet.html",
+    "language-runtime/static/source/games/course-game-content.mjs",
+    "language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs",
+    "language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs",
+    "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs",
+    "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs",
+    "language-runtime/static/styles/games/agreement-aurora.css",
+    "language-runtime/static/styles/games/conjugation-comet.css",
     "language-runtime/static/styles/caatuu-word-world.css",
     "language-runtime/static/styles/caatuu-theme.css",
     "language-runtime/static/styles/caatuu-workspace.css",
@@ -369,17 +447,15 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     );
   }
 
-  const includedConjugationFiles = [
-    "conjugation-comet.html",
-    "source/games/conjugation-comet/conjugation-comet.css",
-    "source/games/conjugation-comet/conjugation-comet.js",
-    "data/games/conjugation-comet/verbs.json"
+  const includedCourseGameContent = [
+    "data/games/conjugation-comet/verbs.json",
+    "data/games/agreement-aurora/challenges.json"
   ];
   assert.ok(STORE_LANGUAGE_FILES.includes("source/shared/child-facing-assets.mjs"));
   assert.ok(result.files.includes("source/shared/child-facing-assets.mjs"));
   assert.ok(STORE_LANGUAGE_FILES.includes("source/features/campaign/campaign.css"));
   assert.ok(result.files.includes("source/features/campaign/campaign.css"));
-  for (const path of includedConjugationFiles) {
+  for (const path of includedCourseGameContent) {
     assert.ok(STORE_LANGUAGE_FILES.includes(path), `product allowlist must include ${path}`);
     assert.ok(result.files.includes(path), `compiled product surface must include ${path}`);
   }
@@ -494,6 +570,70 @@ test("product transforms fail closed when an expected development anchor drifts"
     () => transformCourseProfile(source.replace("      chat: true,", "      chat: maybe,")),
     /course chat capability: expected 1 exact source anchor/
   );
+});
+
+test("Android Word World packaging removes generation strategy without changing its runtime authority", () => {
+  const source = JSON.stringify({
+    corpusVersion: "standard-v0.1",
+    sessionProvider: {
+      kind: "standard-corpus",
+      module: "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+    },
+    generationStrategy: {
+      id: "course-local-generation-v1",
+    },
+  });
+  const transformed = JSON.parse(transformWordWorldManifest(source));
+
+  assert.equal(transformed.generationStrategy, undefined);
+  assert.equal(transformed.corpusVersion, "standard-v0.1");
+  assert.deepEqual(transformed.sessionProvider, {
+    kind: "standard-corpus",
+    module: "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+  });
+});
+
+test("a non-Czech generative browser course compiles into the shared Standard-only Android contract", (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-generative-course-product-test-"));
+  const outputDir = join(parent, "product");
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
+
+  const options = {
+    workspaceRoot,
+    courseBundlePath: join(generativeFixtureRoot, "course-bundle.json"),
+    languageCatalogPath: join(generativeFixtureRoot, "language-catalog.json"),
+    launcherStaticDir,
+    outputDir,
+  };
+  const result = compileProductAssetBundle(options);
+  assert.deepEqual(validateProductAssetBundle(options), result);
+
+  const runtimeCatalog = JSON.parse(readFileSync(join(outputDir, PRODUCT_COURSE_BUNDLE_ASSET), "utf8"));
+  const course = runtimeCatalog.courses[0];
+  assert.equal(course.id, "fixture-gen");
+  for (const name of ["llm", "generation", "chat", "offlineModels"]) {
+    assert.equal(course.capabilities[name], false, `Android runtime catalog must disable ${name}`);
+  }
+
+  const courseRoot = join(outputDir, "courses/fixture-gen");
+  const profile = readFileSync(join(courseRoot, "source/shared/course-profile.js"), "utf8");
+  assert.doesNotMatch(profile, /(?:llm|generation|chat|offlineModels): true/u);
+  assert.doesNotMatch(profile, /chat\.html|audio-lab\.html|embedding-images\.html|chatSettings/u);
+  assert.match(profile, /wordWorld: "index\.html\?game=word-net"/u);
+  assert.match(profile, /android:\s*\{\s*enabled: true,\s*channels: \[\]/u);
+
+  const wordWorld = JSON.parse(readFileSync(join(courseRoot, "data/games/word-world/manifest.json"), "utf8"));
+  assert.equal(wordWorld.generationStrategy, undefined);
+  assert.equal(wordWorld.sessionProvider.module, "source/games/word-world/standard-provider.mjs?v=fixture-standard-1");
+  for (const name of ["llm", "generation", "chat", "offlineModels"]) {
+    assert.equal(wordWorld.capabilities[name], false, `Word World manifest must disable ${name}`);
+  }
+
+  const setup = JSON.parse(readFileSync(join(courseRoot, "setup-assets.json"), "utf8"));
+  assert.deepEqual(setup.artifacts.map(({ key }) => key), ["fixture-standard-content"]);
+  assert.ok(setup.offline.assets.every((asset) => !/chat|data\/models|gguf/iu.test(asset)));
+  const webManifest = JSON.parse(readFileSync(join(courseRoot, "manifest.webmanifest"), "utf8"));
+  assert.ok(webManifest.shortcuts.every((shortcut) => !/chat/iu.test(JSON.stringify(shortcut))));
 });
 
 test("product validation rejects unsafe learner text after compilation", (t) => {

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "courseId": "fixture-gen",
+  "nativeProviders": {
+    "schemaVersion": 1,
+    "providers": {}
+  },
+  "files": [
+    "data/games/word-world/manifest.json",
+    "data/games/word-world/standard-v1/records.json",
+    "manifest.webmanifest",
+    "setup-assets.json",
+    "source/games/word-world/standard-provider.mjs",
+    "source/shared/course-profile.js"
+  ],
+  "launcherIconFiles": []
+}

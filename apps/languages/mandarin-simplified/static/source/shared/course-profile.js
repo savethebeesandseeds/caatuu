@@ -44,11 +44,28 @@
       "naturalization-nucleus"
     ],
     upcomingGames: [
-      "memory-moon"
+      "memory-moon",
+      "sound-quasar"
     ],
     languageAdapter: {
       schemaVersion: 1,
       module: "source/language/adapter.mjs"
+    },
+    browserProviders: {},
+    gameContent: {
+      "verb-lab": {
+        verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+      },
+      "word-net": {
+        wordWorldManifest: "data/games/word-world/manifest.json"
+      },
+      "naturalization-nucleus": {
+        naturalizationNucleusCatalog: "data/games/naturalization-nucleus/challenges.json"
+      }
+    },
+    dictionaryContent: null,
+    embeddingContent: {
+      catalog: "data/embeddings/catalog.json"
     },
     courseSelector: {
       schemaVersion: 1,
@@ -58,6 +75,9 @@
           status: "active",
           routePrefix: "/cz",
           entryPath: "/cz/index.html",
+          storage: {
+            learningPerformance: "caatuu-czech.learning.performance.v1"
+          },
           sourceLanguage: {
             id: "en",
             label: "English",
@@ -84,6 +104,9 @@
           status: "development",
           routePrefix: "/zh",
           entryPath: "/zh/index.html",
+          storage: {
+            learningPerformance: "caatuu-zh-hans.learning.performance.v1"
+          },
           sourceLanguage: {
             id: "en",
             label: "English",
@@ -103,6 +126,35 @@
             direction: "ltr",
             flagClass: "zh-hans-flag",
             flagSrc: "/assets/icons/china_flag.png"
+          }
+        },
+        {
+          id: "es",
+          status: "development",
+          routePrefix: "/es",
+          entryPath: "/es/index.html",
+          storage: {
+            learningPerformance: "caatuu-es.learning.performance.v1"
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          targetLanguage: {
+            id: "es",
+            label: "Spanish",
+            nativeLabel: "Español",
+            shortCode: "ES",
+            locale: "es-ES",
+            direction: "ltr",
+            flagClass: "spain-flag",
+            flagSrc: "/assets/icons/spain_flag.png"
           }
         }
       ]

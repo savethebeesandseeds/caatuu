@@ -12,10 +12,12 @@ The immediate product decisions are:
 - **Conjugation Comet remains an optional conjugation game.** A language
   enables it only when verb-form changes are an important learnable system.
 - Czech has two implemented additional game hypotheses: **Case Cosmos** and
-  **Agreement Aurora**. A **Sound and Spelling planet** remains future work.
-  Clitic placement is useful content but is not a separate planet.
-- The Sound and Spelling planet is explicitly future work. It must not delay
-  the morphology and sentence-structure games.
+  **Agreement Aurora**. **Sounds Quasar** is a shared coming-later placeholder
+  for sound and spelling practice. Clitic placement is useful content but is
+  not a separate planet.
+- Sounds Quasar is explicitly future work. Its placeholder applies to every
+  course, but it must not enter a course's playable games until that language
+  has reviewed audio and challenge authorities.
 - Every enabled game must resolve all assessed challenges from reviewed JSON.
   A game may own that JSON directly or deterministically derive a frozen game
   JSON file from explicitly named general-language JSON sources.
@@ -128,7 +130,7 @@ Examples:
 | Memory Moon | Placeholder | Recall weak material selected from all active planets |
 | Case Cosmos | Development slice handed off for interface refinement | Recognize why a Czech noun changes and compare its seven case forms |
 | Agreement Aurora | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
-| Sound and Spelling planet | Future backlog | Connect Czech sound, vowel length, diacritics, and spelling |
+| Sounds Quasar | Shared coming-later placeholder | Connect Czech sound, vowel length, diacritics, and spelling through future reviewed content |
 | Battle of the Robots | Future main game | Use training and experience from the other planets to face the robot battles |
 
 Memory Moon is a review surface, not another grammar authority. It should draw
@@ -140,6 +142,16 @@ enabled-game content-manifest gate. Before it becomes an active review game,
 it needs a reviewed policy/configuration JSON and a manifest for that config;
 its session queue may then be derived locally from progress and exact
 `gameId`, challenge ID, and revision references.
+
+Sounds Quasar is also a non-assessing placeholder. The shared shell owns its
+`sound-quasar` identity, presentation, and emblem; Czech, Mandarin, Spanish,
+and future courses opt into the same coming-later surface through
+`upcomingGames`. No language may fork its layout or treat synthesized speech
+as assessed content authority. Activation requires a separate reviewed
+language content contract. The shared planet registry therefore marks it with
+`implementationState: "unimplemented"`: the shell and course validator fail
+closed until that single gate is deliberately changed after reviewed content
+and a shared gameplay host exist.
 
 ### Campaign Mode — mixed travel between planets
 
@@ -159,7 +171,8 @@ same robot-only transition appears before the first Campaign planet. When more
 than one planet is playable, the next one must not immediately repeat the one
 just completed; a one-game course keeps sampling that game. Campaign Mode's
 own icon and title remain the visible route identity while the underlying
-planet changes.
+planet changes. Sounds Quasar is excluded while it remains a non-assessing
+placeholder.
 
 This random first version is variety, not curriculum guidance. It must not
 claim that a learner is ready, that a concept is mastered, or that a particular
@@ -367,7 +380,7 @@ linguistic facts are shared:
 | Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/verbs.json`, used directly by the game |
 | Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/challenges.json`, used directly by the game |
 | Agreement Aurora | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `agreement-aurora/challenges.json`, used directly by the game |
-| Sound and Spelling | Future reviewed challenge records, rule data, and verified audio manifest | Future game manifest to a versioned `challenges.json` and pinned audio assets |
+| Sounds Quasar | Future reviewed challenge records, rule data, and verified audio manifest | Future game manifest to a versioned `challenges.json` and pinned audio assets |
 | Memory Moon | A game-owned review policy plus runtime references to exact challenges from the other manifests | Its own configuration JSON and reference queue; never copied Czech answers |
 
 The general JSON modules authorize reusable Czech facts. The game-owned lesson
@@ -1458,13 +1471,13 @@ therefore continue into another authored sentence from the same bounded content
 bank. The batch is Codex-reviewed development content, not independently or
 human approved; qualified Czech review remains a production gate.
 
-## 9. Sound and Spelling planet
+## 9. Sounds Quasar
 
-Status: **future backlog; no current implementation commitment**
+Status: **shared coming-later placeholder; no gameplay implementation commitment**
 
-The name is intentionally not final. This game must not enter the active Czech
-catalog or course capabilities until its audio and content authorities are
-defined and a reviewed pilot exists.
+The language-neutral `sound-quasar` identity and shared placeholder are now
+stable. This game must not enter the active Czech catalog until its audio and
+content authorities are defined and a reviewed pilot exists.
 
 Sound perception, pronunciation production, and orthographic choice may prove
 to be separate mechanics. Do not force them into one planet merely because the
@@ -1516,7 +1529,7 @@ must not silently become the pronunciation authority for an assessed item.
 
 ### 9.4 Preconditions if the backlog is reconsidered
 
-1. Decide the final product name and learner scope.
+1. Define the reusable learner decision and the language-specific pilot scope.
 2. Define recording or synthesis provenance and review policy.
 3. Define the audio-aware manifest and record schemas.
 4. Build a small vowel-length and diacritic pilot.
@@ -1750,7 +1763,7 @@ Only measured demand or authoring cost justifies this milestone.
 5. Re-evaluate the portfolio after every batch rather than funding all future
    orbits automatically.
 
-### Future backlog — Sound and Spelling
+### Future backlog — Sounds Quasar
 
 No schema, audio acquisition, content production, or implementation work is
 scheduled. Reconsider it only through the preconditions in section 9.

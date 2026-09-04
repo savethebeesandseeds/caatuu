@@ -1,0 +1,33 @@
+{
+  "name": "Caatuu Spanish",
+  "short_name": "Caatuu ES",
+  "description": "An English-to-Spanish course development preview.",
+  "id": "/es/",
+  "start_url": "/es/index.html",
+  "scope": "/es/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "en",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "/assets/icons/spain_flag.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Verb Nebula",
+      "short_name": "Verbs",
+      "url": "/es/index.html?game=verb-lab"
+    },
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/es/index.html?game=word-net"
+    }
+  ]
+}

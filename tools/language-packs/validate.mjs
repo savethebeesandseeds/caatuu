@@ -7,8 +7,10 @@ import {
   CourseContractError,
   generateCourseProfileSource,
   generateLauncherRegistry,
+  loadCourseCatalog,
   loadAndValidateCourseCatalog
 } from "./lib/course-contract.mjs";
+import { syncGeneratedViews } from "./lib/generated-views.mjs";
 
 function usage() {
   return `Usage: node tools/language-packs/validate.mjs [action] [options]
@@ -19,6 +21,7 @@ Actions (choose at most one):
   --check-profile <id>       Check one present course-profile.js view
   --emit-launcher            Print the generated public launcher registry to stdout
   --emit-profile <id>        Print a generated course-profile.js view to stdout
+  --sync-views               Validate then atomically write all generated browser views
 
 Options:
   --catalog <path>           Repository-relative internal catalog path
@@ -26,7 +29,7 @@ Options:
   --help                     Show this help
 
 With no action, the command validates the internal catalog and all manifests.
-No action writes files.`;
+Only --sync-views writes files.`;
 }
 
 function parseArguments(argv) {
@@ -56,6 +59,8 @@ function parseArguments(argv) {
       setAction("check-profile", courseId);
     } else if (argument === "--emit-launcher") {
       setAction("emit-launcher");
+    } else if (argument === "--sync-views") {
+      setAction("sync-views");
     } else if (argument === "--emit-profile") {
       const courseId = argv[++index];
       if (!courseId) throw new Error("--emit-profile requires a course ID.");
@@ -79,6 +84,21 @@ async function main() {
   }
   if (options.help) {
     console.log(usage());
+    return;
+  }
+
+  if (options.action === "sync-views") {
+    const loaded = await loadCourseCatalog({
+      catalogPath: options.catalogPath,
+      repoRoot: options.repoRoot
+    });
+    const report = await syncGeneratedViews(loaded);
+    for (const relativePath of report.changed) console.log(`Updated ${relativePath}`);
+    console.log(
+      report.changed.length === 0
+        ? `All ${report.total} generated browser views are current.`
+        : `Synchronized ${report.changed.length} of ${report.total} generated browser views.`
+    );
     return;
   }
 

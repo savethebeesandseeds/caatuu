@@ -9,6 +9,7 @@ import {
   mkdirSync,
   mkdtempSync,
   readFileSync,
+  realpathSync,
   readdirSync,
   renameSync,
   rmdirSync,
@@ -19,8 +20,13 @@ import {
 import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { compileProductAssetBundle } from "../../android/tooling/build-product-assets.mjs";
 import { compileStaticSite } from "./build-static-site.mjs";
+import {
+  checkGeneratedViews,
+  evaluateCourseProfile,
+  loadAndValidateCourseCatalog,
+  serializeCourseProfileSource,
+} from "../../../tools/language-packs/lib/course-contract.mjs";
 import {
   defaultPagesBaselineDescriptor,
   extractPagesBaselineArchive,
@@ -31,6 +37,13 @@ import {
   defaultPagesCurrentReleaseDescriptor,
   loadPagesCurrentRelease
 } from "../../android/tooling/pages-current-release.mjs";
+import {
+  assertPagesLanguageCoverage,
+  assertPagesLanguageOutputCoverage,
+  createPagesLanguagePlan,
+  loadPagesLanguagePlan,
+  normalizePagesCourseSetupMarker,
+} from "./pages-language-plan.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const toolingDir = dirname(scriptPath);
@@ -39,14 +52,12 @@ const defaultOutputDir = resolve(defaultWorkspaceRoot, "artifacts/web/github-pag
 const maximumPagesBytes = 1_000_000_000;
 const maximumPagesFileBytes = 200_000_000;
 const pagesWorkerPolicyVersion = 3;
-const pagesEntrypoints = Object.freeze(["/", "/cz/", "/cz/index.html", "/zh/", "/zh/index.html"]);
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".mjs", ".txt", ".webmanifest"]);
 const agreementArtworkKey = "planet-agreement-aurora";
 const agreementArtworkAssetPath = "assets/planets/agreement-aurora.png";
-const mandarinCourseId = "zh";
 const standaloneGamePrefix = "games/caatuu-game/";
 const sharedCourseWorkerPublicPath = "language-runtime/static/source/course-service-worker.js";
-const mandarinCacheRevisionSentinel = "CAATUU_PAGES_CACHE_REVISION";
+const courseCacheRevisionSentinel = "CAATUU_PAGES_CACHE_REVISION";
 const durableReleasePrefixes = [
   "/android/",
   "/cz/data/dictionaries/",
@@ -60,6 +71,23 @@ const edgeDynamicRoutes = Object.freeze([
   "/api/reporting/health"
 ]);
 const reportingModulePublicPath = "cz/source/shared/pages-reporting.mjs";
+
+export async function assertDeclaredPagesLanguageCoverage({ workspaceRoot = defaultWorkspaceRoot } = {}) {
+  const workspace = resolve(workspaceRoot);
+  const plan = loadPagesLanguagePlan({ workspaceRoot: workspace });
+  const validated = await loadAndValidateCourseCatalog({ repoRoot: workspace });
+  await checkGeneratedViews(validated);
+  const validatedPlan = createPagesLanguagePlan({
+    catalog: validated.catalog,
+    courses: validated.courses.map(({ course, manifestPath }) => ({
+      id: course.id,
+      manifestPath,
+      course,
+    })),
+  });
+  assert.deepEqual(plan, validatedPlan, "Pages language plan drifted from the canonically validated course catalog");
+  return assertPagesLanguageCoverage({ plan, declaredEntrypoints: plan.requiredEntrypoints });
+}
 
 function exactReplace(source, before, after, label) {
   const count = source.split(before).length - 1;
@@ -95,6 +123,60 @@ function inside(parent, child) {
   return value !== "" && value !== ".." && !value.startsWith(`..${sep}`) && !isAbsolute(value);
 }
 
+function samePath(left, right) {
+  return relative(resolve(left), resolve(right)) === "";
+}
+
+function expectedPhysicalPath(lexicalRoot, realRoot, lexicalPath) {
+  return resolve(realRoot, relative(resolve(lexicalRoot), resolve(lexicalPath)));
+}
+
+export function assertExactRepositorySource({ workspaceRoot, authorityRoot, source, label }) {
+  const lexicalWorkspace = resolve(workspaceRoot);
+  const lexicalAuthority = resolve(authorityRoot);
+  const lexicalSource = resolve(source);
+  assert.ok(
+    inside(lexicalWorkspace, lexicalAuthority),
+    `${label} authority escapes the workspace: ${lexicalAuthority}`,
+  );
+  assert.ok(
+    inside(lexicalAuthority, lexicalSource),
+    `${label} escapes its declared source authority: ${lexicalSource}`,
+  );
+
+  const realWorkspace = realpathSync(lexicalWorkspace);
+  const realAuthority = realpathSync(lexicalAuthority);
+  const realSource = realpathSync(lexicalSource);
+  const expectedAuthority = expectedPhysicalPath(
+    lexicalWorkspace,
+    realWorkspace,
+    lexicalAuthority,
+  );
+  const expectedSource = expectedPhysicalPath(
+    lexicalWorkspace,
+    realWorkspace,
+    lexicalSource,
+  );
+  assert.ok(
+    samePath(realAuthority, expectedAuthority),
+    `${label} authority does not resolve to its declared physical path: ${lexicalAuthority}`,
+  );
+  assert.ok(
+    samePath(realSource, expectedSource),
+    `${label} does not resolve to its declared physical path: ${lexicalSource}`,
+  );
+  assert.ok(
+    inside(realAuthority, realSource),
+    `${label} resolves outside its declared physical authority: ${lexicalSource}`,
+  );
+  const sourceStats = lstatSync(lexicalSource);
+  assert.ok(
+    sourceStats.isFile() && !sourceStats.isSymbolicLink(),
+    `${label} source is not an exact regular file: ${lexicalSource}`,
+  );
+  return lexicalSource;
+}
+
 function sha256Bytes(value) {
   return createHash("sha256").update(value).digest("hex");
 }
@@ -110,6 +192,116 @@ function writeText(path, value) {
 
 function writeJson(path, value) {
   writeText(path, JSON.stringify(value, null, 2));
+}
+
+function projectRecordsById(records, expectedIds, label) {
+  assert.ok(Array.isArray(records), `${label} must be an array`);
+  const byId = new Map();
+  for (const record of records) {
+    const id = String(record?.id || "");
+    assert.ok(id, `${label} contains a record without an ID`);
+    assert.ok(!byId.has(id), `${label} repeats course ${id}`);
+    byId.set(id, record);
+  }
+  return expectedIds.map((id) => {
+    const record = byId.get(id);
+    assert.ok(record, `${label} is missing Pages-enabled course ${id}`);
+    return record;
+  });
+}
+
+function pagesCourseIds(languagePlan) {
+  assert.ok(Array.isArray(languagePlan?.browserCourses), "Pages language plan has no browser courses");
+  const ids = languagePlan.browserCourses.map(({ id }) => id);
+  assert.equal(new Set(ids).size, ids.length, "Pages language plan repeats a browser course");
+  return ids;
+}
+
+export function projectPagesLanguageRegistry({ registry, languagePlan }) {
+  assert.ok(registry && typeof registry === "object" && !Array.isArray(registry), "Pages language registry must be an object");
+  assert.equal(registry.browserSetup?.schemaVersion, 1, "Pages browser setup must use schema version 1");
+  const projected = structuredClone(registry);
+  const courseIds = pagesCourseIds(languagePlan);
+  projected.browserSetup.entryPath = languagePlan.defaultCourse.entryPath;
+  projected.browserSetup.courses = projectRecordsById(
+    projected.browserSetup.courses,
+    courseIds,
+    "Pages browser setup",
+  );
+  projected.languages = projectRecordsById(
+    projected.languages,
+    languagePlan.browserCourses.filter(({ status }) => status === "active").map(({ id }) => id),
+    "Pages active-language registry",
+  );
+  return projected;
+}
+
+function launcherFallbackCourseIds(source, label = "launcher fallback") {
+  const open = '<ul class="language-list" data-language-list>';
+  assert.equal(source.split(open).length - 1, 1, `${label} list anchor changed`);
+  const start = source.indexOf(open) + open.length;
+  const end = source.indexOf("</ul>", start);
+  assert.ok(end > start, `${label} list has no closing tag`);
+  const body = source.slice(start, end);
+  const rowPattern = /<li\b(?=[^>]*\bdata-language-id="([^"]+)")[\s\S]*?<\/li>/gu;
+  const rows = [...body.matchAll(rowPattern)];
+  const ids = rows.map((match) => match[1]);
+  assert.equal(new Set(ids).size, ids.length, `${label} repeats a course row`);
+  return { body, end, ids, open, rowPattern, rows, start };
+}
+
+export function projectPagesLauncherFallback({ source, languagePlan }) {
+  assert.equal(typeof source, "string", "Pages launcher fallback source must be text");
+  const expectedIds = pagesCourseIds(languagePlan);
+  const expected = new Set(expectedIds);
+  const parsed = launcherFallbackCourseIds(source);
+  for (const id of expectedIds) {
+    assert.ok(parsed.ids.includes(id), `Launcher fallback is missing Pages-enabled course ${id}`);
+  }
+  const body = parsed.body.replace(parsed.rowPattern, (row, id) => expected.has(id) ? row : "");
+  const projected = `${source.slice(0, parsed.start)}${body}${source.slice(parsed.end)}`;
+  assert.deepEqual(
+    launcherFallbackCourseIds(projected, "projected launcher fallback").ids,
+    expectedIds,
+    "Projected launcher fallback must exactly match Pages course order",
+  );
+  return projected;
+}
+
+export function projectPagesCourseProfileSource({ source, languagePlan, courseId, label }) {
+  const profile = JSON.parse(JSON.stringify(evaluateCourseProfile(source, label)));
+  assert.equal(profile.id, courseId, `${label} belongs to the wrong course`);
+  assert.equal(profile.courseSelector?.schemaVersion, 1, `${label} has an unsupported course selector`);
+  profile.courseSelector.courses = projectRecordsById(
+    profile.courseSelector.courses,
+    pagesCourseIds(languagePlan),
+    `${label} course selector`,
+  );
+  return serializeCourseProfileSource(profile);
+}
+
+export function projectPagesBrowserViews({ siteDir, languagePlan }) {
+  const registryPath = join(siteDir, "languages.json");
+  const registry = projectPagesLanguageRegistry({
+    registry: JSON.parse(readText(registryPath)),
+    languagePlan,
+  });
+  writeJson(registryPath, registry);
+  const launcherPath = join(siteDir, "index.html");
+  writeText(launcherPath, projectPagesLauncherFallback({
+    source: readText(launcherPath),
+    languagePlan,
+  }));
+  for (const course of languagePlan.browserCourses) {
+    const profilePath = outputPath(siteDir, course.profilePath.slice(1));
+    writeText(profilePath, projectPagesCourseProfileSource({
+      source: readText(profilePath),
+      languagePlan,
+      courseId: course.id,
+      label: `${course.id} Pages course profile`,
+    }));
+  }
+  return registry;
 }
 
 function allFiles(root) {
@@ -369,20 +561,20 @@ function setupArtifactPublicPath(artifact, canonicalOrigin, label) {
   return publicPath(decodeURIComponent(url.pathname.slice(1)), `${label} path`);
 }
 
-function mandarinCourseAssetUrl(value, canonicalOrigin, label) {
-  const courseOrigin = new URL(`/${mandarinCourseId}/`, canonicalOrigin);
+function courseAssetUrl(course, value, canonicalOrigin, label) {
+  const courseOrigin = new URL(course.publicRoute, canonicalOrigin);
   const url = new URL(String(value || ""), courseOrigin);
   assert.equal(url.origin, canonicalOrigin, `${label} changed origin: ${value}`);
   return url;
 }
 
-export function retainPagesManagedMandarinOfflineAssets(manifest, canonicalOrigin) {
-  assert.ok(Array.isArray(manifest?.offline?.assets), "Mandarin setup has no offline closure");
+export function retainPagesManagedCourseOfflineAssets({ course, manifest, canonicalOrigin }) {
+  assert.ok(Array.isArray(manifest?.offline?.assets), `${course.id} setup has no offline closure`);
   const retained = [];
   let removedDurableCount = 0;
-  for (const value of manifest.offline.assets) {
-    const url = mandarinCourseAssetUrl(value, canonicalOrigin, "Mandarin offline asset");
-    const path = publicPath(decodeURIComponent(url.pathname.slice(1)), "Mandarin offline asset path");
+  for (const value of manifest.offline?.assets ?? []) {
+    const url = courseAssetUrl(course, value, canonicalOrigin, `${course.id} offline asset`);
+    const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${course.id} offline asset path`);
     if (isDurableReleasePublicPath(path)) {
       removedDurableCount += 1;
       continue;
@@ -393,42 +585,46 @@ export function retainPagesManagedMandarinOfflineAssets(manifest, canonicalOrigi
   return { retainedCount: retained.length, removedDurableCount };
 }
 
-function normalizedMandarinSetupForCacheRevision(manifest, canonicalOrigin) {
+function courseWorkerPublicPath(course) {
+  return `${course.publicRoute.slice(1)}sw.js`;
+}
+
+function normalizedCourseSetupForCacheRevision({ course, manifest, canonicalOrigin }) {
   const normalized = structuredClone(manifest);
-  normalized.offline.cacheName = mandarinCacheRevisionSentinel;
-  const localWorkerPath = `${mandarinCourseId}/sw.js`;
+  normalized.offline.cacheName = courseCacheRevisionSentinel;
+  const localWorkerPath = courseWorkerPublicPath(course);
   const localWorkerArtifacts = normalized.artifacts.filter(
-    (artifact) => setupArtifactPublicPath(artifact, canonicalOrigin, `Mandarin ${artifact.key}`) === localWorkerPath,
+    (artifact) => setupArtifactPublicPath(artifact, canonicalOrigin, `${course.id} ${artifact.key}`) === localWorkerPath,
   );
-  assert.equal(localWorkerArtifacts.length, 1, "Mandarin setup must declare one local course worker");
+  assert.equal(localWorkerArtifacts.length, 1, `${course.id} setup must declare one local course worker`);
   localWorkerArtifacts[0].bytes = 0;
-  localWorkerArtifacts[0].sha256 = mandarinCacheRevisionSentinel;
+  localWorkerArtifacts[0].sha256 = courseCacheRevisionSentinel;
   return normalized;
 }
 
-function normalizeMandarinWorkerForCacheRevision(source) {
+function normalizeCourseWorkerForCacheRevision(source, course) {
   const pattern = /^\/\/ Offline catalog revision: [^\r\n]+$/gmu;
-  assert.equal([...source.matchAll(pattern)].length, 1, "Mandarin course worker revision comment changed");
-  return source.replace(pattern, `// Offline catalog revision: ${mandarinCacheRevisionSentinel}`);
+  assert.equal([...source.matchAll(pattern)].length, 1, `${course.id} course worker revision comment changed`);
+  return source.replace(pattern, `// Offline catalog revision: ${courseCacheRevisionSentinel}`);
 }
 
-export function deriveMandarinPagesCacheName({ siteDir, canonicalOrigin, manifest, localWorkerSource }) {
+export function deriveCoursePagesCacheName({ course, siteDir, canonicalOrigin, manifest, localWorkerSource }) {
   const cachePrefix = String(manifest?.offline?.cachePrefix || "");
-  assert.ok(cachePrefix.startsWith("caatuu-") && cachePrefix.endsWith("-pwa-"), "Mandarin cache prefix changed");
-  assert.ok(Array.isArray(manifest?.offline?.assets), "Mandarin setup has no offline closure");
+  assert.ok(cachePrefix.startsWith("caatuu-") && cachePrefix.endsWith("-pwa-"), `${course.id} cache prefix changed`);
+  assert.ok(Array.isArray(manifest?.offline?.assets), `${course.id} setup has no offline closure`);
 
   const requests = new Map();
   for (const value of [
-    `/${mandarinCourseId}/`,
+    course.publicRoute,
     manifest.application?.entryPath,
     `/${sharedCourseWorkerPublicPath}`,
     ...manifest.offline.assets,
   ]) {
-    const url = mandarinCourseAssetUrl(value, canonicalOrigin, "Mandarin precache asset");
+    const url = courseAssetUrl(course, value, canonicalOrigin, `${course.id} precache asset`);
     const path = publicPathForCoreAsset(`${url.pathname}${url.search}`);
-    assert.ok(!isDurableReleasePublicPath(path), `Mandarin precache retained a durable release path: ${path}`);
+    assert.ok(!isDurableReleasePublicPath(path), `${course.id} precache retained a durable release path: ${path}`);
     const file = pathForCoreAsset(siteDir, `${url.pathname}${url.search}`);
-    assert.ok(existsSync(file), `Mandarin precache asset is missing: ${path}`);
+    assert.ok(existsSync(file), `${course.id} precache asset is missing: ${path}`);
     const requestPath = `${url.pathname}${url.search}`;
     const identity = `${statSync(file).size}\0${sha256File(file)}`;
     if (requests.has(requestPath)) assert.equal(requests.get(requestPath), identity);
@@ -436,8 +632,8 @@ export function deriveMandarinPagesCacheName({ siteDir, canonicalOrigin, manifes
   }
 
   const digest = sha256Bytes([
-    `manifest\0${JSON.stringify(normalizedMandarinSetupForCacheRevision(manifest, canonicalOrigin))}`,
-    `worker\0${normalizeMandarinWorkerForCacheRevision(localWorkerSource)}`,
+    `manifest\0${JSON.stringify(normalizedCourseSetupForCacheRevision({ course, manifest, canonicalOrigin }))}`,
+    `worker\0${normalizeCourseWorkerForCacheRevision(localWorkerSource, course)}`,
     ...[...requests]
       .map(([requestPath, identity]) => `${requestPath}\0${identity}`)
       .sort((left, right) => left.localeCompare(right, "en")),
@@ -493,104 +689,128 @@ let courseOfflineConfigPromise;`,
   writeText(path, source);
 }
 
-function mandarinProductSource(productDir, path) {
-  if (path === `${mandarinCourseId}/index.html`) return join(productDir, "index.html");
-  if (path.startsWith(`${mandarinCourseId}/`)) {
-    return outputPath(join(productDir, `courses/${mandarinCourseId}`), path.slice(mandarinCourseId.length + 1));
+function courseSourcePath({ workspaceRoot, siteDir, defaultCourse, course, publicPath: assetPath }) {
+  if (assetPath === course.entryPath.slice(1)) return outputPath(siteDir, defaultCourse.entryPath.slice(1));
+  if (assetPath === course.setupPath.slice(1)) {
+    return assertExactRepositorySource({
+      workspaceRoot,
+      authorityRoot: resolve(workspaceRoot, ...course.staticRootPath.split("/")),
+      source: resolve(workspaceRoot, ...course.setupRepositoryPath.split("/")),
+      label: `${course.id} setup source`,
+    });
   }
-  return outputPath(productDir, path);
+  const coursePrefix = course.publicRoute.slice(1);
+  if (assetPath.startsWith(coursePrefix)) {
+    const relativePath = assetPath.slice(coursePrefix.length);
+    const staticRoot = resolve(workspaceRoot, ...course.staticRootPath.split("/"));
+    const source = outputPath(staticRoot, relativePath);
+    if (!existsSync(source)) return null;
+    return assertExactRepositorySource({
+      workspaceRoot,
+      authorityRoot: staticRoot,
+      source,
+      label: `${course.id} browser source ${assetPath}`,
+    });
+  }
+  const staged = outputPath(siteDir, assetPath);
+  if (existsSync(staged)) return staged;
+  for (const [prefix, repositoryRoot] of [
+    ["language-runtime/", "apps/language-runtime"],
+    ["assets/", "apps/launcher/static/assets"],
+  ]) {
+    if (!assetPath.startsWith(prefix)) continue;
+    const authorityRoot = resolve(workspaceRoot, repositoryRoot);
+    const source = resolve(authorityRoot, assetPath.slice(prefix.length));
+    if (!existsSync(source)) return null;
+    return assertExactRepositorySource({
+      workspaceRoot,
+      authorityRoot,
+      source,
+      label: `${course.id} shared browser source ${assetPath}`,
+    });
+  }
+  return null;
 }
 
-function overlayMandarinWebProduct({ workspaceRoot, siteDir, canonicalOrigin }) {
-  assert.ok(!existsSync(join(siteDir, mandarinCourseId)), "Static core unexpectedly contains a Mandarin route");
-  const temporaryRoot = mkdtempSync(join(tmpdir(), "caatuu-pages-product-"));
-  const productDir = join(temporaryRoot, "product-bundle");
-  try {
-    compileProductAssetBundle({
+export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrigin, languagePlan }) {
+  const defaultEntry = outputPath(siteDir, languagePlan.defaultCourse.entryPath.slice(1));
+  assert.ok(existsSync(defaultEntry), "Pages static core is missing the default shared application entry");
+  const stagedCourses = [];
+  for (const course of languagePlan.browserCourses) {
+    if (course.id === languagePlan.defaultCourseId) continue;
+    const routeDirectory = outputPath(siteDir, course.publicRoute.slice(1, -1));
+    assert.ok(!existsSync(routeDirectory), `${course.id} browser route already exists before course staging`);
+    const setupSource = assertExactRepositorySource({
       workspaceRoot,
-      outputDir: productDir,
-      allowMissingSetupDeliveredRuntimeFiles: true,
+      authorityRoot: resolve(workspaceRoot, ...course.staticRootPath.split("/")),
+      source: resolve(workspaceRoot, ...course.setupRepositoryPath.split("/")),
+      label: `${course.id} setup source`,
     });
-    const courseDir = join(productDir, `courses/${mandarinCourseId}`);
-    assert.ok(existsSync(courseDir), "Product bundle is missing the Mandarin course");
-    for (const path of allFiles(courseDir)) {
-      copyVerified(
-        outputPath(courseDir, path),
-        outputPath(siteDir, `${mandarinCourseId}/${path}`),
-        null,
-        `Mandarin course ${path}`,
-      );
-    }
-    copyVerified(
-      join(productDir, "index.html"),
-      outputPath(siteDir, `${mandarinCourseId}/index.html`),
-      null,
-      "Mandarin shared application entry",
+    const setup = JSON.parse(readText(setupSource));
+    const setupMarker = normalizePagesCourseSetupMarker({
+      setup,
+      setupFile: course.setupPath.slice(1),
+    });
+    assert.deepEqual(
+      setupMarker,
+      {
+        id: course.id,
+        publicRoute: course.publicRoute,
+        entryPath: course.entryPath,
+        setupPath: course.setupPath,
+      },
+      `${course.id} setup marker disagrees with the Pages plan`,
     );
-
-    const setup = JSON.parse(readText(join(courseDir, "setup-assets.json")));
-    assert.equal(setup.courseId, mandarinCourseId, "Mandarin setup course ID changed");
+    assert.ok(Array.isArray(setup.artifacts), `${course.id} setup has no artifacts`);
     const browserArtifacts = setup.artifacts.filter(browserRequiredArtifact);
-    assert.ok(browserArtifacts.length > 0, "Mandarin setup has no browser-required product artifacts");
-    const deferredReleaseAssets = new Set();
+    assert.ok(browserArtifacts.length > 0, `${course.id} setup has no browser-required artifacts`);
+    const offlineAssets = setup.offline?.assets;
+    assert.ok(Array.isArray(offlineAssets) && offlineAssets.length > 0, `${course.id} setup has no offline closure`);
+    const requestedPaths = new Set([
+      course.entryPath.slice(1),
+      course.setupPath.slice(1),
+      course.profilePath.slice(1),
+    ]);
     for (const artifact of browserArtifacts) {
-      const path = setupArtifactPublicPath(artifact, canonicalOrigin, `Mandarin ${artifact.key}`);
-      const destination = outputPath(siteDir, path);
+      requestedPaths.add(setupArtifactPublicPath(artifact, canonicalOrigin, `${course.id} ${artifact.key}`));
+    }
+    for (const value of offlineAssets) {
+      const url = courseAssetUrl(course, value, canonicalOrigin, `${course.id} offline asset`);
+      requestedPaths.add(publicPath(decodeURIComponent(url.pathname.slice(1)), `${course.id} offline asset path`));
+    }
+    const deferredReleaseAssets = new Set();
+    for (const assetPath of requestedPaths) {
+      const destination = outputPath(siteDir, assetPath);
       if (existsSync(destination)) {
         const stats = lstatSync(destination);
-        assert.ok(stats.isFile() && !stats.isSymbolicLink(), `Mandarin destination is not a regular file: ${path}`);
+        assert.ok(stats.isFile() && !stats.isSymbolicLink(), `${course.id} destination is not a regular file: ${assetPath}`);
         continue;
       }
-      const source = mandarinProductSource(productDir, path);
-      if (!existsSync(source)) {
+      const source = courseSourcePath({
+        workspaceRoot,
+        siteDir,
+        defaultCourse: languagePlan.defaultCourse,
+        course,
+        publicPath: assetPath,
+      });
+      if (!source) {
         assert.ok(
-          isDurableReleasePublicPath(path),
-          `Mandarin product bundle is missing a non-durable browser artifact: ${path}`,
+          isDurableReleasePublicPath(assetPath),
+          `${course.id} setup is missing a non-durable browser asset: ${assetPath}`,
         );
-        deferredReleaseAssets.add(path);
+        deferredReleaseAssets.add(assetPath);
         continue;
       }
-      copyVerified(
-        source,
-        destination,
-        null,
-        `Mandarin browser artifact ${artifact.key}`,
-      );
+      copyVerified(source, destination, null, `${course.id} browser asset ${assetPath}`);
     }
-    const offlineAssets = setup.offline?.assets;
-    assert.ok(Array.isArray(offlineAssets) && offlineAssets.length > 0, "Mandarin setup has no offline closure");
-    const courseOrigin = new URL(`/${mandarinCourseId}/`, canonicalOrigin);
-    for (const value of offlineAssets) {
-      const url = new URL(String(value || ""), courseOrigin);
-      assert.equal(url.origin, canonicalOrigin, `Mandarin offline asset changed origin: ${value}`);
-      const path = publicPath(decodeURIComponent(url.pathname.slice(1)), "Mandarin offline asset path");
-      const destination = outputPath(siteDir, path);
-      if (existsSync(destination)) continue;
-      const source = mandarinProductSource(productDir, path);
-      if (!existsSync(source)) {
-        assert.ok(
-          isDurableReleasePublicPath(path),
-          `Mandarin product bundle is missing a non-durable offline asset: ${path}`,
-        );
-        deferredReleaseAssets.add(path);
-        continue;
-      }
-      copyVerified(
-        source,
-        destination,
-        null,
-        `Mandarin offline asset ${path}`,
-      );
-    }
-    return {
-      courseFileCount: allFiles(courseDir).length,
+    stagedCourses.push(Object.freeze({
+      id: course.id,
       browserArtifactCount: browserArtifacts.length,
       offlineAssetCount: offlineAssets.length,
       deferredReleaseAssetCount: deferredReleaseAssets.size,
-    };
-  } finally {
-    rmSync(temporaryRoot, { recursive: true, force: true });
+    }));
   }
+  return Object.freeze(stagedCourses);
 }
 
 function restoreWebSetupCompatibility({ siteDir, releaseSetup }) {
@@ -614,11 +834,13 @@ function restoreWebSetupCompatibility({ siteDir, releaseSetup }) {
   return manifest;
 }
 
-function validateFinalWebSetup({ siteDir, canonicalOrigin, courseId }) {
-  const manifest = JSON.parse(readText(join(siteDir, `${courseId}/setup-assets.json`)));
-  if (courseId === mandarinCourseId) {
-    assert.equal(manifest.application?.entryPath, `/${courseId}/index.html`, `${courseId} setup entry path changed`);
-  }
+function validateFinalWebSetup({ siteDir, canonicalOrigin, course, courseId = course.id }) {
+  assert.equal(course.id, courseId, `${courseId} setup validation received the wrong course plan`);
+  const setupFile = course.setupPath.slice(1);
+  const manifest = JSON.parse(readText(outputPath(siteDir, setupFile)));
+  const marker = normalizePagesCourseSetupMarker({ setup: manifest, setupFile });
+  assert.equal(marker.id, courseId, `${courseId} setup course ID changed`);
+  assert.equal(marker.entryPath, course.entryPath, `${courseId} setup entry path changed`);
   const paths = [];
   for (const artifact of manifest.artifacts.filter(browserRequiredArtifact)) {
     const path = setupArtifactPublicPath(artifact, canonicalOrigin, `${courseId}:${artifact.key}`);
@@ -637,17 +859,23 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin, courseId }) {
   assert.ok(paths.length > 0, `${courseId} setup has no browser-required artifacts`);
 
   const offlinePaths = [];
-  if (courseId === mandarinCourseId) {
-    const courseOrigin = new URL(`/${courseId}/`, canonicalOrigin);
-    assert.ok(Array.isArray(manifest.offline?.assets), `${courseId} setup has no offline asset list`);
-    for (const value of manifest.offline.assets) {
-      const url = new URL(String(value || ""), courseOrigin);
-      assert.equal(url.origin, canonicalOrigin, `${courseId} offline asset changed origin: ${value}`);
-      const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${courseId} offline asset`);
+  const courseOrigin = new URL(course.publicRoute, canonicalOrigin);
+  const legacyCzechSetup = courseId === "cz"
+    && manifest.version === 1
+    && manifest.cache_name === "caatuu-czech-setup-v1";
+  assert.ok(
+    Array.isArray(manifest.offline?.assets) || legacyCzechSetup,
+    `${courseId} setup has no offline asset list`,
+  );
+  for (const value of manifest.offline?.assets ?? []) {
+    const url = new URL(String(value || ""), courseOrigin);
+    assert.equal(url.origin, canonicalOrigin, `${courseId} offline asset changed origin: ${value}`);
+    const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${courseId} offline asset`);
+    if (!legacyCzechSetup) {
       assert.ok(!isDurableReleasePublicPath(path), `${courseId} offline asset retained a durable release path: ${path}`);
-      assert.ok(existsSync(outputPath(siteDir, path)), `${courseId} offline asset is missing: ${path}`);
-      offlinePaths.push(path);
     }
+    assert.ok(existsSync(outputPath(siteDir, path)), `${courseId} offline asset is missing: ${path}`);
+    offlinePaths.push(path);
   }
   return { manifest, paths, offlinePaths };
 }
@@ -695,17 +923,23 @@ export function enableStableAndroidCourseProfile(path, label) {
   writeText(path, source);
 }
 
-function enableAndroidSurfaces({ workspaceRoot, siteDir }) {
+function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
   const registryPath = join(siteDir, "languages.json");
   const registry = JSON.parse(readText(registryPath));
-  const czech = registry.languages.find((language) => language.id === "cz");
-  assert.ok(czech, "Pages registry is missing Czech");
-  assert.ok(!registry.languages.some((language) => language.id === mandarinCourseId), "Mandarin must remain unlisted");
-  czech.platforms.android = { enabled: true, channels: androidChannels() };
+  const plannedById = new Map(languagePlan.browserCourses.map((course) => [course.id, course]));
+  for (const language of registry.languages) {
+    const course = plannedById.get(language.id);
+    assert.ok(course, `Pages registry contains an unplanned browser course: ${language.id}`);
+    if (course.androidEnabled) language.platforms.android = { enabled: true, channels: androidChannels() };
+  }
   writeJson(registryPath, registry);
 
-  enableStableAndroidCourseProfile(join(siteDir, "cz/source/shared/course-profile.js"), "Czech course profile");
-  enableStableAndroidCourseProfile(join(siteDir, `${mandarinCourseId}/source/shared/course-profile.js`), "Mandarin course profile");
+  for (const course of languagePlan.browserCourses.filter(({ androidEnabled }) => androidEnabled)) {
+    enableStableAndroidCourseProfile(
+      outputPath(siteDir, course.profilePath.slice(1)),
+      `${course.id} course profile`,
+    );
+  }
 
   let launcher = readText(resolve(workspaceRoot, "apps/launcher/static/launcher.js"));
   const startAnchor = "  async function removeLegacyRootServiceWorker() {";
@@ -742,11 +976,15 @@ function enableReportingSurfaces({ siteDir }) {
   const bootstrapPath = join(siteDir, "language-runtime/static/source/app-bootstrap.mjs");
   const bootstrap = exactReplace(
     readText(bootstrapPath),
-    '  if (requiresCourseRuntime()) await loadScript("source/shared/runtime.js?v=runtime-41");',
-    `  if (requiresCourseRuntime()) {
-    await loadScript("source/shared/runtime.js?v=runtime-41");
-    const { installPagesReporting } = await import("/cz/source/shared/pages-reporting.mjs?v=pages-reporting-1");
-    await installPagesReporting();
+    `  const courseRuntime = declaredBrowserProvider("courseRuntime");
+  if (courseRuntime) await loadScript(courseRuntime);`,
+    `  const courseRuntime = declaredBrowserProvider("courseRuntime");
+  if (courseRuntime) {
+    await loadScript(courseRuntime);
+    if (course.id === "cz") {
+      const { installPagesReporting } = await import("/cz/source/shared/pages-reporting.mjs?v=pages-reporting-1");
+      await installPagesReporting();
+    }
   }`,
     "Pages reporting bootstrap"
   );
@@ -773,63 +1011,123 @@ function enableReportingSurfaces({ siteDir }) {
   writeJson(profilePath, profile);
 }
 
-function rewriteFinalMandarinSetup({ siteDir, canonicalOrigin }) {
-  const setupPath = join(siteDir, `${mandarinCourseId}/setup-assets.json`);
-  const manifest = JSON.parse(readText(setupPath));
-  assert.equal(manifest.courseId, mandarinCourseId, "Mandarin setup course ID changed");
-  assert.equal(manifest.application?.entryPath, `/${mandarinCourseId}/index.html`, "Mandarin setup entry path changed");
-  assert.ok(Array.isArray(manifest.artifacts), "Mandarin setup has no artifacts");
+function nativeRequiredArtifact(artifact) {
+  return artifact?.native_required === true || artifact?.nativeRequired === true;
+}
 
-  const offline = retainPagesManagedMandarinOfflineAssets(manifest, canonicalOrigin);
-  assert.ok(offline.retainedCount > 0, "Mandarin Pages setup has no retained offline assets");
+export function rewritePagesCourseProfileReceipt({ course, siteDir, canonicalOrigin }) {
+  const setupFile = course.setupPath.slice(1);
+  const setupPath = outputPath(siteDir, setupFile);
+  const manifest = JSON.parse(readText(setupPath));
+  const marker = normalizePagesCourseSetupMarker({ setup: manifest, setupFile });
+  assert.deepEqual(
+    marker,
+    {
+      id: course.id,
+      publicRoute: course.publicRoute,
+      entryPath: course.entryPath,
+      setupPath: course.setupPath,
+    },
+    `${course.id} setup marker disagrees with the Pages plan`,
+  );
+  assert.ok(Array.isArray(manifest.artifacts), `${course.id} setup has no artifacts`);
+  const matches = manifest.artifacts.filter((artifact) => (
+    setupArtifactPublicPath(artifact, canonicalOrigin, `${course.id} ${artifact.key}`)
+      === course.profilePath.slice(1)
+  ));
+  assert.ok(matches.length <= 1, `${course.id} setup repeats its course profile receipt`);
+  let artifact = matches[0];
+  if (!artifact) {
+    assert.ok(!manifest.artifacts.some(({ key }) => key === "course-profile"), `${course.id} setup already uses the course-profile key`);
+    artifact = Object.hasOwn(manifest, "schemaVersion")
+      ? {
+          key: "course-profile",
+          kind: "course-contract",
+          url: course.profilePath,
+          browserRequired: true,
+          bytes: 0,
+          sha256: "0".repeat(64),
+        }
+      : {
+          key: "course-profile",
+          label: `${course.id} browser course profile`,
+          artifact_kind: "course-contract",
+          url: course.profilePath,
+          asset_path: course.profileRelativePath,
+          browser_required: true,
+          native_required: false,
+          bytes: 0,
+          sha256: "0".repeat(64),
+        };
+    manifest.artifacts.push(artifact);
+  }
+  assert.equal(nativeRequiredArtifact(artifact), false, `${course.id} Pages profile receipt cannot be native-required`);
+  const profilePath = outputPath(siteDir, course.profilePath.slice(1));
+  assert.ok(existsSync(profilePath), `${course.id} Pages course profile is missing`);
+  artifact.bytes = statSync(profilePath).size;
+  artifact.sha256 = sha256File(profilePath);
+  writeJson(setupPath, manifest);
+  return { manifest, setupPath };
+}
+
+export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin }) {
+  const { manifest, setupPath } = rewritePagesCourseProfileReceipt({
+    course,
+    siteDir,
+    canonicalOrigin,
+  });
+
+  const offline = retainPagesManagedCourseOfflineAssets({ course, manifest, canonicalOrigin });
+  assert.ok(offline.retainedCount > 0, `${course.id} Pages setup has no retained offline assets`);
 
   const browserArtifacts = manifest.artifacts.filter(browserRequiredArtifact);
-  const workerPublicPath = `${mandarinCourseId}/sw.js`;
+  const workerPublicPath = courseWorkerPublicPath(course);
   let localWorkerArtifact = null;
   for (const artifact of browserArtifacts) {
-    const path = setupArtifactPublicPath(artifact, canonicalOrigin, `Mandarin ${artifact.key}`);
+    const path = setupArtifactPublicPath(artifact, canonicalOrigin, `${course.id} ${artifact.key}`);
     const file = outputPath(siteDir, path);
-    assert.ok(existsSync(file), `Mandarin browser artifact is missing: ${path}`);
+    assert.ok(existsSync(file), `${course.id} browser artifact is missing: ${path}`);
     const bytes = statSync(file).size;
     const sha256 = sha256File(file);
-    if (artifact.native_required === true) {
-      assert.equal(bytes, Number(artifact.bytes), `Mandarin native artifact byte count changed: ${artifact.key}`);
-      assert.equal(sha256, String(artifact.sha256).toLowerCase(), `Mandarin native artifact hash changed: ${artifact.key}`);
+    if (nativeRequiredArtifact(artifact)) {
+      assert.equal(bytes, Number(artifact.bytes), `${course.id} native artifact byte count changed: ${artifact.key}`);
+      assert.equal(sha256, String(artifact.sha256).toLowerCase(), `${course.id} native artifact hash changed: ${artifact.key}`);
     } else if (path === workerPublicPath) {
-      assert.equal(localWorkerArtifact, null, "Mandarin setup repeats its local course worker");
+      assert.equal(localWorkerArtifact, null, `${course.id} setup repeats its local course worker`);
       localWorkerArtifact = artifact;
     } else {
       artifact.bytes = bytes;
       artifact.sha256 = sha256;
     }
   }
-  assert.ok(localWorkerArtifact, "Mandarin setup has no Pages-managed local course worker");
+  assert.ok(localWorkerArtifact, `${course.id} setup has no Pages-managed local course worker`);
 
   const previousCacheName = String(manifest.offline?.cacheName || "");
   const workerPath = outputPath(siteDir, workerPublicPath);
   const originalWorker = readText(workerPath);
-  const cacheName = deriveMandarinPagesCacheName({
+  const cacheName = deriveCoursePagesCacheName({
+    course,
     siteDir,
     canonicalOrigin,
     manifest,
     localWorkerSource: originalWorker,
   });
-  assert.ok(previousCacheName.startsWith(String(manifest.offline.cachePrefix)), "Mandarin cache name changed prefix");
+  assert.ok(previousCacheName.startsWith(String(manifest.offline.cachePrefix)), `${course.id} cache name changed prefix`);
   manifest.offline.cacheName = cacheName;
   const worker = exactReplace(
     originalWorker,
     `// Offline catalog revision: ${previousCacheName}`,
     `// Offline catalog revision: ${cacheName}`,
-    "Mandarin course-worker revision"
+    `${course.id} course-worker revision`
   );
   writeText(workerPath, worker);
   localWorkerArtifact.bytes = statSync(workerPath).size;
   localWorkerArtifact.sha256 = sha256File(workerPath);
   writeJson(setupPath, manifest);
   assert.equal(
-    deriveMandarinPagesCacheName({ siteDir, canonicalOrigin, manifest, localWorkerSource: worker }),
+    deriveCoursePagesCacheName({ course, siteDir, canonicalOrigin, manifest, localWorkerSource: worker }),
     cacheName,
-    "Mandarin cache revision is not reproducible",
+    `${course.id} cache revision is not reproducible`,
   );
   return { manifest, cacheName };
 }
@@ -855,7 +1153,8 @@ function rewriteServiceWorker({
   baselinePublicPaths,
   baselineDescriptor,
   currentDescriptor,
-  mandarinSetup,
+  languagePlan,
+  courseSetups,
 }) {
   const path = join(siteDir, "sw.js");
   let source = readText(path);
@@ -874,15 +1173,32 @@ function rewriteServiceWorker({
   const reportingAsset = `/${reportingModulePublicPath}`;
   assert.ok(existsSync(pathForCoreAsset(siteDir, reportingAsset)), "Pages reporting client is missing");
   coreAssets.add(reportingAsset);
-  coreAssets.add(`/${mandarinCourseId}/`);
-  for (const path of allFiles(join(siteDir, mandarinCourseId))) coreAssets.add(`/${mandarinCourseId}/${path}`);
-  for (const artifact of mandarinSetup.artifacts.filter(browserRequiredArtifact)) {
-    const path = setupArtifactPublicPath(artifact, baselineDescriptor.canonicalOrigin, `Mandarin ${artifact.key}`);
-    if (
-      !baselinePublicPaths.has(path)
-      && !androidPaths.has(path)
-      && !isDurableReleasePublicPath(path)
-    ) coreAssets.add(`/${path}`);
+  for (const course of languagePlan.browserCourses) {
+    for (const asset of [course.publicRoute, course.entryPath, course.setupPath]) {
+      assert.ok(existsSync(pathForCoreAsset(siteDir, asset)), `Pages course core asset is missing: ${asset}`);
+      const publishedPath = publicPathForCoreAsset(asset);
+      if (
+        baselinePublicPaths.has(publishedPath)
+        || androidPaths.has(publishedPath)
+        || isDurableReleasePublicPath(publishedPath)
+      ) continue;
+      coreAssets.add(asset);
+    }
+  }
+  for (const course of languagePlan.browserCourses) {
+    if (course.id === languagePlan.defaultCourseId) continue;
+    const routeDirectory = outputPath(siteDir, course.publicRoute.slice(1, -1));
+    for (const path of allFiles(routeDirectory)) coreAssets.add(`${course.publicRoute}${path}`);
+    const setup = courseSetups.get(course.id)?.manifest;
+    assert.ok(setup, `Pages setup rewrite is missing ${course.id}`);
+    for (const artifact of setup.artifacts.filter(browserRequiredArtifact)) {
+      const path = setupArtifactPublicPath(artifact, baselineDescriptor.canonicalOrigin, `${course.id} ${artifact.key}`);
+      if (
+        !baselinePublicPaths.has(path)
+        && !androidPaths.has(path)
+        && !isDurableReleasePublicPath(path)
+      ) coreAssets.add(`/${path}`);
+    }
   }
   const sortedCoreAssets = [...coreAssets].sort((left, right) => left.localeCompare(right, "en"));
   source = source.replace(coreMatch[0], `const CORE_ASSETS = ${JSON.stringify(sortedCoreAssets, null, 2)};`);
@@ -921,7 +1237,7 @@ function inventoryDigest(files) {
   return sha256Bytes(files.map((file) => `${file.path}\0${file.bytes}\0${file.sha256}`).join("\n"));
 }
 
-function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
+function generateBundleManifest({ siteDir, baseline, currentRelease, worker, languagePlan }) {
   const files = inventoryFor(siteDir);
   const payloadBytes = files.reduce((sum, file) => sum + file.bytes, 0);
   const descriptor = baseline.descriptor;
@@ -935,7 +1251,7 @@ function generateBundleManifest({ siteDir, baseline, currentRelease, worker }) {
     profile: "web-static-pages-cutover",
     basePath: "/",
     canonicalOrigin: descriptor.canonicalOrigin,
-    entrypoints: pagesEntrypoints,
+    entrypoints: languagePlan.requiredEntrypoints,
     serviceWorkerCache: worker.cacheName,
     releaseArchive: descriptor.releaseArchive,
     currentAndroidRelease: current.githubRelease,
@@ -1010,12 +1326,17 @@ function validateCurrentAndroidSetupClosure({ siteDir, currentRelease }) {
   return { nativeArtifactCount, uniqueNativePaths: seen.size };
 }
 
-function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, currentRelease }) {
+function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, currentRelease, languagePlan }) {
   const workspace = resolve(workspaceRoot);
   const siteDir = resolve(outputDir);
   assertSafeOutputDirectory(siteDir, workspace);
   assert.ok(existsSync(siteDir), `Pages output does not exist: ${siteDir}`);
   const files = allFiles(siteDir);
+  assertPagesLanguageOutputCoverage({
+    plan: languagePlan,
+    publishedFiles: files,
+    readPublishedFile: (path) => readText(outputPath(siteDir, path)),
+  });
   assert.equal(new Set(files.map((path) => path.toLocaleLowerCase("en-US"))).size, files.length, "Pages output has a case-insensitive path collision");
   assert.ok(
     files.every((path) => !path.startsWith(standaloneGamePrefix)),
@@ -1074,62 +1395,115 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   }
 
   const registry = JSON.parse(readText(join(siteDir, "languages.json")));
+  const plannedById = new Map(languagePlan.browserCourses.map((course) => [course.id, course]));
+  assert.equal(registry.defaultLanguage, languagePlan.defaultCourseId, "Pages registry default course changed");
+  assert.equal(
+    registry.browserSetup?.entryPath,
+    languagePlan.defaultCourse.entryPath,
+    "Pages registry default browser entry changed",
+  );
+  assert.deepEqual(
+    registry.browserSetup?.courses?.map(({ id, status, routePrefix, entryPath }) => ({
+      id,
+      status,
+      routePrefix,
+      entryPath,
+    })),
+    languagePlan.browserCourses.map(({ id, status, routePrefix, entryPath }) => ({
+      id,
+      status,
+      routePrefix,
+      entryPath,
+    })),
+    "Pages registry browser courses must exactly match the language plan",
+  );
+  assert.deepEqual(
+    registry.languages.map(({ id }) => id),
+    languagePlan.browserCourses.filter(({ status }) => status === "active").map(({ id }) => id),
+    "Pages launcher languages must exactly match active browser courses",
+  );
+  for (const language of registry.languages) {
+    const course = plannedById.get(language.id);
+    assert.ok(course, `Pages registry contains an unplanned browser course: ${language.id}`);
+    if (course.androidEnabled) {
+      assert.deepEqual(language.platforms.android, { enabled: true, channels: androidChannels() });
+    }
+  }
   const czech = registry.languages.find((language) => language.id === "cz");
-  assert.equal(registry.languages.filter((language) => language.id === mandarinCourseId).length, 0, "Mandarin must remain unlisted");
+  assert.ok(czech, "Pages registry is missing the active Czech baseline course");
   assert.deepEqual(czech.platforms.android, { enabled: true, channels: androidChannels() });
   const rootIndex = readText(join(siteDir, "index.html"));
   assert.doesNotMatch(rootIndex, /\/games\/caatuu-game\//u);
+  assert.deepEqual(
+    launcherFallbackCourseIds(rootIndex, "final Pages launcher fallback").ids,
+    languagePlan.browserCourses.map(({ id }) => id),
+    "Pages launcher fallback must exactly match Pages-enabled courses",
+  );
   const launcher = readText(join(siteDir, "launcher.js"));
   assert.match(launcher, /fetch\(freshRequestUrl\(channel\.manifest/u);
   assert.match(launcher, /serviceWorker\.register\("\/sw\.js"/u);
   assert.doesNotMatch(launcher, /Published separately/u);
 
-  const finalCzechSetup = validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin, courseId: "cz" });
-  const finalMandarinSetup = validateFinalWebSetup({
-    siteDir,
-    canonicalOrigin: descriptor.canonicalOrigin,
-    courseId: mandarinCourseId,
-  });
+  const finalSetups = new Map();
+  for (const course of languagePlan.browserCourses) {
+    finalSetups.set(
+      course.id,
+      validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin, course }),
+    );
+  }
+  const czechCourse = languagePlan.browserCourses.find(({ id }) => id === "cz");
+  assert.ok(czechCourse, "Pages language plan is missing Czech");
+  const finalCzechSetup = finalSetups.get("cz");
   const finalAgreement = finalCzechSetup.manifest.artifacts.filter(
     (item) => item.key === agreementArtworkKey,
   );
   assert.equal(finalAgreement.length, 1);
   assert.equal(finalAgreement[0].url, `/${currentAgreement.versionedPath}`);
   assert.equal(finalAgreement[0].asset_path, currentAgreement.assetPath);
-  assert.equal(
-    finalMandarinSetup.manifest.offline.assets.filter((value) => value === `/${currentAgreement.versionedPath}`).length,
-    1,
-  );
-  assert.ok(finalMandarinSetup.manifest.offline.assets.every(
-    (value) => !String(value).startsWith(`/${currentAgreement.assetPath}`),
-  ));
-  const czechCourseProfile = readText(join(siteDir, "cz/source/shared/course-profile.js"));
-  const mandarinCourseProfile = readText(join(siteDir, `${mandarinCourseId}/source/shared/course-profile.js`));
-  for (const [label, courseProfile] of [
-    ["Czech", czechCourseProfile],
-    ["Mandarin", mandarinCourseProfile],
-  ]) {
-    assert.match(courseProfile, /"kind": "release"[\s\S]*"manifest": "\/android\/caatuu\.json"/u, `${label} stable Android channel is missing`);
-    assert.doesNotMatch(courseProfile, /"kind": "preview"|caatuu-preview/u, `${label} retained a preview Android channel`);
+  for (const course of languagePlan.browserCourses) {
+    const finalSetup = finalSetups.get(course.id);
+    const offlineAssets = finalSetup.manifest.offline?.assets ?? [];
+    assert.ok(offlineAssets.every(
+      (value) => !String(value).startsWith(`/${currentAgreement.assetPath}`),
+    ));
+    const courseProfile = readText(outputPath(siteDir, course.profilePath.slice(1)));
+    assert.ok(courseProfile.includes(`id: "${course.id}"`), `${course.id} profile has the wrong course ID`);
+    assert.ok(courseProfile.includes(`status: "${course.status}"`), `${course.id} profile has the wrong status`);
+    assert.ok(courseProfile.includes(`entryPath: "${course.entryPath}"`), `${course.id} profile has the wrong browser entry`);
+    assert.deepEqual(
+      JSON.parse(JSON.stringify(evaluateCourseProfile(courseProfile, `${course.id} final Pages profile`)))
+        .courseSelector.courses.map(({ id }) => id),
+      languagePlan.browserCourses.map(({ id }) => id),
+      `${course.id} profile selector must exactly match Pages-enabled courses`,
+    );
+    const profileReceipts = finalSetup.manifest.artifacts.filter((artifact) => (
+      setupArtifactPublicPath(artifact, descriptor.canonicalOrigin, `${course.id} ${artifact.key}`)
+        === course.profilePath.slice(1)
+    ));
+    assert.equal(profileReceipts.length, 1, `${course.id} final setup must contain one course profile receipt`);
+    assert.equal(browserRequiredArtifact(profileReceipts[0]), true, `${course.id} course profile receipt must be browser-required`);
+    if (course.androidEnabled) {
+      assert.match(courseProfile, /"kind": "release"[\s\S]*"manifest": "\/android\/caatuu\.json"/u, `${course.id} stable Android channel is missing`);
+      assert.doesNotMatch(courseProfile, /"kind": "preview"|caatuu-preview/u, `${course.id} retained a preview Android channel`);
+    }
+    if (course.id === languagePlan.defaultCourseId) continue;
+    const courseWorker = readText(outputPath(siteDir, courseWorkerPublicPath(course)));
+    assert.match(
+      courseWorker,
+      new RegExp(`Offline catalog revision: ${finalSetup.manifest.offline.cacheName}`, "u"),
+    );
+    assert.equal(
+      deriveCoursePagesCacheName({
+        course,
+        siteDir,
+        canonicalOrigin: descriptor.canonicalOrigin,
+        manifest: finalSetup.manifest,
+        localWorkerSource: courseWorker,
+      }),
+      finalSetup.manifest.offline.cacheName,
+      `${course.id} offline cache revision does not match its complete closure`,
+    );
   }
-  assert.match(mandarinCourseProfile, /id: "zh"/u);
-  assert.match(mandarinCourseProfile, /status: "development"/u);
-  assert.match(mandarinCourseProfile, /browser:\s*\{\s*enabled: true,\s*entryPath: "\/zh\/index\.html"/u);
-  const mandarinWorker = readText(join(siteDir, `${mandarinCourseId}/sw.js`));
-  assert.match(
-    mandarinWorker,
-    new RegExp(`Offline catalog revision: ${finalMandarinSetup.manifest.offline.cacheName}`, "u"),
-  );
-  assert.equal(
-    deriveMandarinPagesCacheName({
-      siteDir,
-      canonicalOrigin: descriptor.canonicalOrigin,
-      manifest: finalMandarinSetup.manifest,
-      localWorkerSource: mandarinWorker,
-    }),
-    finalMandarinSetup.manifest.offline.cacheName,
-    "Mandarin offline cache revision does not match its complete closure",
-  );
   const sharedCourseWorker = readText(outputPath(siteDir, sharedCourseWorkerPublicPath));
   assert.match(sharedCourseWorker, /const CAATUU_DURABLE_RELEASE_PREFIXES/u);
   assert.match(sharedCourseWorker, /if \(isDurableReleasePath\(url\.pathname\)\) return fetch\(request\);/u);
@@ -1154,8 +1528,11 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(corePublicPaths.filter((path) => baselinePublicPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => retainedAndroidPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => isDurableReleasePublicPath(path)).length, 0);
-  for (const path of ["/zh/", "/zh/index.html", "/zh/setup-assets.json", "/zh/sw.js"]) {
-    assert.ok(coreAssets.includes(path), `Pages service worker is missing Mandarin core asset ${path}`);
+  for (const course of languagePlan.browserCourses) {
+    if (course.id === languagePlan.defaultCourseId) continue;
+    for (const path of [course.publicRoute, course.entryPath, course.setupPath, `/${courseWorkerPublicPath(course)}`]) {
+      assert.ok(coreAssets.includes(path), `Pages service worker is missing ${course.id} core asset ${path}`);
+    }
   }
   assert.match(worker, /request\.headers\.has\("range"\)/u);
   assert.match(worker, /request\.method !== "GET"/u);
@@ -1182,7 +1559,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.match(reportingClient, /referrerPolicy:\s*"no-referrer"/u);
   assert.doesNotMatch(reportingClient, /caatuu\.(?:feedbackOutbox|dictionaryGapOutbox)\.v1/u);
   const bootstrap = readText(join(siteDir, "language-runtime/static/source/app-bootstrap.mjs"));
-  assert.match(bootstrap, /await loadScript\("source\/shared\/runtime\.js\?v=runtime-41"\);[\s\S]*await import\("\/cz\/source\/shared\/pages-reporting\.mjs/u);
+  assert.match(bootstrap, /declaredBrowserProvider\("courseRuntime"\)[\s\S]*await loadScript\(courseRuntime\);[\s\S]*course\.id === "cz"[\s\S]*await import\("\/cz\/source\/shared\/pages-reporting\.mjs/u);
   assert.match(bootstrap, /course\.status !== "active"[\s\S]*robots\.content = "noindex, nofollow"/u);
   const wordWorld = readText(join(siteDir, "language-runtime/static/source/product-word-world.mjs"));
   assert.match(wordWorld, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*Sending remains off until a reviewed feedback channel is enabled/u);
@@ -1199,7 +1576,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(manifest.schema_name, "caatuu-web-bundle");
   assert.equal(manifest.schema_version, 1);
   assert.equal(manifest.profile, "web-static-pages-cutover");
-  assert.deepEqual(manifest.entrypoints, pagesEntrypoints);
+  assert.deepEqual(manifest.entrypoints, languagePlan.requiredEntrypoints);
   assert.deepEqual(manifest.releaseArchive, descriptor.releaseArchive);
   assert.deepEqual(manifest.currentAndroidRelease, currentDescriptor.githubRelease);
   assert.equal(manifest.android.stableVersionCode, currentDescriptor.stable.versionCode);
@@ -1229,7 +1606,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   };
 }
 
-export function validatePagesSite({
+export async function validatePagesSite({
   workspaceRoot = defaultWorkspaceRoot,
   outputDir = defaultOutputDir,
   baselineDir,
@@ -1238,6 +1615,7 @@ export function validatePagesSite({
   currentReleaseDescriptorPath = defaultPagesCurrentReleaseDescriptor
 } = {}) {
   const workspace = resolve(workspaceRoot);
+  const languagePlan = await assertDeclaredPagesLanguageCoverage({ workspaceRoot: workspace });
   const currentRelease = loadPagesCurrentRelease({
     workspaceRoot: workspace,
     descriptorPath: currentReleaseDescriptorPath,
@@ -1254,13 +1632,14 @@ export function validatePagesSite({
       outputDir,
       baseline: prepared.baseline,
       currentRelease,
+      languagePlan,
     });
   } finally {
     prepared.cleanup();
   }
 }
 
-export function compilePagesSite({
+export async function compilePagesSite({
   workspaceRoot = defaultWorkspaceRoot,
   outputDir = defaultOutputDir,
   baselineDir,
@@ -1269,6 +1648,7 @@ export function compilePagesSite({
   currentReleaseDescriptorPath = defaultPagesCurrentReleaseDescriptor
 } = {}) {
   const workspace = resolve(workspaceRoot);
+  const languagePlan = await assertDeclaredPagesLanguageCoverage({ workspaceRoot: workspace });
   const output = resolve(outputDir);
   assertSafeOutputDirectory(output, workspace);
   const currentRelease = loadPagesCurrentRelease({
@@ -1286,10 +1666,11 @@ export function compilePagesSite({
     assertSafeOutputDirectory(stagingDir, workspace);
     assert.ok(!existsSync(stagingDir), `Pages staging output already exists: ${stagingDir}`);
     compileStaticSite({ workspaceRoot: workspace, outputDir: stagingDir });
-    overlayMandarinWebProduct({
+    stagePagesBrowserCourses({
       workspaceRoot: workspace,
       siteDir: stagingDir,
       canonicalOrigin: currentRelease.descriptor.canonicalOrigin,
+      languagePlan,
     });
     preserveCurrentAgreementArtwork({ workspaceRoot: workspace, siteDir: stagingDir });
     prepared = prepareBaseline({
@@ -1307,32 +1688,46 @@ export function compilePagesSite({
     const baselineFiles = overlayDurableBaseline({ baseline, siteDir: stagingDir });
     overlayAndroidReleases({ currentRelease, siteDir: stagingDir });
     restoreWebSetupCompatibility({ siteDir: stagingDir, releaseSetup: baseline.setupManifest });
+    projectPagesBrowserViews({ siteDir: stagingDir, languagePlan });
     createAndroidAliases({
       baselineDescriptor: baseline.descriptor,
       currentDescriptor: currentRelease.descriptor,
       siteDir: stagingDir,
     });
-    enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir });
+    enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir, languagePlan });
     enableReportingSurfaces({ siteDir: stagingDir });
     enablePagesDurableBypassInCourseWorker(outputPath(stagingDir, sharedCourseWorkerPublicPath));
-    const mandarinSetup = rewriteFinalMandarinSetup({
-      siteDir: stagingDir,
-      canonicalOrigin: baseline.descriptor.canonicalOrigin,
-    });
+    const courseSetups = new Map();
+    for (const course of languagePlan.browserCourses) {
+      const result = course.id === languagePlan.defaultCourseId
+        ? rewritePagesCourseProfileReceipt({
+            course,
+            siteDir: stagingDir,
+            canonicalOrigin: baseline.descriptor.canonicalOrigin,
+          })
+        : rewriteFinalCourseSetup({
+          course,
+          siteDir: stagingDir,
+          canonicalOrigin: baseline.descriptor.canonicalOrigin,
+        });
+      courseSetups.set(course.id, result);
+    }
     const baselinePublicPaths = new Set(baselineFiles);
     const worker = rewriteServiceWorker({
       siteDir: stagingDir,
       baselinePublicPaths,
       baselineDescriptor: baseline.descriptor,
       currentDescriptor: currentRelease.descriptor,
-      mandarinSetup: mandarinSetup.manifest,
+      languagePlan,
+      courseSetups,
     });
-    generateBundleManifest({ siteDir: stagingDir, baseline, currentRelease, worker });
+    generateBundleManifest({ siteDir: stagingDir, baseline, currentRelease, worker, languagePlan });
     const staged = validatePreparedPagesSite({
       workspaceRoot: workspace,
       outputDir: stagingDir,
       baseline,
       currentRelease,
+      languagePlan,
     });
     replaceGeneratedOutput(stagingDir, output, workspace);
     return { ...staged, outputDir: output };
@@ -1381,7 +1776,7 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
           + "[--current-release-descriptor FILE] [--validate-only]\n"
       );
     } else {
-      const result = options.validateOnly ? validatePagesSite(options) : compilePagesSite(options);
+      const result = options.validateOnly ? await validatePagesSite(options) : await compilePagesSite(options);
       process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
     }
   } catch (error) {

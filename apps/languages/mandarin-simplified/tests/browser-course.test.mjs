@@ -118,7 +118,7 @@ test("the compatibility course profile is generated exactly from course.json", a
   assert.equal(context.window.CaatuuCourse.status, "development");
   assert.equal(context.window.CaatuuCourse.routePrefix, "/zh");
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net", "naturalization-nucleus"]);
-  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), ["memory-moon"]);
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), ["memory-moon", "sound-quasar"]);
   assert.equal(context.window.CaatuuCourse.capabilities.verbs, false);
   assert.equal(context.window.CaatuuCourse.routes.verbNebula, "index.html?game=verb-lab");
   assert.equal(context.window.CaatuuCourse.routes.naturalizationNucleus, "index.html?game=naturalization-nucleus");
@@ -188,9 +188,9 @@ test("setup and service-worker catalogs cover every required offline URL", async
     entryPath: "/zh/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v56");
-  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v56/u);
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v575/u);
+  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v94");
+  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v94/u);
+  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v613/u);
   const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));
   assert.match(
@@ -204,21 +204,25 @@ test("setup and service-worker catalogs cover every required offline URL", async
   assert.doesNotMatch(JSON.stringify(setup), /word-world\.html/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
   for (const asset of [
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-7",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-13",
     "/language-runtime/static/source/maintenance-ui.js?v=maintenance-17",
     "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
+    "/language-runtime/static/source/dictionary-provider-loader.mjs",
+    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-142",
     "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11",
     "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
-    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-9",
-    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-13",
-    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-13",
+    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-15",
+    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-18",
+    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-17",
     "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
     "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
+    "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130",
+    "/assets/icons/coin_icon_ui.png",
   ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
   for (const asset of [
     "data/games/naturalization-nucleus/challenges.json",
-    "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-11",
-    "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-11",
+    "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-12",
+    "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-12",
     "/assets/planets/naturalization-nucleus.png"
   ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
   assert.ok(setup.offline.assets.includes("data/games/word-world/starter-v1.reading-guides.json"));
@@ -285,10 +289,12 @@ test("the canonical page has no inline executable code while development noindex
 });
 
 test("Czech and Mandarin resolve one authoritative Caatuu document and bootstrap", async () => {
-  const [czech, mandarin, html] = await Promise.all([
+  const [czech, mandarin, html, czechSetup, mandarinSetup] = await Promise.all([
     JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/course.json"), "utf8")),
     json("course.json"),
-    readFile(canonicalEntry, "utf8")
+    readFile(canonicalEntry, "utf8"),
+    JSON.parse(await readFile(path.join(czechStaticRoot, "setup-assets.json"), "utf8")),
+    json("static/setup-assets.json")
   ]);
   assert.deepEqual(czech.resources.appEntry, mandarin.resources.appEntry);
   assert.equal(czech.resources.appEntry.path, "apps/language-runtime/static/app/index.html");
@@ -297,6 +303,10 @@ test("Czech and Mandarin resolve one authoritative Caatuu document and bootstrap
   for (const style of SHARED_SHELL_STYLES) assertSingleAuthoritativeReference(html, "href", style, "canonical app");
   for (const script of SHARED_SHELL_SCRIPTS) assertSingleAuthoritativeReference(html, "src", script, "canonical app");
   assertSingleAuthoritativeReference(html, "src", "/language-runtime/static/source/app-bootstrap.mjs", "canonical app");
+  const wordWorldStylesheet = "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-90";
+  assert.match(html, /caatuu-word-world\.css\?v=word-net-90/u);
+  assert.ok(czechSetup.offline.assets.includes(wordWorldStylesheet));
+  assert.ok(mandarinSetup.offline.assets.includes(wordWorldStylesheet));
   assertOrderedShellHosts(html, "canonical app");
 });
 
@@ -329,7 +339,7 @@ test("Mandarin removes the mini-app and mounts Word World through the authoritat
 
   assert.match(home, /class="app-shell"/u);
   assert.match(workspaceSource, /CaatuuWordWorldHost/u);
-  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-13"\)/u);
+  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-18"\)/u);
   assert.match(providerSource, /prepareWordWorldContext\(/u);
   assert.match(providerSource, /return mountRenderer\(root, context, \{/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
@@ -363,6 +373,7 @@ test("Android allowlists remain narrow and point only to present course/shared f
     await access(path.join(repoRoot, asset.source));
   }
   assert.ok(appAssets.assets.some(({ output }) => output === "language-runtime/static/source/english-minilm-ranker.mjs"));
+  assert.ok(appAssets.assets.some(({ output }) => output === "assets/icons/streak_icon.png"));
   assert.doesNotMatch(JSON.stringify(catalog), /(?:model_qint8|ort-wasm|transformers\.min\.js)/u);
   for (const file of catalog.launcherIconFiles) {
     await access(path.join(repoRoot, "apps/launcher/static/assets/icons", file));

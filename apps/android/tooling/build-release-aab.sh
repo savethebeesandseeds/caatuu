@@ -174,6 +174,10 @@ bundletool=(java -cp "$bundletool_classpath" com.android.tools.build.bundletool.
 bundletool_version="$("${bundletool[@]}" version)"
 echo "Using bundletool $bundletool_version from $bundletool_jar"
 
+start_phase "Validate language courses"
+node "$repo_root/tools/language-packs/validate.mjs" --check-views
+finish_phase
+
 start_phase "Gradle release bundle"
 cd "$repo_root/apps/android"
 gradle --no-daemon \

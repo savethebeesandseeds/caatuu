@@ -9,7 +9,11 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { verifyEmbeddingRuntimeAssets } from "../../language-runtime/tooling/verify-embedding-runtime.mjs";
-import { transformIndex } from "../../android/tooling/build-product-assets.mjs";
+import {
+  loadAndroidCourseBundleCatalogPlan,
+  transformIndex,
+} from "../../android/tooling/build-product-assets.mjs";
+import { loadAndValidateCourseCatalog } from "../../../tools/language-packs/lib/course-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const scriptDir = dirname(scriptPath);
@@ -81,6 +85,57 @@ function fail(message) {
 
 function assert(condition, message) {
   if (!condition) fail(message);
+}
+
+function browserCourseIdentities(courses) {
+  if (!Array.isArray(courses)) return null;
+  return courses.map((course) => ({
+    id: course?.id ?? null,
+    status: course?.status ?? null,
+  }));
+}
+
+export function browserSetupCourseCoverage(browserSetupCourses, catalogCourses) {
+  const expected = Array.isArray(catalogCourses)
+    ? browserCourseIdentities(catalogCourses
+      .map((record) => record?.course ?? record)
+      .filter((course) => course?.platforms?.browser?.enabled === true))
+    : null;
+  const actual = browserCourseIdentities(browserSetupCourses);
+  return Object.freeze({
+    actual,
+    expected,
+    matches: actual !== null
+      && expected !== null
+      && JSON.stringify(actual) === JSON.stringify(expected),
+  });
+}
+
+function androidCourseBundleIdentity(value) {
+  return Object.freeze({
+    defaultCourseId: value?.defaultCourseId ?? null,
+    courseIds: Array.isArray(value?.courses)
+      ? value.courses.map((course) => course?.id ?? null)
+      : null,
+  });
+}
+
+export function androidCourseBundleCoverage(bundle, publicationPlan) {
+  const actual = androidCourseBundleIdentity(bundle);
+  const expected = androidCourseBundleIdentity(publicationPlan);
+  const defaultMatches = typeof actual.defaultCourseId === "string"
+    && typeof expected.defaultCourseId === "string"
+    && actual.defaultCourseId === expected.defaultCourseId;
+  const courseOrderMatches = actual.courseIds !== null
+    && expected.courseIds !== null
+    && JSON.stringify(actual.courseIds) === JSON.stringify(expected.courseIds);
+  return Object.freeze({
+    actual,
+    expected,
+    defaultMatches,
+    courseOrderMatches,
+    matches: defaultMatches && courseOrderMatches,
+  });
 }
 
 function composeServiceBlock(source, serviceName) {
@@ -341,7 +396,7 @@ function assertContentType(response, expected, label) {
   );
 }
 
-async function auditHttpRoutes() {
+async function auditHttpRoutes(validatedLanguageCatalog) {
   if (skipHttp) {
     note("HTTP route audit skipped");
     return;
@@ -406,7 +461,14 @@ async function auditHttpRoutes() {
   assert(activeCzech?.platforms?.android?.channels?.[1]?.manifest === "/android/caatuu-preview.json", "public language registry should use the user-facing preview alias");
   assert(!languageRegistry?.languages?.some((language) => language.id === "zh"), "development Mandarin must remain absent from the release-active language collection");
   assert(languageRegistry?.browserSetup?.entryPath === "/cz/index.html", "browser setup should enter through the shared first-run form");
-  assert(languageRegistry?.browserSetup?.courses?.map((course) => `${course.id}:${course.status}`).join(",") === "cz:active,zh:development", "browser setup should advertise Czech and the Mandarin preview without promoting Mandarin");
+  const browserCourseCoverage = browserSetupCourseCoverage(
+    languageRegistry?.browserSetup?.courses,
+    validatedLanguageCatalog?.courses,
+  );
+  assert(
+    browserCourseCoverage.matches,
+    `browser setup must advertise every browser-enabled catalog course in catalog order with exact statuses; expected ${JSON.stringify(browserCourseCoverage.expected)}, got ${JSON.stringify(browserCourseCoverage.actual)}`,
+  );
 
   const unknownRoot = await request("/definitely-missing-caatuu-page");
   assert(unknownRoot.status === 404, `/definitely-missing-caatuu-page should return 404, got ${unknownRoot.status}`);
@@ -487,8 +549,8 @@ async function auditHttpRoutes() {
     }
     assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
     assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
-    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-26"');
-    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-7"');
+    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-32"');
+    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-40"');
     assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
     assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
   }
@@ -515,15 +577,15 @@ async function auditHttpRoutes() {
   assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
   assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
   assert(
-    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-4")'),
+    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-15")'),
     "the shared app bootstrap should mount every course through the unified Word World host"
   );
   assert(
-    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-6")'),
+    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-18")'),
     "the shared Word World host should load the unified provider"
   );
   assert(
-    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-5'),
+    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-17'),
     "the shared Word World provider should load the one shared renderer"
   );
   assert(mandarinProfile.body.includes('status: "development"'), "the Mandarin profile should declare its development status");
@@ -535,13 +597,13 @@ async function auditHttpRoutes() {
   assert(mandarinSetup?.application?.appEntry === "apps/language-runtime/static/app/index.html", "Mandarin setup should name the canonical app entry");
   assert(mandarinSetup?.application?.entryPath === "/zh/index.html", "Mandarin setup should mount the canonical app at its course route");
   assert(!mandarinSetup?.offline?.assets?.some((asset) => asset.includes("product-shell.mjs")), "Mandarin offline assets must not retain the superseded product shell");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-4"), "Mandarin offline assets should include the shared Word World host");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-15"), "Mandarin offline assets should include the shared Word World host");
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-6"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-18"),
     "Mandarin offline assets should include the unified Word World provider"
   );
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-5"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-17"),
     "Mandarin offline assets should include the one shared Word World renderer"
   );
 
@@ -1161,7 +1223,7 @@ function extractApkSignerCertificates(apk) {
   return [...uniqueCertificates.values()];
 }
 
-function auditApk() {
+function auditApk(androidPublicationPlan) {
   if (skipApk) {
     note("APK audit skipped");
     return;
@@ -1245,10 +1307,15 @@ function auditApk() {
     assert([1, 2].includes(Number(packagedProfile.schemaVersion)), `APK product profile schema should be 1 or 2, got ${packagedProfile.schemaVersion}`);
     if (packagedBundle) {
       assert(packagedBundle.schemaVersion === 1, `APK product course bundle schema should be 1, got ${packagedBundle.schemaVersion}`);
-      assert(packagedBundle.defaultCourseId === "cz", "APK product course bundle default should be cz");
+      assert(androidPublicationPlan?.defaultCourseId === "cz", "authoritative Android publication plan should retain Czech as the default course");
+      const androidCourseCoverage = androidCourseBundleCoverage(packagedBundle, androidPublicationPlan);
       assert(
-        JSON.stringify(packagedBundle.courses?.map((course) => course?.id)) === JSON.stringify(["cz", "zh"]),
-        "APK product course bundle should contain exactly cz and zh",
+        androidCourseCoverage.defaultMatches,
+        `APK product course bundle default must match the authoritative Android publication plan; expected ${androidCourseCoverage.expected.defaultCourseId}, got ${androidCourseCoverage.actual.defaultCourseId}`,
+      );
+      assert(
+        androidCourseCoverage.courseOrderMatches,
+        `APK product course bundle must contain every Android publication course in catalog order; expected ${JSON.stringify(androidCourseCoverage.expected.courseIds)}, got ${JSON.stringify(androidCourseCoverage.actual.courseIds)}`,
       );
     }
     if (Number(packagedProfile.schemaVersion) >= 2 && entrySet.has("assets/index.html")) {
@@ -2010,6 +2077,7 @@ function auditAndroidSource() {
   assert(runtimeRoutes.includes('artifact_dir: "artifacts/games/caatuu-game/web/godot-v1"'), "runtime should serve Caatuu Game from the neutral generated artifact boundary");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-cache, max-age=0")'), "generated game files should revalidate instead of becoming immutable during active development");
   assert(canonicalApp.includes("A smaller orbit for recall games will live here."), "the canonical app should retain the static Memory Moon placeholder");
+  assert(canonicalApp.includes("A new orbit for listening, stress, and spelling will live here."), "the canonical app should retain the shared Sounds Quasar placeholder");
   assert(!canonicalApp.includes("/games/caatuu-game"), "the canonical app should not embed the standalone game");
   assert(gradle.includes('exclude("games/**")'), "Android language asset sync should exclude generated game bundles");
   assert(!gradle.includes("generatedGameAssetsDir"), "Android should not define a generated-game asset source");
@@ -2044,13 +2112,19 @@ async function main() {
   const embeddingSummary = await verifyEmbeddingRuntimeAssets();
   assert(embeddingSummary.artifactCount > 0, "shared embedding runtime should pass its local size and SHA-256 readiness contract");
   note(`shared embedding runtime verified (${embeddingSummary.artifactCount} artifacts)`);
+  const validatedLanguageCatalog = skipHttp
+    ? null
+    : await loadAndValidateCourseCatalog({ repoRoot: workspaceRoot });
+  const androidPublicationPlan = skipApk
+    ? null
+    : loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
   auditLegacyNames();
   auditRepoOwnership();
   auditRuntimeAdapterBoundary();
   auditSetupManifest();
   auditAndroidSource();
-  await auditHttpRoutes();
-  auditApk();
+  await auditHttpRoutes(validatedLanguageCatalog);
+  auditApk(androidPublicationPlan);
   finish();
 }
 

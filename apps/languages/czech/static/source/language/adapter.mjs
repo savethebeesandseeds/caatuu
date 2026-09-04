@@ -137,6 +137,28 @@ function dictionaryLookupKey(value) {
   return normalizeWord(value).toLocaleLowerCase("cs-CZ");
 }
 
+function dictionaryEntryText(value) {
+  if (value === undefined || value === null) return "";
+  if (typeof value !== "string" && typeof value !== "number") return "";
+  return String(value).normalize("NFC").trim();
+}
+
+function presentDictionaryEntry(record) {
+  if (!record || typeof record !== "object" || Array.isArray(record)) {
+    throw new TypeError("Czech dictionary presentation requires an object record.");
+  }
+  return {
+    targetText: dictionaryEntryText(record.targetText ?? record.target ?? record.cs),
+    englishAuditText: dictionaryEntryText(
+      record.englishAuditText ?? record.englishText ?? record.en
+    ),
+    category: dictionaryEntryText(record.category ?? record.cat),
+    partOfSpeech: dictionaryEntryText(record.partOfSpeech ?? record.kind),
+    exampleTargetText: dictionaryEntryText(record.exampleTargetText ?? record.use),
+    usageNote: dictionaryEntryText(record.usageNote ?? record.cue)
+  };
+}
+
 export const czechLanguageAdapter = defineLanguageAdapter({
   schemaVersion: LANGUAGE_ADAPTER_SCHEMA_VERSION,
   id: "czech",
@@ -179,6 +201,7 @@ export const czechLanguageAdapter = defineLanguageAdapter({
   },
   dictionary: {
     lookupKey: dictionaryLookupKey,
+    presentEntry: presentDictionaryEntry,
     lookup: null,
     search: null
   }

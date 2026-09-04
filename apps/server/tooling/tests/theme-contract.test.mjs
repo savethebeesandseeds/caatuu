@@ -119,7 +119,8 @@ const requiredSemanticTokens = [
   "--theme-control-bg", "--theme-control-border",
   "--theme-chip-bg", "--theme-chip-ink",
   "--theme-entry-bg", "--theme-entry-ink", "--theme-entry-muted", "--theme-entry-accent",
-  "--theme-panel-head-bg", "--theme-panel-head-ink", "--theme-amber", "--theme-page-background"
+  "--theme-panel-head-bg", "--theme-panel-head-ink", "--theme-amber", "--theme-amber-ink",
+  "--theme-page-background"
 ];
 
 const lightTheme = declarationsForSelector(themeCss, ":root");
@@ -158,7 +159,8 @@ test("light mode provides a complete, warm semantic palette with accessible text
     ["--theme-chip-ink", "--theme-chip-bg"],
     ["--theme-entry-ink", "--theme-entry-bg"],
     ["--theme-entry-muted", "--theme-entry-bg"],
-    ["--theme-panel-head-ink", "--theme-panel-head-bg"]
+    ["--theme-panel-head-ink", "--theme-panel-head-bg"],
+    ["--theme-amber-ink", "--theme-panel"]
   ];
   for (const [foreground, background] of readablePairs) {
     const ratio = contrast(lightTheme.get(foreground), lightTheme.get(background), `${foreground} on ${background}`);
@@ -186,7 +188,8 @@ test("dark mode keeps its calm surfaces and readable semantic pairs", () => {
     ["--theme-muted", "--theme-panel"],
     ["--theme-chip-ink", "--theme-chip-bg"],
     ["--theme-entry-ink", "--theme-entry-bg"],
-    ["--theme-panel-head-ink", "--theme-panel-head-bg"]
+    ["--theme-panel-head-ink", "--theme-panel-head-bg"],
+    ["--theme-amber-ink", "--theme-panel"]
   ];
   for (const [foreground, background] of readablePairs) {
     const ratio = contrast(darkTheme.get(foreground), darkTheme.get(background), `${foreground} on ${background}`);

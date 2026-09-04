@@ -179,7 +179,7 @@ test("adversarial target text, pronunciation, tokens, and opaque metadata cannot
 
   assertFixtureFails(({ concepts: candidate }) => {
     candidate.concepts[0].embeddingText = "Target pronunciation: nǐ hǎo.";
-  }, "embedding.leakage", /diacritics/u);
+  }, "embedding.leakage", /character policy/u);
 });
 
 test("Mandarin identifiers, authored token coverage, pronunciation, and playable integrity are enforced", () => {

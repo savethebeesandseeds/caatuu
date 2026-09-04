@@ -2,6 +2,7 @@ package com.caatuu.android
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -26,6 +27,8 @@ class CaatuuAssetClient(
 ) : WebViewClient() {
 
     val startUrl: String = courseRegistry.startUrl
+    @Volatile
+    private var activeCourseId: String = courseRegistry.defaultCourseId
 
     init {
         vectorDatabaseManagers.forEach { (courseId, _) ->
@@ -79,6 +82,11 @@ class CaatuuAssetClient(
         view.evaluateJavascript(nativeBoundaryScript(), null)
     }
 
+    override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
+        courseRegistry.courseForTrustedUrl(url)?.let { course -> activeCourseId = course.id }
+        super.onPageStarted(view, url, favicon)
+    }
+
     private fun intercept(uri: Uri): WebResourceResponse? {
         if (!isAppHost(uri)) return forbidden()
         if (isAppRoot(uri)) return redirectToLanguageHome()
@@ -93,7 +101,11 @@ class CaatuuAssetClient(
         if (relativePath?.startsWith("data/dictionaries/") == true && capabilities?.isEnabled("dictionary") != true) {
             return notFound()
         }
-        val vectorManager = resolution.course?.id?.let(vectorDatabaseManagers::get)
+        val vectorManager = vectorDatabaseManagers[activeCourseId]
+        val staticManager = staticAssetManagers[activeCourseId]
+        val selectedVectorPath = vectorManager?.let { manager ->
+            assetPath == manager.modelAssetPath(manager.defaultSpec())
+        } == true
         val localVectorDatabase = localVectorDatabase(assetPath, vectorManager)
         if (localVectorDatabase != null) {
             return WebResourceResponse(
@@ -107,8 +119,9 @@ class CaatuuAssetClient(
                 )
             }
         }
+        if (selectedVectorPath) return notFound()
 
-        val localSetupAsset = localSetupAsset(assetPath, vectorManager)
+        val localSetupAsset = localSetupAsset(assetPath, staticManager)
         if (localSetupAsset != null) {
             return WebResourceResponse(
                 mimeType(assetPath),
@@ -121,6 +134,7 @@ class CaatuuAssetClient(
                 )
             }
         }
+        if (staticManager?.ownsAssetPath(assetPath) == true) return notFound()
 
         return try {
             WebResourceResponse(
@@ -181,19 +195,15 @@ class CaatuuAssetClient(
         val expectedPath = manager.modelAssetPath(spec)
         if (assetPath != expectedPath) return null
 
-        val file = File(context.filesDir, "vector-dbs/${spec.fileName}")
-        return file.takeIf { it.isFile }
+        return manager.verifiedDatabaseFile(spec)
     }
 
     private fun localSetupAsset(
         assetPath: String,
-        vectorManager: VectorDatabaseManager?,
+        manager: StaticAssetManager?,
     ): File? {
-        val setupManagedPath = assetPath.startsWith("assets/") ||
-            vectorManager?.ownsAssetPath(assetPath) == true ||
-            staticAssetManagers.values.any { manager -> manager.ownsAssetPath(assetPath) }
-        if (!setupManagedPath || assetPath.contains("..")) return null
-        return StaticAssetManager.localAssetFile(context, assetPath).takeIf { it.isFile }
+        manager ?: return null
+        return manager.verifiedLocalAsset(assetPath)
     }
 
     private fun notFound(): WebResourceResponse =

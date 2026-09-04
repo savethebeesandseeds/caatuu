@@ -580,6 +580,17 @@ function createAudioMenu(index) {
   speakOnSelect.lastElementChild.setAttribute("aria-hidden", "true");
   popover.append(speakOnSelect);
 
+  const mute = element("button");
+  mute.type = "button";
+  mute.dataset.speechMuteToggle = "";
+  mute.setAttribute("role", "switch");
+  mute.setAttribute("aria-checked", "false");
+  const muteLabel = element("span", "", "Mute all audio");
+  muteLabel.dataset.speechMuteLabel = "";
+  mute.append(muteLabel, element("i"));
+  mute.lastElementChild.setAttribute("aria-hidden", "true");
+  popover.append(mute);
+
   const settings = element("div", "verb-audio-settings");
   settings.dataset.conjugationAudioSettings = "";
   settings.hidden = true;
@@ -639,6 +650,7 @@ function renderAudioControls() {
   const paceOrder = ["slower", "slow", "normal"];
   const pace = window.CaatuuChrome?.resolveSpeechPace?.();
   document.querySelectorAll(".conjugation-comet-panel .verb-audio-menu").forEach((menu) => {
+    window.CaatuuChrome?.updateSpeechMuteControls?.(menu);
     const toggle = menu.querySelector("[data-conjugation-speak-on-select]");
     const settings = menu.querySelector("[data-conjugation-audio-settings]");
     const summary = menu.querySelector("summary");
@@ -1624,6 +1636,7 @@ function bindUi() {
     if (state.phase === "forms" && state.revealed) renderMorphologySolutionArrows();
   });
   window.addEventListener("caatuu:speech-pace-change", renderAudioControls);
+  window.addEventListener("caatuu:speech-mute-change", renderAudioControls);
   window.addEventListener("caatuu:speech-voice-change", () => {
     document.querySelectorAll(".conjugation-comet-panel .verb-audio-menu[open]").forEach((menu) => {
       if (state.speakOnSelect) void refreshAudioVoiceControls(menu);

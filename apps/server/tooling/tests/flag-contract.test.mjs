@@ -64,7 +64,7 @@ test("the shared Czech header uses the configured PNG without a CSS frame", () =
 
   assert.match(
     chromeJs,
-    /function renderLanguageSwitch[\s\S]*?createElement\("img"\)[\s\S]*?className = \["caatuu-language-flag", targetLanguage\.flagClass\]\.filter\(Boolean\)\.join\(" "\)[\s\S]*?src = targetLanguage\.flagSrc[\s\S]*?alt = ""/,
+    /function createLanguageFlag\(language, extraClass = ""\)[\s\S]*?createElement\("img"\)[\s\S]*?language\?\.flagClass[\s\S]*?language\?\.flagSrc[\s\S]*?alt = ""[\s\S]*?function createCurrentLanguageFlag\(\)[\s\S]*?createLanguageFlag\(targetLanguage\)[\s\S]*?function renderLanguageIndicator\(element\)[\s\S]*?createCurrentLanguageFlag\(\)[\s\S]*?function renderLanguageSwitch\(element\)[\s\S]*?createCurrentLanguageFlag\(\)/,
     "shared Chrome should render the image declared by the language profile"
   );
   assert.match(courseProfile, /flagClass: "cz-flag",\s*flagSrc: "\/assets\/icons\/czech_flag_ui\.png"/, "the Czech profile should select the shared UI PNG flag");

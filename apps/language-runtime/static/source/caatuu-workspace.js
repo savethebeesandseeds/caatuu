@@ -1,6 +1,9 @@
 let countryDictionary = [];
 let countryDictionaryBytes = new Uint8Array();
+let countryDictionaryPresentations = [];
 let countryScripts = [];
+let dictionaryCatalogDocument = null;
+let dictionaryPresentationRuntimePromise = null;
 let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
 let childFacingAssets = null;
@@ -28,6 +31,11 @@ const courseRouteBase = new URL(
   `${String(course.routePrefix || "").replace(/\/$/u, "")}/`,
   window.location.origin
 );
+const gamesLaunchpadShipPaths = Object.freeze(Array.from(
+  { length: 28 },
+  (_, index) => `/assets/ships/ship%20(${index + 1}).png`
+));
+let lastGamesLaunchpadShip = "";
 
 function courseHasCapability(capability) {
   return courseCapabilities[capability] === true;
@@ -35,6 +43,29 @@ function courseHasCapability(capability) {
 
 function courseAssetUrl(path) {
   return new URL(String(path || "").replace(/^\.\//u, ""), courseRouteBase).href;
+}
+
+function drawGamesLaunchpadShip() {
+  const ship = document.querySelector("#gamesLaunchpadShip");
+  if (!ship) return "";
+  const candidates = gamesLaunchpadShipPaths.length > 1 && lastGamesLaunchpadShip
+    ? gamesLaunchpadShipPaths.filter((path) => path !== lastGamesLaunchpadShip)
+    : gamesLaunchpadShipPaths;
+  const randomIndex = Math.min(
+    candidates.length - 1,
+    Math.max(0, Math.floor(Math.random() * candidates.length))
+  );
+  lastGamesLaunchpadShip = candidates[randomIndex] || gamesLaunchpadShipPaths[0] || "";
+  ship.src = lastGamesLaunchpadShip;
+  return lastGamesLaunchpadShip;
+}
+
+function requestGamesMenu() {
+  window.requestAnimationFrame(() => {
+    if (state.activeView !== "verbs" || state.trainTab !== "galaxy") return;
+    const trigger = document.querySelector('[data-caatuu-bottom-nav] [data-nav-key="games"]');
+    if (trigger?.getAttribute("aria-expanded") !== "true") trigger?.click();
+  });
 }
 
 function courseGameAvailable(gameId) {
@@ -47,7 +78,8 @@ function courseGameAvailable(gameId) {
     "case-cosmos": "caseCosmos",
     "agreement-aurora": "agreementAurora",
     "naturalization-nucleus": "naturalizationNucleus",
-    "memory-moon": "memoryMoon"
+    "memory-moon": "memoryMoon",
+    "sound-quasar": "soundQuasar"
   };
   if (gameId === "campaign") return Array.isArray(course.games) && course.games.length > 0;
   const route = routeByGame[gameId];
@@ -58,7 +90,15 @@ function courseUsesModels() {
   return ["llm", "generation", "offlineModels"].some(courseHasCapability);
 }
 
-const themeStorageKey = course.storage.theme;
+function courseUsesArtifactCatalogs() {
+  return courseUsesModels()
+    || courseHasCapability("embeddings")
+    || courseHasCapability("dictionary")
+    || courseHasCapability("wordWorld");
+}
+
+const courseThemeStorageKey = course.storage.theme;
+const themeStorageKey = "caatuu.appearance.theme.v1";
 const themeOptions = {
   light: { themeColor: "#f5efe5" },
   dark: { themeColor: "#151a18" }
@@ -203,13 +243,19 @@ const defaultGenerationSettings = {
 let generationSettings = loadStoredGenerationSettings();
 
 async function loadJson(path) {
-  const response = await fetch(courseAssetUrl(path));
+  const response = await fetch(courseAssetUrl(path), { cache: "reload" });
   if (!response.ok) throw new Error(`Could not load ${path}: ${response.status}`);
   return response.json();
 }
 
+async function loadText(path) {
+  const response = await fetch(courseAssetUrl(path), { cache: "reload" });
+  if (!response.ok) throw new Error(`Could not load ${path}: ${response.status}`);
+  return response.text();
+}
+
 async function loadJsonBytes(path) {
-  const response = await fetch(courseAssetUrl(path));
+  const response = await fetch(courseAssetUrl(path), { cache: "reload" });
   if (!response.ok) throw new Error(`Could not load ${path}: ${response.status}`);
   const bytes = new Uint8Array(await response.arrayBuffer());
   const text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
@@ -220,20 +266,185 @@ function assertArrayData(name, value) {
   if (!Array.isArray(value)) throw new Error(`Expected ${name} to be an array.`);
 }
 
+function requiredDictionaryContentPath(name, extension = ".json") {
+  const value = String(course.dictionaryContent?.[name] || "").trim();
+  const resolved = value ? new URL(value, courseRouteBase) : null;
+  if (
+    !value
+    || value.startsWith("/")
+    || value.includes("\\")
+    || /[?#]/u.test(value)
+    || !value.startsWith("data/")
+    || !value.endsWith(extension)
+    || value.split("/").some((segment) => !segment || segment === "." || segment === "..")
+    || resolved.origin !== courseRouteBase.origin
+    || !resolved.pathname.startsWith(courseRouteBase.pathname)
+  ) {
+    throw new Error(`Dictionary capability requires a confined dictionaryContent.${name} course resource.`);
+  }
+  return value;
+}
+
+function requiredEmbeddingCatalogPath() {
+  const value = String(course.embeddingContent?.catalog || "").trim();
+  const resolved = value ? new URL(value, courseRouteBase) : null;
+  if (
+    !value
+    || value.startsWith("/")
+    || value.includes("\\")
+    || /[?#]/u.test(value)
+    || !value.startsWith("data/")
+    || !value.endsWith(".json")
+    || value.split("/").some((segment) => !segment || segment === "." || segment === "..")
+    || resolved.origin !== courseRouteBase.origin
+    || !resolved.pathname.startsWith(courseRouteBase.pathname)
+  ) {
+    throw new Error("Embeddings capability requires a confined embeddingContent.catalog course resource.");
+  }
+  return value;
+}
+
+async function loadDictionaryReference(path) {
+  const host = document.querySelector("#dictionaryReferenceContent");
+  if (!host) throw new Error("Dictionary reference host is missing from the shared app layout.");
+  const template = document.createElement("template");
+  template.innerHTML = await loadText(path);
+  const allowedTags = new Set([
+    "article", "b", "button", "code", "div", "em", "h2", "h3", "li", "ol", "p",
+    "section", "small", "span", "table", "tbody", "td", "th", "thead", "tr"
+  ]);
+  const fragmentIds = new Set();
+  for (const element of template.content.querySelectorAll("*")) {
+    if (!allowedTags.has(element.localName)) {
+      throw new Error(`Dictionary reference fragments cannot use <${element.localName}> elements.`);
+    }
+    for (const attribute of element.getAttributeNames()) {
+      if (!["class", "id", "type"].includes(attribute.toLowerCase())) {
+        throw new Error(`Dictionary reference fragments cannot use ${attribute} attributes.`);
+      }
+    }
+    const id = String(element.id || "").trim();
+    if (!id) continue;
+    if (fragmentIds.has(id) || document.getElementById(id)) {
+      throw new Error(`Dictionary reference fragment contains a duplicate document id: ${id}.`);
+    }
+    fragmentIds.add(id);
+  }
+  host.replaceChildren(template.content.cloneNode(true));
+}
+
+async function dictionaryPresentationRuntime() {
+  if (dictionaryPresentationRuntimePromise) return dictionaryPresentationRuntimePromise;
+  const adapterPath = String(course.languageAdapter?.module || "").trim();
+  if (!adapterPath) {
+    throw new Error("Dictionary capability requires a course language adapter.");
+  }
+  dictionaryPresentationRuntimePromise = Promise.all([
+    import("/language-runtime/contract.mjs"),
+    import(courseAssetUrl(adapterPath))
+  ]).then(([contractModule, adapterModule]) => {
+    const capability = contractModule.LANGUAGE_CAPABILITIES?.DICTIONARY_PRESENTATION;
+    if (!capability || typeof contractModule.assertLanguageCapabilities !== "function") {
+      throw new Error("Dictionary capability requires the shared dictionary presentation contract.");
+    }
+    contractModule.assertLanguageCapabilities(adapterModule.default, capability);
+    return Object.freeze({ contractModule, adapter: adapterModule.default });
+  });
+  return dictionaryPresentationRuntimePromise;
+}
+
+async function presentDictionaryRecords(records, context = {}) {
+  const { contractModule, adapter } = await dictionaryPresentationRuntime();
+  if (typeof contractModule.presentDictionaryEntry !== "function") {
+    throw new Error("Dictionary capability requires the shared dictionary presentation contract.");
+  }
+  return records.map((record, index) => contractModule.presentDictionaryEntry(
+    adapter,
+    record,
+    {
+      ...context,
+      course,
+      recordIndex: index,
+      sourceLanguageId: sourceLanguage.id,
+      targetLanguageId: targetLanguage.id
+    }
+  ));
+}
+
 async function loadContentData() {
   const verbsEnabled = courseGameAvailable("verb-lab");
   const dictionaryEnabled = courseHasCapability("dictionary");
   if (!verbsEnabled && !dictionaryEnabled) return;
 
-  const dictionarySource = await loadJsonBytes("data/games/verb-nebula/core-vocabulary.json");
-  assertArrayData("dictionary", dictionarySource.value);
-  countryDictionaryBytes = dictionarySource.bytes;
-  countryDictionary = dictionarySource.value;
+  const verbCatalogPath = "data/games/verb-nebula/core-vocabulary.json";
+  let verbCatalogSource = null;
+  if (verbsEnabled) {
+    verbCatalogSource = await loadJsonBytes(verbCatalogPath);
+    assertArrayData("Verb Nebula catalog", verbCatalogSource.value);
+    countryDictionaryBytes = verbCatalogSource.bytes;
+    countryDictionary = verbCatalogSource.value;
+  }
 
   if (dictionaryEnabled) {
-    const scripts = await loadJson("data/language/scripts.json");
-    assertArrayData("scripts", scripts);
-    countryScripts = scripts;
+    const catalogPath = requiredDictionaryContentPath("catalog");
+    const coreEntriesPath = requiredDictionaryContentPath("coreEntries");
+    const scriptLinesPath = requiredDictionaryContentPath("scriptLines");
+    const referenceDocumentPath = requiredDictionaryContentPath("referenceDocument", ".html");
+    const { adapter: dictionaryAdapter } = await dictionaryPresentationRuntime();
+    dictionaryCatalogDocument = await loadJson(catalogPath);
+    if (!dictionaryCatalogDocument || typeof dictionaryCatalogDocument !== "object"
+        || Array.isArray(dictionaryCatalogDocument)
+        || !Array.isArray(dictionaryCatalogDocument.dictionaries)) {
+      throw new Error("Dictionary catalog must be an object with a dictionaries array.");
+    }
+    const defaultDictionary = dictionaryCatalogDocument.dictionaries.find(
+      ({ key }) => key === dictionaryCatalogDocument.default_dictionary
+    );
+    if (!defaultDictionary || defaultDictionary.status !== "active") {
+      throw new Error("Dictionary catalog default_dictionary must resolve to an active provider.");
+    }
+    if (String(defaultDictionary.lookupLanguage || "").trim() !== targetLanguage.id) {
+      throw new Error("Dictionary lookupLanguage must match the course target language.");
+    }
+    if (canonicalLanguageTag(defaultDictionary.lookupLanguageTag) !== canonicalLanguageTag(targetLanguage.locale)) {
+      throw new Error("Dictionary lookupLanguageTag must match the exact course target locale and script.");
+    }
+    if (String(defaultDictionary.meaningLanguage || "").trim() !== "en") {
+      throw new Error("Dictionary meaningLanguage must remain English for retrieval and audit.");
+    }
+    if (canonicalLanguageTag(defaultDictionary.meaningLanguageTag) !== "en") {
+      throw new Error("Dictionary meaningLanguageTag must remain English for retrieval and audit.");
+    }
+    if (canonicalLanguageTag(dictionaryAdapter.languageTags?.locale) !== canonicalLanguageTag(targetLanguage.locale)) {
+      throw new Error("Dictionary adapter locale must match the exact course target locale and script.");
+    }
+    if (
+      targetLanguage.script
+      && new Intl.Locale(dictionaryAdapter.languageTags.locale).maximize().script !== targetLanguage.script
+    ) {
+      throw new Error("Dictionary adapter script must match the course target script.");
+    }
+    await loadDictionaryReference(referenceDocumentPath);
+    const dictionarySource = verbCatalogSource && courseAssetUrl(coreEntriesPath) === courseAssetUrl(verbCatalogPath)
+      ? verbCatalogSource
+      : await loadJsonBytes(coreEntriesPath);
+    assertArrayData("dictionary core entries", dictionarySource.value);
+    countryDictionaryPresentations = await presentDictionaryRecords(dictionarySource.value, {
+      recordKind: "core-entry"
+    });
+    const scripts = await loadJson(scriptLinesPath);
+    assertArrayData("dictionary scripts", scripts);
+    const scriptLines = await Promise.all(scripts.map((script, scriptIndex) => {
+      assertArrayData(`scripts[${scriptIndex}].lines`, script?.lines);
+      return presentDictionaryRecords(script.lines, {
+        recordKind: "script-line",
+        scriptIndex
+      });
+    }));
+    countryScripts = scripts.map((script, scriptIndex) => ({
+      ...script,
+      lines: scriptLines[scriptIndex]
+    }));
   }
 
   if (verbsEnabled) {
@@ -242,6 +453,14 @@ async function loadContentData() {
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
+  }
+}
+
+function canonicalLanguageTag(value) {
+  try {
+    return Intl.getCanonicalLocales(String(value || "").trim().replaceAll("_", "-"))[0] || "";
+  } catch {
+    return "";
   }
 }
 
@@ -431,48 +650,117 @@ function normalizeCatalogModel(model) {
   };
 }
 
-async function loadModelLicenseCatalog() {
-  if (!courseUsesModels()) return;
-  const runtime = runtimeAdapter();
-  const nextCatalog = [];
-  const modelCatalog = await runtime.models.catalog();
-  if (Array.isArray(modelCatalog.models)) {
-    modelCatalog.models.forEach((model) => {
-      if (model.key) supportedModelKeys.add(model.key);
+const courseEmbeddingSelectionSchema = "https://caatuu.org/schemas/embedding-catalog.v1.schema.json";
+
+function normalizeEmbeddingCatalogArtifacts(catalog) {
+  if (catalog?.$schema !== undefined
+      && (catalog.$schema !== courseEmbeddingSelectionSchema || catalog.schemaVersion !== 1)) {
+    throw new Error("Embedding catalog must be a models catalog or a versioned course embedding selection.");
+  }
+  if (catalog?.$schema === courseEmbeddingSelectionSchema) {
+    if (String(catalog.courseId || "").trim() !== course.id) {
+      throw new Error("Course embedding selection must match the owning course.");
+    }
+    const policy = catalog.embeddingPolicy;
+    if (
+      policy?.inputLanguage !== "en"
+      || policy?.inputField !== "embeddingText"
+      || policy?.targetTextAllowed !== false
+      || policy?.targetPronunciationAllowed !== false
+    ) {
+      throw new Error("Course embedding selection must preserve the English embeddingText audit boundary.");
+    }
+    const runtimeId = String(catalog.runtime?.defaultModelId || "").trim();
+    const notices = Array.isArray(catalog.thirdPartyNotices) ? catalog.thirdPartyNotices : [];
+    if (!runtimeId || !notices.length) {
+      throw new Error("Course embedding selection must declare a default runtime and third-party notices.");
+    }
+    const intendedUse = String(catalog.notes || "").trim();
+    return notices.map((notice, index) => {
+      const component = String(notice?.component || "").trim();
+      const license = String(notice?.license || "").trim();
+      const licenseUrl = String(notice?.noticeUrl || "").trim();
+      if (
+        !component
+        || !license
+        || !licenseUrl.startsWith("/language-runtime/")
+        || licenseUrl.includes("\\")
+        || licenseUrl.split("/").some((segment) => segment === "." || segment === "..")
+      ) {
+        throw new Error("Course embedding selection contains an invalid third-party notice.");
+      }
+      return normalizeCatalogModel({
+        key: `${course.id}-embedding-notice-${index + 1}`,
+        label: component,
+        license,
+        license_url: licenseUrl,
+        intended_use: intendedUse,
+        artifact_kind: "embedding-runtime-dependency",
+        runtime: runtimeId,
+        status: "active"
+      });
     });
-    nextCatalog.push(...modelCatalog.models.map(normalizeCatalogModel));
   }
 
-  try {
-    const embeddingCatalog = await runtime.models.embeddingCatalog();
-    if (Array.isArray(embeddingCatalog.models)) {
-      nextCatalog.push(...embeddingCatalog.models.map((model) => ({
-        ...normalizeCatalogModel(model),
-        artifactKind: model.artifact_kind || "",
-        embeddingTextField: model.embedding_text_field || "",
-        embeddingInputPolicy: model.embedding_input_policy || ""
-      })));
+  if (catalog?.version === 1 && Array.isArray(catalog.models) && catalog.models.length > 0) {
+    const defaultModel = String(catalog.default_model || "").trim();
+    const activeModels = catalog.models.filter((model) => model?.status === "active");
+    if (!defaultModel || !activeModels.some((model) => model?.key === defaultModel)) {
+      throw new Error("Legacy embedding models catalog must select an active default model.");
     }
-  } catch (error) {
-    // Model metadata is enough for settings if browser embedding metadata is unavailable.
+    if (activeModels.some((model) => (
+      model?.embedding_text_field !== "english_text"
+      || model?.embedding_input_policy !== "english_text_only"
+    ))) {
+      throw new Error("Legacy embedding models catalog must preserve the English-only embedding input policy.");
+    }
+    return catalog.models.map((model) => ({
+      ...normalizeCatalogModel(model),
+      artifactKind: model.artifact_kind || "",
+      embeddingTextField: model.embedding_text_field || "",
+      embeddingInputPolicy: model.embedding_input_policy || ""
+    }));
+  }
+
+  throw new Error("Embedding catalog must be a version 1 models catalog or a versioned course embedding selection.");
+}
+
+async function loadArtifactLicenseCatalog() {
+  if (!courseUsesArtifactCatalogs()) return;
+  const nextCatalog = [];
+  const runtime = courseUsesModels() ? runtimeAdapter() : null;
+  if (courseUsesModels()) {
+    const modelCatalog = await runtime.models.catalog();
+    if (Array.isArray(modelCatalog.models)) {
+      modelCatalog.models.forEach((model) => {
+        if (model.key) supportedModelKeys.add(model.key);
+      });
+      nextCatalog.push(...modelCatalog.models.map(normalizeCatalogModel));
+    }
+  }
+
+  if (courseHasCapability("embeddings")) {
+    const embeddingCatalog = await loadJson(requiredEmbeddingCatalogPath());
+    nextCatalog.push(...normalizeEmbeddingCatalogArtifacts(embeddingCatalog));
   }
 
   if (courseHasCapability("dictionary")) {
-    try {
-      const dictionaryCatalog = await loadJson("data/dictionaries/catalog.json");
-      if (Array.isArray(dictionaryCatalog.dictionaries)) {
-        nextCatalog.push(...dictionaryCatalog.dictionaries.map(normalizeCatalogModel));
-      }
-    } catch (error) {
-      // Missing dictionary metadata should not prevent the settings screen from opening.
+    if (!dictionaryCatalogDocument || !Array.isArray(dictionaryCatalogDocument.dictionaries)) {
+      throw new Error("Dictionary catalog was not prepared before model-license rendering.");
     }
+    nextCatalog.push(...dictionaryCatalogDocument.dictionaries.map(normalizeCatalogModel));
   }
 
+  if (courseHasCapability("wordWorld") && !nextCatalog.some(({ key }) => key === wordWorldStandardArtifact.key)) {
+    nextCatalog.push(wordWorldStandardArtifact);
+  }
   if (nextCatalog.length) {
     const runtimeArtifactKeys = new Set(nextCatalog.map((artifact) => artifact.key));
-    modelLicenseCatalog = runtimeArtifactKeys.has(wordWorldStandardArtifact.key)
+    modelLicenseCatalog = [...runtimeArtifactKeys].length === nextCatalog.length
       ? nextCatalog
-      : [...nextCatalog, wordWorldStandardArtifact];
+      : nextCatalog.filter((artifact, index) => (
+          nextCatalog.findIndex(({ key }) => key === artifact.key) === index
+        ));
   }
   generationSettings = normalizeGenerationSettings(generationSettings);
 }
@@ -684,11 +972,24 @@ function updateSettingsSupport(model) {
 }
 
 function readStoredTheme() {
+  let sharedTheme = "";
+  let courseTheme = "";
   try {
-    return normalizeTheme(localStorage.getItem(themeStorageKey));
+    sharedTheme = localStorage.getItem(themeStorageKey);
+    courseTheme = localStorage.getItem(courseThemeStorageKey);
   } catch (error) {
     return "light";
   }
+  const normalizedTheme = Object.prototype.hasOwnProperty.call(themeOptions, sharedTheme)
+    ? sharedTheme
+    : normalizeTheme(courseTheme);
+  try {
+    localStorage.setItem(themeStorageKey, normalizedTheme);
+    localStorage.setItem(courseThemeStorageKey, normalizedTheme);
+  } catch (error) {
+    // Appearance still applies when storage is read-only.
+  }
+  return normalizedTheme;
 }
 
 function normalizeTheme(theme) {
@@ -713,6 +1014,7 @@ function applyTheme(theme, { persist = true } = {}) {
   if (persist) {
     try {
       localStorage.setItem(themeStorageKey, normalizedTheme);
+      localStorage.setItem(courseThemeStorageKey, normalizedTheme);
     } catch (error) {
       // Theme still applies for the current session when storage is unavailable.
     }
@@ -982,13 +1284,10 @@ const verbHintExactAssets = new Map([
 ]);
 const verbRobotKeymapUrl = "/assets/robots/keymap.json";
 const verbRobotFallbackPath = "/assets/robots/robot%20(1).png";
-const campaignPlayableTabs = Object.freeze([
-  "verb-lab",
-  "word-net",
-  "conjugation-comet",
-  "case-cosmos",
-  "agreement-aurora"
-]);
+const campaignContractGameIds = window.CaatuuShellPolicy?.CAMPAIGN_GAME_IDS;
+const campaignPlayableTabs = Object.freeze(
+  Array.isArray(campaignContractGameIds) ? [...campaignContractGameIds] : []
+);
 const campaignTransitionMillis = 1600;
 const campaignGameReadyTimeoutMillis = 8000;
 const verbSolutionRouteColors = [
@@ -1156,7 +1455,7 @@ function escapeHtml(value) {
 }
 
 function categories() {
-  return [...new Set(countryDictionary.map((item) => item.cat))];
+  return [...new Set(countryDictionaryPresentations.map((item) => item.category))];
 }
 
 function normalizeDictionarySearch(value) {
@@ -1169,12 +1468,12 @@ function normalizeDictionarySearch(value) {
 
 function dictionarySearchText(item) {
   return normalizeDictionarySearch([
-    item.cs,
-    item.en,
-    item.kind,
-    item.use,
-    item.cue,
-    item.cat
+    item.targetText,
+    item.englishAuditText,
+    item.partOfSpeech,
+    item.exampleTargetText,
+    item.usageNote,
+    item.category
   ].join(" "));
 }
 
@@ -1201,11 +1500,33 @@ function setDictionarySection(section, options = {}) {
 function nounModels() {
   return [
     ...new Set(
-      countryDictionary
-        .map((item) => item.kind.match(/^N\s+[^>]+>[\p{L}-]+/u)?.[0])
+      countryDictionaryPresentations
+        .map((item) => item.partOfSpeech.match(/^N\s+[^>]+>[\p{L}-]+/u)?.[0])
         .filter(Boolean)
     )
   ];
+}
+
+function applyDictionaryLanguageCopy() {
+  const targetLabel = verbTargetLabel || "Target language";
+  const countLabel = `${countryDictionaryPresentations.length} words`;
+  const setText = (selector, value) => {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  };
+  setText("#dictionaryCoreTabCount", `${countryDictionaryPresentations.length} curated words`);
+  setText("#dictionaryCoreIntroCount", countLabel);
+  setText("#dictionaryCoreBrowseCount", String(countryDictionaryPresentations.length));
+  setText("#dictionaryFullTabLabel", `${targetLabel} → English`);
+  setText("#dictionaryFullTitle", `${targetLabel} → English Dictionary`);
+  setText("#dictionaryFullDescription", `${targetLabel} words, English meanings, and inflected forms.`);
+  const fullShell = document.querySelector("#fullDictionaryShell");
+  fullShell?.setAttribute("aria-label", `${targetLabel} to English dictionary`);
+  const fullSearch = document.querySelector("#dictionarySearch");
+  if (fullSearch) {
+    fullSearch.placeholder = `${targetLabel} word or inflected form`;
+    fullSearch.setAttribute("aria-label", `Search the full ${targetLabel} to English dictionary`);
+  }
 }
 
 function renderDictionary() {
@@ -1226,8 +1547,8 @@ function renderDictionary() {
   }
 
   const filtered = query
-    ? countryDictionary.filter((item) => dictionarySearchText(item).includes(query))
-    : countryDictionary;
+    ? countryDictionaryPresentations.filter((item) => dictionarySearchText(item).includes(query))
+    : countryDictionaryPresentations;
   if (query && !filtered.length) {
     panel.hidden = true;
     list.replaceChildren();
@@ -1236,14 +1557,14 @@ function renderDictionary() {
   const groupData = categories()
     .map((category) => ({
       category,
-      rows: filtered.filter((item) => item.cat === category)
+      rows: filtered.filter((item) => item.category === category)
     }))
     .filter((group) => group.rows.length);
   const count = $("#dictionaryCount");
   if (count) {
     count.textContent = query
       ? `${filtered.length} Core result${filtered.length === 1 ? "" : "s"}`
-      : `${countryDictionary.length} words`;
+      : `${countryDictionaryPresentations.length} words`;
   }
 
   if (!filtered.length) {
@@ -1259,13 +1580,13 @@ function renderDictionary() {
           ${group.rows.map((item) => `
             <article class="dictionary-entry">
               <div class="dict-line dict-word">
-                <b>${escapeHtml(item.cs)}</b>
-                <span>${escapeHtml(item.en)}</span>
-                <small>${escapeHtml(item.kind)}</small>
+                <b>${escapeHtml(item.targetText)}</b>
+                <span>${escapeHtml(item.englishAuditText)}</span>
+                <small>${escapeHtml(item.partOfSpeech)}</small>
               </div>
               <div class="dict-line dict-example">
-                <em>${escapeHtml(item.use)}</em>
-                <code>${escapeHtml(item.cue)}</code>
+                <em>${escapeHtml(item.exampleTargetText)}</em>
+                <code>${escapeHtml(item.usageNote)}</code>
               </div>
             </article>
           `).join("")}
@@ -1289,8 +1610,8 @@ function renderScripts() {
         <div class="script-rows">
           ${script.lines.map((line) => `
             <div class="script-row">
-              <b>${escapeHtml(line.cs)}</b>
-              <span>${escapeHtml(line.en)}</span>
+              <b>${escapeHtml(line.targetText)}</b>
+              <span>${escapeHtml(line.englishAuditText)}</span>
             </div>
           `).join("")}
         </div>
@@ -3233,8 +3554,8 @@ function guideItemsFromCard(card) {
 function guidePrintPages(layout) {
   const cover = {
     type: "cover",
-    title: "Caatuu Czech",
-    lines: ["by Waajacu™", "Pocket dictionary", `${countryDictionary.length} words and phrases`, `${categories().length} groups + ${countryScripts.length} scripts`]
+    title: course.workspaceLabel || course.brandLabel || "Caatuu",
+    lines: ["by Waajacu™", "Pocket dictionary", `${countryDictionaryPresentations.length} words and phrases`, `${categories().length} groups + ${countryScripts.length} scripts`]
   };
   const guide = $("#view-dictionary");
   if (!guide) return [cover];
@@ -3271,13 +3592,13 @@ function renderPrintDictionaryRows(rows) {
     return `
       <div class="print-entry">
         <div class="print-entry-top">
-          <b>${escapeHtml(item.cs)}</b>
-          <span>${escapeHtml(item.en)}</span>
-          <small>${escapeHtml(item.kind)}</small>
+          <b>${escapeHtml(item.targetText)}</b>
+          <span>${escapeHtml(item.englishAuditText)}</span>
+          <small>${escapeHtml(item.partOfSpeech)}</small>
         </div>
         <div class="print-entry-bottom">
-          <em>${escapeHtml(item.use)}</em>
-          <code>${escapeHtml(item.cue)}</code>
+          <em>${escapeHtml(item.exampleTargetText)}</em>
+          <code>${escapeHtml(item.usageNote)}</code>
         </div>
       </div>
     `;
@@ -3358,8 +3679,8 @@ function dictionaryPrintPages(options, layout) {
   const measure = createDictionaryPageMeasure(options, layout);
   try {
     return categories().flatMap((category) => {
-      const rows = countryDictionary
-        .filter((item) => item.cat === category)
+      const rows = countryDictionaryPresentations
+        .filter((item) => item.category === category)
         .map((item) => ({ type: "entry", item }));
       const blanks = Array.from({ length: options.blankRows }, () => ({ type: "blank" }));
       const allRows = [...rows, ...blanks];
@@ -3852,8 +4173,8 @@ function renderPrintPocketPage(page, options, joinClass = "") {
         <div class="print-page-body">
           ${page.rows.map((line) => `
             <div class="print-script-row">
-              <b>${escapeHtml(line.cs)}</b>
-              <span>${escapeHtml(line.en)}</span>
+              <b>${escapeHtml(line.targetText)}</b>
+              <span>${escapeHtml(line.englishAuditText)}</span>
             </div>
           `).join("")}
         </div>
@@ -3998,7 +4319,8 @@ function setView(view) {
           "case-cosmos": "Case Cosmos",
           "agreement-aurora": "Agreement Aurora",
           "naturalization-nucleus": "Naturalization Nucleus",
-          "memory-moon": "Memory Moon"
+          "memory-moon": "Memory Moon",
+          "sound-quasar": "Sounds Quasar"
         }[state.trainTab] || "")
     : "";
   window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
@@ -4249,7 +4571,24 @@ function hideCampaignTransition() {
   if (transition) transition.hidden = true;
 }
 
+function resetCompletedVerbRoundForCampaign() {
+  if (!verbRoundComplete()) return false;
+  clearVerbSolutionAdvance();
+  resetVerbSelections();
+  state.verbHintRequestId += 1;
+  state.verbHintById.clear();
+  state.verbRound = [];
+  state.verbEnglishRound = [];
+  state.verbMatchedIds = new Set();
+  saveVerbMemory();
+  return true;
+}
+
 function advanceCompletedCampaignGame(gameId, sourceWindow) {
+  if (gameId === "verb-lab" && sourceWindow === window) {
+    resetCompletedVerbRoundForCampaign();
+    return;
+  }
   if (gameId === "word-net" && sourceWindow === window) {
     window.CaatuuWordWorldHost?.next?.();
     return;
@@ -4345,7 +4684,8 @@ function setTrainTab(tab) {
     "case-cosmos": "trainPanelCaseCosmos",
     "agreement-aurora": "trainPanelAgreementAurora",
     "naturalization-nucleus": "trainPanelNaturalizationNucleus",
-    "memory-moon": "trainPanelMemoryMoon"
+    "memory-moon": "trainPanelMemoryMoon",
+    "sound-quasar": "trainPanelSoundQuasar"
   };
   const declaredTab = Object.prototype.hasOwnProperty.call(trainPanels, tab) ? tab : "galaxy";
   const activeTab = declaredTab === "galaxy" || courseGameAvailable(declaredTab) ? declaredTab : "galaxy";
@@ -4362,7 +4702,8 @@ function setTrainTab(tab) {
     "case-cosmos": "Case Cosmos",
     "agreement-aurora": "Agreement Aurora",
     "naturalization-nucleus": "Naturalization Nucleus",
-    "memory-moon": "Memory Moon"
+    "memory-moon": "Memory Moon",
+    "sound-quasar": "Sounds Quasar"
   };
   const title = state.campaignActive ? "Campaign Mode" : (trainTitles[activeTab] || "");
   window.CaatuuChrome?.setHeaderTitle?.(title, {
@@ -4382,6 +4723,10 @@ function setTrainTab(tab) {
     panel.hidden = !selected;
     panel.classList.toggle("is-active", selected);
   });
+  if (activeTab === "galaxy") {
+    drawGamesLaunchpadShip();
+    if (state.activeView === "verbs") requestGamesMenu();
+  }
   if (activeTab === "verb-lab" && courseGameAvailable("verb-lab")) renderVerbNebula();
   if (activeTab === "word-net") ensureWordNetLoaded();
   if (activeTab === "naturalization-nucleus" && courseGameAvailable("naturalization-nucleus")) {
@@ -4419,7 +4764,7 @@ function setInitialViewFromLocation() {
     window.requestAnimationFrame(openSettingsPanel);
   } else if (requestedView) {
     setView(requestedView);
-  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon"].includes(requestedGame)
+  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(requestedGame)
       && courseGameAvailable(requestedGame)) {
     setView("verbs");
     window.requestAnimationFrame(() => {
@@ -4575,22 +4920,24 @@ function bindUi() {
 async function init() {
   try {
     await loadContentData();
+    if (courseHasCapability("dictionary")) applyDictionaryLanguageCopy();
     if (courseGameAvailable("verb-lab")) {
       applyVerbLanguageCopy();
       await initializeVerbGuidedMode();
     }
-    if (courseUsesModels()) await loadModelLicenseCatalog().catch(() => {});
+    if (courseUsesArtifactCatalogs()) await loadArtifactLicenseCatalog();
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();
+    if (courseUsesArtifactCatalogs()) renderModelLicenseList();
     if (courseUsesModels()) {
-      renderModelLicenseList();
       syncGenerationSettingsUi();
     }
     setInitialViewFromLocation();
     render();
-    registerServiceWorker();
+    return Object.freeze({ ready: true });
   } catch (error) {
     renderDataError(error);
+    return Object.freeze({ ready: false, error });
   }
 }
 
@@ -4611,4 +4958,4 @@ window.CaatuuWorkspaceShell = Object.freeze({
   }
 });
 
-init();
+window.CaatuuWorkspaceReady = init();

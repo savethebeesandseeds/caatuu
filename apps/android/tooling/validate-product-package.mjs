@@ -5,10 +5,25 @@ import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { transformIndex } from "./build-product-assets.mjs";
+import {
+  loadAndroidCourseBundleCatalogPlan,
+  transformIndex,
+} from "./build-product-assets.mjs";
+import { assertAndroidDictionaryLanguageContract } from "./android-course-bundle-plan.mjs";
+import {
+  assertCompatibleSharedStorage,
+  assertCanonicalPositiveBytes,
+  dictionaryStorageRecord,
+  embeddingStorageRecord,
+  assertEmbeddingArtifactContract,
+  assertHttpsUrl,
+  assertSafeFileBasename,
+  setupStorageRecord,
+} from "./android-artifact-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const workspaceRoot = resolve(dirname(scriptPath), "../../..");
+const expectedProductPublicationPlan = loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
 const appAssetCatalog = JSON.parse(readFileSync(resolve(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
 const canonicalAppEntry = Buffer.from(transformIndex(
   readFileSync(resolve(workspaceRoot, "apps/language-runtime/static/app/index.html"), "utf8"),
@@ -38,7 +53,10 @@ const EXPECTED_AGREEMENT_ARTWORK_BYTES = 1_258_690;
 const EXPECTED_AGREEMENT_ARTWORK_SHA256 = "5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966";
 const PRODUCT_COURSE_BUNDLE_ASSET = "caatuu-course-bundle.json";
 const SHARED_EMBEDDING_RUNTIME_CATALOG_ASSET = "language-runtime/embedding-runtimes.json";
-const EXPECTED_PRODUCT_COURSE_IDS = Object.freeze(["cz", "zh"]);
+const SHARED_EMBEDDING_RUNTIME_PROVIDER_IMPLEMENTATIONS = Object.freeze([
+  "vector-database-catalog-v1",
+  "webview-english-minilm-v1",
+]);
 const PRODUCT_CAPABILITY_KEYS = Object.freeze([
   "chat",
   "conjugationComet",
@@ -250,6 +268,12 @@ function productCourses(contract) {
   return [];
 }
 
+function usesSharedEmbeddingRuntime(course) {
+  return SHARED_EMBEDDING_RUNTIME_PROVIDER_IMPLEMENTATIONS.includes(
+    course?.nativeProviders?.providers?.embeddings?.implementation,
+  );
+}
+
 export function requiredAssetPaths(contract) {
   const required = [...BASE_REQUIRED_ASSET_PATHS];
   for (const course of productCourses(contract)) {
@@ -266,7 +290,7 @@ export function requiredAssetPaths(contract) {
       required.push(...CZECH_DICTIONARY_REQUIRED_COURSE_PATHS.map((path) => courseAssetPath(course, path)));
     }
   }
-  if (productCourses(contract).some((course) => course.capabilities?.embeddings)) {
+  if (productCourses(contract).some(usesSharedEmbeddingRuntime)) {
     required.push(SHARED_EMBEDDING_RUNTIME_CATALOG_ASSET);
   }
   return [...new Set(required)];
@@ -344,9 +368,84 @@ function hasExactKeys(value, expected) {
     JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
 }
 
+function canonicalJson(value) {
+  if (Array.isArray(value)) return value.map(canonicalJson);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.keys(value).sort().map((key) => [key, canonicalJson(value[key])]),
+  );
+}
+
+function jsonEquals(left, right) {
+  return JSON.stringify(canonicalJson(left)) === JSON.stringify(canonicalJson(right));
+}
+
 function isSafeAssetPath(value) {
   return typeof value === "string" && value.length > 0 && !value.startsWith("/") && !value.includes("\\") &&
     value.split("/").every((segment) => segment && segment !== "." && segment !== "..");
+}
+
+function assertPublicationPlan(plan, label) {
+  assert(
+    hasExactKeys(plan, ["defaultCourseId", "courses"]),
+    `${label} Android publication plan has unsupported fields`,
+  );
+  assert(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(plan.defaultCourseId),
+    `${label} Android publication plan default course is invalid`,
+  );
+  assert(Array.isArray(plan.courses) && plan.courses.length > 0, `${label} Android publication plan is empty`);
+  const ids = new Set();
+  const routes = new Set();
+  for (const course of plan.courses) {
+    const courseLabel = `${label} Android publication plan ${course?.id ?? "unknown"} course`;
+    assert(
+      hasExactKeys(course, [
+        "assetPrefix",
+        "capabilities",
+        "entryPath",
+        "id",
+        "manifestPath",
+        "nativeProviders",
+        "routePrefix",
+        "sourceLanguage",
+        "targetLanguage",
+      ]),
+      `${courseLabel} has unsupported fields`,
+    );
+    assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(course.id), `${courseLabel} id is invalid`);
+    assert(!ids.has(course.id), `${courseLabel} id is duplicated`);
+    ids.add(course.id);
+    assert(isSafeAssetPath(course.manifestPath), `${courseLabel} manifest path is unsafe`);
+    assert(course.assetPrefix === `courses/${course.id}`, `${courseLabel} assetPrefix is invalid`);
+    assert(/^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(course.routePrefix), `${courseLabel} routePrefix is invalid`);
+    assert(!routes.has(course.routePrefix), `${courseLabel} routePrefix is duplicated`);
+    routes.add(course.routePrefix);
+    assert(
+      typeof course.entryPath === "string" &&
+        course.entryPath.startsWith(`${course.routePrefix}/`) &&
+        !course.entryPath.includes("\\") &&
+        course.entryPath.slice(course.routePrefix.length + 1).split("/").every(
+          (segment) => segment && segment !== "." && segment !== "..",
+        ),
+      `${courseLabel} entryPath must be normalized and inside routePrefix`,
+    );
+    assert(
+      hasExactKeys(course.sourceLanguage, ["id", "label", "locale"]),
+      `${courseLabel} source language has unsupported fields`,
+    );
+    assert(
+      hasExactKeys(course.targetLanguage, ["id", "label", "nativeLabel", "locale", "script", "speechLocale"]),
+      `${courseLabel} target language has unsupported fields`,
+    );
+    assertProductCapabilities(course.capabilities, `${courseLabel} capabilities`);
+    assert(
+      hasExactKeys(course.nativeProviders, ["schemaVersion", "providers"]),
+      `${courseLabel} native provider contract has unsupported fields`,
+    );
+  }
+  assert(ids.has(plan.defaultCourseId), `${label} Android publication plan does not contain its default course`);
+  return plan;
 }
 
 function assertProductCapabilities(capabilities, label) {
@@ -389,7 +488,7 @@ function assertNativeProviderContract(subject, label, { assetPrefix = null, pack
   );
 
   for (const [name, implementations] of [
-    ["embeddings", ["vector-database-catalog-v1", "webview-english-minilm-v1"]],
+    ["embeddings", SHARED_EMBEDDING_RUNTIME_PROVIDER_IMPLEMENTATIONS],
     ["dictionary", ["sqlite-dictionary-catalog-v1"]],
   ]) {
     const provider = providers[name];
@@ -416,7 +515,13 @@ function assertNativeProviderContract(subject, label, { assetPrefix = null, pack
   }
 }
 
-export function assertCourseBundleContract(bundle, profile, label = "Caatuu product package") {
+export function assertCourseBundleContract(
+  bundle,
+  profile,
+  label = "Caatuu product package",
+  publicationPlan = expectedProductPublicationPlan,
+) {
+  assertPublicationPlan(publicationPlan, label);
   assert(
     hasExactKeys(bundle, ["$schema", "schemaVersion", "defaultCourseId", "courses"]),
     `${label} course bundle has unsupported fields`,
@@ -426,17 +531,39 @@ export function assertCourseBundleContract(bundle, profile, label = "Caatuu prod
     `${label} course bundle schema identifier is unsupported`,
   );
   assert(bundle.schemaVersion === 1, `${label} course bundle must use schemaVersion 1`);
-  assert(bundle.defaultCourseId === "cz", `${label} default course must be cz`);
-  assert(Array.isArray(bundle.courses), `${label} courses must be an array`);
   assert(
-    JSON.stringify(bundle.courses.map((course) => course?.id)) === JSON.stringify(EXPECTED_PRODUCT_COURSE_IDS),
-    `${label} must contain exactly the ordered cz and zh courses`,
+    bundle.defaultCourseId === publicationPlan.defaultCourseId,
+    `${label} default course must match the Android-enabled language catalog (${publicationPlan.defaultCourseId})`,
+  );
+  assert(Array.isArray(bundle.courses), `${label} courses must be an array`);
+  const expectedCourseIds = publicationPlan.courses.map((course) => course.id);
+  const bundledCourseIds = bundle.courses.map((course) => course?.id);
+  const bundledCourseIdSet = new Set(bundledCourseIds);
+  const expectedCourseIdSet = new Set(expectedCourseIds);
+  const missingCourseIds = expectedCourseIds.filter((id) => !bundledCourseIdSet.has(id));
+  assert(
+    missingCourseIds.length === 0,
+    `${label} is missing Android-enabled catalog courses: ${missingCourseIds.join(", ")}`,
+  );
+  const extraCourseIds = bundledCourseIds.filter((id) => !expectedCourseIdSet.has(id));
+  assert(
+    extraCourseIds.length === 0,
+    `${label} contains courses absent from the Android publication plan: ${extraCourseIds.join(", ")}`,
+  );
+  assert(
+    new Set(bundledCourseIds).size === bundledCourseIds.length,
+    `${label} course IDs must be unique`,
+  );
+  assert(
+    JSON.stringify(bundledCourseIds) === JSON.stringify(expectedCourseIds),
+    `${label} courses must follow Android-enabled language catalog order: ${expectedCourseIds.join(", ")}`,
   );
 
   const packagedAssets = Array.isArray(profile?.assets) ? profile.assets : [];
   const assetPrefixes = new Set();
   const routePrefixes = new Set();
-  for (const course of bundle.courses) {
+  for (const [courseIndex, course] of bundle.courses.entries()) {
+    const expectedCourse = publicationPlan.courses[courseIndex];
     const courseLabel = `${label} ${course?.id ?? "unknown"} course`;
     assert(
       hasExactKeys(course, [
@@ -452,8 +579,15 @@ export function assertCourseBundleContract(bundle, profile, label = "Caatuu prod
       `${courseLabel} has unsupported fields`,
     );
     assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(course.id), `${courseLabel} id is invalid`);
-    assert(course.routePrefix === `/${course.id}`, `${courseLabel} routePrefix must match its id`);
-    assert(course.entryPath === `${course.routePrefix}/index.html`, `${courseLabel} entryPath must match its route`);
+    assert(
+      course.routePrefix === expectedCourse.routePrefix,
+      `${courseLabel} routePrefix must match ${expectedCourse.manifestPath}`,
+    );
+    assert(
+      course.entryPath === expectedCourse.entryPath,
+      `${courseLabel} entryPath must match ${expectedCourse.manifestPath}`,
+    );
+    assert(course.assetPrefix === expectedCourse.assetPrefix, `${courseLabel} assetPrefix must match the Android publication plan`);
     assert(course.assetPrefix === `courses/${course.id}`, `${courseLabel} assetPrefix must match its id`);
     assert(!assetPrefixes.has(course.assetPrefix), `${courseLabel} assetPrefix is duplicated`);
     assert(!routePrefixes.has(course.routePrefix), `${courseLabel} routePrefix is duplicated`);
@@ -464,11 +598,22 @@ export function assertCourseBundleContract(bundle, profile, label = "Caatuu prod
       hasExactKeys(course.sourceLanguage, ["id", "label", "locale"]),
       `${courseLabel} source language has unsupported fields`,
     );
-    assert(course.sourceLanguage.id === "en", `${courseLabel} source language must remain English`);
+    for (const field of ["id", "label", "locale"]) {
+      assert(
+        course.sourceLanguage[field] === expectedCourse.sourceLanguage[field],
+        `${courseLabel} source language ${field} must match ${expectedCourse.manifestPath}`,
+      );
+    }
     assert(
       hasExactKeys(course.targetLanguage, ["id", "label", "nativeLabel", "locale", "script", "speechLocale"]),
       `${courseLabel} target language has unsupported fields`,
     );
+    for (const field of ["id", "label", "nativeLabel", "locale", "script", "speechLocale"]) {
+      assert(
+        course.targetLanguage[field] === expectedCourse.targetLanguage[field],
+        `${courseLabel} target language ${field} must match ${expectedCourse.manifestPath}`,
+      );
+    }
     for (const [name, value] of Object.entries({
       "source label": course.sourceLanguage.label,
       "source locale": course.sourceLanguage.locale,
@@ -482,10 +627,18 @@ export function assertCourseBundleContract(bundle, profile, label = "Caatuu prod
       assert(typeof value === "string" && value.trim(), `${courseLabel} ${name} must be non-empty`);
     }
     assertProductCapabilities(course.capabilities, courseLabel);
+    assert(
+      jsonEquals(course.capabilities, expectedCourse.capabilities),
+      `${courseLabel} capabilities must match ${expectedCourse.manifestPath}`,
+    );
     assertNativeProviderContract(course, courseLabel, {
       assetPrefix: course.assetPrefix,
       packagedAssets,
     });
+    assert(
+      jsonEquals(course.nativeProviders, expectedCourse.nativeProviders),
+      `${courseLabel} native providers must match the Android asset catalog`,
+    );
     assert(
       packagedAssets.includes(courseAssetPath(course, "setup-assets.json")),
       `${courseLabel} setup catalog is not packaged`,
@@ -496,17 +649,22 @@ export function assertCourseBundleContract(bundle, profile, label = "Caatuu prod
     );
   }
 
-  const [czech, mandarin] = bundle.courses;
-  assert(czech.targetLanguage.id === "cs", `${label} Czech target language must be cs`);
-  assert(mandarin.targetLanguage.id === "zh", `${label} Mandarin target language must be zh`);
-  assert(
-    czech.nativeProviders.providers.embeddings?.implementation === "vector-database-catalog-v1",
-    `${label} Czech embeddings must use the native vector database catalog`,
-  );
-  assert(
-    mandarin.nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1",
-    `${label} Mandarin embeddings must use the shared WebView MiniLM runtime`,
-  );
+  const czech = bundle.courses.find((course) => course.id === "cz");
+  if (czech) {
+    assert(czech.targetLanguage.id === "cs", `${label} Czech target language must be cs`);
+    assert(
+      czech.nativeProviders.providers.embeddings?.implementation === "vector-database-catalog-v1",
+      `${label} Czech embeddings must use the native vector database catalog`,
+    );
+  }
+  const mandarin = bundle.courses.find((course) => course.id === "zh");
+  if (mandarin) {
+    assert(mandarin.targetLanguage.id === "zh", `${label} Mandarin target language must be zh`);
+    assert(
+      mandarin.nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1",
+      `${label} Mandarin embeddings must use the shared WebView MiniLM runtime`,
+    );
+  }
 
   for (const asset of packagedAssets.filter((path) => path.startsWith("courses/"))) {
     assert(
@@ -564,7 +722,6 @@ function assertStoreProfile(profile, label, defaultCourse) {
   assert(profile?.profile === "product", `${label} profile must identify the Caatuu product`);
   assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(profile?.course?.id), `${label} course id is invalid`);
   assert(/^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(profile?.course?.routePrefix), `${label} course route is invalid`);
-  assert(profile?.course?.sourceLanguage?.id === "en", `${label} source language must remain English`);
   for (const [name, value] of Object.entries({
     "source locale": profile?.course?.sourceLanguage?.locale,
     "target id": profile?.course?.targetLanguage?.id,
@@ -654,8 +811,8 @@ function assertEmbeddingCatalog(catalog, manifest, label) {
   }
 }
 
-function assertGenericEmbeddingCatalog(catalog, label) {
-  assert(/^https:\/\//iu.test(catalog?.base_url ?? ""), `${label} embedding catalog must declare an HTTPS base_url`);
+export function assertGenericEmbeddingCatalog(catalog, label) {
+  assertHttpsUrl(catalog?.base_url, `${label} embedding catalog base_url`);
   assert(typeof catalog?.default_model === "string" && catalog.default_model, `${label} must select an embedding model`);
   const active = catalog?.models?.find((model) => model?.key === catalog.default_model);
   assert(active?.status === "active", `${label} default embedding model must be active`);
@@ -665,7 +822,7 @@ function assertGenericEmbeddingCatalog(catalog, label) {
   );
   assert(isSafeAssetPath(active?.model_file), `${label} embedding model_file is unsafe`);
   assert(isSafeAssetPath(active?.manifest_file), `${label} embedding manifest_file is unsafe`);
-  assert(Number(active?.bytes) > 0, `${label} embedding model must declare positive bytes`);
+  assertCanonicalPositiveBytes(active?.bytes, `${label} embedding catalog bytes`);
   assert(/^[a-f0-9]{64}$/u.test(String(active?.sha256 ?? "")), `${label} embedding model must be hash-pinned`);
   return active;
 }
@@ -797,10 +954,9 @@ function providerReferenceAsset(catalogAsset, reference) {
   return resolved;
 }
 
-function assertGenericEmbeddingManifest(active, manifest, label) {
+export function assertGenericEmbeddingManifest(active, manifest, baseUrl, label) {
+  assertEmbeddingArtifactContract(active, manifest, baseUrl, label);
   assert(manifest?.model_id === active.key, `${label} embedding manifest model_id must match the catalog`);
-  assert(Number(manifest?.bytes) === Number(active.bytes), `${label} embedding manifest bytes must match the catalog`);
-  assert(manifest?.sha256 === active.sha256, `${label} embedding manifest SHA-256 must match the catalog`);
   assert(manifest?.embedding_dimension === 384, `${label} vector provider requires 384-dimensional embeddings`);
   assert(manifest?.embedding_text_field === "english_text", `${label} embedding manifest must identify english_text`);
   assert(manifest?.embedding_input_policy === "english_text_only", `${label} embedding manifest must enforce english_text_only`);
@@ -835,6 +991,16 @@ function assertDictionaryCatalog(catalog, manifest, label) {
     active?.manifest_file === `${catalog.default_dictionary}/manifest.json`,
     `${label} default dictionary must identify its packaged manifest`,
   );
+  const manifestDatabaseFile = assertSafeFileBasename(
+    manifest?.database_file,
+    `${label} dictionary manifest database_file`,
+  );
+  assert(
+    active.database_file.split("/").at(-1) === manifestDatabaseFile,
+    `${label} dictionary manifest database_file must match the catalog basename`,
+  );
+  assertCanonicalPositiveBytes(manifest?.bytes, `${label} dictionary manifest bytes`);
+  assertHttpsUrl(manifest?.download_url, `${label} dictionary manifest download_url`);
   for (const field of ["key", "status", "artifact_kind", "direction", "bytes", "sha256", "download_url"]) {
     assert(
       manifest?.[field] === active[field],
@@ -843,15 +1009,13 @@ function assertDictionaryCatalog(catalog, manifest, label) {
   }
 }
 
-function assertGenericDictionaryCatalog(catalog, label) {
-  const defaultKey = catalog?.default_dictionary ?? catalog?.default_dictionary_key;
-  assert(typeof defaultKey === "string" && defaultKey, `${label} must select a dictionary`);
-  const active = catalog?.dictionaries?.find((dictionary) => dictionary?.key === defaultKey);
-  assert(active?.status === "active", `${label} default dictionary must be active`);
-  assert(active?.artifact_kind === "dictionary-database", `${label} dictionary artifact kind is incorrect`);
-  assert(Number(active?.bytes ?? active?.expected_bytes) > 0, `${label} dictionary must declare positive bytes`);
-  assert(/^[a-f0-9]{64}$/u.test(String(active?.sha256 ?? "")), `${label} dictionary must be hash-pinned`);
-  assert(typeof active?.download_url === "string" && active.download_url, `${label} dictionary must declare a download URL`);
+export function assertGenericDictionaryCatalog(catalog, course, label) {
+  const active = assertAndroidDictionaryLanguageContract(catalog, course, label);
+  return active;
+}
+
+export function assertPackageSharedStorage(records, label = "Android package") {
+  return assertCompatibleSharedStorage(records, label);
 }
 
 function assertSetupEmbeddingBoundary(
@@ -981,12 +1145,24 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertRequiredAssets(entries, kind, label, bundle);
   assertCanonicalAppEntry(unzip, archive, kind, label);
   assertCanonicalCapabilityGatedSharedAssets(unzip, archive, kind, label);
-  const sharedRuntimeArtifacts = bundle.courses.some((course) => course.capabilities.embeddings)
+  const sharedRuntimeArtifacts = bundle.courses.some(usesSharedEmbeddingRuntime)
     ? assertSharedEmbeddingRuntimeCatalog(unzip, archive, entries, kind, label, profile)
     : [];
+  const sharedStorageRecords = [];
   for (const course of bundle.courses) {
     const courseLabel = `${label} ${course.id} course`;
     const strictCzech = course.id === "cz";
+    const setupAsset = courseAssetPath(course, "setup-assets.json");
+    const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
+    assert(Array.isArray(setup?.artifacts), `${courseLabel} setup catalog must list artifacts`);
+    for (const [index, artifact] of setup.artifacts.entries()) {
+      if (artifact?.native_required !== true) continue;
+      sharedStorageRecords.push(setupStorageRecord(
+        artifact,
+        course.id,
+        `${courseLabel} setup artifact ${index}`,
+      ));
+    }
     if (course.capabilities.embeddings) {
       const embeddingProvider = course.nativeProviders.providers.embeddings;
       const embeddingCatalogAsset = embeddingProvider.catalogAsset;
@@ -1007,7 +1183,14 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
           kind,
           courseLabel,
         );
-        assertGenericEmbeddingManifest(activeEmbedding, embeddingManifest, courseLabel);
+        assertGenericEmbeddingManifest(activeEmbedding, embeddingManifest, catalog.base_url, courseLabel);
+        sharedStorageRecords.push(embeddingStorageRecord(
+          activeEmbedding,
+          embeddingManifest,
+          catalog.base_url,
+          course.id,
+          `${courseLabel} active embedding`,
+        ));
         if (strictCzech) assertEmbeddingCatalog(catalog, embeddingManifest, courseLabel);
         const vectorSourceAsset = courseAssetPath(course, "source/shared/vector-db.js");
         if (profile.assets.includes(vectorSourceAsset)) {
@@ -1017,8 +1200,6 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
           );
         }
       }
-      const setupAsset = courseAssetPath(course, "setup-assets.json");
-      const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
       assertSetupEmbeddingBoundary(setup, courseLabel, { sharedRuntimeArtifacts });
       if (strictCzech) assertAgreementArtworkBoundary(setup, courseLabel);
     }
@@ -1031,7 +1212,17 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
         kind,
         courseLabel,
       );
-      assertGenericDictionaryCatalog(dictionaryCatalog, courseLabel);
+      assertGenericDictionaryCatalog(dictionaryCatalog, course, courseLabel);
+      for (const [index, activeDictionary] of dictionaryCatalog.dictionaries
+        .filter((dictionary) => dictionary?.status === "active")
+        .entries()) {
+        sharedStorageRecords.push(dictionaryStorageRecord(
+          activeDictionary,
+          course,
+          course.id,
+          `${courseLabel} active dictionary ${index}`,
+        ));
+      }
       if (strictCzech) {
         const dictionaryManifest = parseJsonAsset(
           unzip,
@@ -1044,6 +1235,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
       }
     }
   }
+  assertPackageSharedStorage(sharedStorageRecords, label);
   assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label);
   return { bundle, profile };
 }

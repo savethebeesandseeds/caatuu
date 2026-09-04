@@ -76,10 +76,14 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {
-        "type": "string",
-        "minLength": 1
+        "$ref": "#/$defs/courseRoute"
       },
-      "required": ["languageSelection", "home", "games", "settings"]
+      "required": ["languageSelection", "home", "games", "settings"],
+      "properties": {
+        "languageSelection": {
+          "const": "/"
+        }
+      }
     },
     "storage": {
       "type": "object",
@@ -142,7 +146,8 @@
           "case-cosmos",
           "agreement-aurora",
           "naturalization-nucleus",
-          "memory-moon"
+          "memory-moon",
+          "sound-quasar"
         ]
       }
     },
@@ -157,7 +162,8 @@
           "case-cosmos",
           "agreement-aurora",
           "naturalization-nucleus",
-          "memory-moon"
+          "memory-moon",
+          "sound-quasar"
         ]
       }
     },
@@ -166,12 +172,115 @@
     },
     "resources": {
       "type": "object",
+      "properties": {
+        "dictionaryProvider": { "$ref": "#/$defs/dictionaryProviderResource" }
+      },
       "additionalProperties": {
         "$ref": "#/$defs/resource"
       }
     }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "verb-lab" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "resources": {
+            "required": ["verbNebulaCatalog"],
+            "properties": {
+              "verbNebulaCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "word-net" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "resources": {
+            "required": ["wordWorldManifest"],
+            "properties": {
+              "wordWorldManifest": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "conjugation-comet" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "resources": {
+            "required": ["conjugationCometCatalog"],
+            "properties": {
+              "conjugationCometCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "case-cosmos" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "resources": {
+            "required": ["caseCosmosCatalog"],
+            "properties": {
+              "caseCosmosCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "games": {
+            "contains": { "const": "agreement-aurora" }
+          }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "resources": {
+            "required": ["agreementAuroraCatalog"],
+            "properties": {
+              "agreementAuroraCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
     {
       "if": {
         "properties": {
@@ -210,12 +319,56 @@
           "resources": {
             "required": ["naturalizationNucleusCatalog"],
             "properties": {
-              "naturalizationNucleusCatalog": {
-                "properties": {
-                  "kind": { "const": "file" },
-                  "scope": { "const": "course" },
-                  "state": { "const": "present" }
-                }
+              "naturalizationNucleusCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "capabilities": {
+            "properties": {
+              "dictionary": { "const": true }
+            },
+            "required": ["dictionary"]
+          }
+        },
+        "required": ["capabilities"]
+      },
+      "then": {
+        "required": ["resources"],
+        "properties": {
+          "resources": {
+            "required": [
+              "dictionaryCatalog",
+              "dictionaryCoreEntries",
+              "dictionaryScriptLines",
+              "dictionaryReferenceDocument",
+              "dictionaryProvider"
+            ],
+            "properties": {
+              "dictionaryCatalog": { "$ref": "#/$defs/presentCourseDataFileResource" },
+              "dictionaryCoreEntries": { "$ref": "#/$defs/presentCourseDataFileResource" },
+              "dictionaryScriptLines": { "$ref": "#/$defs/presentCourseDataFileResource" },
+              "dictionaryReferenceDocument": {
+                "allOf": [
+                  { "$ref": "#/$defs/resource" },
+                  {
+                    "properties": {
+                      "kind": { "const": "file" },
+                      "path": {
+                        "pattern": "^apps/languages/[a-z0-9]+(?:-[a-z0-9]+)*/static/data/[A-Za-z0-9._/-]+\\.html$"
+                      },
+                      "scope": { "const": "course" },
+                      "state": { "const": "present" }
+                    }
+                  }
+                ]
+              },
+              "dictionaryProvider": {
+                "$ref": "#/$defs/dictionaryProviderResource"
               }
             }
           }
@@ -344,10 +497,21 @@
       "type": "string",
       "pattern": "^/[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
+    "courseRoute": {
+      "type": "string",
+      "oneOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*(?:\\?[A-Za-z0-9._~!$&'()*+,;=:@/?%-]+)?$"
+        },
+        {
+          "pattern": "^/[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        }
+      ]
+    },
     "publication": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["contract", "concepts", "realizations"],
+      "required": ["contract", "concepts", "realizations", "learnerBaseRealizations", "runtimeProjection"],
       "properties": {
         "contract": {
           "enum": ["legacy-active-v1", "language-content-v1"]
@@ -357,7 +521,45 @@
         },
         "realizations": {
           "type": ["string", "null"]
+        },
+        "learnerBaseRealizations": {
+          "type": ["string", "null"]
+        },
+        "runtimeProjection": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/wordWorldRuntimeProjection" }
+          ]
         }
+      }
+    },
+    "wordWorldRuntimeProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyId",
+        "conceptsRuntime",
+        "targetRealizationsRuntime",
+        "learnerBaseRuntime",
+        "supplementalOutputs",
+        "manifest"
+      ],
+      "properties": {
+        "policyId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*-v[1-9][0-9]*$"
+        },
+        "conceptsRuntime": { "type": "string", "minLength": 1 },
+        "targetRealizationsRuntime": { "type": "string", "minLength": 1 },
+        "learnerBaseRuntime": { "type": ["string", "null"] },
+        "supplementalOutputs": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9]*Projection$"
+          },
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "manifest": { "type": "string", "minLength": 1 }
       }
     },
     "languageTag": {
@@ -616,15 +818,16 @@
         "browser": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["enabled", "entryPath", "backend"],
+          "required": ["enabled", "pagesEnabled", "entryPath", "backend"],
           "properties": {
             "enabled": { "type": "boolean" },
+            "pagesEnabled": { "type": "boolean" },
             "entryPath": {
               "type": "string",
               "pattern": "^/[a-z0-9]+(?:-[a-z0-9]+)*/[A-Za-z0-9][A-Za-z0-9._/-]*$"
             },
             "backend": {
-              "enum": ["static", "czech-dictionary"]
+              "enum": ["static", "dictionary-api-v1"]
             }
           }
         },
@@ -663,6 +866,36 @@
         }
       }
     },
+    "presentCourseFileResource": {
+      "allOf": [
+        { "$ref": "#/$defs/resource" },
+        {
+          "properties": {
+            "kind": { "const": "file" },
+            "path": {
+              "pattern": "^apps/languages/[a-z0-9]+(?:-[a-z0-9]+)*/static/data/games/[A-Za-z0-9._/-]+\\.json$"
+            },
+            "scope": { "const": "course" },
+            "state": { "const": "present" }
+          }
+        }
+      ]
+    },
+    "presentCourseDataFileResource": {
+      "allOf": [
+        { "$ref": "#/$defs/resource" },
+        {
+          "properties": {
+            "kind": { "const": "file" },
+            "path": {
+              "pattern": "^apps/languages/[a-z0-9]+(?:-[a-z0-9]+)*/static/data/[A-Za-z0-9._/-]+\\.json$"
+            },
+            "scope": { "const": "course" },
+            "state": { "const": "present" }
+          }
+        }
+      ]
+    },
     "resource": {
       "type": "object",
       "additionalProperties": false,
@@ -680,6 +913,47 @@
         },
         "state": {
           "enum": ["present", "planned"]
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "dictionaryProviderResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path", "scope", "state", "providerId", "revision"],
+      "properties": {
+        "kind": { "const": "file" },
+        "path": {
+          "type": "string",
+          "pattern": "^apps/languages/[a-z0-9]+(?:-[a-z0-9]+)*/static/source/[A-Za-z0-9._/-]+\\.js$"
+        },
+        "scope": { "const": "course" },
+        "state": { "const": "present" },
+        "providerId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$"
+        },
+        "gapReporting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dictionaryKey", "dictionaryDirection"],
+          "properties": {
+            "dictionaryKey": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)+$"
+            },
+            "dictionaryDirection": {
+              "type": "string",
+              "pattern": "^[a-z]{2,3}(?:-[a-z0-9]+)*-[a-z]{2,3}(?:-[a-z0-9]+)*$"
+            }
+          }
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
         }
       }
     }

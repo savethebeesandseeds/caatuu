@@ -956,7 +956,16 @@
       const nextPieceId = deckPieces()[0]?.id || "";
       render(nextPieceId);
       void announceMatches(transition.matches);
-      if (transition.solved) prepareRound(state.pieceCount, { holdMillis: SOLVED_HOLD_MILLIS });
+      if (transition.solved) {
+        global.CaatuuLearning?.record?.("naturalization-nucleus", {
+          activities: 1,
+          attempts: 1,
+          successes: 1,
+          xp: 1,
+          rounds: 1
+        });
+        prepareRound(state.pieceCount, { holdMillis: SOLVED_HOLD_MILLIS });
+      }
     }
 
     function rejectPlacement(pieceId, socketIndex, message) {

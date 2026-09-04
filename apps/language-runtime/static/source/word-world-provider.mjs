@@ -1,4 +1,5 @@
 import {
+  assertLanguageAdapterMatchesTarget,
   assertValidLanguageAdapter,
   segmentLanguageText
 } from "../../contract.mjs";
@@ -24,10 +25,43 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-13";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-17";
 const SCENE_NUMBERS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 33]);
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
+const WORD_WORLD_GENERATION_IMPLEMENTATIONS = Object.freeze({
+  "czech-local-word-world-v1": Object.freeze({
+    id: "czech-local-word-world-v1",
+    targetLanguageTag: "cs-CZ",
+    auditLanguageTag: "en",
+    sentenceModelKey: "cstinyllama-1.2b-czech-word-sentence-001",
+    translationModelKey: "qwen3-1.7b-translation-cs-en-001"
+  })
+});
+const LEARNER_BASE_RUNTIME_SCHEMA =
+  "https://caatuu.org/schemas/runtime/learner-base-realizations.runtime.v1.schema.json";
+const LEARNER_BASE_RUNTIME_KEYS = Object.freeze([
+  "$schema",
+  "schemaVersion",
+  "id",
+  "baseLanguage",
+  "derivedFrom",
+  "sourceCatalog",
+  "review",
+  "license",
+  "realizations"
+]);
+const LEARNER_BASE_REALIZATION_KEYS = Object.freeze(["conceptId", "text"]);
+const LEARNER_BASE_LANGUAGE_KEYS = Object.freeze(["languageTag", "script"]);
+const LEARNER_BASE_REVIEW_KEYS = Object.freeze(["status", "reviewer", "reviewedAt", "notes"]);
+const LEARNER_BASE_LICENSE_KEYS = Object.freeze([
+  "origin",
+  "status",
+  "spdxExpression",
+  "sourceReference",
+  "reviewedBy",
+  "reviewedAt"
+]);
 const TARGET_TEXT_TONE_MARKS = Object.freeze({
   1: /[āēīōūǖĀĒĪŌŪǕ]/u,
   2: /[áéíóúǘÁÉÍÓÚǗńŃḿḾ]/u,
@@ -56,16 +90,296 @@ function routeUrl(course, path, options = {}) {
   return new URL(String(path || "").replace(/^\.\//u, ""), base).href;
 }
 
+function canonicalLanguageTag(value, location) {
+  const languageTag = nonEmptyText(value, location);
+  try {
+    const canonical = Intl.getCanonicalLocales(languageTag)[0];
+    if (canonical !== languageTag) {
+      throw new TypeError(`${location} must use canonical form ${canonical}.`);
+    }
+    return canonical;
+  } catch (error) {
+    if (error instanceof TypeError && /canonical form/u.test(error.message)) throw error;
+    throw new TypeError(`${location} must be a valid BCP 47 language tag.`);
+  }
+}
+
+function primaryLanguage(value) {
+  return new Intl.Locale(value).language;
+}
+
+function maximizedLanguageScript(languageTag, location) {
+  const script = new Intl.Locale(languageTag).maximize().script;
+  if (!script) {
+    throw new TypeError(`${location} cannot be inferred from ${languageTag}.`);
+  }
+  return script;
+}
+
+export function resolveWordWorldGenerationStrategy(course, manifest = {}) {
+  const enabled = course?.capabilities?.generation === true;
+  const declaration = manifest?.generationStrategy;
+  if (!enabled) {
+    if (declaration !== undefined && declaration !== null) {
+      throw new Error("Word World generationStrategy requires the course generation capability.");
+    }
+    return null;
+  }
+  if (!declaration || typeof declaration !== "object" || Array.isArray(declaration)) {
+    throw new Error(
+      "Word World generation is unavailable without an explicit course-owned versioned strategy."
+    );
+  }
+  exactObjectKeys(declaration, [
+    "id",
+    "targetLanguageTag",
+    "auditLanguageTag",
+    "sentenceModelKey",
+    "translationModelKey"
+  ], "Word World generationStrategy");
+  const id = String(declaration.id || "").trim();
+  const targetLanguageTag = canonicalLanguageTag(
+    declaration.targetLanguageTag,
+    "Word World generationStrategy.targetLanguageTag"
+  );
+  const auditLanguageTag = canonicalLanguageTag(
+    declaration.auditLanguageTag,
+    "Word World generationStrategy.auditLanguageTag"
+  );
+  const sentenceModelKey = String(declaration.sentenceModelKey || "").trim();
+  const translationModelKey = String(declaration.translationModelKey || "").trim();
+  if (!/^[a-z0-9]+(?:-[a-z0-9.]+)*-v[1-9][0-9]*(?:\.[0-9]+)*$/u.test(id)) {
+    throw new Error("Word World generationStrategy.id must be a versioned lowercase strategy ID.");
+  }
+  if (targetLanguageTag !== course?.targetLanguage?.locale) {
+    throw new Error(
+      `Word World generation strategy target ${targetLanguageTag} does not match course target ${course?.targetLanguage?.locale || "<missing>"}.`
+    );
+  }
+  if (auditLanguageTag !== "en") {
+    throw new Error("Word World generation strategy auditLanguageTag must remain en.");
+  }
+  for (const [field, value] of [
+    ["sentenceModelKey", sentenceModelKey],
+    ["translationModelKey", translationModelKey]
+  ]) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$/u.test(value)) {
+      throw new Error(`Word World generationStrategy.${field} must name a bounded model key.`);
+    }
+  }
+  const strategy = Object.freeze({
+    id,
+    targetLanguageTag,
+    auditLanguageTag,
+    sentenceModelKey,
+    translationModelKey
+  });
+  const implementation = Object.hasOwn(WORD_WORLD_GENERATION_IMPLEMENTATIONS, id)
+    ? WORD_WORLD_GENERATION_IMPLEMENTATIONS[id]
+    : null;
+  if (!implementation) {
+    throw new Error(`Word World generation strategy ${id} has no registered shared-runtime implementation.`);
+  }
+  for (const field of [
+    "id",
+    "targetLanguageTag",
+    "auditLanguageTag",
+    "sentenceModelKey",
+    "translationModelKey"
+  ]) {
+    if (strategy[field] !== implementation[field]) {
+      throw new Error(
+        `Word World generationStrategy.${field} must exactly match the registered ${id} implementation.`
+      );
+    }
+  }
+  return strategy;
+}
+
+function validReviewTimestamp(value) {
+  return typeof value === "string" && Boolean(value.trim()) && !Number.isNaN(Date.parse(value));
+}
+
+function exactObjectKeys(value, expectedKeys, location) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new TypeError(`${location} must be an object.`);
+  }
+  const actualKeys = Object.keys(value).sort();
+  const requiredKeys = [...expectedKeys].sort();
+  if (JSON.stringify(actualKeys) !== JSON.stringify(requiredKeys)) {
+    throw new TypeError(`${location} must contain exactly: ${requiredKeys.join(", ")}.`);
+  }
+}
+
+function confinedAuthoringPath(value, location) {
+  const candidate = nonEmptyText(value, location).replaceAll("\\", "/");
+  if (
+    !candidate.startsWith("apps/languages/")
+    || candidate.split("/").some((segment) => !segment || segment === "." || segment === "..")
+  ) {
+    throw new TypeError(`${location} must be a confined language-content authoring path.`);
+  }
+  return candidate;
+}
+
+function learnerBaseDeclaration(course, manifest) {
+  const sourceLanguage = canonicalLanguageTag(
+    course?.sourceLanguage?.locale ?? course?.sourceLanguage?.id,
+    "Course source language"
+  );
+  const declaredLanguage = String(manifest?.learnerBaseLanguage ?? "").trim();
+  const declaredFile = String(manifest?.learnerBaseFile ?? "").trim();
+  const hasLanguage = Boolean(declaredLanguage);
+  const hasFile = Boolean(declaredFile);
+  const englishBase = primaryLanguage(sourceLanguage) === "en";
+
+  if (hasLanguage !== hasFile) {
+    throw new Error("Word World learner-base declarations require both learnerBaseLanguage and learnerBaseFile.");
+  }
+  if (englishBase) {
+    if (hasLanguage) {
+      throw new Error("English-base Word World courses must use the English concept catalog directly.");
+    }
+    return null;
+  }
+  if (!hasLanguage) {
+    throw new Error(
+      `Word World source language ${sourceLanguage} requires a reviewed learner-base runtime projection.`
+    );
+  }
+
+  const languageTag = canonicalLanguageTag(declaredLanguage, "Word World learnerBaseLanguage");
+  if (languageTag !== sourceLanguage) {
+    throw new Error(
+      `Word World learnerBaseLanguage ${languageTag} does not match course source language ${sourceLanguage}.`
+    );
+  }
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.json$/u.test(declaredFile)) {
+    throw new TypeError("Word World learnerBaseFile must be one local JSON filename.");
+  }
+  return Object.freeze({ languageTag, file: declaredFile });
+}
+
+/**
+ * Validates and joins the learner-facing base projection without allowing it
+ * to replace English audit or retrieval fields. The join is concept-ID based,
+ * so catalog order has no semantic effect and incomplete projections fail.
+ */
+export function joinLearnerBaseProjection(records, catalog, {
+  languageTag,
+  sourceCatalog,
+  recordCount
+} = {}) {
+  if (!Array.isArray(records) || records.length === 0) {
+    throw new TypeError("Learner-base projection requires prepared Word World records.");
+  }
+  exactObjectKeys(catalog, LEARNER_BASE_RUNTIME_KEYS, "Learner-base projection");
+  if (catalog.$schema !== LEARNER_BASE_RUNTIME_SCHEMA || catalog.schemaVersion !== 1) {
+    throw new TypeError("Learner-base projection must use the supported runtime v1 schema.");
+  }
+  nonEmptyText(catalog.id, "Learner-base projection id");
+  confinedAuthoringPath(catalog.derivedFrom, "Learner-base projection derivedFrom");
+  exactObjectKeys(catalog.baseLanguage, LEARNER_BASE_LANGUAGE_KEYS, "Learner-base projection baseLanguage");
+  const projectedLanguage = canonicalLanguageTag(
+    catalog.baseLanguage?.languageTag,
+    "Learner-base projection baseLanguage.languageTag"
+  );
+  if (primaryLanguage(projectedLanguage) === "en" || projectedLanguage !== languageTag) {
+    throw new Error("Learner-base projection language does not match its manifest declaration.");
+  }
+  const projectedScript = String(catalog.baseLanguage?.script ?? "");
+  if (!/^[A-Z][a-z]{3}$/u.test(projectedScript)) {
+    throw new TypeError("Learner-base projection baseLanguage.script must be an ISO 15924-style code.");
+  }
+  const expectedScript = maximizedLanguageScript(
+    projectedLanguage,
+    "Learner-base projection baseLanguage.script"
+  );
+  if (projectedScript !== expectedScript) {
+    throw new TypeError(
+      `Learner-base projection baseLanguage.script must match the maximized script ${expectedScript} for ${projectedLanguage}.`
+    );
+  }
+  const englishAuthority = confinedAuthoringPath(
+    sourceCatalog,
+    "Loaded English concept catalog derivedFrom"
+  );
+  if (catalog.sourceCatalog !== englishAuthority) {
+    throw new Error("Learner-base projection does not reference the loaded English concept authority.");
+  }
+  exactObjectKeys(catalog.review, LEARNER_BASE_REVIEW_KEYS, "Learner-base projection review");
+  if (catalog.review?.status !== "native-reviewed"
+      || !String(catalog.review?.reviewer || "").trim()
+      || !validReviewTimestamp(catalog.review?.reviewedAt)
+      || !String(catalog.review?.notes || "").trim()) {
+    throw new Error("Learner-base projection must carry completed native-review evidence.");
+  }
+  exactObjectKeys(catalog.license, LEARNER_BASE_LICENSE_KEYS, "Learner-base projection license");
+  if (catalog.license?.status !== "release-cleared"
+      || ["origin", "spdxExpression", "sourceReference", "reviewedBy"]
+        .some((field) => !String(catalog.license?.[field] || "").trim())
+      || !validReviewTimestamp(catalog.license?.reviewedAt)) {
+    throw new Error("Learner-base projection must be release-cleared before browser activation.");
+  }
+  if (!Number.isInteger(recordCount) || recordCount !== records.length) {
+    throw new Error("Word World manifest recordCount does not match its English concept authority.");
+  }
+  if (!Array.isArray(catalog.realizations)) {
+    throw new TypeError("Learner-base projection realizations must be an array.");
+  }
+
+  const byId = new Map();
+  for (const [index, realization] of catalog.realizations.entries()) {
+    exactObjectKeys(
+      realization,
+      LEARNER_BASE_REALIZATION_KEYS,
+      `Learner-base realization ${index}`
+    );
+    const conceptId = nonEmptyText(
+      realization.conceptId,
+      `Learner-base realization ${index} conceptId`
+    );
+    if (byId.has(conceptId)) {
+      throw new Error(`Duplicate learner-base realization: ${conceptId}.`);
+    }
+    byId.set(conceptId, nonEmptyText(realization.text, `${conceptId} learner-base text`));
+  }
+
+  const expectedIds = new Set(records.map(({ conceptId }) => String(conceptId || "").trim()));
+  const missing = [...expectedIds].filter((conceptId) => !byId.has(conceptId));
+  const extras = [...byId.keys()].filter((conceptId) => !expectedIds.has(conceptId));
+  if (missing.length || extras.length) {
+    throw new Error([
+      missing.length ? `Missing learner-base realizations: ${missing.slice(0, 5).join(", ")}.` : "",
+      extras.length ? `Unknown learner-base realizations: ${extras.slice(0, 5).join(", ")}.` : ""
+    ].filter(Boolean).join(" "));
+  }
+
+  return Object.freeze(records.map((record) => Object.freeze({
+    ...record,
+    audit: Object.freeze({ languageTag: "en", text: record.englishText }),
+    learnerPrompt: Object.freeze({
+      languageTag: projectedLanguage,
+      text: byId.get(record.conceptId),
+      authority: "learner-base-realization"
+    })
+  })));
+}
+
 async function importModule(specifier) {
   return import(specifier);
 }
 
 async function loadLanguageAdapter(course, options = {}) {
-  if (options.adapter) return assertValidLanguageAdapter(options.adapter);
-  const adapterUrl = routeUrl(course, course.languageAdapter?.module, options);
-  const adapterModule = await (options.importModule || importModule)(adapterUrl);
-  const adapter = adapterModule.default;
-  return assertValidLanguageAdapter(adapter);
+  let adapter;
+  if (options.adapter) {
+    adapter = assertValidLanguageAdapter(options.adapter);
+  } else {
+    const adapterUrl = routeUrl(course, course.languageAdapter?.module, options);
+    const adapterModule = await (options.importModule || importModule)(adapterUrl);
+    adapter = assertValidLanguageAdapter(adapterModule.default);
+  }
+  return assertLanguageAdapterMatchesTarget(adapter, course?.targetLanguage);
 }
 
 function assertEnglishEmbeddingBoundary(policy = {}) {
@@ -270,7 +584,6 @@ function standardTokens(adapter, record) {
     ));
     return {
       surface: segment.text,
-      gloss: target ? "Meaning available" : "Look up meaning",
       playable: target?.playable !== false
     };
   });
@@ -413,10 +726,15 @@ function createUsageLedger(corpusVersion, options = {}) {
 }
 
 function authoredSelectionRecord(adapter, record) {
+  const learnerPrompt = String(record.learnerPrompt?.text || record.englishText).normalize("NFC").trim();
   return Object.freeze({
     id: record.conceptId,
     conceptId: record.conceptId,
-    sourceText: record.englishText,
+    sourceText: learnerPrompt,
+    ...(record.learnerPrompt ? {
+      learnerPromptText: learnerPrompt,
+      englishAuditText: record.audit?.text || record.englishText
+    } : {}),
     targetText: record.target.text,
     difficulty: Math.max(1, Math.min(3, Math.floor(Number(record.difficulty) || 1))),
     topic: record.topic || "general",
@@ -551,22 +869,49 @@ async function createAuthoredContext(course, manifest, adapter, options) {
   const manifestUrl = routeUrl(course, "data/games/word-world/manifest.json", options);
   const conceptUrl = new URL(manifest.sourceConceptCatalog, origin).href;
   const realizationUrl = new URL(manifest.realizationFile, manifestUrl).href;
-  const [conceptCatalog, realizationCatalog, embeddingRanker] = await Promise.all([
+  const baseDeclaration = learnerBaseDeclaration(course, manifest);
+  const learnerBaseUrl = baseDeclaration
+    ? new URL(baseDeclaration.file, manifestUrl).href
+    : null;
+  const [conceptCatalog, realizationCatalog, embeddingRanker, learnerBaseCatalog] = await Promise.all([
     (options.loadJson || loadJson)(conceptUrl),
     (options.loadJson || loadJson)(realizationUrl),
-    createSharedEnglishRanker(manifest, options)
+    createSharedEnglishRanker(manifest, options),
+    learnerBaseUrl ? (options.loadJson || loadJson)(learnerBaseUrl) : null
   ]);
-  const session = createWordWorldSession({
+  const features = {
+    wordMeanings: manifest.features?.wordMeanings === true,
+    contentProvider: "authored-realizations"
+  };
+  let session = createWordWorldSession({
     course,
     conceptCatalog,
     realizationCatalog,
     adapter,
     embeddingRanker,
-    features: {
-      wordMeanings: manifest.features?.wordMeanings === true,
-      contentProvider: "authored-realizations"
-    }
+    features
   });
+  let learnerBase = null;
+  if (baseDeclaration) {
+    const records = joinLearnerBaseProjection(session.records, learnerBaseCatalog, {
+      languageTag: baseDeclaration.languageTag,
+      sourceCatalog: conceptCatalog.derivedFrom,
+      recordCount: manifest.recordCount
+    });
+    session = createPreparedWordWorldSession({
+      course,
+      adapter,
+      records,
+      review: realizationCatalog.review,
+      embeddingRanker,
+      features
+    });
+    learnerBase = Object.freeze({
+      languageTag: baseDeclaration.languageTag,
+      file: baseDeclaration.file,
+      catalogId: learnerBaseCatalog.id
+    });
+  }
   const targetTextGuide = await loadTargetTextGuide(
     course,
     manifest,
@@ -585,6 +930,7 @@ async function createAuthoredContext(course, manifest, adapter, options) {
     selectionProvider,
     sessionRecord: (id) => byId.get(recordId(id)) || null,
     fullDictionaryLookup,
+    learnerBase,
     targetTextGuide: targetTextGuide?.metadata || null,
     targetTextUnits: targetTextGuide ? (request) => targetTextGuide.unitsFor(request) : null,
     generate: null
@@ -696,7 +1042,20 @@ export async function prepareWordWorldContext(course, manifest, options = {}) {
     throw new TypeError("Word World manifest must be an object.");
   }
   const adapter = await loadLanguageAdapter(course, options);
+  const generationStrategy = resolveWordWorldGenerationStrategy(course, manifest);
   const providerKind = String(manifest.sessionProvider?.kind || manifest.mode || "");
+  const sourceLanguage = canonicalLanguageTag(
+    course?.sourceLanguage?.locale ?? course?.sourceLanguage?.id,
+    "Course source language"
+  );
+  if (
+    (providerKind === "standard-corpus" || providerKind === "standard")
+    && primaryLanguage(sourceLanguage) !== "en"
+  ) {
+    throw new Error(
+      "Non-English learner bases require the concept-ID-keyed authored-realizations provider."
+    );
+  }
   const prepared = providerKind === "standard-corpus" || providerKind === "standard"
     ? await createStandardContext(course, manifest, adapter, options)
     : providerKind === "authored-realizations" || providerKind === "authored"
@@ -718,12 +1077,14 @@ export async function prepareWordWorldContext(course, manifest, options = {}) {
     normalization: tools.normalization,
     targetTextGuide: prepared.targetTextGuide,
     targetTextUnits: prepared.targetTextUnits,
+    ...(prepared.learnerBase ? { learnerBase: prepared.learnerBase } : {}),
     lookupMeaning,
     fullDictionaryLookup: prepared.fullDictionaryLookup,
     report: (payload) => saveReport(payload, runtime),
     sceneForRecord,
     searchEnglish: (queryEmbeddingText) => prepared.session.searchWithStatus(queryEmbeddingText),
     embeddingPolicy: Object.freeze({ ...policy }),
+    generationStrategy,
     generate: prepared.generate
   });
 }

@@ -42,12 +42,14 @@ test("the builder reuses a sealed same-source candidate instead of launching Gra
   const buildLock = builder.indexOf(".signed-release-build.lock");
   const receiptGuard = builder.indexOf("if [[ \"$signed\" == true && -f \"$candidate_receipt\" ]]");
   const durableFloorGuard = builder.indexOf("assert-new-build-version");
+  const languageCourseValidation = builder.indexOf('node "$repo_root/tools/language-packs/validate.mjs" --check-views');
   const gradleInvocation = builder.indexOf("gradle --no-daemon");
   assert.equal(builder.match(/^[ \t]*(?:gradle|(?:\.\/)?gradlew)(?=[ \t])/gmu)?.length, 1);
   assert.ok(buildLock >= 0 && buildLock < receiptGuard);
   assert.match(builder, /flock -n "\$build_lock_fd"/u);
   assert.ok(receiptGuard >= 0 && receiptGuard < gradleInvocation);
   assert.ok(durableFloorGuard > receiptGuard && durableFloorGuard < gradleInvocation);
+  assert.ok(languageCourseValidation > durableFloorGuard && languageCourseValidation < gradleInvocation);
   assert.match(builder, /release-candidate\.mjs" verify/u);
   assert.match(builder, /no Android build was started/u);
   assert.match(builder, /release-candidate\.mjs" seal-existing/u);
@@ -121,6 +123,7 @@ test("meaningful build and validation stages report elapsed time", () => {
   assert.match(builder, /phase_started_at=\$SECONDS/u);
   assert.match(builder, /\$\(\(SECONDS - phase_started_at\)\)/u);
   for (const phase of [
+    "Validate language courses",
     "Gradle release bundle",
     "Validate release bundle",
     "Create universal APK",

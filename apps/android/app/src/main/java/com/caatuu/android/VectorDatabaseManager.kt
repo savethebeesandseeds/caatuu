@@ -79,13 +79,25 @@ class VectorDatabaseManager(
     private val appContext = context.applicationContext
     private val embeddingCatalogAsset = normalizedAssetPath(catalogAssetPath, "Embedding catalog")
     private val embeddingCatalogDirectory = embeddingCatalogAsset.substringBeforeLast('/', "")
-    private val databasesDir = File(appContext.filesDir, "vector-dbs")
     private val vectorCatalog = loadVectorDatabaseCatalog()
     private val defaultSpec = vectorCatalog.models.first { it.key == vectorCatalog.defaultModelKey }
     private var database: SQLiteDatabase? = null
     private var openPath: String? = null
 
     fun defaultSpec(): VectorDatabaseSpec = defaultSpec
+
+    internal fun storageArtifacts(courseId: String): List<NativeStorageArtifact> =
+        vectorCatalog.models.map { spec ->
+            NativeArtifactContract.storageArtifact(
+                courseId,
+                "vector-dbs/${spec.fileName}",
+                spec.url,
+                spec.modelFile,
+                spec.bytes,
+                spec.sha256,
+                spec.artifactKind,
+            )
+        }
 
     fun modelAssetPath(spec: VectorDatabaseSpec = defaultSpec): String =
         resolveEmbeddingAssetPath(spec.modelFile)
@@ -97,23 +109,33 @@ class VectorDatabaseManager(
             (embeddingCatalogDirectory.isNotEmpty() && normalized.startsWith("$embeddingCatalogDirectory/"))
     }
 
+    internal fun verifiedDatabaseFile(spec: VectorDatabaseSpec = defaultSpec): File? {
+        val file = databaseFile(spec)
+        return file.takeIf { isVerified(it, spec) }
+    }
+
     suspend fun ensureDatabase(spec: VectorDatabaseSpec, onProgress: (ModelProgress) -> Unit): File =
         withContext(Dispatchers.IO) {
+            val databasesDir = databasesDir()
             databasesDir.mkdirs()
-            val file = File(databasesDir, spec.fileName)
-            val marker = File(databasesDir, "${spec.fileName}.sha256")
-            if (file.isFile && marker.isFile && marker.readText().trim() == spec.sha256 && file.length() == spec.bytes) {
+            val file = databaseFile(spec, databasesDir)
+            val marker = markerFile(spec, databasesDir)
+            if (isVerified(file, spec, marker)) {
                 return@withContext file
             }
             if (file.isFile && file.length() == spec.bytes && sha256(file) == spec.sha256) {
-                marker.writeText(spec.sha256)
+                marker.writeText(identityMarker(spec))
                 return@withContext file
             }
 
             close()
             file.delete()
             marker.delete()
-            val tmpFile = File(databasesDir, "${spec.fileName}.download")
+            val tmpFile = NativeArtifactContract.canonicalChild(
+                databasesDir,
+                "${spec.fileName}.download",
+                "Vector database temporary download",
+            )
             tmpFile.delete()
 
             var downloaded = false
@@ -200,13 +222,15 @@ class VectorDatabaseManager(
                 tmpFile.copyTo(file, overwrite = true)
                 tmpFile.delete()
             }
-            marker.writeText(spec.sha256)
+            marker.writeText(identityMarker(spec))
             file
         }
 
     fun openReadOnly(spec: VectorDatabaseSpec = defaultSpec): SQLiteDatabase {
-        val file = File(databasesDir, spec.fileName)
-        require(file.isFile) { "Vector database is missing: ${file.absolutePath}" }
+        val file = databaseFile(spec)
+        require(isVerified(file, spec)) {
+            "Vector database is missing or does not match the selected course artifact: ${file.absolutePath}"
+        }
         val existing = database
         if (existing?.isOpen == true && openPath == file.absolutePath) return existing
 
@@ -316,14 +340,11 @@ class VectorDatabaseManager(
         }
 
     fun statusJson(spec: VectorDatabaseSpec = defaultSpec): JSONObject {
-        val file = File(databasesDir, spec.fileName)
-        val marker = File(databasesDir, "${spec.fileName}.sha256")
+        val file = databaseFile(spec)
+        val marker = markerFile(spec)
         val db = database?.takeIf { it.isOpen && openPath == file.absolutePath }
         val bytes = file.takeIf { it.isFile }?.length() ?: 0L
-        val verified = file.isFile &&
-            marker.isFile &&
-            marker.readText().trim() == spec.sha256 &&
-            bytes == spec.bytes
+        val verified = isVerified(file, spec, marker)
         return JSONObject()
             .put("schemaName", spec.schemaName)
             .put("schemaVersion", spec.schemaVersion)
@@ -358,8 +379,27 @@ class VectorDatabaseManager(
     suspend fun deleteLocalDatabases(): JSONObject =
         withContext(Dispatchers.IO) {
             close()
-            val bytesDeleted = directorySize(databasesDir)
-            val deleted = !databasesDir.exists() || databasesDir.deleteRecursively()
+            val databasesDir = databasesDir()
+            var bytesDeleted = 0L
+            var deleted = true
+            vectorCatalog.models.forEach { spec ->
+                val candidates = listOf(
+                    databaseFile(spec, databasesDir),
+                    markerFile(spec, databasesDir),
+                    NativeArtifactContract.canonicalChild(
+                        databasesDir,
+                        "${spec.fileName}.download",
+                        "Vector database temporary download",
+                    ),
+                )
+                candidates.forEach { candidate ->
+                    bytesDeleted += directorySize(candidate)
+                    if (candidate.exists()) deleted = candidate.deleteRecursively() && deleted
+                }
+            }
+            if (databasesDir.listFiles()?.isEmpty() == true) {
+                deleted = databasesDir.delete() && deleted
+            }
             JSONObject()
                 .put("storageScope", "app-private filesDir/vector-dbs")
                 .put("deletedOnUninstall", true)
@@ -451,8 +491,10 @@ class VectorDatabaseManager(
         val catalog = appContext.assets.open(embeddingCatalogAsset).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
-        val baseUrl = catalog.getString("base_url").trimEnd('/')
-        require(baseUrl.startsWith("https://")) { "Embedding catalog base_url must use HTTPS." }
+        val baseUrl = NativeArtifactContract.httpsUrl(
+            catalog.getString("base_url").trimEnd('/'),
+            "Embedding catalog base_url",
+        )
         val modelsJson = catalog.getJSONArray("models")
         val specs = mutableListOf<VectorDatabaseSpec>()
         for (index in 0 until modelsJson.length()) {
@@ -475,22 +517,52 @@ class VectorDatabaseManager(
     }
 
     private fun parseVectorDatabaseSpec(item: JSONObject, baseUrl: String): VectorDatabaseSpec {
-        val key = item.getString("key")
-        val label = item.optString("label", key)
-        val modelFile = item.getString("model_file").trimStart('/')
-        val manifestFile = item.optString("manifest_file", "$key/manifest.json").trimStart('/')
+        val key = NativeArtifactContract.storageKey(item.getString("key"), "Embedding model key")
+        val label = NativeArtifactContract.trimmedText(
+            item.optString("label", key),
+            "Embedding model label",
+        )
+        val modelFile = normalizedAssetPath(item.getString("model_file"), "Embedding model file")
+        val manifestFile = normalizedAssetPath(
+            item.optString("manifest_file", "$key/manifest.json"),
+            "Embedding manifest reference",
+        )
         val manifest = appContext.assets.open(resolveEmbeddingAssetPath(manifestFile)).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
-        val fileName = manifest.getString("file")
-        val url = resolveDownloadUrl(baseUrl, manifest.getString("url"))
+        val fileName = NativeArtifactContract.fileName(
+            manifest.getString("file"),
+            "Embedding manifest file",
+        )
+        require(modelFile.substringAfterLast('/') == fileName) {
+            "Embedding manifest file must match the catalog model_file basename."
+        }
+        val manifestUrl = NativeArtifactContract.relativePath(
+            manifest.getString("url"),
+            "Embedding manifest URL",
+        )
+        require(manifestUrl == modelFile) {
+            "Embedding manifest URL must equal the catalog model_file."
+        }
+        val url = NativeArtifactContract.httpsUrl(
+            resolveDownloadUrl(baseUrl, modelFile),
+            "Embedding manifest URL",
+        )
+        val catalogBytes = NativeArtifactContract.positiveSafeByteCount(
+            item.opt("bytes"),
+            "Embedding catalog bytes",
+        )
+        val manifestBytes = NativeArtifactContract.positiveSafeByteCount(
+            manifest.opt("bytes"),
+            "Embedding manifest bytes",
+        )
         val embeddingDimension = manifest.getInt("embedding_dimension")
         val embeddingTextField = manifest.getString("embedding_text_field")
         val embeddingInputPolicy = manifest.getString("embedding_input_policy")
         require(manifest.getString("model_id") == key) {
             "Embedding manifest model_id must match catalog key $key."
         }
-        require(manifest.getLong("bytes") == item.getLong("bytes")) {
+        require(manifestBytes == catalogBytes) {
             "Embedding manifest bytes must match catalog model $key."
         }
         require(manifest.getString("sha256") == item.getString("sha256")) {
@@ -505,11 +577,19 @@ class VectorDatabaseManager(
         require(embeddingInputPolicy == EMBEDDING_INPUT_POLICY) {
             "Unsupported embedding input policy $embeddingInputPolicy."
         }
+        val artifactKind = NativeArtifactContract.artifactKind(
+            item.getString("artifact_kind"),
+            "Embedding artifact kind",
+        )
+        val sha256 = NativeArtifactContract.sha256(
+            manifest.getString("sha256"),
+            "Embedding SHA-256",
+        )
         return VectorDatabaseSpec(
             key = key,
             label = label,
             shortLabel = item.optString("short_label", label),
-            artifactKind = item.optString("artifact_kind", "embedding-vector-db"),
+            artifactKind = artifactKind,
             runtime = item.optString("runtime", "SQLite vector database with local hash embedder"),
             format = item.optString("format", "sqlite"),
             intendedUse = item.optString("intended_use", ""),
@@ -517,8 +597,8 @@ class VectorDatabaseManager(
             manifestFile = manifestFile,
             fileName = fileName,
             url = url,
-            bytes = manifest.getLong("bytes"),
-            sha256 = manifest.getString("sha256"),
+            bytes = manifestBytes,
+            sha256 = sha256,
             schemaName = manifest.getString("schema_name"),
             schemaVersion = manifest.getInt("schema_version"),
             embeddingDimension = embeddingDimension,
@@ -537,21 +617,49 @@ class VectorDatabaseManager(
         }
     }
 
-    private fun resolveDownloadUrl(baseUrl: String, urlOrPath: String): String {
-        val value = urlOrPath.trim()
-        if (value.startsWith("http://") || value.startsWith("https://")) return value
-        if (value.startsWith("/")) return "https://caatuu.waajacu.com$value"
-        val relative = value
-            .removePrefix(embeddingCatalogDirectory.takeIf { it.isNotEmpty() }?.plus('/') ?: "")
-            .trimStart('/')
-        return "$baseUrl/$relative"
-    }
+    private fun resolveDownloadUrl(baseUrl: String, modelFile: String): String =
+        URL(URL("$baseUrl/"), modelFile).toExternalForm()
 
     private fun directorySize(file: File): Long {
         if (!file.exists()) return 0L
         if (file.isFile) return file.length()
         return file.listFiles()?.sumOf { directorySize(it) } ?: 0L
     }
+
+    private fun databasesDir(): File = NativeArtifactContract.canonicalChild(
+        appContext.filesDir,
+        "vector-dbs",
+        "Vector database storage root",
+    )
+
+    private fun databaseFile(spec: VectorDatabaseSpec, root: File = databasesDir()): File =
+        NativeArtifactContract.canonicalChild(root, spec.fileName, "Vector database file")
+
+    private fun markerFile(spec: VectorDatabaseSpec, root: File = databasesDir()): File =
+        NativeArtifactContract.canonicalChild(
+            root,
+            "${spec.fileName}.sha256",
+            "Vector database checksum marker",
+        )
+
+    private fun identityMarker(spec: VectorDatabaseSpec): String =
+        NativeArtifactContract.artifactIdentityMarker(
+            spec.artifactKind,
+            spec.url,
+            spec.modelFile,
+            spec.bytes,
+            spec.sha256,
+        )
+
+    private fun isVerified(
+        file: File,
+        spec: VectorDatabaseSpec,
+        marker: File = markerFile(spec),
+    ): Boolean =
+        file.isFile &&
+            file.length() == spec.bytes &&
+            marker.isFile &&
+            marker.readText().trim() == identityMarker(spec)
 
     companion object {
         const val EMBEDDING_DIMENSION = 384
@@ -565,17 +673,7 @@ class VectorDatabaseManager(
         private const val FNV_PRIME = 1099511628211L
 
         private fun normalizedAssetPath(value: String, label: String): String {
-            val normalized = value.trim()
-            require(
-                normalized.isNotEmpty() &&
-                    normalized == value &&
-                    !normalized.startsWith('/') &&
-                    !normalized.contains('\\') &&
-                    normalized.split('/').all { segment ->
-                        segment.isNotEmpty() && segment != "." && segment != ".."
-                    },
-            ) { "$label path is unsafe." }
-            return normalized
+            return NativeArtifactContract.relativePath(value, label)
         }
 
         fun localHashEmbedding(text: String): FloatArray {

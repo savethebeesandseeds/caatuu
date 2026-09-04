@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-font-size="largest">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title>Agreement Aurora</title>
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-6">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/agreement-aurora.css?v=agreement-aurora-shared-1">
+  </head>
+  <body class="agreement-aurora-page">
+    <div class="app-shell">
+      <main class="workspace">
+        <section class="view is-active" aria-label="Agreement Aurora">
+          <div class="agreement-aurora-shell">
+            <section class="agreement-aurora-panel" id="agreementAuroraPanel" aria-label="Agreement Aurora" aria-busy="true">
+              <div class="agreement-aurora-controls">
+                <span class="agreement-aurora-kicker" id="agreementAuroraKicker"></span>
+                <span class="agreement-aurora-review" id="agreementAuroraReview" hidden></span>
+              </div>
+
+              <div class="agreement-aurora-loading" id="agreementAuroraLoading" role="status" aria-live="polite">
+                <img src="/assets/planets/agreement-aurora.png" alt="" aria-hidden="true">
+                <p id="agreementAuroraLoadingText"></p>
+              </div>
+
+              <article class="agreement-aurora-board" id="agreementAuroraBoard" aria-labelledby="agreementAuroraTitle" hidden>
+                <header class="agreement-aurora-scene">
+                  <div class="agreement-aurora-route-mark" aria-hidden="true">
+                    <img src="/assets/planets/agreement-aurora.png" alt="">
+                    <span id="agreementAuroraRouteNumber">1</span>
+                  </div>
+                  <div>
+                    <p class="agreement-aurora-eyebrow" id="agreementAuroraRoundTitle"></p>
+                    <h1 id="agreementAuroraTitle"></h1>
+                    <p class="agreement-aurora-instruction" id="agreementAuroraInstruction"></p>
+                    <p class="agreement-aurora-idea" id="agreementAuroraIdea"></p>
+                  </div>
+                </header>
+
+                <section class="agreement-aurora-matching" aria-labelledby="agreementAuroraMatchTitle">
+                  <h2 id="agreementAuroraMatchTitle"></h2>
+                  <div class="agreement-aurora-match-grid">
+                    <section class="agreement-aurora-match-column" aria-labelledby="agreementAuroraLearnerBaseTitle">
+                      <h3 id="agreementAuroraLearnerBaseTitle"></h3>
+                      <div class="agreement-aurora-options" id="agreementAuroraLearnerBaseOptions"></div>
+                    </section>
+                    <section class="agreement-aurora-match-column" aria-labelledby="agreementAuroraTargetTitle">
+                      <h3 id="agreementAuroraTargetTitle"></h3>
+                      <div class="agreement-aurora-options agreement-aurora-target-options" id="agreementAuroraTargetOptions"></div>
+                    </section>
+                  </div>
+                </section>
+
+                <section class="agreement-aurora-result" id="agreementAuroraResult" aria-labelledby="agreementAuroraResultTitle" hidden>
+                  <p class="agreement-aurora-result-kicker" id="agreementAuroraResultKicker"></p>
+                  <h2 id="agreementAuroraResultTitle"></h2>
+                  <div class="agreement-aurora-patterns" id="agreementAuroraPatterns"></div>
+                  <p id="agreementAuroraSummary"></p>
+                </section>
+              </article>
+
+              <footer class="agreement-aurora-footer" id="agreementAuroraFooter" hidden>
+                <p class="agreement-aurora-feedback" id="agreementAuroraFeedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+                <div class="agreement-aurora-progress">
+                  <span id="agreementAuroraProgress"></span>
+                  <button type="button" id="agreementAuroraNext" hidden></button>
+                </div>
+              </footer>
+
+              <section class="agreement-aurora-error" id="agreementAuroraError" role="alert" hidden>
+                <img src="/assets/planets/agreement-aurora.png" alt="" aria-hidden="true">
+                <h1 id="agreementAuroraErrorTitle">Agreement Aurora</h1>
+                <p id="agreementAuroraErrorCopy"></p>
+                <a id="agreementAuroraBack" href="/" target="_top" hidden></a>
+              </section>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs?v=agreement-aurora-shared-2"></script>
+  </body>
+</html>

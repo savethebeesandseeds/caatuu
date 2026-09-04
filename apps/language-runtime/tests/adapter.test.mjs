@@ -5,6 +5,7 @@ import {
   LANGUAGE_ADAPTER_SCHEMA_VERSION,
   LANGUAGE_CAPABILITIES,
   acceptedAnswerVariants,
+  assertLanguageAdapterMatchesTarget,
   assertLanguageCapabilities,
   callDictionaryHook,
   callSpeechOutputHook,
@@ -32,6 +33,22 @@ const [czech, mandarin] = await Promise.all([
   importBrowserLanguageAdapter("../../languages/mandarin-simplified/static/source/language/adapter.mjs")
 ]);
 
+const czechTargetLanguage = Object.freeze({
+  id: "cs",
+  locale: "cs-CZ",
+  script: "Latn",
+  speechLocale: "cs-CZ",
+  direction: "ltr"
+});
+
+const mandarinTargetLanguage = Object.freeze({
+  id: "zh",
+  locale: "zh-Hans",
+  script: "Hans",
+  speechLocale: "zh-CN",
+  direction: "ltr"
+});
+
 function reviewedPinyin(notation) {
   return { system: "pinyin", notation, reviewed: true };
 }
@@ -47,6 +64,26 @@ test("defines immutable, canonical, structurally valid adapters", () => {
   assert.equal(canonicalizeLanguageTag("cs_cz"), "cs-CZ");
   assert.equal(canonicalizeLanguageTag("zh-hans"), "zh-Hans");
   assert.throws(() => canonicalizeLanguageTag("not a tag"), /Invalid language tag/);
+});
+
+test("valid adapters are bound to the exact course target identity", () => {
+  assert.equal(assertLanguageAdapterMatchesTarget(czech, czechTargetLanguage), czech);
+  assert.equal(assertLanguageAdapterMatchesTarget(mandarin, mandarinTargetLanguage), mandarin);
+  assert.throws(
+    () => assertLanguageAdapterMatchesTarget(czech, mandarinTargetLanguage),
+    /adapter locale cs-CZ does not match course target locale zh-Hans/u
+  );
+  assert.throws(
+    () => assertLanguageAdapterMatchesTarget(mandarin, czechTargetLanguage),
+    /adapter locale zh-Hans does not match course target locale cs-CZ/u
+  );
+  assert.throws(
+    () => assertLanguageAdapterMatchesTarget(mandarin, {
+      ...mandarinTargetLanguage,
+      script: "Hant"
+    }),
+    /targetLanguage\.script Hant does not match locale zh-Hans/u
+  );
 });
 
 test("validation reports incomplete adapter sections without invoking hooks", () => {

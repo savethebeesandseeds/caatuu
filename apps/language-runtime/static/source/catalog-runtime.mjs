@@ -37,13 +37,15 @@ function conceptId(value, path) {
 
 function assertNoTargetScript(value, path) {
   const text = nonEmptyString(value, path);
+  // Catalog authority and the declared `language: en` establish language.
+  // This conservative character rule only catches obvious cross-script leaks.
   for (const character of text) {
     if (LETTER_PATTERN.test(character) && !ASCII_LETTER_PATTERN.test(character)) {
-      throw new CourseCatalogError(`${path} must remain English-only; a non-English letter was found.`);
+      throw new CourseCatalogError(`${path} violates the English-authority ASCII character policy.`);
     }
   }
   if (!ASCII_LETTER_PATTERN.test(text)) {
-    throw new CourseCatalogError(`${path} must contain authored English text.`);
+    throw new CourseCatalogError(`${path} must contain an ASCII letter under the English-authority character policy.`);
   }
   return text;
 }

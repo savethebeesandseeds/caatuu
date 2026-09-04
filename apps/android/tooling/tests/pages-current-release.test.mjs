@@ -9,6 +9,7 @@ import {
   advancePagesCurrentReleaseDescriptor,
   assertPagesReleaseHistoryPrefix,
   pagesCurrentReleaseDownloadPlan,
+  setupEntriesFromCourseBundle,
   validatePagesCurrentReleaseDescriptor,
   validatePagesReleaseFiles,
   writePagesCurrentReleaseDescriptor,
@@ -37,11 +38,75 @@ function futureRelease(versionCode, digestOffset = 0) {
   };
 }
 
-async function candidateFixture(versionCode = nextVersionCode) {
+function courseBundle(courseIds = ["cz", "zh"]) {
+  return {
+    $schema: "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json",
+    schemaVersion: 1,
+    defaultCourseId: "cz",
+    courses: courseIds.map((id) => ({ id, assetPrefix: `courses/${id}` })),
+  };
+}
+
+function storedZip(entries) {
+  const localRecords = [];
+  const centralRecords = [];
+  let localOffset = 0;
+  for (const [entryName, value] of entries) {
+    const name = Buffer.from(entryName, "utf8");
+    const data = Buffer.isBuffer(value) ? value : Buffer.from(value);
+    const local = Buffer.alloc(30 + name.length + data.length);
+    local.writeUInt32LE(0x04034b50, 0);
+    local.writeUInt16LE(20, 4);
+    local.writeUInt16LE(0, 6);
+    local.writeUInt16LE(0, 8);
+    local.writeUInt32LE(0, 10);
+    local.writeUInt32LE(0, 14);
+    local.writeUInt32LE(data.length, 18);
+    local.writeUInt32LE(data.length, 22);
+    local.writeUInt16LE(name.length, 26);
+    local.writeUInt16LE(0, 28);
+    name.copy(local, 30);
+    data.copy(local, 30 + name.length);
+    localRecords.push(local);
+
+    const central = Buffer.alloc(46 + name.length);
+    central.writeUInt32LE(0x02014b50, 0);
+    central.writeUInt16LE(20, 4);
+    central.writeUInt16LE(20, 6);
+    central.writeUInt16LE(0, 8);
+    central.writeUInt16LE(0, 10);
+    central.writeUInt32LE(0, 12);
+    central.writeUInt32LE(0, 16);
+    central.writeUInt32LE(data.length, 20);
+    central.writeUInt32LE(data.length, 24);
+    central.writeUInt16LE(name.length, 28);
+    central.writeUInt16LE(0, 30);
+    central.writeUInt16LE(0, 32);
+    central.writeUInt16LE(0, 34);
+    central.writeUInt16LE(0, 36);
+    central.writeUInt32LE(0, 38);
+    central.writeUInt32LE(localOffset, 42);
+    name.copy(central, 46);
+    centralRecords.push(central);
+    localOffset += local.length;
+  }
+  const centralDirectory = Buffer.concat(centralRecords);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt16LE(entries.length, 8);
+  end.writeUInt16LE(entries.length, 10);
+  end.writeUInt32LE(centralDirectory.length, 12);
+  end.writeUInt32LE(localOffset, 16);
+  return Buffer.concat([...localRecords, centralDirectory, end]);
+}
+
+async function candidateFixture(versionCode = nextVersionCode, { courseIds = ["cz", "zh"] } = {}) {
   const workspaceRoot = await mkdtemp(join(tmpdir(), "caatuu-pages-release-"));
   const releaseDir = join(workspaceRoot, "artifacts", "android", "releases", String(versionCode));
   await mkdir(releaseDir, { recursive: true });
-  const apk = Buffer.from(`sealed-apk-${versionCode}\n`);
+  const apk = storedZip([
+    ["assets/caatuu-course-bundle.json", `${JSON.stringify(courseBundle(courseIds))}\n`],
+  ]);
   const sourceRevision = "a".repeat(40);
   const versionName = `0.1.${versionCode - 152}`;
   const signer = "b".repeat(64);
@@ -123,6 +188,23 @@ test("Pages stores an ordered overlay list and derives all release locations", (
     value.stable.apk.downloadUrl,
     `https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v${currentVersionCode}/caatuu-${currentVersionCode}.apk`,
   );
+});
+
+test("packaged course-bundle order derives setup coverage for a synthetic third course", () => {
+  assert.deepEqual(
+    setupEntriesFromCourseBundle(courseBundle(["zh", "cz", "es"])),
+    [
+      "assets/courses/zh/setup-assets.json",
+      "assets/courses/cz/setup-assets.json",
+      "assets/courses/es/setup-assets.json",
+    ],
+  );
+
+  const duplicate = courseBundle(["cz", "zh", "zh"]);
+  assert.throws(() => setupEntriesFromCourseBundle(duplicate), /course IDs must be unique/u);
+  const escaping = courseBundle(["cz", "es"]);
+  escaping.courses[1].assetPrefix = "courses/../es";
+  assert.throws(() => setupEntriesFromCourseBundle(escaping), /unsafe/u);
 });
 
 test("the validated download plan contains every derived immutable release asset", () => {
@@ -227,6 +309,18 @@ test("a finalized newer release appends once and then reuses exact facts", async
   const second = advancePagesCurrentReleaseDescriptor({ descriptor: first.descriptor, ...files });
   assert.equal(second.action, "reuse");
   assert.deepEqual(second.descriptor, first.descriptor);
+});
+
+test("a finalized release projects a synthetic third course into ordered setup entries", async (context) => {
+  const files = await candidateFixture(nextVersionCode, { courseIds: ["cz", "zh", "es"] });
+  context.after(() => rm(files.workspaceRoot, { recursive: true, force: true }));
+  const advanced = advancePagesCurrentReleaseDescriptor({ descriptor, ...files });
+  assert.deepEqual(advanced.descriptor.setupEntries, [
+    "assets/courses/cz/setup-assets.json",
+    "assets/courses/zh/setup-assets.json",
+    "assets/courses/es/setup-assets.json",
+  ]);
+  assert.doesNotThrow(() => assertPagesReleaseHistoryPrefix(descriptor, advanced.descriptor));
 });
 
 test("the shared file validator rejects release schema, source, signing, and audit drift", async (context) => {

@@ -10,8 +10,10 @@ val workspaceRootDir = layout.projectDirectory.dir("../../..")
 val workspaceRootPath = workspaceRootDir.asFile.toPath().toRealPath()
 
 fun confinedWorkspaceRelativePath(value: Any?, label: String): String {
-    val relativePath = value?.toString()?.trim().orEmpty()
+    val authoredPath = value?.toString().orEmpty()
+    val relativePath = authoredPath.trim()
     check(relativePath.isNotEmpty()) { "$label must be a nonblank repository-relative path." }
+    check(authoredPath == relativePath) { "$label must be a trimmed repository-relative path." }
     check(!File(relativePath).isAbsolute) { "$label must be repository-relative." }
     val candidate = workspaceRootPath.resolve(relativePath).normalize()
     check(candidate != workspaceRootPath && candidate.startsWith(workspaceRootPath)) {
@@ -22,7 +24,10 @@ fun confinedWorkspaceRelativePath(value: Any?, label: String): String {
     check(realCandidate != workspaceRootPath && realCandidate.startsWith(workspaceRootPath)) {
         "$label must not escape the Caatuu workspace through a link."
     }
-    return workspaceRootPath.relativize(realCandidate).toString().replace(File.separatorChar, '/')
+    check(realCandidate == candidate) {
+        "$label must resolve to its exact declared physical source."
+    }
+    return workspaceRootPath.relativize(candidate).toString().replace(File.separatorChar, '/')
 }
 
 fun requiredObject(value: Any?, label: String): Map<*, *> {
@@ -64,6 +69,21 @@ val courseBundleRelativePath = confinedWorkspaceRelativePath(
     "caatuuCourseBundle",
 )
 val courseBundleFile = workspaceRootDir.file(courseBundleRelativePath)
+val languageCatalogRelativePath = confinedWorkspaceRelativePath(
+    "apps/languages/catalog.json",
+    "language catalog",
+)
+val languageCatalogFile = workspaceRootDir.file(languageCatalogRelativePath)
+val languageCatalog = requiredObject(
+    groovy.json.JsonSlurper().parse(languageCatalogFile.asFile),
+    "language catalog",
+)
+val languageCatalogCourseManifestFiles = (languageCatalog["courses"] as? List<*>)?.mapIndexed { index, value ->
+    val entry = requiredObject(value, "language catalog course $index")
+    workspaceRootDir.file(
+        confinedWorkspaceRelativePath(entry["manifest"], "language catalog course $index manifest"),
+    )
+} ?: error("Language catalog courses must be an array.")
 val courseBundle = requiredObject(
     groovy.json.JsonSlurper().parse(courseBundleFile.asFile),
     "Android course bundle",
@@ -157,9 +177,6 @@ check(bundledLanguageEntryPath.startsWith("$bundledLanguageRoutePrefix/")) {
     "Course entryPath must stay inside routePrefix."
 }
 val courseSourceLanguage = requiredObject(courseManifest["sourceLanguage"], "sourceLanguage")
-check(courseSourceLanguage["id"] == "en") {
-    "Android semantic mediation currently requires English as sourceLanguage.id."
-}
 val courseSourceLanguageLabel = requiredString(courseSourceLanguage["label"], "sourceLanguage.label")
 val courseTargetLanguage = requiredObject(courseManifest["targetLanguage"], "targetLanguage")
 val courseTargetLanguageLabel = requiredString(courseTargetLanguage["label"], "targetLanguage.label")
@@ -265,6 +282,31 @@ fun normalizedCatalogPaths(value: Any?, label: String): List<String> {
 }
 val androidAssetFiles = normalizedCatalogPaths(androidAssetCatalog["files"], "Android asset files")
 check(androidAssetFiles.isNotEmpty()) { "Android asset files must not be empty." }
+for (input in bundledCourseInputs) {
+    val bundledAssetCatalog = requiredObject(
+        groovy.json.JsonSlurper().parse(input.androidAssetCatalogFile),
+        "Bundled course ${input.id} Android asset catalog",
+    )
+    val bundledStaticRelativePath = workspaceRootPath
+        .relativize(input.staticDir.toPath().toRealPath())
+        .toString()
+        .replace(File.separatorChar, '/')
+    for (path in normalizedCatalogPaths(
+        bundledAssetCatalog["files"],
+        "Bundled course ${input.id} Android asset files",
+    )) {
+        confinedWorkspaceRelativePath(
+            "$bundledStaticRelativePath/$path",
+            "Bundled course ${input.id} Android asset $path",
+        )
+    }
+}
+for (path in androidAssetFiles) {
+    confinedWorkspaceRelativePath(
+        "$languageStaticRelativePath/$path",
+        "Android course asset $path",
+    )
+}
 check("index.html" !in androidAssetFiles) {
     "Android course assets must not declare a course-local index.html."
 }
@@ -369,8 +411,20 @@ for (path in sharedRuntimeFiles) {
     }
     confinedWorkspaceRelativePath("apps/language-runtime/$path", "Android shared runtime file $path")
 }
-val launcherStaticDir = workspaceRootDir.dir("apps/launcher/static")
+val launcherStaticRelativePath = confinedWorkspaceRelativePath(
+    "apps/launcher/static",
+    "launcher static root",
+)
+val launcherStaticDir = workspaceRootDir.dir(launcherStaticRelativePath)
+for (path in androidLauncherIconFiles) {
+    confinedWorkspaceRelativePath(
+        "$launcherStaticRelativePath/assets/icons/$path",
+        "Android launcher icon $path",
+    )
+}
 val assetCompiler = workspaceRootDir.file("apps/android/tooling/build-product-assets.mjs")
+val courseBundlePlanner = workspaceRootDir.file("apps/android/tooling/android-course-bundle-plan.mjs")
+val androidArtifactContract = workspaceRootDir.file("apps/android/tooling/android-artifact-contract.mjs")
 val generatedAssetsDir = layout.buildDirectory.dir("generated/assets/product")
 val productIconRelativePath = androidAssetFiles.singleOrNull { Regex("^icons/[A-Za-z0-9._-]+-512\\.png$").matches(it) }
     ?: error("Android asset catalog must contain exactly one icons/*-512.png product icon.")
@@ -446,7 +500,11 @@ val generateProductAssets by tasks.registering(Exec::class) {
         generatedAssetsDir.get().asFile.absolutePath,
     )
     inputs.file(assetCompiler)
+    inputs.file(courseBundlePlanner)
+    inputs.file(androidArtifactContract)
     inputs.file(courseBundleFile)
+    inputs.file(languageCatalogFile)
+    inputs.files(languageCatalogCourseManifestFiles)
     inputs.file(courseManifestFile)
     inputs.file(appEntryFile)
     inputs.file(appAssetCatalogFile)

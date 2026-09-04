@@ -117,6 +117,15 @@ class CaatuuActivity : ComponentActivity() {
                 speechManager = speechManager,
             )
         }
+        NativeArtifactContract.requireCompatibleSharedStorage(
+            courseRuntimes.values.flatMap { runtime ->
+                buildList {
+                    addAll(runtime.vectorDatabaseManager?.storageArtifacts(runtime.course.id).orEmpty())
+                    addAll(runtime.dictionaryManager?.storageArtifacts(runtime.course.id).orEmpty())
+                    addAll(runtime.staticAssetManager.storageArtifacts(runtime.course.id))
+                }
+            },
+        )
         bridge = ProductBridge(
             activity = this,
             webView = webView,

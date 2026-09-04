@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import vm from "node:vm";
 
 globalThis.localStorage = {
   getItem() { return null; },
@@ -32,9 +33,138 @@ globalThis.window = {
 };
 globalThis.document = {};
 
-const { resolveWordWorldSpeechPace, runOwnedSemanticSelection, selectStandardTurn } = await import(
+const {
+  buildDictionaryGapFeedback,
+  englishAuditSemanticQuery,
+  inferReconstructionSeparator,
+  resolveDictionaryGapReportingContract,
+  resolveWordWorldRecordLanguageRoles,
+  resolveWordWorldSpeechPace,
+  runOwnedSemanticSelection,
+  selectStandardTurn,
+  sourceTranslationFeedbackLabel,
+  wordWorldWordsMatch
+} = await import(
   `../static/source/product-word-world.mjs?semantic-test=${Date.now()}`
 );
+
+test("reconstruction fallback spacing derives from the authored surface, not a script allowlist", () => {
+  assert.equal(inferReconstructionSeparator("Dítě čte knihu."), " ");
+  assert.equal(inferReconstructionSeparator("هذا كتاب."), " ");
+  assert.equal(inferReconstructionSeparator("这是一本书。"), "");
+  assert.equal(inferReconstructionSeparator("これは本です。"), "");
+  assert.equal(inferReconstructionSeparator("นี่คือหนังสือ"), "");
+  assert.equal(inferReconstructionSeparator("这是 一本书。"), " ");
+});
+
+test("translation feedback names the learner base without changing English audit authority", () => {
+  assert.equal(sourceTranslationFeedbackLabel({ label: "English" }), "Wrong English translation");
+  assert.equal(sourceTranslationFeedbackLabel({ label: "Français" }), "Wrong Français translation");
+  assert.equal(sourceTranslationFeedbackLabel({}), "Wrong base language translation");
+});
+
+test("English semantic queries ignore learner-base and target-language glosses", () => {
+  assert.equal(englishAuditSemanticQuery({
+    audit: { languageTag: "en", text: "This is a book." },
+    englishText: "This is a book.",
+    learnerPrompt: { languageTag: "fr", text: "Ceci est un livre." },
+    target: { tokens: [{ surface: "libro", gloss: "un libro español" }] }
+  }), "This is a book.");
+  assert.equal(englishAuditSemanticQuery({
+    audit: { languageTag: "fr", text: "Ceci est un livre." }
+  }), "", "an audit field is usable only when it explicitly declares English");
+});
+
+test("target matching always requires the selected adapter normalization seam", () => {
+  const searchKey = (value) => String(value || "").normalize("NFC").toLocaleLowerCase("es-ES");
+  assert.equal(wordWorldWordsMatch("knihami", "kniha", {
+    searchKey,
+    courseId: "es-test",
+    targetLanguageId: "es",
+    providerKind: "authored-realizations"
+  }), false);
+  assert.equal(wordWorldWordsMatch("knihami", "kniha", {
+    courseId: "cz",
+    targetLanguageId: "cs",
+    providerKind: "standard-corpus"
+  }), false, "course and language identity cannot activate hidden morphology");
+});
+
+test("dictionary gap reporting requires a provider-bound explicit declaration", () => {
+  const declared = {
+    capabilities: { dictionary: true },
+    dictionaryContent: {
+      providerId: "future-dictionary-v2",
+      gapReporting: {
+        providerId: "future-dictionary-v2",
+        dictionaryKey: "future-es-en-2026-09-04",
+        dictionaryDirection: "es-en"
+      }
+    }
+  };
+  assert.deepEqual(resolveDictionaryGapReportingContract(declared), declared.dictionaryContent.gapReporting);
+  assert.equal(resolveDictionaryGapReportingContract({
+    ...declared,
+    dictionaryContent: { ...declared.dictionaryContent, gapReporting: undefined }
+  }), null);
+  assert.equal(resolveDictionaryGapReportingContract({
+    ...declared,
+    dictionaryContent: {
+      ...declared.dictionaryContent,
+      gapReporting: { ...declared.dictionaryContent.gapReporting, providerId: "other-provider-v1" }
+    }
+  }), null);
+});
+
+test("the generated Czech profile produces the exact server dictionary-gap tuple", async () => {
+  const source = await readFile(
+    new URL("../../languages/czech/static/source/shared/course-profile.js", import.meta.url),
+    "utf8"
+  );
+  const context = { window: {} };
+  vm.runInNewContext(source, context, { filename: "course-profile.js" });
+  assert.deepEqual(
+    { ...buildDictionaryGapFeedback(context.window.CaatuuCourse, {
+      targetWord: " kočka ",
+      normalizedWord: "kočka",
+      lookupReturned: 0
+    }) },
+    {
+      targetWord: "kočka",
+      normalizedWord: "kočka",
+      dictionaryKey: "kaikki-cs-en-2026-07-09",
+      dictionaryDirection: "cs-en",
+      lookupOutcome: "no_results",
+      lookupReturned: 0
+    }
+  );
+});
+
+test("Word World renders learner-base prompts while retaining independent English audit text", () => {
+  assert.deepEqual(
+    resolveWordWorldRecordLanguageRoles({
+      englishText: "This is a book.",
+      audit: { languageTag: "en", text: "This is a book." },
+      learnerPrompt: {
+        languageTag: "fr",
+        text: "Ceci est un livre.",
+        authority: "learner-base-realization"
+      }
+    }, {
+      sourceText: "Ceci est un livre.",
+      englishAuditText: "This is a book."
+    }),
+    {
+      learnerPromptText: "Ceci est un livre.",
+      englishAuditText: "This is a book."
+    }
+  );
+  assert.deepEqual(
+    resolveWordWorldRecordLanguageRoles({ englishText: "Thank you." }, { sourceText: "Thank you." }),
+    { learnerPromptText: "Thank you.", englishAuditText: "Thank you." },
+    "English-base records preserve their current prompt bytes and meaning"
+  );
+});
 
 test("Word World keeps the selected numeric speech rate as the immediate session authority", () => {
   assert.deepEqual(
@@ -243,10 +373,19 @@ test("the live Next/selected controller path awaits English search and reports i
   );
   assert.match(source, /const outcome = await runOwnedSemanticSelection\(\{/u);
   assert.match(source, /select: \(\) => selectStandardTurn\(provider, \{/u);
-  assert.match(source, /const englishQuery = mode === "selected" \? selectedEnglishSemanticQuery\(state\.selectedWord\) : ""/u);
+  assert.match(source, /const englishQuery = mode === "selected" \? selectedEnglishSemanticQuery\(\) : ""/u);
   assert.match(source, /Ranking guided sentences by English meaning/u);
   assert.match(source, /searchEnglish: providerContext\?\.searchEnglish/u);
   assert.match(source, /English MiniLM/u);
   assert.match(source, /English lexical fallback/u);
   assert.match(source, /Could not choose a guided sentence\. Please try again\./u);
+  const semanticQueryBody = source.match(
+    /function selectedEnglishSemanticQuery\(\) \{(?<body>[\s\S]*?)\n\}/u
+  )?.groups?.body || "";
+  assert.ok(semanticQueryBody, "the English semantic-query boundary must remain inspectable");
+  assert.doesNotMatch(
+    semanticQueryBody,
+    /selectedWordDetails|selectedWordMeaning|preparedTokenForWord|\btoken\b|\bgloss\b/u,
+    "UI, dictionary, target-token, and learner-base values must never become English query fallbacks"
+  );
 });

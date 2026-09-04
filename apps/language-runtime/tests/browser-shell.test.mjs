@@ -111,29 +111,29 @@ test("semantic ranking reports whether MiniLM or deterministic fallback produced
   );
 });
 
-test("English-only embedding boundaries reject target-script leakage", async () => {
+test("English-authority embedding boundaries reject obvious cross-script leakage", async () => {
   const leakingEnglish = structuredClone(englishCatalog);
   leakingEnglish.concepts[0].embeddingText = "你好";
   assert.throws(
     () => validateEnglishConceptCatalog(leakingEnglish),
-    /English-only; a non-English letter was found/
+    /English-authority ASCII character policy/
   );
   const joined = joinConceptCatalogs(englishCatalog, realizationCatalog);
   await assert.rejects(
     rankConcepts(joined, "你好", () => []),
-    /English-only; a non-English letter was found/
+    /English-authority ASCII character policy/
   );
   await assert.rejects(
     rankConcepts(joined, "find книга", () => []),
-    /English-only; a non-English letter was found/
+    /English-authority ASCII character policy/
   );
   await assert.rejects(
     rankConcepts(joined, "find كتاب", () => []),
-    /English-only; a non-English letter was found/
+    /English-authority ASCII character policy/
   );
   await assert.rejects(
     rankConcepts(joined, "nǐ hǎo", () => []),
-    /English-only; a non-English letter was found/
+    /English-authority ASCII character policy/
   );
 });
 
@@ -180,8 +180,9 @@ test("pronunciation guides require native review while Hanzi text-to-speech does
 test("shared presentation derives language labels and examples without Mandarin-specific copy", async () => {
   const joined = joinConceptCatalogs(englishCatalog, realizationCatalog);
   const presentation = wordWorldPresentation(course, joined);
-  assert.equal(presentation.eyebrow, "English meaning → Mandarin");
-  assert.match(presentation.lede, /Mandarin sentences by their English meaning/u);
+  assert.equal(presentation.eyebrow, "English prompt → Mandarin");
+  assert.match(presentation.lede, /Mandarin sentences with English learner prompts/u);
+  assert.equal(presentation.searchLabel, "Find by English meaning");
   assert.match(presentation.searchPlaceholder, /greetings, identity, objects/u);
 
   const synthetic = wordWorldPresentation({
@@ -191,11 +192,11 @@ test("shared presentation derives language labels and examples without Mandarin-
   assert.deepEqual(synthetic, {
     sourceLabel: "French",
     targetLabel: "Arabic",
-    eyebrow: "French meaning → Arabic",
-    lede: "Explore a small, authored set of useful Arabic sentences by their French meaning.",
-    searchLabel: "Find by French meaning",
+    eyebrow: "French prompt → Arabic",
+    lede: "Explore useful Arabic sentences with French learner prompts. English meanings remain the audit and retrieval authority.",
+    searchLabel: "Find by English meaning",
     searchPlaceholder: "Try travel, daily life…",
-    searchLanguageError: "Search is French-only. Try a French meaning."
+    searchLanguageError: "Search is English-only. Try an English meaning."
   });
 
   const source = await readFile(new URL("../static/source/browser-shell.mjs", import.meta.url), "utf8");

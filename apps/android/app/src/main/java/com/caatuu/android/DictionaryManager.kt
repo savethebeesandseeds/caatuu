@@ -22,7 +22,9 @@ import kotlin.coroutines.coroutineContext
 data class DictionarySpec(
     val key: String,
     val label: String,
+    val artifactKind: String,
     val direction: String,
+    val databaseCatalogPath: String,
     val databaseFile: String,
     val downloadUrl: String,
     val bytes: Long,
@@ -52,8 +54,19 @@ class DictionaryManager(
 
     private val appContext = context.applicationContext
     private val dictionaryCatalogAsset = normalizedAssetPath(catalogAssetPath, "Dictionary catalog")
-    private val dictionaryCatalogDirectory = dictionaryCatalogAsset.substringBeforeLast('/', "")
     private val spec = loadSpec()
+
+    internal fun storageArtifacts(courseId: String): List<NativeStorageArtifact> = listOf(
+        NativeArtifactContract.storageArtifact(
+            courseId,
+            "dictionaries/${spec.key}",
+            spec.downloadUrl,
+            spec.databaseCatalogPath,
+            spec.bytes,
+            spec.sha256,
+            spec.artifactKind,
+        ),
+    )
 
     fun statusJson(): JSONObject {
         val file = databaseFile()
@@ -84,14 +97,18 @@ class DictionaryManager(
                 return@withContext file
             }
             if (file.isFile && file.length() == spec.bytes && sha256(file) == spec.sha256) {
-                marker.writeText(spec.sha256)
+                marker.writeText(identityMarker())
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
                 return@withContext file
             }
 
             if (file.isFile) file.delete()
             marker.delete()
-            val temporaryFile = File(file.parentFile, "${file.name}.download")
+            val temporaryFile = NativeArtifactContract.canonicalChild(
+                requireNotNull(file.parentFile),
+                "${file.name}.download",
+                "Dictionary temporary download",
+            )
             if (temporaryFile.isFile && temporaryFile.length() > spec.bytes) temporaryFile.delete()
 
             var downloaded = false
@@ -162,7 +179,7 @@ class DictionaryManager(
                 temporaryFile.copyTo(file, overwrite = true)
                 temporaryFile.delete()
             }
-            marker.writeText(spec.sha256)
+            marker.writeText(identityMarker())
             onProgress(ModelProgress(spec.bytes, spec.bytes))
             file
         }
@@ -351,9 +368,12 @@ class DictionaryManager(
         val catalog = appContext.assets.open(dictionaryCatalogAsset).bufferedReader().use { reader ->
             JSONObject(reader.readText())
         }
-        val defaultKey = catalog.optString("default_dictionary").ifBlank {
-            catalog.getString("default_dictionary_key")
-        }
+        val defaultKey = NativeArtifactContract.storageKey(
+            catalog.optString("default_dictionary").ifBlank {
+                catalog.getString("default_dictionary_key")
+            },
+            "Dictionary catalog default key",
+        )
         val dictionaries = catalog.getJSONArray("dictionaries")
         val item = (0 until dictionaries.length())
             .map { index -> dictionaries.getJSONObject(index) }
@@ -362,29 +382,35 @@ class DictionaryManager(
         require(item.optString("status") == "active") {
             "Dictionary catalog default must be active."
         }
-        require(item.optString("artifact_kind") == "dictionary-database") {
+        val artifactKind = NativeArtifactContract.artifactKind(
+            item.getString("artifact_kind"),
+            "Dictionary artifact kind",
+        )
+        require(artifactKind == "dictionary-database") {
             "Dictionary catalog default has an unsupported artifact kind."
         }
+        val key = NativeArtifactContract.storageKey(item.getString("key"), "Dictionary key")
+        require(key == defaultKey) { "Dictionary catalog default key must match its selected entry." }
+        val label = NativeArtifactContract.trimmedText(item.getString("label"), "Dictionary label")
+        val direction = NativeArtifactContract.direction(item.getString("direction"), "Dictionary direction")
         val databaseFile = normalizedAssetPath(item.getString("database_file"), "Dictionary database")
-        val catalogBase = catalog.optString("base_url", dictionaryCatalogDirectory).trim('/')
-        val downloadUrl = item.optString("download_url").ifBlank {
-            "$LANGUAGE_BASE_URL/$catalogBase/$databaseFile"
-        }.let { value ->
-            if (value.startsWith("http://") || value.startsWith("https://")) value
-            else "$PUBLIC_BASE_URL/${value.trimStart('/')}"
-        }
-        require(downloadUrl.startsWith("https://")) {
-            "Dictionary download URL must use HTTPS."
-        }
-        val bytes = item.getLong("bytes")
-        val sha256 = item.getString("sha256")
-        require(bytes > 0L) { "Dictionary byte count must be positive." }
-        require(SHA256_PATTERN.matches(sha256)) { "Dictionary SHA-256 is invalid." }
+        val databaseFileName = NativeArtifactContract.fileName(
+            databaseFile.substringAfterLast('/'),
+            "Dictionary database file",
+        )
+        val downloadUrl = NativeArtifactContract.httpsUrl(
+            item.getString("download_url"),
+            "Dictionary download URL",
+        )
+        val bytes = NativeArtifactContract.positiveSafeByteCount(item.opt("bytes"), "Dictionary bytes")
+        val sha256 = NativeArtifactContract.sha256(item.getString("sha256"), "Dictionary SHA-256")
         return DictionarySpec(
-            key = item.getString("key"),
-            label = item.getString("label"),
-            direction = item.getString("direction"),
-            databaseFile = databaseFile,
+            key = key,
+            label = label,
+            artifactKind = artifactKind,
+            direction = direction,
+            databaseCatalogPath = databaseFile,
+            databaseFile = databaseFileName,
             downloadUrl = downloadUrl,
             bytes = bytes,
             sha256 = sha256,
@@ -398,13 +424,40 @@ class DictionaryManager(
         file.isFile &&
             file.length() == spec.bytes &&
             markerFile().isFile &&
-            markerFile().readText().trim() == spec.sha256
+            markerFile().readText().trim() == identityMarker()
 
-    private fun rootDir(): File = File(appContext.filesDir, "dictionaries/${spec.key}")
+    private fun identityMarker(): String = NativeArtifactContract.artifactIdentityMarker(
+        spec.artifactKind,
+        spec.downloadUrl,
+        spec.databaseCatalogPath,
+        spec.bytes,
+        spec.sha256,
+    )
 
-    private fun databaseFile(): File = File(rootDir(), spec.databaseFile.substringAfterLast('/'))
+    private fun rootDir(): File {
+        val dictionariesRoot = NativeArtifactContract.canonicalChild(
+            appContext.filesDir,
+            "dictionaries",
+            "Dictionary storage root",
+        )
+        return NativeArtifactContract.canonicalChild(
+            dictionariesRoot,
+            spec.key,
+            "Dictionary storage key",
+        )
+    }
 
-    private fun markerFile(): File = File(rootDir(), "${databaseFile().name}.sha256")
+    private fun databaseFile(): File = NativeArtifactContract.canonicalChild(
+        rootDir(),
+        spec.databaseFile,
+        "Dictionary database file",
+    )
+
+    private fun markerFile(): File = NativeArtifactContract.canonicalChild(
+        rootDir(),
+        "${spec.databaseFile}.sha256",
+        "Dictionary checksum marker",
+    )
 
     private fun sha256(file: File): String {
         val digest = MessageDigest.getInstance("SHA-256")
@@ -434,28 +487,13 @@ class DictionaryManager(
             .replace(Regex("\\s+"), " ")
 
     companion object {
-        private const val PUBLIC_BASE_URL = "https://caatuu.waajacu.com"
-        private val LANGUAGE_BASE_URL =
-            "$PUBLIC_BASE_URL/${BuildConfig.CAATUU_LANGUAGE_ROUTE_PREFIX.trim('/')}"
         private const val DOWNLOAD_ATTEMPTS = 4
         private const val CONNECT_TIMEOUT_MS = 30_000
         private const val READ_TIMEOUT_MS = 120_000
         private const val RETRY_DELAY_MS = 1_000L
         private const val MAX_LIMIT = 60
-        private val SHA256_PATTERN = Regex("^[a-fA-F0-9]{64}$")
-
         private fun normalizedAssetPath(value: String, label: String): String {
-            val normalized = value.trim()
-            require(
-                normalized.isNotEmpty() &&
-                    normalized == value &&
-                    !normalized.startsWith('/') &&
-                    !normalized.contains('\\') &&
-                    normalized.split('/').all { segment ->
-                        segment.isNotEmpty() && segment != "." && segment != ".."
-                    },
-            ) { "$label path is unsafe." }
-            return normalized
+            return NativeArtifactContract.relativePath(value, label)
         }
     }
 }

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "caatuu-word-world-runtime-manifest-v1",
+  "courseId": "fixture-gen",
+  "corpusVersion": "standard-v1",
+  "mode": "standard",
+  "sessionProvider": {
+    "kind": "standard-corpus",
+    "module": "source/games/word-world/standard-provider.mjs?v=fixture-standard-1"
+  },
+  "generationStrategy": {
+    "id": "fixture-browser-generation-v1",
+    "targetLanguageTag": "xy-Test",
+    "auditLanguageTag": "en"
+  },
+  "capabilities": {
+    "llm": true,
+    "generation": true,
+    "chat": true,
+    "offlineModels": true,
+    "wordWorld": true
+  },
+  "runtimeFile": "standard-v1/records.json"
+}

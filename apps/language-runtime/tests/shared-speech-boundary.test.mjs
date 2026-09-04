@@ -16,8 +16,10 @@ const mandarinCourse = JSON.parse(await readFile(
   "utf8"
 ));
 
-function browserSpeechContext() {
+function browserSpeechContext(initialStorage = {}) {
   let spokenUtterance = null;
+  let synthesisSpeakCount = 0;
+  const storage = new Map(Object.entries(initialStorage).map(([key, value]) => [key, String(value)]));
   const voices = [
     {
       lang: "zh-TW",
@@ -58,18 +60,25 @@ function browserSpeechContext() {
         speechLocale: "zh-CN"
       }
     },
+    CustomEvent: class FakeCustomEvent {
+      constructor(type, init = {}) {
+        this.type = type;
+        this.detail = init.detail;
+      }
+    },
     document,
     location: { hostname: "127.0.0.1" },
     localStorage: {
-      getItem() { return null; },
-      removeItem() {},
-      setItem() {}
+      getItem(key) { return storage.has(key) ? storage.get(key) : null; },
+      removeItem(key) { storage.delete(key); },
+      setItem(key, value) { storage.set(key, String(value)); }
     },
     SpeechSynthesisUtterance: FakeSpeechSynthesisUtterance,
     speechSynthesis: {
       cancel() {},
       getVoices() { return voices; },
       speak(utterance) {
+        synthesisSpeakCount += 1;
         spokenUtterance = utterance;
         setTimeout(() => {
           utterance.onstart?.({ type: "start" });
@@ -85,6 +94,8 @@ function browserSpeechContext() {
   context.window = context;
   return {
     context,
+    storedValue: (key) => storage.get(key),
+    synthesisSpeakCount: () => synthesisSpeakCount,
     spokenUtterance: () => spokenUtterance
   };
 }
@@ -115,24 +126,85 @@ test("shared speech uses zh-CN and exposes generic APIs with Czech compatibility
   assert.equal(utterance.voice.voiceURI, "zh-cn-network");
 });
 
+test("speech pace migrates from the course key and subsequent choices use global storage", () => {
+  const legacyPaceKey = `${mandarinCourse.storage.namespace || `caatuu-${mandarinCourse.id}`}.speech.pace.v1`;
+  const globalPaceKey = "caatuu.speech.pace.v1";
+  const browser = browserSpeechContext({ [legacyPaceKey]: "slow" });
+  vm.runInNewContext(chromeSource, browser.context, { filename: "caatuu-chrome.js" });
+
+  const speech = browser.context.CaatuuChrome;
+  assert.equal(speech.getSpeechPacePreference(), "slow");
+  assert.equal(browser.storedValue(globalPaceKey), "slow", "the legacy course pace must migrate once");
+
+  const selected = speech.setSpeechPacePreference("slower");
+  assert.equal(selected.key, "slower");
+  assert.equal(browser.storedValue(globalPaceKey), "slower", "new pace choices must use the global key");
+  assert.equal(browser.storedValue(legacyPaceKey), "slow", "migration must not rewrite course-owned history");
+});
+
+test("master mute gates browser and native synthesis until sound is restored", async () => {
+  const muteKey = "caatuu.speech.muted.v1";
+  const browser = browserSpeechContext({ [muteKey]: "true" });
+  vm.runInNewContext(chromeSource, browser.context, { filename: "caatuu-chrome.js" });
+
+  const browserSpeech = browser.context.CaatuuChrome;
+  const mutedBrowserResult = await browserSpeech.speakText("你好");
+  assert.equal(mutedBrowserResult.outcome, "muted");
+  assert.equal(mutedBrowserResult.muted, true);
+  assert.equal(browser.synthesisSpeakCount(), 0, "muting must suppress browser synthesis");
+  assert.equal(browser.spokenUtterance(), null);
+
+  browserSpeech.setSpeechMuted(false);
+  const audibleBrowserResult = await browserSpeech.speakText("你好");
+  assert.equal(audibleBrowserResult.outcome, "completed");
+  assert.equal(browser.synthesisSpeakCount(), 1, "unmuting must restore browser synthesis");
+
+  const native = browserSpeechContext({ [muteKey]: "true" });
+  let nativeSpeakCount = 0;
+  native.context.CaatuuRuntime = {
+    env: "android",
+    speech: {
+      async speak() {
+        nativeSpeakCount += 1;
+        return { outcome: "completed" };
+      },
+      async stop() {
+        return { stopped: true };
+      }
+    }
+  };
+  vm.runInNewContext(chromeSource, native.context, { filename: "caatuu-chrome.js" });
+
+  const nativeSpeech = native.context.CaatuuChrome;
+  const mutedNativeResult = await nativeSpeech.speakText("你好");
+  assert.equal(mutedNativeResult.outcome, "muted");
+  assert.equal(mutedNativeResult.muted, true);
+  assert.equal(nativeSpeakCount, 0, "muting must suppress native synthesis");
+
+  nativeSpeech.setSpeechMuted(false);
+  const audibleNativeResult = await nativeSpeech.speakText("你好");
+  assert.equal(audibleNativeResult.outcome, "completed");
+  assert.equal(nativeSpeakCount, 1, "unmuting must restore native synthesis");
+});
+
 test("Mandarin native speech uses zh-CN without loading the Czech LLM course runtime", async () => {
   assert.equal(mandarinCourse.capabilities.speech, true);
   assert.equal(mandarinCourse.capabilities.llm, false);
   assert.equal(mandarinCourse.capabilities.verbs, false);
 
-  const runtimeCapabilities = /const COURSE_RUNTIME_CAPABILITIES = Object\.freeze\(\[([\s\S]*?)\]\);/u
-    .exec(bootstrapSource)?.[1] || "";
-  assert.doesNotMatch(runtimeCapabilities, /speech/u);
-  assert.match(runtimeCapabilities, /"llm"/u);
+  assert.doesNotMatch(bootstrapSource, /COURSE_RUNTIME_CAPABILITIES/u);
+  assert.match(bootstrapSource, /declaredBrowserProvider\("courseRuntime"\)/u);
 
   const providers = bootstrapSource.slice(
     bootstrapSource.indexOf("async function loadCourseFeatureProviders"),
     bootstrapSource.indexOf("async function registerCourseServiceWorker")
   );
   assert.ok(
-    providers.indexOf("installSharedSpeechRuntime();") < providers.indexOf("if (!verbs) return;"),
-    "speech provider installation must occur before the verb-feature gate"
+    providers.indexOf("installSharedSpeechRuntime();")
+      < providers.indexOf("initializeWorkspaceAfterDictionaryProvider"),
+    "speech provider installation must occur before shared workspace initialization"
   );
+  assert.doesNotMatch(providers, /\bverbs\b/u);
 
   const sharedSpeechBoundary = bootstrapSource.slice(
     bootstrapSource.indexOf("function installSharedSpeechRuntime"),
@@ -155,14 +227,13 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
   };
   vm.runInNewContext(
     bootstrapSource.slice(
-      bootstrapSource.indexOf("const COURSE_RUNTIME_CAPABILITIES"),
+      bootstrapSource.indexOf("const nativeSpeechPending"),
       bootstrapSource.indexOf("function setCourseIdentity")
     ),
     nativeContext,
     { filename: "app-bootstrap-speech-boundary.mjs" }
   );
 
-  assert.equal(nativeContext.requiresCourseRuntime(), false);
   nativeContext.installSharedSpeechRuntime();
   assert.equal(nativeContext.CaatuuRuntime.env, "android");
 

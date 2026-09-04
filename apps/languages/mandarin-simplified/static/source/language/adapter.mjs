@@ -174,6 +174,32 @@ function dictionaryLookupKey(value) {
   return searchKey(value);
 }
 
+function dictionaryEntryText(value) {
+  if (value === undefined || value === null) return "";
+  if (typeof value !== "string" && typeof value !== "number") return "";
+  return String(value).normalize("NFC").trim();
+}
+
+function presentDictionaryEntry(record, context = {}) {
+  if (!isRecord(record)) {
+    throw new TypeError("Mandarin dictionary presentation requires an object record.");
+  }
+  const sourceLanguageId = String(
+    context.sourceLanguageId ?? context.course?.sourceLanguage?.id ?? ""
+  ).trim().toLocaleLowerCase("en-US");
+  const sourceIsEnglish = sourceLanguageId === "en" || sourceLanguageId.startsWith("en-");
+  const explicitEnglish = record.englishAuditText ?? record.englishText ?? record.en;
+  const englishAuditText = explicitEnglish ?? (sourceIsEnglish ? record.source : undefined);
+  return {
+    targetText: dictionaryEntryText(record.targetText ?? record.target ?? record.text ?? record.surface),
+    englishAuditText: dictionaryEntryText(englishAuditText),
+    category: dictionaryEntryText(record.category),
+    partOfSpeech: dictionaryEntryText(record.partOfSpeech ?? record.kind),
+    exampleTargetText: dictionaryEntryText(record.exampleTargetText ?? record.example?.target),
+    usageNote: dictionaryEntryText(record.usageNote ?? record.note)
+  };
+}
+
 export const mandarinSimplifiedLanguageAdapter = defineLanguageAdapter({
   schemaVersion: LANGUAGE_ADAPTER_SCHEMA_VERSION,
   id: "mandarin-simplified",
@@ -216,6 +242,7 @@ export const mandarinSimplifiedLanguageAdapter = defineLanguageAdapter({
   },
   dictionary: {
     lookupKey: dictionaryLookupKey,
+    presentEntry: presentDictionaryEntry,
     lookup: null,
     search: null
   }

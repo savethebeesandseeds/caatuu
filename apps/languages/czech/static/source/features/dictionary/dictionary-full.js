@@ -1,7 +1,14 @@
 (() => {
-  if (document.documentElement.dataset.navigationRequest !== "dictionary") return;
-
+  const PROVIDER_ID = "czech-full-dictionary-v1";
   const $ = (selector) => document.querySelector(selector);
+
+  function mountDictionaryProvider(context = {}) {
+  if (context.course !== window.CaatuuCourse) {
+    throw new Error("The Czech dictionary provider must mount for its declared course profile.");
+  }
+  if (document.documentElement.dataset.caatuuDictionaryProviderMounted === PROVIDER_ID) {
+    return Object.freeze({ providerId: PROVIDER_ID, mounted: true });
+  }
   const panel = $("#fullDictionaryPanel");
   const statusNode = $("#fullDictionaryStatus");
   const availabilityNode = $("#fullDictionaryAvailability");
@@ -19,7 +26,6 @@
   document.body.dataset.fullDictionaryDeveloper = "true";
   availabilityNode.hidden = false;
   availabilityNode.textContent = "Checking…";
-  searchInput.setAttribute("aria-label", "Search the full Czech to English dictionary");
 
   function formatNumber(value) {
     return new Intl.NumberFormat("en").format(Number(value || 0));
@@ -258,4 +264,16 @@
   searchInput.addEventListener("input", scheduleSearch);
   downloadButton.addEventListener("click", downloadDictionary);
   void loadStatus();
+  document.documentElement.dataset.caatuuDictionaryProviderMounted = PROVIDER_ID;
+  return Object.freeze({ providerId: PROVIDER_ID, mounted: true });
+  }
+
+  if (window.CaatuuDictionaryProvider) {
+    throw new Error("A dictionary provider is already registered for this app document.");
+  }
+  window.CaatuuDictionaryProvider = Object.freeze({
+    schemaVersion: 1,
+    id: PROVIDER_ID,
+    mountDictionaryProvider
+  });
 })();

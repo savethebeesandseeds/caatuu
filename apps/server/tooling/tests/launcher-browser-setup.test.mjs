@@ -29,15 +29,18 @@ test("launcher keeps release-active languages separate from browser setup choice
     })),
     [
       { id: "cz", status: "active", label: "Czech", nativeLabel: "Čeština", shortCode: "CZ" },
-      { id: "zh", status: "development", label: "Mandarin", nativeLabel: "中文", shortCode: "ZH" }
+      { id: "zh", status: "development", label: "Mandarin", nativeLabel: "中文", shortCode: "ZH" },
+      { id: "es", status: "development", label: "Spanish", nativeLabel: "Español", shortCode: "ES" }
     ]
   );
 });
 
-test("launcher fallback advertises both browser courses and one online action", () => {
+test("launcher fallback advertises every browser course and one online action", () => {
   assert.match(index, /aria-label="Czech \(Čeština\)"[\s\S]*?language-choice-code">CZ<\/span>/u);
   assert.match(index, /aria-label="Mandarin \(中文\), Preview"[\s\S]*?language-choice-code">ZH<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
+  assert.match(index, /aria-label="Spanish \(Español\), Preview"[\s\S]*?language-choice-code">ES<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /china_flag\.png\?caatuu_asset=11/u);
+  assert.match(index, /spain_flag\.png\?caatuu_asset=11/u);
   assert.match(index, /aria-label="Continue online in the browser"[\s\S]*?<b>Continue online<\/b>/u);
   assert.match(styles, /\.language-choice-status\s*\{/u);
   assert.doesNotMatch(index, /Continue with Czech/u);

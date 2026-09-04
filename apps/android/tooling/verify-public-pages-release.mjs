@@ -14,10 +14,87 @@ const defaultDescriptorPath = resolve(moduleDirectory, "pages-current-release.js
 const defaultBaselinePath = resolve(moduleDirectory, "pages-baseline.json");
 const sha256Pattern = /^[a-f0-9]{64}$/u;
 const sourceRevisionPattern = /^[a-f0-9]{40}$/u;
+const courseIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
+const routePrefixPattern = /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 function exactKeys(value, keys, label) {
   assert.ok(value && typeof value === "object" && !Array.isArray(value), `${label} must be an object`);
   assert.deepEqual(Object.keys(value).sort(), [...keys].sort(), `${label} fields changed`);
+}
+
+function assertUnique(values, label) {
+  assert.equal(new Set(values).size, values.length, `${label} must not contain duplicates`);
+}
+
+export function browserEntrypointsFromLanguageRegistry(value) {
+  exactKeys(value, ["schemaVersion", "defaultLanguage", "browserSetup", "languages"], "Public language registry");
+  assert.equal(value.schemaVersion, 1, "Public language registry schema changed");
+  assert.match(String(value.defaultLanguage || ""), courseIdPattern, "Public language registry default course is invalid");
+  exactKeys(value.browserSetup, ["schemaVersion", "entryPath", "courses"], "Public browser setup");
+  assert.equal(value.browserSetup.schemaVersion, 1, "Public browser setup schema changed");
+  assert.ok(Array.isArray(value.browserSetup.courses) && value.browserSetup.courses.length > 0, "Public browser setup has no courses");
+
+  const courseIds = [];
+  const routePrefixes = [];
+  const entryPaths = [];
+  for (const [index, course] of value.browserSetup.courses.entries()) {
+    const label = `Public browser setup courses[${index}]`;
+    exactKeys(course, [
+      "id", "status", "routePrefix", "entryPath", "storage", "sourceLanguage", "targetLanguage",
+    ], label);
+    assert.match(String(course.id || ""), courseIdPattern, `${label}.id is invalid`);
+    assert.ok(["active", "development"].includes(course.status), `${label}.status is not publishable`);
+    assert.match(String(course.routePrefix || ""), routePrefixPattern, `${label}.routePrefix is invalid`);
+    assert.equal(typeof course.entryPath, "string", `${label}.entryPath must be a string`);
+    const relativeEntryPath = course.entryPath.slice(course.routePrefix.length + 1);
+    assert.ok(
+      course.entryPath.startsWith(`${course.routePrefix}/`)
+        && !course.entryPath.endsWith("/")
+        && !course.entryPath.includes("\\")
+        && !course.entryPath.includes("?")
+        && !course.entryPath.includes("#")
+        && /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u.test(relativeEntryPath)
+        && relativeEntryPath.split("/")
+          .every((segment) => segment && segment !== "." && segment !== ".."),
+      `${label}.entryPath must be a confined file beneath ${course.routePrefix}/`,
+    );
+    exactKeys(course.storage, ["learningPerformance"], `${label}.storage`);
+    assert.ok(
+      typeof course.storage.learningPerformance === "string" && course.storage.learningPerformance.trim(),
+      `${label}.storage.learningPerformance is invalid`,
+    );
+    assert.ok(course.sourceLanguage && typeof course.sourceLanguage === "object" && !Array.isArray(course.sourceLanguage), `${label}.sourceLanguage is invalid`);
+    assert.ok(course.targetLanguage && typeof course.targetLanguage === "object" && !Array.isArray(course.targetLanguage), `${label}.targetLanguage is invalid`);
+    courseIds.push(course.id);
+    routePrefixes.push(course.routePrefix);
+    entryPaths.push(course.entryPath);
+  }
+  assertUnique(courseIds, "Public browser setup course IDs");
+  assertUnique(routePrefixes, "Public browser setup route prefixes");
+  assertUnique(entryPaths, "Public browser setup entry paths");
+  const defaultCourse = value.browserSetup.courses.find(({ id }) => id === value.defaultLanguage);
+  assert.ok(defaultCourse, "Public browser setup does not contain its default course");
+  assert.equal(value.browserSetup.entryPath, defaultCourse.entryPath, "Public browser setup default entry path changed");
+
+  assert.ok(Array.isArray(value.languages), "Public language registry languages must be an array");
+  const launcherCourseIds = value.languages.map((language, index) => {
+    assert.ok(language && typeof language === "object" && !Array.isArray(language), `Public launcher languages[${index}] must be an object`);
+    assert.match(String(language.id || ""), courseIdPattern, `Public launcher languages[${index}].id is invalid`);
+    return language.id;
+  });
+  assertUnique(launcherCourseIds, "Public launcher language IDs");
+  assert.deepEqual(
+    launcherCourseIds,
+    value.browserSetup.courses.filter(({ status }) => status === "active").map(({ id }) => id),
+    "Public launcher language order must match active browser setup courses",
+  );
+
+  const entrypoints = [
+    "/",
+    ...value.browserSetup.courses.flatMap(({ routePrefix, entryPath }) => [`${routePrefix}/`, entryPath]),
+  ];
+  assertUnique(entrypoints, "Public browser entrypoints");
+  return Object.freeze(entrypoints);
 }
 
 function validatedPublicFile(value, expectedPath, expectedAliases, label) {
@@ -244,7 +321,25 @@ async function htmlEntrypoint(request, origin, path) {
   });
 }
 
-async function publicBundle(request, origin, current, baseline) {
+async function publicLanguageRegistry(request, origin) {
+  return request(origin, "/languages.json", { headers: { accept: "application/json" } }, async (response) => {
+    const raw = await responseBytes(response, "/languages.json");
+    let value;
+    try {
+      value = JSON.parse(raw.toString("utf8"));
+    } catch (error) {
+      throw new Error("Public language registry is not valid JSON", { cause: error });
+    }
+    return {
+      bytes: raw.length,
+      sha256: digest(raw),
+      value,
+      entrypoints: browserEntrypointsFromLanguageRegistry(value),
+    };
+  });
+}
+
+async function publicBundle(request, origin, current, baseline, languageRegistry) {
   return request(origin, "/caatuu-web-bundle.json", { headers: { accept: "application/json" } }, async (response) => {
     const raw = await responseBytes(response, "/caatuu-web-bundle.json");
     const bundle = JSON.parse(raw.toString("utf8"));
@@ -257,6 +352,12 @@ async function publicBundle(request, origin, current, baseline) {
     assert.equal(bundle.android?.previousStableVersionCode, current.previousStableVersionCode);
     assert.equal(bundle.android?.compatibilityVersionCode, current.compatibilityVersionCode);
     assert.ok(Array.isArray(bundle.files), "The web bundle has no file inventory");
+    assert.deepEqual(
+      bundle.entrypoints,
+      languageRegistry.entrypoints,
+      "The web bundle entrypoint order differs from the public language registry",
+    );
+    inventoryRecord(bundle, "/languages.json", languageRegistry, "public language registry");
 
     for (const channel of [baseline.stable, baseline.compatibility, ...current.releases.map(overlayChannel)]) {
       inventoryRecord(bundle, channel.manifest.path, channel.manifest, `Android ${channel.versionCode} manifest`);
@@ -305,8 +406,9 @@ export async function verifyPublicPagesReleaseOnce({
 
   // Keep stale-cache checks cheap. Full current APK verification happens only
   // after the Pages metadata, immutable manifests, old routes, and Worker agree.
-  for (const path of ["/", "/cz/", "/zh/"]) await htmlEntrypoint(timedFetch, origin, path);
-  await publicBundle(timedFetch, origin, current, baseline);
+  const languageRegistry = await publicLanguageRegistry(timedFetch, origin);
+  await publicBundle(timedFetch, origin, current, baseline, languageRegistry);
+  for (const path of languageRegistry.entrypoints) await htmlEntrypoint(timedFetch, origin, path);
 
   const channels = [baseline.stable, baseline.compatibility, ...current.releases.map(overlayChannel)];
   for (const channel of channels) {
@@ -361,6 +463,7 @@ export async function verifyPublicPagesReleaseOnce({
     versionCode: current.stable.versionCode,
     versionName: current.stable.versionName,
     tag: current.githubRelease.tag,
+    browserEntrypoints: languageRegistry.entrypoints,
     retainedAndroidVersions: channels.map((channel) => channel.versionCode),
     reportingVersion: health.version,
   };

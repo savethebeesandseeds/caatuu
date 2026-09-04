@@ -9,8 +9,10 @@ const readText = (path) => readFile(new URL(path, repoRoot), "utf8");
 const readJson = (path) => readText(path).then(JSON.parse);
 
 const [
+  appEntry,
   bootstrap,
   controller,
+  stylesheet,
   catalog,
   mandarinSetup,
   czechSetup,
@@ -19,8 +21,10 @@ const [
   readingGuides,
   shipFiles
 ] = await Promise.all([
+  readText("apps/language-runtime/static/app/index.html"),
   readText("apps/language-runtime/static/source/app-bootstrap.mjs"),
   readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
+  readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
   readJson("apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json"),
   readJson("apps/languages/mandarin-simplified/static/setup-assets.json"),
   readJson("apps/languages/czech/static/setup-assets.json"),
@@ -44,9 +48,14 @@ function seededRandom(seed) {
 }
 
 test("the course-owned controller exposes its engine boundary and stays CSP-safe", () => {
-  assert.match(bootstrap, /gameAvailable\?\.\(course, "naturalization-nucleus"\) === true/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-11/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-11/u);
+  assert.match(
+    bootstrap,
+    /const gameAvailable = \(gameId\) => \(\s*globalThis\.CaatuuShellPolicy\?\.gameAvailable\?\.\(course, gameId\) === true\s*\);/u
+  );
+  assert.match(bootstrap, /const naturalizationNucleus = gameAvailable\("naturalization-nucleus"\);/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-12/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-12/u);
+  assert.match(controller, /CaatuuLearning\?\.record\?\.\("naturalization-nucleus"/u);
   assert.equal(typeof game.mount, "function");
   assert.equal(typeof game.createRound, "function");
   assert.equal(typeof game.filterChallengesForDifficulty, "function");
@@ -58,6 +67,33 @@ test("the course-owned controller exposes its engine boundary and stays CSP-safe
   assert.doesNotMatch(controller, /innerHTML/u);
   assert.doesNotMatch(controller, /\.style\b/u);
   assert.doesNotMatch(controller, /round-success|postMessage/u);
+});
+
+test("the static audio menu exposes the shared global mute hook", () => {
+  const control = appEntry.match(
+    /<button\b(?=[^>]*\bid="naturalizationNucleusAudioMute")(?=[^>]*\bdata-speech-mute-toggle)[^>]*>[\s\S]*?<\/button>/u
+  )?.[0];
+  assert.ok(control, "Naturalization Nucleus must expose its static global mute control.");
+  assert.match(control, /\brole="switch"/u);
+  assert.match(control, /\baria-checked="false"/u);
+  assert.match(control, /\bdata-speech-mute-label\b/u);
+});
+
+test("the responsive playfield keeps the challenge below its toolbar", () => {
+  const tabletStart = stylesheet.indexOf("@media screen and (max-width: 760px)");
+  const phoneStart = stylesheet.indexOf("@media screen and (max-width: 480px)");
+  assert.ok(tabletStart >= 0 && phoneStart > tabletStart);
+  assert.match(
+    stylesheet.slice(tabletStart, phoneStart),
+    /\.naturalization-nucleus-playfield\s*\{\s*padding-top:\s*48px;\s*\}/u
+  );
+});
+
+test("the matched-word dictionary card keeps intrinsic shared sizing", () => {
+  assert.match(
+    stylesheet,
+    /\.word-net-word-translation\.naturalization-nucleus-feedback\s*\{\s*width:\s*fit-content;\s*max-width:\s*clamp\(140px,\s*30vw,\s*184px\);/u
+  );
 });
 
 test("the expanded catalog provides three balanced cumulative levels and exactly mirrors the ship collection", () => {
@@ -419,7 +455,7 @@ test("round generation avoids visible homophone ambiguity and immediate artwork 
   assert.throws(() => game.createRound(insufficientCatalog, 5, seededRandom(1)), /distinct readings/u);
 });
 
-test("Mandarin offline and Android delivery include the game and all ships while Czech does not", () => {
+test("Mandarin alone includes Naturalization Nucleus while both courses include launchpad ships", () => {
   const mandarinOffline = JSON.stringify(mandarinSetup.offline.assets);
   const czechOffline = JSON.stringify(czechSetup.offline.assets);
   for (const fragment of [
@@ -445,7 +481,7 @@ test("Mandarin offline and Android delivery include the game and all ships while
 
   for (const src of catalog.roundSettings.artwork) {
     assert.ok(mandarinSetup.offline.assets.includes(src));
-    assert.ok(!czechSetup.offline.assets.includes(src));
+    assert.ok(czechSetup.offline.assets.includes(src));
     const decoded = decodeURIComponent(src.replace(/^\//u, ""));
     assert.ok(appAssets.assets.some(({ source, output }) => (
       source === `apps/launcher/static/${decoded}` && output === decoded

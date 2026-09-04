@@ -2,12 +2,19 @@
   const course = window.CaatuuCourse;
   if (!course) throw new Error("Caatuu course profile must load before shared Chrome.");
 
-  const themeStorageKey = course.storage.theme;
-  const fontSizeStorageKey = course.storage.fontSize;
+  const courseThemeStorageKey = course.storage.theme;
+  const courseFontSizeStorageKey = course.storage.fontSize;
+  const themeStorageKey = "caatuu.appearance.theme.v1";
+  const fontSizeStorageKey = "caatuu.appearance.font-size.v1";
   const speechVoiceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.voice.v1`;
-  const speechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
+  const legacySpeechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
+  const speechPaceStorageKey = "caatuu.speech.pace.v1";
+  const speechMutedStorageKey = "caatuu.speech.muted.v1";
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
+  const experienceIconSrc = "/assets/icons/icon_gem.png";
+  const coinIconSrc = "/assets/icons/coin_icon_ui.png";
+  const streakIconSrc = "/assets/icons/streak_icon.png";
   const targetLanguage = course.targetLanguage;
   const speechLocale = String(
     targetLanguage.speechLocale
@@ -19,14 +26,20 @@
   const lightModeIconSrc = "/assets/icons/light_mode_ui.png";
   const darkModeIconSrc = "/assets/icons/dark_mode_ui.png";
   let sharedSettingsTrigger = null;
+  let sharedHomeMenuTrigger = null;
   let sharedGameMenuTrigger = null;
+  let activeHomeMenuTarget = "home";
+  let lastStoreArtwork = "";
   let bottomDockResizeObserver = null;
   let appFreshnessBound = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
+  let speechMutedFallback = false;
   let activeLanguageSelectorHost = null;
   let languageSelectorSequence = 0;
   let languageSelectorDismissalBound = false;
+  let streakReminderTimer = 0;
+  let streakReminderCheckPromise = null;
   const speechTestText = String(targetLanguage.nativeLabel || targetLanguage.label || targetLanguage.id || "").trim();
   const themeOptions = {
     light: { themeColor: "#f5efe5", label: "Use dark theme" },
@@ -51,6 +64,31 @@
     stats: { label: "Stats", iconSrc: "/assets/icons/stats_icon.png" },
     settings: { label: "Settings", iconSrc: "/assets/icons/gear_icon.png" }
   });
+  const homeMenuOptions = Object.freeze({
+    home: Object.freeze({
+      id: "homeBaseTab",
+      label: "Home",
+      iconSrc: "/assets/icons/homebase_icon.png",
+      controls: "homeBaseView"
+    }),
+    social: Object.freeze({
+      id: "homeSocialTab",
+      label: "Social",
+      iconSrc: "/assets/icons/social_icon.png",
+      controls: "homeSocialView",
+      status: "In development"
+    }),
+    store: Object.freeze({
+      id: "homeStoreTab",
+      label: "Store",
+      iconSrc: "/assets/icons/store_icon.png",
+      controls: "homeStoreView"
+    })
+  });
+  const storeArtworkPaths = Object.freeze(Array.from(
+    { length: 16 },
+    (_, index) => `/assets/stores/stores%20(${index + 1}).png`
+  ));
   const learning = window.CaatuuLearning;
   const semanticSkillCompassAxisPack = course.capabilities?.skillCompass === true
     && course.skillCompass
@@ -208,6 +246,12 @@
       summary: "Coming later",
       iconSrc: "/assets/planets/memory-moon.png",
       href: "index.html"
+    },
+    "sound-quasar": {
+      title: "Sounds Quasar",
+      summary: "Hear it. Spell it.",
+      iconSrc: "/assets/planets/sounds-quasar.png",
+      href: "index.html"
     }
   };
   const gameIdsByTitle = new Map(
@@ -228,6 +272,12 @@
       return course.games?.includes?.("naturalization-nucleus") && Boolean(course.routes?.naturalizationNucleus);
     }
     if (gameId === "memory-moon") return course.capabilities?.memory === true;
+    if (gameId === "sound-quasar") {
+      return shellPolicy.PLANET_GAME_CONTRACT?.planets?.[gameId]?.implementationState === "implemented"
+        && course.capabilities?.speech === true
+        && course.games?.includes?.("sound-quasar")
+        && Boolean(course.routes?.soundQuasar);
+    }
     if (gameId === "campaign") {
       return Object.keys(gamePresentations)
         .filter((candidate) => candidate !== "campaign")
@@ -344,6 +394,18 @@
     document.documentElement.style.setProperty("--caatuu-bottom-dock-height", `${height}px`);
   }
 
+  function pickStoreArtwork() {
+    const candidates = storeArtworkPaths.length > 1 && lastStoreArtwork
+      ? storeArtworkPaths.filter((path) => path !== lastStoreArtwork)
+      : storeArtworkPaths;
+    const randomIndex = Math.min(
+      candidates.length - 1,
+      Math.max(0, Math.floor(Math.random() * candidates.length))
+    );
+    lastStoreArtwork = candidates[randomIndex] || storeArtworkPaths[0] || "";
+    return lastStoreArtwork;
+  }
+
   function ensureBottomDock(nav = document.querySelector("[data-caatuu-bottom-nav]")) {
     if (!nav) return null;
     let dock = nav.closest("[data-caatuu-bottom-dock]");
@@ -373,9 +435,10 @@
     const dock = ensureBottomDock(nav);
     const host = dock?.querySelector("[data-caatuu-bottom-dock-menu]");
     if (!host) return dock;
+    const homeMenu = document.querySelector(".home-section-switcher");
     const settingsMenu = document.querySelector(".settings-section-switcher");
     const gamesMenu = document.querySelector(".games-menu-sheet");
-    [settingsMenu, gamesMenu].forEach((menu) => {
+    [homeMenu, settingsMenu, gamesMenu].forEach((menu) => {
       if (!menu || menu.parentElement === host) return;
       menu.hidden = true;
       host.append(menu);
@@ -387,9 +450,11 @@
     const dock = mountBottomDockMenus();
     const host = dock?.querySelector("[data-caatuu-bottom-dock-menu]");
     if (!dock || !host) return;
+    const homeMenu = host.querySelector(".home-section-switcher");
     const settingsMenu = host.querySelector(".settings-section-switcher");
     const gamesMenu = host.querySelector(".games-menu-sheet");
-    const normalizedMenu = menu === "settings" || menu === "games" ? menu : "";
+    const normalizedMenu = ["home", "settings", "games"].includes(menu) ? menu : "";
+    homeMenu?.toggleAttribute("hidden", normalizedMenu !== "home");
     settingsMenu?.toggleAttribute("hidden", normalizedMenu !== "settings");
     gamesMenu?.toggleAttribute("hidden", normalizedMenu !== "games");
     host.hidden = !normalizedMenu;
@@ -397,8 +462,176 @@
     else delete dock.dataset.openMenu;
     document.querySelectorAll("#openSettings")
       .forEach((button) => button.setAttribute("aria-expanded", normalizedMenu === "settings" ? "true" : "false"));
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="home"]')
+      .forEach((button) => button.setAttribute("aria-expanded", normalizedMenu === "home" ? "true" : "false"));
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]')
+      .forEach((button) => button.setAttribute("aria-expanded", normalizedMenu === "games" ? "true" : "false"));
     updateBottomDockHeight(dock);
     window.requestAnimationFrame(() => updateBottomDockHeight(dock));
+  }
+
+  function syncHomeMenuSelection(target = activeHomeMenuTarget) {
+    const normalizedTarget = ["social", "store"].includes(target) ? target : "home";
+    activeHomeMenuTarget = normalizedTarget;
+    const option = homeMenuOptions[normalizedTarget];
+    document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="home"]').forEach((button) => {
+      let badge = button.querySelector(".app-nav-submenu-icon");
+      if (!badge) {
+        const icon = button.querySelector(".app-nav-icon");
+        if (!icon) return;
+        badge = document.createElement("img");
+        badge.className = "app-nav-submenu-icon";
+        badge.alt = "";
+        badge.setAttribute("aria-hidden", "true");
+        badge.decoding = "async";
+        icon.append(badge);
+      }
+      badge.src = option.iconSrc;
+      badge.dataset.homeDestination = normalizedTarget;
+      button.dataset.homeDestination = normalizedTarget;
+      button.setAttribute("aria-label", normalizedTarget === "home" ? "Home" : `Home, ${option.label}`);
+      button.title = normalizedTarget === "home" ? "Open Home" : `Open Home, ${option.label}`;
+    });
+    document.querySelectorAll("[data-home-menu-target]").forEach((button) => {
+      const current = button.dataset.homeMenuTarget === normalizedTarget;
+      button.classList.toggle("is-current", current);
+      button.setAttribute("aria-selected", String(current));
+      button.tabIndex = current ? 0 : -1;
+      if (current) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    });
+  }
+
+  function renderHomeMenu() {
+    if (!document.querySelector("#view-home")) return null;
+    let panel = document.querySelector("#homeMenuPanel");
+    if (!panel) {
+      panel = document.createElement("div");
+      panel.id = "homeMenuPanel";
+      panel.className = "home-menu-backdrop";
+      panel.hidden = true;
+      document.body.append(panel);
+    }
+
+    let menu = document.querySelector("#homeMenu");
+    if (!menu) {
+      menu = document.createElement("nav");
+      menu.id = "homeMenu";
+      menu.className = "home-section-switcher";
+      menu.setAttribute("role", "tablist");
+      menu.setAttribute("aria-label", "Home sections");
+
+      const options = Object.entries(homeMenuOptions).map(([target, option]) => {
+        const button = document.createElement("button");
+        button.id = option.id;
+        button.type = "button";
+        button.dataset.homeMenuTarget = target;
+        button.setAttribute("role", "tab");
+        button.setAttribute("aria-selected", "false");
+        button.setAttribute("aria-label", option.status
+          ? `${option.label}. ${option.status}.`
+          : option.label);
+        if (option.controls) button.setAttribute("aria-controls", option.controls);
+        if (option.disabled) {
+          button.disabled = true;
+          button.classList.add("is-disabled");
+          button.setAttribute("aria-disabled", "true");
+        }
+
+        const image = document.createElement("img");
+        image.src = option.iconSrc;
+        image.alt = "";
+        image.decoding = "async";
+        image.setAttribute("aria-hidden", "true");
+
+        const copy = document.createElement("span");
+        const title = document.createElement("strong");
+        title.textContent = option.label;
+        copy.append(title);
+        if (option.status) {
+          const status = document.createElement("small");
+          status.className = "home-menu-option-status";
+          status.textContent = option.status;
+          copy.append(status);
+        }
+        button.append(image, copy);
+        return button;
+      });
+      menu.replaceChildren(...options);
+      panel.append(menu);
+    }
+
+    syncHomeMenuSelection();
+    mountBottomDockMenus();
+    return panel;
+  }
+
+  function openHomeMenu(trigger) {
+    const panel = renderHomeMenu();
+    if (!panel) return;
+    closeGameMenu({ restoreFocus: false });
+    sharedHomeMenuTrigger = trigger || document.activeElement;
+    panel.hidden = false;
+    setBottomDockMenu("home");
+    document.body.classList.add("home-menu-open");
+    window.requestAnimationFrame(() => {
+      const current = document.querySelector(".home-section-switcher [data-home-menu-target].is-current");
+      (current || document.querySelector(".home-section-switcher [data-home-menu-target]:not(:disabled)"))?.focus?.();
+    });
+  }
+
+  function closeHomeMenu({ restoreFocus = true } = {}) {
+    const panel = document.querySelector("#homeMenuPanel");
+    if (!panel || panel.hidden) return;
+    panel.hidden = true;
+    const dock = document.querySelector("[data-caatuu-bottom-dock]");
+    if (dock?.dataset.openMenu === "home") setBottomDockMenu();
+    document.body.classList.remove("home-menu-open");
+    if (restoreFocus && typeof sharedHomeMenuTrigger?.focus === "function") sharedHomeMenuTrigger.focus();
+  }
+
+  function showHomeDestination(target = "home", { restoreMenuFocus = false } = {}) {
+    const homeView = document.querySelector("#view-home");
+    if (!homeView) return false;
+    const normalizedTarget = ["social", "store"].includes(target) ? target : "home";
+    closeHomeMenu({ restoreFocus: false });
+    closeGameMenu({ restoreFocus: false });
+    const settingsPanel = document.querySelector("#settingsPanel");
+    if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
+    document.querySelector("#setupDisplayMenu")?.removeAttribute("open");
+    document.dispatchEvent(new CustomEvent("caatuu:home-request"));
+
+    const homeBase = document.querySelector("#homeBaseView");
+    const homeSocial = document.querySelector("#homeSocialView");
+    const homeStore = document.querySelector("#homeStoreView");
+    if (homeBase) homeBase.hidden = normalizedTarget !== "home";
+    if (homeSocial) homeSocial.hidden = normalizedTarget !== "social";
+    if (homeStore) homeStore.hidden = normalizedTarget !== "store";
+    homeView.dataset.homeDestination = normalizedTarget;
+    homeView.setAttribute("aria-labelledby", normalizedTarget === "store"
+      ? "homeStoreTitle"
+      : normalizedTarget === "social"
+        ? "homeSocialTitle"
+        : "homeTitle");
+    if (normalizedTarget === "store") {
+      const artwork = document.querySelector("#homeStoreArt");
+      if (artwork) artwork.src = pickStoreArtwork();
+    }
+    setPagePresentation(normalizedTarget === "store"
+      ? { kicker: "Caatuu", title: "Store", iconSrc: "/assets/icons/store_icon.png" }
+      : normalizedTarget === "social"
+        ? { kicker: "Caatuu", title: "Social", iconSrc: "/assets/icons/social_icon.png" }
+        : { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" });
+    setBottomNavSection("home");
+    syncHomeMenuSelection(normalizedTarget);
+    if (restoreMenuFocus) {
+      const currentTrigger = document.querySelector('[data-caatuu-bottom-nav] [data-nav-key="home"]');
+      const focusTarget = sharedHomeMenuTrigger?.isConnected === false
+        ? currentTrigger
+        : sharedHomeMenuTrigger || currentTrigger;
+      focusTarget?.focus?.();
+    }
+    return true;
   }
 
   function renderGameMenu() {
@@ -476,6 +709,7 @@
   function openGameMenu(trigger) {
     const panel = renderGameMenu();
     if (!panel) return;
+    closeHomeMenu({ restoreFocus: false });
     sharedGameMenuTrigger = trigger || document.activeElement;
     panel.hidden = false;
     setBottomDockMenu("games");
@@ -520,7 +754,7 @@
       localTarget.click();
       return;
     }
-    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon"].includes(normalizedGameId)) {
+    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(normalizedGameId)) {
       rememberNavigationRequest(`game:${normalizedGameId}`);
       window.location.href = course.routes.games;
       return;
@@ -541,6 +775,7 @@
     if (document.querySelector("#trainPanelAgreementAurora:not([hidden])")) return "agreement-aurora";
     if (document.querySelector("#trainPanelNaturalizationNucleus:not([hidden])")) return "naturalization-nucleus";
     if (document.querySelector("#trainPanelMemoryMoon:not([hidden])")) return "memory-moon";
+    if (document.querySelector("#trainPanelSoundQuasar:not([hidden])")) return "sound-quasar";
     if (document.querySelector("#trainPanelGalaxy:not([hidden])")) return "galaxy";
     const title = document.querySelector(".app-header-title")?.textContent?.trim() || "";
     return gameIdsByTitle.get(title) || "";
@@ -573,17 +808,50 @@
 
   function bindSharedGameNavigation() {
     document.addEventListener("click", (event) => {
-      const homeNavigation = event.target.closest?.('[data-navigation-request="home"], [data-caatuu-bottom-nav] [data-nav-key="home"]');
+      const homeMenuTarget = event.target.closest?.("[data-home-menu-target]");
+      if (homeMenuTarget) {
+        event.preventDefault();
+        if (homeMenuTarget.disabled || homeMenuTarget.getAttribute("aria-disabled") === "true") return;
+        showHomeDestination(homeMenuTarget.dataset.homeMenuTarget, { restoreMenuFocus: true });
+        return;
+      }
+
+      const homeMenuPanel = document.querySelector("#homeMenuPanel");
+      if (event.target === homeMenuPanel) {
+        event.preventDefault();
+        closeHomeMenu();
+        return;
+      }
+
+      const homeNav = event.target.closest?.('[data-caatuu-bottom-nav] [data-nav-key="home"]');
+      if (homeNav && document.querySelector("#view-home")) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu();
+        else openHomeMenu(homeNav);
+        return;
+      }
+
+      const gameMenuLauncher = event.target.closest?.("[data-game-menu-launcher]");
+      if (gameMenuLauncher) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        const openPanel = document.querySelector("#gamesMenuPanel");
+        if (!openPanel || openPanel.hidden) {
+          const gamesNav = document.querySelector('[data-caatuu-bottom-nav] [data-nav-key="games"]');
+          openGameMenu(gamesNav || gameMenuLauncher);
+        }
+        return;
+      }
+
+      const homeNavigation = event.target.closest?.('[data-navigation-request="home"]');
       if (homeNavigation && document.querySelector("#view-home")) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        closeGameMenu({ restoreFocus: false });
-        const settingsPanel = document.querySelector("#settingsPanel");
-        if (settingsPanel && !settingsPanel.hidden) closeSharedSettings({ restoreFocus: false });
-        setBottomDockMenu();
-        document.dispatchEvent(new CustomEvent("caatuu:home-request"));
+        showHomeDestination("home");
         return;
       }
+
       const menuTarget = event.target.closest?.("[data-game-menu-target]");
       if (menuTarget) {
         event.preventDefault();
@@ -615,6 +883,7 @@
       if (gameNav) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu();
         else openGameMenu(gameNav);
         return;
@@ -623,19 +892,49 @@
       if (backpackButton) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
         const dock = mountBottomDockMenus();
         setBottomDockMenu(dock?.dataset.openMenu === "settings" ? "" : "settings");
         return;
       }
       const otherNavigation = event.target.closest?.("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button");
-      if (otherNavigation && gameMenuPanel && !gameMenuPanel.hidden) {
-        closeGameMenu({ restoreFocus: false });
+      if (otherNavigation) {
+        if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
+        if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
       }
     }, true);
     document.addEventListener("keydown", (event) => {
-      const panel = document.querySelector("#gamesMenuPanel");
-      if (event.key === "Escape" && panel && !panel.hidden) closeGameMenu();
+      const homePanel = document.querySelector("#homeMenuPanel");
+      if (event.key === "Escape" && homePanel && !homePanel.hidden) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        closeHomeMenu();
+        return;
+      }
+
+      const homeOption = event.target.closest?.(".home-section-switcher [data-home-menu-target]");
+      if (homeOption && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+        const options = Array.from(document.querySelectorAll(".home-section-switcher [data-home-menu-target]"))
+          .filter((button) => !button.disabled && button.getAttribute("aria-disabled") !== "true");
+        if (!options.length) return;
+        event.preventDefault();
+        const currentIndex = Math.max(0, options.indexOf(homeOption));
+        const nextIndex = event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? options.length - 1
+            : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + options.length) % options.length;
+        options[nextIndex]?.focus?.();
+        return;
+      }
+
+      const gamePanel = document.querySelector("#gamesMenuPanel");
+      if (event.key === "Escape" && gamePanel && !gamePanel.hidden) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        closeGameMenu();
+      }
     });
   }
 
@@ -662,11 +961,24 @@
   }
 
   function readStoredTheme() {
+    let sharedTheme = "";
+    let courseTheme = "";
     try {
-      return normalizeTheme(localStorage.getItem(themeStorageKey));
+      sharedTheme = localStorage.getItem(themeStorageKey);
+      courseTheme = localStorage.getItem(courseThemeStorageKey);
     } catch (error) {
       return "light";
     }
+    const normalizedTheme = sharedTheme === "light" || sharedTheme === "dark"
+      ? sharedTheme
+      : normalizeTheme(courseTheme);
+    try {
+      localStorage.setItem(themeStorageKey, normalizedTheme);
+      localStorage.setItem(courseThemeStorageKey, normalizedTheme);
+    } catch (error) {
+      // Appearance still applies when storage is read-only.
+    }
+    return normalizedTheme;
   }
 
   function normalizeFontSize(fontSize) {
@@ -675,11 +987,24 @@
   }
 
   function readStoredFontSize() {
+    let sharedFontSize = "";
+    let courseFontSize = "";
     try {
-      return normalizeFontSize(localStorage.getItem(fontSizeStorageKey));
+      sharedFontSize = localStorage.getItem(fontSizeStorageKey);
+      courseFontSize = localStorage.getItem(courseFontSizeStorageKey);
     } catch (error) {
       return "largest";
     }
+    const normalizedFontSize = Object.prototype.hasOwnProperty.call(fontSizeOptions, sharedFontSize)
+      ? sharedFontSize
+      : normalizeFontSize(courseFontSize);
+    try {
+      localStorage.setItem(fontSizeStorageKey, normalizedFontSize);
+      localStorage.setItem(courseFontSizeStorageKey, normalizedFontSize);
+    } catch (error) {
+      // Appearance still applies when storage is read-only.
+    }
+    return normalizedFontSize;
   }
 
   function normalizeBackpackView(view) {
@@ -733,6 +1058,7 @@
     if (persist) {
       try {
         localStorage.setItem(fontSizeStorageKey, normalizedFontSize);
+        localStorage.setItem(courseFontSizeStorageKey, normalizedFontSize);
       } catch (error) {
         // Storage can be unavailable in constrained WebView contexts.
       }
@@ -788,7 +1114,11 @@
 
   function readStoredSpeechPace() {
     try {
-      return normalizeStoredSpeechPace(localStorage.getItem(speechPaceStorageKey));
+      const stored = localStorage.getItem(speechPaceStorageKey);
+      if (stored !== null) return normalizeStoredSpeechPace(stored);
+      const legacy = normalizeStoredSpeechPace(localStorage.getItem(legacySpeechPaceStorageKey));
+      if (legacy) localStorage.setItem(speechPaceStorageKey, legacy);
+      return legacy;
     } catch (error) {
       return "";
     }
@@ -825,7 +1155,7 @@
     const preference = normalizeStoredSpeechPace(value);
     try {
       if (preference) localStorage.setItem(speechPaceStorageKey, preference);
-      else localStorage.removeItem(speechPaceStorageKey);
+      else localStorage.setItem(speechPaceStorageKey, "auto");
     } catch (error) {
       // Badge-paced pronunciation remains available when storage is unavailable.
     }
@@ -838,6 +1168,48 @@
 
   function setSpeechPacePreference(value) {
     return writeStoredSpeechPace(value);
+  }
+
+  function getSpeechMuted() {
+    try {
+      return localStorage.getItem(speechMutedStorageKey) === "true";
+    } catch (error) {
+      return speechMutedFallback;
+    }
+  }
+
+  function updateSpeechMuteControls(root = document) {
+    const muted = getSpeechMuted();
+    if (document.documentElement?.dataset) {
+      document.documentElement.dataset.speechMuted = String(muted);
+    }
+    root.querySelectorAll?.("[data-speech-mute-toggle]").forEach((button) => {
+      button.setAttribute("aria-checked", String(muted));
+      button.classList.toggle("is-active", muted);
+      button.setAttribute("aria-label", muted ? "Turn on audio across Caatuu" : "Mute audio across Caatuu");
+      button.title = muted ? "Turn on audio across Caatuu" : "Mute audio across Caatuu";
+      const label = button.querySelector?.("[data-speech-mute-label]");
+      if (label) label.textContent = "Mute all audio";
+    });
+    root.querySelectorAll?.("[data-speech-mute-status]").forEach((status) => {
+      status.textContent = muted ? "Muted across every language" : "Sound on across every language";
+    });
+    return muted;
+  }
+
+  function setSpeechMuted(value) {
+    const muted = Boolean(value);
+    speechMutedFallback = muted;
+    try {
+      localStorage.setItem(speechMutedStorageKey, String(muted));
+    } catch (error) {
+      // The preference remains active only where storage is unavailable.
+    }
+    if (muted) void stopSpeech();
+    window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", {
+      detail: { muted }
+    }));
+    return muted;
   }
 
   function updateSpeechPaceControls(root = document) {
@@ -1106,6 +1478,16 @@
     const voice = String(options.voice ?? getSpeechVoicePreference()).trim().slice(0, 256);
 
     await stopSpeech();
+    if (getSpeechMuted()) {
+      const result = {
+        runtime: "caatuu-shared-speech",
+        outcome: "muted",
+        muted: true,
+        rate
+      };
+      callSpeechCallback(options.onEnd, result);
+      return result;
+    }
     if (speechVoiceBackend() === "android") {
       const speech = window.CaatuuRuntime?.speech;
       if (!speech?.speak) throw new Error(`${targetLanguage.label} pronunciation is not available on this device.`);
@@ -1240,7 +1622,11 @@
     const status = panel?.querySelector("#settingsSpeechVoiceStatus");
     if (status) status.textContent = `Playing a short ${targetLanguage.label} sample...`;
     try {
-      await previewSpeech();
+      const result = await previewSpeech();
+      if (result?.muted) {
+        if (status) status.textContent = "Audio is muted across Caatuu.";
+        return;
+      }
     } catch (error) {
       if (status) status.textContent = `Unable to play the selected ${targetLanguage.label} voice.`;
       return;
@@ -1272,7 +1658,8 @@
       status.textContent = `Playing the selected ${targetLanguage.label} voice at ${pace.label.toLowerCase()} speed...`;
       try {
         const result = await speakText(speechTestText, { rate: pace.rate });
-        if (result?.outcome !== "stopped") status.textContent = `Voice test finished at ${pace.label.toLowerCase()} speed.`;
+        if (result?.muted) status.textContent = "Audio is muted across Caatuu.";
+        else if (result?.outcome !== "stopped") status.textContent = `Voice test finished at ${pace.label.toLowerCase()} speed.`;
       } catch (error) {
         status.textContent = `Unable to play the ${targetLanguage.label} voice on this device.`;
       } finally {
@@ -1383,6 +1770,7 @@
     if (persist) {
       try {
         localStorage.setItem(themeStorageKey, normalizedTheme);
+        localStorage.setItem(courseThemeStorageKey, normalizedTheme);
       } catch (error) {
         // Storage can be unavailable in constrained WebView contexts.
       }
@@ -1407,13 +1795,45 @@
     `).join("");
   }
 
+  function normalizeRewardCount(value) {
+    const count = Number(value);
+    return Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
+  }
+
+  function formatCompactRewardCount(value) {
+    const count = normalizeRewardCount(value);
+    if (count < 1_000) return String(count);
+    if (count >= 999_500_000) return "999M+";
+
+    const divisor = count >= 999_500 ? 1_000_000 : 1_000;
+    const suffix = divisor === 1_000_000 ? "M" : "K";
+    const scaled = count / divisor;
+    const rounded = scaled < 10 ? Math.round(scaled * 10) / 10 : Math.round(scaled);
+    return `${String(rounded).replace(/\.0$/u, "")}${suffix}`;
+  }
+
+  function renderHeaderReward(root, kind, value, singular, plural) {
+    const count = normalizeRewardCount(value);
+    root.querySelectorAll(`[data-caatuu-header-${kind}-count]`).forEach((element) => {
+      element.textContent = formatCompactRewardCount(count);
+    });
+    root.querySelectorAll(`[data-caatuu-header-${kind}]`).forEach((element) => {
+      const label = `${count} ${count === 1 ? singular : plural}`;
+      element.setAttribute("aria-label", label);
+      element.setAttribute("title", label);
+    });
+  }
+
   function renderLearningControls(root = document) {
     if (!learning) return;
     const profile = learning.snapshot();
+    const journey = profile.journey?.summary || profile.summary;
     const rewards = {
-      xp: profile.summary.xp,
-      coins: profile.summary.rounds
+      xp: journey.xp,
+      coins: journey.rounds
     };
+    renderHeaderReward(root, "xp", rewards.xp, "experience point", "experience points");
+    renderHeaderReward(root, "coins", rewards.coins, "coin", "coins");
     root.querySelectorAll("[data-difficulty-level]").forEach((button) => {
       const selected = Number(button.dataset.difficultyLevel) === profile.difficulty;
       button.classList.toggle("is-active", selected);
@@ -1430,15 +1850,202 @@
     const coins = root.querySelector("#courseProgressCoins");
     if (coins) coins.textContent = String(rewards.coins);
     const activities = root.querySelector("#courseProgressActivities");
-    if (activities) activities.textContent = String(profile.summary.activities);
+    if (activities) activities.textContent = String(journey.activities);
     const accuracy = root.querySelector("#courseProgressAccuracy");
-    if (accuracy) accuracy.textContent = profile.summary.accuracy === null ? "—" : `${profile.summary.accuracy}%`;
+    if (accuracy) accuracy.textContent = journey.accuracy === null ? "—" : `${journey.accuracy}%`;
     const summary = root.querySelector("#courseProgressSummary");
     if (summary) {
-      summary.textContent = profile.summary.activities
-        ? `${profile.summary.rounds} completed ${profile.summary.rounds === 1 ? "round" : "rounds"} across ${profile.summary.activeGames} ${profile.summary.activeGames === 1 ? "game" : "games"}.`
+      summary.textContent = journey.activities
+        ? `${journey.rounds} completed ${journey.rounds === 1 ? "round" : "rounds"} across ${journey.activeGames} ${journey.activeGames === 1 ? "game" : "games"}.`
         : "Your learning record will begin with the next activity.";
     }
+    const streak = profile.streak || { currentDays: 0, highestDays: 0, remindersEnabled: false };
+    root.querySelectorAll("[data-caatuu-streak-count]").forEach((element) => {
+      element.textContent = String(streak.currentDays);
+    });
+    root.querySelectorAll("[data-caatuu-streak-best]").forEach((element) => {
+      element.textContent = String(streak.highestDays);
+    });
+    root.querySelectorAll("[data-caatuu-streak]").forEach((element) => {
+      const currentLabel = `${streak.currentDays} ${streak.currentDays === 1 ? "day" : "days"}`;
+      const bestLabel = `${streak.highestDays} ${streak.highestDays === 1 ? "day" : "days"}`;
+      element.setAttribute("aria-label", `${currentLabel} streak. Best: ${bestLabel}.`);
+      element.setAttribute("title", `${currentLabel} streak · Best ${bestLabel}`);
+    });
+    renderStreakReminderControls(root, streak);
+  }
+
+  function streakNotificationSupported() {
+    return window.CaatuuRuntime?.env === "browser"
+      && Boolean(window.Notification)
+      && window.isSecureContext !== false;
+  }
+
+  function streakNotificationPermission() {
+    return streakNotificationSupported() ? String(window.Notification.permission || "default") : "unavailable";
+  }
+
+  function renderStreakReminderControls(root, streak = learning?.snapshot?.().streak) {
+    const permission = streakNotificationPermission();
+    root.querySelectorAll("[data-streak-reminder-toggle]").forEach((button) => {
+      button.hidden = permission === "unavailable";
+      button.disabled = permission === "denied";
+      const enabled = permission === "granted" && streak?.remindersEnabled === true;
+      button.setAttribute("aria-pressed", String(enabled));
+      button.textContent = permission === "denied"
+        ? "Blocked by browser"
+        : enabled
+          ? "Reminders on"
+          : "Enable reminders";
+      button.setAttribute("aria-label", enabled
+        ? "Turn off streak notifications"
+        : "Enable five-hour and three-hour streak notifications");
+    });
+  }
+
+  function streakReminderCopy(reminder) {
+    const days = `${reminder.currentDays}-day`;
+    if (reminder.hours === 3) {
+      return {
+        title: "Caatuu's feathers are tingling!",
+        body: `Only 3 hours remain. Finish one challenge to keep your ${days} streak flying.`
+      };
+    }
+    return {
+      title: "Your streak is packing its bags!",
+      body: `You have 5 hours to finish one challenge and keep your ${days} adventure going.`
+    };
+  }
+
+  function renderStreakReminderNotice(reminder) {
+    let notice = document.getElementById("streakReminderNotice");
+    if (!notice) {
+      notice = document.createElement("aside");
+      notice.id = "streakReminderNotice";
+      notice.className = "streak-reminder-notice";
+      notice.setAttribute("role", "status");
+      notice.setAttribute("aria-live", "polite");
+      document.body.append(notice);
+    }
+    const copy = streakReminderCopy(reminder);
+    const artwork = document.createElement("img");
+    artwork.className = "streak-reminder-artwork";
+    artwork.src = reminder.imagePath;
+    artwork.alt = "";
+    artwork.decoding = "async";
+
+    const text = document.createElement("span");
+    text.className = "streak-reminder-copy";
+    const title = document.createElement("strong");
+    title.textContent = copy.title;
+    const body = document.createElement("span");
+    body.textContent = copy.body;
+    text.append(title, body);
+
+    const dismiss = document.createElement("button");
+    dismiss.type = "button";
+    dismiss.textContent = "Got it";
+    dismiss.setAttribute("aria-label", "Dismiss streak reminder");
+    dismiss.addEventListener("click", () => {
+      notice.hidden = true;
+    });
+    notice.replaceChildren(artwork, text, dismiss);
+    notice.hidden = false;
+  }
+
+  async function showStreakSystemNotification(reminder) {
+    const streak = learning?.snapshot?.().streak;
+    if (
+      streakNotificationPermission() !== "granted"
+      || streak?.remindersEnabled !== true
+    ) return false;
+    const copy = streakReminderCopy(reminder);
+    const options = {
+      body: copy.body,
+      icon: streakIconSrc,
+      badge: streakIconSrc,
+      image: reminder.imagePath,
+      tag: `caatuu-streak-${reminder.expiresAt}-${reminder.hours}`,
+      renotify: false,
+      data: { url: window.location.href }
+    };
+    try {
+      const registration = await window.navigator?.serviceWorker?.ready;
+      if (registration?.showNotification) {
+        await registration.showNotification(copy.title, options);
+        return true;
+      }
+      new window.Notification(copy.title, options);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function nextStreakReminderDelay(streak, now = Date.now()) {
+    const expiry = Date.parse(streak?.expiresAt || "");
+    if (!streak?.currentDays || !Number.isFinite(expiry) || expiry <= now) return null;
+    const delivered = new Set(streak.reminderCycle?.deliveredHours || []);
+    const candidates = [];
+    if (!delivered.has(5)) candidates.push(expiry - (5 * 60 * 60 * 1000));
+    if (!delivered.has(3)) candidates.push(expiry - (3 * 60 * 60 * 1000));
+    candidates.push(expiry);
+    const target = candidates.sort((left, right) => left - right).find((value) => value > now);
+    return target ? Math.max(50, Math.min(2_147_483_647, target - now + 50)) : null;
+  }
+
+  function scheduleStreakReminderCheck({ immediate = false } = {}) {
+    window.clearTimeout(streakReminderTimer);
+    streakReminderTimer = 0;
+    if (!learning) return;
+    const delay = immediate ? 0 : nextStreakReminderDelay(learning.snapshot().streak);
+    if (delay === null) return;
+    streakReminderTimer = window.setTimeout(() => {
+      void runStreakReminderCheck();
+    }, delay);
+  }
+
+  function runStreakReminderCheck() {
+    if (streakReminderCheckPromise) return streakReminderCheckPromise;
+    streakReminderCheckPromise = (async () => {
+      const reminders = learning?.dueStreakReminders?.(new Date()) || [];
+      const mayNotifyInBackground = streakNotificationPermission() === "granted"
+        && learning?.snapshot?.().streak?.remindersEnabled === true;
+      if (document.visibilityState === "visible" || mayNotifyInBackground) {
+        for (const reminder of reminders) {
+          if (document.visibilityState === "visible") renderStreakReminderNotice(reminder);
+          await showStreakSystemNotification(reminder);
+          learning.markStreakReminderDelivered?.(reminder.expiresAt, reminder.hours);
+        }
+      }
+      renderLearningControls(document);
+    })().finally(() => {
+      streakReminderCheckPromise = null;
+      scheduleStreakReminderCheck();
+    });
+    return streakReminderCheckPromise;
+  }
+
+  async function toggleStreakReminders(button) {
+    if (!learning || !streakNotificationSupported()) return;
+    const active = learning.snapshot().streak.remindersEnabled === true
+      && streakNotificationPermission() === "granted";
+    if (active) {
+      learning.setStreakRemindersEnabled(false);
+      renderLearningControls(document);
+      return;
+    }
+    let permission = streakNotificationPermission();
+    if (permission === "default") permission = await window.Notification.requestPermission();
+    learning.setStreakRemindersEnabled(permission === "granted");
+    renderLearningControls(document);
+    const status = document.querySelector("#learningStatus");
+    if (status) {
+      status.textContent = permission === "granted"
+        ? "Streak reminders are on for five and three hours before the deadline."
+        : "Browser notifications stay off. Caatuu will still remind you while the app is open.";
+    }
+    button?.focus?.();
   }
 
   function clampSemanticCompassValue(value) {
@@ -2046,6 +2653,13 @@
 
   function bindLearningControls() {
     document.addEventListener("click", async (event) => {
+      const streakReminderButton = event.target.closest?.("[data-streak-reminder-toggle]");
+      if (streakReminderButton) {
+        event.preventDefault();
+        await toggleStreakReminders(streakReminderButton);
+        return;
+      }
+
       const difficultyButton = event.target.closest?.("[data-difficulty-level]");
       if (difficultyButton) {
         event.preventDefault();
@@ -2081,8 +2695,19 @@
 
     window.addEventListener("caatuu:learning-change", () => {
       renderLearningControls(document);
+      scheduleStreakReminderCheck({ immediate: true });
       document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]")
         .forEach((panel) => updateSpeechPaceControls(panel));
+    });
+
+    window.addEventListener("storage", (event) => {
+      const key = String(event?.key || "");
+      if (
+        key !== learning?.storage?.streakStorageKey
+        && !key.endsWith(".learning.performance.v1")
+      ) return;
+      renderLearningControls(document);
+      scheduleStreakReminderCheck({ immediate: true });
     });
   }
 
@@ -2106,6 +2731,63 @@
       if (!button) return;
       event.preventDefault();
       applyFontSize(button.dataset.fontSizeOption);
+    });
+  }
+
+  function closeWorkspaceDisplayMenu({ restoreFocus = false } = {}) {
+    const menu = document.querySelector("#setupDisplayMenu");
+    if (!menu?.open) return;
+    menu.open = false;
+    if (restoreFocus) menu.querySelector("summary")?.focus();
+  }
+
+  function bindWorkspaceDisplayMenuDismissal() {
+    document.addEventListener("click", (event) => {
+      const menu = document.querySelector("#setupDisplayMenu");
+      if (!menu?.open || menu.contains(event.target)) return;
+      closeWorkspaceDisplayMenu();
+    }, true);
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !document.querySelector("#setupDisplayMenu")?.open) return;
+      event.preventDefault();
+      closeWorkspaceDisplayMenu({ restoreFocus: true });
+    });
+  }
+
+  function bindSpeechPreferences() {
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest?.("[data-speech-mute-toggle]");
+      if (!button) return;
+      event.preventDefault();
+      setSpeechMuted(!getSpeechMuted());
+    });
+
+    window.addEventListener("caatuu:speech-pace-change", () => {
+      document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]")
+        .forEach((panel) => updateSpeechPaceControls(panel));
+    });
+    window.addEventListener("caatuu:speech-mute-change", () => {
+      updateSpeechMuteControls(document);
+    });
+    window.addEventListener("storage", (event) => {
+      const key = String(event?.key || "");
+      if (key === speechPaceStorageKey) {
+        void stopSpeech();
+        window.dispatchEvent(new CustomEvent("caatuu:speech-pace-change", {
+          detail: {
+            preference: getSpeechPacePreference(),
+            pace: resolveSpeechPace()
+          }
+        }));
+        return;
+      }
+      if (key === speechMutedStorageKey) {
+        const muted = getSpeechMuted();
+        if (muted) void stopSpeech();
+        window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", {
+          detail: { muted }
+        }));
+      }
     });
   }
 
@@ -2177,6 +2859,10 @@
           : item.href;
       if (item.key === "home") element.dataset.navigationRequest = "home";
     }
+    if (item.key === "home" && useViewButton) {
+      element.setAttribute("aria-controls", "homeMenu");
+      element.setAttribute("aria-expanded", "false");
+    }
 
     appendNavContent(element, item);
     return element;
@@ -2195,6 +2881,7 @@
     // A stored game is useful while that game is active, but it must not make
     // Home or the galaxy look as if a planet is currently selected.
     syncGameNavigationIndicators(currentGameId());
+    renderHomeMenu();
     renderGameMenu();
   }
 
@@ -2240,7 +2927,10 @@
       routePrefix: course.routePrefix,
       entryPath: course.entryPath,
       sourceLanguage: course.sourceLanguage,
-      targetLanguage
+      targetLanguage,
+      storage: {
+        learningPerformance: course.storage?.learningPerformance
+      }
     };
   }
 
@@ -2254,7 +2944,9 @@
       return ["active", "development"].includes(record?.status)
         && String(record?.id || "").trim()
         && String(record?.sourceLanguage?.id || "").trim()
+        && String(record?.sourceLanguage?.locale || "").trim()
         && String(record?.targetLanguage?.id || "").trim()
+        && String(record?.targetLanguage?.locale || "").trim()
         && entryPath.startsWith("/")
         && !entryPath.startsWith("//");
     });
@@ -2264,28 +2956,117 @@
     return records;
   }
 
+  function selectorLanguageKey(language) {
+    return String(language?.locale || language?.id || "")
+      .trim()
+      .replace(/_/gu, "-")
+      .toLocaleLowerCase("en-US");
+  }
+
   function availableSourceLanguageSelectorRecords() {
     const records = courseSelectorRecords();
     const currentRecord = records.find((record) => record.id === course.id);
+    const currentTargetKey = selectorLanguageKey(course.targetLanguage);
     const ordered = currentRecord
       ? [currentRecord, ...records.filter((record) => record !== currentRecord)]
       : records;
     const sources = new Map();
     for (const record of ordered) {
-      const sourceId = String(record.sourceLanguage?.id || "").trim();
-      if (!sourceId || sources.has(sourceId)) continue;
-      sources.set(sourceId, {
-        id: sourceId,
+      const sourceKey = selectorLanguageKey(record.sourceLanguage);
+      if (!sourceKey) continue;
+      const candidate = {
+        id: sourceKey,
+        courseId: record.id,
         entryPath: record.entryPath,
-        language: record.sourceLanguage
-      });
+        language: record.sourceLanguage,
+        targetLanguageKey: selectorLanguageKey(record.targetLanguage)
+      };
+      const existing = sources.get(sourceKey);
+      const candidateKeepsTarget = candidate.targetLanguageKey === currentTargetKey;
+      const existingKeepsTarget = existing?.targetLanguageKey === currentTargetKey;
+      if (!existing || (candidateKeepsTarget && !existingKeepsTarget)) {
+        sources.set(sourceKey, candidate);
+      }
     }
     return Array.from(sources.values());
   }
 
-  function availableCourseSelectorRecords() {
-    const sourceId = String(course.sourceLanguage?.id || "").trim();
-    return courseSelectorRecords().filter((record) => record.sourceLanguage.id === sourceId);
+  function availableCourseSelectorRecords(sourceId = selectorLanguageKey(course.sourceLanguage)) {
+    const normalizedSourceId = String(sourceId || "").trim().toLocaleLowerCase("en-US");
+    return courseSelectorRecords().filter(
+      (record) => selectorLanguageKey(record.sourceLanguage) === normalizedSourceId
+    );
+  }
+
+  function selectorCourseSummaries() {
+    try {
+      if (typeof learning?.courseSummaries === "function") {
+        const summaries = learning.courseSummaries();
+        if (Array.isArray(summaries)) return summaries;
+      }
+      if (typeof learning?.snapshot === "function") {
+        const summaries = learning.snapshot()?.journey?.courses;
+        if (Array.isArray(summaries)) return summaries;
+      }
+    } catch (error) {
+      // Progress is helpful context, but it must never block course selection.
+    }
+    return [];
+  }
+
+  function normalizeSelectorEffort(summary, hasProgress = false) {
+    const normalized = summary && typeof summary === "object" ? summary : {};
+    const xp = normalizeRewardCount(normalized.xp);
+    const rounds = normalizeRewardCount(normalized.rounds);
+    const attempts = normalizeRewardCount(normalized.attempts);
+    const activities = normalizeRewardCount(normalized.activities);
+    return {
+      xp,
+      rounds,
+      hasProgress: Boolean(hasProgress || xp || rounds || attempts || activities)
+    };
+  }
+
+  function courseSelectorEffort(record, summaries = selectorCourseSummaries()) {
+    const matched = summaries.find((summary) => String(summary?.id || "") === String(record?.id || ""));
+    if (matched) return normalizeSelectorEffort(matched.summary, matched.hasProgress);
+    if (record?.id === course.id) {
+      try {
+        return normalizeSelectorEffort(learning?.snapshot?.()?.summary);
+      } catch (error) {
+        return normalizeSelectorEffort(null);
+      }
+    }
+    return normalizeSelectorEffort(null);
+  }
+
+  function baseLanguageSelectorEffort(sourceId, summaries = selectorCourseSummaries()) {
+    return availableCourseSelectorRecords(sourceId).reduce((total, record) => {
+      const effort = courseSelectorEffort(record, summaries);
+      total.xp += effort.xp;
+      total.rounds += effort.rounds;
+      total.hasProgress ||= effort.hasProgress;
+      return total;
+    }, { xp: 0, rounds: 0, hasProgress: false });
+  }
+
+  function selectorEffortLabels(effort) {
+    if (!effort?.hasProgress) {
+      return {
+        visible: "Not started",
+        exact: "No learning effort recorded yet"
+      };
+    }
+    const xp = normalizeRewardCount(effort.xp);
+    const rounds = normalizeRewardCount(effort.rounds);
+    return {
+      visible: `${formatCompactRewardCount(xp)} XP · ${formatCompactRewardCount(rounds)} ${rounds === 1 ? "round" : "rounds"}`,
+      exact: `${xp} experience ${xp === 1 ? "point" : "points"} and ${rounds} completed ${rounds === 1 ? "round" : "rounds"}`
+    };
+  }
+
+  function courseSelectorAvailable(record) {
+    return !isNativeShell() || isCourseBundledInNativeShell(record?.id);
   }
 
   function languageSelectorOptions(menu) {
@@ -2296,18 +3077,21 @@
 
   function closeLanguageSelectorHost(host, { restoreFocus = false } = {}) {
     if (!host) return;
-    const trigger = host.querySelector("[data-caatuu-language-switch]");
+    const trigger = host.caatuuLanguageSelectorOpener
+      || host.querySelector("[data-caatuu-language-switch]");
     const menu = host.querySelector("[data-language-selector-menu]");
-    if (!trigger || !menu) return;
+    if (!menu) return;
     menu.hidden = true;
-    trigger.setAttribute("aria-expanded", "false");
+    host.querySelectorAll("[data-language-selector-opener]")
+      .forEach((opener) => opener.setAttribute("aria-expanded", "false"));
     host.classList.remove("is-open");
     if (activeLanguageSelectorHost === host) activeLanguageSelectorHost = null;
-    if (restoreFocus) trigger.focus();
+    if (restoreFocus) trigger?.focus();
+    host.caatuuLanguageSelectorOpener = null;
   }
 
-  function setLanguageSelectorOpen(host, open, { focusIndex = null } = {}) {
-    const trigger = host?.querySelector("[data-caatuu-language-switch]");
+  function setLanguageSelectorOpen(host, open, { focusIndex = null, opener = null } = {}) {
+    const trigger = opener || host?.querySelector("[data-caatuu-language-switch]");
     const menu = host?.querySelector("[data-language-selector-menu]");
     if (!trigger || !menu) return;
     if (!open) {
@@ -2317,8 +3101,12 @@
     if (activeLanguageSelectorHost && activeLanguageSelectorHost !== host) {
       closeLanguageSelectorHost(activeLanguageSelectorHost);
     }
+    if (typeof menu.caatuuResetDraft === "function") menu.caatuuResetDraft();
+    host.caatuuLanguageSelectorOpener = trigger;
     activeLanguageSelectorHost = host;
     menu.hidden = false;
+    host.querySelectorAll("[data-language-selector-opener]")
+      .forEach((candidate) => candidate.setAttribute("aria-expanded", "false"));
     trigger.setAttribute("aria-expanded", "true");
     host.classList.add("is-open");
     if (Number.isInteger(focusIndex)) {
@@ -2345,7 +3133,34 @@
     });
   }
 
-  function populateLanguageSelectorOption(option, language, statusLabels = []) {
+  function createLanguageFlag(language, extraClass = "") {
+    const flag = document.createElement("img");
+    flag.className = ["caatuu-language-flag", language?.flagClass, extraClass].filter(Boolean).join(" ");
+    flag.src = language?.flagSrc || "";
+    flag.alt = "";
+    flag.width = 30;
+    flag.height = 20;
+    flag.decoding = "async";
+    return flag;
+  }
+
+  function createCurrentLanguageFlag() {
+    return createLanguageFlag(targetLanguage);
+  }
+
+  function renderLanguageIndicator(element) {
+    if (!element || element.dataset.caatuuLanguageIndicatorRendered === "true") return;
+    element.replaceChildren(createCurrentLanguageFlag());
+    element.setAttribute("role", "img");
+    element.setAttribute(
+      "aria-label",
+      `Current learning language: ${targetLanguage.label}. Change languages from Home.`
+    );
+    element.setAttribute("title", `${targetLanguage.label} course · Change languages from Home`);
+    element.dataset.caatuuLanguageIndicatorRendered = "true";
+  }
+
+  function populateLanguageSelectorOption(option, language, { statusLabels = [], effort = null } = {}) {
     const flag = document.createElement("img");
     flag.className = ["language-selector-option-flag", "caatuu-language-flag", language.flagClass]
       .filter(Boolean)
@@ -2368,6 +3183,16 @@
       translatedLabel.textContent = language.label;
       copy.append(translatedLabel);
     }
+    if (effort) {
+      const effortLabels = selectorEffortLabels(effort);
+      const effortLabel = document.createElement("small");
+      effortLabel.className = "language-selector-effort";
+      effortLabel.textContent = effortLabels.visible;
+      effortLabel.setAttribute("title", effortLabels.exact);
+      copy.append(effortLabel);
+      option.dataset.languageEffort = effortLabels.visible;
+      option.dataset.languageEffortExact = effortLabels.exact;
+    }
 
     const meta = document.createElement("span");
     meta.className = "language-selector-option-meta";
@@ -2385,184 +3210,539 @@
     option.append(flag, copy, meta);
   }
 
-  function createBaseLanguageSelectorOption(record, host) {
-    const option = document.createElement("a");
+  function createBaseLanguageSelectorOption(record, state, summaries, onSelect) {
+    const option = document.createElement("button");
+    option.type = "button";
     option.className = "language-selector-option";
     option.dataset.languageSelectorOption = "";
     option.dataset.languageBaseOption = record.id;
-    option.setAttribute("role", "menuitemradio");
-    const current = record.id === course.sourceLanguage.id;
-    option.setAttribute("aria-checked", String(current));
+    option.setAttribute("role", "radio");
+    const selected = record.id === state.sourceId;
+    option.setAttribute("aria-checked", String(selected));
 
+    const compatibleCourses = availableCourseSelectorRecords(record.id);
     const unavailableInNativeShell = isNativeShell()
-      && !isCourseBundledInNativeShell(record.courseId || course.id);
+      && !compatibleCourses.some((candidate) => courseSelectorAvailable(candidate));
     if (unavailableInNativeShell) {
       option.setAttribute("aria-disabled", "true");
+      option.disabled = true;
       option.tabIndex = -1;
-    } else {
-      option.href = current ? course.routes.home : record.entryPath;
     }
 
-    populateLanguageSelectorOption(
-      option,
-      record.language,
-      unavailableInNativeShell ? ["Browser only"] : []
+    const effort = baseLanguageSelectorEffort(record.id, summaries);
+    const statusLabels = [];
+    const current = record.id === selectorLanguageKey(course.sourceLanguage);
+    if (current) statusLabels.push("Current");
+    else if (selected) statusLabels.push("Selected");
+    if (unavailableInNativeShell) statusLabels.push("Browser only");
+    populateLanguageSelectorOption(option, record.language, { statusLabels, effort });
+    const effortLabels = selectorEffortLabels(effort);
+    option.setAttribute(
+      "aria-label",
+      `${record.language.label || record.language.nativeLabel}. ${effortLabels.exact}.${statusLabels.length ? ` ${statusLabels.join(". ")}.` : ""}`
     );
     option.addEventListener("click", (event) => {
-      if (current || unavailableInNativeShell) {
-        event.preventDefault();
-        closeLanguageSelectorHost(host, { restoreFocus: true });
-        return;
-      }
-      closeLanguageSelectorHost(host);
+      event.preventDefault();
+      event.stopPropagation();
+      if (unavailableInNativeShell) return;
+      onSelect(record.id);
     });
     return option;
   }
 
-  function createLanguageSelectorOption(record, host) {
-    const option = document.createElement("a");
+  function createLanguageSelectorOption(record, state, summaries, onSelect) {
+    const option = document.createElement("button");
+    option.type = "button";
     option.className = "language-selector-option";
     option.dataset.languageSelectorOption = "";
     option.dataset.languageCourseOption = record.id;
     option.dataset.courseStatus = record.status;
-    option.setAttribute("role", "menuitemradio");
+    option.setAttribute("role", "radio");
+    const selected = record.id === state.courseId;
     const current = record.id === course.id;
-    option.setAttribute("aria-checked", String(current));
+    option.setAttribute("aria-checked", String(selected));
     if (current) option.setAttribute("aria-current", "page");
 
-    const unavailableInNativeShell = isNativeShell()
-      && !isCourseBundledInNativeShell(record.id);
+    const unavailableInNativeShell = !courseSelectorAvailable(record);
     if (unavailableInNativeShell) {
       option.setAttribute("aria-disabled", "true");
+      option.disabled = true;
       option.tabIndex = -1;
-    } else {
-      option.href = current ? course.routes.home : record.entryPath;
     }
-    if (record.status === "development") option.rel = "nofollow";
 
     const statusLabels = [];
+    if (current) statusLabels.push("Current");
+    else if (selected) statusLabels.push("Selected");
     if (record.status === "development") {
       statusLabels.push("Preview");
     }
     if (unavailableInNativeShell) {
       statusLabels.push("Browser only");
     }
-    populateLanguageSelectorOption(option, record.targetLanguage, statusLabels);
+    const effort = courseSelectorEffort(record, summaries);
+    populateLanguageSelectorOption(option, record.targetLanguage, { statusLabels, effort });
+    const effortLabels = selectorEffortLabels(effort);
+    option.setAttribute(
+      "aria-label",
+      `${record.targetLanguage.label || record.targetLanguage.nativeLabel}. ${effortLabels.exact}.${statusLabels.length ? ` ${statusLabels.join(". ")}.` : ""}`
+    );
     option.addEventListener("click", (event) => {
-      if (current || unavailableInNativeShell) {
-        event.preventDefault();
-        closeLanguageSelectorHost(host, { restoreFocus: true });
-        return;
-      }
-      closeLanguageSelectorHost(host);
+      event.preventDefault();
+      event.stopPropagation();
+      if (unavailableInNativeShell) return;
+      onSelect(record.id);
     });
     return option;
   }
 
   function createLanguageSelectorMenu(host, trigger) {
     const menu = document.createElement("div");
-    menu.className = "language-selector-menu";
+    menu.className = "language-selector-menu home-language-selector-menu";
     menu.dataset.languageSelectorMenu = "";
     menu.id = "caatuuLanguageSelectorMenu" + (++languageSelectorSequence);
-    menu.setAttribute("role", "menu");
-    menu.setAttribute("aria-label", "Choose learning languages");
+    menu.setAttribute("role", "dialog");
+    menu.setAttribute("aria-modal", "false");
     menu.hidden = true;
 
-    const sourceKicker = document.createElement("p");
-    sourceKicker.className = "language-selector-kicker";
-    sourceKicker.id = menu.id + "SourceLabel";
-    sourceKicker.textContent = "Base language";
+    const form = document.createElement("form");
+    form.className = "language-selector-form";
 
+    const heading = document.createElement("h3");
+    heading.className = "language-selector-form-title";
+    heading.id = menu.id + "Title";
+    heading.textContent = "Choose your languages";
+    menu.setAttribute("aria-labelledby", heading.id);
+
+    const introduction = document.createElement("p");
+    introduction.className = "language-selector-form-intro";
+    introduction.textContent = "Your course progress stays saved when you switch.";
+
+    const choiceStage = document.createElement("div");
+    choiceStage.className = "language-selector-choice-stage";
+    choiceStage.dataset.languageSelectorChoiceStage = "";
+
+    const sourceQuestion = document.createElement("fieldset");
+    sourceQuestion.className = "language-selector-question";
+    const sourceLegend = document.createElement("legend");
+    sourceLegend.className = "language-selector-question-title";
+    sourceLegend.id = menu.id + "SourceLabel";
+    const sourceStep = document.createElement("span");
+    sourceStep.setAttribute("aria-hidden", "true");
+    sourceStep.textContent = "1";
+    sourceLegend.append(sourceStep, " What language do you use?");
     const sourceOptions = document.createElement("div");
     sourceOptions.className = "language-selector-options";
-    sourceOptions.setAttribute("role", "group");
-    sourceOptions.setAttribute("aria-labelledby", sourceKicker.id);
-    for (const record of availableSourceLanguageSelectorRecords()) {
-      sourceOptions.append(createBaseLanguageSelectorOption(record, host));
-    }
+    sourceOptions.dataset.languageSourceOptions = "";
+    sourceOptions.setAttribute("role", "radiogroup");
+    sourceOptions.setAttribute("aria-labelledby", sourceLegend.id);
+    sourceQuestion.append(sourceLegend, sourceOptions);
 
-    const targetKicker = document.createElement("p");
-    targetKicker.className = "language-selector-kicker";
-    targetKicker.id = menu.id + "TargetLabel";
-    targetKicker.textContent = "Target language";
+    const targetQuestion = document.createElement("fieldset");
+    targetQuestion.className = "language-selector-question";
+    const targetLegend = document.createElement("legend");
+    targetLegend.className = "language-selector-question-title";
+    targetLegend.id = menu.id + "TargetLabel";
+    const targetStep = document.createElement("span");
+    targetStep.setAttribute("aria-hidden", "true");
+    targetStep.textContent = "2";
+    targetLegend.append(targetStep, " What language do you want to learn?");
+    const targetOptions = document.createElement("div");
+    targetOptions.className = "language-selector-options";
+    targetOptions.dataset.languageTargetOptions = "";
+    targetOptions.setAttribute("role", "radiogroup");
+    targetOptions.setAttribute("aria-labelledby", targetLegend.id);
+    targetQuestion.append(targetLegend, targetOptions);
 
-    const options = document.createElement("div");
-    options.className = "language-selector-options";
-    options.setAttribute("role", "group");
-    options.setAttribute("aria-labelledby", targetKicker.id);
-    for (const record of availableCourseSelectorRecords()) {
-      options.append(createLanguageSelectorOption(record, host));
-    }
+    const selectionStatus = document.createElement("p");
+    selectionStatus.className = "language-selector-selection-status";
+    selectionStatus.dataset.languageSelectionStatus = "";
+    selectionStatus.setAttribute("aria-live", "polite");
 
-    menu.append(sourceKicker, sourceOptions, targetKicker, options);
+    const choiceActions = document.createElement("div");
+    choiceActions.className = "language-selector-form-actions";
+    const cancel = document.createElement("button");
+    cancel.className = "language-selector-action is-secondary";
+    cancel.type = "button";
+    cancel.dataset.languageSelectorCancel = "";
+    cancel.textContent = "Cancel";
+    const review = document.createElement("button");
+    review.className = "language-selector-action is-primary";
+    review.type = "button";
+    review.dataset.languageSelectorReview = "";
+    review.textContent = "Continue";
+    choiceActions.append(cancel, review);
+    choiceStage.append(sourceQuestion, targetQuestion, selectionStatus, choiceActions);
+
+    const reviewStage = document.createElement("section");
+    reviewStage.className = "language-selector-review";
+    reviewStage.dataset.languageSelectorReviewStage = "";
+    reviewStage.hidden = true;
+    const reviewKicker = document.createElement("p");
+    reviewKicker.className = "language-selector-kicker";
+    reviewKicker.textContent = "Confirm course change";
+    const reviewHeading = document.createElement("div");
+    reviewHeading.className = "language-selector-review-heading";
+    const reviewTitle = document.createElement("h4");
+    reviewTitle.dataset.languageSelectorReviewTitle = "";
+    reviewHeading.append(reviewTitle);
+    const reviewCopy = document.createElement("p");
+    reviewCopy.dataset.languageSelectorReviewCopy = "";
+    const reviewStatus = document.createElement("p");
+    reviewStatus.className = "language-selector-review-status";
+    reviewStatus.dataset.languageSelectorReviewStatus = "";
+    const reviewInfo = document.createElement("span");
+    reviewInfo.className = "language-selector-review-info";
+    reviewInfo.dataset.languageSelectorReviewInfo = "";
+    reviewInfo.setAttribute("aria-hidden", "true");
+    reviewInfo.textContent = "i";
+    const reviewStatusCopy = document.createElement("span");
+    reviewStatus.append(reviewInfo, reviewStatusCopy);
+    const reviewActions = document.createElement("div");
+    reviewActions.className = "language-selector-form-actions";
+    const back = document.createElement("button");
+    back.className = "language-selector-action is-secondary";
+    back.type = "button";
+    back.dataset.languageSelectorBack = "";
+    back.textContent = "Back";
+    const confirm = document.createElement("button");
+    confirm.className = "language-selector-action is-primary";
+    confirm.type = "button";
+    confirm.dataset.languageSelectorConfirm = "";
+    confirm.textContent = "Confirm";
+    reviewActions.append(back, confirm);
+    reviewStage.append(reviewKicker, reviewHeading, reviewCopy, reviewStatus, reviewActions);
+
+    form.append(heading, introduction, choiceStage, reviewStage);
+    menu.append(form);
     trigger.setAttribute("aria-controls", menu.id);
     trigger.setAttribute("aria-expanded", "false");
+
+    const state = {
+      sourceId: selectorLanguageKey(course.sourceLanguage),
+      courseId: String(course.id || "")
+    };
+
+    function selectedCourseRecord() {
+      return courseSelectorRecords().find((record) => record.id === state.courseId) || null;
+    }
+
+    function renderDraft() {
+      const summaries = selectorCourseSummaries();
+      sourceOptions.replaceChildren(...availableSourceLanguageSelectorRecords().map((record) => (
+        createBaseLanguageSelectorOption(record, state, summaries, (sourceId) => {
+          const draftTargetKey = selectorLanguageKey(selectedCourseRecord()?.targetLanguage);
+          state.sourceId = sourceId;
+          const compatible = availableCourseSelectorRecords(sourceId).filter(courseSelectorAvailable);
+          if (!compatible.some((record) => record.id === state.courseId)) {
+            const sameTarget = compatible.find(
+              (record) => selectorLanguageKey(record.targetLanguage) === draftTargetKey
+            );
+            state.courseId = (sameTarget || compatible[0])?.id || "";
+          }
+          renderDraft();
+        })
+      )));
+
+      targetOptions.replaceChildren(...availableCourseSelectorRecords(state.sourceId).map((record) => (
+        createLanguageSelectorOption(record, state, summaries, (courseId) => {
+          state.courseId = courseId;
+          renderDraft();
+        })
+      )));
+
+      const selected = selectedCourseRecord();
+      const changed = Boolean(selected && selected.id !== course.id);
+      review.disabled = !changed;
+      review.setAttribute("aria-disabled", String(!changed));
+      selectionStatus.textContent = changed
+        ? `${selected.targetLanguage.label} is selected. Continue to confirm.`
+        : `${targetLanguage.label} is your current learning language.`;
+    }
+
+    function showChoices({ focusReview = false } = {}) {
+      reviewStage.hidden = true;
+      choiceStage.hidden = false;
+      menu.classList.remove("is-reviewing");
+      if (focusReview) review.focus();
+    }
+
+    function showReview() {
+      const selected = selectedCourseRecord();
+      if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
+      const targetName = selected.targetLanguage.label || selected.targetLanguage.nativeLabel;
+      reviewTitle.textContent = `Switch to ${targetName}?`;
+      const reviewFlag = createLanguageFlag(selected.targetLanguage, "language-selector-review-flag");
+      reviewFlag.dataset.languageSelectorReviewFlag = "";
+      reviewHeading.replaceChildren(reviewTitle, reviewFlag);
+      reviewCopy.textContent = `Your ${targetLanguage.label} course progress will remain saved.`;
+      reviewStatusCopy.textContent = `XP, coins, and streak remain shared across languages. Only the course changes. You can switch back to ${targetLanguage.label} at any time.`;
+      choiceStage.hidden = true;
+      reviewStage.hidden = false;
+      menu.classList.add("is-reviewing");
+      confirm.focus();
+    }
+
+    menu.caatuuResetDraft = () => {
+      state.sourceId = selectorLanguageKey(course.sourceLanguage);
+      state.courseId = String(course.id || "");
+      renderDraft();
+      showChoices();
+    };
+
+    menu.caatuuReviewCourse = (courseId) => {
+      const selected = courseSelectorRecords().find((record) => record.id === courseId);
+      if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return false;
+      state.sourceId = selectorLanguageKey(selected.sourceLanguage);
+      state.courseId = selected.id;
+      renderDraft();
+      showReview();
+      return true;
+    };
+
+    cancel.addEventListener("click", () => closeLanguageSelectorHost(host, { restoreFocus: true }));
+    review.addEventListener("click", showReview);
+    back.addEventListener("click", () => showChoices({ focusReview: true }));
+    confirm.addEventListener("click", () => {
+      const selected = selectedCourseRecord();
+      if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
+      closeLanguageSelectorHost(host);
+      if (typeof window.location.assign === "function") window.location.assign(selected.entryPath);
+      else window.location.href = selected.entryPath;
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (reviewStage.hidden) showReview();
+    });
+
+    menu.caatuuResetDraft();
     menu.addEventListener("keydown", (event) => {
       const entries = languageSelectorOptions(menu);
       if (!entries.length) return;
       const currentIndex = entries.indexOf(document.activeElement);
       let nextIndex = null;
-      if (event.key === "ArrowDown") nextIndex = currentIndex < 0 ? 0 : currentIndex + 1;
-      if (event.key === "ArrowUp") nextIndex = currentIndex < 0 ? entries.length - 1 : currentIndex - 1;
-      if (event.key === "Home") nextIndex = 0;
-      if (event.key === "End") nextIndex = entries.length - 1;
+      if (currentIndex >= 0 && event.key === "ArrowDown") nextIndex = currentIndex + 1;
+      if (currentIndex >= 0 && event.key === "ArrowUp") nextIndex = currentIndex - 1;
+      if (currentIndex >= 0 && event.key === "Home") nextIndex = 0;
+      if (currentIndex >= 0 && event.key === "End") nextIndex = entries.length - 1;
       if (nextIndex !== null) {
         event.preventDefault();
         entries[(nextIndex + entries.length) % entries.length].focus();
       } else if (event.key === "Escape") {
         event.preventDefault();
         closeLanguageSelectorHost(host, { restoreFocus: true });
-      } else if (event.key === "Tab") {
-        window.setTimeout(() => closeLanguageSelectorHost(host), 0);
       }
     });
     return menu;
   }
 
+  function createHomeLanguagePair(record) {
+    const flags = document.createElement("span");
+    flags.className = "home-language-pair";
+    flags.setAttribute("aria-hidden", "true");
+    const sourceFlag = createLanguageFlag(record.sourceLanguage, "home-language-pair-flag");
+    const routeArrow = document.createElement("span");
+    routeArrow.className = "home-language-pair-arrow";
+    routeArrow.textContent = "→";
+    const targetFlag = createLanguageFlag(record.targetLanguage, "home-language-pair-flag");
+    flags.append(sourceFlag, routeArrow, targetFlag);
+    return flags;
+  }
+
+  function createHomeCurrentCourse() {
+    const record = currentCourseSelectorRecord();
+    const effortLabels = selectorEffortLabels(
+      courseSelectorEffort(record, selectorCourseSummaries())
+    );
+    const current = document.createElement("div");
+    current.className = "home-language-current-course";
+    current.dataset.homeLanguageCurrentCourse = record.id;
+    current.setAttribute("role", "group");
+    current.setAttribute(
+      "aria-label",
+      `Current course: ${record.sourceLanguage.label} to ${record.targetLanguage.label}. ${effortLabels.exact}.`
+    );
+
+    const copy = document.createElement("span");
+    copy.className = "home-language-switch-copy";
+    const kicker = document.createElement("span");
+    kicker.className = "home-language-switch-kicker";
+    kicker.textContent = "Current course";
+    const routeLabel = document.createElement("strong");
+    const sourceName = record.sourceLanguage.nativeLabel || record.sourceLanguage.label;
+    const targetName = record.targetLanguage.nativeLabel || record.targetLanguage.label;
+    routeLabel.textContent = `${sourceName} → ${targetName}`;
+    const effort = document.createElement("small");
+    effort.className = "home-language-switch-effort";
+    effort.textContent = effortLabels.visible;
+    effort.setAttribute("title", effortLabels.exact);
+    copy.append(kicker, routeLabel, effort);
+
+    const status = document.createElement("span");
+    status.className = "home-language-current-status";
+    status.textContent = "Current";
+    current.append(createHomeLanguagePair(record), copy, status);
+    current.dataset.languageEffort = effortLabels.visible;
+    current.dataset.languageEffortExact = effortLabels.exact;
+    return current;
+  }
+
+  function createHomeLanguageQuickSwitches(host, menu, headingId) {
+    const summaries = selectorCourseSummaries();
+    const engaged = courseSelectorRecords()
+      .filter((record) => record.id !== course.id)
+      .map((record) => ({ record, effort: courseSelectorEffort(record, summaries) }))
+      .filter(({ effort }) => effort.hasProgress);
+    if (!engaged.length) return null;
+
+    const list = document.createElement("nav");
+    list.className = "home-language-quick-switches";
+    list.dataset.homeLanguageQuickSwitches = "";
+    list.setAttribute("aria-labelledby", headingId);
+    for (const { record, effort } of engaged) {
+      const available = courseSelectorAvailable(record);
+      const effortLabels = selectorEffortLabels(effort);
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "home-language-quick-switch";
+      button.dataset.homeLanguageQuickCourse = record.id;
+      button.dataset.languageSelectorOpener = "";
+      button.setAttribute("aria-haspopup", "dialog");
+      button.setAttribute("aria-controls", menu.id);
+      button.setAttribute("aria-expanded", "false");
+      if (!available) {
+        button.disabled = true;
+        button.setAttribute("aria-disabled", "true");
+      }
+
+      const copy = document.createElement("span");
+      copy.className = "home-language-switch-copy";
+      const kicker = document.createElement("span");
+      kicker.className = "home-language-switch-kicker";
+      kicker.textContent = record.status === "development" ? "Preview course" : "Your course";
+      const routeLabel = document.createElement("strong");
+      const sourceName = record.sourceLanguage.nativeLabel || record.sourceLanguage.label;
+      const targetName = record.targetLanguage.nativeLabel || record.targetLanguage.label;
+      routeLabel.textContent = `${sourceName} → ${targetName}`;
+      const effortLabel = document.createElement("small");
+      effortLabel.className = "home-language-switch-effort";
+      effortLabel.textContent = effortLabels.visible;
+      effortLabel.setAttribute("title", effortLabels.exact);
+      copy.append(kicker, routeLabel, effortLabel);
+
+      const action = document.createElement("span");
+      action.className = "home-language-switch-action";
+      const actionLabel = document.createElement("span");
+      actionLabel.textContent = available ? "Switch" : "Browser only";
+      const actionArrow = document.createElement("span");
+      actionArrow.className = "home-language-switch-action-arrow";
+      actionArrow.setAttribute("aria-hidden", "true");
+      actionArrow.textContent = "›";
+      action.append(actionLabel, actionArrow);
+      button.append(createHomeLanguagePair(record), copy, action);
+      button.dataset.languageEffort = effortLabels.visible;
+      button.dataset.languageEffortExact = effortLabels.exact;
+      button.setAttribute(
+        "aria-label",
+        `${available ? "Switch to" : "Unavailable course"}: ${record.sourceLanguage.label} to ${record.targetLanguage.label}. ${effortLabels.exact}.${record.status === "development" ? " Preview." : ""}${available ? " Continue to confirm." : " Browser only."}`
+      );
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!available) return;
+        setLanguageSelectorOpen(host, true, { opener: button });
+        menu.caatuuReviewCourse?.(record.id);
+      });
+      list.append(button);
+    }
+    return list;
+  }
+
+  function createHomeLanguageOngoingCourses(host, menu, trigger) {
+    const section = document.createElement("section");
+    section.className = "home-language-ongoing-courses";
+    section.dataset.homeLanguageOngoingCourses = "";
+    const header = document.createElement("header");
+    header.className = "home-language-ongoing-head";
+    const heading = document.createElement("h3");
+    heading.id = menu.id + "OngoingTitle";
+    heading.textContent = "Ongoing courses";
+
+    trigger.className = "home-language-manage";
+    const manageIcon = document.createElement("span");
+    manageIcon.className = "home-language-manage-icon";
+    manageIcon.setAttribute("aria-hidden", "true");
+    manageIcon.textContent = "+";
+    const manageLabel = document.createElement("span");
+    manageLabel.textContent = "New course";
+    trigger.replaceChildren(manageIcon, manageLabel);
+    trigger.setAttribute("aria-label", "Start a new language course");
+    trigger.setAttribute("title", "Start a new language course");
+    header.append(heading, trigger);
+    section.append(header);
+
+    const quickSwitches = createHomeLanguageQuickSwitches(host, menu, heading.id);
+    if (quickSwitches) {
+      host.classList.add("has-quick-courses");
+      section.append(quickSwitches);
+    } else {
+      const empty = document.createElement("p");
+      empty.className = "home-language-ongoing-empty";
+      empty.textContent = "No other courses in progress.";
+      section.append(empty);
+    }
+    return section;
+  }
+
   function renderLanguageSwitch(element) {
     if (!element || element.dataset.caatuuLanguageSelectorRendered === "true") return;
-    const flag = document.createElement("img");
-    flag.className = ["caatuu-language-flag", targetLanguage.flagClass].filter(Boolean).join(" ");
-    flag.src = targetLanguage.flagSrc;
-    flag.alt = "";
-    flag.width = 30;
-    flag.height = 20;
-    flag.decoding = "async";
-
-    element.replaceChildren(flag);
+    const homeVariant = element.dataset.languageSwitchVariant === "home";
+    const currentCourse = homeVariant ? createHomeCurrentCourse() : null;
+    if (!homeVariant) {
+      element.replaceChildren(createCurrentLanguageFlag());
+    }
     if (element.tagName === "BUTTON") element.type = "button";
     else {
       element.removeAttribute("href");
       element.setAttribute("role", "button");
       element.tabIndex = 0;
     }
-    element.setAttribute("aria-haspopup", "menu");
-    element.setAttribute(
-      "aria-label",
-      "Choose languages. Base language: " + course.sourceLanguage.label + ". Target language: " + targetLanguage.label + "."
-    );
+    element.setAttribute("aria-haspopup", "dialog");
+    element.dataset.languageSelectorOpener = "";
+    if (!element.getAttribute("aria-label")) {
+      element.setAttribute(
+        "aria-label",
+        "Choose languages. Base language: " + course.sourceLanguage.label + ". Target language: " + targetLanguage.label + "."
+      );
+    }
 
     const host = document.createElement("div");
     host.className = "language-selector";
     element.before(host);
-    host.append(element);
+    if (!homeVariant) host.append(element);
     const menu = createLanguageSelectorMenu(host, element);
+    if (homeVariant) {
+      host.classList.add("home-language-selector");
+      host.append(currentCourse, createHomeLanguageOngoingCourses(host, menu, element));
+    }
     host.append(menu);
 
     element.addEventListener("click", (event) => {
       event.preventDefault();
-      setLanguageSelectorOpen(host, menu.hidden);
+      setLanguageSelectorOpen(host, menu.hidden, { opener: element });
     });
     element.addEventListener("keydown", (event) => {
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         event.preventDefault();
-        setLanguageSelectorOpen(host, true, { focusIndex: event.key === "ArrowDown" ? 0 : -1 });
+        setLanguageSelectorOpen(host, true, {
+          focusIndex: event.key === "ArrowDown" ? 0 : -1,
+          opener: element
+        });
       } else if (event.key === "Escape") {
         event.preventDefault();
         closeLanguageSelectorHost(host, { restoreFocus: true });
       } else if (element.tagName !== "BUTTON" && (event.key === "Enter" || event.key === " ")) {
         event.preventDefault();
-        setLanguageSelectorOpen(host, menu.hidden);
+        setLanguageSelectorOpen(host, menu.hidden, { opener: element });
       }
     });
     element.dataset.caatuuLanguageSelectorRendered = "true";
@@ -2576,11 +3756,18 @@
     const pageTitle = String(header.dataset.caatuuPageTitle || "Home").trim();
     const pageIcon = String(header.dataset.caatuuPageIcon || "/language-runtime/static/assets/caatuu-shell-512.png").trim();
 
+    const brandOpensGameMenu = pageTitle === "Games";
     const brand = document.createElement("a");
     brand.className = "brand-link";
-    brand.href = course.routes.home;
-    brand.dataset.navigationRequest = "home";
-    brand.setAttribute("aria-label", `Open ${course.workspaceLabel} home`);
+    brand.href = brandOpensGameMenu ? course.routes.games : course.routes.home;
+    if (brandOpensGameMenu) {
+      brand.dataset.gameMenuLauncher = "";
+      brand.setAttribute("aria-label", "Open game chooser");
+      brand.title = "Open game chooser";
+    } else {
+      brand.dataset.navigationRequest = "home";
+      brand.setAttribute("aria-label", `Open ${course.workspaceLabel} home`);
+    }
 
     const mark = document.createElement("span");
     mark.className = "brand-mark";
@@ -2614,11 +3801,40 @@
     const screenCenter = document.createElement("span");
     screenCenter.className = "app-header-center";
 
-    const language = document.createElement("button");
-    language.className = "language-pill app-header-language-pill language-switch";
-    language.type = "button";
-    language.dataset.caatuuLanguageSwitch = "";
-    language.dataset.label = targetLanguage.shortCode;
+    const language = document.createElement("span");
+    language.className = "language-pill app-header-language-pill current-language-indicator";
+    language.dataset.caatuuLanguageIndicator = "";
+
+    const headerStats = document.createElement("span");
+    headerStats.className = "app-header-stats";
+    headerStats.setAttribute("aria-label", "Journey rewards");
+
+    const createHeaderStat = (kind, iconSrc) => {
+      const stat = document.createElement("span");
+      stat.className = `app-header-stat app-header-${kind}`;
+      stat.setAttribute(`data-caatuu-header-${kind}`, "");
+
+      const statIcon = document.createElement("img");
+      statIcon.src = iconSrc;
+      statIcon.alt = "";
+      statIcon.decoding = "async";
+      statIcon.setAttribute("aria-hidden", "true");
+
+      const statCount = document.createElement("strong");
+      statCount.setAttribute(`data-caatuu-header-${kind}-count`, "");
+      statCount.textContent = "0";
+      stat.append(statIcon, statCount);
+      return stat;
+    };
+
+    const xp = createHeaderStat("xp", experienceIconSrc);
+    const coins = createHeaderStat("coins", coinIconSrc);
+    const streak = createHeaderStat("streak", streakIconSrc);
+    streak.removeAttribute("data-caatuu-header-streak");
+    streak.setAttribute("data-caatuu-streak", "");
+    streak.querySelector("strong")?.removeAttribute("data-caatuu-header-streak-count");
+    streak.querySelector("strong")?.setAttribute("data-caatuu-streak-count", "");
+    headerStats.append(xp, coins, streak);
 
     const actions = document.createElement("span");
     actions.className = "header-actions";
@@ -2627,9 +3843,10 @@
     pageCopy.append(pageKickerLabel, pageTitleLabel);
     brand.append(mark, pageCopy);
     screenCenter.append(screenTitle);
-    actions.append(language);
+    actions.append(headerStats, language);
     header.append(brand, screenBack, screenCenter, actions);
-    renderLanguageSwitch(language);
+    renderLanguageIndicator(language);
+    renderLearningControls(header);
     updateThemeControls(readStoredTheme());
 
     const initialTitle = String(header.dataset.caatuuHeaderTitle || "").trim();
@@ -2838,20 +4055,18 @@
       <section class="settings-sheet app-settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" data-settings-current-view="items">
         <header class="settings-sheet-head">
           <div class="settings-title-row">
-            <span class="settings-brand-mark" aria-hidden="true">
+            <button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="Open Backpack items" aria-controls="itemsViewPanel" title="Open Backpack items">
               <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
-            </span>
+            </button>
             <div class="settings-title-copy">
               <p class="settings-kicker kicker" id="settingsViewKicker">Items &amp; rewards</p>
               <h2 id="settingsTitle">Backpack</h2>
             </div>
           </div>
-          <button
-            class="language-pill settings-language-pill language-switch"
-            type="button"
-            data-caatuu-language-switch
-            data-label="${targetLanguage.shortCode}"
-          ></button>
+          <span
+            class="language-pill settings-language-pill current-language-indicator"
+            data-caatuu-language-indicator
+          ></span>
         </header>
 
         <div class="settings-sheet-body" tabindex="-1">
@@ -2872,7 +4087,7 @@
                 </div>
               </header>
 
-              <div class="backpack-wallet" aria-label="Experience and coins">
+              <div class="backpack-wallet" aria-label="Experience, coins, and streak">
                 <div class="backpack-wallet-item backpack-wallet-xp">
                   <span class="wallet-token wallet-token-xp" aria-hidden="true"></span>
                   <span class="wallet-copy">
@@ -2889,6 +4104,17 @@
                     <span>Coins</span>
                     <strong id="courseProgressCoins">0</strong>
                     <small>Completed rounds</small>
+                  </span>
+                </div>
+                <div class="backpack-wallet-item backpack-wallet-streak" data-caatuu-streak>
+                  <span class="wallet-token wallet-token-streak" aria-hidden="true">
+                    <img src="${streakIconSrc}" alt="" loading="lazy" decoding="async">
+                  </span>
+                  <span class="wallet-copy">
+                    <span>Streak</span>
+                    <strong><b data-caatuu-streak-count>0</b> days</strong>
+                    <small>Best <b data-caatuu-streak-best>0</b> days</small>
+                    <button class="streak-reminder-toggle" type="button" data-streak-reminder-toggle>Enable reminders</button>
                   </span>
                 </div>
               </div>
@@ -3025,9 +4251,16 @@
                   <span class="settings-kicker kicker">Audio</span>
                   <strong>${targetLanguage.label} voice</strong>
                 </span>
-                <small>Voice, speed</small>
+                <small>Mute, voice, speed</small>
               </summary>
               <div class="settings-section-body speech-settings-body">
+                <button class="speech-master-mute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
+                  <span>
+                    <b data-speech-mute-label>Mute all audio</b>
+                    <small data-speech-mute-status>Sound on across every language</small>
+                  </span>
+                  <i aria-hidden="true"></i>
+                </button>
                 <div class="speech-voice-row">
               <label class="speech-voice-label" for="settingsSpeechVoice">
                 <b>${targetLanguage.label} voice</b>
@@ -3261,7 +4494,7 @@
               </summary>
               <div class="settings-details-body">
                 <div class="license-copy">
-                  <p>Caatuu's first-party software, developer documentation, and first-party English and Mandarin curriculum are licensed AGPL-3.0-only and are provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.</p>
+                  <p>Caatuu's first-party software and developer documentation are licensed AGPL-3.0-only and are provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. First-party curriculum is licensed as stated in its tracked course metadata. Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.</p>
                   <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">Privacy</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">Security</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">Support</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">Product status</a></p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">
@@ -3547,6 +4780,7 @@
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
     closeLanguageSelectorHost(activeLanguageSelectorHost);
+    closeHomeMenu({ restoreFocus: false });
     closeGameMenu({ restoreFocus: false });
     sharedSettingsTrigger = document.activeElement;
     setSettingsView(panel, view);
@@ -3756,6 +4990,18 @@
   }
 
   function handleAndroidBack() {
+    const homeMenuPanel = document.querySelector("#homeMenuPanel");
+    if (homeMenuPanel && !homeMenuPanel.hidden) {
+      closeHomeMenu({ restoreFocus: false });
+      return true;
+    }
+
+    const gameMenuPanel = document.querySelector("#gamesMenuPanel");
+    if (gameMenuPanel && !gameMenuPanel.hidden) {
+      closeGameMenu({ restoreFocus: false });
+      return true;
+    }
+
     const settingsPanel = document.querySelector("#settingsPanel, [data-caatuu-settings-panel]");
     if (settingsPanel && !settingsPanel.hidden) {
       closeSharedSettings({ restoreFocus: false });
@@ -3858,24 +5104,33 @@
     document.querySelectorAll(".app-header").forEach(renderAppHeader);
     document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]").forEach(renderSettingsPanel);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach(renderBottomNav);
+    document.querySelectorAll("[data-caatuu-language-indicator]").forEach(renderLanguageIndicator);
     document.querySelectorAll("[data-caatuu-language-switch]").forEach(renderLanguageSwitch);
+    renderLearningControls(document);
+    updateSpeechMuteControls(document);
     syncCourseGameTriggers();
     bindAppFreshness();
+    scheduleStreakReminderCheck({ immediate: true });
   }
 
   window.CaatuuChrome = {
     renderAppHeader,
     renderBottomNav,
+    renderLanguageIndicator,
     renderLanguageSwitch,
     renderSettingsPanel,
     getSpeechVoicePreference,
     getSpeechPacePreference,
+    getSpeechMuted,
     listSpeechVoiceOptions,
     getSpeechVoiceControlState,
     describeSpeechVoiceState,
     resolveSpeechPace,
+    formatCompactRewardCount,
     setSpeechPacePreference,
+    setSpeechMuted,
     setSpeechVoicePreference,
+    updateSpeechMuteControls,
     previewSpeech,
     installSpeechData,
     speakText,
@@ -3915,16 +5170,26 @@
     }, 250);
   }
 
-  window.addEventListener("focus", scheduleSpeechVoiceRefresh);
-  window.addEventListener("pageshow", scheduleSpeechVoiceRefresh);
+  window.addEventListener("focus", () => {
+    scheduleSpeechVoiceRefresh();
+    scheduleStreakReminderCheck({ immediate: true });
+  });
+  window.addEventListener("pageshow", () => {
+    scheduleSpeechVoiceRefresh();
+    scheduleStreakReminderCheck({ immediate: true });
+  });
   window.addEventListener("resize", refreshToolbarPopovers);
   window.visualViewport?.addEventListener?.("resize", refreshToolbarPopovers);
   window.visualViewport?.addEventListener?.("scroll", refreshToolbarPopovers);
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") scheduleSpeechVoiceRefresh();
+    if (document.visibilityState === "visible") {
+      scheduleSpeechVoiceRefresh();
+      scheduleStreakReminderCheck({ immediate: true });
+    }
   });
 
   window.addEventListener("pagehide", () => {
+    window.clearTimeout(streakReminderTimer);
     void stopSpeech();
   });
 
@@ -3944,6 +5209,8 @@
   }
 
   bindThemeToggle();
+  bindWorkspaceDisplayMenuDismissal();
+  bindSpeechPreferences();
   bindLearningControls();
   bindSharedGameNavigation();
   bindSharedSettingsPanel();

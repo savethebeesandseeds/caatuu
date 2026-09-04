@@ -10,7 +10,8 @@ private financial information.
 
 | Area | Status | Release consequence |
 | --- | --- | --- |
-| First-party software and curriculum license | `CLOSED` | `AGPL-3.0-only` covers first-party software plus Caatuu-authored English/Mandarin curriculum; third-party and separately licensed model, data, art, dependency, and brand terms remain in force |
+| First-party software and curriculum license | `CLOSED FOR DEPLOYED SCOPE` | `AGPL-3.0-only` covers first-party software plus Caatuu-authored English/Mandarin curriculum; third-party and separately licensed model, data, art, dependency, and brand terms remain in force |
+| Spanish development curriculum license | `BLOCKED FOR DISTRIBUTION` | The local English-to-Spanish course remains `release-review-required` and outside Pages and Android until its exact first-party/license evidence is approved |
 | Exact deployed source | `BLOCKED` | The live development checkout contains unpublished changes; do not call it a governed beta until one clean commit exactly represents the deployed first-party source |
 | Feedback collection | `BOUNDED EDGE CHANNEL READY` | The Pages app remains static. A separate Cloudflare Worker accepts only consented sentence reports and future-only opted-in dictionary gaps into EU D1. Old local queues are never migrated, general diagnostics remain disabled, and the private ledger stays outside Pages and GitHub Releases. |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |

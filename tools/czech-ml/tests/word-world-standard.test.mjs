@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import {
   applyEditorialOverrides,
@@ -27,6 +30,7 @@ const candidateDir = path.join(datasetDir, "candidates");
 const rubricFile = path.join(datasetDir, "rubric.json");
 const editorialOverridesFile = path.join(datasetDir, "editorial-overrides.json");
 const runtimeRoot = path.join(repoRoot, "apps", "languages", "czech", "static", "data", "games", "word-world");
+const execFileAsync = promisify(execFile);
 
 const sourceFiles = await findJsonlFiles(sourceDir);
 const historicalSourceRecords = (await Promise.all(sourceFiles.map(readJsonl))).flat().sort((left, right) => left.id.localeCompare(right.id));
@@ -491,6 +495,36 @@ test("runtime manifest points to a deterministic compact pack", async () => {
   assert.deepEqual(Object.keys(pack.records[0]), [
     "id", "cs", "en", "enAlternates", "difficulty", "cefr", "topic", "targets", "learning", "grammar", "sceneQuery", "sceneAssetIds", "provenance", "review",
   ]);
+});
+
+test("the compiler reproduces the complete checked-in runtime contract", async (t) => {
+  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "caatuu-word-world-standard-"));
+  t.after(() => fs.rm(tempRoot, { recursive: true, force: true }));
+  const generatedRuntimeRoot = path.join(tempRoot, "runtime");
+  const generatedCoverageFile = path.join(tempRoot, "coverage.json");
+  await execFileAsync(process.execPath, [
+    path.join(mlRoot, "scripts", "build-word-world-standard.mjs"),
+    "--runtime-root",
+    generatedRuntimeRoot,
+    "--coverage-report",
+    generatedCoverageFile,
+  ], {
+    cwd: repoRoot,
+    maxBuffer: 1024 * 1024,
+  });
+
+  const [expectedManifest, generatedManifest] = await Promise.all([
+    readJson(path.join(runtimeRoot, "manifest.json")),
+    readJson(path.join(generatedRuntimeRoot, "manifest.json")),
+  ]);
+  assert.deepEqual(generatedManifest, expectedManifest);
+
+  const runtimeRelativeFile = expectedManifest.runtimeFile.split("?", 1)[0];
+  const [expectedPack, generatedPack] = await Promise.all([
+    fs.readFile(path.join(runtimeRoot, ...runtimeRelativeFile.split("/"))),
+    fs.readFile(path.join(generatedRuntimeRoot, ...runtimeRelativeFile.split("/"))),
+  ]);
+  assert.deepEqual(generatedPack, expectedPack);
 });
 
 test("validation and coverage reports have distinct machine-readable contracts", async () => {

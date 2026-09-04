@@ -1,7 +1,7 @@
 use std::{
     collections::{HashMap, HashSet},
     env, fs,
-    path::{Path, PathBuf},
+    path::{Component, Path, PathBuf},
 };
 
 use axum::{
@@ -361,6 +361,9 @@ fn open_dictionary(path: &Path) -> Result<Connection, String> {
 }
 
 fn dictionary_db_path() -> Result<PathBuf, String> {
+    // An explicit operator override may intentionally live outside the source
+    // tree. Catalog-derived paths below are untrusted content declarations and
+    // therefore use the stricter course-authority resolver.
     if let Ok(path) = env::var("CAATUU_DICTIONARY_DB_PATH") {
         let path = PathBuf::from(path);
         if path.is_absolute() {
@@ -369,7 +372,26 @@ fn dictionary_db_path() -> Result<PathBuf, String> {
         return Ok(workspace_root().join(path));
     }
 
-    let catalog_path = workspace_root().join(CATALOG_RELATIVE_PATH);
+    let declared_workspace = workspace_root();
+    let workspace = declared_workspace.canonicalize().map_err(|error| {
+        format!(
+            "Could not resolve dictionary workspace {}: {error}",
+            declared_workspace.display()
+        )
+    })?;
+    let expected_catalog_path = workspace.join(CATALOG_RELATIVE_PATH);
+    let catalog_path = expected_catalog_path.canonicalize().map_err(|error| {
+        format!(
+            "Could not resolve dictionary catalog at {}: {error}",
+            expected_catalog_path.display()
+        )
+    })?;
+    if catalog_path != expected_catalog_path || !catalog_path.starts_with(&workspace) {
+        return Err(format!(
+            "Dictionary catalog resolves outside its canonical course authority: {}",
+            expected_catalog_path.display()
+        ));
+    }
     let catalog_text = fs::read_to_string(&catalog_path).map_err(|error| {
         format!(
             "Could not read dictionary catalog at {}: {error}",
@@ -395,10 +417,144 @@ fn dictionary_db_path() -> Result<PathBuf, String> {
         .get("database_file")
         .and_then(Value::as_str)
         .ok_or_else(|| format!("Dictionary catalog item {default_key} has no database_file."))?;
-    Ok(catalog_path
+    resolve_catalog_database_path(&catalog_path, default_key, database_file)
+}
+
+fn resolve_catalog_database_path(
+    catalog_path: &Path,
+    default_key: &str,
+    database_file: &str,
+) -> Result<PathBuf, String> {
+    let relative_path = validated_dictionary_database_reference(default_key, database_file)?;
+    let declared_root = catalog_path
         .parent()
-        .unwrap_or_else(|| Path::new("."))
-        .join(database_file))
+        .ok_or_else(|| "Dictionary catalog has no parent authority directory.".to_string())?;
+    let dictionary_root = declared_root.canonicalize().map_err(|error| {
+        format!(
+            "Could not resolve dictionary authority {}: {error}",
+            declared_root.display()
+        )
+    })?;
+    if dictionary_root != declared_root {
+        return Err(format!(
+            "Dictionary authority must resolve to its canonical course location: {}",
+            declared_root.display()
+        ));
+    }
+
+    let pack_directory = dictionary_root.join(default_key);
+    match fs::symlink_metadata(&pack_directory) {
+        Ok(metadata) => {
+            if metadata.file_type().is_symlink() || !metadata.is_dir() {
+                return Err(format!(
+                    "Dictionary pack directory is not a canonical directory: {}",
+                    pack_directory.display()
+                ));
+            }
+            let resolved_pack = pack_directory.canonicalize().map_err(|error| {
+                format!(
+                    "Could not resolve dictionary pack directory {}: {error}",
+                    pack_directory.display()
+                )
+            })?;
+            if resolved_pack != pack_directory || !resolved_pack.starts_with(&dictionary_root) {
+                return Err(format!(
+                    "Dictionary pack directory resolves outside its course authority: {}",
+                    pack_directory.display()
+                ));
+            }
+        }
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+        Err(error) => {
+            return Err(format!(
+                "Could not inspect dictionary pack directory {}: {error}",
+                pack_directory.display()
+            ));
+        }
+    }
+
+    let database_path = dictionary_root.join(relative_path);
+    match fs::symlink_metadata(&database_path) {
+        Ok(metadata) => {
+            if metadata.file_type().is_symlink() || !metadata.is_file() {
+                return Err(format!(
+                    "Dictionary database is not a canonical file: {}",
+                    database_path.display()
+                ));
+            }
+            let resolved_database = database_path.canonicalize().map_err(|error| {
+                format!(
+                    "Could not resolve dictionary database {}: {error}",
+                    database_path.display()
+                )
+            })?;
+            if resolved_database != database_path || !resolved_database.starts_with(&pack_directory)
+            {
+                return Err(format!(
+                    "Dictionary database resolves outside its declared pack authority: {}",
+                    database_path.display()
+                ));
+            }
+        }
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+        Err(error) => {
+            return Err(format!(
+                "Could not inspect dictionary database {}: {error}",
+                database_path.display()
+            ));
+        }
+    }
+    Ok(database_path)
+}
+
+fn validated_dictionary_database_reference(
+    default_key: &str,
+    database_file: &str,
+) -> Result<PathBuf, String> {
+    if !is_stable_dictionary_component(default_key) {
+        return Err(format!(
+            "Dictionary default key is not a stable storage ID: {default_key:?}"
+        ));
+    }
+    if database_file.contains('\\') {
+        return Err(format!(
+            "Dictionary database_file must use forward slashes: {database_file:?}"
+        ));
+    }
+    let candidate = Path::new(database_file);
+    if database_file != database_file.trim()
+        || candidate.is_absolute()
+        || candidate
+            .components()
+            .any(|component| !matches!(component, Component::Normal(_)))
+    {
+        return Err(format!(
+            "Dictionary database_file must be normalized and relative: {database_file:?}"
+        ));
+    }
+    let segments = database_file.split('/').collect::<Vec<_>>();
+    if segments.len() != 2
+        || segments[0] != default_key
+        || !is_stable_dictionary_component(segments[1])
+        || !segments[1].ends_with(".sqlite")
+    {
+        return Err(format!(
+            "Dictionary database_file must use <default-key>/<safe-basename>.sqlite: {database_file:?}"
+        ));
+    }
+    Ok(Path::new(default_key).join(segments[1]))
+}
+
+fn is_stable_dictionary_component(value: &str) -> bool {
+    value == value.trim()
+        && value
+            .split(|character| matches!(character, '.' | '_' | '-'))
+            .all(|segment| {
+                !segment.is_empty()
+                    && segment
+                        .bytes()
+                        .all(|byte| byte.is_ascii_lowercase() || byte.is_ascii_digit())
+            })
 }
 
 fn workspace_root() -> PathBuf {
@@ -471,7 +627,49 @@ fn dictionary_error(status: StatusCode, message: &str) -> Response {
 
 #[cfg(test)]
 mod tests {
-    use super::normalize_czech;
+    use super::{
+        normalize_czech, resolve_catalog_database_path, validated_dictionary_database_reference,
+    };
+    use std::{
+        fs,
+        path::{Path, PathBuf},
+        sync::atomic::{AtomicU64, Ordering},
+    };
+
+    static NEXT_TEST_DIRECTORY: AtomicU64 = AtomicU64::new(0);
+
+    struct TestDirectory(PathBuf);
+
+    impl TestDirectory {
+        fn new(label: &str) -> Self {
+            let sequence = NEXT_TEST_DIRECTORY.fetch_add(1, Ordering::Relaxed);
+            let path = std::env::temp_dir().join(format!(
+                "caatuu-dictionary-{label}-{}-{sequence}",
+                std::process::id()
+            ));
+            fs::create_dir_all(&path).expect("create dictionary test directory");
+            Self(
+                path.canonicalize()
+                    .expect("resolve dictionary test directory"),
+            )
+        }
+
+        fn path(&self) -> &Path {
+            &self.0
+        }
+    }
+
+    impl Drop for TestDirectory {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
+    }
+
+    fn fixture_catalog(root: &Path) -> PathBuf {
+        let catalog = root.join("catalog.json");
+        fs::write(&catalog, b"{}").expect("write dictionary catalog fixture");
+        catalog
+    }
 
     #[test]
     fn normalizes_czech_diacritics_and_spacing() {
@@ -479,5 +677,121 @@ mod tests {
             normalize_czech("  PŘÍLIŠ   ŽLUŤOUČKÝ  "),
             "prilis zlutoucky"
         );
+    }
+
+    #[test]
+    fn accepts_only_the_declared_pack_and_safe_sqlite_basename() {
+        let reference = validated_dictionary_database_reference(
+            "dictionary-v1",
+            "dictionary-v1/caatuu-cs-en.sqlite",
+        )
+        .expect("valid dictionary database reference");
+        assert_eq!(
+            reference,
+            PathBuf::from("dictionary-v1").join("caatuu-cs-en.sqlite")
+        );
+
+        for database_file in [
+            "",
+            "/outside.sqlite",
+            "C:/outside.sqlite",
+            "dictionary-v1\\outside.sqlite",
+            " dictionary-v1/caatuu.sqlite",
+            "dictionary-v1/caatuu.sqlite ",
+            "../dictionary-v1/caatuu.sqlite",
+            "./dictionary-v1/caatuu.sqlite",
+            "dictionary-v1/../caatuu.sqlite",
+            "dictionary-v1/subdirectory/caatuu.sqlite",
+            "dictionary-v1//caatuu.sqlite",
+            "other-pack/caatuu.sqlite",
+            "dictionary-v1/.sqlite",
+            "dictionary-v1/caatuu.db",
+        ] {
+            assert!(
+                validated_dictionary_database_reference("dictionary-v1", database_file).is_err(),
+                "unexpectedly accepted {database_file:?}"
+            );
+        }
+
+        for default_key in [
+            "",
+            ".",
+            "..",
+            "dictionary/path",
+            "dictionary\\path",
+            "Dictionary",
+        ] {
+            assert!(
+                validated_dictionary_database_reference(default_key, "dictionary-v1/caatuu.sqlite")
+                    .is_err(),
+                "unexpectedly accepted default key {default_key:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn resolves_a_present_database_beneath_its_canonical_pack_authority() {
+        let directory = TestDirectory::new("canonical");
+        let catalog = fixture_catalog(directory.path());
+        let pack = directory.path().join("dictionary-v1");
+        fs::create_dir(&pack).expect("create dictionary pack fixture");
+        let database = pack.join("caatuu.sqlite");
+        fs::write(&database, b"sqlite fixture").expect("write dictionary database fixture");
+
+        let resolved =
+            resolve_catalog_database_path(&catalog, "dictionary-v1", "dictionary-v1/caatuu.sqlite")
+                .expect("resolve canonical dictionary database");
+        assert_eq!(resolved, database);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn rejects_symlinked_pack_and_database_aliases() {
+        use std::os::unix::fs::symlink;
+
+        let directory = TestDirectory::new("symlink-aliases");
+        let catalog = fixture_catalog(directory.path());
+        let actual_pack = directory.path().join("actual-pack");
+        fs::create_dir(&actual_pack).expect("create actual pack fixture");
+        let declared_pack = directory.path().join("dictionary-v1");
+        symlink(&actual_pack, &declared_pack).expect("create pack symlink fixture");
+
+        let pack_error =
+            resolve_catalog_database_path(&catalog, "dictionary-v1", "dictionary-v1/caatuu.sqlite")
+                .expect_err("symlinked dictionary pack must fail closed");
+        assert!(pack_error.contains("pack directory is not a canonical directory"));
+
+        fs::remove_file(&declared_pack).expect("remove pack symlink fixture");
+        fs::create_dir(&declared_pack).expect("create declared pack fixture");
+        let aliased_database = directory.path().join("aliased.sqlite");
+        fs::write(&aliased_database, b"sqlite fixture").expect("write aliased dictionary fixture");
+        symlink(&aliased_database, declared_pack.join("caatuu.sqlite"))
+            .expect("create database symlink fixture");
+
+        let database_error =
+            resolve_catalog_database_path(&catalog, "dictionary-v1", "dictionary-v1/caatuu.sqlite")
+                .expect_err("symlinked dictionary database must fail closed");
+        assert!(database_error.contains("database is not a canonical file"));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn rejects_a_symlinked_dictionary_authority() {
+        use std::os::unix::fs::symlink;
+
+        let directory = TestDirectory::new("symlink-authority");
+        let actual_root = directory.path().join("actual-root");
+        fs::create_dir(&actual_root).expect("create actual dictionary authority");
+        fixture_catalog(&actual_root);
+        let aliased_root = directory.path().join("aliased-root");
+        symlink(&actual_root, &aliased_root).expect("create dictionary authority symlink");
+
+        let error = resolve_catalog_database_path(
+            &aliased_root.join("catalog.json"),
+            "dictionary-v1",
+            "dictionary-v1/caatuu.sqlite",
+        )
+        .expect_err("symlinked dictionary authority must fail closed");
+        assert!(error.contains("canonical course location"));
     }
 }

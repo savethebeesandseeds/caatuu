@@ -65,18 +65,25 @@ http://127.0.0.1:8765/cz/index.html
 http://127.0.0.1:8765/cz/chat.html
 http://127.0.0.1:8765/zh/
 http://127.0.0.1:8765/zh/index.html?game=word-net
+http://127.0.0.1:8765/es/
+http://127.0.0.1:8765/es/index.html?game=verb-lab
+http://127.0.0.1:8765/es/index.html?game=word-net
 http://127.0.0.1:8765/games/caatuu-game/
 ```
 
 Backend or dependency changes require a rebuild. Static browser files are
 mounted read-only and normally need only a reload.
 
-The Mandarin routes are an unlisted, `noindex` development preview;
-the public launcher remains Czech-only. Runtime startup verifies every shared
-Transformers/MiniLM artifact against
-`apps/language-runtime/embedding-runtimes.json` before serving either course.
-Missing or mismatched model-only assets are a deployment failure, not a silent
-semantic-search downgrade.
+The Mandarin and Spanish routes are unlisted, `noindex` development previews;
+the launcher's release-capable language collection remains Czech-only. Runtime
+startup verifies every shared Transformers/MiniLM artifact against
+`apps/language-runtime/embedding-runtimes.json` before serving any browser
+course. Missing or mismatched model-only assets are a deployment failure, not a
+silent semantic-search downgrade.
+
+These routes describe checked-in local browser availability. Mandarin is in the
+current public Pages snapshot; Spanish is not publicly deployed and remains
+withheld while its release-license review is pending.
 
 ## Public hosting boundary
 
@@ -138,6 +145,9 @@ or Node environments.
 Android command-line tools and build dependencies belong to the maintained
 container workflow under [`apps/android/tooling`](../apps/android/tooling/).
 Development APKs are written to the ignored `artifacts/android/` directory.
+The current Android bundle contains Czech and Mandarin. Spanish declares
+`platforms.android.enabled: false` and remains browser-only until a separate
+Android asset and release decision.
 
 Phone-debug exposure is a deliberate trusted-LAN override:
 

@@ -20,9 +20,7 @@
     }
   },
   "files": [
-    "agreement-aurora.html",
     "case-cosmos.html",
-    "conjugation-comet.html",
     "icons/caatuu-czech-192.png",
     "icons/caatuu-czech-512.png",
     "manifest.webmanifest",
@@ -33,14 +31,8 @@
     "source/features/campaign/campaign.css",
     "source/features/setup/setup-progress.js",
     "source/features/setup/setup.js",
-    "source/games/agreement-aurora/agreement-aurora.css",
-    "source/games/agreement-aurora/agreement-aurora.js",
-    "source/games/agreement-aurora/launcher.css",
     "source/games/case-cosmos/case-cosmos.css",
     "source/games/case-cosmos/case-cosmos.js",
-    "source/games/case-cosmos/launcher.css",
-    "source/games/conjugation-comet/conjugation-comet.css",
-    "source/games/conjugation-comet/conjugation-comet.js",
     "source/games/verb-nebula/verb-exercise-family-core.mjs",
     "source/games/verb-nebula/verb-nebula-core.mjs",
     "source/games/word-world/word-net-standard.mjs",
@@ -63,6 +55,7 @@
     "data/dictionaries/ATTRIBUTION.md",
     "data/dictionaries/README.md",
     "data/dictionaries/catalog.json",
+    "data/dictionaries/reference.html",
     "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
     "data/dictionaries/patches/reviewed-cs-en.v1.json",
     "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
@@ -90,10 +83,14 @@
     "gear_icon.png",
     "hello.png",
     "home_icon.png",
+    "homebase_icon.png",
     "icon_gem.png",
     "items_icon.png",
     "light_mode_ui.png",
     "paper_plane_submit_ui.png",
-    "stats_icon.png"
+    "social_icon.png",
+    "stats_icon.png",
+    "store_icon.png",
+    "streak_icon.png"
   ]
 }

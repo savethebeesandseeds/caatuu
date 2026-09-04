@@ -1,0 +1,758 @@
+{
+  "schemaVersion": "caatuu-conjugation-comet-catalog-v1",
+  "id": "es-spain-present-indicative-pilot",
+  "contentRevision": 1,
+  "courseId": "es",
+  "targetLanguageId": "es",
+  "targetLocale": "es-ES",
+  "learnerBaseLanguageId": "en",
+  "auditLanguageId": "en",
+  "variety": {
+    "id": "es-ES",
+    "label": "European Spanish (Spain)",
+    "policyNoteEnglish": "The pilot teaches the vosotros and vosotras second-person plural forms used in Spain while retaining ustedes in the third-person plural cue."
+  },
+  "review": {
+    "status": "native-review-required",
+    "noteEnglish": "Machine-assisted development content. A qualified native reviewer must approve every form, cue, teaching note, and variety decision before release."
+  },
+  "license": {
+    "origin": "first-party-authored",
+    "status": "release-review-required",
+    "spdx": null,
+    "noteEnglish": "First-party development curriculum. Release is blocked until the project assigns and records the approved curriculum license."
+  },
+  "authority": {
+    "kind": "authored-finite-catalog",
+    "dictionaryLookup": false,
+    "runtimeGeneration": false,
+    "englishAuditRequired": true
+  },
+  "copy": {
+    "title": "Conjugation Comet",
+    "meaningKicker": "Meaning check",
+    "meaningInstruction": "Choose the authored base-language meaning.",
+    "formsKicker": "Present indicative",
+    "formsInstruction": "Match each Spanish form to its base-language cue.",
+    "meaningTargetHeading": "Spanish verb",
+    "meaningChoicesHeading": "Meaning choices",
+    "targetFormsHeading": "Spanish forms",
+    "baseCuesHeading": "Base-language cues",
+    "meaningBoardLabel": "Verb meaning matching board",
+    "formsBoardLabel": "Spanish form matching board",
+    "infinitiveLabel": "Infinitive",
+    "hintLabel": "Show pattern",
+    "nextLabel": "Next verb",
+    "hearVerbTemplate": "Hear {verb}",
+    "hearFormTemplate": "Hear {form}",
+    "playingTemplate": "Playing {text}",
+    "matchedStateLabel": "matched",
+    "audioUnavailableTemplate": "{language} audio is unavailable on this device.",
+    "meaningStartFeedback": "Choose the base-language meaning before matching the forms.",
+    "wrongMeaningFeedback": "That is a different verb. Try another meaning.",
+    "correctMeaningTemplate": "Correct: {meaning}.",
+    "formsStartFeedback": "You may select either column first.",
+    "pairSelectedFeedback": "Now choose the matching card in the other column.",
+    "pairMatchedFeedback": "Matched. Keep going.",
+    "wrongPairFeedback": "Those cards use different person or number. Try again.",
+    "roundCompleteTemplate": "All forms matched for {verb}.",
+    "meaningProgressTemplate": "Verb {number} · meaning",
+    "formsProgressTemplate": "{matched} of {total} matched",
+    "progressLabel": "Round progress"
+  },
+  "verbs": [
+    {
+      "id": "es-present-hablar",
+      "revision": 1,
+      "targetText": "hablar",
+      "learnerBaseText": "speak or talk",
+      "englishAuditText": "speak or talk",
+      "meaningChoiceBaseText": "speak or talk",
+      "difficulty": 1,
+      "family": "Regular present: -ar",
+      "lessonId": "present-regular-ar",
+      "teachingNoteBaseText": "Remove -ar and add -o, -as, -a, -amos, -áis, -an.",
+      "tags": ["present-indicative", "regular-ar", "foundation"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "hablo",
+          "learnerBaseCueText": "I speak",
+          "englishAuditText": "I speak"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "hablas",
+          "learnerBaseCueText": "you speak (informal singular)",
+          "englishAuditText": "you speak (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "habla",
+          "learnerBaseCueText": "he or she speaks; you speak (formal singular)",
+          "englishAuditText": "he or she speaks; you speak (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "hablamos",
+          "learnerBaseCueText": "we speak",
+          "englishAuditText": "we speak"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "habláis",
+          "learnerBaseCueText": "you speak (informal plural in Spain)",
+          "englishAuditText": "you speak (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "hablan",
+          "learnerBaseCueText": "they speak; you speak (plural)",
+          "englishAuditText": "they speak; you speak (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-comer",
+      "revision": 1,
+      "targetText": "comer",
+      "learnerBaseText": "eat",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "eat",
+      "difficulty": 1,
+      "family": "Regular present: -er",
+      "lessonId": "present-regular-er",
+      "teachingNoteBaseText": "Remove -er and add -o, -es, -e, -emos, -éis, -en.",
+      "tags": ["present-indicative", "regular-er", "foundation"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "como",
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "comes",
+          "learnerBaseCueText": "you eat (informal singular)",
+          "englishAuditText": "you eat (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "come",
+          "learnerBaseCueText": "he or she eats; you eat (formal singular)",
+          "englishAuditText": "he or she eats; you eat (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "comemos",
+          "learnerBaseCueText": "we eat",
+          "englishAuditText": "we eat"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "coméis",
+          "learnerBaseCueText": "you eat (informal plural in Spain)",
+          "englishAuditText": "you eat (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "comen",
+          "learnerBaseCueText": "they eat; you eat (plural)",
+          "englishAuditText": "they eat; you eat (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-vivir",
+      "revision": 1,
+      "targetText": "vivir",
+      "learnerBaseText": "live",
+      "englishAuditText": "live",
+      "meaningChoiceBaseText": "live",
+      "difficulty": 1,
+      "family": "Regular present: -ir",
+      "lessonId": "present-regular-ir",
+      "teachingNoteBaseText": "Remove -ir and add -o, -es, -e, -imos, -ís, -en.",
+      "tags": ["present-indicative", "regular-ir", "foundation"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "vivo",
+          "learnerBaseCueText": "I live",
+          "englishAuditText": "I live"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "vives",
+          "learnerBaseCueText": "you live (informal singular)",
+          "englishAuditText": "you live (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "vive",
+          "learnerBaseCueText": "he or she lives; you live (formal singular)",
+          "englishAuditText": "he or she lives; you live (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "vivimos",
+          "learnerBaseCueText": "we live",
+          "englishAuditText": "we live"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "vivís",
+          "learnerBaseCueText": "you live (informal plural in Spain)",
+          "englishAuditText": "you live (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "viven",
+          "learnerBaseCueText": "they live; you live (plural)",
+          "englishAuditText": "they live; you live (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-ser",
+      "revision": 1,
+      "targetText": "ser",
+      "learnerBaseText": "be for identity or a defining characteristic",
+      "englishAuditText": "be for identity or a defining characteristic",
+      "meaningChoiceBaseText": "be for identity or a defining characteristic",
+      "difficulty": 1,
+      "family": "Irregular present: ser",
+      "lessonId": "present-core-irregular",
+      "teachingNoteBaseText": "Ser is irregular. This pilot distinguishes its identity and defining-characteristic meaning from estar; fuller contextual practice belongs in sentence content.",
+      "tags": ["present-indicative", "irregular", "ser-estar", "foundation"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "soy",
+          "learnerBaseCueText": "I am (identity or characteristic)",
+          "englishAuditText": "I am (identity or characteristic)"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "eres",
+          "learnerBaseCueText": "you are (informal singular; identity or characteristic)",
+          "englishAuditText": "you are (informal singular; identity or characteristic)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "es",
+          "learnerBaseCueText": "he or she is; you are (formal singular; identity or characteristic)",
+          "englishAuditText": "he or she is; you are (formal singular; identity or characteristic)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "somos",
+          "learnerBaseCueText": "we are (identity or characteristic)",
+          "englishAuditText": "we are (identity or characteristic)"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "sois",
+          "learnerBaseCueText": "you are (informal plural in Spain; identity or characteristic)",
+          "englishAuditText": "you are (informal plural in Spain; identity or characteristic)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "son",
+          "learnerBaseCueText": "they are; you are (plural; identity or characteristic)",
+          "englishAuditText": "they are; you are (plural; identity or characteristic)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-estar",
+      "revision": 1,
+      "targetText": "estar",
+      "learnerBaseText": "be for a state or location",
+      "englishAuditText": "be for a state or location",
+      "meaningChoiceBaseText": "be for a state or location",
+      "difficulty": 1,
+      "family": "Irregular first person: estar",
+      "lessonId": "present-core-irregular",
+      "teachingNoteBaseText": "Estar uses estoy in the first person and written accents in estás, está, estáis, and están. This pilot uses state or location as its meaning cue.",
+      "tags": ["present-indicative", "irregular", "ser-estar", "written-accents"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "estoy",
+          "learnerBaseCueText": "I am (state or location)",
+          "englishAuditText": "I am (state or location)"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "estás",
+          "learnerBaseCueText": "you are (informal singular; state or location)",
+          "englishAuditText": "you are (informal singular; state or location)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "está",
+          "learnerBaseCueText": "he or she is; you are (formal singular; state or location)",
+          "englishAuditText": "he or she is; you are (formal singular; state or location)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "estamos",
+          "learnerBaseCueText": "we are (state or location)",
+          "englishAuditText": "we are (state or location)"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "estáis",
+          "learnerBaseCueText": "you are (informal plural in Spain; state or location)",
+          "englishAuditText": "you are (informal plural in Spain; state or location)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "están",
+          "learnerBaseCueText": "they are; you are (plural; state or location)",
+          "englishAuditText": "they are; you are (plural; state or location)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-ir",
+      "revision": 1,
+      "targetText": "ir",
+      "learnerBaseText": "go",
+      "englishAuditText": "go",
+      "meaningChoiceBaseText": "go",
+      "difficulty": 1,
+      "family": "Irregular present: ir",
+      "lessonId": "present-core-irregular",
+      "teachingNoteBaseText": "Ir is irregular: voy, vas, va, vamos, vais, van.",
+      "tags": ["present-indicative", "irregular", "foundation"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "voy",
+          "learnerBaseCueText": "I go",
+          "englishAuditText": "I go"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "vas",
+          "learnerBaseCueText": "you go (informal singular)",
+          "englishAuditText": "you go (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "va",
+          "learnerBaseCueText": "he or she goes; you go (formal singular)",
+          "englishAuditText": "he or she goes; you go (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "vamos",
+          "learnerBaseCueText": "we go",
+          "englishAuditText": "we go"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "vais",
+          "learnerBaseCueText": "you go (informal plural in Spain)",
+          "englishAuditText": "you go (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "van",
+          "learnerBaseCueText": "they go; you go (plural)",
+          "englishAuditText": "they go; you go (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-tener",
+      "revision": 1,
+      "targetText": "tener",
+      "learnerBaseText": "have or possess",
+      "englishAuditText": "have or possess",
+      "meaningChoiceBaseText": "have or possess",
+      "difficulty": 2,
+      "family": "Irregular first person and e→ie: tener",
+      "lessonId": "present-core-irregular",
+      "teachingNoteBaseText": "Tener uses tengo for yo. Its stem changes e to ie except with nosotros, nosotras, vosotros, and vosotras.",
+      "tags": ["present-indicative", "irregular-first-person", "stem-change-e-ie"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "tengo",
+          "learnerBaseCueText": "I have or possess",
+          "englishAuditText": "I have or possess"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "tienes",
+          "learnerBaseCueText": "you have or possess (informal singular)",
+          "englishAuditText": "you have or possess (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "tiene",
+          "learnerBaseCueText": "he or she has; you have (formal singular)",
+          "englishAuditText": "he or she has; you have (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "tenemos",
+          "learnerBaseCueText": "we have or possess",
+          "englishAuditText": "we have or possess"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "tenéis",
+          "learnerBaseCueText": "you have or possess (informal plural in Spain)",
+          "englishAuditText": "you have or possess (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "tienen",
+          "learnerBaseCueText": "they have or possess; you have (plural)",
+          "englishAuditText": "they have or possess; you have (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-haber",
+      "revision": 1,
+      "targetText": "haber",
+      "learnerBaseText": "have as an auxiliary verb",
+      "englishAuditText": "have as an auxiliary verb",
+      "meaningChoiceBaseText": "have as an auxiliary verb",
+      "difficulty": 2,
+      "family": "Irregular auxiliary: haber",
+      "lessonId": "present-core-irregular",
+      "teachingNoteBaseText": "These personal forms of haber build compound tenses. The impersonal hay is a separate use and is not part of this six-person round.",
+      "tags": ["present-indicative", "irregular", "auxiliary"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "he",
+          "learnerBaseCueText": "I have (auxiliary)",
+          "englishAuditText": "I have (auxiliary)"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "has",
+          "learnerBaseCueText": "you have (informal singular; auxiliary)",
+          "englishAuditText": "you have (informal singular; auxiliary)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "ha",
+          "learnerBaseCueText": "he or she has; you have (formal singular; auxiliary)",
+          "englishAuditText": "he or she has; you have (formal singular; auxiliary)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "hemos",
+          "learnerBaseCueText": "we have (auxiliary)",
+          "englishAuditText": "we have (auxiliary)"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "habéis",
+          "learnerBaseCueText": "you have (informal plural in Spain; auxiliary)",
+          "englishAuditText": "you have (informal plural in Spain; auxiliary)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "han",
+          "learnerBaseCueText": "they have; you have (plural; auxiliary)",
+          "englishAuditText": "they have; you have (plural; auxiliary)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-querer",
+      "revision": 1,
+      "targetText": "querer",
+      "learnerBaseText": "want or love",
+      "englishAuditText": "want or love",
+      "meaningChoiceBaseText": "want or love",
+      "difficulty": 2,
+      "family": "Stem-changing present: e→ie",
+      "lessonId": "present-stem-changing",
+      "teachingNoteBaseText": "The stem changes from e to ie except with nosotros, nosotras, vosotros, and vosotras.",
+      "tags": ["present-indicative", "stem-change-e-ie"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "quiero",
+          "learnerBaseCueText": "I want or love",
+          "englishAuditText": "I want or love"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "quieres",
+          "learnerBaseCueText": "you want or love (informal singular)",
+          "englishAuditText": "you want or love (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "quiere",
+          "learnerBaseCueText": "he or she wants or loves; you want or love (formal singular)",
+          "englishAuditText": "he or she wants or loves; you want or love (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "queremos",
+          "learnerBaseCueText": "we want or love",
+          "englishAuditText": "we want or love"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "queréis",
+          "learnerBaseCueText": "you want or love (informal plural in Spain)",
+          "englishAuditText": "you want or love (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "quieren",
+          "learnerBaseCueText": "they want or love; you want or love (plural)",
+          "englishAuditText": "they want or love; you want or love (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-pedir",
+      "revision": 1,
+      "targetText": "pedir",
+      "learnerBaseText": "ask for or request",
+      "englishAuditText": "ask for or request",
+      "meaningChoiceBaseText": "ask for or request",
+      "difficulty": 2,
+      "family": "Stem-changing present: e→i",
+      "lessonId": "present-stem-changing",
+      "teachingNoteBaseText": "The stem changes from e to i except with nosotros, nosotras, vosotros, and vosotras.",
+      "tags": ["present-indicative", "stem-change-e-i"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "pido",
+          "learnerBaseCueText": "I ask for or request",
+          "englishAuditText": "I ask for or request"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "pides",
+          "learnerBaseCueText": "you ask for or request (informal singular)",
+          "englishAuditText": "you ask for or request (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "pide",
+          "learnerBaseCueText": "he or she asks for; you ask for (formal singular)",
+          "englishAuditText": "he or she asks for; you ask for (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "pedimos",
+          "learnerBaseCueText": "we ask for or request",
+          "englishAuditText": "we ask for or request"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "pedís",
+          "learnerBaseCueText": "you ask for or request (informal plural in Spain)",
+          "englishAuditText": "you ask for or request (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "piden",
+          "learnerBaseCueText": "they ask for; you ask for (plural)",
+          "englishAuditText": "they ask for; you ask for (plural)"
+        }
+      ]
+    },
+    {
+      "id": "es-present-levantarse",
+      "revision": 1,
+      "targetText": "levantarse",
+      "learnerBaseText": "get up",
+      "englishAuditText": "get up",
+      "meaningChoiceBaseText": "get up",
+      "difficulty": 2,
+      "family": "Regular reflexive present: -ar",
+      "lessonId": "present-reflexive",
+      "teachingNoteBaseText": "Conjugate levantar as a regular -ar verb and place the matching reflexive pronoun before it: me, te, se, nos, os, se.",
+      "tags": ["present-indicative", "regular-ar", "reflexive"],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "yo",
+          "targetText": "me levanto",
+          "learnerBaseCueText": "I get up",
+          "englishAuditText": "I get up"
+        },
+        {
+          "id": "second-singular-informal",
+          "revision": 1,
+          "subjectTargetText": "tú",
+          "targetText": "te levantas",
+          "learnerBaseCueText": "you get up (informal singular)",
+          "englishAuditText": "you get up (informal singular)"
+        },
+        {
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "targetText": "se levanta",
+          "learnerBaseCueText": "he or she gets up; you get up (formal singular)",
+          "englishAuditText": "he or she gets up; you get up (formal singular)"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "targetText": "nos levantamos",
+          "learnerBaseCueText": "we get up",
+          "englishAuditText": "we get up"
+        },
+        {
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "targetText": "os levantáis",
+          "learnerBaseCueText": "you get up (informal plural in Spain)",
+          "englishAuditText": "you get up (informal plural in Spain)"
+        },
+        {
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "targetText": "se levantan",
+          "learnerBaseCueText": "they get up; you get up (plural)",
+          "englishAuditText": "they get up; you get up (plural)"
+        }
+      ]
+    }
+  ]
+}

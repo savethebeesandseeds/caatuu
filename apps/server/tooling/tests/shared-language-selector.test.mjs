@@ -4,14 +4,31 @@ import test from "node:test";
 import vm from "node:vm";
 
 const repoRoot = new URL("../../../../", import.meta.url);
-const [czechProfileSource, mandarinProfileSource, launcherRegistry, czechSetup, mandarinSetup, appAssets] = await Promise.all([
-  readFile(new URL("apps/languages/czech/static/source/shared/course-profile.js", repoRoot), "utf8"),
-  readFile(new URL("apps/languages/mandarin-simplified/static/source/shared/course-profile.js", repoRoot), "utf8"),
-  readFile(new URL("apps/launcher/static/languages.json", repoRoot), "utf8").then(JSON.parse),
-  readFile(new URL("apps/languages/czech/static/setup-assets.json", repoRoot), "utf8").then(JSON.parse),
-  readFile(new URL("apps/languages/mandarin-simplified/static/setup-assets.json", repoRoot), "utf8").then(JSON.parse),
-  readFile(new URL("apps/language-runtime/app-assets.json", repoRoot), "utf8").then(JSON.parse)
+const catalog = await readJson("apps/languages/catalog.json");
+const courseRecords = await Promise.all(catalog.courses.map(async ({ id, manifest }) => ({
+  id,
+  course: await readJson(manifest)
+})));
+const browserRecords = courseRecords.filter(({ course }) => course.platforms?.browser?.enabled === true);
+const [profiles, setups, launcherRegistry, appAssets] = await Promise.all([
+  Promise.all(browserRecords.map(async ({ id, course }) => ({
+    id,
+    profile: evaluateProfile(
+      await readFile(new URL(course.resources.courseProfile.path, repoRoot), "utf8"),
+      `${id}-course-profile.js`
+    )
+  }))),
+  Promise.all(browserRecords.map(async ({ id, course }) => ({
+    id,
+    setup: await readJson(course.resources.setupCatalog.path)
+  }))),
+  readJson("apps/launcher/static/languages.json"),
+  readJson("apps/language-runtime/app-assets.json")
 ]);
+
+async function readJson(relativePath) {
+  return JSON.parse(await readFile(new URL(relativePath, repoRoot), "utf8"));
+}
 
 function evaluateProfile(source, filename) {
   const context = { window: {} };
@@ -19,59 +36,41 @@ function evaluateProfile(source, filename) {
   return JSON.parse(JSON.stringify(context.window.CaatuuCourse));
 }
 
-const czechProfile = evaluateProfile(czechProfileSource, "czech-course-profile.js");
-const mandarinProfile = evaluateProfile(mandarinProfileSource, "mandarin-course-profile.js");
-
-test("both courses receive one catalog-derived browser course projection", () => {
-  assert.deepEqual(czechProfile.courseSelector, mandarinProfile.courseSelector);
+test("every browser course receives one catalog-derived course-selector projection", () => {
+  assert.equal(profiles.length, 3);
+  const reference = profiles[0].profile.courseSelector;
+  for (const { id, profile } of profiles) {
+    assert.deepEqual(profile.courseSelector, reference, `${id} selector projection drifted`);
+  }
   assert.deepEqual(
-    czechProfile.courseSelector.courses.map(({ id, status, entryPath }) => ({ id, status, entryPath })),
-    [
-      { id: "cz", status: "active", entryPath: "/cz/index.html" },
-      { id: "zh", status: "development", entryPath: "/zh/index.html" }
-    ]
+    reference.courses.map(({ id, status, entryPath, storage }) => ({ id, status, entryPath, storage })),
+    browserRecords.map(({ id, course }) => ({
+      id,
+      status: course.status,
+      entryPath: course.entryPath,
+      storage: { learningPerformance: course.storage.learningPerformance }
+    }))
   );
   assert.deepEqual(
-    czechProfile.courseSelector.courses.map(({ sourceLanguage }) => sourceLanguage),
-    [
-      {
-        id: "en",
-        label: "English",
-        nativeLabel: "English",
-        shortCode: "EN",
-        locale: "en",
-        direction: "ltr",
-        flagClass: "en-flag",
-        flagSrc: "/assets/icons/english_flag.png"
-      },
-      {
-        id: "en",
-        label: "English",
-        nativeLabel: "English",
-        shortCode: "EN",
-        locale: "en",
-        direction: "ltr",
-        flagClass: "en-flag",
-        flagSrc: "/assets/icons/english_flag.png"
-      }
-    ]
+    reference.courses.map(({ sourceLanguage }) => sourceLanguage.id),
+    browserRecords.map(({ course }) => course.sourceLanguage.id)
   );
   assert.deepEqual(
-    czechProfile.courseSelector.courses.map(({ targetLanguage }) => targetLanguage.shortCode),
-    ["CZ", "ZH"]
+    reference.courses.map(({ targetLanguage }) => targetLanguage.shortCode),
+    browserRecords.map(({ course }) => course.targetLanguage.shortCode)
   );
   assert.deepEqual(launcherRegistry.languages.map(({ id }) => id), ["cz"], "the public launcher remains active-only");
 });
 
-test("every shared selector flag is cached by every course and packaged by the shared app", () => {
-  const flagUrls = new Set(czechProfile.courseSelector.courses.flatMap(({ sourceLanguage, targetLanguage }) => [
-    sourceLanguage.flagSrc,
-    targetLanguage.flagSrc
-  ]));
+test("every shared selector flag is cached by every browser course and packaged by the shared app", () => {
+  const flagUrls = new Set(profiles[0].profile.courseSelector.courses.flatMap(
+    ({ sourceLanguage, targetLanguage }) => [sourceLanguage.flagSrc, targetLanguage.flagSrc]
+  ));
   const sharedOutputs = new Set(appAssets.assets.map(({ output }) => output));
   for (const flagUrl of flagUrls) {
-    assert.ok(czechSetup.offline.assets.includes(flagUrl), `Czech offline cache must include ${flagUrl}`);
-    assert.ok(mandarinSetup.offline.assets.includes(flagUrl), `Mandarin offline cache must include ${flagUrl}`);
+    for (const { id, setup } of setups) {
+      assert.ok(setup.offline.assets.includes(flagUrl), `${id} offline cache must include ${flagUrl}`);
+    }
     assert.ok(sharedOutputs.has(flagUrl.slice(1)), `shared Android assets must include ${flagUrl}`);
   }
 });

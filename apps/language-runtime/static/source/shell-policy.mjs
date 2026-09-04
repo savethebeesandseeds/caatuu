@@ -8,7 +8,12 @@ if (!policy) {
 
 export const {
   PRIMARY_NAVIGATION,
+  LEARNER_BASE_PRESENTATION_CONTRACT,
+  PLANET_GAME_CONTRACT,
   NON_CAMPAIGN_GAME_REGISTRY,
+  NON_CAMPAIGN_GAME_IDS,
+  CAMPAIGN_GAME_IDS,
+  GAME_IDS,
   SETTINGS_SECTION_REGISTRY,
   deriveGameAvailability,
   isGameAvailable,
@@ -27,6 +32,7 @@ export const {
   localAiAvailability,
   isDeveloperLinkAvailable,
   availableDeveloperLinks,
+  targetScriptToken,
   deriveShellPolicy
 } = policy;
 

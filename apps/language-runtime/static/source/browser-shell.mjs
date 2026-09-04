@@ -28,11 +28,11 @@ export function wordWorldPresentation(course, records = []) {
   return Object.freeze({
     sourceLabel,
     targetLabel,
-    eyebrow: `${sourceLabel} meaning → ${targetLabel}`,
-    lede: `Explore a small, authored set of useful ${targetLabel} sentences by their ${sourceLabel} meaning.`,
-    searchLabel: `Find by ${sourceLabel} meaning`,
-    searchPlaceholder: topics.length > 0 ? `Try ${topics.join(", ")}…` : `Search in ${sourceLabel}…`,
-    searchLanguageError: `Search is ${sourceLabel}-only. Try a ${sourceLabel} meaning.`
+    eyebrow: `${sourceLabel} prompt → ${targetLabel}`,
+    lede: `Explore useful ${targetLabel} sentences with ${sourceLabel} learner prompts. English meanings remain the audit and retrieval authority.`,
+    searchLabel: "Find by English meaning",
+    searchPlaceholder: topics.length > 0 ? `Try ${topics.join(", ")}…` : "Search in English…",
+    searchLanguageError: "Search is English-only. Try an English meaning."
   });
 }
 

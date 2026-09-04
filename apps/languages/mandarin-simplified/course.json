@@ -39,7 +39,8 @@
     "naturalization-nucleus"
   ],
   "upcomingGames": [
-    "memory-moon"
+    "memory-moon",
+    "sound-quasar"
   ],
   "launcher": {
     "flagClass": "flag-icon"
@@ -71,7 +72,18 @@
   "publication": {
     "contract": "language-content-v1",
     "concepts": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
-    "realizations": "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json"
+    "realizations": "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "mandarin-simplified-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "targetRealizationsRuntime": "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {
+        "readingGuideProjection": "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"
+      },
+      "manifest": "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json"
+    }
   },
   "capabilities": {
     "llm": false,
@@ -93,6 +105,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
+      "pagesEnabled": true,
       "entryPath": "/zh/index.html",
       "backend": "static"
     },

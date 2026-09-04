@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "caatuu-word-world-runtime-manifest-v2",
+  "courseId": "es",
+  "corpusVersion": "starter-v1",
+  "mode": "authored",
+  "sessionProvider": {
+    "kind": "authored-realizations"
+  },
+  "features": {
+    "wordMeanings": true
+  },
+  "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+  "realizationFile": "starter-v1.realizations.json",
+  "recordCount": 250,
+  "targetLanguage": "es-ES",
+  "mediationLanguage": "en",
+  "tokenization": "authored",
+  "review": {
+    "status": "native-review-required",
+    "pronunciationApproved": false,
+    "notes": "Machine-assisted European Spanish development draft; qualified native Spanish review is still required."
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "wordMeanings": true,
+    "speech": true,
+    "pronunciationGuides": false,
+    "wordWorld": true
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false,
+    "modelId": "all-minilm-l6-v2-qint8-v0.1",
+    "fallback": "deterministic-lexical"
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "sourceReference": null,
+    "reviewedBy": null,
+    "reviewedAt": null
+  }
+}

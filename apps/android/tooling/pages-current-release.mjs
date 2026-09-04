@@ -27,10 +27,9 @@ const sourceRevisionPattern = /^[a-f0-9]{40}$/u;
 const versionNamePattern = /^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$/u;
 const initialReleaseRecordSha256 = "0e085b347390d76f0e320ef1deb46c80d6219a86ac3d5d5e4592509b8de83c5c";
 const releaseKinds = Object.freeze(["apk", "manifest", "receipt"]);
-const expectedSetupEntries = Object.freeze([
-  "assets/courses/cz/setup-assets.json",
-  "assets/courses/zh/setup-assets.json",
-]);
+const courseBundleEntry = "assets/caatuu-course-bundle.json";
+const courseBundleSchema = "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json";
+const courseIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 function inside(parent, child) {
   const value = relative(resolve(parent), resolve(child));
@@ -56,6 +55,54 @@ function normalizedPath(value, label) {
   assert.ok(parts.every((part) => part && part !== "." && part !== ".."), `${label} is unsafe`);
   assert.equal(parts.join("/"), path, `${label} is not normalized`);
   return path;
+}
+
+function validateSetupEntries(value) {
+  assert.ok(Array.isArray(value) && value.length > 0, "setupEntries must be a non-empty array");
+  const entries = value.map((entry, index) => {
+    const path = normalizedPath(entry, `setupEntries[${index}]`);
+    assert.match(
+      path,
+      /^assets\/courses\/[a-z0-9]+(?:-[a-z0-9]+)*\/setup-assets\.json$/u,
+      `setupEntries[${index}] must name a course setup catalog`,
+    );
+    return path;
+  });
+  assert.equal(new Set(entries).size, entries.length, "setupEntries must not contain duplicates");
+  return entries;
+}
+
+export function setupEntriesFromCourseBundle(value) {
+  assertExactKeys(value, ["$schema", "schemaVersion", "defaultCourseId", "courses"], "Android course bundle");
+  assert.equal(value.$schema, courseBundleSchema, "Android course bundle schema identifier changed");
+  assert.equal(value.schemaVersion, 1, "Android course bundle schema version changed");
+  assert.match(String(value.defaultCourseId || ""), courseIdPattern, "Android course bundle default course ID is invalid");
+  assert.ok(Array.isArray(value.courses) && value.courses.length > 0, "Android course bundle must list courses");
+
+  const ids = [];
+  const prefixes = [];
+  for (const [index, course] of value.courses.entries()) {
+    assert.ok(course && typeof course === "object" && !Array.isArray(course), `Android course bundle courses[${index}] must be an object`);
+    assert.match(String(course.id || ""), courseIdPattern, `Android course bundle courses[${index}].id is invalid`);
+    const assetPrefix = normalizedPath(course.assetPrefix, `Android course bundle courses[${index}].assetPrefix`);
+    assert.equal(assetPrefix, `courses/${course.id}`, `Android course bundle ${course.id} assetPrefix changed`);
+    ids.push(course.id);
+    prefixes.push(assetPrefix);
+  }
+  assert.equal(new Set(ids).size, ids.length, "Android course bundle course IDs must be unique");
+  assert.equal(new Set(prefixes).size, prefixes.length, "Android course bundle asset prefixes must be unique");
+  assert.ok(ids.includes(value.defaultCourseId), "Android course bundle does not contain its default course");
+  return Object.freeze(validateSetupEntries(prefixes.map((prefix) => `assets/${prefix}/setup-assets.json`)));
+}
+
+function setupEntriesFromApk(apkPath) {
+  let bundle;
+  try {
+    bundle = JSON.parse(readZipEntry(apkPath, courseBundleEntry).toString("utf8"));
+  } catch (error) {
+    throw new Error(`Android APK has no valid ${courseBundleEntry}`, { cause: error });
+  }
+  return setupEntriesFromCourseBundle(bundle);
 }
 
 function assertNoSymlinkAncestors(path, boundary, label) {
@@ -128,9 +175,7 @@ function validateStoredDescriptor(value) {
     );
     previousVersionCode = release.versionCode;
   }
-  assert.ok(Array.isArray(value.setupEntries), "setupEntries must be an array");
-  const setupEntries = value.setupEntries.map((entry, index) => normalizedPath(entry, `setupEntries[${index}]`));
-  assert.deepEqual(setupEntries, [...expectedSetupEntries]);
+  const setupEntries = validateSetupEntries(value.setupEntries);
   return {
     schemaName: value.schemaName,
     schemaVersion: value.schemaVersion,
@@ -209,8 +254,8 @@ export function validatePagesCurrentReleaseDescriptor(value) {
 export function assertPagesReleaseHistoryPrefix(previousValue, nextValue) {
   const previous = validateStoredDescriptor(structuredClone(previousValue));
   const next = validateStoredDescriptor(structuredClone(nextValue));
-  const { releases: previousReleases, ...previousMetadata } = previous;
-  const { releases: nextReleases, ...nextMetadata } = next;
+  const { releases: previousReleases, setupEntries: previousSetupEntries, ...previousMetadata } = previous;
+  const { releases: nextReleases, setupEntries: nextSetupEntries, ...nextMetadata } = next;
   assert.deepEqual(nextMetadata, previousMetadata, "Pages release-history metadata changed");
   assert.ok(
     nextReleases.length >= previousReleases.length,
@@ -222,6 +267,9 @@ export function assertPagesReleaseHistoryPrefix(previousValue, nextValue) {
       previousReleases[index],
       `Pages release history changed immutable Android ${previousReleases[index].versionCode}`,
     );
+  }
+  if (nextReleases.length === previousReleases.length) {
+    assert.deepEqual(nextSetupEntries, previousSetupEntries, "Pages setup entries changed without a new Android release");
   }
   return {
     previousReleaseCount: previousReleases.length,
@@ -354,6 +402,7 @@ export function advancePagesCurrentReleaseDescriptor({
     workspaceRoot: resolve(workspaceRoot), descriptor: stored, manifestPath, apkPath, receiptPath,
   });
   const candidate = inspected.record;
+  const setupEntries = setupEntriesFromApk(inspected.apkPath);
   const current = stored.releases.at(-1);
   assert.ok(
     candidate.versionCode >= current.versionCode,
@@ -363,11 +412,20 @@ export function advancePagesCurrentReleaseDescriptor({
   let updated;
   if (candidate.versionCode === current.versionCode) {
     assert.deepEqual(candidate, current, `Android ${candidate.versionCode} differs from its immutable Pages release`);
+    assert.deepEqual(
+      setupEntries,
+      stored.setupEntries,
+      `Android ${candidate.versionCode} course setup projection differs from its Pages descriptor`,
+    );
     action = "reuse";
     updated = stored;
   } else {
     action = "append";
-    updated = validateStoredDescriptor({ ...stored, releases: [...stored.releases, candidate] });
+    updated = validateStoredDescriptor({
+      ...stored,
+      releases: [...stored.releases, candidate],
+      setupEntries,
+    });
   }
   const expanded = validatePagesCurrentReleaseDescriptor(updated);
   const plan = pagesCurrentReleaseDownloadPlan(updated);
@@ -411,13 +469,9 @@ function validateLoadedRelease({ workspaceRoot, descriptor, release }) {
   };
 }
 
-function validateCurrentSetupManifests(descriptor, current) {
-  const setupManifests = new Map(descriptor.setupEntries.map((entry) => {
-    const value = JSON.parse(readZipEntry(current.apkPath, entry).toString("utf8"));
-    assert.ok(Array.isArray(value.artifacts), `${entry} does not contain an artifact list`);
-    return [entry, value];
-  }));
+function validateCzechAgreementAurora(setupManifests, current) {
   const czechSetup = setupManifests.get("assets/courses/cz/setup-assets.json");
+  if (!czechSetup) return;
   const agreement = czechSetup.artifacts.filter((artifact) => artifact.key === "planet-agreement-aurora");
   assert.equal(agreement.length, 1, `Android ${current.release.versionCode} Czech setup is missing Agreement Aurora`);
   const artwork = agreement[0];
@@ -425,6 +479,21 @@ function validateCurrentSetupManifests(descriptor, current) {
   assert.ok(Number.isSafeInteger(artwork.bytes) && artwork.bytes > 0, "Agreement Aurora byte count is invalid");
   assert.match(String(artwork.sha256 || ""), sha256Pattern, "Agreement Aurora SHA-256 is invalid");
   assert.equal(artwork.url, `/assets/planets/releases/${artwork.sha256.slice(0, 16)}/agreement-aurora.png`);
+}
+
+function validateCurrentSetupManifests(descriptor, current) {
+  const setupEntries = setupEntriesFromApk(current.apkPath);
+  assert.deepEqual(
+    descriptor.setupEntries,
+    setupEntries,
+    `Android ${current.release.versionCode} setupEntries must match its packaged course bundle order`,
+  );
+  const setupManifests = new Map(setupEntries.map((entry) => {
+    const value = JSON.parse(readZipEntry(current.apkPath, entry).toString("utf8"));
+    assert.ok(Array.isArray(value.artifacts), `${entry} does not contain an artifact list`);
+    return [entry, value];
+  }));
+  validateCzechAgreementAurora(setupManifests, current);
   return setupManifests;
 }
 

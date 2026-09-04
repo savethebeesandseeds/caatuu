@@ -7,7 +7,8 @@ import { resolveTargetContentPolicy } from "../policies/registry.mjs";
 
 export const ENGLISH_CONCEPT_SCHEMA_VERSION = 1;
 export const TARGET_REALIZATIONS_SCHEMA_VERSION = 1;
-export const ENGLISH_EMBEDDING_LANGUAGE = "en";
+export const ENGLISH_AUDIT_LANGUAGE = "en";
+export const ENGLISH_EMBEDDING_LANGUAGE = ENGLISH_AUDIT_LANGUAGE;
 export const ENGLISH_EMBEDDING_FIELD = "embeddingText";
 export const ENGLISH_EMBEDDING_POLICY = "embeddingText_only";
 export const AUTHORED_TOKENIZATION_METHOD = "authored-word-tokens";
@@ -211,7 +212,7 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
   if (typeof catalog.id !== "string" || !CATALOG_ID_PATTERN.test(catalog.id)) {
     addIssue(issues, "concepts.id", "Concept catalog id must be a stable versioned lowercase ID.");
   }
-  if (catalog.language !== ENGLISH_EMBEDDING_LANGUAGE) {
+  if (catalog.language !== ENGLISH_AUDIT_LANGUAGE) {
     addIssue(issues, "embedding.policy", "Concept catalog language must be en.");
   }
   validateEmbeddingPolicy(catalog.embeddingPolicy, issues);
@@ -238,8 +239,8 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
     for (const field of ["englishText", ENGLISH_EMBEDDING_FIELD, "sceneQuery"]) {
       if (!isNonEmptyString(concept[field])) {
         addIssue(issues, "concepts.shape", `${label}.${field} must be a non-empty string.`);
-      } else if (containsNonEnglishEmbeddingText(concept[field])) {
-        addIssue(issues, "embedding.leakage", `${label}.${field} contains non-English script or diacritics.`);
+      } else if (containsUnsupportedEnglishAuthorityCharacters(concept[field])) {
+        addIssue(issues, "embedding.leakage", `${label}.${field} violates the conservative English-authority character policy.`);
       }
     }
     if (typeof concept.topic !== "string" || !TOPIC_PATTERN.test(concept.topic)) {
@@ -681,8 +682,8 @@ function validateEmbeddingIsolation(documents, realizations, issues) {
       if (key && isForbiddenEmbeddingKey(key)) {
         addIssue(issues, "embedding.leakage", `${objectPath} contains target-owned field ${key}.`);
       }
-      if (typeof value === "string" && containsNonEnglishEmbeddingText(value)) {
-        addIssue(issues, "embedding.leakage", `${objectPath} contains non-English script or diacritics.`);
+      if (typeof value === "string" && containsUnsupportedEnglishAuthorityCharacters(value)) {
+        addIssue(issues, "embedding.leakage", `${objectPath} violates the conservative English-authority character policy.`);
       }
     });
   }
@@ -707,7 +708,10 @@ function isForbiddenEmbeddingKey(key) {
   return FORBIDDEN_EMBEDDING_KEYS.has(key.replace(/[^A-Za-z0-9]/gu, "").toLowerCase());
 }
 
-function containsNonEnglishEmbeddingText(value) {
+// This is intentionally only a conservative cross-script/diacritic tripwire.
+// The English catalog authority, language declaration, and review establish
+// language identity; character shape alone cannot distinguish Latin languages.
+function containsUnsupportedEnglishAuthorityCharacters(value) {
   for (const character of value) {
     if (LETTER_PATTERN.test(character) && !LATIN_LETTER_PATTERN.test(character)) return true;
   }

@@ -5,7 +5,8 @@ import test from "node:test";
 import { importBrowserLanguageAdapter } from "./browser-module-loader.mjs";
 import {
   mountWordWorld,
-  prepareWordWorldContext
+  prepareWordWorldContext,
+  resolveWordWorldGenerationStrategy
 } from "../static/source/word-world-provider.mjs";
 
 const [czechAdapter, mandarinAdapter] = await Promise.all([
@@ -81,6 +82,61 @@ function authoredOptions(overrides = {}) {
   };
 }
 
+const frenchBaseCourse = Object.freeze({
+  ...mandarinCourse,
+  sourceLanguage: Object.freeze({
+    id: "fr",
+    label: "Français",
+    locale: "fr",
+    direction: "ltr"
+  })
+});
+
+function frenchBaseProjection({ mutate } = {}) {
+  const projection = {
+    $schema: "https://caatuu.org/schemas/runtime/learner-base-realizations.runtime.v1.schema.json",
+    schemaVersion: 1,
+    id: "word-world-french-base-v1",
+    baseLanguage: { languageTag: "fr", script: "Latn" },
+    derivedFrom: "apps/languages/shared/learner-base-realizations/fr/word-world-french-base-v1.json",
+    sourceCatalog: englishCatalog.derivedFrom,
+    review: {
+      status: "native-reviewed",
+      reviewer: "Synthetic French reviewer",
+      reviewedAt: "2026-09-03T00:00:00Z",
+      notes: "Synthetic browser-runtime contract fixture only."
+    },
+    license: structuredClone(englishCatalog.license),
+    realizations: [...englishCatalog.concepts].reverse().map((concept, index) => ({
+      conceptId: concept.id,
+      text: concept.id === "ww.object.book"
+        ? "Ceci est un livre français."
+        : `Phrase française ${index + 1}.`
+    }))
+  };
+  mutate?.(projection);
+  return projection;
+}
+
+function frenchBaseManifest() {
+  return {
+    ...structuredClone(authoredManifest),
+    learnerBaseLanguage: "fr",
+    learnerBaseFile: "word-world-french-base-v1.runtime.json"
+  };
+}
+
+function authoredFrenchJsonLoader(projection, calls = []) {
+  return (url) => {
+    calls.push(String(url));
+    const pathname = new URL(url, "https://caatuu.test").pathname;
+    if (pathname.endsWith("/word-world-french-base-v1.runtime.json")) {
+      return structuredClone(projection);
+    }
+    return authoredJsonLoader(url);
+  };
+}
+
 test("authored preparation exposes the complete renderer-neutral provider seam", async () => {
   const reports = [];
   const options = authoredOptions({
@@ -99,6 +155,7 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   assert.equal(context.session.records.length, 250);
   assert.equal(context.selectionProvider.records.length, 250);
   assert.equal(context.selectionProvider.corpusVersion, "starter-v1");
+  assert.equal(context.learnerBase, undefined);
   for (const method of [
     "difficultyCounts",
     "nextRandom",
@@ -111,6 +168,8 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
 
   const book = context.sessionRecord("ww.object.book");
   assert.equal(book.target.text, "这是一本书。");
+  assert.equal(book.learnerPrompt, undefined);
+  assert.equal(context.selectionProvider.getRecordById(book.conceptId).sourceText, book.englishText);
   assert.equal(context.sessionRecord({ conceptId: book.conceptId }), book);
   assert.equal(context.normalization.text(" 你好 "), "你好");
   assert.equal(context.normalization.searchKey(" 你好 "), "你好");
@@ -167,7 +226,7 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   assert.equal(search.records[0].conceptId, "ww.object.book");
   assert.deepEqual(Object.keys(options.capture.payload), ["inputLanguage", "query", "candidates"]);
   assert.doesNotMatch(JSON.stringify(options.capture.payload), /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u);
-  await assert.rejects(context.searchEnglish("书"), /English-only/u);
+  await assert.rejects(context.searchEnglish("书"), /English-authority/u);
 
   await context.report({
     courseId: mandarinCourse.id,
@@ -178,6 +237,141 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   assert.equal(reports.length, 1);
   assert.equal(reports[0].feedback.entryId, book.conceptId);
   assert.equal(reports[0].feedback.contentMode, "authored");
+});
+
+test("a reviewed non-English learner base joins by concept ID without entering English retrieval", async () => {
+  const projection = frenchBaseProjection();
+  const loaderCalls = [];
+  const capture = {};
+  const context = await prepareWordWorldContext(
+    frenchBaseCourse,
+    frenchBaseManifest(),
+    authoredOptions({
+      loadJson: authoredFrenchJsonLoader(projection, loaderCalls),
+      embeddingRanker: rankedByConcept("ww.object.book", capture)
+    })
+  );
+
+  assert.deepEqual(context.learnerBase, {
+    languageTag: "fr",
+    file: "word-world-french-base-v1.runtime.json",
+    catalogId: projection.id
+  });
+  const book = context.sessionRecord("ww.object.book");
+  assert.equal(book.englishText, "This is a book.");
+  assert.deepEqual(book.audit, { languageTag: "en", text: "This is a book." });
+  assert.deepEqual(book.learnerPrompt, {
+    languageTag: "fr",
+    text: "Ceci est un livre français.",
+    authority: "learner-base-realization"
+  });
+  const selectionRecord = context.selectionProvider.getRecordById(book.conceptId);
+  assert.equal(selectionRecord.sourceText, book.learnerPrompt.text);
+  assert.equal(selectionRecord.learnerPromptText, book.learnerPrompt.text);
+  assert.equal(selectionRecord.englishAuditText, book.englishText);
+  assert.ok(
+    loaderCalls.some((url) => url.endsWith("/zh/data/games/word-world/word-world-french-base-v1.runtime.json")),
+    "the base projection must resolve beside the target runtime manifest"
+  );
+
+  const search = await context.searchEnglish("book");
+  assert.equal(search.records[0].conceptId, book.conceptId);
+  assert.equal(capture.payload.inputLanguage, "en");
+  assert.equal(capture.payload.query.embeddingText, "book");
+  assert.doesNotMatch(JSON.stringify(capture.payload), /Phrase française|Ceci est/u);
+  await assert.rejects(
+    context.searchEnglish(book.learnerPrompt.text),
+    /English-authority/u,
+    "learner-base prompt text cannot cross the English retrieval boundary"
+  );
+});
+
+test("non-English learner-base activation fails closed on absent, mismatched, or partial projections", async () => {
+  await assert.rejects(
+    prepareWordWorldContext(frenchBaseCourse, authoredManifest, authoredOptions()),
+    /requires a reviewed learner-base runtime projection/u
+  );
+
+  const incomplete = frenchBaseProjection({
+    mutate(projection) {
+      projection.realizations.pop();
+    }
+  });
+  await assert.rejects(
+    prepareWordWorldContext(
+      frenchBaseCourse,
+      frenchBaseManifest(),
+      authoredOptions({ loadJson: authoredFrenchJsonLoader(incomplete) })
+    ),
+    /Missing learner-base realizations/u
+  );
+
+  const wrongAuthority = frenchBaseProjection({
+    mutate(projection) {
+      projection.sourceCatalog = "apps/languages/shared/english-concepts/different-v1.json";
+    }
+  });
+  await assert.rejects(
+    prepareWordWorldContext(
+      frenchBaseCourse,
+      frenchBaseManifest(),
+      authoredOptions({ loadJson: authoredFrenchJsonLoader(wrongAuthority) })
+    ),
+    /does not reference the loaded English concept authority/u
+  );
+
+  const wrongScript = frenchBaseProjection({
+    mutate(projection) {
+      projection.baseLanguage.script = "Cyrl";
+    }
+  });
+  await assert.rejects(
+    prepareWordWorldContext(
+      frenchBaseCourse,
+      frenchBaseManifest(),
+      authoredOptions({ loadJson: authoredFrenchJsonLoader(wrongScript) })
+    ),
+    /maximized script Latn for fr/u
+  );
+
+  const wrongLanguageManifest = frenchBaseManifest();
+  wrongLanguageManifest.learnerBaseLanguage = "de";
+  await assert.rejects(
+    prepareWordWorldContext(frenchBaseCourse, wrongLanguageManifest, authoredOptions()),
+    /does not match course source language/u
+  );
+
+  await assert.rejects(
+    prepareWordWorldContext(
+      frenchBaseCourse,
+      frenchBaseManifest(),
+      authoredOptions({
+        loadJson(url) {
+          if (String(url).endsWith("word-world-french-base-v1.runtime.json")) {
+            throw new Error("learner-base file missing");
+          }
+          return authoredJsonLoader(url);
+        }
+      })
+    ),
+    /learner-base file missing/u
+  );
+});
+
+test("the legacy standard corpus cannot bypass the learner-base concept join", async () => {
+  const { provider } = standardFixture();
+  await assert.rejects(
+    prepareWordWorldContext({
+      ...czechCourse,
+      sourceLanguage: { id: "fr", label: "Français", locale: "fr" }
+    }, standardManifest, {
+      adapter: czechAdapter,
+      standardProvider: provider,
+      embeddingRanker: null,
+      runtime: null
+    }),
+    /require the concept-ID-keyed authored-realizations provider/u
+  );
 });
 
 function standardFixture() {
@@ -221,7 +415,14 @@ const czechCourse = Object.freeze({
   id: "cz",
   routePrefix: "/cz",
   sourceLanguage: { id: "en", label: "English", locale: "en" },
-  targetLanguage: { id: "cs", label: "Czech", locale: "cs-CZ" },
+  targetLanguage: {
+    id: "cs",
+    label: "Czech",
+    locale: "cs-CZ",
+    script: "Latn",
+    speechLocale: "cs-CZ",
+    direction: "ltr"
+  },
   capabilities: {
     wordWorld: true,
     embeddings: true,
@@ -230,6 +431,15 @@ const czechCourse = Object.freeze({
     speech: true
   },
   languageAdapter: { module: "source/language/adapter.mjs" }
+});
+
+test("provider preparation rejects a structurally valid adapter for another target", async () => {
+  await assert.rejects(
+    prepareWordWorldContext(mandarinCourse, authoredManifest, authoredOptions({
+      adapter: czechAdapter
+    })),
+    /adapter locale cs-CZ does not match course target locale zh-Hans/u
+  );
 });
 
 const standardManifest = Object.freeze({
@@ -302,10 +512,41 @@ test("standard preparation preserves legacy selection and optional full-dictiona
   assert.equal(context.generate({ mode: "random" }), prepared);
 });
 
+test("a Czech standard-token dictionary miss remains a miss instead of a synthetic authored gloss", async () => {
+  const { record, provider } = standardFixture();
+  const dictionaryCalls = [];
+  const context = await prepareWordWorldContext(czechCourse, standardManifest, {
+    adapter: czechAdapter,
+    standardProvider: provider,
+    embeddingRanker: null,
+    meaningSelector: () => null,
+    runtime: {
+      dictionary: {
+        async search(surface, options) {
+          dictionaryCalls.push({ surface, options });
+          return { results: [] };
+        }
+      }
+    }
+  });
+  const prepared = context.sessionRecord(record.id);
+
+  assert.equal(Object.hasOwn(prepared.target.tokens[0], "gloss"), false);
+  assert.equal(await context.lookupMeaning({ record: prepared, token: prepared.target.tokens[0] }), null);
+  assert.deepEqual(dictionaryCalls, [{ surface: "Kočka", options: { limit: 8 } }]);
+});
+
 test("the Czech standard provider resolves dictionary selection from the shared runtime core", async () => {
   const { provider } = standardFixture();
   const imported = [];
-  await prepareWordWorldContext(czechCourse, czechWordWorldManifest, {
+  await prepareWordWorldContext({
+    ...czechCourse,
+    capabilities: {
+      ...czechCourse.capabilities,
+      generation: true,
+      llm: true
+    }
+  }, czechWordWorldManifest, {
     origin: "https://caatuu.test",
     adapter: czechAdapter,
     standardProvider: provider,
@@ -323,6 +564,54 @@ test("the Czech standard provider resolves dictionary selection from the shared 
   assert.equal(
     czechWordWorldManifest.sessionProvider.meaningSelectorModule,
     "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
+  );
+});
+
+test("generation strategy declarations cannot forge entry into the Czech implementation", () => {
+  const futureCourse = {
+    ...czechCourse,
+    id: "es",
+    targetLanguage: {
+      id: "es",
+      label: "Spanish",
+      locale: "es-ES",
+      script: "Latn",
+      speechLocale: "es-ES",
+      direction: "ltr"
+    },
+    capabilities: {
+      ...czechCourse.capabilities,
+      generation: true,
+      llm: true
+    }
+  };
+  assert.throws(
+    () => resolveWordWorldGenerationStrategy(futureCourse, {
+      generationStrategy: {
+        id: "spanish-local-word-world-v1",
+        targetLanguageTag: "es-ES",
+        auditLanguageTag: "en",
+        sentenceModelKey: "spanish-sentence-model-v1",
+        translationModelKey: "spanish-english-model-v1"
+      }
+    }),
+    /has no registered shared-runtime implementation/u
+  );
+  assert.throws(
+    () => resolveWordWorldGenerationStrategy({
+      ...czechCourse,
+      capabilities: {
+        ...czechCourse.capabilities,
+        generation: true,
+        llm: true
+      }
+    }, {
+      generationStrategy: {
+        ...czechWordWorldManifest.generationStrategy,
+        sentenceModelKey: "forged-czech-sentence-model-v1"
+      }
+    }),
+    /sentenceModelKey must exactly match the registered/u
   );
 });
 

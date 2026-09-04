@@ -10,9 +10,14 @@ The server container serves:
 /cz/    apps/languages/czech/static
 /zh/
         shared application with the Mandarin development course pack
+/es/
+        shared application with the Spanish development course pack
 /android/
         signed caatuu.apk/json and explicit caatuu-debug.apk/json artifacts
 ```
+
+These are local-server mounts. The `/es/` mount does not imply inclusion in the
+deployed Pages snapshot or Android bundle.
 
 `/zh-hans` and `/zh-hans/**` redirect to the canonical `/zh/` course. The deprecated
 Chinese trainer remains repository-only: `/archive/chinese/**` and its old
@@ -114,11 +119,25 @@ inventory, or the Android package, run the boundary audit from
 
 ```powershell
 docker exec caatuu-dev bash -lc `
-  'cd /workspace && node apps/server/tooling/refresh-setup-assets.mjs --check'
+  'cd /workspace && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check'
 ```
 
 This fast preflight checks every setup artifact byte count and SHA-256 against
-its authoritative shared or language source. Android Gradle builds run the
+its authoritative shared or language source for every catalog-declared browser
+course. It also requires each shared-runtime mapping from
+`apps/language-runtime/app-assets.json` exactly once in every course's offline
+list by URL pathname; cache-busting queries are allowed, while missing,
+duplicate, or remapped pathnames fail. The build-only course service-worker
+template is the sole exception. Revisioned shared URLs loaded by the canonical
+app and its trusted shared module graph are synchronized into every course's
+offline list; an unversioned reference never strips an intentional query. Run
+the same command without `--check` to refresh all browser-course hashes and
+canonical shared revisions. Canonical course validation and every
+course inspection finish before the first manifest is written, so an invalid
+pack cannot leave a partially refreshed catalog. The same inspection binds
+`offline.cachePrefix` exactly to the owning course's `cache.prefix` and keeps
+`offline.cacheName` versioned beneath that prefix, preventing a copied setup
+from sharing another course's worker-managed cache namespace. Android Gradle builds run the
 write mode automatically before packaging. After that preflight, run the full
 boundary audit:
 
@@ -127,9 +146,9 @@ node apps\server\tooling\audit-runtime-boundary.mjs
 ```
 
 The audit checks that the root browser launcher, `/cz/` Czech app, `/zh/`
-Mandarin app, compatibility `/zh-hans` redirects, unreachable deprecated Chinese UI,
-retired top-level backend paths, and rebuilt Android APK package contents still
-match the intended split.
+Mandarin app, `/es/` Spanish app, compatibility `/zh-hans` redirects,
+unreachable deprecated Chinese UI, retired top-level backend paths, and rebuilt
+Android APK package contents still match the intended split.
 
 ## Public hosting and local phone tests
 

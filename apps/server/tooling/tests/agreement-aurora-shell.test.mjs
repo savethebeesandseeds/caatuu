@@ -3,8 +3,9 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
-const [controller, pack] = await Promise.all([
-  readFile(new URL("source/games/agreement-aurora/agreement-aurora.js", staticRoot), "utf8"),
+const [controller, legacyRedirect, pack] = await Promise.all([
+  readFile(new URL("../../../../apps/language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs", import.meta.url), "utf8"),
+  readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
   readFile(new URL("data/games/agreement-aurora/challenges.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
@@ -55,6 +56,8 @@ test("each page holds one adjective while the three gender forms change", () => 
   ]);
   assert.deepEqual(Object.values(pack[0].forms).map((form) => form.form), ["nový", "nová", "nové"]);
   assert.deepEqual(Object.values(pack[0].forms).map((form) => form.examples[0].czech), ["nový dům", "nová kniha", "nové město"]);
-  assert.match(controller, /function chooseExample\(form\)/);
-  assert.match(controller, /The noun stays in its ordinary naming form\. The adjective changes to match the noun's gender\./);
+  assert.match(controller, /buildAgreementAuroraRounds/u);
+  assert.match(controller, /agreement-aurora-core\.mjs\?v=agreement-aurora-core-2/u);
+  assert.match(legacyRedirect, /url=\/cz\/index\.html\?game=agreement-aurora/u);
+  assert.doesNotMatch(legacyRedirect, /source\/games\/agreement-aurora/u);
 });

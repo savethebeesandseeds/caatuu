@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "fixture-gen",
+  "directoryName": "fixture-gen",
+  "routePrefix": "/fixture-gen",
+  "entryPath": "/fixture-gen/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "locale": "en"
+  },
+  "targetLanguage": {
+    "id": "xy",
+    "label": "Fixture Target",
+    "nativeLabel": "Fixture Target",
+    "shortCode": "XY",
+    "locale": "xy-Test",
+    "script": "Latn",
+    "speechLocale": "xy-Test",
+    "direction": "ltr",
+    "flagClass": "fixture-target-flag",
+    "flagSrc": "/assets/icons/fixture-target.png"
+  },
+  "capabilities": {
+    "llm": true,
+    "generation": true,
+    "chat": true,
+    "embeddings": false,
+    "semanticSearch": false,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": true,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": false,
+    "offlineModels": true,
+    "speech": false,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "entryPath": "/fixture-gen/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": true,
+      "channels": []
+    }
+  },
+  "resources": {
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "state": "present"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/android/tooling/tests/fixtures/generative-course/static",
+      "state": "present"
+    },
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/android/tooling/tests/fixtures/generative-course/android-assets.json",
+      "state": "present"
+    }
+  }
+}

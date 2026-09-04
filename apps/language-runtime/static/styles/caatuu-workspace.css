@@ -746,6 +746,29 @@ button:focus-visible {
 .train-tab-panel[hidden] {
   display: none;
 }
+.games-launchpad-panel {
+  min-height: clamp(480px, calc(100dvh - var(--caatuu-bottom-dock-height, 82px) - 120px), 760px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.games-launchpad {
+  width: min(86vw, 680px);
+  min-height: min(56dvh, 540px);
+  display: grid;
+  place-items: center;
+}
+.games-launchpad-ship {
+  width: clamp(210px, 46vw, 420px);
+  max-width: 88%;
+  max-height: min(48dvh, 440px);
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 26px color-mix(in srgb, var(--theme-ink, #17241f) 22%, transparent));
+}
+.train-route-proxies {
+  display: none !important;
+}
 .train-galaxy {
   --train-orbit-perspective: 920px;
   --train-orbit-pitch: 68deg;
@@ -937,6 +960,28 @@ button:focus-visible {
 }
 .train-world-memory img {
   width: clamp(56px, 17vw, 82px);
+}
+.train-world-case {
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+}
+.train-world-case .train-orbit,
+.train-world-agreement .train-orbit {
+  display: none;
+}
+.train-world-case img {
+  width: clamp(62px, 18vw, 90px);
+}
+.train-world-agreement {
+  top: 69%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+}
+.train-world-agreement img {
+  width: clamp(58px, 17vw, 84px);
 }
 .train-world-verb img {
   width: clamp(68px, 21vw, 104px);
@@ -1757,7 +1802,8 @@ button:focus-visible {
   from { opacity: 0.7; transform: translateY(2px) scale(0.985); }
   to { opacity: 0.96; transform: translateY(-3px) scale(1.015); }
 }
-.memory-moon-panel {
+.memory-moon-panel,
+.upcoming-game-panel {
   min-height: 460px;
   display: grid;
   gap: 18px;
@@ -1769,22 +1815,26 @@ button:focus-visible {
     var(--panel);
   box-shadow: var(--shadow);
 }
-.memory-moon-copy {
+.memory-moon-copy,
+.upcoming-game-copy {
   margin-top: 6px;
   color: var(--muted);
   font-size: 0.9rem;
 }
-.memory-moon-stage {
+.memory-moon-stage,
+.upcoming-game-stage {
   min-height: 320px;
   display: grid;
   place-items: center;
   gap: 8px;
 }
-.memory-moon-stage img {
+.memory-moon-stage img,
+.upcoming-game-stage img {
   width: min(38vw, 220px);
   filter: drop-shadow(0 22px 24px rgba(0, 0, 0, 0.26));
 }
-.memory-moon-stage span {
+.memory-moon-stage span,
+.upcoming-game-stage span {
   color: var(--muted);
   font-weight: 900;
 }
@@ -1812,7 +1862,8 @@ button:focus-visible {
     height: calc(100dvh - 144px);
     min-height: 560px;
   }
-  .memory-moon-panel {
+  .memory-moon-panel,
+  .upcoming-game-panel {
     padding: 10px;
   }
 }
@@ -6478,23 +6529,23 @@ html[data-theme="dark"] .verb-match-board {
 
 /* Hanzi and pinyin remain legible at the learner-facing Standard size without
    enlarging English copy or the surrounding controls. */
-html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-glyph {
+html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-glyph {
   font-size: 1.38em;
 }
 
-html[data-font-size="largest"] body[data-course-id="zh"] .word-net-target-text-notation {
+html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-notation {
   font-size: max(0.56em, 0.7rem);
 }
 
-html[data-font-size="largest"] body[data-course-id="zh"] #wordNetTrail .word-net-trail-target {
+html[data-font-size="largest"] body[data-target-script^="Han"] #wordNetTrail .word-net-trail-target {
   font-size: 1.13rem;
 }
 
-html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-column-heading-cz #verbTargetColumnHeading {
+html[data-font-size="largest"] body[data-target-script^="Han"] .verb-match-column-heading-cz #verbTargetColumnHeading {
   font-size: clamp(1.08rem, 1.66vw, 1.21rem);
 }
 
-html[data-font-size="largest"] body[data-course-id="zh"] .verb-match-card-cz .verb-match-card-copy {
+html[data-font-size="largest"] body[data-target-script^="Han"] .verb-match-card-cz .verb-match-card-copy {
   font-size: clamp(1.38rem, 3.24vw, 1.62rem);
 }
 

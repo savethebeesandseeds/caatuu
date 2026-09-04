@@ -1,0 +1,8669 @@
+{
+  "$schema": "https://caatuu.org/schemas/runtime/target-realizations.runtime.v1.schema.json",
+  "schemaVersion": 1,
+  "courseId": "es",
+  "derivedFrom": "apps/languages/spanish/content/word-world/starter-v1.realizations.json",
+  "projectionPolicy": {
+    "tokenization": "authored",
+    "pronunciationIncluded": false,
+    "reason": "Spanish pronunciation is omitted until a separate reviewed pronunciation policy exists."
+  },
+  "targetLanguage": {
+    "languageTag": "es-ES",
+    "speechLocale": "es-ES",
+    "script": "Latn"
+  },
+  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+  "contentPolicy": "spanish-spain-v1",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Machine-assisted European Spanish development draft; qualified native Spanish review is still required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "sourceReference": null,
+    "reviewedBy": null,
+    "reviewedAt": null
+  },
+  "realizations": [
+    {
+      "conceptId": "ww.greeting.hello",
+      "text": "¡Hola!",
+      "tokens": [
+        {
+          "surface": "Hola",
+          "gloss": "hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.thanks",
+      "text": "Gracias.",
+      "tokens": [
+        {
+          "surface": "Gracias",
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.goodbye",
+      "text": "¡Adiós!",
+      "tokens": [
+        {
+          "surface": "Adiós",
+          "gloss": "goodbye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.name",
+      "text": "Me llamo Lin.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "myself; me",
+          "playable": false
+        },
+        {
+          "surface": "llamo",
+          "gloss": "I am called",
+          "playable": true
+        },
+        {
+          "surface": "Lin",
+          "gloss": "Lin (a name)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.student",
+      "text": "Soy estudiante.",
+      "tokens": [
+        {
+          "surface": "Soy",
+          "gloss": "I am",
+          "playable": true
+        },
+        {
+          "surface": "estudiante",
+          "gloss": "student",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.object.book",
+      "text": "Esto es un libro.",
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.animal.cat",
+      "text": "Eso es un gato.",
+      "tokens": [
+        {
+          "surface": "Eso",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.cold-today",
+      "text": "Hoy hace frío.",
+      "tokens": [
+        {
+          "surface": "Hoy",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "hace",
+          "gloss": "it is; it makes",
+          "playable": false
+        },
+        {
+          "surface": "frío",
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.comprehension.not-understand",
+      "text": "No entiendo.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "not; no",
+          "playable": false
+        },
+        {
+          "surface": "entiendo",
+          "gloss": "I understand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.good-morning",
+      "text": "¡Buenos días!",
+      "tokens": [
+        {
+          "surface": "Buenos",
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "días",
+          "gloss": "days; morning greeting",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.good-evening",
+      "text": "¡Buenas noches!",
+      "tokens": [
+        {
+          "surface": "Buenas",
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "noches",
+          "gloss": "nights; evening greeting",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.seven-to-ten",
+      "text": "Siete, ocho, nueve, diez.",
+      "tokens": [
+        {
+          "surface": "Siete",
+          "gloss": "seven",
+          "playable": true
+        },
+        {
+          "surface": "ocho",
+          "gloss": "eight",
+          "playable": true
+        },
+        {
+          "surface": "nueve",
+          "gloss": "nine",
+          "playable": true
+        },
+        {
+          "surface": "diez",
+          "gloss": "ten",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.welcome",
+      "text": "De nada.",
+      "tokens": [
+        {
+          "surface": "De",
+          "gloss": "of; from",
+          "playable": false
+        },
+        {
+          "surface": "nada",
+          "gloss": "nothing; you are welcome",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.how-are-you",
+      "text": "¿Cómo estás?",
+      "tokens": [
+        {
+          "surface": "Cómo",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "estás",
+          "gloss": "you are",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.i-am-well",
+      "text": "Estoy muy bien.",
+      "tokens": [
+        {
+          "surface": "Estoy",
+          "gloss": "I am",
+          "playable": true
+        },
+        {
+          "surface": "muy",
+          "gloss": "very",
+          "playable": true
+        },
+        {
+          "surface": "bien",
+          "gloss": "well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.identity.your-name",
+      "text": "¿Cómo te llamas?",
+      "tokens": [
+        {
+          "surface": "Cómo",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "te",
+          "gloss": "yourself; you",
+          "playable": false
+        },
+        {
+          "surface": "llamas",
+          "gloss": "you are called",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.my-friend",
+      "text": "Él es mi amigo.",
+      "tokens": [
+        {
+          "surface": "Él",
+          "gloss": "he",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "amigo",
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.my-teacher",
+      "text": "Ella es mi profesora.",
+      "tokens": [
+        {
+          "surface": "Ella",
+          "gloss": "she",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "profesora",
+          "gloss": "female teacher",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.together",
+      "text": "Somos una familia.",
+      "tokens": [
+        {
+          "surface": "Somos",
+          "gloss": "we are",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "familia",
+          "gloss": "family",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.mother",
+      "text": "Esta es mi madre.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this one",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "madre",
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.father",
+      "text": "Ese es mi padre.",
+      "tokens": [
+        {
+          "surface": "Ese",
+          "gloss": "that one",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "padre",
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.speak-chinese",
+      "text": "Puedo hablar chino.",
+      "tokens": [
+        {
+          "surface": "Puedo",
+          "gloss": "I can",
+          "playable": true
+        },
+        {
+          "surface": "hablar",
+          "gloss": "to speak",
+          "playable": true
+        },
+        {
+          "surface": "chino",
+          "gloss": "Chinese language",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.listen",
+      "text": "Escucha, por favor.",
+      "tokens": [
+        {
+          "surface": "Escucha",
+          "gloss": "listen",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.look",
+      "text": "Mira, por favor.",
+      "tokens": [
+        {
+          "surface": "Mira",
+          "gloss": "look",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.read",
+      "text": "Lee, por favor.",
+      "tokens": [
+        {
+          "surface": "Lee",
+          "gloss": "read",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.classroom.write",
+      "text": "Escribe, por favor.",
+      "tokens": [
+        {
+          "surface": "Escribe",
+          "gloss": "write",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.learn-pinyin",
+      "text": "Estoy aprendiendo pinyin.",
+      "tokens": [
+        {
+          "surface": "Estoy",
+          "gloss": "I am",
+          "playable": false
+        },
+        {
+          "surface": "aprendiendo",
+          "gloss": "learning",
+          "playable": true
+        },
+        {
+          "surface": "pinyin",
+          "gloss": "pinyin",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.easy-word",
+      "text": "Esta palabra es fácil.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "palabra",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "fácil",
+          "gloss": "easy",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.one-to-six",
+      "text": "Uno, dos, tres, cuatro, cinco, seis.",
+      "tokens": [
+        {
+          "surface": "Uno",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "tres",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "cuatro",
+          "gloss": "four",
+          "playable": true
+        },
+        {
+          "surface": "cinco",
+          "gloss": "five",
+          "playable": true
+        },
+        {
+          "surface": "seis",
+          "gloss": "six",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.two-books",
+      "text": "Tengo dos libros.",
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "libros",
+          "gloss": "books",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.number.three-apples",
+      "text": "Aquí hay tres manzanas.",
+      "tokens": [
+        {
+          "surface": "Aquí",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "hay",
+          "gloss": "there is; there are",
+          "playable": true
+        },
+        {
+          "surface": "tres",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "manzanas",
+          "gloss": "apples",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.what-time",
+      "text": "¿Qué hora es ahora?",
+      "tokens": [
+        {
+          "surface": "Qué",
+          "gloss": "what",
+          "playable": true
+        },
+        {
+          "surface": "hora",
+          "gloss": "time; hour",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "ahora",
+          "gloss": "now",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.monday",
+      "text": "Hoy es lunes.",
+      "tokens": [
+        {
+          "surface": "Hoy",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "lunes",
+          "gloss": "Monday",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.time.tuesday",
+      "text": "Mañana es martes.",
+      "tokens": [
+        {
+          "surface": "Mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "martes",
+          "gloss": "Tuesday",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.rice",
+      "text": "Me gusta comer arroz.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; I like",
+          "playable": true
+        },
+        {
+          "surface": "comer",
+          "gloss": "to eat",
+          "playable": true
+        },
+        {
+          "surface": "arroz",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.drink.water",
+      "text": "Bebe agua, por favor.",
+      "tokens": [
+        {
+          "surface": "Bebe",
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.want-school",
+      "text": "Quiero ir al colegio.",
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "ir",
+          "gloss": "to go",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "colegio",
+          "gloss": "school",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.big-apple",
+      "text": "La manzana es grande.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "manzana",
+          "gloss": "apple",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "grande",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.animal.small-cat",
+      "text": "El gato es pequeño.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "pequeño",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.my-home",
+      "text": "Esta es mi casa.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this one",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home; house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.book-on-table",
+      "text": "El libro está sobre la mesa.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": true
+        },
+        {
+          "surface": "sobre",
+          "gloss": "on; over",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cat-under-chair",
+      "text": "El gato está debajo de la silla.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": true
+        },
+        {
+          "surface": "debajo",
+          "gloss": "underneath",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of; from",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "silla",
+          "gloss": "chair",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.open-door",
+      "text": "La puerta está abierta.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "abierta",
+          "gloss": "open",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.closed-window",
+      "text": "La ventana está cerrada.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ventana",
+          "gloss": "window",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "cerrada",
+          "gloss": "closed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.rain-today",
+      "text": "Hoy está lloviendo.",
+      "tokens": [
+        {
+          "surface": "Hoy",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "lloviendo",
+          "gloss": "raining",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.teacher-arrived",
+      "text": "El profesor ha llegado.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "profesor",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "ha",
+          "gloss": "has",
+          "playable": false
+        },
+        {
+          "surface": "llegado",
+          "gloss": "arrived",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.get-up",
+      "text": "Me levanto por la mañana.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "levanto",
+          "gloss": "I get up",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "in; during",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mañana",
+          "gloss": "morning",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.go-home",
+      "text": "Voy a casa por la tarde.",
+      "tokens": [
+        {
+          "surface": "Voy",
+          "gloss": "I go",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "in; during",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "evening; afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.sit-down",
+      "text": "Siéntate, por favor.",
+      "tokens": [
+        {
+          "surface": "Siéntate",
+          "gloss": "sit down",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.greeting.see-you-tomorrow",
+      "text": "Adiós, ¡hasta mañana!",
+      "tokens": [
+        {
+          "surface": "Adiós",
+          "gloss": "goodbye",
+          "playable": true
+        },
+        {
+          "surface": "hasta",
+          "gloss": "until; see you",
+          "playable": true
+        },
+        {
+          "surface": "mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.what-is-this",
+      "text": "¿Qué es esto?",
+      "tokens": [
+        {
+          "surface": "Qué",
+          "gloss": "what",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "esto",
+          "gloss": "this",
+          "playable": false
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.who-is-that",
+      "text": "¿Quién es esa persona?",
+      "tokens": [
+        {
+          "surface": "Quién",
+          "gloss": "who",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "esa",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "persona",
+          "gloss": "person",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.where-are-you",
+      "text": "¿Dónde estás ahora?",
+      "tokens": [
+        {
+          "surface": "Dónde",
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "estás",
+          "gloss": "you are",
+          "playable": true
+        },
+        {
+          "surface": "ahora",
+          "gloss": "now",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.when-come",
+      "text": "¿Cuándo vendrás?",
+      "tokens": [
+        {
+          "surface": "Cuándo",
+          "gloss": "when",
+          "playable": true
+        },
+        {
+          "surface": "vendrás",
+          "gloss": "you will come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.why-chinese",
+      "text": "¿Por qué estás aprendiendo chino?",
+      "tokens": [
+        {
+          "surface": "Por",
+          "gloss": "for; because of",
+          "playable": false
+        },
+        {
+          "surface": "qué",
+          "gloss": "what; why",
+          "playable": true
+        },
+        {
+          "surface": "estás",
+          "gloss": "you are",
+          "playable": false
+        },
+        {
+          "surface": "aprendiendo",
+          "gloss": "learning",
+          "playable": true
+        },
+        {
+          "surface": "chino",
+          "gloss": "Chinese language",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.how-say-word",
+      "text": "¿Cómo se dice esta palabra?",
+      "tokens": [
+        {
+          "surface": "Cómo",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "se",
+          "gloss": "impersonal marker",
+          "playable": false
+        },
+        {
+          "surface": "dice",
+          "gloss": "is said",
+          "playable": true
+        },
+        {
+          "surface": "esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "palabra",
+          "gloss": "word",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.communication.say-again",
+      "text": "¿Puedes repetirlo?",
+      "tokens": [
+        {
+          "surface": "Puedes",
+          "gloss": "can you",
+          "playable": true
+        },
+        {
+          "surface": "repetirlo",
+          "gloss": "repeat it",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.request.speak-slower",
+      "text": "Habla un poco más despacio, por favor.",
+      "tokens": [
+        {
+          "surface": "Habla",
+          "gloss": "speak",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "poco",
+          "gloss": "little",
+          "playable": true
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "despacio",
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.comprehension.understand-now",
+      "text": "Ahora lo entiendo.",
+      "tokens": [
+        {
+          "surface": "Ahora",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "lo",
+          "gloss": "it",
+          "playable": false
+        },
+        {
+          "surface": "entiendo",
+          "gloss": "I understand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.one-more",
+      "text": "Todavía tengo una pregunta.",
+      "tokens": [
+        {
+          "surface": "Todavía",
+          "gloss": "still",
+          "playable": true
+        },
+        {
+          "surface": "tengo",
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "pregunta",
+          "gloss": "question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.seven-wake",
+      "text": "Me levanto a las siete.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "levanto",
+          "gloss": "I get up",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "siete",
+          "gloss": "seven",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.brush-teeth",
+      "text": "Me cepillo los dientes por la mañana.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "cepillo",
+          "gloss": "I brush",
+          "playable": true
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "dientes",
+          "gloss": "teeth",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "in; during",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mañana",
+          "gloss": "morning",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.home-breakfast",
+      "text": "Desayuno en casa.",
+      "tokens": [
+        {
+          "surface": "Desayuno",
+          "gloss": "I eat breakfast",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in; at",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.school-eight",
+      "text": "Voy al colegio a las ocho.",
+      "tokens": [
+        {
+          "surface": "Voy",
+          "gloss": "I go",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "colegio",
+          "gloss": "school",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ocho",
+          "gloss": "eight",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.afternoon-home",
+      "text": "Vuelvo a casa por la tarde.",
+      "tokens": [
+        {
+          "surface": "Vuelvo",
+          "gloss": "I return",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "in; during",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.homework-after-dinner",
+      "text": "Hago los deberes después de cenar.",
+      "tokens": [
+        {
+          "surface": "Hago",
+          "gloss": "I do",
+          "playable": true
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "deberes",
+          "gloss": "homework",
+          "playable": true
+        },
+        {
+          "surface": "después",
+          "gloss": "after",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of; from",
+          "playable": false
+        },
+        {
+          "surface": "cenar",
+          "gloss": "to eat dinner",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.routine.read-before-sleep",
+      "text": "Leo antes de irme a dormir.",
+      "tokens": [
+        {
+          "surface": "Leo",
+          "gloss": "I read",
+          "playable": true
+        },
+        {
+          "surface": "antes",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of; from",
+          "playable": false
+        },
+        {
+          "surface": "irme",
+          "gloss": "to go; to leave",
+          "playable": false
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "dormir",
+          "gloss": "to sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.room-is-clean",
+      "text": "Mi habitación está limpia.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "habitación",
+          "gloss": "room",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "limpia",
+          "gloss": "clean",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.clothes-in-wardrobe",
+      "text": "La ropa está en el armario.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ropa",
+          "gloss": "clothes",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "armario",
+          "gloss": "wardrobe",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.home.keys-by-door",
+      "text": "Las llaves están junto a la puerta.",
+      "tokens": [
+        {
+          "surface": "Las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "llaves",
+          "gloss": "keys",
+          "playable": true
+        },
+        {
+          "surface": "están",
+          "gloss": "are located",
+          "playable": false
+        },
+        {
+          "surface": "junto",
+          "gloss": "beside",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.textbook-on-desk",
+      "text": "El libro de texto está sobre el pupitre.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "texto",
+          "gloss": "text",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "sobre",
+          "gloss": "on; over",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "pupitre",
+          "gloss": "school desk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.open-page-ten",
+      "text": "Pasa a la página diez, por favor.",
+      "tokens": [
+        {
+          "surface": "Pasa",
+          "gloss": "turn; move on",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "página",
+          "gloss": "page",
+          "playable": true
+        },
+        {
+          "surface": "diez",
+          "gloss": "ten",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.read-book",
+      "text": "Él está leyendo un libro.",
+      "tokens": [
+        {
+          "surface": "Él",
+          "gloss": "he",
+          "playable": false
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "leyendo",
+          "gloss": "reading",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.board-writing",
+      "text": "El profesor está escribiendo en la pizarra.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "profesor",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "escribiendo",
+          "gloss": "writing",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "on; in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "pizarra",
+          "gloss": "board",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.listen-carefully",
+      "text": "Los estudiantes escuchan atentamente.",
+      "tokens": [
+        {
+          "surface": "Los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "estudiantes",
+          "gloss": "students",
+          "playable": true
+        },
+        {
+          "surface": "escuchan",
+          "gloss": "listen",
+          "playable": true
+        },
+        {
+          "surface": "atentamente",
+          "gloss": "carefully",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.practice-characters",
+      "text": "Practico caracteres chinos todos los días.",
+      "tokens": [
+        {
+          "surface": "Practico",
+          "gloss": "I practice",
+          "playable": true
+        },
+        {
+          "surface": "caracteres",
+          "gloss": "characters",
+          "playable": true
+        },
+        {
+          "surface": "chinos",
+          "gloss": "Chinese",
+          "playable": true
+        },
+        {
+          "surface": "todos",
+          "gloss": "every; all",
+          "playable": false
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "días",
+          "gloss": "days",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.hard-question",
+      "text": "Esta pregunta es un poco difícil.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "pregunta",
+          "gloss": "question",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "poco",
+          "gloss": "little",
+          "playable": true
+        },
+        {
+          "surface": "difícil",
+          "gloss": "difficult",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.know-answer",
+      "text": "Sé la respuesta.",
+      "tokens": [
+        {
+          "surface": "Sé",
+          "gloss": "I know",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "respuesta",
+          "gloss": "answer",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.explain-again",
+      "text": "Explícalo otra vez, por favor.",
+      "tokens": [
+        {
+          "surface": "Explícalo",
+          "gloss": "explain it",
+          "playable": true
+        },
+        {
+          "surface": "otra",
+          "gloss": "another",
+          "playable": false
+        },
+        {
+          "surface": "vez",
+          "gloss": "time; occasion",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.school.study-together",
+      "text": "Estudiemos juntos.",
+      "tokens": [
+        {
+          "surface": "Estudiemos",
+          "gloss": "let us study",
+          "playable": true
+        },
+        {
+          "surface": "juntos",
+          "gloss": "together",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.office",
+      "text": "Trabajo en una oficina.",
+      "tokens": [
+        {
+          "surface": "Trabajo",
+          "gloss": "I work",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "una",
+          "gloss": "an; one",
+          "playable": false
+        },
+        {
+          "surface": "oficina",
+          "gloss": "office",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.start-nine",
+      "text": "Empiezo a trabajar a las nueve.",
+      "tokens": [
+        {
+          "surface": "Empiezo",
+          "gloss": "I start",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "trabajar",
+          "gloss": "to work",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "nueve",
+          "gloss": "nine",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.send-file",
+      "text": "Envíame el archivo hoy, por favor.",
+      "tokens": [
+        {
+          "surface": "Envíame",
+          "gloss": "send me",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "archivo",
+          "gloss": "file",
+          "playable": true
+        },
+        {
+          "surface": "hoy",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.meeting-ten",
+      "text": "La reunión empieza a las diez.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "reunión",
+          "gloss": "meeting",
+          "playable": true
+        },
+        {
+          "surface": "empieza",
+          "gloss": "starts",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "diez",
+          "gloss": "ten",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.task-nearly-done",
+      "text": "Esta tarea está casi terminada.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "tarea",
+          "gloss": "task",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "casi",
+          "gloss": "nearly",
+          "playable": true
+        },
+        {
+          "surface": "terminada",
+          "gloss": "finished",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.more-time",
+      "text": "Necesito más tiempo.",
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "tiempo",
+          "gloss": "time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.check-schedule",
+      "text": "Comprueba el horario, por favor.",
+      "tokens": [
+        {
+          "surface": "Comprueba",
+          "gloss": "check",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "horario",
+          "gloss": "schedule",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.coworker-help",
+      "text": "Mi compañero de trabajo me ayuda.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "compañero",
+          "gloss": "coworker; companion",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "trabajo",
+          "gloss": "work",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "me",
+          "playable": false
+        },
+        {
+          "surface": "ayuda",
+          "gloss": "helps",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.short-break",
+      "text": "Nos tomamos un descanso breve.",
+      "tokens": [
+        {
+          "surface": "Nos",
+          "gloss": "ourselves",
+          "playable": false
+        },
+        {
+          "surface": "tomamos",
+          "gloss": "we take",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "descanso",
+          "gloss": "break; rest",
+          "playable": true
+        },
+        {
+          "surface": "breve",
+          "gloss": "short",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.finish-before-home",
+      "text": "Termino el trabajo antes de volver a casa.",
+      "tokens": [
+        {
+          "surface": "Termino",
+          "gloss": "I finish",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "trabajo",
+          "gloss": "work",
+          "playable": true
+        },
+        {
+          "surface": "antes",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of; from",
+          "playable": false
+        },
+        {
+          "surface": "volver",
+          "gloss": "to return",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.apple-price",
+      "text": "¿Cuánto cuestan las manzanas por jin?",
+      "tokens": [
+        {
+          "surface": "Cuánto",
+          "gloss": "how much",
+          "playable": true
+        },
+        {
+          "surface": "cuestan",
+          "gloss": "cost",
+          "playable": true
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "manzanas",
+          "gloss": "apples",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "per",
+          "playable": false
+        },
+        {
+          "surface": "jin",
+          "gloss": "jin (a unit of weight)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.blue-shirt",
+      "text": "Quiero comprar una camisa azul.",
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "comprar",
+          "gloss": "to buy",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a; one",
+          "playable": false
+        },
+        {
+          "surface": "camisa",
+          "gloss": "shirt",
+          "playable": true
+        },
+        {
+          "surface": "azul",
+          "gloss": "blue",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.right-size",
+      "text": "Esta talla me queda bien.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "talla",
+          "gloss": "size",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "on me; to me",
+          "playable": false
+        },
+        {
+          "surface": "queda",
+          "gloss": "fits",
+          "playable": true
+        },
+        {
+          "surface": "bien",
+          "gloss": "well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.try-on",
+      "text": "¿Puedo probármelo?",
+      "tokens": [
+        {
+          "surface": "Puedo",
+          "gloss": "may I; I can",
+          "playable": true
+        },
+        {
+          "surface": "probármelo",
+          "gloss": "try it on",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.receipt",
+      "text": "Dame el recibo, por favor.",
+      "tokens": [
+        {
+          "surface": "Dame",
+          "gloss": "give me",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "recibo",
+          "gloss": "receipt",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for; by",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.closes-eight",
+      "text": "La tienda cierra a las ocho de la tarde.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tienda",
+          "gloss": "shop",
+          "playable": true
+        },
+        {
+          "surface": "cierra",
+          "gloss": "closes",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ocho",
+          "gloss": "eight",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "evening; afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.checkout",
+      "text": "¿Dónde está la caja?",
+      "tokens": [
+        {
+          "surface": "Dónde",
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "caja",
+          "gloss": "checkout counter",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.pay-card",
+      "text": "Pago con tarjeta.",
+      "tokens": [
+        {
+          "surface": "Pago",
+          "gloss": "I pay",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "tarjeta",
+          "gloss": "card",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.cheaper-book",
+      "text": "Este libro es más barato.",
+      "tokens": [
+        {
+          "surface": "Este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "barato",
+          "gloss": "cheap; cheaper",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.shopping.thanks-help",
+      "text": "Gracias por tu ayuda.",
+      "tokens": [
+        {
+          "surface": "Gracias",
+          "gloss": "thank you",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "tu",
+          "gloss": "your",
+          "playable": false
+        },
+        {
+          "surface": "ayuda",
+          "gloss": "help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.bus-stop-ahead",
+      "text": "La parada de autobús está más adelante.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "parada",
+          "gloss": "stop",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "autobús",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "farther",
+          "playable": false
+        },
+        {
+          "surface": "adelante",
+          "gloss": "ahead",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.subway-left",
+      "text": "La entrada del metro está a la izquierda.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "entrada",
+          "gloss": "entrance",
+          "playable": true
+        },
+        {
+          "surface": "del",
+          "gloss": "of the",
+          "playable": false
+        },
+        {
+          "surface": "metro",
+          "gloss": "underground train",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "izquierda",
+          "gloss": "left",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.turn-right",
+      "text": "Gira a la derecha en el cruce, por favor.",
+      "tokens": [
+        {
+          "surface": "Gira",
+          "gloss": "turn",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "derecha",
+          "gloss": "right",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cruce",
+          "gloss": "junction",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.walk-five",
+      "text": "Camina recto durante cinco minutos.",
+      "tokens": [
+        {
+          "surface": "Camina",
+          "gloss": "walk",
+          "playable": true
+        },
+        {
+          "surface": "recto",
+          "gloss": "straight",
+          "playable": true
+        },
+        {
+          "surface": "durante",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "cinco",
+          "gloss": "five",
+          "playable": true
+        },
+        {
+          "surface": "minutos",
+          "gloss": "minutes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.transit.which-bus",
+      "text": "¿Qué autobús debo tomar para ir al centro?",
+      "tokens": [
+        {
+          "surface": "Qué",
+          "gloss": "which",
+          "playable": true
+        },
+        {
+          "surface": "autobús",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "debo",
+          "gloss": "should I",
+          "playable": true
+        },
+        {
+          "surface": "tomar",
+          "gloss": "take",
+          "playable": true
+        },
+        {
+          "surface": "para",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "ir",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "centro",
+          "gloss": "city center",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.train-three",
+      "text": "El tren sale a las tres de la tarde.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tren",
+          "gloss": "train",
+          "playable": true
+        },
+        {
+          "surface": "sale",
+          "gloss": "departs",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tres",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.ticket-table",
+      "text": "El billete está sobre la mesa.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "billete",
+          "gloss": "ticket",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "sobre",
+          "gloss": "on top of",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.wait-station",
+      "text": "Esperamos en la estación.",
+      "tokens": [
+        {
+          "surface": "Esperamos",
+          "gloss": "we wait",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "estación",
+          "gloss": "station",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.park-near-hotel",
+      "text": "El parque está cerca del hotel.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "parque",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "cerca",
+          "gloss": "near",
+          "playable": true
+        },
+        {
+          "surface": "del",
+          "gloss": "of the",
+          "playable": false
+        },
+        {
+          "surface": "hotel",
+          "gloss": "hotel",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.direction.map-road",
+      "text": "Esta carretera aparece en el mapa.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "carretera",
+          "gloss": "road",
+          "playable": true
+        },
+        {
+          "surface": "aparece",
+          "gloss": "appears",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "on",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mapa",
+          "gloss": "map",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.tired",
+      "text": "Estoy un poco cansado.",
+      "tokens": [
+        {
+          "surface": "Estoy",
+          "gloss": "I am",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "poco",
+          "gloss": "little",
+          "playable": false
+        },
+        {
+          "surface": "cansado",
+          "gloss": "tired",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.rest",
+      "text": "Descansa un rato, por favor.",
+      "tokens": [
+        {
+          "surface": "Descansa",
+          "gloss": "rest",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "rato",
+          "gloss": "while",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.action.drink-water",
+      "text": "Ella bebe agua todos los días.",
+      "tokens": [
+        {
+          "surface": "Ella",
+          "gloss": "she",
+          "playable": false
+        },
+        {
+          "surface": "bebe",
+          "gloss": "drinks",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "todos",
+          "gloss": "every",
+          "playable": false
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "días",
+          "gloss": "days",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.slept-well",
+      "text": "Anoche dormí bien.",
+      "tokens": [
+        {
+          "surface": "Anoche",
+          "gloss": "last night",
+          "playable": true
+        },
+        {
+          "surface": "dormí",
+          "gloss": "I slept",
+          "playable": true
+        },
+        {
+          "surface": "bien",
+          "gloss": "well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.headache",
+      "text": "Me duele un poco la cabeza.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "duele",
+          "gloss": "hurts",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "poco",
+          "gloss": "little",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cabeza",
+          "gloss": "head",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.see-doctor",
+      "text": "Necesito ir al médico.",
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "ir",
+          "gloss": "to go",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "médico",
+          "gloss": "doctor",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.clinic-nearby",
+      "text": "La clínica está cerca.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "clínica",
+          "gloss": "clinic",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "cerca",
+          "gloss": "nearby",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.ask-about-medicine",
+      "text": "Pregúntale al médico cómo tomar este medicamento, por favor.",
+      "tokens": [
+        {
+          "surface": "Pregúntale",
+          "gloss": "ask him or her",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "médico",
+          "gloss": "doctor",
+          "playable": true
+        },
+        {
+          "surface": "cómo",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "tomar",
+          "gloss": "to take",
+          "playable": true
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "medicamento",
+          "gloss": "medicine",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.walk-health",
+      "text": "Caminar es bueno para la salud.",
+      "tokens": [
+        {
+          "surface": "Caminar",
+          "gloss": "walking",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "bueno",
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "para",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "salud",
+          "gloss": "health",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.wellbeing.better-now",
+      "text": "Ahora me encuentro mucho mejor.",
+      "tokens": [
+        {
+          "surface": "Ahora",
+          "gloss": "now",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "encuentro",
+          "gloss": "I feel",
+          "playable": true
+        },
+        {
+          "surface": "mucho",
+          "gloss": "much",
+          "playable": false
+        },
+        {
+          "surface": "mejor",
+          "gloss": "better",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.music",
+      "text": "Me gusta escuchar música.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; I like",
+          "playable": true
+        },
+        {
+          "surface": "escuchar",
+          "gloss": "to listen to",
+          "playable": true
+        },
+        {
+          "surface": "música",
+          "gloss": "music",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.piano",
+      "text": "Ella sabe tocar el piano.",
+      "tokens": [
+        {
+          "surface": "Ella",
+          "gloss": "she",
+          "playable": false
+        },
+        {
+          "surface": "sabe",
+          "gloss": "knows how",
+          "playable": true
+        },
+        {
+          "surface": "tocar",
+          "gloss": "to play",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "piano",
+          "gloss": "piano",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.drawing",
+      "text": "Me gusta dibujar los fines de semana.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; I like",
+          "playable": true
+        },
+        {
+          "surface": "dibujar",
+          "gloss": "to draw",
+          "playable": true
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "fines",
+          "gloss": "ends",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "semana",
+          "gloss": "week; weekend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.hobby.football",
+      "text": "A mi hermano pequeño le gusta jugar al fútbol.",
+      "tokens": [
+        {
+          "surface": "A",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "hermano",
+          "gloss": "brother",
+          "playable": true
+        },
+        {
+          "surface": "pequeño",
+          "gloss": "younger",
+          "playable": true
+        },
+        {
+          "surface": "le",
+          "gloss": "to him",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; likes",
+          "playable": true
+        },
+        {
+          "surface": "jugar",
+          "gloss": "to play",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "fútbol",
+          "gloss": "football",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.quiet-library",
+      "text": "La biblioteca está tranquila.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "biblioteca",
+          "gloss": "library",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "tranquila",
+          "gloss": "quiet",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.museum-open",
+      "text": "El museo está abierto hoy.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "museo",
+          "gloss": "museum",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "abierto",
+          "gloss": "open",
+          "playable": true
+        },
+        {
+          "surface": "hoy",
+          "gloss": "today",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.tall-trees",
+      "text": "Los árboles de la montaña son altos.",
+      "tokens": [
+        {
+          "surface": "Los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "árboles",
+          "gloss": "trees",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "montaña",
+          "gloss": "mountainside",
+          "playable": true
+        },
+        {
+          "surface": "son",
+          "gloss": "are",
+          "playable": false
+        },
+        {
+          "surface": "altos",
+          "gloss": "tall",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.park-flowers",
+      "text": "Las flores del parque han florecido.",
+      "tokens": [
+        {
+          "surface": "Las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "flores",
+          "gloss": "flowers",
+          "playable": true
+        },
+        {
+          "surface": "del",
+          "gloss": "of the",
+          "playable": false
+        },
+        {
+          "surface": "parque",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "han",
+          "gloss": "have",
+          "playable": false
+        },
+        {
+          "surface": "florecido",
+          "gloss": "blossomed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.flying-bird",
+      "text": "Un pájaro está volando en el cielo.",
+      "tokens": [
+        {
+          "surface": "Un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "pájaro",
+          "gloss": "bird",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "volando",
+          "gloss": "flying",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cielo",
+          "gloss": "sky",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.nature.blue-sea",
+      "text": "Hoy el mar está azul.",
+      "tokens": [
+        {
+          "surface": "Hoy",
+          "gloss": "today",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mar",
+          "gloss": "sea",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "azul",
+          "gloss": "blue",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.phone-table",
+      "text": "Mi teléfono está sobre la mesa.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "teléfono",
+          "gloss": "phone",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "sobre",
+          "gloss": "on top of",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.charge-phone",
+      "text": "Carga el teléfono, por favor.",
+      "tokens": [
+        {
+          "surface": "Carga",
+          "gloss": "charge",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "teléfono",
+          "gloss": "phone",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.slow-computer",
+      "text": "El ordenador arranca despacio.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ordenador",
+          "gloss": "computer",
+          "playable": true
+        },
+        {
+          "surface": "arranca",
+          "gloss": "starts up",
+          "playable": true
+        },
+        {
+          "surface": "despacio",
+          "gloss": "slowly",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.send-message",
+      "text": "Envíame un mensaje, por favor.",
+      "tokens": [
+        {
+          "surface": "Envíame",
+          "gloss": "send me",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "mensaje",
+          "gloss": "message",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.received-email",
+      "text": "He recibido el correo electrónico.",
+      "tokens": [
+        {
+          "surface": "He",
+          "gloss": "I have",
+          "playable": false
+        },
+        {
+          "surface": "recibido",
+          "gloss": "received",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "correo",
+          "gloss": "mail",
+          "playable": true
+        },
+        {
+          "surface": "electrónico",
+          "gloss": "electronic; email",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.network-works",
+      "text": "La red funciona ahora.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "red",
+          "gloss": "network",
+          "playable": true
+        },
+        {
+          "surface": "funciona",
+          "gloss": "works",
+          "playable": true
+        },
+        {
+          "surface": "ahora",
+          "gloss": "now",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.open-camera",
+      "text": "Enciende la cámara, por favor.",
+      "tokens": [
+        {
+          "surface": "Enciende",
+          "gloss": "turn on",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cámara",
+          "gloss": "camera",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.volume-high",
+      "text": "El volumen está demasiado alto.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "volumen",
+          "gloss": "volume",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "demasiado",
+          "gloss": "too",
+          "playable": true
+        },
+        {
+          "surface": "alto",
+          "gloss": "high",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.save-file",
+      "text": "Guarda este archivo, por favor.",
+      "tokens": [
+        {
+          "surface": "Guarda",
+          "gloss": "save",
+          "playable": true
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "archivo",
+          "gloss": "file",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.call-grandmother",
+      "text": "Llamemos a la abuela.",
+      "tokens": [
+        {
+          "surface": "Llamemos",
+          "gloss": "let us call",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "abuela",
+          "gloss": "grandmother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.free-tomorrow",
+      "text": "¿Estás libre mañana?",
+      "tokens": [
+        {
+          "surface": "Estás",
+          "gloss": "are you",
+          "playable": false
+        },
+        {
+          "surface": "libre",
+          "gloss": "free; available",
+          "playable": true
+        },
+        {
+          "surface": "mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.question.go-to-park",
+      "text": "¿Quieres ir al parque?",
+      "tokens": [
+        {
+          "surface": "Quieres",
+          "gloss": "do you want",
+          "playable": true
+        },
+        {
+          "surface": "ir",
+          "gloss": "to go",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "parque",
+          "gloss": "park",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.rain-stay-home",
+      "text": "Si llueve, me quedaré en casa.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "llueve",
+          "gloss": "it rains",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "quedaré",
+          "gloss": "I will stay",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "casa",
+          "gloss": "home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.bus-walking",
+      "text": "Ir en autobús es más rápido que caminar.",
+      "tokens": [
+        {
+          "surface": "Ir",
+          "gloss": "going",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "by",
+          "playable": false
+        },
+        {
+          "surface": "autobús",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "rápido",
+          "gloss": "fast; faster",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "than",
+          "playable": false
+        },
+        {
+          "surface": "caminar",
+          "gloss": "walking",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.tea-water",
+      "text": "Esta taza de té está más caliente que ese vaso de agua.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "taza",
+          "gloss": "cup",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "té",
+          "gloss": "tea",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "caliente",
+          "gloss": "hot; hotter",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "than",
+          "playable": false
+        },
+        {
+          "surface": "ese",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "vaso",
+          "gloss": "glass",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.compare.light-bag",
+      "text": "Esta bolsa es relativamente ligera.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "bolsa",
+          "gloss": "bag",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "relativamente",
+          "gloss": "relatively",
+          "playable": true
+        },
+        {
+          "surface": "ligera",
+          "gloss": "light",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.choice.red-one",
+      "text": "Elijo el rojo.",
+      "tokens": [
+        {
+          "surface": "Elijo",
+          "gloss": "I choose",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "rojo",
+          "gloss": "red one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.arrive-early",
+      "text": "Mañana llegaré más temprano.",
+      "tokens": [
+        {
+          "surface": "Mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "llegaré",
+          "gloss": "I will arrive",
+          "playable": true
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "temprano",
+          "gloss": "early; earlier",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.library-after-class",
+      "text": "Iremos a la biblioteca después de clase.",
+      "tokens": [
+        {
+          "surface": "Iremos",
+          "gloss": "we will go",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "biblioteca",
+          "gloss": "library",
+          "playable": true
+        },
+        {
+          "surface": "después",
+          "gloss": "after",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "clase",
+          "gloss": "class",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.meet-friends",
+      "text": "Quiero quedar con amigos este fin de semana.",
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "quedar",
+          "gloss": "to meet up",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "amigos",
+          "gloss": "friends",
+          "playable": true
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "fin",
+          "gloss": "end",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "semana",
+          "gloss": "week; weekend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.ask-post-office",
+      "text": "Disculpe, ¿dónde está la oficina de correos?",
+      "tokens": [
+        {
+          "surface": "Disculpe",
+          "gloss": "excuse me",
+          "playable": true
+        },
+        {
+          "surface": "dónde",
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "oficina",
+          "gloss": "office",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "correos",
+          "gloss": "postal service; post office",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.sorry-late",
+      "text": "Lo siento por llegar tarde.",
+      "tokens": [
+        {
+          "surface": "Lo",
+          "gloss": "it",
+          "playable": false
+        },
+        {
+          "surface": "siento",
+          "gloss": "I am sorry",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "llegar",
+          "gloss": "to arrive",
+          "playable": true
+        },
+        {
+          "surface": "tarde",
+          "gloss": "late",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.no-problem",
+      "text": "No hay problema.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "no",
+          "playable": false
+        },
+        {
+          "surface": "hay",
+          "gloss": "there is",
+          "playable": false
+        },
+        {
+          "surface": "problema",
+          "gloss": "problem",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.line-up",
+      "text": "Haced cola, por favor.",
+      "tokens": [
+        {
+          "surface": "Haced",
+          "gloss": "form; make",
+          "playable": true
+        },
+        {
+          "surface": "cola",
+          "gloss": "queue",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.library-quiet",
+      "text": "Guarda silencio en la biblioteca, por favor.",
+      "tokens": [
+        {
+          "surface": "Guarda",
+          "gloss": "keep",
+          "playable": true
+        },
+        {
+          "surface": "silencio",
+          "gloss": "silence",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "biblioteca",
+          "gloss": "library",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.offer-help",
+      "text": "Déjame ayudarte.",
+      "tokens": [
+        {
+          "surface": "Déjame",
+          "gloss": "let me",
+          "playable": true
+        },
+        {
+          "surface": "ayudarte",
+          "gloss": "help you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.thanks-wait",
+      "text": "Gracias por esperarme.",
+      "tokens": [
+        {
+          "surface": "Gracias",
+          "gloss": "thank you",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "esperarme",
+          "gloss": "waiting for me",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.politeness.after-you",
+      "text": "Pase usted.",
+      "tokens": [
+        {
+          "surface": "Pase",
+          "gloss": "go ahead",
+          "playable": true
+        },
+        {
+          "surface": "usted",
+          "gloss": "you (formal)",
+          "playable": false
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.your-seat",
+      "text": "Este asiento es suyo.",
+      "tokens": [
+        {
+          "surface": "Este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "asiento",
+          "gloss": "seat",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "suyo",
+          "gloss": "yours",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.welcome",
+      "text": "Te damos la bienvenida a nuestra comunidad.",
+      "tokens": [
+        {
+          "surface": "Te",
+          "gloss": "to you",
+          "playable": false
+        },
+        {
+          "surface": "damos",
+          "gloss": "we give",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "bienvenida",
+          "gloss": "welcome",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "nuestra",
+          "gloss": "our",
+          "playable": false
+        },
+        {
+          "surface": "comunidad",
+          "gloss": "community",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.breakfast-ready",
+      "text": "El desayuno está listo.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "desayuno",
+          "gloss": "breakfast",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "listo",
+          "gloss": "ready",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.fresh-vegetables",
+      "text": "Las verduras están frescas hoy.",
+      "tokens": [
+        {
+          "surface": "Las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "verduras",
+          "gloss": "vegetables",
+          "playable": true
+        },
+        {
+          "surface": "están",
+          "gloss": "are",
+          "playable": false
+        },
+        {
+          "surface": "frescas",
+          "gloss": "fresh",
+          "playable": true
+        },
+        {
+          "surface": "hoy",
+          "gloss": "today",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.preference.tea",
+      "text": "Me gusta beber té.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; I like",
+          "playable": true
+        },
+        {
+          "surface": "beber",
+          "gloss": "to drink",
+          "playable": true
+        },
+        {
+          "surface": "té",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.not-spicy",
+      "text": "No como comida picante.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "como",
+          "gloss": "I eat",
+          "playable": true
+        },
+        {
+          "surface": "comida",
+          "gloss": "food",
+          "playable": true
+        },
+        {
+          "surface": "picante",
+          "gloss": "spicy",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.food.more-rice",
+      "text": "Dame otro cuenco de arroz, por favor.",
+      "tokens": [
+        {
+          "surface": "Dame",
+          "gloss": "give me",
+          "playable": true
+        },
+        {
+          "surface": "otro",
+          "gloss": "another",
+          "playable": false
+        },
+        {
+          "surface": "cuenco",
+          "gloss": "bowl",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "arroz",
+          "gloss": "rice",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.sunny-afternoon",
+      "text": "Esta tarde hará sol.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "afternoon",
+          "playable": true
+        },
+        {
+          "surface": "hará",
+          "gloss": "it will make; there will be",
+          "playable": false
+        },
+        {
+          "surface": "sol",
+          "gloss": "sunshine",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.strong-wind",
+      "text": "El viento sopla con algo de fuerza.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "viento",
+          "gloss": "wind",
+          "playable": true
+        },
+        {
+          "surface": "sopla",
+          "gloss": "blows",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "algo",
+          "gloss": "some; a little",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "fuerza",
+          "gloss": "force",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.take-umbrella",
+      "text": "Lleva un paraguas cuando salgas, por favor.",
+      "tokens": [
+        {
+          "surface": "Lleva",
+          "gloss": "take; carry",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "an",
+          "playable": false
+        },
+        {
+          "surface": "paraguas",
+          "gloss": "umbrella",
+          "playable": true
+        },
+        {
+          "surface": "cuando",
+          "gloss": "when",
+          "playable": false
+        },
+        {
+          "surface": "salgas",
+          "gloss": "you go out",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.cold-winter",
+      "text": "Aquí el invierno es frío.",
+      "tokens": [
+        {
+          "surface": "Aquí",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "invierno",
+          "gloss": "winter",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "frío",
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.weather.spring-flowers",
+      "text": "Hay muchas flores en primavera.",
+      "tokens": [
+        {
+          "surface": "Hay",
+          "gloss": "there are",
+          "playable": false
+        },
+        {
+          "surface": "muchas",
+          "gloss": "many",
+          "playable": false
+        },
+        {
+          "surface": "flores",
+          "gloss": "flowers",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "primavera",
+          "gloss": "spring",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.sister-university",
+      "text": "Mi hermana mayor estudia en la universidad.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "hermana",
+          "gloss": "sister",
+          "playable": true
+        },
+        {
+          "surface": "mayor",
+          "gloss": "older",
+          "playable": true
+        },
+        {
+          "surface": "estudia",
+          "gloss": "studies",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "universidad",
+          "gloss": "university",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.brother-ten",
+      "text": "Mi hermano pequeño tiene diez años este año.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "hermano",
+          "gloss": "brother",
+          "playable": true
+        },
+        {
+          "surface": "pequeño",
+          "gloss": "younger",
+          "playable": true
+        },
+        {
+          "surface": "tiene",
+          "gloss": "has; is aged",
+          "playable": false
+        },
+        {
+          "surface": "diez",
+          "gloss": "ten",
+          "playable": true
+        },
+        {
+          "surface": "años",
+          "gloss": "years",
+          "playable": true
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "año",
+          "gloss": "year",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.grandmother-cooks",
+      "text": "La abuela está cocinando en la cocina.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "abuela",
+          "gloss": "grandmother",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "cocinando",
+          "gloss": "cooking",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cocina",
+          "gloss": "kitchen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.grandfather-paper",
+      "text": "El abuelo está leyendo el periódico.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "abuelo",
+          "gloss": "grandfather",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "leyendo",
+          "gloss": "reading",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "periódico",
+          "gloss": "newspaper",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.dinner-together",
+      "text": "Nuestra familia cena junta.",
+      "tokens": [
+        {
+          "surface": "Nuestra",
+          "gloss": "our",
+          "playable": false
+        },
+        {
+          "surface": "familia",
+          "gloss": "family",
+          "playable": true
+        },
+        {
+          "surface": "cena",
+          "gloss": "eats dinner",
+          "playable": true
+        },
+        {
+          "surface": "junta",
+          "gloss": "together",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.friend-name",
+      "text": "Mi amigo se llama Li Ming.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "amigo",
+          "gloss": "friend",
+          "playable": true
+        },
+        {
+          "surface": "se",
+          "gloss": "himself",
+          "playable": false
+        },
+        {
+          "surface": "llama",
+          "gloss": "is called",
+          "playable": true
+        },
+        {
+          "surface": "Li",
+          "gloss": "Li (name)",
+          "playable": true
+        },
+        {
+          "surface": "Ming",
+          "gloss": "Ming (name)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.kind-teacher",
+      "text": "Nuestro profesor es amable.",
+      "tokens": [
+        {
+          "surface": "Nuestro",
+          "gloss": "our",
+          "playable": false
+        },
+        {
+          "surface": "profesor",
+          "gloss": "teacher",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "amable",
+          "gloss": "kind",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.possession.two-friends",
+      "text": "Tengo dos amigos.",
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "amigos",
+          "gloss": "friends",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.people.neighbor-dog",
+      "text": "Nuestro vecino tiene un perro.",
+      "tokens": [
+        {
+          "surface": "Nuestro",
+          "gloss": "our",
+          "playable": false
+        },
+        {
+          "surface": "vecino",
+          "gloss": "neighbor",
+          "playable": true
+        },
+        {
+          "surface": "tiene",
+          "gloss": "has",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "perro",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.family.visit-aunt",
+      "text": "Visitamos a nuestra tía el fin de semana.",
+      "tokens": [
+        {
+          "surface": "Visitamos",
+          "gloss": "we visit",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "nuestra",
+          "gloss": "our",
+          "playable": false
+        },
+        {
+          "surface": "tía",
+          "gloss": "aunt",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "fin",
+          "gloss": "end",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "semana",
+          "gloss": "week; weekend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.pen-in-bag",
+      "text": "El bolígrafo está en la mochila escolar.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mochila",
+          "gloss": "backpack",
+          "playable": true
+        },
+        {
+          "surface": "escolar",
+          "gloss": "school",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cup-by-computer",
+      "text": "La taza está junto al ordenador.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "taza",
+          "gloss": "cup",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "junto",
+          "gloss": "beside; next to",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "ordenador",
+          "gloss": "computer",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.cat-under-table",
+      "text": "El gato está debajo de la mesa.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "debajo",
+          "gloss": "underneath",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.restroom-right",
+      "text": "El baño está a la derecha de la cocina.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "baño",
+          "gloss": "restroom",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "derecha",
+          "gloss": "right",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cocina",
+          "gloss": "kitchen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.elevator-hall",
+      "text": "El ascensor está al final del pasillo.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ascensor",
+          "gloss": "elevator",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "al",
+          "gloss": "at the",
+          "playable": false
+        },
+        {
+          "surface": "final",
+          "gloss": "end",
+          "playable": true
+        },
+        {
+          "surface": "del",
+          "gloss": "of the",
+          "playable": false
+        },
+        {
+          "surface": "pasillo",
+          "gloss": "hallway",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.light-switch",
+      "text": "El interruptor de la luz está junto a la puerta.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "interruptor",
+          "gloss": "switch",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "luz",
+          "gloss": "light",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "junto",
+          "gloss": "beside; next to",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.service.package-desk",
+      "text": "El paquete está en recepción.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "paquete",
+          "gloss": "package",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "recepción",
+          "gloss": "reception",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.bank-across",
+      "text": "El banco está al otro lado de la calle.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "banco",
+          "gloss": "bank",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "al",
+          "gloss": "on the",
+          "playable": false
+        },
+        {
+          "surface": "otro",
+          "gloss": "other",
+          "playable": false
+        },
+        {
+          "surface": "lado",
+          "gloss": "side",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "calle",
+          "gloss": "street",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.pharmacy-clinic",
+      "text": "La farmacia está junto a la clínica.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "farmacia",
+          "gloss": "pharmacy",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "junto",
+          "gloss": "beside; next to",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "clínica",
+          "gloss": "clinic",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.location.market-station",
+      "text": "El mercado está detrás de la estación.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mercado",
+          "gloss": "market",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "detrás",
+          "gloss": "behind",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "estación",
+          "gloss": "station",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.forgot-umbrella",
+      "text": "Se me olvidó traer un paraguas.",
+      "tokens": [
+        {
+          "surface": "Se",
+          "gloss": "accidental/reflexive marker",
+          "playable": false
+        },
+        {
+          "surface": "me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "olvidó",
+          "gloss": "was forgotten",
+          "playable": true
+        },
+        {
+          "surface": "traer",
+          "gloss": "to bring",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "an",
+          "playable": false
+        },
+        {
+          "surface": "paraguas",
+          "gloss": "umbrella",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.bus-late",
+      "text": "El autobús todavía no ha llegado.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "autobús",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "todavía",
+          "gloss": "still",
+          "playable": true
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "ha",
+          "gloss": "has",
+          "playable": false
+        },
+        {
+          "surface": "llegado",
+          "gloss": "arrived",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.missing-key",
+      "text": "No encuentro la llave.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "encuentro",
+          "gloss": "I find",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "llave",
+          "gloss": "key",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.help-find",
+      "text": "¿Puedes ayudarme a buscarla?",
+      "tokens": [
+        {
+          "surface": "Puedes",
+          "gloss": "can you",
+          "playable": true
+        },
+        {
+          "surface": "ayudarme",
+          "gloss": "help me",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "buscarla",
+          "gloss": "look for it",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.road-closed",
+      "text": "Esta carretera está cerrada temporalmente.",
+      "tokens": [
+        {
+          "surface": "Esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "carretera",
+          "gloss": "road",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "cerrada",
+          "gloss": "closed",
+          "playable": true
+        },
+        {
+          "surface": "temporalmente",
+          "gloss": "temporarily",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.other-road",
+      "text": "Tomemos otra carretera.",
+      "tokens": [
+        {
+          "surface": "Tomemos",
+          "gloss": "let us take",
+          "playable": true
+        },
+        {
+          "surface": "otra",
+          "gloss": "another",
+          "playable": false
+        },
+        {
+          "surface": "carretera",
+          "gloss": "road",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.rain-slow",
+      "text": "El vehículo avanza despacio por la lluvia.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "vehículo",
+          "gloss": "vehicle",
+          "playable": true
+        },
+        {
+          "surface": "avanza",
+          "gloss": "moves forward",
+          "playable": true
+        },
+        {
+          "surface": "despacio",
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "because of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "lluvia",
+          "gloss": "rain",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.sunny-picnic",
+      "text": "Si hace buen tiempo, haremos un pícnic.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "hace",
+          "gloss": "it makes; the weather is",
+          "playable": false
+        },
+        {
+          "surface": "buen",
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "tiempo",
+          "gloss": "weather",
+          "playable": true
+        },
+        {
+          "surface": "haremos",
+          "gloss": "we will have",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "pícnic",
+          "gloss": "picnic",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.plan.rest-after-task",
+      "text": "Descansaremos después de terminar la tarea.",
+      "tokens": [
+        {
+          "surface": "Descansaremos",
+          "gloss": "we will rest",
+          "playable": true
+        },
+        {
+          "surface": "después",
+          "gloss": "after",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "terminar",
+          "gloss": "finishing",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarea",
+          "gloss": "task",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.request.tell-result",
+      "text": "Dime el resultado, por favor.",
+      "tokens": [
+        {
+          "surface": "Dime",
+          "gloss": "tell me",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "resultado",
+          "gloss": "result",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.two-bedrooms",
+      "text": "Este piso tiene dos dormitorios.",
+      "tokens": [
+        {
+          "surface": "Este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "piso",
+          "gloss": "apartment",
+          "playable": true
+        },
+        {
+          "surface": "tiene",
+          "gloss": "has",
+          "playable": true
+        },
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "dormitorios",
+          "gloss": "bedrooms",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.rent-utilities",
+      "text": "El alquiler incluye el agua, pero no la electricidad.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "alquiler",
+          "gloss": "rent",
+          "playable": true
+        },
+        {
+          "surface": "incluye",
+          "gloss": "includes",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "agua",
+          "gloss": "water service",
+          "playable": true
+        },
+        {
+          "surface": "pero",
+          "gloss": "but",
+          "playable": false
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "electricidad",
+          "gloss": "electricity",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.repair-appointment",
+      "text": "He concertado una cita de mantenimiento.",
+      "tokens": [
+        {
+          "surface": "He",
+          "gloss": "I have",
+          "playable": false
+        },
+        {
+          "surface": "concertado",
+          "gloss": "scheduled",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "an",
+          "playable": false
+        },
+        {
+          "surface": "cita",
+          "gloss": "appointment",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "mantenimiento",
+          "gloss": "maintenance",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.heating-contact",
+      "text": "Si la calefacción no funciona, ponte en contacto con el administrador, por favor.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "calefacción",
+          "gloss": "heating",
+          "playable": true
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "funciona",
+          "gloss": "works",
+          "playable": true
+        },
+        {
+          "surface": "ponte",
+          "gloss": "put yourself; get",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "contacto",
+          "gloss": "contact",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "administrador",
+          "gloss": "building manager",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.move-next-month",
+      "text": "Tenemos previsto mudarnos el mes que viene.",
+      "tokens": [
+        {
+          "surface": "Tenemos",
+          "gloss": "we have",
+          "playable": false
+        },
+        {
+          "surface": "previsto",
+          "gloss": "planned",
+          "playable": true
+        },
+        {
+          "surface": "mudarnos",
+          "gloss": "to move house",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mes",
+          "gloss": "month",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "viene",
+          "gloss": "is coming; next",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.appointment.friday-three",
+      "text": "Mi cita es el viernes a las tres de la tarde.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "cita",
+          "gloss": "appointment",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "viernes",
+          "gloss": "Friday",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tres",
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.service.identity-document",
+      "text": "Lleva un documento de identidad a la ventanilla de atención, por favor.",
+      "tokens": [
+        {
+          "surface": "Lleva",
+          "gloss": "bring",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "an",
+          "playable": false
+        },
+        {
+          "surface": "documento",
+          "gloss": "document",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "identidad",
+          "gloss": "identity",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ventanilla",
+          "gloss": "service window",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "atención",
+          "gloss": "assistance",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.budget.month-tight",
+      "text": "Este mes tengo el presupuesto un poco ajustado.",
+      "tokens": [
+        {
+          "surface": "Este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "mes",
+          "gloss": "month",
+          "playable": true
+        },
+        {
+          "surface": "tengo",
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "presupuesto",
+          "gloss": "budget",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "poco",
+          "gloss": "little",
+          "playable": false
+        },
+        {
+          "surface": "ajustado",
+          "gloss": "tight",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.budget.compare-prices",
+      "text": "Antes de comprar algo, comparo precios.",
+      "tokens": [
+        {
+          "surface": "Antes",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "comprar",
+          "gloss": "buying",
+          "playable": true
+        },
+        {
+          "surface": "algo",
+          "gloss": "something",
+          "playable": false
+        },
+        {
+          "surface": "comparo",
+          "gloss": "I compare",
+          "playable": true
+        },
+        {
+          "surface": "precios",
+          "gloss": "prices",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.banking.transfer-complete",
+      "text": "La transferencia bancaria se ha completado.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "transferencia",
+          "gloss": "transfer",
+          "playable": true
+        },
+        {
+          "surface": "bancaria",
+          "gloss": "bank; banking",
+          "playable": true
+        },
+        {
+          "surface": "se",
+          "gloss": "passive marker",
+          "playable": false
+        },
+        {
+          "surface": "ha",
+          "gloss": "has",
+          "playable": false
+        },
+        {
+          "surface": "completado",
+          "gloss": "completed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.send-agenda",
+      "text": "Antes de la reunión, envía el orden del día a todos, por favor.",
+      "tokens": [
+        {
+          "surface": "Antes",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "reunión",
+          "gloss": "meeting",
+          "playable": true
+        },
+        {
+          "surface": "envía",
+          "gloss": "send",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "orden",
+          "gloss": "order",
+          "playable": true
+        },
+        {
+          "surface": "del",
+          "gloss": "of the",
+          "playable": false
+        },
+        {
+          "surface": "día",
+          "gloss": "day; agenda",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "todos",
+          "gloss": "everyone",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.confirm-data",
+      "text": "Necesito que un compañero confirme estos datos.",
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "compañero",
+          "gloss": "coworker",
+          "playable": true
+        },
+        {
+          "surface": "confirme",
+          "gloss": "confirm",
+          "playable": true
+        },
+        {
+          "surface": "estos",
+          "gloss": "these",
+          "playable": false
+        },
+        {
+          "surface": "datos",
+          "gloss": "data",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.notify-change",
+      "text": "Si cambia el plan, avisa al equipo, por favor.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "cambia",
+          "gloss": "changes",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "plan",
+          "gloss": "plan",
+          "playable": true
+        },
+        {
+          "surface": "avisa",
+          "gloss": "notify",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "equipo",
+          "gloss": "team",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.find-solution",
+      "text": "Juntos encontramos una solución al problema.",
+      "tokens": [
+        {
+          "surface": "Juntos",
+          "gloss": "together",
+          "playable": true
+        },
+        {
+          "surface": "encontramos",
+          "gloss": "we found",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "solución",
+          "gloss": "solution",
+          "playable": true
+        },
+        {
+          "surface": "al",
+          "gloss": "to the",
+          "playable": false
+        },
+        {
+          "surface": "problema",
+          "gloss": "problem",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.work.clearer-chart",
+      "text": "Este informe necesita un gráfico más claro.",
+      "tokens": [
+        {
+          "surface": "Este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "informe",
+          "gloss": "report",
+          "playable": true
+        },
+        {
+          "surface": "necesita",
+          "gloss": "needs",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "gráfico",
+          "gloss": "chart",
+          "playable": true
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "claro",
+          "gloss": "clear; clearer",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.passport-bag",
+      "text": "Mi pasaporte está en la bolsa de viaje.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "pasaporte",
+          "gloss": "passport",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is located",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "bolsa",
+          "gloss": "bag",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "viaje",
+          "gloss": "travel",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.flight-delay",
+      "text": "El vuelo lleva cuarenta y seis minutos de retraso.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "vuelo",
+          "gloss": "flight",
+          "playable": true
+        },
+        {
+          "surface": "lleva",
+          "gloss": "has accumulated",
+          "playable": false
+        },
+        {
+          "surface": "cuarenta",
+          "gloss": "forty",
+          "playable": true
+        },
+        {
+          "surface": "y",
+          "gloss": "and",
+          "playable": false
+        },
+        {
+          "surface": "seis",
+          "gloss": "six",
+          "playable": true
+        },
+        {
+          "surface": "minutos",
+          "gloss": "minutes",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "retraso",
+          "gloss": "delay",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.reserve-window",
+      "text": "Reservé por internet un asiento junto a la ventana.",
+      "tokens": [
+        {
+          "surface": "Reservé",
+          "gloss": "I reserved",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "via",
+          "playable": false
+        },
+        {
+          "surface": "internet",
+          "gloss": "the internet",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "asiento",
+          "gloss": "seat",
+          "playable": true
+        },
+        {
+          "surface": "junto",
+          "gloss": "beside; next to",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ventana",
+          "gloss": "window",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.next-transfer",
+      "text": "Tenemos que hacer transbordo en la próxima estación.",
+      "tokens": [
+        {
+          "surface": "Tenemos",
+          "gloss": "we have",
+          "playable": false
+        },
+        {
+          "surface": "que",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "hacer",
+          "gloss": "make",
+          "playable": true
+        },
+        {
+          "surface": "transbordo",
+          "gloss": "a transfer",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "próxima",
+          "gloss": "next",
+          "playable": true
+        },
+        {
+          "surface": "estación",
+          "gloss": "station",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.travel.missing-luggage",
+      "text": "Si no llega el equipaje, pregunta en el mostrador de atención, por favor.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "llega",
+          "gloss": "arrives",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "equipaje",
+          "gloss": "luggage",
+          "playable": true
+        },
+        {
+          "surface": "pregunta",
+          "gloss": "ask",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "mostrador",
+          "gloss": "counter",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "atención",
+          "gloss": "assistance",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.strong-password",
+      "text": "Usa una contraseña nueva y segura, por favor.",
+      "tokens": [
+        {
+          "surface": "Usa",
+          "gloss": "use",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "contraseña",
+          "gloss": "password",
+          "playable": true
+        },
+        {
+          "surface": "nueva",
+          "gloss": "new",
+          "playable": true
+        },
+        {
+          "surface": "y",
+          "gloss": "and",
+          "playable": false
+        },
+        {
+          "surface": "segura",
+          "gloss": "secure",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.no-code-sharing",
+      "text": "No compartas el código de verificación con otras personas.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "do not",
+          "playable": false
+        },
+        {
+          "surface": "compartas",
+          "gloss": "share",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "código",
+          "gloss": "code",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "verificación",
+          "gloss": "verification",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "otras",
+          "gloss": "other",
+          "playable": false
+        },
+        {
+          "surface": "personas",
+          "gloss": "people",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.check-recipient",
+      "text": "Antes de enviar un mensaje, comprueba el destinatario, por favor.",
+      "tokens": [
+        {
+          "surface": "Antes",
+          "gloss": "before",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "enviar",
+          "gloss": "sending",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "mensaje",
+          "gloss": "message",
+          "playable": true
+        },
+        {
+          "surface": "comprueba",
+          "gloss": "check",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "destinatario",
+          "gloss": "recipient",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.backup-files",
+      "text": "Haz copias de seguridad de los archivos importantes con regularidad.",
+      "tokens": [
+        {
+          "surface": "Haz",
+          "gloss": "make",
+          "playable": true
+        },
+        {
+          "surface": "copias",
+          "gloss": "copies",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "seguridad",
+          "gloss": "safety; backups",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "archivos",
+          "gloss": "files",
+          "playable": true
+        },
+        {
+          "surface": "importantes",
+          "gloss": "important",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "regularidad",
+          "gloss": "regularity; regularly",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.digital.location-sharing",
+      "text": "Cuando no la necesites, desactiva la ubicación compartida, por favor.",
+      "tokens": [
+        {
+          "surface": "Cuando",
+          "gloss": "when",
+          "playable": false
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "it",
+          "playable": false
+        },
+        {
+          "surface": "necesites",
+          "gloss": "you need",
+          "playable": true
+        },
+        {
+          "surface": "desactiva",
+          "gloss": "disable",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ubicación",
+          "gloss": "location",
+          "playable": true
+        },
+        {
+          "surface": "compartida",
+          "gloss": "shared",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "favor; please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.sort-materials",
+      "text": "Separa el papel y el plástico, por favor.",
+      "tokens": [
+        {
+          "surface": "Separa",
+          "gloss": "separate; sort",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "papel",
+          "gloss": "paper",
+          "playable": true
+        },
+        {
+          "surface": "y",
+          "gloss": "and",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "plástico",
+          "gloss": "plastic",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.reusable-bag",
+      "text": "Lleva una bolsa reutilizable cuando vayas a hacer la compra.",
+      "tokens": [
+        {
+          "surface": "Lleva",
+          "gloss": "take; carry",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "bolsa",
+          "gloss": "bag",
+          "playable": true
+        },
+        {
+          "surface": "reutilizable",
+          "gloss": "reusable",
+          "playable": true
+        },
+        {
+          "surface": "cuando",
+          "gloss": "when",
+          "playable": false
+        },
+        {
+          "surface": "vayas",
+          "gloss": "you go",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "hacer",
+          "gloss": "do",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "compra",
+          "gloss": "grocery shopping",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.save-water",
+      "text": "Cuando termines de usar el agua, cierra el grifo, por favor.",
+      "tokens": [
+        {
+          "surface": "Cuando",
+          "gloss": "when",
+          "playable": false
+        },
+        {
+          "surface": "termines",
+          "gloss": "you finish",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "usar",
+          "gloss": "using",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "cierra",
+          "gloss": "close",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "grifo",
+          "gloss": "faucet",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "for",
+          "playable": false
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.community.plant-trees",
+      "text": "La comunidad plantará árboles este fin de semana.",
+      "tokens": [
+        {
+          "surface": "La",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "comunidad",
+          "gloss": "community",
+          "playable": true
+        },
+        {
+          "surface": "plantará",
+          "gloss": "will plant",
+          "playable": true
+        },
+        {
+          "surface": "árboles",
+          "gloss": "trees",
+          "playable": true
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "fin",
+          "gloss": "end",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "semana",
+          "gloss": "week; weekend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.environment.save-energy",
+      "text": "Ir en autobús puede ahorrar energía.",
+      "tokens": [
+        {
+          "surface": "Ir",
+          "gloss": "going",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "by",
+          "playable": false
+        },
+        {
+          "surface": "autobús",
+          "gloss": "bus",
+          "playable": true
+        },
+        {
+          "surface": "puede",
+          "gloss": "can",
+          "playable": false
+        },
+        {
+          "surface": "ahorrar",
+          "gloss": "save",
+          "playable": true
+        },
+        {
+          "surface": "energía",
+          "gloss": "energy",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.road-work",
+      "text": "Como están reparando la carretera que hay más adelante, saldremos antes.",
+      "tokens": [
+        {
+          "surface": "Como",
+          "gloss": "because",
+          "playable": false
+        },
+        {
+          "surface": "están",
+          "gloss": "they are",
+          "playable": false
+        },
+        {
+          "surface": "reparando",
+          "gloss": "repairing",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "carretera",
+          "gloss": "road",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "hay",
+          "gloss": "there is",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "farther",
+          "playable": false
+        },
+        {
+          "surface": "adelante",
+          "gloss": "ahead",
+          "playable": true
+        },
+        {
+          "surface": "saldremos",
+          "gloss": "we will leave",
+          "playable": true
+        },
+        {
+          "surface": "antes",
+          "gloss": "earlier",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.finish-help",
+      "text": "Si termino primero, ayudaré a mi compañero de clase.",
+      "tokens": [
+        {
+          "surface": "Si",
+          "gloss": "if",
+          "playable": false
+        },
+        {
+          "surface": "termino",
+          "gloss": "I finish",
+          "playable": true
+        },
+        {
+          "surface": "primero",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "ayudaré",
+          "gloss": "I will help",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "compañero",
+          "gloss": "classmate",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "clase",
+          "gloss": "class",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.rain-museum",
+      "text": "Aunque llueve, el museo está abierto como de costumbre.",
+      "tokens": [
+        {
+          "surface": "Aunque",
+          "gloss": "although",
+          "playable": false
+        },
+        {
+          "surface": "llueve",
+          "gloss": "it is raining",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "museo",
+          "gloss": "museum",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "abierto",
+          "gloss": "open",
+          "playable": true
+        },
+        {
+          "surface": "como",
+          "gloss": "as",
+          "playable": false
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "costumbre",
+          "gloss": "usual; custom",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.time-route",
+      "text": "Primero confirmamos la hora y luego decidimos qué ruta tomar.",
+      "tokens": [
+        {
+          "surface": "Primero",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "confirmamos",
+          "gloss": "we confirm",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "hora",
+          "gloss": "time",
+          "playable": true
+        },
+        {
+          "surface": "y",
+          "gloss": "and",
+          "playable": false
+        },
+        {
+          "surface": "luego",
+          "gloss": "then",
+          "playable": true
+        },
+        {
+          "surface": "decidimos",
+          "gloss": "we decide",
+          "playable": true
+        },
+        {
+          "surface": "qué",
+          "gloss": "which",
+          "playable": true
+        },
+        {
+          "surface": "ruta",
+          "gloss": "route",
+          "playable": true
+        },
+        {
+          "surface": "tomar",
+          "gloss": "to take",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.reason.quiet-room",
+      "text": "Elegí esta habitación porque es más tranquila.",
+      "tokens": [
+        {
+          "surface": "Elegí",
+          "gloss": "I chose",
+          "playable": true
+        },
+        {
+          "surface": "esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "habitación",
+          "gloss": "room",
+          "playable": true
+        },
+        {
+          "surface": "porque",
+          "gloss": "because",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "tranquila",
+          "gloss": "quiet; quieter",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.experience.chinese-year",
+      "text": "Estudio chino desde hace un año.",
+      "tokens": [
+        {
+          "surface": "Estudio",
+          "gloss": "I study",
+          "playable": true
+        },
+        {
+          "surface": "chino",
+          "gloss": "Mandarin Chinese",
+          "playable": true
+        },
+        {
+          "surface": "desde",
+          "gloss": "since",
+          "playable": false
+        },
+        {
+          "surface": "hace",
+          "gloss": "ago; for",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "one",
+          "playable": false
+        },
+        {
+          "surface": "año",
+          "gloss": "year",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.experience.high-speed-train",
+      "text": "Todavía no he viajado en un tren de alta velocidad.",
+      "tokens": [
+        {
+          "surface": "Todavía",
+          "gloss": "yet",
+          "playable": true
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "he",
+          "gloss": "I have",
+          "playable": false
+        },
+        {
+          "surface": "viajado",
+          "gloss": "traveled",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "gloss": "on",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "tren",
+          "gloss": "train",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "alta",
+          "gloss": "high",
+          "playable": true
+        },
+        {
+          "surface": "velocidad",
+          "gloss": "speed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.useful-book",
+      "text": "Creo que este libro es útil.",
+      "tokens": [
+        {
+          "surface": "Creo",
+          "gloss": "I think",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "este",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "útil",
+          "gloss": "useful",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.more-seats",
+      "text": "Creo que el parque necesita más bancos.",
+      "tokens": [
+        {
+          "surface": "Creo",
+          "gloss": "I think",
+          "playable": true
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "parque",
+          "gloss": "park",
+          "playable": true
+        },
+        {
+          "surface": "necesita",
+          "gloss": "needs",
+          "playable": true
+        },
+        {
+          "surface": "más",
+          "gloss": "more",
+          "playable": false
+        },
+        {
+          "surface": "bancos",
+          "gloss": "benches; seats",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.opinion.convenient-city",
+      "text": "Me gusta esta ciudad porque es fácil desplazarse.",
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "gusta",
+          "gloss": "is pleasing; I like",
+          "playable": true
+        },
+        {
+          "surface": "esta",
+          "gloss": "this",
+          "playable": false
+        },
+        {
+          "surface": "ciudad",
+          "gloss": "city",
+          "playable": true
+        },
+        {
+          "surface": "porque",
+          "gloss": "because",
+          "playable": false
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "fácil",
+          "gloss": "easy",
+          "playable": true
+        },
+        {
+          "surface": "desplazarse",
+          "gloss": "to get around",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.problem.card-machine",
+      "text": "Mi tarjeta funciona, pero el cajero automático no está disponible.",
+      "tokens": [
+        {
+          "surface": "Mi",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "tarjeta",
+          "gloss": "bank card",
+          "playable": true
+        },
+        {
+          "surface": "funciona",
+          "gloss": "works",
+          "playable": true
+        },
+        {
+          "surface": "pero",
+          "gloss": "but",
+          "playable": false
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cajero",
+          "gloss": "cash machine",
+          "playable": true
+        },
+        {
+          "surface": "automático",
+          "gloss": "automatic; ATM",
+          "playable": true
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "está",
+          "gloss": "is",
+          "playable": false
+        },
+        {
+          "surface": "disponible",
+          "gloss": "available",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.appointment.reschedule",
+      "text": "Cambié la cita para mañana por la tarde.",
+      "tokens": [
+        {
+          "surface": "Cambié",
+          "gloss": "I changed",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cita",
+          "gloss": "appointment",
+          "playable": true
+        },
+        {
+          "surface": "para",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "tarde",
+          "gloss": "afternoon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.housing.repair-arrival",
+      "text": "El técnico vendrá mañana a las nueve.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "técnico",
+          "gloss": "technician",
+          "playable": true
+        },
+        {
+          "surface": "vendrá",
+          "gloss": "will come",
+          "playable": true
+        },
+        {
+          "surface": "mañana",
+          "gloss": "tomorrow",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "nueve",
+          "gloss": "nine",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.delivery.wrong-address",
+      "text": "El paquete fue enviado a una dirección equivocada y me puse en contacto con recepción.",
+      "tokens": [
+        {
+          "surface": "El",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "paquete",
+          "gloss": "package",
+          "playable": true
+        },
+        {
+          "surface": "fue",
+          "gloss": "was",
+          "playable": false
+        },
+        {
+          "surface": "enviado",
+          "gloss": "sent",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "gloss": "to",
+          "playable": false
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "dirección",
+          "gloss": "address",
+          "playable": true
+        },
+        {
+          "surface": "equivocada",
+          "gloss": "wrong",
+          "playable": true
+        },
+        {
+          "surface": "y",
+          "gloss": "and",
+          "playable": false
+        },
+        {
+          "surface": "me",
+          "gloss": "myself",
+          "playable": false
+        },
+        {
+          "surface": "puse",
+          "gloss": "got",
+          "playable": false
+        },
+        {
+          "surface": "en",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "contacto",
+          "gloss": "contact",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "recepción",
+          "gloss": "reception",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.tech.borrow-charger",
+      "text": "Olvidé el cargador, así que un compañero me prestó uno.",
+      "tokens": [
+        {
+          "surface": "Olvidé",
+          "gloss": "I forgot",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "cargador",
+          "gloss": "charger",
+          "playable": true
+        },
+        {
+          "surface": "así",
+          "gloss": "so",
+          "playable": false
+        },
+        {
+          "surface": "que",
+          "gloss": "that",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "compañero",
+          "gloss": "coworker",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "to me",
+          "playable": false
+        },
+        {
+          "surface": "prestó",
+          "gloss": "lent",
+          "playable": true
+        },
+        {
+          "surface": "uno",
+          "gloss": "one",
+          "playable": false
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.ask-meaning",
+      "text": "Cuando no conozco una palabra, pregunto qué significa.",
+      "tokens": [
+        {
+          "surface": "Cuando",
+          "gloss": "when",
+          "playable": false
+        },
+        {
+          "surface": "no",
+          "gloss": "not",
+          "playable": false
+        },
+        {
+          "surface": "conozco",
+          "gloss": "I know",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "palabra",
+          "gloss": "word",
+          "playable": true
+        },
+        {
+          "surface": "pregunto",
+          "gloss": "I ask",
+          "playable": true
+        },
+        {
+          "surface": "qué",
+          "gloss": "what",
+          "playable": true
+        },
+        {
+          "surface": "significa",
+          "gloss": "means",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.word-difference",
+      "text": "¿Puedes explicar la diferencia entre estas dos palabras?",
+      "tokens": [
+        {
+          "surface": "Puedes",
+          "gloss": "can you",
+          "playable": true
+        },
+        {
+          "surface": "explicar",
+          "gloss": "explain",
+          "playable": true
+        },
+        {
+          "surface": "la",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "diferencia",
+          "gloss": "difference",
+          "playable": true
+        },
+        {
+          "surface": "entre",
+          "gloss": "between",
+          "playable": false
+        },
+        {
+          "surface": "estas",
+          "gloss": "these",
+          "playable": false
+        },
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "palabras",
+          "gloss": "words",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.language.summarize",
+      "text": "Después de escuchar, lo resumo con mis propias palabras.",
+      "tokens": [
+        {
+          "surface": "Después",
+          "gloss": "after",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "escuchar",
+          "gloss": "listening",
+          "playable": true
+        },
+        {
+          "surface": "lo",
+          "gloss": "it",
+          "playable": false
+        },
+        {
+          "surface": "resumo",
+          "gloss": "I summarize",
+          "playable": true
+        },
+        {
+          "surface": "con",
+          "gloss": "with",
+          "playable": false
+        },
+        {
+          "surface": "mis",
+          "gloss": "my",
+          "playable": false
+        },
+        {
+          "surface": "propias",
+          "gloss": "own",
+          "playable": true
+        },
+        {
+          "surface": "palabras",
+          "gloss": "words",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.culture.respect-habits",
+      "text": "Respeto las distintas formas de vida.",
+      "tokens": [
+        {
+          "surface": "Respeto",
+          "gloss": "I respect",
+          "playable": true
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "distintas",
+          "gloss": "different",
+          "playable": true
+        },
+        {
+          "surface": "formas",
+          "gloss": "ways",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "vida",
+          "gloss": "life",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.social.listen-before-discussion",
+      "text": "En un debate de grupo, primero escuchamos las ideas de los demás.",
+      "tokens": [
+        {
+          "surface": "En",
+          "gloss": "in",
+          "playable": false
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": false
+        },
+        {
+          "surface": "debate",
+          "gloss": "discussion",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "grupo",
+          "gloss": "group",
+          "playable": true
+        },
+        {
+          "surface": "primero",
+          "gloss": "first",
+          "playable": true
+        },
+        {
+          "surface": "escuchamos",
+          "gloss": "we listen to",
+          "playable": true
+        },
+        {
+          "surface": "las",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "ideas",
+          "gloss": "ideas",
+          "playable": true
+        },
+        {
+          "surface": "de",
+          "gloss": "of",
+          "playable": false
+        },
+        {
+          "surface": "los",
+          "gloss": "the",
+          "playable": false
+        },
+        {
+          "surface": "demás",
+          "gloss": "others",
+          "playable": true
+        }
+      ]
+    }
+  ]
+}

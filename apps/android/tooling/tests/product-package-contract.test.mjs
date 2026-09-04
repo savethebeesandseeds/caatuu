@@ -4,6 +4,10 @@ import test from "node:test";
 
 import {
   assertCourseBundleContract,
+  assertGenericDictionaryCatalog,
+  assertGenericEmbeddingCatalog,
+  assertGenericEmbeddingManifest,
+  assertPackageSharedStorage,
   requiredAssetPaths,
   requiredNativeClassNames,
 } from "../validate-product-package.mjs";
@@ -31,13 +35,20 @@ function capabilities(overrides = {}) {
   };
 }
 
-function course({ id, routePrefix, targetLanguage, capabilities: courseCapabilities, providers }) {
+function course({
+  id,
+  routePrefix,
+  sourceLanguage = { id: "en", label: "English", locale: "en" },
+  targetLanguage,
+  capabilities: courseCapabilities,
+  providers,
+}) {
   return {
     id,
     routePrefix,
     entryPath: `${routePrefix}/index.html`,
     assetPrefix: `courses/${id}`,
-    sourceLanguage: { id: "en", label: "English", locale: "en" },
+    sourceLanguage,
     targetLanguage,
     capabilities: courseCapabilities,
     nativeProviders: { schemaVersion: 1, providers },
@@ -123,6 +134,53 @@ function packageFixture() {
   return { bundle, profile };
 }
 
+function publicationPlanFor(bundle) {
+  return {
+    defaultCourseId: bundle.defaultCourseId,
+    courses: bundle.courses.map((courseRecord) => ({
+      id: courseRecord.id,
+      manifestPath: `apps/languages/${courseRecord.id}/course.json`,
+      assetPrefix: courseRecord.assetPrefix,
+      routePrefix: courseRecord.routePrefix,
+      entryPath: courseRecord.entryPath,
+      sourceLanguage: structuredClone(courseRecord.sourceLanguage),
+      targetLanguage: structuredClone(courseRecord.targetLanguage),
+      capabilities: structuredClone(courseRecord.capabilities),
+      nativeProviders: structuredClone(courseRecord.nativeProviders),
+    })),
+  };
+}
+
+function thirdCourseFixture() {
+  const fixture = packageFixture();
+  fixture.bundle.courses.push(course({
+    id: "es",
+    routePrefix: "/learn-spanish",
+    sourceLanguage: { id: "fr", label: "French", locale: "fr" },
+    targetLanguage: {
+      id: "es",
+      label: "Spanish",
+      nativeLabel: "Español",
+      locale: "es-ES",
+      script: "Latn",
+      speechLocale: "es-ES",
+    },
+    capabilities: capabilities({
+      embeddings: false,
+      imageLookup: false,
+      memory: false,
+      semanticSearch: false,
+      speech: false,
+      stats: false,
+      wordWorld: false,
+      wordWorldStandardOnly: false,
+    }),
+    providers: {},
+  }));
+  fixture.profile.assets.push("courses/es/setup-assets.json");
+  return { ...fixture, publicationPlan: publicationPlanFor(fixture.bundle) };
+}
+
 test("package requirements are derived from the declared courses and native capabilities", () => {
   const { bundle, profile } = packageFixture();
   assert.equal(assertCourseBundleContract(bundle, profile), bundle);
@@ -159,6 +217,219 @@ test("the package contract rejects provider escape and duplicated vendor payload
   assert.throws(
     () => assertCourseBundleContract(bundle, duplicated),
     /must not duplicate shared Transformers\.js artifacts/,
+  );
+});
+
+test("the package contract follows a catalog-derived third-course publication plan", () => {
+  const { bundle, profile, publicationPlan } = thirdCourseFixture();
+  assert.equal(assertCourseBundleContract(bundle, profile, "fixture package", publicationPlan), bundle);
+});
+
+test("the package contract rejects catalog-plan omission, extra, order, and default drift", () => {
+  const { bundle, profile, publicationPlan } = thirdCourseFixture();
+
+  const omitted = structuredClone(bundle);
+  omitted.courses = omitted.courses.filter(({ id }) => id !== "zh");
+  assert.throws(
+    () => assertCourseBundleContract(omitted, profile, "fixture package", publicationPlan),
+    /missing Android-enabled catalog courses: zh/u,
+  );
+
+  const extra = structuredClone(bundle);
+  extra.courses.push(course({
+    id: "de",
+    routePrefix: "/de",
+    targetLanguage: {
+      id: "de",
+      label: "German",
+      nativeLabel: "Deutsch",
+      locale: "de-DE",
+      script: "Latn",
+      speechLocale: "de-DE",
+    },
+    capabilities: capabilities({
+      embeddings: false,
+      imageLookup: false,
+      memory: false,
+      semanticSearch: false,
+      speech: false,
+      stats: false,
+      wordWorld: false,
+      wordWorldStandardOnly: false,
+    }),
+    providers: {},
+  }));
+  assert.throws(
+    () => assertCourseBundleContract(extra, profile, "fixture package", publicationPlan),
+    /courses absent from the Android publication plan: de/u,
+  );
+
+  const reordered = structuredClone(bundle);
+  [reordered.courses[1], reordered.courses[2]] = [reordered.courses[2], reordered.courses[1]];
+  assert.throws(
+    () => assertCourseBundleContract(reordered, profile, "fixture package", publicationPlan),
+    /courses must follow Android-enabled language catalog order: cz, zh, es/u,
+  );
+
+  const changedDefault = structuredClone(bundle);
+  changedDefault.defaultCourseId = "zh";
+  assert.throws(
+    () => assertCourseBundleContract(changedDefault, profile, "fixture package", publicationPlan),
+    /default course must match the Android-enabled language catalog \(cz\)/u,
+  );
+});
+
+test("the package contract rejects capability and native-provider drift from publication authorities", () => {
+  const { bundle, profile, publicationPlan } = thirdCourseFixture();
+
+  const capabilityDrift = structuredClone(bundle);
+  capabilityDrift.courses[2].capabilities.pronunciationGuides = true;
+  assert.throws(
+    () => assertCourseBundleContract(capabilityDrift, profile, "fixture package", publicationPlan),
+    /capabilities must match apps\/languages\/es\/course\.json/u,
+  );
+
+  const providerDrift = structuredClone(bundle);
+  providerDrift.courses[0].nativeProviders.providers.embeddings.catalogAsset =
+    "courses/cz/data/embeddings/alternate.json";
+  const expandedProfile = structuredClone(profile);
+  expandedProfile.assets.push("courses/cz/data/embeddings/alternate.json");
+  assert.throws(
+    () => assertCourseBundleContract(providerDrift, expandedProfile, "fixture package", publicationPlan),
+    /native providers must match the Android asset catalog/u,
+  );
+});
+
+test("Android dictionary lookup follows the target language while meanings remain English-auditable", () => {
+  const { bundle } = packageFixture();
+  const catalog = {
+    default_dictionary: "fixture-cs-en",
+    dictionaries: [{
+      key: "fixture-cs-en",
+      label: "Fixture Czech to English Dictionary",
+      status: "active",
+      artifact_kind: "dictionary-database",
+      direction: "cs-en",
+      lookupLanguage: "cs",
+      lookupLanguageTag: "cs-CZ",
+      meaningLanguage: "en",
+      meaningLanguageTag: "en",
+      bytes: 10,
+      sha256: "a".repeat(64),
+      database_file: "fixture-cs-en/fixture.sqlite",
+      download_url: "https://example.test/fixture.sqlite",
+    }],
+  };
+  assert.equal(
+    assertGenericDictionaryCatalog(catalog, bundle.courses[0], "fixture dictionary"),
+    catalog.dictionaries[0],
+  );
+
+  const nonEnglishMeanings = structuredClone(catalog);
+  nonEnglishMeanings.dictionaries[0].meaningLanguage = "fr";
+  assert.throws(
+    () => assertGenericDictionaryCatalog(nonEnglishMeanings, bundle.courses[0], "fixture dictionary"),
+    /meaningLanguage must remain the immutable English audit language/u,
+  );
+
+  const wrongLookupLanguage = structuredClone(catalog);
+  wrongLookupLanguage.dictionaries[0].lookupLanguage = "sk";
+  assert.throws(
+    () => assertGenericDictionaryCatalog(wrongLookupLanguage, bundle.courses[0], "fixture dictionary"),
+    /lookupLanguage must match the course target language/u,
+  );
+
+  const wrongLookupScript = structuredClone(catalog);
+  wrongLookupScript.dictionaries[0].lookupLanguageTag = "cs-Latn-US";
+  assert.throws(
+    () => assertGenericDictionaryCatalog(wrongLookupScript, bundle.courses[0], "fixture dictionary"),
+    /lookupLanguageTag must match the exact course target locale and script/u,
+  );
+
+  const nonEnglishMeaningTag = structuredClone(catalog);
+  nonEnglishMeaningTag.dictionaries[0].meaningLanguageTag = "fr";
+  assert.throws(
+    () => assertGenericDictionaryCatalog(nonEnglishMeaningTag, bundle.courses[0], "fixture dictionary"),
+    /meaningLanguageTag must remain the immutable English audit language/u,
+  );
+
+  for (const mutate of [
+    (entry) => { delete entry.bytes; entry.expected_bytes = 10; },
+    (entry) => { entry.bytes = "10"; },
+    (entry) => { entry.bytes = 10.5; },
+    (entry) => { entry.bytes = Number.MAX_SAFE_INTEGER + 1; },
+  ]) {
+    const invalidBytes = structuredClone(catalog);
+    mutate(invalidBytes.dictionaries[0]);
+    assert.throws(
+      () => assertGenericDictionaryCatalog(invalidBytes, bundle.courses[0], "fixture dictionary"),
+      /positive safe integer byte count in the canonical bytes field/u,
+    );
+  }
+});
+
+test("the final package embedding audit confines the database name and HTTPS download", () => {
+  const catalog = {
+    base_url: "https://example.test/embeddings",
+    default_model: "fixture-minilm",
+    models: [{
+      key: "fixture-minilm",
+      status: "active",
+      artifact_kind: "embedding-vector-db",
+      input_language: "en",
+      model_file: "fixture-minilm/fixture.sqlite",
+      manifest_file: "fixture-minilm/manifest.json",
+      bytes: 10,
+      sha256: "b".repeat(64),
+    }],
+  };
+  const manifest = {
+    model_id: "fixture-minilm",
+    file: "fixture.sqlite",
+    url: "fixture-minilm/fixture.sqlite",
+    bytes: 10,
+    sha256: "b".repeat(64),
+    embedding_dimension: 384,
+    embedding_text_field: "english_text",
+    embedding_input_policy: "english_text_only",
+    schema_name: "fixture-vector-db",
+    schema_version: 1,
+  };
+  const active = assertGenericEmbeddingCatalog(catalog, "fixture");
+  assert.doesNotThrow(() => assertGenericEmbeddingManifest(active, manifest, catalog.base_url, "fixture"));
+  const nonEnglishRetrieval = structuredClone(catalog);
+  nonEnglishRetrieval.models[0].input_language = "fr";
+  assert.throws(
+    () => assertGenericEmbeddingCatalog(nonEnglishRetrieval, "fixture"),
+    /Android embeddings must consume English input/u,
+  );
+  assert.throws(
+    () => assertGenericEmbeddingManifest(active, { ...manifest, file: "../fixture.sqlite" }, catalog.base_url, "fixture"),
+    /exact safe file basename/u,
+  );
+  assert.throws(
+    () => assertGenericEmbeddingManifest(active, manifest, "http://example.test/embeddings", "fixture"),
+    /must use HTTPS/u,
+  );
+});
+
+test("the final package rejects a second course that reuses storage with a different identity", () => {
+  const first = {
+    courseId: "cz",
+    storagePath: "setup-assets/language-runtime/models/config.json",
+    source: "https://caatuu.waajacu.com/language-runtime/models/config.json",
+    declaredPath: "language-runtime/models/config.json",
+    bytes: 100,
+    sha256: "c".repeat(64),
+    artifactKind: "embedding-runtime",
+  };
+  assert.doesNotThrow(() => assertPackageSharedStorage([first, { ...first, courseId: "zh" }]));
+  assert.throws(
+    () => assertPackageSharedStorage([
+      first,
+      { ...first, courseId: "zh", sha256: "d".repeat(64) },
+    ]),
+    /shared storage path .* has conflicting sha256 for courses cz and zh/u,
   );
 });
 

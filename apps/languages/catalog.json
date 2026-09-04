@@ -23,6 +23,10 @@
     {
       "id": "zh",
       "manifest": "apps/languages/mandarin-simplified/course.json"
+    },
+    {
+      "id": "es",
+      "manifest": "apps/languages/spanish/course.json"
     }
   ]
 }

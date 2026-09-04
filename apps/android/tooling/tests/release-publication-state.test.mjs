@@ -34,7 +34,8 @@ async function fixture(stableVersion = 164, candidateVersion = 165, floorVersion
   paths.root = root;
   const durableFloor = structuredClone(pagesDescriptor);
   if (floorVersion !== 163) {
-    assert.ok(floorVersion > 163);
+    durableFloor.releases = durableFloor.releases.filter(({ versionCode }) => versionCode < floorVersion);
+    assert.ok(floorVersion > (durableFloor.releases.at(-1)?.versionCode ?? 162));
     const floorBytes = candidateVersion === floorVersion ? candidateBytes : Buffer.from(`floor-${floorVersion}`);
     const floorManifestRaw = candidateVersion === floorVersion
       ? candidateManifestRaw

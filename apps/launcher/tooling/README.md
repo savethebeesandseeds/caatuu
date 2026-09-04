@@ -2,11 +2,11 @@
 
 `build-static-site.mjs` creates the reviewed browser-only `web-static-core`
 intermediate. `build-pages-site.mjs` turns that intermediate into the final
-`web-static-pages-cutover` bundle by adding the unlisted Mandarin browser
-preview, every Android overlay in the append-only release descriptor, and the
-fixed Android 162/161 preservation archive. Both builders change only generated
-output; they do not edit the live server sources, Android product, models, or
-canonical language source trees.
+`web-static-pages-cutover` bundle by adding every catalog-declared,
+Pages-enabled browser preview, every Android overlay in the append-only release
+descriptor, and the fixed Android 162/161 preservation archive. Both builders
+change only generated output; they do not edit the live server sources, Android
+product, models, or canonical language source trees.
 
 Run it in the established development container from the repository root:
 
@@ -35,7 +35,7 @@ final Pages publication command.
 The Czech-only browser core preserves the launcher, Czech interface, ordinary
 local progress, the 865-record curated dictionary, the six embedded browser
 learning games, and all
-646 reviewed visual assets. A 2.5 MB static supplement preserves exact
+662 reviewed visual assets. A 2.5 MB static supplement preserves exact
 dictionary matches for every Standard Word World surface resolved by the
 existing pinned full dictionary (1,195 of 1,277 surfaces); its 82 source
 dictionary misses retain the existing local gap behavior. Only the three
@@ -69,13 +69,16 @@ local imports, resolves HTML and service-worker references, confirms the
 792-record Standard Word World corpus, and rejects server/model paths or calls.
 Its deterministic manifest is `caatuu-web-bundle.json`.
 
-The final Pages builder adds the unlisted, `noindex` Mandarin development
-course at `/zh/`, restores the stable 162 / compatibility 161 preservation
-archive, and overlays every exact Android release in the append-only descriptor.
+The final Pages builder derives its browser routes from the course catalog and
+the explicit `platforms.browser.pagesEnabled` gate. It currently stages the
+`noindex` Mandarin development course at `/zh/`; local-only Spanish at `/es/`
+is excluded while its license remains `release-review-required`. The builder
+restores the stable 162 / compatibility 161 preservation archive and overlays
+every exact Android release in the append-only descriptor.
 It includes all retained aliases, all 662 release-162 native setup artifacts,
 original keymaps, SQLite dictionary and vector database, ONNX/WASM runtime,
-catalogs, and version-specific legacy assets. It regenerates both published
-browser setup receipts against the final Pages bytes and verifies the archive,
+catalogs, and version-specific legacy assets. It regenerates every staged
+browser course's setup receipt against the final Pages bytes and verifies the archive,
 every final byte/hash, same-origin Android URLs, alias equality, service-worker
 exclusions, range bypass, case collisions, and size ceiling before replacing
 generated output. The launcher offers only the newest signed stable release;
@@ -98,11 +101,11 @@ the stricter default and fail when those local runtime files are absent.
 
 ## Hosting boundary
 
-The UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths. Publication therefore
-requires `https://caatuu.waajacu.com` at the root; a GitHub project subpath is
-not compatible. The manual Pages workflow checks that configuration before it
-uploads anything and deploys through the Pages artifact API. It never creates a
-publication branch.
+The published UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths.
+Publication therefore requires `https://caatuu.waajacu.com` at the root; a
+GitHub project subpath is not compatible. The manual Pages workflow checks that
+configuration before it uploads anything and deploys through the Pages artifact
+API. It never creates a publication branch.
 
 See [`docs/STATIC_WEB_HOSTING.md`](../../../docs/STATIC_WEB_HOSTING.md) for the
 external setup, validation, DNS cutover, and rollback sequence.

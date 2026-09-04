@@ -31,7 +31,7 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     assert.ok(!Object.hasOwn(manifest, "schemaVersion"));
     assert.equal(manifest.payloadFileCount, built.fileCount - 1);
     assert.equal(manifest.requiredSetupArtifacts, 3);
-    assert.equal(manifest.publishedVisualAssets, 646);
+    assert.equal(manifest.publishedVisualAssets, 690);
     assert.equal(manifest.basePath, "/");
     const serviceWorker = readFileSync(join(outputDir, "sw.js"), "utf8");
     for (const sharedAsset of [

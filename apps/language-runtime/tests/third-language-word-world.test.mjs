@@ -9,11 +9,15 @@ import {
   defineLanguageAdapter
 } from "../contract.mjs";
 import { mountWordWorld } from "../static/source/word-world-provider.mjs";
+import { importBrowserLanguageAdapter } from "./browser-module-loader.mjs";
 import { FakeRegistry } from "./helpers/fake-browser.mjs";
 
 const execFileAsync = promisify(execFile);
 const CHILD_FLAG = "--third-language-scenario";
 const RESULT_MARKER = "CAATUU_THIRD_LANGUAGE_RESULT=";
+const czechAdapter = await importBrowserLanguageAdapter(
+  "../../languages/czech/static/source/language/adapter.mjs"
+);
 
 function contentText(value) {
   if (typeof value === "string" || typeof value === "number") return String(value);
@@ -146,12 +150,13 @@ function syntheticCourse(capabilities) {
   return Object.freeze({
     id: "es-test",
     routePrefix: "/es-test",
-    sourceLanguage: { id: "en", label: "English", locale: "en-US", direction: "ltr" },
+    sourceLanguage: { id: "fr", label: "Français", locale: "fr-FR", direction: "ltr" },
     targetLanguage: {
       id: "es",
       label: "Test Spanish",
       nativeLabel: "Español de prueba",
       locale: "es-ES",
+      script: "Latn",
       speechLocale: "es-MX",
       direction: "ltr"
     },
@@ -175,6 +180,9 @@ const manifest = Object.freeze({
   features: { wordMeanings: true },
   sourceConceptCatalog: "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
   realizationFile: "third-language-test-v1.realizations.json",
+  learnerBaseLanguage: "fr-FR",
+  learnerBaseFile: "third-language-test-v1.learner-base.fr.json",
+  recordCount: 250,
   embeddingPolicy: {
     inputLanguage: "en",
     inputField: "embeddingText",
@@ -183,6 +191,32 @@ const manifest = Object.freeze({
     fallback: "deterministic-lexical"
   }
 });
+
+function thirdLanguageLearnerBase(englishCatalog) {
+  return {
+    $schema: "https://caatuu.org/schemas/runtime/learner-base-realizations.runtime.v1.schema.json",
+    schemaVersion: 1,
+    id: "third-language-test-v1-learner-base-fr",
+    baseLanguage: { languageTag: "fr-FR", script: "Latn" },
+    derivedFrom: "apps/languages/shared/learner-base-realizations/fr/third-language-test-v1.json",
+    sourceCatalog: englishCatalog.derivedFrom,
+    review: {
+      status: "native-reviewed",
+      reviewer: "Synthetic French reviewer",
+      reviewedAt: "2026-09-03T00:00:00Z",
+      notes: "Synthetic end-to-end renderer contract fixture only."
+    },
+    license: structuredClone(englishCatalog.license),
+    realizations: englishCatalog.concepts.map((concept, index) => ({
+      conceptId: concept.id,
+      text: concept.id === "ww.greeting.hello"
+        ? "Bonjour !"
+        : concept.id === "ww.object.book"
+          ? "Ceci est un livre."
+          : `Phrase française ${index + 1}.`
+    }))
+  };
+}
 
 function thirdLanguageRealizations(englishCatalog) {
   return {
@@ -263,13 +297,18 @@ function installBrowserEnvironment(course, authorityHtml) {
   const storage = new Map();
   const windowListeners = new Map();
   const nativeSpeechCalls = [];
+  const semanticAttempts = [];
+  const dictionaryGapCalls = [];
   const runtime = {
     env: "browser",
     registerServiceWorker: async () => null,
     vector: { search: async () => ({ results: [] }) },
     dictionary: { search: async () => ({ results: [] }) },
     maintenance: {
-      enqueueDictionaryGap: async () => false,
+      enqueueDictionaryGap: async (payload) => {
+        dictionaryGapCalls.push(structuredClone(payload));
+        return { queued: true, persisted: true };
+      },
       enqueueReport: async () => ({ ok: true })
     }
   };
@@ -286,7 +325,12 @@ function installBrowserEnvironment(course, authorityHtml) {
       stopSpeech: async () => null
     },
     CaatuuLearning: { difficulty: () => 1, record() {} },
-    CaatuuSemanticLearning: { recordAttempt: async () => null },
+    CaatuuSemanticLearning: {
+      recordAttempt: async (payload) => {
+        semanticAttempts.push(structuredClone(payload));
+        return null;
+      }
+    },
     document,
     location: {
       origin: "https://caatuu.test",
@@ -299,7 +343,11 @@ function installBrowserEnvironment(course, authorityHtml) {
       removeItem(key) { storage.delete(key); }
     },
     navigator: { onLine: false, connection: { saveData: true } },
-    speechSynthesis: { cancel() {}, getVoices() { return []; } },
+    speechSynthesis: {
+      cancel() {},
+      getVoices() { return []; },
+      ...(course.capabilities?.speech === true ? { speak() {} } : {})
+    },
     SpeechSynthesisUtterance: class {
       constructor(text) { this.text = text; }
     },
@@ -341,12 +389,124 @@ function installBrowserEnvironment(course, authorityHtml) {
     set src(_value) { queueMicrotask(() => this.onerror?.(new Error("not loaded in contract"))); }
   };
   globalThis.fetch = async () => new Response("not found", { status: 404 });
-  return { registry, root, runtime, nativeSpeechCalls };
+  return { registry, root, runtime, nativeSpeechCalls, semanticAttempts, dictionaryGapCalls };
+}
+
+async function runCzechStandardDictionaryGapScenario() {
+  const course = Object.freeze({
+    id: "cz",
+    routePrefix: "/cz",
+    sourceLanguage: { id: "en", label: "English", locale: "en", direction: "ltr" },
+    targetLanguage: {
+      id: "cs",
+      label: "Czech",
+      nativeLabel: "Čeština",
+      locale: "cs-CZ",
+      script: "Latn",
+      speechLocale: "cs-CZ",
+      direction: "ltr"
+    },
+    capabilities: {
+      wordWorld: true,
+      embeddings: false,
+      semanticSearch: false,
+      dictionary: true,
+      speech: false,
+      pronunciationGuides: false,
+      generation: false,
+      llm: false,
+      chat: false
+    },
+    dictionaryContent: {
+      providerId: "czech-full-dictionary-v1",
+      gapReporting: {
+        providerId: "czech-full-dictionary-v1",
+        dictionaryKey: "kaikki-cs-en-2026-07-09",
+        dictionaryDirection: "cs-en"
+      }
+    },
+    languageAdapter: { module: "source/language/adapter.mjs" },
+    storage: {
+      namespace: "caatuu-czech-gap-test",
+      wordWorldTranslationMode: "caatuu-czech-gap-test.wordNet.translationMode",
+      wordWorldRecentSentences: "caatuu-czech-gap-test.wordNet.recentSentences",
+      wordWorldTranslationCache: "caatuu-czech-gap-test.wordNet.translationCache"
+    }
+  });
+  const record = {
+    id: "standard-cat-sleeps",
+    cs: "Kočka spí.",
+    en: "The cat sleeps.",
+    difficulty: 1,
+    topic: "daily-life",
+    sceneQuery: "a sleeping cat",
+    targets: [{ surface: "Kočka", normalized: "kočka", tokenIndex: 0, playable: true }]
+  };
+  const provider = {
+    records: [record],
+    corpusVersion: "standard-gap-test-v1",
+    usage: { entries: new Map(), get: () => ({ count: 0, lastSeen: 0 }), mark: () => ({ count: 1, lastSeen: 1 }) },
+    difficultyCounts: () => ({ 1: 1, 2: 0, 3: 0 }),
+    nextRandom: () => ({ record, fallback: false, requestedWord: "" }),
+    nextForWord: () => ({ record, fallback: false, requestedWord: "kočka" }),
+    primaryWord: () => "Kočka",
+    markUsed: () => ({ count: 1, lastSeen: 1 }),
+    getRecordById: (id) => id === record.id ? record : null
+  };
+  const manifest = {
+    schemaVersion: "caatuu-word-world-runtime-manifest-v1",
+    corpusVersion: "standard-gap-test-v1",
+    mode: "standard",
+    sessionProvider: { kind: "standard-corpus", module: "unused.mjs" },
+    features: { wordMeanings: true },
+    embeddingPolicy: {
+      inputLanguage: "en",
+      inputField: "embeddingText",
+      targetTextAllowed: false,
+      fallback: "deterministic-lexical"
+    }
+  };
+  const authorityHtml = await readFile(new URL("../static/app/index.html", import.meta.url), "utf8");
+  const environment = installBrowserEnvironment(course, authorityHtml);
+  globalThis.localStorage.setItem(course.storage.wordWorldTranslationMode, "timer-0");
+  let preparedContext = null;
+  const rendererUrl = new URL("../static/source/product-word-world.mjs", import.meta.url);
+  rendererUrl.searchParams.set("czech-gap", String(Date.now()));
+  const controller = await mountWordWorld(environment.root, course, manifest, {
+    origin: "https://caatuu.test",
+    adapter: czechAdapter,
+    runtime: environment.runtime,
+    standardProvider: provider,
+    embeddingRanker: null,
+    meaningSelector: () => null,
+    random: () => 0,
+    async rendererImport() {
+      const renderer = await import(rendererUrl.href);
+      return {
+        async mountProductWordWorld(root, context, options) {
+          preparedContext = context;
+          return renderer.mountProductWordWorld(root, context, options);
+        }
+      };
+    }
+  });
+  await new Promise((resolve) => setTimeout(resolve, 40));
+  controller.pause();
+  const prepared = preparedContext.sessionRecord(record.id);
+  return {
+    tokenHasGloss: Object.hasOwn(prepared.target.tokens[0], "gloss"),
+    dictionaryGapCalls: environment.dictionaryGapCalls
+  };
 }
 
 async function runScenario(name) {
-  const speechAndSemantic = name === "speech-and-semantic";
-  const capabilities = speechAndSemantic
+  if (name === "czech-standard-dictionary-gap") {
+    return runCzechStandardDictionaryGapScenario();
+  }
+  const speechEnabled = name === "speech-and-semantic" || name === "source-prompt-speech";
+  const sourcePrompt = name === "source-prompt-speech";
+  const unsupportedGeneration = name === "unsupported-generation";
+  const capabilities = speechEnabled
     ? {
         speech: true,
         generation: false,
@@ -356,8 +516,8 @@ async function runScenario(name) {
       }
     : {
         speech: false,
-        llm: true,
-        generation: true,
+        llm: unsupportedGeneration,
+        generation: unsupportedGeneration,
         pronunciationGuides: false,
         dictionary: true,
         semanticSearch: false
@@ -369,8 +529,15 @@ async function runScenario(name) {
     readFile(new URL("../static/app/index.html", import.meta.url), "utf8")
   ]);
   const realizations = thirdLanguageRealizations(englishCatalog);
+  const learnerBase = thirdLanguageLearnerBase(englishCatalog);
   const environment = installBrowserEnvironment(course, authorityHtml);
-  globalThis.localStorage.setItem(`${course.storage.namespace}.wordNet.challengePromptMode.v1`, "target");
+  globalThis.localStorage.setItem(
+    `${course.storage.namespace}.wordNet.challengePromptMode.v1`,
+    sourcePrompt ? "target" : "source"
+  );
+  if (name === "speech-and-semantic") {
+    globalThis.localStorage.setItem(course.storage.wordWorldTranslationMode, "visible");
+  }
   const rankerCalls = [];
   let preparedContext = null;
   let rendererSpecifier = "";
@@ -383,9 +550,10 @@ async function runScenario(name) {
     random: () => 0,
     now: () => 1_700_000_000_000,
     loadJson(url) {
-      return String(url).includes("english-concepts")
-        ? structuredClone(englishCatalog)
-        : structuredClone(realizations);
+      const value = String(url);
+      if (value.includes("english-concepts")) return structuredClone(englishCatalog);
+      if (value.endsWith(manifest.learnerBaseFile)) return structuredClone(learnerBase);
+      return structuredClone(realizations);
     },
     embeddingRanker: async (payload) => {
       rankerCalls.push(payload);
@@ -403,13 +571,17 @@ async function runScenario(name) {
       return {
         async mountProductWordWorld(root, context, options) {
           preparedContext = context;
-          return renderer.mountProductWordWorld(root, context, options);
+          const mounted = await renderer.mountProductWordWorld(root, context, options);
+          if (name === "speech-and-semantic") {
+            const record = context.sessionRecord("ww.greeting.hello");
+            await context.searchEnglish(renderer.englishAuditSemanticQuery(record));
+          }
+          return mounted;
         }
       };
     }
   });
 
-  const search = await preparedContext.searchEnglish("book");
   const hello = preparedContext.sessionRecord("ww.greeting.hello");
   const gloss = await preparedContext.lookupMeaning({
     record: hello,
@@ -423,7 +595,18 @@ async function runScenario(name) {
   const generative = environment.registry.querySelector('[data-content-mode="generative"]');
   const generativeDialog = environment.registry.element("wordNetGenerativeDialog");
   const reconstruction = environment.registry.element("wordNetReconstruction");
+  const reconstructionBank = environment.registry.element("wordNetReconstructionBank");
   const reconstructionSubmit = environment.registry.element("wordNetReconstructionSubmit");
+  await new Promise((resolve) => setTimeout(resolve, 10));
+  const initialSpeechCallCount = environment.nativeSpeechCalls.length;
+  if (sourcePrompt) {
+    phraseSound.click();
+    environment.registry.element("wordNetAudioSpeed").dispatchEvent({ type: "change" });
+    const autoplay = environment.registry.element("wordNetAudioAutoplay");
+    autoplay.click();
+    autoplay.click();
+    await new Promise((resolve) => setTimeout(resolve, 10));
+  }
   if (capabilities.generation) {
     environment.registry.element("wordNetContentSource").dispatchEvent({
       type: "click",
@@ -442,7 +625,7 @@ async function runScenario(name) {
     targetLocale: preparedContext.adapter.languageTags.locale,
     targetSpeechLocale: preparedContext.adapter.speech.output.languageTag,
     documentLanguage: globalThis.document.documentElement.lang,
-    sentenceLanguage: sentence.getAttribute("lang"),
+    sentenceLanguage: sentence.lang || sentence.getAttribute("lang"),
     sentenceDirection: sentence.getAttribute("dir"),
     sentenceText: sentence.textContent,
     targetCopy: phraseSound.getAttribute("aria-label"),
@@ -452,9 +635,17 @@ async function runScenario(name) {
     speechPolicy: preparedContext.session.policy.speech,
     pronunciationPolicy: preparedContext.session.policy.pronunciationGuides,
     semanticPolicy: preparedContext.session.policy.semanticSearch,
-    searchMode: search.mode,
-    searchFirst: search.records[0].conceptId,
+    searchMode: rankerCalls.length ? "embedding" : "lexical",
+    selectedEnglishQuery: rankerCalls[0]?.query?.embeddingText || "",
+    semanticAttempts: environment.semanticAttempts,
+    dictionaryGapCalls: environment.dictionaryGapCalls,
     rankerCalls: rankerCalls.length,
+    initialSpeechCallCount,
+    speechCalls: environment.nativeSpeechCalls.map(({ text, options }) => ({
+      text,
+      locale: options.locale,
+      rate: options.rate
+    })),
     speechHidden: [globalSound.hidden, phraseSound.hidden, wordSound.hidden],
     generationHidden: generative?.hidden,
     generationAriaDisabled: generative?.getAttribute("aria-disabled"),
@@ -463,7 +654,14 @@ async function runScenario(name) {
     generativeDialogTitle: environment.registry.element("wordNetGenerativeDialogTitle").textContent,
     generativeDialogDescription: environment.registry.element("wordNetGenerativeDialogDescription").textContent,
     reconstructionHidden: reconstruction.hidden,
-    reconstructionSubmitDisabled: reconstructionSubmit.disabled
+    reconstructionSubmitDisabled: reconstructionSubmit.disabled,
+    reconstructionAnswerOptionCount: reconstructionBank.children.filter((button) => (
+      button.dataset.reconstructionOptionId?.startsWith("answer-")
+    )).length,
+    reconstructionDistractorCount: reconstructionBank.children.filter((button) => (
+      button.dataset.reconstructionOptionId?.startsWith("distractor-")
+    )).length,
+    reconstructionOptionTexts: reconstructionBank.children.map((button) => button.textContent)
   };
 }
 
@@ -502,11 +700,11 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.match(result.rendererSpecifier, /^\.\/product-word-world\.mjs\?v=shared-renderer-/u);
     assert.equal(result.providerKind, "authored-realizations");
     assert.equal(result.adapterId, "spanish-test");
-    assert.equal(result.sourceLabel, "English");
+    assert.equal(result.sourceLabel, "Français");
     assert.equal(result.targetLabel, "Test Spanish");
     assert.equal(result.targetLocale, "es-ES");
     assert.equal(result.targetSpeechLocale, "es-MX");
-    assert.equal(result.documentLanguage, "en-US");
+    assert.equal(result.documentLanguage, "fr-FR");
     assert.equal(result.sentenceLanguage, "es-ES");
     assert.equal(result.sentenceDirection, "ltr");
     assert.match(result.sentenceText, /^¡Hola,amigo\d+!$/u);
@@ -528,15 +726,31 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.equal(result.pronunciationPolicy, true);
     assert.equal(result.semanticPolicy, true);
     assert.equal(result.searchMode, "embedding");
-    assert.equal(result.searchFirst, "ww.object.book");
     assert.equal(result.rankerCalls, 1);
+    assert.ok(result.semanticAttempts.length >= 1);
+    assert.equal(result.selectedEnglishQuery, "Hello!", "the renderer must submit the immutable English audit text");
+    for (const attempt of result.semanticAttempts) {
+      assert.match(attempt.itemId, /^word-world:es-test:third-language-test-v1:ww\./u);
+      assert.equal(attempt.item.courseId, "es-test");
+      assert.equal(attempt.item.targetLanguageTag, "es-ES");
+      assert.match(attempt.item.targetText, /^¡Hola, amigo \d+!$/u);
+      assert.ok(attempt.item.englishAuditText);
+      assert.equal(attempt.signals[0].conceptId, attempt.item.conceptId);
+      assert.equal(attempt.signals[0].locale, "en");
+      assert.match(attempt.signals[0].text, /English meaning/u);
+      assert.doesNotMatch(JSON.stringify(attempt), /Czech|cz\.word-world|"czech"/iu);
+    }
+    assert.equal(result.initialSpeechCallCount, 1);
+    assert.equal(result.speechCalls.length, 1);
+    assert.match(result.speechCalls[0].text, /^¡Hola, amigo \d+!$/u);
+    assert.equal(result.speechCalls[0].locale, "es-MX");
     assert.deepEqual(result.speechHidden, [false, false, false]);
     assert.equal(result.generationHidden, true);
     assert.equal(result.generativeDialogHidden, true);
   });
 
-  test("third-language capabilities gate independently without selecting another renderer", async () => {
-    const result = await executeScenario("dictionary-and-generation");
+  test("third-language dictionary capability gates independently without selecting another renderer", async () => {
+    const result = await executeScenario("dictionary-only");
 
     assert.match(result.rendererSpecifier, /^\.\/product-word-world\.mjs\?v=shared-renderer-/u);
     assert.equal(result.providerKind, "authored-realizations");
@@ -553,18 +767,54 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.equal(result.searchMode, "lexical");
     assert.equal(result.rankerCalls, 0);
     assert.deepEqual(result.speechHidden, [true, true, true]);
-    assert.equal(result.generationHidden, false);
-    assert.equal(result.generationAriaDisabled, "true");
-    assert.equal(result.generativeDialogHidden, false);
+    assert.equal(result.generationHidden, true);
+    assert.equal(result.generativeDialogHidden, true);
     assert.equal(result.reconstructionHidden, false, "the unfinished reconstruction is visibly active");
     assert.equal(result.reconstructionSubmitDisabled, true, "the reconstruction has not been submitted");
-    assert.equal(result.generativeDialogOpen, true, "the disabled prompt wins over the reconstruction advance guard");
-    assert.equal(result.generativeDialogTitle, "Generative local AI is disabled");
-    assert.equal(
-      result.generativeDialogDescription,
-      "Local AI is currently disabled in this app. No model will be downloaded or loaded."
-    );
-    assert.equal(result.sentenceLanguage, "es-ES");
+    assert.equal(result.sentenceLanguage, "fr-FR");
+    assert.match(result.sentenceText, /française|Bonjour|Ceci est/u);
     assert.match(result.targetCopy, /Test Spanish/u);
+    assert.deepEqual(result.dictionaryGapCalls, [], "undeclared dictionary reporting must fail closed");
+  });
+
+  test("a Czech standard-token dictionary miss reaches declared gap reporting", async () => {
+    const result = await executeScenario("czech-standard-dictionary-gap");
+
+    assert.equal(result.tokenHasGloss, false, "legacy lookup hints are not authored meanings");
+    assert.deepEqual(result.dictionaryGapCalls, [{
+      targetWord: "Kočka",
+      normalizedWord: "kočka",
+      dictionaryKey: "kaikki-cs-en-2026-07-09",
+      dictionaryDirection: "cs-en",
+      lookupOutcome: "no_results",
+      lookupReturned: 0
+    }]);
+  });
+
+  test("third-language generation fails before the Czech-specific renderer can mount", async () => {
+    await assert.rejects(
+      executeScenario("unsupported-generation"),
+      /without an explicit course-owned versioned strategy/u
+    );
+  });
+
+  test("non-English learner-base reconstruction stays target-tokenized and never speaks the hidden answer", async () => {
+    const result = await executeScenario("source-prompt-speech");
+
+    assert.equal(result.sentenceLanguage, "fr-FR");
+    assert.doesNotMatch(result.sentenceText, /¡Hola/u);
+    assert.match(result.sentenceText, /française|Bonjour|Ceci est/u);
+    assert.deepEqual(result.speechHidden, [false, true, false]);
+    assert.equal(result.initialSpeechCallCount, 0, "autoplay must not reveal the target answer");
+    assert.deepEqual(
+      result.speechCalls,
+      [],
+      "hidden phrase activation, audio preview, and autoplay re-enable must remain silent"
+    );
+    assert.ok(result.reconstructionAnswerOptionCount > 0);
+    assert.equal(result.reconstructionDistractorCount, 4);
+    assert.ok(result.reconstructionOptionTexts.every((text) => (
+      !/^(?:I|You|We|He|She|It|The|My|They|This)$/u.test(text)
+    )), "English-only fallback distractors must not enter a non-English learner base");
   });
 }

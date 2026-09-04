@@ -10,6 +10,13 @@
   "features": {
     "wordMeanings": true
   },
+  "generationStrategy": {
+    "id": "czech-local-word-world-v1",
+    "targetLanguageTag": "cs-CZ",
+    "auditLanguageTag": "en",
+    "sentenceModelKey": "cstinyllama-1.2b-czech-word-sentence-001",
+    "translationModelKey": "qwen3-1.7b-translation-cs-en-001"
+  },
   "embeddingPolicy": {
     "inputLanguage": "en",
     "inputField": "embeddingText",

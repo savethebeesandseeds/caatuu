@@ -17,6 +17,9 @@ catalog through each allowlisted manifest, then creates a fail-closed release su
 the `product` build directory. Standalone game artifacts under `artifacts/games`
 are excluded from both Android distributions.
 
+Spanish is intentionally absent from the bundle because its course manifest
+keeps Android disabled while content and release review remain pending.
+
 ## Runtime Shape
 
 - UI: one canonical shared app document loaded in a WebView from APK assets.

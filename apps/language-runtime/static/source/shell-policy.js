@@ -7,61 +7,158 @@
     Object.freeze({ id: "backpack", label: "Backpack", route: "settings" })
   ]);
 
-  const NON_CAMPAIGN_GAME_REGISTRY = Object.freeze({
-    "verb-lab": Object.freeze({
-      id: "verb-lab",
-      route: "verbNebula",
-      capabilities: Object.freeze([]),
-      linguisticFeatures: Object.freeze([])
+  const presentCourseFile = (name, coursePath, englishAuditContract) => Object.freeze({
+    name,
+    coursePath,
+    kind: "file",
+    scope: "course",
+    state: "present",
+    englishAuditContract
+  });
+
+  const LEARNER_BASE_PRESENTATION_CONTRACT = Object.freeze({
+    schemaVersion: 1,
+    implementations: Object.freeze({
+      "word-world-concept-id-projection-v1": Object.freeze({
+        kind: "course-paths",
+        publicationContract: "language-content-v1",
+        requiredCoursePaths: Object.freeze([
+          "publication.runtimeProjection.conceptsRuntime",
+          "publication.runtimeProjection.learnerBaseRuntime"
+        ])
+      }),
+      "authored-game-three-role-v1": Object.freeze({
+        kind: "publication-contract",
+        publicationContract: "language-content-v1"
+      }),
+      "campaign-contained-planets-v1": Object.freeze({
+        kind: "all-contained-planets"
+      })
     }),
-    "word-net": Object.freeze({
-      id: "word-net",
-      route: "wordWorld",
-      capabilities: Object.freeze(["wordWorld"]),
-      linguisticFeatures: Object.freeze([])
-    }),
-    "conjugation-comet": Object.freeze({
-      id: "conjugation-comet",
-      route: "conjugationComet",
-      capabilities: Object.freeze(["conjugationComet"]),
-      linguisticFeatures: Object.freeze(["verb-conjugation"])
-    }),
-    "case-cosmos": Object.freeze({
-      id: "case-cosmos",
-      route: "caseCosmos",
-      capabilities: Object.freeze([]),
-      linguisticFeatures: Object.freeze(["grammatical-case"])
-    }),
-    "agreement-aurora": Object.freeze({
-      id: "agreement-aurora",
-      route: "agreementAurora",
-      capabilities: Object.freeze([]),
-      linguisticFeatures: Object.freeze(["grammatical-agreement"])
-    }),
-    "naturalization-nucleus": Object.freeze({
-      id: "naturalization-nucleus",
-      route: "naturalizationNucleus",
-      capabilities: Object.freeze([]),
-      linguisticFeatures: Object.freeze([])
-    }),
-    "memory-moon": Object.freeze({
-      id: "memory-moon",
-      route: "memoryMoon",
-      capabilities: Object.freeze(["memory"]),
-      linguisticFeatures: Object.freeze([])
+    capabilities: Object.freeze({
+      dictionary: null
     })
   });
 
-  const NON_CAMPAIGN_GAME_IDS = Object.freeze([
-    "verb-lab",
-    "word-net",
-    "conjugation-comet",
-    "case-cosmos",
-    "agreement-aurora",
-    "naturalization-nucleus",
-    "memory-moon"
-  ]);
-  const GAME_IDS = Object.freeze(["campaign", ...NON_CAMPAIGN_GAME_IDS]);
+  // This is the canonical planet contract for both the browser shell and the
+  // language-pack validator. Keep language-specific content and presentation
+  // out of this registry: a course opts into these shared games through its
+  // manifest, capabilities, linguistic features, routes, and resources.
+  const PLANET_GAME_CONTRACT = Object.freeze({
+    schemaVersion: 1,
+    campaign: Object.freeze({
+      id: "campaign",
+      route: "campaign",
+      minimumEligibleGames: 1,
+      learnerBasePresentationContract: "campaign-contained-planets-v1"
+    }),
+    planets: Object.freeze({
+      "verb-lab": Object.freeze({
+        id: "verb-lab",
+        route: "verbNebula",
+        capabilities: Object.freeze([]),
+        linguisticFeatures: Object.freeze([]),
+        resources: Object.freeze([presentCourseFile(
+          "verbNebulaCatalog",
+          "static/data/games/verb-nebula/core-vocabulary.json",
+          "verb-nebula-items-v1"
+        )]),
+        campaignEligible: true
+      }),
+      "word-net": Object.freeze({
+        id: "word-net",
+        route: "wordWorld",
+        capabilities: Object.freeze(["wordWorld"]),
+        linguisticFeatures: Object.freeze([]),
+        resources: Object.freeze([presentCourseFile(
+          "wordWorldManifest",
+          "static/data/games/word-world/manifest.json",
+          "word-world-manifest-v1"
+        )]),
+        campaignEligible: true,
+        learnerBasePresentationContract: "word-world-concept-id-projection-v1"
+      }),
+      "conjugation-comet": Object.freeze({
+        id: "conjugation-comet",
+        route: "conjugationComet",
+        sharedHost: "/language-runtime/static/games/conjugation-comet.html",
+        capabilities: Object.freeze(["conjugationComet"]),
+        linguisticFeatures: Object.freeze(["verb-conjugation"]),
+        resources: Object.freeze([presentCourseFile(
+          "conjugationCometCatalog",
+          "static/data/games/conjugation-comet/verbs.json",
+          "conjugation-comet-items-v1"
+        )]),
+        campaignEligible: true,
+        learnerBasePresentationContract: "authored-game-three-role-v1"
+      }),
+      "case-cosmos": Object.freeze({
+        id: "case-cosmos",
+        route: "caseCosmos",
+        capabilities: Object.freeze([]),
+        linguisticFeatures: Object.freeze(["grammatical-case"]),
+        resources: Object.freeze([presentCourseFile(
+          "caseCosmosCatalog",
+          "static/data/games/case-cosmos/challenges.json",
+          "case-cosmos-items-v1"
+        )]),
+        campaignEligible: true
+      }),
+      "agreement-aurora": Object.freeze({
+        id: "agreement-aurora",
+        route: "agreementAurora",
+        sharedHost: "/language-runtime/static/games/agreement-aurora.html",
+        capabilities: Object.freeze([]),
+        linguisticFeatures: Object.freeze(["grammatical-agreement"]),
+        resources: Object.freeze([presentCourseFile(
+          "agreementAuroraCatalog",
+          "static/data/games/agreement-aurora/challenges.json",
+          "agreement-aurora-items-v1"
+        )]),
+        campaignEligible: true,
+        learnerBasePresentationContract: "authored-game-three-role-v1"
+      }),
+      "naturalization-nucleus": Object.freeze({
+        id: "naturalization-nucleus",
+        route: "naturalizationNucleus",
+        capabilities: Object.freeze([]),
+        linguisticFeatures: Object.freeze(["hanzi-pinyin"]),
+        resources: Object.freeze([presentCourseFile(
+          "naturalizationNucleusCatalog",
+          "static/data/games/naturalization-nucleus/challenges.json",
+          "naturalization-nucleus-items-v1"
+        )]),
+        campaignEligible: false
+      }),
+      "memory-moon": Object.freeze({
+        id: "memory-moon",
+        route: "memoryMoon",
+        capabilities: Object.freeze(["memory"]),
+        linguisticFeatures: Object.freeze([]),
+        resources: Object.freeze([]),
+        campaignEligible: false
+      }),
+      "sound-quasar": Object.freeze({
+        id: "sound-quasar",
+        route: "soundQuasar",
+        // Sounds Quasar has shared presentation, but no reviewed content or
+        // gameplay contract yet. Promotion requires changing this registry
+        // gate only after that implementation exists.
+        implementationState: "unimplemented",
+        capabilities: Object.freeze(["speech"]),
+        linguisticFeatures: Object.freeze([]),
+        resources: Object.freeze([]),
+        campaignEligible: false
+      })
+    })
+  });
+
+  const NON_CAMPAIGN_GAME_REGISTRY = PLANET_GAME_CONTRACT.planets;
+  const NON_CAMPAIGN_GAME_IDS = Object.freeze(Object.keys(NON_CAMPAIGN_GAME_REGISTRY));
+  const CAMPAIGN_GAME_IDS = Object.freeze(NON_CAMPAIGN_GAME_IDS.filter(
+    (gameId) => NON_CAMPAIGN_GAME_REGISTRY[gameId].campaignEligible
+  ));
+  const GAME_IDS = Object.freeze([PLANET_GAME_CONTRACT.campaign.id, ...NON_CAMPAIGN_GAME_IDS]);
   const LOCAL_AI_FEATURES = new Set(["generation", "chat"]);
   const LOCAL_AI_DISABLED_MESSAGE = "Local AI is currently disabled in this app. No model will be downloaded or loaded.";
   const LOCAL_AI_UNSUPPORTED_MESSAGE = "Local AI is not available for this course. These controls are disabled, and no generation model will be downloaded or loaded.";
@@ -116,7 +213,7 @@
       // declarations. Keep their legacy Verb Nebula gate without imposing it
       // on modern language packs.
       if (gameId === "verb-lab") return courseOrCapabilities?.verbs === true;
-      if (gameId === "naturalization-nucleus") return false;
+      if (gameId === "naturalization-nucleus" || gameId === "sound-quasar") return false;
       return true;
     }
     return declaredValues(courseOrCapabilities, "games").has(gameId);
@@ -130,21 +227,22 @@
   function deriveGameAvailability(courseOrCapabilities) {
     const capabilities = capabilityRecord(courseOrCapabilities);
     const availability = {};
-    let playableNonCampaignGames = 0;
 
     for (const gameId of NON_CAMPAIGN_GAME_IDS) {
       const game = NON_CAMPAIGN_GAME_REGISTRY[gameId];
-      const available = gameDeclared(courseOrCapabilities, gameId)
+      const available = game.implementationState !== "unimplemented"
+        && gameDeclared(courseOrCapabilities, gameId)
         && allCapabilitiesEnabled(capabilities, game.capabilities)
         && allLinguisticFeaturesDeclared(courseOrCapabilities, game.linguisticFeatures)
         && routeEnabled(courseOrCapabilities, game.route);
       availability[gameId] = available;
-      if (available) playableNonCampaignGames += 1;
     }
 
-    // Campaign Mode belongs to the shared shell. A language pack only declares
-    // the games it can actually play; the shell can orchestrate even one game.
-    availability.campaign = playableNonCampaignGames >= 1;
+    const playableCampaignGames = CAMPAIGN_GAME_IDS
+      .filter((gameId) => availability[gameId])
+      .length;
+    availability.campaign = playableCampaignGames
+      >= PLANET_GAME_CONTRACT.campaign.minimumEligibleGames;
     return Object.freeze(availability);
   }
 
@@ -275,6 +373,11 @@
       })));
   }
 
+  function targetScriptToken(course) {
+    const script = String(course?.targetLanguage?.script || "").trim();
+    return /^[A-Z][a-z]{3}$/u.test(script) ? script : "Zyyy";
+  }
+
   function deriveShellPolicy(course, options = {}) {
     const gameAvailability = deriveGameAvailability(course);
     const gameStates = Object.freeze(Object.fromEntries(
@@ -293,7 +396,12 @@
 
   root.CaatuuShellPolicy = Object.freeze({
     PRIMARY_NAVIGATION,
+    LEARNER_BASE_PRESENTATION_CONTRACT,
+    PLANET_GAME_CONTRACT,
     NON_CAMPAIGN_GAME_REGISTRY,
+    NON_CAMPAIGN_GAME_IDS,
+    CAMPAIGN_GAME_IDS,
+    GAME_IDS,
     SETTINGS_SECTION_REGISTRY,
     deriveGameAvailability,
     isGameAvailable,
@@ -312,6 +420,7 @@
     localAiAvailability,
     isDeveloperLinkAvailable,
     availableDeveloperLinks,
+    targetScriptToken,
     deriveShellPolicy
   });
 })(typeof globalThis === "object" ? globalThis : window);

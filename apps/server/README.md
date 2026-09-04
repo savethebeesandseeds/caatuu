@@ -9,6 +9,7 @@ It owns the route split:
 /                 apps/launcher/static
 /cz/              active Czech course from apps/languages/catalog.json
 /zh/              Mandarin development course from the same catalog
+/es/              Spanish development course from the same catalog
 /language-runtime narrowly shared course runtime and English embedding assets
 /games/           ignored language-independent artifacts/games Web exports
 /android/         signed stable and explicit debug Android artifacts
@@ -16,16 +17,19 @@ It owns the route split:
 
 Browser language mounts are loaded from `apps/languages/catalog.json` and each
 course manifest; the server does not maintain a parallel hard-coded language
-list. The public launcher still lists only active courses, so the
-`development` Mandarin preview remains directly addressable but unlisted and
-`noindex`. The deprecated Chinese trainer source remains repository-only under
-`archive/caatuu-chinese`; it is not mounted or routed. `/zh-hans/*` redirects
-to the canonical `/zh/*` course. Czech remains the Android default.
+list. The checked-in browser setup projection includes the unlisted, `noindex`
+Mandarin and Spanish development courses. These are local-server mounts, not
+proof of current Pages publication or Android packaging. The current Android
+bundle contains Czech, its default, and Mandarin; Spanish is explicitly
+browser-only. The deprecated Chinese trainer source remains repository-only
+under `archive/caatuu-chinese`; it is not mounted or routed. `/zh-hans/*`
+redirects to the canonical `/zh/*` course.
 
 The `/language-runtime/` surface is deliberately narrow: it exposes the shared
 contract/static browser modules and the pinned English MiniLM runtime needed by
 semantic search. Repository documentation and tests remain private. Target
-text, pinyin, and target-language metadata are never model inputs.
+text, pronunciation/transliteration, and target-language metadata are never
+model inputs.
 
 Caatuu Game is authored under `apps/games/caatuu-game`, generated under
 `artifacts/games/caatuu-game/web/godot-v1`, and served only when

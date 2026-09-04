@@ -222,7 +222,7 @@ fn build_language_app(spec: &LanguageAppSpec) -> Router<Arc<AppState>> {
 
     let router = match spec.backend {
         LanguageBackend::Static => router,
-        LanguageBackend::CzechDictionary => router
+        LanguageBackend::DictionaryApiV1 => router
             .route("/api/dictionary/status", get(dictionary::status))
             .route("/api/dictionary/search", get(dictionary::search))
             .route(

@@ -113,6 +113,13 @@ test("shared bootstrap bypasses HTTP caches when updating the course worker", as
   );
 });
 
+test("streak notification clicks stay inside their owning course", () => {
+  assert.match(serviceWorkerSource, /addEventListener\("notificationclick"/u);
+  assert.match(serviceWorkerSource, /requested\.pathname\.startsWith\(config\.scope\.pathname\)/u);
+  assert.match(serviceWorkerSource, /self\.clients\.matchAll\(\{ type: "window", includeUncontrolled: true \}\)/u);
+  assert.match(serviceWorkerSource, /self\.clients\.openWindow\?\.\(target\.href\)/u);
+});
+
 test("setup application entry resolves the course URL to the canonical shared document", () => {
   const { context } = serviceWorkerContext();
   const config = validatedConfig(context);
@@ -135,6 +142,47 @@ test("a course cannot redirect setup back to a course-owned application document
     }),
     /application\.appEntry must be apps\/language-runtime\/static\/app\/index\.html/
   );
+});
+
+test("reload requests use the network first and fall back to the current course cache", async () => {
+  const manifestUrl = "https://caatuu.test/zh/data/games/word-world/manifest.json";
+  const networkRequests = [];
+  const networkResponse = {
+    status: 200,
+    type: "basic",
+    clone() { return this; }
+  };
+  const online = serviceWorkerContext({
+    fetchImplementation: async (request) => {
+      networkRequests.push(request);
+      return networkResponse;
+    }
+  });
+  const onlineConfig = validatedConfig(online.context);
+
+  const fresh = await call(online.context, "networkThenCache(__request, __config)", {
+    __request: new FakeRequest(manifestUrl),
+    __config: onlineConfig
+  });
+
+  assert.equal(fresh, networkResponse);
+  assert.equal(networkRequests.length, 1);
+  assert.equal(networkRequests[0].url, manifestUrl);
+  assert.equal(networkRequests[0].cache, "reload");
+  assert.deepEqual(online.puts, [manifestUrl]);
+
+  const cachedResponse = { source: "current-course-cache" };
+  const offline = serviceWorkerContext({
+    cachedResponses: new Map([[manifestUrl, cachedResponse]])
+  });
+  const offlineConfig = validatedConfig(offline.context);
+  const fallback = await call(offline.context, "networkThenCache(__request, __config)", {
+    __request: new FakeRequest(manifestUrl),
+    __config: offlineConfig
+  });
+
+  assert.equal(fallback, cachedResponse);
+  assert.deepEqual(offline.lookups, [manifestUrl]);
 });
 
 test("offline query navigation falls back to the precached canonical course entry", async () => {

@@ -1,6 +1,6 @@
 "use strict";
 
-// Contract revision 5: retired documents re-enter the canonical app and retired runtimes never enter a course cache.
+// Contract revision 6: course notifications return to a safe page inside their owning course.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
 const CAATUU_SHARED_WORKER_URL = "/language-runtime/static/source/course-service-worker.js";
@@ -49,6 +49,43 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("message", (event) => {
   if (event.data?.type === "SKIP_WAITING") void self.skipWaiting();
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification?.close?.();
+  event.waitUntil((async () => {
+    const config = await courseOfflineConfig();
+    let target = config.entryUrl;
+    try {
+      const requested = new URL(String(event.notification?.data?.url || ""), self.location.origin);
+      if (
+        requested.origin === self.location.origin
+        && requested.pathname.startsWith(config.scope.pathname)
+      ) target = requested;
+    } catch (error) {
+      // Invalid notification state falls back to the owning course entry.
+    }
+    const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    const exact = windows.find((client) => client.url === target.href);
+    if (exact?.focus) {
+      await exact.focus();
+      return;
+    }
+    const courseWindow = windows.find((client) => {
+      try {
+        const url = new URL(client.url);
+        return url.origin === self.location.origin && url.pathname.startsWith(config.scope.pathname);
+      } catch (error) {
+        return false;
+      }
+    });
+    if (courseWindow?.navigate) await courseWindow.navigate(target.href);
+    if (courseWindow?.focus) {
+      await courseWindow.focus();
+      return;
+    }
+    await self.clients.openWindow?.(target.href);
+  })());
 });
 
 self.addEventListener("fetch", (event) => {
